@@ -1,0 +1,36 @@
+{
+  "name": "data-act-broker",
+  "version": "0.0.0",
+  "description": "Fiscal services Data Broker",
+  "main": "index.js",
+  "directories": {
+    "test": "test"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/fedspendingtransparency/data-act-broker.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/fedspendingtransparency/data-act-broker/issues"
+  },
+  "homepage": "https://github.com/fedspendingtransparency/data-act-broker",
+  "devDependencies": {
+    "gulp": "^3.9.0",
+    "browser-sync": "^2.10.0",
+    "watchify": "^3.6.1",
+    "browserify": "^12.0.1",
+    "gulp-babel": "^6.1.1",
+    "babel-preset-react": "^6.1.18",
+    "gulp-sass": "^2.1.0",
+    "react": "^0.14.3",
+    "vinyl-source-stream": "^1.1.0",
+    "react-dom": "^0.14.3",
+    "gulp-sourcemaps": "^1.6.0",
+    "gulp-concat": "^2.6.0"
+  }
+}
