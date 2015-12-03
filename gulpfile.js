@@ -1,11 +1,11 @@
-var gulp        = require("gulp");
-var babel       = require("gulp-babel");
+var gulp        = require('gulp');
+var babel       = require('gulp-babel');
 var browserSync = require('browser-sync').create();
 var sass        = require('gulp-sass');
 var browserify  = require('browserify');
 var source      = require('vinyl-source-stream');
-var sourcemaps  = require("gulp-sourcemaps");
-var concat      = require("gulp-concat");
+var sourcemaps  = require('gulp-sourcemaps');
+var concat      = require('gulp-concat');
 
 // Path constants
 var path = {
@@ -21,7 +21,9 @@ var path = {
 gulp.task('babel', function () {
     return gulp.src(path.ALL_JSX)
         .pipe(sourcemaps.init())
-        .pipe(babel())
+        .pipe(babel({
+            presets: ['react']
+        }))
         .pipe(concat('app.js'))
         .pipe(sourcemaps.write('.'))
         .pipe(gulp.dest('build'))
@@ -46,7 +48,7 @@ gulp.task('jsx-watch', ['browserify'], browserSync.reload);
 gulp.task('sass', function() {
     return gulp.src(path.SASS_DIR)
         .pipe(sass())
-        .pipe(gulp.dest("build/css"))
+        .pipe(gulp.dest('build/css'))
         .pipe(browserSync.stream());
 });
 
@@ -62,6 +64,6 @@ gulp.task('serve', ['sass', 'browserify'], function() {
 // Default task for development
 gulp.task('default', ['serve'], function () {
     gulp.watch(path.SASS_DIR, ['sass']);
-    gulp.watch("*.html").on('change', browserSync.reload);
+    gulp.watch('*.html').on('change', browserSync.reload);
     gulp.watch(path.ALL_JSX, ['jsx-watch']);
 });
