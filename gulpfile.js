@@ -1,59 +1,63 @@
 var gulp        = require('gulp');
-var babel       = require('gulp-babel');
 var browserSync = require('browser-sync').create();
 var sass        = require('gulp-sass');
 var browserify  = require('browserify');
+var watchify    = require('watchify');
+var reactify    = require('reactify');
+var uglify      = require('gulp-uglify');
+var buffer      = require('vinyl-buffer');
 var source      = require('vinyl-source-stream');
 var sourcemaps  = require('gulp-sourcemaps');
-var concat      = require('gulp-concat');
+var gutil       = require('gulp-util');
 
 // Path constants
 var path = {
     BASE_DIR: './',
     BUILD_DIR: 'build',
-    BUILD_ENTRY: 'build/app.js',
-    ENTRY_POINT: 'src/js/app.jsx',
-    ALL_JSX: 'src/js/**/*.jsx',
+    MINIFIED_OUT: 'app.min.js',
+    OUT: 'app.js',
+    ENTRY_POINT: './src/js/app.jsx',
     SASS_DIR: 'src/_scss/*.scss'
 };
 
-// Compile React into JS
-gulp.task('babel', function () {
-    return gulp.src(path.ALL_JSX)
-        .pipe(sourcemaps.init())
-        .pipe(babel({
-            presets: ['react']
-        }))
-        .pipe(concat('app.js'))
+gulp.task('watch', function() {
+    var watcher  = watchify(browserify({
+        entries: [path.ENTRY_POINT],
+        transform: [reactify],
+        debug: true,
+        cache: {}, packageCache: {}, fullPaths: true
+    }));
+
+    return watcher.on('update', function () {
+        watcher.bundle()
+            .pipe(source(path.OUT))
+            .pipe(buffer())
+            .pipe(sourcemaps.init({loadMaps: true}))
+            //.pipe(uglify())
+            .pipe(sourcemaps.write('.'))
+            .pipe(gulp.dest(path.BUILD_DIR))
+            .pipe(browserSync.reload({stream:true}));
+        console.log('Updated');
+    })
+        .bundle().on('error', gutil.log)
+        .pipe(source(path.OUT))
+        .pipe(buffer())
+        .pipe(sourcemaps.init({loadMaps: true}))
+        //.pipe(uglify())
         .pipe(sourcemaps.write('.'))
-        .pipe(gulp.dest('build'))
-        .pipe(browserSync.stream());
+        .pipe(gulp.dest(path.BUILD_DIR));
 });
-
-// Browserify will compile Node style require in code
-// Calling Babel here will ensure it finishes compiling
-// before Browserify runs on the code.
-// TODO: Add Watchify
-gulp.task('browserify', ['babel'], function() {
-    return browserify(path.BUILD_ENTRY).bundle()
-        .pipe(source('bundle.js'))
-        .pipe(gulp.dest(path.BUILD_DIR))
-        .pipe(browserSync.stream());
-});
-
-// Run Browserify and Babel before reloading browser
-gulp.task('jsx-watch', ['browserify'], browserSync.reload);
 
 // Compile sass into CSS & auto-inject into browsers
 gulp.task('sass', function() {
     return gulp.src(path.SASS_DIR)
         .pipe(sass())
         .pipe(gulp.dest('build/css'))
-        .pipe(browserSync.stream());
+        .pipe(browserSync.reload({stream:true}));
 });
 
 // Static Server from BrowserSync
-gulp.task('serve', ['sass', 'browserify'], function() {
+gulp.task('serve', ['watch'], function() {
     browserSync.init({
         server: {
             baseDir: path.BASE_DIR
@@ -65,5 +69,4 @@ gulp.task('serve', ['sass', 'browserify'], function() {
 gulp.task('default', ['serve'], function () {
     gulp.watch(path.SASS_DIR, ['sass']);
     gulp.watch('*.html').on('change', browserSync.reload);
-    gulp.watch(path.ALL_JSX, ['jsx-watch']);
 });
