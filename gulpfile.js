@@ -17,7 +17,7 @@ var path = {
     MINIFIED_OUT: 'app.min.js',
     OUT: 'app.js',
     ENTRY_POINT: './src/js/app.jsx',
-    SASS_DIR: 'src/_scss/*.scss'
+    SASS_DIR: 'src/css/*.*'
 };
 
 gulp.task('watch', function() {
@@ -57,7 +57,7 @@ gulp.task('sass', function() {
 });
 
 // Static Server from BrowserSync
-gulp.task('serve', ['watch'], function() {
+gulp.task('serve', ['sass', 'watch'], function() {
     browserSync.init({
         server: {
             baseDir: path.BASE_DIR
