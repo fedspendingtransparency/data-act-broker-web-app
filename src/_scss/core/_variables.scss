@@ -26,11 +26,17 @@ $color-primary:              #0071bc;
 $color-primary-darker:       #205493;
 $color-primary-darkest:      #112e51;
 
-$color-primary-alt:          #02bfe7;
-$color-primary-alt-dark:     #00a6d2;
-$color-primary-alt-darkest:  #046b99;
-$color-primary-alt-light:    #9bdaf1; // lighten($color-primary-alt, 60%)
-$color-primary-alt-lightest: #e1f3f8; // lighten($color-primary-alt, 90%)
+$color-gray-dark:            #323a45;
+$color-gray:                 #5b616b; // lighten($color-gray-dark, 20%)
+$color-gray-light:           #aeb0b5; // lighten($color-gray-dark, 60%)
+$color-gray-lighter:         #d6d7d9; // lighten($color-gray-dark, 80%)
+$color-gray-lightest:        #f1f1f1; // lighten($color-gray-dark, 91%)
+
+$color-primary-alt:          $color-gray-light;
+$color-primary-alt-dark:     $color-gray;
+$color-primary-alt-darkest:  $color-gray-dark;
+$color-primary-alt-light:    $color-gray-lighter; // lighten($color-primary-alt, 60%)
+$color-primary-alt-lightest: $color-gray-lightest; // lighten($color-primary-alt, 90%)
 
 $color-secondary:            #e31c3d;
 $color-secondary-dark:       #cd2026;
@@ -41,11 +47,6 @@ $color-secondary-lightest:   #f9dede; // lighten($color-secondary, 90%)
 $color-white:                #ffffff;
 $color-base:                 #212121;
 
-$color-gray-dark:            #323a45;
-$color-gray:                 #5b616b; // lighten($color-gray-dark, 20%)
-$color-gray-light:           #aeb0b5; // lighten($color-gray-dark, 60%)
-$color-gray-lighter:         #d6d7d9; // lighten($color-gray-dark, 80%)
-$color-gray-lightest:        #f1f1f1; // lighten($color-gray-dark, 91%)
 
 $color-gray-warm-dark:       #494440;
 $color-gray-warm-light:      #e4e2e0; // lighten($color-gray-warm-dark, 90%)

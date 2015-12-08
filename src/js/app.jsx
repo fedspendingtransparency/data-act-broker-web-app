@@ -2,6 +2,7 @@ var React     = require('react');
 var ReactDOM  = require('react-dom');
 var Router    = require('director').Router;
 var Login     = require('./components/LoginComponents.jsx');
+var Landing   = require('./components/LandingComponents.jsx');
 
 var loginPageRoute = function() {
     ReactDOM.render(
@@ -10,10 +11,18 @@ var loginPageRoute = function() {
     );
 };
 
+var landingPageRoute = function() {
+    ReactDOM.render(
+        <Landing.LandingPage />,
+        document.getElementById('app')
+    );
+};
+
 // Define the route URL patterns
 
 var routes = {
-    '/': loginPageRoute
+    '/': loginPageRoute,
+    '/landing': landingPageRoute
 };
 
 // Start the routes

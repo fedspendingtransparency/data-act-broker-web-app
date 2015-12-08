@@ -113,3 +113,46 @@
 	content: "d";
 }
 
+
+
+
+.usa-site-navbar.usa-da-navbar {
+	margin-top: 1em;
+
+	h1 {
+		display: block;
+	    font-size: 3rem;
+	    font-weight: 100;
+	}
+	.usa-button {
+		&.usa-button-primary-alt {
+			background-color: $color-primary-alt-dark;
+			color: $color-primary-alt;
+
+			&:hover,
+			&.usa-button-hover {
+			  background-color: $color-primary-alt-darkest;
+			}
+
+			&:active,
+			&.usa-button-active {
+			  background-color: $color-primary-alt;
+			  color: $color-white;
+			}
+		}
+	}
+}
+
+.usa-da-content {
+	@extend .styleguide-content;
+	margin-top: 8em;
+	width: 70%;
+	margin-left: auto;
+	margin-right: auto;
+
+}
+
+.usa-da-button-biggest {
+	width: 100%;
+	padding: 3em;
+}
