@@ -3,7 +3,7 @@ var browserSync = require('browser-sync').create();
 var sass        = require('gulp-sass');
 var browserify  = require('browserify');
 var watchify    = require('watchify');
-var reactify    = require('reactify');
+var babelify    = require('babelify');
 var uglify      = require('gulp-uglify');
 var buffer      = require('vinyl-buffer');
 var source      = require('vinyl-source-stream');
@@ -59,7 +59,7 @@ gulp.task('graphics', function() {
 gulp.task('watch', ['fonts', 'images', 'graphics'], function() {
     var watcher  = watchify(browserify({
         entries: [path.ENTRY_POINT],
-        transform: [reactify],
+        transform: [[babelify, {presets: ["es2015", "react"]}]],
         debug: true,
         cache: {}, packageCache: {}, fullPaths: true
     }));

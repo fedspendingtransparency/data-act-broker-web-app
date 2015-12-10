@@ -5,14 +5,12 @@
 
 var React = require('react');
 
+ class Submission extends React.Component {
+ 	  render() {
+ 		    return (
+             <h1>Submission</h1>
+ 		    );
+ 	  }
+ }
 
-// class Submission extends React.Component {
-// 	  render() {
-// 		    return (
-//             <h1>Submission</h1>
-// 		    );
-// 	  }
-// }
-
-
-// module.exports.Submission = Submission;
+module.exports.Submission = Submission;
