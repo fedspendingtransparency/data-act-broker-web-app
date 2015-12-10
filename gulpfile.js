@@ -9,6 +9,8 @@ var buffer      = require('vinyl-buffer');
 var source      = require('vinyl-source-stream');
 var sourcemaps  = require('gulp-sourcemaps');
 var gutil       = require('gulp-util');
+var rename      = require('gulp-rename');
+var replace     = require('gulp-replace');
 
 // Base Directories
 var dir = {
@@ -22,6 +24,7 @@ var path = {
     MINIFIED_OUT: 'app.min.js',
     OUT: 'app.js',
     ENTRY_POINT: dir.SRC + '/js/app.jsx',
+    INDEX_SRC: 'index.html',
     SASS_SRC: dir.SRC + '/css/**',
     SASS_BUILD: dir.BUILD + '/css',
     FONTS_SRC: dir.SRC + '/fonts/**',
@@ -66,7 +69,6 @@ gulp.task('watch', ['fonts', 'images', 'graphics'], function() {
             .pipe(source(path.OUT))
             .pipe(buffer())
             .pipe(sourcemaps.init({loadMaps: true}))
-            //.pipe(uglify())
             .pipe(sourcemaps.write('.'))
             .pipe(gulp.dest(dir.BUILD))
             .pipe(browserSync.reload({stream:true}));
@@ -76,7 +78,6 @@ gulp.task('watch', ['fonts', 'images', 'graphics'], function() {
         .pipe(source(path.OUT))
         .pipe(buffer())
         .pipe(sourcemaps.init({loadMaps: true}))
-        //.pipe(uglify())
         .pipe(sourcemaps.write('.'))
         .pipe(gulp.dest(dir.BUILD));
 });
@@ -89,6 +90,23 @@ gulp.task('sass', function() {
         .pipe(browserSync.reload({stream:true}));
 });
 
+// HTML replace scripts with minified version for production
+// Move index.html to build folder for deployment
+gulp.task('html-replace', function() {
+    return gulp.src([path.INDEX_SRC])
+        .pipe(replace('build/', ''))
+        .pipe(replace(path.OUT, path.MINIFIED_OUT))
+        .pipe(gulp.dest(dir.BUILD));
+});
+
+// Minifying
+gulp.task('minify', ['sass', 'watch', 'html-replace'], function() {
+    return gulp.src([dir.BUILD + '/' + path.OUT])
+        .pipe(rename(path.MINIFIED_OUT))
+        .pipe(uglify())
+        .pipe(gulp.dest(dir.BUILD));
+});
+
 // Static Server from BrowserSync
 gulp.task('serve', ['sass', 'watch'], function() {
     browserSync.init({
@@ -97,6 +115,12 @@ gulp.task('serve', ['sass', 'watch'], function() {
         }
     });
 });
+
+// Production task
+// TODO:
+// * Remove pre-minified files and sourcemaps
+// * Minify CSS
+gulp.task('production', ['minify']);
 
 // Default task for development
 gulp.task('default', ['serve'], function () {
