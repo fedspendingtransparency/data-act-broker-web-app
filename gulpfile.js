@@ -10,17 +10,50 @@ var source      = require('vinyl-source-stream');
 var sourcemaps  = require('gulp-sourcemaps');
 var gutil       = require('gulp-util');
 
-// Path constants
-var path = {
-    BASE_DIR: './',
-    BUILD_DIR: 'build',
-    MINIFIED_OUT: 'app.min.js',
-    OUT: 'app.js',
-    ENTRY_POINT: './src/js/app.jsx',
-    SASS_DIR: 'src/css/*.*'
+// Base Directories
+var dir = {
+    BASE: './',
+    BUILD: './build',
+    SRC: './src'
 };
 
-gulp.task('watch', function() {
+// Path constants
+var path = {
+    MINIFIED_OUT: 'app.min.js',
+    OUT: 'app.js',
+    ENTRY_POINT: dir.SRC + '/js/app.jsx',
+    SASS_SRC: dir.SRC + '/css/**',
+    SASS_BUILD: dir.BUILD + '/css',
+    FONTS_SRC: dir.SRC + '/fonts/**',
+    FONTS_BUILD: dir.BUILD + '/fonts',
+    IMAGES_SRC: dir.SRC + '/images/**',
+    IMAGES_BUILD: dir.BUILD + '/images',
+    GRAPHICS_SRC: dir.SRC + '/graphics/**',
+    GRAPHICS_BUILD: dir.BUILD + '/graphics'
+};
+
+// TODO: Refactor these 3 tasks to avoid code reuse
+// Copy Fonts to build
+gulp.task('fonts', function() {
+    return gulp.src([path.FONTS_SRC])
+        .pipe(gulp.dest(path.FONTS_BUILD));
+});
+
+// Copy Images to build
+gulp.task('images', function() {
+    return gulp.src([path.IMAGES_SRC])
+        .pipe(gulp.dest(path.IMAGES_BUILD));
+});
+
+// Copy Graphics to build
+gulp.task('graphics', function() {
+    return gulp.src([path.GRAPHICS_SRC])
+        .pipe(gulp.dest(path.GRAPHICS_BUILD));
+});
+
+// Compile react files with Browserify and watch
+// for changes with Watchify
+gulp.task('watch', ['fonts', 'images', 'graphics'], function() {
     var watcher  = watchify(browserify({
         entries: [path.ENTRY_POINT],
         transform: [reactify],
@@ -35,7 +68,7 @@ gulp.task('watch', function() {
             .pipe(sourcemaps.init({loadMaps: true}))
             //.pipe(uglify())
             .pipe(sourcemaps.write('.'))
-            .pipe(gulp.dest(path.BUILD_DIR))
+            .pipe(gulp.dest(dir.BUILD))
             .pipe(browserSync.reload({stream:true}));
         console.log('Updated');
     })
@@ -45,14 +78,14 @@ gulp.task('watch', function() {
         .pipe(sourcemaps.init({loadMaps: true}))
         //.pipe(uglify())
         .pipe(sourcemaps.write('.'))
-        .pipe(gulp.dest(path.BUILD_DIR));
+        .pipe(gulp.dest(dir.BUILD));
 });
 
 // Compile sass into CSS & auto-inject into browsers
 gulp.task('sass', function() {
-    return gulp.src(path.SASS_DIR)
+    return gulp.src(path.SASS_SRC)
         .pipe(sass())
-        .pipe(gulp.dest('build/css'))
+        .pipe(gulp.dest(path.SASS_BUILD))
         .pipe(browserSync.reload({stream:true}));
 });
 
@@ -60,13 +93,13 @@ gulp.task('sass', function() {
 gulp.task('serve', ['sass', 'watch'], function() {
     browserSync.init({
         server: {
-            baseDir: path.BASE_DIR
+            baseDir: dir.BASE
         }
     });
 });
 
 // Default task for development
 gulp.task('default', ['serve'], function () {
-    gulp.watch(path.SASS_DIR, ['sass']);
+    gulp.watch(path.SASS_SRC, ['sass']);
     gulp.watch('*.html').on('change', browserSync.reload);
 });
