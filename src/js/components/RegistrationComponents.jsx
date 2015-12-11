@@ -4,7 +4,7 @@
 **/
 
 var React = require('react');
-var NavigationComponents  = require('./NavigationComponents.jsx');
+var NavigationComponents  = require('./NavigationComponents');
 
 class RegistrationContent extends React.Component {
     render() {

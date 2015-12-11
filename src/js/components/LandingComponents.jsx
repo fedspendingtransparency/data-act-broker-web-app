@@ -1,10 +1,10 @@
 /**
-* LandingComponents.jsx
+* LandingComponents.js
 * Created by Katie Rose 12/7/15
 **/
 
 var React = require('react');
-var NavigationComponents  = require('./NavigationComponents.jsx');
+var NavigationComponents  = require('./NavigationComponents');
 
  class LandingContent extends React.Component {
  	  render() {

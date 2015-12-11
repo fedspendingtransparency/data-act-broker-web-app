@@ -1,10 +1,10 @@
 var React        = require('react');
 var ReactDOM     = require('react-dom');
 var Router       = require('director').Router;
-var Login        = require('./components/LoginComponents.jsx');
-var Registration = require('./components/RegistrationComponents.jsx');
-var Landing      = require('./components/LandingComponents.jsx');
-var Submission   = require('./components/SubmissionPage.jsx');
+var Login        = require('./components/LoginComponents');
+var Registration = require('./components/RegistrationComponents');
+var Landing      = require('./components/LandingComponents');
+var Submission   = require('./components/SubmissionPage');
 
 var loginPageRoute = function() {
     ReactDOM.render(

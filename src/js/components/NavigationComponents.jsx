@@ -1,5 +1,5 @@
 /**
-* NavigationComponents.jsx
+* NavigationComponents.js
 * Created by Katie Rose 12/8/15
 **/
 

@@ -1,5 +1,5 @@
 /**
-* LoginComponents.jsx
+* LoginComponents.js
 * Created by Kyle Fox 12/4/15
 **/
 
