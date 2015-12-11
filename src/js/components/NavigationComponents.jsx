@@ -5,9 +5,8 @@
 
 var React = require('react');
 
-
-var Navbar = React.createClass({
-    render: function() {
+class Navbar extends React.Component {
+    render() {
         return (
             <header className="usa-site-header usa-color-gray">
                 <div className="usa-site-navbar usa-da-navbar usa-grid-full">
@@ -29,8 +28,7 @@ var Navbar = React.createClass({
             </header>
         );
     }
-});
-
+}
 
 module.exports.Navbar = Navbar;
 

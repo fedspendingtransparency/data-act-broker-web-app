@@ -6,8 +6,8 @@
 var React = require('react');
 var NavigationComponents  = require('./NavigationComponents.jsx');
 
-var LandingContent = React.createClass({
-    render: function() {
+ class LandingContent extends React.Component {
+ 	  render() {
         return (
             <div className="usa-da-content">
                 <h1>Welcome to the Data Broker</h1>
@@ -23,18 +23,17 @@ var LandingContent = React.createClass({
             </div>
         );
     }
-});
+}
 
-var LandingPage = React.createClass({
-    render: function() {
+ class LandingPage extends React.Component {
+    render() {
         return (
             <div>
-            <NavigationComponents.Navbar/>
-            <LandingContent/>
+                <NavigationComponents.Navbar/>
+                <LandingContent/>
             </div>
-		);
+        );
     }
-});
-
+}
 
 module.exports.LandingPage = LandingPage;

@@ -7,8 +7,8 @@ var React = require('react');
 var NavigationComponents  = require('./NavigationComponents.jsx');
 var SubmissionComponents  = require('./SubmissionComponents.jsx');
 
-var SubmissionContent = React.createClass({
-    render: function() {
+class SubmissionContent extends React.Component {
+    render() {
         return (
             <div className="usa-da-content">
                 <h1>Please select a file.</h1>
@@ -18,18 +18,17 @@ var SubmissionContent = React.createClass({
             </div>
         );
     }
-});
+}
 
-var SubmissionPage = React.createClass({
-    render: function() {
+class SubmissionPage extends React.Component {
+    render() {
         return (
             <div>
-            <NavigationComponents.Navbar/>
-            <LandingContent/>
+                <NavigationComponents.Navbar/>
+                <LandingContent/>
             </div>
-		);
+        );
     }
-});
-
+}
 
 module.exports.SubmissionPage = SubmissionPage;
