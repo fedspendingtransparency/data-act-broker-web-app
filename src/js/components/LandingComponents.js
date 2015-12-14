@@ -4,7 +4,7 @@
 **/
 
 var React = require('react');
-var NavigationComponents  = require('./NavigationComponents');
+var NavigationComponents  = require('./NavigationComponents.js');
 
  class LandingContent extends React.Component {
  	  render() {

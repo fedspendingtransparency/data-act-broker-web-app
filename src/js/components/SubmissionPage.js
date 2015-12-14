@@ -4,8 +4,8 @@
 **/
 
 var React = require('react');
-var NavigationComponents  = require('./NavigationComponents');
-var SubmissionComponents  = require('./SubmissionComponents');
+var NavigationComponents  = require('./NavigationComponents.js');
+var SubmissionComponents  = require('./SubmissionComponents.js');
 
 class SubmissionContent extends React.Component {
     render() {
