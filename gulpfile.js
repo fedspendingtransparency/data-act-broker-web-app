@@ -23,7 +23,7 @@ var dir = {
 var path = {
     MINIFIED_OUT: 'app.min.js',
     OUT: 'app.js',
-    ENTRY_POINT: dir.SRC + '/js/app.jsx',
+    ENTRY_POINT: dir.SRC + '/js/app.js',
     INDEX_SRC: 'index.html',
     SASS_SRC: dir.SRC + '/css/**',
     SASS_BUILD: dir.BUILD + '/css',

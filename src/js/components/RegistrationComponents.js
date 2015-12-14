@@ -1,5 +1,5 @@
 /**
-* RegistrationComponents.jsx
+* RegistrationComponents.js
 * Created by Kyle Fox 12/11/15
 **/
 
