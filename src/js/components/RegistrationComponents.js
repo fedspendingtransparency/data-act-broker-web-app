@@ -3,8 +3,8 @@
 * Created by Kyle Fox 12/11/15
 **/
 
-var React = require('react');
-var NavigationComponents  = require('./NavigationComponents.js');
+import React from 'react';
+import NavigationComponents from './NavigationComponents.js';
 
 // A standard button for submission that we can further turn into a sharable component
 class SubmitEmailButton extends React.Component {

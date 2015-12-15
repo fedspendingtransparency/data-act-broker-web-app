@@ -3,7 +3,7 @@
 * Created by Kyle Fox 12/4/15
 **/
 
-var React = require('react');
+import React from 'react';
 
 class Username extends React.Component {
     render() {

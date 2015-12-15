@@ -3,9 +3,9 @@
 * Created by Katie Rose 12/7/15
 **/
 
-var React = require('react');
-var NavigationComponents  = require('./NavigationComponents.js');
-var SubmissionComponents  = require('./SubmissionComponents.js');
+import React from 'react';
+import NavigationComponents from './NavigationComponents.js';
+import SubmissionComponents from './SubmissionComponents.js';
 
 class SubmissionContent extends React.Component {
     render() {

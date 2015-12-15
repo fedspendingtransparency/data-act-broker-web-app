@@ -3,8 +3,8 @@
 * Created by Katie Rose 12/7/15
 **/
 
-var React = require('react');
-var NavigationComponents  = require('./NavigationComponents.js');
+import React from 'react';
+import NavigationComponents from './NavigationComponents.js';
 
  class LandingContent extends React.Component {
  	  render() {

@@ -3,7 +3,7 @@
 * Created by Katie Rose 12/8/15
 **/
 
-var React = require('react');
+import React from 'react';
 
  class Submission extends React.Component {
  	  render() {

@@ -59,7 +59,7 @@ gulp.task('graphics', function() {
 gulp.task('watch', ['fonts', 'images', 'graphics'], function() {
     var watcher  = watchify(browserify({
         entries: [path.ENTRY_POINT],
-        transform: [[babelify, {presets: ["es2015", "react"]}]],
+        transform: [[babelify, {presets: ['es2015', 'react']}]],
         debug: true,
         cache: {}, packageCache: {}, fullPaths: true
     }));
