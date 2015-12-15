@@ -6,29 +6,67 @@
 var React = require('react');
 var NavigationComponents  = require('./NavigationComponents.js');
 
-class EmailComponent extends React.Component {
+// A standard button for submission that we can further turn into a sharable component
+class SubmitEmailButton extends React.Component {
+
     constructor(props) {
         super(props);
-
         this.state = {
             buttonClass: 'usa-button-disabled'
         };
     }
 
-    handleChange(e) {
-        var inputText = e.target.value;
-        var emailRegex = /^[a-z0-9._%+-]+@[a-z0-9.-]+\.(?:gov|mil)$/;
+    componentWillReceiveProps(props) {
         var newButtonClass;
 
-        // Activate submit button if input is either .mil or .gov email address
-        if (inputText.match(emailRegex)) {
-            newButtonClass = 'usa-button';
-        } else {
+        if (props.buttonDisabled) {
             newButtonClass = 'usa-button-disabled';
+        } else {
+            newButtonClass = 'usa-button';
         }
 
         this.setState({
             buttonClass: newButtonClass
+        });
+    }
+
+    emailSubmitted(e) {
+        console.log("Clicked!");
+    }
+
+    render() {
+        return (
+            <button className={this.state.buttonClass} onClick={this.emailSubmitted.bind(this)} disabled={this.props.buttonDisabled}>Verify this email address</button>
+        );
+    }
+}
+
+// An email input field that does basic validation for .mil and .gov emails 
+class EmailComponent extends React.Component {
+
+    constructor(props) {
+        super(props);
+
+        this.state = {
+            buttonDisabled: true
+        };
+    }
+
+    handleChange(e) {
+        var inputText = e.target.value;
+        // Regex for matching foo@bar.mil or foo@bar.gov
+        var emailRegex = /^[a-z0-9._%+-]+@[a-z0-9.-]+\.(?:gov|mil)$/;
+        var newButtonDisabled;
+
+        // Activate submit button if input is either .mil or .gov email address
+        if (inputText.match(emailRegex)) {
+            newButtonDisabled = false;
+        } else {
+            newButtonDisabled = true;
+        }
+
+        this.setState({
+            buttonDisabled: newButtonDisabled
         });
     }
 
@@ -37,7 +75,7 @@ class EmailComponent extends React.Component {
             <div>
                 <label for="input-registration-email">Registration Email</label>
                 <input id="input-registration-email" name="input-registration-email" placeholder="Please enter your .gov or .mil email address" type="text" onChange={this.handleChange.bind(this)} />
-                <button className={this.state.buttonClass}>Verify this email address</button>
+                <SubmitEmailButton buttonDisabled={this.state.buttonDisabled}/>
             </div>
         );
     }
