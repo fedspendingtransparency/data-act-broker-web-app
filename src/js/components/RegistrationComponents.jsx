@@ -1,10 +1,10 @@
 /**
-* RegistrationComponents.js
+* RegistrationComponents.jsx
 * Created by Kyle Fox 12/11/15
 **/
 
 import React from 'react';
-import NavigationComponents from './NavigationComponents.js';
+import NavigationComponents from './NavigationComponents.jsx';
 
 // A standard button for submission that we can further turn into a sharable component
 class SubmitEmailButton extends React.Component {
@@ -41,7 +41,7 @@ class SubmitEmailButton extends React.Component {
     }
 }
 
-// An email input field that does basic validation for .mil and .gov emails 
+// An email input field that does basic validation for .mil and .gov emails
 class EmailComponent extends React.Component {
 
     constructor(props) {

@@ -1,5 +1,5 @@
 /**
-* SubmissionComponents.js
+* SubmissionComponents.jsx
 * Created by Katie Rose 12/8/15
 **/
 

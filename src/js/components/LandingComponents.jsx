@@ -1,10 +1,10 @@
 /**
-* LandingComponents.js
+* LandingComponents.jsx
 * Created by Katie Rose 12/7/15
 **/
 
 import React from 'react';
-import NavigationComponents from './NavigationComponents.js';
+import NavigationComponents from './NavigationComponents.jsx';
 
  class LandingContent extends React.Component {
  	  render() {

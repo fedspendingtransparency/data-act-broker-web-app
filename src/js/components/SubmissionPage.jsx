@@ -1,11 +1,11 @@
 /**
-* SubmissionPage.js
+* SubmissionPage.jsx
 * Created by Katie Rose 12/7/15
 **/
 
 import React from 'react';
-import NavigationComponents from './NavigationComponents.js';
-import SubmissionComponents from './SubmissionComponents.js';
+import NavigationComponents from './NavigationComponents.jsx';
+import SubmissionComponents from './SubmissionComponents.jsx';
 
 class SubmissionContent extends React.Component {
     render() {
