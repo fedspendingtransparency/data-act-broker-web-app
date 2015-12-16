@@ -9,7 +9,7 @@ class Username extends React.Component {
     render() {
         return (
             <div className="usa-da-input-container">
-                <label className="usa-sr-only" for="username">Username or email address</label>
+                <label className="usa-sr-only" htmlFor="username">Username or email address</label>
                 <input id="username" name="username" type="text" placeholder="Username" autocapitalize="off" autocorrect="off"/>
                 <div className="usa-da-icon usa-da-icon-user"></div>
             </div>
@@ -21,7 +21,7 @@ class Password extends React.Component {
     render() {
         return (
             <div className="usa-da-input-container">
-                <label className="usa-sr-only" for="password">Password</label>
+                <label className="usa-sr-only" htmlFor="password">Password</label>
                 <input id="password" name="password" type="password" placeholder="Password"/>
                 <div className="usa-da-icon usa-da-icon-lock"></div>
             </div>
