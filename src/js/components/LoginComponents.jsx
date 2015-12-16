@@ -94,7 +94,7 @@ class LoginBanner extends React.Component {
     }
 }
 
-class LoginPage extends React.Component {
+export default class LoginPage extends React.Component {
     render() {
         return (
             <div className="usa-da-login">
@@ -103,5 +103,3 @@ class LoginPage extends React.Component {
         );
     }
 }
-
-module.exports.LoginPage = LoginPage;

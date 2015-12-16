@@ -5,12 +5,10 @@
 
 import React from 'react';
 
- class Submission extends React.Component {
+ export default class Submission extends React.Component {
  	  render() {
  		    return (
              <h1>Submission</h1>
  		    );
  	  }
  }
-
-module.exports.Submission = Submission;

@@ -5,7 +5,7 @@
 
 import React from 'react';
 
-class Navbar extends React.Component {
+export default class Navbar extends React.Component {
     render() {
         return (
             <header className="usa-site-header usa-color-gray">
@@ -29,6 +29,3 @@ class Navbar extends React.Component {
         );
     }
 }
-
-module.exports.Navbar = Navbar;
-

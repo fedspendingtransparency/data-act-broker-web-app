@@ -7,7 +7,7 @@ import React from 'react';
 import SubmitEmailButton from './SubmitButton.jsx';
 
 // An email input field that does basic validation for .mil and .gov emails
-class EmailComponent extends React.Component {
+export default class EmailComponent extends React.Component {
 
     constructor(props) {
         super(props);
@@ -45,5 +45,3 @@ class EmailComponent extends React.Component {
         );
     }
 }
-
-export default EmailComponent;

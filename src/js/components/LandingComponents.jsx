@@ -4,7 +4,7 @@
 **/
 
 import React from 'react';
-import NavigationComponents from './NavigationComponents.jsx';
+import Navbar from './NavigationComponents.jsx';
 
  class LandingContent extends React.Component {
  	  render() {
@@ -25,15 +25,13 @@ import NavigationComponents from './NavigationComponents.jsx';
     }
 }
 
- class LandingPage extends React.Component {
+ export default class LandingPage extends React.Component {
     render() {
         return (
             <div>
-                <NavigationComponents.Navbar/>
+                <Navbar/>
                 <LandingContent/>
             </div>
         );
     }
 }
-
-module.exports.LandingPage = LandingPage;

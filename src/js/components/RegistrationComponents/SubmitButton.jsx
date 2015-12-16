@@ -14,7 +14,7 @@ const defaultProps = {
 };
 
 // A standard button for submission that we can further turn into a sharable component
-class SubmitEmailButton extends React.Component {
+export default class SubmitEmailButton extends React.Component {
 
     constructor(props) {
         super(props);
@@ -50,5 +50,3 @@ class SubmitEmailButton extends React.Component {
 
 SubmitEmailButton.propTypes = propTypes;
 SubmitEmailButton.defaultProps = defaultProps;
-
-export default SubmitEmailButton;

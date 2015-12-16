@@ -4,8 +4,8 @@
 **/
 
 import React from 'react';
-import NavigationComponents from './NavigationComponents.jsx';
-import SubmissionComponents from './SubmissionComponents.jsx';
+import Navbar from './NavigationComponents.jsx';
+import Submission from './SubmissionComponents.jsx';
 
 class SubmissionContent extends React.Component {
     render() {
@@ -13,22 +13,20 @@ class SubmissionContent extends React.Component {
             <div className="usa-da-content">
                 <h1>Please select a file.</h1>
                 <div>
-                    <SubmissionComponents.Submission/>
+                    <Submission/>
                 </div>
             </div>
         );
     }
 }
 
-class SubmissionPage extends React.Component {
+export default class SubmissionPage extends React.Component {
     render() {
         return (
             <div>
-                <NavigationComponents.Navbar />
+                <Navbar />
                 <SubmissionContent />
             </div>
         );
     }
 }
-
-module.exports.SubmissionPage = SubmissionPage;
