@@ -1,10 +1,10 @@
-import React              from 'react';
-import ReactDOM           from 'react-dom';
-import {Router}           from 'director';
-import {LoginPage}        from './components/LoginComponents.jsx';
-import {RegistrationPage} from './components/RegistrationComponents.jsx';
-import {LandingPage}      from './components/LandingComponents.jsx';
-import {SubmissionPage}   from './components/SubmissionPage.jsx';
+import React            from 'react';
+import ReactDOM         from 'react-dom';
+import {Router}         from 'director';
+import {LoginPage}      from './components/LoginComponents.jsx';
+import RegistrationPage from './components/RegistrationComponents/RegistrationPage.jsx';
+import {LandingPage}    from './components/LandingComponents.jsx';
+import {SubmissionPage} from './components/SubmissionPage.jsx';
 
 var loginPageRoute = function() {
     ReactDOM.render(
