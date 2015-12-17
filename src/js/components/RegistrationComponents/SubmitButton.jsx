@@ -37,13 +37,9 @@ export default class SubmitEmailButton extends React.Component {
         });
     }
 
-    emailSubmitted(e) {
-        console.log("Clicked!");
-    }
-
     render() {
         return (
-            <button className={this.state.buttonClass} onClick={this.emailSubmitted.bind(this)} disabled={this.props.buttonDisabled}>Verify this email address</button>
+            <button className={this.state.buttonClass} onClick={this.props.onClick} disabled={this.props.buttonDisabled}>Verify this email address</button>
         );
     }
 }

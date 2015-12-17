@@ -40,7 +40,7 @@ export default class EmailComponent extends React.Component {
             <div>
                 <label htmlFor="input-registration-email">Registration Email</label>
                 <input id="input-registration-email" name="input-registration-email" placeholder="Please enter your .gov or .mil email address" type="text" onChange={this.handleChange.bind(this)} />
-                <SubmitEmailButton buttonDisabled={this.state.buttonDisabled}/>
+                <SubmitEmailButton buttonDisabled={this.state.buttonDisabled} onClick={this.props.onClick} />
             </div>
         );
     }
