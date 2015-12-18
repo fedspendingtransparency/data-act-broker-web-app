@@ -11,6 +11,7 @@ var sourcemaps  = require('gulp-sourcemaps');
 var gutil       = require('gulp-util');
 var rename      = require('gulp-rename');
 var replace     = require('gulp-replace');
+var nodemon     = require('gulp-nodemon');
 
 // Base Directories
 var dir = {
@@ -108,11 +109,37 @@ gulp.task('minify', ['sass', 'watch', 'html-replace'], function() {
 });
 
 // Static Server from BrowserSync
-gulp.task('serve', ['sass', 'watch'], function() {
+gulp.task('serve', ['nodemon', 'sass', 'watch'], function() {
+
     browserSync.init({
-        server: {
-            baseDir: dir.BASE
+        // Tells BrowserSync on where the express app is running
+        proxy: 'http://localhost:5000'
+    });
+});
+
+gulp.task('nodemon', function (cb) {
+    var started = false;
+    var BROWSER_SYNC_RELOAD_DELAY = 500;
+
+    return nodemon({
+        script: 'server.js',
+        ignore: [
+            './bower_components/**',
+            './node_modules/**',
+            './build/**'
+        ]
+    }).on('start', function () {
+        if (!started) {
+            cb();
+            started = true;
         }
+    }).on('restart', function onRestart() {
+        // reload connected browsers after a slight delay
+        setTimeout(function reload() {
+            browserSync.reload({
+                stream: true
+            });
+        }, BROWSER_SYNC_RELOAD_DELAY);
     });
 });
 

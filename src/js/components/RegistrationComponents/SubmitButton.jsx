@@ -39,7 +39,7 @@ export default class SubmitEmailButton extends React.Component {
 
     render() {
         return (
-            <button className={this.state.buttonClass} disabled={this.props.buttonDisabled}>Verify this email address</button>
+            <button className={this.state.buttonClass} type="submit" value="Verify this email address" disabled={this.props.buttonDisabled}>Verify this email address</button>
         );
     }
 }
