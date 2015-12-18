@@ -159,90 +159,44 @@
 
 
 
-.usa-da-circle {
-	width: 50px;
-
-	> div {
-		  position: relative;
-  display: inline-block;
-	border-radius: 50%;
-	width: 100%;
-	border: solid white 3px;
-	}
-}
-
 .usa-da-discrete-progress {
 	display: inline-flex;
 	width: 100%;
-}
-
-
-.usa-da-progress-spacer {
-	position: absolute;
-	height: 5px;
-	background-color: $color-gray-light;
-	width: 100%;
-	top: 13px;
-	z-index: -1;
-}
-
-.usa-da-spacer {
-	float: left;
-	width: 50%;
-	margin: 0;
-	padding: 0;
-	height: 5px;
-}
-
-.usa-da-spacer-middle {
-	background-color: blue;
-}
-
-.usa-da-progress-step {
-	position: relative;
-	display: inline-flex;
-	margin-right: 0px;
-	padding: 0;
-	float: left;
-	// width: 30%;
-	content: "hello"
-}
-
-
-.spacer-start {
-	left: 50%;
-
-}
-
-.spacer-end {
-	left: -50%;
-}
-
-.spacer-middle {
-	left: 0;
-}
-
-.flex-layout {
-	display: inline-flex;
-	width: 100%;
 	height: 4px;
-}
-
-.progress-circle {
-	border-radius: 50%;
-	height: 30px;
-	width: 30px;
-	// position: absolute;
-	// top: -50%;
-	margin-left: auto;
-	margin-right: auto;
-	background-color: $color-gray;
-	border: solid white 2px;
-	> span {
-		margin-left: 8px;
-		margin-right: 2px;
+	> .usa-da-progress-step {
+		position: relative;
+		display: inline-flex;
+		margin-right: 0px;
+		padding: 0;
+		float: left;
+		&:before{
+			position: absolute;
+			height: 5px;
+			background-color: $color-gray-light;
+			width: 100%;
+			top: 13px;
+			z-index: -1;
+			content:"";		
+		}
+		&:after {
+			border-radius: 50%;
+			height: 30px;
+			width: 30px;
+			margin-left: auto;
+			margin-right: auto;
+			background-color: $color-gray;
+			border: solid white 2px;
+			content: "";
+		}
+		&:first-child::before{
+			left: 50%;
+		}
+		&:last-child::before{
+			left: -50%;
+		}		
 	}
 }
+
 
 .usa-da-progress-one-third {
 	@include span-columns(1 of 3, table);
@@ -250,7 +204,6 @@
 .usa-da-progress-one-fourth {
 	@include span-columns(1 of 4, table);
 }
-
 .usa-da-progress-one-fifth {
 	@include span-columns(1 of 5, table);
 }

@@ -26,23 +26,11 @@ export default class DiscreteProgressBar extends React.Component {
 
     render() {
         return (
-            <div className="flex-layout usa-grid-full usa-color-text-white">
-                <div className="usa-da-progress-step usa-da-progress-one-fourth">
-                    <div className="usa-da-progress-spacer spacer-start usa-color-gray"></div>
-                    <div className="progress-circle"><span>1</span></div>
-                </div>
-                <div className="usa-da-progress-step usa-da-progress-one-fourth">
-                    <div className="usa-da-progress-spacer spacer-middle"></div>
-                    <div className="progress-circle"><span>2</span></div>
-                </div>
-                <div className="usa-da-progress-step usa-da-progress-one-fourth">
-                    <div className="usa-da-progress-spacer spacer-middle"></div>
-                    <div className="progress-circle"><span>3</span></div>
-                </div>
-                <div className="usa-da-progress-step usa-da-progress-one-fourth">
-                    <div className="usa-da-progress-spacer spacer-end"></div>
-                    <div className="progress-circle"><span>4</span></div>
-                </div>
+            <div className="usa-da-discrete-progress usa-grid-full">
+                <div className="usa-da-progress-step usa-da-progress-one-fourth"></div>
+                <div className="usa-da-progress-step usa-da-progress-one-fourth"></div>
+                <div className="usa-da-progress-step usa-da-progress-one-fourth"></div>
+                <div className="usa-da-progress-step usa-da-progress-one-fourth"></div>
             </div>
         );
     }
