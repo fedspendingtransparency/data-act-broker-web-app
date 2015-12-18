@@ -4,7 +4,7 @@
  **/
 
 import React, { PropTypes } from 'react';
-import Navbar from '../NavigationComponents.jsx';
+import Navbar from '../SharedComponents/NavigationComponents.jsx';
 import EmailComponent from './RegistrationEmailComponent.jsx';
 
 export default class RegistrationPage extends React.Component {

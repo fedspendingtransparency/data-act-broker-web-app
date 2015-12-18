@@ -4,9 +4,9 @@
  **/
 
 import React, { PropTypes } from 'react';
-import Navbar from '../NavigationComponents.jsx';
-import TextInputComponent from './TextInputComponent.jsx';
-import DiscreteProgressBarComponent from './DiscreteProgressBarComponent.jsx';
+import Navbar from '../SharedComponents/NavigationComponents.jsx';
+import TextInputComponent from '../SharedComponents/TextInputComponent.jsx';
+import DiscreteProgressBarComponent from '../SharedComponents/DiscreteProgressBarComponent.jsx';
 
 
 export default class RegistrationPage extends React.Component {

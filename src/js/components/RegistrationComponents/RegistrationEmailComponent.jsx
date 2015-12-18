@@ -4,7 +4,7 @@
 **/
 
 import React from 'react';
-import SubmitEmailButton from './SubmitButton.jsx';
+import SubmitEmailButton from '../SharedComponents/SubmitButton.jsx';
 
 // An email input field that does basic validation for .mil and .gov emails
 export default class EmailComponent extends React.Component {

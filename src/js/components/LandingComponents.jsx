@@ -4,7 +4,7 @@
 **/
 
 import React from 'react';
-import Navbar from './NavigationComponents.jsx';
+import Navbar from './SharedComponents/NavigationComponents.jsx';
 
  class LandingContent extends React.Component {
  	  render() {
