@@ -9,43 +9,42 @@ import EmailComponent from './RegistrationEmailComponent.jsx';
 import ConfirmCode from './ConfirmCodeComponent.jsx';
 
 const propTypes = {
-    componentToRender: PropTypes.string.isRequired,
+    stepName: PropTypes.string.isRequired,
 };
 
+// Default to showing email input page
 const defaultProps = {
-    componentToRender: 'EmailComponent'
+    stepName: 'email'
 };
 
 export default class RegistrationPage extends React.Component {
 
     constructor(props) {
         super(props);
-
+        var currentComponent = this.setComponentTo(props.stepName);
         // Set initial component
         this.state = {
-            currentComponent: <EmailComponent onClick={this.handleChildClick.bind(this)}/>
+            currentComponent: currentComponent
         };
     }
 
-    handleChildClick(e) {
-        //console.log("Clicked parent");
-        this.setComponentTo('ConfirmCode');
+    componentWillReceiveProps(props) {
+        var currentComponent = this.setComponentTo(props.stepName);
+        this.setState({
+            currentComponent: currentComponent
+        });
     }
 
     setComponentTo(componentToRender) {
         var currentComponent;
 
-        if (componentToRender === 'EmailComponent') {
-            currentComponent = <EmailComponent onClick={this.handleChildClick.bind(this)}/>;
-            console.log(self.currentComponent);
-        } else if (componentToRender === 'ConfirmCode') {
+        if (componentToRender === 'email') {
+            currentComponent = <EmailComponent />;
+        } else if (componentToRender === 'code') {
             currentComponent = <ConfirmCode />;
-            console.log(self.currentComponent);
         }
 
-        this.setState({
-            currentComponent: currentComponent
-        });
+        return currentComponent;
     }
 
     render() {

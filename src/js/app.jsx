@@ -13,9 +13,9 @@ var loginPageRoute = function() {
     );
 };
 
-var registrationPageRoute = function() {
+var registrationPageRoute = function(stepName) {
     ReactDOM.render(
-        <RegistrationPage />,
+        <RegistrationPage stepName={stepName} />,
         document.getElementById('app')
     );
 };
@@ -38,7 +38,7 @@ var submissionPageRoute = function() {
 
 var routes = {
     '/': loginPageRoute,
-    '/registration' : registrationPageRoute,
+    '/registration/:stepName' : registrationPageRoute,
     '/landing': landingPageRoute,
     '/submit': submissionPageRoute
 };

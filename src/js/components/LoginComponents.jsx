@@ -34,7 +34,7 @@ class LoginLinks extends React.Component {
         return (
             <div className="usa-width-one-half">
                 <p>
-                    <a href="#">Register</a>&nbsp;&nbsp;|&nbsp;&nbsp;<a href="#">Help</a>
+                    <a href="#/registration/email">Register</a>&nbsp;&nbsp;|&nbsp;&nbsp;<a href="#">Help</a>
                 </p>
             </div>
         );
