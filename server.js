@@ -16,8 +16,12 @@ app.get('/', function(req, res) {
 // Receive email for registration process
 app.post('/registrationEmail', function(req, res) {
     var email = req.body.registrationEmail;
+
     // Send email to backend when we have the route
-    console.log("Post received: %s", email);
+    //console.log("Post received: %s", email);
+
+    // Redirect to passcode page
+    res.redirect('/#/registration/code');
 });
 
 app.listen(5000);
