@@ -10,7 +10,7 @@ class Username extends React.Component {
         return (
             <div className="usa-da-input-container">
                 <label className="usa-sr-only" htmlFor="username">Username or email address</label>
-                <input id="username" name="username" type="text" placeholder="Username" autocapitalize="off" autocorrect="off"/>
+                <input id="username" name="username" type="text" placeholder="Username" autoCapitalize="off" autoCorrect="off"/>
                 <div className="usa-da-icon usa-da-icon-user"></div>
             </div>
       	);

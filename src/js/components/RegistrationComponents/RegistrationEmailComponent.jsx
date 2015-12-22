@@ -37,9 +37,9 @@ export default class EmailComponent extends React.Component {
 
     render() {
         return (
-            <form action="/#/registration/code" method="post">
+            <form action="/registrationEmail" method="post">
                 <label htmlFor="input-registration-email">Registration Email</label>
-                <input id="input-registration-email" name="input-registration-email" placeholder="Please enter your .gov or .mil email address" type="text" onChange={this.handleChange.bind(this)} />
+                <input id="registrationEmail" name="registrationEmail" placeholder="Please enter your .gov or .mil email address" type="text" onChange={this.handleChange.bind(this)} />
                 <SubmitEmailButton buttonDisabled={this.state.buttonDisabled} />
             </form>
         );
