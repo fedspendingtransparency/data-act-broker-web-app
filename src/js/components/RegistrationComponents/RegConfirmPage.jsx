@@ -6,6 +6,7 @@
 import React, { PropTypes } from 'react';
 import Navbar from '../SharedComponents/NavigationComponents.jsx';
 import TextInputComponent from '../SharedComponents/TextInputComponent.jsx';
+import PasswordInputComponent from '../SharedComponents/PasswordInputComponent.jsx';
 import DiscreteProgressBarComponent from '../SharedComponents/DiscreteProgressBarComponent.jsx';
 
 
@@ -21,8 +22,8 @@ export default class RegistrationPage extends React.Component {
                     <p><TextInputComponent inputClass="" inputPlaceholder="First Name" inputName="regFirstName" /></p>
                     <p><TextInputComponent inputClass="" inputPlaceholder="Last Name" inputName="regLastName" /></p>
                     <p><TextInputComponent inputClass="" inputPlaceholder="Phone Number" inputName="regPhoneNumber" /></p>
-                    <p><TextInputComponent inputClass="" inputPlaceholder="Password" inputName="regPassword" /></p>
-                    <p><TextInputComponent inputClass="" inputPlaceholder="Confirm Password" inputName="regConfirmPassword" /></p>
+                    <p><PasswordInputComponent inputClass="" inputPlaceholder="Password" inputName="regPassword" /></p>
+                    <p><PasswordInputComponent inputClass="" inputPlaceholder="Confirm Password" inputName="regConfirmPassword" /></p>
                 </div>
             </div>
         );
