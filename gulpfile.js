@@ -135,7 +135,7 @@ gulp.task('nodemon', function (cb) {
         // reload connected browsers after a slight delay
         setTimeout(function reload() {
             browserSync.reload({
-                stream: true
+                stream: false
             });
         }, BROWSER_SYNC_RELOAD_DELAY);
     });
