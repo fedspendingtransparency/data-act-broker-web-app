@@ -184,15 +184,23 @@
 			width: 30px;
 			margin-left: auto;
 			margin-right: auto;
-			background-color: $color-gray;
+			background-color: $color-gray-light;
 			border: solid white 2px;
 			content: "";
+		}
+		&.usa-da-progress-current:after {
+			background-color: $color-gray;
 		}
 		&:first-child::before{
 			left: 50%;
 		}
 		&:last-child::before{
 			left: -50%;
+		}
+		> span {
+			position: absolute;
+			left: 48%;
+			top: 3px;
 		}		
 	}
 }

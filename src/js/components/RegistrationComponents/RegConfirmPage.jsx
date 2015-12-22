@@ -16,7 +16,7 @@ export default class RegistrationPage extends React.Component {
             <div>
                 <Navbar />
                 <div className="usa-da-content">
-                    <DiscreteProgressBarComponent />
+                    <DiscreteProgressBarComponent progressCurrentStep="3" progressTotalSteps="4" />
                     <h1>Your email has been verified!</h1>
                     <p>Please continue the registration process by providing the following information.</p>
                     <p><TextInputComponent inputClass="" inputPlaceholder="First Name" inputName="regFirstName" /></p>
