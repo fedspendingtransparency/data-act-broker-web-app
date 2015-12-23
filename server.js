@@ -24,7 +24,7 @@ app.post('/registrationEmail', function(req, res) {
     res.redirect('/#/registration/code');
 });
 
-app.listen(5000);
+var server = app.listen(5001);
 
 /*
 * Handle errors gracefully
@@ -33,19 +33,19 @@ app.listen(5000);
 // Regular exit
 process.on('exit', function () {
     console.log('About to exit, waiting for remaining connections to complete');
-    app.close();
+    server.close();
 });
 
 // App crash
 process.on('uncaughtException', function () {
     console.log('Node app crash');
-    app.close();
+    server.close();
 });
 
 // Killed in terminal
 process.on('SIGTERM', function () {
     console.log('Node killed');
-    app.close();
+    server.close();
 });
 
 

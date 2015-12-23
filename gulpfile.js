@@ -126,7 +126,7 @@ gulp.task('nodemon', function (cb) {
             // Static Server from BrowserSync
             browserSync.init({
                 // Tells BrowserSync on where the express app is running
-                proxy: 'http://localhost:5000'
+                proxy: 'http://localhost:5001'
             });
 
             started = true;
