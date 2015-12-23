@@ -2,7 +2,7 @@ import React            from 'react';
 import ReactDOM         from 'react-dom';
 import {Router}         from 'director';
 import LoginPage        from './components/LoginComponents.jsx';
-import RegistrationPage from './components/RegistrationComponents/RegistrationPage.jsx';
+import RegistrationPage from './components/registration/RegistrationPage.jsx';
 import LandingPage      from './components/LandingComponents.jsx';
 import SubmissionPage   from './components/SubmissionPage.jsx';
 
