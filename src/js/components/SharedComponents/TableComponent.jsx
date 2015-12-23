@@ -3,148 +3,66 @@
  * Created by michaelbray on 12/22/15.
  */
 
-import React, { PropTypes } from 'react';
-
-const propTypes = {
-    data: PropTypes.array.isRequired,
-    headers: PropTypes.array.isRequired
-};
-
-const defaultProps = {
-    data: [['Error']],
-    headers: ['Table Data Missing']
-};
+import React from 'react';
 
 class TableCell extends React.Component {
-
-    constructor(props) {
-        super(props);
-
-        this.state = {
-            data: props.data
-        };
-    }
-
-    componentWillReceiveProps(props) {
-        this.setState({
-            data: props.data
-        });
-    }
-
     render() {
         return (
-            <td>{this.state.data}</td>
+            <td>{this.props.data}</td>
         );
     }
 }
 
 class TableRow extends React.Component {
-
-    constructor(props) {
-        super(props);
-
-        var tableCells = this.generateTableCells(props);
-
-        this.state = {
-            tableCells: tableCells
-        };
-    }
-
-    componentWillReceiveProps(props) {
-        var tableCells = this.generateTableCells(props);
-        this.setState({
-            tableCells: tableCells
-        });
-    }
-
-    generateTableCells(props) {
-        var tableCells = [];
-        for (var i = 0; i < props.data.length; i++) {
-            tableCells.push(<TableCell key={i} data={props.data[i]} />);
-        }
-        return tableCells;
-    }
-
     render() {
+        var tableCells = [];
+        for (var i = 0; i < this.props.data.length; i++) {
+            tableCells.push(<TableCell key={i} data={this.props.data[i]} />);
+        }
+
         return (
-            <tr>{this.state.tableCells}</tr>
+            <tr>{tableCells}</tr>
         );
     }
 }
 
 class TableHeaders extends React.Component {
-
-    constructor(props) {
-        super(props);
-
-        var tableHeaders = this.generateTableHeaders(props);
-
-        this.state = {
-            tableHeaders: tableHeaders
-        };
-    }
-
-    componentWillReceiveProps(props) {
-        var tableHeaders = this.generateTableHeaders(props);
-        this.setState({
-            tableHeaders: tableHeaders
-        });
-    }
-
-    generateTableHeaders(props) {
-        var tableHeaders = [];
-        for (var i = 0; i < props.data.length; i++) {
-            tableHeaders.push(<th key={i}>{props.data[i]}</th>)
-        }
-        return tableHeaders;
-    }
-
     render() {
+        var tableHeaders = [];
+        for (var i = 0; i < this.props.data.length; i++){
+            tableHeaders.push(<th key={i}>{this.props.data[i]}</th>)
+        }
+
         return (
-            <tr>{this.state.tableHeaders}</tr>
+            <tr>{tableHeaders}</tr>
         )
     }
 }
 
-export default class Table extends React.Component {
-    constructor(props) {
-        super(props);
-
-        var tableRows = this.generateTableRows(props);
-
-        this.state = {
-            tableRows: tableRows
-        };
-    }
-
-    componentWillReceiveProps(props) {
-        var tableRows = this.generateTableRows(props);
-        this.setState({
-            tableRows: tableRows
-        });
-    }
-
-    generateTableRows(props) {
-        var tableRows = [];
-        for (var i = 0; i < props.data.length; i++){
-            tableRows.push(<TableRow key={i} data={props.data[i]} />);
-        }
-        return tableRows;
-    }
-
+class TableHolder extends React.Component {
     render() {
+        var tableRows = [];
+        for (var i = 0; i < this.props.data.length; i++){
+            tableRows.push(<TableRow key={i} data={this.props.data[i]} />);
+        }
+
         return (
-            <table className='usa-da-table'>
+        	<table className='usa-da-table'>
                 <thead>
                     <TableHeaders data={this.props.headers} />
                 </thead>
                 <tbody>
-                    {this.state.tableRows}
+                    {tableRows}
                 </tbody>
             </table>
         );
     }
 }
 
-Table.propTypes = propTypes;
-Table.defaultProps = defaultProps;
+export default class Table extends React.Component {
+    render() {
+        return (
+            <TableHolder data={this.props.data} headers={this.props.headers} />
+        );
+    }
+}

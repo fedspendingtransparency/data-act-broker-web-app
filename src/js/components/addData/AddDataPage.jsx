@@ -24,9 +24,8 @@ class SubmissionContent extends React.Component {
 class ErrorContent extends React.Component {
     render() {
         const data = [
-            ['a1', 'b1', 'c1'],
-            ['a2', 'b2', 'c2'],
-            ['a3', 'b3', 'c3']
+            ['AvailabilityTypeCode', 'Required field AvailabilityTypeCode is missing', '17'],
+            ['AllocationTransferAgencyIdentifier', 'AllocationTransferAgencyIdentifier is missing', '38']
         ];
 
         const errorHeaders = ['Field Name', 'Error', 'Number of Occurrences'];
