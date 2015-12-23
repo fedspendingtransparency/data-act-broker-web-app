@@ -1,12 +1,12 @@
 /**
-* SubmissionPage.jsx
+* AddDataPage.jsx
 * Created by Katie Rose 12/7/15
 **/
 
 import React from 'react';
-import Navbar from './NavigationComponents.jsx';
-import Submission from './SubmissionComponents.jsx';
-import Table from './SharedComponents/TableComponent.jsx';
+import Navbar from '../NavigationComponents.jsx';
+import Submission from './AddDataComponents.jsx';
+import Table from '../SharedComponents/TableComponent.jsx';
 
 class SubmissionContent extends React.Component {
     render() {

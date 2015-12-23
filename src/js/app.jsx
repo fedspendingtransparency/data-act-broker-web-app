@@ -4,33 +4,35 @@ import {Router}         from 'director';
 import LoginPage        from './components/LoginComponents.jsx';
 import RegistrationPage from './components/registration/RegistrationPage.jsx';
 import LandingPage      from './components/LandingComponents.jsx';
-import SubmissionPage   from './components/SubmissionPage.jsx';
+import AddDataPage      from './components/addData/AddDataPage.jsx';
+
+var documentLocation = document.getElementById('app');
 
 var loginPageRoute = function() {
     ReactDOM.render(
         <LoginPage />,
-        document.getElementById('app')
+        documentLocation
     );
 };
 
 var registrationPageRoute = function(stepName) {
     ReactDOM.render(
         <RegistrationPage stepName={stepName} />,
-        document.getElementById('app')
+        documentLocation
     );
 };
 
 var landingPageRoute = function() {
     ReactDOM.render(
         <LandingPage />,
-        document.getElementById('app')
+        documentLocation
     );
 };
 
-var submissionPageRoute = function() {
+var addDataPageRoute = function() {
     ReactDOM.render(
-        <SubmissionPage />,
-        document.getElementById('app')
+        <AddDataPage />,
+        documentLocation
     );
 };
 
@@ -40,7 +42,7 @@ var routes = {
     '/': loginPageRoute,
     '/registration/:stepName' : registrationPageRoute,
     '/landing': landingPageRoute,
-    '/submit': submissionPageRoute
+    '/addData': addDataPageRoute
 };
 
 // Start the routes
