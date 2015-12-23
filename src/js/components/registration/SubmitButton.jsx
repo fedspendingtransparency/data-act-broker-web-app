@@ -6,7 +6,7 @@
 import React, { PropTypes } from 'react';
 
 const propTypes = {
-    buttonDisabled: PropTypes.bool.isRequired,
+    buttonDisabled: PropTypes.bool.isRequired
 };
 
 const defaultProps = {
