@@ -3,7 +3,17 @@
  * Created by michaelbray on 12/22/15.
  */
 
-import React from 'react';
+import React, { PropTypes } from 'react';
+
+const propTypes = {
+    data: PropTypes.array.isRequired,
+    headers: PropTypes.array.isRequired
+};
+
+const defaultProps = {
+    data: [['Error']],
+    headers: ['Table Data Missing']
+};
 
 class TableCell extends React.Component {
     render() {
@@ -39,7 +49,7 @@ class TableHeaders extends React.Component {
     }
 }
 
-class TableHolder extends React.Component {
+export default class Table extends React.Component {
     render() {
         var tableRows = [];
         for (var i = 0; i < this.props.data.length; i++){
@@ -59,10 +69,5 @@ class TableHolder extends React.Component {
     }
 }
 
-export default class Table extends React.Component {
-    render() {
-        return (
-            <TableHolder data={this.props.data} headers={this.props.headers} />
-        );
-    }
-}
+Table.propTypes = propTypes;
+Table.defaultProps = defaultProps;
