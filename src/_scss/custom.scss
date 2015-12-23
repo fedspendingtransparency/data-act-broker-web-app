@@ -156,3 +156,30 @@
 	width: 100%;
 	padding: 3em;
 }
+
+.usa-da-table {
+	thead {
+		tr {
+			background-color: $color-gray-light;
+			border: 1px solid $color-gray-light;
+		}
+
+		th {
+			text-align: right;
+			color: white;
+			border: 1px solid $color-gray-light;
+			border-right: 1px solid white;
+		}
+
+		th:last-child {
+			border-right: 1px solid $color-gray-light;
+		}
+	}
+
+	th, td {
+		border: 1px solid $color-gray-light;
+		padding: 1.0rem;
+		text-align: right;
+		color: $color-gray;
+	}
+}
