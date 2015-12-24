@@ -1,3 +1,8 @@
+// Colors
+$color-darkest: 	#2C333B;
+
+// Sizing
+$header-height: 8rem;
 
 @function as-alpha($hex-color, $alpha) {
 	$-local-red: red(rgba($hex-color, 1));
@@ -82,7 +87,6 @@
 
 }
 
-
 [class^="usa-da-icon-"]:before,
 [class*=" usa-da-icon-"]:before {
 	font-size: 1em;
@@ -113,31 +117,52 @@
 	content: "d";
 }
 
+.usa-da-header {
+	background-color: $color-gray-dark;
+	border: none;
 
+	.usa-da-header-navbar {
+		margin: auto;
+		height: $header-height;
 
+		h1 {
+			display: block;
+			font-size: 3rem;
+			font-weight: $font-normal;
+			line-height: $header-height;
+			margin-top:0;
+		}
 
-.usa-site-navbar.usa-da-navbar {
-	margin-top: 1em;
+		.usa-da-header-link-holder, .usa-da-navbar-links {
+			height: 100%;
+		}
 
-	h1 {
-		display: block;
-	    font-size: 3rem;
-	    font-weight: 100;
-	}
-	.usa-button {
-		&.usa-button-primary-alt {
-			background-color: $color-primary-alt-dark;
-			color: $color-primary-alt;
+		.usa-da-navbar-links {
+			margin-top: 0;
+		}
 
-			&:hover,
-			&.usa-button-hover {
-			  background-color: $color-primary-alt-darkest;
-			}
+		.usa-button {
+			padding: 0 10px;
+			margin: 0;
+			height: 100%;
+			line-height: $header-height;
+			font-size: 15px;
+			font-weight: $font-normal;
 
-			&:active,
-			&.usa-button-active {
-			  background-color: $color-primary-alt;
-			  color: $color-white;
+			&.usa-button-primary-alt {
+				background-color: $color-gray-dark;
+				color: $color-primary-alt;
+
+				&:hover,
+				&.usa-button-hover {
+					background-color: $color-darkest;
+				}
+
+				&:active,
+				&.usa-button-active {
+					background-color: $color-darkest;
+					color: $color-gold-lighter;
+				}
 			}
 		}
 	}
@@ -145,16 +170,51 @@
 
 .usa-da-content {
 	@extend .styleguide-content;
-	margin-top: 8em;
-	width: 70%;
-	margin-left: auto;
-	margin-right: auto;
+	margin: $header-height auto 0;
+	padding-bottom: 1.5em;
+	width: 100%;
+	max-width: 100%;
+	font-weight: $font-normal;
 
+	h1 {
+		font-weight: $font-light;
+		margin-top: 1em;
+	}
 }
 
-.usa-da-button-biggest {
+.usa-da-content-dark {
+	color: white;
+	background-color: $color-darkest;
+}
+
+.usa-da-button-landing {
+	background-color: $color-gray-lightest;
+	color: $color-gray;
 	width: 100%;
 	padding: 3em;
+	border: 0;
+	border-radius: 0;
+	cursor: pointer;
+	display: inline-block;
+	font-family: "Source Sans Pro", "Helvetica", "Arial", sans-serif;
+	font-size: 1.7rem;
+	font-weight: 700;
+	line-height: 1;
+	margin-top: .5em;
+	margin-bottom: .5em;
+	margin-right: .5em;
+	outline: none;
+	text-align: center;
+	text-decoration: none;
+	-webkit-font-smoothing: antialiased;
+
+	&:hover{
+
+	}
+
+	&:visited {
+		color: $color-gray;
+	}
 }
 
 .usa-da-table {
