@@ -4,9 +4,9 @@
 **/
 
 import React from 'react';
-import Navbar from '../NavigationComponents.jsx';
-import Submission from './AddDataComponents.jsx';
+import Navbar from '../SharedComponents/NavigationComponent.jsx';
 import Table from '../SharedComponents/TableComponent.jsx';
+import Submission from './AddDataComponents.jsx';
 
 class SubmissionContent extends React.Component {
     render() {
@@ -42,7 +42,7 @@ export default class SubmissionPage extends React.Component {
     render() {
         return (
             <div>
-                <Navbar />
+                <Navbar activeTab='addData'/>
                 <SubmissionContent />
                 <ErrorContent />
             </div>

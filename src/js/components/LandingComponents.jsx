@@ -4,7 +4,8 @@
 **/
 
 import React from 'react';
-import Navbar from './NavigationComponents.jsx';
+import Navbar from './SharedComponents/NavigationComponent.jsx';
+import Footer from './SharedComponents/FooterComponent.jsx';
 
 class LandingContent extends React.Component {
     render() {
@@ -40,8 +41,9 @@ export default class LandingPage extends React.Component {
     render() {
         return (
             <div>
-                <Navbar/>
+                <Navbar activeTab='landing'/>
                 <LandingContent/>
+                <Footer/>
             </div>
         );
     }

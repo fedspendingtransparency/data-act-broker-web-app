@@ -1,0 +1,29 @@
+.usa-da-button-landing {
+	background-color: $color-gray-lightest;
+	color: $color-gray;
+	width: 100%;
+	padding: 3em;
+	border: 0;
+	border-radius: 0;
+	cursor: pointer;
+	display: inline-block;
+	font-family: "Source Sans Pro", "Helvetica", "Arial", sans-serif;
+	font-size: 1.7rem;
+	font-weight: 700;
+	line-height: 1;
+	margin-top: .5em;
+	margin-bottom: .5em;
+	margin-right: .5em;
+	outline: none;
+	text-align: center;
+	text-decoration: none;
+	-webkit-font-smoothing: antialiased;
+
+	&:hover{
+
+	}
+
+	&:visited {
+		color: $color-gray;
+	}
+}
