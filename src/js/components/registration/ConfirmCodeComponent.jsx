@@ -9,7 +9,7 @@ import TextInputComponent from '../SharedComponents/TextInputComponent.jsx';
 import PasswordInputComponent from '../SharedComponents/PasswordInputComponent.jsx';
 import DiscreteProgressBarComponent from '../SharedComponents/DiscreteProgressBarComponent.jsx';
 
-// An email input field that does basic validation for .mil and .gov emails
+
 export default class ConfirmCode extends React.Component {
     render() {
         return (

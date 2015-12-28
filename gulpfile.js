@@ -108,15 +108,6 @@ gulp.task('minify', ['sass', 'watch', 'html-replace'], function() {
         .pipe(gulp.dest(dir.BUILD));
 });
 
-// Static Server from BrowserSync
-gulp.task('serve', ['nodemon', 'sass', 'watch'], function() {
-
-    browserSync.init({
-        // Tells BrowserSync on where the express app is running
-        proxy: 'http://localhost:5000'
-    });
-});
-
 gulp.task('nodemon', function (cb) {
     var started = false;
     var BROWSER_SYNC_RELOAD_DELAY = 500;
@@ -131,17 +122,26 @@ gulp.task('nodemon', function (cb) {
     }).on('start', function () {
         if (!started) {
             cb();
+
+            // Static Server from BrowserSync
+            browserSync.init({
+                // Tells BrowserSync on where the express app is running
+                proxy: 'http://localhost:5000'
+            });
+
             started = true;
         }
     }).on('restart', function onRestart() {
         // reload connected browsers after a slight delay
         setTimeout(function reload() {
             browserSync.reload({
-                stream: true
+                stream: false
             });
         }, BROWSER_SYNC_RELOAD_DELAY);
     });
 });
+
+gulp.task('serve', ['nodemon', 'sass', 'watch']);
 
 // Production task
 // TODO:

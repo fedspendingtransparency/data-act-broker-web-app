@@ -25,3 +25,28 @@ app.post('/registrationEmail', function(req, res) {
 });
 
 app.listen(5000);
+
+/*
+* Handle errors gracefully
+*/
+
+// Regular exit
+process.on('exit', function () {
+    console.log('About to exit, waiting for remaining connections to complete');
+    app.close();
+});
+
+// App crash
+process.on('uncaughtException', function () {
+    console.log('Node app crash');
+    app.close();
+});
+
+// Killed in terminal
+process.on('SIGTERM', function () {
+    console.log('Node killed');
+    app.close();
+});
+
+
+
