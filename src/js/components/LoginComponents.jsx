@@ -46,7 +46,7 @@ class SignInButton extends React.Component {
         return (
             <div className="usa-width-one-half">
                 <div className="align-right">
-                    <button className="usa-button-big" type="button">Sign in</button>
+                    <a href="/#/landing"><button className="usa-button-big" type="button">Sign in</button></a>
                 </div>
             </div>
         );

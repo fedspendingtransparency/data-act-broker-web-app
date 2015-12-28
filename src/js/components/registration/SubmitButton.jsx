@@ -6,7 +6,7 @@
 import React, { PropTypes } from 'react';
 
 const propTypes = {
-    buttonDisabled: PropTypes.bool.isRequired,
+    buttonDisabled: PropTypes.bool.isRequired
 };
 
 const defaultProps = {
@@ -15,31 +15,17 @@ const defaultProps = {
 
 // A standard button for submission that we can further turn into a sharable component
 export default class SubmitEmailButton extends React.Component {
-
-    constructor(props) {
-        super(props);
-        this.state = {
-            buttonClass: 'usa-button-disabled'
-        };
-    }
-
-    componentWillReceiveProps(props) {
+    render() {
         var newButtonClass;
 
-        if (props.buttonDisabled) {
+        if (this.props.buttonDisabled) {
             newButtonClass = 'usa-button-disabled';
         } else {
             newButtonClass = 'usa-button';
         }
 
-        this.setState({
-            buttonClass: newButtonClass
-        });
-    }
-
-    render() {
         return (
-            <button className={this.state.buttonClass} type="submit" value="Verify this email address" disabled={this.props.buttonDisabled}>Verify this email address</button>
+            <button className={newButtonClass} type="submit" value="Verify this email address" disabled={this.props.buttonDisabled}>Verify this email address</button>
         );
     }
 }

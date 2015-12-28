@@ -4,7 +4,7 @@
 **/
 
 import React, { PropTypes } from 'react';
-import Navbar from '../SharedComponents/NavigationComponents.jsx';
+import Navbar from '../NavigationComponents.jsx';
 import TextInputComponent from '../SharedComponents/TextInputComponent.jsx';
 import PasswordInputComponent from '../SharedComponents/PasswordInputComponent.jsx';
 import DiscreteProgressBarComponent from '../SharedComponents/DiscreteProgressBarComponent.jsx';

@@ -4,7 +4,7 @@
  **/
 
 import React, { PropTypes } from 'react';
-import Navbar from '../SharedComponents/NavigationComponents.jsx';
+import Navbar from '../NavigationComponents.jsx';
 import EmailComponent from './RegistrationEmailComponent.jsx';
 import ConfirmCode from './ConfirmCodeComponent.jsx';
 
@@ -18,43 +18,22 @@ const defaultProps = {
 };
 
 export default class RegistrationPage extends React.Component {
-
-    constructor(props) {
-        super(props);
-        var currentComponent = this.setComponentTo(props.stepName);
-        // Set initial component
-        this.state = {
-            currentComponent: currentComponent
-        };
-    }
-
-    componentWillReceiveProps(props) {
-        var currentComponent = this.setComponentTo(props.stepName);
-        this.setState({
-            currentComponent: currentComponent
-        });
-    }
-
-    setComponentTo(componentToRender) {
+    render() {
         var currentComponent;
 
-        if (componentToRender === 'email') {
+        if (this.props.stepName === 'email') {
             currentComponent = <EmailComponent />;
-        } else if (componentToRender === 'code') {
+        } else if (this.props.stepName === 'code') {
             currentComponent = <ConfirmCode />;
         }
 
-        return currentComponent;
-    }
-
-    render() {
         return (
             <div>
                 <Navbar />
                 <div className="usa-da-content">
                     <h1>Registration</h1>
                     <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean euismod bibendum laoreet. Proin gravida dolor sit amet lacus accumsan et viverra justo commodo. Proin sodales pulvinar tempor.</p>
-                    {this.state.currentComponent}
+                    {currentComponent}
                 </div>
             </div>
         );

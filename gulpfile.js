@@ -26,8 +26,9 @@ var path = {
     OUT: 'app.js',
     ENTRY_POINT: dir.SRC + '/js/app.jsx',
     INDEX_SRC: 'index.html',
-    SASS_SRC: dir.SRC + '/css/**',
-    SASS_BUILD: dir.BUILD + '/css',
+    SASS_SRC: dir.SRC + '/_scss/**',
+    CSS_SRC: dir.SRC + '/css/**',
+    CSS_BUILD: dir.BUILD + '/css',
     FONTS_SRC: dir.SRC + '/fonts/**',
     FONTS_BUILD: dir.BUILD + '/fonts',
     IMAGES_SRC: dir.SRC + '/images/**',
@@ -85,9 +86,9 @@ gulp.task('watch', ['fonts', 'images', 'graphics'], function() {
 
 // Compile sass into CSS & auto-inject into browsers
 gulp.task('sass', function() {
-    return gulp.src(path.SASS_SRC)
+    return gulp.src(path.CSS_SRC)
         .pipe(sass())
-        .pipe(gulp.dest(path.SASS_BUILD))
+        .pipe(gulp.dest(path.CSS_BUILD))
         .pipe(browserSync.reload({stream:true}));
 });
 
@@ -108,9 +109,13 @@ gulp.task('minify', ['sass', 'watch', 'html-replace'], function() {
         .pipe(gulp.dest(dir.BUILD));
 });
 
-gulp.task('nodemon', function (cb) {
+gulp.task('serve', ['sass', 'watch'], function (cb) {
     var started = false;
     var BROWSER_SYNC_RELOAD_DELAY = 500;
+
+    gulp.watch([path.SASS_SRC, path.CSS_SRC], ['sass']);
+
+    gulp.watch('*.html').on('change', browserSync.reload);
 
     return nodemon({
         script: 'server.js',
@@ -126,13 +131,13 @@ gulp.task('nodemon', function (cb) {
             // Static Server from BrowserSync
             browserSync.init({
                 // Tells BrowserSync on where the express app is running
-                proxy: 'http://localhost:5000'
+                proxy: 'http://localhost:5001'
             });
 
             started = true;
         }
     }).on('restart', function onRestart() {
-        // reload connected browsers after a slight delay
+        // Reload connected browsers after a slight delay
         setTimeout(function reload() {
             browserSync.reload({
                 stream: false
@@ -141,8 +146,6 @@ gulp.task('nodemon', function (cb) {
     });
 });
 
-gulp.task('serve', ['nodemon', 'sass', 'watch']);
-
 // Production task
 // TODO:
 // * Remove pre-minified files and sourcemaps
@@ -150,7 +153,4 @@ gulp.task('serve', ['nodemon', 'sass', 'watch']);
 gulp.task('production', ['minify']);
 
 // Default task for development
-gulp.task('default', ['serve'], function () {
-    gulp.watch(path.SASS_SRC, ['sass']);
-    gulp.watch('*.html').on('change', browserSync.reload);
-});
+gulp.task('default', ['serve']);
