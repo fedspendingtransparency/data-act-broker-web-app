@@ -6,6 +6,7 @@
 import React from 'react';
 import Navbar from '../NavigationComponents.jsx';
 import SubmissionComponent from './AddDataComponents.jsx';
+import TypeSelector from './AddDataTypeSelector.jsx';
 import Table from '../SharedComponents/TableComponent.jsx';
 import DiscreteProgressBarComponent from '../SharedComponents/DiscreteProgressBarComponent.jsx';
 import SubmitButton from '../SharedComponents/SubmitButton.jsx';
@@ -25,6 +26,9 @@ class SubmissionContent extends React.Component {
                 <div>
                     <h1>Add New Data</h1>
                     <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean euismod bibendum laoreet. Proin gravida dolor sit amet lacus accumsan et viverra justo commodo. Proin sodales pulvinar tempor. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Nam fermentum, nulla luctus pharetra vulputate, felis tellus mollis orci, sed rhoncus sapien nunc eget odio.</p>
+                </div>
+                <div>
+                    <TypeSelector />
                 </div>
                 <div>
                     <SubmissionComponent files={files} />
