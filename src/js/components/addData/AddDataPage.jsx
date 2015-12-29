@@ -28,7 +28,7 @@ class SubmissionContent extends React.Component {
                 </div>
                 <div>
                     <SubmissionComponent files={files} />
-                <SubmitButton buttonText="Upload & Validate CSV files" />
+                    <SubmitButton buttonText="Upload & Validate CSV files" />
                 </div>
             </div>
         );

@@ -14,11 +14,8 @@ const defaultProps = {
     headers: ['Submission Data Missing']
 };
 
-
-
 class FileContainer extends React.Component {
     render() {
-
         return (
             <div className="usa-width-one-fourth">
                 <h3>{this.props.fileTitle}</h3>
@@ -29,8 +26,6 @@ class FileContainer extends React.Component {
         );
     }
 }
-
-
 
 export default class SubmissionContainer extends React.Component {
     render() {
