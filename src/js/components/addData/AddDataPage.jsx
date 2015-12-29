@@ -5,16 +5,30 @@
 
 import React from 'react';
 import Navbar from '../NavigationComponents.jsx';
-import Submission from './AddDataComponents.jsx';
+import SubmissionComponent from './AddDataComponents.jsx';
 import Table from '../SharedComponents/TableComponent.jsx';
+import DiscreteProgressBarComponent from '../SharedComponents/DiscreteProgressBarComponent.jsx';
+import SubmitButton from '../SharedComponents/SubmitButton.jsx';
 
 class SubmissionContent extends React.Component {
     render() {
+
+        const files = [
+            ['Appropriation', 'appropriation.csv', 'notUploaded'],
+            ['Award', 'award.csv', 'notUploaded'],
+            ['Award Financial', 'award_financial.csv', 'notUploaded'],
+            ['Object Class Program Activity', 'ObjectClass_Program.csv', 'notUploaded']
+        ];
+
         return (
             <div className="usa-da-content">
-                <h1>Please select a file.</h1>
                 <div>
-                    <Submission/>
+                    <h1>Add New Data</h1>
+                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean euismod bibendum laoreet. Proin gravida dolor sit amet lacus accumsan et viverra justo commodo. Proin sodales pulvinar tempor. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Nam fermentum, nulla luctus pharetra vulputate, felis tellus mollis orci, sed rhoncus sapien nunc eget odio.</p>
+                </div>
+                <div>
+                    <SubmissionComponent files={files} />
+                <SubmitButton buttonText="Upload & Validate CSV files" />
                 </div>
             </div>
         );
