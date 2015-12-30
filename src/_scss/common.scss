@@ -1,5 +1,5 @@
 /* Colors */
-$color-darkest: 	#2C333B;
+$color-darkest: #2C333B;
 
 /* Fonts */
 @font-face {
@@ -59,6 +59,27 @@ $header-height: 8rem;
 }
 .usa-da-icon-user:before {
 	content: "d";
+}
+
+/* Elements */
+h1, h2, h3, h4, h5 {
+	font-family: $font-sans;
+}
+
+h1 {
+	font-size: 52px;
+	line-height: 52px;
+	font-weight: $font-light;
+	margin-top: 60px;
+	margin-bottom: 24px;
+}
+
+h3 {
+	font-size: 17px;
+	font-weight: $font-normal;
+	line-height: $lead-line-height;
+	margin-top: 0;
+	margin-bottom: 60px;
 }
 
 /* Tables */
