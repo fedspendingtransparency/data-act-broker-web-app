@@ -1,5 +1,6 @@
 import React            from 'react';
 import ReactDOM         from 'react-dom';
+import Base64           from './vendor/base64.min.js';
 import {Router}         from 'director';
 import LoginPage        from './components/LoginComponents.jsx';
 import RegistrationPage from './components/registration/RegistrationPage.jsx';
