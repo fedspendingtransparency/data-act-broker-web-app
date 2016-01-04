@@ -25,12 +25,18 @@ export default class DiscreteProgressBar extends React.Component {
     }
 
     render() {
+        var progress = [];
+
+        for (var i = 0; i < this.props.progressTotalSteps; i++){
+            if ((i+1) == this.props.progressCurrentStep)
+                progress.push(<div className="usa-da-progress-step usa-da-progress-one-fourth usa-da-progress-current"><span>{i+1}</span></div>);
+            else
+                progress.push(<div className="usa-da-progress-step usa-da-progress-one-fourth"><span>{i+1}</span></div>);
+            
+        }
         return (
             <div className="usa-da-discrete-progress usa-grid-full usa-color-text-white">
-                <div className="usa-da-progress-step usa-da-progress-one-fourth"><span>1</span></div>
-                <div className="usa-da-progress-step usa-da-progress-one-fourth"><span>2</span></div>
-                <div className="usa-da-progress-step usa-da-progress-one-fourth usa-da-progress-current"><span>3</span></div>
-                <div className="usa-da-progress-step usa-da-progress-one-fourth"><span>4</span></div>
+                {progress}
             </div>
         );
     }

@@ -8,7 +8,7 @@ import Navbar from '../NavigationComponents.jsx';
 import SubmissionComponent from './AddDataComponents.jsx';
 import TypeSelector from './AddDataTypeSelector.jsx';
 import Table from '../SharedComponents/TableComponent.jsx';
-import DiscreteProgressBarComponent from '../SharedComponents/DiscreteProgressBarComponent.jsx';
+import ProgressBar from '../SharedComponents/DiscreteProgressBarComponent.jsx';
 import SubmitButton from '../SharedComponents/SubmitButton.jsx';
 
 class SubmissionContent extends React.Component {
@@ -29,6 +29,7 @@ class SubmissionContent extends React.Component {
                 </div>
                 <div>
                     <TypeSelector />
+                    <ProgressBar progressTotalSteps="4" progressCurrentStep="1"/>
                 </div>
                 <div>
                     <SubmissionComponent files={files} />
