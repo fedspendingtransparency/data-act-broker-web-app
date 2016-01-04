@@ -1,6 +1,10 @@
+//@import '../_scss/styleguide';
 
+// Bootstrap
+@import '../../node_modules/bootstrap-sass/assets/stylesheets/_bootstrap';
 
-// Place list of your partial imports below, located in assets/_scss.
+// 18F colors
+@import '../_scss/core/_variables';
 
-@import '../_scss/styleguide';
+// Customizations
 @import '../_scss/custom';

@@ -4,12 +4,35 @@
 **/
 
 import React from 'react';
-import Navbar from '../NavigationComponents.jsx';
-import SubmissionComponent from './AddDataComponents.jsx';
+import Navbar from '../SharedComponents/NavigationComponent.jsx';
 import TypeSelector from './AddDataTypeSelector.jsx';
 import Table from '../SharedComponents/TableComponent.jsx';
-import ProgressBar from '../SharedComponents/DiscreteProgressBarComponent.jsx';
+import SubmissionContainer from './AddDataComponents.jsx';
+import Progress from '../SharedComponents/ProgressComponent.jsx';
 import SubmitButton from '../SharedComponents/SubmitButton.jsx';
+
+class SubmissionPageHeader extends React.Component {
+    render() {
+        return (
+            <div className="usa-da-content-dark">
+                <div className="container">
+                    <div className="row">
+                        <div className="col-md-6">
+                            <h1>Add New Data</h1>
+                            <h3>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean euismod bibendum laoreet.
+                                Proin gravida dolor sit amet lacus accumsan et viverra justo commodo. Proin sodales pulvinar
+                                tempor. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus.
+                                Nam fermentum, nulla luctus pharetra vulputate, felis</h3>
+                        </div>
+                        <div className="col-md-6">
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        );
+    }
+}
 
 class SubmissionContent extends React.Component {
     render() {
@@ -22,18 +45,18 @@ class SubmissionContent extends React.Component {
         ];
 
         return (
-            <div className="usa-da-content">
-                <div>
-                    <h1>Add New Data</h1>
-                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean euismod bibendum laoreet. Proin gravida dolor sit amet lacus accumsan et viverra justo commodo. Proin sodales pulvinar tempor. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Nam fermentum, nulla luctus pharetra vulputate, felis tellus mollis orci, sed rhoncus sapien nunc eget odio.</p>
-                </div>
-                <div>
-                    <TypeSelector />
-                    <ProgressBar progressTotalSteps="4" progressCurrentStep="1"/>
-                </div>
-                <div>
-                    <SubmissionComponent files={files} />
-                    <SubmitButton buttonText="Upload & Validate CSV files" />
+            <div className="usa-da-content-light-gray">
+                <div className="container">
+                    <div className="row">
+                        <div>
+                            <TypeSelector />
+                            <Progress totalSteps='3' currentStep='1'/>
+                        </div>
+                        <div>
+                            <SubmissionContainer files={files} />
+                            <SubmitButton buttonText="Upload & Validate CSV files" />
+                        </div>
+                    </div>
                 </div>
             </div>
         );
@@ -50,8 +73,12 @@ class ErrorContent extends React.Component {
         const errorHeaders = ['Field Name', 'Error', 'Number of Occurrences'];
 
         return (
-            <div className="usa-da-content">
-                <Table data={data} headers={errorHeaders} />
+            <div className="container">
+                <div className="row">
+                    <div className="col-md-12 usa-da-table-holder">
+                        <Table data={data} headers={errorHeaders} />
+                    </div>
+                </div>
             </div>
         );
     }
@@ -61,7 +88,8 @@ export default class SubmissionPage extends React.Component {
     render() {
         return (
             <div>
-                <Navbar />
+                <Navbar activeTab='addData'/>
+                <SubmissionPageHeader />
                 <SubmissionContent />
                 <ErrorContent />
             </div>

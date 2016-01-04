@@ -1,0 +1,94 @@
+.usa-da-login {
+	background-image: url("../../images/hero_bg_img.jpg");
+	background-repeat:no-repeat;
+	background-size: cover;
+	background-position:center;
+	padding-top: 20vh;
+	padding-bottom: 20vh;
+	padding-left: 0;
+	padding-right: 0;
+	width: 100%;
+	position: absolute;
+	top: 0;
+	bottom: 0;
+
+	input {
+		padding-left: 55px;
+		height: 44px;
+		margin-top: 0;
+		max-width: none;
+	}
+
+	.usa-button-big {
+		float: right;
+		margin: 0;
+	}
+
+	.usa-da-color-gray-light-eighth-tone {
+		background-color: as-alpha($color-gray-light,.125);
+	}
+
+	.usa-da-login-container {
+		padding: 40px;
+		margin: 40px 0;
+		background: $color-gray-dark;
+
+		input {
+			width: 100%;
+			font-family: $font-sans;
+			font-size: 17px;
+		}
+
+		.usa-da-login-button-holder {
+			padding-right: 0;
+		}
+
+		button {
+			font-size: 20px;
+			padding: 10px 30px;
+			background: $color-primary;
+			color: $color-white;
+			font-weight: $font-bold;
+			border: none;
+			font-family: $font-sans;
+		}
+	}
+
+	.usa-da-input-container {
+		margin-bottom: 20px;
+		display: inline-flex;
+		position: relative;
+		width: 100%;
+
+		div.usa-da-icon {
+			background-image: url("../../graphics/form_bg.png");
+			background-repeat:no-repeat;
+			background-size:contain;
+			background-position:center;
+			margin: 0;
+			position: absolute;
+			left: 0;
+			top: 1px;
+			height: 42px;
+			width: 48px;
+			overflow: hidden;
+			float: left;
+			font-size: 24px;
+		}
+	}
+
+	.usa-da-registration-links {
+		height: 34px;
+		margin-top: 14px;
+		padding-left: 0;
+
+		p, p a, p a:hover, p a:visited {
+			color: $color-gray-light;
+		}
+
+		p a, p a:hover, p a:visited {
+			text-decoration: none;
+			font-size: 14px;
+		}
+	}
+}

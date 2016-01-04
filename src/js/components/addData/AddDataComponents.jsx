@@ -48,15 +48,19 @@ class FileContainer extends React.Component {
 
     render() {
         return (
-            <div className="usa-width-one-fourth">
-                <h3>{this.props.fileTitle}</h3>
-                <img src="/graphics/file_icon.png"/>
-                <p>{this.props.fileTemplateName}</p>
-                <Dropzone onDrop={this.onDrop.bind(this)}>
-                    <div>Drop your file here, or click to select file to upload.</div>
-                </Dropzone>
+            <div>
+                <div className="container">
+                    <div className="col-md-6">
+                        <h3>{this.props.fileTitle}</h3>
+                        <img src="/graphics/file_icon.png"/>
+                        <p>{this.props.fileTemplateName}</p>
+                        <Dropzone onDrop={this.onDrop.bind(this)}>
+                            <div>Drop your file here, or click to select file to upload.</div>
+                        </Dropzone>
 
-                {this.state.fileCount > 0 ? <h3>Uploading {this.state.fileCount} files...</h3> : null}
+                        {this.state.fileCount > 0 ? <h3>Uploading {this.state.fileCount} files...</h3> : null}
+                    </div>
+                </div>
             </div>
         );
     }
@@ -72,7 +76,11 @@ export default class SubmissionContainer extends React.Component {
         }
 
         return (
-            <div className="usa-grid-full">{submissionItems}</div>
+            <div>
+                <div className="container">
+                    <div className="usa-grid-full">{submissionItems}</div>
+                </div>
+            </div>
         );
     }
 }

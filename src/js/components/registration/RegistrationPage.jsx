@@ -4,12 +4,12 @@
  **/
 
 import React, { PropTypes } from 'react';
-import Navbar from '../NavigationComponents.jsx';
+import Navbar from '../SharedComponents/NavigationComponent.jsx';
 import EmailComponent from './RegistrationEmailComponent.jsx';
 import ConfirmCode from './ConfirmCodeComponent.jsx';
 
 const propTypes = {
-    stepName: PropTypes.string.isRequired,
+    stepName: PropTypes.string.isRequired
 };
 
 // Default to showing email input page
