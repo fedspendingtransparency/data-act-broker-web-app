@@ -4,11 +4,16 @@
 **/
 
 import React from 'react';
+import Progress from '../SharedComponents/ProgressComponent.jsx'
 
  export default class Submission extends React.Component {
  	  render() {
  		    return (
-				<div></div>
+				<div>
+					<div className="container">
+						<Progress />
+					</div>
+				</div>
  		    );
  	  }
  }

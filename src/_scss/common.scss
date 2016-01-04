@@ -42,7 +42,7 @@ $header-height: 8rem;
 	speak: none;
 	line-height: 1;
 	-webkit-font-smoothing: antialiased;
-	-moz-osx-font-smoothing: grayscale;
+	-webkit-osx-font-smoothing: grayscale;
 	padding-left: .4em;
 	padding-top: .4em;
 	position: absolute;
@@ -83,7 +83,14 @@ h3 {
 }
 
 /* Tables */
+.usa-da-table-holder {
+	margin: 60px auto;
+	text-align: center;
+}
+
 .usa-da-table {
+	width: 100%;
+
 	thead {
 		tr {
 			background-color: $color-gray-light;
@@ -94,7 +101,7 @@ h3 {
 			text-align: right;
 			color: white;
 			border: 1px solid $color-gray-light;
-			border-right: 1px solid white;
+			border-right: 1px solid $color-gray-lightest;
 		}
 
 		th:last-child {
@@ -201,6 +208,85 @@ h3 {
 .usa-da-content-light-gray {
 	color: $color-gray-light;
 	background-color: $color-gray-lightest;
+}
+
+/* Progress Bar */
+.usa-da-progress-bar {
+	margin: 6.0rem auto;
+	font-size: 1.3em;
+	font-weight: $font-bold;
+
+	.usa-da-progress-bar-step-holder {
+		list-style: none;
+		margin: 0;
+		padding: 0;
+		position: relative;
+		display: flex;
+		flex-direction: row;
+		justify-content: space-between;
+		overflow: hidden;
+
+		li {
+			z-index: 2;
+
+			div {
+				display: table-cell;
+				vertical-align: middle;
+				text-align: center;
+				width: 45px;
+				height: 45px;
+			}
+		}
+
+		.usa-da-progress-bar-step {
+			background: $color-gray-lightest;
+			border-radius: 90px;
+			border: 1px solid $color-gray-light;
+			color: $color-gray-light;
+			width: 45px;
+			height: 45px;
+		}
+
+		.usa-da-progress-bar-step-current {
+			background: $color-focus;
+			color: $color-white;
+			border-radius: 100px;
+			width: 45px;
+			height: 45px;
+			z-index: 4;
+			position: relative;
+			display: table;
+		}
+
+		.usa-da-progress-bar-step-current ~ li::after {
+			position: absolute;
+			top: 42%;
+			height: 10px;
+			z-index: 2;
+			background: $color-focus;
+		}
+
+		.usa-da-progress-bar-step::after {
+			content: "";
+			position: absolute;
+			top: 0;
+			left: 5px;
+			height: 5px;
+			z-index: 3;
+			background: $color-gray-light;
+		}
+	}
+
+	.usa-da-progress-bar-step-holder::after {
+		content: "";
+		position: absolute;
+		top: 42%;
+		left: 20px;
+		right: 20px;
+		height: 10px;
+		z-index: 1;
+		background: $color-gray-light;
+	}
 }
 
 /* Footer */

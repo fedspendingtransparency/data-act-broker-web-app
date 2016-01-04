@@ -37,7 +37,6 @@ class SubmissionContent extends React.Component {
             <div className="usa-da-content-light-gray">
                 <div className="container">
                     <div className="row">
-                        <h1>Please select a file.</h1>
                         <div>
                             <Submission/>
                         </div>
@@ -60,7 +59,9 @@ class ErrorContent extends React.Component {
         return (
             <div className="container">
                 <div className="row">
-                    <Table data={data} headers={errorHeaders} />
+                    <div className="col-md-12 usa-da-table-holder">
+                        <Table data={data} headers={errorHeaders} />
+                    </div>
                 </div>
             </div>
         );
