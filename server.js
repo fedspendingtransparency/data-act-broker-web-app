@@ -2,6 +2,8 @@ var express = require('express');
 var app = express();
 var bodyParser = require('body-parser');
 var router = express.Router();
+var multer  = require('multer');
+var upload = multer({ dest: './build/uploads/' });
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: true}));
@@ -22,6 +24,10 @@ app.post('/registrationEmail', function(req, res) {
 
     // Redirect to passcode page
     res.redirect('/#/registration/code');
+});
+
+app.post('/addData', upload.single('uploadFile'), function(req, res) {
+    res.json(req.body);
 });
 
 var server = app.listen(5001);
