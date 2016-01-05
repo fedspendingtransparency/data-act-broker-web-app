@@ -41,7 +41,7 @@ class SubmissionContent extends React.Component {
             ['Appropriation', 'appropriation.csv', '85'],
             ['Award', 'award.csv', '60'],
             ['Award Financial', 'award_financial.csv', '80'],
-            ['Object Class Program Activity', 'ObjectClass_Program.csv', '80']
+            ['Program Activity', 'ObjectClass_Program.csv', '80']
         ];
 
         return (

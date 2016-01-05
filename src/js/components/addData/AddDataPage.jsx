@@ -41,29 +41,29 @@ class SubmissionContent extends React.Component {
             ['Appropriation', 'appropriation.csv', '0'],
             ['Award', 'award.csv', '0'],
             ['Award Financial', 'award_financial.csv', '0'],
-            ['Object Class Program Activity', 'ObjectClass_Program.csv', '0']
+            ['Program Activity', 'ObjectClass_Program.csv', '0']
         ];
 
         return (
             <div>
-            <div className="usa-da-content-light-gray">
-                <div className="container center-block">
-                    <div className="row">
-                        <TypeSelector />
-                        <Progress totalSteps='4' currentStep='1'/>
+                <div className="usa-da-content-light-gray">
+                    <div className="container center-block">
+                        <div className="row">
+                            <TypeSelector />
+                            <Progress totalSteps='4' currentStep='1'/>
+                        </div>
                     </div>
                 </div>
-            </div>
-            <div>
-                <div className="container center-block">
-                    <div className="row">
-                        <SubmissionContainer files={files} />
-                    </div>
-                    <div className="text-center">
-                        <SubmitButton className="usa-da-button-bigger" buttonText="Upload & Validate CSV files" />
+                <div>
+                    <div className="container center-block">
+                        <div className="row">
+                            <SubmissionContainer files={files} />
+                        </div>
+                        <div className="text-center">
+                            <SubmitButton className="usa-da-button-bigger" buttonText="Upload & Validate CSV files" />
+                        </div>
                     </div>
                 </div>
-            </div>
             </div>
         );
     }
