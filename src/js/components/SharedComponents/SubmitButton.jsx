@@ -26,7 +26,6 @@ export default class SubmitButton extends React.Component {
         } else {
             newButtonClass=this.props.className;
         }
-        console.log(newButtonClass);
 
         return (
             <div><button className={newButtonClass} type="submit" value={this.props.buttonText} disabled={this.props.buttonDisabled}>{this.props.buttonText} </button></div>
