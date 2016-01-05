@@ -45,19 +45,25 @@ class SubmissionContent extends React.Component {
         ];
 
         return (
+            <div>
             <div className="usa-da-content-light-gray">
                 <div className="container center-block">
-                        <div className="row">
-                            <TypeSelector />
-                            <Progress totalSteps='4' currentStep='1'/>
-                        </div>
-                        <div className="row">
-                            <SubmissionContainer files={files} />
-                        </div>
-                        <div className="text-center">
-                            <SubmitButton className="usa-da-button-bigger" buttonText="Upload & Validate CSV files" />
-                        </div>
+                    <div className="row">
+                        <TypeSelector />
+                        <Progress totalSteps='4' currentStep='1'/>
+                    </div>
                 </div>
+            </div>
+            <div>
+                <div className="container center-block">
+                    <div className="row">
+                        <SubmissionContainer files={files} />
+                    </div>
+                    <div className="text-center">
+                        <SubmitButton className="usa-da-button-bigger" buttonText="Upload & Validate CSV files" />
+                    </div>
+                </div>
+            </div>
             </div>
         );
     }

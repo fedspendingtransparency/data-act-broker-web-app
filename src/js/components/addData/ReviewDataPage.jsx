@@ -45,17 +45,23 @@ class SubmissionContent extends React.Component {
         ];
 
         return (
-            <div className="usa-da-content-light-gray">
-                <div className="container center-block">
+            <div>
+                <div className="usa-da-content-light-gray">
+                    <div className="container center-block">
                         <div className="row">
                             <Progress totalSteps='4' currentStep='2'/>
                         </div>
+                    </div>
+                </div>
+                <div>
+                    <div className="container center-block">
                         <div className="row">
                             <SubmissionContainer files={files} />
                         </div>
                         <div className="text-center">
                             <SubmitButton className="usa-da-button-bigger" buttonText="Return to file upload" />
                         </div>
+                    </div>
                 </div>
             </div>
         );
