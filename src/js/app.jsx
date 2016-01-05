@@ -6,6 +6,7 @@ import LoginPage        from './components/LoginComponents.jsx';
 import RegistrationPage from './components/registration/RegistrationPage.jsx';
 import LandingPage      from './components/LandingComponents.jsx';
 import AddDataPage      from './components/addData/AddDataPage.jsx';
+import ReviewDataPage   from './components/addData/ReviewDataPage.jsx';
 
 var documentLocation = document.getElementById('app');
 
@@ -37,13 +38,21 @@ var addDataPageRoute = function() {
     );
 };
 
+var reviewDataPageRoute = function() {
+    ReactDOM.render(
+        <ReviewDataPage />,
+        documentLocation
+    );
+};
+
 // Define the route URL patterns
 
 var routes = {
     '/': loginPageRoute,
     '/registration/:stepName' : registrationPageRoute,
     '/landing': landingPageRoute,
-    '/addData': addDataPageRoute
+    '/addData': addDataPageRoute,
+    '/reviewData': reviewDataPageRoute
 };
 
 // Start the routes
