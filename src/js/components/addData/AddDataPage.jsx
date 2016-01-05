@@ -49,7 +49,7 @@ class SubmissionContent extends React.Component {
                 <div className="container center-block">
                         <div className="row">
                             <TypeSelector />
-                            <Progress totalSteps='3' currentStep='1'/>
+                            <Progress totalSteps='4' currentStep='1'/>
                         </div>
                         <div className="row">
                             <SubmissionContainer files={files} />
