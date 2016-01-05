@@ -7,7 +7,8 @@ import React, { PropTypes } from 'react';
 
 const propTypes = {
     buttonDisabled: PropTypes.bool,
-    buttonText: PropTypes.string
+    buttonText: PropTypes.string,
+    className: PropTypes.string
 };
 
 const defaultProps = {
@@ -21,13 +22,14 @@ export default class SubmitButton extends React.Component {
         var newButtonClass;
 
         if (this.props.buttonDisabled) {
-            newButtonClass = 'usa-button-disabled';
+            newButtonClass = 'usa-button-disabled' & ' ' & this.props.className;
         } else {
-            newButtonClass = 'usa-button';
+            newButtonClass=this.props.className;
         }
+        console.log(newButtonClass);
 
         return (
-            <button className={newButtonClass} type="submit" value={this.props.buttonText} disabled={this.props.buttonDisabled}>{this.props.buttonText} </button>
+            <div><button className={newButtonClass} type="submit" value={this.props.buttonText} disabled={this.props.buttonDisabled}>{this.props.buttonText} </button></div>
         );
     }
 }
