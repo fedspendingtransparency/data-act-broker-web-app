@@ -38,10 +38,10 @@ class SubmissionContent extends React.Component {
     render() {
 
         const files = [
-            ['Appropriation', 'appropriation.csv', 'notUploaded'],
-            ['Award', 'award.csv', 'notUploaded'],
-            ['Award Financial', 'award_financial.csv', 'notUploaded'],
-            ['Object Class Program Activity', 'ObjectClass_Program.csv', 'notUploaded']
+            ['Appropriation', 'appropriation.csv', '0'],
+            ['Award', 'award.csv', '0'],
+            ['Award Financial', 'award_financial.csv', '0'],
+            ['Object Class Program Activity', 'ObjectClass_Program.csv', '0']
         ];
 
         return (
@@ -63,26 +63,7 @@ class SubmissionContent extends React.Component {
     }
 }
 
-class ErrorContent extends React.Component {
-    render() {
-        const data = [
-            ['AvailabilityTypeCode', 'Required field AvailabilityTypeCode is missing', '17'],
-            ['AllocationTransferAgencyIdentifier', 'AllocationTransferAgencyIdentifier is missing', '38']
-        ];
 
-        const errorHeaders = ['Field Name', 'Error', 'Number of Occurrences'];
-
-        return (
-            <div className="container">
-                <div className="row">
-                    <div className="col-md-12 usa-da-table-holder">
-                        <Table data={data} headers={errorHeaders} />
-                    </div>
-                </div>
-            </div>
-        );
-    }
-}
 
 export default class SubmissionPage extends React.Component {
     render() {
@@ -91,7 +72,7 @@ export default class SubmissionPage extends React.Component {
                 <Navbar activeTab='addData'/>
                 <SubmissionPageHeader />
                 <SubmissionContent />
-                <ErrorContent />
+
             </div>
         );
     }
