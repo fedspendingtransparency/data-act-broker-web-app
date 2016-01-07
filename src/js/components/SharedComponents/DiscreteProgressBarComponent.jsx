@@ -7,13 +7,13 @@
 import React, { PropTypes } from 'react';
 
 const propTypes = {
-    progressCurrentStep: PropTypes.Number, 
+    progressCurrentStep: PropTypes.Number,
     progressTotalSteps: PropTypes.Number
 };
 
 // to do: complete implementation of inputLength prop
 const defaultProps = {
-    progressCurrentStep: 1, 
+    progressCurrentStep: 1,
     progressTotalSteps: 4
 };
 
@@ -25,15 +25,16 @@ export default class DiscreteProgressBar extends React.Component {
     }
 
     render() {
-        var progress = [];
+        const progress = [];
 
-        for (var i = 0; i < this.props.progressTotalSteps; i++){
-            if ((i+1) == this.props.progressCurrentStep)
-                progress.push(<div className="usa-da-progress-step usa-da-progress-one-fourth usa-da-progress-current"><span>{i+1}</span></div>);
-            else
-                progress.push(<div className="usa-da-progress-step usa-da-progress-one-fourth"><span>{i+1}</span></div>);
-            
+        for (let i = 0; i < this.props.progressTotalSteps; i++) {
+            if ((i + 1) === this.props.progressCurrentStep) {
+                progress.push(<div className="usa-da-progress-step usa-da-progress-one-fourth usa-da-progress-current"><span>{i + 1}</span></div>);
+            } else {
+                progress.push(<div className="usa-da-progress-step usa-da-progress-one-fourth"><span>{i + 1}</span></div>);
+            }
         }
+
         return (
             <div className="usa-da-discrete-progress usa-grid-full usa-color-text-white">
                 {progress}

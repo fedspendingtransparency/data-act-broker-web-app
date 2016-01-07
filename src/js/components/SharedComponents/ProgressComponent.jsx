@@ -3,7 +3,6 @@
  * Created by Mike Bray 12/31/15
  **/
 
-
 import React, { PropTypes } from 'react';
 
 const propTypes = {
@@ -24,10 +23,10 @@ export default class Progress extends React.Component {
     }
 
     render() {
-        var progress = [];
+        const progress = [];
 
-        for (var i = 1; i <= this.props.totalSteps; i++) {
-            if (i <= this.props.currentStep){
+        for (let i = 1; i <= this.props.totalSteps; i++) {
+            if (i <= this.props.currentStep) {
                 progress.push(<li key={i} className="usa-da-progress-bar-step-current"><div>{i}</div></li>);
             } else {
                 progress.push(<li key={i} className="usa-da-progress-bar-step"><div>{i}</div></li>);

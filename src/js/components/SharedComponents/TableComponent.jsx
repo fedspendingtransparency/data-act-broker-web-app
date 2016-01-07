@@ -23,10 +23,13 @@ class TableCell extends React.Component {
     }
 }
 
+TableCell.propTypes = propTypes;
+TableCell.defaultProps = defaultProps;
+
 class TableRow extends React.Component {
     render() {
-        var tableCells = [];
-        for (var i = 0; i < this.props.data.length; i++) {
+        const tableCells = [];
+        for (let i = 0; i < this.props.data.length; i++) {
             tableCells.push(<TableCell key={i} data={this.props.data[i]} />);
         }
 
@@ -36,28 +39,34 @@ class TableRow extends React.Component {
     }
 }
 
+TableRow.propTypes = propTypes;
+TableRow.defaultProps = defaultProps;
+
 class TableHeaders extends React.Component {
     render() {
-        var tableHeaders = [];
-        for (var i = 0; i < this.props.data.length; i++){
-            tableHeaders.push(<th key={i}>{this.props.data[i]}</th>)
+        const tableHeaders = [];
+        for (let i = 0; i < this.props.data.length; i++) {
+            tableHeaders.push(<th key={i}>{this.props.data[i]}</th>);
         }
 
         return (
             <tr>{tableHeaders}</tr>
-        )
+        );
     }
 }
 
+TableHeaders.propTypes = propTypes;
+TableHeaders.defaultProps = defaultProps;
+
 export default class Table extends React.Component {
     render() {
-        var tableRows = [];
-        for (var i = 0; i < this.props.data.length; i++){
+        const tableRows = [];
+        for (let i = 0; i < this.props.data.length; i++) {
             tableRows.push(<TableRow key={i} data={this.props.data[i]} />);
         }
 
         return (
-        	<table className='usa-da-table'>
+            <table className="usa-da-table">
                 <thead>
                     <TableHeaders data={this.props.headers} />
                 </thead>
