@@ -48,7 +48,7 @@ export default class LandingPage extends React.Component {
     render() {
         return (
             <div>
-                <Navbar activeTab='landing'/>
+                <Navbar activeTab="landing"/>
                 <LandingContent/>
                 <Footer/>
             </div>

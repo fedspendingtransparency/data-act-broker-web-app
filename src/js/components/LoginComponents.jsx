@@ -13,7 +13,7 @@ class Username extends React.Component {
                 <input id="username" name="username" type="text"placeholder="Username" aria-describedby="username" />
                 <div className="usa-da-icon usa-da-icon-user"></div>
             </div>
-      	);
+        );
     }
 }
 
