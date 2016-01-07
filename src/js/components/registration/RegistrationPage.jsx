@@ -19,7 +19,7 @@ const defaultProps = {
 
 export default class RegistrationPage extends React.Component {
     render() {
-        var currentComponent;
+        let currentComponent;
 
         if (this.props.stepName === 'email') {
             currentComponent = <EmailComponent />;

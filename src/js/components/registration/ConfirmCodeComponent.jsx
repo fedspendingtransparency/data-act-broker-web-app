@@ -3,8 +3,7 @@
 * Created by Kyle Fox 12/11/15
 **/
 
-import React, { PropTypes } from 'react';
-import Navbar from '../SharedComponents/NavigationComponent.jsx';
+import React from 'react';
 import TextInputComponent from '../SharedComponents/TextInputComponent.jsx';
 import PasswordInputComponent from '../SharedComponents/PasswordInputComponent.jsx';
 import Progress from '../SharedComponents/ProgressComponent.jsx';
@@ -14,7 +13,7 @@ export default class ConfirmCode extends React.Component {
     render() {
         return (
                 <div className="row">
-                    <Progress totalSteps='4' currentStep='3'/>
+                    <Progress totalSteps="4" currentStep="3"/>
                     <h1>Your email has been verified!</h1>
                     <p>Please continue the registration process by providing the following information.</p>
                     <p><TextInputComponent inputClass="" inputPlaceholder="First Name" inputName="regFirstName" /></p>

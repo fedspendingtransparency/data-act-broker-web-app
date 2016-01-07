@@ -26,16 +26,16 @@ export default class EmailComponent extends React.Component {
 
     render() {
         // Regex for matching foo@bar.mil or foo@bar.gov
-        var emailRegex = /^[a-z0-9._%+-]+@[a-z0-9.-]+\.(?:gov|mil)$/;
+        const emailRegex = /^[a-z0-9._%+-]+@[a-z0-9.-]+\.(?:gov|mil)$/;
 
         return (
             <form action="/registrationEmail" method="post">
                 <label htmlFor="input-registration-email">Registration Email</label>
                 <EmailValidation
-                    id={"registrationEmail"}
-                    placeholder={"Please enter your .gov or .mil email address"}
-                    regex={emailRegex}
-                    buttonDisabled={this.setButtonDisabled.bind(this)}
+                  id={"registrationEmail"}
+                  placeholder={"Please enter your .gov or .mil email address"}
+                  regex={emailRegex}
+                  buttonDisabled={this.setButtonDisabled.bind(this)}
                 />
                 <SubmitEmailButton buttonDisabled={this.state.buttonDisabled} />
             </form>
