@@ -6,7 +6,6 @@
 import React from 'react';
 import Navbar from '../SharedComponents/NavigationComponent.jsx';
 import TypeSelector from './AddDataTypeSelector.jsx';
-import Table from '../SharedComponents/TableComponent.jsx';
 import SubmissionContainer from './AddDataComponents.jsx';
 import Progress from '../SharedComponents/ProgressComponent.jsx';
 import SubmitButton from '../SharedComponents/SubmitButton.jsx';
@@ -36,7 +35,6 @@ class SubmissionPageHeader extends React.Component {
 
 class SubmissionContent extends React.Component {
     render() {
-
         const files = [
             ['Appropriation', 'appropriation.csv', '0'],
             ['Award', 'award.csv', '0'],
@@ -50,7 +48,7 @@ class SubmissionContent extends React.Component {
                     <div className="container center-block">
                         <div className="row">
                             <TypeSelector />
-                            <Progress totalSteps='4' currentStep='1'/>
+                            <Progress totalSteps="4" currentStep="1"/>
                         </div>
                     </div>
                 </div>
@@ -69,13 +67,11 @@ class SubmissionContent extends React.Component {
     }
 }
 
-
-
 export default class SubmissionPage extends React.Component {
     render() {
         return (
             <div>
-                <Navbar activeTab='addData'/>
+                <Navbar activeTab="addData"/>
                 <SubmissionPageHeader />
                 <SubmissionContent />
 
