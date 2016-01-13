@@ -6,6 +6,9 @@
 import React, { PropTypes } from 'react';
 import Dropzone from 'react-dropzone';
 import Request from 'superagent';
+import $ from 'jquery';
+
+const API_URL = 'http://ec2-54-173-199-34.compute-1.amazonaws.com:5000/v1/';
 
 const propTypes = {
     files: PropTypes.array.isRequired
@@ -16,25 +19,23 @@ const defaultProps = {
     headers: ['Submission Data Missing']
 };
 
-
 class DropZone extends React.Component {
 
     onDrop(files) {
-        const req = Request.post('/addData');
+        const req = Request.post(API_URL + 'submit_files/')
+                           .withCredentials()
+                           .send({ 'appropriations': files[0].name });
 
         this.setState({
             fileCount: files.length
         });
 
-        files.forEach((file) => {
-            req.attach('uploadFile', file);
-        });
 
-        req.end(function (err, res) {
+        req.end(function handleResponse(err, res) {
             if (err) {
-                console.log(err);
+                console.log(err + res);
             } else {
-                console.log('SUCCESS');
+                console.log(res.appropriations_url);
             }
         });
     }
