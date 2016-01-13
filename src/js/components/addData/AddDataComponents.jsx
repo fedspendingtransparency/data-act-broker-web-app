@@ -41,7 +41,7 @@ class DropZone extends React.Component {
 
     render() {
         return (
-            <Dropzone className="text-center" multiple="false" onDrop={this.onDrop.bind(this)}>
+                <Dropzone className="text-center" multiple={false} onDrop={this.onDrop.bind(this)}>
                 <div className="center-block usa-da-dropzone">Drop your file here, or click to select file to upload.</div>
             </Dropzone>
         );
