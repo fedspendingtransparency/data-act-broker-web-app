@@ -6,7 +6,6 @@
 import React, { PropTypes } from 'react';
 import Dropzone from 'react-dropzone';
 import Request from 'superagent';
-import $ from 'jquery';
 
 const API_URL = 'http://ec2-54-173-199-34.compute-1.amazonaws.com:5000/v1/';
 
@@ -21,23 +20,52 @@ const defaultProps = {
 
 class DropZone extends React.Component {
 
+    // Send file names to backend to get fileID and signed S3 URL for upload
     onDrop(files) {
+        const self = this;
         const req = Request.post(API_URL + 'submit_files/')
                            .withCredentials()
                            .send({ 'appropriations': files[0].name });
-
-        this.setState({
-            fileCount: files.length
-        });
-
 
         req.end(function handleResponse(err, res) {
             if (err) {
                 console.log(err + res);
             } else {
-                console.log(res.appropriations_url);
+                self.uploadFilesToURL(files, res.body.appropriations_url, res.body.appropriations_id);
             }
         });
+    }
+
+    // Put the files in S3 bucket at received, signed URL
+    uploadFilesToURL(files, url, fileID) {
+        const self = this;
+        const file = files[0];
+        const fileName = file.name;
+        const req = Request.put(url)
+                           .set('Content-Type', 'application/octet-stream')
+                           .send({ fileName: file });
+
+        req.end(function handleResponse(err, res) {
+            if (err) {
+                console.log(err + JSON.stringify(res.body));
+            } else {
+                self.finalizeUpload(fileID);
+            }
+        });
+    }
+
+    // Alert the server that the files are in S3 and ready for validations
+    finalizeUpload(fileID) {
+        Request.post(API_URL + 'finalize_job/')
+               .withCredentials()
+               .send({ 'upload_id': fileID })
+               .end(function handleResponse(err, res) {
+                   if (err) {
+                       console.log(err + JSON.stringify(res.body));
+                   } else {
+                       console.log(JSON.stringify(res.body));
+                   }
+               });
     }
 
     render() {
