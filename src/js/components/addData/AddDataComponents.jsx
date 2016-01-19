@@ -7,7 +7,7 @@ import React, { PropTypes } from 'react';
 import Dropzone from 'react-dropzone';
 import Request from 'superagent';
 
-const API_URL = 'http://ec2-54-173-199-34.compute-1.amazonaws.com:5000/v1/';
+const API_URL = 'http://ec2-54-173-199-34.compute-1.amazonaws.com:80/v1/';
 
 const propTypes = {
     files: PropTypes.array.isRequired

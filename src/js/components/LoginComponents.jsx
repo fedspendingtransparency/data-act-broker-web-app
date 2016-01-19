@@ -6,7 +6,7 @@
 import React from 'react';
 import Request from 'superagent';
 
-const API_URL = 'http://ec2-54-173-199-34.compute-1.amazonaws.com:5000/v1/';
+const API_URL = 'http://ec2-54-173-199-34.compute-1.amazonaws.com:80/v1/';
 
 class Username extends React.Component {
     render() {
