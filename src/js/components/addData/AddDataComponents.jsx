@@ -40,10 +40,9 @@ class DropZone extends React.Component {
     uploadFilesToURL(files, url, fileID) {
         const self = this;
         const file = files[0];
-        const fileName = file.name;
         const req = Request.put(url)
                            .set('Content-Type', 'application/octet-stream')
-                           .send({ fileName: file });
+                           .attach(file.name, file);
 
         req.end(function handleResponse(err, res) {
             if (err) {
