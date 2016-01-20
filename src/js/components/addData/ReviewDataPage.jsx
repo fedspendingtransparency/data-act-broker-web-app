@@ -187,7 +187,7 @@ export default class SubmissionPage extends React.Component {
     render() {
         return (
             <div>
-                <Navbar activeTab="addData"/>
+                <Navbar activeTab="reviewData"/>
                 <SubmissionPageHeader />
                 <GetErrors />
             </div>
