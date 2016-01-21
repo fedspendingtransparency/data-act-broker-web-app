@@ -6,6 +6,7 @@
 import React, { PropTypes } from 'react';
 import Dropzone from 'react-dropzone';
 import Request from 'superagent';
+import AWS from 'aws-sdk';
 
 const API_URL = 'http://ec2-54-173-199-34.compute-1.amazonaws.com:80/v1/';
 
@@ -31,25 +32,57 @@ class DropZone extends React.Component {
             if (err) {
                 console.log(err + res);
             } else {
-                self.uploadFilesToURL(files, res.body.appropriations_url, res.body.appropriations_id);
+                self.uploadFiles(files, res.body.appropriations_id);
             }
         });
     }
 
-    // Put the files in S3 bucket at received, signed URL
-    uploadFilesToURL(files, url, fileID) {
+    // Put the files in S3 bucket using STS for temporary credentials
+    uploadFiles(files, fileID) {
         const self = this;
         const file = files[0];
-        const req = Request.put(url)
-                           .set('Content-Type', 'application/octet-stream')
-                           .attach(file.name, file);
 
-        req.end(function handleResponse(err, res) {
-            if (err) {
-                console.log(err + JSON.stringify(res.body));
-            } else {
-                self.finalizeUpload(fileID);
-            }
+        // TODO: REMOVE!
+        //fileID = 'placeholder';
+
+        /* Data object should contain the following - for illustrative purposes only
+            var creds = data.Credentials;
+            var ak = creds.AccessKeyId;
+            var sk = creds.SecretAccessKey;
+            var token = creds.SessionToken;
+            var exp = creds.Expiration;
+            */
+
+        const s3 = new AWS.S3({
+            secretAccessKey: 'placeholder',
+            sessionToken: 'placeholder',
+            accessKeyId: 'placeholder'
+        });
+
+        //const s3params = {
+            //Bucket: 'dev-data-act-submission',
+            //Key: file.name, // TODO: Name to save file as in S3
+            //Body: file // TODO: This is your data
+        //};
+
+        const s3params = {
+            Bucket: 'dev-data-act-submission',
+            Key: 'placeholder', // TODO: Name to save file as in S3
+            Body: file // TODO: This is your data
+        };
+
+        /* This will allow you to upload chunks instead.
+            * Pass this as a second object in the upload function
+            * i.e. "upload(s3params, s3options, function(err, data){});"
+            var s3options = {
+            partSize: 10 * 1024 * 1024, // TODO: Configure what you think are appropriate chunks
+            queueSize: 1
+            };
+            */
+
+        s3.upload(s3params, function uploadComplete(error, response) {
+            console.log(error, response);
+            self.finalizeUpload(fileID);
         });
     }
 
@@ -135,7 +168,7 @@ export default class SubmissionContainer extends React.Component {
 
         for (let i = 0; i < this.props.files.length; i++) {
             const fileVars = this.props.files[i];
-            submissionItems.push(<FileContainer key={i} fileTitle={fileVars[0]} fileTemplateName={fileVars[1]} fileStatus={fileVars[2]} />);
+            submissionItems.push(<FileContainer key={i} fileTitle={fileVars[0]} fileTemplateName={fileVars[1]} />);
         }
 
         return (
