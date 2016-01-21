@@ -32,57 +32,36 @@ class DropZone extends React.Component {
             if (err) {
                 console.log(err + res);
             } else {
-                self.uploadFiles(files, res.body.appropriations_id);
+                self.uploadFiles(files, res.body.appropriations_id, res.body.credentials);
             }
         });
     }
 
     // Put the files in S3 bucket using STS for temporary credentials
-    uploadFiles(files, fileID) {
+    uploadFiles(files, fileID, credentials) {
         const self = this;
         const file = files[0];
 
-        // TODO: REMOVE!
-        //fileID = 'placeholder';
-
-        /* Data object should contain the following - for illustrative purposes only
-            var creds = data.Credentials;
-            var ak = creds.AccessKeyId;
-            var sk = creds.SecretAccessKey;
-            var token = creds.SessionToken;
-            var exp = creds.Expiration;
-            */
-
-        const s3 = new AWS.S3({
-            secretAccessKey: 'placeholder',
-            sessionToken: 'placeholder',
-            accessKeyId: 'placeholder'
+        AWS.config.update({
+            'accessKeyId': credentials['AccessKeyId'],
+            'secretAccessKey': credentials['SecretAccessKey'],
+            'sessionToken': credentials['SessionToken']
         });
 
-        //const s3params = {
-            //Bucket: 'dev-data-act-submission',
-            //Key: file.name, // TODO: Name to save file as in S3
-            //Body: file // TODO: This is your data
-        //};
+        const s3 = new AWS.S3();
 
         const s3params = {
             Bucket: 'dev-data-act-submission',
-            Key: 'placeholder', // TODO: Name to save file as in S3
-            Body: file // TODO: This is your data
+            Key: '2/brayTest.csv', // TODO: Name this appropriately
+            Body: file
         };
 
-        /* This will allow you to upload chunks instead.
-            * Pass this as a second object in the upload function
-            * i.e. "upload(s3params, s3options, function(err, data){});"
-            var s3options = {
-            partSize: 10 * 1024 * 1024, // TODO: Configure what you think are appropriate chunks
-            queueSize: 1
-            };
-            */
-
-        s3.upload(s3params, function uploadComplete(error, response) {
-            console.log(error, response);
-            self.finalizeUpload(fileID);
+        s3.upload(s3params, function (error, data) {
+            if (error == null) {
+                self.finalizeUpload(fileID);
+            } else {
+                console.log(error);
+            }
         });
     }
 
