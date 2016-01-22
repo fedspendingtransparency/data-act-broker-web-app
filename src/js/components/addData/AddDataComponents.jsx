@@ -25,7 +25,8 @@ class FileContainer extends React.Component {
         super(props);
 
         this.state = {
-            progress: 0
+            progress: 0,
+            submissionID: 0
         };
     }
 
@@ -50,6 +51,11 @@ class FileContainer extends React.Component {
         const self = this;
         const file = files[0];
         const credentials = params.credentials;
+
+        // TODO: Remove this when this is eventually tied to user accounts
+        this.setState({
+            submissionID: params.submission_id
+        });
 
         // TODO: Handle the rest of the files
         const appropriationsKey = params.appropriations_key;
@@ -104,6 +110,12 @@ class FileContainer extends React.Component {
             icon = <DropZone startUpload={this.startUpload.bind(this)}/>;
         }
 
+        // TODO: Remove this when this is eventually tied to user accounts
+        let subID = null;
+        if (this.state.submissionID !== 0) {
+            subID = 'Submission ID: ' + this.state.submissionID;
+        }
+
         return (
             <div className="col-md-3 text-center usa-da-submission-item">
                 <h4>{this.props.fileTitle}</h4>
@@ -112,6 +124,9 @@ class FileContainer extends React.Component {
                 <div className="center-block">
                     {icon}
                 </div>
+                <h3>
+                    {subID}
+                </h3>
             </div>
         );
     }
