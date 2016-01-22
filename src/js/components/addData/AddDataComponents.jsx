@@ -19,10 +19,18 @@ const defaultProps = {
     headers: ['Submission Data Missing']
 };
 
-class DropZone extends React.Component {
+class FileContainer extends React.Component {
 
-    // Send file names to backend to get fileID and signed S3 URL for upload
-    onDrop(files) {
+    constructor(props) {
+        super(props);
+
+        this.state = {
+            progress: 0
+        };
+    }
+
+    // Send file names to backend to get fileID and S3 credentials
+    startUpload(files) {
         const self = this;
         const req = Request.post(API_URL + 'submit_files/')
                            .withCredentials()
@@ -42,6 +50,7 @@ class DropZone extends React.Component {
         const self = this;
         const file = files[0];
         const credentials = params.credentials;
+
         // TODO: Handle the rest of the files
         const appropriationsKey = params.appropriations_key;
 
@@ -58,13 +67,19 @@ class DropZone extends React.Component {
             Body: file
         };
 
-        s3.upload(s3params, function handleResponse(error) {
-            if (error) {
-                console.log(error);
-            } else {
-                self.finalizeUpload(fileID);
-            }
-        });
+        s3.upload(s3params)
+          .on('httpUploadProgress', function trackProgress(evt) {
+              self.setState({
+                  progress: evt.loaded / evt.total * 100
+              });
+          })
+          .send(function handleResponse(error) {
+              if (error) {
+                  console.log(error);
+              } else {
+                  self.finalizeUpload(fileID);
+              }
+          });
     }
 
     // Alert the server that the files are in S3 and ready for validations
@@ -79,6 +94,33 @@ class DropZone extends React.Component {
                        console.log(JSON.stringify(res.body));
                    }
                });
+    }
+
+    render() {
+        let icon;
+        if (this.state.progress > 0) {
+            icon = <FileProgress fileStatus={this.state.progress} />;
+        } else {
+            icon = <DropZone startUpload={this.startUpload.bind(this)}/>;
+        }
+
+        return (
+            <div className="col-md-3 text-center usa-da-submission-item">
+                <h4>{this.props.fileTitle}</h4>
+                <img src="/graphics/file_icon.png"/>
+                <p>{this.props.fileTemplateName}</p>
+                <div className="center-block">
+                    {icon}
+                </div>
+            </div>
+        );
+    }
+}
+
+class DropZone extends React.Component {
+
+    onDrop(files) {
+        this.props.startUpload(files);
     }
 
     render() {
@@ -105,39 +147,6 @@ class FileProgress extends React.Component {
                 <div>
                     <span>{this.props.fileStatus}%</span>
                 </div>
-            </div>
-        );
-    }
-}
-
-class FileContainer extends React.Component {
-
-    constructor(props) {
-        super(props);
-
-        this.state = {
-            fileCount: 0
-        };
-    }
-
-    render() {
-        let icon;
-        if (this.props.fileStatus > 0) {
-            icon = <FileProgress fileStatus={this.props.fileStatus} />;
-        } else {
-            icon = <DropZone />;
-        }
-
-        return (
-            <div className="col-md-3 text-center usa-da-submission-item">
-                <h4>{this.props.fileTitle}</h4>
-                <img src="/graphics/file_icon.png"/>
-                <p>{this.props.fileTemplateName}</p>
-                <div className="center-block">
-                    {icon}
-                </div>
-
-                {this.state.fileCount > 0 ? <h3>Uploading {this.state.fileCount} files...</h3> : null}
             </div>
         );
     }
