@@ -32,35 +32,37 @@ class DropZone extends React.Component {
             if (err) {
                 console.log(err + res);
             } else {
-                self.uploadFiles(files, res.body.appropriations_id, res.body.credentials);
+                self.uploadFiles(files, res.body.appropriations_id, res.body);
             }
         });
     }
 
     // Put the files in S3 bucket using STS for temporary credentials
-    uploadFiles(files, fileID, credentials) {
+    uploadFiles(files, fileID, params) {
         const self = this;
         const file = files[0];
+        const credentials = params.credentials;
+        // TODO: Handle the rest of the files
+        const appropriationsKey = params.appropriations_key;
 
         AWS.config.update({
-            'accessKeyId': credentials['AccessKeyId'],
-            'secretAccessKey': credentials['SecretAccessKey'],
-            'sessionToken': credentials['SessionToken']
+            'accessKeyId': credentials.AccessKeyId,
+            'secretAccessKey': credentials.SecretAccessKey,
+            'sessionToken': credentials.SessionToken
         });
 
         const s3 = new AWS.S3();
-
         const s3params = {
             Bucket: 'dev-data-act-submission',
-            Key: '2/brayTest.csv', // TODO: Name this appropriately
+            Key: appropriationsKey,
             Body: file
         };
 
-        s3.upload(s3params, function (error, data) {
-            if (error == null) {
-                self.finalizeUpload(fileID);
-            } else {
+        s3.upload(s3params, function handleResponse(error) {
+            if (error) {
                 console.log(error);
+            } else {
+                self.finalizeUpload(fileID);
             }
         });
     }
