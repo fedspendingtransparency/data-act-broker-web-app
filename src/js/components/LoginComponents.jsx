@@ -4,6 +4,9 @@
 **/
 
 import React from 'react';
+import Request from 'superagent';
+
+const API_URL = 'http://ec2-54-173-199-34.compute-1.amazonaws.com:80/v1/';
 
 class Username extends React.Component {
     render() {
@@ -42,11 +45,25 @@ class LoginLinks extends React.Component {
 }
 
 class SignInButton extends React.Component {
+
+    loginClicked() {
+        Request.post(API_URL + 'login/')
+               .withCredentials()
+               .send({ 'username': 'user3', 'password': '123abc' })
+               .end(function handleResponse(err, res) {
+                   if (err) {
+                       console.log(err);
+                   } else {
+                       console.log(res);
+                   }
+               });
+    }
+
     render() {
         return (
             <div className="col-md-6 usa-da-login-button-holder">
                 <div className="align-right">
-                    <a href="/#/landing"><button className="usa-button-big" type="button">Sign in</button></a>
+                    <a href="/#/landing"><button className="usa-button-big" type="button" onClick={this.loginClicked.bind(this)}>Sign in</button></a>
                 </div>
             </div>
         );

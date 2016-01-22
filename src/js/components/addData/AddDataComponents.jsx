@@ -6,6 +6,9 @@
 import React, { PropTypes } from 'react';
 import Dropzone from 'react-dropzone';
 import Request from 'superagent';
+import AWS from 'aws-sdk';
+
+const API_URL = 'http://ec2-54-173-199-34.compute-1.amazonaws.com:80/v1/';
 
 const propTypes = {
     files: PropTypes.array.isRequired
@@ -16,32 +19,113 @@ const defaultProps = {
     headers: ['Submission Data Missing']
 };
 
+class FileContainer extends React.Component {
 
-class DropZone extends React.Component {
+    constructor(props) {
+        super(props);
 
-    onDrop(files) {
-        const req = Request.post('/addData');
+        this.state = {
+            progress: 0
+        };
+    }
 
-        this.setState({
-            fileCount: files.length
-        });
+    // Send file names to backend to get fileID and S3 credentials
+    startUpload(files) {
+        const self = this;
+        const req = Request.post(API_URL + 'submit_files/')
+                           .withCredentials()
+                           .send({ 'appropriations': files[0].name });
 
-        files.forEach((file) => {
-            req.attach('uploadFile', file);
-        });
-
-        req.end(function (err, res) {
+        req.end(function handleResponse(err, res) {
             if (err) {
-                console.log(err);
+                console.log(err + res);
             } else {
-                console.log('SUCCESS');
+                self.uploadFiles(files, res.body.appropriations_id, res.body);
             }
         });
     }
 
+    // Put the files in S3 bucket using STS for temporary credentials
+    uploadFiles(files, fileID, params) {
+        const self = this;
+        const file = files[0];
+        const credentials = params.credentials;
+
+        // TODO: Handle the rest of the files
+        const appropriationsKey = params.appropriations_key;
+
+        AWS.config.update({
+            'accessKeyId': credentials.AccessKeyId,
+            'secretAccessKey': credentials.SecretAccessKey,
+            'sessionToken': credentials.SessionToken
+        });
+
+        const s3 = new AWS.S3();
+        const s3params = {
+            Bucket: 'dev-data-act-submission',
+            Key: appropriationsKey,
+            Body: file
+        };
+
+        s3.upload(s3params)
+          .on('httpUploadProgress', function trackProgress(evt) {
+              self.setState({
+                  progress: evt.loaded / evt.total * 100
+              });
+          })
+          .send(function handleResponse(error) {
+              if (error) {
+                  console.log(error);
+              } else {
+                  self.finalizeUpload(fileID);
+              }
+          });
+    }
+
+    // Alert the server that the files are in S3 and ready for validations
+    finalizeUpload(fileID) {
+        Request.post(API_URL + 'finalize_job/')
+               .withCredentials()
+               .send({ 'upload_id': fileID })
+               .end(function handleResponse(err, res) {
+                   if (err) {
+                       console.log(err + JSON.stringify(res.body));
+                   } else {
+                       console.log(JSON.stringify(res.body));
+                   }
+               });
+    }
+
+    render() {
+        let icon;
+        if (this.state.progress > 0) {
+            icon = <FileProgress fileStatus={this.state.progress} />;
+        } else {
+            icon = <DropZone startUpload={this.startUpload.bind(this)}/>;
+        }
+
+        return (
+            <div className="col-md-3 text-center usa-da-submission-item">
+                <h4>{this.props.fileTitle}</h4>
+                <img src="/graphics/file_icon.png"/>
+                <p>{this.props.fileTemplateName}</p>
+                <div className="center-block">
+                    {icon}
+                </div>
+            </div>
+        );
+    }
+}
+
+class DropZone extends React.Component {
+
+    onDrop(files) {
+        this.props.startUpload(files);
+    }
+
     render() {
         return (
-                <Dropzone className="text-center" multiple={false} onDrop={this.onDrop.bind(this)}>
+            <Dropzone className="text-center" multiple={false} onDrop={this.onDrop.bind(this)}>
                 <div className="center-block usa-da-dropzone">Drop your file here, or click to select file to upload.</div>
             </Dropzone>
         );
@@ -68,46 +152,13 @@ class FileProgress extends React.Component {
     }
 }
 
-class FileContainer extends React.Component {
-
-    constructor(props) {
-        super(props);
-
-        this.state = {
-            fileCount: 0
-        };
-    }
-
-    render() {
-        let icon;
-        if (this.props.fileStatus > 0) {
-            icon = <FileProgress fileStatus={this.props.fileStatus} />;
-        } else {
-            icon = <DropZone />;
-        }
-
-        return (
-            <div className="col-md-3 text-center usa-da-submission-item">
-                <h4>{this.props.fileTitle}</h4>
-                <img src="/graphics/file_icon.png"/>
-                <p>{this.props.fileTemplateName}</p>
-                <div className="center-block">
-                    {icon}
-                </div>
-
-                {this.state.fileCount > 0 ? <h3>Uploading {this.state.fileCount} files...</h3> : null}
-            </div>
-        );
-    }
-}
-
 export default class SubmissionContainer extends React.Component {
     render() {
         const submissionItems = [];
 
         for (let i = 0; i < this.props.files.length; i++) {
             const fileVars = this.props.files[i];
-            submissionItems.push(<FileContainer key={i} fileTitle={fileVars[0]} fileTemplateName={fileVars[1]} fileStatus={fileVars[2]} />);
+            submissionItems.push(<FileContainer key={i} fileTitle={fileVars[0]} fileTemplateName={fileVars[1]} />);
         }
 
         return (

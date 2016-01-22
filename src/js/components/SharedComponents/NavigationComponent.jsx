@@ -38,6 +38,7 @@ export default class Navbar extends React.Component {
         const tabNames = {
             'Home': 'landing',
             'Add New Data': 'addData',
+            'Review Data': 'reviewData',
             'Performance Dashboard': 'dashboard',
             'Documentation': 'documentation'
         };
