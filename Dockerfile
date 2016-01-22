@@ -11,6 +11,6 @@ RUN npm install
 
 COPY . /node-workspace
 
-volume /node-workspace
+VOLUME /node-workspace
 
 CMD gulp
