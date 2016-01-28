@@ -119,6 +119,7 @@ class FileContainer extends React.Component {
                 <h4>{this.props.fileTitle}</h4>
                 <img src="/graphics/file_icon.png"/>
                 <p>{this.props.fileTemplateName}</p>
+                <a href="https://github.com/fedspendingtransparency/data-act-validator/blob/development/tests/appropriationsFields.csv">Click here to see the required fields</a>
                 <div className="center-block">
                     {icon}
                 </div>
