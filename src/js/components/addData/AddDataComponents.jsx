@@ -32,23 +32,21 @@ class FileContainer extends React.Component {
 
     // Send file names to backend to get fileID and S3 credentials
     startUpload(files) {
-        const self = this;
         const req = Request.post(API_URL + 'submit_files/')
                            .withCredentials()
                            .send({ 'appropriations': files[0].name });
 
-        req.end(function handleResponse(err, res) {
+        req.end((err, res) => {
             if (err) {
                 console.log(err + res);
             } else {
-                self.uploadFiles(files, res.body.appropriations_id, res.body);
+                this.uploadFiles(files, res.body.appropriations_id, res.body);
             }
         });
     }
 
     // Put the files in S3 bucket using STS for temporary credentials
     uploadFiles(files, fileID, params) {
-        const self = this;
         const file = files[0];
         const credentials = params.credentials;
 
@@ -74,16 +72,16 @@ class FileContainer extends React.Component {
         };
 
         s3.upload(s3params)
-          .on('httpUploadProgress', function trackProgress(evt) {
-              self.setState({
+          .on('httpUploadProgress', evt => {
+              this.setState({
                   progress: evt.loaded / evt.total * 100
               });
           })
-          .send(function handleResponse(error) {
+          .send(error => {
               if (error) {
                   console.log(error);
               } else {
-                  self.finalizeUpload(fileID);
+                  this.finalizeUpload(fileID);
               }
           });
     }
