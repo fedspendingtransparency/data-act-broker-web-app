@@ -88,7 +88,7 @@ class GetErrors extends React.Component {
     }
 
     // onClick function for submit button
-    onClick(element, submissionId) {
+    onClick() {
         this.sendRequest(this.state.submissionId);
     }
 
