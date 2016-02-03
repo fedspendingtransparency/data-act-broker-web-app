@@ -1,27 +1,27 @@
-var gulp        = require('gulp');
-var browserSync = require('browser-sync').create();
-var sass        = require('gulp-sass');
-var browserify  = require('browserify');
-var watchify    = require('watchify');
-var babelify    = require('babelify');
-var uglify      = require('gulp-uglify');
-var buffer      = require('vinyl-buffer');
-var source      = require('vinyl-source-stream');
-var sourcemaps  = require('gulp-sourcemaps');
-var gutil       = require('gulp-util');
-var rename      = require('gulp-rename');
-var replace     = require('gulp-replace');
-var nodemon     = require('gulp-nodemon');
+import gulp from 'gulp';
+import browserSync from 'browser-sync';
+import sass from 'gulp-sass';
+import browserify from 'browserify';
+import watchify from 'watchify';
+import babelify from 'babelify';
+import uglify from 'gulp-uglify';
+import buffer from 'vinyl-buffer';
+import source from 'vinyl-source-stream';
+import sourcemaps from 'gulp-sourcemaps';
+import gutil from 'gulp-util';
+import rename from 'gulp-rename';
+import replace from 'gulp-replace';
+import nodemon from 'gulp-nodemon';
 
 // Base Directories
-var dir = {
+const dir = {
     BASE: './',
     BUILD: './build',
     SRC: './src'
 };
 
 // Path constants
-var path = {
+const path = {
     MINIFIED_OUT: 'app.min.js',
     OUT: 'app.js',
     ENTRY_POINT: dir.SRC + '/js/app.jsx',
@@ -39,62 +39,62 @@ var path = {
 
 // TODO: Refactor these 3 tasks to avoid code reuse
 // Copy Fonts to build
-gulp.task('fonts', function() {
+gulp.task('fonts', () => {
     return gulp.src([path.FONTS_SRC])
         .pipe(gulp.dest(path.FONTS_BUILD));
 });
 
 // Copy Images to build
-gulp.task('images', function() {
+gulp.task('images', () => {
     return gulp.src([path.IMAGES_SRC])
         .pipe(gulp.dest(path.IMAGES_BUILD));
 });
 
 // Copy Graphics to build
-gulp.task('graphics', function() {
+gulp.task('graphics', () => {
     return gulp.src([path.GRAPHICS_SRC])
         .pipe(gulp.dest(path.GRAPHICS_BUILD));
 });
 
 // Compile react files with Browserify and watch
 // for changes with Watchify
-gulp.task('watch', ['fonts', 'images', 'graphics'], function() {
-    var watcher  = watchify(browserify({
+gulp.task('watch', ['fonts', 'images', 'graphics'], () => {
+    const watcher = watchify(browserify({
         entries: [path.ENTRY_POINT],
-        transform: [[babelify, {presets: ['es2015', 'react']}]],
+        transform: [[babelify, { presets: ['es2015', 'react'] }]],
         debug: true,
         cache: {}, packageCache: {}, fullPaths: true
     }));
 
-    return watcher.on('update', function () {
+    return watcher.on('update', () => {
         watcher.bundle()
             .pipe(source(path.OUT))
             .pipe(buffer())
-            .pipe(sourcemaps.init({loadMaps: true}))
+            .pipe(sourcemaps.init({ loadMaps: true }))
             .pipe(sourcemaps.write('.'))
             .pipe(gulp.dest(dir.BUILD))
-            .pipe(browserSync.reload({stream:true}));
+            .pipe(browserSync.reload({ stream: true }));
         console.log('Updated');
     })
         .bundle().on('error', gutil.log)
         .pipe(source(path.OUT))
         .pipe(buffer())
-        .pipe(sourcemaps.init({loadMaps: true}))
+        .pipe(sourcemaps.init({ loadMaps: true }))
         .pipe(sourcemaps.write('.'))
         .pipe(gulp.dest(dir.BUILD));
 });
 
 // Compile sass into CSS & auto-inject into browsers
-gulp.task('sass', function() {
+gulp.task('sass', () => {
     return gulp.src(path.CSS_SRC)
         .pipe(sass())
         .pipe(gulp.dest(path.CSS_BUILD))
-        .pipe(browserSync.reload({stream:true}));
+        .pipe(browserSync.reload({ stream: true }));
 });
 
 // HTML replace scripts with minified version for production
 // Move index.html to build folder for deployment
-gulp.task('html-replace', function() {
+gulp.task('html-replace', () => {
     return gulp.src([path.INDEX_SRC])
         .pipe(replace('build/', ''))
         .pipe(replace(path.OUT, path.MINIFIED_OUT))
@@ -102,16 +102,16 @@ gulp.task('html-replace', function() {
 });
 
 // Minifying
-gulp.task('minify', ['sass', 'watch', 'html-replace'], function() {
+gulp.task('minify', ['sass', 'watch', 'html-replace'], () => {
     return gulp.src([dir.BUILD + '/' + path.OUT])
         .pipe(rename(path.MINIFIED_OUT))
         .pipe(uglify())
         .pipe(gulp.dest(dir.BUILD));
 });
 
-gulp.task('serve', ['sass', 'watch'], function (cb) {
-    var started = false;
-    var BROWSER_SYNC_RELOAD_DELAY = 500;
+gulp.task('serve', ['sass', 'watch'], (cb) => {
+    const BROWSER_SYNC_RELOAD_DELAY = 500;
+    let started = false;
 
     gulp.watch([path.SASS_SRC, path.CSS_SRC], ['sass']);
 
@@ -124,7 +124,7 @@ gulp.task('serve', ['sass', 'watch'], function (cb) {
             './node_modules/**',
             './build/**'
         ]
-    }).on('start', function () {
+    }).on('start', () => {
         if (!started) {
             cb();
 
@@ -136,9 +136,9 @@ gulp.task('serve', ['sass', 'watch'], function (cb) {
 
             started = true;
         }
-    }).on('restart', function onRestart() {
+    }).on('restart', () => {
         // Reload connected browsers after a slight delay
-        setTimeout(function reload() {
+        setTimeout(() => {
             browserSync.reload({
                 stream: false
             });
