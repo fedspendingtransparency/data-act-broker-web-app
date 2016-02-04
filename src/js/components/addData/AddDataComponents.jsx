@@ -91,7 +91,7 @@ class FileContainer extends React.Component {
         Request.post(API_URL + 'finalize_job/')
                .withCredentials()
                .send({ 'upload_id': fileID })
-               .end(function handleResponse(err, res) {
+               .end((err, res) => {
                    if (err) {
                        console.log(err + JSON.stringify(res.body));
                    } else {

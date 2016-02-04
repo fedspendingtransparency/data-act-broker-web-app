@@ -50,7 +50,7 @@ class SignInButton extends React.Component {
         Request.post(API_URL + 'login/')
                .withCredentials()
                .send({ 'username': 'user3', 'password': '123abc' })
-               .end(function handleResponse(err, res) {
+               .end((err, res) => {
                    if (err) {
                        console.log(err);
                    } else {
