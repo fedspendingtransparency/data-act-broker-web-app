@@ -104,7 +104,7 @@ gulp.task('sass', () => {
 });
 
 // HTML replace scripts with minified version for production
-// Move index.html to build folder for deployment
+// Move index.html to public folder for deployment
 gulp.task('html-replace', () => {
     return gulp.src([path.INDEX_SRC])
         .pipe(replace(path.OUT, path.MINIFIED_OUT))
