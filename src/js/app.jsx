@@ -55,5 +55,4 @@ const routes = {
 };
 
 // Start the routes
-const router = Router(routes);
-router.init('/');
+Router(routes).init('/');

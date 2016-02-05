@@ -62,7 +62,7 @@ class SignInButton extends React.Component {
         return (
             <div className="col-md-6 usa-da-login-button-holder">
                 <div className="align-right">
-                    <a href="/#/landing"><button className="usa-button-big" type="button" onClick={this.loginClicked.bind(this)}>Sign in</button></a>
+                    <a href="#/landing"><button className="usa-button-big" type="button" onClick={this.loginClicked.bind(this)}>Sign in</button></a>
                 </div>
             </div>
         );

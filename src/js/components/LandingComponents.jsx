@@ -28,7 +28,7 @@ class LandingContent extends React.Component {
                     <div className="container">
                         <div className="row usa-da-button-landing-holder">
                             <div className="col-md-6">
-                                <a className="usa-da-button-landing" href="/#/addData">Add & Validate New Data</a>
+                                <a className="usa-da-button-landing" href="#/addData">Add & Validate New Data</a>
                             </div>
                             <div className="col-md-6">
                                 <a className="usa-da-button-landing" href="#">Performance Dashboard</a>

@@ -11,7 +11,6 @@ import sourcemaps from 'gulp-sourcemaps';
 import gutil from 'gulp-util';
 import rename from 'gulp-rename';
 import replace from 'gulp-replace';
-import nodemon from 'gulp-nodemon';
 
 // Base Directories
 const dir = {
@@ -107,52 +106,27 @@ gulp.task('sass', () => {
 // Move index.html to public folder for deployment
 gulp.task('html-replace', () => {
     return gulp.src([path.INDEX_SRC])
+        .pipe(replace('build/', ''))
         .pipe(replace(path.OUT, path.MINIFIED_OUT))
         .pipe(gulp.dest(dir.PUBLIC));
 });
 
 // Minifying
 gulp.task('minify', ['sass', 'watch', 'html-replace'], () => {
-    return gulp.src([dir.BUILD + '/' + path.OUT])
+    return gulp.src([dir.PUBLIC + '/' + path.OUT])
         .pipe(rename(path.MINIFIED_OUT))
         .pipe(uglify())
         .pipe(gulp.dest(dir.PUBLIC));
 });
 
-gulp.task('serve', ['sass', 'watch'], (cb) => {
-    const BROWSER_SYNC_RELOAD_DELAY = 500;
-    let started = false;
-
+gulp.task('serve', ['sass', 'watch'], () => {
     gulp.watch([path.SASS_SRC, path.CSS_SRC], ['sass']);
-
     gulp.watch('*.html').on('change', browserSync.reload);
 
-    return nodemon({
-        script: 'server.js',
-        ignore: [
-            './bower_components/**',
-            './node_modules/**',
-            './build/**'
-        ]
-    }).on('start', () => {
-        if (!started) {
-            cb();
-
-            // Static Server from BrowserSync
-            browserSync.init({
-                // Tells BrowserSync on where the express app is running
-                proxy: 'http://localhost:5001'
-            });
-
-            started = true;
+    return browserSync.init({
+        server: {
+            baseDir: dir.BASE
         }
-    }).on('restart', () => {
-        // Reload connected browsers after a slight delay
-        setTimeout(() => {
-            browserSync.reload({
-                stream: false
-            });
-        }, BROWSER_SYNC_RELOAD_DELAY);
     });
 });
 
