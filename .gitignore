@@ -28,4 +28,5 @@ node_modules
 
 # Ignore compiled files
 build
+public
 .tern-port
