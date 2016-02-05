@@ -4,11 +4,10 @@
 **/
 
 import React, { PropTypes } from 'react';
+import { kGlobalConstants } from '../../GlobalConstants.js';
 import Dropzone from 'react-dropzone';
 import Request from 'superagent';
 import AWS from 'aws-sdk';
-
-const API_URL = 'http://ec2-54-173-199-34.compute-1.amazonaws.com:80/v1/';
 
 const propTypes = {
     files: PropTypes.array.isRequired
@@ -32,7 +31,7 @@ class FileContainer extends React.Component {
 
     // Send file names to backend to get fileID and S3 credentials
     startUpload(files) {
-        const req = Request.post(API_URL + 'submit_files/')
+        const req = Request.post(kGlobalConstants.API + 'submit_files/')
                            .withCredentials()
                            .send({ 'appropriations': files[0].name });
 
@@ -88,7 +87,7 @@ class FileContainer extends React.Component {
 
     // Alert the server that the files are in S3 and ready for validations
     finalizeUpload(fileID) {
-        Request.post(API_URL + 'finalize_job/')
+        Request.post(kGlobalConstants.API + 'finalize_job/')
                .withCredentials()
                .send({ 'upload_id': fileID })
                .end((err, res) => {

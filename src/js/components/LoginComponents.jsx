@@ -4,9 +4,8 @@
 **/
 
 import React from 'react';
+import { kGlobalConstants } from '../GlobalConstants.js';
 import Request from 'superagent';
-
-const API_URL = 'http://ec2-54-173-199-34.compute-1.amazonaws.com:80/v1/';
 
 class Username extends React.Component {
     render() {
@@ -47,7 +46,7 @@ class LoginLinks extends React.Component {
 class SignInButton extends React.Component {
 
     loginClicked() {
-        Request.post(API_URL + 'login/')
+        Request.post(kGlobalConstants.API + 'login/')
                .withCredentials()
                .send({ 'username': 'user3', 'password': '123abc' })
                .end((err, res) => {
