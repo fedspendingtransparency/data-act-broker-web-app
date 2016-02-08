@@ -14,6 +14,7 @@ import replace from 'gulp-replace';
 import gulpif from 'gulp-if';
 import del from 'del';
 import vinylPaths from 'vinyl-paths';
+import cssNano from 'gulp-cssnano';
 
 // Base Directories
 const dir = {
@@ -101,6 +102,7 @@ gulp.task('watch', ['fonts', 'images', 'graphics'], () => {
 gulp.task('sass', () => {
     return gulp.src(path.CSS_SRC)
         .pipe(sass())
+        .pipe(gulpif(production, cssNano()))
         .pipe(gulp.dest((!production) ? path.CSS_BUILD : path.CSS_PUBLIC))
         .pipe(browserSync.reload({ stream: true }));
 });
@@ -134,19 +136,14 @@ gulp.task('serve', ['sass', 'watch'], () => {
     });
 });
 
-// Set the NODE_ENV variable for conditional code in front end.
-gulp.task('set-prod-node-env', () => {
+// Set production variable for conditional build tasks
+gulp.task('set-production', () => {
     production = true;
-    process.env.NODE_ENV = 'production';
-
-    return process.env.NODE_ENV;
 });
 
 // Production task
-// TODO:
-// * Remove pre-minified files and sourcemaps
 // * Minify CSS
-gulp.task('production', ['set-prod-node-env', 'minify']);
+gulp.task('production', ['set-production', 'minify']);
 
 // Default task for development
 gulp.task('default', ['serve']);
