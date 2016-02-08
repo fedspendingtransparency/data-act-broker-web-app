@@ -11,6 +11,7 @@ import sourcemaps from 'gulp-sourcemaps';
 import gutil from 'gulp-util';
 import rename from 'gulp-rename';
 import replace from 'gulp-replace';
+import gulpif from 'gulp-if';
 import del from 'del';
 import vinylPaths from 'vinyl-paths';
 
@@ -92,7 +93,7 @@ gulp.task('watch', ['fonts', 'images', 'graphics'], () => {
         .pipe(source(path.OUT))
         .pipe(buffer())
         .pipe(sourcemaps.init({ loadMaps: !production }))
-        .pipe(sourcemaps.write('.'))
+        .pipe(gulpif(!production, sourcemaps.write('.')))
         .pipe(gulp.dest((!production) ? dir.BUILD : dir.PUBLIC));
 });
 
