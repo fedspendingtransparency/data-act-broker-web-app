@@ -11,6 +11,8 @@ import sourcemaps from 'gulp-sourcemaps';
 import gutil from 'gulp-util';
 import rename from 'gulp-rename';
 import replace from 'gulp-replace';
+import del from 'del';
+import vinylPaths from 'vinyl-paths';
 
 // Base Directories
 const dir = {
@@ -114,6 +116,7 @@ gulp.task('html-replace', () => {
 // Minifying
 gulp.task('minify', ['sass', 'watch', 'html-replace'], () => {
     return gulp.src([dir.PUBLIC + '/' + path.OUT])
+        .pipe(vinylPaths(del))
         .pipe(rename(path.MINIFIED_OUT))
         .pipe(uglify())
         .pipe(gulp.dest(dir.PUBLIC));
