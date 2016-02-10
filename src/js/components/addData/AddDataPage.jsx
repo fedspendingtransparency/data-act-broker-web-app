@@ -130,7 +130,7 @@ class SubmissionContent extends React.Component {
 
     render() {
         const files = [
-            { fileTitle: 'Appropriation', fileTemplateName: 'appropriation.csv', requestName: 'appropriation', step: '0' },
+            { fileTitle: 'Appropriation', fileTemplateName: 'appropriation.csv', requestName: 'appropriations', step: '0' },
             { fileTitle: 'Award', fileTemplateName: 'award.csv', requestName: 'award', step: '0' },
             { fileTitle: 'Award Financial', fileTemplateName: 'award_financial.csv', requestName: 'award_financial', step: '0' },
             { fileTitle: 'Procurement', fileTemplateName: 'procurement.csv', requestName: 'procurement', step: '0' },
