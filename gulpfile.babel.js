@@ -78,7 +78,6 @@ gulp.task('graphics', () => {
 
 // Use the proper constants file and move to src
 gulp.task('copyConstants', () => {
-    console.log('ProductionConst = ' + prodConstants);
     return gulp.src((prodConstants) ? path.PROD_CONSTANTS : path.DEV_CONSTANTS)
         .pipe(rename(path.CONSTANTS_DESTNAME))
         .pipe(gulp.dest(path.CONSTANTS_DEST));
