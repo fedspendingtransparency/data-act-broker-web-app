@@ -171,7 +171,6 @@ export default class SubmissionPage extends React.Component {
                 <Navbar activeTab="addData"/>
                 <SubmissionPageHeader />
                 <SubmissionContent />
-
             </div>
         );
     }

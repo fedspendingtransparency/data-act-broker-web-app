@@ -19,7 +19,7 @@ import cssNano from 'gulp-cssnano';
 // Base Directories
 const dir = {
     BASE: './',
-    BUILD: './build',
+    DEV: './dev',
     PUBLIC: './public',
     SRC: './src'
 };
@@ -32,86 +32,100 @@ const path = {
     INDEX_SRC: 'index.html',
     SASS_SRC: dir.SRC + '/_scss/**',
 
+    PROD_CONSTANTS: 'GlobalConstants_prod.js',
+    DEV_CONSTANTS: 'GlobalConstants_dev.js',
+    CONSTANTS_DESTNAME: 'GlobalConstants.js',
+    CONSTANTS_DEST: dir.SRC + '/js/',
+
     CSS_SRC: dir.SRC + '/css/**',
-    CSS_BUILD: dir.BUILD + '/css',
+    CSS_DEV: dir.DEV + '/css',
     CSS_PUBLIC: dir.PUBLIC + '/css',
 
     FONTS_SRC: dir.SRC + '/fonts/**',
-    FONTS_BUILD: dir.BUILD + '/fonts',
+    FONTS_DEV: dir.DEV + '/fonts',
     FONTS_PUBLIC: dir.PUBLIC + '/fonts',
 
     IMAGES_SRC: dir.SRC + '/images/**',
-    IMAGES_BUILD: dir.BUILD + '/images',
+    IMAGES_DEV: dir.DEV + '/images',
     IMAGES_PUBLIC: dir.PUBLIC + '/images',
 
     GRAPHICS_SRC: dir.SRC + '/graphics/**',
-    GRAPHICS_BUILD: dir.BUILD + '/graphics',
+    GRAPHICS_DEV: dir.DEV + '/graphics',
     GRAPHICS_PUBLIC: dir.PUBLIC + '/graphics'
 };
 
-let production = false;
+let build = false;
+let prodConstants = false;
 
 // TODO: Refactor these 3 tasks to avoid code reuse
-// Copy Fonts to build
+// Copy Fonts to relevant path
 gulp.task('fonts', () => {
     return gulp.src([path.FONTS_SRC])
-        .pipe(gulp.dest((!production) ? path.FONTS_BUILD : path.FONTS_PUBLIC));
+        .pipe(gulp.dest((!build) ? path.FONTS_DEV : path.FONTS_PUBLIC));
 });
 
-// Copy Images to build
+// Copy Images to relevant path
 gulp.task('images', () => {
     return gulp.src([path.IMAGES_SRC])
-        .pipe(gulp.dest((!production) ? path.IMAGES_BUILD : path.IMAGES_PUBLIC));
+        .pipe(gulp.dest((!build) ? path.IMAGES_DEV : path.IMAGES_PUBLIC));
 });
 
 // Copy Graphics to build
 gulp.task('graphics', () => {
     return gulp.src([path.GRAPHICS_SRC])
-        .pipe(gulp.dest((!production) ? path.GRAPHICS_BUILD : path.GRAPHICS_PUBLIC));
+        .pipe(gulp.dest((!build) ? path.GRAPHICS_DEV : path.GRAPHICS_PUBLIC));
+});
+
+// Use the proper constants file and move to src
+gulp.task('copyConstants', () => {
+    console.log('ProductionConst = ' + prodConstants);
+    return gulp.src((prodConstants) ? path.PROD_CONSTANTS : path.DEV_CONSTANTS)
+        .pipe(rename(path.CONSTANTS_DESTNAME))
+        .pipe(gulp.dest(path.CONSTANTS_DEST));
 });
 
 // Compile react files with Browserify and watch
 // for changes with Watchify
-gulp.task('watch', ['fonts', 'images', 'graphics'], () => {
+gulp.task('watch', ['fonts', 'images', 'graphics', 'copyConstants'], () => {
     const props = {
         entries: [path.ENTRY_POINT],
         transform: [[babelify, { presets: ['es2015', 'react'] }]],
-        debug: !production,
+        debug: !build,
         cache: {}, packageCache: {}, fullPaths: true
     };
-    const watcher = production ? browserify(props) : watchify(browserify(props));
+    const watcher = build ? browserify(props) : watchify(browserify(props));
 
     return watcher.on('update', () => {
         watcher.bundle()
             .pipe(source(path.OUT))
             .pipe(buffer())
-            .pipe(sourcemaps.init({ loadMaps: !production }))
+            .pipe(sourcemaps.init({ loadMaps: !build }))
             .pipe(sourcemaps.write('.'))
-            .pipe(gulp.dest((!production) ? dir.BUILD : dir.PUBLIC))
+            .pipe(gulp.dest((!build) ? dir.DEV : dir.PUBLIC))
             .pipe(browserSync.reload({ stream: true }));
     })
         .bundle().on('error', gutil.log)
         .pipe(source(path.OUT))
         .pipe(buffer())
-        .pipe(sourcemaps.init({ loadMaps: !production }))
-        .pipe(gulpif(!production, sourcemaps.write('.')))
-        .pipe(gulp.dest((!production) ? dir.BUILD : dir.PUBLIC));
+        .pipe(sourcemaps.init({ loadMaps: !build }))
+        .pipe(gulpif(!build, sourcemaps.write('.')))
+        .pipe(gulp.dest((!build) ? dir.DEV : dir.PUBLIC));
 });
 
 // Compile sass into CSS & auto-inject into browsers
 gulp.task('sass', () => {
     return gulp.src(path.CSS_SRC)
         .pipe(sass())
-        .pipe(gulpif(production, cssNano()))
-        .pipe(gulp.dest((!production) ? path.CSS_BUILD : path.CSS_PUBLIC))
+        .pipe(gulpif(build, cssNano()))
+        .pipe(gulp.dest((!build) ? path.CSS_DEV : path.CSS_PUBLIC))
         .pipe(browserSync.reload({ stream: true }));
 });
 
-// HTML replace scripts with minified version for production
+// HTML replace scripts with minified version for build
 // Move index.html to public folder for deployment
 gulp.task('html-replace', () => {
     return gulp.src([path.INDEX_SRC])
-        .pipe(replace('build/', ''))
+        .pipe(replace('dev/', ''))
         .pipe(replace(path.OUT, path.MINIFIED_OUT))
         .pipe(gulp.dest(dir.PUBLIC));
 });
@@ -136,14 +150,21 @@ gulp.task('serve', ['sass', 'watch'], () => {
     });
 });
 
-// Set production variable for conditional build tasks
-gulp.task('set-production', () => {
-    production = true;
+// Set build variable for conditional build tasks
+gulp.task('set-build', () => {
+    build = true;
+});
+
+// Set constants variable for production constants file
+gulp.task('set-prod-constants', () => {
+    prodConstants = true;
 });
 
 // Production task
-// * Minify CSS
-gulp.task('production', ['set-production', 'minify']);
+gulp.task('production', ['set-build', 'set-prod-constants', 'minify']);
+
+// Build with dev constants for demos task
+gulp.task('buildDev', ['set-build', 'minify']);
 
 // Default task for development
 gulp.task('default', ['serve']);
