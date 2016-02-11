@@ -44,7 +44,17 @@ class SubmissionContent extends React.Component {
     }
 
     addFileToHolder(newFile) {
-        const newFileHolder = this.state.fileHolder;
+        let newFileHolder = [];
+
+        // Copy over everything except for duplicates
+        for (let i = 0; i < this.state.fileHolder; i++) {
+            const currentObject = this.state.fileHolder[i];
+            if (currentObject.requestName !== newFile.requestName) {
+                newFileHolder.push(currentObject);
+            }
+        }
+
+        // Add the new file's info to holder
         newFileHolder.push(newFile);
 
         this.setState({
