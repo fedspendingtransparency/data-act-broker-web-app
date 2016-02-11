@@ -136,6 +136,12 @@ class SubmissionContent extends React.Component {
             { fileTitle: 'Procurement', fileTemplateName: 'procurement.csv', requestName: 'procurement', step: '0' },
         ];
 
+        // TODO: Remove this when this is eventually tied to user accounts
+        let subID = null;
+        if (this.state.submissionID !== 0) {
+            subID = 'Submission ID: ' + this.state.submissionID;
+        }
+
         return (
             <div>
                 <div className="usa-da-content-light-gray">
@@ -155,6 +161,9 @@ class SubmissionContent extends React.Component {
                             />
                         </div>
                         <div className="text-center">
+                            <h3>
+                                {subID}
+                            </h3>
                             <SubmitButton onClick={this.uploadClicked.bind(this)} className="usa-da-button-bigger" buttonText="Upload & Validate CSV files" />
                         </div>
                     </div>

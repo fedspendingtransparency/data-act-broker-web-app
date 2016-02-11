@@ -21,7 +21,7 @@ class FileContainer extends React.Component {
         super(props);
 
         this.state = {
-            submissionID: 0
+            progress: 0
         };
     }
 
@@ -37,12 +37,6 @@ class FileContainer extends React.Component {
             icon = <DropZone addFileToHolder={this.addFileToHolder.bind(this)}/>;
         }
 
-        // TODO: Remove this when this is eventually tied to user accounts
-        let subID = null;
-        if (this.state.submissionID !== 0) {
-            subID = 'Submission ID: ' + this.state.submissionID;
-        }
-
         return (
             <div className="col-md-3 text-center usa-da-submission-item">
                 <h4>{this.props.fileTitle}</h4>
@@ -52,9 +46,6 @@ class FileContainer extends React.Component {
                 <div className="center-block">
                     {icon}
                 </div>
-                <h3>
-                    {subID}
-                </h3>
             </div>
         );
     }
