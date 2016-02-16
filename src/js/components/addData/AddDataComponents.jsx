@@ -17,26 +17,11 @@ const defaultProps = {
 
 class FileContainer extends React.Component {
 
-    constructor(props) {
-        super(props);
-
-        this.state = {
-            progress: 0
-        };
-    }
-
     addFileToHolder(files) {
         this.props.addFile({ requestName: this.props.requestName, file: files[0] });
     }
 
     render() {
-        let icon;
-        if (this.state.progress > 0) {
-            icon = <FileProgress fileStatus={this.state.progress} />;
-        } else {
-            icon = <DropZone addFileToHolder={this.addFileToHolder.bind(this)}/>;
-        }
-
         return (
             <div className="col-md-3 text-center usa-da-submission-item">
                 <h4>{this.props.fileTitle}</h4>
@@ -44,7 +29,7 @@ class FileContainer extends React.Component {
                 <p>{this.props.fileTemplateName}</p>
                 <a href="https://github.com/fedspendingtransparency/data-act-validator/blob/development/tests/appropriationsFields.csv">Click here to see the required fields</a>
                 <div className="center-block">
-                    {icon}
+                   <DropZone addFileToHolder={this.addFileToHolder.bind(this)}/>
                 </div>
             </div>
         );
@@ -79,26 +64,6 @@ class DropZone extends React.Component {
             <Dropzone className="text-center" multiple={false} onDrop={this.onDrop.bind(this)}>
                 <div className="center-block usa-da-dropzone">{dropzoneString}</div>
             </Dropzone>
-        );
-    }
-}
-
-class FileProgress extends React.Component {
-
-    render() {
-        const style = {
-            width: this.props.fileStatus + '%'
-        };
-
-        return (
-            <div>
-                <div className="progress">
-                    <div className="progress-bar" role="progressbar" aria-valuenow={this.props.fileStatus} aria-valuemin="0" aria-valuemax="100" style={style}></div>
-                </div>
-                <div>
-                    <span>{this.props.fileStatus}%</span>
-                </div>
-            </div>
         );
     }
 }
