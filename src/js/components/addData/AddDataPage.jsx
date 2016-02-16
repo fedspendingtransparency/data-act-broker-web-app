@@ -152,8 +152,10 @@ class SubmissionContent extends React.Component {
 
         // TODO: Remove this when this is eventually tied to user accounts
         let subID = null;
+        let subLink = null;
         if (this.state.submissionID !== 0) {
-            subID = 'Upload success! Submission ID: ' + this.state.submissionID;
+            subID = 'Review Submission: ' + this.state.submissionID;
+            subLink = '#/reviewData/' + this.state.submissionID;
         }
 
         let actionArea;
@@ -183,7 +185,7 @@ class SubmissionContent extends React.Component {
                         </div>
                         <div className="text-center">
                             <p>
-                                {subID}
+                                <a href={subLink}>{subID}</a>
                             </p>
                             {actionArea}
                         </div>

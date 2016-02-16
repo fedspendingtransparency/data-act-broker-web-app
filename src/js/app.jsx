@@ -37,9 +37,9 @@ const addDataPageRoute = () => {
     );
 };
 
-const reviewDataPageRoute = () => {
+const reviewDataPageRoute  = (subID) => {
     ReactDOM.render(
-        <ReviewDataPage />,
+        <ReviewDataPage  subID={subID} />,
         documentLocation
     );
 };
@@ -51,7 +51,8 @@ const routes = {
     '/registration/:stepName': registrationPageRoute,
     '/landing': landingPageRoute,
     '/addData': addDataPageRoute,
-    '/reviewData': reviewDataPageRoute
+    '/reviewData': reviewDataPageRoute,
+    '/reviewData/:subID': reviewDataPageRoute
 };
 
 // Start the routes
