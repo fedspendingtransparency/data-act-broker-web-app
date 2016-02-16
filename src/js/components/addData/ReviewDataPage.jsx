@@ -4,12 +4,12 @@
 **/
 
 import React, { PropTypes } from 'react';
+import { kGlobalConstants } from '../../GlobalConstants.js';
 import Navbar from '../SharedComponents/NavigationComponent.jsx';
 import Table from '../SharedComponents/TableComponent.jsx';
 import SubmissionContainer from './AddDataComponents.jsx';
 import Progress from '../SharedComponents/ProgressComponent.jsx';
 import SubmitButton from '../SharedComponents/SubmitButton.jsx';
-import TextInputComponent from '../SharedComponents/TextInputComponent.jsx';
 import Request from 'superagent';
 
 const propTypes = {
@@ -21,8 +21,6 @@ const propTypes = {
 const defaultProps = {
     link_array: [null]
 };
-
-const API_URL = 'http://ec2-54-173-199-34.compute-1.amazonaws.com:80/v1/';
 
 class SubmissionPageHeader extends React.Component {
     render() {
@@ -98,7 +96,7 @@ class GetErrors extends React.Component {
     }
 
     sendRequest(submissionID) {
-        const file = Request.post(API_URL + 'submission_error_reports/')
+        const file = Request.post(kGlobalConstants.API + 'submission_error_reports/')
                            .withCredentials()
                            .send({ 'submission_id': submissionID });
         file.end((errFile, res) => {
