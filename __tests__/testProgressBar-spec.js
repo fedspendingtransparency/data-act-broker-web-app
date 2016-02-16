@@ -10,24 +10,25 @@ var ProgressBar = require('../src/js/components/SharedComponents/ProgressCompone
 
 describe('ProgressBar', () => {
 
-  it('changes the text after click', () => {
+  it('has the correct number of steps', () => {
 
 // console.log (<Username/>);
     // Render a checkbox with label in the document
     var progress = TestUtils.renderIntoDocument(
-      <ProgressBar />
+      <ProgressBar totalSteps={5} currentStep={2} />
     );
 
-    var progressNode = ReactDOM.findDOMNode(progress);
+    var progressNode = TestUtils.scryRenderedDOMComponentsWithClass(progress, 'usa-da-progress-bar-step');
 
     // Verify that it's Off by default
-    expect(progressNode.textContent).toEqual('Off');
+    expect(progressNode.length).toEqual(6);
 
-    // Simulate a click and verify that it is now On
-    TestUtils.Simulate.change(
-      TestUtils.findRenderedDOMComponentWithTag(progress, 'input')
-    );
-    expect(progressNode.textContent).toEqual('On');
+    progressNode = TestUtils.scryRenderedDOMComponentsWithClass(progress, 'usa-da-progress-bar-step-done');
+    expect(progressNode.length).toEqual(2);
+
+    progressNode = TestUtils.scryRenderedDOMComponentsWithClass(progress, 'usa-da-progress-bar-step-current');
+    expect(progressNode.length).toEqual(2);
+
   });
 
 });
