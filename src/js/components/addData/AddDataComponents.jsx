@@ -22,12 +22,14 @@ class FileContainer extends React.Component {
     }
 
     render() {
+        const ruleLink = 'https://github.com/fedspendingtransparency/data-act-validator/tests/' + this.props.requestName + 'Fields.csv';
+
         return (
             <div className="col-md-3 text-center usa-da-submission-item">
                 <h4>{this.props.fileTitle}</h4>
                 <img src="/graphics/file_icon.png"/>
                 <p>{this.props.fileTemplateName}</p>
-                <a href="https://github.com/fedspendingtransparency/data-act-validator/blob/development/tests/appropriationsFields.csv">Click here to see the required fields</a>
+                <a href={ruleLink}>Click here to see the required fields</a>
                 <div className="center-block">
                    <DropZone addFileToHolder={this.addFileToHolder.bind(this)}/>
                 </div>
