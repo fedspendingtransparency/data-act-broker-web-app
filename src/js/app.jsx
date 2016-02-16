@@ -1,44 +1,43 @@
-import React            from 'react';
-import ReactDOM         from 'react-dom';
-import Base64           from './vendor/base64.min.js';
-import {Router}         from 'director';
-import LoginPage        from './components/LoginComponents.jsx';
+import React from 'react';
+import ReactDOM from 'react-dom';
+import { Router } from 'director';
+import LoginPage from './components/LoginComponents.jsx';
 import RegistrationPage from './components/registration/RegistrationPage.jsx';
-import LandingPage      from './components/LandingComponents.jsx';
-import AddDataPage      from './components/addData/AddDataPage.jsx';
-import ReviewDataPage   from './components/addData/ReviewDataPage.jsx';
+import LandingPage from './components/LandingComponents.jsx';
+import AddDataPage from './components/addData/AddDataPage.jsx';
+import ReviewDataPage from './components/addData/ReviewDataPage.jsx';
 
-var documentLocation = document.getElementById('app');
+const documentLocation = document.getElementById('app');
 
-var loginPageRoute = function() {
+const loginPageRoute = () => {
     ReactDOM.render(
         <LoginPage />,
         documentLocation
     );
 };
 
-var registrationPageRoute = function(stepName) {
+const registrationPageRoute = (stepName) => {
     ReactDOM.render(
         <RegistrationPage stepName={stepName} />,
         documentLocation
     );
 };
 
-var landingPageRoute = function() {
+const landingPageRoute = () => {
     ReactDOM.render(
         <LandingPage />,
         documentLocation
     );
 };
 
-var addDataPageRoute = function() {
+const addDataPageRoute = () => {
     ReactDOM.render(
         <AddDataPage />,
         documentLocation
     );
 };
 
-var reviewDataPageRoute = function() {
+const reviewDataPageRoute = () => {
     ReactDOM.render(
         <ReviewDataPage />,
         documentLocation
@@ -47,14 +46,13 @@ var reviewDataPageRoute = function() {
 
 // Define the route URL patterns
 
-var routes = {
+const routes = {
     '/': loginPageRoute,
-    '/registration/:stepName' : registrationPageRoute,
+    '/registration/:stepName': registrationPageRoute,
     '/landing': landingPageRoute,
     '/addData': addDataPageRoute,
     '/reviewData': reviewDataPageRoute
 };
 
 // Start the routes
-var router = Router(routes);
-router.init('/');
+Router(routes).init('/');

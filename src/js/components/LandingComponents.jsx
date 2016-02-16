@@ -13,16 +13,13 @@ class LandingContent extends React.Component {
             <div>
                 <div className="usa-da-content-dark">
                     <div className="container">
-                        <div className="row">
+                        <div className="row usa-da-content-landing">
                             <div className="col-md-6">
                                 <h1>Welcome to the Data Broker</h1>
                                 <h3>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean euismod bibendum laoreet.
                                     Proin gravida dolor sit amet lacus accumsan et viverra justo commodo. Proin sodales pulvinar
                                     tempor. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus.
                                     Nam fermentum, nulla luctus pharetra vulputate, felis</h3>
-                            </div>
-                            <div className="col-md-6">
-
                             </div>
                         </div>
                     </div>
@@ -31,7 +28,7 @@ class LandingContent extends React.Component {
                     <div className="container">
                         <div className="row usa-da-button-landing-holder">
                             <div className="col-md-6">
-                                <a className="usa-da-button-landing" href="/#/addData">Add & Validate New Data</a>
+                                <a className="usa-da-button-landing" href="#/addData">Add & Validate New Data</a>
                             </div>
                             <div className="col-md-6">
                                 <a className="usa-da-button-landing" href="#">Performance Dashboard</a>

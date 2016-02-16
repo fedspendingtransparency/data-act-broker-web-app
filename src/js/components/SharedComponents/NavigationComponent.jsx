@@ -45,7 +45,7 @@ export default class Navbar extends React.Component {
         const headerTabs = [];
         const context = this;
 
-        Object.keys(tabNames).map(function generateTabs(key) {
+        Object.keys(tabNames).map((key) => {
             headerTabs.push(<NavbarTab key={tabNames[key]} name={key} class={tabNames[key]} activeTabClassName={context.props.activeTab} />);
         });
 

@@ -8,7 +8,8 @@ import React, { PropTypes } from 'react';
 const propTypes = {
     buttonDisabled: PropTypes.bool,
     buttonText: PropTypes.string,
-    className: PropTypes.string
+    className: PropTypes.string,
+    onClick: PropTypes.func
 };
 
 const defaultProps = {
@@ -28,7 +29,7 @@ export default class SubmitButton extends React.Component {
         }
 
         return (
-            <div><button className={newButtonClass} type="submit" value={this.props.buttonText} disabled={this.props.buttonDisabled}>{this.props.buttonText} </button></div>
+            <div><button onClick={this.props.onClick} className={newButtonClass} type="submit" value={this.props.buttonText} disabled={this.props.buttonDisabled}>{this.props.buttonText} </button></div>
         );
     }
 }

@@ -4,12 +4,12 @@
 **/
 
 import React, { PropTypes } from 'react';
+import { kGlobalConstants } from '../../GlobalConstants.js';
 import Navbar from '../SharedComponents/NavigationComponent.jsx';
 import Table from '../SharedComponents/TableComponent.jsx';
 import SubmissionContainer from './AddDataComponents.jsx';
 import Progress from '../SharedComponents/ProgressComponent.jsx';
 import SubmitButton from '../SharedComponents/SubmitButton.jsx';
-import TextInputComponent from '../SharedComponents/TextInputComponent.jsx';;
 import Request from 'superagent';
 
 const propTypes = {
@@ -21,9 +21,6 @@ const propTypes = {
 const defaultProps = {
     link_array: [null]
 };
-
-
-const API_URL = 'http://ec2-54-173-199-34.compute-1.amazonaws.com:80/v1/';
 
 class SubmissionPageHeader extends React.Component {
     render() {
@@ -89,39 +86,36 @@ class GetErrors extends React.Component {
     }
 
     // onClick function for submit button
-    onClick(element,submissionId) {
-        const self = this;
-        self.sendRequest(self.state.submissionId);
+    onClick() {
+        this.sendRequest(this.state.submissionId);
     }
 
-    // Set submission id from text input 
+    // Set submission id from text input
     setSubmissionId(element) {
-        const self = this;
-        self.setState({submissionId: element.target.value});
+        this.setState({ submissionId: element.target.value });
     }
 
-    sendRequest(submission_id) {
-        const self = this;
-        const file = Request.post(API_URL + 'submission_error_reports/')
+    sendRequest(submissionID) {
+        const file = Request.post(kGlobalConstants.API + 'submission_error_reports/')
                            .withCredentials()
-                           .send({ 'submission_id': submission_id });
-                           console.log(file);                           
-        file.end(function handleFileResponse(errFile, res) {
+                           .send({ 'submission_id': submissionID });
+        file.end((errFile, res) => {
             if (errFile) {
                 console.log(errFile + res);
             } else {
-                self.setState({response: true, csv_url: res.body});
+                this.setState({ response: true, csv_url: res.body });
             }
         });
-
     }
 
-    render () {
-        let has_link
-        if (this.state.response == true) { has_link = <DownloadLink link_array={this.state.csv_url} /> }
-        else { has_link = null; }
+    render() {
+        let hasLink = null;
 
-        return(
+        if (this.state.response === true) {
+            hasLink = <DownloadLink link_array={this.state.csv_url} />;
+        }
+
+        return (
             <div className="container">
                 <div className="row">
                     <div className="col-md-12 usa-da-table-holder">
@@ -131,18 +125,15 @@ class GetErrors extends React.Component {
                                 <label htmlFor="submission-id" className="sr-only">Submission ID</label>
                                 <input className="form-control" id="submission-id" name="submission-id" placeholder="Submission ID" onChange={this.setSubmissionId.bind(this)} />
                                     <a className="btn btn-default" onClick={this.onClick.bind(this, this.props.submissionId)}>Review Data</a>
-                                {has_link}
+                                {hasLink}
                             </div>
                         </form>
                     </div>
                 </div>
             </div>
-
-        )
+        );
     }
 }
-
-
 
 class ErrorContent extends React.Component {
     render() {
@@ -164,23 +155,20 @@ class ErrorContent extends React.Component {
         );
     }
 }
+
 class DownloadLink extends React.Component {
-    constructor(props) {
-        super(props);
-
-    }
-
     render() {
         // create array of download file links from request response data
-        const dl_links = [];
-        for (var key in this.props.link_array) {
-            dl_links.push(<a href={this.props.link_array[key]} >Download Errors</a>);
+        const dlLinks = [];
+
+        for (const key in this.props.link_array) {
+            dlLinks.push(<a href={this.props.link_array[key]} >Download Errors</a>);
         }
+
         return (
-            <div>{dl_links}</div>
+            <div>{dlLinks}</div>
         );
     }
-
 }
 
 export default class SubmissionPage extends React.Component {
