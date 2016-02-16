@@ -143,13 +143,15 @@ class SubmissionContent extends React.Component {
             { fileTitle: 'Appropriation', fileTemplateName: 'appropriation.csv', requestName: 'appropriations', step: '0' },
             { fileTitle: 'Award', fileTemplateName: 'award.csv', requestName: 'award', step: '0' },
             { fileTitle: 'Award Financial', fileTemplateName: 'award_financial.csv', requestName: 'award_financial', step: '0' },
-            { fileTitle: 'Procurement', fileTemplateName: 'procurement.csv', requestName: 'procurement', step: '0' },
+            { fileTitle: 'Program Activity', fileTemplateName: 'procurement.csv', requestName: 'procurement', step: '0' },
         ];
 
         // TODO: Remove this when this is eventually tied to user accounts
         let subID = null;
+        let subLink = null;
         if (this.state.submissionID !== 0) {
-            subID = 'Submission ID: ' + this.state.submissionID;
+            subID = 'Review Submission: ' + this.state.submissionID;
+            subLink = '#/reviewData/' + this.state.submissionID;
         }
 
         return (
@@ -172,7 +174,7 @@ class SubmissionContent extends React.Component {
                         </div>
                         <div className="text-center">
                             <h3>
-                                {subID}
+                                <a href={subLink}>{subID}</a>
                             </h3>
                             <SubmitButton onClick={this.uploadClicked.bind(this)} className="usa-da-button-bigger" buttonText="Upload & Validate CSV files" />
                         </div>
