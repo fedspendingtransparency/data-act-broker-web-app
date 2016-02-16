@@ -147,7 +147,7 @@ class SubmissionContent extends React.Component {
             { fileTitle: 'Appropriation', fileTemplateName: 'appropriation.csv', requestName: 'appropriations', progress: '0' },
             { fileTitle: 'Award', fileTemplateName: 'award.csv', requestName: 'award', progress: '0' },
             { fileTitle: 'Award Financial', fileTemplateName: 'award_financial.csv', requestName: 'award_financial', progress: '0' },
-            { fileTitle: 'Procurement', fileTemplateName: 'procurement.csv', requestName: 'procurement', progress: '0' },
+            { fileTitle: 'Program Activity', fileTemplateName: 'programActivity.csv', requestName: 'procurement', progress: '0' },
         ];
 
         // TODO: Remove this when this is eventually tied to user accounts
