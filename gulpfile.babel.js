@@ -15,6 +15,9 @@ import gulpif from 'gulp-if';
 import del from 'del';
 import vinylPaths from 'vinyl-paths';
 import cssNano from 'gulp-cssnano';
+var runSequence = require('run-sequence');
+var plugins = require('gulp-load-plugins')({scope: ['dependencies']});
+var shell = require('gulp-shell')
 
 // Base Directories
 const dir = {
@@ -56,6 +59,8 @@ const path = {
 
 let build = false;
 let prodConstants = false;
+
+require('harmonize')();
 
 // TODO: Refactor these 3 tasks to avoid code reuse
 // Copy Fonts to relevant path
@@ -167,3 +172,15 @@ gulp.task('buildDev', ['set-build', 'minify']);
 
 // Default task for development
 gulp.task('default', ['serve']);
+
+
+gulp.task('jest', shell.task('jest', {
+    // So our task doesn't error out when a test fails
+    ignoreErrors: true
+}));
+
+
+gulp.task('test', ['minify'], function () {
+  runSequence('jest');
+  gulp.watch(['src/js/*.jsx','__tests__/*.js'], ['jest'])
+});
