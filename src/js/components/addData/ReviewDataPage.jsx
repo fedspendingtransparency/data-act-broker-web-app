@@ -14,8 +14,9 @@ import Request from 'superagent';
 
 const propTypes = {
     submissionId: PropTypes.string,
+    subID: PropTypes.string,
     csv_url: PropTypes.array,
-    link_array: PropTypes.array
+    link_array: PropTypes.array,
 };
 
 const defaultProps = {
@@ -171,13 +172,125 @@ class DownloadLink extends React.Component {
     }
 }
 
+class DownloadLinkSingle extends React.Component {
+    render() {
+
+        return (
+            <div><a href={this.props.link} >Download Errors</a></div>
+        );
+    }
+}
+
+
+class UnknownIDComponent extends React.Component {
+    render() {
+        return (
+            <GetErrors />
+        );
+    }
+}
+
+class KnownIDComponent extends React.Component {
+    constructor(props) {
+        super(props);
+
+        this.state = {
+            response: false,
+        };
+        this.sendRequest(this.props.subID);
+    }
+
+    parseJSON(status) {
+        const files = ['appropriations', 'award', 'award_financial', 'procurement'];
+        var status_data = [];
+            for (const item_key in status) {
+                status[item_key]['job_id'] = item_key;
+            }      
+            
+        var arr = Object.keys(status).map(function(k) { return status[k] });
+ 
+        for (var i = 0; i < files.length; i++) { 
+            var info = [];
+            var file_arr = arr.filter(function(el) { return el.file_type == files[i]; });
+            if (file_arr.length > 0) {
+                info.push(files[i]);
+                info.push(file_arr.filter(function(el) { return el.job_type == 'file_upload'; })[0]['status']);
+                var csv_upload_job = file_arr.filter(function(el) { return el.job_type == 'csv_record_validation'; })[0];
+                if (csv_upload_job['status'] == 'finished') {
+                    info.push(<DownloadLinkSingle link={this.state.csv_url['job_'+csv_upload_job['job_id']+'_error_url']} />);
+                    console.log(this.state.csv_url['job_'+csv_upload_job['job_id']+'_error_url']);
+                } else {
+                    info.push(csv_upload_job['status']);
+                }
+            }
+            status_data.push(info);
+        }
+        return (status_data);
+    }
+
+    sendRequest(submissionID) {
+        const status = Request.post(kGlobalConstants.API + 'check_status/')
+                           .withCredentials()
+                           .send({ 'submission_id': this.props.subID });
+        const file = Request.post(kGlobalConstants.API + 'submission_error_reports/')
+                           .withCredentials()
+                           .send({ 'submission_id': this.props.subID }); 
+        status.end((errFile, res) => {
+            if (errFile) {
+                console.log(errFile + res);
+            } else {
+                this.setState({ status_response: true, csv_status: res.body });
+            }
+        });
+        file.end((errFile, res) => {
+            if (errFile) {
+                console.log(errFile + res);
+            } else {
+                this.setState({ file_response: true, csv_url: res.body });
+            }
+        });
+    }
+
+    render() {
+        let hasLink = null;
+
+        if (this.state.status_response &&  this.state.file_response) {
+            var status_data = this.parseJSON(this.state.csv_status);
+            var errorHeaders = ['File', 'Upload Status', 'CSV Validations']
+
+            return (
+                <div className="container">
+                    <div className="row">
+                        <div className="col-md-12 usa-da-table-holder">
+                            <Table data={status_data} headers={errorHeaders} />
+                        </div>
+                    </div>
+                </div>
+            );       
+        } else {
+            return (<div><h4>Gathering data...</h4></div>);
+        }
+        
+
+    }
+}
+
 export default class SubmissionPage extends React.Component {
     render() {
+
+        let currentComponent;
+
+        if (!this.props.subID) {
+            currentComponent = <UnknownIDComponent />;
+        } else  {
+            currentComponent = <KnownIDComponent subID={this.props.subID} />;
+        }
+
         return (
             <div>
                 <Navbar activeTab="reviewData"/>
                 <SubmissionPageHeader />
-                <GetErrors />
+                {currentComponent}
             </div>
         );
     }

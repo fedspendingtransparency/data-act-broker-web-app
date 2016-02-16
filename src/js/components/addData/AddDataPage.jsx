@@ -6,6 +6,7 @@
 import React from 'react';
 import { kGlobalConstants } from '../../GlobalConstants.js';
 import Navbar from '../SharedComponents/NavigationComponent.jsx';
+import FileProgress from '../SharedComponents/FileProgress.jsx';
 import TypeSelector from './AddDataTypeSelector.jsx';
 import SubmissionContainer from './AddDataComponents.jsx';
 import Progress from '../SharedComponents/ProgressComponent.jsx';
@@ -39,7 +40,8 @@ class SubmissionContent extends React.Component {
 
         this.state = {
             fileHolder: [],
-            submissionID: 0
+            submissionID: 0,
+            progress: 0
         };
     }
 
@@ -64,38 +66,40 @@ class SubmissionContent extends React.Component {
 
     // Send file names to backend to get fileID and S3 credentials
     uploadClicked() {
-        const request = {};
-        for (let i = 0; i < this.state.fileHolder.length; i++) {
-            const fileContainer = this.state.fileHolder[i];
-            request[fileContainer.requestName] = fileContainer.file.name;
-        }
-
-        const req = Request.post(kGlobalConstants.API + 'submit_files/')
-                           .withCredentials()
-                           .send(request);
-
-        req.end((err, res) => {
-            if (err) {
-                console.log(err + res);
-            } else {
-                // Start an S3 upload for each of the files
-                for (let i = 0; i < this.state.fileHolder.length; i++) {
-                    const fileContainer = this.state.fileHolder[i];
-                    const fileID = res.body[fileContainer.requestName + '_id'];
-                    const fileKey = res.body[fileContainer.requestName + '_key'];
-                    this.uploadFiles(fileContainer.file, fileID, fileKey, res.body.credentials);
-                }
-
-                // TODO: Remove this when this is eventually tied to user accounts
-                this.setState({
-                    submissionID: res.body.submission_id
-                });
+        if (this.state.fileHolder.length > 0) {
+            const request = {};
+            for (let i = 0; i < this.state.fileHolder.length; i++) {
+                const fileContainer = this.state.fileHolder[i];
+                request[fileContainer.requestName] = fileContainer.file.name;
             }
-        });
+
+            const req = Request.post(kGlobalConstants.API + 'submit_files/')
+                            .withCredentials()
+                            .send(request);
+
+            req.end((err, res) => {
+                if (err) {
+                    console.log(err + res);
+                } else {
+                    // Start an S3 upload for each of the files
+                    for (let i = 0; i < this.state.fileHolder.length; i++) {
+                        const fileContainer = this.state.fileHolder[i];
+                        const fileID = res.body[fileContainer.requestName + '_id'];
+                        const fileKey = res.body[fileContainer.requestName + '_key'];
+                        this.uploadFiles(fileContainer.file, fileID, fileKey, res.body.credentials, this.state.fileHolder.length);
+                    }
+
+                    // TODO: Remove this when this is eventually tied to user accounts
+                    this.setState({
+                        submissionID: res.body.submission_id
+                    });
+                }
+            });
+        }
     }
 
     // Put the files in S3 bucket using STS for temporary credentials
-    uploadFiles(file, fileID, key, credentials) {
+    uploadFiles(file, fileID, key, credentials, count) {
         AWS.config.update({
             'accessKeyId': credentials.AccessKeyId,
             'secretAccessKey': credentials.SecretAccessKey,
@@ -112,7 +116,7 @@ class SubmissionContent extends React.Component {
         s3.upload(s3params)
           .on('httpUploadProgress', evt => {
               this.setState({
-                  progress: evt.loaded / evt.total * 100
+                  progress: this.state.progress + (evt.loaded / evt.total * 100) / count
               });
           })
           .send(error => {
@@ -140,16 +144,25 @@ class SubmissionContent extends React.Component {
 
     render() {
         const files = [
-            { fileTitle: 'Appropriation', fileTemplateName: 'appropriation.csv', requestName: 'appropriations', step: '0' },
-            { fileTitle: 'Award', fileTemplateName: 'award.csv', requestName: 'award', step: '0' },
-            { fileTitle: 'Award Financial', fileTemplateName: 'award_financial.csv', requestName: 'award_financial', step: '0' },
-            { fileTitle: 'Procurement', fileTemplateName: 'procurement.csv', requestName: 'procurement', step: '0' },
+            { fileTitle: 'Appropriation', fileTemplateName: 'appropriation.csv', requestName: 'appropriations', progress: '0' },
+            { fileTitle: 'Award', fileTemplateName: 'award.csv', requestName: 'award', progress: '0' },
+            { fileTitle: 'Award Financial', fileTemplateName: 'award_financial.csv', requestName: 'award_financial', progress: '0' },
+            { fileTitle: 'Program Activity', fileTemplateName: 'programActivity.csv', requestName: 'procurement', progress: '0' },
         ];
 
         // TODO: Remove this when this is eventually tied to user accounts
         let subID = null;
+        let subLink = null;
         if (this.state.submissionID !== 0) {
-            subID = 'Submission ID: ' + this.state.submissionID;
+            subID = 'Review Submission: ' + this.state.submissionID;
+            subLink = '#/reviewData/' + this.state.submissionID;
+        }
+
+        let actionArea;
+        if (this.state.progress > 0) {
+            actionArea = <FileProgress fileStatus={this.state.progress} />;
+        } else {
+            actionArea = <SubmitButton onClick={this.uploadClicked.bind(this)} className="usa-da-button-bigger" buttonText="Upload & Validate CSV files" />;
         }
 
         return (
@@ -171,10 +184,10 @@ class SubmissionContent extends React.Component {
                             />
                         </div>
                         <div className="text-center">
-                            <h3>
-                                {subID}
-                            </h3>
-                            <SubmitButton onClick={this.uploadClicked.bind(this)} className="usa-da-button-bigger" buttonText="Upload & Validate CSV files" />
+                            <p>
+                                <a href={subLink}>{subID}</a>
+                            </p>
+                            {actionArea}
                         </div>
                     </div>
                 </div>
