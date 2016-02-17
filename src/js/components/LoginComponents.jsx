@@ -49,11 +49,12 @@ class SignInButton extends React.Component {
         Request.post(kGlobalConstants.API + 'login/')
                .withCredentials()
                .send({ 'username': 'user3', 'password': '123abc' })
-               .end((err, res) => {
+               .end((err) => {
                    if (err) {
                        console.log(err);
                    } else {
-                       console.log(res);
+                       // Route to landing page on success
+                       location.href = '#/landing';
                    }
                });
     }
@@ -62,7 +63,7 @@ class SignInButton extends React.Component {
         return (
             <div className="col-md-6 usa-da-login-button-holder">
                 <div className="align-right">
-                    <a href="#/landing"><button className="usa-button-big" type="button" onClick={this.loginClicked.bind(this)}>Sign in</button></a>
+                    <button className="usa-button-big" type="button" onClick={this.loginClicked.bind(this)}>Sign in</button>
                 </div>
             </div>
         );
