@@ -8,6 +8,7 @@
   },
     "jest": {
     "scriptPreprocessor": "<rootDir>/node_modules/babel-jest",
+    "setupTestFrameworkScriptFile": "<rootDir>/setup-jasmine-env.js",
     "testFileExtensions": ["es6", "js"],
     "moduleFileExtensions": ["js", "json", "es6"],
     "testPathIgnorePatterns": [
@@ -67,6 +68,7 @@
     "jest-cli": "^0.8",
     "jspm": "^0.15.5",
     "jquery": "^2.1.4",
+    "jasmine-reporters": "^1.0.0",
     "multer": "^1.1.0",
     "react": "^0.14.3",
     "react-addons-test-utils": "^0.14.3",

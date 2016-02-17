@@ -179,8 +179,3 @@ gulp.task('jest', shell.task('jest', {
     ignoreErrors: true
 }));
 
-
-gulp.task('test', ['minify'], function () {
-  runSequence('jest');
-  gulp.watch(['src/js/*.jsx','__tests__/*.js'], ['jest'])
-});
