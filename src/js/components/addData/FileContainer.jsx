@@ -5,6 +5,7 @@
 
 import React, { PropTypes } from 'react';
 import DropZone from './DropZone.jsx';
+import { kGlobalConstants } from '../../GlobalConstants.js';
 
 const propTypes = {
     addFile: PropTypes.func.isRequired,
@@ -15,7 +16,7 @@ const propTypes = {
 export default class FileContainer extends React.Component {
 
     render() {
-        const ruleLink = 'https://github.com/fedspendingtransparency/data-act-validator/tests/' + this.props.requestName + 'Fields.csv';
+        const ruleLink = kGlobalConstants.GITHUB + '/tests/' + this.props.requestName + 'Fields.csv';
 
         return (
             <div className="col-md-3 text-center usa-da-submission-item">
