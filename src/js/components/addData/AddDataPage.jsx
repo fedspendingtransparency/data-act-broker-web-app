@@ -5,8 +5,8 @@
 
 import React from 'react';
 import Navbar from '../SharedComponents/NavigationComponent.jsx';
-import SubmissionPageHeader from 'SubmissionPageHeader.jsx';
-import SubmissionContent from 'SubmissionContent.jsx';
+import SubmissionPageHeader from './SubmissionPageHeader.jsx';
+import SubmissionContent from './SubmissionContent.jsx';
 
 export default class SubmissionPage extends React.Component {
     render() {
