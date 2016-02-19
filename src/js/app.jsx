@@ -37,9 +37,9 @@ const addDataPageRoute = () => {
     );
 };
 
-const reviewDataPageRoute  = (subID) => {
+const reviewDataPageRoute = (subID) => {
     ReactDOM.render(
-        <ReviewDataPage  subID={subID} />,
+        <ReviewDataPage subID={subID} />,
         documentLocation
     );
 };
