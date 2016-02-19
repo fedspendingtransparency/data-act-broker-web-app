@@ -3,7 +3,7 @@ import ReactDOM from 'react-dom';
 import { Router } from 'director';
 import LoginPage from './components/login/LoginPage.jsx';
 import RegistrationPage from './components/registration/RegistrationPage.jsx';
-import LandingPage from './components/LandingComponents.jsx';
+import LandingPage from './components/landing/LandingPage.jsx';
 import AddDataPage from './components/addData/AddDataPage.jsx';
 import ReviewDataPage from './components/addData/ReviewDataPage.jsx';
 
