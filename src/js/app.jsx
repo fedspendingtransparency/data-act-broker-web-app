@@ -1,7 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { Router } from 'director';
-import LoginPage from './components/LoginComponents.jsx';
+import LoginPage from './components/login/LoginPage.jsx';
 import RegistrationPage from './components/registration/RegistrationPage.jsx';
 import LandingPage from './components/LandingComponents.jsx';
 import AddDataPage from './components/addData/AddDataPage.jsx';
