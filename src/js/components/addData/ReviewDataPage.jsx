@@ -6,7 +6,7 @@
 import React, { PropTypes } from 'react';
 import { kGlobalConstants } from '../../GlobalConstants.js';
 import Navbar from '../SharedComponents/navigation/NavigationComponent.jsx';
-import Table from '../SharedComponents/TableComponent.jsx';
+import Table from '../SharedComponents/table/TableComponent.jsx';
 import SubmissionContainer from './AddDataComponents.jsx';
 import Progress from '../SharedComponents/ProgressComponent.jsx';
 import SubmitButton from '../SharedComponents/SubmitButton.jsx';
