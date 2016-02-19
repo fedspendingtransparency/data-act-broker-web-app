@@ -4,7 +4,7 @@
  **/
 
 import React, { PropTypes } from 'react';
-import Navbar from '../SharedComponents/NavigationComponent.jsx';
+import Navbar from '../SharedComponents/navigation/NavigationComponent.jsx';
 import EmailComponent from './RegistrationEmailComponent.jsx';
 import ConfirmCode from './ConfirmCodeComponent.jsx';
 

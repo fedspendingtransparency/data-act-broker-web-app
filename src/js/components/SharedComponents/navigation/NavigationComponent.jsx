@@ -3,35 +3,8 @@
 * Created by Katie Rose 12/8/15
 **/
 
-import React, { PropTypes } from 'react';
-
-const propTypes = {
-    class: PropTypes.string.isRequired,
-    activeTabClassName: PropTypes.string.isRequired
-};
-
-const defaultProps = {
-    class: 'landing',
-    activeTabClassName: 'landing'
-};
-
-class NavbarTab extends React.Component {
-    render() {
-        const link = '#/' + this.props.class;
-        const isActiveClass = this.props.activeTabClassName === this.props.class;
-
-        return (
-            <li className={isActiveClass ? 'active' : ''}>
-            <a className="usa-da-header-link" href={link}>{this.props.name}
-                <span className={isActiveClass ? 'sr-only' : ''}>{isActiveClass ? '(current)' : ''}</span>
-            </a>
-            </li>
-        );
-    }
-}
-
-NavbarTab.propTypes = propTypes;
-NavbarTab.defaultProps = defaultProps;
+import React from 'react';
+import NavbarTab from './NavbarTab.jsx';
 
 export default class Navbar extends React.Component {
     render() {

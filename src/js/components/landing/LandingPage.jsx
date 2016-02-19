@@ -4,7 +4,7 @@
 **/
 
 import React from 'react';
-import Navbar from '../SharedComponents/NavigationComponent.jsx';
+import Navbar from '../SharedComponents/navigation/NavigationComponent.jsx';
 import Footer from '../SharedComponents/FooterComponent.jsx';
 import LandingContent from './LandingContent.jsx';
 
