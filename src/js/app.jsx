@@ -3,6 +3,7 @@ import ReactDOM from 'react-dom';
 import { Router } from 'director';
 import LoginPage from './components/login/LoginPage.jsx';
 import RegistrationPage from './components/registration/RegistrationPage.jsx';
+import ForgotPasswordPage from './components/forgotPassword/ForgotPasswordPage.jsx';
 import LandingPage from './components/landing/LandingPage.jsx';
 import AddDataPage from './components/addData/AddDataPage.jsx';
 import ReviewDataPage from './components/addData/ReviewDataPage.jsx';
@@ -19,6 +20,13 @@ const loginPageRoute = () => {
 const registrationPageRoute = (stepName) => {
     ReactDOM.render(
         <RegistrationPage stepName={stepName} />,
+        documentLocation
+    );
+};
+
+const forgotPasswordPageRoute = (stepName) => {
+    ReactDOM.render(
+        <ForgotPasswordPage stepName={stepName} />,
         documentLocation
     );
 };
@@ -49,6 +57,7 @@ const reviewDataPageRoute = (subID) => {
 const routes = {
     '/': loginPageRoute,
     '/registration/:stepName': registrationPageRoute,
+    '/forgotpassword': forgotPasswordPageRoute,
     '/landing': landingPageRoute,
     '/addData': addDataPageRoute,
     '/reviewData': reviewDataPageRoute,
