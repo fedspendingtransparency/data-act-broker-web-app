@@ -24,9 +24,9 @@ const registrationPageRoute = (stepName) => {
     );
 };
 
-const forgotPasswordPageRoute = (stepName) => {
+const forgotPasswordPageRoute = (token) => {
     ReactDOM.render(
-        <ForgotPasswordPage stepName={stepName} />,
+        <ForgotPasswordPage token={token} />,
         documentLocation
     );
 };
@@ -57,7 +57,12 @@ const reviewDataPageRoute = (subID) => {
 const routes = {
     '/': loginPageRoute,
     '/registration/:stepName': registrationPageRoute,
-    '/forgotpassword': forgotPasswordPageRoute,
+    '/forgotpassword': {
+        '/:token': {
+            on: forgotPasswordPageRoute
+        },
+        on: forgotPasswordPageRoute
+    },
     '/landing': landingPageRoute,
     '/addData': addDataPageRoute,
     '/reviewData': reviewDataPageRoute,

@@ -9,7 +9,7 @@
 import React, { PropTypes } from 'react';
 
 const propTypes = {
-    files: PropTypes.func.isRequired,
+    onClick: PropTypes.func.isRequired,
     buttonText: PropTypes.string.isRequired
 };
 

@@ -3,9 +3,13 @@
 * Created by Kyle Fox 2/23/16
 **/
 
-import React from 'react';
+import React, { PropTypes } from 'react';
 import Username from '../login/Username.jsx';
 import SignInButton from '../login/SignInButton.jsx';
+
+const propTypes = {
+    token: PropTypes.string
+};
 
 export default class ForgotPasswordPanel extends React.Component {
     constructor(props) {
@@ -27,6 +31,8 @@ export default class ForgotPasswordPanel extends React.Component {
     }
 
     render() {
+
+ForgotPasswordPanel.propTypes = propTypes;
         return (
             <div className="col-md-6 usa-da-login-container">
                 <Username handleChange={this.handleUsernameChange.bind(this)}/>
