@@ -8,7 +8,6 @@ import TextInputComponent from '../SharedComponents/TextInputComponent.jsx';
 import PasswordInputComponent from '../SharedComponents/PasswordInputComponent.jsx';
 import Progress from '../SharedComponents/ProgressComponent.jsx';
 
-
 export default class ConfirmCode extends React.Component {
     render() {
         return (
