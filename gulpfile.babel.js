@@ -15,8 +15,6 @@ import gulpif from 'gulp-if';
 import del from 'del';
 import vinylPaths from 'vinyl-paths';
 import cssNano from 'gulp-cssnano';
-var runSequence = require('run-sequence');
-var plugins = require('gulp-load-plugins')({scope: ['dependencies']});
 var shell = require('gulp-shell');
 var fs = require('fs');
 
