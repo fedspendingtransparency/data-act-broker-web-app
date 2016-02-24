@@ -9,13 +9,12 @@ const propTypes = {
     id: PropTypes.string.isRequired,
     placeholder: PropTypes.string.isRequired,
     regex: PropTypes.object.isRequired,
-    buttonDisabled: PropTypes.func
+    buttonDisabled: PropTypes.func.isRequired
 };
 
 const defaultProps = {
     id: '',
-    placeholder: '',
-    regex: /^[a-z0-9._%+-]+@[a-z0-9.-]+\.(?:gov|mil)$/
+    placeholder: ''
 };
 
 // An email input field that does basic validation for .mil and .gov emails
@@ -32,7 +31,7 @@ export default class EmailValidation extends React.Component {
             newButtonDisabled = true;
         }
 
-        // this.props.buttonDisabled(newButtonDisabled);
+        this.props.buttonDisabled(newButtonDisabled);
     }
 
     render() {
