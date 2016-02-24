@@ -1,13 +1,11 @@
 /**
-* LandingComponents.jsx
-* Created by Katie Rose 12/7/15
+* LandingContent.jsx
+* Created by Kyle Fox 2/19/16
 **/
 
 import React from 'react';
-import Navbar from './SharedComponents/NavigationComponent.jsx';
-import Footer from './SharedComponents/FooterComponent.jsx';
 
-class LandingContent extends React.Component {
+export default class LandingContent extends React.Component {
     render() {
         return (
             <div>
@@ -36,18 +34,6 @@ class LandingContent extends React.Component {
                         </div>
                     </div>
                 </div>
-            </div>
-        );
-    }
-}
-
-export default class LandingPage extends React.Component {
-    render() {
-        return (
-            <div>
-                <Navbar activeTab="landing"/>
-                <LandingContent/>
-                <Footer/>
             </div>
         );
     }
