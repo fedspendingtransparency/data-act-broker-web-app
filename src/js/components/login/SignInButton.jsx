@@ -14,11 +14,25 @@ const propTypes = {
 };
 
 export default class SignInButton extends React.Component {
+    handleKeyPress(e) {
+        if (e.charCode == 13) {
+            console.log('Enter pressed');
+            this.props.onClick();
+        }
+    }
+
     render() {
         return (
             <div className="col-md-4 usa-da-login-button-holder">
                 <div className="align-right">
-                    <button className="usa-button-big" type="button" onClick={this.props.onClick}>{this.props.buttonText}</button>
+                    <button
+                      className="usa-button-big"
+                      type="button"
+                      onKeyPress={this.handleKeyPress}
+                      onClick={this.props.onClick}
+                    >
+                        {this.props.buttonText}
+                    </button>
                 </div>
             </div>
         );
