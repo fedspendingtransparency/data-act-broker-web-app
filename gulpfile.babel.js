@@ -45,9 +45,9 @@ const path = {
     FONTS_DEV: dir.DEV + '/fonts',
     FONTS_PUBLIC: dir.PUBLIC + '/fonts',
 
-    IMAGES_SRC: dir.SRC + '/images/**',
-    IMAGES_DEV: dir.DEV + '/images',
-    IMAGES_PUBLIC: dir.PUBLIC + '/images',
+    IMAGES_SRC: dir.SRC + '/img/**',
+    IMAGES_DEV: dir.DEV + '/img',
+    IMAGES_PUBLIC: dir.PUBLIC + '/img',
 
     GRAPHICS_SRC: dir.SRC + '/graphics/**',
     GRAPHICS_DEV: dir.DEV + '/graphics',
@@ -114,7 +114,7 @@ gulp.task('watch', ['fonts', 'images', 'graphics', 'copyConstants'], () => {
 // Compile sass into CSS & auto-inject into browsers
 gulp.task('sass', () => {
     return gulp.src(path.CSS_SRC)
-        .pipe(sass())
+        .pipe(sass().on('error', sass.logError))
         .pipe(gulpif(build, cssNano()))
         .pipe(gulp.dest((!build) ? path.CSS_DEV : path.CSS_PUBLIC))
         .pipe(browserSync.reload({ stream: true }));
