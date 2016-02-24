@@ -17,14 +17,16 @@ import vinylPaths from 'vinyl-paths';
 import cssNano from 'gulp-cssnano';
 var runSequence = require('run-sequence');
 var plugins = require('gulp-load-plugins')({scope: ['dependencies']});
-var shell = require('gulp-shell')
+var shell = require('gulp-shell');
+var fs = require('fs');
 
 // Base Directories
 const dir = {
     BASE: './',
     DEV: './dev',
     PUBLIC: './public',
-    SRC: './src'
+    SRC: './src',
+    TEST: './__tests__'
 };
 
 // Path constants
@@ -54,13 +56,21 @@ const path = {
 
     GRAPHICS_SRC: dir.SRC + '/graphics/**',
     GRAPHICS_DEV: dir.DEV + '/graphics',
-    GRAPHICS_PUBLIC: dir.PUBLIC + '/graphics'
+    GRAPHICS_PUBLIC: dir.PUBLIC + '/graphics',
+
+    TEST_RESULTS: dir.TEST + '/test-results'
 };
 
 let build = false;
 let prodConstants = false;
 
 require('harmonize')();
+
+function makeTestFolder() {
+    if (!fs.existsSync(path.TEST_RESULTS)){
+        fs.mkdirSync(path.TEST_RESULTS);
+    }
+}
 
 // TODO: Refactor these 3 tasks to avoid code reuse
 // Copy Fonts to relevant path
@@ -173,9 +183,13 @@ gulp.task('buildDev', ['set-build', 'minify']);
 // Default task for development
 gulp.task('default', ['serve']);
 
+gulp.task('test-results', () => {
+    makeTestFolder();
+});
 
 gulp.task('jest', shell.task('jest', {
     // So our task doesn't error out when a test fails
     ignoreErrors: true
 }));
 
+gulp.task('test', ['test-results', 'jest']);
