@@ -29,7 +29,6 @@ export default class LoginPanel extends React.Component {
                .send({ 'username': this.state.username, 'password': this.state.password })
                .end((err) => {
                    if (err) {
-                       console.log(err);
                        this.setState({
                            loginFailed: true
                        });
@@ -45,8 +44,10 @@ export default class LoginPanel extends React.Component {
     }
 
     handleKeyPress(e) {
-        if (e.charCode === 13) {
+        const enterKey = 13;
+        if (e.charCode === enterKey) {
             this.loginClicked();
+            e.preventDefault();
         }
     }
 
