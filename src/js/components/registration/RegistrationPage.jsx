@@ -6,10 +6,12 @@
 import React, { PropTypes } from 'react';
 import Navbar from '../SharedComponents/navigation/NavigationComponent.jsx';
 import EmailComponent from './RegistrationEmailComponent.jsx';
+import RegisterEmailPanel from './RegisterEmailPanel.jsx';
 import ConfirmCode from './ConfirmCodeComponent.jsx';
 
 const propTypes = {
-    stepName: PropTypes.string.isRequired
+    stepName: PropTypes.string.isRequired,
+    message: PropTypes.string
 };
 
 // Default to showing email input page
@@ -21,10 +23,16 @@ export default class RegistrationPage extends React.Component {
     render() {
         let currentComponent;
 
-        if (this.props.token === null) {
-            currentComponent = <EmailComponent />;
+        if (this.props.stepName === 'email') {
+            currentComponent = <RegisterEmailPanel resend={false} />;
         } else if (this.props.stepName === 'code') {
-            currentComponent = <ConfirmCode token={this.props.token}/>;
+            if (this.props.message === 'Link already used') {
+                currentComponent = <RegisterEmailPanel resend={true} />
+            }
+            else if (this.props.message == 'success') {
+                currentComponent = <ConfirmCode />;
+            }
+            
         }
 
         return (
