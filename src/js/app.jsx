@@ -74,7 +74,13 @@ const reviewDataPageRoute = (subID) => {
 
 const routes = {
     '/': loginPageRoute,
-    '/registration/:stepName': registrationPageRoute,
+    '/registration': {
+        '/:token': {
+            on: registrationPageRoute
+        },
+        on: registrationPageRoute
+    },
+    // '/registration/:stepName': registrationPageRoute,
     '/forgotpassword': {
         '/:token': {
             on: forgotPasswordPageRoute
