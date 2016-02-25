@@ -9,12 +9,9 @@ import Request from 'superagent';
 import Table from '../SharedComponents/table/TableComponent.jsx';
 
 class AdminPageButton extends React.Component {
-    constructor(props) {
-        super(props);
-    }
-
     render() {
         let context = this.props.context;
+
         return (
             <button type="button"
                 className={this.props.newStatus == 'approved' ? 'usa-button-active' : 'usa-button-secondary'}
@@ -25,8 +22,6 @@ class AdminPageButton extends React.Component {
 
 export default class AdminPageContent extends React.Component {
     getAllUserRequests(){
-        var context = this;
-
         Request.post(kGlobalConstants.API + 'list_users_with_status/')
             .withCredentials()
             .send({ 'status': 'awaiting_approval' })
@@ -38,11 +33,11 @@ export default class AdminPageContent extends React.Component {
                     let users = res.body.users;
                     let userArray = [];
 
-                    users.forEach(function(user) {
+                    for (var user of users) {
                         userArray.push(Object.keys(user).map(function(k) { return user[k] }));
-                        userArray[userArray.length-1].push(<AdminPageButton name="Approve" newStatus="approved" user={user} context={context} />);
-                        userArray[userArray.length-1].push(<AdminPageButton name="Deny" newStatus="denied" user={user} context={context} />);
-                    });
+                        userArray[userArray.length-1].push(<AdminPageButton name="Approve" newStatus="approved" user={user} context={this} />);
+                        userArray[userArray.length-1].push(<AdminPageButton name="Deny" newStatus="denied" user={user} context={this} />);
+                    }
 
                     this.setState({ users: userArray });
                 }
@@ -53,12 +48,12 @@ export default class AdminPageContent extends React.Component {
         Request.post(kGlobalConstants.API + 'change_status/')
             .withCredentials()
             .send({ 'uid': this['user']['id'], 'new_status': this['newStatus']})
-            .end((err, res) => {
+            .end((err) => {
                 if (err) {
                     console.log(err);
                 } else {
                     // Refresh data
-                    getAllUserRequests();
+                    this['context'].getAllUserRequests();
                 }
             });
     }
