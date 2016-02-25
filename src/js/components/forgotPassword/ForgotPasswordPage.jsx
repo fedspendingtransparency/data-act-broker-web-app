@@ -7,14 +7,15 @@ import React, { PropTypes } from 'react';
 import ForgotPasswordBanner from './ForgotPasswordBanner.jsx';
 
 const propTypes = {
-    token: PropTypes.string
+    message: PropTypes.string,
+    email: PropTypes.string
 };
 
 export default class ForgotPasswordPage extends React.Component {
     render() {
         return (
             <div className="usa-da-login container-fluid">
-                <ForgotPasswordBanner token={this.props.token} />
+                <ForgotPasswordBanner message={this.props.message} email={this.props.email} />
             </div>
         );
     }
