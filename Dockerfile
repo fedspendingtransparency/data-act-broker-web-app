@@ -13,4 +13,6 @@ COPY . /node-workspace
 
 VOLUME /node-workspace
 
+RUN mkdir /test-results
+
 CMD gulp

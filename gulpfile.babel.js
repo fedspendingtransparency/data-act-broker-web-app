@@ -15,13 +15,16 @@ import gulpif from 'gulp-if';
 import del from 'del';
 import vinylPaths from 'vinyl-paths';
 import cssNano from 'gulp-cssnano';
+var shell = require('gulp-shell');
+var fs = require('fs');
 
 // Base Directories
 const dir = {
     BASE: './',
     DEV: './dev',
     PUBLIC: './public',
-    SRC: './src'
+    SRC: './src',
+    TEST: './__tests__'
 };
 
 // Path constants
@@ -45,17 +48,27 @@ const path = {
     FONTS_DEV: dir.DEV + '/fonts',
     FONTS_PUBLIC: dir.PUBLIC + '/fonts',
 
-    IMAGES_SRC: dir.SRC + '/images/**',
-    IMAGES_DEV: dir.DEV + '/images',
-    IMAGES_PUBLIC: dir.PUBLIC + '/images',
+    IMAGES_SRC: dir.SRC + '/img/**',
+    IMAGES_DEV: dir.DEV + '/img',
+    IMAGES_PUBLIC: dir.PUBLIC + '/img',
 
     GRAPHICS_SRC: dir.SRC + '/graphics/**',
     GRAPHICS_DEV: dir.DEV + '/graphics',
-    GRAPHICS_PUBLIC: dir.PUBLIC + '/graphics'
+    GRAPHICS_PUBLIC: dir.PUBLIC + '/graphics',
+
+    TEST_RESULTS: dir.TEST + '/test-results'
 };
 
 let build = false;
 let prodConstants = false;
+
+require('harmonize')();
+
+function makeTestFolder() {
+    if (!fs.existsSync(path.TEST_RESULTS)){
+        fs.mkdirSync(path.TEST_RESULTS);
+    }
+}
 
 // TODO: Refactor these 3 tasks to avoid code reuse
 // Copy Fonts to relevant path
@@ -114,7 +127,7 @@ gulp.task('watch', ['fonts', 'images', 'graphics', 'copyConstants'], () => {
 // Compile sass into CSS & auto-inject into browsers
 gulp.task('sass', () => {
     return gulp.src(path.CSS_SRC)
-        .pipe(sass())
+        .pipe(sass().on('error', sass.logError))
         .pipe(gulpif(build, cssNano()))
         .pipe(gulp.dest((!build) ? path.CSS_DEV : path.CSS_PUBLIC))
         .pipe(browserSync.reload({ stream: true }));
@@ -167,3 +180,14 @@ gulp.task('buildDev', ['set-build', 'minify']);
 
 // Default task for development
 gulp.task('default', ['serve']);
+
+gulp.task('test-results', () => {
+    makeTestFolder();
+});
+
+gulp.task('jest', shell.task('jest', {
+    // So our task doesn't error out when a test fails
+    ignoreErrors: true
+}));
+
+gulp.task('test', ['test-results', 'jest']);

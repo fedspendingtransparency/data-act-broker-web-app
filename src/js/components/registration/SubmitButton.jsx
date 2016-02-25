@@ -6,15 +6,22 @@
 import React, { PropTypes } from 'react';
 
 const propTypes = {
-    buttonDisabled: PropTypes.bool.isRequired
+    buttonDisabled: PropTypes.bool.isRequired,
+    route: PropTypes.string.isRequired
 };
 
 const defaultProps = {
-    buttonDisabled: true
+    buttonDisabled: true,
+    route: '#'
 };
 
 // A standard button for submission that we can further turn into a sharable component
 export default class SubmitEmailButton extends React.Component {
+    buttonClicked() {
+        // Route to given route
+        location.href = this.props.route;
+    }
+
     render() {
         let newButtonClass;
 
@@ -25,7 +32,15 @@ export default class SubmitEmailButton extends React.Component {
         }
 
         return (
-            <button className={newButtonClass} type="submit" value="Verify this email address" disabled={this.props.buttonDisabled}>Verify this email address</button>
+            <button
+              className={newButtonClass}
+              type="submit"
+              value="Verify this email address"
+              disabled={this.props.buttonDisabled}
+              onClick={this.buttonClicked.bind(this)}
+            >
+                Verify this email address
+            </button>
         );
     }
 }

@@ -34,3 +34,6 @@ public
 
 # Ignore generated constants file
 src/js/GlobalConstants.js
+
+# Ignore Jest Test Results
+__tests__/test-results
