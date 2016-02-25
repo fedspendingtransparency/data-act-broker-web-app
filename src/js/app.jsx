@@ -29,6 +29,7 @@ const registrationPageRoute = (stepName) => {
 const forgotPasswordPageRoute = (token) => {
     if (token) {
         Request.post(kGlobalConstants.API + 'confirm_password_token/')
+               .withCredentials()
                .send({ 'token': token })
                .end((err, res) => {
                    if (err) {
