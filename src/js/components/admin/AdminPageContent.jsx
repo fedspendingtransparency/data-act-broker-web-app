@@ -9,8 +9,22 @@ import Request from 'superagent';
 import Table from '../SharedComponents/table/TableComponent.jsx';
 
 class AdminPageButton extends React.Component {
+    constructor(props) {
+        super(props);
+
+        this.state = {
+            disabled: false
+        };
+    }
+
     render() {
         let context = this.props.context;
+        var classNames = require('classnames');
+        let classes = classNames({
+            'usa-button-active': this.props.newStatus == 'approved',
+            'usa-button-secondary': this.props.newStatus == 'denied',
+            'usa-button-disabled': this.state.disabled == true
+        });
 
         return (
             <button type="button"

@@ -155,7 +155,10 @@ h3 {
 			li {
 				height: 100%;
 				display: table;
-				margin-left: 0.5rem;
+				margin: 0;
+				&:before {
+					padding: 0;
+				}
 			}
 		}
 
