@@ -16,7 +16,6 @@ const propTypes = {
 export default class SignInButton extends React.Component {
     handleKeyPress(e) {
         if (e.charCode == 13) {
-            console.log('Enter pressed');
             this.props.onClick();
         }
     }
