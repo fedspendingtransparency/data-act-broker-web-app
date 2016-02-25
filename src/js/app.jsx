@@ -19,11 +19,27 @@ const loginPageRoute = () => {
     );
 };
 
-const registrationPageRoute = (stepName) => {
-    ReactDOM.render(
-        <RegistrationPage stepName={stepName} />,
-        documentLocation
-    );
+const registrationPageRoute = (token) => {
+    if (token) {
+        Request.post(kGlobalConstants.API + 'confirm_email_token/')
+               .send({ 'token': token })
+               .end((err, res) => {
+                   if (err) {
+                       console.log(err);
+                   } else {
+                       ReactDOM.render(
+                            <RegistrationPage stepName='code' message={res.body.message} />,
+                            documentLocation
+                        );
+                   }
+               });
+    } else {
+        ReactDOM.render(
+            <RegistrationPage stepName='email' />,
+            documentLocation
+        );
+    }
+
 };
 
 const forgotPasswordPageRoute = (token) => {
