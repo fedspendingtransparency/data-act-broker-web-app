@@ -21,10 +21,10 @@ export default class RegistrationPage extends React.Component {
     render() {
         let currentComponent;
 
-        if (this.props.stepName === 'email') {
+        if (this.props.token === null) {
             currentComponent = <EmailComponent />;
         } else if (this.props.stepName === 'code') {
-            currentComponent = <ConfirmCode />;
+            currentComponent = <ConfirmCode token={this.props.token}/>;
         }
 
         return (
