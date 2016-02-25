@@ -8,6 +8,21 @@ import { kGlobalConstants } from '../../GlobalConstants.js';
 import Request from 'superagent';
 import Table from '../SharedComponents/table/TableComponent.jsx';
 
+class AdminPageButton extends React.Component {
+    constructor(props) {
+        super(props);
+    }
+
+    render() {
+        let context = this.props.context;
+        return (
+            <button type="button"
+                className={this.props.newStatus == 'approved' ? 'usa-button-active' : 'usa-button-secondary'}
+                onClick={context.changeStatus.bind(this.props)}>{this.props.name}</button>
+        );
+    }
+}
+
 export default class AdminPageContent extends React.Component {
     getAllUserRequests(){
         var context = this;
@@ -20,13 +35,13 @@ export default class AdminPageContent extends React.Component {
                     console.log(err);
                 } else {
                     // Display users
-                    var users = res.body.users;
+                    let users = res.body.users;
                     let userArray = [];
 
                     users.forEach(function(user) {
                         userArray.push(Object.keys(user).map(function(k) { return user[k] }));
-                        userArray[userArray.length-1].push(<button type="button" onClick={context.changeStatus.bind([user.email,"approved"])}>Approve</button>);
-                        userArray[userArray.length-1].push(<button type="button" onClick={context.changeStatus.bind([user.email,"denied"])}>Deny</button>);
+                        userArray[userArray.length-1].push(<AdminPageButton name="Approve" newStatus="approved" user={user} context={context} />);
+                        userArray[userArray.length-1].push(<AdminPageButton name="Deny" newStatus="denied" user={user} context={context} />);
                     });
 
                     this.setState({ users: userArray });
@@ -37,13 +52,13 @@ export default class AdminPageContent extends React.Component {
     changeStatus(){
         Request.post(kGlobalConstants.API + 'change_status/')
             .withCredentials()
-            .send({ 'user_email': this[0], 'new_status': this[1]})
+            .send({ 'uid': this['user']['id'], 'new_status': this['newStatus']})
             .end((err, res) => {
                 if (err) {
                     console.log(err);
                 } else {
-                    // Remove row on successful approval
-                    console.log(res);
+                    // Refresh data
+                    getAllUserRequests();
                 }
             });
     }
@@ -59,7 +74,7 @@ export default class AdminPageContent extends React.Component {
     }
 
     render() {
-        const headers = ['Agency', 'Email', 'Name', 'Title', 'Approve', 'Deny'];
+        const headers = ['Email', 'Agency', 'Title', 'User ID', 'Name', 'Approve', 'Deny'];
 
         if (this.state.users.length > 0) {
             return (

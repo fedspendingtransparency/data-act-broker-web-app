@@ -11,7 +11,7 @@ export default class SignInButton extends React.Component {
     loginClicked() {
         Request.post(kGlobalConstants.API + 'login/')
                .withCredentials()
-               .send({ 'username': 'user3', 'password': '123abc' })
+               .send({ 'username': 'bray_michael@bah.com', 'password': 'pass' })
                .end((err) => {
                    if (err) {
                        console.log(err);
