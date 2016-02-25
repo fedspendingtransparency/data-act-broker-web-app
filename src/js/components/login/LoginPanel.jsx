@@ -29,7 +29,6 @@ export default class LoginPanel extends React.Component {
                .send({ 'username': this.state.username, 'password': this.state.password })
                .end((err) => {
                    if (err) {
-                       console.log(err);
                        this.setState({
                            loginFailed: true
                        });
