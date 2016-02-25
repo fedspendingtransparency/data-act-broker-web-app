@@ -1,34 +1,41 @@
 /**
 * SignInButton.jsx
 * Created by Kyle Fox 2/19/16
+*
+* This button needs to be given a function to run when it is clicked.
+* Pass this function through props, calling it onClick
 **/
 
-import React from 'react';
-import { kGlobalConstants } from '../../GlobalConstants.js';
-import Request from 'superagent';
+import React, { PropTypes } from 'react';
+
+const propTypes = {
+    onClick: PropTypes.func.isRequired,
+    buttonText: PropTypes.string.isRequired
+};
 
 export default class SignInButton extends React.Component {
-    loginClicked() {
-        Request.post(kGlobalConstants.API + 'login/')
-               .withCredentials()
-               .send({ 'username': 'user3', 'password': '123abc' })
-               .end((err) => {
-                   if (err) {
-                       console.log(err);
-                   } else {
-                       // Route to landing page on success
-                       location.href = '#/landing';
-                   }
-               });
+    handleKeyPress(e) {
+        if (e.charCode == 13) {
+            this.props.onClick();
+        }
     }
 
     render() {
         return (
-            <div className="col-md-6 usa-da-login-button-holder">
+            <div className="col-md-4 usa-da-login-button-holder">
                 <div className="align-right">
-                    <button className="usa-button-big" type="button" onClick={this.loginClicked.bind(this)}>Sign in</button>
+                    <button
+                      className="usa-button-big"
+                      type="button"
+                      onKeyPress={this.handleKeyPress}
+                      onClick={this.props.onClick}
+                    >
+                        {this.props.buttonText}
+                    </button>
                 </div>
             </div>
         );
     }
 }
+
+SignInButton.propTypes = propTypes;
