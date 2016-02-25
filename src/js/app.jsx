@@ -1,6 +1,8 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+import { kGlobalConstants } from './GlobalConstants.js';
 import { Router } from 'director';
+import Request from 'superagent';
 import LoginPage from './components/login/LoginPage.jsx';
 import RegistrationPage from './components/registration/RegistrationPage.jsx';
 import ForgotPasswordPage from './components/forgotPassword/ForgotPasswordPage.jsx';
@@ -25,10 +27,26 @@ const registrationPageRoute = (stepName) => {
 };
 
 const forgotPasswordPageRoute = (token) => {
-    ReactDOM.render(
-        <ForgotPasswordPage token={token} />,
-        documentLocation
-    );
+    if (token) {
+        Request.post(kGlobalConstants.API + 'confirm_email_token/')
+               .send({ 'token': token })
+               .end((err, res) => {
+                   if (err) {
+                       console.log(err);
+                   } else {
+                       ReactDOM.render(
+                            <ForgotPasswordPage email={res.body.email} />,
+                            documentLocation
+                        );
+                   }
+               });
+    } else {
+        ReactDOM.render(
+            <ForgotPasswordPage />,
+            documentLocation
+        );
+    }
+
 };
 
 const landingPageRoute = () => {
