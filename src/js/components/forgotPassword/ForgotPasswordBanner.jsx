@@ -9,6 +9,7 @@ import ForgotPasswordPanel from './ForgotPasswordPanel.jsx';
 import SetNewPasswordPanel from './SetNewPasswordPanel.jsx';
 
 const propTypes = {
+    errorCode: PropTypes.number,
     message: PropTypes.string,
     email: PropTypes.string
 };
@@ -18,9 +19,11 @@ export default class ForgotPasswordBanner extends React.Component {
         let panelComponent = <ForgotPasswordPanel />;
 
         // If a message exists, a token has either confirmed or failed
-        if (this.props.message === 'success') {
+        // Error code 0 is a success
+        if (this.props.errorCode === 0) {
             panelComponent = <SetNewPasswordPanel email={this.props.email} />;
-        } else if (this.props.message === 'Link already used') {
+        // Error code 3 is Link Already used
+        } else if (this.props.errorCode === 3) {
             panelComponent = <ForgotPasswordPanel message={this.props.message} />;
         }
 

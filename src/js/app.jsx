@@ -36,7 +36,7 @@ const forgotPasswordPageRoute = (token) => {
                        console.log(err);
                    } else {
                        ReactDOM.render(
-                            <ForgotPasswordPage message={res.body.message} email={res.body.email} />,
+                            <ForgotPasswordPage errorCode={res.body.errorCode} message={res.body.message} email={res.body.email} />,
                             documentLocation
                         );
                    }
