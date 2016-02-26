@@ -44,8 +44,10 @@ export default class LoginPanel extends React.Component {
     }
 
     handleKeyPress(e) {
-        if (e.charCode === 13) {
+        const enterKey = 13;
+        if (e.charCode === enterKey) {
             this.loginClicked();
+            e.preventDefault();
         }
     }
 

@@ -4,11 +4,15 @@
 **/
 
 import React, { PropTypes } from 'react';
+import { kGlobalConstants } from '../../GlobalConstants.js';
+import Request from 'superagent';
 import Username from '../login/Username.jsx';
 import SignInButton from '../login/SignInButton.jsx';
+import ErrorMessage from '../SharedComponents/ErrorMessage.jsx';
+import SuccessMessage from '../SharedComponents/SuccessMessage.jsx';
 
 const propTypes = {
-    token: PropTypes.string
+    message: PropTypes.string
 };
 
 export default class ForgotPasswordPanel extends React.Component {
@@ -16,8 +20,37 @@ export default class ForgotPasswordPanel extends React.Component {
         super(props);
 
         this.state = {
-            username: ''
+            username: '',
+            requestSent: false,
+            resetFailed: false
         };
+    }
+
+    requestReset() {
+        Request.post(kGlobalConstants.API + 'reset_password/')
+               .withCredentials()
+               .send({ 'email': this.state.username })
+               .end((err) => {
+                   if (err) {
+                       this.setState({
+                           requestSent: true,
+                           resetFailed: true
+                       });
+                   } else {
+                       this.setState({
+                           requestSent: true,
+                           resetFailed: false
+                       });
+                   }
+               });
+    }
+
+    handleKeyPress(e) {
+        const enterKey = 13;
+        if (e.charCode === enterKey) {
+            this.requestReset();
+            e.preventDefault();
+        }
     }
 
     handleUsernameChange(e) {
@@ -26,24 +59,35 @@ export default class ForgotPasswordPanel extends React.Component {
         });
     }
 
-    resetPassword() {
-        console.log('Email: ' + this.state.username);
-    }
-
     render() {
+        let messageComponent = null;
 
-ForgotPasswordPanel.propTypes = propTypes;
+        if (this.state.requestSent) {
+            if (this.state.resetFailed) {
+                messageComponent = <ErrorMessage message={"The given email or username does not exist."} />;
+            } else {
+                messageComponent = <SuccessMessage message={"You will receive an email shortly."} />;
+            }
+        } else if (this.props.message) {
+            messageComponent = <ErrorMessage message={this.props.message} />;
+        }
+
         return (
             <div className="col-md-6 usa-da-login-container">
-                <Username handleChange={this.handleUsernameChange.bind(this)}/>
-                <div className="col-md-8 usa-da-text-white">
-                    Please enter your email or username.
-                </div>
-                <SignInButton
-                  onClick={this.resetPassword.bind(this)}
-                  buttonText={"Reset"}
-                />
+                <form onKeyPress={this.handleKeyPress.bind(this)}>
+                    <Username handleChange={this.handleUsernameChange.bind(this)}/>
+                    <div className="col-md-8 usa-da-text-white">
+                        Please enter your email or username.
+                    </div>
+                    <SignInButton
+                      onClick={this.requestReset.bind(this)}
+                      buttonText={"Reset"}
+                    />
+                    {messageComponent}
+                </form>
             </div>
         );
     }
 }
+
+ForgotPasswordPanel.propTypes = propTypes;
