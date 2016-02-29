@@ -45,13 +45,14 @@ const registrationPageRoute = (token) => {
 const forgotPasswordPageRoute = (token) => {
     if (token) {
         Request.post(kGlobalConstants.API + 'confirm_password_token/')
+               .withCredentials()
                .send({ 'token': token })
                .end((err, res) => {
                    if (err) {
                        console.log(err);
                    } else {
                        ReactDOM.render(
-                            <ForgotPasswordPage message={res.body.email} email={res.body.email} />,
+                            <ForgotPasswordPage errorCode={res.body.errorCode} message={res.body.message} email={res.body.email} />,
                             documentLocation
                         );
                    }

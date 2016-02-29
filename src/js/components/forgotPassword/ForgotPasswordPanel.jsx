@@ -3,13 +3,17 @@
 * Created by Kyle Fox 2/23/16
 **/
 
-import React from 'react';
+import React, { PropTypes } from 'react';
 import { kGlobalConstants } from '../../GlobalConstants.js';
 import Request from 'superagent';
 import Username from '../login/Username.jsx';
 import SignInButton from '../login/SignInButton.jsx';
 import ErrorMessage from '../SharedComponents/ErrorMessage.jsx';
 import SuccessMessage from '../SharedComponents/SuccessMessage.jsx';
+
+const propTypes = {
+    message: PropTypes.string
+};
 
 export default class ForgotPasswordPanel extends React.Component {
     constructor(props) {
@@ -64,6 +68,8 @@ export default class ForgotPasswordPanel extends React.Component {
             } else {
                 messageComponent = <SuccessMessage message={"You will receive an email shortly."} />;
             }
+        } else if (this.props.message) {
+            messageComponent = <ErrorMessage message={this.props.message} />;
         }
 
         return (
@@ -83,3 +89,5 @@ export default class ForgotPasswordPanel extends React.Component {
         );
     }
 }
+
+ForgotPasswordPanel.propTypes = propTypes;
