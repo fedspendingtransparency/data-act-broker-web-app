@@ -23,8 +23,6 @@ export default class ConfirmCode extends React.Component {
         super(props);
 
         this.state = {
-            firstName: '',
-            lastName: '',
             name: '',
             agency: '',
             title: '',
@@ -32,12 +30,13 @@ export default class ConfirmCode extends React.Component {
             resetFailed: false,
             password1: '',
             password2: '',
-            passwordsMatch: true
+            passwordsMatch: true,
+            fieldsComplete: null
         };
     }
 
     requestReset() {
-        if (this.state.password1 === this.state.password2) {
+        if ((this.state.password1 === this.state.password2) && this.state.name && this.state.agency && this.state.title && this.state.password1) {
             Request.post(kGlobalConstants.API + 'register/')
                    .withCredentials()
                    .send({ 'name': this.state.name,
@@ -60,9 +59,26 @@ export default class ConfirmCode extends React.Component {
                        }
                    });
         } else {
+            this.fieldValidation();
+        }
+    }
+
+    fieldValidation() {
+        if (!this.state.name || !this.state.agency || !this.state.title || !this.state.password1) {
+            if (this.state.requestSent) {
+                this.setState({
+                    fieldsComplete: false
+                });
+            } else {
+                this.setState({
+                    fieldsComplete: false
+                });                    
+            }
+        }
+        else {
             this.setState({
-                passwordsMatch: false
-            });
+                fieldsComplete: true
+            });                
         }
     }
 
@@ -71,6 +87,7 @@ export default class ConfirmCode extends React.Component {
         if (e.charCode === enterKey) {
             this.requestReset();
             e.preventDefault();
+            this.fieldValidation();
         }
     }
 
@@ -78,43 +95,79 @@ export default class ConfirmCode extends React.Component {
         this.setState({
             name: e.target.value
         });
+        this.fieldValidation();
     }
 
     handleAgencyChange(e) {
         this.setState({
             agency: e.target.value
         });
+        this.fieldValidation();
     }
 
     handleTitleChange(e) {
         this.setState({
             title: e.target.value
         });
+        this.fieldValidation();
     }
 
     handlePassword1Change(e) {
-        console.log('password1');
-        this.setState({
-            password1: e.target.value
-        });
+            if (this.state.password2 === e.target.value) {
+                this.setState({
+                    password1: e.target.value,
+                    passwordsMatch: true
+                });                
+            } else {
+                this.setState({
+                    password1: e.target.value,
+                    passwordsMatch: false
+                });                
+            }
+            this.fieldValidation();
     }
 
     handlePassword2Change(e) {
-        console.log('password2');
-        this.setState({
-            password2: e.target.value
-        });
+            if (this.state.password1 === e.target.value) {
+                this.setState({
+                    password2: e.target.value,
+                    passwordsMatch: true
+                });                
+            } else {
+                this.setState({
+                    password2: e.target.value,
+                    passwordsMatch: false
+                });                
+            }
+            this.fieldValidation();
+
     }
     render() {
         let messageComponent = null;
+        let passMessageComponent = null;
+        let actionComponent = null;
+        let actionButton = <SubmitButton
+                    className="usa-da-button"
+                    onClick={this.requestReset.bind(this)}
+                    buttonText={"Submit"}
+                    />;
 
+        if (!this.state.fieldsComplete) {
+            actionComponent = <ErrorMessage message={"All fields are required."} />;
+        }
         if (!this.state.passwordsMatch) {
-            messageComponent = <ErrorMessage message={"Your passwords do not match."} />;
-        } else if (this.state.requestSent) {
-            if (this.state.resetFailed) {
-                messageComponent = <ErrorMessage message={"We could not register your account at this time."} />;
-            } else {
-                messageComponent = <SuccessMessage message={"Account successfully created."} />;
+            passMessageComponent = <ErrorMessage message={"Your passwords do not match."} />;
+
+        }
+        if  (this.state.passwordsMatch && this.state.fieldsComplete==true) {
+            passMessageComponent = <div></div>;
+            actionComponent = actionButton;
+            if (this.state.requestSent) {
+                if (this.state.resetFailed) {
+                    messageComponent = <ErrorMessage message={"We could not register your account at this time."} />;
+                } else {
+                    messageComponent = <SuccessMessage message={"Account successfully created."} />;
+                }
             }
         }
         return (
@@ -127,10 +180,8 @@ export default class ConfirmCode extends React.Component {
                     <TextInputComponent inputClass="" inputPlaceholder="Title" inputName="regTitle" handleChange={this.handleTitleChange.bind(this)} />
                     <PasswordComponent handleChange={this.handlePassword1Change.bind(this)}/>
                     <PasswordComponent handleChange={this.handlePassword2Change.bind(this)}/>
-                    <SubmitButton
-                      onClick={this.requestReset.bind(this)}
-                      buttonText={"Submit"}
-                    />
+                    {passMessageComponent}
+                    {actionComponent}
                     {messageComponent}
                 </div>
         );
