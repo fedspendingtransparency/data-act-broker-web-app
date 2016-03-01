@@ -57,13 +57,20 @@ export default class RegisterEmailPanel extends React.Component {
 
     render() {
         let messageComponent = null;
+        let successMsg = "An email has been sent to the address above. Please follow the link within this email to verify your email address.";
+        let submitComponent = <SignInButton
+                                onClick={this.requestReset.bind(this)}
+                                buttonText={"Submit"}
+                              />
+        let actionComponent = submitComponent;
 
         if (this.state.requestSent) {
             if (this.state.resetFailed) {
-                messageComponent = <ErrorMessage message={"The given email or username does not exist."} />;
+                messageComponent = <ErrorMessage message={"There was an error. If you already have an account, please login or reset your password."} />;
             } else {
-                messageComponent = <SuccessMessage message={"You will receive an email shortly."} />;
+                messageComponent = <SuccessMessage message={successMsg} />;
             }
+            actionComponent = messageComponent;
         }
 
         return (
@@ -73,11 +80,7 @@ export default class RegisterEmailPanel extends React.Component {
                     <div className="col-md-8 usa-da-text-white">
                         Please enter your email or username.
                     </div>
-                    <SignInButton
-                      onClick={this.requestReset.bind(this)}
-                      buttonText={"Submit"}
-                    />
-                    {messageComponent}
+                    {actionComponent}
                 </form>
             </div>
         );
