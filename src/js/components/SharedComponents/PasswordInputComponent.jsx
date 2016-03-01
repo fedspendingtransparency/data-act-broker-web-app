@@ -7,9 +7,9 @@ import React, { PropTypes } from 'react';
 
 const propTypes = {
     inputDisabled: PropTypes.bool,
-    inputName: PropTypes.string.required,
-    inputLength: PropTypes.Number, // This not yet functional via React
-    inputClass: '',
+    inputName: PropTypes.string.isRequired,
+    inputLength: PropTypes.number, // This not yet functional via React
+    inputClass: PropTypes.string,
     inputPlaceholder: PropTypes.string
 };
 
