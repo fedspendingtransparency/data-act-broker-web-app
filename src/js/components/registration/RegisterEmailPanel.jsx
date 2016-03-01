@@ -1,9 +1,9 @@
 /**
-* ForgotPasswordPanel.jsx
-* Created by Kyle Fox 2/23/16
+* RegisterEmailPanel.jsx
+* Created by Katie Rose on 2/25/16
 **/
 
-import React, { PropTypes } from 'react';
+import React from 'react';
 import { kGlobalConstants } from '../../GlobalConstants.js';
 import Request from 'superagent';
 import Username from '../login/Username.jsx';
@@ -11,11 +11,7 @@ import SignInButton from '../login/SignInButton.jsx';
 import ErrorMessage from '../SharedComponents/ErrorMessage.jsx';
 import SuccessMessage from '../SharedComponents/SuccessMessage.jsx';
 
-const propTypes = {
-    message: PropTypes.string
-};
-
-export default class ForgotPasswordPanel extends React.Component {
+export default class RegisterEmailPanel extends React.Component {
     constructor(props) {
         super(props);
 
@@ -27,7 +23,7 @@ export default class ForgotPasswordPanel extends React.Component {
     }
 
     requestReset() {
-        Request.post(kGlobalConstants.API + 'reset_password/')
+        Request.post(kGlobalConstants.API + 'confirm_email/')
                .withCredentials()
                .send({ 'email': this.state.username })
                .end((err) => {
@@ -61,15 +57,20 @@ export default class ForgotPasswordPanel extends React.Component {
 
     render() {
         let messageComponent = null;
+        let successMsg = "An email has been sent to the address above. Please follow the link within this email to verify your email address.";
+        let submitComponent = <SignInButton
+                                onClick={this.requestReset.bind(this)}
+                                buttonText={"Submit"}
+                              />
+        let actionComponent = submitComponent;
 
         if (this.state.requestSent) {
             if (this.state.resetFailed) {
-                messageComponent = <ErrorMessage message={"The given email or username does not exist."} />;
+                messageComponent = <ErrorMessage message={"There was an error. If you already have an account, please login or reset your password."} />;
             } else {
-                messageComponent = <SuccessMessage message={"You will receive an email shortly."} />;
+                messageComponent = <SuccessMessage message={successMsg} />;
             }
-        } else if (this.props.message) {
-            messageComponent = <ErrorMessage message={this.props.message} />;
+            actionComponent = messageComponent;
         }
 
         return (
@@ -79,15 +80,9 @@ export default class ForgotPasswordPanel extends React.Component {
                     <div className="col-md-8 usa-da-text-white">
                         Please enter your email or username.
                     </div>
-                    <SignInButton
-                      onClick={this.requestReset.bind(this)}
-                      buttonText={"Reset"}
-                    />
-                    {messageComponent}
+                    {actionComponent}
                 </form>
             </div>
         );
     }
 }
-
-ForgotPasswordPanel.propTypes = propTypes;

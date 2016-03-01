@@ -1,8 +1,11 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+import { kGlobalConstants } from './GlobalConstants.js';
 import { Router } from 'director';
+import Request from 'superagent';
 import LoginPage from './components/login/LoginPage.jsx';
 import RegistrationPage from './components/registration/RegistrationPage.jsx';
+import CompleteRegistrationComponent from './components/registration/ConfirmCodeComponent.jsx';
 import ForgotPasswordPage from './components/forgotPassword/ForgotPasswordPage.jsx';
 import LandingPage from './components/landing/LandingPage.jsx';
 import AddDataPage from './components/addData/AddDataPage.jsx';
@@ -18,18 +21,52 @@ const loginPageRoute = () => {
     );
 };
 
-const registrationPageRoute = (stepName) => {
-    ReactDOM.render(
-        <RegistrationPage stepName={stepName} />,
-        documentLocation
-    );
+const registrationPageRoute = (token) => {
+    if (token) {
+        Request.post(kGlobalConstants.API + 'confirm_email_token/')
+               .withCredentials()
+               .send({ 'token': token })
+               .end((err, res) => {
+                   if (err) {
+                       console.log(err);
+                   } else {
+                       ReactDOM.render(
+                            <RegistrationPage stepName='code' email={res.body.email} message={res.body.message} />,
+                            documentLocation
+                        );
+                   }
+               });
+    } else {
+        ReactDOM.render(
+            <RegistrationPage stepName='email' />,
+            documentLocation
+        );
+    }
+
 };
 
 const forgotPasswordPageRoute = (token) => {
-    ReactDOM.render(
-        <ForgotPasswordPage token={token} />,
-        documentLocation
-    );
+    if (token) {
+        Request.post(kGlobalConstants.API + 'confirm_password_token/')
+               .withCredentials()
+               .send({ 'token': token })
+               .end((err, res) => {
+                   if (err) {
+                       console.log(err);
+                   } else {
+                       ReactDOM.render(
+                            <ForgotPasswordPage errorCode={res.body.errorCode} message={res.body.message} email={res.body.email} />,
+                            documentLocation
+                        );
+                   }
+               });
+    } else {
+        ReactDOM.render(
+            <ForgotPasswordPage />,
+            documentLocation
+        );
+    }
+
 };
 
 const landingPageRoute = () => {
@@ -64,7 +101,13 @@ const adminPageRoute = () => {
 
 const routes = {
     '/': loginPageRoute,
-    '/registration/:stepName': registrationPageRoute,
+    '/registration': {
+        '/:token': {
+            on: registrationPageRoute
+        },
+        on: registrationPageRoute
+    },
+    // '/registration/:stepName': registrationPageRoute,
     '/forgotpassword': {
         '/:token': {
             on: forgotPasswordPageRoute

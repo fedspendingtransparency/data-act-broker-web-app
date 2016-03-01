@@ -15,6 +15,7 @@ export default class Username extends React.Component {
             <div className="usa-da-input-container">
                 <label className="sr-only" htmlFor="username">Username or email address</label>
                 <input
+                  className="usa-da-input-with-icon"
                   id="username"
                   name="username"
                   type="text"
@@ -22,7 +23,7 @@ export default class Username extends React.Component {
                   aria-describedby="username"
                   onChange={this.props.handleChange}
                 />
-                <div className="usa-da-icon usa-da-icon-user"></div>
+                <div className="usa-da-icon usa-da-icon-user usa-da-icon-nobg"></div>
             </div>
         );
     }
