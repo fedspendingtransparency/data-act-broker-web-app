@@ -247,6 +247,14 @@ h3 {
 		text-align: center;
 		position: relative;
 		z-index:5;
+
+		&::before {
+			display: none;
+		}
+
+		&::after {
+			display: none;
+		}
 	}
 
 	.usa-da-progress-bar-holder .name {
@@ -442,7 +450,37 @@ h3 {
 }
 
 
+/* Inputs */
 
+.usa-da-input-container {
+	margin-bottom: 20px;
+	display: inline-flex;
+	position: relative;
+	width: 100%;
+
+	.usa-da-input-with-icon {
+		padding-left: 2.5em;
+	}
+
+	div.usa-da-icon-nobg {
+		background-image: inherit !important;
+	}
+	div.usa-da-icon {
+		background-image: url("../graphics/form_bg.png");
+		background-repeat:no-repeat;
+		background-size:contain;
+		background-position:center;
+		margin: 0;
+		position: absolute;
+		left: 0;
+		top: 1px;
+		height: 42px;
+		width: 48px;
+		overflow: hidden;
+		float: left;
+		font-size: 24px;
+	}
+}
 
 
 
