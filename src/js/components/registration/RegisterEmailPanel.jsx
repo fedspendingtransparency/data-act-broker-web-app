@@ -11,7 +11,7 @@ import SignInButton from '../login/SignInButton.jsx';
 import ErrorMessage from '../SharedComponents/ErrorMessage.jsx';
 import SuccessMessage from '../SharedComponents/SuccessMessage.jsx';
 
-export default class ForgotPasswordPanel extends React.Component {
+export default class RegisterEmailPanel extends React.Component {
     constructor(props) {
         super(props);
 
