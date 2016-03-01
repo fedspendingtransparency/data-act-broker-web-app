@@ -10,6 +10,7 @@ import ForgotPasswordPage from './components/forgotPassword/ForgotPasswordPage.j
 import LandingPage from './components/landing/LandingPage.jsx';
 import AddDataPage from './components/addData/AddDataPage.jsx';
 import ReviewDataPage from './components/addData/ReviewDataPage.jsx';
+import AdminPage from './components/admin/AdminPage.jsx';
 
 const documentLocation = document.getElementById('app');
 
@@ -89,6 +90,13 @@ const reviewDataPageRoute = (subID) => {
     );
 };
 
+const adminPageRoute = () => {
+    ReactDOM.render(
+        <AdminPage />,
+        documentLocation
+    );
+};
+
 // Define the route URL patterns
 
 const routes = {
@@ -109,7 +117,8 @@ const routes = {
     '/landing': landingPageRoute,
     '/addData': addDataPageRoute,
     '/reviewData': reviewDataPageRoute,
-    '/reviewData/:subID': reviewDataPageRoute
+    '/reviewData/:subID': reviewDataPageRoute,
+    '/admin': adminPageRoute
 };
 
 // Start the routes
