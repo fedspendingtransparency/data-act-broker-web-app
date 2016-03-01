@@ -15,8 +15,8 @@ import gulpif from 'gulp-if';
 import del from 'del';
 import vinylPaths from 'vinyl-paths';
 import cssNano from 'gulp-cssnano';
-var shell = require('gulp-shell');
-var fs = require('fs');
+import shell from 'gulp-shell';
+import fs from 'fs';
 
 // Base Directories
 const dir = {

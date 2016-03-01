@@ -12,9 +12,10 @@ const propTypes = {
 export default class Password extends React.Component {
     render() {
         return (
-            <div className="usa-da-input-container">
+            <div className="usa-da-input-container usa-da-input-password">
                 <label className="sr-only" htmlFor="password">Password</label>
                 <input
+                  className="usa-da-input-with-icon"
                   id="password"
                   name="password"
                   type="password"
@@ -22,7 +23,7 @@ export default class Password extends React.Component {
                   aria-describedby="password"
                   onChange={this.props.handleChange}
                 />
-                <div className="usa-da-icon usa-da-icon-lock"></div>
+                <div className="usa-da-icon usa-da-icon-lock usa-da-icon-nobg"></div>
             </div>
         );
     }
