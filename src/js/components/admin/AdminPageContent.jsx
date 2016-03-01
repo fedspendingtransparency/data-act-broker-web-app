@@ -7,28 +7,20 @@ import React from 'react';
 import { kGlobalConstants } from '../../GlobalConstants.js';
 import Request from 'superagent';
 import Table from '../SharedComponents/table/TableComponent.jsx';
+import Loader from 'react-loader';
 
 class AdminPageButton extends React.Component {
-    constructor(props) {
-        super(props);
-
-        this.state = {
-            disabled: false
-        };
-    }
-
     render() {
         let context = this.props.context;
         var classNames = require('classnames');
         let classes = classNames({
             'usa-button-active': this.props.newStatus == 'approved',
-            'usa-button-secondary': this.props.newStatus == 'denied',
-            'usa-button-disabled': this.state.disabled == true
+            'usa-button-secondary': this.props.newStatus == 'denied'
         });
 
         return (
             <button type="button"
-                className={this.props.newStatus == 'approved' ? 'usa-button-active' : 'usa-button-secondary'}
+                className={classes}
                 onClick={context.changeStatus.bind(this.props)}>{this.props.name}</button>
         );
     }
@@ -41,9 +33,8 @@ export default class AdminPageContent extends React.Component {
             .send({ 'status': 'awaiting_approval' })
             .end((err, res) => {
                 if (err) {
-                    console.log(err);
+                    this['context'].setState({ loaded: true });
                 } else {
-                    // Display users
                     let users = res.body.users;
                     let userArray = [];
 
@@ -53,20 +44,21 @@ export default class AdminPageContent extends React.Component {
                         userArray[userArray.length-1].push(<AdminPageButton name="Deny" newStatus="denied" user={user} context={this} />);
                     }
 
-                    this.setState({ users: userArray });
+                    this.setState({ users: userArray, loaded: true });
                 }
             });
     }
 
     changeStatus(){
+        this['context'].setState({ loaded: false });
         Request.post(kGlobalConstants.API + 'change_status/')
             .withCredentials()
             .send({ 'uid': this['user']['id'], 'new_status': this['newStatus']})
             .end((err) => {
                 if (err) {
-                    console.log(err);
+                    this['context'].setState({ loaded: true });
                 } else {
-                    // Refresh data
+                    this['context'].setState({ loaded: true });
                     this['context'].getAllUserRequests();
                 }
             });
@@ -76,7 +68,8 @@ export default class AdminPageContent extends React.Component {
         super(props);
 
         this.state = {
-            users: []
+            users: [],
+            loaded: false
         };
 
         this.getAllUserRequests();
@@ -85,26 +78,16 @@ export default class AdminPageContent extends React.Component {
     render() {
         const headers = ['Email', 'Agency', 'Title', 'User ID', 'Name', 'Approve', 'Deny'];
 
-        if (this.state.users.length > 0) {
-            return (
-                <div className="container">
-                    <div className="row">
-                        <div className="col-md-12 usa-da-table-holder">
+        return (
+            <div className="container">
+                <div className="row">
+                    <div className="col-md-12 usa-da-table-holder">
+                        <Loader loaded={this.state.loaded}>
                             <Table data={this.state.users} headers={headers}/>
-                        </div>
+                        </Loader>
                     </div>
                 </div>
-            );
-        } else {
-            return (
-                <div className="container">
-                    <div className="row">
-                        <div className="col-md-12 usa-da-table-holder">
-                            Fetching Users
-                        </div>
-                    </div>
-                </div>
-            );
-        }
+            </div>
+        );
     }
 }
