@@ -7,6 +7,7 @@ import React from 'react';
 import TextInputComponent from '../SharedComponents/TextInputComponent.jsx';
 import PasswordInputComponent from '../SharedComponents/PasswordInputComponent.jsx';
 import Progress from '../SharedComponents/ProgressComponent.jsx';
+import SubmitButton from '../login/SignInButton.jsx';
 
 export default class ConfirmCode extends React.Component {
     render() {
@@ -15,11 +16,13 @@ export default class ConfirmCode extends React.Component {
                     <Progress totalSteps="4" currentStep="3"/>
                     <h1>Your email has been verified!</h1>
                     <p>Please continue the registration process by providing the following information.</p>
-                    <p><TextInputComponent inputClass="" inputPlaceholder="First Name" inputName="regFirstName" /></p>
-                    <p><TextInputComponent inputClass="" inputPlaceholder="Last Name" inputName="regLastName" /></p>
-                    <p><TextInputComponent inputClass="" inputPlaceholder="Phone Number" inputName="regPhoneNumber" /></p>
-                    <p><PasswordInputComponent inputClass="" inputPlaceholder="Password" inputName="regPassword" /></p>
-                    <p><PasswordInputComponent inputClass="" inputPlaceholder="Confirm Password" inputName="regConfirmPassword" /></p>
+                    <TextInputComponent inputClass="" inputPlaceholder="First Name" inputName="regFirstName" />
+                    <TextInputComponent inputClass="" inputPlaceholder="Last Name" inputName="regLastName" />
+                    <TextInputComponent inputClass="" inputPlaceholder="Agency" inputName="regAgency" />
+                    <TextInputComponent inputClass="" inputPlaceholder="Title" inputName="regTitle" />
+                    <PasswordInputComponent inputClass="" inputPlaceholder="Set Password" inputName="regPassword" />
+                    <PasswordInputComponent inputClass="" inputPlaceholder="Confirm Password" inputName="regConfirmPassword" />
+
                 </div>
         );
     }

@@ -11,7 +11,8 @@ import ConfirmCode from './ConfirmCodeComponent.jsx';
 
 const propTypes = {
     stepName: PropTypes.string.isRequired,
-    message: PropTypes.string
+    message: PropTypes.string,
+    email: PropTypes.string
 };
 
 // Default to showing email input page
@@ -30,7 +31,7 @@ export default class RegistrationPage extends React.Component {
                 currentComponent = <RegisterEmailPanel resend={true} />
             }
             else if (this.props.message == 'success') {
-                currentComponent = <ConfirmCode />;
+                currentComponent = <ConfirmCode email={this.props.email}/>;
             }
             
         }

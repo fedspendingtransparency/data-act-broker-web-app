@@ -5,6 +5,7 @@ import { Router } from 'director';
 import Request from 'superagent';
 import LoginPage from './components/login/LoginPage.jsx';
 import RegistrationPage from './components/registration/RegistrationPage.jsx';
+import CompleteRegistrationComponent from './components/registration/ConfirmCodeComponent.jsx';
 import ForgotPasswordPage from './components/forgotPassword/ForgotPasswordPage.jsx';
 import LandingPage from './components/landing/LandingPage.jsx';
 import AddDataPage from './components/addData/AddDataPage.jsx';
@@ -22,13 +23,14 @@ const loginPageRoute = () => {
 const registrationPageRoute = (token) => {
     if (token) {
         Request.post(kGlobalConstants.API + 'confirm_email_token/')
+               .withCredentials()
                .send({ 'token': token })
                .end((err, res) => {
                    if (err) {
                        console.log(err);
                    } else {
                        ReactDOM.render(
-                            <RegistrationPage stepName='code' message={res.body.message} />,
+                            <RegistrationPage stepName='code' email={res.body.email} message={res.body.message} />,
                             documentLocation
                         );
                    }
