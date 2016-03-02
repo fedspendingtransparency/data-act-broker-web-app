@@ -6,9 +6,12 @@
 import React, { PropTypes } from 'react';
 
 const propTypes = {
-    handleChange: PropTypes.func.isRequired
+    handleChange: PropTypes.func.isRequired,
+    fieldID: PropTypes.string
 };
-
+const defaultProps = {
+    fieldID: "password"
+};
 export default class Password extends React.Component {
     render() {
         return (
@@ -16,8 +19,8 @@ export default class Password extends React.Component {
                 <label className="sr-only" htmlFor="password">Password</label>
                 <input
                   className="usa-da-input-with-icon"
-                  id="password"
-                  name="password"
+                  id={this.props.fieldID}
+                  name={this.props.fieldID}
                   type="password"
                   placeholder="Password"
                   aria-describedby="password"
