@@ -7,11 +7,13 @@ import React, { PropTypes } from 'react';
 
 const propTypes = {
     buttonDisabled: PropTypes.bool.isRequired,
-    route: PropTypes.string.isRequired
+    route: PropTypes.string.isRequired,
+    buttonText: PropTypes.string
 };
 
 const defaultProps = {
     buttonDisabled: true,
+    buttonText: "Verify this email address",
     route: '#'
 };
 
@@ -35,11 +37,11 @@ export default class SubmitEmailButton extends React.Component {
             <button
               className={newButtonClass}
               type="submit"
-              value="Verify this email address"
+              value={this.props.buttonText}
               disabled={this.props.buttonDisabled}
               onClick={this.buttonClicked.bind(this)}
             >
-                Verify this email address
+                {this.props.buttonText}
             </button>
         );
     }
