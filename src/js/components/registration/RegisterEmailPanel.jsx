@@ -7,9 +7,11 @@ import React from 'react';
 import { kGlobalConstants } from '../../GlobalConstants.js';
 import Request from 'superagent';
 import Username from '../login/Username.jsx';
+import EmailValidation from '../SharedComponents/EmailValidation.jsx';
 import SignInButton from '../login/SignInButton.jsx';
 import ErrorMessage from '../SharedComponents/ErrorMessage.jsx';
 import SuccessMessage from '../SharedComponents/SuccessMessage.jsx';
+import SubmitEmailButton from './SubmitButton.jsx';
 
 export default class RegisterEmailPanel extends React.Component {
     constructor(props) {
@@ -18,8 +20,15 @@ export default class RegisterEmailPanel extends React.Component {
         this.state = {
             username: '',
             requestSent: false,
-            resetFailed: false
+            resetFailed: false,
+            buttonDisabled: true
         };
+    }
+
+    setButtonDisabled(disabled) {
+        this.setState({
+            buttonDisabled: disabled
+        });
     }
 
     requestReset() {
@@ -58,11 +67,13 @@ export default class RegisterEmailPanel extends React.Component {
     render() {
         let messageComponent = null;
         let successMsg = "An email has been sent to the address above. Please follow the link within this email to verify your email address.";
-        let submitComponent = <SignInButton
+        let submitComponent = <SubmitEmailButton
                                 onClick={this.requestReset.bind(this)}
                                 buttonText={"Submit"}
+                                buttonDisabled={this.state.buttonDisabled}
                               />
         let actionComponent = submitComponent;
+        const emailRegex = /^[a-z0-9._%+-]+@[a-z0-9.-]+\.(?:gov|mil)$/;
 
         if (this.state.requestSent) {
             if (this.state.resetFailed) {
@@ -76,10 +87,12 @@ export default class RegisterEmailPanel extends React.Component {
         return (
             <div className="col-md-6 usa-da-login-container">
                 <form onKeyPress={this.handleKeyPress.bind(this)}>
-                    <Username handleChange={this.handleUsernameChange.bind(this)}/>
-                    <div className="col-md-8 usa-da-text-white">
-                        Please enter your email or username.
-                    </div>
+                                    <EmailValidation
+                  id={"registrationEmail"}
+                  placeholder={"Please enter your .gov or .mil email address"}
+                  regex={emailRegex}
+                  buttonDisabled={this.setButtonDisabled.bind(this)}
+                />
                     {actionComponent}
                 </form>
             </div>
