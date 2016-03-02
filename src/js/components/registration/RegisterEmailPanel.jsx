@@ -64,7 +64,7 @@ export default class RegisterEmailPanel extends React.Component {
         const inputText = e.target.value;
         let newButtonDisabled;
 
-        if (inputText.match(this.props.regex)) {
+        if (inputText.match(/^[a-z0-9._%+-]+@[a-z0-9.-]+\.(?:gov|mil|com)$/)) {
             newButtonDisabled = false;
             this.setState({
               buttonDisabled: false
