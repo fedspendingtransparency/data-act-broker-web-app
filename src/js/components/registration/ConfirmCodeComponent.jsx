@@ -138,9 +138,9 @@ export default class ConfirmCode extends React.Component {
         let messageComponent = null;
         let passMessageComponent = null;
         let actionComponent = null;
-        let actionButton = <SubmitRegButton
+        let actionButton =  <SubmitRegButton
                                 onClick={this.requestReset.bind(this)}
-                                buttonText={"Submit"}
+                                buttonText="Complete Registration"
                                 buttonDisabled={this.state.buttonDisabled}
                               />
 
@@ -159,6 +159,7 @@ export default class ConfirmCode extends React.Component {
                     messageComponent = <ErrorMessage message={"We could not register your account at this time."} />;
                 } else {
                     messageComponent = <SuccessMessage message={"Account successfully created."} />;
+                    actionComponent = <div></div>;
                 }
             }
         }
@@ -173,11 +174,7 @@ export default class ConfirmCode extends React.Component {
                     <PasswordComponent fieldID="regPassword2" handleChange={this.handleFieldChange.bind(this)}/>
                     {passMessageComponent}
                     {messageComponent}
-                    <SubmitRegButton
-                                onClick={this.requestReset.bind(this)}
-                                buttonText="Complete Registration"
-                                buttonDisabled={this.state.buttonDisabled}
-                              />
+                    {actionComponent}
                 </div>
         );
     }
