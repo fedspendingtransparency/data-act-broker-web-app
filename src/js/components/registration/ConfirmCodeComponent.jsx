@@ -164,7 +164,6 @@ export default class ConfirmCode extends React.Component {
         }
         return (
                 <div className="row">
-                    <Progress totalSteps="4" currentStep="3"/>
                     <h1>Your email has been verified!</h1>
                     <p>Please continue the registration process by providing the following information.</p>
                     <TextInputComponent inputClass="" inputPlaceholder="Name" inputName="regName" handleChange={this.handleFieldChange.bind(this)}/>
