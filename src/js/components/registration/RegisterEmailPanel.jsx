@@ -60,6 +60,23 @@ export default class RegisterEmailPanel extends React.Component {
         this.setState({
             username: e.target.value
         });
+
+        const inputText = e.target.value;
+        let newButtonDisabled;
+
+        if (inputText.match(this.props.regex)) {
+            newButtonDisabled = false;
+            this.setState({
+              buttonDisabled: false
+            })
+        } else {
+            newButtonDisabled = true;
+            this.setState({
+              buttonDisabled: true
+            })
+        }
+
+
     }
 
     render() {
@@ -90,6 +107,7 @@ export default class RegisterEmailPanel extends React.Component {
                     placeholder={"Please enter your .gov or .mil email address"}
                     regex={emailRegex}
                     buttonDisabled={this.setButtonDisabled.bind(this)}
+                    handleChange={this.handleUsernameChange.bind(this)}
                   />
                     {actionComponent}
                 </form>
