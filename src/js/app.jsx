@@ -1,60 +1,125 @@
-import React            from 'react';
-import ReactDOM         from 'react-dom';
-import Base64           from './vendor/base64.min.js';
-import {Router}         from 'director';
-import LoginPage        from './components/LoginComponents.jsx';
+import React from 'react';
+import ReactDOM from 'react-dom';
+import { kGlobalConstants } from './GlobalConstants.js';
+import { Router } from 'director';
+import Request from 'superagent';
+import LoginPage from './components/login/LoginPage.jsx';
 import RegistrationPage from './components/registration/RegistrationPage.jsx';
-import LandingPage      from './components/LandingComponents.jsx';
-import AddDataPage      from './components/addData/AddDataPage.jsx';
-import ReviewDataPage   from './components/addData/ReviewDataPage.jsx';
+import CompleteRegistrationComponent from './components/registration/ConfirmCodeComponent.jsx';
+import ForgotPasswordPage from './components/forgotPassword/ForgotPasswordPage.jsx';
+import LandingPage from './components/landing/LandingPage.jsx';
+import AddDataPage from './components/addData/AddDataPage.jsx';
+import ReviewDataPage from './components/addData/ReviewDataPage.jsx';
+import AdminPage from './components/admin/AdminPage.jsx';
 
-var documentLocation = document.getElementById('app');
+const documentLocation = document.getElementById('app');
 
-var loginPageRoute = function() {
+const loginPageRoute = () => {
     ReactDOM.render(
         <LoginPage />,
         documentLocation
     );
 };
 
-var registrationPageRoute = function(stepName) {
-    ReactDOM.render(
-        <RegistrationPage stepName={stepName} />,
-        documentLocation
-    );
+const registrationPageRoute = (token) => {
+    if (token) {
+        Request.post(kGlobalConstants.API + 'confirm_email_token/')
+               .withCredentials()
+               .send({ 'token': token })
+               .end((err, res) => {
+                   if (err) {
+                       console.log(err);
+                   } else {
+                       ReactDOM.render(
+                            <RegistrationPage stepName='code' email={res.body.email} message={res.body.message} />,
+                            documentLocation
+                        );
+                   }
+               });
+    } else {
+        ReactDOM.render(
+            <RegistrationPage stepName='email' />,
+            documentLocation
+        );
+    }
+
 };
 
-var landingPageRoute = function() {
+const forgotPasswordPageRoute = (token) => {
+    if (token) {
+        Request.post(kGlobalConstants.API + 'confirm_password_token/')
+               .withCredentials()
+               .send({ 'token': token })
+               .end((err, res) => {
+                   if (err) {
+                       console.log(err);
+                   } else {
+                       ReactDOM.render(
+                            <ForgotPasswordPage errorCode={res.body.errorCode} message={res.body.message} email={res.body.email} />,
+                            documentLocation
+                        );
+                   }
+               });
+    } else {
+        ReactDOM.render(
+            <ForgotPasswordPage />,
+            documentLocation
+        );
+    }
+
+};
+
+const landingPageRoute = () => {
     ReactDOM.render(
         <LandingPage />,
         documentLocation
     );
 };
 
-var addDataPageRoute = function() {
+const addDataPageRoute = () => {
     ReactDOM.render(
         <AddDataPage />,
         documentLocation
     );
 };
 
-var reviewDataPageRoute = function() {
+const reviewDataPageRoute = (subID) => {
     ReactDOM.render(
-        <ReviewDataPage />,
+        <ReviewDataPage subID={subID} />,
+        documentLocation
+    );
+};
+
+const adminPageRoute = () => {
+    ReactDOM.render(
+        <AdminPage />,
         documentLocation
     );
 };
 
 // Define the route URL patterns
 
-var routes = {
+const routes = {
     '/': loginPageRoute,
-    '/registration/:stepName' : registrationPageRoute,
+    '/registration': {
+        '/:token': {
+            on: registrationPageRoute
+        },
+        on: registrationPageRoute
+    },
+    // '/registration/:stepName': registrationPageRoute,
+    '/forgotpassword': {
+        '/:token': {
+            on: forgotPasswordPageRoute
+        },
+        on: forgotPasswordPageRoute
+    },
     '/landing': landingPageRoute,
     '/addData': addDataPageRoute,
-    '/reviewData': reviewDataPageRoute
+    '/reviewData': reviewDataPageRoute,
+    '/reviewData/:subID': reviewDataPageRoute,
+    '/admin': adminPageRoute
 };
 
 // Start the routes
-var router = Router(routes);
-router.init('/');
+Router(routes).init('/');

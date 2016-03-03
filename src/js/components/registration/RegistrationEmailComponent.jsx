@@ -29,7 +29,7 @@ export default class EmailComponent extends React.Component {
         const emailRegex = /^[a-z0-9._%+-]+@[a-z0-9.-]+\.(?:gov|mil)$/;
 
         return (
-            <form action="/registrationEmail" method="post">
+            <div>
                 <label htmlFor="input-registration-email">Registration Email</label>
                 <EmailValidation
                   id={"registrationEmail"}
@@ -37,8 +37,8 @@ export default class EmailComponent extends React.Component {
                   regex={emailRegex}
                   buttonDisabled={this.setButtonDisabled.bind(this)}
                 />
-                <SubmitEmailButton buttonDisabled={this.state.buttonDisabled} />
-            </form>
+                <SubmitEmailButton buttonDisabled={this.state.buttonDisabled} route="#/registration/code"/>
+            </div>
         );
     }
 }
