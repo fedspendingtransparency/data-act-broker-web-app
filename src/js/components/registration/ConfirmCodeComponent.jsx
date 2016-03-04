@@ -11,6 +11,7 @@ import Progress from '../SharedComponents/ProgressComponent.jsx';
 import SubmitButton from '../login/SignInButton.jsx';
 import PasswordComponent from '../login/Password.jsx';
 import ErrorMessage from '../SharedComponents/ErrorMessage.jsx';
+import ErrorMessageList from '../SharedComponents/ErrorMessageList.jsx';
 import SuccessMessage from '../SharedComponents/SuccessMessage.jsx';
 import SubmitRegButton from './SubmitButton.jsx';
 
@@ -33,7 +34,8 @@ export default class ConfirmCode extends React.Component {
             password2: '',
             passwordsMatch: true,
             fieldsComplete: null,
-            buttonDisabled: true
+            buttonDisabled: true,
+            passwordErrors: []
         };
     }
 
@@ -69,30 +71,50 @@ export default class ConfirmCode extends React.Component {
         let fieldEmpty= !this.state.name || !this.state.agency || !this.state.title || !this.state.password1 || !this.state.password2;
         let passMatch = this.state.password1 === this.state.password2;
 
+
+        let errorMessages = []
+        if(this.state.password1.length < 8) {
+            errorMessages.push("Password must be at least 8 characters in length.");
+        }
+        if (!this.state.password1.match(/[a-z]/i)) {
+            errorMessages.push("Password must contain at least one lowercase letter.");
+        }
+        if (!this.state.password1.match(/[A-Z]/i)) {
+            errorMessages.push("Password must contain at least one uppercase letter.");
+        }
+        if (!this.state.password1.match(/\d/i)) {
+            errorMessages.push("Password must contain at least one number.");
+        }
+        if (!this.state.password1.match(/[\[\]\{\}~!@#$%^,.?;<>]/i)) {
+            errorMessages.push("Password must contain at least one of the following characters [ ] { } ~ ! @ # $ % ^, . ? ;");
+        }
+        this.setState({passwordErrors:errorMessages});
+
+
         if (fieldEmpty && !passMatch) {
             this.setState({
                 fieldsComplete: false,
                 passwordsMatch: false,
                 buttonDisabled: true
-            });                    
+            });
         } else if (fieldEmpty && passMatch) {
             this.setState({
                 fieldsComplete: false,
                 passwordsMatch: true,
                 buttonDisabled: true
-            });   
+            });
         } else if (!fieldEmpty && !passMatch) {
             this.setState({
                 fieldsComplete: true,
                 passwordsMatch: false,
                 buttonDisabled: true
-            });               
+            });
         } else {
             this.setState({
                 fieldsComplete: true,
                 passwordsMatch: true,
-                buttonDisabled: false
-            });  
+                buttonDisabled: errorMessages.length == 0
+            });
         }
     }
 
@@ -147,7 +169,13 @@ export default class ConfirmCode extends React.Component {
         if (!this.state.fieldsComplete) {
             messageComponent = <ErrorMessage message={"All fields are required."} />;
         }
-        if (!this.state.passwordsMatch) {
+        if(this.state.passwordErrors.length == 1) {
+            passMessageComponent = <ErrorMessage message={this.state.passwordErrors[0]}/>;
+        }
+        else if(this.state.passwordErrors.length > 1) {
+            passMessageComponent = <ErrorMessageList errorMessages={this.state.passwordErrors}/>;
+        }
+        else if (!this.state.passwordsMatch) {
             passMessageComponent = <ErrorMessage message={"Your passwords do not match."} />;
 
         }
