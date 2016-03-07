@@ -174,6 +174,17 @@ h3 {
 			&:hover {
 				background-color: $color-darkest;
 			}
+
+			&.disabled {
+				background-color: $color-gray;
+				padding: 2.0rem 1.0rem 0;
+				cursor: default;
+
+				.comingSoon {
+					text-align: center;
+					font-size: 1.3rem;
+				}
+			}
 		}
 
 		#usa-da-header-link-holder > li.active > * {
@@ -342,91 +353,6 @@ h3 {
 	.usa-da-progress-bar-holder .usa-da-progress-bar-step-current .step {
 		border: 1px solid $color-focus;
 	}
-
-	/*.usa-da-progress-bar-step-holder {
-		list-style: none;
-		margin: 0;
-		padding: 0;
-		position: relative;
-		display: flex;
-		flex-direction: row;
-		justify-content: space-between;
-		overflow: hidden;
-
-		li {
-			width: 45px;
-			height: 45px;
-			z-index: 1;
-			position: relative;
-			display: inline-block;
-
-			&.usa-da-progress-bar-step-current ~ li {
-				color: $color-white;
-				&::after {
-					width: 0;
-				}
-			}
-			&::after {
-				content: "";
-				position: absolute;
-				left: 45px;
-				top: 18px;
-				background: $color-focus;
-				height: 10px;
-				width: 100%;
-			}
-
-			div {
-				border-radius: 90px;
-				background: $color-focus;
-				color: $color-white;
-				display: table-cell;
-				vertical-align: middle;
-				text-align: center;
-				width: 45px;
-				height: 45px;
-			}
-		}
-
-		&::after {
-			content: "";
-			position: absolute;
-			right:0;
-			top:18px;
-			background: $color-gray-light;
-			height: 10px;
-			width: 100%;
-		}
-
-		.usa-da-progress-bar-step-current ~ li::after {
-			position: absolute;
-			top: 42%;
-			height: 10px;
-			z-index: 2;
-			background: $color-focus;
-		}
-
-		.usa-da-progress-bar-step::after {
-			content: "";
-			position: absolute;
-			top: 0;
-			left: 5px;
-			height: 5px;
-			z-index: 3;
-			background: $color-gray-light;
-		}
-	}*/
-
-	/*.usa-da-progress-bar-step-holder::after {
-		content: "";
-		position: absolute;
-		top: 42%;
-		left: 20px;
-		right: 20px;
-		height: 10px;
-		z-index: 1;
-		background: $color-gray-light;
-	}*/
 }
 
 /* Footer */

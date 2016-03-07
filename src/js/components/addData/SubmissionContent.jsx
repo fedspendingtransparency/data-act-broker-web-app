@@ -20,7 +20,8 @@ export default class SubmissionContent extends React.Component {
         this.state = {
             fileHolder: [],
             submissionID: 0,
-            progress: 0
+            progress: 0,
+            progressStep: 1
         };
     }
 
@@ -115,6 +116,8 @@ export default class SubmissionContent extends React.Component {
                .end((err, res) => {
                    if (err) {
                        console.log(err + JSON.stringify(res.body));
+                   } else {
+                       this.setState({ progressStep: 2 });
                    }
                });
     }
@@ -148,7 +151,7 @@ export default class SubmissionContent extends React.Component {
                     <div className="container center-block">
                         <div className="row">
                             <TypeSelector />
-                            <Progress totalSteps={3} currentStep={2} />
+                            <Progress totalSteps={3} currentStep={this.state.progressStep} />
                         </div>
                     </div>
                 </div>
