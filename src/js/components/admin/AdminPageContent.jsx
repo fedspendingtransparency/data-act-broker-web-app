@@ -14,14 +14,34 @@ class AdminPageButton extends React.Component {
         let context = this.props.context;
         var classNames = require('classnames');
         let classes = classNames({
-            'usa-button-active': this.props.newStatus == 'approved',
-            'usa-button-secondary': this.props.newStatus == 'denied'
+            'usa-button-active': this.props.newStatus === 'approved',
+            'usa-button-secondary': this.props.newStatus === 'denied'
         });
 
         return (
             <button type="button"
                 className={classes}
                 onClick={context.changeStatus.bind(this.props)}>{this.props.name}</button>
+        );
+    }
+}
+
+export default class AdminPageMessage extends React.Component {
+    render(){
+        var classNames = require('classnames');
+        let classes = classNames({
+            'hidden': this.props.data.hidden === true,
+            'usa-alert usa-alert-success': this.props.data.hidden === false && this.props.data.action == 'approved',
+            'usa-alert usa-alert-error': this.props.data.hidden === false && this.props.data.action == 'denied'
+        });
+
+        return (
+            <div className={classes}>
+                <div className="usa-alert-body">
+                    <h3 className="usa-alert-heading">Success</h3>
+                    <p className="usa-alert-text">{this.props.data.user}'s Data Broker account has been {this.props.data.action}.</p>
+                </div>
+            </div>
         );
     }
 }
@@ -58,8 +78,16 @@ export default class AdminPageContent extends React.Component {
                 if (err) {
                     this['context'].setState({ loaded: true });
                 } else {
-                    this['context'].setState({ loaded: true });
                     this['context'].getAllUserRequests();
+
+                    this['context'].setState({
+                        loaded: true,
+                        message: {
+                            user: this['user']['email'],
+                            hidden: false,
+                            action: this['newStatus']
+                        }
+                    });
                 }
             });
     }
@@ -69,7 +97,12 @@ export default class AdminPageContent extends React.Component {
 
         this.state = {
             users: [],
-            loaded: false
+            loaded: false,
+            message: {
+                user: "",
+                hidden: true,
+                action: ""
+            }
         };
 
         this.getAllUserRequests();
@@ -81,7 +114,12 @@ export default class AdminPageContent extends React.Component {
         return (
             <div className="container">
                 <div className="row">
-                    <div className="col-md-12 usa-da-table-holder">
+                    <div className="col-md-12 usa-da-admin-message">
+                        <AdminPageMessage data={this.state.message} />
+                    </div>
+                </div>
+                <div className="row">
+                    <div className="col-md-12 usa-da-table-holder usa-da-admin-table-holder">
                         <Loader loaded={this.state.loaded}>
                             <Table data={this.state.users} headers={headers}/>
                         </Loader>

@@ -29,7 +29,9 @@ export default class LandingContent extends React.Component {
                                 <a className="usa-da-button-landing" href="#/addData">Add & Validate New Data</a>
                             </div>
                             <div className="col-md-6">
-                                <a className="usa-da-button-landing" href="#">Performance Dashboard</a>
+                                <a className="usa-da-button-landing disabled" href="#">Performance Dashboard
+                                    <div><em>Coming Soon</em></div>
+                                </a>
                             </div>
                         </div>
                     </div>
