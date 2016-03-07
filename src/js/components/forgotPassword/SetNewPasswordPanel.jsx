@@ -35,10 +35,10 @@ export default class SetNewPasswordPanel extends React.Component {
         if(this.state.password1.length < 8) {
             errorMessages.push("Password must be at least 8 characters in length.");
         }
-        if (!this.state.password1.match(/[a-z]/i)) {
+        if (!this.state.password1.match(/[a-z]/)) {
             errorMessages.push("Password must contain at least one lowercase letter.");
         }
-        if (!this.state.password1.match(/[A-Z]/i)) {
+        if (!this.state.password1.match(/[A-Z]/)) {
             errorMessages.push("Password must contain at least one uppercase letter.");
         }
         if (!this.state.password1.match(/\d/i)) {
