@@ -113,7 +113,7 @@ export default class ConfirmCode extends React.Component {
             this.setState({
                 fieldsComplete: true,
                 passwordsMatch: true,
-                buttonDisabled: errorMessages.length == 0
+                buttonDisabled: errorMessages.length > 0
             });
         }
     }
