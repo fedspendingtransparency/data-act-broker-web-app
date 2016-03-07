@@ -1,3 +1,7 @@
+body{
+	-webkit-font-smoothing: antialiased;
+}
+
 /* Colors */
 $color-darkest: #2C333B;
 
@@ -79,8 +83,26 @@ h3 {
 	font-weight: $font-normal;
 	line-height: $lead-line-height;
 	margin-top: 0;
-	margin-bottom: 60px;
+	margin-bottom: 40px;
 }
+
+
+@mixin list-row($height, $line-height) {
+	height: $height;
+	line-height: $line-height;
+    display: inline-block;
+    &:first-child {
+        padding-left: 0
+    }
+    &:last-child {
+        border-right: none;
+        padding-right: 0;
+    }
+    &:before {
+        display: none;
+    }
+}
+
 
 /* Tables */
 .usa-da-table-holder {
