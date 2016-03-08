@@ -1,10 +1,12 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { kGlobalConstants } from './GlobalConstants.js';
-import { Router } from 'director';
+import { Router, Route, Link, hashHistory } from 'react-router'
 import Request from 'superagent';
 import LoginPage from './components/login/LoginPage.jsx';
 import RegistrationPage from './components/registration/RegistrationPage.jsx';
+import RegisterTokenPage from './components/registration/RegisterTokenPage.jsx';
+import ResetPasswordTokenPage from './components/forgotPassword/ResetPasswordTokenPage.jsx';
 import CompleteRegistrationComponent from './components/registration/ConfirmCodeComponent.jsx';
 import ForgotPasswordPage from './components/forgotPassword/ForgotPasswordPage.jsx';
 import LandingPage from './components/landing/LandingPage.jsx';
@@ -14,112 +16,37 @@ import AdminPage from './components/admin/AdminPage.jsx';
 
 const documentLocation = document.getElementById('app');
 
-const loginPageRoute = () => {
-    ReactDOM.render(
-        <LoginPage />,
-        documentLocation
-    );
-};
 
-const registrationPageRoute = (token) => {
-    if (token) {
-        Request.post(kGlobalConstants.API + 'confirm_email_token/')
-               .withCredentials()
-               .send({ 'token': token })
-               .end((err, res) => {
-                   if (err) {
-                       console.log(err);
-                   } else {
-                       ReactDOM.render(
-                            <RegistrationPage stepName='code' email={res.body.email} message={res.body.message} />,
-                            documentLocation
-                        );
-                   }
-               });
-    } else {
-        ReactDOM.render(
-            <RegistrationPage stepName='email' />,
-            documentLocation
-        );
-    }
+const checkAdminPermissions = (nextState, replace) => {
+  //TODO Add check For Permissions
+}
 
-};
+const checkUserPermissions = (nextState, replace) => {
+  //TODO Add check For User Permissions
+}
 
-const forgotPasswordPageRoute = (token) => {
-    if (token) {
-        Request.post(kGlobalConstants.API + 'confirm_password_token/')
-               .withCredentials()
-               .send({ 'token': token })
-               .end((err, res) => {
-                   if (err) {
-                       console.log(err);
-                   } else {
-                       ReactDOM.render(
-                            <ForgotPasswordPage errorCode={res.body.errorCode} message={res.body.message} email={res.body.email} />,
-                            documentLocation
-                        );
-                   }
-               });
-    } else {
-        ReactDOM.render(
-            <ForgotPasswordPage />,
-            documentLocation
-        );
-    }
+const redirectIfLogin = (nextState, replace) => {
+   //TODO Add check For User Permissions
 
-};
+}
 
-const landingPageRoute = () => {
-    ReactDOM.render(
-        <LandingPage />,
-        documentLocation
-    );
-};
+const debugRoute = (nextState,replace) => {
 
-const addDataPageRoute = () => {
-    ReactDOM.render(
-        <AddDataPage />,
-        documentLocation
-    );
-};
+}
 
-const reviewDataPageRoute = (subID) => {
-    ReactDOM.render(
-        <ReviewDataPage subID={subID} />,
-        documentLocation
-    );
-};
 
-const adminPageRoute = () => {
-    ReactDOM.render(
-        <AdminPage />,
-        documentLocation
-    );
-};
-
-// Define the route URL patterns
-
-const routes = {
-    '/': loginPageRoute,
-    '/registration': {
-        '/:token': {
-            on: registrationPageRoute
-        },
-        on: registrationPageRoute
-    },
-    // '/registration/:stepName': registrationPageRoute,
-    '/forgotpassword': {
-        '/:token': {
-            on: forgotPasswordPageRoute
-        },
-        on: forgotPasswordPageRoute
-    },
-    '/landing': landingPageRoute,
-    '/addData': addDataPageRoute,
-    '/reviewData': reviewDataPageRoute,
-    '/reviewData/:subID': reviewDataPageRoute,
-    '/admin': adminPageRoute
-};
-
-// Start the routes
-Router(routes).init('/')
+ReactDOM.render((
+  <Router history={hashHistory}>
+      <Route path="login" component={LoginPage} onEnter={checkAdminPermissions}/>
+      <Route path="admin" component={AdminPage} onEnter={checkAdminPermissions}/>
+      <Route path="landing" component={LandingPage} />
+      <Route path="addData" component={AddDataPage} onEnter={checkUserPermissions} />
+      <Route path="reviewData" component={ReviewDataPage} />
+      <Route path="reviewData/:subID" component={ReviewDataPage} />
+      <Route path="forgotpassword" component={ForgotPasswordPage} />
+      <Route path="forgotpassword/:token" component={ResetPasswordTokenPage} />
+      <Route path="registration" component={RegistrationPage} />
+      <Route path="registration/:token" component={RegisterTokenPage} />
+      <Route path="*" component={LoginPage} onEnter={debugRoute}/>
+  </Router>
+), documentLocation)

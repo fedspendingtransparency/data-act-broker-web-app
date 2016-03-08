@@ -275,10 +275,12 @@ export default class SubmissionPage extends React.Component {
     render() {
         let currentComponent;
 
-        if (!this.props.subID) {
+        if (!this.props.params.subID && !this.props.subID) {
             currentComponent = <UnknownIDComponent />;
-        } else {
+        } else if (this.props.subID) {
             currentComponent = <KnownIDComponent subID={this.props.subID} />;
+        } else {
+            currentComponent = <KnownIDComponent subID={this.props.params.subID} />;
         }
 
         return (
