@@ -11,9 +11,7 @@ export default class LoginIntro extends React.Component {
             <div className="col-md-6 usa-da-text-white">
                 <h1>Data Broker</h1>
                 <h3>
-                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi accumsan eleifend nunc.
-                    Donec blandit accumsan lacus, ut feugiat diam bibendum vitae. Fusce sit amet elit dolor.
-                    Praesent malesuada sem id tortor scelerisque, a pretium purus sagittis.
+                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi accumsan eleifend nunc. Donec blandit accumsan lacus, ut feugiat diam bibendum vitae. Fusce sit amet elit dolor. Praesent malesuada sem id tortor scelerisque, a pretium purus sagittis.
                 </h3>
             </div>
         );
