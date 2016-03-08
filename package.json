@@ -75,6 +75,7 @@
     "react-dom": "^0.14.3",
     "react-dropzone": "^3.3.0",
     "react-loader": "^2.0.0",
+    "react-redux": "^4.4.0",
     "superagent": "^1.6.1",
     "vinyl-buffer": "^1.0.0",
     "vinyl-paths": "^2.1.0",

@@ -122,4 +122,4 @@ const routes = {
 };
 
 // Start the routes
-Router(routes).init('/');
+Router(routes).init('/')
