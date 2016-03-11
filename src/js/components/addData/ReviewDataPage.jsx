@@ -222,7 +222,7 @@ class KnownIDComponent extends React.Component {
         }
 
         const arr = Object.keys(status).map((k) => { return status[k]; });
-        let allFilesComplete = true
+        let allFilesComplete = true;
 
         for (let i = 0; i < files.length; i++) {
             const info = [];
@@ -232,7 +232,7 @@ class KnownIDComponent extends React.Component {
                 info.push(fileArr.filter((el) => { return el.job_type === 'file_upload'; })[0].status);
                 const csvUploadJob = fileArr.filter((el) => { return el.job_type === 'csv_record_validation'; })[0];
                 if( csvUploadJob.status === 'waiting' || csvUploadJob.status === 'running' || csvUploadJob.status === 'waiting') {
-                  allFilesComplete = false
+                  allFilesComplete = false;
                 }
                 if (csvUploadJob.status === 'finished') {
                     info.push(<DownloadLinkSingle link={this.state.csv_url['job_' + csvUploadJob.job_id + '_error_url']} />);
