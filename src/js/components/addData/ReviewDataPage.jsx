@@ -263,7 +263,7 @@ class KnownIDComponent extends React.Component {
             status.end((errFile, res) => {
                 if (errFile) {
                     console.log(errFile + res);
-                    this.setState({ busy:false});
+                    this.setState({ busy:false });
                 } else {
                     this.setState({ status_response: true, csv_status: res.body });
                 }
@@ -271,9 +271,9 @@ class KnownIDComponent extends React.Component {
             file.end((errFile, res) => {
                 if (errFile) {
                     console.log(errFile + res);
-                    this.setState({ busy:false});
+                    this.setState({ busy:false });
                 } else {
-                    this.setState({ busy:false,file_response: true, csv_url: res.body });
+                    this.setState({ busy: false, file_response: true, csv_url: res.body });
                 }
             });
         }
@@ -294,7 +294,11 @@ class KnownIDComponent extends React.Component {
                 </div>
             );
         } else {
-            return (<div><h4>Gathering data...</h4></div>);
+            return (
+                <div>
+                    <h4>Gathering data...</h4>
+                </div>
+            );
         }
     }
 }
