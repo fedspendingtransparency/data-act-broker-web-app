@@ -435,3 +435,99 @@ h3 {
 
 
 
+.alert {
+    color: #333 !important;
+    font-size: 1.4rem;
+    border-radius: 0;
+    position: relative;
+    & h3 {
+        font-size: 2.4rem;
+        font-weight: $font-bold;
+        margin: -4px 0 5px 48px;
+    }
+    & h5{
+        margin:10px 0 8px;
+    }
+    & p {
+        margin: 5px 0 5px 48px;
+    }
+    & .glyphicon {
+        font-size: 3.2rem;
+        position: absolute;
+        top: 15px;
+        left: 15px;
+    }
+}
+
+.alert-success {
+    background: #e7f4e4;
+    & .glyphicon {
+        color: #5cb85c;
+    }
+}
+
+.alert-info {
+    background: #e1f3f8;
+    & .glyphicon {
+        color: #5bc0de;
+    }
+}
+
+.alert-warning {
+    background: #fff1d2;
+    & .glyphicon {
+        color: #f0ad4e;
+    }
+}
+
+.alert-danger, .alert-error {
+    background: #f9dede;
+    & .glyphicon {
+        color: #d9534f;
+    }
+}
+
+.alert-block{
+    border: 1px solid #ccc;
+    padding: 15px 15px 0;
+}
+
+
+
+
+/***** GLOBAL MARGIN AND PADDING *****/
+.mt-0 {
+    margin-top: 0;
+}
+
+.mb-0 {
+    margin-bottom: 0;
+}
+
+.mt-10 {
+    margin-top: 10px;
+}
+
+.mt-15 {
+    margin-top: 15px;
+}
+
+.mt-20 {
+    margin-top: 20px;
+}
+
+.mt-30 {
+    margin-top: 30px;
+}
+
+.mt-40 {
+    margin-top: 40px;
+}
+
+.mt-50 {
+    margin-top: 50px;
+}
+
+.mb-40 {
+    margin-bottom: 40px;
+}
