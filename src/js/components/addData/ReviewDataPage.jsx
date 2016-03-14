@@ -28,13 +28,10 @@ class SubmissionPageHeader extends React.Component {
         return (
             <div className="usa-da-content-dark">
                 <div className="container">
-                    <div className="row">
+                    <div className="row usa-da-page-title">
                         <div className="col-md-6">
                             <h1>Review Data</h1>
-                            <h3>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean euismod bibendum laoreet.
-                                Proin gravida dolor sit amet lacus accumsan et viverra justo commodo. Proin sodales pulvinar
-                                tempor. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus.
-                                Nam fermentum, nulla luctus pharetra vulputate, felis</h3>
+                            <p>Review validation results in the table below.</p>
                         </div>
                     </div>
                 </div>
@@ -195,8 +192,22 @@ class KnownIDComponent extends React.Component {
 
         this.state = {
             response: false,
+            busy : false
         };
-        this.sendRequest(this.props.subID);
+    }
+
+    componentDidMount() {
+        this.timer = setInterval(() => {
+              this.sendRequest(this.props.subID);
+        },
+        20*1000
+      );
+      this.sendRequest(this.props.subID);
+    }
+
+    componentWillUnmount() {
+        //ensures timer will unmount
+        clearInterval(this.timer);
     }
 
     parseJSON(status) {
@@ -208,6 +219,7 @@ class KnownIDComponent extends React.Component {
         }
 
         const arr = Object.keys(status).map((k) => { return status[k]; });
+        let allFilesComplete = true;
 
         for (let i = 0; i < files.length; i++) {
             const info = [];
@@ -216,39 +228,52 @@ class KnownIDComponent extends React.Component {
                 info.push(files[i]);
                 info.push(fileArr.filter((el) => { return el.job_type === 'file_upload'; })[0].status);
                 const csvUploadJob = fileArr.filter((el) => { return el.job_type === 'csv_record_validation'; })[0];
+                if( csvUploadJob.status === 'waiting' || csvUploadJob.status === 'running' || csvUploadJob.status === 'waiting') {
+                  allFilesComplete = false;
+                }
                 if (csvUploadJob.status === 'finished') {
                     info.push(<DownloadLinkSingle link={this.state.csv_url['job_' + csvUploadJob.job_id + '_error_url']} />);
                     console.log(this.state.csv_url['job_' + csvUploadJob.job_id + '_error_url']);
                 } else {
                     info.push(csvUploadJob.status);
                 }
+
             }
             statusData.push(info);
+        }
+        if (allFilesComplete) {
+            clearInterval(this.timer);
         }
         return (statusData);
     }
 
     sendRequest() {
-        const status = Request.post(kGlobalConstants.API + 'check_status/')
-                           .withCredentials()
-                           .send({ 'submission_id': this.props.subID });
-        const file = Request.post(kGlobalConstants.API + 'submission_error_reports/')
-                           .withCredentials()
-                           .send({ 'submission_id': this.props.subID });
-        status.end((errFile, res) => {
-            if (errFile) {
-                console.log(errFile + res);
-            } else {
-                this.setState({ status_response: true, csv_status: res.body });
-            }
-        });
-        file.end((errFile, res) => {
-            if (errFile) {
-                console.log(errFile + res);
-            } else {
-                this.setState({ file_response: true, csv_url: res.body });
-            }
-        });
+        if (this.state.busy == false) {
+            // Prevent this from being called if still processing data
+            this.setState({ busy:true});
+            const status = Request.post(kGlobalConstants.API + 'check_status/')
+                               .withCredentials()
+                               .send({ 'submission_id': this.props.subID });
+            const file = Request.post(kGlobalConstants.API + 'submission_error_reports/')
+                               .withCredentials()
+                               .send({ 'submission_id': this.props.subID });
+            status.end((errFile, res) => {
+                if (errFile) {
+                    console.log(errFile + res);
+                    this.setState({ busy:false });
+                } else {
+                    this.setState({ status_response: true, csv_status: res.body });
+                }
+            });
+            file.end((errFile, res) => {
+                if (errFile) {
+                    console.log(errFile + res);
+                    this.setState({ busy:false });
+                } else {
+                    this.setState({ busy: false, file_response: true, csv_url: res.body });
+                }
+            });
+        }
     }
 
     render() {
@@ -266,19 +291,26 @@ class KnownIDComponent extends React.Component {
                 </div>
             );
         } else {
-            return (<div><h4>Gathering data...</h4></div>);
+            return (
+                <div>
+                    <h4>Gathering data...</h4>
+                </div>
+            );
         }
     }
 }
+
 
 export default class SubmissionPage extends React.Component {
     render() {
         let currentComponent;
 
-        if (!this.props.subID) {
+        if (!this.props.params.subID && !this.props.subID) {
             currentComponent = <UnknownIDComponent />;
-        } else {
+        } else if (this.props.subID) {
             currentComponent = <KnownIDComponent subID={this.props.subID} />;
+        } else {
+            currentComponent = <KnownIDComponent subID={this.props.params.subID} />;
         }
 
         return (

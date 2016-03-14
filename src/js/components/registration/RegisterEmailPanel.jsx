@@ -101,6 +101,7 @@ export default class RegisterEmailPanel extends React.Component {
 
         return (
             <div className="col-md-6 usa-da-login-container">
+                <p>A.gov or .mil email address is preferred when registering for access to the data broker.  If you do not have a .gov or .mil email address, please contact your agency administrator.</p>
                 <form onKeyPress={this.handleKeyPress.bind(this)}>
                   <EmailValidation
                     id={"registrationEmail"}

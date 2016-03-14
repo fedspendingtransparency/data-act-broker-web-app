@@ -1,3 +1,7 @@
+body{
+	-webkit-font-smoothing: antialiased;
+}
+
 /* Colors */
 $color-darkest: #2C333B;
 
@@ -79,8 +83,31 @@ h3 {
 	font-weight: $font-normal;
 	line-height: $lead-line-height;
 	margin-top: 0;
-	margin-bottom: 60px;
+	margin-bottom: 40px;
 }
+
+p {
+	a, a:hover, a:visited, a:focus {
+		color: $color-focus;
+	}
+}
+
+@mixin list-row($height, $line-height) {
+	height: $height;
+	line-height: $line-height;
+    display: inline-block;
+    &:first-child {
+        padding-left: 0
+    }
+    &:last-child {
+        border-right: none;
+        padding-right: 0;
+    }
+    &:before {
+        display: none;
+    }
+}
+
 
 /* Tables */
 .usa-da-table-holder {
@@ -218,13 +245,28 @@ h3 {
 	color: white;
 	background-color: $color-darkest;
 
-	.row.usa-da-content-landing { background: url('../graphics/bar_bg.png') no-repeat bottom right; }
+	.row.usa-da-content-landing {
+		background: url('../graphics/bar_bg.png') no-repeat bottom right;
+		padding-bottom: 20px;
+	}
 	.row.usa-da-content-add-data { background: url('../graphics/line_bg.png') no-repeat bottom right; }
 }
 
 .usa-da-content-light-gray {
 	color: $color-gray-light;
 	background-color: $color-gray-lightest;
+}
+
+.usa-da-page-title {
+	p {
+		font-size: $h4-font-size;
+		margin-bottom: 20px;
+	}
+
+	ul {
+		font-size: $h4-font-size;
+		margin-left: 3rem;
+	}
 }
 
 /* Progress Bar */
@@ -366,6 +408,62 @@ h3 {
 
 
 /* Buttons */
+.usa-da-button-holder {
+	margin: 60px auto;
+}
+
+.usa-da-button-big {
+	background-color: $color-gray-lightest;
+	color: $color-gray;
+	width: 100%;
+	padding: 2em;
+	border: 1px solid $color-gray-lighter;
+	cursor: pointer;
+	display: inline-block;
+	font-family: $font-sans;
+	font-size: 2.0rem;
+	font-weight: 700;
+	line-height: 1;
+	outline: none;
+	text-align: center;
+	text-decoration: none;
+	-webkit-font-smoothing: antialiased;
+
+	&:hover {
+
+	}
+
+	&:visited {
+		color: $color-gray;
+	}
+
+	&.submit {
+		background-color: $color-primary;
+		color: $color-white;
+		border: 0;
+		border-radius: 0;
+		cursor: pointer;
+		font-family: Source Sans Pro,Helvetica,Arial,sans-serif;
+		font-weight: 700;
+		outline: none;
+		text-align: center;
+		text-decoration: none;
+		width: 100%;
+		-webkit-font-smoothing: antialiased;
+	}
+
+	&.disabled {
+		background-color: $color-gray-light;
+		color: $color-gray;
+		cursor: default;
+		padding-bottom: 2.5rem;
+
+		div {
+			font-size: 1.5rem;
+		}
+	}
+}
+
 .usa-da-button-bigger {
 	width: 70%;
 	padding: 1.5em;
@@ -376,8 +474,11 @@ h3 {
 .usa-da-button-biggest {
 	width: 100%;
 	padding: 3em;
-}
 
+	&.disabled {
+		padding-bottom:4.5rem;
+	}
+}
 
 /* Inputs */
 

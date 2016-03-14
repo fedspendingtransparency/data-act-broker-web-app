@@ -116,18 +116,28 @@ export default class SetNewPasswordPanel extends React.Component {
         return (
             <div className="col-md-6 usa-da-login-container">
                 <form onKeyPress={this.handleKeyPress.bind(this)}>
+                <div className='row'>
                     <Password handleChange={this.handlePassword1Change.bind(this)}/>
-                    <div className="col-md-12 usa-da-password-info usa-da-text-white">
-                      Please include an uppercase letter, a lowercase letter, a number, and a special character [ ] { } ~ ! @ # $ % ^, . ? ; in your password.
+                </div>
+                <div className='row'>
+                    <div className="col-md-12">
+                      <p className="info">
+                        Please include an uppercase letter, a lowercase letter, a number, and a special character [ ] { } ~ ! @ # $ % ^, . ? ; in your password.
+                      </p>
                     </div>
+                </div>
+                <div className='row'>
                     <Password handleChange={this.handlePassword2Change.bind(this)}/>
-                    <div className="col-md-8 usa-da-text-white">
-                        Please enter your new password
+                </div>
+                <div className='row'>
+                    <div className="col-xs-12 col-sm-8">
+                        <p className="msg">Please enter your new password.</p>
                     </div>
                     <SignInButton
                       onClick={this.requestReset.bind(this)}
                       buttonText={"Reset"}
                     />
+                    </div>
                     {messageComponent}
                 </form>
             </div>
