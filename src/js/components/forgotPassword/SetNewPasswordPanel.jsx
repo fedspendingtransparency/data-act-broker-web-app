@@ -117,9 +117,12 @@ export default class SetNewPasswordPanel extends React.Component {
             <div className="col-md-6 usa-da-login-container">
                 <form onKeyPress={this.handleKeyPress.bind(this)}>
                     <Password handleChange={this.handlePassword1Change.bind(this)}/>
+                    <div className="col-md-12 usa-da-password-info usa-da-text-white">
+                      Please include an uppercase letter, a lowercase letter, a number, and a special character [ ] { } ~ ! @ # $ % ^, . ? ; in your password.
+                    </div>
                     <Password handleChange={this.handlePassword2Change.bind(this)}/>
                     <div className="col-md-8 usa-da-text-white">
-                        Please enter your new password.
+                        Please enter your new password
                     </div>
                     <SignInButton
                       onClick={this.requestReset.bind(this)}
