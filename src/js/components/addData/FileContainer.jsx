@@ -21,7 +21,7 @@ export default class FileContainer extends React.Component {
         return (
             <div className="col-md-3 text-center usa-da-submission-item">
                 <h4>{this.props.fileTitle}</h4>
-                <img src="./src/graphics/file_icon.png"/>
+                <img src="/graphics/file_icon.png"/>
                 <p>{this.props.fileTemplateName}</p>
                 <a href={ruleLink}>Click here to see the required fields</a>
                 <div className="center-block">

@@ -16,7 +16,7 @@ const propTypes = {
     submissionId: PropTypes.string,
     subID: PropTypes.string,
     csv_url: PropTypes.array,
-    link_array: PropTypes.array,
+    link_array: PropTypes.array
 };
 
 const defaultProps = {
@@ -301,7 +301,7 @@ class KnownIDComponent extends React.Component {
 }
 
 
-export default class SubmissionPage extends React.Component {
+export default class ReviewDataPage extends React.Component {
     render() {
         let currentComponent;
 

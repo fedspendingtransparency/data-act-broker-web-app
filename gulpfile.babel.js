@@ -61,15 +61,13 @@ const path = {
 };
 
 let build = false;
-let prodConstants = false;
-let localConstants = true;
 
 let environmentConstantsEnum = {
     LOCAL: 0,
     DEV: 1,
     PROD: 2
 };
-let environmentConstants = environmentConstantsEnum.LOCAL;
+let environmentConstants = environmentConstantsEnum.DEV;
 
 require('harmonize')();
 
@@ -100,7 +98,6 @@ gulp.task('graphics', () => {
 
 // Use the proper constants file and move to src
 gulp.task('copyConstants', () => {
-    //return gulp.src((prodConstants) ? path.PROD_CONSTANTS : path.DEV_CONSTANTS)
     return gulp.src(!environmentConstants ? path.LOCAL_CONSTANTS : ((environmentConstants === 1) ? path.DEV_CONSTANTS : path.PROD_CONSTANTS))
         .pipe(rename(path.CONSTANTS_DESTNAME))
         .pipe(gulp.dest(path.CONSTANTS_DEST));

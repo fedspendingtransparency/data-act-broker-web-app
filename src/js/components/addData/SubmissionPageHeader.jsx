@@ -14,7 +14,7 @@ export default class SubmissionPageHeader extends React.Component {
                         <div className="col-md-6">
                             <h1>Add New Data</h1>
                             <p>The alpha Data Broker allows agencies to test financial data and is not connected to USA Spending.</p>
-                            <p>Upload your files by selecting an option below.</p>
+                            <p>Upload your files below.</p>
                         </div>
                     </div>
                 </div>
