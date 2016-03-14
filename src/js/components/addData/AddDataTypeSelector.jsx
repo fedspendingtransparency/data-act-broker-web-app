@@ -9,11 +9,17 @@ export default class TypeSelector extends React.Component {
     render() {
         return (
             <div className="usa-da-color-gray-light-half-tone usa-da-login-container usa-grid container">
-                <div className="usa-width-one-whole row center-block">
+                <div className="row usa-da-submit-row">
                     <h2>Two ways to submit your data...</h2>
                     <div className="row text-center">
-                        <div className="col-md-6"><button className="usa-da-button-biggest" type="submit" value="Upload CSV Files">Upload CSV Files</button></div>
-                        <div className="col-md-6"><button className="usa-da-button-biggest" type="submit" value="Setup a Data Feed" disabled>Setup a Data Feed</button></div>
+                        <div className="col-md-6">
+                            <a className="usa-da-button-big usa-da-button-biggest submit" value="Upload CSV Files">Upload CSV Files</a>
+                        </div>
+                        <div className="col-md-6">
+                            <a className="usa-da-button-big usa-da-button-biggest submit disabled" value="Setup a Data Feed" disabled>Setup a Data Feed
+                                <div><em>Coming Soon</em></div>
+                            </a>
+                        </div>
                     </div>
                 </div>
             </div>
