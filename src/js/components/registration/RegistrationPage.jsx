@@ -40,10 +40,11 @@ export default class RegistrationPage extends React.Component {
             <div>
                 <Navbar />
                 <div className="usa-da-content">
-                    <div className="container">
+                    <div className="container usa-da-registration">
                         <h1>Registration</h1>
-                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean euismod bibendum laoreet. Proin gravida dolor sit amet lacus accumsan et viverra justo commodo. Proin sodales pulvinar tempor.</p>
-                        {currentComponent}
+                        <div className="row">
+                            {currentComponent}
+                        </div>
                     </div>
                 </div>
             </div>

@@ -9,7 +9,8 @@ const propTypes = {
     id: PropTypes.string.isRequired,
     placeholder: PropTypes.string.isRequired,
     regex: PropTypes.object.isRequired,
-    buttonDisabled: PropTypes.func.isRequired
+    buttonDisabled: PropTypes.func.isRequired,
+    handleChange: PropTypes.func
 };
 
 const defaultProps = {
@@ -41,7 +42,7 @@ export default class EmailValidation extends React.Component {
               name={this.props.id}
               placeholder={this.props.placeholder}
               type="text"
-              onChange={this.handleChange.bind(this)}
+              onChange={this.props.handleChange}
             />
         );
     }

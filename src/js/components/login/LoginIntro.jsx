@@ -10,9 +10,12 @@ export default class LoginIntro extends React.Component {
         return (
             <div className="col-md-6 usa-da-text-white">
                 <h1>Data Broker</h1>
-                <h3>
-                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi accumsan eleifend nunc. Donec blandit accumsan lacus, ut feugiat diam bibendum vitae. Fusce sit amet elit dolor. Praesent malesuada sem id tortor scelerisque, a pretium purus sagittis.
-                </h3>
+                <p>
+                    Welcome to the USA Spending Data Broker--Alpha version.<br /><br />
+                    Sign in to upload your agency financial data and validate it against the latest version of the DATA Act Schema.<br /><br />
+                    Visit the <a href="https://community.max.gov/download/attachments/903971114/DataSubmission_page.pdf" target="_blank">Data Submission page</a> on
+                    MAX for details on how to format your data.
+                </p>
             </div>
         );
     }

@@ -1,46 +1,44 @@
 /**
 * SubmitButton.jsx
 * Created by Kyle Fox 12/11/15
+*
+* This button needs to be given a function to run when it is clicked.
+* Pass this function through props, calling it onClick
 **/
 
 import React, { PropTypes } from 'react';
 
 const propTypes = {
+    onClick: PropTypes.func.isRequired,
+    buttonText: PropTypes.string.isRequired,
     buttonDisabled: PropTypes.bool.isRequired,
-    route: PropTypes.string.isRequired
+    className: PropTypes.string
 };
-
 const defaultProps = {
     buttonDisabled: true,
-    route: '#'
+    buttonText: "Submit",
+    className: "usa-button-big"
 };
-
-// A standard button for submission that we can further turn into a sharable component
 export default class SubmitEmailButton extends React.Component {
-    buttonClicked() {
-        // Route to given route
-        location.href = this.props.route;
-    }
-
     render() {
         let newButtonClass;
 
         if (this.props.buttonDisabled) {
-            newButtonClass = 'usa-button-disabled';
+            newButtonClass = 'usa-button-disabled ' + this.props.className;
         } else {
-            newButtonClass = 'usa-button';
+            newButtonClass = 'usa-button ' + this.props.className;
         }
-
         return (
-            <button
-              className={newButtonClass}
-              type="submit"
-              value="Verify this email address"
-              disabled={this.props.buttonDisabled}
-              onClick={this.buttonClicked.bind(this)}
-            >
-                Verify this email address
-            </button>
+            <div>
+                    <button
+                      className={newButtonClass} 
+                      type="button"
+                      onClick={this.props.onClick}
+                      disabled={this.props.buttonDisabled}
+                    >
+                        {this.props.buttonText}
+                    </button>
+            </div>
         );
     }
 }

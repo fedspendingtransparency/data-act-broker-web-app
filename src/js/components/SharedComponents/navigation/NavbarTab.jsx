@@ -23,7 +23,7 @@ export default class NavbarTab extends React.Component {
         if (this.props.class == 'dashboard'){
             return (
                 <li>
-                    <a className="usa-da-header-link disabled" href='#'>{this.props.name}
+                    <a className="usa-da-header-link disabled">{this.props.name}
                         <span className={isActiveClass ? 'sr-only' : ''}>{isActiveClass ? '(current)' : ''}<br />
                             <div className='comingSoon'><em>Coming Soon</em></div>
                         </span>
@@ -33,9 +33,9 @@ export default class NavbarTab extends React.Component {
         } else {
             return (
                 <li className={isActiveClass ? 'active' : ''}>
-                <a className="usa-da-header-link" href={link}>{this.props.name}
-                    <span className={isActiveClass ? 'sr-only' : ''}>{isActiveClass ? '(current)' : ''}</span>
-                </a>
+                    <a className="usa-da-header-link" href={link}>{this.props.name}
+                        <span className={isActiveClass ? 'sr-only' : ''}>{isActiveClass ? '(current)' : ''}</span>
+                    </a>
                 </li>
             );
         }

@@ -66,7 +66,12 @@ export default class SubmissionContent extends React.Component {
                         const fileContainer = this.state.fileHolder[i];
                         const fileID = res.body[fileContainer.requestName + '_id'];
                         const fileKey = res.body[fileContainer.requestName + '_key'];
-                        this.uploadFiles(fileContainer.file, fileID, fileKey, res.body.credentials, this.state.fileHolder.length);
+
+                        if (kGlobalConstants.LOCAL == true){
+                            this.finalizeUpload(fileContainer.file.name);
+                        } else {
+                            this.uploadFiles(fileContainer.file, fileID, fileKey, res.body.credentials, this.state.fileHolder.length);
+                        }
                     }
 
                     // TODO: Remove this when this is eventually tied to user accounts
@@ -127,7 +132,7 @@ export default class SubmissionContent extends React.Component {
             { fileTitle: 'Appropriation', fileTemplateName: 'appropriation.csv', requestName: 'appropriations', progress: '0' },
             { fileTitle: 'Award', fileTemplateName: 'award.csv', requestName: 'award', progress: '0' },
             { fileTitle: 'Award Financial', fileTemplateName: 'award_financial.csv', requestName: 'award_financial', progress: '0' },
-            { fileTitle: 'Program Activity', fileTemplateName: 'programActivity.csv', requestName: 'procurement', progress: '0' },
+            { fileTitle: 'Program Activity', fileTemplateName: 'programActivity.csv', requestName: 'procurement', progress: '0' }
         ];
 
         // TODO: Remove this when this is eventually tied to user accounts
@@ -150,7 +155,6 @@ export default class SubmissionContent extends React.Component {
                 <div className="usa-da-content-light-gray">
                     <div className="container center-block">
                         <div className="row">
-                            <TypeSelector />
                             <Progress totalSteps={3} currentStep={this.state.progressStep} />
                         </div>
                     </div>

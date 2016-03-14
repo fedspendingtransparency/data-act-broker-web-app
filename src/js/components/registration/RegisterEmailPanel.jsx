@@ -6,10 +6,10 @@
 import React from 'react';
 import { kGlobalConstants } from '../../GlobalConstants.js';
 import Request from 'superagent';
-import Username from '../login/Username.jsx';
-import SignInButton from '../login/SignInButton.jsx';
+import EmailValidation from '../SharedComponents/EmailValidation.jsx';
 import ErrorMessage from '../SharedComponents/ErrorMessage.jsx';
 import SuccessMessage from '../SharedComponents/SuccessMessage.jsx';
+import SubmitEmailButton from './SubmitButton.jsx';
 
 export default class RegisterEmailPanel extends React.Component {
     constructor(props) {
@@ -18,8 +18,15 @@ export default class RegisterEmailPanel extends React.Component {
         this.state = {
             username: '',
             requestSent: false,
-            resetFailed: false
+            resetFailed: false,
+            buttonDisabled: true
         };
+    }
+
+    setButtonDisabled(disabled) {
+        this.setState({
+            buttonDisabled: disabled
+        });
     }
 
     requestReset() {
@@ -53,16 +60,35 @@ export default class RegisterEmailPanel extends React.Component {
         this.setState({
             username: e.target.value
         });
+
+        const inputText = e.target.value;
+        let newButtonDisabled;
+
+        if (inputText.match(/^[a-z0-9._%+-]+@[a-z0-9.-]+\.(?:gov|mil|com)$/)) {
+            newButtonDisabled = false;
+            this.setState({
+              buttonDisabled: false
+            })
+        } else {
+            newButtonDisabled = true;
+            this.setState({
+              buttonDisabled: true
+            })
+        }
+
+
     }
 
     render() {
         let messageComponent = null;
         let successMsg = "An email has been sent to the address above. Please follow the link within this email to verify your email address.";
-        let submitComponent = <SignInButton
+        let submitComponent = <SubmitEmailButton
                                 onClick={this.requestReset.bind(this)}
-                                buttonText={"Submit"}
+                                buttonText="Verify this email address"
+                                buttonDisabled={this.state.buttonDisabled}
                               />
         let actionComponent = submitComponent;
+        const emailRegex = /^[a-z0-9._%+-]+@[a-z0-9.-]+\.(?:gov|mil|com)$/;
 
         if (this.state.requestSent) {
             if (this.state.resetFailed) {
@@ -75,11 +101,15 @@ export default class RegisterEmailPanel extends React.Component {
 
         return (
             <div className="col-md-6 usa-da-login-container">
+                <p>A.gov or .mil email address is preferred when registering for access to the data broker.  If you do not have a .gov or .mil email address, please contact your agency administrator.</p>
                 <form onKeyPress={this.handleKeyPress.bind(this)}>
-                    <Username handleChange={this.handleUsernameChange.bind(this)}/>
-                    <div className="col-md-8 usa-da-text-white">
-                        Please enter your email or username.
-                    </div>
+                  <EmailValidation
+                    id={"registrationEmail"}
+                    placeholder={"Please enter your .gov or .mil email address"}
+                    regex={emailRegex}
+                    buttonDisabled={this.setButtonDisabled.bind(this)}
+                    handleChange={this.handleUsernameChange.bind(this)}
+                  />
                     {actionComponent}
                 </form>
             </div>

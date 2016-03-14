@@ -6,11 +6,18 @@
   "directories": {
     "test": "test"
   },
-    "jest": {
+  "jest": {
     "scriptPreprocessor": "<rootDir>/node_modules/babel-jest",
     "setupTestFrameworkScriptFile": "<rootDir>/setup-jasmine-env.js",
-    "testFileExtensions": ["es6", "js"],
-    "moduleFileExtensions": ["js", "json", "es6"],
+    "testFileExtensions": [
+      "es6",
+      "js"
+    ],
+    "moduleFileExtensions": [
+      "js",
+      "json",
+      "es6"
+    ],
     "testPathIgnorePatterns": [
       "/node_modules/",
       "/jspm_packages"
@@ -74,7 +81,10 @@
     "react-addons-test-utils": "^0.14.3",
     "react-dom": "^0.14.3",
     "react-dropzone": "^3.3.0",
+    "react-ga": "^v1.0.0",
     "react-loader": "^2.0.0",
+    "react-redux": "^4.4.0",
+    "react-router": "^2.0.0",
     "superagent": "^1.6.1",
     "vinyl-buffer": "^1.0.0",
     "vinyl-paths": "^2.1.0",
