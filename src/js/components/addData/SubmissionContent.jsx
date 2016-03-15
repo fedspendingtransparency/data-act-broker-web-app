@@ -68,7 +68,9 @@ export default class SubmissionContent extends React.Component {
                         const fileKey = res.body[fileContainer.requestName + '_key'];
 
                         if (kGlobalConstants.LOCAL == true){
-                            this.localUpload(fileContainer.file);
+                            var formData = new FormData();
+                            formData.append(fileContainer.file);
+                            this.localUpload(formData);
                         } else {
                             this.uploadFiles(fileContainer.file, fileID, fileKey, res.body.credentials, this.state.fileHolder.length);
                         }
@@ -84,14 +86,15 @@ export default class SubmissionContent extends React.Component {
     }
 
     // Used for local broker
-    localUpload(file) {
+    localUpload(formData) {
         Request.post(kGlobalConstants.API + 'local_upload/')
             .withCredentials()
-            .send({ 'file': file })
+            .send(formData)
             .end((err, res) => {
                 if (err) {
                     console.log(err + JSON.stringify(res.body));
                 } else {
+                    this.setState({ progress: 100 });
                     this.finalizeUpload(res.body.path);
                 }
             });
