@@ -271,9 +271,10 @@ p {
 
 /* Progress Bar */
 .usa-da-progress-bar {
-	margin: 6.0rem auto 5.0rem;
+	margin: 0 auto;
 	font-size: 1.3em;
 	font-weight: $font-bold;
+	padding-top: 1em;
 
 	/* Progress Tracker v2 */
 	.usa-da-progress-bar-holder[data-steps="2"] li { width: 49%; }
@@ -288,12 +289,11 @@ p {
 	.usa-da-progress-bar-holder {
 		width: 100%;
 		list-style: none;
-		margin: 20px 0 20px 0;
+		margin: 0;
 		padding: 0;
 
 		&:last-child {
 			font-size: $base-font-size;
-			padding-top: 4em;
 			font-family: $font-sans;
 		}
 	}

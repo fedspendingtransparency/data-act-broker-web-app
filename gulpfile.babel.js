@@ -57,6 +57,10 @@ const path = {
     GRAPHICS_DEV: dir.DEV + '/graphics',
     GRAPHICS_PUBLIC: dir.PUBLIC + '/graphics',
 
+    DOCS_SRC: dir.SRC + '/docs/**',
+    DOCS_DEV: dir.DEV + '/docs',
+    DOCS_PUBLIC: dir.PUBLIC + '/docs',
+
     TEST_RESULTS: dir.TEST + '/test-results'
 };
 
@@ -96,6 +100,11 @@ gulp.task('graphics', () => {
         .pipe(gulp.dest((!build) ? path.GRAPHICS_DEV : path.GRAPHICS_PUBLIC));
 });
 
+gulp.task('docs', () => {
+    return gulp.src([path.DOCS_SRC])
+        .pipe(gulp.dest((!build) ? path.DOCS_DEV : path.DOCS_PUBLIC));
+});
+
 // Use the proper constants file and move to src
 gulp.task('copyConstants', () => {
     return gulp.src(!environmentConstants ? path.LOCAL_CONSTANTS : ((environmentConstants === 1) ? path.DEV_CONSTANTS : path.PROD_CONSTANTS))
@@ -105,7 +114,7 @@ gulp.task('copyConstants', () => {
 
 // Compile react files with Browserify and watch
 // for changes with Watchify
-gulp.task('watch', ['fonts', 'images', 'graphics', 'copyConstants'], () => {
+gulp.task('watch', ['fonts', 'images', 'graphics', 'docs', 'copyConstants'], () => {
     const props = {
         entries: [path.ENTRY_POINT],
         transform: [[babelify, { presets: ['es2015', 'react'] }]],
