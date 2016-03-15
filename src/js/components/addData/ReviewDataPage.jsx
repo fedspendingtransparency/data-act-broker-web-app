@@ -211,7 +211,7 @@ class KnownIDComponent extends React.Component {
     }
 
     parseJSON(status) {
-        const files = ['appropriations', 'award', 'award_financial', 'procurement'];
+        const files = ['appropriations', 'award', 'award_financial', 'program_activity'];
         const statusData = [];
 
         for (const itemKey in status) {
