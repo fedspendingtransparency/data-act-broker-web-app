@@ -98,12 +98,12 @@ export default class SubmissionContent extends React.Component {
             .end((err, res) => {
                 if (err) {
                     console.log(err + JSON.stringify(res.body));
+                    return null;
                 } else {
                     this.setState({ progress: 100 });
                     return res.body.path;
                 }
             });
-        return null;
     }
 
     // Put the files in S3 bucket using STS for temporary credentials
