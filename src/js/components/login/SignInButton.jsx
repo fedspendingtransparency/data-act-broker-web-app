@@ -16,15 +16,9 @@ const propTypes = {
 export default class SignInButton extends React.Component {
     render() {
         return (
-            <div className="col-xs-12 col-sm-4 usa-da-login-button-holder">
-                    <button
-                      className="usa-button-big pull-right"
-                      type="button"
-                      onClick={this.props.onClick}
-                    >
-                        {this.props.buttonText}
-                    </button>
-            </div>
+            <button className="usa-button-big pull-right" type="button" onClick={this.props.onClick}>
+                {this.props.buttonText}
+            </button>
         );
     }
 }

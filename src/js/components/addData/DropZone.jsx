@@ -16,28 +16,28 @@ export default class DropZone extends React.Component {
         super(props);
 
         this.state = {
-            fileName: null
+            dropzoneString: "Drop your file here, or click to select file to upload."
         };
+    }
+
+    onUpload(){
+        this.setState({
+            dropzoneString: "File uploaded successfully."
+        })
     }
 
     onDrop(files) {
         this.props.addFileToHolder({ requestName: this.props.requestName, file: files[0] });
 
         this.setState({
-            filename: files[0].name
+            dropzoneString: files[0].name + ' is ready to be uploaded!'
         });
     }
 
     render() {
-        let dropzoneString = 'Drop your file here, or click to select file to upload.';
-
-        if (this.state.filename) {
-            dropzoneString = this.state.filename + ' is ready to be uploaded!';
-        }
-
         return (
             <Dropzone className="text-center" multiple={false} onDrop={this.onDrop.bind(this)}>
-                <div className="center-block usa-da-dropzone">{dropzoneString}</div>
+                <div className="center-block usa-da-dropzone">{this.state.dropzoneString}</div>
             </Dropzone>
         );
     }

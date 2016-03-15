@@ -21,7 +21,13 @@ export default class SubmissionContainer extends React.Component {
 
         for (let i = 0; i < this.props.files.length; i++) {
             const fileVars = this.props.files[i];
-            submissionItems.push(<FileContainer key={i} fileTitle={fileVars.fileTitle} fileTemplateName={fileVars.fileTemplateName} requestName={fileVars.requestName} addFile={this.props.addFile} />);
+            submissionItems.push(
+                <FileContainer key={i}
+                                fileTitle={fileVars.fileTitle}
+                                fileTemplateName={fileVars.fileTemplateName}
+                                requestName={fileVars.requestName}
+                                addFile={this.props.addFile}
+                />);
         }
 
         return (

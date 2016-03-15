@@ -25,7 +25,7 @@ export default class Navbar extends React.Component {
                        this.setState({
                            requestSent: true,
                            resetFailed: true,
-                           user:'none'
+                           user: ''
                        });
                    } else {
                        this.setState({
@@ -45,9 +45,10 @@ export default class Navbar extends React.Component {
             'Performance Dashboard': 'dashboard',
             'Documentation': 'documentation'
         };
+
         const headerTabs = [];
         const context = this;
-        const userText = this.state.user === 'none' ? '' : 'Welcome, ' + this.state.user;
+        const userText = this.state.user === '' ? '' : 'Welcome, ' + this.state.user;
 
         Object.keys(tabNames).map((key) => {
             headerTabs.push(<NavbarTab key={tabNames[key]} name={key} class={tabNames[key]} activeTabClassName={context.props.activeTab} />);

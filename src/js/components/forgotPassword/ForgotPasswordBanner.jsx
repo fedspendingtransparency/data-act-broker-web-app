@@ -19,11 +19,9 @@ export default class ForgotPasswordBanner extends React.Component {
         let panelComponent = <ForgotPasswordPanel />;
 
         // If a message exists, a token has either confirmed or failed
-        // Error code 0 is a success
         if (this.props.errorCode === 0) {
             panelComponent = <SetNewPasswordPanel email={this.props.email} />;
-        // Error code 3 is Link Already used
-        } else if (this.props.errorCode === 3) {
+        } else {
             panelComponent = <ForgotPasswordPanel message={this.props.message} />;
         }
 

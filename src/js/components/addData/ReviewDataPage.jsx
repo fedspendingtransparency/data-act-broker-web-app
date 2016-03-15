@@ -20,7 +20,8 @@ const propTypes = {
 };
 
 const defaultProps = {
-    link_array: [null]
+    link_array: [null],
+    subID: null
 };
 
 class SubmissionPageHeader extends React.Component {
@@ -211,7 +212,7 @@ class KnownIDComponent extends React.Component {
     }
 
     parseJSON(status) {
-        const files = ['appropriations', 'award', 'award_financial', 'procurement'];
+        const files = ['appropriations', 'award', 'award_financial', 'program_activity'];
         const statusData = [];
 
         for (const itemKey in status) {
@@ -232,7 +233,11 @@ class KnownIDComponent extends React.Component {
                   allFilesComplete = false;
                 }
                 if (csvUploadJob.status === 'finished') {
-                    info.push(<DownloadLinkSingle link={this.state.csv_url['job_' + csvUploadJob.job_id + '_error_url']} />);
+                    let header = "";
+                    if (kGlobalConstants.LOCAL == true) {
+                        header = kGlobalConstants.LOCAL_ROOT;
+                    }
+                    info.push(<DownloadLinkSingle link={header + this.state.csv_url['job_' + csvUploadJob.job_id + '_error_url']} />);
                     console.log(this.state.csv_url['job_' + csvUploadJob.job_id + '_error_url']);
                 } else {
                     info.push(csvUploadJob.status);
