@@ -185,7 +185,12 @@ gulp.task('set-build', () => {
 
 // Set constants variable for production constants file
 gulp.task('set-prod-constants', () => {
-    prodConstants = true;
+    environmentConstants = environmentConstantsEnum.PROD;
+});
+
+// Set constants variable for local constants file
+gulp.task('set-local-constants', () => {
+    environmentConstants = environmentConstantsEnum.LOCAL;
 });
 
 // Production task
@@ -193,6 +198,9 @@ gulp.task('production', ['set-build', 'set-prod-constants', 'minify']);
 
 // Build with dev constants for demos task
 gulp.task('buildDev', ['set-build', 'minify']);
+
+// Build with local constants for local deployment
+gulp.task('buildLocal', ['set-build', 'set-local-constants', 'minify']);
 
 // Default task for development
 gulp.task('default', ['serve']);
