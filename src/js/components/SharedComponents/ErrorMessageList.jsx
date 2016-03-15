@@ -11,15 +11,13 @@ const propTypes = {
 };
 
 const defaultProps = {
-    errorMessages: ['Error'],
+    errorMessages: ['Error']
 };
 
 export default class ErrorMessageList extends React.Component {
     render() {
         const errorListItems = [];
         for (let i = 0; i < this.props.errorMessages.length; i++) {
-            console.log(this.props.errorMessages[i] );
-
             errorListItems.push(<ErrorMessageListItem key={i} data={this.props.errorMessages[i]} />);
         }
         return (
