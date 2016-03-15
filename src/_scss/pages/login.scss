@@ -69,6 +69,14 @@
                 text-align: center;
             }
         }
+				& p.info {
+						color: #fff;
+						margin: 12px 0 0 -15px;
+						margin-bottom: 20px;
+						@media screen and (max-width: $small-screen) {
+								text-align: center;
+						}
+				}
     }
     .usa-da-input-container {
         margin-bottom: 20px;
