@@ -50,7 +50,14 @@ export default class SubmissionContent extends React.Component {
             const request = {};
             for (let i = 0; i < this.state.fileHolder.length; i++) {
                 const fileContainer = this.state.fileHolder[i];
-                request[fileContainer.requestName] = fileContainer.file.name;
+
+                if (kGlobalConstants.LOCAL == true) {
+                    var formData = new FormData();
+                    formData.append('file', fileContainer.file);
+                    request[fileContainer.requestName] = this.localUpload(formData);
+                } else {
+                    request[fileContainer.requestName] = fileContainer.file.name;
+                }
             }
 
             const req = Request.post(kGlobalConstants.API + 'submit_files/')
@@ -68,9 +75,7 @@ export default class SubmissionContent extends React.Component {
                         const fileKey = res.body[fileContainer.requestName + '_key'];
 
                         if (kGlobalConstants.LOCAL == true){
-                            var formData = new FormData();
-                            formData.append('file', fileContainer.file);
-                            this.localUpload(formData);
+                            this.finalizeUpload(fileID);
                         } else {
                             this.uploadFiles(fileContainer.file, fileID, fileKey, res.body.credentials, this.state.fileHolder.length);
                         }
@@ -95,9 +100,10 @@ export default class SubmissionContent extends React.Component {
                     console.log(err + JSON.stringify(res.body));
                 } else {
                     this.setState({ progress: 100 });
-                    this.finalizeUpload(res.body.path);
+                    return res.body.path;
                 }
             });
+        return null;
     }
 
     // Put the files in S3 bucket using STS for temporary credentials
