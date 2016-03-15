@@ -20,7 +20,7 @@ export default class ResetPasswordTokenPage extends React.Component {
     }
 
      sendRequest(token) {
-        Request.post(kGlobalConstants.API + 'confirm_email_token/')
+        Request.post(kGlobalConstants.API + 'confirm_password_token/')
             .withCredentials()
             .send({ 'token': token })
             .end((err, res) => {
