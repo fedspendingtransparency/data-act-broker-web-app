@@ -47,63 +47,83 @@ export default class SubmissionContent extends React.Component {
     // Send file names to backend to get fileID and S3 credentials
     uploadClicked() {
         if (this.state.fileHolder.length > 0) {
-            const request = {};
-            for (let i = 0; i < this.state.fileHolder.length; i++) {
-                const fileContainer = this.state.fileHolder[i];
-
-                if (kGlobalConstants.LOCAL == true) {
-                    var formData = new FormData();
-                    formData.append('file', fileContainer.file);
-                    request[fileContainer.requestName] = this.localUpload(formData);
-                } else {
+            if (kGlobalConstants.LOCAL == true) {
+                this.localUpload(this.state.fileHolder);
+            } else {
+                const request = {};
+                for (let i = 0; i < this.state.fileHolder.length; i++) {
+                    const fileContainer = this.state.fileHolder[i];
                     request[fileContainer.requestName] = fileContainer.file.name;
                 }
-            }
 
-            const req = Request.post(kGlobalConstants.API + 'submit_files/')
-                            .withCredentials()
-                            .send(request);
+                const req = Request.post(kGlobalConstants.API + 'submit_files/')
+                                .withCredentials()
+                                .send(request);
 
-            req.end((err, res) => {
-                if (err) {
-                    console.log(err + res);
-                } else {
-                    // Start an S3 upload for each of the files
-                    for (let i = 0; i < this.state.fileHolder.length; i++) {
-                        const fileContainer = this.state.fileHolder[i];
-                        const fileID = res.body[fileContainer.requestName + '_id'];
-                        const fileKey = res.body[fileContainer.requestName + '_key'];
+                req.end((err, res) => {
+                    if (err) {
+                        console.log(err + res);
+                    } else {
+                        // Start an S3 upload for each of the files
+                        for (let i = 0; i < this.state.fileHolder.length; i++) {
+                            const fileContainer = this.state.fileHolder[i];
+                            const fileID = res.body[fileContainer.requestName + '_id'];
+                            const fileKey = res.body[fileContainer.requestName + '_key'];
 
-                        if (kGlobalConstants.LOCAL == true){
-                            this.finalizeUpload(fileID);
-                        } else {
                             this.uploadFiles(fileContainer.file, fileID, fileKey, res.body.credentials, this.state.fileHolder.length);
                         }
-                    }
 
-                    // TODO: Remove this when this is eventually tied to user accounts
-                    this.setState({
-                        submissionID: res.body.submission_id
-                    });
-                }
-            });
+                        // TODO: Remove this when this is eventually tied to user accounts
+                        this.setState({
+                            submissionID: res.body.submission_id
+                        });
+                    }
+                });
+            }
         }
     }
 
     // Used for local broker
-    localUpload(formData) {
-        Request.post(kGlobalConstants.API + 'local_upload/')
-            .withCredentials()
-            .send(formData)
-            .end((err, res) => {
-                if (err) {
-                    console.log(err + JSON.stringify(res.body));
-                    return null;
-                } else {
-                    this.setState({ progress: 100 });
-                    return res.body.path;
-                }
-            });
+    localUpload(fileHolder) {
+        const request = {};
+        let successfulUploads = {};
+
+        for (let i = 0; i < fileHolder.length; i++) {
+            const fileContainer = fileHolder[i];
+
+            let formData = new FormData();
+            formData.append('file', fileContainer.file);
+
+            Request.post(kGlobalConstants.API + 'local_upload/')
+                .withCredentials()
+                .send(formData)
+                .end((err, res) => {
+                    if (err) {
+                        console.log(err + JSON.stringify(res.body));
+                    } else {
+                        request[fileContainer.requestName] = res.body.path;
+
+                        if (request.length === fileContainer.length) {
+                            const req = Request.post(kGlobalConstants.API + 'submit_files/')
+                                .withCredentials()
+                                .send(request)
+                                .end((err, res) => {
+                                    if (err) {
+                                        console.log(err + res);
+                                    } else {
+                                        for (let j = 0; j < fileHolder.length; j++) {
+                                            const fileContainer = fileHolder[j];
+                                            const fileID = res.body[fileContainer.requestName + '_id'];
+                                            this.finalizeUpload(fileID);
+                                        }
+
+                                        this.setState({submissionID: res.body.submission_id, progress: 100});
+                                    }
+                            });
+                        }
+                    }
+                });
+        }
     }
 
     // Put the files in S3 bucket using STS for temporary credentials
