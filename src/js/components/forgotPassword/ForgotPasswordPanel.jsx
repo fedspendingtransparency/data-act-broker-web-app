@@ -74,19 +74,17 @@ export default class ForgotPasswordPanel extends React.Component {
 
         return (
             <div className="col-md-6 usa-da-login-container">
+                <div className="col-xs-12">
+                    <p className="msg">Please enter your email address below. We will send an email to the registered email address with a link to reset your password.</p>
+                </div>
                 <form onKeyPress={this.handleKeyPress.bind(this)}>
-                <div className='row'>
-                    <Username handleChange={this.handleUsernameChange.bind(this)}/>
+                    <div className='row'>
+                        <Username handleChange={this.handleUsernameChange.bind(this)}/>
                     </div>
                     <div className='row'>
-                      <div className="col-xs-12 col-sm-8">
-                        <p className="msg">Please enter your email or username.</p>
-                      </div>
-
-                    <SignInButton
-                      onClick={this.requestReset.bind(this)}
-                      buttonText={"Reset"}
-                    />
+                        <div className="col-xs-12 usa-da-login-button-holder">
+                            <SignInButton onClick={this.requestReset.bind(this)} buttonText={"Reset"} />
+                        </div>
                     </div>
                     {messageComponent}
                 </form>

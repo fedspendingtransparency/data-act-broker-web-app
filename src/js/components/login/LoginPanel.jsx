@@ -76,11 +76,10 @@ export default class LoginPanel extends React.Component {
                     <div className='row'><Username handleChange={this.handleUsernameChange.bind(this)} /></div>
                     <div className='row'><Password handleChange={this.handlePasswordChange.bind(this)} /></div>
                     <div className='row'>
-                      <LoginLinks/>
-                      <SignInButton
-                        onClick={this.loginClicked.bind(this)}
-                        buttonText={"Sign In"}
-                      />
+                        <LoginLinks/>
+                        <div className="col-xs-12 col-sm-4 usa-da-login-button-holder">
+                            <SignInButton onClick={this.loginClicked.bind(this)} buttonText={"Sign In"}/>
+                        </div>
                     </div>
                     <div className='row'>
                         {errorMessageComponent}

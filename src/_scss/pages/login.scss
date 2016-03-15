@@ -38,20 +38,24 @@
         margin: 40px 0;
         background: rgba(50, 58, 69, 0.87);
         border: 1px solid rgba(0, 0, 0, 0.1);
-        & .row{
+
+        .row{
         	@media screen and (min-width: $small-screen) {
             margin-left:0;
         	margin-right: 0;
             }
         }
+
         input {
             width: 100%;
             font-family: $font-sans;
             font-size: 17px;
         }
-        & .usa-da-login-button-holder {
+
+        .usa-da-login-button-holder {
             padding: 0;
         }
+
         button {
             font-size: 20px;
             padding: 10px 30px;
@@ -61,22 +65,31 @@
             border: none;
             font-family: $font-sans;
         }
-        & p.msg {
+
+        p.msg {
             color: #fff;
-            margin: 12px 0 0 -15px;
+            margin: 0 0 20px -15px;
             @media screen and (max-width: $small-screen) {
                 margin: 0 auto 20px;
                 text-align: center;
             }
         }
-				& p.info {
-						color: #fff;
-						margin: 12px 0 0 -15px;
-						margin-bottom: 20px;
-						@media screen and (max-width: $small-screen) {
-								text-align: center;
-						}
-				}
+
+        p.info {
+            color: #fff;
+            margin: 12px 0 0 -15px;
+            margin-bottom: 20px;
+            @media screen and (max-width: $small-screen) {
+                    text-align: center;
+            }
+        }
+
+        .usa-da-reset-success {
+            margin: 20px 0 0 0;
+            padding: 0;
+            color: $color-white;
+            font-size: $small-font-size;
+        }
     }
     .usa-da-input-container {
         margin-bottom: 20px;
