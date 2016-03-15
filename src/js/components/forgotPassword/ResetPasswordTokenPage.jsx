@@ -4,7 +4,6 @@ import ForgotPasswordPage from './ForgotPasswordPage.jsx';
 import { kGlobalConstants } from '../../GlobalConstants.js';
 
 export default class ResetPasswordTokenPage extends React.Component {
-
      constructor(props) {
          super(props);
 
@@ -14,12 +13,10 @@ export default class ResetPasswordTokenPage extends React.Component {
              message: "",
              success: false
          };
-
      }
 
-    componentWillMount(){
-      console.log(this.props.params.token);
-      this.sendRequest(this.props.params.token)
+    componentWillMount() {
+        this.sendRequest(this.props.params.token);
     }
 
      sendRequest(token) {
@@ -33,20 +30,24 @@ export default class ResetPasswordTokenPage extends React.Component {
                     this.setState({
                         errorCode: res.body.errorCode,
                         email: res.body.email,
-                        message:res.body.message,
-                        success :true
+                        message: res.body.message,
+                        success: true
                     });
                 }
             });
      }
 
      render() {
-         let currentComponent =  null
+         let currentComponent = null;
+
          if (this.state.success) {
-              currentComponent =  <ForgotPasswordPage errorCode={this.state.errorCode} message={this.state.message} email={this.state.email} />
+             currentComponent = <ForgotPasswordPage errorCode={this.state.errorCode} message={this.state.message} email={this.state.email} />
          }
+
          return (
-             <div>{currentComponent}</div>
+             <div>
+                 {currentComponent}
+             </div>
          );
      }
  }
