@@ -69,7 +69,7 @@ export default class SubmissionContent extends React.Component {
 
                         if (kGlobalConstants.LOCAL == true){
                             var formData = new FormData();
-                            formData.append(fileKey, fileContainer.file);
+                            formData.append('file', fileContainer.file);
                             this.localUpload(formData);
                         } else {
                             this.uploadFiles(fileContainer.file, fileID, fileKey, res.body.credentials, this.state.fileHolder.length);
