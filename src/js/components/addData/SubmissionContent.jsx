@@ -12,6 +12,7 @@ import Progress from '../SharedComponents/ProgressComponent.jsx';
 import SubmitButton from '../SharedComponents/SubmitButton.jsx';
 import Request from 'superagent';
 import AWS from 'aws-sdk';
+import 'babel-polyfill'
 
 export default class SubmissionContent extends React.Component {
     constructor(props) {

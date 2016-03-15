@@ -20,7 +20,8 @@ const propTypes = {
 };
 
 const defaultProps = {
-    link_array: [null]
+    link_array: [null],
+    subID: null
 };
 
 class SubmissionPageHeader extends React.Component {
