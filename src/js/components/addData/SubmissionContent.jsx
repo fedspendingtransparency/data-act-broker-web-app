@@ -68,7 +68,7 @@ export default class SubmissionContent extends React.Component {
                         const fileKey = res.body[fileContainer.requestName + '_key'];
 
                         if (kGlobalConstants.LOCAL == true){
-                            this.finalizeUpload(fileContainer.file.name);
+                            this.localUpload(fileContainer.file);
                         } else {
                             this.uploadFiles(fileContainer.file, fileID, fileKey, res.body.credentials, this.state.fileHolder.length);
                         }
@@ -81,6 +81,20 @@ export default class SubmissionContent extends React.Component {
                 }
             });
         }
+    }
+
+    // Used for local broker
+    localUpload(file) {
+        Request.post(kGlobalConstants.API + 'local_upload/')
+            .withCredentials()
+            .send({ 'file': file })
+            .end((err, res) => {
+                if (err) {
+                    console.log(err + JSON.stringify(res.body));
+                } else {
+                    this.finalizeUpload(res.body.path);
+                }
+            });
     }
 
     // Put the files in S3 bucket using STS for temporary credentials
@@ -99,18 +113,20 @@ export default class SubmissionContent extends React.Component {
         };
 
         s3.upload(s3params)
-          .on('httpUploadProgress', evt => {
-              this.setState({
-                  progress: this.state.progress + (evt.loaded / evt.total * 100) / count
-              });
-          })
-          .send(error => {
-              if (error) {
-                  console.log(error);
-              } else {
-                  this.finalizeUpload(fileID);
-              }
-          });
+            .on('httpUploadProgress', evt => {
+                let progress = this.state.progress + (evt.loaded / evt.total * 100) / count;
+
+                this.setState({
+                    progress: Math.min(progress,100)
+                });
+            })
+            .send(error => {
+                if (error) {
+                    console.log(error);
+                } else {
+                    this.finalizeUpload(fileID);
+                }
+            });
     }
 
     // Alert the server that the files are in S3 and ready for validations
@@ -163,15 +179,15 @@ export default class SubmissionContent extends React.Component {
                     <div className="container center-block">
                         <div className="row">
                             <SubmissionContainer
-                              files={files}
-                              addFile={this.addFileToHolder.bind(this)}
+                                files={files}
+                                addFile={this.addFileToHolder.bind(this)}
                             />
                         </div>
-                        <div className="text-center">
-                            <p>
-                                <a href={subLink}>{subID}</a>
-                            </p>
-                            {actionArea}
+                        <div className="row text-center">
+                            <div className="col-md-offset-3 col-md-6">
+                                {actionArea}
+                                {this.state.submissionID !== 0 ? <a className="usa-da-submit-review" href={subLink}>{subID}</a> : null }
+                            </div>
                         </div>
                     </div>
                 </div>
