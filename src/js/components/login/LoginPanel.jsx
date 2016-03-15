@@ -81,9 +81,11 @@ export default class LoginPanel extends React.Component {
                         onClick={this.loginClicked.bind(this)}
                         buttonText={"Sign In"}
                       />
-                      {errorMessageComponent}
                     </div>
-                  </form>
+                    <div className='row'>
+                        {errorMessageComponent}
+                    </div>
+                </form>
             </div>
         );
     }
