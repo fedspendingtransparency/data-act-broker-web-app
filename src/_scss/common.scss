@@ -1,5 +1,16 @@
 body{
 	-webkit-font-smoothing: antialiased;
+	font-smooth: always;
+}
+
+.site_wrap{
+	@include display(flex);
+    @include flex-direction(column);
+    min-height: 100vh;
+}
+
+.site_content{
+@include flex(1);
 }
 
 /* Colors */
@@ -172,8 +183,7 @@ p {
 		}
 
 		#usa-da-header-link-holder {
-			padding: 0 10px;
-			margin: 0;
+			padding: 0 12px;
 			height: 100%;
 			line-height: $header-height;
 			font-size: 15px;
@@ -183,8 +193,13 @@ p {
 				height: 100%;
 				display: table;
 				margin: 0;
+				border-right: 1px solid #3b4452;
 				&:before {
 					padding: 0;
+					display: none;
+				}
+				&:first-child{
+					border-left: 1px solid #3b4452;
 				}
 			}
 		}
@@ -203,15 +218,26 @@ p {
 			}
 
 			&.disabled {
-				background-color: $color-gray;
-				padding: 2.0rem 1.0rem 0;
 				cursor: default;
+				color: #71747c;
 
-				.comingSoon {
+				& .comingSoon {
 					text-align: center;
 					font-size: 1.3rem;
+					background: url('../graphics/coming_soon_ribbon.png');
+					height: 61px;
+					width: 92px;
+					display: block;
+					position: absolute;
+					top: 0;
+					right: -2px;
+					z-index: 9999;
+				}
+				&:hover {
+					background-color: $color-gray-dark;
 				}
 			}
+
 		}
 
 		#usa-da-header-link-holder > li.active > * {
@@ -245,27 +271,37 @@ p {
 	color: white;
 	background-color: $color-darkest;
 
-	.row.usa-da-content-landing {
+	& .row.usa-da-content-landing {
 		background: url('../graphics/bar_bg.png') no-repeat bottom right;
 		padding-bottom: 20px;
 	}
-	.row.usa-da-content-add-data { background: url('../graphics/line_bg.png') no-repeat bottom right; }
+	& .row.usa-da-content-add-data {
+		background: url('../graphics/line_bg.png') no-repeat bottom right;
+	}
 }
 
 .usa-da-content-light-gray {
 	color: $color-gray-light;
 	background-color: $color-gray-lightest;
+	border-bottom: 1px solid #e5e5e5;
 }
 
 .usa-da-page-title {
-	p {
-		font-size: $h4-font-size;
-		margin-bottom: 20px;
+	& h1 {
+		margin-top: 0;
+	}
+	& p {
+		font-size: 1.6rem;
+		margin: 0 0 2.6rem 0;
+		&:last-child{
+			margin-bottom: 0;
+		}
 	}
 
-	ul {
-		font-size: $h4-font-size;
+	& ul {
+		font-size: 1.6rem;
 		margin-left: 3rem;
+		margin-bottom: 2.6rem;
 	}
 }
 
@@ -274,7 +310,7 @@ p {
 	margin: 0 auto;
 	font-size: 1.3em;
 	font-weight: $font-bold;
-	padding-top: 1em;
+	padding: 5rem 0;
 
 	/* Progress Tracker v2 */
 	.usa-da-progress-bar-holder[data-steps="2"] li { width: 49%; }
@@ -303,6 +339,8 @@ p {
 		text-align: center;
 		position: relative;
 		z-index:5;
+		margin: 0.5rem 0 0;
+		font-size: 1.4rem;
 
 		&::before {
 			display: none;
@@ -317,7 +355,6 @@ p {
 		display: block;
 		vertical-align: bottom;
 		text-align: center;
-		margin-bottom: 1em;
 		color: $color-gray-dark;
 		opacity: 0.3;
 	}
@@ -603,10 +640,22 @@ p {
     margin-top: 40px;
 }
 
+.mb-40 {
+    margin-bottom: 40px;
+}
+
 .mt-50 {
     margin-top: 50px;
 }
 
-.mb-40 {
-    margin-bottom: 40px;
+.mb-50 {
+    margin-bottom: 50px;
+}
+
+.mt-60 {
+    margin-top: 60px;
+}
+
+.mb-60 {
+    margin-bottom: 60px;
 }

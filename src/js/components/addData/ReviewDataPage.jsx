@@ -29,7 +29,7 @@ class SubmissionPageHeader extends React.Component {
             <div className="usa-da-content-dark">
                 <div className="container">
                     <div className="row usa-da-page-title">
-                        <div className="col-md-6">
+                        <div className="col-md-7 mt-50 mb-50">
                             <h1>Review Data</h1>
                             <p>Review validation results in the table below.</p>
                         </div>
