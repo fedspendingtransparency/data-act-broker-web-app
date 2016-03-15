@@ -179,7 +179,7 @@ export default class ConfirmCode extends React.Component {
             passMessageComponent = <ErrorMessage message={"Your passwords do not match."} />;
 
         }
-        if  (this.state.passwordsMatch && this.state.fieldsComplete==true) {
+        if  (this.state.passwordsMatch && this.state.fieldsComplete==true && this.state.passwordErrors.length == 0) {
             passMessageComponent = <div></div>;
             actionComponent = actionButton;
             if (this.state.requestSent) {
