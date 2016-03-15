@@ -232,7 +232,11 @@ class KnownIDComponent extends React.Component {
                   allFilesComplete = false;
                 }
                 if (csvUploadJob.status === 'finished') {
-                    info.push(<DownloadLinkSingle link={this.state.csv_url['job_' + csvUploadJob.job_id + '_error_url']} />);
+                    let header = "";
+                    if (kGlobalConstants.LOCAL == true) {
+                        header = kGlobalConstants.LOCAL_ROOT;
+                    }
+                    info.push(<DownloadLinkSingle link={header + this.state.csv_url['job_' + csvUploadJob.job_id + '_error_url']} />);
                     console.log(this.state.csv_url['job_' + csvUploadJob.job_id + '_error_url']);
                 } else {
                     info.push(csvUploadJob.status);
