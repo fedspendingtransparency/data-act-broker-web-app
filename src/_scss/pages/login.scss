@@ -10,8 +10,11 @@
     position: absolute;
     top: 0;
     bottom: 0;
-    @include display(flex) @include flex-direction(column);
-    @include justify-content(center) input {
+    @include display(flex);
+    @include flex-direction(column);
+    @include justify-content(center);
+
+    input {
         padding-left: 55px;
         height: 44px;
         margin-top: 0;
@@ -29,7 +32,7 @@
         }
     }
     .usa-da-color-gray-light-eighth-tone {
-        background-color: as-alpha($color-gray-light, .125);
+        background-color: as-alpha($color-gray-light, .195);
         border-top: 1px solid rgba(255, 255, 255, 0.1);
         border-bottom: 1px solid rgba(255, 255, 255, 0.1);
     }
@@ -117,8 +120,7 @@
         ul {
             margin-bottom: 0;
             li {
-                @include list-row(20px,
-                20px);
+                @include list-row(20px, 20px);
                 color: $color-gray-light;
                 border-right: 1px solid #5b616b;
                 padding: 0 10px;

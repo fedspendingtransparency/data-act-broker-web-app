@@ -24,8 +24,8 @@ export default class NavbarTab extends React.Component {
             return (
                 <li>
                     <a className="usa-da-header-link disabled">{this.props.name}
-                        <span className={isActiveClass ? 'sr-only' : ''}>{isActiveClass ? '(current)' : ''}<br />
-                            <div className='comingSoon'><em>Coming Soon</em></div>
+                        <span className={isActiveClass ? 'sr-only' : ''}>{isActiveClass ? '(current)' : ''}
+                            <div className='comingSoon'></div>
                         </span>
                     </a>
                 </li>

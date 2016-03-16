@@ -11,7 +11,7 @@ import LandingContent from './LandingContent.jsx';
 export default class LandingPage extends React.Component {
     render() {
         return (
-            <div>
+            <div className="site_wrap">
                 <Navbar activeTab="landing"/>
                 <LandingContent/>
                 <Footer/>

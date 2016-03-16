@@ -1,9 +1,8 @@
 // addData Page
-
 .usa-da-submit-row {
-	h2 {
-		margin-bottom: 20px;
-	}
+    h2 {
+        margin-bottom: 20px;
+    }
 }
 
 .usa-da-submit-review, .usa-da-submit-review:hover {
@@ -17,18 +16,17 @@
 }
 
 div.usa-da-submission-items {
-	margin: 1em;
-
-	.usa-da-submission-item {
-		> div {
-		border: 1px solid black;
-		padding: 1em;
-		}
-	}
+    margin: 5rem;
+    .usa-da-submission-item {
+        > div {
+            border: 1px solid #ccc;
+            padding: 1em;
+        }
+    }
 }
 
 div.usa-da-dropzone {
-	border: 2px dashed gray;
-	padding: 2em;
-	cursor: pointer;
+    border: 2px dashed #999;
+    padding: 2em;
+    cursor: pointer;
 }
