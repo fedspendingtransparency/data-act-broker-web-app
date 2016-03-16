@@ -519,21 +519,22 @@ p {
     font-size: 1.4rem;
     border-radius: 0;
     position: relative;
-    & h3 {
+
+	h3 {
         font-size: 2.4rem;
         font-weight: $font-bold;
         margin: -4px 0 5px 48px;
     }
-    & h5{
+
+	h5 {
         margin:10px 0 8px;
     }
-    & p {
+
+	p, ul {
         margin: 5px 0 5px 48px;
     }
-		& ul {
-				margin: 5px 0 5px 48px;
-		}
-    & .glyphicon {
+
+	.glyphicon {
         font-size: 3.2rem;
         position: absolute;
         top: 15px;
@@ -543,28 +544,28 @@ p {
 
 .alert-success {
     background: #e7f4e4;
-    & .glyphicon {
+    .glyphicon {
         color: #5cb85c;
     }
 }
 
 .alert-info {
     background: #e1f3f8;
-    & .glyphicon {
+    .glyphicon {
         color: #5bc0de;
     }
 }
 
 .alert-warning {
     background: #fff1d2;
-    & .glyphicon {
+    .glyphicon {
         color: #f0ad4e;
     }
 }
 
 .alert-danger, .alert-error {
     background: #f9dede;
-    & .glyphicon {
+    .glyphicon {
         color: #d9534f;
     }
 }
@@ -573,9 +574,6 @@ p {
     border: 1px solid #ccc;
     padding: 15px 15px 0;
 }
-
-
-
 
 /***** GLOBAL MARGIN AND PADDING *****/
 .mt-0 {

@@ -88,7 +88,7 @@ export default class SubmissionContent extends React.Component {
     localUpload(fileHolder) {
         const request = {};
         let successfulUploads = {};
-        let count = 0;
+
         for (let i = 0; i < fileHolder.length; i++) {
             const fileContainer = fileHolder[i];
 
@@ -103,9 +103,8 @@ export default class SubmissionContent extends React.Component {
                         console.log(err + JSON.stringify(res.body));
                     } else {
                         request[fileContainer.requestName] = res.body.path;
-                        count = count +1;
-                        if (count === fileHolder.length) {
 
+                        if (i === fileHolder.length-1) {
                             const req = Request.post(kGlobalConstants.API + 'submit_files/')
                                 .withCredentials()
                                 .send(request)
