@@ -14,7 +14,7 @@ export default class LoginBanner extends React.Component {
                 <div className="container">
                     <div className="row">
                         <LoginIntro/>
-                       <LoginPanel/>
+                        <LoginPanel/>
                     </div>
                 </div>
             </div>

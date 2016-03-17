@@ -71,7 +71,7 @@ export default class LoginPanel extends React.Component {
         }
 
         return (
-            <div className="col-md-6 usa-da-login-container">
+            <div className="col-md-5 usa-da-login-container">
                 <form onKeyPress={this.handleKeyPress.bind(this)}>
                     <div className='row'><Username handleChange={this.handleUsernameChange.bind(this)} /></div>
                     <div className='row'><Password handleChange={this.handlePasswordChange.bind(this)} /></div>

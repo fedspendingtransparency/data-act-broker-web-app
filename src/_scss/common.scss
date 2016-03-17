@@ -238,6 +238,14 @@ p {
 				}
 			}
 
+			&.admin {
+				background-color: $color-cool-blue-lighter;
+				color: $color-gray-dark;
+
+				&:hover {
+					background-color: $color-cool-blue-light;
+				}
+			}
 		}
 
 		#usa-da-header-link-holder > li.active > * {

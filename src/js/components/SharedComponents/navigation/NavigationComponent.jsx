@@ -13,7 +13,11 @@ export default class Navbar extends React.Component {
         super(props);
 
         this.state = {
-            user: this.requestReset()
+            requestSent: false,
+            resetFailed: false,
+            user: this.requestReset(),
+            // TODO: Remove admin once redux is in place
+            admin: false
         };
     }
 
@@ -27,11 +31,13 @@ export default class Navbar extends React.Component {
                            resetFailed: true,
                            user: ''
                        });
+                   // TODO: Remove admin once redux is in place
                    } else {
                        this.setState({
                            requestSent: true,
                            resetFailed: false,
-                           user: res.body.name
+                           user: res.body.name,
+                           admin: res.body.permissions[0] > 0
                        });
                    }
                });
@@ -41,17 +47,21 @@ export default class Navbar extends React.Component {
         const tabNames = {
             'Home': 'landing',
             'Add New Data': 'addData',
-            'Review Data': 'reviewData',
             'Performance Dashboard': 'dashboard',
-            'Documentation': 'documentation'
+            'Help': 'help',
+            'Admin': 'admin'
         };
 
         const headerTabs = [];
         const context = this;
         const userText = this.state.user === '' ? '' : 'Welcome, ' + this.state.user;
 
+        // TODO: Remove admin once redux is in place
+        const admin = this.state.admin;
+
+        // TODO: Remove admin once redux is in place
         Object.keys(tabNames).map((key) => {
-            headerTabs.push(<NavbarTab key={tabNames[key]} name={key} class={tabNames[key]} activeTabClassName={context.props.activeTab} />);
+            headerTabs.push(<NavbarTab key={tabNames[key]} name={key} class={tabNames[key]} activeTabClassName={context.props.activeTab} admin={admin} />);
         });
 
         return (
@@ -64,13 +74,15 @@ export default class Navbar extends React.Component {
                             <span className="icon-bar"></span>
                             <span className="icon-bar"></span>
                         </button>
-                        <a className="navbar-brand usa-da-header-brand" href="#/landing">Data Broker</a>
+                        <a className="navbar-brand usa-da-header-brand" href="#/landing">USA Spending Data Broker</a>
                     </div>
 
                     <div className="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                         <ul id="usa-da-header-link-holder" className="nav navbar-nav navbar-right">
                             {headerTabs}
-                            <li><a className="usa-da-header-link usa-da-user-info" href="#">{userText}</a></li>
+                            <li>
+                                <a className="usa-da-header-link usa-da-user-info" href="#">{userText}</a>
+                            </li>
                         </ul>
                     </div>
                 </div>
