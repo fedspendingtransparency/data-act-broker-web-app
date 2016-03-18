@@ -9,9 +9,18 @@ import AddDataPage from '../components/addData/AddDataPage.jsx';
 import ReviewDataPage from '../components/addData/ReviewDataPage.jsx';
 import AdminPage from '../components/admin/AdminPage.jsx';
 
+let store;
+
+const setStore = (parentStore) => {
+    store = parentStore;
+}
+
 const checkAdminPermissions = (nextState, replace) => {
     //TODO Add check For Permissions
     console.log("test");
+    if (store) {
+        console.log(store.getState());
+    }
 }
 const checkUserPermissions = (nextState, replace) => {
     //TODO Add check For User Permissions
@@ -25,7 +34,7 @@ const debugRoute = (nextState, replace) => {
 
 
 // defining the routes outside of the component because React Router cannot handle state/prop changes that Redux causes
-export const routes = {
+const routeDefinitions = {
     path: '/',
     indexRoute: {
         component: LoginPage
@@ -69,4 +78,10 @@ export const routes = {
             component: RegistrationTokenPage
         }
     ]
+}
+
+export const routes = {
+    setStore: setStore,
+    getStore: () => store,
+    routes: () => routeDefinitions
 }

@@ -21,6 +21,7 @@ const GA_OPTIONS = { debug: true };
 export default class RouterContainer extends React.Component {
     componentDidMount() {
         ga.initialize(kGlobalConstants.GA_TRACKING_ID, GA_OPTIONS);
+        routes.setStore(this.props.store);
         this.loadActiveUser();
     }
 
@@ -63,7 +64,7 @@ export default class RouterContainer extends React.Component {
     render() {
 
         return (
-            <Router routes={routes} history={hashHistory} onUpdate={this.handleRouteChange.bind(this)} ref="router" />
+            <Router routes={routes.routes()} history={hashHistory} onUpdate={this.handleRouteChange.bind(this)} ref="router" />
         );
 
     }
