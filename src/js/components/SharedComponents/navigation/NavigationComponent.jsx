@@ -8,33 +8,13 @@ import { kGlobalConstants } from '../../../GlobalConstants.js';
 import Request from 'superagent';
 import NavbarTab from './NavbarTab.jsx';
 
+import { bindActionCreators } from 'redux';
+import { connect } from 'react-redux';
+import * as sessionActions from '../../../redux/actions/sessionActions.js';
+
 export default class Navbar extends React.Component {
     constructor(props) {
         super(props);
-
-        this.state = {
-            user: this.requestReset()
-        };
-    }
-
-    requestReset() {
-        Request.get(kGlobalConstants.API + 'current_user/')
-               .withCredentials()
-               .end((err,res) => {
-                   if (err) {
-                       this.setState({
-                           requestSent: true,
-                           resetFailed: true,
-                           user: ''
-                       });
-                   } else {
-                       this.setState({
-                           requestSent: true,
-                           resetFailed: false,
-                           user: res.body.name
-                       });
-                   }
-               });
     }
 
     render() {
@@ -48,7 +28,7 @@ export default class Navbar extends React.Component {
 
         const headerTabs = [];
         const context = this;
-        const userText = this.state.user === '' ? '' : 'Welcome, ' + this.state.user;
+        const userText = this.props.session.user === '' ? '' : 'Welcome, ' + this.props.session.user.name;
 
         Object.keys(tabNames).map((key) => {
             headerTabs.push(<NavbarTab key={tabNames[key]} name={key} class={tabNames[key]} activeTabClassName={context.props.activeTab} />);
@@ -78,3 +58,7 @@ export default class Navbar extends React.Component {
         );
     }
 }
+
+export default connect(
+  state => ({ session: state.session })
+)(Navbar)
