@@ -35,9 +35,9 @@ class LoginContainer extends React.Component {
 					this.props.setLoginState("loggedOut");
 				}
 				else {
+					// changing the login state will propagate through Redux and trigger a router action
 					this.props.setLoginState("loggedIn");
 					this.props.setActiveUser(res.body);
-					hashHistory.push('/landing');
 				}
 			});
 	}

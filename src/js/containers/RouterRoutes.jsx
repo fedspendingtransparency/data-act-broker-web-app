@@ -17,10 +17,6 @@ const setStore = (parentStore) => {
 
 const checkAdminPermissions = (nextState, replace) => {
     //TODO Add check For Permissions
-    console.log("test");
-    if (store) {
-        console.log(store.getState());
-    }
 }
 const checkUserPermissions = (nextState, replace) => {
     //TODO Add check For User Permissions
@@ -37,7 +33,7 @@ const debugRoute = (nextState, replace) => {
 const routeDefinitions = {
     path: '/',
     indexRoute: {
-        component: LoginPage
+        component: LandingPage
     },
     childRoutes: [
         {
@@ -46,12 +42,18 @@ const routeDefinitions = {
         },
         {
             path: 'admin',
-            component: AdminPage
+            component: AdminPage,
+            onEnter: checkAdminPermissions
         },
         {
             path: 'landing',
             component: LandingPage,
-            onEnter: checkAdminPermissions
+            onEnter: checkUserPermissions
+        },
+        {
+            path: 'addData',
+            component: AddDataPage,
+            onEnter: checkUserPermissions
         },
         {
             path: 'reviewData',
