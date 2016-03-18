@@ -9,6 +9,7 @@ import { createStore } from 'redux';
 import RouterContainer from './RouterContainer.jsx';
 
 import reducers from '../redux/reducers/index.js';
+
 // create the state store
 const store = createStore(reducers, {},
 	window.devToolsExtension ? window.devToolsExtension() : undefined
@@ -18,7 +19,7 @@ export default class AppContainer extends React.Component {
 	render() {
 		return (
 			<Provider store={store}>
-				<RouterContainer />
+				<RouterContainer store={store} />
 			</Provider>
 		);
 	}

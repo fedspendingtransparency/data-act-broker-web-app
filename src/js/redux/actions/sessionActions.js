@@ -7,5 +7,5 @@ export const setLoginState = (state) => {
 
 export const setActiveUser = (state) => ({
 	type: 'SET_ACTIVE_USER',
-	user: state.user
+	user: state
 })
