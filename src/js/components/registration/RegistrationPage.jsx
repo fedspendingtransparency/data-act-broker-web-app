@@ -33,7 +33,6 @@ export default class RegistrationPage extends React.Component {
             else if (this.props.message == 'success') {
                 currentComponent = <ConfirmCode email={this.props.email}/>;
             }
-            
         }
 
         return (
@@ -42,8 +41,10 @@ export default class RegistrationPage extends React.Component {
                 <div className="usa-da-content">
                     <div className="container usa-da-registration">
                         <h1>Registration</h1>
-                        <div className="row">
-                            {currentComponent}
+                        <div className="row text-center">
+                            <div className="col-sm-12 col-md-offset-3 col-md-6">
+                                {currentComponent}
+                            </div>
                         </div>
                     </div>
                 </div>

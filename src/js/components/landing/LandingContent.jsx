@@ -33,10 +33,10 @@ export default class LandingContent extends React.Component {
                     <div className="container">
                         <div className="row usa-da-button-holder">
                             <div className="col-md-6">
-                                <a className="usa-da-button-big" href="#/addData">Add &#38; Validate New Data</a>
+                                <a className="usa-da-button-big" href="#/addData"><span className="glyphicon glyphicon-open">&nbsp;</span>Add &#38; Validate New Data</a>
                             </div>
                             <div className="col-md-6">
-                                <a className="usa-da-button-big disabled" href="#">Performance Dashboard
+                                <a className="usa-da-button-big disabled" href="#"><span className="glyphicon glyphicon-cog">&nbsp;</span>Performance Dashboard
                                     <div><em>Coming Soon</em></div>
                                 </a>
                             </div>

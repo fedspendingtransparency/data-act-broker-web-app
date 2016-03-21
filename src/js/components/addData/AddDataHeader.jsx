@@ -5,7 +5,7 @@
 
 import React from 'react';
 
-export default class SubmissionPageHeader extends React.Component {
+export default class AddDataHeader extends React.Component {
     render() {
         return (
             <div className="usa-da-content-dark">

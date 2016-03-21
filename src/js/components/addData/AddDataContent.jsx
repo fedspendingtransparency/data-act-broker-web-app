@@ -14,7 +14,7 @@ import Request from 'superagent';
 import AWS from 'aws-sdk';
 import 'babel-polyfill'
 
-export default class SubmissionContent extends React.Component {
+export default class AddDataContent extends React.Component {
     constructor(props) {
         super(props);
 

@@ -17,7 +17,7 @@ import AdminPage from './components/admin/AdminPage.jsx';
 const documentLocation = document.getElementById('app');
 
 const ga = require('react-ga');
-const GA_OPTIONS = { debug: true };
+const GA_OPTIONS = { debug: false };
 
 const checkAdminPermissions = (nextState, replace) => {
   //TODO Add check For Permissions

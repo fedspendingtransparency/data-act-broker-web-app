@@ -30,3 +30,14 @@ div.usa-da-dropzone {
     padding: 2em;
     cursor: pointer;
 }
+
+.usa-da-add-data-meta {
+    .meta-holder {
+        background-color: $color-gray-dark;
+        padding: 30px 20px;
+
+        input {
+            max-width: none;
+        }
+    }
+}
