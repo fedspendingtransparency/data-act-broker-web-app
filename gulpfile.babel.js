@@ -125,6 +125,7 @@ gulp.task('watch', ['fonts', 'images', 'graphics', 'docs', 'copyConstants'], () 
 
     return watcher.on('update', () => {
         watcher.bundle()
+            .on('error', gutil.log)
             .pipe(source(path.OUT))
             .pipe(buffer())
             .pipe(sourcemaps.init({ loadMaps: !build }))
