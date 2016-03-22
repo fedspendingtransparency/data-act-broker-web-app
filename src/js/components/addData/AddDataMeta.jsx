@@ -1,10 +1,11 @@
 /**
-* AddDataPage.jsx
-* Created by Katie Rose 12/7/15
+* AddDataMeta.jsx
+* Created by Mike Bray 3/21/16
 **/
 
 import React, { PropTypes } from 'react';
 import SubmitButton from '../SharedComponents/SubmitButton.jsx';
+import ReactTypeahead from 'react-typeahead';
 import DatePicker from 'react-datepicker';
 import moment from 'moment';
 
@@ -24,8 +25,8 @@ export default class AddDataMeta extends React.Component {
         };
     }
 
-    handleChange(e){
-        this.setState({ agency: e.target.value }, this.checkComplete);
+    handleChange(agency){
+        this.setState({ agency: agency }, this.checkComplete);
     }
 
     handleStartDateChange(date) {
@@ -48,6 +49,81 @@ export default class AddDataMeta extends React.Component {
         this.props.updateMetaData(this.state);
     }
 
+    getAgencies(){
+        return [
+            "Appalachian Regional Commission",
+            "Broadcasting Board of Governors",
+            "Bureau of Safety and Environmental Enforcement",
+            "Commerce - Economic Development Administration",
+            "Commerce - International Trade Administration",
+            "Commerce - Minority Business Development Agency",
+            "Commerce - National Institute of Standards and Technology",
+            "Commerce - National Oceanic and Atmospheric Administration",
+            "Commerce - Office of the Secretary",
+            "Commission on Civil Rights",
+            "Consumer Product Safety Commission",
+            "Corporation for National and Community Service",
+            "Defense Nuclear Facilities Safety Board",
+            "Delta Regional Authority",
+            "Denali Commission",
+            "Department of Agriculture",
+            "Department of Defense (except military departments)",
+            "Department of Education",
+            "Department of Energy",
+            "Department of Health and Human Services",
+            "Department of Homeland Security",
+            "Department of Housing and Urban Development",
+            "Department of Justice",
+            "Department of Labor",
+            "Department of State",
+            "Department of the Interior ",
+            "Department of the Treasury",
+            "Department of Veterans Affairs",
+            "DOT - Department of Transportation",
+            "DOT - Federal Aviation Administration",
+            "DOT - Federal Highway Administration",
+            "DOT - Federal Motor Carrier Safety Administration",
+            "DOT - Federal Railroad Administration",
+            "DOT - Federal Transit Administration",
+            "DOT - Immediate Office of the Secretary of Transportation",
+            "DOT - Maritime Administration",
+            "DOT - National Highway Traffic Safety Administration",
+            "DOT - Pipeline and Hazardous Materials Safety Administration",
+            "Election Assistance Commission",
+            "Environmental Protection Agency",
+            "Export-Import Bank of the U.S.",
+            "Federal Communications Commission",
+            "Federal Energy Regulatory Commission",
+            "Federal Mediation and Conciliation Service",
+            "Federal Trade Commission",
+            "General Services Administration",
+            "Gulf Coast Ecosystem Restoration Council",
+            "Institute of Museum Services",
+            "Inter-American Foundation",
+            "Japan-U.S. Friendship Commission",
+            "Millennium Challenge Corporation",
+            "National Aeronautics and Space Administration",
+            "National Archives and Records Administration",
+            "National Credit Union Administration",
+            "National Endowment for the Arts",
+            "National Endowment for the Humanities",
+            "National Labor Relations Board",
+            "National Science Foundation",
+            "Nuclear Regulatory Commission",
+            "Office of Personnel Management",
+            "Office of the National Drug Control Policy",
+            "Open World Leadership Center",
+            "Overseas Private Investment Corporation",
+            "Pension Benefit Guaranty Corporation",
+            "Railroad Retirement Board",
+            "Small Business Administration",
+            "Social Security Administration",
+            "U.S. Agency for International Development",
+            "U.S. Coast Guard",
+            "United States Institute of Peace"
+        ];
+    }
+
     render() {
         return (
             <div>
@@ -56,14 +132,14 @@ export default class AddDataMeta extends React.Component {
                         <div className="col-md-offset-2 col-md-8 mt-40">
                             <h4>Please provide the following information about report you will be creating.</h4>
                             <div className="row meta-holder mt-25">
-                                <div className="col-sm-12 col-md-12 mb-25">
-                                    <input id="agency" name="agency" placeholder="Name of reporting agency" type="text" onChange={this.handleChange.bind(this)} />
+                                <div className="col-sm-12 col-md-12 mb-25 typeahead-holder">
+                                    <ReactTypeahead.Typeahead options={this.getAgencies()} maxVisible={5} placeholder="Name of reporting agency" onOptionSelected={this.handleChange.bind(this)} />
                                 </div>
                                 <div className="col-sm-12 col-md-6">
-                                    <DatePicker selected={this.state.startDate} onChange={this.handleStartDateChange.bind(this)} />
+                                    <DatePicker selected={this.state.startDate} onChange={this.handleStartDateChange.bind(this)} placeholderText="Reporting period start date"/>
                                 </div>
                                 <div className="col-sm-12 col-md-6">
-                                    <DatePicker selected={this.state.endDate} onChange={this.handleEndDateChange.bind(this)} />
+                                    <DatePicker selected={this.state.endDate} onChange={this.handleEndDateChange.bind(this)} placeholderText="Reporting period end date" />
                                 </div>
                                 <div className="col-sm-12 text-right mt-25">
                                     <SubmitButton onClick={this.submitMetadata.bind(this)} buttonText="Submit" buttonDisabled={this.state.buttonDisabled} />

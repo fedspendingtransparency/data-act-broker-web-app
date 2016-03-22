@@ -88,6 +88,7 @@
     "react-loader": "^2.0.0",
     "react-redux": "^4.4.0",
     "react-router": "^2.0.0",
+    "react-typeahead": "^1.1.6",
     "superagent": "^1.6.1",
     "vinyl-buffer": "^1.0.0",
     "vinyl-paths": "^2.1.0",

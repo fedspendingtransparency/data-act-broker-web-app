@@ -15,16 +15,16 @@ export default class AddDataPage extends React.Component {
 
         this.state = {
             agency: "",
-            start: "",
-            end: ""
+            startDate: "",
+            endDate: ""
         };
     }
 
     updateMetaData(newState){
         this.setState({
             agency: newState.agency,
-            start: newState.startDate,
-            end: newState.endDate
+            startDate: newState.startDate,
+            endDate: newState.endDate
         });
     }
 
