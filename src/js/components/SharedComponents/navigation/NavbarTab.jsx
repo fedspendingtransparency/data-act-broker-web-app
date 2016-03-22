@@ -33,18 +33,13 @@ export default class NavbarTab extends React.Component {
                 </li>
             );
         } else if (this.props.class == 'admin') {
-            // TODO: Replace with correct admin check in redux here
-            if (this.props.admin == true) {
-                return (
-                    <li className={isActiveClass ? 'active' : ''}>
-                        <a className="usa-da-header-link admin" href={link}>{this.props.name}
-                            <span className={isActiveClass ? 'sr-only' : ''}>{isActiveClass ? '(current)' : ''}</span>
-                        </a>
-                    </li>
-                );
-            } else {
-                return null;
-            }
+            return (
+                <li className={isActiveClass ? 'active' : ''}>
+                    <a className="usa-da-header-link admin" href={link}>{this.props.name}
+                        <span className={isActiveClass ? 'sr-only' : ''}>{isActiveClass ? '(current)' : ''}</span>
+                    </a>
+                </li>
+            );
         } else {
             return (
                 <li className={isActiveClass ? 'active' : ''}>

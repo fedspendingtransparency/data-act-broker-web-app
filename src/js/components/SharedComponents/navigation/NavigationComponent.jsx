@@ -8,53 +8,54 @@ import { kGlobalConstants } from '../../../GlobalConstants.js';
 import Request from 'superagent';
 import NavbarTab from './NavbarTab.jsx';
 
+import { bindActionCreators } from 'redux';
+import { connect } from 'react-redux';
+import * as sessionActions from '../../../redux/actions/sessionActions.js';
+
 export default class Navbar extends React.Component {
     constructor(props) {
         super(props);
 
         this.state = {
-            requestSent: false,
-            resetFailed: false,
-            user: this.requestReset(),
-            // TODO: Remove admin once redux is in place
-            admin: false
+            showDropdown: false
         };
     }
 
-    requestReset() {
-        Request.get(kGlobalConstants.API + 'current_user/')
-               .withCredentials()
-               .end((err,res) => {
-                   if (err) {
-                       this.setState({
-                           requestSent: true,
-                           resetFailed: true,
-                           user: ''
-                       });
-                   // TODO: Remove admin once redux is in place
-                   } else {
-                       this.setState({
-                           requestSent: true,
-                           resetFailed: false,
-                           user: res.body.name,
-                           admin: res.body.permissions[0] > 0
-                       });
-                   }
-               });
+    toggleDropdown(e) {
+        e.preventDefault();
+
+        if (!this.state.showDropdown) {
+            this.setState({
+                showDropdown: true
+            });
+        }
+        else {
+            this.setState({
+                showDropdown: false
+            });
+        }
+    }
+
+    logout(e) {
+        e.preventDefault();
+        this.props.setLoginState('loggedOut');
     }
 
     render() {
-        const tabNames = {
+        let tabNames = {
             'Home': 'landing',
             'Add New Data': 'addData',
             'Performance Dashboard': 'dashboard',
-            'Help': 'help',
-            'Admin': 'admin'
+            'Help': 'help'
         };
 
         const headerTabs = [];
         const context = this;
-        const userText = this.state.user === '' ? '' : 'Welcome, ' + this.state.user;
+        const userText = this.props.session.user === '' ? '' : 'Welcome, ' + this.props.session.user.name;
+
+        if (this.props.session.admin) {
+            tabNames['Admin'] = 'admin';
+        }
 
         // TODO: Remove admin once redux is in place
         const admin = this.state.admin;
@@ -63,6 +64,11 @@ export default class Navbar extends React.Component {
         Object.keys(tabNames).map((key) => {
             headerTabs.push(<NavbarTab key={tabNames[key]} name={key} class={tabNames[key]} activeTabClassName={context.props.activeTab} admin={admin} />);
         });
+
+        let hideDropdown = " hide";
+        if (this.state.showDropdown) {
+            hideDropdown = "";
+        }
 
         return (
             <nav className="navbar navbar-default usa-da-header">
@@ -81,7 +87,12 @@ export default class Navbar extends React.Component {
                         <ul id="usa-da-header-link-holder" className="nav navbar-nav navbar-right">
                             {headerTabs}
                             <li>
-                                <a className="usa-da-header-link usa-da-user-info" href="#">{userText}</a>
+                                <a href="#" onClick={this.toggleDropdown.bind(this)} className="usa-da-header-link usa-da-user-info dropdown-toggle">{userText}</a>
+                                <ul className={"header-dropdown" + hideDropdown}>
+                                    <li>
+                                        <a className="logout" href="#" onClick={this.logout.bind(this)}>Log Out</a>
+                                    </li>
+                                </ul>
                             </li>
                         </ul>
                     </div>
@@ -90,3 +101,8 @@ export default class Navbar extends React.Component {
         );
     }
 }
+
+export default connect(
+  state => ({ session: state.session }),
+  dispatch => bindActionCreators(sessionActions, dispatch)
+)(Navbar)

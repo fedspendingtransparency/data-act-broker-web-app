@@ -4,12 +4,10 @@
 **/
 
 import React from 'react';
-import { kGlobalConstants } from '../../GlobalConstants.js';
 import Username from './Username.jsx';
 import Password from './Password.jsx';
 import LoginLinks from './LoginLinks.jsx';
 import SignInButton from './SignInButton.jsx';
-import Request from 'superagent';
 import ErrorMessage from '../SharedComponents/ErrorMessage.jsx';
 
 export default class LoginPanel extends React.Component {
@@ -18,29 +16,12 @@ export default class LoginPanel extends React.Component {
 
         this.state = {
             username: '',
-            password: '',
-            loginFailed: false
+            password: ''
         };
     }
 
     loginClicked() {
-        Request.post(kGlobalConstants.API + 'login/')
-               .withCredentials()
-               .send({ 'username': this.state.username, 'password': this.state.password })
-               .end((err) => {
-                   if (err) {
-                       this.setState({
-                           loginFailed: true
-                       });
-                   } else {
-                       this.setState({
-                           loginFailed: false
-                       });
-
-                       // Route to landing page on success
-                       location.href = '#/landing';
-                   }
-               });
+        this.props.performLogin(this.state.username, this.state.password);
     }
 
     handleKeyPress(e) {
@@ -64,11 +45,14 @@ export default class LoginPanel extends React.Component {
     }
 
     render() {
+        let signInButtonText = "Sign In";
+
         let errorMessageComponent = null;
 
-        if (this.state.loginFailed) {
+        if (this.props.session.login == "failed") {
             errorMessageComponent = <ErrorMessage message={"Username or password is incorrect"} />;
         }
+
 
         return (
             <div className="col-md-5 usa-da-login-container">

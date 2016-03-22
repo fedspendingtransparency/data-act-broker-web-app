@@ -9,6 +9,7 @@ import EmailComponent from './RegistrationEmailComponent.jsx';
 import RegisterEmailPanel from './RegisterEmailPanel.jsx';
 import ConfirmCode from './ConfirmCodeComponent.jsx';
 
+
 const propTypes = {
     stepName: PropTypes.string.isRequired,
     message: PropTypes.string,
