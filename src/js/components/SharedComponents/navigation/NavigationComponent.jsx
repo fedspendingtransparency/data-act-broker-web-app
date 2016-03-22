@@ -15,10 +15,34 @@ import * as sessionActions from '../../../redux/actions/sessionActions.js';
 export default class Navbar extends React.Component {
     constructor(props) {
         super(props);
+
+        this.state = {
+            showDropdown: false
+        };
+    }
+
+    toggleDropdown(e) {
+        e.preventDefault();
+
+        if (!this.state.showDropdown) {
+            this.setState({
+                showDropdown: true
+            });
+        }
+        else {
+            this.setState({
+                showDropdown: false
+            });
+        }
+    }
+
+    logout(e) {
+        e.preventDefault();
+        this.props.setLoginState('loggedOut');
     }
 
     render() {
-        const tabNames = {
+        let tabNames = {
             'Home': 'landing',
             'Add New Data': 'addData',
             'Review Data': 'reviewData',
@@ -30,9 +54,18 @@ export default class Navbar extends React.Component {
         const context = this;
         const userText = this.props.session.user === '' ? '' : 'Welcome, ' + this.props.session.user.name;
 
+        if (this.props.session.admin) {
+            tabNames['Admin'] = 'admin';
+        }
+
         Object.keys(tabNames).map((key) => {
             headerTabs.push(<NavbarTab key={tabNames[key]} name={key} class={tabNames[key]} activeTabClassName={context.props.activeTab} />);
         });
+
+        let hideDropdown = " hide";
+        if (this.state.showDropdown) {
+            hideDropdown = "";
+        }
 
         return (
             <nav className="navbar navbar-default usa-da-header">
@@ -50,7 +83,14 @@ export default class Navbar extends React.Component {
                     <div className="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                         <ul id="usa-da-header-link-holder" className="nav navbar-nav navbar-right">
                             {headerTabs}
-                            <li><a className="usa-da-header-link usa-da-user-info" href="#">{userText}</a></li>
+                            <li>
+                                <a href="#" onClick={this.toggleDropdown.bind(this)} className="usa-da-header-link usa-da-user-info dropdown-toggle">{userText}</a>
+                                <ul className={"header-dropdown" + hideDropdown}>
+                                    <li>
+                                        <a className="logout" href="#" onClick={this.logout.bind(this)}>Log Out</a>
+                                    </li>
+                                </ul>
+                            </li>
                         </ul>
                     </div>
                 </div>
@@ -60,5 +100,6 @@ export default class Navbar extends React.Component {
 }
 
 export default connect(
-  state => ({ session: state.session })
+  state => ({ session: state.session }),
+  dispatch => bindActionCreators(sessionActions, dispatch)
 )(Navbar)

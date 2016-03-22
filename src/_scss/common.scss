@@ -249,6 +249,32 @@ p {
 			background-color: $color-gray;
 			color: $color-gray-light;
 		}
+
+		#usa-da-header-link-holder > li > .header-dropdown {
+			@extend .dropdown-menu;
+			display: block;
+			border-radius: 0;
+			background-color: $color-gray-dark;
+			border: 1px solid #3b4452;
+
+
+			li {
+				border: none;
+				width: 100%;
+
+				a {
+					color: $color-primary-alt;
+					vertical-align: middle;
+					padding: 1.5rem 1.0rem;
+					font-size: 1.4rem;
+
+					&:hover {
+						background-color: $color-darkest;
+						color: $color-primary-alt;
+					}
+				}
+			}
+		}
 	}
 }
 
@@ -302,6 +328,12 @@ p {
 		font-size: 1.6rem;
 		margin-left: 3rem;
 		margin-bottom: 2.6rem;
+	}
+}
+
+.site_content {
+	&.pending-page {
+		background-color: $color-darkest;
 	}
 }
 

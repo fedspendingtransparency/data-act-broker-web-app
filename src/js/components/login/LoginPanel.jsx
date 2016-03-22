@@ -45,11 +45,15 @@ export default class LoginPanel extends React.Component {
     }
 
     render() {
+        let signInButtonText = "Sign In";
+
         let errorMessageComponent = null;
 
         if (this.props.session.login == "failed") {
             errorMessageComponent = <ErrorMessage message={"Username or password is incorrect"} />;
         }
+
+
         return (
             <div className="col-md-6 usa-da-login-container">
                 <form onKeyPress={this.handleKeyPress.bind(this)}>
