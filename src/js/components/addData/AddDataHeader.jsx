@@ -14,7 +14,7 @@ export default class AddDataHeader extends React.Component {
                         <div className="col-md-7 mt-50 mb-50">
                             <h1>Add New Data</h1>
                             <p>The alpha Data Broker allows agencies to test financial data and is not connected to USA Spending.</p>
-                            <p>Upload your files below. For more information on the file format, please <a href="/docs/RSS_v0.7.2.1_AlphaBroker.xlsx" target="_blank">download the Reporting Specification</a>.</p>
+                            <p>Upload your files below. For more information on the file format, please <a href="#" target="_blank">download the Reporting Specification</a> (coming soon).</p>
                         </div>
                     </div>
                 </div>
