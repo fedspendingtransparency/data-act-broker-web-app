@@ -22,19 +22,22 @@ const GA_OPTIONS = { debug: true };
 
 const Routes = new RouterRoutes();
 
+let sessionChecker;
+
 export default class RouterContainer extends React.Component {
     componentDidMount() {
         ga.initialize(kGlobalConstants.GA_TRACKING_ID, GA_OPTIONS);
     }
 
     componentDidUpdate(prevProps) {
-        if (this.props.session.login == "loggedIn" && prevProps.session.login != "loggedIn") {
-            // we've switched from either a logged out state to logged in or we've received session data back from the backend
-            // so we should auto-relogin
-            Routes.autoLogin(this.refs.router.state.location);
-        }
-        else if (this.props.session.login == "loggedOut") {
-            if (prevProps.session.login != "loggedOut" && prevProps.session.login != "pending") {
+        if (this.props.session.login != prevProps.session.login) {
+            if (this.props.session.login == "loggedIn") {
+                // we've switched from either a logged out state to logged in or we've received session data back from the backend
+                // so we should auto-relogin
+                Routes.autoLogin(this.refs.router.state.location);
+                this.monitorSession();
+            }
+            else if (this.props.session.login == "loggedOut" && prevProps.session.login != "pending") {
                 this.logout();
             }
         }
@@ -55,6 +58,17 @@ export default class RouterContainer extends React.Component {
 
     logPageView(path) {
         ga.pageview(path);
+    }
+
+    monitorSession() {
+        // start a timer to periodically check the user's session state every 15 minutes
+        sessionChecker = setInterval(() => {
+            LoginHelper.checkSession()
+                .catch(() => {
+                    // session expired, stop checking if it's active any more
+                    clearInterval(sessionChecker);
+                });
+        }, 15 * 60 * 1000);
     }
 
     render() {

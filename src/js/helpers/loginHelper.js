@@ -18,11 +18,7 @@ export const fetchActiveUser = () => {
 	        .send()
 	        .end((err, res) => {
 	            if (err) {
-	            	const action = sessionActions.setSession({
-	                    login: 'loggedOut',
-	                    user: {},
-	                    admin: false
-	                });
+	            	const action = sessionActions.setLoggedOut();
 	                store.dispatch(action);
 
 	                // unset the login state cookie
@@ -30,6 +26,9 @@ export const fetchActiveUser = () => {
 	                deferred.reject(err);
 	            }
 	            else {
+
+	            	// set the login state cookie that expires in 15 minutes
+					Cookies.set('brokerLogin', Date.now(), {expires: (1/(24*4))});
 
 	                // check to see if the user is an admin
 	                let isAdmin = false;
@@ -73,7 +72,7 @@ export const performLogin = (username, password) => {
 				} else {
 					// set the login state cookie that expires in 15 minutes
 					Cookies.set('brokerLogin', Date.now(), {expires: (1/(24*4))});
-
+					
 					fetchActiveUser(store)
 					.then((data) => {
 						deferred.resolve(data);
@@ -97,11 +96,7 @@ export const performLogout = () => {
             .send()
             .end((err, res) => {
                 if (!err) {
-                    const action = sessionActions.setSession({
-                        login: 'loggedOut',
-                        user: {},
-                        admin: false
-                    });
+                    const action = sessionActions.setLoggedOut();
                     store.dispatch(action);
 
                     // unset the login state cookie
@@ -110,6 +105,34 @@ export const performLogout = () => {
                     deferred.resolve();
                 }
             });
+
+	return deferred.promise;
+}
+
+export const checkSession = () => {
+	const deferred = Q.defer();
+
+	const store = new StoreSingleton().store;
+
+	Request.get(kGlobalConstants.API + 'session/')
+		.withCredentials()
+		.send()
+		.end((err, res) => {
+			if (!err && res.body.status == 'True') {
+				// session is valid
+				deferred.resolve();
+			}
+			else {
+				// session expired, update redux state
+				const action = sessionActions.setLoggedOut();
+				store.dispatch(action);
+
+				// unset the login state cookie
+                Cookies.remove('brokerLogin');
+
+				deferred.reject();
+			}
+		});
 
 	return deferred.promise;
 }

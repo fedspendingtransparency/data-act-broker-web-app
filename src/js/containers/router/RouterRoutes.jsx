@@ -11,6 +11,8 @@ import AddDataPage from '../../components/addData/AddDataPage.jsx';
 import ReviewDataPage from '../../components/addData/ReviewDataPage.jsx';
 import AdminPage from '../../components/admin/AdminPage.jsx';
 
+import ErrorPage from '../../components/error/ErrorPage.jsx';
+
 import StoreSingleton from '../../redux/storeSingleton.js';
 
 let instance = null;
@@ -122,15 +124,6 @@ const routeDefinitions = {
             onEnter: checkUserPermissions
         },
         {
-            path: 'reviewData',
-            component: ReviewDataPage,
-            onEnter: checkUserPermissions
-        },
-        {
-            path: 'reviewData/:subID',
-            component: ReviewDataPage
-        },
-        {
             path: 'forgotpassword',
             component: ForgotPasswordPage
         },
@@ -145,6 +138,10 @@ const routeDefinitions = {
         {
             path: 'registration/:token',
             component: RegistrationTokenPage
+        },
+        {
+            path: '*',
+            component: ErrorPage
         }
     ]
 }

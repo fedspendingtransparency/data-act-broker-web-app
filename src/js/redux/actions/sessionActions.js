@@ -20,3 +20,11 @@ export const setSession = (state) => ({
 	user: state.user,
 	admin: state.admin
 })
+
+// convenience method for logging out
+export const setLoggedOut = () => ({
+	type: 'SET_SESSION',
+	login: 'loggedOut',
+	user: {},
+	admin: false
+})

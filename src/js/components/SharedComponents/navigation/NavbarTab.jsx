@@ -7,14 +7,12 @@ import React, { PropTypes } from 'react';
 
 const propTypes = {
     class: PropTypes.string.isRequired,
-    activeTabClassName: PropTypes.string.isRequired,
-    admin: PropTypes.bool.isRequired
+    activeTabClassName: PropTypes.string.isRequired
 };
 
 const defaultProps = {
     class: 'landing',
-    activeTabClassName: 'landing',
-    admin: false
+    activeTabClassName: 'landing'
 };
 
 export default class NavbarTab extends React.Component {

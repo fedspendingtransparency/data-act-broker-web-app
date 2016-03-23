@@ -62,6 +62,7 @@ export default class AppContainer extends React.Component {
 				});
 			});
 	}
+
 	render() {
 
 		// show a loading page that resembles a non-interactive version of the landing page if the user has an active session
