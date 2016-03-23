@@ -4,5 +4,6 @@ export const kGlobalConstants = {
     LOCAL_ROOT : 'http://localhost:80',
     GITHUB: 'https://github.com/fedspendingtransparency/data-act-validator/tree/development',
     GA_TRACKING_ID: 'UA-75081254-1',
-    LOCAL: true
+    LOCAL: true,
+    DEV: false
 };

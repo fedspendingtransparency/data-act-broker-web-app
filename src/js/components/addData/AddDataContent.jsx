@@ -1,20 +1,25 @@
 /**
-* SubmissionContent.jsx
+* AddDataContent.jsx
 * Created by Kyle Fox 2/19/16
 **/
 
-import React from 'react';
+import React, { PropTypes } from 'react';
 import { kGlobalConstants } from '../../GlobalConstants.js';
 import FileProgress from '../SharedComponents/FileProgress.jsx';
 import TypeSelector from './AddDataTypeSelector.jsx';
 import SubmissionContainer from './AddDataComponents.jsx';
+import MetaData from './AddDataMetaDisplay.jsx';
 import Progress from '../SharedComponents/ProgressComponent.jsx';
 import SubmitButton from '../SharedComponents/SubmitButton.jsx';
 import Request from 'superagent';
 import AWS from 'aws-sdk';
-import 'babel-polyfill'
+import 'babel-polyfill';
 
-export default class SubmissionContent extends React.Component {
+const propTypes = {
+    metaData: PropTypes.object
+};
+
+export default class AddDataContent extends React.Component {
     constructor(props) {
         super(props);
 
@@ -205,6 +210,13 @@ export default class SubmissionContent extends React.Component {
                         </div>
                     </div>
                 </div>
+                <div className="usa-da-content-lighter-gray">
+                    <div className="container center-block">
+                        <div className="row">
+                            <MetaData data={this.props.metaData} />
+                        </div>
+                    </div>
+                </div>
                 <div>
                     <div className="container center-block">
                         <div className="row">
@@ -225,3 +237,5 @@ export default class SubmissionContent extends React.Component {
         );
     }
 }
+
+AddDataContent.propTypes = propTypes;

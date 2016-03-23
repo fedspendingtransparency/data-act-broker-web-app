@@ -18,6 +18,9 @@ import cssNano from 'gulp-cssnano';
 import shell from 'gulp-shell';
 import fs from 'fs';
 
+import mocha from 'gulp-mocha';
+import babel from 'babel-core/register';
+
 // Base Directories
 const dir = {
     BASE: './',
@@ -125,6 +128,7 @@ gulp.task('watch', ['fonts', 'images', 'graphics', 'docs', 'copyConstants'], () 
 
     return watcher.on('update', () => {
         watcher.bundle()
+            .on('error', gutil.log)
             .pipe(source(path.OUT))
             .pipe(buffer())
             .pipe(sourcemaps.init({ loadMaps: !build }))
@@ -215,3 +219,13 @@ gulp.task('jest', shell.task('jest', {
 }));
 
 gulp.task('test', ['test-results', 'jest']);
+
+gulp.task('mocha', () => {
+    return gulp.src(['./__unittests__/**/*-spec.js','./__unittests__/**/*-spec.jsx', '!./__unittests__/support/*.js'], { read: false })
+        .pipe(mocha({
+            compilers: {
+                js: babel
+            },
+            require: ['./__unittests__/setup.js']
+        }))
+})
