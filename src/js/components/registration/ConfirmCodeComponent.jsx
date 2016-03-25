@@ -15,7 +15,6 @@ import ErrorMessageList from '../SharedComponents/ErrorMessageList.jsx';
 import SuccessMessage from '../SharedComponents/SuccessMessage.jsx';
 import SubmitRegButton from './SubmitButton.jsx';
 
-
 const propTypes = {
     email: PropTypes.string
 };
@@ -71,8 +70,7 @@ export default class ConfirmCode extends React.Component {
         let fieldEmpty= !this.state.name || !this.state.agency || !this.state.title || !this.state.password1 || !this.state.password2;
         let passMatch = this.state.password1 === this.state.password2;
 
-
-        let errorMessages = []
+        let errorMessages = [];
         if(this.state.password1.length < 8) {
             errorMessages.push("Password must be at least 8 characters in length.");
         }
@@ -130,27 +128,27 @@ export default class ConfirmCode extends React.Component {
         switch(e.target.name) {
             case "regName":
                 this.setState({name: e.target.value}, function() {
-                    this.fieldValidation()
+                    this.fieldValidation();
                 });
             break;
             case "regTitle":
                 this.setState({title: e.target.value}, function() {
-                    this.fieldValidation()
+                    this.fieldValidation();
                 });
             break;
             case "regAgency":
                 this.setState({agency: e.target.value}, function() {
-                    this.fieldValidation()
+                    this.fieldValidation();
                 });
             break;
             case "regPassword1":
                 this.setState({password1: e.target.value}, function() {
-                    this.fieldValidation()
+                    this.fieldValidation();
                 });
             break;
             case "regPassword2":
                 this.setState({password2: e.target.value}, function() {
-                    this.fieldValidation()
+                    this.fieldValidation();
                 });
             break;
         }
@@ -164,7 +162,7 @@ export default class ConfirmCode extends React.Component {
                                 onClick={this.requestReset.bind(this)}
                                 buttonText="Complete Registration"
                                 buttonDisabled={this.state.buttonDisabled}
-                              />
+                              />;
 
         if (!this.state.fieldsComplete) {
             messageComponent = <ErrorMessage message={"All fields are required."} />;
@@ -179,7 +177,7 @@ export default class ConfirmCode extends React.Component {
             passMessageComponent = <ErrorMessage message={"Your passwords do not match."} />;
 
         }
-        if  (this.state.passwordsMatch && this.state.fieldsComplete==true) {
+        if (this.state.passwordsMatch && this.state.fieldsComplete == true && this.state.passwordErrors.length == 0) {
             passMessageComponent = <div></div>;
             actionComponent = actionButton;
             if (this.state.requestSent) {

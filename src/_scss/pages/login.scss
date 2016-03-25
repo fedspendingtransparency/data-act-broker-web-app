@@ -139,4 +139,16 @@
     h1 {
         margin: 60px auto 20px;
     }
+
+    input {
+        max-width: none;
+    }
+
+    button {
+        margin: .5em;
+    }
+
+    .usa-alert, .alert {
+        text-align: left;
+    }
 }

@@ -30,3 +30,69 @@ div.usa-da-dropzone {
     padding: 2em;
     cursor: pointer;
 }
+
+.usa-da-add-data-meta {
+    .meta-holder {
+        background-color: $color-gray-dark;
+        padding: 30px 20px;
+
+        .typeahead-holder {
+            div {
+                width: 100%;
+                border-radius: 0;
+                box-sizing: border-box;
+                color: #a9a9a9;
+                font-size: 1.7rem;
+                margin: .2em 0;
+                max-width: none;
+                outline: none;
+            }
+
+            .typeahead-selector {
+                text-align: left;
+                background: $color-white;
+                color: $color-gray-dark;
+                position: absolute;
+                z-index: 1000;
+                width: 96%;
+
+                li {
+                    display: inline-block;
+                    vertical-align: middle;
+                    list-style-type: none;
+                    width: 100%;
+                    padding: 10px 10px 0 10px;
+                    margin: 0;
+
+                    &:hover {
+                        background-color: $color-gray-dark;
+                        color: $color-white;
+
+                        * {
+                            color: $color-white;
+                        }
+                    }
+
+                    a, a:focus, a:visited {
+                        color: $color-gray-dark;
+                        text-decoration: none;
+                    }
+
+                    a:hover {
+                        color: $color-white;
+                        background-color: $color-gray-dark;
+                    }
+                }
+
+                li:before {
+                    content: "";
+                    padding: 0;
+                }
+            }
+        }
+
+        input {
+            max-width: none;
+        }
+    }
+}

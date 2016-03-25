@@ -7,6 +7,8 @@ import React from 'react';
 import LoginIntro from './LoginIntro.jsx';
 import LoginPanel from './LoginPanel.jsx';
 
+import LoginContainer from '../../containers/login/LoginContainer.jsx';
+
 export default class LoginBanner extends React.Component {
     render() {
         return (
@@ -14,7 +16,7 @@ export default class LoginBanner extends React.Component {
                 <div className="container">
                     <div className="row">
                         <LoginIntro/>
-                       <LoginPanel/>
+                        <LoginContainer/>
                     </div>
                 </div>
             </div>

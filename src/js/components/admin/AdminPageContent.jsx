@@ -104,7 +104,9 @@ export default class AdminPageContent extends React.Component {
                 action: ""
             }
         };
+    }
 
+    componentDidMount() {
         this.getAllUserRequests();
     }
 
