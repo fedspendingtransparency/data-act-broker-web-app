@@ -19,13 +19,15 @@ export default class FileComponent extends React.Component {
 
         return (
             <div className="usa-da-submission-item">
-                <div className="row center-block">
-                    <div className="col-md-6 usa-da-submission-item-title">
-                        <h4>{this.props.fileTitle}</h4>
-                    </div>
+                <div className="center-block">
+                    <div className="usa-da-submission-vertical-center">
+                        <div className="usa-da-submission-item-title">
+                            <h4>{this.props.fileTitle}</h4>
+                        </div>
 
-                    <div className="col-md-4 col-md-offset-2 usa-da-submission-item-drop-wrapper">
-                       <DropZoneContainer requestName={this.props.requestName} />
+                        <div className="usa-da-submission-item-drop-wrapper">
+                           <DropZoneContainer requestName={this.props.requestName} />
+                        </div>
                     </div>
                 </div>
             </div>

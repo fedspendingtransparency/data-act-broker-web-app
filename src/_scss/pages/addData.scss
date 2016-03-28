@@ -22,8 +22,10 @@ div.usa-da-submission-instructions {
 div.usa-da-submission-items {
     margin: 5rem;
     margin-top: 1.5em;
+
     .usa-da-submission-item {
 
+        
         margin-top: 1.5em;
         // height: 120px;
 
@@ -37,23 +39,32 @@ div.usa-da-submission-items {
         }
 
         .usa-da-submission-item-drop-wrapper {
-            float: none;
-            display: inline-block;
+            display: table-cell;
+            vertical-align: middle;
+            width: 25%;
 
             @media (max-width: $screen-md-min) {
                 display: block;
+                width: 100%;
             }
         }
 
         .usa-da-submission-item-title {
-            float: none;
-            display: inline-block;
+            display: table-cell;
+            vertical-align: middle;
+            width: 75%;
 
             @media (max-width: $screen-md-min) {
                 display: block;
                 text-align: center;
                 padding-bottom: 1.5em;
+                width: 100%;
             }
+        }
+
+        .usa-da-submission-vertical-center {
+            display: table;
+            width: 100%;
         }
     }
 }
@@ -72,6 +83,15 @@ div.usa-da-dropzone {
     .is-caption {
         font-size: 0.85em;
     }
+
+    .usa-da-dropzone-fail {
+        color: $color-secondary;
+    }
+
+    .usa-da-dropzone-success {
+        color: $brand-success;
+    }
+
 }
 
 .usa-da-add-data-meta {
