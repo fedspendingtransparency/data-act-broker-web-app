@@ -124,6 +124,11 @@ const routeDefinitions = {
             onEnter: checkUserPermissions
         },
         {
+            path: 'reviewData/:submissionID',
+            component: ReviewDataPage,
+            onEnter: checkUserPermissions
+        },
+        {
             path: 'forgotpassword',
             component: ForgotPasswordPage
         },
