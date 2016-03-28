@@ -104,6 +104,12 @@ const uploadS3File = (file, fileID, key, credentials, fileType) => {
 
     const store = new StoreSingleton().store;
 
+    // notify the Redux store that the file has begun to upload
+    store.dispatch(uploadActions.setUploadState({
+        name: fileType,
+        state: 'uploading'
+    }));
+
     s3.upload(s3params)
         .on('httpUploadProgress', evt => {
 
@@ -118,8 +124,22 @@ const uploadS3File = (file, fileID, key, credentials, fileType) => {
         })
         .send(error => {
             if (error) {
-                deferred.reject(error);
+                // update Redux with the upload state
+                store.dispatch(uploadActions.setUploadState({
+                    name: fileType,
+                    state: 'failed'
+                }));
+
+                deferred.reject({
+                    error: error,
+                    file: fileType
+                });
             } else {
+                // update Redux with the upload state
+                store.dispatch(uploadActions.setUploadState({
+                    name: fileType,
+                    state: 'success'
+                }));
             	deferred.resolve(fileID);
             }
         });
@@ -182,6 +202,7 @@ export const performRemoteUpload = (submission) => {
 
 	// submit it to the API to set up S3
 	let submissionID;
+    
 	prepareFiles(request)
 		.then((res) => {
 			// now do the actual uploading
@@ -197,7 +218,7 @@ export const performRemoteUpload = (submission) => {
 			deferred.resolve(submissionID);
 		})
 		.catch((err) => {
-			store.dispatch(uploadActions.setSubmissionState('ready'));
+			store.dispatch(uploadActions.setSubmissionState('failed'));
 			deferred.reject(err);
 		});
 

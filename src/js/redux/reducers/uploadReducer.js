@@ -2,6 +2,12 @@ import _ from 'lodash';
 
 const initialUploadState = {
 	state: 'empty',
+	id: null,
+	meta: {
+		agency: '',
+		startDate: null,
+		endDate: null
+	},
 	files: {}
 }
 
@@ -32,9 +38,9 @@ const setUploadProgress = (state, action) => {
 	return files;
 }
 
-const setUploadFailed = (state, action) => {
+const setUploadState = (state, action) => {
 	let file = Object.assign({}, state.files[action.name]);
-	file.state = 'failed';
+	file.state = action.state;
 
 	let newFile = {
 		[action.name]: file
@@ -59,16 +65,25 @@ export const uploadReducer = (state = initialUploadState, action) => {
 				files: setUploadProgress(state, action)
 			});
 
-		case 'SET_UPLOAD_FAILED':
+		case 'SET_UPLOAD_STATE':
 
 			return Object.assign({}, state, {
-				files: setUploadFailed(state, action),
-				state: 'ready'
+				files: setUploadState(state, action)
 			});
 
 		case 'SET_SUBMISSION_STATE':
 			return Object.assign({}, state, {
 				state: action.state
+			});
+
+		case 'SET_META':
+			return Object.assign({}, state, {
+				meta: action.state
+			});
+
+		case 'SET_SUBMISSION_ID':
+			return Object.assign({}, state, {
+				id: action.state
 			});
 
 		default:

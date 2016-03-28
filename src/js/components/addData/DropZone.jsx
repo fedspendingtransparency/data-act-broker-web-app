@@ -25,32 +25,35 @@ export default class DropZone extends React.Component {
     render() {
 
         let dropzoneString = "Drop your file here, or click to select file to upload.";
-        let showFile = false;
+        let displayMode = "pending";
+        let progress = 0;
+
         if (this.props.submission.files.hasOwnProperty(this.props.requestName)) {
             const submissionItem = this.props.submission.files[this.props.requestName];
 
-            if (submissionItem.state == "ready" && submissionItem.file) {
+            if (submissionItem.state == 'ready' && submissionItem.file) {
                 dropzoneString = submissionItem.file.name;
-                showFile = true;
+                displayMode = 'file';
             }
-            else if (submissionItem.state == "uploaded") {
-                dropzoneString = 'File uploaded successfully.';
+            else if (submissionItem.state == 'success') {
+                dropzoneString = submissionItem.file.name + ' was uploaded successfully.';
+                displayMode = 'success';
             }
-        }
+            else if (submissionItem.state == 'failed') {
+                dropzoneString = submissionItem.file.name + ' failed to upload.';
+                displayMode = 'failure';
+            }
 
-        let progress = 0;
-        if (this.props.submission.files.hasOwnProperty(this.props.requestName)) {
-            progress = this.props.submission.files[this.props.requestName].progress;
-        }
-
-        let showProgress = false;
-        if (this.props.submission.state == 'uploading') {
-            showProgress = true;
+            else if (submissionItem.state == 'uploading') {
+                displayMode = 'uploading';
+                progress = submissionItem.progress;
+                dropzoneString = submissionItem.file.name;
+            }
         }
 
         return (
             <Dropzone className="text-center" multiple={false} onDrop={this.props.onDrop}>
-                <DropZoneDisplay showFile={showFile} showProgress={showProgress} string={dropzoneString} progress={progress} />
+                <DropZoneDisplay displayMode={displayMode} string={dropzoneString} progress={progress} />
             </Dropzone>
         );
     }

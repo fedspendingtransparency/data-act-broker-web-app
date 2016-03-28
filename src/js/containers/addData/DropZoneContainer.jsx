@@ -12,6 +12,8 @@ import * as uploadActions from '../../redux/actions/uploadActions.js';
 import DropZone from '../../components/addData/DropZone.jsx';
 
 class DropZoneContainer extends React.Component {
+
+
 	onDrop(files) {
 		const file = files[0];
 		
@@ -20,7 +22,6 @@ class DropZoneContainer extends React.Component {
 			state: 'ready',
 			file: file
 		});
-
 	}
 	
 	render() {

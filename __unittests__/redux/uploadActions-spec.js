@@ -2,6 +2,8 @@ import chai from 'chai';
 chai.use(require('chai-shallow-deep-equal'));
 import { createStore } from 'redux';
 
+import Moment from 'moment';
+
 import * as uploadActions from '../../src/js/redux/actions/uploadActions.js';
 import reducers from '../../src/js/redux/reducers/index.js';
 
@@ -85,11 +87,47 @@ describe('Upload Redux state', () => {
 
 		// now change the state
 		const simulateFailure = {
-			name: 'appropriation'
+			name: 'appropriation',
+			state: 'failed'
 		};
-		store.dispatch(uploadActions.setUploadFailed(simulateFailure));
+		store.dispatch(uploadActions.setUploadState(simulateFailure));
 		chai.expect(store.getState().submission.files.appropriation.state).to.equal('failed');
-		chai.expect(store.getState().submission.state).to.equal('ready');
+
+		// now change the state again
+		const simulateSuccess = {
+			name: 'appropriation',
+			state: 'success'
+		};
+		store.dispatch(uploadActions.setUploadState(simulateSuccess));
+		chai.expect(store.getState().submission.files.appropriation.state).to.equal('success');
+
+	});
+
+
+	it('setMeta action creator should update the submission\'s metadata', () => {
+
+		chai.expect(store.getState().submission.meta).to.shallowDeepEqual({});
+
+		const meta = {
+			agency: "Test Agency",
+			startDate: Moment('2015-01-01', 'YYYY-MM-DD'),
+			endDate: Moment('2016-01-01', 'YYYY-MM-DD')
+		};
+
+		store.dispatch(uploadActions.setMeta(meta));
+		chai.expect(store.getState().submission.meta).to.shallowDeepEqual(meta);
+
+	});
+
+	it('setSubmissionId action creator should update the submission\'s submission ID', () => {
+
+		chai.expect(store.getState().submission.id).to.be.equal(null);
+
+		const submissionId = 123;
+
+		store.dispatch(uploadActions.setSubmissionId(submissionId));
+		chai.expect(store.getState().submission.id).to.be.equal(123);
+
 	});
 
 });

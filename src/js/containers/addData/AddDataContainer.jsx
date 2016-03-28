@@ -20,9 +20,6 @@ class AddDataContainer extends React.Component {
 	constructor(props) {
 		super(props);
 
-		this.state = {
-			submissionID: null
-		};
 	}
 	componentDidUpdate(prevProps, prevState) {
 		
@@ -39,23 +36,19 @@ class AddDataContainer extends React.Component {
 			UploadHelper.performLocalUpload(this.props.submission)
 				.then((submissionId) => {
 					// TODO: Remove this when this is eventually tied to user accounts
-					this.setState({
-						submissionID: submissionID
-					});
+					this.props.setSubmissionId(submissionID);
 				});
         }
         else {
         	UploadHelper.performRemoteUpload(this.props.submission)
         		.then((submissionID) => {
         			// TODO: Remove this when this is eventually tied to user accounts
-                    this.setState({
-                        submissionID: submissionID
-                    });
+        			this.props.setSubmissionId(submissionID);
 
                     hashHistory.push('/reviewData/' + submissionID);
         		})
         		.catch(() => {
-        			console.log("ERROR and stuff");
+        			// error handling is done at the file item/dropzone level
         		});
         }
 	}
