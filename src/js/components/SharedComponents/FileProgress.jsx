@@ -23,7 +23,7 @@ export default class FileProgress extends React.Component {
         return (
             <div>
                 <div className="progress">
-                    <div className="progress-bar" role="progressbar" aria-valuenow={this.props.fileStatus} aria-valuemin="0" aria-valuemax="100" style={style}>{this.props.fileStatus}%</div>
+                    <div className="progress-bar" role="progressbar" aria-valuenow={this.props.fileStatus} aria-valuemin="0" aria-valuemax="100" style={style}>{Math.round(this.props.fileStatus)}%</div>
                 </div>
             </div>
         );

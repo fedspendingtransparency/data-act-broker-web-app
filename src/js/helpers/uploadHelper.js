@@ -118,8 +118,6 @@ const uploadS3File = (file, fileID, key, credentials, fileType) => {
         })
         .send(error => {
             if (error) {
-            	console.log("ERROR with" + file.name);
-            	console.log(error);
                 deferred.reject(error);
             } else {
             	deferred.resolve(fileID);

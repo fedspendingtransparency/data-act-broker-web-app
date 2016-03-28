@@ -1,10 +1,10 @@
 /**
-* AddDataComponents.jsx
+* SubmissionComponent.jsx
 * Created by Katie Rose 12/8/15
 **/
 
 import React, { PropTypes } from 'react';
-import FileContainer from './FileContainer.jsx';
+import FileComponent from './FileComponent.jsx';
 
 const propTypes = {
     files: PropTypes.array.isRequired
@@ -15,14 +15,14 @@ const defaultProps = {
     headers: ['Submission Data Missing']
 };
 
-export default class SubmissionContainer extends React.Component {
+export default class SubmissionComponent extends React.Component {
     render() {
         const submissionItems = [];
 
         for (let i = 0; i < this.props.files.length; i++) {
             const fileVars = this.props.files[i];
             submissionItems.push(
-                <FileContainer key={i}
+                <FileComponent key={i}
                                 fileTitle={fileVars.fileTitle}
                                 fileTemplateName={fileVars.fileTemplateName}
                                 requestName={fileVars.requestName}
@@ -40,5 +40,5 @@ export default class SubmissionContainer extends React.Component {
     }
 }
 
-SubmissionContainer.propTypes = propTypes;
-SubmissionContainer.defaultProps = defaultProps;
+SubmissionComponent.propTypes = propTypes;
+SubmissionComponent.defaultProps = defaultProps;

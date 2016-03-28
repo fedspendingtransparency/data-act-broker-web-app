@@ -7,7 +7,7 @@ import React, { PropTypes } from 'react';
 import { kGlobalConstants } from '../../GlobalConstants.js';
 import Navbar from '../SharedComponents/navigation/NavigationComponent.jsx';
 import Table from '../SharedComponents/table/TableComponent.jsx';
-import SubmissionContainer from './AddDataComponents.jsx';
+import SubmissionComponent from './SubmissionComponent.jsx';
 import Progress from '../SharedComponents/ProgressComponent.jsx';
 import SubmitButton from '../SharedComponents/SubmitButton.jsx';
 import Request from 'superagent';
@@ -62,7 +62,7 @@ class SubmissionContent extends React.Component {
                 <div>
                     <div className="container center-block">
                         <div className="row">
-                            <SubmissionContainer files={files} />
+                            <SubmissionComponent files={files} />
                         </div>
                         <div className="text-center">
                             <SubmitButton className="usa-da-button-bigger" buttonText="Return to file upload" />

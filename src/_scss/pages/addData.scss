@@ -15,20 +15,63 @@
 	display: block;
 }
 
+div.usa-da-submission-instructions {
+    margin-top: 1.5em;
+}
+
 div.usa-da-submission-items {
     margin: 5rem;
+    margin-top: 1.5em;
     .usa-da-submission-item {
+
+        margin-top: 1.5em;
+        // height: 120px;
+
+        &:first-child {
+            margin-top: 0em;
+        }
+
         > div {
             border: 1px solid #ccc;
             padding: 1em;
+        }
+
+        .usa-da-submission-item-drop-wrapper {
+            float: none;
+            display: inline-block;
+
+            @media (max-width: $screen-md-min) {
+                display: block;
+            }
+        }
+
+        .usa-da-submission-item-title {
+            float: none;
+            display: inline-block;
+
+            @media (max-width: $screen-md-min) {
+                display: block;
+                text-align: center;
+                padding-bottom: 1.5em;
+            }
         }
     }
 }
 
 div.usa-da-dropzone {
-    border: 2px dashed #999;
+    border: 2px dashed $color-gray-dark;
     padding: 2em;
     cursor: pointer;
+    background-color: $color-gray-light;
+
+    .glyphicon {
+        font-size: 2.0em;
+        padding-bottom: 10px;
+    }
+
+    .is-caption {
+        font-size: 0.85em;
+    }
 }
 
 .usa-da-add-data-meta {

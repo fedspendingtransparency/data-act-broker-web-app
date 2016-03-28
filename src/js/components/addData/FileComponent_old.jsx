@@ -1,5 +1,5 @@
 /**
-* FileContainer.jsx
+* FileComponent.jsx
 * Created by Kyle Fox 2/19/16
 **/
 
@@ -13,7 +13,7 @@ const propTypes = {
     fileTemplateName: PropTypes.string.isRequired
 };
 
-export default class FileContainer extends React.Component {
+export default class FileComponent extends React.Component {
     render() {
         const ruleLink = kGlobalConstants.GITHUB + '/tests/' + this.props.requestName + 'Fields.csv';
 
@@ -29,4 +29,4 @@ export default class FileContainer extends React.Component {
     }
 }
 
-FileContainer.propTypes = propTypes;
+FileComponent.propTypes = propTypes;

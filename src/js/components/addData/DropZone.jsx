@@ -6,8 +6,9 @@
 import React, { PropTypes } from 'react';
 import Dropzone from 'react-dropzone';
 
+import DropZoneDisplay from './DropZoneDisplay.jsx';
+
 const propTypes = {
-    addFileToHolder: PropTypes.func.isRequired,
     requestName: PropTypes.string.isRequired
 };
 
@@ -15,29 +16,41 @@ export default class DropZone extends React.Component {
     constructor(props) {
         super(props);
 
+
         this.state = {
             dropzoneString: "Drop your file here, or click to select file to upload."
         };
     }
 
-    onUpload(){
-        this.setState({
-            dropzoneString: "File uploaded successfully."
-        })
-    }
-
-    onDrop(files) {
-        this.props.addFileToHolder({ requestName: this.props.requestName, file: files[0] });
-
-        this.setState({
-            dropzoneString: files[0].name + ' is ready to be uploaded!'
-        });
-    }
-
     render() {
+
+        let dropzoneString = "Drop your file here, or click to select file to upload.";
+        let showFile = false;
+        if (this.props.submission.files.hasOwnProperty(this.props.requestName)) {
+            const submissionItem = this.props.submission.files[this.props.requestName];
+
+            if (submissionItem.state == "ready" && submissionItem.file) {
+                dropzoneString = submissionItem.file.name;
+                showFile = true;
+            }
+            else if (submissionItem.state == "uploaded") {
+                dropzoneString = 'File uploaded successfully.';
+            }
+        }
+
+        let progress = 0;
+        if (this.props.submission.files.hasOwnProperty(this.props.requestName)) {
+            progress = this.props.submission.files[this.props.requestName].progress;
+        }
+
+        let showProgress = false;
+        if (this.props.submission.state == 'uploading') {
+            showProgress = true;
+        }
+
         return (
-            <Dropzone className="text-center" multiple={false} onDrop={this.onDrop.bind(this)}>
-                <div className="center-block usa-da-dropzone">{this.state.dropzoneString}</div>
+            <Dropzone className="text-center" multiple={false} onDrop={this.props.onDrop}>
+                <DropZoneDisplay showFile={showFile} showProgress={showProgress} string={dropzoneString} progress={progress} />
             </Dropzone>
         );
     }
