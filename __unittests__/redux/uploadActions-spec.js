@@ -44,7 +44,7 @@ describe('Upload Redux state', () => {
 		chai.expect(store.getState().submission.state).to.equal(expectedState);
 	});
 
-	it ('setUploadProgress action creator should update the progress of a file item', () => {
+	it('setUploadProgress action creator should update the progress of a file item', () => {
 
 		const uploadItem = {
 			name: 'appropriation',
@@ -68,8 +68,28 @@ describe('Upload Redux state', () => {
 		};
 		store.dispatch(uploadActions.setUploadProgress(secondUpdate));
 		chai.expect(store.getState().submission.files.appropriation.progress).to.equal(25);
+	});
+
+	it('setUploadState action creator should update the state of a file item', () => {
+
+		const uploadItem = {
+			name: 'appropriation',
+			file: {},
+			state: 'ready'
+		};
+
+		// set the initial state
+		store.dispatch(uploadActions.setUploadItem(uploadItem));
+		chai.expect(store.getState().submission.files.appropriation.state).to.equal('ready');
 
 
-	})
+		// now change the state
+		const simulateFailure = {
+			name: 'appropriation'
+		};
+		store.dispatch(uploadActions.setUploadFailed(simulateFailure));
+		chai.expect(store.getState().submission.files.appropriation.state).to.equal('failed');
+		chai.expect(store.getState().submission.state).to.equal('ready');
+	});
 
 });

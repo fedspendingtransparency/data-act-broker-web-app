@@ -11,6 +11,11 @@ export const setUploadProgress = (state) => ({
 	progress: state.progress
 })
 
+export const setUploadFailed = (state) => ({
+	type: 'SET_UPLOAD_FAILED',
+	name: state.name
+})
+
 export const setSubmissionState = (state) => ({
 	type: 'SET_SUBMISSION_STATE',
 	state: state
