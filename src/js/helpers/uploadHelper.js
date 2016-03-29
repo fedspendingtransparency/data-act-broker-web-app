@@ -32,7 +32,7 @@ export const performLocalUpload = (submission) => {
             .end((err, res) => {
                 if (err) {
                     console.log(err + JSON.stringify(res.body));
-                    store.dispatch(uploadActions.setSubmissionState('ready'));
+                    store.dispatch(uploadActions.setSubmissionState('failed'));
                     deferred.reject(err);
                 } else {
                     request[fileType] = res.body.path;
@@ -44,7 +44,7 @@ export const performLocalUpload = (submission) => {
                             .end((err, res) => {
                                 if (err) {
                                     console.log(err + res);
-                                    store.dispatch(uploadActions.setSubmissionState('ready'));
+                                    store.dispatch(uploadActions.setSubmissionState('failed'));
                                     deferred.reject(err);
                                 } else {
 
@@ -56,12 +56,14 @@ export const performLocalUpload = (submission) => {
                                 			deferred.resolve(submissionID);
                                 		})
                                 		.catch(() => {
-                                			store.dispatch(uploadActions.setSubmissionState('ready'));
+                                			store.dispatch(uploadActions.setSubmissionState('failed'));
                                 			deferred.reject();
                                 		});
                                 }
                         });
                     }
+
+                    i++;
                 }
             });
     }
