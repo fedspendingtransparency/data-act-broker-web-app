@@ -71,7 +71,11 @@ div.usa-da-submission-items {
 
 div.usa-da-validate-items {
     padding: 0;
-    border: 1px solid #ccc;
+
+    .usa-da-validate-item {
+        margin-top: 20px;
+        border: 1px solid #ccc;
+    }
 
     .usa-da-validate-item-header {
         border-bottom: 1px solid #ccc;
@@ -84,6 +88,10 @@ div.usa-da-validate-items {
             font-weight: $font-bold;
             font-size: $h3-font-size;
         }
+    }
+
+    .usa-da-validate-item-file-name {
+        font-size: 0.85em;
     }
 
     .usa-da-validate-item-body {
@@ -127,6 +135,7 @@ div.usa-da-validate-items {
 
 .usa-da-validate-error-report {
     padding: 15px;
+    border-top: 1px solid #ccc;
 
     h3 {
         margin: 0;
@@ -164,6 +173,10 @@ div.usa-da-dropzone {
 
     .usa-da-dropzone-success {
         color: $brand-success;
+    }
+
+    .progress {
+        margin-top: 10px;
     }
 
 }

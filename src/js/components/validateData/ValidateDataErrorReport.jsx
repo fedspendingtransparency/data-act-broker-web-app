@@ -22,6 +22,10 @@ export default class ValidateDataErrorReport extends React.Component {
         };
     }
 
+    openWindow() {
+        window.open(this.props.link, '_blank');
+    }
+
     render() {
         return (
             <div className="col-md-12 usa-da-validate-error-report">
@@ -30,7 +34,7 @@ export default class ValidateDataErrorReport extends React.Component {
                         <h3>Header Error Report</h3>
                     </div>
                     <div className="col-md-2">
-                        <button className="usa-button-secondary">Download Error Report</button>
+                        <button onClick={this.openWindow.bind(this)} className="usa-button-secondary">Download Error Report</button>
                     </div>
                     <div className="col-md-12">
                         <Table />

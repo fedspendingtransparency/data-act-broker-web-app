@@ -14,6 +14,9 @@ import SubmitButton from '../SharedComponents/SubmitButton.jsx';
 import MetaData from '../addData/AddDataMetaDisplay.jsx';
 import FileComponent from '../addData/FileComponent.jsx';
 import ValidateDataContent from './ValidateDataContent.jsx';
+
+import ValidateDataContainer from '../../containers/validateData/ValidateDataContainer.jsx';
+
 import Request from 'superagent';
 
 const propTypes = {
@@ -139,7 +142,7 @@ export default class ValidateDataPage extends React.Component {
         if (!this.props.params.submissionID) {
             currentComponent = <UnknownIDComponent />;
         } else {
-            currentComponent = <ValidateDataContent submissionID={submissionID} />;
+            currentComponent = <ValidateDataContainer submissionID={submissionID} />;
         }
 
         return (

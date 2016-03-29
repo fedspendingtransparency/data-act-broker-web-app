@@ -1,4 +1,5 @@
 import _ from 'lodash';
+import Moment from 'moment';
 
 const initialUploadState = {
 	state: 'empty',
@@ -8,7 +9,9 @@ const initialUploadState = {
 		startDate: null,
 		endDate: null
 	},
-	files: {}
+	files: {},
+	validation: {
+	}
 }
 
 const setUploadItem = (state, action) => {
@@ -84,6 +87,11 @@ export const uploadReducer = (state = initialUploadState, action) => {
 		case 'SET_SUBMISSION_ID':
 			return Object.assign({}, state, {
 				id: action.state
+			});
+
+		case 'SET_VALIDATION':
+			return Object.assign({}, state, {
+				validation: action.state
 			});
 
 		default:

@@ -31,3 +31,8 @@ export const setSubmissionId = (state) => ({
 	type: 'SET_SUBMISSION_ID',
 	state: state
 });
+
+export const setValidation = (state) => ({
+	type: 'SET_VALIDATION',
+	state: state
+})

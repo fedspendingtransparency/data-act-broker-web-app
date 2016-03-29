@@ -35,23 +35,49 @@ export default class ValidateDataFileComponent extends React.Component {
 
     render() {
 
+        const status = this.props.data[this.props.type.requestName];
+        
+        let disabledCorrect = '';
+        let validationType = 'remove';
+        if (status.file_status == 'complete') {
+            validationType = 'ok';
+        }
+        else if (status.file_status == '' || status.file_status == 'waiting') {
+            validationType = 'time';
+            disabledCorrect = ' disabled';
+        }
+
+        let title = 'Validating...';
+
+        if (status.file_status == 'complete') {
+            if (status.missing_headers.length > 0) {
+                title = 'Critical Error: Missing Headers';
+            }
+            else if (status.duplicated_headers.length > 0) {
+                title = 'Critical Error: Duplicated Headers';
+            }
+            else {
+                title = 'Complete';
+            }
+        }
+
 
         return (
-            <div className="row center-block">
+            <div className="row center-block usa-da-validate-item">
                 <div className="col-md-10">
                     <div className="row usa-da-validate-item-header">
                         <div className="col-md-8">
-                            <h4>Appropriation</h4>
+                            <h4>{this.props.type.fileTitle}</h4>
                         </div>
                         <div className="col-md-2">
-                            <p>File Size: 5.2MB</p>
+                            <p>File Size: -- MB</p>
                         </div>
                         <div className="col-md-2">
-                            <p>Rows: 7514</p>
+                            <p>Rows: --</p>
                         </div>
                     </div>
                     <div className="row usa-da-validate-item-body">
-                        <div>Critical Error: Missing fields in header row</div>
+                        <div>{title}</div>
                     </div>
                     <div className="row usa-da-validate-item-footer" onClick={this.showErrorReport.bind(this)}>
                         <div>View &amp; Download Header Error Report <span className="glyphicon glyphicon-chevron-down"></span></div>
@@ -60,14 +86,14 @@ export default class ValidateDataFileComponent extends React.Component {
 
                 <div className="col-md-2 usa-da-validate-item-file-section">
                     <div className="usa-da-validate-item-file-section-result">
-                        <span className="glyphicon glyphicon-ok"></span>
+                        <span className={"glyphicon glyphicon-" + validationType}></span>
                     </div>
-                    <div>_appropriation.csv</div>
-                    <div className="usa-da-validate-item-file-section-correct-button">
+                    <div className="usa-da-validate-item-file-name">{status.filename}</div>
+                    <div className={"usa-da-validate-item-file-section-correct-button" + disabledCorrect}>
                         <button>Choose Corrected File</button>
                     </div>
                 </div>
-                {this.state.showError ? <ValidateDataErrorReport /> : null}
+                {this.state.showError ? <ValidateDataErrorReport link={status.report} /> : null}
             </div>
         );
     }
