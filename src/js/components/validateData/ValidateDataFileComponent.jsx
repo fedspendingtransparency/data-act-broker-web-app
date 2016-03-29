@@ -38,7 +38,7 @@ export default class ValidateDataFileComponent extends React.Component {
         const status = this.props.data[this.props.type.requestName];
         
         let disabledCorrect = '';
-        let validationType = 'remove';
+        let validationType = 'time';
         if (status.file_status == 'complete') {
             validationType = 'ok';
         }
@@ -46,10 +46,13 @@ export default class ValidateDataFileComponent extends React.Component {
             validationType = 'time';
             disabledCorrect = ' disabled';
         }
+        else {
+            validationType = 'remove';
+        }
 
         let title = 'Validating...';
 
-        if (status.file_status == 'complete') {
+        if (status.file_status != '' && status.file_status != 'waiting') {
             if (status.missing_headers.length > 0) {
                 title = 'Critical Error: Missing Headers';
             }

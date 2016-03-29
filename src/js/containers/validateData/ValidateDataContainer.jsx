@@ -38,7 +38,7 @@ class ValidateDataContainer extends React.Component {
 				let finished = true;
 				for (let key in data) {
 					let item = data[key];
-					if (item.file_status != 'complete') {
+					if (item.file_status == '') {
 						finished = false;
 						break;
 					}
