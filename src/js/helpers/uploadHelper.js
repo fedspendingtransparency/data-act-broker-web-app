@@ -18,6 +18,8 @@ export const performLocalUpload = (submission) => {
     const store = new StoreSingleton().store;
 	store.dispatch(uploadActions.setSubmissionState('uploading'));
 
+    let i = 0;
+
     for (let fileType in submission.files) {
 		const file = submission.files[fileType].file;
 		let formData = new FormData();
