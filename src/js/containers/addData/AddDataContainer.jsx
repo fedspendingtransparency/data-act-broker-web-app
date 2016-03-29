@@ -45,7 +45,7 @@ class AddDataContainer extends React.Component {
         			// TODO: Remove this when this is eventually tied to user accounts
         			this.props.setSubmissionId(submissionID);
 
-                    hashHistory.push('/reviewData/' + submissionID);
+                    hashHistory.push('/validateData/' + submissionID);
         		})
         		.catch(() => {
         			// error handling is done at the file item/dropzone level

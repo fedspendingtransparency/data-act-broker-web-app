@@ -8,7 +8,7 @@ import CompleteRegistrationComponent from '../../components/registration/Confirm
 import ForgotPasswordPage from '../../components/forgotPassword/ForgotPasswordPage.jsx';
 import LandingPage from '../../components/landing/LandingPage.jsx';
 import AddDataPageContainer from '../../containers/addData/AddDataPageContainer.jsx';
-import ReviewDataPage from '../../components/addData/ReviewDataPage.jsx';
+import ValidateDataPage from '../../components/validateData/ValidateDataPage.jsx';
 import AdminPage from '../../components/admin/AdminPage.jsx';
 
 import ErrorPage from '../../components/error/ErrorPage.jsx';
@@ -124,8 +124,8 @@ const routeDefinitions = {
             onEnter: checkUserPermissions
         },
         {
-            path: 'reviewData/:submissionID',
-            component: ReviewDataPage,
+            path: 'validateData/:submissionID',
+            component: ValidateDataPage,
             onEnter: checkUserPermissions
         },
         {
