@@ -220,12 +220,26 @@ gulp.task('jest', shell.task('jest', {
 
 gulp.task('test', ['test-results', 'jest']);
 
-gulp.task('mocha', () => {
+gulp.task('expresso', () => {
     return gulp.src(['./__unittests__/**/*-spec.js','./__unittests__/**/*-spec.jsx', '!./__unittests__/support/*.js'], { read: false })
         .pipe(mocha({
             compilers: {
                 js: babel
             },
             require: ['./__unittests__/setup.js']
+        }))
+})
+
+gulp.task('mocha', () => {
+    return gulp.src(['./__unittests__/**/*-spec.js','./__unittests__/**/*-spec.jsx', '!./__unittests__/support/*.js'], { read: false })
+        .pipe(mocha({
+            compilers: {
+                js: babel
+            },
+            require: ['./__unittests__/setup.js'],
+            reporter: 'mocha-junit-reporter',
+            reporterOptions: {
+                mochaFile: './__unittests__/mocha.xml'
+            }
         }))
 })
