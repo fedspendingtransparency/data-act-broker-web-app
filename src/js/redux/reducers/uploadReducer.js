@@ -89,6 +89,9 @@ export const uploadReducer = (state = initialUploadState, action) => {
 				id: action.state
 			});
 
+		case 'RESET_SUBMISSION':
+			return Object.assign({}, initialUploadState);
+
 		case 'SET_VALIDATION':
 			return Object.assign({}, state, {
 				validation: action.state
