@@ -27,17 +27,29 @@ export default class ValidateDataErrorReport extends React.Component {
     }
 
     render() {
+                
+        let tables = '';
+
+        if (this.props.data.length > 0) {
+            tables = this.props.data.map((errorData, index) => {
+                return <Table headers={[errorData.header]} data={[errorData.data]} key={index} />
+            });
+            
+        }
+
         return (
-            <div className="col-md-12 usa-da-validate-error-report">
-                <div className="row center-block">
-                    <div className="col-md-10">
-                        <h3>Header Error Report</h3>
-                    </div>
-                    <div className="col-md-2">
-                        <button onClick={this.openWindow.bind(this)} className="usa-button-secondary">Download Error Report</button>
-                    </div>
-                    <div className="col-md-12">
-                        <Table />
+            <div className="row usa-da-validate-item-bottom-section">
+                <div className="row usa-da-validate-error-report">
+                    <div className="row center-block">
+                        <div className="col-md-10">
+                            <h3>Header Error Report</h3>
+                        </div>
+                        <div className="col-md-2">
+                            <button onClick={this.openWindow.bind(this)} className="usa-button-secondary">Download Error Report</button>
+                        </div>
+                        <div className="col-md-12">
+                            {tables}
+                        </div>
                     </div>
                 </div>
             </div>

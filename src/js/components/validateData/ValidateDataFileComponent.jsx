@@ -14,7 +14,6 @@ import SubmitButton from '../SharedComponents/SubmitButton.jsx';
 import MetaData from '../addData/AddDataMetaDisplay.jsx';
 import FileComponent from '../addData/FileComponent.jsx';
 import ValidateDataErrorReport from './ValidateDataErrorReport.jsx';
-import Request from 'superagent';
 
 const propTypes = {
 
@@ -29,7 +28,7 @@ export default class ValidateDataFileComponent extends React.Component {
         };
     }
 
-    showErrorReport(){
+    toggleErrorReport(){
         this.setState({ showError: !this.state.showError });
     }
 
@@ -51,57 +50,96 @@ export default class ValidateDataFileComponent extends React.Component {
         }
 
         let title = 'Validating...';
-
+        let hasError = false;
+        let errorData = []
         if (status.file_status != '' && status.file_status != 'waiting') {
-            if (status.missing_headers.length > 0) {
-                title = 'Critical Error: Missing Headers';
+            if (status.missing_headers.length > 0 && status.duplicated_headers.length > 0) {
+                title = 'Critical Errors: Missing fields in header row & duplicate fields in header row';
+                errorData = ['missing_headers', 'duplicated_headers'];
+                hasError = true;
+            }
+            else if (status.missing_headers.length > 0) {
+                title = 'Critical Error: Missing fields in header row';
+                errorData = ['missing_headers'];
+                hasError = true;
             }
             else if (status.duplicated_headers.length > 0) {
-                title = 'Critical Error: Duplicated Headers';
+                title = 'Critical Error: Duplicate fields in header row';
+                errorData = ['duplicated_headers'];
+                hasError = true;
             }
             else {
-                title = 'Complete';
+                title = ' ';
+                disabledCorrect = ' hide';
+                hasError = false;
             }
         }
 
+        let showFooter = ' hide';
+        let successfulFade = ' successful';
+        if (hasError) {
+            showFooter = '';
+            successfulFade = '';
+        }
+
+
+        let errorReports = [];
+        if (this.state.showError) {
+            errorData.forEach((errorKey) => {
+                let headerTitle = '';
+                if (errorKey == 'missing_headers') {
+                    headerTitle = 'Missing Headers: Field Name';
+                }
+                else if (errorKey == 'duplicated_headers') {
+                    headerTitle = 'Duplicate Headers: Field Name';
+                }
+
+                errorReports.push({
+                    header: headerTitle,
+                    data: status[errorKey]
+                });
+            });
+        }
 
         return (
-            <div className="row center-block usa-da-validate-item">
-                <div className="col-md-10">
-                    <div className="row usa-da-validate-item-header">
-                        <div className="col-md-8">
-                            <h4>{this.props.type.fileTitle}</h4>
+            <div className={"row center-block usa-da-validate-item" + successfulFade}>
+                <div className="row usa-da-validate-item-top-section">
+                    <div className="col-md-10 usa-da-validate-item-status-section">
+                        <div className="row usa-da-validate-item-header">
+                            <div className="col-md-8">
+                                <h4>{this.props.type.fileTitle}</h4>
+                            </div>
+                            <div className="col-md-2">
+                                <p>File Size: -- MB</p>
+                            </div>
+                            <div className="col-md-2">
+                                <p>Rows: --</p>
+                            </div>
                         </div>
-                        <div className="col-md-2">
-                            <p>File Size: -- MB</p>
+                        <div className="row usa-da-validate-item-body">
+                            <div className="usa-da-validate-item-message">{title}</div>
                         </div>
-                        <div className="col-md-2">
-                            <p>Rows: --</p>
+                        <div className="row usa-da-validate-item-footer-wrapper">
+                            <div className={"usa-da-validate-item-footer" + showFooter} onClick={this.toggleErrorReport.bind(this)}>
+                                <div>View &amp; Download Header Error Report <span className="glyphicon glyphicon-chevron-down"></span></div>
+                            </div>
                         </div>
                     </div>
-                    <div className="row usa-da-validate-item-body">
-                        <div>{title}</div>
-                    </div>
-                    <div className="row usa-da-validate-item-footer" onClick={this.showErrorReport.bind(this)}>
-                        <div>View &amp; Download Header Error Report <span className="glyphicon glyphicon-chevron-down"></span></div>
-                    </div>
-                </div>
 
-                <div className="col-md-2 usa-da-validate-item-file-section">
-                    <div className="usa-da-validate-item-file-section-result">
-                        <span className={"glyphicon glyphicon-" + validationType}></span>
-                    </div>
-                    <div className="usa-da-validate-item-file-name">{status.filename}</div>
-                    <div className={"usa-da-validate-item-file-section-correct-button" + disabledCorrect}>
-                        <button>Choose Corrected File</button>
+                    <div className="col-md-2 usa-da-validate-item-file-section">
+                        <div className="usa-da-validate-item-file-section-result">
+                            <span className={"glyphicon glyphicon-" + validationType}></span>
+                        </div>
+                        <div className="usa-da-validate-item-file-name">{status.filename}</div>
+                        <div className={"usa-da-validate-item-file-section-correct-button" + disabledCorrect}>
+                            <button>Choose Corrected File</button>
+                        </div>
                     </div>
                 </div>
-                {this.state.showError ? <ValidateDataErrorReport link={status.report} /> : null}
+                {this.state.showError ? <ValidateDataErrorReport link={status.report} data={errorReports} /> : null}
             </div>
         );
     }
 }
-
-//<DropZoneContainer requestName="Test" />
 
 ValidateDataFileComponent.propTypes = propTypes;
