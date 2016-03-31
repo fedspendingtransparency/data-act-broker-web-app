@@ -49,7 +49,7 @@ class ValidateDataContainer extends React.Component {
 
 						this.validateSubmission();
 
-					}, 20*1000);
+					}, 5*1000);
 				}
 			})
 			.catch((err) => {
