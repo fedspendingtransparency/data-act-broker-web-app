@@ -9,12 +9,15 @@ import TableHeaders from './TableHeaders.jsx';
 
 const propTypes = {
     data: PropTypes.array.isRequired,
-    headers: PropTypes.array.isRequired
+    headers: PropTypes.array.isRequired,
+    sortable: PropTypes.bool,
+    onSort: PropTypes.func
 };
 
 const defaultProps = {
     data: [['Error']],
-    headers: ['Table Data Missing']
+    headers: ['Table Data Missing'],
+    sortable: false
 };
 
 export default class Table extends React.Component {
@@ -27,7 +30,7 @@ export default class Table extends React.Component {
         return (
             <table className="usa-da-table">
                 <thead>
-                    <TableHeaders data={this.props.headers} />
+                    <TableHeaders data={this.props.headers} sortable={this.props.sortable} onSort={this.props.onSort} />
                 </thead>
                 <tbody>
                     {tableRows}

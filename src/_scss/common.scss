@@ -153,6 +153,14 @@ p {
 		text-align: right;
 		color: $color-gray;
 	}
+
+	.usa-da-table-sorter {
+		.sort-icon {
+			color: $color-primary-alt-lightest;
+			margin-left: 10px;
+			cursor: pointer;
+		}
+	}
 }
 
 /* Header */
