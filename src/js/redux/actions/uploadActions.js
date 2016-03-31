@@ -30,7 +30,11 @@ export const setMeta = (state) => ({
 export const setSubmissionId = (state) => ({
 	type: 'SET_SUBMISSION_ID',
 	state: state
-});
+})
+
+export const resetSubmission = () => ({
+	type: 'RESET_SUBMISSION'
+})
 
 export const setValidation = (state) => ({
 	type: 'SET_VALIDATION',

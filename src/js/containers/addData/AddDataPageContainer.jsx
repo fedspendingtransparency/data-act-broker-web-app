@@ -15,6 +15,9 @@ import AddDataPage from '../../components/addData/AddDataPage.jsx';
 import Moment from 'moment';
 
 class AddDataPageContainer extends React.Component {
+	componentDidMount() {
+		this.props.resetSubmission();
+	}
     render() {
         
         return (

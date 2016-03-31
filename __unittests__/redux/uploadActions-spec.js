@@ -130,4 +130,32 @@ describe('Upload Redux state', () => {
 
 	});
 
+
+	it('resetSubmission action creator should reset the submission\'s store to its default state', () => {
+
+		// make some changes to the submission
+		const uploadItem = {
+			name: 'appropriation',
+			file: {},
+			state: 'ready'
+		};
+		const expectedState = {
+			appropriation: {
+				state: 'ready'
+			}
+		};
+		store.dispatch(uploadActions.setUploadItem(uploadItem));
+		chai.expect(store.getState().submission.files).to.shallowDeepEqual(expectedState);
+
+		// now reset the submission
+		store.dispatch(uploadActions.resetSubmission());
+
+		const storeState = store.getState().submission;
+		const files = Object.keys(storeState.files);
+		
+		// there should be no files left
+		chai.expect(files.length).to.equal(0);
+
+	});
+
 });
