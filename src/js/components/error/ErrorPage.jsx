@@ -1,6 +1,5 @@
 import React from 'react';
 import Navbar from '../SharedComponents/navigation/NavigationComponent.jsx';
-import Footer from '../SharedComponents/FooterComponent.jsx';
 
 export default class ErrorPage extends React.Component {
 	render() {
@@ -21,7 +20,6 @@ export default class ErrorPage extends React.Component {
 	                    </div>
 	                </div>
 	            </div>
-                <Footer/>
             </div>
 		);
 	}

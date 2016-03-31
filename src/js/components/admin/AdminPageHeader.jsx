@@ -11,7 +11,7 @@ export default class AdminPageHeader extends React.Component {
             <div className="container">
                 <div className="row">
                     <h1>Administration</h1>
-                    <p>The following user(s) has requested access to the Data Broker.</p>
+                    <p>The following user(s) has requested access to the DATA Act Broker.</p>
                     <ul>
                         <li>Click "Approve" to grant access. This will generate an email to the user with a link to complete registration.</li>
                         <li>Click "Deny" to prevent access. This will generate an email notifying the user that they have been denied access.</li>
