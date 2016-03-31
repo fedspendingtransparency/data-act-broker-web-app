@@ -23,6 +23,10 @@ div.usa-da-submission-items {
     margin: 5rem;
     margin-top: 1.5em;
 
+    &.with-overlay {
+        padding-bottom: 150px;
+    }
+
     .usa-da-submission-item {
 
         
@@ -182,13 +186,28 @@ div.usa-da-validate-items {
 
     table {
         margin-top: 15px;
+        
 
         th {
             text-align: left;
         }
 
+        tbody {
+            max-height: 250px;
+            overflow-y: auto;
+            width: 100%;
+            display: block;
+            border-bottom: 1px solid $color-gray-light;
+        }
+
+        tr {
+            width: 100%;
+            display: table;
+        }
+
         td {
             text-align: left;
+            border-bottom: none;
         }
     }
 
@@ -197,6 +216,20 @@ div.usa-da-validate-items {
         color: $color-white;
         padding: 1em;
     }
+}
+
+.usa-da-validation-overlay {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    min-height: 150px;
+    background-color: rgba(0,0,0,0.4);
+    z-index: 999;
+    width: 100%;
+
+    padding: 15px;
+
+    color: $color-white;
 }
 
 div.usa-da-dropzone {

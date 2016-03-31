@@ -32,7 +32,13 @@ export default class ValidateDataErrorReport extends React.Component {
 
         if (this.props.data.length > 0) {
             tables = this.props.data.map((errorData, index) => {
-                return <Table headers={[errorData.header]} data={[errorData.data]} key={index} />
+
+                let rows = [];
+                errorData.data.forEach((row) => {
+                    rows.push([row]);
+                });
+
+                return <Table headers={[errorData.header]} data={rows} key={index} />
             });
             
         }

@@ -43,7 +43,7 @@ export default class ValidateDataFileComponent extends React.Component {
         }
         else if (status.file_status == '' || status.file_status == 'waiting') {
             validationType = 'time';
-            disabledCorrect = ' disabled';
+            disabledCorrect = ' hide';
         }
         else {
             validationType = 'remove';
@@ -52,6 +52,7 @@ export default class ValidateDataFileComponent extends React.Component {
         let title = 'Validating...';
         let hasError = false;
         let errorData = []
+        let successfulFade = '';
         if (status.file_status != '' && status.file_status != 'waiting') {
             if (status.missing_headers.length > 0 && status.duplicated_headers.length > 0) {
                 title = 'Critical Errors: Missing fields in header row & duplicate fields in header row';
@@ -72,14 +73,13 @@ export default class ValidateDataFileComponent extends React.Component {
                 title = ' ';
                 disabledCorrect = ' hide';
                 hasError = false;
+                successfulFade = ' successful';
             }
         }
 
         let showFooter = ' hide';
-        let successfulFade = ' successful';
         if (hasError) {
             showFooter = '';
-            successfulFade = '';
         }
 
 
