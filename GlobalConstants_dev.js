@@ -5,5 +5,6 @@ export const kGlobalConstants = {
     GITHUB: 'https://github.com/fedspendingtransparency/data-act-validator/tree/development',
     GA_TRACKING_ID: 'UA-75081254-1',
     LOCAL: false,
-    DEV: true
+    DEV: true,
+    BUCKET_NAME: 'dev-data-act-submission'
 };

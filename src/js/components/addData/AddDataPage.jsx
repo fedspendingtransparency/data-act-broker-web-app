@@ -7,34 +7,23 @@ import React from 'react';
 import Navbar from '../SharedComponents/navigation/NavigationComponent.jsx';
 import AddDataHeader from './AddDataHeader.jsx';
 import AddDataMeta from './AddDataMeta.jsx';
+import AddDataContainer from '../../containers/addData/AddDataContainer.jsx';
 import AddDataContent from './AddDataContent.jsx';
+
+import Moment from 'moment';
 
 export default class AddDataPage extends React.Component {
     constructor(props) {
         super(props);
-
-        this.state = {
-            agency: "",
-            startDate: "",
-            endDate: ""
-        };
-    }
-
-    updateMetaData(newState){
-        this.setState({
-            agency: newState.agency,
-            startDate: newState.startDate,
-            endDate: newState.endDate
-        });
     }
 
     render() {
         let bodyComponent = null;
 
-        if (this.state.agency == ""){
-            bodyComponent = <AddDataMeta updateMetaData={this.updateMetaData.bind(this)}/>;
+        if (this.props.submission.meta.agency == ""){
+            bodyComponent = <AddDataMeta updateMetaData={this.props.updateMetaData}/>;
         } else {
-            bodyComponent = <AddDataContent metaData={this.state} />;
+            bodyComponent = <AddDataContainer metaData={this.props.submission.meta} />;
         }
 
         return (
