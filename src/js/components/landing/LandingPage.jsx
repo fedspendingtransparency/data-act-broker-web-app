@@ -5,7 +5,6 @@
 
 import React from 'react';
 import Navbar from '../SharedComponents/navigation/NavigationComponent.jsx';
-import Footer from '../SharedComponents/FooterComponent.jsx';
 import LandingContent from './LandingContent.jsx';
 
 export default class LandingPage extends React.Component {
@@ -14,7 +13,6 @@ export default class LandingPage extends React.Component {
             <div className="site_wrap">
                 <Navbar activeTab="landing"/>
                 <LandingContent/>
-                <Footer/>
             </div>
         );
     }

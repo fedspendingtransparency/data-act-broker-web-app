@@ -9,9 +9,9 @@ export default class LoginIntro extends React.Component {
     render() {
         return (
             <div className="col-md-7 usa-da-text-white">
-                <h1>USA Spending Data Broker</h1>
+                <h1>DATA Act Broker</h1>
                 <p>
-                    Welcome to the USA Spending Data Broker--Alpha version.<br /><br />
+                    Welcome to the DATA Act Broker – Alpha version.<br /><br />
                     Sign in to upload your agency financial data and validate it against the latest version of the DATA Act Schema.<br /><br />
                     Visit the <a href="https://community.max.gov/download/attachments/903971114/DataSubmission_page.pdf" target="_blank">Data Submission page</a> on
                     MAX for details on how to format your data.
