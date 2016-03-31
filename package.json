@@ -1,7 +1,7 @@
 {
   "name": "data-act-broker",
   "version": "0.0.0",
-  "description": "Fiscal services Data Broker",
+  "description": "DATA Act Broker",
   "main": "index.js",
   "directories": {
     "test": "test"

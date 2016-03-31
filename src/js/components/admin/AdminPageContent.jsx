@@ -39,7 +39,7 @@ export default class AdminPageMessage extends React.Component {
             <div className={classes}>
                 <div className="usa-alert-body">
                     <h3 className="usa-alert-heading">Success</h3>
-                    <p className="usa-alert-text">{this.props.data.user}'s Data Broker account has been {this.props.data.action}.</p>
+                    <p className="usa-alert-text">{this.props.data.user}'s DATA Act Broker account has been {this.props.data.action}.</p>
                 </div>
             </div>
         );
