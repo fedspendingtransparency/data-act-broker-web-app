@@ -2,6 +2,7 @@ import Request from 'superagent';
 import Q from 'q';
 import AWS from 'aws-sdk';
 import { dispatch } from 'redux';
+import moment from 'moment';
 
 import StoreSingleton from '../redux/storeSingleton.js';
 
@@ -203,6 +204,11 @@ export const performRemoteUpload = (submission) => {
 		const file = submission.files[fileType].file;
 		request[fileType] = file.name;
 	}
+
+    // add the metadata to the request
+    request.agency_name = submission.meta.agency;
+    request.reporting_period_start_date = submission.meta.startDate.format('MM/DD/YYYY');
+    request.reporting_period_end_date = submission.meta.endDate.format('MM/DD/YYYY');
 
 	// submit it to the API to set up S3
 	let submissionID;

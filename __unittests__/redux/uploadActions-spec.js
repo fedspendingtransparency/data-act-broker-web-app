@@ -158,4 +158,32 @@ describe('Upload Redux state', () => {
 
 	});
 
+	it('setValidation should reset the submission\'s file state to a blank object', () => {
+
+		const uploadItem = {
+			name: 'appropriation',
+			file: {},
+			state: 'ready'
+		};
+		const expectedState = {
+			appropriation: {
+				state: 'ready'
+			}
+		};
+		store.dispatch(uploadActions.setUploadItem(uploadItem));
+		chai.expect(store.getState().submission.files).to.shallowDeepEqual(expectedState);
+
+
+		const validationData = {
+			appropriations: {},
+			award_financial: {},
+			award: {},
+			program_activity: {}
+		};
+		store.dispatch(uploadActions.setValidation(validationData));
+		chai.expect(store.getState().submission.files).to.shallowDeepEqual({});
+		
+
+	});
+
 });

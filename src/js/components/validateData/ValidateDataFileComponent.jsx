@@ -14,6 +14,7 @@ import SubmitButton from '../SharedComponents/SubmitButton.jsx';
 import MetaData from '../addData/AddDataMetaDisplay.jsx';
 import FileComponent from '../addData/FileComponent.jsx';
 import ValidateDataErrorReport from './ValidateDataErrorReport.jsx';
+import ValidateDataUploadButton from './ValidateDataUploadButton.jsx';
 
 const propTypes = {
 
@@ -103,6 +104,11 @@ export default class ValidateDataFileComponent extends React.Component {
             });
         }
 
+        // override this data if a new file is dropped in
+        if (this.props.submission.files.hasOwnProperty(this.props.type.requestName)) {
+            validationType = 'file';
+        }
+
 
         return (
             <div className={"row center-block usa-da-validate-item" + successfulFade}>
@@ -135,7 +141,7 @@ export default class ValidateDataFileComponent extends React.Component {
                         </div>
                         <div className="usa-da-validate-item-file-name">{status.filename}</div>
                         <div className={"usa-da-validate-item-file-section-correct-button" + disabledCorrect}>
-                            <button>Choose Corrected File</button>
+                            <ValidateDataUploadButton onDrop={this.props.onFileChange} />
                         </div>
                     </div>
                 </div>
