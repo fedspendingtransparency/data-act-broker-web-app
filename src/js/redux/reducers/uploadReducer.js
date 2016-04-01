@@ -4,10 +4,10 @@ import Moment from 'moment';
 const initialUploadState = {
 	state: 'empty',
 	id: null,
-		meta: {
-			agency: 'Broadcasting Board of Governors',
-        	startDate: Moment('2016-01-01','YYYY-MM-DD'),
-        	endDate: Moment('2016-04-01','YYYY-MM-DD')
+	meta: {
+		agency: '',
+		startDate: null,
+		endDate: null
 	},
 	files: {},
 	validation: {
