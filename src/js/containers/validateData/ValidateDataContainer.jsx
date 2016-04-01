@@ -29,27 +29,29 @@ class ValidateDataContainer extends React.Component {
 		
 	}
 
+	checkForCompletion(data) {
+		// check if all the validations are done
+		let finished = true;
+		for (let key in data) {
+			let item = data[key];
+			if (item.job_status != 'finished' && item.job_status != 'invalid') {
+				finished = false;
+				break;
+			}
+		}
+
+		return finished;
+	}
+
 	validateSubmission() {
 		ReviewHelper.validateSubmission(this.props.submissionID)
 			.then((data) => {
 				this.props.setValidation(data);
 
-				// check if all the validations are done
-				let finished = true;
-				for (let key in data) {
-					let item = data[key];
-					if (item.file_status == '') {
-						finished = false;
-						break;
-					}
-				}
-
-				if (!finished) {
+				if (!this.checkForCompletion(data)) {
 					setTimeout(() => {
-
 						this.validateSubmission();
-
-					}, 20*1000);
+					}, 5*1000);
 				}
 			})
 			.catch((err) => {
