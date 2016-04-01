@@ -10,6 +10,7 @@ import LandingPage from '../../components/landing/LandingPage.jsx';
 import AddDataPageContainer from '../../containers/addData/AddDataPageContainer.jsx';
 import ValidateDataPage from '../../components/validateData/ValidateDataPage.jsx';
 import ReviewDataPage from '../../components/reviewData/ReviewDataPage.jsx';
+import HelpPage from '../../components/help/helpPage.jsx';
 import AdminPage from '../../components/admin/AdminPage.jsx';
 
 import ErrorPage from '../../components/error/ErrorPage.jsx';
@@ -132,6 +133,10 @@ const routeDefinitions = {
             path: 'reviewData/:submissionID',
             component: ReviewDataPage,
             onEnter: checkUserPermissions
+        },
+        {
+            path: 'help',
+            component: HelpPage
         },
         {
             path: 'forgotpassword',

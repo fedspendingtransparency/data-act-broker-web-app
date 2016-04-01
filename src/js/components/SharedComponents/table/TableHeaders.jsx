@@ -4,20 +4,37 @@
  */
 
 import React, { PropTypes } from 'react';
+import TableSorter from './TableSorter.jsx';
 
 const propTypes = {
-    data: PropTypes.array.isRequired
+    data: PropTypes.array.isRequired,
+    onSort: PropTypes.func
 };
 
 export default class TableHeaders extends React.Component {
     render() {
+
         const tableHeaders = [];
         for (let i = 0; i < this.props.data.length; i++) {
-            tableHeaders.push(<th key={i}>{this.props.data[i]}</th>);
+
+            // add sorter buttons only if this table is sortable and this is the last cell
+            let sorters = '';
+            if (this.props.sortable && i == this.props.data.length - 1) {
+                sorters = <TableSorter onSort={this.props.onSort} />;
+            }
+
+            tableHeaders.push(<th key={i}>
+                {this.props.data[i]}
+                {sorters}
+            </th>);
         }
 
+        
+
         return (
-            <tr>{tableHeaders}</tr>
+            <tr>
+                {tableHeaders}
+            </tr>
         );
     }
 }
