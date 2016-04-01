@@ -27,6 +27,10 @@ div.usa-da-submission-instructions {
 div.usa-da-submission-items {
     margin-top: 1.5em;
 
+    &.with-overlay {
+        padding-bottom: 150px;
+    }
+
     .usa-da-submission-item {
 
         
@@ -79,6 +83,24 @@ div.usa-da-validate-items {
     .usa-da-validate-item {
         margin-top: 20px;
         border: 1px solid #ccc;
+        box-shadow: $box-shadow;
+
+        &.successful {
+            opacity: 0.3;
+        }
+    }
+
+    .usa-da-validate-item-top-section {
+        display: table;
+        width: 100%;
+        margin: 0;
+    }
+
+    .usa-da-validate-item-status-section {
+        float: none;
+        display: table-cell;
+        margin-left: 15px;
+        margin-right: 15px;
     }
 
     .usa-da-validate-item-header {
@@ -103,6 +125,15 @@ div.usa-da-validate-items {
         font-size: $h4-font-size;
         font-weight: bold;
         padding: 15px 0;
+        min-height: 54px;
+
+        .usa-da-validate-item-message {
+            color: $color-secondary;
+        }
+    }
+
+    .usa-da-validate-item-footer-wrap {
+        position: relative;
     }
 
     .usa-da-validate-item-footer {
@@ -111,11 +142,18 @@ div.usa-da-validate-items {
         font-size: 12px;
         padding: 6px 0;
         cursor: pointer;
+        position: absolute;
+        bottom: 0;
+        width: 100%;
     }
 
     .usa-da-validate-item-file-section {
-        background-color: $color-gray-lightest;
         text-align: center;
+        border-left: 1px solid #ccc;
+        float: none;
+        display: table-cell;
+        margin-left: 15px;
+        margin-right: 15px;
 
         .usa-da-validate-item-file-section-result {
             font-size: $h1-font-size;
@@ -137,9 +175,14 @@ div.usa-da-validate-items {
     }
 }
 
+.usa-da-validate-item-bottom-section {
+    margin: 0;
+    border-top: 1px solid #ccc;
+}
+
 .usa-da-validate-error-report {
     padding: 15px;
-    border-top: 1px solid #ccc;
+    
 
     h3 {
         margin: 0;
@@ -147,6 +190,29 @@ div.usa-da-validate-items {
 
     table {
         margin-top: 15px;
+        
+
+        th {
+            text-align: left;
+        }
+
+        tbody {
+            max-height: 250px;
+            overflow-y: auto;
+            width: 100%;
+            display: block;
+            border-bottom: 1px solid $color-gray-light;
+        }
+
+        tr {
+            width: 100%;
+            display: table;
+        }
+
+        td {
+            text-align: left;
+            border-bottom: none;
+        }
     }
 
     button {
@@ -154,6 +220,20 @@ div.usa-da-validate-items {
         color: $color-white;
         padding: 1em;
     }
+}
+
+.usa-da-validation-overlay {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    min-height: 150px;
+    background-color: rgba(0,0,0,0.4);
+    z-index: 999;
+    width: 100%;
+
+    padding: 15px;
+
+    color: $color-white;
 }
 
 div.usa-da-dropzone {

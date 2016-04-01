@@ -2,6 +2,7 @@ import Request from 'superagent';
 import Q from 'q';
 import AWS from 'aws-sdk';
 import { dispatch } from 'redux';
+import _ from 'lodash';
 
 import StoreSingleton from '../redux/storeSingleton.js';
 
@@ -74,6 +75,11 @@ const getFileReports = (status, reports) => {
 	for (let key in status) {
 		let item = status[key];
 		item.report = reports['job_' + item.id + '_error_url'];
+
+		// alphabetize any missing and duplicated headers
+		item.missing_headers = _.sortBy(item.missing_headers);
+		item.duplicated_headers = _.sortBy(item.duplicated_headers);
+
 	}
 
 	return status;
