@@ -10,7 +10,7 @@ export default class AdminPageHeader extends React.Component {
         return (
             <div className="container">
                 <div className="row">
-                    <h1>Administration</h1>
+                    <div className="display2">Administration</div>
                     <p>The following user(s) has requested access to the DATA Act Broker.</p>
                     <ul>
                         <li>Click "Approve" to grant access. This will generate an email to the user with a link to complete registration.</li>
