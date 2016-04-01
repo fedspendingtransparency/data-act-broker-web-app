@@ -84,7 +84,9 @@ export default class ValidateDataFileComponent extends React.Component {
 
 
         let errorReports = [];
+        let chevronDirection = 'down';
         if (this.state.showError) {
+            chevronDirection = 'up';
             errorData.forEach((errorKey) => {
                 let headerTitle = '';
                 if (errorKey == 'missing_headers') {
@@ -100,6 +102,7 @@ export default class ValidateDataFileComponent extends React.Component {
                 });
             });
         }
+
 
         return (
             <div className={"row center-block usa-da-validate-item" + successfulFade}>
@@ -121,7 +124,7 @@ export default class ValidateDataFileComponent extends React.Component {
                         </div>
                         <div className="row usa-da-validate-item-footer-wrapper">
                             <div className={"usa-da-validate-item-footer" + showFooter} onClick={this.toggleErrorReport.bind(this)}>
-                                <div>View &amp; Download Header Error Report <span className="glyphicon glyphicon-chevron-down"></span></div>
+                                <div>View &amp; Download Header Error Report <span className={"glyphicon glyphicon-chevron-" + chevronDirection}></span></div>
                             </div>
                         </div>
                     </div>
