@@ -12,7 +12,7 @@ export default class AddDataHeader extends React.Component {
                 <div className="container">
                     <div className="row usa-da-content-add-data usa-da-page-title">
                         <div className="col-md-7 mt-50 mb-50">
-                            <h1>Add New Data</h1>
+                            <div className="display2">Add New Data</div>
                             <p>The DATA Act Broker allows agencies to test financial data and is not connected to USA Spending.</p>
                             <p>Upload your files below. For more information on the file format, please <a href="http://prod-data-act-web-static-files.s3-website-us-gov-west-1.amazonaws.com/RSS-spec/RSS_DRAFT_v1.0_03292016.xlsx" target="_blank">download the Reporting Submission Specification (RSS)</a>.</p>
                         </div>

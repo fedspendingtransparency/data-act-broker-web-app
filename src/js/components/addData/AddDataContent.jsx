@@ -62,13 +62,6 @@ export default class AddDataContent extends React.Component {
                         </div>
                     </div>
                 </div>
-                {/*<div className="usa-da-content-lighter-gray">
-                    <div className="container center-block">
-                        <div className="row">
-                            <MetaData data={this.props.metaData} />
-                        </div>
-                    </div>
-                </div> */}
                 <div>
                     <div className="container center-block">
                         <div className="row">

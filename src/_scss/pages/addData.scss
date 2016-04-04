@@ -162,6 +162,21 @@ div.usa-da-validate-items {
         .usa-da-validate-item-file-section-correct-button {
             margin: 10px 0 6px;
 
+            .usa-da-validate-upload-button {
+                border: 1px solid $color-secondary;
+                border-radius: 0;
+                font-size: 1.1rem;
+                color: $color-secondary;
+                padding: 0.8em;
+                background-color: $color-white;
+                cursor: pointer;
+
+                &:hover {
+                    background-color: $color-secondary;
+                    color: $color-white;
+                }
+            }
+
             button {
                 font-size: 1.1rem;
                 color: $color-white;
