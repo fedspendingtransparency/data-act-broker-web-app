@@ -129,7 +129,8 @@ const routeDefinitions = {
             path: 'validateData/:submissionID',
             component: ValidateDataPage,
             onEnter: checkUserPermissions
-        },{
+        },
+        {
             path: 'reviewData/:submissionID',
             component: ReviewDataPage,
             onEnter: checkUserPermissions

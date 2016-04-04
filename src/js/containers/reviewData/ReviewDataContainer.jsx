@@ -8,18 +8,33 @@ import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { hashHistory } from 'react-router';
 
-import * as uploadActions from '../../redux/actions/reviewActions.js';
+import * as reviewActions from '../../redux/actions/reviewActions.js';
 
 import ReviewDataContent from '../../components/reviewData/ReviewDataContent.jsx';
 
-import Moment from 'moment';
+import * as ReviewHelper from '../../helpers/reviewHelper.js';
 
 class ReviewDataContainer extends React.Component {
-    componentDidMount() {
-        this.props.resetSubmission();
+    constructor(props) {
+        super(props);
     }
-    render() {
 
+    getSubmissionData() {
+        ReviewHelper.fetchStatus(this.props.submissionID)
+            .then((data) => {
+                // TODO: Remove this when this is eventually tied to user accounts
+                console.log(data);
+            })
+            .catch((error) => {
+                console.log(error);
+            });
+    }
+
+    componentDidMount() {
+        this.getSubmissionData();
+    }
+
+    render() {
         return (
             <ReviewDataContent {...this.props} submissionID={this.props.submissionID} />
         );
@@ -27,6 +42,6 @@ class ReviewDataContainer extends React.Component {
 }
 
 export default connect(
-        state => ({ submission: state.submission }),
-        dispatch => bindActionCreators(uploadActions, dispatch)
+        state => ({ submission: state.submissionID }),
+        dispatch => bindActionCreators(reviewActions, dispatch)
 )(ReviewDataContainer)
