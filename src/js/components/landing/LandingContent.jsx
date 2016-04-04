@@ -13,7 +13,7 @@ export default class LandingContent extends React.Component {
                     <div className="container">
                         <div className="row usa-da-content-landing usa-da-page-title">
                             <div className="col-md-7 mt-50 mb-50">
-                                <div className="display2">Welcome to the DATA Act Broker</div>
+                                <div className="display-2">Welcome to the DATA Act Broker</div>
                                 <p>This site enables you to upload your agency files and validate them against the latest
                                     version of the DATA Act Schema (version 0.8). The files you will need are:</p>
                                 <ul>
