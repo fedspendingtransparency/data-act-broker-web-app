@@ -21,11 +21,13 @@ export default class FileComponent extends React.Component {
             <div className="usa-da-submission-item">
                 <div className="center-block">
                     <div className="usa-da-submission-vertical-center">
-                        <div className="usa-da-submission-item-title">
+
+                        {/*<div className="usa-da-submission-item-title">
                             <h4>{this.props.fileTitle}</h4>
-                        </div>
+                        </div> */}
 
                         <div className="usa-da-submission-item-drop-wrapper">
+
                            <DropZoneContainer requestName={this.props.requestName} />
                         </div>
                     </div>

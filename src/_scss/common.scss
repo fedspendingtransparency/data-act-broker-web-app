@@ -1,6 +1,9 @@
+// .row{ border: 1px solid #ccc}
+
 body{
 	-webkit-font-smoothing: antialiased;
 	font-smooth: always;
+	background: #f5f5f5;
 }
 
 .site_wrap{
@@ -12,6 +15,51 @@ body{
 .site_content{
 @include flex(1);
 }
+
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+hgroup,
+ul,
+ol,
+dl,
+blockquote,
+p,
+address,
+table,
+fieldset,
+figure,
+pre {
+  margin-bottom: $base-line-height;
+}
+
+/***** MIXINS *****/
+@mixin contentBlockWrapper() {
+    background-color: $color-white;
+    box-shadow: 0 1px 2px rgba(43,59,93,.29);
+}
+
+@mixin alphaMark() {
+	    content:"Alpha";
+        background: as-alpha($color-green-light, .9);
+        padding: 7px 13px 7px 12px;
+        margin-left: 8px;
+        font-size: 1.2rem;
+        font-weight: $font-bold;
+        color: $color-white;
+        position: relative;
+        top: -8px;
+        @include border-radius(15px 0px 15px 0px)
+}
+
+@mixin border-radius($radius) {
+	@include prefixer(border-radius, $radius, webkit moz spec);
+}
+
 
 /* Colors */
 $color-darkest: #2C333B;
@@ -183,11 +231,14 @@ p {
 			font-size: 2.5rem;
 			line-height: $header-height;
 			font-weight: $font-light;
-			height: 100%;
+			height: $header-height;
 			color: $color-white;
 			display: table-cell;
 			vertical-align: middle;
 			padding: 0;
+	&:after{
+		@include alphaMark;
+    }
 		}
 
 		#usa-da-header-link-holder {
@@ -201,7 +252,7 @@ p {
 				height: 100%;
 				display: table;
 				margin: 0;
-				border-right: 1px solid #3b4452;
+				border-left: 1px solid #3b4452;
 				&:before {
 					padding: 0;
 					display: none;
@@ -214,15 +265,15 @@ p {
 
 		#usa-da-header-link-holder > li > a {
 			background-color: $color-gray-dark;
-			color: $color-primary-alt;
+			color: $color-white;
 			height: $header-height;
 			display: table-cell;
 			vertical-align: middle;
-			padding: 1.5rem 1.0rem;
+			padding: 1.5rem 2.0rem;
 			font-size: 1.4rem;
 
 			&:hover {
-				background-color: $color-darkest;
+				background-color: $color-gray;
 			}
 
 			&.disabled {
@@ -262,8 +313,8 @@ p {
 		}
 
 		#usa-da-header-link-holder > li > .usa-da-user-info {
-			background-color: $color-gray;
-			color: $color-gray-light;
+			background-color: $color-gray-dark;
+			color: $color-primary-alt-light;
 		}
 
 		#usa-da-header-link-holder > li > .header-dropdown {
@@ -322,10 +373,10 @@ p {
 	}
 }
 
-.usa-da-content-light-gray {
+.usa-da-content-step-block {
 	color: $color-gray-light;
-	background-color: $color-gray-lightest;
-	border-bottom: 1px solid #e5e5e5;
+	background-color: $color-gray-cool-light;
+	border-bottom: 1px solid $color-white;
 }
 
 .usa-da-content-lighter-gray {
@@ -341,6 +392,7 @@ p {
 	& p {
 		font-size: 1.6rem;
 		margin: 0 0 2.6rem 0;
+		color: $color-white;
 		&:last-child{
 			margin-bottom: 0;
 		}
@@ -350,6 +402,13 @@ p {
 		font-size: 1.6rem;
 		margin-left: 3rem;
 		margin-bottom: 2.6rem;
+	}
+	& a, p a {
+		color: #d6d7d9;
+		text-decoration: underline;
+		&:hover{
+			color: $color-white;
+		}
 	}
 }
 
@@ -364,7 +423,7 @@ p {
 	margin: 0 auto;
 	font-size: 1.3em;
 	font-weight: $font-bold;
-	padding: 5rem 0;
+	padding: 4rem 0;
 
 	/* Progress Tracker v2 */
 	.usa-da-progress-bar-holder[data-steps="2"] li { width: 49%; }
@@ -414,9 +473,8 @@ p {
 	}
 
 	.usa-da-progress-bar-holder .step {
-		color: $color-gray-light;
-		border: 1px solid $color-gray-light;
-		background-color: $color-gray-lightest;
+		color: $color-gray-cool-light;
+		background-color: $color-white;
 		border-radius: 100%;
 		line-height: 1.2;
 		width: 2.4em;
@@ -438,7 +496,7 @@ p {
 	.usa-da-progress-bar-holder .step:before {
 		content: "";
 		display: block;
-		background-color: $color-gray-light;
+		background-color: $color-white;
 		height: 0.4em;
 		width: 50%;
 		position: absolute;
@@ -450,7 +508,7 @@ p {
 	.usa-da-progress-bar-holder .step:after {
 		content: "";
 		display: block;
-		background-color: $color-gray-light;
+		background-color: $color-white;
 		height: 0.4em;
 		width: 50%;
 		position: absolute;
@@ -666,6 +724,46 @@ p {
     padding: 15px 15px 0;
 }
 
+
+/***** FORMS *****/
+input,
+input[type="text"],
+input[type="email"],
+input[type="password"],
+input[type="url"],
+input[type="tel"],
+input[type="number"],
+input[type="search"],
+input[type="file"],
+input[type="date"],
+input[type="datetime-local"],
+input[type="month"],
+input[type="time"],
+input[type="week"],
+textarea,
+select {
+	border: 1px solid #cacaca;
+	color: #696969;
+}
+
+.usa-button,
+.usa-button-primary,
+.usa-button:visited,
+.usa-button-primary:visited,
+button,
+[type="button"],
+[type="submit"],
+[type="reset"],
+[type="image"] {
+ margin-right:0;
+}
+
+[type="submit"]:disabled, .usa-button-disabled {
+opacity: 0.4;
+}
+
+
+
 /***** GLOBAL MARGIN AND PADDING *****/
 .mt-0 	{  margin-top: 0;  }
 .mt-5 	{  margin-top: 5px;  }
@@ -680,6 +778,20 @@ p {
 .mt-50	{  margin-top: 50px;  }
 .mt-55	{  margin-top: 55px;  }
 .mt-60	{  margin-top: 60px;  }
+
+.mr-0 	{  margin-right: 0;  }
+.mr-5 	{  margin-right: 5px;  }
+.mr-10	{  margin-right: 10px;  }
+.mr-15 	{  margin-right: 15px;  }
+.mr-20	{  margin-right: 20px;  }
+.mr-25	{  margin-right: 25px;  }
+.mr-30	{  margin-right: 30px;  }
+.mr-35	{  margin-right: 35px;  }
+.mr-40	{  margin-right: 40px;  }
+.mr-45	{  margin-right: 45px;  }
+.mr-50	{  margin-right: 50px;  }
+.mr-55	{  margin-right: 55px;  }
+.mr-60	{  margin-right: 60px;  }
 
 .mb-0 	{  margin-bottom: 0;  }
 .mb-5 	{  margin-bottom: 5px;  }

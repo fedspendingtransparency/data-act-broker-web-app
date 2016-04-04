@@ -18,13 +18,13 @@ export default class DropZone extends React.Component {
 
 
         this.state = {
-            dropzoneString: "Drop your file here, or click to select file to upload."
+            dropzoneString: "Drag and drop or click here to upload your (add file name) file."
         };
     }
 
     render() {
 
-        let dropzoneString = "Drop your file here, or click to select file to upload.";
+        let dropzoneString = "Drag and drop or click here to upload your (add file name) file.";
         let displayMode = "pending";
         let progress = 0;
 

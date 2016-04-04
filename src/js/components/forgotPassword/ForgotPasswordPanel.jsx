@@ -73,7 +73,7 @@ export default class ForgotPasswordPanel extends React.Component {
         }
 
         return (
-            <div className="col-md-6 usa-da-login-container">
+            <div className="col-md-5 usa-da-login-container">
                 <div className="col-xs-12">
                     <p className="msg">Please enter your email address below. We will send an email to the registered email address with a link to reset your password.</p>
                 </div>
