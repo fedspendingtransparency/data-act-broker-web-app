@@ -9,214 +9,354 @@ body {
   font-size: $base-font-size;
 }
 
-p {
-  line-height: $base-line-height;
-  margin: {
-    top: 1em;
-    bottom: 1em;
-  }
+// p {
+//   line-height: $base-line-height;
+//   margin: {
+//     top: 1em;
+//     bottom: 1em;
+//   }
+// }
+
+// a {
+//   color: $color-primary;
+//   text-decoration: none;
+
+//   &:hover, 
+//   &:active {
+//     color: $color-primary-darker;
+//     text-decoration: underline;
+//   }
+
+//   &:visited {
+//     color: $color-visited;
+//   }
+
+//   &:focus {
+//     box-shadow: $focus-shadow;
+//     outline: 0;
+//   }
+// }
+
+// h1, h2, h3, h4, h5, h6 {
+//   clear: both;
+//   font-family: $font-sans;
+//   line-height: $heading-line-height;
+//   margin: {
+//     top: 1.5em;
+//     bottom: .5em;
+//   }
+// }
+
+// // Create heading mixins 
+
+// @mixin title {
+//   font-size: $title-font-size;
+//   font-weight: $font-bold;
+// }
+
+// @mixin h1 {
+//   font-size: $h1-font-size;
+//   font-weight: $font-bold;
+// }
+
+// @mixin h2 {
+//   font-size: $h2-font-size;
+//   font-weight: $font-bold;
+// }
+
+// @mixin h3 {
+//   font-size: $h3-font-size;
+//   font-weight: $font-bold;
+// }
+
+// @mixin h4 {
+//   font-size: $h4-font-size;
+//   font-weight: $font-bold;
+// }
+
+// @mixin h5 {
+//   font-size: $h5-font-size;
+//   font-weight: $font-bold;
+// }
+
+// @mixin h6 {
+//   font-family: $font-sans;
+//   font-size: $h6-font-size;
+//   font-weight: $font-normal;
+//   text-transform: uppercase;
+// }
+
+// h1 {
+//   @include h1();
+// }
+
+// h2 {
+//   @include h2();
+// }
+
+// h3 {
+//   @include h3();
+// }
+
+// h4 {
+//   @include h4();
+// }
+
+// h5 {
+//   @include h5();
+// }
+
+// h6 {
+//   @include h6(); 
+// }
+
+// // Remove user agent styles
+
+// cite, 
+// var, 
+// address, 
+// dfn {
+//  font-style: normal;
+// }
+
+// // Custom typography
+
+// .usa-content {
+//   p {
+//     max-width: $text-max-width;
+//   }  
+// }
+
+// .usa-content-list {
+//   max-width: $text-max-width;
+// }
+
+// p, 
+// .usa-content-list {
+//   a {
+//     text-decoration: underline;
+//   }
+// }
+
+// .usa-sans {
+//   p, 
+//   a, 
+//   li, 
+//   span {
+//     font-family: $font-sans;
+//   }
+// }
+
+// .usa-serif {
+//   p, 
+//   a, 
+//   li, 
+//   span {
+//     font-family: $font-serif;
+//   }
+// }
+
+// .usa-sans a {
+//   border-bottom: none;
+//   font-weight: $font-bold;
+// }
+
+// .usa-display {
+//   @include h3();
+//   margin-bottom: 0;
+
+//   @include media($small-screen) {
+//     @include h1();
+//   }
+
+//   @include media($medium-screen) {
+//     @include title();
+//   }
+// }
+
+// .usa-font-lead {
+//   font-size: $lead-font-size;
+//   font-family: $font-serif;
+//   line-height: $lead-line-height;
+// }
+
+// .usa-image-block {
+//   position: relative;
+// }
+
+// .usa-image-text-block {
+//   color: $color-white;
+//   left: 0;
+//   margin-left: 8%;
+//   position: absolute;
+//   top: 0;
+// }
+
+// .usa-image-text {
+//   margin-top: 0;
+// }
+
+// .usa-drop_text {
+//   margin-bottom: 0;
+// }
+
+// .usa-background-dark {
+//   background-color: $color-gray-dark;
+
+//   p, span {
+//     color: $color-white;
+//   }
+
+//   a {
+//     color: $color-gray-lighter;
+    
+//     &:hover {
+//       color: $color-white;
+//     }
+//   }
+// }
+
+// .usa-text-small {
+//   font-size: $h6-font-size;
+//   margin-top: 0;
+// }
+
+
+
+
+
+
+
+
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+.display-one,
+.display-two {
+    font-family: $font-sans;
+    margin-top: 0;
+    line-height: 1;
+    color: #333;
 }
 
-a {
-  color: $color-primary;
-  text-decoration: none;
-
-  &:hover, 
-  &:active {
-    color: $color-primary-darker;
-    text-decoration: underline;
-  }
-
-  &:visited {
-    color: $color-visited;
-  }
-
-  &:focus {
-    box-shadow: $focus-shadow;
-    outline: 0;
-  }
+.display-one {
+    font-weight: $font-bold;
+    font-size: 5.9rem;
+    line-height: 1.45;
 }
 
-h1, h2, h3, h4, h5, h6 {
-  clear: both;
-  font-family: $font-sans;
-  line-height: $heading-line-height;
-  margin: {
-    top: 1.5em;
-    bottom: .5em;
-  }
-}
-
-// Create heading mixins 
-
-@mixin title {
-  font-size: $title-font-size;
-  font-weight: $font-bold;
-}
-
-@mixin h1 {
-  font-size: $h1-font-size;
-  font-weight: $font-bold;
-}
-
-@mixin h2 {
-  font-size: $h2-font-size;
-  font-weight: $font-bold;
-}
-
-@mixin h3 {
-  font-size: $h3-font-size;
-  font-weight: $font-bold;
-}
-
-@mixin h4 {
-  font-size: $h4-font-size;
-  font-weight: $font-bold;
-}
-
-@mixin h5 {
-  font-size: $h5-font-size;
-  font-weight: $font-bold;
-}
-
-@mixin h6 {
-  font-family: $font-sans;
-  font-size: $h6-font-size;
-  font-weight: $font-normal;
-  text-transform: uppercase;
+.display-two {
+    font-weight: $font-light;
+    font-size: 4.4rem;
+    line-height: 5.7rem;
 }
 
 h1 {
-  @include h1();
+    font-weight: $font-light;
+    font-size: 5.9rem;
+    margin-bottom: $base-line-height * 1.625;
 }
 
 h2 {
-  @include h2();
+    font-weight: $font-light;
+    font-size: 4.7rem;
+    margin-bottom: $base-line-height;
+    line-height: 1.11;
 }
 
 h3 {
-  @include h3();
+    font-weight: $font-light;
+    font-size: 3.8rem;
+    line-height: 1.36;
 }
 
 h4 {
-  @include h4();
+    font-weight: $font-light;
+    font-size: 3.0rem;
+    line-height: 1;
 }
 
 h5 {
-  @include h5();
+    font-weight: $font-bold;
+    font-size: 2.4rem;
+    line-height: 1.3;
 }
 
 h6 {
-  @include h6(); 
+    font-weight: $font-bold;
+    font-size: 1.9rem;
+    line-height: 1.4;
+    margin-bottom: 0;
 }
 
-// Remove user agent styles
-
-cite, 
-var, 
-address, 
-dfn {
- font-style: normal;
+p.lead {
+    font-weight: $font-normal;
+    font-size: 2.2rem;
+    line-height: 3.3rem;
 }
 
-// Custom typography
-
-.usa-content {
-  p {
-    max-width: $text-max-width;
-  }  
+@mixin para {
+    font-weight: $font-normal;
+    font-size: 1.6rem;
+    line-height: 2.6rem;
+    color: #525252;
 }
 
-.usa-content-list {
-  max-width: $text-max-width;
+p {
+    @include para;
+    max-width: 60rem;
 }
 
-p, 
-.usa-content-list {
-  a {
-    text-decoration: underline;
-  }
+p.italic {
+    @include para;
+    font-style: italic;
 }
 
-.usa-sans {
-  p, 
-  a, 
-  li, 
-  span {
-    font-family: $font-sans;
-  }
+p strong{
+    font-weight: 600;
 }
 
-.usa-serif {
-  p, 
-  a, 
-  li, 
-  span {
-    font-family: $font-serif;
-  }
+
+p + h2, p + h3, p + h4, p + h6{
+   margin-top: $base-line-height * 2;
 }
 
-.usa-sans a {
-  border-bottom: none;
-  font-weight: $font-bold;
+p + h4{
+   margin-top: $base-line-height * 1.79;
 }
 
-.usa-display {
-  @include h3();
-  margin-bottom: 0;
-
-  @include media($small-screen) {
-    @include h1();
-  }
-
-  @include media($medium-screen) {
-    @include title();
-  }
+p + h5{
+   margin-top: $base-line-height * 1.8;
 }
 
-.usa-font-lead {
-  font-size: $lead-font-size;
-  font-family: $font-serif;
-  line-height: $lead-line-height;
+// h2 + .row {
+//     margin-bottom: $base-line-height * 3;
+// }
+
+table + p {
+    margin-top: 3.0rem;
 }
 
-.usa-image-block {
-  position: relative;
-}
 
-.usa-image-text-block {
-  color: $color-white;
-  left: 0;
-  margin-left: 8%;
-  position: absolute;
-  top: 0;
-}
-
-.usa-image-text {
-  margin-top: 0;
-}
-
-.usa-drop_text {
-  margin-bottom: 0;
-}
-
-.usa-background-dark {
-  background-color: $color-gray-dark;
-
-  p, span {
-    color: $color-white;
-  }
-
-  a {
-    color: $color-gray-lighter;
-    
-    &:hover {
-      color: $color-white;
+ol,
+ul {
+    margin: 0 0 $base-line-height * 2;
+    & li {
+        font-size: 1.6rem;
+        line-height: $base-line-height;
+        margin-bottom: 0.75em;
+        margin-top: 0.75em;
     }
-  }
 }
 
-.usa-text-small {
-  font-size: $h6-font-size;
-  margin-top: 0;
+ul.no-bullet{
+    list-style-type: none;
+    padding: 0;
+    & li{
+        margin: 0!important;
+    }
 }

@@ -16,11 +16,15 @@
 }
 
 div.usa-da-submission-instructions {
-    margin-top: 1.5em;
+    margin: 6.0rem 0;
+    border-left: 8px solid $color-primary-alt-light;
+    & p{
+        margin-bottom: 0;
+        padding: 20px 0 20px 10px;
+    }
 }
 
 div.usa-da-submission-items {
-    margin: 5rem;
     margin-top: 1.5em;
 
     &.with-overlay {
@@ -30,7 +34,7 @@ div.usa-da-submission-items {
     .usa-da-submission-item {
 
         
-        margin-top: 1.5em;
+        margin-top: 4.0rem;
         // height: 120px;
 
         &:first-child {
@@ -38,14 +42,14 @@ div.usa-da-submission-items {
         }
 
         > div {
-            border: 1px solid #ccc;
-            padding: 1em;
+            // border: 1px solid #ccc;
+            // padding: 1em;
         }
 
         .usa-da-submission-item-drop-wrapper {
             display: table-cell;
             vertical-align: middle;
-            width: 25%;
+            width: 100%;
 
             @media (max-width: $screen-md-min) {
                 display: block;
@@ -56,7 +60,7 @@ div.usa-da-submission-items {
         .usa-da-submission-item-title {
             display: table-cell;
             vertical-align: middle;
-            width: 75%;
+            // width: 75%;
 
             @media (max-width: $screen-md-min) {
                 display: block;
@@ -158,6 +162,21 @@ div.usa-da-validate-items {
         .usa-da-validate-item-file-section-correct-button {
             margin: 10px 0 6px;
 
+            .usa-da-validate-upload-button {
+                border: 1px solid $color-secondary;
+                border-radius: 0;
+                font-size: 1.1rem;
+                color: $color-secondary;
+                padding: 0.8em;
+                background-color: $color-white;
+                cursor: pointer;
+
+                &:hover {
+                    background-color: $color-secondary;
+                    color: $color-white;
+                }
+            }
+
             button {
                 font-size: 1.1rem;
                 color: $color-white;
@@ -233,10 +252,12 @@ div.usa-da-validate-items {
 }
 
 div.usa-da-dropzone {
-    border: 2px dashed $color-gray-dark;
+    border: 2px dashed #c8cfd7;
     padding: 2em;
     cursor: pointer;
-    background-color: $color-gray-light;
+    background-color: #f5f5f5;
+    color: #808080;
+    font-size: 1.6rem;
 
     .glyphicon {
         font-size: 2.0em;
@@ -259,12 +280,12 @@ div.usa-da-dropzone {
         margin-top: 10px;
     }
 
-}
+} 
 
 .usa-da-add-data-meta {
     .meta-holder {
-        background-color: $color-gray-dark;
         padding: 30px 20px;
+        @include contentBlockWrapper
 
         .typeahead-holder {
             div {
