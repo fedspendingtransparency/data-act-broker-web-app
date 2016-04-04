@@ -9,7 +9,7 @@ import ValidateDataFileComponent from './ValidateDataFileComponent.jsx';
 import SubmitButton from '../SharedComponents/SubmitButton.jsx';
 import MetaData from '../addData/AddDataMetaDisplay.jsx';
 import FileComponent from '../addData/FileComponent.jsx';
-import ValidateDataOverlay from './ValidateDataOverlay.jsx';
+import ValidateDataOverlayContainer from '../../containers/validateData/ValidateDataOverlayContainer.jsx';
 import ValidateDataFileContainer from '../../containers/validateData/ValidateDataFileContainer.jsx';
 
 import { fileTypes } from '../../containers/addData/fileTypes.js';
@@ -29,15 +29,17 @@ export default class ValidateDataContent extends React.Component {
         if (Object.keys(this.props.submission.validation).length > 0) {
             
             let allValid = true;
-            let errorCount = 0;
+            let errors = [];
             let items = fileTypes.map((type, index) => {
                 const validationStatus = this.props.submission.validation[type.requestName];
 
-                if (validationStatus.job_status == 'invalid' && validationStatus.file_status != 'complete') {
-                    allValid = false;
-                    errorCount++;
+                if (validationStatus) {
+                    if (validationStatus.job_status == 'invalid' && validationStatus.file_status != 'complete') {
+                        allValid = false;
+                        errors.push(type.requestName);
+                    }
+                    return <ValidateDataFileContainer key={index} type={type} data={this.props.submission.validation} />;
                 }
-                return <ValidateDataFileContainer key={index} type={type} data={this.props.submission.validation} />;
             });
 
             let overlay = ''
@@ -45,14 +47,7 @@ export default class ValidateDataContent extends React.Component {
             if (!allValid) {
                 // we'll need extra padding at the bottom of the page if the overlay is present
                 displayOverlay = ' with-overlay';
-                const overlayMessage = 'You must fix the Critical Errors found in ' + errorCount + ' of the .CSV files before on to the next step. View and download individual reports above.';
-
-                let disabled = true;
-                if (Object.keys(this.props.submission.files).length == errorCount) {
-                    disabled = false;
-                }
-
-                overlay = <ValidateDataOverlay message={overlayMessage} disabled={disabled} />;
+                overlay = <ValidateDataOverlayContainer errors={errors} />;
             }
             
             return (

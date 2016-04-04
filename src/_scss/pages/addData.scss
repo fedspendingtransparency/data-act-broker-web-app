@@ -26,9 +26,10 @@ div.usa-da-submission-instructions {
 
 div.usa-da-submission-items {
     margin-top: 1.5em;
+    padding-bottom: 30px;
 
     &.with-overlay {
-        padding-bottom: 150px;
+        padding-bottom: 180px;
     }
 
     .usa-da-submission-item {
@@ -142,9 +143,12 @@ div.usa-da-validate-items {
         font-size: 12px;
         padding: 6px 0;
         cursor: pointer;
-        position: absolute;
         bottom: 0;
         width: 100%;
+
+        &.header-error {
+            position: absolute;
+        }
     }
 
     .usa-da-validate-item-file-section {
@@ -193,6 +197,41 @@ div.usa-da-validate-items {
 .usa-da-validate-item-bottom-section {
     margin: 0;
     border-top: 1px solid #ccc;
+}
+
+.usa-da-validate-item-message-label {
+    font-weight: 300;
+    font-family: 'Source Sans Pro';
+}
+
+.usa-da-validate-item-warning {
+    position: relative;
+    border-right: 1px solid #ccc;
+    .usa-da-validate-item-message-count {
+        color: $color-gold;
+
+        &.none {
+            color: $color-gray-dark;
+        }
+    }
+
+    .usa-da-validate-item-footer {
+        position: relative;
+    }
+}
+
+.usa-da-validate-item-critical {
+    .usa-da-validate-item-message-count {
+        color: $color-secondary;
+
+        &.none {
+            color: $color-gray-dark;
+        }
+    }
+
+    .usa-da-validate-item-footer {
+        position: relative;
+    }
 }
 
 .usa-da-validate-error-report {

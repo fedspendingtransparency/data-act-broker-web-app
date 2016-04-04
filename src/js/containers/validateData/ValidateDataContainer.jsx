@@ -11,6 +11,7 @@ import { hashHistory } from 'react-router';
 import * as uploadActions from '../../redux/actions/uploadActions.js';
 
 import ValidateDataContent from '../../components/validateData/ValidateDataContent.jsx';
+import ValidateValuesContent from '../../components/validateData/validateValues/ValidateValuesContent.jsx';
 import { fileTypes } from '../addData/fileTypes.js';
 import { kGlobalConstants } from '../../GlobalConstants.js';
 
@@ -20,6 +21,10 @@ import * as ReviewHelper from '../../helpers/reviewHelper.js';
 class ValidateDataContainer extends React.Component {
 	constructor(props) {
 		super(props);
+
+		this.state = {
+			headerErrors: false
+		};
 	}
 
 
@@ -43,6 +48,25 @@ class ValidateDataContainer extends React.Component {
 		return finished;
 	}
 
+	checkForErrors() {
+
+		let hasErrors = false;
+		for (let key in this.props.submission.validation) {
+			const item = this.props.submission.validation[key];
+
+			if (item.file_status != 'complete') {
+				hasErrors = true;
+				break;
+			}
+
+		}
+
+		this.setState({
+			headerErrors: hasErrors
+		});
+
+	}
+
 	validateSubmission() {
 		ReviewHelper.validateSubmission(this.props.submissionID)
 			.then((data) => {
@@ -53,6 +77,9 @@ class ValidateDataContainer extends React.Component {
 						this.validateSubmission();
 					}, 5*1000);
 				}
+				else {
+					this.checkForErrors();
+				}
 			})
 			.catch((err) => {
 
@@ -60,8 +87,17 @@ class ValidateDataContainer extends React.Component {
 	}
 
 	render() {
+
+		let validationContent = <ValidateDataContent {...this.props} submissionID={this.props.id} />;
+		if (!this.state.headerErrors) {
+			// no header errors, move onto content errors
+			validationContent = <ValidateValuesContent {...this.props} submissionID={this.props.id} />;
+		}
+
 		return (
-			<ValidateDataContent {...this.props} submissionID={this.props.id} />
+			<div>
+				{validationContent}
+			</div>
 		);
 	}
 }
