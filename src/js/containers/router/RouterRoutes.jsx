@@ -9,6 +9,7 @@ import ForgotPasswordPage from '../../components/forgotPassword/ForgotPasswordPa
 import LandingPage from '../../components/landing/LandingPage.jsx';
 import AddDataPageContainer from '../../containers/addData/AddDataPageContainer.jsx';
 import ValidateDataPage from '../../components/validateData/ValidateDataPage.jsx';
+import HelpPage from '../../components/help/helpPage.jsx';
 import AdminPage from '../../components/admin/AdminPage.jsx';
 
 import ErrorPage from '../../components/error/ErrorPage.jsx';
@@ -127,6 +128,10 @@ const routeDefinitions = {
             path: 'validateData/:submissionID',
             component: ValidateDataPage,
             onEnter: checkUserPermissions
+        },
+        {
+            path: 'help',
+            component: HelpPage
         },
         {
             path: 'forgotpassword',

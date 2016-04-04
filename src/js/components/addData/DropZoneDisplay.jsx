@@ -38,7 +38,7 @@ export default class DropZoneDisplay extends React.Component {
 				<div className={"text-center glyphicon glyphicon-file" + showFile}></div>
 				<div className={"text-center usa-da-dropzone-fail glyphicon glyphicon-remove" + showFailure}></div>
 				<div className={"text-center usa-da-dropzone-success glyphicon glyphicon-ok" + showSuccess}></div>
-				<div className={isCaption}>{this.props.string}</div>
+				<div className={isCaption} dangerouslySetInnerHTML={{__html:this.props.string}}></div>
 				{progress}
 			</div>
 		);

@@ -93,8 +93,11 @@ export const uploadReducer = (state = initialUploadState, action) => {
 			return Object.assign({}, initialUploadState);
 
 		case 'SET_VALIDATION':
+			// receiving validation should also wipe out the files state
+			// we'll be storing the updated file changes in the file state at this stage
 			return Object.assign({}, state, {
-				validation: action.state
+				validation: action.state,
+				files: {}
 			});
 
 		default:
