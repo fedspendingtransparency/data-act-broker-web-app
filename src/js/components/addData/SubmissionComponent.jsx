@@ -29,19 +29,20 @@ export default class SubmissionComponent extends React.Component {
                 <FileComponent key={i}
                                 fileTitle={fileVars.fileTitle}
                                 fileTemplateName={fileVars.fileTemplateName}
-                                requestName={fileVars.requestName}
-                />);
+                                requestName={fileVars.requestName} />);
         }
 
         return (
             <div>
                 <div className="container">
-                    <div className="row text-center usa-da-submission-instructions">
-                        <div className="col-md-6 col-md-offset-3">
-                            Please choose the four files that you would like to upload to the DATA Act Broker. Once all four files are chosen, a button will appear at the bottom of the page allowing you to begin the upload and validation process.
+                    <div className="row usa-da-submission-instructions">
+                        <div className="col-md-12">
+                            <p>Please choose the four files that you would like to upload to the DATA Act Broker. Once all four files are chosen, a button will appear at the bottom of the page allowing you to begin the upload and validation process.</p>
                         </div>
                     </div>
-                    <div className="row center-block usa-da-submission-items">{submissionItems}</div>
+                    <div className="row center-block usa-da-submission-items">
+                        {submissionItems}
+                    </div>
                 </div>
             </div>
         );

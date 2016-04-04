@@ -126,31 +126,40 @@ export default class AddDataMeta extends React.Component {
 
     render() {
         return (
-            <div>
-                <div className="container center-block">
-                    <div className="row text-center usa-da-add-data-meta">
-                        <div className="col-md-offset-2 col-md-8 mt-40">
-                            <h4>Please provide the following information about report you will be creating.</h4>
-                            <div className="row meta-holder mt-25">
-                                <div className="col-sm-12 col-md-12 mb-25 typeahead-holder">
-                                    <ReactTypeahead.Typeahead options={this.getAgencies()} maxVisible={5} placeholder="Name of reporting agency" onOptionSelected={this.handleChange.bind(this)} />
-                                </div>
-                                <div className="col-sm-12 col-md-6">
-                                    <DatePicker selected={this.state.startDate} onChange={this.handleStartDateChange.bind(this)} placeholderText="Reporting period start date"/>
-                                </div>
-                                <div className="col-sm-12 col-md-6">
-                                    <DatePicker selected={this.state.endDate} onChange={this.handleEndDateChange.bind(this)} placeholderText="Reporting period end date" />
-                                </div>
-                                <div className="col-sm-12 text-right mt-25">
-                                    <SubmitButton onClick={this.submitMetadata.bind(this)} buttonText="Submit" buttonDisabled={this.state.buttonDisabled} />
+                <div>
+                    <div className="container center-block">
+                        <div className="row text-center usa-da-add-data-meta">
+                            <div className="col-md-offset-2 col-md-8 mt-40">
+                                <h4>Please provide the following information about report you will be creating.</h4>
+                                <div className="meta-holder">
+                                    <div className="row">
+                                        <div className="col-sm-12 col-md-12 typeahead-holder">
+                                            <ReactTypeahead.Typeahead options={this.getAgencies()} maxVisible={5} placeholder="Name of reporting agency" onOptionSelected={this.handleChange.bind(this)} />
+                                        </div>
+                                    </div>
+                                
+                                    <div className="row">
+                                        <div className="col-sm-12 col-md-6 mt-20">
+                                            <DatePicker selected={this.state.startDate} onChange={this.handleStartDateChange.bind(this)} placeholderText="Reporting period start date"/>
+                                        </div>
+
+                                        <div className="col-sm-12 col-md-6 mt-20">
+                                            <DatePicker selected={this.state.endDate} onChange={this.handleEndDateChange.bind(this)} placeholderText="Reporting period end date" />
+                                        </div>
+                                    </div>
+
+                                    <div className="row">
+                                        <div className="col-sm-12 text-right mt-20">
+                                            <SubmitButton onClick={this.submitMetadata.bind(this)} buttonText="Submit" buttonDisabled={this.state.buttonDisabled} />
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
-            </div>
-        );
+            );
+        }
     }
-}
 
 AddDataMeta.propTypes = propTypes;
