@@ -114,20 +114,20 @@ h3,
 h4,
 h5,
 h6,
-.display1,
-.display2 {
+.display-1,
+.display-2 {
     font-family: $font-sans;
     color: #555;
     margin-bottom: $base-line-height;
 }
 
-.display1 {
+.display-1 {
     font-weight: $font-bold;
     font-size: 5.9rem;
     line-height: 1.45;
 }
 
-.display2 {
+.display-2 {
     font-weight: $font-light;
     font-size: 4.4rem;
     line-height: 5.7rem;
