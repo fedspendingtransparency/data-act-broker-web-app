@@ -69,7 +69,7 @@ $color-cool-blue-light:      #4773aa; // lighten($color-cool-blue, 20%)
 $color-cool-blue-lighter:    #8ba6ca; // lighten($color-cool-blue, 60%)
 $color-cool-blue-lightest:   #dce4ef; // lighten($color-cool-blue, 90%)
 
-$color-focus:                #3e94cf;
+$color-focus:                $color-primary-alt-dark;
 $color-visited:              #4c2c92;
 
 
