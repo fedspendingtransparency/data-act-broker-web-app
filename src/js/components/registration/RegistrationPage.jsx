@@ -41,7 +41,7 @@ export default class RegistrationPage extends React.Component {
                 <Navbar />
                 <div className="usa-da-content">
                     <div className="container usa-da-registration">
-                        <div className="display2">Registration</div>
+                        <div className="display-2">Registration</div>
                         <div className="row text-center">
                             <div className="col-sm-12 col-md-offset-3 col-md-6">
                                 {currentComponent}

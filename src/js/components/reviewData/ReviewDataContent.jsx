@@ -6,6 +6,9 @@
 import React, { PropTypes } from 'react';
 import { kGlobalConstants } from '../../GlobalConstants.js';
 import SubmitButton from '../SharedComponents/SubmitButton.jsx';
+import ReviewDataContentRow from './ReviewDataContentRow.jsx';
+import ReviewDataButton from './ReviewDataButton.jsx';
+import moment from 'moment';
 import Request from 'superagent';
 
 const propTypes = {
@@ -22,8 +25,37 @@ export default class ReviewDataContent extends React.Component {
     }
 
     render() {
+        // TODO: Check if data exists and replace logic
         if (1 > 0) {
-            const errorHeaders = ['File', 'Upload Status', 'CSV Validations'];
+            const buttonContent = [['globe','Publish this data to USASpending.gov'],
+                                    ['share','Send this data to another Data Broker user'],
+                                    ['save','Download this data to your computer'],
+                                    ['trash','Delete this data from the Data Broker']];
+
+            let buttons = [];
+
+            for (let i = 0; i < buttonContent.length; i++){
+                buttons.push(<ReviewDataButton key={i} icon={buttonContent[i][0]} label={buttonContent[i][1]} />);
+            }
+
+            // agency_name
+            // reporting_period_start_date
+            // reporting_period_end_date
+            // loop through jobs[file_size]
+            // now()
+            // number_of_errors
+            // 0
+            // number_of_rows
+
+            const reportLabels = ['Report Name:', 'Period Start Date:', 'Period End Date:', 'Total File Size:', 'Created On:', 'Total Critical Errors:', 'Total Warnings:', 'Total Rows:'];
+            const data = ['AgencyName', '03/31/2016', '03/31/2016', 1234, moment(Date.now()).format('DD/MM/YYYY'), 54, 0, 446];
+
+            let reportRows = [];
+
+            for (let j = 0; j < reportLabels.length; j++){
+                reportRows.push(<ReviewDataContentRow key={j} label={reportLabels[j]} data={data[j]} />);
+            }
+
             return (
                 <div className="container">
                     <div className="row center-block">
@@ -33,52 +65,10 @@ export default class ReviewDataContent extends React.Component {
                     </div>
                     <div className="row center-block usa-da-review-data-content-holder">
                         <div className="col-md-5">
-                            <div className="usa-da-review-data-button-holder">
-                                <button className="usa-button-big"><i className="glyphicon glyphicon-globe"></i> Publish this data to USASpending.gov</button>
-                            </div>
-                            <div className="usa-da-review-data-button-holder">
-                                <button className="usa-button-big"><i className="glyphicon glyphicon-share"></i> Send this data to another Data Broker user</button>
-                            </div>
-                            <div className="usa-da-review-data-button-holder">
-                                <button className="usa-button-big"><i className="glyphicon glyphicon-save"></i> Download this data to your computer</button>
-                            </div>
-                            <div className="usa-da-review-data-button-holder">
-                                <button className="usa-button-big"><i className="glyphicon glyphicon-trash"></i> Delete this data from the Data Broker</button>
-                            </div>
+                            {buttons}
                         </div>
                         <div className="col-md-offset-1 col-md-6 usa-da-review-data-alternating-rows">
-                            <div className="row">
-                                <div className="col-md-5">Report Name:</div>
-                                <div className="col-md-7">AgencyName04012016_061516</div>
-                            </div>
-                            <div className="row">
-                                <div className="col-md-5">Period Start Date:</div>
-                                <div className="col-md-7">01/15/2016</div>
-                            </div>
-                            <div className="row">
-                                <div className="col-md-5">Period End Date:</div>
-                                <div className="col-md-7">04/01/2016</div>
-                            </div>
-                            <div className="row">
-                                <div className="col-md-5">Total File Size:</div>
-                                <div className="col-md-7">72.4 MB</div>
-                            </div>
-                            <div className="row">
-                                <div className="col-md-5">Created On:</div>
-                                <div className="col-md-7">04/15/2016</div>
-                            </div>
-                            <div className="row">
-                                <div className="col-md-5">Total Critical Errors:</div>
-                                <div className="col-md-7">0</div>
-                            </div>
-                            <div className="row">
-                                <div className="col-md-5">Total Warnings:</div>
-                                <div className="col-md-7">234</div>
-                            </div>
-                            <div className="row">
-                                <div className="col-md-5">Total Rows:</div>
-                                <div className="col-md-7">22,559</div>
-                            </div>
+                            {reportRows}
                         </div>
                     </div>
                 </div>
