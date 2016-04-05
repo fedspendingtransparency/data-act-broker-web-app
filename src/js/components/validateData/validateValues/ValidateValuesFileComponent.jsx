@@ -14,6 +14,7 @@ import SubmitButton from '../../SharedComponents/SubmitButton.jsx';
 import MetaData from '../../addData/AddDataMetaDisplay.jsx';
 import FileComponent from '../../addData/FileComponent.jsx';
 import ValidateDataUploadButton from './../ValidateDataUploadButton.jsx';
+import ValidateValuesErrorReport from './ValidateValuesErrorReport.jsx';
 
 const propTypes = {
 
@@ -125,7 +126,8 @@ export default class ValidateDataFileComponent extends React.Component {
                         </div>
                     </div>
                 </div>
-                
+                {this.state.showWarning ? <ValidateValuesErrorReport link={status.report} data={status} name="Warning" /> : null}
+                {this.state.showError ? <ValidateValuesErrorReport link={status.report} data={status} name="Critical Error" /> : null}
             </div>
         );
     }
