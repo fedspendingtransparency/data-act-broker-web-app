@@ -242,37 +242,40 @@ div.usa-da-validate-items {
         margin: 0;
     }
 
-    table {
-        margin-top: 15px;
-        
-
-        th {
-            text-align: left;
-        }
-
-        tbody {
-            max-height: 250px;
-            overflow-y: auto;
-            width: 100%;
-            display: block;
-            border-bottom: 1px solid $color-gray-light;
-        }
-
-        tr {
-            width: 100%;
-            display: table;
-        }
-
-        td {
-            text-align: left;
-            border-bottom: none;
-        }
+    td, th {
+        text-align: left;
     }
+
 
     button {
         font-size: 1.1rem;
         color: $color-white;
         padding: 1em;
+    }
+}
+
+.usa-da-scrollable-table {
+    margin-top: 15px;
+
+    table {
+        width: 100%;
+        display: table;
+        table-layout: fixed;
+        margin: 0;        
+    }
+
+    .usa-da-scrollable-table-content {
+        max-height: 250px;
+        display: block;
+        overflow-y: scroll;
+        border-bottom: 1px solid $color-gray-light;
+
+
+        tr:last-child {
+            td {
+                border-bottom: none;
+            }
+        }
     }
 }
 

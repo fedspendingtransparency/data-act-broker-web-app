@@ -12,10 +12,10 @@ const propTypes = {
 export default class TableSorter extends React.Component {
 
 	sortAsc() {
-		this.props.onSort('asc');
+		this.props.onSort('asc', this.props.col);
 	}
 	sortDesc() {
-		this.props.onSort('desc');
+		this.props.onSort('desc', this.props.col);
 	}
 
 	render() {
