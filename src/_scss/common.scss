@@ -16,27 +16,6 @@ body{
 @include flex(1);
 }
 
-
-h1,
-h2,
-h3,
-h4,
-h5,
-h6,
-hgroup,
-ul,
-ol,
-dl,
-blockquote,
-p,
-address,
-table,
-fieldset,
-figure,
-pre {
-  margin-bottom: $base-line-height;
-}
-
 /***** MIXINS *****/
 @mixin contentBlockWrapper() {
     background-color: $color-white;
@@ -111,69 +90,212 @@ $header-height: 8rem;
 	position: absolute;
 }
 
-.usa-da-icon-lock:before {
-	content: "a";
-}
 .usa-da-icon-unlock:before {
-	content: "b";
-}
-.usa-da-icon-unlock-alt:before {
-	content: "c";
+  content: "\62";
 }
 .usa-da-icon-user:before {
-	content: "d";
+  content: "\64";
+}
+.usa-da-icon-cloud-upload:before {
+  content: "\65";
+}
+.usa-da-icon-cloud-download:before {
+  content: "\66";
+}
+.usa-da-icon-lock:before {
+  content: "\61";
 }
 
-/* Elements */
-.display1, .display2, h1, h2, h3, h4, h5 {
-	font-family: $font-sans;
-	font-weight: 700;
-	line-height: 1.3em;
+
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+.display-1,
+.display-2 {
+    font-family: $font-sans;
+    color: #555;
+    margin-bottom: $base-line-height;
 }
 
-.display1 {
-	font-size: 52px;
-	margin-bottom: 20px;
+.display-1 {
+    font-weight: $font-bold;
+    font-size: 5.9rem;
+    line-height: 1.45;
 }
 
-.display2 {
-	font-size: 44px;
-	font-weight: 300;
-	margin-bottom: 20px;
+.display-2 {
+    font-weight: $font-light;
+    font-size: 4.4rem;
+    line-height: 5.7rem;
 }
 
 h1 {
-	font-size: 44px;
-	margin-top: 60px;
-	margin-bottom: 24px;
+    font-weight: $font-light;
+    font-size: 5.9rem;
+    margin-bottom: $base-line-height * 1.625;
 }
 
 h2 {
-	font-size: 34px;
+    font-weight: $font-light;
+    font-size: 4.7rem;
+    margin-bottom: $base-line-height;
+    line-height: 1.11;
 }
 
 h3 {
-	font-size: 24px;
+    font-weight: $font-light;
+    font-size: 3.8rem;
+    line-height: 1.36;
 }
 
 h4 {
-	font-size: 19px;
+    font-weight: $font-light;
+    font-size: 3.0rem;
+    line-height: 1;
 }
 
 h5 {
-	font-size: 16px;
+    font-weight: $font-bold;
+    font-size: 2.4rem;
+    line-height: 1.3;
 }
 
 h6 {
-	font-size: 13px;
-	font-weight: 400;
+    font-weight: $font-bold;
+    font-size: 1.9rem;
+    line-height: 1.4;
+    margin-bottom: 0;
+}
+
+p.lead {
+    font-weight: $font-normal;
+    font-size: 2.2rem;
+    line-height: 3.3rem;
+}
+
+p.large {
+    font-weight: $font-normal;
+    font-size: 1.8rem;
+    line-height: $base-line-height;
+}
+
+@mixin para {
+    font-weight: $font-normal;
+    font-size: 1.6rem;
+    line-height: 2.6rem;
+    color: #525252;
+    max-width: 70rem;
 }
 
 p {
-	a, a:hover, a:visited, a:focus {
-		color: $color-focus;
-	}
+    @include para;
 }
+
+p.italic {
+    @include para;
+    font-style: italic;
+}
+
+p strong{
+    font-weight: 600;
+}
+
+ul li{
+	font-size: $base-font-size;
+}
+
+p + h2, p + h3, p + h4, p + h5, p + h6,{
+   margin-top: $base-line-height * 3;
+}
+
+ul + h2, ul + h3, ul + h4, ul + h5, ul + h6,{
+   margin-top: $base-line-height * 3;
+}
+
+h2 + .row {
+    margin-bottom: $base-line-height * 3;
+}
+
+table + p {
+    margin-top: 3.0rem;
+}
+
+ul.no-bullet{
+    list-style-type: none;
+    padding: 0;
+    & li{
+        margin: 0!important;
+    }
+}
+
+ul,
+ol,
+dl,
+blockquote,
+p,
+address,
+table,
+fieldset,
+figure,
+pre {
+  margin-bottom: $base-line-height;
+  color: #525252;
+}
+
+/* Elements */
+// .display1, .display2, h1, h2, h3, h4, h5 {
+// 	font-family: $font-sans;
+// 	font-weight: 700;
+// 	line-height: 1.3em;
+// }
+
+// .display1 {
+// 	font-size: 52px;
+// 	margin-bottom: 20px;
+// }
+
+// .display2 {
+// 	font-size: 44px;
+// 	font-weight: 300;
+// 	margin-bottom: 20px;
+// }
+
+// h1 {
+// 	font-size: 44px;
+// 	margin-top: 60px;
+// 	margin-bottom: 24px;
+// }
+
+// h2 {
+// 	font-size: 34px;
+// }
+
+// h3 {
+// 	font-size: 24px;
+// }
+
+// h4 {
+// 	font-size: 19px;
+// }
+
+// h5 {
+// 	font-size: 16px;
+// }
+
+// h6 {
+// 	font-size: 13px;
+// 	font-weight: 400;
+// }
+
+// p {
+// 	a, a:hover, a:visited, a:focus {
+// 		color: $color-focus;
+// 	}
+// }
 
 @mixin list-row($height, $line-height) {
 	height: $height;
@@ -189,6 +311,12 @@ p {
     &:before {
         display: none;
     }
+}
+
+.usa-da-content-dark {
+	& .display1, .display2, h1, h2, h3, h4, h5, h6, ul{
+		color: $color-white;
+	}
 }
 
 
@@ -785,6 +913,16 @@ button,
 [type="submit"]:disabled, .usa-button-disabled {
 opacity: 0.4;
 }
+
+
+
+[class^="icon-dataact-1"], [class*="icon-dataact-1"] {
+    height: 32px;
+    width: 32px;
+    display: inline-block;
+    fill: currentColor;
+}
+
 
 
 

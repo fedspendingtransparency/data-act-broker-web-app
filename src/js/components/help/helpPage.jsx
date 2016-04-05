@@ -13,11 +13,17 @@ export default class LandingPage extends React.Component {
         return (
             <div className="site_wrap">
                 <Navbar activeTab="help"/>
+                <div className="usa-da-content-dark mb-60">
+                    <div className="container">
+                        <div className="row">
+                            <div className="col-md-12 mt-50 mb-30">
+                                <div className="display2">Help | DATA Act Broker - Alpha Release</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
                 <div className="container">
                     <div className="row usa-da-help-page">
-                        <div className="col-md-12">
-                            <div className="display2">DATA Act Broker - Alpha Release</div>
-                        </div>
                         <div className="col-md-4">
                             <HelpSidebar />
                         </div>

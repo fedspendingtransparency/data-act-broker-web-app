@@ -28,7 +28,7 @@ export default class DropZone extends React.Component {
             const submissionItem = this.props.submission.files[this.props.requestName];
 
             if (submissionItem.state == 'ready' && submissionItem.file) {
-                dropzoneString = '<b>' + submissionItem.file.name + '</b>';
+                dropzoneString = '<b>' + submissionItem.file.name + '</b> file selected';
                 displayMode = 'file';
             }
             else if (submissionItem.state == 'success') {
