@@ -170,6 +170,7 @@ const uploadMultipleFiles = (submission, serverData) => {
 }
 
 const finalizeUpload = (fileID) => {
+    
 	Request.post(kGlobalConstants.API + 'finalize_job/')
                .withCredentials()
                .send({ 'upload_id': fileID })

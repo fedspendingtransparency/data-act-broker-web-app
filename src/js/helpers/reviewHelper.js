@@ -15,9 +15,8 @@ import { fileTypes } from '../containers/addData/fileTypes.js';
 const fetchStatus = (submissionId) => {
 	const deferred = Q.defer();
 
-	// Request.post(kGlobalConstants.API + 'check_status/')
-	//         .withCredentials()
-	Request.post('http://localhost:5000/check_status/')
+	Request.post(kGlobalConstants.API + 'check_status/')
+	        .withCredentials()
 	        .send({'submission_id': submissionId})
 	        .end((errFile, res) => {
 
@@ -36,9 +35,8 @@ const fetchStatus = (submissionId) => {
 export const fetchErrorReports = (submissionId) => {
 	const deferred = Q.defer();
 
-	// Request.post(kGlobalConstants.API + 'submission_error_reports/')
-	// 		.withCredentials()
-	Request.post('http://localhost:5000/submission_error_reports/')
+	Request.post(kGlobalConstants.API + 'submission_error_reports/')
+			.withCredentials()
 			.send({'submission_id': submissionId})
 			.end((errFile, res) => {
 
