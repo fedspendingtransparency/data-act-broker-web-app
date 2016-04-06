@@ -58,6 +58,12 @@ const getFileStates = (status) => {
 	status.jobs.forEach((item) => {
 		output[item.file_type] = item;
 		output[item.file_type].report = null;
+
+		// force an error_data array if no field is passed back in the JSON
+		if (!item.hasOwnProperty('error_data')) {
+			output[item.file_type].error_data = [];
+		}
+
 	});
 
 	return output;
@@ -73,7 +79,6 @@ const getFileReports = (status, reports) => {
 		// alphabetize any missing and duplicated headers
 		item.missing_headers = _.sortBy(item.missing_headers);
 		item.duplicated_headers = _.sortBy(item.duplicated_headers);
-
 	}
 
 	return status;
