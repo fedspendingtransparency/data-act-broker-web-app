@@ -27,7 +27,6 @@ export default class ValidateDataContent extends React.Component {
     render() {
 
         if (Object.keys(this.props.submission.validation).length > 0) {
-            
             let allValid = true;
             let errors = [];
             let items = fileTypes.map((type, index) => {
@@ -38,6 +37,7 @@ export default class ValidateDataContent extends React.Component {
                         allValid = false;
                         errors.push(type.requestName);
                     }
+
                     return <ValidateDataFileContainer key={index} type={type} data={this.props.submission.validation} />;
                 }
             });
