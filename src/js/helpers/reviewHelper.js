@@ -12,7 +12,7 @@ import * as uploadActions from '../redux/actions/uploadActions.js';
 import { fileTypes } from '../containers/addData/fileTypes.js';
 
 
-const fetchStatus = (submissionId) => {
+export const fetchStatus = (submissionId) => {
 	const deferred = Q.defer();
 
 	Request.post(kGlobalConstants.API + 'check_status/')

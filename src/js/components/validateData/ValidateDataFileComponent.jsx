@@ -11,6 +11,7 @@ import Navbar from '../SharedComponents/navigation/NavigationComponent.jsx';
 import AddDataHeader from './../addData/AddDataHeader.jsx';
 import Progress from '../SharedComponents/ProgressComponent.jsx';
 import SubmitButton from '../SharedComponents/SubmitButton.jsx';
+import FileProgress from '../SharedComponents/FileProgress.jsx';
 import MetaData from '../addData/AddDataMetaDisplay.jsx';
 import FileComponent from '../addData/FileComponent.jsx';
 import ValidateDataErrorReport from './ValidateDataErrorReport.jsx';
@@ -56,16 +57,21 @@ export default class ValidateDataFileComponent extends React.Component {
         let title = 'Validating...';
         let numRows = '--';
         let fileSize = '--';
+        let fileName = status.filename;
         let hasError = false;
         let errorData = []
         let successfulFade = '';
         if (status.file_status != '' && status.file_status != 'waiting') {
 
-            numRows = status.number_of_rows;
+            if (status.number_of_rows) {
+                numRows = status.number_of_rows;
+            }
 
-            fileSize = (status.file_size / 1000000).toFixed(2) + ' MB';
-            if (status.file_size < 100000) {
-                fileSize = (status.file_size / 1000).toFixed(2) + ' KB';
+            if (status.file_size) {
+                fileSize = (status.file_size / 1000000).toFixed(2) + ' MB';
+                if (status.file_size < 100000) {
+                    fileSize = (status.file_size / 1000).toFixed(2) + ' KB';
+                }
             }
 
             if (status.missing_headers.length > 0 && status.duplicated_headers.length > 0) {
@@ -128,8 +134,17 @@ export default class ValidateDataFileComponent extends React.Component {
         }
 
         // override this data if a new file is dropped in
+        let uploadProgress = '';
         if (this.props.submission.files.hasOwnProperty(this.props.type.requestName)) {
             validationType = 'file';
+
+            // also display the new file name
+            const newFile = this.props.submission.files[this.props.type.requestName];
+            fileName = newFile.file.name;
+
+            if (newFile.state == 'uploading') {
+                uploadProgress = <FileProgress fileStatus={newFile.progress} />;
+            }
         }
 
 
@@ -162,7 +177,8 @@ export default class ValidateDataFileComponent extends React.Component {
                         <div className="usa-da-validate-item-file-section-result">
                             <span className={"glyphicon glyphicon-" + validationType}></span>
                         </div>
-                        <div className="usa-da-validate-item-file-name">{status.filename}</div>
+                        {uploadProgress}
+                        <div className="usa-da-validate-item-file-name">{fileName}</div>
                         <div className={"usa-da-validate-item-file-section-correct-button" + disabledCorrect}>
                             <ValidateDataUploadButton onDrop={this.props.onFileChange} />
                         </div>

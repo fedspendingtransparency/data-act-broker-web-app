@@ -31,7 +31,6 @@ class ValidateDataContainer extends React.Component {
 
 
 	componentDidMount() {
-		
 		this.validateSubmission();
 		
 	}
@@ -69,20 +68,21 @@ class ValidateDataContainer extends React.Component {
 	}
 
 	checkForErrors() {
-
-		let hasErrors = false;
+		
+		let hasHeaderErrors = false;
 		for (let key in this.props.submission.validation) {
 			const item = this.props.submission.validation[key];
 
 			if (item.file_status != 'complete') {
-				hasErrors = true;
+				hasHeaderErrors = true;
 				break;
 			}
 
 		}
+		
 
 		this.setState({
-			headerErrors: hasErrors
+			headerErrors: hasHeaderErrors
 		});
 
 	}
@@ -93,7 +93,7 @@ class ValidateDataContainer extends React.Component {
 				this.props.setValidation(data);
 				
 				if (!this.checkForCompletion(data)) {
-					statusTimer = setTimeout(() => {
+					setTimeout(() => {
 						this.validateSubmission();
 					}, 5*1000);
 				}
@@ -101,7 +101,7 @@ class ValidateDataContainer extends React.Component {
 				this.checkForErrors();
 			})
 			.catch((err) => {
-				statusTimer = setTimeout(() => {
+				setTimeout(() => {
 					this.validateSubmission();
 				}, 5*1000);
 			});
@@ -109,10 +109,10 @@ class ValidateDataContainer extends React.Component {
 
 	render() {
 
-		let validationContent = <ValidateDataContent {...this.props} submissionID={this.props.id} />;
+		let validationContent = <ValidateDataContent {...this.props} submissionID={this.props.submissionID} />;
 		if (!this.state.headerErrors) {
 			// no header errors, move onto content errors
-			validationContent = <ValidateValuesContent {...this.props} submissionID={this.props.id} />;
+			validationContent = <ValidateValuesContent {...this.props} submissionID={this.props.submissionID} />;
 		}
 
 		return (

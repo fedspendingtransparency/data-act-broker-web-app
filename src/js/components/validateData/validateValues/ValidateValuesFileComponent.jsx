@@ -64,6 +64,7 @@ export default class ValidateDataFileComponent extends React.Component {
         let warningCount = '--';
         let noWarnings = ' none';
         let errorCount = status.error_data.length;
+
         let noErrors = ' none';
 
         showWarning = ' hide';
@@ -72,6 +73,25 @@ export default class ValidateDataFileComponent extends React.Component {
         }
         else {
             noErrors = '';
+        }
+
+        let optionalUpload = false;
+        if (errorCount == 0) {
+            optionalUpload = true;
+        }
+
+        // override this data if a new file is dropped in
+        let uploadProgress = '';
+        let fileName = status.filename;
+        if (this.props.submission.files.hasOwnProperty(this.props.type.requestName)) {
+
+            // also display the new file name
+            const newFile = this.props.submission.files[this.props.type.requestName];
+            fileName = newFile.file.name;
+
+            if (newFile.state == 'uploading') {
+                uploadProgress = <FileProgress fileStatus={newFile.progress} />;
+            }
         }
 
         return (
@@ -120,9 +140,10 @@ export default class ValidateDataFileComponent extends React.Component {
                         <div className="usa-da-validate-item-file-section-result">
                             <span className="glyphicon"></span>
                         </div>
-                        <div className="usa-da-validate-item-file-name">{status.filename}</div>
+                        <div className="usa-da-validate-item-file-name">{fileName}</div>
+                        {uploadProgress}
                         <div className="usa-da-validate-item-file-section-correct-button">
-                            <ValidateDataUploadButton onDrop={this.props.onFileChange} />
+                            <ValidateDataUploadButton optional={optionalUpload} onDrop={this.props.onFileChange} />
                         </div>
                     </div>
                 </div>

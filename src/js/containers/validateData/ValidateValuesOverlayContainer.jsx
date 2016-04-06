@@ -7,6 +7,7 @@ import React from 'react';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { hashHistory } from 'react-router';
+import _ from 'lodash';
 
 import * as uploadActions from '../../redux/actions/uploadActions.js';
 
@@ -32,8 +33,20 @@ class ValidateValuesOverlayContainer extends React.Component {
 	}
 
 	render() {
+
+		// check if the critical error files are selected for re-upload
+		const fileKeys = Object.keys(this.props.submission.files);
+		const requiredKeys = [];
+		for (let key in this.props.submission.validation) {
+			const value = this.props.submission.validation[key];
+			if (value.error_data.length > 0) {
+				requiredKeys.push(key);
+			}
+		}
+		const allowUpload = _.isEqual(_.intersection(fileKeys, requiredKeys), requiredKeys);
+
 		return (
-			<ValidateValuesOverlay {...this.props} uploadFiles={this.uploadFiles.bind(this)} />
+			<ValidateValuesOverlay {...this.props} uploadFiles={this.uploadFiles.bind(this)} allowUpload={allowUpload} />
 		);
 	}
 }

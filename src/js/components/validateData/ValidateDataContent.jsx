@@ -26,47 +26,40 @@ export default class ValidateDataContent extends React.Component {
 
     render() {
 
-        if (Object.keys(this.props.submission.validation).length > 0) {
-            let allValid = true;
-            let errors = [];
-            let items = fileTypes.map((type, index) => {
-                const validationStatus = this.props.submission.validation[type.requestName];
+        
+        let allValid = true;
+        let errors = [];
+        let items = fileTypes.map((type, index) => {
+            const validationStatus = this.props.submission.validation[type.requestName];
 
-                if (validationStatus) {
-                    if (validationStatus.job_status == 'invalid' && validationStatus.file_status != 'complete') {
-                        allValid = false;
-                        errors.push(type.requestName);
-                    }
-
-                    return <ValidateDataFileContainer key={index} type={type} data={this.props.submission.validation} />;
+            if (validationStatus) {
+                if (validationStatus.job_status == 'invalid' && validationStatus.file_status != 'complete') {
+                    allValid = false;
+                    errors.push(type.requestName);
                 }
-            });
 
-            let overlay = ''
-            let displayOverlay = '';
-            if (!allValid) {
-                // we'll need extra padding at the bottom of the page if the overlay is present
-                displayOverlay = ' with-overlay';
-                overlay = <ValidateDataOverlayContainer errors={errors} />;
+                return <ValidateDataFileContainer key={index} type={type} data={this.props.submission.validation} />;
             }
-            
-            return (
-                <div className="container">
-                    <div className={"row center-block usa-da-submission-items" + displayOverlay}>
-                        <div className="usa-da-validate-items">
-                            {items}
-                        </div>
-                    </div>
-                    {overlay}
-                </div>
-            );
-        } else {
-            return (
-                <div>
-                    <h4>Gathering data...</h4>
-                </div>
-            );
+        });
+
+        let overlay = ''
+        let displayOverlay = '';
+        if (!allValid) {
+            // we'll need extra padding at the bottom of the page if the overlay is present
+            displayOverlay = ' with-overlay';
+            overlay = <ValidateDataOverlayContainer errors={errors} />;
         }
+
+        return (
+            <div className="container">
+                <div className={"row center-block usa-da-submission-items" + displayOverlay}>
+                    <div className="usa-da-validate-items">
+                        {items}
+                    </div>
+                </div>
+                {overlay}
+            </div>
+        );
     }
 }
 
