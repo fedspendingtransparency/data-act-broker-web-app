@@ -30,11 +30,12 @@
     }
 
 h1.login-title {
-    font-size: 7.0rem;
-    line-height: 7.0rem;
+    font-size: 6.0rem;
+    line-height: 6.0rem;
     margin-top: 35px;
-    margin-bottom: 15px;
+    margin-bottom: 10px;
     color: $color-white;
+    font-weight: $font-light;
     &:after{
         @include alphaMark;
     }
@@ -126,7 +127,7 @@ h1.login-title {
             margin: 0;
             position: absolute;
             left: 0;
-            top: 1px;
+            top: 3px;
             height: 42px;
             width: 48px;
             overflow: hidden;
