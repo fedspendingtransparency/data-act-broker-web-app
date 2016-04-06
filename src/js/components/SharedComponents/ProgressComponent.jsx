@@ -14,7 +14,7 @@ const propTypes = {
 const defaultProps = {
     currentStep: 1,
     totalSteps: 3,
-    stepNames: ['Upload .csv Files', 'Validate .csv Data', 'Review and Publish']
+    stepNames: ['Upload .csv Files', 'Validate .csv Data', 'Review & Publish']
 };
 
 export default class Progress extends React.Component {

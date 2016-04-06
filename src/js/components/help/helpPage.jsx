@@ -17,7 +17,7 @@ export default class LandingPage extends React.Component {
                     <div className="container">
                         <div className="row">
                             <div className="col-md-12 mt-50 mb-30">
-                                <div className="display2">Help | DATA Act Broker - Alpha Release</div>
+                                <div className="display-2">Help | DATA Act Broker - Alpha Release</div>
                             </div>
                         </div>
                     </div>
