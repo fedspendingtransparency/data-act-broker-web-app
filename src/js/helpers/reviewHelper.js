@@ -7,7 +7,6 @@ import _ from 'lodash';
 import StoreSingleton from '../redux/storeSingleton.js';
 
 import { kGlobalConstants } from '../GlobalConstants.js';
-import * as reviewActions from '../redux/actions/reviewActions.js';
 
 export const fetchStatus = (submissionID) => {
 	const deferred = Q.defer();
@@ -21,7 +20,6 @@ export const fetchStatus = (submissionID) => {
 			} else {
 				deferred.resolve(res.body);
 			}
-
 		});
 
 	return deferred.promise;

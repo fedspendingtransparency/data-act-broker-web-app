@@ -11,19 +11,11 @@ import AddDataHeader from './../addData/AddDataHeader.jsx';
 import Progress from '../SharedComponents/ProgressComponent.jsx';
 import SubmitButton from '../SharedComponents/SubmitButton.jsx';
 
-import ReviewDataContainer from '../../containers/reviewData/ReviewDataContainer.jsx';
+import ReviewDataContent from './ReviewDataContent.jsx';
 
 import Request from 'superagent';
 
-const propTypes = {
-
-};
-
-const defaultProps = {
-
-};
-
-class ReviewDataContainerInvalid extends React.Component {
+class ReviewDataContentInvalid extends React.Component {
     render() {
         return (
             <div className="container">
@@ -47,9 +39,9 @@ export default class ReviewDataPage extends React.Component {
         const submissionID = this.props.params.submissionID;
 
         if (!this.props.params.submissionID) {
-            currentComponent = <ReviewDataContainerInvalid />;
+            currentComponent = <ReviewDataContentInvalid />;
         } else {
-            currentComponent = <ReviewDataContainer submissionID={submissionID} />;
+            currentComponent = <ReviewDataContent submissionID={submissionID} />;
         }
 
         return (

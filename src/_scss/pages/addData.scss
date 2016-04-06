@@ -356,8 +356,11 @@ div.usa-da-dropzone {
     .usa-da-review-data-button-holder {
         margin-bottom: 25px;
 
+        * {
+            font-size: 17px;
+        }
+
         button {
-            color: $color-white;
             width: 100%;
             text-align: left;
         }
@@ -365,6 +368,7 @@ div.usa-da-dropzone {
 
     .usa-da-review-data-alternating-rows {
         padding-right: 28px;
+        margin-bottom: 23px;
 
         > div {
             padding: 10px 0;

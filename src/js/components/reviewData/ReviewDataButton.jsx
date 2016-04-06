@@ -16,7 +16,7 @@ export default class ReviewDataButton extends React.Component {
 
         return (
             <div className="usa-da-review-data-button-holder">
-                <button className="usa-button-big"><i className={iconName}></i>&nbsp;{this.props.label}</button>
+                <button className="usa-button-big usa-button-disabled"><i className={iconName}></i>&nbsp;{this.props.label}</button>
             </div>
         );
     }
