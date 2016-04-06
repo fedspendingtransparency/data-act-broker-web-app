@@ -178,6 +178,16 @@ div.usa-da-validate-items {
                     background-color: $color-secondary;
                     color: $color-white;
                 }
+
+                &.optional-upload {
+                    border: 1px solid $color-gray;
+                    color: $color-gray;
+
+                    &:hover {
+                        background-color: $color-gray-dark;
+                        color: $color-white;
+                    }
+                }
             }
 
             button {
@@ -309,16 +319,6 @@ div.usa-da-dropzone {
             color: $color-gray;
         }
 
-    &:before{
-        content: "\65";
-        position: absolute;
-        font-family: 'dataact';
-        top: 1.0rem;
-        left: 49%;
-        color: #d5d6d8;
-        font-size: 4.0rem;
-    }
-
   & .usa-da-icon-cloud-upload:before {
     position: absolute;
     top: 2rem;
@@ -327,11 +327,21 @@ div.usa-da-dropzone {
     padding-top:0;
     padding-left: 0;
     color: $color-gray;
+
+    content: "\65";
+    position: absolute;
+    font-family: 'dataact';
+    top: 1.0rem;
+    left: 49%;
+    color: #d5d6d8;
+    font-size: 4.0rem;
 }
 
     .glyphicon {
         font-size: 2.0em;
         padding-bottom: 10px;
+        position: absolute;
+        top: 1.0rem;
     }
 
     .is-caption {
