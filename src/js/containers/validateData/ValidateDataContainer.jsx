@@ -18,12 +18,14 @@ import { kGlobalConstants } from '../../GlobalConstants.js';
 import * as UploadHelper from '../../helpers/uploadHelper.js';
 import * as ReviewHelper from '../../helpers/reviewHelper.js';
 
+let statusTimer;
+
 class ValidateDataContainer extends React.Component {
 	constructor(props) {
 		super(props);
 
 		this.state = {
-			headerErrors: false
+			headerErrors: true
 		};
 	}
 
@@ -32,6 +34,24 @@ class ValidateDataContainer extends React.Component {
 		
 		this.validateSubmission();
 		
+	}
+
+	componentWillUnmount() {
+		// remove any timers
+		if (statusTimer) {
+			clearTimeout(statusTimer);
+			statusTimer = null;
+		}
+	}
+
+	componentDidUpdate(prevProps, prevState) {
+		// check if the submission state changed, indicating a re-upload
+		if (prevProps.submission.state != this.props.submission.state) {
+			if (this.props.submission.state == "review") {
+				// uploads are done
+				this.validateSubmission();
+			}
+		}
 	}
 
 	checkForCompletion(data) {
@@ -71,18 +91,19 @@ class ValidateDataContainer extends React.Component {
 		ReviewHelper.validateSubmission(this.props.submissionID)
 			.then((data) => {
 				this.props.setValidation(data);
-
+				
 				if (!this.checkForCompletion(data)) {
-					setTimeout(() => {
+					statusTimer = setTimeout(() => {
 						this.validateSubmission();
 					}, 5*1000);
 				}
-				else {
-					this.checkForErrors();
-				}
+
+				this.checkForErrors();
 			})
 			.catch((err) => {
-
+				statusTimer = setTimeout(() => {
+					this.validateSubmission();
+				}, 5*1000);
 			});
 	}
 
