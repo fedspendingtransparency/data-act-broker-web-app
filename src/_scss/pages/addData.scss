@@ -365,7 +365,7 @@ div.usa-da-dropzone {
 .usa-da-add-data-meta {
     .meta-holder {
         padding: 30px 20px 20px;
-        @include contentBlockWrapper
+        @include contentBlockWrapper;
 
         .typeahead-holder {
             div {
@@ -424,6 +424,38 @@ div.usa-da-dropzone {
 
         input {
             max-width: none;
+        }
+    }
+}
+
+.usa-da-review-data-content-holder {
+    padding: 25px 10px 0;
+    margin-bottom: 20px;
+    background-color: $color-white;
+
+    .usa-da-review-data-button-holder {
+        margin-bottom: 25px;
+
+        * {
+            font-size: 17px;
+        }
+
+        button {
+            width: 100%;
+            text-align: left;
+        }
+    }
+
+    .usa-da-review-data-alternating-rows {
+        padding-right: 28px;
+        margin-bottom: 23px;
+
+        > div {
+            padding: 10px 0;
+        }
+
+        div.row:nth-child(even) {
+            background-color: #f5f5f5;
         }
     }
 }
