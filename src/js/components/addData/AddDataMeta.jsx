@@ -134,7 +134,7 @@ export default class AddDataMeta extends React.Component {
                                 <div className="meta-holder">
                                     <div className="row">
                                         <div className="col-sm-12 col-md-12 typeahead-holder">
-                                            <ReactTypeahead.Typeahead options={this.getAgencies()} maxVisible={5} placeholder="Name of reporting agency" onOptionSelected={this.handleChange.bind(this)} />
+                                            <ReactTypeahead.Typeahead options={this.getAgencies()} maxVisible={5} placeholder="Enter the name of the reporting agency" onOptionSelected={this.handleChange.bind(this)} />
                                         </div>
                                     </div>
                                 

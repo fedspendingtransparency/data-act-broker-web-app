@@ -430,8 +430,9 @@ div.usa-da-dropzone {
 
 .usa-da-review-data-content-holder {
     padding: 25px 10px 0;
-    margin-bottom: 20px;
+    margin-bottom: 100px;
     background-color: $color-white;
+    @include contentBlockWrapper;
 
     .usa-da-review-data-button-holder {
         margin-bottom: 25px;
@@ -449,6 +450,7 @@ div.usa-da-dropzone {
     .usa-da-review-data-alternating-rows {
         padding-right: 28px;
         margin-bottom: 23px;
+        color: #555;
 
         > div {
             padding: 10px 0;
