@@ -24,15 +24,20 @@ export default class ValidateValuesOverlay extends React.Component {
 
 	render() {
 
-		let buttonDisabled = ' disabled';
-		let nextButton = ' hide';
+		let uploadButtonClass = '-disabled';
+		let uploadButtonDisabled = true;
+
+		let nextButtonClass = ' hide';
+		let nextButtonDisabled = true;
 		if (this.props.allowUpload) {
-			buttonDisabled = '';
+			uploadButtonDisabled = false;
+			uploadButtonClass = '';
 		}
 
 		let buttonText = 'Upload Corrected CSV Files';
 		if (this.props.submission.state == 'uploading') {
-			buttonDisabled = ' disabled';
+			uploadButtonDisabled = true;
+			uploadButtonClass = '-disabled';
 			buttonText = 'Uploading files...';
 		}
 
@@ -41,19 +46,25 @@ export default class ValidateValuesOverlay extends React.Component {
 		if (this.props.errors.length == 0) {
 			message = 'No Critical Errors were found in the .CSV files. Click Review to review and publish these files.';
 			buttonDisabled = ' hide';
-			nextButton = '';
+			nextButtonClass = '';
+			nextButtonDisabled = false;
 		}
 
 
 		return (
 			<div className="usa-da-validation-overlay">
 				<div className="row">
-					<div className="col-md-6 col-md-offset-2">
-						{message}
+					<div className="col-sm-6 col-sm-offset-2">
+						<div className="row">
+							<div className="col-xs-2 col-md-1 usa-da-icon-exclamation-circle usa-da-alert-icon" />
+							<div className="col-xs-10 col-md-11">
+								{message}
+							</div>
+						</div>
 					</div>
-					<div className="col-md-4 center-block">
-						<button className={"btn btn-primary" + buttonDisabled} onClick={this.props.uploadFiles}>{buttonText}</button>
-						<button className={"btn btn-primary" + nextButton} onClick={this.pressedNext.bind(this)}>Review</button>
+					<div className="col-sm-4 center-block">
+						<button className={"usa-button" + uploadButtonClass} disabled={uploadButtonDisabled} onClick={this.props.uploadFiles}>{buttonText}</button>
+						<button className={"usa-button" + nextButtonClass} disabled={nextButtonDisabled} onClick={this.pressedNext.bind(this)}>Review</button>
 					</div>
 				</div>
             </div>

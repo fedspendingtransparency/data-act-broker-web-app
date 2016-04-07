@@ -300,6 +300,12 @@ div.usa-da-validate-items {
     padding: 15px;
 
     color: $color-white;
+
+    .usa-da-alert-icon {
+        font-size: 2em;
+        top: -5px;
+        color: $color-secondary-dark;
+    }
 }
 
 div.usa-da-dropzone {
