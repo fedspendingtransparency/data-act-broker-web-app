@@ -14,8 +14,8 @@ export default class ReviewDataContentRow extends React.Component {
     render() {
         return (
             <div className="row">
-                <div className="col-xs-4">{this.props.label}</div>
-                <div className="col-xs-8">{this.props.data}</div>
+                <div className="col-xs-4 text-right">{this.props.label}</div>
+                <div className="col-xs-8"><strong>{this.props.data}</strong></div>
             </div>
         );
     }

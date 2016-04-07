@@ -89,13 +89,13 @@ export default class ReviewDataContent extends React.Component {
 
             return (
                 <div className="container">
-                    <div className="row center-block">
-                        <div className="col-md-12 text-center">
-                            <h3>Congratulations your data has been successfully validated! Now, what would you like to do with it?</h3>
+                    <div className="row center-block mt-60">
+                        <div className="col-md-12 text-center mb-30">
+                            <h6 className="text-success">Congratulations your data has been successfully validated! Now, what would you like to do with it?</h6>
                         </div>
                     </div>
                     <div className="row center-block usa-da-review-data-content-holder">
-                        <div className="col-md-5">
+                        <div className="col-md-5 mt-15">
                             {buttons}
                         </div>
                         <div className="col-md-offset-1 col-md-6 usa-da-review-data-alternating-rows">
