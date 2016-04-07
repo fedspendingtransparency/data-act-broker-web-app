@@ -38,7 +38,6 @@ export default class ValidateValuesContent extends React.Component {
 
         });
 
-
         return (
             <div className="container">
                 <div className="row center-block usa-da-submission-items with-overlay">
@@ -46,7 +45,7 @@ export default class ValidateValuesContent extends React.Component {
                         {items}
                     </div>
                 </div>
-                <ValidateValuesOverlayContainer errors={errors} success={!this.props.hasValueErrors} />;
+                <ValidateValuesOverlayContainer errors={errors} />;
             </div>
         );
     }

@@ -28,10 +28,6 @@ class ValidateValuesOverlayContainer extends React.Component {
 	}
 
 
-	findErrors() {
-		
-	}
-
 	render() {
 
 		// check if the critical error files are selected for re-upload
@@ -44,6 +40,8 @@ class ValidateValuesOverlayContainer extends React.Component {
 			}
 		}
 		const allowUpload = _.isEqual(_.intersection(fileKeys, requiredKeys), requiredKeys);
+
+
 
 		return (
 			<ValidateValuesOverlay {...this.props} uploadFiles={this.uploadFiles.bind(this)} allowUpload={allowUpload} />

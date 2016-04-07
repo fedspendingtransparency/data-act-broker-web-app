@@ -132,6 +132,17 @@ div.usa-da-validate-items {
         }
     }
 
+    .usa-da-validate-icon {
+        font-size: 0.7em;
+        text-align: center;
+
+        &:before {
+            position: relative;
+            margin-left: auto;
+            margin-right: auto;
+        }
+    }
+
     .usa-da-validate-item-footer-wrap {
         position: relative;
     }
@@ -305,6 +316,10 @@ div.usa-da-validate-items {
         font-size: 2em;
         top: -5px;
         color: $color-secondary-dark;
+    }
+
+    .usa-da-validation-overlay-review {
+        margin-left: 5px;
     }
 }
 

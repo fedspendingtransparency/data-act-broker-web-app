@@ -47,7 +47,7 @@ export default class ValidateDataFileComponent extends React.Component {
     }
 
     isFileReady() {
-        if (status.file_status != '' && status.file_status != 'waiting') {
+        if (this.props.item.file_status != '' && this.props.item.file_status != 'waiting') {
             return true;
         }
         return false;
@@ -100,7 +100,7 @@ export default class ValidateDataFileComponent extends React.Component {
             hasErrorReport = false;
             isError = false;
         }
-        else if (errorKeys.length == 0) {
+        else if (errorKeys.length == 0 && this.isFileReady()) {
             headerTitle = 'Critical Error: An unknown error has occurred with this file';
             hasErrorReport = false;
             isError = true;
@@ -178,8 +178,11 @@ export default class ValidateDataFileComponent extends React.Component {
         
         let successfulFade = '';
         let disabledCorrect = '';
-        if (!this.state.isError) {
+        if (!this.state.isError && this.isFileReady()) {
             successfulFade = ' successful';
+            disabledCorrect = ' hide';
+        }
+        else if (!this.isFileReady()) {
             disabledCorrect = ' hide';
         }
 
@@ -234,7 +237,7 @@ export default class ValidateDataFileComponent extends React.Component {
 
                     <div className="col-md-2 usa-da-validate-item-file-section">
                         <div className="usa-da-validate-item-file-section-result">
-                            <span className={"glyphicon glyphicon-" + this.displayIcon()}></span>
+                            <div className={"glyphicon glyphicon-" + this.displayIcon()}></div>
                         </div>
                         {uploadProgress}
                         <div className="usa-da-validate-item-file-name">{fileName}</div>

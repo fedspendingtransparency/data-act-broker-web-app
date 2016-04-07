@@ -22,6 +22,13 @@ export default class ValidateValuesOverlay extends React.Component {
 
 	}
 
+	isUploadingFiles() {
+		if (Object.keys(this.props.submission.files).length > 0) {
+			return true;
+		}
+		return false;
+	}
+
 	render() {
 
 		let uploadButtonClass = '-disabled';
@@ -44,10 +51,18 @@ export default class ValidateValuesOverlay extends React.Component {
 		let message = 'You must fix the Critical Errors found in ' + this.props.errors.length + ' of the .CSV files before moving on to the next step. View and download individual reports above.';
 
 		if (this.props.errors.length == 0) {
+
 			message = 'No Critical Errors were found in the .CSV files. Click Review to review and publish these files.';
-			buttonDisabled = ' hide';
+			uploadButtonDisabled = true;
+			uploadButtonClass = '-disabled';
 			nextButtonClass = '';
 			nextButtonDisabled = false;
+
+			if (this.isUploadingFiles()) {
+				uploadButtonDisabled = false;
+				uploadButtonClass = '';
+			}
+
 		}
 
 
@@ -64,7 +79,7 @@ export default class ValidateValuesOverlay extends React.Component {
 					</div>
 					<div className="col-sm-4 center-block">
 						<button className={"usa-button" + uploadButtonClass} disabled={uploadButtonDisabled} onClick={this.props.uploadFiles}>{buttonText}</button>
-						<button className={"usa-button" + nextButtonClass} disabled={nextButtonDisabled} onClick={this.pressedNext.bind(this)}>Review</button>
+						<button className={"usa-da-validation-overlay-review usa-button" + nextButtonClass} disabled={nextButtonDisabled} onClick={this.pressedNext.bind(this)}>Review</button>
 					</div>
 				</div>
             </div>

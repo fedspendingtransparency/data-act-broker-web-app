@@ -27,7 +27,7 @@ class ValidateValuesFileContainer extends React.Component {
 	render() {
 
 		return (
-			<ValidateValuesFileComponent {...this.props} onFileChange={this.selectedFile.bind(this)} />
+			<ValidateValuesFileComponent {...this.props} item={this.props.data[this.props.type.requestName]} onFileChange={this.selectedFile.bind(this)} />
 		)
 	}
 }

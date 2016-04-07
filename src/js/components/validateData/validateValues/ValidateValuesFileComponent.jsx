@@ -11,6 +11,7 @@ import Navbar from '../../SharedComponents/navigation/NavigationComponent.jsx';
 import AddDataHeader from './../../addData/AddDataHeader.jsx';
 import Progress from '../../SharedComponents/ProgressComponent.jsx';
 import SubmitButton from '../../SharedComponents/SubmitButton.jsx';
+import FileProgress from '../../SharedComponents/FileProgress.jsx';
 import MetaData from '../../addData/AddDataMetaDisplay.jsx';
 import FileComponent from '../../addData/FileComponent.jsx';
 import ValidateDataUploadButton from './../ValidateDataUploadButton.jsx';
@@ -26,8 +27,17 @@ export default class ValidateDataFileComponent extends React.Component {
 
         this.state = {
             showWarning: false,
-            showError: false
+            showError: false,
+            hasErrors: false
         };
+    }
+
+    componentDidMount() {
+        this.determineErrors(this.props.item);
+    }
+
+    componentWillReceiveProps(nextProps) {
+        this.determineErrors(nextProps.item);
     }
 
     toggleWarningReport(){
@@ -38,20 +48,75 @@ export default class ValidateDataFileComponent extends React.Component {
         this.setState({ showError: !this.state.showError });
     }
 
-    parseErrors(data) {
-        
+    isFileReady() {
+        if (this.props.item.file_status != '' && this.props.item.file_status != 'waiting') {
+            return true;
+        }
+        return false;
     }
 
+    isReplacingFile() {
+        // check if the user is trying to replace a file
+        let stagedFile = false;
+        if (this.props.submission.files.hasOwnProperty(this.props.type.requestName)) {
+            stagedFile = true;
+        }
+        return stagedFile;
+    }
+
+    determineErrors(item) {
+        if (!item) {
+            return;
+        }
+
+        let hasErrors = false;
+        if (item.error_data.length > 0) {
+            hasErrors = true;
+        }
+        
+        this.setState({
+            hasErrors: hasErrors
+        });
+    
+    }
+
+    displayFileMeta() {
+        let size = '--';
+        let rows = '--';
+
+        if (this.isFileReady()) {
+            if (this.props.item.number_of_rows) {
+                rows = this.props.item.number_of_rows;
+            }
+            if (this.props.item.file_size) {
+                size = (this.props.item.file_size / 1000000).toFixed(2) + ' MB';
+                if (this.props.item.file_size < 100000) {
+                    size = (this.props.item.file_size / 1000).toFixed(2) + ' KB';
+                }
+            }
+        }
+
+        return {
+            size: size,
+            rows: rows
+        };
+    }
+
+    displayIcon() {
+        let icon = ' usa-da-icon-check';
+
+        if (this.state.hasErrors) {
+            icon = ' usa-da-icon-exclamation-triangle';
+        }
+
+        if (this.isReplacingFile()) {
+            icon = ' usa-da-icon-file-o';
+        }
+        
+        return icon;
+    }
 
     render() {
-
-        const status = this.props.data[this.props.type.requestName];
-        const numRows = status.number_of_rows;
-
-        let fileSize = (status.file_size / 1000000).toFixed(2) + ' MB';
-        if (status.file_size < 100000) {
-            fileSize = (status.file_size / 1000).toFixed(2) + ' KB';
-        }
 
         let showWarning = '';
         let warningDirection = 'down';
@@ -63,12 +128,11 @@ export default class ValidateDataFileComponent extends React.Component {
 
         let warningCount = '--';
         let noWarnings = ' none';
-        let errorCount = status.error_data.length;
 
         let noErrors = ' none';
 
         showWarning = ' hide';
-        if (errorCount == '--' || errorCount == 0) {
+        if (!this.state.hasErrors) {
             showError = ' hide';
         }
         else {
@@ -76,15 +140,14 @@ export default class ValidateDataFileComponent extends React.Component {
         }
 
         let optionalUpload = false;
-        if (errorCount == 0) {
+        if (!this.state.hasErrors) {
             optionalUpload = true;
         }
 
         // override this data if a new file is dropped in
         let uploadProgress = '';
-        let fileName = status.filename;
-        if (this.props.submission.files.hasOwnProperty(this.props.type.requestName)) {
-
+        let fileName = this.props.item.filename;
+        if (this.isReplacingFile()) {
             // also display the new file name
             const newFile = this.props.submission.files[this.props.type.requestName];
             fileName = newFile.file.name;
@@ -93,6 +156,8 @@ export default class ValidateDataFileComponent extends React.Component {
                 uploadProgress = <FileProgress fileStatus={newFile.progress} />;
             }
         }
+
+        
 
         return (
             <div className="row center-block usa-da-validate-item">
@@ -103,10 +168,10 @@ export default class ValidateDataFileComponent extends React.Component {
                                 <h4>{this.props.type.fileTitle}</h4>
                             </div>
                             <div className="col-md-3 text-right">
-                                <p>File Size: {fileSize}</p>
+                                <p>File Size: {this.displayFileMeta().size}</p>
                             </div>
                             <div className="col-md-3 text-right">
-                                <p>Rows: {numRows}</p>
+                                <p>Rows: {this.displayFileMeta().rows}</p>
                             </div>
                         </div>
                         <div className="row">
@@ -125,7 +190,7 @@ export default class ValidateDataFileComponent extends React.Component {
                             <div className="col-md-6 usa-da-validate-item-critical">
                                 <div className="row usa-da-validate-item-body">
                                     <span className="usa-da-validate-item-message-label">Critical Errors: </span>
-                                    <span className={"usa-da-validate-item-message-count" + noErrors}>{errorCount}</span>
+                                    <span className={"usa-da-validate-item-message-count" + noErrors}>{this.props.item.error_data.length}</span>
                                 </div>
                                 <div className="row usa-da-validate-item-footer-wrapper">
                                     <div className={"usa-da-validate-item-footer" + showError} onClick={this.toggleErrorReport.bind(this)}>
@@ -138,17 +203,17 @@ export default class ValidateDataFileComponent extends React.Component {
 
                     <div className="col-md-2 usa-da-validate-item-file-section">
                         <div className="usa-da-validate-item-file-section-result">
-                            <span className="glyphicon"></span>
+                            <div className={"row usa-da-validate-icon" + this.displayIcon()}></div>
                         </div>
-                        <div className="usa-da-validate-item-file-name">{fileName}</div>
+                        <div className="row usa-da-validate-item-file-name">{fileName}</div>
                         {uploadProgress}
-                        <div className="usa-da-validate-item-file-section-correct-button">
+                        <div className="row usa-da-validate-item-file-section-correct-button">
                             <ValidateDataUploadButton optional={optionalUpload} onDrop={this.props.onFileChange} />
                         </div>
                     </div>
                 </div>
-                {this.state.showWarning ? <ValidateValuesErrorReport link={status.report} data={status} name="Warning" /> : null}
-                {this.state.showError ? <ValidateValuesErrorReport link={status.report} data={status} name="Critical Error" /> : null}
+                {this.state.showWarning ? <ValidateValuesErrorReport link={this.props.item.report} data={this.props.item} name="Warning" /> : null}
+                {this.state.showError ? <ValidateValuesErrorReport link={this.props.item.report} data={this.props.item} name="Critical Error" /> : null}
             </div>
         );
     }
