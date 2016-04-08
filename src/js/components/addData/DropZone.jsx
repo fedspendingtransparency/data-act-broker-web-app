@@ -23,9 +23,11 @@ export default class DropZone extends React.Component {
         let dropzoneString = "Drag and drop or click here to upload your <b>" + this.props.fileTitle + "</b> file.";
         let displayMode = "pending";
         let progress = 0;
+        let dropped = '';
 
         if (this.props.submission.files.hasOwnProperty(this.props.requestName)) {
             const submissionItem = this.props.submission.files[this.props.requestName];
+            dropped = ' dropped';
 
             if (submissionItem.state == 'ready' && submissionItem.file) {
                 dropzoneString = '<b>' + submissionItem.file.name + '</b> file selected';
@@ -51,7 +53,7 @@ export default class DropZone extends React.Component {
         dropzoneString = DOMPurify.sanitize(dropzoneString, {ALLOWED_TAGS: ['b']});
 
         return (
-            <Dropzone className="text-center" multiple={false} onDrop={this.props.onDrop}>
+            <Dropzone className={"usa-da-dropzone text-center" + dropped} activeClassName="active" multiple={false} onDrop={this.props.onDrop}>
                 <DropZoneDisplay displayMode={displayMode} string={dropzoneString} progress={progress} />
             </Dropzone>
         );

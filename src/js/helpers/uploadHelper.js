@@ -9,6 +9,29 @@ import StoreSingleton from '../redux/storeSingleton.js';
 import { kGlobalConstants } from '../GlobalConstants.js';
 import * as uploadActions from '../redux/actions/uploadActions.js';
 
+
+const uploadLocalFile = (file, type) => {
+    const deferred = Q.defer();
+    let formData = new FormData();
+    formData.append('file', file);
+
+     Request.post(kGlobalConstants.API + 'local_upload/')
+            .withCredentials()
+            .send(formData)
+            .end((err, res) => {
+
+                if (err) {
+                    deferred.reject(err);
+                }
+                else {
+                    deferred.resolve([type, res.body.path]);
+                }
+
+            });
+
+    return deferred.promise;
+}
+
 export const performLocalUpload = (submission) => {
 
 	const deferred = Q.defer();
@@ -21,53 +44,48 @@ export const performLocalUpload = (submission) => {
 
     let i = 0;
 
+    const uploadOperations = [];
+    const types = [];
+    let submissionID = null;
+
     for (let fileType in submission.files) {
 		const file = submission.files[fileType].file;
-		let formData = new FormData();
-
-        formData.append('file', file);
-
-        Request.post(kGlobalConstants.API + 'local_upload/')
-            .withCredentials()
-            .send(formData)
-            .end((err, res) => {
-                if (err) {
-                    console.log(err + JSON.stringify(res.body));
-                    store.dispatch(uploadActions.setSubmissionState('failed'));
-                    deferred.reject(err);
-                } else {
-                    request[fileType] = res.body.path;
-
-                    if (i === Object.keys(submission.files).length-1) {
-                        const req = Request.post(kGlobalConstants.API + 'submit_files/')
-                            .withCredentials()
-                            .send(request)
-                            .end((err, res) => {
-                                if (err) {
-                                    console.log(err + res);
-                                    store.dispatch(uploadActions.setSubmissionState('failed'));
-                                    deferred.reject(err);
-                                } else {
-
-                                	const fileID = res.body[fileType + '_id'];
-                                	const submissionID = res.body.submission_id;
-                                	finalizeUpload(fileID)
-                                		.then(() => {
-                                			store.dispatch(uploadActions.setSubmissionState('review'));
-                                			deferred.resolve(submissionID);
-                                		})
-                                		.catch(() => {
-                                			store.dispatch(uploadActions.setSubmissionState('failed'));
-                                			deferred.reject();
-                                		});
-                                }
-                        });
-                    }
-
-                    i++;
-                }
-            });
+        uploadOperations.push(uploadLocalFile(file, fileType));
+        types.push(fileType);
     }
+
+    Q.all(uploadOperations)
+        .then((uploads) => {
+            
+            // prepare the request
+            uploads.forEach((upload) => {
+                request[upload[0]] = upload[1];
+            });
+
+            // submit the files
+            return prepareFiles(request);
+        })
+        .then((res) => {
+            submissionID = res.body.submission_id;
+
+            // get all the file IDs
+            const fileIds = [];
+            types.forEach((type) => {
+                const key = type + '_id';
+                fileIds.push(res.body[key]);
+            });
+
+            // finalize all the files
+            return finalizeMultipleUploads(fileIds);
+        })
+        .then(() => {
+            store.dispatch(uploadActions.setSubmissionState('review'));
+            deferred.resolve(submissionID);
+        })
+        .catch(() => {
+            store.dispatch(uploadActions.setSubmissionState('failed'));
+            deferred.reject();
+        });
 
     return deferred.promise;
 }
@@ -171,16 +189,21 @@ const uploadMultipleFiles = (submission, serverData) => {
 
 const finalizeUpload = (fileID) => {
     
+    const deferred = Q.defer();
+
 	Request.post(kGlobalConstants.API + 'finalize_job/')
                .withCredentials()
                .send({ 'upload_id': fileID })
                .end((err, res) => {
                    if (err) {
                        console.log(err + JSON.stringify(res.body));
+                       deferred.reject();
                    } else {
-                       
+                       deferred.resolve();
                    }
                });
+
+    return deferred.promise;
 }
 
 const finalizeMultipleUploads = (fileIds) => {
@@ -271,6 +294,59 @@ export const performRemoteCorrectedUpload = (submission) => {
         });
 
 
+
+    return deferred.promise;
+}
+
+export const performLocalCorrectedUpload = (submission) => {
+    const deferred = Q.defer();
+
+    const store = new StoreSingleton().store;
+    store.dispatch(uploadActions.setSubmissionState('uploading'));
+
+    const request = {
+        existing_submission_id: submission.id
+    };
+
+    const uploadOperations = [];
+    const types = [];
+    let submissionID = null;
+
+    for (let fileType in submission.files) {
+        const file = submission.files[fileType].file;
+        uploadOperations.push(uploadLocalFile(file, fileType));
+        types.push(fileType);
+    }
+
+    Q.all(uploadOperations)
+        .then((uploads) => {
+           // prepare the request
+            uploads.forEach((upload) => {
+                request[upload[0]] = upload[1];
+            });
+
+            // submit the files
+            return prepareFiles(request);
+        })
+        .then((res) => {
+            // get all the file IDs
+            const fileIds = [];
+            types.forEach((type) => {
+                const key = type + '_id';
+                fileIds.push(res.body[key]);
+            });
+
+            // finalize all the files
+            return finalizeMultipleUploads(fileIds);
+        })
+        .then(() => {
+            store.dispatch(uploadActions.setSubmissionState('review'));
+            deferred.resolve(submission.id);
+        })
+        .catch(() => {
+            store.dispatch(uploadActions.setSubmissionState('failed'));
+            deferred.reject();
+        });
 
     return deferred.promise;
 }
