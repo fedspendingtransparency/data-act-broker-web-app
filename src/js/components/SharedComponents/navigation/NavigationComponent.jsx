@@ -13,6 +13,10 @@ import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import * as sessionActions from '../../../redux/actions/sessionActions.js';
 
+const defaultProps = {
+    logoOnly: false
+};
+
 export class Navbar extends React.Component {
     constructor(props) {
         super(props);
@@ -35,7 +39,7 @@ export class Navbar extends React.Component {
             'Help': 'help'
         };
 
-        const headerTabs = [];
+        let headerTabs = [];
         const context = this;
         const userText = this.props.session.user === '' ? '' : 'Welcome, ' + this.props.session.user.name;
 
@@ -53,6 +57,11 @@ export class Navbar extends React.Component {
         Object.keys(tabNames).map((key) => {
             headerTabs.push(<NavbarTab key={tabNames[key]} name={key} class={tabNames[key]} activeTabClassName={context.props.activeTab} />);
         });
+
+        if (this.props.logoOnly) {
+            headerTabs = null;
+            userButton = null;
+        }
 
         return (
             <nav className="navbar navbar-default usa-da-header">
@@ -78,6 +87,8 @@ export class Navbar extends React.Component {
         );
     }
 }
+
+Navbar.defaultProps = defaultProps;
 
 export default connect(
   state => ({ session: state.session }),

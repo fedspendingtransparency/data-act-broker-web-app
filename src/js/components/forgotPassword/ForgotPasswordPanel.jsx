@@ -4,6 +4,7 @@
 **/
 
 import React, { PropTypes } from 'react';
+import { hashHistory } from 'react-router';
 import { kGlobalConstants } from '../../GlobalConstants.js';
 import Request from 'superagent';
 import Username from '../login/Username.jsx';
@@ -28,28 +29,28 @@ export default class ForgotPasswordPanel extends React.Component {
 
     requestReset() {
         Request.post(kGlobalConstants.API + 'reset_password/')
-               .withCredentials()
-               .send({ 'email': this.state.username })
-               .end((err) => {
-                   if (err) {
-                       this.setState({
-                           requestSent: true,
-                           resetFailed: true
-                       });
-                   } else {
-                       this.setState({
-                           requestSent: true,
-                           resetFailed: false
-                       });
-                   }
-               });
+            .withCredentials()
+            .send({ 'email': this.state.username })
+            .end((err) => {
+                if (err) {
+                    this.setState({
+                        requestSent: true,
+                        resetFailed: true
+                    });
+                } else {
+                    this.setState({
+                        requestSent: true,
+                        resetFailed: false
+                    });
+                }
+            });
     }
 
     handleKeyPress(e) {
         const enterKey = 13;
         if (e.charCode === enterKey) {
-            this.requestReset();
             e.preventDefault();
+            this.requestReset();
         }
     }
 
@@ -82,7 +83,10 @@ export default class ForgotPasswordPanel extends React.Component {
                         <Username handleChange={this.handleUsernameChange.bind(this)}/>
                     </div>
                     <div className='row'>
-                        <div className="col-xs-12 usa-da-login-button-holder">
+                        <div className="col-xs-6 usa-da-registration-links">
+                            <a href="#/login" className="forgot-back">Back to login page</a>
+                        </div>
+                        <div className="col-xs-6 usa-da-login-button-holder">
                             <SignInButton onClick={this.requestReset.bind(this)} buttonText={"Reset"} />
                         </div>
                     </div>
