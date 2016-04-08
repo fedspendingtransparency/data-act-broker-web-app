@@ -4,8 +4,26 @@
  **/
 
 import React from 'react';
+import $ from 'jquery';
 
-export default class LandingPage extends React.Component {
+export default class HelpContent extends React.Component {
+
+    componentDidMount() {
+        this.scrollToSection();
+    }
+
+    componentDidUpdate(prevProps, prevState) {
+        this.scrollToSection();
+    }
+
+    scrollToSection() {
+        if (this.props.section && $('[name=' + this.props.section + ']').length > 0) {
+            $('body').animate({
+                scrollTop: $('[name=' + this.props.section + ']').offset().top
+            }, 500);
+        }
+    }
+
     render() {
         return (
             <div className="usa-da-help-content">
@@ -17,13 +35,13 @@ export default class LandingPage extends React.Component {
 
                 <ul>
                     <li>
-                        <a href="/#/help#dataElements">Updated Data Elements and Validations</a>
+                        <a href="/#/help?section=dataElements">Updated Data Elements and Validations</a>
                     </li>
                     <li>
-                        <a href="/#/help#accounts">Individual User Accounts</a>
+                        <a href="/#/help?section=accounts">Individual User Accounts</a>
                     </li>
                     <li>
-                        <a href="/#/help#browser">Browser Requirements &amp; Known Issues</a>
+                        <a href="/#/help?section=browser">Browser Requirements &amp; Known Issues</a>
                     </li>
                 </ul>
 

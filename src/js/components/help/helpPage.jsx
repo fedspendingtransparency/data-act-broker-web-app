@@ -8,7 +8,8 @@ import Navbar from '../SharedComponents/navigation/NavigationComponent.jsx';
 import HelpSidebar from './helpSidebar.jsx';
 import HelpContent from './helpContent.jsx';
 
-export default class LandingPage extends React.Component {
+export default class HelpPage extends React.Component {
+
     render() {
         return (
             <div className="site_wrap">
@@ -28,7 +29,7 @@ export default class LandingPage extends React.Component {
                             <HelpSidebar />
                         </div>
                         <div className="col-md-8">
-                            <HelpContent/>
+                            <HelpContent section={this.props.location.query.section} />
                         </div>
                     </div>
                 </div>

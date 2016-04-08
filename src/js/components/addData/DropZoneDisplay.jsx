@@ -9,23 +9,12 @@ const defaultProps = {
 export default class DropZoneDisplay extends React.Component {
 	render() {
 
-		let showFile = " hide";
-		let isCaption = "";
-		if (this.props.displayMode == 'file') {
-			showFile = "";
-			isCaption = " is-caption";
-		}
-
-		let showFailure = " hide";
+		let uploadIcon = 'usa-da-icon-cloud-upload';
 		if (this.props.displayMode == 'failure') {
-			showFailure = "";
-			isCaption = " is-caption";
+			uploadIcon = 'usa-da-dropzone-fail glyphicon glyphicon-remove'
 		}
-
-		let showSuccess = " hide";
 		if (this.props.displayMode == 'success') {
-			showSuccess = "";
-			isCaption = " is-caption";
+			uploadIcon = 'usa-da-dropzone-success glyphicon glyphicon-ok';
 		}
 
 		let progress = "";
@@ -35,10 +24,8 @@ export default class DropZoneDisplay extends React.Component {
 
 		return (
 			<div className="center-block usa-da-dropzone">
-				<div className={"text-center usa-da-icon-cloud-upload" + showFile}></div>
-				<div className={"text-center usa-da-dropzone-fail glyphicon glyphicon-remove" + showFailure}></div>
-				<div className={"text-center usa-da-dropzone-success glyphicon glyphicon-ok" + showSuccess}></div>
-				<div className={isCaption} dangerouslySetInnerHTML={{__html:this.props.string}}></div>
+				<div className={"text-center " + uploadIcon}></div>
+				<div dangerouslySetInnerHTML={{__html:this.props.string}}></div>
 				{progress}
 			</div>
 		);

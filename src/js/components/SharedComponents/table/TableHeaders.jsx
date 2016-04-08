@@ -17,10 +17,10 @@ export default class TableHeaders extends React.Component {
         const tableHeaders = [];
         for (let i = 0; i < this.props.data.length; i++) {
 
-            // add sorter buttons only if this table is sortable and this is the last cell
+            // add sorter buttons only if this table is sortable
             let sorters = '';
-            if (this.props.sortable && i == this.props.data.length - 1) {
-                sorters = <TableSorter onSort={this.props.onSort} />;
+            if (this.props.sortable) {
+                sorters = <TableSorter onSort={this.props.onSort} col={i} />;
             }
 
             tableHeaders.push(<th key={i}>

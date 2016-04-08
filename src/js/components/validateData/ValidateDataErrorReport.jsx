@@ -6,7 +6,7 @@
 import React, { PropTypes } from 'react';
 import { kGlobalConstants } from '../../GlobalConstants.js';
 import SubmitButton from '../SharedComponents/SubmitButton.jsx';
-import Table from '../SharedComponents/table/TableComponent.jsx';
+import ScrollableTable from '../SharedComponents/table/ScrollableTable.jsx';
 import _ from 'lodash';
 
 const propTypes = {
@@ -26,7 +26,7 @@ export default class ValidateDataErrorReport extends React.Component {
         window.open(this.props.link, '_blank');
     }
 
-    sortTable(direction) {
+    sortTable(direction, column) {
         if (direction != this.state.sortDirection) {
             this.setState({
                 sortDirection: direction
@@ -52,7 +52,7 @@ export default class ValidateDataErrorReport extends React.Component {
                     rows.push([row]);
                 });
 
-                return <Table headers={[errorData.header]} data={rows} key={index} sortable={true} onSort={this.sortTable.bind(this)} />
+                return <ScrollableTable headers={[errorData.header]} data={rows} key={index} sortable={true} onSort={this.sortTable.bind(this)} />
             });
             
         }
