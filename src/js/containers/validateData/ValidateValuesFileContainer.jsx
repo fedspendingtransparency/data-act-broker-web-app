@@ -1,6 +1,6 @@
 /**
-  * ValidateDataFileContainer.jsx
-  * Created by Kevin Li 4/1/2016
+  * ValidateValuesFileContainer.jsx
+  * Created by Kevin Li 4/6/2016
   */
 
 import React from 'react';
@@ -10,11 +10,11 @@ import { hashHistory } from 'react-router';
 
 import * as uploadActions from '../../redux/actions/uploadActions.js';
 
-import ValidateDataFileComponent from '../../components/validateData/ValidateDataFileComponent.jsx';
+import ValidateValuesFileComponent from '../../components/validateData/validateValues/ValidateValuesFileComponent.jsx';
 import { fileTypes } from '../addData/fileTypes.js';
 import { kGlobalConstants } from '../../GlobalConstants.js';
 
-class ValidateDataFileContainer extends React.Component {
+class ValidateValuesFileContainer extends React.Component {
 
 	selectedFile(file) {
 		this.props.setUploadItem({
@@ -27,7 +27,7 @@ class ValidateDataFileContainer extends React.Component {
 	render() {
 
 		return (
-			<ValidateDataFileComponent {...this.props} item={this.props.data[this.props.type.requestName]} onFileChange={this.selectedFile.bind(this)} />
+			<ValidateValuesFileComponent {...this.props} item={this.props.data[this.props.type.requestName]} onFileChange={this.selectedFile.bind(this)} />
 		)
 	}
 }
@@ -35,4 +35,4 @@ class ValidateDataFileContainer extends React.Component {
 export default connect(
 	state => ({ submission: state.submission }),
 	dispatch => bindActionCreators(uploadActions, dispatch)
-)(ValidateDataFileContainer)
+)(ValidateValuesFileContainer)

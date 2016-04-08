@@ -64,7 +64,11 @@ const path = {
     DOCS_DEV: dir.DEV + '/docs',
     DOCS_PUBLIC: dir.PUBLIC + '/docs',
 
-    TEST_RESULTS: dir.TEST + '/test-results'
+    TEST_RESULTS: dir.TEST + '/test-results',
+
+    NEWRELIC_SRC: dir.SRC + '/newrelic.js',
+    NEWRELIC_DEV: dir.DEV + '/',
+    NEWRELIC_PUBLIC: dir.PUBLIC + '/'
 };
 
 let build = false;
@@ -115,9 +119,14 @@ gulp.task('copyConstants', () => {
         .pipe(gulp.dest(path.CONSTANTS_DEST));
 });
 
+gulp.task('copyNewRelic', () => {
+    return gulp.src(path.NEWRELIC_SRC)
+        .pipe(gulp.dest((!build) ? path.NEWRELIC_DEV : path.NEWRELIC_PUBLIC));
+});
+
 // Compile react files with Browserify and watch
 // for changes with Watchify
-gulp.task('watch', ['fonts', 'images', 'graphics', 'docs', 'copyConstants'], () => {
+gulp.task('watch', ['fonts', 'images', 'graphics', 'docs', 'copyConstants', 'copyNewRelic'], () => {
     const props = {
         entries: [path.ENTRY_POINT],
         transform: [[babelify, { presets: ['es2015', 'react'] }]],

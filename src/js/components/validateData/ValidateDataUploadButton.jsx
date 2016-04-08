@@ -7,7 +7,12 @@ import React, { PropTypes } from 'react';
 import Dropzone from 'react-dropzone';
 
 const propTypes = {
-	onDrop: PropTypes.func
+	onDrop: PropTypes.func,
+	optional: PropTypes.bool
+};
+
+const defaultProps = {
+	optional: false
 };
 
 export default class ValidateDataUploadButton extends React.Component {
@@ -17,9 +22,15 @@ export default class ValidateDataUploadButton extends React.Component {
 	}
 
 	render() {
+
+		let optionalUpload = '';
+		if (this.props.optional) {
+			optionalUpload = ' optional-upload';
+		}
+
 		return (
 			<div>
-				<Dropzone onDrop={this.addedFile.bind(this)} multiple={false} className="usa-da-validate-upload-button">
+				<Dropzone onDrop={this.addedFile.bind(this)} multiple={false} className={"usa-da-validate-upload-button" + optionalUpload}>
 					Choose Corrected File
 				</Dropzone>
 			</div>
@@ -28,3 +39,4 @@ export default class ValidateDataUploadButton extends React.Component {
 }
 
 ValidateDataUploadButton.propTypes = propTypes;
+ValidateDataUploadButton.defaultProps = defaultProps;

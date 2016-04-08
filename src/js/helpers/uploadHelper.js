@@ -97,7 +97,8 @@ const uploadS3File = (file, fileID, key, credentials, fileType) => {
 	AWS.config.update({
             'accessKeyId': credentials.AccessKeyId,
             'secretAccessKey': credentials.SecretAccessKey,
-            'sessionToken': credentials.SessionToken
+            'sessionToken': credentials.SessionToken,
+            'region': kGlobalConstants.AWS_REGION
         });
 
     const s3 = new AWS.S3();
@@ -169,6 +170,7 @@ const uploadMultipleFiles = (submission, serverData) => {
 }
 
 const finalizeUpload = (fileID) => {
+    
 	Request.post(kGlobalConstants.API + 'finalize_job/')
                .withCredentials()
                .send({ 'upload_id': fileID })
@@ -233,4 +235,42 @@ export const performRemoteUpload = (submission) => {
 		});
 
 	return deferred.promise;
+}
+
+export const performRemoteCorrectedUpload = (submission) => {
+    const deferred = Q.defer();
+
+    const store = new StoreSingleton().store;
+    store.dispatch(uploadActions.setSubmissionState('uploading'));
+
+    let request = {
+        existing_submission_id: submission.id
+    };
+    for (let fileType in submission.files) {
+        const file = submission.files[fileType].file;
+        request[fileType] = file.name;
+    }
+
+
+    prepareFiles(request)
+        .then((res) => {
+            // now do the actual uploading
+            return uploadMultipleFiles(submission, res.body);
+        })
+        .then((fileIds) => {
+            // upload complete, finalize with the API
+            return finalizeMultipleUploads(fileIds);
+        })
+        .then(() => {
+            store.dispatch(uploadActions.setSubmissionState('review'));
+            deferred.resolve(submission.id);
+        })
+        .catch((err) => {
+            store.dispatch(uploadActions.setSubmissionState('failed'));
+            deferred.reject(err);
+        });
+
+
+
+    return deferred.promise;
 }

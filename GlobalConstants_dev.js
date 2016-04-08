@@ -6,5 +6,6 @@ export const kGlobalConstants = {
     GA_TRACKING_ID: 'UA-75081254-1',
     LOCAL: false,
     DEV: true,
-    BUCKET_NAME: 'dev-data-act-submission'
+    BUCKET_NAME: 'dev-data-act-submission',
+    AWS_REGION: 'us-east-1'
 };
