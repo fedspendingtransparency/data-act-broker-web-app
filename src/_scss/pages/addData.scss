@@ -327,13 +327,15 @@ div.usa-da-dropzone {
                 outline: none;
             }
 
-            .typeahead-selector {
+            ul.typeahead-selector {
                 text-align: left;
                 background: $color-white;
                 color: $color-gray-dark;
                 position: absolute;
                 z-index: 1000;
                 width: 96%;
+                margin: -5px 0 0 0;
+                border: 1px solid #cacaca; 
 
                 li {
                     display: inline-block;
@@ -372,6 +374,24 @@ div.usa-da-dropzone {
 
         input {
             max-width: none;
+        }
+    }
+    .datepicker__input-container{
+        z-index: 10;
+        & .datepicker__input{
+            background: transparent;
+        }
+    }
+    .usa-da-startDate-icon, .usa-da-endDate-icon{
+        &:before{
+            content: "\74";
+            font-family: 'dataact';
+            position: absolute;
+            top: 16px;
+            right: 25px;
+            height: 20px;
+            z-index: 9;
+            color: #ccc;
         }
     }
 }

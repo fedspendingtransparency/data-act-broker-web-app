@@ -139,12 +139,14 @@ export default class AddDataMeta extends React.Component {
                                     </div>
                                 
                                     <div className="row">
-                                        <div className="col-sm-12 col-md-6 mt-20">
+                                        <div className="col-sm-12 col-md-6 mt-20 pos-rel">
                                             <DatePicker selected={this.state.startDate} onChange={this.handleStartDateChange.bind(this)} placeholderText="Reporting period start date"/>
+                                            <div className="usa-da-startDate-icon"></div>
                                         </div>
 
-                                        <div className="col-sm-12 col-md-6 mt-20">
+                                        <div className="col-sm-12 col-md-6 mt-20 usa-da-endDate">
                                             <DatePicker selected={this.state.endDate} onChange={this.handleEndDateChange.bind(this)} placeholderText="Reporting period end date" />
+                                            <div className="usa-da-endDate-icon"></div>
                                         </div>
                                     </div>
 
