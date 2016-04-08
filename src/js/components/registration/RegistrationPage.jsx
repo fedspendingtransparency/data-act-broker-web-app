@@ -38,7 +38,7 @@ export default class RegistrationPage extends React.Component {
 
         return (
             <div>
-                <Navbar />
+                <Navbar logoOnly={true} />
                 <div className="usa-da-content">
                     <div className="container usa-da-registration">
                         <div className="display-2">Registration</div>

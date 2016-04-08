@@ -155,6 +155,11 @@ h1.login-title {
             }
         }
     }
+
+    a.forgot-back {
+        color: as-alpha($color-white, 0.99);
+        font-size: 1.2rem;
+    }
 }
 
 .usa-da-registration {
