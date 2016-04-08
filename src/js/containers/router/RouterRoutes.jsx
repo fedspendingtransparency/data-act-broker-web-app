@@ -137,7 +137,8 @@ const routeDefinitions = {
         },
         {
             path: 'help',
-            component: HelpPage
+            component: HelpPage,
+            onEnter: checkUserPermissions
         },
         {
             path: 'forgotpassword',
