@@ -177,8 +177,8 @@ export default class ValidateDataFileComponent extends React.Component {
                         <div className="row">
                             <div className="col-md-6 usa-da-validate-item-warning">
                                 <div className="row usa-da-validate-item-body">
-                                    <span className="usa-da-validate-item-message-label">Warnings: </span>
-                                    <span className={"usa-da-validate-item-message-count" + noWarnings}>{warningCount}</span>
+                                    <span className="usa-da-validate-item-message-label">Warnings:</span>
+                                    <span className={"usa-da-validate-item-message-count" + noWarnings}>&nbsp;{warningCount}</span>
                                 </div>
                                 <div className="row usa-da-validate-item-footer-wrapper">
                                     <div className={"usa-da-validate-item-footer" + showWarning} onClick={this.toggleWarningReport.bind(this)}>
@@ -189,8 +189,8 @@ export default class ValidateDataFileComponent extends React.Component {
 
                             <div className="col-md-6 usa-da-validate-item-critical">
                                 <div className="row usa-da-validate-item-body">
-                                    <span className="usa-da-validate-item-message-label">Critical Errors: </span>
-                                    <span className={"usa-da-validate-item-message-count" + noErrors}>{this.props.item.error_data.length}</span>
+                                    <span className="usa-da-validate-item-message-label">Critical Errors:</span>
+                                    <span className={"usa-da-validate-item-message-count" + noErrors}>&nbsp;{this.props.item.error_data.length}</span>
                                 </div>
                                 <div className="row usa-da-validate-item-footer-wrapper">
                                     <div className={"usa-da-validate-item-footer" + showError} onClick={this.toggleErrorReport.bind(this)}>
