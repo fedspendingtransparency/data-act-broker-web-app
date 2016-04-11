@@ -20,7 +20,7 @@ export default class ValidateDataOverlay extends React.Component {
 
 		let buttonText = 'Upload Corrected CSV Files';
 		if (this.props.submission.state == 'uploading') {
-			buttonDisabled = ' disabled';
+			buttonDisabled = '-disabled';
 			buttonText = 'Uploading files...';
 		}
 

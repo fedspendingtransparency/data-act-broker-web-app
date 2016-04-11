@@ -44,9 +44,19 @@ class ValidateValuesOverlayContainer extends React.Component {
 				requiredKeys.push(key);
 			}
 		}
-		const allowUpload = _.isEqual(_.intersection(fileKeys, requiredKeys), requiredKeys);
 
 
+		let allowUpload = false;
+		const missingKeys = [];
+		requiredKeys.forEach((key) => {
+			if (_.indexOf(fileKeys, key) == -1) {
+				missingKeys.push(key);
+			}
+		});
+
+		if (missingKeys.length == 0) {
+			allowUpload = true;
+		}
 
 		return (
 			<ValidateValuesOverlay {...this.props} uploadFiles={this.uploadFiles.bind(this)} allowUpload={allowUpload} />
