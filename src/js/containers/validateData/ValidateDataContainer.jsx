@@ -7,11 +7,13 @@ import React from 'react';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { hashHistory } from 'react-router';
+import moment from 'moment'
 
 import * as uploadActions from '../../redux/actions/uploadActions.js';
 
 import ValidateDataContent from '../../components/validateData/ValidateDataContent.jsx';
 import ValidateValuesContent from '../../components/validateData/validateValues/ValidateValuesContent.jsx';
+import ValidateCancellation from '../../components/validateData/ValidateCancellation.jsx';
 import { fileTypes } from '../addData/fileTypes.js';
 import { kGlobalConstants } from '../../GlobalConstants.js';
 
@@ -25,7 +27,9 @@ class ValidateDataContainer extends React.Component {
 		super(props);
 
 		this.state = {
-			headerErrors: true
+			headerErrors: true,
+			initialLoad: moment(),
+			offerCancellation: false
 		};
 	}
 
@@ -88,20 +92,37 @@ class ValidateDataContainer extends React.Component {
 	}
 
 	validateSubmission() {
+
+		// check how long it's been since the initial validation check
+		if (!this.state.offerCancellation) {
+			const secondsPassed = moment().unix() - this.state.initialLoad.unix();
+			if (secondsPassed >= 5 * 60) {
+				this.setState({
+					offerCancellation: true
+				});
+			}
+		}
+
 		ReviewHelper.validateSubmission(this.props.submissionID)
 			.then((data) => {
 				this.props.setValidation(data);
 				
 				if (!this.checkForCompletion(data)) {
-					setTimeout(() => {
+					statusTimer = setTimeout(() => {
 						this.validateSubmission();
 					}, 5*1000);
+				}
+				else {
+					// all the files have returned something, hide the cancellation banner if necessary
+					this.setState({
+						offerCancellation: false
+					});
 				}
 
 				this.checkForErrors();
 			})
 			.catch((err) => {
-				setTimeout(() => {
+				statusTimer = setTimeout(() => {
 					this.validateSubmission();
 				}, 5*1000);
 			});
@@ -115,8 +136,14 @@ class ValidateDataContainer extends React.Component {
 			validationContent = <ValidateValuesContent {...this.props} submissionID={this.props.submissionID} />;
 		}
 
+		let cancel = '';
+		if (this.state.offerCancellation) {
+			cancel = <ValidateCancellation />;
+		}
+
 		return (
 			<div>
+				{cancel}
 				{validationContent}
 			</div>
 		);
