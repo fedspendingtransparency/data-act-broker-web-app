@@ -68,18 +68,20 @@ export default class ValidateValuesOverlay extends React.Component {
 
 		return (
 			<div className="usa-da-validation-overlay">
-				<div className="row">
-					<div className="col-sm-6 col-sm-offset-2">
-						<div className="row">
-							<div className="col-xs-2 col-md-1 usa-da-icon-exclamation-circle usa-da-alert-icon" />
-							<div className="col-xs-10 col-md-11">
-								{message}
+				<div className="container">
+					<div className="row">
+						<div className="col-md-9">
+							<div className="row">
+								<div className="col-xs-2 col-md-1 usa-da-icon-exclamation-circle usa-da-alert-icon" />
+								<div className="col-xs-10 col-md-11">
+									<h6>{message}</h6>
+								</div>
 							</div>
 						</div>
-					</div>
-					<div className="col-sm-4 center-block">
-						<button className={"usa-button" + uploadButtonClass} disabled={uploadButtonDisabled} onClick={this.props.uploadFiles}>{buttonText}</button>
-						<button className={"usa-da-validation-overlay-review usa-button" + nextButtonClass} disabled={nextButtonDisabled} onClick={this.pressedNext.bind(this)}>Review</button>
+						<div className="col-md-3 center-block">
+							<button className={"usa-button" + uploadButtonClass} disabled={uploadButtonDisabled} onClick={this.props.uploadFiles}>{buttonText}</button>
+							<button className={"usa-da-validation-overlay-review usa-button" + nextButtonClass} disabled={nextButtonDisabled} onClick={this.pressedNext.bind(this)}>Review</button>
+						</div>
 					</div>
 				</div>
             </div>

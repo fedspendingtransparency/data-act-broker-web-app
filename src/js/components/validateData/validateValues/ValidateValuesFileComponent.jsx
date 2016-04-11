@@ -103,14 +103,14 @@ export default class ValidateDataFileComponent extends React.Component {
     }
 
     displayIcon() {
-        let icon = ' usa-da-icon-check';
+        let icon = 'check-circle';
 
         if (this.state.hasErrors) {
-            icon = ' usa-da-icon-exclamation-triangle';
+            icon = 'exclamation-circle';
         }
 
         if (this.isReplacingFile()) {
-            icon = ' usa-da-icon-file-o';
+            icon = 'cloud-upload';
         }
         
         return icon;
@@ -203,7 +203,7 @@ export default class ValidateDataFileComponent extends React.Component {
 
                     <div className="col-md-2 usa-da-validate-item-file-section">
                         <div className="usa-da-validate-item-file-section-result">
-                            <div className={"row usa-da-validate-icon" + this.displayIcon()}></div>
+                            <div className={"usa-da-icon usa-da-icon-" + this.displayIcon()}></div>
                         </div>
                         <div className="row usa-da-validate-item-file-name">{fileName}</div>
                         {uploadProgress}
