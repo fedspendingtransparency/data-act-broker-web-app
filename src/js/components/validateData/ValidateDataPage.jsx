@@ -149,7 +149,7 @@ export default class ValidateDataPage extends React.Component {
             <div>
                 <Navbar activeTab="addData"/>
                 <AddDataHeader />
-                <div className="usa-da-content-light-gray">
+                <div className="usa-da-content-step-block">
                     <div className="container center-block">
                         <div className="row">
                             <Progress totalSteps={3} currentStep={2} />

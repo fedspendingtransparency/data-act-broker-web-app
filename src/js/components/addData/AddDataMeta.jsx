@@ -130,7 +130,7 @@ export default class AddDataMeta extends React.Component {
                     <div className="container center-block">
                         <div className="row text-center usa-da-add-data-meta">
                             <div className="col-md-offset-2 col-md-8 mt-60">
-                                <h6 className="mb-20">Please provide the following information about report you will be creating.</h6>
+                                <h6 className="mb-20">Please provide the following information about the report you will be creating.</h6>
                                 <div className="meta-holder">
                                     <div className="row">
                                         <div className="col-sm-12 col-md-12 typeahead-holder">

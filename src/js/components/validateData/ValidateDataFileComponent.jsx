@@ -158,16 +158,16 @@ export default class ValidateDataFileComponent extends React.Component {
         let icon = 'time';
         if (this.isFileReady()) {
             if (this.props.item.file_status == 'complete') {
-                icon = 'ok';
+                icon = 'check-circle';
             }
             else {
-                icon = 'remove';
+                icon = 'exclamation-circle';
             }
         }
 
         // user is attempting to replace a file
         if (this.isReplacingFile()) {
-            icon = 'file';
+            icon = 'cloud-upload';
         }
 
         return icon;
@@ -196,6 +196,11 @@ export default class ValidateDataFileComponent extends React.Component {
             chevronDirection = 'up';
         }
 
+        let footerStatus = '';
+        if (this.state.showError) {
+            footerStatus = 'active';
+        }
+
         // override this data if a new file is dropped in
         let uploadProgress = '';
         let fileName = this.props.item.filename;
@@ -213,31 +218,31 @@ export default class ValidateDataFileComponent extends React.Component {
         return (
             <div className={"row center-block usa-da-validate-item" + successfulFade}>
                 <div className="row usa-da-validate-item-top-section">
-                    <div className="col-md-10 usa-da-validate-item-status-section">
+                    <div className="col-md-9 usa-da-validate-item-status-section">
                         <div className="row usa-da-validate-item-header">
                             <div className="col-md-6">
                                 <h4>{this.props.type.fileTitle}</h4>
                             </div>
-                            <div className="col-md-3 text-right">
+                            <div className="col-md-3">
                                 <p>File Size: {this.displayFileMeta().size}</p>
                             </div>
-                            <div className="col-md-3 text-right">
-                                <p>Rows: {this.displayFileMeta().rows}</p>
+                            <div className="col-md-3">
+                                <p className="pr-20">Rows: {this.displayFileMeta().rows}</p>
                             </div>
                         </div>
                         <div className="row usa-da-validate-item-body">
                             <div className="usa-da-validate-item-message">{this.state.headerTitle}</div>
                         </div>
                         <div className="row usa-da-validate-item-footer-wrapper">
-                            <div className={"usa-da-validate-item-footer header-error " + showFooter} onClick={this.toggleErrorReport.bind(this)}>
-                                <div>View &amp; Download Header Error Report <span className={"glyphicon glyphicon-chevron-" + chevronDirection}></span></div>
+                            <div className={"usa-da-validate-item-footer header-error " + showFooter + footerStatus} onClick={this.toggleErrorReport.bind(this)}>
+                                <div>View &amp; Download Header Error Report <span className={"usa-da-icon usa-da-icon-angle-" + chevronDirection}></span></div>
                             </div>
                         </div>
                     </div>
 
-                    <div className="col-md-2 usa-da-validate-item-file-section">
+                    <div className="col-md-3 usa-da-validate-item-file-section">
                         <div className="usa-da-validate-item-file-section-result">
-                            <div className={"glyphicon glyphicon-" + this.displayIcon()}></div>
+                            <div className={"usa-da-icon usa-da-icon-" + this.displayIcon()}></div>
                         </div>
                         {uploadProgress}
                         <div className="usa-da-validate-item-file-name">{fileName}</div>
