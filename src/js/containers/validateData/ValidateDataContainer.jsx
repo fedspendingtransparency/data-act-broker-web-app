@@ -7,7 +7,7 @@ import React from 'react';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { hashHistory } from 'react-router';
-import moment from 'moment'
+import moment from 'moment';
 
 import * as uploadActions from '../../redux/actions/uploadActions.js';
 
