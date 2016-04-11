@@ -23,7 +23,7 @@ export default class DropZoneDisplay extends React.Component {
 		}
 
 		return (
-			<div className="center-block usa-da-dropzone">
+			<div className="center-block">
 				<div className={"text-center " + uploadIcon}></div>
 				<div dangerouslySetInnerHTML={{__html:this.props.string}}></div>
 				{progress}
