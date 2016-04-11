@@ -61,11 +61,11 @@ export default class ValidateDataErrorReport extends React.Component {
             <div className="row usa-da-validate-item-bottom-section">
                 <div className="row usa-da-validate-error-report">
                     <div className="row center-block">
-                        <div className="col-md-10">
-                            <h3>Header Error Report</h3>
+                        <div className="col-md-9">
+                            <h6>Header Error Report</h6>
                         </div>
-                        <div className="col-md-2">
-                            <button onClick={this.openWindow.bind(this)} className="usa-button-secondary">Download Error Report</button>
+                        <div className="col-md-3 mr-0">
+                            <button onClick={this.openWindow.bind(this)} className="usa-button-primary pull-right">Download Error Report</button>
                         </div>
                         <div className="col-md-12">
                             {tables}

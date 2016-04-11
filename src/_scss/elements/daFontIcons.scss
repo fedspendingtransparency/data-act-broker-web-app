@@ -38,8 +38,6 @@
   line-height: 1;
   -webkit-font-smoothing: antialiased;
   -webkit-osx-font-smoothing: grayscale;
-	padding-left: .4em;
-	padding-top: .4em;
   position: absolute;
 }
 
@@ -99,6 +97,9 @@
 }
 .usa-da-icon-question-circle:before {
   content: "\73";
+}
+.usa-da-icon-calendar:before {
+  content: "\74";
 }
 .usa-da-icon-pause:before {
   content: "\75";

@@ -83,7 +83,7 @@ export default class ForgotPasswordPanel extends React.Component {
                         <Username handleChange={this.handleUsernameChange.bind(this)}/>
                     </div>
                     <div className='row'>
-                        <div className="col-xs-6 usa-da-registration-links">
+                        <div className="col-xs-6 usa-da-registration-links mt-10">
                             <a href="#/login" className="forgot-back">Back to login page</a>
                         </div>
                         <div className="col-xs-6 usa-da-login-button-holder">

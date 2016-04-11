@@ -29,14 +29,14 @@ export default class ScrollableTable extends React.Component {
 		return (
 			<div className="usa-da-scrollable-table">
 				<div className="usa-da-scrollable-table-header">
-					<table className="usa-da-table">
+					<table className="usa-da-table table-bordered">
 						<thead>
 		                    <TableHeaders data={this.props.headers} sortable={this.props.sortable} onSort={this.props.onSort} />
 		                </thead>
 		            </table>
 	            </div>
 	           	<div className="usa-da-scrollable-table-content">
-		            <table className="usa-da-table">
+		            <table className="usa-da-table table-bordered">
 		            	<tbody>
 		                    {tableRows}
 		                </tbody>

@@ -16,12 +16,6 @@ export default class LandingContent extends React.Component {
                                 <div className="display-2">Welcome to the DATA Act Broker</div>
                                 <p>This site enables you to upload your agency files and validate them against the latest
                                     version of the DATA Act Schema (version 0.8). The files you will need are:</p>
-                                <ul>
-                                    <li>File A: Appropriations Account</li>
-                                    <li>File B: Program Activity and Object Class</li>
-                                    <li>File C: Award and Financial</li>
-                                    <li>File D: Award</li>
-                                </ul>
 
                                 <p>Details on how to format your data, including required and optional fields, can be
                                     found in the Reporting Submission Specification (RSS). You can <a href="http://prod-data-act-web-static-files.s3-website-us-gov-west-1.amazonaws.com/RSS-spec/RSS_DRAFT_v1.0_03292016.xlsx" target="_blank">download the Reporting Submission Specification (RSS)</a>.</p>

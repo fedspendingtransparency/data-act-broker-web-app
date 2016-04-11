@@ -130,7 +130,7 @@ export default class AddDataMeta extends React.Component {
                     <div className="container center-block">
                         <div className="row text-center usa-da-add-data-meta">
                             <div className="col-md-offset-2 col-md-8 mt-60">
-                                <h6 className="mb-20">Please provide the following information about report you will be creating.</h6>
+                                <h6 className="mb-20">Please provide the following information about the report you will be creating.</h6>
                                 <div className="meta-holder">
                                     <div className="row">
                                         <div className="col-sm-12 col-md-12 typeahead-holder">
@@ -139,12 +139,14 @@ export default class AddDataMeta extends React.Component {
                                     </div>
                                 
                                     <div className="row">
-                                        <div className="col-sm-12 col-md-6 mt-20">
+                                        <div className="col-sm-12 col-md-6 mt-20 pos-rel">
                                             <DatePicker selected={this.state.startDate} onChange={this.handleStartDateChange.bind(this)} placeholderText="Reporting period start date"/>
+                                            <div className="usa-da-startDate-icon"></div>
                                         </div>
 
-                                        <div className="col-sm-12 col-md-6 mt-20">
+                                        <div className="col-sm-12 col-md-6 mt-20 usa-da-endDate">
                                             <DatePicker selected={this.state.endDate} onChange={this.handleEndDateChange.bind(this)} placeholderText="Reporting period end date" />
+                                            <div className="usa-da-endDate-icon"></div>
                                         </div>
                                     </div>
 
