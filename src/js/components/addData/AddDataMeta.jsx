@@ -29,7 +29,10 @@ export default class AddDataMeta extends React.Component {
     }
 
     handleChange(agency){
-        this.setState({ agency: agency }, this.checkComplete);
+        this.setState({ 
+            agency: agency,
+            agencyError: false
+         }, this.checkComplete);
     }
 
     handleStartDateChange(date) {
@@ -187,11 +190,10 @@ export default class AddDataMeta extends React.Component {
 
         let agencyIcon = '';
         const agencyClass = {};
-        if (this.state.agencyError) {
+        if (this.refs.typeahead && this.state.agencyError && this.refs.typeahead.state.visible.length == 0) {
             agencyIcon = 'usa-da-agency-icon error';
             agencyClass.input = 'error';
         }
-
 
         return (
                 <div>
