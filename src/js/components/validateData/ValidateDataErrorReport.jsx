@@ -59,7 +59,7 @@ export default class ValidateDataErrorReport extends React.Component {
 
         return (
             <div className="row usa-da-validate-item-bottom-section">
-                <div className="row usa-da-validate-error-report">
+                <div className="usa-da-validate-error-report">
                     <div className="row center-block">
                         <div className="col-md-9">
                             <h6>Header Error Report</h6>

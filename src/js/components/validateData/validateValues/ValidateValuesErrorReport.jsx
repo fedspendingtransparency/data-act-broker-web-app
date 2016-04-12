@@ -92,13 +92,13 @@ export default class ValidateValuesErrorReport extends React.Component {
 
         return (
             <div className="row usa-da-validate-item-bottom-section">
-                <div className="row usa-da-validate-error-report">
+                <div className="usa-da-validate-error-report">
                     <div className="row center-block">
-                        <div className="col-md-10">
+                        <div className="col-md-9">
                             <h6>Invididual {this.props.name}s</h6>
                         </div>
-                        <div className="col-md-2">
-                            <a href={this.props.link} target="_blank">Download {this.props.name}s Report</a>
+                        <div className="col-md-3">
+                            <button className="usa-button pull-right" href={this.props.link} target="_blank">Download {this.props.name}s Report</button>
                         </div>
                         <div className="col-md-12">
                             {tables}

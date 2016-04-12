@@ -126,6 +126,11 @@ export default class ValidateDataFileComponent extends React.Component {
             errorDirection = 'up';
         }
 
+        let footerStatus = '';
+        if (this.state.showError) {
+            footerStatus = 'active';
+        }
+
         let warningCount = '--';
         let noWarnings = ' none';
 
@@ -161,8 +166,9 @@ export default class ValidateDataFileComponent extends React.Component {
 
         return (
             <div className="row center-block usa-da-validate-item">
+            <div className="col-md-12">
                 <div className="row usa-da-validate-item-top-section">
-                    <div className="col-md-10 usa-da-validate-item-status-section">
+                    <div className="col-md-9 usa-da-validate-item-status-section">
                         <div className="row usa-da-validate-item-header">
                             <div className="col-md-6">
                                 <h4>{this.props.type.fileTitle}</h4>
@@ -177,31 +183,35 @@ export default class ValidateDataFileComponent extends React.Component {
                         <div className="row">
                             <div className="col-md-6 usa-da-validate-item-warning">
                                 <div className="row usa-da-validate-item-body">
-                                    <span className="usa-da-validate-item-message-label">Warnings:</span>
-                                    <span className={"usa-da-validate-item-message-count" + noWarnings}>&nbsp;{warningCount}</span>
+                                    <div className='usa-da-validate-txt-wrap'>
+                                        <span className="usa-da-validate-item-message-label">Warnings:</span>
+                                        <span className={"usa-da-validate-item-message-count" + noWarnings}>&nbsp;{warningCount}</span>
+                                    </div>
                                 </div>
                                 <div className="row usa-da-validate-item-footer-wrapper">
-                                    <div className={"usa-da-validate-item-footer" + showWarning} onClick={this.toggleWarningReport.bind(this)}>
-                                        <div>View &amp; Download Warnings Report <span className={"glyphicon glyphicon-chevron-" + warningDirection}></span></div>
+                                    <div className={"usa-da-validate-item-footer usa-da-header-error" + showWarning +" "+footerStatus} onClick={this.toggleWarningReport.bind(this)}>
+                                        <div>View &amp; Download Warnings Report <span className={"usa-da-icon usa-da-icon-angle-" + warningDirection}></span></div>
                                     </div>
                                 </div>
                             </div>
 
                             <div className="col-md-6 usa-da-validate-item-critical">
                                 <div className="row usa-da-validate-item-body">
-                                    <span className="usa-da-validate-item-message-label">Critical Errors:</span>
-                                    <span className={"usa-da-validate-item-message-count" + noErrors}>&nbsp;{this.props.item.error_data.length}</span>
+                                    <div className='usa-da-validate-txt-wrap'>
+                                        <span className="usa-da-validate-item-message-label">Critical Errors:</span>
+                                        <span className={"usa-da-validate-item-message-count" + noErrors}>&nbsp;{this.props.item.error_data.length}</span>
+                                    </div>
                                 </div>
                                 <div className="row usa-da-validate-item-footer-wrapper">
-                                    <div className={"usa-da-validate-item-footer" + showError} onClick={this.toggleErrorReport.bind(this)}>
-                                        <div>View &amp; Download Critical Errors Report <span className={"glyphicon glyphicon-chevron-" + errorDirection}></span></div>
+                                    <div className={"usa-da-validate-item-footer usa-da-header-error" + showError +" "+footerStatus} onClick={this.toggleErrorReport.bind(this)}>
+                                        <div>View &amp; Download Critical Errors Report <span className={"usa-da-icon usa-da-icon-angle-" + errorDirection}></span></div>
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>
 
-                    <div className="col-md-2 usa-da-validate-item-file-section">
+                    <div className="col-md-3 usa-da-validate-item-file-section">
                         <div className="usa-da-validate-item-file-section-result">
                             <div className={"usa-da-icon usa-da-icon-" + this.displayIcon()}></div>
                         </div>
@@ -214,6 +224,7 @@ export default class ValidateDataFileComponent extends React.Component {
                 </div>
                 {this.state.showWarning ? <ValidateValuesErrorReport link={this.props.item.report} data={this.props.item} name="Warning" /> : null}
                 {this.state.showError ? <ValidateValuesErrorReport link={this.props.item.report} data={this.props.item} name="Critical Error" /> : null}
+            </div>
             </div>
         );
     }
