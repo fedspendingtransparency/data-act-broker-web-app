@@ -232,7 +232,7 @@ export default class ValidateDataFileComponent extends React.Component {
                             </div>
                         </div>
                         <div className="row usa-da-validate-item-body">
-                            <div className="col-md-12 usa-da-validate-item-message">{this.state.headerTitle}</div>
+                            <div className="col-md-12 usa-da-validate-item-message usa-da-validate-txt-wrap">{this.state.headerTitle}</div>
                         </div>
                         <div className="row usa-da-validate-item-footer-wrapper">
                             <div className={"usa-da-validate-item-footer usa-da-header-error" + showFooter +" "+footerStatus} onClick={this.toggleErrorReport.bind(this)}>
@@ -255,7 +255,7 @@ export default class ValidateDataFileComponent extends React.Component {
                         </div>
                     </div>
                 {this.state.showError ? <ValidateDataErrorReport link={this.props.item.report} data={this.state.errorReports} /> : null}
-            </div>
+                </div>
             </div>
         );
     }

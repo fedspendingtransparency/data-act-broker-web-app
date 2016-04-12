@@ -116,11 +116,14 @@
             font-size: $h4-font-size;
             font-weight: bold;
             padding: 15px 0;
-            min-height: 73px;
+            min-height: 111px;
             @extend .flex-center-content;
-            & .usa-da-validate-item-message {
+            & .usa-da-validate-item-message{
                 color: $color-secondary;
-                margin: 0;
+                margin: -35px 0 0 0;
+            }
+            & .usa-da-validate-txt-wrap{
+                margin: -35px 0 0 0;
             }
         }
         .usa-da-validate-icon {
@@ -144,6 +147,7 @@
             cursor: pointer;
             bottom: 0;
             width: 100%;
+            position: absolute;
             &.usa-da-header-error {
                 & .usa-da-icon:before {
                     margin: -2px 0 0 4px;
