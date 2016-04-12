@@ -432,7 +432,7 @@
                         width: 100%;
                         padding: 10px 10px 0 10px;
                         margin: 0;
-                        &:hover {
+                        &:hover, &.hover {
                             background-color: $color-gray-dark;
                             color: $color-white;
                             * {
