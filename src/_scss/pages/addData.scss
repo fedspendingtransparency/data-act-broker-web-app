@@ -497,3 +497,32 @@ div.usa-da-validate-items {
             }
         }
     }
+
+
+.usa-da-treemap {
+    position: relative;
+    width: 100%;
+    height: 300px;
+
+    margin-top: 10px;
+
+    .usa-da-treemap-cell {
+        position: absolute;
+        overflow: hidden;
+        text-overflow: ellipsis;
+
+        padding: 5px;
+        cursor: pointer;
+    }
+}
+
+.usa-da-treemap-help-wrap {
+    margin-top: 10px;
+    border: 1px solid $color-gray-lighter;
+    min-height: 300px;
+    padding: 10px;
+
+    &.default {
+        color: $color-gray;
+    }
+}
