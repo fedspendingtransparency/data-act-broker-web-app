@@ -26,19 +26,21 @@ export default class ValidateDataOverlay extends React.Component {
 
 
 		return (
-			<div className="usa-da-validation-overlay">
+			<div className="center-block usa-da-validation-overlay">
 				<div className="container">
 					<div className="row">
-						<div className="col-md-9">
+						<div className="col-md-9 usa-da-overlay-content-wrap">
 							<div className="row">
-								<div className="col-xs-2 col-md-1 usa-da-icon-exclamation-circle usa-da-alert-icon" />
-								<div className="col-xs-10 col-md-11">
+								<div className="col-xs-2 col-sm-1 col-md-1 usa-da-icon-exclamation-circle usa-da-alert-icon" />
+								<div className="col-xs-10 col-sm-11 col-md-10">
 									<h6>You must fix the Critical Errors found in {this.props.errors.length} of the .CSV files before moving on to the next step. View and download individual reports above.</h6>
 								</div>
 							</div>
 						</div>
 						<div className="col-md-3">
-							<button className={"usa-button" + buttonDisabled} disabled={false} onClick={this.props.uploadFiles}>{buttonText}</button>
+							<div className='usa-da-btn-bg'>
+								<button className={"usa-button" + buttonDisabled} disabled={false} onClick={this.props.uploadFiles}>{buttonText}</button>
+							</div>
 						</div>
 					</div>
             	</div>

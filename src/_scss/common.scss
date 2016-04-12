@@ -40,6 +40,18 @@ body{
 }
 
 
+
+
+/***** EXTENDERS *****/
+
+//center contentet vertically
+.flex-center-content{
+        @include display(flex);
+        @include flex-direction(row);
+        @include align-items(center);
+        @include justify-content(center)
+}
+
 /* Colors */
 $color-darkest: #2C333B;
 
@@ -570,7 +582,6 @@ a.list-group-item {
 
 	& .row.usa-da-content-landing {
 		background: url('../graphics/bar_bg.png') no-repeat bottom right;
-		padding-bottom: 20px;
 	}
 	& .row.usa-da-content-add-data {
 		background: url('../graphics/line_bg.png') no-repeat bottom right;
@@ -1061,6 +1072,9 @@ button,
             @include btnBase($color-white, $color-gray);
             box-shadow: inset 0 0 0 1px $color-gray;
         }
+    }
+    .btn-bdr{
+    	border: white solid 1px;
     }
 
 }
