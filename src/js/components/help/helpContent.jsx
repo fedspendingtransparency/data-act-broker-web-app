@@ -72,7 +72,7 @@ export default class HelpContent extends React.Component {
                 <h4>Getting More Help</h4>
 
                 <p>If you encounter a bug, please file an issue
-                    in <a href="#" target="_blank">JIRA</a>, our issue tracker. If you need assistance using the Broker, or would like to schedule a workshop, please contact the DATA Act PMO office: <a href='mailto&#58;DATA%5&#48;&#77;O&#64;&#102;%69sc%&#54;1l&#37;&#50;Etr%65asury&#46;go%76'>DAT&#65;PMO&#64;f&#105;sca&#108;&#46;treasur&#121;&#46;g&#111;v</a>.</p>
+                    in <a href="https://federal-spending-transparency.atlassian.net" target="_blank">JIRA</a>, our issue tracker. If you need assistance using the Broker, or would like to schedule a workshop, please contact the DATA Act PMO office: <a href='mailto&#58;DATA%5&#48;&#77;O&#64;&#102;%69sc%&#54;1l&#37;&#50;Etr%65asury&#46;go%76'>DAT&#65;PMO&#64;f&#105;sca&#108;&#46;treasur&#121;&#46;g&#111;v</a>.</p>
             </div>
         );
     }
