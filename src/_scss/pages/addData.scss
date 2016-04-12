@@ -1,169 +1,169 @@
-    // addData Page
-.usa-da-submit-row {
-    h2 {
-        margin-bottom: 20px;
-    }
-}
-
-.usa-da-submit-review,
-.usa-da-submit-review:hover {
-    padding: 1.5em;
-    margin-top: 1.5em;
-    margin-bottom: 1.5em;
-    background-color: $color-green;
-    color: $color-white;
-    text-decoration: none;
-    display: block;
-}
-
-div.usa-da-submission-instructions {
-    margin: 6.0rem 0;
-    border-left: 8px solid $color-primary-alt-light;
-    & p {
-        margin-bottom: 0;
-        padding: 20px 0 20px 10px;
-    }
-}
-
-div.usa-da-submission-items {
-    margin-top: 60px;
-    padding-bottom: 30px;
-    &.with-overlay {
-        padding-bottom: 180px;
-    }
-    .usa-da-submission-item {
-        margin-top: 4.0rem;
-        // height: 120px;
-        &:first-child {
-            margin-top: 0em;
+// addData Page
+    .usa-da-submit-row {
+        h2 {
+            margin-bottom: 20px;
         }
-        > div {
-            // border: 1px solid #ccc;
-            // padding: 1em;
+    }
+    
+    .usa-da-submit-review,
+    .usa-da-submit-review:hover {
+        padding: 1.5em;
+        margin-top: 1.5em;
+        margin-bottom: 1.5em;
+        background-color: $color-green;
+        color: $color-white;
+        text-decoration: none;
+        display: block;
+    }
+    
+    div.usa-da-submission-instructions {
+        margin: 6.0rem 0;
+        border-left: 8px solid $color-primary-alt-light;
+        & p {
+            margin-bottom: 0;
+            padding: 20px 0 20px 10px;
         }
-        .usa-da-submission-item-drop-wrapper {
-            display: table-cell;
-            vertical-align: middle;
-            width: 100%;
-            @media (max-width: $screen-md-min) {
-                display: block;
+    }
+    
+    div.usa-da-submission-items {
+        margin-top: 60px;
+        padding-bottom: 30px;
+        &.with-overlay {
+            padding-bottom: 180px;
+        }
+        .usa-da-submission-item {
+            margin-top: 4.0rem;
+            // height: 120px;
+            &:first-child {
+                margin-top: 0em;
+            }
+            > div {
+                // border: 1px solid #ccc;
+                // padding: 1em;
+            }
+            .usa-da-submission-item-drop-wrapper {
+                display: table-cell;
+                vertical-align: middle;
+                width: 100%;
+                @media (max-width: $screen-md-min) {
+                    display: block;
+                    width: 100%;
+                }
+            }
+            .usa-da-submission-item-title {
+                display: table-cell;
+                vertical-align: middle;
+                @media (max-width: $screen-md-min) {
+                    display: block;
+                    text-align: center;
+                    padding-bottom: 1.5em;
+                    width: 100%;
+                }
+            }
+            .usa-da-submission-vertical-center {
+                display: table;
                 width: 100%;
             }
         }
-        .usa-da-submission-item-title {
-            display: table-cell;
-            vertical-align: middle;
-            @media (max-width: $screen-md-min) {
-                display: block;
-                text-align: center;
-                padding-bottom: 1.5em;
-                width: 100%;
+    }
+    
+    div.usa-da-validate-items {
+        padding: 0;
+        .usa-da-validate-item {
+            margin-bottom: 40px;
+            @include contentBlockWrapper() &.successful {
+                opacity: 0.3;
             }
         }
-        .usa-da-submission-vertical-center {
-            display: table;
-            width: 100%;
+        .usa-da-validate-item-status-section {
+            border-right: 1px solid #e4e2e0;
+            min-height: 171px;
         }
-    }
-}
-
-div.usa-da-validate-items {
-    padding: 0;
-    .usa-da-validate-item {
-        margin-bottom: 40px;
-        @include contentBlockWrapper() &.successful {
-            opacity: 0.3;
-        }
-    }
-    .usa-da-validate-item-status-section {
-        border-right: 1px solid #e4e2e0;
-        min-height: 171px;
-    }
-    .usa-da-validate-item-header {
-        border-bottom: 1px solid #e4e2e0;
-        min-height: 6.0rem;
-        h4,
-        p {
-            margin: 0;
-            line-height: 6.0rem;
-            color: $color-gray;
-        }
-        h4 {
-            font-weight: $font-light;
-            font-size: 2.4rem;
-            @media screen and (max-width: $medium-screen) {
-                line-height: 1.2em;
-                margin-bottom: 1.5rem;
+        .usa-da-validate-item-header {
+            border-bottom: 1px solid #e4e2e0;
+            min-height: 6.0rem;
+            h4,
+            p {
+                margin: 0;
+                line-height: 6.0rem;
+                color: $color-gray;
             }
-        }
-        p {
-            font-size: 1.2rem;
-            text-align: right;
-            @media screen and (max-width: $medium-screen) {
-                text-align: left;
-                line-height: 1.8rem;
-                margin-bottom: 10px;
+            h4 {
+                font-weight: $font-light;
+                font-size: 2.4rem;
+                @media screen and (max-width: $medium-screen) {
+                    line-height: 1.2em;
+                    margin-bottom: 1.5rem;
+                }
             }
-        }
-    }
-    .usa-da-validate-item-file-name {
-        font-size: 0.85em;
-        margin: 4px 0 10px;
-        color: $color-gray;
-    }
-    .usa-da-validate-item-body {
-        text-align: center;
-        font-size: $h4-font-size;
-        font-weight: bold;
-        padding: 15px 0;
-        min-height: 73px;
-        @extend .flex-center-content;
-        & .usa-da-validate-item-message {
-            color: $color-secondary;
-            margin: 0;
-        }
-    }
-    .usa-da-validate-icon {
-        font-size: 0.7em;
-        text-align: center;
-        &:before {
-            position: relative;
-            margin-left: auto;
-            margin-right: auto;
-        }
-    }
-    .usa-da-validate-item-footer-wrap {
-        position: relative;
-    }
-    .usa-da-validate-item-footer {
-        text-align: center;
-        background-color: $color-gray-lightest;
-        font-size: 1.2rem;
-        color: $color-gray;
-        padding: 10px 0;
-        cursor: pointer;
-        bottom: 0;
-        width: 100%;
-        &.usa-da-header-error {
-            & .usa-da-icon:before {
-                margin: -2px 0 0 4px;
-                font-size: 20px;
-            }
-            &:hover {
-                background: #ececec;
-            }
-            &.active {
-                background: #a3a5aa;
-                color: $color-white;
-                border: 1px solid #999ba1;
-                border-bottom: none;
-                &:hover {
-                    background: #93959a;
-                    color: $color-white;
+            p {
+                font-size: 1.2rem;
+                text-align: right;
+                @media screen and (max-width: $medium-screen) {
+                    text-align: left;
+                    line-height: 1.8rem;
+                    margin-bottom: 10px;
                 }
             }
         }
-    }
+        .usa-da-validate-item-file-name {
+            font-size: 0.85em;
+            margin: 4px 0 10px;
+            color: $color-gray;
+        }
+        .usa-da-validate-item-body {
+            text-align: center;
+            font-size: $h4-font-size;
+            font-weight: bold;
+            padding: 15px 0;
+            min-height: 73px;
+            @extend .flex-center-content;
+            & .usa-da-validate-item-message {
+                color: $color-secondary;
+                margin: 0;
+            }
+        }
+        .usa-da-validate-icon {
+            font-size: 0.7em;
+            text-align: center;
+            &:before {
+                position: relative;
+                margin-left: auto;
+                margin-right: auto;
+            }
+        }
+        .usa-da-validate-item-footer-wrap {
+            position: relative;
+        }
+        .usa-da-validate-item-footer {
+            text-align: center;
+            background-color: $color-gray-lightest;
+            font-size: 1.2rem;
+            color: $color-gray;
+            padding: 10px 0;
+            cursor: pointer;
+            bottom: 0;
+            width: 100%;
+            &.usa-da-header-error {
+                & .usa-da-icon:before {
+                    margin: -2px 0 0 4px;
+                    font-size: 20px;
+                }
+                &:hover {
+                    background: #ececec;
+                }
+                &.active {
+                    background: #a3a5aa;
+                    color: $color-white;
+                    border: 1px solid #999ba1;
+                    border-bottom: none;
+                    &:hover {
+                        background: #93959a;
+                        color: $color-white;
+                    }
+                }
+            }
+        }
         .usa-da-validate-item-file-section {
             text-align: center;
             @include display(flex);
@@ -223,13 +223,16 @@ div.usa-da-validate-items {
             padding: 0;
         }
     }
+    
     .usa-da-validate-item-bottom-section {
         border-top: 1px solid #ccc;
     }
+    
     .usa-da-validate-item-message-label {
         font-weight: 300;
         font-family: 'Source Sans Pro';
     }
+    
     .usa-da-validate-item-warning {
         position: relative;
         border-right: 1px solid #ccc;
@@ -243,6 +246,7 @@ div.usa-da-validate-items {
             position: relative;
         }
     }
+    
     .usa-da-validate-item-critical {
         .usa-da-validate-item-message-count {
             color: $color-secondary;
@@ -254,6 +258,7 @@ div.usa-da-validate-items {
             position: relative;
         }
     }
+    
     .usa-da-validate-error-report {
         padding: 15px 0 30px;
         h3 {
@@ -264,6 +269,7 @@ div.usa-da-validate-items {
             text-align: left;
         }
     }
+    
     .usa-da-validation-overlay {
         position: fixed;
         bottom: 0;
@@ -272,7 +278,6 @@ div.usa-da-validate-items {
         z-index: 999;
         width: 100%;
         color: $color-white;
-
         & .usa-da-overlay-content-wrap {
             @extend .flex-center-content;
             min-height: 150px;
@@ -299,7 +304,6 @@ div.usa-da-validate-items {
                 top: 15px;
             }
         }
-
         & .usa-da-validation-overlay-review {
             margin-left: 5px;
         }
@@ -315,6 +319,7 @@ div.usa-da-validate-items {
             }
         }
     }
+    
     div.usa-da-dropzone {
         border: 2px dashed #c8cfd7;
         padding: 6rem 2rem 2rem;
@@ -391,6 +396,7 @@ div.usa-da-validate-items {
             margin-top: 10px;
         }
     }
+    
     .usa-da-add-data-meta {
         .meta-holder {
             padding: 30px 20px 20px;
@@ -470,6 +476,7 @@ div.usa-da-validate-items {
             }
         }
     }
+    
     .usa-da-review-data-content-holder {
         padding: 25px 10px 0;
         margin-bottom: 100px;
@@ -497,61 +504,75 @@ div.usa-da-validate-items {
             }
         }
     }
-
-
-.usa-da-treemap {
-    position: relative;
-    width: 100%;
-    height: 300px;
-
-    margin-top: 10px;
-
-    .usa-da-treemap-cell {
-        position: absolute;
-        overflow: hidden;
-        text-overflow: ellipsis;
-
-        padding: 5px;
-        cursor: pointer;
+    
+    .usa-da-treemap {
+        position: relative;
+        width: 100%;
+        height: 300px;
+        margin-top: 10px;
+        .usa-da-treemap-cell {
+            position: absolute;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            padding: 5px;
+            cursor: pointer;
+        }
     }
-}
-
-.usa-da-treemap-help-wrap {
-    margin-top: 10px;
-    border: 1px solid $color-gray-lighter;
-    min-height: 300px;
-    padding: 10px;
-
-    &.default {
-        color: $color-gray;
+    
+    .usa-da-treemap-help-wrap {
+        margin-top: 10px;
+        border: 1px solid $color-gray-lighter;
+        min-height: 300px;
+        padding: 10px;
+        &.default {
+            color: $color-gray;
+        }
     }
-}
-
-
-.usa-da-treemap {
-    position: relative;
-    width: 100%;
-    height: 300px;
-
-    margin-top: 10px;
-
-    .usa-da-treemap-cell {
-        position: absolute;
-        overflow: hidden;
-        text-overflow: ellipsis;
-
-        padding: 5px;
-        cursor: pointer;
+    
+    .usa-da-treemap {
+        position: relative;
+        width: 100%;
+        height: 300px;
+        margin-top: 10px;
+        .usa-da-treemap-cell {
+            position: absolute;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            padding: 5px;
+            cursor: pointer;
+        }
     }
-}
-
-.usa-da-treemap-help-wrap {
-    margin-top: 10px;
-    border: 1px solid $color-gray-lighter;
-    min-height: 300px;
-    padding: 10px;
-
-    &.default {
-        color: $color-gray;
+    
+    .usa-da-treemap-help-wrap {
+        margin-top: 10px;
+        border: 1px solid $color-gray-lighter;
+        min-height: 300px;
+        padding: 10px;
+        &.default {
+            color: $color-gray;
+        }
     }
-}
+    
+    .usa-da-treemap {
+        position: relative;
+        width: 100%;
+        height: 300px;
+        margin-top: 10px;
+        .usa-da-treemap-cell {
+            position: absolute;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            padding: 5px;
+            cursor: pointer;
+        }
+    }
+    
+    .usa-da-treemap-help-wrap {
+        margin-top: 10px;
+        border: 1px solid $color-gray-lighter;
+        min-height: 300px;
+        padding: 10px;
+        &.default {
+            color: $color-gray;
+        }
+    }
