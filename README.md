@@ -16,6 +16,23 @@ Install dependencies:
     $ npm install
 ```
 
+#### Configuration
+
+Three sample `GlobalConstants` files are provided: `sampleGlobalConstants_dev.js`, `sampleGlobalConstants_local.js`, and `sampleGlobalConstants_prod.js`. These sample files should be used as the basis of files named `GlobalConstants_dev.js`, `GlobalConstants_local.js`, and `GlobalConstants_prod.js` respectively.
+
+The sample files require you to provide values for:
+
+* `API` is the base API URL for the server that is hosting the API. It should start with an `https://` or `http://` protocol and end with `/v1/`, including the trailing slash
+
+	* Note: the `sampleGlobalConstants_local.js` already has this field configured for you.
+
+* `LOCAL_ROOT` is the URL from which you are serving the frontend (this can be left as an empty string for non-local usage).
+* `GA_TRACKING_ID` is the tracking ID for Google Analytics.
+* `BUCKET_NAME` is the name of the AWS S3 bucket where uploaded files will reside.
+* `AWS_REGION` is the name of the [AWS region](http://docs.aws.amazon.com/general/latest/gr/rande.html) where the S3 bucket is hosted.
+
+Other fields, such as `LOCAL` and `DEV` should be left based on their sample values.
+
 ### Run gulp tasks:
 
 For production:
