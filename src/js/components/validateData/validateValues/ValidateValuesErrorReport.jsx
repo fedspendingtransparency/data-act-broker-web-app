@@ -37,7 +37,7 @@ export default class ValidateValuesErrorReport extends React.Component {
         data.forEach((item) => {
 
             let description = item.error_description;
-            if (item.error_name == 'rule_error') {
+            if (item.error_name == 'rule_failed') {
                 description = item.rule_failed;
             }
 
