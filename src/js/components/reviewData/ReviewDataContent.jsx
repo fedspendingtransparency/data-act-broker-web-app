@@ -106,7 +106,7 @@ export default class ReviewDataContent extends React.Component {
             );
         } else {
             return (
-                <div>
+                <div className="container">
                     <h4>Gathering data...</h4>
                 </div>
             );

@@ -14,6 +14,7 @@ import * as uploadActions from '../../redux/actions/uploadActions.js';
 import ValidateDataContent from '../../components/validateData/ValidateDataContent.jsx';
 import ValidateValuesContent from '../../components/validateData/validateValues/ValidateValuesContent.jsx';
 import ValidateCancellation from '../../components/validateData/ValidateCancellation.jsx';
+import ValidateLoadingScreen from '../../components/validateData/ValidateLoadingScreen.jsx';
 import { fileTypes } from '../addData/fileTypes.js';
 import { kGlobalConstants } from '../../GlobalConstants.js';
 
@@ -27,6 +28,7 @@ class ValidateDataContainer extends React.Component {
 		super(props);
 
 		this.state = {
+			finishedLoad: false,
 			headerErrors: true,
 			initialLoad: moment(),
 			offerCancellation: false
@@ -105,6 +107,10 @@ class ValidateDataContainer extends React.Component {
 
 		ReviewHelper.validateSubmission(this.props.submissionID)
 			.then((data) => {
+				this.setState({
+					finishedLoad: true
+				});
+
 				this.props.setValidation(data);
 				
 				if (!this.checkForCompletion(data)) {
@@ -137,6 +143,9 @@ class ValidateDataContainer extends React.Component {
 			// no header errors, move onto content errors
 			checkingValues = true;
 			validationContent = <ValidateValuesContent {...this.props} submissionID={this.props.submissionID} />;
+		}
+		else if (!this.state.finishedLoad) {
+			validationContent = <ValidateLoadingScreen />;
 		}
 
 		let cancel = '';
