@@ -52,7 +52,7 @@ export default class ReviewDataContent extends React.Component {
         if (this.state.ready === true) {
             // The first parameter in each of these arrays is the corresponding class for the Glyphicon
             // URL: http://getbootstrap.com/components/
-            const buttonContent = [['globe','Publish this data to USASpending.gov'],
+            const buttonContent = [['globe','Publish this data to USAspending.gov'],
                                     ['share','Send this data to another Data Broker user'],
                                     ['save','Download this data to your computer'],
                                     ['trash','Delete this data from the Data Broker']];
