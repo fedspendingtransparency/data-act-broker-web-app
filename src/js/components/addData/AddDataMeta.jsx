@@ -66,6 +66,23 @@ export default class AddDataMeta extends React.Component {
                 [field + 'Error']: false
             });
         }
+
+        // validate endDate comes after startDate
+        if (field == 'endDate' && !this.state.startDateError && this.state.endDate) {
+            if (this.state.endDate.unix() - this.state.startDate.unix() < 0) {
+                this.setState({
+                    endDateError: true,
+                    buttonDisabled: true
+                });
+            }
+            else {
+                this.setState({
+                    endDateError: false,
+                    buttonDisabled: false
+                });
+            }
+
+        }
     }
 
     validateAgency() {
