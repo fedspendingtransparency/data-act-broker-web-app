@@ -77,7 +77,7 @@ class ValidateDataContainer extends React.Component {
 		for (let key in this.props.submission.validation) {
 			const item = this.props.submission.validation[key];
 
-			if (item.file_status != 'complete') {
+			if (item.error_type == 'header_errors') {
 				hasHeaderErrors = true;
 				break;
 			}
@@ -129,15 +129,18 @@ class ValidateDataContainer extends React.Component {
 	}
 
 	render() {
+		
+		let checkingValues = false;
 
 		let validationContent = <ValidateDataContent {...this.props} submissionID={this.props.submissionID} />;
-		if (!this.state.headerErrors) {
+		if (!this.state.headerErrors && this.checkForCompletion()) {
 			// no header errors, move onto content errors
+			checkingValues = true;
 			validationContent = <ValidateValuesContent {...this.props} submissionID={this.props.submissionID} />;
 		}
 
 		let cancel = '';
-		if (this.state.offerCancellation) {
+		if (this.state.offerCancellation && !checkingValues) {
 			cancel = <ValidateCancellation />;
 		}
 
