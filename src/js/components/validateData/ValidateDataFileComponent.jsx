@@ -80,7 +80,7 @@ export default class ValidateDataFileComponent extends React.Component {
         let hasErrorReport = false;
         let isError = false;
         const errorKeys = [];
-        const errorData = [];
+        let errorData = [];
 
         if (item.missing_headers.length > 0) {
             errorKeys.push('missing_headers');
@@ -126,6 +126,14 @@ export default class ValidateDataFileComponent extends React.Component {
                 });
 
             });
+        }
+
+
+        if (item.file_status == 'incomplete') {
+            headerTitle = 'Validating...';
+            errorData = [];
+            hasErrorReport = false;
+            isError = false;
         }
 
         this.setState({

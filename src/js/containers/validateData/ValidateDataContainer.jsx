@@ -62,7 +62,7 @@ class ValidateDataContainer extends React.Component {
 		let finished = true;
 		for (let key in data) {
 			let item = data[key];
-			if (item.job_status != 'finished' && item.job_status != 'invalid') {
+			if (item.job_status != 'finished' && item.job_status != 'invalid' || item.file_status == 'incomplete' ) {
 				finished = false;
 				break;
 			}
@@ -133,7 +133,7 @@ class ValidateDataContainer extends React.Component {
 		let checkingValues = false;
 
 		let validationContent = <ValidateDataContent {...this.props} submissionID={this.props.submissionID} />;
-		if (!this.state.headerErrors && this.checkForCompletion()) {
+		if (!this.state.headerErrors && this.checkForCompletion(this.props.submission.validation)) {
 			// no header errors, move onto content errors
 			checkingValues = true;
 			validationContent = <ValidateValuesContent {...this.props} submissionID={this.props.submissionID} />;
