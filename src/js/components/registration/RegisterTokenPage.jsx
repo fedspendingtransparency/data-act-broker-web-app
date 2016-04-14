@@ -6,8 +6,11 @@
 import React, { PropTypes } from 'react';
 import Request from 'superagent';
 import RegistrationPage from './RegistrationPage.jsx';
+import RegisterEmailPage from './RegisterEmailPage.jsx';
 import Footer from '../SharedComponents/FooterComponent.jsx'
 import { kGlobalConstants } from '../../GlobalConstants.js';
+
+import { hashHistory } from 'react-router';
 
 export default class RegisterTokenPage extends React.Component {
 
@@ -34,22 +37,32 @@ export default class RegisterTokenPage extends React.Component {
                 if (err) {
                     console.log(err);
                 } else {
-                    this.setState({
-                        stepName: "code", email: res.body.email, message:res.body.message
-                    });
+
+                    if (!res.body.email) {
+                        hashHistory.push('/registration');
+                    }
+                    else {
+                        this.setState({
+                            email:res.body.email
+                        });
+
+                    }
                 }
             });
      }
 
      render() {
-         let currentComponent =  null
-         if (this.state.stepName === "code") {
-              currentComponent =  <RegistrationPage stepName='code' email={this.state.email} message={this.state.message} />
-         }
+
+        let content = 'Verifying...';
+
+        if (this.state.email != '') {
+            content = <RegistrationPage stepName='code' email={this.state.email} message={this.state.message} />;
+        }
+
          return (
              <div>
                 <div className="usa-da-page-content">
-                    {currentComponent}
+                    {content}
                 </div>
                 <Footer />
             </div>

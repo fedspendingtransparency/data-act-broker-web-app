@@ -12,14 +12,19 @@ const propTypes = {
     email: PropTypes.string
 };
 
+const defaultProps = {
+    message: ''
+};
+
 export default class RegisterEmailPage extends React.Component {
     render() {
         return (
             <div className="usa-da-login container-fluid">
-                <RegisterEmailBanner />
+                <RegisterEmailBanner message={this.props.message} />
             </div>
         );
     }
 }
 
-RegisterEmailBanner.propTypes = propTypes;
+RegisterEmailPage.propTypes = propTypes;
+RegisterEmailPage.defaultProps = defaultProps;

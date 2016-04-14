@@ -184,6 +184,13 @@ h1.login-title {
     .usa-alert, .alert {
         text-align: left;
     }
+
+    .usa-da-icon-register {
+        @extend .usa-da-icon;
+        top: 15px !important;
+        left: -12px !important;
+    }
+
 }
 
 #registrationEmail {

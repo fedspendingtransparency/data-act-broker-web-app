@@ -25,7 +25,7 @@ export default class RegisterEmailBanner extends React.Component {
         super(props);
 
         this.state = {
-            disabled: false,
+            disabled: true,
             buttonText: 'Submit',
             email: '',
             text: 'A .gov or .mil email address is preferred when registering for access to the data broker.  If you do not have a .gov or .mil email address, please contact your agency administrator.'
