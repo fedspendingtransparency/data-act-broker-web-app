@@ -35,7 +35,7 @@ export class Navbar extends React.Component {
         let tabNames = {
             'Home': 'landing',
             'Add New Data': 'addData',
-            'Performance Dashboard': 'dashboard',
+            'Submission Dashboard': 'dashboard',
             'Help': 'help'
         };
 
