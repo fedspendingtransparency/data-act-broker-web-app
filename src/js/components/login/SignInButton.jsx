@@ -22,10 +22,10 @@ export default class SignInButton extends React.Component {
     render() {
     	let disabled = '';
     	if (this.props.disabled) {
-    		disabled = ' disabled';
+    		disabled = ' usa-btn-disabled';
     	}
         return (
-            <button className={"usa-button-big pull-right" + disabled} disabled={this.props.disabled} type="button" onClick={this.props.onClick}>
+            <button className={"usa-da-button btn-primary btn-lg" + disabled} disabled={this.props.disabled} type="button" onClick={this.props.onClick}>
                 {this.props.buttonText}
             </button>
         );

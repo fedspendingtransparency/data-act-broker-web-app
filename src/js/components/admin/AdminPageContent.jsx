@@ -14,8 +14,8 @@ class AdminPageButton extends React.Component {
         let context = this.props.context;
         var classNames = require('classnames');
         let classes = classNames({
-            'usa-button-active': this.props.newStatus === 'approved',
-            'usa-button-secondary': this.props.newStatus === 'denied'
+            'usa-da-button btn-primary': this.props.newStatus === 'approved',
+            'usa-da-button btn-danger': this.props.newStatus === 'denied'
         });
 
         return (
@@ -117,13 +117,24 @@ export default class AdminPageContent extends React.Component {
             <div className="container">
                 <div className="row">
                     <div className="col-md-12 usa-da-admin-message">
+                        <h5>The following user(s) has requested access to the DATA Act Broker.</h5>
+                        <ul>
+                            <li>Click "Approve" to grant access. This will generate an email to the user with a link to complete registration.</li>
+                            <li>Click "Deny" to prevent access. This will generate an email notifying the user that they have been denied access.</li>
+                        </ul>
+                    </div>
+                </div>
+                    
+                <div className="row">
+                    <div className="col-md-12 usa-da-admin-message">
                         <AdminPageMessage data={this.state.message} />
                     </div>
                 </div>
+                    
                 <div className="row">
-                    <div className="col-md-12 usa-da-table-holder usa-da-admin-table-holder">
+                    <div className="col-md-12">
                         <Loader loaded={this.state.loaded}>
-                            <Table data={this.state.users} headers={headers}/>
+                            <Table data={this.state.users} headers={headers} extraClasses={['table-bordered']}/>
                         </Loader>
                     </div>
                 </div>

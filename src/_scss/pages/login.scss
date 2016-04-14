@@ -147,7 +147,7 @@ h1.login-title {
         ul {
             margin-bottom: 0;
             li {
-                @include list-row(20px, 20px);
+                @include list-row(38px, 36px);
                 color: as-alpha($color-white, 0.99);
                 border-right: 1px solid #5b616b;
                 padding: 0 10px;
