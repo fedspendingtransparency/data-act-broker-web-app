@@ -434,7 +434,7 @@
                         width: 100%;
                         padding: 10px 10px 0 10px;
                         margin: 0;
-                        &:hover {
+                        &:hover, &.hover {
                             background-color: $color-gray-dark;
                             color: $color-white;
                             * {
@@ -468,8 +468,16 @@
                 background: transparent;
             }
         }
+
+        .usa-da-startDate, .usa-da-endDate, .typeahead {
+            .error {
+                border: 1px $color-secondary solid;
+            }
+        }
+
         .usa-da-startDate-icon,
-        .usa-da-endDate-icon {
+        .usa-da-endDate-icon,
+        .usa-da-agency-icon {
             &:before {
                 content: "\74";
                 font-family: 'dataact';
@@ -480,7 +488,16 @@
                 z-index: 9;
                 color: #ccc;
             }
+
+            &.error {
+                border: none;
+                &:before {
+                    content: "\72";
+                    color: $color-secondary;
+                }
+            }
         }
+
     }
     
     .usa-da-review-data-content-holder {

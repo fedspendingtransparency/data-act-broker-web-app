@@ -14,6 +14,7 @@ import * as uploadActions from '../../redux/actions/uploadActions.js';
 import ValidateDataContent from '../../components/validateData/ValidateDataContent.jsx';
 import ValidateValuesContent from '../../components/validateData/validateValues/ValidateValuesContent.jsx';
 import ValidateCancellation from '../../components/validateData/ValidateCancellation.jsx';
+import ValidateLoadingScreen from '../../components/validateData/ValidateLoadingScreen.jsx';
 import { fileTypes } from '../addData/fileTypes.js';
 import { kGlobalConstants } from '../../GlobalConstants.js';
 
@@ -27,6 +28,7 @@ class ValidateDataContainer extends React.Component {
 		super(props);
 
 		this.state = {
+			finishedLoad: false,
 			headerErrors: true,
 			initialLoad: moment(),
 			offerCancellation: false
@@ -62,7 +64,7 @@ class ValidateDataContainer extends React.Component {
 		let finished = true;
 		for (let key in data) {
 			let item = data[key];
-			if (item.job_status != 'finished' && item.job_status != 'invalid') {
+			if (item.job_status != 'finished' && item.job_status != 'invalid' || item.file_status == 'incomplete' ) {
 				finished = false;
 				break;
 			}
@@ -77,7 +79,7 @@ class ValidateDataContainer extends React.Component {
 		for (let key in this.props.submission.validation) {
 			const item = this.props.submission.validation[key];
 
-			if (item.file_status != 'complete') {
+			if (item.error_type == 'header_errors') {
 				hasHeaderErrors = true;
 				break;
 			}
@@ -105,6 +107,10 @@ class ValidateDataContainer extends React.Component {
 
 		ReviewHelper.validateSubmission(this.props.submissionID)
 			.then((data) => {
+				this.setState({
+					finishedLoad: true
+				});
+
 				this.props.setValidation(data);
 				
 				if (!this.checkForCompletion(data)) {
@@ -129,15 +135,21 @@ class ValidateDataContainer extends React.Component {
 	}
 
 	render() {
+		
+		let checkingValues = false;
 
 		let validationContent = <ValidateDataContent {...this.props} submissionID={this.props.submissionID} />;
-		if (!this.state.headerErrors) {
+		if (!this.state.headerErrors && this.checkForCompletion(this.props.submission.validation)) {
 			// no header errors, move onto content errors
+			checkingValues = true;
 			validationContent = <ValidateValuesContent {...this.props} submissionID={this.props.submissionID} />;
+		}
+		else if (!this.state.finishedLoad) {
+			validationContent = <ValidateLoadingScreen />;
 		}
 
 		let cancel = '';
-		if (this.state.offerCancellation) {
+		if (this.state.offerCancellation && !checkingValues) {
 			cancel = <ValidateCancellation />;
 		}
 

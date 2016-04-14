@@ -52,7 +52,7 @@ export default class ReviewDataContent extends React.Component {
         if (this.state.ready === true) {
             // The first parameter in each of these arrays is the corresponding class for the Glyphicon
             // URL: http://getbootstrap.com/components/
-            const buttonContent = [['globe','Publish this data to USASpending.gov'],
+            const buttonContent = [['globe','Publish this data to USAspending.gov'],
                                     ['share','Send this data to another Data Broker user'],
                                     ['save','Download this data to your computer'],
                                     ['trash','Delete this data from the Data Broker']];
@@ -62,7 +62,7 @@ export default class ReviewDataContent extends React.Component {
                 buttons.push(<ReviewDataButton key={i} icon={buttonContent[i][0]} label={buttonContent[i][1]} />);
             }
 
-            const reportName = this.state.agency_name.replace(/ /g,'_') + '_' + moment(Date.now()).format('DDMMYYYY')  + '_' + this.props.submissionID;
+            const reportName = this.state.agency_name.replace(/ /g,'_') + '_' + moment(this.state.created_on, 'MM/DD/YYYY').format('DDMMYYYY')  + '_' + this.props.submissionID;
             let fileSize = 0;
 
             for (let k = 0; k < this.state.jobs.length; k++){
@@ -109,7 +109,7 @@ export default class ReviewDataContent extends React.Component {
             );
         } else {
             return (
-                <div>
+                <div className="container">
                     <h4>Gathering data...</h4>
                 </div>
             );

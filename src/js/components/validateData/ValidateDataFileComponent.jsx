@@ -40,6 +40,15 @@ export default class ValidateDataFileComponent extends React.Component {
 
     componentWillReceiveProps(nextProps) {
         this.determineErrors(nextProps.item);
+
+        if (this.props.submission.state == 'uploading' && nextProps.submission.state == 'review') {
+            // we've finished uploading files, close any open error reports
+            if (this.state.showError) {
+                this.setState({
+                    showError: false
+                });
+            }
+        }
     }
 
     toggleErrorReport(){
@@ -47,7 +56,7 @@ export default class ValidateDataFileComponent extends React.Component {
     }
 
     isFileReady() {
-        if (this.props.item.file_status != '' && this.props.item.file_status != 'waiting') {
+        if (this.props.item.job_status == 'finished' || this.props.item.job_status == 'invalid') {
             return true;
         }
         return false;
@@ -71,7 +80,7 @@ export default class ValidateDataFileComponent extends React.Component {
         let hasErrorReport = false;
         let isError = false;
         const errorKeys = [];
-        const errorData = [];
+        let errorData = [];
 
         if (item.missing_headers.length > 0) {
             errorKeys.push('missing_headers');
@@ -100,12 +109,7 @@ export default class ValidateDataFileComponent extends React.Component {
             hasErrorReport = false;
             isError = false;
         }
-        else if (errorKeys.length == 0 && this.isFileReady()) {
-            headerTitle = 'Critical Error: An unknown error has occurred with this file';
-            hasErrorReport = false;
-            isError = true;
-        }
-
+        
         if (errorKeys.length > 0) {
             errorKeys.forEach((key) => {
                 let tableTitle = '';
@@ -122,6 +126,14 @@ export default class ValidateDataFileComponent extends React.Component {
                 });
 
             });
+        }
+
+
+        if (item.file_status == 'incomplete') {
+            headerTitle = 'Validating...';
+            errorData = [];
+            hasErrorReport = false;
+            isError = false;
         }
 
         this.setState({

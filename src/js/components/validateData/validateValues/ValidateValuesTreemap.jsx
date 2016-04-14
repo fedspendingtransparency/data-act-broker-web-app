@@ -27,7 +27,7 @@ class ValidateValuesTreemap extends React.Component {
 				value += 'type error (' + item.occurrences + ')';
 				description = 'There is a type error in the \"' + item.field_name + '\" field. ' + item.error_description;
 			}
-			else if (item.error_name == 'rule_error') {
+			else if (item.error_name == 'rule_failed') {
 				value += 'rule error (' + item.occurrences + ')';
 				description = 'There is a rule error in the \"' + item.field_name + '\" field. ' + item.rule_failed;
 			}
