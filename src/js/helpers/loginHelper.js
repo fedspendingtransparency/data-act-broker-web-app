@@ -136,3 +136,24 @@ export const checkSession = () => {
 
 	return deferred.promise;
 }
+
+
+export const registerEmail = (email) => {
+	const deferred = Q.defer();
+
+	Request.post(kGlobalConstants.API + 'confirm_email/')
+		.withCredentials()
+		.send({ 'email': email })
+		.end((err) => {
+
+        	if (err) {
+        		deferred.reject(err);
+        	}
+        	else {
+        		deferred.resolve();
+        	}
+
+		});
+
+    return deferred.promise;
+}

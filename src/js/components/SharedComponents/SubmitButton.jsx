@@ -20,12 +20,10 @@ const defaultProps = {
 // A standard button for submission that we can further turn into a sharable component
 export default class SubmitButton extends React.Component {
     render() {
-        let newButtonClass;
+        let newButtonClass = this.props.className;
 
         if (this.props.buttonDisabled) {
-            newButtonClass = 'usa-button-disabled' + ' ' + this.props.className;
-        } else {
-            newButtonClass = this.props.className;
+            newButtonClass = 'usa-button-disabled ' + this.props.className;
         }
 
         return (

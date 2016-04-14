@@ -47,6 +47,12 @@ h1.login-title {
             background: red;
             width: 100%
         }
+
+        &.disabled {
+            background-color: $color-gray-light;
+            color: $color-gray;
+            cursor: default;
+        }
     }
     .usa-da-color-gray-light-eighth-tone {
         background-color: as-alpha($color-gray-dark, 0.56);
@@ -178,4 +184,15 @@ h1.login-title {
     .usa-alert, .alert {
         text-align: left;
     }
+
+    .usa-da-icon-register {
+        @extend .usa-da-icon;
+        top: 15px !important;
+        left: -12px !important;
+    }
+
+}
+
+#registrationEmail {
+    padding-left: 1rem;       
 }

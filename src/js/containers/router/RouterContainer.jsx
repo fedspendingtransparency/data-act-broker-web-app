@@ -18,7 +18,7 @@ import * as LoginHelper from '../../helpers/loginHelper.js';
 import RouterRoutes from './RouterRoutes.jsx';
 
 const ga = require('react-ga');
-const GA_OPTIONS = { debug: true };
+const GA_OPTIONS = { debug: false };
 
 const Routes = new RouterRoutes();
 

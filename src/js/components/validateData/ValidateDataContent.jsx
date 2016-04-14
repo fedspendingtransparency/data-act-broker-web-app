@@ -42,7 +42,7 @@ export default class ValidateDataContent extends React.Component {
             }
         });
 
-        let overlay = ''
+        let overlay = '';
         let displayOverlay = '';
         if (!allValid) {
             // we'll need extra padding at the bottom of the page if the overlay is present

@@ -17,6 +17,7 @@ import vinylPaths from 'vinyl-paths';
 import cssNano from 'gulp-cssnano';
 import shell from 'gulp-shell';
 import fs from 'fs';
+import looseEnvify from 'loose-envify';
 
 import mocha from 'gulp-mocha';
 import babel from 'babel-core/register';
@@ -129,7 +130,7 @@ gulp.task('copyNewRelic', () => {
 gulp.task('watch', ['fonts', 'images', 'graphics', 'docs', 'copyConstants', 'copyNewRelic'], () => {
     const props = {
         entries: [path.ENTRY_POINT],
-        transform: [[babelify, { presets: ['es2015', 'react'] }]],
+        transform: [[babelify, { presets: ['es2015', 'react'] }, {envify: { global: true}}]],
         debug: !build,
         cache: {}, packageCache: {}, fullPaths: true
     };

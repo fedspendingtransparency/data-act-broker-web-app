@@ -196,9 +196,9 @@ export default class ConfirmCode extends React.Component {
                     <TextInputComponent inputClass="" inputPlaceholder="Name" inputName="regName" handleChange={this.handleFieldChange.bind(this)}/>
                     <TextInputComponent inputClass="" inputPlaceholder="Agency" inputName="regAgency" handleChange={this.handleFieldChange.bind(this)} />
                     <TextInputComponent inputClass="" inputPlaceholder="Title" inputName="regTitle" handleChange={this.handleFieldChange.bind(this)} />
-                    <PasswordComponent fieldID="regPassword1" handleChange={this.handleFieldChange.bind(this)}/>
+                    <PasswordComponent fieldID="regPassword1" iconClass="usa-da-icon-register" handleChange={this.handleFieldChange.bind(this)}/>
                     <p>Please include an uppercase letter, a lowercase letter, a number, and a special character [ ] { } ~ ! @ # $ % ^, . ? ; in your password.</p>
-                    <PasswordComponent fieldID="regPassword2" handleChange={this.handleFieldChange.bind(this)}/>
+                    <PasswordComponent fieldID="regPassword2" iconClass="usa-da-icon-register" handleChange={this.handleFieldChange.bind(this)}/>
                     {passMessageComponent}
                     {messageComponent}
                     {actionComponent}

@@ -10,6 +10,7 @@ import Table from '../SharedComponents/table/TableComponent.jsx';
 import AddDataHeader from './../addData/AddDataHeader.jsx';
 import Progress from '../SharedComponents/ProgressComponent.jsx';
 import SubmitButton from '../SharedComponents/SubmitButton.jsx';
+import Footer from '../SharedComponents/FooterComponent.jsx';
 
 import ReviewDataContent from './ReviewDataContent.jsx';
 
@@ -46,16 +47,19 @@ export default class ReviewDataPage extends React.Component {
 
         return (
             <div>
-                <Navbar activeTab="addData"/>
-                <AddDataHeader />
-                <div className="usa-da-content-step-block">
-                    <div className="container center-block">
-                        <div className="row">
-                            <Progress totalSteps={3} currentStep={3} />
+                <div className="usa-da-page-content">
+                    <Navbar activeTab="addData"/>
+                    <AddDataHeader />
+                    <div className="usa-da-content-step-block">
+                        <div className="container center-block">
+                            <div className="row">
+                                <Progress totalSteps={3} currentStep={3} />
+                            </div>
                         </div>
                     </div>
+                    {currentComponent}
                 </div>
-                {currentComponent}
+                <Footer />
             </div>
         );
     }
