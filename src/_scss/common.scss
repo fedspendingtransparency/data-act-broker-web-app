@@ -55,18 +55,6 @@ body{
 /* Colors */
 $color-darkest: #2C333B;
 
-/* Fonts */
-// @font-face {
-// 	font-family: "dataact";
-// 	src:url("../fonts/dataact.eot");
-// 	src:url("../fonts/dataact.eot?#iefix") format("embedded-opentype"),
-// 	url("../fonts/dataact.woff") format("woff"),
-// 	url("../fonts/dataact.ttf") format("truetype"),
-// 	url("../fonts/dataact.svg#dataact") format("svg");
-// 	font-weight: normal;
-// 	font-style: normal;
-// }
-
 /* Sizing */
 $header-height: 8rem;
 
@@ -260,46 +248,6 @@ pre {
 	}
 }
 
-
-/* Tables */
-// .usa-da-table-holder {
-// 	margin: 60px auto;
-// 	text-align: center;
-// }
-
-// .usa-da-table {
-// 	width: 100%;
-
-// 	thead {
-// 		tr {
-// 			background-color: $color-gray;
-// 		}
-
-// 		th {
-// 			color: white;
-// 			border: 1px solid $color-gray-light;
-// 			border-right: 1px solid $color-gray-lightest;
-// 		}
-
-// 		th:last-child {
-// 			border-right: 1px solid $color-gray-light;
-// 		}
-// 	}
-
-// 	th, td {
-// 		border: 1px solid $color-gray-light;
-// 		padding: 1.0rem 2.0rem;
-// 		color: $color-gray;
-// 	}
-
-	// .usa-da-table-sorter {
-	// 	.sort-icon {
-	// 		color: $color-primary-alt-lightest;
-	// 		margin-left: 10px;
-	// 		cursor: pointer;
-	// 	}
-	// }
-// }
 
 
 .usa-da-table {
@@ -771,78 +719,7 @@ a.list-group-item {
 }
 
 
-/* Buttons */
-// .usa-da-button-holder {
-// 	margin: 60px auto;
-// }
 
-// .usa-da-button-big {
-// 	background-color: $color-gray-lightest;
-// 	color: $color-gray;
-// 	width: 100%;
-// 	padding: 2em;
-// 	border: 1px solid $color-gray-lighter;
-// 	cursor: pointer;
-// 	display: inline-block;
-// 	font-family: $font-sans;
-// 	font-size: 2.0rem;
-// 	font-weight: 700;
-// 	line-height: 1;
-// 	outline: none;
-// 	text-align: center;
-// 	text-decoration: none;
-// 	-webkit-font-smoothing: antialiased;
-
-// 	&:hover {
-
-// 	}
-
-// 	&:visited {
-// 		color: $color-gray;
-// 	}
-
-// 	&.submit {
-// 		background-color: $color-primary;
-// 		color: $color-white;
-// 		border: 0;
-// 		border-radius: 0;
-// 		cursor: pointer;
-// 		font-family: Source Sans Pro,Helvetica,Arial,sans-serif;
-// 		font-weight: 700;
-// 		outline: none;
-// 		text-align: center;
-// 		text-decoration: none;
-// 		width: 100%;
-// 		-webkit-font-smoothing: antialiased;
-// 	}
-
-// 	&.disabled {
-// 		background-color: $color-gray-light;
-// 		color: $color-gray;
-// 		cursor: default;
-// 		padding-bottom: 2.5rem;
-
-// 		div {
-// 			font-size: 1.5rem;
-// 		}
-// 	}
-// }
-
-// .usa-da-button-bigger {
-// 	width: 70%;
-// 	padding: 1.5em;
-// 	margin-top: 1.5em;
-// 	margin-bottom: 1.5em;
-// }
-
-// .usa-da-button-biggest {
-// 	width: 100%;
-// 	padding: 3em;
-
-// 	&.disabled {
-// 		padding-bottom:4.5rem;
-// 	}
-// }
 
 /* Inputs */
 
@@ -883,22 +760,23 @@ a.list-group-item {
     font-size: 1.4rem;
     border-radius: 0;
     position: relative;
+    margin: 20px 0 !important;
 
 	h3 {
         font-size: 2.4rem;
         font-weight: $font-bold;
-        margin: -4px 0 5px 48px;
+        margin: 0 0 5px 48px;
     }
 
 	h5 {
-        margin:10px 0 8px;
+        margin:10px 0 12px;
     }
 
 	p, ul {
         margin: 5px 0 5px 48px;
     }
 
-	.glyphicon {
+	.usa-da-icon {
         font-size: 3.2rem;
         position: absolute;
         top: 15px;
@@ -929,7 +807,7 @@ a.list-group-item {
 
 .alert-danger, .alert-error {
     background: #f9dede;
-    .glyphicon {
+    .usa-da-icon {
         color: #d9534f;
     }
 }
@@ -1090,9 +968,15 @@ button,
     &.btn-disabled, &[disabled], & fieldset[disabled]{
         cursor: not-allowed;
         opacity: 0.65;
-        filter: alpha(opacity=65);
+        background:$color-gray-lighter;
         -webkit-box-shadow: none;
         box-shadow: none;
+        color:$color-gray;
+        &:hover{
+        	opacity: 0.75;
+        	background:$color-gray-lighter;
+        	color:$color-gray;
+        }
     }
 
     &.btn-bdr{
