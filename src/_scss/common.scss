@@ -1,5 +1,17 @@
 // .row{ border: 1px solid #ccc}
 
+html, body {
+	height: 100%;
+}
+
+#app {
+	height: 100%;
+
+	> div {
+		height: 100%;
+	}
+}
+
 body{
 	-webkit-font-smoothing: antialiased;
 	font-smooth: always;
@@ -762,14 +774,22 @@ a.list-group-item {
 }
 
 /* Footer */
+.usa-da-page-content {
+	min-height: 100%;
+	padding-bottom: 55px;
+}
 .usa-da-footer {
 	font-family: $font-sans;
 	text-align: center;
 	background-color: $color-darkest;
 	color: $color-white;
 	padding: 10px 0;
-}
 
+	position: relative;
+	height: 35px;
+	margin-top: -35px;
+	width: 100%;
+}
 
 /* Buttons */
 // .usa-da-button-holder {

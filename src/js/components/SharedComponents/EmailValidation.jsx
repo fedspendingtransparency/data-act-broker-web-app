@@ -33,6 +33,7 @@ export default class EmailValidation extends React.Component {
         }
 
         this.props.buttonDisabled(newButtonDisabled);
+        this.props.onChange(inputText);
     }
 
     render() {
@@ -42,7 +43,8 @@ export default class EmailValidation extends React.Component {
               name={this.props.id}
               placeholder={this.props.placeholder}
               type="text"
-              onChange={this.props.handleChange}
+              onChange={this.handleChange.bind(this)}
+              value={this.props.value}
             />
         );
     }

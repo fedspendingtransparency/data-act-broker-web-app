@@ -31,6 +31,14 @@ class ValidateValuesTreemap extends React.Component {
 				value += 'rule error (' + item.occurrences + ')';
 				description = 'There is a rule error in the \"' + item.field_name + '\" field. ' + item.rule_failed;
 			}
+			else if (item.error_name == 'required_error') {
+				value += 'missing required value (' + item.occurrences + ')';
+				description = 'Values are missing in the required \"' + item.field_name + '\" field. ' + item.error_description;
+			}
+			else {
+				value += '(' + item.occurrences + ')';
+				description = 'There are errors in the \"' + item.field_name + '\" field. ' + item.error_description;
+			}
 
 			data.push({
 				label: value,
