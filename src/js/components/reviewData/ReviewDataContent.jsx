@@ -69,7 +69,7 @@ export default class ReviewDataContent extends React.Component {
                 fileSize += this.state.jobs[k].file_size;
             }
 
-            const reportLabels = ['Report Name:', 'Period Start Date:', 'Period End Date:', 'Total File Size:', 'Created On:', 'Total Critical Errors:', 'Total Warnings:', 'Total Rows:'];
+            const reportLabels = ['Report Name:', 'Period Start Date:', 'Period End Date:', 'Total File Size:', 'Created On:', 'Total Critical Errors:', 'Total Warnings:', 'Total Rows:', 'Incurred Obligations:', 'Financial Assistance Obligations:', 'Procurement Obligations:'];
 
             const reportData = [reportName,
                 this.state.reporting_period_start_date,
@@ -78,7 +78,10 @@ export default class ReviewDataContent extends React.Component {
                 this.state.created_on,
                 this.state.number_of_errors,
                 0,
-                this.state.number_of_rows
+                this.state.number_of_rows,
+                'Coming Soon',
+                'Coming Soon',
+                'Coming Soon'
             ];
 
             let reportRows = [];
@@ -98,7 +101,7 @@ export default class ReviewDataContent extends React.Component {
                         <div className="col-md-5 mt-15">
                             {buttons}
                         </div>
-                        <div className="col-md-offset-1 col-md-6 usa-da-review-data-alternating-rows">
+                        <div className="col-md-7 usa-da-review-data-alternating-rows">
                             {reportRows}
                         </div>
                     </div>

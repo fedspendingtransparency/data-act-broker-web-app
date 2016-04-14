@@ -152,7 +152,7 @@ export default class AddDataMeta extends React.Component {
 
                                     <div className="row">
                                         <div className="col-sm-12 text-right mt-20">
-                                            <SubmitButton onClick={this.submitMetadata.bind(this)} buttonText="Submit" buttonDisabled={this.state.buttonDisabled} />
+                                            <SubmitButton onClick={this.submitMetadata.bind(this)} className="usa-da-button btn-primary btn-lg" buttonText="Submit" buttonDisabled={this.state.buttonDisabled} />
                                         </div>
                                     </div>
                                 </div>
