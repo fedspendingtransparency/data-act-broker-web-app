@@ -28,12 +28,12 @@ export default class RegistrationPage extends React.Component {
         if (this.props.stepName === 'email') {
             currentComponent = <RegisterEmailPanel resend={false} />;
         } else if (this.props.stepName === 'code') {
-            if (this.props.message === 'Link already used') {
-                currentComponent = <RegisterEmailPanel resend={true} />
-            }
-            else if (this.props.message == 'success') {
-                currentComponent = <ConfirmCode email={this.props.email}/>;
-            }
+            // if (this.props.message === 'Link already used') {
+                // currentComponent = <RegisterEmailPanel resend={true} />
+            // }
+            // else if (this.props.message == 'success') {
+                currentComponent = <ConfirmCode email="kevin@email.com"/>;
+            // }
         }
 
         return (

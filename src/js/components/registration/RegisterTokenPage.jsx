@@ -6,6 +6,7 @@
 import React, { PropTypes } from 'react';
 import Request from 'superagent';
 import RegistrationPage from './RegistrationPage.jsx';
+import Footer from '../SharedComponents/FooterComponent.jsx'
 import { kGlobalConstants } from '../../GlobalConstants.js';
 
 export default class RegisterTokenPage extends React.Component {
@@ -46,7 +47,12 @@ export default class RegisterTokenPage extends React.Component {
               currentComponent =  <RegistrationPage stepName='code' email={this.state.email} message={this.state.message} />
          }
          return (
-             <div>{currentComponent}</div>
+             <div>
+                <div className="usa-da-page-content">
+                    {currentComponent}
+                </div>
+                <Footer />
+            </div>
          );
      }
  }
