@@ -14,7 +14,7 @@ Assumptions:
 
 ### Install Prerequisites and Code
 
-1. If you're not already running Node.js, download and run the installer for your operating system: [https://nodejs.org/en/](https://nodejs.org/en/ "Node.js installer").
+1. If you're not already running Node.js, download and run the installer for your operating system. We recommend v4.x: [https://nodejs.org/en/](https://nodejs.org/en/ "Node.js installer").
 
 2. Use *npm* (Node's package manager, which is part of the Node.js install) to install the latest version of gulp. This is necessary for runing the babel version of the `gulpfile`):
 
