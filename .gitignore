@@ -40,3 +40,6 @@ GlobalConstants_prod.js
 
 # Ignore Jest Test Results
 __tests__/test-results
+
+
+*.DS_Store
