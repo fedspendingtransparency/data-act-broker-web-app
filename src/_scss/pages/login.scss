@@ -1,96 +1,198 @@
 // login Page
 
 .usa-da-login {
-	background-image: url("../../images/hero_bg_img.jpg");
-	background-repeat:no-repeat;
-	background-size: cover;
-	background-position:center;
-	padding-top: 20vh;
-	padding-bottom: 20vh;
-	padding-left: 0;
-	padding-right: 0;
-	width: 100%;
-	position: absolute;
-	top: 0;
-	bottom: 0;
+    background-image: url("../img/hero_bg_img.jpg");
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+    padding-left: 0;
+    padding-right: 0;
+    width: 100%;
+    height: 100vh;
+    @media screen and (max-width: 450px) {
+        height: auto;
+        background-color: $color-primary-darkest;
+    }
 
-	input {
-		padding-left: 55px;
-		height: 44px;
-		margin-top: 0;
-		max-width: none;
-	}
+    @include display(flex);
+    @include flex-direction(column);
+    @include justify-content(center);
 
-	.usa-button-big {
-		float: right;
-		margin: 0;
-	}
+    input {
+        padding-left: 55px;
+        height: 44px;
+        margin-top: 0;
+        margin-bottom: 0;
+        max-width: none;
+        &[name="password"] {
+            margin-bottom: 0;
+        }
+    }
 
-	.usa-da-color-gray-light-eighth-tone {
-		background-color: as-alpha($color-gray-light,.125);
-	}
+h1.login-title {
+    font-size: 6.0rem;
+    line-height: 6.0rem;
+    margin-top: 35px;
+    margin-bottom: 10px;
+    color: $color-white;
+    font-weight: $font-light;
+    &:after{
+        @include alphaMark;
+    }
+}
 
-	.usa-da-login-container {
-		padding: 40px;
-		margin: 40px 0;
-		background: $color-gray-dark;
+    .usa-button-big {
+        margin: 0;
+        @media screen and (max-width: $small-screen) {
+            background: red;
+            width: 100%
+        }
 
-		input {
-			width: 100%;
-			font-family: $font-sans;
-			font-size: 17px;
-		}
+        &.disabled {
+            background-color: $color-gray-light;
+            color: $color-gray;
+            cursor: default;
+        }
+    }
+    .usa-da-color-gray-light-eighth-tone {
+        background-color: as-alpha($color-gray-dark, 0.56);
+        border-top: 1px solid rgba(255, 255, 255, 0.1);
+        border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    }
+    .usa-da-login-container {
+        padding: 40px;
+        margin: 40px 0;
+        background: as-alpha($color-white, 0.05);
+        border: 1px solid rgba(0, 0, 0, 0.25);
+        @media screen and (max-width: 1199px) and (min-width: $medium-screen) {
+            padding: 40px 20px;
+        }
 
-		.usa-da-login-button-holder {
-			padding-right: 0;
-		}
+        .row{
+        	@media screen and (min-width: $small-screen) {
+            margin-left:0;
+        	margin-right: 0;
+            }
+        }
 
-		button {
-			font-size: 20px;
-			padding: 10px 30px;
-			background: $color-primary;
-			color: $color-white;
-			font-weight: $font-bold;
-			border: none;
-			font-family: $font-sans;
-		}
-	}
+        input {
+            width: 100%;
+            font-family: $font-sans;
+            font-size: 17px;
+        }
 
-	.usa-da-input-container {
-		margin-bottom: 20px;
-		display: inline-flex;
-		position: relative;
-		width: 100%;
+        .usa-da-login-button-holder {
+            padding: 0;
+        }
 
-		div.usa-da-icon {
-			background-image: url("../../graphics/form_bg.png");
-			background-repeat:no-repeat;
-			background-size:contain;
-			background-position:center;
-			margin: 0;
-			position: absolute;
-			left: 0;
-			top: 1px;
-			height: 42px;
-			width: 48px;
-			overflow: hidden;
-			float: left;
-			font-size: 24px;
-		}
-	}
+        button {
+            font-size: 20px;
+            padding: 10px 30px;
+            background: $color-primary;
+            color: $color-white;
+            font-weight: $font-bold;
+            border: none;
+            font-family: $font-sans;
+        }
 
-	.usa-da-registration-links {
-		height: 34px;
-		margin-top: 14px;
-		padding-left: 0;
+        p.msg {
+            color: #fff;
+            margin: 0 0 20px -15px;
+            @media screen and (max-width: $small-screen) {
+                margin: 0 auto 20px;
+                text-align: center;
+            }
+        }
 
-		p, p a, p a:hover, p a:visited {
-			color: $color-gray-light;
-		}
+        p.info {
+            color: #fff;
+            margin: 12px 0 0 -15px;
+            margin-bottom: 20px;
+            @media screen and (max-width: $small-screen) {
+                    text-align: center;
+            }
+        }
 
-		p a, p a:hover, p a:visited {
-			text-decoration: none;
-			font-size: 14px;
-		}
-	}
+        .usa-da-reset-success {
+            margin: 20px 0 0 0;
+            padding: 0;
+            color: $color-white;
+            font-size: $small-font-size;
+        }
+    }
+    .usa-da-input-container {
+        margin-bottom: 20px;
+        display: inline-flex;
+        position: relative;
+        width: 100%;
+        div.usa-da-icon {
+            background-image: url("../graphics/form_bg.png");
+            background-repeat: no-repeat;
+            background-size: contain;
+            background-position: center;
+            margin: 0;
+            position: absolute;
+            left: 10px;
+            top: 12px;
+            height: 42px;
+            width: 48px;
+            overflow: hidden;
+            float: left;
+            font-size: 24px;
+            color: $color-gray-dark;
+        }
+    }
+    .usa-da-registration-links {
+        padding-left: 0;
+        ul {
+            margin-bottom: 0;
+            li {
+                @include list-row(38px, 36px);
+                color: as-alpha($color-white, 0.99);
+                border-right: 1px solid #5b616b;
+                padding: 0 10px;
+                & a {
+                    color: as-alpha($color-white, 0.99);
+                    font-size: 1.2rem;
+                }
+            }
+            @media screen and (max-width: $small-screen) {
+                margin: 0 auto 20px;
+            }
+        }
+    }
+
+    a.forgot-back {
+        color: as-alpha($color-white, 0.99);
+        font-size: 1.2rem;
+    }
+}
+
+.usa-da-registration {
+    h1 {
+        margin: 60px auto 20px;
+    }
+
+    input {
+        max-width: none;
+    }
+
+    button {
+        margin: .5em;
+    }
+
+    .usa-alert, .alert {
+        text-align: left;
+    }
+
+    .usa-da-icon-register {
+        @extend .usa-da-icon;
+        top: 15px !important;
+        left: -12px !important;
+    }
+
+}
+
+#registrationEmail {
+    padding-left: 1rem;       
 }

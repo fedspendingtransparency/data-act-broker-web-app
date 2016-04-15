@@ -1,220 +1,364 @@
-html {
-  font-family: $font-sans;
-  font-size: $em-base;
-}
+// @import 'google-fonts.css';
 
-body {
-  font-size: $base-font-size;
-}
+// html {
+//   font-family: $font-sans;
+//   font-size: $em-base;
+// }
 
-p {
-  line-height: $base-line-height;
-  margin: {
-    top: 1em;
-    bottom: 1em;
-  }
-}
+// body {
+//   font-size: $base-font-size;
+// }
 
-a {
-  color: $color-primary;
-  text-decoration: none;
+// p {
+//   line-height: $base-line-height;
+//   margin: {
+//     top: 1em;
+//     bottom: 1em;
+//   }
+// }
 
-  &:hover, 
-  &:active {
-    color: $color-primary-darker;
-    text-decoration: underline;
-  }
+// a {
+//   color: $color-primary;
+//   text-decoration: none;
 
-  &:visited {
-    color: $color-visited;
-  }
+//   &:hover, 
+//   &:active {
+//     color: $color-primary-darker;
+//     text-decoration: underline;
+//   }
 
-  &:focus {
-    box-shadow: $focus-shadow;
-    outline: 0;
-  }
-}
+//   &:visited {
+//     color: $color-visited;
+//   }
 
-h1, h2, h3, h4, h5, h6 {
-  clear: both;
-  font-family: $font-sans;
-  line-height: $heading-line-height;
-  margin: {
-    top: 1.5em;
-    bottom: .5em;
-  }
-}
+//   &:focus {
+//     box-shadow: $focus-shadow;
+//     outline: 0;
+//   }
+// }
 
-// Create heading mixins 
+// h1, h2, h3, h4, h5, h6 {
+//   clear: both;
+//   font-family: $font-sans;
+//   line-height: $heading-line-height;
+//   margin: {
+//     top: 1.5em;
+//     bottom: .5em;
+//   }
+// }
 
-@mixin title {
-  font-size: $title-font-size;
-  font-weight: $font-bold;
-}
+// // Create heading mixins 
 
-@mixin h1 {
-  font-size: $h1-font-size;
-  font-weight: $font-bold;
-}
+// @mixin title {
+//   font-size: $title-font-size;
+//   font-weight: $font-bold;
+// }
 
-@mixin h2 {
-  font-size: $h2-font-size;
-  font-weight: $font-bold;
-}
+// @mixin h1 {
+//   font-size: $h1-font-size;
+//   font-weight: $font-bold;
+// }
 
-@mixin h3 {
-  font-size: $h3-font-size;
-  font-weight: $font-bold;
-}
+// @mixin h2 {
+//   font-size: $h2-font-size;
+//   font-weight: $font-bold;
+// }
 
-@mixin h4 {
-  font-size: $h4-font-size;
-  font-weight: $font-bold;
-}
+// @mixin h3 {
+//   font-size: $h3-font-size;
+//   font-weight: $font-bold;
+// }
 
-@mixin h5 {
-  font-size: $h5-font-size;
-  font-weight: $font-bold;
-}
+// @mixin h4 {
+//   font-size: $h4-font-size;
+//   font-weight: $font-bold;
+// }
 
-@mixin h6 {
-  font-family: $font-sans;
-  font-size: $h6-font-size;
-  font-weight: $font-normal;
-  text-transform: uppercase;
-}
+// @mixin h5 {
+//   font-size: $h5-font-size;
+//   font-weight: $font-bold;
+// }
 
-h1 {
-  @include h1();
-}
+// @mixin h6 {
+//   font-family: $font-sans;
+//   font-size: $h6-font-size;
+//   font-weight: $font-normal;
+//   text-transform: uppercase;
+// }
 
-h2 {
-  @include h2();
-}
+// h1 {
+//   @include h1();
+// }
 
-h3 {
-  @include h3();
-}
+// h2 {
+//   @include h2();
+// }
 
-h4 {
-  @include h4();
-}
+// h3 {
+//   @include h3();
+// }
 
-h5 {
-  @include h5();
-}
+// h4 {
+//   @include h4();
+// }
 
-h6 {
-  @include h6(); 
-}
+// h5 {
+//   @include h5();
+// }
 
-// Remove user agent styles
+// h6 {
+//   @include h6(); 
+// }
 
-cite, 
-var, 
-address, 
-dfn {
- font-style: normal;
-}
+// // Remove user agent styles
 
-// Custom typography
+// cite, 
+// var, 
+// address, 
+// dfn {
+//  font-style: normal;
+// }
 
-.usa-content {
-  p {
-    max-width: $text-max-width;
-  }  
-}
+// // Custom typography
 
-.usa-content-list {
-  max-width: $text-max-width;
-}
+// .usa-content {
+//   p {
+//     max-width: $text-max-width;
+//   }  
+// }
 
-p, 
-.usa-content-list {
-  a {
-    text-decoration: underline;
-  }
-}
+// .usa-content-list {
+//   max-width: $text-max-width;
+// }
 
-.usa-sans {
-  p, 
-  a, 
-  li, 
-  span {
-    font-family: $font-sans;
-  }
-}
+// p, 
+// .usa-content-list {
+//   a {
+//     text-decoration: underline;
+//   }
+// }
 
-.usa-serif {
-  p, 
-  a, 
-  li, 
-  span {
-    font-family: $font-serif;
-  }
-}
+// .usa-sans {
+//   p, 
+//   a, 
+//   li, 
+//   span {
+//     font-family: $font-sans;
+//   }
+// }
 
-.usa-sans a {
-  border-bottom: none;
-  font-weight: $font-bold;
-}
+// .usa-serif {
+//   p, 
+//   a, 
+//   li, 
+//   span {
+//     font-family: $font-serif;
+//   }
+// }
 
-.usa-display {
-  @include h3();
-  margin-bottom: 0;
+// .usa-sans a {
+//   border-bottom: none;
+//   font-weight: $font-bold;
+// }
 
-  @include media($small-screen) {
-    @include h1();
-  }
+// .usa-display {
+//   @include h3();
+//   margin-bottom: 0;
 
-  @include media($medium-screen) {
-    @include title();
-  }
-}
+//   @include media($small-screen) {
+//     @include h1();
+//   }
 
-.usa-font-lead {
-  font-size: $lead-font-size;
-  font-family: $font-serif;
-  line-height: $lead-line-height;
-}
+//   @include media($medium-screen) {
+//     @include title();
+//   }
+// }
 
-.usa-image-block {
-  position: relative;
-}
+// .usa-font-lead {
+//   font-size: $lead-font-size;
+//   font-family: $font-serif;
+//   line-height: $lead-line-height;
+// }
 
-.usa-image-text-block {
-  color: $color-white;
-  left: 0;
-  margin-left: 8%;
-  position: absolute;
-  top: 0;
-}
+// .usa-image-block {
+//   position: relative;
+// }
 
-.usa-image-text {
-  margin-top: 0;
-}
+// .usa-image-text-block {
+//   color: $color-white;
+//   left: 0;
+//   margin-left: 8%;
+//   position: absolute;
+//   top: 0;
+// }
 
-.usa-drop_text {
-  margin-bottom: 0;
-}
+// .usa-image-text {
+//   margin-top: 0;
+// }
 
-.usa-background-dark {
-  background-color: $color-gray-dark;
+// .usa-drop_text {
+//   margin-bottom: 0;
+// }
 
-  p, span {
-    color: $color-white;
-  }
+// .usa-background-dark {
+//   background-color: $color-gray-dark;
 
-  a {
-    color: $color-gray-lighter;
+//   p, span {
+//     color: $color-white;
+//   }
+
+//   a {
+//     color: $color-gray-lighter;
     
-    &:hover {
-      color: $color-white;
-    }
-  }
-}
+//     &:hover {
+//       color: $color-white;
+//     }
+//   }
+// }
 
-.usa-text-small {
-  font-size: $h6-font-size;
-  margin-top: 0;
-}
+// .usa-text-small {
+//   font-size: $h6-font-size;
+//   margin-top: 0;
+// }
+
+
+
+
+
+
+
+// h1,
+// h2,
+// h3,
+// h4,
+// h5,
+// h6,
+// .display1,
+// .display2 {
+//     font-family: $font-sans;
+//     margin: 0 0 .5em;
+//     line-height: 1.45;
+//     color: #555;
+// }
+
+// .display1 {
+//     font-weight: $font-bold;
+//     font-size: 5.9rem;
+//     line-height: 1.45;
+// }
+
+// .display2 {
+//     font-weight: $font-light;
+//     font-size: 4.4rem;
+//     line-height: 5.7rem;
+// }
+
+// h1 {
+//     font-weight: $font-light;
+//     font-size: 4.768rem;
+//     line-height: 4.868rem;
+// }
+
+// h2 {
+//     font-weight: $font-light;
+//     font-size: 3.815rem;
+//     line-height: 4.015rem;
+// }
+
+// h3 {
+//     font-weight: $font-bold;
+//     font-size: 3.052rem;
+//     line-height: 3.252rem;
+// }
+
+// h4 {
+//     font-weight: $font-bold;
+//     font-size: 2.441rem;
+//     line-height: 2.641rem;
+//     color: #525252;
+// }
+
+// h5 {
+//     font-weight: $font-bold;
+//     font-size: 1.953rem;
+//     line-height: 2.1953rem;
+// }
+
+// h6 {
+//     font-weight: $font-bold;
+//     font-size: 1.563rem;
+//     line-height: 1.763rem;
+// }
+
+// p.lead {
+//     font-weight: $font-normal;
+//     font-size: 2.2rem;
+//     line-height: 3.3rem;
+// }
+
+// p.large {
+//     font-weight: $font-normal;
+//     font-size: 1.8rem;
+//     line-height: $base-line-height;
+// }
+
+// @mixin para {
+//     font-weight: $font-normal;
+//     font-size: 1.6rem;
+//     line-height: 2.6rem;
+//     color: #525252;
+// }
+
+// p {
+//     @include para;
+// }
+
+// p.italic {
+//     @include para;
+//     font-style: italic;
+// }
+
+// p strong{
+//     font-weight: 600;
+// }
+
+
+// p + h2, p + h3, p + h4, p + h6{
+//    margin-top: $base-line-height * 2;
+// }
+
+// p + h4{
+//    margin-top: $base-line-height * 1.79;
+// }
+
+// p + h5{
+//    margin-top: $base-line-height * 1.8;
+// }
+
+// // h2 + .row {
+// //     margin-bottom: $base-line-height * 3;
+// // }
+
+// table + p {
+//     margin-top: 3.0rem;
+// }
+
+
+// ol,
+// ul {
+//     margin: 0 0 $base-line-height * 2;
+//     & li {
+//         font-size: 1.6rem;
+//         line-height: $base-line-height;
+//         margin-bottom: 0.75em;
+//         margin-top: 0.75em;
+//     }
+// }
+
+// ul.no-bullet{
+//     list-style-type: none;
+//     padding: 0;
+//     & li{
+//         margin: 0!important;
+//     }
+// }
