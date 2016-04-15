@@ -14,7 +14,7 @@ Assumptions:
 
 ### Install Prerequisites and Code
 
-1. If you're not already running Node.js, download and run the installer for your operating system: [https://nodejs.org/en/](https://nodejs.org/en/ "Node.js installer").
+1. If you're not already running Node.js, download and run the installer for your operating system. We recommend v4.x: [https://nodejs.org/en/](https://nodejs.org/en/ "Node.js installer").
 
 2. Use *npm* (Node's package manager, which is part of the Node.js install) to install the latest version of gulp. This is necessary for runing the babel version of the `gulpfile`):
 
@@ -26,9 +26,11 @@ Assumptions:
 
         $ git clone git@github.com:fedspendingtransparency/data-act-broker-web-app.git
 
-4. Switch to the alpha release version of the code:
+4. Switch to the alpha release version of the code. This is the latest stable release.
 
         $ git checkout v0.1.0-alpha
+
+    **Note:** If you'd rather use the latest, work-in-progress features of the DATA Act broker, replace the above command with `git checkout staging`.
 
 5. Change to the `data-act-broker-web-app` directory that was created when you cloned the DATA Act web repository.
 
