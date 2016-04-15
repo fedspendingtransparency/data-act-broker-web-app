@@ -2,9 +2,9 @@
 import { kGlobalConstants } from '../GlobalConstants.js';
 
 export const fetchStaticAssetPath = () => {
-	let imgSrc = '/';
+	let imgSrc = '';
 	if (kGlobalConstants.DEV) {
-    	imgSrc = '/dev/';
+    	imgSrc = 'dev/';
 	}
 	return imgSrc;
 };
