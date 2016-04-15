@@ -13,14 +13,14 @@ export default class LoginBanner extends React.Component {
     render() {
         return (
             <div className="login-banner-wrap">
-            <div className="usa-da-login-wrap">
-                <div className="container">
-                    <div className="row">
-                        <LoginIntro/>
-                        <LoginContainer/>
+                <div className="usa-da-login-wrap">
+                    <div className="container">
+                        <div className="row">
+                            <LoginIntro/>
+                            <LoginContainer/>
+                        </div>
                     </div>
                 </div>
-            </div>
             </div>
         );
     }
