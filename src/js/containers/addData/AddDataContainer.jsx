@@ -34,9 +34,11 @@ class AddDataContainer extends React.Component {
 		this.props.setSubmissionState('uploading');
 		if (kGlobalConstants.LOCAL == true) {
 			UploadHelper.performLocalUpload(this.props.submission)
-				.then((submissionId) => {
+				.then((submissionID) => {
 					// TODO: Remove this when this is eventually tied to user accounts
 					this.props.setSubmissionId(submissionID);
+					hashHistory.push('/validateData/' + submissionID);
+
 				});
         }
         else {
@@ -44,7 +46,6 @@ class AddDataContainer extends React.Component {
         		.then((submissionID) => {
         			// TODO: Remove this when this is eventually tied to user accounts
         			this.props.setSubmissionId(submissionID);
-
                     hashHistory.push('/validateData/' + submissionID);
         		})
         		.catch(() => {

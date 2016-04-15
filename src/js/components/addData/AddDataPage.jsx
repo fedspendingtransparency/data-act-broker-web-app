@@ -9,8 +9,7 @@ import AddDataHeader from './AddDataHeader.jsx';
 import AddDataMeta from './AddDataMeta.jsx';
 import AddDataContainer from '../../containers/addData/AddDataContainer.jsx';
 import AddDataContent from './AddDataContent.jsx';
-
-import Moment from 'moment';
+import Footer from '../SharedComponents/FooterComponent.jsx';
 
 export default class AddDataPage extends React.Component {
     constructor(props) {
@@ -28,9 +27,12 @@ export default class AddDataPage extends React.Component {
 
         return (
             <div>
-                <Navbar activeTab="addData"/>
-                <AddDataHeader />
-                {bodyComponent}
+                <div className="usa-da-page-content">
+                    <Navbar activeTab="addData"/>
+                    <AddDataHeader />
+                    {bodyComponent}
+                </div>
+                <Footer />
             </div>
         );
     }

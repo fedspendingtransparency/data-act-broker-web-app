@@ -9,12 +9,17 @@ import TableHeaders from './TableHeaders.jsx';
 
 const propTypes = {
     data: PropTypes.array.isRequired,
-    headers: PropTypes.array.isRequired
+    headers: PropTypes.array.isRequired,
+    sortable: PropTypes.bool,
+    onSort: PropTypes.func,
+    extraClasses: PropTypes.array
 };
 
 const defaultProps = {
     data: [['Error']],
-    headers: ['Table Data Missing']
+    headers: ['Table Data Missing'],
+    sortable: false,
+    extraClasses: []
 };
 
 export default class Table extends React.Component {
@@ -24,10 +29,15 @@ export default class Table extends React.Component {
             tableRows.push(<TableRow key={i} data={this.props.data[i]} />);
         }
 
+        let extra = '';
+        this.props.extraClasses.forEach((className) => {
+            extra += ' ' +  className;
+        });
+
         return (
-            <table className="usa-da-table">
+            <table className={"usa-da-table" + extra}>
                 <thead>
-                    <TableHeaders data={this.props.headers} />
+                    <TableHeaders data={this.props.headers} sortable={this.props.sortable} onSort={this.props.onSort} />
                 </thead>
                 <tbody>
                     {tableRows}

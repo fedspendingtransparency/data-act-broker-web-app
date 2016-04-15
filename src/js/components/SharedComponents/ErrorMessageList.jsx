@@ -21,8 +21,8 @@ export default class ErrorMessageList extends React.Component {
             errorListItems.push(<ErrorMessageListItem key={i} data={this.props.errorMessages[i]} />);
         }
         return (
-            <div className="col-md-12 alert alert-error mt-40 mb-0" role="alert">
-                <span className="glyphicon glyphicon-exclamation-sign"></span>
+           <div className="col-md-12 alert alert-error mt-40 mb-0" role="alert">
+                <span className="usa-da-icon usa-da-icon-exclamation-circle"></span>
                 <h3>Error</h3>
                 <ul>{errorListItems}</ul>
             </div>

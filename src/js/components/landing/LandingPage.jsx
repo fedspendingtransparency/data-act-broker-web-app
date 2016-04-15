@@ -5,16 +5,18 @@
 
 import React from 'react';
 import Navbar from '../SharedComponents/navigation/NavigationComponent.jsx';
-import Footer from '../SharedComponents/FooterComponent.jsx';
 import LandingContent from './LandingContent.jsx';
+import Footer from '../SharedComponents/FooterComponent.jsx';
 
 export default class LandingPage extends React.Component {
     render() {
         return (
             <div className="site_wrap">
-                <Navbar activeTab="landing"/>
-                <LandingContent/>
-                <Footer/>
+	            <div className="usa-da-page-content">
+	                <Navbar activeTab="landing"/>
+	                <LandingContent/>
+	            </div>
+                <Footer />
             </div>
         );
     }

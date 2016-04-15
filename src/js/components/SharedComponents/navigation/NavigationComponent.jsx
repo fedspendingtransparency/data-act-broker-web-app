@@ -13,6 +13,10 @@ import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import * as sessionActions from '../../../redux/actions/sessionActions.js';
 
+const defaultProps = {
+    logoOnly: false
+};
+
 export class Navbar extends React.Component {
     constructor(props) {
         super(props);
@@ -31,11 +35,11 @@ export class Navbar extends React.Component {
         let tabNames = {
             'Home': 'landing',
             'Add New Data': 'addData',
-            'Performance Dashboard': 'dashboard',
+            'Submission Dashboard': 'dashboard',
             'Help': 'help'
         };
 
-        const headerTabs = [];
+        let headerTabs = [];
         const context = this;
         const userText = this.props.session.user === '' ? '' : 'Welcome, ' + this.props.session.user.name;
 
@@ -54,6 +58,11 @@ export class Navbar extends React.Component {
             headerTabs.push(<NavbarTab key={tabNames[key]} name={key} class={tabNames[key]} activeTabClassName={context.props.activeTab} />);
         });
 
+        if (this.props.logoOnly) {
+            headerTabs = null;
+            userButton = null;
+        }
+
         return (
             <nav className="navbar navbar-default usa-da-header">
                 <div className="container usa-da-header-container">
@@ -64,7 +73,7 @@ export class Navbar extends React.Component {
                             <span className="icon-bar"></span>
                             <span className="icon-bar"></span>
                         </button>
-                        <a className="navbar-brand usa-da-header-brand" href="#/landing">USA Spending Data Broker</a>
+                        <a className="navbar-brand usa-da-header-brand" href="#/landing">DATA Act Broker</a>
                     </div>
 
                     <div className="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
@@ -78,6 +87,8 @@ export class Navbar extends React.Component {
         );
     }
 }
+
+Navbar.defaultProps = defaultProps;
 
 export default connect(
   state => ({ session: state.session }),

@@ -9,7 +9,8 @@ import ValidateDataFileComponent from './ValidateDataFileComponent.jsx';
 import SubmitButton from '../SharedComponents/SubmitButton.jsx';
 import MetaData from '../addData/AddDataMetaDisplay.jsx';
 import FileComponent from '../addData/FileComponent.jsx';
-import Request from 'superagent';
+import ValidateDataOverlayContainer from '../../containers/validateData/ValidateDataOverlayContainer.jsx';
+import ValidateDataFileContainer from '../../containers/validateData/ValidateDataFileContainer.jsx';
 
 import { fileTypes } from '../../containers/addData/fileTypes.js';
 
@@ -17,66 +18,48 @@ const propTypes = {
     submissionID: PropTypes.string
 };
 
-
-class DownloadLinkSingle extends React.Component {
-    render() {
-        return (
-            <div><a href={this.props.link}>Download Errors</a></div>
-        );
-    }
-}
-
 export default class ValidateDataContent extends React.Component {
     constructor(props) {
         super(props);
-
-        this.state = {
-            response: false,
-            busy: false,
-            status_response: null,
-            file_response: null,
-            csv_status: null
-        };
     }
-
-    componentDidMount() {
-        // this.timer = setInterval(() => {
-        //     this.sendRequest(this.props.submissionID);
-        // }, 1000 * 20);
-
-        // this.sendRequest(this.props.submissionID);
-    }
-
-    // componentWillUnmount() {
-    //     clearInterval(this.timer);
-    // }
-
 
 
     render() {
-        if (Object.keys(this.props.submission.validation).length > 0) {
-            
-            let items = fileTypes.map((type, index) => {
-                return <ValidateDataFileComponent key={index} type={type} data={this.props.submission.validation} />;
-            })
-            
-            const errorHeaders = ['File', 'Upload Status', 'CSV Validations'];
-            return (
-                <div className="container">
-                    <div className="row center-block usa-da-submission-items">
-                        <div className="usa-da-validate-items">
-                            {items}
-                        </div>
+
+        
+        let allValid = true;
+        let errors = [];
+        let items = fileTypes.map((type, index) => {
+            const validationStatus = this.props.submission.validation[type.requestName];
+
+            if (validationStatus) {
+                if (validationStatus.job_status == 'invalid' && validationStatus.file_status != 'complete') {
+                    allValid = false;
+                    errors.push(type.requestName);
+                }
+
+                return <ValidateDataFileContainer key={index} type={type} data={this.props.submission.validation} />;
+            }
+        });
+
+        let overlay = '';
+        let displayOverlay = '';
+        if (!allValid) {
+            // we'll need extra padding at the bottom of the page if the overlay is present
+            displayOverlay = ' with-overlay';
+            overlay = <ValidateDataOverlayContainer errors={errors} />;
+        }
+
+        return (
+            <div className="container">
+                <div className={"row center-block usa-da-submission-items" + displayOverlay}>
+                    <div className="usa-da-validate-items">
+                        {items}
                     </div>
                 </div>
-            );
-        } else {
-            return (
-                <div>
-                    <h4>Gathering data...</h4>
-                </div>
-            );
-        }
+                {overlay}
+            </div>
+        );
     }
 }
 

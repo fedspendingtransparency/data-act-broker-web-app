@@ -1,7 +1,7 @@
 /**
 * LoginPanel.jsx
 * Created by Kyle Fox 2/19/16
-**/
+**/ 
 
 import React from 'react';
 import Username from './Username.jsx';

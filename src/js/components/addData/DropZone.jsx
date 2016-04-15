@@ -5,6 +5,7 @@
 
 import React, { PropTypes } from 'react';
 import Dropzone from 'react-dropzone';
+import DOMPurify from 'dompurify';
 
 import DropZoneDisplay from './DropZoneDisplay.jsx';
 
@@ -15,44 +16,44 @@ const propTypes = {
 export default class DropZone extends React.Component {
     constructor(props) {
         super(props);
-
-
-        this.state = {
-            dropzoneString: "Drop your file here, or click to select file to upload."
-        };
     }
 
     render() {
 
-        let dropzoneString = "Drop your file here, or click to select file to upload.";
+        let dropzoneString = "Drag and drop or click here to upload your <b>" + this.props.fileTitle + "</b> file.";
         let displayMode = "pending";
         let progress = 0;
+        let dropped = '';
 
         if (this.props.submission.files.hasOwnProperty(this.props.requestName)) {
             const submissionItem = this.props.submission.files[this.props.requestName];
+            dropped = ' dropped';
 
             if (submissionItem.state == 'ready' && submissionItem.file) {
-                dropzoneString = submissionItem.file.name;
+                dropzoneString = '<b>' + submissionItem.file.name + '</b> file selected';
                 displayMode = 'file';
             }
             else if (submissionItem.state == 'success') {
-                dropzoneString = submissionItem.file.name + ' was uploaded successfully.';
+                dropzoneString = '<b>' + submissionItem.file.name + '</b> was uploaded successfully';
                 displayMode = 'success';
             }
             else if (submissionItem.state == 'failed') {
-                dropzoneString = submissionItem.file.name + ' failed to upload.';
+                dropzoneString = '<b>' + submissionItem.file.name + '</b> failed to upload';
                 displayMode = 'failure';
             }
 
             else if (submissionItem.state == 'uploading') {
                 displayMode = 'uploading';
                 progress = submissionItem.progress;
-                dropzoneString = submissionItem.file.name;
+                dropzoneString = '<b>' + submissionItem.file.name + '</b>';
             }
         }
 
+        // sanitize the dropzone string to prevent XSS attacks
+        dropzoneString = DOMPurify.sanitize(dropzoneString, {ALLOWED_TAGS: ['b']});
+
         return (
-            <Dropzone className="text-center" multiple={false} onDrop={this.props.onDrop}>
+            <Dropzone className={"usa-da-dropzone text-center" + dropped} activeClassName="active" multiple={false} onDrop={this.props.onDrop}>
                 <DropZoneDisplay displayMode={displayMode} string={dropzoneString} progress={progress} />
             </Dropzone>
         );

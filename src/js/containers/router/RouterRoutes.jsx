@@ -2,6 +2,7 @@ import { hashHistory } from 'react-router';
 
 import LoginPage from '../../components/login/LoginPage.jsx';
 import RegistrationPage from '../../components/registration/RegistrationPage.jsx';
+import RegisterEmailPage from '../../components/registration/RegisterEmailPage.jsx';
 import RegistrationTokenPage from '../../components/registration/RegisterTokenPage.jsx';
 import ForgotPasswordTokenPage from '../../components/forgotPassword/ResetPasswordTokenPage.jsx';
 import CompleteRegistrationComponent from '../../components/registration/ConfirmCodeComponent.jsx';
@@ -9,6 +10,8 @@ import ForgotPasswordPage from '../../components/forgotPassword/ForgotPasswordPa
 import LandingPage from '../../components/landing/LandingPage.jsx';
 import AddDataPageContainer from '../../containers/addData/AddDataPageContainer.jsx';
 import ValidateDataPage from '../../components/validateData/ValidateDataPage.jsx';
+import ReviewDataPage from '../../components/reviewData/ReviewDataPage.jsx';
+import HelpPage from '../../components/help/helpPage.jsx';
 import AdminPage from '../../components/admin/AdminPage.jsx';
 
 import ErrorPage from '../../components/error/ErrorPage.jsx';
@@ -129,6 +132,16 @@ const routeDefinitions = {
             onEnter: checkUserPermissions
         },
         {
+            path: 'reviewData/:submissionID',
+            component: ReviewDataPage,
+            onEnter: checkUserPermissions
+        },
+        {
+            path: 'help',
+            component: HelpPage,
+            onEnter: checkUserPermissions
+        },
+        {
             path: 'forgotpassword',
             component: ForgotPasswordPage
         },
@@ -138,7 +151,7 @@ const routeDefinitions = {
         },
         {
             path: 'registration',
-            component: RegistrationPage
+            component: RegisterEmailPage
         },
         {
             path: 'registration/:token',

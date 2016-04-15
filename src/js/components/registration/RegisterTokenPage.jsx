@@ -6,7 +6,12 @@
 import React, { PropTypes } from 'react';
 import Request from 'superagent';
 import RegistrationPage from './RegistrationPage.jsx';
+import RegisterEmailPage from './RegisterEmailPage.jsx';
+import Footer from '../SharedComponents/FooterComponent.jsx'
 import { kGlobalConstants } from '../../GlobalConstants.js';
+
+import * as LoginHelper from '../../helpers/loginHelper.js';
+import { hashHistory } from 'react-router';
 
 export default class RegisterTokenPage extends React.Component {
 
@@ -26,27 +31,38 @@ export default class RegisterTokenPage extends React.Component {
     }
 
      sendRequest(token) {
-        Request.post(kGlobalConstants.API + 'confirm_email_token/')
-            .withCredentials()
-            .send({ 'token': token })
-            .end((err, res) => {
-                if (err) {
-                    console.log(err);
-                } else {
+        LoginHelper.lookupEmailToken(token)
+            .then((data) => {
+                if (data.errorCode == 0 && data.email) {
                     this.setState({
-                        stepName: "code", email: res.body.email, message:res.body.message
+                        email:res.body.email
                     });
                 }
+                else {
+                    hashHistory.push('/registration');
+                }
+            })
+            .catch((err) => {
+                console.log(err);
+                hashHistory.push('/registration');
             });
      }
 
      render() {
-         let currentComponent =  null
-         if (this.state.stepName === "code") {
-              currentComponent =  <RegistrationPage stepName='code' email={this.state.email} message={this.state.message} />
-         }
+
+        let content = 'Verifying...';
+
+        if (this.state.email != '') {
+            content = <RegistrationPage stepName='code' email={this.state.email} message={this.state.message} />;
+        }
+
          return (
-             <div>{currentComponent}</div>
+             <div>
+                <div className="usa-da-page-content">
+                    {content}
+                </div>
+                <Footer />
+            </div>
          );
      }
  }

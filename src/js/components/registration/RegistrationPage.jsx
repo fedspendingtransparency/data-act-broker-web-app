@@ -4,9 +4,10 @@
  **/
 
 import React, { PropTypes } from 'react';
+import { hashHistory } from 'react-router';
 import Navbar from '../SharedComponents/navigation/NavigationComponent.jsx';
 import EmailComponent from './RegistrationEmailComponent.jsx';
-import RegisterEmailPanel from './RegisterEmailPanel.jsx';
+import RegisterEmailPage from './RegisterEmailPage.jsx';
 import ConfirmCode from './ConfirmCodeComponent.jsx';
 
 
@@ -23,28 +24,15 @@ const defaultProps = {
 
 export default class RegistrationPage extends React.Component {
     render() {
-        let currentComponent;
-
-        if (this.props.stepName === 'email') {
-            currentComponent = <RegisterEmailPanel resend={false} />;
-        } else if (this.props.stepName === 'code') {
-            if (this.props.message === 'Link already used') {
-                currentComponent = <RegisterEmailPanel resend={true} />
-            }
-            else if (this.props.message == 'success') {
-                currentComponent = <ConfirmCode email={this.props.email}/>;
-            }
-        }
-
         return (
             <div>
-                <Navbar />
+                <Navbar logoOnly={true} />
                 <div className="usa-da-content">
                     <div className="container usa-da-registration">
-                        <h1>Registration</h1>
+                        <div className="display-2">Registration</div>
                         <div className="row text-center">
                             <div className="col-sm-12 col-md-offset-3 col-md-6">
-                                {currentComponent}
+                                <ConfirmCode email={this.props.email} />
                             </div>
                         </div>
                     </div>

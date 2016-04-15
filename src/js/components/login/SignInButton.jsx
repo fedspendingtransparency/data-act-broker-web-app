@@ -10,13 +10,22 @@ import React, { PropTypes } from 'react';
 
 const propTypes = {
     onClick: PropTypes.func.isRequired,
-    buttonText: PropTypes.string.isRequired
+    buttonText: PropTypes.string.isRequired,
+    disabled: PropTypes.bool
 };
+
+const defaultProps = {
+	disabled: false
+}
 
 export default class SignInButton extends React.Component {
     render() {
+    	let disabled = '';
+    	if (this.props.disabled) {
+    		disabled = ' usa-btn-disabled';
+    	}
         return (
-            <button className="usa-button-big pull-right" type="button" onClick={this.props.onClick}>
+            <button className={"usa-da-button btn-primary btn-lg pull-right" + disabled} disabled={this.props.disabled} type="button" onClick={this.props.onClick}>
                 {this.props.buttonText}
             </button>
         );
@@ -24,3 +33,4 @@ export default class SignInButton extends React.Component {
 }
 
 SignInButton.propTypes = propTypes;
+SignInButton.defaultProps = defaultProps;

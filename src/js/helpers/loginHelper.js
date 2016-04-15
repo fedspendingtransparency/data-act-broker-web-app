@@ -136,3 +136,58 @@ export const checkSession = () => {
 
 	return deferred.promise;
 }
+
+
+export const registerEmail = (email) => {
+	const deferred = Q.defer();
+
+	Request.post(kGlobalConstants.API + 'confirm_email/')
+		.withCredentials()
+		.send({ 'email': email })
+		.end((err) => {
+
+        	if (err) {
+        		deferred.reject(err);
+        	}
+        	else {
+        		deferred.resolve();
+        	}
+
+		});
+
+    return deferred.promise;
+}
+
+export const lookupEmailToken = (token) => {
+	const deferred = Q.defer();
+
+	Request.post(kGlobalConstants.API + 'confirm_email_token/')
+		.withCredentials()
+		.send({ 'token': token })
+		.end((err, res) => {
+			if (err) {
+				deferred.reject(err);
+			} else {
+				deferred.resolve(res.body);
+			}
+		});
+
+	return deferred.promise;
+}
+
+export const registerAccount = (account) => {
+
+	const deferred = Q.defer();
+
+	Request.post(kGlobalConstants.API + 'register/')
+		.withCredentials()
+		.send(account)
+		.end((err) => {
+			if (err) {
+				deferred.reject(err);
+			} else {
+				deferred.resolve();
+			}
+		});
+	return deferred.promise;
+}

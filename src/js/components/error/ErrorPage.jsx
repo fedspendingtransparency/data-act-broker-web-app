@@ -1,6 +1,5 @@
 import React from 'react';
 import Navbar from '../SharedComponents/navigation/NavigationComponent.jsx';
-import Footer from '../SharedComponents/FooterComponent.jsx';
 
 export default class ErrorPage extends React.Component {
 	render() {
@@ -13,7 +12,7 @@ export default class ErrorPage extends React.Component {
 	                    <div className="container">
 	                        <div className="row usa-da-content-add-data usa-da-page-title">
 	                            <div className="col-md-7 mt-50 mb-50">
-	                                <h1>Page Not Found</h1>
+	                                <div className="display-2">Page Not Found</div>
 	                                <p>No page exists at this address.</p>
 	                                <p><a href="#/">Click here</a> to return home.</p>
 	                            </div>
@@ -21,7 +20,6 @@ export default class ErrorPage extends React.Component {
 	                    </div>
 	                </div>
 	            </div>
-                <Footer/>
             </div>
 		);
 	}

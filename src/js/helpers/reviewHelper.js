@@ -2,6 +2,7 @@ import Request from 'superagent';
 import Q from 'q';
 import AWS from 'aws-sdk';
 import { dispatch } from 'redux';
+import _ from 'lodash';
 
 import StoreSingleton from '../redux/storeSingleton.js';
 
@@ -11,7 +12,7 @@ import * as uploadActions from '../redux/actions/uploadActions.js';
 import { fileTypes } from '../containers/addData/fileTypes.js';
 
 
-const fetchStatus = (submissionId) => {
+export const fetchStatus = (submissionId) => {
 	const deferred = Q.defer();
 
 	Request.post(kGlobalConstants.API + 'check_status/')
@@ -54,15 +55,15 @@ export const fetchErrorReports = (submissionId) => {
 const getFileStates = (status) => {
 	let output = {};
 
-	Object.keys(status).forEach((key) => {
+	status.jobs.forEach((item) => {
+		output[item.file_type] = item;
+		output[item.file_type].report = null;
 
-		const item = status[key];
-
-		if (item.job_type == 'csv_record_validation') {
-			output[item.file_type] = item;
-			output[item.file_type].id = key;
-			output[item.file_type].report = null;
+		// force an error_data array if no field is passed back in the JSON
+		if (!item.hasOwnProperty('error_data')) {
+			output[item.file_type].error_data = [];
 		}
+
 	});
 
 	return output;
@@ -73,7 +74,11 @@ const getFileReports = (status, reports) => {
 
 	for (let key in status) {
 		let item = status[key];
-		item.report = reports['job_' + item.id + '_error_url'];
+		item.report = reports['job_' + item.job_id + '_error_url'];
+
+		// alphabetize any missing and duplicated headers
+		item.missing_headers = _.sortBy(item.missing_headers);
+		item.duplicated_headers = _.sortBy(item.duplicated_headers);
 	}
 
 	return status;
@@ -82,6 +87,10 @@ const getFileReports = (status, reports) => {
 export const validateSubmission  = (submissionId) => {
 
 	const deferred = Q.defer();
+
+	// set the submission ID
+	const store = new StoreSingleton().store;
+	store.dispatch(uploadActions.setSubmissionId(submissionId));
 
 	let status;
 

@@ -55,17 +55,10 @@ export default class AddDataContent extends React.Component {
 
         return (
             <div>
-                <div className="usa-da-content-light-gray">
+                <div className="usa-da-content-step-block">
                     <div className="container center-block">
                         <div className="row">
                             <Progress totalSteps={3} currentStep={this.state.progressStep} />
-                        </div>
-                    </div>
-                </div>
-                <div className="usa-da-content-lighter-gray">
-                    <div className="container center-block">
-                        <div className="row">
-                            <MetaData data={this.props.metaData} />
                         </div>
                     </div>
                 </div>
