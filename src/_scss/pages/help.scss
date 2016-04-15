@@ -1,0 +1,35 @@
+.usa-da-help-page {
+    margin-top: 10px;
+
+    a {
+        text-decoration: none;
+    }
+}
+
+.usa-da-help-sidebar {
+    border-right: 1px solid #ccc;
+    padding: 20px;
+
+    ul + h6{
+        margin-top:0;
+    }
+
+h6{
+    margin-bottom: 1.3rem;
+}
+
+    ul, li {
+        list-style-type: none;
+    }
+
+    li a {
+        margin-left: 20px;
+        font-size: 16px;
+    }
+
+    li:before {
+        content: "";
+        padding-right: 0;
+    }
+
+}

@@ -1,31 +1,15 @@
 // landing Page
 
-.usa-da-button-landing-holder {
-	margin: 60px auto;
-
-	.usa-da-button-landing {
-		background-color: $color-gray-lightest;
-		color: $color-gray;
-		width: 100%;
-		padding: 2em;
-		border: 1px solid $color-gray-lighter;
-		cursor: pointer;
-		display: inline-block;
-		font-family: $font-sans;
-		font-size: 2.0rem;
-		font-weight: 700;
-		line-height: 1;
-		outline: none;
-		text-align: center;
-		text-decoration: none;
-		-webkit-font-smoothing: antialiased;
-
-		&:hover {
-
-		}
-
-		&:visited {
-			color: $color-gray;
-		}
-	}
+.usa-da-landing-btns {
+    margin: 60px auto;
+    & .usa-da-button {
+        padding: 40px 0;
+        & .usa-da-icon {
+            width: 35px;
+            font-size: 2.4rem;
+            line-height: 1.8rem;
+            display: inline-block;
+            margin: 0 15px 0 0;
+        }
+    }
 }

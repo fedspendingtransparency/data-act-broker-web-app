@@ -8,7 +8,8 @@ import React, { PropTypes } from 'react';
 const propTypes = {
     buttonDisabled: PropTypes.bool,
     buttonText: PropTypes.string,
-    className: PropTypes.string
+    className: PropTypes.string,
+    onClick: PropTypes.func
 };
 
 const defaultProps = {
@@ -19,16 +20,14 @@ const defaultProps = {
 // A standard button for submission that we can further turn into a sharable component
 export default class SubmitButton extends React.Component {
     render() {
-        let newButtonClass;
+        let newButtonClass = this.props.className;
 
         if (this.props.buttonDisabled) {
-            newButtonClass = 'usa-button-disabled' & ' ' & this.props.className;
-        } else {
-            newButtonClass = this.props.className;
+            newButtonClass = 'usa-button-disabled ' + this.props.className;
         }
 
         return (
-            <div><button className={newButtonClass} type="submit" value={this.props.buttonText} disabled={this.props.buttonDisabled}>{this.props.buttonText} </button></div>
+            <div><button onClick={this.props.onClick} className={newButtonClass} type="submit" value={this.props.buttonText} disabled={this.props.buttonDisabled}>{this.props.buttonText} </button></div>
         );
     }
 }
