@@ -12,13 +12,15 @@ import LoginContainer from '../../containers/login/LoginContainer.jsx';
 export default class LoginBanner extends React.Component {
     render() {
         return (
-            <div className="usa-da-color-gray-light-eighth-tone">
+            <div className="login-banner-wrap">
+            <div className="usa-da-login-wrap">
                 <div className="container">
                     <div className="row">
                         <LoginIntro/>
                         <LoginContainer/>
                     </div>
                 </div>
+            </div>
             </div>
         );
     }
