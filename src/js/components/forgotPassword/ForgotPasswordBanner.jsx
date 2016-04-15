@@ -26,11 +26,13 @@ export default class ForgotPasswordBanner extends React.Component {
         }
 
         return (
-            <div className="usa-da-color-gray-light-eighth-tone">
-                <div className="container">
-                    <div className="row">
-                        <LoginIntro/>
-                        {panelComponent}
+            <div className="login-banner-wrap">
+                <div className="usa-da-login-wrap">
+                    <div className="container">
+                        <div className="row">
+                            <LoginIntro/>
+                            {panelComponent}
+                        </div>
                     </div>
                 </div>
             </div>

@@ -83,26 +83,30 @@ export default class RegisterEmailBanner extends React.Component {
     render() {
 
         return (
-            <div className="usa-da-color-gray-light-eighth-tone">
-                <div className="container">
-                    <LoginIntro />
-                    <div className="col-md-5 usa-da-login-container">
-                        <div className="col-xs-12">
-                            <p className="msg">{this.state.text}</p>
+            <div className="login-banner-wrap">
+                <div className="usa-da-login-wrap">
+                    <div className="container">
+                        <div className="row">
+                            <LoginIntro />
+                            <div className="col-md-5 usa-da-login-container">
+                                <div className="col-xs-12">
+                                    <p className="msg">{this.state.text}</p>
+                                </div>
+                                <form onKeyPress={this.handleKeyPress.bind(this)}>
+                                    <div className='row'>
+                                        <RegistrationEmailInput setButtonDisabled={this.setButtonDisabled.bind(this)} onChange={this.emailChanged.bind(this)} value={this.state.email} />
+                                    </div>
+                                    <div className='row'>
+                                        <div className="col-xs-6 usa-da-registration-links mt-10">
+                                            <a href="#/login" className="forgot-back">Back to login page</a>
+                                        </div>
+                                        <div className="col-xs-6 usa-da-login-button-holder">
+                                            <SignInButton disabled={this.state.disabled} onClick={this.submitEmail.bind(this)} buttonText={this.state.buttonText} />
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
                         </div>
-                        <form onKeyPress={this.handleKeyPress.bind(this)}>
-                            <div className='row'>
-                                <RegistrationEmailInput setButtonDisabled={this.setButtonDisabled.bind(this)} onChange={this.emailChanged.bind(this)} value={this.state.email} />
-                            </div>
-                            <div className='row'>
-                                <div className="col-xs-6 usa-da-registration-links mt-10">
-                                    <a href="#/login" className="forgot-back">Back to login page</a>
-                                </div>
-                                <div className="col-xs-6 usa-da-login-button-holder">
-                                    <SignInButton disabled={this.state.disabled} onClick={this.submitEmail.bind(this)} buttonText={this.state.buttonText} />
-                                </div>
-                            </div>
-                        </form>
                     </div>
                 </div>
             </div>

@@ -5,6 +5,8 @@
 
 import React, { PropTypes } from 'react';
 import RegisterEmailBanner from './RegisterEmailBanner.jsx';
+import LoginTopBar from '../login/LoginTopBar.jsx';
+import LoginWarningTxt from '../login/LoginWarningTxt.jsx';
 
 const propTypes = {
     errorCode: PropTypes.number,
@@ -20,7 +22,9 @@ export default class RegisterEmailPage extends React.Component {
     render() {
         return (
             <div className="usa-da-login container-fluid">
+                <LoginTopBar/>
                 <RegisterEmailBanner message={this.props.message} />
+                <LoginWarningTxt/>
             </div>
         );
     }
