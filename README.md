@@ -26,9 +26,11 @@ Assumptions:
 
         $ git clone git@github.com:fedspendingtransparency/data-act-broker-web-app.git
 
-4. Switch to the alpha release version of the code:
+4. Switch to the alpha release version of the code. This is the latest stable release.
 
         $ git checkout v0.1.0-alpha
+
+    **Note:** If you'd rather use the latest, work-in-progress features of the DATA Act broker, replace the above command with `git checkout staging`.
 
 5. Change to the `data-act-broker-web-app` directory that was created when you cloned the DATA Act web repository.
 
