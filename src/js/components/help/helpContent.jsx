@@ -5,6 +5,9 @@
 
 import React from 'react';
 import $ from 'jquery';
+import { fetchStaticAssetPath } from '../../helpers/util.js';
+
+let gifSrc = fetchStaticAssetPath() + 'graphics/reportabug.gif';
 
 export default class HelpContent extends React.Component {
 
@@ -69,10 +72,20 @@ export default class HelpContent extends React.Component {
 
                 <p>Although you may use any browser/version combination you wish, we cannot support browsers and versions other than the ones stated above.</p>
 
-                <h4>Getting More Help</h4>
+                <h2>Getting More Help</h2>
 
-                <p>If you encounter a bug, please file an issue
-                    in <a href="https://federal-spending-transparency.atlassian.net" target="_blank">JIRA</a>, our issue tracker. If you need assistance using the Broker, or would like to schedule a workshop, please contact the DATA Act PMO office: <a href='mailto&#58;DATA%5&#48;&#77;O&#64;&#102;%69sc%&#54;1l&#37;&#50;Etr%65asury&#46;go%76'>DAT&#65;PMO&#64;f&#105;sca&#108;&#46;treasur&#121;&#46;g&#111;v</a>.</p>
+                <h4 name="filingIssue">Filing an Issue</h4>
+                
+                <p>If you encounter a bug, have a question, or need help, <a href="https://federal-spending-transparency.atlassian.net" target="_blank">please file an issue in JIRA</a>, our issue tracker. You do not need an account to file an issue, but if you would like to be notified of updates, please put your email in the "Reporter Email" field. </p>
+
+                <p>We can better resolve your issue if you provide us as much information as possible, including the exact steps to follow to replicate your issue. Below is a short demo on how to <a href="https://federal-spending-transparency.atlassian.net" target="_blank">file an issue in JIRA</a>.</p>
+                
+                <p>
+                    <img src={gifSrc}/>
+                </p> 
+
+
+                <p>If you need assistance using the Broker, or would like to schedule a workshop, please contact the DATA Act PMO office: <a href='mailto&#58;DATA%5&#48;&#77;O&#64;&#102;%69sc%&#54;1l&#37;&#50;Etr%65asury&#46;go%76'>DAT&#65;PMO&#64;f&#105;sca&#108;&#46;treasur&#121;&#46;g&#111;v</a>.</p>
             </div>
         );
     }

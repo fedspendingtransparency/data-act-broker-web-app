@@ -22,6 +22,11 @@ export default class HelpSidebar extends React.Component {
                     </li>
                 </ul>
                 <h6>Getting More Help</h6>
+                <ul>
+                    <li>
+                        <a href="/#/help?section=filingIssue">Filing an Issue</a>
+                    </li>
+                </ul>
             </div>
         );
     }
