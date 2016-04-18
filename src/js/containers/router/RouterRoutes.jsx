@@ -6,7 +6,7 @@ import RegisterEmailContainer from '../registration/RegisterEmailContainer.jsx';
 import RegistrationTokenContainer from '../registration/RegisterTokenContainer.jsx';
 import ForgotPasswordTokenPage from '../../components/forgotPassword/ResetPasswordTokenPage.jsx';
 import CompleteRegistrationComponent from '../../components/registration/ConfirmCodeComponent.jsx';
-import ForgotPasswordPage from '../../components/forgotPassword/ForgotPasswordPage.jsx';
+import ForgotPasswordContainer from '../forgotPassword/ForgotPasswordContainer.jsx';
 import LandingPage from '../../components/landing/LandingPage.jsx';
 import AddDataPageContainer from '../../containers/addData/AddDataPageContainer.jsx';
 import ValidateDataPage from '../../components/validateData/ValidateDataPage.jsx';
@@ -143,7 +143,7 @@ const routeDefinitions = {
         },
         {
             path: 'forgotpassword',
-            component: ForgotPasswordPage
+            component: ForgotPasswordContainer
         },
         {
             path: 'forgotpassword/:token',
