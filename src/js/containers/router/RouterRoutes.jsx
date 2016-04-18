@@ -2,8 +2,8 @@ import { hashHistory } from 'react-router';
 
 import LoginPage from '../../components/login/LoginPage.jsx';
 import RegistrationPage from '../../components/registration/RegistrationPage.jsx';
-import RegisterEmailPage from '../../components/registration/RegisterEmailPage.jsx';
-import RegistrationTokenPage from '../../components/registration/RegisterTokenPage.jsx';
+import RegisterEmailContainer from '../registration/RegisterEmailContainer.jsx';
+import RegistrationTokenContainer from '../registration/RegisterTokenContainer.jsx';
 import ForgotPasswordTokenPage from '../../components/forgotPassword/ResetPasswordTokenPage.jsx';
 import CompleteRegistrationComponent from '../../components/registration/ConfirmCodeComponent.jsx';
 import ForgotPasswordPage from '../../components/forgotPassword/ForgotPasswordPage.jsx';
@@ -151,11 +151,11 @@ const routeDefinitions = {
         },
         {
             path: 'registration',
-            component: RegisterEmailPage
+            component: RegisterEmailContainer
         },
         {
             path: 'registration/:token',
-            component: RegistrationTokenPage
+            component: RegistrationTokenContainer
         },
         {
             path: '*',
