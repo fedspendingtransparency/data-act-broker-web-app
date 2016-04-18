@@ -35,7 +35,7 @@ export default class RegisterTokenPage extends React.Component {
             .then((data) => {
                 if (data.errorCode == 0 && data.email) {
                     this.setState({
-                        email:res.body.email
+                        email:data.email
                     });
                 }
                 else {
