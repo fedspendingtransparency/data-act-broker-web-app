@@ -15,10 +15,10 @@ export default class LandingContent extends React.Component {
                             <div className="col-md-7 mt-40 mb-50">
                                 <div className="display-2">Welcome to the DATA Act Broker</div>
                                 <p>This site enables you to upload your agency files and validate them against the latest
-                                    version of the DATA Act Schema (version 0.8).</p>
+                                    version of the DATA Act Schema (draft version 1.0).</p>
 
                                 <p>Details on how to format your data, including required and optional fields, can be
-                                    found in the Reporting Submission Specification (RSS). You can <a href="http://prod-data-act-web-static-files.s3-website-us-gov-west-1.amazonaws.com/RSS-spec/RSS_DRAFT_v1.0_03292016.xlsx" target="_blank">download the Reporting Submission Specification (RSS)</a>.</p>
+                                    found in the Reporting Submission Specification (Draft RSS 1.0). You can <a href="http://prod-data-act-web-static-files.s3-website-us-gov-west-1.amazonaws.com/RSS-spec/RSS_DRAFT_v1.0_03292016.xlsx" target="_blank">download the Reporting Submission Specification (Draft RSS 1.0)</a>.</p>
                             </div>
                         </div>
                     </div>
