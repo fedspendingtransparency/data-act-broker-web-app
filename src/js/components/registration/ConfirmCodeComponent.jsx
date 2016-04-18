@@ -226,7 +226,7 @@ export default class ConfirmCode extends React.Component {
                 messageComponent = <ErrorMessage message={"We could not register your account at this time."} />;
             }
             else {
-                messageComponent = <SuccessMessage message={"Account successfully created."} />;
+                messageComponent = <SuccessMessage message={"Your account has been requested. You will receive an email once your account is approved. You will not be able to log in until your account is approved."} />;
             }
         }
         else if (this.state.ready) {
