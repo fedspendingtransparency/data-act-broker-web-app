@@ -10,6 +10,7 @@ import RegisterEmailPage from './RegisterEmailPage.jsx';
 import Footer from '../SharedComponents/FooterComponent.jsx'
 import { kGlobalConstants } from '../../GlobalConstants.js';
 
+import * as LoginHelper from '../../helpers/loginHelper.js';
 import { hashHistory } from 'react-router';
 
 export default class RegisterTokenPage extends React.Component {
@@ -30,24 +31,20 @@ export default class RegisterTokenPage extends React.Component {
     }
 
      sendRequest(token) {
-        Request.post(kGlobalConstants.API + 'confirm_email_token/')
-            .withCredentials()
-            .send({ 'token': token })
-            .end((err, res) => {
-                if (err) {
-                    console.log(err);
-                } else {
-
-                    if (!res.body.email) {
-                        hashHistory.push('/registration');
-                    }
-                    else {
-                        this.setState({
-                            email:res.body.email
-                        });
-
-                    }
+        LoginHelper.lookupEmailToken(token)
+            .then((data) => {
+                if (data.errorCode == 0 && data.email) {
+                    this.setState({
+                        email:data.email
+                    });
                 }
+                else {
+                    hashHistory.push('/registration');
+                }
+            })
+            .catch((err) => {
+                console.log(err);
+                hashHistory.push('/registration');
             });
      }
 

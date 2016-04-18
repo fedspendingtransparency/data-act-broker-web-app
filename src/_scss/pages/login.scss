@@ -158,6 +158,10 @@
     }
     input {
         max-width: none;
+
+        &.error {
+            border: 1px solid $color-secondary;
+        }
     }
     button {
         margin: .5em;
