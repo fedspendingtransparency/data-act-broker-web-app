@@ -209,7 +209,7 @@ export default class ValidateDataFileComponent extends React.Component {
                                 <div className="row usa-da-validate-item-body">
                                     <div className='usa-da-validate-txt-wrap'>
                                         <span className="usa-da-validate-item-message-label">Critical Errors:</span>
-                                        <span className={"usa-da-validate-item-message-count" + noErrors}>&nbsp;{this.props.item.error_data.length}</span>
+                                        <span className={"usa-da-validate-item-message-count" + noErrors}>&nbsp;{this.props.item.error_count}</span>
                                     </div>
                                 </div>
                                 <div className="row usa-da-validate-item-footer-wrapper">
