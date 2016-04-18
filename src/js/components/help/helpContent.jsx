@@ -30,7 +30,7 @@ export default class HelpContent extends React.Component {
     render() {
         return (
             <div className="usa-da-help-content">
-                <p>Welcome to the DATA Act Broker – Alpha release. This release is a <a href="https://en.wikipedia.org/wiki/Minimum_viable_product" target="_blank">Minimum Viable Product</a> and represents just enough functionality so that we can gather critical user feedback to determine the direction and implementation of future features. This version of the Broker is aligned to the <a href="http://prod-data-act-web-static-files.s3-website-us-gov-west-1.amazonaws.com/RSS-spec/RSS_DRAFT_v1.0_03292016.xlsx" target="_blank">Reporting Submission Specification(RSS) Draft v1.0</a>.</p>
+                <p>Welcome to the DATA Act Broker – Alpha release. This release is a <a href="https://en.wikipedia.org/wiki/Minimum_viable_product" target="_blank">Minimum Viable Product</a> and represents just enough functionality so that we can gather critical user feedback to determine the direction and implementation of future features. This version of the Broker is aligned to the <a href="http://prod-data-act-web-static-files.s3-website-us-gov-west-1.amazonaws.com/RSS-spec/RSS_DRAFT_v1.0_03292016.xlsx" target="_blank">Draft Reporting Submission Specification (Draft RSS v1.0)</a>.</p>
 
                 <h2>Whats New in This Version</h2>
 
@@ -49,7 +49,7 @@ export default class HelpContent extends React.Component {
                 </ul>
 
                 <h4 name="dataElements">Updated Data Elements and Validations</h4>
-                <p>This version of the Broker is aligned with the <a href="http://prod-data-act-web-static-files.s3-website-us-gov-west-1.amazonaws.com/RSS-spec/RSS_DRAFT_v1.0_03292016.xlsx" target="_blank">Reporting Submission Specification(RSS) Draft v1.0</a>. This means that basic field validations, including type, required/optional, and field length will be validated. Additionally, conditional validations have been implemented, so fields that are only required if other conditions are met will be validated correctly. For example, if ParentAwardID is populated, ParentAwardAgencyID must also be populated.</p>
+                <p>This version of the Broker is aligned with the <a href="http://prod-data-act-web-static-files.s3-website-us-gov-west-1.amazonaws.com/RSS-spec/RSS_DRAFT_v1.0_03292016.xlsx" target="_blank">Draft Reporting Submission Specification (RSS) v1.0</a>. This means that basic field validations, including type, required/optional, and field length will be validated. Additionally, conditional validations have been implemented, so fields that are only required if other conditions are met will be validated correctly. For example, if ParentAwardID is populated, ParentAwardAgencyID must also be populated.</p>
 
                 <p>Validations that connect to external systems (such as GTAS), as well as calculated cross-file validations will be coming over the next few weeks.</p>
 
@@ -76,7 +76,7 @@ export default class HelpContent extends React.Component {
 
                 <h4 name="filingIssue">Filing an Issue</h4>
                 
-                <p>If you encounter a bug, have a question, or need help, <a href="https://federal-spending-transparency.atlassian.net" target="_blank">please file an issue in JIRA</a>, our issue tracker. You do not need an account to file an issue, but if you would like to be notified of updates, please put your email in the "Reporter Email" field. </p>
+                <p>If you encounter a bug, have a question, or need help, <a href="https://federal-spending-transparency.atlassian.net" target="_blank">please file an issue in JIRA</a>, our issue tracker. You do not need an account to file an issue, but if you would like to be notified of updates, please put your email in the "Reporter Email" field. If you can't access JIRA, please email <a href="ma&#105;l&#116;o&#58;da&#116;abroke%72%40fis%6&#51;a%6&#67;&#46;&#116;&#114;&#37;65%&#54;1sur%7&#57;%2&#69;gov">databroker@fiscal.treasury.gov</a>.</p>
 
                 <p>We can better resolve your issue if you provide us as much information as possible, including the exact steps to follow to replicate your issue. Below is a short demo on how to <a href="https://federal-spending-transparency.atlassian.net" target="_blank">file an issue in JIRA</a>.</p>
                 
