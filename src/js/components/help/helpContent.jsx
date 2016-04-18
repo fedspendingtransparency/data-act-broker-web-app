@@ -85,7 +85,7 @@ export default class HelpContent extends React.Component {
                 </p> 
 
 
-                <p>If you need assistance using the Broker, or would like to schedule a workshop, please contact the DATA Act PMO office: <a href='mailto&#58;DATA%5&#48;&#77;O&#64;&#102;%69sc%&#54;1l&#37;&#50;Etr%65asury&#46;go%76'>DAT&#65;PMO&#64;f&#105;sca&#108;&#46;treasur&#121;&#46;g&#111;v</a>.</p>
+                <p>If you need assistance using the Broker, or would like to schedule a workshop, please contact the DATA Act Helpdesk: <a href="ma&#105;l&#116;o&#58;da&#116;abroke%72%40fis%6&#51;a%6&#67;&#46;&#116;&#114;&#37;65%&#54;1sur%7&#57;%2&#69;gov">databroker@fiscal.treasury.gov</a>.</p>
             </div>
         );
     }
