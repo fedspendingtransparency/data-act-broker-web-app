@@ -49,6 +49,7 @@ export default class ConfirmCode extends React.Component {
             passwordsMatch: true,
             fieldsComplete: null,
             buttonDisabled: true,
+            buttonText: 'Complete Registration',
             nameTouched: false,
             agencyTouched: false,
             titleTouched: false,
@@ -59,9 +60,7 @@ export default class ConfirmCode extends React.Component {
             titleError: false,
             password1Error: false,
             password2Error: false,
-            validationErrors: [
-                'All fields are required'
-            ],
+            validationErrors: [],
             ready: false
         };
     }
@@ -77,17 +76,25 @@ export default class ConfirmCode extends React.Component {
                 password: this.state.password1
             };
 
+            this.setState({
+                buttonDisabled: true,
+                buttonText: 'Submitting...'
+            });
+
             LoginHelper.registerAccount(account)
                 .then(() => {
                     this.setState({
                         requestSent: true,
-                        resetFailed: false
+                        resetFailed: false,
+                        buttonDisabled: false,
+                        buttonText: 'Complete Registration'
                     });
                 })
                 .catch(() => {
                     this.setState({
                         requestSent: true,
-                        resetFailed: true
+                        resetFailed: true,
+                        buttonText: 'Complete Registration'
                     });
                 });
         }
@@ -141,7 +148,7 @@ export default class ConfirmCode extends React.Component {
         });
         
 
-        if (missingCount == this.props.requiredFields.length || untouchedFields) {
+        if (missingCount == this.props.requiredFields.length) {
             // no field was filled out
             errorMessages = ['All fields are required.'];
         }
@@ -169,7 +176,10 @@ export default class ConfirmCode extends React.Component {
         
         if (errorMessages.length == 0) {
             isReady = true;
-            buttonDisabled = false;
+
+            if (!untouchedFields) {
+                buttonDisabled = false;
+            }
         }
 
         let updatedState = {
@@ -214,28 +224,28 @@ export default class ConfirmCode extends React.Component {
     render() {
         let messageComponent = null;
         let passMessageComponent = null;
-        let actionComponent = null;
-        let actionButton =  <SubmitRegButton
+        const actionButton =  <SubmitRegButton
                                 onClick={this.requestReset.bind(this)}
-                                buttonText="Complete Registration"
+                                buttonText={this.state.buttonText}
                                 buttonDisabled={this.state.buttonDisabled}
                               />;
-                              
+
+        let actionComponent = actionButton;
+
         if (this.state.requestSent) {
             if (this.state.resetFailed) {
                 messageComponent = <ErrorMessage message={"We could not register your account at this time."} />;
             }
             else {
-                messageComponent = <SuccessMessage message={"Account successfully created."} />;
+                messageComponent = <SuccessMessage message={"Your account has been requested. You will receive an email once your account is approved. You will not be able to log in until your account is approved."} />;
+                actionComponent = '';
             }
         }
         else if (this.state.ready) {
             messageComponent = '';
-            actionComponent = actionButton;
         }
-        else {
+        else if (this.state.validationErrors.length > 0) {
             messageComponent = <ErrorMessageList errorMessages={this.state.validationErrors} />;
-            actionComponent = '';
         }
 
         return (

@@ -28,7 +28,30 @@ export default class RegisterEmailBanner extends React.Component {
             disabled: true,
             buttonText: 'Submit',
             email: '',
-            text: 'A .gov or .mil email address is preferred when registering for access to the data broker.  If you do not have a .gov or .mil email address, please contact your agency administrator.'
+            text: 'A .gov or .mil email address is preferred when registering for access to the data broker.  If you do not have a .gov or .mil email address, please contact the DATA Act Broker Helpdesk.'
+        }
+    }
+
+    componentDidMount() {
+        this.checkForErrorMessage(this.props.errors);
+    }
+
+    componentWillReceiveProps(nextProps) {
+        this.checkForErrorMessage(nextProps.errors);
+    }
+
+    checkForErrorMessage(error) {
+        if (error.hasOwnProperty('errorCode')) {
+            if (error.errorCode == 3 || error.errorCode == 2) {
+                this.setState({
+                    text: 'The registration link provided has already been used or has expired. You can provide your email address again if you need to complete your account registration.'
+                });
+            }
+            else if (error.errorCode == 1) {
+                this.setState({
+                    text: 'The registration link you entered is not a valid registration link. You can register for a new account here by providing a .gov or .mil email address.'
+                });
+            }
         }
     }
 
@@ -38,6 +61,7 @@ export default class RegisterEmailBanner extends React.Component {
         //     disabled: disabled
         // });
     }
+
 
     submitEmail() {
         this.setState({

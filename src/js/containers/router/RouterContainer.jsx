@@ -37,7 +37,7 @@ export default class RouterContainer extends React.Component {
                 Routes.autoLogin(this.refs.router.state.location);
                 this.monitorSession();
             }
-            else if (this.props.session.login == "loggedOut" && prevProps.session.login != "pending") {
+            else if (this.props.session.login == "loggedOut" && prevProps.session.login == "loggedIn") {
                 this.logout();
             }
         }

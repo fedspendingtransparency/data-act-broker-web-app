@@ -218,6 +218,7 @@
                     &.optional-upload {
                         border: 1px solid $color-gray;
                         color: $color-gray;
+                        box-shadow: initial;
                         &:hover {
                             background-color: $color-gray-dark;
                             color: $color-white;
