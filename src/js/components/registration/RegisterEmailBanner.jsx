@@ -89,15 +89,19 @@ export default class RegisterEmailBanner extends React.Component {
                         <div className="row">
                             <LoginIntro />
                             <div className="col-md-5 usa-da-login-container">
-                                <div className="col-xs-12">
-                                    <p className="msg">{this.state.text}</p>
+                                <div className="row">
+                                    <div className="col-xs-12">
+                                        <p className="msg">{this.state.text}</p>
+                                    </div>
                                 </div>
                                 <form onKeyPress={this.handleKeyPress.bind(this)}>
-                                    <div className='row'>
-                                        <RegistrationEmailInput setButtonDisabled={this.setButtonDisabled.bind(this)} onChange={this.emailChanged.bind(this)} value={this.state.email} />
+                                    <div className="row">
+                                        <div className="col-md-12">
+                                            <RegistrationEmailInput setButtonDisabled={this.setButtonDisabled.bind(this)} onChange={this.emailChanged.bind(this)} value={this.state.email} />
+                                        </div>
                                     </div>
-                                    <div className='row'>
-                                        <div className="col-xs-6 usa-da-registration-links mt-10">
+                                    <div className="row">
+                                        <div className="col-xs-6 usa-da-registration-links mt-20">
                                             <a href="#/login" className="forgot-back">Back to login page</a>
                                         </div>
                                         <div className="col-xs-6 usa-da-login-button-holder">

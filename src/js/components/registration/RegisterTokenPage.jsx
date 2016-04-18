@@ -58,7 +58,7 @@ export default class RegisterTokenPage extends React.Component {
 
          return (
              <div>
-                <div className="usa-da-page-content">
+                <div className="usa-da-site_wrap">
                     {content}
                 </div>
                 <Footer />

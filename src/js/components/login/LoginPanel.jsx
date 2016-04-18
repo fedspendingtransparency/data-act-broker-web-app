@@ -57,16 +57,26 @@ export default class LoginPanel extends React.Component {
         return (
             <div className="col-md-5 usa-da-login-container">
                 <form onKeyPress={this.handleKeyPress.bind(this)}>
-                    <div className='row'><Username handleChange={this.handleUsernameChange.bind(this)} /></div>
-                    <div className='row'><Password handleChange={this.handlePasswordChange.bind(this)} /></div>
-                    <div className='row'>
-                        <LoginLinks/>
-                        <div className="col-xs-12 col-sm-4 usa-da-login-button-holder">
-                            <SignInButton onClick={this.loginClicked.bind(this)} buttonText={"Sign In"}/>
+                    <div className="row">
+                        <div className="col-md-12">
+                            <Username handleChange={this.handleUsernameChange.bind(this)} />
                         </div>
                     </div>
-                    <div className='row'>
-                        {errorMessageComponent}
+                    <div className="row">
+                        <div className="col-md-12">
+                            <Password handleChange={this.handlePasswordChange.bind(this)} />
+                        </div>
+                    </div>
+                    <div className="row">
+                        <div className="col-xs-12 col-sm-4 col-sm-push-8">
+                            <SignInButton onClick={this.loginClicked.bind(this)} buttonText={"Sign In"}/>
+                        </div>
+                        <LoginLinks/>
+                    </div>
+                    <div className="row">
+                        <div className="col-md-12">
+                            {errorMessageComponent}
+                        </div>
                     </div>
                 </form>
             </div>
