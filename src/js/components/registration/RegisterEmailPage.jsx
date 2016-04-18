@@ -23,7 +23,7 @@ export default class RegisterEmailPage extends React.Component {
         return (
             <div className="usa-da-login container-fluid">
                 <LoginTopBar/>
-                <RegisterEmailBanner message={this.props.message} />
+                <RegisterEmailBanner errors={this.props.registration.errors} />
                 <LoginWarningTxt/>
             </div>
         );
