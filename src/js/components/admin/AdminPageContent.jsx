@@ -9,6 +9,8 @@ import Request from 'superagent';
 import Table from '../SharedComponents/table/TableComponent.jsx';
 import Loader from 'react-loader';
 
+import * as AdminHelper from '../../helpers/adminHelper.js';
+
 class AdminPageButton extends React.Component {
     render() {
         let context = this.props.context;
@@ -48,47 +50,44 @@ export default class AdminPageMessage extends React.Component {
 
 export default class AdminPageContent extends React.Component {
     getAllUserRequests(){
-        Request.post(kGlobalConstants.API + 'list_users_with_status/')
-            .withCredentials()
-            .send({ 'status': 'awaiting_approval' })
-            .end((err, res) => {
-                if (err) {
-                    this['context'].setState({ loaded: true });
-                } else {
-                    let users = res.body.users;
-                    let userArray = [];
 
-                    for (var user of users) {
-                        userArray.push(Object.keys(user).map(function(k) { return user[k] }));
-                        userArray[userArray.length-1].push(<AdminPageButton name="Approve" newStatus="approved" user={user} context={this} />);
-                        userArray[userArray.length-1].push(<AdminPageButton name="Deny" newStatus="denied" user={user} context={this} />);
-                    }
+        AdminHelper.listUsersWithStatus('awaiting_approval')
+            .then((data) => {
+                let users = data.users;
+                let userArray = [];
 
-                    this.setState({ users: userArray, loaded: true });
+                for (let user of users) {
+                    userArray.push(this.transformUserData(user));
+                    userArray[userArray.length-1].push(<AdminPageButton name="Approve" newStatus="approved" user={user} context={this} />);
+                    userArray[userArray.length-1].push(<AdminPageButton name="Deny" newStatus="denied" user={user} context={this} />);
                 }
+
+                this.setState({ users: userArray, loaded: true });
+            })
+            .catch((err) => {
+                this.setState({
+                    loaded: true
+                });
             });
     }
 
     changeStatus(){
         this['context'].setState({ loaded: false });
-        Request.post(kGlobalConstants.API + 'change_status/')
-            .withCredentials()
-            .send({ 'uid': this['user']['id'], 'new_status': this['newStatus']})
-            .end((err) => {
-                if (err) {
-                    this['context'].setState({ loaded: true });
-                } else {
-                    this['context'].getAllUserRequests();
+        AdminHelper.changeUserStatus(this['user']['id'], this['newStatus'])
+            .then(() => {
+                this['context'].getAllUserRequests();
 
-                    this['context'].setState({
-                        loaded: true,
-                        message: {
-                            user: this['user']['email'],
-                            hidden: false,
-                            action: this['newStatus']
-                        }
-                    });
-                }
+                this['context'].setState({
+                    loaded: true,
+                    message: {
+                        user: this['user']['email'],
+                        hidden: false,
+                        action: this['newStatus']
+                    }
+                });
+            })
+            .catch((err) => {
+                this['context'].setState({ loaded: true });
             });
     }
 
@@ -108,6 +107,19 @@ export default class AdminPageContent extends React.Component {
 
     componentDidMount() {
         this.getAllUserRequests();
+    }
+
+    transformUserData(user) {
+        // reformat the user data to match the table columns
+        const output = [
+            user.name,
+            user.title,
+            user.agency,
+            user.email,
+            user.uid
+        ];
+
+        return output;
     }
 
     render() {
