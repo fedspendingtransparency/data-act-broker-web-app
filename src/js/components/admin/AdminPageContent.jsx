@@ -117,25 +117,29 @@ export default class AdminPageContent extends React.Component {
             <div className="container">
                 <div className="row">
                     <div className="col-md-12 usa-da-admin-message">
-                        <h5>The following user(s) has requested access to the DATA Act Broker.</h5>
+                        <h5 className="text-center">The following user(s) has requested access to the DATA Act Broker.</h5>
+                    </div>
+                </div>
+                <div className="row">
+                    <div className="usa-da-admin-table-wrapper usa-da-registration col-md-12">
                         <ul>
                             <li>Click "Approve" to grant access. This will generate an email to the user with a link to complete registration.</li>
                             <li>Click "Deny" to prevent access. This will generate an email notifying the user that they have been denied access.</li>
                         </ul>
-                    </div>
-                </div>
-                    
-                <div className="row">
-                    <div className="col-md-12 usa-da-admin-message">
-                        <AdminPageMessage data={this.state.message} />
-                    </div>
-                </div>
-                    
-                <div className="row">
-                    <div className="col-md-12">
-                        <Loader loaded={this.state.loaded}>
-                            <Table data={this.state.users} headers={headers} extraClasses={['table-bordered']}/>
-                        </Loader>
+
+                        <div className="row">
+                            <div className="col-md-12 usa-da-admin-message">
+                                <AdminPageMessage data={this.state.message} />
+                            </div>
+                        </div>
+                            
+                        <div className="row">
+                            <div className="col-md-12">
+                                <Loader loaded={this.state.loaded}>
+                                    <Table data={this.state.users} headers={headers} extraClasses={['table-bordered']}/>
+                                </Loader>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
