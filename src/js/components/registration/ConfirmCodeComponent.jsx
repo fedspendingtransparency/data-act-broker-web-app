@@ -257,15 +257,51 @@ export default class ConfirmCode extends React.Component {
                 </div>
                 <div className="row">
                     <div className="usa-da-reg-wrapper usa-da-registration col-md-12">
-                        <p>Please continue the registration process by providing the following information.</p>
-                        <TextInputComponent inputClass="" error={this.state.nameError} inputPlaceholder="Name" inputName="regName" handleChange={this.handleFieldChange.bind(this, 'name')} />
-                        <TextInputComponent inputClass="" error={this.state.agencyError} inputPlaceholder="Agency" inputName="regAgency" handleChange={this.handleFieldChange.bind(this, 'agency')} />
-                        <TextInputComponent inputClass="" error={this.state.titleError} inputPlaceholder="Title" inputName="regTitle" handleChange={this.handleFieldChange.bind(this,'title')} />
-                        <PasswordComponent fieldID="regPassword1" error={this.state.password1Error} iconClass="usa-da-icon-register" handleChange={this.handleFieldChange.bind(this,'password1')} />
-                        <p>Please include an uppercase letter, a lowercase letter, a number, and a special character [ ] { } ~ ! @ # $ % ^, . ? ; in your password.</p>
-                        <PasswordComponent fieldID="regPassword2" error={this.state.password2Error} iconClass="usa-da-icon-register" handleChange={this.handleFieldChange.bind(this,'password2')} />
-                        {messageComponent}
-                        {actionComponent}
+                        <div className="row">
+                            <div className="col-md-12">
+                                <p>Please continue the registration process by providing the following information.</p>
+                            </div>
+                        </div>
+                        <div className="row">
+                            <div className="col-md-12">
+                                <TextInputComponent inputClass="" error={this.state.nameError} inputPlaceholder="Name" inputName="regName" handleChange={this.handleFieldChange.bind(this, 'name')} />
+                            </div>
+                        </div>
+                        <div className="row">
+                            <div className="col-md-12">
+                                <TextInputComponent inputClass="" error={this.state.agencyError} inputPlaceholder="Agency" inputName="regAgency" handleChange={this.handleFieldChange.bind(this, 'agency')} />
+                            </div>
+                        </div>
+                        <div className="row">
+                            <div className="col-md-12">
+                                <TextInputComponent inputClass="" error={this.state.titleError} inputPlaceholder="Title" inputName="regTitle" handleChange={this.handleFieldChange.bind(this, 'title')} />
+                            </div>
+                        </div>
+                        <div className="row">
+                            <div className="col-md-12">
+                                <PasswordComponent fieldID="regPassword1" error={this.state.password1Error} iconClass="usa-da-icon-register" handleChange={this.handleFieldChange.bind(this, 'password1')} />
+                            </div>
+                        </div>
+                        <div className="row">
+                            <div className="col-md-12">
+                                <p className="small highlight">Please include an uppercase letter, a lowercase letter, a number, and a special character [ ] { } ~ ! @ # $ % ^, . ? ; in your password.</p>
+                            </div>
+                        </div>
+                        <div className="row">
+                            <div className="col-md-12">
+                                <PasswordComponent fieldID="regPassword2" error={this.state.password2Error} iconClass="usa-da-icon-register" handleChange={this.handleFieldChange.bind(this, 'password2')} />
+                            </div>
+                        </div>
+                        <div className="row">
+                            <div className="col-md-12">
+                                {messageComponent}
+                            </div>
+                        </div>
+                        <div className="row">
+                            <div className="col-md-12">
+                                {actionComponent}
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
