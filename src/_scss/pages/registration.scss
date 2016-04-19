@@ -1,21 +1,15 @@
 // registration Page
-
-.usa-da-reg-wrapper{
+.usa-da-reg-wrapper {
     @include contentBlockWrapper;
-    padding: 30px 20px 20px;
+    padding: 30px 20px;
 }
-
 
 .usa-da-registration {
     input {
         max-width: none;
-
         &.error {
             border: 1px solid $color-secondary;
         }
-    }
-    button {
-        margin: .5em;
     }
     .usa-alert,
     .alert {
@@ -38,9 +32,9 @@
     & p {
         max-width: 100%;
         font-size: 1.1rem;
-        color:$color-white;
-        & strong{
-            color:$color-secondary-light;
+        color: $color-white;
+        & strong {
+            color: $color-secondary-light;
         }
     }
 }
