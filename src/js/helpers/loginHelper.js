@@ -202,3 +202,23 @@ export const registerAccount = (account) => {
 		});
 	return deferred.promise;
 }
+
+export const resetPassword = (email, password) => {
+	const deferred = Q.defer();
+
+	Request.post(kGlobalConstants.API + 'set_password/')
+		.withCredentials()
+		.send({ 'user_email': email, 'password': password })
+		.end((err) => {
+
+			if (err) {
+				deferred.reject(err);
+			}
+			else {
+				deferred.resolve();
+			}
+
+		});
+
+	return deferred.promise;
+}

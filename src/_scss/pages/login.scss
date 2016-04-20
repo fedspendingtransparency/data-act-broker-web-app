@@ -109,6 +109,11 @@
             padding: 0;
             color: $color-white;
             font-size: $small-font-size;
+
+            p {
+                color: $color-white;
+                font-size: $small-font-size;
+            }
         }
     }
     .usa-da-input-container {
