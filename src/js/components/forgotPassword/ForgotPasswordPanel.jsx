@@ -23,11 +23,18 @@ export default class ForgotPasswordPanel extends React.Component {
         this.state = {
             username: '',
             requestSent: false,
-            resetFailed: false
+            resetFailed: false,
+            buttonText: 'Reset',
+            buttonDisabled: false,
+            hideButton: false
         };
     }
 
     requestReset() {
+        this.setState({
+            buttonText: 'Submitting...',
+            buttonDisabled: true
+        });
         Request.post(kGlobalConstants.API + 'reset_password/')
             .withCredentials()
             .send({ 'email': this.state.username })
@@ -35,12 +42,18 @@ export default class ForgotPasswordPanel extends React.Component {
                 if (err) {
                     this.setState({
                         requestSent: true,
-                        resetFailed: true
+                        resetFailed: true,
+                        hideButton: false,
+                        buttonText: 'Reset',
+                        buttonDisabled: false
                     });
                 } else {
                     this.setState({
                         requestSent: true,
-                        resetFailed: false
+                        resetFailed: false,
+                        hideButton: true,
+                        buttonText: 'Reset',
+                        buttonDisabled: false
                     });
                 }
             });
@@ -73,6 +86,11 @@ export default class ForgotPasswordPanel extends React.Component {
             messageComponent = <ErrorMessage message={this.props.message} />;
         }
 
+        let hideButton = '';
+        if (this.state.hideButton) {
+            hideButton = 'hide';
+        }
+
         return (
             <div className="col-md-5 usa-da-login-container">
                 <div className="row">
@@ -91,7 +109,9 @@ export default class ForgotPasswordPanel extends React.Component {
                             <a href="#/login" className="forgot-back">Back to login page</a>
                         </div>
                         <div className="col-xs-6">
-                            <SignInButton onClick={this.requestReset.bind(this)} buttonText={"Reset"} />
+                            <div className={hideButton}>
+                                <SignInButton onClick={this.requestReset.bind(this)} disabled={this.state.buttonDisabled} buttonText={this.state.buttonText} />
+                            </div>
                         </div>
                     </div>
                     <div className="row">
