@@ -136,7 +136,7 @@ export default class SetNewPasswordPanel extends React.Component {
                             <div className="col-md-12">
                                 <p className="msg">Please enter your new password.</p>
                             </div>
-                        </row>
+                        </div>
                         <div className='row'>
                             <Password handleChange={this.handlePassword1Change.bind(this)}/>
                         </div>
