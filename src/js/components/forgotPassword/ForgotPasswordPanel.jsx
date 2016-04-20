@@ -12,6 +12,8 @@ import SignInButton from '../login/SignInButton.jsx';
 import ErrorMessage from '../SharedComponents/ErrorMessage.jsx';
 import SuccessMessage from '../SharedComponents/SuccessMessage.jsx';
 
+import * as LoginHelper from '../../helpers/loginHelper.js';
+
 const propTypes = {
     message: PropTypes.string
 };
@@ -35,27 +37,25 @@ export default class ForgotPasswordPanel extends React.Component {
             buttonText: 'Submitting...',
             buttonDisabled: true
         });
-        Request.post(kGlobalConstants.API + 'reset_password/')
-            .withCredentials()
-            .send({ 'email': this.state.username })
-            .end((err) => {
-                if (err) {
-                    this.setState({
-                        requestSent: true,
-                        resetFailed: true,
-                        hideButton: false,
-                        buttonText: 'Reset',
-                        buttonDisabled: false
-                    });
-                } else {
-                    this.setState({
-                        requestSent: true,
-                        resetFailed: false,
-                        hideButton: true,
-                        buttonText: 'Reset',
-                        buttonDisabled: false
-                    });
-                }
+
+        LoginHelper.requestPasswordToken(this.state.username)
+            .then(() => {
+                this.setState({
+                    requestSent: true,
+                    resetFailed: false,
+                    hideButton: true,
+                    buttonText: 'Reset',
+                    buttonDisabled: false
+                });
+            })
+            .catch((err) => {
+                this.setState({
+                    requestSent: true,
+                    resetFailed: true,
+                    hideButton: false,
+                    buttonText: 'Reset',
+                    buttonDisabled: false
+                });
             });
     }
 

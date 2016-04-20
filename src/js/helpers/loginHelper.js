@@ -222,3 +222,22 @@ export const resetPassword = (email, password) => {
 
 	return deferred.promise;
 }
+
+export const requestPasswordToken = (email) => {
+
+	const deferred = Q.defer();
+
+	Request.post(kGlobalConstants.API + 'reset_password/')
+		.withCredentials()
+		.send({ 'email': email })
+		.end((err) => {
+			if (err) {
+				deferred.reject(err);
+			}
+			else {
+				deferred.resolve();
+			}
+		});
+
+	return deferred.promise;
+}
