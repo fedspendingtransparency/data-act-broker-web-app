@@ -99,8 +99,7 @@
         }
         p.info {
             color: $color-white;
-            margin: 12px 0 0 -15px;
-            margin-bottom: 20px;
+            margin: 0 0 20px -15px;
             @media screen and (max-width: $small-screen) {
                 text-align: center;
             }
@@ -110,6 +109,11 @@
             padding: 0;
             color: $color-white;
             font-size: $small-font-size;
+
+            p {
+                color: $color-white;
+                font-size: $small-font-size;
+            }
         }
     }
     .usa-da-input-container {
