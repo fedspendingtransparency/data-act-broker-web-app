@@ -6,6 +6,7 @@ import StoreSingleton from '../redux/storeSingleton.js';
 
 import { kGlobalConstants } from '../GlobalConstants.js';
 import * as sessionActions from '../redux/actions/sessionActions.js';
+import * as registrationActions from '../redux/actions/registrationActions.js';
 
 export const fetchActiveUser = () => {
 
@@ -141,10 +142,16 @@ export const checkSession = () => {
 export const registerEmail = (email) => {
 	const deferred = Q.defer();
 
+	const store = new StoreSingleton().store;
+
 	Request.post(kGlobalConstants.API + 'confirm_email/')
 		.withCredentials()
 		.send({ 'email': email })
 		.end((err) => {
+
+			const action = registrationActions.resetErrors();
+			store.dispatch(action);
+
 
         	if (err) {
         		deferred.reject(err);
@@ -161,6 +168,8 @@ export const registerEmail = (email) => {
 export const lookupEmailToken = (token) => {
 	const deferred = Q.defer();
 
+	const store = new StoreSingleton().store;
+
 	Request.post(kGlobalConstants.API + 'confirm_email_token/')
 		.withCredentials()
 		.send({ 'token': token })
@@ -168,6 +177,8 @@ export const lookupEmailToken = (token) => {
 			if (err) {
 				deferred.reject(err);
 			} else {
+				const action = registrationActions.setErrors(res.body);
+				store.dispatch(action);
 				deferred.resolve(res.body);
 			}
 		});
@@ -189,5 +200,44 @@ export const registerAccount = (account) => {
 				deferred.resolve();
 			}
 		});
+	return deferred.promise;
+}
+
+export const resetPassword = (email, password) => {
+	const deferred = Q.defer();
+
+	Request.post(kGlobalConstants.API + 'set_password/')
+		.withCredentials()
+		.send({ 'user_email': email, 'password': password })
+		.end((err) => {
+
+			if (err) {
+				deferred.reject(err);
+			}
+			else {
+				deferred.resolve();
+			}
+
+		});
+
+	return deferred.promise;
+}
+
+export const requestPasswordToken = (email) => {
+
+	const deferred = Q.defer();
+
+	Request.post(kGlobalConstants.API + 'reset_password/')
+		.withCredentials()
+		.send({ 'email': email })
+		.end((err) => {
+			if (err) {
+				deferred.reject(err);
+			}
+			else {
+				deferred.resolve();
+			}
+		});
+
 	return deferred.promise;
 }

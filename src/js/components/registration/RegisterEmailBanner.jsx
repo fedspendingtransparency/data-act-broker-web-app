@@ -7,6 +7,8 @@ import React, { PropTypes } from 'react';
 import RegistrationEmailInput from './RegistrationEmailInput.jsx';
 import LoginIntro from '../login/LoginIntro.jsx';
 import SignInButton from '../login/SignInButton.jsx';
+import ErrorMessage from '../SharedComponents/ErrorMessage.jsx';
+import SuccessMessage from '../SharedComponents/SuccessMessage.jsx';
 
 import * as LoginHelper from '../../helpers/loginHelper.js';
 
@@ -28,7 +30,36 @@ export default class RegisterEmailBanner extends React.Component {
             disabled: true,
             buttonText: 'Submit',
             email: '',
-            text: 'A .gov or .mil email address is preferred when registering for access to the data broker.  If you do not have a .gov or .mil email address, please contact the DATA Act Broker Helpdesk.'
+            text: '',
+            success: false,
+            error: false
+        }
+    }
+
+    componentDidMount() {
+        this.checkForErrorMessage(this.props.errors);
+    }
+
+    componentWillReceiveProps(nextProps) {
+        this.checkForErrorMessage(nextProps.errors);
+    }
+
+    checkForErrorMessage(error) {
+        if (error.hasOwnProperty('errorCode')) {
+            if (error.errorCode == 3 || error.errorCode == 2) {
+                this.setState({
+                    text: 'The registration link provided has already been used or has expired. You can provide your email address again if you need to complete your account registration.',
+                    error: true,
+                    success: false
+                });
+            }
+            else if (error.errorCode == 1) {
+                this.setState({
+                    text: 'The registration link you entered is not a valid registration link. You can register for a new account here by providing a .gov or .mil email address.',
+                    error: true,
+                    success: false
+                });
+            }
         }
     }
 
@@ -39,6 +70,7 @@ export default class RegisterEmailBanner extends React.Component {
         // });
     }
 
+
     submitEmail() {
         this.setState({
             disabled: true,
@@ -48,14 +80,18 @@ export default class RegisterEmailBanner extends React.Component {
             .then(() => {
                 this.setState({
                     text: 'An email has been sent to this address. Please follow the link within this email to verify your email address.',
-                    buttonText: 'Submitted!'
+                    buttonText: 'Submitted!',
+                    success: true,
+                    error: false
                 });
             })
             .catch(() => {
                 this.setState({
                     disabled: false,
                     buttonText: 'Submit',
-                    text: 'There was an error. If you already have an account, please login or reset your password.'
+                    text: 'There was an error. If you already have an account, please login or reset your password.',
+                    error: true,
+                    success: false
                 });
             });
     }
@@ -74,13 +110,26 @@ export default class RegisterEmailBanner extends React.Component {
 
     handleKeyPress(e) {
         const enterKey = 13;
-        if (e.charCode === enterKey) {
+        if (e.charCode === enterKey && !this.state.disabled) {
             e.preventDefault();
             this.submitEmail();
         }
     }
 
     render() {
+
+        let messageComponent = '';
+        if (this.state.success) {
+            messageComponent = <SuccessMessage message={"An email has been sent to this address. Please follow the link within this email to verify your email address."} />;
+        }
+        else if (this.state.error) {
+            messageComponent = <ErrorMessage message={this.state.text} />
+        }
+
+        let hideButton = '';
+        if (this.state.success) {
+            hideButton = 'hide';
+        }
 
         return (
             <div className="login-banner-wrap">
@@ -89,19 +138,30 @@ export default class RegisterEmailBanner extends React.Component {
                         <div className="row">
                             <LoginIntro />
                             <div className="col-md-5 usa-da-login-container">
-                                <div className="col-xs-12">
-                                    <p className="msg">{this.state.text}</p>
+                                <div className="row">
+                                    <div className="col-xs-12">
+                                        <p className="msg">A .gov or .mil email address is preferred when registering for access to the data broker.  If you do not have a .gov or .mil email address, please contact the DATA Act Broker Helpdesk.</p>
+                                    </div>
                                 </div>
                                 <form onKeyPress={this.handleKeyPress.bind(this)}>
-                                    <div className='row'>
-                                        <RegistrationEmailInput setButtonDisabled={this.setButtonDisabled.bind(this)} onChange={this.emailChanged.bind(this)} value={this.state.email} />
+                                    <div className="row">
+                                        <div className="col-md-12">
+                                            <RegistrationEmailInput setButtonDisabled={this.setButtonDisabled.bind(this)} onChange={this.emailChanged.bind(this)} value={this.state.email} />
+                                        </div>
                                     </div>
-                                    <div className='row'>
-                                        <div className="col-xs-6 usa-da-registration-links mt-10">
+                                    <div className="row">
+                                        <div className="col-xs-6 usa-da-registration-links mt-20">
                                             <a href="#/login" className="forgot-back">Back to login page</a>
                                         </div>
                                         <div className="col-xs-6 usa-da-login-button-holder">
-                                            <SignInButton disabled={this.state.disabled} onClick={this.submitEmail.bind(this)} buttonText={this.state.buttonText} />
+                                            <div className={hideButton}>
+                                                <SignInButton disabled={this.state.disabled} onClick={this.submitEmail.bind(this)} buttonText={this.state.buttonText} />
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div className="row">
+                                        <div className="col-md-12">
+                                            {messageComponent}
                                         </div>
                                     </div>
                                 </form>

@@ -24,7 +24,7 @@ Assumptions:
 
 3. From the command line, clone the DATA Act web app repository from GitHub to your local machine:
 
-        $ git clone git@github.com:fedspendingtransparency/data-act-broker-web-app.git
+        $ git clone https://github.com/fedspendingtransparency/data-act-broker-web-app.git
 
 4. Switch to the alpha release version of the code. This is the latest stable release.
 
