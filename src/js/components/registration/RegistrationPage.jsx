@@ -6,7 +6,6 @@
 import React, { PropTypes } from 'react';
 import { hashHistory } from 'react-router';
 import Navbar from '../SharedComponents/navigation/NavigationComponent.jsx';
-import EmailComponent from './RegistrationEmailComponent.jsx';
 import RegisterEmailPage from './RegisterEmailPage.jsx';
 import ConfirmCode from './ConfirmCodeComponent.jsx';
 
