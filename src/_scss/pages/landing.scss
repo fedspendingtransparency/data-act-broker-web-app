@@ -11,5 +11,15 @@
             display: inline-block;
             margin: 0 15px 0 0;
         }
+
+        // EXAMPLE EXAMPLE
+        .usa-da-icon {
+            svg {
+                width: 35px;
+                height: 2.4rem;
+                display: inline-block;
+                fill: $color-white;
+            }
+        }
     }
 }
