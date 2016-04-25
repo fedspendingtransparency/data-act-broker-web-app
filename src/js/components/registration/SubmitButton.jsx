@@ -17,14 +17,14 @@ const propTypes = {
 const defaultProps = {
     buttonDisabled: true,
     buttonText: "Submit",
-    className: "usa-button-big"
+    className: "usa-da-button btn-lg pull-right"
 };
 export default class SubmitEmailButton extends React.Component {
     render() {
         let newButtonClass;
 
         if (this.props.buttonDisabled) {
-            newButtonClass = 'usa-button-disabled ' + this.props.className;
+            newButtonClass = 'usa-da-button btn-disabled ' + this.props.className;
         } else {
             newButtonClass = 'usa-button ' + this.props.className;
         }

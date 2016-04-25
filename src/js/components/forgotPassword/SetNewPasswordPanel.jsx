@@ -12,6 +12,8 @@ import ErrorMessage from '../SharedComponents/ErrorMessage.jsx';
 import ErrorMessageList from '../SharedComponents/ErrorMessageList.jsx';
 import SuccessMessage from '../SharedComponents/SuccessMessage.jsx';
 
+import * as LoginHelper from '../../helpers/loginHelper.js';
+
 const propTypes = {
     email: PropTypes.string
 };
@@ -26,7 +28,9 @@ export default class SetNewPasswordPanel extends React.Component {
             passwordsMatch: true,
             passwordErrors : [],
             requestSent: false,
-            resetFailed: false
+            resetFailed: false,
+            buttonDisabled: false,
+            buttonText: 'Reset'
         };
     }
 
@@ -53,23 +57,28 @@ export default class SetNewPasswordPanel extends React.Component {
 
         if (errorMessages.length == 0) {
             if (this.state.password1 === this.state.password2) {
-                Request.post(kGlobalConstants.API + 'set_password/')
-                    .withCredentials()
-                    .send({ 'user_email': this.props.email, 'password': this.state.password1 })
-                    .end((err) => {
-                        if (err) {
-                            this.setState({
-                                passwordsMatch: true,
-                                requestSent: true,
-                                resetFailed: true
-                            });
-                        } else {
-                            this.setState({
-                                passwordsMatch: true,
-                                requestSent: true,
-                                resetFailed: false
-                            });
-                        }
+                this.setState({
+                    buttonDisabled: true,
+                    buttonText: 'Submitting...'
+                });
+
+                LoginHelper.resetPassword(this.props.email, this.state.password1)
+                    .then(() => {
+                        this.setState({
+                            passwordsMatch: true,
+                            requestSent: true,
+                            resetFailed: false,
+                            buttonText: 'Reset'
+                        });
+                    })
+                    .catch((err) => {
+                        this.setState({
+                            passwordsMatch: true,
+                            requestSent: true,
+                            resetFailed: true,
+                            buttonDisabled: false,
+                            buttonText: 'Reset'
+                        });
                     });
             } else {
                 this.setState({
@@ -81,7 +90,7 @@ export default class SetNewPasswordPanel extends React.Component {
 
     handleKeyPress(e) {
         const enterKey = 13;
-        if (e.charCode === enterKey) {
+        if (e.charCode === enterKey && !this.state.buttonDisabled) {
             this.requestReset();
             e.preventDefault();
         }
@@ -121,7 +130,7 @@ export default class SetNewPasswordPanel extends React.Component {
         // Only show confirmation and log-in link on successful reset
         if (this.state.requestSent && !this.state.resetFailed){
             return (
-                <div className="col-md-6 usa-da-login-container">
+                <div className="col-md-5 usa-da-login-container">
                     {messageComponent}
                     <div className="col-md-12 usa-da-reset-success">
                         <p>Please click <a href="#">here</a> to log in with your new password</p>
@@ -130,8 +139,13 @@ export default class SetNewPasswordPanel extends React.Component {
             );
         } else {
             return (
-                <div className="col-md-6 usa-da-login-container">
+                <div className="col-md-5 usa-da-login-container">
                     <form onKeyPress={this.handleKeyPress.bind(this)}>
+                        <div className='row'>
+                            <div className="col-md-12">
+                                <p className="msg">Please enter your new password.</p>
+                            </div>
+                        </div>
                         <div className='row'>
                             <Password handleChange={this.handlePassword1Change.bind(this)}/>
                         </div>
@@ -146,12 +160,11 @@ export default class SetNewPasswordPanel extends React.Component {
                             <Password handleChange={this.handlePassword2Change.bind(this)}/>
                         </div>
                         <div className='row'>
-                            <div className="col-xs-12 col-sm-8">
-                                <p className="msg">Please enter your new password.</p>
+                            <div className="col-md-12 usa-da-login-button-holder">
+                                <SignInButton onClick={this.requestReset.bind(this)} buttonText={this.state.buttonText} disabled={this.state.buttonDisabled} />
                             </div>
-                            <div className="col-xs-12 col-sm-4 usa-da-login-button-holder">
-                                <SignInButton onClick={this.requestReset.bind(this)} buttonText={"Reset"} />
-                            </div>
+                        </div>
+                        <div className='row'>
                             {messageComponent}
                         </div>
                     </form>

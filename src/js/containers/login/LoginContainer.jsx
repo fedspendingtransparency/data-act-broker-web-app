@@ -16,13 +16,29 @@ import * as sessionActions from '../../redux/actions/sessionActions.js';
 import * as LoginHelper from '../../helpers/loginHelper.js';
 
 class LoginContainer extends React.Component {
+	constructor(props) {
+		super(props);
+
+		this.state = {
+			loading: false
+		};
+	}
 	performLogin(username, password) {
-		LoginHelper.performLogin(username, password);
+		this.setState({
+			loading: true
+		});
+
+		LoginHelper.performLogin(username, password)
+			.catch(() => {
+				this.setState({
+					loading: false
+				});
+			})
 	}
 	render() {
 
 		return (
-			<LoginPanel {...this.props} performLogin={this.performLogin.bind(this)} />
+			<LoginPanel {...this.props} performLogin={this.performLogin.bind(this)} loading={this.state.loading} />
 		);
 	}
 }
