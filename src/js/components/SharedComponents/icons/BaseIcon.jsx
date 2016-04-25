@@ -4,6 +4,7 @@
   */
 
 import React, { PropTypes } from 'react';
+import svg4everybody from 'svg4everybody';
 import { fetchStaticAssetPath } from '../../../helpers/util.js';
 
 
@@ -14,6 +15,12 @@ const propTypes = {
 
 
 export default class BaseIcon extends React.Component {
+	componentDidMount() {
+		// necessary for IE support
+		svg4everybody({
+			polyfill: true
+		});
+	}
 	render() {
 		return (
 			<svg className={this.props.iconClass}>
