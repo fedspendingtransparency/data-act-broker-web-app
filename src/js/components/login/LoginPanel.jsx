@@ -45,8 +45,7 @@ export default class LoginPanel extends React.Component {
     }
 
     render() {
-        let signInButtonText = "Sign In";
-
+        
         let errorMessageComponent = null;
 
         if (this.props.session.login == "failed") {
@@ -69,7 +68,7 @@ export default class LoginPanel extends React.Component {
                     </div>
                     <div className="row">
                         <div className="col-xs-12 col-sm-4 col-sm-push-8">
-                            <SignInButton onClick={this.loginClicked.bind(this)} buttonText={"Sign In"}/>
+                            <SignInButton onClick={this.loginClicked.bind(this)} buttonText="Sign In" disabled={this.props.loading} />
                         </div>
                         <LoginLinks/>
                     </div>
