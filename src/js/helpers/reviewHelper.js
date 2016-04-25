@@ -21,7 +21,10 @@ export const fetchStatus = (submissionId) => {
 	        .end((errFile, res) => {
 
 	        	if (errFile) {
-	        		deferred.reject(errFile);
+	        		deferred.reject({
+	        			reason: res.statusCode,
+	        			error: errFile
+	        		});
 	        	}
 	        	else {
 	        		deferred.resolve(res.body);
