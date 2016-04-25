@@ -419,7 +419,14 @@
                     max-width: none;
                     outline: none;
                 }
-                ul.typeahead-selector {
+                .awesomplete {
+                    .visually-hidden {
+                        position: absolute;
+                        clip: rect(0, 0, 0, 0);
+                    }
+                }
+
+                ul.typeahead-selector, .awesomplete ul {
                     text-align: left;
                     background: $color-white;
                     color: $color-gray-dark;
@@ -435,11 +442,16 @@
                         width: 100%;
                         padding: 10px 10px 0 10px;
                         margin: 0;
-                        &:hover, &.hover {
+                        &:hover, &.hover, &[aria-selected="true"] {
                             background-color: $color-gray-dark;
                             color: $color-white;
                             * {
                                 color: $color-white;
+                            }
+
+                            mark {
+                                background-color: $color-gray-lightest;
+                                color: $color-gray-dark;
                             }
                         }
                         a,
@@ -461,6 +473,9 @@
             }
             input {
                 max-width: none;
+                &.error {
+                    border: 1px $color-secondary solid;
+                }
             }
         }
         .datepicker__input-container {
@@ -470,7 +485,7 @@
             }
         }
 
-        .usa-da-startDate, .usa-da-endDate, .typeahead {
+        .usa-da-startDate, .usa-da-endDate {
             .error {
                 border: 1px $color-secondary solid;
             }
