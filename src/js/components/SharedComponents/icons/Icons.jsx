@@ -6,21 +6,6 @@
 import React from 'react';
 import BaseIcon from './BaseIcon.jsx';
 
-const icons = [
-	{
-		name: 'Unlock',
-		ref: 'usa-da-icon-unlock'
-	},
-	{
-		name: 'User',
-		ref: 'usa-da-icon-user'
-	},
-	{
-		name: 'CloudUpload',
-		ref: 'usa-da-icon-cloud-upload'
-	}
-];
-
 export class Unlock extends BaseIcon {};
 Unlock.defaultProps = {
 	iconName: 'usa-da-icon-unlock',
