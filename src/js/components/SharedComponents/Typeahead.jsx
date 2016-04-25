@@ -42,6 +42,7 @@ export default class Typeahead extends React.Component {
 	mountAwesomeplete() {
 		const target = this.refs.awesomplete;
 		this.typeahead = new Awesomplete(target);
+		this.typeahead.autoFirst = true;
 		this.typeahead.list = this.props.values;
 
 		// set up event handlers
@@ -56,7 +57,14 @@ export default class Typeahead extends React.Component {
 			// validate the current value is on the autocomplete list
 			const validity = this.props.values.indexOf(this.state.value) > -1;
 			this.props.onSelect(this.state.value, validity);
-		})
+		});
+
+		// enable tab keyboard shortcut for selection
+		this.refs.awesomplete.addEventListener('keydown', (e) => {
+			if (e.keyCode == 9) {
+				this.typeahead.select();
+			}
+		});
 	}
 
 	changedText(e) {

@@ -5,7 +5,6 @@
 
 import React, { PropTypes } from 'react';
 import SubmitButton from '../SharedComponents/SubmitButton.jsx';
-import ReactTypeahead from 'react-typeahead';
 import DatePicker from 'react-datepicker';
 import moment from 'moment';
 import Typeahead from '../SharedComponents/Typeahead.jsx';
