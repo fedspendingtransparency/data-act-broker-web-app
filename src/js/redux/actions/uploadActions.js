@@ -24,7 +24,11 @@ export const setSubmissionState = (state) => ({
 
 export const setMeta = (state) => ({
 	type: 'SET_META',
-	state: state
+	state: {
+		agency: state.agency,
+		startDate: state.startDate,
+		endDate: state.endDate
+	}
 })
 
 export const setSubmissionId = (state) => ({
