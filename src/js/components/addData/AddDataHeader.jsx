@@ -4,8 +4,26 @@
 **/
 
 import React from 'react';
+import { generateRSSUrl } from '../../helpers/util.js';
 
 export default class AddDataHeader extends React.Component {
+    constructor(props) {
+        super(props);
+
+        this.state = {
+            rssUrl: ''
+        };
+    }
+
+    componentDidMount() {
+        generateRSSUrl()
+            .then((url) => {
+                this.setState({
+                    rssUrl: url
+                });
+            });
+    }
+
     render() {
         return (
             <div className="usa-da-content-dark">
@@ -20,7 +38,7 @@ export default class AddDataHeader extends React.Component {
                                     <li>D2: Financial Assistance Award File (<em><a href="https://s3-us-gov-west-1.amazonaws.com/prod-data-act-web-static-files/sample-files/awardValid.csv" target="_blank">Sample file</a></em>) <br />*<em style={{fontSize: '.8em'}}>The D2 file will be generated for users in future broker versions. Agencies must still upload a D2 file currently. If you do not have this data, simply submit the sample file.</em></li>
 
                             </p>
-                            <p>Upload your files below. For more information on the file format, please <a href="http://prod-data-act-web-static-files.s3-website-us-gov-west-1.amazonaws.com/RSS-spec/RSS_DRAFT_v1.0_03292016.xlsx" target="_blank">download the Reporting Submission Specification (Draft RSS 1.0)</a>.</p>
+                            <p>Upload your files below. For more information on the file format, please <a href={this.state.rssUrl} target="_blank">download the Reporting Submission Specification (Draft RSS 1.0)</a>.</p>
                         </div>
                     </div>
                 </div>
