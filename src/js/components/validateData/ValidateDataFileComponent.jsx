@@ -129,7 +129,7 @@ export default class ValidateDataFileComponent extends React.Component {
         }
 
 
-        if (item.file_status == 'incomplete') {
+        if (item.file_status == 'incomplete' || !this.isFileReady()) {
             headerTitle = 'Validating...';
             errorData = [];
             hasErrorReport = false;
@@ -195,6 +195,7 @@ export default class ValidateDataFileComponent extends React.Component {
             disabledCorrect = ' hide';
         }
         else if (!this.isFileReady()) {
+            successfulFade = '';
             disabledCorrect = ' hide';
         }
 

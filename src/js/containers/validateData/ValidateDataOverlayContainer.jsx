@@ -24,10 +24,16 @@ class ValidateDataOverlayContainer extends React.Component {
 
 	uploadFiles() {
 		if (kGlobalConstants.LOCAL == true) {
-			UploadHelper.performLocalCorrectedUpload(this.props.submission);
+			UploadHelper.performLocalCorrectedUpload(this.props.submission)
+				.then(() => {
+					this.props.setSubmissionState('prepare');
+				});
 		}
 		else {
-			UploadHelper.performRemoteCorrectedUpload(this.props.submission);
+			UploadHelper.performRemoteCorrectedUpload(this.props.submission)
+				.then(() => {
+					this.props.setSubmissionState('prepare');
+				});
 		}
 	}
 

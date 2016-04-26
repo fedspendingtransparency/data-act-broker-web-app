@@ -23,7 +23,10 @@ export default class ValidateDataOverlay extends React.Component {
 			buttonDisabled = '-disabled';
 			buttonText = 'Uploading files...';
 		}
-
+		else if (this.props.submission.state == 'prepare') {
+			buttonDisabled = '-disabled';
+			buttonText = 'Gathering data...';
+		}
 
 		return (
 			<div className="center-block usa-da-validation-overlay">
