@@ -4,6 +4,7 @@
 **/
 
 import React, { PropTypes } from 'react';
+import * as Icons from '../SharedComponents/icons/Icons.jsx';
 
 const propTypes = {
     handleChange: PropTypes.func.isRequired
@@ -23,7 +24,9 @@ export default class Username extends React.Component {
                   aria-describedby="username"
                   onChange={this.props.handleChange}
                 />
-                <div className="usa-da-icon usa-da-icon-user usa-da-icon-nobg"></div>
+                <span className="usa-da-icon">
+                    <Icons.User />
+               </span>
             </div>
         );
     }

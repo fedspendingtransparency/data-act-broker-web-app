@@ -5,6 +5,7 @@
 
 import React from 'react';
 import { hashHistory } from 'react-router';
+import * as Icons from '../../SharedComponents/icons/Icons.jsx';
 
 const defaultProps = {
 	allowUpload: false
@@ -75,18 +76,20 @@ export default class ValidateValuesOverlay extends React.Component {
 			<div className="center-block usa-da-validation-overlay">
 				<div className="container">
 					<div className="row">
-						<div className="col-md-9 usa-da-overlay-content-wrap">
+						<div className="col-md-8 usa-da-overlay-content-wrap">
 							<div className="row">
-								<div className="col-xs-2 col-md-1 usa-da-icon-exclamation-circle usa-da-alert-icon" />
+								<div className="col-xs-2 col-md-1 usa-da-icon">
+									<Icons.CheckCircle />
+								</div>
 								<div className="col-xs-10 col-md-11">
 									<h6>{message}</h6>
 								</div>
 							</div>
 						</div>
-						<div className="col-md-3">
+						<div className="col-md-4">
 							<div className='usa-da-btn-bg'>
-								<button className={"usa-button" + uploadButtonClass} disabled={uploadButtonDisabled} onClick={this.props.uploadFiles}>{buttonText}</button>
-								<button className={"usa-da-validation-overlay-review usa-button" + nextButtonClass} disabled={nextButtonDisabled} onClick={this.pressedNext.bind(this)}>Review</button>
+								<button className={"usa-da-button" + uploadButtonClass} disabled={uploadButtonDisabled} onClick={this.props.uploadFiles}>{buttonText}</button>
+								<button className={"usa-da-validation-overlay-review usa-da-button" + nextButtonClass} disabled={nextButtonDisabled} onClick={this.pressedNext.bind(this)}>Review</button>
 							</div>
 						</div>
 					</div>

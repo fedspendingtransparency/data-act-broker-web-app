@@ -805,7 +805,8 @@ a.list-group-item {
     }
 
 	.usa-da-icon {
-        font-size: 3.2rem;
+        width: 3.4rem;
+        height: 3.4rem;
         position: absolute;
         top: 15px;
         left: 15px;
@@ -814,31 +815,33 @@ a.list-group-item {
 
 .alert-success {
     background: #e7f4e4;
-    .glyphicon {
-        color: #5cb85c;
+    svg {
+        fill: #5cb85c;
     }
 }
 
 .alert-info {
     background: #e1f3f8;
-    .glyphicon {
-        color: #5bc0de;
+    svg {
+        fill: #5bc0de;
     }
 }
 
 .alert-warning {
     background: #fff1d2;
-    .glyphicon {
-        color: #f0ad4e;
+    svg {
+        fill: #f0ad4e;
     }
 }
 
 .alert-danger, .alert-error {
     background: #f9dede;
     .usa-da-icon {
-        color: #d9534f;
+	    svg{
+        	fill: #d9534f;
+        	}
+        }
     }
-}
 
 .alert-block{
     border: 1px solid #ccc;
