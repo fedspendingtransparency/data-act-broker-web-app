@@ -5,8 +5,24 @@
 
 import React from 'react';
 import * as Icons from '../SharedComponents/icons/Icons.jsx';
+import { generateRSSUrl } from '../../helpers/util.js';
 
 export default class LandingContent extends React.Component {
+    constructor(props) {
+        super(props);
+
+        this.state = {
+            rssUrl: ''
+        };
+    }
+    componentDidMount() {
+        generateRSSUrl()
+            .then((url) => {
+                this.setState({
+                    rssUrl: url
+                });
+            });
+    }
     render() {
         return (
             <div className="site_content">
@@ -19,7 +35,7 @@ export default class LandingContent extends React.Component {
                                     version of the DATA Act Schema (draft version 1.0).</p>
 
                                 <p>Details on how to format your data, including required and optional fields, can be
-                                    found in the Reporting Submission Specification (Draft RSS 1.0). You can <a href="http://prod-data-act-web-static-files.s3-website-us-gov-west-1.amazonaws.com/RSS-spec/RSS_DRAFT_v1.0_03292016.xlsx" target="_blank">download the Reporting Submission Specification (Draft RSS 1.0)</a>.</p>
+                                    found in the Reporting Submission Specification (Draft RSS 1.0). You can <a href={this.state.rssUrl} target="_blank">download the Reporting Submission Specification (Draft RSS 1.0)</a>.</p>
                             </div>
                         </div>
                     </div>

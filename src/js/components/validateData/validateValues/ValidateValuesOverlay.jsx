@@ -47,6 +47,11 @@ export default class ValidateValuesOverlay extends React.Component {
 			uploadButtonClass = '-disabled';
 			buttonText = 'Uploading files...';
 		}
+		else if (this.props.submission.state == 'prepare') {
+			uploadButtonDisabled = true;
+			uploadButtonDisabled = '-disabled';
+			buttonText = 'Gathering data...';
+		}
 
 		let message = 'You must fix the Critical Errors found in ' + this.props.errors.length + ' of the .CSV files before moving on to the next step. View and download individual reports above.';
 
