@@ -16,6 +16,7 @@ import MetaData from '../addData/AddDataMetaDisplay.jsx';
 import FileComponent from '../addData/FileComponent.jsx';
 import ValidateDataErrorReport from './ValidateDataErrorReport.jsx';
 import ValidateDataUploadButton from './ValidateDataUploadButton.jsx';
+import * as Icons from '../SharedComponents/icons/Icons.jsx';
 
 const propTypes = {
 
@@ -167,19 +168,19 @@ export default class ValidateDataFileComponent extends React.Component {
     }
 
     displayIcon() {
-        let icon = 'time';
+        let icon = '';
         if (this.isFileReady()) {
             if (this.props.item.file_status == 'complete') {
-                icon = 'check-circle';
+                icon = <Icons.CheckCircle />;
             }
             else {
-                icon = 'exclamation-circle';
+                icon = <Icons.ExclamationCircle />;
             }
         }
 
         // user is attempting to replace a file
         if (this.isReplacingFile()) {
-            icon = 'cloud-upload';
+            icon = <Icons.CloudUpload />;
         }
 
         return icon;
@@ -226,7 +227,6 @@ export default class ValidateDataFileComponent extends React.Component {
             }
         }
 
-
         return (
             <div className={"row center-block usa-da-validate-item" + successfulFade}>
             <div className="col-md-12">
@@ -256,7 +256,9 @@ export default class ValidateDataFileComponent extends React.Component {
                     <div className="col-md-3">
                             <div className="usa-da-validate-item-file-section">
                                 <div className="usa-da-validate-item-file-section-result">
-                                    <div className={"usa-da-icon usa-da-icon-" + this.displayIcon()}></div>
+                                    <div className="usa-da-icon">
+                                        {this.displayIcon()}
+                                    </div>
                                 </div>
                                 {uploadProgress}
                                 <div className="usa-da-validate-item-file-name">{fileName}</div>

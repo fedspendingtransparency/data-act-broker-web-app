@@ -35,7 +35,11 @@ export default class LandingContent extends React.Component {
                                     Add &#38; Validate New Data</a>
                             </div>
                             <div className="col-md-6">
-                                <a className="usa-da-button btn-default-gray btn-disabled btn-lg btn-full" href="#"><span className="usa-da-icon usa-da-icon-tachometer">&nbsp;</span>Submission Dashboard <i>(Coming Soon)</i>
+                                <a className="usa-da-button btn-default-gray btn-disabled btn-lg btn-full" href="#">
+                                    <span className="usa-da-icon usa-da-icon-Tachometer">
+                                    <Icons.Tachometer />
+                                    </span>
+                                    Submission Dashboard <i>(Coming Soon)</i>
                                 </a>
                             </div>
                         </div>

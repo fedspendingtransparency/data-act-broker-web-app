@@ -121,21 +121,13 @@
         display: inline-flex;
         position: relative;
         width: 100%;
-        div.usa-da-icon {
-            background-image: url("../graphics/form_bg.png");
-            background-repeat: no-repeat;
-            background-size: contain;
-            background-position: center;
-            margin: 0;
+        .usa-da-icon {
             position: absolute;
             left: 10px;
             top: 12px;
-            height: 42px;
-            width: 48px;
+            width: 2.2rem;
             overflow: hidden;
-            float: left;
-            font-size: 24px;
-            color: $color-gray-dark;
+            fill: $color-gray-dark;
         }
     }
     .usa-da-registration-links {

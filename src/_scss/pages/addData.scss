@@ -33,13 +33,10 @@
         }
         .usa-da-submission-item {
             margin-top: 4.0rem;
-            // height: 120px;
             &:first-child {
                 margin-top: 0em;
             }
             > div {
-                // border: 1px solid #ccc;
-                // padding: 1em;
             }
             .usa-da-submission-item-drop-wrapper {
                 display: table-cell;
@@ -183,18 +180,19 @@
                 background-size: 35px 50px;
                 position: relative;
                 & .usa-da-icon {
-                    font-size: 2.0rem;
+                    width: 2.4rem;
+                    height: 2.4rem;
                     position: absolute;
-                    top: 17px;
-                    left: 8px;
-                    &.usa-da-icon-exclamation-circle {
-                        color: $color-secondary;
+                    top: 13px;
+                    left: 6px;
+                    & .usa-da-icon-exclamation-circle {
+                        fill: $color-secondary;
                     }
-                    &.usa-da-icon-check-circle {
-                        color: $color-green-light;
+                    & .usa-da-icon-check-circle {
+                        fill: $color-green-light;
                     }
-                    &.usa-da-icon-cloud-upload {
-                        color: $color-gray-dark;
+                    & .usa-da-icon-cloud-upload {
+                        fill: $color-gray-dark;
                         left: 9px
                     }
                 }
@@ -205,6 +203,7 @@
                     box-shadow: inset 0 0 0 1px $color-secondary;
                     border-radius: 0;
                     font-size: 1.1rem;
+                    font-weight: 600;
                     color: $color-secondary;
                     padding: 1rem 2rem;
                     background-color: $color-white;
@@ -302,16 +301,24 @@
                 margin: 1.0rem 0;
             }
         }
-        & .usa-da-alert-icon {
-            font-size: 6.0rem;
-            color: $color-white;
-            left: 0;
-            top: -5px;
+        & .usa-da-alert-icon{
+            & svg {
+                fill: $color-white;
+                left: 0;
+                top: -5px;
+                width: 5.5rem;
+            }
             @media screen and (max-width: $small-screen) {
-                font-size: 5.0rem;
                 top: 15px;
             }
         }
+        & svg.usa-da-icon-check-circle {
+                fill: $color-white;
+                left: 0;
+                top: -5px;
+                width: 5.5rem;
+        }
+
         & .usa-da-validation-overlay-review {
             margin-left: 5px;
         }
@@ -342,54 +349,42 @@
         b {
             color: $color-gray;
         }
-        & .usa-da-icon-cloud-upload:before {
+        & .usa-da-icon-cloud-upload {
             position: absolute;
             top: 2rem;
             left: 49%;
-            font-size: 4rem;
+            height: 4.0rem;
+            width: 4.5rem;
             padding-top: 0;
             padding-left: 0;
-            color: $color-gray;
-            content: "\65";
-            position: absolute;
-            font-family: 'dataact';
-            top: 1.0rem;
-            left: 49%;
-            color: #d5d6d8;
-            font-size: 4.0rem;
+            fill: $color-gray-light;
         }
         &.active {
             border-color: $color-primary-alt-dark;
-            & .usa-da-icon-cloud-upload:before {
-                color: $color-gray;
+            & .usa-da-icon-cloud-upload {
+                fill: $color-gray;
             }
         }
-        & .usa-da-icon-cloud-upload:before {
+        & .usa-da-icon-cloud-upload {
             position: absolute;
             top: 2rem;
             left: 49%;
             font-size: 4rem;
             padding-top: 0;
             padding-left: 0;
-            content: "\65";
-            position: absolute;
-            font-family: 'dataact';
-            top: 1.0rem;
-            left: 49%;
-            color: #d5d6d8;
-            font-size: 4.0rem;
         }
         &.dropped {
-            & .usa-da-icon-cloud-upload:before {
-                color: $color-gray;
+            & .usa-da-icon-cloud-upload {
+                fill: $color-gray;
+            }
+            & .success .usa-da-icon-cloud-upload {
+                fill: $color-green-light;
+            }
+            & .fail .usa-da-icon-cloud-upload {
+                fill: $color-secondary;
             }
         }
-        .glyphicon {
-            font-size: 2.0em;
-            padding-bottom: 10px;
-            position: absolute;
-            top: 1.0rem;
-        }
+
         .is-caption {
             font-size: 1.4rem;
         }
@@ -485,31 +480,19 @@
             }
         }
 
-        .usa-da-startDate, .usa-da-endDate {
-            .error {
-                border: 1px $color-secondary solid;
-            }
-        }
-
-        .usa-da-startDate-icon,
-        .usa-da-endDate-icon,
-        .usa-da-agency-icon {
-            &:before {
-                content: "\74";
-                font-family: 'dataact';
+        .usa-da-icon{
+            & svg {
                 position: absolute;
-                top: 16px;
+                top: 14px;
                 right: 25px;
                 height: 20px;
                 z-index: 9;
-                color: #ccc;
+                fill: #ccc;
+                height: 21px;
             }
-
-            &.error {
-                border: none;
-                &:before {
-                    content: "\72";
-                    color: $color-secondary;
+            &.error{
+                & svg{
+                    fill: $color-secondary;
                 }
             }
         }
@@ -541,6 +524,12 @@
             div.row:nth-child(even) {
                 background-color: #f5f5f5;
             }
+        }
+        & .usa-da-icon > svg{
+            width: 2.8rem;
+            fill: $gray-dark;
+            position: relative;
+            top: 5px;
         }
     }
     

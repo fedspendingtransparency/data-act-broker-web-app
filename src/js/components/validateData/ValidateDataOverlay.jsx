@@ -4,6 +4,7 @@
  */
 
 import React from 'react';
+import * as Icons from '../SharedComponents/icons/Icons.jsx';
 
 export default class ValidateDataOverlay extends React.Component {
 
@@ -31,7 +32,9 @@ export default class ValidateDataOverlay extends React.Component {
 					<div className="row">
 						<div className="col-md-9 usa-da-overlay-content-wrap">
 							<div className="row">
-								<div className="col-xs-2 col-sm-1 col-md-1 usa-da-icon-exclamation-circle usa-da-alert-icon" />
+								<div className="col-xs-2 col-sm-1 col-md-1 usa-da-icon">
+									<Icons.ExclamationCircle />
+								</div>
 								<div className="col-xs-10 col-sm-11 col-md-10">
 									<h6>You must fix the Critical Errors found in {this.props.errors.length} of the .CSV files before moving on to the next step. View and download individual reports above.</h6>
 								</div>

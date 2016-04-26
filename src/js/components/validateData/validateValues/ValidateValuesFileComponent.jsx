@@ -16,6 +16,7 @@ import MetaData from '../../addData/AddDataMetaDisplay.jsx';
 import FileComponent from '../../addData/FileComponent.jsx';
 import ValidateDataUploadButton from './../ValidateDataUploadButton.jsx';
 import ValidateValuesErrorReport from './ValidateValuesErrorReport.jsx';
+import * as Icons from '../../SharedComponents/icons/Icons.jsx';
 
 const propTypes = {
 
@@ -113,14 +114,14 @@ export default class ValidateDataFileComponent extends React.Component {
     }
 
     displayIcon() {
-        let icon = 'check-circle';
+        let icon = <Icons.CheckCircle />;
 
         if (this.state.hasErrors) {
-            icon = 'exclamation-circle';
+            icon = <Icons.ExclamationCircle />;
         }
 
         if (this.isReplacingFile()) {
-            icon = 'cloud-upload';
+            icon = <Icons.CloudUpload />;
         }
         
         return icon;
@@ -222,9 +223,11 @@ export default class ValidateDataFileComponent extends React.Component {
                     </div>
 
                     <div className="col-md-3 usa-da-validate-item-file-section">
-                        <div className="usa-da-validate-item-file-section-result">
-                            <div className={"usa-da-icon usa-da-icon-" + this.displayIcon()}></div>
-                        </div>
+                                <div className="usa-da-validate-item-file-section-result">
+                                    <div className="usa-da-icon">
+                                        {this.displayIcon()}
+                                    </div>
+                                </div>
                         <div className="row usa-da-validate-item-file-name">{fileName}</div>
                         {uploadProgress}
                         <div className="row usa-da-validate-item-file-section-correct-button">

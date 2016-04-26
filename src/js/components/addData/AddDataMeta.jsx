@@ -8,6 +8,7 @@ import SubmitButton from '../SharedComponents/SubmitButton.jsx';
 import DatePicker from 'react-datepicker';
 import moment from 'moment';
 import Typeahead from '../SharedComponents/Typeahead.jsx';
+import * as Icons from '../SharedComponents/icons/Icons.jsx';
 
 import * as AgencyHelper from '../../helpers/agencyHelper.js';
 
@@ -127,17 +128,17 @@ export default class AddDataMeta extends React.Component {
     render() {
 
         let startDateClass = '';
-        let startDateIcon = 'usa-da-startDate-icon';
+        let startDateIcon = < Icons.Calendar  / >;
         if (this.state.startDateError) {
             startDateClass = 'error';
-            startDateIcon = 'usa-da-startDate-icon error';
+            startDateIcon = < Icons.Calendar  / >;
         }
 
         let endDateClass = '';
-        let endDateIcon = 'usa-da-endDate-icon';
+        let endDateIcon = < Icons.Calendar  / >;
         if (this.state.endDateError) {
             endDateClass = 'error';
-            endDateIcon = 'usa-da-endDate-icon error';
+            endDateIcon = < Icons.Calendar  / >;
         }
 
         let agencyIcon = '';
@@ -157,19 +158,22 @@ export default class AddDataMeta extends React.Component {
                                     <div className="row">
                                         <div className="col-sm-12 col-md-12 typeahead-holder">
                                             <Typeahead values={AgencyHelper.agencies} placeholder="Enter the name of the reporting agency" onSelect={this.handleChange.bind(this)} customClass={agencyClass} />
-                                            <div className={agencyIcon}></div>
                                         </div>
                                     </div>
                                 
                                     <div className="row">
                                         <div className="col-sm-12 col-md-6 mt-20 pos-rel usa-da-startDate">
                                             <DatePicker selected={this.state.startDate} onChange={this.handleStartDateChange.bind(this)} placeholderText="Reporting period start date" onBlur={this.validateDate.bind(this, 'startDate')} className={startDateClass} />
-                                            <div className={startDateIcon}></div>
+                                             <div className={"usa-da-icon " + startDateClass}>
+                                                {startDateIcon}
+                                            </div>
                                         </div>
 
                                         <div className="col-sm-12 col-md-6 mt-20 usa-da-endDate">
                                             <DatePicker selected={this.state.endDate} onChange={this.handleEndDateChange.bind(this)} placeholderText="Reporting period end date" onBlur={this.validateDate.bind(this, 'endDate')} className={endDateClass} />
-                                            <div className={endDateIcon}></div>
+                                            <div className={"usa-da-icon " + endDateClass}>
+                                                {endDateIcon}
+                                            </div>
                                         </div>
                                     </div>
 

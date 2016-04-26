@@ -43,6 +43,7 @@
   },
   "homepage": "https://github.com/fedspendingtransparency/data-act-broker",
   "devDependencies": {
+    "awesomplete": "^1.1.0",
     "aws-sdk": "^2.2.31",
     "babel-core": "^6.4.5",
     "babel-jest": "*",
