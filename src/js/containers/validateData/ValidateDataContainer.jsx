@@ -54,7 +54,7 @@ class ValidateDataContainer extends React.Component {
 	componentDidUpdate(prevProps, prevState) {
 		// check if the submission state changed, indicating a re-upload
 		if (prevProps.submission.state != this.props.submission.state) {
-			if (this.props.submission.state == "review") {
+			if (this.props.submission.state == "prepare") {
 				// uploads are done
 				this.validateSubmission();
 			}
@@ -113,6 +113,7 @@ class ValidateDataContainer extends React.Component {
 					finishedLoad: true
 				});
 
+				this.props.setSubmissionState('review');
 				this.props.setValidation(data);
 				
 				if (!this.checkForCompletion(data)) {

@@ -79,7 +79,7 @@ export const performLocalUpload = (submission) => {
             return finalizeMultipleUploads(fileIds);
         })
         .then(() => {
-            store.dispatch(uploadActions.setSubmissionState('review'));
+            store.dispatch(uploadActions.setSubmissionState('prepare'));
             deferred.resolve(submissionID);
         })
         .catch(() => {
@@ -249,7 +249,7 @@ export const performRemoteUpload = (submission) => {
 			return finalizeMultipleUploads(fileIds);
 		})
 		.then(() => {
-			store.dispatch(uploadActions.setSubmissionState('review'));
+			store.dispatch(uploadActions.setSubmissionState('prepare'));
 			deferred.resolve(submissionID);
 		})
 		.catch((err) => {
@@ -285,7 +285,7 @@ export const performRemoteCorrectedUpload = (submission) => {
             return finalizeMultipleUploads(fileIds);
         })
         .then(() => {
-            store.dispatch(uploadActions.setSubmissionState('review'));
+            store.dispatch(uploadActions.setSubmissionState('prepare'));
             deferred.resolve(submission.id);
         })
         .catch((err) => {
@@ -340,7 +340,7 @@ export const performLocalCorrectedUpload = (submission) => {
             return finalizeMultipleUploads(fileIds);
         })
         .then(() => {
-            store.dispatch(uploadActions.setSubmissionState('review'));
+            store.dispatch(uploadActions.setSubmissionState('prepare'));
             deferred.resolve(submission.id);
         })
         .catch(() => {
