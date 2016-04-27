@@ -65,33 +65,33 @@ export class Navbar extends React.Component {
 
         return (
             <nav className="navbar navbar-default usa-da-header">
-            <div className="container-fluid">
-            <div className="row">
-                <div className="col-md-12 usa-da-top-head">
-                        <div className="container">
-                            {userButton}
+                <div className="container-fluid">
+                    <div className="row">
+                        <div className="col-md-12 usa-da-top-head">
+                            <div className="container">
+                                {userButton}
+                            </div>
                         </div>
                     </div>
                 </div>
-                </div>
                 <div className="container-fluid">
-                <div className="container usa-da-header-container">
-                    <div className="navbar-header usa-da-header-navbar">
-                        <button type="button" className="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
-                            <span className="sr-only">Toggle navigation</span>
-                            <span className="icon-bar"></span>
-                            <span className="icon-bar"></span>
-                            <span className="icon-bar"></span>
-                        </button>
-                        <a className="navbar-brand usa-da-header-brand" href="#/landing">DATA Act Broker</a>
-                    </div>
+                    <div className="container usa-da-header-container">
+                        <div className="navbar-header usa-da-header-navbar">
+                            <button type="button" className="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+                                <span className="sr-only">Toggle navigation</span>
+                                <span className="icon-bar"></span>
+                                <span className="icon-bar"></span>
+                                <span className="icon-bar"></span>
+                            </button>
+                            <a className="navbar-brand usa-da-header-brand" href="#/landing">DATA Act Broker</a>
+                        </div>
 
-                    <div className="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-                        <ul id="usa-da-header-link-holder" className="nav navbar-nav navbar-right">
-                            {headerTabs}
-                        </ul>
+                        <div className="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                            <ul id="usa-da-header-link-holder" className="nav navbar-nav navbar-right">
+                                {headerTabs}
+                            </ul>
+                        </div>
                     </div>
-                </div>
                 </div>
             </nav>
         );
