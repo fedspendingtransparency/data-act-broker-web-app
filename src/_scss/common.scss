@@ -67,7 +67,8 @@ body{
 $color-darkest: #2C333B;
 
 /* Sizing */
-$header-height: 8rem;
+$header-height: 11rem;
+$top-header-height: 3rem;
 
 /* Classes */
 .usa-da-text-white {
@@ -404,36 +405,83 @@ a.list-group-item {
 	border-radius: 0;
 	margin-bottom: 0;
 
-	.usa-da-header-container {
-		height: 100%;
+	& .usa-da-top-head{
+		background: $color-base;
+		height: $top-header-height;
+			& li{
+				float: right;
+				list-style: none;
+				line-height: $top-header-height;
+				font-size: 1.2rem;
+				& a{
+					color:$color-gray;
+						&:hover, &:active, &:focus{
+							text-decoration: none;
+							color:$color-gray-light;
+						}
+					& .usa-da-icon-user{
+						height: 15px;
+						width: 16px;
+						position: relative;
+						top: 4px;
+						left: -6px;
+						fill: $color-gray;
+							&:hover, &:active, &:focus{
+								fill:$color-gray-light;
+							}
+						}
+					}
+
+					& .header-dropdown{
+						background: $color-base;
+						position: absolute;
+						z-index: 999999;
+						min-width: 100px;
+						max-width: 200px;
+						& li{
+							float: left;
+							padding: 0 10px;
+							& a {
+								color: $color-white;
+							}
+							&::before {
+								display: none;
+							}
+						}
+					}
+				}
+			}
+		}
+
+		.usa-da-header-container {
+			height: 100%;
 
 		.usa-da-header-navbar {
-			height: 100%;
 			display: table;
 		}
 
 		.usa-da-header-brand, .usa-da-header-brand:hover, .usa-da-header-brand:visited {
 			font-size: 2.5rem;
-			line-height: $header-height;
+			line-height: ($header-height - $top-header-height);
 			font-weight: $font-light;
-			height: $header-height;
+			height: ($header-height - $top-header-height);
 			color: $color-white;
 			display: table-cell;
 			vertical-align: middle;
 			padding: 0;
-	&:after{
-		@include alphaMark;
-    }
-		}
+				&:after{
+					@include alphaMark;
+    			}
+			}
 
 		#usa-da-header-link-holder {
 			padding: 0 12px;
 			height: 100%;
-			line-height: $header-height;
+			line-height: ($header-height - $top-header-height);
 			font-size: 15px;
 			font-weight: $font-normal;
 
-			li {
+			& li {
 				height: 100%;
 				display: table;
 				margin: 0;
@@ -451,46 +499,46 @@ a.list-group-item {
 		#usa-da-header-link-holder > li > a {
 			background-color: $color-gray-dark;
 			color: $color-white;
-			height: $header-height;
+			height: ($header-height - $top-header-height);
 			display: table-cell;
 			vertical-align: middle;
 			padding: 1.5rem 2.0rem;
 			font-size: 1.4rem;
 
-			&:hover {
-				background-color: $color-gray;
-			}
-
-			&.disabled {
-				cursor: default;
-				color: #71747c;
-
-				& .comingSoon {
-					text-align: center;
-					font-size: 1.3rem;
-					background: url('../graphics/coming_soon_ribbon.png');
-					height: 61px;
-					width: 92px;
-					display: block;
-					position: absolute;
-					top: 0;
-					right: -2px;
-					z-index: 9999;
-				}
 				&:hover {
-					background-color: $color-gray-dark;
+					background-color: $color-gray;
+				}
+
+				&.disabled {
+					cursor: default;
+					color: #71747c;
+					// &:before{
+    	// 				content: 'Coming Soon';
+    	// 				position: absolute;
+    	// 				bottom: 5px;
+    	// 				font-size: 10px;
+    	// 				left: 32%;
+    	// 				background: #ccc;
+    	// 				padding: 1px 4px 2px
+					// }
+
+					& .comingSoon {
+						text-align: center;
+						font-size: 1.3rem;
+						background: url('../graphics/coming_soon_ribbon.png');
+						height: 61px;
+						width: 91px;
+						display: block;
+						position: absolute;
+						top: 0;
+						right: 0;
+						z-index: 9999;
+					}	
+					&:hover {
+						background-color: $color-gray-dark;
+					}
 				}
 			}
-
-			&.admin {
-				background-color: $color-cool-blue-lighter;
-				color: $color-gray-dark;
-
-				&:hover {
-					background-color: $color-cool-blue-light;
-				}
-			}
-		}
 
 		#usa-da-header-link-holder > li.active > * {
 			background-color: $color-darkest;
@@ -513,6 +561,9 @@ a.list-group-item {
 			li {
 				border: none;
 				width: 100%;
+					&::before {
+						display: none;
+					}
 
 				a {
 					color: $color-primary-alt;
@@ -528,7 +579,6 @@ a.list-group-item {
 			}
 		}
 	}
-}
 
 /* Content */
 .usa-da-content {

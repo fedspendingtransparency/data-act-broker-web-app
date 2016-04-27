@@ -205,9 +205,9 @@ export default class ValidateDataFileComponent extends React.Component {
             showFooter = '';
         }
 
-        let chevronDirection = 'down';
+        let chevronDirection = < Icons.AngleDown / >;
         if (this.state.showError) {
-            chevronDirection = 'up';
+            chevronDirection = < Icons.AngleUp / >;
         }
 
         let footerStatus = '';
@@ -249,7 +249,7 @@ export default class ValidateDataFileComponent extends React.Component {
                         </div>
                         <div className="row usa-da-validate-item-footer-wrapper">
                             <div className={"usa-da-validate-item-footer usa-da-header-error" + showFooter +" "+footerStatus} onClick={this.toggleErrorReport.bind(this)}>
-                                <div>View &amp; Download Header Error Report <span className={"usa-da-icon usa-da-icon-angle-" + chevronDirection}></span></div>
+                                <div>View &amp; Download Header Error Report <span className={"usa-da-icon"}>{chevronDirection}</span></div>
                             </div>
                         </div>
                     </div>
