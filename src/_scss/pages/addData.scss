@@ -146,10 +146,15 @@
             width: 100%;
             position: absolute;
             &.usa-da-header-error {
-                & .usa-da-icon:before {
-                    margin: -2px 0 0 4px;
-                    font-size: 20px;
+                & .usa-da-icon{
+                    & svg {
+                    height: 20px;
+                    width: 20px;
+                    position: relative;
+                    top: 5px;
+                    fill:$color-gray-dark;
                 }
+            }             
                 &:hover {
                     background: #ececec;
                 }
@@ -158,6 +163,11 @@
                     color: $color-white;
                     border: 1px solid #999ba1;
                     border-bottom: none;
+                    & .usa-da-icon{
+                        & svg {
+                            fill:$color-white;
+                        }
+                    }
                     &:hover {
                         background: #93959a;
                         color: $color-white;
@@ -307,16 +317,18 @@
                 left: 0;
                 top: -5px;
                 width: 5.5rem;
+                height: 5.5rem;
             }
             @media screen and (max-width: $small-screen) {
                 top: 15px;
             }
         }
-        & svg.usa-da-icon-check-circle {
+        & svg.usa-da-icon-check-circle, & svg.usa-da-icon-exclamation-circle {
                 fill: $color-white;
                 left: 0;
                 top: -5px;
                 width: 5.5rem;
+                height: 5.5rem;
         }
 
         & .usa-da-validation-overlay-review {
@@ -485,10 +497,10 @@
                 position: absolute;
                 top: 14px;
                 right: 25px;
-                height: 20px;
                 z-index: 9;
                 fill: #ccc;
                 height: 21px;
+                width: 21px;
             }
             &.error{
                 & svg{
@@ -527,6 +539,7 @@
         }
         & .usa-da-icon > svg{
             width: 2.8rem;
+            height: 2.8rem;
             fill: $gray-dark;
             position: relative;
             top: 5px;

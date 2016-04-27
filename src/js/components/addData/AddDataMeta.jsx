@@ -141,10 +141,10 @@ export default class AddDataMeta extends React.Component {
             endDateIcon = < Icons.Calendar  / >;
         }
 
-        let agencyIcon = '';
+        let agencyIcon = < Icons.Building  / >;
         let agencyClass = '';
         if (this.state.agencyError) {
-            agencyIcon = 'usa-da-agency-icon error';
+            agencyIcon = < Icons.Building  / >;
             agencyClass = 'error';
         }
 
@@ -158,6 +158,9 @@ export default class AddDataMeta extends React.Component {
                                     <div className="row">
                                         <div className="col-sm-12 col-md-12 typeahead-holder">
                                             <Typeahead values={AgencyHelper.agencies} placeholder="Enter the name of the reporting agency" onSelect={this.handleChange.bind(this)} customClass={agencyClass} />
+                                                <div className={"usa-da-icon " + agencyClass}>
+                                                    {agencyIcon}
+                                                </div>
                                         </div>
                                     </div>
                                 
