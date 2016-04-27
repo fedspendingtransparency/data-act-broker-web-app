@@ -115,15 +115,14 @@ export default class AdminPageContent extends React.Component {
             user.name,
             user.title,
             user.agency,
-            user.email,
-            user.uid
+            user.email
         ];
 
         return output;
     }
 
     render() {
-        const headers = ['Name', 'Title', 'Agency', 'Email', 'User ID', 'Approve', 'Deny'];
+        const headers = ['Name', 'Title', 'Agency', 'Email', 'Approve', 'Deny'];
 
         return (
             <div className="container">
