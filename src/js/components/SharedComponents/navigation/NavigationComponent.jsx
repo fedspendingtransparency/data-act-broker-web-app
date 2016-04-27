@@ -41,7 +41,7 @@ export class Navbar extends React.Component {
 
         let headerTabs = [];
         const context = this;
-        const userText = this.props.session.user === '' ? '' : 'Welcome, ' + this.props.session.user.name;
+        const userText = this.props.session.user === '' ? '' : this.props.session.user.name;
 
         if (this.props.session.admin) {
             tabNames['Admin'] = 'admin';
@@ -65,6 +65,16 @@ export class Navbar extends React.Component {
 
         return (
             <nav className="navbar navbar-default usa-da-header">
+            <div className="container-fluid">
+            <div className="row">
+                <div className="col-md-12 usa-da-top-head">
+                        <div className="container">
+                            {userButton}
+                        </div>
+                    </div>
+                </div>
+                </div>
+                <div className="container-fluid">
                 <div className="container usa-da-header-container">
                     <div className="navbar-header usa-da-header-navbar">
                         <button type="button" className="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
@@ -79,9 +89,9 @@ export class Navbar extends React.Component {
                     <div className="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                         <ul id="usa-da-header-link-holder" className="nav navbar-nav navbar-right">
                             {headerTabs}
-                            {userButton}
                         </ul>
                     </div>
+                </div>
                 </div>
             </nav>
         );
