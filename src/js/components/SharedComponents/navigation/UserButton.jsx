@@ -1,5 +1,5 @@
 import React from 'react';
-import * as Icons from '../../SharedComponents/icons/Icons.jsx';
+import * as Icons from '../icons/Icons.jsx';
 
 export default class UserButton extends React.Component {
 	constructor(props) {
