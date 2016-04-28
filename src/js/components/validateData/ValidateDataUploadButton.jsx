@@ -8,11 +8,13 @@ import Dropzone from 'react-dropzone';
 
 const propTypes = {
 	onDrop: PropTypes.func,
-	optional: PropTypes.bool
+	optional: PropTypes.bool,
+	text: PropTypes.string
 };
 
 const defaultProps = {
-	optional: false
+	optional: false,
+	text: 'Choose Corrected File'
 };
 
 export default class ValidateDataUploadButton extends React.Component {
@@ -31,7 +33,7 @@ export default class ValidateDataUploadButton extends React.Component {
 		return (
 			<div>
 				<Dropzone onDrop={this.addedFile.bind(this)} multiple={false} className={"usa-da-validate-upload-button" + optionalUpload}>
-					Choose Corrected File
+					{this.props.text}
 				</Dropzone>
 			</div>
 		);
