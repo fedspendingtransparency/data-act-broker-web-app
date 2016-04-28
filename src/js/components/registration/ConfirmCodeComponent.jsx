@@ -5,7 +5,6 @@
 
 import React, { PropTypes } from 'react';
 import { kGlobalConstants } from '../../GlobalConstants.js';
-import Request from 'superagent';
 import _ from 'lodash';
 import TextInputComponent from '../SharedComponents/TextInputComponent.jsx';
 import Progress from '../SharedComponents/ProgressComponent.jsx';

@@ -6,7 +6,6 @@
 import React from 'react';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
-import Request from 'superagent';
 import { hashHistory } from 'react-router';
 
 import { kGlobalConstants } from '../../GlobalConstants.js';

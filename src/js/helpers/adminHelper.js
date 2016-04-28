@@ -1,4 +1,4 @@
-import Request from 'superagent';
+import Request from './sessionSuperagent.js';
 import Q from 'q';
 import Cookies from 'js-cookie';
 

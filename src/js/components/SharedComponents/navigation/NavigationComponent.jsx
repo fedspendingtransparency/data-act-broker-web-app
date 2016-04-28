@@ -5,7 +5,6 @@
 
 import React, { PropTypes } from 'react';
 import { kGlobalConstants } from '../../../GlobalConstants.js';
-import Request from 'superagent';
 import NavbarTab from './NavbarTab.jsx';
 import UserButton from './UserButton.jsx';
 

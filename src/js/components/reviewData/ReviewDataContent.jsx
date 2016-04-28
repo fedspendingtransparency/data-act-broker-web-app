@@ -9,7 +9,6 @@ import SubmitButton from '../SharedComponents/SubmitButton.jsx';
 import ReviewDataContentRow from './ReviewDataContentRow.jsx';
 import ReviewDataButton from './ReviewDataButton.jsx';
 import moment from 'moment';
-import Request from 'superagent';
 
 import * as ReviewHelper from '../../helpers/reviewHelper.js';
 import * as Icons from '../SharedComponents/icons/Icons.jsx';
