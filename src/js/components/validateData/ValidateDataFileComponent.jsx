@@ -205,9 +205,9 @@ export default class ValidateDataFileComponent extends React.Component {
             showFooter = '';
         }
 
-        let chevronDirection = < Icons.AngleDown / >;
+        let chevronDirection = <Icons.AngleDown />;
         if (this.state.showError) {
-            chevronDirection = < Icons.AngleUp / >;
+            chevronDirection = <Icons.AngleUp />;
         }
 
         let footerStatus = '';

@@ -128,23 +128,23 @@ export default class AddDataMeta extends React.Component {
     render() {
 
         let startDateClass = '';
-        let startDateIcon = < Icons.Calendar  / >;
+        let startDateIcon = <Icons.Calendar />;
         if (this.state.startDateError) {
             startDateClass = 'error';
-            startDateIcon = < Icons.Calendar  / >;
+            startDateIcon = <Icons.Calendar  />;
         }
 
         let endDateClass = '';
-        let endDateIcon = < Icons.Calendar  / >;
+        let endDateIcon = <Icons.Calendar />;
         if (this.state.endDateError) {
             endDateClass = 'error';
-            endDateIcon = < Icons.Calendar  / >;
+            endDateIcon = <Icons.Calendar />;
         }
 
-        let agencyIcon = < Icons.Building  / >;
+        let agencyIcon = <Icons.Building />;
         let agencyClass = '';
         if (this.state.agencyError) {
-            agencyIcon = < Icons.Building  / >;
+            agencyIcon = <Icons.Building />;
             agencyClass = 'error';
         }
 
