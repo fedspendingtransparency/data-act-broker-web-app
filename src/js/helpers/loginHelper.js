@@ -1,4 +1,4 @@
-import Request from 'superagent';
+import Request from './sessionSuperagent.js';
 import Q from 'q';
 import Cookies from 'js-cookie';
 
@@ -27,7 +27,6 @@ export const fetchActiveUser = () => {
 	                deferred.reject(err);
 	            }
 	            else {
-
 	            	// set the login state cookie that expires in 15 minutes
 					Cookies.set('brokerLogin', Date.now(), {expires: (1/(24*4))});
 
@@ -59,6 +58,11 @@ export const performLogin = (username, password) => {
 	const deferred = Q.defer();
 	const store = new StoreSingleton().store;
 
+	const cookieOpts = {
+		expires: 1,
+		path: '/'
+	};
+
 	Request.post(kGlobalConstants.API + 'login/')
            .withCredentials()
            .send({ 'username': username, 'password': password })
@@ -73,6 +77,10 @@ export const performLogin = (username, password) => {
 				} else {
 					// set the login state cookie that expires in 15 minutes
 					Cookies.set('brokerLogin', Date.now(), {expires: (1/(24*4))});
+
+					if (res.headers.hasOwnProperty('X-Session-ID')) {
+						Cookies.set('session', res.headers['X-Session-ID'], cookieOpts);
+					}
 					
 					fetchActiveUser(store)
 					.then((data) => {
@@ -192,6 +200,7 @@ export const registerAccount = (account) => {
 
 	Request.post(kGlobalConstants.API + 'register/')
 		.withCredentials()
+		.set('X-Session-ID', Cookies.get('session'))
 		.send(account)
 		.end((err) => {
 			if (err) {
@@ -240,4 +249,22 @@ export const requestPasswordToken = (email) => {
 		});
 
 	return deferred.promise;
+}
+
+export const lookupPasswordToken = (token) => {
+
+	const deferred = Q.defer();
+
+	Request.post(kGlobalConstants.API + 'confirm_password_token/')
+		.withCredentials()
+		.send({ 'token': token })
+		.end((err, res) => {
+		    if (err) {
+		        deferred.reject(err);
+		    } else {
+		    	deferred.resolve(res.body);
+		    }
+		});
+
+    return deferred.promise;
 }

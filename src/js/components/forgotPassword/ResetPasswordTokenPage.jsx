@@ -1,7 +1,7 @@
 import React, { PropTypes } from 'react';
-import Request from 'superagent';
 import ForgotPasswordPage from './ForgotPasswordPage.jsx';
 import { kGlobalConstants } from '../../GlobalConstants.js';
+import * as LoginHelper from '../../helpers/loginHelper.js';
 
 export default class ResetPasswordTokenPage extends React.Component {
      constructor(props) {
@@ -20,20 +20,17 @@ export default class ResetPasswordTokenPage extends React.Component {
     }
 
      sendRequest(token) {
-        Request.post(kGlobalConstants.API + 'confirm_password_token/')
-            .withCredentials()
-            .send({ 'token': token })
-            .end((err, res) => {
-                if (err) {
-                    console.log(err);
-                } else {
-                    this.setState({
-                        errorCode: res.body.errorCode,
-                        email: res.body.email,
-                        message: res.body.message,
-                        success: true
-                    });
-                }
+        LoginHelper.lookupPasswordToken(token)
+            .then((data) => {
+                this.setState({
+                    errorCode: data.errorCode,
+                    email: data.email,
+                    message: data.message,
+                    success: true
+                });
+            })
+            .catch((err) => {
+                console.log(err);
             });
      }
 
