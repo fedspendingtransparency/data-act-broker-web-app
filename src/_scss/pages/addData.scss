@@ -140,7 +140,8 @@
             background-color: $color-gray-lightest;
             font-size: 1.2rem;
             color: $color-gray;
-            padding: 10px 0;
+            padding: 2px 0;
+            height: 36px;
             cursor: pointer;
             bottom: 0;
             width: 100%;
@@ -248,6 +249,7 @@
     .usa-da-validate-item-message-label {
         font-weight: 300;
         font-family: 'Source Sans Pro';
+        color: $color-gray;
     }
     
     .usa-da-validate-item-warning {
@@ -268,7 +270,7 @@
         .usa-da-validate-item-message-count {
             color: $color-secondary;
             &.none {
-                color: $color-gray-dark;
+                color: $color-gray;
             }
         }
         .usa-da-validate-item-footer {
@@ -519,7 +521,7 @@
         .usa-da-review-data-button-holder {
             margin-bottom: 25px;
             * {
-                font-size: 17px;
+                font-size: 16px;
             }
             button {
                 width: 100%;
@@ -538,8 +540,8 @@
             }
         }
         & .usa-da-icon > svg{
-            width: 2.8rem;
-            height: 2.8rem;
+            width: 2.4rem;
+            height: 2.4rem;
             fill: $gray-dark;
             position: relative;
             top: 5px;
@@ -557,6 +559,9 @@
             text-overflow: ellipsis;
             padding: 5px;
             cursor: pointer;
+            font-size: 1.2rem;
+            border-right: 1px solid $color-white;
+            border-bottom: 1px solid $color-white;
         }
     }
 
@@ -566,6 +571,9 @@
         min-height: 300px;
         padding: 10px;
         word-wrap: break-word;
+        font-size: 1.4rem;
+        line-height: 2.4rem;
+        color: #525252;
         
         &.default {
             color: $color-gray;
