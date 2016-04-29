@@ -102,7 +102,7 @@ export default class ValidateValuesErrorReport extends React.Component {
                             <h6>Invididual {this.props.name}s</h6>
                         </div>
                         <div className="col-md-3">
-                            <button className="usa-button pull-right" onClick={this.openWindow.bind(this)}>Download {this.props.name}s Report</button>
+                            <button className="usa-da-button btn-primary pull-right" onClick={this.openWindow.bind(this)}>Download {this.props.name}s Report</button>
                         </div>
                         <div className="col-md-12">
                             {tables}

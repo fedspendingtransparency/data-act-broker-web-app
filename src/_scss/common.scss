@@ -149,6 +149,23 @@ h6 {
     margin-bottom: 0;
 }
 
+@mixin para {
+    font-weight: $font-normal;
+    font-size: 1.6rem;
+    line-height: 2.6rem;
+    color: #525252;
+    max-width: 70rem;
+}
+
+p {
+    @include para;
+}
+
+p.italic {
+    @include para;
+    font-style: italic;
+}
+
 p.lead {
     font-weight: $font-normal;
     font-size: 2.2rem;
@@ -166,22 +183,6 @@ p.small {
     line-height: 2.4rem;
 }
 
-@mixin para {
-    font-weight: $font-normal;
-    font-size: 1.6rem;
-    line-height: 2.6rem;
-    color: #525252;
-    max-width: 70rem;
-}
-
-p {
-    @include para;
-}
-
-p.italic {
-    @include para;
-    font-style: italic;
-}
 
 p strong{
     font-weight: 600;
@@ -281,7 +282,7 @@ pre {
             font-weight: $font-bold;
             & tr {
                 & th {
-                    padding: 15px;
+                    padding: 16px 15px;
                     border-bottom: none;
                     position: relative;
                 }
@@ -336,8 +337,25 @@ pre {
 .usa-da-scrollable-table {
     margin-top: 15px;
     border-bottom: 1px solid #ddd;
-    & .table-bordered {
-        border: none;
+    & .usa-da-scrollable-table-header{
+    	background: $color-gray;
+    	& .table-bordered {
+       		border: none;
+       		width: 98.6%;
+       		& thead > tr{
+       			border:none;
+       			& > th{
+       				border:none;
+       				border-right: 1px solid #ddd;
+       				&:last-child{
+       					border-right:none;
+       					& .usa-da-table-sorter{
+       						width: 50px;
+       					}
+       				}
+       			}
+    		}
+    	}
     }
     & table {
         width: 100%;
@@ -372,24 +390,34 @@ a.list-group-item {
 .usa-da-table-sorter {
     position: absolute;
     top: 0;
-    right: 0;
+    right: 15px;
     height: 100%;
-    width: 70px;
-    .sort-icon {
-        color: $color-primary-alt-lightest;
-        cursor: pointer;
-        font-size: 2.4rem;
-        &.usa-da-icon-angle-up,
-        &.usa-da-icon-angle-down {
-            position: absolute;
-            top: 13px;
-        }
-        &.usa-da-icon-angle-up {
-            left: 0px;
-        }
-        &.usa-da-icon-angle-down {
-            left: 25px;
-        }
+    width: 33px;
+    & .usa-da-icon {
+    	height: 2.4rem;
+    	width: 2.2rem;
+    	& svg{
+    		fill: $color-white;
+    	}
+    	&.active{
+    		& svg{
+    			fill:$color-gold-lighter;
+    		}
+    	}
+    	&.sort-icon {
+    	    cursor: pointer;
+    	    &.usa-da-icon-angle-up,
+    	    &.usa-da-icon-angle-down {
+    	        position: absolute;
+    	        top: 13px;
+    	    }
+    	    &.usa-da-icon-angle-up {
+    	        right: 15px;
+    	    }
+    	    &.usa-da-icon-angle-down {
+    	        right: -5px;
+    	    }
+    	}
     }
 }
 
@@ -512,16 +540,6 @@ a.list-group-item {
 				&.disabled {
 					cursor: default;
 					color: #71747c;
-					// &:before{
-    	// 				content: 'Coming Soon';
-    	// 				position: absolute;
-    	// 				bottom: 5px;
-    	// 				font-size: 10px;
-    	// 				left: 32%;
-    	// 				background: #ccc;
-    	// 				padding: 1px 4px 2px
-					// }
-
 					& .comingSoon {
 						text-align: center;
 						font-size: 1.3rem;
