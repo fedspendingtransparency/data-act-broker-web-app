@@ -6,7 +6,6 @@
 import React, { PropTypes } from 'react';
 import { hashHistory } from 'react-router';
 import { kGlobalConstants } from '../../GlobalConstants.js';
-import Request from 'superagent';
 import Username from '../login/Username.jsx';
 import SignInButton from '../login/SignInButton.jsx';
 import ErrorMessage from '../SharedComponents/ErrorMessage.jsx';

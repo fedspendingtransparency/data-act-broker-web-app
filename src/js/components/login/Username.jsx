@@ -10,6 +10,10 @@ const propTypes = {
     handleChange: PropTypes.func.isRequired
 };
 
+const defaultProps = {
+  tabIndex: "1"
+}
+
 export default class Username extends React.Component {
     render() {
         return (
@@ -23,6 +27,7 @@ export default class Username extends React.Component {
                   placeholder="Username"
                   aria-describedby="username"
                   onChange={this.props.handleChange}
+                  tabIndex={this.props.tabIndex}
                 />
                 <span className="usa-da-icon">
                     <Icons.User />
@@ -32,4 +37,5 @@ export default class Username extends React.Component {
     }
 }
 
+Username.defaultProps = defaultProps;
 Username.propTypes = propTypes;

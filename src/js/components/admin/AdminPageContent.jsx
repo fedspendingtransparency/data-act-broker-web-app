@@ -5,7 +5,6 @@
 
 import React from 'react';
 import { kGlobalConstants } from '../../GlobalConstants.js';
-import Request from 'superagent';
 import Table from '../SharedComponents/table/TableComponent.jsx';
 import Loader from 'react-loader';
 

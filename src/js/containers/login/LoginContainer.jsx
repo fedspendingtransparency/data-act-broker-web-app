@@ -6,7 +6,6 @@
 import React from 'react';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
-import Request from 'superagent';
 import { hashHistory } from 'react-router';
 
 import { kGlobalConstants } from '../../GlobalConstants.js';
@@ -20,7 +19,8 @@ class LoginContainer extends React.Component {
 		super(props);
 
 		this.state = {
-			loading: false
+			loading: false,
+			cookieError: false
 		};
 	}
 	performLogin(username, password) {
@@ -29,16 +29,24 @@ class LoginContainer extends React.Component {
 		});
 
 		LoginHelper.performLogin(username, password)
-			.catch(() => {
-				this.setState({
-					loading: false
-				});
+			.catch((err) => {
+				if (err == "cookie") {
+					this.setState({
+						loading: false,
+						cookieError: true
+					});
+				}
+				else {
+					this.setState({
+						loading: false
+					});
+				}
 			})
 	}
 	render() {
 
 		return (
-			<LoginPanel {...this.props} performLogin={this.performLogin.bind(this)} loading={this.state.loading} />
+			<LoginPanel {...this.props} performLogin={this.performLogin.bind(this)} loading={this.state.loading} cookieError={this.state.cookieError} />
 		);
 	}
 }
