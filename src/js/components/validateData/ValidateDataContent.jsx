@@ -4,6 +4,7 @@
  **/
 
 import React, { PropTypes } from 'react';
+import $ from 'jquery';
 import { kGlobalConstants } from '../../GlobalConstants.js';
 import ValidateDataFileComponent from './ValidateDataFileComponent.jsx';
 import SubmitButton from '../SharedComponents/SubmitButton.jsx';
@@ -23,6 +24,15 @@ export default class ValidateDataContent extends React.Component {
         super(props);
     }
 
+    componentDidMount() {
+        this.scrollToContent();
+    }
+
+    scrollToContent() {
+        $('body').animate({
+            scrollTop: $('[name=content-top]').offset().top
+        }, 500);
+    }
 
     render() {
         

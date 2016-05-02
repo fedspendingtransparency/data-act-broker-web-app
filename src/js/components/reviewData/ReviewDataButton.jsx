@@ -4,10 +4,11 @@
  **/
 
 import React, { PropTypes } from 'react';
+import BaseIcon from '../SharedComponents/icons/BaseIcon.jsx';
 import * as Icons from '../SharedComponents/icons/Icons.jsx';
 
 const propTypes = {
-    icon: PropTypes.string,
+    icon: PropTypes.element,
     label: PropTypes.string
 };
 
