@@ -5,14 +5,28 @@
 
 import React from 'react';
 import $ from 'jquery';
-import { fetchStaticAssetPath } from '../../helpers/util.js';
+import { fetchStaticAssetPath, generateRSSUrl } from '../../helpers/util.js';
 
 let gifSrc = fetchStaticAssetPath() + 'graphics/reportabug.gif';
 
 export default class HelpContent extends React.Component {
 
+    constructor(props) {
+        super(props);
+
+        this.state = {
+            rssUrl: ''
+        };
+    }
+
     componentDidMount() {
         this.scrollToSection();
+        generateRSSUrl()
+            .then((url) => {
+                this.setState({
+                    rssUrl: url
+                });
+            });
     }
 
     componentDidUpdate(prevProps, prevState) {
@@ -30,7 +44,7 @@ export default class HelpContent extends React.Component {
     render() {
         return (
             <div className="usa-da-help-content">
-                <p>Welcome to the DATA Act Broker – Alpha release. This release is a <a href="https://en.wikipedia.org/wiki/Minimum_viable_product" target="_blank">Minimum Viable Product</a> and represents just enough functionality so that we can gather critical user feedback to determine the direction and implementation of future features. This version of the Broker is aligned to the <a href="http://prod-data-act-web-static-files.s3-website-us-gov-west-1.amazonaws.com/RSS-spec/RSS_DRAFT_v1.0_03292016.xlsx" target="_blank">Draft Reporting Submission Specification (Draft RSS v1.0)</a>.</p>
+                <p>Welcome to the DATA Act Broker – Alpha release. This release is a <a href="https://en.wikipedia.org/wiki/Minimum_viable_product" target="_blank">Minimum Viable Product</a> and represents just enough functionality so that we can gather critical user feedback to determine the direction and implementation of future features. This version of the Broker is aligned to the <a href={this.state.rssUrl} target="_blank">Draft Reporting Submission Specification (Draft RSS v1.0)</a>.</p>
 
                 <h2>Whats New in This Version</h2>
 
@@ -49,7 +63,7 @@ export default class HelpContent extends React.Component {
                 </ul>
 
                 <h4 name="dataElements">Updated Data Elements and Validations</h4>
-                <p>This version of the Broker is aligned with the <a href="http://prod-data-act-web-static-files.s3-website-us-gov-west-1.amazonaws.com/RSS-spec/RSS_DRAFT_v1.0_03292016.xlsx" target="_blank">Draft Reporting Submission Specification (RSS) v1.0</a>. This means that basic field validations, including type, required/optional, and field length will be validated. Additionally, conditional validations have been implemented, so fields that are only required if other conditions are met will be validated correctly. For example, if ParentAwardID is populated, ParentAwardAgencyID must also be populated.</p>
+                <p>This version of the Broker is aligned with the <a href={this.state.rssUrl} target="_blank">Draft Reporting Submission Specification (RSS) v1.0</a>. This means that basic field validations, including type, required/optional, and field length will be validated. Additionally, conditional validations have been implemented, so fields that are only required if other conditions are met will be validated correctly. For example, if ParentAwardID is populated, ParentAwardAgencyID must also be populated.</p>
 
                 <p>Validations that connect to external systems (such as GTAS), as well as calculated cross-file validations will be coming over the next few weeks.</p>
 

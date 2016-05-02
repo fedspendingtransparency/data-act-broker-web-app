@@ -16,6 +16,7 @@ import MetaData from '../addData/AddDataMetaDisplay.jsx';
 import FileComponent from '../addData/FileComponent.jsx';
 import ValidateDataErrorReport from './ValidateDataErrorReport.jsx';
 import ValidateDataUploadButton from './ValidateDataUploadButton.jsx';
+import * as Icons from '../SharedComponents/icons/Icons.jsx';
 
 const propTypes = {
 
@@ -129,7 +130,7 @@ export default class ValidateDataFileComponent extends React.Component {
         }
 
 
-        if (item.file_status == 'incomplete') {
+        if (item.file_status == 'incomplete' || !this.isFileReady()) {
             headerTitle = 'Validating...';
             errorData = [];
             hasErrorReport = false;
@@ -167,19 +168,19 @@ export default class ValidateDataFileComponent extends React.Component {
     }
 
     displayIcon() {
-        let icon = 'time';
+        let icon = '';
         if (this.isFileReady()) {
             if (this.props.item.file_status == 'complete') {
-                icon = 'check-circle';
+                icon = <Icons.CheckCircle />;
             }
             else {
-                icon = 'exclamation-circle';
+                icon = <Icons.ExclamationCircle />;
             }
         }
 
         // user is attempting to replace a file
         if (this.isReplacingFile()) {
-            icon = 'cloud-upload';
+            icon = <Icons.CloudUpload />;
         }
 
         return icon;
@@ -195,6 +196,7 @@ export default class ValidateDataFileComponent extends React.Component {
             disabledCorrect = ' hide';
         }
         else if (!this.isFileReady()) {
+            successfulFade = '';
             disabledCorrect = ' hide';
         }
 
@@ -203,9 +205,9 @@ export default class ValidateDataFileComponent extends React.Component {
             showFooter = '';
         }
 
-        let chevronDirection = 'down';
+        let chevronDirection = <Icons.AngleDown />;
         if (this.state.showError) {
-            chevronDirection = 'up';
+            chevronDirection = <Icons.AngleUp />;
         }
 
         let footerStatus = '';
@@ -225,7 +227,6 @@ export default class ValidateDataFileComponent extends React.Component {
                 uploadProgress = <FileProgress fileStatus={newFile.progress} />;
             }
         }
-
 
         return (
             <div className={"row center-block usa-da-validate-item" + successfulFade}>
@@ -248,7 +249,7 @@ export default class ValidateDataFileComponent extends React.Component {
                         </div>
                         <div className="row usa-da-validate-item-footer-wrapper">
                             <div className={"usa-da-validate-item-footer usa-da-header-error" + showFooter +" "+footerStatus} onClick={this.toggleErrorReport.bind(this)}>
-                                <div>View &amp; Download Header Error Report <span className={"usa-da-icon usa-da-icon-angle-" + chevronDirection}></span></div>
+                                <div>View &amp; Download Header Error Report <span className={"usa-da-icon"}>{chevronDirection}</span></div>
                             </div>
                         </div>
                     </div>
@@ -256,7 +257,9 @@ export default class ValidateDataFileComponent extends React.Component {
                     <div className="col-md-3">
                             <div className="usa-da-validate-item-file-section">
                                 <div className="usa-da-validate-item-file-section-result">
-                                    <div className={"usa-da-icon usa-da-icon-" + this.displayIcon()}></div>
+                                    <div className="usa-da-icon">
+                                        {this.displayIcon()}
+                                    </div>
                                 </div>
                                 {uploadProgress}
                                 <div className="usa-da-validate-item-file-name">{fileName}</div>

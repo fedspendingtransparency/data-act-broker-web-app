@@ -4,6 +4,7 @@
 **/
 
 import React, { PropTypes } from 'react';
+import * as Icons from '../SharedComponents/icons/Icons.jsx';
 
 const propTypes = {
     handleChange: PropTypes.func.isRequired,
@@ -36,7 +37,9 @@ export default class Password extends React.Component {
                     aria-describedby="password"
                     onChange={this.props.handleChange}
                 />
-                <div className={this.props.iconClass + " usa-da-icon-lock usa-da-icon-nobg"}></div>
+                <span className="usa-da-icon">
+                    <Icons.Lock />
+               </span>
             </div>
         );
     }

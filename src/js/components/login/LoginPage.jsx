@@ -4,9 +4,12 @@
 **/
 
 import React from 'react';
+import LoginContainer from '../../containers/login/LoginContainer.jsx';
 import LoginTopBar from './LoginTopBar.jsx';
 import LoginBanner from './LoginBanner.jsx';
 import LoginWarningTxt from './LoginWarningTxt.jsx';
+
+
 
 export default class LoginPage extends React.Component {
     render() {

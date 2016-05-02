@@ -12,6 +12,7 @@ import moment from 'moment';
 import Request from 'superagent';
 
 import * as ReviewHelper from '../../helpers/reviewHelper.js';
+import * as Icons from '../SharedComponents/icons/Icons.jsx';
 
 const propTypes = {
     submissionID: PropTypes.string
@@ -50,12 +51,11 @@ export default class ReviewDataContent extends React.Component {
 
     render() {
         if (this.state.ready) {
-            // The first parameter in each of these arrays is the corresponding class for the Glyphicon
-            // URL: http://getbootstrap.com/components/
-            const buttonContent = [['globe','Publish this data to USAspending.gov'],
-                                    ['share','Send this data to another Data Broker user'],
-                                    ['save','Download this data to your computer'],
-                                    ['trash','Delete this data from the Data Broker']];
+            // The first parameter in each of these arrays is the corresponding class for the SVG icon
+            const buttonContent = [[<Icons.CheckCircle />,'Publish this data to USAspending.gov'],
+                                    [<Icons.ShareSquare />,'Send this data to another Data Broker user'],
+                                    [<Icons.CloudDownload />,'Download this data to your computer'],
+                                    [<Icons.Trash />,'Delete this data from the Data Broker']];
 
             let buttons = [];
             for (let i = 0; i < buttonContent.length; i++){

@@ -166,3 +166,15 @@ Cog.defaultProps = {
 	iconName: 'usa-da-icon-cog',
 	iconClass: 'usa-da-icon-cog'
 };
+
+export class Building extends BaseIcon {};
+Building.defaultProps = {
+	iconName: 'usa-da-icon-building-o',
+	iconClass: 'usa-da-icon-building-o'
+};
+
+export class Search extends BaseIcon {};
+Search.defaultProps = {
+	iconName: 'usa-da-icon-search',
+	iconClass: 'usa-da-icon-search'
+};
