@@ -4,15 +4,11 @@
     @include flex-direction(column);
     @include align-items(center);
     @include justify-content(center);
-    background: url("../img/hero_bg_img.jpg") no-repeat center center fixed;
-    @include vendor-prefixes(background-size, cover);
     padding: 0;
     width: 100%;
-    height: 100vh;
-    min-height: 700px;
-    @media screen and (max-width: 991px) {
-        min-height: 1350px;
-    }
+    min-height: 100vh;
+    background: url("../img/hero_bg_img.jpg") no-repeat center center fixed;
+    @include vendor-prefixes(background-size, cover);
     input {
         padding-left: 55px;
         height: 44px;
@@ -46,6 +42,30 @@
             cursor: default;
         }
     }
+
+.usa-da-top-banner {
+    @include align-self(stretch);
+    background: as-alpha($color-gold-lightest, 0.95);
+    padding: 15px 0;
+    width: 100%;
+    border-bottom: 1px solid $color-gold-lighter;
+    & p{
+        max-width: 100%;
+        margin-bottom: 0;
+        font-size: 1.4rem;
+        text-align: left;
+    }
+    & .usa-da-icon{
+        height: 30px;
+        width: 30px;
+        position: absolute;
+        right: 0;
+        & svg {
+            fill: $gray-dark
+        } 
+    }
+}
+
     .login-banner-wrap {
         @include display(flex);
         @include align-self(stretch);
@@ -59,41 +79,28 @@
         background-color: as-alpha($color-gray-dark, 0.56);
         border-top: 1px solid rgba(255, 255, 255, 0.1);
         border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        margin: 40px 0;
     }
     .usa-da-login-container {
-        padding: 40px;
+        padding: 40px 40px 29px;
         margin: 40px 0;
         background: as-alpha($color-white, 0.05);
         border: 1px solid rgba(0, 0, 0, 0.25);
         @media screen and (max-width: 1199px) and (min-width: $medium-screen) {
-            padding: 40px 20px;
-        }
-        .row {
-            @media screen and (min-width: $small-screen) {
-                margin-left: 0;
-                margin-right: 0;
-            }
+            padding: 40px 20px 29px;
         }
         input {
             width: 100%;
             font-family: $font-sans;
-            font-size: 17px;
-        }
-        .usa-da-login-button-holder {
-            padding: 0;
+            font-size: 1.6rem;
         }
         p.msg {
             color: $color-white;
-            margin: 0 0 20px -15px;
-            @media screen and (max-width: $small-screen) {
-                margin: 0 auto 20px;
-                text-align: center;
-            }
+            margin: 0 0 30px;
         }
         p.info {
             color: $color-white;
-            margin: 12px 0 0 -15px;
-            margin-bottom: 20px;
+            margin: 0 0 20px -15px;
             @media screen and (max-width: $small-screen) {
                 text-align: center;
             }
@@ -103,6 +110,11 @@
             padding: 0;
             color: $color-white;
             font-size: $small-font-size;
+
+            p {
+                color: $color-white;
+                font-size: $small-font-size;
+            }
         }
     }
     .usa-da-input-container {
@@ -110,25 +122,17 @@
         display: inline-flex;
         position: relative;
         width: 100%;
-        div.usa-da-icon {
-            background-image: url("../graphics/form_bg.png");
-            background-repeat: no-repeat;
-            background-size: contain;
-            background-position: center;
-            margin: 0;
+        .usa-da-icon {
             position: absolute;
             left: 10px;
             top: 12px;
-            height: 42px;
-            width: 48px;
+            width: 2.2rem;
+            height: 2.2rem;
             overflow: hidden;
-            float: left;
-            font-size: 24px;
-            color: $color-gray-dark;
+            fill: $color-gray-dark;
         }
     }
     .usa-da-registration-links {
-        padding-left: 0;
         ul {
             margin-bottom: 0;
             li {
@@ -142,69 +146,12 @@
                 }
             }
             @media screen and (max-width: $small-screen) {
-                margin: 0 auto 20px;
+                margin: 0 auto 0;
             }
         }
     }
     a.forgot-back {
         color: as-alpha($color-white, 0.99);
         font-size: 1.2rem;
-    }
-}
-
-.usa-da-registration {
-    h1 {
-        margin: 60px auto 20px;
-    }
-    input {
-        max-width: none;
-
-        &.error {
-            border: 1px solid $color-secondary;
-        }
-    }
-    button {
-        margin: .5em;
-    }
-    .usa-alert,
-    .alert {
-        text-align: left;
-    }
-    .usa-da-icon-register {
-        @extend .usa-da-icon;
-        top: 15px !important;
-        left: -12px !important;
-    }
-}
-
-#registrationEmail {
-    padding-left: 1rem;
-}
-
-.usa-da-top-banner {
-    @include align-self(stretch);
-    background: as-alpha($color-gold-lightest, 0.95);
-    padding: 15px 0;
-    width: 100%;
-    text-align: center;
-    border-bottom: 1px solid $color-gold-lighter;
-    & .usa-da-icon{
-        color:$gray-dark;
-        height: 16px;
-        display: inline-block;
-        font-size: 2.4rem;
-        margin: 0px 28px;
-    }
-}
-
-.usa-da-warning-msg {
-    @include align-self(stretch);
-    & p {
-        max-width: 100%;
-        font-size: 1.1rem;
-        color:$color-white;
-        & strong{
-            color:$color-secondary-light;
-        }
     }
 }

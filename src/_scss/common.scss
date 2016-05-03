@@ -4,24 +4,17 @@ html, body {
 	height: 100%;
 }
 
-#app {
-	height: 100%;
-
-	> div {
-		height: 100%;
-	}
-}
-
 body{
 	-webkit-font-smoothing: antialiased;
 	font-smooth: always;
 	background: #f5f5f5;
 }
 
-.site_wrap{
+.usa-da-site_wrap{
 	@include display(flex);
     @include flex-direction(column);
     min-height: 100vh;
+    padding-bottom:55px;
 }
 
 .site_content{
@@ -74,7 +67,8 @@ body{
 $color-darkest: #2C333B;
 
 /* Sizing */
-$header-height: 8rem;
+$header-height: 11rem;
+$top-header-height: 3rem;
 
 /* Classes */
 .usa-da-text-white {
@@ -155,18 +149,6 @@ h6 {
     margin-bottom: 0;
 }
 
-p.lead {
-    font-weight: $font-normal;
-    font-size: 2.2rem;
-    line-height: 3.3rem;
-}
-
-p.large {
-    font-weight: $font-normal;
-    font-size: 1.8rem;
-    line-height: $base-line-height;
-}
-
 @mixin para {
     font-weight: $font-normal;
     font-size: 1.6rem;
@@ -184,8 +166,31 @@ p.italic {
     font-style: italic;
 }
 
+p.lead {
+    font-weight: $font-normal;
+    font-size: 2.2rem;
+    line-height: 3.3rem;
+}
+
+p.large {
+    font-weight: $font-normal;
+    font-size: 1.8rem;
+    line-height: $base-line-height;
+}
+
+p.small {
+    font-size: 90%;
+    line-height: 2.4rem;
+}
+
+
 p strong{
     font-weight: 600;
+}
+
+.highlight{
+	background-color: $color-gold-lightest;
+	padding: 8px 15px;
 }
 
 ul li{
@@ -277,7 +282,7 @@ pre {
             font-weight: $font-bold;
             & tr {
                 & th {
-                    padding: 15px;
+                    padding: 16px 15px;
                     border-bottom: none;
                     position: relative;
                 }
@@ -332,8 +337,25 @@ pre {
 .usa-da-scrollable-table {
     margin-top: 15px;
     border-bottom: 1px solid #ddd;
-    & .table-bordered {
-        border: none;
+    & .usa-da-scrollable-table-header{
+    	background: $color-gray;
+    	& .table-bordered {
+       		border: none;
+       		width: 98.6%;
+       		& thead > tr{
+       			border:none;
+       			& > th{
+       				border:none;
+       				border-right: 1px solid #ddd;
+       				&:last-child{
+       					border-right:none;
+       					& .usa-da-table-sorter{
+       						width: 50px;
+       					}
+       				}
+       			}
+    		}
+    	}
     }
     & table {
         width: 100%;
@@ -368,24 +390,34 @@ a.list-group-item {
 .usa-da-table-sorter {
     position: absolute;
     top: 0;
-    right: 0;
+    right: 15px;
     height: 100%;
-    width: 70px;
-    .sort-icon {
-        color: $color-primary-alt-lightest;
-        cursor: pointer;
-        font-size: 2.4rem;
-        &.usa-da-icon-angle-up,
-        &.usa-da-icon-angle-down {
-            position: absolute;
-            top: 13px;
-        }
-        &.usa-da-icon-angle-up {
-            left: 0px;
-        }
-        &.usa-da-icon-angle-down {
-            left: 25px;
-        }
+    width: 33px;
+    & .usa-da-icon {
+    	height: 2.4rem;
+    	width: 2.2rem;
+    	& svg{
+    		fill: $color-white;
+    	}
+    	&.active{
+    		& svg{
+    			fill:$color-gold-lighter;
+    		}
+    	}
+    	&.sort-icon {
+    	    cursor: pointer;
+    	    &.usa-da-icon-angle-up,
+    	    &.usa-da-icon-angle-down {
+    	        position: absolute;
+    	        top: 13px;
+    	    }
+    	    &.usa-da-icon-angle-up {
+    	        right: 15px;
+    	    }
+    	    &.usa-da-icon-angle-down {
+    	        right: -5px;
+    	    }
+    	}
     }
 }
 
@@ -401,36 +433,98 @@ a.list-group-item {
 	border-radius: 0;
 	margin-bottom: 0;
 
-	.usa-da-header-container {
-		height: 100%;
+	& .usa-da-top-head{
+		background: $color-base;
+		height: $top-header-height;
+			ul.usa-da-top-head-menu {
+				list-style: none;
+				padding: 0;
+				margin: 0;
+				display: block;
+				float: right;
+				height: $top-header-height;
+			}
+			li.usa-da-top-head-menu-item {
+				list-style: none;
+				font-size: 1.2rem;
+				display: inline-block;
+				padding-left: 25px;
+				margin-top: 0.4rem;
+				margin-bottom: 0.4rem;
+
+				&:before {
+					content: '';
+				}
+				& a{
+					color:$color-gray;
+						&:hover, &:active, &:focus{
+							text-decoration: none;
+							color:$color-gray-light;
+						}
+					& .usa-da-icon-user{
+						height: 15px;
+						width: 16px;
+						position: relative;
+						top: 4px;
+						left: -6px;
+						fill: $color-gray;
+							&:hover, &:active, &:focus{
+								fill:$color-gray-light;
+							}
+						}
+					}
+
+					& .header-dropdown{
+						background: $color-base;
+						position: absolute;
+						z-index: 999999;
+						min-width: 100px;
+						max-width: 200px;
+						& li{
+							float: left;
+							padding: 0 10px;
+							& a {
+								color: $color-white;
+								font-size: 1.2rem;
+							}
+							&::before {
+								display: none;
+							}
+						}
+					}
+				}
+			}
+		}
+
+		.usa-da-header-container {
+			height: 100%;
 
 		.usa-da-header-navbar {
-			height: 100%;
 			display: table;
 		}
 
 		.usa-da-header-brand, .usa-da-header-brand:hover, .usa-da-header-brand:visited {
 			font-size: 2.5rem;
-			line-height: $header-height;
+			line-height: ($header-height - $top-header-height);
 			font-weight: $font-light;
-			height: $header-height;
+			height: ($header-height - $top-header-height);
 			color: $color-white;
 			display: table-cell;
 			vertical-align: middle;
 			padding: 0;
-	&:after{
-		@include alphaMark;
-    }
-		}
+				&:after{
+					@include alphaMark;
+    			}
+			}
 
 		#usa-da-header-link-holder {
 			padding: 0 12px;
 			height: 100%;
-			line-height: $header-height;
+			line-height: ($header-height - $top-header-height);
 			font-size: 15px;
 			font-weight: $font-normal;
 
-			li {
+			& li {
 				height: 100%;
 				display: table;
 				margin: 0;
@@ -448,46 +542,36 @@ a.list-group-item {
 		#usa-da-header-link-holder > li > a {
 			background-color: $color-gray-dark;
 			color: $color-white;
-			height: $header-height;
+			height: ($header-height - $top-header-height);
 			display: table-cell;
 			vertical-align: middle;
 			padding: 1.5rem 2.0rem;
 			font-size: 1.4rem;
 
-			&:hover {
-				background-color: $color-gray;
-			}
-
-			&.disabled {
-				cursor: default;
-				color: #71747c;
-
-				& .comingSoon {
-					text-align: center;
-					font-size: 1.3rem;
-					background: url('../graphics/coming_soon_ribbon.png');
-					height: 61px;
-					width: 92px;
-					display: block;
-					position: absolute;
-					top: 0;
-					right: -2px;
-					z-index: 9999;
-				}
 				&:hover {
-					background-color: $color-gray-dark;
+					background-color: $color-gray;
+				}
+
+				&.disabled {
+					cursor: default;
+					color: #71747c;
+					& .comingSoon {
+						text-align: center;
+						font-size: 1.3rem;
+						background: url('../graphics/coming_soon_ribbon.png');
+						height: 61px;
+						width: 91px;
+						display: block;
+						position: absolute;
+						top: 0;
+						right: 0;
+						z-index: 9999;
+					}	
+					&:hover {
+						background-color: $color-gray-dark;
+					}
 				}
 			}
-
-			&.admin {
-				background-color: $color-cool-blue-lighter;
-				color: $color-gray-dark;
-
-				&:hover {
-					background-color: $color-cool-blue-light;
-				}
-			}
-		}
 
 		#usa-da-header-link-holder > li.active > * {
 			background-color: $color-darkest;
@@ -510,6 +594,9 @@ a.list-group-item {
 			li {
 				border: none;
 				width: 100%;
+					&::before {
+						display: none;
+					}
 
 				a {
 					color: $color-primary-alt;
@@ -525,7 +612,6 @@ a.list-group-item {
 			}
 		}
 	}
-}
 
 /* Content */
 .usa-da-content {
@@ -736,9 +822,8 @@ a.list-group-item {
 	font-family: $font-sans;
 	text-align: center;
 	background-color: $color-darkest;
+	line-height: 35px;
 	color: $color-white;
-	padding: 10px 0;
-
 	position: relative;
 	height: 35px;
 	margin-top: -35px;
@@ -803,7 +888,8 @@ a.list-group-item {
     }
 
 	.usa-da-icon {
-        font-size: 3.2rem;
+        width: 3.4rem;
+        height: 3.4rem;
         position: absolute;
         top: 15px;
         left: 15px;
@@ -812,31 +898,33 @@ a.list-group-item {
 
 .alert-success {
     background: #e7f4e4;
-    .glyphicon {
-        color: #5cb85c;
+    svg {
+        fill: #5cb85c;
     }
 }
 
 .alert-info {
     background: #e1f3f8;
-    .glyphicon {
-        color: #5bc0de;
+    svg {
+        fill: #5bc0de;
     }
 }
 
 .alert-warning {
     background: #fff1d2;
-    .glyphicon {
-        color: #f0ad4e;
+    svg {
+        fill: #f0ad4e;
     }
 }
 
 .alert-danger, .alert-error {
     background: #f9dede;
     .usa-da-icon {
-        color: #d9534f;
+	    svg{
+        	fill: #d9534f;
+        	}
+        }
     }
-}
 
 .alert-block{
     border: 1px solid #ccc;
@@ -912,6 +1000,7 @@ button,
     padding: 1rem 2rem;
     border: none;
     border-radius: 0;
+    margin: 0;
     display: inline-block;
     text-align: center;
     text-decoration: none!important;
@@ -1023,55 +1112,52 @@ button,
 
 
 /*****  RELATIVELY POSITION ELEMENTS *****/
-.pos-rel{
-	position:relative
-}
-
-
-.pad-10{padding: 10px;}
-.pad-15{padding: 15px;}
-.pr-10{padding-right:10px;}
-.pr-20{padding-right:20px;}
+.pos-rel{position:relative}
 
 /***** GLOBAL MARGIN AND PADDING *****/
-.mt-0 	{  margin-top: 0;  }
-.mt-5 	{  margin-top: 5px;  }
-.mt-10	{  margin-top: 10px;  }
-.mt-15 	{  margin-top: 15px;  }
-.mt-20	{  margin-top: 20px;  }
-.mt-25	{  margin-top: 25px;  }
-.mt-30	{  margin-top: 30px;  }
-.mt-35	{  margin-top: 35px;  }
-.mt-40	{  margin-top: 40px;  }
-.mt-45	{  margin-top: 45px;  }
-.mt-50	{  margin-top: 50px;  }
-.mt-55	{  margin-top: 55px;  }
-.mt-60	{  margin-top: 60px;  }
+.pad-10{padding: 10px;}
+.pad-15{padding: 15px;}
+.pr-10 {padding-right:10px;}
+.pr-20 {padding-right:20px;}
 
-.mr-0 	{  margin-right: 0;  }
-.mr-5 	{  margin-right: 5px;  }
-.mr-10	{  margin-right: 10px;  }
-.mr-15 	{  margin-right: 15px;  }
-.mr-20	{  margin-right: 20px;  }
-.mr-25	{  margin-right: 25px;  }
-.mr-30	{  margin-right: 30px;  }
-.mr-35	{  margin-right: 35px;  }
-.mr-40	{  margin-right: 40px;  }
-.mr-45	{  margin-right: 45px;  }
-.mr-50	{  margin-right: 50px;  }
-.mr-55	{  margin-right: 55px;  }
-.mr-60	{  margin-right: 60px;  }
+.mt-0 	{margin-top: 0}
+.mt-5 	{margin-top: 5px}
+.mt-10	{margin-top: 10px}
+.mt-15 	{margin-top: 15px}
+.mt-20	{margin-top: 20px}
+.mt-25	{margin-top: 25px}
+.mt-30	{margin-top: 30px}
+.mt-35	{margin-top: 35px}
+.mt-40	{margin-top: 40px}
+.mt-45	{margin-top: 45px}
+.mt-50	{margin-top: 50px}
+.mt-55	{margin-top: 55px}
+.mt-60	{margin-top: 60px}
 
-.mb-0 	{  margin-bottom: 0;  }
-.mb-5 	{  margin-bottom: 5px;  }
-.mb-10	{  margin-bottom: 10px;  }
-.mb-15 	{  margin-bottom: 15px;  }
-.mb-20	{  margin-bottom: 20px;  }
-.mb-25	{  margin-bottom: 25px;  }
-.mb-30	{  margin-bottom: 30px;  }
-.mb-35	{  margin-bottom: 35px;  }
-.mb-40	{  margin-bottom: 40px;  }
-.mb-45	{  margin-bottom: 45px;  }
-.mb-50	{  margin-bottom: 50px;  }
-.mb-55	{  margin-bottom: 55px;  }
-.mb-60	{  margin-bottom: 60px;  }
+.mr-0 	{margin-right: 0}
+.mr-5 	{margin-right: 5px}
+.mr-10	{margin-right: 10px}
+.mr-15 	{margin-right: 15px}
+.mr-20	{margin-right: 20px}
+.mr-25	{margin-right: 25px}
+.mr-30	{margin-right: 30px}
+.mr-35	{margin-right: 35px}
+.mr-40	{margin-right: 40px}
+.mr-45	{margin-right: 45px}
+.mr-50	{margin-right: 50px}
+.mr-55	{margin-right: 55px}
+.mr-60	{margin-right: 60px}
+
+.mb-0 	{margin-bottom: 0}
+.mb-5 	{margin-bottom: 5px}
+.mb-10	{margin-bottom: 10px}
+.mb-15 	{margin-bottom: 15px}
+.mb-20	{margin-bottom: 20px}
+.mb-25	{margin-bottom: 25px}
+.mb-30	{margin-bottom: 30px}
+.mb-35	{margin-bottom: 35px}
+.mb-40	{margin-bottom: 40px}
+.mb-45	{margin-bottom: 45px}
+.mb-50	{margin-bottom: 50px}
+.mb-55	{margin-bottom: 55px}
+.mb-60	{margin-bottom: 60px}

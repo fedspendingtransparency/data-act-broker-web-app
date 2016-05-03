@@ -17,7 +17,7 @@ import ValidateDataContent from './ValidateDataContent.jsx';
 
 import ValidateDataContainer from '../../containers/validateData/ValidateDataContainer.jsx';
 
-import Request from 'superagent';
+import * as ReviewHelper from '../../helpers/reviewHelper.js';
 
 const propTypes = {
     submissionId: PropTypes.string,
@@ -51,16 +51,13 @@ class GetErrors extends React.Component {
     }
 
     sendRequest(submissionID) {
-        const file = Request.post(kGlobalConstants.API + 'submission_error_reports/')
-                           .withCredentials()
-                           .send({ 'submission_id': submissionID });
-        file.end((errFile, res) => {
-            if (errFile) {
-                console.log(errFile + res);
-            } else {
-                this.setState({ response: true, csv_url: res.body });
-            }
-        });
+        ReviewHelper.fetchErrorReports(submissionID)
+            .then((data) => {
+                this.setState({ response: true, csv_url: data });
+            })
+            .catch((err) => {
+                console.log(err + res);
+            });
     }
 
     render() {
@@ -149,7 +146,7 @@ export default class ValidateDataPage extends React.Component {
             <div>
                 <Navbar activeTab="addData"/>
                 <AddDataHeader />
-                <div className="usa-da-content-step-block">
+                <div className="usa-da-content-step-block" name="content-top">
                     <div className="container center-block">
                         <div className="row">
                             <Progress totalSteps={3} currentStep={2} />

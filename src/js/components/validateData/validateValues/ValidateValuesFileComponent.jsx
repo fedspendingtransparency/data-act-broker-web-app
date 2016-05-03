@@ -16,6 +16,7 @@ import MetaData from '../../addData/AddDataMetaDisplay.jsx';
 import FileComponent from '../../addData/FileComponent.jsx';
 import ValidateDataUploadButton from './../ValidateDataUploadButton.jsx';
 import ValidateValuesErrorReport from './ValidateValuesErrorReport.jsx';
+import * as Icons from '../../SharedComponents/icons/Icons.jsx';
 
 const propTypes = {
 
@@ -113,14 +114,14 @@ export default class ValidateDataFileComponent extends React.Component {
     }
 
     displayIcon() {
-        let icon = 'check-circle';
+        let icon = <Icons.CheckCircle />;
 
         if (this.state.hasErrors) {
-            icon = 'exclamation-circle';
+            icon = <Icons.ExclamationCircle />;
         }
 
         if (this.isReplacingFile()) {
-            icon = 'cloud-upload';
+            icon = <Icons.CloudUpload />;
         }
         
         return icon;
@@ -129,12 +130,13 @@ export default class ValidateDataFileComponent extends React.Component {
     render() {
 
         let showWarning = '';
-        let warningDirection = 'down';
+        let warningDirection = < Icons.AngleDown / >;
         let showError = '';
-        let errorDirection = 'down';
+        let errorDirection = < Icons.AngleDown / >;
         if (this.state.showError) {
-            errorDirection = 'up';
+            errorDirection = < Icons.AngleUp / >;
         }
+
 
         let footerStatus = '';
         if (this.state.showError) {
@@ -155,8 +157,10 @@ export default class ValidateDataFileComponent extends React.Component {
         }
 
         let optionalUpload = false;
+        let uploadText = 'Choose Corrected File';
         if (!this.state.hasErrors) {
             optionalUpload = true;
+            uploadText = 'Overwrite File';
         }
 
         // override this data if a new file is dropped in
@@ -200,7 +204,7 @@ export default class ValidateDataFileComponent extends React.Component {
                                 </div>
                                 <div className="row usa-da-validate-item-footer-wrapper">
                                     <div className={"usa-da-validate-item-footer usa-da-header-error" + showWarning +" "+footerStatus} onClick={this.toggleWarningReport.bind(this)}>
-                                        <div>View &amp; Download Warnings Report <span className={"usa-da-icon usa-da-icon-angle-" + warningDirection}></span></div>
+                                        <div>View &amp; Download Warnings Report <span className={"usa-da-icon"}>{warningDirection}</span></div>
                                     </div>
                                 </div>
                             </div>
@@ -209,12 +213,12 @@ export default class ValidateDataFileComponent extends React.Component {
                                 <div className="row usa-da-validate-item-body">
                                     <div className='usa-da-validate-txt-wrap'>
                                         <span className="usa-da-validate-item-message-label">Critical Errors:</span>
-                                        <span className={"usa-da-validate-item-message-count" + noErrors}>&nbsp;{this.props.item.error_data.length}</span>
+                                        <span className={"usa-da-validate-item-message-count" + noErrors}>&nbsp;{this.props.item.error_count}</span>
                                     </div>
                                 </div>
                                 <div className="row usa-da-validate-item-footer-wrapper">
                                     <div className={"usa-da-validate-item-footer usa-da-header-error" + showError +" "+footerStatus} onClick={this.toggleErrorReport.bind(this)}>
-                                        <div>View &amp; Download Critical Errors Report <span className={"usa-da-icon usa-da-icon-angle-" + errorDirection}></span></div>
+                                        <div>View &amp; Download Critical Errors Report <span className={"usa-da-icon"}>{errorDirection}</span></div>
                                     </div>
                                 </div>
                             </div>
@@ -222,13 +226,15 @@ export default class ValidateDataFileComponent extends React.Component {
                     </div>
 
                     <div className="col-md-3 usa-da-validate-item-file-section">
-                        <div className="usa-da-validate-item-file-section-result">
-                            <div className={"usa-da-icon usa-da-icon-" + this.displayIcon()}></div>
-                        </div>
+                                <div className="usa-da-validate-item-file-section-result">
+                                    <div className="usa-da-icon">
+                                        {this.displayIcon()}
+                                    </div>
+                                </div>
                         <div className="row usa-da-validate-item-file-name">{fileName}</div>
                         {uploadProgress}
                         <div className="row usa-da-validate-item-file-section-correct-button">
-                            <ValidateDataUploadButton optional={optionalUpload} onDrop={this.props.onFileChange} />
+                            <ValidateDataUploadButton optional={optionalUpload} onDrop={this.props.onFileChange} text={uploadText} />
                         </div>
                     </div>
                 </div>

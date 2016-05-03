@@ -4,9 +4,9 @@
 **/
 
 import React, { PropTypes } from 'react';
-import Request from 'superagent';
 import RegistrationPage from './RegistrationPage.jsx';
 import RegisterEmailPage from './RegisterEmailPage.jsx';
+import RegistrationTokenLoadingPage from './RegistrationTokenLoadingPage.jsx';
 import Footer from '../SharedComponents/FooterComponent.jsx'
 import { kGlobalConstants } from '../../GlobalConstants.js';
 
@@ -50,7 +50,7 @@ export default class RegisterTokenPage extends React.Component {
 
      render() {
 
-        let content = 'Verifying...';
+        let content = <RegistrationTokenLoadingPage />;
 
         if (this.state.email != '') {
             content = <RegistrationPage stepName='code' email={this.state.email} message={this.state.message} />;
@@ -58,7 +58,7 @@ export default class RegisterTokenPage extends React.Component {
 
          return (
              <div>
-                <div className="usa-da-page-content">
+                <div className="usa-da-site_wrap">
                     {content}
                 </div>
                 <Footer />

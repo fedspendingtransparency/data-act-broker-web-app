@@ -4,10 +4,15 @@
 **/
 
 import React, { PropTypes } from 'react';
+import * as Icons from '../SharedComponents/icons/Icons.jsx';
 
 const propTypes = {
     handleChange: PropTypes.func.isRequired
 };
+
+const defaultProps = {
+  tabIndex: "1"
+}
 
 export default class Username extends React.Component {
     render() {
@@ -22,11 +27,15 @@ export default class Username extends React.Component {
                   placeholder="Username"
                   aria-describedby="username"
                   onChange={this.props.handleChange}
+                  tabIndex={this.props.tabIndex}
                 />
-                <div className="usa-da-icon usa-da-icon-user usa-da-icon-nobg"></div>
+                <span className="usa-da-icon">
+                    <Icons.User />
+               </span>
             </div>
         );
     }
 }
 
+Username.defaultProps = defaultProps;
 Username.propTypes = propTypes;

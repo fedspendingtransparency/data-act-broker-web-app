@@ -1,4 +1,4 @@
-import Request from 'superagent';
+import Request from './sessionSuperagent.js';
 import Q from 'q';
 import AWS from 'aws-sdk';
 import { dispatch } from 'redux';
@@ -16,12 +16,14 @@ export const fetchStatus = (submissionId) => {
 	const deferred = Q.defer();
 
 	Request.post(kGlobalConstants.API + 'check_status/')
-	        .withCredentials()
 	        .send({'submission_id': submissionId})
 	        .end((errFile, res) => {
 
 	        	if (errFile) {
-	        		deferred.reject(errFile);
+	        		deferred.reject({
+	        			reason: res.statusCode,
+	        			error: errFile
+	        		});
 	        	}
 	        	else {
 	        		deferred.resolve(res.body);
@@ -36,7 +38,6 @@ export const fetchErrorReports = (submissionId) => {
 	const deferred = Q.defer();
 
 	Request.post(kGlobalConstants.API + 'submission_error_reports/')
-			.withCredentials()
 			.send({'submission_id': submissionId})
 			.end((errFile, res) => {
 
@@ -58,10 +59,19 @@ const getFileStates = (status) => {
 	status.jobs.forEach((item) => {
 		output[item.file_type] = item;
 		output[item.file_type].report = null;
+		output[item.file_type].error_count = 0;
 
 		// force an error_data array if no field is passed back in the JSON
 		if (!item.hasOwnProperty('error_data')) {
 			output[item.file_type].error_data = [];
+		}
+		else {
+			let count = 0;
+			item.error_data.forEach((error) => {
+				count += parseInt(error.occurrences);
+			});
+
+			output[item.file_type].error_count = count;
 		}
 
 	});

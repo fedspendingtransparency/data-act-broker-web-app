@@ -6,7 +6,6 @@
 import React, { PropTypes } from 'react';
 import { hashHistory } from 'react-router';
 import Navbar from '../SharedComponents/navigation/NavigationComponent.jsx';
-import EmailComponent from './RegistrationEmailComponent.jsx';
 import RegisterEmailPage from './RegisterEmailPage.jsx';
 import ConfirmCode from './ConfirmCodeComponent.jsx';
 
@@ -27,13 +26,19 @@ export default class RegistrationPage extends React.Component {
         return (
             <div>
                 <Navbar logoOnly={true} />
-                <div className="usa-da-content">
-                    <div className="container usa-da-registration">
-                        <div className="display-2">Registration</div>
-                        <div className="row text-center">
-                            <div className="col-sm-12 col-md-offset-3 col-md-6">
-                                <ConfirmCode email={this.props.email} />
+                <div className="usa-da-content-dark mb-60">
+                    <div className="container">
+                        <div className="row">
+                            <div className="col-md-12 mt-50 mb-30">
+                                <div className="display-2">Registration</div>
                             </div>
+                        </div>
+                    </div>
+                </div>
+                <div className="container">
+                    <div className="row">
+                        <div className="col-sm-12 col-md-offset-2 col-md-8">
+                            <ConfirmCode email={this.props.email} />
                         </div>
                     </div>
                 </div>

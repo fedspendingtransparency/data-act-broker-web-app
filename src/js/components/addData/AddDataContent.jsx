@@ -11,7 +11,6 @@ import SubmissionComponent from './SubmissionComponent.jsx';
 import MetaData from './AddDataMetaDisplay.jsx';
 import Progress from '../SharedComponents/ProgressComponent.jsx';
 import SubmitButton from '../SharedComponents/SubmitButton.jsx';
-import Request from 'superagent';
 import AWS from 'aws-sdk';
 import 'babel-polyfill';
 
@@ -55,7 +54,7 @@ export default class AddDataContent extends React.Component {
 
         return (
             <div>
-                <div className="usa-da-content-step-block">
+                <div className="usa-da-content-step-block" name="content-top">
                     <div className="container center-block">
                         <div className="row">
                             <Progress totalSteps={3} currentStep={this.state.progressStep} />

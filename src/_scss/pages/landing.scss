@@ -11,5 +11,24 @@
             display: inline-block;
             margin: 0 15px 0 0;
         }
+
+        // EXAMPLE EXAMPLE
+        .usa-da-icon {
+            svg {
+                width: 3.5rem;
+                height: 2.4rem;
+                margin: 0 10px 0 0;
+                display: inline-block;
+                fill: $color-white;
+                position: relative;
+                top: 5px;
+                left: 2px;
+            }
+            &.usa-da-icon-Tachometer{
+                svg{
+                    fill: $color-gray;
+                }
+            }
+        }
     }
 }

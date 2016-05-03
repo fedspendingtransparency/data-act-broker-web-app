@@ -4,6 +4,7 @@
  **/
 
 import React, { PropTypes } from 'react';
+import $ from 'jquery';
 import { kGlobalConstants } from '../../GlobalConstants.js';
 import ValidateDataFileComponent from './ValidateDataFileComponent.jsx';
 import SubmitButton from '../SharedComponents/SubmitButton.jsx';
@@ -23,11 +24,26 @@ export default class ValidateDataContent extends React.Component {
         super(props);
     }
 
+    componentDidMount() {
+        this.scrollToContent();
+    }
+
+    componentDidUpdate(prevProps, prevState) {
+        if (prevProps.submission.state != "review" && this.props.submission.state == "review") {
+            this.scrollToContent();
+        }
+    }
+
+    scrollToContent() {
+        $('html, body').animate({
+            scrollTop: $('[name=content-top]').offset().top
+        }, 500);
+    }
 
     render() {
-
         
         let allValid = true;
+        let allDone = true;
         let errors = [];
         let items = fileTypes.map((type, index) => {
             const validationStatus = this.props.submission.validation[type.requestName];
@@ -38,13 +54,17 @@ export default class ValidateDataContent extends React.Component {
                     errors.push(type.requestName);
                 }
 
+                if (validationStatus.job_status != 'finished' && validationStatus.job_status != 'invalid') {
+                    allDone = false;
+                }
+
                 return <ValidateDataFileContainer key={index} type={type} data={this.props.submission.validation} />;
             }
         });
 
         let overlay = '';
         let displayOverlay = '';
-        if (!allValid) {
+        if (!allValid && allDone) {
             // we'll need extra padding at the bottom of the page if the overlay is present
             displayOverlay = ' with-overlay';
             overlay = <ValidateDataOverlayContainer errors={errors} />;
