@@ -72,7 +72,14 @@ export const performLogin = (username, password) => {
 
 					// unset the login state cookie
 	                Cookies.remove('brokerLogin');
-					deferred.reject(err);
+
+	                // if a message is available, display that
+	                if (res.body && res.body.hasOwnProperty('message')) {
+						deferred.reject(res.body.message);
+					}
+					else {
+						deferred.reject(err);
+					}
 				} else {
 					// set the login state cookie that expires in 15 minutes
 					Cookies.set('brokerLogin', Date.now(), {expires: (1/(24*4))});
