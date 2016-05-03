@@ -24,7 +24,7 @@ export default class AddDataPage extends React.Component {
     }
 
     scrollToUpload() {
-        $('body').animate({
+        $('html, body').animate({
             scrollTop: $('[name=content-top]').offset().top
         }, 500);
     }

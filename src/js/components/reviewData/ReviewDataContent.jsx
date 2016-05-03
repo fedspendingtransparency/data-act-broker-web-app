@@ -52,7 +52,7 @@ export default class ReviewDataContent extends React.Component {
     }
 
     scrollToContent() {
-        $('body').animate({
+        $('html, body').animate({
             scrollTop: $('[name=content-top]').offset().top
         }, 500);
     }
