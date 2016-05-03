@@ -16,7 +16,6 @@ export const generateRSSUrl = () => {
 	const deferred = Q.defer();
 
 	Request.get(kGlobalConstants.API + 'get_rss/')
-		.withCredentials()
 		.send()
 		.end((err, res) => {
 			if (err) {
