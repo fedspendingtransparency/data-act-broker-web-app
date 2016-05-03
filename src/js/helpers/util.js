@@ -5,9 +5,6 @@ import Request from './sessionSuperagent.js';
 
 export const fetchStaticAssetPath = () => {
 	let imgSrc = '';
-	if (kGlobalConstants.DEV) {
-    	imgSrc = 'dev/';
-	}
 	return imgSrc;
 };
 
