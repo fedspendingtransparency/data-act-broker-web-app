@@ -49,11 +49,7 @@ export default class LoginPanel extends React.Component {
         let errorMessageComponent = null;
 
         if (this.props.session.login == "failed") {
-            errorMessageComponent = <ErrorMessage message={"Username or password is incorrect"} />;
-
-            if (this.props.cookieError) {
-                errorMessageComponent = <ErrorMessage message={"Browser cookie support is required to access this site. Enable cookies on your browser to continue."} />;
-            }
+            errorMessageComponent = <ErrorMessage message={this.props.errorMessage} />;
         }
 
 

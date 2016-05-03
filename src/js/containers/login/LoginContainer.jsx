@@ -20,7 +20,7 @@ class LoginContainer extends React.Component {
 
 		this.state = {
 			loading: false,
-			cookieError: false
+			errorMessage: ""
 		};
 	}
 	performLogin(username, password) {
@@ -33,12 +33,13 @@ class LoginContainer extends React.Component {
 				if (err == "cookie") {
 					this.setState({
 						loading: false,
-						cookieError: true
+						errorMessage: 'Browser cookie support is required to access this site. Enable cookies on your browser to continue.'
 					});
 				}
 				else {
 					this.setState({
-						loading: false
+						loading: false,
+						errorMessage: err
 					});
 				}
 			})
@@ -46,7 +47,7 @@ class LoginContainer extends React.Component {
 	render() {
 
 		return (
-			<LoginPanel {...this.props} performLogin={this.performLogin.bind(this)} loading={this.state.loading} cookieError={this.state.cookieError} />
+			<LoginPanel {...this.props} performLogin={this.performLogin.bind(this)} loading={this.state.loading} errorMessage={this.state.errorMessage} />
 		);
 	}
 }
