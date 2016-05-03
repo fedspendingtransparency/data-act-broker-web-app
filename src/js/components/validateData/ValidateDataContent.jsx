@@ -28,6 +28,12 @@ export default class ValidateDataContent extends React.Component {
         this.scrollToContent();
     }
 
+    componentDidUpdate(prevProps, prevState) {
+        if (prevProps.submission.state != "review" && this.props.submission.state == "review") {
+            this.scrollToContent();
+        }
+    }
+
     scrollToContent() {
         $('body').animate({
             scrollTop: $('[name=content-top]').offset().top
