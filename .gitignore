@@ -42,4 +42,11 @@ GlobalConstants_prod.js
 __tests__/test-results
 
 
+# Ignore Nightwatch globals and results
+test/globals.js
+test/reports
+
+# Ignore test bin
+test/bin
+
 *.DS_Store
