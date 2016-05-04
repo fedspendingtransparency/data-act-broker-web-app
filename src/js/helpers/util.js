@@ -1,7 +1,7 @@
 import AWS from 'aws-sdk';
 import Q from 'q';
 import { kGlobalConstants } from '../GlobalConstants.js';
-import Request from 'superagent';
+import Request from './sessionSuperagent.js';
 
 export const fetchStaticAssetPath = () => {
 	let imgSrc = '';

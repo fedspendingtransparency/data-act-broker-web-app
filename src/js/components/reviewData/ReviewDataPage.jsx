@@ -14,8 +14,6 @@ import Footer from '../SharedComponents/FooterComponent.jsx';
 
 import ReviewDataContent from './ReviewDataContent.jsx';
 
-import Request from 'superagent';
-
 class ReviewDataContentInvalid extends React.Component {
     render() {
         return (

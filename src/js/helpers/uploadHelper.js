@@ -1,4 +1,4 @@
-import Request from 'superagent';
+import Request from './sessionSuperagent.js';
 import Q from 'q';
 import AWS from 'aws-sdk';
 import { dispatch } from 'redux';
@@ -16,7 +16,6 @@ const uploadLocalFile = (file, type) => {
     formData.append('file', file);
 
      Request.post(kGlobalConstants.API + 'local_upload/')
-            .withCredentials()
             .send(formData)
             .end((err, res) => {
 
@@ -95,7 +94,6 @@ const prepareFiles = (fileDict) => {
 	const deferred = Q.defer();
 
 	Request.post(kGlobalConstants.API + 'submit_files/')
-		.withCredentials()
 		.send(fileDict)
 		.end((err, res) => {
 			if (err) {
@@ -192,7 +190,6 @@ const finalizeUpload = (fileID) => {
     const deferred = Q.defer();
 
 	Request.post(kGlobalConstants.API + 'finalize_job/')
-               .withCredentials()
                .send({ 'upload_id': fileID })
                .end((err, res) => {
                    if (err) {

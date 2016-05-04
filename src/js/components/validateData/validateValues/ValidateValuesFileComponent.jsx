@@ -157,8 +157,10 @@ export default class ValidateDataFileComponent extends React.Component {
         }
 
         let optionalUpload = false;
+        let uploadText = 'Choose Corrected File';
         if (!this.state.hasErrors) {
             optionalUpload = true;
+            uploadText = 'Overwrite File';
         }
 
         // override this data if a new file is dropped in
@@ -232,7 +234,7 @@ export default class ValidateDataFileComponent extends React.Component {
                         <div className="row usa-da-validate-item-file-name">{fileName}</div>
                         {uploadProgress}
                         <div className="row usa-da-validate-item-file-section-correct-button">
-                            <ValidateDataUploadButton optional={optionalUpload} onDrop={this.props.onFileChange} />
+                            <ValidateDataUploadButton optional={optionalUpload} onDrop={this.props.onFileChange} text={uploadText} />
                         </div>
                     </div>
                 </div>

@@ -5,7 +5,6 @@
 
 import React, { PropTypes } from 'react';
 import { kGlobalConstants } from '../../GlobalConstants.js';
-import Request from 'superagent';
 import Password from '../login/Password.jsx';
 import SignInButton from '../login/SignInButton.jsx';
 import ErrorMessage from '../SharedComponents/ErrorMessage.jsx';

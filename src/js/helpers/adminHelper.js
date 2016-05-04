@@ -1,4 +1,4 @@
-import Request from 'superagent';
+import Request from './sessionSuperagent.js';
 import Q from 'q';
 import Cookies from 'js-cookie';
 
@@ -11,7 +11,6 @@ export const listUsersWithStatus = (status) => {
 	const deferred = Q.defer();
 	
 	Request.post(kGlobalConstants.API + 'list_users_with_status/')
-	        .withCredentials()
 	        .send({ status: status })
 	        .end((err, res) => {
 
@@ -32,7 +31,6 @@ export const changeUserStatus = (userId, status) => {
 	const deferred = Q.defer();
 
 	Request.post(kGlobalConstants.API + 'change_status/')
-		.withCredentials()
 		.send({
 			uid: userId,
 			new_status: status
