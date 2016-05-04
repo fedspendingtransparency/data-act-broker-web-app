@@ -1,5 +1,5 @@
 import gulp from 'gulp';
-import browserSync from 'browser-sync';
+import connect from 'gulp-connect';
 import sass from 'gulp-sass';
 import browserify from 'browserify';
 import watchify from 'watchify';
@@ -148,7 +148,7 @@ gulp.task('watch', ['fonts', 'images', 'graphics', 'docs', 'copyConstants', 'cop
             .pipe(sourcemaps.init({ loadMaps: !build }))
             .pipe(sourcemaps.write('.'))
             .pipe(gulp.dest((!build) ? dir.DEV : dir.PUBLIC))
-            .pipe(browserSync.reload({ stream: true }));
+            .pipe(connect.reload());
     })
         .bundle().on('error', gutil.log)
         .pipe(source(path.OUT))
@@ -164,7 +164,7 @@ gulp.task('sass', () => {
         .pipe(sass().on('error', sass.logError))
         .pipe(gulpif(build, cssNano()))
         .pipe(gulp.dest((!build) ? path.CSS_DEV : path.CSS_PUBLIC))
-        .pipe(browserSync.reload({ stream: true }));
+        .pipe(connect.reload());
 });
 
 // HTML replace scripts with minified version for build
@@ -195,14 +195,18 @@ gulp.task('minify', ['sass', 'watch', 'html-replace'], () => {
         .pipe(gulp.dest(dir.PUBLIC));
 });
 
+gulp.task('reload', () => {
+    connect.reload();
+})
+
 gulp.task('serve', ['set-build', 'html-replace', 'sass', 'watch'], () => {
     gulp.watch([path.SASS_SRC, path.CSS_SRC], ['sass']);
-    gulp.watch('*.html').on('change', browserSync.reload);
+    gulp.watch(['*.html'], ['reload']);
 
-    return browserSync.init({
-        server: {
-            baseDir: dir.PUBLIC
-        }
+    return connect.server({
+        root: dir.PUBLIC,
+        livereload: true,
+        port: 3000
     });
 });
 
