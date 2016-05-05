@@ -7,6 +7,9 @@
     padding: 0;
     width: 100%;
     min-height: 100vh;
+    // @media screen and (max-width: $small-screen) {
+    //     height: auto;
+    // }
     background: url("../img/hero_bg_img.jpg") no-repeat center center fixed;
     @include vendor-prefixes(background-size, cover);
     input {

@@ -21,6 +21,12 @@ body{
 @include flex(1);
 }
 
+
+.flex-wrapper{
+	@include display(flex);
+    @include flex-direction(column);
+}
+
 /***** MIXINS *****/
 @mixin contentBlockWrapper() {
     background-color: $color-white;
@@ -83,7 +89,6 @@ $top-header-height: 3rem;
 
 	@return rgba($-local-red, $-local-green, $-local-blue,$alpha);
 }
-
 
 
 h1,

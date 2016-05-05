@@ -113,7 +113,7 @@
             font-size: $h4-font-size;
             font-weight: bold;
             padding: 15px 0;
-            min-height: 111px;
+            height: 111px;
             @extend .flex-center-content;
             & .usa-da-validate-item-message{
                 color: $color-secondary;
@@ -182,7 +182,7 @@
             @include flex-direction(column);
             @include align-content(center);
             @include justify-content(center);
-            min-height: 171px;
+            height: 171px;
             .usa-da-validate-item-file-section-result {
                 height: 50px;
                 width: 35px;
@@ -299,7 +299,7 @@
         color: $color-white;
         & .usa-da-overlay-content-wrap {
             @extend .flex-center-content;
-            min-height: 150px;
+            height: 150px;
             @media screen and (max-width: $small-screen) {
                 display: block;
                 min-height: auto;
@@ -339,7 +339,7 @@
         & .usa-da-btn-bg {
             @extend .flex-center-content;
             background: as-alpha($color-base, 0.40);
-            min-height: 150px;
+            height: 150px;
             margin-left: -22px;
             @media screen and (max-width: $medium-screen) {
                 display: block;
