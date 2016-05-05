@@ -10,18 +10,31 @@ export const fetchStaticAssetPath = () => {
 
 export const generateRSSUrl = () => {
 
+	let isCanceled = false;
+
 	const deferred = Q.defer();
 
 	Request.get(kGlobalConstants.API + 'get_rss/')
 		.send()
 		.end((err, res) => {
-			if (err) {
-				deferred.reject(err);
+
+			if (isCanceled) {
+				deferred.reject('canceled');
 			}
 			else {
-				deferred.resolve(res.body.rss_url);
+				if (err) {
+					deferred.reject(err);
+				}
+				else {
+					deferred.resolve(res.body.rss_url);
+				}
 			}
-		})
+		});
 
-	return deferred.promise;
+	return {
+		promise: deferred.promise,
+		cancel: () => {
+			isCanceled = true;
+		}
+	}
 }
