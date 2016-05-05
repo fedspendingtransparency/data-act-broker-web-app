@@ -4,6 +4,7 @@
  **/
 
 import React, { PropTypes } from 'react';
+import $ from 'jquery';
 import { kGlobalConstants } from '../../GlobalConstants.js';
 import SubmitButton from '../SharedComponents/SubmitButton.jsx';
 import ReviewDataContentRow from './ReviewDataContentRow.jsx';
@@ -37,7 +38,9 @@ export default class ReviewDataContent extends React.Component {
         ReviewHelper.fetchStatus(this.props.submissionID)
             .then((data) => {
                 data.ready = true;
-                this.setState(data);
+                this.setState(data, () => {
+                    this.scrollToContent();
+                });
             })
             .catch((error) => {
                 console.log(error);
@@ -46,6 +49,12 @@ export default class ReviewDataContent extends React.Component {
 
     componentDidMount() {
         this.getSubmissionData();
+    }
+
+    scrollToContent() {
+        $('html, body').animate({
+            scrollTop: $('[name=content-top]').offset().top
+        }, 500);
     }
 
     render() {

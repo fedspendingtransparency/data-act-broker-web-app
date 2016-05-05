@@ -4,6 +4,7 @@
 **/
 
 import React from 'react';
+import $ from 'jquery';
 import Navbar from '../SharedComponents/navigation/NavigationComponent.jsx';
 import AddDataHeader from './AddDataHeader.jsx';
 import AddDataMeta from './AddDataMeta.jsx';
@@ -14,6 +15,18 @@ import Footer from '../SharedComponents/FooterComponent.jsx';
 export default class AddDataPage extends React.Component {
     constructor(props) {
         super(props);
+    }
+
+    componentDidUpdate(prevProps, prevState) {
+        if (prevProps.submission.meta.agency != this.props.submission.meta.agency) {
+            this.scrollToUpload();
+        }
+    }
+
+    scrollToUpload() {
+        $('html, body').animate({
+            scrollTop: $('[name=content-top]').offset().top
+        }, 500);
     }
 
     render() {
