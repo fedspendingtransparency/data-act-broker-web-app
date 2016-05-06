@@ -1,9 +1,17 @@
 @import './common';
-// @import './elements/daFontIcons';
+
+// ***** GLOBAL
+@import './global/header';
+@import './global/footer';
+
+// ***** PAGES
 @import './pages/login';
 @import './pages/registration';
 @import './pages/landing';
 @import './pages/addData';
 @import './pages/help';
 @import './pages/admin';
+
+
+// ***** COMPONENTS
 @import './components/datepicker/datepicker';

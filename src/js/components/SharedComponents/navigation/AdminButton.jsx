@@ -11,7 +11,7 @@ export default class AdminButton extends React.Component {
 		return (
 
 			<li className="usa-da-top-head-menu-item">
-	            <a className="logout usa-da-header-link usa-da-user-info" href="#/admin">Admin</a>
+	            <a className="logout usa-da-header-link usa-da-user-info usa-da-icon" href="#/admin"><Icons.Cog />Admin</a>
 	        </li>
 
 		);
