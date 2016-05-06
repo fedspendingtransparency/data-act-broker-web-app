@@ -68,9 +68,9 @@ export class Navbar extends React.Component {
                     <div className="row">
                         <div className="col-md-12 usa-da-top-head">
                             <div className="container">
-                                <ul className="usa-da-top-head-menu">
-                                    {adminButton}
+                                <ul className="usa-da-top-head-menu mr-15">
                                     {userButton}
+                                    {adminButton}
                                 </ul>
                             </div>
                         </div>

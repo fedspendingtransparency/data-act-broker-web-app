@@ -1,5 +1,8 @@
 @import './common';
 
+// ***** GLOBAL
+@import './global/header';
+@import './global/footer';
 
 // ***** PAGES
 @import './pages/login';
