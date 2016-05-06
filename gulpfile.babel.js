@@ -1,5 +1,6 @@
 import gulp from 'gulp';
 import connect from 'gulp-connect';
+import chalk from 'chalk';
 import sass from 'gulp-sass';
 import browserify from 'browserify';
 import watchify from 'watchify';
@@ -148,6 +149,9 @@ gulp.task('watch', ['fonts', 'images', 'graphics', 'docs', 'copyConstants', 'cop
             .pipe(sourcemaps.init({ loadMaps: !build }))
             .pipe(sourcemaps.write('.'))
             .pipe(gulp.dest((!build) ? dir.DEV : dir.PUBLIC))
+            .on('end', () => {
+                gutil.log(chalk.cyan('Reloading JS...'));
+            })
             .pipe(connect.reload());
     })
         .bundle().on('error', gutil.log)
@@ -197,16 +201,17 @@ gulp.task('minify', ['sass', 'watch', 'html-replace'], () => {
 
 gulp.task('reload', () => {
     connect.reload();
-})
+});
+
 
 gulp.task('serve', ['set-build', 'html-replace', 'sass', 'watch'], () => {
     gulp.watch([path.SASS_SRC, path.CSS_SRC], ['sass']);
     gulp.watch(['*.html'], ['reload']);
 
-    return connect.server({
+    connect.server({
         root: dir.PUBLIC,
-        livereload: true,
-        port: 3000
+        port: 3000,
+        livereload: true
     });
 });
 

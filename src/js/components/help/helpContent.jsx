@@ -14,6 +14,8 @@ export default class HelpContent extends React.Component {
     constructor(props) {
         super(props);
 
+        this.rssPromise = null;
+
         this.state = {
             rssUrl: ''
         };
@@ -21,16 +23,25 @@ export default class HelpContent extends React.Component {
 
     componentDidMount() {
         this.scrollToSection();
-        generateRSSUrl()
+        this.rssPromise = generateRSSUrl();
+        this.rssPromise.promise
             .then((url) => {
                 this.setState({
                     rssUrl: url
                 });
+
+                this.rssPromise = null;
             });
     }
 
     componentDidUpdate(prevProps, prevState) {
         this.scrollToSection();
+    }
+
+    componentWillUnmount() {
+        if (this.rssPromise) {
+            this.rssPromise.cancel();
+        }
     }
 
     scrollToSection() {
