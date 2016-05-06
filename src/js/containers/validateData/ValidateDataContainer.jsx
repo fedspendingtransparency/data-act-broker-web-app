@@ -131,7 +131,7 @@ class ValidateDataContainer extends React.Component {
 				this.checkForErrors();
 			})
 			.catch((err) => {
-				if (err.reason = 400) {
+				if (err.reason == 400) {
 					this.setState({
 						notYours: true
 					});
