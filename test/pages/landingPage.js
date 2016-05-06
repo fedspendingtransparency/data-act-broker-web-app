@@ -15,6 +15,9 @@ module.exports = {
 		},
 		userButton: {
 			selector: '.usa-da-top-head a.usa-da-header-link.dropdown-toggle'
+		},
+		navAddDataLink: {
+			selector: 'a.usa-da-header-link[href=\'#/addData\']'
 		}
 	}
 }

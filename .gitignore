@@ -46,6 +46,9 @@ __tests__/test-results
 test/globals.js
 test/reports
 
+# Ignore test files
+test/uploads
+
 # Ignore test bin
 test/bin
 
