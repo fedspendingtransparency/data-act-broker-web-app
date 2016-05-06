@@ -19,6 +19,35 @@ The following values are required:
 	* `user` - A broker account with user (not admin) privileges. Provide the username, password, and display name as `username`, `password`, and `name` child key-value pairs respectively.
 	* `admin` - A broker account with admin privileges. Provide the username, password, and display name as `username`, `password`, and `name` child key-value pairs respectively.
 
+* ` files` - See next section.
+
+## Sample Files
+
+You will also need to provide sample files that will be uploaded as part of the automated testing. These files should be located in an `uploads` folder inside the top-level `test` directory.
+
+The `globals.js` file contains a `files` array. Each item of the array should be an object:
+
+```
+{
+	"appropriations": "appropriationsFile.csv",
+	"programActivity": "programActivityFile.csv",
+	"awardFinancial": "awardFinancialFile.csv",
+	"award": "awardFile.csv"
+}
+
+```
+
+The value of each key should reference a file inside the `uploads` folder (for example, the appropriations file is at `uploads/appropriationsFile.csv`).
+
+The keys reference the following file types:
+
+* `appropriations` - Appropriation data
+* `programActivity` - Program activity and object class data
+* `awardFinancial` - Award financial data
+* `award` - Financial assistance award file
+
+Each object in the `files` array represents an upload attempt. Thus, the first object is the initial file submission. The second object represents the corrected files that will be uploaded when the initial uploads fail validation, etc.
+
 ## Running Tests
 
 In the `test` directory, run:

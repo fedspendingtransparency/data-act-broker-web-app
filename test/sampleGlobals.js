@@ -12,5 +12,25 @@ module.exports = {
 			password: "password",
 			name: "Display Name"
 		}
-	}
+	},
+	files: [
+		{
+			"appropriations": "",
+			"programActivity": "",
+			"awardFinancial": "",
+			"award": ""
+		},
+		{
+			"appropriations": "",
+			"programActivity": "",
+			"awardFinancial": "",
+			"award": ""
+		},
+		{
+			"appropriations": "",
+			"programActivity": "",
+			"awardFinancial": "",
+			"award": ""
+		}
+	]
 };

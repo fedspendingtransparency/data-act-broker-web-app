@@ -51,7 +51,6 @@ module.exports = {
 		uploadFilesPage
 			.uploadFiles(0);
 
-
 		// we need to wait some time after the files are placed because the autoscrolling behavior causes the upload button to move
 		// wait 800 ms for safety (scroll animation is 500ms)
 		client.pause(800);
@@ -60,6 +59,7 @@ module.exports = {
 		uploadFilesPage
 			.click('@uploadButton');
 
+		// confirm that we've entered the validation screen
 		client.waitForElementPresent("div[data-testid='validate-header-appropriations']");
 
 		client.end();
