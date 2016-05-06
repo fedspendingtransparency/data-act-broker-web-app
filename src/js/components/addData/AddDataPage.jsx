@@ -18,7 +18,7 @@ export default class AddDataPage extends React.Component {
     }
 
     componentDidUpdate(prevProps, prevState) {
-        if (prevProps.submission.meta.agency != this.props.submission.meta.agency) {
+        if (prevProps.submission.meta.agency != this.props.submission.meta.agency && this.props.submission.meta.agency != '') {
             this.scrollToUpload();
         }
     }
