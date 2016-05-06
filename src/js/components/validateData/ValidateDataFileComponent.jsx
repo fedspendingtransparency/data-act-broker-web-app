@@ -229,7 +229,7 @@ export default class ValidateDataFileComponent extends React.Component {
         }
 
         return (
-            <div className={"row center-block usa-da-validate-item" + successfulFade}>
+            <div className={"row center-block usa-da-validate-item" + successfulFade} data-testid={"validate-header-" + this.props.type.requestName}>
             <div className="col-md-12">
                 <div className="row usa-da-validate-item-top-section">
                     <div className="col-md-9 usa-da-validate-item-status-section">
