@@ -229,47 +229,47 @@ export default class ValidateDataFileComponent extends React.Component {
         }
 
         return (
-            <div className={"row center-block usa-da-validate-item" + successfulFade} data-testid={"validate-header-" + this.props.type.requestName}>
-            <div className="col-md-12">
-                <div className="row usa-da-validate-item-top-section">
-                    <div className="col-md-9 usa-da-validate-item-status-section">
-                        <div className="row usa-da-validate-item-header">
-                            <div className="col-md-6">
-                                <h4>{this.props.type.fileTitle}</h4>
+            <div className={"row center-block usa-da-validate-item" + successfulFade} data-testid={"validate-wrapper-" + this.props.type.requestName}>
+                <div className="col-md-12">
+                    <div className="row usa-da-validate-item-top-section">
+                        <div className="col-md-9 usa-da-validate-item-status-section">
+                            <div className="row usa-da-validate-item-header">
+                                <div className="col-md-6">
+                                    <h4>{this.props.type.fileTitle}</h4>
+                                </div>
+                                <div className="col-md-3">
+                                    <p>File Size: {this.displayFileMeta().size}</p>
+                                </div>
+                                <div className="col-md-3">
+                                    <p className="pr-20">Rows: {this.displayFileMeta().rows}</p>
+                                </div>
                             </div>
-                            <div className="col-md-3">
-                                <p>File Size: {this.displayFileMeta().size}</p>
+                            <div className="row usa-da-validate-item-body">
+                                <div className="col-md-12 usa-da-validate-item-message usa-da-validate-txt-wrap" data-testid="validate-message">{this.state.headerTitle}</div>
                             </div>
-                            <div className="col-md-3">
-                                <p className="pr-20">Rows: {this.displayFileMeta().rows}</p>
+                            <div className="row usa-da-validate-item-footer-wrapper">
+                                <div className={"usa-da-validate-item-footer usa-da-header-error" + showFooter +" "+footerStatus} onClick={this.toggleErrorReport.bind(this)}>
+                                    <div>View &amp; Download Header Error Report <span className={"usa-da-icon"}>{chevronDirection}</span></div>
+                                </div>
                             </div>
                         </div>
-                        <div className="row usa-da-validate-item-body">
-                            <div className="col-md-12 usa-da-validate-item-message usa-da-validate-txt-wrap">{this.state.headerTitle}</div>
-                        </div>
-                        <div className="row usa-da-validate-item-footer-wrapper">
-                            <div className={"usa-da-validate-item-footer usa-da-header-error" + showFooter +" "+footerStatus} onClick={this.toggleErrorReport.bind(this)}>
-                                <div>View &amp; Download Header Error Report <span className={"usa-da-icon"}>{chevronDirection}</span></div>
-                            </div>
-                        </div>
-                    </div>
 
-                    <div className="col-md-3">
+                        <div className="col-md-3">
                             <div className="usa-da-validate-item-file-section">
                                 <div className="usa-da-validate-item-file-section-result">
-                                    <div className="usa-da-icon">
+                                    <div className="usa-da-icon" data-testid="validate-icon">
                                         {this.displayIcon()}
                                     </div>
                                 </div>
                                 {uploadProgress}
                                 <div className="usa-da-validate-item-file-name">{fileName}</div>
-                                <div className={"usa-da-validate-item-file-section-correct-button" + disabledCorrect}>
+                                <div className={"usa-da-validate-item-file-section-correct-button" + disabledCorrect} data-testid="validate-upload">
                                     <ValidateDataUploadButton onDrop={this.props.onFileChange} />
                                 </div>
                             </div>
                         </div>
                     </div>
-                {this.state.showError ? <ValidateDataErrorReport link={this.props.item.report} data={this.state.errorReports} /> : null}
+                    {this.state.showError ? <ValidateDataErrorReport link={this.props.item.report} data={this.state.errorReports} /> : null}
                 </div>
             </div>
         );

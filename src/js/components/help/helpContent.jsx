@@ -5,9 +5,9 @@
 
 import React from 'react';
 import $ from 'jquery';
-import { fetchStaticAssetPath, generateRSSUrl } from '../../helpers/util.js';
+import { generateRSSUrl } from '../../helpers/util.js';
 
-let gifSrc = fetchStaticAssetPath() + 'graphics/reportabug.gif';
+let gifSrc = 'graphics/reportabug.gif';
 
 export default class HelpContent extends React.Component {
 
