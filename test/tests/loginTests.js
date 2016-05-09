@@ -3,6 +3,8 @@ module.exports = {
 	'Display error message when provided a nonexistent account': (client) => {
 		const loginPage = client.page.loginPage();
 
+		client.maximizeWindow();
+
 		loginPage
 			.navigate()
 			.login("fakeuser@inter.net", "badpass")
@@ -28,6 +30,8 @@ module.exports = {
 	'Admin button appears when an admin user logs in': (client) => {
 		const loginPage = client.page.loginPage();
 		const landingPage = client.page.landingPage();
+
+		client.maximizeWindow();
 
 		loginPage
 			.navigate()

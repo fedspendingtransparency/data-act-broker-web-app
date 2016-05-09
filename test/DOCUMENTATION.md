@@ -4,6 +4,7 @@
 
 1. On some versions of Linux, you may need to install `bzip2` using the appropriate package manager for your OS.
 2. You will also need to have Java installed in order to run Selenium and its webdrivers.
+3. You will also need NodeJS 4.x installed.
 
 ## Installation
 

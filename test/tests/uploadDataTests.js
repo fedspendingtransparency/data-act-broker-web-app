@@ -4,6 +4,8 @@ module.exports = {
 		// login
 		const loginPage = client.page.loginPage();
 
+		client.maximizeWindow();
+
 		loginPage
 			.navigate()
 			.login(client.globals.accounts.admin.username, client.globals.accounts.admin.password)
