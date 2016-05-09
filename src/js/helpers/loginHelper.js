@@ -53,15 +53,29 @@ export const fetchActiveUser = () => {
     return deferred.promise;
 }
 
-export const performLogin = (username, password) => {
-	
-	const deferred = Q.defer();
-	const store = new StoreSingleton().store;
-
+const establishSession = (responseHeaders) => {
 	const cookieOpts = {
 		expires: 7,
 		path: '/'
 	};
+
+	// lowercase all the headers
+	const headers = {};
+	for (let headerKey in responseHeaders) {
+		headers[headerKey.toLowerCase()] = _.clone(responseHeaders[headerKey]);
+	}
+
+	// check to see if we received a session header
+	if (headers.hasOwnProperty('x-session-id')) {
+		// we did, save it in a cookie
+		Cookies.set('session', headers['x-session-id'], cookieOpts);
+	}
+}
+
+export const performLogin = (username, password) => {
+	
+	const deferred = Q.defer();
+	const store = new StoreSingleton().store;
 
 	Request.post(kGlobalConstants.API + 'login/')
            .send({ 'username': username, 'password': password })
@@ -81,28 +95,17 @@ export const performLogin = (username, password) => {
 						deferred.reject(err);
 					}
 				} else {
-					// set the login state cookie that expires in 15 minutes
+					
 					Cookies.set('brokerLogin', Date.now(), {expires: (1/(24*4))});
 
-					// lowercase all the headers
-					const headers = {};
-					for (let headerKey in res.headers) {
-						headers[headerKey.toLowerCase()] = _.clone(res.headers[headerKey]);
-					}
-
-					// check to see if we received a session header
-					if (headers.hasOwnProperty('x-session-id')) {
-						// we did, save it in a cookie
-						Cookies.set('session', headers['x-session-id'], cookieOpts);
-
-						// check if cookies could be set
-						if (!Cookies.get('session')) {
-							// couldn't set cookie, fail this request and notify the user
-							const action = sessionActions.setLoginState('failed');
-							store.dispatch(action);
-							deferred.reject('cookie');
-							return;
-						}
+					establishSession(res.headers);
+					// check if cookies could be set
+					if (!Cookies.get('session')) {
+						// couldn't set cookie, fail this request and notify the user
+						const action = sessionActions.setLoginState('failed');
+						store.dispatch(action);
+						deferred.reject('cookie');
+						return;
 					}
 					
 					fetchActiveUser(store)
@@ -205,6 +208,7 @@ export const lookupEmailToken = (token) => {
 			if (err) {
 				deferred.reject(err);
 			} else {
+				establishSession(res.headers);
 				const action = registrationActions.setErrors(res.body);
 				store.dispatch(action);
 				deferred.resolve(res.body);
@@ -219,7 +223,6 @@ export const registerAccount = (account) => {
 	const deferred = Q.defer();
 
 	Request.post(kGlobalConstants.API + 'register/')
-		.set('X-Session-ID', Cookies.get('session'))
 		.send(account)
 		.end((err) => {
 			if (err) {
@@ -278,6 +281,7 @@ export const lookupPasswordToken = (token) => {
 		    if (err) {
 		        deferred.reject(err);
 		    } else {
+		    	establishSession(res.headers);
 		    	deferred.resolve(res.body);
 		    }
 		});
