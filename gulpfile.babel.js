@@ -117,7 +117,16 @@ gulp.task('docs', () => {
 
 // Use the proper constants file and move to src
 gulp.task('copyConstants', () => {
-    return gulp.src(!environmentConstants ? path.LOCAL_CONSTANTS : ((environmentConstants === 1) ? path.DEV_CONSTANTS : path.PROD_CONSTANTS))
+
+    let constantsPath = path.PROD_CONSTANTS;
+    if (environmentConstants == environmentConstantsEnum.DEV || environmentConstants == environmentConstantsEnum.DEVHOSTED) {
+        constantsPath = path.DEV_CONSTANTS;
+    }
+    else if (environmentConstants == environmentConstantsEnum.LOCAL) {
+        constantsPath = path.LOCAL_CONSTANTS;
+    }
+
+    return gulp.src(constantsPath)
         .pipe(rename(path.CONSTANTS_DESTNAME))
         .pipe(gulp.dest(path.CONSTANTS_DEST));
 });
