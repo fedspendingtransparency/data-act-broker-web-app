@@ -23,7 +23,8 @@ const defaultProps = {
     inputClass: '',
     inputPlaceholder: '',
     inputLabel: '',
-    error: false
+    error: false,
+    tabIndex: null
 };
 
 // A standard text input for submission that we can further turn into a sharable component
@@ -49,6 +50,7 @@ export default class TextInput extends React.Component {
                 placeholder={this.props.inputPlaceholder}
                 aria-describedby={this.props.inputName}
                 onChange={this.props.handleChange}
+                tabIndex={this.props.tabIndex}
               />
           </div>
       );
