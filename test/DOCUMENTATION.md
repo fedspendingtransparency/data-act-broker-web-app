@@ -1,5 +1,10 @@
 # End-to-End Tests
 
+## Prerequisites
+
+1. On some versions of Linux, you may need to install `bzip2` using the appropriate package manager for your OS.
+2. You will also need to have Java installed in order to run Selenium and its webdrivers.
+
 ## Installation
 
 1. Install Nightwatch.js globally using NPM: `[sudo] npm install -g nightwatch`.
