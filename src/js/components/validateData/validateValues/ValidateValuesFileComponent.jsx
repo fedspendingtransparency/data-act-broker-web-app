@@ -179,7 +179,7 @@ export default class ValidateDataFileComponent extends React.Component {
         
 
         return (
-            <div className="row center-block usa-da-validate-item">
+            <div className="row center-block usa-da-validate-item" data-testid={"validate-wrapper-" + this.props.type.requestName}>
                     <div className="col-md-12">
                         <div className="row usa-da-validate-item-top-section">
                             <div className="col-md-9 usa-da-validate-item-status-section">
@@ -227,13 +227,13 @@ export default class ValidateDataFileComponent extends React.Component {
         
                             <div className="col-md-3 usa-da-validate-item-file-section">
                                         <div className="usa-da-validate-item-file-section-result">
-                                            <div className="usa-da-icon">
+                                            <div className="usa-da-icon" data-testid="validate-icon">
                                                 {this.displayIcon()}
                                             </div>
                                         </div>
                                 <div className="row usa-da-validate-item-file-name">{fileName}</div>
                                 {uploadProgress}
-                                <div className="row usa-da-validate-item-file-section-correct-button">
+                                <div className="row usa-da-validate-item-file-section-correct-button" data-testid="validate-upload">
                                     <ValidateDataUploadButton optional={optionalUpload} onDrop={this.props.onFileChange} text={uploadText} />
                                 </div>
                             </div>

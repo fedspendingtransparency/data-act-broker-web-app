@@ -75,7 +75,7 @@ export default class ValidateValuesOverlay extends React.Component {
 
 
 		return (
-			<div className="center-block usa-da-validation-overlay">
+			<div className="center-block usa-da-validation-overlay" data-testid="validate-value-overlay">
 				<div className="container">
 					<div className="row">
 						<div className="col-md-8 usa-da-overlay-content-wrap">
@@ -90,8 +90,8 @@ export default class ValidateValuesOverlay extends React.Component {
 						</div>
 						<div className="col-md-4">
 							<div className='usa-da-btn-bg'>
-								<button className={"usa-da-button" + uploadButtonClass} disabled={uploadButtonDisabled} onClick={this.props.uploadFiles}>{buttonText}</button>
-								<button className={"usa-da-validation-overlay-review usa-da-button" + nextButtonClass} disabled={nextButtonDisabled} onClick={this.pressedNext.bind(this)}>Review</button>
+								<button className={"usa-da-button" + uploadButtonClass} disabled={uploadButtonDisabled} onClick={this.props.uploadFiles} data-testid="validate-overlay-upload-button">{buttonText}</button>
+								<button className={"usa-da-validation-overlay-review usa-da-button" + nextButtonClass} disabled={nextButtonDisabled} onClick={this.pressedNext.bind(this)} data-testid="validate-overlay-review-button">Review</button>
 							</div>
 						</div>
 					</div>
