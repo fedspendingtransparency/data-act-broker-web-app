@@ -39,7 +39,7 @@ export default class ValidateValuesOverlay extends React.Component {
 		let nextButtonDisabled = true;
 		if (this.props.allowUpload) {
 			uploadButtonDisabled = false;
-			uploadButtonClass = '';
+			uploadButtonClass = ' btn-primary';
 		}
 
 
@@ -50,12 +50,12 @@ export default class ValidateValuesOverlay extends React.Component {
 			message = 'No Critical Errors were found in the .CSV files. Click Review to review and publish these files.';
 			uploadButtonDisabled = true;
 			uploadButtonClass = '-disabled';
-			nextButtonClass = '';
+			nextButtonClass = ' btn-primary';
 			nextButtonDisabled = false;
 
 			if (this.isUploadingFiles()) {
 				uploadButtonDisabled = false;
-				uploadButtonClass = '';
+				uploadButtonClass = ' btn-primary';
 			}
 
 

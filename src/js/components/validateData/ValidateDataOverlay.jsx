@@ -14,23 +14,27 @@ export default class ValidateDataOverlay extends React.Component {
 
 	render() {
 
-		let buttonDisabled = '-disabled';
+		let buttonDisabled = true;
+		let buttonClass = '-disabled';
 		if (Object.keys(this.props.submission.files).length == this.props.errors.length) {
-			buttonDisabled = '';
+			buttonClass = ' btn-primary';
+			buttonDisabled = false;
 		}
 
 		let buttonText = 'Upload Corrected CSV Files';
 		if (this.props.submission.state == 'uploading') {
-			buttonDisabled = '-disabled';
+			buttonClass = '-disabled';
+			buttonDisabled = true;
 			buttonText = 'Uploading files...';
 		}
 		else if (this.props.submission.state == 'prepare') {
-			buttonDisabled = '-disabled';
+			buttonClass = '-disabled';
+			buttonDisabled = true;
 			buttonText = 'Gathering data...';
 		}
 
 		return (
-			<div className="center-block usa-da-validation-overlay">
+			<div className="center-block usa-da-validation-overlay" data-testid="validate-header-overlay">
 				<div className="container">
 					<div className="row">
 						<div className="col-md-9 usa-da-overlay-content-wrap">
@@ -45,7 +49,7 @@ export default class ValidateDataOverlay extends React.Component {
 						</div>
 						<div className="col-md-3">
 							<div className='usa-da-btn-bg'>
-								<button className={"usa-button" + buttonDisabled} disabled={false} onClick={this.props.uploadFiles}>{buttonText}</button>
+								<button className={"usa-button" + buttonClass} disabled={buttonDisabled} onClick={this.props.uploadFiles} data-testid="validate-overlay-upload-button">{buttonText}</button>
 							</div>
 						</div>
 					</div>
