@@ -55,9 +55,9 @@ export default class HelpContent extends React.Component {
     render() {
         return (
             <div className="usa-da-help-content">
-                <p>Welcome to the DATA Act Broker – Alpha release. This release is a <a href="https://en.wikipedia.org/wiki/Minimum_viable_product" target="_blank">Minimum Viable Product</a> and represents just enough functionality so that we can gather critical user feedback to determine the direction and implementation of future features. This version of the Broker is aligned to the <a href={this.state.rssUrl} target="_blank">Draft Reporting Submission Specification (Draft RSS v1.0)</a>.</p>
+                <p>Welcome to the DATA Act Broker – Alpha Release. This release is a <a href="https://en.wikipedia.org/wiki/Minimum_viable_product" target="_blank">Minimum Viable Product</a> and represents just enough functionality so that we can gather critical user feedback to determine the direction and implementation of future features. This version of the Broker aligns with <a href={this.state.rssUrl} target="_blank">Reporting Submission Specification (RSS v1.0)</a>.</p>
 
-                <h2>Whats New in This Version</h2>
+                <h2>Whats New in This Release</h2>
 
                 <p>In this version of the Broker, you will be able to upload and run basic validations on your data, as many times as you want. All data will only be stored in a test database, and will not be released anywhere. Although you cannot save your submissions or submit finalized data yet, those features are coming in future versions.</p>
 
@@ -74,13 +74,13 @@ export default class HelpContent extends React.Component {
                 </ul>
 
                 <h4 name="dataElements">Updated Data Elements and Validations</h4>
-                <p>This version of the Broker is aligned with the <a href={this.state.rssUrl} target="_blank">Draft Reporting Submission Specification (RSS) v1.0</a>. This means that basic field validations, including type, required/optional, and field length will be validated. Additionally, conditional validations have been implemented, so fields that are only required if other conditions are met will be validated correctly. For example, if ParentAwardID is populated, ParentAwardAgencyID must also be populated.</p>
+                <p>This version of the Broker aligns with the <a href={this.state.rssUrl} target="_blank">Reporting Submission Specification (RSS) v1.0</a>. This means that basic field validations, including type, required/optional, and field length will be validated. Additionally, conditional validations have been implemented, so fields that are only required if other conditions are met will be validated correctly. For example, if FAIN and PIID are not populated, the URI must be populated.</p>
 
                 <p>Validations that connect to external systems (such as GTAS), as well as calculated cross-file validations will be coming over the next few weeks.</p>
 
                 <h4 name="accounts">Individual User Accounts</h4>
 
-                <p>You can create your individual account based on your .gov email address. Once you submit your account request, you will receive an email with a link to confirm your account and set your password. After you confirm your account, your request will be reviewed by DATA Act PMO staff and granted access.</p>
+                <p>You can create your individual account based on your .gov email address. Once you submit your account request, you will receive an email with a link to confirm your account and set your password. After you confirm your account, DATA Act PMO staff will review your request and grant access.</p>
 
                 <p>In future iterations, we will be implementing hierarchical user roles by agency, so that each agency may have administrative accounts that can add and remove users for their own agency.</p>
 
@@ -112,7 +112,7 @@ export default class HelpContent extends React.Component {
                 </p> 
 
 
-                <p>If you need assistance using the Broker, or would like to schedule a workshop, please contact the DATA Act Helpdesk: <a href="ma&#105;l&#116;o&#58;da&#116;abroke%72%40fis%6&#51;a%6&#67;&#46;&#116;&#114;&#37;65%&#54;1sur%7&#57;%2&#69;gov">databroker@fiscal.treasury.gov</a>.</p>
+                <p>If you need assistance using the Broker please email <a href="ma&#105;l&#116;o&#58;da&#116;abroke%72%40fis%6&#51;a%6&#67;&#46;&#116;&#114;&#37;65%&#54;1sur%7&#57;%2&#69;gov">databroker@fiscal.treasury.gov</a>. To schedule a workshop, please contact the DATA Act PMO Office: <a href="mailto:datapmo@fiscal.treasury.gov">DATAPMO@fiscal.treasury.gov</a></p>
             </div>
         );
     }

@@ -9,7 +9,7 @@ export default class HelpSidebar extends React.Component {
     render() {
         return (
             <div className="usa-da-help-sidebar">
-                <h6>What’s New in This Version</h6>
+                <h6>What’s New in This Release</h6>
                 <ul>
                     <li>
                         <a href="/#/help?section=dataElements">Updated Data Elements and Validations</a>
