@@ -8,7 +8,7 @@ module.exports = {
 		loginPage
 			.navigate()
 			.login("fakeuser@inter.net", "badpass")
-			.expect.element("@errorMessage").text.to.equal('user name and or password invalid');
+			.expect.element("@errorMessage").text.to.equal('Invalid username and/or password');
 
 		client.end();
 	},
