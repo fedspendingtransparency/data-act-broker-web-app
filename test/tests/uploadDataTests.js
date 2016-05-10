@@ -62,7 +62,7 @@ module.exports = {
 			.click('@uploadButton');
 
 		// confirm that we've entered the validation screen
-		client.waitForElementPresent("div[data-testid='validate-header-appropriations']");
+		client.waitForElementPresent("div[data-testid='validate-wrapper-appropriations']");
 
 		client.end();
 
