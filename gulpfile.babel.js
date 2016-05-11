@@ -117,7 +117,16 @@ gulp.task('docs', () => {
 
 // Use the proper constants file and move to src
 gulp.task('copyConstants', () => {
-    return gulp.src(!environmentConstants ? path.LOCAL_CONSTANTS : ((environmentConstants === 1) ? path.DEV_CONSTANTS : path.PROD_CONSTANTS))
+
+    let constantsPath = path.PROD_CONSTANTS;
+    if (environmentConstants == environmentConstantsEnum.DEV || environmentConstants == environmentConstantsEnum.DEVHOSTED) {
+        constantsPath = path.DEV_CONSTANTS;
+    }
+    else if (environmentConstants == environmentConstantsEnum.LOCAL) {
+        constantsPath = path.LOCAL_CONSTANTS;
+    }
+
+    return gulp.src(constantsPath)
         .pipe(rename(path.CONSTANTS_DESTNAME))
         .pipe(gulp.dest(path.CONSTANTS_DEST));
 });
@@ -202,6 +211,7 @@ gulp.task('minify', ['sass', 'watch', 'html-replace'], () => {
 gulp.task('reload', () => {
     connect.reload();
 });
+
 
 gulp.task('serve', ['set-build', 'html-replace', 'sass', 'watch'], () => {
     gulp.watch([path.SASS_SRC, path.CSS_SRC], ['sass']);

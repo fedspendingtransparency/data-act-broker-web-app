@@ -102,7 +102,7 @@ export default class ReviewDataContent extends React.Component {
                 <div className="container">
                     <div className="row center-block mt-60">
                         <div className="col-md-12 text-center mb-30">
-                            <h5 className="text-success">Congratulations your data has been successfully validated! Now, what would you like to do with it?</h5>
+                            <h5 className="text-success" data-testid="review-header">Congratulations your data has been successfully validated! Now, what would you like to do with it?</h5>
                         </div>
                     </div>
                     <div className="row center-block usa-da-review-data-content-holder">

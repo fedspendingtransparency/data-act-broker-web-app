@@ -16,7 +16,7 @@ export default class ErrorMessage extends React.Component {
                 <div className="alert alert-error mt-40 mb-0" role="alert">
                     <span className="usa-da-icon"><Icons.ExclamationCircle /></span>
                     <h3>Error</h3>
-                    <p>{this.props.message}</p>
+                    <p data-testid="errormessage">{this.props.message}</p>
                 </div>
         );
     }
