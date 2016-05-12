@@ -39,7 +39,26 @@ export default class ValidateValuesOverlay extends React.Component {
 		let nextButtonDisabled = true;
 		if (this.props.allowUpload) {
 			uploadButtonDisabled = false;
-			uploadButtonClass = '';
+			uploadButtonClass = ' btn-primary';
+		}
+
+
+		let message = 'You must fix the Critical Errors found in ' + this.props.errors.length + ' of the .CSV files before moving on to the next step. View and download individual reports above.';
+
+		if (this.props.errors.length == 0) {
+
+			message = 'No Critical Errors were found in the .CSV files. Click Review to review and publish these files.';
+			uploadButtonDisabled = true;
+			uploadButtonClass = '-disabled';
+			nextButtonClass = ' btn-primary';
+			nextButtonDisabled = false;
+
+			if (this.isUploadingFiles()) {
+				uploadButtonDisabled = false;
+				uploadButtonClass = ' btn-primary';
+			}
+
+
 		}
 
 		let buttonText = 'Upload Corrected CSV Files';
@@ -54,26 +73,9 @@ export default class ValidateValuesOverlay extends React.Component {
 			buttonText = 'Gathering data...';
 		}
 
-		let message = 'You must fix the Critical Errors found in ' + this.props.errors.length + ' of the .CSV files before moving on to the next step. View and download individual reports above.';
-
-		if (this.props.errors.length == 0) {
-
-			message = 'No Critical Errors were found in the .CSV files. Click Review to review and publish these files.';
-			uploadButtonDisabled = true;
-			uploadButtonClass = '-disabled';
-			nextButtonClass = '';
-			nextButtonDisabled = false;
-
-			if (this.isUploadingFiles()) {
-				uploadButtonDisabled = false;
-				uploadButtonClass = '';
-			}
-
-		}
-
 
 		return (
-			<div className="center-block usa-da-validation-overlay">
+			<div className="center-block usa-da-validation-overlay" data-testid="validate-value-overlay">
 				<div className="container">
 					<div className="row">
 						<div className="col-md-8 usa-da-overlay-content-wrap">
@@ -88,8 +90,8 @@ export default class ValidateValuesOverlay extends React.Component {
 						</div>
 						<div className="col-md-4">
 							<div className='usa-da-btn-bg'>
-								<button className={"usa-da-button" + uploadButtonClass} disabled={uploadButtonDisabled} onClick={this.props.uploadFiles}>{buttonText}</button>
-								<button className={"usa-da-validation-overlay-review usa-da-button" + nextButtonClass} disabled={nextButtonDisabled} onClick={this.pressedNext.bind(this)}>Review</button>
+								<button className={"usa-da-button" + uploadButtonClass} disabled={uploadButtonDisabled} onClick={this.props.uploadFiles} data-testid="validate-overlay-upload-button">{buttonText}</button>
+								<button className={"usa-da-validation-overlay-review usa-da-button" + nextButtonClass} disabled={nextButtonDisabled} onClick={this.pressedNext.bind(this)} data-testid="validate-overlay-review-button">Review</button>
 							</div>
 						</div>
 					</div>

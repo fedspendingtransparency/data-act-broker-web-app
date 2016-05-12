@@ -24,7 +24,7 @@ export default class DropZone extends React.Component {
         let displayMode = "pending";
         let progress = 0;
         let dropped = '';
-
+        
         if (this.props.submission.files.hasOwnProperty(this.props.requestName)) {
             const submissionItem = this.props.submission.files[this.props.requestName];
             dropped = ' dropped';
@@ -53,7 +53,7 @@ export default class DropZone extends React.Component {
         dropzoneString = DOMPurify.sanitize(dropzoneString, {ALLOWED_TAGS: ['b']});
 
         return (
-            <Dropzone className={"usa-da-dropzone text-center" + dropped} activeClassName="active" multiple={false} onDrop={this.props.onDrop}>
+            <Dropzone className={"usa-da-dropzone text-center" + dropped} activeClassName="active" multiple={false} onDrop={this.props.onDrop} data-testid={"upload-" + this.props.requestName}>
                 <DropZoneDisplay displayMode={displayMode} string={dropzoneString} progress={progress} />
             </Dropzone>
         );

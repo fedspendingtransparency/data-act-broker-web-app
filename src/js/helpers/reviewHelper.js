@@ -1,4 +1,4 @@
-import Request from 'superagent';
+import Request from './sessionSuperagent.js';
 import Q from 'q';
 import AWS from 'aws-sdk';
 import { dispatch } from 'redux';
@@ -16,7 +16,6 @@ export const fetchStatus = (submissionId) => {
 	const deferred = Q.defer();
 
 	Request.post(kGlobalConstants.API + 'check_status/')
-	        .withCredentials()
 	        .send({'submission_id': submissionId})
 	        .end((errFile, res) => {
 
@@ -39,7 +38,6 @@ export const fetchErrorReports = (submissionId) => {
 	const deferred = Q.defer();
 
 	Request.post(kGlobalConstants.API + 'submission_error_reports/')
-			.withCredentials()
 			.send({'submission_id': submissionId})
 			.end((errFile, res) => {
 

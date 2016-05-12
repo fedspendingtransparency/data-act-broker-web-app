@@ -10,18 +10,29 @@ export default class AddDataHeader extends React.Component {
     constructor(props) {
         super(props);
 
+        this.rssPromise = null;
+
         this.state = {
             rssUrl: ''
         };
     }
 
     componentDidMount() {
-        generateRSSUrl()
+        this.rssPromise = generateRSSUrl();
+        this.rssPromise.promise
             .then((url) => {
                 this.setState({
                     rssUrl: url
                 });
+
+                this.rssPromise = null;
             });
+    }
+
+    componentWillUnmount() {
+        if (this.rssPromise) {
+            this.rssPromise.cancel();
+        }
     }
 
     render() {

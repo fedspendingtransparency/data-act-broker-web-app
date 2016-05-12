@@ -4,12 +4,12 @@
  **/
 
 import React, { PropTypes } from 'react';
+import $ from 'jquery';
 import { kGlobalConstants } from '../../GlobalConstants.js';
 import SubmitButton from '../SharedComponents/SubmitButton.jsx';
 import ReviewDataContentRow from './ReviewDataContentRow.jsx';
 import ReviewDataButton from './ReviewDataButton.jsx';
 import moment from 'moment';
-import Request from 'superagent';
 
 import * as ReviewHelper from '../../helpers/reviewHelper.js';
 import * as Icons from '../SharedComponents/icons/Icons.jsx';
@@ -38,7 +38,9 @@ export default class ReviewDataContent extends React.Component {
         ReviewHelper.fetchStatus(this.props.submissionID)
             .then((data) => {
                 data.ready = true;
-                this.setState(data);
+                this.setState(data, () => {
+                    this.scrollToContent();
+                });
             })
             .catch((error) => {
                 console.log(error);
@@ -47,6 +49,12 @@ export default class ReviewDataContent extends React.Component {
 
     componentDidMount() {
         this.getSubmissionData();
+    }
+
+    scrollToContent() {
+        $('html, body').animate({
+            scrollTop: $('[name=content-top]').offset().top
+        }, 500);
     }
 
     render() {
@@ -94,7 +102,7 @@ export default class ReviewDataContent extends React.Component {
                 <div className="container">
                     <div className="row center-block mt-60">
                         <div className="col-md-12 text-center mb-30">
-                            <h5 className="text-success">Congratulations your data has been successfully validated! Now, what would you like to do with it?</h5>
+                            <h5 className="text-success" data-testid="review-header">Congratulations your data has been successfully validated! Now, what would you like to do with it?</h5>
                         </div>
                     </div>
                     <div className="row center-block usa-da-review-data-content-holder">

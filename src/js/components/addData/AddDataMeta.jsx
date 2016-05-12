@@ -156,7 +156,7 @@ export default class AddDataMeta extends React.Component {
                                 <h6 className="mb-20">Please provide the following information about the report you will be creating.</h6>
                                 <div className="meta-holder">
                                     <div className="row">
-                                        <div className="col-sm-12 col-md-12 typeahead-holder">
+                                        <div className="col-sm-12 col-md-12 typeahead-holder" data-testid="agencytypeahead">
                                             <Typeahead values={AgencyHelper.agencies} placeholder="Enter the name of the reporting agency" onSelect={this.handleChange.bind(this)} customClass={agencyClass} />
                                                 <div className={"usa-da-icon " + agencyClass}>
                                                     {agencyIcon}
@@ -181,7 +181,7 @@ export default class AddDataMeta extends React.Component {
                                     </div>
 
                                     <div className="row">
-                                        <div className="col-sm-12 text-right mt-20">
+                                        <div className="col-sm-12 text-right mt-20" data-testid="submitbutton">
                                             <SubmitButton onClick={this.submitMetadata.bind(this)} className="usa-da-button btn-primary btn-lg" buttonText="Submit" buttonDisabled={this.state.buttonDisabled} />
                                         </div>
                                     </div>

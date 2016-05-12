@@ -49,7 +49,7 @@ export default class LoginPanel extends React.Component {
         let errorMessageComponent = null;
 
         if (this.props.session.login == "failed") {
-            errorMessageComponent = <ErrorMessage message={"Username or password is incorrect"} />;
+            errorMessageComponent = <ErrorMessage message={this.props.errorMessage} />;
         }
 
 
@@ -58,12 +58,12 @@ export default class LoginPanel extends React.Component {
                 <form onKeyPress={this.handleKeyPress.bind(this)}>
                     <div className="row">
                         <div className="col-md-12">
-                            <Username handleChange={this.handleUsernameChange.bind(this)} />
+                            <Username handleChange={this.handleUsernameChange.bind(this)} tabIndex="1" />
                         </div>
                     </div>
                     <div className="row">
                         <div className="col-md-12">
-                            <Password handleChange={this.handlePasswordChange.bind(this)} />
+                            <Password handleChange={this.handlePasswordChange.bind(this)} tabIndex="2" />
                         </div>
                     </div>
                     <div className="row">

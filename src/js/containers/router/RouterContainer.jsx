@@ -8,7 +8,6 @@ import ReactDOM from 'react-dom';
 import { kGlobalConstants } from '../../GlobalConstants.js';
 import { Router, Route, Link, hashHistory } from 'react-router';
 
-import Request from 'superagent';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import * as sessionActions from '../../redux/actions/sessionActions.js';

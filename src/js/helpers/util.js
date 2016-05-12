@@ -1,31 +1,35 @@
 import AWS from 'aws-sdk';
 import Q from 'q';
 import { kGlobalConstants } from '../GlobalConstants.js';
-import Request from 'superagent';
-
-export const fetchStaticAssetPath = () => {
-	let imgSrc = '';
-	if (kGlobalConstants.DEV) {
-    	imgSrc = 'dev/';
-	}
-	return imgSrc;
-};
+import Request from './sessionSuperagent.js';
 
 export const generateRSSUrl = () => {
+
+	let isCanceled = false;
 
 	const deferred = Q.defer();
 
 	Request.get(kGlobalConstants.API + 'get_rss/')
-		.withCredentials()
 		.send()
 		.end((err, res) => {
-			if (err) {
-				deferred.reject(err);
+
+			if (isCanceled) {
+				deferred.reject('canceled');
 			}
 			else {
-				deferred.resolve(res.body.rss_url);
+				if (err) {
+					deferred.reject(err);
+				}
+				else {
+					deferred.resolve(res.body.rss_url);
+				}
 			}
-		})
+		});
 
-	return deferred.promise;
+	return {
+		promise: deferred.promise,
+		cancel: () => {
+			isCanceled = true;
+		}
+	}
 }

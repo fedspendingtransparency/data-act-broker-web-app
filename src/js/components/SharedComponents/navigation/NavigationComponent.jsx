@@ -5,9 +5,9 @@
 
 import React, { PropTypes } from 'react';
 import { kGlobalConstants } from '../../../GlobalConstants.js';
-import Request from 'superagent';
 import NavbarTab from './NavbarTab.jsx';
 import UserButton from './UserButton.jsx';
+import AdminButton from './AdminButton.jsx';
 
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
@@ -43,17 +43,16 @@ export class Navbar extends React.Component {
         const context = this;
         const userText = this.props.session.user === '' ? '' : this.props.session.user.name;
 
-        if (this.props.session.admin) {
-            tabNames['Admin'] = 'admin';
-        }
-
-        let userButton = "";
+        let userButton = null;
         if (this.props.session.login == "loggedIn") {
             userButton = <UserButton buttonText={userText} logout={this.logout.bind(this)} />;
         }
 
+        let adminButton = null;
+        if (this.props.session.admin) {
+            adminButton = <AdminButton />
+        }
 
-        // TODO: Remove admin once redux is in place
         Object.keys(tabNames).map((key) => {
             headerTabs.push(<NavbarTab key={tabNames[key]} name={key} class={tabNames[key]} activeTabClassName={context.props.activeTab} />);
         });
@@ -69,7 +68,10 @@ export class Navbar extends React.Component {
                     <div className="row">
                         <div className="col-md-12 usa-da-top-head">
                             <div className="container">
-                                {userButton}
+                                <ul className="usa-da-top-head-menu mr-15">
+                                    {userButton}
+                                    {adminButton}
+                                </ul>
                             </div>
                         </div>
                     </div>

@@ -5,7 +5,6 @@
 
 import React, { PropTypes } from 'react';
 import { kGlobalConstants } from '../../GlobalConstants.js';
-import Request from 'superagent';
 import _ from 'lodash';
 import TextInputComponent from '../SharedComponents/TextInputComponent.jsx';
 import Progress from '../SharedComponents/ProgressComponent.jsx';
@@ -228,6 +227,7 @@ export default class ConfirmCode extends React.Component {
                                 onClick={this.requestReset.bind(this)}
                                 buttonText={this.state.buttonText}
                                 buttonDisabled={this.state.buttonDisabled}
+                                tabIndex="6"
                               />;
 
         let actionComponent = actionButton;
@@ -264,22 +264,22 @@ export default class ConfirmCode extends React.Component {
                         </div>
                         <div className="row">
                             <div className="col-md-12">
-                                <TextInputComponent inputClass="" error={this.state.nameError} inputPlaceholder="Name" inputName="regName" handleChange={this.handleFieldChange.bind(this, 'name')} />
+                                <TextInputComponent inputClass="" error={this.state.nameError} inputPlaceholder="Name" inputName="regName" handleChange={this.handleFieldChange.bind(this, 'name')} tabIndex="1" />
                             </div>
                         </div>
                         <div className="row">
                             <div className="col-md-12">
-                                <TextInputComponent inputClass="" error={this.state.agencyError} inputPlaceholder="Agency" inputName="regAgency" handleChange={this.handleFieldChange.bind(this, 'agency')} />
+                                <TextInputComponent inputClass="" error={this.state.agencyError} inputPlaceholder="Agency" inputName="regAgency" handleChange={this.handleFieldChange.bind(this, 'agency')} tabIndex="2" />
                             </div>
                         </div>
                         <div className="row">
                             <div className="col-md-12">
-                                <TextInputComponent inputClass="" error={this.state.titleError} inputPlaceholder="Title" inputName="regTitle" handleChange={this.handleFieldChange.bind(this, 'title')} />
+                                <TextInputComponent inputClass="" error={this.state.titleError} inputPlaceholder="Title" inputName="regTitle" handleChange={this.handleFieldChange.bind(this, 'title')} tabIndex="3" />
                             </div>
                         </div>
                         <div className="row">
                             <div className="col-md-12">
-                                <PasswordComponent fieldID="regPassword1" error={this.state.password1Error} iconClass="usa-da-icon-register" handleChange={this.handleFieldChange.bind(this, 'password1')} />
+                                <PasswordComponent fieldID="regPassword1" error={this.state.password1Error} iconClass="usa-da-icon-register" handleChange={this.handleFieldChange.bind(this, 'password1')} tabIndex="4" />
                             </div>
                         </div>
                         <div className="row">
@@ -289,7 +289,7 @@ export default class ConfirmCode extends React.Component {
                         </div>
                         <div className="row">
                             <div className="col-md-12">
-                                <PasswordComponent fieldID="regPassword2" error={this.state.password2Error} iconClass="usa-da-icon-register" handleChange={this.handleFieldChange.bind(this, 'password2')} />
+                                <PasswordComponent fieldID="regPassword2" error={this.state.password2Error} iconClass="usa-da-icon-register" handleChange={this.handleFieldChange.bind(this, 'password2')} tabIndex="5" />
                             </div>
                         </div>
                         <div className="row">

@@ -15,11 +15,20 @@
     .alert {
         text-align: left;
     }
-    .usa-da-icon-register {
-        @extend .usa-da-icon;
-        top: 14px !important;
-        left: 8px !important;
-        color: $color-gray-light;
+
+    .usa-da-input-container {
+        .usa-da-icon{
+            position: absolute;
+            left: 10px;
+            top: 15px;
+            width: 2.2rem;
+            height: 2.2rem;
+            overflow: hidden;
+            fill: $color-gray-dark;
+            & svg {
+                fill: $gray-dark
+            } 
+        }
     }
 }
 

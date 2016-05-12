@@ -9,7 +9,6 @@ import Request from 'superagent';
 import xmldoc from 'xmldoc';
 import EventEmitter from 'eventemitter2';
 import { kGlobalConstants } from '../../../GlobalConstants.js';
-import { fetchStaticAssetPath } from '../../../helpers/util.js';
 
 const svgData = {};
 let loadingState = 0;
@@ -87,7 +86,7 @@ export default class BaseIcon extends React.Component {
 			loadingState = 1;
 
 			// no one has started downloading the SVG file yet, so start it here
-			Request.get(fetchStaticAssetPath() + "graphics/icons.svg")
+			Request.get("graphics/icons.svg")
 				.send()
 				.end((err, res) => {
 					if (!err) {

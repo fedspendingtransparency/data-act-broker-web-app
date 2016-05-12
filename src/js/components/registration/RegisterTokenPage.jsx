@@ -4,7 +4,6 @@
 **/
 
 import React, { PropTypes } from 'react';
-import Request from 'superagent';
 import RegistrationPage from './RegistrationPage.jsx';
 import RegisterEmailPage from './RegisterEmailPage.jsx';
 import RegistrationTokenLoadingPage from './RegistrationTokenLoadingPage.jsx';

@@ -21,6 +21,12 @@ body{
 @include flex(1);
 }
 
+
+.flex-wrapper{
+	@include display(flex);
+    @include flex-direction(column);
+}
+
 /***** MIXINS *****/
 @mixin contentBlockWrapper() {
     background-color: $color-white;
@@ -68,7 +74,7 @@ $color-darkest: #2C333B;
 
 /* Sizing */
 $header-height: 11rem;
-$top-header-height: 3rem;
+$top-header-height: 3.1rem;
 
 /* Classes */
 .usa-da-text-white {
@@ -83,7 +89,6 @@ $top-header-height: 3rem;
 
 	@return rgba($-local-red, $-local-green, $-local-blue,$alpha);
 }
-
 
 
 h1,
@@ -423,181 +428,6 @@ a.list-group-item {
 
 
 
-
-
-/* Header */
-.usa-da-header {
-	background-color: $color-gray-dark;
-	border: none;
-	height: $header-height;
-	border-radius: 0;
-	margin-bottom: 0;
-
-	& .usa-da-top-head{
-		background: $color-base;
-		height: $top-header-height;
-			& li{
-				float: right;
-				list-style: none;
-				line-height: $top-header-height;
-				font-size: 1.2rem;
-				& a{
-					color:$color-gray;
-						&:hover, &:active, &:focus{
-							text-decoration: none;
-							color:$color-gray-light;
-						}
-					& .usa-da-icon-user{
-						height: 15px;
-						width: 16px;
-						position: relative;
-						top: 4px;
-						left: -6px;
-						fill: $color-gray;
-							&:hover, &:active, &:focus{
-								fill:$color-gray-light;
-							}
-						}
-					}
-
-					& .header-dropdown{
-						background: $color-base;
-						position: absolute;
-						z-index: 999999;
-						min-width: 100px;
-						max-width: 200px;
-						& li{
-							float: left;
-							padding: 0 10px;
-							& a {
-								color: $color-white;
-							}
-							&::before {
-								display: none;
-							}
-						}
-					}
-				}
-			}
-		}
-
-		.usa-da-header-container {
-			height: 100%;
-
-		.usa-da-header-navbar {
-			display: table;
-		}
-
-		.usa-da-header-brand, .usa-da-header-brand:hover, .usa-da-header-brand:visited {
-			font-size: 2.5rem;
-			line-height: ($header-height - $top-header-height);
-			font-weight: $font-light;
-			height: ($header-height - $top-header-height);
-			color: $color-white;
-			display: table-cell;
-			vertical-align: middle;
-			padding: 0;
-				&:after{
-					@include alphaMark;
-    			}
-			}
-
-		#usa-da-header-link-holder {
-			padding: 0 12px;
-			height: 100%;
-			line-height: ($header-height - $top-header-height);
-			font-size: 15px;
-			font-weight: $font-normal;
-
-			& li {
-				height: 100%;
-				display: table;
-				margin: 0;
-				border-left: 1px solid #3b4452;
-				&:before {
-					padding: 0;
-					display: none;
-				}
-				&:first-child{
-					border-left: 1px solid #3b4452;
-				}
-			}
-		}
-
-		#usa-da-header-link-holder > li > a {
-			background-color: $color-gray-dark;
-			color: $color-white;
-			height: ($header-height - $top-header-height);
-			display: table-cell;
-			vertical-align: middle;
-			padding: 1.5rem 2.0rem;
-			font-size: 1.4rem;
-
-				&:hover {
-					background-color: $color-gray;
-				}
-
-				&.disabled {
-					cursor: default;
-					color: #71747c;
-					& .comingSoon {
-						text-align: center;
-						font-size: 1.3rem;
-						background: url('../graphics/coming_soon_ribbon.png');
-						height: 61px;
-						width: 91px;
-						display: block;
-						position: absolute;
-						top: 0;
-						right: 0;
-						z-index: 9999;
-					}	
-					&:hover {
-						background-color: $color-gray-dark;
-					}
-				}
-			}
-
-		#usa-da-header-link-holder > li.active > * {
-			background-color: $color-darkest;
-			color: $color-gold-lighter;
-		}
-
-		#usa-da-header-link-holder > li > .usa-da-user-info {
-			background-color: $color-gray-dark;
-			color: $color-primary-alt-light;
-		}
-
-		#usa-da-header-link-holder > li > .header-dropdown {
-			@extend .dropdown-menu;
-			display: block;
-			border-radius: 0;
-			background-color: $color-gray-dark;
-			border: 1px solid #3b4452;
-
-
-			li {
-				border: none;
-				width: 100%;
-					&::before {
-						display: none;
-					}
-
-				a {
-					color: $color-primary-alt;
-					vertical-align: middle;
-					padding: 1.5rem 1.0rem;
-					font-size: 1.4rem;
-
-					&:hover {
-						background-color: $color-darkest;
-						color: $color-primary-alt;
-					}
-				}
-			}
-		}
-	}
-
 /* Content */
 .usa-da-content {
 	//@extend .styleguide-content;
@@ -796,23 +626,6 @@ a.list-group-item {
 	.usa-da-progress-bar-holder .usa-da-progress-bar-step-current .step {
 		border: 1px solid $color-focus;
 	}
-}
-
-/* Footer */
-.usa-da-page-content {
-	min-height: 100%;
-	padding-bottom: 55px;
-}
-.usa-da-footer {
-	font-family: $font-sans;
-	text-align: center;
-	background-color: $color-darkest;
-	line-height: 35px;
-	color: $color-white;
-	position: relative;
-	height: 35px;
-	margin-top: -35px;
-	width: 100%;
 }
 
 
