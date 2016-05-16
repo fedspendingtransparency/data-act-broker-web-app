@@ -63,6 +63,8 @@ let environment = environmentTypes.DEVLOCAL;
 gulp.task('setDev', () => {
     minified = false;
     environment = environmentTypes.DEVLOCAL;
+
+    // set the NodeJS environment so that Redux compiles correctly in production modes
     process.env.NODE_ENV = 'development';
 
     // update the local server dependencies to wait for the compile process to finish before starting
