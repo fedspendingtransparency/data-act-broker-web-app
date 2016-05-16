@@ -3,11 +3,6 @@ import Q from 'q';
 import { kGlobalConstants } from '../GlobalConstants.js';
 import Request from './sessionSuperagent.js';
 
-export const fetchStaticAssetPath = () => {
-	let imgSrc = '';
-	return imgSrc;
-};
-
 export const generateRSSUrl = () => {
 
 	let isCanceled = false;

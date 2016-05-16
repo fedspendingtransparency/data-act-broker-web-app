@@ -77,6 +77,9 @@ export const performLogin = (username, password) => {
 	const deferred = Q.defer();
 	const store = new StoreSingleton().store;
 
+	// wipe out old session cookies to prevent session weirdness
+	Cookies.remove('session');
+
 	Request.post(kGlobalConstants.API + 'login/')
            .send({ 'username': username, 'password': password })
            .end((err, res) => {

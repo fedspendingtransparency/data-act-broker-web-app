@@ -16,7 +16,6 @@ export default class DropZoneDisplay extends React.Component {
 			iconClass = 'fail';
 		}
 		if (this.props.displayMode == 'success') {
-			uploadIcon = <Icons.CloudUpload />;
 			iconClass = 'success';
 		}
 

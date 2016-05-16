@@ -41,6 +41,11 @@ export const performLocalUpload = (submission) => {
     const store = new StoreSingleton().store;
 	store.dispatch(uploadActions.setSubmissionState('uploading'));
 
+    // add the metadata to the request
+    request.agency_name = submission.meta.agency;
+    request.reporting_period_start_date = submission.meta.startDate.format('MM/DD/YYYY');
+    request.reporting_period_end_date = submission.meta.endDate.format('MM/DD/YYYY');
+
     let i = 0;
 
     const uploadOperations = [];
