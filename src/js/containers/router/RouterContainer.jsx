@@ -8,7 +8,6 @@ import ReactDOM from 'react-dom';
 import { kGlobalConstants } from '../../GlobalConstants.js';
 import { Router, Route, Link, hashHistory } from 'react-router';
 
-import Request from 'superagent';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import * as sessionActions from '../../redux/actions/sessionActions.js';
@@ -37,7 +36,7 @@ export default class RouterContainer extends React.Component {
                 Routes.autoLogin(this.refs.router.state.location);
                 this.monitorSession();
             }
-            else if (this.props.session.login == "loggedOut" && prevProps.session.login != "pending") {
+            else if (this.props.session.login == "loggedOut" && prevProps.session.login == "loggedIn") {
                 this.logout();
             }
         }

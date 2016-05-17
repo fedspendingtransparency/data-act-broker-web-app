@@ -4,6 +4,7 @@
  **/
 
 import React, { PropTypes } from 'react';
+import $ from 'jquery';
 import { kGlobalConstants } from '../../../GlobalConstants.js';
 
 import { fileTypes } from '../../../containers/addData/fileTypes.js';
@@ -20,6 +21,21 @@ export default class ValidateValuesContent extends React.Component {
         super(props);
     }
 
+    componentDidMount() {
+        this.scrollToContent();
+    }
+
+    componentDidUpdate(prevProps, prevState) {
+        if (prevProps.submission.state != "review" && this.props.submission.state == "review") {
+            this.scrollToContent();
+        }
+    }
+
+    scrollToContent() {
+        $('html, body').animate({
+            scrollTop: $('[name=content-top]').offset().top
+        }, 500);
+    }
 
     render() {
 

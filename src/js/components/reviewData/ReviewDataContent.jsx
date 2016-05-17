@@ -4,14 +4,15 @@
  **/
 
 import React, { PropTypes } from 'react';
+import $ from 'jquery';
 import { kGlobalConstants } from '../../GlobalConstants.js';
 import SubmitButton from '../SharedComponents/SubmitButton.jsx';
 import ReviewDataContentRow from './ReviewDataContentRow.jsx';
 import ReviewDataButton from './ReviewDataButton.jsx';
 import moment from 'moment';
-import Request from 'superagent';
 
 import * as ReviewHelper from '../../helpers/reviewHelper.js';
+import * as Icons from '../SharedComponents/icons/Icons.jsx';
 
 const propTypes = {
     submissionID: PropTypes.string
@@ -37,7 +38,9 @@ export default class ReviewDataContent extends React.Component {
         ReviewHelper.fetchStatus(this.props.submissionID)
             .then((data) => {
                 data.ready = true;
-                this.setState(data);
+                this.setState(data, () => {
+                    this.scrollToContent();
+                });
             })
             .catch((error) => {
                 console.log(error);
@@ -48,14 +51,19 @@ export default class ReviewDataContent extends React.Component {
         this.getSubmissionData();
     }
 
+    scrollToContent() {
+        $('html, body').animate({
+            scrollTop: $('[name=content-top]').offset().top
+        }, 500);
+    }
+
     render() {
         if (this.state.ready) {
-            // The first parameter in each of these arrays is the corresponding class for the Glyphicon
-            // URL: http://getbootstrap.com/components/
-            const buttonContent = [['globe','Publish this data to USAspending.gov'],
-                                    ['share','Send this data to another Data Broker user'],
-                                    ['save','Download this data to your computer'],
-                                    ['trash','Delete this data from the Data Broker']];
+            // The first parameter in each of these arrays is the corresponding class for the SVG icon
+            const buttonContent = [[<Icons.CheckCircle />,'Publish this data to USAspending.gov'],
+                                    [<Icons.ShareSquare />,'Send this data to another Data Broker user'],
+                                    [<Icons.CloudDownload />,'Download this data to your computer'],
+                                    [<Icons.Trash />,'Delete this data from the Data Broker']];
 
             let buttons = [];
             for (let i = 0; i < buttonContent.length; i++){
@@ -94,7 +102,7 @@ export default class ReviewDataContent extends React.Component {
                 <div className="container">
                     <div className="row center-block mt-60">
                         <div className="col-md-12 text-center mb-30">
-                            <h6 className="text-success">Congratulations your data has been successfully validated! Now, what would you like to do with it?</h6>
+                            <h5 className="text-success" data-testid="review-header">Congratulations your data has been successfully validated! Now, what would you like to do with it?</h5>
                         </div>
                     </div>
                     <div className="row center-block usa-da-review-data-content-holder">

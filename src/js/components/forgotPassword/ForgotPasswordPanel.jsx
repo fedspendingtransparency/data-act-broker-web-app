@@ -6,11 +6,12 @@
 import React, { PropTypes } from 'react';
 import { hashHistory } from 'react-router';
 import { kGlobalConstants } from '../../GlobalConstants.js';
-import Request from 'superagent';
 import Username from '../login/Username.jsx';
 import SignInButton from '../login/SignInButton.jsx';
 import ErrorMessage from '../SharedComponents/ErrorMessage.jsx';
 import SuccessMessage from '../SharedComponents/SuccessMessage.jsx';
+
+import * as LoginHelper from '../../helpers/loginHelper.js';
 
 const propTypes = {
     message: PropTypes.string
@@ -23,26 +24,37 @@ export default class ForgotPasswordPanel extends React.Component {
         this.state = {
             username: '',
             requestSent: false,
-            resetFailed: false
+            resetFailed: false,
+            buttonText: 'Reset',
+            buttonDisabled: false,
+            hideButton: false
         };
     }
 
     requestReset() {
-        Request.post(kGlobalConstants.API + 'reset_password/')
-            .withCredentials()
-            .send({ 'email': this.state.username })
-            .end((err) => {
-                if (err) {
-                    this.setState({
-                        requestSent: true,
-                        resetFailed: true
-                    });
-                } else {
-                    this.setState({
-                        requestSent: true,
-                        resetFailed: false
-                    });
-                }
+        this.setState({
+            buttonText: 'Submitting...',
+            buttonDisabled: true
+        });
+
+        LoginHelper.requestPasswordToken(this.state.username)
+            .then(() => {
+                this.setState({
+                    requestSent: true,
+                    resetFailed: false,
+                    hideButton: true,
+                    buttonText: 'Reset',
+                    buttonDisabled: false
+                });
+            })
+            .catch((err) => {
+                this.setState({
+                    requestSent: true,
+                    resetFailed: true,
+                    hideButton: false,
+                    buttonText: 'Reset',
+                    buttonDisabled: false
+                });
             });
     }
 
@@ -73,24 +85,39 @@ export default class ForgotPasswordPanel extends React.Component {
             messageComponent = <ErrorMessage message={this.props.message} />;
         }
 
+        let hideButton = '';
+        if (this.state.hideButton) {
+            hideButton = 'hide';
+        }
+
         return (
             <div className="col-md-5 usa-da-login-container">
-                <div className="col-xs-12">
-                    <p className="msg">Please enter your email address below. We will send an email to the registered email address with a link to reset your password.</p>
+                <div className="row">
+                    <div className="col-xs-12">
+                        <p className="msg">Please enter your email address below. We will send an email to the registered email address with a link to reset your password.</p>
+                    </div>
                 </div>
                 <form onKeyPress={this.handleKeyPress.bind(this)}>
-                    <div className='row'>
-                        <Username handleChange={this.handleUsernameChange.bind(this)}/>
+                    <div className="row">
+                        <div className="col-md-12">
+                            <Username handleChange={this.handleUsernameChange.bind(this)}/>
+                        </div>
                     </div>
-                    <div className='row'>
+                    <div className="row">
                         <div className="col-xs-6 usa-da-registration-links mt-20">
                             <a href="#/login" className="forgot-back">Back to login page</a>
                         </div>
-                        <div className="col-xs-6 usa-da-login-button-holder">
-                            <SignInButton onClick={this.requestReset.bind(this)} buttonText={"Reset"} />
+                        <div className="col-xs-6">
+                            <div className={hideButton}>
+                                <SignInButton onClick={this.requestReset.bind(this)} disabled={this.state.buttonDisabled} buttonText={this.state.buttonText} />
+                            </div>
                         </div>
                     </div>
-                    {messageComponent}
+                    <div className="row">
+                        <div className="col-md-12">
+                            {messageComponent}
+                        </div>
+                    </div>
                 </form>
             </div>
         );

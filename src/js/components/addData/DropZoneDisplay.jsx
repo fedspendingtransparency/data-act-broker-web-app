@@ -1,5 +1,6 @@
 import React from 'react';
 import FileProgress from '../SharedComponents/FileProgress.jsx';
+import * as Icons from '../SharedComponents/icons/Icons.jsx';
 
 const defaultProps = {
 	showFile: false,
@@ -9,12 +10,13 @@ const defaultProps = {
 export default class DropZoneDisplay extends React.Component {
 	render() {
 
-		let uploadIcon = 'usa-da-icon-cloud-upload';
+		let uploadIcon = <Icons.CloudUpload />;
+		let iconClass = "";
 		if (this.props.displayMode == 'failure') {
-			uploadIcon = 'usa-da-dropzone-fail glyphicon glyphicon-remove'
+			iconClass = 'fail';
 		}
 		if (this.props.displayMode == 'success') {
-			uploadIcon = 'usa-da-dropzone-success glyphicon glyphicon-ok';
+			iconClass = 'success';
 		}
 
 		let progress = "";
@@ -24,7 +26,7 @@ export default class DropZoneDisplay extends React.Component {
 
 		return (
 			<div className="center-block">
-				<div className={"text-center " + uploadIcon}></div>
+				<div className={"text-center " + "usa-da-icon " + iconClass}>{uploadIcon}</div>
 				<div dangerouslySetInnerHTML={{__html:this.props.string}}></div>
 				{progress}
 			</div>

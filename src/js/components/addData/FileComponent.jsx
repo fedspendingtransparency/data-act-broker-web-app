@@ -15,7 +15,6 @@ const propTypes = {
 
 export default class FileComponent extends React.Component {
     render() {
-        const ruleLink = kGlobalConstants.GITHUB + '/tests/' + this.props.requestName + 'Fields.csv';
 
         return (
             <div className="usa-da-submission-item">

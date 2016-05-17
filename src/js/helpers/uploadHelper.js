@@ -1,4 +1,4 @@
-import Request from 'superagent';
+import Request from './sessionSuperagent.js';
 import Q from 'q';
 import AWS from 'aws-sdk';
 import { dispatch } from 'redux';
@@ -16,7 +16,6 @@ const uploadLocalFile = (file, type) => {
     formData.append('file', file);
 
      Request.post(kGlobalConstants.API + 'local_upload/')
-            .withCredentials()
             .send(formData)
             .end((err, res) => {
 
@@ -79,7 +78,7 @@ export const performLocalUpload = (submission) => {
             return finalizeMultipleUploads(fileIds);
         })
         .then(() => {
-            store.dispatch(uploadActions.setSubmissionState('review'));
+            store.dispatch(uploadActions.setSubmissionState('prepare'));
             deferred.resolve(submissionID);
         })
         .catch(() => {
@@ -95,7 +94,6 @@ const prepareFiles = (fileDict) => {
 	const deferred = Q.defer();
 
 	Request.post(kGlobalConstants.API + 'submit_files/')
-		.withCredentials()
 		.send(fileDict)
 		.end((err, res) => {
 			if (err) {
@@ -192,7 +190,6 @@ const finalizeUpload = (fileID) => {
     const deferred = Q.defer();
 
 	Request.post(kGlobalConstants.API + 'finalize_job/')
-               .withCredentials()
                .send({ 'upload_id': fileID })
                .end((err, res) => {
                    if (err) {
@@ -249,7 +246,7 @@ export const performRemoteUpload = (submission) => {
 			return finalizeMultipleUploads(fileIds);
 		})
 		.then(() => {
-			store.dispatch(uploadActions.setSubmissionState('review'));
+			store.dispatch(uploadActions.setSubmissionState('prepare'));
 			deferred.resolve(submissionID);
 		})
 		.catch((err) => {
@@ -285,7 +282,7 @@ export const performRemoteCorrectedUpload = (submission) => {
             return finalizeMultipleUploads(fileIds);
         })
         .then(() => {
-            store.dispatch(uploadActions.setSubmissionState('review'));
+            store.dispatch(uploadActions.setSubmissionState('prepare'));
             deferred.resolve(submission.id);
         })
         .catch((err) => {
@@ -340,7 +337,7 @@ export const performLocalCorrectedUpload = (submission) => {
             return finalizeMultipleUploads(fileIds);
         })
         .then(() => {
-            store.dispatch(uploadActions.setSubmissionState('review'));
+            store.dispatch(uploadActions.setSubmissionState('prepare'));
             deferred.resolve(submission.id);
         })
         .catch(() => {

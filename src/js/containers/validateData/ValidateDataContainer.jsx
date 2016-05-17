@@ -14,6 +14,7 @@ import * as uploadActions from '../../redux/actions/uploadActions.js';
 import ValidateDataContent from '../../components/validateData/ValidateDataContent.jsx';
 import ValidateValuesContent from '../../components/validateData/validateValues/ValidateValuesContent.jsx';
 import ValidateCancellation from '../../components/validateData/ValidateCancellation.jsx';
+import ValidateNotYours from '../../components/validateData/ValidateNotYours.jsx';
 import ValidateLoadingScreen from '../../components/validateData/ValidateLoadingScreen.jsx';
 import { fileTypes } from '../addData/fileTypes.js';
 import { kGlobalConstants } from '../../GlobalConstants.js';
@@ -31,7 +32,8 @@ class ValidateDataContainer extends React.Component {
 			finishedLoad: false,
 			headerErrors: true,
 			initialLoad: moment(),
-			offerCancellation: false
+			offerCancellation: false,
+			notYours: false
 		};
 	}
 
@@ -52,7 +54,7 @@ class ValidateDataContainer extends React.Component {
 	componentDidUpdate(prevProps, prevState) {
 		// check if the submission state changed, indicating a re-upload
 		if (prevProps.submission.state != this.props.submission.state) {
-			if (this.props.submission.state == "review") {
+			if (this.props.submission.state == "prepare") {
 				// uploads are done
 				this.validateSubmission();
 			}
@@ -111,6 +113,7 @@ class ValidateDataContainer extends React.Component {
 					finishedLoad: true
 				});
 
+				this.props.setSubmissionState('review');
 				this.props.setValidation(data);
 				
 				if (!this.checkForCompletion(data)) {
@@ -128,9 +131,17 @@ class ValidateDataContainer extends React.Component {
 				this.checkForErrors();
 			})
 			.catch((err) => {
-				statusTimer = setTimeout(() => {
-					this.validateSubmission();
-				}, 5*1000);
+				if (err.reason == 400) {
+					this.setState({
+						notYours: true
+					});
+				}
+				else {
+					statusTimer = setTimeout(() => {
+						this.validateSubmission();
+					}, 5*1000);
+				}
+			
 			});
 	}
 
@@ -151,6 +162,11 @@ class ValidateDataContainer extends React.Component {
 		let cancel = '';
 		if (this.state.offerCancellation && !checkingValues) {
 			cancel = <ValidateCancellation />;
+		}
+
+		if (this.state.notYours) {
+			validationContent = '';
+			cancel = <ValidateNotYours message="You cannot view or modify this submission because you are not the original submitter." />;
 		}
 
 		return (

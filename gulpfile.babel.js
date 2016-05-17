@@ -1,5 +1,6 @@
 import gulp from 'gulp';
-import browserSync from 'browser-sync';
+import connect from 'gulp-connect';
+import chalk from 'chalk';
 import sass from 'gulp-sass';
 import browserify from 'browserify';
 import watchify from 'watchify';
@@ -77,7 +78,8 @@ let build = false;
 let environmentConstantsEnum = {
     LOCAL: 0,
     DEV: 1,
-    PROD: 2
+    PROD: 2,
+    DEVHOSTED: 3
 };
 let environmentConstants = environmentConstantsEnum.DEV;
 
@@ -115,7 +117,16 @@ gulp.task('docs', () => {
 
 // Use the proper constants file and move to src
 gulp.task('copyConstants', () => {
-    return gulp.src(!environmentConstants ? path.LOCAL_CONSTANTS : ((environmentConstants === 1) ? path.DEV_CONSTANTS : path.PROD_CONSTANTS))
+
+    let constantsPath = path.PROD_CONSTANTS;
+    if (environmentConstants == environmentConstantsEnum.DEV || environmentConstants == environmentConstantsEnum.DEVHOSTED) {
+        constantsPath = path.DEV_CONSTANTS;
+    }
+    else if (environmentConstants == environmentConstantsEnum.LOCAL) {
+        constantsPath = path.LOCAL_CONSTANTS;
+    }
+
+    return gulp.src(constantsPath)
         .pipe(rename(path.CONSTANTS_DESTNAME))
         .pipe(gulp.dest(path.CONSTANTS_DEST));
 });
@@ -134,7 +145,10 @@ gulp.task('watch', ['fonts', 'images', 'graphics', 'docs', 'copyConstants', 'cop
         debug: !build,
         cache: {}, packageCache: {}, fullPaths: true
     };
-    const watcher = build ? browserify(props) : watchify(browserify(props));
+    let watcher = browserify(props);
+    if (environmentConstants == environmentConstantsEnum.DEV) {
+        watcher = watchify(browserify(props));
+    }
 
     return watcher.on('update', () => {
         watcher.bundle()
@@ -144,7 +158,10 @@ gulp.task('watch', ['fonts', 'images', 'graphics', 'docs', 'copyConstants', 'cop
             .pipe(sourcemaps.init({ loadMaps: !build }))
             .pipe(sourcemaps.write('.'))
             .pipe(gulp.dest((!build) ? dir.DEV : dir.PUBLIC))
-            .pipe(browserSync.reload({ stream: true }));
+            .on('end', () => {
+                gutil.log(chalk.cyan('Reloading JS...'));
+            })
+            .pipe(connect.reload());
     })
         .bundle().on('error', gutil.log)
         .pipe(source(path.OUT))
@@ -160,16 +177,26 @@ gulp.task('sass', () => {
         .pipe(sass().on('error', sass.logError))
         .pipe(gulpif(build, cssNano()))
         .pipe(gulp.dest((!build) ? path.CSS_DEV : path.CSS_PUBLIC))
-        .pipe(browserSync.reload({ stream: true }));
+        .pipe(connect.reload());
 });
 
 // HTML replace scripts with minified version for build
 // Move index.html to public folder for deployment
 gulp.task('html-replace', () => {
-    return gulp.src([path.INDEX_SRC])
-        .pipe(replace('dev/', ''))
-        .pipe(replace(path.OUT, path.MINIFIED_OUT))
-        .pipe(gulp.dest(dir.PUBLIC));
+
+    // don't replace with minified files unless not in local dev
+    if (environmentConstants == environmentConstantsEnum.DEV) {
+        return gulp.src([path.INDEX_SRC])
+            .pipe(gulp.dest(dir.PUBLIC));
+    }
+    else {
+        return gulp.src([path.INDEX_SRC])
+            .pipe(replace(path.OUT, path.MINIFIED_OUT))
+            .pipe(gulp.dest(dir.PUBLIC));
+    }
+
+
+    
 });
 
 // Minifying
@@ -181,14 +208,19 @@ gulp.task('minify', ['sass', 'watch', 'html-replace'], () => {
         .pipe(gulp.dest(dir.PUBLIC));
 });
 
-gulp.task('serve', ['sass', 'watch'], () => {
-    gulp.watch([path.SASS_SRC, path.CSS_SRC], ['sass']);
-    gulp.watch('*.html').on('change', browserSync.reload);
+gulp.task('reload', () => {
+    connect.reload();
+});
 
-    return browserSync.init({
-        server: {
-            baseDir: dir.BASE
-        }
+
+gulp.task('serve', ['set-build', 'html-replace', 'sass', 'watch'], () => {
+    gulp.watch([path.SASS_SRC, path.CSS_SRC], ['sass']);
+    gulp.watch(['*.html'], ['reload']);
+
+    connect.server({
+        root: dir.PUBLIC,
+        port: 3000,
+        livereload: true
     });
 });
 
@@ -196,6 +228,10 @@ gulp.task('serve', ['sass', 'watch'], () => {
 gulp.task('set-build', () => {
     build = true;
 });
+
+gulp.task('set-hosted-dev', () => {
+    environmentConstants = environmentConstantsEnum.DEVHOSTED;
+})
 
 // Set constants variable for production constants file
 gulp.task('set-prod-constants', () => {
@@ -211,7 +247,7 @@ gulp.task('set-local-constants', () => {
 gulp.task('production', ['set-build', 'set-prod-constants', 'minify']);
 
 // Build with dev constants for demos task
-gulp.task('buildDev', ['set-build', 'minify']);
+gulp.task('buildDev', ['set-build', 'set-hosted-dev', 'minify']);
 
 // Build with local constants for local deployment
 gulp.task('buildLocal', ['set-build', 'set-local-constants', 'minify']);

@@ -9,12 +9,14 @@ const propTypes = {
     buttonDisabled: PropTypes.bool,
     buttonText: PropTypes.string,
     className: PropTypes.string,
-    onClick: PropTypes.func
+    onClick: PropTypes.func,
+    testId: PropTypes.string
 };
 
 const defaultProps = {
     buttonDisabled: false,
-    buttonText: 'Submit'
+    buttonText: 'Submit',
+    testId: ''
 };
 
 // A standard button for submission that we can further turn into a sharable component
@@ -27,7 +29,7 @@ export default class SubmitButton extends React.Component {
         }
 
         return (
-            <div><button onClick={this.props.onClick} className={newButtonClass} type="submit" value={this.props.buttonText} disabled={this.props.buttonDisabled}>{this.props.buttonText} </button></div>
+            <div><button onClick={this.props.onClick} className={newButtonClass} type="submit" value={this.props.buttonText} disabled={this.props.buttonDisabled} data-testid={this.props.testId}>{this.props.buttonText} </button></div>
         );
     }
 }

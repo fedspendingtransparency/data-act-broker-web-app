@@ -1,4 +1,5 @@
 import React from 'react';
+import * as Icons from '../icons/Icons.jsx';
 
 export default class UserButton extends React.Component {
 	constructor(props) {
@@ -31,8 +32,8 @@ export default class UserButton extends React.Component {
 
 		return (
 
-			<li>
-	            <a href="#" onClick={this.toggleDropdown.bind(this)} className="usa-da-header-link usa-da-user-info dropdown-toggle">{this.props.buttonText}</a>
+			<li className="usa-da-top-head-menu-item">
+	            <a href="#" onClick={this.toggleDropdown.bind(this)} className="usa-da-header-link usa-da-user-info dropdown-toggle usa-da-icon"><Icons.User />{this.props.buttonText}</a>
 	            <ul className={"header-dropdown" + hideDropdown}>
 	                <li>
 	                    <a className="logout" href="#" onClick={this.props.logout}>Log Out</a>

@@ -17,16 +17,17 @@ const propTypes = {
 const defaultProps = {
     buttonDisabled: true,
     buttonText: "Submit",
-    className: "usa-button-big"
+    className: "usa-da-button btn-lg pull-right",
+    tabIndex: null
 };
 export default class SubmitEmailButton extends React.Component {
     render() {
         let newButtonClass;
 
         if (this.props.buttonDisabled) {
-            newButtonClass = 'usa-button-disabled ' + this.props.className;
+            newButtonClass = 'usa-da-button btn-disabled ' + this.props.className;
         } else {
-            newButtonClass = 'usa-button ' + this.props.className;
+            newButtonClass = 'usa-button btn-primary ' + this.props.className;
         }
         return (
             <div>
@@ -35,6 +36,7 @@ export default class SubmitEmailButton extends React.Component {
                       type="button"
                       onClick={this.props.onClick}
                       disabled={this.props.buttonDisabled}
+                      tabIndex={this.props.tabIndex}
                     >
                         {this.props.buttonText}
                     </button>

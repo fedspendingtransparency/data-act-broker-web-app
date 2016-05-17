@@ -6,6 +6,7 @@
 **/
 
 import React, { PropTypes } from 'react';
+import * as Icons from './icons/Icons.jsx';
 
 const propTypes = {
     message: PropTypes.string.isRequired
@@ -14,11 +15,10 @@ const propTypes = {
 export default class SuccessMessage extends React.Component {
     render() {
         return (
-            <div className="col-md-12 usa-alert usa-alert-success" role="alert">
-                <div className="usa-alert-body">
-                    <h3 className="usa-alert-heading">Success</h3>
-                    <p className="usa-alert-text">{this.props.message}</p>
-                </div>
+            <div className="col-md-12 alert alert-success" role="alert">
+                <span className="usa-da-icon"><Icons.CheckCircle /></span>
+                <h3>Success</h3>
+                <p>{this.props.message}</p>
             </div>
         );
     }

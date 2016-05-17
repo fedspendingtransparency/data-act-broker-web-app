@@ -1,5 +1,21 @@
+.usa-da-admin-table-wrapper{
+    @include contentBlockWrapper;
+    padding: 30px 20px 20px;
+}
+
 .usa-da-table-holder {
     &.usa-da-admin-table-holder {
         margin-top: 0;
     }
+}
+
+
+.usa-da-table{
+	    & .usa-da-button{
+    	width: 100%;
+    }
+}
+
+.usa-da-admin-message {
+	margin-bottom: 20px;
 }

@@ -18,7 +18,7 @@ export default class ForgotPasswordPage extends React.Component {
     render() {
         return (
             <div className="usa-da-login container-fluid">
-                            <LoginTopBar/>
+                <LoginTopBar/>
                 <ForgotPasswordBanner errorCode={this.props.errorCode} message={this.props.message} email={this.props.email} />
                 <LoginWarningTxt/>
             </div>

@@ -11,12 +11,14 @@ import Footer from '../SharedComponents/FooterComponent.jsx';
 export default class LandingPage extends React.Component {
     render() {
         return (
-            <div className="site_wrap">
+            <div>
+            <div className="usa-da-site_wrap">
 	            <div className="usa-da-page-content">
 	                <Navbar activeTab="landing"/>
 	                <LandingContent/>
 	            </div>
-                <Footer />
+            </div>
+            <Footer />
             </div>
         );
     }
