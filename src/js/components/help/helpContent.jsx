@@ -1,4 +1,4 @@
-/**
+﻿/**
  * HelpContent.jsx
  * Created by Mike Bray 4/1/16
  **/
@@ -57,32 +57,51 @@ export default class HelpContent extends React.Component {
             <div className="usa-da-help-content">
                 <p>Welcome to the DATA Act Broker – Alpha Release. This release is a <a href="https://en.wikipedia.org/wiki/Minimum_viable_product" target="_blank">Minimum Viable Product</a> and represents just enough functionality so that we can gather critical user feedback to determine the direction and implementation of future features. This version of the Broker aligns with <a href={this.state.rssUrl} target="_blank">Reporting Submission Specification (RSS v1.0)</a>.</p>
 
-                <h2>Whats New in This Release</h2>
-
-                <p>In this version of the Broker, you will be able to upload and run basic validations on your data, as many times as you want. All data will only be stored in a test database, and will not be released anywhere. Although you cannot save your submissions or submit finalized data yet, those features are coming in future versions.</p>
-
+                <h2>What's New in This Release</h2>
+        
+                <p>In this version of the broker, we have made a change if you are logging in with Internet Explorer, added funtionality for the Broker to recognize files with the pipe symbol as a delimiter, and updated some of the validations.</p>
+                
                 <ul>
                     <li>
-                        <a href="/#/help?section=dataElements">Updated Data Elements and Validations</a>
+                        <a href="/#/help?section=brokerIE">Logging into the Broker with Internet Explorer</a>
                     </li>
                     <li>
-                        <a href="/#/help?section=accounts">Individual User Accounts</a>
+                        <a href="/#/help?section=pipe">Submit Files with Pipe Symbol</a>
                     </li>
+                    <li>
+                        <a href="/#/help?section=fileValv1">File Validations per RSS v1.0</a>
+                    </li>
+                     <li>
+                        <a href="/#/help?section=crossFileValv1">Cross File Validations</a>
+                    </li>
+              
                     <li>
                         <a href="/#/help?section=browser">Browser Requirements &amp; Known Issues</a>
                     </li>
                 </ul>
 
-                <h4 name="dataElements">Updated Data Elements and Validations</h4>
-                <p>This version of the Broker aligns with the <a href={this.state.rssUrl} target="_blank">Reporting Submission Specification (RSS) v1.0</a>. This means that basic field validations, including type, required/optional, and field length will be validated. Additionally, conditional validations have been implemented, so fields that are only required if other conditions are met will be validated correctly. For example, if FAIN and PIID are not populated, the URI must be populated.</p>
+                <h4 name="brokerIE">Logging into the Broker with Internet Explorer</h4>
+                <p>During user testing, some Internet Explorer users were unable to log into the Broker and upload files. We implemented a workaround so users with Internet Explorer on <b>medium security settings</b> can log in and upload files. See Known Issues below.</p>
 
-                <p>Validations that connect to external systems (such as GTAS), as well as calculated cross-file validations will be coming over the next few weeks.</p>
+                <h4 name="pipe">Submit File with Pipe Symbol</h4>
+                <p>Based on user feedback, we changed the Broker to automatically detect whether a file is using a comma or pipe symbol as a delimiter, based on the format of the header row.</p>
 
-                <h4 name="accounts">Individual User Accounts</h4>
-
-                <p>You can create your individual account based on your .gov email address. Once you submit your account request, you will receive an email with a link to confirm your account and set your password. After you confirm your account, DATA Act PMO staff will review your request and grant access.</p>
-
-                <p>In future iterations, we will be implementing hierarchical user roles by agency, so that each agency may have administrative accounts that can add and remove users for their own agency.</p>
+                <h4 name="fileValv1">File Validations per RSS v1.0</h4>
+                <p>Submitted files will be validated per RSS v1.0. Specifically:
+                <ul>
+                <li>Field names match the RSS v1.0
+                </li>
+                <li>Maximum field length does not exceed the value in RSS v1.0
+                </li>
+                <li>Required fields are present per RSS v1.0
+                </li>
+                <li>Records in File C have a PIID, FAIN, or URI
+                </li>
+                </ul>
+                </p>
+                
+                <h4 name="crossFileValv1">Cross File Validations</h4>
+                <p>We started work on cross file validations, beginning with cross validation of the FAIN, URI or PIID between sample files for Files C and D2.</p>
 
                 <h4 name="browser">Browser Requirements &amp; Known Issues</h4>
 
@@ -96,7 +115,12 @@ export default class HelpContent extends React.Component {
                 </ul>
 
                 <p>Although you may use any browser/version combination you wish, we cannot support browsers and versions other than the ones stated above.</p>
-
+                <p>Known Issues
+                <ul>
+                <li>The Broker will not work when using Internet Explorer under medium privacy settings or high security settings.
+                </li>
+                </ul>
+                </p>
                 <h2>Getting More Help</h2>
 
                 <h4 name="filingIssue">Filing an Issue</h4>
@@ -112,7 +136,7 @@ export default class HelpContent extends React.Component {
                 </p> 
 
 
-                <p>If you need assistance using the Broker please email <a href="ma&#105;l&#116;o&#58;da&#116;abroke%72%40fis%6&#51;a%6&#67;&#46;&#116;&#114;&#37;65%&#54;1sur%7&#57;%2&#69;gov">databroker@fiscal.treasury.gov</a>. To schedule a workshop, please contact the DATA Act PMO Office: <a href="mailto:datapmo@fiscal.treasury.gov">DATAPMO@fiscal.treasury.gov</a></p>
+                <p>If you need assistance using the Broker or if you would like to schedule a hands-on sandbox session with Treasury staff, please email <a href="ma&#105;l&#116;o&#58;da&#116;abroke%72%40fis%6&#51;a%6&#67;&#46;&#116;&#114;&#37;65%&#54;1sur%7&#57;%2&#69;gov">databroker@fiscal.treasury.gov</a>.</p>
             </div>
         );
     }
