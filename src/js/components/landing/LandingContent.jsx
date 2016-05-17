@@ -4,6 +4,7 @@
 **/
 
 import React from 'react';
+import RecentActivityTable from './recentActivity/RecentActivityTable.jsx';
 import * as Icons from '../SharedComponents/icons/Icons.jsx';
 import { generateRSSUrl } from '../../helpers/util.js';
 
@@ -71,6 +72,12 @@ export default class LandingContent extends React.Component {
                                 </a>
                             </div>
                         </div>
+                    </div>
+                </div>
+                <div>
+                    <div className="container">
+                        <h4>Recent Activity</h4>
+                        <RecentActivityTable />
                     </div>
                 </div>
             </div>

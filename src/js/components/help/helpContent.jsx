@@ -57,7 +57,7 @@ export default class HelpContent extends React.Component {
             <div className="usa-da-help-content">
                 <p>Welcome to the DATA Act Broker – Alpha Release. This release is a <a href="https://en.wikipedia.org/wiki/Minimum_viable_product" target="_blank">Minimum Viable Product</a> and represents just enough functionality so that we can gather critical user feedback to determine the direction and implementation of future features. This version of the Broker aligns with <a href={this.state.rssUrl} target="_blank">Reporting Submission Specification (RSS v1.0)</a>.</p>
 
-                <h2>Whats New in This Release</h2>
+                <h2>What's New in This Release</h2>
 
                 <p>In this version of the Broker, you will be able to upload and run basic validations on your data, as many times as you want. All data will only be stored in a test database, and will not be released anywhere. Although you cannot save your submissions or submit finalized data yet, those features are coming in future versions.</p>
 
