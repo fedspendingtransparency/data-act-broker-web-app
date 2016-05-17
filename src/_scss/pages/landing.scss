@@ -32,3 +32,71 @@
         }
     }
 }
+
+// landing page blocks
+.usa-da-landing-block-wrap {
+    padding-left: 10px;
+
+    &:first-child {
+        padding-left: 0px;
+    }
+}
+.usa-da-landing-block {
+    background-color: $color-gray-warm-light;
+    border: 1px solid $color-gray-lighter;
+    height: 250px;
+    padding: 10px;
+    position: relative;
+
+    .usa-da-landing-block-text {
+    }
+
+    .usa-da-landing-block-icon {
+
+        padding-top: 10px;
+        padding-bottom: 20px;
+
+        svg {
+            margin: 0 10px 0 0;
+            display: inline-block;
+            position: relative;
+            top: 5px;
+            left: 2px;
+            height: 4.5rem;
+            width: 4.8rem;
+            fill: $color-gray;
+        }
+
+    }
+
+    .usa-da-landing-block-button {
+        position: absolute;
+        bottom: 20px;
+        left: 0;
+        right: 0;
+
+        .usa-da-landing-block-button-content {
+            display: table;
+            width: 100%;
+            padding-left: 20px;
+            padding-right: 20px;
+
+            a {
+                width: 100%;
+                height: 6rem;
+                display: table-cell;
+                vertical-align: middle;
+                
+                padding: 10px 15px;
+                cursor: pointer;
+
+                &[disabled] {
+                    cursor: not-allowed;
+                }
+            }
+
+        }
+
+        
+    }
+}

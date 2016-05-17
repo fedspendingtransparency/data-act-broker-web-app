@@ -4,6 +4,7 @@
 **/
 
 import React from 'react';
+import LandingBlock from './blocks/LandingBlock.jsx';
 import * as Icons from '../SharedComponents/icons/Icons.jsx';
 import { generateRSSUrl } from '../../helpers/util.js';
 
@@ -55,21 +56,9 @@ export default class LandingContent extends React.Component {
                 <div>
                     <div className="container">
                         <div className="row usa-da-landing-btns">
-                            <div className="col-md-6">
-                                <a className="usa-da-button btn-primary btn-lg btn-full" href="#/addData">
-                                    <span className="usa-da-icon">
-                                        <Icons.CloudUpload />
-                                    </span>
-                                    Add &#38; Validate New Data</a>
-                            </div>
-                            <div className="col-md-6">
-                                <a className="usa-da-button btn-default-gray btn-disabled btn-lg btn-full" href="#">
-                                    <span className="usa-da-icon usa-da-icon-Tachometer">
-                                    <Icons.Tachometer />
-                                    </span>
-                                    Submission Dashboard <i>(Coming Soon)</i>
-                                </a>
-                            </div>
+                            <LandingBlock icon={<Icons.CloudUpload />} text="Ready to upload and validate your agencies submission? Great, we'll be happy to walk you through the process." buttonText="Upload & Validate a New Submission" url="#/addData" />
+                            <LandingBlock icon={<Icons.Tachometer />} text="Did you start a submission but not validate or submit? No problem, we can help you pick up where you left off." buttonText="Continue a Saved Submission" disabled={true} />
+                            <LandingBlock icon={<Icons.Search />} text="Is a submission ready to publish but needs your approval? Let's give that file another look." buttonText="Review, Certify & Publish Submission" disabled={true} />
                         </div>
                     </div>
                 </div>
