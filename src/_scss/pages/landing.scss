@@ -40,13 +40,26 @@
     &:first-child {
         padding-left: 0px;
     }
+
+    @media(max-width: $medium-screen) {
+        padding-left: 0px;
+        padding-top: 20px;
+
+        &:first-child {
+            padding-top: 0px;
+        }
+    }
 }
 .usa-da-landing-block {
     background-color: $color-gray-warm-light;
     border: 1px solid $color-gray-lighter;
-    height: 250px;
+    height: 275px;
     padding: 10px;
     position: relative;
+
+    @media(max-width: $medium-screen) {
+        height: auto;
+    }
 
     .usa-da-landing-block-text {
     }
@@ -55,6 +68,10 @@
 
         padding-top: 10px;
         padding-bottom: 20px;
+
+        @media(max-width: $medium-screen) {
+            padding-top: 0px;
+        }
 
         svg {
             margin: 0 10px 0 0;
@@ -69,13 +86,19 @@
 
     }
 
-    .usa-da-landing-block-button {
+    .usa-da-landing-block-bottom {
         position: absolute;
-        bottom: 20px;
+        top: 165px;
         left: 0;
         right: 0;
 
-        .usa-da-landing-block-button-content {
+        @media(max-width: $medium-screen) {
+            position: relative;
+            top: 0;
+            padding-top: 20px;
+        }
+
+        .usa-da-landing-block-button {
             display: table;
             width: 100%;
             padding-left: 20px;
@@ -95,6 +118,15 @@
                 }
             }
 
+        }
+
+        .usa-da-landing-block-bottom-link {
+            padding: 15px 20px;
+
+            a {
+                font-size: $small-font-size;
+                text-decoration: none;
+            }
         }
 
         

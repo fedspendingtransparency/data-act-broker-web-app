@@ -32,12 +32,14 @@ export default class LandingBlock extends React.Component {
 						{this.props.text}
 					</div>
 
-					<div className="usa-da-landing-block-button">
-						<div className="usa-da-landing-block-button-content">
+					<div className="usa-da-landing-block-bottom">
+						<div className="usa-da-landing-block-button">
 							<a className="usa-da-button btn-primary" href={this.props.url} disabled={this.props.disabled}>
 								{this.props.buttonText}
 							</a>
 						</div>
+
+						{this.props.children}
 					</div>
 
 				</div>
