@@ -6,6 +6,8 @@
 import React from 'react';
 import LandingBlock from './blocks/LandingBlock.jsx';
 import LandingBlockBottomLink from './blocks/LandingBlockBottomLink.jsx';
+import LandingRequirementsModal from './blocks/LandingRequirementsModal.jsx';
+
 import * as Icons from '../SharedComponents/icons/Icons.jsx';
 import { generateRSSUrl } from '../../helpers/util.js';
 
@@ -40,6 +42,8 @@ export default class LandingContent extends React.Component {
 
     clickedUploadReqs(e) {
         e.preventDefault();
+        
+        this.refs.modal.openModal();
     }
 
     render() {
@@ -63,10 +67,15 @@ export default class LandingContent extends React.Component {
                     <div className="container">
                         <div className="row usa-da-landing-btns">
                             <LandingBlock icon={<Icons.CloudUpload />} text="Ready to upload and validate your agencies submission? Great, we'll be happy to walk you through the process." buttonText="Upload & Validate a New Submission" url="#/addData">
-                                <LandingBlockBottomLink onClick={this.clickedUploadReqs} />
+                                <LandingBlockBottomLink onClick={this.clickedUploadReqs.bind(this)} />
                             </LandingBlock>
                             <LandingBlock icon={<Icons.Floppy />} text="Did you start a submission but not validate or submit? No problem, we can help you pick up where you left off." buttonText="Continue a Saved Submission" disabled={true} />
                             <LandingBlock icon={<Icons.Search />} text="Is a submission ready to publish but needs your approval? Let's give that file another look." buttonText="Review, Certify & Publish Submission" disabled={true} />
+
+                            <div id="modalHolder">
+                                <LandingRequirementsModal ref="modal" />
+                            </div>
+
                         </div>
                     </div>
                 </div>
