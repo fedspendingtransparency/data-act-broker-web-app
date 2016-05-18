@@ -133,6 +133,10 @@
     }
 }
 
+.usa-da-landing-disclosure {
+    font-size: 1rem;
+}
+
 // landing modal
 .usa-da-landing-modal {
     top: 50%;
@@ -168,22 +172,39 @@
     border: 1px solid $color-gray-dark;
     background-color: $color-white;
 
+    @media(max-width:$small-screen) {
+        width: 80%;
+    }
+
+    hr {
+        background-color: $color-gray-dark;
+    }
+
 
     .usa-da-landing-modal-close {
         position: absolute;
-        top: -0.5rem;
-        right: -0.5rem;
-        background-color: $color-white;
-        width: 45px;
-        height: 45px;
+        top: -15px;
+        right: -15px;
+        width: 30px;
+        height: 30px;
         background-image: url('../graphics/modal_close.png');
+        background-size: 30px 30px;
+
+        a {
+            display: block;
+            width: 30px;
+            height: 30px;
+            text-indent: -99999px;
+        }
     }
 
     ul, li {
         font-size: $small-font-size;
+        color: #333;
     }
     ul {
         margin-top: 1.5rem;
         margin-bottom: 1.5rem;
+        margin-left: 1.5rem;
     }
 }

@@ -66,19 +66,23 @@ export default class LandingContent extends React.Component {
                 <div>
                     <div className="container">
                         <div className="row usa-da-landing-btns">
-                            <LandingBlock icon={<Icons.CloudUpload />} text="Ready to upload and validate your agencies submission? Great, we'll be happy to walk you through the process." buttonText="Upload & Validate a New Submission" url="#/addData">
+                            <LandingBlock icon={<Icons.CloudUpload />} text="Ready to upload and validate your agency's submission? Great, we'll be happy to walk you through the process.*" buttonText="Upload & Validate a New Submission" url="#/addData">
                                 <LandingBlockBottomLink onClick={this.clickedUploadReqs.bind(this)} />
                             </LandingBlock>
-                            <LandingBlock icon={<Icons.Floppy />} text="Did you start a submission but not validate or submit? No problem, we can help you pick up where you left off." buttonText="Continue a Saved Submission" disabled={true} />
-                            <LandingBlock icon={<Icons.Search />} text="Is a submission ready to publish but needs your approval? Let's give that file another look." buttonText="Review, Certify & Publish Submission" disabled={true} />
+                            <LandingBlock icon={<Icons.Floppy />} text="Did you start a submission but were unable to complete it? No problem, we can help you pick up where you left off." buttonText="Continue a Saved Submission" disabled={true} />
+                            <LandingBlock icon={<Icons.Search />} text="Is a submission ready to be reviewed, certified, and published? Let's look at that submission." buttonText="Review, Certify & Publish Submission" disabled={true} />
 
                             <div id="modalHolder">
                                 <LandingRequirementsModal ref="modal" />
                             </div>
-
                         </div>
                     </div>
                 </div>
+
+                <div className="usa-da-landing-disclosure text-center">
+                    * The Data Broker - Alpha Release allows agencies to test financial data but does not connect to USAspending.gov.
+                </div>
+
             </div>
         );
     }
