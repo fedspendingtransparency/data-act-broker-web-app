@@ -8,6 +8,7 @@ import ForgotPasswordTokenPage from '../../components/forgotPassword/ResetPasswo
 import CompleteRegistrationComponent from '../../components/registration/ConfirmCodeComponent.jsx';
 import ForgotPasswordContainer from '../forgotPassword/ForgotPasswordContainer.jsx';
 import LandingPage from '../../components/landing/LandingPage.jsx';
+import SubmissionGuidePage from '../../components/addData/SubmissionGuidePage.jsx';
 import AddDataPageContainer from '../../containers/addData/AddDataPageContainer.jsx';
 import ValidateDataPage from '../../components/validateData/ValidateDataPage.jsx';
 import ReviewDataPage from '../../components/reviewData/ReviewDataPage.jsx';
@@ -119,6 +120,11 @@ const routeDefinitions = {
         {
             path: 'landing',
             component: LandingPage,
+            onEnter: checkUserPermissions
+        },
+        {
+            path: 'submissionGuide',
+            component: SubmissionGuidePage,
             onEnter: checkUserPermissions
         },
         {
