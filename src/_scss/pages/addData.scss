@@ -414,8 +414,41 @@
     }
     
     .usa-da-add-data-meta {
+
+        .usa-da-date-dropdown {
+            // hide the dropdown arrow
+            -webkit-appearance: none;
+            -moz-appearance: none;
+            appearance: none;
+            background-color: #ffffff;
+            background-image: none;
+
+            &.error {
+                border-color: $color-secondary;
+            }
+
+        }
+
+        .usa-da-date-through {
+            text-align: center;
+            font-size: 1.6rem;
+            color: #555;
+            margin: 15px 0px;
+
+            @media(max-width: $small-screen) {
+                text-align: left;
+            }
+        }
+
+        .usa-da-add-data-meta-label {
+            margin: 15px 0px;
+            text-align: left;
+            font-size: 1.6rem;
+            color: #555;
+        }
+
         .meta-holder {
-            padding: 30px 20px 20px;
+            padding: 15px 30px 20px 20px;
             @include contentBlockWrapper;
             .typeahead-holder {
                 div {
@@ -486,6 +519,24 @@
                     border: 1px $color-secondary solid;
                 }
             }
+
+
+            .usa-da-datetype {
+                margin-top: 0px;
+
+                .usa-da-datetype-group {
+                    float: left;
+                    margin-left: 40px;
+
+                    &:first-child {
+                        margin-left: 0px;
+                    }
+                }
+                label {
+                    margin-top: 1rem;
+                    margin-bottom: 1rem;
+                }
+            }
         }
         .datepicker__input-container {
             z-index: 10;
@@ -509,8 +560,29 @@
                     fill: $color-secondary;
                 }
             }
+
+            &.date svg {
+                top: 9px;
+            }
         }
 
+    }
+
+    // metadata transitions
+    .usa-da-meta-fade-enter {
+        opacity: 0.01;
+
+        &.usa-da-meta-fade-enter-active {
+            opacity: 1;
+            transition: opacity 500ms ease-in;
+        }
+    }
+    .usa-da-meta-fade-leave {
+        opacity: 1;
+        &.usa-da-meta-fade-enter-active {
+            opacity: 0.01;
+            transition: opacity 300ms ease-in;
+        }
     }
     
     .usa-da-review-data-content-holder {
