@@ -46,3 +46,20 @@ export const changeUserStatus = (userId, status) => {
 
 	return deferred.promise;
 }
+
+export const listAllUsers = () => {
+	const deferred = Q.defer();
+
+	Request.get(kGlobalConstants.API + 'list_users/')
+		.send()
+		.end((err, res) => {
+			if (err) {
+				deferred.reject(err);
+			}
+			else {
+				deferred.resolve(res.body);
+			}
+		});
+
+	return deferred.promise;
+}

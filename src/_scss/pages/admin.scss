@@ -19,3 +19,27 @@
 .usa-da-admin-message {
 	margin-bottom: 20px;
 }
+
+.usa-da-admin-action-block {
+	display: table;
+	width: 100%;
+
+	button {
+		display: table-cell;
+		vertical-align: center;
+
+		&.two-count {
+			width: 45%;
+			margin-left: 10%;
+		}
+
+		&:first-child {
+			margin-left: 0px;
+		}
+
+		&.btn-gray {
+			background-color: $color-gray;
+			color: $color-white;
+		}
+	}
+}
