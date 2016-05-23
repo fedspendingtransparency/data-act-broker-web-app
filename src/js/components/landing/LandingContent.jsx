@@ -4,6 +4,7 @@
 **/
 
 import React from 'react';
+import RecentActivityTable from './recentActivity/RecentActivityTable.jsx';
 import LandingBlock from './blocks/LandingBlock.jsx';
 import LandingBlockBottomLink from './blocks/LandingBlockBottomLink.jsx';
 import LandingRequirementsModal from './blocks/LandingRequirementsModal.jsx';
@@ -76,6 +77,12 @@ export default class LandingContent extends React.Component {
                                 <LandingRequirementsModal ref="modal" />
                             </div>
                         </div>
+                    </div>
+                </div>
+                <div>
+                    <div className="container">
+                        <h4>Recent Activity</h4>
+                        <RecentActivityTable />
                     </div>
                 </div>
 

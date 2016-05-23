@@ -24,22 +24,22 @@ const defaultProps = {
     headerClasses:[]
 };
 
-export default class ScrollableTable extends React.Component {
+export default class FormattedTable extends React.Component {
 	render() {
 		const tableRows = [];
         for (let i = 0; i < this.props.data.length; i++) {
             tableRows.push(<TableRow key={i} data={this.props.data[i]} cellClasses={this.props.cellClasses[i]} />);
         }
 		return (
-			<div className="usa-da-scrollable-table">
-				<div className="usa-da-scrollable-table-header">
+			<div className="usa-da-formatted-table">
+				<div className="usa-da-table-header">
 					<table className="usa-da-table table-bordered">
 						<thead>
 		                    <TableHeaders data={this.props.headers} sortable={this.props.sortable} onSort={this.props.onSort} headerClasses={this.props.headerClasses} />
 		                </thead>
 		            </table>
 	            </div>
-	           	<div className="usa-da-scrollable-table-content">
+	           	<div className="usa-da-table-content">
 		            <table className="usa-da-table table-bordered">
 		            	<tbody>
 		                    {tableRows}
@@ -51,5 +51,5 @@ export default class ScrollableTable extends React.Component {
 	}
 }
 
-ScrollableTable.propTypes = propTypes;
-ScrollableTable.defaultProps = defaultProps;
+FormattedTable.propTypes = propTypes;
+FormattedTable.defaultProps = defaultProps;
