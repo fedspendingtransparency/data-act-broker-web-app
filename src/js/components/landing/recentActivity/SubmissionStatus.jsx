@@ -22,7 +22,7 @@ export class SubmissionStatus extends React.Component {
 	constructor(props) {
 		super(props);
 
-		this.statusStrings = ['Unknown', 'Started', 'In Progress', 'Validated', 'Has Errors', 'Submitted'];
+		this.statusStrings = ['Unknown', 'Started', 'Validation In Progress', 'Validated (Without Errors)', 'Has Errors', 'Submitted'];
 
 	}
 
