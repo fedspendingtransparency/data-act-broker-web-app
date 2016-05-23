@@ -43,8 +43,8 @@ export const performLocalUpload = (submission) => {
 
     // add the metadata to the request
     request.agency_name = submission.meta.agency;
-    request.reporting_period_start_date = submission.meta.startDate.format('MM/DD/YYYY');
-    request.reporting_period_end_date = submission.meta.endDate.format('MM/DD/YYYY');
+    request.reporting_period_start_date = submission.meta.startDate;
+    request.reporting_period_end_date = submission.meta.endDate;
 
     let i = 0;
 
@@ -234,8 +234,8 @@ export const performRemoteUpload = (submission) => {
 
     // add the metadata to the request
     request.agency_name = submission.meta.agency;
-    request.reporting_period_start_date = submission.meta.startDate.format('MM/DD/YYYY');
-    request.reporting_period_end_date = submission.meta.endDate.format('MM/DD/YYYY');
+    request.reporting_period_start_date = submission.meta.startDate;
+    request.reporting_period_end_date = submission.meta.endDate;
 
 	// submit it to the API to set up S3
 	let submissionID;
