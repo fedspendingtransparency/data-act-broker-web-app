@@ -15,7 +15,7 @@ export default class LandingPage extends React.Component {
                 <div className="usa-da-site_wrap">
                     <div className="usa-da-page-content">
                         <Navbar activeTab="submissionGuide"/>
-                        <SubmissionGuideContent />
+                        <SubmissionGuideContent {...this.props} />
                     </div>
                 </div>
                 <Footer />

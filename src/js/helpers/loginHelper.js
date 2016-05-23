@@ -41,7 +41,8 @@ export const fetchActiveUser = () => {
 	                const sessionData = {
 	                    login: 'loggedIn',
 	                    user: res.body,
-	                    admin: isAdmin
+	                    admin: isAdmin,
+						skipGuide: res.body.skip_guide
 	                };
 
 	                const action = sessionActions.setSession(sessionData);

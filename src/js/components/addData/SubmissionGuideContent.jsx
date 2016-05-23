@@ -6,55 +6,21 @@
 import React from 'react';
 import { hashHistory } from 'react-router';
 
-import StoreSingleton from '../../redux/storeSingleton.js';
-
-import * as SubmissionGuideHelper from '../../helpers/submissionGuideHelper.js';
-
-export default class LandingContent extends React.Component {
+export default class SubmissionGuideContent extends React.Component {
     constructor(props) {
         super(props);
 
         this.state = {
-            hide: true
+            skipGuide: false
         };
     }
 
-    componentWillMount(){
-        // Check for existence and setting of user preference to see the Submission Guide here
-        // Call sendToAddData if parameter is TRUE
-        const store = new StoreSingleton().store;
-        const user = store.getState().session.user;
-        if (user.hasOwnProperty('skip_guide') && user['skip_guide'] === true){
-            this.sendToAddData();
-        }
+    toggleSkipGuide() {
+        this.setState({skipGuide: !(this.state.skipGuide)});
     }
 
-    setSkipGuide() {
-        this.setState({hide: !(this.state.hide)});
-    }
-
-    saveSkipGuide() {
-        /*SubmissionGuideHelper.setSkipGuide(this['user']['id'], this['newStatus'])
-            .then(() => {
-                this['context'].getAllUserRequests();
-
-                this['context'].setState({
-                    loaded: true,
-                    message: {
-                        user: this['user']['email'],
-                        hidden: false,
-                        action: this['newStatus']
-                    }
-                });
-            })
-            .catch((err) => {
-                this['context'].setState({ loaded: true });
-            });*/
-        this.sendToAddData();
-    }
-
-    sendToAddData() {
-        hashHistory.push('/addData/');
+    nextClicked() {
+        this.props.saveSkipGuide(this.state.skipGuide);
     }
 
     render() {
@@ -89,24 +55,20 @@ export default class LandingContent extends React.Component {
                                 </div>
                                 <div className="row submission-guide-content">
                                     <div className="col-md-4 flex-center-content-only-height submission-guide-step">
-                                        <div className="submission-guide-step-text">Upload  Files (.csv or .txt)</div>
+                                        <div className="submission-guide-step-text">Upload Files (.csv or .txt)</div>
                                         <span className="submission-guide-step-number">2</span>
                                     </div>
                                     <div className="col-md-8 submission-guide-instructions">
                                         <p>You'll need the following files to complete your submission.<br /><br />
 
-                                        File A: Appropriation Account data<br />
-                                        File B: Object Class and Program Activity<br />
-                                        File C: Award Financial data<br /><br />
+                                            File A: Appropriation Account data<br /> File B: Object Class and Program Activity<br /> File C: Award Financial data<br /><br />
 
-                                        Files A, B, and C can be provided as comma-separate values (.csv) or pipe-separated values (.txt). Sample files are available for download in the Data Broker – Alpha Release.<br /><br />
+                                            Files A, B, and C can be provided as comma-separate values (.csv) or pipe-separated values (.txt). Sample files are available for download in the Data Broker – Alpha Release.<br /><br />
 
-                                        Files D1, D2, E, and F will be generated for you based on the reporting period you provide.<br /><br />
+                                            Files D1, D2, E, and F will be generated for you based on the reporting period you provide.<br /><br />
 
-                                        File D1: Award and Awardee Attributes (Procurement Award) data<br />
-                                        File D2: Award and Awardee Attributes (Financial Assistance) data<br />
-                                        File E: Additional Awardee Attributes data<br />
-                                        File F: Sub-award Attributes data</p>
+                                            File D1: Award and Awardee Attributes (Procurement Award) data<br /> File D2: Award and Awardee Attributes (Financial Assistance) data<br /> File E: Additional Awardee Attributes data<br /> File F: Sub-award Attributes data
+                                        </p>
                                     </div>
                                 </div>
                                 <div className="row submission-guide-content">
@@ -136,10 +98,10 @@ export default class LandingContent extends React.Component {
                             </div>
                             <div className="col-md-2 flex-center-content submission-guide-next">
                                 <div className="submission-guide-next-button">
-                                    <button type="button" className="usa-da-button btn-primary" onClick={this.saveSkipGuide.bind(this)}>Next</button>
+                                    <button type="button" className="usa-da-button btn-primary" onClick={this.nextClicked.bind(this)}>Next</button>
                                 </div>
                                 <div className="submission-guide-hide checkbox">
-                                    <label><input type="checkbox" value="hide" onChange={this.setSkipGuide.bind(this)} />Hide this page next time I submit files</label>
+                                    <label><input type="checkbox" value="skipGuide" onChange={this.toggleSkipGuide.bind(this)}/>Hide this page next time I submit files</label>
                                 </div>
                             </div>
                         </div>

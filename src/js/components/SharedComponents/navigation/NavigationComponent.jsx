@@ -27,7 +27,8 @@ export class Navbar extends React.Component {
         this.props.setSession({
             login: 'loggedOut',
             user: {},
-            admin: false
+            admin: false,
+            skipGuide: false
         });
     }
 
