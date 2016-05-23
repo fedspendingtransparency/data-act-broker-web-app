@@ -66,7 +66,13 @@ body{
         @include display(flex);
         @include flex-direction(row);
         @include align-items(center);
-        @include justify-content(center)
+        @include justify-content(center);
+}
+
+.flex-center-content-only-height{
+	@include display(flex);
+	@include flex-direction(row);
+	@include align-items(center);
 }
 
 /* Colors */
@@ -339,6 +345,14 @@ pre {
     }
 }
 
+.usa-da-formatted-table {
+    
+    .usa-da-table-header {
+        table {
+            margin-bottom: 0px;
+        }
+    }
+}
 .usa-da-scrollable-table {
     margin-top: 15px;
     border-bottom: 1px solid #ddd;
@@ -346,7 +360,7 @@ pre {
     	background: $color-gray;
     	& .table-bordered {
        		border: none;
-       		width: 98.6%;
+       		width: 100%;
        		& thead > tr{
        			border:none;
        			& > th{

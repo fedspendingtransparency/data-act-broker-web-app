@@ -4,6 +4,7 @@
 **/
 
 import React from 'react';
+import RecentActivityTable from './recentActivity/RecentActivityTable.jsx';
 import LandingBlock from './blocks/LandingBlock.jsx';
 import LandingBlockBottomLink from './blocks/LandingBlockBottomLink.jsx';
 import LandingRequirementsModal from './blocks/LandingRequirementsModal.jsx';
@@ -66,7 +67,7 @@ export default class LandingContent extends React.Component {
                 <div>
                     <div className="container">
                         <div className="row usa-da-landing-btns">
-                            <LandingBlock icon={<Icons.CloudUpload />} text="Ready to upload and validate your agency's submission? Great, we'll be happy to walk you through the process.*" buttonText="Upload & Validate a New Submission" url="#/addData">
+                            <LandingBlock icon={<Icons.CloudUpload />} text="Ready to upload and validate your agency's submission? Great, we'll be happy to walk you through the process.*" buttonText="Upload & Validate a New Submission" url="#/submissionGuide">
                                 <LandingBlockBottomLink onClick={this.clickedUploadReqs.bind(this)} />
                             </LandingBlock>
                             <LandingBlock icon={<Icons.Floppy />} text="Did you start a submission but were unable to complete it? No problem, we can help you pick up where you left off." buttonText="Continue a Saved Submission" disabled={true} />
@@ -78,11 +79,16 @@ export default class LandingContent extends React.Component {
                         </div>
                     </div>
                 </div>
+                <div>
+                    <div className="container">
+                        <h4>Recent Activity</h4>
+                        <RecentActivityTable />
+                    </div>
+                </div>
 
                 <div className="usa-da-landing-disclosure text-center">
                     * The Data Broker - Alpha Release allows agencies to test financial data but does not connect to USAspending.gov.
                 </div>
-
             </div>
         );
     }

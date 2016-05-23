@@ -9,12 +9,17 @@ const propTypes = {
     data: PropTypes.node.isRequired
 };
 
+const defaultProps = {
+	cellClass: ''
+};
+
 export default class TableCell extends React.Component {
     render() {
         return (
-            <td>{this.props.data}</td>
+            <td className={this.props.cellClass}>{this.props.data}</td>
         );
     }
 }
 
 TableCell.propTypes = propTypes;
+TableCell.defaultProps = defaultProps;

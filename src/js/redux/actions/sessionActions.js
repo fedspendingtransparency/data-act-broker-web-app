@@ -18,7 +18,8 @@ export const setSession = (state) => ({
 	type: 'SET_SESSION',
 	login: state.login,
 	user: state.user,
-	admin: state.admin
+	admin: state.admin,
+	skipGuide: state.user.skip_guide
 })
 
 // convenience method for logging out
@@ -27,4 +28,9 @@ export const setLoggedOut = () => ({
 	login: 'loggedOut',
 	user: {},
 	admin: false
+})
+
+export const setSkipGuide = (state) => ({
+	type: 'SET_SKIP_GUIDE',
+	skipGuide: state
 })

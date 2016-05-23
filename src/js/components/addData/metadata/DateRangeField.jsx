@@ -9,22 +9,7 @@ import moment from 'moment';
 
 import DateDropdown from './DateDropdown.jsx';
 
-const currentQuarter = () => {
-	const month = parseInt(moment().format("M"));
-	let quarter = 'Q4';
-
-	if (month >= 10) {
-		quarter = 'Q1';
-	}
-	else if (month <= 3) {
-		quarter = 'Q2';
-	}
-	else if (month <= 6) {
-		quarter = 'Q3';
-	}
-
-	return quarter + '/' + moment().format('YYYY');
-};
+import * as UtilHelper from '../../../helpers/util.js';
 
 
 const defaultProps = {
@@ -58,8 +43,8 @@ export default class DateRangeField extends React.Component {
 	defaultDates() {
 		if (this.props.type == "quarter") {
 			this.setState({
-				startDate: currentQuarter(),
-				endDate: currentQuarter(),
+				startDate: UtilHelper.currentQuarter('start'),
+				endDate: UtilHelper.currentQuarter('end'),
 				dateError: false
 			}, () => {
 				this.props.onChange(this.state.startDate, this.state.endDate);
@@ -100,13 +85,6 @@ export default class DateRangeField extends React.Component {
     	const startYear = parseInt(this.state.startDate.split('/')[1]);
     	const endYear = parseInt(this.state.endDate.split('/')[1]);
 
-    	// validate quarters if necessary
-    	if (this.props.type == "quarter") {
-    		// just ditch the first "Q"
-    		startMonth = parseInt(this.state.startDate.split('/')[0].substring(1));
-    		endMonth = parseInt(this.state.endDate.split('/')[0].substring(1));
-    	}
-
         if (endYear < startYear || (endYear == startYear && endMonth < startMonth)) {
             this.setState({
                 dateError: true
@@ -140,7 +118,7 @@ export default class DateRangeField extends React.Component {
                 </div>
                 <div className="row ">
                     <div className="col-xs-8 col-md-5 mt-5 pos-rel usa-da-startDate">
-                    	<DateDropdown onChange={this.handleDateChange.bind(this, 'startDate')} value={this.state.startDate} hasError={this.state.dateError} type={this.props.type} />
+                    	<DateDropdown onChange={this.handleDateChange.bind(this, 'startDate')} value={this.state.startDate} hasError={this.state.dateError} type={this.props.type} startEndType="start" />
                         <div className={"usa-da-icon date " + dateClass}>
                             {dateIcon}
                         </div>
@@ -151,7 +129,7 @@ export default class DateRangeField extends React.Component {
                     </div>
 
                     <div className="col-xs-8 col-md-5 mt-5 usa-da-endDate">
-                        <DateDropdown onChange={this.handleDateChange.bind(this, 'endDate')} value={this.state.endDate} hasError={this.state.dateError} type={this.props.type} />
+                        <DateDropdown onChange={this.handleDateChange.bind(this, 'endDate')} value={this.state.endDate} hasError={this.state.dateError} type={this.props.type} startEndType="end" />
                         <div className={"usa-da-icon date " + dateClass}>
                             {dateIcon}
                         </div>
