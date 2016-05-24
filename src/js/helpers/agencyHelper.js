@@ -372,5 +372,5 @@ export const agencies = [
             "Federal Home Loan Mortgage Corporation (914)",
             "Federal Home Loan Bank System (913)",
             "Farm Credit System (912)",
-            "Financing Vehicles and the Board of Governors of the Federal Reserve (920"
+            "Financing Vehicles and the Board of Governors of the Federal Reserve (920)"
         ];
