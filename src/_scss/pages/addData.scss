@@ -414,8 +414,41 @@
     }
     
     .usa-da-add-data-meta {
+
+        .usa-da-date-dropdown {
+            // hide the dropdown arrow
+            -webkit-appearance: none;
+            -moz-appearance: none;
+            appearance: none;
+            background-color: #ffffff;
+            background-image: none;
+
+            &.error {
+                border-color: $color-secondary;
+            }
+
+        }
+
+        .usa-da-date-through {
+            text-align: center;
+            font-size: 1.6rem;
+            color: #555;
+            margin: 15px 0px;
+
+            @media(max-width: $small-screen) {
+                text-align: left;
+            }
+        }
+
+        .usa-da-add-data-meta-label {
+            margin: 15px 0px;
+            text-align: left;
+            font-size: 1.6rem;
+            color: #555;
+        }
+
         .meta-holder {
-            padding: 30px 20px 20px;
+            padding: 15px 30px 20px 20px;
             @include contentBlockWrapper;
             .typeahead-holder {
                 div {
@@ -486,6 +519,24 @@
                     border: 1px $color-secondary solid;
                 }
             }
+
+
+            .usa-da-datetype {
+                margin-top: 0px;
+
+                .usa-da-datetype-group {
+                    float: left;
+                    margin-left: 40px;
+
+                    &:first-child {
+                        margin-left: 0px;
+                    }
+                }
+                label {
+                    margin-top: 1rem;
+                    margin-bottom: 1rem;
+                }
+            }
         }
         .datepicker__input-container {
             z-index: 10;
@@ -509,8 +560,29 @@
                     fill: $color-secondary;
                 }
             }
+
+            &.date svg {
+                top: 9px;
+            }
         }
 
+    }
+
+    // metadata transitions
+    .usa-da-meta-fade-enter {
+        opacity: 0.01;
+
+        &.usa-da-meta-fade-enter-active {
+            opacity: 1;
+            transition: opacity 500ms ease-in;
+        }
+    }
+    .usa-da-meta-fade-leave {
+        opacity: 1;
+        &.usa-da-meta-fade-enter-active {
+            opacity: 0.01;
+            transition: opacity 300ms ease-in;
+        }
     }
     
     .usa-da-review-data-content-holder {
@@ -577,5 +649,123 @@
         
         &.default {
             color: $color-gray;
+        }
+    }
+
+    $whiteBorderMargin: 40px;
+    $whiteBorderWidth: 4px;
+    $numberWidthHeight: 32px;
+
+    .usa-da-submission-guide {
+        .submission-guide-holder {
+            background-color: $color-white;
+            box-shadow: 0 1px 2px rgba(43, 59, 93, 0.29);
+            display: -webkit-flex;
+            display: -ms-flexbox;
+            display: flex;
+        }
+
+        .submission-guide-content {
+            display: -webkit-flex;
+            display: -ms-flexbox;
+            display: flex;
+            border-bottom: 1px solid #f5f5f5;
+
+            &:last-of-type {
+                border-bottom: none;
+            }
+        }
+
+        .submission-guide-instructions {
+            padding: 20px;
+            font-size: 1.6rem;
+
+            p {
+                margin-bottom: 0;
+            }
+
+            ul {
+                margin: 10px 0;
+            }
+        }
+
+        .submission-guide-step {
+            background-color: $color-gray-cool-light;
+            font-size: 1.6rem;
+
+            .submission-guide-step-text {
+                text-align: left;
+                margin-left: 65px;
+            }
+
+            .submission-guide-step-number {
+                float: left;
+                position: absolute;
+                left: $whiteBorderMargin - $numberWidthHeight/2 + $whiteBorderWidth/2;
+                top: 0;
+                bottom: 0;
+                margin: auto;
+                border: 1px solid $color-focus;
+                background-color: $color-focus;
+                color: $color-white;
+                border-radius: 100%;
+                line-height: 1.2;
+                width: $numberWidthHeight;
+                height: $numberWidthHeight;
+                padding-top: 0.6em;
+                display: inline-block;
+                z-index: 100;
+                text-align: center;
+                font-size: 1.4rem;
+                font-weight: bold;
+            }
+
+            &:after {
+                content: '';
+                width: 4px;
+                height: 100%;
+                background: white;
+                position: absolute;
+                bottom: 0;
+                left: $whiteBorderMargin;
+            }
+        }
+
+        .submission-guide-step-1:after {
+            height: 50%;
+            bottom: 0;
+        }
+
+        .submission-guide-step-4:after {
+            height: 50%;
+            top: 0;
+        }
+
+        .submission-guide-next {
+            flex-direction: column;
+            background-color: $color-gray-warm-light;
+
+            .submission-guide-next-button {
+                width: 75%;
+
+                button {
+                    width: 100%;
+                }
+            }
+
+            .submission-guide-hide {
+                position: absolute;
+                bottom: 10px;
+
+                label {
+                    margin-right: 15px;
+
+                    input {
+                        left: 20px;
+                        height: 60px;
+                        top: 5px;
+                    }
+                }
+            }
         }
     }
