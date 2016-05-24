@@ -10,11 +10,35 @@ import ApproveDenyBlock from './ApproveDenyBlock.jsx';
 import ModifyBlock from './ModifyBlock.jsx';
 import ReactivateBlock from './ReactivateBlock.jsx';
 
+import UserModal from './UserModal.jsx';
+
 export default class UserTable extends React.Component {
+	constructor(props) {
+		super(props);
+
+		this.state = {
+			modalActive: false,
+			activeUser: {}
+		};
+
+	}
+	showModal(user) {
+		this.setState({
+			activeUser: user,
+			modalActive: true
+		});
+	}
+	closeModal() {
+		this.setState({
+			activeUser: {},
+			modalActive: false
+		});
+	}
 
 	transformData() {
 		const users = [];
 
+		let i = 0;
 		this.props.admin.users.forEach((rawUser) => {
 
 			let action = '';
@@ -24,11 +48,11 @@ export default class UserTable extends React.Component {
 				status = 'Email Confirmed';
 			}
 			else if (rawUser.status == 'awaiting_approval') {
-				action = <ApproveDenyBlock {...this.props} />;
+				action = <ApproveDenyBlock onChange={this.props.modifyUser} user={this.props.admin.users[i]} />;
 				status = 'Awaiting Approval';
 			}
 			else if (rawUser.status == 'approved') {
-				action = <ModifyBlock {...this.props} />;
+				action = <ModifyBlock showModal={this.showModal.bind(this)} onChange={this.props.modifyUser} user={this.props.admin.users[i]} />;
 				status = 'Active';
 			}
 			else if (rawUser.status == 'Denied') {
@@ -36,7 +60,7 @@ export default class UserTable extends React.Component {
 			}
 
 			if (rawUser.status == 'approved' && rawUser.is_active != true) {
-				action = <ReactivateBlock {...this.props} />;
+				action = <ReactivateBlock onChange={this.props.modifyUser} user={this.props.admin.users[i]} />;
 				status = 'Inactive';
 			}
 
@@ -53,6 +77,8 @@ export default class UserTable extends React.Component {
 
 			users.push(user);
 
+			i++;
+
 		});
 
 		return users;
@@ -64,10 +90,12 @@ export default class UserTable extends React.Component {
 			<div>
 				<div className="row">
 	                <div className="col-md-12 usa-da-admin-message">
-	                    <AdminPageMessage />
+	                    <AdminPageMessage data={this.props.message} />
 	                </div>
 	            </div>
-	                
+	            
+	            <UserModal modalActive={this.state.modalActive} closeModal={this.closeModal.bind(this)} user={this.state.activeUser} onChange={this.props.modifyUser} />
+
 	            <div className="row">
 	                <div className="col-md-12">
 	                    <Table data={this.transformData()} headers={headers} extraClasses={['table-bordered']}/>
