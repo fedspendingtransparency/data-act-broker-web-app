@@ -1,7 +1,8 @@
 const initialSessionState = {
 	login: 'pending',
 	user: {},
-	admin: false
+	admin: false,
+	skipGuide: false
 }
 
 export const sessionReducer = (state = initialSessionState, action) => {
@@ -22,7 +23,12 @@ export const sessionReducer = (state = initialSessionState, action) => {
 			return Object.assign({}, state, {
 				login: action.login,
 				user: action.user,
-				admin: action.admin
+				admin: action.admin,
+				skipGuide: action.skipGuide
+			});
+		case 'SET_SKIP_GUIDE':
+			return Object.assign({}, state, {
+				skipGuide: action.skipGuide
 			});
 		default:
 			return state;

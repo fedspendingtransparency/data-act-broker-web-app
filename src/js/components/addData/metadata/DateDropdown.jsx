@@ -5,23 +5,7 @@
 
 import React from 'react';
 import moment from 'moment';
-
-const currentQuarter = () => {
-    const month = parseInt(moment().format("M"));
-    let quarter = 'Q4';
-
-    if (month >= 10) {
-        quarter = 'Q1';
-    }
-    else if (month <= 3) {
-        quarter = 'Q2';
-    }
-    else if (month <= 6) {
-        quarter = 'Q3';
-    }
-
-    return quarter + '/' + moment().format('YYYY');
-}
+import * as UtilHelper from '../../../helpers/util.js';
 
 export default class DateDropdown extends React.Component {
 
@@ -30,7 +14,7 @@ export default class DateDropdown extends React.Component {
 
         this.state = {
             month: moment().format('MM/YYYY'),
-            quarter: currentQuarter()
+            quarter: UtilHelper.currentQuarter(this.props.startEndType)
         };
     }
 
@@ -96,7 +80,7 @@ export default class DateDropdown extends React.Component {
             for (let i = 1; i <= 4; i++) {
                 quarters.push({
                     string: 'Quarter ' + i + ' - ' + year,
-                    value: 'Q' + i + '/' + year
+                    value: UtilHelper.quarterToMonth(i, year, this.props.startEndType)
                 });
             }
         });
