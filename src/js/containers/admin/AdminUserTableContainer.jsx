@@ -30,7 +30,7 @@ class AdminUserTableContainer extends React.Component {
 
 	componentDidMount() {
 		this.props.clearActiveUser();
-        this.loadUserList();
+        	this.loadUserList();
 	}
 
     loadUserList() {
