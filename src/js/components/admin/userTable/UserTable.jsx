@@ -20,14 +20,15 @@ export default class UserTable extends React.Component {
 			modalActive: false,
 			activeUser: {}
 		};
-
 	}
+	
 	showModal(user) {
 		this.setState({
 			activeUser: user,
 			modalActive: true
 		});
 	}
+	
 	closeModal() {
 		this.setState({
 			activeUser: {},
@@ -40,7 +41,6 @@ export default class UserTable extends React.Component {
 
 		let i = 0;
 		this.props.admin.users.forEach((rawUser) => {
-
 			let action = '';
 			let status = 'Awaiting Confirmation';
 
@@ -55,7 +55,7 @@ export default class UserTable extends React.Component {
 				action = <ModifyBlock showModal={this.showModal.bind(this)} onChange={this.props.modifyUser} user={this.props.admin.users[i]} />;
 				status = 'Active';
 			}
-			else if (rawUser.status == 'Denied') {
+			else if (rawUser.status == 'denied') {
 				status = 'Denied';
 			}
 
@@ -63,8 +63,6 @@ export default class UserTable extends React.Component {
 				action = <ReactivateBlock onChange={this.props.modifyUser} user={this.props.admin.users[i]} />;
 				status = 'Inactive';
 			}
-
-
 
 			const user = [
 				rawUser.name,
@@ -78,7 +76,6 @@ export default class UserTable extends React.Component {
 			users.push(user);
 
 			i++;
-
 		});
 
 		return users;
