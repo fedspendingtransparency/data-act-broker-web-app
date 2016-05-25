@@ -4,7 +4,7 @@
   **/
 
 import React from 'react';
-import * as Icons from '../../SharedComponents/Icons/Icons.jsx';
+import * as Icons from '../../SharedComponents/icons/Icons.jsx';
 
 const propTypes = {
 	submissionId: React.PropTypes.oneOfType([
