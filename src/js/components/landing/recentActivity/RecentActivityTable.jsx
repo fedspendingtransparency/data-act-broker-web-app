@@ -71,10 +71,18 @@ export default class RecentActivityTable extends React.Component {
 				rowStatus = statusMap[item.status];
 			}
 
+			let fileSize = '--';
+			if (item.size) {
+                fileSize = (item.size / 1000000).toFixed(2) + ' MB';
+                if (item.size < 100000) {
+                    fileSize = (item.size / 1000).toFixed(2) + ' KB';
+                }
+            }
+
 			const row = [
 				<SubmissionLink submissionId={item.submission_id} />,
 				item.last_modified,
-				item.size,
+				fileSize,
 				<Status.SubmissionStatus status={rowStatus} />,
 				item.errors
 			];
