@@ -28,7 +28,6 @@ export default class HelpPage extends React.Component {
     loadChangelog() {
         HelpHelper.loadChangelog()
             .then((output) => {
-                console.log(output);
                 this.setState({
                     changelog: output.html,
                     sections: output.sections

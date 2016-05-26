@@ -177,6 +177,13 @@ gulp.task('copyAssets', ['copyConstants'], () => {
                 gutil.log('CSS copied');
             }),
 
+        // copy markdown files
+        gulp.src(dir.SRC + '/help/**/*.md')
+            .pipe(gulp.dest(dir.PUBLIC + '/help'))
+            .on('end', () => {
+                gutil.log('Markdown copied');
+            }),
+
         // copy the main index file
         gulp.src('./index.html')
             .pipe(gulp.dest(dir.PUBLIC))
