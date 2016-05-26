@@ -85,19 +85,14 @@ $numberWidthHeight: 42px;
                 }
             }
             & .submission-guide-hide {
-                margin: 0 auto;
+                text-align: center;
                 @media(max-width: $medium-screen) {
                     margin-top: 15px;
                     float: left;
                 }
                 & label {
-                    margin-right: 18px;
+                    margin-top: 20px;
                     font-size: 1.2rem;
-                    & input {
-                        left: 20px;
-                        height: 15px;
-                        top: 27px;
-                    }
                 }
             }
         }

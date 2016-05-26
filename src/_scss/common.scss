@@ -762,16 +762,48 @@ input[type="month"],
 input[type="time"],
 input[type="week"],
 textarea,
-select {
-	border: 1px solid #cacaca;
-	color: #696969;
+select  {
+  border: 1px solid #cacaca;
+  border-radius: 0;
+  box-sizing: border-box;
+  color: #696969; // standardize on firefox 
+  display: block;
+  font-size: $base-font-size;
+  margin: .2em 0;
+  max-width: $input-max-width;
+  width: 100%;
+  outline: none;
+  padding: 1rem .7em;
+  appearance: none;
+
+  &:focus, 
+  &.usa-da-input-focus {
+    box-shadow: $focus-shadow;
+  }
+
+  &.usa-da-input-success {
+    border: 3px solid $color-green-light;
+  }
 }
 
-// .radio input[type="radio"],
-// .radio-inline input[type="radio"],
-// .checkbox input[type="checkbox"],
-// .checkbox-inline input[type="checkbox"]
+label{
+	font-weight: normal;
+	line-height: 23px;
+}
 
+input[type="radio"]{
+	margin: 12px 8px 0 0;
+    line-height: normal;
+    width: auto;
+    float: left;
+}
+
+input[type="checkbox"]{
+	width: auto;
+	float: left;
+	height: 15px;
+	width: 15px;
+}
 
 .usa-da-button,
 .usa-da-button-primary,
