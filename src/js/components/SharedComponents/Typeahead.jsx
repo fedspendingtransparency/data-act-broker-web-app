@@ -49,14 +49,14 @@ export default class Typeahead extends React.Component {
 		this.refs.awesomplete.addEventListener('awesomplete-selectcomplete', (e) => {
 			this.setState({
 				value: e.text.label
+			}, () => {
+				this.bubbleUpChange();
 			});
 			this.typeahead.close();
 		});
 
 		this.refs.awesomplete.addEventListener('blur', (e) => {
-			// validate the current value is on the autocomplete list
-			const validity = this.props.values.indexOf(this.state.value) > -1;
-			this.props.onSelect(this.state.value, validity);
+			this.bubbleUpChange();
 		});
 
 		// enable tab keyboard shortcut for selection
@@ -71,6 +71,13 @@ export default class Typeahead extends React.Component {
 		this.setState({
 			value: e.target.value
 		});
+	}
+
+	bubbleUpChange() {
+		// force the change up into the parent components
+		// validate the current value is on the autocomplete list
+		const validity = this.props.values.indexOf(this.state.value) > -1;
+		this.props.onSelect(this.state.value, validity);
 	}
 
 

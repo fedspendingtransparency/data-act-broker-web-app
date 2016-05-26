@@ -1,6 +1,6 @@
 # DATA Act Broker Web App
 
-The DATA Act broker website is the front-end to the [DATA Act broker API](https://github.com/fedspendingtransparency/data-act-broker "DATA Act broker API") and the [DATA Act validator](https://github.com/fedspendingtransparency/data-act-validator "DATA Act validator").
+The DATA Act broker website is the front-end to the [DATA Act broker backend](https://github.com/fedspendingtransparency/data-act-broker-backend "DATA Act broker backend").
 
 ## Development Set Up
 
@@ -64,33 +64,53 @@ Other fields, such as `LOCAL` and `DEV` should be left based on their sample val
 
 ### Run gulp tasks:
 
-To start the DATA Act broker website, run the appropriate gulp task as specified below.
+Several Gulp tasks are available to build the frontend web site for various use cases.
 
-For production:
+#### Hosted Production
 
-```bash
-    $ gulp production
-```
-
-For demoing a build, but still using dev constants:
+If you are building the web site for a hosted production environment, run:
 
 ```bash
-    $ gulp buildDev
+	$ gulp production
 ```
+This will build the frontend files to the `/public` directory, which you can then deploy on your host. In this mode, JavaScript files are minified, debugging tools are disabled, and the `GlobalConstants_prod.js` file is used as the GlobalConstants file.
 
-Both of the above tasks will build and minify the project, putting the result in `/public`.
+#### Local Production
 
-For Development:
+If you are using the DATA Act Broker in a fully local environment and you are not a developer, run:
 
 ```bash
-    $ gulp
+	$ gulp
+```
+This will build the frontend files to the `/public` directory and start a web server on port 3000. In this mode, JavaScript files are minified, debugging tools are disabled, and the `GlobalConstants_local.js` file is used as the GlobalConstants file.
+
+To use the frontend, go to [http://localhost:3000](http://localhost:3000) in a supported web browser.
+
+*Note:* Before running the gulp task, ensure that no other applications or services are using port 3000 on your computer.
+
+#### Hosted Development (Build-only)
+
+If you are deploying the frontend to a hosted environment for development/testing purposes, use:
+
+```bash
+	$ gulp buildDev
+```
+This will build the frontend files to the `/public` directory, which you can then deploy on your host. In this mode, JavaScript files are uncompressed and sourcemapped, debugging tools are enabled, and the `GlobalConstants_dev.js` file is used as the GlobalConstants file.
+
+#### Local Development
+
+Finally, if you are a frontend developer, use:
+
+```bash
+	$ gulp dev
 ```
 
-This will start a development environment using Browserify to hot reload when changes are made. Copies result into `/dev` for inspection.
+This will build the frontend files to the `/public` directory and also start a web server on port 3000. In this mode, JavaScript files are uncompressed and sourcemapped, debugging tools are enabled and the `GlobalConstants_dev.js` file is used as the GlobalConstants file. Additionally, SASS files in the `/src/_scss` and `/src/css` folders are watched, along with JS files in the `/src/js` folder, and these files are recompiled (and the browser automatically refreshed) whenever a change is detected.
+
 
 ### Modifying global constants:
 
-In the top level directory, you will find `GlobalConstants_prod.js` and `GlobalConstants_dev.js` that you may use for any conditional, global constants, such as the API endpoint you'd like to point to in either given scenario.
+In the top level directory, you will find `GlobalConstants_prod.js`, `GlobalConstants_local.js`, and `GlobalConstant_dev.js` that you may use for any conditional, global constants, such as the API endpoint you'd like to point to in either given scenario.
 
 ## Full DATA Act Broker Setup
 

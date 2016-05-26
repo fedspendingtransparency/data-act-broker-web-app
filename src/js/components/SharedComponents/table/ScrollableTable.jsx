@@ -11,27 +11,31 @@ const propTypes = {
     data: PropTypes.array.isRequired,
     headers: PropTypes.array.isRequired,
     sortable: PropTypes.bool,
-    onSort: PropTypes.func
+    onSort: PropTypes.func,
+    cellClasses: PropTypes.array,
+    headerClasses: PropTypes.array
 };
 
 const defaultProps = {
     data: [['Error']],
     headers: ['Table Data Missing'],
-    sortable: false
+    sortable: false,
+    cellClasses: [],
+    headerClasses:[]
 };
 
 export default class ScrollableTable extends React.Component {
 	render() {
 		const tableRows = [];
         for (let i = 0; i < this.props.data.length; i++) {
-            tableRows.push(<TableRow key={i} data={this.props.data[i]} />);
+            tableRows.push(<TableRow key={i} data={this.props.data[i]} cellClasses={this.props.cellClasses[i]} />);
         }
 		return (
 			<div className="usa-da-scrollable-table">
 				<div className="usa-da-scrollable-table-header">
 					<table className="usa-da-table table-bordered">
 						<thead>
-		                    <TableHeaders data={this.props.headers} sortable={this.props.sortable} onSort={this.props.onSort} />
+		                    <TableHeaders data={this.props.headers} sortable={this.props.sortable} onSort={this.props.onSort} headerClasses={this.props.headerClasses} />
 		                </thead>
 		            </table>
 	            </div>

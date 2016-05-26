@@ -46,7 +46,7 @@ export default class ReviewDataPage extends React.Component {
         return (
             <div>
                 <div className="usa-da-page-content">
-                    <Navbar activeTab="addData"/>
+                    <Navbar activeTab="submissionGuide"/>
                     <AddDataHeader />
                     <div className="usa-da-content-step-block" name="content-top">
                         <div className="container center-block">
