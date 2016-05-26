@@ -6,11 +6,12 @@
 import React, { PropTypes } from 'react';
 
 const propTypes = {
-    data: PropTypes.node.isRequired
+    data: PropTypes.node
 };
 
 const defaultProps = {
-	cellClass: ''
+	cellClass: '',
+	data: ''
 };
 
 export default class TableCell extends React.Component {

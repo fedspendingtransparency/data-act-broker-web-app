@@ -15,7 +15,7 @@ export const loadActivity = () => {
                     deferred.reject(err);
                 }
                 else {
-                    deferred.resolve(res.body.recent);
+                    deferred.resolve(res.body.submissions);
                 }
             });
 
