@@ -1,0 +1,105 @@
+// Submission Guide
+$whiteBorderMargin: 25px;
+$whiteBorderWidth: 4px;
+$numberWidthHeight: 42px;
+.usa-da-submission-guide {
+    .submission-guide-holder {
+        @media(min-width: $medium-screen) {
+            @include display(flex);
+            @include flex-direction(row);
+        }
+        & .usa-da-steps-line {
+            &:after {
+                content: "";
+                height: 100%;
+                background: $color-primary-alt;
+                width: 4px;
+                position: absolute;
+                left: 39px;
+                @media(max-width: $medium-screen) {
+                    display: none;
+                }
+            }
+            &.first-step {
+                &:after {
+                    top: 45px;
+                }
+            }
+            &.last-step {
+                &:after {
+                    height: 60px;
+                }
+            }
+        }
+        & .usa-da-reg-wrapper {
+            @include contentBlockWrapper;
+            padding: 30px 20px;
+            @media(max-width: $medium-screen) {
+                h4 {
+                    margin-left: 50px;
+                }
+            }
+        }
+        & .usa-da-submission-guide-step {
+            position: relative;
+            & .submission-guide-step-number {
+                position: absolute;
+                left: $whiteBorderMargin - $numberWidthHeight/2 + $whiteBorderWidth/2;
+                top: 55px;
+                border: 1px solid $color-primary-alt;
+                background-color: $color-primary-alt;
+                color: $color-white;
+                border-radius: 100%;
+                line-height: 1.7;
+                width: $numberWidthHeight;
+                height: $numberWidthHeight;
+                padding-top: 0.6rem;
+                display: inline-block;
+                z-index: 100;
+                text-align: center;
+                font-size: 1.6rem;
+                font-weight: bold;
+                @media(max-width: $medium-screen) {
+                    left: 20px;
+                }
+                &.first-step {
+                    top: 40px;
+                }
+            }
+        }
+        & .right-rail {
+            background: $color-gray-warm-light;
+            @media(max-width: $medium-screen) {
+                background: none;
+            }
+            @media(min-width: $medium-screen) {
+                @include display(flex);
+                @include flex-direction(column);
+                @include justify-content(center);
+            }
+            & .submission-guide-next-button {
+                @media(max-width: $medium-screen) {
+                    margin-top: 30px;
+                    width: 30%;
+                    float: right;
+                }
+            }
+            & .submission-guide-hide {
+                margin: 0 auto;
+                @media(max-width: $medium-screen) {
+                    margin-top: 15px;
+                    float: left;
+                }
+                & label {
+                    margin-right: 18px;
+                    font-size: 1.2rem;
+                    & input {
+                        left: 20px;
+                        height: 15px;
+                        top: 27px;
+                    }
+                }
+            }
+        }
+    }
+}

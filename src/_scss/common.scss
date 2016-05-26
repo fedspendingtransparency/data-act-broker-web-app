@@ -92,7 +92,6 @@ $top-header-height: 3.1rem;
 	$-local-red: red(rgba($hex-color, 1));
 	$-local-green: green(rgba($hex-color, 1));
 	$-local-blue: blue(rgba($hex-color, 1));
-
 	@return rgba($-local-red, $-local-green, $-local-blue,$alpha);
 }
 
@@ -162,8 +161,8 @@ h6 {
 
 @mixin para {
     font-weight: $font-normal;
-    font-size: 1.6rem;
-    line-height: 2.6rem;
+    font-size: 1.4rem;
+    line-height: 2.4rem;
     color: #525252;
     max-width: 70rem;
 }
@@ -194,7 +193,6 @@ p.small {
     line-height: 2.4rem;
 }
 
-
 p strong{
     font-weight: 600;
 }
@@ -206,6 +204,7 @@ p strong{
 
 ul li{
 	font-size: $base-font-size;
+	line-height: $base-line-height;
 }
 
 p + h2, p + h3, p + h4, p + h5, p + h6,{
@@ -229,6 +228,9 @@ ul.no-bullet{
     padding: 0;
     & li{
         margin: 0!important;
+        &:before{
+        	display: none;
+        }
     }
 }
 
@@ -764,6 +766,12 @@ select {
 	border: 1px solid #cacaca;
 	color: #696969;
 }
+
+// .radio input[type="radio"],
+// .radio-inline input[type="radio"],
+// .checkbox input[type="checkbox"],
+// .checkbox-inline input[type="checkbox"]
+
 
 .usa-da-button,
 .usa-da-button-primary,
