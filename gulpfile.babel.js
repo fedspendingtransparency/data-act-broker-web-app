@@ -177,6 +177,13 @@ gulp.task('copyAssets', ['copyConstants'], () => {
                 gutil.log('CSS copied');
             }),
 
+        // copy markdown files
+        gulp.src(dir.SRC + '/help/**/*.md')
+            .pipe(gulp.dest(dir.PUBLIC + '/help'))
+            .on('end', () => {
+                gutil.log('Markdown copied');
+            }),
+
         // copy the main index file
         gulp.src('./index.html')
             .pipe(gulp.dest(dir.PUBLIC))
@@ -300,17 +307,27 @@ gulp.task('minify', ['build'], () => {
 // after minifying, change the HTML script tag to point to the minified file
 gulp.task('modifyHtml', ['minify'], () => {
     return gulp.src(dir.PUBLIC + '/index.html')
-        .pipe(replace(path.OUT, path.MINIFIED_OUT))
+        // replace the app.js script reference with one that points to the minified file
+        // add in a ?v=[git hash] param to override browser caches when a new version is deployed
+        .pipe(replace(path.OUT, path.MINIFIED_OUT + '?v=' + commitHash))
+        // now do the same thing (without minification) for the CSS file
+        .pipe(replace('main.css', 'main.css?v=' + commitHash))
         .pipe(gulp.dest(dir.PUBLIC));
 });
 
 
 // serve the frontend locally
 gulp.task('serve', serverDeps, () => {
+
+    let reload = true;
+    if (environment == environmentTypes.LOCAL) {
+        reload = false;
+    }
+
     connect.server({
         root: dir.PUBLIC,
         port: 3000,
-        livereload: true
+        livereload: reload
     });
 });
 
