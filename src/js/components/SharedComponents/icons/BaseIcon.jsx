@@ -19,6 +19,7 @@ const propTypes = {
 };
 
 const emitter = new EventEmitter();
+emitter.setMaxListeners(15);
 
 export default class BaseIcon extends React.Component {
 	constructor(props) {
