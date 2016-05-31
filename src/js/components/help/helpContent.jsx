@@ -57,15 +57,15 @@ export default class HelpContent extends React.Component {
             <div className="usa-da-help-content">
                 <p>Welcome to the DATA Act Broker – Alpha Release. This release is a <a href="https://en.wikipedia.org/wiki/Minimum_viable_product" target="_blank">Minimum Viable Product</a> and represents just enough functionality so that we can gather critical user feedback to determine the direction and implementation of future features. This version of the Broker aligns with <a href={this.state.rssUrl} target="_blank">Reporting Submission Specification (RSS v1.0)</a>.</p>
 
-                <h2>What's New in This Release</h2>
+                <h2>What&#39;s New in This Release</h2>
                 
                 <div dangerouslySetInnerHTML={{__html:this.props.changelog}} />
                 
-                <h2>Getting More Help</h2>
+                <h2 className="mt-50">Getting More Help</h2>
 
                 <h4 name="filingIssue">Filing an Issue</h4>
                 
-                <p>If you encounter a bug, have a question, or need help, <a href="https://federal-spending-transparency.atlassian.net/projects/ABF/issues/ABF-2?filter=allopenissues" target="_blank">please file an issue in JIRA</a>, our issue tracker. You do not need an account to file an issue, but if you would like to be notified of updates, please put your email in the "Reporter Email" field. If you can't access JIRA, please email <a href="ma&#105;l&#116;o&#58;da&#116;abroke%72%40fis%6&#51;a%6&#67;&#46;&#116;&#114;&#37;65%&#54;1sur%7&#57;%2&#69;gov">databroker@fiscal.treasury.gov</a>.</p>
+                <p>If you encounter a bug, have a question, or need help, <a href="https://federal-spending-transparency.atlassian.net/projects/ABF/issues/ABF-2?filter=allopenissues" target="_blank">please file an issue in JIRA</a>, our issue tracker. You do not need an account to file an issue, but if you would like to be notified of updates, please put your email in the "Reporter Email" field. If you can&#39;t access JIRA, please email <a href="ma&#105;l&#116;o&#58;da&#116;abroke%72%40fis%6&#51;a%6&#67;&#46;&#116;&#114;&#37;65%&#54;1sur%7&#57;%2&#69;gov">databroker@fiscal.treasury.gov</a>.</p>
 
                 <p>Information posted on JIRA is visible to the public.</p>
 
@@ -74,7 +74,6 @@ export default class HelpContent extends React.Component {
                 <p>
                     <img src={gifSrc}/>
                 </p> 
-
 
                 <p>If you need assistance using the Broker or if you would like to schedule a hands-on sandbox session with Treasury staff, please email <a href="ma&#105;l&#116;o&#58;da&#116;abroke%72%40fis%6&#51;a%6&#67;&#46;&#116;&#114;&#37;65%&#54;1sur%7&#57;%2&#69;gov">databroker@fiscal.treasury.gov</a>.</p>
             </div>

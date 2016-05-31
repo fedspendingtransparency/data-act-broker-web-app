@@ -16,7 +16,7 @@ export default class ReactivateBlock extends React.Component {
 	render() {
 		return (
 			<div className="usa-da-admin-action-block">
-				<AdminButton cssClasses="usa-da-button btn-gray" name="Set Active" onClick={this.reactivate.bind(this)} />
+				<AdminButton cssClasses="usa-da-button btn-default-gray" name="Set Active" onClick={this.reactivate.bind(this)} />
 			</div>
 		);
 	}

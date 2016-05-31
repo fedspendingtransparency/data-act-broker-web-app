@@ -298,6 +298,9 @@ pre {
                     padding: 16px 15px;
                     border-bottom: none;
                     position: relative;
+                    @media(max-width:$medium-screen) {
+                    	padding: 16px 10px;
+                    }
                 }
             }
         }
@@ -307,6 +310,9 @@ pre {
                     padding: 15px;
                     font-size: 1.4rem;
                     color: $color-gray;
+                    @media(max-width:$medium-screen) {
+                    	padding: 10px;
+                    }
                 }
             }
         }
@@ -770,7 +776,6 @@ select  {
   display: block;
   font-size: $base-font-size;
   margin: .2em 0;
-  max-width: $input-max-width;
   width: 100%;
   outline: none;
   padding: 1rem .7em;
@@ -789,10 +794,11 @@ select  {
 label{
 	font-weight: normal;
 	line-height: 23px;
+	color:#555;
 }
 
 input[type="radio"]{
-	margin: 12px 8px 0 0;
+	margin: 4px 8px 0 0;
     line-height: normal;
     width: auto;
     float: left;
