@@ -9,7 +9,7 @@ import * as Status from '../components/landing/recentActivity/SubmissionStatus.j
 
 const parseRecentActivity = (submissions) => {
     const parsedSubmissions = [];
-    
+
     const statusMap = {
         'ready': Status.StatusTypes.STARTED,
         'waiting': Status.StatusTypes.STARTED,
@@ -26,7 +26,7 @@ const parseRecentActivity = (submissions) => {
             rowStatus = statusMap[item.status];
         }
 
-        // convert the file size
+        // convert the file size to KB or MB as appropriate
         let fileSize = '--';
         if (item.size) {
             fileSize = (item.size / 1000000).toFixed(2) + ' MB';
@@ -40,6 +40,8 @@ const parseRecentActivity = (submissions) => {
 
         // sortable date parses the date into unix time stamp for simple sortablity
         item.sortableDate = moment(item.last_modified, "MM/DD/YYYY").unix();
+
+        // do the same thing for size and status, since they are going to be parsed into strings of differing units by the component
         item.sortableSize = item.size;
         item.sortableStatus = rowStatus;
 

@@ -65,8 +65,8 @@ export default class RecentActivityTable extends React.Component {
 
 		const classes = ['row-10 text-center', 'row-20 text-right', 'row-20 text-right', 'row-30 text-right progress-cell', 'row-10 text-right'];
 
+		// sort the array by object key
 		const orderKeys = ['sortableDate', 'sortableSize', 'sortableStatus', 'errors'];
-
 		const data = _.orderBy(this.state.cachedResponse, orderKeys[this.state.sortColumn - 1], this.state.sortDirection);
 
 		// iterate through each item returned from the API
