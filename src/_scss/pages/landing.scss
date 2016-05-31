@@ -70,6 +70,20 @@
             position: relative;
 
         }
+
+        .usa-da-table-sorter {
+            right: 10px;
+
+            .usa-da-icon-angle-down {
+                right: 0px;
+            }
+        }
+
+        th {
+            .table-header-value.sortable {
+                margin-right: 40px;
+            }
+        }
     }
 
     .usa-da-recent-submission-status {
