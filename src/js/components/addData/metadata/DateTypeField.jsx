@@ -24,7 +24,7 @@ export default class DateTypeField extends React.Component {
 
 		return (
 			<div>
-                <div className="row usa-da-add-data-meta-label">
+                <div className="row usa-da-add-data-meta-label usa-da-duration">
                     For what duration are you submitting data?
                 </div>
                 <div className="row">

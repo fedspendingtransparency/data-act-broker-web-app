@@ -38,18 +38,17 @@ export default class LandingRequirementsModal extends React.Component {
 	render() {
 		return (
 			<Modal isOpen={this.state.isOpen} overlayClassName="usa-da-landing-modal-overlay" className="usa-da-landing-modal">
-				<div className="usa-da-landing-modal-close">
+				<div className="usa-da-landing-modal-close usa-da-icon usa-da-icon-times">
 					<a href="#" onClick={this.closeModal.bind(this)}>
-						Close
+						<Icons.Times />
 					</a>
 				</div>
 
 				<div className="usa-da-landing-modal-content">
-					<div>
-						You'll need the following files in order to complete your submission. During the Data Broker - Alpha Release period you may download and use sample data files if you don't have the required files on hand. The sample files can be downloaded below.
-					</div>
-
-					<hr />
+					<h6>You'll need the following files in order to complete your submission</h6>
+					<p>
+						During the Data Broker - Alpha Release period you may download and use sample data files if you don't have the required files on hand. The sample files can be downloaded below.
+					</p>
 
 					<ul>
 						<li>
@@ -63,9 +62,7 @@ export default class LandingRequirementsModal extends React.Component {
 						</li>
 					</ul>
 
-					<div>
-						Files D1, D2, E, and F will be generated for you based on the reporting period you provide.
-					</div>
+						<p className="mt-30"><strong>Files D1, D2, E, and F will be generated for you based on the reporting period you provide.</strong></p>
 
 					<ul>
 						<li>

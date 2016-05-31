@@ -46,7 +46,7 @@ export default class HelpPage extends React.Component {
                     <div className="usa-da-content-dark mb-60">
                         <div className="container">
                             <div className="row">
-                                <div className="col-md-12 mt-50 mb-30">
+                                <div className="col-md-12 mt-40 mb-20">
                                     <div className="display-2">Help | DATA Act Broker - Alpha Release</div>
                                 </div>
                             </div>

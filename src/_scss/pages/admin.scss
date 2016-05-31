@@ -1,97 +1,69 @@
-.usa-da-admin-table-wrapper{
- 	@include contentBlockWrapper;
- 	padding: 30px 20px 20px;
+.usa-da-admin-table-wrapper {
+    @include contentBlockWrapper;
+    padding: 30px 20px 20px;
+    margin-bottom: 40px;
 }
 
 .usa-da-table-holder {
-	&.usa-da-admin-table-holder {
-        	margin-top: 0;
-	}
+    &.usa-da-admin-table-holder {
+        margin-top: 0;
+    }
 }
 
-
-.usa-da-table{
-   	& .usa-da-button{
-    		width: 100%;
-	}
-}
-
-.usa-da-admin-message {
-	margin-bottom: 20px;
+.usa-da-table {
+    & .usa-da-button {
+        width: 100%;
+    }
 }
 
 .usa-da-admin-action-block {
-	display: table;
-	width: 100%;
-
-	button {
-		display: table-cell;
-		vertical-align: center;
-
-		&.two-count {
-			width: 45%;
-			margin-left: 10%;
-		}
-
-		&:first-child {
-			margin-left: 0px;
-		}
-
-		&.btn-gray {
-			background-color: $color-gray;
-			color: $color-white;
-		}
-	}
+    display: table;
+    width: 100%;
+    & button + button {
+        margin-top: 10px;
+    }
 }
 
 // user admin modal
 .usa-da-admin-modal {
-	background: $color-white;
-	margin-top: 20px;
-	margin-bottom: 20px;
-	padding: 20px;
-	width: 500px;
-	border-radius: 4px;
-
-	.form-group {
-		margin-bottom: 10px;
-		
-		label {
-			margin-top: 0px;
-		}
-	}
-
-	.usa-da-modal-permissions {
-		list-style-type: none;
-		margin-bottom: 10px;
-		
-		li {
-			list-style-type: none;
-
-			&:before {
-				content: ""
-			}
-		}
-
-		input {
-			position: relative;
-			left: 0px;
-			width: 20px;
-			display: inline-block;
-		}
-
-		label {
-			span {
-				display: inline-block;
-				margin-left: 5px;
-				font-weight: normal;
-			}
-		}
-	}
-
-	.modal-buttons {
-		button {
-			margin-left: 20px;
-		}
-	}
+    background: $color-white;
+    margin-top: 20px;
+    margin-bottom: 20px;
+    padding: 20px;
+    width: 500px;
+    border-radius: 4px;
+    .form-group {
+        margin-bottom: 10px;
+        label {
+            margin-top: 0px;
+        }
+    }
+    .usa-da-modal-permissions {
+        list-style-type: none;
+        margin-bottom: 10px;
+        li {
+            list-style-type: none;
+            &:before {
+                content: ""
+            }
+        }
+        input {
+            position: relative;
+            left: 0px;
+            width: 20px;
+            display: inline-block;
+        }
+        label {
+            span {
+                display: inline-block;
+                margin-left: 5px;
+                font-weight: normal;
+            }
+        }
+    }
+    .modal-buttons {
+        button {
+            margin-left: 20px;
+        }
+    }
 }
