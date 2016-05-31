@@ -6,31 +6,15 @@ import StoreSingleton from '../redux/storeSingleton.js';
 
 import { kGlobalConstants } from '../GlobalConstants.js';
 
-
-export const listUsersWithStatus = (status) => {
-	const deferred = Q.defer();
-	
-	Request.post(kGlobalConstants.API + 'list_users_with_status/')
-	        .send({ status: status })
-	        .end((err, res) => {
-
-	        	if (err) {
-	        		deferred.reject(err);
-	        	}
-	        	else {
-	        		deferred.resolve(res.body);
-	        	}
-
-	        });
-
-	return deferred.promise;
-}
-
-export const changeUserStatus = (userId, status) => {
-	return modifyUser(userId, {
-		status: status
-	});
-}
+export const UserStatus = {
+	UNKNOWN: 0,
+	AWAITING_CONFIRMATION: 1,
+	EMAIL_CONFIRMED: 2,
+	AWAITING_APPROVAL: 3,
+	ACTIVE: 4,
+	INACTIVE: 5,
+	DENIED: 6
+};
 
 export const modifyUser = (userId, changes) => {
 	const deferred = Q.defer();
@@ -54,8 +38,38 @@ export const modifyUser = (userId, changes) => {
 	return deferred.promise;
 }
 
+const determineStatus = (user) => {
+	let statusType = UserStatus.AWAITING_CONFIRMATION;
+
+	const statusStrings = ['Unknown', 'Awaiting Confirmation', 'Email Confirmed', 'Awaiting Approval', 'Active', 'Inactive', 'Denied'];
+
+	if (user.status == 'email_confirmed') {
+		statusType = UserStatus.EMAIL_CONFIRMED;
+	}
+	else if (user.status == 'awaiting_approval') {
+		statusType = UserStatus.AWAITING_APPROVAL;
+	}
+	else if (user.status == 'approved') {
+		statusType = UserStatus.ACTIVE;
+	}
+	else if (user.status == 'denied') {
+		statusType = UserStatus.DENIED;
+	}
+
+	if (user.status == 'approved' && user.is_active != true) {
+		statusType = UserStatus.INACTIVE;
+	}
+
+	return {
+		string: statusStrings[statusType],
+		type: statusType
+	};
+}
+
 export const listAllUsers = () => {
 	const deferred = Q.defer();
+
+	
 
 	Request.post(kGlobalConstants.API + 'list_users/')
 		.send()
@@ -70,6 +84,12 @@ export const listAllUsers = () => {
 					// sometimes python adds extra spaces to the comma separated list, so strip those out
 					const permString = user.permissions.replace(/\s/g, '');
 					user.permissions = permString.split(',');
+
+					const status = determineStatus(user);
+
+					user.statusString = status.string;
+					user.statusType = status.type;
+
 					users.push(user);
 				});
 				deferred.resolve(users);
