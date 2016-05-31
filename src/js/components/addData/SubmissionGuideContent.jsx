@@ -38,7 +38,7 @@ export default class SubmissionGuideContent extends React.Component {
                 <div className="container usa-da-submission-guide">
                     <div className="row text-center">
                         <div className="col-md-12 mt-60">
-                            <h5 className="mb-20">Four Steps to Upload and Validate Agency Data</h5>
+                            <h5>Four Steps to Upload and Validate Agency Data</h5>
                         </div>
                     </div>
                     <div className="row submission-guide-holder">

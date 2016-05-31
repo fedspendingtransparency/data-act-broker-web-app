@@ -1,0 +1,249 @@
+    .usa-da-add-data-meta {
+        .usa-da-date-dropdown {
+            // hide the dropdown arrow
+            -webkit-appearance: none;
+            -moz-appearance: none;
+            appearance: none;
+            background-color: #ffffff;
+            background-image: none;
+            &.error {
+                border-color: $color-secondary;
+            }
+        }
+        .usa-da-date-through {
+            text-align: center;
+            font-size: 1.4rem;
+            color: #555;
+            line-height: 2.4rem;
+            margin: 15px 0px;
+            @media(max-width: $small-screen) {
+                text-align: left;
+            }
+        }
+        .usa-da-add-data-meta-label {
+            margin: 15px 0px 10px;
+            text-align: left;
+            font-size: 1.6rem;
+            color: #555;
+            &.usa-da-duration,
+            &.usa-da-range {
+                margin: 31px 0 10px;
+                border-top: 1px dashed $color-gray-lighter;
+                padding-top: 30px;
+            }
+            &.usa-da-range {
+                margin: 28px 0 10px;
+            }
+        }
+        .usa-da-meta-submit {
+            margin: 31px 0 10px;
+            border-top: 1px dashed $color-gray-lighter;
+            padding-top: 30px;
+            & .usa-da-meta-message {
+                margin: 15px 0 0;
+                color: #555;
+                @media(max-width: $small-screen) {
+                    margin: 0 0 15px;
+                    text-align: center;
+                }
+            }
+            & .usa-da-button {
+                @media(max-width: $small-screen) {
+                    width: 100%;
+                }
+            }
+        }
+        .meta-holder {
+            padding: 15px 30px 30px 30px;
+            @include contentBlockWrapper;
+            .typeahead-holder {
+                div {
+                    width: 100%;
+                    border-radius: 0;
+                    box-sizing: border-box;
+                    color: #a9a9a9;
+                    font-size: 1.7rem;
+                    margin: .2em 0;
+                    max-width: none;
+                    outline: none;
+                }
+                .awesomplete {
+                    .visually-hidden {
+                        position: absolute;
+                        clip: rect(0, 0, 0, 0);
+                    }
+                }
+                ul.typeahead-selector,
+                .awesomplete ul {
+                    text-align: left;
+                    background: $color-white;
+                    color: #555;
+                    position: absolute;
+                    z-index: 1000;
+                    width: 96%;
+                    margin: -5px 0 0 0;
+                    border: 1px solid #cacaca;
+                    li {
+                        display: inline-block;
+                        vertical-align: middle;
+                        list-style-type: none;
+                        width: 100%;
+                        padding: 10px 10px 0 10px;
+                        margin: 0;
+                        &:hover,
+                        &.hover,
+                        &[aria-selected="true"] {
+                            background-color: $color-gray-lightest;
+                            cursor: pointer;
+                            color: #333;
+                            * {
+                                color: $color-white;
+                            }
+                            mark {
+                                background-color: $color-gray-light;
+                                color: white;
+                            }
+                        }
+                        a,
+                        a:focus,
+                        a:visited {
+                            color: $color-gray-dark;
+                            text-decoration: none;
+                        }
+                        a:hover {
+                            color: $color-white;
+                            background-color: $color-gray-dark;
+                        }
+                    }
+                    li:before {
+                        content: "";
+                        padding: 0;
+                    }
+                }
+            }
+            input {
+                max-width: none;
+                &.error {
+                    border: 1px $color-secondary solid;
+                }
+            }
+            .usa-da-datetype {
+                margin-top: 0px;
+                .usa-da-datetype-group {
+                    float: left;
+                    margin-left: 40px;
+                    &:first-child {
+                        margin-left: 0px;
+                    }
+                }
+            }
+        }
+        .datepicker__input-container {
+            z-index: 10;
+            & .datepicker__input {
+                background: transparent;
+            }
+        }
+        .usa-da-icon {
+            & svg {
+                position: absolute;
+                top: 14px;
+                right: 25px;
+                z-index: 9;
+                fill: #ccc;
+                height: 21px;
+                width: 21px;
+            }
+            &.error {
+                & svg {
+                    fill: $color-secondary;
+                }
+            }
+            &.date svg {
+                top: 12px;
+            }
+        }
+    }
+    
+    // metadata transitions
+    .usa-da-meta-fade-enter {
+        opacity: 0.01;
+        &.usa-da-meta-fade-enter-active {
+            opacity: 1;
+            transition: opacity 500ms ease-in;
+        }
+    }
+    
+    .usa-da-meta-fade-leave {
+        opacity: 1;
+        &.usa-da-meta-fade-enter-active {
+            opacity: 0.01;
+            transition: opacity 300ms ease-in;
+        }
+    }
+    
+    .usa-da-review-data-content-holder {
+        padding: 25px 10px 0;
+        margin-bottom: 100px;
+        background-color: $color-white;
+        @include contentBlockWrapper;
+        .usa-da-review-data-button-holder {
+            margin-bottom: 25px;
+            * {
+                font-size: 16px;
+            }
+            button {
+                width: 100%;
+                text-align: left;
+            }
+        }
+        .usa-da-review-data-alternating-rows {
+            padding-right: 28px;
+            margin-bottom: 23px;
+            color: #555;
+            > div {
+                padding: 10px 0;
+            }
+            div.row:nth-child(even) {
+                background-color: #f5f5f5;
+            }
+        }
+        & .usa-da-icon > svg {
+            width: 2.4rem;
+            height: 2.4rem;
+            fill: $gray-dark;
+            position: relative;
+            top: 5px;
+        }
+    }
+    
+    .usa-da-treemap {
+        position: relative;
+        width: 100%;
+        height: 300px;
+        margin-top: 10px;
+        .usa-da-treemap-cell {
+            position: absolute;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            padding: 5px;
+            cursor: pointer;
+            font-size: 1.2rem;
+            border-right: 1px solid $color-white;
+            border-bottom: 1px solid $color-white;
+        }
+    }
+    
+    .usa-da-treemap-help-wrap {
+        margin-top: 10px;
+        border: 1px solid $color-gray-lighter;
+        min-height: 300px;
+        padding: 10px;
+        word-wrap: break-word;
+        font-size: 1.4rem;
+        line-height: 2.4rem;
+        color: #525252;
+        &.default {
+            color: $color-gray;
+        }
+    }
