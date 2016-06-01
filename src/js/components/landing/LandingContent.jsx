@@ -15,7 +15,7 @@ import { generateRSSUrl } from '../../helpers/util.js';
 const defaultProps = {
     session: {
         user: {
-            agency: ""
+            agency: "Your Agency"
         }
     }
 };
