@@ -4,6 +4,7 @@
   */
 
 import React, { PropTypes } from 'react';
+import _ from 'lodash';
 import Awesomeplete from 'awesomplete';
 
 const propTypes = {
@@ -16,7 +17,10 @@ const propTypes = {
 const defaultProps = {
 	values: [],
 	placeholder: '',
-	customClass: ''
+	customClass: '',
+	formatter: null,
+	key: 'agency_name',
+	internalValue: 'cgac_code'
 }
 
 export default class Typeahead extends React.Component {
@@ -24,6 +28,7 @@ export default class Typeahead extends React.Component {
 		super(props);
 
 		this.typeahead = null;
+		this.dataDictionary = {};
 
 		this.state = {
 			value: ''
@@ -33,17 +38,30 @@ export default class Typeahead extends React.Component {
 		this.mountAwesomeplete();
 	}
 
-	componentWillReceiveProps(nextProps) {
-		if (this.typeahead) {
-			this.typeahead.list = this.props.values;
+	componentDidUpdate(prevProps, prevState) {
+		if (!_.isEqual(prevProps.values, this.props.values) && this.typeahead) {
+			this.loadValues();
 		}
+	}
+
+	loadValues() {
+		this.typeahead.list = this.props.values;
+
+		this.props.values.forEach((value) => {
+			this.dataDictionary[value[this.props.key]] = value[this.props.internalValue];
+		});
 	}
 
 	mountAwesomeplete() {
 		const target = this.refs.awesomplete;
 		this.typeahead = new Awesomplete(target);
 		this.typeahead.autoFirst = true;
-		this.typeahead.list = this.props.values;
+
+		if (this.props.formatter) {
+			this.typeahead.data = this.props.formatter;
+		}
+
+		this.loadValues();
 
 		// set up event handlers
 		this.refs.awesomplete.addEventListener('awesomplete-selectcomplete', (e) => {
@@ -76,8 +94,8 @@ export default class Typeahead extends React.Component {
 	bubbleUpChange() {
 		// force the change up into the parent components
 		// validate the current value is on the autocomplete list
-		const validity = this.props.values.indexOf(this.state.value) > -1;
-		this.props.onSelect(this.state.value, validity);
+		const validity = this.dataDictionary.hasOwnProperty(this.state.value);
+		this.props.onSelect(this.dataDictionary[this.state.value], validity);
 	}
 
 

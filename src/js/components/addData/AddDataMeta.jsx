@@ -8,7 +8,7 @@ import ReactCSSTransitionGroup from 'react-addons-css-transition-group';
 
 import DatePicker from 'react-datepicker';
 import moment from 'moment';
-import Typeahead from '../SharedComponents/Typeahead.jsx';
+import AgencyListContainer from '../../containers/SharedContainers/AgencyListContainer.jsx';
 import * as Icons from '../SharedComponents/icons/Icons.jsx';
 
 import DateTypeField from './metadata/DateTypeField.jsx';
@@ -185,7 +185,7 @@ export default class AddDataMeta extends React.Component {
                                     </div>
                                     <div className="row">
                                         <div className="col-sm-12 col-md-12 typeahead-holder" data-testid="agencytypeahead">
-                                            <Typeahead values={AgencyHelper.agencies} placeholder="Enter the name of the reporting agency" onSelect={this.handleChange.bind(this)} customClass={agencyClass}        />
+                                            <AgencyListContainer placeholder="Enter the name of the reporting agency" onSelect={this.handleChange.bind(this)} customClass={agencyClass} />
                                                 <div className={"usa-da-icon " + agencyClass}>
                                                     {agencyIcon}
                                                 </div>
