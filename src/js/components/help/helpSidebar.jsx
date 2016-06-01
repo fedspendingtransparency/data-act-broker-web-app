@@ -12,16 +12,16 @@ export default class HelpSidebar extends React.Component {
                 <h6>What’s New in This Release</h6>
                 <ul>
                     <li>
-                        <a href="/#/help?section=brokerIE">Logging into the Broker with Internet Explorer</a>
+                        <a href="/#/help?section=stepby">Step-by-Step Guide</a>
                     </li>
                     <li>
-                        <a href="/#/help?section=pipe">Submit Files with Pipe Symbol</a>
+                        <a href="/#/help?section=subguide">Submission Guide</a>
                     </li>
                     <li>
-                        <a href="/#/help?section=fileValv1">File Validations per RSS v1.0</a>
+                        <a href="/#/help?section=dateselect">Select Reporting Period</a>
                     </li>
-                    <li>
-                        <a href="/#/help?section=crossFileValv1">Cross File Validations</a>
+                     <li>
+                        <a href="/#/help?section=valjun01">Updated Validations</a>
                     </li>
                     <li>
                         <a href="/#/help?section=browser">Browser Requirements &amp; Known Issues</a>
