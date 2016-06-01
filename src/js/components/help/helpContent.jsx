@@ -217,7 +217,7 @@ export default class HelpContent extends React.Component {
                 <p>Based on user feedback, we changed the Broker to automatically detect whether a file is using a comma or pipe symbol as a delimiter, based on the format of the header row.</p>
 
                 <h4 name="fileValv1">File Validations per RSS v1.0</h4>
-                <p>Submitted files will be validated per RSS v1.0. Specifically:
+                <p>Submitted files will be validated per RSS v1.0. Specifically:</p>
                 <ul>
                 <li>Field names match the RSS v1.0
                 </li>
@@ -228,7 +228,7 @@ export default class HelpContent extends React.Component {
                 <li>Records in File C have a PIID, FAIN, or URI
                 </li>
                 </ul>
-                </p>
+                
                 
                 <h4 name="crossFileValv1">Cross File Validations</h4>
                 <p>We started work on cross file validations, beginning with cross validation of the FAIN, URI or PIID between sample files for Files C and D2.</p>
