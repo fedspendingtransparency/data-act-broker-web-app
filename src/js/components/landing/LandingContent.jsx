@@ -12,6 +12,14 @@ import LandingRequirementsModal from './blocks/LandingRequirementsModal.jsx';
 import * as Icons from '../SharedComponents/icons/Icons.jsx';
 import { generateRSSUrl } from '../../helpers/util.js';
 
+const defaultProps = {
+    session: {
+        user: {
+            agency: "Your Agency"
+        }
+    }
+};
+
 export default class LandingContent extends React.Component {
     constructor(props) {
         super(props);
@@ -81,7 +89,7 @@ export default class LandingContent extends React.Component {
                 </div>
                 <div>
                     <div className="container">
-                        <h4>Recent Activity</h4>
+                        <h4>Recent Activity for {this.props.session.user.agency}</h4>
                         <RecentActivityTable />
                     </div>
                 </div>
@@ -93,3 +101,5 @@ export default class LandingContent extends React.Component {
         );
     }
 }
+
+LandingContent.defaultProps = defaultProps;
