@@ -102,87 +102,88 @@ export default class HelpContent extends React.Component {
       <th scope="col">Notes</th>
     </tr>
   </thead>
-   
-<tr><td>A</td>
-<td>A2</td>
-<td>BudgetAuthorityAvailableAmountTotal_CPE = BudgetAuthorityAppropriatedAmount_CPE + BudgetAuthorityUnobligatedBalanceBroughtForward_FYB + AdjustmentsToUnobligatedBalanceBroughtForward_CPE + OtherBudgetaryResourcesAmount_CPE</td>
-<td>Calculation</td>
-</tr>
-<tr><td>A</td>
-<td>A3</td>
-<td>OtherBudgetaryResourcesAmount_CPE = ContractAuthorityAmountTotal_CPE + BorrowingAuthorityAmountTotal_CPE + SpendingAuthorityfromOffsettingCollectionsAmountTotal_CPE</td>
-<td>Calculation</td>
-</tr>
-<tr><td>A</td>
-<td>A4</td>
-<td>StatusOfBudgetaryResourcesTotal_CPE= ObligationsIncurredTotalByTAS_CPE + UnobligatedBalance_CPE</td>
-<td>Calculation</td>
-</tr>
-<tr><td>A</td>
-<td>A24</td>
-<td>StatusOfBudgetaryResourcesTotal_CPE = BudgetAuthorityAvailableAmountTotal_CPE</td>
-<td>In File A, both of these elements must match, per TAS</td>
-</tr>
-<tr><td>B</td>
-<td>B3</td>
-<td>ObligationsUndeliveredOrdersUnpaidTotal (FYB or CPE) = USSGL(4801 + 4831 + 4871 + 4881). This applies to the program activity and object class level.</td>
-<td>Calculation</td>
-</tr>
-<tr><td>B</td>
-<td>B4</td>
-<td>ObligationsDeliveredOrdersUnpaidTotal (FYB or CPE) = USSGL(4901 + 4931 + 4971 + 4981). This applies to the program activity and object class level.</td>
-<td>Calculation</td>
-</tr>
-<tr><td>B</td>
-<td>B5</td>
-<td>GrossOutlayAmountByProgramObjectClass (FYB or CPE, File B) = GrossOutlaysUndeliveredOrdersPrepaidTotal (FYB or CPE, File B) + GrossOutlaysDeliveredOrdersPaidTotal (FYB or CPE, File B)</td>
-<td>Calculation</td>
-</tr>
-<tr><td>B</td>
-<td>B6</td>
-<td>GrossOutlaysUndeliveredOrdersPrepaidTotal (FYB or CPE) = USSGL(4802 + 4832 + 4872+ 4882). This applies to the program activity and object class level.</td>
-<td>Calculation</td>
-</tr>
-<tr><td>B</td>
-<td>B7</td>
-<td>GrossOutlaysDeliveredOrdersPaidTotal (FYB or CPE)= USSGL(4902 + 4908 + 4972 + 4982). This applies to the program activity and object class level.</td>
-<td>Calculation</td>
-</tr>
-<tr><td>B</td>
-<td>B13</td>
-<td>DeobligationsRecoveriesRefundsdOfPriorYearByProgramObjectClass_CPE = USSGL(4871+ 4872 + 4971 + 4972)</td>
-<td>Calculation</td>
-</tr>
-<tr><td>C</td>
-<td>C3</td>
-<td>ObligationsUndeliveredOrdersUnpaidTotal (FYB or CPE) = USSGL(4801 + 4831 + 4871 + 4881). This applies to the award level.</td>
-<td>Calculation</td>
-</tr>
-<tr><td>C</td>
-<td>C4</td>
-<td>ObligationsDeliveredOrdersUnpaidTotal (FYB or CPE) = USSGL(4901 + 4931 + 4971 + 4981). This applies to the award level.</td>
-<td>Calculation</td>
-</tr>
-<tr><td>C</td>
-<td>C5</td>
-<td>GrossOutlayAmountByAward (FYB or CPE, File C) = GrossOutlaysUndeliveredOrdersPrepaidTotal (FYB or CPE, File C) + GrossOutlaysDeliveredOrdersPaidTotal (FYB or CPE, File C)</td>
-<td>Calculation</td>
-</tr>
-<tr><td>C</td>
-<td>C6</td>
-<td>GrossOutlaysUndeliveredOrdersPrepaidTotal (FYB or CPE) = USSGL(4802 + 4832 + 4872+ 4882). This applies to the award level.</td>
-<td>Calculation</td>
-</tr>
-<tr><td>C</td>
-<td>C7</td>
-<td>GrossOutlaysDeliveredOrdersPaidTotal (FYB or CPE) = USSGL(4902 + 4908 + 4972 + 4982). This applies to the award level.</td>
-<td>Calculation</td>
-</tr>
-<tr><td>C</td>
-<td>C17</td>
-<td>Not Required on rows that include values for USSGL account balances or subtotals.</td>
-<td>This is for transactions, not for USSGL amounts, from the financial systems.</td>
-</tr>   
+    <tbody>
+        <tr><td>A</td>
+        <td>A2</td>
+        <td>BudgetAuthorityAvailableAmountTotal_CPE = BudgetAuthorityAppropriatedAmount_CPE + BudgetAuthorityUnobligatedBalanceBroughtForward_FYB + AdjustmentsToUnobligatedBalanceBroughtForward_CPE + OtherBudgetaryResourcesAmount_CPE</td>
+        <td>Calculation</td>
+        </tr>
+        <tr><td>A</td>
+        <td>A3</td>
+        <td>OtherBudgetaryResourcesAmount_CPE = ContractAuthorityAmountTotal_CPE + BorrowingAuthorityAmountTotal_CPE + SpendingAuthorityfromOffsettingCollectionsAmountTotal_CPE</td>
+        <td>Calculation</td>
+        </tr>
+        <tr><td>A</td>
+        <td>A4</td>
+        <td>StatusOfBudgetaryResourcesTotal_CPE= ObligationsIncurredTotalByTAS_CPE + UnobligatedBalance_CPE</td>
+        <td>Calculation</td>
+        </tr>
+        <tr><td>A</td>
+        <td>A24</td>
+        <td>StatusOfBudgetaryResourcesTotal_CPE = BudgetAuthorityAvailableAmountTotal_CPE</td>
+        <td>In File A, both of these elements must match, per TAS</td>
+        </tr>
+        <tr><td>B</td>
+        <td>B3</td>
+        <td>ObligationsUndeliveredOrdersUnpaidTotal (FYB or CPE) = USSGL(4801 + 4831 + 4871 + 4881). This applies to the program activity and object class level.</td>
+        <td>Calculation</td>
+        </tr>
+        <tr><td>B</td>
+        <td>B4</td>
+        <td>ObligationsDeliveredOrdersUnpaidTotal (FYB or CPE) = USSGL(4901 + 4931 + 4971 + 4981). This applies to the program activity and object class level.</td>
+        <td>Calculation</td>
+        </tr>
+        <tr><td>B</td>
+        <td>B5</td>
+        <td>GrossOutlayAmountByProgramObjectClass (FYB or CPE, File B) = GrossOutlaysUndeliveredOrdersPrepaidTotal (FYB or CPE, File B) + GrossOutlaysDeliveredOrdersPaidTotal (FYB or CPE, File B)</td>
+        <td>Calculation</td>
+        </tr>
+        <tr><td>B</td>
+        <td>B6</td>
+        <td>GrossOutlaysUndeliveredOrdersPrepaidTotal (FYB or CPE) = USSGL(4802 + 4832 + 4872+ 4882). This applies to the program activity and object class level.</td>
+        <td>Calculation</td>
+        </tr>
+        <tr><td>B</td>
+        <td>B7</td>
+        <td>GrossOutlaysDeliveredOrdersPaidTotal (FYB or CPE)= USSGL(4902 + 4908 + 4972 + 4982). This applies to the program activity and object class level.</td>
+        <td>Calculation</td>
+        </tr>
+        <tr><td>B</td>
+        <td>B13</td>
+        <td>DeobligationsRecoveriesRefundsdOfPriorYearByProgramObjectClass_CPE = USSGL(4871+ 4872 + 4971 + 4972)</td>
+        <td>Calculation</td>
+        </tr>
+        <tr><td>C</td>
+        <td>C3</td>
+        <td>ObligationsUndeliveredOrdersUnpaidTotal (FYB or CPE) = USSGL(4801 + 4831 + 4871 + 4881). This applies to the award level.</td>
+        <td>Calculation</td>
+        </tr>
+        <tr><td>C</td>
+        <td>C4</td>
+        <td>ObligationsDeliveredOrdersUnpaidTotal (FYB or CPE) = USSGL(4901 + 4931 + 4971 + 4981). This applies to the award level.</td>
+        <td>Calculation</td>
+        </tr>
+        <tr><td>C</td>
+        <td>C5</td>
+        <td>GrossOutlayAmountByAward (FYB or CPE, File C) = GrossOutlaysUndeliveredOrdersPrepaidTotal (FYB or CPE, File C) + GrossOutlaysDeliveredOrdersPaidTotal (FYB or CPE, File C)</td>
+        <td>Calculation</td>
+        </tr>
+        <tr><td>C</td>
+        <td>C6</td>
+        <td>GrossOutlaysUndeliveredOrdersPrepaidTotal (FYB or CPE) = USSGL(4802 + 4832 + 4872+ 4882). This applies to the award level.</td>
+        <td>Calculation</td>
+        </tr>
+        <tr><td>C</td>
+        <td>C7</td>
+        <td>GrossOutlaysDeliveredOrdersPaidTotal (FYB or CPE) = USSGL(4902 + 4908 + 4972 + 4982). This applies to the award level.</td>
+        <td>Calculation</td>
+        </tr>
+        <tr><td>C</td>
+        <td>C17</td>
+        <td>Not Required on rows that include values for USSGL account balances or subtotals.</td>
+        <td>This is for transactions, not for USSGL amounts, from the financial systems.</td>
+        </tr>   
+    </tbody>
   </table>
                                 
 
@@ -244,12 +245,11 @@ export default class HelpContent extends React.Component {
                 </ul>
 
                 <p>Although you may use any browser/version combination you wish, we cannot support browsers and versions other than the ones stated above.</p>
-                <p>Known Issues
+                <p>Known Issues</p>
                 <ul>
                 <li>The Broker will not work when using Internet Explorer under medium privacy settings or high security settings.
                 </li>
                 </ul>
-                </p>
                 <h2>Getting More Help</h2>
 
                 <h4 name="filingIssue">Filing an Issue</h4>
