@@ -178,3 +178,15 @@ Search.defaultProps = {
 	iconName: 'usa-da-icon-search',
 	iconClass: 'usa-da-icon-search'
 };
+
+export class Eye extends BaseIcon {};
+Eye.defaultProps = {
+	iconName: 'usa-da-icon-eye',
+	iconClass: 'usa-da-icon-eye'
+};
+
+export class Floppy extends BaseIcon {};
+Floppy.defaultProps = {
+	iconName: 'usa-da-icon-floppy-o',
+	iconClass: 'usa-da-icon-floppy-o'
+};

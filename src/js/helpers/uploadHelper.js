@@ -41,6 +41,8 @@ export const performLocalUpload = (submission) => {
     const store = new StoreSingleton().store;
 	store.dispatch(uploadActions.setSubmissionState('uploading'));
 
+    prepareMetadata(submission.meta, request);
+
     let i = 0;
 
     const uploadOperations = [];
@@ -213,6 +215,21 @@ const finalizeMultipleUploads = (fileIds) => {
 	return Q.all(operations);
 }
 
+const prepareMetadata = (metadata, request) => {
+
+     // add the metadata to the request
+    request.agency_name = metadata.agency;
+    request.reporting_period_start_date = metadata.startDate;
+    request.reporting_period_end_date = metadata.endDate;
+    request.is_quarter = false;
+    if (metadata.dateType == "quarter") {
+        request.is_quarter = true;
+    }
+
+
+    return request;
+}
+
 export const performRemoteUpload = (submission) => {
 
 	const deferred = Q.defer();
@@ -227,10 +244,8 @@ export const performRemoteUpload = (submission) => {
 		request[fileType] = file.name;
 	}
 
-    // add the metadata to the request
-    request.agency_name = submission.meta.agency;
-    request.reporting_period_start_date = submission.meta.startDate.format('MM/DD/YYYY');
-    request.reporting_period_end_date = submission.meta.endDate.format('MM/DD/YYYY');
+    prepareMetadata(submission.meta, request);
+   
 
 	// submit it to the API to set up S3
 	let submissionID;

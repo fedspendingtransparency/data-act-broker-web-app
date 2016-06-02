@@ -11,6 +11,10 @@ const propTypes = {
     onSort: PropTypes.func
 };
 
+const defaultProps = {
+    headerClasses: []
+}
+
 export default class TableHeaders extends React.Component {
     render() {
 
@@ -23,7 +27,7 @@ export default class TableHeaders extends React.Component {
                 sorters = <TableSorter onSort={this.props.onSort} col={i} />;
             }
 
-            tableHeaders.push(<th key={i}>
+            tableHeaders.push(<th key={i} className={this.props.headerClasses[i]}>
                 {this.props.data[i]}
                 {sorters}
             </th>);
@@ -40,3 +44,4 @@ export default class TableHeaders extends React.Component {
 }
 
 TableHeaders.propTypes = propTypes;
+TableHeaders.defaultProps = defaultProps;

@@ -27,14 +27,15 @@ export class Navbar extends React.Component {
         this.props.setSession({
             login: 'loggedOut',
             user: {},
-            admin: false
+            admin: false,
+            skipGuide: false
         });
     }
 
     render() {
         let tabNames = {
             'Home': 'landing',
-            'Add New Data': 'addData',
+            'Upload & Validate New Submission': 'submissionGuide',
             'Submission Dashboard': 'dashboard',
             'Help': 'help'
         };
