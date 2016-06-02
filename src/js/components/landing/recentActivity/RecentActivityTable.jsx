@@ -4,6 +4,7 @@
   **/
 
 import React from 'react';
+import _ from 'lodash';
 import FormattedTable from '../../SharedComponents/table/FormattedTable.jsx';
 import SubmissionLink from './SubmissionLink.jsx';
 
@@ -24,10 +25,13 @@ export default class RecentActivityTable extends React.Component {
 		];
 
 		this.state = {
+			cachedResponse: [],
 			data: [],
 			cellClasses: [],
 			headerClasses: [],
-			message: 'Loading recent activity...'
+			message: 'Loading recent activity...',
+			sortDirection: 'desc',
+			sortColumn: 1
 		};
 	}
 
@@ -38,7 +42,13 @@ export default class RecentActivityTable extends React.Component {
 	loadActivity() {
 		RecentActivityHelper.loadActivity()
 			.then((data) => {
-				this.parseActivity(data);
+				// save the response for sorting later
+				this.setState({
+					cachedResponse: data
+				}, () => {
+					// show the response once the data is in place
+					this.buildRow();
+				});
 			})
 			.catch((err) => {
 				this.setState({
@@ -48,50 +58,31 @@ export default class RecentActivityTable extends React.Component {
 			});
 	}
 
-	parseActivity(data) {
+	buildRow() {
 		// iterate through the recent activity
 		const output = [];
 		const rowClasses = [];
 
 		const classes = ['row-10 text-center', 'row-20 text-right', 'row-20 text-right', 'row-30 text-right progress-cell', 'row-10 text-right'];
 
-		const statusMap = {
-			'ready': Status.StatusTypes.STARTED,
-			'waiting': Status.StatusTypes.STARTED,
-			'running': Status.StatusTypes.INPROGRESS,
-			'finished': Status.StatusTypes.VALIDATED,
-			'invalid': Status.StatusTypes.HASERRORS,
-			'failed': Status.StatusTypes.HASERRORS
-		};
+		// sort the array by object key
+		const orderKeys = ['sortableDate', 'sortableSize', 'sortableStatus', 'errors'];
+		const data = _.orderBy(this.state.cachedResponse, orderKeys[this.state.sortColumn - 1], this.state.sortDirection);
 
+		// iterate through each item returned from the API
 		data.forEach((item) => {
 
-			let rowStatus = Status.StatusTypes.UNKNOWN
-			if (statusMap.hasOwnProperty(item.status)) {
-				rowStatus = statusMap[item.status];
-			}
-
-			let fileSize = '--';
-			if (item.size) {
-                fileSize = (item.size / 1000000).toFixed(2) + ' MB';
-                if (item.size < 100000) {
-                    fileSize = (item.size / 1000).toFixed(2) + ' KB';
-                }
-            }
-
+            // break the object out into an array for the table component
 			const row = [
 				<SubmissionLink submissionId={item.submission_id} />,
 				item.last_modified,
-				fileSize,
-				<Status.SubmissionStatus status={rowStatus} />,
+				item.fileSize,
+				<Status.SubmissionStatus status={item.rowStatus} />,
 				item.errors
 			];
 
 			rowClasses.push(classes);
-
 			output.push(row);
-
-
 		});
 
 		const headerClasses = classes;
@@ -109,10 +100,22 @@ export default class RecentActivityTable extends React.Component {
 		});
 	}
 
+	sortTable(direction, column) {
+		// the table sorting changed
+        this.setState({
+            sortDirection: direction,
+            sortColumn: column
+        }, () => {
+        	// re-display the data
+        	this.buildRow();
+        });
+    }
+
+
 	render() {
 		return (
 			<div className="usa-da-recent-activity">
-				<FormattedTable headers={this.tableHeaders} data={this.state.data} sortable={false} cellClasses={this.state.cellClasses} headerClasses={this.state.headerClasses} />
+				<FormattedTable headers={this.tableHeaders} data={this.state.data} sortable={true} cellClasses={this.state.cellClasses} headerClasses={this.state.headerClasses} unsortable={[0]} onSort={this.sortTable.bind(this)} />
 				<div className="text-center">
 					{this.state.message}
 				</div>

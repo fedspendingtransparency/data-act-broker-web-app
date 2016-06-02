@@ -21,7 +21,8 @@ const defaultProps = {
     headers: ['Table Data Missing'],
     sortable: false,
     cellClasses: [],
-    headerClasses:[]
+    headerClasses:[],
+    unsortable: []
 };
 
 export default class FormattedTable extends React.Component {
@@ -35,7 +36,7 @@ export default class FormattedTable extends React.Component {
 				<div className="usa-da-table-header">
 					<table className="usa-da-table table-bordered">
 						<thead>
-		                    <TableHeaders data={this.props.headers} sortable={this.props.sortable} onSort={this.props.onSort} headerClasses={this.props.headerClasses} />
+		                    <TableHeaders data={this.props.headers} sortable={this.props.sortable} unsortable={this.props.unsortable} onSort={this.props.onSort} headerClasses={this.props.headerClasses} />
 		                </thead>
 		            </table>
 	            </div>

@@ -7,6 +7,7 @@ import React from 'react';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { hashHistory } from 'react-router';
+import _ from 'lodash';
 
 import * as AdminHelper from '../../helpers/adminHelper.js';
 
@@ -58,24 +59,22 @@ class AdminUserTableContainer extends React.Component {
                             type: type,
                             message: user.name + "'s DATA Act Broker account has been " + changes.status + "."
                         }
-                    });
+                    }, this.scheduleMessageHide());
                 }
 
                 else if (changes.hasOwnProperty('is_active')) {
-                    let type = "success";
                     let message = user.name + "'s DATA Act Broker account has been set to active.";
                     if (changes.is_active != true) {
-                        type = "failed";
                         message = user.name + "'s DATA Act Broker account has been disabled.";
                     }
 
                     this.setState({
                         message: {
                             hidden: false,
-                            type: type,
+                            type: 'success',
                             message: message
                         }
-                    });
+                    }, this.scheduleMessageHide());
                 }
                 else {
                     this.setState({
@@ -84,7 +83,7 @@ class AdminUserTableContainer extends React.Component {
                             type: 'success',
                             message: user.name + "'s DATA Act Broker account was successfully updated."
                         }
-                    });
+                    }, this.scheduleMessageHide());
                 }
 
                 // reload the table
@@ -97,9 +96,22 @@ class AdminUserTableContainer extends React.Component {
                             type: 'failed',
                             message: 'An error occurred while updating the user account.'
                         }
-                    });
+                    }, this.scheduleMessageHide());
                 console.log(err);
             });
+    }
+
+    scheduleMessageHide() {
+        // hide the message after 3 seconds
+        window.setTimeout(() => {
+            this.setState({
+                message: {
+                    hidden: true,
+                    type: 'success',
+                    message: ''
+                }
+            });
+        }, 3000);
     }
 
     render() {

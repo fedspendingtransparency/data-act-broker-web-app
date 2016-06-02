@@ -1,6 +1,5 @@
 const initialState = {
-	users: [],
-	activeUser: {}
+	users: []
 }
 
 export const adminUserListReducer = (state = initialState, action) => {
@@ -8,14 +7,6 @@ export const adminUserListReducer = (state = initialState, action) => {
 		case 'SET_USER_LIST':
 			return Object.assign({}, state, {
 				users: action.users
-			});
-		case 'SET_ACTIVE_USER':
-			return Object.assign({}, state, {
-				activeUser: action.user
-			});
-		case 'CLEAR_ACTIVE_USER':
-			return Object.assign({}, state, {
-				activeUser: {}
 			});
 		default:
 			return state;

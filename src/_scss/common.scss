@@ -92,7 +92,6 @@ $top-header-height: 3.1rem;
 	$-local-red: red(rgba($hex-color, 1));
 	$-local-green: green(rgba($hex-color, 1));
 	$-local-blue: blue(rgba($hex-color, 1));
-
 	@return rgba($-local-red, $-local-green, $-local-blue,$alpha);
 }
 
@@ -162,8 +161,8 @@ h6 {
 
 @mixin para {
     font-weight: $font-normal;
-    font-size: 1.6rem;
-    line-height: 2.6rem;
+    font-size: 1.4rem;
+    line-height: 2.4rem;
     color: #525252;
     max-width: 70rem;
 }
@@ -194,7 +193,6 @@ p.small {
     line-height: 2.4rem;
 }
 
-
 p strong{
     font-weight: 600;
 }
@@ -206,6 +204,7 @@ p strong{
 
 ul li{
 	font-size: $base-font-size;
+	line-height: $base-line-height;
 }
 
 p + h2, p + h3, p + h4, p + h5, p + h6,{
@@ -229,6 +228,9 @@ ul.no-bullet{
     padding: 0;
     & li{
         margin: 0!important;
+        &:before{
+        	display: none;
+        }
     }
 }
 
@@ -296,6 +298,9 @@ pre {
                     padding: 16px 15px;
                     border-bottom: none;
                     position: relative;
+                    @media(max-width:$medium-screen) {
+                    	padding: 16px 10px;
+                    }
                 }
             }
         }
@@ -305,6 +310,9 @@ pre {
                     padding: 15px;
                     font-size: 1.4rem;
                     color: $color-gray;
+                    @media(max-width:$medium-screen) {
+                    	padding: 10px;
+                    }
                 }
             }
         }
@@ -760,9 +768,47 @@ input[type="month"],
 input[type="time"],
 input[type="week"],
 textarea,
-select {
-	border: 1px solid #cacaca;
-	color: #696969;
+select  {
+  border: 1px solid #cacaca;
+  border-radius: 0;
+  box-sizing: border-box;
+  color: #696969; // standardize on firefox 
+  display: block;
+  font-size: $base-font-size;
+  margin: .2em 0;
+  width: 100%;
+  outline: none;
+  padding: 1rem .7em;
+  appearance: none;
+
+  &:focus, 
+  &.usa-da-input-focus {
+    box-shadow: $focus-shadow;
+  }
+
+  &.usa-da-input-success {
+    border: 3px solid $color-green-light;
+  }
+}
+
+label{
+	font-weight: normal;
+	line-height: 23px;
+	color:#555;
+}
+
+input[type="radio"]{
+	margin: 4px 8px 0 0;
+    line-height: normal;
+    width: auto;
+    float: left;
+}
+
+input[type="checkbox"]{
+	width: auto;
+	float: left;
+	height: 15px;
+	width: 15px;
 }
 
 .usa-da-button,

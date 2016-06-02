@@ -13,7 +13,7 @@ export default class ModifyBlock extends React.Component {
 	render() {
 		return (
 			<div className="usa-da-admin-action-block">
-				<AdminButton cssClasses="usa-da-button btn-primary" name="Modify" onClick={this.showModal.bind(this)} />
+				<AdminButton cssClasses="usa-da-button btn-default" name="Modify" onClick={this.showModal.bind(this)} />
 			</div>
 		);
 	}
