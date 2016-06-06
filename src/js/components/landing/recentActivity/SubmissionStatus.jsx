@@ -9,8 +9,8 @@ export const StatusTypes = {
 	UNKNOWN: 0,
 	STARTED: 1,
 	INPROGRESS: 2,
-	VALIDATED: 3,
-	HASERRORS: 4,
+	HASERRORS: 3,
+	VALIDATED: 4,
 	SUBMITTED: 5
 };
 

@@ -10,6 +10,38 @@
     }
 }
 
+.usa-da-admin-table-wrapper {
+	table {
+		table-layout: fixed;
+
+		.row-10 {
+        	width: 10%;
+	    }
+	    .row-15 {
+	    	width: 15%;
+	    }
+	    .row-20 {
+	        width: 20%;
+	    }
+	    .row-25 {
+	    	width: 25%;
+	    }
+	    .row-30 {
+	        width: 30%;
+	    }
+	    .row-40 {
+	    	width: 40%;
+	    }
+	    .row-50 {
+	    	width: 50%;
+	    }
+
+	    .email-cell {
+	    	word-wrap: break-word;
+	    }
+	}
+}
+
 .usa-da-table {
     & .usa-da-button {
         width: 100%;
@@ -67,3 +99,31 @@
         }
     }
 }
+
+.usa-da-admin-message-wrap {
+	position: fixed;
+	bottom: 0;
+	z-index: 999999;
+	width: 100%;
+	left: 15px;
+
+	.usa-da-admin-message {
+		margin-bottom: 20px;
+	}
+}
+
+.usa-da-admin-message-fade-enter {
+        opacity: 0.01;
+        &.usa-da-admin-message-fade-enter-active {
+            opacity: 1;
+            transition: opacity 500ms ease-in;
+        }
+    }
+    
+    .usa-da-admin-message-fade-leave {
+        opacity: 1;
+        &.usa-da-admin-message-fade-leave-active {
+            opacity: 0.01;
+            transition: opacity 300ms ease-in;
+        }
+    }

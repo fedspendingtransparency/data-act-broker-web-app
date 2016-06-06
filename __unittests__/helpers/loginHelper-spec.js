@@ -1,6 +1,6 @@
 import chai from 'chai';
 import { createStore } from 'redux';
-import Request from 'superagent';
+import Request from '../../src/js/helpers/sessionSuperagent.js';
 import Cookies from 'js-cookie';
 import sinon from 'sinon';
 import Q from 'q';
@@ -17,12 +17,10 @@ const sandbox = sinon.sandbox.create();
 const mockPost = (err, res) => {
 	let postRequest = sandbox.stub(Request, 'post')
 			.returns({
-				withCredentials: () => ({
-					send: () => ({
-						end: (cb) => {
-							cb(err, res);
-						}
-					})
+				send: () => ({
+					end: (cb) => {
+						cb(err, res);
+					}
 				})
 			})
 }
@@ -30,12 +28,10 @@ const mockPost = (err, res) => {
 const mockGet = (err, res) => {
 	let postRequest = sandbox.stub(Request, 'get')
 			.returns({
-				withCredentials: () => ({
-					send: () => ({
-						end: (cb) => {
-							cb(err, res);
-						}
-					})
+				send: () => ({
+					end: (cb) => {
+						cb(err, res);
+					}
 				})
 			})
 }
@@ -49,10 +45,15 @@ describe('loginHelper', () => {
 		const singleton = new StoreSingleton();
 		singleton.setStore(store);
 
-		// cookies can't be tested without a browser, so replace the cookie library with empty functions
+		// cookies can't be tested without a browser, so replace the cookie library with mocked functions
 		sandbox.stub(Cookies, 'set', () => {});
 		sandbox.stub(Cookies, 'remove', () => {});
-		sandbox.stub(Cookies, 'get', () => {});
+		sandbox.stub(Cookies, 'get', (name) => {
+			if (name == "session") {
+				return "mock-session-id";
+			}
+			return {};
+		});
 	});
 
 	afterEach(() => {
@@ -61,7 +62,11 @@ describe('loginHelper', () => {
 
 	it('should set the login Redux state to \'failed\' on login failure', () => {
 
-		mockPost({}, null);
+		mockPost({}, {
+			body: {
+				message: "Mocked error"
+			}
+		});
 
 		return LoginHelper.performLogin('user','pass')
 		.catch((err) => {
