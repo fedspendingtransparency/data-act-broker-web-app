@@ -138,9 +138,16 @@ export default class Typeahead extends React.Component {
 	}
 
 	render() {
+		let disabled = null;
+		let placeholder = this.props.placeholder;
+		if (this.props.values.length == 0) {
+			disabled = 'disabled';
+			placeholder = 'Loading list...';
+		}
+
 		return (
 			<div className='usa-da-typeahead'>
-				<input className={this.props.customClass} ref="awesomplete" type="text" placeholder={this.props.placeholder} value={this.state.value} onChange={this.changedText.bind(this)} tabIndex={this.props.tabIndex} />
+				<input className={this.props.customClass} ref="awesomplete" type="text" placeholder={placeholder} value={this.state.value} onChange={this.changedText.bind(this)} tabIndex={this.props.tabIndex} disabled={disabled} />
 			</div>
 		);
 	}
