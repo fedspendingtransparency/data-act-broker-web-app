@@ -56,71 +56,6 @@
         .meta-holder {
             padding: 15px 30px 30px 30px;
             @include contentBlockWrapper;
-            .typeahead-holder {
-                div {
-                    width: 100%;
-                    border-radius: 0;
-                    box-sizing: border-box;
-                    color: #a9a9a9;
-                    font-size: 1.7rem;
-                    margin: .2em 0;
-                    max-width: none;
-                    outline: none;
-                }
-                .awesomplete {
-                    .visually-hidden {
-                        position: absolute;
-                        clip: rect(0, 0, 0, 0);
-                    }
-                }
-                ul.typeahead-selector,
-                .awesomplete ul {
-                    text-align: left;
-                    background: $color-white;
-                    color: #555;
-                    position: absolute;
-                    z-index: 1000;
-                    width: 96%;
-                    margin: -5px 0 0 0;
-                    border: 1px solid #cacaca;
-                    li {
-                        display: inline-block;
-                        vertical-align: middle;
-                        list-style-type: none;
-                        width: 100%;
-                        padding: 10px 10px 0 10px;
-                        margin: 0;
-                        &:hover,
-                        &.hover,
-                        &[aria-selected="true"] {
-                            background-color: $color-gray-lightest;
-                            cursor: pointer;
-                            color: #333;
-                            * {
-                                color: $color-white;
-                            }
-                            mark {
-                                background-color: $color-gray-light;
-                                color: white;
-                            }
-                        }
-                        a,
-                        a:focus,
-                        a:visited {
-                            color: $color-gray-dark;
-                            text-decoration: none;
-                        }
-                        a:hover {
-                            color: $color-white;
-                            background-color: $color-gray-dark;
-                        }
-                    }
-                    li:before {
-                        content: "";
-                        padding: 0;
-                    }
-                }
-            }
             input {
                 max-width: none;
                 &.error {
@@ -179,41 +114,6 @@
         &.usa-da-meta-fade-enter-active {
             opacity: 0.01;
             transition: opacity 300ms ease-in;
-        }
-    }
-    
-    .usa-da-review-data-content-holder {
-        padding: 25px 10px 0;
-        margin-bottom: 100px;
-        background-color: $color-white;
-        @include contentBlockWrapper;
-        .usa-da-review-data-button-holder {
-            margin-bottom: 25px;
-            * {
-                font-size: 16px;
-            }
-            button {
-                width: 100%;
-                text-align: left;
-            }
-        }
-        .usa-da-review-data-alternating-rows {
-            padding-right: 28px;
-            margin-bottom: 23px;
-            color: #555;
-            > div {
-                padding: 10px 0;
-            }
-            div.row:nth-child(even) {
-                background-color: #f5f5f5;
-            }
-        }
-        & .usa-da-icon > svg {
-            width: 2.4rem;
-            height: 2.4rem;
-            fill: $gray-dark;
-            position: relative;
-            top: 5px;
         }
     }
     

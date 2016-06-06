@@ -15,6 +15,8 @@ import ErrorMessageList from '../SharedComponents/ErrorMessageList.jsx';
 import SuccessMessage from '../SharedComponents/SuccessMessage.jsx';
 import SubmitRegButton from './SubmitButton.jsx';
 
+import AgencyListContainer from '../../containers/SharedContainers/AgencyListContainer.jsx';
+
 import * as LoginHelper from '../../helpers/loginHelper.js';
 
 const propTypes = {
@@ -69,7 +71,7 @@ export default class ConfirmCode extends React.Component {
 
             let account = {
                 name: this.state.name,
-                agency: this.state.agency,
+                cgac_code: this.state.agency,
                 title: this.state.title,
                 email: this.props.email,
                 password: this.state.password1
@@ -93,7 +95,8 @@ export default class ConfirmCode extends React.Component {
                     this.setState({
                         requestSent: true,
                         resetFailed: true,
-                        buttonText: 'Complete Registration'
+                        buttonDisabled: false,
+                        buttonText: 'Complete Registration',
                     });
                 });
         }
@@ -137,7 +140,11 @@ export default class ConfirmCode extends React.Component {
         this.props.requiredFields.forEach((field) => {   
             if (this.state[field] == '' && this.state[field + 'Touched']) {
                 // user has focused this field before but not entered a value
-                errorMessages.push(this.props.fieldMappings[field] + ' is required.');
+                let message = this.props.fieldMappings[field] + ' is required.';
+                if (field == 'agency') {
+                    message = 'A valid agency is required.'
+                }
+                errorMessages.push(message);
                 invalidFields.push(field);
                 missingCount++;
             }
@@ -220,6 +227,27 @@ export default class ConfirmCode extends React.Component {
         });
     }
 
+    handleAgencyChange(agency, isValid) {
+        if (agency != '' && isValid) {
+            this.setState({
+                agency: agency,
+                agencyError: false,
+                agencyTouched: true
+            }, () => {
+                this.fieldValidation();
+            });
+        }
+        else {
+            this.setState({
+                agency: '',
+                agencyError: true,
+                agencyTouched: true
+            }, () => {
+                this.fieldValidation();
+            });
+        }
+    }
+
     render() {
         let messageComponent = null;
         let passMessageComponent = null;
@@ -248,6 +276,11 @@ export default class ConfirmCode extends React.Component {
             messageComponent = <ErrorMessageList errorMessages={this.state.validationErrors} />;
         }
 
+        let agencyClass = null;
+        if (this.state.agencyError) {
+            agencyClass = "error";
+        }
+
         return (
             <div>
                 <div className="row">
@@ -268,8 +301,8 @@ export default class ConfirmCode extends React.Component {
                             </div>
                         </div>
                         <div className="row">
-                            <div className="col-md-12">
-                                <TextInputComponent inputClass="" error={this.state.agencyError} inputPlaceholder="Agency" inputName="regAgency" handleChange={this.handleFieldChange.bind(this, 'agency')} tabIndex="2" />
+                            <div className="col-md-12 typeahead-holder">
+                                <AgencyListContainer placeholder="Agency" onSelect={this.handleAgencyChange.bind(this)} tabIndex="2"  customClass={agencyClass} />
                             </div>
                         </div>
                         <div className="row">
