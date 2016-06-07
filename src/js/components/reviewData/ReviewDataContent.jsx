@@ -24,7 +24,7 @@ export default class ReviewDataContent extends React.Component {
 
         this.state = {
             jobs: null,
-            agency_name: null,
+            cgac_code: null,
             reporting_period_start_date: null,
             reporting_period_end_date: null,
             number_of_errors: null,
@@ -70,7 +70,7 @@ export default class ReviewDataContent extends React.Component {
                 buttons.push(<ReviewDataButton key={i} icon={buttonContent[i][0]} label={buttonContent[i][1]} />);
             }
 
-            const reportName = this.state.agency_name.replace(/ /g,'_') + '_' + moment(this.state.created_on, 'MM/DD/YYYY').format('DDMMYYYY')  + '_' + this.props.submissionID;
+            const reportName = this.state.cgac_code.replace(/ /g,'_') + '_' + moment(this.state.created_on, 'MM/DD/YYYY').format('DDMMYYYY')  + '_' + this.props.submissionID;
             let fileSize = 0;
 
             for (let k = 0; k < this.state.jobs.length; k++){
