@@ -15,8 +15,8 @@ class LastUpdated extends React.Component {
     
     render() {
         return (
-            <div className="col-md-5 mt-40 mb-50">
-                Last Saved: {this.props.last_updated}
+            <div className="col-md-5 mt-40 mb-50 last-updated">
+                <p>Last Saved: {this.props.last_updated}</p>
             </div>
         );
     }
@@ -49,7 +49,8 @@ export default class AddDataHeader extends React.Component {
     render() {
         let lastUpdated = null;
         if (this.state.ready && this.state.last_updated){
-            lastUpdated = <LastUpdated last_updated={this.state.last_updated} />
+            let formattedTime = moment.utc(this.state.last_updated).local().format('h:mm a');
+            lastUpdated = <LastUpdated last_updated={formattedTime} />
         }
 
         return (

@@ -9,6 +9,7 @@ import { kGlobalConstants } from '../../GlobalConstants.js';
 import SubmitButton from '../SharedComponents/SubmitButton.jsx';
 import ReviewDataContentRow from './ReviewDataContentRow.jsx';
 import ReviewDataButton from './ReviewDataButton.jsx';
+import ReviewDataNotifyModal from './ReviewDataNotifyModal.jsx';
 import moment from 'moment';
 
 import * as ReviewHelper from '../../helpers/reviewHelper.js';
@@ -57,6 +58,12 @@ export default class ReviewDataContent extends React.Component {
         }, 500);
     }
 
+    notifyUser(e) {
+        e.preventDefault();
+
+        this.refs.notifyModal.openModal();
+    }
+
     render() {
         if (this.state.ready) {
             // The first parameter in each of these arrays is the corresponding class for the SVG icon
@@ -70,7 +77,7 @@ export default class ReviewDataContent extends React.Component {
                 buttons.push(<ReviewDataButton key={i} icon={buttonContent[i][0]} label={buttonContent[i][1]} />);
             }
 
-            const reportName = this.state.agency_name.replace(/ /g,'_') + '_' + moment(this.state.created_on, 'MM/DD/YYYY').format('DDMMYYYY')  + '_' + this.props.submissionID;
+            const reportName = this.state.cgac_code.replace(/ /g,'_') + '_' + moment(this.state.created_on, 'MM/DD/YYYY').format('DDMMYYYY')  + '_' + this.props.submissionID;
             let fileSize = 0;
 
             for (let k = 0; k < this.state.jobs.length; k++){
@@ -131,7 +138,11 @@ export default class ReviewDataContent extends React.Component {
                                 <a href="#" className="usa-da-button btn-primary btn-lg btn-full"><span className="usa-da-icon usa-da-icon-Globe"><Icons.Globe /></span>Certify & Publish the Submission to USASpending.gov</a>
                             </div>
                             <div className="col-md-6 usa-da-submission-bottom-big-links">
-                                <a href="#" className="usa-da-button btn-primary btn-lg btn-full last"><span className="usa-da-icon usa-da-icon-Bell"><Icons.Bell /></span>Notify Another User that the Submission is Ready for Certification</a>
+                                <a href="#" onClick={this.notifyUser.bind(this)} className="usa-da-button btn-primary btn-lg btn-full last"><span className="usa-da-icon usa-da-icon-Bell"><Icons.Bell /></span>Notify Another User that the Submission is Ready for Certification</a>
+                            </div>
+
+                            <div id="reviewDataNotifyModalHolder">
+                                <ReviewDataNotifyModal ref="notifyModal" />
                             </div>
                         </div>
                     </div>
