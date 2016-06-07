@@ -32,9 +32,9 @@ export default class TableHeaders extends React.Component {
             }
 
             tableHeaders.push(<th key={i} className={this.props.headerClasses[i]}>
-                <span className={className} >
+                <div className={className} >
                     {this.props.data[i]}
-                </span>
+                </div>
                 {sorters}
             </th>);
         }

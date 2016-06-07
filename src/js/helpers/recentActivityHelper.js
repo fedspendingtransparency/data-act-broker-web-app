@@ -44,6 +44,11 @@ const parseRecentActivity = (submissions) => {
         // do the same thing for size and status, since they are going to be parsed into strings of differing units by the component
         item.sortableSize = item.size;
         item.sortableStatus = rowStatus;
+        item.sortableReportingDate = moment(item.reporting_start_date, "MM/DD/YYYY").unix();
+        item.sortableName = '';
+        if (item.hasOwnProperty("user")) {
+            item.sortableName = item.user.name;
+        }
 
         parsedSubmissions.push(item);
     });

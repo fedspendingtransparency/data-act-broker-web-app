@@ -18,6 +18,8 @@ export default class RecentActivityTable extends React.Component {
 
 		this.tableHeaders = [
 			'View',
+			'Reporting Period',
+			'Submitted By',
 			'Last Modified Date',
 			'Size',
 			'Status',
@@ -63,18 +65,30 @@ export default class RecentActivityTable extends React.Component {
 		const output = [];
 		const rowClasses = [];
 
-		const classes = ['row-10 text-center', 'row-20 text-right', 'row-20 text-right', 'row-30 text-right progress-cell', 'row-10 text-right'];
+		const classes = ['row-10 text-center', 'row-15 text-right', 'row-15 text-right', 'row-15 text-right','row-10 text-right', 'row-25 text-right progress-cell', 'row-10 text-right'];
 
 		// sort the array by object key
-		const orderKeys = ['sortableDate', 'sortableSize', 'sortableStatus', 'errors'];
+		const orderKeys = ['sortableReportingDate', 'sortableName', 'sortableDate', 'sortableSize', 'sortableStatus', 'errors'];
 		const data = _.orderBy(this.state.cachedResponse, orderKeys[this.state.sortColumn - 1], this.state.sortDirection);
 
 		// iterate through each item returned from the API
 		data.forEach((item) => {
 
+			let reportingDateString = item.reporting_start_date + ' to ' + item.reporting_end_date;
+			if (!item.reporting_start_date || !item.reporting_end_date) {
+				reportingDateString = 'No reporting period specified';
+			}
+
+			let userName = '--';
+			if (item.hasOwnProperty('user')) {
+				userName = item.user.name;
+			}
+
             // break the object out into an array for the table component
 			const row = [
 				<SubmissionLink submissionId={item.submission_id} />,
+				reportingDateString,
+				userName,
 				item.last_modified,
 				item.fileSize,
 				<Status.SubmissionStatus status={item.rowStatus} />,

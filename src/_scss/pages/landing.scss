@@ -55,11 +55,19 @@
     }
 
     table {
+        table-layout: fixed;
+
         .row-10 {
             width: 10%;
         }
+        .row-15 {
+            width: 15%;
+        }
         .row-20 {
             width: 20%;
+        }
+        .row-25 {
+            width: 25%;
         }
         .row-30 {
             width: 30%;
@@ -72,16 +80,23 @@
         }
 
         .usa-da-table-sorter {
-            right: 10px;
+            // right: 10px;
 
             .usa-da-icon-angle-down {
-                right: 0px;
+                // right: 0px;
             }
         }
 
+
         th {
+
             .table-header-value.sortable {
-                margin-right: 40px;
+                font-size: 1.2rem;
+                padding-right: 50px;
+            }
+            .usa-da-table-sorter {
+                width: 40px;
+
             }
         }
     }
@@ -98,7 +113,9 @@
         width: 100%;
         height: 1rem;
         position: absolute;
-        bottom: 0;
+        bottom: 0px;
+        left: 0px;
+        top: auto;
         .step {
             width: 25%;
             float: left;
