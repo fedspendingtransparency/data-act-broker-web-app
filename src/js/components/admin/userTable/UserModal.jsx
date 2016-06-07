@@ -58,7 +58,7 @@ export default class UserModal extends React.Component {
 			name: this.props.user.name,
 			email: this.props.user.email,
 			title: this.props.user.title,
-			agency: this.props.user.agency,
+			agency: this.props.user.agency_name,
 			status: this.props.user.status,
 			is_active: this.props.user.is_active,
 			permissions: permissions,

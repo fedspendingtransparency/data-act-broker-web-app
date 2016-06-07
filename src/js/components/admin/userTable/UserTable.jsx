@@ -93,7 +93,7 @@ export default class UserTable extends React.Component {
 			const user = [
 				rawUser.name,
 				rawUser.title,
-				rawUser.agency,
+				rawUser.agency_name,
 				rawUser.email,
 				rawUser.statusString,
 				action
