@@ -56,6 +56,11 @@ export default class LandingContent extends React.Component {
     }
 
     render() {
+        let agencyName = this.props.session.user.agency_name;
+        if (!agencyName) {
+            agencyName = 'Your Agency';
+        }
+
         return (
             <div className="site_content">
                 <div className="usa-da-content-dark">
@@ -87,7 +92,7 @@ export default class LandingContent extends React.Component {
                 </div>
                 <div>
                     <div className="container">
-                        <h4>Recent Activity for {this.props.session.user.agency_name}</h4>
+                        <h4>Recent Activity for {agencyName}</h4>
                         <RecentActivityTable />
                     </div>
                 </div>
