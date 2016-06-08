@@ -26,11 +26,12 @@ export default class HelpPage extends React.Component {
     }
 
     loadChangelog() {
-        HelpHelper.loadChangelog()
+        HelpHelper.loadHelp()
             .then((output) => {
                 this.setState({
                     changelog: output.html,
-                    sections: output.sections
+                    sections: output.sections,
+                    history: output.history
                 });
             })
             .catch((err) => {
@@ -58,7 +59,7 @@ export default class HelpPage extends React.Component {
                                 <HelpSidebar sections={this.state.sections} />
                             </div>
                             <div className="col-md-8">
-                                <HelpContent section={this.props.location.query.section} changelog={this.state.changelog} />
+                                <HelpContent section={this.props.location.query.section} changelog={this.state.changelog} history={this.state.history} />
                             </div>
                         </div>
                     </div>
