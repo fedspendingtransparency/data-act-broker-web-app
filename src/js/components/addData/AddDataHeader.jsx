@@ -57,8 +57,8 @@ export default class AddDataHeader extends React.Component {
             <div className="usa-da-content-dark">
                 <div className="container">
                     <div className="row usa-da-content-add-data usa-da-page-title">
-                        <div className="col-md-7 mt-40 mb-20">
-                            <div className="display-2">Add New Data</div>
+                        <div className="col-md-10 mt-40 mb-20">
+                            <div className="display-2">Upload & Validate a New Submission</div>
                             <p>The current DATA Act Broker allows agencies to upload and test their data as it is required under the DATA Act. It is not connected to USAspending.</p>
                         </div>
                         {lastUpdated}
