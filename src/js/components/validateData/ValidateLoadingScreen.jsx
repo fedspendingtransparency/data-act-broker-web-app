@@ -9,7 +9,7 @@ export default class ValidateLoadingScreen extends React.Component {
 	render() {
 		return (
 			<div className="container">
-				<h4>Gathering data...</h4>
+				<h4 className="usa-da-gathering-data">Gathering data...</h4>
 			</div>
 		);
 	}

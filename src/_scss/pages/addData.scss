@@ -118,6 +118,9 @@ div.usa-da-validate-items {
             color: $color-secondary;
             margin: -35px 0 0 0;
         }
+        & .validate-message-loading{
+            color: blue;
+        }
         & .usa-da-validate-txt-wrap {
             margin: -35px 0 0 0;
         }
