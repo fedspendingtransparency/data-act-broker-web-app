@@ -10,7 +10,7 @@ import { kGlobalConstants } from '../GlobalConstants.js';
 import * as uploadActions from '../redux/actions/uploadActions.js';
 
 import { fileTypes } from '../containers/addData/fileTypes.js';
-
+import * as AdminHelper from './adminHelper.js';
 
 export const fetchStatus = (submissionId) => {
 	const deferred = Q.defer();
@@ -119,4 +119,56 @@ export const validateSubmission  = (submissionId) => {
 
 	return deferred.promise;
 
+}
+
+export const listUsers = () => {
+	const deferred = Q.defer();
+
+	let request = {
+		filter_by: "status",
+		value: "approved"
+	};
+	
+	Request.post(kGlobalConstants.API + 'list_users/')
+		.send(request)
+		.end((err, res) => {
+			if (err) {
+				deferred.reject(err);
+			}
+			else {
+				// break up the permissions
+				const users = [];
+				res.body.users.forEach((user) => {
+					// sometimes python adds extra spaces to the comma separated list, so strip those out
+					const permString = user.permissions.replace(/\s/g, '');
+					user.permissions = permString.split(',');
+
+					const status = AdminHelper.determineStatus(user);
+
+					user.statusString = status.string;
+					user.statusType = status.type;
+
+					users.push(user);
+				});
+				deferred.resolve(users);
+			}
+		});
+
+	return deferred.promise;
+}
+
+export const sendNotification = (users) => {
+    const deferred = Q.defer();
+
+    Request.post(kGlobalConstants.API + 'email_users/')
+        .send({'users': users})
+        .end((errFile, res) => {
+            if (errFile) {
+                deferred.reject(errFile);
+            }
+            else {
+                deferred.resolve(res.body);
+            }
+        });
+    return deferred.promise;
 }
