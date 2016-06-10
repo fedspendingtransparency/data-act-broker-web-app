@@ -420,6 +420,10 @@ a.list-group-item {
     right: 15px;
     height: 100%;
     width: 33px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+
     & .usa-da-icon {
     	height: 2.4rem;
     	width: 2.2rem;
@@ -433,17 +437,7 @@ a.list-group-item {
     	}
     	&.sort-icon {
     	    cursor: pointer;
-    	    &.usa-da-icon-angle-up,
-    	    &.usa-da-icon-angle-down {
-    	        position: absolute;
-    	        top: 13px;
-    	    }
-    	    &.usa-da-icon-angle-up {
-    	        right: 15px;
-    	    }
-    	    &.usa-da-icon-angle-down {
-    	        right: -5px;
-    	    }
+            flex: 0 1 auto;
     	}
     }
 }

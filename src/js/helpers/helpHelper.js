@@ -22,7 +22,7 @@ const parseMarkdown = (rawText) => {
 				const regex = /{section=[a-zA-Z0-9]+}/;
 
 				const results = regex.exec(value);
-				if (results.length > 0) {
+				if (results && results.length > 0) {
 					// get the section URL name by substringing the section markdown
 					const nameValue = results[0].substring(9, results[0].length - 1);
 
@@ -52,8 +52,26 @@ const parseMarkdown = (rawText) => {
 	return output;
 }
 
-export const loadChangelog = () => {
+const loadHistory = () => {
+	const deferred = Q.defer();
 
+	Request.get('/help/history.md')
+	        .send()
+	        .end((err, res) => {
+	        	if (err) {
+	        		deferred.reject(err);
+	        	}
+	        	else {
+	        		const output = parseMarkdown(res.text);
+	        		deferred.resolve(output.html);
+	        	}
+	        });
+
+
+	return deferred.promise;
+}
+
+const loadChangelog = () => {
 	const deferred = Q.defer();
 
 	Request.get('/help/changelog.md')
@@ -70,4 +88,33 @@ export const loadChangelog = () => {
 	        });
 
 	return deferred.promise;
+}
+
+export const loadHelp = () => {
+
+	const deferred = Q.defer();
+
+	const output = {
+		html: '',
+		sections: [],
+		history: ''
+	};
+
+	loadChangelog()
+		.then((data) => {
+			output.html = data.html;
+			output.sections = data.sections;
+			return loadHistory();
+		})
+		.then((data) => {
+			output.history = data;
+
+			deferred.resolve(output);
+		})
+		.catch((err) => {
+			deferred.reject(err);
+		});
+
+	return deferred.promise;
+
 }

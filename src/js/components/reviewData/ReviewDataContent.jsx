@@ -25,7 +25,7 @@ export default class ReviewDataContent extends React.Component {
 
         this.state = {
             jobs: null,
-            agency_name: null,
+            cgac_code: null,
             reporting_period_start_date: null,
             reporting_period_end_date: null,
             number_of_errors: null,
