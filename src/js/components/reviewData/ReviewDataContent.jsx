@@ -9,6 +9,7 @@ import { kGlobalConstants } from '../../GlobalConstants.js';
 import SubmitButton from '../SharedComponents/SubmitButton.jsx';
 import ReviewDataContentRow from './ReviewDataContentRow.jsx';
 import ReviewDataButton from './ReviewDataButton.jsx';
+import ReviewDataNotifyModal from './ReviewDataNotifyModal.jsx';
 import moment from 'moment';
 
 import * as ReviewHelper from '../../helpers/reviewHelper.js';
@@ -55,6 +56,12 @@ export default class ReviewDataContent extends React.Component {
         $('html, body').animate({
             scrollTop: $('[name=content-top]').offset().top
         }, 500);
+    }
+
+    notifyUser(e) {
+        e.preventDefault();
+
+        this.refs.notifyModal.openModal();
     }
 
     render() {
@@ -131,7 +138,11 @@ export default class ReviewDataContent extends React.Component {
                                 <a href="#" className="usa-da-button btn-primary btn-lg btn-full"><span className="usa-da-icon usa-da-icon-Globe"><Icons.Globe /></span>Certify & Publish the Submission to USASpending.gov</a>
                             </div>
                             <div className="col-md-6 usa-da-submission-bottom-big-links">
-                                <a href="#" className="usa-da-button btn-primary btn-lg btn-full last"><span className="usa-da-icon usa-da-icon-Bell"><Icons.Bell /></span>Notify Another User that the Submission is Ready for Certification</a>
+                                <a href="#" onClick={this.notifyUser.bind(this)} className="usa-da-button btn-primary btn-lg btn-full last"><span className="usa-da-icon usa-da-icon-Bell"><Icons.Bell /></span>Notify Another User that the Submission is Ready for Certification</a>
+                            </div>
+
+                            <div id="reviewDataNotifyModalHolder">
+                                <ReviewDataNotifyModal {...this.props} ref="notifyModal" />
                             </div>
                         </div>
                     </div>

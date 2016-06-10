@@ -182,7 +182,6 @@ export default class AddDataMeta extends React.Component {
                                 <div className="row usa-da-guide-link">
                                     <a href="#/submissionGuide?force=true">View Submission Guide</a>
                                 </div>
-
                                 <div className="meta-holder">
                                     <div className="row usa-da-add-data-meta-label">
                                         Which agency is this submission for?
