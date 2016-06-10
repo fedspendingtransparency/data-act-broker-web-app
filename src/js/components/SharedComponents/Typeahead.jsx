@@ -11,7 +11,9 @@ const propTypes = {
 	values: PropTypes.array.isRequired,
 	placeholder: PropTypes.string,
 	onSelect: PropTypes.func.isRequired,
-	customClass: PropTypes.string
+	customClass: PropTypes.string,
+	keyValue: PropTypes.string,
+	internalValue: PropTypes.string
 }
 
 const defaultProps = {
@@ -19,7 +21,7 @@ const defaultProps = {
 	placeholder: '',
 	customClass: '',
 	formatter: null,
-	key: 'agency_name',
+	keyValue: 'agency_name',
 	internalValue: 'cgac_code',
 	tabIndex: null
 }
@@ -49,7 +51,7 @@ export default class Typeahead extends React.Component {
 		this.typeahead.list = this.props.values;
 
 		this.props.values.forEach((value) => {
-			this.dataDictionary[value[this.props.key]] = value[this.props.internalValue];
+			this.dataDictionary[value[this.props.keyValue]] = value[this.props.internalValue];
 		});
 	}
 

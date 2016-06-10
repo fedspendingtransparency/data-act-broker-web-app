@@ -142,7 +142,7 @@ export default class ReviewDataContent extends React.Component {
                             </div>
 
                             <div id="reviewDataNotifyModalHolder">
-                                <ReviewDataNotifyModal ref="notifyModal" />
+                                <ReviewDataNotifyModal {...this.props} ref="notifyModal" />
                             </div>
                         </div>
                     </div>
