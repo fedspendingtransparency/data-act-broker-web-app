@@ -164,10 +164,7 @@ export const sendNotification = (users) => {
         .send({'users': users})
         .end((errFile, res) => {
             if (errFile) {
-                deferred.reject({
-                    reason: res.statusCode,
-                    error: errFile
-                });
+                deferred.reject(errFile);
             }
             else {
                 deferred.resolve(res.body);
