@@ -55,8 +55,12 @@ class ValidateDataContainer extends React.Component {
 		// check if the submission state changed, indicating a re-upload
 		if (prevProps.submission.state != this.props.submission.state) {
 			if (this.props.submission.state == "prepare") {
-				// uploads are done
-				this.validateSubmission();
+				// uploads are done, reset the cancellation timer
+				this.setState({
+					initialLoad: moment()
+				}, () => {
+					this.validateSubmission();
+				});
 			}
 		}
 	}
@@ -98,7 +102,7 @@ class ValidateDataContainer extends React.Component {
 	validateSubmission() {
 
 		// check how long it's been since the initial validation check
-		if (!this.state.offerCancellation) {
+		if (!this.state.offerCancellation && !this.state.notYours) {
 			const secondsPassed = moment().unix() - this.state.initialLoad.unix();
 			if (secondsPassed >= 5 * 60) {
 				this.setState({
@@ -123,8 +127,10 @@ class ValidateDataContainer extends React.Component {
 				}
 				else {
 					// all the files have returned something, hide the cancellation banner if necessary
+					// reset the initial load time to reset how long until the cancellation banner appears
 					this.setState({
-						offerCancellation: false
+						offerCancellation: false,
+						initialLoad: moment()
 					});
 				}
 
@@ -133,7 +139,9 @@ class ValidateDataContainer extends React.Component {
 			.catch((err) => {
 				if (err.reason == 400) {
 					this.setState({
-						notYours: true
+						notYours: true,
+						offerCancellation: false,
+						initialLoad: moment()
 					});
 				}
 				else {
