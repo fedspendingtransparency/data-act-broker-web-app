@@ -23,8 +23,8 @@ export default class AdminPageContent extends React.Component {
         return (
             <div className="container">
                 <div className="row">
-                    <div className="col-md-12 usa-da-admin-message">
-                        <h5 className="text-center">The following user(s) has requested access to the DATA Act Broker.</h5>
+                    <div className="col-md-12">
+                        
                     </div>
                 </div>
                 <div className="row">

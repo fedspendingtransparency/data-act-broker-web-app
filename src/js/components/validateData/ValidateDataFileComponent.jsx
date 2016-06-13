@@ -234,13 +234,13 @@ export default class ValidateDataFileComponent extends React.Component {
                     <div className="row usa-da-validate-item-top-section">
                         <div className="col-md-9 usa-da-validate-item-status-section">
                             <div className="row usa-da-validate-item-header">
-                                <div className="col-md-6">
+                                <div className="col-md-8">
                                     <h4>{this.props.type.fileTitle}</h4>
                                 </div>
-                                <div className="col-md-3">
+                                <div className="col-md-2">
                                     <p>File Size: {this.displayFileMeta().size}</p>
                                 </div>
-                                <div className="col-md-3">
+                                <div className="col-md-2">
                                     <p className="pr-20">Rows: {this.displayFileMeta().rows}</p>
                                 </div>
                             </div>

@@ -19,6 +19,8 @@ const propTypes = {
 };
 
 const emitter = new EventEmitter();
+// increase the number of listeners to 25 to handle the increase in icons we're adding to pages
+emitter.setMaxListeners(25);
 
 export default class BaseIcon extends React.Component {
 	constructor(props) {
