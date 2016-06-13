@@ -100,9 +100,8 @@ export default class ReviewDataNotifyModal extends React.Component {
         e.preventDefault();
 
         var users = this.state.selectedUsers.map(user => user.id);
-        console.log(users);
 
-        ReviewHelper.sendNotification(users)
+        ReviewHelper.sendNotification(users, this.props.submissionID)
             .then((data) => {
                 this.closeModal();
             })
