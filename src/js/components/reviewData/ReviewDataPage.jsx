@@ -48,7 +48,7 @@ export default class ReviewDataPage extends React.Component {
                     <div className="usa-da-content-step-block" name="content-top">
                         <div className="container center-block">
                             <div className="row">
-                                <Progress totalSteps={3} currentStep={3} />
+                                <Progress totalSteps={4} currentStep={4} />
                             </div>
                         </div>
                     </div>
