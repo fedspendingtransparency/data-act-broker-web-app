@@ -301,7 +301,7 @@ export default class ConfirmCode extends React.Component {
                             </div>
                         </div>
                         <div className="row">
-                            <div className="col-md-12 typeahead-holder">
+                            <div className="col-md-12 typeahead-holder agency-padding">
                                 <AgencyListContainer placeholder="Agency" onSelect={this.handleAgencyChange.bind(this)} tabIndex="2"  customClass={agencyClass} />
                             </div>
                         </div>
