@@ -25,8 +25,7 @@ export default class AddDataContent extends React.Component {
         this.state = {
             fileHolder: [],
             submissionID: 0,
-            progress: 0,
-            progressStep: 1
+            progress: 0
         };
     }
 
@@ -57,7 +56,7 @@ export default class AddDataContent extends React.Component {
                 <div className="usa-da-content-step-block" name="content-top">
                     <div className="container center-block">
                         <div className="row">
-                            <Progress totalSteps={3} currentStep={this.state.progressStep} />
+                            <Progress totalSteps={4} currentStep={2} />
                         </div>
                     </div>
                 </div>

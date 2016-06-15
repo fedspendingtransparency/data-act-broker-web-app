@@ -12,7 +12,7 @@ import SubmissionGuideContainer from '../../containers/addData/SubmissionGuideCo
 import AddDataPageContainer from '../../containers/addData/AddDataPageContainer.jsx';
 import ValidateDataPage from '../../components/validateData/ValidateDataPage.jsx';
 import CrossFilePage from '../../components/crossFile/CrossFilePage.jsx';
-import ReviewDataPage from '../../components/reviewData/ReviewDataPage.jsx';
+import ReviewDataContainer from '../../containers/review/ReviewDataContainer.jsx';
 import HelpPage from '../../components/help/helpPage.jsx';
 import AdminPage from '../../components/admin/AdminPage.jsx';
 
@@ -144,7 +144,7 @@ const routeDefinitions = {
         },
         {
             path: 'reviewData/:submissionID',
-            component: ReviewDataPage,
+            component: ReviewDataContainer,
             onEnter: checkUserPermissions
         },
         {

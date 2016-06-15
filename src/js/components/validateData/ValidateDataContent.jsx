@@ -5,6 +5,7 @@
 
 import React, { PropTypes } from 'react';
 import $ from 'jquery';
+
 import { kGlobalConstants } from '../../GlobalConstants.js';
 import ValidateDataFileComponent from './ValidateDataFileComponent.jsx';
 import SubmitButton from '../SharedComponents/SubmitButton.jsx';
@@ -12,6 +13,7 @@ import MetaData from '../addData/AddDataMetaDisplay.jsx';
 import FileComponent from '../addData/FileComponent.jsx';
 import ValidateDataOverlayContainer from '../../containers/validateData/ValidateDataOverlayContainer.jsx';
 import ValidateDataFileContainer from '../../containers/validateData/ValidateDataFileContainer.jsx';
+import ValidateDataInProgressOverlay from './ValidateDataInProgressOverlay.jsx';
 
 import { fileTypes } from '../../containers/addData/fileTypes.js';
 
@@ -22,22 +24,6 @@ const propTypes = {
 export default class ValidateDataContent extends React.Component {
     constructor(props) {
         super(props);
-    }
-
-    componentDidMount() {
-        this.scrollToContent();
-    }
-
-    componentDidUpdate(prevProps, prevState) {
-        if (prevProps.submission.state != "review" && this.props.submission.state == "review") {
-            this.scrollToContent();
-        }
-    }
-
-    scrollToContent() {
-        $('html, body').animate({
-            scrollTop: $('[name=content-top]').offset().top
-        }, 500);
     }
 
     render() {
@@ -64,15 +50,17 @@ export default class ValidateDataContent extends React.Component {
 
         let overlay = '';
         let displayOverlay = '';
-        if (!allValid && allDone) {
-            // we'll need extra padding at the bottom of the page if the overlay is present
-            displayOverlay = ' with-overlay';
+        if (!allDone) {
+            // still loading or validating
+            overlay = <ValidateDataInProgressOverlay />;
+        }
+        else {
             overlay = <ValidateDataOverlayContainer errors={errors} />;
         }
 
         return (
             <div className="container">
-                <div className={"row center-block usa-da-submission-items" + displayOverlay}>
+                <div className="row center-block usa-da-submission-items with-overlay">
                     <div className="usa-da-validate-items">
                         {items}
                     </div>

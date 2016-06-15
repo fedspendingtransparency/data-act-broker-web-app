@@ -1,52 +1,72 @@
 /**
-* SubmissionPageHeader.jsx
+* AddDataHeader.jsx
 * Created by Kyle Fox 2/19/16
 **/
 
 import React from 'react';
-import { generateRSSUrl } from '../../helpers/util.js';
+import moment from 'moment';
+
+import * as ReviewHelper from '../../helpers/reviewHelper.js';
+
+class LastUpdated extends React.Component {
+    constructor(props){
+        super(props);
+    }
+    
+    render() {
+        return (
+            <div className="col-md-4 mt-40 mb-50 last-updated">
+                <p>Last Saved: {this.props.last_updated}</p>
+            </div>
+        );
+    }
+}
 
 const defaultProps = {
-    title: 'Add New Data'
+    title: 'Upload & Validate a New Submission',
+    description: 'The current DATA Act Broker allows agencies to upload and test their data as it is required under the DATA Act. It is not connected to USAspending.'
 };
 
 export default class AddDataHeader extends React.Component {
     constructor(props) {
         super(props);
 
-        this.rssPromise = null;
-
         this.state = {
-            rssUrl: ''
+            submissionID: null,
+            last_updated: null,
+            ready: false
         };
     }
 
     componentDidMount() {
-        this.rssPromise = generateRSSUrl();
-        this.rssPromise.promise
-            .then((url) => {
-                this.setState({
-                    rssUrl: url
+        if (this.props.submissionID != null) {
+            ReviewHelper.fetchStatus(this.props.submissionID)
+                .then((data) => {
+                    data.ready = true;
+                    this.setState(data);
+                })
+                .catch((error) => {
+                    console.log(error);
                 });
-
-                this.rssPromise = null;
-            });
-    }
-
-    componentWillUnmount() {
-        if (this.rssPromise) {
-            this.rssPromise.cancel();
         }
     }
 
     render() {
+        let lastUpdated = null;
+        if (this.state.ready && this.state.last_updated){
+            let formattedTime = moment.utc(this.state.last_updated).local().format('h:mm a');
+            lastUpdated = <LastUpdated last_updated={formattedTime} />
+        }
+
         return (
             <div className="usa-da-content-dark">
                 <div className="container">
                     <div className="row usa-da-content-add-data usa-da-page-title">
                         <div className="col-md-7 mt-40 mb-20">
                             <div className="display-2">{this.props.title}</div>
+                            <p>{this.props.description}</p>
                         </div>
+                        {lastUpdated}
                     </div>
                 </div>
             </div>

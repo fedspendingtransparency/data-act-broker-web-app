@@ -145,11 +145,11 @@ export default class ValidateDataPage extends React.Component {
         return (
             <div>
                 <Navbar activeTab="submissionGuide"/>
-                <AddDataHeader />
+                <AddDataHeader submissionID={submissionID} />
                 <div className="usa-da-content-step-block" name="content-top">
                     <div className="container center-block">
                         <div className="row">
-                            <Progress totalSteps={3} currentStep={2} />
+                            <Progress totalSteps={4} currentStep={3} />
                         </div>
                     </div>
                 </div>

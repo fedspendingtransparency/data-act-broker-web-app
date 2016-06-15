@@ -116,7 +116,13 @@ div.usa-da-validate-items {
             color: $color-secondary;
             margin: -35px 0 0 0;
         }
+        & .validate-message-loading{
+            color: blue;
+        }
         & .usa-da-validate-txt-wrap {
+            margin: -35px 0 0 0;
+        }
+        & .usa-da-validate-loading-message {
             margin: -35px 0 0 0;
         }
     }
@@ -344,6 +350,14 @@ div.usa-da-validate-items {
             margin: 0;
         }
     }
+
+    .overlay-loading {
+        width: 100%;
+        h6 {
+            width: 100%;
+            text-align: left;
+        }
+    }
 }
 
 div.usa-da-dropzone {
@@ -406,6 +420,33 @@ div.usa-da-dropzone {
     }
     .progress {
         margin-top: 10px;
+    }
+}
+
+.usa-da-validate-data-loading {
+    min-height: 800px;
+}
+
+.usa-da-validate-fade-appear {
+    opacity: 0.01;
+    &.usa-da-validate-fade-appear-active {
+        opacity: 1;
+        transition: opacity 500ms ease-in;
+    }
+}
+.usa-da-validate-fade-enter {
+    opacity: 0.01;
+    &.usa-da-validate-fade-enter-active {
+        opacity: 1;
+        transition: opacity 500ms ease-in;
+    }
+}
+
+.usa-da-validate-fade-leave {
+    opacity: 1;
+    &.usa-da-validate-fade-leave-active {
+        opacity: 0.01;
+        transition: opacity 500ms ease-in;
     }
 }
 
