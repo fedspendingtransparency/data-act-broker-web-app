@@ -157,11 +157,15 @@ export const listUsers = () => {
 	return deferred.promise;
 }
 
-export const sendNotification = (users) => {
+export const sendNotification = (users, id) => {
     const deferred = Q.defer();
 
     Request.post(kGlobalConstants.API + 'email_users/')
-        .send({'users': users})
+        .send({
+        	'users': users,
+        	'email_template': 'review_submission',
+        	'submission_id': id
+        })
         .end((errFile, res) => {
             if (errFile) {
                 deferred.reject(errFile);

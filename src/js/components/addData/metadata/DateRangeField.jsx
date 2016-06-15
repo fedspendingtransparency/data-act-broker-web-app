@@ -43,7 +43,7 @@ export default class DateRangeField extends React.Component {
 	defaultDates() {
 		if (this.props.type == "quarter") {
 			this.setState({
-				startDate: UtilHelper.currentQuarter('start'),
+				startDate: UtilHelper.fyStartDate(),
 				endDate: UtilHelper.currentQuarter('end'),
 				dateError: false
 			}, () => {
@@ -52,7 +52,7 @@ export default class DateRangeField extends React.Component {
 		}
 		else {
 			this.setState({
-				startDate: moment().format('MM/YYYY'),
+				startDate: UtilHelper.fyStartDate(),
 				endDate: moment().format('MM/YYYY'),
 				dateError: false
 			}, () => {

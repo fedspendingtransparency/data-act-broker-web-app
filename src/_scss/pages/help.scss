@@ -29,3 +29,25 @@
         padding-right: 0;
     }
 }
+.usa-da-help-top-button {
+    width: 40px;
+    height: 40px;
+    position: fixed;
+    bottom: 60px;
+    right: 40px;
+    background-color: $color-darkest;
+
+    a {
+        display: block;
+
+        svg {
+            fill: $color-white;
+            position: relative;
+            top: -3px;
+        }
+
+        .hidden-label {
+            font-size:0;
+        }
+    }
+}

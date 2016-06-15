@@ -10,14 +10,16 @@ const propTypes = {
     handleChange: PropTypes.func.isRequired,
     fieldID: PropTypes.string,
     iconClass: PropTypes.string,
-    error: PropTypes.bool
+    error: PropTypes.bool,
+    placeholder: PropTypes.string
 }
 
 const defaultProps = {
     fieldID: "password",
     iconClass: 'usa-da-icon',
     error: false,
-    tabIndex: "2"
+    tabIndex: "2",
+    placeholder: "Password"
 }
 
 export default class Password extends React.Component {
@@ -34,7 +36,7 @@ export default class Password extends React.Component {
                     id={this.props.fieldID}
                     name={this.props.fieldID}
                     type="password"
-                    placeholder="Password"
+                    placeholder={this.props.placeholder}
                     aria-describedby="password"
                     onChange={this.props.handleChange}
                     tabIndex={this.props.tabIndex}
