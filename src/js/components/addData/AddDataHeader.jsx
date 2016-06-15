@@ -6,6 +6,10 @@
 import React from 'react';
 import { generateRSSUrl } from '../../helpers/util.js';
 
+const defaultProps = {
+    title: 'Add New Data'
+};
+
 export default class AddDataHeader extends React.Component {
     constructor(props) {
         super(props);
@@ -41,7 +45,7 @@ export default class AddDataHeader extends React.Component {
                 <div className="container">
                     <div className="row usa-da-content-add-data usa-da-page-title">
                         <div className="col-md-7 mt-40 mb-20">
-                            <div className="display-2">Add New Data</div>
+                            <div className="display-2">{this.props.title}</div>
                         </div>
                     </div>
                 </div>
@@ -49,3 +53,5 @@ export default class AddDataHeader extends React.Component {
         );
     }
 }
+
+AddDataHeader.defaultProps = defaultProps;

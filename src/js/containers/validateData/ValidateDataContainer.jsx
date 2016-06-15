@@ -66,9 +66,11 @@ class ValidateDataContainer extends React.Component {
 		let finished = true;
 		for (let key in data) {
 			let item = data[key];
-			if (item.job_status != 'finished' && item.job_status != 'invalid' || item.file_status == 'incomplete' ) {
-				finished = false;
-				break;
+			if (item.job_type == 'csv_record_validation') {
+				if (item.job_status != 'finished' && item.job_status != 'invalid' || item.file_status == 'incomplete' ) {
+					finished = false;
+					break;
+				}
 			}
 		}
 
