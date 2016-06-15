@@ -75,7 +75,7 @@ export default class ValidateValuesOverlay extends React.Component {
 
 
 		return (
-			<div className="center-block usa-da-validation-overlay" data-testid="validate-value-overlay">
+			<div className="center-block usa-da-validation-overlay">
 				<div className="container">
 					<div className="row">
 						<div className="col-md-8 usa-da-overlay-content-wrap">
