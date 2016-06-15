@@ -1,16 +1,12 @@
 #### June 15, 2016
 
-In this version of the Broker, we added an indicator of when your data was last saved, made it easier to select your agency, made it easier to submit your data without errors, updated some of the validations, and identified another issue. 
+In this version of the Broker, we made it easier to select your agency, made it easier to submit your data without errors, and updated some of the validations. 
 
-  - [Time Data Last Saved](#/help?section=lastSaved)
   - [Easier Agency Selection](#/help?section=agencyCGAC)
   - [Accidental Commas in Dollar Amounts](#/help?section=removeCommas)
   - [Header Row Capitalization Errors](#/help?section=elementCaps)
   - [Updated Validations](#/help?section=updatedValidations)
   - [Browser Requirements & Known Issues](#/help?section=browser)
-
-#### Time Data last Saved{section=lastSaved}
-The Broker automatically saves your files when you upload them and at each step of the validation process. The time the data was last saved is displayed at the top of the broker below the Help menu.
 
 #### Easier Agency Selection{section=agencyCGAC}
 When you register for an account or create a submission, you can enter your CGAC code to correctly select your agency.
@@ -154,5 +150,4 @@ Although you may use any browser/version combination you wish, we cannot support
 
 Known Issues
 
-* Proxy issue
 * The Broker will not work when using Internet Explorer under medium privacy settings or high security settings.
