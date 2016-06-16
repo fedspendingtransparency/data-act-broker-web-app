@@ -26,7 +26,19 @@ export const fetchStatus = (submissionId) => {
 	        		});
 	        	}
 	        	else {
-	        		deferred.resolve(res.body);
+
+	        		// return only jobs related to CSV validation
+	        		const response = Object.assign({}, res.body);
+	        		const csvJobs = [];
+	        		response.jobs.forEach((job) => {
+	        			if (job.job_type == 'csv_record_validation') {
+	        				csvJobs.push(job);
+	        			}
+	        		});
+
+	        		response.jobs = csvJobs;
+
+	        		deferred.resolve(response);
 	        	}
 
 	        });
