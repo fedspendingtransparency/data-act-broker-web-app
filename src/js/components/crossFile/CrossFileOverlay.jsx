@@ -88,10 +88,10 @@ export default class CrossFileOverlay extends React.Component {
 					<div className="row">
 						<div className="col-md-8 usa-da-overlay-content-wrap">
 							<div className="row full-row">
-								<div className="col-xs-2 col-md-2 usa-da-icon">
+								<div className="col-sm-2 col-lg-1 usa-da-icon">
 									{icon}
 								</div>
-								<div className="col-xs-10 col-md-10">
+								<div className="col-sm-10 col-lg-11">
 									<h6>{message}</h6>
 								</div>
 							</div>

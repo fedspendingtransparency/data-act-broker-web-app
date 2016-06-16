@@ -5,7 +5,7 @@
 
 import React from 'react';
 import ComparisonTable from './ComparisonTable.jsx';
-import UploadButton from '../../validateData/ValidateDataUploadButton.jsx';
+import UploadButtonContainer from '../../../containers/crossFile/CrossFileUploadButtonContainer.jsx';
 
 export default class ErrorBox extends React.Component {
 	droppedFile(type, file) {
@@ -34,8 +34,8 @@ export default class ErrorBox extends React.Component {
 									Upload Corrected Files
 								</div>
 								<div className="upload-buttons">
-									<UploadButton text="File A: Appropriations Account" onDrop={this.droppedFile.bind(this, 'left')} />
-									<UploadButton text="File B: Program Activity and Object Class" onDrop={this.droppedFile.bind(this, 'right')} />
+									<UploadButtonContainer text="File A: Appropriations Account" fileKey={this.props.leftFileName} />
+									<UploadButtonContainer text="File B: Program Activity and Object Class" fileKey={this.props.rightFileName} />
 								</div>
 							</div>
 						</div>

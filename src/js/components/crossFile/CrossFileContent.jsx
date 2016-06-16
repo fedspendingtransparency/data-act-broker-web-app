@@ -29,7 +29,7 @@ export default class CrossFileContent extends React.Component {
 			if (this.state.loading) {
 				type = 'loading';
 			}
-			items.push(<CrossFileItem key={i} type={type} />);
+			items.push(<CrossFileItem key={i} type={type} leftFileName="appropriations" rightFileName="program_activity" {...this.props} />);
 		}
 
 		return items;
@@ -41,7 +41,7 @@ export default class CrossFileContent extends React.Component {
 			this.setState({
 				loading: false
 			})
-		}, 5000);
+		}, 2000);
 	}
 
 	render() {
