@@ -57,6 +57,19 @@ export const currentQuarter = (type) => {
 	return quarterToMonth(quarter, year, type);
 };
 
+export const fyStartDate = () => {
+
+	const month = parseInt(moment().format("M"));
+    let year = moment().format('YYYY');
+
+    if (month >= 10) {
+    	year = moment().add(1, 'years').format('YYYY');
+    }
+
+	return quarterToMonth(1, year, 'start');
+
+}
+
 export const quarterToMonth = (quarter, quarterYear, type) => {
     // convert quarters to months
     const startMonth = ["10", "01", "04", "07"];
