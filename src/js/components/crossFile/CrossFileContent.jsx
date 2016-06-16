@@ -5,21 +5,46 @@
 
 import React from 'react';
 import CrossFileItem from './CrossFileItem.jsx';
+import CrossFileOverlay from './CrossFileOverlay.jsx';
 
 export default class CrossFileContent extends React.Component {
+
+	constructor(props) {
+		super(props);
+
+		this.state = {
+			loading: true
+		}
+	}
 
 	crossFileItems() {
 		const items = [];
 
 		for (let i = 0; i < 4; i++) {
-			items.push(<CrossFileItem key={i} />);
+			let type = "success";
+			if (i % 2 == 0) {
+				type = "error";
+			}
+
+			if (this.state.loading) {
+				type = 'loading';
+			}
+			items.push(<CrossFileItem key={i} type={type} />);
 		}
 
 		return items;
 	}
 
+	componentDidMount() {
+		// temporary for demoing
+		setTimeout(() => {
+			this.setState({
+				loading: false
+			})
+		}, 5000);
+	}
+
 	render() {
-		const overlay = null;
 
 		const items = this.crossFileItems();
 
@@ -37,7 +62,7 @@ export default class CrossFileContent extends React.Component {
 
 					</div>
 				</div>
-				{overlay}
+				<CrossFileOverlay {...this.props} loading={this.state.loading} />
 			</div>
 		)
 	}

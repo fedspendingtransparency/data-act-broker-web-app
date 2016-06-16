@@ -140,7 +140,8 @@ const routeDefinitions = {
         },
         {
             path: 'validateCrossFile/:submissionID',
-            component: CrossFilePage
+            component: CrossFilePage,
+            onEnter: checkUserPermissions
         },
         {
             path: 'reviewData/:submissionID',
