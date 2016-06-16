@@ -1,6 +1,23 @@
 import Request from './sessionSuperagent.js';
 import Q from 'q';
 import Markdown from 'markdown';
+import ent from 'ent';
+
+const unescapeInlineHtml = (html) => {
+	// find any inline HTML (as denoted by ```!inline-html [CODE] !inline-html```)
+	const regex = /<p><code>!inline-html\n[\s\S]*\n!inline-html<\/code><\/p>/;
+	const results = regex.exec(html);
+	
+	// we found inline HTML, unescape it and insert it into the parsed Markdown output
+	if (results && results.length > 0) {
+		const rawHtml = results[0].substring(21, results[0].length - 23);
+		const decodedHtml = ent.decode(rawHtml);
+		html = html.replace(regex, decodedHtml);
+	}
+
+	return html;
+}
+
 
 const parseMarkdown = (rawText) => {
 	const md = Markdown.markdown;
@@ -39,13 +56,14 @@ const parseMarkdown = (rawText) => {
 						name: element[2]
 					});
 				}
-
 			}
 		}
 	});
 
+	const html = md.renderJsonML(md.toHTMLTree(tree));
+
 	const output = {
-		html: md.renderJsonML(md.toHTMLTree(tree)),
+		html: unescapeInlineHtml(html),
 		sections: sectionList
 	};
 
