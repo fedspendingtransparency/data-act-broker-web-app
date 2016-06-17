@@ -64,6 +64,18 @@
 	                    top: 5px;
 	                    fill: $color-gray;
 	                }
+
+	                &.success {
+						svg {
+							fill: $color-green-light;
+						}
+					}
+
+					&.error {
+						svg {
+							fill: $color-secondary;
+						}
+					}
 	            }
 			}
 		}

@@ -11,13 +11,17 @@ import { hashHistory } from 'react-router';
 import * as uploadActions from '../../redux/actions/uploadActions.js';
 import { kGlobalConstants } from '../../GlobalConstants.js';
 import * as UploadHelper from '../../helpers/uploadHelper.js';
+import * as ReviewHelper from '../../helpers/reviewHelper.js';
 
 import CrossFileContent from '../../components/crossFile/CrossFileContent.jsx';
 
 class CrossFileContentContainer extends React.Component {
 	constructor(props) {
 		super(props);
+	}
 
+	componentDidMount() {
+		this.loadData();
 	}
 
 	uploadFiles() {
@@ -25,14 +29,30 @@ class CrossFileContentContainer extends React.Component {
 			UploadHelper.performLocalCorrectedUpload(this.props.submission)
 				.then(() => {
 					this.props.setSubmissionState('prepare');
+					// redirect back to the validation page
+					hashHistory.push('/validateData/' + this.props.submissionID);
 				});
 		}
 		else {
 			UploadHelper.performRemoteCorrectedUpload(this.props.submission)
 				.then(() => {
 					this.props.setSubmissionState('prepare');
+					// redirect back to the validation page
+					hashHistory.push('/validateData/' + this.props.submissionID);
 				});
 		}
+	}
+
+	loadData() {
+		ReviewHelper.validateSubmission(this.props.submissionID)
+			.then((data) => {
+				this.props.setSubmissionState('crossFile');
+				this.props.setValidation(data);
+				
+			})
+			.catch((err) => {
+				console.log(err);			
+			});
 	}
 	
 	render() {

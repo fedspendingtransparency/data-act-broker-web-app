@@ -24,7 +24,7 @@ export default class CrossFilePage extends React.Component {
                     </div>
                 </div>
 
-                <CrossFileContentContainer />
+                <CrossFileContentContainer submissionID={this.props.params.submissionID} />
 
             </div>
 		)

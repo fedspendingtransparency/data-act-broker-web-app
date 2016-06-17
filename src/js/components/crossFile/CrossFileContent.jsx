@@ -4,6 +4,7 @@
   **/
 
 import React from 'react';
+import _ from 'lodash';
 import CrossFileItem from './CrossFileItem.jsx';
 import CrossFileOverlay from './CrossFileOverlay.jsx';
 
@@ -12,20 +13,8 @@ export default class CrossFileContent extends React.Component {
 	constructor(props) {
 		super(props);
 
-		this.state = {
-			loading: true
-		}
+		this.allowableStates = ['crossFile', 'uploading', 'prepare', 'failed'];
 	}
-
-	componentDidMount() {
-		// temporary for demoing
-		setTimeout(() => {
-			this.setState({
-				loading: false
-			})
-		}, 2000);
-	}
-
 
 	crossFileItems() {
 		const items = [];
@@ -36,9 +25,10 @@ export default class CrossFileContent extends React.Component {
 				type = "error";
 			}
 
-			if (this.state.loading) {
+			if (_.indexOf(this.allowableStates, this.props.submission.state) == -1) {
 				type = 'loading';
 			}
+
 			items.push(<CrossFileItem key={i} type={type} leftFileName="appropriations" rightFileName="program_activity" {...this.props} />);
 		}
 
@@ -48,6 +38,8 @@ export default class CrossFileContent extends React.Component {
 	render() {
 
 		const items = this.crossFileItems();
+
+		const isLoading = _.indexOf(this.allowableStates, this.props.submission.state) == -1;
 
 		return (
 			<div>
@@ -63,7 +55,7 @@ export default class CrossFileContent extends React.Component {
 
 					</div>
 				</div>
-				<CrossFileOverlay {...this.props} loading={this.state.loading} uploadFiles={this.props.uploadFiles} />
+				<CrossFileOverlay {...this.props} loading={isLoading} uploadFiles={this.props.uploadFiles} />
 			</div>
 		)
 	}

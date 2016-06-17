@@ -10,36 +10,33 @@ import UploadButtonContainer from '../../../containers/crossFile/CrossFileUpload
 
 export default class ErrorBox extends React.Component {
 	
-	isUploading() {
-		// check if the files are staged for upload
-		if (this.props.submission.files.hasOwnProperty(this.props.leftFileName) && this.props.submission.files.hasOwnProperty(this.props.rightFileName)) {
-			// they are staged, check if they have started uploading
-			const leftFile = this.props.submission.files[this.props.leftFileName];
-			const rightFile = this.props.submission.files[this.props.rightFileName];
-
-			if (leftFile.state == 'uploading' || rightFile.state == 'uploading') {
-				return true;
-			}
-			else {
-				return false;
-			}
-		}
-
-		return false;
-	}
-
 	fileProgress() {
-		const leftFile = this.props.submission.files[this.props.leftFileName];
-		const rightFile = this.props.submission.files[this.props.rightFileName];
+		let leftFile = this.props.submission.files[this.props.leftFileName];
+		let rightFile = this.props.submission.files[this.props.rightFileName];
+
+		let fileCount = 2;
+
+		if (!leftFile) {
+			leftFile = {
+				progress: 0
+			};
+			fileCount = 1;
+		}
+		else if (!rightFile) {
+			rightFile = {
+				progress: 0
+			};
+			fileCount = 1;
+		}
 		
-		return (leftFile.progress + rightFile.progress) / 2;
+		return (leftFile.progress + rightFile.progress) / fileCount;
 	}
 
 	render() {
 
 		let uploadProgress = null;
 
-		if (this.isUploading()) {
+		if (this.props.submission.state == 'uploading') {
 			uploadProgress = <FileProgress fileStatus={this.fileProgress()} />
 		}
 
@@ -65,8 +62,8 @@ export default class ErrorBox extends React.Component {
 									{uploadProgress}
 								</div>
 								<div className="upload-buttons">
-									<UploadButtonContainer text="File A: Appropriations Account" fileKey={this.props.leftFileName} />
-									<UploadButtonContainer text="File B: Program Activity and Object Class" fileKey={this.props.rightFileName} />
+									<UploadButtonContainer type="A" fullName="Appropriations Account" fileKey={this.props.leftFileName} />
+									<UploadButtonContainer type="B" fullName="Program Activity and Object Class" fileKey={this.props.rightFileName} />
 								</div>
 							</div>
 						</div>

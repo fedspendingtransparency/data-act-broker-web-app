@@ -13,6 +13,11 @@ import * as UploadHelper from '../../helpers/uploadHelper.js';
 
 import UploadButton from '../../components/validateData/ValidateDataUploadButton.jsx';
 
+const defaultProps = {
+	fullName: '',
+	type: ''
+};
+
 class CrossFileUploadButtonContainer extends React.Component {
 
 	onDrop(file) {
@@ -23,12 +28,28 @@ class CrossFileUploadButtonContainer extends React.Component {
 		});
 	}
 
+	isFileStaged() {
+		if (this.props.submission.files.hasOwnProperty(this.props.fileKey)) {
+			return true;
+		}
+		return false;
+	}
+
 	render() {
+		let displayText = 'File ' + this.props.type + ': ' + this.props.fullName;
+		let isOptional = false;
+		if (this.isFileStaged()) {
+			displayText = 'File ' + this.props.type + ': ' + this.props.submission.files[this.props.fileKey].file.name;
+			isOptional = true;
+		}
+
 		return (
-			<UploadButton {...this.props} onDrop={this.onDrop.bind(this)} />
+			<UploadButton text={displayText} optional={isOptional} onDrop={this.onDrop.bind(this)} />
 		)
 	}
 }
+
+CrossFileUploadButtonContainer.defaultProps = defaultProps;
 
 export default connect(
 	state => ({ submission: state.submission }),

@@ -45,10 +45,12 @@ export default class FileComponent extends React.Component {
 		}
 		else if (status == 'success') {
 			iconHide = '';
+			iconClass = ' success';
 			icon = <Icons.CheckCircle />;
 		}
 		else if (status == 'failed') {
 			iconHide = '';
+			iconClass = ' error';
 			icon = <Icons.ExclamationCircle />;
 		}
 
