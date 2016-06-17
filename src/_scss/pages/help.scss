@@ -54,19 +54,25 @@
     position: fixed;
     bottom: 60px;
     right: 40px;
-    background-color: $color-darkest;
-
+    overflow: hidden;
+    background-color: $color-gray-light;
+    @include transition(all 0.5s ease-in-out);
     a {
         display: block;
-
         svg {
             fill: $color-white;
             position: relative;
             top: -3px;
+            @include transition(all 0.5s ease-in-out);
         }
-
         .hidden-label {
-            font-size:0;
+            font-size: 0;
+        }
+    }
+    &:hover {
+        background-color: $color-primary-alt-dark;
+        & svg {
+            top: -5px;
         }
     }
 }

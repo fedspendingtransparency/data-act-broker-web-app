@@ -188,20 +188,18 @@ export default class AddDataMeta extends React.Component {
                         <div className="row text-center usa-da-add-data-meta">
                             <div className="col-md-offset-2 col-md-8 mt-60 mb-60">
                                 <h5>Please begin by telling us about the submission you'll be creating.</h5>
-                                <div className="row usa-da-guide-link">
-                                    <a href="#/submissionGuide?force=true">View Submission Guide</a>
-                                </div>
                                 <div className="meta-holder">
                                     <div className="row usa-da-add-data-meta-label">
                                         Which agency is this submission for?
                                     </div>
+                                    
                                     <div className="row">
                                         <div className="col-sm-12 col-md-12 typeahead-holder" data-testid="agencytypeahead">
                                             <AgencyListContainer placeholder="Enter the name of the reporting agency" onSelect={this.handleChange.bind(this)} customClass={agencyClass} />
                                                 <div className={"usa-da-icon " + agencyClass}>
                                                     {agencyIcon}
                                                 </div>
-                                        </div>
+                                            </div>
                                     </div>
                                 
                                     <ReactCSSTransitionGroup transitionName="usa-da-meta-fade" transitionEnterTimeout={500} transitionLeaveTimeout={300}>
@@ -217,10 +215,14 @@ export default class AddDataMeta extends React.Component {
                                     </ReactCSSTransitionGroup>
 
                                 </div>
+                                <div className="usa-da-guide-link">
+                                    <a href="#/submissionGuide?force=true">View Submission Guide</a>
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
+
             );
         }
     }
