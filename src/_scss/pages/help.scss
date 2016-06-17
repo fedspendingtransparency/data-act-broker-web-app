@@ -1,35 +1,50 @@
+.usa-da-help-content{
+    @include contentBlockWrapper;
+    padding: 20px 30px;
+    margin: 0 0 40px;
+
+    .help-table {
+        table-layout: fixed;
+        width: 100%;
+
+        .col-15 {
+            width: 15%;
+        }
+        .col-25 {
+            width: 25%;
+        }
+        .col-45 {
+            width: 45%;
+        }
+
+        .break-word {
+            word-wrap: break-word;
+        }
+    }
+}
+
 .usa-da-help-page {
     margin-top: 10px;
-
     a {
         text-decoration: none;
     }
 }
 
 .usa-da-help-sidebar {
-    border-right: 1px solid #ccc;
-    padding: 20px;
-
-    ul + h6{
-        margin-top:0;
+    ul + h6 {
+        margin-top: 0;
     }
-
-h6{
-    margin-bottom: 1.3rem;
-}
-
+    h6 {
+        margin-bottom: 1.3rem;
+    }
     ul, li {
         list-style-type: none;
     }
-
     li a {
-        margin-left: 20px;
-        font-size: 16px;
+        font-size: 1.4rem;
     }
-
     li:before {
         content: "";
         padding-right: 0;
     }
-
 }

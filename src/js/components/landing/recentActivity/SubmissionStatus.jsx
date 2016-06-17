@@ -9,8 +9,8 @@ export const StatusTypes = {
 	UNKNOWN: 0,
 	STARTED: 1,
 	INPROGRESS: 2,
-	VALIDATED: 3,
-	HASERRORS: 4,
+	HASERRORS: 3,
+	VALIDATED: 4,
 	SUBMITTED: 5
 };
 
@@ -22,7 +22,7 @@ export class SubmissionStatus extends React.Component {
 	constructor(props) {
 		super(props);
 
-		this.statusStrings = ['Unknown', 'Started', 'Validation In Progress', 'Validated (Without Errors)', 'Has Errors', 'Submitted'];
+		this.statusStrings = ['Unknown', 'Started', 'Validation In Progress', 'Has Errors', 'Validated (Without Errors)', 'Submitted'];
 
 	}
 

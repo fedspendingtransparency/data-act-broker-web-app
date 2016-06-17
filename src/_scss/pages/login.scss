@@ -33,10 +33,9 @@
             @include alphaMark;
         }
     }
-    .usa-button-big {
+    .usa-da-button {
         margin: 0;
         @media screen and (max-width: $small-screen) {
-            background: red;
             width: 100%
         }
         &.disabled {
@@ -139,7 +138,7 @@
         ul {
             margin-bottom: 0;
             li {
-                @include list-row(38px, 36px);
+                @include list-row(31px, 31px);
                 color: as-alpha($color-white, 0.99);
                 border-right: 1px solid #5b616b;
                 padding: 0 10px;

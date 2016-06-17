@@ -92,7 +92,6 @@ $top-header-height: 3.1rem;
 	$-local-red: red(rgba($hex-color, 1));
 	$-local-green: green(rgba($hex-color, 1));
 	$-local-blue: blue(rgba($hex-color, 1));
-
 	@return rgba($-local-red, $-local-green, $-local-blue,$alpha);
 }
 
@@ -162,8 +161,8 @@ h6 {
 
 @mixin para {
     font-weight: $font-normal;
-    font-size: 1.6rem;
-    line-height: 2.6rem;
+    font-size: 1.4rem;
+    line-height: 2.4rem;
     color: #525252;
     max-width: 70rem;
 }
@@ -194,7 +193,6 @@ p.small {
     line-height: 2.4rem;
 }
 
-
 p strong{
     font-weight: 600;
 }
@@ -206,6 +204,7 @@ p strong{
 
 ul li{
 	font-size: $base-font-size;
+	line-height: $base-line-height;
 }
 
 p + h2, p + h3, p + h4, p + h5, p + h6,{
@@ -229,6 +228,9 @@ ul.no-bullet{
     padding: 0;
     & li{
         margin: 0!important;
+        &:before{
+        	display: none;
+        }
     }
 }
 
@@ -296,6 +298,9 @@ pre {
                     padding: 16px 15px;
                     border-bottom: none;
                     position: relative;
+                    @media(max-width:$medium-screen) {
+                    	padding: 16px 10px;
+                    }
                 }
             }
         }
@@ -305,6 +310,9 @@ pre {
                     padding: 15px;
                     font-size: 1.4rem;
                     color: $color-gray;
+                    @media(max-width:$medium-screen) {
+                    	padding: 10px;
+                    }
                 }
             }
         }
@@ -412,6 +420,10 @@ a.list-group-item {
     right: 15px;
     height: 100%;
     width: 33px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+
     & .usa-da-icon {
     	height: 2.4rem;
     	width: 2.2rem;
@@ -425,17 +437,7 @@ a.list-group-item {
     	}
     	&.sort-icon {
     	    cursor: pointer;
-    	    &.usa-da-icon-angle-up,
-    	    &.usa-da-icon-angle-down {
-    	        position: absolute;
-    	        top: 13px;
-    	    }
-    	    &.usa-da-icon-angle-up {
-    	        right: 15px;
-    	    }
-    	    &.usa-da-icon-angle-down {
-    	        right: -5px;
-    	    }
+            flex: 0 1 auto;
     	}
     }
 }
@@ -760,9 +762,47 @@ input[type="month"],
 input[type="time"],
 input[type="week"],
 textarea,
-select {
-	border: 1px solid #cacaca;
-	color: #696969;
+select  {
+  border: 1px solid #cacaca;
+  border-radius: 0;
+  box-sizing: border-box;
+  color: #696969; // standardize on firefox 
+  display: block;
+  font-size: $base-font-size;
+  margin: .2em 0;
+  width: 100%;
+  outline: none;
+  padding: 1rem .7em;
+  appearance: none;
+
+  &:focus, 
+  &.usa-da-input-focus {
+    box-shadow: $focus-shadow;
+  }
+
+  &.usa-da-input-success {
+    border: 3px solid $color-green-light;
+  }
+}
+
+label{
+	font-weight: normal;
+	line-height: 23px;
+	color:#555;
+}
+
+input[type="radio"]{
+	margin: 4px 8px 0 0;
+    line-height: normal;
+    width: auto;
+    float: left;
+}
+
+input[type="checkbox"]{
+	width: auto;
+	float: left;
+	height: 15px;
+	width: 15px;
 }
 
 .usa-da-button,
@@ -920,6 +960,10 @@ button,
 	display: none;
 }
 
+.usa-da-gathering-data{
+    text-align: center;
+    padding: 30px;
+}
 
 
 
@@ -973,3 +1017,71 @@ button,
 .mb-50	{margin-bottom: 50px}
 .mb-55	{margin-bottom: 55px}
 .mb-60	{margin-bottom: 60px}
+
+
+// typeahead
+.typeahead-holder {
+    div {
+        width: 100%;
+        border-radius: 0;
+        box-sizing: border-box;
+        color: #a9a9a9;
+        font-size: 1.7rem;
+        margin: .2em 0;
+        max-width: none;
+        outline: none;
+    }
+    .awesomplete {
+        .visually-hidden {
+            position: absolute;
+            clip: rect(0, 0, 0, 0);
+        }
+    }
+    ul.typeahead-selector,
+    .awesomplete ul {
+        text-align: left;
+        background: $color-white;
+        color: #555;
+        position: absolute;
+        z-index: 1000;
+        width: 96%;
+        margin: -5px 0 0 0;
+        border: 1px solid #cacaca;
+        li {
+            display: inline-block;
+            vertical-align: middle;
+            list-style-type: none;
+            width: 100%;
+            padding: 10px 10px 0 10px;
+            margin: 0;
+            &:hover,
+            &.hover,
+            &[aria-selected="true"] {
+                background-color: $color-gray-lightest;
+                cursor: pointer;
+                color: #333;
+                * {
+                    color: $color-white;
+                }
+                mark {
+                    background-color: $color-gray-light;
+                    color: white;
+                }
+            }
+            a,
+            a:focus,
+            a:visited {
+                color: $color-gray-dark;
+                text-decoration: none;
+            }
+            a:hover {
+                color: $color-white;
+                background-color: $color-gray-dark;
+            }
+        }
+        li:before {
+            content: "";
+            padding: 0;
+        }
+    }
+}

@@ -190,3 +190,15 @@ Floppy.defaultProps = {
 	iconName: 'usa-da-icon-floppy-o',
 	iconClass: 'usa-da-icon-floppy-o'
 };
+
+export class LargeFile extends BaseIcon {};
+LargeFile.defaultProps = {
+	iconName: 'usa-da-icon-large-file-icon',
+	iconClass: 'usa-da-icon-large-file-icon'
+};
+
+export class Bell extends BaseIcon {};
+Bell.defaultProps = {
+	iconName: 'usa-da-icon-bell-o',
+	iconClass: 'usa-da-icon-bell-o'
+};

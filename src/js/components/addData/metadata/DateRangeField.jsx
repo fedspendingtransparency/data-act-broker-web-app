@@ -113,22 +113,22 @@ export default class DateRangeField extends React.Component {
 
 		return (
 			<div>
-				<div className="row usa-da-add-data-meta-label">
+				<div className="row usa-da-add-data-meta-label usa-da-range">
                     Your submission includes data from...
                 </div>
                 <div className="row ">
-                    <div className="col-xs-8 col-md-5 mt-5 pos-rel usa-da-startDate">
+                    <div className="col-sm-5 col-md-5 mt-5 pos-rel usa-da-startDate">
                     	<DateDropdown onChange={this.handleDateChange.bind(this, 'startDate')} value={this.state.startDate} hasError={this.state.dateError} type={this.props.type} startEndType="start" />
                         <div className={"usa-da-icon date " + dateClass}>
                             {dateIcon}
                         </div>
                     </div>
 
-                    <div className="col-xs-12 col-md-2 mt-5 usa-da-date-through">
+                    <div className="col-sm-2 col-md-2 mt-5 usa-da-date-through">
                     	through
                     </div>
 
-                    <div className="col-xs-8 col-md-5 mt-5 usa-da-endDate">
+                    <div className="col-sm-5 col-md-5 mt-5 usa-da-endDate">
                         <DateDropdown onChange={this.handleDateChange.bind(this, 'endDate')} value={this.state.endDate} hasError={this.state.dateError} type={this.props.type} startEndType="end" />
                         <div className={"usa-da-icon date " + dateClass}>
                             {dateIcon}

@@ -8,7 +8,7 @@ import ReactCSSTransitionGroup from 'react-addons-css-transition-group';
 
 import DatePicker from 'react-datepicker';
 import moment from 'moment';
-import Typeahead from '../SharedComponents/Typeahead.jsx';
+import AgencyListContainer from '../../containers/SharedContainers/AgencyListContainer.jsx';
 import * as Icons from '../SharedComponents/icons/Icons.jsx';
 
 import DateTypeField from './metadata/DateTypeField.jsx';
@@ -178,14 +178,14 @@ export default class AddDataMeta extends React.Component {
                     <div className="container center-block">
                         <div className="row text-center usa-da-add-data-meta">
                             <div className="col-md-offset-2 col-md-8 mt-60 mb-60">
-                                <h6 className="mb-20">Please begin by telling us about submission you'll be creating.</h6>
+                                <h5>Please begin by telling us about submission you'll be creating.</h5>
                                 <div className="meta-holder">
                                     <div className="row usa-da-add-data-meta-label">
                                         Which agency is this submission for?
                                     </div>
                                     <div className="row">
                                         <div className="col-sm-12 col-md-12 typeahead-holder" data-testid="agencytypeahead">
-                                            <Typeahead values={AgencyHelper.agencies} placeholder="Enter the name of the reporting agency" onSelect={this.handleChange.bind(this)} customClass={agencyClass}        />
+                                            <AgencyListContainer placeholder="Enter the name of the reporting agency" onSelect={this.handleChange.bind(this)} customClass={agencyClass} />
                                                 <div className={"usa-da-icon " + agencyClass}>
                                                     {agencyIcon}
                                                 </div>

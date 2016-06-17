@@ -24,7 +24,7 @@ export default class ReviewDataContent extends React.Component {
 
         this.state = {
             jobs: null,
-            agency_name: null,
+            cgac_code: null,
             reporting_period_start_date: null,
             reporting_period_end_date: null,
             number_of_errors: null,
@@ -70,26 +70,22 @@ export default class ReviewDataContent extends React.Component {
                 buttons.push(<ReviewDataButton key={i} icon={buttonContent[i][0]} label={buttonContent[i][1]} />);
             }
 
-            const reportName = this.state.agency_name.replace(/ /g,'_') + '_' + moment(this.state.created_on, 'MM/DD/YYYY').format('DDMMYYYY')  + '_' + this.props.submissionID;
+            const reportName = this.state.cgac_code.replace(/ /g,'_') + '_' + moment(this.state.created_on, 'MM/DD/YYYY').format('DDMMYYYY')  + '_' + this.props.submissionID;
             let fileSize = 0;
 
             for (let k = 0; k < this.state.jobs.length; k++){
                 fileSize += this.state.jobs[k].file_size;
             }
 
-            const reportLabels = ['Report Name:', 'Period Start Date:', 'Period End Date:', 'Total File Size:', 'Created On:', 'Total Critical Errors:', 'Total Warnings:', 'Total Rows:', 'Incurred Obligations:', 'Financial Assistance Obligations:', 'Procurement Obligations:'];
+            const reportLabels = ['Agency Name:', 'Report Start Date:', 'Report End Date:', 'Total Obligations Incurred:', 'Total Financial Assistance Obligations:', 'Total Procurement Obligations:'];
 
-            const reportData = [reportName,
+            const reportData = [
+                'Need This',
                 this.state.reporting_period_start_date,
                 this.state.reporting_period_end_date,
-                fileSize,
-                this.state.created_on,
-                this.state.number_of_errors,
-                0,
-                this.state.number_of_rows,
-                'Coming Soon',
-                'Coming Soon',
-                'Coming Soon'
+                'Need This',
+                'Need This',
+                'Need This'
             ];
 
             let reportRows = [];
@@ -101,16 +97,42 @@ export default class ReviewDataContent extends React.Component {
             return (
                 <div className="container">
                     <div className="row center-block mt-60">
-                        <div className="col-md-12 text-center mb-30">
-                            <h5 className="text-success" data-testid="review-header">Congratulations your data has been successfully validated! Now, what would you like to do with it?</h5>
+                        <div className="col-md-12 text-center">
+                            <h5 data-testid="review-header">Congratulations your data has been successfully validated! Now, what would you like to do with it?</h5>
                         </div>
                     </div>
-                    <div className="row center-block usa-da-review-data-content-holder">
-                        <div className="col-md-5 mt-15">
-                            {buttons}
+                    <div className="center-block usa-da-review-data-content-holder">
+                        <div className="row">
+                            <div className="col-md-4">
+                                <div className="usa-da-file-wrap">
+                                    <div className="usa-da-icon usa-da-icon-CheckCircle">
+                                        <Icons.CheckCircle />
+                                    </div>
+                                    <div className="usa-da-submission-info">
+                                        <ul className="no-bullet">
+                                            <li>Total File Size: <strong>{fileSize}</strong></li>
+                                            <li>Total Rows: <strong>{this.state.number_of_rows}</strong></li>
+                                            <li>Created on: <strong>{this.state.created_on}</strong></li>
+                                            <li>Total Warnings: <strong></strong></li>
+                                        </ul>
+                                        <ul className="usa-da-submission-bottom-links no-bullet">
+                                            <li><a href="#"><span className="usa-da-icon usa-da-icon-CloudDownload"><Icons.CloudDownload /></span>Download</a></li>
+                                            <li><a href="#"><span className="usa-da-icon usa-da-icon-Trash"><Icons.Trash /></span>Delete</a></li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                            <div className="col-md-8 usa-da-review-data-alternating-rows">
+                                {reportRows}
+                            </div>
                         </div>
-                        <div className="col-md-7 usa-da-review-data-alternating-rows">
-                            {reportRows}
+                        <div className="row usa-da-submission-bottom-big-links mt-20">
+                            <div className="col-md-6">
+                                <a href="#" className="usa-da-button btn-primary btn-lg btn-full"><span className="usa-da-icon usa-da-icon-Globe"><Icons.Globe /></span>Certify & Publish the Submission to USASpending.gov</a>
+                            </div>
+                            <div className="col-md-6 usa-da-submission-bottom-big-links">
+                                <a href="#" className="usa-da-button btn-primary btn-lg btn-full last"><span className="usa-da-icon usa-da-icon-Bell"><Icons.Bell /></span>Notify Another User that the Submission is Ready for Certification</a>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -118,7 +140,7 @@ export default class ReviewDataContent extends React.Component {
         } else {
             return (
                 <div className="container">
-                    <h4>Gathering data...</h4>
+                    <h4 className="usa-da-gathering-data">Gathering data...</h4>
                 </div>
             );
         }
