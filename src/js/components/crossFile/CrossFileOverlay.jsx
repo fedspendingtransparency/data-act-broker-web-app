@@ -7,7 +7,7 @@ import * as Icons from '../SharedComponents/icons/Icons.jsx';
 
 const defaultProps = {
 	errors: ['error'],
-	allowUpload: false
+	allowUpload: true
 };
 
 export default class CrossFileOverlay extends React.Component {
@@ -98,7 +98,7 @@ export default class CrossFileOverlay extends React.Component {
 						</div>
 						<div className="col-md-4">
 							<div className={'usa-da-btn-bg' + hideButtons}>
-								<button className={"usa-da-button" + uploadButtonClass} disabled={uploadButtonDisabled}>{buttonText}</button>
+								<button className={"usa-da-button" + uploadButtonClass} disabled={uploadButtonDisabled} onClick={this.props.uploadFiles}>{buttonText}</button>
 								<button className={"usa-da-validation-overlay-review usa-da-button" + nextButtonClass} disabled={nextButtonDisabled} onClick={this.pressedNext.bind(this)}>Next</button>
 							</div>
 						</div>

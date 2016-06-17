@@ -17,6 +17,16 @@ export default class CrossFileContent extends React.Component {
 		}
 	}
 
+	componentDidMount() {
+		// temporary for demoing
+		setTimeout(() => {
+			this.setState({
+				loading: false
+			})
+		}, 2000);
+	}
+
+
 	crossFileItems() {
 		const items = [];
 
@@ -33,15 +43,6 @@ export default class CrossFileContent extends React.Component {
 		}
 
 		return items;
-	}
-
-	componentDidMount() {
-		// temporary for demoing
-		setTimeout(() => {
-			this.setState({
-				loading: false
-			})
-		}, 2000);
 	}
 
 	render() {
@@ -62,7 +63,7 @@ export default class CrossFileContent extends React.Component {
 
 					</div>
 				</div>
-				<CrossFileOverlay {...this.props} loading={this.state.loading} />
+				<CrossFileOverlay {...this.props} loading={this.state.loading} uploadFiles={this.props.uploadFiles} />
 			</div>
 		)
 	}

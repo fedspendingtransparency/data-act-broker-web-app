@@ -19,10 +19,25 @@ class CrossFileContentContainer extends React.Component {
 		super(props);
 
 	}
+
+	uploadFiles() {
+		if (kGlobalConstants.LOCAL == true) {
+			UploadHelper.performLocalCorrectedUpload(this.props.submission)
+				.then(() => {
+					this.props.setSubmissionState('prepare');
+				});
+		}
+		else {
+			UploadHelper.performRemoteCorrectedUpload(this.props.submission)
+				.then(() => {
+					this.props.setSubmissionState('prepare');
+				});
+		}
+	}
 	
 	render() {
 		return (
-			<CrossFileContent {...this.props} />
+			<CrossFileContent {...this.props} uploadFiles={this.uploadFiles.bind(this)} />
 		);
 	}
 }
