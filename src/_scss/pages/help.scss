@@ -2,6 +2,25 @@
     @include contentBlockWrapper;
     padding: 20px 30px;
     margin: 0 0 40px;
+
+    .help-table {
+        table-layout: fixed;
+        width: 100%;
+
+        .col-15 {
+            width: 15%;
+        }
+        .col-25 {
+            width: 25%;
+        }
+        .col-45 {
+            width: 45%;
+        }
+
+        .break-word {
+            word-wrap: break-word;
+        }
+    }
 }
 
 .usa-da-help-page {

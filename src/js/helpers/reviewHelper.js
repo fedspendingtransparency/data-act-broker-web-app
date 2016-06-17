@@ -26,7 +26,6 @@ export const fetchStatus = (submissionId) => {
 	        		});
 	        	}
 	        	else {
-
 	        		// return only jobs related to CSV validation
 	        		const response = Object.assign({}, res.body);
 	        		const csvJobs = [];
