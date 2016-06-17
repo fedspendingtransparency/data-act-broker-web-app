@@ -481,6 +481,7 @@ a.list-group-item {
 }
 
 .usa-da-page-title {
+    position: relative;
 	& h1 {
 		margin-top: 0;
 	}
@@ -506,7 +507,14 @@ a.list-group-item {
 		}
 	}
     & .last-updated {
-        text-align: right;
+        position: absolute;
+        bottom: 42.6%;
+        right: 41px;
+        font-size: 1.1rem;
+        letter-spacing: 0.031rem;
+        color: $color-gray-lightest;
+        background: #262B30;
+        padding: 4px 10px;
     }
 }
 
