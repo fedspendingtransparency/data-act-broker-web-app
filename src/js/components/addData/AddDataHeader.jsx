@@ -15,16 +15,15 @@ class LastUpdated extends React.Component {
     
     render() {
         return (
-            <div className="col-md-4 mt-40 mb-50 last-updated">
-                <p>Last Saved: {this.props.last_updated}</p>
+            <div className="last-updated">
+                Last Saved: {this.props.last_updated}
             </div>
         );
     }
 }
 
 const defaultProps = {
-    title: 'Upload & Validate a New Submission',
-    description: 'The current DATA Act Broker allows agencies to upload and test their data as it is required under the DATA Act. It is not connected to USAspending.'
+    title: 'Upload & Validate a New Submission'
 };
 
 export default class AddDataHeader extends React.Component {
@@ -64,7 +63,6 @@ export default class AddDataHeader extends React.Component {
                     <div className="row usa-da-content-add-data usa-da-page-title">
                         <div className="col-md-7 mt-40 mb-20">
                             <div className="display-2">{this.props.title}</div>
-                            <p>{this.props.description}</p>
                         </div>
                         {lastUpdated}
                     </div>
