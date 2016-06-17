@@ -15,7 +15,7 @@ class LastUpdated extends React.Component {
     
     render() {
         return (
-            <div className="last-updated">?
+            <div className="last-updated">
                 Last Saved: {this.props.last_updated}
             </div>
         );
