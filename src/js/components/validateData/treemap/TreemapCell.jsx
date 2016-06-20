@@ -7,6 +7,10 @@ import React from 'react';
 import d3 from 'd3';
 import tinycolor from 'tinycolor2';
 
+const defaultProps = {
+	rule: 'Unspecified'
+};
+
 export default class TreemapCell extends React.Component {
 
 	constructor(props) {
@@ -54,3 +58,5 @@ export default class TreemapCell extends React.Component {
 		);
 	}
 }
+
+TreemapCell.defaultProps = defaultProps;
