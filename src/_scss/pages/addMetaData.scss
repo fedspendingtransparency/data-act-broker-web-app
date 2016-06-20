@@ -136,6 +136,10 @@
             font-size: 1.2rem;
             border-right: 1px solid $color-white;
             border-bottom: 1px solid $color-white;
+
+            .treemap-rule {
+                font-weight: bold;
+            }
         }
     }
     
@@ -146,9 +150,16 @@
         padding: 10px;
         word-wrap: break-word;
         font-size: 1.4rem;
-        line-height: 2.4rem;
-        color: #525252;
-        &.default {
-            color: $color-gray;
+        line-height: 2.4rem;    
+        color: $color-gray;
+
+        .treemap-help-title {
+            font-weight: bold;
+        }
+
+        .treemap-help-description {
+            b {
+                text-transform: capitalize;
+            }
         }
     }
