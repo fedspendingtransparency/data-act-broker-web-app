@@ -65,7 +65,7 @@ class ValidateValuesTreemap extends React.Component {
 
 
 			data.push({
-				rule: 'A12',
+				rule: item.original_label,
 				value: item.occurrences,
 				field: item.field_name,
 				description: item.error_description,
