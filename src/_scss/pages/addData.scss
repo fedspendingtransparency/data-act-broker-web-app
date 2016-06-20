@@ -28,9 +28,7 @@ div.usa-da-submission-instructions {
 div.usa-da-submission-items {
     margin-top: 60px;
     padding-bottom: 30px;
-    &.with-overlay {
-        padding-bottom: 180px;
-    }
+
     .usa-da-submission-item {
         margin-top: 4.0rem;
         &:first-child {
@@ -450,4 +448,8 @@ div.usa-da-dropzone {
         opacity: 0.01;
         transition: opacity 500ms ease-in;
     }
+}
+
+.with-overlay {
+    padding-bottom: 180px !important;
 }
