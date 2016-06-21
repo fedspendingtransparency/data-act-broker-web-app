@@ -32,7 +32,6 @@ class ValidateDataContainer extends React.Component {
 			finishedLoad: false,
 			headerErrors: true,
 			initialLoad: moment(),
-			offerCancellation: false,
 			notYours: false
 		};
 	}
@@ -101,16 +100,6 @@ class ValidateDataContainer extends React.Component {
 
 	validateSubmission() {
 
-		// check how long it's been since the initial validation check
-		if (!this.state.offerCancellation && !this.state.notYours) {
-			const secondsPassed = moment().unix() - this.state.initialLoad.unix();
-			if (secondsPassed >= 5 * 60) {
-				this.setState({
-					offerCancellation: true
-				});
-			}
-		}
-
 		ReviewHelper.validateSubmission(this.props.submissionID)
 			.then((data) => {
 				this.setState({
@@ -126,10 +115,7 @@ class ValidateDataContainer extends React.Component {
 					}, 5*1000);
 				}
 				else {
-					// all the files have returned something, hide the cancellation banner if necessary
-					// reset the initial load time to reset how long until the cancellation banner appears
 					this.setState({
-						offerCancellation: false,
 						initialLoad: moment()
 					});
 				}
@@ -140,7 +126,6 @@ class ValidateDataContainer extends React.Component {
 				if (err.reason == 400) {
 					this.setState({
 						notYours: true,
-						offerCancellation: false,
 						initialLoad: moment()
 					});
 				}
@@ -167,11 +152,6 @@ class ValidateDataContainer extends React.Component {
 			validationContent = <ValidateLoadingScreen />;
 		}
 
-		let cancel = '';
-		if (this.state.offerCancellation && !checkingValues) {
-			cancel = <ValidateCancellation />;
-		}
-
 		if (this.state.notYours) {
 			validationContent = '';
 			cancel = <ValidateNotYours message="You cannot view or modify this submission because you are not the original submitter." />;
@@ -179,7 +159,6 @@ class ValidateDataContainer extends React.Component {
 
 		return (
 			<div>
-				{cancel}
 				{validationContent}
 			</div>
 		);
