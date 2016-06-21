@@ -148,19 +148,6 @@ export default class ValidateDataFileComponent extends React.Component {
         let showWarning = ' hide';
         let validationElement = '';
 
-        if (!this.state.hasErrors) {
-            showError = ' hide';
-            optionalUpload = true;
-            uploadText = 'Overwrite File';
-            correctButtonOverlay = <CorrectButtonOverlay fileKey={this.props.type.requestName} />
-            validationElement = <p>File successfully validated</p>;
-        } else {
-            noErrors = '';
-            validationElement = <div className="row usa-da-validate-item-file-section-correct-button" data-testid="validate-upload">
-                <ValidateDataUploadButton optional={optionalUpload} onDrop={this.props.onFileChange} text={uploadText} />
-            </div>;
-        }
-
         // override this data if a new file is dropped in
         let uploadProgress = '';
         let fileName = this.props.item.filename;
@@ -172,6 +159,19 @@ export default class ValidateDataFileComponent extends React.Component {
             if (newFile.state == 'uploading') {
                 uploadProgress = <FileProgress fileStatus={newFile.progress} />;
             }
+        }
+
+        if (!this.state.hasErrors) {
+            showError = ' hide';
+            optionalUpload = true;
+            uploadText = 'Overwrite File';
+            correctButtonOverlay = <CorrectButtonOverlay fileKey={this.props.type.requestName} onDrop={this.props.onFileChange} fileName={fileName}/>
+            validationElement = <p>File successfully validated</p>;
+        } else {
+            noErrors = '';
+            validationElement = <div className="row usa-da-validate-item-file-section-correct-button" data-testid="validate-upload">
+                <ValidateDataUploadButton optional={optionalUpload} onDrop={this.props.onFileChange} text={uploadText} />
+            </div>;
         }
 
         return (

@@ -32,14 +32,6 @@ class CorrectButtonOverlay extends React.Component {
         };
     }
 
-    onDrop(file) {
-        this.props.setUploadItem({
-            name: this.props.fileKey,
-            state: 'ready',
-            file: file
-        });
-    }
-
     isFileStaged() {
         if (this.props.submission.files.hasOwnProperty(this.props.fileKey)) {
             return true;
@@ -53,15 +45,14 @@ class CorrectButtonOverlay extends React.Component {
 
     render() {
         let displayText = 'Choose a New File';
-        let isOptional = true;
 
         if (this.isFileStaged()){
-            displayText = 'File: ' + this.props.submission.files[this.props.fileKey].file.name;
+            displayText = 'File: ' + this.props.fileName;
         }
 
         let chooseFileOverlay = null;
         if (this.state.showOverlay){
-            chooseFileOverlay = <CorrectButtonFullOverlay text={displayText} optional={isOptional} onDrop={this.onDrop.bind(this)} buttonClicked={this.buttonClicked.bind(this)} />;
+            chooseFileOverlay = <CorrectButtonFullOverlay text={displayText} optional={true} onDrop={this.props.onDrop} buttonClicked={this.buttonClicked.bind(this)} />;
         }
 
         return (
