@@ -360,6 +360,14 @@ div.usa-da-validate-items {
             width: 100%;
             text-align: left;
         }
+
+        .overlay-help-text {
+            font-family: "Source Sans Pro", "Helvetica", "Arial", sans-serif;
+
+            a {
+                color: $color-white;
+            }
+        }
     }
 }
 

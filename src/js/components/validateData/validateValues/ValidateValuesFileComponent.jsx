@@ -41,7 +41,7 @@ export default class ValidateDataFileComponent extends React.Component {
     componentWillReceiveProps(nextProps) {
         this.determineErrors(nextProps.item);
 
-        if (this.props.submission.state == 'uploading' && nextProps.submission.state == 'review') {
+        if ((this.props.submission.state == 'uploading' || this.props.submission.state == 'prepare') && nextProps.submission.state == 'review') {
             // we've finished uploading files, close any open error reports
             if (this.state.showError) {
                 this.setState({
