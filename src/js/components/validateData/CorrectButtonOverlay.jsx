@@ -5,12 +5,6 @@
 
 import React from 'react';
 import ReactCSSTransitionGroup from 'react-addons-css-transition-group';
-import { bindActionCreators } from 'redux';
-import { connect } from 'react-redux';
-
-import * as uploadActions from '../../redux/actions/uploadActions.js';
-import { kGlobalConstants } from '../../GlobalConstants.js';
-import * as UploadHelper from '../../helpers/uploadHelper.js';
 
 import ValidateDataUploadButton from './ValidateDataUploadButton.jsx';
 import CorrectButtonCornerOverlay from './CorrectButtonCornerOverlay.jsx';
@@ -23,20 +17,13 @@ const defaultProps = {
     type: ''
 };
 
-class CorrectButtonOverlay extends React.Component {
+export default class CorrectButtonOverlay extends React.Component {
     constructor(props) {
         super(props);
 
         this.state = {
             showOverlay: false
         };
-    }
-
-    isFileStaged() {
-        if (this.props.submission.files.hasOwnProperty(this.props.fileKey)) {
-            return true;
-        }
-        return false;
     }
 
     buttonClicked() {
@@ -46,7 +33,7 @@ class CorrectButtonOverlay extends React.Component {
     render() {
         let displayText = 'Choose a New File';
 
-        if (this.isFileStaged()){
+        if (this.props.isReplacingFile){
             displayText = 'File: ' + this.props.fileName;
         }
 
@@ -65,8 +52,3 @@ class CorrectButtonOverlay extends React.Component {
 }
 
 CorrectButtonOverlay.defaultProps = defaultProps;
-
-export default connect(
-    state => ({ submission: state.submission }),
-    dispatch => bindActionCreators(uploadActions, dispatch)
-)(CorrectButtonOverlay)

@@ -165,7 +165,7 @@ export default class ValidateDataFileComponent extends React.Component {
             showError = ' hide';
             optionalUpload = true;
             uploadText = 'Overwrite File';
-            correctButtonOverlay = <CorrectButtonOverlay fileKey={this.props.type.requestName} onDrop={this.props.onFileChange} fileName={fileName}/>
+            correctButtonOverlay = <CorrectButtonOverlay isReplacingFile={this.isReplacingFile()} fileKey={this.props.type.requestName} onDrop={this.props.onFileChange} fileName={fileName}/>
             validationElement = <p>File successfully validated</p>;
         } else {
             noErrors = '';
