@@ -50,7 +50,9 @@ export default class ReviewDataNotifyModal extends React.Component {
     }
 
     closeModal(e) {
-        e.preventDefault();
+        if (e) {
+            e.preventDefault();
+        }
 
         this.setState({
             isOpen: false

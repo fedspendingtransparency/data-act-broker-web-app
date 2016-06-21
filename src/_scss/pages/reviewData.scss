@@ -127,6 +127,12 @@
     }
 }
 
+.usa-da-review-data {
+    &.usa-da-gathering-data {
+        min-height: 650px;
+    }
+}
+
 @keyframes rotateCheck {
     0% {
         transform: rotate(0deg);
