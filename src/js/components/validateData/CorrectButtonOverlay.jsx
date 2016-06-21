@@ -12,9 +12,9 @@ import * as uploadActions from '../../redux/actions/uploadActions.js';
 import { kGlobalConstants } from '../../GlobalConstants.js';
 import * as UploadHelper from '../../helpers/uploadHelper.js';
 
-import ValidateDataUploadButton from '../validateData/ValidateDataUploadButton.jsx';
-import CorrectButtonCornerOverlay from '../SharedComponents/CorrectButtonCornerOverlay.jsx';
-import CorrectButtonFullOverlay from '../SharedComponents/CorrectButtonFullOverlay.jsx';
+import ValidateDataUploadButton from './ValidateDataUploadButton.jsx';
+import CorrectButtonCornerOverlay from './CorrectButtonCornerOverlay.jsx';
+import CorrectButtonFullOverlay from './CorrectButtonFullOverlay.jsx';
 
 import * as Icons from '../SharedComponents/icons/Icons.jsx';
 

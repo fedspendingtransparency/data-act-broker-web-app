@@ -5,7 +5,7 @@
 
 import React from 'react';
 
-import ValidateDataUploadButton from '../validateData/ValidateDataUploadButton.jsx';
+import ValidateDataUploadButton from './ValidateDataUploadButton.jsx';
 
 import * as Icons from '../SharedComponents/icons/Icons.jsx';
 

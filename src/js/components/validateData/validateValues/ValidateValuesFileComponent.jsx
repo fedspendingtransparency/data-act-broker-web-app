@@ -16,7 +16,7 @@ import MetaData from '../../addData/AddDataMetaDisplay.jsx';
 import FileComponent from '../../addData/FileComponent.jsx';
 import ValidateDataUploadButton from './../ValidateDataUploadButton.jsx';
 import ValidateValuesErrorReport from './ValidateValuesErrorReport.jsx';
-import CorrectButtonOverlay from '../../SharedComponents/CorrectButtonOverlay.jsx';
+import CorrectButtonOverlay from '../CorrectButtonOverlay.jsx';
 import * as Icons from '../../SharedComponents/icons/Icons.jsx';
 
 const propTypes = {
