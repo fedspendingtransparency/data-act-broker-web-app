@@ -50,16 +50,10 @@ class ValidateValuesTreemap extends React.Component {
 
 
 			// calculate the max and min occurrences, this will be used by the treemap to determine the color/shade
-			if (maxCount && maxCount < item.occurrences) {
+			if (!maxCount || maxCount < item.occurrences) {
 				maxCount = item.occurrences;
 			}
-			else if (!maxCount) {
-				maxCount = item.occurrences;
-			}
-			if (minCount && minCount > item.occurrences) {
-				minCount = item.occurrences;
-			}
-			else if (!minCount) {
+			if (!minCount || minCount > item.occurrences) {
 				minCount = item.occurrences;
 			}
 

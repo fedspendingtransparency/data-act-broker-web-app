@@ -37,7 +37,15 @@ export default class Treemap extends React.Component {
 
 		const baseColor = '#5d87bb';
 		return treemap.map((node, index) => {
-			const tint = (40 / (this.props.formattedData.max - this.props.formattedData.min)) * (this.props.formattedData.max - node.value);
+			const max = this.props.formattedData.max;
+			const min = this.props.formattedData.min;
+
+			let tint = 0;
+			if (max != min) {
+				// prevent divide by zero errors
+				tint = (40 / (this.props.formattedData.max - this.props.formattedData.min)) * (this.props.formattedData.max - node.value);
+			}
+
 			const color = tinycolor(baseColor).lighten(tint).toString();
 
 			return <TreemapCell key={index} width={node.dx} height={node.dy} x={node.x} y={node.y} color={color} rule={node.rule} count={node.value} field={node.field} detail={node.detail} description={node.description} clickedItem={this.props.clickedItem} />
