@@ -1,26 +1,19 @@
 /**
- * ValidateValuesOverlay.jsx
- * Created by Kevin Li 3/31/2016
- */
-
+  * CrossFileOverlay.jsx
+  * Created by Kevin Li 6/16/16
+  **/
 import React from 'react';
-import { hashHistory } from 'react-router';
-import * as Icons from '../../SharedComponents/icons/Icons.jsx';
+import * as Icons from '../SharedComponents/icons/Icons.jsx';
 
 const defaultProps = {
-	allowUpload: false
+	errors: ['error'],
+	allowUpload: true
 };
 
-export default class ValidateValuesOverlay extends React.Component {
-
-	constructor(props) {
-		super(props);
-	}
+export default class CrossFileOverlay extends React.Component {
 
 	pressedNext(e) {
-
-		hashHistory.push('/reviewData/' + this.props.submission.id);
-
+		e.preventDefault();
 	}
 
 	isUploadingFiles() {
@@ -39,17 +32,20 @@ export default class ValidateValuesOverlay extends React.Component {
 
 		let nextButtonClass = ' hide';
 		let nextButtonDisabled = true;
+
+		let hideButtons = '';
+
 		if (this.props.allowUpload) {
 			uploadButtonDisabled = false;
 			uploadButtonClass = ' btn-primary';
 		}
 
 
-		let message = 'You must fix the Critical Errors found in ' + this.props.errors.length + ' of the .CSV files before moving on to the next step. View and download individual reports above.';
+		let message = 'You must the correct the cross-file validation errors listed above.';
 
 		if (this.props.errors.length == 0) {
 			icon = <Icons.CheckCircle />;
-			message = 'No Critical Errors were found in the .CSV files. Click Next to review and publish these files.';
+			message = 'Your files have been successfully cross-validated.';
 			uploadButtonDisabled = true;
 			uploadButtonClass = '-disabled';
 			nextButtonClass = ' btn-primary';
@@ -75,25 +71,35 @@ export default class ValidateValuesOverlay extends React.Component {
 			buttonText = 'Gathering data...';
 		}
 
+		if (this.props.loading) {
+			uploadButtonDisabled = true;
+			uploadButtonClass = ' hide';
+			nextButtonClass = ' hide';
+			nextButtonDisabled = true;
+			icon = null;
+			message = 'Gathering data...';
+			hideButtons = ' hide';
+
+		}
 
 		return (
 			<div className="center-block usa-da-validation-overlay">
 				<div className="container">
 					<div className="row">
 						<div className="col-md-8 usa-da-overlay-content-wrap">
-							<div className="row">
-								<div className="col-xs-2 col-md-1 usa-da-icon">
+							<div className="row full-row">
+								<div className="col-sm-2 col-lg-1 usa-da-icon">
 									{icon}
 								</div>
-								<div className="col-xs-10 col-md-11">
+								<div className="col-sm-10 col-lg-11">
 									<h6>{message}</h6>
 								</div>
 							</div>
 						</div>
 						<div className="col-md-4">
-							<div className='usa-da-btn-bg'>
-								<button className={"usa-da-button" + uploadButtonClass} disabled={uploadButtonDisabled} onClick={this.props.uploadFiles} data-testid="validate-overlay-upload-button">{buttonText}</button>
-								<button className={"usa-da-validation-overlay-review usa-da-button" + nextButtonClass} disabled={nextButtonDisabled} onClick={this.pressedNext.bind(this)} data-testid="validate-overlay-review-button">Next</button>
+							<div className={'usa-da-btn-bg' + hideButtons}>
+								<button className={"usa-da-button" + uploadButtonClass} disabled={uploadButtonDisabled} onClick={this.props.uploadFiles}>{buttonText}</button>
+								<button className={"usa-da-validation-overlay-review usa-da-button" + nextButtonClass} disabled={nextButtonDisabled} onClick={this.pressedNext.bind(this)}>Next</button>
 							</div>
 						</div>
 					</div>
@@ -103,4 +109,4 @@ export default class ValidateValuesOverlay extends React.Component {
 	}
 }
 
-ValidateValuesOverlay.defaultProps = defaultProps;
+CrossFileOverlay.defaultProps = defaultProps;

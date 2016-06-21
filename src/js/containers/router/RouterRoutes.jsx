@@ -11,6 +11,7 @@ import LandingPage from '../../components/landing/LandingPage.jsx';
 import SubmissionGuideContainer from '../../containers/addData/SubmissionGuideContainer.jsx';
 import AddDataPageContainer from '../../containers/addData/AddDataPageContainer.jsx';
 import ValidateDataPage from '../../components/validateData/ValidateDataPage.jsx';
+import CrossFilePage from '../../components/crossFile/CrossFilePage.jsx';
 import ReviewDataContainer from '../../containers/review/ReviewDataContainer.jsx';
 import HelpPage from '../../components/help/helpPage.jsx';
 import AdminPage from '../../components/admin/AdminPage.jsx';
@@ -135,6 +136,11 @@ const routeDefinitions = {
         {
             path: 'validateData/:submissionID',
             component: ValidateDataPage,
+            onEnter: checkUserPermissions
+        },
+        {
+            path: 'validateCrossFile/:submissionID',
+            component: CrossFilePage,
             onEnter: checkUserPermissions
         },
         {

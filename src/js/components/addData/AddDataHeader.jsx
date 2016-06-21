@@ -22,6 +22,10 @@ class LastUpdated extends React.Component {
     }
 }
 
+const defaultProps = {
+    title: 'Upload & Validate a New Submission'
+};
+
 export default class AddDataHeader extends React.Component {
     constructor(props) {
         super(props);
@@ -57,8 +61,8 @@ export default class AddDataHeader extends React.Component {
             <div className="usa-da-content-dark">
                 <div className="container">
                     <div className="row usa-da-content-add-data usa-da-page-title">
-                        <div className="col-md-8 mt-40 mb-20">
-                            <div className="display-2">Upload & Validate a New Submission</div>
+                        <div className="col-md-7 mt-40 mb-20">
+                            <div className="display-2">{this.props.title}</div>
                         </div>
                         {lastUpdated}
                     </div>
@@ -67,3 +71,5 @@ export default class AddDataHeader extends React.Component {
         );
     }
 }
+
+AddDataHeader.defaultProps = defaultProps;
