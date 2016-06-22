@@ -10,6 +10,7 @@ import Progress from '../SharedComponents/ProgressComponent.jsx';
 import Footer from '../SharedComponents/FooterComponent.jsx';
 
 import ReviewDataContent from './ReviewDataContent.jsx';
+import ReviewLoading from './ReviewLoading.jsx';
 
 class ReviewDataContentInvalid extends React.Component {
     render() {
@@ -36,23 +37,29 @@ export default class ReviewDataPage extends React.Component {
 
         if (!this.props.params.submissionID) {
             currentComponent = <ReviewDataContentInvalid />;
-        } else {
+        } 
+        else if (!this.props.data.ready) {
+            currentComponent = <ReviewLoading />;
+        }
+        else {
             currentComponent = <ReviewDataContent {...this.props} submissionID={submissionID} />;
         }
 
         return (
             <div>
-                <div className="usa-da-page-content">
-                    <Navbar activeTab="submissionGuide"/>
-                    <AddDataHeader submissionID={submissionID} />
-                    <div className="usa-da-content-step-block" name="content-top">
-                        <div className="container center-block">
-                            <div className="row">
-                                <Progress totalSteps={4} currentStep={4} />
+                <div className="usa-da-site_wrap">
+                    <div className="usa-da-page-content">
+                        <Navbar activeTab="submissionGuide"/>
+                        <AddDataHeader submissionID={submissionID} />
+                        <div className="usa-da-content-step-block" name="content-top">
+                            <div className="container center-block">
+                                <div className="row">
+                                    <Progress totalSteps={4} currentStep={4} />
+                                </div>
                             </div>
                         </div>
+                        {currentComponent}
                     </div>
-                    {currentComponent}
                 </div>
                 <Footer />
             </div>

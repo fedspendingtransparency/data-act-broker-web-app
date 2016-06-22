@@ -16,6 +16,7 @@ import MetaData from '../../addData/AddDataMetaDisplay.jsx';
 import FileComponent from '../../addData/FileComponent.jsx';
 import ValidateDataUploadButton from './../ValidateDataUploadButton.jsx';
 import ValidateValuesErrorReport from './ValidateValuesErrorReport.jsx';
+import CorrectButtonOverlay from '../CorrectButtonOverlay.jsx';
 import * as Icons from '../../SharedComponents/icons/Icons.jsx';
 
 const propTypes = {
@@ -40,7 +41,7 @@ export default class ValidateDataFileComponent extends React.Component {
     componentWillReceiveProps(nextProps) {
         this.determineErrors(nextProps.item);
 
-        if (this.props.submission.state == 'uploading' && nextProps.submission.state == 'review') {
+        if ((this.props.submission.state == 'uploading' || this.props.submission.state == 'prepare') && nextProps.submission.state == 'review') {
             // we've finished uploading files, close any open error reports
             if (this.state.showError) {
                 this.setState({
@@ -128,40 +129,24 @@ export default class ValidateDataFileComponent extends React.Component {
     }
 
     render() {
-
-        let showWarning = '';
-        let warningDirection = < Icons.AngleDown / >;
+        let correctButtonOverlay = '';
+        let warningDirection = <Icons.AngleDown />;
         let showError = '';
-        let errorDirection = < Icons.AngleDown / >;
-        if (this.state.showError) {
-            errorDirection = < Icons.AngleUp / >;
-        }
-
-
+        let errorDirection = <Icons.AngleDown />;
         let footerStatus = '';
+
         if (this.state.showError) {
+            errorDirection = <Icons.AngleUp />;
             footerStatus = 'active';
         }
 
         let warningCount = '--';
         let noWarnings = ' none';
-
         let noErrors = ' none';
-
-        showWarning = ' hide';
-        if (!this.state.hasErrors) {
-            showError = ' hide';
-        }
-        else {
-            noErrors = '';
-        }
-
         let optionalUpload = false;
         let uploadText = 'Choose Corrected File';
-        if (!this.state.hasErrors) {
-            optionalUpload = true;
-            uploadText = 'Overwrite File';
-        }
+        let showWarning = ' hide';
+        let validationElement = '';
 
         // override this data if a new file is dropped in
         let uploadProgress = '';
@@ -176,72 +161,82 @@ export default class ValidateDataFileComponent extends React.Component {
             }
         }
 
-        
+        if (!this.state.hasErrors) {
+            showError = ' hide';
+            optionalUpload = true;
+            uploadText = 'Overwrite File';
+            correctButtonOverlay = <CorrectButtonOverlay isReplacingFile={this.isReplacingFile()} fileKey={this.props.type.requestName} onDrop={this.props.onFileChange} fileName={fileName}/>
+            validationElement = <p>File successfully validated</p>;
+        } else {
+            noErrors = '';
+            validationElement = <div className="row usa-da-validate-item-file-section-correct-button" data-testid="validate-upload">
+                <ValidateDataUploadButton optional={optionalUpload} onDrop={this.props.onFileChange} text={uploadText} />
+            </div>;
+        }
 
         return (
             <div className="row center-block usa-da-validate-item" data-testid={"validate-wrapper-" + this.props.type.requestName}>
-                    <div className="col-md-12">
-                        <div className="row usa-da-validate-item-top-section">
-                            <div className="col-md-9 usa-da-validate-item-status-section">
-                                <div className="row usa-da-validate-item-header">
-                                    <div className="col-md-8">
-                                        <h4>{this.props.type.fileTitle}</h4>
-                                    </div>
-                                    <div className="col-md-2 text-right">
-                                        <p>File Size: {this.displayFileMeta().size}</p>
-                                    </div>
-                                    <div className="col-md-2 text-right">
-                                        <p>Rows: {this.displayFileMeta().rows}</p>
-                                    </div>
+                <div className="col-md-12">
+                    <div className="row usa-da-validate-item-top-section">
+                        <div className="col-md-9 usa-da-validate-item-status-section">
+                            <div className="row usa-da-validate-item-header">
+                                <div className="col-md-8">
+                                    <h4>{this.props.type.fileTitle}</h4>
                                 </div>
-                                <div className="row">
-                                    <div className="col-md-6 usa-da-validate-item-warning">
-                                        <div className="row usa-da-validate-item-body">
-                                            <div className='usa-da-validate-txt-wrap'>
-                                                <span className="usa-da-validate-item-message-label">Warnings:</span>
-                                                <span className={"usa-da-validate-item-message-count" + noWarnings}>&nbsp;{warningCount}</span>
-                                            </div>
-                                        </div>
-                                        <div className="row usa-da-validate-item-footer-wrapper">
-                                            <div className={"usa-da-validate-item-footer usa-da-header-error" + showWarning +" "+footerStatus} onClick={this.toggleWarningReport.bind(this)}>
-                                                <div>View &amp; Download Warnings Report <span className={"usa-da-icon"}>{warningDirection}</span></div>
-                                            </div>
-                                        </div>
-                                    </div>
-        
-                                    <div className="col-md-6 usa-da-validate-item-critical">
-                                        <div className="row usa-da-validate-item-body">
-                                            <div className='usa-da-validate-txt-wrap'>
-                                                <span className="usa-da-validate-item-message-label">Critical Errors:</span>
-                                                <span className={"usa-da-validate-item-message-count" + noErrors}>&nbsp;{this.props.item.error_count}</span>
-                                            </div>
-                                        </div>
-                                        <div className="row usa-da-validate-item-footer-wrapper">
-                                            <div className={"usa-da-validate-item-footer usa-da-header-error" + showError +" "+footerStatus} onClick={this.toggleErrorReport.bind(this)}>
-                                                <div>View &amp; Download Critical Errors Report <span className={"usa-da-icon"}>{errorDirection}</span></div>
-                                            </div>
-                                        </div>
-                                    </div>
+                                <div className="col-md-2 text-right">
+                                    <p>File Size: {this.displayFileMeta().size}</p>
+                                </div>
+                                <div className="col-md-2 text-right">
+                                    <p>Rows: {this.displayFileMeta().rows}</p>
                                 </div>
                             </div>
-        
-                            <div className="col-md-3 usa-da-validate-item-file-section">
-                                        <div className="usa-da-validate-item-file-section-result">
-                                            <div className="usa-da-icon" data-testid="validate-icon">
-                                                {this.displayIcon()}
-                                            </div>
+                            <div className="row">
+                                <div className="col-md-6 usa-da-validate-item-warning">
+                                    <div className="row usa-da-validate-item-body">
+                                        <div className='usa-da-validate-txt-wrap'>
+                                            <span className="usa-da-validate-item-message-label">Warnings:</span>
+                                            <span className={"usa-da-validate-item-message-count" + noWarnings}>&nbsp;{warningCount}</span>
                                         </div>
-                                <div className="row usa-da-validate-item-file-name">{fileName}</div>
-                                {uploadProgress}
-                                <div className="row usa-da-validate-item-file-section-correct-button" data-testid="validate-upload">
-                                    <ValidateDataUploadButton optional={optionalUpload} onDrop={this.props.onFileChange} text={uploadText} />
+                                    </div>
+                                    <div className="row usa-da-validate-item-footer-wrapper">
+                                        <div className={"usa-da-validate-item-footer usa-da-header-error" + showWarning +" "+footerStatus} onClick={this.toggleWarningReport.bind(this)}>
+                                            <div>View &amp; Download Warnings Report <span className={"usa-da-icon"}>{warningDirection}</span></div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div className="col-md-6 usa-da-validate-item-critical">
+                                    <div className="row usa-da-validate-item-body">
+                                        <div className='usa-da-validate-txt-wrap'>
+                                            <span className="usa-da-validate-item-message-label">Critical Errors:</span>
+                                            <span className={"usa-da-validate-item-message-count" + noErrors}>&nbsp;{this.props.item.error_count}</span>
+                                        </div>
+                                    </div>
+                                    <div className="row usa-da-validate-item-footer-wrapper">
+                                        <div className={"usa-da-validate-item-footer usa-da-header-error" + showError +" "+footerStatus} onClick={this.toggleErrorReport.bind(this)}>
+                                            <div>View &amp; Download Critical Errors Report <span className={"usa-da-icon"}>{errorDirection}</span></div>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                         </div>
-                        {this.state.showWarning ? <ValidateValuesErrorReport link={this.props.item.report} data={this.props.item} name="Warning" /> : null}
-                        {this.state.showError ? <ValidateValuesErrorReport link={this.props.item.report} data={this.props.item} name="Critical Error" /> : null}
+
+                        <div className="col-md-3 usa-da-validate-item-file-section">
+                            {correctButtonOverlay}
+                            <div className="usa-da-validate-item-file-section-result">
+                                <div className="usa-da-icon" data-testid="validate-icon">
+                                    {this.displayIcon()}
+                                </div>
+                            </div>
+                            <div className="row usa-da-validate-item-file-name">{fileName}</div>
+                            {uploadProgress}
+                            {validationElement}
+                        </div>
                     </div>
+                    {this.state.showWarning ? <ValidateValuesErrorReport link={this.props.item.report} data={this.props.item} name="Warning" /> : null}
+                    {this.state.showError ? <ValidateValuesErrorReport link={this.props.item.report} data={this.props.item} name="Critical Error" /> : null}
                 </div>
+            </div>
         );
     }
 }
