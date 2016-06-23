@@ -507,14 +507,13 @@ a.list-group-item {
 		}
 	}
     & .last-updated {
-        position: absolute;
-        bottom: 42.6%;
         right: 41px;
         font-size: 1.1rem;
         letter-spacing: 0.031rem;
         color: $color-gray-lightest;
         background: #262B30;
         padding: 4px 10px;
+        width: 81.5%;
     }
 }
 
