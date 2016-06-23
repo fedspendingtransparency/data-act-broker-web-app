@@ -60,11 +60,14 @@ export default class AddDataHeader extends React.Component {
         return (
             <div className="usa-da-content-dark">
                 <div className="container">
-                    <div className="row usa-da-content-add-data usa-da-page-title">
-                        <div className="col-md-7 mt-40 mb-20">
+                    <div className="row usa-da-content-add-data usa-da-page-title flex-center-content-only-height">
+                        <div className="col-md-10 mt-40 mb-20">
                             <div className="display-2">{this.props.title}</div>
                         </div>
-                        {lastUpdated}
+                        <div className="col-md-2">
+                            {lastUpdated}
+                        </div>
+                        
                     </div>
                 </div>
             </div>
