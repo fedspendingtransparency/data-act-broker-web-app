@@ -22,7 +22,27 @@ const defaultProps = {
 
 
 export default class Treemap extends React.Component {
+	constructor(props) {
+		super(props);
 
+		this.state = {
+			chart: null
+		};
+	}
+
+	componentDidMount() {
+		this.setState({
+			chart: this.drawChart()
+		});
+	}
+
+	componentDidUpdate(prevProps, prevState) {
+		if (!_.isEqual(prevProps.formattedData.data, this.props.formattedData.data)) {
+			this.setState({
+				chart: this.drawChart()
+			});
+		}
+	}
 
 	drawChart() {
 		const layout = d3.layout.treemap()
@@ -47,8 +67,7 @@ export default class Treemap extends React.Component {
 			}
 
 			const color = tinycolor(baseColor).lighten(tint).toString();
-
-			return <TreemapCell key={index} width={node.dx} height={node.dy} x={node.x} y={node.y} color={color} rule={node.rule} count={node.value} field={node.field} detail={node.detail} description={node.description} clickedItem={this.props.clickedItem} />
+			return <TreemapCell key={index} width={node.dx} height={node.dy} x={node.x} y={node.y} color={color} rule={node.rule} count={node.value} field={node.field} detail={node.detail} description={node.description} clickedItem={this.props.clickedItem} />;
 		});
 
 	}
@@ -56,7 +75,7 @@ export default class Treemap extends React.Component {
 	render() {
 		return (
 			<div className="usa-da-treemap">
-				{this.drawChart()}
+				{this.state.chart}
 			</div>
 		);
 	}
