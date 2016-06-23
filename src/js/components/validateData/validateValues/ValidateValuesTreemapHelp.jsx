@@ -21,7 +21,7 @@ export default class ValidateValuesTreemapHelp extends React.Component {
 		}
 		return (
 			<div className="usa-da-treemap-help-wrap">
-				<div className="treemap-help-title">
+				<div className="treemap-help-title hide">
 					Rule {this.props.rule}
 				</div>
 				<div className="treemap-help-description">
