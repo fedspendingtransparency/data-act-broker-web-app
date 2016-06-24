@@ -38,7 +38,7 @@ export const modifyUser = (userId, changes) => {
 	return deferred.promise;
 }
 
-const determineStatus = (user) => {
+export const determineStatus = (user) => {
 	let statusType = UserStatus.AWAITING_CONFIRMATION;
 
 	const statusStrings = ['Unknown', 'Awaiting Confirmation', 'Email Confirmed', 'Awaiting Approval', 'Active', 'Inactive', 'Denied'];
@@ -68,8 +68,6 @@ const determineStatus = (user) => {
 
 export const listAllUsers = () => {
 	const deferred = Q.defer();
-
-	
 
 	Request.post(kGlobalConstants.API + 'list_users/')
 		.send()

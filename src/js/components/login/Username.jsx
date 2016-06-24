@@ -24,7 +24,7 @@ export default class Username extends React.Component {
                   id="username"
                   name="username"
                   type="text"
-                  placeholder="Username"
+                  placeholder="Email Address"
                   aria-describedby="username"
                   onChange={this.props.handleChange}
                   tabIndex={this.props.tabIndex}

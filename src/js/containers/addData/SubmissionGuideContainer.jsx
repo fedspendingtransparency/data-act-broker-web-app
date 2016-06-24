@@ -19,7 +19,13 @@ class SubmissionGuideContainer extends React.Component {
     }
 
     componentWillMount() {
-        if (this.props.session.skipGuide == true){
+
+        let forceDisplay = false;
+        if (this.props.location.query.hasOwnProperty('force') && this.props.location.query.force == 'true') {
+            forceDisplay = true;
+        }
+
+        if (this.props.session.skipGuide == true && forceDisplay != true){
             this.sendToAddData();
         }
     }
@@ -27,6 +33,8 @@ class SubmissionGuideContainer extends React.Component {
     saveSkipGuide(skip_guide) {
         SubmissionGuideHelper.setSkipGuide(skip_guide)
             .then(() => {
+                // update the Redux state
+                this.props.setSkipGuide(skip_guide);
                 this.sendToAddData();
             })
             .catch((err) => {

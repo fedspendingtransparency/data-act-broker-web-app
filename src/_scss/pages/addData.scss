@@ -28,9 +28,7 @@ div.usa-da-submission-instructions {
 div.usa-da-submission-items {
     margin-top: 60px;
     padding-bottom: 30px;
-    &.with-overlay {
-        padding-bottom: 180px;
-    }
+
     .usa-da-submission-item {
         margin-top: 4.0rem;
         &:first-child {
@@ -67,6 +65,7 @@ div.usa-da-validate-items {
     padding: 0;
     .usa-da-validate-item {
         margin-bottom: 40px;
+        position: relative;
         @include contentBlockWrapper() &.successful {
             opacity: 0.3;
         }
@@ -118,7 +117,13 @@ div.usa-da-validate-items {
             color: $color-secondary;
             margin: -35px 0 0 0;
         }
+        & .validate-message-loading{
+            color: blue;
+        }
         & .usa-da-validate-txt-wrap {
+            margin: -35px 0 0 0;
+        }
+        & .usa-da-validate-loading-message {
             margin: -35px 0 0 0;
         }
     }
@@ -176,6 +181,7 @@ div.usa-da-validate-items {
         }
     }
     .usa-da-validate-item-file-section {
+        padding: 0;
         text-align: center;
         @include display(flex);
         @include flex-direction(column);
@@ -207,7 +213,8 @@ div.usa-da-validate-items {
                 }
             }
         }
-        .usa-da-validate-item-file-section-correct-button {
+        .usa-da-validate-item-file-section-correct-button,
+        .full-overlay .buttonHolder {
             margin: 10px 0 0;
             .usa-da-validate-upload-button {
                 box-shadow: inset 0 0 0 1px $color-secondary;
@@ -346,6 +353,22 @@ div.usa-da-validate-items {
             margin: 0;
         }
     }
+
+    .overlay-loading {
+        width: 100%;
+        h6 {
+            width: 100%;
+            text-align: left;
+        }
+
+        .overlay-help-text {
+            font-family: "Source Sans Pro", "Helvetica", "Arial", sans-serif;
+
+            a {
+                color: $color-white;
+            }
+        }
+    }
 }
 
 div.usa-da-dropzone {
@@ -408,5 +431,101 @@ div.usa-da-dropzone {
     }
     .progress {
         margin-top: 10px;
+    }
+}
+
+.usa-da-validate-data-loading {
+    min-height: 800px;
+}
+
+.usa-da-validate-fade-appear {
+    opacity: 0.01;
+    &.usa-da-validate-fade-appear-active {
+        opacity: 1;
+        transition: opacity 500ms ease-in;
+    }
+}
+.usa-da-validate-fade-enter {
+    opacity: 0.01;
+    &.usa-da-validate-fade-enter-active {
+        opacity: 1;
+        transition: opacity 500ms ease-in;
+    }
+}
+
+.usa-da-validate-fade-leave {
+    opacity: 1;
+    &.usa-da-validate-fade-leave-active {
+        opacity: 0.01;
+        transition: opacity 500ms ease-in;
+    }
+}
+
+.with-overlay {
+    padding-bottom: 180px !important;
+}
+
+.usa-da-validate-corrected-file-holder {
+    border: 0;
+    position: absolute;
+    right: 0;
+    top: 0;
+    z-index: 500;
+
+    &.full-width {
+        width: 100%;
+        height: 100%;
+    }
+
+    .usa-da-icon {
+        cursor: pointer;
+
+        * {
+            height: 20px;
+            position: absolute;
+            right: 7px;
+            top: 7px;
+        }
+    }
+
+    .corner-overlay {
+        width: 0;
+        height: 0;
+        border-style: solid;
+        border-width: 0 60px 60px 0;
+        border-color: transparent $color-gray-lightest transparent transparent;
+    }
+
+    .full-overlay {
+        background-color: $color-gray-lightest;
+        height: 172px;
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+    }
+}
+
+.usa-da-validate-slide-appear {
+    height: 0;
+    &.usa-da-validate-slide-appear-active {
+        height: 100%;
+        transition: height 300ms ease-in;
+    }
+}
+
+.usa-da-validate-slide-enter {
+    height: 0;
+    &.usa-da-validate-slide-enter-active {
+        height: 100%;
+        transition: height 300ms ease-in;
+    }
+}
+
+.usa-da-validate-slide-leave {
+    height: 100%;
+    &.usa-da-validate-slide-leave-active {
+        height: 0;
+        transition: height 300ms ease-in;
     }
 }

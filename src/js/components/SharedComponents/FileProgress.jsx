@@ -17,7 +17,7 @@ export default class FileProgress extends React.Component {
 
     render() {
         const style = {
-            width: this.props.fileStatus + '%'
+            width: this.props.fileStatus + '%'  
         };
 
         return (

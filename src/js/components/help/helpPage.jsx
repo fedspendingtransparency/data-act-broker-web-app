@@ -9,6 +9,8 @@ import HelpSidebar from './helpSidebar.jsx';
 import HelpContent from './helpContent.jsx';
 import Footer from '../SharedComponents/FooterComponent.jsx';
 
+import * as Icons from '../SharedComponents/icons/Icons.jsx';
+
 import * as HelpHelper from '../../helpers/helpHelper.js';
 
 export default class HelpPage extends React.Component {
@@ -41,7 +43,7 @@ export default class HelpPage extends React.Component {
 
     render() {
         return (
-            <div>
+            <div name="top">
                 <div className="usa-da-page-content">
                     <Navbar activeTab="help"/>
                     <div className="usa-da-content-dark mb-60">
@@ -65,6 +67,14 @@ export default class HelpPage extends React.Component {
                     </div>
                 </div>
                 <Footer />
+                <div className="usa-da-help-top-button">
+                    <a href="#/help?section=top">
+                        <div className="usa-da-icon">
+                            <Icons.AngleUp />
+                        </div>
+                        <span className="hidden-label">Back to top</span>
+                    </a>
+                </div>
             </div>
         );
     }

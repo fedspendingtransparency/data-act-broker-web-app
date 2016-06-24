@@ -13,12 +13,36 @@ import TreemapCell from './TreemapCell.jsx';
 const defaultProps = {
 	width: 0,
 	height: 300,
-	data: []
+	formattedData: {
+		data: [],
+		max: 0,
+		min: 0
+	}
 }
 
 
 export default class Treemap extends React.Component {
+	constructor(props) {
+		super(props);
 
+		this.state = {
+			chart: null
+		};
+	}
+
+	componentDidMount() {
+		this.setState({
+			chart: this.drawChart()
+		});
+	}
+
+	componentDidUpdate(prevProps, prevState) {
+		if (!_.isEqual(prevProps.formattedData.data, this.props.formattedData.data)) {
+			this.setState({
+				chart: this.drawChart()
+			});
+		}
+	}
 
 	drawChart() {
 		const layout = d3.layout.treemap()
@@ -29,15 +53,21 @@ export default class Treemap extends React.Component {
 			})
 			.sticky(true);
 
-		const treemap = _.drop(layout(this.props.data), 1);
+		const treemap = layout(this.props.formattedData.data);
 
-		const baseColor = '#e31c3d';
+		const baseColor = '#5d87bb';
 		return treemap.map((node, index) => {
+			const max = this.props.formattedData.max;
+			const min = this.props.formattedData.min;
 
-			const tint = (50 / treemap.length) * index;
+			let tint = 0;
+			if (max != min) {
+				// prevent divide by zero errors
+				tint = (40 / (this.props.formattedData.max - this.props.formattedData.min)) * (this.props.formattedData.max - node.value);
+			}
+
 			const color = tinycolor(baseColor).lighten(tint).toString();
-
-			return <TreemapCell key={index} width={node.dx} height={node.dy} x={node.x} y={node.y} label={node.label} color={color} description={node.description} clickedItem={this.props.clickedItem} />
+			return <TreemapCell key={index} width={node.dx} height={node.dy} x={node.x} y={node.y} color={color} rule={node.rule} count={node.value} field={node.field} detail={node.detail} description={node.description} clickedItem={this.props.clickedItem} />;
 		});
 
 	}
@@ -45,7 +75,7 @@ export default class Treemap extends React.Component {
 	render() {
 		return (
 			<div className="usa-da-treemap">
-				{this.drawChart()}
+				{this.state.chart}
 			</div>
 		);
 	}

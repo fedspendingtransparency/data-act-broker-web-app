@@ -466,9 +466,6 @@ a.list-group-item {
 	& .row.usa-da-content-landing {
 		background: url('../graphics/bar_bg.png') no-repeat bottom right;
 	}
-	& .row.usa-da-content-add-data {
-		background: url('../graphics/line_bg.png') no-repeat bottom right;
-	}
 }
 
 .usa-da-content-step-block {
@@ -484,6 +481,7 @@ a.list-group-item {
 }
 
 .usa-da-page-title {
+    position: relative;
 	& h1 {
 		margin-top: 0;
 	}
@@ -508,6 +506,15 @@ a.list-group-item {
 			color: $color-white;
 		}
 	}
+    & .last-updated {
+        right: 41px;
+        font-size: 1.1rem;
+        letter-spacing: 0.031rem;
+        color: $color-gray-lightest;
+        background: #262B30;
+        padding: 4px 10px;
+        width: 81.5%;
+    }
 }
 
 .site_content {
