@@ -136,8 +136,7 @@ export const listUsers = () => {
 	const deferred = Q.defer();
 
 	let request = {
-		filter_by: "status",
-		value: "approved"
+		status: "approved"
 	};
 	
 	Request.post(kGlobalConstants.API + 'list_users/')
