@@ -17,7 +17,8 @@ const defaultProps = {
 		data: [],
 		max: 0,
 		min: 0
-	}
+	},
+	color: '#5d87bb'
 }
 
 
@@ -55,7 +56,7 @@ export default class Treemap extends React.Component {
 
 		const treemap = layout(this.props.formattedData.data);
 
-		const baseColor = '#5d87bb';
+		const baseColor = this.props.color;
 		return treemap.map((node, index) => {
 			const max = this.props.formattedData.max;
 			const min = this.props.formattedData.min;

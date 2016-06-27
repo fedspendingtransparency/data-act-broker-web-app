@@ -99,14 +99,14 @@ export default class ValidateValuesErrorReport extends React.Component {
                 <div className="usa-da-validate-error-report">
                     <div className="row center-block">
                         <div className="col-md-9">
-                            <h6>Invididual {this.props.name}s</h6>
+                            <h6>Individual {this.props.name}s</h6>
                         </div>
                         <div className="col-md-3">
                             <button className="usa-da-button btn-primary pull-right" onClick={this.openWindow.bind(this)}>Download {this.props.name}s Report</button>
                         </div>
                         <div className="col-md-12">
                             {tables}
-                            <ValidateValuesTreemap data={this.props.data.error_data} type="error" />
+                            <ValidateValuesTreemap data={this.props.data.error_data} type="error" color={this.props.color} />
                         </div>
                     </div>
                 </div>

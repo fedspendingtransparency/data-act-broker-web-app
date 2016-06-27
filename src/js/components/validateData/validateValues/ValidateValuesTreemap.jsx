@@ -93,7 +93,7 @@ class ValidateValuesTreemap extends React.Component {
 		return (
 			<div className="row">
 				<div className="col-md-9">
-					<Treemap formattedData={this.state.formattedData} width={this.props.containerWidth * 0.75} clickedItem={this.clickedItem.bind(this)} />
+					<Treemap formattedData={this.state.formattedData} width={this.props.containerWidth * 0.75} clickedItem={this.clickedItem.bind(this)} color={this.props.color} />
 				</div>
 				<div className="col-md-3">
 					{help}
