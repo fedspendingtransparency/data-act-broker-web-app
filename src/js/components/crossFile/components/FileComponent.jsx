@@ -7,7 +7,7 @@ import React from 'react';
 import * as Icons from '../../SharedComponents/icons/Icons.jsx';
 
 const defaultProps = {
-	type: '',
+	fileType: '',
 	name: '',
 	fileKey: ''
 };
@@ -57,7 +57,7 @@ export default class FileComponent extends React.Component {
 		return (
 			<div className="file-box">
 				<div className="file-type">
-					File {this.props.type}
+					File {this.props.fileType}
 				</div>
 				<div className="file-name">
 					{this.props.name}

@@ -46,12 +46,12 @@ export default class ErrorBox extends React.Component {
 				<h6>Cross-File Validation Errors</h6>
 				<div className="error-content">
 					<div className="table-wrapper">
-						<ComparisonTable />
+						<ComparisonTable data={this.props.submission.crossFile[this.props.meta.key]} />
 					</div>
 					<div className="button-wrapper">
 						<div className="button-list">
 							<div className="download-button">
-								<button className="usa-button-primary">Download Error File</button>
+								<button className="usa-da-button btn-primary">Download Error File</button>
 							</div>
 
 							<div className="upload-buttons-wrap">
@@ -62,8 +62,8 @@ export default class ErrorBox extends React.Component {
 									{uploadProgress}
 								</div>
 								<div className="upload-buttons">
-									<UploadButtonContainer type="A" fullName="Appropriations Account" fileKey={this.props.leftFileName} />
-									<UploadButtonContainer type="B" fullName="Program Activity and Object Class" fileKey={this.props.rightFileName} />
+									<UploadButtonContainer type={this.props.meta.firstType} fullName={this.props.meta.firstName} fileKey={this.props.meta.firstKey} />
+									<UploadButtonContainer type={this.props.meta.secondType} fullName={this.props.meta.secondName} fileKey={this.props.meta.secondKey} />
 								</div>
 							</div>
 						</div>

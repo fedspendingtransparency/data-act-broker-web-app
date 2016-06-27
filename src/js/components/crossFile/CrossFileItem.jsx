@@ -11,22 +11,27 @@ import ErrorBox from './components/ErrorBox.jsx';
 
 const defaultProps = {
 	type: 'loading',
-	leftFile: null,
-	leftFileName: '',
-	rightFile: null,
-	rightFileName: ''
+	firstFile: null,
+	secondFile: null,
+	meta: {
+		firstKey: '',
+		firstName: '',
+		firstType: '',
+		secondKey: '',
+		secondName: '',
+		secondType: ''
+	}
 };
 
 export default class CrossFileItem extends React.Component {
 	render() {
-
 		let error = null;
-		let middle = <ComparisonComponent type={this.props.type} />;
-		if (this.props.type == 'error') {
+		let middle = <ComparisonComponent type={this.props.status} />;
+		if (this.props.status == 'error') {
 			error = <ErrorBox {...this.props} />;
 		}
 
-		if (this.props.type == 'loading') {
+		if (this.props.status == 'loading') {
 			middle = <LoadingComponent />;
 		}
 
@@ -35,13 +40,13 @@ export default class CrossFileItem extends React.Component {
 				<div className="row">
 					<div className="usa-da-cross-file-item">
 						<div className="file-left">
-							<FileComponent type="A" name="Appropriations Account" fileKey="appropriations" {...this.props} />
+							<FileComponent fileType={this.props.meta.firstType} name={this.props.meta.firstName} fileKey={this.props.meta.firstKey} {...this.props} />
 						</div>
 						<div className="file-compare">
 							{middle}
 						</div>
 						<div className="file-right">
-							<FileComponent type="B" name="Program Activity and Object Class" fileKey="program_activity" {...this.props} />
+							<FileComponent fileType={this.props.meta.secondType} name={this.props.meta.secondName} fileKey={this.props.meta.secondKey} {...this.props} />
 						</div>
 					</div>
 				</div>

@@ -47,11 +47,10 @@ class CrossFileContentContainer extends React.Component {
 		ReviewHelper.validateSubmission(this.props.submissionID)
 			.then((data) => {
 				this.props.setSubmissionState('crossFile');
-				this.props.setValidation(data);
-				
+				this.props.setCrossFile(data.crossFile);
 			})
 			.catch((err) => {
-				console.log(err);			
+				console.log(err);
 			});
 	}
 	

@@ -12,10 +12,42 @@ import * as uploadActions from '../redux/actions/uploadActions.js';
 import { fileTypes } from '../containers/addData/fileTypes.js';
 import * as AdminHelper from './adminHelper.js';
 
+const globalFileKeys = ['appropriations', 'program_activity', 'award', 'award_financial'];
+const globalFileNames = ['Appropriations Account', 'Program Activity and Object Class Data', 'Award Financial', 'Financial Assistance Award'];
+const globalFileLetters = ['A', 'B', 'C', 'D2'];
+
+const determineExpectedPairs = () => {
+	const output = [];
+
+	// generate the file pair keys
+	let i = 1;
+
+	globalFileKeys.forEach((key) => {
+		
+		for (let j = i; j < globalFileKeys.length; j++) {
+			let keyName = key + '-' + globalFileKeys[j];
+			const item = {
+				key: keyName,
+				firstType: globalFileLetters[i - 1],
+				firstName: globalFileNames[i - 1],
+				secondType: globalFileLetters[j],
+				secondName: globalFileNames[j]
+			};
+
+			output.push(item);
+		}
+
+		i++;
+	});
+
+	return output;
+}
+
 export const fetchStatus = (submissionId) => {
 	const deferred = Q.defer();
 
-	Request.post(kGlobalConstants.API + 'check_status/')
+	// Request.post(kGlobalConstants.API + 'check_status/')
+	Request.get('/test.json')
 	        .send({'submission_id': submissionId})
 	        .end((errFile, res) => {
 
@@ -29,13 +61,18 @@ export const fetchStatus = (submissionId) => {
 	        		// return only jobs related to CSV validation
 	        		const response = Object.assign({}, res.body);
 	        		const csvJobs = [];
+	        		let crossFileJobs;
 	        		response.jobs.forEach((job) => {
 	        			if (job.job_type == 'csv_record_validation') {
 	        				csvJobs.push(job);
 	        			}
+	        			else if (job.job_type == 'validation') {
+	        				crossFileJobs = job.error_data;
+	        			}
 	        		});
 
 	        		response.jobs = csvJobs;
+	        		response.crossFile = crossFileJobs;
 
 	        		deferred.resolve(response);
 	        	}
@@ -65,7 +102,7 @@ export const fetchErrorReports = (submissionId) => {
 }
 
 const getFileStates = (status) => {
-	let output = {};
+	const output = {};
 
 	status.jobs.forEach((item) => {
 		output[item.file_type] = item;
@@ -85,6 +122,37 @@ const getFileStates = (status) => {
 			output[item.file_type].error_count = count;
 		}
 
+	});
+
+	return output;
+}
+
+
+
+const getCrossFileData = (data, validKeys) => {
+	const output = {};
+
+	// generate the file pair keys
+	let i = 1;
+
+	data.crossFile.forEach((item) => {
+		// generate possible key names for this pair of target/source files
+		const keyNames = [item.target_file + '-' + item.source_file, item.source_file + '-' + item.target_file];
+		// determine which is the correct name
+		let key = keyNames[0];
+		if (_.indexOf(validKeys, key) == -1) {
+			key = keyNames[1];
+		}
+
+		// check if we've already seen an error for this pairing
+		if (output.hasOwnProperty(key)) {
+			// this pair already exists, so append the error to the pair's array
+			output[key].push(item);
+		}
+		else {
+			// doesn't exist yet, so create an array with this error
+			output[key] = [item];
+		}
 	});
 
 	return output;
@@ -112,17 +180,30 @@ export const validateSubmission  = (submissionId) => {
 	// set the submission ID
 	const store = new StoreSingleton().store;
 	store.dispatch(uploadActions.setSubmissionId(submissionId));
+	// determine the expected cross file validation keys and metadata
+	let possiblePairs = determineExpectedPairs();
+	store.dispatch(uploadActions.setExpectedCrossPairs(possiblePairs));
+
+	const validKeys = [];
+	possiblePairs.forEach((pair) => {
+		validKeys.push(pair.key);
+	});
 
 	let status;
+	let crossFile;
 
 	fetchStatus(submissionId)
 		.then((statusRes) => {
 			status = getFileStates(statusRes);
+			crossFile = getCrossFileData(statusRes, validKeys);
 			return fetchErrorReports(submissionId);
 		})
 		.then((reports) => {
 			getFileReports(status, reports);
-			deferred.resolve(status);
+			deferred.resolve({
+				file: status,
+				crossFile: crossFile
+			});
 		})
 		.catch((err) => {
 			deferred.reject(err);

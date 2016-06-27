@@ -10,8 +10,9 @@ const initialUploadState = {
 		endDate: null
 	},
 	files: {},
-	validation: {
-	}
+	validation: {},
+	crossFile: {},
+	crossFileOrder: []
 }
 
 const setUploadItem = (state, action) => {
@@ -98,6 +99,17 @@ export const uploadReducer = (state = initialUploadState, action) => {
 			return Object.assign({}, state, {
 				validation: action.state,
 				files: {}
+			});
+
+		case 'SET_CROSS_FILE':
+			// receiving data on cross-file validation
+			return Object.assign({}, state, {
+				crossFile: action.state
+			});
+		case 'SET_EXPECTED_CROSS_PAIRS':
+			// calculate and set the cross file pairs we expect to see
+			return Object.assign({}, state, {
+				crossFileOrder: action.state
 			});
 
 		default:

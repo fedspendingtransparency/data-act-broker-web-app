@@ -107,9 +107,9 @@ class ValidateDataContainer extends React.Component {
 				});
 
 				this.props.setSubmissionState('review');
-				this.props.setValidation(data);
+				this.props.setValidation(data.file);
 				
-				if (!this.checkForCompletion(data)) {
+				if (!this.checkForCompletion(data.file)) {
 					statusTimer = setTimeout(() => {
 						this.validateSubmission();
 					}, 5*1000);

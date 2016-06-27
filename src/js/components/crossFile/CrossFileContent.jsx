@@ -19,18 +19,34 @@ export default class CrossFileContent extends React.Component {
 	crossFileItems() {
 		const items = [];
 
-		for (let i = 0; i < 4; i++) {
-			let type = "success";
-			if (i % 2 == 0) {
-				type = "error";
+		const crossFileKeys = this.props.submission.crossFileOrder;
+		let i = 0;
+		crossFileKeys.forEach((pairMeta) => {
+
+			let status = 'loading';
+			if (this.props.submission.crossFile.hasOwnProperty(pairMeta.key)) {
+				status = 'error';
+			}
+			else if (_.indexOf(this.allowableStates, this.props.submission.state) > -1) {
+				status = 'success';
 			}
 
-			if (_.indexOf(this.allowableStates, this.props.submission.state) == -1) {
-				type = 'loading';
-			}
+			items.push(<CrossFileItem key={i} status={status} meta={pairMeta} {...this.props} />);
+			i++;
+		});
 
-			items.push(<CrossFileItem key={i} type={type} leftFileName="appropriations" rightFileName="program_activity" {...this.props} />);
-		}
+		// for (let i = 0; i < 4; i++) {
+		// 	let type = "success";
+		// 	if (i % 2 == 0) {
+		// 		type = "error";
+		// 	}
+
+		// 	if (_.indexOf(this.allowableStates, this.props.submission.state) == -1) {
+		// 		type = 'loading';
+		// 	}
+
+		// 	items.push(<CrossFileItem key={i} type={type} leftFileName="appropriations" rightFileName="program_activity" {...this.props} />);
+		// }
 
 		return items;
 	}
