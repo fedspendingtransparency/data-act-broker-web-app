@@ -14,11 +14,11 @@ In this version of the Broker, we made several small changes to make the Broker 
 - **Confirm Password** When you create a Broker account, you are prompted to enter a Password and then to Confirm Password.
 - **Username** On the log in screen, we have replaced the Username prompt with Email Address since your user name is your email address.
 - **Submission Guide** If you hide the Submission Guide page, when you select your agency for a new submission, there is a link to view the Submission Guide. The Submission Guide also has a link to the validations listed on this Help page.
-- **Default Dates** When creating your submission, the dates default to the beginning of the fiscal year and through the current month or quarter.
+- **Default Dates** When creating your submission, the dates default to the beginning of the fiscal year and the current month or quarter.
 - **Last Saved** The Broker automatically saves your files when you upload them and at each step of the validation process. The date and time the data was last saved is displayed at the top of the screen below the Help menu. 
 - **Leave Validations Running** You can leave the validation page and the validations will continue to run. Come back at any time to check your progress or results.
-- **Spam Folder Warning** Some users report that emails from the Broker end up in their spam folders. We've added reminders to check your spam folder on pages that generate emails.
-- **Back to Top** We know this Help page is getting long so we added an arrow in the lower right corner to take you back to the top of the page at any time.
+- **Spam Folder Warning** Some users report that emails from the Broker end up in their spam folders. We've added a reminder to check your spam folder on pages that generate emails.
+- **Back to Top** We know this Help page is getting long so we added an arrow in the lower right corner. Click it to take you back to the top of the page at any time.
 
 #### Submissions from Your Agency{section=agencySubdashboard}
 We've added a table to the Broker home page where you can see recent submissions from your agency. View and edit submissions from this table.
