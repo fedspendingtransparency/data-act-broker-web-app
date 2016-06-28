@@ -43,6 +43,9 @@
 				padding: 15px;
 				background-color: $color-gray;
 				color: $color-white;
+				display: flex;
+				align-self: stretch;
+				align-items: center;
 			}
 			.file-name {
 				flex: 1 1 auto;

@@ -57,7 +57,7 @@ export default class FileComponent extends React.Component {
 		return (
 			<div className="file-box">
 				<div className="file-type">
-					File {this.props.fileType}
+					<div>File {this.props.fileType}</div>
 				</div>
 				<div className="file-name">
 					{this.props.name}
