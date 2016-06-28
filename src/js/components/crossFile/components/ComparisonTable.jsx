@@ -6,6 +6,7 @@
 import React from 'react';
 import _ from 'lodash';
 import ScrollableTable from '../../SharedComponents/table/ScrollableTable.jsx';
+import * as ReviewHelper from '../../../helpers/ReviewHelper.js';
 
 export default class CopmarisonTable extends React.Component {
 
@@ -19,23 +20,27 @@ export default class CopmarisonTable extends React.Component {
 	}
 
 	buildRow() {
+
 		const data = [];
-		for (let i = 0; i < 20; i++) {
-			data.push({
-				source: 'award_financial',
-				error: 'Check that all fain award number and URI pairs in file C are present in file D2',
-				help: 'help'
-			});
-		}
+		this.props.data.forEach((item) => {
 
+			let description = 'Rule ' + item.original_label + ': ' + item.rule_failed + '.';
+			const row = {
+				source: ReviewHelper.globalFileData[item.source_file].name,
+				description: description,
+				occurrences: item.occurrences
+			};
 
-		const sortFields = ['source', 'error', 'help'];
+			data.push(row);
+		});
 
-		const sortedData = _.orderBy(_.clone(data), sortFields[this.state.sortColumn], this.state.sortDirection);
+		const sortFields = ['source', 'description', 'occurrences'];
+
+		const sortedData = _.orderBy(data, sortFields[this.state.sortColumn], this.state.sortDirection);
 
 		const output = [];
 		sortedData.forEach((row) => {
-			output.push([row.source, row.error, row.help]);
+			output.push([row.source, row.description, row.occurrences]);
 		});
 
 		return output;
@@ -49,7 +54,7 @@ export default class CopmarisonTable extends React.Component {
 	}
 
 	render() {
-		const headers = ['Source File', 'Error Message', 'Help'];
+		const headers = ['Source File', 'Error Message', 'Occurrences'];
 
 		const data = this.buildRow();
 

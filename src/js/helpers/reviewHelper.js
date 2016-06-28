@@ -13,8 +13,24 @@ import { fileTypes } from '../containers/addData/fileTypes.js';
 import * as AdminHelper from './adminHelper.js';
 
 const globalFileKeys = ['appropriations', 'program_activity', 'award', 'award_financial'];
-const globalFileNames = ['Appropriations Account', 'Program Activity and Object Class Data', 'Award Financial', 'Financial Assistance Award'];
-const globalFileLetters = ['A', 'B', 'C', 'D2'];
+export const globalFileData = {
+	appropriations: {
+		name: 'Appropriations Account',
+		letter: 'A'
+	},
+	program_activity: {
+		name: 'Program Activity and Object Class Data',
+		letter: 'B'
+	},
+	award: {
+		name: 'Award Financial',
+		letter: 'C'
+	},
+	award_financial: {
+		name: 'Financial Assistance Award',
+		letter: 'D2'
+	}
+};
 
 const determineExpectedPairs = () => {
 	const output = [];
@@ -25,13 +41,15 @@ const determineExpectedPairs = () => {
 	globalFileKeys.forEach((key) => {
 		
 		for (let j = i; j < globalFileKeys.length; j++) {
-			let keyName = key + '-' + globalFileKeys[j];
+			const secondKey = globalFileKeys[j];
+			let keyName = key + '-' + secondKey;
+
 			const item = {
 				key: keyName,
-				firstType: globalFileLetters[i - 1],
-				firstName: globalFileNames[i - 1],
-				secondType: globalFileLetters[j],
-				secondName: globalFileNames[j]
+				firstType: globalFileData[key].letter,
+				firstName: globalFileData[key].name,
+				secondType: globalFileData[secondKey].letter,
+				secondName: globalFileData[secondKey].name
 			};
 
 			output.push(item);
