@@ -29,7 +29,7 @@ If one or more of your files fails validation, only those failed files will have
 #### Send Email Notifications{section=sendEmail}
 After your data has been successfully validated, the *Review & Publish* page has a button to *Notify Another User that the Submission is Ready for Certification*. This opens a field where you can type in multiple email addresses for users in your agency. 
 
-#### Some Validations in SQL{section=validationSQL)
+#### Some Validations in SQL{section=validationSQL}
 Agency developers may be interested to know that we transitioned some of the Broker validations to using SQL statements. The list of SQL statements is publically available on [GitHub](https://github.com/fedspendingtransparency/data-act-broker-backend/blob/development/dataactvalidator/config/sqlRules.csv).
 
 #### Updated Validations{section=updatedValidations}
