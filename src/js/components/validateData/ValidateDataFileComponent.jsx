@@ -42,7 +42,7 @@ export default class ValidateDataFileComponent extends React.Component {
     componentWillReceiveProps(nextProps) {
         this.determineErrors(nextProps.item);
 
-        if (this.props.submission.state == 'uploading' && nextProps.submission.state == 'review') {
+        if ((this.props.submission.state == 'uploading' || this.props.submission.state == 'prepare') && nextProps.submission.state == 'review') {
             // we've finished uploading files, close any open error reports
             if (this.state.showError) {
                 this.setState({
@@ -191,12 +191,14 @@ export default class ValidateDataFileComponent extends React.Component {
         
         let successfulFade = '';
         let disabledCorrect = '';
+        let messageClass = ' usa-da-validate-item-message';
         if (!this.state.isError && this.isFileReady()) {
             successfulFade = ' successful';
             disabledCorrect = ' hide';
         }
         else if (!this.isFileReady()) {
             successfulFade = '';
+            messageClass = '';
             disabledCorrect = ' hide';
         }
 
@@ -245,7 +247,7 @@ export default class ValidateDataFileComponent extends React.Component {
                                 </div>
                             </div>
                             <div className="row usa-da-validate-item-body">
-                                <div className="col-md-12 usa-da-validate-item-message usa-da-validate-txt-wrap" data-testid="validate-message">{this.state.headerTitle}</div>
+                                <div className={"col-md-12 usa-da-validate-txt-wrap" + messageClass} data-testid="validate-message">{this.state.headerTitle}</div>
                             </div>
                             <div className="row usa-da-validate-item-footer-wrapper">
                                 <div className={"usa-da-validate-item-footer usa-da-header-error" + showFooter +" "+footerStatus} onClick={this.toggleErrorReport.bind(this)}>

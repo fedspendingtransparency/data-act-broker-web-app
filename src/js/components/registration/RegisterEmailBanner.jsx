@@ -79,7 +79,7 @@ export default class RegisterEmailBanner extends React.Component {
         LoginHelper.registerEmail(this.state.email)
             .then(() => {
                 this.setState({
-                    text: 'An email has been sent to this address. Please follow the link within this email to verify your email address.',
+                    text: 'An email has been sent to this address. Please follow the link within this email to verify your email address. Check your spam folder for messages from the DATA Act Broker if you don\'t receive an email shortly.',
                     buttonText: 'Submitted!',
                     success: true,
                     error: false
@@ -120,7 +120,7 @@ export default class RegisterEmailBanner extends React.Component {
 
         let messageComponent = '';
         if (this.state.success) {
-            messageComponent = <SuccessMessage message={"An email has been sent to this address. Please follow the link within this email to verify your email address."} />;
+            messageComponent = <SuccessMessage message={this.state.text} />;
         }
         else if (this.state.error) {
             messageComponent = <ErrorMessage message={this.state.text} />

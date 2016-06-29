@@ -1,3 +1,18 @@
+#### What's New in This Release - June 15, 2016
+In this version of the Broker, we made it easier to select your agency, made it easier to submit your data without errors, and updated some of the validations. 
+
+* [Easier Agency Selection](#/help?section=agencyCGAC)
+* [Accidental Commas in Dollar Amounts](#/help?section=removeCommas)
+* [Header Row Capitalization Errors](#/help?section=elementCaps)
+
+#### Easier Agency Selection{section=agencyCGAC}
+When you register for an account or create a submission, you can enter your CGAC code to correctly select your agency.
+
+#### Accidental Commas in Dollar Amounts{section=removeCommas}
+The Practices and Procedures document specifies that dollar amounts should be submitted without commas. However, if you accidentally include commas in dollar amounts the Broker will remove them.
+
+#### Header Row Capitalization Errors{section=elementCaps}
+The Practices and Procedures document specifies that the element names in the header row should exactly match the RSS element names. However, to assist you the Broker will process files with incorrect element name capitalization.
 #### What's New in This Release - June 1, 2016
 In this version of the broker, we have added some information on the screens to help you with your data submission, added some functionality to help you select the reporting period, and updated some of the validations. __Note:__ Validation details are included in the cumulative updated validations table.
 

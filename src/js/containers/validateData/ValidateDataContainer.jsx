@@ -32,7 +32,6 @@ class ValidateDataContainer extends React.Component {
 			finishedLoad: false,
 			headerErrors: true,
 			initialLoad: moment(),
-			offerCancellation: false,
 			notYours: false
 		};
 	}
@@ -55,8 +54,12 @@ class ValidateDataContainer extends React.Component {
 		// check if the submission state changed, indicating a re-upload
 		if (prevProps.submission.state != this.props.submission.state) {
 			if (this.props.submission.state == "prepare") {
-				// uploads are done
-				this.validateSubmission();
+				// uploads are done, reset the cancellation timer
+				this.setState({
+					initialLoad: moment()
+				}, () => {
+					this.validateSubmission();
+				});
 			}
 		}
 	}
@@ -97,16 +100,6 @@ class ValidateDataContainer extends React.Component {
 
 	validateSubmission() {
 
-		// check how long it's been since the initial validation check
-		if (!this.state.offerCancellation) {
-			const secondsPassed = moment().unix() - this.state.initialLoad.unix();
-			if (secondsPassed >= 5 * 60) {
-				this.setState({
-					offerCancellation: true
-				});
-			}
-		}
-
 		ReviewHelper.validateSubmission(this.props.submissionID)
 			.then((data) => {
 				this.setState({
@@ -122,9 +115,8 @@ class ValidateDataContainer extends React.Component {
 					}, 5*1000);
 				}
 				else {
-					// all the files have returned something, hide the cancellation banner if necessary
 					this.setState({
-						offerCancellation: false
+						initialLoad: moment()
 					});
 				}
 
@@ -133,7 +125,8 @@ class ValidateDataContainer extends React.Component {
 			.catch((err) => {
 				if (err.reason == 400) {
 					this.setState({
-						notYours: true
+						notYours: true,
+						initialLoad: moment()
 					});
 				}
 				else {
@@ -159,11 +152,6 @@ class ValidateDataContainer extends React.Component {
 			validationContent = <ValidateLoadingScreen />;
 		}
 
-		let cancel = '';
-		if (this.state.offerCancellation && !checkingValues) {
-			cancel = <ValidateCancellation />;
-		}
-
 		if (this.state.notYours) {
 			validationContent = '';
 			cancel = <ValidateNotYours message="You cannot view or modify this submission because you are not the original submitter." />;
@@ -171,7 +159,6 @@ class ValidateDataContainer extends React.Component {
 
 		return (
 			<div>
-				{cancel}
 				{validationContent}
 			</div>
 		);
