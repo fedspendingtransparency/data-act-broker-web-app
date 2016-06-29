@@ -1,4 +1,4 @@
-#### June 27, 2016
+#### June 29, 2016
 
 In this version of the Broker, we made several small changes to make the Broker easier to use, added a section to display submissions from your agency, clarified the process to upload corrected files, added an email notification feature, transitioned some of the validation rules to SQL statements, and updated some of the validations. 
 
@@ -33,7 +33,7 @@ After your data has been successfully validated, the *Review & Publish* page has
 Agency developers may be interested to know that we transitioned some of the Broker validations to using SQL statements. The list of SQL statements is publically available on [GitHub](https://github.com/fedspendingtransparency/data-act-broker-backend/blob/development/dataactvalidator/config/sqlRules.csv).
 
 #### Updated Validations{section=updatedValidations}
-Below is a cumulative table of validations implemented to date. In this release we included rules A20, B11, B12, and C18.
+Below is a cumulative table of validations implemented to date. In this release we included rules A18, A19, A20, B9, B10, B11, B12, and C18.
 
 ```!inline-html
 <table class="usa-da-table table-bordered help-table">
@@ -65,6 +65,16 @@ Below is a cumulative table of validations implemented to date. In this release 
 <td>A4</td>
 <td class="break-word">StatusOfBudgetaryResourcesTotal_CPE= ObligationsIncurredTotalByTAS_CPE + UnobligatedBalance_CPE</td>
 <td>Calculation</td>
+</tr>
+<tr><td>A</td>
+<td>A18</td>
+<td class="break-word">GrossOutlayAmountByTAS_CPE (file A) = sum of all GrossOutlayAmountByProgramObjectClass (file B)</td>
+<td>Cross File Validation (back-end only, not yet shown to users in the Broker)</td>
+</tr>
+<tr><td>A</td>
+<td>A19</td>
+<td class="break-word">ObligationsIncurredTotalByTAS_CPE (File A) = sum of ObligationsIncurredByProgramObjectClass_CPE (File B)</td>
+<td>Cross File Validation (back-end only, not yet shown to users in the Broker)</td>
 </tr>
 <tr><td>A</td>
 <td>A20</td>
@@ -104,6 +114,16 @@ Below is a cumulative table of validations implemented to date. In this release 
 <td>B7</td>
 <td class="break-word">GrossOutlaysDeliveredOrdersPaidTotal (FYB or CPE)= USSGL(4902 + 4908 + 4972 + 4982). This applies to the program activity and object class level.</td>
 <td>Calculation</td>
+</tr>
+<tr><td>B</td>
+<td>B9</td>
+<td>Must be a valid program activity name for the corresponding TAS/TAFS as defined in Section 82 of OMB Circular A-11.</td>
+<td> </td>
+</tr>
+<tr><td>B</td>
+<td>B10</td>
+<td>Must be a valid program activity code for the corresponding TAS/TAFS as defined in Section 82 of OMB Circular A-11.</td>
+<td> </td>
 </tr>
 <tr><td>B</td>
 <td>B11</td>
