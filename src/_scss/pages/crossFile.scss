@@ -338,6 +338,48 @@
 			height: 20px;
 		}	
 	}
+
+	.file-warning {
+		display: flex;
+		flex-direction: row;
+		position: relative;
+
+		.icon-wrap {
+			flex: 0 1 auto;
+			width: 40px;
+			min-width: 40px;
+
+			.usa-da-icon {
+				height: 30px;
+			    width: 30px;
+			    
+			    & svg {
+			        fill: $color-primary;
+			    } 
+			}
+		}
+
+		.warning-description {
+			flex: 0 1 auto;
+			font-size: 1.4rem;
+			color: $color-gray;
+
+			ul {
+				margin-bottom: 0;
+				list-style-type: none;
+				li {
+					list-style-type: none;
+					margin-bottom: 1rem;
+
+					&:before {
+						content: '';
+						padding-right: 0px;
+					}
+				}
+			}
+		}
+
+	}
 }
 
 .usa-da-overlay-content-wrap {

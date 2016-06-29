@@ -48,8 +48,10 @@ const determineExpectedPairs = () => {
 				key: keyName,
 				firstType: globalFileData[key].letter,
 				firstName: globalFileData[key].name,
+				firstKey: key,
 				secondType: globalFileData[secondKey].letter,
-				secondName: globalFileData[secondKey].name
+				secondName: globalFileData[secondKey].name,
+				secondKey: secondKey
 			};
 
 			output.push(item);

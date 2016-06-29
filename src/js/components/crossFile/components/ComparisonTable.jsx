@@ -6,9 +6,9 @@
 import React from 'react';
 import _ from 'lodash';
 import ScrollableTable from '../../SharedComponents/table/ScrollableTable.jsx';
-import * as ReviewHelper from '../../../helpers/ReviewHelper.js';
+import * as ReviewHelper from '../../../helpers/reviewHelper.js';
 
-export default class CopmarisonTable extends React.Component {
+export default class ComparisonTable extends React.Component {
 
 	constructor(props) {
 		super(props);

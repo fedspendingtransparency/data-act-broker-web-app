@@ -14,8 +14,13 @@ import * as UploadHelper from '../../helpers/uploadHelper.js';
 import UploadButton from '../../components/validateData/ValidateDataUploadButton.jsx';
 
 const defaultProps = {
-	fullName: '',
-	type: ''
+	file: {
+		letter: '',
+		name: '',
+		key: ''
+	},
+	fileKey: '',
+	pair: ''
 };
 
 class CrossFileUploadButtonContainer extends React.Component {
@@ -26,6 +31,13 @@ class CrossFileUploadButtonContainer extends React.Component {
 			state: 'ready',
 			file: file
 		});
+
+		// update the cross file staging Redux object
+		const updatedStage = Object.assign({}, this.props.submission.crossFileStaging, {
+			[this.props.fileKey]: this.props.pair
+		});
+
+		this.props.setCrossFileStage(updatedStage);
 	}
 
 	isFileStaged() {
@@ -36,10 +48,10 @@ class CrossFileUploadButtonContainer extends React.Component {
 	}
 
 	render() {
-		let displayText = 'File ' + this.props.type + ': ' + this.props.fullName;
+		let displayText = 'File ' + this.props.file.letter + ': ' + this.props.file.name;
 		let isOptional = false;
 		if (this.isFileStaged()) {
-			displayText = 'File ' + this.props.type + ': ' + this.props.submission.files[this.props.fileKey].file.name;
+			displayText = 'File ' + this.props.file.letter + ': ' + this.props.submission.files[this.props.fileKey].file.name;
 			isOptional = true;
 		}
 

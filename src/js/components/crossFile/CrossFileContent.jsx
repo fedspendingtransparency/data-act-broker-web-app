@@ -35,19 +35,6 @@ export default class CrossFileContent extends React.Component {
 			i++;
 		});
 
-		// for (let i = 0; i < 4; i++) {
-		// 	let type = "success";
-		// 	if (i % 2 == 0) {
-		// 		type = "error";
-		// 	}
-
-		// 	if (_.indexOf(this.allowableStates, this.props.submission.state) == -1) {
-		// 		type = 'loading';
-		// 	}
-
-		// 	items.push(<CrossFileItem key={i} type={type} leftFileName="appropriations" rightFileName="program_activity" {...this.props} />);
-		// }
-
 		return items;
 	}
 

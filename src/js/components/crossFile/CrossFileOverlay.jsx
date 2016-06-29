@@ -3,14 +3,31 @@
   * Created by Kevin Li 6/16/16
   **/
 import React from 'react';
+import _ from 'lodash';
 import * as Icons from '../SharedComponents/icons/Icons.jsx';
 
 const defaultProps = {
 	errors: ['error'],
-	allowUpload: true
+	loading: true
 };
 
 export default class CrossFileOverlay extends React.Component {
+
+	constructor(props) {
+		super(props);
+
+		this.state = {
+			allowUpload: false
+		};
+	}
+
+	componentDidUpdate(prevProps, prevState) {
+		if (!_.isEqual(prevProps.submission.files, this.props.submission.files)) {
+			this.setState({
+				allowUpload: this.isReadyForUpload()
+			});
+		}
+	}
 
 	pressedNext(e) {
 		e.preventDefault();
@@ -21,6 +38,23 @@ export default class CrossFileOverlay extends React.Component {
 			return true;
 		}
 		return false;
+	}
+
+	isReadyForUpload() {
+		// check if at least one file is staged for upload for each error pair
+
+		for (let key in this.props.submission.crossFile) {
+			const firstKey = key.split('-')[0];
+			const secondKey = key.split('-')[1];
+
+			if (!this.props.submission.files.hasOwnProperty(firstKey) && !this.props.submission.files.hasOwnProperty(secondKey)) {
+				// neither file in the pair is staged for upload, submission isn't ready for re-upload
+				return false;
+			}
+		}
+
+		// if we hit this point, the files are ready
+		return true;
 	}
 
 	render() {
@@ -35,7 +69,7 @@ export default class CrossFileOverlay extends React.Component {
 
 		let hideButtons = '';
 
-		if (this.props.allowUpload) {
+		if (this.state.allowUpload) {
 			uploadButtonDisabled = false;
 			uploadButtonClass = ' btn-primary';
 		}
