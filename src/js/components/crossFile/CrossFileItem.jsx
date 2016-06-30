@@ -8,6 +8,7 @@ import FileComponent from './components/FileComponent.jsx';
 import ComparisonComponent from './components/ComparisonComponent.jsx';
 import LoadingComponent from './components/LoadingComponent.jsx';
 import ErrorBox from './components/ErrorBox.jsx';
+import ReplacementBox from './components/ReplacementBox.jsx';
 
 const defaultProps = {
 	type: 'loading',
@@ -24,11 +25,28 @@ const defaultProps = {
 };
 
 export default class CrossFileItem extends React.Component {
+	constructor(props) {
+		super(props);
+
+		this.state = {
+			uploadBox: false
+		};
+	}
+
+	toggleUploadBox() {
+		this.setState({
+			uploadBox: !this.state.uploadBox
+		});
+	}
+
 	render() {
-		let error = null;
+		let detailBox = null;
 		let middle = <ComparisonComponent type={this.props.status} />;
 		if (this.props.status == 'error') {
-			error = <ErrorBox {...this.props} />;
+			detailBox = <ErrorBox {...this.props} />;
+		}
+		else if (this.state.uploadBox) {
+			detailBox = <ReplacementBox {...this.props} />;
 		}
 
 		if (this.props.status == 'loading') {
@@ -40,18 +58,18 @@ export default class CrossFileItem extends React.Component {
 				<div className="row">
 					<div className="usa-da-cross-file-item">
 						<div className="file-left">
-							<FileComponent fileType={this.props.meta.firstType} name={this.props.meta.firstName} fileKey={this.props.meta.firstKey} {...this.props} />
+							<FileComponent fileType={this.props.meta.firstType} name={this.props.meta.firstName} fileKey={this.props.meta.firstKey} toggleUploadBox={this.toggleUploadBox.bind(this)} expanded={this.state.uploadBox} {...this.props} />
 						</div>
 						<div className="file-compare">
 							{middle}
 						</div>
 						<div className="file-right">
-							<FileComponent fileType={this.props.meta.secondType} name={this.props.meta.secondName} fileKey={this.props.meta.secondKey} {...this.props} />
+							<FileComponent fileType={this.props.meta.secondType} name={this.props.meta.secondName} fileKey={this.props.meta.secondKey} toggleUploadBox={this.toggleUploadBox.bind(this)} expanded={this.state.uploadBox} {...this.props} />
 						</div>
 					</div>
 				</div>
 				<div className="row">
-					{error}
+					{detailBox}
 				</div>
 			</div>
 		)

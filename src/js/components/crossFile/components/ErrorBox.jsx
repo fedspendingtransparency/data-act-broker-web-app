@@ -4,6 +4,7 @@
   **/
 
 import React from 'react';
+import _ from 'lodash';
 import ComparisonTable from './ComparisonTable.jsx';
 import FileProgress from '../../SharedComponents/FileProgress.jsx';
 import UploadButtonContainer from '../../../containers/crossFile/CrossFileUploadButtonContainer.jsx';
@@ -12,21 +13,52 @@ import FileWarning from './FileWarning.jsx';
 import * as ReviewHelper from '../../../helpers/reviewHelper.js';
 
 export default class ErrorBox extends React.Component {
+	constructor(props) {
+		super(props);
+
+		this.state = {
+			firstType: '',
+			secondType: '',
+			stagedFiles: []
+		};
+	}
+
+	componentDidMount() {
+		this.stagedFiles();
+	}
+
+	componentDidUpdate(prevProps, prevState) {
+		if (!_.isEqual(prevProps.submission.files,this.props.submission.files)) {
+			this.stagedFiles();
+		}
+	}
+
 	
 	stagedFiles() {
 		let leftFile = this.props.submission.files[this.props.meta.firstKey];
 		let rightFile = this.props.submission.files[this.props.meta.secondKey];
 
 		const stagedFiles = [];
+		let firstType = '';
+		let secondType = '';
+
 		if (leftFile) {
 			stagedFiles.push(this.props.meta.firstKey);
+			secondType = 'optional';
 		}
 
 		if (rightFile) {
 			stagedFiles.push(this.props.meta.secondKey);
+			if (stagedFiles.length == 1) {
+				firstType = 'optional';
+			}
 		}
 
-		return stagedFiles;
+		this.setState({
+			firstType: firstType,
+			secondType: secondType,
+			stagedFiles: stagedFiles
+		});
 	}
 
 	fileProgress() {
@@ -59,9 +91,8 @@ export default class ErrorBox extends React.Component {
 		}
 
 		let warning = null;
-		const stagedFiles = this.stagedFiles();
-		if (stagedFiles.length > 0) {
-			warning = <FileWarning files={stagedFiles} {...this.props} />
+		if (this.state.stagedFiles.length > 0) {
+			warning = <FileWarning files={this.state.stagedFiles} {...this.props} />
 		}
 
 
@@ -88,8 +119,8 @@ export default class ErrorBox extends React.Component {
 								</div>
 								<div className="upload-buttons">
 									{warning}
-									<UploadButtonContainer file={ReviewHelper.globalFileData[this.props.meta.firstKey]} fileKey={this.props.meta.firstKey} pair={this.props.meta.key} />
-									<UploadButtonContainer file={ReviewHelper.globalFileData[this.props.meta.secondKey]} fileKey={this.props.meta.secondKey} pair={this.props.meta.key} />
+									<UploadButtonContainer file={ReviewHelper.globalFileData[this.props.meta.firstKey]} fileKey={this.props.meta.firstKey} pair={this.props.meta.key} type={this.state.firstType} />
+									<UploadButtonContainer file={ReviewHelper.globalFileData[this.props.meta.secondKey]} fileKey={this.props.meta.secondKey} pair={this.props.meta.key} type={this.state.secondType} />
 								</div>
 							</div>
 						</div>

@@ -5,6 +5,7 @@
 
 import React from 'react';
 import * as Icons from '../../SharedComponents/icons/Icons.jsx';
+import ReplacementButton from './ReplacementButton.jsx';
 
 const defaultProps = {
 	fileType: '',
@@ -13,45 +14,12 @@ const defaultProps = {
 };
 
 export default class FileComponent extends React.Component {
-
-	fileStatus() {
-		let status = 'none';
-		if (this.props.submission.files.hasOwnProperty(this.props.fileKey)) {
-			const file = this.props.submission.files[this.props.fileKey];
-			if (file.state == 'success') {
-				status = 'success';
-			}
-			else if (file.state == 'failed') {
-				status = 'failed';
-			}
-			else {
-				status = 'pending';
-			}
-		}
-
-		return status;
-	}
-
 	render() {
 
-		let iconHide = ' hide';
-		let iconClass = '';
-		let icon = null;
+		let replaceButton = null;
 
-		const status = this.fileStatus();
-		if (status == 'pending') {
-			iconHide = '';
-			icon = <Icons.CloudUpload />;
-		}
-		else if (status == 'success') {
-			iconHide = '';
-			iconClass = ' success';
-			icon = <Icons.CheckCircle />;
-		}
-		else if (status == 'failed') {
-			iconHide = '';
-			iconClass = ' error';
-			icon = <Icons.ExclamationCircle />;
+		if (this.props.status == 'success') {
+			replaceButton = <ReplacementButton buttonClicked={this.props.toggleUploadBox} {...this.props} />;
 		}
 
 		return (
@@ -62,11 +30,7 @@ export default class FileComponent extends React.Component {
 				<div className="file-name">
 					{this.props.name}
 				</div>
-				<div className={"file-icon" + iconHide}>
-					<div className={"usa-da-icon" + iconClass}>
-						{icon}
-					</div>
-				</div>
+				{replaceButton}
 			</div>
 		)
 	}
