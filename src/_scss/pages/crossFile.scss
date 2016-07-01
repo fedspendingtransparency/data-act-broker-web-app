@@ -440,5 +440,12 @@
 		display: flex;
 		flex-direction: row;
 		align-items: center;
+
+		.overlay-help-text {
+            font-family: "Source Sans Pro", "Helvetica", "Arial", sans-serif;
+            a {
+                color: $color-white;
+            }
+        }
 	}
 }

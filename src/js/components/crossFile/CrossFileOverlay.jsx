@@ -70,6 +70,7 @@ export default class CrossFileOverlay extends React.Component {
 		let nextButtonDisabled = true;
 
 		let hideButtons = '';
+		let hideHelpText = ' hide';
 
 		if (this.state.allowUpload) {
 			uploadButtonDisabled = false;
@@ -99,11 +100,15 @@ export default class CrossFileOverlay extends React.Component {
 		if (this.props.submission.state == 'uploading') {
 			uploadButtonDisabled = true;
 			uploadButtonClass = '-disabled';
+			nextButtonDisabled = true;
+			nextButtonClass = '-disabled';
 			buttonText = 'Uploading files...';
 		}
 		else if (this.props.submission.state == 'prepare') {
 			uploadButtonDisabled = true;
 			uploadButtonDisabled = '-disabled';
+			nextButtonDisabled = true;
+			nextButtonClass = '-disabled';
 			buttonText = 'Gathering data...';
 		}
 
@@ -113,8 +118,9 @@ export default class CrossFileOverlay extends React.Component {
 			nextButtonClass = ' hide';
 			nextButtonDisabled = true;
 			icon = null;
-			message = 'Gathering data...';
+			message = 'Your files are being validated.';
 			hideButtons = ' hide';
+			hideHelpText = '';
 		}
 
 		return (
@@ -128,6 +134,10 @@ export default class CrossFileOverlay extends React.Component {
 								</div>
 								<div className="col-sm-10 col-lg-11">
 									<h6>{message}</h6>
+									<div className={"overlay-help-text" + hideHelpText}>
+										You can return to this page at any time to check the validation status by using this link:<br />
+										<a href={window.location.href}>{window.location.href}</a>
+									</div>
 								</div>
 							</div>
 						</div>
