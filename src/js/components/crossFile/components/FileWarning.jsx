@@ -76,6 +76,10 @@ export default class FileWarning extends React.Component {
 			message += 's';
 		}
 		message += '.';
+
+		if (count == 0) {
+			message = '';
+		}
 	
 
 		return message;
@@ -117,12 +121,25 @@ export default class FileWarning extends React.Component {
 	render() {
 		let icon = <Icons.InfoCircle />;
 
+		let noImpact = false;
+
 		const messages = this.state.messages.map((message, index) => {
+			if (message = '') {
+				return null;
+			}
+			else {
+				noImpact = true;
+			}
 			return <li key={index} dangerouslySetInnerHTML={{__html: message}} />
 		});
+
+		let hide = '';
+		if (noImpact) {
+			hide = ' hide';
+		}
 		
 		return (
-			<div className="file-warning">
+			<div className={"file-warning" + hide}>
 				<div className="icon-wrap">
 					<div className="usa-da-icon">
 						{icon}

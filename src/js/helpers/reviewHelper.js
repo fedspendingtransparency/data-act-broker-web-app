@@ -12,6 +12,7 @@ import * as uploadActions from '../redux/actions/uploadActions.js';
 import { fileTypes } from '../containers/addData/fileTypes.js';
 import * as AdminHelper from './adminHelper.js';
 
+const availablePairs = ['appropriations-program_activity', 'award_financial-award'];
 const globalFileKeys = ['appropriations', 'program_activity', 'award_financial', 'award'];
 export const globalFileData = {
 	appropriations: {
@@ -35,29 +36,23 @@ export const globalFileData = {
 const determineExpectedPairs = () => {
 	const output = [];
 
-	// generate the file pair keys
-	let i = 1;
-
-	globalFileKeys.forEach((key) => {
+	availablePairs.forEach((keyName) => {
 		
-		for (let j = i; j < globalFileKeys.length; j++) {
-			const secondKey = globalFileKeys[j];
-			let keyName = key + '-' + secondKey;
+		const firstKey = keyName.split('-')[0];
+		const secondKey = keyName.split('-')[1];
+		
+		const item = {
+			key: keyName,
+			firstType: globalFileData[firstKey].letter,
+			firstName: globalFileData[firstKey].name,
+			firstKey: firstKey,
+			secondType: globalFileData[secondKey].letter,
+			secondName: globalFileData[secondKey].name,
+			secondKey: secondKey
+		};
 
-			const item = {
-				key: keyName,
-				firstType: globalFileData[key].letter,
-				firstName: globalFileData[key].name,
-				firstKey: key,
-				secondType: globalFileData[secondKey].letter,
-				secondName: globalFileData[secondKey].name,
-				secondKey: secondKey
-			};
-
-			output.push(item);
-		}
-
-		i++;
+		output.push(item);
+		
 	});
 
 	return output;
@@ -67,7 +62,6 @@ export const fetchStatus = (submissionId) => {
 	const deferred = Q.defer();
 
 	Request.post(kGlobalConstants.API + 'check_status/')
-	// Request.get('/test.json')
 	        .send({'submission_id': submissionId})
 	        .end((errFile, res) => {
 
@@ -193,6 +187,17 @@ const getFileReports = (status, reports) => {
 	return status;
 }
 
+const getCrossFileReports = (crossFile, reports) => {
+
+	const crossFileReports = {};
+
+	for (let key in crossFile) {
+		crossFileReports[key] = reports['cross_' + key];
+	}
+	
+	return crossFileReports;
+}
+
 export const validateSubmission  = (submissionId) => {
 
 	const deferred = Q.defer();
@@ -212,6 +217,7 @@ export const validateSubmission  = (submissionId) => {
 	let status;
 	let crossFile;
 	let crossFileState;
+	let crossFileReports;
 
 	fetchStatus(submissionId)
 		.then((statusRes) => {
@@ -222,10 +228,12 @@ export const validateSubmission  = (submissionId) => {
 		})
 		.then((reports) => {
 			getFileReports(status, reports);
+			crossFileReports = getCrossFileReports(crossFile, reports);
 			deferred.resolve({
 				file: status,
 				crossFile: {
 					state: crossFileState,
+					reports: crossFileReports,
 					data: crossFile
 				}
 			});

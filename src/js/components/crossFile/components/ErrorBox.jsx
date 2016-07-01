@@ -33,6 +33,12 @@ export default class ErrorBox extends React.Component {
 		}
 	}
 
+	clickedDownload(e) {
+		e.preventDefault();
+		const url = this.props.meta.report;
+		window.open(url, '_blank');
+	}
+
 	
 	stagedFiles() {
 		let leftFile = this.props.submission.files[this.props.meta.firstKey];
@@ -107,7 +113,7 @@ export default class ErrorBox extends React.Component {
 					<div className="button-wrapper">
 						<div className="button-list">
 							<div className="download-button">
-								<button className="usa-da-button btn-primary">Download Error File</button>
+								<button className="usa-da-button btn-primary" onClick={this.clickedDownload.bind(this)}>Download Error File</button>
 							</div>
 
 							<div className="upload-buttons-wrap">
