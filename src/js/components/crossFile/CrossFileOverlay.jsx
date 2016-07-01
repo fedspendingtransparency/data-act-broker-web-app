@@ -4,6 +4,7 @@
   **/
 import React from 'react';
 import _ from 'lodash';
+import { hashHistory } from 'react-router';
 import * as Icons from '../SharedComponents/icons/Icons.jsx';
 
 const defaultProps = {
@@ -31,6 +32,7 @@ export default class CrossFileOverlay extends React.Component {
 
 	pressedNext(e) {
 		e.preventDefault();
+		hashHistory.push('/reviewData/' + this.props.submission.id);
 	}
 
 	isUploadingFiles() {
@@ -77,7 +79,7 @@ export default class CrossFileOverlay extends React.Component {
 
 		let message = 'You must the correct the cross-file validation errors listed above.';
 
-		if (this.props.errors.length == 0) {
+		if (Object.keys(this.props.submission.crossFile).length == 0) {
 			icon = <Icons.CheckCircle />;
 			message = 'Your files have been successfully cross-validated.';
 			uploadButtonDisabled = true;
@@ -113,7 +115,6 @@ export default class CrossFileOverlay extends React.Component {
 			icon = null;
 			message = 'Gathering data...';
 			hideButtons = ' hide';
-
 		}
 
 		return (

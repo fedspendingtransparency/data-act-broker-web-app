@@ -33,6 +33,15 @@ export default class CrossFileItem extends React.Component {
 		};
 	}
 
+	componentDidUpdate(prevProps, prevState) {
+		// force the upload box to close if a new upload occurs
+		if (this.props.status != prevProps.status) {
+			this.setState({
+				uploadBox: false
+			});
+		}
+	}
+
 	toggleUploadBox() {
 		this.setState({
 			uploadBox: !this.state.uploadBox

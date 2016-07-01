@@ -1,5 +1,8 @@
 .usa-da-cross-file {
-
+	 &.usa-da-gathering-data {
+        min-height: 650px;
+    }
+    
 	.usa-da-cross-file-group {
 		margin-bottom: 40px;
 	}
@@ -434,5 +437,8 @@
 .usa-da-overlay-content-wrap {
 	.full-row {
 		width: 100%;
+		display: flex;
+		flex-direction: row;
+		align-items: center;
 	}
 }

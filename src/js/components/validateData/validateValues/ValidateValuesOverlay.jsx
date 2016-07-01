@@ -19,7 +19,7 @@ export default class ValidateValuesOverlay extends React.Component {
 
 	pressedNext(e) {
 
-		hashHistory.push('/reviewData/' + this.props.submission.id);
+		hashHistory.push('/validateCrossFile/' + this.props.submission.id);
 
 	}
 

@@ -12,7 +12,7 @@ import * as uploadActions from '../redux/actions/uploadActions.js';
 import { fileTypes } from '../containers/addData/fileTypes.js';
 import * as AdminHelper from './adminHelper.js';
 
-const globalFileKeys = ['appropriations', 'program_activity', 'award', 'award_financial'];
+const globalFileKeys = ['appropriations', 'program_activity', 'award_financial', 'award'];
 export const globalFileData = {
 	appropriations: {
 		name: 'Appropriations Account',
@@ -22,11 +22,11 @@ export const globalFileData = {
 		name: 'Program Activity and Object Class Data',
 		letter: 'B'
 	},
-	award: {
+	award_financial: {
 		name: 'Award Financial',
 		letter: 'C'
 	},
-	award_financial: {
+	award: {
 		name: 'Financial Assistance Award',
 		letter: 'D2'
 	}
@@ -66,8 +66,8 @@ const determineExpectedPairs = () => {
 export const fetchStatus = (submissionId) => {
 	const deferred = Q.defer();
 
-	// Request.post(kGlobalConstants.API + 'check_status/')
-	Request.get('/test.json')
+	Request.post(kGlobalConstants.API + 'check_status/')
+	// Request.get('/test.json')
 	        .send({'submission_id': submissionId})
 	        .end((errFile, res) => {
 
@@ -81,18 +81,18 @@ export const fetchStatus = (submissionId) => {
 	        		// return only jobs related to CSV validation
 	        		const response = Object.assign({}, res.body);
 	        		const csvJobs = [];
-	        		let crossFileJobs;
+	        		let crossFileJob;
 	        		response.jobs.forEach((job) => {
 	        			if (job.job_type == 'csv_record_validation') {
 	        				csvJobs.push(job);
 	        			}
 	        			else if (job.job_type == 'validation') {
-	        				crossFileJobs = job.error_data;
+	        				crossFileJob = job;
 	        			}
 	        		});
 
 	        		response.jobs = csvJobs;
-	        		response.crossFile = crossFileJobs;
+	        		response.crossFile = crossFileJob;
 
 	        		deferred.resolve(response);
 	        	}
@@ -155,7 +155,7 @@ const getCrossFileData = (data, validKeys) => {
 	// generate the file pair keys
 	let i = 1;
 
-	data.crossFile.forEach((item) => {
+	data.crossFile.error_data.forEach((item) => {
 		// generate possible key names for this pair of target/source files
 		const keyNames = [item.target_file + '-' + item.source_file, item.source_file + '-' + item.target_file];
 		// determine which is the correct name
@@ -211,18 +211,23 @@ export const validateSubmission  = (submissionId) => {
 
 	let status;
 	let crossFile;
+	let crossFileState;
 
 	fetchStatus(submissionId)
 		.then((statusRes) => {
 			status = getFileStates(statusRes);
 			crossFile = getCrossFileData(statusRes, validKeys);
+			crossFileState = statusRes.crossFile.job_status;
 			return fetchErrorReports(submissionId);
 		})
 		.then((reports) => {
 			getFileReports(status, reports);
 			deferred.resolve({
 				file: status,
-				crossFile: crossFile
+				crossFile: {
+					state: crossFileState,
+					data: crossFile
+				}
 			});
 		})
 		.catch((err) => {
