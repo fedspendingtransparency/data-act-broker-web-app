@@ -46,6 +46,12 @@ export default class CrossFileOverlay extends React.Component {
 		// check if at least one file is staged for upload for each error pair
 
 		for (let key in this.props.submission.crossFile) {
+
+			// check if this is a valid cross-file pair
+			if (_.indexOf(this.props.submission.crossFileOrder, key) == -1) {
+				continue;
+			}
+			
 			const firstKey = key.split('-')[0];
 			const secondKey = key.split('-')[1];
 
