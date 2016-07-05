@@ -16,6 +16,7 @@ import MetaData from '../../addData/AddDataMetaDisplay.jsx';
 import FileComponent from '../../addData/FileComponent.jsx';
 import ValidateDataUploadButton from './../ValidateDataUploadButton.jsx';
 import ValidateValuesErrorReport from './ValidateValuesErrorReport.jsx';
+import FileDetailBox from './ValidateValuesFileDetailBox.jsx';
 import CorrectButtonOverlay from '../CorrectButtonOverlay.jsx';
 import * as Icons from '../../SharedComponents/icons/Icons.jsx';
 
@@ -30,7 +31,8 @@ export default class ValidateDataFileComponent extends React.Component {
         this.state = {
             showWarning: false,
             showError: false,
-            hasErrors: false
+            hasErrors: false,
+            hasWarnings: false
         };
     }
 
@@ -53,11 +55,17 @@ export default class ValidateDataFileComponent extends React.Component {
     }
 
     toggleWarningReport(){
-        this.setState({ showWarning: !this.state.showWarning });
+        this.setState({ 
+            showWarning: !this.state.showWarning,
+            showError: false
+        });
     }
 
     toggleErrorReport(){
-        this.setState({ showError: !this.state.showError });
+        this.setState({ 
+            showError: !this.state.showError,
+            showWarning: false
+        });
     }
 
     isFileReady() {
@@ -87,7 +95,8 @@ export default class ValidateDataFileComponent extends React.Component {
         }
         
         this.setState({
-            hasErrors: hasErrors
+            hasErrors: hasErrors,
+            hasWarnings: true
         });
     
     }
@@ -130,22 +139,9 @@ export default class ValidateDataFileComponent extends React.Component {
 
     render() {
         let correctButtonOverlay = '';
-        let warningDirection = <Icons.AngleDown />;
-        let showError = '';
-        let errorDirection = <Icons.AngleDown />;
-        let footerStatus = '';
 
-        if (this.state.showError) {
-            errorDirection = <Icons.AngleUp />;
-            footerStatus = 'active';
-        }
-
-        let warningCount = '--';
-        let noWarnings = ' none';
-        let noErrors = ' none';
         let optionalUpload = false;
         let uploadText = 'Choose Corrected File';
-        let showWarning = ' hide';
         let validationElement = '';
 
         // override this data if a new file is dropped in
@@ -162,13 +158,11 @@ export default class ValidateDataFileComponent extends React.Component {
         }
 
         if (!this.state.hasErrors) {
-            showError = ' hide';
             optionalUpload = true;
             uploadText = 'Overwrite File';
             correctButtonOverlay = <CorrectButtonOverlay isReplacingFile={this.isReplacingFile()} fileKey={this.props.type.requestName} onDrop={this.props.onFileChange} fileName={fileName}/>
             validationElement = <p>File successfully validated</p>;
         } else {
-            noErrors = '';
             validationElement = <div className="row usa-da-validate-item-file-section-correct-button" data-testid="validate-upload">
                 <ValidateDataUploadButton optional={optionalUpload} onDrop={this.props.onFileChange} text={uploadText} />
             </div>;
@@ -191,33 +185,8 @@ export default class ValidateDataFileComponent extends React.Component {
                                 </div>
                             </div>
                             <div className="row">
-                                <div className="col-md-6 usa-da-validate-item-warning">
-                                    <div className="row usa-da-validate-item-body">
-                                        <div className='usa-da-validate-txt-wrap'>
-                                            <span className="usa-da-validate-item-message-label">Warnings:</span>
-                                            <span className={"usa-da-validate-item-message-count" + noWarnings}>&nbsp;{warningCount}</span>
-                                        </div>
-                                    </div>
-                                    <div className="row usa-da-validate-item-footer-wrapper">
-                                        <div className={"usa-da-validate-item-footer usa-da-header-error" + showWarning +" "+footerStatus} onClick={this.toggleWarningReport.bind(this)}>
-                                            <div>View &amp; Download Warnings Report <span className={"usa-da-icon"}>{warningDirection}</span></div>
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <div className="col-md-6 usa-da-validate-item-critical">
-                                    <div className="row usa-da-validate-item-body">
-                                        <div className='usa-da-validate-txt-wrap'>
-                                            <span className="usa-da-validate-item-message-label">Critical Errors:</span>
-                                            <span className={"usa-da-validate-item-message-count" + noErrors}>&nbsp;{this.props.item.error_count}</span>
-                                        </div>
-                                    </div>
-                                    <div className="row usa-da-validate-item-footer-wrapper">
-                                        <div className={"usa-da-validate-item-footer usa-da-header-error" + showError +" "+footerStatus} onClick={this.toggleErrorReport.bind(this)}>
-                                            <div>View &amp; Download Critical Errors Report <span className={"usa-da-icon"}>{errorDirection}</span></div>
-                                        </div>
-                                    </div>
-                                </div>
+                                <FileDetailBox styleClass="usa-da-validate-item-warning" label="Warnings" count={0} expandedReport={this.state.showWarning} onClick={this.toggleWarningReport.bind(this)} />
+                                <FileDetailBox styleClass="usa-da-validate-item-critical" label="Critical Errors" count={this.props.item.error_count} expandedReport={this.state.showError} onClick={this.toggleErrorReport.bind(this)} />
                             </div>
                         </div>
 
@@ -233,8 +202,8 @@ export default class ValidateDataFileComponent extends React.Component {
                             {validationElement}
                         </div>
                     </div>
-                    {this.state.showWarning ? <ValidateValuesErrorReport link={this.props.item.report} data={this.props.item} name="Warning" /> : null}
-                    {this.state.showError ? <ValidateValuesErrorReport link={this.props.item.report} data={this.props.item} name="Critical Error" /> : null}
+                    {this.state.showWarning ? <ValidateValuesErrorReport link={this.props.item.report} data={this.props.item} name="Warning" color="#fdb81e" /> : null}
+                    {this.state.showError ? <ValidateValuesErrorReport link={this.props.item.report} data={this.props.item} name="Critical Error" color="#5d87bb" /> : null}
                 </div>
             </div>
         );

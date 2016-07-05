@@ -44,33 +44,41 @@ class ValidateValuesTreemap extends React.Component {
 		this.props.data.forEach((item) => {
 
 			let detail = null;
+
+			let title = item.field_name;
 			if (item.error_name == 'rule_failed') {
 				detail = item.rule_failed;
+				title = 'Rule ' + item.original_label;
+				if (item.original_label == '') {
+					title = 'Unknown Rule';
+				}
 			}
 
 
 			// calculate the max and min occurrences, this will be used by the treemap to determine the color/shade
-			if (!maxCount || maxCount < item.occurrences) {
-				maxCount = item.occurrences;
+			const occurrences = parseInt(item.occurrences);
+			if (!maxCount || maxCount < occurrences) {
+				maxCount = occurrences;
 			}
-			if (!minCount || minCount > item.occurrences) {
-				minCount = item.occurrences;
+			if (!minCount || minCount > occurrences) {
+				minCount = occurrences;
 			}
 
+			let ruleLabel = item.original_label;
 
 			data.push({
-				rule: item.field_name,
+				title: title,
 				value: item.occurrences,
 				field: item.field_name,
 				description: item.error_description,
 				detail: detail
 			});
 		});
-
+		
 		// sort by descending value
 		this.setState({
 			formattedData: {
-				data: _.orderBy(data, ['value', 'rule'], 'desc'),
+				data: _.orderBy(data, ['value', 'title'], 'desc'),
 				min: minCount,
 				max: maxCount
 			}
@@ -93,7 +101,7 @@ class ValidateValuesTreemap extends React.Component {
 		return (
 			<div className="row">
 				<div className="col-md-9">
-					<Treemap formattedData={this.state.formattedData} width={this.props.containerWidth * 0.75} clickedItem={this.clickedItem.bind(this)} />
+					<Treemap formattedData={this.state.formattedData} width={this.props.containerWidth * 0.75} clickedItem={this.clickedItem.bind(this)} color={this.props.color} />
 				</div>
 				<div className="col-md-3">
 					{help}
