@@ -354,7 +354,6 @@ pre {
 }
 
 .usa-da-formatted-table {
-    
     .usa-da-table-header {
         table {
             margin-bottom: 0px;
@@ -376,9 +375,6 @@ pre {
        				border-right: 1px solid #ddd;
        				&:last-child{
        					border-right:none;
-       					& .usa-da-table-sorter{
-       						width: 50px;
-       					}
        				}
        			}
     		}
@@ -416,13 +412,13 @@ a.list-group-item {
 
 .usa-da-table-sorter {
     position: absolute;
-    top: 0;
+    top: 2px;
     right: 15px;
     height: 100%;
-    width: 33px;
-    display: flex;
-    flex-direction: row;
-    align-items: center;
+    width: 40px;
+    @include display(flex);
+    @include flex-direction(row);
+    @include align-items(center);
 
     & .usa-da-icon {
     	height: 2.4rem;

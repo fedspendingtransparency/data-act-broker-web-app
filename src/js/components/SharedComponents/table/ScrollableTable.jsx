@@ -20,7 +20,7 @@ const defaultProps = {
     data: [['Error']],
     headers: ['Table Data Missing'],
     sortable: false,
-    cellClasses: [],
+    cellClasses:[],
     headerClasses:[]
 };
 
@@ -28,7 +28,7 @@ export default class ScrollableTable extends React.Component {
 	render() {
 		const tableRows = [];
         for (let i = 0; i < this.props.data.length; i++) {
-            tableRows.push(<TableRow key={i} data={this.props.data[i]} cellClasses={this.props.cellClasses[i]} />);
+            tableRows.push(<TableRow key={i} data={this.props.data[i]} cellClasses={this.props.cellClasses} />);
         }
 		return (
 			<div className="usa-da-scrollable-table">

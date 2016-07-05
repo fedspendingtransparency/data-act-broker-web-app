@@ -33,6 +33,7 @@ export default class ValidateValuesOverlay extends React.Component {
 	render() {
 
 		let icon = <Icons.ExclamationCircle />;
+		let iconClass = 'usa-da-errorRed';
 
 		let uploadButtonClass = '-disabled';
 		let uploadButtonDisabled = true;
@@ -49,6 +50,7 @@ export default class ValidateValuesOverlay extends React.Component {
 
 		if (this.props.errors.length == 0) {
 			icon = <Icons.CheckCircle />;
+			iconClass = 'usa-da-successGreen';
 			message = 'No Critical Errors were found in the .CSV files. Click Next to review and publish these files.';
 			uploadButtonDisabled = true;
 			uploadButtonClass = '-disabled';
@@ -83,7 +85,7 @@ export default class ValidateValuesOverlay extends React.Component {
 						<div className="col-md-8 usa-da-overlay-content-wrap">
 							<div className="row">
 								<div className="col-xs-2 col-md-1 usa-da-icon">
-									{icon}
+									<div className={iconClass}>{icon}</div>
 								</div>
 								<div className="col-xs-10 col-md-11">
 									<h6>{message}</h6>

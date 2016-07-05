@@ -23,7 +23,9 @@ export default class ValidateValuesErrorReport extends React.Component {
 
         this.state = {
             sortDirection: 'asc',
-            sortField: 0
+            sortField: 0,
+            headerClasses: ['headerColA','headerColB', 'headerColC'],
+            cellClasses: ['cellColA', 'cellColB', 'cellColC']
         };
     }
 
@@ -49,7 +51,7 @@ export default class ValidateValuesErrorReport extends React.Component {
         // sort the data
         const sortedRows = this.sortData(rows);
         
-        table = <ScrollableTable headers={headers} data={sortedRows} sortable={true} onSort={this.sortTable.bind(this)} />
+        table = <ScrollableTable headers={headers} data={sortedRows} sortable={true} onSort={this.sortTable.bind(this)} cellClasses={this.state.cellClasses} headerClasses={this.state.headerClasses} />
 
 
 
