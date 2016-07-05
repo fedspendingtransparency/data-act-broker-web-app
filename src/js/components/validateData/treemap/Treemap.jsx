@@ -13,6 +13,7 @@ import TreemapCell from './TreemapCell.jsx';
 const defaultProps = {
 	width: 0,
 	height: 300,
+	activeCell: -1,
 	formattedData: {
 		data: [],
 		max: 0,
@@ -38,11 +39,33 @@ export default class Treemap extends React.Component {
 	}
 
 	componentDidUpdate(prevProps, prevState) {
-		if (!_.isEqual(prevProps.formattedData.data, this.props.formattedData.data)) {
+		// only re-render when props we care about change
+		if (!_.isEqualWith(prevProps, this.props, this.compareProps)) {
 			this.setState({
 				chart: this.drawChart()
 			});
 		}
+	}
+
+	compareProps(prevProps, newProps) {
+		// custom object comparison to only look at those keys we care about
+		if (!_.isEqual(prevProps.formattedData, newProps.formattedData)) {
+			// data changed, always re-render
+			return false;
+		}
+
+		if (prevProps.activeCell != newProps.activeCell) {
+			// active cell changed, re-render
+			return false;
+		}
+
+		if (prevProps.width != newProps.width) {
+			// re-render because window width changed (to keep it responsive)
+			return false;
+		}
+
+		// don't care about the other props
+		return true;
 	}
 
 	drawChart() {
@@ -50,7 +73,8 @@ export default class Treemap extends React.Component {
 			.children((d) => d)
 			.size([this.props.width, this.props.height])
 			.sort((a, b) => {
-				return a.value - b.value;
+				// order by the parent component's pre-sorted array indices
+				return b.index - a.index;
 			})
 			.sticky(true);
 
@@ -67,8 +91,15 @@ export default class Treemap extends React.Component {
 				tint = (40 / (this.props.formattedData.max - this.props.formattedData.min)) * (this.props.formattedData.max - node.value);
 			}
 
+			// determine if the cell is currently selected
+			let active = false;
+			if (node.index == this.props.activeCell) {
+				active = true;
+			}
+
 			const color = tinycolor(baseColor).lighten(tint).toString();
-			return <TreemapCell key={index} width={node.dx} height={node.dy} x={node.x} y={node.y} color={color} title={node.title} count={node.value} field={node.field} detail={node.detail} description={node.description} clickedItem={this.props.clickedItem} />;
+
+			return <TreemapCell key={index} width={node.dx} height={node.dy} x={node.x} y={node.y} color={color} cellId={node.index} active={active} title={node.title} count={node.value} field={node.field} detail={node.detail} description={node.description} clickedItem={this.props.clickedItem} />;
 		});
 
 	}
