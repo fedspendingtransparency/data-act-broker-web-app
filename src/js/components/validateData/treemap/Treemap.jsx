@@ -68,7 +68,7 @@ export default class Treemap extends React.Component {
 			}
 
 			const color = tinycolor(baseColor).lighten(tint).toString();
-			return <TreemapCell key={index} width={node.dx} height={node.dy} x={node.x} y={node.y} color={color} rule={node.rule} count={node.value} field={node.field} detail={node.detail} description={node.description} clickedItem={this.props.clickedItem} />;
+			return <TreemapCell key={index} width={node.dx} height={node.dy} x={node.x} y={node.y} color={color} title={node.title} count={node.value} field={node.field} detail={node.detail} description={node.description} clickedItem={this.props.clickedItem} />;
 		});
 
 	}
