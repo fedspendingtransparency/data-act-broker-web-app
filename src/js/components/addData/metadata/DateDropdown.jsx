@@ -61,7 +61,7 @@ export default class DateDropdown extends React.Component {
     		months.forEach((month) => {
     			dates.push({
     				string: month.string + ' ' + year,
-    				value: month.value + '/' + year
+    				value: month.value + '/' + year + '-' + month.value + '/' + year
     			});
     		});
     	});
@@ -80,7 +80,7 @@ export default class DateDropdown extends React.Component {
             for (let i = 1; i <= 4; i++) {
                 quarters.push({
                     string: 'Quarter ' + i + ' - ' + year,
-                    value: UtilHelper.quarterToMonth(i, year, this.props.startEndType)
+                    value: UtilHelper.quarterToMonth(i, year, 'start') + '-' + UtilHelper.quarterToMonth(i, year, 'end')
                 });
             }
         });

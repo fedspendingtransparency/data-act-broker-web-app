@@ -12,6 +12,52 @@ import * as uploadActions from '../redux/actions/uploadActions.js';
 import { fileTypes } from '../containers/addData/fileTypes.js';
 import * as AdminHelper from './adminHelper.js';
 
+const availablePairs = ['appropriations-program_activity', 'award_financial-award'];
+const globalFileKeys = ['appropriations', 'program_activity', 'award_financial', 'award'];
+export const globalFileData = {
+	appropriations: {
+		name: 'Appropriations Account',
+		letter: 'A'
+	},
+	program_activity: {
+		name: 'Program Activity and Object Class Data',
+		letter: 'B'
+	},
+	award_financial: {
+		name: 'Award Financial',
+		letter: 'C'
+	},
+	award: {
+		name: 'Financial Assistance Award',
+		letter: 'D2'
+	}
+};
+
+const determineExpectedPairs = () => {
+	const output = [];
+
+	availablePairs.forEach((keyName) => {
+		
+		const firstKey = keyName.split('-')[0];
+		const secondKey = keyName.split('-')[1];
+		
+		const item = {
+			key: keyName,
+			firstType: globalFileData[firstKey].letter,
+			firstName: globalFileData[firstKey].name,
+			firstKey: firstKey,
+			secondType: globalFileData[secondKey].letter,
+			secondName: globalFileData[secondKey].name,
+			secondKey: secondKey
+		};
+
+		output.push(item);
+		
+	});
+
+	return output;
+}
+
 export const fetchStatus = (submissionId) => {
 	const deferred = Q.defer();
 
@@ -29,13 +75,18 @@ export const fetchStatus = (submissionId) => {
 	        		// return only jobs related to CSV validation
 	        		const response = Object.assign({}, res.body);
 	        		const csvJobs = [];
+	        		let crossFileJob;
 	        		response.jobs.forEach((job) => {
 	        			if (job.job_type == 'csv_record_validation') {
 	        				csvJobs.push(job);
 	        			}
+	        			else if (job.job_type == 'validation') {
+	        				crossFileJob = job;
+	        			}
 	        		});
 
 	        		response.jobs = csvJobs;
+	        		response.crossFile = crossFileJob;
 
 	        		deferred.resolve(response);
 	        	}
@@ -65,7 +116,7 @@ export const fetchErrorReports = (submissionId) => {
 }
 
 const getFileStates = (status) => {
-	let output = {};
+	const output = {};
 
 	status.jobs.forEach((item) => {
 		output[item.file_type] = item;
@@ -91,6 +142,43 @@ const getFileStates = (status) => {
 }
 
 
+
+const getCrossFileData = (data, validKeys) => {
+	const output = {};
+
+	// generate the file pair keys
+	let i = 1;
+
+	for (let item in data.crossFile.error_data) {
+		// generate possible key names for this pair of target/source files
+		const keyNames = [item.target_file + '-' + item.source_file, item.source_file + '-' + item.target_file];
+		// determine which is the correct name
+		let key = keyNames[0];
+		if (_.indexOf(validKeys, key) == -1) {
+			key = keyNames[1];
+		}
+
+		// check if the key is a valid cross-file pairing we care about
+		if (_.indexOf(validKeys, key) == -1) {
+			// not a valid pair
+			continue;
+		}
+
+		// check if we've already seen an error for this pairing
+		if (output.hasOwnProperty(key)) {
+			// this pair already exists, so append the error to the pair's array
+			output[key].push(item);
+		}
+		else {
+			// doesn't exist yet, so create an array with this error
+			output[key] = [item];
+		}
+	}
+
+	return output;
+}
+
+
 const getFileReports = (status, reports) => {
 
 	for (let key in status) {
@@ -105,6 +193,17 @@ const getFileReports = (status, reports) => {
 	return status;
 }
 
+const getCrossFileReports = (crossFile, reports) => {
+
+	const crossFileReports = {};
+
+	for (let key in crossFile) {
+		crossFileReports[key] = reports['cross_' + key];
+	}
+	
+	return crossFileReports;
+}
+
 export const validateSubmission  = (submissionId) => {
 
 	const deferred = Q.defer();
@@ -112,17 +211,38 @@ export const validateSubmission  = (submissionId) => {
 	// set the submission ID
 	const store = new StoreSingleton().store;
 	store.dispatch(uploadActions.setSubmissionId(submissionId));
+	// determine the expected cross file validation keys and metadata
+	let possiblePairs = determineExpectedPairs();
+	store.dispatch(uploadActions.setExpectedCrossPairs(possiblePairs));
+
+	const validKeys = [];
+	possiblePairs.forEach((pair) => {
+		validKeys.push(pair.key);
+	});
 
 	let status;
+	let crossFile;
+	let crossFileState;
+	let crossFileReports;
 
 	fetchStatus(submissionId)
 		.then((statusRes) => {
 			status = getFileStates(statusRes);
+			crossFile = getCrossFileData(statusRes, validKeys);
+			crossFileState = statusRes.crossFile.job_status;
 			return fetchErrorReports(submissionId);
 		})
 		.then((reports) => {
 			getFileReports(status, reports);
-			deferred.resolve(status);
+			crossFileReports = getCrossFileReports(crossFile, reports);
+			deferred.resolve({
+				file: status,
+				crossFile: {
+					state: crossFileState,
+					reports: crossFileReports,
+					data: crossFile
+				}
+			});
 		})
 		.catch((err) => {
 			deferred.reject(err);

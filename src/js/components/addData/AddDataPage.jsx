@@ -17,18 +17,6 @@ export default class AddDataPage extends React.Component {
         super(props);
     }
 
-    componentDidUpdate(prevProps, prevState) {
-        if (prevProps.submission.meta.agency != this.props.submission.meta.agency && this.props.submission.meta.agency != '') {
-            this.scrollToUpload();
-        }
-    }
-
-    scrollToUpload() {
-        $('html, body').animate({
-            scrollTop: $('[name=content-top]').offset().top
-        }, 500);
-    }
-
     render() {
         let bodyComponent = null;
 
