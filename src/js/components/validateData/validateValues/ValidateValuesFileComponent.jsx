@@ -185,7 +185,7 @@ export default class ValidateDataFileComponent extends React.Component {
                                 </div>
                             </div>
                             <div className="row">
-                                <FileDetailBox styleClass="usa-da-validate-item-warning" label="Warnings" count={1} expandedReport={this.state.showWarning} onClick={this.toggleWarningReport.bind(this)} />
+                                <FileDetailBox styleClass="usa-da-validate-item-warning" label="Warnings" count={0} expandedReport={this.state.showWarning} onClick={this.toggleWarningReport.bind(this)} />
                                 <FileDetailBox styleClass="usa-da-validate-item-critical" label="Critical Errors" count={this.props.item.error_count} expandedReport={this.state.showError} onClick={this.toggleErrorReport.bind(this)} />
                             </div>
                         </div>
