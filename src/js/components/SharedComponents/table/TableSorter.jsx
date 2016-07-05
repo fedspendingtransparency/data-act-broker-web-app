@@ -7,7 +7,12 @@ import React from 'react';
 import * as Icons from '../icons/Icons.jsx';
 
 const propTypes = {
-    onSort: React.PropTypes.func.isRequired
+    onSort: React.PropTypes.func.isRequired,
+    active: React.PropTypes.string
+};
+
+const defaultProps = {
+	active: ''
 };
 
 export default class TableSorter extends React.Component {
@@ -20,13 +25,23 @@ export default class TableSorter extends React.Component {
 	}
 
 	render() {
+		let upClass = '';
+		let downClass = '';
+		if (this.props.active == 'asc') {
+			upClass = ' active';
+		}
+		else if (this.props.active == 'desc') {
+			downClass = ' active';
+		}
+
 		return (
 			<div className="usa-da-table-sorter">
-				<div className="usa-da-icon sort-icon usa-da-icon-angle-up" onClick={this.sortAsc.bind(this)}><Icons.AngleUp /></div>
-				<div className="usa-da-icon sort-icon usa-da-icon-angle-down" onClick={this.sortDesc.bind(this)}><Icons.AngleDown /></div>
+				<div className={"usa-da-icon sort-icon usa-da-icon-angle-up" + upClass} onClick={this.sortAsc.bind(this)}><Icons.AngleUp /></div>
+				<div className={"usa-da-icon sort-icon usa-da-icon-angle-down" + downClass} onClick={this.sortDesc.bind(this)}><Icons.AngleDown /></div>
 			</div>
 		);
 	}
 }
 
 TableSorter.propTypes = propTypes;
+TableSorter.defaultProps = defaultProps;
