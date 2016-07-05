@@ -149,13 +149,19 @@ const getCrossFileData = (data, validKeys) => {
 	// generate the file pair keys
 	let i = 1;
 
-	data.crossFile.error_data.forEach((item) => {
+	for (let item in data.crossFile.error_data) {
 		// generate possible key names for this pair of target/source files
 		const keyNames = [item.target_file + '-' + item.source_file, item.source_file + '-' + item.target_file];
 		// determine which is the correct name
 		let key = keyNames[0];
 		if (_.indexOf(validKeys, key) == -1) {
 			key = keyNames[1];
+		}
+
+		// check if the key is a valid cross-file pairing we care about
+		if (_.indexOf(validKeys, key) == -1) {
+			// not a valid pair
+			continue;
 		}
 
 		// check if we've already seen an error for this pairing
@@ -167,7 +173,7 @@ const getCrossFileData = (data, validKeys) => {
 			// doesn't exist yet, so create an array with this error
 			output[key] = [item];
 		}
-	});
+	}
 
 	return output;
 }
