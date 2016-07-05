@@ -17,7 +17,7 @@ class ValidateValuesTreemap extends React.Component {
 
 		this.state = {
 			selected: null,
-			activeCell: '',
+			activeCell: -1,
 			formattedData: {
 				data: [],
 				max: 0,
@@ -69,7 +69,7 @@ class ValidateValuesTreemap extends React.Component {
 
 			data.push({
 				title: title,
-				value: item.occurrences,
+				value: occurrences,
 				field: item.field_name,
 				description: item.error_description,
 				detail: detail
@@ -77,9 +77,17 @@ class ValidateValuesTreemap extends React.Component {
 		});
 		
 		// sort by descending value
+		// perform the sorting here and then let the D3 treemap deal with sorting by index key to prevent random reshuffles
+		const sortedData = _.orderBy(data, ['value', 'title'], 'desc');
+		let i = 0;
+		sortedData.forEach((item) => {
+			item.index = i;
+			i++;
+		});
+		
 		this.setState({
 			formattedData: {
-				data: _.orderBy(data, ['value', 'title'], 'desc'),
+				data: sortedData,
 				min: minCount,
 				max: maxCount
 			}
