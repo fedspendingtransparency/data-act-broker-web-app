@@ -8,25 +8,57 @@ import FileComponent from './components/FileComponent.jsx';
 import ComparisonComponent from './components/ComparisonComponent.jsx';
 import LoadingComponent from './components/LoadingComponent.jsx';
 import ErrorBox from './components/ErrorBox.jsx';
+import ReplacementBox from './components/ReplacementBox.jsx';
 
 const defaultProps = {
 	type: 'loading',
-	leftFile: null,
-	leftFileName: '',
-	rightFile: null,
-	rightFileName: ''
+	firstFile: null,
+	secondFile: null,
+	meta: {
+		firstKey: '',
+		firstName: '',
+		firstType: '',
+		secondKey: '',
+		secondName: '',
+		secondType: ''
+	}
 };
 
 export default class CrossFileItem extends React.Component {
-	render() {
+	constructor(props) {
+		super(props);
 
-		let error = null;
-		let middle = <ComparisonComponent type={this.props.type} />;
-		if (this.props.type == 'error') {
-			error = <ErrorBox {...this.props} />;
+		this.state = {
+			uploadBox: false
+		};
+	}
+
+	componentDidUpdate(prevProps, prevState) {
+		// force the upload box to close if a new upload occurs
+		if (this.props.status != prevProps.status) {
+			this.setState({
+				uploadBox: false
+			});
+		}
+	}
+
+	toggleUploadBox() {
+		this.setState({
+			uploadBox: !this.state.uploadBox
+		});
+	}
+
+	render() {
+		let detailBox = null;
+		let middle = <ComparisonComponent type={this.props.status} />;
+		if (this.props.status == 'error') {
+			detailBox = <ErrorBox {...this.props} />;
+		}
+		else if (this.state.uploadBox) {
+			detailBox = <ReplacementBox {...this.props} />;
 		}
 
-		if (this.props.type == 'loading') {
+		if (this.props.status == 'loading') {
 			middle = <LoadingComponent />;
 		}
 
@@ -35,18 +67,18 @@ export default class CrossFileItem extends React.Component {
 				<div className="row">
 					<div className="usa-da-cross-file-item">
 						<div className="file-left">
-							<FileComponent type="A" name="Appropriations Account" fileKey="appropriations" {...this.props} />
+							<FileComponent fileType={this.props.meta.firstType} name={this.props.meta.firstName} fileKey={this.props.meta.firstKey} toggleUploadBox={this.toggleUploadBox.bind(this)} expanded={this.state.uploadBox} {...this.props} />
 						</div>
 						<div className="file-compare">
 							{middle}
 						</div>
 						<div className="file-right">
-							<FileComponent type="B" name="Program Activity and Object Class" fileKey="program_activity" {...this.props} />
+							<FileComponent fileType={this.props.meta.secondType} name={this.props.meta.secondName} fileKey={this.props.meta.secondKey} toggleUploadBox={this.toggleUploadBox.bind(this)} expanded={this.state.uploadBox} {...this.props} />
 						</div>
 					</div>
 				</div>
 				<div className="row">
-					{error}
+					{detailBox}
 				</div>
 			</div>
 		)
