@@ -17,6 +17,7 @@ class ValidateValuesTreemap extends React.Component {
 
 		this.state = {
 			selected: null,
+			activeCell: '',
 			formattedData: {
 				data: [],
 				max: 0,
@@ -87,7 +88,8 @@ class ValidateValuesTreemap extends React.Component {
 
 	clickedItem(item) {
 		this.setState({
-			selected: item
+			selected: item,
+			activeCell: item.cellId
 		});
 	}
 
@@ -101,7 +103,7 @@ class ValidateValuesTreemap extends React.Component {
 		return (
 			<div className="row">
 				<div className="col-md-9">
-					<Treemap formattedData={this.state.formattedData} width={this.props.containerWidth * 0.75} clickedItem={this.clickedItem.bind(this)} color={this.props.color} />
+					<Treemap formattedData={this.state.formattedData} width={this.props.containerWidth * 0.75} clickedItem={this.clickedItem.bind(this)} color={this.props.color} activeCell={this.state.activeCell} />
 				</div>
 				<div className="col-md-3">
 					{help}

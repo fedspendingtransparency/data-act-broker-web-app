@@ -47,7 +47,7 @@ export default class TreemapCell extends React.Component {
 			backgroundColor: this.props.color
 		};
 
-		if (this.state.hover) {
+		if (this.state.hover || this.props.active) {
 			style.backgroundColor = tinycolor(this.props.color).lighten().desaturate().toString();
 		}
 

@@ -13,6 +13,7 @@ import TreemapCell from './TreemapCell.jsx';
 const defaultProps = {
 	width: 0,
 	height: 300,
+	activeCell: '',
 	formattedData: {
 		data: [],
 		max: 0,
@@ -38,7 +39,7 @@ export default class Treemap extends React.Component {
 	}
 
 	componentDidUpdate(prevProps, prevState) {
-		if (!_.isEqual(prevProps.formattedData.data, this.props.formattedData.data)) {
+		if (!_.isEqual(prevProps.formattedData.data, this.props.formattedData.data) || prevProps.activeCell != this.props.activeCell) {
 			this.setState({
 				chart: this.drawChart()
 			});
@@ -50,6 +51,7 @@ export default class Treemap extends React.Component {
 			.children((d) => d)
 			.size([this.props.width, this.props.height])
 			.sort((a, b) => {
+				console.log(a);
 				return a.value - b.value;
 			})
 			.sticky(true);
@@ -67,8 +69,15 @@ export default class Treemap extends React.Component {
 				tint = (40 / (this.props.formattedData.max - this.props.formattedData.min)) * (this.props.formattedData.max - node.value);
 			}
 
+			// determine if the cell is currently selected
+			let active = false;
+			if (this.props.activeCell == index) {
+				active = true;
+			}
+
 			const color = tinycolor(baseColor).lighten(tint).toString();
-			return <TreemapCell key={index} width={node.dx} height={node.dy} x={node.x} y={node.y} color={color} title={node.title} count={node.value} field={node.field} detail={node.detail} description={node.description} clickedItem={this.props.clickedItem} />;
+			
+			return <TreemapCell key={index} width={node.dx} height={node.dy} x={node.x} y={node.y} color={color} cellId={index} active={active} title={node.title} count={node.value} field={node.field} detail={node.detail} description={node.description} clickedItem={this.props.clickedItem} />;
 		});
 
 	}
