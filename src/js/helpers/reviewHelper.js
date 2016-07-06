@@ -149,7 +149,10 @@ const getCrossFileData = (data, validKeys) => {
 	// generate the file pair keys
 	let i = 1;
 
-	for (let item in data.crossFile.error_data) {
+	for (let index in data.crossFile.error_data) {
+		// fetch the error object
+		const item = data.crossFile.error_data[index];
+
 		// generate possible key names for this pair of target/source files
 		const keyNames = [item.target_file + '-' + item.source_file, item.source_file + '-' + item.target_file];
 		// determine which is the correct name
