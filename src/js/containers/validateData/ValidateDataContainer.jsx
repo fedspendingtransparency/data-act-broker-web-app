@@ -34,16 +34,20 @@ class ValidateDataContainer extends React.Component {
 			initialLoad: moment(),
 			notYours: false
 		};
+
+		this.isCancelled = false;
 	}
 
 
 	componentDidMount() {
+		this.isCancelled = false;
 		this.validateSubmission();
 		
 	}
 
 	componentWillUnmount() {
 		// remove any timers
+		this.isCancelled = true;
 		if (statusTimer) {
 			clearTimeout(statusTimer);
 			statusTimer = null;
@@ -102,6 +106,12 @@ class ValidateDataContainer extends React.Component {
 
 		ReviewHelper.validateSubmission(this.props.submissionID)
 			.then((data) => {
+
+				if (this.isCancelled) {
+					// the component has been unmounted, so don't bother with updating the state (it doesn't exist anymore anyway)
+					return;
+				}
+
 				this.setState({
 					finishedLoad: true
 				});
