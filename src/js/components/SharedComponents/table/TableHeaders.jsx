@@ -9,7 +9,8 @@ import TableSorter from './TableSorter.jsx';
 
 const propTypes = {
     data: PropTypes.array.isRequired,
-    onSort: PropTypes.func
+    onSort: PropTypes.func,
+    currentSort: PropTypes.object
 };
 
 const defaultProps = {
@@ -28,7 +29,14 @@ export default class TableHeaders extends React.Component {
             let sorters = '';
             if (this.props.sortable && _.indexOf(this.props.unsortable, i) == -1) {
                 className += " sortable"
-                sorters = <TableSorter onSort={this.props.onSort} col={i} />;
+
+                // check if this column is currently the selected sort key
+                let activeSort = '';
+                if (this.props.currentSort.col == i) {
+                    activeSort = this.props.currentSort.direction;
+                }
+
+                sorters = <TableSorter onSort={this.props.onSort} col={i} active={activeSort} />;
             }
 
             tableHeaders.push(<th key={i} className={this.props.headerClasses[i]}>

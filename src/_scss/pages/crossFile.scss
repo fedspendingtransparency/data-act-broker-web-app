@@ -1,5 +1,8 @@
 .usa-da-cross-file {
-
+	 &.usa-da-gathering-data {
+        min-height: 650px;
+    }
+    
 	.usa-da-cross-file-group {
 		margin-bottom: 40px;
 	}
@@ -43,6 +46,9 @@
 				padding: 15px;
 				background-color: $color-gray;
 				color: $color-white;
+				display: flex;
+				align-self: stretch;
+				align-items: center;
 			}
 			.file-name {
 				flex: 1 1 auto;
@@ -77,6 +83,14 @@
 						}
 					}
 	            }
+			}
+
+			.corner-overlay {
+				border-width: 0 50px 50px 0;
+				svg {
+					right: 3px;
+					top: 5px;
+				}
 			}
 		}
 	}
@@ -230,6 +244,7 @@
 			.upload-buttons-wrap {
 				align-self: flex-end;
 				width: 100%;
+				margin-top: 20px;
 			}
 
 			.upload-title {
@@ -260,6 +275,16 @@
                         color: $color-white;
                     }
                 }
+                &.staged-upload {
+                	border: 1px solid $color-cool-blue-lighter;
+                	background-color: $color-cool-blue-lightest;
+                    color: $color-cool-blue;
+                    box-shadow: initial;
+                    &:hover {
+                        background-color: $color-cool-blue-lighter;
+                        color: $color-white;
+                    }
+                }
             }
 
             .upload-buttons {
@@ -272,6 +297,37 @@
             		}
             	}
             }
+
+		}
+
+		.overwrite-wrapper {
+			flex: 0 1 auto;
+			width: 100%;
+			padding-left: 0;
+
+			.upload-warning {
+				margin-top: 15px;
+			}
+			.button-list {
+				padding-top: 0px;
+
+				.upload-buttons {
+					display: flex;
+					flex-direction: row;
+
+					> div {
+						flex: 0 1 auto;
+						width: 50%;
+
+						padding-left: 10px;
+
+						&:first-child {
+							padding-left: 0px;
+							padding-right: 10px;
+						}
+					}
+				}
+			}
 		}
 	}
 
@@ -334,10 +390,62 @@
 			height: 20px;
 		}	
 	}
+
+	.file-warning {
+		display: flex;
+		flex-direction: row;
+		position: relative;
+
+		.icon-wrap {
+			flex: 0 1 auto;
+			width: 40px;
+			min-width: 40px;
+
+			.usa-da-icon {
+				height: 30px;
+			    width: 30px;
+			    
+			    & svg {
+			        fill: $color-primary;
+			    } 
+			}
+		}
+
+		.warning-description {
+			flex: 0 1 auto;
+			font-size: 1.4rem;
+			color: $color-gray;
+
+			ul {
+				margin-bottom: 0;
+				list-style-type: none;
+				li {
+					list-style-type: none;
+					margin-bottom: 1rem;
+
+					&:before {
+						content: '';
+						padding-right: 0px;
+					}
+				}
+			}
+		}
+
+	}
 }
 
 .usa-da-overlay-content-wrap {
 	.full-row {
 		width: 100%;
+		display: flex;
+		flex-direction: row;
+		align-items: center;
+
+		.overlay-help-text {
+            font-family: "Source Sans Pro", "Helvetica", "Arial", sans-serif;
+            a {
+                color: $color-white;
+            }
+        }
 	}
 }

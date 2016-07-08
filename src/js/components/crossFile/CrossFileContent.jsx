@@ -14,44 +14,65 @@ export default class CrossFileContent extends React.Component {
 		super(props);
 
 		this.allowableStates = ['crossFile', 'uploading', 'prepare', 'failed'];
+
+		this.state = {
+			crossFileItems: []
+		};
+	}
+
+	componentDidMount() {
+		this.crossFileItems();
+	}
+
+	componentDidUpdate(prevProps, prevState) {
+		if (!_.isEqual(prevProps.submission, this.props.submission)) {
+			this.crossFileItems();
+		}
 	}
 
 	crossFileItems() {
 		const items = [];
+		const crossFileKeys = this.props.submission.crossFileOrder;
+		let i = 0;
+		crossFileKeys.forEach((pairMeta) => {
 
-		for (let i = 0; i < 4; i++) {
-			let type = "success";
-			if (i % 2 == 0) {
-				type = "error";
+			let status = 'loading';
+			if (this.props.submission.crossFile.hasOwnProperty(pairMeta.key)) {
+				status = 'error';
+			}
+			else if (_.indexOf(this.allowableStates, this.props.submission.state) > -1) {
+				status = 'success';
 			}
 
-			if (_.indexOf(this.allowableStates, this.props.submission.state) == -1) {
-				type = 'loading';
-			}
+			items.push(<CrossFileItem key={i} status={status} meta={pairMeta} {...this.props} />);
+			i++;
+		});
 
-			items.push(<CrossFileItem key={i} type={type} leftFileName="appropriations" rightFileName="program_activity" {...this.props} />);
-		}
-
-		return items;
+		this.setState({
+			crossFileItems: items
+		});
 	}
 
 	render() {
 
-		const items = this.crossFileItems();
-
 		const isLoading = _.indexOf(this.allowableStates, this.props.submission.state) == -1;
+
+		let loadingClass = '';
+		if (isLoading) {
+			loadingClass = ' usa-dagathering-data';
+		}
 
 		return (
 			<div>
 				<div className="container center-block with-overlay">
-					<div className="usa-da-cross-file">
+					<div className={"usa-da-cross-file" + loadingClass}>
 						<div className="row usa-da-submission-instructions">
 							<div className="col-md-12">
 								<p>Cross-file validation will now be performed on some of your files. As before, if any errors are found they will be displayed below.</p>
 							</div>
 						</div>
 
-						{items}
+						{this.state.crossFileItems}
 
 					</div>
 				</div>

@@ -8,7 +8,8 @@ import d3 from 'd3';
 import tinycolor from 'tinycolor2';
 
 const defaultProps = {
-	rule: 'Unspecified'
+	title: 'Unspecified',
+	active: false
 };
 
 export default class TreemapCell extends React.Component {
@@ -44,16 +45,18 @@ export default class TreemapCell extends React.Component {
 			left: this.props.x,
 			height: this.props.height,
 			width: this.props.width,
-			backgroundColor: this.props.color
+			backgroundColor: this.props.color,
+			border: '1px solid #ffffff'
 		};
 
-		if (this.state.hover) {
+		if (this.state.hover || this.props.active) {
 			style.backgroundColor = tinycolor(this.props.color).lighten().desaturate().toString();
+			style.border = '1px solid #d6d7d9';
 		}
 
 		return (
 			<div className="usa-da-treemap-cell" style={style} onMouseOver={this.mouseOver.bind(this)} onMouseOut={this.mouseOut.bind(this)} onClick={this.clickEvent.bind(this)}>
-				<div className="treemap-rule">{this.props.rule}</div>
+				<div className="treemap-rule">{this.props.title}</div>
 			</div>
 		);
 	}
