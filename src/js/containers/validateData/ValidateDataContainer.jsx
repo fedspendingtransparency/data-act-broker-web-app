@@ -33,7 +33,6 @@ class ValidateDataContainer extends React.Component {
 			headerErrors: true,
 			validationFailed: false,
 			validationFinished: false,
-			initialLoad: moment(),
 			notYours: false
 		};
 
@@ -60,13 +59,22 @@ class ValidateDataContainer extends React.Component {
 		// check if the submission state changed, indicating a re-upload
 		if (prevProps.submission.state != this.props.submission.state) {
 			if (this.props.submission.state == "prepare") {
-				// uploads are done, reset the cancellation timer
-				this.setState({
-					initialLoad: moment()
-				}, () => {
-					this.validateSubmission();
-				});
+				this.validateSubmission();
 			}
+		}
+
+		// additionally, restart the process if the submission ID changes
+		if (prevProps.submissionID != this.props.submissionID) {
+			this.props.resetSubmission();
+			this.setState({
+				finishedPageLoad: false,
+				headerErrors: true,
+				validationFailed: false,
+				validationFinished: false,
+				notYours: false
+			}, () => {
+				this.validateSubmission();
+			});
 		}
 	}
 
@@ -129,19 +137,13 @@ class ValidateDataContainer extends React.Component {
 							this.validateSubmission();
 						}, 5*1000);
 					}
-					else {
-						this.setState({
-							initialLoad: moment()
-						});
-					}
 				});
 
 			})
 			.catch((err) => {
 				if (err.reason == 400) {
 					this.setState({
-						notYours: true,
-						initialLoad: moment()
+						notYours: true
 					});
 				}
 				else {
