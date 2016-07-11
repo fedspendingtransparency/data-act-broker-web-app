@@ -33,7 +33,8 @@ class ValidateDataContainer extends React.Component {
 			headerErrors: true,
 			validationFailed: false,
 			validationFinished: false,
-			notYours: false
+			notYours: false,
+			serverError: null
 		};
 
 		this.isCancelled = false;
@@ -71,7 +72,8 @@ class ValidateDataContainer extends React.Component {
 				headerErrors: true,
 				validationFailed: false,
 				validationFinished: false,
-				notYours: false
+				notYours: false,
+				serverError: null
 			}, () => {
 				this.validateSubmission();
 			});
@@ -146,6 +148,11 @@ class ValidateDataContainer extends React.Component {
 						notYours: true
 					});
 				}
+				else if (err.detail != '') {
+					this.setState({
+						serverError: err.detail
+					});
+				}
 				else {
 					statusTimer = setTimeout(() => {
 						this.validateSubmission();
@@ -170,8 +177,10 @@ class ValidateDataContainer extends React.Component {
 		}
 
 		if (this.state.notYours) {
-			validationContent = '';
-			cancel = <ValidateNotYours message="You cannot view or modify this submission because you are not the original submitter." />;
+			validationContent = <ValidateNotYours message="You cannot view or modify this submission because you are not the original submitter." />;
+		}
+		if(this.state.serverError) {
+			validationContent = <ValidateNotYours message="This is not a valid submission. Check your validation URL and try again." />;
 		}
 
 		return (
