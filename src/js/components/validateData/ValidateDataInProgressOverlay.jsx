@@ -19,8 +19,11 @@ export default class ValidateDataInProgressOverlay extends React.Component {
 	render() {
 
 		let title = 'Your files are being validated.';
+		let description = 'You can return to this page at any time to check the validation status by using this link:';
+
 		if (this.props.hasFailed) {
 			title = 'An error has occurred while validating your files.';
+			description = 'Contact an administrator for assistance. Provide this URL when describing the issue:';
 		}
 
 
@@ -32,7 +35,8 @@ export default class ValidateDataInProgressOverlay extends React.Component {
 							<div className="overlay-loading">
 								<h6>{title}</h6>
 								<div className="overlay-help-text">
-									You can return to this page at any time to check the validation status by using this link:<br />
+									{description}
+									<br />
 									<a href={window.location.href}>{window.location.href}</a>
 								</div>
 							</div>
