@@ -110,8 +110,8 @@
                 padding: 0;
                 display: none;
             }
-            &:first-child {
-                border-left: 1px solid #3b4452;
+            &:last-child {
+                border-right: 1px solid #3b4452;
             }
         }
     }

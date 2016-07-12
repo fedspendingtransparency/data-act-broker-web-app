@@ -28,7 +28,6 @@ div.usa-da-submission-instructions {
 div.usa-da-submission-items {
     margin-top: 60px;
     padding-bottom: 30px;
-
     .usa-da-submission-item {
         margin-top: 4.0rem;
         &:first-child {
@@ -117,7 +116,7 @@ div.usa-da-validate-items {
             color: $color-secondary;
             margin: -35px 0 0 0;
         }
-        & .validate-message-loading{
+        & .validate-message-loading {
             color: blue;
         }
         & .usa-da-validate-txt-wrap {
@@ -219,7 +218,7 @@ div.usa-da-validate-items {
             .usa-da-validate-upload-button {
                 box-shadow: inset 0 0 0 1px $color-secondary;
                 border-radius: 0;
-                font-size: 1.1rem;
+                font-size: 1.2rem;
                 font-weight: 600;
                 color: $color-secondary;
                 padding: 1rem 2rem;
@@ -253,8 +252,7 @@ div.usa-da-validate-items {
 }
 
 .usa-da-validate-item-message-label {
-    font-weight: 300;
-    font-family: 'Source Sans Pro';
+    font-weight: 400;
     color: $color-gray;
 }
 
@@ -293,16 +291,18 @@ div.usa-da-validate-items {
     th {
         text-align: left;
     }
-    th.headerColA, td.cellColA{
+    th.headerColA,
+    td.cellColA {
         width: 24%;
     }
-    th.headerColB, td.cellColB{
-        width:60%;
+    th.headerColB,
+    td.cellColB {
+        width: 60%;
     }
-    th.headerColC{
+    th.headerColC {
         width: 17.4%;
     }
-    td.cellColC{
+    td.cellColC {
         width: 16%;
     }
 }
@@ -312,6 +312,7 @@ div.usa-da-validate-items {
     bottom: 0;
     left: 0;
     background-color: as-alpha($color-gray-dark, 0.85);
+    border-top: 1px solid rgba(255, 255, 255, 0.4);
     z-index: 999;
     width: 100%;
     color: $color-white;
@@ -350,14 +351,14 @@ div.usa-da-validate-items {
         width: 5.5rem;
         height: 5.5rem;
     }
-    & svg.usa-da-icon-check-circle{
+    & svg.usa-da-icon-check-circle {
         fill: $color-green-light;
     }
-    & svg.usa-da-icon-exclamation-circle{
+    & svg.usa-da-icon-exclamation-circle {
         fill: $color-secondary;
     }
-
-    .usa-da-errorRed, .usa-da-successGreen {
+    .usa-da-errorRed,
+    .usa-da-successGreen {
         &:after {
             content: " ";
             background: white;
@@ -369,7 +370,6 @@ div.usa-da-validate-items {
             z-index: -2;
         }
     }
-
     & .usa-da-validation-overlay-review {
         margin-left: 5px;
     }
@@ -384,17 +384,14 @@ div.usa-da-validate-items {
             margin: 0;
         }
     }
-
     .overlay-loading {
         width: 100%;
         h6 {
             width: 100%;
             text-align: left;
         }
-
         .overlay-help-text {
             font-family: "Source Sans Pro", "Helvetica", "Arial", sans-serif;
-
             a {
                 color: $color-white;
             }
@@ -476,6 +473,7 @@ div.usa-da-dropzone {
         transition: opacity 500ms ease-in;
     }
 }
+
 .usa-da-validate-fade-enter {
     opacity: 0.01;
     &.usa-da-validate-fade-enter-active {
@@ -502,38 +500,33 @@ div.usa-da-dropzone {
     right: 0;
     top: 0;
     z-index: 500;
-
     &.full-width {
         width: 100%;
         height: 100%;
     }
-
     .usa-da-icon {
         cursor: pointer;
-
         * {
-            height: 20px;
+            height: 18px;
             position: absolute;
-            right: 7px;
-            top: 7px;
+            right: 6px;
+            top: 10px;
         }
     }
-
     .corner-overlay {
         width: 0;
         height: 0;
         border-style: solid;
         border-width: 0 60px 60px 0;
         border-color: transparent $color-gray-lightest transparent transparent;
-        & .usa-da-icon-trash-o{
+        & .usa-da-icon-trash-o {
             fill: $color-gray;
-            &:hover{
-                fill:$color-gray-dark;
+            &:hover {
+                fill: $color-gray-dark;
             }
         }
     }
-
-.full-overlay {
+    .full-overlay {
         background-color: $color-gray-lightest;
         height: 172px;
         width: 100%;

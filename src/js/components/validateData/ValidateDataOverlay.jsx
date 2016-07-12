@@ -39,7 +39,7 @@ export default class ValidateDataOverlay extends React.Component {
 					<div className="row">
 						<div className="col-md-9 usa-da-overlay-content-wrap">
 							<div className="row">
-								<div className="col-xs-2 col-sm-1 col-md-1 usa-da-icon">
+								<div className="col-xs-2 col-sm-1 col-md-1 usa-da-icon usa-da-errorRed">
 									<Icons.ExclamationCircle />
 								</div>
 								<div className="col-xs-10 col-sm-11 col-md-10">

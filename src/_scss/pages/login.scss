@@ -30,7 +30,7 @@
         color: $color-white;
         font-weight: $font-light;
         &:after {
-            @include alphaMark;
+            @include betaMark;
         }
     }
     .usa-da-button {

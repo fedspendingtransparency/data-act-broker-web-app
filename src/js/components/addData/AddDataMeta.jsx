@@ -157,7 +157,7 @@ export default class AddDataMeta extends React.Component {
         let agencyClass = '';
         if (this.state.agencyError) {
             agencyIcon = <Icons.Building />;
-            agencyClass = 'error';
+            agencyClass = 'error usa-da-form-icon';
         }
 
         let dateTypeField = null;
@@ -187,7 +187,7 @@ export default class AddDataMeta extends React.Component {
                     <div className="container center-block">
                         <div className="row text-center usa-da-add-data-meta">
                             <div className="col-md-offset-2 col-md-8 mt-60 mb-60">
-                                <h5>Please begin by telling us about the submission you'll be creating.</h5>
+                                <h5>Please begin by telling us about the submission you'll be creating</h5>
                                 <div className="meta-holder">
                                     <div className="row usa-da-add-data-meta-label">
                                         Which agency is this submission for?
@@ -196,7 +196,7 @@ export default class AddDataMeta extends React.Component {
                                     <div className="row">
                                         <div className="col-sm-12 col-md-12 typeahead-holder" data-testid="agencytypeahead">
                                             <AgencyListContainer placeholder="Enter the name of the reporting agency" onSelect={this.handleChange.bind(this)} customClass={agencyClass} />
-                                                <div className={"usa-da-icon " + agencyClass}>
+                                                <div className={"usa-da-icon usa-da-form-icon" + agencyClass}>
                                                     {agencyIcon}
                                                 </div>
                                             </div>

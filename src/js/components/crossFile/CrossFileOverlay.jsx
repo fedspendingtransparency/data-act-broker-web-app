@@ -68,6 +68,7 @@ export default class CrossFileOverlay extends React.Component {
 	render() {
 
 		let icon = <Icons.ExclamationCircle />;
+		let iconClass = 'usa-da-errorRed';
 
 		let uploadButtonClass = '-disabled';
 		let uploadButtonDisabled = true;
@@ -88,6 +89,7 @@ export default class CrossFileOverlay extends React.Component {
 
 		if (Object.keys(this.props.submission.crossFile).length == 0) {
 			icon = <Icons.CheckCircle />;
+			iconClass = 'usa-da-successGreen';
 			message = 'Your files have been successfully cross-validated.';
 			uploadButtonDisabled = true;
 			uploadButtonClass = '-disabled';
@@ -110,7 +112,7 @@ export default class CrossFileOverlay extends React.Component {
 			nextButtonClass = '-disabled';
 			buttonText = 'Uploading files...';
 		}
-		else if (this.props.submission.state == 'prepare') {
+		else if (this.props.submission.state == 'prepare') { 
 			uploadButtonDisabled = true;
 			uploadButtonDisabled = '-disabled';
 			nextButtonDisabled = true;
@@ -124,6 +126,7 @@ export default class CrossFileOverlay extends React.Component {
 			nextButtonClass = ' hide';
 			nextButtonDisabled = true;
 			icon = null;
+			iconClass = null;
 			message = 'Your files are being validated.';
 			hideButtons = ' hide';
 			hideHelpText = '';
@@ -135,8 +138,8 @@ export default class CrossFileOverlay extends React.Component {
 					<div className="row">
 						<div className="col-md-8 usa-da-overlay-content-wrap">
 							<div className="row full-row">
-								<div className="col-sm-2 col-lg-1 usa-da-icon">
-									{icon}
+								<div className="col-xs-2 col-md-1 usa-da-icon">
+									<div className={iconClass}>{icon}</div>
 								</div>
 								<div className="col-sm-10 col-lg-11">
 									<h6>{message}</h6>
