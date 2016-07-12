@@ -29,7 +29,6 @@ export default class ValidateDataContent extends React.Component {
     render() {
         
         let allValid = true;
-        let allDone = true;
         let errors = [];
         let items = fileTypes.map((type, index) => {
             const validationStatus = this.props.submission.validation[type.requestName];
@@ -40,19 +39,15 @@ export default class ValidateDataContent extends React.Component {
                     errors.push(type.requestName);
                 }
 
-                if (validationStatus.job_status != 'finished' && validationStatus.job_status != 'invalid') {
-                    allDone = false;
-                }
-
                 return <ValidateDataFileContainer key={index} type={type} data={this.props.submission.validation} />;
             }
         });
 
         let overlay = '';
         let displayOverlay = '';
-        if (!allDone) {
+        if (!this.props.hasFinished || this.props.hasFailed) {
             // still loading or validating
-            overlay = <ValidateDataInProgressOverlay />;
+            overlay = <ValidateDataInProgressOverlay hasFailed={this.props.hasFailed} />;
         }
         else {
             overlay = <ValidateDataOverlayContainer errors={errors} />;
