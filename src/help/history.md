@@ -28,7 +28,7 @@ If one or more of your files fails validation, only those failed files will have
 After your data has been successfully validated, the *Review & Publish* page has a button to *Notify Another User that the Submission is Ready for Certification*. This opens a field where you can type in multiple email addresses for users in your agency. 
 
 #### Some Validations in SQL{section=validationSQL}
-Agency developers may be interested to know that we transitioned some of the Broker validations to using SQL statements. The list of SQL statements is publically available on [GitHub](https://github.com/fedspendingtransparency/data-act-broker-backend/blob/master/dataactvalidator/config/sqlRules.csv).
+Agency developers may be interested to know that we transitioned some of the Broker validations to using SQL statements. The list of SQL statements is publically available on [GitHub](https://github.com/fedspendingtransparency/data-act-broker-backend/tree/master/dataactvalidator/config/sqlrules).
 
 #### Updated Validations{section=updatedValidations}
 In this release we included rules A18, A19, A20, B9, B10, B11, B12, and C18. See cumulative table above.
