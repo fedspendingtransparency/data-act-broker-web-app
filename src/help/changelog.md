@@ -20,7 +20,7 @@ After each individual file is validated, the Broker performs some cross-file val
 be able to download an error report, and upload corrected files.
 
 #### More Validations in SQL{section=validationSQL2}
-Agency developers may be interested to know that we transitioned more of the Broker validations to using SQL statements. The list of SQL statements is publically available on [GitHub](https://github.com/fedspendingtransparency/data-act-broker-backend/blob/master/dataactvalidator/config/sqlRules.csv).
+Agency developers may be interested to know that we transitioned more of the Broker validations to using SQL statements. The list of SQL statements is publically available on [GitHub](https://github.com/fedspendingtransparency/data-act-broker-backend/tree/master/dataactvalidator/config/sqlrules).
 
 #### Updated Validations{section=updatedValidations}
 Below is a cumulative table of validations implemented to date. In this release we have transitioned all of these validations to SQL except A1, B9, and B10.
