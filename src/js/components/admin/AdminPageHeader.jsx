@@ -12,7 +12,7 @@ export default class AdminPageHeader extends React.Component {
                 <div className="container">
                     <div className="row">
                         <div className="col-md-12 mt-40 mb-20">
-                            <div className="display-2">
+                            <div className="display-2" data-contentstart="start" tabIndex={-1}>
                                 Administration
                             </div>
                         </div>
