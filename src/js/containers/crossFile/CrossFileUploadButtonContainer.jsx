@@ -14,7 +14,13 @@ import * as UploadHelper from '../../helpers/uploadHelper.js';
 import UploadButton from '../../components/validateData/ValidateDataUploadButton.jsx';
 
 const defaultProps = {
-	fullName: '',
+	file: {
+		letter: '',
+		name: '',
+		key: ''
+	},
+	fileKey: '',
+	pair: '',
 	type: ''
 };
 
@@ -26,6 +32,13 @@ class CrossFileUploadButtonContainer extends React.Component {
 			state: 'ready',
 			file: file
 		});
+
+		// update the cross file staging Redux object
+		const updatedStage = Object.assign({}, this.props.submission.crossFileStaging, {
+			[this.props.fileKey]: this.props.pair
+		});
+
+		this.props.setCrossFileStage(updatedStage);
 	}
 
 	isFileStaged() {
@@ -36,15 +49,22 @@ class CrossFileUploadButtonContainer extends React.Component {
 	}
 
 	render() {
-		let displayText = 'File ' + this.props.type + ': ' + this.props.fullName;
+		let displayText = 'File ' + this.props.file.letter + ': ' + this.props.file.name;
+		let additionalClasses = '';
 		let isOptional = false;
 		if (this.isFileStaged()) {
-			displayText = 'File ' + this.props.type + ': ' + this.props.submission.files[this.props.fileKey].file.name;
+			displayText = 'File ' + this.props.file.letter + ': ' + this.props.submission.files[this.props.fileKey].file.name;
+			// technically this is an optional upload, but we are going to pass a different CSS class in instead
+			isOptional = false;
+			additionalClasses = ' staged-upload';
+		}
+
+		else if (this.props.type == 'optional') {
 			isOptional = true;
 		}
 
 		return (
-			<UploadButton text={displayText} optional={isOptional} onDrop={this.onDrop.bind(this)} />
+			<UploadButton text={displayText} optional={isOptional} additionalClasses={additionalClasses} onDrop={this.onDrop.bind(this)} />
 		)
 	}
 }

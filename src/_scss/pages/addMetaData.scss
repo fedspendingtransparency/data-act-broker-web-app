@@ -99,12 +99,23 @@
             }
         }
 
+        .usa-da-range-icon {
+            .usa-da-icon {
+                svg {
+                    fill: $color-cool-blue;
+                }
+            }
+            p {
+                text-align: left;
+            }
+        }
+
         .usa-da-guide-link {
             font-size: 1.2rem;
             margin-top: 20px;
         }
     }
-    
+
     // metadata transitions
     .usa-da-meta-fade-enter {
         opacity: 0.01;
@@ -162,4 +173,4 @@
                 text-transform: capitalize;
             }
         }
-    }
+    } 

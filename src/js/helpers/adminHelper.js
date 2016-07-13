@@ -70,7 +70,7 @@ export const listAllUsers = () => {
 	const deferred = Q.defer();
 
 	Request.post(kGlobalConstants.API + 'list_users/')
-		.send()
+		.send({})
 		.end((err, res) => {
 			if (err) {
 				deferred.reject(err);

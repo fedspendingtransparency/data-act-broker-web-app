@@ -45,3 +45,18 @@ export const setValidation = (state) => ({
 	type: 'SET_VALIDATION',
 	state: state
 })
+
+export const setCrossFile = (state) => ({
+	type: 'SET_CROSS_FILE',
+	state: state
+})
+
+export const setExpectedCrossPairs = (state) => ({
+	type: 'SET_EXPECTED_CROSS_PAIRS',
+	state: state
+})
+
+export const setCrossFileStage = (state) => ({
+	type: 'SET_CROSS_FILE_STAGE',
+	state: state
+})

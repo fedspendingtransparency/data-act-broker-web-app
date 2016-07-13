@@ -19,7 +19,7 @@ export default class ValidateValuesOverlay extends React.Component {
 
 	pressedNext(e) {
 
-		hashHistory.push('/reviewData/' + this.props.submission.id);
+		hashHistory.push('/validateCrossFile/' + this.props.submission.id);
 
 	}
 
@@ -68,11 +68,21 @@ export default class ValidateValuesOverlay extends React.Component {
 			uploadButtonDisabled = true;
 			uploadButtonClass = '-disabled';
 			buttonText = 'Uploading files...';
+
+			if (this.props.errors.length == 0) {
+				nextButtonClass = '-disabled';
+				nextButtonDisabled = true;
+			}
 		}
 		else if (this.props.submission.state == 'prepare') {
 			uploadButtonDisabled = true;
 			uploadButtonDisabled = '-disabled';
 			buttonText = 'Gathering data...';
+			
+			if (this.props.errors.length == 0) {
+				nextButtonClass = '-disabled';
+				nextButtonDisabled = true;
+			}
 		}
 
 

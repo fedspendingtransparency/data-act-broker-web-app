@@ -10,8 +10,10 @@ const initialUploadState = {
 		endDate: null
 	},
 	files: {},
-	validation: {
-	}
+	validation: {},
+	crossFile: {},
+	crossFileOrder: [],
+	crossFileStaging: {}
 }
 
 const setUploadItem = (state, action) => {
@@ -98,6 +100,22 @@ export const uploadReducer = (state = initialUploadState, action) => {
 			return Object.assign({}, state, {
 				validation: action.state,
 				files: {}
+			});
+
+		case 'SET_CROSS_FILE':
+			// receiving data on cross-file validation
+			return Object.assign({}, state, {
+				crossFile: action.state
+			});
+		case 'SET_EXPECTED_CROSS_PAIRS':
+			// calculate and set the cross file pairs we expect to see
+			return Object.assign({}, state, {
+				crossFileOrder: action.state
+			});
+		case 'SET_CROSS_FILE_STAGE':
+			// user has staged a file for upload in the cross file validation screen, note the origin pair
+			return Object.assign({}, state, {
+				crossFileStaging: action.state
 			});
 
 		default:

@@ -26,6 +26,27 @@ const defaultProps = {
 };
 
 export default class FormattedTable extends React.Component {
+	constructor(props) {
+		super(props);
+
+		this.state = {
+			sort: {
+				direction: '',
+				col: -1
+			}
+		};
+	}
+
+	sortTable(direction, col) {
+		this.props.onSort(direction, col);
+		this.setState({
+			sort: {
+				direction: direction,
+				col: col
+			}
+		});
+	}
+
 	render() {
 		const tableRows = [];
         for (let i = 0; i < this.props.data.length; i++) {
@@ -36,7 +57,7 @@ export default class FormattedTable extends React.Component {
 				<div className="usa-da-table-header">
 					<table className="usa-da-table table-bordered">
 						<thead>
-		                    <TableHeaders data={this.props.headers} sortable={this.props.sortable} unsortable={this.props.unsortable} onSort={this.props.onSort} headerClasses={this.props.headerClasses} />
+		                    <TableHeaders data={this.props.headers} sortable={this.props.sortable} unsortable={this.props.unsortable} onSort={this.sortTable.bind(this)} currentSort={this.state.sort} headerClasses={this.props.headerClasses} />
 		                </thead>
 		            </table>
 	            </div>
