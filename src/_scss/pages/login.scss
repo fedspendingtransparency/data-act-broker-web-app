@@ -119,6 +119,15 @@
                 color: $color-white;
                 font-size: $small-font-size;
             }
+
+            a {
+                color: $color-gray-lighter;
+                text-decoration: underline;
+
+                &:hover {
+                    color: $color-white;
+                }
+            }
         }
     }
     .usa-da-input-container {
