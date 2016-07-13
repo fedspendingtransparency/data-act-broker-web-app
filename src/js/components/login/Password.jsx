@@ -42,7 +42,7 @@ export default class Password extends React.Component {
                     tabIndex={this.props.tabIndex}
                 />
                 <span className="usa-da-icon">
-                    <Icons.Lock />
+                    <Icons.Lock alt="Password" />
                </span>
             </div>
         );
