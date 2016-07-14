@@ -743,9 +743,19 @@ a.list-group-item {
     .usa-da-icon {
 	    svg{
         	fill: #d9534f;
-        	}
-        }
+    	}
     }
+}
+
+.alert {
+    .alert-header-text {
+        font-family: $font-sans;
+        color: #555;
+        font-size: 2.4rem;
+        font-weight: 700;
+        margin: 0 0 5px 48px;
+    }
+}
 
 .alert-block{
     border: 1px solid #ccc;
