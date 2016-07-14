@@ -23,7 +23,8 @@ const defaultProps = {
 	formatter: null,
 	keyValue: 'agency_name',
 	internalValue: 'cgac_code',
-	tabIndex: null
+	tabIndex: null,
+	isRequired: false
 }
 
 export default class Typeahead extends React.Component {
@@ -149,7 +150,7 @@ export default class Typeahead extends React.Component {
 
 		return (
 			<div className='usa-da-typeahead'>
-				<input className={this.props.customClass} ref="awesomplete" type="text" placeholder={placeholder} value={this.state.value} onChange={this.changedText.bind(this)} tabIndex={this.props.tabIndex} disabled={disabled} />
+				<input className={this.props.customClass} ref="awesomplete" type="text" placeholder={placeholder} value={this.state.value} onChange={this.changedText.bind(this)} tabIndex={this.props.tabIndex} disabled={disabled} aria-required={this.props.isRequired} />
 			</div>
 		);
 	}
