@@ -37,7 +37,7 @@
                 content: '';
             }
             & a {
-                color: #777b86;
+                color: $color-cool-blue-lightest;
                 & .usa-da-icon-user,
                 & .usa-da-icon-cog {
                     height: 14px;
@@ -45,7 +45,7 @@
                     position: relative;
                     top: 3px;
                     left: -5px;
-                    fill: #777b86;
+                    fill: $color-cool-blue-lightest;
                 }
                 & .usa-da-icon-cog {
                     height: 15px;

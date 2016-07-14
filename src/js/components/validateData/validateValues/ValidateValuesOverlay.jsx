@@ -94,10 +94,10 @@ export default class ValidateValuesOverlay extends React.Component {
 					<div className="row">
 						<div className="col-md-8 usa-da-overlay-content-wrap">
 							<div className="row">
-								<div className="col-xs-2 col-md-1 usa-da-icon">
+								<div className="col-xs-2 col-xs-offset-5 col-md-1 col-md-offset-0 usa-da-icon mr-10">
 									<div className={iconClass}>{icon}</div>
 								</div>
-								<div className="col-xs-10 col-md-11">
+								<div className="col-xs-10 col-xs-offset-1 col-md-10 col-md-offset-0">
 									<h6>{message}</h6>
 								</div>
 							</div>

@@ -187,7 +187,7 @@ export default class AddDataMeta extends React.Component {
                     <div className="container center-block">
                         <div className="row text-center usa-da-add-data-meta">
                             <div className="col-md-offset-2 col-md-8 mt-60 mb-60">
-                                <h5>Please begin by telling us about the submission you'll be creating</h5>
+                                <h5>Please begin by telling us about the submission youll be creating</h5>
                                 <div className="meta-holder">
                                     <div className="row usa-da-add-data-meta-label">
                                         Which agency is this submission for?
@@ -200,29 +200,27 @@ export default class AddDataMeta extends React.Component {
                                                     {agencyIcon}
                                                 </div>
                                             </div>
-                                    </div>
+                                        </div>
                                 
-                                    <ReactCSSTransitionGroup transitionName="usa-da-meta-fade" transitionEnterTimeout={500} transitionLeaveTimeout={300}>
-                                        {dateTypeField}
-                                    </ReactCSSTransitionGroup>
-
-                                    <ReactCSSTransitionGroup transitionName="usa-da-meta-fade" transitionEnterTimeout={500} transitionLeaveTimeout={300}>
-                                        {dateRangeField}
-                                    </ReactCSSTransitionGroup>
-
-                                    <ReactCSSTransitionGroup transitionName="usa-da-meta-fade" transitionEnterTimeout={500} transitionLeaveTimeout={300}>
-                                        {submissionComponent}
-                                    </ReactCSSTransitionGroup>
-
-                                </div>
-                                <div className="usa-da-guide-link">
-                                    <a href="#/submissionGuide?force=true">View Submission Guide</a>
+                                        <ReactCSSTransitionGroup transitionName="usa-da-meta-fade" transitionEnterTimeout={500} transitionLeaveTimeout={300}>
+                                            {dateTypeField}
+                                        </ReactCSSTransitionGroup>
+    
+                                        <ReactCSSTransitionGroup transitionName="usa-da-meta-fade" transitionEnterTimeout={500} transitionLeaveTimeout={300}>
+                                            {dateRangeField}
+                                        </ReactCSSTransitionGroup>
+    
+                                        <ReactCSSTransitionGroup transitionName="usa-da-meta-fade" transitionEnterTimeout={500} transitionLeaveTimeout={300}>
+                                            {submissionComponent}
+                                        </ReactCSSTransitionGroup>
+                                    </div>
+                                    <div className="usa-da-guide-link">
+                                        <a href="#/submissionGuide?force=true">View Submission Guide</a>
+                                    </div>
                                 </div>
                             </div>
                         </div>
                     </div>
-                </div>
-
             );
         }
     }

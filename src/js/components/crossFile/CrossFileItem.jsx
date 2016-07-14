@@ -63,22 +63,28 @@ export default class CrossFileItem extends React.Component {
 		}
 
 		return (
-			<div className="usa-da-cross-file-group">
-				<div className="row">
-					<div className="usa-da-cross-file-item">
-						<div className="file-left">
-							<FileComponent fileType={this.props.meta.firstType} name={this.props.meta.firstName} fileKey={this.props.meta.firstKey} toggleUploadBox={this.toggleUploadBox.bind(this)} expanded={this.state.uploadBox} {...this.props} />
+			<div className="row">
+				<div className="col-md-12">
+					<div className="usa-da-cross-file-group">
+						<div className="row">
+							<div className="col-md-12">
+								<div className="usa-da-cross-file-item">
+									<div className="file-left">
+										<FileComponent fileType={this.props.meta.firstType} name={this.props.meta.firstName} fileKey={this.props.meta.firstKey} toggleUploadBox={this.toggleUploadBox.bind(this)} expanded={this.state.uploadBox} {...this.props} />
+									</div>
+									<div className="file-compare">
+										{middle}
+									</div>
+									<div className="file-right">
+										<FileComponent fileType={this.props.meta.secondType} name={this.props.meta.secondName} fileKey={this.props.meta.secondKey} toggleUploadBox={this.toggleUploadBox.bind(this)} expanded={this.state.uploadBox} {...this.props} />
+									</div>
+								</div>
+							</div>
 						</div>
-						<div className="file-compare">
-							{middle}
-						</div>
-						<div className="file-right">
-							<FileComponent fileType={this.props.meta.secondType} name={this.props.meta.secondName} fileKey={this.props.meta.secondKey} toggleUploadBox={this.toggleUploadBox.bind(this)} expanded={this.state.uploadBox} {...this.props} />
+						<div className="row">
+							{detailBox}
 						</div>
 					</div>
-				</div>
-				<div className="row">
-					{detailBox}
 				</div>
 			</div>
 		)

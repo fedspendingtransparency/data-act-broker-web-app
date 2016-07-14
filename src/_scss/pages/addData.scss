@@ -187,6 +187,10 @@ div.usa-da-validate-items {
         @include align-content(center);
         @include justify-content(center);
         height: 171px;
+        & .usa-da-success-txt{
+            color: $color-green-light;
+            font-weight: 600;
+        }
         .usa-da-validate-item-file-section-result {
             height: 50px;
             width: 35px;
@@ -258,7 +262,7 @@ div.usa-da-validate-items {
 
 .usa-da-validate-item-warning {
     position: relative;
-    border-right: 1px solid #ccc;
+    border-right: 1px solid $color-gray-warm-light;
     .usa-da-validate-item-message-count {
         color: $color-gold;
         &.none {
@@ -297,105 +301,13 @@ div.usa-da-validate-items {
     }
     th.headerColB,
     td.cellColB {
-        width: 60%;
+        width: 59.8%;
     }
     th.headerColC {
-        width: 17.4%;
+        width: 15.9%;
     }
     td.cellColC {
-        width: 16%;
-    }
-}
-
-.usa-da-validation-overlay {
-    position: fixed;
-    bottom: 0;
-    left: 0;
-    background-color: as-alpha($color-gray-dark, 0.85);
-    border-top: 1px solid rgba(255, 255, 255, 0.4);
-    z-index: 999;
-    width: 100%;
-    color: $color-white;
-    & .usa-da-overlay-content-wrap {
-        @extend .flex-center-content;
-        height: 150px;
-        @media screen and (max-width: $small-screen) {
-            display: block;
-            min-height: auto;
-        }
-    }
-    & h6 {
-        color: $color-white;
-        margin-top: 0;
-        @media screen and (max-width: $small-screen) {
-            font-size: 1.6rem;
-            margin: 1.0rem 0;
-        }
-    }
-    & .usa-da-alert-icon {
-        & svg {
-            fill: $color-white;
-            left: 0;
-            top: -5px;
-            width: 5.5rem;
-            height: 5.5rem;
-        }
-        @media screen and (max-width: $small-screen) {
-            top: 15px;
-        }
-    }
-    & svg.usa-da-icon-check-circle,
-    & svg.usa-da-icon-exclamation-circle {
-        left: 0;
-        top: -5px;
-        width: 5.5rem;
-        height: 5.5rem;
-    }
-    & svg.usa-da-icon-check-circle {
-        fill: $color-green-light;
-    }
-    & svg.usa-da-icon-exclamation-circle {
-        fill: $color-secondary;
-    }
-    .usa-da-errorRed,
-    .usa-da-successGreen {
-        &:after {
-            content: " ";
-            background: white;
-            height: 33px;
-            position: absolute;
-            top: 11px;
-            left: 27px;
-            width: 32px;
-            z-index: -2;
-        }
-    }
-    & .usa-da-validation-overlay-review {
-        margin-left: 5px;
-    }
-    & .usa-da-btn-bg {
-        @extend .flex-center-content;
-        background: as-alpha($color-base, 0.40);
-        height: 150px;
-        margin-left: -22px;
-        @media screen and (max-width: $medium-screen) {
-            display: block;
-            min-height: auto;
-            margin: 0;
-        }
-    }
-    .overlay-loading {
-        width: 100%;
-        h6 {
-            width: 100%;
-            text-align: left;
-        }
-        .overlay-help-text {
-            font-family: "Source Sans Pro", "Helvetica", "Arial", sans-serif;
-            a {
-                color: $color-white;
-            }
-        }
+        width: 15.9%;
     }
 }
 
