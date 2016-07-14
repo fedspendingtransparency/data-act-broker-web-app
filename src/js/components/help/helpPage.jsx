@@ -68,9 +68,9 @@ export default class HelpPage extends React.Component {
                 </div>
                 <Footer />
                 <div className="usa-da-help-top-button">
-                    <a href="#/help?section=top">
+                    <a href="#/help?section=top" aria-label="Back to top">
                         <div className="usa-da-icon">
-                            <Icons.AngleUp />
+                            <Icons.AngleUp alt="Arrow pointing up" />
                         </div>
                         <span className="hidden-label">Back to top</span>
                     </a>
