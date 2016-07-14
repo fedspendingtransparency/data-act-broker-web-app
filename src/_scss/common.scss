@@ -1060,6 +1060,14 @@ button,
             clip: rect(0, 0, 0, 0);
         }
     }
+    .error-icon {
+        svg {
+            fill: $color-secondary !important;
+            height: 45px !important;
+            width: 45px !important;
+            right: 0px !important;
+        }
+    }
     ul.typeahead-selector,
     .awesomplete ul {
         text-align: left;
