@@ -20,7 +20,9 @@ export default class CorrectButtonFullOverlay extends React.Component {
                 <div className="full-overlay">
                     <div className="usa-da-icon" onClick={this.props.buttonClicked.bind(this)}><Icons.Times /></div>
                     <div className="buttonHolder">
+                        <div className="col-md-12">
                         <ValidateDataUploadButton text={this.props.text} optional={this.props.optional} onDrop={this.props.onDrop.bind(this)} />
+                        </div>
                     </div>
                 </div>
             </div>

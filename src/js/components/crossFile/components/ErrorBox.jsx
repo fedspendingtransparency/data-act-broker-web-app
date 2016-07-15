@@ -122,23 +122,45 @@ export default class ErrorBox extends React.Component {
 							<ComparisonTable data={this.props.submission.crossFile[this.props.meta.key]} />
 						</div>
 						<div className="col-xs-12 col-sm-4 col-md-3">
-							<div className="button-list">
-								<div className="upload-buttons-wrap">
-									<div className="upload-title">
-										Upload Corrected Files
+								<div className="button-list">
+								<div className="row">
+									<div className="col-md-12">
+										<div className="upload-title">
+											Upload Corrected Files
+										</div>
 									</div>
-									<div className="upload-progress">
-										{uploadProgress}
+								</div>
+
+								<div className="row">
+									<div className="col-md-12">
+										<div className="upload-progress">
+											{uploadProgress}
+										</div>
 									</div>
-									{warning}
-									<div className="usa-da-button btn-danger-outline btn-full mb-10"><UploadButtonContainer file={ReviewHelper.globalFileData[this.props.meta.firstKey]} fileKey={this.props.meta.firstKey} pair={this.props.meta.key} type={this.state.firstType} /></div>
-									<div className="usa-da-button btn-danger-outline btn-full"><UploadButtonContainer file={ReviewHelper.globalFileData[this.props.meta.secondKey]} fileKey={this.props.meta.secondKey} pair={this.props.meta.key} type={this.state.secondType} /></div>
+								</div>
+
+								<div className="row">
+									<div className="col-md-12">
+										{warning}
+									</div>
+								</div>
+
+								<div className="row mb-10">
+									<div className="col-md-12">
+										<UploadButtonContainer file={ReviewHelper.globalFileData[this.props.meta.firstKey]} fileKey={this.props.meta.firstKey} pair={this.props.meta.key} type={this.state.firstType} />
+									</div>
+								</div>
+
+								<div className="row">
+									<div className="col-md-12">
+										<UploadButtonContainer file={ReviewHelper.globalFileData[this.props.meta.secondKey]} fileKey={this.props.meta.secondKey} pair={this.props.meta.key} type={this.state.secondType} />
+									</div>
+								</div>
 							</div>
 						</div>
 					</div>
 				</div>
 			</div>
-		</div>
 		)
 	}
 }

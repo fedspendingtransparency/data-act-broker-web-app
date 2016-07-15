@@ -81,10 +81,10 @@ export default class ReplacementBox extends React.Component {
 							</div>
 							<div className="row">
 								<div className="col-md-6 mb-10">
-									<div className="usa-da-button btn-default btn-full"><UploadButtonContainer file={ReviewHelper.globalFileData[this.props.meta.firstKey]} fileKey={this.props.meta.firstKey} pair={this.props.meta.key} type="optional" /></div>
+									<UploadButtonContainer file={ReviewHelper.globalFileData[this.props.meta.firstKey]} fileKey={this.props.meta.firstKey} pair={this.props.meta.key} type="optional" />
 								</div>
 								<div className="col-md-6">
-									<div className="usa-da-button btn-default btn-full"><UploadButtonContainer file={ReviewHelper.globalFileData[this.props.meta.secondKey]} fileKey={this.props.meta.secondKey} pair={this.props.meta.key} type="optional" /></div>
+									<UploadButtonContainer file={ReviewHelper.globalFileData[this.props.meta.secondKey]} fileKey={this.props.meta.secondKey} pair={this.props.meta.key} type="optional" />
 								</div>
 							</div>
 						</div>
