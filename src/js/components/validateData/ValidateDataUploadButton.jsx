@@ -16,7 +16,7 @@ const propTypes = {
 const defaultProps = {
 	optional: false,
 	text: 'Upload Corrected File',
-	additionalClasses: ' btn-default'
+	additionalClasses: ' btn-danger-outline'
 };
 
 export default class ValidateDataUploadButton extends React.Component {

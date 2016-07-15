@@ -163,8 +163,9 @@ export default class ValidateDataFileComponent extends React.Component {
             correctButtonOverlay = <CorrectButtonOverlay isReplacingFile={this.isReplacingFile()} fileKey={this.props.type.requestName} onDrop={this.props.onFileChange} fileName={fileName}/>
             validationElement = <p className='usa-da-success-txt'>File successfully validated</p>;
         } else {
-            validationElement = <div className="row usa-da-validate-item-file-section-correct-button" data-testid="validate-upload">
+            validationElement = <div className="row usa-da-validate-item-file-section-correct-button" data-testid="validate-upload"><div className="col-md-12">
                 <ValidateDataUploadButton optional={optionalUpload} onDrop={this.props.onFileChange} text={uploadText} />
+                </div>
             </div>;
         }
 
