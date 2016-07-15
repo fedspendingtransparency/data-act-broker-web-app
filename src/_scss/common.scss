@@ -797,7 +797,7 @@ button,
             @include btnBase($color-white, $color-secondary);
         }
     }
-    &.btn-default {
+    &.btn-default{
         @include btnBase($color-primary, transparent);
         box-shadow: inset 0 0 0 1px $color-primary;
         &:active {
@@ -826,6 +826,27 @@ button,
         &:hover {
             @include btnBase($color-white, $color-gray);
             box-shadow: inset 0 0 0 1px $color-gray;
+        }
+    }
+    &.btn-optional {
+        @include btnBase($color-gray, transparent);
+        box-shadow: inset 0 0 0 1px $color-gray-light;
+        &:active {
+            @include btnBase($color-primary-darkest, transparent);
+        }
+        &:hover {
+            @include btnBase($color-primary-darkest, $color-primary-alt-lightest);
+        }
+    }
+
+    &.btn-staged-upload {
+        @include btnBase($color-green, $color-green-lightest);
+        box-shadow: inset 0 0 0 1px $color-green-lighter;
+        &:active {
+            @include btnBase($color-white, $color-green-light);
+        }
+        &:hover {
+            @include btnBase($color-white, $color-green-light);
         }
     }
 
