@@ -69,7 +69,7 @@ export default class LandingContent extends React.Component {
                                 <div className="col-md-7 mt-40 mb-50">
                                     <h1 className="display-2" data-contentstart="start" tabIndex={-1}>Welcome to the DATA Act Broker</h1>
                                     <p>Upload your agency files and validate them against the latest version of the DATA Act Schema (Final 1.0).</p>
-                                    <p>Details on how to format your data, including required and optional fields, can be found in the <a href={this.state.rssUrl} target="_blank" aria-label="Download the RSS specification as an Excel file">Reporting Submission Specification (Draft RSS 1.0)</a>.</p>
+                                    <p>Details on how to format your data, including required and optional fields, can be found in the <a href={this.state.rssUrl} target="_blank" aria-label="Download the RSS specification as an Excel file">Reporting Submission Specification (RSS 1.0)</a>.</p>
                                 </div>
                             </div>
                         </div>
@@ -100,7 +100,7 @@ export default class LandingContent extends React.Component {
                         </div>
 
                     <div className="usa-da-landing-disclosure text-center">
-                        * The Data Broker - Alpha Release allows agencies to test financial data but does not connect to USAspending.gov.
+                        * The DATA Act Broker - Beta Release allows agencies to test financial data but does not connect to USAspending.gov.
                     </div>
                 </div>
             );

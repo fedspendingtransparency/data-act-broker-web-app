@@ -30,7 +30,7 @@ The Submission Guide provides details of the four steps to submit your agency's 
 Based on user feedback, the quarterly submission dates are displayed as the quarter number and the fiscal year. Example: Quarter 2 - 2016.
 
 #### What's New in This Release - May 17, 2016
-In this version of the broker, we have made a change if you are logging in with Internet Explorer, added funtionality for the Broker to recognize files with the pipe symbol as a delimiter, and updated some of the validations.
+In this version of the Broker, we have made a change if you are logging in with Internet Explorer, added functionality for the Broker to recognize files with the pipe symbol as a delimiter, and updated some of the validations.
 
 * [Logging into the Broker with Internet Explorer](#/help?section=brokerIE)
 * [Submit Files with Pipe Symbol](#/help?section=pipe)
