@@ -1,6 +1,5 @@
 import Request from './sessionSuperagent.js';
 import Q from 'q';
-import AWS from 'aws-sdk';
 import { dispatch } from 'redux';
 import _ from 'lodash';
 

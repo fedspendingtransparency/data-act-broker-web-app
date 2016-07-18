@@ -1,5 +1,8 @@
 import { hashHistory } from 'react-router';
 
+import LandingPage from '../../components/landing/LandingPage.jsx';
+import LoginPage from '../../components/login/LoginPage.jsx';
+
 import StoreSingleton from '../../redux/storeSingleton.js';
 
 let instance = null;
@@ -88,20 +91,12 @@ const routeDefinitions = {
     path: '/',
     indexRoute: {
         onEnter: checkUserPermissions,
-        getComponent(nextState, cb) {
-            require.ensure([], (require) => {
-                cb(null, require('../../components/landing/LandingPage.jsx').default)
-            });
-        }
+        component: LandingPage
     },
     childRoutes: [
         {
             path: 'login',
-            getComponent(nextState, cb) {
-                require.ensure([], (require) => {
-                    cb(null, require('../../components/login/LoginPage.jsx').default)
-                });
-            }
+            component: LoginPage
         },
         {
             path: 'admin',
@@ -115,11 +110,7 @@ const routeDefinitions = {
         {
             path: 'landing',
             onEnter: checkUserPermissions,
-            getComponent(nextState, cb) {
-                require.ensure([], (require) => {
-                    cb(null, require('../../components/landing/LandingPage.jsx').default)
-                });
-            }
+            component: LandingPage
         },
         {
             path: 'submissionGuide',

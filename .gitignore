@@ -53,3 +53,6 @@ test/uploads
 test/bin
 
 *.DS_Store
+
+# Ignore Babel build cache
+cache/

@@ -3,6 +3,9 @@ import connect from 'gulp-connect';
 import chalk from 'chalk';
 import sass from 'gulp-sass';
 import browserify from 'browserify';
+import webpackStream from 'webpack-stream';
+import webpack from 'webpack';
+import webpackDevServer from 'webpack-dev-server';
 import watchify from 'watchify';
 import babelify from 'babelify';
 import gutil from 'gulp-util';
@@ -21,6 +24,9 @@ import git from 'gulp-git';
 import header from 'gulp-header';
 import moment from 'moment-timezone';
 import mocha from 'gulp-mocha';
+import pathTest from 'path';
+
+import StatsPlugin from 'stats-webpack-plugin';
 
 // Base Directories
 const dir = {
@@ -59,6 +65,7 @@ const currentTime = moment().tz('America/New_York').format('MMMM D, YYYY h:mm A 
 
 // set the environment
 let environment = environmentTypes.DEVLOCAL;
+process.env.NODE_ENV = 'development';
 
 gulp.task('setDev', () => {
     minified = false;
@@ -103,9 +110,10 @@ gulp.task('setLocal', () => {
     gutil.log('You are running in ' + chalk.black.bgGreen(' PRODUCTION (LOCAL) ') + ' mode.');
 });
 
-// clear out the existing folder contents
+// clear out the existing folder contents and also the webpack build cache
+// NOTE: this will make the build take a long time
 gulp.task('clean', () => {
-    return del(dir.PUBLIC + '/**/*');
+    return del([dir.PUBLIC + '/**/*', './cache/**/*']);
 });
 
 // get the current git metadata
@@ -284,6 +292,138 @@ gulp.task('build', ['sass'], () => {
         // add in the commit hash and timestamp header
         .pipe(header('/* Build ' + commitHash  + '\n' + currentTime + ' */\n\n'))
         .pipe(gulp.dest(dir.PUBLIC));
+});
+
+gulp.task('webpackCore', ['sass'], (callback) => {
+    webpack({
+        entry: {
+            'core': ['react', 'react-dom', 'q', 'react-addons-css-transition-group', 'react-router', 'superagent', 'redux', 'lodash', 'jquery', 'moment', 'svg4everybody', 'dompurify']
+        },
+        output: {
+            path: './public/js',
+            publicPath: 'js/',
+            filename: 'core.js',
+            library: '[name]_[hash]'
+        },
+        module: {
+            loaders: [{
+                test: /\.jsx?$/,
+                exclude: /node_modules/,
+                loader: 'babel-loader'
+            },{
+                test: /\.json$/,
+                loader: 'json-loader'
+            },{
+                test: /\/node_modules\/aws-sdk/,
+                loader: 'transform?aws-sdk/dist-tools/transform'
+            }]
+        },
+        node: {
+            fs: "empty"
+        },
+        plugins: [
+            new StatsPlugin('./dll.json', {
+                chunkModules: true
+            }),
+            new webpack.DllPlugin({
+                path: './public/js/manifest.json',
+                name: '[name]_[hash]',
+                context: '.'
+            }),
+            new webpack.optimize.UglifyJsPlugin({
+                compress: true,
+                warnings: false,
+                sourceMap: false
+            }),
+            new webpack.optimize.DedupePlugin()
+        ]
+    }, (err, stats) => {
+        if(err) throw new gutil.PluginError("webpack", err);
+        callback();
+    });
+
+});
+
+gulp.task('webpack', (callback) => {
+    const config = {
+        output: {
+            publicPath: 'js/',
+            filename: 'app.js',
+            chunkFilename: 'chunk.[chunkhash].js'
+        },
+        devtool: 'eval',
+        debug: true,
+        cache: true,
+        module: {
+            loaders: [{
+                test: /\.jsx?$/,
+                include: /src\/js/,
+                exclude: /node_modules/,
+                loader: 'babel-loader',
+                query: {
+                    cacheDirectory: './cache/',
+                    compact: true
+                }
+            },{
+                test: /\.json$/,
+                loader: 'json-loader'
+            },{
+                test: /\/node_modules\/aws-sdk/,
+                loader: 'transform?aws-sdk/dist-tools/transform'
+            }],
+            noParse: [
+                /\src\/js\/vendor\/aws\-sdk\-s3\-only.js$/
+            ]
+        },
+        node: {
+            fs: "empty"
+        },
+        plugins: [
+            new webpack.DllReferencePlugin({
+                context: '.',
+                manifest: require('./public/js/manifest.json')
+            })
+        ]
+    };
+    // new webpack.optimize.UglifyJsPlugin({
+    //             compress: {
+    //                 warnings: false
+    //             },
+    //             sourceMap: false
+    //         })
+
+
+    gulp.watch('./src/js/**/*')
+        .on('change', () => {
+            const watchConfig = Object.assign(config, {quiet: true});
+            return gulp.src(path.ENTRY_POINT)
+                .pipe(sourcemaps.init())
+                .pipe(webpackStream(watchConfig))
+                .pipe(gulp.dest('./public/js'))
+                .pipe(connect.reload())
+                .on('end', (err, stats) => {
+                    console.log(stats);
+                })
+                .on('error', (err) => {
+                    console.log("ERROR");
+                    console.log(err);
+                });
+        });
+
+    return gulp.src(path.ENTRY_POINT)
+        .pipe(sourcemaps.init())
+        .pipe(webpackStream(config))
+        .pipe(gulp.dest('./public/js'))
+        .pipe(connect.reload())
+        .on('end', () => {
+            console.log('HELLO');
+        })
+
+    // const server = new webpackDevServer(compiler, {
+    //     contentBase: pathTest.resolve(__dirname, 'public')
+    // });
+    // server.listen(3000);
+
 });
 
 

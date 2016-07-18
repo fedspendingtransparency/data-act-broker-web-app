@@ -1,6 +1,8 @@
 import Request from './sessionSuperagent.js';
 import Q from 'q';
-import AWS from 'aws-sdk';
+// import AWS from 'aws-sdk';
+import '../vendor/aws-sdk-s3-only.js';
+const AWS = window.AWS;
 import { dispatch } from 'redux';
 import moment from 'moment';
 
@@ -119,7 +121,7 @@ const uploadS3File = (file, fileID, key, credentials, fileType) => {
             'region': kGlobalConstants.AWS_REGION
         });
 
-    const s3 = new AWS.S3();
+    const s3 = new S3();
     const s3params = {
         Bucket: kGlobalConstants.BUCKET_NAME,
         Key: key,
@@ -231,7 +233,7 @@ const prepareMetadata = (metadata, request) => {
 }
 
 export const performRemoteUpload = (submission) => {
-
+    
 	const deferred = Q.defer();
 
 	const store = new StoreSingleton().store;
