@@ -5,7 +5,6 @@ import sass from 'gulp-sass';
 import browserify from 'browserify';
 import webpackStream from 'webpack-stream';
 import webpack from 'webpack';
-import webpackDevServer from 'webpack-dev-server';
 import watchify from 'watchify';
 import babelify from 'babelify';
 import gutil from 'gulp-util';
@@ -24,9 +23,9 @@ import git from 'gulp-git';
 import header from 'gulp-header';
 import moment from 'moment-timezone';
 import mocha from 'gulp-mocha';
-import pathTest from 'path';
 
-import StatsPlugin from 'stats-webpack-plugin';
+// for debugging webpack
+// import StatsPlugin from 'stats-webpack-plugin';
 
 // Base Directories
 const dir = {
@@ -61,6 +60,7 @@ const environmentTypes = {
 const serverDeps = [];
 
 let commitHash = '';
+let coreHash = '';
 const currentTime = moment().tz('America/New_York').format('MMMM D, YYYY h:mm A z');
 
 // set the environment
@@ -73,9 +73,6 @@ gulp.task('setDev', () => {
 
     // set the NodeJS environment so that Redux compiles correctly in production modes
     process.env.NODE_ENV = 'development';
-
-    // update the local server dependencies to wait for the compile process to finish before starting
-    serverDeps.push('compile');
 
     gutil.log('You are running in ' + chalk.black.bgYellow(' DEVELOPMENT (LOCAL) ') + ' mode.');
 });
@@ -101,10 +98,7 @@ gulp.task('setLocal', () => {
     environment = environmentTypes.LOCAL;
     process.env.NODE_ENV = 'production';
 
-    // update the local server dependencies to wait for the compile process to finish before starting
-    serverDeps.push('compile');
-
-    // also have it wait for the minification and HTML modification process
+    // update the local server dependencies to wait for the minification and HTML modification process
     serverDeps.push('modifyHtml');
 
     gutil.log('You are running in ' + chalk.black.bgGreen(' PRODUCTION (LOCAL) ') + ' mode.');
@@ -237,65 +231,9 @@ gulp.task('sass', ['copyAssets'], () => {
         .pipe(gulp.dest(dir.PUBLIC + '/css'));
 });
 
-// convert the React JSX into normal JS
-gulp.task('build', ['sass'], () => {
-    const buildProps = {
-        entries: [path.ENTRY_POINT],
-        transform: [
-            [
-                babelify, 
-                { 
-                    presets: ['es2015', 'react']
-                },
-                {
-                    envify: {
-                        global: true 
-                    }
-                }
-            ]
-        ],
-        debug: !minified,
-        cache: {},
-        packageCache: {},
-        fullPaths: true
-    };
-
-    let buildTool = browserify(buildProps);
-
-    // use a watcher if we're serving the file in local dev instead
-    if (environment == environmentTypes.DEVLOCAL) {
-        buildTool = watchify(browserify(buildProps));
-
-        // set up watcher for recompiling
-        buildTool.on('update', () => {
-            gutil.log(chalk.cyan('Starting JS recompile...'));
-            buildTool.bundle().on('error', gutil.log)
-            .pipe(source(path.OUT))
-            .pipe(buffer())
-            .pipe(sourcemaps.init({ loadMaps: !minified }))
-            .pipe(gulpif(!minified, sourcemaps.write('.')))
-            .pipe(gulp.dest(dir.PUBLIC))
-            // auto reload the browser
-            .pipe(connect.reload())
-            .on('end', () => {
-                gutil.log(chalk.cyan('Reloading JS...'));
-            });
-        });
-    }
-
-    return buildTool
-        .bundle().on('error', gutil.log)
-        .pipe(source(path.OUT))
-        .pipe(buffer())
-        .pipe(sourcemaps.init({ loadMaps: !minified }))
-        .pipe(gulpif(!minified, sourcemaps.write('.')))
-        // add in the commit hash and timestamp header
-        .pipe(header('/* Build ' + commitHash  + '\n' + currentTime + ' */\n\n'))
-        .pipe(gulp.dest(dir.PUBLIC));
-});
-
 gulp.task('webpackCore', ['sass'], (callback) => {
-    webpack({
+
+    const config = {
         entry: {
             'core': ['react', 'react-dom', 'q', 'react-addons-css-transition-group', 'react-router', 'superagent', 'redux', 'lodash', 'jquery', 'moment', 'svg4everybody', 'dompurify']
         },
@@ -322,38 +260,46 @@ gulp.task('webpackCore', ['sass'], (callback) => {
             fs: "empty"
         },
         plugins: [
-            new StatsPlugin('./dll.json', {
-                chunkModules: true
+            new webpack.DefinePlugin({
+                'process.env.NODE_ENV': JSON.stringify(process.env.NODE_ENV || 'development')
             }),
             new webpack.DllPlugin({
                 path: './public/js/manifest.json',
                 name: '[name]_[hash]',
                 context: '.'
             }),
-            new webpack.optimize.UglifyJsPlugin({
-                compress: true,
-                warnings: false,
-                sourceMap: false
-            }),
             new webpack.optimize.DedupePlugin()
         ]
-    }, (err, stats) => {
+    };
+
+    // only minify if not local development
+    if (environment != environmentTypes.DEVLOCAL) {
+        config.plugins.push(new webpack.optimize.UglifyJsPlugin({
+            compress: true,
+            warnings: false,
+            sourceMap: false
+        }));
+
+        // also use a hashed file name (based on content, not commit)
+        config.output.filename = 'core.[hash].js';
+    }
+
+    webpack(config, (err, stats) => {
+        coreHash = stats.hash;
         if(err) throw new gutil.PluginError("webpack", err);
         callback();
     });
-
 });
 
-gulp.task('webpack', (callback) => {
+gulp.task('webpack', ['webpackCore'], () => {
+    const jsFile = 'app.' + commitHash + '.js';
+
     const config = {
         output: {
             publicPath: 'js/',
             filename: 'app.js',
             chunkFilename: 'chunk.[chunkhash].js'
         },
-        devtool: 'eval',
-        debug: true,
-        cache: true,
         module: {
             loaders: [{
                 test: /\.jsx?$/,
@@ -379,36 +325,55 @@ gulp.task('webpack', (callback) => {
             fs: "empty"
         },
         plugins: [
+            new webpack.DefinePlugin({
+                'process.env.NODE_ENV': JSON.stringify(process.env.NODE_ENV || 'development')
+            }),
             new webpack.DllReferencePlugin({
                 context: '.',
                 manifest: require('./public/js/manifest.json')
             })
         ]
     };
-    // new webpack.optimize.UglifyJsPlugin({
-    //             compress: {
-    //                 warnings: false
-    //             },
-    //             sourceMap: false
-    //         })
 
+    // watch if in local dev mode
+    if (environment == environmentTypes.DEVLOCAL) {
 
-    gulp.watch('./src/js/**/*')
-        .on('change', () => {
-            const watchConfig = Object.assign(config, {quiet: true});
-            return gulp.src(path.ENTRY_POINT)
-                .pipe(sourcemaps.init())
-                .pipe(webpackStream(watchConfig))
-                .pipe(gulp.dest('./public/js'))
-                .pipe(connect.reload())
-                .on('end', (err, stats) => {
-                    console.log(stats);
-                })
-                .on('error', (err) => {
-                    console.log("ERROR");
-                    console.log(err);
-                });
-        });
+        // enable debugging on the JS output
+        config.devtool = 'eval';
+        config.debug = true;
+
+        gulp.watch('./src/js/**/*')
+            .on('change', () => {
+                const watchConfig = Object.assign(config, {quiet: true});
+                return gulp.src(path.ENTRY_POINT)
+                    .pipe(sourcemaps.init())
+                    .pipe(webpackStream(watchConfig))
+                    .pipe(gulp.dest('./public/js'))
+                    .pipe(connect.reload())
+                    .on('end', (err, stats) => {
+                        gutil.log(chalk.cyan('Reloading JS...'));
+                    })
+                    .on('error', (err) => {
+                        console.log("ERROR");
+                        console.log(err);
+                    });
+            });
+    }
+    else if (environment != environmentTypes.DEVHOSTED) {
+        // if it's not a development environment, minify everything
+        config.plugins.push(new webpack.optimize.UglifyJsPlugin({
+            compress: true,
+            warnings: false,
+            sourceMap: false
+        }));
+
+        // use the commit hash to version the app.js file
+        config.output.filename = jsFile;
+    }
+    else {
+        // even in the hosted environment, use the commit hash
+        config.output.filename = jsFile;
+    }
 
     return gulp.src(path.ENTRY_POINT)
         .pipe(sourcemaps.init())
@@ -416,46 +381,24 @@ gulp.task('webpack', (callback) => {
         .pipe(gulp.dest('./public/js'))
         .pipe(connect.reload())
         .on('end', () => {
-            console.log('HELLO');
-        })
-
-    // const server = new webpackDevServer(compiler, {
-    //     contentBase: pathTest.resolve(__dirname, 'public')
-    // });
-    // server.listen(3000);
+            gutil.log(chalk.cyan('Reloading JS...'));
+        });
 
 });
 
-
-// minify the JS
-gulp.task('minify', ['build'], () => {
-    const jsFile = 'app.' + commitHash + '.js';
-
-    return gulp.src(dir.PUBLIC + '/' + path.OUT)
-        // delete the non-minified file
-        .pipe(vinylPaths(del))
-        // set the minified output
-        .pipe(rename(jsFile))
-        // minify
-        .pipe(uglify())
-        // add in the commit hash and timestamp header (which would have been removed by the minification process)
-        .pipe(header('/* Build ' + commitHash  + '\n' + currentTime + ' */\n\n'))
-        // write out the output
-        .pipe(gulp.dest(dir.PUBLIC));
-
-});
 
 // after minifying, change the HTML script tag to point to the minified file
-gulp.task('modifyHtml', ['minify'], () => {
+gulp.task('modifyHtml', ['webpack'], () => {
     const cssFile = 'main.' + commitHash + '.css';
     const jsFile = 'app.' + commitHash + '.js';
-
+    const coreFile = 'core.' + coreHash + '.js';
 
     return merge(
         gulp.src(dir.PUBLIC + '/index.html')
             // replace the app.js script reference with one that points to the minified file
             // add in a ?v=[git hash] param to override browser caches when a new version is deployed
             .pipe(replace(path.OUT, jsFile))
+            .pipe(replace('core.js', coreFile))
             // now do the same thing (without minification) for the CSS file
             .pipe(replace('main.css', cssFile))
             .pipe(gulp.dest(dir.PUBLIC)),
@@ -472,7 +415,7 @@ gulp.task('modifyHtml', ['minify'], () => {
 gulp.task('serve', serverDeps, () => {
 
     let reload = true;
-    if (environment == environmentTypes.LOCAL) {
+    if (environment != environmentTypes.DEVLOCAL) {
         reload = false;
     }
 
@@ -483,27 +426,25 @@ gulp.task('serve', serverDeps, () => {
     });
 });
 
-// convenience task that does all the copying and compiling subtasks
-gulp.task('compile', ['clean', 'meta', 'copyConstants', 'copyAssets', 'sass', 'build']);
 
 // user-initiated gulp tasks
-gulp.task('buildDev', ['setDevHosted', 'compile'], () => {
+gulp.task('buildDev', ['setDevHosted', 'modifyHtml'], () => {
     
 });
 
-gulp.task('dev', ['setDev', 'compile', 'serve'], () => {
+gulp.task('dev', ['setDev', 'webpack', 'serve'], () => {
     
 });
 
-gulp.task('buildLocal', ['setDevHosted', 'compile'], () => {
+gulp.task('buildLocal', ['setLocal', 'modifyHtml'], () => {
 
 });
 
-gulp.task('local', ['setLocal', 'compile', 'minify', 'modifyHtml', 'compile', 'serve'], () => {
+gulp.task('local', ['setLocal', 'modifyHtml', 'serve'], () => {
 
 });
 
-gulp.task('production', ['setProd', 'compile', 'minify', 'modifyHtml'], () => {
+gulp.task('production', ['setProd', 'modifyHtml'], () => {
     
 });
 
