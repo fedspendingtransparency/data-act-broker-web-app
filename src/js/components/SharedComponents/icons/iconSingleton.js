@@ -64,6 +64,7 @@ export default class IconSingleton {
 
 
 	notifySubscribers(event) {
+		// iterate through subscribers to notify them that icons are ready
 		for (const subscriptionId in this.subscribers) {
 			const subscriber = this.subscribers[subscriptionId];
 			subscriber(event);
@@ -71,12 +72,14 @@ export default class IconSingleton {
 	}
 
 	subscribe(subscriber) {
+		// add a subscriber and return a UUID as a subscription ID so they can later unsubscribe
 		const subscriptionId = uuid.v4();
 		this.subscribers[subscriptionId] = subscriber;
 		return subscriptionId;
 	}
 
 	unsubscribe(subscriptionId) {
+		// unsubscribe the observer
 		delete this.subscribers[subscriptionId];
 	}
 }

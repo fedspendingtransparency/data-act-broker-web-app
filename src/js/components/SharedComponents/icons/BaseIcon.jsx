@@ -7,7 +7,6 @@ import React, { PropTypes } from 'react';
 import svg4everybody from 'svg4everybody';
 import Request from 'superagent';
 import xmldoc from 'xmldoc';
-import EventEmitter from 'eventemitter2';
 import { kGlobalConstants } from '../../../GlobalConstants.js';
 
 import IconSingleton from './iconSingleton.js';
@@ -43,6 +42,12 @@ export default class BaseIcon extends React.Component {
 			polyfill: true
 		});
 	}
+	componentWillUnmount() {
+		// unsubscribe to reduce memory overhead, if we have a subscription active
+		if (this.subscription) {
+			this.iconSingleton.unsubscribe(this.subscription);
+		}
+	}
 
 	prepareIcons() {
 		// check to see if anyone has started the download process
@@ -73,6 +78,7 @@ export default class BaseIcon extends React.Component {
 	svgEvent(event) {
 		// icons have loaded, unsubscribe to reduce memory overhead
 		this.iconSingleton.unsubscribe(this.subscription);
+		this.subscription = null;
 
 		// display the icon
 		this.displayIcon();
