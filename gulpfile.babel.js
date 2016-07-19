@@ -235,7 +235,7 @@ gulp.task('webpackCore', ['sass'], (callback) => {
 
     const config = {
         entry: {
-            'core': ['react', 'react-dom', 'q', 'react-addons-css-transition-group', 'react-router', 'superagent', 'redux', 'lodash', 'jquery', 'moment', 'svg4everybody', 'dompurify']
+            'core': ['react', 'react-dom', 'q', 'react-addons-css-transition-group', 'react-router', 'superagent', 'redux', 'lodash', 'jquery', 'moment', 'svg4everybody', 'dompurify', 'aws-sdk']
         },
         output: {
             path: './public/js',
