@@ -23,7 +23,7 @@ export default class CrossFileOverlay extends React.Component {
 	}
 
 	componentDidUpdate(prevProps, prevState) {
-		if (!_.isEqual(prevProps.submission.files, this.props.submission.files)) {
+		if (!_.isEqual(prevProps.submission.files, this.props.submission.files) || !_.isEqual(prevProps.submission.crossFile, this.props.submission.crossFile)) {
 			this.setState({
 				allowUpload: this.isReadyForUpload()
 			});
@@ -43,12 +43,16 @@ export default class CrossFileOverlay extends React.Component {
 	}
 
 	isReadyForUpload() {
-		// check if at least one file is staged for upload for each error pair
+
+		const expectedPairs = [];
+		for (let pair of this.props.submission.crossFileOrder) {
+			expectedPairs.push(pair.key);
+		}
 
 		for (let key in this.props.submission.crossFile) {
 
 			// check if this is a valid cross-file pair
-			if (_.indexOf(this.props.submission.crossFileOrder, key) == -1) {
+			if (_.indexOf(expectedPairs, key) == -1) {
 				continue;
 			}
 			
