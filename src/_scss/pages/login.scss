@@ -11,6 +11,7 @@
     //     height: auto;
     // }
     background: url("../img/hero_bg_img.jpg") no-repeat center center fixed;
+    background-color: $color-gray-dark;
     @include vendor-prefixes(background-size, cover);
     input {
         padding-left: 55px;
@@ -22,7 +23,8 @@
             margin-bottom: 0;
         }
     }
-    h1.login-title {
+    .login-title {
+        font-family: "Source Sans Pro", "Helvetica", "Arial", sans-serif;
         font-size: 6.0rem;
         line-height: 6.0rem;
         margin-top: 35px;
@@ -116,6 +118,15 @@
             p {
                 color: $color-white;
                 font-size: $small-font-size;
+            }
+
+            a {
+                color: $color-gray-lighter;
+                text-decoration: underline;
+
+                &:hover {
+                    color: $color-white;
+                }
             }
         }
     }

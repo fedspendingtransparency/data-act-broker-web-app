@@ -56,7 +56,7 @@ export default class SubmissionGuideContent extends React.Component {
                                         </div>
                                         <div className="col-md-11 usa-da-reg-wrapper">
                                             <h4>Submission Info</h4>
-                                            <p>Provide the Data Broker with information about the submission you’ll be creating. This information includes the name of your agency and the reporting period.</p>
+                                            <p>Provide the DATA Act Broker with information about the submission you’ll be creating. This information includes the name of your agency and the reporting period.</p>
                                         </div>
                                     </div>
                                 </div>
@@ -68,7 +68,7 @@ export default class SubmissionGuideContent extends React.Component {
                                         </div>
                                         <div className="col-md-11 usa-da-reg-wrapper mt-20">
                                             <h4>Upload Files (.csv or .txt)</h4>
-                                            <p>Youll need the following files to complete your submission. Files A, B, and C can be provided as comma-separate values (.csv) or pipe-separated values (.txt). Sample files are available for download in the Data Broker – Alpha Release.</p>
+                                            <p>Youll need the following files to complete your submission. Files A, B, and C can be provided as comma-separate values (.csv) or pipe-separated values (.txt). Sample files are available for download in the DATA Act Broker – Beta Release.</p>
                                             <ul>
                                                 <li>File A: Appropriation Account data. <a href="https://s3-us-gov-west-1.amazonaws.com/prod-data-act-web-static-files/sample-files/appropValid.csv" target="_blank" data-reactid=".0.0.1.0.0.0.1.1.1.0">(Sample file)</a></li>
                                                 <li>File B: Object Class and Program Activity. <a href="https://s3-us-gov-west-1.amazonaws.com/prod-data-act-web-static-files/sample-files/programActivityValid.csv" target="_blank" data-reactid=".0.0.1.0.0.0.1.2.1.0">(Sample file)</a></li>
@@ -92,7 +92,7 @@ export default class SubmissionGuideContent extends React.Component {
                                         </div>
                                         <div className="col-md-11 usa-da-reg-wrapper mt-20">
                                             <h4>Validate Data Files</h4>
-                                            <p>In this step, the Data Broker will validate the files separately and against each other. All files must be present to perform cross-file validations.</p>
+                                            <p>In this step, the DATA Act Broker will validate the files separately and against each other. All files must be present to perform cross-file validations.</p>
                                             <p><a href="#/help?section=updatedValidations">Find out what validations are currently implemented</a></p>
                                         </div>
                                     </div>
@@ -110,7 +110,7 @@ export default class SubmissionGuideContent extends React.Component {
                                                 <li>Notify another user that the submission is ready for them to review, certify, and publish.</li>
                                                 <li>Review, certify, and publish your agency’s data.</li>
                                                 <li>Download your submission to review and archive.</li>
-                                                <li>Delete the submission you created in the Data Broker.</li>
+                                                <li>Delete the submission you created in the DATA Act Broker.</li>
                                             </ul>
                                         </div>
                                     </div>

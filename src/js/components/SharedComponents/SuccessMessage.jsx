@@ -17,7 +17,7 @@ export default class SuccessMessage extends React.Component {
         return (
             <div className="col-md-12 alert alert-success" role="alert">
                 <span className="usa-da-icon"><Icons.CheckCircle /></span>
-                <h3>Success</h3>
+                <div className="alert-header-text">Success</div>
                 <p>{this.props.message}</p>
             </div>
         );

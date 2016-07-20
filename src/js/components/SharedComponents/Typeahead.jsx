@@ -7,6 +7,8 @@ import React, { PropTypes } from 'react';
 import _ from 'lodash';
 import Awesomeplete from 'awesomplete';
 
+import TypeaheadWarning from './TypeaheadWarning.jsx';
+
 const propTypes = {
 	values: PropTypes.array.isRequired,
 	placeholder: PropTypes.string,
@@ -23,7 +25,10 @@ const defaultProps = {
 	formatter: null,
 	keyValue: 'agency_name',
 	internalValue: 'cgac_code',
-	tabIndex: null
+	tabIndex: null,
+	isRequired: false,
+	errorHeader: null,
+	errorDescription: null
 }
 
 export default class Typeahead extends React.Component {
@@ -34,7 +39,8 @@ export default class Typeahead extends React.Component {
 		this.dataDictionary = {};
 
 		this.state = {
-			value: ''
+			value: '',
+			showWarning: false
 		};
 	}
 	componentDidMount() {
@@ -91,7 +97,27 @@ export default class Typeahead extends React.Component {
 	changedText(e) {
 		this.setState({
 			value: e.target.value
-		});
+		}, this.detectEmptySuggestions);
+	}
+
+	detectEmptySuggestions() {
+		if (this.state.value.length > 2 && this.typeahead.suggestions.length == 0) {
+			if (!this.state.showWarning) {
+				// we need to show a warning that no matching agencies were found
+				this.setState({
+					showWarning: true
+				});
+			}
+			return;
+		}
+
+		// otherwise hide the warning
+		if (this.state.showWarning) {
+			this.setState({
+				showWarning: false
+			});
+		}
+
 	}
 
 	bubbleUpChange() {
@@ -147,9 +173,23 @@ export default class Typeahead extends React.Component {
 			placeholder = 'Loading list...';
 		}
 
+		let warning = null;
+		if (this.state.showWarning) {
+			const errorProps = {};
+			if (this.props.errorHeader) {
+				errorProps.header = this.props.errorHeader;
+			}
+			if (this.props.errorDescription) {
+				errorProps.description = this.props.errorDescription;
+			}
+
+			warning = <TypeaheadWarning {...errorProps} />;
+		}
+
 		return (
-			<div className='usa-da-typeahead'>
-				<input className={this.props.customClass} ref="awesomplete" type="text" placeholder={placeholder} value={this.state.value} onChange={this.changedText.bind(this)} tabIndex={this.props.tabIndex} disabled={disabled} />
+			<div className="usa-da-typeahead">
+				<input className={this.props.customClass} ref="awesomplete" type="text" placeholder={placeholder} value={this.state.value} onChange={this.changedText.bind(this)} tabIndex={this.props.tabIndex} disabled={disabled} aria-required={this.props.isRequired} />
+				{warning}
 			</div>
 		);
 	}
