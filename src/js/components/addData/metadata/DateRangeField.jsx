@@ -90,14 +90,14 @@ export default class DateRangeField extends React.Component {
                 <div className="row ">
                     <div className="col-sm-12 col-md-12 mt-5 usa-da-endDate">
                         <DateDropdown onChange={this.handleDateChange.bind(this)} value={this.state.startDate + '-' + this.state.endDate} hasError={this.state.dateError} type={this.props.type} startEndType="start" />
-                        <div className={"usa-da-icon date " + dateClass}>
+                        <div className={"usa-da-icon usa-da-form-icon date " + dateClass}>
                             {dateIcon}
                         </div>
                     </div>
                 </div>
 
-                <div className={"alert alert-info mt60 mb-0 usa-da-range-icon" + hideWarning}>
-                    <span className="usa-da-icon">
+                <div className={"alert alert-info mt60 mb-0" + hideWarning}>
+                    <span className="usa-da-icon alert-info usa-da-alert_icon ">
                         <Icons.InfoCircle />
                     </span>
                     <p>

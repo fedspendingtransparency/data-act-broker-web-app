@@ -23,7 +23,7 @@ export default class ErrorMessageList extends React.Component {
         return (
            <div className="col-md-12 alert alert-error mt-40 mb-0" role="alert">
                 <span className="usa-da-icon usa-da-icon-exclamation-circle"></span>
-                <h3>Error</h3>
+                <div className="alert-header-text">Error</div>
                 <ul>{errorListItems}</ul>
             </div>
         );

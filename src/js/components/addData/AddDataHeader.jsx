@@ -62,7 +62,7 @@ export default class AddDataHeader extends React.Component {
                 <div className="container">
                     <div className="row usa-da-content-add-data usa-da-page-title flex-center-content-only-height">
                         <div className="col-md-10 mt-40 mb-20">
-                            <div className="display-2">{this.props.title}</div>
+                            <div className="display-2" data-contentstart="start" tabIndex={-1}>{this.props.title}</div>
                         </div>
                         <div className="col-md-2">
                             {lastUpdated}

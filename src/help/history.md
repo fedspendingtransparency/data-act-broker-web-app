@@ -1,3 +1,38 @@
+#### What's New in This Release - June 29, 2016
+In this version of the Broker, we made several small changes to make the Broker easier to use, added a section to display submissions from your agency, clarified the process to upload corrected files, added an email notification feature, transitioned some of the validation rules to SQL statements, and updated some of the validations. 
+
+  - [Ease of Use Improvements](#/help?section=easeofUse)
+  - [Submissions from Your Agency](#/help?section=agencySubdashboard)
+  - [Uploading Corrected Files](#/help?section=uploadCorrectedFiles)
+  - [Send Email Notifications](#/help?section=sendEmail)
+  - [Some Validations in SQL](#/help?section=validationSQL)
+  - [Updated Validations](#/help?section=updatedValidations)
+
+#### Ease of Use Improvements{section=easeofUse}
+- **Confirm Password** When you create a Broker account, you are prompted to enter a Password and then to Confirm Password.
+- **Username** On the log in screen, we have replaced the Username prompt with Email Address since your user name is your email address.
+- **Submission Guide** If you hide the Submission Guide page, when you select your agency for a new submission, there is a link to view the Submission Guide. The Submission Guide also has a link to the validations listed on this Help page.
+- **Default Dates** When creating your submission, the dates default to the beginning of the fiscal year and the current month or quarter.
+- **Last Saved** The Broker automatically saves your files when you upload them and at each step of the validation process. The date and time the data was last saved is displayed at the top of the screen below the Help menu. 
+- **Leave Validations Running** You can leave the validation page and the validations will continue to run. Come back at any time to check your progress or results.
+- **Spam Folder Warning** Some users report that emails from the Broker end up in their spam folders. We've added a reminder to check your spam folder on pages that generate emails.
+- **Back to Top** We know this Help page is getting long so we added an arrow in the lower right corner. Click it to take you back to the top of the page at any time.
+
+#### Submissions from Your Agency{section=agencySubdashboard}
+We've added a table to the Broker home page where you can see recent submissions from your agency. View and edit submissions from this table.
+
+#### Uploading Corrected Files{section=uploadCorrectedFiles}
+If one or more of your files fails validation, only those failed files will have a prompt in red for you to upload a corrected file. Click *Choose Corrected File* to browse to your file and select it. Or drag and drop a corrected file onto the file icon. Click *Upload Corrected CSV Files*. The validations on the corrected files will run again.
+
+#### Send Email Notifications{section=sendEmail}
+After your data has been successfully validated, the *Review & Publish* page has a button to *Notify Another User that the Submission is Ready for Certification*. This opens a field where you can type in multiple email addresses for users in your agency. 
+
+#### Some Validations in SQL{section=validationSQL}
+Agency developers may be interested to know that we transitioned some of the Broker validations to using SQL statements. The list of SQL statements is publically available on [GitHub](https://github.com/fedspendingtransparency/data-act-broker-backend/tree/master/dataactvalidator/config/sqlrules).
+
+#### Updated Validations{section=updatedValidations}
+In this release we included rules A18, A19, A20, B9, B10, B11, B12, and C18. See cumulative table above.
+
 #### What's New in This Release - June 15, 2016
 In this version of the Broker, we made it easier to select your agency, made it easier to submit your data without errors, and updated some of the validations. 
 
@@ -30,7 +65,7 @@ The Submission Guide provides details of the four steps to submit your agency's 
 Based on user feedback, the quarterly submission dates are displayed as the quarter number and the fiscal year. Example: Quarter 2 - 2016.
 
 #### What's New in This Release - May 17, 2016
-In this version of the broker, we have made a change if you are logging in with Internet Explorer, added funtionality for the Broker to recognize files with the pipe symbol as a delimiter, and updated some of the validations.
+In this version of the Broker, we have made a change if you are logging in with Internet Explorer, added functionality for the Broker to recognize files with the pipe symbol as a delimiter, and updated some of the validations.
 
 * [Logging into the Broker with Internet Explorer](#/help?section=brokerIE)
 * [Submit Files with Pipe Symbol](#/help?section=pipe)

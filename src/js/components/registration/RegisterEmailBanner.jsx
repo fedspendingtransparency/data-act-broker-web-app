@@ -140,7 +140,7 @@ export default class RegisterEmailBanner extends React.Component {
                             <div className="col-md-5 usa-da-login-container">
                                 <div className="row">
                                     <div className="col-xs-12">
-                                        <p className="msg">A .gov or .mil email address is preferred when registering for access to the Alpha Data Broker. If you do not have a .gov or .mil email address, you may be required to provide an appropriate agency point of contact to verify your registration.</p>
+                                        <p className="msg">A .gov or .mil email address is preferred when registering for access to the DATA Act Broker. If you do not have a .gov or .mil email address, you may be required to provide an appropriate agency point of contact to verify your registration.</p>
                                     </div>
                                 </div>
                                 <form onKeyPress={this.handleKeyPress.bind(this)}>

@@ -18,7 +18,7 @@ export default class Username extends React.Component {
     render() {
         return (
             <div className="usa-da-input-container">
-                <label className="sr-only" htmlFor="username">Username or email address</label>
+                <label className="sr-only" htmlFor="username">Email address</label>
                 <input
                   className="usa-da-input-with-icon"
                   id="username"
@@ -30,7 +30,7 @@ export default class Username extends React.Component {
                   tabIndex={this.props.tabIndex}
                 />
                 <span className="usa-da-icon">
-                    <Icons.User />
+                    <Icons.User alt="Email Address" />
                </span>
             </div>
         );

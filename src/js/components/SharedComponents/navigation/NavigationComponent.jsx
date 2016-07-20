@@ -8,6 +8,7 @@ import { kGlobalConstants } from '../../../GlobalConstants.js';
 import NavbarTab from './NavbarTab.jsx';
 import UserButton from './UserButton.jsx';
 import AdminButton from './AdminButton.jsx';
+import SkipNavigationLink from './SkipNavigationLink.jsx';
 
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
@@ -65,6 +66,8 @@ export class Navbar extends React.Component {
 
         return (
             <nav className="navbar navbar-default usa-da-header">
+                <SkipNavigationLink />
+                <a className="hidden-screen-reader" href="#">Home</a>
                 <div className="container-fluid">
                     <div className="row">
                         <div className="col-md-12 usa-da-top-head">

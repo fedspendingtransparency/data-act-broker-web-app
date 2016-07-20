@@ -19,6 +19,10 @@ const propTypes = {
 	iconName: PropTypes.string.isRequired
 };
 
+const defaultProps = {
+	alt: ''
+};
+
 export default class BaseIcon extends React.Component {
 	constructor(props) {
 		super(props);
@@ -86,9 +90,13 @@ export default class BaseIcon extends React.Component {
 
 	render() {
 		return (
-			<svg className={this.props.iconClass} viewBox={this.state.icon.viewBox} key={this.state.icon.data} dangerouslySetInnerHTML={{__html: this.state.icon.data}} />
+			<svg className={this.props.iconClass} viewBox={this.state.icon.viewBox} key={this.state.icon.data} aria-label={this.props.alt}>
+				<title>{this.props.alt}</title>
+				<g dangerouslySetInnerHTML={{__html: this.state.icon.data}} />
+			</svg>
 		);
 	}
 }
 
 BaseIcon.propTypes = propTypes;
+BaseIcon.defaultProps = defaultProps;
