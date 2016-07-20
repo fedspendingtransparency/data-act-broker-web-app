@@ -74,6 +74,7 @@
             padding: 15px 20px 20px;
             & a {
                 font-size: 1.2rem;
+                font-weight: 700;
                 text-decoration: none;
             }
         }
@@ -113,7 +114,7 @@
     margin-right: -50%;
     transform: translate(-50%, -50%);
     outline: none;
-    width: 40%;
+    width: 60%;
     max-width: 750px;
     padding: 30px 30px 20px;
     background-color: $color-white;

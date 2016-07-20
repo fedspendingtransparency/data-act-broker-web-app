@@ -277,7 +277,11 @@ export default class ValidateDataFileComponent extends React.Component {
                                 {uploadProgress}
                                 <div className="usa-da-validate-item-file-name">{fileName}</div>
                                 <div className={"usa-da-validate-item-file-section-correct-button" + disabledCorrect} data-testid="validate-upload">
-                                    <ValidateDataUploadButton onDrop={this.props.onFileChange} />
+                                    <div className="row">
+                                        <div className='col-md-12'>
+                                            <ValidateDataUploadButton onDrop={this.props.onFileChange} />
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                         </div>

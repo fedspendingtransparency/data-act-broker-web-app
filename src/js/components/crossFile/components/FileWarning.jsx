@@ -4,7 +4,7 @@
   **/
 import React from 'react';
 import _ from 'lodash';
-import * as ReviewHelper from' ../../../helpers/reviewHelper.js';
+import * as ReviewHelper from '../../../helpers/reviewHelper.js';
 import * as Icons from '../../SharedComponents/icons/Icons.jsx';
 
 const defaultProps = {
