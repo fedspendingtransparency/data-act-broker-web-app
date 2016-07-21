@@ -8,13 +8,8 @@ import xmldoc from 'xmldoc';
 import uuid from 'node-uuid';
 import { kGlobalConstants } from '../../../GlobalConstants.js';
 
-let instance = null;
-
-export default class IconSingleton {
+class IconSingleton {
 	constructor() {
-		if (!instance) {
-			instance = this;
-		}
 
 		this.subscribers = {};
 		this.svgCache = {};
@@ -83,3 +78,6 @@ export default class IconSingleton {
 		delete this.subscribers[subscriptionId];
 	}
 }
+
+const instance = new IconSingleton();
+export default instance;

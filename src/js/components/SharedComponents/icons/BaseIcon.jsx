@@ -34,7 +34,7 @@ export default class BaseIcon extends React.Component {
 			}
 		};
 
-		this.iconSingleton = new IconSingleton();
+		this.iconSingleton = IconSingleton;
 		this.subscription = null;
 	}
 	componentDidMount() {
