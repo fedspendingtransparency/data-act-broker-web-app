@@ -50,7 +50,7 @@ export default class HelpPage extends React.Component {
                         <div className="container">
                             <div className="row">
                                 <div className="col-md-12 mt-40 mb-20">
-                                    <div className="display-2">Help | DATA Act Broker - Alpha Release</div>
+                                    <div className="display-2" data-contentstart="start" tabIndex={-1}>Help | DATA Act Broker - Beta Release</div>
                                 </div>
                             </div>
                         </div>
@@ -68,9 +68,9 @@ export default class HelpPage extends React.Component {
                 </div>
                 <Footer />
                 <div className="usa-da-help-top-button">
-                    <a href="#/help?section=top">
+                    <a href="#/help?section=top" aria-label="Back to top">
                         <div className="usa-da-icon">
-                            <Icons.AngleUp />
+                            <Icons.AngleUp alt="Arrow pointing up" />
                         </div>
                         <span className="hidden-label">Back to top</span>
                     </a>
