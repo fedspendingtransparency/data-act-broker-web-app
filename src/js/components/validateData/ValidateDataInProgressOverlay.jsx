@@ -6,6 +6,10 @@
 import React from 'react';
 import * as Icons from '../SharedComponents/icons/Icons.jsx';
 
+const defaultProps = {
+	hasFailed: false
+};
+
 export default class ValidateDataInProgressOverlay extends React.Component {
 
 	constructor(props) {
@@ -14,15 +18,25 @@ export default class ValidateDataInProgressOverlay extends React.Component {
 	
 	render() {
 
+		let title = 'Your files are being validated.';
+		let description = 'You can return to this page at any time to check the validation status by using this link:';
+
+		if (this.props.hasFailed) {
+			title = 'An error has occurred while validating your files.';
+			description = 'Contact an administrator for assistance. Provide this URL when describing the issue:';
+		}
+
+
 		return (
 			<div className="center-block usa-da-validation-overlay">
 				<div className="container">
 					<div className="row">
 						<div className="col-md-12 usa-da-overlay-content-wrap">
 							<div className="overlay-loading">
-								<h6>Your files are being validated.</h6>
+								<h6>{title}</h6>
 								<div className="overlay-help-text">
-									You can return to this page at any time to check the validation status by using this link:<br />
+									{description}
+									<br />
 									<a href={window.location.href}>{window.location.href}</a>
 								</div>
 							</div>
@@ -33,3 +47,5 @@ export default class ValidateDataInProgressOverlay extends React.Component {
 		);
 	}
 }
+
+ValidateDataInProgressOverlay.defaultProps = defaultProps;

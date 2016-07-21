@@ -31,7 +31,8 @@ export default class ValidateDataFileComponent extends React.Component {
             headerTitle: 'Validating...',
             errorReports: [],
             hasErrorReport: false,
-            isError: false
+            isError: false,
+            hasFailed: false
         };
     }
 
@@ -82,6 +83,7 @@ export default class ValidateDataFileComponent extends React.Component {
         let isError = false;
         const errorKeys = [];
         let errorData = [];
+        let hasFailed = false;
 
         if (item.missing_headers.length > 0) {
             errorKeys.push('missing_headers');
@@ -137,11 +139,20 @@ export default class ValidateDataFileComponent extends React.Component {
             isError = false;
         }
 
+        if (item.job_status == 'failed') {
+            headerTitle = 'An error occurred while validating this file. Contact an administrator for assistance.';
+            errorData = [];
+            hasErrorReport = false;
+            isError = false;
+            hasFailed = true;
+        }
+
         this.setState({
             headerTitle: headerTitle,
             errorReports: errorData,
             hasErrorReport: hasErrorReport,
-            isError: isError
+            isError: isError,
+            hasFailed: hasFailed
         });
     }
 
@@ -266,7 +277,11 @@ export default class ValidateDataFileComponent extends React.Component {
                                 {uploadProgress}
                                 <div className="usa-da-validate-item-file-name">{fileName}</div>
                                 <div className={"usa-da-validate-item-file-section-correct-button" + disabledCorrect} data-testid="validate-upload">
-                                    <ValidateDataUploadButton onDrop={this.props.onFileChange} />
+                                    <div className="row">
+                                        <div className='col-md-12'>
+                                            <ValidateDataUploadButton onDrop={this.props.onFileChange} />
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                         </div>

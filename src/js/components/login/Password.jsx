@@ -19,7 +19,8 @@ const defaultProps = {
     iconClass: 'usa-da-icon',
     error: false,
     tabIndex: "2",
-    placeholder: "Password"
+    placeholder: "Password",
+    isRequired: true
 }
 
 export default class Password extends React.Component {
@@ -40,9 +41,10 @@ export default class Password extends React.Component {
                     aria-describedby="password"
                     onChange={this.props.handleChange}
                     tabIndex={this.props.tabIndex}
+                    aria-required={this.props.isRequired}
                 />
                 <span className="usa-da-icon">
-                    <Icons.Lock />
+                    <Icons.Lock alt="Password" />
                </span>
             </div>
         );

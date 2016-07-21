@@ -65,7 +65,11 @@ export default class ReplacementBox extends React.Component {
 		return (
 			<div className="error-box">
 				<div className="vertical-line" />
-				<h6>Overwrite Files</h6>
+				<div className="row">
+					<div className="col-md-6">
+						<h6>Overwrite Files</h6>
+					</div>
+				</div>
 				<div className="error-content">
 					<div className="overwrite-wrapper">
 						<div className="button-list">
@@ -75,9 +79,13 @@ export default class ReplacementBox extends React.Component {
 							<div className="upload-progress">
 								{uploadProgress}
 							</div>
-							<div className="upload-buttons">
-								<UploadButtonContainer file={ReviewHelper.globalFileData[this.props.meta.firstKey]} fileKey={this.props.meta.firstKey} pair={this.props.meta.key} type="optional" />
-								<UploadButtonContainer file={ReviewHelper.globalFileData[this.props.meta.secondKey]} fileKey={this.props.meta.secondKey} pair={this.props.meta.key} type="optional" />
+							<div className="row">
+								<div className="col-md-6 mb-10">
+									<UploadButtonContainer file={ReviewHelper.globalFileData[this.props.meta.firstKey]} fileKey={this.props.meta.firstKey} pair={this.props.meta.key} type="optional" />
+								</div>
+								<div className="col-md-6">
+									<UploadButtonContainer file={ReviewHelper.globalFileData[this.props.meta.secondKey]} fileKey={this.props.meta.secondKey} pair={this.props.meta.key} type="optional" />
+								</div>
 							</div>
 						</div>
 					</div>

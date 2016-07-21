@@ -65,9 +65,15 @@ export const fetchStatus = (submissionId) => {
 	        .end((errFile, res) => {
 
 	        	if (errFile) {
+	        		let detail = '';
+	        		if (res.body != null && res.body.hasOwnProperty('message')) {
+	        			detail = res.body.message;
+	        		}
+
 	        		deferred.reject({
 	        			reason: res.statusCode,
-	        			error: errFile
+	        			error: errFile,
+	        			detail: detail
 	        		});
 	        	}
 	        	else {
