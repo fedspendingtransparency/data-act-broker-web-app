@@ -51,7 +51,7 @@ export default class ValidateValuesOverlay extends React.Component {
 		if (this.props.errors.length == 0) {
 			icon = <Icons.CheckCircle />;
 			iconClass = 'usa-da-successGreen';
-			message = 'No Critical Errors were found in the .CSV files. Click Next to review and publish these files.';
+			message = 'No Critical Errors were found in the .CSV files. Click Next to perform cross-file validations on these files.';
 			uploadButtonDisabled = true;
 			uploadButtonClass = '-disabled';
 			nextButtonClass = ' btn-primary';
