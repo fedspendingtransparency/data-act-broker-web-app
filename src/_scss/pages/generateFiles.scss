@@ -43,6 +43,7 @@
 		flex: 0 1 auto;
 		position: relative;
 		width: 100px;
+		align-self: center;
 		text-align: center;
 		line-height: 1.4rem;
 	}
@@ -88,6 +89,7 @@
 		position: absolute;
 		top: 50px;
 		right: 0px;
+		z-index: 9999;
 
 		background-color: $color-gray-lightest;
 		border: 1px solid $color-gray-light;

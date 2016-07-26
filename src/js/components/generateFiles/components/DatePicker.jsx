@@ -19,6 +19,7 @@ export default class DatePicker extends React.Component {
 		super(props);
 
 		this.delayedBlur = false;
+		this.escapeEvent;
 
 		this.state = {
 			inputValue: '',
@@ -51,14 +52,42 @@ export default class DatePicker extends React.Component {
 
 		this.setState({
 			showDatePicker: !this.state.showDatePicker
-		}, () => {
-			// focus the daypicker
-			this.refs.datepicker.refs.dayPicker.focus();
-		});
+		}, this.datePickerChangeEvent.bind(this));
+	}
+
+	datePickerChangeEvent() {
+
+		if (this.state.showDatePicker) {
+			// focus on the date picker
+			this.refs.datepicker.refs.dayPicker.querySelector('.DayPicker-Day--selected').focus();
+
+			// we want to close the date picker on escape key
+			// have to hold a reference to the bound function in order to cancel the listener later
+			this.escapeEvent = this.escapeDatePicker.bind(this);
+			window.addEventListener('keyup',this.escapeEvent);
+		}
+		else {
+			// date picker is now closed, stop listening for this event
+			window.removeEventListener('keyup', this.escapeEvent);
+			// return focus to the input field
+			this.refs.text.focus();
+		}
+	}
+
+	escapeDatePicker(e) {
+		if (e.keyCode === 27) {
+			this.toggleDatePicker(e);
+		}
 	}
 
 	handleDatePick(e, day) {
 		this.props.onDateChange(day, this.props.type);
+		// close the popup if is shown
+		if (this.state.showDatePicker) {
+			this.setState({
+				showDatePicker: false
+			}, this.datePickerChangeEvent.bind(this));
+		}
 	}
 
 	handleTypedDate(e) {
@@ -101,7 +130,7 @@ export default class DatePicker extends React.Component {
 		this.delayedBlur = window.setTimeout(() => {
 			this.setState({
 				showDatePicker: false
-			});
+			}, this.datePickerChangeEvent.bind(this));
 		}, 20);
 	}
 
@@ -127,30 +156,34 @@ export default class DatePicker extends React.Component {
 			// convert the moment object to a JS date object
 			pickedDay = this.props.value.toDate();
 		}
+		else if (this.props.opposite) {
+			// a start/end date was already picked
+			pickedDay = this.props.opposite.toDate();
+		}
 		else {
-			// default to the current date
+			// no dates have been chosen at all, default to the current date
 			pickedDay = moment().toDate();
 		}
 
 		// handle the cutoff dates (preventing end dates from coming before start dates or vice versa)
 		let cutoffFunc = null;
-		if (this.props.type == 'startDate' && this.props.cutoff) {
+		if (this.props.type == 'startDate' && this.props.opposite) {
 			// the cutoff date represents the latest possible date
 			cutoffFunc = (day) => {
-				return moment(day).isAfter(this.props.cutoff);
+				return moment(day).isAfter(this.props.opposite);
 			};
 		}
-		else if (this.props.type == 'endDate' && this.props.cutoff) {
+		else if (this.props.type == 'endDate' && this.props.opposite) {
 			// cutoff date represents the earliest possible date
 			cutoffFunc = (day) => {
-				return moment(day).isBefore(this.props.cutoff);
+				return moment(day).isBefore(this.props.opposite);
 			};
 		}
 
 		return (
 			<div className="generate-datepicker-wrap">
 				<div className="generate-datepicker">
-	            	<input type="text" placeholder={this.props.title} value={this.state.inputValue} onChange={this.handleTypedDate.bind(this)} tabIndex={this.props.tabIndex} />
+	            	<input type="text" placeholder={this.props.title} value={this.state.inputValue} onChange={this.handleTypedDate.bind(this)} tabIndex={this.props.tabIndex} ref="text" />
 	                <a href="#" onClick={this.toggleDatePicker.bind(this)} tabIndex={this.props.tabIndex + 1} className="usa-da-icon picker-icon date">
 	                    <Icons.Calendar alt="Date picker" />
 	                </a>

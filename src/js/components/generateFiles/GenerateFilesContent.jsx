@@ -28,7 +28,8 @@ export default class GenerateFilesContent extends React.Component {
 			d2: {
 				startDate: null,
 				endDate: null
-			}
+			},
+			complete: false
 		};
 	}
 
@@ -57,18 +58,44 @@ export default class GenerateFilesContent extends React.Component {
 
     	this.setState({
     		[file]: newState
+    	}, () => {
+    		this.validateDates();
     	});
     }
 
-    checkComplete() {
+    validateDates() {
 
-        if (this.state.agency !== "") {
-            this.setState({
-                showDateRangeField: true
-            });
-        }
+    	const types = ['d1', 'd2'];
+    	let allValid = true;
+    	types.forEach((type) => {
+    		// validate the date ranges
+    		const start = this.state[type].startDate;
+    		const end = this.state[type].endDate;
+    		if (start && end) {
+    			// both sets of dates exist
+    			if (!end.isSameOrAfter(start)) {
+    				// end date comes before start date, invalid
+    				allValid = false;
+    				// show an error message
+    				this.refs[type].showError('Invalid Dates', 'The end date cannot be earlier than the start date.');
+    			}
+    			else {
+    				// valid!
+    				this.refs[type].hideError();
+    			}
+    		}
+    		else {
+    			// not all dates exist yet
+    			allValid = false;
+    			this.refs[type].hideError();
+    		}
+    	});
 
-    }
+    	this.setState({
+    		complete: allValid
+    	});
+
+	}
 
 
 	render() {
@@ -82,8 +109,8 @@ export default class GenerateFilesContent extends React.Component {
 						</div>
 					</div>
 					<div className="usa-da-generate-content">
-	                    <GenerateFileBox onDateChange={this.handleDateChange.bind(this, "d1")} value={this.state.d1} label="File D1: Procurement Awards (FPDS data)" datePlaceholder="Sign" />
-	                    <GenerateFileBox onDateChange={this.handleDateChange.bind(this, "d2")} value={this.state.d2} label="File D2: Financial Assistance" datePlaceholder="Action" />
+	                    <GenerateFileBox onDateChange={this.handleDateChange.bind(this, "d1")} value={this.state.d1} label="File D1: Procurement Awards (FPDS data)" datePlaceholder="Sign" startingTab={1} ref="d1" />
+	                    <GenerateFileBox onDateChange={this.handleDateChange.bind(this, "d2")} value={this.state.d2} label="File D2: Financial Assistance" datePlaceholder="Action" startingTab={9} ref="d2" />
 	                </div>
 	            </div>
 	            <GenerateFilesOverlay {...this.props} />
