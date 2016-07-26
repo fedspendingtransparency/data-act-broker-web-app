@@ -13,6 +13,7 @@ import AgencyListContainer from '../../containers/SharedContainers/AgencyListCon
 import * as Icons from '../SharedComponents/icons/Icons.jsx';
 
 import GenerateFileBox from './components/GenerateFileBox.jsx';
+import GenerateFilesOverlay from './GenerateFilesOverlay.jsx';
 
 export default class GenerateFilesContent extends React.Component {
 
@@ -20,11 +21,14 @@ export default class GenerateFilesContent extends React.Component {
 		super(props);
 
 		this.state = {
-			agency: '',
-			startDate: null,
-			endDate: null,
-			agencyError: false,
-			showDateRangeField: true
+			d1: {
+				startDate: null,
+				endDate: null
+			},
+			d2: {
+				startDate: null,
+				endDate: null
+			}
 		};
 	}
 
@@ -44,11 +48,15 @@ export default class GenerateFilesContent extends React.Component {
         }
     }
 
-    handleDateChange(startDate, endDate) {
+    handleDateChange(file, date, dateType) {
+
+    	// merge the new date into the file's state without affecting the other keys
+    	const newState = Object.assign(this.state[file], {
+    		[dateType]: moment(date)
+    	});
 
     	this.setState({
-    		startDate: startDate,
-    		endDate: endDate
+    		[file]: newState
     	});
     }
 
@@ -66,16 +74,20 @@ export default class GenerateFilesContent extends React.Component {
 	render() {
 
 		return (
-			<div className="container center-block">
-				<div className="row usa-da-submission-instructions">
+			<div>
+				<div className="container center-block with-overlay">
+					<div className="row usa-da-submission-instructions">
 						<div className="col-md-12">
 							<p>Select the durations for the generated D1 and D2 files. By default, this range is set to the submission date range you selected in step one.</p>
 						</div>
 					</div>
-				<div className="usa-da-generate-content">
-                    <GenerateFileBox />
-                </div>
-            </div>
+					<div className="usa-da-generate-content">
+	                    <GenerateFileBox onDateChange={this.handleDateChange.bind(this, "d1")} value={this.state.d1} label="File D1: Procurement Awards (FPDS data)" datePlaceholder="Sign" />
+	                    <GenerateFileBox onDateChange={this.handleDateChange.bind(this, "d2")} value={this.state.d2} label="File D2: Financial Assistance" datePlaceholder="Action" />
+	                </div>
+	            </div>
+	            <GenerateFilesOverlay {...this.props} />
+	        </div>
 		)
 	}
 }

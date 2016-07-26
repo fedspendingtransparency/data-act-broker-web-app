@@ -100,10 +100,11 @@
 
 /* Default modifiers */
 
-// .DayPicker-Day--today {
-//   color: #d0021b;
-//   font-weight: 500;
-// }
+.DayPicker-Day--selected {
+  color: $color-gray-lightest;
+  background-color: $color-gray-dark;
+  font-weight: 500;
+}
 
 .DayPicker-Day--disabled {
   color: #dce0e0;
