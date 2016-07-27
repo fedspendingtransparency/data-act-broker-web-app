@@ -15,7 +15,7 @@ export default class ComparisonComponent extends React.Component {
 
 		let icon = <Icons.ExclamationCircle />;
 		if (this.props.type == 'success') {
-			icon = <Icons.Check />
+			icon = <Icons.CheckCircle />
 		}
 
 		return (

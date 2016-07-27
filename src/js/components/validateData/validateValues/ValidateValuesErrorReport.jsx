@@ -12,6 +12,7 @@ import SubmitButton from '../../SharedComponents/SubmitButton.jsx';
 import Table from '../../SharedComponents/table/TableComponent.jsx';
 
 import ValidateValuesTreemap from './ValidateValuesTreemap.jsx';
+import * as Icons from '../../SharedComponents/icons/Icons.jsx';
 
 const propTypes = {
 
@@ -23,7 +24,9 @@ export default class ValidateValuesErrorReport extends React.Component {
 
         this.state = {
             sortDirection: 'asc',
-            sortField: 0
+            sortField: 0,
+            headerClasses: ['headerColA','headerColB', 'headerColC'],
+            cellClasses: ['cellColA', 'cellColB', 'cellColC']
         };
     }
 
@@ -49,7 +52,7 @@ export default class ValidateValuesErrorReport extends React.Component {
         // sort the data
         const sortedRows = this.sortData(rows);
         
-        table = <ScrollableTable headers={headers} data={sortedRows} sortable={true} onSort={this.sortTable.bind(this)} />
+        table = <ScrollableTable headers={headers} data={sortedRows} sortable={true} onSort={this.sortTable.bind(this)} cellClasses={this.state.cellClasses} headerClasses={this.state.headerClasses} />
 
 
 
@@ -99,14 +102,19 @@ export default class ValidateValuesErrorReport extends React.Component {
                 <div className="usa-da-validate-error-report">
                     <div className="row center-block">
                         <div className="col-md-9">
-                            <h6>Individual {this.props.name}s</h6>
+                            <h6>{this.props.name}s</h6>
                         </div>
                         <div className="col-md-3">
-                            <button className="usa-da-button btn-primary pull-right" onClick={this.openWindow.bind(this)}>Download {this.props.name}s Report</button>
+                            <div className="usa-da-download pull-right" onClick={this.openWindow.bind(this)}>
+                                <span className="usa-da-icon usa-da-download-report"><Icons.CloudDownload /></span>
+                                Download {this.props.name}s Report
+                            </div>
                         </div>
                         <div className="col-md-12">
                             {tables}
-                            <ValidateValuesTreemap data={this.props.data.error_data} type="error" color={this.props.color} />
+                            <div className="mt-20">
+                                <ValidateValuesTreemap data={this.props.data.error_data} type="error" color={this.props.color} />
+                            </div>
                         </div>
                     </div>
                 </div>

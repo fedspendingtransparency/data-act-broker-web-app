@@ -122,7 +122,7 @@ export default class ReviewDataNotifyModal extends React.Component {
 
         let autoCompleteItems = null;
         if (this.state.users && this.state.users.length > 0){
-            autoCompleteItems = <Typeahead ref="typeahead" placeholder="Name or email address of the person to certify this submission" keyValue="displayName" internalValue="id" values={this.state.users} formatter={this.userFormatter} onSelect={this.selectUser.bind(this)}/>;
+            autoCompleteItems = <Typeahead ref="typeahead" placeholder="Name or email address of the person to certify this submission" keyValue="displayName" internalValue="id" values={this.state.users} formatter={this.userFormatter} onSelect={this.selectUser.bind(this)} errorHeader="Unknown User" errorDescription="You must select a user from the list that is provided as you type." />;
         }
 
         return (
@@ -132,19 +132,24 @@ export default class ReviewDataNotifyModal extends React.Component {
                 </div>
 
                 <div className="usa-da-landing-modal-content">
-                    <h6>Notify Another User that the Submission is Ready for Certification</h6>
+                <div className="row">
+                    <div className="col-md-12">
+                        <h6>Notify Another User that the Submission is Ready for Certification</h6>
 
-                    <div className="usa-da-selected-users-holder">
-                        {selectedUsers}
-                    </div>
+                        <div className="usa-da-selected-users-holder">
+                            {selectedUsers}
+                        </div>
 
-                    <div className="usa-da-autocomplete-holder typeahead-holder mb-30">
-                        {autoCompleteItems}
+                        <div className="usa-da-autocomplete-holder typeahead-holder mb-30">
+                            {autoCompleteItems}
+                        </div>
                     </div>
-
-                    <div className="col-md-offset-6 col-md-6">
-                        <a href="#" onClick={this.sendNotification.bind(this)} className="usa-da-button btn-primary btn-sm btn-full">Send Notification</a>
+                </div>
+                <div className="row">
+                    <div className="col-md-12 mb-10">
+                        <a href="#" onClick={this.sendNotification.bind(this)} className="usa-da-button btn-primary pull-right">Send Notification</a>
                     </div>
+                </div>
                 </div>
             </Modal>
         );

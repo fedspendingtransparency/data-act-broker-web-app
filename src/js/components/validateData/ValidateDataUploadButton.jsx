@@ -16,7 +16,7 @@ const propTypes = {
 const defaultProps = {
 	optional: false,
 	text: 'Upload Corrected File',
-	additionalClasses: ''
+	additionalClasses: ' btn-danger-outline'
 };
 
 export default class ValidateDataUploadButton extends React.Component {
@@ -29,15 +29,13 @@ export default class ValidateDataUploadButton extends React.Component {
 
 		let optionalUpload = '';
 		if (this.props.optional) {
-			optionalUpload = ' optional-upload';
+			optionalUpload = ' btn-optional';
 		}
 
 		return (
-			<div>
-				<Dropzone onDrop={this.addedFile.bind(this)} multiple={false} className={"usa-da-validate-upload-button" + optionalUpload + this.props.additionalClasses}>
-					{this.props.text}
-				</Dropzone>
-			</div>
+			<Dropzone onDrop={this.addedFile.bind(this)} multiple={false} className={"usa-da-button btn-full" + optionalUpload + this.props.additionalClasses}>
+				{this.props.text}
+			</Dropzone>
 		);
 	}
 }

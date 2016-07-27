@@ -72,6 +72,7 @@ export default class CrossFileOverlay extends React.Component {
 	render() {
 
 		let icon = <Icons.ExclamationCircle />;
+		let iconClass = 'usa-da-errorRed';
 
 		let uploadButtonClass = '-disabled';
 		let uploadButtonDisabled = true;
@@ -92,6 +93,7 @@ export default class CrossFileOverlay extends React.Component {
 
 		if (Object.keys(this.props.submission.crossFile).length == 0) {
 			icon = <Icons.CheckCircle />;
+			iconClass = 'usa-da-successGreen';
 			message = 'Your files have been successfully cross-validated.';
 			uploadButtonDisabled = true;
 			uploadButtonClass = '-disabled';
@@ -114,7 +116,7 @@ export default class CrossFileOverlay extends React.Component {
 			nextButtonClass = '-disabled';
 			buttonText = 'Uploading files...';
 		}
-		else if (this.props.submission.state == 'prepare') {
+		else if (this.props.submission.state == 'prepare') { 
 			uploadButtonDisabled = true;
 			uploadButtonDisabled = '-disabled';
 			nextButtonDisabled = true;
@@ -128,6 +130,7 @@ export default class CrossFileOverlay extends React.Component {
 			nextButtonClass = ' hide';
 			nextButtonDisabled = true;
 			icon = null;
+			iconClass = null;
 			message = 'Your files are being validated.';
 			hideButtons = ' hide';
 			hideHelpText = '';
@@ -137,12 +140,12 @@ export default class CrossFileOverlay extends React.Component {
 			<div className="center-block usa-da-validation-overlay">
 				<div className="container">
 					<div className="row">
-						<div className="col-md-8 usa-da-overlay-content-wrap">
-							<div className="row full-row">
-								<div className="col-sm-2 col-lg-1 usa-da-icon">
-									{icon}
+						<div className="col-xs-10 col-xs-offset-1 col-md-8 col-md-offset-0 usa-da-overlay-content-wrap">
+							<div className="row">
+								<div className="col-xs-2 col-xs-offset-5 col-md-1 col-md-offset-0 usa-da-icon mr-10">
+									<div className={iconClass}>{icon}</div>
 								</div>
-								<div className="col-sm-10 col-lg-11">
+								<div className="col-xs-10 col-xs-offset-1 col-md-10 col-md-offset-0">
 									<h6>{message}</h6>
 									<div className={"overlay-help-text" + hideHelpText}>
 										You can return to this page at any time to check the validation status by using this link:<br />
@@ -151,7 +154,7 @@ export default class CrossFileOverlay extends React.Component {
 								</div>
 							</div>
 						</div>
-						<div className="col-md-4">
+						<div className="col-xs-12 col-md-4">
 							<div className={'usa-da-btn-bg' + hideButtons}>
 								<button className={"usa-da-button" + uploadButtonClass} disabled={uploadButtonDisabled} onClick={this.props.uploadFiles}>{buttonText}</button>
 								<button className={"usa-da-validation-overlay-review usa-da-button" + nextButtonClass} disabled={nextButtonDisabled} onClick={this.pressedNext.bind(this)}>Next</button>

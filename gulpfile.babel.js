@@ -289,12 +289,13 @@ gulp.task('build', ['sass'], () => {
 
 // minify the JS
 gulp.task('minify', ['build'], () => {
+    const jsFile = 'app.' + commitHash + '.js';
 
     return gulp.src(dir.PUBLIC + '/' + path.OUT)
         // delete the non-minified file
         .pipe(vinylPaths(del))
         // set the minified output
-        .pipe(rename(path.MINIFIED_OUT))
+        .pipe(rename(jsFile))
         // minify
         .pipe(uglify())
         // add in the commit hash and timestamp header (which would have been removed by the minification process)
@@ -306,13 +307,24 @@ gulp.task('minify', ['build'], () => {
 
 // after minifying, change the HTML script tag to point to the minified file
 gulp.task('modifyHtml', ['minify'], () => {
-    return gulp.src(dir.PUBLIC + '/index.html')
-        // replace the app.js script reference with one that points to the minified file
-        // add in a ?v=[git hash] param to override browser caches when a new version is deployed
-        .pipe(replace(path.OUT, path.MINIFIED_OUT + '?v=' + commitHash))
-        // now do the same thing (without minification) for the CSS file
-        .pipe(replace('main.css', 'main.css?v=' + commitHash))
-        .pipe(gulp.dest(dir.PUBLIC));
+    const cssFile = 'main.' + commitHash + '.css';
+    const jsFile = 'app.' + commitHash + '.js';
+
+
+    return merge(
+        gulp.src(dir.PUBLIC + '/index.html')
+            // replace the app.js script reference with one that points to the minified file
+            // add in a ?v=[git hash] param to override browser caches when a new version is deployed
+            .pipe(replace(path.OUT, jsFile))
+            // now do the same thing (without minification) for the CSS file
+            .pipe(replace('main.css', cssFile))
+            .pipe(gulp.dest(dir.PUBLIC)),
+        // now we have to rename the CSS file to match (JS renaming is handled by minification process)
+        gulp.src(dir.PUBLIC + '/css/main.css')
+            .pipe(vinylPaths(del))
+            .pipe(rename(cssFile))
+            .pipe(gulp.dest(dir.PUBLIC + '/css'))
+    );
 });
 
 

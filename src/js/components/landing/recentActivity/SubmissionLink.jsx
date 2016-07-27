@@ -22,7 +22,7 @@ export default class SubmissionLink extends React.Component {
 		return (
 			<div className="usa-da-recent-activity-link">
 				<a href={"#/validateData/" + this.props.submissionId}>
-					<Icons.Eye />
+					<Icons.Eye alt="View" />
 				</a>
 			</div>
 		);

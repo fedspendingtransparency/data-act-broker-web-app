@@ -297,17 +297,17 @@ export default class ConfirmCode extends React.Component {
                         </div>
                         <div className="row">
                             <div className="col-md-12">
-                                <TextInputComponent inputClass="" error={this.state.nameError} inputPlaceholder="Name" inputName="regName" handleChange={this.handleFieldChange.bind(this, 'name')} tabIndex="1" />
+                                <TextInputComponent inputClass="" error={this.state.nameError} inputPlaceholder="Name" inputName="regName" handleChange={this.handleFieldChange.bind(this, 'name')} tabIndex="1" isRequired={true} />
                             </div>
                         </div>
                         <div className="row">
                             <div className="col-md-12 typeahead-holder agency-padding">
-                                <AgencyListContainer placeholder="Agency" onSelect={this.handleAgencyChange.bind(this)} tabIndex="2"  customClass={agencyClass} />
+                                <AgencyListContainer placeholder="Agency" onSelect={this.handleAgencyChange.bind(this)} tabIndex="2"  customClass={agencyClass} isRequired={true} />
                             </div>
                         </div>
                         <div className="row">
                             <div className="col-md-12">
-                                <TextInputComponent inputClass="" error={this.state.titleError} inputPlaceholder="Title" inputName="regTitle" handleChange={this.handleFieldChange.bind(this, 'title')} tabIndex="3" />
+                                <TextInputComponent inputClass="" error={this.state.titleError} inputPlaceholder="Title" inputName="regTitle" handleChange={this.handleFieldChange.bind(this, 'title')} tabIndex="3" isRequired={true} />
                             </div>
                         </div>
                         <div className="row">

@@ -7,6 +7,7 @@ import React, { PropTypes } from 'react';
 import { kGlobalConstants } from '../../GlobalConstants.js';
 import SubmitButton from '../SharedComponents/SubmitButton.jsx';
 import ScrollableTable from '../SharedComponents/table/ScrollableTable.jsx';
+import * as Icons from '../SharedComponents/icons/Icons.jsx';
 import _ from 'lodash';
 
 const propTypes = {
@@ -65,7 +66,9 @@ export default class ValidateDataErrorReport extends React.Component {
                             <h6>Header Error Report</h6>
                         </div>
                         <div className="col-md-3 mr-0">
-                            <button onClick={this.openWindow.bind(this)} className="usa-da-button btn-primary pull-right">Download Error Report</button>
+                            <div className="usa-da-download pull-right" onClick={this.openWindow.bind(this)}>
+                                <span className="usa-da-icon usa-da-download-report"><Icons.CloudDownload /></span>Download Error Report
+                            </div>
                         </div>
                         <div className="col-md-12">
                             {tables}
