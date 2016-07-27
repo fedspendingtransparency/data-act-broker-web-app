@@ -14,9 +14,10 @@ const parseRecentActivity = (submissions) => {
         'ready': Status.StatusTypes.STARTED,
         'waiting': Status.StatusTypes.STARTED,
         'running': Status.StatusTypes.INPROGRESS,
-        'finished': Status.StatusTypes.VALIDATED,
-        'invalid': Status.StatusTypes.HASERRORS,
-        'failed': Status.StatusTypes.HASERRORS
+        'validation_successful': Status.StatusTypes.VALIDATED,
+        'validation_errors': Status.StatusTypes.HASERRORS,
+        'file_errors': Status.StatusTypes.HASERRORS,
+        'failed': Status.StatusTypes.SERVERERROR
     };
 
     submissions.forEach((item) => {
