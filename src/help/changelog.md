@@ -14,9 +14,9 @@ In this version of the Broker, we updated the Broker branding to Beta, improved 
   - [Accessibility Statement](#/help?section=accessibilityStatement)
 
 #### DATA Act Broker - Beta Release{section=betaRelease}
-We updated all the relelvant text to reflect "Beta Release." We still plan on incremental updates to the Broker about every two weeks.
+We updated all the relevant text to reflect "Beta Release." We still plan on incremental updates to the Broker about every two weeks.
 
-NOTE: Even though the the DATA Act Broker - Beta Release has been in place since the June 29th release, the URL will remain the same [https://alpha-broker.usaspending.gov](https://alpha-broker.usaspending.gov).
+NOTE: Even though the DATA Act Broker - Beta Release has been in place since the June 29th release, the URL will remain the same [https://alpha-broker.usaspending.gov](https://alpha-broker.usaspending.gov).
 
 #### Validation Processing Time{section=processingTime}
 We made some improvements to reduce the validation processing time. If you're still experiencing submissions that take more than 15-20 minutes, please contact us so we can troubleshoot the issue.
