@@ -191,16 +191,31 @@ export default class DatePicker extends React.Component {
 			};
 		}
 
+
+
 		return (
 			<div className="generate-datepicker-wrap">
 				<div className="generate-datepicker">
-	            	<input type="text" placeholder={this.props.title} value={this.state.inputValue} onChange={this.handleTypedDate.bind(this)} onBlur={this.handleInputBlur.bind(this)} tabIndex={this.props.tabIndex} ref="text" />
+	            	<input type="text"
+	            		placeholder={this.props.title}
+	            		value={this.state.inputValue}
+	            		tabIndex={this.props.tabIndex}
+	            		ref="text"
+	            		onChange={this.handleTypedDate.bind(this)}
+	            		onBlur={this.handleInputBlur.bind(this)} />
 	                <a href="#" onClick={this.toggleDatePicker.bind(this)} tabIndex={this.props.tabIndex + 1} className="usa-da-icon picker-icon date" aria-haspopup={true}>
 	                    <Icons.Calendar alt="Date picker" />
 	                </a>
 	            </div>
 	            <div className={"floating-datepicker" + showDatePicker} role="dialog">
-	            	<DayPicker selectedDays={day => DateUtils.isSameDay(pickedDay, day)} initialMonth={pickedDay} disabledDays={cutoffFunc} onDayClick={this.handleDatePick.bind(this)} onFocus={this.handleDateFocus.bind(this)} onBlur={this.handleDateBlur.bind(this)} ref="datepicker" />
+	            	<DayPicker 
+		            	ref="datepicker"
+		            	initialMonth={pickedDay}
+		            	disabledDays={cutoffFunc}
+	            		selectedDays={day => DateUtils.isSameDay(pickedDay, day)} 
+	            		onDayClick={this.handleDatePick.bind(this)}
+	            		onFocus={this.handleDateFocus.bind(this)}
+	            		onBlur={this.handleDateBlur.bind(this)} />
 	            </div>
             </div>
 		)

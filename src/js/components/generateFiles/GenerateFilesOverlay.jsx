@@ -5,8 +5,35 @@
 
 import React from 'react';
 
+const defaultProps = {
+	state: 'incomplete'
+};
+
 export default class GenerateFilesOverlay extends React.Component {
+
+	clickedGenerate(e) {
+		e.preventDefault();
+		console.log("GENERATE");
+	}
+
 	render() {
+		let buttonClass = '-disabled';
+		let buttonDisabled = true;
+		let buttonText = "Gathering data...";
+
+		if (this.props.state == "generating") {
+			buttonText = "Generating...";
+		}
+
+		else if (this.props.state == "incomplete") {
+			buttonText = "Generate Files";
+		}
+		else if (this.props.state == "ready") {
+			buttonClass = ' btn-primary';
+			buttonDisabled = false;
+			buttonText = "Generate Files";
+		}
+
 		return (
 			<div className="center-block usa-da-validation-overlay">
 				<div className="container">
@@ -22,8 +49,8 @@ export default class GenerateFilesOverlay extends React.Component {
 							</div>
 						</div>
 						<div className="col-xs-12 col-md-4">
-							<div className={'usa-da-btn-bg'}>
-								
+							<div className="usa-da-btn-bg">
+								<button className={"usa-button" + buttonClass} disabled={buttonDisabled} onClick={this.clickedGenerate.bind(this)}>{buttonText}</button>
 							</div>
 						</div>
 					</div>
@@ -32,3 +59,5 @@ export default class GenerateFilesOverlay extends React.Component {
 		)
 	}
 }
+
+GenerateFilesOverlay.defaultProps = defaultProps;

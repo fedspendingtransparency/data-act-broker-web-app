@@ -24,7 +24,7 @@ export default class GenerateFilesPage extends React.Component {
                     </div>
                 </div>
 
-                <GenerateFilesContainer />
+                <GenerateFilesContainer submissionID={this.props.params.submissionID} />
             </div>
             
 		)

@@ -17,89 +17,20 @@ import GenerateFilesOverlay from './GenerateFilesOverlay.jsx';
 
 export default class GenerateFilesContent extends React.Component {
 
-	constructor(props) {
-		super(props);
-
-		this.state = {
-			d1: {
-				startDate: null,
-				endDate: null
-			},
-			d2: {
-				startDate: null,
-				endDate: null
-			},
-			complete: false
-		};
-	}
-
-	handleChange(agency, isValid){
-        if (agency != '' && isValid) {
-            this.setState({ 
-                agency: agency,
-                agencyError: false
-             }, this.checkComplete);
-        }
-        else {
-            this.setState({
-                agency: '',
-                agencyError: true,
-                showDateRangeField: false
-            }, this.checkComplete);
-        }
-    }
-
     handleDateChange(file, date, dateType) {
-
-    	// merge the new date into the file's state without affecting the other keys
-    	const newState = Object.assign(this.state[file], {
-    		[dateType]: moment(date)
-    	});
-
-    	this.setState({
-    		[file]: newState
-    	}, () => {
-    		this.validateDates();
-    	});
+        this.props.handleDateChange(file, date, dateType);
     }
 
-    validateDates() {
+    showError(file, header, description) {
+        this.props.showError(file, header, description);
+    }
 
-    	const types = ['d1', 'd2'];
-    	let allValid = true;
-    	types.forEach((type) => {
-    		// validate the date ranges
-    		const start = this.state[type].startDate;
-    		const end = this.state[type].endDate;
-    		if (start && end) {
-    			// both sets of dates exist
-    			if (!end.isSameOrAfter(start)) {
-    				// end date comes before start date, invalid
-    				allValid = false;
-    				// show an error message
-    				this.refs[type].showError('Invalid Dates', 'The end date cannot be earlier than the start date.');
-    			}
-    			else {
-    				// valid!
-    				this.refs[type].hideError();
-    			}
-    		}
-    		else {
-    			// not all dates exist yet
-    			allValid = false;
-    			this.refs[type].hideError();
-    		}
-    	});
-
-    	this.setState({
-    		complete: allValid
-    	});
-
-	}
+    hideError(file) {
+        this.props.hideError(file);
+    }
 
 
 	render() {
-
 		return (
 			<div>
 				<div className="container center-block with-overlay">
@@ -109,8 +40,25 @@ export default class GenerateFilesContent extends React.Component {
 						</div>
 					</div>
 					<div className="usa-da-generate-content">
-	                    <GenerateFileBox onDateChange={this.handleDateChange.bind(this, "d1")} value={this.state.d1} label="File D1: Procurement Awards (FPDS data)" datePlaceholder="Sign" startingTab={1} ref="d1" />
-	                    <GenerateFileBox onDateChange={this.handleDateChange.bind(this, "d2")} value={this.state.d2} label="File D2: Financial Assistance" datePlaceholder="Action" startingTab={9} ref="d2" />
+	                    <GenerateFileBox 
+                            label="File D1: Procurement Awards (FPDS data)"
+                            datePlaceholder="Sign"
+                            startingTab={1}
+                            value={this.props.d1}
+                            error={this.props.d1.error}
+                            onDateChange={this.handleDateChange.bind(this, "d1")}
+                            showError={this.showError.bind(this, "d1")}
+                            hideError={this.hideError.bind(this, "d1")} />
+
+                        <GenerateFileBox 
+                            label="File D2: Financial Assistance" 
+                            datePlaceholder="Action"
+                            startingTab={9}
+                            value={this.props.d2}
+                            onDateChange={this.handleDateChange.bind(this, "d2")} 
+                            error={this.props.d2.error}
+                            showError={this.showError.bind(this, "d2")}
+                            hideError={this.hideError.bind(this, "d2")} />
 	                </div>
 	            </div>
 	            <GenerateFilesOverlay {...this.props} />

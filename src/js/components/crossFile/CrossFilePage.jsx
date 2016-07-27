@@ -8,7 +8,7 @@ import Navbar from '../SharedComponents/navigation/NavigationComponent.jsx';
 import AddDataHeader from './../addData/AddDataHeader.jsx';
 import Progress from '../SharedComponents/ProgressComponent.jsx';
 
-import  CrossFileContentContainer from '../../containers/crossFile/CrossFileContentContainer.jsx';
+import CrossFileContentContainer from '../../containers/crossFile/CrossFileContentContainer.jsx';
 
 export default class CrossFilePage extends React.Component {
 	render() {
