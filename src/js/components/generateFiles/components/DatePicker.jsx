@@ -82,6 +82,7 @@ export default class DatePicker extends React.Component {
 
 	handleDatePick(e, day) {
 		this.props.onDateChange(day, this.props.type);
+		this.props.hideError();
 		// close the popup if is shown
 		if (this.state.showDatePicker) {
 			this.setState({
@@ -122,6 +123,16 @@ export default class DatePicker extends React.Component {
 				this.handleDatePick(null, date.toDate());
 			}
 		});
+	}
+
+	handleInputBlur(e) {
+		if (this.state.inputValue.length > 0 && !this.props.value) {
+			// user entered something into the input field and no date has been set yet, input must have been invalid
+			this.props.showError('Invalid Date', 'The date entered is not a valid date.');
+		}
+		else if (this.state.inputValue.length > 0) {
+			this.parseValueForInput();
+		}
 	}
 
 	handleDateBlur(e) {
@@ -183,7 +194,7 @@ export default class DatePicker extends React.Component {
 		return (
 			<div className="generate-datepicker-wrap">
 				<div className="generate-datepicker">
-	            	<input type="text" placeholder={this.props.title} value={this.state.inputValue} onChange={this.handleTypedDate.bind(this)} tabIndex={this.props.tabIndex} ref="text" />
+	            	<input type="text" placeholder={this.props.title} value={this.state.inputValue} onChange={this.handleTypedDate.bind(this)} onBlur={this.handleInputBlur.bind(this)} tabIndex={this.props.tabIndex} ref="text" />
 	                <a href="#" onClick={this.toggleDatePicker.bind(this)} tabIndex={this.props.tabIndex + 1} className="usa-da-icon picker-icon date" aria-haspopup={true}>
 	                    <Icons.Calendar alt="Date picker" />
 	                </a>

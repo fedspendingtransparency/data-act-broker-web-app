@@ -48,11 +48,11 @@ export default class GenerateFileBox extends React.Component {
 	                	{this.props.label}
 	                </div>
 	                <div className="date-range-wrapper">
-	                	<DatePicker type="startDate" title={this.props.datePlaceholder + " Start Date"} tabIndex={this.props.startingTab} onDateChange={this.props.onDateChange} value={this.props.value.startDate} opposite={this.props.value.endDate} />
+	                	<DatePicker type="startDate" title={this.props.datePlaceholder + " Start Date"} tabIndex={this.props.startingTab} onDateChange={this.props.onDateChange} value={this.props.value.startDate} opposite={this.props.value.endDate} showError={this.showError.bind(this)} hideError={this.hideError.bind(this)} />
 	                	<div className="through-text">
 	                		through
 	                	</div>
-	                	<DatePicker type="endDate" title={this.props.datePlaceholder + " End Date"} tabIndex={this.props.startingTab + 4} onDateChange={this.props.onDateChange} value={this.props.value.endDate} opposite={this.props.value.startDate} />
+	                	<DatePicker type="endDate" title={this.props.datePlaceholder + " End Date"} tabIndex={this.props.startingTab + 4} onDateChange={this.props.onDateChange} value={this.props.value.endDate} opposite={this.props.value.startDate} showError={this.showError.bind(this)} hideError={this.hideError.bind(this)} />
 	                </div>
 	            </div>
 
