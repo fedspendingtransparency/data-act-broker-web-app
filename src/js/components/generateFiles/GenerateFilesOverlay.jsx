@@ -13,7 +13,7 @@ export default class GenerateFilesOverlay extends React.Component {
 
 	clickedGenerate(e) {
 		e.preventDefault();
-		console.log("GENERATE");
+		this.props.generateFiles();
 	}
 
 	render() {
@@ -21,10 +21,21 @@ export default class GenerateFilesOverlay extends React.Component {
 		let buttonDisabled = true;
 		let buttonText = "Gathering data...";
 
+		let header = 'Click Next to generate the D1 and D2 files and begin cross-file validations.';
+		let detail = '';
+
 		if (this.props.state == "generating") {
 			buttonText = "Generating...";
 		}
+		else if (this.props.state == "failed") {
+			buttonClass = ' btn-primary';
+			buttonDisabled = false;
+			buttonText = "Generate Files";
 
+			header = "An error occurred while generating your files.";
+			detail = this.props.errorDetails;
+
+		}
 		else if (this.props.state == "incomplete") {
 			buttonText = "Generate Files";
 		}
@@ -41,9 +52,9 @@ export default class GenerateFilesOverlay extends React.Component {
 						<div className="col-xs-10 col-xs-offset-1 col-md-8 col-md-offset-0 usa-da-overlay-content-wrap">
 							<div className="row">
 								<div className="col-xs-12 col-md-11 col-md-offset-0">
-									<h6>Click Next to generate the D1 and D2 files and begin cross-file validations.</h6>
+									<h6>{header}</h6>
 									<div className="overlay-help-text">
-										
+										{detail}
 									</div>
 								</div>
 							</div>

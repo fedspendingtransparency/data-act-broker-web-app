@@ -10,6 +10,7 @@ import { hashHistory } from 'react-router';
 
 import moment from 'moment';
 import _ from 'lodash';
+import Q from 'q';
 
 import { kGlobalConstants } from '../../GlobalConstants.js';
 import GenerateFilesContent from '../../components/generateFiles/GenerateFilesContent.jsx';
@@ -43,7 +44,8 @@ class GenerateFilesContainer extends React.Component {
 					header: '',
 					description: ''
 				}
-			}
+			},
+			errorDetails: ""
 		};
 	}
 
@@ -81,6 +83,8 @@ class GenerateFilesContainer extends React.Component {
 	loadSubmissionData() {
 		GenerateFilesHelper.fetchSubmissionMetadata(this.props.submissionID)
 			.then((data) => {
+				this.props.setSubmissionId(this.props.submissionID);
+
 				// check if quarter or month
 				const defaultStart = moment(this.parseDate(data.reporting_period_start_date, 'start'), 'MM/DD/YYYY');
 				const defaultEnd = moment(this.parseDate(data.reporting_period_end_date, 'end'), 'MM/DD/YYYY');
@@ -209,9 +213,39 @@ class GenerateFilesContainer extends React.Component {
 		});
 	}
 
+	generateFiles() {
+		this.setState({
+			state: 'generating'
+		});
+		// submit both D1 and D2 files
+		Q.all([
+			GenerateFilesHelper.generateFile('d1', this.props.submissionID, this.state.d1.startDate.format('MM/DD/YYYY'), this.state.d1.endDate.format('MM/DD/YYYY')),
+			GenerateFilesHelper.generateFile('d2', this.props.submissionID, this.state.d2.startDate.format('MM/DD/YYYY'), this.state.d2.endDate.format('MM/DD/YYYY')),
+		])
+			.then((allResponses) => {
+				console.log("DONE");
+			})
+			.catch((err) => {
+				let errorMessage = 'An error occurred while contacting the server.';
+				if (err && err.body) {
+					errorMessage = err.body.message;	
+				}
+
+				this.setState({
+					state: 'failed',
+					errorDetails: errorMessage
+				});
+			});
+
+	}
+
 	render() {
 		return (
-			<GenerateFilesContent {...this.props} {...this.state} handleDateChange={this.handleDateChange.bind(this)} showError={this.showError.bind(this)} hideError={this.hideError.bind(this)} />
+			<GenerateFilesContent {...this.props} {...this.state}
+				handleDateChange={this.handleDateChange.bind(this)}
+				showError={this.showError.bind(this)}
+				hideError={this.hideError.bind(this)}
+				generateFiles={this.generateFiles.bind(this)} />
 		);
 	}
 }
