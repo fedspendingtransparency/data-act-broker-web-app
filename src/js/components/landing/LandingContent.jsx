@@ -68,8 +68,8 @@ export default class LandingContent extends React.Component {
                             <div className="row usa-da-content-landing usa-da-page-title">
                                 <div className="col-md-7 mt-40 mb-50">
                                     <h1 className="display-2" data-contentstart="start" tabIndex={-1}>Welcome to the DATA Act Broker</h1>
-                                    <p>Upload your agency files and validate them against the latest version of the DATA Act Schema (Final 1.0).</p>
-                                    <p>Details on how to format your data, including required and optional fields, can be found in the <a href={this.state.rssUrl} target="_blank" aria-label="Download the RSS specification as an Excel file">Reporting Submission Specification (RSS 1.0)</a>.</p>
+                                    <p>Upload your agency files and validate them against the latest version of the DATA Act Information Model Schema (v1.0).</p>
+                                    <p>Details on how to format your data, including required and optional fields, can be found in the <a href={this.state.rssUrl} target="_blank" aria-label="Download the RSS specification as an Excel file">Reporting Submission Specification (RSS) v1.0</a>.</p>
                                 </div>
                             </div>
                         </div>
