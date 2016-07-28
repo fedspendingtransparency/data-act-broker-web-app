@@ -34,6 +34,10 @@ class GenerateFilesContainer extends React.Component {
 					show: false,
 					header: '',
 					description: ''
+				},
+				download: {
+					show: false,
+					url: ''
 				}
 			},
 			d2: {
@@ -43,6 +47,10 @@ class GenerateFilesContainer extends React.Component {
 					show: false,
 					header: '',
 					description: ''
+				},
+				download: {
+					show: false,
+					url: ''
 				}
 			},
 			d1Status: "waiting",
@@ -52,7 +60,7 @@ class GenerateFilesContainer extends React.Component {
 	}
 
 	componentDidMount() {
-		this.loadSubmissionData();
+		this.checkForPreviousFiles();
 	}
 
 	parseDate(raw, type) {
@@ -80,6 +88,55 @@ class GenerateFilesContainer extends React.Component {
 		}
 
 		return month + '/' + day + '/' + year;
+	}
+
+	checkForPreviousFiles() {
+		// check if D1 and D2 files already exist for this submission
+		Q.all([
+			GenerateFilesHelper.fetchFile('d1', this.props.submissionID),
+			GenerateFilesHelper.fetchFile('d2', this.props.submissionID)
+		])
+			.then((allResponses) => {
+				// check if both files have been requested
+				let allRequested = true;
+				allResponses.forEach((response) => {
+					if (response.status == 'invalid') {
+						// no request has been made yet
+						allRequested = false;
+					}
+				});
+
+				if (!allRequested) {
+					// files have not been requested before, prepopulate with the submission date
+					// it's possible that only one file was requested before, but in that case treat it as though it wasn't
+					this.loadSubmissionData();
+				}
+				else {
+					// files have been requested before, load the dates
+					const d1Start = moment(allResponses[0].start, 'MM/DD/YYYY');
+					const d1End = moment(allResponses[0].end, 'MM/DD/YYYY');
+					const d2Start = moment(allResponses[1].start, 'MM/DD/YYYY');
+					const d2End = moment(allResponses[1].end, 'MM/DD/YYYY');
+
+					// load them into React state
+					const d1 = Object.assign({}, this.state.d1);
+					d1.startDate = d1Start;
+					d1.endDate = d1End;
+
+					const d2 = Object.assign({}, this.state.d2);
+					d2.startDate = d1Start;
+					d2.endDate = d1End;
+
+					this.setState({
+						d1: d1,
+						d2: d2
+					}, () => {
+						// now parse the data (in case the files were still in pending state)
+						this.parseFileStates(allResponses);
+					});
+				}
+			})
+		
 	}
 
 	loadSubmissionData() {
@@ -285,12 +342,30 @@ class GenerateFilesContainer extends React.Component {
 			if (fileData.status == 'waiting') {
 				allDone = false;
 			}
-			else if (fileData.status == 'failed') {
+			else if (fileData.status == 'failed' || fileData.status == 'invalid') {
 				errors.push(file);
 				if (message != '') {
 					message += ' ';
 				}
-				message += 'File ' + file.toUpperCase() + ': ' + fileData.message;
+
+				if (fileData.message != '') {
+					message += 'File ' + file.toUpperCase() + ': ' + fileData.message;
+				}
+				else {
+					message += 'File ' + file.toUpperCase() + ' could not be generated.';
+				}
+			}
+			else if (fileData.status == 'finished') {
+				// display dowload buttons
+				// make a clone of the file's react state
+				const item = Object.assign({}, this.state[file]);
+				// update the download properties
+				item.download = {
+					show: true,
+					url: fileData.url
+				};
+				// add this to the new state
+				output[file] = item;
 			}
 		});
 

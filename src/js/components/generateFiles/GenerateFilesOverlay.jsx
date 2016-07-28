@@ -57,7 +57,7 @@ export default class GenerateFilesOverlay extends React.Component {
 			buttonClass = ' btn-primary';
 			buttonDisabled = false;
 
-			header = "Click Next to begin cross-file validations.";
+			header = "Your files have been generated. Click Next to begin cross-file validations.";
 		}
 
 		return (

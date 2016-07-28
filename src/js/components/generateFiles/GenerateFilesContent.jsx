@@ -46,6 +46,7 @@ export default class GenerateFilesContent extends React.Component {
                             startingTab={1}
                             value={this.props.d1}
                             error={this.props.d1.error}
+                            download={this.props.d1.download}
                             onDateChange={this.handleDateChange.bind(this, "d1")}
                             showError={this.showError.bind(this, "d1")}
                             hideError={this.hideError.bind(this, "d1")} />
@@ -55,8 +56,9 @@ export default class GenerateFilesContent extends React.Component {
                             datePlaceholder="Action"
                             startingTab={9}
                             value={this.props.d2}
-                            onDateChange={this.handleDateChange.bind(this, "d2")} 
                             error={this.props.d2.error}
+                            download={this.props.d2.download}
+                            onDateChange={this.handleDateChange.bind(this, "d2")} 
                             showError={this.showError.bind(this, "d2")}
                             hideError={this.hideError.bind(this, "d2")} />
 	                </div>
