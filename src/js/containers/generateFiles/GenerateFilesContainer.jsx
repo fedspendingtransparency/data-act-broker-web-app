@@ -45,6 +45,8 @@ class GenerateFilesContainer extends React.Component {
 					description: ''
 				}
 			},
+			d1Status: "waiting",
+			d2Status: "waiting",
 			errorDetails: ""
 		};
 	}
@@ -54,7 +56,7 @@ class GenerateFilesContainer extends React.Component {
 	}
 
 	parseDate(raw, type) {
-		
+		// convert the API dates back into date objects
 		let month;
 		let day;
 		let year;
@@ -81,6 +83,7 @@ class GenerateFilesContainer extends React.Component {
 	}
 
 	loadSubmissionData() {
+		// prepopulate the fields with the submission metadata dates
 		GenerateFilesHelper.fetchSubmissionMetadata(this.props.submissionID)
 			.then((data) => {
 				this.props.setSubmissionId(this.props.submissionID);
@@ -126,7 +129,7 @@ class GenerateFilesContainer extends React.Component {
 	}
 
 	validateDates() {
-
+		// validate that dates are provided for both fields and the end dates don't come before the start dates
 		let state = "incomplete";
 
     	const types = ['d1', 'd2'];
@@ -217,13 +220,13 @@ class GenerateFilesContainer extends React.Component {
 		this.setState({
 			state: 'generating'
 		});
-		// submit both D1 and D2 files
+		// submit both D1 and D2 date ranges to the API
 		Q.all([
 			GenerateFilesHelper.generateFile('d1', this.props.submissionID, this.state.d1.startDate.format('MM/DD/YYYY'), this.state.d1.endDate.format('MM/DD/YYYY')),
 			GenerateFilesHelper.generateFile('d2', this.props.submissionID, this.state.d2.startDate.format('MM/DD/YYYY'), this.state.d2.endDate.format('MM/DD/YYYY')),
 		])
 			.then((allResponses) => {
-				console.log("DONE");
+				this.parseFileStates(allResponses);
 			})
 			.catch((err) => {
 				let errorMessage = 'An error occurred while contacting the server.';
@@ -239,13 +242,90 @@ class GenerateFilesContainer extends React.Component {
 
 	}
 
+	checkFileStatus() {
+		// check the status of both D1 and D2 files
+		Q.all([
+			GenerateFilesHelper.fetchFile('d1', this.props.submissionID),
+			GenerateFilesHelper.fetchFile('d2', this.props.submissionID)
+		])
+			.then((allResponses) => {
+				this.parseFileStates(allResponses);
+			})
+			.fail((err) => {
+				let errorMessage = 'An error occurred while contacting the server.';
+				if (err && err.body) {
+					errorMessage = err.body.message;	
+				}
+
+				this.setState({
+					state: 'failed',
+					errorDetails: errorMessage
+				});
+			});
+	}
+
+	parseFileStates(data) {
+		// check which files we're still waiting on
+		const files = ['d1', 'd2'];
+
+		const responses = {
+			d1: data[0],
+			d2: data[1]
+		};
+
+		const output = {};
+		let allDone = true;
+		let errors = [];
+		let message = '';
+
+		files.forEach((file) => {
+			const fileData = responses[file];
+			output[file + 'Status'] = fileData.status;
+
+			if (fileData.status == 'waiting') {
+				allDone = false;
+			}
+			else if (fileData.status == 'failed') {
+				errors.push(file);
+				if (message != '') {
+					message += ' ';
+				}
+				message += 'File ' + file.toUpperCase() + ': ' + fileData.message;
+			}
+		});
+
+		if (errors.length > 0) {
+			// there are errors
+			output.state = 'failed';
+			output.errorDetails = message;
+		}
+		else if (errors.length == 0 && allDone) {
+			output.state = 'done';
+		}
+
+		this.setState(output);
+
+
+		if (!allDone) {
+			// wait 5 seconds and check the file status again
+			window.setTimeout(() => {
+				this.checkFileStatus();
+			}, 5000);
+		}
+	}
+
+	nextPage() {
+		hashHistory.push('validateCrossFile/' + this.props.submissionID);
+	}
+
 	render() {
 		return (
 			<GenerateFilesContent {...this.props} {...this.state}
 				handleDateChange={this.handleDateChange.bind(this)}
 				showError={this.showError.bind(this)}
 				hideError={this.hideError.bind(this)}
-				generateFiles={this.generateFiles.bind(this)} />
+				generateFiles={this.generateFiles.bind(this)}
+				nextPage={this.nextPage.bind(this)} />
 		);
 	}
 }

@@ -30,7 +30,8 @@ export const generateFile = (type, submissionId, start, end) => {
 
     const deferred = Q.defer();
 
-    Request.post(kGlobalConstants.API + 'generate_' + type + '_file/')
+    // Request.post(kGlobalConstants.API + 'generate_' + type + '_file/')
+    Request.post('http://localhost:5000/generate_' + type + '_file/')
             .send({
                 'submission_id': submissionId,
                 'start': start,
@@ -54,7 +55,8 @@ export const generateFile = (type, submissionId, start, end) => {
 export const fetchFile = (type, submissionId) => {
     const deferred = Q.defer();
 
-    Request.post(kGlobalConstants.API + 'check_' + type + '_file/')
+    // Request.post(kGlobalConstants.API + 'check_' + type + '_file/')
+    Request.post('http://localhost:5000/check_' + type + '_file/')
             .send({'submission_id': submissionId})
             .end((errFile, res) => {
 
