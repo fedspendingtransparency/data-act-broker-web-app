@@ -112,9 +112,9 @@ export default class ErrorBox extends React.Component {
 							<h6>Cross-File Validation Errors</h6>
 						</div>
 						<div className="col-xs-6 col-md-3 mr-0">
-            	            <div className="usa-da-download pull-right" onClick={this.clickedDownload.bind(this)}>
+            	            <a href="#" className="usa-da-download pull-right" onClick={this.clickedDownload.bind(this)}>
             	                <span className="usa-da-icon usa-da-download-report"><Icons.CloudDownload /></span>Download Error Report
-            	            </div>
+            	            </a>
             	        </div>
 					</div>
 					<div className="row">
