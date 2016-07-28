@@ -19,7 +19,7 @@ export default class ValidateValuesOverlay extends React.Component {
 
 	pressedNext(e) {
 
-		hashHistory.push('/validateCrossFile/' + this.props.submission.id);
+		hashHistory.push('/generateFiles/' + this.props.submission.id);
 
 	}
 
@@ -51,7 +51,7 @@ export default class ValidateValuesOverlay extends React.Component {
 		if (this.props.errors.length == 0) {
 			icon = <Icons.CheckCircle />;
 			iconClass = 'usa-da-successGreen';
-			message = 'No Critical Errors were found in the .CSV files. Click Next to review and publish these files.';
+			message = 'No Critical Errors were found in the .CSV files. Click Next to generate your D1 and D2 files.';
 			uploadButtonDisabled = true;
 			uploadButtonClass = '-disabled';
 			nextButtonClass = ' btn-primary';
