@@ -268,28 +268,14 @@ export const listUsers = () => {
 		status: "approved"
 	};
 	
-	Request.post(kGlobalConstants.API + 'list_users/')
+	Request.get(kGlobalConstants.API + 'list_user_emails/')
 		.send(request)
 		.end((err, res) => {
 			if (err) {
 				deferred.reject(err);
 			}
 			else {
-				// break up the permissions
-				const users = [];
-				res.body.users.forEach((user) => {
-					// sometimes python adds extra spaces to the comma separated list, so strip those out
-					const permString = user.permissions.replace(/\s/g, '');
-					user.permissions = permString.split(',');
-
-					const status = AdminHelper.determineStatus(user);
-
-					user.statusString = status.string;
-					user.statusType = status.type;
-
-					users.push(user);
-				});
-				deferred.resolve(users);
+				deferred.resolve(res.body.users);
 			}
 		});
 
