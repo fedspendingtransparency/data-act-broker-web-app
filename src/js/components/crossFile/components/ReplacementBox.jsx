@@ -4,6 +4,7 @@
   **/
 
 import React from 'react';
+import _ from 'lodash';
 import ComparisonTable from './ComparisonTable.jsx';
 import FileProgress from '../../SharedComponents/FileProgress.jsx';
 import UploadButtonContainer from '../../../containers/crossFile/CrossFileUploadButtonContainer.jsx';
@@ -11,6 +12,8 @@ import GeneratedErrorButton from './GeneratedErrorButton.jsx';
 import FileWarning from './FileWarning.jsx';
 
 import * as ReviewHelper from '../../../helpers/reviewHelper.js';
+
+const dFiles = ['d1', 'd2'];
 
 export default class ReplacementBox extends React.Component {
 	stagedFiles() {
@@ -70,12 +73,12 @@ export default class ReplacementBox extends React.Component {
 		const firstFile = ReviewHelper.globalFileData[this.props.meta.firstKey];
 		const secondFile = ReviewHelper.globalFileData[this.props.meta.secondKey];
 
-		if (firstFile.letter.toLowerCase().indexOf('d') > -1) {
+		if (_.indexOf(dFiles, firstFile.letter.toLowerCase()) > -1) {
 			// first file is a D1/D2 file
 			firstButton = <GeneratedErrorButton file={firstFile} fileKey={this.props.meta.firstKey} pair={this.props.meta.key} type="optional" submissionID={this.props.submissionID} forceUpdate={this.props.forceUpdate} />;
 		}
 
-		if (secondFile.letter.toLowerCase().indexOf('d') > -1) {
+		if (_.indexOf(dFiles, secondFile.letter.toLowerCase()) > -1) {
 			// second file is a D1/D2 file
 			secondButton = <GeneratedErrorButton file={secondFile} fileKey={this.props.meta.secondKey} pair={this.props.meta.key} type="optional" submissionID={this.props.submissionID} forceUpdate={this.props.forceUpdate} />;
 		}
