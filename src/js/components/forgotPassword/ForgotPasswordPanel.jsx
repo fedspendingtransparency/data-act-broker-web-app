@@ -76,11 +76,7 @@ export default class ForgotPasswordPanel extends React.Component {
         let messageComponent = null;
 
         if (this.state.requestSent) {
-            if (this.state.resetFailed) {
-                messageComponent = <ErrorMessage message={"If this email address has a user account, you will receive an email shortly. Don't forget to check your spam folder for messages from the DATA Act Broker."} />;
-            } else {
-                messageComponent = <SuccessMessage message={"You will receive an email shortly. Don't forget to check your spam folder for messages from the DATA Act Broker."} />;
-            }
+            messageComponent = <SuccessMessage message={"If this email address has a user account, you will receive an email shortly. Don't forget to check your spam folder for messages from the DATA Act Broker."} />;
         } else if (this.props.message) {
             messageComponent = <ErrorMessage message={this.props.message} />;
         }
