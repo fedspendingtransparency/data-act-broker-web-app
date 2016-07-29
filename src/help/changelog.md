@@ -44,7 +44,7 @@ We identified several files that you may want to have readily available while us
 Agency developers may be interested to know that we transitioned more of the Broker validations to using SQL statements. The list of SQL statements is publicly available on [GitHub](https://github.com/fedspendingtransparency/data-act-broker-backend/tree/master/dataactvalidator/config/sqlrules).
 
 #### Updated Validations{section=updatedValidations}
-Below is a cumulative table of validations in the RSS. The status column indicates whether they are currently implemented in the Broker.
+Below is a cumulative table of validations in the RSS. The status column indicates whether they are currently implemented in the Broker. Some rules that were already implemented in the Broker were changed in the release of the Errata. The currently implemented rule and new rule are both listed below, with corresponding version indicators in the rule label (i.e. "C14 (v1)" or "C14 (v2)").
 
 ```!inline-html
 <table class="usa-da-table table-bordered help-table">
@@ -131,7 +131,7 @@ Below is a cumulative table of validations in the RSS. The status column indicat
         <tr>
             <td>A</td>
             <td>A12</td>
-            <td>AdjustmentsToUnobligatedBalanceBroughtForward_CPE= CPE aggregate value for GTAS SF 133 line #1010 through 1042</td>
+            <td class="break-word">AdjustmentsToUnobligatedBalanceBroughtForward_CPE= CPE aggregate value for GTAS SF 133 line #1010 through 1042</td>
             <td>Not implemented</td>
             <td>Calculation</td>
         </tr>
@@ -165,14 +165,28 @@ Below is a cumulative table of validations in the RSS. The status column indicat
         </tr>
         <tr>
             <td>A</td>
-            <td>A18</td>
+            <td>A18 (v1)</td>
+            <td class="break-word">GrossOutlayAmountByTAS_CPE (file A) = sum of all GrossOutlayAmountByProgramObjectClass (file B)</td>
+            <td>Implemented</td>
+            <td>Cross-File Validation</td>
+        </tr>
+        <tr>
+            <td>A</td>
+            <td>A18 (v2)</td>
             <td class="break-word">GrossOutlayAmountByTAS_CPE (file A) = sum of all GrossOutlayAmountByProgramObjectClass (file B) {When Program Activity and Object Class are not blank, this value is the sum of all Gross Outlay Amounts reported in file B, by TAS/Subaccount}</td>
             <td>Pending Update</td>
             <td>Cross-File Validation</td>
         </tr>
         <tr>
             <td>A</td>
-            <td>A19</td>
+            <td>A19 (v1)</td>
+            <td class="break-word">ObligationsIncurredTotalByTAS_CPE (File A) = sum of ObligationsIncurredByProgramObjectClass_CPE (File B)</td>
+            <td>Implemented</td>
+            <td>Cross-File Validation</td>
+        </tr>
+        <tr>
+            <td>A</td>
+            <td>A19 (v2)</td>
             <td class="break-word">ObligationsIncurredTotalByTAS_CPE (File A) = negative sum of ObligationsIncurredByProgramObjectClass_CPE (File B)</td>
             <td>Pending Update</td>
             <td>Cross-File Validation</td>
@@ -229,7 +243,7 @@ Below is a cumulative table of validations in the RSS. The status column indicat
         <tr>
             <td>A</td>
             <td>A27</td>
-            <td>SpendingAuthorityfromOffsettingCollectionsAmountTotal_CPE must be provided if TAS has spending authority per CARS or GTAS. If no spending authority on TAS, leave blank.</td>
+            <td class="break-word">SpendingAuthorityfromOffsettingCollectionsAmountTotal_CPE must be provided if TAS has spending authority per CARS or GTAS. If no spending authority on TAS, leave blank.</td>
             <td>Not implemented</td>
             <td>Element Conditionally Required</td>
         </tr>
@@ -243,7 +257,7 @@ Below is a cumulative table of validations in the RSS. The status column indicat
         <tr>
             <td>A</td>
             <td>A29</td>
-            <td>DeobligationsRecoveriesRefundsByTAS_CPE = CPE aggregate value for GTAS SF 133 line 1021+1033</td>
+            <td class="break-word">DeobligationsRecoveriesRefundsByTAS_CPE = CPE aggregate value for GTAS SF 133 line 1021+1033</td>
             <td>Not implemented</td>
             <td>Requirement</td>
         </tr>
@@ -277,14 +291,28 @@ Below is a cumulative table of validations in the RSS. The status column indicat
         </tr>
         <tr>
             <td>B</td>
-            <td>B3</td>
+            <td>B3 (v1)</td>
+            <td class="break-word">ObligationsUndeliveredOrdersUnpaidTotal (FYB or CPE) = USSGL(4801 + 4831 + 4871 + 4881). This applies to the program activity and object class level.</td>
+            <td>Implemented</td>
+            <td>Calculation</td>
+        </tr>
+        <tr>
+            <td>B</td>
+            <td>B3 (v2)</td>
             <td class="break-word">ObligationsUndeliveredOrdersUnpaidTotal (FYB or CPE) = USSGL(4801 + 4881). This applies to the program activity and object class level. Note for FYB values, only 4801 is expected to have a balance other than zero.</td>
             <td>Pending Update</td>
             <td>Calculation</td>
         </tr>
         <tr>
             <td>B</td>
-            <td>B4</td>
+            <td>B4 (v1)</td>
+            <td class="break-word">ObligationsDeliveredOrdersUnpaidTotal (FYB or CPE) = USSGL(4901 + 4931 + 4971 + 4981). This applies to the program activity and object class level.</td>
+            <td>Implemented</td>
+            <td>Calculation</td>
+        </tr>
+        <tr>
+            <td>B</td>
+            <td>B4 (v2)</td>
             <td class="break-word">ObligationsDeliveredOrdersUnpaidTotal (FYB or CPE) = USSGL(4901 + 4981). This applies to the program activity and object class level. Note for FYB values, only 4901 is expected to have a balance other than zero.</td>
             <td>Pending Update</td>
             <td>Calculation</td>
@@ -298,14 +326,28 @@ Below is a cumulative table of validations in the RSS. The status column indicat
         </tr>
         <tr>
             <td>B</td>
-            <td>B6</td>
+            <td>B6 (v1)</td>
+            <td class="break-word">GrossOutlaysUndeliveredOrdersPrepaidTotal (FYB or CPE) = USSGL(4802 + 4832 + 4872+ 4882). This applies to the program activity and object class level.</td>
+            <td>Implemented</td>
+            <td>Calculation</td>
+        </tr>
+        <tr>
+            <td>B</td>
+            <td>B6 (v2)</td>
             <td class="break-word">GrossOutlaysUndeliveredOrdersPrepaidTotal (FYB or CPE) = USSGL(4802 + 4882). This applies to the program activity and object class level. Note for FYB values, only 4802 is expected to have a balance other than zero.</td>
             <td>Pending Update</td>
             <td>Calculation</td>
         </tr>
         <tr>
             <td>B</td>
-            <td>B7</td>
+            <td>B7 (v1)</td>
+            <td class="break-word">GrossOutlaysDeliveredOrdersPaidTotal (FYB or CPE)= USSGL(4902 + 4908 + 4972 + 4982). This applies to the program activity and object class level.</td>
+            <td>Implemented</td>
+            <td>Calculation</td>
+        </tr>
+        <tr>
+            <td>B</td>
+            <td>B7 (v2)</td>
             <td class="break-word">GrossOutlaysDeliveredOrdersPaidTotal (FYB or CPE)= USSGL(4902 + 4908 + 4982). This applies to the program activity and object class level. Note for FYB values, only 4908 is expected to have a balance other than zero.</td>
             <td>Pending Update</td>
             <td>Calculation</td>
@@ -326,21 +368,42 @@ Below is a cumulative table of validations in the RSS. The status column indicat
         </tr>
         <tr>
             <td>B</td>
-            <td>B11</td>
+            <td>B11 (v1)</td>
+            <td>Must be valid 3-digit object class as defined in OMB Circular A-11 Section 83.6, or a 4-digit code which includes a 1-digit prefix that distinguishes direct, reimbursable, and allocation obligations.</td>
+            <td>Implemented</td>
+            <td>Do not include decimal points</td>
+        </tr>
+        <tr>
+            <td>B</td>
+            <td>B11 (v2)</td>
             <td>Must be valid 3-digit object class as defined in OMB Circular A-11 Section 83.6, or a 4-digit code which includes a 1-digit prefix that distinguishes direct, reimbursable, and allocation obligations. Do not include decimal points when reporting in the Schema.</td>
             <td>Pending Update</td>
             <td>Do not include decimal points</td>
         </tr>
         <tr>
             <td>B</td>
-            <td>B12</td>
+            <td>B12 (v1)</td>
+            <td>Reimbursable flag indicator is required when reporting obligation or outlay USSGL account balances (excluding downward adjustments SGL accounts)</td>
+            <td>Implemented</td>
+            <td class="break-word">Valid values are "R" for "ReimbursableFundingSource" and "D" for "DirectFundingSource"</td>
+        </tr>
+        <tr>
+            <td>B</td>
+            <td>B12 (v2)</td>
             <td class="break-word">Reimbursable flag indicator is required when reporting obligation or outlay USSGL account balances (excluding downward adjustments USSGL accounts), and a 3 digit object class is provided. Valid values are "R" for "ReimbursableFundingSource" and "D" for "DirectFundingSource".</td>
             <td>Pending Update</td>
             <td class="break-word">Element Conditionally Required</td>
         </tr>
         <tr>
             <td>B</td>
-            <td>B13</td>
+            <td>B13 (v1)</td>
+            <td class="break-word">DeobligationsRecoveriesRefundsdOfPriorYearByProgramObjectClass_CPE = USSGL(4871+ 4872 + 4971 + 4972)</td>
+            <td>Implemented</td>
+            <td>Calculation</td>
+        </tr>
+        <tr>
+            <td>B</td>
+            <td>B13 (v2)</td>
             <td class="break-word">DeobligationsRecoveriesRefundsOfPriorYearByProgramObjectClass_CPE = USSGL(4871+ 4872 + 4971 + 4972)</td>
             <td>Pending Update</td>
             <td>Calculation</td>
@@ -396,35 +459,70 @@ Below is a cumulative table of validations in the RSS. The status column indicat
         </tr>
         <tr>
             <td>C</td>
-            <td>C3</td>
+            <td>C3 (v1)</td>
+            <td class="break-word">ObligationsUndeliveredOrdersUnpaidTotal (FYB or CPE) = USSGL(4801 + 4831 + 4871 + 4881). This applies to the award level.</td>
+            <td>Implemented</td>
+            <td>Calculation</td>
+        </tr>
+        <tr>
+            <td>C</td>
+            <td>C3 (v2)</td>
             <td class="break-word">ObligationsUndeliveredOrdersUnpaidTotal (FYB or CPE) = USSGL(4801 + 4881). This applies to the award level. Note for FYB values, only 4801 is expected to have a balance other than zero.</td>
             <td>Pending Update</td>
             <td>Calculation</td>
         </tr>
         <tr>
             <td>C</td>
-            <td>C4</td>
+            <td>C4 (v1)</td>
+            <td class="break-word">ObligationsDeliveredOrdersUnpaidTotal (FYB or CPE) = USSGL(4901 + 4931 + 4971 + 4981). This applies to the award level.</td>
+            <td>Implemented</td>
+            <td>Calculation</td>
+        </tr>
+        <tr>
+            <td>C</td>
+            <td>C4 (v2)</td>
             <td class="break-word">ObligationsDeliveredOrdersUnpaidTotal (FYB or CPE) = USSGL(4901 + 4981). This applies to the award level. Note for FYB values, only 4901 is expected to have a balance other than zero.</td>
             <td>Pending Update</td>
             <td>Calculation</td>
         </tr>
         <tr>
             <td>C</td>
-            <td>C5</td>
+            <td>C5 (v1)</td>
+            <td class="break-word">GrossOutlayAmountByAward (FYB or CPE, File C) = GrossOutlaysUndeliveredOrdersPrepaidTotal (FYB or CPE, File C) + GrossOutlaysDeliveredOrdersPaidTotal (FYB or CPE, File C)</td>
+            <td>Implemented</td>
+            <td>Calculation</td>
+        </tr>
+        <tr>
+            <td>C</td>
+            <td>C5 (v2)</td>
             <td class="break-word">GrossOutlayAmountByAward (FYB or CPE, File C) = GrossOutlaysUndeliveredOrdersPrepaidTotal (FYB or CPE, File C) + GrossOutlaysDeliveredOrdersPaidTotal (FYB or CPE, File C)</td>
             <td>Pending Update</td>
             <td>Calculation</td>
         </tr>
         <tr>
             <td>C</td>
-            <td>C6</td>
+            <td>C6 (v1)</td>
+            <td class="break-word">GrossOutlaysUndeliveredOrdersPrepaidTotal (FYB or CPE) = USSGL(4802 + 4832 + 4872+ 4882). This applies to the award level.</td>
+            <td>Implemented</td>
+            <td>Calculation</td>
+        </tr>
+        <tr>
+            <td>C</td>
+            <td>C6 (v2)</td>
             <td class="break-word">GrossOutlaysUndeliveredOrdersPrepaidTotal (FYB or CPE) = USSGL(4802 + 4882). This applies to the award level. Note for FYB values, only 4802 is expected to have a balance other than zero.</td>
             <td>Pending Update</td>
             <td>Calculation</td>
         </tr>
         <tr>
             <td>C</td>
-            <td>C7</td>
+            <td>C7 (v1)</td>
+            <td class="break-word">GrossOutlaysDeliveredOrdersPaidTotal (FYB or CPE) = USSGL(4902 + 4908 + 4972 + 4982). This applies to the award level.</td>
+            <td>Implemented</td>
+            <td>Calculation</td>
+        </tr>
+        <tr>
+            <td>C</td>
+            <td>C7 (v2)</td>
             <td class="break-word">GrossOutlaysDeliveredOrdersPaidTotal (FYB or CPE) = USSGL(4902 + 4908 + 4982). This applies to the award level. Note for FYB values, only 4908 is expected to have a balance other than zero.</td>
             <td>Pending Update</td>
             <td>Calculation</td>
@@ -459,7 +557,14 @@ Below is a cumulative table of validations in the RSS. The status column indicat
         </tr>
         <tr>
             <td>C/D1</td>
-            <td>C14</td>
+            <td>C14 (v1)</td>
+            <td>If FAIN is not provided then provide URI </td>
+            <td>Implemented</td>
+            <td> </td>
+        </tr>
+        <tr>
+            <td>C/D1</td>
+            <td>C14 (v2)</td>
             <td>Each row provided in file C must contain either a FAIN, URI, or PIID.</td>
             <td>Pending Update</td>
             <td>Element Conditionally Required</td>
