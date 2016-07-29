@@ -3,10 +3,11 @@
   * Created by Kevin Li 6/30/16
   **/
 
- import React from 'react';
+import React from 'react';
 import ComparisonTable from './ComparisonTable.jsx';
 import FileProgress from '../../SharedComponents/FileProgress.jsx';
 import UploadButtonContainer from '../../../containers/crossFile/CrossFileUploadButtonContainer.jsx';
+import GeneratedErrorButton from './GeneratedErrorButton.jsx';
 import FileWarning from './FileWarning.jsx';
 
 import * as ReviewHelper from '../../../helpers/reviewHelper.js';
@@ -62,6 +63,24 @@ export default class ReplacementBox extends React.Component {
 			warning = <FileWarning files={stagedFiles} {...this.props} />
 		}
 
+		// only show upload buttons for non-generated files
+		let firstButton = <UploadButtonContainer file={ReviewHelper.globalFileData[this.props.meta.firstKey]} fileKey={this.props.meta.firstKey} pair={this.props.meta.key} type="optional" />;
+		let secondButton = <UploadButtonContainer file={ReviewHelper.globalFileData[this.props.meta.secondKey]} fileKey={this.props.meta.secondKey} pair={this.props.meta.key} type="optional" />;
+
+		const firstFile = ReviewHelper.globalFileData[this.props.meta.firstKey];
+		const secondFile = ReviewHelper.globalFileData[this.props.meta.secondKey];
+
+		if (firstFile.letter.toLowerCase().indexOf('d') > -1) {
+			// first file is a D1/D2 file
+			firstButton = <GeneratedErrorButton file={firstFile} fileKey={this.props.meta.firstKey} pair={this.props.meta.key} type="optional" submissionID={this.props.submissionID} forceUpdate={this.props.forceUpdate} />;
+		}
+
+		if (secondFile.letter.toLowerCase().indexOf('d') > -1) {
+			// second file is a D1/D2 file
+			secondButton = <GeneratedErrorButton file={secondFile} fileKey={this.props.meta.secondKey} pair={this.props.meta.key} type="optional" submissionID={this.props.submissionID} forceUpdate={this.props.forceUpdate} />;
+		}
+
+
 		return (
 			<div className="error-box">
 				<div className="vertical-line" />
@@ -81,10 +100,10 @@ export default class ReplacementBox extends React.Component {
 							</div>
 							<div className="row">
 								<div className="col-md-6 mb-10">
-									<UploadButtonContainer file={ReviewHelper.globalFileData[this.props.meta.firstKey]} fileKey={this.props.meta.firstKey} pair={this.props.meta.key} type="optional" />
+									{firstButton}
 								</div>
 								<div className="col-md-6">
-									<UploadButtonContainer file={ReviewHelper.globalFileData[this.props.meta.secondKey]} fileKey={this.props.meta.secondKey} pair={this.props.meta.key} type="optional" />
+									{secondButton}
 								</div>
 							</div>
 						</div>
