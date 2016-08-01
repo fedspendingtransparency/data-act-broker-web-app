@@ -8,10 +8,13 @@ import _ from 'lodash';
 import ComparisonTable from './ComparisonTable.jsx';
 import FileProgress from '../../SharedComponents/FileProgress.jsx';
 import UploadButtonContainer from '../../../containers/crossFile/CrossFileUploadButtonContainer.jsx';
+import GeneratedErrorButton from './GeneratedErrorButton.jsx';
 import FileWarning from './FileWarning.jsx';
 
 import * as ReviewHelper from '../../../helpers/reviewHelper.js';
 import * as Icons from '../../SharedComponents/icons/Icons.jsx';
+
+const dFiles = ['d1', 'd2'];
 
 export default class ErrorBox extends React.Component {
 	constructor(props) {
@@ -102,6 +105,20 @@ export default class ErrorBox extends React.Component {
 			warning = <FileWarning files={this.state.stagedFiles} {...this.props} />
 		}
 
+		let firstUploadButton = <UploadButtonContainer file={ReviewHelper.globalFileData[this.props.meta.firstKey]} fileKey={this.props.meta.firstKey} pair={this.props.meta.key} type={this.state.firstType} />;
+		let secondUploadButton = <UploadButtonContainer file={ReviewHelper.globalFileData[this.props.meta.secondKey]} fileKey={this.props.meta.secondKey} pair={this.props.meta.key} type={this.state.secondType} />;
+
+		const firstFile = ReviewHelper.globalFileData[this.props.meta.firstKey];
+		const secondFile = ReviewHelper.globalFileData[this.props.meta.secondKey];
+
+		if (_.indexOf(dFiles, firstFile.letter.toLowerCase()) > -1) {
+			// first file is a D1/D2 file
+			firstUploadButton = <GeneratedErrorButton file={firstFile} fileKey={this.props.meta.firstKey} pair={this.props.meta.key} type={this.state.firstType} submissionID={this.props.submissionID} forceUpdate={this.props.forceUpdate} />;
+		}
+		if (_.indexOf(dFiles, secondFile.letter.toLowerCase()) > -1) {
+			// second file is a D1/D2 file
+			secondUploadButton = <GeneratedErrorButton file={secondFile} fileKey={this.props.meta.secondKey} pair={this.props.meta.key} type={this.state.secondType} submissionID={this.props.submissionID} forceUpdate={this.props.forceUpdate} />;
+		}
 
 		return (
 			<div className="col-md-12">
@@ -112,9 +129,9 @@ export default class ErrorBox extends React.Component {
 							<h6>Cross-File Validation Errors</h6>
 						</div>
 						<div className="col-xs-6 col-md-3 mr-0">
-            	            <div className="usa-da-download pull-right" onClick={this.clickedDownload.bind(this)}>
+            	            <a href="#" className="usa-da-download pull-right" onClick={this.clickedDownload.bind(this)}>
             	                <span className="usa-da-icon usa-da-download-report"><Icons.CloudDownload /></span>Download Error Report
-            	            </div>
+            	            </a>
             	        </div>
 					</div>
 					<div className="row">
@@ -147,13 +164,13 @@ export default class ErrorBox extends React.Component {
 
 								<div className="row mb-10">
 									<div className="col-md-12">
-										<UploadButtonContainer file={ReviewHelper.globalFileData[this.props.meta.firstKey]} fileKey={this.props.meta.firstKey} pair={this.props.meta.key} type={this.state.firstType} />
+										{firstUploadButton}
 									</div>
 								</div>
 
 								<div className="row">
 									<div className="col-md-12">
-										<UploadButtonContainer file={ReviewHelper.globalFileData[this.props.meta.secondKey]} fileKey={this.props.meta.secondKey} pair={this.props.meta.key} type={this.state.secondType} />
+										{secondUploadButton}
 									</div>
 								</div>
 							</div>

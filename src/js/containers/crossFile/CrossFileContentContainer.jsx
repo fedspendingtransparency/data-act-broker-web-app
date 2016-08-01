@@ -160,9 +160,15 @@ class CrossFileContentContainer extends React.Component {
 		}, 5000);
 	}
 	
+	reloadData() {
+		this.props.resetSubmission();
+		this.loadData()
+		this.startTimer();
+	}
+
 	render() {
 		return (
-			<CrossFileContent {...this.props} uploadFiles={this.uploadFiles.bind(this)} />
+			<CrossFileContent {...this.props} uploadFiles={this.uploadFiles.bind(this)} reloadData={this.reloadData.bind(this)} />
 		);
 	}
 }

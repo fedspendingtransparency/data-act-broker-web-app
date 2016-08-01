@@ -1,6 +1,6 @@
 /**
-  * CrossFilePage.jsx
-  * Created by Kevin Li 6/14/16
+  * GenerateFilesPage.jsx
+  * Created by Kevin Li 7/22/16
   **/
 
 import React from 'react';
@@ -8,9 +8,9 @@ import Navbar from '../SharedComponents/navigation/NavigationComponent.jsx';
 import AddDataHeader from './../addData/AddDataHeader.jsx';
 import Progress from '../SharedComponents/ProgressComponent.jsx';
 
-import CrossFileContentContainer from '../../containers/crossFile/CrossFileContentContainer.jsx';
+import GenerateFilesContainer from '../../containers/generateFiles/GenerateFilesContainer.jsx';
 
-export default class CrossFilePage extends React.Component {
+export default class GenerateFilesPage extends React.Component {
 	render() {
 		return (
 			<div>
@@ -24,9 +24,9 @@ export default class CrossFilePage extends React.Component {
                     </div>
                 </div>
 
-                <CrossFileContentContainer submissionID={this.props.params.submissionID} />
-
+                <GenerateFilesContainer submissionID={this.props.params.submissionID} />
             </div>
+            
 		)
 	}
 }
