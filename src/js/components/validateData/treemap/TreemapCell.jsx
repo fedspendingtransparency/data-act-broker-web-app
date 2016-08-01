@@ -45,19 +45,20 @@ export default class TreemapCell extends React.Component {
 			left: this.props.x,
 			height: this.props.height,
 			width: this.props.width,
-			backgroundColor: this.props.color,
+			backgroundColor: this.props.cellColor,
 			border: '1px solid #fff'
 		};
 
 		if (this.state.hover) {
-			style.backgroundColor = tinycolor(this.props.color).lighten().desaturate().toString();
+			style.backgroundColor = tinycolor(this.props.cellColor).lighten().desaturate().toString();
 			style.border = '1px solid #323a45';
 		}
 		if (this.props.active) {
-			style.backgroundColor = "#02bfe7";
-			style.border = '1px solid #046b99';
+			style.backgroundColor = this.props.colors.active;
+			style.border = '1px solid ' + this.props.colors.activeBorder;
 			style.color = '#fff'
 		}
+		
 		return (
 			<div className="usa-da-treemap-cell" style={style} onMouseOver={this.mouseOver.bind(this)} onMouseOut={this.mouseOut.bind(this)} onClick={this.clickEvent.bind(this)}>
 				<div className="treemap-rule">{this.props.title}</div>
