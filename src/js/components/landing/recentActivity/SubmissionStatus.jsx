@@ -11,7 +11,8 @@ export const StatusTypes = {
 	INPROGRESS: 2,
 	HASERRORS: 3,
 	VALIDATED: 4,
-	SUBMITTED: 5
+	SUBMITTED: 5,
+	SERVERERROR: 6
 };
 
 const defaultProps = {
@@ -22,7 +23,7 @@ export class SubmissionStatus extends React.Component {
 	constructor(props) {
 		super(props);
 
-		this.statusStrings = ['Unknown', 'Started', 'Validation In Progress', 'Has Errors', 'Validated (Without Errors)', 'Submitted'];
+		this.statusStrings = ['Unknown', 'Started', 'Validation In Progress', 'Has Errors', 'Validated (Without Errors)', 'Submitted', 'Validation Server Error'];
 
 	}
 
@@ -50,6 +51,9 @@ export class SubmissionStatus extends React.Component {
 			for (let i = 0; i < colors.length; i++) {
 				colors[i] = 'filled';
 			}
+		}
+		else if (value == StatusTypes.SERVERERROR) {
+			colors[0] = 'error';
 		}
 
 		return colors;

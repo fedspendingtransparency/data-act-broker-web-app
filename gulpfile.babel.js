@@ -191,15 +191,7 @@ gulp.task('copyAssets', ['copyConstants'], () => {
             .pipe(gulp.dest(dir.PUBLIC))
             .on('end', () => {
                 gutil.log('index.html copied');
-            }),
-
-        // copy newrelic.js
-        gulp.src(dir.SRC + '/newrelic.js')
-            .pipe(gulp.dest(dir.PUBLIC))
-            .on('end', () => {
-                gutil.log('newrelic.js copied');
             })
-
     );
 });
 

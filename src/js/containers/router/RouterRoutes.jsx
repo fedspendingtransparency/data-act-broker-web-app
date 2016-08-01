@@ -140,6 +140,15 @@ const routeDefinitions = {
             }
         },
         {
+            path: 'generateFiles/:submissionID',
+            onEnter: checkUserPermissions,
+            getComponent(nextState, cb) {
+                require.ensure([], (require) => {
+                    cb(null, require('../../components/generateFiles/GenerateFilesPage.jsx').default)
+                });
+            }
+        },
+        {
             path: 'validateCrossFile/:submissionID',
             onEnter: checkUserPermissions,
             getComponent(nextState, cb) {
