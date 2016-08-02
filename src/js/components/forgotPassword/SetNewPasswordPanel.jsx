@@ -132,7 +132,7 @@ export default class SetNewPasswordPanel extends React.Component {
                 <div className="col-md-5 usa-da-login-container">
                     {messageComponent}
                     <div className="col-md-12 usa-da-reset-success">
-                        <p>Please click <a href="#">here</a> to log in with your new password</p>
+                        <p>You can now <a href="#">log in with your new password</a>.</p>
                     </div>
                 </div>
             );

@@ -613,9 +613,19 @@ a.list-group-item {
     .usa-da-icon {
 	    svg{
         	fill: #d9534f;
-        	}
-        }
+    	}
     }
+}
+
+.alert {
+    .alert-header-text {
+        font-family: $font-sans;
+        color: #555;
+        font-size: 2.4rem;
+        font-weight: 700;
+        margin: 0 0 5px 48px;
+    }
+}
 
 .alert-block{
     border: 1px solid #ccc;
@@ -725,6 +735,7 @@ opacity: 0.4;
     &.date svg {
         top: 12px;
     }
+
 }
 
 /***** BUTTONS *****/
@@ -907,6 +918,12 @@ button,
     padding: 30px;
 }
 
+.hidden-screen-reader {
+    position: absolute;
+    clip: rect(1px 1px 1px 1px); /* IE6, IE7 */
+    clip: rect(1px, 1px, 1px, 1px);
+}
+
 
 
 /*****  RELATIVELY POSITION ELEMENTS *****/
@@ -977,6 +994,14 @@ button,
         .visually-hidden {
             position: absolute;
             clip: rect(0, 0, 0, 0);
+        }
+    }
+    .error-icon {
+        svg {
+            fill: $color-secondary !important;
+            height: 45px !important;
+            width: 45px !important;
+            right: 0px !important;
         }
     }
     ul.typeahead-selector,

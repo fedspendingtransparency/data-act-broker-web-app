@@ -171,6 +171,7 @@
         }
         .usa-da-download {
             margin-top: 0;
+            text-decoration: none;
         }
         .vertical-line {
             position: absolute;
@@ -317,6 +318,45 @@
                         content: '';
                         padding-right: 0px;
                     }
+                }
+            }
+        }
+    }
+}
+
+// generate files modal
+.usa-da-generate-file-modal {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    right: auto;
+    bottom: auto;
+    margin-right: -50%;
+    transform: translate(-50%, -50%);
+    outline: none;
+    width: 60%;
+    max-width: 750px;
+    padding: 30px 30px 20px;
+    background-color: $color-white;
+    box-shadow: rgba(0, 0, 0, 0.6) 0px 10px 16px;
+    @media(max-width: $small-screen) {
+        width: 80%;
+    }
+
+    .usa-da-landing-modal-close {
+        position: absolute;
+        top: 10px;
+        right: 10px;
+        & a {
+            display: block;
+            width: 20px;
+            height: 20px;
+            & svg {
+                fill: $color-gray-light;
+            }
+            &:hover {
+                & svg {
+                    fill: $gray-dark;
                 }
             }
         }
