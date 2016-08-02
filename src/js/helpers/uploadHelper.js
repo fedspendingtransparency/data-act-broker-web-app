@@ -148,6 +148,7 @@ const uploadS3File = (file, fileID, key, credentials, fileType) => {
         })
         .send(error => {
             if (error) {
+                console.log(error);
                 // update Redux with the upload state
                 store.dispatch(uploadActions.setUploadState({
                     name: fileType,
@@ -231,7 +232,7 @@ const prepareMetadata = (metadata, request) => {
 }
 
 export const performRemoteUpload = (submission) => {
-
+    
 	const deferred = Q.defer();
 
 	const store = new StoreSingleton().store;
