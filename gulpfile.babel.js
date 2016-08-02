@@ -27,27 +27,6 @@ import mocha from 'gulp-mocha';
 // for debugging webpack
 // import StatsPlugin from 'stats-webpack-plugin';
 
-// Base Directories
-const dir = {
-    BASE: './',
-    PUBLIC: './public',
-    SRC: './src',
-    TEST: './__tests__'
-};
-
-// Path constants
-const path = {
-    MINIFIED_OUT: 'app.min.js',
-    OUT: 'app.js',
-    ENTRY_POINT: dir.SRC + '/js/app.jsx',
-    INDEX_SRC: 'index.html',
-    SASS_SRC: dir.SRC + '/_scss/**',
-
-    PROD_CONSTANTS: 'GlobalConstants_prod.js',
-    DEV_CONSTANTS: 'GlobalConstants_dev.js',
-    LOCAL_CONSTANTS: 'GlobalConstants_local.js'
-};
-
 let minified = false;
 
 const environmentTypes = {
@@ -66,10 +45,12 @@ const currentTime = moment().tz('America/New_York').format('MMMM D, YYYY h:mm A 
 // set the environment
 let environment = environmentTypes.DEVLOCAL;
 process.env.NODE_ENV = 'development';
+let constantsFile = 'GlobalConstants_dev.js';
 
 gulp.task('setDev', () => {
     minified = false;
     environment = environmentTypes.DEVLOCAL;
+    constantsFile = 'GlobalConstants_dev.js';
 
     // set the NodeJS environment so that Redux compiles correctly in production modes
     process.env.NODE_ENV = 'development';
@@ -81,6 +62,7 @@ gulp.task('setDevHosted', () => {
     minified = false;
     environment = environmentTypes.DEVHOSTED;
     process.env.NODE_ENV = 'development';
+    constantsFile = 'GlobalConstants_dev.js';
 
     gutil.log('You are running in ' + chalk.black.bgYellow(' DEVELOPMENT (HOSTED) ') + ' mode.');
 })
@@ -89,6 +71,7 @@ gulp.task('setProd', () => {
     minified = true;
     environment = environmentTypes.PROD;
     process.env.NODE_ENV = 'production';
+    constantsFile = 'GlobalConstants_prod.js';
 
     gutil.log('You are running in ' + chalk.black.bgGreen(' PRODUCTION (HOSTED) ') + ' mode.');
 });
@@ -97,6 +80,7 @@ gulp.task('setLocal', () => {
     minified = true;
     environment = environmentTypes.LOCAL;
     process.env.NODE_ENV = 'production';
+    constantsFile = 'GlobalConstants_local.js';
 
     // update the local server dependencies to wait for the minification and HTML modification process
     serverDeps.push('modifyHtml');
@@ -107,7 +91,7 @@ gulp.task('setLocal', () => {
 // clear out the existing folder contents and also the webpack build cache
 // NOTE: this will make the build take a long time
 gulp.task('clean', () => {
-    return del([dir.PUBLIC + '/**/*', './cache/**/*']);
+    return del(['./public/**/*', './cache/**/*']);
 });
 
 // get the current git metadata
@@ -125,18 +109,11 @@ gulp.task('meta', ['clean'], (done) => {
 // copy the correct constants file into the source directory
 gulp.task('copyConstants', ['meta'], () => {
 
-    let file = path.DEV_CONSTANTS;
-
-    if (environment == environmentTypes.PROD) {
-        file = path.PROD_CONSTANTS;
-    }
-    else if (environment == environmentTypes.LOCAL) {
-        file = path.LOCAL_CONSTANTS;
-    }
+    let file = constantsFile;
 
     return gulp.src('./' + file)
         .pipe(rename('GlobalConstants.js'))
-        .pipe(gulp.dest(dir.SRC + '/js'))
+        .pipe(gulp.dest('./src/js'))
         .on('end', () => {
             gutil.log('Using ' + chalk.magenta(file) + ' as the constants file...');
         });
@@ -145,50 +122,47 @@ gulp.task('copyConstants', ['meta'], () => {
 // copy the assets
 gulp.task('copyAssets', ['copyConstants'], () => {
 
-    // determine the destination
-    const destination = dir.PUBLIC;
-
     // combine all the copy streams into a single stream
     // return the stream to wait for the task to complete
     return merge(
         // copy fonts
-        gulp.src(dir.SRC + '/fonts/**/*')
-            .pipe(gulp.dest(dir.PUBLIC + '/fonts'))
+        gulp.src('./src/fonts/**/*')
+            .pipe(gulp.dest('./public/fonts'))
             .on('end', () => {
                 gutil.log('Fonts copied');
             }),
 
         // copy graphics
-        gulp.src(dir.SRC + '/graphics/**/*')
-            .pipe(gulp.dest(dir.PUBLIC + '/graphics'))
+        gulp.src('./src/graphics/**/*')
+            .pipe(gulp.dest('./public/graphics'))
             .on('end', () => {
                 gutil.log('Graphics copied');
             }),
 
          // copy images
-        gulp.src(dir.SRC + '/img/**/*')
-            .pipe(gulp.dest(dir.PUBLIC + '/img'))
+        gulp.src('./src/img/**/*')
+            .pipe(gulp.dest('./public/img'))
             .on('end', () => {
                 gutil.log('Images copied');
             }),
 
         // copy CSS files
-        gulp.src(dir.SRC + '/css/**/*.css')
-            .pipe(gulp.dest(dir.PUBLIC + '/css'))
+        gulp.src('./src/css/**/*.css')
+            .pipe(gulp.dest('./public/css'))
             .on('end', () => {
                 gutil.log('CSS copied');
             }),
 
         // copy markdown files
-        gulp.src(dir.SRC + '/help/**/*.md')
-            .pipe(gulp.dest(dir.PUBLIC + '/help'))
+        gulp.src('./src/help/**/*.md')
+            .pipe(gulp.dest('./public/help'))
             .on('end', () => {
                 gutil.log('Markdown copied');
             }),
 
         // copy the main index file
         gulp.src('./index.html')
-            .pipe(gulp.dest(dir.PUBLIC))
+            .pipe(gulp.dest('./public'))
             .on('end', () => {
                 gutil.log('index.html copied');
             })
@@ -200,12 +174,12 @@ gulp.task('sass', ['copyAssets'], () => {
 
     if (environment == environmentTypes.DEVLOCAL) {
         // set up a watcher for future SASS changes
-        gulp.watch([dir.SRC + '/css/**/*.scss', dir.SRC + '/_scss/**/*.scss'])
+        gulp.watch(['src/css/**/*.scss', 'src/_scss/**/*.scss'])
             .on('change', () => {
                 gutil.log(chalk.green('Starting SASS recompile...'));
-                return gulp.src(dir.SRC + '/css/**/*.scss')
+                return gulp.src('./src/css/**/*.scss')
                     .pipe(sass.sync().on('error', sass.logError))
-                    .pipe(gulp.dest(dir.PUBLIC + '/css'))
+                    .pipe(gulp.dest('./public/css'))
                     // auto reload the browser
                     .pipe(connect.reload())
                     .on('end', () => {
@@ -215,15 +189,18 @@ gulp.task('sass', ['copyAssets'], () => {
     }
 
     // compile SASS files
-    return gulp.src(dir.SRC + '/css/**/*.scss')
+    return gulp.src('src/css/**/*.scss')
         .pipe(sass.sync().on('error', sass.logError))
         // add in the commit hash and timestamp header
         .pipe(header('/* Build ' + commitHash  + '\n' + currentTime + ' */\n\n'))
         // .pipe(gulpif(minified, cssNano()))
-        .pipe(gulp.dest(dir.PUBLIC + '/css'));
+        .pipe(gulp.dest('./public/css'));
 });
 
 gulp.task('webpackCore', ['sass'], (callback) => {
+
+    // the Core consists of the common libraries used throughout the application
+    // this task compiles these libraries into a Webpack DLL to reduce subsequent build times (in dev) and to further reduce  the application bundle size
 
     const config = {
         entry: {
@@ -239,28 +216,28 @@ gulp.task('webpackCore', ['sass'], (callback) => {
             loaders: [{
                 test: /\.jsx?$/,
                 exclude: /node_modules/,
-                loader: 'babel-loader'
+                loader: 'babel-loader' // the babel loader tells webpack to compile JS/JSX files using Babel
             },{
                 test: /\.json$/,
-                loader: 'json-loader'
+                loader: 'json-loader' // the JSON loader tells webpack how to handle JSON files (as JSON files)
             },{
                 test: /\/node_modules\/aws-sdk/,
-                loader: 'transform?aws-sdk/dist-tools/transform'
+                loader: 'transform?aws-sdk/dist-tools/transform' // this loader is used to to bundle the AWS SDK
             }]
         },
         node: {
-            fs: "empty"
+            fs: "empty" // this is a hack to get the AWS SDK to compile properly in webpack
         },
         plugins: [
             new webpack.DefinePlugin({
-                'process.env.NODE_ENV': JSON.stringify(process.env.NODE_ENV || 'development')
+                'process.env.NODE_ENV': JSON.stringify(process.env.NODE_ENV || 'development') // this lets some libraries compile in a compressed production mode, if available (for prod only)
             }),
             new webpack.DllPlugin({
                 path: './public/js/manifest.json',
                 name: '[name]_[hash]',
                 context: '.'
             }),
-            new webpack.optimize.DedupePlugin()
+            new webpack.optimize.DedupePlugin() // remove duplicated items
         ]
     };
 
@@ -276,6 +253,9 @@ gulp.task('webpackCore', ['sass'], (callback) => {
         config.output.filename = 'core.[hash].js';
     }
 
+
+    // actually build the core
+    // also extract the file hash from the core so its hashed file name can be included in the HTML script tag
     webpack(config, (err, stats) => {
         coreHash = stats.hash;
         if(err) throw new gutil.PluginError("webpack", err);
@@ -284,45 +264,45 @@ gulp.task('webpackCore', ['sass'], (callback) => {
 });
 
 gulp.task('webpack', ['webpackCore'], () => {
+    // this task compiles the application code
+    // to reduce the initial load time of the application, files are chunked and the chunks are loaded dynamically as required
+
     const jsFile = 'app.' + commitHash + '.js';
 
     const config = {
         output: {
             publicPath: 'js/',
             filename: 'app.js',
-            chunkFilename: 'chunk.[chunkhash].js'
+            chunkFilename: 'chunk.[chunkhash].js' // including the hash in chunk filenames allows the client to cache them, but discard the cache when the chunk is updated
         },
         module: {
             loaders: [{
                 test: /\.jsx?$/,
                 include: /src\/js/,
                 exclude: /node_modules/,
-                loader: 'babel-loader',
+                loader: 'babel-loader', // the babel loader tells webpack to compile JS/JSX files using Babel
                 query: {
-                    cacheDirectory: './cache/',
+                    cacheDirectory: './cache/', // after initial load, subsequent builds draw from a cache (in dev only) to reduce build time
                     compact: true
                 }
             },{
                 test: /\.json$/,
-                loader: 'json-loader'
+                loader: 'json-loader' // the JSON loader tells webpack how to handle JSON files (as JSON files)
             },{
                 test: /\/node_modules\/aws-sdk/,
-                loader: 'transform?aws-sdk/dist-tools/transform'
-            }],
-            noParse: [
-                /\src\/js\/vendor\/aws\-sdk\-s3\-only.js$/
-            ]
+                loader: 'transform?aws-sdk/dist-tools/transform'  // this loader is used to to bundle the AWS SDK
+            }]
         },
         node: {
-            fs: "empty"
+            fs: "empty" // this is a hack to get the AWS SDK to compile properly in webpack
         },
         plugins: [
             new webpack.DefinePlugin({
-                'process.env.NODE_ENV': JSON.stringify(process.env.NODE_ENV || 'development')
+                'process.env.NODE_ENV': JSON.stringify(process.env.NODE_ENV || 'development') // this lets some libraries compile in a compressed production mode, if available (for prod only)
             }),
             new webpack.DllReferencePlugin({
                 context: '.',
-                manifest: require('./public/js/manifest.json')
+                manifest: require('./public/js/manifest.json') // this tells webpack where the DLL libraries in the Core are
             })
         ]
     };
@@ -334,29 +314,33 @@ gulp.task('webpack', ['webpackCore'], () => {
         config.devtool = 'eval';
         config.debug = true;
 
-        gulp.watch('./src/js/**/*')
+        gulp.watch('src/js/**/*') // drop the leading . to allow gulp to detect new files that are created after the initial build
             .on('change', () => {
+                gutil.log(chalk.cyan('Starting JS recompile...'));
                 const watchConfig = Object.assign(config, {quiet: true});
-                return gulp.src(path.ENTRY_POINT)
+                return gulp.src('./src/js/app.jsx')
                     .pipe(sourcemaps.init())
                     .pipe(webpackStream(watchConfig))
-                    .pipe(gulp.dest('./public/js'))
-                    .pipe(connect.reload())
                     .on('end', (err, stats) => {
                         gutil.log(chalk.cyan('Reloading JS...'));
                     })
                     .on('error', (err) => {
-                        console.log("ERROR");
-                        console.log(err);
-                    });
+                        // show the error in terminal
+                        gutil.log(err);
+                        gutil.log(chalk.red('COMPILE ERRORS OCCURRED'));
+                    })
+                    .pipe(gulp.dest('./public/js'))
+                    .pipe(connect.reload());
             });
     }
     else if (environment != environmentTypes.DEVHOSTED) {
         // if it's not a development environment, minify everything
         config.plugins.push(new webpack.optimize.UglifyJsPlugin({
-            compress: true,
-            warnings: false,
-            sourceMap: false
+            compress: {
+                warnings: false
+            },
+            sourceMap: false,
+            comments: false
         }));
 
         // use the commit hash to version the app.js file
@@ -367,13 +351,18 @@ gulp.task('webpack', ['webpackCore'], () => {
         config.output.filename = jsFile;
     }
 
-    return gulp.src(path.ENTRY_POINT)
+    return gulp.src('./src/js/app.jsx')
         .pipe(sourcemaps.init())
         .pipe(webpackStream(config))
         .pipe(gulp.dest('./public/js'))
         .pipe(connect.reload())
         .on('end', () => {
             gutil.log(chalk.cyan('Reloading JS...'));
+        })
+        .on('error', (err) => {
+            // show the error in terminal
+            gutil.log(err);
+            gutil.log(chalk.red('COMPILE ERRORS OCCURRED'));
         });
 
 });
@@ -386,19 +375,19 @@ gulp.task('modifyHtml', ['webpack'], () => {
     const coreFile = 'core.' + coreHash + '.js';
 
     return merge(
-        gulp.src(dir.PUBLIC + '/index.html')
+        gulp.src('./public/index.html')
             // replace the app.js script reference with one that points to the minified file
             // add in a ?v=[git hash] param to override browser caches when a new version is deployed
-            .pipe(replace(path.OUT, jsFile))
+            .pipe(replace('app.js', jsFile))
             .pipe(replace('core.js', coreFile))
             // now do the same thing (without minification) for the CSS file
             .pipe(replace('main.css', cssFile))
-            .pipe(gulp.dest(dir.PUBLIC)),
+            .pipe(gulp.dest('./public')),
         // now we have to rename the CSS file to match (JS renaming is handled by minification process)
-        gulp.src(dir.PUBLIC + '/css/main.css')
+        gulp.src('./public/css/main.css')
             .pipe(vinylPaths(del))
             .pipe(rename(cssFile))
-            .pipe(gulp.dest(dir.PUBLIC + '/css'))
+            .pipe(gulp.dest('./public/css'))
     );
 });
 
@@ -412,7 +401,7 @@ gulp.task('serve', serverDeps, () => {
     }
 
     connect.server({
-        root: dir.PUBLIC,
+        root: './public',
         port: 3000,
         livereload: reload
     });

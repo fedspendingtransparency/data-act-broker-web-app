@@ -3,8 +3,6 @@ import ReactDOM from 'react-dom';
 import 'babel-polyfill';
 import AppContainer from './containers/AppContainer.jsx';
 
-import Preloader from './preload.js';
-
 const documentLocation = document.getElementById('app');
 
 ReactDOM.render((
