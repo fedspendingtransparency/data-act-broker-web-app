@@ -191,6 +191,10 @@ div.usa-da-validate-items {
             color: $color-green-light;
             font-weight: 600;
         }
+        & .usa-da-warning-txt{
+            color: $color-gold;
+            font-weight: 600;
+        }
         .usa-da-validate-item-file-section-result {
             height: 50px;
             width: 35px;
@@ -213,6 +217,12 @@ div.usa-da-validate-items {
                 & .usa-da-icon-cloud-upload {
                     fill: $color-gray-dark;
                     left: 9px
+                }
+            }
+
+            .usa-da-warning-icon {
+                .usa-da-icon-exclamation-circle {
+                    fill: $color-gold;
                 }
             }
         }

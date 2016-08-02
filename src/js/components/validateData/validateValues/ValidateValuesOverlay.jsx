@@ -45,8 +45,8 @@ export default class ValidateValuesOverlay extends React.Component {
 			uploadButtonClass = ' btn-primary';
 		}
 
-
 		let message = 'You must fix the Critical Errors found in ' + this.props.errors.length + ' of the .CSV files before moving on to the next step. View and download individual reports above.';
+		let detail = '';
 
 		if (this.props.errors.length == 0) {
 			icon = <Icons.CheckCircle />;
@@ -57,12 +57,19 @@ export default class ValidateValuesOverlay extends React.Component {
 			nextButtonClass = ' btn-primary';
 			nextButtonDisabled = false;
 
+			if (this.props.warnings.length > 0) {
+				// there are warnings
+				icon = <Icons.ExclamationCircle />
+				iconClass = 'usa-da-warningYellow';
+				// message = 'Warnings were found in ' + this.props.warnings.length + ' of the .CSV files.';
+				message = 'There are warnings in ' + this.props.warnings.length + ' of the .CSV files uploaded in this submission.';
+				detail = 'You can correct the files or click Next to generate your D1 and D2 files as-is.';
+			}
+
 			if (this.isUploadingFiles()) {
 				uploadButtonDisabled = false;
 				uploadButtonClass = ' btn-primary';
 			}
-
-
 		}
 
 		let buttonText = 'Upload Corrected CSV Files';
@@ -92,13 +99,16 @@ export default class ValidateValuesOverlay extends React.Component {
 			<div className="center-block usa-da-validation-overlay">
 				<div className="container">
 					<div className="row">
-						<div className="col-md-8 usa-da-overlay-content-wrap">
+						<div className="col-xs-10 col-xs-offset-1 col-md-8 col-md-offset-0 usa-da-overlay-content-wrap">
 							<div className="row">
 								<div className="col-xs-2 col-xs-offset-5 col-md-1 col-md-offset-0 usa-da-icon mr-10">
 									<div className={iconClass}>{icon}</div>
 								</div>
 								<div className="col-xs-10 col-xs-offset-1 col-md-10 col-md-offset-0">
 									<h6>{message}</h6>
+									<div className="overlay-help-text">
+										{detail}
+									</div>
 								</div>
 							</div>
 						</div>
@@ -111,7 +121,7 @@ export default class ValidateValuesOverlay extends React.Component {
 					</div>
 				</div>
             </div>
-		);
+		)
 	}
 }
 

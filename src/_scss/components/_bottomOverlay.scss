@@ -58,8 +58,14 @@
     & svg.usa-da-icon-exclamation-circle {
         fill: $color-secondary;
     }
+    .usa-da-warningYellow {
+        & svg.usa-da-icon-exclamation-circle {
+            fill: $color-gold;
+        }
+    }
     .usa-da-errorRed,
-    .usa-da-successGreen {
+    .usa-da-successGreen,
+    .usa-da-warningYellow {
         &:after {
             content: " ";
             background: white;
