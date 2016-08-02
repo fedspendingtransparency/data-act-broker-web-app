@@ -90,13 +90,17 @@ export default class ValidateDataFileComponent extends React.Component {
         }
 
         let hasErrors = false;
+        let hasWarnings = false;
         if (item.error_data.length > 0) {
             hasErrors = true;
+        }
+        if (item.warning_data.length > 0) {
+            hasWarnings = true;
         }
         
         this.setState({
             hasErrors: hasErrors,
-            hasWarnings: true
+            hasWarnings: hasWarnings
         });
     
     }
@@ -129,6 +133,10 @@ export default class ValidateDataFileComponent extends React.Component {
         if (this.state.hasErrors) {
             icon = <Icons.ExclamationCircle />;
         }
+        else if (this.state.hasWarnings) {
+            icon = <div className="usa-da-warning-icon"><Icons.ExclamationCircle /></div>;
+        }
+
 
         if (this.isReplacingFile()) {
             icon = <Icons.CloudUpload />;
@@ -157,12 +165,19 @@ export default class ValidateDataFileComponent extends React.Component {
             }
         }
 
-        if (!this.state.hasErrors) {
+        if (!this.state.hasErrors && !this.state.hasWarnings) {
             optionalUpload = true;
             uploadText = 'Overwrite File';
             correctButtonOverlay = <CorrectButtonOverlay isReplacingFile={this.isReplacingFile()} fileKey={this.props.type.requestName} onDrop={this.props.onFileChange} fileName={fileName}/>
             validationElement = <p className='usa-da-success-txt'>File successfully validated</p>;
-        } else {
+        }
+        else if (!this.state.hasErrors && this.state.hasWarnings) {
+            optionalUpload = true;
+            uploadText = 'Overwrite File';
+            correctButtonOverlay = <CorrectButtonOverlay isReplacingFile={this.isReplacingFile()} fileKey={this.props.type.requestName} onDrop={this.props.onFileChange} fileName={fileName}/>
+            validationElement = <p className='usa-da-warning-txt'>File validated with warnings</p>;
+        }
+        else {
             validationElement = <div className="row usa-da-validate-item-file-section-correct-button" data-testid="validate-upload"><div className="col-md-12">
                 <ValidateDataUploadButton optional={optionalUpload} onDrop={this.props.onFileChange} text={uploadText} />
                 </div>
