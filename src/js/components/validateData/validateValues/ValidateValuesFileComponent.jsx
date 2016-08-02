@@ -169,6 +169,18 @@ export default class ValidateDataFileComponent extends React.Component {
             </div>;
         }
 
+        const warningBaseColors = {
+            base: '#fdb81e',
+            active: '#FF6F00',
+            activeBorder: '#BF360C'
+        };
+
+        const errorBaseColors = {
+            base: '#5d87bb',
+            active: '#02bfe7',
+            activeBorder: '#046b99'
+        };
+
         return (
             <div className="row center-block usa-da-validate-item" data-testid={"validate-wrapper-" + this.props.type.requestName}>
                 <div className="col-md-12">
@@ -186,7 +198,7 @@ export default class ValidateDataFileComponent extends React.Component {
                                 </div>
                             </div>
                             <div className="row">
-                                <FileDetailBox styleClass="usa-da-validate-item-warning" label="Warnings" count={0} expandedReport={this.state.showWarning} onClick={this.toggleWarningReport.bind(this)} />
+                                <FileDetailBox styleClass="usa-da-validate-item-warning" label="Warnings" count={this.props.item.warning_count} expandedReport={this.state.showWarning} onClick={this.toggleWarningReport.bind(this)} />
                                 <FileDetailBox styleClass="usa-da-validate-item-critical" label="Critical Errors" count={this.props.item.error_count} expandedReport={this.state.showError} onClick={this.toggleErrorReport.bind(this)} />
                             </div>
                         </div>
@@ -203,8 +215,8 @@ export default class ValidateDataFileComponent extends React.Component {
                             {validationElement}
                         </div>
                     </div>
-                    {this.state.showWarning ? <ValidateValuesErrorReport link={this.props.item.report} data={this.props.item} name="Warning" color="#fdb81e" /> : null}
-                    {this.state.showError ? <ValidateValuesErrorReport link={this.props.item.report} data={this.props.item} name="Critical Error" color="#5d87bb" /> : null}
+                    {this.state.showWarning ? <ValidateValuesErrorReport link={this.props.item.warning_report} data={this.props.item} dataKey="warning_data" name="Warning" colors={warningBaseColors} /> : null}
+                    {this.state.showError ? <ValidateValuesErrorReport link={this.props.item.report} data={this.props.item} dataKey="error_data" name="Critical Error" colors={errorBaseColors} /> : null}
                 </div>
             </div>
         );
