@@ -1,0 +1,12 @@
+@import "../../components/buttons/_base";
+.usa-da-button {
+	margin: 0;
+    @media screen and (max-width: $small-screen) {
+        width: 100%
+    }
+    &.disabled {
+        background-color: $color-gray-light;
+        color: $color-gray;
+        cursor: default;
+    }
+}

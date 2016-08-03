@@ -1,170 +1,45 @@
-// login Page
-.usa-da-login {
-    @include display(flex);
-    @include flex-direction(column);
-    @include align-items(center);
-    @include justify-content(center);
-    padding: 0;
-    width: 100%;
-    min-height: 100vh;
-    // @media screen and (max-width: $small-screen) {
-    //     height: auto;
-    // }
-    background: url("../img/hero_bg_img.jpg") no-repeat center center fixed;
-    background-color: $color-gray-dark;
-    @include vendor-prefixes(background-size, cover);
-    input {
-        padding-left: 55px;
-        height: 44px;
-        margin-top: 0;
-        margin-bottom: 0;
-        max-width: none;
-        &[name="password"] {
-            margin-bottom: 0;
-        }
-    }
-    .login-title {
-        font-family: "Source Sans Pro", "Helvetica", "Arial", sans-serif;
-        font-size: 6.0rem;
-        line-height: 6.0rem;
-        margin-top: 35px;
-        margin-bottom: 10px;
-        color: $color-white;
-        font-weight: $font-light;
-        &:after {
-            @include betaMark;
-        }
-    }
-    .usa-da-button {
-        margin: 0;
-        @media screen and (max-width: $small-screen) {
-            width: 100%
-        }
-        &.disabled {
-            background-color: $color-gray-light;
-            color: $color-gray;
-            cursor: default;
-        }
-    }
+.usa-da-login-page {
+	
+	// import the partials
+	@import "./login/_background";
+	@import "./login/_banner";
 
-.usa-da-top-banner {
-    @include align-self(stretch);
-    background: as-alpha($color-gold-lightest, 0.95);
-    padding: 15px 0;
-    width: 100%;
-    border-bottom: 1px solid $color-gold-lighter;
-    & p{
-        max-width: 100%;
-        margin-bottom: 0;
-        font-size: 1.4rem;
-        text-align: left;
-    }
-    & .usa-da-icon{
-        height: 30px;
-        width: 30px;
-        position: absolute;
-        right: 0;
-        & svg {
-            fill: $gray-dark
-        } 
-    }
-}
+	.flex-wrapper{
+		@include display(flex);
+	    @include flex-direction(column);
+	}
 
-    .login-banner-wrap {
+	.usa-da-login {
+		// set up the background
+		@extend %login-background;
+	}
+
+	 .login-banner-wrap {
         @include display(flex);
         @include align-self(stretch);
         @include flex-grow(2);
         @include justify-content(center);
         @include flex-direction(column);
-    }
-    .usa-da-login-wrap {
-        @include align-items(center);
-        @include align-self(stretch);
-        background-color: as-alpha($color-gray-dark, 0.40);
-        border-top: 1px solid rgba(255, 255, 255, 0.1);
-        border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-        margin: 40px 0;
-    }
-    .usa-da-login-container {
-        padding: 40px 40px 29px;
-        margin: 40px 0;
-        background: as-alpha($color-white, 0.03);
-        border: 1px solid rgba(0, 0, 0, 0.25);
-        @media screen and (max-width: 1199px) and (min-width: $medium-screen) {
-            padding: 40px 20px 29px;
-        }
-        input {
-            width: 100%;
-            font-family: $font-sans;
-            font-size: 1.6rem;
-        }
-        p.msg {
-            color: $color-white;
-            margin: 0 0 30px;
-        }
-        p.info {
-            color: $color-white;
-            margin: 0 0 20px -15px;
-            @media screen and (max-width: $small-screen) {
-                text-align: center;
-            }
-        }
-        .usa-da-reset-success {
-            margin: 20px 0 0 0;
-            padding: 0;
-            color: $color-white;
-            font-size: $small-font-size;
 
-            p {
-                color: $color-white;
-                font-size: $small-font-size;
-            }
+	    .usa-da-login-wrap {
+	        @include align-items(center);
+	        @include align-self(stretch);
+	        background-color: as-alpha($color-gray-dark, 0.40);
+	        border-top: 1px solid rgba(255, 255, 255, 0.1);
+	        border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+	        margin: 40px 0;
+	    }
 
-            a {
-                color: $color-gray-lighter;
-                text-decoration: underline;
+	    // import the partials for the actual login form
+	    @import "./login/_loginForm";
 
-                &:hover {
-                    color: $color-white;
-                }
-            }
-        }
-    }
-    .usa-da-input-container {
-        margin-bottom: 20px;
-        display: inline-flex;
-        position: relative;
-        width: 100%;
-        .usa-da-icon {
-            position: absolute;
-            left: 10px;
-            top: 12px;
-            width: 2.2rem;
-            height: 2.2rem;
-            overflow: hidden;
-            fill: $color-gray-dark;
-        }
-    }
-    .usa-da-registration-links {
-        ul {
-            margin-bottom: 0;
-            li {
-                @include list-row(31px, 31px);
-                color: as-alpha($color-white, 0.99);
-                border-right: 1px solid #5b616b;
-                padding: 0 10px;
-                & a {
-                    color: as-alpha($color-white, 0.99);
-                    font-size: 1.2rem;
-                }
-            }
-            @media screen and (max-width: $small-screen) {
-                margin: 0 auto 0;
-            }
-        }
-    }
-    a.forgot-back {
-        color: as-alpha($color-white, 0.99);
-        font-size: 1.2rem;
-    }
+	    // also import the partials for the page title
+	    @import "./login/_loginTitle";
+
+	    // import styles for the registration links
+	    @import "./login/_registrationLinks";
+
+	    @import "./login/_loginButton";
+	}
+
 }

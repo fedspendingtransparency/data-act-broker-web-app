@@ -1,0 +1,16 @@
+// style the page background
+%login-background {
+	@include display(flex);
+	@include flex-direction(column);
+    @include align-items(center);
+    @include justify-content(center);
+    
+    padding: 0;
+    width: 100%;
+    min-height: 100vh;
+
+    background: url("../img/hero_bg_img.jpg") no-repeat center center fixed;
+    @include vendor-prefixes(background-size, cover);
+
+	background-color: $color-gray-dark;
+}

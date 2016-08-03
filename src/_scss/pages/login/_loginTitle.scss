@@ -1,0 +1,16 @@
+// import the styles for the left side descriptive content
+@import "../../components/typography/_pageTitles";
+
+// style the actual title
+.login-title {
+    font-family: "Source Sans Pro", "Helvetica", "Arial", sans-serif;
+    font-size: 6.0rem;
+    line-height: 6.0rem;
+    margin-top: 35px;
+    margin-bottom: 10px;
+    color: $color-white;
+    font-weight: $font-light;
+    &:after {
+        @include betaMark;
+    }
+}

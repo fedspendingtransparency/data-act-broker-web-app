@@ -1,0 +1,272 @@
+// landing Page
+.usa-da-landing.col-md-12 {
+    margin: 0;
+    padding: 0;
+}
+
+.usa-da-landing-btns {
+    margin: 60px auto;
+}
+
+
+// landing page blocks
+.usa-da-landing-block-wrap {
+    @media(max-width: $medium-screen) {
+        padding-left: 0px;
+        padding-top: 20px;
+        &:first-child {
+            padding-top: 0px;
+        }
+    }
+}
+
+.usa-da-landing-block {
+    background-color: #e7e7e7;
+    border: 1px solid #d9d9d9;
+    height: 275px;
+    padding: 10px;
+    position: relative;
+    &.comingSoon {
+        background: #e7e7e7 url("../graphics/coming_soon_ribbon.png") 100% 0 no-repeat;
+        color: #888;
+        & svg {
+            opacity: 0.4;
+        }
+    }
+    @media(max-width: $medium-screen) {
+        height: auto;
+    }
+    .usa-da-landing-block-text {
+        margin: 0 10px;
+    }
+    .usa-da-landing-block-icon {
+        padding-top: 10px;
+        padding-bottom: 20px;
+        @media(max-width: $medium-screen) {
+            padding-top: 0px;
+        }
+        svg {
+            margin: 0 10px 0 0;
+            display: inline-block;
+            position: relative;
+            top: 5px;
+            left: 2px;
+            height: 4.5rem;
+            width: 4.8rem;
+            fill: $color-gray;
+        }
+    }
+    .usa-da-landing-block-bottom {
+        position: absolute;
+        top: 170px;
+        left: 20px;
+        right: 20px;
+        @media(max-width: $medium-screen) {
+            position: relative;
+            top: 0;
+            left: 0;
+            padding-top: 20px;
+        }
+        & a {
+            font-size: 1.4rem;
+        }
+        & .usa-da-landing-block-bottom-link {
+            padding: 15px 20px 20px;
+            & a {
+                font-size: 1.2rem;
+                font-weight: 700;
+                text-decoration: none;
+            }
+        }
+    }
+}
+
+.usa-da-landing-disclosure {
+    font-size: 1rem;
+}
+
+// landing modal
+.usa-da-landing-modal {
+    top: 50%;
+    left: 50%;
+    right: auto;
+    bottom: auto;
+    margin-right: -50%;
+    transform: translate(-50%, -50%);
+}
+
+.usa-da-landing-modal-overlay {
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index: 9999;
+}
+
+.usa-da-landing-modal {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    right: auto;
+    bottom: auto;
+    margin-right: -50%;
+    transform: translate(-50%, -50%);
+    outline: none;
+    width: 60%;
+    max-width: 750px;
+    padding: 30px 30px 20px;
+    background-color: $color-white;
+    box-shadow: rgba(0, 0, 0, 0.6) 0px 10px 16px;
+    @media(max-width: $small-screen) {
+        width: 80%;
+    }
+    hr {
+        background-color: $color-gray-dark;
+    }
+    .usa-da-landing-modal-close {
+        position: absolute;
+        top: 10px;
+        right: 10px;
+        & a {
+            display: block;
+            width: 20px;
+            height: 20px;
+            & svg {
+                fill: $color-gray-light;
+            }
+            &:hover {
+                & svg {
+                    fill: $gray-dark;
+                }
+            }
+        }
+    }
+    h6 {
+        margin-bottom: 3.0rem;
+    }
+    ul,
+    li {
+        font-size: $small-font-size;
+        color: #525252;
+    }
+    ul {
+        margin-top: 1.5rem;
+        margin-bottom: 3.5rem;
+        margin-left: 0;
+    }
+    .usa-da-review-data-user-row {
+        height: 41px;
+        margin: 1rem 0 1rem;
+        padding: 0.5rem 0 0.5em;
+        border: 1px solid #cacaca;
+        color: #696969;
+        .usa-da-icon,
+        .usa-da-icon * {
+            height: 20px;
+            cursor: pointer;
+            margin: 0.25rem;
+            color: #696969;
+        }
+        span {
+            vertical-align: super;
+        }
+    }
+}
+
+// recent activity table
+.recent-activity-header {
+    font-size: 3.0rem;
+    font-weight: 200;
+    line-height: 1;
+}
+.usa-da-recent-activity {
+    .usa-da-recent-activity-link {
+        a {
+            display: inline-block;
+            padding: 5px 10px;
+        }
+        svg {
+            width: 3.5rem;
+            height: 2.4rem;
+            margin: 0 10px 0 0;
+            display: inline-block;
+            position: relative;
+            top: 5px;
+            left: 2px;
+            fill: $color-gray;
+        }
+    }
+    table {
+        table-layout: fixed;
+        height: 100%;
+        min-height: 1px;
+        .row-10 {
+            width: 10%;
+        }
+        .row-15 {
+            width: 15%;
+        }
+        .row-20 {
+            width: 20%;
+        }
+        .row-25 {
+            width: 25%;
+        }
+        .row-30 {
+            width: 30%;
+        }
+        td.progress-cell {
+            padding: 0 !important;
+            position: relative;
+        }
+        th {
+            .table-header-value.sortable {
+                font-size: 1.2rem;
+                padding-right: 50px;
+            }
+            .usa-da-table-sorter {
+                width: 40px;
+            }
+        }
+    }
+    .usa-da-recent-submission-status {
+        height: 100%;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        .usa-da-status-label {
+            padding-right: 15px;
+            flex: 0 1 auto;
+        }
+    }
+    .usa-da-recent-progress {
+        width: 100%;
+        height: 1rem;
+        position: absolute;
+        bottom: 0px;
+        left: 0px;
+        top: auto;
+        .step {
+            width: 25%;
+            float: left;
+            height: 1rem;
+            padding-left: 5px;
+            padding-right: 5px;
+            border-left: 2px solid $color-white;
+            &:first-child {
+                border-left: none;
+            }
+            &.filled {
+                background-color: $color-primary;
+            }
+            &.pending {
+                background-color: $color-gray-warm-light;
+            }
+            &.error {
+                background-color: $color-secondary;
+            }
+        }
+    }
+}
