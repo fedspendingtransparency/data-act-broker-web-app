@@ -25,6 +25,7 @@ export default class ValidateValuesContent extends React.Component {
     render() {
 
         const errors = [];
+        const warnings = [];
 
         let items = fileTypes.map((type, index) => {
             const validation = this.props.submission.validation;
@@ -32,6 +33,9 @@ export default class ValidateValuesContent extends React.Component {
                 const item = validation[type.requestName];
                 if (item.error_data.length > 0) {
                     errors.push(type.requestName);
+                }
+                if (item.warning_data.length > 0) {
+                    warnings.push(type.requestName);
                 }
 
                 return <ValidateValuesFileContainer key={index} data={validation} type={type}  />;
@@ -46,7 +50,7 @@ export default class ValidateValuesContent extends React.Component {
                         {items}
                     </div>
                 </div>
-                <ValidateValuesOverlayContainer errors={errors} />;
+                <ValidateValuesOverlayContainer errors={errors} warnings={warnings} />
             </div>
         );
     }
