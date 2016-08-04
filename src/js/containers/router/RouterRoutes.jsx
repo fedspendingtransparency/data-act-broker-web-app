@@ -2,6 +2,8 @@ import { hashHistory } from 'react-router';
 
 import LandingPage from '../../components/landing/LandingPage.jsx';
 import LoginPage from '../../components/login/LoginPage.jsx';
+import SubmissionGuideContainer from '../../containers/addData/SubmissionGuideContainer.jsx';
+import AddDataPageContainer from '../../containers/addData/AddDataPageContainer.jsx';
 
 import StoreSingleton from '../../redux/storeSingleton.js';
 
@@ -115,20 +117,12 @@ const routeDefinitions = {
         {
             path: 'submissionGuide',
             onEnter: checkUserPermissions,
-            getComponent(nextState, cb) {
-                require.ensure([], (require) => {
-                    cb(null, require('../../containers/addData/SubmissionGuideContainer.jsx').default)
-                });
-            }
+            component: SubmissionGuideContainer
         },
         {
             path: 'addData',
             onEnter: checkUserPermissions,
-            getComponent(nextState, cb) {
-                require.ensure([], (require) => {
-                    cb(null, require('../../containers/addData/AddDataPageContainer.jsx').default)
-                });
-            }
+            component: AddDataPageContainer
         },
         {
             path: 'validateData/:submissionID',
