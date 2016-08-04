@@ -30,21 +30,13 @@ We made some small changes so the Broker displays in a more consistent manner.
 #### Accessibility Improvements{section=accessibilityImprovements}
 We made several changes to improve the accessibility of the Broker by adaptive technologies like screen readers. We also added an accessibility statement in this Help file.
 
-#### Resources{section=resources}
-We identified several files that you may want to have readily available while using the Broker.
-
-* File A: Appropriation Account data [Download sample file](https://s3-us-gov-west-1.amazonaws.com/prod-data-act-web-static-files/sample-files/appropValid.csv)
-* File B: Object Class and Program Activity data [Download sample file](https://s3-us-gov-west-1.amazonaws.com/prod-data-act-web-static-files/sample-files/programActivityValid.csv)
-* File C: Award Financial data [Download sample data](https://s3-us-gov-west-1.amazonaws.com/prod-data-act-web-static-files/sample-files/awardFinancialValid.csv)
-* Long Element Name to Short Element Name Crosswalk [Download file](https://s3-us-gov-west-1.amazonaws.com/prod-data-act-submission/rss/AgencyLabel_to_TerseLabel.xlsx)
-* Validation Rules resource [Download file](https://s3-us-gov-west-1.amazonaws.com/prod-data-act-submission/rss/Validation_Rules.xlsx)
-* Domain Values resource [Download file](https://s3-us-gov-west-1.amazonaws.com/prod-data-act-submission/rss/Domain_Values.xlsx)
-
 #### More Validations in SQL{section=validationSQL3}
 Agency developers may be interested to know that we transitioned more of the Broker validations to using SQL statements. The list of SQL statements is publicly available on [GitHub](https://github.com/fedspendingtransparency/data-act-broker-backend/tree/master/dataactvalidator/config/sqlrules).
 
 #### Updated Validations{section=updatedValidations}
 Below is a cumulative table of validations in the RSS. The status column indicates whether they are currently implemented in the Broker. Some rules that were already implemented in the Broker were changed in the release of the Errata. The currently implemented rule and new rule are both listed below, with corresponding version indicators in the rule label (i.e. "C14 (v1)" or "C14 (v2)").
+
+Refer to the [Resources](#/help?section=resources) section for sample files and additional references.
 
 ```!inline-html
 <table class="usa-da-table table-bordered help-table">

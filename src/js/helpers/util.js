@@ -9,21 +9,52 @@ export const generateRSSUrl = () => {
 
 	const deferred = Q.defer();
 
-	Request.get(kGlobalConstants.API + 'get_rss/')
-		.send()
-		.end((err, res) => {
+	// utilize the generateProtectedUrls call to fetch the signed RSS link
+	generateProtectedUrls().promise
+		.then((urls) => {
 
 			if (isCanceled) {
 				deferred.reject('canceled');
 			}
 			else {
-				if (err) {
-					deferred.reject(err);
-				}
-				else {
-					deferred.resolve(res.body.rss_url);
-				}
+				deferred.resolve(urls['RSS_v1.0.xlsx']);
 			}
+		})
+		.catch((err) => {
+			console.log(err);
+			deferred.reject(err);
+		});
+
+	return {
+		promise: deferred.promise,
+		cancel: () => {
+			isCanceled = true;
+
+		}
+	}
+}
+
+export const generateProtectedUrls = () => {
+
+	let isCanceled = false;
+	const deferred = Q.defer();
+
+	Request.get(kGlobalConstants.API + 'get_protected_files/')
+		.send()
+		.end((err, res) => {
+			if (isCanceled) {
+				deferred.reject();
+			}
+			else if (err && res.body) {
+				deferred.reject(res.body.message);
+			}
+			else if (err) {
+				deferred.reject();
+			}
+			else {
+				deferred.resolve(res.body.urls);
+			}
+
 		});
 
 	return {
@@ -31,7 +62,7 @@ export const generateRSSUrl = () => {
 		cancel: () => {
 			isCanceled = true;
 		}
-	}
+	};
 }
 
 export const currentQuarter = (type) => {
