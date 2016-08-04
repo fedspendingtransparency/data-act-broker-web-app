@@ -15,9 +15,10 @@
 @import './pages/submissionGuide';
 @import './pages/reviewData';
 @import './pages/crossFile';
+@import './pages/generateFiles';
 
 
 // ***** COMPONENTS
 @import './components/progressBar';
 @import './components/bottomOverlay';
-@import './components/datepicker/datepicker';
+@import './components/daypicker';

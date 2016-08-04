@@ -1,6 +1,5 @@
 import Request from './sessionSuperagent.js';
 import Q from 'q';
-import AWS from 'aws-sdk';
 import { dispatch } from 'redux';
 import _ from 'lodash';
 
@@ -81,7 +80,7 @@ export const fetchStatus = (submissionId) => {
 	        		// return only jobs related to CSV validation
 	        		const response = Object.assign({}, res.body);
 	        		const csvJobs = [];
-	        		let crossFileJob;
+	        		let crossFileJob = {};
 	        		response.jobs.forEach((job) => {
 	        			if (job.job_type == 'csv_record_validation') {
 	        				csvJobs.push(job);
@@ -121,6 +120,25 @@ export const fetchErrorReports = (submissionId) => {
 	return deferred.promise;
 }
 
+export const fetchWarningReports = (submissionId) => {
+	const deferred = Q.defer();
+
+	Request.post(kGlobalConstants.API + 'submission_warning_reports/')
+			.send({'submission_id': submissionId})
+			.end((errFile, res) => {
+
+				if (errFile) {
+					deferred.reject(errFile);
+				}
+				else {
+					deferred.resolve(res.body);
+				}
+
+			});
+
+	return deferred.promise;
+}
+
 const getFileStates = (status) => {
 	const output = {};
 
@@ -128,6 +146,7 @@ const getFileStates = (status) => {
 		output[item.file_type] = item;
 		output[item.file_type].report = null;
 		output[item.file_type].error_count = 0;
+		output[item.file_type].warning_count = 0;
 
 		// force an error_data array if no field is passed back in the JSON
 		if (!item.hasOwnProperty('error_data')) {
@@ -140,6 +159,18 @@ const getFileStates = (status) => {
 			});
 
 			output[item.file_type].error_count = count;
+		}
+
+		// do the same for warnings
+		if (!item.hasOwnProperty('warning_data')) {
+			output[item.file_type].warning_data = [];
+		}
+		else {
+			let count = 0;
+			item.warning_data.forEach((warning) => {
+				count += parseInt(warning.occurrences);
+			});
+			output[item.file_type].warning_count = count;
 		}
 
 	});
@@ -202,6 +233,19 @@ const getFileReports = (status, reports) => {
 	return status;
 }
 
+const getFileWarningReports = (status, reports) => {
+	for (let key in status) {
+		let item = status[key];
+		item.warning_report = reports['job_' + item.job_id + '_warning_url'];
+
+		// alphabetize any missing and duplicated headers
+		item.missing_headers = _.sortBy(item.missing_headers);
+		item.duplicated_headers = _.sortBy(item.duplicated_headers);
+	}
+
+	return status;
+}
+
 const getCrossFileReports = (crossFile, reports) => {
 
 	const crossFileReports = {};
@@ -244,6 +288,12 @@ export const validateSubmission  = (submissionId) => {
 		.then((reports) => {
 			getFileReports(status, reports);
 			crossFileReports = getCrossFileReports(crossFile, reports);
+
+			return fetchWarningReports(submissionId);
+		})
+		.then((reports) => {
+			getFileWarningReports(status, reports);
+
 			deferred.resolve({
 				file: status,
 				crossFile: {
@@ -268,28 +318,14 @@ export const listUsers = () => {
 		status: "approved"
 	};
 	
-	Request.post(kGlobalConstants.API + 'list_users/')
+	Request.get(kGlobalConstants.API + 'list_user_emails/')
 		.send(request)
 		.end((err, res) => {
 			if (err) {
 				deferred.reject(err);
 			}
 			else {
-				// break up the permissions
-				const users = [];
-				res.body.users.forEach((user) => {
-					// sometimes python adds extra spaces to the comma separated list, so strip those out
-					const permString = user.permissions.replace(/\s/g, '');
-					user.permissions = permString.split(',');
-
-					const status = AdminHelper.determineStatus(user);
-
-					user.statusString = status.string;
-					user.statusType = status.type;
-
-					users.push(user);
-				});
-				deferred.resolve(users);
+				deferred.resolve(res.body.users);
 			}
 		});
 

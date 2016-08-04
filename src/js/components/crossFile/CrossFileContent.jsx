@@ -44,7 +44,7 @@ export default class CrossFileContent extends React.Component {
 				status = 'success';
 			}
 
-			items.push(<CrossFileItem key={i} status={status} meta={pairMeta} {...this.props} />);
+			items.push(<CrossFileItem key={i} status={status} meta={pairMeta} {...this.props} forceUpdate={this.props.reloadData} />);
 			i++;
 		});
 

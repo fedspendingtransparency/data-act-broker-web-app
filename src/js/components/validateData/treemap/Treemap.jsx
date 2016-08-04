@@ -80,7 +80,7 @@ export default class Treemap extends React.Component {
 
 		const treemap = layout(this.props.formattedData.data);
 
-		const baseColor = this.props.color;
+		const baseColor = this.props.colors.base;
 		return treemap.map((node, index) => {
 			const max = this.props.formattedData.max;
 			const min = this.props.formattedData.min;
@@ -99,7 +99,7 @@ export default class Treemap extends React.Component {
 
 			const color = tinycolor(baseColor).lighten(tint).toString();
 
-			return <TreemapCell key={index} width={node.dx} height={node.dy} x={node.x} y={node.y} color={color} cellId={node.index} active={active} title={node.title} count={node.value} field={node.field} detail={node.detail} description={node.description} clickedItem={this.props.clickedItem} />;
+			return <TreemapCell key={index} width={node.dx} height={node.dy} x={node.x} y={node.y} cellColor={color} colors={this.props.colors} cellId={node.index} active={active} title={node.title} count={node.value} field={node.field} detail={node.detail} description={node.description} clickedItem={this.props.clickedItem} />;
 		});
 
 	}
