@@ -42,13 +42,7 @@ export const generateProtectedUrls = () => {
 	Request.get(kGlobalConstants.API + 'get_protected_files/')
 		.send()
 		.end((err, res) => {
-			if (isCanceled) {
-				deferred.reject();
-			}
-			else if (err && res.body) {
-				deferred.reject(res.body.message);
-			}
-			else if (err) {
+			if (isCanceled || err) {
 				deferred.reject();
 			}
 			else {
