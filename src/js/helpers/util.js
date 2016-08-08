@@ -43,7 +43,7 @@ export const generateProtectedUrls = () => {
 		.send()
 		.end((err, res) => {
 			if (isCanceled || err) {
-				deferred.reject();
+				deferred.reject(err);
 			}
 			else {
 				deferred.resolve(res.body.urls);
