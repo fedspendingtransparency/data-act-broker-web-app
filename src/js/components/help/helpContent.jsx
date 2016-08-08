@@ -5,7 +5,7 @@
 
 import React from 'react';
 import $ from 'jquery';
-import { generateRSSUrl, generateProtectedUrls } from '../../helpers/util.js';
+import { generateRSSUrl, generateProtectedUrls, rssFileKey } from '../../helpers/util.js';
 
 
 let gifSrc = 'graphics/reportabug.gif';
@@ -32,7 +32,7 @@ export default class HelpContent extends React.Component {
         this.urlPromise.promise
             .then((urls) => {
                 this.setState({
-                    rssUrl: urls['RSS_v1.0.xlsx'],
+                    rssUrl: urls[rssFileKey()],
                     validationRulesUrl: urls['Validation_Rules.xlsx'],
                     domainValuesUrl: urls['Domain_Values.xlsx'],
                 });

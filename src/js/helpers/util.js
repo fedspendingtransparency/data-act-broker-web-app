@@ -17,7 +17,7 @@ export const generateRSSUrl = () => {
 				deferred.reject('canceled');
 			}
 			else {
-				deferred.resolve(urls['RSS_v1.0.xlsx']);
+				deferred.resolve(urls[rssFileKey()]);
 			}
 		})
 		.catch((err) => {
@@ -38,7 +38,7 @@ export const generateProtectedUrls = () => {
 
 	let isCanceled = false;
 	const deferred = Q.defer();
-
+	
 	Request.get(kGlobalConstants.API + 'get_protected_files/')
 		.send()
 		.end((err, res) => {
@@ -63,6 +63,11 @@ export const generateProtectedUrls = () => {
 			isCanceled = true;
 		}
 	};
+}
+
+export const rssFileKey = () => {
+	// returns the file key name for the RSS file
+	return 'RSS_v1.0.xlsx';
 }
 
 export const currentQuarter = (type) => {
