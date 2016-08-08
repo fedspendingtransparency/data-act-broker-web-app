@@ -1,23 +1,7 @@
 import { hashHistory } from 'react-router';
 
-import LoginPage from '../../components/login/LoginPage.jsx';
-import RegistrationPage from '../../components/registration/RegistrationPage.jsx';
-import RegisterEmailContainer from '../registration/RegisterEmailContainer.jsx';
-import RegistrationTokenContainer from '../registration/RegisterTokenContainer.jsx';
-import ForgotPasswordTokenPage from '../../components/forgotPassword/ResetPasswordTokenPage.jsx';
-import CompleteRegistrationComponent from '../../components/registration/ConfirmCodeComponent.jsx';
-import ForgotPasswordContainer from '../forgotPassword/ForgotPasswordContainer.jsx';
 import LandingPage from '../../components/landing/LandingPage.jsx';
-import SubmissionGuideContainer from '../../containers/addData/SubmissionGuideContainer.jsx';
-import AddDataPageContainer from '../../containers/addData/AddDataPageContainer.jsx';
-import ValidateDataPage from '../../components/validateData/ValidateDataPage.jsx';
-import GenerateFilesPage from '../../components/generateFiles/GenerateFilesPage.jsx';
-import CrossFilePage from '../../components/crossFile/CrossFilePage.jsx';
-import ReviewDataContainer from '../../containers/review/ReviewDataContainer.jsx';
-import HelpPage from '../../components/help/helpPage.jsx';
-import AdminPage from '../../components/admin/AdminPage.jsx';
-
-import ErrorPage from '../../components/error/ErrorPage.jsx';
+import LoginPage from '../../components/login/LoginPage.jsx';
 
 import StoreSingleton from '../../redux/storeSingleton.js';
 
@@ -106,8 +90,8 @@ const debugRoute = (nextState, replace) => {
 const routeDefinitions = {
     path: '/',
     indexRoute: {
-        component: LandingPage,
-        onEnter: checkUserPermissions
+        onEnter: checkUserPermissions,
+        component: LandingPage
     },
     childRoutes: [
         {
@@ -116,68 +100,120 @@ const routeDefinitions = {
         },
         {
             path: 'admin',
-            component: AdminPage,
-            onEnter: checkAdminPermissions
+            onEnter: checkAdminPermissions,
+            getComponent(nextState, cb) {
+                require.ensure([], (require) => {
+                    cb(null, require('../../components/admin/AdminPage.jsx').default)
+                });
+            }
         },
         {
             path: 'landing',
-            component: LandingPage,
-            onEnter: checkUserPermissions
+            onEnter: checkUserPermissions,
+            component: LandingPage
         },
         {
             path: 'submissionGuide',
-            component: SubmissionGuideContainer,
-            onEnter: checkUserPermissions
+            onEnter: checkUserPermissions,
+            getComponent(nextState, cb) {
+                require.ensure([], (require) => {
+                    cb(null, require('../../containers/addData/SubmissionGuideContainer.jsx').default)
+                });
+            }
         },
         {
             path: 'addData',
-            component: AddDataPageContainer,
-            onEnter: checkUserPermissions
+            onEnter: checkUserPermissions,
+            getComponent(nextState, cb) {
+                require.ensure([], (require) => {
+                    cb(null, require('../../containers/addData/AddDataPageContainer.jsx').default)
+                });
+            }
         },
         {
             path: 'validateData/:submissionID',
-            component: ValidateDataPage,
-            onEnter: checkUserPermissions
+            onEnter: checkUserPermissions,
+            getComponent(nextState, cb) {
+                require.ensure([], (require) => {
+                    cb(null, require('../../components/validateData/ValidateDataPage.jsx').default)
+                });
+            }
         },
         {
             path: 'generateFiles/:submissionID',
-            component: GenerateFilesPage,
-            onEnter: checkUserPermissions
+            onEnter: checkUserPermissions,
+            getComponent(nextState, cb) {
+                require.ensure([], (require) => {
+                    cb(null, require('../../components/generateFiles/GenerateFilesPage.jsx').default)
+                });
+            }
         },
         {
             path: 'validateCrossFile/:submissionID',
-            component: CrossFilePage,
-            onEnter: checkUserPermissions
+            onEnter: checkUserPermissions,
+            getComponent(nextState, cb) {
+                require.ensure([], (require) => {
+                    cb(null, require('../../components/crossFile/CrossFilePage.jsx').default)
+                });
+            }
         },
         {
             path: 'reviewData/:submissionID',
-            component: ReviewDataContainer,
-            onEnter: checkUserPermissions
+            onEnter: checkUserPermissions,
+            getComponent(nextState, cb) {
+                require.ensure([], (require) => {
+                    cb(null, require('../../containers/review/ReviewDataContainer.jsx').default)
+                });
+            }
         },
         {
             path: 'help',
-            component: HelpPage,
-            onEnter: checkUserPermissions
+            onEnter: checkUserPermissions,
+            getComponent(nextState, cb) {
+                require.ensure([], (require) => {
+                    cb(null, require('../../components/help/helpPage.jsx').default)
+                });
+            }
         },
         {
             path: 'forgotpassword',
-            component: ForgotPasswordContainer
+            getComponent(nextState, cb) {
+                require.ensure([], (require) => {
+                    cb(null, require('../forgotPassword/ForgotPasswordContainer.jsx').default)
+                });
+            }
         },
         {
             path: 'forgotpassword/:token',
-            component: ForgotPasswordTokenPage
+            getComponent(nextState, cb) {
+                require.ensure([], (require) => {
+                    cb(null, require('../../components/forgotPassword/ResetPasswordTokenPage.jsx').default)
+                });
+            }
         },
         {
             path: 'registration',
-            component: RegisterEmailContainer
+            getComponent(nextState, cb) {
+                require.ensure([], (require) => {
+                    cb(null, require('../registration/RegisterEmailContainer.jsx').default)
+                });
+            }
         },
         {
             path: 'registration/:token',
-            component: RegistrationTokenContainer
+            getComponent(nextState, cb) {
+                require.ensure([], (require) => {
+                    cb(null, require('../registration/RegisterTokenContainer.jsx').default)
+                });
+            }
         },
         {
             path: '*',
-            component: ErrorPage
+            getComponent(nextState, cb) {
+                require.ensure([], (require) => {
+                    cb(null, require('../../components/error/ErrorPage.jsx').default)
+                });
+            }
         }
     ]
 }

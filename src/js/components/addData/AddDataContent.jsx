@@ -11,8 +11,6 @@ import SubmissionComponent from './SubmissionComponent.jsx';
 import MetaData from './AddDataMetaDisplay.jsx';
 import Progress from '../SharedComponents/ProgressComponent.jsx';
 import SubmitButton from '../SharedComponents/SubmitButton.jsx';
-import AWS from 'aws-sdk';
-import 'babel-polyfill';
 
 const propTypes = {
     metaData: PropTypes.object
