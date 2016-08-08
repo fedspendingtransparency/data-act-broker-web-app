@@ -12,17 +12,8 @@
     // }
     background: url("../img/hero_bg_img.jpg") no-repeat center center fixed;
     background-color: $color-gray-dark;
-    @include vendor-prefixes(background-size, cover);
-    input {
-        padding-left: 55px;
-        height: 44px;
-        margin-top: 0;
-        margin-bottom: 0;
-        max-width: none;
-        &[name="password"] {
-            margin-bottom: 0;
-        }
-    }
+    @include vendor-prefixes(background-size,
+    cover);
     .login-title {
         font-family: "Source Sans Pro", "Helvetica", "Arial", sans-serif;
         font-size: 6.0rem;
@@ -46,30 +37,28 @@
             cursor: default;
         }
     }
-
-.usa-da-top-banner {
-    @include align-self(stretch);
-    background: as-alpha($color-gold-lightest, 0.95);
-    padding: 15px 0;
-    width: 100%;
-    border-bottom: 1px solid $color-gold-lighter;
-    & p{
-        max-width: 100%;
-        margin-bottom: 0;
-        font-size: 1.4rem;
-        text-align: left;
+    .usa-da-top-banner {
+        @include align-self(stretch);
+        background: as-alpha($color-gold-lightest, 0.95);
+        padding: 15px 0;
+        width: 100%;
+        border-bottom: 1px solid $color-gold-lighter;
+        & p {
+            max-width: 100%;
+            margin-bottom: 0;
+            font-size: 1.4rem;
+            text-align: left;
+        }
+        & .usa-da-icon {
+            height: 30px;
+            width: 30px;
+            position: absolute;
+            right: 0;
+            & svg {
+                fill: $gray-dark
+            }
+        }
     }
-    & .usa-da-icon{
-        height: 30px;
-        width: 30px;
-        position: absolute;
-        right: 0;
-        & svg {
-            fill: $gray-dark
-        } 
-    }
-}
-
     .login-banner-wrap {
         @include display(flex);
         @include align-self(stretch);
@@ -97,6 +86,10 @@
             width: 100%;
             font-family: $font-sans;
             font-size: 1.6rem;
+            padding-left: 40px;
+            height: 44px;
+            margin-top: 0;
+            margin-bottom: 0;
         }
         p.msg {
             color: $color-white;
@@ -114,16 +107,13 @@
             padding: 0;
             color: $color-white;
             font-size: $small-font-size;
-
             p {
                 color: $color-white;
                 font-size: $small-font-size;
             }
-
             a {
                 color: $color-gray-lighter;
                 text-decoration: underline;
-
                 &:hover {
                     color: $color-white;
                 }
@@ -148,8 +138,10 @@
     .usa-da-registration-links {
         ul {
             margin-bottom: 0;
+            padding: 8px 0;
             li {
-                @include list-row(31px, 31px);
+                @include list-row(31px,
+                31px);
                 color: as-alpha($color-white, 0.99);
                 border-right: 1px solid #5b616b;
                 padding: 0 10px;
@@ -159,7 +151,7 @@
                 }
             }
             @media screen and (max-width: $small-screen) {
-                margin: 0 auto 0;
+                margin: 10px auto 0;
             }
         }
     }
