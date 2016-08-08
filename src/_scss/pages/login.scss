@@ -1,9 +1,11 @@
 .usa-da-login-page {
-	
+	// outer wrapper for the full page
+
 	// import the partials
 	@import "./login/_background";
-	@import "./login/_banner";
 
+
+	// handle the basic positioning
 	.flex-wrapper{
 		@include display(flex);
 	    @include flex-direction(column);
@@ -14,32 +16,13 @@
 		@extend %login-background;
 	}
 
-	 .login-banner-wrap {
-        @include display(flex);
-        @include align-self(stretch);
-        @include flex-grow(2);
-        @include justify-content(center);
-        @include flex-direction(column);
+	
+	// import the content
+	@import "./login/_content";
 
-	    .usa-da-login-wrap {
-	        @include align-items(center);
-	        @include align-self(stretch);
-	        background-color: as-alpha($color-gray-dark, 0.40);
-	        border-top: 1px solid rgba(255, 255, 255, 0.1);
-	        border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-	        margin: 40px 0;
-	    }
+	// import the styles for the top warning banner
+    @import "./login/_topWarningBanner";
 
-	    // import the partials for the actual login form
-	    @import "./login/_loginForm";
-
-	    // also import the partials for the page title
-	    @import "./login/_loginTitle";
-
-	    // import styles for the registration links
-	    @import "./login/_registrationLinks";
-
-	    @import "./login/_loginButton";
-	}
-
+    // import the warning footer
+    @import "./login/_warningFooter";
 }

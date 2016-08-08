@@ -8,7 +8,12 @@
         padding: 40px 20px 29px;
     }
 
+    // import the innput fields
     @import "./_inputField";
+
+    // import the login button
+    @import "./loginButton";
+
 
     // style the form components
     p.msg {

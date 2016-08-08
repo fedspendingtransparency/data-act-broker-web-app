@@ -1,0 +1,26 @@
+.login-banner-wrap {
+	// the content that goes in the middle of the page
+    @include display(flex);
+    @include align-self(stretch);
+    @include flex-grow(2);
+    @include justify-content(center);
+    @include flex-direction(column);
+
+    .usa-da-login-wrap {
+        @include align-items(center);
+        @include align-self(stretch);
+        background-color: as-alpha($color-gray-dark, 0.40);
+        border-top: 1px solid rgba(255, 255, 255, 0.1);
+        border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        margin: 40px 0;
+    }
+
+    // import the partials for the actual login form
+    @import "./loginForm/loginForm";
+
+    // also import the partials for the page title
+    @import "./_loginTitle";
+
+    // import styles for the registration links
+    @import "./_registrationLinks";
+}

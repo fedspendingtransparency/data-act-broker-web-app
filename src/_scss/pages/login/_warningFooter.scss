@@ -1,0 +1,11 @@
+.usa-da-warning-msg {
+    @include align-self(stretch);
+    & p {
+        max-width: 100%;
+        font-size: 1.1rem;
+        color: $color-white;
+        & strong {
+            color: $color-secondary-light;
+        }
+    }
+}
