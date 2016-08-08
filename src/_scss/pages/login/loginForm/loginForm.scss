@@ -1,4 +1,5 @@
 .usa-da-login-container {
+
 	// style the outer wrapper
     padding: 40px 40px 29px;
     margin: 40px 0;
@@ -7,13 +8,6 @@
     @media screen and (max-width: 1199px) and (min-width: $medium-screen) {
         padding: 40px 20px 29px;
     }
-
-    // import the innput fields
-    @import "./_inputField";
-
-    // import the login button
-    @import "./loginButton";
-
 
     // style the form components
     p.msg {
@@ -47,5 +41,15 @@
             }
         }
     }
+
+    // import the innput fields
+    @import "./_inputField";
+    // import the login button
+    @import "./loginButton";
+    // style the registration links
+    @import "./_registrationLinks";
+
+    // import alert styles
+    @import "./_loginAlerts";
 
 }

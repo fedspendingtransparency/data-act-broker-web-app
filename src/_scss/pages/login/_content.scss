@@ -17,10 +17,6 @@
 
     // import the partials for the actual login form
     @import "./loginForm/loginForm";
-
     // also import the partials for the page title
     @import "./_loginTitle";
-
-    // import styles for the registration links
-    @import "./_registrationLinks";
 }

@@ -1,0 +1,33 @@
+%base-button {
+	font-size: 1.4rem;
+    font-weight: $font-bold;
+    padding: 1rem 2rem;
+    border: none;
+    border-radius: 0;
+    margin: 0;
+    display: inline-block;
+    text-align: center;
+    text-decoration: none!important;
+    cursor: pointer;
+
+    &.btn-disabled, &[disabled], & fieldset[disabled]{
+        cursor: not-allowed;
+        opacity: 0.55;
+        background:$color-gray-lighter;
+        -webkit-box-shadow: none;
+        box-shadow: none;
+        color:$color-gray;
+        &:hover{
+        	opacity: 0.75;
+        	background:$color-gray-lighter;
+        	color:$color-gray;
+        }
+    }
+
+    &.btn-bdr{
+    	border: white solid 1px;
+    }
+    &.btn-full{
+        width: 100%;
+    }
+}

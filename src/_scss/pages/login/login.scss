@@ -2,10 +2,9 @@
 	// outer wrapper for the full page
 
 	// import the partials
-	@import "./login/_background";
+	@import "./_background";
 
-
-	// handle the basic positioning
+	// handle the basic outer positioning
 	.flex-wrapper{
 		@include display(flex);
 	    @include flex-direction(column);
@@ -16,13 +15,12 @@
 		@extend %login-background;
 	}
 
-	
 	// import the content
-	@import "./login/_content";
+	@import "./_content";
 
 	// import the styles for the top warning banner
-    @import "./login/_topWarningBanner";
+    @import "./_topWarningBanner";
 
     // import the warning footer
-    @import "./login/_warningFooter";
+    @import "./_warningFooter";
 }

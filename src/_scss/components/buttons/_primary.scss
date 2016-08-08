@@ -1,0 +1,30 @@
+@import "./_core";
+%primary-button {
+	@extend %base-button;
+
+    &.btn-lg {
+    	padding: 16px 24px 15px;
+        font-size: 1.6rem;
+        line-height: 1.3rem;
+        border-radius: 0;
+    }
+
+    &.btn-primary {
+        @include btnBase($color-white, $color-primary);
+        &:active {
+           @include btnBase($color-white, $color-primary-darkest); 
+        }
+        &:hover {
+            @include btnBase($color-white, $color-primary-darker);
+        }
+    }
+    &.btn-primary-alt {
+        @include btnBase($color-base, $color-primary-alt);
+        &:active {
+            @include btnBase($color-white, $color-primary-alt-darkest);
+        }
+        &:hover {
+            @include btnBase($color-base, $color-primary-alt-dark);
+        }
+    }
+}

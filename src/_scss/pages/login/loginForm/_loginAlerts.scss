@@ -1,0 +1,5 @@
+// handle alert boxes
+@import "../../../components/alerts/_alerts";
+.alert-error {
+	@extend %danger-alert;
+}

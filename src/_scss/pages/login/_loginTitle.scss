@@ -14,3 +14,7 @@
         @include betaMark;
     }
 }
+
+.usa-da-page-title {
+    @extend %page-title;
+}

@@ -1,9 +1,10 @@
 // this file may only include styles involved in wrapping the outer html and body elements
 // it may not be used for implement globally shared styles
 
-// import the global typography settings
+// import the global components
 @import "../components/typography/_global";
 @import "../components/lists/_global";
+@import "../components/positioning/_global";
 
 html, body {
 	height: 100%;
