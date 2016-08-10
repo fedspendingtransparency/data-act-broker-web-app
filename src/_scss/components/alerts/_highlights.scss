@@ -1,4 +1,4 @@
-.highlight{
+@mixin highlight {
 	background-color: $color-gold-lightest;
 	padding: 8px 15px;
 }

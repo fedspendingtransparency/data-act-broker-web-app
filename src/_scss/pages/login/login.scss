@@ -1,26 +1,5 @@
 .usa-da-login-page {
-	// outer wrapper for the full page
-
-	// import the partials
-	@import "./_background";
-
-	// handle the basic outer positioning
-	.flex-wrapper{
-		@include display(flex);
-	    @include flex-direction(column);
-	}
-
-	.usa-da-login {
-		// set up the background
-		@extend %login-background;
-	}
-
-	// import the content
-	@import "./_content";
-
-	// import the styles for the top warning banner
-    @import "./_topWarningBanner";
-
-    // import the warning footer
-    @import "./_warningFooter";
+	// inherit the basic layout of the page
+	@import "../../layouts/login/login";
+	@include loginLayout;
 }

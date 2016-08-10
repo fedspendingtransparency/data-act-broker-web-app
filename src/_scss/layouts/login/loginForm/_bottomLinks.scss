@@ -1,4 +1,4 @@
-.usa-da-registration-links {
+@mixin loginFormBottomLinks {
     ul {
         margin-bottom: 0;
         margin-top: 0;
@@ -16,5 +16,10 @@
         @media screen and (max-width: $small-screen) {
             margin: 0 auto 0;
         }
+    }
+
+    a.forgot-back {
+        color: as-alpha($color-white, 0.99);
+        font-size: 1.2rem;
     }
 }

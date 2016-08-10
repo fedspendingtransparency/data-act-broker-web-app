@@ -1,6 +1,5 @@
 @import "./_core";
-%primary-button {
-	@extend %base-button;
+@mixin primaryButton {
 
     &.btn-lg {
     	padding: 16px 24px 15px;
@@ -27,4 +26,6 @@
             @include btnBase($color-base, $color-primary-alt-dark);
         }
     }
+
+    @include baseButton;
 }

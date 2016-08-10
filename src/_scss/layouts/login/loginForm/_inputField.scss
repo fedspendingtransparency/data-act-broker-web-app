@@ -1,8 +1,8 @@
-.usa-da-input-container {
-    margin-bottom: 20px;
-    display: inline-flex;
-    position: relative;
-    width: 100%;
+@import "../../../components/inputs/_container";
+
+@mixin loginFormInputContainer {
+
+    @include inputContainer;
 
     input {
         width: 100%;

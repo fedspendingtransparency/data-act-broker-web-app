@@ -1,4 +1,7 @@
-.login-banner-wrap {
+// style the center content area
+@import "../../components/typography/_pageTitles";
+
+@mixin loginCenterBanner {
 	// the content that goes in the middle of the page
     @include display(flex);
     @include align-self(stretch);
@@ -15,8 +18,20 @@
         margin: 40px 0;
     }
 
-    // import the partials for the actual login form
-    @import "./loginForm/loginForm";
-    // also import the partials for the page title
-    @import "./_loginTitle";
+    // style the text that appears on the left side
+    .login-title {
+	    font-family: "Source Sans Pro", "Helvetica", "Arial", sans-serif;
+	    font-size: 6.0rem;
+	    line-height: 6.0rem;
+	    margin-top: 35px;
+	    margin-bottom: 10px;
+	    color: $color-white;
+	    font-weight: $font-light;
+	    &:after {
+	        @include betaMark;
+	    }
+	}
+	.usa-da-page-title {
+	    @include pageTitle;
+	}
 }

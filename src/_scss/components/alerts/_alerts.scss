@@ -1,5 +1,5 @@
 // base styling for alerts
-%base-alert {
+@mixin baseAlert {
 	color: #333 !important;
     font-size: 1.4rem;
     border-radius: 0;
@@ -38,32 +38,32 @@
     }
 }
 
-%success-alert {
-	@extend %base-alert;
+@mixin successAlert {
+    @include baseAlert;	
 	background: #e7f4e4;
     svg {
         fill: #5cb85c;
     }
 }
 
-%info-alert {
-	@extend %base-alert;
+@mixin infoAlert {
+	@include baseAlert;
     background: #e1f3f8;
     svg {
         fill: #5bc0de;
     }
 }
 
-%warning-alert {
-	@extend %base-alert;
+@mixin warningAlert {
+	@include baseAlert;
     background: #fff1d2;
     svg {
         fill: #f0ad4e;
     }
 }
 
-%danger-alert {
-	@extend %base-alert;
+@mixin dangerAlert {
+	@include baseAlert;
     background: #f9dede;
     .usa-da-icon {
 	    svg{

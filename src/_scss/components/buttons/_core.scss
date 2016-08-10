@@ -1,4 +1,4 @@
-%base-button {
+@mixin baseButton {
 	font-size: 1.4rem;
     font-weight: $font-bold;
     padding: 1rem 2rem;
@@ -10,6 +10,14 @@
     text-decoration: none!important;
     cursor: pointer;
 
+    &.btn-bdr{
+    	border: white solid 1px;
+    }
+    &.btn-full{
+        width: 100%;
+    }
+
+    // @import "./_disabled";
     &.btn-disabled, &[disabled], & fieldset[disabled]{
         cursor: not-allowed;
         opacity: 0.55;
@@ -18,16 +26,9 @@
         box-shadow: none;
         color:$color-gray;
         &:hover{
-        	opacity: 0.75;
-        	background:$color-gray-lighter;
-        	color:$color-gray;
+            opacity: 0.75;
+            background:$color-gray-lighter;
+            color:$color-gray;
         }
-    }
-
-    &.btn-bdr{
-    	border: white solid 1px;
-    }
-    &.btn-full{
-        width: 100%;
     }
 }

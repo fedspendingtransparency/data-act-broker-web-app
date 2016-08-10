@@ -1,4 +1,4 @@
-.usa-da-warning-msg {
+@mixin loginWarningFooter {
     @include align-self(stretch);
     & p {
         max-width: 100%;

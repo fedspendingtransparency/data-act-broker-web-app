@@ -1,4 +1,14 @@
-.usa-da-login-container {
+// import the innput fields
+@import "./_inputField";
+// import the login button
+@import "./_loginButton";
+// style the registration links
+@import "./_bottomLinks";
+// import alert styles
+@import "./_loginAlerts";
+
+
+@mixin loginForm {
 
 	// style the outer wrapper
     padding: 40px 40px 29px;
@@ -42,14 +52,19 @@
         }
     }
 
-    // import the innput fields
-    @import "./_inputField";
-    // import the login button
-    @import "./loginButton";
-    // style the registration links
-    @import "./_registrationLinks";
+    .usa-da-input-container {
+        @include loginFormInputContainer;
+    }
+    
+    .usa-da-button {
+        @include loginFormButton;
+    }
 
-    // import alert styles
-    @import "./_loginAlerts";
+    .usa-da-registration-links {
+        @include loginFormBottomLinks;
+    }
+
+    @include loginFormAlerts;
+
 
 }

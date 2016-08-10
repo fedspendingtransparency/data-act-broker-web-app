@@ -1,0 +1,35 @@
+@mixin inputContainer {
+	margin-bottom: 20px;
+	@include display(flex);
+	position: relative;
+	width: 100%;
+
+	.usa-da-input-with-icon {
+		padding-left: 2.5em;
+	}
+
+	div.usa-da-icon-nobg {
+		background-image: inherit !important;
+	}
+	div.usa-da-icon {
+		background-image: url("../graphics/form_bg.png");
+		background-repeat:no-repeat;
+		background-size:contain;
+		background-position:center;
+		margin: 0;
+		position: absolute;
+		left: 0;
+		top: 1px;
+		height: 42px;
+		width: 48px;
+		overflow: hidden;
+		float: left;
+		font-size: 24px;
+	}
+
+	label{
+		font-weight: normal;
+		line-height: 23px;
+		color:#555;
+	}
+}

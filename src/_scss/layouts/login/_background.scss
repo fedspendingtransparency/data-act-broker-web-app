@@ -1,5 +1,5 @@
 // style the page background
-%login-background {
+@mixin loginBackground {
 	@include display(flex);
 	@include flex-direction(column);
     @include align-items(center);

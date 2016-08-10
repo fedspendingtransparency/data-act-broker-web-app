@@ -1,8 +1,7 @@
-// @import "../../../components/buttons/_base";
 @import "../../../components/buttons/_primary";
 
-.usa-da-button {
-	@extend %primary-button;
+@mixin loginFormButton {
+	@include primaryButton;
 
 	margin: 0;
     @media screen and (max-width: $small-screen) {

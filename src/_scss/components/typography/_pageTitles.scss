@@ -1,4 +1,4 @@
-%page-title {
+@mixin pageTitle {
     position: relative;
 	& h1 {
 		margin-top: 0;

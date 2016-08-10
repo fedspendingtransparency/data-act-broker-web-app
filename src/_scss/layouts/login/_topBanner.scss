@@ -1,5 +1,5 @@
-// style the banner at the top of the login page
-.usa-da-top-banner {
+// the warning banner that appears on the top of all login screens
+@mixin loginTopBanner {
 	@include align-self(stretch);
     background: as-alpha($color-gold-lightest, 0.95);
     padding: 15px 0;
