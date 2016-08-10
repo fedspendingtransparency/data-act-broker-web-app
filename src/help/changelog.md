@@ -51,6 +51,8 @@ We identified several files that you may want to have readily available while us
 #### Updated Validations{section=updatedValidations}
 Below is a cumulative table of validations in the RSS. The status column indicates whether they are currently implemented in the Broker. Some rules that were already implemented in the Broker were changed in the release of the Errata. The currently implemented rule and new rule are both listed below, with corresponding version indicators in the rule label (i.e. "C14 (v1)" or "C14 (v2)").
 
+Refer to the [Resources](#/help?section=resources) section for sample files and additional references.
+
 ```!inline-html
 <table class="usa-da-table table-bordered help-table">
     <thead>
