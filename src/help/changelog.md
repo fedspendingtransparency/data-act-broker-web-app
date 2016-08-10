@@ -1,34 +1,41 @@
-#### July 27, 2016
+#### August 10, 2016
 
-In this version of the Broker, we updated the Broker branding to Beta, improved the validation processing time, implemented short data element names, made the styling more consistent, improved the accessibility of the Broker, added a resources section, and updated the information on validations. 
+In this version of the Broker, we separated out the validation checks into warnings and critical errors, added the interface to create D1 and D2 files, improved 508 compliance, increased server capacity, added an interface for broker users to notify other users that a submission is ready, and fixed a bug that incorrectly showed submissions as valid on the home page submission table.
 
-  - [DATA Act Broker - Beta Release](#/help?section=betaRelease)
-  - [Validation Processing Time](#/help?section=processingTime)
-  - [Short Data Element Names](#/help?section=shortNames)
-  - [Consistent Style](#/help?section=consistentStyle)
-  - [Accessibility Improvements](#/help?section=accessibilityImprovements)
+  - [Warnings and Errors](#/help?section=warnings)
+  - [Generating D1 and D2](#/help?section=d1d2)
+  - [Improved 508 Compliance](#/help?section=508compliance)
+  - [Increased Server Capacity](#/help?section=capacity)
+  - [Notify Another User](#/help?section=notifyauser)
+  - [Bugfix: Submissions Incorrectly Show as Valid](#/help?section=homepagesubmissiontable)
   - [Resources](#/help?section=resources)
-  - [More Validations in SQL](#/help?section=validationSQL3)
   - [Updated Validations](#/help?section=updatedValidations)
   - [Browser Requirements & Known Issues](#/help?section=browser)
   - [Accessibility Statement](#/help?section=accessibilityStatement)
 
-#### DATA Act Broker - Beta Release{section=betaRelease}
-We updated all the relevant text to reflect "Beta Release." We still plan on incremental updates to the Broker about every two weeks.
+#### Warnings and Errors{section=warnings}
 
-NOTE: Even though the DATA Act Broker - Beta Release has been in place since the June 29th release, the URL will remain the same [https://alpha-broker.usaspending.gov](https://alpha-broker.usaspending.gov).
+In previous versions of the Broker, all failing validations were treated as critical errors. In this release, we have added an almost identical interface for the warnings, complete with a downloadable file and table. The warnings appear alongside the existing error download and tables. Files with warnings may be submitted, but files with critical errors will not pass validation and may not be submitted.
 
-#### Validation Processing Time{section=processingTime}
-We made some improvements to reduce the validation processing time. If you're still experiencing submissions that take more than 15-20 minutes, please contact us so we can troubleshoot the issue.
+#### Generating D1 and D2{section=d1d2}
 
-#### Short Data Element Names{section=shortNames}
-Some agency financial systems need to use column heading that are less than 30 characters long. We have created a set of short element names. See the Resources section for element name crosswalk.
+In previous versions of the Broker, you could only upload a D2 file. If you didn't have a D2 file, you could use the sample file provided. In this release, we have added the interface to generate the D1 and D2 files. **PLEASE NOTE** that the interface currently returns sample files until the integration with the ASP and FPDS is complete in the next 2-3 weeks.
 
-#### Consistent Broker Styling{section=consistentStyle}
-We made some small changes so the Broker displays in a more consistent manner.
+#### Improved 508 Compliance{section=508compliance}
 
-#### Accessibility Improvements{section=accessibilityImprovements}
-We made several changes to improve the accessibility of the Broker by adaptive technologies like screen readers. We also added an accessibility statement in this Help file.
+In this release, the Broker has further improved it's compliance with 508 accessibility guidelines. 
+
+#### Increase Server Capacity{section=capacity}
+
+In this release, the development team has significantly increased the base capacity of the web and database servers powering the Broker. 
+
+#### Notify Another User{section=notifyauser}
+
+Broker users can now send a notification to another user within their same agency when they want them to view a submission. This option is available on the Review Data page, after all validations have completed. You can also send other users in your agency the link to your in-progress submission anytime.
+
+#### Bugfix: Submissions Incorrectly Show as Valid{section=homepagesubmissiontable}
+
+Several users reported a minor bug with the submission table that appears on the home page. It was showing submissions as valid that actually had errors. This has been corrected to more accurately reflect the status of a submission.
 
 #### Resources{section=resources}
 We identified several files that you may want to have readily available while using the Broker.
@@ -36,12 +43,10 @@ We identified several files that you may want to have readily available while us
 * File A: Appropriation Account data [Download sample file](https://s3-us-gov-west-1.amazonaws.com/prod-data-act-web-static-files/sample-files/appropValid.csv)
 * File B: Object Class and Program Activity data [Download sample file](https://s3-us-gov-west-1.amazonaws.com/prod-data-act-web-static-files/sample-files/programActivityValid.csv)
 * File C: Award Financial data [Download sample data](https://s3-us-gov-west-1.amazonaws.com/prod-data-act-web-static-files/sample-files/awardFinancialValid.csv)
+* File D2: Financial Assistance Award data [Download sample file](https://s3-us-gov-west-1.amazonaws.com/prod-data-act-web-static-files/sample-files/awardValid.csv)
 * Long Element Name to Short Element Name Crosswalk [Download file](https://s3-us-gov-west-1.amazonaws.com/prod-data-act-submission/rss/AgencyLabel_to_TerseLabel.xlsx)
 * Validation Rules resource [Download file](https://s3-us-gov-west-1.amazonaws.com/prod-data-act-submission/rss/Validation_Rules.xlsx)
 * Domain Values resource [Download file](https://s3-us-gov-west-1.amazonaws.com/prod-data-act-submission/rss/Domain_Values.xlsx)
-
-#### More Validations in SQL{section=validationSQL3}
-Agency developers may be interested to know that we transitioned more of the Broker validations to using SQL statements. The list of SQL statements is publicly available on [GitHub](https://github.com/fedspendingtransparency/data-act-broker-backend/tree/master/dataactvalidator/config/sqlrules).
 
 #### Updated Validations{section=updatedValidations}
 Below is a cumulative table of validations in the RSS. The status column indicates whether they are currently implemented in the Broker. Some rules that were already implemented in the Broker were changed in the release of the Errata. The currently implemented rule and new rule are both listed below, with corresponding version indicators in the rule label (i.e. "C14 (v1)" or "C14 (v2)").
@@ -556,14 +561,14 @@ Below is a cumulative table of validations in the RSS. The status column indicat
             <td>Linkage</td>
         </tr>
         <tr>
-            <td>C/D1</td>
+            <td>C/D2</td>
             <td>C14 (v1)</td>
             <td>If FAIN is not provided then provide URI </td>
             <td>Implemented</td>
             <td> </td>
         </tr>
         <tr>
-            <td>C/D1</td>
+            <td>C/D</td>
             <td>C14 (v2)</td>
             <td>Each row provided in file C must contain either a FAIN, URI, or PIID.</td>
             <td>Pending Update</td>

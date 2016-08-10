@@ -1,3 +1,36 @@
+####  What's New in This Release - July 27, 2016
+
+In this version of the Broker, we updated the Broker branding to Beta, improved the validation processing time, implemented short data element names, made the styling more consistent, improved the accessibility of the Broker, added a resources section, and updated the information on validations. 
+
+  - [DATA Act Broker - Beta Release](#/help?section=betaRelease)
+  - [Validation Processing Time](#/help?section=processingTime)
+  - [Short Data Element Names](#/help?section=shortNames)
+  - [Consistent Style](#/help?section=consistentStyle)
+  - [More Validations in SQL](#/help?section=validationSQL3)
+  - [Accessibility Improvements](#/help?section=accessibilityImprovements)
+
+
+#### DATA Act Broker - Beta Release{section=betaRelease}
+We updated all the relevant text to reflect "Beta Release." We still plan on incremental updates to the Broker about every two weeks.
+
+NOTE: Even though the DATA Act Broker - Beta Release has been in place since the June 29th release, the URL will remain the same [https://alpha-broker.usaspending.gov](https://alpha-broker.usaspending.gov).
+
+#### Validation Processing Time{section=processingTime}
+We made some improvements to reduce the validation processing time. If you're still experiencing submissions that take more than 15-20 minutes, please contact us so we can troubleshoot the issue.
+
+#### Short Data Element Names{section=shortNames}
+Some agency financial systems need to use column heading that are less than 30 characters long. We have created a set of short element names. See the Resources section for element name crosswalk.
+
+#### Consistent Broker Styling{section=consistentStyle}
+We made some small changes so the Broker displays in a more consistent manner.
+
+#### More Validations in SQL{section=validationSQL3}
+Agency developers may be interested to know that we transitioned more of the Broker validations to using SQL statements. The list of SQL statements is publicly available on [GitHub](https://github.com/fedspendingtransparency/data-act-broker-backend/tree/master/dataactvalidator/config/sqlrules).
+
+#### Accessibility Improvements{section=accessibilityImprovements}
+We made several changes to improve the accessibility of the Broker by adaptive technologies like screen readers. We also added an accessibility statement in this Help file.
+
+
 #### What's New in This Release - July 13, 2016
 
 NOTE: The DATA Act Broker - Alpha Release is now in beta status (as of the June 29, 2016 release). We will be updating the related text indicators on the website in the next release. The URL ([https://alpha-broker.usaspending.gov](https://alpha-broker.usaspending.gov)) will not change for now.
