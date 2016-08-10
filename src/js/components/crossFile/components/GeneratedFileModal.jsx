@@ -12,7 +12,7 @@ export default class GeneratedFileModal extends React.Component {
 	constructor(props) {
 		super(props);
 		this.state = {
-			disabledButton: false,
+			disabledButton: true,
 			buttonText: 'Generate File',
 			message: ''
 		};
