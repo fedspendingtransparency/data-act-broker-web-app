@@ -85,8 +85,7 @@ gulp.task('setLocal', () => {
 // clear out the existing folder contents and also the webpack build cache
 // NOTE: this will make the build take a long time
 gulp.task('clean', () => {
-    // return del(['./public/**/*', './cache/**/*']);
-    return del(['./cache/**/*']);
+    return del(['./public/**/*', './cache/**/*']);
 });
 
 // get the current git metadata
