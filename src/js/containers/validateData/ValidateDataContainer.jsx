@@ -91,6 +91,11 @@ class ValidateDataContainer extends React.Component {
 		for (let key in this.props.submission.validation) {
 			const item = this.props.submission.validation[key];
 
+			if (key == 'award' || key == 'award_procurement') {
+				// these are D1/D2 files, so skip them; we don't validate these
+				continue;
+			}
+
 			if (item.error_type == 'header_errors') {
 				hasHeaderErrors = true;
 			}

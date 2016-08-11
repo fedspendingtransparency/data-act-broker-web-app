@@ -576,6 +576,7 @@ a.list-group-item {
 	p, ul {
         margin: 5px 0 5px 48px;
         text-align: left;
+        max-width: none;
     }
 
 	.usa-da-icon {
@@ -735,6 +736,7 @@ opacity: 0.4;
     &.date svg {
         top: 12px;
     }
+
 }
 
 /***** BUTTONS *****/
