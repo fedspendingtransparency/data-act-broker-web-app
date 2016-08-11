@@ -1,0 +1,18 @@
+.usa-da-landing-page {
+	@import "../../layouts/content/content";
+	@include contentLayout;
+
+	// import styling for the header
+	@import "./header/header";
+
+	// import styling for the mid-page blocks
+	@import "./blocks/blocks";
+
+	// import styling for the recent activity table
+	@import "./recentActivity/recentActivity";
+
+	// style the disclosure text at the bottom of the page
+	.usa-da-landing-disclosure {
+	    font-size: 1rem;
+	}
+}

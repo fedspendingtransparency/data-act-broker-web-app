@@ -1,0 +1,16 @@
+@import "./_tableHeaders";
+@import "./_genericBody";
+
+@mixin genericTable {
+	.usa-da-table-header {
+		margin-bottom: 0px;
+		width: 100%;
+
+		@include tableHeader;
+	}
+	.usa-da-table-content {
+		margin-bottom: 2.4rem;
+		
+		@include genericBody;
+	}
+}

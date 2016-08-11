@@ -12,13 +12,15 @@ export default class LandingPage extends React.Component {
     render() {
         return (
             <div>
-            <div className="usa-da-site_wrap">
-	            <div className="usa-da-page-content">
-	                <Navbar activeTab="landing"/>
-	                <LandingContentContainer />
-	            </div>
-            </div>
-            <Footer />
+                <div className="usa-da-site_wrap">
+                    <div className="usa-da-landing-page">
+        	            <div className="usa-da-page-content">
+        	                <Navbar activeTab="landing"/>
+        	                <LandingContentContainer />
+        	            </div>
+                    </div>
+                </div>
+                <Footer />
             </div>
         );
     }

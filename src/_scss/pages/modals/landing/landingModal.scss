@@ -1,0 +1,75 @@
+.usa-da-landing-modal {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    right: auto;
+    bottom: auto;
+    margin-right: -50%;
+    transform: translate(-50%, -50%);
+    outline: none;
+    width: 60%;
+    max-width: 750px;
+    padding: 30px 30px 20px;
+    background-color: $color-white;
+    box-shadow: rgba(0, 0, 0, 0.6) 0px 10px 16px;
+    @media(max-width: $small-screen) {
+        width: 80%;
+    }
+    hr {
+        background-color: $color-gray-dark;
+    }
+    .usa-da-landing-modal-close {
+        position: absolute;
+        top: 10px;
+        right: 10px;
+        & a {
+            display: block;
+            width: 20px;
+            height: 20px;
+            & svg {
+                fill: $color-gray-light;
+            }
+            &:hover {
+                & svg {
+                    fill: $gray-dark;
+                }
+            }
+        }
+    }
+    h6 {
+        margin-bottom: 3.0rem;
+    }
+    ul,
+    li {
+        font-size: $small-font-size;
+        color: #525252;
+    }
+    ul {
+        margin-top: 1.5rem;
+        margin-bottom: 3.5rem;
+        margin-left: 0;
+    }
+    .usa-da-review-data-user-row {
+        height: 41px;
+        margin: 1rem 0 1rem;
+        padding: 0.5rem 0 0.5em;
+        border: 1px solid #cacaca;
+        color: #696969;
+        .usa-da-icon,
+        .usa-da-icon * {
+            height: 20px;
+            cursor: pointer;
+            margin: 0.25rem;
+            color: #696969;
+        }
+        span {
+            vertical-align: super;
+        }
+    }
+
+    // implement warning styles
+    .alert-warning {
+    	@import "../../../components/alerts/_alerts";
+    	@include warningAlert;
+    }
+}

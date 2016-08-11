@@ -1,0 +1,5 @@
+// this is the standard layout for logged-in content pages
+@import "../default/default";
+@mixin contentLayout {
+	@include defaultLayout;
+}
