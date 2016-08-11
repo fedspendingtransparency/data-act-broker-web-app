@@ -51,7 +51,7 @@ export default class GeneratedErrorButton extends React.Component {
 				<div className={"usa-da-button btn-full " + buttonClass} onClick={this.showModal.bind(this)}>
 					File {this.props.file.letter}: {this.props.file.name}
 				</div>
-				<GeneratedFileModal showModal={this.state.showModal} closeModal={this.closeModal.bind(this)} file={this.props.file} finishedGenerating={this.finishedGenerating.bind(this)} />
+				<GeneratedFileModal showModal={this.state.showModal} closeModal={this.closeModal.bind(this)} file={this.props.file} finishedGenerating={this.finishedGenerating.bind(this)} submissionID={this.props.submissionID} />
 			</div>
 
 		)
