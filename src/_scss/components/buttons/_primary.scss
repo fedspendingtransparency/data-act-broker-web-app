@@ -1,12 +1,7 @@
 @import "./_core";
 @mixin primaryButton {
 
-    &.btn-lg {
-    	padding: 16px 24px 15px;
-        font-size: 1.6rem;
-        line-height: 1.3rem;
-        border-radius: 0;
-    }
+    @include baseButton;
 
     &.btn-primary {
         @include btnBase($color-white, $color-primary);
@@ -26,6 +21,4 @@
             @include btnBase($color-base, $color-primary-alt-dark);
         }
     }
-
-    @include baseButton;
 }

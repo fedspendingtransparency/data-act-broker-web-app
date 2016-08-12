@@ -140,58 +140,59 @@ export default class UserModal extends React.Component {
 					titleId="usa-da-admin-modal"
 					underlayClickExists={false}
 					verticallyCenter={true}>
-					
-					<div id="usa-da-admin-modal" className="usa-da-admin-modal">
-						
-						<h6 className="modal-title">Modify User</h6>
-						<hr />
-						<div className="usa-da-admin-field">
-							<div className="form-group">
-								<label htmlFor="nameField">Name</label>
-								<input type="text" disabled="disabled" className="form-control" id="nameField" value={this.state.name} />
+					<div className="usa-da-modal-page">
+						<div id="usa-da-admin-modal" className="usa-da-admin-modal">
+							
+							<h6 className="modal-title">Modify User</h6>
+							<hr />
+							<div className="usa-da-admin-field">
+								<div className="form-group">
+									<label htmlFor="nameField">Name</label>
+									<input type="text" disabled="disabled" className="form-control" id="nameField" value={this.state.name} />
+								</div>
+
+								<div className="form-group">
+									<label htmlFor="titleField">Title</label>
+									<input type="text" disabled="disabled" className="form-control" id="titleField" value={this.state.title} />
+								</div>
+
+								<div className="form-group">
+									<label htmlFor="agnecyField">Agency</label>
+									<input type="text" disabled="disabled" className="form-control" id="agencyField" value={this.state.agency} />
+								</div>
+
+								<div className="form-group">
+									<label htmlFor="emailField">Email</label>
+									<input type="text" disabled="disabled" className="form-control" id="emailField" value={this.state.email} />
+								</div>
+
+								<div className="form-group">
+									<label htmlFor="statusField">Status</label>
+									<ModalStatus value={this.state.status} onChange={this.changeStatus.bind(this)} />
+								</div>
+
+								<div className="form-group">
+									<label>Permissions</label>
+									<ModalPermissions value={this.state.permissions} onChange={this.changePermission.bind(this)} />
+								</div>
+
+								<div className="form-group text-center">
+									<button className="usa-da-button btn-danger" onClick={this.disableUser.bind(this)}>Disable User</button>
+								</div>
 							</div>
 
-							<div className="form-group">
-								<label htmlFor="titleField">Title</label>
-								<input type="text" disabled="disabled" className="form-control" id="titleField" value={this.state.title} />
+							<hr />
+
+							<div className="modal-buttons text-right">
+								<button className="usa-da-button btn-gray" onClick={this.props.closeModal}>
+									Cancel
+								</button>
+								<button className="usa-da-button btn-primary" onClick={this.saveChanges.bind(this)}>
+									Save
+								</button>
 							</div>
 
-							<div className="form-group">
-								<label htmlFor="agnecyField">Agency</label>
-								<input type="text" disabled="disabled" className="form-control" id="agencyField" value={this.state.agency} />
-							</div>
-
-							<div className="form-group">
-								<label htmlFor="emailField">Email</label>
-								<input type="text" disabled="disabled" className="form-control" id="emailField" value={this.state.email} />
-							</div>
-
-							<div className="form-group">
-								<label htmlFor="statusField">Status</label>
-								<ModalStatus value={this.state.status} onChange={this.changeStatus.bind(this)} />
-							</div>
-
-							<div className="form-group">
-								<label>Permissions</label>
-								<ModalPermissions value={this.state.permissions} onChange={this.changePermission.bind(this)} />
-							</div>
-
-							<div className="form-group text-center">
-								<button className="usa-da-button btn-danger" onClick={this.disableUser.bind(this)}>Disable User</button>
-							</div>
 						</div>
-
-						<hr />
-
-						<div className="modal-buttons text-right">
-							<button className="usa-da-button btn-gray" onClick={this.props.closeModal}>
-								Cancel
-							</button>
-							<button className="usa-da-button btn-primary" onClick={this.saveChanges.bind(this)}>
-								Save
-							</button>
-						</div>
-
 					</div>
 				</Modal>
 			</div>

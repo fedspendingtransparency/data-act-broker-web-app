@@ -2,4 +2,6 @@
 .usa-da-modal-page {
 	// limit the modal styles to just modals; preventing style leakage
 	@import "./landing/landingModal";
+
+	@import "./admin/adminModal";
 }

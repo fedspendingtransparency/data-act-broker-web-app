@@ -17,6 +17,13 @@
         width: 100%;
     }
 
+    &.btn-lg {
+        padding: 16px 24px 15px;
+        font-size: 1.6rem;
+        line-height: 1.3rem;
+        border-radius: 0;
+    }
+
     // @import "./_disabled";
     &.btn-disabled, &[disabled], & fieldset[disabled]{
         cursor: not-allowed;

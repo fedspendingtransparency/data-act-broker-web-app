@@ -1,3 +1,4 @@
+@import "./_label";
 @mixin inputContainer {
 	margin-bottom: 20px;
 	@include display(flex);
@@ -28,8 +29,6 @@
 	}
 
 	label{
-		font-weight: normal;
-		line-height: 23px;
-		color:#555;
+		@include genericLabel;
 	}
 }

@@ -3,14 +3,19 @@
 
 @mixin genericTable {
 	.usa-da-table-header {
-		margin-bottom: 0px;
-		width: 100%;
+		table {
+			margin-bottom: 0px;
+			width: 100%;
+		}
 
 		@include tableHeader;
 	}
 	.usa-da-table-content {
-		margin-bottom: 2.4rem;
-		
+		table {
+			margin-bottom: 2.4rem;
+			width: 100%;
+		}
+
 		@include genericBody;
 	}
 }
