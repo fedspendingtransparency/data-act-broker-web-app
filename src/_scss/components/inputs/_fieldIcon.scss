@@ -1,0 +1,19 @@
+@mixin fieldIcon {
+    svg {
+        position: absolute;
+        top: 14px;
+        right: 25px;
+        z-index: 9;
+        fill: #ccc;
+        height: 21px;
+        width: 21px;
+    }
+    &.error {
+        & svg {
+            fill: $color-secondary;
+        }
+    }
+    &.date svg {
+        top: 12px;
+    }
+}
