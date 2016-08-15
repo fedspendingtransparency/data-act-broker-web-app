@@ -1,0 +1,52 @@
+@import "./_tableHeaders";
+@import "./_genericBody";
+
+@mixin scrollableTable {
+
+	margin-top: 15px;
+    border-bottom: 1px solid #ddd;
+
+    .usa-da-scrollable-table-header {
+    	.table-bordered {
+	   		border: none;
+	   		width: 100%;
+
+	   		& thead > tr{
+       			border:none;
+       			& > th{
+       				border:none;
+       				border-right: 1px solid #ddd;
+       				&:last-child{
+       					border-right:none;
+       				}
+       			}
+    		}
+
+	   	}
+
+	   	@include tableHeader;
+    }
+
+	
+	.usa-da-scrollable-table-content {
+		max-height: 250px;
+        display: block;
+        overflow-y: scroll;
+        word-break: break-all;
+
+		tr:last-child {
+            & td {
+                border-bottom: none;
+            }
+        }
+
+        .usa-da-table {
+        	@include genericBody;
+        	
+    		width: 100%;
+	        display: table;
+	        table-layout: fixed;
+	        margin: 0;
+		}
+	}
+}

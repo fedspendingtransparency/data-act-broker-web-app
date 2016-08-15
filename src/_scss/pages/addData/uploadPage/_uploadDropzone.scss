@@ -1,0 +1,62 @@
+.usa-da-dropzone {
+    border: 2px dashed #c8cfd7;
+    padding: 6rem 2rem 2rem;
+    cursor: pointer;
+    background-color: #f5f5f5;
+    color: #808080;
+    font-size: 1.4rem;
+    position: relative;
+    &:hover {
+        border-color: $color-primary-alt-dark;
+    }
+    b {
+        color: $color-gray;
+    }
+    & .usa-da-icon-cloud-upload {
+        position: absolute;
+        top: 2rem;
+        left: 49%;
+        height: 4.0rem;
+        width: 4.5rem;
+        padding-top: 0;
+        padding-left: 0;
+        fill: $color-gray-light;
+    }
+    &.active {
+        border-color: $color-primary-alt-dark;
+        & .usa-da-icon-cloud-upload {
+            fill: $color-gray;
+        }
+    }
+    & .usa-da-icon-cloud-upload {
+        position: absolute;
+        top: 2rem;
+        left: 49%;
+        font-size: 4rem;
+        padding-top: 0;
+        padding-left: 0;
+    }
+    &.dropped {
+        & .usa-da-icon-cloud-upload {
+            fill: $color-gray;
+        }
+        & .success .usa-da-icon-cloud-upload {
+            fill: $color-green-light;
+        }
+        & .fail .usa-da-icon-cloud-upload {
+            fill: $color-secondary;
+        }
+    }
+    .is-caption {
+        font-size: 1.4rem;
+    }
+    .usa-da-dropzone-fail {
+        color: $color-secondary;
+    }
+    .usa-da-dropzone-success {
+        color: $brand-success;
+    }
+    .progress {
+        margin-top: 10px;
+    }
+}

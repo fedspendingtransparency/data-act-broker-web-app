@@ -1,0 +1,10 @@
+@mixin fileItemWarningBody {
+	position: relative;
+    border-right: 1px solid $color-gray-warm-light;
+    .usa-da-validate-item-message-count {
+        color: $color-gold;
+        &.none {
+            color: $color-gray-dark;
+        }
+    }
+}

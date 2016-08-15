@@ -1,0 +1,48 @@
+@import "./_icon";
+@import "./_fileName";
+@import "./_buttons";
+
+@import "./replacement/replacement";
+
+@mixin fileItemRightSide {
+	padding: 0;
+    text-align: center;
+    @include display(flex);
+    @include flex-direction(column);
+    @include align-content(center);
+    @include justify-content(center);
+    height: 171px;
+
+    & .usa-da-success-txt{
+        color: $color-green-light;
+        font-weight: 600;
+    }
+    & .usa-da-warning-txt{
+        color: $color-gold;
+        font-weight: 600;
+    }
+
+    .usa-da-validate-item-file-section-result {
+        height: 50px;
+        width: 35px;
+        margin: 0 auto;
+        background: url('../graphics/file_icon_lg.png') no-repeat;
+        background-size: 35px 50px;
+        position: relative;
+
+        @include rightSideIcon;
+    }
+
+    .usa-da-validate-item-file-name {
+    	@include rightSideFileName;
+    }
+
+    .usa-da-validate-item-file-section-correct-button {
+    	@include rightSideButtons;
+    }
+
+    // implement the file replacement styling
+    .usa-da-validate-corrected-file-holder {
+    	@include rightSideReplacement;
+    }
+}

@@ -1,0 +1,25 @@
+.usa-da-validate-data-page {
+	@import "../../layouts/validation/validation";
+	@include validationLayout;
+
+	.usa-da-submission-items {
+	    margin-top: 60px;
+	    padding-bottom: 30px;
+
+	    &.with-overlay {
+		    padding-bottom: 180px !important;
+		}
+	}
+
+	.usa-da-validate-items {
+	    padding: 0;
+	    .usa-da-validate-item {
+	        @import "./fileItem/fileItem";
+	        @include fileItem;
+	    }
+
+	    // validate header errors
+	    @import "./headers/headers";
+	}
+
+}

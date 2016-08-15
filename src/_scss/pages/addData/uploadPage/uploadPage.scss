@@ -1,0 +1,34 @@
+.usa-da-add-data-upload-section {
+
+	.usa-da-submission-instructions {
+	    margin: 6.0rem 0;
+	    border-left: 8px solid $color-primary-alt-light;
+	    & p {
+	        margin-bottom: 0;
+	        padding: 20px 0 20px 10px;
+	    }
+	}
+
+	.usa-da-submission-items {
+	    margin-top: 60px;
+	    padding-bottom: 30px;
+
+	    @import "./_uploadItem";
+	}
+
+}
+
+// for whatever reason, this page uses its own button classes, so we'll extend them from the standard mixin
+// this way we can retain the JS and keep them connected to the Sass button components
+%button {
+	@import "../../../components/buttons/_primary";
+	@include primaryButton;
+}
+.usa-button-disabled {
+	@extend %button;
+	@extend %button.btn-disabled;
+}
+
+.usa-da-button-bigger {
+	@extend %button;
+}
