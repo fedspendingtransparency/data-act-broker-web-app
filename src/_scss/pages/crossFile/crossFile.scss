@@ -1,0 +1,11 @@
+.usa-da-cross-file-page {
+	@import "../../layouts/validation/validation";
+	@include validationLayout;
+
+	// style the instructions
+	.usa-da-submission-instructions {
+		@import "../../components/typography/_instructions";
+		@include instructions;
+	}
+
+}

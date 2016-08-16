@@ -1,12 +1,8 @@
 .usa-da-add-data-upload-section {
 
 	.usa-da-submission-instructions {
-	    margin: 6.0rem 0;
-	    border-left: 8px solid $color-primary-alt-light;
-	    & p {
-	        margin-bottom: 0;
-	        padding: 20px 0 20px 10px;
-	    }
+	    @import "../../../components/typography/_instructions";
+	    @include instructions;
 	}
 
 	.usa-da-submission-items {

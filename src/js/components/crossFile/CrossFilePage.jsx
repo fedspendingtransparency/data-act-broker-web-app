@@ -13,7 +13,7 @@ import CrossFileContentContainer from '../../containers/crossFile/CrossFileConte
 export default class CrossFilePage extends React.Component {
 	render() {
 		return (
-			<div>
+			<div className="usa-da-cross-file-page">
                 <Navbar activeTab="submissionGuide"/>
                 <AddDataHeader />
                 <div className="usa-da-content-step-block" name="content-top">

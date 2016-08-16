@@ -13,7 +13,7 @@ import GenerateFilesContainer from '../../containers/generateFiles/GenerateFiles
 export default class GenerateFilesPage extends React.Component {
 	render() {
 		return (
-			<div>
+			<div className="usa-da-generate-files-page">
                 <Navbar activeTab="submissionGuide"/>
                 <AddDataHeader />
                 <div className="usa-da-content-step-block" name="content-top">

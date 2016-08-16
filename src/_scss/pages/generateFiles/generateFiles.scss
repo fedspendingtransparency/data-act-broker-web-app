@@ -1,0 +1,14 @@
+.usa-da-generate-files-page {
+	@import "../../layouts/validation/validation";
+	@include validationLayout;
+
+	// style the instructions
+	.usa-da-submission-instructions {
+		@import "../../components/typography/_instructions";
+		@include instructions;
+	}
+
+	.usa-da-generate-content {
+		@import "./generateItem/generateItem";
+	}
+}
