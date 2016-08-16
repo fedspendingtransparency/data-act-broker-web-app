@@ -1,6 +1,8 @@
 @mixin fileItemCriticalBody {
-    color: $color-secondary;
-    &.none {
-        color: $color-gray;
-    }
+	.usa-da-validate-item-message-count {
+	    color: $color-secondary;
+	    &.none {
+	        color: $color-gray;
+	    }
+	}
 }

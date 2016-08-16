@@ -24,56 +24,8 @@
             right: 0px !important;
         }
     }
-    ul.typeahead-selector,
-    .awesomplete ul {
-        text-align: left;
-        background: $color-white;
-        color: #555;
-        position: absolute;
-        z-index: 1000;
-        width: 96%;
-        margin: -5px 0 0 0;
-        border: 1px solid #cacaca;
-        li {
-            display: inline-block;
-            vertical-align: middle;
-            list-style-type: none;
-            width: 100%;
-            padding: 10px 10px 0 10px;
-            margin: 0;
-            font-size: 1.4rem;
-            line-height: 2.4rem;
-            
-            &:hover,
-            &.hover,
-            &[aria-selected="true"] {
-                background-color: $color-gray-lightest;
-                cursor: pointer;
-                color: #333;
-                * {
-                    color: $color-white;
-                }
-                mark {
-                    background-color: $color-gray-light;
-                    color: white;
-                }
-            }
-            a,
-            a:focus,
-            a:visited {
-                color: $color-gray-dark;
-                text-decoration: none;
-            }
-            a:hover {
-                color: $color-white;
-                background-color: $color-gray-dark;
-            }
-        }
-        li:before {
-            content: "";
-            padding: 0;
-        }
-    }
+    
+    @import "./_dropdownList";
 
     input {
         @import "../inputs/_generic";

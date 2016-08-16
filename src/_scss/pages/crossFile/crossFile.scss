@@ -8,4 +8,19 @@
 		@include instructions;
 	}
 
+	// import the loading animations and styles
+	&.usa-da-gathering-data {
+        min-height: 650px;
+    }
+	@import "./loading/crossFileLoading";
+
+	// style the file items
+	@import "./fileItem/fileItem";
+
+	// style the error box
+	@import "./errorBox/errorBox";
+
+	// position the elements
+	@import "./_layout";
+
 }
