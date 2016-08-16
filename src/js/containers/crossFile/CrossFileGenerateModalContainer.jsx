@@ -49,6 +49,10 @@ export default class CrossFileGenerateModalContainer extends React.Component {
 	}
 
 	componentDidMount() {
+		// disable the submit button while we load the initial data
+		this.props.setMessage('Gathering data...');
+		this.props.disableButton();
+
 		this.checkForPreviousFiles();
 	}
 
