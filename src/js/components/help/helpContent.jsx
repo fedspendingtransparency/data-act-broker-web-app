@@ -87,6 +87,10 @@ export default class HelpContent extends React.Component {
                         <a href="https://s3-us-gov-west-1.amazonaws.com/prod-data-act-web-static-files/sample-files/awardFinancialValid.csv" target="_blank">Download sample file</a>
                     </li>
                     <li>
+                        File D2: Financial Assistance Award data &nbsp;&nbsp;
+                        <a href="https://s3-us-gov-west-1.amazonaws.com/prod-data-act-web-static-files/sample-files/awardValid.csv" target="_blank">Download sample file</a>
+                    </li>
+                    <li>
                         Long Element Name to Short Element Name Crosswalk &nbsp;&nbsp;
                         <a href="https://s3-us-gov-west-1.amazonaws.com/prod-data-act-submission/rss/AgencyLabel_to_TerseLabel.xlsx" target="_blank">Download file</a>
                     </li>
