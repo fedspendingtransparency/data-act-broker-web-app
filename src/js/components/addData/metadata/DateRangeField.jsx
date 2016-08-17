@@ -65,7 +65,9 @@ export default class DateRangeField extends React.Component {
         this.setState({
             startDate: date.split('-')[0],
             endDate: date.split('-')[1]
-        });
+        }, () => {
+			this.props.onChange(this.state.startDate, this.state.endDate);
+		});
     }
 
 	render() {
