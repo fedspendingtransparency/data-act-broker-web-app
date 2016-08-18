@@ -39,7 +39,14 @@ export default class GenerateFilesContent extends React.Component {
 							<p>Select the durations for the generated D1 and D2 files. By default, this range is set to the submission date range you selected in step one.</p>
 						</div>
 					</div>
+
 					<div className="usa-da-generate-content">
+                        <div className="alert alert-warning">
+                                <span className="usa-da-icon"><Icons.ExclamationCircle /></span>
+                                <div className="alert-header-text">NOTICE</div>
+                                <p><b>PLEASE NOTE:</b> Until integration with the ASP and FPDS is complete, the Broker will return D1 and D2 <b>sample files</b> in this interface.</p>
+                        </div>
+                        
 	                    <GenerateFileBox 
                             label="File D1: Procurement Awards (FPDS data)"
                             datePlaceholder="Sign"
