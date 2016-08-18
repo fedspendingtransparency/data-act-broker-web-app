@@ -1,6 +1,7 @@
 .usa-da-landing-modal {
-   @import "../../../layouts/modal/modal";
+    @import "../../../layouts/modal/modal";
     @include modalLayout;
+    
     .usa-da-landing-modal-close {
         @include modalClose;
     }

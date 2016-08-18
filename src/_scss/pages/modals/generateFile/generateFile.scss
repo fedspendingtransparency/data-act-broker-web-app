@@ -1,0 +1,21 @@
+.usa-da-generate-file-modal {
+	@import "../../../layouts/modal/modal";
+    @include modalLayout;
+    
+    .usa-da-landing-modal-close {
+        @include modalClose;
+    }
+    
+    h6 {
+        margin-bottom: 3.0rem;
+    }
+
+    // import the styles from the generate files page
+    @import "../../../pages/generateFiles/generateItem/generateItem";
+
+    // import buttons
+    .usa-da-button {
+    	@import "../../../components/buttons/_primary";
+    	@include primaryButton;
+    }
+}
