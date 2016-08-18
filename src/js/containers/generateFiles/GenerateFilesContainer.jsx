@@ -20,6 +20,8 @@ import * as uploadActions from '../../redux/actions/uploadActions.js';
 import * as GenerateFilesHelper from '../../helpers/generateFilesHelper.js';
 import * as UtilHelper from '../../helpers/util.js';
 
+const timerDuration = 10;
+
 class GenerateFilesContainer extends React.Component {
 
 	constructor(props) {
@@ -385,7 +387,7 @@ class GenerateFilesContainer extends React.Component {
 			// wait 5 seconds and check the file status again
 			window.setTimeout(() => {
 				this.checkFileStatus();
-			}, 5000);
+			}, timerDuration * 1000);
 		}
 	}
 

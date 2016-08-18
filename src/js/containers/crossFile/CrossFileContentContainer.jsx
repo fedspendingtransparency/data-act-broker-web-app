@@ -15,6 +15,8 @@ import * as ReviewHelper from '../../helpers/reviewHelper.js';
 
 import CrossFileContent from '../../components/crossFile/CrossFileContent.jsx';
 
+const timerDuration = 10;
+
 class CrossFileContentContainer extends React.Component {
 	constructor(props) {
 		super(props);
@@ -157,7 +159,7 @@ class CrossFileContentContainer extends React.Component {
 		// keep checking the data every 5 seconds until it has finished loaded;
 		this.dataTimer = window.setInterval(() => {
 			this.loadData();
-		}, 5000);
+		}, timerDuration * 1000);
 	}
 	
 	reloadData() {
