@@ -27,6 +27,8 @@ class GenerateFilesContainer extends React.Component {
 	constructor(props) {
 		super(props);
 
+		this.isUnmounted = false;
+
 		this.state = {
 			state: 'loading',
 			d1: {
@@ -62,7 +64,12 @@ class GenerateFilesContainer extends React.Component {
 	}
 
 	componentDidMount() {
+		this.isUnmounted = false;
 		this.checkForPreviousFiles();
+	}
+
+	componentWillUnmount() {
+		this.isUnmounted = true;
 	}
 
 	parseDate(raw, type) {
@@ -99,6 +106,10 @@ class GenerateFilesContainer extends React.Component {
 			GenerateFilesHelper.fetchFile('d2', this.props.submissionID)
 		])
 			.then((allResponses) => {
+				if (this.isUnmounted) {
+					return;
+				}
+
 				// check if both files have been requested
 				let allRequested = true;
 				allResponses.forEach((response) => {
@@ -165,6 +176,11 @@ class GenerateFilesContainer extends React.Component {
 
 				// object.assign doesn't merge correctly, so using lodash to merge
 				const mergedState = _.merge({}, this.state, output);
+
+				if (this.isUnmounted) {
+					return;
+				}
+
 				this.setState(mergedState, () => {
 					this.validateDates();
 				});
@@ -285,12 +301,20 @@ class GenerateFilesContainer extends React.Component {
 			GenerateFilesHelper.generateFile('d2', this.props.submissionID, this.state.d2.startDate.format('MM/DD/YYYY'), this.state.d2.endDate.format('MM/DD/YYYY')),
 		])
 			.then((allResponses) => {
+				if (this.isUnmounted) {
+					return;
+				}
+
 				this.parseFileStates(allResponses);
 			})
 			.catch((err) => {
 				let errorMessage = 'An error occurred while contacting the server.';
 				if (err && err.body) {
 					errorMessage = err.body.message;	
+				}
+
+				if (this.isUnmounted) {
+					return;
 				}
 
 				this.setState({
@@ -308,6 +332,10 @@ class GenerateFilesContainer extends React.Component {
 			GenerateFilesHelper.fetchFile('d2', this.props.submissionID)
 		])
 			.then((allResponses) => {
+				if (this.isUnmounted) {
+					return;
+				}
+
 				this.parseFileStates(allResponses);
 			})
 			.fail((err) => {
@@ -316,6 +344,9 @@ class GenerateFilesContainer extends React.Component {
 					errorMessage = err.body.message;	
 				}
 
+				if (this.isUnmounted) {
+					return;
+				}
 				this.setState({
 					state: 'failed',
 					errorDetails: errorMessage
@@ -380,10 +411,14 @@ class GenerateFilesContainer extends React.Component {
 			output.state = 'done';
 		}
 
+		if (this.isUnmounted) {
+			return;
+		}
+
 		this.setState(output);
 
 
-		if (!allDone) {
+		if (!allDone && !this.isUnmounted) {
 			// wait 5 seconds and check the file status again
 			window.setTimeout(() => {
 				this.checkFileStatus();
