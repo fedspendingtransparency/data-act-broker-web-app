@@ -6,10 +6,6 @@
     h6 {
         margin-top: 0px;
     }
-    .usa-da-download {
-        margin-top: 0;
-        text-decoration: none;
-    }
     .vertical-line {
         position: absolute;
         border-left: 2px solid $color-gray-light;
@@ -52,5 +48,8 @@
             }
         }
     }
+    @import "./_uploadButtons";
     @import "./_overwriteButtons";
+    @import "./_downloadButton";
+    @import "./_errorTable";
 }

@@ -11,4 +11,9 @@
 	.usa-da-generate-content {
 		@import "./generateItem/generateItem";
 	}
+
+	.alert-warning {
+		@import "../../components/alerts/_alerts";
+		@include warningAlert;
+	}
 }

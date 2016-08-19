@@ -10,6 +10,9 @@
     	.table-bordered {
 	   		border: none;
 	   		width: 100%;
+            display: table;
+            table-layout: fixed;
+            margin: 0;
 
 	   		& thead > tr{
        			border:none;
