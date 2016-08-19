@@ -18,4 +18,14 @@
     	@import "../../../components/buttons/_primary";
     	@include primaryButton;
     }
+
+
+    @import "../../../components/alerts/_alerts";
+    .alert-warning {
+        @include warningAlert;
+    }
+
+    .alert-error {
+        @include dangerAlert;   
+    }
 }

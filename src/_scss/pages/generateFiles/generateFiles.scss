@@ -12,8 +12,13 @@
 		@import "./generateItem/generateItem";
 	}
 
+	@import "../../components/alerts/_alerts";
+
 	.alert-warning {
-		@import "../../components/alerts/_alerts";
 		@include warningAlert;
+	}
+
+	.alert-error {
+		@include dangerAlert;	
 	}
 }
