@@ -22,11 +22,22 @@ class CrossFileContentContainer extends React.Component {
 		super(props);
 
 		this.dataTimer;
+		this.isUnmounted = false;
 	}
 
 	componentDidMount() {
+		this.isUnmounted = false;
 		this.loadData();
 		this.startTimer();
+	}
+
+	componentWillUnmount() {
+		this.isUnmounted = true;
+		// stop the timer
+		if (this.dataTimer) {
+			window.clearInterval(this.dataTimer);
+			this.dataTimer = null;
+		}
 	}
 
 	uploadFiles() {
@@ -145,7 +156,15 @@ class CrossFileContentContainer extends React.Component {
 			}
 		})
 		.catch((err) => {
-			console.log(err);
+			// check if the error has an associated user-displayable message
+			if (err.hasOwnProperty('detail') && err.detail != '') {
+				if (!this.isUnmounted) {
+					this.props.showError(err.detail);
+				}
+			}
+			else {
+				console.log(err);
+			}
 
 			// stop the timer
 			if (this.dataTimer) {
