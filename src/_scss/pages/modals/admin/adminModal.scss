@@ -1,0 +1,61 @@
+.usa-da-admin-modal {
+    background: $color-white;
+    margin-top: 20px;
+    margin-bottom: 20px;
+    padding: 20px;
+    width: 500px;
+    border-radius: 4px;
+    .form-group {
+        margin-bottom: 10px;
+        label {
+            margin-top: 0px;
+            @import "../../../components/inputs/_label";
+            @include genericLabel;
+        }
+    }
+
+    input, select {
+        // import the form styling
+        @import "../../../components/inputs/_generic";
+        @include genericInput;
+    }
+
+    .usa-da-modal-permissions {
+        list-style-type: none;
+        margin-bottom: 10px;
+        margin-top: 0px;
+        li {
+            list-style-type: none;
+            &:before {
+                content: ""
+            }
+        }
+        input {
+            position: relative;
+            left: 0px;
+            width: 20px;
+            height: 15px;
+            display: inline-block;
+        }
+        label {
+            span {
+                display: inline-block;
+                margin-left: 5px;
+                font-weight: normal;
+            }
+        }
+    }
+    .modal-buttons {
+        button {
+            margin-left: 20px;
+        }
+    }
+
+    .usa-da-button {
+        @import "../../../components/buttons/_primary";
+        @import "../../../components/buttons/_danger";
+        @include primaryButton;
+        @include dangerButton;
+
+    }
+}

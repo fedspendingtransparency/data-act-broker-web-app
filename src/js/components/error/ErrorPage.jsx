@@ -4,7 +4,7 @@ import Navbar from '../SharedComponents/navigation/NavigationComponent.jsx';
 export default class ErrorPage extends React.Component {
 	render() {
 		return (
-			<div className="site_wrap">
+			<div className="site_wrap usa-da-error-page">
                 <Navbar />
                 
                 <div className="site_content pending-page">

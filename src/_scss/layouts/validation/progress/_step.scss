@@ -1,0 +1,79 @@
+@mixin validationProgressStep {
+
+	li {
+		float: left;
+		text-align: center;
+		position: relative;
+		z-index:5;
+		margin: 0.5rem 0 0;
+		font-size: 1.4rem;
+
+		&::before {
+			display: none;
+		}
+
+		&::after {
+			display: none;
+		}
+	}
+
+
+	.name {
+		display: block;
+		vertical-align: bottom;
+		text-align: center;
+		color: $color-gray-dark;
+		opacity: 0.3;
+		font-size: 1.2rem
+	}
+	.step {
+		color: $color-gray-cool-light;
+		background-color: $color-white;
+		border-radius: 100%;
+		line-height: 1.2;
+		width: 2.4em;
+		height: 2.4em;
+		padding-top: 0.6em;
+		display: inline-block;
+		z-index: 0;
+
+		span {
+			opacity: 0.3;
+		}
+
+		&:before {
+			content: "";
+			display: block;
+			background-color: $color-white;
+			height: 0.4em;
+			width: 50%;
+			position: absolute;
+			bottom: 0.9em;
+			left: 0;
+			z-index: -1;
+		}
+
+		&:after {
+			content: "";
+			display: block;
+			background-color: $color-white;
+			height: 0.4em;
+			width: 50%;
+			position: absolute;
+			bottom: 0.9em;
+			right: 0;
+			z-index: -1;
+		}
+	}
+
+	li:first-of-type {
+		.step:before {
+			display: none;
+		}
+	}
+	li:last-of-type {
+		.step:after {
+			display: none;
+		}
+	}
+}

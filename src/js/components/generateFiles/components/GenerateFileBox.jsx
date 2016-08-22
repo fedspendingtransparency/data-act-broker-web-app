@@ -54,7 +54,7 @@ export default class GenerateFileBox extends React.Component {
 		            </div>
 		            <div className={"usa-da-generate-download" + showDownload}>
 		            	<div className="row">
-		            		<div className="col-sm-4 col-sm-offset-8">
+		            		<div className="col-sm-12">
 				            	<div className="download-title text-right">
 									Download {this.props.label}
 								</div>

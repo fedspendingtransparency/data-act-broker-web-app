@@ -17,10 +17,12 @@ const propTypes = {
 export default class ForgotPasswordPage extends React.Component {
     render() {
         return (
-            <div className="usa-da-login container-fluid">
-                <LoginTopBar/>
-                <ForgotPasswordBanner errorCode={this.props.errorCode} message={this.props.message} email={this.props.email} />
-                <LoginWarningTxt/>
+            <div className="usa-da-forgot-password-page">
+                <div className="usa-da-login container-fluid">
+                    <LoginTopBar/>
+                    <ForgotPasswordBanner errorCode={this.props.errorCode} message={this.props.message} email={this.props.email} />
+                    <LoginWarningTxt/>
+                </div>
             </div>
         );
     }

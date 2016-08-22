@@ -24,7 +24,7 @@ const defaultProps = {
 export default class RegistrationPage extends React.Component {
     render() {
         return (
-            <div>
+            <div className="usa-da-registration-form-page">
                 <Navbar logoOnly={true} />
                 <div className="usa-da-content-dark mb-60">
                     <div className="container">

@@ -1,0 +1,10 @@
+@mixin validationProgressStepWidths {
+	&[data-steps="2"] li { width: 49%; }
+	&[data-steps="3"] li { width: 33%; }
+	&[data-steps="4"] li { width: 24%; }
+	&[data-steps="5"] li { width: 19%; }
+	&[data-steps="6"] li { width: 16%; }
+	&[data-steps="7"] li { width: 14%; }
+	&[data-steps="8"] li { width: 12%; }
+	&[data-steps="9"] li { width: 11%; }
+}

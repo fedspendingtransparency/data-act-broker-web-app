@@ -1,0 +1,24 @@
+@import "./_core";
+@mixin primaryButton {
+
+    @include baseButton;
+
+    &.btn-primary {
+        @include btnBase($color-white, $color-primary);
+        &:active {
+           @include btnBase($color-white, $color-primary-darkest); 
+        }
+        &:hover {
+            @include btnBase($color-white, $color-primary-darker);
+        }
+    }
+    &.btn-primary-alt {
+        @include btnBase($color-base, $color-primary-alt);
+        &:active {
+            @include btnBase($color-white, $color-primary-alt-darkest);
+        }
+        &:hover {
+            @include btnBase($color-base, $color-primary-alt-dark);
+        }
+    }
+}

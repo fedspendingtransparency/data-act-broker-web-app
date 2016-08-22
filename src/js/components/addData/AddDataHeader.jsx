@@ -30,6 +30,8 @@ export default class AddDataHeader extends React.Component {
     constructor(props) {
         super(props);
 
+        this.isUnmounted = false;
+
         this.state = {
             submissionID: null,
             last_updated: null,
@@ -38,16 +40,23 @@ export default class AddDataHeader extends React.Component {
     }
 
     componentDidMount() {
+        this.isUnmounted = false;
         if (this.props.submissionID != null) {
             ReviewHelper.fetchStatus(this.props.submissionID)
                 .then((data) => {
                     data.ready = true;
-                    this.setState(data);
+                    if (!this.isUnmounted) {
+                        this.setState(data);
+                    }
                 })
                 .catch((error) => {
                     console.log(error);
                 });
         }
+    }
+
+    componentWillUnmount() {
+        this.isUnmounted = true;
     }
 
     render() {
