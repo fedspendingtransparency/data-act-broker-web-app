@@ -101,9 +101,9 @@ class GenerateFilesContainer extends React.Component {
 
 	checkForPreviousFiles() {
 		// check if D1 and D2 files already exist for this submission
-		Q.all([
-			GenerateFilesHelper.fetchFile('d1', this.props.submissionID),
-			GenerateFilesHelper.fetchFile('d2', this.props.submissionID)
+		Q.allSettled([
+			GenerateFilesHelper.fetchFile('D1', this.props.submissionID),
+			GenerateFilesHelper.fetchFile('D2', this.props.submissionID)
 		])
 			.then((allResponses) => {
 				if (this.isUnmounted) {
@@ -112,10 +112,14 @@ class GenerateFilesContainer extends React.Component {
 
 				// check if both files have been requested
 				let allRequested = true;
+				const combinedData = [];
 				allResponses.forEach((response) => {
-					if (response.status == 'invalid') {
+					if (response.state != 'fulfilled' || response.value.status == 'invalid') {
 						// no request has been made yet
 						allRequested = false;
+					}
+					else {
+						combinedData.push(response.value);
 					}
 				});
 
@@ -126,10 +130,10 @@ class GenerateFilesContainer extends React.Component {
 				}
 				else {
 					// files have been requested before, load the dates
-					const d1Start = moment(allResponses[0].start, 'MM/DD/YYYY');
-					const d1End = moment(allResponses[0].end, 'MM/DD/YYYY');
-					const d2Start = moment(allResponses[1].start, 'MM/DD/YYYY');
-					const d2End = moment(allResponses[1].end, 'MM/DD/YYYY');
+					const d1Start = moment(allResponses[0].value.start, 'MM/DD/YYYY');
+					const d1End = moment(allResponses[0].value.end, 'MM/DD/YYYY');
+					const d2Start = moment(allResponses[1].value.start, 'MM/DD/YYYY');
+					const d2End = moment(allResponses[1].value.end, 'MM/DD/YYYY');
 
 					// load them into React state
 					const d1 = Object.assign({}, this.state.d1);
@@ -145,10 +149,10 @@ class GenerateFilesContainer extends React.Component {
 						d2: d2
 					}, () => {
 						// now parse the data (in case the files were still in pending state)
-						this.parseFileStates(allResponses);
+						this.parseFileStates(combinedData);
 					});
 				}
-			})
+			});
 		
 	}
 
@@ -303,8 +307,8 @@ class GenerateFilesContainer extends React.Component {
 		});
 		// submit both D1 and D2 date ranges to the API
 		Q.all([
-			GenerateFilesHelper.generateFile('d1', this.props.submissionID, this.state.d1.startDate.format('MM/DD/YYYY'), this.state.d1.endDate.format('MM/DD/YYYY')),
-			GenerateFilesHelper.generateFile('d2', this.props.submissionID, this.state.d2.startDate.format('MM/DD/YYYY'), this.state.d2.endDate.format('MM/DD/YYYY')),
+			GenerateFilesHelper.generateFile('D1', this.props.submissionID, this.state.d1.startDate.format('MM/DD/YYYY'), this.state.d1.endDate.format('MM/DD/YYYY')),
+			GenerateFilesHelper.generateFile('D2', this.props.submissionID, this.state.d2.startDate.format('MM/DD/YYYY'), this.state.d2.endDate.format('MM/DD/YYYY')),
 		])
 			.then((allResponses) => {
 				if (this.isUnmounted) {
