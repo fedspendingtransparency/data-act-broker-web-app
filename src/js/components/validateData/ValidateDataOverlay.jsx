@@ -6,6 +6,7 @@
 import React from 'react';
 import * as Icons from '../SharedComponents/icons/Icons.jsx';
 import CommonOverlay from '../SharedComponents/overlays/CommonOverlay.jsx';
+import LoadingBauble from '../SharedComponents/overlays/LoadingBauble.jsx';
 
 export default class ValidateDataOverlay extends React.Component {
 
@@ -14,6 +15,9 @@ export default class ValidateDataOverlay extends React.Component {
 	}
 
 	render() {
+
+		let icon = <Icons.ExclamationCircle />;
+		let iconClass = 'usa-da-errorRed';
 
 		let buttonDisabled = true;
 		let buttonClass = '-disabled';
@@ -27,19 +31,23 @@ export default class ValidateDataOverlay extends React.Component {
 			buttonClass = '-disabled';
 			buttonDisabled = true;
 			buttonText = 'Uploading files...';
+			iconClass = 'overlay-animation';
+			icon = <LoadingBauble />;
 		}
 		else if (this.props.submission.state == 'prepare') {
 			buttonClass = '-disabled';
 			buttonDisabled = true;
 			buttonText = 'Gathering data...';
+			iconClass = 'overlay-animation';
+			icon = <LoadingBauble />;
 		}
 
 		return (
 			<CommonOverlay
 				header={"You must fix the Critical Errors found in " + this.props.errors.length + " of the .CSV files before moving on to the next step. View and download individual reports above."}
 				showButtons={true}
-				icon={<Icons.ExclamationCircle />}
-				iconClass="usa-da-errorRed"
+				icon={icon}
+				iconClass={iconClass}
 				showIcon={true}>
 				<div className='usa-da-btn-bg'>
 					<button className={"usa-da-button" + buttonClass} disabled={buttonDisabled} onClick={this.props.uploadFiles} data-testid="validate-overlay-upload-button">{buttonText}</button>

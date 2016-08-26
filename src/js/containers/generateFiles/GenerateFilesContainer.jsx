@@ -411,6 +411,9 @@ class GenerateFilesContainer extends React.Component {
 		else if (errors.length == 0 && allDone) {
 			output.state = 'done';
 		}
+		else {
+			output.state = 'generating';
+		}
 
 		if (this.isUnmounted) {
 			return;

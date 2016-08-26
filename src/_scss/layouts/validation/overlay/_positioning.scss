@@ -1,5 +1,6 @@
 @import "./_text";
 @import "./_icon";
+@import "./_loadingAnimation.scss";
 @mixin validationOverlayPositioning {
     .overlay-content {
         display: flex;

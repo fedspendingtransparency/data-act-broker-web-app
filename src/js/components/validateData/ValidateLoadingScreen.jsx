@@ -8,6 +8,7 @@ import ValidateDataFilePlaceholder from './ValidateDataFilePlaceholder.jsx';
 import ReactCSSTransitionGroup from 'react-addons-css-transition-group';
 
 import CommonOverlay from '../SharedComponents/overlays/CommonOverlay.jsx';
+import LoadingBauble from '../SharedComponents/overlays/LoadingBauble.jsx';
 
 export default class ValidateLoadingScreen extends React.Component {
 	render() {
@@ -29,7 +30,11 @@ export default class ValidateLoadingScreen extends React.Component {
                     </div>
                 </div>
                 
-            	<CommonOverlay header="Gathering data..." />
+            	<CommonOverlay 
+            		header="Gathering data..."
+            		showIcon={true}
+            		icon={<LoadingBauble />}
+            		iconClass="overlay-animation" />
 	            
 			</div>
 		);

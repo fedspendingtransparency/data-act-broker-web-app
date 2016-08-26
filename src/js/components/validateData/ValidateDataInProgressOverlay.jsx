@@ -6,6 +6,7 @@
 import React from 'react';
 import * as Icons from '../SharedComponents/icons/Icons.jsx';
 import CommonOverlay from '../SharedComponents/overlays/CommonOverlay.jsx';
+import LoadingBauble from '../SharedComponents/overlays/LoadingBauble.jsx';
 
 const defaultProps = {
 	hasFailed: false
@@ -32,9 +33,14 @@ export default class ValidateDataInProgressOverlay extends React.Component {
 		let title = 'Your files are being validated.';
 		let description = 'You can return to this page at any time to check the validation status by using this link: ';
 
+		let icon = <LoadingBauble />;
+		let iconClass = 'overlay-animation';
+
 		if (this.props.hasFailed) {
 			title = 'An error has occurred while validating your files.';
 			description = 'Contact an administrator for assistance. Provide this URL when describing the issue: ';
+			icon = <Icons.ExclamationCircle />;
+			iconClass = 'usa-da-errorRed';
 		}
 
 		const detail = <div>{description}<br /><a href={window.location.href}>{window.location.href}</a></div>;
@@ -43,7 +49,10 @@ export default class ValidateDataInProgressOverlay extends React.Component {
 		return (
 			<CommonOverlay
 				header={title}
-				detail={detail} />
+				detail={detail}
+				showIcon={true}
+				icon={icon}
+				iconClass={iconClass} />
 		);
 	}
 }

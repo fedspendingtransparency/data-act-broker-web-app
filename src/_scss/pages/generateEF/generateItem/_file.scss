@@ -1,0 +1,38 @@
+.icon-wrapper {
+	height: 50px;
+    width: 35px;
+    margin: 0 auto;
+    background: url('../graphics/file_icon_lg.png') no-repeat;
+    background-size: 35px 50px;
+    position: relative;
+
+}
+
+.file-name {
+	text-align: center;
+	font-size: 0.85em;
+    margin: 10px;
+    word-wrap: break-word;
+    color: $color-gray;
+}
+
+.usa-da-button {
+	@import "../../../components/buttons/_primary";
+	@include primaryButton;
+}
+
+.usa-da-icon {
+    width: 2.4rem;
+    height: 2.4rem;
+    position: absolute;
+    top: 13px;
+    left: 6px;
+    & .usa-da-icon-exclamation-circle {
+        fill: $color-secondary;
+    }
+    & .usa-da-icon-check-circle {
+        fill: $color-green-light;
+    }
+}
+
+@import "./_spinner";
