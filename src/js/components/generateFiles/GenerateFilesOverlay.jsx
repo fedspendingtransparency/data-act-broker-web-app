@@ -4,6 +4,7 @@
   **/
 
 import React from 'react';
+import CommonOverlay from '../SharedComponents/overlays/CommonOverlay.jsx';
 
 const defaultProps = {
 	state: 'incomplete'
@@ -61,28 +62,15 @@ export default class GenerateFilesOverlay extends React.Component {
 		}
 
 		return (
-			<div className="center-block usa-da-validation-overlay">
-				<div className="container">
-					<div className="row">
-						<div className="col-xs-10 col-xs-offset-1 col-md-8 col-md-offset-0 usa-da-overlay-content-wrap">
-							<div className="row">
-								<div className="col-xs-12">
-									<h6>{header}</h6>
-									<div className="overlay-help-text">
-										{detail}
-									</div>
-								</div>
-							</div>
-						</div>
-						<div className="col-xs-12 col-md-4">
-							<div className="usa-da-btn-bg">
-								<button className={"usa-da-button" + buttonClass} disabled={buttonDisabled} onClick={this.clickedGenerate.bind(this)}>Generate Files</button>
-								<button className={"usa-da-button usa-da-validation-overlay-review " + nextClass} disabled={nextDisabled} onClick={this.clickedNext.bind(this)}>Next</button>
-							</div>
-						</div>
-					</div>
+			<CommonOverlay
+				header={header}
+				detail={detail}
+				showButtons={true}>
+				<div className="usa-da-btn-bg">
+					<button className={"usa-da-button" + buttonClass} disabled={buttonDisabled} onClick={this.clickedGenerate.bind(this)}>Generate Files</button>
+					<button className={"usa-da-button usa-da-validation-overlay-review " + nextClass} disabled={nextDisabled} onClick={this.clickedNext.bind(this)}>Next</button>
 				</div>
-            </div>
+			</CommonOverlay>
 		)
 	}
 }

@@ -1,7 +1,6 @@
 @import "../../../components/positioning/_centerContent";
-@import "./_text";
-@import "./_icon";
 @import "./_button";
+@import "./_positioning";
 
 @mixin validationOverlay {
 	position: fixed;
@@ -24,8 +23,7 @@
         }
     }
 
-    @include validationOverlayText;
-    @include validationOverlayIcon;
+    @include validationOverlayPositioning;
 
     .usa-da-btn-bg {
     	@include validationOverlayButton;
