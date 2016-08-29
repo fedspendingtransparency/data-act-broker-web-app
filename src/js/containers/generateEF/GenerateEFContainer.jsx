@@ -15,6 +15,7 @@ import { kGlobalConstants } from '../../GlobalConstants.js';
 import * as GenerateHelper from '../../helpers/generateFilesHelper.js';
 
 import GenerateEFContent from '../../components/generateEF/GenerateEFContent.jsx';
+import GenerateEFError from '../../components/generateEF/GenerateEFError.jsx';
 
 const timerDuration = 10;
 
@@ -25,6 +26,8 @@ class GenerateEFContainer extends React.Component {
 		this.isUnmounted = false;
 
 		this.state = {
+			fullPageError: false,
+			fullPageMessage: '',
 			isReady: false,
 			hasErrors: false,
 			e: {},
@@ -91,8 +94,15 @@ class GenerateEFContainer extends React.Component {
 		const files = [this.state.f];
 		let hasErrors = false;
 		let isReady = true;
+		let showFullPageError = false;
+		let fullPageMessage = '';
 		files.forEach((file) => {
-			if (file.status == 'failed') {
+			if (file.httpStatus == 403) {
+				// permissions error, rejet
+				showFullPageError = true;
+				fullPageMessage = 'You do not have permission to view or modify this submission.';
+			}
+			else if (file.status == 'failed') {
 				hasErrors = true;
 			}
 			else if (file.status == 'waiting') {
@@ -101,6 +111,8 @@ class GenerateEFContainer extends React.Component {
 		});
 
 		this.setState({
+			fullPageError: showFullPageError,
+			fullPageMessage: fullPageMessage,
 			hasErrors: hasErrors,
 			isReady: isReady
 		});
@@ -118,8 +130,16 @@ class GenerateEFContainer extends React.Component {
 	}
 
 	render() {
+		let content = <GenerateEFContent {...this.props} {...this.state} nextPage={this.nextPage.bind(this)} generateFiles={this.generateFiles.bind(this)} />;
+
+		if (this.state.fullPageError) {
+			content = <GenerateEFError message={this.state.fullPageMessage} />;
+		}
+		
 		return (
-			<GenerateEFContent {...this.props} {...this.state} nextPage={this.nextPage.bind(this)} generateFiles={this.generateFiles.bind(this)} />
+			<div>
+				{content}
+			</div>
 		)
 	}
 }

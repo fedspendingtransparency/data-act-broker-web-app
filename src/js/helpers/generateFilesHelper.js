@@ -39,7 +39,9 @@ export const generateFile = (type, submissionId, start, end) => {
             .end((errFile, res) => {
 
                 if (errFile) {
-                    deferred.reject(res.body);
+                    const response = Object.assign({}, res.body);
+                    response.httpStatus = res.status;
+                    deferred.reject(response);
                 }
                 else {
                     deferred.resolve(res.body);
@@ -62,7 +64,9 @@ export const fetchFile = (type, submissionId) => {
             .end((errFile, res) => {
 
                 if (errFile) {
-                    deferred.reject(res.body);
+                    const response = Object.assign({}, res.body);
+                    response.httpStatus = res.status;
+                    deferred.reject(response);
                 }
                 else {
                     deferred.resolve(res.body);
