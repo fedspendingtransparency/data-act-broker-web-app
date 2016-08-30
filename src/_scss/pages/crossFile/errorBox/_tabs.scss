@@ -1,0 +1,34 @@
+.error-tabs {
+	margin-top: 40px;
+	width: 100%;
+	background-color: $color-gray;
+
+	.tab-item {
+		margin-top: 20px;
+		margin-left: 10px;
+		display: inline-block;
+		padding: 0px 30px 0px 15px;
+
+		background-color: $color-gray-light;
+
+		line-height: 5rem;
+		font-weight: bold;
+		font-size: 1.6rem;
+		// color: $color-white;
+		color: $color-gray;
+		cursor: pointer;
+
+		&:link, &:visited, &:hover, &:active {
+			text-decoration: none;
+
+		}
+
+		&:first-child {
+			margin-left: 20px;
+		}
+
+		&.active {
+			background-color: $color-gray-lightest;
+		}
+	}
+}
