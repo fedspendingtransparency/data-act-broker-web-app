@@ -49,7 +49,7 @@ export default class ValidateDataOverlay extends React.Component {
 						</div>
 						<div className="col-xs-12 col-md-4">
 							<div className='usa-da-btn-bg'>
-								<button className={"usa-button" + buttonClass} disabled={buttonDisabled} onClick={this.props.uploadFiles} data-testid="validate-overlay-upload-button">{buttonText}</button>
+								<button className={"usa-da-button" + buttonClass} disabled={buttonDisabled} onClick={this.props.uploadFiles} data-testid="validate-overlay-upload-button">{buttonText}</button>
 							</div>
 						</div>
 					</div>

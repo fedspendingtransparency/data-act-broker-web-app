@@ -1,0 +1,9 @@
+@mixin fileItemIcon {
+    font-size: 0.7em;
+    text-align: center;
+    &:before {
+        position: relative;
+        margin-left: auto;
+        margin-right: auto;
+    }
+}

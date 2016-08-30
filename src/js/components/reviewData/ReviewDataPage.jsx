@@ -46,7 +46,7 @@ export default class ReviewDataPage extends React.Component {
         }
 
         return (
-            <div>
+            <div className="usa-da-review-data-page">
                 <div className="usa-da-site_wrap">
                     <div className="usa-da-page-content">
                         <Navbar activeTab="submissionGuide"/>

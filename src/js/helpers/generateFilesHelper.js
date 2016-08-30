@@ -13,9 +13,8 @@ export const fetchSubmissionMetadata = (submissionId) => {
     Request.post(kGlobalConstants.API + 'check_status/')
             .send({'submission_id': submissionId})
             .end((errFile, res) => {
-
                 if (errFile) {
-                    deferred.reject(errFile);
+                    deferred.reject(res);
                 }
                 else {
                     deferred.resolve(res.body);

@@ -1,40 +1,27 @@
-// Vendor -------------- //
+// import vendor libraries
+@import "lib/bourbon/_bourbon";
 
-@import 'lib/bourbon/bourbon';
-@import 'lib/neat/neat';
-@import 'lib/normalize';
+// import shared abstract items
+@import "abstract/variables";
+@import "abstract/mixins";
 
+// import the site wrapper
+@import "site/wrapper";
 
-// Core -------------- //
-
-@import 'core/grid-settings';
-@import 'core/defaults';
-@import 'core/variables';
-@import 'core/base';
-@import 'core/grid';
-@import 'core/utilities';
-
-
-// Elements -------------- //
-// Styles basic html elements
-
-// @import 'elements/typography';
-@import 'elements/list';
-// @import 'elements/inputs';
-// @import 'elements/buttons';
-// @import 'elements/table';
-@import 'elements/figure';
-@import 'elements/labels';
-
-
-// Components -------------- //
-
-@import 'components/skipnav';
-@import 'components/disclaimer';
-@import 'components/sidenav';
-// @import 'components/footer';
-@import 'components/forms';
-@import 'components/search';
-@import 'components/alerts';
-@import 'components/accordions';
-// @import 'components/datepicker/datepicker';
+// import pages
+@import "pages/modals/modals";
+@import "pages/login/login";
+@import "pages/login/pendingPage";
+@import "pages/forgotPassword/forgotPassword";
+@import "pages/registration/registrationLogin";
+@import "pages/registration/registrationForm";
+@import "pages/landing/landing";
+@import "pages/submissionGuide/submissionGuide";
+@import "pages/addData/addData";
+@import "pages/validateData/validateData";
+@import "pages/generateFiles/generateFiles";
+@import "pages/crossFile/crossFile";
+@import "pages/reviewData/reviewData";
+@import "pages/admin/admin";
+@import "pages/help/help";
+@import "pages/error/error";

@@ -1,0 +1,25 @@
+@import "./_tableSorters";
+
+@mixin tableHeader {
+	thead {
+        font-size: 1.4rem;
+        font-weight: $font-bold;
+        color: $color-white;
+        background: $color-gray;
+
+        & tr {
+            & th {
+                padding: 16px 15px;
+                border-bottom: none;
+                position: relative;
+                @media(max-width:$medium-screen) {
+                	padding: 16px 10px;
+                }
+            }
+        }
+
+        .usa-da-table-sorter {
+        	@include tableSorter;
+        }
+    }
+}

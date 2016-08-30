@@ -1,0 +1,19 @@
+.usa-da-help-sidebar {
+    ul {
+        margin-top: 0;
+    }
+
+    h6 {
+        margin-bottom: 1.3rem;
+    }
+    ul, li {
+        list-style-type: none;
+    }
+    li a {
+        font-size: 1.4rem;
+    }
+    li:before {
+        content: "";
+        padding-right: 0;
+    }
+}

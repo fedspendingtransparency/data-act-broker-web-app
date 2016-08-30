@@ -1,0 +1,25 @@
+.usa-da-validate-corrected-file-holder {
+    border: 0;
+    position: absolute;
+    right: 0;
+    top: 0;
+    z-index: 500;
+
+    .corner-overlay {
+        @import "../../../components/replacementCorner/replacementCorner";
+        @include replacementCorner;
+
+        border-width: 0 50px 50px 0;
+
+        .usa-da-icon {
+            svg {
+                right: 3px;
+                top: 5px;
+                fill: $color-gray;
+                &:hover {
+                    fill: $gray-dark;
+                }
+            }
+        }
+    }
+}

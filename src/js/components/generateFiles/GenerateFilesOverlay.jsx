@@ -76,8 +76,8 @@ export default class GenerateFilesOverlay extends React.Component {
 						</div>
 						<div className="col-xs-12 col-md-4">
 							<div className="usa-da-btn-bg">
-								<button className={"usa-button" + buttonClass} disabled={buttonDisabled} onClick={this.clickedGenerate.bind(this)}>Generate Files</button>
-								<button className={"usa-button usa-da-validation-overlay-review " + nextClass} disabled={nextDisabled} onClick={this.clickedNext.bind(this)}>Next</button>
+								<button className={"usa-da-button" + buttonClass} disabled={buttonDisabled} onClick={this.clickedGenerate.bind(this)}>Generate Files</button>
+								<button className={"usa-da-button usa-da-validation-overlay-review " + nextClass} disabled={nextDisabled} onClick={this.clickedNext.bind(this)}>Next</button>
 							</div>
 						</div>
 					</div>

@@ -11,7 +11,7 @@ import Navbar from '../SharedComponents/navigation/NavigationComponent.jsx';
 export default class RegistrationTokenLoadingPage extends React.Component {
     render() {
         return (
-            <div>
+            <div className="usa-da-registration-form-page">
                 <Navbar logoOnly={true} />
                 <div className="usa-da-content">
                     <div className="container usa-da-registration">

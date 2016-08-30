@@ -1,0 +1,21 @@
+.usa-da-reg-wrapper {
+    @include contentBlockWrapper;
+    padding: 30px 20px;
+
+    @import "./_inputField";
+
+	// import typeahead styles
+	@import "../../../components/typeahead/_typeahead";
+
+	// implement alerts
+	@import "./_alerts";
+
+	// implement the submit button
+	@import "./_submitButton";
+
+	// implement the highlight box
+    .highlight {
+		@import "../../../components/alerts/_highlights";
+		@include highlight;
+	}
+}

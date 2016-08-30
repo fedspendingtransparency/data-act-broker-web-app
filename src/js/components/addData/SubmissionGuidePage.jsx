@@ -11,7 +11,7 @@ import Footer from '../SharedComponents/FooterComponent.jsx';
 export default class LandingPage extends React.Component {
     render() {
         return (
-            <div>
+            <div className="usa-da-submission-guide-page">
                 <div className="usa-da-site_wrap">
                     <div className="usa-da-page-content">
                         <Navbar activeTab="submissionGuide"/>
