@@ -37,8 +37,11 @@ export default class CrossFileContent extends React.Component {
 		crossFileKeys.forEach((pairMeta) => {
 
 			let status = 'loading';
-			if (this.props.submission.crossFile.hasOwnProperty(pairMeta.key)) {
+			if (this.props.submission.crossFile.errors.hasOwnProperty(pairMeta.key)) {
 				status = 'error';
+			}
+			else if (this.props.submission.crossFile.warnings.hasOwnProperty(pairMeta.key)) {
+				status = 'warning';
 			}
 			else if (_.indexOf(this.allowableStates, this.props.submission.state) > -1) {
 				status = 'success';

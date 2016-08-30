@@ -10,6 +10,7 @@ import FileProgress from '../../SharedComponents/FileProgress.jsx';
 import UploadButtonContainer from '../../../containers/crossFile/CrossFileUploadButtonContainer.jsx';
 import GeneratedErrorButton from './GeneratedErrorButton.jsx';
 import FileWarning from './FileWarning.jsx';
+import ErrorTabs from './ErrorTabs.jsx';
 
 import * as ReviewHelper from '../../../helpers/reviewHelper.js';
 import * as Icons from '../../SharedComponents/icons/Icons.jsx';
@@ -23,11 +24,17 @@ export default class ErrorBox extends React.Component {
 		this.state = {
 			firstType: '',
 			secondType: '',
-			stagedFiles: []
+			stagedFiles: [],
+			activeTab: 'errors'
 		};
 	}
 
 	componentDidMount() {
+		if (this.props.status == 'warning') {
+			this.setState({
+				activeTab: 'warnings'
+			});
+		}
 		this.stagedFiles();
 	}
 
@@ -35,12 +42,6 @@ export default class ErrorBox extends React.Component {
 		if (!_.isEqual(prevProps.submission.files,this.props.submission.files)) {
 			this.stagedFiles();
 		}
-	}
-
-	clickedDownload(e) {
-		e.preventDefault();
-		const url = this.props.meta.report;
-		window.open(url, '_blank');
 	}
 
 	
@@ -93,6 +94,12 @@ export default class ErrorBox extends React.Component {
 		return (leftFile.progress + rightFile.progress) / fileCount;
 	}
 
+	changeTab(tab) {
+		this.setState({
+			activeTab: tab
+		});
+	}
+
 	render() {
 
 		let uploadProgress = null;
@@ -120,29 +127,41 @@ export default class ErrorBox extends React.Component {
 			secondUploadButton = <GeneratedErrorButton file={secondFile} fileKey={this.props.meta.secondKey} pair={this.props.meta.key} type={this.state.secondType} submissionID={this.props.submissionID} forceUpdate={this.props.forceUpdate} />;
 		}
 
+		let tableKey = this.state.activeTab;
+		let reportName = "Error Report";
+		if (this.state.activeTab == 'errors' && this.props.status == 'warning') {
+			// in the case of a warning only pair, the state won't have time to change to warnings on initial load
+			tableKey = 'warnings';
+		}
+
+		if (tableKey == 'warnings') {
+			reportName = "Warning Report";
+		}
+
+		const tableTitle = tableKey.substring(0,1).toUpperCase() + tableKey.substring(1);
+
 		return (
 			<div className="col-md-12">
+				<ErrorTabs {...this.props} changeTab={this.changeTab.bind(this)} activeTab={this.state.activeTab} />
 				<div className="error-box">
 					<div className="vertical-line" />
 					<div className="row">
 						<div className="col-xs-6 col-md-6">
-							<h6>Cross-File Validation Errors</h6>
+							<h6>Cross-File Validation {tableTitle}</h6>
 						</div>
-						<div className="col-xs-6 col-md-3 mr-0">
-            	            <a href="#" className="usa-da-download pull-right" onClick={this.clickedDownload.bind(this)}>
-            	                <span className="usa-da-icon usa-da-download-report"><Icons.CloudDownload /></span>Download Error Report
-            	            </a>
-            	        </div>
 					</div>
 					<div className="row">
 						<div className="col-xs-12 col-sm-8 col-md-9">
-							<ComparisonTable data={this.props.submission.crossFile[this.props.meta.key]} />
+							<ComparisonTable data={this.props.submission.crossFile[tableKey][this.props.meta.key]} />
 						</div>
 						<div className="col-xs-12 col-sm-4 col-md-3">
-								<div className="button-list">
+							<div className="button-list">
 								<div className="row">
 									<div className="col-md-12">
-										<div className="upload-title">
+			            	            <a href={this.props.meta[tableKey + 'Report']} target="_blank" className="usa-da-button btn-full btn-primary">
+			            	            	Download {reportName}
+			            	            </a>
+			            	            <div className="upload-title">
 											Upload Corrected Files
 										</div>
 									</div>

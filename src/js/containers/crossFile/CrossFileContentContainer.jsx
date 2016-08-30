@@ -64,15 +64,25 @@ class CrossFileContentContainer extends React.Component {
 	prepareCrossFileReports(data) {
 		// store the cross file report CSV URLs in Redux
 		const reports = data.crossFile.reports;
-
+		
 		const updatedData = [];
 		this.props.submission.crossFileOrder.forEach((pair) => {
 
 			// create a new metadata object for each expected cross file pairing
-			const updatedPair = Object.assign({}, pair, {
-				report: reports[pair.key]
-			});
+			const reportUrls = {
+				errorsReport: '#',
+				warningsReport: '#'
+			};
 			
+			if (reports.errors.hasOwnProperty(pair.key)) {
+				reportUrls.errorsReport = reports.errors[pair.key];
+			}
+			if (reports.warnings.hasOwnProperty(pair.key)) {
+				reportUrls.warningsReport = reports.warnings[pair.key];
+			}
+
+			const updatedPair = Object.assign({}, pair, reportUrls);
+
 			updatedData.push(updatedPair);
 		});
 
