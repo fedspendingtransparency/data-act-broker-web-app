@@ -5,6 +5,8 @@
 
 import React from 'react';
 import * as Icons from '../SharedComponents/icons/Icons.jsx';
+import CommonOverlay from '../SharedComponents/overlays/CommonOverlay.jsx';
+import LoadingBauble from '../SharedComponents/overlays/LoadingBauble.jsx';
 
 export default class ValidateDataOverlay extends React.Component {
 
@@ -13,6 +15,9 @@ export default class ValidateDataOverlay extends React.Component {
 	}
 
 	render() {
+
+		let icon = <Icons.ExclamationCircle />;
+		let iconClass = 'usa-da-errorRed';
 
 		let buttonDisabled = true;
 		let buttonClass = '-disabled';
@@ -26,35 +31,28 @@ export default class ValidateDataOverlay extends React.Component {
 			buttonClass = '-disabled';
 			buttonDisabled = true;
 			buttonText = 'Uploading files...';
+			iconClass = 'overlay-animation';
+			icon = <LoadingBauble />;
 		}
 		else if (this.props.submission.state == 'prepare') {
 			buttonClass = '-disabled';
 			buttonDisabled = true;
 			buttonText = 'Gathering data...';
+			iconClass = 'overlay-animation';
+			icon = <LoadingBauble />;
 		}
 
 		return (
-			<div className="center-block usa-da-validation-overlay" data-testid="validate-header-overlay">
-				<div className="container">
-					<div className="row">
-						<div className="col-xs-10 col-xs-offset-1 col-md-8 col-md-offset-0 usa-da-overlay-content-wrap">
-							<div className="row">
-								<div className="col-xs-2 col-xs-offset-5 col-md-1 col-md-offset-0 usa-da-icon mr-10 usa-da-errorRed">
-									<Icons.ExclamationCircle />
-								</div>
-								<div className="col-xs-10 col-xs-offset-1 col-md-10 col-md-offset-0">
-									<h6>You must fix the Critical Errors found in {this.props.errors.length} of the .CSV files before moving on to the next step. View and download individual reports above.</h6>
-								</div>
-							</div>
-						</div>
-						<div className="col-xs-12 col-md-4">
-							<div className='usa-da-btn-bg'>
-								<button className={"usa-da-button" + buttonClass} disabled={buttonDisabled} onClick={this.props.uploadFiles} data-testid="validate-overlay-upload-button">{buttonText}</button>
-							</div>
-						</div>
-					</div>
-            	</div>
-            </div>
+			<CommonOverlay
+				header={"You must fix the Critical Errors found in " + this.props.errors.length + " of the .CSV files before moving on to the next step. View and download individual reports above."}
+				showButtons={true}
+				icon={icon}
+				iconClass={iconClass}
+				showIcon={true}>
+				<div className='usa-da-btn-bg'>
+					<button className={"usa-da-button" + buttonClass} disabled={buttonDisabled} onClick={this.props.uploadFiles} data-testid="validate-overlay-upload-button">{buttonText}</button>
+				</div>
+			</CommonOverlay>
 		);
 	}
 }

@@ -38,9 +38,10 @@
         &:after {
             content: " ";
             background: white;
-            position: absolute;
-            top: 2px;
-            left: 17px;
+            position: relative;
+            display: block;
+            top: -58px;
+            left: 2px;
             height: 51px;
             width: 51px;
             z-index: -2;
