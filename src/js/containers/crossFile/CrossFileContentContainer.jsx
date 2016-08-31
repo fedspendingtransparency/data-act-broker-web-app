@@ -117,6 +117,11 @@ class CrossFileContentContainer extends React.Component {
 			}
 			else if (jobStatus != 'finished') {
 				allPassed = false;
+
+				if (jobStatus == 'waiting') {
+					// there are files that are still missing
+					state = 'errors';
+				}
 			}
 		}
 

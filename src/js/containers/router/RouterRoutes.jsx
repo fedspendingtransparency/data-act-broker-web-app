@@ -85,7 +85,7 @@ const redirectIfLogin = (nextState, replace) => {
     //TODO Add check For User Permissions
 }
 const debugRoute = (nextState, replace) => {
-
+    
 }
 
 // defining the routes outside of the component because React Router cannot handle state/prop changes that Redux causes
@@ -139,6 +139,15 @@ const routeDefinitions = {
             getComponent(nextState, cb) {
                 require.ensure([], (require) => {
                     cb(null, require('../../components/generateFiles/GenerateFilesPage.jsx').default)
+                });
+            }
+        },
+        {
+            path: 'generateEF/:submissionID',
+            onEnter: checkUserPermissions,
+            getComponent(nextState, cb) {
+                require.ensure([], (require) => {
+                    cb(null, require('../../components/generateEF/GenerateEFPage.jsx').default)
                 });
             }
         },
