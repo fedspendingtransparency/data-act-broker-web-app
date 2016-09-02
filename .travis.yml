@@ -4,9 +4,17 @@ node_js:
   - "6"
   - "5"
   - "4"
+# Need a C++ compiler
+addons:
+  apt:
+    sources:
+      - ubuntu-toolchain-r-test
+    packages:
+      - g++-4.8
+env:
+  - CXX=g++-4.8
 before_script:
   - npm install -g gulp
   - cp sampleGlobalConstants_local.js GlobalConstants_local.js
-  - npm install
 script:
   - gulp buildLocal
