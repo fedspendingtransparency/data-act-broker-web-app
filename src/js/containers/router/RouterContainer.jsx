@@ -23,7 +23,7 @@ const Routes = new RouterRoutes();
 
 let sessionChecker;
 
-export default class RouterContainer extends React.Component {
+class RouterContainer extends React.Component {
     componentDidMount() {
         ga.initialize(kGlobalConstants.GA_TRACKING_ID, GA_OPTIONS);
     }
