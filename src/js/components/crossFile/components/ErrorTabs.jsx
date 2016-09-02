@@ -19,13 +19,20 @@ class TabItem extends React.Component {
 		return (
 			<a href="#" className={"tab-item" + activeClass} onClick={this.clickedTab.bind(this)}>
 				{this.props.label}
+				<span className="count-badge">
+					{this.props.count}
+				</span>
 			</a>
 		)
 	}
 }
 
 const defaultProps = {
-	showTabs: "both"
+	showTabs: "both",
+	counts: {
+		errors: 0,
+		warnings: 0
+	}
 };
 
 export default class ErrorTabs extends React.Component {
@@ -48,30 +55,31 @@ export default class ErrorTabs extends React.Component {
 
 	buildTabs() {
 		const tabs = [];
+
 		const errors = {
 			label: "Cross-File Validation Errors",
 			value: "errors",
-			isActive: true
+			isActive: true,
+			count: this.props.counts.errors
 		};
 		const warnings = {
 			label: "Cross-File Validation Warnings",
 			value: "warnings",
-			isActive: false
+			isActive: false,
+			count: this.props.counts.warnings
 		};
+
 
 		if (this.props.activeTab == "warnings") {
 			warnings.isActive = true;
 			errors.isActive = false;
 		}
 
-		if (this.props.showTabs == "both") {
+		if (this.props.status == "error") {
 			tabs.push(errors);
 			tabs.push(warnings);
 		}
-		else if (this.props.showTabs == "errors") {
-			tabs.push(errors);
-		}
-		else if (this.props.showTabs == "warnings") {
+		else if (this.props.status == "warning") {
 			tabs.push(warnings);
 		}
 
@@ -82,7 +90,7 @@ export default class ErrorTabs extends React.Component {
 
 	render() {
 		const tabs = this.state.tabs.map((tab, index) => {
-			return <TabItem {...tab} key={index} />;
+			return <TabItem {...tab} key={index} changeTab={this.props.changeTab} />;
 		});
 
 		return (

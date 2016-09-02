@@ -1,17 +1,19 @@
 @import "./_tabs";
 .error-box {
     @include contentBlockWrapper();
-    padding: 20px;
+    padding: 0;
     position: relative;
-    h6 {
-        margin-top: 0px;
+
+    .box-content {
+        padding: 20px;
     }
+
     .vertical-line {
         position: absolute;
         border-left: 2px solid $color-gray-light;
         height: 80px;
         width: 2px;
-        top: -150px;
+        top: -60px;
         left: 0px;
         right: 0px;
         margin-left: auto;

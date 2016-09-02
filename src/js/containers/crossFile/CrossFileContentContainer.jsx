@@ -146,7 +146,7 @@ class CrossFileContentContainer extends React.Component {
 				done = true;
 			}
 			else if (individualState == 'errors') {
-				// there are errors, return to file validation screen
+				// there are individual errors, return to file validation screen
 				// stop the timer
 				if (this.dataTimer) {
 					window.clearInterval(this.dataTimer);

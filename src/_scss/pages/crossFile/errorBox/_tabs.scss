@@ -12,9 +12,8 @@
 		background-color: $color-gray-light;
 
 		line-height: 5rem;
-		font-weight: bold;
 		font-size: 1.6rem;
-		// color: $color-white;
+
 		color: $color-gray;
 		cursor: pointer;
 
@@ -28,7 +27,12 @@
 		}
 
 		&.active {
-			background-color: $color-gray-lightest;
+			background-color: $color-white;
+		}
+
+		.count-badge {
+			font-weight: bold;
+			margin-left: 10px;
 		}
 	}
 }
