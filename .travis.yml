@@ -1,0 +1,12 @@
+language: node_js
+node_js:
+  # latest in each series
+  - "6"
+  - "5"
+  - "4"
+before_script:
+  - npm install -g gulp
+  - cp sampleGlobalConstants_local.js GlobalConstants_local.js
+  - npm install
+script:
+  - gulp buildLocal
