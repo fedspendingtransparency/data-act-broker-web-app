@@ -135,7 +135,7 @@ export default class CrossFileOverlay extends React.Component {
 			overlay.nextButtonDisabled = false;
 		}
 		else if (this.props.mode == 'warnings') {
-			// loading finishe,d show warnings
+			// loading finished, show warnings
 			overlay.icon = <Icons.ExclamationCircle />;
 			overlay.iconClass = 'usa-da-warningYellow';
 			overlay.message = 'Some cross-file pairs have validation warnings.';
