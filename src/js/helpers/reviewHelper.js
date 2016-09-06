@@ -62,8 +62,7 @@ const determineExpectedPairs = () => {
 export const fetchStatus = (submissionId) => {
 	const deferred = Q.defer();
 
-	// Request.post(kGlobalConstants.API + 'check_status/')
-	Request.post('http://localhost:5000/' + 'check_status/')
+	Request.post(kGlobalConstants.API + 'check_status/')
 	        .send({'submission_id': submissionId})
 	        .end((errFile, res) => {
 
