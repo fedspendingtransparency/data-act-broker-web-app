@@ -56,12 +56,14 @@ export default class CrossFileOverlay extends React.Component {
 
 	componentDidUpdate(prevProps, prevState) {
 		if (!_.isEqual(prevProps.submission.files, this.props.submission.files) || !_.isEqual(prevProps.submission.crossFile, this.props.submission.crossFile)) {
-			console.log("CHANGE");
 			this.setState({
 				allowUpload: this.isReadyForUpload()
 			}, () => {
 				this.prepareOverlayContents();
 			});
+		}
+		else if (prevProps.loading != this.props.loading || prevProps.mode != this.props.mode) {
+			this.prepareOverlayContents();
 		}
 	}
 
@@ -137,7 +139,7 @@ export default class CrossFileOverlay extends React.Component {
 			overlay.icon = <Icons.ExclamationCircle />;
 			overlay.iconClass = 'usa-da-warningYellow';
 			overlay.message = 'Some cross-file pairs have validation warnings.';
-			overlay.detail = 'You can either correct your files or click Next to generate Files E and F.';
+			overlay.detail = 'You can correct your files or click Next to generate Files E and F.';
 			overlay.uploadButtonDisabled = true;
 			overlay.uploadButtonClass = '-disabled';
 			overlay.nextButtonClass = ' btn-primary';
