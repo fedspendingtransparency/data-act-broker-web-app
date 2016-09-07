@@ -86,6 +86,11 @@ class GenerateFilesContainer extends React.Component {
 			month = monthDay.split('/')[0];
 			year = monthDay.split('/')[1];
 		}
+		else {
+			// it's months
+			month = raw.split('/')[0];
+			year = raw.split('/')[1];
+		}
 
 		// now we need to calculate the day of month
 		if (type == 'start') {
