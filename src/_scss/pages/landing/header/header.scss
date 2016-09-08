@@ -1,0 +1,5 @@
+// implement the header styles
+.usa-da-page-title {
+	@import "../../../components/typography/_pageTitles";
+	@include pageTitle;
+}

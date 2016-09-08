@@ -1,0 +1,6 @@
+.usa-da-review-data-page {
+	@import "../../layouts/validation/validation";
+	@include validationLayout;
+
+	@import "./_content";
+}

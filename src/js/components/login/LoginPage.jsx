@@ -14,12 +14,14 @@ import LoginWarningTxt from './LoginWarningTxt.jsx';
 export default class LoginPage extends React.Component {
     render() {
         return (
-        	<div className="flex-wrapper">
-            	<div className="usa-da-login container-fluid">
-            		<LoginTopBar/>
-            	    <LoginBanner/>
-            	    <LoginWarningTxt/>
-            	</div>
+            <div className="usa-da-login-page">
+            	<div className="flex-wrapper">
+                	<div className="usa-da-login container-fluid">
+                		<LoginTopBar/>
+                	    <LoginBanner/>
+                	    <LoginWarningTxt/>
+                	</div>
+                </div>
             </div>
         );
     }

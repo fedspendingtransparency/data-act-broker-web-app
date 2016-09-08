@@ -1,0 +1,31 @@
+@import "../../../../components/buttons/_download";
+@import "../../../../components/treemap/_treemap";
+@import "../../../../components/treemap/_sidebar";
+@import "./_table";
+
+@mixin fileItemBottomSide {
+	border-top: 1px solid #ccc;
+
+	.usa-da-download {
+		@include downloadButton;
+	}
+
+	.usa-da-scrollable-table {
+		@include bottomSideTable;
+	}
+
+	.usa-da-validate-error-report {
+    	padding: 15px 0 30px;
+	    h3 {
+	        margin: 0;
+	    }
+	}
+
+	// implement the treemap
+	.usa-da-treemap {
+		@include treemap;
+	}
+	.usa-da-treemap-help-wrap {
+		@include treemapSidebar;
+	}
+}

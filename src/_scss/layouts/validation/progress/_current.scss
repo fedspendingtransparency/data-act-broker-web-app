@@ -1,0 +1,17 @@
+@mixin validationProgressCurrentStep {
+	.name, .step span {
+		opacity: 1;
+	}
+
+	.step {
+		border: 1px solid $color-focus;
+		background-color: $color-focus;
+		color: $color-white;
+
+		&:before {
+			background-color: $color-focus;
+			z-index: -1;
+			bottom: 0.9em;
+		}
+	}
+}

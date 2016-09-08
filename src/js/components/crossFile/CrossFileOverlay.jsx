@@ -6,6 +6,8 @@ import React from 'react';
 import _ from 'lodash';
 import { hashHistory } from 'react-router';
 import * as Icons from '../SharedComponents/icons/Icons.jsx';
+import CommonOverlay from '../SharedComponents/overlays/CommonOverlay.jsx';
+import LoadingBauble from '../SharedComponents/overlays/LoadingBauble.jsx';
 
 const defaultProps = {
 	errors: ['error'],
@@ -32,7 +34,7 @@ export default class CrossFileOverlay extends React.Component {
 
 	pressedNext(e) {
 		e.preventDefault();
-		hashHistory.push('/reviewData/' + this.props.submission.id);
+		hashHistory.push('/generateEF/' + this.props.submission.id);
 	}
 
 	isUploadingFiles() {
@@ -80,8 +82,8 @@ export default class CrossFileOverlay extends React.Component {
 		let nextButtonClass = ' hide';
 		let nextButtonDisabled = true;
 
-		let hideButtons = '';
-		let hideHelpText = ' hide';
+		let hideButtons = false;
+		let hideHelpText = true;
 
 		if (this.state.allowUpload) {
 			uploadButtonDisabled = false;
@@ -94,7 +96,7 @@ export default class CrossFileOverlay extends React.Component {
 		if (Object.keys(this.props.submission.crossFile).length == 0) {
 			icon = <Icons.CheckCircle />;
 			iconClass = 'usa-da-successGreen';
-			message = 'Your files have been successfully cross-validated. Click Next to review and publish these files.';
+			message = 'Your files have been successfully cross-validated. Click Next to generate files E and F.';
 			uploadButtonDisabled = true;
 			uploadButtonClass = '-disabled';
 			nextButtonClass = ' btn-primary';
@@ -129,40 +131,31 @@ export default class CrossFileOverlay extends React.Component {
 			uploadButtonClass = ' hide';
 			nextButtonClass = ' hide';
 			nextButtonDisabled = true;
-			icon = null;
-			iconClass = null;
+			icon = <LoadingBauble />;
+			iconClass = 'overlay-animation';
 			message = 'Your files are being validated.';
-			hideButtons = ' hide';
-			hideHelpText = '';
+			hideButtons = true;
+			hideHelpText = false;
+		}
+
+		let detail = <div>You can return to this page at any time to check the validation status by using this link:<br /><a href={window.location.href}>{window.location.href}</a></div>;
+		if (hideHelpText) {
+			detail = null;
 		}
 
 		return (
-			<div className="center-block usa-da-validation-overlay">
-				<div className="container">
-					<div className="row">
-						<div className="col-xs-10 col-xs-offset-1 col-md-8 col-md-offset-0 usa-da-overlay-content-wrap">
-							<div className="row">
-								<div className="col-xs-2 col-xs-offset-5 col-md-1 col-md-offset-0 usa-da-icon mr-10">
-									<div className={iconClass}>{icon}</div>
-								</div>
-								<div className="col-xs-10 col-xs-offset-1 col-md-10 col-md-offset-0">
-									<h6>{message}</h6>
-									<div className={"overlay-help-text" + hideHelpText}>
-										You can return to this page at any time to check the validation status by using this link:<br />
-										<a href={window.location.href}>{window.location.href}</a>
-									</div>
-								</div>
-							</div>
-						</div>
-						<div className="col-xs-12 col-md-4">
-							<div className={'usa-da-btn-bg' + hideButtons}>
-								<button className={"usa-da-button" + uploadButtonClass} disabled={uploadButtonDisabled} onClick={this.props.uploadFiles}>{buttonText}</button>
-								<button className={"usa-da-validation-overlay-review usa-da-button" + nextButtonClass} disabled={nextButtonDisabled} onClick={this.pressedNext.bind(this)}>Next</button>
-							</div>
-						</div>
-					</div>
+			<CommonOverlay
+				header={message}
+				detail={detail}
+				showIcon={true}
+				icon={icon}
+				iconClass={iconClass}
+				showButtons={!hideButtons}>
+				<div className="usa-da-btn-bg">
+					<button className={"usa-da-button" + uploadButtonClass} disabled={uploadButtonDisabled} onClick={this.props.uploadFiles}>{buttonText}</button>
+					<button className={"usa-da-validation-overlay-review usa-da-button" + nextButtonClass} disabled={nextButtonDisabled} onClick={this.pressedNext.bind(this)}>Next</button>
 				</div>
-            </div>
+			</CommonOverlay>
 		);
 	}
 }

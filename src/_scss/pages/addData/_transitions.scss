@@ -1,0 +1,16 @@
+// metadata transitions
+.usa-da-meta-fade-enter {
+    opacity: 0.01;
+    &.usa-da-meta-fade-enter-active {
+        opacity: 1;
+        transition: opacity 500ms ease-in;
+    }
+}
+
+.usa-da-meta-fade-leave {
+    opacity: 1;
+    &.usa-da-meta-fade-enter-active {
+        opacity: 0.01;
+        transition: opacity 300ms ease-in;
+    }
+}

@@ -1,0 +1,8 @@
+@import "../../../../components/buttons/_danger";
+
+@mixin rightSideButtons {
+	margin: 10px 0 0;
+	.usa-da-button {
+		@include dangerButton;
+	}
+}

@@ -1,0 +1,21 @@
+.usa-da-generate-ef-page {
+	@import "../../layouts/validation/validation";
+	@include validationLayout;
+
+	@import "../../components/alerts/_alerts";
+	.alert-danger {
+		@include dangerAlert;
+	}
+	.alert-warning {
+		@include warningAlert;
+	}
+
+	// style the instructions
+	.usa-da-submission-instructions {
+		@import "../../components/typography/_instructions";
+		@include instructions;
+	}
+
+	@import "./generateItem/generateItem";
+
+}

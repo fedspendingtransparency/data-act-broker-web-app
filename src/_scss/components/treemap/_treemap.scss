@@ -1,0 +1,11 @@
+@import "./_cell";
+
+@mixin treemap {
+	position: relative;
+    width: 100%;
+    height: 300px;
+    margin-top: 10px;
+    .usa-da-treemap-cell {
+        @include treemapCell;
+    }
+}
