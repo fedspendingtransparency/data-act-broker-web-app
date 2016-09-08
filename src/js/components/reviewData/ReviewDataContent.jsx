@@ -10,6 +10,7 @@ import SubmitButton from '../SharedComponents/SubmitButton.jsx';
 import ReviewDataContentRow from './ReviewDataContentRow.jsx';
 import ReviewDataButton from './ReviewDataButton.jsx';
 import ReviewDataNotifyModal from './ReviewDataNotifyModal.jsx';
+import ReviewDataCertifyModal from './CertificationModal/ReviewDataCertifyModal.jsx';
 import moment from 'moment';
 
 import * as ReviewHelper from '../../helpers/reviewHelper.js';
@@ -24,27 +25,73 @@ export default class ReviewDataContent extends React.Component {
         super(props);
 
         this.state = {
-            openModal: false
+            openNotify: false,
+            openCertify: false,
+            calculatedData: {
+                totalSize: '0 KB',
+                totalWarnings: 0
+            }
         };
     }
 
-    notifyUser(e) {
+    componentDidMount() {
+        this.calculateFields();
+    }
+
+    componentDidUpdate(prevProps, prevState) {
+        if (prevProps.submissionID != this.props.submissionID) {
+            this.calculateFields();
+        }
+    }
+
+    openModal(type, e) {
         e.preventDefault();
 
         this.setState({
-            openModal: true
+            ['open' + type]: true
         });
     }
 
-    closeModal(e) {
+    closeModal(type, e) {
         if (e) {
             e.preventDefault();
         }
         this.setState({
-            openModal: false
+            ['open' + type]: false
         });
     }
 
+
+    disabledLink(e) {
+        e.preventDefault();
+    }
+
+    calculateFields() {
+        let totalSize = 0;
+        let totalWarnings = 0;
+
+        this.props.data.jobs.forEach((job) => {
+            totalSize += parseFloat(job.file_size);
+
+            // sum the number of warnings
+            job.warning_data.forEach((warning) => {
+                totalWarnings += parseInt(warning.occurrences);
+            });
+        });
+
+        let displaySize = totalSize + ' bytes';
+        if (totalSize >= 750000) {
+            displaySize = (Math.round((totalSize/ 100000000) * 100) / 100) + ' MB';
+        }
+        else if (totalSize >= 750) {
+            displaySize = (Math.round((totalSize / 1000) * 100) / 100) + ' KB';
+        }
+
+        this.setState({
+            totalSize: displaySize,
+            totalWarnings: totalWarnings
+        });
+    }
 
     render() {
         
@@ -99,14 +146,14 @@ export default class ReviewDataContent extends React.Component {
                                 </div>
                                 <div className="usa-da-submission-info">
                                     <ul className="no-bullet">
-                                        <li>Total File Size: <strong>{fileSize}</strong></li>
+                                        <li>Total File Size: <strong>{this.state.totalSize}</strong></li>
                                         <li>Total Rows: <strong>{this.props.data.number_of_rows}</strong></li>
                                         <li>Created on: <strong>{this.props.data.created_on}</strong></li>
-                                        <li>Total Warnings: <strong></strong></li>
+                                        <li>Total Warnings: <strong>{this.state.totalWarnings}</strong></li>
                                     </ul>
                                     <ul className="usa-da-submission-bottom-links no-bullet">
-                                        <li><a href="#"><span className="usa-da-icon usa-da-icon-CloudDownload"><Icons.CloudDownload /></span>Download</a></li>
-                                        <li><a href="#"><span className="usa-da-icon usa-da-icon-Trash"><Icons.Trash /></span>Delete</a></li>
+                                        <li><a href="#" onClick={this.disabledLink.bind(this)}><span className="usa-da-icon usa-da-icon-CloudDownload"><Icons.CloudDownload /></span>Download</a></li>
+                                        <li><a href="#" onClick={this.disabledLink.bind(this)}><span className="usa-da-icon usa-da-icon-Trash"><Icons.Trash /></span>Delete</a></li>
                                     </ul>
                                 </div>
                             </div>
@@ -117,14 +164,17 @@ export default class ReviewDataContent extends React.Component {
                     </div>
                     <div className="row usa-da-submission-bottom-big-links mt-20">
                         <div className="col-md-6">
-                            <a href="#" className="usa-da-button btn-primary btn-lg btn-full"><span className="usa-da-icon usa-da-icon-Globe"><Icons.Globe /></span>Certify & Publish the Submission to USASpending.gov</a>
+                            <a href="#" onClick={this.openModal.bind(this, 'Certify')} className="usa-da-button btn-primary btn-lg btn-full"><span className="usa-da-icon usa-da-icon-Globe"><Icons.Globe /></span>Certify & Publish the Submission to USASpending.gov</a>
                         </div>
                         <div className="col-md-6 usa-da-submission-bottom-big-links">
-                            <a href="#" onClick={this.notifyUser.bind(this)} className="usa-da-button btn-primary btn-lg btn-full last"><span className="usa-da-icon usa-da-icon-Bell"><Icons.Bell /></span>Notify Another User that the Submission is Ready for Certification</a>
+                            <a href="#" onClick={this.openModal.bind(this, 'Notify')} className="usa-da-button btn-primary btn-lg btn-full last"><span className="usa-da-icon usa-da-icon-Bell"><Icons.Bell /></span>Notify Another User that the Submission is Ready for Certification</a>
                         </div>
 
                         <div id="reviewDataNotifyModalHolder">
-                            <ReviewDataNotifyModal {...this.props} closeModal={this.closeModal.bind(this)} isOpen={this.state.openModal} />
+                            <ReviewDataNotifyModal {...this.props} closeModal={this.closeModal.bind(this, 'Notify')} isOpen={this.state.openNotify} />
+                        </div>
+                        <div id="reviewDataCertifyModalHolder">
+                            <ReviewDataCertifyModal {...this.props} closeModal={this.closeModal.bind(this, 'Certify')} isOpen={this.state.openCertify} warnings={this.state.totalWarnings} />
                         </div>
                     </div>
                 </div>
