@@ -27,7 +27,7 @@ export default class GenerateFileBox extends React.Component {
 		}
 
 		let showDownload = ' hide';
-		if (this.props.download.show) {
+		if (this.props.download.show && this.props.download.url != '#') {
 			showDownload = '';
 		}
 
