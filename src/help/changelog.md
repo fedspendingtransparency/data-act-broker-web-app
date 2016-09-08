@@ -23,11 +23,11 @@ In previous versions of the Broker, you could only upload a D2 file. If you didn
 
 #### Improved 508 Compliance{section=508compliance}
 
-In this release, the Broker has further improved it's compliance with 508 accessibility guidelines. 
+In this release, the Broker has further improved it's compliance with 508 accessibility guidelines.
 
 #### Increase Server Capacity{section=capacity}
 
-In this release, the development team has significantly increased the base capacity of the web and database servers powering the Broker. 
+In this release, the development team has significantly increased the base capacity of the web and database servers powering the Broker.
 
 #### Notify Another User{section=notifyauser}
 

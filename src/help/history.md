@@ -1,3 +1,38 @@
+#### What's New in This Release - August 10, 2016
+
+In this version of the Broker, we separated out the validation checks into warnings and critical errors, added the interface to create D1 and D2 files, improved 508 compliance, increased server capacity, added an interface for broker users to notify other users that a submission is ready, and fixed a bug that incorrectly showed submissions as valid on the home page submission table.
+
+  - [Warnings and Errors](#/help?section=warnings)
+  - [Generating D1 and D2](#/help?section=d1d2)
+  - [Improved 508 Compliance](#/help?section=508compliance)
+  - [Increased Server Capacity](#/help?section=capacity)
+  - [Notify Another User](#/help?section=notifyauser)
+  - [Bugfix: Submissions Incorrectly Show as Valid](#/help?section=homepagesubmissiontable)
+
+#### Warnings and Errors{section=warnings}
+
+In previous versions of the Broker, all failing validations were treated as critical errors. In this release, we have added an almost identical interface for the warnings, complete with a downloadable file and table. The warnings appear alongside the existing error download and tables. Files with warnings may be submitted, but files with critical errors will not pass validation and may not be submitted.
+
+#### Generating D1 and D2{section=d1d2}
+
+In previous versions of the Broker, you could only upload a D2 file. If you didn't have a D2 file, you could use the sample file provided. In this release, we have added the interface to generate the D1 and D2 files. **PLEASE NOTE** that the interface currently returns sample files until the integration with the ASP and FPDS is complete in the next 2-3 weeks.
+
+#### Improved 508 Compliance{section=508compliance}
+
+In this release, the Broker has further improved it's compliance with 508 accessibility guidelines. 
+
+#### Increase Server Capacity{section=capacity}
+
+In this release, the development team has significantly increased the base capacity of the web and database servers powering the Broker. 
+
+#### Notify Another User{section=notifyauser}
+
+Broker users can now send a notification to another user within their same agency when they want them to view a submission. This option is available on the Review Data page, after all validations have completed. You can also send other users in your agency the link to your in-progress submission anytime.
+
+#### Bugfix: Submissions Incorrectly Show as Valid{section=homepagesubmissiontable}
+
+Several users reported a minor bug with the submission table that appears on the home page. It was showing submissions as valid that actually had errors. This has been corrected to more accurately reflect the status of a submission.
+
 ####  What's New in This Release - July 27, 2016
 
 In this version of the Broker, we updated the Broker branding to Beta, improved the validation processing time, implemented short data element names, made the styling more consistent, improved the accessibility of the Broker, added a resources section, and updated the information on validations. 
