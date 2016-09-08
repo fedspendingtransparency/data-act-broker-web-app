@@ -1,0 +1,9 @@
+// this is the placeholder page that loads while the initial site data is being downloaded
+.usa-da-pending-page {
+	@import "../../layouts/content/content";
+	@include contentLayout;
+
+	.pending-page {
+		background-color: $color-darkest;
+	}
+}

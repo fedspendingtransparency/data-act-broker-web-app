@@ -1,0 +1,15 @@
+@import "./_core";
+@mixin stagedUploadButton {
+
+    @include baseButton;
+    &.btn-staged-upload {
+        @include btnBase($color-green, $color-green-lightest);
+        box-shadow: inset 0 0 0 1px $color-green-lighter;
+        &:active {
+            @include btnBase($color-white, $color-green-light);
+        }
+        &:hover {
+            @include btnBase($color-white, $color-green-light);
+        }
+    }
+}

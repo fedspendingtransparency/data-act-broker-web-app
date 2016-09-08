@@ -1,0 +1,20 @@
+@mixin treemapSidebar {
+	margin-top: 10px;
+    border: 1px solid $color-gray-lighter;
+    min-height: 300px;
+    padding: 10px;
+    word-wrap: break-word;
+    font-size: 1.4rem;
+    line-height: 2.4rem;    
+    color: $color-gray;
+
+    .treemap-help-title {
+        font-weight: bold;
+    }
+
+    .treemap-help-description {
+        b {
+            text-transform: capitalize;
+        }
+    }
+}

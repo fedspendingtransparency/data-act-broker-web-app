@@ -1,0 +1,17 @@
+.usa-da-review-data-user-row {
+    height: 41px;
+    margin: 1rem 0 1rem;
+    padding: 0.5rem 0 0.5em;
+    border: 1px solid #cacaca;
+    color: #696969;
+    .usa-da-icon,
+    .usa-da-icon * {
+        height: 20px;
+        cursor: pointer;
+        margin: 0.25rem;
+        color: #696969;
+    }
+    span {
+        vertical-align: super;
+    }
+}

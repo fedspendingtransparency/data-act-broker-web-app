@@ -1,0 +1,27 @@
+@mixin tableSorter {
+    position: absolute;
+    top: 2px;
+    right: 15px;
+    height: 100%;
+    width: 40px;
+    @include display(flex);
+    @include flex-direction(row);
+    @include align-items(center);
+
+    & .usa-da-icon {
+    	height: 2.4rem;
+    	width: 2.2rem;
+    	& svg{
+    		fill: $color-white;
+    	}
+    	&.active{
+    		& svg{
+    			fill:$color-gold-lighter;
+    		}
+    	}
+    	&.sort-icon {
+    	    cursor: pointer;
+            flex: 0 1 auto;
+    	}
+    }
+}

@@ -22,13 +22,29 @@ const propTypes = {
 export default class ReviewDataContent extends React.Component {
     constructor(props) {
         super(props);
+
+        this.state = {
+            openModal: false
+        };
     }
 
     notifyUser(e) {
         e.preventDefault();
 
-        this.refs.notifyModal.openModal();
+        this.setState({
+            openModal: true
+        });
     }
+
+    closeModal(e) {
+        if (e) {
+            e.preventDefault();
+        }
+        this.setState({
+            openModal: false
+        });
+    }
+
 
     render() {
         
@@ -53,12 +69,12 @@ export default class ReviewDataContent extends React.Component {
         const reportLabels = ['Agency Name:', 'Report Start Date:', 'Report End Date:', 'Total Obligations Incurred:', 'Total Financial Assistance Obligations:', 'Total Procurement Obligations:'];
 
         const reportData = [
-            'Need This',
+            '--',
             this.props.data.reporting_period_start_date,
             this.props.data.reporting_period_end_date,
-            'Need This',
-            'Need This',
-            'Need This'
+            '--',
+            '--',
+            '--'
         ];
 
         let reportRows = [];
@@ -108,7 +124,7 @@ export default class ReviewDataContent extends React.Component {
                         </div>
 
                         <div id="reviewDataNotifyModalHolder">
-                            <ReviewDataNotifyModal {...this.props} ref="notifyModal" />
+                            <ReviewDataNotifyModal {...this.props} closeModal={this.closeModal.bind(this)} isOpen={this.state.openModal} />
                         </div>
                     </div>
                 </div>

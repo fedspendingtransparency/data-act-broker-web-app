@@ -1,0 +1,25 @@
+@mixin loginFormBottomLinks {
+    ul {
+        margin-bottom: 0;
+        margin-top: 0;
+
+        li {
+            @include list-row(31px, 31px);
+            color: as-alpha($color-white, 0.99);
+            border-right: 1px solid #5b616b;
+            padding: 0 10px;
+            & a {
+                color: as-alpha($color-white, 0.99);
+                font-size: 1.2rem;
+            }
+        }
+        @media screen and (max-width: $small-screen) {
+            margin: 0 auto 0;
+        }
+    }
+
+    a.forgot-back {
+        color: as-alpha($color-white, 0.99);
+        font-size: 1.2rem;
+    }
+}

@@ -1,0 +1,14 @@
+.usa-da-review-data-alternating-rows {
+    padding-right: 28px;
+    margin-bottom: 23px;
+    color: #555;
+    > div {
+        padding: 14px 0;
+    }
+    & div.row:nth-child(even) {
+        background-color: $color-gray-lightest;
+    }
+    @media(max-width:$small-screen) {
+        margin: 30px 0 20px;
+    }
+}

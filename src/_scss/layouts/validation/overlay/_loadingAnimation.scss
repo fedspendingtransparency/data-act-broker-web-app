@@ -1,0 +1,12 @@
+.overlay-animation {
+	margin-top: 8px;
+
+	@import "../../../lib/spinkit/spinners/2-double-bounce";
+
+	.sk-double-bounce {
+		margin: 0;
+		.sk-child {
+			background-color: $color-white;
+		}
+	}
+}

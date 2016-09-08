@@ -1,0 +1,11 @@
+// this is the black header bar that runs across the top of the page
+@import "./_userMenu";
+
+@mixin headerUserBar {
+	.usa-da-top-head {
+	    background: $color-base;
+	    height: $top-header-height;
+
+	    @include headerUserMenu;
+	}
+}
