@@ -37,18 +37,7 @@ Broker users can now send a notification to another user within their same agenc
 
 Several users reported a minor bug with the submission table that appears on the home page. It was showing submissions as valid that actually had errors. This has been corrected to more accurately reflect the status of a submission.
 
-#### Resources{section=resources}
-We identified several files that you may want to have readily available while using the Broker.
-
-* File A: Appropriation Account data [Download sample file](https://s3-us-gov-west-1.amazonaws.com/prod-data-act-web-static-files/sample-files/appropValid.csv)
-* File B: Object Class and Program Activity data [Download sample file](https://s3-us-gov-west-1.amazonaws.com/prod-data-act-web-static-files/sample-files/programActivityValid.csv)
-* File C: Award Financial data [Download sample data](https://s3-us-gov-west-1.amazonaws.com/prod-data-act-web-static-files/sample-files/awardFinancialValid.csv)
-* File D2: Financial Assistance Award data [Download sample file](https://s3-us-gov-west-1.amazonaws.com/prod-data-act-web-static-files/sample-files/awardValid.csv)
-* Long Element Name to Short Element Name Crosswalk [Download file](https://s3-us-gov-west-1.amazonaws.com/prod-data-act-submission/rss/AgencyLabel_to_TerseLabel.xlsx)
-* Validation Rules resource [Download file](https://s3-us-gov-west-1.amazonaws.com/prod-data-act-submission/rss/Validation_Rules.xlsx)
-* Domain Values resource [Download file](https://s3-us-gov-west-1.amazonaws.com/prod-data-act-submission/rss/Domain_Values.xlsx)
 * [Practices and Procedures](#/practices?section=top)
-
 #### Updated Validations{section=updatedValidations}
 Below is a cumulative table of validations in the RSS. The status column indicates whether they are currently implemented in the Broker. Some rules that were already implemented in the Broker were changed in the release of the Errata. The currently implemented rule and new rule are both listed below, with corresponding version indicators in the rule label (i.e. "C14 (v1)" or "C14 (v2)").
 
