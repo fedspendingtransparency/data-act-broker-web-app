@@ -1,0 +1,31 @@
+.success-wrapper {
+	text-align: center;
+	margin-bottom: 1.5rem;
+
+	.success-header {
+		font-weight: bold;
+	}
+}
+
+.close-button {
+	background-color: $color-white;
+	border: 1px solid $color-gray-lighter;
+
+	display: block;
+	margin-left: auto;
+	margin-right: auto;
+
+	&:hover, &:active {
+		background-color: $color-gray-lighter;
+	}
+}
+
+.alert-danger {
+	@import "../../../components/alerts/_alerts";
+	@include dangerAlert;
+}
+
+.alert-warning {
+	@import "../../../components/alerts/_alerts";
+	@include warningAlert;	
+}
