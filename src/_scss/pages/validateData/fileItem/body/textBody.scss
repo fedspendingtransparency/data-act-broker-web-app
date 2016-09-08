@@ -1,0 +1,30 @@
+@import "../../../../components/positioning/_centerContent";
+
+@mixin fileItemTextBody {
+    text-align: center;
+    font-size: $h4-font-size;
+    font-weight: bold;
+    padding: 15px 0;
+    height: 111px;
+    @include flexCenterContent;
+    
+    .usa-da-validate-item-message {
+        color: $color-secondary;
+        margin: -35px 0 0 0;
+    }
+    .validate-message-loading {
+        color: blue;
+    }
+    .usa-da-validate-txt-wrap {
+        margin: -35px 0 0 0;
+    }
+    .usa-da-validate-loading-message {
+        margin: -35px 0 0 0;
+    }
+
+
+    .usa-da-validate-item-message-label {
+        font-weight: 400;
+        color: $color-gray;
+    }
+}

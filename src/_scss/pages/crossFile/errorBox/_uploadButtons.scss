@@ -1,0 +1,19 @@
+.usa-da-button {
+    @import "../../../components/buttons/_primary";
+    @include primaryButton;
+
+    &.btn-optional {
+        @import "../../../components/buttons/_optional";
+        @include optionalButton;
+    }
+
+    &.btn-staged-upload {
+        @import "../../../components/buttons/_stagedUpload";
+        @include stagedUploadButton;
+    }
+
+    &.btn-danger-outline {
+        @import "../../../components/buttons/_danger";
+        @include dangerButton;
+    }
+}

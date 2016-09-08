@@ -1,0 +1,8 @@
+// import typeahead styles
+@import "../../../components/typeahead/_typeahead";
+
+// import the alerts
+.alert-error {
+	@import "../../../components/alerts/_alerts";
+	@include dangerAlert;
+}

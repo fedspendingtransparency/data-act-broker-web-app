@@ -1,0 +1,17 @@
+.usa-da-generate-download {
+	border: 1px solid $color-gray-lighter;
+	border-top: none;
+	width: 100%;
+	padding: 20px;
+
+	.download-title {
+		font-weight: bold;
+	}
+
+	.usa-da-download {
+		// implement the download button
+		@import "../../../components/buttons/_download";
+		@include downloadButton;
+		text-decoration: none;
+	}
+}

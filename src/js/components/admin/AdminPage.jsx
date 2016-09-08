@@ -13,7 +13,7 @@ export default class AdminPage extends React.Component {
     render() {
         return (
             <div>
-            	<div className="usa-da-site_wrap">
+            	<div className="usa-da-site_wrap usa-da-admin-page">
 	                <Navbar activeTab="admin"/>
 	                <AdminPageHeader />
 	                <AdminPageContent />

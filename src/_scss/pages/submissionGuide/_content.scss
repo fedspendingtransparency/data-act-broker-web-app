@@ -1,0 +1,8 @@
+.usa-da-submission-guide {
+    .submission-guide-holder {
+        @media(min-width: $medium-screen) {
+            @include display(flex);
+            @include flex-direction(row);
+        }
+    }
+}

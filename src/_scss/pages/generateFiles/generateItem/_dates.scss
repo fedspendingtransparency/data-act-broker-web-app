@@ -1,0 +1,26 @@
+.date-range-wrapper {
+
+	flex: 0 1 auto;
+	width: 67%;
+	position: relative;
+
+
+	display: flex;
+	flex-direction: row;
+	justify-content: center;
+	align-items: stretch;
+
+	background-color: $color-gray-lighter;
+	padding: 20px;
+
+	@import "./_datepicker";
+
+	.through-text {
+		flex: 0 1 auto;
+		position: relative;
+		width: 100px;
+		align-self: center;
+		text-align: center;
+		line-height: 1.4rem;
+	}
+}

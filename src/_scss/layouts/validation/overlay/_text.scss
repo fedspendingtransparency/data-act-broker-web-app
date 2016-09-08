@@ -1,0 +1,18 @@
+@mixin validationOverlayText {
+	h6 {
+	    color: $color-white;
+	    margin-top:0;
+	    text-shadow: 0px 0px 4px rgba(50, 58, 69, 0.4);
+	    @media screen and (max-width: $small-screen) {
+	        font-size: 1.6rem;
+	        margin: 10px 0;
+	        text-align: center;
+	    }
+	}
+
+	.overlay-help-text {
+        & a {
+            color: $color-white;
+        }
+    }
+}

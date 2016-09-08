@@ -1,0 +1,9 @@
+.usa-da-admin-table-wrapper {
+    @include contentBlockWrapper;
+    padding: 30px 20px 20px;
+    margin-bottom: 40px;
+
+    ul {
+    	margin-top: 0px;
+    }
+}

@@ -11,6 +11,8 @@ import * as uploadActions from '../redux/actions/uploadActions.js';
 import { fileTypes } from '../containers/addData/fileTypes.js';
 import * as AdminHelper from './adminHelper.js';
 
+Q.longStackSupport = true;
+
 const availablePairs = ['appropriations-program_activity', 'award_financial-award'];
 const globalFileKeys = ['appropriations', 'program_activity', 'award_financial', 'award'];
 export const globalFileData = {

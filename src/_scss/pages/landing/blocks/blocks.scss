@@ -1,0 +1,21 @@
+// style the block wrapper
+.usa-da-landing.col-md-12 {
+    margin: 0;
+    padding: 0;
+
+    .usa-da-landing-btns {
+	    margin: 60px auto;
+	}
+
+	.usa-da-landing-block-wrap {
+	    @media(max-width: $medium-screen) {
+	        padding-left: 0px;
+	        padding-top: 20px;
+	        &:first-child {
+	            padding-top: 0px;
+	        }
+	    }
+	}
+
+	@import "./_blockItem";
+}

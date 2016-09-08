@@ -1,0 +1,34 @@
+// typeahead styles
+.typeahead-holder {
+    div {
+        width: 100%;
+        border-radius: 0;
+        box-sizing: border-box;
+        color: #a9a9a9;
+        font-size: 1.7rem;
+        margin: .2em 0;
+        max-width: none;
+        outline: none;
+    }
+    .awesomplete {
+        .visually-hidden {
+            position: absolute;
+            clip: rect(0, 0, 0, 0);
+        }
+    }
+    .error-icon {
+        svg {
+            fill: $color-secondary !important;
+            height: 45px !important;
+            width: 45px !important;
+            right: 0px !important;
+        }
+    }
+    
+    @import "./_dropdownList";
+
+    input {
+        @import "../inputs/_generic";
+        @include genericInput;
+    }
+}

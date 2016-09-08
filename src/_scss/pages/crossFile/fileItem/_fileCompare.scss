@@ -1,0 +1,34 @@
+.file-compare {
+    flex: 0 1 auto;
+    height: 50px;
+    width: 270px;
+    position: relative;
+    .usa-da-item-comparison {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        justify-content: center;
+        position: absolute;
+        height: 100%;
+        width: 100%;
+        .under-layer {
+            position: absolute;
+            top: 0;
+            left: 0;
+            height: 100%;
+            width: 100%;
+            z-index: -1;
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            justify-content: center;
+        }
+        .line {
+            flex: 0 1 auto;
+            width: 100%;
+            height: 2px;
+            border: 1px solid $color-gray-light;
+        }
+        @import "./_fileCompareIcons";
+    }
+}

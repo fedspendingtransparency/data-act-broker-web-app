@@ -1,0 +1,14 @@
+.usa-da-date-dropdown {
+	// hide the dropdown arrow
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    background-color: #ffffff;
+    background-image: none;
+    &.error {
+        border-color: $color-secondary;
+    }
+
+    @import "../../../components/inputs/_generic";
+    @include genericInput;
+}

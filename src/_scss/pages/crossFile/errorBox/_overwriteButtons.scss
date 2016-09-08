@@ -1,0 +1,25 @@
+.overwrite-wrapper {
+    flex: 0 1 auto;
+    width: 100%;
+    padding-left: 0;
+    .upload-warning {
+        margin-top: 15px;
+    }
+    .button-list {
+        padding-top: 0px;
+        .upload-buttons {
+            display: flex;
+            flex-direction: row;
+
+            > div {
+                flex: 0 1 auto;
+                width: 50%;
+                padding-left: 10px;
+                &:first-child {
+                    padding-left: 0px;
+                    padding-right: 10px;
+                }
+            }
+        }
+    }
+}

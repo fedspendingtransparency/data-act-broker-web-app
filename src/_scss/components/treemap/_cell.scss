@@ -1,0 +1,14 @@
+@mixin treemapCell {
+	position: absolute;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    padding: 5px;
+    cursor: pointer;
+    font-size: 1.2rem;
+    border-right: 1px solid $color-white;
+    border-bottom: 1px solid $color-white;
+
+    .treemap-rule {
+        font-weight: bold;
+    }
+}

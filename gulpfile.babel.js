@@ -172,7 +172,9 @@ gulp.task('sass', ['copyAssets'], () => {
             .on('change', () => {
                 gutil.log(chalk.green('Starting SASS recompile...'));
                 return gulp.src('./src/css/**/*.scss')
-                    .pipe(sass.sync().on('error', sass.logError))
+                    .pipe(sourcemaps.init())
+                    .pipe(sass().on('error', sass.logError))
+                    .pipe(sourcemaps.write())
                     .pipe(gulp.dest('./public/css'))
                     // auto reload the browser
                     .pipe(connect.reload())

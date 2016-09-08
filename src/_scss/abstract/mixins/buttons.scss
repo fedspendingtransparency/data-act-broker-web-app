@@ -1,0 +1,4 @@
+@mixin btnBase($txtColor, $bgColor){
+    color: $txtColor;
+    background: $bgColor;
+}

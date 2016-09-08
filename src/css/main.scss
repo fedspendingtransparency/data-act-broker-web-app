@@ -1,11 +1,5 @@
-// @import '../_scss/styleguide';
-@import '../_scss/all';
-
-// Bootstrap
+// import bootstrap
 @import '../../node_modules/bootstrap-sass/assets/stylesheets/_bootstrap';
 
-// 18F colors
-@import '../_scss/core/_variables';
-
-// Customizations
-@import '../_scss/custom';
+// import custom styles
+@import '../_scss/all.scss';

@@ -1,0 +1,37 @@
+.usa-da-file-wrap {
+    position: relative;
+    background: #fff url('/graphics/large_file_icon.png') no-repeat;
+    height: 28.3rem;
+    width: 24.0rem;
+    margin: 0 auto;
+    position: relative;
+    z-index: 999;
+    & .usa-da-icon-CheckCircle {
+        width: 10rem;
+        margin: 0 auto;
+        & > svg {
+            margin: 20px 0 0;
+            height: 10rem;
+            width: 10rem;
+            position: relative;
+            top: 5px;
+            fill: $color-green-light;
+            animation: rotateCheck 6s infinite;
+        }
+    }
+    &:after {
+        content: "";
+        height: 237px;
+        width: 100%;
+        background: transparent;
+        display: block;
+        position: absolute;
+        left: -1px;
+        top: 44px;
+        box-shadow: 5px 7px 7px rgba(0, 0, 0, 0.2);
+        z-index: -1;
+    }
+    
+    @import "./_fileStats";
+    @import "./_bottomLinks";
+}

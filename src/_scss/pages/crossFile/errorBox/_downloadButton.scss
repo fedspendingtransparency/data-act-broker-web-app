@@ -1,0 +1,7 @@
+ .usa-da-download {
+    @import "../../../components/buttons/_download";
+    @include downloadButton;
+
+    margin-top: 0;
+    text-decoration: none;
+}

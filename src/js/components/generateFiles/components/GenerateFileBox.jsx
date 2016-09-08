@@ -11,19 +11,13 @@ const defaultProps = {
 	startingTab: 1,
 	download: {
 		show: false,
-		url: ''
+		url: '#'
 	}
 };
 
 export default class GenerateFileBox extends React.Component {
 	constructor(props) {
 		super(props);
-	}
-
-	downloadFile(e) {
-		e.preventDefault();
-		const url = this.props.download.url;
-		window.open(url, '_blank');
 	}
 
 	render() {
@@ -33,7 +27,7 @@ export default class GenerateFileBox extends React.Component {
 		}
 
 		let showDownload = ' hide';
-		if (this.props.download.show) {
+		if (this.props.download.show && this.props.download.url != '#') {
 			showDownload = '';
 		}
 
@@ -54,11 +48,11 @@ export default class GenerateFileBox extends React.Component {
 		            </div>
 		            <div className={"usa-da-generate-download" + showDownload}>
 		            	<div className="row">
-		            		<div className="col-sm-4 col-sm-offset-8">
+		            		<div className="col-sm-12">
 				            	<div className="download-title text-right">
 									Download {this.props.label}
 								</div>
-								<a href="#" className="usa-da-download pull-right" onClick={this.downloadFile.bind(this)}>
+								<a href={this.props.download.url} target="_blank" className="usa-da-download pull-right">
 	            	                <span className="usa-da-icon usa-da-download-report"><Icons.CloudDownload /></span>Download File
 	            	            </a>
 							</div>

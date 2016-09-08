@@ -1,0 +1,36 @@
+// layouts associated with the login page style
+@import "./_background";
+@import "./_topBanner";
+@import "./_centerBanner";
+@import "./_warningFooter";
+@import "./loginForm/loginForm";
+
+@mixin loginLayout {
+
+	// handle the basic outer positioning
+	.flex-wrapper{
+		@include display(flex);
+	    @include flex-direction(column);
+	}
+
+	.usa-da-login {
+		@include loginBackground;
+	}
+
+	.usa-da-top-banner {
+		@include loginTopBanner;
+	}
+
+	.login-banner-wrap {
+		@include loginCenterBanner;
+	}
+
+	.usa-da-warning-msg {
+		@include loginWarningFooter;
+	}
+
+	.usa-da-login-container {
+		// implement the login form styles
+		@include loginForm;
+	}
+}

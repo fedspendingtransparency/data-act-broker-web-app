@@ -33,7 +33,7 @@ export default class SubmissionComponent extends React.Component {
         }
 
         return (
-            <div>
+            <div className="usa-da-add-data-upload-section">
                 <div className="container">
                     <div className="row usa-da-submission-instructions">
                         <div className="col-md-12">

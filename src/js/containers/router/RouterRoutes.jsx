@@ -2,6 +2,8 @@ import { hashHistory } from 'react-router';
 
 import LandingPage from '../../components/landing/LandingPage.jsx';
 import LoginPage from '../../components/login/LoginPage.jsx';
+import SubmissionGuideContainer from '../../containers/addData/SubmissionGuideContainer.jsx';
+import AddDataPageContainer from '../../containers/addData/AddDataPageContainer.jsx';
 
 import StoreSingleton from '../../redux/storeSingleton.js';
 
@@ -83,7 +85,7 @@ const redirectIfLogin = (nextState, replace) => {
     //TODO Add check For User Permissions
 }
 const debugRoute = (nextState, replace) => {
-
+    
 }
 
 // defining the routes outside of the component because React Router cannot handle state/prop changes that Redux causes
@@ -115,20 +117,12 @@ const routeDefinitions = {
         {
             path: 'submissionGuide',
             onEnter: checkUserPermissions,
-            getComponent(nextState, cb) {
-                require.ensure([], (require) => {
-                    cb(null, require('../../containers/addData/SubmissionGuideContainer.jsx').default)
-                });
-            }
+            component: SubmissionGuideContainer
         },
         {
             path: 'addData',
             onEnter: checkUserPermissions,
-            getComponent(nextState, cb) {
-                require.ensure([], (require) => {
-                    cb(null, require('../../containers/addData/AddDataPageContainer.jsx').default)
-                });
-            }
+            component: AddDataPageContainer
         },
         {
             path: 'validateData/:submissionID',
@@ -145,6 +139,15 @@ const routeDefinitions = {
             getComponent(nextState, cb) {
                 require.ensure([], (require) => {
                     cb(null, require('../../components/generateFiles/GenerateFilesPage.jsx').default)
+                });
+            }
+        },
+        {
+            path: 'generateEF/:submissionID',
+            onEnter: checkUserPermissions,
+            getComponent(nextState, cb) {
+                require.ensure([], (require) => {
+                    cb(null, require('../../components/generateEF/GenerateEFPage.jsx').default)
                 });
             }
         },
