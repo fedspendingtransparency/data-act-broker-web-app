@@ -1,6 +1,6 @@
 #### What's New in This Release - September 8, 2016
 
-In this version of the Broker, we are importing D1 and D2 file information from the USAspending UAT environment, improved the handling of encoding in files, corrected a Resources file, and added and updated soem validations.
+In this version of the Broker, we are importing D1 and D2 file information from the USAspending UAT environment, improved the handling of encoding in files, corrected a Resources file, and added and updated some validations.
 
   - [Updated: Generating D1 and D2](#/help?section=d1d2updated)
   - [Encoding in Files](#/help?section=encoding)
@@ -11,7 +11,7 @@ In this version of the Broker, we are importing D1 and D2 file information from 
 
 #### Updated: Generating D1 and D2{section=d1d2updated}
 
-In this release, we have added the ability to generate the D1 and D2 files from the data in the USAspending UAT environment that comes from ASP and FPDS. **Note:** This functionality is newly implemented so let us know if you have problems.
+In this release, we have added the ability to generate the D1 and D2 files from the data in the USAspending UAT environment that comes from ASP and FPDS. The procurement data for File D1 is only available through 7/31/2016, at this time. Submit your financial assistance data for File D2 through the ASP UAT environment. **Note:** This functionality is newly implemented so let us know if you have problems.
 
 #### Encoding in Files{section=encoding}
 
@@ -65,7 +65,7 @@ Refer to the [Resources](#/help?section=resources) section for sample files and 
         <tr>
             <td>A</td>
             <td>A6</td>
-            <td class="break-word"BudgetAuthorityAvailableAmountTotal_CPE= CPE value for GTAS SF 133 line #1910, for the same reporting period</td>
+            <td class="break-word">BudgetAuthorityAvailableAmountTotal_CPE= CPE value for GTAS SF 133 line #1910, for the same reporting period</td>
             <td>Implemented</td>
             <td>Calculation</td>
         </tr>
@@ -646,7 +646,7 @@ Refer to the [Resources](#/help?section=resources) section for sample files and 
         <tr>
             <td>D2</td>
             <td>D8</td>
-            <td class="break-word">Year must be in current or previous fiscal year (as compared to the date of ASP submission). and follow format YYYYQ, with Q representing fiscal quarter and taking value 1, 2, 3, or 4. </td>
+            <td class="break-word">Year must be in current or previous fiscal year (as compared to the date of ASP submission) and follow format YYYYQ, with Q representing fiscal quarter and taking value 1, 2, 3, or 4. </td>
             <td>Implemented in ASP</td>
             <td>Requirement</td>
         </tr>
@@ -688,14 +688,14 @@ Refer to the [Resources](#/help?section=resources) section for sample files and 
         <tr>
             <td>D2</td>
             <td>D14</td>
-            <td class="break-word">With two exceptions, this field must contain a valid two letter USPS state code in the first two positions. The two exceptions: 1) field must contain "00FORGN" when PrimaryPlaceOfPerformanceCountryCode is not USA;  2) field must contain "00*****" for multi-state places of performance.</td>
+            <td class="break-word">With two exceptions, this field must contain a valid two letter USPS state code in the first two positions. The two exceptions: 1) field must contain "00FORGN" when PrimaryPlaceOfPerformanceCountryCode is not USA; 2) field must contain "00*****" for multi-state places of performance.</td>
             <td>Implemented in ASP</td>
             <td>Requirement</td>
         </tr>
         <tr>
             <td>D2</td>
             <td>D15</td>
-            <td class="break-word">PrimaryPlaceOfPerformanceCode must be consistent with PrimaryPlaceOfPerformanceZIP+4, PrimaryPlaceOfPerformanceCountryCode, and PrimaryPlaceOfPerformanceCongressionalDistrict. For aggregate records (i.e., RecordType = 1), it must be in XX**### format, where XX is the USPS state code and ### a valid three-digit county code. When PrimaryPlaceOfPerformanceZIP+4 is provided, PrimaryPlaceOfPerformanceCode should be in XX##### format, where XX is the USPS state code and ##### a valid five-digit city code. For more information on the state, city, and county codes, see the  "Domain_Values.xlsx" spreadsheet</td>
+            <td class="break-word">PrimaryPlaceOfPerformanceCode must be consistent with PrimaryPlaceOfPerformanceZIP+4, PrimaryPlaceOfPerformanceCountryCode, and PrimaryPlaceOfPerformanceCongressionalDistrict. For aggregate records (i.e., RecordType = 1), it must be in XX**### format, where XX is the USPS state code and ### a valid three-digit county code. When PrimaryPlaceOfPerformanceZIP+4 is provided, PrimaryPlaceOfPerformanceCode should be in XX##### format, where XX is the USPS state code and ##### a valid five-digit city code. For more information on the state, city, and county codes, see the "Domain_Values.xlsx" spreadsheet</td>
             <td>Implemented in ASP</td>
             <td>Requirement</td>
         </tr>
