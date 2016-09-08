@@ -1,0 +1,11 @@
+.usa-da-help-content{
+    @include contentBlockWrapper;
+    padding: 20px 30px;
+    margin: 0 0 40px;
+
+    // resize the JIRA GIF
+    img {
+    	max-width: 100%;
+    }
+
+}

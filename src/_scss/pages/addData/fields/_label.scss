@@ -1,0 +1,15 @@
+.usa-da-add-data-meta-label {
+    margin: 15px 0px 10px;
+    text-align: left;
+    font-size: 1.6rem;
+    color: #555;
+    &.usa-da-duration,
+    &.usa-da-range {
+        margin: 31px 0 10px;
+        border-top: 1px dashed $color-gray-lighter;
+        padding-top: 30px;
+    }
+    &.usa-da-range {
+        margin: 28px 0 10px;
+    }
+}

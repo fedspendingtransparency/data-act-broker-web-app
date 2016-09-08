@@ -1,0 +1,11 @@
+// handle alert boxes
+@import "../../../components/alerts/_alerts";
+
+@mixin loginFormAlerts {
+	.alert-error {
+		@include dangerAlert;
+	}
+	.alert-success {
+		@include successAlert;
+	}
+}

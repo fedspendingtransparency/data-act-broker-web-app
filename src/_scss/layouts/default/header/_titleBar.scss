@@ -1,0 +1,13 @@
+// this is the third level header bar
+@mixin headerTitleBar {
+	color: white;
+	background-color: $color-darkest;
+
+	& .row.usa-da-content-landing {
+		background: url('../graphics/bar_bg.png') no-repeat bottom right;
+	}
+	
+	& .display-1, .display-2, h1, h2, h3, h4, h5, h6, ul{
+		color: $color-white;
+	}
+}

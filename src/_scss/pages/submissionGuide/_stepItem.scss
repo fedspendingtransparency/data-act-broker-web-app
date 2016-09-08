@@ -1,0 +1,9 @@
+.usa-da-reg-wrapper {
+    @include contentBlockWrapper;
+    padding: 30px 20px;
+    @media(max-width: $medium-screen) {
+        h4 {
+            margin-left: 50px;
+        }
+    }
+}

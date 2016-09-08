@@ -1,0 +1,5 @@
+.usa-da-login-page {
+	// inherit the basic layout of the page
+	@import "../../layouts/login/login";
+	@include loginLayout;
+}

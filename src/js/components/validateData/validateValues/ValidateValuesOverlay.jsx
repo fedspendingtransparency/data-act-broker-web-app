@@ -6,6 +6,7 @@
 import React from 'react';
 import { hashHistory } from 'react-router';
 import * as Icons from '../../SharedComponents/icons/Icons.jsx';
+import CommonOverlay from '../../SharedComponents/overlays/CommonOverlay.jsx';
 
 const defaultProps = {
 	allowUpload: false
@@ -45,13 +46,13 @@ export default class ValidateValuesOverlay extends React.Component {
 			uploadButtonClass = ' btn-primary';
 		}
 
-		let message = 'You must fix the Critical Errors found in ' + this.props.errors.length + ' of the .CSV files before moving on to the next step. View and download individual reports above.';
+		let header = 'You must fix the Critical Errors found in ' + this.props.errors.length + ' of the .CSV files before moving on to the next step. View and download individual reports above.';
 		let detail = '';
 
 		if (this.props.errors.length == 0) {
 			icon = <Icons.CheckCircle />;
 			iconClass = 'usa-da-successGreen';
-			message = 'No Critical Errors were found in the .CSV files. Click Next to generate your D1 and D2 files.';
+			header = 'No Critical Errors were found in the .CSV files. Click Next to generate your D1 and D2 files.';
 			uploadButtonDisabled = true;
 			uploadButtonClass = '-disabled';
 			nextButtonClass = ' btn-primary';
@@ -61,8 +62,7 @@ export default class ValidateValuesOverlay extends React.Component {
 				// there are warnings
 				icon = <Icons.ExclamationCircle />
 				iconClass = 'usa-da-warningYellow';
-				// message = 'Warnings were found in ' + this.props.warnings.length + ' of the .CSV files.';
-				message = 'There are warnings in ' + this.props.warnings.length + ' of the .CSV files uploaded in this submission.';
+				header = 'There are warnings in ' + this.props.warnings.length + ' of the .CSV files uploaded in this submission.';
 				detail = 'You can correct the files or click Next to generate your D1 and D2 files as-is.';
 			}
 
@@ -96,31 +96,20 @@ export default class ValidateValuesOverlay extends React.Component {
 
 
 		return (
-			<div className="center-block usa-da-validation-overlay">
-				<div className="container">
-					<div className="row">
-						<div className="col-xs-10 col-xs-offset-1 col-md-8 col-md-offset-0 usa-da-overlay-content-wrap">
-							<div className="row">
-								<div className="col-xs-2 col-xs-offset-5 col-md-1 col-md-offset-0 usa-da-icon mr-10">
-									<div className={iconClass}>{icon}</div>
-								</div>
-								<div className="col-xs-10 col-xs-offset-1 col-md-10 col-md-offset-0">
-									<h6>{message}</h6>
-									<div className="overlay-help-text">
-										{detail}
-									</div>
-								</div>
-							</div>
-						</div>
-						<div className="col-md-4">
-							<div className='usa-da-btn-bg'>
-								<button className={"usa-da-button" + uploadButtonClass} disabled={uploadButtonDisabled} onClick={this.props.uploadFiles} data-testid="validate-overlay-upload-button">{buttonText}</button>
-								<button className={"usa-da-validation-overlay-review usa-da-button" + nextButtonClass} disabled={nextButtonDisabled} onClick={this.pressedNext.bind(this)} data-testid="validate-overlay-review-button">Next</button>
-							</div>
-						</div>
-					</div>
+			<CommonOverlay
+				header={header}
+				detail={detail}
+				showIcon={true}
+				icon={icon}
+				iconClass={iconClass}
+				showButtons={true}>
+
+				<div className='usa-da-btn-bg'>
+					<button className={"usa-da-button" + uploadButtonClass} disabled={uploadButtonDisabled} onClick={this.props.uploadFiles} data-testid="validate-overlay-upload-button">{buttonText}</button>
+					<button className={"usa-da-validation-overlay-review usa-da-button" + nextButtonClass} disabled={nextButtonDisabled} onClick={this.pressedNext.bind(this)} data-testid="validate-overlay-review-button">Next</button>
 				</div>
-            </div>
+
+			</CommonOverlay>
 		)
 	}
 }

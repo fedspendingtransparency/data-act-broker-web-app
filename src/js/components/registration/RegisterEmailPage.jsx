@@ -21,10 +21,12 @@ const defaultProps = {
 export default class RegisterEmailPage extends React.Component {
     render() {
         return (
-            <div className="usa-da-login container-fluid">
-                <LoginTopBar/>
-                <RegisterEmailBanner errors={this.props.registration.errors} />
-                <LoginWarningTxt/>
+            <div className="usa-da-registration-login-page">
+                <div className="usa-da-login container-fluid">
+                    <LoginTopBar/>
+                    <RegisterEmailBanner errors={this.props.registration.errors} />
+                    <LoginWarningTxt/>
+                </div>
             </div>
         );
     }

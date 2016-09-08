@@ -1,0 +1,14 @@
+input[type="radio"] {
+	@import "../../../components/inputs/_generic";
+    @include genericInput;
+
+	margin: 4px 8px 0 0;
+    line-height: normal;
+    width: auto;
+    float: left;
+}
+
+label {
+	@import "../../../components/inputs/_label";
+	@include genericLabel;
+}

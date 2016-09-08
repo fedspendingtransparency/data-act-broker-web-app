@@ -1,0 +1,24 @@
+@import "./_userBar";
+@import "./_menuBar";
+@import "./_titleBar";
+
+@mixin defaultHeader {
+	.usa-da-header {
+		background-color: $color-gray-dark;
+	    border: none;
+	    height: $header-height;
+	    border-radius: 0;
+	    margin-bottom: 0;
+	    
+	    @include headerUserBar;
+	}
+
+	.usa-da-header-container {
+		height: 100%;
+		@include headerMenuBar;
+	}
+
+	.usa-da-content-dark {
+		@include headerTitleBar;		
+	}
+}

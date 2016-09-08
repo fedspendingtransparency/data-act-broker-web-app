@@ -1,0 +1,12 @@
+@mixin flexCenterContent{
+        @include display(flex);
+        @include flex-direction(row);
+        @include align-items(center);
+        @include justify-content(center);
+}
+
+@mixin flexCenterContentOnlyHeight{
+	@include display(flex);
+	@include flex-direction(row);
+	@include align-items(center);
+}

@@ -23,7 +23,6 @@ export default class ValidateValuesContent extends React.Component {
     }
 
     render() {
-
         const errors = [];
         const warnings = [];
 

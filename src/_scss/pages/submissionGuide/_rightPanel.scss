@@ -1,0 +1,41 @@
+.right-rail {
+    background: $color-gray-warm-light;
+    @media(max-width: $medium-screen) {
+        background: none;
+    }
+    @media(min-width: $medium-screen) {
+        @include display(flex);
+        @include flex-direction(column);
+        @include justify-content(center);
+    }
+    & .submission-guide-next-button {
+        @media(max-width: $medium-screen) {
+            margin-top: 30px;
+            width: 30%;
+            float: right;
+        }
+    }
+    & .submission-guide-hide {
+        text-align: center;
+        @media(max-width: $medium-screen) {
+            margin-top: 15px;
+            float: left;
+        }
+        & label {
+            margin-top: 20px;
+            font-size: 1.2rem;
+        }
+
+        input[type="checkbox"] {
+            height: 15px;
+            width: 15px;
+        }
+    }
+
+
+    // implement buttons
+    .usa-da-button {
+        @import "../../components/buttons/_primary";
+        @include primaryButton;
+    }
+}

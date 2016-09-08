@@ -43,7 +43,7 @@ export default class HelpPage extends React.Component {
 
     render() {
         return (
-            <div name="top">
+            <div className="usa-da-help-style-page" name="top">
                 <div className="usa-da-page-content">
                     <Navbar activeTab="help"/>
                     <div className="usa-da-content-dark mb-60">
