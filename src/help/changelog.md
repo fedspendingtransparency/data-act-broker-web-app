@@ -23,11 +23,11 @@ In previous versions of the Broker, you could only upload a D2 file. If you didn
 
 #### Improved 508 Compliance{section=508compliance}
 
-In this release, the Broker has further improved it's compliance with 508 accessibility guidelines. 
+In this release, the Broker has further improved it's compliance with 508 accessibility guidelines.
 
 #### Increase Server Capacity{section=capacity}
 
-In this release, the development team has significantly increased the base capacity of the web and database servers powering the Broker. 
+In this release, the development team has significantly increased the base capacity of the web and database servers powering the Broker.
 
 #### Notify Another User{section=notifyauser}
 
@@ -37,6 +37,7 @@ Broker users can now send a notification to another user within their same agenc
 
 Several users reported a minor bug with the submission table that appears on the home page. It was showing submissions as valid that actually had errors. This has been corrected to more accurately reflect the status of a submission.
 
+* [Practices and Procedures](#/practices?section=top)
 #### Updated Validations{section=updatedValidations}
 Below is a cumulative table of validations in the RSS. The status column indicates whether they are currently implemented in the Broker. Some rules that were already implemented in the Broker were changed in the release of the Errata. The currently implemented rule and new rule are both listed below, with corresponding version indicators in the rule label (i.e. "C14 (v1)" or "C14 (v2)").
 
