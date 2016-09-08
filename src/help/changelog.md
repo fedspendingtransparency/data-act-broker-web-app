@@ -23,11 +23,11 @@ In previous versions of the Broker, you could only upload a D2 file. If you didn
 
 #### Improved 508 Compliance{section=508compliance}
 
-In this release, the Broker has further improved it's compliance with 508 accessibility guidelines. 
+In this release, the Broker has further improved it's compliance with 508 accessibility guidelines.
 
 #### Increase Server Capacity{section=capacity}
 
-In this release, the development team has significantly increased the base capacity of the web and database servers powering the Broker. 
+In this release, the development team has significantly increased the base capacity of the web and database servers powering the Broker.
 
 #### Notify Another User{section=notifyauser}
 
@@ -47,6 +47,7 @@ We identified several files that you may want to have readily available while us
 * Long Element Name to Short Element Name Crosswalk [Download file](https://s3-us-gov-west-1.amazonaws.com/prod-data-act-submission/rss/AgencyLabel_to_TerseLabel.xlsx)
 * Validation Rules resource [Download file](https://s3-us-gov-west-1.amazonaws.com/prod-data-act-submission/rss/Validation_Rules.xlsx)
 * Domain Values resource [Download file](https://s3-us-gov-west-1.amazonaws.com/prod-data-act-submission/rss/Domain_Values.xlsx)
+* [Practices and Procedures](#/practices?section=top)
 
 #### Updated Validations{section=updatedValidations}
 Below is a cumulative table of validations in the RSS. The status column indicates whether they are currently implemented in the Broker. Some rules that were already implemented in the Broker were changed in the release of the Errata. The currently implemented rule and new rule are both listed below, with corresponding version indicators in the rule label (i.e. "C14 (v1)" or "C14 (v2)").

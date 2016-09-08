@@ -18,19 +18,19 @@ const getStore = () => {
 
 const performAutoLogin = (location, replace) => {
     getStore();
-    
+
     let session = store.getState().session;
 
     const path = location.pathname;
     const search = location.search;
     const query = location.query;
-    
+
     let pushMethod = hashHistory.push;
     if (replace) {
         pushMethod = replace;
     }
 
-    
+
 
     if (path == "/login") {
         if (session.login == "loggedIn") {
@@ -68,7 +68,7 @@ const checkAdminPermissions = (nextState, replace) => {
         // if not an admin, bounce to home
         replace('/landing');
     }
-    
+
 }
 const checkUserPermissions = (nextState, replace) => {
     getStore();
@@ -172,6 +172,15 @@ const routeDefinitions = {
             getComponent(nextState, cb) {
                 require.ensure([], (require) => {
                     cb(null, require('../../components/help/helpPage.jsx').default)
+                });
+            }
+        },
+        {
+            path: 'practices',
+            onEnter: checkUserPermissions,
+            getComponent(nextState, cb) {
+                require.ensure([], (require) => {
+                    cb(null, require('../../components/help/practicesProceduresPage.jsx').default)
                 });
             }
         },
