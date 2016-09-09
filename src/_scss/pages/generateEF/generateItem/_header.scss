@@ -1,16 +1,16 @@
 .generate-header {
-	flex: 1 1 auto;
+	@include flex(1 1 auto);
 	width: 100%;
 	display: flex;
 	position: relative;
 	border-bottom: 1px solid $color-gray-lighter;
 
 	.generate-type {
-		flex: 0 0 auto;
+		@include flex(0 0 auto);
 		position: relative;
-		align-items: center;
-		justify-content: center;
-		display: flex;
+		@include align-items(center);
+		@include justify-content(center);
+		@include display(flex);
 
 		width: 80px;
 
@@ -19,12 +19,12 @@
 		font-weight: bold;
 
 		span {
-			flex: 1 1 auto;
+			@include flex(1 1 auto);
 			position: relative;
 		}
 	}
 	.generate-title {
-		flex: 1 1 auto;
+		@include flex(1 1 auto);
 		position: relative;
 
 		text-align: left;

@@ -1,14 +1,14 @@
 .generate-ef-item {
-	display: flex;
-	flex-direction: row;
+	@include display(flex);
+	@include flex-direction(row);
 	width: 100%;
     position: relative;
-    align-items: stretch;
+    @include align-items(stretch);
 
     border: 1px solid $color-gray-lighter;
 
 	.generate-left {
-		flex: 1 1 auto;
+		@include flex(1 1 auto);
 		position: relative;
 
 		border-right: 1px solid $color-gray-lighter;
@@ -17,7 +17,7 @@
 		@import "./_description";
 	}
 	.generate-right {
-		flex: 0 0 auto;
+		@include flex(0 0 auto);
 		position: relative;
 		width: 250px;
 

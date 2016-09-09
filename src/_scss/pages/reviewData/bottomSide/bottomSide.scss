@@ -2,7 +2,7 @@
     // apply flexboxes to force all buttons to have the same height if the button contents need to line wrap
 
     @include display(flex);
-    @include justify-content("space-between");
+    @include justify-content(space-between);
 
     @media(max-width: $medium-screen) {
         display: block;
