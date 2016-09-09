@@ -125,6 +125,12 @@ export default class ReviewDataCertifyModal extends React.Component {
 		                        </div>
 	                        </div>
 
+							<div className="alert alert-warning">
+								<span className="usa-da-icon"><Icons.ExclamationCircle /></span>
+			                    <div className="alert-header-text">Simulated Publish</div>
+			                    <p>Data is not submitted or published at this time.</p>
+							</div>
+
 	                        {action}
 
                         </div>

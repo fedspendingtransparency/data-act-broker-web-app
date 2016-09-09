@@ -56,3 +56,9 @@
 // style the buttons
 @import "./_certifyButtons.scss";
 @import "./_certifyProgress.scss";
+
+.alert-warning {
+	@import "../../../components/alerts/_alerts";
+	@include warningAlert;
+	margin-top: 0px !important;
+}

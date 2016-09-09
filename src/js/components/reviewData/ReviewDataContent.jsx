@@ -71,7 +71,9 @@ export default class ReviewDataContent extends React.Component {
         let totalWarnings = 0;
 
         this.props.data.jobs.forEach((job) => {
-            totalSize += parseFloat(job.file_size);
+            if (parseFloat(job.file_size) > 0) {
+                totalSize += parseFloat(job.file_size);
+            }
 
             // sum the number of warnings
             job.warning_data.forEach((warning) => {
@@ -116,7 +118,7 @@ export default class ReviewDataContent extends React.Component {
         const reportLabels = ['Agency Name:', 'Report Start Date:', 'Report End Date:', 'Total Obligations Incurred:', 'Total Financial Assistance Obligations:', 'Total Procurement Obligations:'];
 
         const reportData = [
-            '--',
+            this.props.data.agency_name,
             this.props.data.reporting_period_start_date,
             this.props.data.reporting_period_end_date,
             '--',
@@ -162,20 +164,27 @@ export default class ReviewDataContent extends React.Component {
                             {reportRows}
                         </div>
                     </div>
-                    <div className="row usa-da-submission-bottom-big-links mt-20">
-                        <div className="col-md-6">
-                            <a href="#" onClick={this.openModal.bind(this, 'Certify')} className="usa-da-button btn-primary btn-lg btn-full"><span className="usa-da-icon usa-da-icon-Globe"><Icons.Globe /></span>Certify & Publish the Submission to USASpending.gov</a>
+                    <div className="mt-20">
+                        <div className="submission-wrapper">
+                            <div className="left-link">
+                                <a href="#" onClick={this.openModal.bind(this, 'Certify')} className="usa-da-button btn-primary btn-lg btn-full"><span className="usa-da-icon usa-da-icon-Globe"><Icons.Globe /></span>Certify & Publish the Submission to USASpending.gov</a>
+                            </div>
+                            <div className="right-link">
+                                <a href="#" onClick={this.openModal.bind(this, 'Notify')} className="usa-da-button btn-primary btn-lg btn-full last">
+                                    <div>
+                                        <span className="usa-da-icon usa-da-icon-Bell"><Icons.Bell /></span>
+                                        Notify Another User that the Submission is Ready for Certification
+                                    </div>
+                                </a>
+                            </div>
                         </div>
-                        <div className="col-md-6 usa-da-submission-bottom-big-links">
-                            <a href="#" onClick={this.openModal.bind(this, 'Notify')} className="usa-da-button btn-primary btn-lg btn-full last"><span className="usa-da-icon usa-da-icon-Bell"><Icons.Bell /></span>Notify Another User that the Submission is Ready for Certification</a>
-                        </div>
+                    </div>
 
-                        <div id="reviewDataNotifyModalHolder">
-                            <ReviewDataNotifyModal {...this.props} closeModal={this.closeModal.bind(this, 'Notify')} isOpen={this.state.openNotify} />
-                        </div>
-                        <div id="reviewDataCertifyModalHolder">
-                            <ReviewDataCertifyModal {...this.props} closeModal={this.closeModal.bind(this, 'Certify')} isOpen={this.state.openCertify} warnings={this.state.totalWarnings} />
-                        </div>
+                    <div id="reviewDataNotifyModalHolder">
+                        <ReviewDataNotifyModal {...this.props} closeModal={this.closeModal.bind(this, 'Notify')} isOpen={this.state.openNotify} />
+                    </div>
+                    <div id="reviewDataCertifyModalHolder">
+                        <ReviewDataCertifyModal {...this.props} closeModal={this.closeModal.bind(this, 'Certify')} isOpen={this.state.openCertify} warnings={this.state.totalWarnings} />
                     </div>
                 </div>
             </div>

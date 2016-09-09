@@ -24,8 +24,3 @@
 	@import "../../../components/alerts/_alerts";
 	@include dangerAlert;
 }
-
-.alert-warning {
-	@import "../../../components/alerts/_alerts";
-	@include warningAlert;	
-}
