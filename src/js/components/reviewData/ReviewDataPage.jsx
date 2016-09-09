@@ -12,33 +12,12 @@ import Footer from '../SharedComponents/FooterComponent.jsx';
 import ReviewDataContent from './ReviewDataContent.jsx';
 import ReviewLoading from './ReviewLoading.jsx';
 
-class ReviewDataContentInvalid extends React.Component {
-    render() {
-        return (
-            <div className="container">
-                <div className="row">
-                    <div className="col-md-12 usa-da-table-holder">
-                        <h2>Enter the Submission ID to download validation errors.</h2>
-                        <form className="form-inline">
-                            <div className="form-group">
-                            </div>
-                        </form>
-                    </div>
-                </div>
-            </div>
-        );
-    }
-}
-
 export default class ReviewDataPage extends React.Component {
     render() {
         let currentComponent;
         const submissionID = this.props.params.submissionID;
 
-        if (!this.props.params.submissionID) {
-            currentComponent = <ReviewDataContentInvalid />;
-        } 
-        else if (!this.props.data.ready) {
+        if (!this.props.data.ready) {
             currentComponent = <ReviewLoading />;
         }
         else {
