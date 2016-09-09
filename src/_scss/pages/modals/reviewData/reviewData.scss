@@ -1,23 +1,7 @@
 .usa-da-notify-modal {
-	@import "../../../layouts/modal/modal";
-	@include modalLayout;
+	@import "./_notifyModal.scss";
+}
 
-	.usa-da-notify-modal-close {
-		@include modalClose;
-	}
-
-	h6 {
-        margin-bottom: 3.0rem;
-    }
-
-    // import typeahead
-	@import "../../../components/typeahead/_typeahead";
-
-	// style the button
-	.usa-da-button {
-		@import "../../../components/buttons/_primary";
-		@include primaryButton;
-	}
-
-	@import "./_selectedUsers";
+.usa-da-certify-modal {
+	@import "./_certifyModal.scss";
 }
