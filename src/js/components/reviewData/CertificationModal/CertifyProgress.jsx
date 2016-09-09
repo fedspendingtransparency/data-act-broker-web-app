@@ -105,16 +105,30 @@ export default class CertifyProgress extends React.Component {
 
 		let hideClass = " hide";
 		let hideError = " hide";
+		let hideProgress = "";
 		if (this.state.hasError) {
 			hideError = "";
+			hideProgress = " hide";
 		}
 		else if (this.state.progress == 100) {
 			hideClass = "";
+			hideProgress = " hide";
 		}
 
 		return (
 			<div className="certify-progress">
-				<FileProgress fileStatus={this.state.progress * 100} />
+				<div className={hideProgress}>
+					<FileProgress fileStatus={this.state.progress * 100} />
+				</div>
+
+				<div className={"completed-content" + hideProgress}>
+					<div className="success-wrapper">
+						<div className="success-header">
+							Publish in progress...
+						</div>
+					</div>
+				</div>
+
 				<div className={"completed-content" + hideClass}>
 					<div className="success-wrapper">
 						<div className="success-header">
