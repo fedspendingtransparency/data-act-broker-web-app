@@ -1,6 +1,6 @@
 // base styling for alerts
 @mixin baseAlert {
-	color: #333 !important;
+	color: #333;
     font-size: 1.4rem;
     border-radius: 0;
     position: relative;
@@ -44,6 +44,8 @@
 
 @mixin successAlert {
     @include baseAlert;	
+    @include alert-variant($alert-success-bg, $alert-success-border, $alert-success-text);
+
 	background: #e7f4e4;
     svg {
         fill: #5cb85c;
@@ -52,6 +54,8 @@
 
 @mixin infoAlert {
 	@include baseAlert;
+    @include alert-variant($alert-info-bg, $alert-info-border, $alert-info-text);
+
     background: #e1f3f8;
     svg {
         fill: #5bc0de;
@@ -59,7 +63,9 @@
 }
 
 @mixin warningAlert {
-	@include baseAlert;
+    @include baseAlert;
+    @include alert-variant($alert-warning-bg, $alert-warning-border, $alert-warning-text);
+
     background: #fff1d2;
     svg {
         fill: #f0ad4e;
@@ -68,6 +74,8 @@
 
 @mixin dangerAlert {
 	@include baseAlert;
+    @include alert-variant($alert-danger-bg, $alert-danger-border, $alert-danger-text);
+
     background: #f9dede;
     .usa-da-icon {
 	    svg{

@@ -86,13 +86,18 @@ class GenerateFilesContainer extends React.Component {
 			month = monthDay.split('/')[0];
 			year = monthDay.split('/')[1];
 		}
+		else {
+			// it's months
+			month = raw.split('/')[0];
+			year = raw.split('/')[1];
+		}
 
 		// now we need to calculate the day of month
 		if (type == 'start') {
 			day = '01';
 		}
 		else if (type == 'end') {
-			const date = moment().month(parseInt(month) + 1).year(year);
+			const date = moment().month(parseInt(month) - 1).year(year);
 			day = date.endOf('month').format('DD');
 		}
 
@@ -101,9 +106,9 @@ class GenerateFilesContainer extends React.Component {
 
 	checkForPreviousFiles() {
 		// check if D1 and D2 files already exist for this submission
-		Q.all([
-			GenerateFilesHelper.fetchFile('d1', this.props.submissionID),
-			GenerateFilesHelper.fetchFile('d2', this.props.submissionID)
+		Q.allSettled([
+			GenerateFilesHelper.fetchFile('D1', this.props.submissionID),
+			GenerateFilesHelper.fetchFile('D2', this.props.submissionID)
 		])
 			.then((allResponses) => {
 				if (this.isUnmounted) {
@@ -112,10 +117,14 @@ class GenerateFilesContainer extends React.Component {
 
 				// check if both files have been requested
 				let allRequested = true;
+				const combinedData = [];
 				allResponses.forEach((response) => {
-					if (response.status == 'invalid') {
+					if (response.state != 'fulfilled' || response.value.status == 'invalid') {
 						// no request has been made yet
 						allRequested = false;
+					}
+					else {
+						combinedData.push(response.value);
 					}
 				});
 
@@ -126,10 +135,10 @@ class GenerateFilesContainer extends React.Component {
 				}
 				else {
 					// files have been requested before, load the dates
-					const d1Start = moment(allResponses[0].start, 'MM/DD/YYYY');
-					const d1End = moment(allResponses[0].end, 'MM/DD/YYYY');
-					const d2Start = moment(allResponses[1].start, 'MM/DD/YYYY');
-					const d2End = moment(allResponses[1].end, 'MM/DD/YYYY');
+					const d1Start = moment(allResponses[0].value.start, 'MM/DD/YYYY');
+					const d1End = moment(allResponses[0].value.end, 'MM/DD/YYYY');
+					const d2Start = moment(allResponses[1].value.start, 'MM/DD/YYYY');
+					const d2End = moment(allResponses[1].value.end, 'MM/DD/YYYY');
 
 					// load them into React state
 					const d1 = Object.assign({}, this.state.d1);
@@ -145,10 +154,10 @@ class GenerateFilesContainer extends React.Component {
 						d2: d2
 					}, () => {
 						// now parse the data (in case the files were still in pending state)
-						this.parseFileStates(allResponses);
+						this.parseFileStates(combinedData);
 					});
 				}
-			})
+			});
 		
 	}
 
@@ -302,62 +311,53 @@ class GenerateFilesContainer extends React.Component {
 			state: 'generating'
 		});
 		// submit both D1 and D2 date ranges to the API
-		Q.all([
-			GenerateFilesHelper.generateFile('d1', this.props.submissionID, this.state.d1.startDate.format('MM/DD/YYYY'), this.state.d1.endDate.format('MM/DD/YYYY')),
-			GenerateFilesHelper.generateFile('d2', this.props.submissionID, this.state.d2.startDate.format('MM/DD/YYYY'), this.state.d2.endDate.format('MM/DD/YYYY')),
+		Q.allSettled([
+			GenerateFilesHelper.generateFile('D1', this.props.submissionID, this.state.d1.startDate.format('MM/DD/YYYY'), this.state.d1.endDate.format('MM/DD/YYYY')),
+			GenerateFilesHelper.generateFile('D2', this.props.submissionID, this.state.d2.startDate.format('MM/DD/YYYY'), this.state.d2.endDate.format('MM/DD/YYYY')),
 		])
 			.then((allResponses) => {
 				if (this.isUnmounted) {
 					return;
 				}
 
-				this.parseFileStates(allResponses);
-			})
-			.catch((err) => {
-				let errorMessage = 'An error occurred while contacting the server.';
-				if (err && err.body) {
-					errorMessage = err.body.message;	
-				}
-
-				if (this.isUnmounted) {
-					return;
-				}
-
-				this.setState({
-					state: 'failed',
-					errorDetails: errorMessage
+				const responses = [];
+				allResponses.forEach((response) => {
+					if (response.state == 'fulfilled') {
+						responses.push(response.value);
+					}
+					else {
+						responses.push(response.reason);
+					}
 				});
+
+				this.parseFileStates(responses);
 			});
 
 	}
 
 	checkFileStatus() {
 		// check the status of both D1 and D2 files
-		Q.all([
-			GenerateFilesHelper.fetchFile('d1', this.props.submissionID),
-			GenerateFilesHelper.fetchFile('d2', this.props.submissionID)
+		Q.allSettled([
+			GenerateFilesHelper.fetchFile('D1', this.props.submissionID),
+			GenerateFilesHelper.fetchFile('D2', this.props.submissionID)
 		])
 			.then((allResponses) => {
 				if (this.isUnmounted) {
 					return;
 				}
 
-				this.parseFileStates(allResponses);
-			})
-			.fail((err) => {
-				let errorMessage = 'An error occurred while contacting the server.';
-				if (err && err.body) {
-					errorMessage = err.body.message;	
-				}
-
-				if (this.isUnmounted) {
-					return;
-				}
-				this.setState({
-					state: 'failed',
-					errorDetails: errorMessage
-				});
+				const responses = [];
+				allResponses.forEach((response) => {
+					if (response.state == 'fulfilled') {
+						responses.push(response.value);
+					}
+					else {
+						responses.push(response.reason);
+					}
+				})
+				this.parseFileStates(responses);
 			});
+			
 	}
 
 	parseFileStates(data) {
@@ -383,18 +383,18 @@ class GenerateFilesContainer extends React.Component {
 			}
 			else if (fileData.status == 'failed' || fileData.status == 'invalid') {
 				errors.push(file);
-				if (message != '') {
-					message += ' ';
-				}
+
+				let message = 'File ' + fileData.file_type + ' could not be generated.';
 
 				if (fileData.message != '') {
-					message += 'File ' + file.toUpperCase() + ': ' + fileData.message;
+					message = fileData.message;
 				}
-				else {
-					message += 'File ' + file.toUpperCase() + ' could not be generated.';
-				}
+
+				this.showError(file, fileData.file_type.toUpperCase() + ' File Error', message);
 			}
 			else if (fileData.status == 'finished') {
+				this.hideError(file);
+
 				// display dowload buttons
 				// make a clone of the file's react state
 				const item = Object.assign({}, this.state[file]);
@@ -411,10 +411,13 @@ class GenerateFilesContainer extends React.Component {
 		if (errors.length > 0) {
 			// there are errors
 			output.state = 'failed';
-			output.errorDetails = message;
+			output.errorDetails = '';
 		}
 		else if (errors.length == 0 && allDone) {
 			output.state = 'done';
+		}
+		else {
+			output.state = 'generating';
 		}
 
 		if (this.isUnmounted) {

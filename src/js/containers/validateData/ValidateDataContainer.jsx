@@ -25,6 +25,8 @@ import * as ReviewHelper from '../../helpers/reviewHelper.js';
 let statusTimer;
 const timerDuration = 10;
 
+const singleFileValidations = ['appropriations', 'program_activity', 'award_financial'];
+
 class ValidateDataContainer extends React.Component {
 	constructor(props) {
 		super(props);
@@ -89,13 +91,17 @@ class ValidateDataContainer extends React.Component {
 		let hasHeaderErrors = false;
 
 		// iterate through the validation data to look for header errors, validation failures, and incomplete validations
-		for (let key in this.props.submission.validation) {
-			const item = this.props.submission.validation[key];
+		for (let key of singleFileValidations) {
 
-			if (key == 'award' || key == 'award_procurement') {
-				// these are D1/D2 files, so skip them; we don't validate these
-				continue;
+			if (!this.props.submission.validation.hasOwnProperty(key)) {
+				// required files don't exist, fail
+				this.setState({
+					validationFinished: false
+				});
+				return;
 			}
+
+			const item = this.props.submission.validation[key];
 
 			if (item.error_type == 'header_errors') {
 				hasHeaderErrors = true;
@@ -110,7 +116,6 @@ class ValidateDataContainer extends React.Component {
 			}
 
 		}
-		
 
 		this.setState({
 			headerErrors: hasHeaderErrors,
