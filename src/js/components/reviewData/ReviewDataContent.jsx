@@ -167,15 +167,28 @@ export default class ReviewDataContent extends React.Component {
                     <div className="mt-20">
                         <div className="submission-wrapper">
                             <div className="left-link">
-                                <a href="#" onClick={this.openModal.bind(this, 'Certify')} className="usa-da-button btn-primary btn-lg btn-full"><span className="usa-da-icon usa-da-icon-Globe"><Icons.Globe /></span>Certify & Publish the Submission to USASpending.gov</a>
+                                <button onClick={this.openModal.bind(this, 'Certify')} className="usa-da-button btn-primary btn-lg btn-full">
+                                    <div className="button-wrapper">
+                                        <div className="button-icon">
+                                            <Icons.Globe />
+                                        </div>
+                                        <div className="button-content">
+                                            Certify & Publish the Submission to USASpending.gov
+                                        </div>
+                                    </div>
+                                </button>
                             </div>
                             <div className="right-link">
-                                <a href="#" onClick={this.openModal.bind(this, 'Notify')} className="usa-da-button btn-primary btn-lg btn-full last">
-                                    <div>
-                                        <span className="usa-da-icon usa-da-icon-Bell"><Icons.Bell /></span>
-                                        Notify Another User that the Submission is Ready for Certification
+                                <button onClick={this.openModal.bind(this, 'Notify')} className="usa-da-button btn-primary btn-lg btn-full last">
+                                    <div className="button-wrapper">
+                                        <div className="button-icon">
+                                            <Icons.Bell />
+                                        </div>
+                                        <div className="button-content">
+                                            Notify Another User that the Submission is Ready for Certification
+                                        </div>
                                     </div>
-                                </a>
+                                </button>
                             </div>
                         </div>
                     </div>
