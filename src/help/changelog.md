@@ -1,46 +1,26 @@
-#### August 10, 2016
+#### September 9, 2016
 
-In this version of the Broker, we separated out the validation checks into warnings and critical errors, added the interface to create D1 and D2 files, improved 508 compliance, increased server capacity, added an interface for broker users to notify other users that a submission is ready, and fixed a bug that incorrectly showed submissions as valid on the home page submission table.
+In this version of the Broker, we are importing D1 and D2 file information from the USAspending UAT environment, improved the handling of encoding in files, corrected a Resources file, and added and updated some validations.
 
-  - [Warnings and Errors](#/help?section=warnings)
-  - [Generating D1 and D2](#/help?section=d1d2)
-  - [Improved 508 Compliance](#/help?section=508compliance)
-  - [Increased Server Capacity](#/help?section=capacity)
-  - [Notify Another User](#/help?section=notifyauser)
-  - [Bugfix: Submissions Incorrectly Show as Valid](#/help?section=homepagesubmissiontable)
+  - [Updated: Generating D1 and D2](#/help?section=d1d2updated)
+  - [Encoding in Files](#/help?section=encoding)
   - [Resources](#/help?section=resources)
   - [Updated Validations](#/help?section=updatedValidations)
   - [Browser Requirements & Known Issues](#/help?section=browser)
   - [Accessibility Statement](#/help?section=accessibilityStatement)
 
-#### Warnings and Errors{section=warnings}
+#### Updated: Generating D1 and D2{section=d1d2updated}
 
-In previous versions of the Broker, all failing validations were treated as critical errors. In this release, we have added an almost identical interface for the warnings, complete with a downloadable file and table. The warnings appear alongside the existing error download and tables. Files with warnings may be submitted, but files with critical errors will not pass validation and may not be submitted.
+In this release, we have added the ability to generate the D1 and D2 files from the data in the USAspending UAT environment that comes from ASP and FPDS. The procurement data for File D1 is only available through 7/31/2016, at this time. Submit your financial assistance data for File D2 through the ASP UAT environment. **Note:** This functionality is newly implemented so let us know if you have problems.
 
-#### Generating D1 and D2{section=d1d2}
+#### Encoding in Files{section=encoding}
 
-In previous versions of the Broker, you could only upload a D2 file. If you didn't have a D2 file, you could use the sample file provided. In this release, we have added the interface to generate the D1 and D2 files. **PLEASE NOTE** that the interface currently returns sample files until the integration with the ASP and FPDS is complete in the next 2-3 weeks.
-
-#### Improved 508 Compliance{section=508compliance}
-
-In this release, the Broker has further improved it's compliance with 508 accessibility guidelines.
-
-#### Increase Server Capacity{section=capacity}
-
-In this release, the development team has significantly increased the base capacity of the web and database servers powering the Broker.
-
-#### Notify Another User{section=notifyauser}
-
-Broker users can now send a notification to another user within their same agency when they want them to view a submission. This option is available on the Review Data page, after all validations have completed. You can also send other users in your agency the link to your in-progress submission anytime.
-
-#### Bugfix: Submissions Incorrectly Show as Valid{section=homepagesubmissiontable}
-
-Several users reported a minor bug with the submission table that appears on the home page. It was showing submissions as valid that actually had errors. This has been corrected to more accurately reflect the status of a submission.
+Some users reported errors trying to submit files. We improved how the Broker handles some encoding scenarios so these errors are no longer generated.
 
 #### Updated Validations{section=updatedValidations}
-Below is a cumulative table of validations in the RSS. The status column indicates whether they are currently implemented in the Broker. Some rules that were already implemented in the Broker were changed in the release of the Errata. The currently implemented rule and new rule are both listed below, with corresponding version indicators in the rule label (i.e. "C14 (v1)" or "C14 (v2)").
+Below is a cumulative table of validations in the RSS. The status column indicates whether they are currently implemented in the Broker. Some rules that were already implemented in the Broker were changed in the release of the Errata. The currently implemented rule and new unimplemented rule are both listed below, with corresponding version indicators in the rule label (i.e. "C14 (v1)" or "C14 (v2)"). Outdated versions of rules that have been replaced by a new version have been removed. Some rules are no longer needed and are marked as deleted.
 
-Refer to the [Resources](#/help?section=resources) section for sample files and additional references.
+Refer to the [Resources](#/help?section=resources) section for sample files and additional references. A corrected version of the validation rules spreadsheet has been posted.
 
 ```!inline-html
 <table class="usa-da-table table-bordered help-table">
@@ -85,99 +65,85 @@ Refer to the [Resources](#/help?section=resources) section for sample files and 
         <tr>
             <td>A</td>
             <td>A6</td>
-            <td class="break-word">BudgetAuthorityAvailableAmountTotal_CPE= CPE value for GTAS SF 133 line #1910 </td>
-            <td>Not implemented</td>
+            <td class="break-word">BudgetAuthorityAvailableAmountTotal_CPE= CPE value for GTAS SF 133 line #1910, for the same reporting period</td>
+            <td>Implemented</td>
             <td>Calculation</td>
         </tr>
         <tr>
             <td>A</td>
             <td>A7</td>
-            <td class="break-word">BudgetAuthorityUnobligatedBalanceBroughtForward_FYB= value for GTAS SF 133 line #1000 </td>
-            <td>Not implemented</td>
+            <td class="break-word">BudgetAuthorityUnobligatedBalanceBroughtForward_FYB= value for GTAS SF 133 line #1000, for the same reporting period</td>
+            <td>Implemented</td>
             <td>Calculation</td>
         </tr>
         <tr>
             <td>A</td>
             <td>A8</td>
-            <td class="break-word">BudgetAuthorityAppropriatedAmount_CPE= CPE aggregate value for GTAS SF 133 line #1160 + #1180 + #1260 + #1280</td>
-            <td>Not implemented</td>
+            <td class="break-word">BudgetAuthorityAppropriatedAmount_CPE= CPE aggregate value for GTAS SF 133 line #1160 + #1180 + #1260 + #1280, for the same reporting period</td>
+            <td>Implemented</td>
             <td>Calculation</td>
         </tr>
         <tr>
             <td>A</td>
             <td>A9</td>
-            <td class="break-word">ContractAuthorityAmountTotal_CPE= CPE aggregate value for GTAS SF 133 line #1540 + #1640</td>
-            <td>Not implemented</td>
+            <td class="break-word">ContractAuthorityAmountTotal_CPE= CPE aggregate value for GTAS SF 133 line #1540 + #1640, for the same reporting period</td>
+            <td>Implemented</td>
             <td>Calculation</td>
         </tr>
         <tr>
             <td>A</td>
             <td>A10</td>
-            <td class="break-word">BorrowingAuthorityAmountTotal_CPE= CPE aggregate value for GTAS SF 133 line #1340 + #1440</td>
-            <td>Not implemented</td>
+            <td class="break-word">BorrowingAuthorityAmountTotal_CPE= aggregate value for GTAS SF 133 line #1340 + #1440, for the same reporting period</td>
+            <td>Implemented</td>
             <td>Calculation</td>
         </tr>
         <tr>
             <td>A</td>
             <td>A11</td>
-            <td class="break-word">SpendingAuthorityfromOffsettingCollectionsAmountTotal_CPE= CPE aggregate value for GTAS SF 133 line #1750 + #1850</td>
-            <td>Not implemented</td>
+            <td class="break-word">SpendingAuthorityfromOffsettingCollectionsAmountTotal_CPE= aggregate value for GTAS SF 133 line #1750 + #1850, for the same reporting period</td>
+            <td>Implemented</td>
             <td>Calculation</td>
         </tr>
         <tr>
             <td>A</td>
             <td>A12</td>
-            <td class="break-word">AdjustmentsToUnobligatedBalanceBroughtForward_CPE= CPE aggregate value for GTAS SF 133 line #1010 through 1042</td>
-            <td>Not implemented</td>
+            <td class="break-word">AdjustmentsToUnobligatedBalanceBroughtForward_CPE= aggregate value for GTAS SF 133 line #1010 through 1042, for the same reporting period</td>
+            <td>Implemented</td>
             <td>Calculation</td>
         </tr>
         <tr>
             <td>A</td>
             <td>A14</td>
-            <td>GrossOutlayAmountByTAS_CPE= CPE value for GTAS SF 133 line #3020</td>
-            <td>Not implemented</td>
+            <td>GrossOutlayAmountByTAS_CPE= value for GTAS SF 133 line #3020, for the same reporting period</td>
+            <td>Implemented</td>
             <td>Calculation</td>
         </tr>
         <tr>
             <td>A</td>
             <td>A15</td>
-            <td>UnobligatedBalance_CPE= CPE value for GTAS SF 133 line #2490 </td>
-            <td>Not implemented</td>
+            <td>UnobligatedBalance_CPE= value for GTAS SF 133 line #2490, for the same reporting period</td>
+            <td>Implemented</td>
             <td>Calculation</td>
         </tr>
         <tr>
             <td>A</td>
             <td>A16</td>
             <td>All the elements that have FYB in file A, B & C would be expected in quarter 1, as a soft edit. It would be optional in subsequent periods.</td>
-            <td>Not implemented</td>
+            <td>Implemented</td>
             <td>Requirement</td>
         </tr>
         <tr>
             <td>A</td>
             <td>A17</td>
-            <td>Submitted value must match corresponding GTAS value (see specific rule)</td>
-            <td>Not implemented</td>
-            <td>Requirement</td>
-        </tr>
-        <tr>
-            <td>A</td>
-            <td>A18 (v1)</td>
-            <td class="break-word">GrossOutlayAmountByTAS_CPE (file A) = sum of all GrossOutlayAmountByProgramObjectClass (file B)</td>
-            <td>Implemented</td>
-            <td>Cross-File Validation</td>
+            <td>Deleted</td>
+            <td>Deleted</td>
+            <td>&nbsp;</td>
         </tr>
         <tr>
             <td>A</td>
             <td>A18 (v2)</td>
             <td class="break-word">GrossOutlayAmountByTAS_CPE (file A) = sum of all GrossOutlayAmountByProgramObjectClass (file B) {When Program Activity and Object Class are not blank, this value is the sum of all Gross Outlay Amounts reported in file B, by TAS/Subaccount}</td>
             <td>Pending Update</td>
-            <td>Cross-File Validation</td>
-        </tr>
-        <tr>
-            <td>A</td>
-            <td>A19 (v1)</td>
-            <td class="break-word">ObligationsIncurredTotalByTAS_CPE (File A) = sum of ObligationsIncurredByProgramObjectClass_CPE (File B)</td>
-            <td>Implemented</td>
             <td>Cross-File Validation</td>
         </tr>
         <tr>
@@ -192,7 +158,7 @@ Refer to the [Resources](#/help?section=resources) section for sample files and 
             <td>A20</td>
             <td>Must be valid Agency ID in the Common Government-wide Accounting Classification (CGAC)</td>
             <td>Implemented</td>
-            <td></td>
+            <td>Requirement</td>
         </tr>
         <tr>
             <td>A</td>
@@ -204,15 +170,15 @@ Refer to the [Resources](#/help?section=resources) section for sample files and 
         <tr>
             <td>A</td>
             <td>A22</td>
-            <td>ObligationsIncurredTotalByTAS_CPE= CPE value for GTAS SF 133 line #2190 </td>
-            <td>Not implemented</td>
+            <td>ObligationsIncurredTotalByTAS_CPE= value for GTAS SF 133 line #2190, as of the same reporting period</td>
+            <td>Implemented</td>
             <td>Calculation</td>
         </tr>
         <tr>
             <td>A</td>
             <td>A23</td>
-            <td>StatusOfBudgetaryResourcesTotal_CPE= CPE value for GTAS SF 133 line #2500</td>
-            <td>Not implemented</td>
+            <td>StatusOfBudgetaryResourcesTotal_CPE= value for GTAS SF 133 line #2500, as of the same reporting period</td>
+            <td>Implemented</td>
             <td>Calculation</td>
         </tr>
         <tr>
@@ -253,15 +219,15 @@ Refer to the [Resources](#/help?section=resources) section for sample files and 
         <tr>
             <td>A</td>
             <td>A29</td>
-            <td class="break-word">DeobligationsRecoveriesRefundsByTAS_CPE = CPE aggregate value for GTAS SF 133 line 1021+1033</td>
-            <td>Not implemented</td>
+            <td class="break-word">DeobligationsRecoveriesRefundsByTAS_CPE = aggregate value for GTAS SF 133 line 1021+1033, as of the same reporting period</td>
+            <td>Implemented</td>
             <td>Requirement</td>
         </tr>
         <tr>
             <td>A</td>
             <td>A30</td>
-            <td>All TAS values in File A (appropriations) should exist in File B (object class program activity), and vice versa.</td>
-            <td>Not implemented</td>
+            <td>All TAS values in File A (appropriations) should exist in File B (object class program activity), and vice versa, for the same reporting period</td>
+            <td>Implemented</td>
             <td>Requirement</td>
         </tr>
         <tr>
@@ -275,15 +241,36 @@ Refer to the [Resources](#/help?section=resources) section for sample files and 
             <td>A</td>
             <td>A32</td>
             <td>TAS values in File A (appropriations) should be unique</td>
-            <td>Not implemented</td>
+            <td>Implemented</td>
             <td>Requirement</td>
         </tr>
         <tr>
             <td>A</td>
             <td>A33</td>
-            <td>Each TAS reported to GTAS for SF 133 should be reported in File A</td>
-            <td>Not implemented</td>
+            <td>Each TAS reported to GTAS for SF 133 should be reported in File A, and vice versa, for the same reporting period</td>
+            <td>Implemented</td>
             <td>Requirement</td>
+        </tr>
+        <tr>
+            <td>A</td>
+            <td>A34</td>
+            <td class="break-word">BudgetAuthorityUnobligatedBalanceBroughtForward_FYB= value for GTAS SF 133 line #2490 from the end of the prior fiscal year</td>
+            <td>Not implemented</td>
+            <td>Calculation</td>
+        </tr>
+        <tr>
+            <td>A</td>
+            <td>A35</td>
+            <td class="break-word">DeobligationsRecoveriesRefundsByTAS_CPE in File A should equal USSGL (4871_CPE+ 4971_CPE+ 4872_CPE+ 4972_CPE) for the TAS in File B</td>
+            <td>Not implemented</td>
+            <td>Calculation</td>
+        </tr>
+        <tr>
+            <td>A</td>
+            <td>A36</td>
+            <td class="break-word">BudgetAuthorityUnobligatedBalanceBroughtForward_FYB should have an amount populated for the reporting period, if GTAS line #1000 is populated for the same TAS as of the end of the same reporting period</td>
+            <td>Not implemented</td>
+            <td>Calculation</td>
         </tr>
         <tr>
             <td>B</td>
@@ -295,21 +282,21 @@ Refer to the [Resources](#/help?section=resources) section for sample files and 
         <tr>
             <td>B</td>
             <td>B3 (v2)</td>
-            <td class="break-word">ObligationsUndeliveredOrdersUnpaidTotal (FYB or CPE) = USSGL(4801 + 4881). This applies to the program activity and object class level. Note for FYB values, only 4801 is expected to have a balance other than zero.</td>
+            <td class="break-word">ObligationsUndeliveredOrdersUnpaidTotal (FYB or CPE) = USSGL(4801 + 4881). This applies to the program activity and object class level. Note for FYB values, only 4801 is expected to have a balance other than zero</td>
             <td>Pending Update</td>
             <td>Calculation</td>
         </tr>
         <tr>
             <td>B</td>
             <td>B4 (v1)</td>
-            <td class="break-word">ObligationsDeliveredOrdersUnpaidTotal (FYB or CPE) = USSGL(4901 + 4931 + 4971 + 4981). This applies to the program activity and object class level.</td>
+            <td class="break-word">ObligationsDeliveredOrdersUnpaidTotal (FYB or CPE) = USSGL(4901 + 4931 + 4971 + 4981). This applies to the program activity and object class level</td>
             <td>Implemented</td>
             <td>Calculation</td>
         </tr>
         <tr>
             <td>B</td>
             <td>B4 (v2)</td>
-            <td class="break-word">ObligationsDeliveredOrdersUnpaidTotal (FYB or CPE) = USSGL(4901 + 4981). This applies to the program activity and object class level. Note for FYB values, only 4901 is expected to have a balance other than zero.</td>
+            <td class="break-word">ObligationsDeliveredOrdersUnpaidTotal (FYB or CPE) = USSGL(4901 + 4981). This applies to the program activity and object class level. Note for FYB values, only 4901 is expected to have a balance other than zero</td>
             <td>Pending Update</td>
             <td>Calculation</td>
         </tr>
@@ -323,58 +310,58 @@ Refer to the [Resources](#/help?section=resources) section for sample files and 
         <tr>
             <td>B</td>
             <td>B6 (v1)</td>
-            <td class="break-word">GrossOutlaysUndeliveredOrdersPrepaidTotal (FYB or CPE) = USSGL(4802 + 4832 + 4872+ 4882). This applies to the program activity and object class level.</td>
+            <td class="break-word">GrossOutlaysUndeliveredOrdersPrepaidTotal (FYB or CPE) = USSGL(4802 + 4832 + 4872+ 4882). This applies to the program activity and object class level</td>
             <td>Implemented</td>
             <td>Calculation</td>
         </tr>
         <tr>
             <td>B</td>
             <td>B6 (v2)</td>
-            <td class="break-word">GrossOutlaysUndeliveredOrdersPrepaidTotal (FYB or CPE) = USSGL(4802 + 4882). This applies to the program activity and object class level. Note for FYB values, only 4802 is expected to have a balance other than zero.</td>
+            <td class="break-word">GrossOutlaysUndeliveredOrdersPrepaidTotal (FYB or CPE) = USSGL(4802 + 4882). This applies to the program activity and object class level. Note for FYB values, only 4802 is expected to have a balance other than zero</td>
             <td>Pending Update</td>
             <td>Calculation</td>
         </tr>
         <tr>
             <td>B</td>
             <td>B7 (v1)</td>
-            <td class="break-word">GrossOutlaysDeliveredOrdersPaidTotal (FYB or CPE)= USSGL(4902 + 4908 + 4972 + 4982). This applies to the program activity and object class level.</td>
+            <td class="break-word">GrossOutlaysDeliveredOrdersPaidTotal (FYB or CPE)= USSGL(4902 + 4908 + 4972 + 4982). This applies to the program activity and object class level</td>
             <td>Implemented</td>
             <td>Calculation</td>
         </tr>
         <tr>
             <td>B</td>
             <td>B7 (v2)</td>
-            <td class="break-word">GrossOutlaysDeliveredOrdersPaidTotal (FYB or CPE)= USSGL(4902 + 4908 + 4982). This applies to the program activity and object class level. Note for FYB values, only 4908 is expected to have a balance other than zero.</td>
+            <td class="break-word">GrossOutlaysDeliveredOrdersPaidTotal (FYB or CPE)= USSGL(4902 + 4908 + 4982). This applies to the program activity and object class level. Note for FYB values, only 4908 is expected to have a balance other than zero</td>
             <td>Pending Update</td>
             <td>Calculation</td>
         </tr>
         <tr>
             <td>B</td>
             <td>B9</td>
-            <td>Must be a valid program activity name for the corresponding TAS/TAFS as defined in Section 82 of OMB Circular A-11.</td>
+            <td>Must be a valid program activity name for the corresponding TAS/TAFS as defined in Section 82 of OMB Circular A-11</td>
             <td>Implemented</td>
-            <td> </td>
+            <td>Requirement</td>
         </tr>
         <tr>
             <td>B</td>
             <td>B10</td>
-            <td>Must be a valid program activity code for the corresponding TAS/TAFS as defined in Section 82 of OMB Circular A-11.</td>
+            <td>Must be a valid program activity code for the corresponding TAS/TAFS as defined in Section 82 of OMB Circular A-11</td>
             <td>Implemented</td>
-            <td> </td>
+            <td>Requirement</td>
         </tr>
         <tr>
             <td>B</td>
             <td>B11 (v1)</td>
-            <td>Must be valid 3-digit object class as defined in OMB Circular A-11 Section 83.6, or a 4-digit code which includes a 1-digit prefix that distinguishes direct, reimbursable, and allocation obligations.</td>
+            <td>Must be valid 3-digit object class as defined in OMB Circular A-11 Section 83.6, or a 4-digit code which includes a 1-digit prefix that distinguishes direct, reimbursable, and allocation obligation.</td>
             <td>Implemented</td>
             <td>Do not include decimal points</td>
         </tr>
         <tr>
             <td>B</td>
             <td>B11 (v2)</td>
-            <td>Must be valid 3-digit object class as defined in OMB Circular A-11 Section 83.6, or a 4-digit code which includes a 1-digit prefix that distinguishes direct, reimbursable, and allocation obligations. Do not include decimal points when reporting in the Schema.</td>
+            <td>Must be valid 3-digit object class as defined in OMB Circular A-11 Section 83.6, or a 4-digit code which includes a 1-digit prefix that distinguishes direct, reimbursable, and allocation obligations. Do not include decimal points when reporting in the Schema</td>
             <td>Pending Update</td>
-            <td>Do not include decimal points</td>
+            <td>Requirement</td>
         </tr>
         <tr>
             <td>B</td>
@@ -386,7 +373,7 @@ Refer to the [Resources](#/help?section=resources) section for sample files and 
         <tr>
             <td>B</td>
             <td>B12 (v2)</td>
-            <td class="break-word">Reimbursable flag indicator is required when reporting obligation or outlay USSGL account balances (excluding downward adjustments USSGL accounts), and a 3 digit object class is provided. Valid values are "R" for "ReimbursableFundingSource" and "D" for "DirectFundingSource".</td>
+            <td class="break-word">Reimbursable flag indicator is required when reporting obligation or outlay USSGL account balances (excluding downward adjustments USSGL accounts), and a 3 digit object class is provided. Valid values are "R" for "ReimbursableFundingSource" and "D" for "DirectFundingSource"</td>
             <td>Pending Update</td>
             <td class="break-word">Element Conditionally Required</td>
         </tr>
@@ -407,50 +394,50 @@ Refer to the [Resources](#/help?section=resources) section for sample files and 
         <tr>
             <td>B</td>
             <td>B14</td>
-            <td>All the D amounts reported for 4XX1 for Direct obligations equal direct obligations on OMB SF 133 Reports</td>
-            <td>Not implemented</td>
+            <td class="break-word>File B: All the D amounts reported for (4801_CPE less 4801_FYB) + (4802_CPE less 4802_FYB) + 4881_CPE + 4882_CPE + (4901_CPE less 4901_FYB) + 4902_CPE + (4908_CPE less 4908_FYB) + 4981_CPE + 4982_CPE = SF 133 line 2004 per TAS, for the same reporting period</td>
+            <td>Implemented</td>
             <td>Calculation</td>
         </tr>
         <tr>
             <td>B</td>
             <td>B15</td>
-            <td>All the R amounts reported for 4XX1 for Reimbursable obligations equal Reimbursable obligations on OMB SF 133 Reports</td>
-            <td>Not implemented</td>
+            <td>File B: All the R amounts reported for (4801_CPE less 4801_FYB) + (4802_CPE less 4802_FYB) + 4881_CPE + 4882_CPE + (4901_CPE less 4901_FYB) + 4902_CPE + (4908_CPE less 4908_FYB) + 4981_CPE + 4982_CPE = SF 133 line 2104 per TAS, for the same reporting period</td>
+            <td>Implemented</td>
             <td>Calculation</td>
         </tr>
         <tr>
             <td>B</td>
             <td>B16</td>
-            <td>All the D amounts reported for 4XX2 for Direct disbursements equal direct disbursements on OMB SF 133 Reports</td>
-            <td>Not implemented</td>
-            <td>Calculation</td>
+            <td>Deleted</td>
+            <td>Deleted</td>
+            <td>&nbsp;</td>
         </tr>
         <tr>
             <td>B</td>
             <td>B17</td>
-            <td>All the R amounts reported for 4XX2 for Reimbursable obligations equal Reimbursable obligations on OMB SF 133 Reports</td>
-            <td>Not implemented</td>
-            <td>Calculation</td>
+            <td>Deleted</td>
+            <td>Deleted</td>
+            <td>&nbsp;</td>
         </tr>
         <tr>
             <td>B</td>
             <td>B18</td>
             <td class="break-word">Reimbursable flag indicator is not required if object class is 4 digits. But if either 'D' or 'R' are given, then they have to correspond to the first digit of object class. Valid values are "R" for "ReimbursableFundingSource" and "D" for "DirectFundingSource". If an object class is 4 digits, then if it starts with 1 (1XXX) then it corresponds to a Reimbursable flag indicator of "'D," else if it starts with 2 (2XXX) then it corresponds to a Reimbursable flag indicator of "R."</td>
-            <td>Not implemented</td>
+            <td>Pending Update</td>
             <td>Element Conditionally Required</td>
         </tr>
         <tr>
             <td>B</td>
             <td>B19</td>
             <td>The combination of TAS/object class/program activity code/reimbursable flag in File B (object class program activity) should be unique</td>
-            <td>Not implemented</td>
+            <td>Implemented</td>
             <td>Requirement</td>
         </tr>
         <tr>
             <td>B, C</td>
             <td>B20</td>
-            <td>All combinations of TAS/program activity code/object class in File C (award financial) should exist in File B (object class program activity).</td>
-            <td>Not implemented</td>
+            <td>All combinations of TAS/program activity code/object class in File C (award financial) should exist in File B (object class program activity). Since not all object classes will have award activity, it is acceptable for combinations of TAS/program activity code/object class in File C to be a subset of those provided in File B</td>
+            <td>Implemented</td>
             <td>Requirement</td>
         </tr>
         <tr>
@@ -463,7 +450,7 @@ Refer to the [Resources](#/help?section=resources) section for sample files and 
         <tr>
             <td>C</td>
             <td>C3 (v2)</td>
-            <td class="break-word">ObligationsUndeliveredOrdersUnpaidTotal (FYB or CPE) = USSGL(4801 + 4881). This applies to the award level. Note for FYB values, only 4801 is expected to have a balance other than zero.</td>
+            <td class="break-word">ObligationsUndeliveredOrdersUnpaidTotal (FYB or CPE) = USSGL(4801 + 4881). This applies to the award level. Note for FYB values, only 4801 is expected to have a balance other than zero</td>
             <td>Pending Update</td>
             <td>Calculation</td>
         </tr>
@@ -477,7 +464,7 @@ Refer to the [Resources](#/help?section=resources) section for sample files and 
         <tr>
             <td>C</td>
             <td>C4 (v2)</td>
-            <td class="break-word">ObligationsDeliveredOrdersUnpaidTotal (FYB or CPE) = USSGL(4901 + 4981). This applies to the award level. Note for FYB values, only 4901 is expected to have a balance other than zero.</td>
+            <td class="break-word">ObligationsDeliveredOrdersUnpaidTotal (FYB or CPE) = USSGL(4901 + 4981). This applies to the award level. Note for FYB values, only 4901 is expected to have a balance other than zero</td>
             <td>Pending Update</td>
             <td>Calculation</td>
         </tr>
@@ -505,7 +492,7 @@ Refer to the [Resources](#/help?section=resources) section for sample files and 
         <tr>
             <td>C</td>
             <td>C6 (v2)</td>
-            <td class="break-word">GrossOutlaysUndeliveredOrdersPrepaidTotal (FYB or CPE) = USSGL(4802 + 4882). This applies to the award level. Note for FYB values, only 4802 is expected to have a balance other than zero.</td>
+            <td class="break-word">GrossOutlaysUndeliveredOrdersPrepaidTotal (FYB or CPE) = USSGL(4802 + 4882). This applies to the award level. Note for FYB values, only 4802 is expected to have a balance other than zero</td>
             <td>Pending Update</td>
             <td>Calculation</td>
         </tr>
@@ -519,7 +506,7 @@ Refer to the [Resources](#/help?section=resources) section for sample files and 
         <tr>
             <td>C</td>
             <td>C7 (v2)</td>
-            <td class="break-word">GrossOutlaysDeliveredOrdersPaidTotal (FYB or CPE) = USSGL(4902 + 4908 + 4982). This applies to the award level. Note for FYB values, only 4908 is expected to have a balance other than zero.</td>
+            <td class="break-word">GrossOutlaysDeliveredOrdersPaidTotal (FYB or CPE) = USSGL(4902 + 4908 + 4982). This applies to the award level. Note for FYB values, only 4908 is expected to have a balance other than zero</td>
             <td>Pending Update</td>
             <td>Calculation</td>
         </tr>
@@ -582,9 +569,9 @@ Refer to the [Resources](#/help?section=resources) section for sample files and 
         <tr>
             <td>C</td>
             <td>C19</td>
-            <td>The combination of TAS/object class/program activity code (if supplied)/award id components/obligated amount in File C (award financial) should be unique. If they are not, the broker will display a warning, unless the submitted File C contains an optional unique transaction id that can be used to verify uniqueness.</td>
-            <td>Not implemented</td>
-            <td>Requirement</td>
+            <td>Deleted</td>
+            <td>Deleted</td>
+            <td>&nbsp;</td>
         </tr>
         <tr>
             <td>C</td>
@@ -603,9 +590,9 @@ Refer to the [Resources](#/help?section=resources) section for sample files and 
         <tr>
             <td>C</td>
             <td>C22</td>
-            <td>All award identifiers for financial modifications or new transactions with non-zero obligated amounts in Files D1 or D2 should exist in File C.</td>
-            <td>Not implemented</td>
-            <td>Requirement</td>
+            <td>Deleted</td>
+            <td>Deleted</td>
+            <td>&nbsp;</td>
         </tr>
         <tr>
             <td>D2</td>
@@ -659,7 +646,7 @@ Refer to the [Resources](#/help?section=resources) section for sample files and 
         <tr>
             <td>D2</td>
             <td>D8</td>
-            <td class="break-word">Year must be in current or previous fiscal year (as compared to the date of ASP submission). and follow format YYYYQ, with Q representing fiscal quarter and taking value 1, 2, 3, or 4. </td>
+            <td class="break-word">Year must be in current or previous fiscal year (as compared to the date of ASP submission) and follow format YYYYQ, with Q representing fiscal quarter and taking value 1, 2, 3, or 4. </td>
             <td>Implemented in ASP</td>
             <td>Requirement</td>
         </tr>
@@ -701,14 +688,14 @@ Refer to the [Resources](#/help?section=resources) section for sample files and 
         <tr>
             <td>D2</td>
             <td>D14</td>
-            <td class="break-word">With two exceptions, this field must contain a valid two letter USPS state code in the first two positions. The two exceptions: 1) field must contain "00FORGN" when PrimaryPlaceOfPerformanceCountryCode is not USA;  2) field must contain "00*****" for multi-state places of performance.</td>
+            <td class="break-word">With two exceptions, this field must contain a valid two letter USPS state code in the first two positions. The two exceptions: 1) field must contain "00FORGN" when PrimaryPlaceOfPerformanceCountryCode is not USA; 2) field must contain "00*****" for multi-state places of performance.</td>
             <td>Implemented in ASP</td>
             <td>Requirement</td>
         </tr>
         <tr>
             <td>D2</td>
             <td>D15</td>
-            <td class="break-word">PrimaryPlaceOfPerformanceCode must be consistent with PrimaryPlaceOfPerformanceZIP+4, PrimaryPlaceOfPerformanceCountryCode, and PrimaryPlaceOfPerformanceCongressionalDistrict. For aggregate records (i.e., RecordType = 1), it must be in XX**### format, where XX is the USPS state code and ### a valid three-digit county code. When PrimaryPlaceOfPerformanceZIP+4 is provided, PrimaryPlaceOfPerformanceCode should be in XX##### format, where XX is the USPS state code and ##### a valid five-digit city code. For more information on the state, city, and county codes, see the  "Domain_Values.xlsx" spreadsheet</td>
+            <td class="break-word">PrimaryPlaceOfPerformanceCode must be consistent with PrimaryPlaceOfPerformanceZIP+4, PrimaryPlaceOfPerformanceCountryCode, and PrimaryPlaceOfPerformanceCongressionalDistrict. For aggregate records (i.e., RecordType = 1), it must be in XX**### format, where XX is the USPS state code and ### a valid three-digit county code. When PrimaryPlaceOfPerformanceZIP+4 is provided, PrimaryPlaceOfPerformanceCode should be in XX##### format, where XX is the USPS state code and ##### a valid five-digit city code. For more information on the state, city, and county codes, see the "Domain_Values.xlsx" spreadsheet</td>
             <td>Implemented in ASP</td>
             <td>Requirement</td>
         </tr>
