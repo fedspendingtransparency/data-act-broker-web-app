@@ -1,5 +1,5 @@
 .overwrite-wrapper {
-    flex: 0 1 auto;
+    @include flex(0 1 auto);
     width: 100%;
     padding-left: 0;
     .upload-warning {
@@ -8,11 +8,11 @@
     .button-list {
         padding-top: 0px;
         .upload-buttons {
-            display: flex;
-            flex-direction: row;
+            @include display(flex);
+            @include flex-direction(row);
 
             > div {
-                flex: 0 1 auto;
+                @include flex(0 1 auto);
                 width: 50%;
                 padding-left: 10px;
                 &:first-child {

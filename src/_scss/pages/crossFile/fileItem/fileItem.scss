@@ -1,15 +1,15 @@
 .usa-da-cross-file-item {
-    display: flex;
-    flex-direction: row;
-    align-items: center;
+    @include display(flex);
+    @include flex-direction(row);
+    @include align-items(center);
     width: 100%;
     position: relative;
     .file-left {
-        flex: 0 1 auto;
+        @include flex(0 1 auto);
         width: 40%;
     }
     .file-right {
-        flex: 0 1 auto;
+        @include flex(0 1 auto);
         width: 40%;
     }
     @import "./_fileCompare";

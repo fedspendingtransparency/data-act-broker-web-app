@@ -2,16 +2,16 @@
 	margin-bottom: 40px;
 
 	.usa-da-generate-item {
-		display: flex;
-		flex-direction: row;
+		@include display(flex);
+		@include flex-direction(row);
 		width: 100%;
 	    position: relative;
-	    align-items: center;
+	    @include align-items(center);
 
 	    border: 1px solid $color-gray-lighter;
 
 	    .file-full-name {
-			flex: 0 1 auto;
+			@include flex(0 1 auto);
 			width: 33%;
 			position: relative;
 

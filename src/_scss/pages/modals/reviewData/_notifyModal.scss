@@ -1,0 +1,21 @@
+@import "../../../layouts/modal/modal";
+@include modalLayout;
+
+.usa-da-notify-modal-close {
+	@include modalClose;
+}
+
+h6 {
+    margin-bottom: 3.0rem;
+}
+
+// import typeahead
+@import "../../../components/typeahead/_typeahead";
+
+// style the button
+.usa-da-button {
+	@import "../../../components/buttons/_primary";
+	@include primaryButton;
+}
+
+@import "./_selectedUsers";
