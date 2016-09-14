@@ -173,7 +173,7 @@ export default class ReviewDataContent extends React.Component {
                                             <Icons.Globe />
                                         </div>
                                         <div className="button-content">
-                                            Certify & Publish the Submission to USASpending.gov
+                                            Certify & Publish the Submission to USAspending.gov
                                         </div>
                                     </div>
                                 </button>
