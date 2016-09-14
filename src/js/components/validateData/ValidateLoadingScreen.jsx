@@ -7,6 +7,9 @@ import React from 'react';
 import ValidateDataFilePlaceholder from './ValidateDataFilePlaceholder.jsx';
 import ReactCSSTransitionGroup from 'react-addons-css-transition-group';
 
+import CommonOverlay from '../SharedComponents/overlays/CommonOverlay.jsx';
+import LoadingBauble from '../SharedComponents/overlays/LoadingBauble.jsx';
+
 export default class ValidateLoadingScreen extends React.Component {
 	render() {
 		const placeholders = [];
@@ -26,19 +29,13 @@ export default class ValidateLoadingScreen extends React.Component {
                     	</ReactCSSTransitionGroup>
                     </div>
                 </div>
-                <ReactCSSTransitionGroup transitionName="usa-da-validate-fade" transitionAppear={true} transitionAppearTimeout={500} transitionEnterTimeout={500} transitionLeaveTimeout={500}>
-					<div className="center-block usa-da-validation-overlay" data-testid="validate-value-overlay">
-						<div className="container">
-							<div className="row">
-								<div className="col-md-12 usa-da-overlay-content-wrap">
-									<div className="overlay-loading">
-										<h6>Gathering data...</h6>
-									</div>
-								</div>
-							</div>
-						</div>
-		            </div>
-	            </ReactCSSTransitionGroup>
+                
+            	<CommonOverlay 
+            		header="Gathering data..."
+            		showIcon={true}
+            		icon={<LoadingBauble />}
+            		iconClass="overlay-animation" />
+	            
 			</div>
 		);
 	}

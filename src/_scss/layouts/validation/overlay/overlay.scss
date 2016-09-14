@@ -1,0 +1,36 @@
+@import "../../../components/positioning/_centerContent";
+@import "./_button";
+@import "./_positioning";
+
+@mixin validationOverlay {
+	position: fixed;
+    bottom: 0;
+    left: 0;
+    background-color: as-alpha($color-gray-dark, 0.75);
+    border-top: 1px solid rgba(255, 255, 255, 0.4);
+    text-shadow: 0px 0px 4px rgba(50, 58, 69, 0.4);
+    z-index: 999;
+    width: 100%;
+    color: $color-white;
+    & .usa-da-overlay-content-wrap {
+        @include flexCenterContent;
+        @include justify-content(flex-start);
+        height: 150px;
+        @media screen and (max-width: $small-screen) {
+            display: block;
+            height: auto;
+            padding: 20px 0;
+        }
+    }
+
+    @include validationOverlayPositioning;
+
+    .usa-da-btn-bg {
+    	@include validationOverlayButton;
+
+    	.usa-da-validation-overlay-review {
+    		// when two buttons appear, add some spacing between them
+		    margin-left: 5px;
+    	}
+    }
+}

@@ -157,7 +157,7 @@ export default class AddDataMeta extends React.Component {
         let agencyClass = '';
         if (this.state.agencyError) {
             agencyIcon = <Icons.Building />;
-            agencyClass = 'error usa-da-form-icon';
+            agencyClass = ' error usa-da-form-icon';
         }
 
         let dateTypeField = null;

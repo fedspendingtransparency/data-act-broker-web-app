@@ -16,6 +16,8 @@ export default class RecentActivityTable extends React.Component {
 	constructor(props) {
 		super(props);
 
+		this.didUnmount = false;
+
 		this.tableHeaders = [
 			'View',
 			'Reporting Period',
@@ -39,11 +41,19 @@ export default class RecentActivityTable extends React.Component {
 
 	componentDidMount() {
 		this.loadActivity();
+		this.didUnmount = false;
+	}
+
+	componentWillUnmount() {
+		this.didUnmount = true;
 	}
 
 	loadActivity() {
 		RecentActivityHelper.loadActivity()
 			.then((data) => {
+				if (this.didUnmount) {
+					return;
+				}
 				// save the response for sorting later
 				this.setState({
 					cachedResponse: data
@@ -53,6 +63,9 @@ export default class RecentActivityTable extends React.Component {
 				});
 			})
 			.catch((err) => {
+				if (this.didUnmount) {
+					return;
+				}
 				this.setState({
 					message: 'An error occurred while loading recent activity.'
 				});

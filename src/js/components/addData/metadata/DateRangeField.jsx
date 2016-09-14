@@ -99,7 +99,7 @@ export default class DateRangeField extends React.Component {
                 </div>
 
                 <div className={"alert alert-info mt60 mb-0" + hideWarning}>
-                    <span className="usa-da-icon alert-info usa-da-alert_icon ">
+                    <span className="usa-da-icon usa-da-alert_icon ">
                         <Icons.InfoCircle />
                     </span>
                     <p>

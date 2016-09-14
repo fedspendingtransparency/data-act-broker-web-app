@@ -8,7 +8,7 @@ import React from 'react';
 export default class PendingPage extends React.Component {
 	render() {
 		return (
-			<div className="site_wrap">
+			<div className="site_wrap usa-da-pending-page">
 				<nav className="navbar navbar-default usa-da-header">
 	                
 	            </nav>

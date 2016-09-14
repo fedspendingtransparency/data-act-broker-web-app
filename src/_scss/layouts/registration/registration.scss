@@ -1,0 +1,5 @@
+// this is the stripped down layout that the registration page uses
+@import "../default/default";
+@mixin registrationLayout {
+	@include defaultLayout;
+}

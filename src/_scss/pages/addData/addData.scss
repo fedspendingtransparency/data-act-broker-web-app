@@ -1,0 +1,9 @@
+.usa-da-add-data-page {
+	@import "../../layouts/validation/validation";
+	@include validationLayout;
+
+	@import "./_content";
+	@import "./_transitions";
+
+	@import "./uploadPage/uploadPage";
+}

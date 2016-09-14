@@ -1,0 +1,26 @@
+@import "./_core";
+@mixin dangerButton {
+
+    @include baseButton;
+
+    &.btn-danger {
+        @include btnBase($color-white, $color-secondary);
+        &:active {
+            @include btnBase($color-white, $color-secondary-darkest);
+        }
+        &:hover {
+            @include btnBase($color-white, $color-secondary-dark);
+        }
+    }
+    &.btn-danger-outline {
+        @include btnBase($color-secondary, transparent);
+        box-shadow: inset 0 0 0 1px $color-secondary;
+        &:active {
+            @include btnBase($color-white, $color-secondary-darkest);
+            box-shadow: none;
+        }
+        &:hover {
+            @include btnBase($color-white, $color-secondary);
+        }
+    }
+}

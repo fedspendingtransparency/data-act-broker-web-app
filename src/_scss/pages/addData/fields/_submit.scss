@@ -1,0 +1,21 @@
+.usa-da-meta-submit {
+    margin: 31px 0 10px;
+    border-top: 1px dashed $color-gray-lighter;
+    padding-top: 30px;
+    & .usa-da-meta-message {
+        margin: 15px 0 0;
+        color: #555;
+        @media(max-width: $small-screen) {
+            margin: 0 0 15px;
+            text-align: center;
+        }
+    }
+    & .usa-da-button {
+    	@import "../../../components/buttons/_primary";
+    	@include primaryButton;
+    	
+        @media(max-width: $small-screen) {
+            width: 100%;
+        }
+    }
+}

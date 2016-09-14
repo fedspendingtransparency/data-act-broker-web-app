@@ -1,0 +1,51 @@
+.file-box {
+    @include contentBlockWrapper();
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    position: relative;
+    .file-type {
+        flex: 1 1 auto;
+        width: 10%;
+        font-weight: bold;
+        padding: 15px;
+        background-color: $color-gray-light;
+        color: $color-white;
+        display: flex;
+        align-self: stretch;
+        align-items: center;
+    }
+    .file-name {
+        flex: 1 1 auto;
+        padding: 15px;
+        font-weight: bold;
+        width: 70%;
+        color: $color-gray;
+    }
+    .file-icon {
+        flex: 0 1 auto;
+        width: 20%;
+        text-align: right;
+        padding: 15px;
+        .usa-da-icon {
+            & svg {
+                height: 20px;
+                width: 20px;
+                position: relative;
+                top: 5px;
+                fill: $color-gray;
+            }
+            &.success {
+                svg {
+                    fill: $color-green-light;
+                }
+            }
+            &.error {
+                svg {
+                    fill: $color-secondary;
+                }
+            }
+        }
+    }
+    @import "./_cornerOverlay";
+}

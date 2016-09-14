@@ -1,0 +1,4 @@
+.usa-da-button {
+	@import "../../../components/buttons/_primary";
+	@include primaryButton;	
+}

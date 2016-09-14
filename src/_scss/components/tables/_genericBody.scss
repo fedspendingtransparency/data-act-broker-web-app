@@ -1,0 +1,16 @@
+@mixin genericBody {
+	
+	tbody {
+        tr {
+            td {
+                padding: 15px;
+                font-size: 1.4rem;
+                color: $color-gray;
+                @media(max-width:$medium-screen) {
+                	padding: 10px;
+                }
+            }
+        }
+    }
+
+}

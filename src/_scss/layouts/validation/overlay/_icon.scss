@@ -1,0 +1,51 @@
+@mixin validationOverlayIcon {
+	.usa-da-alert-icon {
+        & svg {
+            fill: $color-white;
+            left: 0;
+            top: -5px;
+            width: 5.5rem;
+            height: 5.5rem;
+        }
+        @media screen and (max-width: $small-screen) {
+            top: 15px;
+            float: right;
+            & svg {
+                float: right;
+            }
+        }
+    }
+    & svg.usa-da-icon-check-circle,
+    & svg.usa-da-icon-exclamation-circle {
+        width: 5.5rem;
+        height: 5.5rem;
+        position: relative;
+    }
+    & svg.usa-da-icon-check-circle {
+        fill: $color-green-light;
+    }
+    & svg.usa-da-icon-exclamation-circle {
+        fill: $color-secondary;
+    }
+    .usa-da-warningYellow {
+        & svg.usa-da-icon-exclamation-circle {
+            fill: $color-gold;
+        }
+    }
+    .usa-da-errorRed,
+    .usa-da-successGreen,
+    .usa-da-warningYellow {
+        &:after {
+            content: " ";
+            background: white;
+            position: relative;
+            display: block;
+            top: -58px;
+            left: 2px;
+            height: 51px;
+            width: 51px;
+            z-index: -2;
+            border-radius: 100px;
+        }
+    }
+}

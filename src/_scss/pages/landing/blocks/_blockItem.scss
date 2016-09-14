@@ -1,0 +1,73 @@
+.usa-da-landing-block {
+    background-color: #e7e7e7;
+    border: 1px solid #d9d9d9;
+    height: 275px;
+    padding: 10px;
+    position: relative;
+    &.comingSoon {
+        background: #e7e7e7 url("../graphics/coming_soon_ribbon.png") 100% 0 no-repeat;
+        color: #888;
+        & svg {
+            opacity: 0.4;
+        }
+    }
+    @media(max-width: $medium-screen) {
+        height: auto;
+    }
+
+    .usa-da-landing-block-text {
+        margin: 0 10px;
+    }
+    .usa-da-landing-block-icon {
+        padding-top: 10px;
+        padding-bottom: 20px;
+        @media(max-width: $medium-screen) {
+            padding-top: 0px;
+        }
+        svg {
+            margin: 0 10px 0 0;
+            display: inline-block;
+            position: relative;
+            top: 5px;
+            left: 2px;
+            height: 4.5rem;
+            width: 4.8rem;
+            fill: $color-gray;
+        }
+    }
+    .usa-da-landing-block-bottom {
+        position: absolute;
+        top: 170px;
+        left: 20px;
+        right: 20px;
+        @media(max-width: $medium-screen) {
+            position: relative;
+            top: 0;
+            left: 0;
+            padding-top: 20px;
+        }
+        & a {
+            font-size: 1.4rem;
+        }
+        & .usa-da-landing-block-bottom-link {
+            padding: 15px 20px 20px;
+            & a {
+                font-size: 1.2rem;
+                font-weight: 700;
+                text-decoration: none;
+            }
+        }
+    }
+
+    // implement the block buttons
+    @import "../../../components/buttons/_primary";
+    .usa-da-button {
+        @include primaryButton;
+        
+        &.btn-lg {
+            font-size: 1.4rem;
+        }
+    }
+
+    
+}

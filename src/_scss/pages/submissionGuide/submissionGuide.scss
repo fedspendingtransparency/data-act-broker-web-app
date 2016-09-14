@@ -1,0 +1,13 @@
+.usa-da-submission-guide-page {
+	@import "../../layouts/content/content";
+	@include contentLayout;
+
+	$whiteBorderMargin: 25px;
+	$whiteBorderWidth: 4px;
+	$numberWidthHeight: 42px;
+
+	@import "./_content";
+	@import "./_stepCounter";
+	@import "./_stepItem";
+	@import "./_rightPanel";
+}

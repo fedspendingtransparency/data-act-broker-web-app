@@ -15,16 +15,29 @@ import * as ReviewHelper from '../../helpers/reviewHelper.js';
 
 import CrossFileContent from '../../components/crossFile/CrossFileContent.jsx';
 
+const timerDuration = 10;
+
 class CrossFileContentContainer extends React.Component {
 	constructor(props) {
 		super(props);
 
 		this.dataTimer;
+		this.isUnmounted = false;
 	}
 
 	componentDidMount() {
+		this.isUnmounted = false;
 		this.loadData();
 		this.startTimer();
+	}
+
+	componentWillUnmount() {
+		this.isUnmounted = true;
+		// stop the timer
+		if (this.dataTimer) {
+			window.clearInterval(this.dataTimer);
+			this.dataTimer = null;
+		}
 	}
 
 	uploadFiles() {
@@ -94,6 +107,11 @@ class CrossFileContentContainer extends React.Component {
 			}
 			else if (jobStatus != 'finished') {
 				allPassed = false;
+
+				if (jobStatus == 'waiting') {
+					// there are files that are still missing
+					state = 'errors';
+				}
 			}
 		}
 
@@ -143,7 +161,15 @@ class CrossFileContentContainer extends React.Component {
 			}
 		})
 		.catch((err) => {
-			console.log(err);
+			// check if the error has an associated user-displayable message
+			if (err.hasOwnProperty('detail') && err.detail != '') {
+				if (!this.isUnmounted) {
+					this.props.showError(err.detail);
+				}
+			}
+			else {
+				console.log(err);
+			}
 
 			// stop the timer
 			if (this.dataTimer) {
@@ -157,7 +183,7 @@ class CrossFileContentContainer extends React.Component {
 		// keep checking the data every 5 seconds until it has finished loaded;
 		this.dataTimer = window.setInterval(() => {
 			this.loadData();
-		}, 5000);
+		}, timerDuration * 1000);
 	}
 	
 	reloadData() {

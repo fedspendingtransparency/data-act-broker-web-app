@@ -44,7 +44,7 @@ export default class GenerateFilesContent extends React.Component {
                         <div className="alert alert-warning">
                                 <span className="usa-da-icon"><Icons.ExclamationCircle /></span>
                                 <div className="alert-header-text">NOTICE</div>
-                                <p><b>PLEASE NOTE:</b> Until integration with the ASP and FPDS is complete, the Broker will return D1 and D2 <b>sample files</b> in this interface.</p>
+                                <p><b>PLEASE NOTE:</b> The D1/D2 integration with ASP and FPDS is still being tested.</p>
                         </div>
                         
 	                    <GenerateFileBox 

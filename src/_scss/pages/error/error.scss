@@ -1,0 +1,10 @@
+.usa-da-error-page {
+	@import "../../layouts/content/content";
+	@include contentLayout;
+
+	// implement the header styles
+	.usa-da-page-title {
+		@import "../../components/typography/_pageTitles";
+		@include pageTitle;
+	}
+}

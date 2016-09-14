@@ -1,0 +1,35 @@
+@import "../content/content";
+@import "./progress/progress";
+@import "./header/header";
+@import "./overlay/overlay";
+
+// the validation layout is based on the content layout
+@mixin validationLayout {
+	@include contentLayout;
+
+	// implement the header elements
+	.usa-da-page-title {
+		@include validationHeader;
+	}
+
+	// implement the progress bar
+	.usa-da-content-step-block {
+		color: $color-gray-light;
+		background-color: $color-gray-cool-light;
+		border-bottom: 1px solid $color-white;
+	
+		.usa-da-progress-bar {
+			@include validationProgress;
+		}
+	}
+
+	// implement the overlay
+	.usa-da-validation-overlay {
+		@include validationOverlay;
+	}
+
+	// add extra padding at the bottom of the page to account for the overlay
+	.with-overlay {
+	    padding-bottom: 180px !important;
+	}
+}
