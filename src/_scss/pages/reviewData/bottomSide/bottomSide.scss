@@ -1,38 +1,68 @@
-.usa-da-submission-bottom-big-links {
+.submission-wrapper {
+    // apply flexboxes to force all buttons to have the same height if the button contents need to line wrap
+
+    @include display(flex);
+    @include justify-content(space-between);
+
+    @media(max-width: $medium-screen) {
+        display: block;
+    }
+
+    .left-link{
+        @include flex(1 1 0);
+        position: relative;
+        
+        margin-left: 15px;
+        margin-right: 7px;
+
+        @media(max-width: $medium-screen) {
+            display: block;
+            margin: 0;
+        }
+    }
+
+    .right-link {
+        @include flex(1 1 0);
+        position: relative;
+
+        @media(max-width: $medium-screen) {
+            display: block;
+            margin-top: 1.5rem;
+        }
+    }
+
 
     .usa-da-button {
         @import "../../../components/buttons/_primary";
         @include primaryButton;
 
-        &.btn-primary.btn-lg {
-            font-size: $base-font-size;
-            line-height: 4.2rem;
+        height: 100%;
+
+        // use a bunch of flexboxes to force the icon and button text to be vertically aligned within the button
+        .button-wrapper {
+            @include display(flex);
+            @include justify-content(space-between);
+        }
+
+        .button-content {
+            @include flex(1 1 auto);
             position: relative;
-            & svg {
-                margin: 0 10px 0 0;
-                position: relative;
-                top: 7px;
-                fill: $color-white;
-                height: 2.4rem;
-                width: 2.6rem;
-            }
-            & .usa-da-icon-Globe {
-                & svg {
-                    height: 2.6rem;
-                    width: 2.6rem;
-                }
-            }
-            @media(max-width:$small-screen) {
-                line-height: 20px;
-                text-align: left;
-                padding: 20px 15px 20px 15px;
-                & .usa-da-icon {
-                    float: left;
-                }
-                &.last {
-                    margin: 20px 0 0;
-                }
-            }
+            font-size: $base-font-size;
+            line-height: 2.4rem;
+        }
+
+        .button-icon {
+            @include flex(0 0 3.6rem);
+            @include display(flex);
+            @include align-items(center);
+        }
+
+        & svg {
+            @include flex(1 1 auto);
+            position: relative;
+            fill: $color-white;
+            height: 2.4rem;
+            width: 2.6rem;
         }
     }
 }

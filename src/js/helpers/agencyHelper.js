@@ -1,6 +1,6 @@
 import Request from './sessionSuperagent.js';
 import Q from 'q';
-import Cookies from 'js-cookie';
+import _ from 'lodash';
 
 import StoreSingleton from '../redux/storeSingleton.js';
 
@@ -18,6 +18,24 @@ export const fetchAgencies = () => {
             }
             else {
                 deferred.resolve(res.body['cgac_agency_list']);
+            }
+        });
+
+    return deferred.promise;
+}
+
+export const fetchAgencyName = (cgac) => {
+    const deferred = Q.defer();
+
+
+    fetchAgencies()
+        .then((agencies) => {
+            const index = _.findIndex(agencies, {cgac_code: cgac});
+            if (index > -1) {
+                deferred.resolve(agencies[index].agency_name);
+            }
+            else {
+                deferred.resolve("UNKNOWN");
             }
         });
 

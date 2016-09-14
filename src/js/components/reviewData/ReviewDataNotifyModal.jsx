@@ -123,25 +123,25 @@ export default class ReviewDataNotifyModal extends React.Component {
                         </div>
 
                         <div className="usa-da-notify-modal-content">
-                        <div className="row">
-                            <div className="col-md-12">
-                                <h6>Notify Another User that the Submission is Ready for Certification</h6>
+                            <div className="row">
+                                <div className="col-md-12">
+                                    <h6>Notify Another User that the Submission is Ready for Certification</h6>
 
-                                <div className="usa-da-selected-users-holder">
-                                    {selectedUsers}
-                                </div>
+                                    <div className="usa-da-selected-users-holder">
+                                        {selectedUsers}
+                                    </div>
 
-                                <div className="usa-da-autocomplete-holder typeahead-holder mb-30">
-                                    {autoCompleteItems}
+                                    <div className="usa-da-autocomplete-holder typeahead-holder mb-30">
+                                        {autoCompleteItems}
+                                    </div>
                                 </div>
                             </div>
-                        </div>
-                        <div className="row">
-                            <div className="col-md-12 mb-10">
-                                <a href="#" onClick={this.sendNotification.bind(this)} className="usa-da-button btn-primary pull-right">Send Notification</a>
+                            <div className="row">
+                                <div className="col-md-12 mb-10">
+                                    <a href="#" onClick={this.sendNotification.bind(this)} className="usa-da-button btn-primary pull-right">Send Notification</a>
+                                </div>
                             </div>
-                        </div>
-                        </div>
+                        </div> 
                     </div>
                 </div>
             </Modal>

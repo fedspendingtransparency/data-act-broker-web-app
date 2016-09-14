@@ -7,6 +7,7 @@ import StoreSingleton from '../redux/storeSingleton.js';
 
 import { kGlobalConstants } from '../GlobalConstants.js';
 import * as uploadActions from '../redux/actions/uploadActions.js';
+import * as sessionActions from '../redux/actions/sessionActions.js';
 
 import { fileTypes } from '../containers/addData/fileTypes.js';
 import * as AdminHelper from './adminHelper.js';
@@ -62,9 +63,23 @@ const determineExpectedPairs = () => {
 export const fetchStatus = (submissionId) => {
 	const deferred = Q.defer();
 
+	const startTime = new Date().getTime();
+	const store = new StoreSingleton().store;
+
 	Request.post(kGlobalConstants.API + 'check_status/')
 	        .send({'submission_id': submissionId})
 	        .end((errFile, res) => {
+
+	        	// calculate how long the API call took
+	        	const endTime = new Date().getTime();
+	        	const duration = endTime - startTime;
+	        	// log the API call duration
+	        	const reduxData = store.getState();
+	        	const action = sessionActions.setApiMeta({
+	        		time: duration
+	        	});
+                store.dispatch(action);
+	        	
 
 	        	if (errFile) {
 	        		let detail = '';
