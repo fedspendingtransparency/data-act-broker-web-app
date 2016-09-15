@@ -375,6 +375,7 @@ class GenerateFilesContainer extends React.Component {
 		let message = '';
 
 		files.forEach((file) => {
+
 			const fileData = responses[file];
 			output[file + 'Status'] = fileData.status;
 
@@ -405,6 +406,12 @@ class GenerateFilesContainer extends React.Component {
 				};
 				// add this to the new state
 				output[file] = item;
+			}
+			else {
+				// something terrible has happened, show a failure
+				errors.push(file);
+				let message = 'An error occurred while generating this file.';
+				this.showError(file, 'General Error', message);
 			}
 		});
 
