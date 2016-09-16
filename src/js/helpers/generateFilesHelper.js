@@ -38,7 +38,7 @@ export const generateFile = (type, submissionId, start, end) => {
             })
             .end((errFile, res) => {
 
-                if (errFile) {
+                 if (errFile) {
                     const response = Object.assign({}, res.body);
                     response.httpStatus = res.status;
                     deferred.reject(response);
