@@ -136,7 +136,8 @@ Refer to the [Resources](#/help?section=resources) section for sample files and 
         <tr>
             <td>A, B</td>
             <td>A18 (v2)</td>
-            <td class="break-word">GrossOutlayAmountByTAS_CPE (file A) = sum of all GrossOutlayAmountByProgramObjectClass (file B). {When Program Activity and Object Class are not blank, this value is the sum of all Gross Outlay Amounts reported in file B, by TAS/Subaccount.}</td>
+            <td class="break-word">GrossOutlayAmountByTAS_CPE (file A) = sum of all GrossOutlayAmountByProgramObjectClass (file B).
+ {This value is the sum of all Gross Outlay Amounts reported in file B, to indicate year-to-date activity by TAS/Subaccount.}</td>
             <td>Pending Update</td>
             <td>Calculation</td>
         </tr>
@@ -276,7 +277,7 @@ Refer to the [Resources](#/help?section=resources) section for sample files and 
         <tr>
             <td>B</td>
             <td>B4 (v2)</td>
-            <td class="break-word">ObligationsDeliveredOrdersUnpaidTotal (FYB or CPE) = USSGL(4901 + 4981). This applies to the program activity and object class level. Note for FYB values, only 4901 is expected to have a balance other than zero</td>
+            <td class="break-word">ObligationsDeliveredOrdersUnpaidTotal in File B = USSGL 4901 + 4981 in File B for the same date context (FYB or CPE). This applies to the program activity and object class level. Note for FYB values, only 4901 is expected to have a balance other than zero.</td>
             <td>Pending Update</td>
             <td>Calculation</td>
         </tr>
@@ -374,49 +375,49 @@ Refer to the [Resources](#/help?section=resources) section for sample files and 
         <tr>
             <td>C</td>
             <td>C3 (v2)</td>
-            <td class="break-word">ObligationsUndeliveredOrdersUnpaidTotal (FYB or CPE) = USSGL(4801 + 4881). This applies to the award level. Note for FYB values, only 4801 is expected to have a balance other than zero</td>
+            <td class="break-word">ObligationsUndeliveredOrdersUnpaidTotal in File C = USSGL 4801 + 4881 in File C for the same date context (FYB or CPE). This applies to the award level. Note for FYB values, only 4801 is expected to have a balance other than zero.</td>
             <td>Pending Update</td>
             <td>Calculation</td>
         </tr>
         <tr>
             <td>C</td>
             <td>C4 (v2)</td>
-            <td class="break-word">ObligationsDeliveredOrdersUnpaidTotal (FYB or CPE) = USSGL(4901 + 4981). This applies to the award level. Note for FYB values, only 4901 is expected to have a balance other than zero</td>
+            <td class="break-word">ObligationsDeliveredOrdersUnpaidTotal in File C = USSGL 4901 + 4981 in File C for the same date context (FYB or CPE). This applies to the award level. Note for FYB values, only 4901 is expected to have a balance other than zero.</td>
             <td>Pending Update</td>
             <td>Calculation</td>
         </tr>
         <tr>
             <td>C</td>
             <td>C5 (v2)</td>
-            <td class="break-word">GrossOutlayAmountByAward (FYB or CPE, File C) = GrossOutlaysUndeliveredOrdersPrepaidTotal (FYB or CPE, File C) + GrossOutlaysDeliveredOrdersPaidTotal (FYB or CPE, File C)</td>
+            <td class="break-word">GrossOutlayAmountByAward (File C) = GrossOutlaysUndeliveredOrdersPrepaidTotal (File C) + GrossOutlaysDeliveredOrdersPaidTotal (File C) for the same date context (FYB or CPE)</td>
             <td>Pending Update</td>
             <td>Calculation</td>
         </tr>
         <tr>
             <td>C</td>
             <td>C6 (v2)</td>
-            <td class="break-word">GrossOutlaysUndeliveredOrdersPrepaidTotal (FYB or CPE) = USSGL(4802 + 4882). This applies to the award level. Note for FYB values, only 4802 is expected to have a balance other than zero</td>
+            <td class="break-word">GrossOutlaysUndeliveredOrdersPrepaidTotal in File C = USSGL 4802 + 4882 in File C for the same date context (FYB or CPE). This applies to the award level. Note for FYB values, only 4802 is expected to have a balance other than zero.</td>
             <td>Pending Update</td>
             <td>Calculation</td>
         </tr>
         <tr>
             <td>C</td>
             <td>C7 (v2)</td>
-            <td class="break-word">GrossOutlaysDeliveredOrdersPaidTotal (FYB or CPE) = USSGL(4902 + 4908 + 4982). This applies to the award level. Note for FYB values, only 4908 is expected to have a balance other than zero</td>
+            <td class="break-word">GrossOutlaysDeliveredOrdersPaidTotal in File C = USSGL 4902 + 4908 + 4982 in File C for the same date context (FYB or CPE). This applies to the award level. Note for FYB values, only 4908 is expected to have a balance other than zero.</td>
             <td>Pending Update</td>
             <td>Calculation</td>
         </tr>
         <tr>
             <td>C/D2</td>
             <td>C8</td>
-            <td>Unique FAIN/URI from file C exists in file D2</td>
+            <td>Unique FAIN/URI from file C exists in file D2. FAIN may be null for aggregated records.  URI may be null for non-aggregated records. For FAIN/URI, a warning will be provided if both are submitted. </td>
             <td>Implemented</td>
             <td>Linkage</td>
         </tr>
         <tr>
             <td>C/D2</td>
             <td>C9</td>
-            <td class="break-word">Unique FAIN/URI from file D2 exists in file C, except D2 records where FederalActionObligation and OriginalLoanSubsidyCost = 0. FAIN may be null for aggregated records.  URI may be null for non-aggregated records. For FAIN/URI, a warning will be provided if both are submitted.</td>
+            <td class="break-word">Unique FAIN/URI from file D2 exists in file C, except D2 records where FederalActionObligation and OriginalLoanSubsidyCost = 0. FAIN may be null for aggregated records.  URI may be null for non-aggregated records. For FAIN/URI, a warning will be provided if both are submitted. </td>
             <td>Implemented</td>
             <td>Linkage</td>
         </tr>
@@ -430,14 +431,14 @@ Refer to the [Resources](#/help?section=resources) section for sample files and 
         <tr>
             <td>C/D1</td>
             <td>C12</td>
-            <td class="break-word"Unique PIID, ParentAwardId from file D1 exists in file C during the same reporting period, except D1 records with zero FederalActionObligation</td>
+            <td class="break-word">Unique PIID, ParentAwardId from file D1 exists in file C during the same reporting period, except D1 records with zero FederalActionObligation</td>
             <td>Not Implemented</td>
             <td>Linkage</td>
         </tr>
         <tr>
             <td>C</td>
             <td>C14 (v2)</td>
-            <td>Each row provided in file C must contain either a FAIN, URI, or PIID.</td>
+            <td>Each row provided in file C must contain either a FAIN, URI, or PIID. Rows must not contain a PIID and FAIN, or a PIID and URI.</td>
             <td>Pending Update</td>
             <td>Element Conditionally Required</td>
         </tr>
@@ -471,13 +472,13 @@ Refer to the [Resources](#/help?section=resources) section for sample files and 
         </tr>
             <td>C/D1/D2</td>
             <td>C23</td>
-            <td>For each unique award ID (PIID/ParentAwardId for procurement, FAIN/URI for financial assistance) in File C, the sum of each TransactionObligatedAmount submitted in the reporting period should match the sum of the FederalActionObligation (in either D1 or D2) or OriginalLoanSubsidyCost (only in D2) amounts reported in D1 or D2 for the same timeframe, regardless of modifications.</td>
+            <td>For each unique award ID (PIID/ParentAwardId for procurement, FAIN/URI for financial assistance) in File C, the sum of each TransactionObligatedAmount submitted in the reporting period should match the sum of the FederalActionObligation (in either D1 or D2) or OriginalLoanSubsidyCost (only in D2) amounts reported in D1 or D2 for the same timeframe, regardless of modifications. </td>
             <td>Not implemented</td>
             <td>Calculation</td>
         </tr>
             <td>C/D1/D2</td>
             <td>C24</td>
-            <td>If AllocationTransferAgencyIdentifier in File C is populated and valid, then it is acceptable that the associated Award ID does NOT exist in File D1 or D2.</td>
+            <td>If AllocationTransferAgencyIdentifier in File C is populated and valid, then it is acceptable that the associated Award ID does NOT exist in File D1 or D2. </td>
             <td>Not implemented</td>
             <td>Linkage</td>
         </tr>
@@ -526,7 +527,7 @@ Refer to the [Resources](#/help?section=resources) section for sample files and 
         <tr>
             <td>D2</td>
             <td>D7</td>
-            <td class="break-word">This is required only when the combination of FAIN and AwardModificationAmendmentNumber is not unique. Field must contain a unique value except when the CorrectionLateDeleteIndicator contains the code “C” or “D”. This field is required for aggregate records.</td>
+            <td class="break-word">This is required only when the combination of FAIN and AwardModificationAmendmentNumber is not unique. Field must contain a unique value except when the CorrectionLateDeleteIndicator contains the code “C” or “D”. This field is required for aggregate records. </td>
             <td>Implemented in ASP</td>
             <td>Element Conditionally Required</td>
         </tr>
@@ -575,21 +576,21 @@ Refer to the [Resources](#/help?section=resources) section for sample files and 
         <tr>
             <td>D2</td>
             <td>D14</td>
-            <td class="break-word">With two exceptions, this field must contain a valid two letter USPS state code in the first two positions. The two exceptions: 1) field must contain "00FORGN" when PrimaryPlaceOfPerformanceCountryCode is not USA;  2) field must contain "00*****" for multi-state places of performance.</td>
+            <td class="break-word">WWith two exceptions, this field must contain a valid two letter USPS state code in the first two positions. The two exceptions: 1) field must contain "00FORGN" when PrimaryPlaceOfPerformanceCountryCode is not USA;  2) field must contain "00*****" for multi-state places of performance.</td>
             <td>Implemented in ASP</td>
             <td>Requirement</td>
         </tr>
         <tr>
             <td>D2</td>
             <td>D15</td>
-            <td class="break-word">PrimaryPlaceOfPerformanceCode must be consistent with PrimaryPlaceOfPerformanceZIP+4, PrimaryPlaceOfPerformanceCountryCode, and PrimaryPlaceOfPerformanceCongressionalDistrict. For aggregate records (i.e., RecordType = 1), it must be in XX**### format, where XX is the USPS state code and ### a valid three-digit county code. When PrimaryPlaceOfPerformanceZIP+4 is provided, PrimaryPlaceOfPerformanceCode should be in XX##### format, where XX is the USPS state code and ##### a valid five-digit city code. For more information on the state, city, and county codes, see the "Domain_Values.xlsx" spreadsheet.</td>
+            <td class="break-word">PrimaryPlaceOfPerformanceCode must be consistent with PrimaryPlaceOfPerformanceZIP+4, PrimaryPlaceOfPerformanceCountryCode, and PrimaryPlaceOfPerformanceCongressionalDistrict. For aggregate records (i.e., RecordType = 1), it must be in XX**### format, where XX is the USPS state code and ### is a valid three-digit county code. When PrimaryPlaceOfPerformanceZIP+4 is provided, PrimaryPlaceOfPerformanceCode should be in XX##### format, where XX is the USPS state code and ##### a valid five-digit city code. For more information on the state, city, and county codes, see the  "Domain_Values.xlsx" spreadsheet.</td>
             <td>Implemented in ASP</td>
             <td>Requirement</td>
         </tr>
         <tr>
             <td>D2</td>
             <td>D16</td>
-            <td class="break-word">This field must be blank when PrimaryPlaceOfPerformanceCountryCode is not USA. When PrimaryPlaceOfPerformanceCountryCode is USA: 1) This field must be blank in the case of county-wide, multi-state, or statewide awards (as indicated by the PrimaryPlaceOfPerformanceCode); 2) Outside of the cases just mentioned, this field is required, and must either take the value "city-wide" (city-wide awards only) or a valid USPS ZIP+4 code (all other awards).</td>
+            <td class="break-word">This field must be blank when PrimaryPlaceOfPerformanceCountryCode is not USA. When PrimaryPlaceOfPerformanceCountryCode is USA: 1) This field must be blank in the case of county-wide, multi-state, or statewide awards (as indicated by the PrimaryPlaceOfPerformanceCode); 2) Outside of the cases just mentioned, this field is required, and must either take the value "city-wide" (city-wide awards only) or a valid USPS ZIP+4 code (all other awards). </td>
             <td>Implemented in ASP</td>
             <td>Element Conditionally Required</td>
         </tr>
@@ -659,7 +660,7 @@ Refer to the [Resources](#/help?section=resources) section for sample files and 
         <tr>
             <td>D2</td>
             <td>D28</td>
-            <td class="break-word">If AssistanceType is 07 or 08 this field must be blank.</td>
+            <td class="break-word">If AssistanceType is 07 or 08 this field must be blank. </td>
             <td>Implemented in ASP</td>
             <td>Element Conditionally Required</td>
         </tr>
