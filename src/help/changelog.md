@@ -93,7 +93,7 @@ Refer to the [Resources](#/help?section=resources) section for sample files and 
         <tr>
             <td>A</td>
             <td>A10</td>
-            <td class="break-word">BorrowingAuthorityAmountTotal_CPE= aggregate value for GTAS SF 133 line #1340 + #1440, for the same reporting period.</td>
+            <td class="break-word">BorrowingAuthorityAmountTotal_CPE= aggregate value for GTAS SF 133 line #1340 + #1440 for the same reporting period.</td>
             <td>Implemented</td>
             <td>Calculation</td>
         </tr>
@@ -136,14 +136,14 @@ Refer to the [Resources](#/help?section=resources) section for sample files and 
         <tr>
             <td>A, B</td>
             <td>A18 (v2)</td>
-            <td class="break-word">GrossOutlayAmountByTAS_CPE (file A) = sum of all GrossOutlayAmountByProgramObjectClass (file B) {When Program Activity and Object Class are not blank, this value is the sum of all Gross Outlay Amounts reported in file B, by TAS/Subaccount}</td>
+            <td class="break-word">GrossOutlayAmountByTAS_CPE (file A) = sum of all GrossOutlayAmountByProgramObjectClass (file B). {When Program Activity and Object Class are not blank, this value is the sum of all Gross Outlay Amounts reported in file B, by TAS/Subaccount.}</td>
             <td>Pending Update</td>
             <td>Calculation</td>
         </tr>
         <tr>
             <td>A, B</td>
             <td>A19 (v2)</td>
-            <td class="break-word">ObligationsIncurredTotalByTAS_CPE (File A) = negative sum of ObligationsIncurredByProgramObjectClass_CPE (File B)</td>
+            <td class="break-word">ObligationsIncurredTotalByTAS_CPE (File A) = negative sum of ObligationsIncurredByProgramObjectClass_CPE (File B), as of the same reporting period.</td>
             <td>Pending Update</td>
             <td>Calculation</td>
         </tr>
@@ -253,9 +253,9 @@ Refer to the [Resources](#/help?section=resources) section for sample files and 
             <td>Calculation</td>
         </tr>
         <tr>
-            <td>A</td>
+            <td>A,B</td>
             <td>A35</td>
-            <td class="break-word">DeobligationsRecoveriesRefundsByTAS_CPE in File A should equal USSGL (4871_CPE+ 4971_CPE+ 4872_CPE+ 4972_CPE) for the TAS in File B</td>
+            <td class="break-word">DeobligationsRecoveriesRefundsByTAS_CPE in File A should equal USSGL (4871_CPE+ 4971_CPE+ 4872_CPE+ 4972_CPE) for the TAS in File B.</td>
             <td>Not implemented</td>
             <td>Calculation</td>
         </tr>
@@ -269,7 +269,7 @@ Refer to the [Resources](#/help?section=resources) section for sample files and 
         <tr>
             <td>B</td>
             <td>B3 (v2)</td>
-            <td class="break-word">ObligationsUndeliveredOrdersUnpaidTotal (FYB or CPE) = USSGL(4801 + 4881). This applies to the program activity and object class level. Note for FYB values, only 4801 is expected to have a balance other than zero</td>
+            <td class="break-word">ObligationsUndeliveredOrdersUnpaidTotal in File B = USSGL 4801 + 4881 in File B for the same date context (FYB or CPE). This applies to the program activity and object class level. Note for FYB values, only 4801 is expected to have a balance other than zero.</td>
             <td>Pending Update</td>
             <td>Calculation</td>
         </tr>
@@ -290,14 +290,14 @@ Refer to the [Resources](#/help?section=resources) section for sample files and 
         <tr>
             <td>B</td>
             <td>B6 (v2)</td>
-            <td class="break-word">GrossOutlaysUndeliveredOrdersPrepaidTotal (FYB or CPE) = USSGL(4802 + 4882). This applies to the program activity and object class level. Note for FYB values, only 4802 is expected to have a balance other than zero</td>
+            <td class="break-word">GrossOutlaysUndeliveredOrdersPrepaidTotal in File B = USSGL 4802 + 4882 in File B for the same date context (FYB or CPE). This applies to the program activity and object class level. Note for FYB values, only 4802 is expected to have a balance other than zero.</td>
             <td>Pending Update</td>
             <td>Calculation</td>
         </tr>
         <tr>
             <td>B</td>
             <td>B7 (v2)</td>
-            <td class="break-word">GrossOutlaysDeliveredOrdersPaidTotal (FYB or CPE)= USSGL(4902 + 4908 + 4982). This applies to the program activity and object class level. Note for FYB values, only 4908 is expected to have a balance other than zero</td>
+            <td class="break-word">GrossOutlaysDeliveredOrdersPaidTotal in File B = USSGL 4902 + 4908 + 4982 in File B for the same date context (FYB or CPE). This applies to the program activity and object class level. Note for FYB values, only 4908 is expected to have a balance other than zero.</td>
             <td>Pending Update</td>
             <td>Calculation</td>
         </tr>
@@ -318,23 +318,23 @@ Refer to the [Resources](#/help?section=resources) section for sample files and 
         <tr>
             <td>B</td>
             <td>B11 (v2)</td>
-            <td>Must be valid 3-digit object class as defined in OMB Circular A-11 Section 83.6, or a 4-digit code which includes a 1-digit prefix that distinguishes direct, reimbursable, and allocation obligations. Do not include decimal points when reporting in the Schema</td>
+            <td>Must be valid 3-digit object class as defined in OMB Circular A-11 Section 83.6, or a 4-digit code which includes a 1-digit prefix that distinguishes direct, reimbursable, and allocation obligations. Do not include decimal points when reporting in the Schema.</td>
             <td>Pending Update</td>
             <td>Requirement</td>
         </tr>
         <tr>
             <td>B</td>
             <td>B12 (v2)</td>
-            <td class="break-word">Reimbursable flag indicator is required when reporting obligation or outlay USSGL account balances (excluding downward adjustments USSGL accounts), and a 3 digit object class is provided. Valid values are "R" for "ReimbursableFundingSource" and "D" for "DirectFundingSource"</td>
+            <td class="break-word">Reimbursable flag indicator is required when reporting obligation or outlay USSGL account balances (excluding downward adjustments USSGL accounts), and a 3 digit object class is provided. Valid values are "R" for "ReimbursableFundingSource" and "D" for "DirectFundingSource".</td>
             <td>Pending Update</td>
             <td class="break-word">Element Conditionally Required</td>
         </tr>
         <tr>
             <td>B</td>
             <td>B13 (v2)</td>
-            <td class="break-word">DeobligationsRecoveriesRefundsOfPriorYearByProgramObjectClass_CPE = USSGL(4871+ 4872 + 4971 + 4972)</td>
+            <td class="break-word">DeobligationsRecoveriesRefundsOfPriorYearByProgramObjectClass_CPE in File B = USSGL(4871+ 4872 + 4971 + 4972) in File B for the same reporting period</td>
             <td>Pending Update</td>
-            <td>Calculation</td>
+            <td>Requirement</td>
         </tr>
         <tr>
             <td>B</td>
@@ -407,7 +407,7 @@ Refer to the [Resources](#/help?section=resources) section for sample files and 
             <td>Calculation</td>
         </tr>
         <tr>
-            <td>C</td>
+            <td>C/D2</td>
             <td>C8</td>
             <td>Unique FAIN/URI from file C exists in file D2</td>
             <td>Implemented</td>
@@ -435,7 +435,7 @@ Refer to the [Resources](#/help?section=resources) section for sample files and 
             <td>Linkage</td>
         </tr>
         <tr>
-            <td>C/D</td>
+            <td>C</td>
             <td>C14 (v2)</td>
             <td>Each row provided in file C must contain either a FAIN, URI, or PIID.</td>
             <td>Pending Update</td>
@@ -500,7 +500,7 @@ Refer to the [Resources](#/help?section=resources) section for sample files and 
             <td>D3</td>
             <td class="break-word">Must be a valid date with a value between 19991001 and 20991231. Date must follow YYYYMMDD format, where YYYY is the year, MM the month and DD the day. A future ActionDate is valid only if it occurs within the current fiscal year.</td>
             <td>Implemented in ASP</td>
-            <td>Requirement</td>
+            <td>Element Conditionally Required</td>
         </tr>
         <tr>
             <td>D2</td>
