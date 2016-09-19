@@ -136,8 +136,7 @@ Refer to the [Resources](#/help?section=resources) section for sample files and 
         <tr>
             <td>A, B</td>
             <td>A18 (v2)</td>
-            <td class="break-word">GrossOutlayAmountByTAS_CPE (file A) = sum of all GrossOutlayAmountByProgramObjectClass (file B).
- {This value is the sum of all Gross Outlay Amounts reported in file B, to indicate year-to-date activity by TAS/Subaccount.}</td>
+            <td class="break-word">GrossOutlayAmountByTAS_CPE (file A) = sum of all GrossOutlayAmountByProgramObjectClass (file B). {This value is the sum of all Gross Outlay Amounts reported in file B, to indicate year-to-date activity by TAS/Subaccount.}</td>
             <td>Pending Update</td>
             <td>Calculation</td>
         </tr>
@@ -576,7 +575,7 @@ Refer to the [Resources](#/help?section=resources) section for sample files and 
         <tr>
             <td>D2</td>
             <td>D14</td>
-            <td class="break-word">WWith two exceptions, this field must contain a valid two letter USPS state code in the first two positions. The two exceptions: 1) field must contain "00FORGN" when PrimaryPlaceOfPerformanceCountryCode is not USA;  2) field must contain "00*****" for multi-state places of performance.</td>
+            <td class="break-word">With two exceptions, this field must contain a valid two letter USPS state code in the first two positions. The two exceptions: 1) field must contain "00FORGN" when PrimaryPlaceOfPerformanceCountryCode is not USA;  2) field must contain "00*****" for multi-state places of performance.</td>
             <td>Implemented in ASP</td>
             <td>Requirement</td>
         </tr>
