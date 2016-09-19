@@ -339,7 +339,7 @@ Refer to the [Resources](#/help?section=resources) section for sample files and 
         <tr>
             <td>B</td>
             <td>B14</td>
-            <td class="break-word>File B: All the D amounts reported for (4801_CPE less 4801_FYB) + (4802_CPE less 4802_FYB) + 4881_CPE + 4882_CPE + (4901_CPE less 4901_FYB) + 4902_CPE + (4908_CPE less 4908_FYB) + 4981_CPE + 4982_CPE = SF 133 line 2004 per TAS, for the same reporting period</td>
+            <td class="break-word">File B: All the D amounts reported for (4801_CPE less 4801_FYB) + (4802_CPE less 4802_FYB) + 4881_CPE + 4882_CPE + (4901_CPE less 4901_FYB) + 4902_CPE + (4908_CPE less 4908_FYB) + 4981_CPE + 4982_CPE = SF 133 line 2004 per TAS, for the same reporting period</td>
             <td>Implemented</td>
             <td>Calculation</td>
         </tr>
