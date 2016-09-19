@@ -469,7 +469,7 @@ Refer to the [Resources](#/help?section=resources) section for sample files and 
             <td>Not implemented</td>
             <td>Requirement</td>
         </tr>
-            td>C/D1/D2</td>
+            <td>C/D1/D2</td>
             <td>C23</td>
             <td>For each unique award ID (PIID/ParentAwardId for procurement, FAIN/URI for financial assistance) in File C, the sum of each TransactionObligatedAmount submitted in the reporting period should match the sum of the FederalActionObligation (in either D1 or D2) or OriginalLoanSubsidyCost (only in D2) amounts reported in D1 or D2 for the same timeframe, regardless of modifications.</td>
             <td>Not implemented</td>
