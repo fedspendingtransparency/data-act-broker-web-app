@@ -268,23 +268,9 @@ Refer to the [Resources](#/help?section=resources) section for sample files and 
         </tr>
         <tr>
             <td>B</td>
-            <td>B3 (v1)</td>
-            <td class="break-word">ObligationsUndeliveredOrdersUnpaidTotal (FYB or CPE) = USSGL(4801 + 4831 + 4871 + 4881). This applies to the program activity and object class level.</td>
-            <td>Implemented</td>
-            <td>Calculation</td>
-        </tr>
-        <tr>
-            <td>B</td>
             <td>B3 (v2)</td>
             <td class="break-word">ObligationsUndeliveredOrdersUnpaidTotal (FYB or CPE) = USSGL(4801 + 4881). This applies to the program activity and object class level. Note for FYB values, only 4801 is expected to have a balance other than zero</td>
             <td>Pending Update</td>
-            <td>Calculation</td>
-        </tr>
-        <tr>
-            <td>B</td>
-            <td>B4 (v1)</td>
-            <td class="break-word">ObligationsDeliveredOrdersUnpaidTotal (FYB or CPE) = USSGL(4901 + 4931 + 4971 + 4981). This applies to the program activity and object class level</td>
-            <td>Implemented</td>
             <td>Calculation</td>
         </tr>
         <tr>
@@ -303,23 +289,9 @@ Refer to the [Resources](#/help?section=resources) section for sample files and 
         </tr>
         <tr>
             <td>B</td>
-            <td>B6 (v1)</td>
-            <td class="break-word">GrossOutlaysUndeliveredOrdersPrepaidTotal (FYB or CPE) = USSGL(4802 + 4832 + 4872+ 4882). This applies to the program activity and object class level</td>
-            <td>Implemented</td>
-            <td>Calculation</td>
-        </tr>
-        <tr>
-            <td>B</td>
             <td>B6 (v2)</td>
             <td class="break-word">GrossOutlaysUndeliveredOrdersPrepaidTotal (FYB or CPE) = USSGL(4802 + 4882). This applies to the program activity and object class level. Note for FYB values, only 4802 is expected to have a balance other than zero</td>
             <td>Pending Update</td>
-            <td>Calculation</td>
-        </tr>
-        <tr>
-            <td>B</td>
-            <td>B7 (v1)</td>
-            <td class="break-word">GrossOutlaysDeliveredOrdersPaidTotal (FYB or CPE)= USSGL(4902 + 4908 + 4972 + 4982). This applies to the program activity and object class level</td>
-            <td>Implemented</td>
             <td>Calculation</td>
         </tr>
         <tr>
@@ -345,13 +317,6 @@ Refer to the [Resources](#/help?section=resources) section for sample files and 
         </tr>
         <tr>
             <td>B</td>
-            <td>B11 (v1)</td>
-            <td>Must be valid 3-digit object class as defined in OMB Circular A-11 Section 83.6, or a 4-digit code which includes a 1-digit prefix that distinguishes direct, reimbursable, and allocation obligation.</td>
-            <td>Implemented</td>
-            <td>Do not include decimal points</td>
-        </tr>
-        <tr>
-            <td>B</td>
             <td>B11 (v2)</td>
             <td>Must be valid 3-digit object class as defined in OMB Circular A-11 Section 83.6, or a 4-digit code which includes a 1-digit prefix that distinguishes direct, reimbursable, and allocation obligations. Do not include decimal points when reporting in the Schema</td>
             <td>Pending Update</td>
@@ -359,24 +324,10 @@ Refer to the [Resources](#/help?section=resources) section for sample files and 
         </tr>
         <tr>
             <td>B</td>
-            <td>B12 (v1)</td>
-            <td>Reimbursable flag indicator is required when reporting obligation or outlay USSGL account balances (excluding downward adjustments SGL accounts)</td>
-            <td>Implemented</td>
-            <td class="break-word">Valid values are "R" for "ReimbursableFundingSource" and "D" for "DirectFundingSource"</td>
-        </tr>
-        <tr>
-            <td>B</td>
             <td>B12 (v2)</td>
             <td class="break-word">Reimbursable flag indicator is required when reporting obligation or outlay USSGL account balances (excluding downward adjustments USSGL accounts), and a 3 digit object class is provided. Valid values are "R" for "ReimbursableFundingSource" and "D" for "DirectFundingSource"</td>
             <td>Pending Update</td>
             <td class="break-word">Element Conditionally Required</td>
-        </tr>
-        <tr>
-            <td>B</td>
-            <td>B13 (v1)</td>
-            <td class="break-word">DeobligationsRecoveriesRefundsdOfPriorYearByProgramObjectClass_CPE = USSGL(4871+ 4872 + 4971 + 4972)</td>
-            <td>Implemented</td>
-            <td>Calculation</td>
         </tr>
         <tr>
             <td>B</td>
@@ -422,23 +373,9 @@ Refer to the [Resources](#/help?section=resources) section for sample files and 
         </tr>
         <tr>
             <td>C</td>
-            <td>C3 (v1)</td>
-            <td class="break-word">ObligationsUndeliveredOrdersUnpaidTotal (FYB or CPE) = USSGL(4801 + 4831 + 4871 + 4881). This applies to the award level.</td>
-            <td>Implemented</td>
-            <td>Calculation</td>
-        </tr>
-        <tr>
-            <td>C</td>
             <td>C3 (v2)</td>
             <td class="break-word">ObligationsUndeliveredOrdersUnpaidTotal (FYB or CPE) = USSGL(4801 + 4881). This applies to the award level. Note for FYB values, only 4801 is expected to have a balance other than zero</td>
             <td>Pending Update</td>
-            <td>Calculation</td>
-        </tr>
-        <tr>
-            <td>C</td>
-            <td>C4 (v1)</td>
-            <td class="break-word">ObligationsDeliveredOrdersUnpaidTotal (FYB or CPE) = USSGL(4901 + 4931 + 4971 + 4981). This applies to the award level.</td>
-            <td>Implemented</td>
             <td>Calculation</td>
         </tr>
         <tr>
@@ -450,13 +387,6 @@ Refer to the [Resources](#/help?section=resources) section for sample files and 
         </tr>
         <tr>
             <td>C</td>
-            <td>C5 (v1)</td>
-            <td class="break-word">GrossOutlayAmountByAward (FYB or CPE, File C) = GrossOutlaysUndeliveredOrdersPrepaidTotal (FYB or CPE, File C) + GrossOutlaysDeliveredOrdersPaidTotal (FYB or CPE, File C)</td>
-            <td>Implemented</td>
-            <td>Calculation</td>
-        </tr>
-        <tr>
-            <td>C</td>
             <td>C5 (v2)</td>
             <td class="break-word">GrossOutlayAmountByAward (FYB or CPE, File C) = GrossOutlaysUndeliveredOrdersPrepaidTotal (FYB or CPE, File C) + GrossOutlaysDeliveredOrdersPaidTotal (FYB or CPE, File C)</td>
             <td>Pending Update</td>
@@ -464,23 +394,9 @@ Refer to the [Resources](#/help?section=resources) section for sample files and 
         </tr>
         <tr>
             <td>C</td>
-            <td>C6 (v1)</td>
-            <td class="break-word">GrossOutlaysUndeliveredOrdersPrepaidTotal (FYB or CPE) = USSGL(4802 + 4832 + 4872+ 4882). This applies to the award level.</td>
-            <td>Implemented</td>
-            <td>Calculation</td>
-        </tr>
-        <tr>
-            <td>C</td>
             <td>C6 (v2)</td>
             <td class="break-word">GrossOutlaysUndeliveredOrdersPrepaidTotal (FYB or CPE) = USSGL(4802 + 4882). This applies to the award level. Note for FYB values, only 4802 is expected to have a balance other than zero</td>
             <td>Pending Update</td>
-            <td>Calculation</td>
-        </tr>
-        <tr>
-            <td>C</td>
-            <td>C7 (v1)</td>
-            <td class="break-word">GrossOutlaysDeliveredOrdersPaidTotal (FYB or CPE) = USSGL(4902 + 4908 + 4972 + 4982). This applies to the award level.</td>
-            <td>Implemented</td>
             <td>Calculation</td>
         </tr>
         <tr>
@@ -517,13 +433,6 @@ Refer to the [Resources](#/help?section=resources) section for sample files and 
             <td class="break-word"Unique PIID, ParentAwardId from file D1 exists in file C during the same reporting period, except D1 records with zero FederalActionObligation</td>
             <td>Not Implemented</td>
             <td>Linkage</td>
-        </tr>
-        <tr>
-            <td>C/D2</td>
-            <td>C14 (v1)</td>
-            <td>If FAIN is not provided then provide URI </td>
-            <td>Implemented</td>
-            <td> </td>
         </tr>
         <tr>
             <td>C/D</td>
