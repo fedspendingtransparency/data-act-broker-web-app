@@ -39,7 +39,7 @@ Refer to the [Resources](#/help?section=resources) section for sample files and 
             <td>A1</td>
             <td>TAS components: The combination of all the elements that make up the TAS must match the Treasury Central Accounting Reporting System (CARS). AgencyIdentifier, MainAccountCode, and SubAccountCode are always required. AllocationTransferAgencyIdentifier, BeginningPeriodOfAvailability, EndingPeriodOfAvailability and AvailabilityTypeCode are required if present in the CARS table.</td>
             <td>Implemented</td>
-            <td>TAS must be valid</td>
+            <td>Multi-element existence</td>
         </tr>
         <tr>
             <td>A</td>
@@ -93,91 +93,85 @@ Refer to the [Resources](#/help?section=resources) section for sample files and 
         <tr>
             <td>A</td>
             <td>A10</td>
-            <td class="break-word">BorrowingAuthorityAmountTotal_CPE= aggregate value for GTAS SF 133 line #1340 + #1440, for the same reporting period</td>
+            <td class="break-word">BorrowingAuthorityAmountTotal_CPE= aggregate value for GTAS SF 133 line #1340 + #1440, for the same reporting period.</td>
             <td>Implemented</td>
             <td>Calculation</td>
         </tr>
         <tr>
             <td>A</td>
             <td>A11</td>
-            <td class="break-word">SpendingAuthorityfromOffsettingCollectionsAmountTotal_CPE= aggregate value for GTAS SF 133 line #1750 + #1850, for the same reporting period</td>
+            <td class="break-word">SpendingAuthorityfromOffsettingCollectionsAmountTotal_CPE= aggregate value for GTAS SF 133 line #1750 + #1850 for the same reporting period.</td>
             <td>Implemented</td>
             <td>Calculation</td>
         </tr>
         <tr>
             <td>A</td>
             <td>A12</td>
-            <td class="break-word">AdjustmentsToUnobligatedBalanceBroughtForward_CPE= aggregate value for GTAS SF 133 line #1010 through 1042, for the same reporting period</td>
+            <td class="break-word">AdjustmentsToUnobligatedBalanceBroughtForward_CPE= aggregate value for GTAS SF 133 line #1010 through 1042 for the same reporting period.</td>
             <td>Implemented</td>
             <td>Calculation</td>
         </tr>
         <tr>
             <td>A</td>
             <td>A14</td>
-            <td>GrossOutlayAmountByTAS_CPE= value for GTAS SF 133 line #3020, for the same reporting period</td>
+            <td>GrossOutlayAmountByTAS_CPE= value for GTAS SF 133 line #3020 for the same reporting period.</td>
             <td>Implemented</td>
             <td>Calculation</td>
         </tr>
         <tr>
             <td>A</td>
             <td>A15</td>
-            <td>UnobligatedBalance_CPE= value for GTAS SF 133 line #2490, for the same reporting period</td>
+            <td>UnobligatedBalance_CPE= value for GTAS SF 133 line #2490 for the same reporting period.</td>
             <td>Implemented</td>
             <td>Calculation</td>
         </tr>
         <tr>
-            <td>A</td>
+            <td>A/B/C</td>
             <td>A16</td>
             <td>All the elements that have FYB in file A, B & C would be expected in quarter 1, as a soft edit. It would be optional in subsequent periods.</td>
             <td>Implemented</td>
             <td>Requirement</td>
         </tr>
+        
         <tr>
-            <td>A</td>
-            <td>A17</td>
-            <td>Deleted</td>
-            <td>Deleted</td>
-            <td>&nbsp;</td>
-        </tr>
-        <tr>
-            <td>A</td>
+            <td>A, B</td>
             <td>A18 (v2)</td>
             <td class="break-word">GrossOutlayAmountByTAS_CPE (file A) = sum of all GrossOutlayAmountByProgramObjectClass (file B) {When Program Activity and Object Class are not blank, this value is the sum of all Gross Outlay Amounts reported in file B, by TAS/Subaccount}</td>
             <td>Pending Update</td>
-            <td>Cross-File Validation</td>
+            <td>Calculation</td>
         </tr>
         <tr>
-            <td>A</td>
+            <td>A, B</td>
             <td>A19 (v2)</td>
             <td class="break-word">ObligationsIncurredTotalByTAS_CPE (File A) = negative sum of ObligationsIncurredByProgramObjectClass_CPE (File B)</td>
             <td>Pending Update</td>
-            <td>Cross-File Validation</td>
+            <td>Calculation</td>
         </tr>
         <tr>
             <td>A</td>
             <td>A20</td>
-            <td>Must be valid Agency ID in the Common Government-wide Accounting Classification (CGAC)</td>
+            <td>AllocationTransferAgencyIdentifier and AgencyIdentifier provided values must be valid Agency ID in the Common Government-wide Accounting Classification (CGAC)</td>
             <td>Implemented</td>
             <td>Requirement</td>
         </tr>
         <tr>
             <td>A</td>
             <td>A21</td>
-            <td>Only acceptable values are x and [blank]</td>
+            <td>Only acceptable values for AvailabilityTypeCode are x and [blank]</td>
             <td>Implemented</td>
-            <td>Requirement for availability type codes</td>
+            <td>Requirement</td>
         </tr>
         <tr>
             <td>A</td>
             <td>A22</td>
-            <td>ObligationsIncurredTotalByTAS_CPE= value for GTAS SF 133 line #2190, as of the same reporting period</td>
+            <td>ObligationsIncurredTotalByTAS_CPE= value for GTAS SF 133 line #2190, as of the same reporting period.</td>
             <td>Implemented</td>
             <td>Calculation</td>
         </tr>
         <tr>
             <td>A</td>
             <td>A23</td>
-            <td>StatusOfBudgetaryResourcesTotal_CPE= value for GTAS SF 133 line #2500, as of the same reporting period</td>
+            <td>StatusOfBudgetaryResourcesTotal_CPE= value for GTAS SF 133 line #2500, as of the same reporting period.</td>
             <td>Implemented</td>
             <td>Calculation</td>
         </tr>
@@ -186,47 +180,47 @@ Refer to the [Resources](#/help?section=resources) section for sample files and 
             <td>A24</td>
             <td class="break-word">StatusOfBudgetaryResourcesTotal_CPE = BudgetAuthorityAvailableAmountTotal_CPE</td>
             <td>Implemented</td>
-            <td>In File A, both of these elements must match, per TAS</td>
+            <td>Calculation</td>
         </tr>
         <tr>
             <td>A</td>
             <td>A25</td>
-            <td>BorrowingAuthorityAmountTotal_CPE must be provided if TAS has borrowing authority per CARS or GTAS. If no borrowing authority on TAS, leave blank.</td>
+            <td>BorrowingAuthorityAmountTotal_CPE must be provided if TAS has borrowing authority value provided in GTAS. If no borrowing authority on TAS, leave blank.</td>
             <td>Not implemented</td>
-            <td>Element Conditionally Required</td>
+            <td>Required if applicable</td>
         </tr>
         <tr>
             <td>A</td>
             <td>A26</td>
-            <td>ContractAuthorityAmountTotal_CPE must be provided if TAS has contract authority per CARS or GTAS. If no contract authority on TAS, leave blank.</td>
+            <td>ContractAuthorityAmountTotal_CPE must be provided if TAS has contract authority value provided in GTAS. If no contract authority on TAS, leave blank.</td>
             <td>Not implemented</td>
-            <td>Element Conditionally Required</td>
+            <td>Required if applicable</td>
         </tr>
         <tr>
             <td>A</td>
             <td>A27</td>
-            <td class="break-word">SpendingAuthorityfromOffsettingCollectionsAmountTotal_CPE must be provided if TAS has spending authority per CARS or GTAS. If no spending authority on TAS, leave blank.</td>
+            <td class="break-word">SpendingAuthorityfromOffsettingCollectionsAmountTotal_CPE must be provided if TAS has spending authority value provided in GTAS. If no spending authority on TAS, leave blank.</td>
             <td>Not implemented</td>
-            <td>Element Conditionally Required</td>
+            <td>Required if applicable</td>
         </tr>
         <tr>
             <td>A</td>
             <td>A28</td>
-            <td>OtherBudgetaryResourcesAmount_CPE must be provided if TAS has borrowing, contract or spending authority per CARS or GTAS. If not applicable, leave blank.</td>
+            <td>OtherBudgetaryResourcesAmount_CPE must be provided if TAS has borrowing, contract and/or spending authority provided in File A. If not applicable, leave blank.</td>
             <td>Not implemented</td>
-            <td>Element Conditionally Required</td>
+            <td>Required if applicable</td>
         </tr>
         <tr>
             <td>A</td>
             <td>A29</td>
-            <td class="break-word">DeobligationsRecoveriesRefundsByTAS_CPE = aggregate value for GTAS SF 133 line 1021+1033, as of the same reporting period</td>
+            <td class="break-word">DeobligationsRecoveriesRefundsByTAS_CPE = aggregate value for GTAS SF 133 line 1021+1033, as of the same reporting period.</td>
             <td>Implemented</td>
             <td>Requirement</td>
         </tr>
         <tr>
             <td>A</td>
             <td>A30</td>
-            <td>All TAS values in File A (appropriations) should exist in File B (object class program activity), and vice versa, for the same reporting period</td>
+            <td>All TAS values in File A (appropriations) should exist in File B (object class program activity), and vice versa, for the same reporting period.</td>
             <td>Implemented</td>
             <td>Requirement</td>
         </tr>
@@ -247,14 +241,14 @@ Refer to the [Resources](#/help?section=resources) section for sample files and 
         <tr>
             <td>A</td>
             <td>A33</td>
-            <td>Each TAS reported to GTAS for SF 133 should be reported in File A, and vice versa, for the same reporting period</td>
+            <td>Each TAS reported to GTAS for SF 133 should be reported in File A, and vice versa, for the same reporting period.</td>
             <td>Implemented</td>
             <td>Requirement</td>
         </tr>
         <tr>
             <td>A</td>
             <td>A34</td>
-            <td class="break-word">BudgetAuthorityUnobligatedBalanceBroughtForward_FYB= value for GTAS SF 133 line #2490 from the end of the prior fiscal year</td>
+            <td class="break-word">BudgetAuthorityUnobligatedBalanceBroughtForward_FYB= value for GTAS SF 133 line #2490 from the end of the prior fiscal year.</td>
             <td>Not implemented</td>
             <td>Calculation</td>
         </tr>
@@ -268,7 +262,7 @@ Refer to the [Resources](#/help?section=resources) section for sample files and 
         <tr>
             <td>A</td>
             <td>A36</td>
-            <td class="break-word">BudgetAuthorityUnobligatedBalanceBroughtForward_FYB should have an amount populated for the reporting period, if GTAS line #1000 is populated for the same TAS as of the end of the same reporting period</td>
+            <td class="break-word">BudgetAuthorityUnobligatedBalanceBroughtForward_FYB should have an amount populated for the reporting period, if GTAS line #1000 is populated for the same TAS as of the end of the same reporting period.</td>
             <td>Not implemented</td>
             <td>Calculation</td>
         </tr>
@@ -303,7 +297,7 @@ Refer to the [Resources](#/help?section=resources) section for sample files and 
         <tr>
             <td>B</td>
             <td>B5</td>
-            <td class="break-word">GrossOutlayAmountByProgramObjectClass (FYB or CPE, File B) = GrossOutlaysUndeliveredOrdersPrepaidTotal (FYB or CPE, File B) + GrossOutlaysDeliveredOrdersPaidTotal (FYB or CPE, File B)</td>
+            <td class="break-word">GrossOutlayAmountByProgramObjectClass (File B) = GrossOutlaysUndeliveredOrdersPrepaidTotal (File B) + GrossOutlaysDeliveredOrdersPaidTotal (File B) for the same date context (FYB or CPE).</td>
             <td>Implemented</td>
             <td>Calculation</td>
         </tr>
@@ -338,14 +332,14 @@ Refer to the [Resources](#/help?section=resources) section for sample files and 
         <tr>
             <td>B</td>
             <td>B9</td>
-            <td>Must be a valid program activity name for the corresponding TAS/TAFS as defined in Section 82 of OMB Circular A-11</td>
+            <td>Must be a valid program activity name for the corresponding TAS/TAFS as defined in Section 82 of OMB Circular A-11.</td>
             <td>Implemented</td>
             <td>Requirement</td>
         </tr>
         <tr>
             <td>B</td>
             <td>B10</td>
-            <td>Must be a valid program activity code for the corresponding TAS/TAFS as defined in Section 82 of OMB Circular A-11</td>
+            <td>Must be a valid program activity code for the corresponding TAS/TAFS as defined in Section 82 of OMB Circular A-11.</td>
             <td>Implemented</td>
             <td>Requirement</td>
         </tr>
@@ -407,22 +401,8 @@ Refer to the [Resources](#/help?section=resources) section for sample files and 
         </tr>
         <tr>
             <td>B</td>
-            <td>B16</td>
-            <td>Deleted</td>
-            <td>Deleted</td>
-            <td>&nbsp;</td>
-        </tr>
-        <tr>
-            <td>B</td>
-            <td>B17</td>
-            <td>Deleted</td>
-            <td>Deleted</td>
-            <td>&nbsp;</td>
-        </tr>
-        <tr>
-            <td>B</td>
             <td>B18</td>
-            <td class="break-word">Reimbursable flag indicator is not required if object class is 4 digits. But if either 'D' or 'R' are given, then they have to correspond to the first digit of object class. Valid values are "R" for "ReimbursableFundingSource" and "D" for "DirectFundingSource". If an object class is 4 digits, then if it starts with 1 (1XXX) then it corresponds to a Reimbursable flag indicator of "'D," else if it starts with 2 (2XXX) then it corresponds to a Reimbursable flag indicator of "R."</td>
+            <td class="break-word">File B: Reimbursable flag indicator is not required if object class is 4 digits. But if either "D" or "R" are given, then they have to correspond to the first digit of object class. Valid values are "R" for "ReimbursableFundingSource" and "D" for "DirectFundingSource". If an object class is 4 digits, then if it starts with 1 (1XXX) then it corresponds to a Reimbursable flag indicator of "'D." If it starts with 2 (2XXX), then it corresponds to a Reimbursable flag indicator of "R."</td>
             <td>Pending Update</td>
             <td>Element Conditionally Required</td>
         </tr>
@@ -436,7 +416,7 @@ Refer to the [Resources](#/help?section=resources) section for sample files and 
         <tr>
             <td>B, C</td>
             <td>B20</td>
-            <td>All combinations of TAS/program activity code/object class in File C (award financial) should exist in File B (object class program activity). Since not all object classes will have award activity, it is acceptable for combinations of TAS/program activity code/object class in File C to be a subset of those provided in File B</td>
+            <td>All combinations of TAS/program activity code/object class in File C (award financial) should exist in File B (object class program activity). Since not all object classes will have award activity, it is acceptable for combinations of TAS/program activity code/object class in File C to be a subset of those provided in File B.</td>
             <td>Implemented</td>
             <td>Requirement</td>
         </tr>
@@ -520,21 +500,21 @@ Refer to the [Resources](#/help?section=resources) section for sample files and 
         <tr>
             <td>C/D2</td>
             <td>C9</td>
-            <td class="break-word">Unique FAIN/URI from file D2 exists in file C, except D2 records where FederalActionObligation = 0</td>
+            <td class="break-word">Unique FAIN/URI from file D2 exists in file C, except D2 records where FederalActionObligation and OriginalLoanSubsidyCost = 0. FAIN may be null for aggregated records.  URI may be null for non-aggregated records. For FAIN/URI, a warning will be provided if both are submitted.</td>
             <td>Implemented</td>
             <td>Linkage</td>
         </tr>
         <tr>
             <td>C/D1</td>
             <td>C11</td>
-            <td class="break-word">Unique PIID, ParentAwardId from file C exists in file D1</td>
+            <td class="break-word">Unique PIID, ParentAwardId from file C exists in file D1 during the same reporting period.</td>
             <td>Not Implemented</td>
             <td>Linkage</td>
         </tr>
         <tr>
             <td>C/D1</td>
             <td>C12</td>
-            <td class="break-word">Unique PIID, ParentAwardId from file D1 exists in file C, except D1 records with zero FederalActionObligation</td>
+            <td class="break-word"Unique PIID, ParentAwardId from file D1 exists in file C during the same reporting period, except D1 records with zero FederalActionObligation</td>
             <td>Not Implemented</td>
             <td>Linkage</td>
         </tr>
@@ -555,44 +535,42 @@ Refer to the [Resources](#/help?section=resources) section for sample files and 
         <tr>
             <td>C</td>
             <td>C17</td>
-            <td>Not Required on rows that include values for USSGL accounts balances or subtotals</td>
+            <td>TransactionObligatedAmount value is not required (i.e., can be blank) on rows that include values for USSGL accounts balances or subtotals</td>
             <td>Implemented</td>
-            <td>This is for transactions, not for USSGL amounts, from the financial systems.</td>
+            <td>Element Conditionally Required</td>
         </tr>
         <tr>
             <td>C</td>
             <td>C18</td>
-            <td class="break-word">DeobligationsRecoveriesRefundsOfPriorYearByAward_CPE = USSGL(4871+ 4872 + 4971 + 4972). This applies to the award level.</td>
+            <td class="break-word">DeobligationsRecoveriesRefundsOfPriorYearByAward_CPE in File C = USSGL(4871+ 4872 + 4971 + 4972) in File C for the same reporting period. This applies to the award level.</td>
             <td>Pending Update</td>
-            <td>This applies to the award level</td>
-        </tr>
-        <tr>
-            <td>C</td>
-            <td>C19</td>
-            <td>Deleted</td>
-            <td>Deleted</td>
-            <td>&nbsp;</td>
+            <td>Requirement</td>
         </tr>
         <tr>
             <td>C</td>
             <td>C20</td>
-            <td>The totals by combination of TAS/object class provided in File C must be equal to, or less than, the same combinations in File B</td>
+            <td>The totals by combination of TAS/object class provided in File C, cannot be greater than the same combinations in File B. For instance, the sum of all ObligationsUndeliveredOrdersUnpaidTotal_CPE values for each TAS/object class combination (i.e., containing all awards reported for that TAS/object class) reported in File C, should be less than or equal to the ObligationsUndeliveredOrdersUnpaidTotal_CPE value for the same TAS/object class combination provided in File B.</td>
             <td>Not implemented</td>
             <td>Requirement</td>
         </tr>
         <tr>
             <td>C</td>
             <td>C21</td>
-            <td>The totals by combination of TAS/program activity code provided in File C must be equal to, or less than, the same combinations in File B</td>
+            <td>The totals by combination of TAS/program activity provided in File C, cannot be greater than the same combinations in File B. For instance, the sum of all ObligationsUndeliveredOrdersUnpaidTotal_CPE values for each TAS/program activity combination (i.e., containing all awards reported for that TAS/program activity) reported in File C, should be less than or equal to the ObligationsUndeliveredOrdersUnpaidTotal_CPE value for the same TAS/program activity combination provided in File B.</td>
             <td>Not implemented</td>
             <td>Requirement</td>
         </tr>
-        <tr>
-            <td>C</td>
-            <td>C22</td>
-            <td>Deleted</td>
-            <td>Deleted</td>
-            <td>&nbsp;</td>
+            td>C/D1/D2</td>
+            <td>C23</td>
+            <td>For each unique award ID (PIID/ParentAwardId for procurement, FAIN/URI for financial assistance) in File C, the sum of each TransactionObligatedAmount submitted in the reporting period should match the sum of the FederalActionObligation (in either D1 or D2) or OriginalLoanSubsidyCost (only in D2) amounts reported in D1 or D2 for the same timeframe, regardless of modifications.</td>
+            <td>Not implemented</td>
+            <td>Calculation</td>
+        </tr>
+            <td>C/D1/D2</td>
+            <td>C24</td>
+            <td>If AllocationTransferAgencyIdentifier in File C is populated and valid, then it is acceptable that the associated Award ID does NOT exist in File D1 or D2.</td>
+            <td>Not implemented</td>
+            <td>Linkage</td>
         </tr>
         <tr>
             <td>D2</td>
@@ -612,7 +590,7 @@ Refer to the [Resources](#/help?section=resources) section for sample files and 
             <td>D2</td>
             <td>D3</td>
             <td class="break-word">Must be a valid date with a value between 19991001 and 20991231. Date must follow YYYYMMDD format, where YYYY is the year, MM the month and DD the day. A future ActionDate is valid only if it occurs within the current fiscal year.</td>
-            <td>Element Conditionally Required</td>
+            <td>Implemented in ASP</td>
             <td>Requirement</td>
         </tr>
         <tr>
@@ -639,14 +617,14 @@ Refer to the [Resources](#/help?section=resources) section for sample files and 
         <tr>
             <td>D2</td>
             <td>D7</td>
-            <td class="break-word">This is required only when the combination of FAIN and AwardModificationAmendmentNumber is not unique. Field must contain a unique value except when the CorrectionLateDeleteIndicator contains the code “C” or “D”. This field is required for aggregate records. </td>
+            <td class="break-word">This is required only when the combination of FAIN and AwardModificationAmendmentNumber is not unique. Field must contain a unique value except when the CorrectionLateDeleteIndicator contains the code “C” or “D”. This field is required for aggregate records.</td>
             <td>Implemented in ASP</td>
             <td>Element Conditionally Required</td>
         </tr>
         <tr>
             <td>D2</td>
             <td>D8</td>
-            <td class="break-word">Year must be in current or previous fiscal year (as compared to the date of ASP submission) and follow format YYYYQ, with Q representing fiscal quarter and taking value 1, 2, 3, or 4. </td>
+            <td class="break-word">Year must be in current or previous fiscal year (as compared to the date of ASP submission), and follow format YYYYQ, with Q representing fiscal quarter and taking value 1, 2, 3, or 4.</td>
             <td>Implemented in ASP</td>
             <td>Requirement</td>
         </tr>
@@ -688,21 +666,21 @@ Refer to the [Resources](#/help?section=resources) section for sample files and 
         <tr>
             <td>D2</td>
             <td>D14</td>
-            <td class="break-word">With two exceptions, this field must contain a valid two letter USPS state code in the first two positions. The two exceptions: 1) field must contain "00FORGN" when PrimaryPlaceOfPerformanceCountryCode is not USA; 2) field must contain "00*****" for multi-state places of performance.</td>
+            <td class="break-word">With two exceptions, this field must contain a valid two letter USPS state code in the first two positions. The two exceptions: 1) field must contain "00FORGN" when PrimaryPlaceOfPerformanceCountryCode is not USA;  2) field must contain "00*****" for multi-state places of performance.</td>
             <td>Implemented in ASP</td>
             <td>Requirement</td>
         </tr>
         <tr>
             <td>D2</td>
             <td>D15</td>
-            <td class="break-word">PrimaryPlaceOfPerformanceCode must be consistent with PrimaryPlaceOfPerformanceZIP+4, PrimaryPlaceOfPerformanceCountryCode, and PrimaryPlaceOfPerformanceCongressionalDistrict. For aggregate records (i.e., RecordType = 1), it must be in XX**### format, where XX is the USPS state code and ### a valid three-digit county code. When PrimaryPlaceOfPerformanceZIP+4 is provided, PrimaryPlaceOfPerformanceCode should be in XX##### format, where XX is the USPS state code and ##### a valid five-digit city code. For more information on the state, city, and county codes, see the "Domain_Values.xlsx" spreadsheet</td>
+            <td class="break-word">PrimaryPlaceOfPerformanceCode must be consistent with PrimaryPlaceOfPerformanceZIP+4, PrimaryPlaceOfPerformanceCountryCode, and PrimaryPlaceOfPerformanceCongressionalDistrict. For aggregate records (i.e., RecordType = 1), it must be in XX**### format, where XX is the USPS state code and ### a valid three-digit county code. When PrimaryPlaceOfPerformanceZIP+4 is provided, PrimaryPlaceOfPerformanceCode should be in XX##### format, where XX is the USPS state code and ##### a valid five-digit city code. For more information on the state, city, and county codes, see the "Domain_Values.xlsx" spreadsheet.</td>
             <td>Implemented in ASP</td>
             <td>Requirement</td>
         </tr>
         <tr>
             <td>D2</td>
             <td>D16</td>
-            <td class="break-word">This field must be blank when PrimaryPlaceOfPerformanceCountryCode is not USA. When PrimaryPlaceOfPerformanceCountryCode is USA: 1) This field must be blank in the case of county-wide, multi-state, or statewide awards (as indicated by the PrimaryPlaceOfPerformanceCode); 2) Outside of the cases just mentioned, this field is required, and must either take the value "city-wide" (city-wide awards only) or a valid USPS ZIP+4 code (all other awards). </td>
+            <td class="break-word">This field must be blank when PrimaryPlaceOfPerformanceCountryCode is not USA. When PrimaryPlaceOfPerformanceCountryCode is USA: 1) This field must be blank in the case of county-wide, multi-state, or statewide awards (as indicated by the PrimaryPlaceOfPerformanceCode); 2) Outside of the cases just mentioned, this field is required, and must either take the value "city-wide" (city-wide awards only) or a valid USPS ZIP+4 code (all other awards).</td>
             <td>Implemented in ASP</td>
             <td>Element Conditionally Required</td>
         </tr>
@@ -737,7 +715,7 @@ Refer to the [Resources](#/help?section=resources) section for sample files and 
         <tr>
             <td>D2</td>
             <td>D23</td>
-            <td class="break-word">Must be blank when PrimaryPlaceOfPerformanceCountryCode is not USA. When PrimaryPlaceOfPerformanceCountry Code is USA: 1) When PrimaryPlaceOfPerformanceZIP+4 is provided to 9 digits, PrimaryPlaceOfPerformanceCongressionalDistrict will be derived and must be left blank; 2) If PrimaryPlaceOfPerformanceZIP+4 is not fully provided, this field is required. In this case, enter a two-digit congressional district that contains the primary place of performance. This congressional district must exist in the state indicated in the PrimaryPlaceOfPerformanceCode. If the primary place of performance includes more than one congressional district, enter "90." For U.S. territories and the District of Columbia, enter "00" for at-large districts, "98" for jurisdictions with a nonvoting delegate, and "99" for jurisdictions with no representative. </td>
+            <td class="break-word">Must be blank when PrimaryPlaceOfPerformanceCountryCode is not USA. When PrimaryPlaceOfPerformanceCountry Code is USA: 1) When PrimaryPlaceOfPerformanceZIP+4 is provided to 9 digits, PrimaryPlaceOfPerformanceCongressionalDistrict will be derived and must be left blank; 2) If PrimaryPlaceOfPerformanceZIP+4 is not fully provided, this field is required. In this case, enter the two-digit congressional district that contains the primary place of performance. This congressional district must exist in the state indicated in the PrimaryPlaceOfPerformanceCode. If the primary place of performance includes more than one congressional district, enter "90." For U.S. territories and the District of Columbia, enter "00" for at-large districts, "98" for jurisdictions with a nonvoting delegate, and "99" for jurisdictions with no representative. </td>
             <td>Implemented in ASP</td>
             <td>Element Conditionally Required</td>
         </tr>
@@ -772,14 +750,14 @@ Refer to the [Resources](#/help?section=resources) section for sample files and 
         <tr>
             <td>D2</td>
             <td>D28</td>
-            <td class="break-word">If AssistanceType is 07 or 08 this field must be blank. </td>
+            <td class="break-word">If AssistanceType is 07 or 08 this field must be blank.</td>
             <td>Implemented in ASP</td>
             <td>Element Conditionally Required</td>
         </tr>
          <tr>
             <td>D2</td>
             <td>D29</td>
-            <td class="break-word">If ActionType = A and ActionDate > 20170531 (i.e., this applies to new awards issued after May 31, 2017), AwardingAgencyCode is required.</td>
+            <td class="break-word">If ActionType = A and ActionDate >= 20170531 (i.e., if this is a new award issued on or after May 31, 2017), AwardingAgencyCode is a required field.</td>
             <td>Implemented in ASP</td>
             <td>Element Conditionally Required</td>
         </tr>
