@@ -7,6 +7,7 @@ import React from 'react';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { hashHistory } from 'react-router';
+import _ from 'lodash';
 
 import * as uploadActions from '../../redux/actions/uploadActions.js';
 import { kGlobalConstants } from '../../GlobalConstants.js';
@@ -96,6 +97,12 @@ class CrossFileContentContainer extends React.Component {
 		// check if cross file is done
 		if (data.crossFile.state == 'finished' || data.crossFile.state == 'invalid') {
 			crossFileDone = true;
+		}
+
+		// check if cross file file status is done
+		const completedStatuses = ['complete', 'header_error', 'unknown_error', 'single_row_error', 'job_error'];
+		if (_.indexOf(completedStatuses, data.crossFile.file_status) == -1) {
+			crossFileDone = false;
 		}
 
 		return crossFileDone;
