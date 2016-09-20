@@ -12,7 +12,7 @@ import GenerateEFItem from './generateItem/GenerateEFItem.jsx';
 
 export default class GenerateFilesContent extends React.Component {
 
-    
+
 	render() {
 		return (
 			<div>
@@ -25,9 +25,9 @@ export default class GenerateFilesContent extends React.Component {
 
 					 <div className="alert alert-warning">
                             <span className="usa-da-icon"><Icons.ExclamationCircle /></span>
-                            <p>Functionality related to <b>Files E and F</b> are not yet available.</p>
+                            <p>Download functionality related to <b>Files E and F</b> are not yet available.</p>
                     </div>
-				
+
 					<GenerateEFItem {...this.props}
 						comingSoon={true}
 						type="E"
