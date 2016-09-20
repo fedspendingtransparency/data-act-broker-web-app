@@ -7,6 +7,7 @@ import React from 'react';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { hashHistory } from 'react-router';
+import _ from 'lodash';
 
 import * as uploadActions from '../../redux/actions/uploadActions.js';
 import { kGlobalConstants } from '../../GlobalConstants.js';
@@ -64,15 +65,25 @@ class CrossFileContentContainer extends React.Component {
 	prepareCrossFileReports(data) {
 		// store the cross file report CSV URLs in Redux
 		const reports = data.crossFile.reports;
-
+		
 		const updatedData = [];
 		this.props.submission.crossFileOrder.forEach((pair) => {
 
 			// create a new metadata object for each expected cross file pairing
-			const updatedPair = Object.assign({}, pair, {
-				report: reports[pair.key]
-			});
+			const reportUrls = {
+				errorsReport: '#',
+				warningsReport: '#'
+			};
 			
+			if (reports.errors.hasOwnProperty(pair.key)) {
+				reportUrls.errorsReport = reports.errors[pair.key];
+			}
+			if (reports.warnings.hasOwnProperty(pair.key)) {
+				reportUrls.warningsReport = reports.warnings[pair.key];
+			}
+
+			const updatedPair = Object.assign({}, pair, reportUrls);
+
 			updatedData.push(updatedPair);
 		});
 
@@ -84,8 +95,14 @@ class CrossFileContentContainer extends React.Component {
 		let crossFileDone = false;
 
 		// check if cross file is done
-		if (data.crossFile.state == 'finished' || data.crossFile.state == 'invalid') {
+		if (data.crossFile.state.job == 'finished' || data.crossFile.state.job == 'invalid') {
 			crossFileDone = true;
+		}
+
+		// check if cross file file status is done
+		const completedStatuses = ['complete', 'header_error', 'unknown_error', 'single_row_error', 'job_error'];
+		if (_.indexOf(completedStatuses, data.crossFile.state.file) == -1) {
+			crossFileDone = false;
 		}
 
 		return crossFileDone;
@@ -136,7 +153,7 @@ class CrossFileContentContainer extends React.Component {
 				done = true;
 			}
 			else if (individualState == 'errors') {
-				// there are errors, return to file validation screen
+				// there are individual errors, return to file validation screen
 				// stop the timer
 				if (this.dataTimer) {
 					window.clearInterval(this.dataTimer);
@@ -146,7 +163,6 @@ class CrossFileContentContainer extends React.Component {
 				// redirect
 				hashHistory.push('/validateData/' + this.props.submissionID);
 			}
-
 			// individual files are done and valid
 			if (done && this.crossFileComplete(data)) {
 				// stop the timer once the validations are complete

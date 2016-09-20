@@ -197,15 +197,20 @@ const getFileStates = (status) => {
 
 
 
-const getCrossFileData = (data, validKeys) => {
+const getCrossFileData = (data, type, validKeys) => {
 	const output = {};
+
+	let dataType = 'error_data';
+	if (type == 'warnings') {
+		dataType = 'warning_data';
+	}
 
 	// generate the file pair keys
 	let i = 1;
 
-	for (let index in data.crossFile.error_data) {
+	for (let index in data.crossFile[dataType]) {
 		// fetch the error object
-		const item = data.crossFile.error_data[index];
+		const item = data.crossFile[dataType][index];
 
 		// generate possible key names for this pair of target/source files
 		const keyNames = [item.target_file + '-' + item.source_file, item.source_file + '-' + item.target_file];
@@ -230,6 +235,7 @@ const getCrossFileData = (data, validKeys) => {
 			// doesn't exist yet, so create an array with this error
 			output[key] = [item];
 		}
+
 	}
 
 	return output;
@@ -263,12 +269,18 @@ const getFileWarningReports = (status, reports) => {
 	return status;
 }
 
-const getCrossFileReports = (crossFile, reports) => {
+const getCrossFileReports = (type, crossFile, reports) => {
 
 	const crossFileReports = {};
 
+	let keyPrefix = 'cross_';
+	if (type == 'warnings') {
+		keyPrefix = 'cross_warning_';
+	}
+
 	for (let key in crossFile) {
-		crossFileReports[key] = reports['cross_' + key];
+
+		crossFileReports[key] = reports[keyPrefix + key];
 	}
 	
 	return crossFileReports;
@@ -292,30 +304,41 @@ export const validateSubmission  = (submissionId) => {
 
 	let status;
 	let crossFile;
-	let crossFileState;
-	let crossFileReports;
+	let crossFileState = {}
+	let crossFileErrorReports;
+	let crossFileWarningReports;
 
 	fetchStatus(submissionId)
 		.then((statusRes) => {
 			status = getFileStates(statusRes);
-			crossFile = getCrossFileData(statusRes, validKeys);
-			crossFileState = statusRes.crossFile.job_status;
+			crossFile = {
+				errors: getCrossFileData(statusRes, 'errors', validKeys),
+				warnings: getCrossFileData(statusRes, 'warnings', validKeys)
+			};
+
+			crossFileState = {
+				job: statusRes.crossFile.job_status,
+				file: statusRes.crossFile.file_status
+			};
+			
 			return fetchErrorReports(submissionId);
 		})
 		.then((reports) => {
-			getFileReports(status, reports);
-			crossFileReports = getCrossFileReports(crossFile, reports);
+			crossFileErrorReports = getCrossFileReports('errors', crossFile.errors, reports);
 
 			return fetchWarningReports(submissionId);
 		})
 		.then((reports) => {
-			getFileWarningReports(status, reports);
-
+			crossFileWarningReports = getCrossFileReports('warnings', crossFile.warnings, reports);
+		
 			deferred.resolve({
 				file: status,
 				crossFile: {
 					state: crossFileState,
-					reports: crossFileReports,
+					reports: {
+						errors: crossFileErrorReports,
+						warnings: crossFileWarningReports
+					},
 					data: crossFile
 				}
 			});
