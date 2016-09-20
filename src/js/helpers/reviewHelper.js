@@ -289,7 +289,7 @@ export const validateSubmission  = (submissionId) => {
 
 	let status;
 	let crossFile;
-	let crossFileState;
+	let crossFileState = {}
 	let crossFileErrorReports;
 	let crossFileWarningReports;
 
@@ -301,7 +301,11 @@ export const validateSubmission  = (submissionId) => {
 				warnings: getCrossFileData(statusRes, 'warnings', validKeys)
 			};
 
-			crossFileState = statusRes.crossFile.job_status;
+			crossFileState = {
+				job: statusRes.crossFile.job_status,
+				file: statusRes.crossFile.file_status
+			};
+			
 			return fetchErrorReports(submissionId);
 		})
 		.then((reports) => {

@@ -95,13 +95,13 @@ class CrossFileContentContainer extends React.Component {
 		let crossFileDone = false;
 
 		// check if cross file is done
-		if (data.crossFile.state == 'finished' || data.crossFile.state == 'invalid') {
+		if (data.crossFile.state.job == 'finished' || data.crossFile.state.job == 'invalid') {
 			crossFileDone = true;
 		}
 
 		// check if cross file file status is done
 		const completedStatuses = ['complete', 'header_error', 'unknown_error', 'single_row_error', 'job_error'];
-		if (_.indexOf(completedStatuses, data.crossFile.file_status) == -1) {
+		if (_.indexOf(completedStatuses, data.crossFile.state.file) == -1) {
 			crossFileDone = false;
 		}
 
@@ -163,7 +163,6 @@ class CrossFileContentContainer extends React.Component {
 				// redirect
 				hashHistory.push('/validateData/' + this.props.submissionID);
 			}
-
 			// individual files are done and valid
 			if (done && this.crossFileComplete(data)) {
 				// stop the timer once the validations are complete
