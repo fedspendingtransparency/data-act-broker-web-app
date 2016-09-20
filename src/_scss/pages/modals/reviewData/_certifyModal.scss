@@ -1,0 +1,64 @@
+@import "../../../layouts/modal/modal";
+@include modalLayout;
+
+.usa-da-certify-modal-close {
+	@include modalClose;
+}
+
+.title-field {
+	margin-bottom: 3.0rem;
+	h6 {
+	    .variable-field {
+	    	color: $color-cool-blue-light;
+	    }
+	}
+}
+
+.disclaimer-text {
+	border: 1px solid $color-gray-light;
+	padding: 10px;
+	margin-bottom: 3.0rem;
+
+	max-height: 180px;
+	overflow-y: scroll;
+
+	font-size: 13px;
+
+	ul {
+		margin-top: 1rem;
+		margin-bottom: 1.5rem;
+
+		li {
+			font-size: 13px;
+
+			&:before {
+				padding-right: 1rem;
+			}
+		}
+	}
+}
+
+.certify-check {
+	margin-bottom: 3.0rem;
+	display: table;
+	input {
+		display: table-cell;
+		height: 15px;
+		width: 15px;
+	}
+	label {
+		display: table-cell;
+		padding-left: 10px;
+		font-weight: normal;
+	}
+}
+
+// style the buttons
+@import "./_certifyButtons.scss";
+@import "./_certifyProgress.scss";
+
+.alert-warning {
+	@import "../../../components/alerts/_alerts";
+	@include warningAlert;
+	margin-top: 0px !important;
+}

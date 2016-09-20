@@ -1,5 +1,5 @@
 .center-item {
-    flex: 0 1 auto;
+    @include flex(0 1 auto);
     position: relative;
     z-index: 2;
     & .circle {
@@ -16,11 +16,11 @@
     .usa-da-icon {
         height: 50px;
         width: 50px;
-        display: flex;
-        align-items: center;
-        justify-content: center;
+        @include display(flex);
+        @include align-items(center);
+        @include justify-content(center);
         svg {
-            flex: 0 1 auto;
+            @include flex(0 1 auto);
             height: 28px;
             width: 28px;
             position: relative;

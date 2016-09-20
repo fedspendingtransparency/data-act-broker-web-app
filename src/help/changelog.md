@@ -1,4 +1,4 @@
-#### September 9, 2016
+#### September 14, 2016
 
 In this version of the Broker, we are importing D1 and D2 file information from the USAspending UAT environment, improved the handling of encoding in files, corrected a Resources file, and added and updated some validations.
 
