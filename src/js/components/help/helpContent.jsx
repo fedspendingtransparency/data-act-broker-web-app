@@ -102,9 +102,6 @@ export default class HelpContent extends React.Component {
                         Domain Values resource &nbsp;&nbsp;
                         <a href={this.state.domainValuesUrl} target="_blank">Download file</a>
                     </li>
-                    <li>
-                        <a href="/#/practices?section=top" target="_self">Practices and Procedures</a>
-                    </li>
                 </ul>
 
                 <h2 className="mt-50">Getting More Help</h2>
