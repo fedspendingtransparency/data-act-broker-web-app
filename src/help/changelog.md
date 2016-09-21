@@ -1,26 +1,30 @@
-#### September 14, 2016
+#### September 21, 2016
 
-In this version of the Broker, we are importing D1 and D2 file information from the USAspending UAT environment, improved the handling of encoding in files, corrected a Resources file, and added and updated some validations.
+In this version of the Broker, we have improved how the Broker receives D1 and D2 file information from the USAspending UAT environment, added screens for certifying submissions, improved the data we are using for Broker testing, corrected a Resources file, and updated the table of validations.
 
-  - [Updated: Generating D1 and D2](#/help?section=d1d2updated)
-  - [Encoding in Files](#/help?section=encoding)
+  - [Receiving Files D1 and D2](#/help?section=receivingd1d2)
+  - [Screens for Certification](#/help?section=certifyScreens)
+  - [Broker Test Data](#/help?section=testData)
   - [Resources](#/help?section=resources)
   - [Updated Validations](#/help?section=updatedValidations)
   - [Browser Requirements & Known Issues](#/help?section=browser)
   - [Accessibility Statement](#/help?section=accessibilityStatement)
 
-#### Updated: Generating D1 and D2{section=d1d2updated}
+#### Receiving Files D1 and D2{section=receivingd1d2}
 
-In this release, we have added the ability to generate the D1 and D2 files from the data in the USAspending UAT environment that comes from ASP and FPDS. The procurement data for File D1 is only available through 7/31/2016, at this time. Submit your financial assistance data for File D2 through the ASP UAT environment. **Note:** This functionality is newly implemented so let us know if you have problems.
+In this release, we have improved how received the data for Files D1 and D2 from the data in the USAspending UAT environment that comes from ASP and FPDS. As a user, you should not see any changes, except better functionality.
 
-#### Encoding in Files{section=encoding}
+#### Screens for Certification{section=certifyScreens}
 
-Some users reported errors trying to submit files. We improved how the Broker handles some encoding scenarios so these errors are no longer generated.
+The Broker now displays the screens an SAO will use to certify a submission. These screens are accurate but do NOT actually certify and submit data to USAspending. The screens are there for you to review and understand the language and process. 
+
+#### Broker Test Data{section=testData}
+
+We are testing the Broker with actual agency data to better replicate your experiences. You won't see any changes in the Broker.
 
 #### Updated Validations{section=updatedValidations}
-Below is a cumulative table of validations in the RSS. The status column indicates whether they are currently implemented in the Broker. Some rules that were already implemented in the Broker were changed in the release of the Errata. The currently implemented rule and new unimplemented rule are both listed below, with corresponding version indicators in the rule label (i.e. "C14 (v1)" or "C14 (v2)"). Outdated versions of rules that have been replaced by a new version have been removed. Some rules are no longer needed and are marked as deleted.
 
-Refer to the [Resources](#/help?section=resources) section for sample files and additional references. A corrected version of the validation rules spreadsheet has been posted.
+Below is a cumulative table of validations in the RSS and IDD. The status column indicates whether they are currently implemented in the Broker. The table has been revised to match the latest validations rules spreadsheet in the Resources section.
 
 ```!inline-html
 <table class="usa-da-table table-bordered help-table">
