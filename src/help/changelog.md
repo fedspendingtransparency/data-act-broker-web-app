@@ -13,7 +13,7 @@ In this version of the Broker, we have improved how the Broker receives D1 and D
 
 #### Receiving Files D1 and D2{section=receivingd1d2}
 
-In this release, we have improved how received the data for Files D1 and D2 from the data in the USAspending UAT environment that comes from ASP and FPDS. As a user, you should not see any changes, except better functionality.
+In this release, we have improved how the Broker receives the data for Files D1 and D2 from the USAspending UAT environment that comes from ASP and FPDS. As a user, you should not see any changes, except better functionality.
 
 #### Screens for Certification{section=certifyScreens}
 
