@@ -1,4 +1,5 @@
 #### September 21, 2016
+This is the Full Version of the DATA Act Broker and contains everything agencies need to test their data.
 
 In this version of the Broker, we have improved how the Broker receives D1 and D2 file information from the USAspending UAT environment, added screens for certifying submissions, improved the data we are using for Broker testing, corrected a Resources file, and updated the table of validations.
 
@@ -16,7 +17,7 @@ In this release, we have improved how received the data for Files D1 and D2 from
 
 #### Screens for Certification{section=certifyScreens}
 
-The Broker now displays the screens an SAO will use to certify a submission. These screens are accurate but do NOT actually certify and submit data to USAspending. The screens are there for you to review and understand the language and process. 
+The Broker now displays the screens an SAO will use to certify a submission. The text on these screens is based on a Draft OMB policy memo. The screens are there for you to review and understand the language and process. Feel free to click on any option - you will NOT actually certify and submit data to USAspending, at this time.
 
 #### Broker Test Data{section=testData}
 
