@@ -46,7 +46,7 @@ export default class ErrorBox extends React.Component {
 		}
 	}
 
-	
+
 	stagedFiles() {
 		let leftFile = this.props.submission.files[this.props.meta.firstKey];
 		let rightFile = this.props.submission.files[this.props.meta.secondKey];
@@ -116,7 +116,6 @@ export default class ErrorBox extends React.Component {
 			};
 			fileCount = 1;
 		}
-		
 		return (leftFile.progress + rightFile.progress) / fileCount;
 	}
 
@@ -129,7 +128,7 @@ export default class ErrorBox extends React.Component {
 	render() {
 
 		let uploadProgress = null;
-		if (this.props.submission.state == 'uploading') {
+		if (this.props.submission.state == 'uploading' && this.state.stagedFiles.length > 0) {
 			uploadProgress = <FileProgress fileStatus={this.fileProgress()} />
 		}
 
@@ -152,7 +151,7 @@ export default class ErrorBox extends React.Component {
 
 		return (
 			<div className="col-md-12">
-				
+
 				<div className="error-box">
 					<ErrorTabs {...this.props} changeTab={this.changeTab.bind(this)} activeTab={this.state.activeTab} />
 					<div className="vertical-line" />
