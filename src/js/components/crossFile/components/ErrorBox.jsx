@@ -129,7 +129,7 @@ export default class ErrorBox extends React.Component {
 	render() {
 
 		let uploadProgress = null;
-		if (this.props.submission.state == 'uploading') {
+		if (this.props.submission.state == 'uploading' && this.state.stagedFiles.length > 0) {
 			uploadProgress = <FileProgress fileStatus={this.fileProgress()} />
 		}
 
