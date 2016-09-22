@@ -137,7 +137,6 @@ Below is a cumulative table of validations in the RSS and IDD. The status column
             <td>Implemented</td>
             <td>Requirement</td>
         </tr>
-        
         <tr>
             <td>A, B</td>
             <td>A18 (v2)</td>
