@@ -1,3 +1,18 @@
+#### What's New in This Release - September 14, 2016
+
+In this version of the Broker, we are importing D1 and D2 file information from the USAspending UAT environment, improved the handling of encoding in files, corrected a Resources file, and added and updated some validations.
+
+  - [Updated: Generating D1 and D2](#/help?section=d1d2updated)
+  - [Encoding in Files](#/help?section=encoding)
+
+#### Updated: Generating D1 and D2{section=d1d2updated}
+
+In this release, we have added the ability to generate the D1 and D2 files from the data in the USAspending UAT environment that comes from ASP and FPDS. The procurement data for File D1 is only available through 7/31/2016, at this time. Submit your financial assistance data for File D2 through the ASP UAT environment. **Note:** This functionality is newly implemented so let us know if you have problems.
+
+#### Encoding in Files{section=encoding}
+
+Some users reported errors trying to submit files. We improved how the Broker handles some encoding scenarios so these errors are no longer generated.
+
 #### What's New in This Release - August 10, 2016
 
 In this version of the Broker, we separated out the validation checks into warnings and critical errors, added the interface to create D1 and D2 files, improved 508 compliance, increased server capacity, added an interface for broker users to notify other users that a submission is ready, and fixed a bug that incorrectly showed submissions as valid on the home page submission table.
