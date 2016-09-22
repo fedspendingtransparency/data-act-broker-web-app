@@ -8,6 +8,7 @@ import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 
 import * as ReviewHelper from '../../helpers/reviewHelper.js';
+import * as AgencyHelper from '../../helpers/agencyHelper.js';
 
 import ReviewDataPage from '../../components/reviewData/ReviewDataPage.jsx';
 
@@ -18,6 +19,7 @@ class ReviewDataContainer extends React.Component {
         this.state = {
         	jobs: null,
             cgac_code: null,
+            agency_name: '--',
             reporting_period_start_date: null,
             reporting_period_end_date: null,
             number_of_errors: null,
@@ -39,10 +41,19 @@ class ReviewDataContainer extends React.Component {
     }
 
     loadData() {
+
+        let submission = {};
+
     	ReviewHelper.fetchStatus(this.props.params.submissionID)
             .then((data) => {
                 data.ready = true;
-                this.setState(data);
+                submission = data;
+
+                return AgencyHelper.fetchAgencyName(data.cgac_code);
+            })
+            .then((name) => {
+                submission.agency_name = name;
+                this.setState(submission);
             })
             .catch((error) => {
                 console.log(error);

@@ -15,9 +15,6 @@
         display: table-cell;
         vertical-align: middle;
         padding: 0;
-        &:after {
-            @include betaMark;
-        }
     }
     #usa-da-header-link-holder {
         padding: 0 12px;

@@ -2,7 +2,9 @@ const initialSessionState = {
 	login: 'pending',
 	user: {},
 	admin: false,
-	skipGuide: false
+	skipGuide: false,
+	apiTimeTotal: 0,
+	apiTimeCount: 0
 }
 
 export const sessionReducer = (state = initialSessionState, action) => {
@@ -29,6 +31,11 @@ export const sessionReducer = (state = initialSessionState, action) => {
 		case 'SET_SKIP_GUIDE':
 			return Object.assign({}, state, {
 				skipGuide: action.skipGuide
+			});
+		case 'SET_API_META':
+			return Object.assign({}, state, {
+				apiTimeTotal: state.apiTimeTotal + action.time,
+				apiTimeCount: state.apiTimeCount + 1
 			});
 		default:
 			return state;

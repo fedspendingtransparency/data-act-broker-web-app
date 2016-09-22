@@ -3,20 +3,20 @@
 @import "./_loadingAnimation.scss";
 @mixin validationOverlayPositioning {
     .overlay-content {
-        display: flex;
-        flex-direction: row;
-        justify-content: center;
-        align-items: center;
+        @include display(flex);
+        @include flex-direction(row);
+        @include justify-content(center);
+        @include align-items(center);
         width: 100%;
 
         .overlay-icon {
-            flex: 0 0 auto;
+            @include flex(0 0 auto);
             width: 55px;
             height: 55px;
             @include validationOverlayIcon;
         }
         .overlay-text {
-            flex: 1 1 auto;
+            @include flex(1 1 auto);
             margin-left: 10px;
             @include validationOverlayText;
 
