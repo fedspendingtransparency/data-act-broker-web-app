@@ -39,7 +39,7 @@ export default class CrossFileOverlay extends React.Component {
 			nextButtonClass: ' hide',
 			nextButtonDisabled: true,
 			hideButtons: false,
-			message: 'You must the correct the cross-file validation errors listed above.',
+			message: 'You must correct the cross-file validation errors listed above.',
 			detail: null,
 			buttonText: 'Upload Corrected CSV Files'
 		};
@@ -92,7 +92,7 @@ export default class CrossFileOverlay extends React.Component {
 			if (_.indexOf(expectedPairs, key) == -1) {
 				continue;
 			}
-			
+
 			const firstKey = key.split('-')[0];
 			const secondKey = key.split('-')[1];
 
@@ -154,7 +154,7 @@ export default class CrossFileOverlay extends React.Component {
 			overlay.nextButtonClass = '-disabled';
 			overlay.buttonText = 'Uploading files...';
 		}
-		else if (this.props.submission.state == 'prepare') { 
+		else if (this.props.submission.state == 'prepare') {
 			// new files uploaded, page is now reloading
 			overlay.uploadButtonDisabled = true;
 			overlay.uploadButtonDisabled = '-disabled';
