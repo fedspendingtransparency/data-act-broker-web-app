@@ -102,7 +102,7 @@ export default class HelpContent extends React.Component {
                         Domain Values resource &nbsp;&nbsp;
                         <a href={this.state.domainValuesUrl} target="_blank">Download file</a>
                     </li>
-										<li>
+                    <li>
                         <a href="./#/validations" target="_self">Validation Rules</a>
                     </li>
                 </ul>
