@@ -52,7 +52,7 @@ export default class ValidationRulesTableContent extends React.Component {
 
         return (
             <div className="usa-da-help-content">
-              <Reactable.Table className="table usa-da-table table-bordered" data={this.state.data} filterable={['Rule Detail']} sortable={['Rule']} filterPlaceholder="Filter by..." noDataText="No matching records found." />
+              <Reactable.Table className="table usa-da-table table-bordered" data={this.state.data} filterable={['Rule Detail']} sortable={['Rule']} filterPlaceholder="Rule Detail Search..." noDataText="No matching records found." />
            </div>
         );
     }

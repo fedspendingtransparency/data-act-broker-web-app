@@ -188,7 +188,7 @@ const routeDefinitions = {
             }
         },
         {
-            path: 'validation',
+            path: 'validations',
             onEnter: checkUserPermissions,
             getComponent(nextState, cb) {
                 require.ensure([], (require) => {
