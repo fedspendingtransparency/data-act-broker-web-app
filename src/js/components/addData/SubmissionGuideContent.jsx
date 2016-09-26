@@ -90,7 +90,7 @@ export default class SubmissionGuideContent extends React.Component {
                                     </div>
                                     <div className="col-md-11 usa-da-reg-wrapper mt-20">
                                         <h4>Validate Data Files</h4>
-                                        <p>In this step, the DATA Act Broker will validate the files separately and against each other. All files must be present to perform cross-file validations.</p>
+                                        <p>In this step, the DATA Act Broker will validate your submitted files separately, and all files (including D1 and D2) against each other.  All files must be present to perform cross-file validations.</p>
                                         <p><a href="#/help?section=updatedValidations">Find out what validations are currently implemented</a></p>
                                     </div>
                                 </div>
@@ -102,12 +102,12 @@ export default class SubmissionGuideContent extends React.Component {
                                     </div>
                                     <div className="col-md-11 usa-da-reg-wrapper mt-20">
                                         <h4>Review, Certify, and Publish</h4>
-                                        <p>Once your submission has successfully passed validation this step allows you to:</p>
+                                        <p>Once your submission has successfully passed validation, this step allows you to:</p>
                                         <ul>
                                             <li>Notify another user that the submission is ready for them to review, certify, and publish.</li>
                                             <li>Review, certify, and publish your agency’s data.</li>
                                             <li>Download your submission to review and archive.</li>
-                                            <li>Delete the submission you created in the DATA Act Broker.</li>
+                                            <li>Delete the submission.</li>
                                         </ul>
                                     </div>
                                 </div>
