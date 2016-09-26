@@ -20,19 +20,18 @@ export default class ValidationRulesTableContent extends React.Component {
     }
 
     componentDidMount() {
-      this.scrollToTop();
+        this.scrollToTop();
 
-      Papa.parse('./help/validations.csv', {
-        download: true,
-        header: true,
-        complete: (results) => {
-          // logic
-          this.setState({
-            data: results.data
-          });
-        }
-      });
-
+        Papa.parse('./help/validations.csv', {
+            download: true,
+            header: true,
+            complete: (results) => {
+                // logic
+                this.setState({
+                    data: results.data
+                  });
+            }
+        });
     }
 
     componentDidUpdate(prevProps, prevState) {
@@ -40,16 +39,12 @@ export default class ValidationRulesTableContent extends React.Component {
     }
 
     scrollToTop() {
-            $('html, body').animate({
-                scrollTop: 0
-            }, 500);
-
+        $('html, body').animate({
+            scrollTop: 0
+        }, 500);
     }
 
-
-
     render() {
-
         return (
             <div className="usa-da-help-content">
               <Reactable.Table className="table usa-da-table table-bordered" data={this.state.data} filterable={['Rule Detail']} sortable={['Rule']} filterPlaceholder="Rule Detail Search..." noDataText="No matching records found." />
