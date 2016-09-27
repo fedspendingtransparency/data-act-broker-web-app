@@ -324,11 +324,13 @@ export const validateSubmission  = (submissionId) => {
 			return fetchErrorReports(submissionId);
 		})
 		.then((reports) => {
+		    getFileReports(status, reports);
 			crossFileErrorReports = getCrossFileReports('errors', crossFile.errors, reports);
 
 			return fetchWarningReports(submissionId);
 		})
 		.then((reports) => {
+            getFileWarningReports(status, reports);
 			crossFileWarningReports = getCrossFileReports('warnings', crossFile.warnings, reports);
 		
 			deferred.resolve({
