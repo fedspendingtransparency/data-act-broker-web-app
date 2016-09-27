@@ -110,6 +110,11 @@
       "from": "node-uuid@>=1.4.7 <2.0.0",
       "resolved": "https://registry.npmjs.org/node-uuid/-/node-uuid-1.4.7.tgz"
     },
+    "papaparse": {
+      "version": "4.1.2",
+      "from": "papaparse@latest",
+      "resolved": "https://registry.npmjs.org/papaparse/-/papaparse-4.1.2.tgz"
+    },
     "q": {
       "version": "1.4.1",
       "from": "q@>=1.4.1 <2.0.0",
@@ -666,7 +671,7 @@
         },
         "loose-envify": {
           "version": "1.2.0",
-          "from": "loose-envify@>=1.2.0 <2.0.0",
+          "from": "loose-envify@>=1.0.0 <2.0.0",
           "resolved": "https://registry.npmjs.org/loose-envify/-/loose-envify-1.2.0.tgz",
           "dependencies": {
             "js-tokens": {
@@ -677,6 +682,11 @@
           }
         }
       }
+    },
+    "reactable": {
+      "version": "0.14.0",
+      "from": "reactable@latest",
+      "resolved": "https://registry.npmjs.org/reactable/-/reactable-0.14.0.tgz"
     },
     "redux": {
       "version": "3.5.2",

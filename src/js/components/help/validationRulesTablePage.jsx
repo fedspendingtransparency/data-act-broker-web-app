@@ -1,16 +1,16 @@
 /**
- * practicesProceduresPage.jsx
+ * validationRulesTablePage.jsx
  * Created by Emily Gullo 9/2/16
  **/
 
 import React from 'react';
 import Navbar from '../SharedComponents/navigation/NavigationComponent.jsx';
-import PracticesProceduresContent from './practicesProceduresContent.jsx';
+import ValidationRulesTableContent from './validationRulesTableContent.jsx';
 import Footer from '../SharedComponents/FooterComponent.jsx';
 
 import * as Icons from '../SharedComponents/icons/Icons.jsx';
 
-export default class PracticesProceduresPage extends React.Component {
+export default class ValidationRulesTablePage extends React.Component {
     constructor(props) {
         super(props);
     }
@@ -32,14 +32,14 @@ export default class PracticesProceduresPage extends React.Component {
                   <div className="container">
                       <div className="row usa-da-help-page">
                             <div className="col-md-12">
-                                <PracticesProceduresContent />
+                                <ValidationRulesTableContent />
                             </div>
                           </div>
                       </div>
                   </div>
                   <Footer />
                   <div className="usa-da-help-top-button">
-                      <a href="#/practices?section=top" aria-label="Back to top">
+                      <a href="#/validation?section=top" aria-label="Back to top">
                           <div className="usa-da-icon">
                               <Icons.AngleUp alt="Arrow pointing up" />
                           </div>

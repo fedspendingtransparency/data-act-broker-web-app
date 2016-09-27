@@ -24,7 +24,7 @@ export default class SubmissionComponent extends React.Component {
 
         for (let i = 0; i < this.props.files.length; i++) {
             const fileVars = this.props.files[i];
-            
+
             submissionItems.push(
                 <FileComponent key={i}
                                 fileTitle={fileVars.fileTitle}
@@ -37,7 +37,7 @@ export default class SubmissionComponent extends React.Component {
                 <div className="container">
                     <div className="row usa-da-submission-instructions">
                         <div className="col-md-12">
-                            <p>Please choose the four files that you would like to upload to the DATA Act Broker. Once all four files are chosen, a button will appear at the bottom of the page allowing you to begin the upload and validation process.</p>
+                            <p>Please choose the three files that you want to upload to the DATA Act Broker. Once all three files are chosen, a button will appear at the bottom of the page allowing you to begin the upload and validation process.</p>
                         </div>
                     </div>
                     <div className="row center-block usa-da-submission-items">

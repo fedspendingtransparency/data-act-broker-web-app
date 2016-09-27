@@ -43,5 +43,10 @@
                 top: -3px;
             }
         }
+        &.warning {
+            svg {
+                fill: $color-gold;
+            }
+        }
     }
 }
