@@ -71,7 +71,7 @@ export default class GenerateEFItem extends React.Component {
 									<span /><span /><span /><span /><span />
 								</div>
 							</div>
-							<button className={"usa-da-button btn-full btn-disabled" + hideDownload} disabled={true} onClick={this.clickedDownload.bind(this)}>
+							<button className={"usa-da-button btn-primary btn-full" + hideDownload} onClick={this.clickedDownload.bind(this)}>
 								Download
 							</button>
 
