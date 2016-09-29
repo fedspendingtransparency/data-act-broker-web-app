@@ -91,7 +91,7 @@ export default class SubmissionGuideContent extends React.Component {
                                     <div className="col-md-11 usa-da-reg-wrapper mt-20">
                                         <h4>Validate Data Files</h4>
                                         <p>In this step, the DATA Act Broker will validate your submitted files separately, and all files (including D1 and D2) against each other.  All files must be present to perform cross-file validations.</p>
-                                        <p><a href="#/help?section=updatedValidations">Find out what validations are currently implemented</a></p>
+                                        <p><a href="#/validations">Find out what validations are currently implemented</a></p>
                                     </div>
                                 </div>
                             </div>
