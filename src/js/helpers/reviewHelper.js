@@ -14,35 +14,39 @@ import * as AdminHelper from './adminHelper.js';
 
 Q.longStackSupport = true;
 
-const availablePairs = ['appropriations-program_activity', 'award_financial-award'];
-const globalFileKeys = ['appropriations', 'program_activity', 'award_financial', 'award'];
+const availablePairs = ['appropriations-program_activity', 'award_financial-award', 'award_financial-award_procurement'];
+const globalFileKeys = ['appropriations', 'program_activity', 'award_financial', 'award', 'award_procurement'];
 export const globalFileData = {
-	appropriations: {
-		name: 'Appropriations Account',
-		letter: 'A'
-	},
-	program_activity: {
-		name: 'Program Activity and Object Class Data',
-		letter: 'B'
-	},
-	award_financial: {
-		name: 'Award Financial',
-		letter: 'C'
-	},
-	award: {
-		name: 'Financial Assistance Award',
-		letter: 'D2'
-	}
+    appropriations: {
+        name: 'Appropriations Account',
+        letter: 'A'
+    },
+    program_activity: {
+        name: 'Program Activity and Object Class Data',
+        letter: 'B'
+    },
+    award_financial: {
+        name: 'Award Financial',
+        letter: 'C'
+    },
+    award_procurement: {
+         name: 'Award Procurement',
+         letter: 'D1'
+    },
+    award: {
+        name: 'Financial Assistance Award',
+        letter: 'D2'
+    }
 };
 
 const determineExpectedPairs = () => {
 	const output = [];
 
 	availablePairs.forEach((keyName) => {
-		
+
 		const firstKey = keyName.split('-')[0];
 		const secondKey = keyName.split('-')[1];
-		
+
 		const item = {
 			key: keyName,
 			firstType: globalFileData[firstKey].letter,
@@ -54,7 +58,7 @@ const determineExpectedPairs = () => {
 		};
 
 		output.push(item);
-		
+
 	});
 
 	return output;
@@ -79,7 +83,7 @@ export const fetchStatus = (submissionId) => {
 	        		time: duration
 	        	});
                 store.dispatch(action);
-	        	
+
 
 	        	if (errFile) {
 	        		let detail = '';
@@ -197,15 +201,20 @@ const getFileStates = (status) => {
 
 
 
-const getCrossFileData = (data, validKeys) => {
+const getCrossFileData = (data, type, validKeys) => {
 	const output = {};
+
+	let dataType = 'error_data';
+	if (type == 'warnings') {
+		dataType = 'warning_data';
+	}
 
 	// generate the file pair keys
 	let i = 1;
 
-	for (let index in data.crossFile.error_data) {
+	for (let index in data.crossFile[dataType]) {
 		// fetch the error object
-		const item = data.crossFile.error_data[index];
+		const item = data.crossFile[dataType][index];
 
 		// generate possible key names for this pair of target/source files
 		const keyNames = [item.target_file + '-' + item.source_file, item.source_file + '-' + item.target_file];
@@ -230,6 +239,7 @@ const getCrossFileData = (data, validKeys) => {
 			// doesn't exist yet, so create an array with this error
 			output[key] = [item];
 		}
+
 	}
 
 	return output;
@@ -263,14 +273,20 @@ const getFileWarningReports = (status, reports) => {
 	return status;
 }
 
-const getCrossFileReports = (crossFile, reports) => {
+const getCrossFileReports = (type, crossFile, reports) => {
 
 	const crossFileReports = {};
 
-	for (let key in crossFile) {
-		crossFileReports[key] = reports['cross_' + key];
+	let keyPrefix = 'cross_';
+	if (type == 'warnings') {
+		keyPrefix = 'cross_warning_';
 	}
-	
+
+	for (let key in crossFile) {
+
+		crossFileReports[key] = reports[keyPrefix + key];
+	}
+
 	return crossFileReports;
 }
 
@@ -292,30 +308,43 @@ export const validateSubmission  = (submissionId) => {
 
 	let status;
 	let crossFile;
-	let crossFileState;
-	let crossFileReports;
+	let crossFileState = {}
+	let crossFileErrorReports;
+	let crossFileWarningReports;
 
 	fetchStatus(submissionId)
 		.then((statusRes) => {
 			status = getFileStates(statusRes);
-			crossFile = getCrossFileData(statusRes, validKeys);
-			crossFileState = statusRes.crossFile.job_status;
+			crossFile = {
+				errors: getCrossFileData(statusRes, 'errors', validKeys),
+				warnings: getCrossFileData(statusRes, 'warnings', validKeys)
+			};
+
+			crossFileState = {
+				job: statusRes.crossFile.job_status,
+				file: statusRes.crossFile.file_status
+			};
+
 			return fetchErrorReports(submissionId);
 		})
 		.then((reports) => {
-			getFileReports(status, reports);
-			crossFileReports = getCrossFileReports(crossFile, reports);
+		    getFileReports(status, reports);
+			crossFileErrorReports = getCrossFileReports('errors', crossFile.errors, reports);
 
 			return fetchWarningReports(submissionId);
 		})
 		.then((reports) => {
-			getFileWarningReports(status, reports);
+            getFileWarningReports(status, reports);
+			crossFileWarningReports = getCrossFileReports('warnings', crossFile.warnings, reports);
 
 			deferred.resolve({
 				file: status,
 				crossFile: {
 					state: crossFileState,
-					reports: crossFileReports,
+					reports: {
+						errors: crossFileErrorReports,
+						warnings: crossFileWarningReports
+					},
 					data: crossFile
 				}
 			});
@@ -334,7 +363,7 @@ export const listUsers = () => {
 	let request = {
 		status: "approved"
 	};
-	
+
 	Request.get(kGlobalConstants.API + 'list_user_emails/')
 		.send(request)
 		.end((err, res) => {

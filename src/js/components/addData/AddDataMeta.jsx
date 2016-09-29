@@ -48,7 +48,7 @@ export default class AddDataMeta extends React.Component {
 
     handleChange(agency, isValid){
         if (agency != '' && isValid) {
-            this.setState({ 
+            this.setState({
                 agency: agency,
                 agencyError: false
              }, this.checkComplete);
@@ -63,7 +63,7 @@ export default class AddDataMeta extends React.Component {
 
 
     handleDateChange(startDate, endDate, dateError) {
-        
+
         let message = this.successMessage;
         let buttonDisabled = false;
         if (dateError == true) {
@@ -88,7 +88,7 @@ export default class AddDataMeta extends React.Component {
             dateType: dateType
         }, this.checkComplete);
     }
-    
+
 
     checkComplete() {
 
@@ -187,12 +187,12 @@ export default class AddDataMeta extends React.Component {
                     <div className="container center-block">
                         <div className="row text-center usa-da-add-data-meta">
                             <div className="col-md-offset-2 col-md-8 mt-60 mb-60">
-                                <h5>Please begin by telling us about the submission you'll be creating</h5>
+                                <h5>Please begin by telling us about the submission you are creating</h5>
                                 <div className="meta-holder">
                                     <div className="row usa-da-add-data-meta-label">
                                         Which agency is this submission for?
                                     </div>
-                                    
+
                                     <div className="row">
                                         <div className="col-sm-12 col-md-12 typeahead-holder" data-testid="agencytypeahead">
                                             <AgencyListContainer placeholder="Enter the name of the reporting agency" onSelect={this.handleChange.bind(this)} customClass={agencyClass} />
@@ -201,15 +201,15 @@ export default class AddDataMeta extends React.Component {
                                                 </div>
                                             </div>
                                         </div>
-                                
+
                                         <ReactCSSTransitionGroup transitionName="usa-da-meta-fade" transitionEnterTimeout={500} transitionLeaveTimeout={300}>
                                             {dateTypeField}
                                         </ReactCSSTransitionGroup>
-    
+
                                         <ReactCSSTransitionGroup transitionName="usa-da-meta-fade" transitionEnterTimeout={500} transitionLeaveTimeout={300}>
                                             {dateRangeField}
                                         </ReactCSSTransitionGroup>
-    
+
                                         <ReactCSSTransitionGroup transitionName="usa-da-meta-fade" transitionEnterTimeout={500} transitionLeaveTimeout={300}>
                                             {submissionComponent}
                                         </ReactCSSTransitionGroup>

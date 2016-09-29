@@ -11,7 +11,10 @@ const initialUploadState = {
 	},
 	files: {},
 	validation: {},
-	crossFile: {},
+	crossFile: {
+		errors: {},
+		warnings: {}
+	},
 	crossFileOrder: [],
 	crossFileStaging: {}
 }
