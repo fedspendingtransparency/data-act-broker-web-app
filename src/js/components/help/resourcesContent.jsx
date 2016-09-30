@@ -22,13 +22,13 @@ export default class ResourcesContent extends React.Component {
             rssUrl: '',
             validationRulesUrl: '#',
             domainValuesUrl: '#',
-	    agencyLabelUrl: '#',
-	    daimsErrataUrl: '#',
-	    iDDUrl: '#',
-	    pmoWebCastUrl: '#',
-	    schemaFileAUrl: '#',
-	    schemaFileBUrl: '#',
-	    schemaFileCUrl: '#'
+		    agencyLabelUrl: '#',
+		    daimsErrataUrl: '#',
+		    iDDUrl: '#',
+		    pmoWebCastUrl: '#',
+		    schemaFileAUrl: '#',
+		    schemaFileBUrl: '#',
+		    schemaFileCUrl: '#'
         };
     }
 
@@ -42,13 +42,13 @@ export default class ResourcesContent extends React.Component {
                     rssUrl: urls[rssFileKey()],
                     validationRulesUrl: urls['Validation_Rules.xlsx'],
                     domainValuesUrl: urls['Domain_Values.xlsx'],
-		    agencyLabelUrl: urls['AgencyLabel_to_TerseLabel.xlsx'],
-		    daimsErrataUrl: urls['DAIMS_Errata.xlsx'],
-		    iDDUrl: urls['IDD_v1.0.xlsx'],
-		    pmoWebCastUrl: urls['DATA_Act_PMO_ASP_Webcast_Deck_20160712.pdf'],
-		    schemaFileAUrl: urls['DATA_Act_Schema_v1_0_File_A_20160622.pdf'],
-		    schemaFileBUrl: urls['DATA_Act_Schema_v1_0_File_B_20160622.pdf'],
-		    schemaFileCUrl: urls['DATA_Act_Schema_v1_0_File_C_20160622.pdf']
+				    agencyLabelUrl: urls['AgencyLabel_to_TerseLabel.xlsx'],
+				    daimsErrataUrl: urls['DAIMS_Errata.xlsx'],
+				    iDDUrl: urls['IDD_v1.0.xlsx'],
+				    pmoWebCastUrl: urls['DATA_Act_PMO_ASP_Webcast_Deck_20160712.pdf'],
+				    schemaFileAUrl: urls['DATA_Act_Schema_v1_0_File_A_20160622.pdf'],
+				    schemaFileBUrl: urls['DATA_Act_Schema_v1_0_File_B_20160622.pdf'],
+				    schemaFileCUrl: urls['DATA_Act_Schema_v1_0_File_C_20160622.pdf']
                 });
 
                 this.urlPromise = null;
