@@ -49,7 +49,7 @@ export default class LandingRequirementsModal extends React.Component {
 						<div className="usa-da-landing-modal-content">
 							<h6>You'll need the following files in order to complete your submission</h6>
 							<p>
-								During the DATA Act Broker - Beta Release period you may download and use sample data files if you don't have the required files on hand. The sample files can be downloaded below.
+								You may download and use the following sample data files if you don't have the required files on hand. The sample files can be downloaded below.
 							</p>
 
 							<ul>
