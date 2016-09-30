@@ -1,5 +1,5 @@
 #### September 30, 2016
-This is the Full Version of the DATA Act Broker and contains everything agencies need to test their data.
+This version of the DATA Act Broker contains everything agencies need to test the data validation and submission process.
 
 In this version of the Broker, we have improved the cross-file validation experience, implemented all the current validation rules, reorganized the Help section, including new pages for Resources and Validation Rules.
 
