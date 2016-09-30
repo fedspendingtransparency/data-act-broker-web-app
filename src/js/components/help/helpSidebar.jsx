@@ -17,14 +17,20 @@ export default class HelpSidebar extends React.Component {
                 <h6>What’s New in This Release</h6>
                 <ul>
                     {sectionList}
-                    <li>
-                        <a href="/#/help?section=resources">Resources</a>
+					<li>
+                        <a href="/#/history">Release Notes Archive</a>
                     </li>
                 </ul>
                 <h6>Getting More Help</h6>
                 <ul>
                     <li>
                         <a href="/#/help?section=filingIssue">Filing an Issue</a>
+                    </li>
+		    <li>
+                        <a href="/#/resources">Resources - DAIMS</a>
+                    </li>
+		    <li>
+                        <a href="/#/validations">Validations</a>
                     </li>
                 </ul>
             </div>

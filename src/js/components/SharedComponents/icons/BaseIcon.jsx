@@ -30,7 +30,7 @@ export default class BaseIcon extends React.Component {
 		this.state = {
 			icon: {
 				data: '',
-				viewBox: ''
+				viewBox: '0 0 0 0'
 			}
 		};
 

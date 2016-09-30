@@ -154,6 +154,13 @@ gulp.task('copyAssets', ['copyConstants'], () => {
                 gutil.log('Markdown copied');
             }),
 
+        // copy markdown files
+        gulp.src('./src/help/**/*.csv')
+            .pipe(gulp.dest('./public/help'))
+            .on('end', () => {
+                gutil.log('CSV copied');
+            }),
+
         // copy the main index file
         gulp.src('./index.html')
             .pipe(gulp.dest('./public'))
@@ -328,6 +335,19 @@ gulp.task('webpack', ['webpackCore'], () => {
                     .pipe(gulp.dest('./public/js'))
                     .pipe(connect.reload());
             });
+
+            gulp.watch(['src/help/*.md', 'src/help/*.csv']) // drop the leading . to allow gulp to detect new files that are created after the initial build
+                .on('change', () => {
+                    gutil.log(chalk.cyan('Starting Help Files recompile...'));
+                    return gulp.src(['./src/help/*.md','./src/help/*.csv'])
+                    // .pipe(markdown())
+                    .pipe(gulp.dest('./public/help'))
+                    .on('end', () => {
+                        gutil.log(chalk.green('Help Files compiled.'));
+                    })
+                    // auto reload the browser
+                    .pipe(connect.reload())
+                });
     }
     else if (environment != environmentTypes.DEVHOSTED) {
         // if it's not a development environment, minify everything
@@ -406,11 +426,11 @@ gulp.task('serve', serverDeps, () => {
 
 // user-initiated gulp tasks
 gulp.task('buildDev', ['setDevHosted', 'modifyHtml'], () => {
-    
+
 });
 
 gulp.task('dev', ['setDev', 'webpack', 'serve'], () => {
-    
+
 });
 
 gulp.task('buildLocal', ['setLocal', 'modifyHtml'], () => {
@@ -422,7 +442,7 @@ gulp.task('local', ['setLocal', 'modifyHtml', 'serve'], () => {
 });
 
 gulp.task('production', ['setProd', 'modifyHtml'], () => {
-    
+
 });
 
 gulp.task('default', ['local']);
