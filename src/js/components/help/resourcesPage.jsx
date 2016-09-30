@@ -15,28 +15,6 @@ import * as HelpHelper from '../../helpers/helpHelper.js';
 export default class HelpPage extends React.Component {
     constructor(props) {
         super(props);
-
-        this.state = {
-            resources: '',
-            sections: []
-        };
-    }
-
-    componentDidMount() {
-        this.loadResources();
-    }
-
-    loadResources() {
-        HelpHelper.loadResources()
-            .then((output) => {
-                this.setState({
-                    resources: output.html,
-					sections: output.sections
-                });
-            })
-            .catch((err) => {
-                console.log(err);
-            });
     }
 
     render() {
