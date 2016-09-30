@@ -118,8 +118,7 @@ export default class HelpContent extends React.Component {
                 </p>
 
                 <p>If you need assistance using the Broker or if you would like to schedule a hands-on sandbox session with Treasury staff, please email <a href='&#109;&#97;&#105;lt&#111;&#58;DAT&#65;&#37;42r%&#54;&#70;ke&#114;&#64;&#37;&#54;6%6&#57;&#115;%6&#51;a&#37;6&#67;%&#50;E&#37;&#55;4%72eas&#37;75ry%2&#69;go&#37;76'>DATAB&#114;oke&#114;&#64;f&#105;&#115;ca&#108;&#46;tre&#97;&#115;ury&#46;gov</a>.</p>
-
-			</div>
+	    </div>
         );
     }
 }
