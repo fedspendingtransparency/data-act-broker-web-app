@@ -1,12 +1,12 @@
 /**
- * HelpPage.jsx
- * Created by Mike Bray 4/1/16
+ * HistoryPage.jsx
+ * Created by Emily Gullo 9/27/16
  **/
 
 import React from 'react';
 import Navbar from '../SharedComponents/navigation/NavigationComponent.jsx';
 import HelpSidebar from './helpSidebar.jsx';
-import HelpContent from './helpContent.jsx';
+import HistoryContent from './historyContent.jsx';
 import Footer from '../SharedComponents/FooterComponent.jsx';
 
 import * as Icons from '../SharedComponents/icons/Icons.jsx';
@@ -18,12 +18,12 @@ export default class HelpPage extends React.Component {
         super(props);
 
         this.state = {
-            changelog: '',
-            sections: []
+            history: '',
+			sections: []
         };
     }
 
-    componentDidMount() {
+	componentDidMount() {
         this.loadChangelog();
     }
 
@@ -31,8 +31,8 @@ export default class HelpPage extends React.Component {
         HelpHelper.loadHelp()
             .then((output) => {
                 this.setState({
-                    changelog: output.html,
-                    sections: output.sections
+                    history: output.history,
+					sections: output.sections
                 });
             })
             .catch((err) => {
@@ -56,18 +56,18 @@ export default class HelpPage extends React.Component {
                     </div>
                     <div className="container">
                         <div className="row usa-da-help-page">
-                            <div className="col-md-4">
+							<div className="col-md-4">
                                 <HelpSidebar sections={this.state.sections} />
                             </div>
                             <div className="col-md-8">
-                                <HelpContent section={this.props.location.query.section} changelog={this.state.changelog} />
+                                <HistoryContent history={this.state.history}/>
                             </div>
                         </div>
                     </div>
                 </div>
                 <Footer />
                 <div className="usa-da-help-top-button">
-                    <a href="#/help?section=top" aria-label="Back to top">
+                    <a href="#/history?section=top" aria-label="Back to top">
                         <div className="usa-da-icon">
                             <Icons.AngleUp alt="Arrow pointing up" />
                         </div>

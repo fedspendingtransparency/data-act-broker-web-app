@@ -100,7 +100,7 @@ export default class LandingContent extends React.Component {
                         </div>
 
                     <div className="usa-da-landing-disclosure text-center">
-                        * The DATA Act Broker - Beta Release allows agencies to test financial data but does not connect to USAspending.gov.
+                        * The DATA Act Broker allows agencies to test financial data but does not connect to USAspending.gov.
                     </div>
                 </div>
             );

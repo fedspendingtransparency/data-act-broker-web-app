@@ -196,6 +196,25 @@ const routeDefinitions = {
                 });
             }
         },
+		{
+            path: 'resources',
+            onEnter: checkUserPermissions,
+            getComponent(nextState, cb) {
+                require.ensure([], (require) => {
+                    cb(null, require('../../components/help/resourcesPage.jsx').default)
+                });
+            }
+        },
+
+		{
+            path: 'history',
+            onEnter: checkUserPermissions,
+            getComponent(nextState, cb) {
+                require.ensure([], (require) => {
+                    cb(null, require('../../components/help/historyPage.jsx').default)
+                });
+            }
+        },
         {
             path: 'forgotpassword',
             getComponent(nextState, cb) {
