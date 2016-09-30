@@ -69,39 +69,6 @@ export default class HelpContent extends React.Component {
 
                 <div dangerouslySetInnerHTML={{__html:this.props.changelog}} />
 
-                <h4 name="resources">Resources</h4>
-                <p>We identified several files that you may want to have readily available while using the Broker.</p>
-                <ul>
-                    <li>
-                        File A: Appropriation Account data &nbsp;&nbsp;
-                        <a href="https://s3-us-gov-west-1.amazonaws.com/prod-data-act-web-static-files/sample-files/appropValid.csv" target="_blank">Download sample file</a>
-                    </li>
-                    <li>
-                        File B: Object Class and Program Activity data &nbsp;&nbsp;
-                        <a href="https://s3-us-gov-west-1.amazonaws.com/prod-data-act-web-static-files/sample-files/programActivityValid.csv" target="_blank">Download sample file</a>
-                    </li>
-                    <li>
-                        File C: Award Financial data &nbsp;&nbsp;
-                        <a href="https://s3-us-gov-west-1.amazonaws.com/prod-data-act-web-static-files/sample-files/awardFinancialValid.csv" target="_blank">Download sample file</a>
-                    </li>
-                    <li>
-                        File D2: Financial Assistance Award data &nbsp;&nbsp;
-                        <a href="https://s3-us-gov-west-1.amazonaws.com/prod-data-act-web-static-files/sample-files/awardValid.csv" target="_blank">Download sample file</a>
-                    </li>
-                    <li>
-                        Long Element Name to Short Element Name Crosswalk &nbsp;&nbsp;
-                        <a href="https://s3-us-gov-west-1.amazonaws.com/prod-data-act-submission/rss/AgencyLabel_to_TerseLabel.xlsx" target="_blank">Download file</a>
-                    </li>
-                    <li>
-                        Validation Rules resource &nbsp;&nbsp;
-                        <a href={this.state.validationRulesUrl} target="_blank">Download file</a>
-                    </li>
-                    <li>
-                        Domain Values resource &nbsp;&nbsp;
-                        <a href={this.state.domainValuesUrl} target="_blank">Download file</a>
-                    </li>
-                </ul>
-
                 <h2 className="mt-50">Getting More Help</h2>
 
                 <h4 name="filingIssue">Filing an Issue</h4>

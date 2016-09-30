@@ -5,7 +5,6 @@
 
 import React from 'react';
 import Navbar from '../SharedComponents/navigation/NavigationComponent.jsx';
-import HelpSidebar from './helpSidebar.jsx';
 import ResourcesContent from './resourcesContent.jsx';
 import Footer from '../SharedComponents/FooterComponent.jsx';
 
@@ -56,11 +55,8 @@ export default class HelpPage extends React.Component {
                     </div>
                     <div className="container">
                         <div className="row usa-da-help-page">
-							<div className="col-md-4">
-                                <HelpSidebar sections={this.state.sections} />
-                            </div>
-                            <div className="col-md-8">
-                                <ResourcesContent section={this.props.location.query.section}/>
+                            <div className="col-md-12">
+                                <ResourcesContent />
                             </div>
                         </div>
                     </div>
