@@ -64,7 +64,6 @@ export default class HelpContent extends React.Component {
     render() {
         return (
             <div className="usa-da-help-content">
-                <p>Welcome to the DATA Act Broker.  This version of the Broker aligns with <a href={this.state.rssUrl} target="_blank" aria-label="Download the RSS specification as an Excel file">Reporting Submission Specification (RSS v1.0)</a>.</p>
 
                 <h2>What&#39;s New in This Release</h2>
 
