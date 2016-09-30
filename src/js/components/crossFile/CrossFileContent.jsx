@@ -16,7 +16,8 @@ export default class CrossFileContent extends React.Component {
 		this.allowableStates = ['crossFile', 'uploading', 'prepare', 'failed'];
 
 		this.state = {
-			crossFileItems: []
+			crossFileItems: [],
+			overlay: 'loading'
 		};
 	}
 
@@ -33,23 +34,60 @@ export default class CrossFileContent extends React.Component {
 	crossFileItems() {
 		const items = [];
 		const crossFileKeys = this.props.submission.crossFileOrder;
+		let overlayMode = 'loading';
 		let i = 0;
 		crossFileKeys.forEach((pairMeta) => {
 
+			const pairKey = pairMeta.key;
+
 			let status = 'loading';
-			if (this.props.submission.crossFile.hasOwnProperty(pairMeta.key)) {
+			let errors = 0;
+			let warnings = 0;
+
+			if (this.props.submission.crossFile.errors.hasOwnProperty(pairKey)) {
 				status = 'error';
+				this.props.submission.crossFile.errors[pairKey].forEach((error) => {
+					errors += parseInt(error.occurrences);
+				});
+				overlayMode = 'errors';
 			}
-			else if (_.indexOf(this.allowableStates, this.props.submission.state) > -1) {
-				status = 'success';
+			if (this.props.submission.crossFile.warnings.hasOwnProperty(pairKey)) {
+				if (status == 'loading') {
+					status = 'warning';
+				}
+				this.props.submission.crossFile.warnings[pairKey].forEach((warning) => {
+					warnings += parseInt(warning.occurrences);
+				});
+
+				if (overlayMode != 'errors') {
+					overlayMode = 'warnings'
+				}
+			}
+			if (_.indexOf(this.allowableStates, this.props.submission.state) > -1) {
+				if (status == 'loading') {
+					status = 'success';
+				}
+
+				if (overlayMode == 'loading') {
+					overlayMode = 'success';
+				}
 			}
 
-			items.push(<CrossFileItem key={i} status={status} meta={pairMeta} {...this.props} forceUpdate={this.props.reloadData} />);
+			// each pair should have easy top-level access to the pair's occurrence counts
+			const counts = {
+				errors: errors,
+				warnings: warnings
+			};
+
+			items.push(<CrossFileItem key={i} status={status} meta={pairMeta} counts={counts} {...this.props} forceUpdate={this.props.reloadData} />);
 			i++;
 		});
 
+
+
 		this.setState({
-			crossFileItems: items
+			crossFileItems: items,
+			overlay: overlayMode
 		});
 	}
 
@@ -59,7 +97,7 @@ export default class CrossFileContent extends React.Component {
 
 		let loadingClass = '';
 		if (isLoading) {
-			loadingClass = ' usa-dagathering-data';
+			loadingClass = ' usa-da-gathering-data';
 		}
 
 		return (
@@ -76,7 +114,7 @@ export default class CrossFileContent extends React.Component {
 
 					</div>
 				</div>
-				<CrossFileOverlay {...this.props} loading={isLoading} uploadFiles={this.props.uploadFiles} />
+				<CrossFileOverlay {...this.props} mode={this.state.overlay} loading={isLoading} uploadFiles={this.props.uploadFiles} />
 			</div>
 		)
 	}

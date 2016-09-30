@@ -10,6 +10,7 @@ import FileProgress from '../../SharedComponents/FileProgress.jsx';
 import UploadButtonContainer from '../../../containers/crossFile/CrossFileUploadButtonContainer.jsx';
 import GeneratedErrorButton from './GeneratedErrorButton.jsx';
 import FileWarning from './FileWarning.jsx';
+import ErrorTabs from './ErrorTabs.jsx';
 
 import * as ReviewHelper from '../../../helpers/reviewHelper.js';
 import * as Icons from '../../SharedComponents/icons/Icons.jsx';
@@ -23,11 +24,19 @@ export default class ErrorBox extends React.Component {
 		this.state = {
 			firstType: '',
 			secondType: '',
-			stagedFiles: []
+			firstButton: null,
+			secondButton: null,
+			stagedFiles: [],
+			activeTab: 'errors'
 		};
 	}
 
 	componentDidMount() {
+		if (this.props.status == 'warning') {
+			this.setState({
+				activeTab: 'warnings'
+			});
+		}
 		this.stagedFiles();
 	}
 
@@ -35,12 +44,6 @@ export default class ErrorBox extends React.Component {
 		if (!_.isEqual(prevProps.submission.files,this.props.submission.files)) {
 			this.stagedFiles();
 		}
-	}
-
-	clickedDownload(e) {
-		e.preventDefault();
-		const url = this.props.meta.report;
-		window.open(url, '_blank');
 	}
 
 	
@@ -68,6 +71,30 @@ export default class ErrorBox extends React.Component {
 			firstType: firstType,
 			secondType: secondType,
 			stagedFiles: stagedFiles
+		}, () => {
+			this.uploadButtons();
+		});
+	}
+
+	uploadButtons() {
+		let firstUploadButton = <UploadButtonContainer file={ReviewHelper.globalFileData[this.props.meta.firstKey]} fileKey={this.props.meta.firstKey} pair={this.props.meta.key} type={this.state.firstType} />;
+		let secondUploadButton = <UploadButtonContainer file={ReviewHelper.globalFileData[this.props.meta.secondKey]} fileKey={this.props.meta.secondKey} pair={this.props.meta.key} type={this.state.secondType} />;
+
+		const firstFile = ReviewHelper.globalFileData[this.props.meta.firstKey];
+		const secondFile = ReviewHelper.globalFileData[this.props.meta.secondKey];
+
+		if (_.indexOf(dFiles, firstFile.letter.toLowerCase()) > -1) {
+			// first file is a D1/D2 file
+			firstUploadButton = <GeneratedErrorButton file={firstFile} fileKey={this.props.meta.firstKey} pair={this.props.meta.key} type={this.state.firstType} submissionID={this.props.submissionID} forceUpdate={this.props.forceUpdate} />;
+		}
+		if (_.indexOf(dFiles, secondFile.letter.toLowerCase()) > -1) {
+			// second file is a D1/D2 file
+			secondUploadButton = <GeneratedErrorButton file={secondFile} fileKey={this.props.meta.secondKey} pair={this.props.meta.key} type={this.state.secondType} submissionID={this.props.submissionID} forceUpdate={this.props.forceUpdate} />;
+		}
+
+		this.setState({
+			firstButton: firstUploadButton,
+			secondButton: secondUploadButton
 		});
 	}
 
@@ -93,10 +120,16 @@ export default class ErrorBox extends React.Component {
 		return (leftFile.progress + rightFile.progress) / fileCount;
 	}
 
+	changeTab(tab) {
+		this.setState({
+			activeTab: tab
+		});
+	}
+
 	render() {
 
 		let uploadProgress = null;
-		if (this.props.submission.state == 'uploading') {
+		if (this.props.submission.state == 'uploading' && this.state.stagedFiles.length > 0) {
 			uploadProgress = <FileProgress fileStatus={this.fileProgress()} />
 		}
 
@@ -105,72 +138,66 @@ export default class ErrorBox extends React.Component {
 			warning = <FileWarning files={this.state.stagedFiles} {...this.props} />
 		}
 
-		let firstUploadButton = <UploadButtonContainer file={ReviewHelper.globalFileData[this.props.meta.firstKey]} fileKey={this.props.meta.firstKey} pair={this.props.meta.key} type={this.state.firstType} />;
-		let secondUploadButton = <UploadButtonContainer file={ReviewHelper.globalFileData[this.props.meta.secondKey]} fileKey={this.props.meta.secondKey} pair={this.props.meta.key} type={this.state.secondType} />;
+		let tableKey = this.state.activeTab;
+		let reportName = "Error Report";
 
-		const firstFile = ReviewHelper.globalFileData[this.props.meta.firstKey];
-		const secondFile = ReviewHelper.globalFileData[this.props.meta.secondKey];
-
-		if (_.indexOf(dFiles, firstFile.letter.toLowerCase()) > -1) {
-			// first file is a D1/D2 file
-			firstUploadButton = <GeneratedErrorButton file={firstFile} fileKey={this.props.meta.firstKey} pair={this.props.meta.key} type={this.state.firstType} submissionID={this.props.submissionID} forceUpdate={this.props.forceUpdate} />;
+		if (this.state.activeTab == 'errors' && this.props.status == 'warning') {
+			// in the case of a warning only pair, the state won't have time to change to warnings on initial load
+			tableKey = 'warnings';
 		}
-		if (_.indexOf(dFiles, secondFile.letter.toLowerCase()) > -1) {
-			// second file is a D1/D2 file
-			secondUploadButton = <GeneratedErrorButton file={secondFile} fileKey={this.props.meta.secondKey} pair={this.props.meta.key} type={this.state.secondType} submissionID={this.props.submissionID} forceUpdate={this.props.forceUpdate} />;
+
+		if (tableKey == 'warnings') {
+			reportName = "Warning Report";
 		}
 
 		return (
 			<div className="col-md-12">
+				
 				<div className="error-box">
+					<ErrorTabs {...this.props} changeTab={this.changeTab.bind(this)} activeTab={this.state.activeTab} />
 					<div className="vertical-line" />
-					<div className="row">
-						<div className="col-xs-6 col-md-6">
-							<h6>Cross-File Validation Errors</h6>
-						</div>
-						<div className="col-xs-6 col-md-3 mr-0">
-            	            <a href="#" className="usa-da-download pull-right" onClick={this.clickedDownload.bind(this)}>
-            	                <span className="usa-da-icon usa-da-download-report"><Icons.CloudDownload /></span>Download Error Report
-            	            </a>
-            	        </div>
-					</div>
-					<div className="row">
-						<div className="col-xs-12 col-sm-8 col-md-9">
-							<ComparisonTable data={this.props.submission.crossFile[this.props.meta.key]} />
-						</div>
-						<div className="col-xs-12 col-sm-4 col-md-3">
+					<div className="box-content">
+						<div className="row">
+							<div className="col-xs-12 col-sm-8 col-md-9">
+								<ComparisonTable data={this.props.submission.crossFile[tableKey][this.props.meta.key]} />
+							</div>
+							<div className="col-xs-12 col-sm-4 col-md-3">
 								<div className="button-list">
-								<div className="row">
-									<div className="col-md-12">
-										<div className="upload-title">
-											Upload Corrected Files
+									<div className="row">
+										<div className="col-md-12">
+				            	            <a href={this.props.meta[tableKey + 'Report']} target="_blank" className="usa-da-button btn-full btn-primary">
+				            	            	Download {reportName}
+				            	            </a>
+				            	            <div className="upload-title">
+												Upload Corrected Files
+											</div>
 										</div>
 									</div>
-								</div>
 
-								<div className="row">
-									<div className="col-md-12">
-										<div className="upload-progress">
-											{uploadProgress}
+									<div className="row">
+										<div className="col-md-12">
+											<div className="upload-progress">
+												{uploadProgress}
+											</div>
 										</div>
 									</div>
-								</div>
 
-								<div className="row">
-									<div className="col-md-12">
-										{warning}
+									<div className="row">
+										<div className="col-md-12">
+											{warning}
+										</div>
 									</div>
-								</div>
 
-								<div className="row mb-10">
-									<div className="col-md-12">
-										{firstUploadButton}
+									<div className="row mb-10">
+										<div className="col-md-12">
+											{this.state.firstButton}
+										</div>
 									</div>
-								</div>
 
-								<div className="row">
-									<div className="col-md-12">
-										{secondUploadButton}
+									<div className="row">
+										<div className="col-md-12">
+											{this.state.secondButton}
+										</div>
 									</div>
 								</div>
 							</div>

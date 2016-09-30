@@ -51,7 +51,7 @@ export default class CrossFileItem extends React.Component {
 	render() {
 		let detailBox = null;
 		let middle = <ComparisonComponent type={this.props.status} />;
-		if (this.props.status == 'error') {
+		if (this.props.status == 'error' || this.props.status == 'warning') {
 			detailBox = <ErrorBox {...this.props} />;
 		}
 		else if (this.state.uploadBox) {

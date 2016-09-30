@@ -1,0 +1,18 @@
+.submitStep {
+    & .submission-guide-hide {
+        & label {
+            margin-top: 10px;
+            font-size: 1.2rem;
+        }
+        input[type="checkbox"] {
+            height: 15px;
+            width: 15px;
+            margin: 2px 0 0 -20px;
+        }
+    }
+    // implement buttons
+    .usa-da-button {
+        @import "../../components/buttons/_primary";
+        @include primaryButton;
+    }
+}
