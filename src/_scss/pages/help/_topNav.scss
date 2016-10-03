@@ -1,0 +1,16 @@
+.usa-da-content-dark {
+
+	.help-nav {
+		float:right;
+		a {
+			color: $color-white;
+			text-decoration: none;
+		}
+
+		a.selected {
+			background-color:$color-gold-lighter;
+			color:$color-gray-warm-dark;
+		}
+	}
+
+}

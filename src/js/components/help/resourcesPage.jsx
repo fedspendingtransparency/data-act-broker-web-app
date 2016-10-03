@@ -26,7 +26,13 @@ export default class HelpPage extends React.Component {
                         <div className="container">
                             <div className="row">
                                 <div className="col-md-12 mt-40 mb-20">
-                                    <div className="display-2" data-contentstart="start" tabIndex={-1}>Help | DATA Act Broker</div>
+                                    <div className="display-2" data-contentstart="start" tabIndex={-1}>Help | DATA Act Broker
+										<div className="help-nav">
+											<a href="/#/help" className="usa-da-button btn-lg">Help</a>
+											<a href="/#/resources"  className="usa-da-button btn-lg selected">Resources</a>
+											<a href="/#/validations" className="usa-da-button btn-lg">Validations</a>
+										</div>
+									</div>
                                 </div>
                             </div>
                         </div>
