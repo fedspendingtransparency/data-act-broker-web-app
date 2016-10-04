@@ -5,6 +5,7 @@
 
 import React from 'react';
 import Navbar from '../SharedComponents/navigation/NavigationComponent.jsx';
+import HelpNav from './helpNav.jsx';
 import ValidationRulesTableContent from './validationRulesTableContent.jsx';
 import Footer from '../SharedComponents/FooterComponent.jsx';
 
@@ -25,11 +26,7 @@ export default class ValidationRulesTablePage extends React.Component {
                           <div className="row">
                               <div className="col-md-12 mt-40 mb-20">
                                   <div className="display-2" data-contentstart="start" tabIndex={-1}>Help | DATA Act Broker
-									  <div className="help-nav">
-										  <a href="/#/help" className="usa-da-button btn-lg">Help</a>
-										  <a href="/#/resources" className="usa-da-button btn-lg">Resources</a>
-										  <a href="/#/validations"  className="usa-da-button btn-lg selected">Validations</a>
-									  </div>
+									  <HelpNav selected="Validations" />
 								  </div>
                               </div>
                           </div>
