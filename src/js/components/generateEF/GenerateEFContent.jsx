@@ -29,7 +29,6 @@ export default class GenerateFilesContent extends React.Component {
                     </div>
 
 					<GenerateEFItem {...this.props}
-						comingSoon={true}
 						type="E"
 						title="Executive Compensation Data"
 						description="Executive Compensation data is generated from the System for Award Management and includes data for the receiving entities of the awards in file C." />

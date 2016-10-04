@@ -50,8 +50,7 @@ class GenerateEFContainer extends React.Component {
 			return;
 		}
 
-		// const keys = ['e', 'f'];
-		const keys = ['f'];
+		const keys = ['e', 'f'];
 		const newState = {};
 		for (let i = 0; i < keys.length; i++) {
 			const response = allResponses[i];
@@ -71,7 +70,7 @@ class GenerateEFContainer extends React.Component {
 
 	generateFiles() {
 		Q.allSettled([
-			// GenerateHelper.generateFile('E', this.props.submissionID, '', ''),
+			GenerateHelper.generateFile('E', this.props.submissionID, '', ''),
 			GenerateHelper.generateFile('F', this.props.submissionID, '', '')
 		])
 		.then((allResponses) => {
@@ -81,7 +80,7 @@ class GenerateEFContainer extends React.Component {
 
 	checkFileStatus() {
 		Q.allSettled([
-			// GenerateHelper.fetchFile('E', this.props.submissionID),
+			GenerateHelper.fetchFile('E', this.props.submissionID),
 			GenerateHelper.fetchFile('F', this.props.submissionID)
 		])
 		.then((allResponses) => {
