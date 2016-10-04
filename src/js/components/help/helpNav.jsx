@@ -5,6 +5,9 @@
 
 import React from 'react';
 
+const defaultProps = {
+	pageArray: ['Help','Resources','Validations']
+};
 
 export default class HelpNav extends React.Component {
     constructor(props) {
@@ -14,20 +17,20 @@ export default class HelpNav extends React.Component {
 
 
 	render() {
-		const pageArray = [{name:'Help',link:'/#/help'},
-						   {name:'Resources',link:'/#/resources'},
-						   {name:'Validations',link:'/#/validations'}].map((page) => {
+		const pageLinks = this.props.pageArray.map((page) => {
+			let url = "/#/" + page.toLowerCase();
 
-								if(this.props.selected == page.name){
-									 return <a href={page.link} className="selected usa-da-button btn-lg">{page.name}</a>;
+								if(this.props.selected == page){
+									 return <a href={url} className="selected usa-da-button btn-lg">{page}</a>;
 								} else {
-								 	 return <a href={page.link} className="usa-da-button btn-lg">{page.name}</a>;
+								 	 return <a href={url} className="usa-da-button btn-lg">{page}</a>;
 								}
 					      });
 	    return (
 	      <div className="help-nav">
-	                  {pageArray}
+	                  {pageLinks}
 	      </div>
 	    );
 	}
 }
+HelpNav.defaultProps = defaultProps;
