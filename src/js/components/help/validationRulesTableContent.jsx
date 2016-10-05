@@ -41,6 +41,7 @@ export default class ValidationRulesTableContent extends React.Component {
         Papa.parse('./help/validations.csv', {
             download: true,
             header: true,
+			encoding: "UTF-8",
             complete: (results) => {
                 // logic
                 this.setState({

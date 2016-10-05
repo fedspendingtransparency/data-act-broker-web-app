@@ -17,8 +17,8 @@ export default class HelpSidebar extends React.Component {
                 <h6>What’s New in This Release</h6>
                 <ul>
                     {sectionList}
-                    <li>
-                        <a href="/#/help?section=resources">Resources</a>
+					<li>
+                        <a href="/#/history">Release Notes Archive</a>
                     </li>
                 </ul>
                 <h6>Getting More Help</h6>

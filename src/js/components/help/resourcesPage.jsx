@@ -5,7 +5,7 @@
 
 import React from 'react';
 import Navbar from '../SharedComponents/navigation/NavigationComponent.jsx';
-import HelpSidebar from './helpSidebar.jsx';
+import HelpNav from './helpNav.jsx';
 import ResourcesContent from './resourcesContent.jsx';
 import Footer from '../SharedComponents/FooterComponent.jsx';
 
@@ -13,31 +13,9 @@ import * as Icons from '../SharedComponents/icons/Icons.jsx';
 
 import * as HelpHelper from '../../helpers/helpHelper.js';
 
-export default class HelpPage extends React.Component {
+export default class ResourcesPage extends React.Component {
     constructor(props) {
         super(props);
-
-        this.state = {
-            resources: '',
-            sections: []
-        };
-    }
-
-    componentDidMount() {
-        this.loadResources();
-    }
-
-    loadResources() {
-        HelpHelper.loadResources()
-            .then((output) => {
-                this.setState({
-                    resources: output.html,
-					sections: output.sections
-                });
-            })
-            .catch((err) => {
-                console.log(err);
-            });
     }
 
     render() {
@@ -49,18 +27,17 @@ export default class HelpPage extends React.Component {
                         <div className="container">
                             <div className="row">
                                 <div className="col-md-12 mt-40 mb-20">
-                                    <div className="display-2" data-contentstart="start" tabIndex={-1}>Help | DATA Act Broker</div>
+                                    <div className="display-2" data-contentstart="start" tabIndex={-1}>Help | DATA Act Broker
+										<HelpNav selected="Resources" />
+									</div>
                                 </div>
                             </div>
                         </div>
                     </div>
                     <div className="container">
                         <div className="row usa-da-help-page">
-							<div className="col-md-4">
-                                <HelpSidebar sections={this.state.sections} />
-                            </div>
-                            <div className="col-md-8">
-                                <ResourcesContent section={this.props.location.query.section}/>
+                            <div className="col-md-12">
+                                <ResourcesContent />
                             </div>
                         </div>
                     </div>
