@@ -23,10 +23,6 @@ export default class GenerateFilesContent extends React.Component {
 						</div>
 					</div>
 
-					 <div className="alert alert-warning">
-                            <span className="usa-da-icon"><Icons.ExclamationCircle /></span>
-                            <p>Download functionality related to <b>File E</b> is not yet available.</p>
-                    </div>
 
 					<GenerateEFItem {...this.props}
 						type="E"
