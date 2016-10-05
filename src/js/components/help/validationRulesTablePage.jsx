@@ -39,7 +39,7 @@ export default class ValidationRulesTablePage extends React.Component {
                   </div>
                   <Footer />
                   <div className="usa-da-help-top-button">
-                      <a href="#/validation?section=top" aria-label="Back to top">
+                      <a href="#/validations?section=top" aria-label="Back to top">
                           <div className="usa-da-icon">
                               <Icons.AngleUp alt="Arrow pointing up" />
                           </div>

@@ -1,3 +1,30 @@
+#### What's New in This Release - September 21, 2016
+This is the Full Version of the DATA Act Broker and contains everything agencies need to test their data.
+
+In this version of the Broker, we have improved how the Broker receives D1 and D2 file information from the USAspending UAT environment, added screens for certifying submissions, improved the data we are using for Broker testing, corrected a Resources file, and updated the table of validations.
+
+  - [Receiving Files D1 and D2](#/help?section=receivingd1d2)
+  - [Screens for Certification](#/help?section=certifyScreens)
+  - [Broker Test Data](#/help?section=testData)
+  - [Updated Validations](#/help?section=updatedValidations)
+
+#### Receiving Files D1 and D2{section=receivingd1d2}
+
+In this release, we have improved how the Broker receives the data for Files D1 and D2 from the USAspending UAT environment that comes from ASP and FPDS. As a user, you should not see any changes, except better functionality.
+
+#### Screens for Certification{section=certifyScreens}
+
+The Broker now displays the screens an SAO will use to certify a submission. The text on these screens is based on a Draft OMB policy memo. The screens are there for you to review and understand the language and process. Feel free to click on any option - you will NOT actually certify and submit data to USAspending, at this time.
+
+#### Broker Test Data{section=testData}
+
+We are testing the Broker with actual agency data to better replicate your experiences. You won't see any changes in the Broker.
+
+#### Updated Validations{section=updatedValidations}
+
+Below is a cumulative table of validations in the RSS and IDD. The status column indicates whether they are currently implemented in the Broker. The table has been revised to match the latest validations rules spreadsheet in the Resources section.
+**Note:** in the September 30, 2016 release the validation rules, resources, this release notes archive were moved to different pages. Use the left navigation pane on the Help home page to access these new pages.
+
 #### What's New in This Release - September 14, 2016
 
 In this version of the Broker, we are importing D1 and D2 file information from the USAspending UAT environment, improved the handling of encoding in files, corrected a Resources file, and added and updated some validations.

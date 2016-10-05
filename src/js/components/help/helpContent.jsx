@@ -64,12 +64,11 @@ export default class HelpContent extends React.Component {
     render() {
         return (
             <div className="usa-da-help-content">
-                <p>Welcome to the DATA Act Broker – Beta Release. This release is a <a href="https://en.wikipedia.org/wiki/Minimum_viable_product" target="_blank">Minimum Viable Product</a> and represents just enough functionality so that we can gather critical user feedback to determine the direction and implementation of future features. This version of the Broker aligns with <a href={this.state.rssUrl} target="_blank" aria-label="Download the RSS specification as an Excel file">Reporting Submission Specification (RSS v1.0)</a>.</p>
+                <p>Welcome to the DATA Act Broker.  This version of the Broker aligns with <a href={this.state.rssUrl} target="_blank" aria-label="Download the RSS specification as an Excel file">Reporting Submission Specification (RSS v1.0)</a>.</p>
 
                 <h2>What&#39;s New in This Release</h2>
 
                 <div dangerouslySetInnerHTML={{__html:this.props.changelog}} />
-                <div dangerouslySetInnerHTML={{__html:this.props.history}} />
 
                 <h4 name="resources">Resources</h4>
                 <p>We identified several files that you may want to have readily available while using the Broker.</p>
@@ -102,9 +101,6 @@ export default class HelpContent extends React.Component {
                         Domain Values resource &nbsp;&nbsp;
                         <a href={this.state.domainValuesUrl} target="_blank">Download file</a>
                     </li>
-                    <li>
-                        <a href="./#/validations" target="_self">Validation Rules</a>
-                    </li>
                 </ul>
 
                 <h2 className="mt-50">Getting More Help</h2>
@@ -122,7 +118,7 @@ export default class HelpContent extends React.Component {
                 </p>
 
                 <p>If you need assistance using the Broker or if you would like to schedule a hands-on sandbox session with Treasury staff, please email <a href='&#109;&#97;&#105;lt&#111;&#58;DAT&#65;&#37;42r%&#54;&#70;ke&#114;&#64;&#37;&#54;6%6&#57;&#115;%6&#51;a&#37;6&#67;%&#50;E&#37;&#55;4%72eas&#37;75ry%2&#69;go&#37;76'>DATAB&#114;oke&#114;&#64;f&#105;&#115;ca&#108;&#46;tre&#97;&#115;ury&#46;gov</a>.</p>
-            </div>
+	    </div>
         );
     }
 }
