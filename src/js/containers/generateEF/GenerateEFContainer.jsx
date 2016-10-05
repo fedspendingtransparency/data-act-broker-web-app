@@ -57,6 +57,10 @@ class GenerateEFContainer extends React.Component {
 			let data;
 			if (response.state == 'fulfilled') {
 				data = response.value;
+
+				if (data.status == 'invalid') {
+					data.message = 'Prerequisites required to generate this file are incomplete.';
+				}
 			}
 			else {
 				data = response.reason;
@@ -89,8 +93,7 @@ class GenerateEFContainer extends React.Component {
 	}
 
 	parseState() {
-		// const files = [this.state.e, this.state.f];
-		const files = [this.state.f];
+		const files = [this.state.e, this.state.f];
 		let hasErrors = false;
 		let isReady = true;
 		let showFullPageError = false;
@@ -106,6 +109,10 @@ class GenerateEFContainer extends React.Component {
 			}
 			else if (file.status == 'waiting') {
 				isReady = false;
+			}
+			else if (file.status == 'invalid') {
+				isReady = true;
+				hasErrors = true;
 			}
 		});
 
