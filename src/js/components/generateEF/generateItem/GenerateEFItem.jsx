@@ -29,6 +29,11 @@ export default class GenerateEFItem extends React.Component {
 			hideSpinner = ' hide';
 			icon = <Icons.ExclamationCircle />;
 		}
+		else if (status == 'invalid') {
+			hideError = '';
+			hideSpinner = ' hide';
+			icon = <Icons.ExclamationCircle />;	
+		}
 		else if (status == 'finished') {
 			hideDownload = '';
 			hideSpinner = ' hide';

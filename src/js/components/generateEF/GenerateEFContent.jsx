@@ -23,13 +23,8 @@ export default class GenerateFilesContent extends React.Component {
 						</div>
 					</div>
 
-					 <div className="alert alert-warning">
-                            <span className="usa-da-icon"><Icons.ExclamationCircle /></span>
-                            <p>Download functionality related to <b>File E</b> is not yet available.</p>
-                    </div>
 
 					<GenerateEFItem {...this.props}
-						comingSoon={true}
 						type="E"
 						title="Executive Compensation Data"
 						description="Executive Compensation data is generated from the System for Award Management and includes data for the receiving entities of the awards in file C." />
