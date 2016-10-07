@@ -192,7 +192,7 @@ export default class ResourcesContent extends React.Component {
 					<a href={this.state.domainValuesUrl}>Domain Values</a> - A listing of the specific set of allowed values for a data element.
 					</li>
 					<li>
-					<a href="https://s3-us-gov-west-1.amazonaws.com/prod-data-act-submission/rss/AgencyLabel_to_TerseLabel.xlsx">Long Element Name to Short Element Name Crosswalk</a> - A listing of the shortened column names for the data elements in the RSS and IDD.
+					<a href={this.state.agencyLabelUrl}>Long Element Name to Short Element Name Crosswalk</a> - A listing of the shortened column names for the data elements in the RSS and IDD.
 					</li>
 					</ul>
 			</div>
