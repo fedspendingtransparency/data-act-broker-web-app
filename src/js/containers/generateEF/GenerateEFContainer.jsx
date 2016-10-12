@@ -50,14 +50,17 @@ class GenerateEFContainer extends React.Component {
 			return;
 		}
 
-		// const keys = ['e', 'f'];
-		const keys = ['f'];
+		const keys = ['e', 'f'];
 		const newState = {};
 		for (let i = 0; i < keys.length; i++) {
 			const response = allResponses[i];
 			let data;
 			if (response.state == 'fulfilled') {
 				data = response.value;
+
+				if (data.status == 'invalid') {
+					data.message = 'Prerequisites required to generate this file are incomplete.';
+				}
 			}
 			else {
 				data = response.reason;
@@ -71,7 +74,7 @@ class GenerateEFContainer extends React.Component {
 
 	generateFiles() {
 		Q.allSettled([
-			// GenerateHelper.generateFile('E', this.props.submissionID, '', ''),
+			GenerateHelper.generateFile('E', this.props.submissionID, '', ''),
 			GenerateHelper.generateFile('F', this.props.submissionID, '', '')
 		])
 		.then((allResponses) => {
@@ -81,7 +84,7 @@ class GenerateEFContainer extends React.Component {
 
 	checkFileStatus() {
 		Q.allSettled([
-			// GenerateHelper.fetchFile('E', this.props.submissionID),
+			GenerateHelper.fetchFile('E', this.props.submissionID),
 			GenerateHelper.fetchFile('F', this.props.submissionID)
 		])
 		.then((allResponses) => {
@@ -90,8 +93,7 @@ class GenerateEFContainer extends React.Component {
 	}
 
 	parseState() {
-		// const files = [this.state.e, this.state.f];
-		const files = [this.state.f];
+		const files = [this.state.e, this.state.f];
 		let hasErrors = false;
 		let isReady = true;
 		let showFullPageError = false;
@@ -107,6 +109,10 @@ class GenerateEFContainer extends React.Component {
 			}
 			else if (file.status == 'waiting') {
 				isReady = false;
+			}
+			else if (file.status == 'invalid') {
+				isReady = true;
+				hasErrors = true;
 			}
 		});
 
