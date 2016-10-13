@@ -30,5 +30,7 @@
 	}
 	.usa-da-page-title {
 	    @include pageTitle;
+
+        padding-bottom: 35px;
 	}
 }

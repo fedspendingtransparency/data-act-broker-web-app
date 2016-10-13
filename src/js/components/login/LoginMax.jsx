@@ -19,7 +19,8 @@ export default class LoginMax extends React.Component {
 			<div className="col-md-5 usa-da-login-container">
                     <div className="row">
                         <div className="col-xs-12">
-                            <a href={ kGlobalConstants.CAS_ROOT + '/cas/login?service=' + encodeURIComponent(kGlobalConstants.AUTH_CALLBACK)}>Log in with MAX</a>
+                        	<p className="instructions">Sign in or register for the DATA Act Broker using your MAX ID.</p>
+                            <a href={kGlobalConstants.CAS_ROOT + '/cas/login?service=' + encodeURIComponent(kGlobalConstants.AUTH_CALLBACK)} className="usa-da-button btn-primary btn-lg btn-full">Sign In Using MAX</a>
                         </div>
                     </div>
                     <div className="row">

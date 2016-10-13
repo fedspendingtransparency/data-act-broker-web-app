@@ -2,4 +2,10 @@
 	// inherit the basic layout of the page
 	@import "../../layouts/login/login";
 	@include loginLayout;
+
+	.usa-da-login-container {
+		p.instructions {
+			color: $color-white;
+		}
+	}
 }
