@@ -5,7 +5,10 @@
 
 import React from 'react';
 import { hashHistory } from 'react-router';
+
 import LoginMax from '../../components/login/LoginMax.jsx';
+
+import * as LoginHelper from '../../helpers/loginHelper.js';
 
 export default class AuthContainer extends React.Component {
 	constructor(props) {
@@ -32,7 +35,7 @@ export default class AuthContainer extends React.Component {
 				ticket: ticket,
 				error: ''
 			}, () => {
-				hashHistory.push('/login');
+				LoginHelper.performMaxLogin(this.state.ticket);
 			});
 		}
 		else {
