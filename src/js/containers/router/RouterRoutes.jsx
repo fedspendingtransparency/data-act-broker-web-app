@@ -2,6 +2,7 @@ import { hashHistory } from 'react-router';
 
 import LandingPage from '../../components/landing/LandingPage.jsx';
 import LoginPage from '../../components/login/LoginPage.jsx';
+import AuthPage from '../../components/login/AuthPage.jsx';
 import SubmissionGuideContainer from '../../containers/addData/SubmissionGuideContainer.jsx';
 import AddDataPageContainer from '../../containers/addData/AddDataPageContainer.jsx';
 
@@ -99,6 +100,10 @@ const routeDefinitions = {
         {
             path: 'login',
             component: LoginPage
+        },
+        {
+            path: 'auth',
+            component: AuthPage
         },
         {
             path: 'admin',
