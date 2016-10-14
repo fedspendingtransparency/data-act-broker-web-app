@@ -6,7 +6,7 @@
 import React from 'react';
 import { hashHistory } from 'react-router';
 
-import LoginMax from '../../components/login/LoginMax.jsx';
+import LoginMaxLoading from '../../components/login/LoginMaxLoading.jsx';
 
 import * as LoginHelper from '../../helpers/loginHelper.js';
 
@@ -43,7 +43,7 @@ export default class AuthContainer extends React.Component {
 
 					})
 					.catch((err) => {
-						
+						console.log(err);
 					});
 			});
 		}
@@ -59,7 +59,7 @@ export default class AuthContainer extends React.Component {
 
 	render() {
 		return (
-			<LoginMax errorMessage={this.state.error} />
+			<LoginMaxLoading />
 		)
 	}
 }
