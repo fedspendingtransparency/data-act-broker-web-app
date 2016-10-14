@@ -55,6 +55,7 @@ export const fetchActiveUser = () => {
 }
 
 const establishSession = (responseHeaders) => {
+
 	const cookieOpts = {
 		expires: 7,
 		path: '/'
@@ -126,14 +127,19 @@ export const performLogin = (username, password) => {
 }
 
 export const performMaxLogin = (ticket) => {
+
 	const deferred = Q.defer();
 	const store = new StoreSingleton().store;
 
 	// wipe out old session cookies to prevent session weirdness
 	Cookies.remove('session');
 
+	// determine the service
+	const service = encodeURIComponent(kGlobalConstants.AUTH_CALLBACK);
+
 	Request.post(kGlobalConstants.API + 'max_login/')
-		.send( { 'ticket': ticket })
+	// Request.post('http://localhost:5000/' + 'max_login/')
+		.send({ 'ticket': ticket, 'service': service })
 		.end((err, res) => {
 
 			if (err) {
@@ -144,16 +150,15 @@ export const performMaxLogin = (ticket) => {
 	                Cookies.remove('brokerLogin');
 
 	                // if a message is available, display that
-	                if (res.body && res.body.hasOwnProperty('message')) {
+	                if (res.hasOwnProperty('body') && res.body.hasOwnProperty('message')) {
 						deferred.reject(res.body.message);
 					}
 					else {
 						deferred.reject(err);
 					}
 				} else {
-					
-					Cookies.set('brokerLogin', Date.now(), {expires: (1/(24*4))});
 
+					Cookies.set('brokerLogin', Date.now(), {expires: (1/(24*4))});
 					establishSession(res.headers);
 					// check if cookies could be set
 					if (!Cookies.get('session')) {

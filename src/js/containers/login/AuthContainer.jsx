@@ -37,8 +37,14 @@ export default class AuthContainer extends React.Component {
 			}, () => {
 				// remove the ticket from the URL
 				const updatedUrl = url.replace('?ticket=' + this.state.ticket, '');
-				window.history.replaceState({}, null, updatedUrl);
-				LoginHelper.performMaxLogin(this.state.ticket);
+				// window.history.replaceState({}, null, updatedUrl);
+				LoginHelper.performMaxLogin(this.state.ticket)
+					.then((data) => {
+
+					})
+					.catch((err) => {
+						
+					});
 			});
 		}
 		else {
