@@ -14,7 +14,7 @@ import * as AdminHelper from './adminHelper.js';
 
 Q.longStackSupport = true;
 
-const availablePairs = ['appropriations-program_activity', 'award_financial-award', 'award_financial-award_procurement'];
+const availablePairs = ['appropriations-program_activity', 'award_financial-award', 'award_financial-award_procurement','program_activity-award_financial'];
 const globalFileKeys = ['appropriations', 'program_activity', 'award_financial', 'award', 'award_procurement'];
 export const globalFileData = {
     appropriations: {
