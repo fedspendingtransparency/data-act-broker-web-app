@@ -1,0 +1,35 @@
+.login-loading {
+	@include display(flex);
+	@include flex-direction(row);
+	width: 100%;
+	position: relative;
+
+	@include justify-content(center);
+	@include align-items(center);
+
+	.loading-animation {
+		margin-top: 8px;
+		@include flex(0 1 auto);
+		position: relative;
+		width: 50px;
+
+		@import "../../lib/spinkit/spinners/2-double-bounce";
+
+		.sk-double-bounce {
+			margin: 0;
+			.sk-child {
+				background-color: $color-white;
+			}
+		}
+	}
+
+	.loading-text {
+		@include flex(1 1 auto);
+		position: relative;
+		padding-left: 20px;
+
+		color: $color-white;
+		font-size: 1.6rem;
+	}
+
+}

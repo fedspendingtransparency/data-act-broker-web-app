@@ -10,12 +10,20 @@
     @include flex-direction(column);
 
     .usa-da-login-wrap {
+
+        @import "./_leftRightPositioning";
+
         @include align-items(center);
         @include align-self(stretch);
         background-color: as-alpha($color-gray-dark, 0.40);
         border-top: 1px solid rgba(255, 255, 255, 0.1);
         border-bottom: 1px solid rgba(255, 255, 255, 0.1);
         margin: 40px 0;
+        padding: 0px 75px;
+
+        @media (max-width: $small-screen) {
+            padding: 0px 27px;
+        }
     }
 
     // style the text that appears on the left side

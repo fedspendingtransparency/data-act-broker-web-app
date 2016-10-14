@@ -8,7 +8,7 @@ import React from 'react';
 export default class LoginIntro extends React.Component {
     render() {
         return (
-            <div className="col-md-7 usa-da-page-title">
+            <div className="login-left usa-da-page-title">
                 <div className="login-title">DATA Act Broker</div>
                 <p>Welcome to the DATA Act Broker.</p>
                 <p>Sign in to upload your agency financial data and validate it against the the DATA Act Information Model Schema (DAIMS) v1.0.</p>

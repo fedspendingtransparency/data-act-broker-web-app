@@ -20,12 +20,8 @@ export default class AuthPage extends React.Component {
                 		<LoginTopBar/>
                 	    <div className="login-banner-wrap">
                             <div className="usa-da-login-wrap">
-                                <div className="container">
-                                    <div className="row">
-                                        <LoginIntro/>
-                                        <AuthContainer/>
-                                    </div>
-                                </div>
+                                <LoginIntro/>
+                                <AuthContainer/>
                             </div>
                         </div>
                 	    <LoginWarningTxt/>
