@@ -16,6 +16,7 @@ export const fetchActiveUser = () => {
 	const store = new StoreSingleton().store;
 
 	Request.get(kGlobalConstants.API + 'current_user/')
+	// Request.get('http://localhost:5000/current_user/')	
 	        .send()
 	        .end((err, res) => {
 	            if (err) {
@@ -143,41 +144,42 @@ export const performMaxLogin = (ticket) => {
 		.end((err, res) => {
 
 			if (err) {
+				const action = sessionActions.setLoginState('failed');
+				store.dispatch(action);
+
+				// unset the login state cookie
+                Cookies.remove('brokerLogin');
+
+                // if a message is available, display that
+                if (res && res.hasOwnProperty('body') && res.body.hasOwnProperty('message')) {
+					deferred.reject(res.body.message);
+				}
+				else {
+					deferred.reject(err);
+				}
+			}
+			else {
+
+				Cookies.set('brokerLogin', Date.now(), {expires: (1/(24*4))});
+				establishSession(res.headers);
+				// check if cookies could be set
+				if (!Cookies.get('session')) {
+					// couldn't set cookie, fail this request and notify the user
 					const action = sessionActions.setLoginState('failed');
 					store.dispatch(action);
-
-					// unset the login state cookie
-	                Cookies.remove('brokerLogin');
-
-	                // if a message is available, display that
-	                if (res.hasOwnProperty('body') && res.body.hasOwnProperty('message')) {
-						deferred.reject(res.body.message);
-					}
-					else {
-						deferred.reject(err);
-					}
-				} else {
-
-					Cookies.set('brokerLogin', Date.now(), {expires: (1/(24*4))});
-					establishSession(res.headers);
-					// check if cookies could be set
-					if (!Cookies.get('session')) {
-						// couldn't set cookie, fail this request and notify the user
-						const action = sessionActions.setLoginState('failed');
-						store.dispatch(action);
-						deferred.reject('cookie');
-						return;
-					}
-					
-					fetchActiveUser(store)
-					.then((data) => {
-						deferred.resolve(data);
-					})
-					.catch((dataErr) => {
-						deferred.reject(dataErr);
-					});
+					deferred.reject('cookie');
+					return;
 				}
-           });
+				
+				fetchActiveUser(store)
+				.then((data) => {
+					deferred.resolve(data);
+				})
+				.catch((dataErr) => {
+					deferred.reject(dataErr);
+				});
+			}
+       });
 
 	return deferred.promise;
 }
