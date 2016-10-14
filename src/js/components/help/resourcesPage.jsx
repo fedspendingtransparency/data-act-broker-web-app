@@ -5,6 +5,7 @@
 
 import React from 'react';
 import Navbar from '../SharedComponents/navigation/NavigationComponent.jsx';
+import HelpNav from './helpNav.jsx';
 import ResourcesContent from './resourcesContent.jsx';
 import Footer from '../SharedComponents/FooterComponent.jsx';
 
@@ -12,7 +13,7 @@ import * as Icons from '../SharedComponents/icons/Icons.jsx';
 
 import * as HelpHelper from '../../helpers/helpHelper.js';
 
-export default class HelpPage extends React.Component {
+export default class ResourcesPage extends React.Component {
     constructor(props) {
         super(props);
     }
@@ -26,7 +27,9 @@ export default class HelpPage extends React.Component {
                         <div className="container">
                             <div className="row">
                                 <div className="col-md-12 mt-40 mb-20">
-                                    <div className="display-2" data-contentstart="start" tabIndex={-1}>Help | DATA Act Broker</div>
+                                    <div className="display-2" data-contentstart="start" tabIndex={-1}>Help | DATA Act Broker
+										<HelpNav selected="Resources" />
+									</div>
                                 </div>
                             </div>
                         </div>
