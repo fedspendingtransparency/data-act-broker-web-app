@@ -21,26 +21,26 @@ export default class LoginMaxLoading extends React.Component {
         }
 
 		return (
-			<div className="login-right usa-da-login-container">
-                    <div className="row">
-                    	<div className={"col-md-12 login-loading" + hideLoading}>
-                    		<div className="loading-animation">
-		                        <LoadingBauble />
-		                    </div>
-		                    <div className="loading-text">
-		                    	Signing into the DATA Act Broker...
-		                    </div>
+            <div>
+                <div className="row">
+                	<div className={"col-md-12 login-loading" + hideLoading}>
+                		<div className="loading-animation">
+	                        <LoadingBauble />
 	                    </div>
-	                        
+	                    <div className="loading-text">
+	                    	Signing into the DATA Act Broker...
+	                    </div>
                     </div>
-                    <div className={"row" + hideError}>
-                        <div className="col-md-12">
-                            {errorMessageComponent}
-                            <div className="back-link">
-                        		<a href="#">Back to login page</a>
-	                        </div>
+                        
+                </div>
+                <div className={"row" + hideError}>
+                    <div className="col-md-12">
+                        {errorMessageComponent}
+                        <div className="back-link">
+                    		<a href="#">Back to login page</a>
                         </div>
                     </div>
+                </div>
             </div>
 		)
 	}

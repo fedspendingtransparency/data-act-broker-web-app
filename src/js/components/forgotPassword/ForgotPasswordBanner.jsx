@@ -28,11 +28,9 @@ export default class ForgotPasswordBanner extends React.Component {
         return (
             <div className="login-banner-wrap">
                 <div className="usa-da-login-wrap">
-                    <div className="container">
-                        <div className="row">
-                            <LoginIntro/>
-                            {panelComponent}
-                        </div>
+                    <LoginIntro/>
+                    <div className="login-right usa-da-login-container">
+                        {panelComponent}
                     </div>
                 </div>
             </div>

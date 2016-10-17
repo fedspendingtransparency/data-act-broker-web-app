@@ -12,8 +12,8 @@
     @media(min-width: $medium-screen) {
         @include flex(1 1 auto);
         position: relative;
-        width: 60%;
     }
+
 }
 
 .login-right {
@@ -22,9 +22,9 @@
 
 
     @media(min-width: $medium-screen) {
-        @include flex(1 1 auto);
+        @include flex(0 0 auto);
         position: relative;
-        width: 40%;
+        width: 450px;
         margin-left: 30px;
     }
 
