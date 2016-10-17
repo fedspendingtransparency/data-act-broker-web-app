@@ -17,9 +17,9 @@ export default class LoginPage extends React.Component {
             <div className="usa-da-login-page">
             	<div className="flex-wrapper">
                 	<div className="usa-da-login container-fluid">
-                		<LoginTopBar/>
-                	    <LoginBanner/>
-                	    <LoginWarningTxt/>
+                		<LoginTopBar />
+                	    <LoginBanner {...this.props} />
+                	    <LoginWarningTxt />
                 	</div>
                 </div>
             </div>

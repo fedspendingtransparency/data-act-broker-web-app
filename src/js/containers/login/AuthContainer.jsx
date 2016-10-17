@@ -6,6 +6,7 @@
 import React from 'react';
 import { hashHistory } from 'react-router';
 import _ from 'lodash';
+import Cookies from 'js-cookie';
 
 import LoginMaxLoading from '../../components/login/LoginMaxLoading.jsx';
 
@@ -48,11 +49,22 @@ export default class AuthContainer extends React.Component {
 				const updatedUrl = url.replace('?ticket=' + this.state.ticket, '');
 				window.history.replaceState({}, null, updatedUrl);
 
+				let destination = '/landing';
+
+				// check if a redirection cookie exists, if it exists, set that as the destination
+				const cookieRedirect = Cookies.get('brokerRedirect');
+				if (cookieRedirect) {
+					destination = cookieRedirect;
+				}
+
 				// perform the login
 				LoginHelper.performMaxLogin(this.state.ticket)
 					.then((data) => {
-						// success authorization from API, continue to landing page
-						hashHistory.push('/landing');
+						// remove any redirection cookies
+						Cookies.remove('brokerRedirect');
+
+						// success authorization from API, continue to destination
+						hashHistory.push(destination);
 					})
 					.catch((err) => {
 						// something went wrong (or API passed back an error status and message)
@@ -69,12 +81,18 @@ export default class AuthContainer extends React.Component {
 						this.setState({
 							error: message
 						});
+
+						// remove any redirection cookies
+						Cookies.remove('brokerRedirect');
 					});
 			});
 		}
 		else {
 			// no ticket found, toss back to login page
 			hashHistory.push('/login');
+
+			// remove any redirection cookies
+			Cookies.remove('brokerRedirect');
 
 		}
 	}
