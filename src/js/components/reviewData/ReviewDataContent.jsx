@@ -95,6 +95,16 @@ export default class ReviewDataContent extends React.Component {
         });
     }
 
+    formatCurrency(currencyString) {
+        let formattedCurrencyString = currencyString;
+        // start at the end and every 3 numbers add a comma to the string
+        for(var i = formattedCurrencyString.length - 3; i > 0; i = i-3) {
+            formattedCurrencyString = formattedCurrencyString.slice(0, i) + "," + formattedCurrencyString.slice(i);
+        }
+        formattedCurrencyString = "$" + formattedCurrencyString;
+        return formattedCurrencyString;
+    }
+
     render() {
         
         // The first parameter in each of these arrays is the corresponding class for the SVG icon
@@ -121,9 +131,9 @@ export default class ReviewDataContent extends React.Component {
             this.props.data.agency_name,
             this.props.data.reporting_period_start_date,
             this.props.data.reporting_period_end_date,
-            '--',
-            '--',
-            '--'
+            this.formatCurrency(this.props.data.total_obligations),
+            this.formatCurrency(this.props.data.total_assistance_obligations),
+            this.formatCurrency(this.props.data.total_procurement_obligations)
         ];
 
         let reportRows = [];
