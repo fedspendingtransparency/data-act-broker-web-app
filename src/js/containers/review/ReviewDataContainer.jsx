@@ -62,7 +62,6 @@ class ReviewDataContainer extends React.Component {
                 submission.total_obligations = data.total_obligations;
                 submission.total_assistance_obligations = data.total_assistance_obligations;
                 submission.total_procurement_obligations = data.total_procurement_obligations;
-                console.log(submission);
                 this.setState(submission);
             })
             .catch((error) => {
