@@ -95,13 +95,15 @@ export default class ReviewDataContent extends React.Component {
         });
     }
 
-    formatCurrency(currencyString) {
-        let formattedCurrencyString = currencyString;
+    formatCurrency(currencyNumber) {
+        let currencyString = currencyNumber.toFixed(2);
+        let cents = currencyString.split(".")[1];
+        let dollars = currencyString.split(".")[0];
         // start at the end and every 3 numbers add a comma to the string
-        for(var i = formattedCurrencyString.length - 3; i > 0; i = i-3) {
-            formattedCurrencyString = formattedCurrencyString.slice(0, i) + "," + formattedCurrencyString.slice(i);
+        for(var i = dollars.length - 3; i > 0; i = i-3) {
+            dollars = dollars.slice(0, i) + "," + dollars.slice(i);
         }
-        formattedCurrencyString = "$" + formattedCurrencyString;
+        let formattedCurrencyString = "$" + dollars + "." + cents;
         return formattedCurrencyString;
     }
 
