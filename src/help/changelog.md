@@ -12,6 +12,7 @@ In this version of the Broker, we have improved the cross-file validation and fi
 ##### Validation and File Download{section=crossFileDownload}
 
 Cross File Validations and File Downloads
+
  - The cross-file validation reports now include the error text instead of the rule description text. 
  - While the D1 and D2 files are being generated, the messaging is more descriptive, "Creating your D1 and D2 files from ASP and FPDS. This may take a few minutes."
  - If there is an error generating the file from ASP or FPDS, the message says, "A problem occurred receiving data from ASP" (or FPDS) instead of a generic 404 error.
