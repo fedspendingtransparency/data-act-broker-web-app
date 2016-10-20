@@ -397,3 +397,22 @@ export const sendNotification = (users, id) => {
         });
     return deferred.promise;
 }
+
+export const fetchObligations = (submissionId) => {
+	const deferred = Q.defer();
+
+	Request.post(kGlobalConstants.API + 'get_obligations/')
+			.send({'submission_id': submissionId})
+			.end((errFile, res) => {
+
+				if (errFile) {
+					deferred.reject(errFile);
+				}
+				else {
+					deferred.resolve(res.body);
+				}
+
+			});
+
+	return deferred.promise;
+}
