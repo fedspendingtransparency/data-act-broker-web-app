@@ -45,7 +45,7 @@ export const deleteUser = (email) => {
 		.send({ email: email })
 		.end((err, res) => {
 			if (err) {
-					deferred.reject(err);
+				deferred.reject(err);
 			}
 			else if (res.body.hasOwnProperty('message') && res.body.message == 'success') {
 				deferred.resolve();
