@@ -16,7 +16,6 @@ export const fetchActiveUser = () => {
 	const store = new StoreSingleton().store;
 
 	Request.get(kGlobalConstants.API + 'current_user/')
-	// Request.get('http://localhost:5000/current_user/')	
 	        .send()
 	        .end((err, res) => {
 	            if (err) {
@@ -139,7 +138,6 @@ export const performMaxLogin = (ticket) => {
 	const service = encodeURIComponent(kGlobalConstants.AUTH_CALLBACK);
 
 	Request.post(kGlobalConstants.API + 'max_login/')
-	// Request.post('http://localhost:5000/' + 'max_login/')
 		.send({ 'ticket': ticket, 'service': service })
 		.end((err, res) => {
 
