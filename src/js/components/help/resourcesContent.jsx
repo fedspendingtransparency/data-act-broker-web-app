@@ -98,7 +98,7 @@ export default class ResourcesContent extends React.Component {
 										<li><a href={this.state.daimsErrataUrl}>Errata</a>
 										</li>
 					</ul>
-					<p><b>RSS Sample Files</b></p>
+					<h6>RSS Sample Files</h6>
 					<ul>
 										<li>
 					                        File A: Appropriation Account data&nbsp;
@@ -113,7 +113,7 @@ export default class ResourcesContent extends React.Component {
 					                        <a href="https://s3-us-gov-west-1.amazonaws.com/prod-data-act-web-static-files/sample-files/awardFinancialValid.csv" target="_blank">Download sample file</a>
 					                    </li>
 					</ul>
-					<p><b>RSS Webinars</b></p>
+					<h6>RSS Webinars</h6>
 					<ul>
 										<li>
 										Webinar on File A: Appropriations Account&nbsp;
@@ -131,7 +131,7 @@ export default class ResourcesContent extends React.Component {
 										<a href={this.state.schemaFileCUrl} target="_blank">Slide deck</a>
 										</li>
 					</ul>
-					<p><b>DAIMS Diagrams for RSS</b></p>
+					<h6>DAIMS Diagrams for RSS</h6>
 					<p>These are visual representations of how the different data elements are related. They show the groupings of elements and attributes.</p>
 					<ul>
 					<li>
@@ -153,7 +153,7 @@ export default class ResourcesContent extends React.Component {
 										<li><a href={this.state.daimsErrataUrl}>Errata</a>
 										</li>
 					</ul>
-					<p><b>IDD Webinar</b></p>
+					<h6>IDD Webinar</h6>
 					<ul>
 										<li>
 										Financial Assistance Data Submission Format&nbsp;
@@ -161,7 +161,7 @@ export default class ResourcesContent extends React.Component {
 										<a href={this.state.pmoWebCastUrl} target="_blank">Slide deck</a>
 										</li>
 					</ul>
-					<p><b>DAIMS Diagrams for IDD</b></p>
+					<h6>DAIMS Diagrams for IDD</h6>
 					<p>These are visual representations of how the different data elements are related. They show the groupings of elements and attributes.</p>
 					<ul>
 					<li>
@@ -192,7 +192,7 @@ export default class ResourcesContent extends React.Component {
 					<a href={this.state.domainValuesUrl}>Domain Values</a> - A listing of the specific set of allowed values for a data element.
 					</li>
 					<li>
-					<a href="https://s3-us-gov-west-1.amazonaws.com/prod-data-act-submission/rss/AgencyLabel_to_TerseLabel.xlsx">Long Element Name to Short Element Name Crosswalk</a> - A listing of the shortened column names for the data elements in the RSS and IDD.
+					<a href={this.state.agencyLabelUrl}>Long Element Name to Short Element Name Crosswalk</a> - A listing of the shortened column names for the data elements in the RSS and IDD.
 					</li>
 					</ul>
 			</div>

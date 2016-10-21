@@ -1,0 +1,19 @@
+@import "../../components/buttons/_primary";
+.usa-da-content-dark {
+    .help-nav {
+        float: right;
+        margin-top: -10px;
+        .usa-da-button {
+            @include primaryButton;
+            font-weight: 400;
+        }
+        a {
+            color: $color-white;
+            text-decoration: none;
+        }
+        a.selected {
+            background-color: $color-gold-lighter;
+            color: $color-gray-warm-dark;
+        }
+    }
+}
