@@ -47,7 +47,7 @@ export default class LandingRequirementsModal extends React.Component {
 						</div>
 
 						<div className="usa-da-landing-modal-content">
-							<h6>You'll need the following files in order to complete your submission</h6>
+							<h4>You'll need the following files in order to complete your submission</h4>
 							<p>
 								You may download and use the following sample data files if you don't have the required files on hand. The sample files can be downloaded below.
 							</p>
