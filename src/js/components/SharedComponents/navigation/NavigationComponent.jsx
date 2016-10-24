@@ -56,7 +56,7 @@ export class Navbar extends React.Component {
         }
 
         Object.keys(tabNames).map((key) => {
-            headerTabs.push(<NavbarTab key={tabNames[key]} name={key} class={tabNames[key]} activeTabClassName={context.props.activeTab} />);
+            headerTabs.push(<NavbarTab key={tabNames[key]} name={key} tabClass={tabNames[key]} activeTabClassName={context.props.activeTab} />);
         });
 
         if (this.props.logoOnly) {

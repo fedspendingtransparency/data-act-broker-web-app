@@ -6,21 +6,22 @@
 import React, { PropTypes } from 'react';
 
 const propTypes = {
-    class: PropTypes.string.isRequired,
+    tabClass: PropTypes.string.isRequired,
     activeTabClassName: PropTypes.string.isRequired
 };
 
 const defaultProps = {
-    class: 'landing',
-    activeTabClassName: 'landing'
+    tabClass: 'landing',
+    activeTabClassName: 'landing',
+    comingSoon: false
 };
 
 export default class NavbarTab extends React.Component {
     render() {
-        const link = '#/' + this.props.class;
-        const isActiveClass = this.props.activeTabClassName === this.props.class;
+        const link = '#/' + this.props.tabClass;
+        const isActiveClass = this.props.activeTabClassName === this.props.tabClass;
 
-        if (this.props.class == 'dashboard') {
+        if (this.props.comingSoon) {
             return (
                 <li>
                     <a className="usa-da-header-link disabled">{this.props.name}
@@ -30,7 +31,7 @@ export default class NavbarTab extends React.Component {
                     </a>
                 </li>
             );
-        } else if (this.props.class == 'admin') {
+        } else if (this.props.tabClass == 'admin') {
             return (
                 <li className={isActiveClass ? 'active' : ''}>
                     <a className="usa-da-header-link admin" href={link}>{this.props.name}
