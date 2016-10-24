@@ -120,6 +120,15 @@ const routeDefinitions = {
             component: SubmissionGuideContainer
         },
         {
+            path: 'dashboard',
+            onEnter: checkUserPermissions,
+            getComponent(nextState, cb) {
+                require.ensure([], (require) => {
+                    cb(null, require('../../components/dashboard/DashboardPage.jsx').default)
+                });
+            }
+        },
+        {
             path: 'addData',
             onEnter: checkUserPermissions,
             component: AddDataPageContainer
