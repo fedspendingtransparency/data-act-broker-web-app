@@ -30,7 +30,8 @@ export default class AuthContainer extends React.Component {
 
 		// extract the ticket string from the URL
 		const url = window.location.href;
-		// MAX may insert the ticket in the middle of the URL instead of at the end like a civilised person
+		// MAX may insert the ticket in the middle of the URL instead of at the end because MAX's
+		// URL parser does not fully understand hashed URLs
 		const regex = /ticket=([A-Za-z0-9]|\.|-)+/g;
 		const regexOutput = regex.exec(url);
 

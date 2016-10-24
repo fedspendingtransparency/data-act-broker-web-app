@@ -1,6 +1,6 @@
 /**
 * LoginPage.jsx
-* Created by Kyle Fox 12/4/15
+* Created by Kevin Li 10/24/16
 **/
 
 import React from 'react';
