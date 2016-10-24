@@ -8,6 +8,7 @@ import Navbar from '../SharedComponents/navigation/NavigationComponent.jsx';
 import HelpSidebar from './helpSidebar.jsx';
 import HistoryContent from './historyContent.jsx';
 import Footer from '../SharedComponents/FooterComponent.jsx';
+import HelpNav from './helpNav.jsx';
 
 import * as Icons from '../SharedComponents/icons/Icons.jsx';
 
@@ -50,6 +51,7 @@ export default class HelpPage extends React.Component {
                             <div className="row">
                                 <div className="col-md-12 mt-40 mb-20">
                                     <div className="display-2" data-contentstart="start" tabIndex={-1}>Help | DATA Act Broker</div>
+                                    <HelpNav selected="Help" />
                                 </div>
                             </div>
                         </div>
