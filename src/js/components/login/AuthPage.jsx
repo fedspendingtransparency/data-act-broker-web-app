@@ -15,17 +15,17 @@ export default class AuthPage extends React.Component {
     render() {
         return (
             <div className="usa-da-login-page">
-            	<div className="flex-wrapper">
-                	<div className="usa-da-login container-fluid">
-                		<LoginTopBar/>
-                	    <div className="login-banner-wrap">
+                <div className="flex-wrapper">
+                    <div className="usa-da-login container-fluid">
+                        <LoginTopBar/>
+                        <div className="login-banner-wrap">
                             <div className="usa-da-login-wrap">
                                 <LoginIntro/>
                                 <AuthContainer/>
                             </div>
                         </div>
-                	    <LoginWarningTxt/>
-                	</div>
+                        <LoginWarningTxt/>
+                    </div>
                 </div>
             </div>
         );
