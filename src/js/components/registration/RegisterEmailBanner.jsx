@@ -134,39 +134,35 @@ export default class RegisterEmailBanner extends React.Component {
         return (
             <div className="login-banner-wrap">
                 <div className="usa-da-login-wrap">
-                    <div className="container">
+                    <LoginIntro />
+                    <div className="login-right usa-da-login-container">
                         <div className="row">
-                            <LoginIntro />
-                            <div className="col-md-5 usa-da-login-container">
-                                <div className="row">
-                                    <div className="col-xs-12">
-                                        <p className="msg">A .gov or .mil email address is preferred when registering for access to the DATA Act Broker. If you do not have a .gov or .mil email address, you may be required to provide an appropriate agency point of contact to verify your registration.</p>
-                                    </div>
-                                </div>
-                                <form onKeyPress={this.handleKeyPress.bind(this)}>
-                                    <div className="row">
-                                        <div className="col-md-12">
-                                            <RegistrationEmailInput setButtonDisabled={this.setButtonDisabled.bind(this)} onChange={this.emailChanged.bind(this)} value={this.state.email} />
-                                        </div>
-                                    </div>
-                                    <div className="row">
-                                        <div className="col-xs-6 usa-da-registration-links mt-20">
-                                            <a href="#/login" className="forgot-back">Back to login page</a>
-                                        </div>
-                                        <div className="col-xs-6 usa-da-login-button-holder">
-                                            <div className={hideButton}>
-                                                <SignInButton disabled={this.state.disabled} onClick={this.submitEmail.bind(this)} buttonText={this.state.buttonText} />
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div className="row">
-                                        <div className="col-md-12">
-                                            {messageComponent}
-                                        </div>
-                                    </div>
-                                </form>
+                            <div className="col-xs-12">
+                                <p className="msg">A .gov or .mil email address is preferred when registering for access to the DATA Act Broker. If you do not have a .gov or .mil email address, you may be required to provide an appropriate agency point of contact to verify your registration.</p>
                             </div>
                         </div>
+                        <form onKeyPress={this.handleKeyPress.bind(this)}>
+                            <div className="row">
+                                <div className="col-md-12">
+                                    <RegistrationEmailInput setButtonDisabled={this.setButtonDisabled.bind(this)} onChange={this.emailChanged.bind(this)} value={this.state.email} />
+                                </div>
+                            </div>
+                            <div className="row">
+                                <div className="col-xs-6 usa-da-registration-links mt-20">
+                                    <a href="#/login" className="forgot-back">Back to login page</a>
+                                </div>
+                                <div className="col-xs-6 usa-da-login-button-holder">
+                                    <div className={hideButton}>
+                                        <SignInButton disabled={this.state.disabled} onClick={this.submitEmail.bind(this)} buttonText={this.state.buttonText} />
+                                    </div>
+                                </div>
+                            </div>
+                            <div className="row">
+                                <div className="col-md-12">
+                                    {messageComponent}
+                                </div>
+                            </div>
+                        </form>
                     </div>
                 </div>
             </div>
