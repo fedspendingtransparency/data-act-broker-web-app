@@ -10,6 +10,7 @@ import { hashHistory } from 'react-router';
 
 import { kGlobalConstants } from '../../GlobalConstants.js';
 import LoginPanel from '../../components/login/LoginPanel.jsx';
+import LoginMax from '../../components/login/LoginMax.jsx';
 import * as sessionActions from '../../redux/actions/sessionActions.js';
 
 import * as LoginHelper from '../../helpers/loginHelper.js';
@@ -23,6 +24,7 @@ class LoginContainer extends React.Component {
 			errorMessage: ""
 		};
 	}
+
 	performLogin(username, password) {
 		this.setState({
 			loading: true
@@ -33,7 +35,7 @@ class LoginContainer extends React.Component {
 				if (err == "cookie") {
 					this.setState({
 						loading: false,
-						errorMessage: 'Browser cookie support is required to access this site. Enable cookies on your browser to continue.'
+						errorMessage: 'Your browser does not support cookies, which the DATA Act Broker requires to function correctly. Try changing your browser settings to enable cookies or use a different browser.'
 					});
 				}
 				else {
@@ -44,10 +46,18 @@ class LoginContainer extends React.Component {
 				}
 			})
 	}
+
 	render() {
+		let login = <LoginMax location={this.props.location} />;
+
+		if (kGlobalConstants.LOCAL) {
+			login = <LoginPanel {...this.props} performLogin={this.performLogin.bind(this)} loading={this.state.loading} errorMessage={this.state.errorMessage} />;
+		}
 
 		return (
-			<LoginPanel {...this.props} performLogin={this.performLogin.bind(this)} loading={this.state.loading} errorMessage={this.state.errorMessage} />
+			<div className="login-right usa-da-login-container">
+				{login}
+			</div>
 		);
 	}
 }

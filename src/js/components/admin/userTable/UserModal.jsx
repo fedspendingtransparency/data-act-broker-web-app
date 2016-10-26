@@ -7,6 +7,8 @@ import React from 'react';
 import Modal from 'react-aria-modal';
 import _ from 'lodash';
 
+import * as Icons from '../../SharedComponents/icons/Icons.jsx';
+
 import ModalStatus from './ModalStatus.jsx';
 import ModalPermissions from './ModalPermissions.jsx';
 
@@ -130,6 +132,17 @@ export default class UserModal extends React.Component {
 		this.props.closeModal();
 	}
 
+	deleteUser(e) {
+		e.preventDefault();
+
+		const confirm = window.confirm('Are you sure you want to delete ' + this.props.user.name + ' (' + this.props.user.email + ') from the DATA Act Broker?');
+
+		if (confirm) {
+			this.props.deleteUser(this.props.user);
+			this.props.closeModal();
+		}
+	}
+
 	render() {
 
 		return (
@@ -183,13 +196,27 @@ export default class UserModal extends React.Component {
 
 							<hr />
 
-							<div className="modal-buttons text-right">
-								<button className="usa-da-button btn-gray" onClick={this.props.closeModal}>
-									Cancel
-								</button>
-								<button className="usa-da-button btn-primary" onClick={this.saveChanges.bind(this)}>
-									Save
-								</button>
+							<div className="modal-buttons row">
+								<div className="col-md-6 text-left">
+									<div className="delete-wrap">
+										<div className="usa-da-icon">
+											<Icons.ExclamationTriangle alt="Danger icon" />
+										</div>
+										<div className="delete-link">
+											<a href="#" className="danger-delete" onClick={this.deleteUser.bind(this)}>
+												Delete User
+											</a>
+										</div>
+									</div>
+								</div>
+								<div className="col-md-6 text-right">
+									<button className="usa-da-button btn-gray" onClick={this.props.closeModal}>
+										Cancel
+									</button>
+									<button className="usa-da-button btn-primary" onClick={this.saveChanges.bind(this)}>
+										Save
+									</button>
+								</div>
 							</div>
 
 						</div>

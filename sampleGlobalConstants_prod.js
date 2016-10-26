@@ -2,6 +2,8 @@
 export const kGlobalConstants = {
     API: '',
     LOCAL_ROOT : '',
+    CAS_ROOT: '',
+    AUTH_CALLBACK: '',
     GITHUB: 'https://github.com/fedspendingtransparency/data-act-validator',
     GA_TRACKING_ID: '',
     LOCAL: false,
