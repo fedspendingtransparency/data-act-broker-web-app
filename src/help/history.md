@@ -1,4 +1,32 @@
-#### September 30, 2016
+#### What's New in This Release - October 21, 2016
+On September 30, 2016, we released the full version of the DATA Act Broker that contained everything agencies need to test the data validation and submission process. Now we are making improvements to the Broker and responding to issues discovered through greater agency use.
+
+In this version of the Broker, we have improved the cross-file validation and file download experience, improved the Broker processing of PIID and FAIN/URI, and improved the readability of the Help pages.
+
+  - [Validation and File Download](#/help?section=crossFileDownload)
+  - [Better PIID and FAIN/URI Processing](#/help?section=C14Processing)
+  - [Help Pages Readability](#/help?section=helpReadability)
+  - [Browser Requirements & Known Issues](#/help?section=browser)
+  - [Accessibility Statement](#/help?section=accessibilityStatement)
+
+###### Validation and File Download{section=crossFileDownload}
+
+Cross File Validations and File Downloads
+
+ - The cross-file validation reports now include the error text instead of the rule description text. 
+ - While the D1 and D2 files are being generated, the messaging is more descriptive, "Creating your D1 and D2 files from ASP and FPDS. This may take a few minutes."
+ - If there is an error generating the file from ASP or FPDS, the message says, "A problem occurred receiving data from ASP" (or FPDS) instead of a generic 404 error.
+ - File E, Additional Awardee Attributes, can now be generated and downloaded after Files D1 and D2 generate.
+
+###### Better PIID and FAIN/URI Processing{section=C14Processing}
+
+The Broker processing of Rule C14 was updated to better handle the combinations PIID with either FAIN or URI.
+
+###### Help Pages Readability{section=helpReadability}
+
+We have updated the styling of the Help pages to use consistent header styles and remove unneeded white space to improve readability. We have also added a navigation bar to move between help pages.
+
+#### What's New in This Release - September 30, 2016
 This version of the DATA Act Broker contains everything agencies need to test the data validation and submission process.
 
 In this version of the Broker, we have improved the cross-file validation experience, implemented all the current validation rules, reorganized the Help section, including new pages for Resources and Validation Rules.
