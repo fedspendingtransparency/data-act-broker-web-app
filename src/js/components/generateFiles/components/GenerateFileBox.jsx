@@ -52,7 +52,7 @@ export default class GenerateFileBox extends React.Component {
 				            	<div className="download-title text-right">
 									Download {this.props.label}
 								</div>
-								<a href={this.props.download.url} target="_blank" className="usa-da-download pull-right">
+								<a href={this.props.download.url} target="_blank" rel="noopener noreferrer" className="usa-da-download pull-right">
 	            	                <span className="usa-da-icon usa-da-download-report"><Icons.CloudDownload /></span>Download File
 	            	            </a>
 							</div>
