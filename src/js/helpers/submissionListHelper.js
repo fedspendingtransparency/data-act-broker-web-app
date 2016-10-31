@@ -57,7 +57,7 @@ const parseRecentActivity = (submissions) => {
     return parsedSubmissions;
 }
 
-export const loadActivity = () => {
+export const loadRecentActivity = () => {
 	const deferred = Q.defer();
 
      Request.get(kGlobalConstants.API + 'list_submissions/?filter_by=agency')
@@ -72,6 +72,14 @@ export const loadActivity = () => {
                     deferred.resolve(output);
                 }
             });
+
+    return deferred.promise;
+}
+
+export const listSubmissions = (certified, page, limit) => {
+    const deferred = Q.defer();
+
+    
 
     return deferred.promise;
 }

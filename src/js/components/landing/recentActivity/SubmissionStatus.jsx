@@ -64,11 +64,11 @@ export class SubmissionStatus extends React.Component {
 		const colors = this.progressBar(this.props.status);
 
 		return (
-			<div className="usa-da-recent-submission-status">
+			<div className="usa-da-table-submission-status">
 				<div className="usa-da-status-label">
 					{this.statusStrings[this.props.status]}
 				</div>
-				<div className="usa-da-recent-progress">
+				<div className="usa-da-submission-progress-bars">
 					<div className={"step " + colors[0]} />
 					<div className={"step " + colors[1]} />
 					<div className={"step " + colors[2]} />

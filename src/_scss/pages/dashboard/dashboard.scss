@@ -1,4 +1,10 @@
 .usa-da-dashboard-page {
 	@import "../../layouts/content/content";
 	@include contentLayout;
+
+    .table-title {
+        font-size: 3.0rem;
+        font-weight: 200;
+        line-height: 1;
+    }
 }

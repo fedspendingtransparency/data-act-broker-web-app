@@ -7,10 +7,12 @@ import React from 'react';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 
+import DashboardContent from '../../components/dashboard/DashboardContent';
+
 class DashboardContainer extends React.Component {
 	render() {
 		return (
-			<div />
+			<DashboardContent />
 		)
 	}
 }
