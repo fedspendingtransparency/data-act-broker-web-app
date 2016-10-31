@@ -14,12 +14,8 @@ export default class LoginBanner extends React.Component {
         return (
             <div className="login-banner-wrap">
                 <div className="usa-da-login-wrap">
-                    <div className="container">
-                        <div className="row">
-                            <LoginIntro/>
-                            <LoginContainer/>
-                        </div>
-                    </div>
+                        <LoginIntro />
+                        <LoginContainer {...this.props} />
                 </div>
             </div>
         );

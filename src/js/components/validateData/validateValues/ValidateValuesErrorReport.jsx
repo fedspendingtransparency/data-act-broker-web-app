@@ -105,7 +105,8 @@ export default class ValidateValuesErrorReport extends React.Component {
     }
 
     openWindow() {
-        window.open(this.props.link, '_blank');
+        const download = window.open(this.props.link, '_blank');
+        download.opener = null;
     }
 
     render() {

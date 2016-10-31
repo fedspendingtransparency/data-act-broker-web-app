@@ -61,7 +61,7 @@ export default class PracticesProceduresContent extends React.Component {
 				<h2>Practices &amp; Procedures</h2>
 				<p><em>Last updated: September 30, 2016</em></p>
 
-				<p>The following are additional overall instructions for creating and understanding DATA Act reporting and validation rules.  The Practices and Procedures spreadsheet, with change log, is available for download.  <a href={this.state.practicesProceduresUrl} target="_blank">Download file</a></p>
+				<p>The following are additional overall instructions for creating and understanding DATA Act reporting and validation rules.  The Practices and Procedures spreadsheet, with change log, is available for download.  <a href={this.state.practicesProceduresUrl} target="_blank" rel="noopener noreferrer">Download file</a></p>
 
 				<h5>1. Daily award submission - Procurements</h5>
 				<ul>

@@ -49,6 +49,37 @@
         button {
             margin-left: 20px;
         }
+
+        .delete-wrap {
+            @include display(flex);
+            @include flex-direction(row);
+            @include align-items(center);
+            @include justify-content(center);
+            position: relative;
+
+            padding: 10px 0px;
+
+            .delete-link {
+                @include flex(1 1 auto);
+                position: relative;
+
+                margin-left: 10px;
+                a.danger-delete {
+                    color: $color-secondary;
+                }
+            }
+        }
+
+        .usa-da-icon {
+            @include flex(0 0 auto);
+            position: relative;
+
+            width: 1.5rem;
+            height: 1.5rem;
+            svg{
+                fill: $color-secondary;
+            }
+        }
     }
 
     .usa-da-button {

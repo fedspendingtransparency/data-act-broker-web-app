@@ -136,7 +136,7 @@ export default class UserTable extends React.Component {
                     {message}
 		        </CSSTransitionGroup>
 	            
-	            <UserModal modalActive={this.state.modalActive} closeModal={this.closeModal.bind(this)} user={this.state.activeUser} onChange={this.props.modifyUser} />
+	            <UserModal modalActive={this.state.modalActive} closeModal={this.closeModal.bind(this)} user={this.state.activeUser} onChange={this.props.modifyUser} deleteUser={this.props.deleteUser} />
 
 	            <div className="row">
 	                <div className="col-md-12">

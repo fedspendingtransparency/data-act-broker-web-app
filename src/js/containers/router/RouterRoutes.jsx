@@ -1,7 +1,9 @@
 import { hashHistory } from 'react-router';
+import { kGlobalConstants } from '../../GlobalConstants.js';
 
 import LandingPage from '../../components/landing/LandingPage.jsx';
 import LoginPage from '../../components/login/LoginPage.jsx';
+import AuthPage from '../../components/login/AuthPage.jsx';
 import SubmissionGuideContainer from '../../containers/addData/SubmissionGuideContainer.jsx';
 import AddDataPageContainer from '../../containers/addData/AddDataPageContainer.jsx';
 
@@ -81,6 +83,14 @@ const checkUserPermissions = (nextState, replace) => {
     }
 
 }
+
+const rejectIfMAXEnabled = (nextState, replace) => {
+    if (!kGlobalConstants.LOCAL) {
+        // MAX enabled, this route is not available
+        replace('/');
+    }
+}
+
 const redirectIfLogin = (nextState, replace) => {
     //TODO Add check For User Permissions
 }
@@ -99,6 +109,10 @@ const routeDefinitions = {
         {
             path: 'login',
             component: LoginPage
+        },
+        {
+            path: 'auth',
+            component: AuthPage
         },
         {
             path: 'admin',
@@ -226,6 +240,7 @@ const routeDefinitions = {
         },
         {
             path: 'forgotpassword',
+            onEnter: rejectIfMAXEnabled,
             getComponent(nextState, cb) {
                 require.ensure([], (require) => {
                     cb(null, require('../forgotPassword/ForgotPasswordContainer.jsx').default)
@@ -234,6 +249,7 @@ const routeDefinitions = {
         },
         {
             path: 'forgotpassword/:token',
+            onEnter: rejectIfMAXEnabled,
             getComponent(nextState, cb) {
                 require.ensure([], (require) => {
                     cb(null, require('../../components/forgotPassword/ResetPasswordTokenPage.jsx').default)
@@ -242,6 +258,7 @@ const routeDefinitions = {
         },
         {
             path: 'registration',
+            onEnter: rejectIfMAXEnabled,
             getComponent(nextState, cb) {
                 require.ensure([], (require) => {
                     cb(null, require('../registration/RegisterEmailContainer.jsx').default)
@@ -250,6 +267,7 @@ const routeDefinitions = {
         },
         {
             path: 'registration/:token',
+            onEnter: rejectIfMAXEnabled,
             getComponent(nextState, cb) {
                 require.ensure([], (require) => {
                     cb(null, require('../registration/RegisterTokenContainer.jsx').default)

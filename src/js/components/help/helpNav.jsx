@@ -15,21 +15,21 @@ export default class HelpNav extends React.Component {
     }
 
     render() {
-        const pageLinks = this.props.pageArray.map((page) => {
-	    let url = "/#/" + page.toLowerCase();
+        const pageLinks = this.props.pageArray.map((page, index) => {
+		    const url = "/#/" + page.toLowerCase();
 
-	    if(this.props.selected == page){
-	        return <a href={url} className="selected usa-da-button btn-lg">{page}</a>;
-	    } else {
-	        return <a href={url} className="usa-da-button btn-lg">{page}</a>;
-	    }
+		    if(this.props.selected == page){
+		        return <a href={url} className="selected usa-da-button btn-lg" key={index}>{page}</a>;
+		    } else {
+		        return <a href={url} className="usa-da-button btn-lg" key={index}>{page}</a>;
+		    }
         });
 		
         return (
-	    <div className="help-nav">
-	        {pageLinks}
-	    </div>
-	);
+		    <div className="help-nav">
+		        {pageLinks}
+		    </div>
+		);
     }
 }
 
