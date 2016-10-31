@@ -54,7 +54,7 @@ export default class LoginPanel extends React.Component {
 
 
         return (
-            <div className="col-md-5 usa-da-login-container">
+            <div className="login-form-wrap">
                 <form onKeyPress={this.handleKeyPress.bind(this)}>
                     <div className="row">
                         <div className="col-md-12">

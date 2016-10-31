@@ -14,7 +14,7 @@ import * as AdminHelper from './adminHelper.js';
 
 Q.longStackSupport = true;
 
-const availablePairs = ['appropriations-program_activity', 'award_financial-award', 'award_financial-award_procurement'];
+const availablePairs = ['appropriations-program_activity', 'program_activity-award_financial', 'award_financial-award_procurement', 'award_financial-award' ];
 const globalFileKeys = ['appropriations', 'program_activity', 'award_financial', 'award', 'award_procurement'];
 export const globalFileData = {
     appropriations: {
@@ -396,4 +396,23 @@ export const sendNotification = (users, id) => {
             }
         });
     return deferred.promise;
+}
+
+export const fetchObligations = (submissionId) => {
+	const deferred = Q.defer();
+
+	Request.post(kGlobalConstants.API + 'get_obligations/')
+			.send({'submission_id': submissionId})
+			.end((errFile, res) => {
+
+				if (errFile) {
+					deferred.reject(errFile);
+				}
+				else {
+					deferred.resolve(res.body);
+				}
+
+			});
+
+	return deferred.promise;
 }

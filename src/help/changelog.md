@@ -1,37 +1,32 @@
-#### October 21, 2016
+#### October 31, 2016
 On September 30, 2016, we released the full version of the DATA Act Broker that contained everything agencies need to test the data validation and submission process. Now we are making improvements to the Broker and responding to issues discovered through greater agency use.
 
-In this version of the Broker, we have improved the cross-file validation and file download experience, improved the Broker processing of PIID and FAIN/URI, and improved the readability of the Help pages.
+In this version of the Broker, we are using MAX to manage user accounts, we updated how the Broker processes several rules and reports errors, revised Rule A16, and populated the information in the summary table on the final Broker screen.
 
-  - [Validation and File Download](#/help?section=crossFileDownload)
-  - [Better PIID and FAIN/URI Processing](#/help?section=C14Processing)
-  - [Help Pages Readability](#/help?section=helpReadability)
+  - [Sign In Using MAX](#/help?section=logMAX)
+  - [Processing of Validation Rules](#/help?section=processingRules1031)
+  - [Summary Table](#/help?section=summaryTable)
   - [Browser Requirements & Known Issues](#/help?section=browser)
   - [Accessibility Statement](#/help?section=accessibilityStatement)
 
-##### Validation and File Download{section=crossFileDownload}
+##### Sign In Using MAX{section=logMAX}
 
-Cross File Validations and File Downloads
+If you are seeing this in What's New in This Release, you already know about the MAX.gov sign in that was implemented with this release. If your coworkers are having trouble signing in, they should contact their agency administrator for MAX. If the agency doesn't have a MAX administrator, email DATAPMO@fiscal.treasury.gov
 
- - The cross-file validation reports now include the error text instead of the rule description text. 
- - While the D1 and D2 files are being generated, the messaging is more descriptive, "Creating your D1 and D2 files from ASP and FPDS. This may take a few minutes."
- - If there is an error generating the file from ASP or FPDS, the message says, "A problem occurred receiving data from ASP" (or FPDS) instead of a generic 404 error.
- - File E, Additional Awardee Attributes, can now be generated and downloaded after Files D1 and D2 generate.
+##### Processing of Validation Rules{section=processingRules1031}
 
-##### Better PIID and FAIN/URI Processing{section=C14Processing}
+We updated how the Broker processes some rules.
 
-The Broker processing of Rule C14 was updated to better handle the combinations PIID with either FAIN or URI.
+ * A16: The Broker will check for a published or publishable submission for the current fiscal year before running Rule A16 on Files A and B. File C is no longer checked for Rule A16 as the FYB data elements are optional in this file. **Note:** Rule A16 is updated in the Validation Rules table and the downloadable spreadsheet. See the [Validation Rules](/#/validations) page.   
+ * B14 & B15: We fixed a sign problem in these rules.   
+ * B20: If the program activity provided in File C is zero, null, or blank, then the Broker compares the combination of TAS and object class between Files B and C instead.
+ * C8 & C9: Updates to how the Broker checks FAIN and URI in these rules.    
+ * C23: Errors are now displayed for this rule after the File C - D2 cross-file validation.    
+ * Various rules: Downward adjustments are excluded, where applicable.
 
-##### Help Pages Readability{section=helpReadability}
+##### Summary Table{section=summaryTable}
 
-We have updated the styling of the Help pages to use consistent header styles and remove unneeded white space to improve readability. We have also added a navigation bar to move between help pages.
-
-###### Improvements implemented September 30
-This Help section of the Broker has been reorganized. The main page only includes the latest release notes. The prior release notes are on the [Release Notes Archive](/#/history) page.
-
-The new [Resources - DAIMS](/#/resources) page includes all the information from the old Resources section and has been expanded to include a web page of the [Practices and Procedures](/#/practices). Some content from other websites was moved from other websites. Some Resources content has been updated, including the Domain Values and the Long Element Name to Short Element Name Crosswalk.  
-
-The [Validation Rules](/#/validations) page contains not only the most current information on the rules status, but also a severity column that indicates whether a rule generates a warning or a fatal error.
+The final Broker screen displays a summary of your agency's submission. File size, number of rows, and number of warnings are displayed for the files you uploaded. Agency name and report start and end dates are displayed for your agency's submission. The dollar amounts for total obligations incurred, total financial assistance obligations, and total procurement obligations are calculated from your agency's submission and displayed.
 
 ##### Browser Requirements & Known Issues{section=browser}
 The Broker is currently tested with the following browsers:
