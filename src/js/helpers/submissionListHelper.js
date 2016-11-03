@@ -15,6 +15,7 @@ const parseRecentActivity = (submissions) => {
         'waiting': Status.StatusTypes.STARTED,
         'running': Status.StatusTypes.INPROGRESS,
         'validation_successful': Status.StatusTypes.VALIDATED,
+        'validation_successful_warnings': Status.StatusTypes.VALIDATEDWARNINGS,
         'validation_errors': Status.StatusTypes.HASERRORS,
         'file_errors': Status.StatusTypes.HASERRORS,
         'failed': Status.StatusTypes.SERVERERROR
@@ -57,11 +58,11 @@ const parseRecentActivity = (submissions) => {
     return parsedSubmissions;
 }
 
-export const loadRecentActivity = () => {
-	const deferred = Q.defer();
+export const loadSubmissionList = (page = 1, limit = 10, certified = false) => {
+    const deferred = Q.defer();
 
-     Request.get(kGlobalConstants.API + 'list_submissions/?filter_by=agency')
-            .send()
+     Request.get(kGlobalConstants.API + 'list_submissions/')
+            .query({ page, limit, certified })
             .end((err, res) => {
 
                 if (err) {
@@ -76,10 +77,6 @@ export const loadRecentActivity = () => {
     return deferred.promise;
 }
 
-export const listSubmissions = (certified, page, limit) => {
-    const deferred = Q.defer();
-
-    
-
-    return deferred.promise;
+export const loadRecentActivity = () => {
+	return loadSubmissionList(1, 5, false);
 }

@@ -7,12 +7,44 @@ import React from 'react';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 
-import DashboardContent from '../../components/dashboard/DashboardContent';
+import * as SubmissionListHelper from '../../helpers/submissionListHelper.js';
+
+import DashboardContent from '../../components/dashboard/DashboardContent.jsx';
 
 class DashboardContainer extends React.Component {
+    constructor(props) {
+        super(props);
+
+        this.state = {
+            activeLoading: true,
+            certifiedLoading: true,
+            activeSubmissions: [],
+            certifiedSubmissions: []
+        };
+    }
+
+    loadTableData(page = 1, certified = false) {
+        let tableName = 'active';
+        if (certified) {
+            tableName = 'certified';
+        }
+        
+        this.setState({
+            [tableName + 'Loading']: true
+        }, () => {
+             SubmissionListHelper.loadSubmissionList(page, 10, certified)
+                .then((data) => {
+                    this.setState({
+                        [tableName + 'Submissions']: data,
+                        [tableName + 'Loading']: false
+                    });
+                })
+        })
+    }
+
 	render() {
 		return (
-			<DashboardContent />
+			<DashboardContent {...this.state} loadTableData={this.loadTableData.bind(this)} />
 		)
 	}
 }
