@@ -81,5 +81,5 @@ export const loadSubmissionList = (page = 1, limit = 10, certified = false) => {
 }
 
 export const loadRecentActivity = () => {
-	return loadSubmissionList(1, 5, false);
+	return loadSubmissionList(1, 5, 'mixed');
 }
