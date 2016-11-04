@@ -15,9 +15,6 @@ export default class DashboardContent extends React.Component {
             certifiedPage: 1
         }
     }
-    componentDidMount() {
-
-    }
 
     render() {
         return (
@@ -29,6 +26,7 @@ export default class DashboardContent extends React.Component {
                             isLoading={this.props.activeLoading}
                             isCertified={false}
                             loadTableData={this.props.loadTableData}
+                            total={this.props.activeTotal}
                             data={this.props.activeSubmissions}
                             page={this.state.activePage} />
                     </div>
@@ -40,6 +38,7 @@ export default class DashboardContent extends React.Component {
                             isLoading={this.props.certifiedLoading}
                             isCertified={true}
                             loadTableData={this.props.loadTableData}
+                            total={this.props.certifiedTotal}
                             data={this.props.certifiedSubmissions}
                             page={this.state.certifiedPage} />
                     </div>

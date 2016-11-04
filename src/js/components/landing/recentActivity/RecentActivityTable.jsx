@@ -56,7 +56,7 @@ export default class RecentActivityTable extends React.Component {
 				}
 				// save the response for sorting later
 				this.setState({
-					cachedResponse: data
+					cachedResponse: data.submissions
 				}, () => {
 					// show the response once the data is in place
 					this.buildRow();

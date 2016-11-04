@@ -69,7 +69,10 @@ export const loadSubmissionList = (page = 1, limit = 10, certified = false) => {
                     deferred.reject(err);
                 }
                 else {
-                    const output = parseRecentActivity(res.body.submissions);
+                    const output = {
+                        submissions: parseRecentActivity(res.body.submissions),
+                        total: res.body.total
+                    };
                     deferred.resolve(output);
                 }
             });

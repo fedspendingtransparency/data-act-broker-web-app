@@ -18,6 +18,8 @@ class DashboardContainer extends React.Component {
         this.state = {
             activeLoading: true,
             certifiedLoading: true,
+            activeTotal: 0,
+            certifiedTotal: 0,
             activeSubmissions: [],
             certifiedSubmissions: []
         };
@@ -28,14 +30,15 @@ class DashboardContainer extends React.Component {
         if (certified) {
             tableName = 'certified';
         }
-        
+
         this.setState({
             [tableName + 'Loading']: true
         }, () => {
              SubmissionListHelper.loadSubmissionList(page, 10, certified)
                 .then((data) => {
                     this.setState({
-                        [tableName + 'Submissions']: data,
+                        [tableName + 'Total']: data.total,
+                        [tableName + 'Submissions']: data.submissions,
                         [tableName + 'Loading']: false
                     });
                 })
