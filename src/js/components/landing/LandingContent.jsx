@@ -81,7 +81,7 @@ export default class LandingContent extends React.Component {
                                         <LandingBlock icon={<Icons.CloudUpload />} text="Ready to upload and validate your agency's files? Great, we'll be happy to walk you through the process.*" buttonText="Upload & Validate a New Submission" url="#/submissionGuide">
                                         <LandingBlockBottomLink onClick={this.clickedUploadReqs.bind(this)} />
                                         </LandingBlock>
-                                        <LandingBlock comingSoon="comingSoon" icon={<Icons.Floppy />} text="Did you start a submission but were unable to complete it? No problem, we can help you pick up where you left off." buttonText="Continue a Saved Submission" disabled={true} />
+                                        <LandingBlock icon={<Icons.Floppy />} text="Did you start a submission but were unable to complete it? No problem, we can help you pick up where you left off." buttonText="Continue a Saved Submission" url="#/dashboard" />
                                         <LandingBlock comingSoon="comingSoon" icon={<Icons.Search />} text="Is a submission ready to be reviewed, certified, and published? Let's look at that submission." buttonText="Review, Certify & Publish Submission" disabled={true} />
                                         <div id="modalHolder">
                                             <LandingRequirementsModal ref="modal" />
