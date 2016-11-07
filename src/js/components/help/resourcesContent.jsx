@@ -22,13 +22,14 @@ export default class ResourcesContent extends React.Component {
             rssUrl: '',
             validationRulesUrl: '#',
             domainValuesUrl: '#',
-		    agencyLabelUrl: '#',
-		    daimsErrataUrl: '#',
-		    iDDUrl: '#',
-		    pmoWebCastUrl: '#',
-		    schemaFileAUrl: '#',
-		    schemaFileBUrl: '#',
-		    schemaFileCUrl: '#'
+            agencyLabelUrl: '#',
+            daimsErrataUrl: '#',
+            iDDUrl: '#',
+            pmoWebCastUrl: '#',
+            schemaFileAUrl: '#',
+            schemaFileBUrl: '#',
+            schemaFileCUrl: '#',
+            faqFileC: '#'
         };
     }
 
@@ -48,7 +49,8 @@ export default class ResourcesContent extends React.Component {
 				    pmoWebCastUrl: urls['DATA_Act_PMO_ASP_Webcast_Deck_20160712.pdf'],
 				    schemaFileAUrl: urls['DATA_Act_Schema_v1_0_File_A_20160622.pdf'],
 				    schemaFileBUrl: urls['DATA_Act_Schema_v1_0_File_B_20160622.pdf'],
-				    schemaFileCUrl: urls['DATA_Act_Schema_v1_0_File_C_20160622.pdf']
+				    schemaFileCUrl: urls['DATA_Act_Schema_v1_0_File_C_20160622.pdf'],
+                    faqFileC: urls['DATA_Act_PMO_FileC_TOA_FAQ_20160913.pdf']
                 });
 
                 this.urlPromise = null;
@@ -96,6 +98,8 @@ export default class ResourcesContent extends React.Component {
 										<a href={this.state.rssUrl}>RSS v1.0</a>
 										</li>
 										<li><a href={this.state.daimsErrataUrl}>Errata</a>
+										</li>
+                                        <li><a href={this.state.faqFileC}>TransactionObligatedAmount FAQs</a>
 										</li>
 					</ul>
 					<h6>RSS Sample Files</h6>
