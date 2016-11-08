@@ -1,0 +1,23 @@
+.usa-da-formatted-table {
+    @import "../../components/tables/_submissionTable";
+    @include submissionTable;
+
+    .usa-da-recent-activity-link {
+        @import "../../components/tables/_submissionTableLink";
+        @include submissionTableLink;
+    }
+
+    @import "../../components/tables/_submissionTableProgress";
+
+}
+
+.submission-table-content {
+    &.loading {
+        opacity: 0.3;
+    }
+}
+
+
+.paginator-wrap {
+    @import "../../components/tables/_submissionPaginator";
+}
