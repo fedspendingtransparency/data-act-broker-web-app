@@ -12,6 +12,7 @@
     @media(min-width: $medium-screen) {
         @include flex(1 1 auto);
         position: relative;
+        max-width: 650px;
     }
 
 }
