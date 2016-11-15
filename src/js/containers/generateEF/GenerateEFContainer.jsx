@@ -99,10 +99,10 @@ class GenerateEFContainer extends React.Component {
 		let showFullPageError = false;
 		let fullPageMessage = '';
 		files.forEach((file) => {
-			if (file.httpStatus == 403) {
-				// permissions error, rejet
+			if (file.httpStatus == 403 || file.httpStatus == 401) {
+				// permissions error, reject
 				showFullPageError = true;
-				fullPageMessage = 'You do not have permission to view or modify this submission.';
+				fullPageMessage = 'Insufficient permissions to perform requested task.';
 			}
 			else if (file.status == 'failed') {
 				hasErrors = true;
