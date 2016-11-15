@@ -42,10 +42,10 @@ export default class ResourcesContent extends React.Component {
                 this.setState({
                     rssUrl: urls[rssFileKey()],
                     validationRulesUrl: urls['Validation_Rules.xlsx'],
-                    domainValuesUrl: urls['Domain_Values.xlsx'],
-				    agencyLabelUrl: urls['AgencyLabel_to_TerseLabel.xlsx'],
+                    domainValuesUrl: urls['Domain_Values_1.0.1.xlsx'],
+				    agencyLabelUrl: urls['AgencyLabel_to_TerseLabel_v1.0.1.xlsx'],
 				    daimsErrataUrl: urls['DAIMS_Errata.xlsx'],
-				    iDDUrl: urls['IDD_v1.0.xlsx'],
+				    iDDUrl: urls['IDD_v1.0.1.xlsx'],
 				    pmoWebCastUrl: urls['DATA_Act_PMO_ASP_Webcast_Deck_20160712.pdf'],
 				    schemaFileAUrl: urls['DATA_Act_Schema_v1_0_File_A_20160622.pdf'],
 				    schemaFileBUrl: urls['DATA_Act_Schema_v1_0_File_B_20160622.pdf'],
