@@ -32,11 +32,9 @@ export const fetchActiveUser = () => {
 
 	                // check to see if the user is an admin
 	                let isAdmin = false;
-	                res.body.permissions.forEach(function(perm) {
-	                    if (perm == 1) {
-	                        isAdmin = true;
-	                    }
-	                });
+	                if (res.body.permission == 4) {
+	                    isAdmin = true;
+	                }
 	                
 	                const sessionData = {
 	                    login: 'loggedIn',

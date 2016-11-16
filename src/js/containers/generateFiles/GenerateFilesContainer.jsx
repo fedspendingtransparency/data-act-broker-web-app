@@ -379,7 +379,11 @@ class GenerateFilesContainer extends React.Component {
 			const fileData = responses[file];
 			output[file + 'Status'] = fileData.status;
 
-			if (fileData.status == 'waiting') {
+            if (fileData.httpStatus == 401) {
+             	 errors.push(file);
+                 this.showError(file, 'Permission Error', fileData.message);
+            }
+			else if (fileData.status == 'waiting') {
 				allDone = false;
 			}
 			else if (fileData.status == 'failed' || fileData.status == 'invalid') {
