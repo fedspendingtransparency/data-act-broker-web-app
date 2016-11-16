@@ -3,7 +3,7 @@ td.progress-cell {
     position: relative;
 }
 
-.usa-da-recent-submission-status {
+.usa-da-table-submission-status {
     height: 100%;
     @include display(flex);
     @include flex-direction(column);
@@ -13,7 +13,7 @@ td.progress-cell {
         @include flex(0 1 auto);
     }
 }
-.usa-da-recent-progress {
+.usa-da-submission-progress-bars {
     width: 100%;
     height: 1rem;
     position: absolute;

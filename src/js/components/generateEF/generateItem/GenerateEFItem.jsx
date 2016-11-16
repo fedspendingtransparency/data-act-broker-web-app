@@ -14,7 +14,8 @@ export default class GenerateEFItem extends React.Component {
 
 	clickedDownload(e) {
 		e.preventDefault();
-		window.open(this.props[this.props.type.toLowerCase()].url, '_target');
+		const download = window.open(this.props[this.props.type.toLowerCase()].url, '_target');
+        download.opener = null;
 	}
 
 	render() {

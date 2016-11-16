@@ -6,4 +6,9 @@
 	@import "./_transitions";
 
 	@import "./uploadPage/uploadPage";
+
+	.alert-error {
+        @import "../../components/alerts/_alerts";
+        @include dangerAlert;
+    }
 }

@@ -8,7 +8,7 @@ import _ from 'lodash';
 import FormattedTable from '../../SharedComponents/table/FormattedTable.jsx';
 import SubmissionLink from './SubmissionLink.jsx';
 
-import * as RecentActivityHelper from '../../../helpers/recentActivityHelper.js';
+import * as SubmissionListHelper from '../../../helpers/submissionListHelper.js';
 import * as Status from './SubmissionStatus.jsx';
 
 
@@ -49,14 +49,14 @@ export default class RecentActivityTable extends React.Component {
 	}
 
 	loadActivity() {
-		RecentActivityHelper.loadActivity()
+		SubmissionListHelper.loadRecentActivity()
 			.then((data) => {
 				if (this.didUnmount) {
 					return;
 				}
 				// save the response for sorting later
 				this.setState({
-					cachedResponse: data
+					cachedResponse: data.submissions
 				}, () => {
 					// show the response once the data is in place
 					this.buildRow();

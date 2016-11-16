@@ -12,7 +12,8 @@ export const StatusTypes = {
 	HASERRORS: 3,
 	VALIDATED: 4,
 	SUBMITTED: 5,
-	SERVERERROR: 6
+	SERVERERROR: 6,
+    VALIDATEDWARNINGS: 7
 };
 
 const defaultProps = {
@@ -23,7 +24,7 @@ export class SubmissionStatus extends React.Component {
 	constructor(props) {
 		super(props);
 
-		this.statusStrings = ['Unknown', 'Started', 'Validation In Progress', 'Has Errors', 'Validated (Without Errors)', 'Submitted', 'Validation Server Error'];
+		this.statusStrings = ['Unknown', 'Started', 'Validation In Progress', 'Has Errors', 'Validated (Without Errors)', 'Submitted', 'Validation Server Error', 'Validated (With Warnings)'];
 
 	}
 
@@ -37,7 +38,7 @@ export class SubmissionStatus extends React.Component {
 			colors[0] = 'filled';
 			colors[1] = 'filled';
 		}
-		else if (value == StatusTypes.VALIDATED) {
+		else if (value == StatusTypes.VALIDATED || value == StatusTypes.VALIDATEDWARNINGS) {
 			for (let i = 0; i < 3; i++)	 {
 				colors[i] = 'filled';
 			}
@@ -64,11 +65,11 @@ export class SubmissionStatus extends React.Component {
 		const colors = this.progressBar(this.props.status);
 
 		return (
-			<div className="usa-da-recent-submission-status">
+			<div className="usa-da-table-submission-status">
 				<div className="usa-da-status-label">
 					{this.statusStrings[this.props.status]}
 				</div>
-				<div className="usa-da-recent-progress">
+				<div className="usa-da-submission-progress-bars">
 					<div className={"step " + colors[0]} />
 					<div className={"step " + colors[1]} />
 					<div className={"step " + colors[2]} />

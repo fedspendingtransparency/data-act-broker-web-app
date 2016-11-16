@@ -96,13 +96,8 @@ export const listAllUsers = () => {
 				deferred.reject(err);
 			}
 			else {
-				// break up the permissions
 				const users = [];
 				res.body.users.forEach((user) => {
-					// sometimes python adds extra spaces to the comma separated list, so strip those out
-					const permString = user.permissions.replace(/\s/g, '');
-					user.permissions = permString.split(',');
-
 					const status = determineStatus(user);
 
 					user.statusString = status.string;
