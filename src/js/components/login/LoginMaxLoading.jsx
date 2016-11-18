@@ -8,6 +8,8 @@ import { kGlobalConstants } from '../../GlobalConstants.js';
 import LoginMaxErrorMessage from './components/LoginMaxErrorMessage.jsx';
 import LoadingBauble from '../SharedComponents/overlays/LoadingBauble.jsx';
 
+const maxUrl = "https://community.max.gov/pages/viewpage.action?spaceKey=TREASExternal&title=DATA+Act+Broker+Registration";
+
 export default class LoginMaxLoading extends React.Component {
     render() {
         let errorMessageComponent = null;
@@ -15,7 +17,6 @@ export default class LoginMaxLoading extends React.Component {
         let hideError = ' hide';
 
         if (this.props.errorMessage && this.props.errorMessage != "") {
-            let maxUrl = "https://community.max.gov/pages/viewpage.action?spaceKey=TREASExternal&title=DATA+Act+Broker+Registration";
             errorMessageComponent = <LoginMaxErrorMessage message={this.props.errorMessage} url={maxUrl} />;
             hideLoading = ' hide';
             hideError = '';
