@@ -96,7 +96,12 @@ export default class ReviewDataContent extends React.Component {
     }
 
     formatCurrency(currencyNumber) {
+        let negative = currencyNumber < 0;
         let currencyString = currencyNumber.toFixed(2);
+        // remove negative sign for formatting
+        if(negative) {
+            currencyString = currencyString.substr(1);
+        }
         let cents = currencyString.split(".")[1];
         let dollars = currencyString.split(".")[0];
         // start at the end and every 3 numbers add a comma to the string
@@ -104,6 +109,10 @@ export default class ReviewDataContent extends React.Component {
             dollars = dollars.slice(0, i) + "," + dollars.slice(i);
         }
         let formattedCurrencyString = "$" + dollars + "." + cents;
+        // add negative sign for formatting
+        if(negative) {
+            formattedCurrencyString = "-" + formattedCurrencyString;
+        }
         return formattedCurrencyString;
     }
 
