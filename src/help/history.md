@@ -1,3 +1,29 @@
+##### What's New in This Release - October 31, 2016
+
+On September 30, 2016, we released the full version of the DATA Act Broker that contained everything agencies need to test the data validation and submission process. Now we are making improvements to the Broker and responding to issues discovered through greater agency use.
+
+In this version of the Broker, we are using MAX to manage user accounts, we updated how the Broker processes several rules and reports errors, revised Rule A16, and populated the information in the summary table on the final Broker screen.
+
+  - [Sign In Using MAX](#/help?section=MAXsign)
+  - [Processing of Validation Rules](#/help?section=ValidationRules)
+  - [Summary Table](#/help?section=SummaryTable)
+
+##### Sign In Using MAX{section=MAXsign}
+If you are seeing this in What's New in This Release, you already know about the MAX.gov sign in that was implemented with this release. If your coworkers are having trouble signing in, they should contact their agency administrator for MAX. If the agency doesn't have a MAX administrator, email DATAPMO@fiscal.treasury.gov
+
+##### Processing of Validation Rules{section=ValidationRules}
+We updated how the Broker processes some rules.
+
+A16: The Broker will check for a published or publishable submission for the current fiscal year before running Rule A16 on Files A and B. File C is no longer checked for Rule A16 as the FYB data elements are optional in this file. Note: Rule A16 is updated in the Validation Rules table and the downloadable spreadsheet. See the Validation Rules page.
+B14 & B15: We fixed a sign problem in these rules.
+B20: If the program activity provided in File C is zero, null, or blank, then the Broker compares the combination of TAS and object class between Files B and C instead.
+C8 & C9: Updates to how the Broker checks FAIN and URI in these rules.
+C23: Errors are now displayed for this rule after the File C - D2 cross-file validation.
+Various rules: Downward adjustments are excluded, where applicable.
+
+##### Summary Table{section=SummaryTable}
+The final Broker screen displays a summary of your agency's submission. File size, number of rows, and number of warnings are displayed for the files you uploaded. Agency name and report start and end dates are displayed for your agency's submission. The dollar amounts for total obligations incurred, total financial assistance obligations, and total procurement obligations are calculated from your agency's submission and displayed.
+
 #### What's New in This Release - October 21, 2016
 On September 30, 2016, we released the full version of the DATA Act Broker that contained everything agencies need to test the data validation and submission process. Now we are making improvements to the Broker and responding to issues discovered through greater agency use.
 
