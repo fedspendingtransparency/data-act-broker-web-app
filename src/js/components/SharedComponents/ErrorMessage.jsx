@@ -16,7 +16,7 @@ export default class ErrorMessage extends React.Component {
                 <div className="alert alert-error mt-40 mb-0" role="alert">
                     <span className="usa-da-icon"><Icons.ExclamationCircle /></span>
                     <div className="alert-header-text">Error</div>
-                    <p data-testid="errormessage" dangerouslySetInnerHTML={{__html: this.props.message}} />
+                    <p data-testid="errormessage">{this.props.message}</p>
                 </div>
         );
     }
