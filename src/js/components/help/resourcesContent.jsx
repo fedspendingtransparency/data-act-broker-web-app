@@ -88,7 +88,7 @@ export default class ResourcesContent extends React.Component {
             <div className="usa-da-help-content">
 				<div className="resources-page">
 				<h2>Resources - DAIMS</h2>
-					<p>The DATA Act information Model Schema (DAIMS) v1.0 gives an overall view of the hundreds of distinct data elements used to tell the story of how federal dollars are spent. It includes artifacts that provide technical guidance for federal agencies about what data to report to Treasury including the authoritative sources of the data elements and the submission format.</p>
+					<p>The DATA Act information Model Schema (DAIMS) v1.0.1 gives an overall view of the hundreds of distinct data elements used to tell the story of how federal dollars are spent. It includes artifacts that provide technical guidance for federal agencies about what data to report to Treasury including the authoritative sources of the data elements and the submission format.</p>
 					<p>Click these links to download or open a file.</p>
 
 					<h5>Reporting Submission Specification (RSS) Resources</h5>
