@@ -1,4 +1,4 @@
-#### What's New in This Release - November 23, 2016
+#### November 23, 2016
 On September 30, 2016, we released the full version of the DATA Act Broker that contained everything agencies need to test the data validation and submission process. Now we are making improvements to the Broker and responding to issues discovered through greater agency use.
 
 In this version of the Broker, we are using MAX to manage user account permissions, we updated how the Broker processes several rules and reports errors, added a FAQ for TransactionObligatedAmount, and provided the information on the Submission Dashboard in two tables, one for in progress, and one for completed and certified.
