@@ -11,6 +11,7 @@ import ReviewDataContentRow from './ReviewDataContentRow.jsx';
 import ReviewDataButton from './ReviewDataButton.jsx';
 import ReviewDataNotifyModal from './ReviewDataNotifyModal.jsx';
 import ReviewDataCertifyModal from './CertificationModal/ReviewDataCertifyModal.jsx';
+import ReviewDataComments from './ReviewDataComments.jsx'
 import moment from 'moment';
 
 import * as ReviewHelper from '../../helpers/reviewHelper.js';
@@ -185,6 +186,7 @@ export default class ReviewDataContent extends React.Component {
                             {reportRows}
                         </div>
                     </div>
+                    <ReviewDataComments data="Test" />
                     <div className="mt-20">
                         <div className="submission-wrapper">
                             <div className="left-link">
