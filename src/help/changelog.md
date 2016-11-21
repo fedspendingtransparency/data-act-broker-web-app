@@ -1,32 +1,34 @@
-#### October 31, 2016
+#### November 23, 2016
 On September 30, 2016, we released the full version of the DATA Act Broker that contained everything agencies need to test the data validation and submission process. Now we are making improvements to the Broker and responding to issues discovered through greater agency use.
 
-In this version of the Broker, we are using MAX to manage user accounts, we updated how the Broker processes several rules and reports errors, revised Rule A16, and populated the information in the summary table on the final Broker screen.
+In this version of the Broker, we are using MAX to manage user account permissions, we updated how the Broker processes several rules and reports errors, added a FAQ for TransactionObligatedAmount, and provided the information on the Submission Dashboard in two tables, one for in progress, and one for completed and certified.
 
   - [Sign In Using MAX](#/help?section=logMAX)
-  - [Processing of Validation Rules](#/help?section=processingRules1031)
-  - [Summary Table](#/help?section=summaryTable)
+  - [Processing of Validation Rules](#/help?section=processingRules1123)
+  - [New FAQ document for TransactionObligatedAmount](#/help?section=TOAfaq)
+  - [Submission Dashboard display](#/help?section=SubmissionDashboard)
   - [Browser Requirements & Known Issues](#/help?section=browser)
   - [Accessibility Statement](#/help?section=accessibilityStatement)
 
 ##### Sign In Using MAX{section=logMAX}
 
-If you are seeing this in What's New in This Release, you already know about the MAX.gov sign in that was implemented with this release. If your coworkers are having trouble signing in, they should contact their agency administrator for MAX. If the agency doesn't have a MAX administrator, email DATAPMO@fiscal.treasury.gov
+Agency Admins have the ability to set up read, write, and submitter permissions for MAX groups. Broker enforces read only, write only, and submitter permissions. If your coworkers are having trouble signing in, they should contact their agency administrator for MAX. If the agency doesn't have a MAX administrator, email DATAPMO@fiscal.treasury.gov.
 
-##### Processing of Validation Rules{section=processingRules1031}
+##### Processing of Validation Rules{section=processingRules1123}
 
 We updated how the Broker processes some rules.
 
- * A16: The Broker will check for a published or publishable submission for the current fiscal year before running Rule A16 on Files A and B. File C is no longer checked for Rule A16 as the FYB data elements are optional in this file. **Note:** Rule A16 is updated in the Validation Rules table and the downloadable spreadsheet. See the [Validation Rules](/#/validations) page.   
- * B14 & B15: We fixed a sign problem in these rules.   
- * B20: If the program activity provided in File C is zero, null, or blank, then the Broker compares the combination of TAS and object class between Files B and C instead.
- * C8 & C9: Updates to how the Broker checks FAIN and URI in these rules.    
- * C23: Errors are now displayed for this rule after the File C - D2 cross-file validation.    
- * Various rules: Downward adjustments are excluded, where applicable.
+ * A33: Implementation of rule A33 has been updated.
+ * C20 & C21: The way Broker processes rules C20 and C21 was improved.
+ * An error message will display if a file is submitted with an unreadable header row.
+ 
+##### TransactionObligatedAmount FAQ{section=TOAfaq}
 
-##### Summary Table{section=summaryTable}
+The TransactionObligatedAmount FAQ document has been added to the [Resources](/#/resources) page in Help.
 
-The final Broker screen displays a summary of your agency's submission. File size, number of rows, and number of warnings are displayed for the files you uploaded. Agency name and report start and end dates are displayed for your agency's submission. The dollar amounts for total obligations incurred, total financial assistance obligations, and total procurement obligations are calculated from your agency's submission and displayed.
+##### Submission Dashboard{section=SubmissionDashboard}
+
+When a user clicks the Submission Dashboard, submissions are displayed in two tables, one for In Progress and one for Completed and Certified.
 
 ##### Browser Requirements & Known Issues{section=browser}
 The Broker is currently tested with the following browsers:
