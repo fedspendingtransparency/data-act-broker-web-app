@@ -18,7 +18,7 @@ export default class ReviewDataCommentsDropdown extends React.Component {
             dropdownOptions.push(<option key={i} value={fileList[i]}>File {fileList[i]}</option>);
         }
         return (
-            <div className="col-md-1">
+            <div className="col-md-2">
                 <select onChange={this.changeFile.bind(this)}>
                     {dropdownOptions}
                 </select>

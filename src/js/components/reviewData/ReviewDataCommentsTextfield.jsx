@@ -24,7 +24,7 @@ export default class ReviewDataCommentsTextfield extends React.Component {
 
     render() {
         return (
-            <div className="col-md-6">
+            <div className="col-md-8">
                 <textarea id="submission-review-comments" value={this.state.currentContent} onChange={this.textChanged.bind(this)}></textarea>
             </div>
         );

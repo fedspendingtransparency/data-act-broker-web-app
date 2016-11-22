@@ -56,6 +56,10 @@ class ReviewDataContainer extends React.Component {
             })
             .then((name) => {
                 submission.agency_name = name;
+                return ReviewHelper.fetchSubmissionComments(this.props.params.submissionID);
+            })
+            .then((comments) => {
+                submission.file_comments = comments;
                 return ReviewHelper.fetchObligations(this.props.params.submissionID);
             })
             .then((data) => {

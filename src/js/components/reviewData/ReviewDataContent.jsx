@@ -186,7 +186,10 @@ export default class ReviewDataContent extends React.Component {
                             {reportRows}
                         </div>
                     </div>
-                    <ReviewDataComments data="Test" />
+                    <div className="row">
+                        <div className="col-md-4"></div>
+                        <ReviewDataComments comments={this.props.data.file_comments} submissionID={this.props.params.submissionID} />
+                    </div>
                     <div className="mt-20">
                         <div className="submission-wrapper">
                             <div className="left-link">
