@@ -197,7 +197,7 @@ const routeDefinitions = {
             onEnter: checkUserPermissions,
             getComponent(nextState, cb) {
                 require.ensure([], (require) => {
-                    cb(null, require('../../components/help/helpPage.jsx').default)
+                    cb(null, require('../../containers/help/HelpContainer.jsx').default)
                 });
             }
         },
@@ -206,7 +206,7 @@ const routeDefinitions = {
             onEnter: checkUserPermissions,
             getComponent(nextState, cb) {
                 require.ensure([], (require) => {
-                    cb(null, require('../../components/help/practicesProceduresPage.jsx').default)
+                    cb(null, require('../../containers/help/HelpContainer.jsx').default)
                 });
             }
         },
@@ -215,7 +215,7 @@ const routeDefinitions = {
             onEnter: checkUserPermissions,
             getComponent(nextState, cb) {
                 require.ensure([], (require) => {
-                    cb(null, require('../../components/help/validationRulesTablePage.jsx').default)
+                    cb(null, require('../../containers/help/HelpContainer.jsx').default)
                 });
             }
         },
@@ -224,7 +224,7 @@ const routeDefinitions = {
             onEnter: checkUserPermissions,
             getComponent(nextState, cb) {
                 require.ensure([], (require) => {
-                    cb(null, require('../../components/help/resourcesPage.jsx').default)
+                    cb(null, require('../../containers/help/HelpContainer.jsx').default)
                 });
             }
         },
@@ -234,7 +234,7 @@ const routeDefinitions = {
             onEnter: checkUserPermissions,
             getComponent(nextState, cb) {
                 require.ensure([], (require) => {
-                    cb(null, require('../../components/help/historyPage.jsx').default)
+                    cb(null, require('../../containers/help/HelpContainer.jsx').default)
                 });
             }
         },
