@@ -15,20 +15,20 @@ import HistoryPage from '../../components/help/historyPage.jsx';
 
 
 class HelpPageContainer extends React.Component {
-	constructor(props) {
-		super(props);
+    constructor(props) {
+        super(props);
 
-		this.state = {
-		    helpOnly: false
-		};
-	}
+        this.state = {
+          helpOnly: false
+      };
+    }
 
     componentDidMount() {
         this.checkHelpOnly();
     }
 
     componentDidUpdate(prevProps, prevState) {
-        if (!_.isEqual(prevProps.value, this.props.value)) {
+        if (!_.isEqual(prevProps, this.props)) {
             this.checkHelpOnly();
         }
     }
@@ -43,35 +43,35 @@ class HelpPageContainer extends React.Component {
         });
     }
 
-	render() {
-	    if (this.props.route.path == 'help') {
-	        return (
-			    <HelpPage {...this.props} helpOnly={this.state.helpOnly} />
-		    );
-	    }
-	    else if (this.props.route.path == 'resources') {
-	        return (
-			    <ResourcesPage {...this.props} helpOnly={this.state.helpOnly} />
-		    );
-	    }
-	    else if (this.props.route.path == 'validations') {
+    render() {
+       if (this.props.route.path == 'help') {
+           return (
+                <HelpPage {...this.props} helpOnly={this.state.helpOnly} />
+             );
+       }
+       else if (this.props.route.path == 'resources') {
+           return (
+                <ResourcesPage {...this.props} helpOnly={this.state.helpOnly} />
+             );
+       }
+       else if (this.props.route.path == 'validations') {
             return (
                 <ValidationRulesTablePage {...this.props} helpOnly={this.state.helpOnly} />
             );
-	    }
-	    else if (this.props.route.path == 'practices') {
+        }
+        else if (this.props.route.path == 'practices') {
             return (
                 <PracticesProceduresPage {...this.props} helpOnly={this.state.helpOnly} />
             );
-	    }
-	    else if (this.props.route.path == 'history') {
+        }
+        else if (this.props.route.path == 'history') {
             return (
                 <HistoryPage {...this.props} helpOnly={this.state.helpOnly} />
             );
-	    }
-	}
+        }
+    }
 }
 
 export default connect(
-	state => ({ session: state.session })
+    state => ({ session: state.session })
 )(HelpPageContainer)

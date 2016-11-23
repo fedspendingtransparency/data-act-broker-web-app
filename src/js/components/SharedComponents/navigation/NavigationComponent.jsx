@@ -61,7 +61,6 @@ export class Navbar extends React.Component {
 
         if (this.props.logoOnly) {
             headerTabs = null;
-            userButton = null;
         }
 
         return (

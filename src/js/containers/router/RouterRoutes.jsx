@@ -74,6 +74,7 @@ const checkAdminPermissions = (nextState, replace) => {
     }
 
 }
+
 const checkUserPermissions = (nextState, replace) => {
     getStore();
     const session = store.getState().session;
@@ -81,7 +82,19 @@ const checkUserPermissions = (nextState, replace) => {
     if (session.login != "loggedIn") {
         performAutoLogin(nextState.location, replace);
     }
+    else if (!session.permission) {
+        // if no permissions, bounce to help
+        replace('/help');
+    }
+}
 
+const checkHelpUserPermissions = (nextState, replace) => {
+    getStore();
+    const session = store.getState().session;
+
+    if (session.login != "loggedIn") {
+        performAutoLogin(nextState.location, replace);
+    }
 }
 
 const rejectIfMAXEnabled = (nextState, replace) => {
@@ -194,7 +207,7 @@ const routeDefinitions = {
         },
         {
             path: 'help',
-            onEnter: checkUserPermissions,
+            onEnter: checkHelpUserPermissions,
             getComponent(nextState, cb) {
                 require.ensure([], (require) => {
                     cb(null, require('../../containers/help/HelpContainer.jsx').default)
@@ -203,7 +216,7 @@ const routeDefinitions = {
         },
         {
             path: 'practices',
-            onEnter: checkUserPermissions,
+            onEnter: checkHelpUserPermissions,
             getComponent(nextState, cb) {
                 require.ensure([], (require) => {
                     cb(null, require('../../containers/help/HelpContainer.jsx').default)
@@ -212,7 +225,7 @@ const routeDefinitions = {
         },
         {
             path: 'validations',
-            onEnter: checkUserPermissions,
+            onEnter: checkHelpUserPermissions,
             getComponent(nextState, cb) {
                 require.ensure([], (require) => {
                     cb(null, require('../../containers/help/HelpContainer.jsx').default)
@@ -221,7 +234,7 @@ const routeDefinitions = {
         },
 		{
             path: 'resources',
-            onEnter: checkUserPermissions,
+            onEnter: checkHelpUserPermissions,
             getComponent(nextState, cb) {
                 require.ensure([], (require) => {
                     cb(null, require('../../containers/help/HelpContainer.jsx').default)
@@ -231,7 +244,7 @@ const routeDefinitions = {
 
 		{
             path: 'history',
-            onEnter: checkUserPermissions,
+            onEnter: checkHelpUserPermissions,
             getComponent(nextState, cb) {
                 require.ensure([], (require) => {
                     cb(null, require('../../containers/help/HelpContainer.jsx').default)
