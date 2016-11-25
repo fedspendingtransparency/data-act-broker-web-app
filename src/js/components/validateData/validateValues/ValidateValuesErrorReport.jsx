@@ -14,6 +14,8 @@ import Table from '../../SharedComponents/table/TableComponent.jsx';
 import ValidateValuesTreemap from './ValidateValuesTreemap.jsx';
 import * as Icons from '../../SharedComponents/icons/Icons.jsx';
 
+import * as ReviewHelper from '../../../helpers/reviewHelper.js';
+
 const defaultProps = {
     dataKey: 'error_data'
 };
@@ -27,7 +29,9 @@ export default class ValidateValuesErrorReport extends React.Component {
             sortField: 0,
             headerClasses: ['headerColA','headerColB', 'headerColC'],
             cellClasses: ['cellColA', 'cellColB', 'cellColC'],
-            table: null
+            table: null,
+            signedUrl: '',
+            signInProgress: false
         };
     }
 
@@ -104,12 +108,56 @@ export default class ValidateValuesErrorReport extends React.Component {
         }
     }
 
-    openWindow() {
-        const download = window.open(this.props.link, '_blank');
-        download.opener = null;
+    openReport() {
+        window.location = this.state.signedUrl;
+    }
+
+    signReport() {
+        const fileName = `submission_${this.props.submission}_${this.props.fileType}_${this.props.reportType}_report`;
+        ReviewHelper.signErrorWarningReport(this.props.submission, fileName)
+            .then((data) => {
+                this.setState({
+                    signInProgress: false,
+                    signedUrl: data.url
+                }, () => {
+                    this.openReport();
+                });
+            })
+            .catch((err) => {
+                this.setState({
+                    signInProgress: false
+                });
+                console.log(err);
+            });
+    }
+
+    clickedReport() {
+
+        // check if the link is already signed
+        if (this.state.signInProgress) {
+            // sign is in progress, do nothing
+            return;
+        }
+        else if (this.state.signedUrl !== '') {
+            // it is signed, open immediately
+            this.openReport();
+        }
+        else {
+            // not signed yet, sign
+            this.setState({
+                signInProgress: true
+            }, () => {
+                this.signReport();
+            });
+        }
     }
 
     render() {
+
+        let reportLinkText = `Download ${this.props.name}s Report`;
+        if (this.state.signInProgress) {
+            reportLinkText = 'Preparing {this.props.name}s Report...';
+        }
 
         return (
             <div className="row usa-da-validate-item-bottom-section">
@@ -119,9 +167,9 @@ export default class ValidateValuesErrorReport extends React.Component {
                             <h6>{this.props.name}s</h6>
                         </div>
                         <div className="col-md-3">
-                            <div className="usa-da-download pull-right" onClick={this.openWindow.bind(this)}>
+                            <div className="usa-da-download pull-right" onClick={this.clickedReport.bind(this)}>
                                 <span className="usa-da-icon usa-da-download-report"><Icons.CloudDownload /></span>
-                                Download {this.props.name}s Report
+                                {reportLinkText}
                             </div>
                         </div>
                         <div className="col-md-12">

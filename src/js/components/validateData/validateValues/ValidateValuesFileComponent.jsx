@@ -230,8 +230,22 @@ export default class ValidateDataFileComponent extends React.Component {
                             {validationElement}
                         </div>
                     </div>
-                    {this.state.showWarning ? <ValidateValuesErrorReport link={this.props.item.warning_report} data={this.props.item} dataKey="warning_data" name="Warning" colors={warningBaseColors} /> : null}
-                    {this.state.showError ? <ValidateValuesErrorReport link={this.props.item.report} data={this.props.item} dataKey="error_data" name="Critical Error" colors={errorBaseColors} /> : null}
+                    {this.state.showWarning ? <ValidateValuesErrorReport 
+                        submission={this.props.submission.id}
+                        fileType={this.props.item.file_type}
+                        reportType="warning"
+                        data={this.props.item}
+                        dataKey="warning_data"
+                        name="Warning"
+                        colors={warningBaseColors} /> : null}
+                    {this.state.showError ? <ValidateValuesErrorReport
+                        submission={this.props.submission.id}
+                        fileType={this.props.item.file_type}
+                        reportType="error"
+                        data={this.props.item}
+                        dataKey="error_data"
+                        name="Critical Error"
+                        colors={errorBaseColors} /> : null}
                 </div>
             </div>
         );
