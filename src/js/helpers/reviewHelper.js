@@ -417,7 +417,7 @@ export const fetchObligations = (submissionId) => {
 	return deferred.promise;
 }
 
-export const fetchSubmissionComments = (submissionId) => {
+export const fetchSubmissionNarrative = (submissionId) => {
 	const deferred = Q.defer();
 
 	Request.get(kGlobalConstants.API + 'submission/' + submissionId + '/narrative')
@@ -435,11 +435,11 @@ export const fetchSubmissionComments = (submissionId) => {
 	return deferred.promise;
 }
 
-export const saveComments = (submissionId, comments) => {
+export const saveNarrative = (submissionId, narrative) => {
 	const deferred = Q.defer();
 
 	Request.post(kGlobalConstants.API + 'submission/' + submissionId + '/narrative')
-			.send(comments)
+			.send(narrative)
 			.end((errFile, res) => {
 
 				if (errFile) {

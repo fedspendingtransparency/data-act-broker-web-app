@@ -1,11 +1,11 @@
 /**
- * ReviewDataCommentsTextfield.jsx
+ * ReviewDataNarrativeTextfield.jsx
  * Created by Alisa Burdeyny 11/21/16
  **/
 
 import React from 'react';
 
-export default class ReviewDataCommentsTextfield extends React.Component {
+export default class ReviewDataNarrativeTextfield extends React.Component {
     constructor(props) {
         super(props);
 
@@ -25,7 +25,7 @@ export default class ReviewDataCommentsTextfield extends React.Component {
     render() {
         return (
             <div className="col-md-8">
-                <textarea id="submission-review-comments" value={this.state.currentContent} onChange={this.textChanged.bind(this)}></textarea>
+                <textarea id="submission-review-narrative" value={this.state.currentContent} onChange={this.textChanged.bind(this)}></textarea>
             </div>
         );
     }

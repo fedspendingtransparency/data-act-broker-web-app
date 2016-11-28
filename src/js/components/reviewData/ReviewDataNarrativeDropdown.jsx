@@ -1,11 +1,11 @@
 /**
- * ReviewDataCommentsDropdown.jsx
+ * ReviewDataNarrativeDropdown.jsx
  * Created by Alisa Burdeyny 11/21/16
  **/
 
 import React from 'react';
 
-export default class ReviewDataCommentsDropdown extends React.Component {
+export default class ReviewDataNarrativeDropdown extends React.Component {
     changeFile(e) {
     	e.preventDefault();
     	this.props.changeFile(e.target.value);
