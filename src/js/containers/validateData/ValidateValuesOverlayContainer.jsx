@@ -21,6 +21,10 @@ import * as ReviewHelper from '../../helpers/reviewHelper.js';
 class ValidateValuesOverlayContainer extends React.Component {
 	constructor(props) {
 		super(props);
+		this.state = {
+			notAllowed: false,
+            errorMessage: ""
+		};
 	}
 
 	uploadFiles() {
@@ -28,13 +32,20 @@ class ValidateValuesOverlayContainer extends React.Component {
 			UploadHelper.performLocalCorrectedUpload(this.props.submission);
 		}
 		else {
-			UploadHelper.performRemoteCorrectedUpload(this.props.submission);
+			UploadHelper.performRemoteCorrectedUpload(this.props.submission)
+			.catch((err) => {
+    			if (err.httpStatus == 401) {
+                    this.setState({
+                        notAllowed: true,
+                        errorMessage: err.message
+                    });
+			    }
+        		});
 		}
 	}
 
 
 	render() {
-
 		// check if the critical error files are selected for re-upload
 		const fileKeys = Object.keys(this.props.submission.files);
 		const requiredKeys = [];
@@ -59,7 +70,7 @@ class ValidateValuesOverlayContainer extends React.Component {
 		}
 
 		return (
-			<ValidateValuesOverlay {...this.props} uploadFiles={this.uploadFiles.bind(this)} allowUpload={allowUpload} />
+			<ValidateValuesOverlay {...this.props} uploadFiles={this.uploadFiles.bind(this)} allowUpload={allowUpload} notAllowed={this.state.notAllowed} />
 		);
 	}
 }
