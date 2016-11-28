@@ -94,6 +94,9 @@ export default class ValidateValuesOverlay extends React.Component {
 			}
 		}
 
+		if (this.props.notAllowed) {
+			header = "You are not authorized to perform the requested task. Please contact your administrator."
+		}
 
 		return (
 			<CommonOverlay

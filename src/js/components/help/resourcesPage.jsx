@@ -22,7 +22,7 @@ export default class ResourcesPage extends React.Component {
         return (
             <div className="usa-da-help-style-page" name="top">
                 <div className="usa-da-page-content">
-                    <Navbar activeTab="help"/>
+                    <Navbar activeTab="help" logoOnly={this.props.helpOnly} />
                     <div className="usa-da-content-dark mb-60">
                         <div className="container">
                             <div className="row">

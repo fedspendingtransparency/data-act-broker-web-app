@@ -350,7 +350,9 @@ export const validateSubmission  = (submissionId) => {
 			});
 		})
 		.catch((err) => {
-			deferred.reject(err);
+			const response = Object.assign({}, res.body);
+            response.httpStatus = res.status;
+            deferred.reject(response);
 		});
 
 	return deferred.promise;

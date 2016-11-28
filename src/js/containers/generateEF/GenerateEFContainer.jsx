@@ -102,7 +102,7 @@ class GenerateEFContainer extends React.Component {
 			if (file.httpStatus == 403 || file.httpStatus == 401) {
 				// permissions error, reject
 				showFullPageError = true;
-				fullPageMessage = 'Insufficient permissions to perform requested task.';
+				fullPageMessage = 'You are not authorized to perform the requested task. Please contact your administrator.';
 			}
 			else if (file.status == 'failed') {
 				hasErrors = true;

@@ -16,6 +16,7 @@ export default class ValidateDataOverlay extends React.Component {
 
 	render() {
 
+		let header = "You must fix the Critical Errors found in " + this.props.errors.length + " of the .CSV files before moving on to the next step. View and download individual reports above.";
 		let icon = <Icons.ExclamationCircle />;
 		let iconClass = 'usa-da-errorRed';
 
@@ -42,9 +43,13 @@ export default class ValidateDataOverlay extends React.Component {
 			icon = <LoadingBauble />;
 		}
 
+		if (this.props.notAllowed) {
+			header = "You are not authorized to perform the requested task. Please contact your administrator."
+		}
+
 		return (
 			<CommonOverlay
-				header={"You must fix the Critical Errors found in " + this.props.errors.length + " of the .CSV files before moving on to the next step. View and download individual reports above."}
+				header={header}
 				showButtons={true}
 				icon={icon}
 				iconClass={iconClass}
