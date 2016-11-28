@@ -12,9 +12,9 @@ export default class ReviewDataNarrativeDropdown extends React.Component {
     }
 
     render() {
-        var fileList = ["A", "B", "C", "D1", "D2", "E", "F"];
-        var dropdownOptions = [];
-        for(var i = 0; i < fileList.length; i++) {
+        let fileList = ["A", "B", "C", "D1", "D2", "E", "F"];
+        let dropdownOptions = [];
+        for(let i = 0; i < fileList.length; i++) {
             dropdownOptions.push(<option key={i} value={fileList[i]}>File {fileList[i]}</option>);
         }
         return (

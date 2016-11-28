@@ -16,26 +16,24 @@ export default class ReviewDataNarrative extends React.Component {
         this.state = {
             currentFile: "A",
             fileNarrative: props.narrative,
+            currentNarrative: props.narrative["A"],
             saveState: ""
         };
     }
 
     changeFile(newFile) {
-        var fileNarrative = document.getElementById("submission-review-narrative").value.trim();
-        var tempNarrative = this.state.fileNarrative;
-        tempNarrative[this.state.currentFile] = fileNarrative;
+        let tempNarrative = this.getNewNarrative();
 
         this.setState({
             fileNarrative: tempNarrative,
             currentFile: newFile,
+            currentNarrative: tempNarrative[newFile]
         });
     }
 
     saveNarrative() {
         this.setState({saveState: "Saving"});
-        var fileNarrative = document.getElementById("submission-review-narrative").value.trim();
-        var tempNarrative = this.state.fileNarrative;
-        tempNarrative[this.state.currentFile] = fileNarrative;
+        let tempNarrative = this.getNewNarrative();
 
         ReviewHelper.saveNarrative(this.props.submissionID, tempNarrative)
             .then(() => {
@@ -46,13 +44,23 @@ export default class ReviewDataNarrative extends React.Component {
             });
     }
 
+    getNewNarrative() {
+        let tempNarrative = this.state.fileNarrative;
+        tempNarrative[this.state.currentFile] = this.state.currentNarrative;
+        return tempNarrative
+    }
+
+    textChanged(newNarrative) {
+        this.setState({currentNarrative: newNarrative});
+    }
+
     render() {
         return (
             <div className="narrative-wrapper col-md-8">
                 <h4>Add comments to files</h4>
                 <div className="row">
                     <ReviewDataNarrativeDropdown changeFile={this.changeFile.bind(this)} />
-                    <ReviewDataNarrativeTextfield currentContent={this.state.fileNarrative[this.state.currentFile]} />
+                    <ReviewDataNarrativeTextfield currentContent={this.state.currentNarrative} textChanged={this.textChanged.bind(this)}/>
                 </div>
                 <div className="row">
                     <div className="col-md-10">

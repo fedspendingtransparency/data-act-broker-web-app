@@ -28,7 +28,8 @@ class ReviewDataContainer extends React.Component {
             ready: false,
             total_obligations: null,
             total_assistance_obligations: null,
-            total_procurement_obligations: null
+            total_procurement_obligations: null,
+            file_narrative: {}
         }
     }
 

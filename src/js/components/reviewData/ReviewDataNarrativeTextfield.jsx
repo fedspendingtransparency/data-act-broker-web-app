@@ -6,26 +6,14 @@
 import React from 'react';
 
 export default class ReviewDataNarrativeTextfield extends React.Component {
-    constructor(props) {
-        super(props);
-
-        this.state = {
-            currentContent: props.currentContent
-        };
-    }
-
-    componentWillReceiveProps(nextProps) {
-        this.setState({currentContent: nextProps.currentContent})
-    }
-
     textChanged(e) {
-        this.setState({currentContent: e.target.value});
+        this.props.textChanged(e.target.value);
     }
 
     render() {
         return (
             <div className="col-md-8">
-                <textarea id="submission-review-narrative" value={this.state.currentContent} onChange={this.textChanged.bind(this)}></textarea>
+                <textarea id="submission-review-narrative" value={this.props.currentContent} onChange={this.textChanged.bind(this)}></textarea>
             </div>
         );
     }
