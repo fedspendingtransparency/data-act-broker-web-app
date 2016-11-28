@@ -15,14 +15,31 @@ export default class ReviewDataNarrative extends React.Component {
 
         this.state = {
             currentFile: "A",
-            fileNarrative: props.narrative,
-            currentNarrative: props.narrative["A"],
+            fileNarrative: {},
+            currentNarrative: "",
             saveState: ""
         };
     }
 
+    componentDidMount() {
+        this.updateState(this.props);
+    }
+
+    componentWillReceiveProps(props) {
+        this.updateState(props);
+    }
+
+    updateState(props) {
+        this.setState({
+            currentFile: "A",
+            fileNarrative: props.narrative,
+            currentNarrative: props.narrative["A"],
+            saveState: ""
+        })
+    }
+
     changeFile(newFile) {
-        let tempNarrative = this.getNewNarrative();
+        const tempNarrative = this.getNewNarrative();
 
         this.setState({
             fileNarrative: tempNarrative,
@@ -33,7 +50,7 @@ export default class ReviewDataNarrative extends React.Component {
 
     saveNarrative() {
         this.setState({saveState: "Saving"});
-        let tempNarrative = this.getNewNarrative();
+        const tempNarrative = this.getNewNarrative();
 
         ReviewHelper.saveNarrative(this.props.submissionID, tempNarrative)
             .then(() => {
@@ -45,7 +62,7 @@ export default class ReviewDataNarrative extends React.Component {
     }
 
     getNewNarrative() {
-        let tempNarrative = this.state.fileNarrative;
+        const tempNarrative = this.state.fileNarrative;
         tempNarrative[this.state.currentFile] = this.state.currentNarrative;
         return tempNarrative
     }
