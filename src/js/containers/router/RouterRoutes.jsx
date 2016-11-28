@@ -269,24 +269,6 @@ const routeDefinitions = {
             }
         },
         {
-            path: 'registration',
-            onEnter: rejectIfMAXEnabled,
-            getComponent(nextState, cb) {
-                require.ensure([], (require) => {
-                    cb(null, require('../registration/RegisterEmailContainer.jsx').default)
-                });
-            }
-        },
-        {
-            path: 'registration/:token',
-            onEnter: rejectIfMAXEnabled,
-            getComponent(nextState, cb) {
-                require.ensure([], (require) => {
-                    cb(null, require('../registration/RegisterTokenContainer.jsx').default)
-                });
-            }
-        },
-        {
             path: '*',
             getComponent(nextState, cb) {
                 require.ensure([], (require) => {

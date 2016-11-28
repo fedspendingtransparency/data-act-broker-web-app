@@ -40,7 +40,7 @@ class ValidateValuesOverlayContainer extends React.Component {
                         errorMessage: err.message
                     });
 			    }
-        		});
+    		});	
 		}
 	}
 
