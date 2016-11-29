@@ -81,7 +81,7 @@ const checkUserPermissions = (nextState, replace) => {
     if (session.login != "loggedIn") {
         performAutoLogin(nextState.location, replace);
     }
-    else if (session.permission === null) {
+    else if (!session.user.permission) {
         // if no permissions, bounce to help
         replace('/help');
     }
