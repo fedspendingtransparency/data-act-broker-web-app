@@ -99,7 +99,7 @@ const prepareFiles = (fileDict) => {
 		.send(fileDict)
 		.end((err, res) => {
 			if (err) {
-				deferred.reject(err);
+				deferred.reject(res);
 			}
 			else {
 				deferred.resolve(res);

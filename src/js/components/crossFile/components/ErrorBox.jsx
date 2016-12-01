@@ -165,7 +165,7 @@ export default class ErrorBox extends React.Component {
 								<div className="button-list">
 									<div className="row">
 										<div className="col-md-12">
-				            	            <a href={this.props.meta[tableKey + 'Report']} target="_blank" className="usa-da-button btn-full btn-primary">
+				            	            <a href={this.props.meta[tableKey + 'Report']} target="_blank" rel="noopener noreferrer" className="usa-da-button btn-full btn-primary">
 				            	            	Download {reportName}
 				            	            </a>
 				            	            <div className="upload-title">

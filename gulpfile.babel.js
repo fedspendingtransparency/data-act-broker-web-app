@@ -215,6 +215,9 @@ gulp.task('webpackCore', ['sass'], (callback) => {
             filename: 'core.js',
             library: '[name]_[hash]'
         },
+        resolve: {
+            extensions: ['', '.js', '.jsx']
+        },
         module: {
             loaders: [{
                 test: /\.jsx?$/,
@@ -277,6 +280,9 @@ gulp.task('webpack', ['webpackCore'], () => {
             publicPath: 'js/',
             filename: 'app.js',
             chunkFilename: 'chunk.[chunkhash].js' // including the hash in chunk filenames allows the client to cache them, but discard the cache when the chunk is updated
+        },
+        resolve: {
+            extensions: ['', '.js', '.jsx']
         },
         module: {
             loaders: [{
