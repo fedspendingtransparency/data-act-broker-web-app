@@ -1,4 +1,4 @@
-##### What's New in This Release - October 31, 2016
+##### What's New in This Release - November 30, 2016
 
 On September 30, 2016, we released the full version of the DATA Act Broker that contained everything agencies need to test the data validation and submission process. Now we are making improvements to the Broker and responding to issues discovered through greater agency use.
 
