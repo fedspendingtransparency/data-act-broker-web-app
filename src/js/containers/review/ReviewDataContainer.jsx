@@ -28,7 +28,8 @@ class ReviewDataContainer extends React.Component {
             ready: false,
             total_obligations: null,
             total_assistance_obligations: null,
-            total_procurement_obligations: null
+            total_procurement_obligations: null,
+            file_narrative: {}
         }
     }
 
@@ -56,6 +57,10 @@ class ReviewDataContainer extends React.Component {
             })
             .then((name) => {
                 submission.agency_name = name;
+                return ReviewHelper.fetchSubmissionNarrative(this.props.params.submissionID);
+            })
+            .then((narrative) => {
+                submission.file_narrative = narrative;
                 return ReviewHelper.fetchObligations(this.props.params.submissionID);
             })
             .then((data) => {

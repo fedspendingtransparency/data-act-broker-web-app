@@ -11,6 +11,7 @@ import ReviewDataContentRow from './ReviewDataContentRow.jsx';
 import ReviewDataButton from './ReviewDataButton.jsx';
 import ReviewDataNotifyModal from './ReviewDataNotifyModal.jsx';
 import ReviewDataCertifyModal from './CertificationModal/ReviewDataCertifyModal.jsx';
+import ReviewDataNarrative from './ReviewDataNarrative.jsx'
 import moment from 'moment';
 
 import * as ReviewHelper from '../../helpers/reviewHelper.js';
@@ -96,7 +97,12 @@ export default class ReviewDataContent extends React.Component {
     }
 
     formatCurrency(currencyNumber) {
+        let negative = currencyNumber < 0;
         let currencyString = currencyNumber.toFixed(2);
+        // remove negative sign for formatting
+        if(negative) {
+            currencyString = currencyString.substr(1);
+        }
         let cents = currencyString.split(".")[1];
         let dollars = currencyString.split(".")[0];
         // start at the end and every 3 numbers add a comma to the string
@@ -104,6 +110,10 @@ export default class ReviewDataContent extends React.Component {
             dollars = dollars.slice(0, i) + "," + dollars.slice(i);
         }
         let formattedCurrencyString = "$" + dollars + "." + cents;
+        // add negative sign for formatting
+        if(negative) {
+            formattedCurrencyString = "-" + formattedCurrencyString;
+        }
         return formattedCurrencyString;
     }
 
@@ -175,6 +185,10 @@ export default class ReviewDataContent extends React.Component {
                         <div className="col-md-8 usa-da-review-data-alternating-rows">
                             {reportRows}
                         </div>
+                    </div>
+                    <div className="row">
+                        <div className="col-md-4"></div>
+                        <ReviewDataNarrative narrative={this.props.data.file_narrative} submissionID={this.props.params.submissionID} />
                     </div>
                     <div className="mt-20">
                         <div className="submission-wrapper">
