@@ -35,7 +35,8 @@ export default class GenerateDetachedFilesPage extends React.Component {
 				download: {
 					show: false,
 					url: ''
-				}
+				},
+                valid: false
 			},
 			d2: {
 				startDate: null,
@@ -48,7 +49,8 @@ export default class GenerateDetachedFilesPage extends React.Component {
 				download: {
 					show: false,
 					url: ''
-				}
+				},
+                valid: false
 			}
         };
     }
@@ -86,12 +88,52 @@ export default class GenerateDetachedFilesPage extends React.Component {
     	this.setState({
     		[file]: newState
     	}, () => {
-    		this.validateDates();
+    		this.validateDates(file);
     	});
 	}
 
-    validateDates() {
-        console.log("validation");
+    validateDates(file) {
+        // validate that dates are provided for both fields and the end dates don't come before the start dates
+		let state = "incomplete";
+
+    	const dFile = Object.assign({}, this.state[file]);
+
+        // validate the date ranges
+        const start = this.state[file].startDate;
+        const end = this.state[file].endDate;
+        if (start && end) {
+            // both sets of dates exist
+            if (!end.isSameOrAfter(start)) {
+                // end date comes before start date, invalid
+                // show an error message
+                dFile.error = {
+                    show: true,
+                    header: 'Invalid Dates',
+                    description: 'The end date cannot be earlier than the start date.'
+                };
+                dFile.valid = false;
+            }
+            else {
+                // valid!
+                dFile.error = {
+                    show: false,
+                    header: '',
+                    description: ''
+                };
+                dFile.valid = true;
+            }
+        }
+        else {
+            // not all dates exist yet
+            dFile.error = {
+                show: false,
+                header: '',
+                description: ''
+            };
+            dFile.valid = false;
+        }
+
+        this.setState({[file]:dFile});
     }
 
     showError(file, header, description) {

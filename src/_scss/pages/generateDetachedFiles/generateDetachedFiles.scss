@@ -25,6 +25,12 @@
             @import "../generateFiles/generateItem/generateItem";
         }
 
+        // import the alerts
+        .alert-error {
+            @import "../../components/alerts/_alerts";
+            @include dangerAlert;
+        }
+
         // style the icons
         .usa-da-form-icon {
             @import "../../components/inputs/_fieldIcon";

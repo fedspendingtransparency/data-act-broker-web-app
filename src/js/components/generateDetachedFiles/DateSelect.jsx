@@ -20,6 +20,10 @@ export default class DateSelect extends React.Component {
         this.props.hideError(file);
     }
 
+    generateFile(fileType) {
+        console.log(fileType);
+    }
+
     render() {
         return (
             <div className="usa-da-date-select dashed-border-top">
@@ -34,6 +38,8 @@ export default class DateSelect extends React.Component {
                     showError={this.showError.bind(this, "d1")}
                     hideError={this.hideError.bind(this, "d1")} />
 
+                <button disabled={!this.props.d1.valid} onClick={this.generateFile.bind(this, "d1")}>Generate D1 File</button>
+
                 <GenerateFileBox 
                     label="File D2: Financial Assistance" 
                     datePlaceholder="Action"
@@ -44,6 +50,8 @@ export default class DateSelect extends React.Component {
                     onDateChange={this.handleDateChange.bind(this, "d2")} 
                     showError={this.showError.bind(this, "d2")}
                     hideError={this.hideError.bind(this, "d2")} />
+
+                <button disabled={!this.props.d2.valid} onClick={this.generateFile.bind(this, "d2")}>Generate D2 File</button>
             </div>
         );
     }
