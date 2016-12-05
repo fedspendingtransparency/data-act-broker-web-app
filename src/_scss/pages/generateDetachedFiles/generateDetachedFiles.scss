@@ -20,6 +20,11 @@
             border-top: 1px dashed $color-gray-lighter;
         }
 
+        .usa-da-date-select {
+            padding-top: 30px;
+            @import "../generateFiles/generateItem/generateItem";
+        }
+
         // style the icons
         .usa-da-form-icon {
             @import "../../components/inputs/_fieldIcon";

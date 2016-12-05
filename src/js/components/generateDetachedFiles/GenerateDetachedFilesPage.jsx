@@ -5,7 +5,8 @@
 
 import ReactCSSTransitionGroup from 'react-addons-css-transition-group';
 
-import React from 'react'
+import React from 'react';
+import moment from 'moment';
 import Navbar from '../SharedComponents/navigation/NavigationComponent.jsx';
 import Footer from '../SharedComponents/FooterComponent.jsx';
 import AgencyListContainer from '../../containers/SharedContainers/AgencyListContainer.jsx';
@@ -19,17 +20,36 @@ export default class GenerateDetachedFilesPage extends React.Component {
 
         this.state = {
             agency: "",
-            startDate: null,
-            endDate: null,
-            dateType: null,
-            startDateError: false,
-            endDateError: false,
             agencyError: false,
             showDateSelect: false,
-            showDateRangeField: false,
             showSubmitButton: false,
             buttonDisabled: true,
-            message: this.successMessage
+            d1: {
+				startDate: null,
+				endDate: null,
+				error: {
+					show: false,
+					header: '',
+					description: ''
+				},
+				download: {
+					show: false,
+					url: ''
+				}
+			},
+			d2: {
+				startDate: null,
+				endDate: null,
+				error: {
+					show: false,
+					header: '',
+					description: ''
+				},
+				download: {
+					show: false,
+					url: ''
+				}
+			}
         };
     }
 
@@ -57,6 +77,51 @@ export default class GenerateDetachedFilesPage extends React.Component {
         }
     }
 
+    handleDateChange(file, date, dateType) {
+    	// merge the new date into the file's state without affecting the other keys
+    	const newState = Object.assign(this.state[file], {
+    		[dateType]: moment(date)
+    	});
+
+    	this.setState({
+    		[file]: newState
+    	}, () => {
+    		this.validateDates();
+    	});
+	}
+
+    validateDates() {
+        console.log("validation");
+    }
+
+    showError(file, header, description) {
+		const state = Object.assign({}, this.state[file], {
+			error: {
+				show: true,
+				header: header,
+				description: description
+			}
+		});
+		
+		this.setState({
+			[file]: state
+		});
+	}
+
+    hideError(file) {
+		const state = Object.assign({}, this.state[file], {
+			error: {
+				show: false,
+				header: '',
+				description: ''
+			}
+		});
+
+		this.setState({
+			[file]: state
+		});
+	}
+
     render() {
         let agencyIcon = <Icons.Building />;
         let agencyClass = '';
@@ -67,7 +132,7 @@ export default class GenerateDetachedFilesPage extends React.Component {
 
         let dateSelect = null;
         if (this.state.showDateSelect) {
-            dateSelect = <DateSelect />;
+            dateSelect = <DateSelect {...this.state} handleDateChange={this.handleDateChange.bind(this)} showError={this.showError.bind(this)} hideError={this.hideError.bind(this)}/>;
         }
         
         return (
