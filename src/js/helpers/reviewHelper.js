@@ -350,7 +350,9 @@ export const validateSubmission  = (submissionId) => {
 			});
 		})
 		.catch((err) => {
-			deferred.reject(err);
+			const response = Object.assign({}, res.body);
+            response.httpStatus = res.status;
+            deferred.reject(response);
 		});
 
 	return deferred.promise;
@@ -435,4 +437,41 @@ export const signErrorWarningReport = (submissionId, fileName) => {
         });
 
     return deferred.promise;
+}
+
+export const fetchSubmissionNarrative = (submissionId) => {
+	const deferred = Q.defer();
+
+	Request.get(kGlobalConstants.API + 'submission/' + submissionId + '/narrative')
+			.end((errFile, res) => {
+
+				if (errFile) {
+					deferred.reject(errFile);
+				}
+				else {
+					deferred.resolve(res.body);
+				}
+
+			});
+
+	return deferred.promise;
+}
+
+export const saveNarrative = (submissionId, narrative) => {
+	const deferred = Q.defer();
+
+	Request.post(kGlobalConstants.API + 'submission/' + submissionId + '/narrative')
+			.send(narrative)
+			.end((errFile, res) => {
+
+				if (errFile) {
+					deferred.reject(errFile);
+				}
+				else {
+					deferred.resolve(res.body);
+				}
+
+			});
+
+	return deferred.promise;
 }
