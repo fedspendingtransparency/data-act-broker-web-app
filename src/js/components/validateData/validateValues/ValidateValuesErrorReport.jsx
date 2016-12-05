@@ -156,7 +156,7 @@ export default class ValidateValuesErrorReport extends React.Component {
 
         let reportLinkText = `Download ${this.props.name}s Report`;
         if (this.state.signInProgress) {
-            reportLinkText = 'Preparing {this.props.name}s Report...';
+            reportLinkText = `Preparing ${this.props.name}s Report...`;
         }
 
         return (
