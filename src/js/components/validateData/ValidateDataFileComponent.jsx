@@ -295,7 +295,10 @@ export default class ValidateDataFileComponent extends React.Component {
                             </div>
                         </div>
                     </div>
-                    {this.state.showError ? <ValidateDataErrorReport link={this.props.item.report} data={this.state.errorReports} /> : null}
+                    {this.state.showError ? <ValidateDataErrorReport
+                        submission={this.props.submission.id}
+                        type={this.props.item.file_type}
+                        data={this.state.errorReports} /> : null}
                 </div>
             </div>
         );
