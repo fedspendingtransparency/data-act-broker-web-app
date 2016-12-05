@@ -1,4 +1,29 @@
 .usa-da-generate-detached-files-page {
     @import "../../layouts/content/content";
     @include contentLayout;
+
+    // import typeahead styles
+    @import "../../components/typeahead/_typeahead";
+
+    .select-agency-holder {
+        padding: 15px 30px 30px 30px;
+        @include contentBlockWrapper;
+
+        .usa-da-select-agency-label {
+            margin: 15px 0px 10px;
+            text-align: left;
+            font-size: 1.6rem;
+        }
+
+        .dashed-border-top {
+            margin: 31px 0 10px;
+            border-top: 1px dashed $color-gray-lighter;
+        }
+
+        // style the icons
+        .usa-da-form-icon {
+            @import "../../components/inputs/_fieldIcon";
+            @include fieldIcon;
+        }
+    }
 }

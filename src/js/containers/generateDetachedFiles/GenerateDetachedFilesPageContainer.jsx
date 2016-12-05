@@ -8,7 +8,7 @@ import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 
 import * as uploadActions from '../../redux/actions/uploadActions.js';
-import GenerateDetachedFilesPage from '../../components/generateDetachedFiles/GenerateDetachedFilesPage.jsx'
+import GenerateDetachedFilesPage from '../../components/generateDetachedFiles/GenerateDetachedFilesPage.jsx';
 
 import Moment from 'moment';
 
