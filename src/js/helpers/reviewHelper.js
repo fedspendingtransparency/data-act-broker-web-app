@@ -419,6 +419,26 @@ export const fetchObligations = (submissionId) => {
 	return deferred.promise;
 }
 
+export const signErrorWarningReport = (submissionId, fileName) => {
+    const deferred = Q.defer();
+
+    Request.post(kGlobalConstants.API + 'sign_submission_file')
+        .send({
+            'submission': submissionId,
+            'file': fileName
+        })
+        .end((errFile, res) => {
+            if (errFile) {
+                deferred.reject(errFile, res);
+            }
+            else {
+                deferred.resolve(res.body);
+            }
+        });
+
+    return deferred.promise;
+}
+
 export const fetchSubmissionNarrative = (submissionId) => {
 	const deferred = Q.defer();
 
