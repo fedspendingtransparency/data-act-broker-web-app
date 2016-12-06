@@ -5,7 +5,7 @@
 
 import React from 'react';
 import GenerateFileBox from '../generateFiles/components/GenerateFileBox.jsx';
-import moment from 'moment';
+import LoadingBauble from '../SharedComponents/overlays/LoadingBauble.jsx';
 
 export default class DateSelect extends React.Component {
     handleDateChange(file, date, dateType) {
@@ -20,11 +20,20 @@ export default class DateSelect extends React.Component {
         this.props.hideError(file);
     }
 
-    generateFile(fileType) {
-        console.log(fileType);
-    }
-
     render() {
+        let d1Text = "Generate D1 File";
+        let loadingD1 = null;
+        if(this.props.d1.status == "generating") {
+            d1Text = "Generating";
+            loadingD1 = <LoadingBauble />
+        }
+
+        let d2Text = "Generate D2 File";
+        let loadingD2 = null;
+        if(this.props.d2.status == "generating") {
+            d2Text = "Generating";
+            loadingD2 = <LoadingBauble />
+        }
         return (
             <div className="usa-da-date-select dashed-border-top">
                 <GenerateFileBox 
@@ -38,7 +47,9 @@ export default class DateSelect extends React.Component {
                     showError={this.showError.bind(this, "d1")}
                     hideError={this.hideError.bind(this, "d1")} />
 
-                <button disabled={!this.props.d1.valid} onClick={this.generateFile.bind(this, "d1")}>Generate D1 File</button>
+                <div className="right-align-box">
+                    <button className="usa-da-button btn-default" disabled={!this.props.d1.valid || this.props.d1.status == "generating"} onClick={this.props.generateFile.bind(this, "d1")}>{loadingD1}{d1Text}</button>
+                </div>
 
                 <GenerateFileBox 
                     label="File D2: Financial Assistance" 
@@ -51,7 +62,13 @@ export default class DateSelect extends React.Component {
                     showError={this.showError.bind(this, "d2")}
                     hideError={this.hideError.bind(this, "d2")} />
 
-                <button disabled={!this.props.d2.valid} onClick={this.generateFile.bind(this, "d2")}>Generate D2 File</button>
+                <div className="right-align-box">
+                    <button className="usa-da-button btn-default" disabled={!this.props.d2.valid || this.props.d2.status == "generating"} onClick={this.props.generateFile.bind(this, "d2")}>{loadingD2}{d2Text}</button>
+                </div>
+
+                <div className="loading-animation">
+                    <LoadingBauble />
+                </div>
             </div>
         );
     }

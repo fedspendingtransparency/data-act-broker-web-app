@@ -36,7 +36,8 @@ export default class GenerateDetachedFilesPage extends React.Component {
 					show: false,
 					url: ''
 				},
-                valid: false
+                valid: false,
+                status: ""
 			},
 			d2: {
 				startDate: null,
@@ -50,7 +51,8 @@ export default class GenerateDetachedFilesPage extends React.Component {
 					show: false,
 					url: ''
 				},
-                valid: false
+                valid: false,
+                status: ""
 			}
         };
     }
@@ -75,6 +77,11 @@ export default class GenerateDetachedFilesPage extends React.Component {
         if (this.state.agency !== "") {
             this.setState({
                 showDateSelect: true
+            });
+        }
+        else {
+            this.setState({
+                showDateSelect: false
             });
         }
     }
@@ -164,6 +171,13 @@ export default class GenerateDetachedFilesPage extends React.Component {
 		});
 	}
 
+    generateFile(file) {
+        const tmpFile = Object.assign({}, this.state[file]);
+        tmpFile.status = "generating";
+        this.setState({[file]: tmpFile});
+        console.log(file);
+    }
+
     render() {
         let agencyIcon = <Icons.Building />;
         let agencyClass = '';
@@ -174,7 +188,10 @@ export default class GenerateDetachedFilesPage extends React.Component {
 
         let dateSelect = null;
         if (this.state.showDateSelect) {
-            dateSelect = <DateSelect {...this.state} handleDateChange={this.handleDateChange.bind(this)} showError={this.showError.bind(this)} hideError={this.hideError.bind(this)}/>;
+            dateSelect = <DateSelect {...this.state} 
+                            handleDateChange={this.handleDateChange.bind(this)} 
+                            showError={this.showError.bind(this)} hideError={this.hideError.bind(this)} 
+                            generateFile={this.generateFile.bind(this)} />;
         }
         
         return (
@@ -185,7 +202,7 @@ export default class GenerateDetachedFilesPage extends React.Component {
                         <div className="usa-da-content-dark">
                             <div className="container">
                                 <div className="row usa-da-page-title">
-                                    <div className="col-md-12 mt-40 mb-20">
+                                    <div className="col-lg-12 mt-40 mb-20">
                                         <div className="display-2">Generate and Download Files D1 & D2</div>
                                     </div>
                                 </div>
@@ -194,7 +211,7 @@ export default class GenerateDetachedFilesPage extends React.Component {
 
                         <div className="container center-block">
                             <div className="row text-center usa-da-select-agency">
-                                <div className="col-md-offset-2 col-md-8 mt-60 mb-60">
+                                <div className="col-lg-offset-2 col-lg-8 mt-60 mb-60">
                                     <h5>Please begin by telling us about files you would like to generate</h5>
                                     <div className="select-agency-holder">
                                         <div className="row usa-da-select-agency-label">

@@ -23,6 +23,10 @@
         .usa-da-date-select {
             padding-top: 30px;
             @import "../generateFiles/generateItem/generateItem";
+
+            .usa-da-generate-item-wrap {
+                margin-bottom: 10px;
+            }
         }
 
         // import the alerts
@@ -35,6 +39,34 @@
         .usa-da-form-icon {
             @import "../../components/inputs/_fieldIcon";
             @include fieldIcon;
+        }
+
+        .usa-da-button {
+            @import "../../components/buttons/_optional";
+            @include optionalButton;
+
+            margin-bottom: 10px;
+
+            @import "../../lib/spinkit/spinners/2-double-bounce";
+
+            .sk-double-bounce {
+                margin: 0;
+                margin-right: 7.5px;
+
+                display: inline-block;
+                width: 15px;
+                height: 15px;
+
+                top: 2px;
+
+                .sk-child {
+                    background-color: black;
+                }
+            }
+        }
+
+        .right-align-box {
+            text-align: right;
         }
     }
 }
