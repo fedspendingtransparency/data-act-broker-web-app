@@ -22,6 +22,8 @@ export default class GenerateDetachedFilesPage extends React.Component {
     constructor(props) {
         super(props);
 
+        this.isUnmounted = false;
+
         this.state = {
             agency: "",
             agencyError: false,
@@ -60,6 +62,14 @@ export default class GenerateDetachedFilesPage extends React.Component {
 			}
         };
     }
+
+    componentDidMount() {
+		this.isUnmounted = false;
+	}
+
+	componentWillUnmount() {
+		this.isUnmounted = true;
+	}
 
     handleChange(agency, isValid){
         // display or hide file generation based on agency validity and set agency
