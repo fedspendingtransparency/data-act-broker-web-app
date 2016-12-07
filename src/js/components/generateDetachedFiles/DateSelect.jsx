@@ -27,12 +27,18 @@ export default class DateSelect extends React.Component {
             d1Text = "Generating";
             loadingD1 = <LoadingBauble />
         }
+        else if(this.props.d1.status == "done") {
+            d1Text = "Regenerate D1 File";
+        }
 
         let d2Text = "Generate D2 File";
         let loadingD2 = null;
         if(this.props.d2.status == "generating") {
             d2Text = "Generating";
             loadingD2 = <LoadingBauble />
+        }
+        else if(this.props.d2.status == "done") {
+            d1Text = "Regenerate D2 File";
         }
         return (
             <div className="usa-da-date-select dashed-border-top">

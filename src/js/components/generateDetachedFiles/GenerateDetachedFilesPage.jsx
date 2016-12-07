@@ -12,7 +12,11 @@ import Footer from '../SharedComponents/FooterComponent.jsx';
 import AgencyListContainer from '../../containers/SharedContainers/AgencyListContainer.jsx';
 import DateSelect from './DateSelect.jsx';
 
+import * as GenerateFilesHelper from '../../helpers/generateFilesHelper.js';
+
 import * as Icons from '../SharedComponents/icons/Icons.jsx';
+
+const timerDuration = 10;
 
 export default class GenerateDetachedFilesPage extends React.Component {
     constructor(props) {
@@ -175,7 +179,69 @@ export default class GenerateDetachedFilesPage extends React.Component {
         const tmpFile = Object.assign({}, this.state[file]);
         tmpFile.status = "generating";
         this.setState({[file]: tmpFile});
-        console.log(file);
+        GenerateFilesHelper.generateDetachedFile(file.toUpperCase(), tmpFile.startDate.format('MM/DD/YYYY'), tmpFile.endDate.format('MM/DD/YYYY'), this.state.agency)
+            .then((response) => {
+                if(this.isUnmounted) {
+                    return;
+                }
+
+                this.parseFileState(response);
+            });
+    }
+
+    checkFileStatus(file) {
+        GenerateFilesHelper.fetchDetachedFile(file)
+            .then((response) => {
+                if (this.isUnmounted) {
+					return;
+				}
+
+                this.parseFileState(response);
+            });
+    }
+
+    parseFileState(data) {
+        const fileType = data.file_type.toLowerCase();
+
+        if (data.httpStatus == 401) {
+            this.showError(fileType, 'Permission Error', response.message);
+        }
+        else if (data.status == 'failed' || data.status == 'invalid') {
+            let message = 'File ' + data.file_type + ' could not be generated.';
+
+            if (data.message != '') {
+                message = data.message;
+            }
+
+            this.showError(fileType, data.file_type + ' File Error', message);
+        }
+        else if (data.status == 'finished') {
+            this.hideError(fileType);
+
+            // display dowload buttons
+            // make a clone of the file's react state
+            const item = Object.assign({}, this.state[fileType]);
+
+            // update the download properties
+            item.download = {
+                show: true,
+                url: data.url
+            };
+            item.status = "done";
+
+            this.setState({[fileType]: item});
+        }
+
+        if (this.isUnmounted) {
+            return;
+        }
+
+        if (!data.status == 'finished' && !this.isUnmounted) {
+            // wait 5 seconds and check the file status again
+			window.setTimeout(() => {
+				this.checkFileStatus(data.file_type);
+			}, timerDuration * 1000);
+        }
     }
 
     render() {

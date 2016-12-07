@@ -76,3 +76,52 @@ export const fetchFile = (type, submissionId) => {
 
     return deferred.promise;
 }
+
+export const generateDetachedFile = (type, start, end, cgac_code) => {
+    const deferred = Q.defer();
+
+    Request.post(kGlobalConstants.API + 'generate_detached_file/')
+            .send({
+                'file_type': type,
+                'start': start,
+                'end': end,
+                'cgac_code': cgac_code
+            })
+            .end((errFile, res) => {
+
+                if (errFile) {
+                    const response = Object.assign({}, res.body);
+                    response.httpStatus = res.status;
+                    deferred.reject(response);
+                }
+                else {
+                    deferred.resolve(res.body);
+                }
+
+            });
+
+    return deferred.promise;
+}
+
+export const fetchDetachedFile = (type) => {
+    const deferred = Q.defer();
+
+    Request.post(kGlobalConstants.API + 'check_detached_generation_status/')
+            .send({
+                'file_type': type
+            })
+            .end((errFile, res) => {
+
+                if (errFile) {
+                    const response = Object.assign({}, res.body);
+                    response.httpStatus = res.status;
+                    deferred.reject(response);
+                }
+                else {
+                    deferred.resolve(res.body);
+                }
+
+            });
+
+    return deferred.promise;
+}
