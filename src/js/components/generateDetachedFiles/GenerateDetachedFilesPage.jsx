@@ -220,6 +220,11 @@ export default class GenerateDetachedFilesPage extends React.Component {
                 message = data.message;
             }
 
+            // make a clone of the file's react state
+            const item = Object.assign({}, this.state[fileType]);
+            item.status = "";
+            this.setState({[fileType]: item});
+
             this.showError(fileType, data.file_type + ' File Error', message);
         }
         else if (data.status == 'finished') {
@@ -243,7 +248,7 @@ export default class GenerateDetachedFilesPage extends React.Component {
             return;
         }
 
-        if (!data.status == 'finished' && !this.isUnmounted) {
+        if (data.status !== 'finished' && !this.isUnmounted) {
             // wait 5 seconds and check the file status again
 			window.setTimeout(() => {
 				this.checkFileStatus(data.file_type);
