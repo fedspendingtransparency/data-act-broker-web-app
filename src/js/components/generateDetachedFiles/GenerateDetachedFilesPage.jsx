@@ -62,6 +62,7 @@ export default class GenerateDetachedFilesPage extends React.Component {
     }
 
     handleChange(agency, isValid){
+        // display or hide file generation based on agency validity and set agency
         if (agency != '' && isValid) {
             this.setState({
                 agency: agency,
@@ -77,7 +78,7 @@ export default class GenerateDetachedFilesPage extends React.Component {
     }
 
     checkComplete() {
-
+        // actually display/hide the file generation
         if (this.state.agency !== "") {
             this.setState({
                 showDateSelect: true
@@ -148,6 +149,7 @@ export default class GenerateDetachedFilesPage extends React.Component {
     }
 
     showError(file, header, description) {
+        // show error that occurs at any point during file generation
 		const state = Object.assign({}, this.state[file], {
 			error: {
 				show: true,
@@ -162,6 +164,7 @@ export default class GenerateDetachedFilesPage extends React.Component {
 	}
 
     hideError(file) {
+        // stop displaying the error for the given file
 		const state = Object.assign({}, this.state[file], {
 			error: {
 				show: false,
@@ -176,9 +179,11 @@ export default class GenerateDetachedFilesPage extends React.Component {
 	}
 
     generateFile(file) {
+        // generate specified file
         const tmpFile = Object.assign({}, this.state[file]);
         tmpFile.status = "generating";
         this.setState({[file]: tmpFile});
+
         GenerateFilesHelper.generateDetachedFile(file.toUpperCase(), tmpFile.startDate.format('MM/DD/YYYY'), tmpFile.endDate.format('MM/DD/YYYY'), this.state.agency)
             .then((response) => {
                 if(this.isUnmounted) {
@@ -190,6 +195,7 @@ export default class GenerateDetachedFilesPage extends React.Component {
     }
 
     checkFileStatus(file) {
+        // callback to check file status
         GenerateFilesHelper.fetchDetachedFile(file)
             .then((response) => {
                 if (this.isUnmounted) {
@@ -201,6 +207,7 @@ export default class GenerateDetachedFilesPage extends React.Component {
     }
 
     parseFileState(data) {
+        // parse response and see what state the generation is in
         const fileType = data.file_type.toLowerCase();
 
         if (data.httpStatus == 401) {
