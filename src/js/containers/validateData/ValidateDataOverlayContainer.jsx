@@ -20,6 +20,11 @@ import * as ReviewHelper from '../../helpers/reviewHelper.js';
 class ValidateDataOverlayContainer extends React.Component {
 	constructor(props) {
 		super(props);
+
+		this.state = {
+			notAllowed: false,
+            errorMessage: ""
+		};
 	}
 
 	uploadFiles() {
@@ -33,6 +38,14 @@ class ValidateDataOverlayContainer extends React.Component {
 			UploadHelper.performRemoteCorrectedUpload(this.props.submission)
 				.then(() => {
 					this.props.setSubmissionState('prepare');
+				})
+				.catch((err) => {
+	    			if (err.httpStatus == 401) {
+	                    this.setState({
+	                        notAllowed: true,
+	                        errorMessage: err.message
+	                    });
+				    }
 				});
 		}
 	}
@@ -40,7 +53,7 @@ class ValidateDataOverlayContainer extends React.Component {
 
 	render() {
 		return (
-			<ValidateDataOverlay {...this.props} uploadFiles={this.uploadFiles.bind(this)} />
+			<ValidateDataOverlay {...this.props} uploadFiles={this.uploadFiles.bind(this)} notAllowed={this.state.notAllowed} />
 		);
 	}
 }
