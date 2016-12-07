@@ -210,10 +210,18 @@ export default class GenerateDetachedFilesPage extends React.Component {
         // parse response and see what state the generation is in
         const fileType = data.file_type.toLowerCase();
 
+        let runCheck = true;
+
         if (data.httpStatus == 401) {
+            // don't run the check again if it failed
+            runCheck = false;
+
             this.showError(fileType, 'Permission Error', response.message);
         }
         else if (data.status == 'failed' || data.status == 'invalid') {
+            // don't run the check again if it failed
+            runCheck = false;
+
             let message = 'File ' + data.file_type + ' could not be generated.';
 
             if (data.message != '') {
@@ -228,6 +236,9 @@ export default class GenerateDetachedFilesPage extends React.Component {
             this.showError(fileType, data.file_type + ' File Error', message);
         }
         else if (data.status == 'finished') {
+            // don't run the check again if it's done
+            runCheck = false;
+
             this.hideError(fileType);
 
             // display dowload buttons
@@ -248,7 +259,7 @@ export default class GenerateDetachedFilesPage extends React.Component {
             return;
         }
 
-        if (data.status !== 'finished' && !this.isUnmounted) {
+        if (runCheck && !this.isUnmounted) {
             // wait 5 seconds and check the file status again
 			window.setTimeout(() => {
 				this.checkFileStatus(data.file_type);
