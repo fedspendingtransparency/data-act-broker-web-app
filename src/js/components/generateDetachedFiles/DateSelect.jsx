@@ -38,7 +38,7 @@ export default class DateSelect extends React.Component {
             loadingD2 = <LoadingBauble />
         }
         else if(this.props.d2.status == "done") {
-            d1Text = "Regenerate D2 File";
+            d2Text = "Regenerate D2 File";
         }
         return (
             <div className="usa-da-date-select dashed-border-top">
