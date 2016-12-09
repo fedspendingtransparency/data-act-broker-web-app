@@ -1,7 +1,7 @@
 #### December 7, 2016
 In this release we are making improvements to the Broker and responding to issues discovered through greater agency use.
 
-In this release there are documentation changes, and changes to the way the Data Broker handles certain conditions. 
+In this release there are bugfixes, improvements, and changes to the way the Data Broker handles certain conditions. 
 
   - [Flex Fields](#/help?section=flexfields)
   - [Comment box available for each file in certification](#/help?section=comments)
