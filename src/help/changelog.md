@@ -13,7 +13,7 @@ In this release there are bugfixes, improvements, and changes to the way the Dat
 
  Users can now add additional columns to their submission files (A-C) that will be returned in their warning and error files. To use this feature, add any column to your submission data and prefix the header with "flex\_". For example, a column named "flex_reportingbureau" will be ignored for validation purposes but returned for any rows that have errors in the warnings and error reports. 
 
-##### Commens in Certification{section=comments}
+##### Comments in Certification{section=comments}
 
 Users can now add comments to each file during the certification process. On the final summary screen, you can select the file you wish to add comments for and write free-form prose to accompany that file for certification purposes. 
  
