@@ -204,9 +204,9 @@ export default class GenerateDetachedFilesPage extends React.Component {
             });
     }
 
-    checkFileStatus(file) {
+    checkFileStatus(job_id) {
         // callback to check file status
-        GenerateFilesHelper.fetchDetachedFile(file)
+        GenerateFilesHelper.fetchDetachedFile(job_id)
             .then((response) => {
                 if (this.isUnmounted) {
 					return;
@@ -272,7 +272,7 @@ export default class GenerateDetachedFilesPage extends React.Component {
         if (runCheck && !this.isUnmounted) {
             // wait 5 seconds and check the file status again
 			window.setTimeout(() => {
-				this.checkFileStatus(data.file_type);
+				this.checkFileStatus(data.job_id);
 			}, timerDuration * 1000);
         }
     }
