@@ -103,12 +103,12 @@ export const generateDetachedFile = (type, start, end, cgac_code) => {
     return deferred.promise;
 }
 
-export const fetchDetachedFile = (type) => {
+export const fetchDetachedFile = (job_id) => {
     const deferred = Q.defer();
 
     Request.post(kGlobalConstants.API + 'check_detached_generation_status/')
             .send({
-                'file_type': type
+                'job_id': job_id
             })
             .end((errFile, res) => {
 
