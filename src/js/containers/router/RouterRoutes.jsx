@@ -62,20 +62,6 @@ const performAutoLogin = (location, replace) => {
 
 }
 
-const checkAdminPermissions = (nextState, replace) => {
-    getStore();
-    const session = store.getState().session;
-    if (session.login != "loggedIn") {
-        // user isn't logged in
-        replace('/login?redirect=/admin');
-    }
-    else if (!session.admin) {
-        // if not an admin, bounce to home
-        replace('/landing');
-    }
-
-}
-
 const checkUserPermissions = (nextState, replace) => {
     getStore();
     const session = store.getState().session;
@@ -97,13 +83,6 @@ const checkHelpUserPermissions = (nextState, replace) => {
     }
 }
 
-const redirectIfLogin = (nextState, replace) => {
-    //TODO Add check For User Permissions
-}
-const debugRoute = (nextState, replace) => {
-
-}
-
 // defining the routes outside of the component because React Router cannot handle state/prop changes that Redux causes
 const routeDefinitions = {
     path: '/',
@@ -119,15 +98,6 @@ const routeDefinitions = {
         {
             path: 'auth',
             component: AuthPage
-        },
-        {
-            path: 'admin',
-            onEnter: checkAdminPermissions,
-            getComponent(nextState, cb) {
-                require.ensure([], (require) => {
-                    cb(null, require('../../components/admin/AdminPage.jsx').default)
-                });
-            }
         },
         {
             path: 'landing',
