@@ -9,13 +9,9 @@ import { kGlobalConstants } from '../GlobalConstants.js';
 import * as uploadActions from '../redux/actions/uploadActions.js';
 import * as sessionActions from '../redux/actions/sessionActions.js';
 
-import { fileTypes } from '../containers/addData/fileTypes.js';
-import * as AdminHelper from './adminHelper.js';
-
 Q.longStackSupport = true;
 
-const availablePairs = ['appropriations-program_activity', 'program_activity-award_financial', 'award_financial-award_procurement', 'award_financial-award' ];
-const globalFileKeys = ['appropriations', 'program_activity', 'award_financial', 'award', 'award_procurement'];
+const availablePairs = ['appropriations-program_activity', 'program_activity-award_financial', 'award_financial-award_procurement', 'award_financial-award'];
 export const globalFileData = {
     appropriations: {
         name: 'Appropriations Account',

@@ -2,8 +2,6 @@
 @import "./_inputField";
 // import the login button
 @import "./_loginButton";
-// style the registration links
-@import "./_bottomLinks";
 // import alert styles
 @import "./_loginAlerts";
 
@@ -58,10 +56,6 @@
     
     .usa-da-button {
         @include loginFormButton;
-    }
-
-    .usa-da-registration-links {
-        @include loginFormBottomLinks;
     }
 
     @include loginFormAlerts;
