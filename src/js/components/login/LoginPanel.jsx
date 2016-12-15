@@ -6,7 +6,6 @@
 import React from 'react';
 import Username from './Username.jsx';
 import Password from './Password.jsx';
-import LoginLinks from './LoginLinks.jsx';
 import SignInButton from './SignInButton.jsx';
 import ErrorMessage from '../SharedComponents/ErrorMessage.jsx';
 
@@ -67,10 +66,11 @@ export default class LoginPanel extends React.Component {
                         </div>
                     </div>
                     <div className="row">
-                        <div className="col-xs-12 col-sm-4 col-sm-push-8">
+                        <div className="col-sm-12 col-md-4">
+                        </div>
+                        <div className="col-sm-12 col-md-8">
                             <SignInButton onClick={this.loginClicked.bind(this)} buttonText="Sign In" disabled={this.props.loading} />
                         </div>
-                        <LoginLinks/>
                     </div>
                     <div className="row">
                         <div className="col-md-12">

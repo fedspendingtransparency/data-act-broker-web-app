@@ -97,13 +97,6 @@ const checkHelpUserPermissions = (nextState, replace) => {
     }
 }
 
-const rejectIfMAXEnabled = (nextState, replace) => {
-    if (!kGlobalConstants.LOCAL) {
-        // MAX enabled, this route is not available
-        replace('/');
-    }
-}
-
 const redirectIfLogin = (nextState, replace) => {
     //TODO Add check For User Permissions
 }
@@ -253,24 +246,6 @@ const routeDefinitions = {
             getComponent(nextState, cb) {
                 require.ensure([], (require) => {
                     cb(null, require('../../containers/help/HelpContainer.jsx').default)
-                });
-            }
-        },
-        {
-            path: 'forgotpassword',
-            onEnter: rejectIfMAXEnabled,
-            getComponent(nextState, cb) {
-                require.ensure([], (require) => {
-                    cb(null, require('../forgotPassword/ForgotPasswordContainer.jsx').default)
-                });
-            }
-        },
-        {
-            path: 'forgotpassword/:token',
-            onEnter: rejectIfMAXEnabled,
-            getComponent(nextState, cb) {
-                require.ensure([], (require) => {
-                    cb(null, require('../../components/forgotPassword/ResetPasswordTokenPage.jsx').default)
                 });
             }
         },
