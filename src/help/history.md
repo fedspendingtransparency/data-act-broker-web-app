@@ -1,3 +1,35 @@
+#### December 7, 2016
+In this release we are making improvements to the Broker and responding to issues discovered through greater agency use.
+
+In this release there are bugfixes, improvements, and changes to the way the Data Broker handles certain conditions. 
+
+  - [Flex Fields](#/help?section=flexfields)
+  - [Comment box available for each file in certification](#/help?section=comments)
+  - [White space bugfix](#/help?section=whitespace)
+  - [Improvements to local install process](#/help?section=local)
+  - [Rounding error bugfix](#/help?section=rounding)
+ 
+##### Flex Fields{section=flexfields}
+
+ Users can now add additional columns to their submission files (A-C) that will be returned in their warning and error files. To use this feature, add any column to your submission data and prefix the header with "flex\_". For example, a column named "flex_reportingbureau" will be ignored for validation purposes but returned for any rows that have errors in the warnings and error reports. 
+
+##### Comments in Certification{section=comments}
+
+Users can now add comments to each file during the certification process. On the final summary screen, you can select the file you wish to add comments for and write free-form prose to accompany that file for certification purposes. 
+ 
+##### White space bugfix{section=whitespace}
+
+In previous versions of the broker, rows of white space at the end of a file would cause validation errors. This was common for users exporting from excel. The broker will now ignore rows at the end of the file if all of the values are whitespace.
+
+##### Improvements to the Local Install process{section=local}
+
+In this release we made improvements to the local install process for the broker so that users can more easily install the local broker for internal use.
+
+##### Rounding Error bugfix{section=rounding}
+
+In previous versions of the broker, certain GTAS lines were being rounded when the source data was imported into the broker. We've resolved this issue to make sure the source data for all GTAS validations is correct. 
+
+
 ##### November 30, 2016
 
 On September 30, 2016, we released the full version of the DATA Act Broker that contained everything agencies need to test the data validation and submission process. Now we are making improvements to the Broker and responding to issues discovered through greater agency use.
