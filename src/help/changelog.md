@@ -14,7 +14,7 @@ In this version of the Broker, users are able to generate D files outside of a s
 
 ##### Generate D Files Outside of a Submission{section=Dfiles}
 
-Users will be able to generate D files outside the context of a submission. In other words, they won't need to validate A-C to be able to generate D files.
+Users will be able to generate D files outside the context of a submission. In other words, they won't need to validate A-C to be able to [generate D files](https://alpha-broker-staging.usaspending.gov/#/generateDetachedFiles?_k=e3glev).
 
 ##### Temporary Warnings Changed Back to Errors{section=warnings2Errors}
 
@@ -22,7 +22,7 @@ All Rules that were temporarily warnings are changed back to critical errors. Th
  
 ##### New URL for Data Broker{section=URL}
 
-The Data Broker is now be available at broker.usaspending.gov. All users should be automatically redirected.
+The Data Broker is now available at broker.usaspending.gov. All users should be automatically redirected.
 
 ##### Object Class Validation Update{section=objectClass}
 
@@ -32,6 +32,7 @@ Object Class validations only allow the object classes listed in the domain valu
 
 Updates to the MAX group permissions  allow for different permissions for different agencies, when a user is part of multiple agency permission groups, such as shared service providers.
 
+ 
 ##### Browser Requirements & Known Issues{section=browser}
 The Broker is currently tested with the following browsers:
 
