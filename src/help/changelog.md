@@ -1,33 +1,36 @@
-#### December 7, 2016
-In this release we are making improvements to the Broker and responding to issues discovered through greater agency use.
+#### December 21, 2016
+On September 30, 2016, we released the full version of the DATA Act Broker that contained everything agencies need to test the data validation and submission process. Now we are making improvements to the Broker and responding to issues discovered through greater agency use.
 
-In this release there are bugfixes, improvements, and changes to the way the Data Broker handles certain conditions. 
+In this version of the Broker, users are able to generate D files outside of a submission, rules that were temporarily warnings are changed back to errors, the Broker is available at a new URL, rule B5 is updated, object class validations require a specific value when an object class is unknown, and MAX permissions allow users who are part of of multiple agency permission groups to have different permissions for different agencies.
 
-  - [Flex Fields](#/help?section=flexfields)
-  - [Comment box available for each file in certification](#/help?section=comments)
-  - [White space bugfix](#/help?section=whitespace)
-  - [Improvements to local install process](#/help?section=local)
-  - [Rounding error bugfix](#/help?section=rounding)
+  - [Generate D files outside of a submission](#/help?section=Dfiles)
+  - [Temporary Warnings Changed Back to Errors](#/help?section=warnings2Errors)
+  - [New URL for the Data Broker](#/help?section=URL)
+  - [Update to Rule B5](#/help?section=B5)
+  - [Object Class Validation Update](#/help?section=objectClass)
+  - [MAX Group Permissions Allow for Different Permissions for a User Who is Part of a Multiple Agency Permission Group](#/help?section=maxGroup)
+  - [Browser Requirements & Known Issues](#/help?section=browser)
+  - [Accessibility Statement](#/help?section=accessibilityStatemen)
+
+##### Generate D Files Outside of a Submission{section=Dfiles}
+
+Users will be able to generate D files outside the context of a submission. In other words, they won't need to validate A-C to be able to [generate D files](https://alpha-broker-staging.usaspending.gov/#/generateDetachedFiles?_k=e3glev).
+
+##### Temporary Warnings Changed Back to Errors{section=warnings2Errors}
+
+All Rules that were temporarily warnings are changed back to critical errors. These warnings were documented on the validation table on the Help page, with a note that they would become errors in the future. The exception to this is rule A33, which will remain a warning for now.
  
-##### Flex Fields{section=flexfields}
+##### New URL for Data Broker{section=URL}
 
- Users can now add additional columns to their submission files (A-C) that will be returned in their warning and error files. To use this feature, add any column to your submission data and prefix the header with "flex\_". For example, a column named "flex_reportingbureau" will be ignored for validation purposes but returned for any rows that have errors in the warnings and error reports. 
+The Data Broker is now available at broker.usaspending.gov. All users should be automatically redirected.
 
-##### Comments in Certification{section=comments}
+##### Object Class Validation Update{section=objectClass}
 
-Users can now add comments to each file during the certification process. On the final summary screen, you can select the file you wish to add comments for and write free-form prose to accompany that file for certification purposes. 
- 
-##### White space bugfix{section=whitespace}
+Object Class validations only allow the object classes listed in the domain values. If the object class is unknown, agencies should use '000' instead of a value of their choosing.
 
-In previous versions of the broker, rows of white space at the end of a file would cause validation errors. This was common for users exporting from excel. The broker will now ignore rows at the end of the file if all of the values are whitespace.
+##### MAX Group Permissions Allow for Different Permissions for a User Who is Part of a Multiple Agency Permission Group{section=maxGroup}
 
-##### Improvements to the Local Install process{section=local}
-
-In this release we made improvements to the local install process for the broker so that users can more easily install the local broker for internal use.
-
-##### Rounding Error bugfix{section=rounding}
-
-In previous versions of the broker, certain GTAS lines were being rounded when the source data was imported into the broker. We've resolved this issue to make sure the source data for all GTAS validations is correct. 
+Updates to the MAX group permissions  allow for different permissions for different agencies, when a user is part of multiple agency permission groups, such as shared service providers.
 
  
 ##### Browser Requirements & Known Issues{section=browser}
