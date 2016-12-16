@@ -74,7 +74,7 @@ export default class ValidationRulesTableContent extends React.Component {
 				<div className="validation-table">
 					<h2>Validations</h2>
 				<p>Below is a cumulative table of validations in the RSS and IDD. The status column indicates whether they are currently implemented in the Broker. The table has been revised to match the latest Validations Rules spreadsheet. The Validations Rules spreadsheet, with change log, is available for download.  <a href={this.state.validationRulesUrl} target="_blank" rel="noopener noreferrer">Download file</a></p>
-				<p>In response to agency feedback, Treasury has changed some validations in the Broker from critical errors to warnings in order to allow agencies to continue past their File A-C validations and access the file extracts for D1 and D2 more easily. The validations that have been modified are marked in the validation rules table that can be accessed via the Help page. These validation rules will revert back to critical errors at a later date.</p>
+				<p>Treasury has changed some validations in the Broker back from warnings to critical errors. The validations that have been modified are marked in the validation rules table that can be accessed via the Help page.</p>
               <Reactable.Table className="table usa-da-table table-bordered"
 				  data={this.state.data} filterable={['Rule Detail']}
 				  sortable={[
