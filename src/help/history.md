@@ -1,3 +1,35 @@
+#### November 23, 2016
+On September 30, 2016, we released the full version of the DATA Act Broker that contained everything agencies need to test the data validation and submission process. Now we are making improvements to the Broker and responding to issues discovered through greater agency use.
+
+In this version of the Broker, we are using MAX to manage user account permissions, we updated how the Broker processes several rules and reports errors, added a FAQ for TransactionObligatedAmount, and provided the information on the Submission Dashboard in two tables, one for in progress, and one for completed and certified.
+
+  - [Sign In Using MAX](#/help?section=logMAX)
+  - [Processing of Validation Rules](#/help?section=processingRules1123)
+  - [New FAQ document for TransactionObligatedAmount](#/help?section=TOAfaq)
+  - [Submission Dashboard display](#/help?section=SubmissionDashboard)
+  - [Browser Requirements & Known Issues](#/help?section=browser)
+  - [Accessibility Statement](#/help?section=accessibilityStatement)
+
+##### Sign In Using MAX{section=logMAX}
+
+Agency Admins have the ability to set up read, write, and submitter permissions for MAX groups. Broker enforces read only, write only, and submitter permissions. If your coworkers are having trouble signing in, they should contact their agency administrator for MAX. If the agency doesn't have a MAX administrator, email DATAPMO@fiscal.treasury.gov.
+
+##### Processing of Validation Rules{section=processingRules1123}
+
+We updated how the Broker processes some rules.
+
+ * A33: Implementation of rule A33 has been updated.
+ * C20 & C21: The way Broker processes rules C20 and C21 was improved.
+ * An error message will display if a file is submitted with an unreadable header row.
+ 
+##### TransactionObligatedAmount FAQ{section=TOAfaq}
+
+The TransactionObligatedAmount FAQ document has been added to the [Resources](/#/resources) page in Help.
+
+##### Submission Dashboard{section=SubmissionDashboard}
+
+When a user clicks the Submission Dashboard, submissions are displayed in two tables, one for In Progress and one for Completed and Certified.
+
 #### What's New in This Release - October 21, 2016
 On September 30, 2016, we released the full version of the DATA Act Broker that contained everything agencies need to test the data validation and submission process. Now we are making improvements to the Broker and responding to issues discovered through greater agency use.
 
