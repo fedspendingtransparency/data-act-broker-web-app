@@ -1,34 +1,36 @@
-#### November 23, 2016
+#### December 21, 2016
 On September 30, 2016, we released the full version of the DATA Act Broker that contained everything agencies need to test the data validation and submission process. Now we are making improvements to the Broker and responding to issues discovered through greater agency use.
 
-In this version of the Broker, we are using MAX to manage user account permissions, we updated how the Broker processes several rules and reports errors, added a FAQ for TransactionObligatedAmount, and provided the information on the Submission Dashboard in two tables, one for in progress, and one for completed and certified.
+In this version of the Broker, users are able to generate D files outside of a submission, rules that were temporarily warnings are changed back to errors, the Broker is available at a new URL, rule B5 is updated, object class validations require a specific value when an object class is unknown, and MAX permissions allow users who are part of of multiple agency permission groups to have different permissions for different agencies.
 
-  - [Sign In Using MAX](#/help?section=logMAX)
-  - [Processing of Validation Rules](#/help?section=processingRules1123)
-  - [New FAQ document for TransactionObligatedAmount](#/help?section=TOAfaq)
-  - [Submission Dashboard display](#/help?section=SubmissionDashboard)
+  - [Generate D files outside of a submission](#/help?section=Dfiles)
+  - [Temporary Warnings Changed Back to Errors](#/help?section=warnings2Errors)
+  - [New URL for the Data Broker](#/help?section=URL)
+  - [Update to Rule B5](#/help?section=B5)
+  - [Object Class Validation Update](#/help?section=objectClass)
+  - [MAX Group Permissions Allow for Different Permissions for a User Who is Part of a Multiple Agency Permission Group](#/help?section=maxGroup)
   - [Browser Requirements & Known Issues](#/help?section=browser)
-  - [Accessibility Statement](#/help?section=accessibilityStatement)
+  - [Accessibility Statement](#/help?section=accessibilityStatemen)
 
-##### Sign In Using MAX{section=logMAX}
+##### Generate D Files Outside of a Submission{section=Dfiles}
 
-Agency Admins have the ability to set up read, write, and submitter permissions for MAX groups. Broker enforces read only, write only, and submitter permissions. If your coworkers are having trouble signing in, they should contact their agency administrator for MAX. If the agency doesn't have a MAX administrator, email DATAPMO@fiscal.treasury.gov.
+Users will be able to generate D files outside the context of a submission. In other words, they won't need to validate A-C to be able to generate D files.
 
-##### Processing of Validation Rules{section=processingRules1123}
+##### Temporary Warnings Changed Back to Errors{section=warnings2Errors}
 
-We updated how the Broker processes some rules.
-
- * A33: Implementation of rule A33 has been updated.
- * C20 & C21: The way Broker processes rules C20 and C21 was improved.
- * An error message will display if a file is submitted with an unreadable header row.
+All Rules that were temporarily warnings are changed back to critical errors. These warnings were documented on the validation table on the Help page, with a note that they would become errors in the future. The exception to this is rule A33, which will remain a warning for now.
  
-##### TransactionObligatedAmount FAQ{section=TOAfaq}
+##### New URL for Data Broker{section=URL}
 
-The TransactionObligatedAmount FAQ document has been added to the [Resources](/#/resources) page in Help.
+The Data Broker is now be available at broker.usaspending.gov. All users should be automatically redirected.
 
-##### Submission Dashboard{section=SubmissionDashboard}
+##### Object Class Validation Update{section=objectClass}
 
-When a user clicks the Submission Dashboard, submissions are displayed in two tables, one for In Progress and one for Completed and Certified.
+Object Class validations only allow the object classes listed in the domain values. If the object class is unknown, agencies should use '000' instead of a value of their choosing.
+
+##### MAX Group Permissions Allow for Different Permissions for a User Who is Part of a Multiple Agency Permission Group{section=maxGroup}
+
+Updates to the MAX group permissions  allow for different permissions for different agencies, when a user is part of multiple agency permission groups, such as shared service providers.
 
 ##### Browser Requirements & Known Issues{section=browser}
 The Broker is currently tested with the following browsers:
