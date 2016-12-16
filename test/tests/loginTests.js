@@ -27,35 +27,6 @@ module.exports = {
 
 		client.end();
 	},
-	'Admin button appears when an admin user logs in': (client) => {
-		const loginPage = client.page.loginPage();
-		const landingPage = client.page.landingPage();
-
-		client.maximizeWindow();
-
-		loginPage
-			.navigate()
-			.login(client.globals.accounts.admin.username, client.globals.accounts.admin.password);
-
-		landingPage.expect.element("@adminButton").to.be.visible;
-
-
-		client.end();
-	},
-	'Admin button does not appear when a non-admin user logs in': (client) => {
-		const loginPage = client.page.loginPage();
-		const landingPage = client.page.landingPage();
-
-		loginPage
-			.navigate()
-			.login(client.globals.accounts.user.username, client.globals.accounts.user.password);
-
-
-		// make sure the page title is in pace in order to ensure the landing page has loaded when the admin check is performed
-		landingPage.expect.element("@pageTitle").text.to.equal('Welcome to the DATA Act Broker');
-		landingPage.expect.element("@adminButton").to.not.be.present;
-		client.end();
-	},
 	'User button displays the user\'s name': (client) => {
 		const loginPage = client.page.loginPage();
 		const landingPage = client.page.landingPage();
