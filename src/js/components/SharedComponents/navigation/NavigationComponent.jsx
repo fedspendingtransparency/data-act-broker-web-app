@@ -34,7 +34,7 @@ export class Navbar extends React.Component {
 
     render() {
         let tabNames = {}
-        if (!this.props.session.user.permission) {
+        if (this.props.session.user.helpOnly) {
             tabNames = {
                 'Help': 'help'
             };

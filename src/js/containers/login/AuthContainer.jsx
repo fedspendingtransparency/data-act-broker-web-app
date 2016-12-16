@@ -65,7 +65,7 @@ export default class AuthContainer extends React.Component {
 						Cookies.remove('brokerRedirect');
 
 						// success authorization from API, continue to destination
-                        if (!data.permission) {
+                        if (data.helpOnly) {
                             destination = '/help';
                         }
 						hashHistory.push(destination);
