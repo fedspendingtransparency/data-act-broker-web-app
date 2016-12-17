@@ -30,17 +30,11 @@ export const fetchActiveUser = () => {
 	            	// set the login state cookie that expires in 15 minutes
 					Cookies.set('brokerLogin', Date.now(), {expires: (1/(24*4))});
 
-	                // check to see if the user is an admin
-	                let isAdmin = false;
-	                if (res.body.permission == 4) {
-	                    isAdmin = true;
-	                }
-	                
 	                const sessionData = {
 	                    login: 'loggedIn',
 	                    user: res.body,
-	                    admin: isAdmin,
-						skipGuide: res.body.skip_guide
+	                    admin: res.body.website_admin,
+                            skipGuide: res.body.skip_guide
 	                };
 
 	                const action = sessionActions.setSession(sessionData);

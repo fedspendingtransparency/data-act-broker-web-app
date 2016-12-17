@@ -32,6 +32,7 @@ Object Class validations only allow the object classes listed in the domain valu
 
 Updates to the MAX group permissions  allow for different permissions for different agencies, when a user is part of multiple agency permission groups, such as shared service providers.
 
+ 
 ##### Browser Requirements & Known Issues{section=browser}
 The Broker is currently tested with the following browsers:
 
