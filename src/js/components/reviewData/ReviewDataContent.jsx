@@ -10,6 +10,8 @@ import SubmitButton from '../SharedComponents/SubmitButton.jsx';
 import ReviewDataContentRow from './ReviewDataContentRow.jsx';
 import ReviewDataButton from './ReviewDataButton.jsx';
 import ReviewDataNotifyModal from './ReviewDataNotifyModal.jsx';
+import ReviewDataCertifyModal from './CertificationModal/ReviewDataCertifyModal.jsx';
+import ReviewDataNarrative from './ReviewDataNarrative.jsx'
 import moment from 'moment';
 
 import * as ReviewHelper from '../../helpers/reviewHelper.js';
@@ -22,12 +24,97 @@ const propTypes = {
 export default class ReviewDataContent extends React.Component {
     constructor(props) {
         super(props);
+
+        this.state = {
+            openNotify: false,
+            openCertify: false,
+            calculatedData: {
+                totalSize: '0 KB',
+                totalWarnings: 0
+            }
+        };
     }
 
-    notifyUser(e) {
+    componentDidMount() {
+        this.calculateFields();
+    }
+
+    componentDidUpdate(prevProps, prevState) {
+        if (prevProps.submissionID != this.props.submissionID) {
+            this.calculateFields();
+        }
+    }
+
+    openModal(type, e) {
         e.preventDefault();
 
-        this.refs.notifyModal.openModal();
+        this.setState({
+            ['open' + type]: true
+        });
+    }
+
+    closeModal(type, e) {
+        if (e) {
+            e.preventDefault();
+        }
+        this.setState({
+            ['open' + type]: false
+        });
+    }
+
+
+    disabledLink(e) {
+        e.preventDefault();
+    }
+
+    calculateFields() {
+        let totalSize = 0;
+        let totalWarnings = 0;
+
+        this.props.data.jobs.forEach((job) => {
+            if (parseFloat(job.file_size) > 0) {
+                totalSize += parseFloat(job.file_size);
+            }
+
+            // sum the number of warnings
+            job.warning_data.forEach((warning) => {
+                totalWarnings += parseInt(warning.occurrences);
+            });
+        });
+
+        let displaySize = totalSize + ' bytes';
+        if (totalSize >= 750000) {
+            displaySize = (Math.round((totalSize/ 100000000) * 100) / 100) + ' MB';
+        }
+        else if (totalSize >= 750) {
+            displaySize = (Math.round((totalSize / 1000) * 100) / 100) + ' KB';
+        }
+
+        this.setState({
+            totalSize: displaySize,
+            totalWarnings: totalWarnings
+        });
+    }
+
+    formatCurrency(currencyNumber) {
+        let negative = currencyNumber < 0;
+        let currencyString = currencyNumber.toFixed(2);
+        // remove negative sign for formatting
+        if(negative) {
+            currencyString = currencyString.substr(1);
+        }
+        let cents = currencyString.split(".")[1];
+        let dollars = currencyString.split(".")[0];
+        // start at the end and every 3 numbers add a comma to the string
+        for(var i = dollars.length - 3; i > 0; i = i-3) {
+            dollars = dollars.slice(0, i) + "," + dollars.slice(i);
+        }
+        let formattedCurrencyString = "$" + dollars + "." + cents;
+        // add negative sign for formatting
+        if(negative) {
+            formattedCurrencyString = "-" + formattedCurrencyString;
+        }
+        return formattedCurrencyString;
     }
 
     render() {
@@ -53,12 +140,12 @@ export default class ReviewDataContent extends React.Component {
         const reportLabels = ['Agency Name:', 'Report Start Date:', 'Report End Date:', 'Total Obligations Incurred:', 'Total Financial Assistance Obligations:', 'Total Procurement Obligations:'];
 
         const reportData = [
-            'Need This',
+            this.props.data.agency_name,
             this.props.data.reporting_period_start_date,
             this.props.data.reporting_period_end_date,
-            'Need This',
-            'Need This',
-            'Need This'
+            this.formatCurrency(this.props.data.total_obligations),
+            this.formatCurrency(this.props.data.total_assistance_obligations),
+            this.formatCurrency(this.props.data.total_procurement_obligations)
         ];
 
         let reportRows = [];
@@ -83,14 +170,14 @@ export default class ReviewDataContent extends React.Component {
                                 </div>
                                 <div className="usa-da-submission-info">
                                     <ul className="no-bullet">
-                                        <li>Total File Size: <strong>{fileSize}</strong></li>
+                                        <li>Total File Size: <strong>{this.state.totalSize}</strong></li>
                                         <li>Total Rows: <strong>{this.props.data.number_of_rows}</strong></li>
                                         <li>Created on: <strong>{this.props.data.created_on}</strong></li>
-                                        <li>Total Warnings: <strong></strong></li>
+                                        <li>Total Warnings: <strong>{this.state.totalWarnings}</strong></li>
                                     </ul>
                                     <ul className="usa-da-submission-bottom-links no-bullet">
-                                        <li><a href="#"><span className="usa-da-icon usa-da-icon-CloudDownload"><Icons.CloudDownload /></span>Download</a></li>
-                                        <li><a href="#"><span className="usa-da-icon usa-da-icon-Trash"><Icons.Trash /></span>Delete</a></li>
+                                        <li><a href="#" onClick={this.disabledLink.bind(this)}><span className="usa-da-icon usa-da-icon-CloudDownload"><Icons.CloudDownload /></span>Download</a></li>
+                                        <li><a href="#" onClick={this.disabledLink.bind(this)}><span className="usa-da-icon usa-da-icon-Trash"><Icons.Trash /></span>Delete</a></li>
                                     </ul>
                                 </div>
                             </div>
@@ -99,17 +186,44 @@ export default class ReviewDataContent extends React.Component {
                             {reportRows}
                         </div>
                     </div>
-                    <div className="row usa-da-submission-bottom-big-links mt-20">
-                        <div className="col-md-6">
-                            <a href="#" className="usa-da-button btn-primary btn-lg btn-full"><span className="usa-da-icon usa-da-icon-Globe"><Icons.Globe /></span>Certify & Publish the Submission to USASpending.gov</a>
+                    <div className="row">
+                        <div className="col-md-4"></div>
+                        <ReviewDataNarrative narrative={this.props.data.file_narrative} submissionID={this.props.params.submissionID} />
+                    </div>
+                    <div className="mt-20">
+                        <div className="submission-wrapper">
+                            <div className="left-link">
+                                <button onClick={this.openModal.bind(this, 'Certify')} className="usa-da-button btn-primary btn-lg btn-full">
+                                    <div className="button-wrapper">
+                                        <div className="button-icon">
+                                            <Icons.Globe />
+                                        </div>
+                                        <div className="button-content">
+                                            Certify & Publish the Submission to USAspending.gov
+                                        </div>
+                                    </div>
+                                </button>
+                            </div>
+                            <div className="right-link">
+                                <button onClick={this.openModal.bind(this, 'Notify')} className="usa-da-button btn-primary btn-lg btn-full last">
+                                    <div className="button-wrapper">
+                                        <div className="button-icon">
+                                            <Icons.Bell />
+                                        </div>
+                                        <div className="button-content">
+                                            Notify Another User that the Submission is Ready for Certification
+                                        </div>
+                                    </div>
+                                </button>
+                            </div>
                         </div>
-                        <div className="col-md-6 usa-da-submission-bottom-big-links">
-                            <a href="#" onClick={this.notifyUser.bind(this)} className="usa-da-button btn-primary btn-lg btn-full last"><span className="usa-da-icon usa-da-icon-Bell"><Icons.Bell /></span>Notify Another User that the Submission is Ready for Certification</a>
-                        </div>
+                    </div>
 
-                        <div id="reviewDataNotifyModalHolder">
-                            <ReviewDataNotifyModal {...this.props} ref="notifyModal" />
-                        </div>
+                    <div id="reviewDataNotifyModalHolder">
+                        <ReviewDataNotifyModal {...this.props} closeModal={this.closeModal.bind(this, 'Notify')} isOpen={this.state.openNotify} />
+                    </div>
+                    <div id="reviewDataCertifyModalHolder">
+                        <ReviewDataCertifyModal {...this.props} closeModal={this.closeModal.bind(this, 'Certify')} isOpen={this.state.openCertify} warnings={this.state.totalWarnings} />
                     </div>
                 </div>
             </div>

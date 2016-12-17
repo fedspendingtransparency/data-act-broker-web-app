@@ -1,9 +1,12 @@
 import { hashHistory } from 'react-router';
+import { kGlobalConstants } from '../../GlobalConstants.js';
 
 import LandingPage from '../../components/landing/LandingPage.jsx';
 import LoginPage from '../../components/login/LoginPage.jsx';
+import AuthPage from '../../components/login/AuthPage.jsx';
 import SubmissionGuideContainer from '../../containers/addData/SubmissionGuideContainer.jsx';
 import AddDataPageContainer from '../../containers/addData/AddDataPageContainer.jsx';
+import GenerateDetachedFilesPageContainer from '../../containers/generateDetachedFiles/GenerateDetachedFilesPageContainer.jsx';
 
 import StoreSingleton from '../../redux/storeSingleton.js';
 
@@ -20,19 +23,19 @@ const getStore = () => {
 
 const performAutoLogin = (location, replace) => {
     getStore();
-    
+
     let session = store.getState().session;
 
     const path = location.pathname;
     const search = location.search;
     const query = location.query;
-    
+
     let pushMethod = hashHistory.push;
     if (replace) {
         pushMethod = replace;
     }
 
-    
+
 
     if (path == "/login") {
         if (session.login == "loggedIn") {
@@ -70,17 +73,37 @@ const checkAdminPermissions = (nextState, replace) => {
         // if not an admin, bounce to home
         replace('/landing');
     }
-    
+
 }
+
 const checkUserPermissions = (nextState, replace) => {
+    getStore();
+    const session = store.getState().session;
+    if (session.login != "loggedIn") {
+        performAutoLogin(nextState.location, replace);
+    }
+    else if (!session.user.permission) {
+        // if no permissions, bounce to help
+        replace('/help');
+    }
+}
+
+const checkHelpUserPermissions = (nextState, replace) => {
     getStore();
     const session = store.getState().session;
 
     if (session.login != "loggedIn") {
         performAutoLogin(nextState.location, replace);
     }
-
 }
+
+const rejectIfMAXEnabled = (nextState, replace) => {
+    if (!kGlobalConstants.LOCAL) {
+        // MAX enabled, this route is not available
+        replace('/');
+    }
+}
+
 const redirectIfLogin = (nextState, replace) => {
     //TODO Add check For User Permissions
 }
@@ -101,6 +124,10 @@ const routeDefinitions = {
             component: LoginPage
         },
         {
+            path: 'auth',
+            component: AuthPage
+        },
+        {
             path: 'admin',
             onEnter: checkAdminPermissions,
             getComponent(nextState, cb) {
@@ -118,6 +145,15 @@ const routeDefinitions = {
             path: 'submissionGuide',
             onEnter: checkUserPermissions,
             component: SubmissionGuideContainer
+        },
+        {
+            path: 'dashboard',
+            onEnter: checkUserPermissions,
+            getComponent(nextState, cb) {
+                require.ensure([], (require) => {
+                    cb(null, require('../../components/dashboard/DashboardPage.jsx').default)
+                });
+            }
         },
         {
             path: 'addData',
@@ -143,6 +179,15 @@ const routeDefinitions = {
             }
         },
         {
+            path: 'generateEF/:submissionID',
+            onEnter: checkUserPermissions,
+            getComponent(nextState, cb) {
+                require.ensure([], (require) => {
+                    cb(null, require('../../components/generateEF/GenerateEFPage.jsx').default)
+                });
+            }
+        },
+        {
             path: 'validateCrossFile/:submissionID',
             onEnter: checkUserPermissions,
             getComponent(nextState, cb) {
@@ -161,16 +206,59 @@ const routeDefinitions = {
             }
         },
         {
-            path: 'help',
+            path: 'generateDetachedFiles',
             onEnter: checkUserPermissions,
+            component: GenerateDetachedFilesPageContainer
+        },
+        {
+            path: 'help',
+            onEnter: checkHelpUserPermissions,
             getComponent(nextState, cb) {
                 require.ensure([], (require) => {
-                    cb(null, require('../../components/help/helpPage.jsx').default)
+                    cb(null, require('../../containers/help/HelpContainer.jsx').default)
+                });
+            }
+        },
+        {
+            path: 'practices',
+            onEnter: checkHelpUserPermissions,
+            getComponent(nextState, cb) {
+                require.ensure([], (require) => {
+                    cb(null, require('../../containers/help/HelpContainer.jsx').default)
+                });
+            }
+        },
+        {
+            path: 'validations',
+            onEnter: checkHelpUserPermissions,
+            getComponent(nextState, cb) {
+                require.ensure([], (require) => {
+                    cb(null, require('../../containers/help/HelpContainer.jsx').default)
+                });
+            }
+        },
+		{
+            path: 'resources',
+            onEnter: checkHelpUserPermissions,
+            getComponent(nextState, cb) {
+                require.ensure([], (require) => {
+                    cb(null, require('../../containers/help/HelpContainer.jsx').default)
+                });
+            }
+        },
+
+		{
+            path: 'history',
+            onEnter: checkHelpUserPermissions,
+            getComponent(nextState, cb) {
+                require.ensure([], (require) => {
+                    cb(null, require('../../containers/help/HelpContainer.jsx').default)
                 });
             }
         },
         {
             path: 'forgotpassword',
+            onEnter: rejectIfMAXEnabled,
             getComponent(nextState, cb) {
                 require.ensure([], (require) => {
                     cb(null, require('../forgotPassword/ForgotPasswordContainer.jsx').default)
@@ -179,25 +267,10 @@ const routeDefinitions = {
         },
         {
             path: 'forgotpassword/:token',
+            onEnter: rejectIfMAXEnabled,
             getComponent(nextState, cb) {
                 require.ensure([], (require) => {
                     cb(null, require('../../components/forgotPassword/ResetPasswordTokenPage.jsx').default)
-                });
-            }
-        },
-        {
-            path: 'registration',
-            getComponent(nextState, cb) {
-                require.ensure([], (require) => {
-                    cb(null, require('../registration/RegisterEmailContainer.jsx').default)
-                });
-            }
-        },
-        {
-            path: 'registration/:token',
-            getComponent(nextState, cb) {
-                require.ensure([], (require) => {
-                    cb(null, require('../registration/RegisterTokenContainer.jsx').default)
                 });
             }
         },

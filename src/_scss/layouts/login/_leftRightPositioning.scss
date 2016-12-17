@@ -1,0 +1,32 @@
+@media(min-width: $medium-screen) {
+	@include display(flex);
+	@include flex-direction(row);
+	position: relative;
+}
+
+.login-left {
+    display: block;
+    width: 100%;
+
+
+    @media(min-width: $medium-screen) {
+        @include flex(1 1 auto);
+        position: relative;
+        max-width: 650px;
+    }
+
+}
+
+.login-right {
+    display: block;
+    width: 100%;
+
+
+    @media(min-width: $medium-screen) {
+        @include flex(0 0 auto);
+        position: relative;
+        width: 450px;
+        margin-left: 30px;
+    }
+
+}

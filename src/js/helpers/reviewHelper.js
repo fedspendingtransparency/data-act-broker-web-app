@@ -7,39 +7,46 @@ import StoreSingleton from '../redux/storeSingleton.js';
 
 import { kGlobalConstants } from '../GlobalConstants.js';
 import * as uploadActions from '../redux/actions/uploadActions.js';
+import * as sessionActions from '../redux/actions/sessionActions.js';
 
 import { fileTypes } from '../containers/addData/fileTypes.js';
 import * as AdminHelper from './adminHelper.js';
 
-const availablePairs = ['appropriations-program_activity', 'award_financial-award'];
-const globalFileKeys = ['appropriations', 'program_activity', 'award_financial', 'award'];
+Q.longStackSupport = true;
+
+const availablePairs = ['appropriations-program_activity', 'program_activity-award_financial', 'award_financial-award_procurement', 'award_financial-award' ];
+const globalFileKeys = ['appropriations', 'program_activity', 'award_financial', 'award', 'award_procurement'];
 export const globalFileData = {
-	appropriations: {
-		name: 'Appropriations Account',
-		letter: 'A'
-	},
-	program_activity: {
-		name: 'Program Activity and Object Class Data',
-		letter: 'B'
-	},
-	award_financial: {
-		name: 'Award Financial',
-		letter: 'C'
-	},
-	award: {
-		name: 'Financial Assistance Award',
-		letter: 'D2'
-	}
+    appropriations: {
+        name: 'Appropriations Account',
+        letter: 'A'
+    },
+    program_activity: {
+        name: 'Program Activity and Object Class Data',
+        letter: 'B'
+    },
+    award_financial: {
+        name: 'Award Financial',
+        letter: 'C'
+    },
+    award_procurement: {
+         name: 'Award Procurement',
+         letter: 'D1'
+    },
+    award: {
+        name: 'Financial Assistance Award',
+        letter: 'D2'
+    }
 };
 
 const determineExpectedPairs = () => {
 	const output = [];
 
 	availablePairs.forEach((keyName) => {
-		
+
 		const firstKey = keyName.split('-')[0];
 		const secondKey = keyName.split('-')[1];
-		
+
 		const item = {
 			key: keyName,
 			firstType: globalFileData[firstKey].letter,
@@ -51,7 +58,7 @@ const determineExpectedPairs = () => {
 		};
 
 		output.push(item);
-		
+
 	});
 
 	return output;
@@ -60,9 +67,23 @@ const determineExpectedPairs = () => {
 export const fetchStatus = (submissionId) => {
 	const deferred = Q.defer();
 
+	const startTime = new Date().getTime();
+	const store = new StoreSingleton().store;
+
 	Request.post(kGlobalConstants.API + 'check_status/')
 	        .send({'submission_id': submissionId})
 	        .end((errFile, res) => {
+
+	        	// calculate how long the API call took
+	        	const endTime = new Date().getTime();
+	        	const duration = endTime - startTime;
+	        	// log the API call duration
+	        	const reduxData = store.getState();
+	        	const action = sessionActions.setApiMeta({
+	        		time: duration
+	        	});
+                store.dispatch(action);
+
 
 	        	if (errFile) {
 	        		let detail = '';
@@ -180,15 +201,20 @@ const getFileStates = (status) => {
 
 
 
-const getCrossFileData = (data, validKeys) => {
+const getCrossFileData = (data, type, validKeys) => {
 	const output = {};
+
+	let dataType = 'error_data';
+	if (type == 'warnings') {
+		dataType = 'warning_data';
+	}
 
 	// generate the file pair keys
 	let i = 1;
 
-	for (let index in data.crossFile.error_data) {
+	for (let index in data.crossFile[dataType]) {
 		// fetch the error object
-		const item = data.crossFile.error_data[index];
+		const item = data.crossFile[dataType][index];
 
 		// generate possible key names for this pair of target/source files
 		const keyNames = [item.target_file + '-' + item.source_file, item.source_file + '-' + item.target_file];
@@ -213,6 +239,7 @@ const getCrossFileData = (data, validKeys) => {
 			// doesn't exist yet, so create an array with this error
 			output[key] = [item];
 		}
+
 	}
 
 	return output;
@@ -246,14 +273,20 @@ const getFileWarningReports = (status, reports) => {
 	return status;
 }
 
-const getCrossFileReports = (crossFile, reports) => {
+const getCrossFileReports = (type, crossFile, reports) => {
 
 	const crossFileReports = {};
 
-	for (let key in crossFile) {
-		crossFileReports[key] = reports['cross_' + key];
+	let keyPrefix = 'cross_';
+	if (type == 'warnings') {
+		keyPrefix = 'cross_warning_';
 	}
-	
+
+	for (let key in crossFile) {
+
+		crossFileReports[key] = reports[keyPrefix + key];
+	}
+
 	return crossFileReports;
 }
 
@@ -275,36 +308,51 @@ export const validateSubmission  = (submissionId) => {
 
 	let status;
 	let crossFile;
-	let crossFileState;
-	let crossFileReports;
+	let crossFileState = {}
+	let crossFileErrorReports;
+	let crossFileWarningReports;
 
 	fetchStatus(submissionId)
 		.then((statusRes) => {
 			status = getFileStates(statusRes);
-			crossFile = getCrossFileData(statusRes, validKeys);
-			crossFileState = statusRes.crossFile.job_status;
+			crossFile = {
+				errors: getCrossFileData(statusRes, 'errors', validKeys),
+				warnings: getCrossFileData(statusRes, 'warnings', validKeys)
+			};
+
+			crossFileState = {
+				job: statusRes.crossFile.job_status,
+				file: statusRes.crossFile.file_status
+			};
+
 			return fetchErrorReports(submissionId);
 		})
 		.then((reports) => {
-			getFileReports(status, reports);
-			crossFileReports = getCrossFileReports(crossFile, reports);
+		    getFileReports(status, reports);
+			crossFileErrorReports = getCrossFileReports('errors', crossFile.errors, reports);
 
 			return fetchWarningReports(submissionId);
 		})
 		.then((reports) => {
-			getFileWarningReports(status, reports);
+            getFileWarningReports(status, reports);
+			crossFileWarningReports = getCrossFileReports('warnings', crossFile.warnings, reports);
 
 			deferred.resolve({
 				file: status,
 				crossFile: {
 					state: crossFileState,
-					reports: crossFileReports,
+					reports: {
+						errors: crossFileErrorReports,
+						warnings: crossFileWarningReports
+					},
 					data: crossFile
 				}
 			});
 		})
 		.catch((err) => {
-			deferred.reject(err);
+			const response = Object.assign({}, res.body);
+            response.httpStatus = res.status;
+            deferred.reject(response);
 		});
 
 	return deferred.promise;
@@ -317,7 +365,7 @@ export const listUsers = () => {
 	let request = {
 		status: "approved"
 	};
-	
+
 	Request.get(kGlobalConstants.API + 'list_user_emails/')
 		.send(request)
 		.end((err, res) => {
@@ -350,4 +398,80 @@ export const sendNotification = (users, id) => {
             }
         });
     return deferred.promise;
+}
+
+export const fetchObligations = (submissionId) => {
+	const deferred = Q.defer();
+
+	Request.post(kGlobalConstants.API + 'get_obligations/')
+			.send({'submission_id': submissionId})
+			.end((errFile, res) => {
+
+				if (errFile) {
+					deferred.reject(errFile);
+				}
+				else {
+					deferred.resolve(res.body);
+				}
+
+			});
+
+	return deferred.promise;
+}
+
+export const signErrorWarningReport = (submissionId, fileName) => {
+    const deferred = Q.defer();
+
+    Request.post(kGlobalConstants.API + 'sign_submission_file')
+        .send({
+            'submission': submissionId,
+            'file': fileName
+        })
+        .end((errFile, res) => {
+            if (errFile) {
+                deferred.reject(errFile, res);
+            }
+            else {
+                deferred.resolve(res.body);
+            }
+        });
+
+    return deferred.promise;
+}
+
+export const fetchSubmissionNarrative = (submissionId) => {
+	const deferred = Q.defer();
+
+	Request.get(kGlobalConstants.API + 'submission/' + submissionId + '/narrative')
+			.end((errFile, res) => {
+
+				if (errFile) {
+					deferred.reject(errFile);
+				}
+				else {
+					deferred.resolve(res.body);
+				}
+
+			});
+
+	return deferred.promise;
+}
+
+export const saveNarrative = (submissionId, narrative) => {
+	const deferred = Q.defer();
+
+	Request.post(kGlobalConstants.API + 'submission/' + submissionId + '/narrative')
+			.send(narrative)
+			.end((errFile, res) => {
+
+				if (errFile) {
+					deferred.reject(errFile);
+				}
+				else {
+					deferred.resolve(res.body);
+				}
+
+			});
+
+	return deferred.promise;
 }

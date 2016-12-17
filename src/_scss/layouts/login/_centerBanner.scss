@@ -1,0 +1,45 @@
+// style the center content area
+@import "../../components/typography/_pageTitles";
+
+@mixin loginCenterBanner {
+	// the content that goes in the middle of the page
+    @include display(flex);
+    @include align-self(stretch);
+    @include flex-grow(2);
+    @include justify-content(center);
+    @include flex-direction(column);
+
+    .usa-da-login-wrap {
+
+        @import "./_leftRightPositioning";
+
+        @include align-items(center);
+        @include align-self(stretch);
+        @include justify-content(center);
+        background-color: as-alpha($color-gray-dark, 0.40);
+        border-top: 1px solid rgba(255, 255, 255, 0.1);
+        border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        margin: 40px 0;
+        padding: 0px 75px;
+
+        @media (max-width: $small-screen) {
+            padding: 0px 27px;
+        }
+    }
+
+    // style the text that appears on the left side
+    .login-title {
+	    font-family: "Source Sans Pro", "Helvetica", "Arial", sans-serif;
+	    font-size: 6.0rem;
+	    line-height: 6.0rem;
+	    margin-top: 35px;
+	    margin-bottom: 10px;
+	    color: $color-white;
+	    font-weight: $font-light;
+	}
+	.usa-da-page-title {
+	    @include pageTitle;
+
+        padding-bottom: 35px;
+	}
+}

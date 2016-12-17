@@ -1,0 +1,6 @@
+.comparison-table {
+	.usa-da-scrollable-table {
+		@import "../../../components/tables/_scrollableTable";
+		@include scrollableTable;
+	}
+}

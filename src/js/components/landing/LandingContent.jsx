@@ -51,7 +51,7 @@ export default class LandingContent extends React.Component {
 
     clickedUploadReqs(e) {
         e.preventDefault();
-        
+
         this.refs.modal.openModal();
     }
 
@@ -68,8 +68,8 @@ export default class LandingContent extends React.Component {
                             <div className="row usa-da-content-landing usa-da-page-title">
                                 <div className="col-md-7 mt-40 mb-50">
                                     <h1 className="display-2" data-contentstart="start" tabIndex={-1}>Welcome to the DATA Act Broker</h1>
-                                    <p>Upload your agency files and validate them against the latest version of the DATA Act Information Model Schema (v1.0).</p>
-                                    <p>Details on how to format your data, including required and optional fields, can be found in the <a href={this.state.rssUrl} target="_blank" aria-label="Download the RSS specification as an Excel file">Reporting Submission Specification (RSS) v1.0</a>.</p>
+                                    <p>Upload your agency's files and validate them against the latest version of the DATA Act Information Model Schema (v1.0).</p>
+                                    <p>Details on how to format your data, including required and optional fields, can be found in the <a href={this.state.rssUrl} target="_blank" rel="noopener noreferrer" aria-label="Download the RSS specification as an Excel file">Reporting Submission Specification (RSS) v1.0</a>.</p>
                                 </div>
                             </div>
                         </div>
@@ -78,11 +78,11 @@ export default class LandingContent extends React.Component {
                             <div className="row">
                                 <div className="usa-da-landing col-md-12">
                                     <div className="usa-da-landing-btns">
-                                        <LandingBlock icon={<Icons.CloudUpload />} text="Ready to upload and validate your agency's submission? Great, we'll be happy to walk you through the process.*" buttonText="Upload & Validate a New Submission" url="#/submissionGuide">
+                                        <LandingBlock icon={<Icons.CloudUpload />} text="Ready to upload and validate your agency's files? Great, we'll be happy to walk you through the process.*" buttonText="Upload & Validate a New Submission" url="#/submissionGuide">
                                         <LandingBlockBottomLink onClick={this.clickedUploadReqs.bind(this)} />
                                         </LandingBlock>
-                                        <LandingBlock comingSoon="comingSoon" icon={<Icons.Floppy />} text="Did you start a submission but were unable to complete it? No problem, we can help you pick up where you left off." buttonText="Continue a Saved Submission" disabled={true} />
-                                        <LandingBlock comingSoon="comingSoon" icon={<Icons.Search />} text="Is a submission ready to be reviewed, certified, and published? Let's look at that submission." buttonText="Review, Certify & Publish Submission" disabled={true} />
+                                        <LandingBlock icon={<Icons.Floppy />} text="Did you start a submission but were unable to complete it? No problem, we can help you pick up where you left off." buttonText="Continue or Certify a Saved Submission" url="#/dashboard" />
+                                        <LandingBlock icon={<Icons.CloudDownload />} text="Generate your D1 and D2 award files without having to create a submission." buttonText="Generate D Files" url="#/generateDetachedFiles" />
                                         <div id="modalHolder">
                                             <LandingRequirementsModal ref="modal" />
                                         </div>
@@ -100,7 +100,7 @@ export default class LandingContent extends React.Component {
                         </div>
 
                     <div className="usa-da-landing-disclosure text-center">
-                        * The DATA Act Broker - Beta Release allows agencies to test financial data but does not connect to USAspending.gov.
+                        * The DATA Act Broker allows agencies to test financial data but does not connect to USAspending.gov.
                     </div>
                 </div>
             );

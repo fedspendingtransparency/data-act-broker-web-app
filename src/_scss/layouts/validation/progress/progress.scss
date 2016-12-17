@@ -1,0 +1,35 @@
+@import "./_step";
+@import "./_stepWidths";
+@import "./_current";
+@import "./_done";
+
+@mixin validationProgress {
+	margin: 0 auto;
+	font-size: 1.3em;
+	font-weight: $font-bold;
+	padding: 3rem 0 2.8rem;
+
+	/* Progress Tracker v2 */
+	.usa-da-progress-bar-holder {
+		width: 100%;
+		list-style: none;
+		margin: 0;
+		padding: 0;
+
+		&:last-child {
+			font-size: $base-font-size;
+			font-family: $font-sans;
+		}
+
+		@include validationProgressStep;
+		@include validationProgressStepWidths;
+
+		.usa-da-progress-bar-step-current {
+			@include validationProgressCurrentStep;
+		}
+
+		.usa-da-progress-bar-step-done {
+			@include validationProgressDoneStep;
+		}
+	}
+}

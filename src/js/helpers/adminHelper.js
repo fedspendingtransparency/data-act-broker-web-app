@@ -38,6 +38,26 @@ export const modifyUser = (userId, changes) => {
 	return deferred.promise;
 }
 
+export const deleteUser = (email) => {
+	const deferred = Q.defer();
+
+	Request.post(kGlobalConstants.API + 'delete_user/')
+		.send({ email: email })
+		.end((err, res) => {
+			if (err) {
+				deferred.reject(err);
+			}
+			else if (res.body.hasOwnProperty('message') && res.body.message == 'success') {
+				deferred.resolve();
+			}
+			else {
+				deferred.reject(res.body.message);
+			}
+		});
+
+	return deferred.promise;
+}
+
 export const determineStatus = (user) => {
 	let statusType = UserStatus.AWAITING_CONFIRMATION;
 
@@ -76,13 +96,8 @@ export const listAllUsers = () => {
 				deferred.reject(err);
 			}
 			else {
-				// break up the permissions
 				const users = [];
 				res.body.users.forEach((user) => {
-					// sometimes python adds extra spaces to the comma separated list, so strip those out
-					const permString = user.permissions.replace(/\s/g, '');
-					user.permissions = permString.split(',');
-
 					const status = determineStatus(user);
 
 					user.statusString = status.string;

@@ -6,33 +6,70 @@ import React from 'react';
 import _ from 'lodash';
 import { hashHistory } from 'react-router';
 import * as Icons from '../SharedComponents/icons/Icons.jsx';
+import CommonOverlay from '../SharedComponents/overlays/CommonOverlay.jsx';
+import LoadingBauble from '../SharedComponents/overlays/LoadingBauble.jsx';
 
 const defaultProps = {
 	errors: ['error'],
 	loading: true
 };
 
+class CrossFileLoadingDetail extends React.Component {
+	render() {
+		return (
+			<div>
+				You can return to this page at any time to check the validation status by using this link:
+				<br />
+				<a href={window.location.href}>{window.location.href}</a>
+			</div>
+		)
+	}
+}
+
 export default class CrossFileOverlay extends React.Component {
 
 	constructor(props) {
 		super(props);
 
-		this.state = {
-			allowUpload: false
+		this.defaultOverlay = {
+			icon: <Icons.ExclamationCircle />,
+			iconClass: 'usa-da-errorRed',
+			uploadButtonClass: '-disabled',
+			uploadButtonDisabled: true,
+			nextButtonClass: ' hide',
+			nextButtonDisabled: true,
+			hideButtons: false,
+			message: 'You must correct the cross-file validation errors listed above.',
+			detail: null,
+			buttonText: 'Upload Corrected CSV Files'
 		};
+
+		this.state = {
+			allowUpload: false,
+			overlay: this.defaultOverlay
+		};
+	}
+
+	componentDidMount() {
+		this.prepareOverlayContents();
 	}
 
 	componentDidUpdate(prevProps, prevState) {
 		if (!_.isEqual(prevProps.submission.files, this.props.submission.files) || !_.isEqual(prevProps.submission.crossFile, this.props.submission.crossFile)) {
 			this.setState({
 				allowUpload: this.isReadyForUpload()
+			}, () => {
+				this.prepareOverlayContents();
 			});
+		}
+		else if (prevProps.loading != this.props.loading || prevProps.mode != this.props.mode) {
+			this.prepareOverlayContents();
 		}
 	}
 
 	pressedNext(e) {
 		e.preventDefault();
-		hashHistory.push('/reviewData/' + this.props.submission.id);
+		hashHistory.push('/generateEF/' + this.props.submission.id);
 	}
 
 	isUploadingFiles() {
@@ -55,7 +92,7 @@ export default class CrossFileOverlay extends React.Component {
 			if (_.indexOf(expectedPairs, key) == -1) {
 				continue;
 			}
-			
+
 			const firstKey = key.split('-')[0];
 			const secondKey = key.split('-')[1];
 
@@ -69,100 +106,89 @@ export default class CrossFileOverlay extends React.Component {
 		return true;
 	}
 
-	render() {
-
-		let icon = <Icons.ExclamationCircle />;
-		let iconClass = 'usa-da-errorRed';
-
-		let uploadButtonClass = '-disabled';
-		let uploadButtonDisabled = true;
-
-		let nextButtonClass = ' hide';
-		let nextButtonDisabled = true;
-
-		let hideButtons = '';
-		let hideHelpText = ' hide';
-
-		if (this.state.allowUpload) {
-			uploadButtonDisabled = false;
-			uploadButtonClass = ' btn-primary';
-		}
-
-
-		let message = 'You must the correct the cross-file validation errors listed above.';
-
-		if (Object.keys(this.props.submission.crossFile).length == 0) {
-			icon = <Icons.CheckCircle />;
-			iconClass = 'usa-da-successGreen';
-			message = 'Your files have been successfully cross-validated. Click Next to review and publish these files.';
-			uploadButtonDisabled = true;
-			uploadButtonClass = '-disabled';
-			nextButtonClass = ' btn-primary';
-			nextButtonDisabled = false;
-
-			if (this.isUploadingFiles()) {
-				uploadButtonDisabled = false;
-				uploadButtonClass = ' btn-primary';
-			}
-
-
-		}
-
-		let buttonText = 'Upload Corrected CSV Files';
-		if (this.props.submission.state == 'uploading') {
-			uploadButtonDisabled = true;
-			uploadButtonClass = '-disabled';
-			nextButtonDisabled = true;
-			nextButtonClass = '-disabled';
-			buttonText = 'Uploading files...';
-		}
-		else if (this.props.submission.state == 'prepare') { 
-			uploadButtonDisabled = true;
-			uploadButtonDisabled = '-disabled';
-			nextButtonDisabled = true;
-			nextButtonClass = '-disabled';
-			buttonText = 'Gathering data...';
-		}
+	prepareOverlayContents() {
+		// prepare the props to send down the common overlay component
+		// create a clone of the default state
+		const overlay = Object.assign({}, this.defaultOverlay);
 
 		if (this.props.loading) {
-			uploadButtonDisabled = true;
-			uploadButtonClass = ' hide';
-			nextButtonClass = ' hide';
-			nextButtonDisabled = true;
-			icon = null;
-			iconClass = null;
-			message = 'Your files are being validated.';
-			hideButtons = ' hide';
-			hideHelpText = '';
+			// still loading data
+			overlay.uploadButtonDisabled = true;
+			overlay.uploadButtonClass = ' hide';
+			overlay.nextButtonClass = ' hide';
+			overlay.nextButtonDisabled = true;
+			overlay.icon = <LoadingBauble />;
+			overlay.iconClass = 'overlay-animation';
+			overlay.message = 'Your files are being validated.';
+			overlay.hideButtons = true;
+			overlay.detail = <CrossFileLoadingDetail />;
+		}
+		else if (this.props.mode == 'success') {
+			// loading finished, show success (default state is to show errors)
+			overlay.icon = <Icons.CheckCircle />;
+			overlay.iconClass = 'usa-da-successGreen';
+			overlay.message = 'Your files have been successfully cross-validated.';
+			overlay.detail = 'Click Next to generate Files E and F.';
+			overlay.uploadButtonDisabled = true;
+			overlay.uploadButtonClass = '-disabled';
+			overlay.nextButtonClass = ' btn-primary';
+			overlay.nextButtonDisabled = false;
+		}
+		else if (this.props.mode == 'warnings') {
+			// loading finished, show warnings
+			overlay.icon = <Icons.ExclamationCircle />;
+			overlay.iconClass = 'usa-da-warningYellow';
+			overlay.message = 'Some cross-file pairs have validation warnings.';
+			overlay.detail = 'You can correct your files or click Next to generate Files E and F.';
+			overlay.uploadButtonDisabled = true;
+			overlay.uploadButtonClass = '-disabled';
+			overlay.nextButtonClass = ' btn-primary';
+			overlay.nextButtonDisabled = false;
 		}
 
+		// handle uploading events
+		if (this.props.submission.state == 'uploading') {
+			overlay.uploadButtonDisabled = true;
+			overlay.uploadButtonClass = '-disabled';
+			overlay.nextButtonDisabled = true;
+			overlay.nextButtonClass = '-disabled';
+			overlay.buttonText = 'Uploading files...';
+		}
+		else if (this.props.submission.state == 'prepare') {
+			// new files uploaded, page is now reloading
+			overlay.uploadButtonDisabled = true;
+			overlay.uploadButtonDisabled = '-disabled';
+			overlay.nextButtonDisabled = true;
+			overlay.nextButtonClass = '-disabled';
+			overlay.buttonText = 'Gathering data...';
+		}
+
+		// enable the upload button if the correct files have been staged for upload
+		if (this.state.allowUpload || this.isUploadingFiles()) {
+			overlay.uploadButtonDisabled = false;
+			overlay.uploadButtonClass = ' btn-primary';
+		}
+
+		this.setState({
+			overlay: overlay
+		});
+	}
+
+	render() {
+
 		return (
-			<div className="center-block usa-da-validation-overlay">
-				<div className="container">
-					<div className="row">
-						<div className="col-xs-10 col-xs-offset-1 col-md-8 col-md-offset-0 usa-da-overlay-content-wrap">
-							<div className="row">
-								<div className="col-xs-2 col-xs-offset-5 col-md-1 col-md-offset-0 usa-da-icon mr-10">
-									<div className={iconClass}>{icon}</div>
-								</div>
-								<div className="col-xs-10 col-xs-offset-1 col-md-10 col-md-offset-0">
-									<h6>{message}</h6>
-									<div className={"overlay-help-text" + hideHelpText}>
-										You can return to this page at any time to check the validation status by using this link:<br />
-										<a href={window.location.href}>{window.location.href}</a>
-									</div>
-								</div>
-							</div>
-						</div>
-						<div className="col-xs-12 col-md-4">
-							<div className={'usa-da-btn-bg' + hideButtons}>
-								<button className={"usa-da-button" + uploadButtonClass} disabled={uploadButtonDisabled} onClick={this.props.uploadFiles}>{buttonText}</button>
-								<button className={"usa-da-validation-overlay-review usa-da-button" + nextButtonClass} disabled={nextButtonDisabled} onClick={this.pressedNext.bind(this)}>Next</button>
-							</div>
-						</div>
-					</div>
+			<CommonOverlay
+				header={this.state.overlay.message}
+				detail={this.state.overlay.detail}
+				showIcon={true}
+				icon={this.state.overlay.icon}
+				iconClass={this.state.overlay.iconClass}
+				showButtons={!this.state.overlay.hideButtons}>
+				<div className="usa-da-btn-bg">
+					<button className={"usa-da-button" + this.state.overlay.uploadButtonClass} disabled={this.state.overlay.uploadButtonDisabled} onClick={this.props.uploadFiles}>{this.state.overlay.buttonText}</button>
+					<button className={"usa-da-validation-overlay-review usa-da-button" + this.state.overlay.nextButtonClass} disabled={this.state.overlay.nextButtonDisabled} onClick={this.pressedNext.bind(this)}>Next</button>
 				</div>
-            </div>
+			</CommonOverlay>
 		);
 	}
 }

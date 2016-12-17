@@ -131,6 +131,15 @@ export default class ValidateDataFileComponent extends React.Component {
             });
         }
 
+        else if (item.missing_headers.length == 0 && item.duplicated_headers.length == 0 && item.error_type == 'header_errors') {
+            // special case where the header rows could not be read
+            headerTitle = 'Critical Error: The header row could not be parsed.';
+            errorData = [];
+            hasErrorReport = false;
+            hasFailed = true;
+            isError = true;
+        } 
+
 
         if (item.file_status == 'incomplete' || !this.isFileReady()) {
             headerTitle = 'Validating...';
@@ -286,7 +295,10 @@ export default class ValidateDataFileComponent extends React.Component {
                             </div>
                         </div>
                     </div>
-                    {this.state.showError ? <ValidateDataErrorReport link={this.props.item.report} data={this.state.errorReports} /> : null}
+                    {this.state.showError ? <ValidateDataErrorReport
+                        submission={this.props.submission.id}
+                        type={this.props.item.file_type}
+                        data={this.state.errorReports} /> : null}
                 </div>
             </div>
         );

@@ -1,0 +1,30 @@
+@import "../../../components/positioning/_centerContent";
+@import "../../../components/buttons/_primary";
+
+@mixin validationOverlayButton {
+	@include flexCenterContent;
+    background: as-alpha($color-base, 0.40);
+    height: 150px;
+    margin-left: -22px;
+    @media screen and (max-width: $medium-screen) {
+        display: block;
+        margin: 0;
+        height: auto;
+        padding: 20px 0;
+        text-align: center;
+    }
+
+    // again these are custom implemented buttons, so we will first implement the mixin in a placeholder
+    %overlayButton {
+    	@include primaryButton;
+    }
+
+    .usa-da-button {
+    	@extend %overlayButton;
+    }
+    .usa-da-button-disabled {
+    	@extend %overlayButton;
+    	@extend %overlayButton.btn-disabled;
+    }
+
+}

@@ -1,0 +1,32 @@
+.usa-da-submission-item {
+    margin-top: 4.0rem;
+    &:first-child {
+        margin-top: 0em;
+    }
+    > div {}
+    .usa-da-submission-item-drop-wrapper {
+        display: table-cell;
+        vertical-align: middle;
+        width: 100%;
+        @media (max-width: $screen-md-min) {
+            display: block;
+            width: 100%;
+        }
+    }
+    .usa-da-submission-item-title {
+        display: table-cell;
+        vertical-align: middle;
+        @media (max-width: $screen-md-min) {
+            display: block;
+            text-align: center;
+            padding-bottom: 1.5em;
+            width: 100%;
+        }
+    }
+    .usa-da-submission-vertical-center {
+        display: table;
+        width: 100%;
+    }
+
+    @import "./_uploadDropzone";
+}

@@ -1,0 +1,70 @@
+// import the innput fields
+@import "./_inputField";
+// import the login button
+@import "./_loginButton";
+// style the registration links
+@import "./_bottomLinks";
+// import alert styles
+@import "./_loginAlerts";
+
+
+@mixin loginForm {
+
+	// style the outer wrapper
+    padding: 40px 40px 29px;
+    margin: 40px 0;
+    background: as-alpha($color-white, 0.03);
+    border: 1px solid rgba(0, 0, 0, 0.25);
+    // @media screen and (max-width: 1199px) and (min-width: $medium-screen) {
+        padding: 40px 20px 29px;
+    // }
+
+    // style the form components
+    p.msg {
+        color: $color-white;
+        margin: 0 0 30px;
+    }
+    p.info {
+        color: $color-white;
+        margin: 0 0 20px -15px;
+        @media screen and (max-width: $small-screen) {
+            text-align: center;
+        }
+    }
+    .usa-da-reset-success {
+        margin: 20px 0 0 0;
+        padding: 0;
+        color: $color-white;
+        font-size: $small-font-size;
+
+        p {
+            color: $color-white;
+            font-size: $small-font-size;
+        }
+
+        a {
+            color: $color-gray-lighter;
+            text-decoration: underline;
+
+            &:hover {
+                color: $color-white;
+            }
+        }
+    }
+
+    .usa-da-input-container {
+        @include loginFormInputContainer;
+    }
+    
+    .usa-da-button {
+        @include loginFormButton;
+    }
+
+    .usa-da-registration-links {
+        @include loginFormBottomLinks;
+    }
+
+    @include loginFormAlerts;
+
+
+}

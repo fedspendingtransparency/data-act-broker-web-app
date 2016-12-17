@@ -1,0 +1,11 @@
+.usa-da-registration-login-page {
+	// this is the page where the user enters their email to receive a registration link
+	// it should be based on the login page
+	// inherit the basic layout of the page
+	@import "../../layouts/login/login";
+	@include loginLayout;
+
+	// any additional customization we do after this point will be limited to the forgot password page
+	@import "./registrationLogin/_emailField";
+	@import "./registrationLogin/_button";
+}

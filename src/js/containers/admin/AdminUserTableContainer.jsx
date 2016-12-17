@@ -101,6 +101,34 @@ class AdminUserTableContainer extends React.Component {
             });
     }
 
+    deleteUser(user) {
+        AdminHelper.deleteUser(user.email)
+            .then(() => {
+                this.setState({
+                    message: {
+                        hidden: false,
+                        type: 'success',
+                        message: user.name + "'s DATA Act Broker account was successfully deleted."
+                    }
+                }, this.scheduleMessageHide());
+                
+                // reload the table
+                this.loadUserList()
+            })
+            .catch((err) => {
+                console.log(err);
+                // show the error message
+                this.setState({
+                    message: {
+                        hidden: false,
+                        type: 'failed',
+                        message: 'An error occurred while deleting the user account.'
+                    }
+                }, this.scheduleMessageHide());
+            
+            });
+    }
+
     scheduleMessageHide() {
         // hide the message after 3 seconds
         window.setTimeout(() => {
@@ -117,7 +145,7 @@ class AdminUserTableContainer extends React.Component {
     render() {
         
         return (
-            <UserTable {...this.props} message={this.state.message} modifyUser={this.modifyUser.bind(this)} />
+            <UserTable {...this.props} message={this.state.message} modifyUser={this.modifyUser.bind(this)} deleteUser={this.deleteUser.bind(this)} />
         );
     }
 }

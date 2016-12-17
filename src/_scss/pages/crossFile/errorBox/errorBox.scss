@@ -1,0 +1,57 @@
+@import "./_tabs";
+.error-box {
+    @include contentBlockWrapper();
+    padding: 0;
+    position: relative;
+
+    .box-content {
+        padding: 20px;
+    }
+
+    .vertical-line {
+        position: absolute;
+        border-left: 2px solid $color-gray-light;
+        height: 80px;
+        width: 2px;
+        top: -60px;
+        left: 0px;
+        right: 0px;
+        margin-left: auto;
+        margin-right: auto;
+        z-index: -1;
+    }
+    .button-list {
+        padding-top: 15px;
+        height: 100%;
+        @include display(flex);
+        @include flex-direction(column);
+        @include justify-content(space-between);
+        .download-button {
+            button {
+                width: 100%;
+            }
+        }
+        .upload-buttons-wrap {
+            @include align-self(flex-end);
+            width: 100%;
+        }
+        .upload-title {
+            font-weight: bold;
+            margin: 10px 0 10px 0;
+        }
+
+        .upload-buttons {
+            margin-top: 15px;
+            div {
+                margin-bottom: 15px;
+                &:last-child {
+                    margin-bottom: 0px;
+                }
+            }
+        }
+    }
+    @import "./_uploadButtons";
+    @import "./_overwriteButtons";
+    @import "./_downloadButton";
+    @import "./_errorTable";
+}

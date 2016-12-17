@@ -98,9 +98,11 @@ const prepareFiles = (fileDict) => {
 	Request.post(kGlobalConstants.API + 'submit_files/')
 		.send(fileDict)
 		.end((err, res) => {
-			if (err) {
-				deferred.reject(err);
-			}
+            if (err) {
+                const response = Object.assign({}, res.body);
+                response.httpStatus = res.status;
+                deferred.reject(response);
+            }
 			else {
 				deferred.resolve(res);
 			}

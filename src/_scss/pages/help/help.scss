@@ -1,0 +1,16 @@
+.usa-da-help-style-page {
+	@import "../../layouts/content/content";
+	@include contentLayout;
+
+	@import "./_content";
+	@import "./_table";
+
+	@import "./_sidebar";
+
+	@import "./_topButton";
+
+	@import "./_topNav";
+
+	@import "./validationTable/_table.scss";
+
+}

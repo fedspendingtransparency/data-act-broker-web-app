@@ -5,7 +5,7 @@
 
 import React from 'react';
 import ReactDOM from 'react-dom';
-import Modal from 'react-modal';
+import Modal from 'react-aria-modal';
 import _ from 'lodash';
 
 import ReviewDataSelectedUser from './ReviewDataSelectedUser.jsx';
@@ -14,19 +14,22 @@ import Typeahead from '../SharedComponents/Typeahead.jsx';
 import * as ReviewHelper from '../../helpers/reviewHelper.js';
 import * as Icons from '../SharedComponents/icons/Icons.jsx';
 
+const defaultProps = {
+    isOpen: false,
+    closeModal: () => {}
+};
+
 export default class ReviewDataNotifyModal extends React.Component {
     constructor(props) {
         super(props);
 
         this.state = {
-            isOpen: false,
             users: null,
             selectedUsers: []
         };
     }
 
     componentDidMount() {
-        Modal.setAppElement('#reviewDataNotifyModalHolder');
         this.loadUsers();
     }
     
@@ -43,21 +46,6 @@ export default class ReviewDataNotifyModal extends React.Component {
             });
     }
 
-    openModal() {
-        this.setState({
-            isOpen: true
-        });
-    }
-
-    closeModal(e) {
-        if (e) {
-            e.preventDefault();
-        }
-
-        this.setState({
-            isOpen: false
-        });
-    }
 
     userFormatter(item, input) {
         return {
@@ -105,7 +93,7 @@ export default class ReviewDataNotifyModal extends React.Component {
 
         ReviewHelper.sendNotification(users, this.props.submissionID)
             .then((data) => {
-                this.closeModal();
+                this.props.closeModal();
             })
             .catch((error) => {
                 console.log(error);
@@ -126,32 +114,39 @@ export default class ReviewDataNotifyModal extends React.Component {
         }
 
         return (
-            <Modal isOpen={this.state.isOpen} overlayClassName="usa-da-landing-modal-overlay" className="usa-da-landing-modal">
-                <div className="usa-da-landing-modal-close usa-da-icon usa-da-icon-times">
-                    <a href="#" onClick={this.closeModal.bind(this)}> <Icons.Times /> </a>
-                </div>
-
-                <div className="usa-da-landing-modal-content">
-                <div className="row">
-                    <div className="col-md-12">
-                        <h6>Notify Another User that the Submission is Ready for Certification</h6>
-
-                        <div className="usa-da-selected-users-holder">
-                            {selectedUsers}
+            <Modal mounted={this.props.isOpen} onExit={this.props.closeModal} underlayClickExists={false}
+                    verticallyCenter={true} titleId="usa-da-notify-modal">
+                <div className="usa-da-modal-page">
+                    <div id="usa-da-notify-modal" className="usa-da-notify-modal">
+                        <div className="usa-da-notify-modal-close usa-da-icon usa-da-icon-times">
+                            <a href="#" onClick={this.props.closeModal}> <Icons.Times /> </a>
                         </div>
 
-                        <div className="usa-da-autocomplete-holder typeahead-holder mb-30">
-                            {autoCompleteItems}
-                        </div>
+                        <div className="usa-da-notify-modal-content">
+                            <div className="row">
+                                <div className="col-md-12">
+                                    <h6>Notify Another User that the Submission is Ready for Certification</h6>
+
+                                    <div className="usa-da-selected-users-holder">
+                                        {selectedUsers}
+                                    </div>
+
+                                    <div className="usa-da-autocomplete-holder typeahead-holder mb-30">
+                                        {autoCompleteItems}
+                                    </div>
+                                </div>
+                            </div>
+                            <div className="row">
+                                <div className="col-md-12 mb-10">
+                                    <a href="#" onClick={this.sendNotification.bind(this)} className="usa-da-button btn-primary pull-right">Send Notification</a>
+                                </div>
+                            </div>
+                        </div> 
                     </div>
-                </div>
-                <div className="row">
-                    <div className="col-md-12 mb-10">
-                        <a href="#" onClick={this.sendNotification.bind(this)} className="usa-da-button btn-primary pull-right">Send Notification</a>
-                    </div>
-                </div>
                 </div>
             </Modal>
         );
     }
 }
+
+ReviewDataNotifyModal.defaultProps = defaultProps;

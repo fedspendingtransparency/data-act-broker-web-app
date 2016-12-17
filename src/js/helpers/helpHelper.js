@@ -7,7 +7,7 @@ const unescapeInlineHtml = (html) => {
 	// find any inline HTML (as denoted by ```!inline-html [CODE] !inline-html```)
 	const regex = /<p><code>!inline-html\n[\s\S]*\n!inline-html<\/code><\/p>/;
 	const results = regex.exec(html);
-	
+
 	// we found inline HTML, unescape it and insert it into the parsed Markdown output
 	if (results && results.length > 0) {
 		const rawHtml = results[0].substring(21, results[0].length - 23);
@@ -127,6 +127,50 @@ export const loadHelp = () => {
 		.then((data) => {
 			output.history = data;
 
+			deferred.resolve(output);
+		})
+		.catch((err) => {
+			deferred.reject(err);
+		});
+
+	return deferred.promise;
+
+}
+
+const loadResourcesFile = () => {
+	const deferred = Q.defer();
+
+	Request.get('/help/resources.md')
+	        .send()
+	        .end((err, res) => {
+	        	if (err) {
+	        		deferred.reject(err);
+	        	}
+	        	else {
+	        		const output = parseMarkdown(res.text);
+	        		deferred.resolve(output);
+	        	}
+
+	        });
+
+	return deferred.promise;
+}
+
+export const loadResources = () => {
+
+	const deferred = Q.defer();
+
+	const output = {
+		html: '',
+		sections: []
+	};
+
+	loadResourcesFile()
+		.then((data) => {
+			output.html = data.html;
+			output.sections = data.sections;
+		})
+		.then((data) => {
 			deferred.resolve(output);
 		})
 		.catch((err) => {

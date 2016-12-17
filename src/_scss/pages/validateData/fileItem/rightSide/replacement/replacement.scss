@@ -1,0 +1,23 @@
+@import "../../../../../components/replacementCorner/_replacementCorner";
+
+@import "./_overlayModal";
+
+@mixin rightSideReplacement {
+	border: 0;
+    position: absolute;
+    right: 0;
+    top: 0;
+    z-index: 500;
+    &.full-width {
+        width: 100%;
+        height: 100%;
+    }
+
+    .corner-overlay {
+    	@include replacementCorner;
+    }
+
+    .full-overlay {
+    	@include replacementOverlayModal;
+    }
+}

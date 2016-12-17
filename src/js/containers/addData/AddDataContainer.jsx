@@ -11,6 +11,7 @@ import { hashHistory } from 'react-router';
 import * as uploadActions from '../../redux/actions/uploadActions.js';
 
 import AddDataContent from '../../components/addData/AddDataContent.jsx';
+import ErrorMessage from '../../components/SharedComponents/ErrorMessage.jsx';
 import { fileTypes } from './fileTypes.js';
 import { kGlobalConstants } from '../../GlobalConstants.js';
 
@@ -19,6 +20,11 @@ import * as UploadHelper from '../../helpers/uploadHelper.js';
 class AddDataContainer extends React.Component {
 	constructor(props) {
 		super(props);
+
+		this.state = {
+			notAllowed: false,
+            errorMessage: ""
+		};
 
 	}
 	componentDidUpdate(prevProps, prevState) {
@@ -48,14 +54,25 @@ class AddDataContainer extends React.Component {
         			this.props.setSubmissionId(submissionID);
                     hashHistory.push('/validateData/' + submissionID);
         		})
-        		.catch(() => {
-        			// error handling is done at the file item/dropzone level
+        		.catch((err) => {
+        			if (err.httpStatus == 401) {
+                        this.setState({
+                            notAllowed: true,
+                            errorMessage: err.message
+                        });
+				    }
         		});
         }
 	}
 
 
 	render() {
+	    if (this.state.notAllowed) {
+			return (
+			    <ErrorMessage message={this.state.errorMessage} />
+			);
+		}
+
 		return (
 			<AddDataContent {...this.props} fileTypes={fileTypes} performUpload={this.performUpload.bind(this)} />
 		);

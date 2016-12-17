@@ -1,0 +1,32 @@
+.usa-da-generate-item-wrap {
+	margin-bottom: 40px;
+
+	.usa-da-generate-item {
+		@include display(flex);
+		@include flex-direction(row);
+		width: 100%;
+	    position: relative;
+	    @include align-items(center);
+
+	    border: 1px solid $color-gray-lighter;
+
+	    .file-full-name {
+			@include flex(0 1 auto);
+			width: 33%;
+			position: relative;
+
+			text-align: left;
+			padding-top: 10px;
+			padding-bottom: 10px;
+
+			font-weight: bold;
+
+			padding: 20px;
+		}
+
+		@import "./_dates";
+	}
+
+	
+	@import "./_download";
+}

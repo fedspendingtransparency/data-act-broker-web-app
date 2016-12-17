@@ -1,0 +1,48 @@
+.generate-ef-item {
+	@include display(flex);
+	@include flex-direction(row);
+	width: 100%;
+    position: relative;
+    @include align-items(stretch);
+
+    border: 1px solid $color-gray-lighter;
+
+	.generate-left {
+		@include flex(1 1 auto);
+		position: relative;
+
+		border-right: 1px solid $color-gray-lighter;
+
+		@import "./_header";
+		@import "./_description";
+	}
+	.generate-right {
+		@include flex(0 0 auto);
+		position: relative;
+		width: 250px;
+
+		@media screen and (max-width: $medium-screen) {
+			width: 200px;
+		}
+		@media screen and (max-width: $small-screen) {
+			width: 25%;
+		}
+
+		.right-content {
+			padding: 20px;
+		
+			@import "./_file";
+		}
+	}
+
+	@import "./_comingSoon";
+}
+
+.generate-ef-wrap {
+    margin-bottom: 40px;
+
+	.alert-danger {
+		@import "../../../components/alerts/_alerts";
+		@include dangerAlert;
+	}
+}

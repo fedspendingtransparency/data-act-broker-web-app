@@ -1,0 +1,12 @@
+@import "./_lastUpdated";
+@import "../../../components/positioning/_centerContent";
+
+@mixin validationHeader {
+	.last-updated {
+		@include validationLastUpdated;
+	}
+
+	&.flex-center-content-only-height {
+		@include flexCenterContentOnlyHeight;
+	}
+}

@@ -8,6 +8,7 @@ import { kGlobalConstants } from '../../GlobalConstants.js';
 import SubmitButton from '../SharedComponents/SubmitButton.jsx';
 import ScrollableTable from '../SharedComponents/table/ScrollableTable.jsx';
 import * as Icons from '../SharedComponents/icons/Icons.jsx';
+import * as ReviewHelper from '../../helpers/reviewHelper.js';
 import _ from 'lodash';
 
 const propTypes = {
@@ -19,18 +20,60 @@ export default class ValidateDataErrorReport extends React.Component {
         super(props);
 
         this.state = {
-            sortDirection: 'asc'
+            sortDirection: 'asc',
+            signedUrl: '',
+            signInProgress: false
         };
-    }
-
-    openWindow() {
-        window.open(this.props.link, '_blank');
     }
 
     sortTable(direction, column) {
         if (direction != this.state.sortDirection) {
             this.setState({
                 sortDirection: direction
+            });
+        }
+    }
+
+    openReport() {
+        window.location = this.state.signedUrl;
+    }
+
+    signReport() {
+        const fileName = `submission_${this.props.submission}_${this.props.type}_error_report`;
+        ReviewHelper.signErrorWarningReport(this.props.submission, fileName)
+            .then((data) => {
+                this.setState({
+                    signInProgress: false,
+                    signedUrl: data.url
+                }, () => {
+                    this.openReport();
+                });
+            })
+            .catch((err) => {
+                this.setState({
+                    signInProgress: false
+                });
+                console.log(err);
+            });
+    }
+
+    clickedReport() {
+
+        // check if the link is already signed
+        if (this.state.signInProgress) {
+            // sign is in progress, do nothing
+            return;
+        }
+        else if (this.state.signedUrl !== '') {
+            // it is signed, open immediately
+            this.openReport();
+        }
+        else {
+            // not signed yet, sign
+            this.setState({
+                signInProgress: true
+            }, () => {
+                this.signReport();
             });
         }
     }
@@ -58,6 +101,11 @@ export default class ValidateDataErrorReport extends React.Component {
             
         }
 
+        let reportLinkText = 'Download Error Report';
+        if (this.state.signInProgress) {
+            reportLinkText = 'Preparing Error Report...';
+        }
+
         return (
             <div className="row usa-da-validate-item-bottom-section">
                 <div className="usa-da-validate-error-report">
@@ -66,8 +114,9 @@ export default class ValidateDataErrorReport extends React.Component {
                             <h6>Header Error Report</h6>
                         </div>
                         <div className="col-md-3 mr-0">
-                            <div className="usa-da-download pull-right" onClick={this.openWindow.bind(this)}>
-                                <span className="usa-da-icon usa-da-download-report"><Icons.CloudDownload /></span>Download Error Report
+                            <div className="usa-da-download pull-right"
+                                onClick={this.clickedReport.bind(this)}>
+                                <span className="usa-da-icon usa-da-download-report"><Icons.CloudDownload /></span>{reportLinkText}
                             </div>
                         </div>
                         <div className="col-md-12">

@@ -1,0 +1,14 @@
+.usa-da-add-data-page {
+	@import "../../layouts/validation/validation";
+	@include validationLayout;
+
+	@import "./_content";
+	@import "./_transitions";
+
+	@import "./uploadPage/uploadPage";
+
+	.alert-error {
+        @import "../../components/alerts/_alerts";
+        @include dangerAlert;
+    }
+}

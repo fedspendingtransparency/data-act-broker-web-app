@@ -1,0 +1,35 @@
+.generate-header {
+	@include flex(1 1 auto);
+	width: 100%;
+	display: flex;
+	position: relative;
+	border-bottom: 1px solid $color-gray-lighter;
+
+	.generate-type {
+		@include flex(0 0 auto);
+		position: relative;
+		@include align-items(center);
+		@include justify-content(center);
+		@include display(flex);
+
+		width: 80px;
+
+		background-color: $color-gray-lighter;
+		padding: 20px;
+		font-weight: bold;
+
+		span {
+			@include flex(1 1 auto);
+			position: relative;
+		}
+	}
+	.generate-title {
+		@include flex(1 1 auto);
+		position: relative;
+
+		text-align: left;
+		padding: 20px;
+
+		font-weight: bold;
+	}
+}

@@ -1,0 +1,28 @@
+@import "./_text";
+@import "./_icon";
+@import "./_loadingAnimation.scss";
+@mixin validationOverlayPositioning {
+    .overlay-content {
+        @include display(flex);
+        @include flex-direction(row);
+        @include justify-content(center);
+        @include align-items(center);
+        width: 100%;
+
+        .overlay-icon {
+            @include flex(0 0 auto);
+            width: 55px;
+            height: 55px;
+            @include validationOverlayIcon;
+        }
+        .overlay-text {
+            @include flex(1 1 auto);
+            margin-left: 10px;
+            @include validationOverlayText;
+
+            p {
+                max-width: none;
+            }
+        }
+    }
+}

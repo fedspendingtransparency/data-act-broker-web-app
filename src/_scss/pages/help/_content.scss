@@ -1,0 +1,62 @@
+.usa-da-help-content{
+    @include contentBlockWrapper;
+    padding: 20px 30px;
+    margin: 0 0 40px;
+
+    // resize the JIRA GIF
+    img {
+    	max-width: 100%;
+    }
+
+	// margin updates for changelog
+	h4 {
+		margin-bottom: 1.6rem;
+	}
+
+	h5 {
+		margin-bottom: 1rem;
+	}
+
+	h6 {
+		font-size: 1.4rem;
+		margin-bottom: .5rem;
+	}
+
+	p + h5, p + h6 {
+		margin-top: 4rem;
+	}
+
+	ul {
+		margin-top: 1.4rem;
+	}
+
+	.reactable-th-severity {
+		width:150px;
+	}
+
+	.reactable-th-rule-name::after {
+		content: '\21C5';
+	}
+
+	.practices-procedures {
+		ul {
+			padding-left:40px;
+		}
+
+		ul li:before{
+			content:none;
+		}
+
+		p {
+			max-width:110rem;
+		}
+
+	}
+
+	.validation-table {
+		p {
+			max-width:110rem;
+		}
+	}
+
+}

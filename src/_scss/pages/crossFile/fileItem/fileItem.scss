@@ -1,0 +1,17 @@
+.usa-da-cross-file-item {
+    @include display(flex);
+    @include flex-direction(row);
+    @include align-items(center);
+    width: 100%;
+    position: relative;
+    .file-left {
+        @include flex(0 1 auto);
+        width: 40%;
+    }
+    .file-right {
+        @include flex(0 1 auto);
+        width: 40%;
+    }
+    @import "./_fileCompare";
+    @import "./_fileBox";
+}

@@ -4,9 +4,11 @@
  **/
 
 import React from 'react';
+import _ from 'lodash';
 import Navbar from '../SharedComponents/navigation/NavigationComponent.jsx';
 import HelpSidebar from './helpSidebar.jsx';
 import HelpContent from './helpContent.jsx';
+import HelpNav from './helpNav.jsx';
 import Footer from '../SharedComponents/FooterComponent.jsx';
 
 import * as Icons from '../SharedComponents/icons/Icons.jsx';
@@ -32,8 +34,7 @@ export default class HelpPage extends React.Component {
             .then((output) => {
                 this.setState({
                     changelog: output.html,
-                    sections: output.sections,
-                    history: output.history
+                    sections: output.sections
                 });
             })
             .catch((err) => {
@@ -43,14 +44,16 @@ export default class HelpPage extends React.Component {
 
     render() {
         return (
-            <div name="top">
+            <div className="usa-da-help-style-page" name="top">
                 <div className="usa-da-page-content">
-                    <Navbar activeTab="help"/>
+                    <Navbar activeTab="help" logoOnly={this.props.helpOnly} />
                     <div className="usa-da-content-dark mb-60">
                         <div className="container">
                             <div className="row">
                                 <div className="col-md-12 mt-40 mb-20">
-                                    <div className="display-2" data-contentstart="start" tabIndex={-1}>Help | DATA Act Broker - Beta Release</div>
+                                    <div className="display-2" data-contentstart="start" tabIndex={-1}>Help | DATA Act Broker
+										<HelpNav selected="Help" />
+									</div>
                                 </div>
                             </div>
                         </div>
@@ -61,7 +64,7 @@ export default class HelpPage extends React.Component {
                                 <HelpSidebar sections={this.state.sections} />
                             </div>
                             <div className="col-md-8">
-                                <HelpContent section={this.props.location.query.section} changelog={this.state.changelog} history={this.state.history} />
+                                <HelpContent section={this.props.location.query.section} changelog={this.state.changelog} />
                             </div>
                         </div>
                     </div>

@@ -1,0 +1,49 @@
+@import "./body/criticalBody";
+@import "./body/warningBody";
+@import "./body/textBody";
+@import "./_icon";
+@import "./_footer";
+@import "./rightSide/rightSide";
+@import "./bottomSide/bottomSide";
+
+@mixin fileItem {
+	margin-bottom: 40px;
+    position: relative;
+    @include contentBlockWrapper() &.successful {
+        opacity: 0.3;
+    }
+
+    .usa-da-validate-item-warning {
+    	@include fileItemWarningBody;
+    }
+    .usa-da-validate-item-critical {
+    	@include fileItemCriticalBody;
+    }
+    .usa-da-validate-item-body {
+		@include fileItemTextBody;
+	}
+
+    .usa-da-validate-icon {
+        @include fileItemIcon;
+    }
+
+    .usa-da-validate-item-footer-wrap {
+        position: relative;
+    }
+    .usa-da-validate-item-status-section {
+        border-right: 1px solid #e4e2e0;
+        min-height: 171px;
+    }
+
+    .usa-da-validate-item-footer {
+	    @include fileItemFooter;
+	}
+
+	.usa-da-validate-item-file-section {
+		@include fileItemRightSide;
+	}
+
+	.usa-da-validate-item-bottom-section {
+		@include fileItemBottomSide;
+	}
+}

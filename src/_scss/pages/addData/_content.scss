@@ -1,0 +1,50 @@
+.usa-da-add-data-meta {
+	 .meta-holder {
+        padding: 15px 30px 30px 30px;
+        @include contentBlockWrapper;
+        input {
+            max-width: none;
+            &.error {
+                border: 1px $color-secondary solid;
+            }
+        }
+        .usa-da-datetype {
+            margin-top: 0px;
+            .usa-da-datetype-group {
+                float: left;
+                margin-left: 40px;
+                &:first-child {
+                    margin-left: 0px;
+                }
+            }
+        }
+
+        // style the icons
+        .usa-da-form-icon {
+        	@import "../../components/inputs/_fieldIcon";
+        	@include fieldIcon;
+        }
+
+        // style the info alert
+        .alert-info {
+            @import "../../components/alerts/_alerts";
+            @include infoAlert;
+        }
+
+        // style the fields
+        @import "./fields/_label";
+        @import "./fields/_agency";
+        @import "./fields/durationType";
+        @import "./fields/_dateRange";
+        @import "./fields/_submit";
+
+    }
+
+    
+    // style the submission guide link
+    .usa-da-guide-link {
+        font-size: 1.2rem;
+        margin-top: 20px;
+    }
+
+}

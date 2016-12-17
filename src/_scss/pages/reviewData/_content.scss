@@ -1,0 +1,11 @@
+.usa-da-review-data-content-holder {
+    padding: 30px 20px;
+    margin-bottom: 100px;
+    background-color: $color-white;
+    @include contentBlockWrapper;
+
+    @import "./leftSide/leftSide";
+    @import "./rightSide/rightSide";
+    @import "./bottomSide/bottomSide";
+    @import "./narrative/narrative";
+}

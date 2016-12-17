@@ -154,6 +154,13 @@ gulp.task('copyAssets', ['copyConstants'], () => {
                 gutil.log('Markdown copied');
             }),
 
+        // copy markdown files
+        gulp.src('./src/help/**/*.csv')
+            .pipe(gulp.dest('./public/help'))
+            .on('end', () => {
+                gutil.log('CSV copied');
+            }),
+
         // copy the main index file
         gulp.src('./index.html')
             .pipe(gulp.dest('./public'))
@@ -172,7 +179,9 @@ gulp.task('sass', ['copyAssets'], () => {
             .on('change', () => {
                 gutil.log(chalk.green('Starting SASS recompile...'));
                 return gulp.src('./src/css/**/*.scss')
-                    .pipe(sass.sync().on('error', sass.logError))
+                    .pipe(sourcemaps.init())
+                    .pipe(sass().on('error', sass.logError))
+                    .pipe(sourcemaps.write())
                     .pipe(gulp.dest('./public/css'))
                     // auto reload the browser
                     .pipe(connect.reload())
@@ -205,6 +214,9 @@ gulp.task('webpackCore', ['sass'], (callback) => {
             publicPath: 'js/',
             filename: 'core.js',
             library: '[name]_[hash]'
+        },
+        resolve: {
+            extensions: ['', '.js', '.jsx']
         },
         module: {
             loaders: [{
@@ -269,6 +281,9 @@ gulp.task('webpack', ['webpackCore'], () => {
             filename: 'app.js',
             chunkFilename: 'chunk.[chunkhash].js' // including the hash in chunk filenames allows the client to cache them, but discard the cache when the chunk is updated
         },
+        resolve: {
+            extensions: ['', '.js', '.jsx']
+        },
         module: {
             loaders: [{
                 test: /\.jsx?$/,
@@ -326,6 +341,19 @@ gulp.task('webpack', ['webpackCore'], () => {
                     .pipe(gulp.dest('./public/js'))
                     .pipe(connect.reload());
             });
+
+            gulp.watch(['src/help/*.md', 'src/help/*.csv']) // drop the leading . to allow gulp to detect new files that are created after the initial build
+                .on('change', () => {
+                    gutil.log(chalk.cyan('Starting Help Files recompile...'));
+                    return gulp.src(['./src/help/*.md','./src/help/*.csv'])
+                    // .pipe(markdown())
+                    .pipe(gulp.dest('./public/help'))
+                    .on('end', () => {
+                        gutil.log(chalk.green('Help Files compiled.'));
+                    })
+                    // auto reload the browser
+                    .pipe(connect.reload())
+                });
     }
     else if (environment != environmentTypes.DEVHOSTED) {
         // if it's not a development environment, minify everything
@@ -399,16 +427,17 @@ gulp.task('serve', serverDeps, () => {
         port: 3000,
         livereload: reload
     });
+
 });
 
 
 // user-initiated gulp tasks
 gulp.task('buildDev', ['setDevHosted', 'modifyHtml'], () => {
-    
+
 });
 
 gulp.task('dev', ['setDev', 'webpack', 'serve'], () => {
-    
+
 });
 
 gulp.task('buildLocal', ['setLocal', 'modifyHtml'], () => {
@@ -420,7 +449,7 @@ gulp.task('local', ['setLocal', 'modifyHtml', 'serve'], () => {
 });
 
 gulp.task('production', ['setProd', 'modifyHtml'], () => {
-    
+
 });
 
 gulp.task('default', ['local']);
