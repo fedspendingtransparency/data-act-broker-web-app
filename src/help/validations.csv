@@ -30,7 +30,7 @@ A,A30,"All TAS values in File A (appropriations) should exist in File B (object 
 A/B/C,A31,Beginning Period of Availability and Ending Period of Availability must be blank if Availability Type Code = X,Fatal Error,Implemented,Requirement
 A,A32,TAS values in File A (appropriations) should be unique,Fatal Error,Implemented,Requirement
 A,A33,"Each TAS reported to GTAS for SF 133 should be reported in File A, and vice versa, for the same reporting period, with the exception of Financing Accounts.","Warning currently, Fatal Error in future release",Implemented,Requirement
-A,A34,BudgetAuthorityUnobligatedBalanceBroughtForward_FYB= value for GTAS SF 133 line #2490 from the end of the prior fiscal year.,"Warning currently, Fatal Error in future release",Implemented,Calculation
+A,A34,BudgetAuthorityUnobligatedBalanceBroughtForward_FYB= value for GTAS SF 133 line #2490 from the end of the prior fiscal year.,Fatal Error,Implemented,Calculation
 "A, B",A35,DeobligationsRecoveriesRefundsByTAS_CPE in File A should equal USSGL (4871_CPE+ 4971_CPE+ 4872_CPE+ 4972_CPE) for the TAS in File B.,Warning,Implemented,Calculation
 A,A36,"BudgetAuthorityUnobligatedBalanceBroughtForward_FYB should have an amount populated for the reporting period, if GTAS line #1000 is populated for the same TAS as of the end of the same reporting period.",Fatal Error,Implemented,Calculation
 B,B3,"ObligationsUndeliveredOrdersUnpaidTotal in File B = USSGL 4801 + 4881 in File B for the same date context (FYB or CPE). This applies to the program activity and object class level. Note for FYB values, only 4801 is expected to have a balance other than zero.",Warning,Implemented,Calculation
