@@ -21,7 +21,6 @@
         "no-multi-spaces": 0,
         "no-param-reassign": 0,
         "no-trailing-spaces": 0,
-        "no-undef": 0,    // ASAP
         "no-unused-vars": 0,
         "no-use-before-define": 0,  // ASAP
         "object-curly-spacing": 0,
