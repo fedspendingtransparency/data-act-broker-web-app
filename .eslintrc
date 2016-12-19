@@ -10,7 +10,7 @@
         "comma-spacing": 0,
         "dot-notation": 0,
         "eol-last": 0,
-        "eqeqeq": 0,
+        "eqeqeq": 0,    // ASAP
         "guard-for-in": 0,
         "indent": 0,
         "key-spacing": 0,
@@ -21,16 +21,15 @@
         "no-multi-spaces": 0,
         "no-param-reassign": 0,
         "no-trailing-spaces": 0,
-        "no-undef": 0,
+        "no-undef": 0,    // ASAP
         "no-unused-vars": 0,
-        "no-use-before-define": 0,
+        "no-use-before-define": 0,  // ASAP
         "object-curly-spacing": 0,
         "object-shorthand": 0,
         "padded-blocks": 0,
         "prefer-const": 0,
         "quote-props": 0,
         "quotes": 0,
-        "radix": 0,
         "semi": 0,
         "space-infix-ops": 0,
     }
