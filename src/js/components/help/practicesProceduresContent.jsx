@@ -27,7 +27,7 @@ export default class PracticesProceduresContent extends React.Component {
 	  this.urlPromise.promise
 		  .then((urls) => {
 			  this.setState({
-				  practicesProceduresUrl: urls['DAIMS_Practices_Procedures.xlsx']
+				  practicesProceduresUrl: urls['DAIMS_Practices_Procedures_v1_02_20161214.xlsx']
 			  });
 
 			  this.urlPromise = null;
@@ -59,7 +59,7 @@ export default class PracticesProceduresContent extends React.Component {
 				<div className="practices-procedures">
 
 				<h2>Practices &amp; Procedures</h2>
-				<p><em>Last updated: September 30, 2016</em></p>
+				<p><em>Last updated: December 21, 2016</em></p>
 
 				<p>The following are additional overall instructions for creating and understanding DATA Act reporting and validation rules.  The Practices and Procedures spreadsheet, with change log, is available for download.  <a href={this.state.practicesProceduresUrl} target="_blank" rel="noopener noreferrer">Download file</a></p>
 
@@ -67,19 +67,19 @@ export default class PracticesProceduresContent extends React.Component {
 				<ul>
 				<li>1.1 Agencies will continue to submit procurement award data to the Federal Procurement Data System (FPDS-NG) on a daily basis.</li>
 				</ul>
-				<h5>2. Twice monthly award submission - Financial Assistance (Grants, Loans, and Insurance)</h5>
+				<h5>2. Twice monthly award submission - Financial Assistance (Grants, Loans, Insurance, and Other Financial Assistance)</h5>
 				<ul>
-				<li>2.1 Agencies will submit to an updated Award Submission Portal (ASP) at least twice monthly, using a new DATA Act submission format specified by the D2-Award (Financial Assistance) tab of the Interface Definition Document (IDD).</li>
-				<li>2.2 Agencies will ensure there is a quarter end incremental submission through ASP before the quarterly DATA Act submission.</li>
-				<li>2.3 Per FFATA requirement, all FA awards must be submitted within 30 days of the award date.</li>
+				<li>2.1 Agencies will submit to the updated Award Submission Portal (ASP) at least twice monthly, using a new DATA Act submission format (CSV) specified by the D2-Award (Financial Assistance) tab of the Interface Definition Document (IDD).</li>
+				<li>2.2 Agencies will ensure that all of their ASP data for a given quarter has been submitted and accepted prior to making that quarter's DATA Act Broker submission.</li>
+				<li>2.3 Per FFATA requirement, all Financial Assistance awards must be submitted within 30 days of the award date.</li>
 				</ul>
 				<h5>3. Quarterly submission</h5>
 				<ul>
-				<li>3.1 Files A, B, and C correlate with OMB Circular A-11's Exhibit 82E Schedule X and the USSGL crosswalk for the SF-133. To facilitate reporting and reconciliation, we have added USSGL crosswalk SF-133 lines for total/subtotal lines which are common between the files. The layout for File B is columnar versus OMB Circular A-11 Schedule X's row-based layout; the columnar format provides greater clarity for non-accounting stakeholders because element names are spelled out. The format still allows for updates per USSGL crosswalk or other schema changes in the future. Note that the Reimbursable Flag Indicator (ByDirectReimbursableFundingSource) data element is applicable to the obligation and outlay SGL amounts on the same CSV submission row.</li>
-				<li>3.2 Agencies will submit Files A, B, and C quarterly. To complement A, B, and C, the DATA Act Broker (Broker) will generate Files D1, D2, E, and F for a specified date range at the agency's request. Agencies will inspect the complete submission file set, verify the data submitted in Files A - C is correct at the field level, and submit it. The Broker will validate A, B, and C at the field level, and cross validate all files (A to F). It will generate an error report as appropriate; agencies should note any warnings and address Broker generated validation errors. After addressing these errors, agencies will certify and resubmit the updated submission file set. This will continue until the submitted files satisfy the Broker validations. At this point the submission will be accepted and the process completed for the quarter.</li>
-				<li>In keeping with existing practice, IDD D2-Award (Financial Assistance) items are validated upon submission to the ASP. IDD D1-Award (Procurement) items are validated upon submission to FPDS-NG.  RSS items are submitted and validated quarterly to the DATA Act Broker; upon agency notification during submission, the IDD items are generated from the ASP and FPDS-NG for certain cross-file validations against RSS data quarterly, once all files are submitted.</li>
-				<li>3.3 Agencies are encouraged to generate data extracts throughout the quarter to perform validation, improve data quality, and to reduce the number of potential validation errors at the end of the quarter.</li>
-				<li>3.4 <b>TransactionObligatedAmount:</b> File C should include all award IDs with each TransactionObligatedAmount which occurred during the quarter. Please note that Award Modification numbers are not accepted, but agencies may include their own unique identifiers to differentiate financial transactions. However, these items will be ignored and not stored.</li>
+				<li>3.1 Files A, B, and C correlate with OMB Circular A-11 and the USSGL crosswalk for the SF-133. To facilitate reporting and reconciliation, we have added USSGL crosswalk SF-133 lines for total/subtotal lines which are common between the files. The format allows for updates per USSGL crosswalk or other schema changes in the future. Note that the Reimbursable Flag Indicator (ByDirectReimbursableFundingSource) data element is applicable to the obligation and outlay SGL amounts on the same CSV submission row.</li>
+				<li>3.2 Agencies will submit Files A, B, and C quarterly. To complement A, B, and C, the DATA Act Broker (Broker) will generate Files D1, D2, E, and F for a specified date range at the agency's request. Agencies will inspect the complete submission file set, verify that the data submitted in Files A - C is correct at the field level, and upload it. The Broker will validate A, B, and C at the field level, and cross validate all files (A to F). It will generate an error report as appropriate; agencies should note any warnings and address Broker generated validation errors. After addressing these errors, agencies will upload the updated submission file set. This error correction and re-upload process will continue until the files pass the Broker validations. At this point the files will be ready for certification.</li>
+				<li>In keeping with existing practice, IDD D2-Award (Financial Assistance) items are validated upon submission to the ASP. IDD D1-Award (Procurement) items are validated upon submission to FPDS-NG.  RSS items are submitted to and validated quarterly by the DATA Act Broker. The agency, by way of the DATA Act Broker, will generate the D1 content that is originally sourced from FPDS-NG, the D2 content that is orginally sourced from ASP, the File E content that is originally sourced from SAM, and File F content that is originally sourced from FSRS.</li>
+				<li>3.3 Agencies are encouraged to generate monthly data extracts throughout the quarter to perform validation, improve data quality, and to reduce the number of potential validation errors at the end of the quarter. Additionally, the DATA Act Broker has the ability to generate D1 and D2 Files without requiring an agency to submit Files A-C.</li>
+				<li>3.4 <b>TransactionObligatedAmount:</b> File C should include all award IDs with each TransactionObligatedAmount which occurred during the quarter. Please note that Award Modification numbers are not accepted, but agencies may include their own unique identifiers (i.e. flex fields) to differentiate financial transactions. However, these items will be ignored and not stored.</li>
 				<ul>
 				<li><b>Example 1:</b> Award A gets $10K additional funding in the quarter and award B had no funding change in the quarter, then File C should only include the TransactionObligatedAmount of $10K for award A.</li>
 				<li><b>Example 2:</b> Award A had a funding increase of $10K then a funding decrease of $10K in the same quarter, then File C should include award A with both TransactionObligatedAmounts reported individually.</li>
@@ -87,13 +87,12 @@ export default class PracticesProceduresContent extends React.Component {
 				<li><b>Example 4:</b> Award A had a funding decrease (deobligation) of $5K, an invoice of $2K, and a payment of $1K, then File C Transaction Obligation Amount should only include the deobligation of $5K.</li>
 				</ul>
 				<li>3.5 File B requires fiscal year beginning balances for obligations and outlays at the program activity and object class level.  This is required by the DATA Act and is consistent with the OMB A-11 requirements.  We understand that some agencies have difficulty in providing the fiscal year beginning balances at the program activity and object class level, due to how the beginning balances were rolled over at the close of the fiscal year. We will continue to work with the agencies and OMB to find a resolution of this issue.</li>
-				<li>3.6 The reporting of Interagency Agreements (IAA), Allocation Transfers, and Intragovernmental (IGT) buy/sell transactions needs policy decisions that require further discussion. We welcome agency input and feedback on any proposed policy recommendations and approaches.</li>
-				<li>3.7 (Deleted in v1.01)</li>
-				<li>3.8 The current validation rules for aggregate records utilize the URI and are subject to change once Treasury, OMB, and the Financial Assistance community establish final linkage validation rules for aggregate records.</li>
 				</ul>
 				<h5>4. Treasury Accounting Symbol (TAS) for Files</h5>
 				<ul>
-				<li>4.1 All TAS (both unexpired and expired) reported in SF 133, need to be included in Files A and B.</li>
+				<li>4.1  All TAS (both unexpired and expired) reported in SF 133, need to be included in Files A and B, with the exception of Financing Accounts. Per OMB Memorandum M-17-04, further guidance regarding TAS reporting for Allocation Transfers and IGT Buy/Sell transactions are provided in the following sub-bullets.</li>
+        <li>4.1.2 The reporting of Allocation Transfers will be submitted by the awarding agency for Files A, B, and C. Funding and awarding agencies should determine processes with each other to share necessary data for Files A-C for accurate and timely submissions. In the future, the funding agency will be able to determine whether the funding agency or awarding agency will submit.</li>
+        <li>4.1.3 For Intragovernmental (IGT) buy/sell transactions, both the awarding and funding agency should submit Files A and B pertinent to their respective agencies, and the awarding agency should submit financial detail applicable to the specific award in its File C.</li>
 				</ul>
 				<h5>5. Format for amounts</h5>
 				<ul>
@@ -106,13 +105,14 @@ export default class PracticesProceduresContent extends React.Component {
 				<h5>6. Submission Metadata</h5>
 				<ul>
 				<li>6.1 Reporting period and reporting agency data will be collected in the DATA Act Broker web interface, and not in the individual files, as it applies to Files A, B, and C.</li>
-				<li>6.2 The DATA Act Broker web interface will allow agencies to specify the Fiscal reporting period and Fiscal Year. Example: The fiscal reporting period of "03" and fiscal year of "2017" would be for a December 2016 submission of "Quarter&nbsp;1&nbsp;-&nbsp;2017" data.</li>
-				<li>6.3 The Reporting Period and Fiscal Year will be available in the API for download for validation or correction of the file. Additionally, agencies may include the Reporting Period and Fiscal Year in their submitted data, but this extra information will be ignored and not stored in the data store.</li>
+				<li>6.2 The DATA Act Broker web interface will allow agencies to specify the Fiscal reporting period as either Month or Quarter, as well as the Fiscal Year.</li>
+				<li>6.3 The reporting period and fiscal year will be available in the API for download for validation or correction of the file. Additionally, agencies may include the reporting period and fiscal year in their submitted data (i.e. flex fields), but this extra information will be ignored and not stored.</li>
+        <li>6.4 Flex Fields are information agencies are permitted to upload within their submission files for their reference, in a non standard column.  This information will not be validated or stored within the broker.</li>
 				</ul>
 				<h5>7. Certification</h5>
 				<ul>
-				<li>7.1 OMB policy regarding certification is pending.</li>
-				<li>7.2 Quarterly reporting shall be certified by the Agency Senior Accountable Official (SAO) after GTAS certification and within 7 to 60 days after quarter end. This allows agencies to complete their financial assistance reporting, which can be delayed up to 30 days. As agencies gain proficiency, this reporting window may be shortened.</li>
+				<li>7.1 OMB Memorandum M-17-04 requires the agency Senior Accountable Official (SAO) to assure the alignment among Files A-F is valid and reliable, for the interconnectivity/linkages (e.g., award ID linkage) for quarterly DATA Act submissions.  In addition, M-14-04 requires SAOs to assure the data submitted in Files A-C to be valid and reliable. To provide this assurance, the SAO will confirm that internal controls over data quality mechanisms are in place for the data submitted in DATA Act files. Where there are legitimate differences between files, the SAO may provide categorical explanations for misalignments. These explanations can be entered into a separate comment box available for each file they are certifying. Existing data quality measures required by regulation and/or OMB guidance will be sufficient for SAO reliance on individual data files.</li>
+				<li>7.2 Quarterly reporting shall be certified by the agency SAO after GTAS certification and within 7 to 60 days after quarter end. This allows agencies to complete their financial assistance reporting, which can be delayed up to 30 days. As agencies gain proficiency, this reporting window may be shortened.  (Note:  Agencies are required to submit and certify their Q2 files to the broker by April 30, 2017.)</li>
 				</ul>
 			</div>
            </div>
