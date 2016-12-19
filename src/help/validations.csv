@@ -10,7 +10,7 @@ A,A9,"ContractAuthorityAmountTotal_CPE= CPE aggregate value for GTAS SF 133 line
 A,A10,BorrowingAuthorityAmountTotal_CPE= aggregate value for GTAS SF 133 line #1340 + #1440 for the same reporting period.,Fatal Error,Implemented,Calculation
 A,A11,SpendingAuthorityfromOffsettingCollectionsAmountTotal_CPE= aggregate value for GTAS SF 133 line #1750 + #1850 for the same reporting period.,Fatal Error,Implemented,Calculation
 A,A12,AdjustmentsToUnobligatedBalanceBroughtForward_CPE= aggregate value for GTAS SF 133 line #1010 through 1042 for the same reporting period.,Fatal Error,Implemented,Calculation
-A,A14,GrossOutlayAmountByTAS_CPE= value for GTAS SF 133 line #3020 for the same reporting period.,Fatal Error,Implemented,Calculation
+A,A14,GrossOutlayAmountByTAS_CPE= value for GTAS SF 133 line #3020 for the same reporting period.,Fatal Error,Implemented,Calculation 
 A,A15,UnobligatedBalance_CPE= value for GTAS SF 133 line #2490 for the same reporting period.,Fatal Error,Implemented,Calculation
 "A, B",A16,"All the elements that have FYB in file A & B would be expected in quarter 1, as a soft edit. It would be optional in subsequent periods.",Warning,Implemented,Requirement
 "A, B",A18,"GrossOutlayAmountByTAS_CPE (file A) = sum of all GrossOutlayAmountByProgramObjectClass (file B).
