@@ -19,20 +19,20 @@ Users will be able to generate D files outside the context of a submission. In o
 ##### Temporary Warnings Changed Back to Errors{section=warnings2Errors}
 
 All Rules that were temporarily warnings are changed back to critical errors. These warnings were documented on the validation table on the Help page, with a note that they would become errors in the future. The exception to this is rule A33, which will remain a warning for now.
- 
+
 ##### New URL for Data Broker{section=URL}
 
 The Data Broker is now be available at broker.usaspending.gov. All users should be automatically redirected.
 
 ##### Object Class Validation Update{section=objectClass}
 
-Object Class validations only allow the object classes listed in the domain values. If the object class is unknown, agencies should use '000' instead of a value of their choosing.
+Object Class validations only allow the object classes listed in the domain values. If the object class is unknown, agencies should use '000' instead of a value of their choosing. Please note that only '000' will be accepted by the broker, not '0' or '00'. If you're editing your files in Excel, you may need to pay careful attention to the formatting of the object class column to make sure it does not truncate the value to '0'. 
 
 ##### MAX Group Permissions Allow for Different Permissions for a User Who is Part of a Multiple Agency Permission Group{section=maxGroup}
 
 Updates to the MAX group permissions  allow for different permissions for different agencies, when a user is part of multiple agency permission groups, such as shared service providers.
 
- 
+
 ##### Browser Requirements & Known Issues{section=browser}
 The Broker is currently tested with the following browsers:
 
