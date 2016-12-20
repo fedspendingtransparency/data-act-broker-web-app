@@ -152,7 +152,7 @@ export default class ResourcesContent extends React.Component {
 					<p>The IDD is listing of the data elements that will be extracted from government-wide procurement and financial assistance systems.</p>
 					<ul>
 					                    <li>
-										<a href={this.state.iDDUrl}>IDD v1.0.1</a>
+										<a href={this.state.iDDUrl}>IDD v1.0.1 (12/21/2016)</a>
 										</li>
 										<li><a href={this.state.daimsErrataUrl}>Errata</a>
 										</li>
