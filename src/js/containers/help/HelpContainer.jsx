@@ -34,12 +34,8 @@ class HelpPageContainer extends React.Component {
     }
 
     checkHelpOnly() {
-        let isHelpOnly = false;
-        if (!this.props.session.user.permission) {
-            isHelpOnly = true;
-        }
         this.setState({
-            helpOnly: isHelpOnly
+            helpOnly: this.props.session.user.helpOnly
         });
     }
 

@@ -35,6 +35,7 @@ export const fetchActiveUser = () => {
 	                    admin: res.body.website_admin,
                             skipGuide: res.body.skip_guide
 	                };
+                        sessionData.user.helpOnly = !res.body.website_admin && res.body.affiliations.length === 0;
 
 	                const action = sessionActions.setSession(sessionData);
 	                store.dispatch(action);
