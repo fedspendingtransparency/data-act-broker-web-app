@@ -27,7 +27,7 @@ export default class PracticesProceduresContent extends React.Component {
 	  this.urlPromise.promise
 		  .then((urls) => {
 			  this.setState({
-				  practicesProceduresUrl: urls['DAIMS_Practices_Procedures_v1_02_20161214.xlsx']
+				  practicesProceduresUrl: urls['DAIMS_Practices_Procedures_v1.02_20161221.xlsx']
 			  });
 
 			  this.urlPromise = null;
