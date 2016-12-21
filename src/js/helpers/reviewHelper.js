@@ -172,7 +172,7 @@ const getFileStates = (status) => {
 		else {
 			let count = 0;
 			item.error_data.forEach((error) => {
-				count += parseInt(error.occurrences);
+				count += parseInt(error.occurrences, 10);
 			});
 
 			output[item.file_type].error_count = count;
@@ -185,7 +185,7 @@ const getFileStates = (status) => {
 		else {
 			let count = 0;
 			item.warning_data.forEach((warning) => {
-				count += parseInt(warning.occurrences);
+				count += parseInt(warning.occurrences, 10);
 			});
 			output[item.file_type].warning_count = count;
 		}
@@ -346,9 +346,9 @@ export const validateSubmission  = (submissionId) => {
 			});
 		})
 		.catch((err) => {
-			const response = Object.assign({}, res.body);
-            response.httpStatus = res.status;
-            deferred.reject(response);
+			const response = Object.assign({}, err.body);
+			response.httpStatus = err.status;
+			deferred.reject(response);
 		});
 
 	return deferred.promise;
