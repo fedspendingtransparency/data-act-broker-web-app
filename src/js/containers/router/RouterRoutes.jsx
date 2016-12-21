@@ -6,6 +6,7 @@ import LoginPage from '../../components/login/LoginPage.jsx';
 import AuthPage from '../../components/login/AuthPage.jsx';
 import SubmissionGuideContainer from '../../containers/addData/SubmissionGuideContainer.jsx';
 import AddDataPageContainer from '../../containers/addData/AddDataPageContainer.jsx';
+import GenerateDetachedFilesPageContainer from '../../containers/generateDetachedFiles/GenerateDetachedFilesPageContainer.jsx';
 
 import StoreSingleton from '../../redux/storeSingleton.js';
 
@@ -203,6 +204,11 @@ const routeDefinitions = {
                     cb(null, require('../../containers/review/ReviewDataContainer.jsx').default)
                 });
             }
+        },
+        {
+            path: 'generateDetachedFiles',
+            onEnter: checkUserPermissions,
+            component: GenerateDetachedFilesPageContainer
         },
         {
             path: 'help',

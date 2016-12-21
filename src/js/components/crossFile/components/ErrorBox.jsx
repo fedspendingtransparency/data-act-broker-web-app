@@ -27,7 +27,9 @@ export default class ErrorBox extends React.Component {
 			firstButton: null,
 			secondButton: null,
 			stagedFiles: [],
-			activeTab: 'errors'
+			activeTab: 'errors',
+            signInProgress: false,
+            signedUrl: ''
 		};
 	}
 
@@ -126,6 +128,51 @@ export default class ErrorBox extends React.Component {
 		});
 	}
 
+    openReport() {
+        window.location = this.state.signedUrl;
+    }
+
+    signReport(type) {
+        const fileName = `submission_${this.props.submission.id}_cross${type}${this.props.meta.firstKey}_${this.props.meta.secondKey}`;
+        ReviewHelper.signErrorWarningReport(this.props.submission.id, fileName)
+            .then((data) => {
+                this.setState({
+                    signInProgress: false,
+                    signedUrl: data.url
+                }, () => {
+                    this.openReport();
+                });
+            })
+            .catch((err) => {
+                this.setState({
+                    signInProgress: false
+                });
+                console.log(err);
+            });
+    }
+
+    clickedReport(type, e) {
+        e.preventDefault();
+        // check if the link is already signed
+        if (this.state.signInProgress) {
+            // sign is in progress, do nothing
+            return;
+        }
+        else if (this.state.signedUrl !== '') {
+            // it is signed, open immediately
+            this.openReport();
+        }
+        else {
+            // not signed yet, sign
+            this.setState({
+                signInProgress: true
+            }, () => {
+                this.signReport(type);
+            });
+        }
+    }
+
+
 	render() {
 
 		let uploadProgress = null;
@@ -140,6 +187,7 @@ export default class ErrorBox extends React.Component {
 
 		let tableKey = this.state.activeTab;
 		let reportName = "Error Report";
+        let reportFileNameType = "_";
 
 		if (this.state.activeTab == 'errors' && this.props.status == 'warning') {
 			// in the case of a warning only pair, the state won't have time to change to warnings on initial load
@@ -148,7 +196,13 @@ export default class ErrorBox extends React.Component {
 
 		if (tableKey == 'warnings') {
 			reportName = "Warning Report";
+            reportFileNameType = "_warning_";
 		}
+
+        let downloadLabel = `Download ${reportName}`;
+        if (this.state.signInProgress) {
+            downloadLabel = `Preparing ${reportName}...`;
+        }
 
 		return (
 			<div className="col-md-12">
@@ -165,8 +219,8 @@ export default class ErrorBox extends React.Component {
 								<div className="button-list">
 									<div className="row">
 										<div className="col-md-12">
-				            	            <a href={this.props.meta[tableKey + 'Report']} target="_blank" rel="noopener noreferrer" className="usa-da-button btn-full btn-primary">
-				            	            	Download {reportName}
+                                            <a href="#" onClick={this.clickedReport.bind(this, reportFileNameType)} className="usa-da-button btn-full btn-primary">
+				            	            	{downloadLabel}
 				            	            </a>
 				            	            <div className="upload-title">
 												Upload Corrected Files
