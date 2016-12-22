@@ -55,7 +55,7 @@ class AddDataContainer extends React.Component {
                     hashHistory.push('/validateData/' + submissionID);
         		})
         		.catch((err) => {
-        			if (err.httpStatus == 401) {
+        			if (err.httpStatus == 403) {
                         this.setState({
                             notAllowed: true,
                             errorMessage: err.message
