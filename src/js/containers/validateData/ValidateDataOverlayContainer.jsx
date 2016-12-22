@@ -40,7 +40,7 @@ class ValidateDataOverlayContainer extends React.Component {
 					this.props.setSubmissionState('prepare');
 				})
 				.catch((err) => {
-	    			if (err.httpStatus == 401) {
+	    			if (err.httpStatus == 403) {
 	                    this.setState({
 	                        notAllowed: true,
 	                        errorMessage: err.message
