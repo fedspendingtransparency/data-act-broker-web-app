@@ -1,8 +1,0 @@
-@import "../../../components/alerts/_alerts";
-
-.alert-error {
-	@include dangerAlert;
-}
-.alert-success {
-	@include successAlert;
-}
