@@ -23,21 +23,3 @@ export const fetchAgencies = () => {
 
     return deferred.promise;
 }
-
-export const fetchAgencyName = (cgac) => {
-    const deferred = Q.defer();
-
-
-    fetchAgencies()
-        .then((agencies) => {
-            const index = _.findIndex(agencies, {cgac_code: cgac});
-            if (index > -1) {
-                deferred.resolve(agencies[index].agency_name);
-            }
-            else {
-                deferred.resolve("UNKNOWN");
-            }
-        });
-
-    return deferred.promise;
-}
