@@ -31,14 +31,6 @@ export default class NavbarTab extends React.Component {
                     </a>
                 </li>
             );
-        } else if (this.props.tabClass == 'admin') {
-            return (
-                <li className={isActiveClass ? 'active' : ''}>
-                    <a className="usa-da-header-link admin" href={link}>{this.props.name}
-                        <span className={isActiveClass ? 'sr-only' : ''}>{isActiveClass ? '(current)' : ''}</span>
-                    </a>
-                </li>
-            );
         } else {
             return (
                 <li className={isActiveClass ? 'active' : ''}>

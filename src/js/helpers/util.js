@@ -66,7 +66,7 @@ export const rssFileKey = () => {
 
 export const currentQuarter = (type) => {
 
-	const month = parseInt(moment().format("M"));
+	const month = parseInt(moment().format("M"), 10);
     let year = moment().format('YYYY');
 
 	let quarter = 4;
@@ -88,7 +88,7 @@ export const currentQuarter = (type) => {
 
 export const fyStartDate = () => {
 
-	const month = parseInt(moment().format("M"));
+	const month = parseInt(moment().format("M"), 10);
     let year = moment().format('YYYY');
 
     if (month >= 10) {
@@ -109,10 +109,10 @@ export const quarterToMonth = (quarter, quarterYear, type) => {
         month = endMonth[quarter - 1];
     }
 
-    let year = parseInt(quarterYear);
+    let year = parseInt(quarterYear, 10);
     if (quarter == 1) {
         // decrement the year by one for the first quarter of the fiscal year
-        year = parseInt(quarterYear) - 1;
+        year -= 1;
     }
 
     return month + '/' + year;

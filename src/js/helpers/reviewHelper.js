@@ -9,13 +9,9 @@ import { kGlobalConstants } from '../GlobalConstants.js';
 import * as uploadActions from '../redux/actions/uploadActions.js';
 import * as sessionActions from '../redux/actions/sessionActions.js';
 
-import { fileTypes } from '../containers/addData/fileTypes.js';
-import * as AdminHelper from './adminHelper.js';
-
 Q.longStackSupport = true;
 
-const availablePairs = ['appropriations-program_activity', 'program_activity-award_financial', 'award_financial-award_procurement', 'award_financial-award' ];
-const globalFileKeys = ['appropriations', 'program_activity', 'award_financial', 'award', 'award_procurement'];
+const availablePairs = ['appropriations-program_activity', 'program_activity-award_financial', 'award_financial-award_procurement', 'award_financial-award'];
 export const globalFileData = {
     appropriations: {
         name: 'Appropriations Account',
@@ -176,7 +172,7 @@ const getFileStates = (status) => {
 		else {
 			let count = 0;
 			item.error_data.forEach((error) => {
-				count += parseInt(error.occurrences);
+				count += parseInt(error.occurrences, 10);
 			});
 
 			output[item.file_type].error_count = count;
@@ -189,7 +185,7 @@ const getFileStates = (status) => {
 		else {
 			let count = 0;
 			item.warning_data.forEach((warning) => {
-				count += parseInt(warning.occurrences);
+				count += parseInt(warning.occurrences, 10);
 			});
 			output[item.file_type].warning_count = count;
 		}
@@ -350,9 +346,9 @@ export const validateSubmission  = (submissionId) => {
 			});
 		})
 		.catch((err) => {
-			const response = Object.assign({}, res.body);
-            response.httpStatus = res.status;
-            deferred.reject(response);
+			const response = Object.assign({}, err.body);
+			response.httpStatus = err.status;
+			deferred.reject(response);
 		});
 
 	return deferred.promise;

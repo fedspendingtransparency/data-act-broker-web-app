@@ -62,27 +62,13 @@ const performAutoLogin = (location, replace) => {
 
 }
 
-const checkAdminPermissions = (nextState, replace) => {
-    getStore();
-    const session = store.getState().session;
-    if (session.login != "loggedIn") {
-        // user isn't logged in
-        replace('/login?redirect=/admin');
-    }
-    else if (!session.admin) {
-        // if not an admin, bounce to home
-        replace('/landing');
-    }
-
-}
-
 const checkUserPermissions = (nextState, replace) => {
     getStore();
     const session = store.getState().session;
     if (session.login != "loggedIn") {
         performAutoLogin(nextState.location, replace);
     }
-    else if (!session.user.permission) {
+    else if (session.user.helpOnly) {
         // if no permissions, bounce to help
         replace('/help');
     }
@@ -95,20 +81,6 @@ const checkHelpUserPermissions = (nextState, replace) => {
     if (session.login != "loggedIn") {
         performAutoLogin(nextState.location, replace);
     }
-}
-
-const rejectIfMAXEnabled = (nextState, replace) => {
-    if (!kGlobalConstants.LOCAL) {
-        // MAX enabled, this route is not available
-        replace('/');
-    }
-}
-
-const redirectIfLogin = (nextState, replace) => {
-    //TODO Add check For User Permissions
-}
-const debugRoute = (nextState, replace) => {
-
 }
 
 // defining the routes outside of the component because React Router cannot handle state/prop changes that Redux causes
@@ -126,15 +98,6 @@ const routeDefinitions = {
         {
             path: 'auth',
             component: AuthPage
-        },
-        {
-            path: 'admin',
-            onEnter: checkAdminPermissions,
-            getComponent(nextState, cb) {
-                require.ensure([], (require) => {
-                    cb(null, require('../../components/admin/AdminPage.jsx').default)
-                });
-            }
         },
         {
             path: 'landing',
@@ -253,24 +216,6 @@ const routeDefinitions = {
             getComponent(nextState, cb) {
                 require.ensure([], (require) => {
                     cb(null, require('../../containers/help/HelpContainer.jsx').default)
-                });
-            }
-        },
-        {
-            path: 'forgotpassword',
-            onEnter: rejectIfMAXEnabled,
-            getComponent(nextState, cb) {
-                require.ensure([], (require) => {
-                    cb(null, require('../forgotPassword/ForgotPasswordContainer.jsx').default)
-                });
-            }
-        },
-        {
-            path: 'forgotpassword/:token',
-            onEnter: rejectIfMAXEnabled,
-            getComponent(nextState, cb) {
-                require.ensure([], (require) => {
-                    cb(null, require('../../components/forgotPassword/ResetPasswordTokenPage.jsx').default)
                 });
             }
         },
