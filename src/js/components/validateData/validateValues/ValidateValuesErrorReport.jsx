@@ -113,8 +113,7 @@ export default class ValidateValuesErrorReport extends React.Component {
     }
 
     signReport() {
-        const fileName = `submission_${this.props.submission}_${this.props.fileType}_${this.props.reportType}_report`;
-        ReviewHelper.signErrorWarningReport(this.props.submission, fileName)
+        ReviewHelper.submissionReport(this.props.submission, this.props.reportType === 'warning', this.props.fileType)
             .then((data) => {
                 this.setState({
                     signInProgress: false,

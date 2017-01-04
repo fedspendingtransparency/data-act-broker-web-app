@@ -132,9 +132,8 @@ export default class ErrorBox extends React.Component {
         window.location = this.state.signedUrl;
     }
 
-    signReport(type) {
-        const fileName = `submission_${this.props.submission.id}_cross${type}${this.props.meta.firstKey}_${this.props.meta.secondKey}`;
-        ReviewHelper.signErrorWarningReport(this.props.submission.id, fileName)
+    signReport(warning) {
+        ReviewHelper.submissionReport(this.props.submission.id, warning, this.props.meta.firstKey, this.props.meta.secondKey)
             .then((data) => {
                 this.setState({
                     signInProgress: false,
@@ -151,7 +150,7 @@ export default class ErrorBox extends React.Component {
             });
     }
 
-    clickedReport(type, e) {
+    clickedReport(warning, e) {
         e.preventDefault();
         // check if the link is already signed
         if (this.state.signInProgress) {
@@ -167,7 +166,7 @@ export default class ErrorBox extends React.Component {
             this.setState({
                 signInProgress: true
             }, () => {
-                this.signReport(type);
+                this.signReport(warning);
             });
         }
     }
@@ -187,7 +186,7 @@ export default class ErrorBox extends React.Component {
 
 		let tableKey = this.state.activeTab;
 		let reportName = "Error Report";
-        let reportFileNameType = "_";
+		let reportWarning = false;
 
 		if (this.state.activeTab == 'errors' && this.props.status == 'warning') {
 			// in the case of a warning only pair, the state won't have time to change to warnings on initial load
@@ -196,7 +195,7 @@ export default class ErrorBox extends React.Component {
 
 		if (tableKey == 'warnings') {
 			reportName = "Warning Report";
-            reportFileNameType = "_warning_";
+			reportWarning = true;
 		}
 
         let downloadLabel = `Download ${reportName}`;
@@ -219,7 +218,7 @@ export default class ErrorBox extends React.Component {
 								<div className="button-list">
 									<div className="row">
 										<div className="col-md-12">
-                                            <a href="#" onClick={this.clickedReport.bind(this, reportFileNameType)} className="usa-da-button btn-full btn-primary">
+                                            <a href="#" onClick={this.clickedReport.bind(this, reportWarning)} className="usa-da-button btn-full btn-primary">
 				            	            	{downloadLabel}
 				            	            </a>
 				            	            <div className="upload-title">
