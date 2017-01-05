@@ -39,8 +39,7 @@ export default class ValidateDataErrorReport extends React.Component {
     }
 
     signReport() {
-        const fileName = `submission_${this.props.submission}_${this.props.type}_error_report`;
-        ReviewHelper.signErrorWarningReport(this.props.submission, fileName)
+        ReviewHelper.submissionReport(this.props.submission, false, this.props.type)
             .then((data) => {
                 this.setState({
                     signInProgress: false,
