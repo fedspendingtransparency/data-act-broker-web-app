@@ -16,7 +16,7 @@ class SubmissionContext extends React.Component {
                 <br />
                 {this.props.agencyName}
                 <br />
-                {this.props.submissionTime}
+                {this.props.timePeriodLabel}
             </div>
         );
     }
@@ -66,7 +66,7 @@ export default class AddDataHeader extends React.Component {
             submissionContext = <SubmissionContext
               formattedTime={formattedTime}
               agencyName={this.state.agency_name}
-              submissionTime={this.state.reporting_period_start_date}
+              timePeriodLabel={this.state.reporting_period_start_date}
             />
         }
 
