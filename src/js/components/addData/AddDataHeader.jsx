@@ -8,15 +8,15 @@ import moment from 'moment';
 
 import * as ReviewHelper from '../../helpers/reviewHelper.js';
 
-class LastUpdated extends React.Component {
-    constructor(props){
-        super(props);
-    }
-    
+class SubmissionContext extends React.Component {
     render() {
         return (
             <div className="last-updated">
-                Last Saved: {this.props.last_updated}
+                Last Saved: {this.props.formattedTime}
+                <br />
+                {this.props.agencyName}
+                <br />
+                {this.props.timePeriodLabel}
             </div>
         );
     }
@@ -60,10 +60,14 @@ export default class AddDataHeader extends React.Component {
     }
 
     render() {
-        let lastUpdated = null;
-        if (this.state.ready && this.state.last_updated){
+        let submissionContext = null;
+        if (this.state.ready) {
             let formattedTime = moment.utc(this.state.last_updated).local().format('h:mm a');
-            lastUpdated = <LastUpdated last_updated={formattedTime} />
+            submissionContext = <SubmissionContext
+              formattedTime={formattedTime}
+              agencyName={this.state.agency_name}
+              timePeriodLabel={this.state.reporting_period_start_date}
+            />
         }
 
         return (
@@ -74,7 +78,7 @@ export default class AddDataHeader extends React.Component {
                             <div className="display-2" data-contentstart="start" tabIndex={-1}>{this.props.title}</div>
                         </div>
                         <div className="col-md-2">
-                            {lastUpdated}
+                            {submissionContext}
                         </div>
                         
                     </div>
