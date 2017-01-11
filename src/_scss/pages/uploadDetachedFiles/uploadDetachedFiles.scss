@@ -1,0 +1,77 @@
+.usa-da-upload-detached-files-page {
+	@import "../../layouts/content/content";
+	@include contentLayout;
+
+	// import typeahead styles
+	@import "../../components/typeahead/_typeahead";
+
+	.select-agency-holder {
+		@include contentBlockWrapper;
+		padding: 15px 30px 30px 30px;
+
+		.usa-da-select-agency-label {
+			margin: 15px 0px 10px;
+			text-align: left;
+			font-size: 1.6rem;
+		}
+
+		.dashed-border-top {
+			margin: 31px 0 10px;
+			border-top: 1px dashed $color-gray-lighter;
+		}
+
+		.usa-da-date-select {
+			padding-top: 30px;
+			@import "../generateFiles/generateItem/generateItem";
+		}
+
+		.usa-da-upload-detached-files-box {
+			padding-top: 30px;
+			@import "../addData/uploadPage/uploadDropzone";
+
+			.usa-da-submission-item {
+				margin-bottom: 10px;
+			}
+		}
+
+		// import the alerts
+		.alert-error {
+			@import "../../components/alerts/_alerts";
+			@include dangerAlert;
+		}
+
+		// style the icons
+		.usa-da-form-icon {
+			@import "../../components/inputs/_fieldIcon";
+			@include fieldIcon;
+		}
+
+		.usa-da-button {
+			@import "../../components/buttons/_optional";
+			@include optionalButton;
+
+			margin-bottom: 10px;
+
+			@import "../../lib/spinkit/spinners/2-double-bounce";
+
+			.sk-double-bounce {
+				margin: 0;
+				margin-right: 7.5px;
+
+				display: inline-block;
+				width: 15px;
+				height: 15px;
+
+				top: 2px;
+
+				.sk-child {
+					background-color: black;
+				}
+			}
+		}
+
+		.right-align-box {
+			text-align: right;
+		}
+	}
+}

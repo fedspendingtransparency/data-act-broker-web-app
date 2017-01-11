@@ -111,6 +111,25 @@ const prepareFiles = (fileDict) => {
 	return deferred.promise;
 }
 
+const prepareDetachedFiles = (fileDict) => {
+	const deferred = Q.defer();
+
+	Request.post(kGlobalConstants.API + 'upload_detached_file/')
+		.send(fileDict)
+		.end((err, res) => {
+            if (err) {
+                const response = Object.assign({}, res.body);
+                response.httpStatus = res.status;
+                deferred.reject(response);
+            }
+			else {
+				deferred.resolve(res);
+			}
+		});
+
+	return deferred.promise;
+}
+
 const uploadS3File = (file, fileID, key, credentials, fileType) => {
 	const deferred = Q.defer();
 
@@ -361,6 +380,47 @@ export const performLocalCorrectedUpload = (submission) => {
         .catch(() => {
             store.dispatch(uploadActions.setSubmissionState('failed'));
             deferred.reject();
+        });
+
+    return deferred.promise;
+}
+
+export const performDetachedFileUpload = (submission) => {
+    const deferred = Q.defer();
+
+    const store = new StoreSingleton().store;
+    store.dispatch(uploadActions.setSubmissionState('uploading'));
+
+    let request = {};
+
+    for (let fileType in submission.files) {
+        const file = submission.files[fileType].file;
+        request[fileType] = file.name;
+    }
+
+    prepareMetadata(submission.meta, request);
+   
+
+    // submit it to the API to set up S3
+    let submissionID;
+    
+    prepareDetachedFiles(request)
+        .then((res) => {
+            // now do the actual uploading
+            submissionID = res.body.submission_id;
+            return uploadMultipleFiles(submission, res.body);
+        })
+        .then((fileIds) => {
+            // upload complete, finalize with the API
+            return finalizeMultipleUploads(fileIds);
+        })
+        .then(() => {
+            store.dispatch(uploadActions.setSubmissionState('prepare'));
+            deferred.resolve(submissionID);
+        })
+        .catch((err) => {
+            store.dispatch(uploadActions.setSubmissionState('failed'));
+            deferred.reject(err);
         });
 
     return deferred.promise;

@@ -6,6 +6,7 @@ import LoginPage from '../../components/login/LoginPage.jsx';
 import AuthPage from '../../components/login/AuthPage.jsx';
 import SubmissionGuideContainer from '../../containers/addData/SubmissionGuideContainer.jsx';
 import AddDataPageContainer from '../../containers/addData/AddDataPageContainer.jsx';
+import UploadDetachedFilesPageContainer from '../../containers/uploadDetachedFiles/UploadDetachedFilesPageContainer.jsx';
 import GenerateDetachedFilesPageContainer from '../../containers/generateDetachedFiles/GenerateDetachedFilesPageContainer.jsx';
 
 import StoreSingleton from '../../redux/storeSingleton.js';
@@ -122,6 +123,11 @@ const routeDefinitions = {
             path: 'addData',
             onEnter: checkUserPermissions,
             component: AddDataPageContainer
+        },
+        {
+            path: 'uploadDetachedFiles',
+            onEnter: checkUserPermissions,
+            component: UploadDetachedFilesPageContainer
         },
         {
             path: 'validateData/:submissionID',
