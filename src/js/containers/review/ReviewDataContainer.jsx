@@ -8,7 +8,6 @@ import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 
 import * as ReviewHelper from '../../helpers/reviewHelper.js';
-import * as AgencyHelper from '../../helpers/agencyHelper.js';
 
 import ReviewDataPage from '../../components/reviewData/ReviewDataPage.jsx';
 
@@ -53,10 +52,6 @@ class ReviewDataContainer extends React.Component {
                 data.ready = true;
                 submission = data;
 
-                return AgencyHelper.fetchAgencyName(data.cgac_code);
-            })
-            .then((name) => {
-                submission.agency_name = name;
                 return ReviewHelper.fetchSubmissionNarrative(this.props.params.submissionID);
             })
             .then((narrative) => {
