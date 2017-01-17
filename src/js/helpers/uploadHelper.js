@@ -399,6 +399,7 @@ export const performDetachedFileUpload = (submission) => {
     }
 
     prepareMetadata(submission.meta, request);
+    request.agency_code = submission.meta.subTierAgency
    
 
     // submit it to the API to set up S3
