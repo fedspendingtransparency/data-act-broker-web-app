@@ -7,7 +7,7 @@ import React from 'react';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 
-import * as agencyActions from '../../redux/actions/agencyActions.js';
+import * as subTierAgencyActions from '../../redux/actions/subTierAgencyActions.js';
 import * as AgencyHelper from '../../helpers/agencyHelper.js';
 
 import Typeahead from '../../components/SharedComponents/Typeahead.jsx';
@@ -19,11 +19,11 @@ class SubTierAgencyListContainer extends React.Component {
 	}
 
 	loadData() {
-		if (this.props.agencyList.agencies.length == 0) {
+		if (this.props.subTierAgencyList.subTierAgencies.length == 0) {
 			// we need to populate the list
 			AgencyHelper.fetchSubTierAgencies()
 				.then((agencies) => {
-					this.props.setAgencyList(agencies);
+					this.props.setSubTierAgencyList(agencies);
 				})
 				.catch((err) => {
 					console.log(err);
@@ -40,13 +40,13 @@ class SubTierAgencyListContainer extends React.Component {
 
 	render() {
 		return (
-			<Typeahead {...this.props} values={this.props.agencyList.agencies} formatter={this.dataFormatter} />
+			<Typeahead {...this.props} values={this.props.subTierAgencyList.subTierAgencies} formatter={this.dataFormatter} />
 		)
 	}
 
 }
 
 export default connect(
-    state => ({ agencyList: state.agencyList }),
-    dispatch => bindActionCreators(agencyActions, dispatch)
+    state => ({ subTierAgencyList: state.subTierAgencyList }),
+    dispatch => bindActionCreators(subTierAgencyActions, dispatch)
 )(SubTierAgencyListContainer)
