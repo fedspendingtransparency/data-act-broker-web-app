@@ -177,20 +177,31 @@ export default class UploadDetachedFilesPage extends React.Component {
 		this.props.submission.meta['endDate'] = this.state.award.endDate.format('DD/MM/YYYY');
 		this.props.submission.meta['subTierAgency'] = this.state.agency;
 		
-		UploadHelper.performDetachedFileUpload(this.props.submission)
-			.then((submissionID) => {
-				// TODO: Remove this when this is eventually tied to user accounts
-				this.props.setSubmissionId(submissionID);
-				hashHistory.push('/validateData/' + submissionID);
-			})
-			.catch((err) => {
-				if (err.httpStatus == 403) {
-					this.setState({
-						notAllowed: true,
-						errorMessage: err.message
-					});
-				}
-			});
+		if (kGlobalConstants.LOCAL == true) {
+			UploadHelper.performDetachedLocalUpload(this.props.submission)
+                .then((submissionID) => {
+                    // TODO: Remove this when this is eventually tied to user accounts
+                    this.props.setSubmissionId(submissionID);
+                    hashHistory.push('/validateData/' + submissionID);
+
+                });
+		}
+		else {
+			UploadHelper.performDetachedFileUpload(this.props.submission)
+				.then((submissionID) => {
+					// TODO: Remove this when this is eventually tied to user accounts
+					this.props.setSubmissionId(submissionID);
+					hashHistory.push('/validateData/' + submissionID);
+				})
+				.catch((err) => {
+					if (err.httpStatus == 403) {
+						this.setState({
+							notAllowed: true,
+							errorMessage: err.message
+						});
+					}
+				});
+		}
 	}
 
 	// checkFileStatus(job_id) {

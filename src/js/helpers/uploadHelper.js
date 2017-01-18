@@ -426,3 +426,64 @@ export const performDetachedFileUpload = (submission) => {
 
     return deferred.promise;
 }
+
+export const performDetachedLocalUpload = (submission) => {
+
+	const deferred = Q.defer();
+
+	const request = {};
+    let successfulUploads = {};
+
+    const store = new StoreSingleton().store;
+	store.dispatch(uploadActions.setSubmissionState('uploading'));
+
+    prepareMetadata(submission.meta, request);
+    request.agency_code = submission.meta.subTierAgency
+
+    let i = 0;
+
+    const uploadOperations = [];
+    const types = [];
+    let submissionID = null;
+
+    for (let fileType in submission.files) {
+		const file = submission.files[fileType].file;
+        uploadOperations.push(uploadLocalFile(file, fileType));
+        types.push(fileType);
+    }
+
+    Q.all(uploadOperations)
+        .then((uploads) => {
+            
+            // prepare the request
+            uploads.forEach((upload) => {
+                request[upload[0]] = upload[1];
+            });
+
+            // submit the files
+            return prepareDetachedFiles(request);
+        })
+        .then((res) => {
+            submissionID = res.body.submission_id;
+
+            // get all the file IDs
+            const fileIds = [];
+            types.forEach((type) => {
+                const key = type + '_id';
+                fileIds.push(res.body[key]);
+            });
+
+            // finalize all the files
+            return finalizeMultipleUploads(fileIds);
+        })
+        .then(() => {
+            store.dispatch(uploadActions.setSubmissionState('prepare'));
+            deferred.resolve(submissionID);
+        })
+        .catch(() => {
+            store.dispatch(uploadActions.setSubmissionState('failed'));
+            deferred.reject();
+        });
+
+    return deferred.promise;
+}
