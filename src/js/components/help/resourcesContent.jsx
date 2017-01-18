@@ -41,11 +41,11 @@ export default class ResourcesContent extends React.Component {
             .then((urls) => {
                 this.setState({
                     rssUrl: urls[rssFileKey()],
-                    validationRulesUrl: urls['Validation_Rules.xlsx'],
+                    validationRulesUrl: urls['Validation_Rules_v1.05_20161221.xlsx'],
                     domainValuesUrl: urls['Domain_Values.xlsx'],
-				    agencyLabelUrl: urls['AgencyLabel_to_TerseLabel.xlsx'],
+				    agencyLabelUrl: urls['AgencyLabel_to_TerseLabel_v1.0.1.xlsx'],
 				    daimsErrataUrl: urls['DAIMS_Errata.xlsx'],
-				    iDDUrl: urls['IDD_v1.0.xlsx'],
+				    iDDUrl: urls['IDD_v1.01_20161221.xlsx'],
 				    pmoWebCastUrl: urls['DATA_Act_PMO_ASP_Webcast_Deck_20160712.pdf'],
 				    schemaFileAUrl: urls['DATA_Act_Schema_v1_0_File_A_20160622.pdf'],
 				    schemaFileBUrl: urls['DATA_Act_Schema_v1_0_File_B_20160622.pdf'],
@@ -88,7 +88,7 @@ export default class ResourcesContent extends React.Component {
             <div className="usa-da-help-content">
 				<div className="resources-page">
 				<h2>Resources - DAIMS</h2>
-					<p>The DATA Act information Model Schema (DAIMS) v1.0 gives an overall view of the hundreds of distinct data elements used to tell the story of how federal dollars are spent. It includes artifacts that provide technical guidance for federal agencies about what data to report to Treasury including the authoritative sources of the data elements and the submission format.</p>
+					<p>The DATA Act information Model Schema (DAIMS) gives an overall view of the hundreds of distinct data elements used to tell the story of how federal dollars are spent. It includes artifacts that provide technical guidance for federal agencies about what data to report to Treasury including the authoritative sources of the data elements and the submission format.</p>
 					<p>Click these links to download or open a file.</p>
 
 					<h5>Reporting Submission Specification (RSS) Resources</h5>
@@ -152,9 +152,7 @@ export default class ResourcesContent extends React.Component {
 					<p>The IDD is listing of the data elements that will be extracted from government-wide procurement and financial assistance systems.</p>
 					<ul>
 					                    <li>
-										<a href={this.state.iDDUrl}>IDD v1.0</a>
-										</li>
-										<li><a href={this.state.daimsErrataUrl}>Errata</a>
+										<a href={this.state.iDDUrl}>IDD v1.01 (12/21/2016)</a>
 										</li>
 					</ul>
 					<h6>IDD Webinar</h6>
@@ -169,16 +167,16 @@ export default class ResourcesContent extends React.Component {
 					<p>These are visual representations of how the different data elements are related. They show the groupings of elements and attributes.</p>
 					<ul>
 					<li>
-					<a href="http://fedspendingtransparency.github.io/assets/docs/DAIMS_IDD_Diagram_File_D1_v1.0_04292016.pdf" target="_blank" rel="noopener noreferrer">File D1 - Award and Awardee Attributes (Procurement)</a>
+					<a href="http://fedspendingtransparency.github.io/assets/docs/DAIMS_IDD_Diagram_File_D1_v1.0.1.pdf" target="_blank" rel="noopener noreferrer">File D1 - Award and Awardee Attributes (Procurement)</a>
 					</li>
 					<li>
-					<a href="http://fedspendingtransparency.github.io/assets/docs/DAIMS_IDD_Diagram_File_D2_v1.0_04292016.pdf" target="_blank" rel="noopener noreferrer">File D2 - Award and Awardee Attributes (Financial Assistance)</a>
+					<a href="http://fedspendingtransparency.github.io/assets/docs/DAIMS_IDD_Diagram_File_D2_v1.0.1.pdf" target="_blank" rel="noopener noreferrer">File D2 - Award and Awardee Attributes (Financial Assistance)</a>
 					</li>
 					<li>
-					<a href="http://fedspendingtransparency.github.io/assets/docs/DAIMS_IDD_Diagram_File_E_v1.0_04292016.pdf" target="_blank" rel="noopener noreferrer">File E - Additional Awardee Attributes</a>
+					<a href="http://fedspendingtransparency.github.io/assets/docs/DAIMS_IDD_Diagram_File_E_v1.0.1.pdf" target="_blank" rel="noopener noreferrer">File E - Additional Awardee Attributes</a>
 					</li>
 					<li>
-					<a href="http://fedspendingtransparency.github.io/assets/docs/DAIMS_IDD_Diagram_File_F_v1.0_04292016.pdf" target="_blank" rel="noopener noreferrer">File F - Sub-Award Attributes</a>
+					<a href="http://fedspendingtransparency.github.io/assets/docs/DAIMS_IDD_Diagram_File_F_v1.0.1.pdf" target="_blank" rel="noopener noreferrer">File F - Sub-Award Attributes</a>
 					</li>
 					</ul>
 					<h5>Overall DAIMS Resources</h5>
