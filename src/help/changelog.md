@@ -29,7 +29,6 @@ Rule B18 was modified to prevent conflict with Rule B12, when downward adjustmen
 
 Rule A33 was modified so that users will no longer see a warning if the submission does not include Financing Accounts. 
 
-
 ##### Browser Requirements & Known Issues{section=browser}
 The Broker is currently tested with the following browsers:
 
