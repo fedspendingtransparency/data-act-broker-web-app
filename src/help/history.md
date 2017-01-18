@@ -1,22 +1,57 @@
+#### December 21, 2016
+On September 30, 2016, we released the full version of the DATA Act Broker that contained everything agencies need to test the data validation and submission process. Now we are making improvements to the Broker and responding to issues discovered through greater agency use.
+
+In this version of the Broker, users are able to generate D files outside of a submission, rules that were temporarily warnings are changed back to errors, the Broker is available at a new URL, rule B5 is updated, object class validations require a specific value when an object class is unknown, and MAX permissions allow users who are part of of multiple agency permission groups to have different permissions for different agencies.
+
+  - [Generate D files outside of a submission](#/help?section=Dfiles)
+  - [Temporary Warnings Changed Back to Errors](#/help?section=warnings2Errors)
+  - [New URL for the Data Broker](#/help?section=URL)
+  - [Update to Rule B5](#/help?section=B5)
+  - [Object Class Validation Update](#/help?section=objectClass)
+  - [MAX Group Permissions Allow for Different Permissions for a User Who is Part of a Multiple Agency Permission Group](#/help?section=maxGroup)
+  - [Browser Requirements & Known Issues](#/help?section=browser)
+  - [Accessibility Statement](#/help?section=accessibilityStatemen)
+
+##### Generate D Files Outside of a Submission{section=Dfiles}
+
+Users will be able to generate D files outside the context of a submission. In other words, they won't need to validate A-C to be able to generate D files.
+
+##### Temporary Warnings Changed Back to Errors{section=warnings2Errors}
+
+All Rules that were temporarily warnings are changed back to critical errors. These warnings were documented on the validation table on the Help page, with a note that they would become errors in the future. The exception to this is rule A33, which will remain a warning for now.
+
+##### New URL for Data Broker{section=URL}
+
+The Data Broker is now be available at broker.usaspending.gov. All users should be automatically redirected.
+
+##### Object Class Validation Update{section=objectClass}
+
+Object Class validations only allow the object classes listed in the domain values. If the object class is unknown, agencies should use '000' instead of a value of their choosing. Please note that only '000' will be accepted by the broker, not '0' or '00'. If you're editing your files in Excel, you may need to pay careful attention to the formatting of the object class column to make sure it does not truncate the value to '0'.
+
+##### MAX Group Permissions Allow for Different Permissions for a User Who is Part of a Multiple Agency Permission Group{section=maxGroup}
+
+Updates to the MAX group permissions  allow for different permissions for different agencies, when a user is part of multiple agency permission groups, such as shared service providers.
+
+
 #### December 7, 2016
 In this release we are making improvements to the Broker and responding to issues discovered through greater agency use.
 
-In this release there are bugfixes, improvements, and changes to the way the Data Broker handles certain conditions. 
+In this release there are bugfixes, improvements, and changes to the way the Data Broker handles certain conditions.
 
   - [Flex Fields](#/help?section=flexfields)
   - [Comment box available for each file in certification](#/help?section=comments)
   - [White space bugfix](#/help?section=whitespace)
   - [Improvements to local install process](#/help?section=local)
   - [Rounding error bugfix](#/help?section=rounding)
- 
+
 ##### Flex Fields{section=flexfields}
 
- Users can now add additional columns to their submission files (A-C) that will be returned in their warning and error files. To use this feature, add any column to your submission data and prefix the header with "flex\_". For example, a column named "flex_reportingbureau" will be ignored for validation purposes but returned for any rows that have errors in the warnings and error reports. 
+ Users can now add additional columns to their submission files (A-C) that will be returned in their warning and error files. To use this feature, add any column to your submission data and prefix the header with "flex\_". For example, a column named "flex_reportingbureau" will be ignored for validation purposes but returned for any rows that have errors in the warnings and error reports.
 
 ##### Comments in Certification{section=comments}
 
-Users can now add comments to each file during the certification process. On the final summary screen, you can select the file you wish to add comments for and write free-form prose to accompany that file for certification purposes. 
- 
+Users can now add comments to each file during the certification process. On the final summary screen, you can select the file you wish to add comments for and write free-form prose to accompany that file for certification purposes.
+
 ##### White space bugfix{section=whitespace}
 
 In previous versions of the broker, rows of white space at the end of a file would cause validation errors. This was common for users exporting from excel. The broker will now ignore rows at the end of the file if all of the values are whitespace.
@@ -27,7 +62,7 @@ In this release we made improvements to the local install process for the broker
 
 ##### Rounding Error bugfix{section=rounding}
 
-In previous versions of the broker, certain GTAS lines were being rounded when the source data was imported into the broker. We've resolved this issue to make sure the source data for all GTAS validations is correct. 
+In previous versions of the broker, certain GTAS lines were being rounded when the source data was imported into the broker. We've resolved this issue to make sure the source data for all GTAS validations is correct.
 
 
 ##### November 30, 2016
@@ -71,7 +106,7 @@ In this version of the Broker, we have improved the cross-file validation and fi
 
 Cross File Validations and File Downloads
 
- - The cross-file validation reports now include the error text instead of the rule description text. 
+ - The cross-file validation reports now include the error text instead of the rule description text.
  - While the D1 and D2 files are being generated, the messaging is more descriptive, "Creating your D1 and D2 files from ASP and FPDS. This may take a few minutes."
  - If there is an error generating the file from ASP or FPDS, the message says, "A problem occurred receiving data from ASP" (or FPDS) instead of a generic 404 error.
  - File E, Additional Awardee Attributes, can now be generated and downloaded after Files D1 and D2 generate.
@@ -175,11 +210,11 @@ In previous versions of the Broker, you could only upload a D2 file. If you didn
 
 ###### Improved 508 Compliance{section=508compliance}
 
-In this release, the Broker has further improved it's compliance with 508 accessibility guidelines. 
+In this release, the Broker has further improved it's compliance with 508 accessibility guidelines.
 
 ###### Increase Server Capacity{section=capacity}
 
-In this release, the development team has significantly increased the base capacity of the web and database servers powering the Broker. 
+In this release, the development team has significantly increased the base capacity of the web and database servers powering the Broker.
 
 ###### Notify Another User{section=notifyauser}
 
@@ -191,7 +226,7 @@ Several users reported a minor bug with the submission table that appears on the
 
 ####  What's New in This Release - July 27, 2016
 
-In this version of the Broker, we updated the Broker branding to Beta, improved the validation processing time, implemented short data element names, made the styling more consistent, improved the accessibility of the Broker, added a resources section, and updated the information on validations. 
+In this version of the Broker, we updated the Broker branding to Beta, improved the validation processing time, implemented short data element names, made the styling more consistent, improved the accessibility of the Broker, added a resources section, and updated the information on validations.
 
   - [DATA Act Broker - Beta Release](#/help?section=betaRelease)
   - [Validation Processing Time](#/help?section=processingTime)
@@ -226,7 +261,7 @@ We made several changes to improve the accessibility of the Broker by adaptive t
 
 NOTE: The DATA Act Broker - Alpha Release is now in beta status (as of the June 29, 2016 release). We will be updating the related text indicators on the website in the next release. The URL ([https://alpha-broker.usaspending.gov](https://alpha-broker.usaspending.gov)) will not change for now.
 
-In this version of the Broker, we changed the submission date timeframe, reduced the errors generated by blanks, improved the display of the tree map for errors, display the cross file validations, and updated some more validations to SQL. 
+In this version of the Broker, we changed the submission date timeframe, reduced the errors generated by blanks, improved the display of the tree map for errors, display the cross file validations, and updated some more validations to SQL.
 
   - [Reporting Date Timeframe](#/help?section=reportingDateTimeframe)
   - [Tree Map for Errors](#/help?section=treeMap)
@@ -251,7 +286,7 @@ Agency developers may be interested to know that we transitioned more of the Bro
 In this release we have transitioned all of these validations to SQL except A1, B9, and B10. See cumulative table of validations above.
 
 #### What's New in This Release - June 29, 2016
-In this version of the Broker, we made several small changes to make the Broker easier to use, added a section to display submissions from your agency, clarified the process to upload corrected files, added an email notification feature, transitioned some of the validation rules to SQL statements, and updated some of the validations. 
+In this version of the Broker, we made several small changes to make the Broker easier to use, added a section to display submissions from your agency, clarified the process to upload corrected files, added an email notification feature, transitioned some of the validation rules to SQL statements, and updated some of the validations.
 
   - [Ease of Use Improvements](#/help?section=easeofUse)
   - [Submissions from Your Agency](#/help?section=agencySubdashboard)
@@ -265,7 +300,7 @@ In this version of the Broker, we made several small changes to make the Broker 
 - **Username** On the log in screen, we have replaced the Username prompt with Email Address since your user name is your email address.
 - **Submission Guide** If you hide the Submission Guide page, when you select your agency for a new submission, there is a link to view the Submission Guide. The Submission Guide also has a link to the validations listed on this Help page.
 - **Default Dates** When creating your submission, the dates default to the beginning of the fiscal year and the current month or quarter.
-- **Last Saved** The Broker automatically saves your files when you upload them and at each step of the validation process. The date and time the data was last saved is displayed at the top of the screen below the Help menu. 
+- **Last Saved** The Broker automatically saves your files when you upload them and at each step of the validation process. The date and time the data was last saved is displayed at the top of the screen below the Help menu.
 - **Leave Validations Running** You can leave the validation page and the validations will continue to run. Come back at any time to check your progress or results.
 - **Spam Folder Warning** Some users report that emails from the Broker end up in their spam folders. We've added a reminder to check your spam folder on pages that generate emails.
 - **Back to Top** We know this Help page is getting long so we added an arrow in the lower right corner. Click it to take you back to the top of the page at any time.
@@ -277,7 +312,7 @@ We've added a table to the Broker home page where you can see recent submissions
 If one or more of your files fails validation, only those failed files will have a prompt in red for you to upload a corrected file. Click *Choose Corrected File* to browse to your file and select it. Or drag and drop a corrected file onto the file icon. Click *Upload Corrected CSV Files*. The validations on the corrected files will run again.
 
 ###### Send Email Notifications{section=sendEmail}
-After your data has been successfully validated, the *Review & Publish* page has a button to *Notify Another User that the Submission is Ready for Certification*. This opens a field where you can type in multiple email addresses for users in your agency. 
+After your data has been successfully validated, the *Review & Publish* page has a button to *Notify Another User that the Submission is Ready for Certification*. This opens a field where you can type in multiple email addresses for users in your agency.
 
 ###### Some Validations in SQL{section=validationSQL}
 Agency developers may be interested to know that we transitioned some of the Broker validations to using SQL statements. The list of SQL statements is publically available on [GitHub](https://github.com/fedspendingtransparency/data-act-broker-backend/tree/master/dataactvalidator/config/sqlrules).
@@ -286,7 +321,7 @@ Agency developers may be interested to know that we transitioned some of the Bro
 In this release we included rules A18, A19, A20, B9, B10, B11, B12, and C18. See cumulative table above.
 
 #### What's New in This Release - June 15, 2016
-In this version of the Broker, we made it easier to select your agency, made it easier to submit your data without errors, and updated some of the validations. 
+In this version of the Broker, we made it easier to select your agency, made it easier to submit your data without errors, and updated some of the validations.
 
 * [Easier Agency Selection](#/help?section=agencyCGAC)
 * [Accidental Commas in Dollar Amounts](#/help?section=removeCommas)
@@ -312,7 +347,7 @@ When you log into the Broker, you will see three choices that guide you to _Uplo
 
 ###### Submission Guide{section=subguide}
 The Submission Guide provides details of the four steps to submit your agency's data. Once you have reviewed this page, you can check a box to hide this page the next time you log into the Broker.
-        
+
 ###### Select Reporting Period{section=dateselect}
 Based on user feedback, the quarterly submission dates are displayed as the quarter number and the fiscal year. Example: Quarter 2 - 2016.
 
@@ -335,7 +370,7 @@ Submitted files will be validated per RSS v1.0. Specifically:
 * Field names match the RSS v1.0
 * Maximum field length does not exceed the value in RSS v1.0
 * Required fields are present per RSS v1.0
-* Records in File C have a PIID, FAIN, or URI 
+* Records in File C have a PIID, FAIN, or URI
 
 ###### Cross File Validations{section=crossFileValv1}
 We started work on cross file validations, beginning with cross validation of the FAIN, URI or PIID between sample files for Files C and D2.
