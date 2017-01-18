@@ -34,7 +34,7 @@ class ValidateValuesOverlayContainer extends React.Component {
 		else {
 			UploadHelper.performRemoteCorrectedUpload(this.props.submission)
 			.catch((err) => {
-    			if (err.httpStatus == 401) {
+    			if (err.httpStatus == 403) {
                     this.setState({
                         notAllowed: true,
                         errorMessage: err.message

@@ -1,9 +1,0 @@
-.usa-da-admin-page {
-	@import "../../layouts/content/content";
-	@include contentLayout;
-
-	@import "./_content";
-	@import "./_alerts";
-
-	@import "./adminTable/adminTable";
-}

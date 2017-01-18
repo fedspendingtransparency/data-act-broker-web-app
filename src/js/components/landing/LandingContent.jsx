@@ -56,11 +56,11 @@ export default class LandingContent extends React.Component {
     }
 
     render() {
-        let agencyName = this.props.session.user.agency_name;
-        if (!agencyName) {
-            agencyName = 'Your Agency';
+        const affiliations = this.props.session.user.affiliations;
+        let agencyName = 'Your Agency';
+        if (affiliations && affiliations.length > 0) {
+            agencyName = affiliations.map((a) => a.agency_name).join(', ');
         }
-
         return (
                 <div className="site_content">
                     <div className="usa-da-content-dark">

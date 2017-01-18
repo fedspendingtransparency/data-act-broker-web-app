@@ -7,7 +7,6 @@ import React, { PropTypes } from 'react';
 import { kGlobalConstants } from '../../../GlobalConstants.js';
 import NavbarTab from './NavbarTab.jsx';
 import UserButton from './UserButton.jsx';
-import AdminButton from './AdminButton.jsx';
 import SkipNavigationLink from './SkipNavigationLink.jsx';
 
 import { bindActionCreators } from 'redux';
@@ -35,7 +34,7 @@ export class Navbar extends React.Component {
 
     render() {
         let tabNames = {}
-        if (!this.props.session.user.permission) {
+        if (this.props.session.user.helpOnly) {
             tabNames = {
                 'Help': 'help'
             };
@@ -58,11 +57,6 @@ export class Navbar extends React.Component {
             userButton = <UserButton buttonText={userText} logout={this.logout.bind(this)} />;
         }
 
-        let adminButton = null;
-        if (this.props.session.admin) {
-            adminButton = <AdminButton />
-        }
-
         Object.keys(tabNames).map((key) => {
             headerTabs.push(<NavbarTab key={tabNames[key]} name={key} tabClass={tabNames[key]} activeTabClassName={context.props.activeTab} />);
         });
@@ -81,7 +75,6 @@ export class Navbar extends React.Component {
                             <div className="container">
                                 <ul className="usa-da-top-head-menu mr-15">
                                     {userButton}
-                                    {adminButton}
                                 </ul>
                             </div>
                         </div>
