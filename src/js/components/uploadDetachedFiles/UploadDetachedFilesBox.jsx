@@ -34,9 +34,9 @@ export default class UploadDetachedFilesBox extends React.Component {
 		}
 		let d2FileUpload = <FileComponent fileTitle="File D2: Financial Assistance"
 											fileTemplateName="award.csv"
-											requestName="award" />;
+											requestName="detached_award" />;
 
-		let fileStateReady = this.props.submission.files && this.props.submission.files.award && this.props.submission.files.award.state === 'ready';
+		let fileStateReady = this.props.submission.files && this.props.submission.files.detached_award && this.props.submission.files.detached_award.state === 'ready';
 		let disabled = !fileStateReady || (!this.props.award.valid || this.props.award.status == "uploading");
 		return (
 			<div className="usa-da-upload-detached-files-box dashed-border-top">

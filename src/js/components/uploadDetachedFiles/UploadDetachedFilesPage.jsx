@@ -182,7 +182,7 @@ export default class UploadDetachedFilesPage extends React.Component {
                 .then((submissionID) => {
                     // TODO: Remove this when this is eventually tied to user accounts
                     this.props.setSubmissionId(submissionID);
-                    hashHistory.push('/validateData/' + submissionID);
+                    // hashHistory.push('/validateData/' + submissionID);
 
                 });
 		}
@@ -191,7 +191,7 @@ export default class UploadDetachedFilesPage extends React.Component {
 				.then((submissionID) => {
 					// TODO: Remove this when this is eventually tied to user accounts
 					this.props.setSubmissionId(submissionID);
-					hashHistory.push('/validateData/' + submissionID);
+					// hashHistory.push('/validateData/' + submissionID);
 				})
 				.catch((err) => {
 					if (err.httpStatus == 403) {
