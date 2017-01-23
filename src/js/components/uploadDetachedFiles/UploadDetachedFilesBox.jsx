@@ -28,7 +28,7 @@ export default class UploadDetachedFilesBox extends React.Component {
 	render() {
 		let d2Text = "Upload D2 File";
 		let loadingD2 = null;
-		if (this.props.award.status == "uploading") {
+		if (this.props.detachedAward.status == "uploading") {
 			d2Text = "Uploading";
 			loadingD2 = <LoadingBauble />
 		}
@@ -37,7 +37,7 @@ export default class UploadDetachedFilesBox extends React.Component {
 											requestName="detached_award" />;
 
 		let fileStateReady = this.props.submission.files && this.props.submission.files.detached_award && this.props.submission.files.detached_award.state === 'ready';
-		let disabled = !fileStateReady || (!this.props.award.valid || this.props.award.status == "uploading");
+		let disabled = !fileStateReady || (!this.props.detachedAward.valid || this.props.detachedAward.status == "uploading");
 		return (
 			<div className="usa-da-upload-detached-files-box dashed-border-top">
 				{d2FileUpload}

@@ -480,9 +480,9 @@ export const performDetachedLocalUpload = (submission) => {
             store.dispatch(uploadActions.setSubmissionState('prepare'));
             deferred.resolve(submissionID);
         })
-        .catch(() => {
+        .catch((err) => {
             store.dispatch(uploadActions.setSubmissionState('failed'));
-            deferred.reject();
+            deferred.reject(err);
         });
 
     return deferred.promise;

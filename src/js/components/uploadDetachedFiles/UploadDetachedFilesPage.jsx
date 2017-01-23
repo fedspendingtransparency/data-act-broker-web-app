@@ -17,8 +17,11 @@ import DateRangeWrapper from './DateRangeWrapper.jsx';
 import * as Icons from '../SharedComponents/icons/Icons.jsx';
 
 import * as UploadHelper from '../../helpers/UploadHelper.js';
+import * as GenerateFilesHelper from '../../helpers/generateFilesHelper.js';
 import * as UploadActions from '../../redux/actions/UploadActions.js';
 import { kGlobalConstants } from '../../GlobalConstants.js';
+
+const timerDuration = 5;
 
 export default class UploadDetachedFilesPage extends React.Component {
 	constructor(props) {
@@ -31,7 +34,7 @@ export default class UploadDetachedFilesPage extends React.Component {
 			agencyError: false,
 			showDatePicker: false,
 			showUploadFilesBox: false,
-			award: {
+			detachedAward: {
 				startDate: null,
 				endDate: null,
 				error: {
@@ -41,7 +44,9 @@ export default class UploadDetachedFilesPage extends React.Component {
 				},
 				valid: false,
 				status: ""
-			}
+			},
+			notAllowed: false,
+			errorMessage: ""
 		};
 	}
 
@@ -173,8 +178,8 @@ export default class UploadDetachedFilesPage extends React.Component {
 	uploadFile() {
 		// upload specified file
 		this.props.setSubmissionState('uploading');
-		this.props.submission.meta['startDate'] = this.state.award.startDate.format('DD/MM/YYYY');
-		this.props.submission.meta['endDate'] = this.state.award.endDate.format('DD/MM/YYYY');
+		this.props.submission.meta['startDate'] = this.state.detachedAward.startDate.format('DD/MM/YYYY');
+		this.props.submission.meta['endDate'] = this.state.detachedAward.endDate.format('DD/MM/YYYY');
 		this.props.submission.meta['subTierAgency'] = this.state.agency;
 		
 		if (kGlobalConstants.LOCAL == true) {
@@ -182,16 +187,29 @@ export default class UploadDetachedFilesPage extends React.Component {
                 .then((submissionID) => {
                     // TODO: Remove this when this is eventually tied to user accounts
                     this.props.setSubmissionId(submissionID);
-                    // hashHistory.push('/validateData/' + submissionID);
-
-                });
+                    this.checkFileStatus(submissionID);
+                })
+				.catch((err) => {
+					if (err.httpStatus == 403) {
+						this.setState({
+							notAllowed: true,
+							errorMessage: err.message
+						});
+					}
+					else {
+						console.log(err);
+						this.setState({
+							errorMessage: err.message
+						});
+					}
+				});
 		}
 		else {
 			UploadHelper.performDetachedFileUpload(this.props.submission)
 				.then((submissionID) => {
 					// TODO: Remove this when this is eventually tied to user accounts
 					this.props.setSubmissionId(submissionID);
-					// hashHistory.push('/validateData/' + submissionID);
+					this.checkFileStatus(submissionID);
 				})
 				.catch((err) => {
 					if (err.httpStatus == 403) {
@@ -200,81 +218,74 @@ export default class UploadDetachedFilesPage extends React.Component {
 							errorMessage: err.message
 						});
 					}
+					else {
+						console.log(err);
+						this.setState({
+							errorMessage: err.message
+						});
+					}
 				});
 		}
 	}
 
-	// checkFileStatus(job_id) {
-	// 	// callback to check file status
-	// 	UploadHelper.fetchDetachedFile(job_id)
-	// 		.then((response) => {
-	// 			if (this.isUnmounted) {
-	// 				return;
-	// 			}
-	// 			// this.parseFileState(response);
-	// 		});
-	// }
+	checkFileStatus(submissionID) {
+		// callback to check file status
+		GenerateFilesHelper.fetchSubmissionMetadata(submissionID)
+			.then((response) => {
+				if (this.isUnmounted) {
+					return;
+				}
+				this.parseJobStates(response);
+			});
+	}
 
-	// parseFileState(data) {
-	// 	// parse response and see what state the generation is in
-	// 	const fileType = data.file_type.toLowerCase();
+	parseJobStates(data) {
+		let runCheck = true;
 
-	// 	let runCheck = true;
+		for(let i = 0; i < data.jobs.length; i++) {
+			if (data.jobs[i].job_status == 'failed' || data.jobs[i].job_status == 'invalid') {
+				// don't run the check again if it failed
+				runCheck = false;
 
-	// 	if (data.httpStatus == 401) {
-	// 		// don't run the check again if it failed
-	// 		runCheck = false;
+				let message = 'Error during D2 validation.';
 
-	// 		this.showError(fileType, 'Permission Error', response.message);
-	// 	}
-	// 	else if (data.status == 'failed' || data.status == 'invalid') {
-	// 		// don't run the check again if it failed
-	// 		runCheck = false;
+				if (data.jobs[i].error_description != '') {
+					message = data.jobs[i].error_description;
+				}
 
-	// 		let message = 'File ' + data.file_type + ' could not be uploaded.';
+				// make a clone of the file's react state
+				const item = Object.assign({}, this.state.detachedAward);
+				item.status = "failed";
+				this.setState({detachedAward: item});
 
-	// 		if (data.message != '') {
-	// 			message = data.message;
-	// 		}
+				// this.showError(fileType, data.file_type + ' File Error', message);
+			}
+			else if (data.jobs[i].job_status == 'finished') {
+				// don't run the check again if it's done
+				runCheck = false;
 
-	// 		// make a clone of the file's react state
-	// 		const item = Object.assign({}, this.state[fileType]);
-	// 		item.status = "";
-	// 		this.setState({[fileType]: item});
+				// this.hideError(fileType);
 
-	// 		this.showError(fileType, data.file_type + ' File Error', message);
-	// 	}
-	// 	else if (data.status == 'finished') {
-	// 		// don't run the check again if it's done
-	// 		runCheck = false;
+				// display dowload buttons
+				// make a clone of the file's react state
+				const item = Object.assign({}, this.state.detachedAward);
+				item.status = "done";
 
-	// 		this.hideError(fileType);
+				this.setState({detachedAward: item});
+			}
+		}
 
-	// 		// display dowload buttons
-	// 		// make a clone of the file's react state
-	// 		const item = Object.assign({}, this.state[fileType]);
+		if (this.isUnmounted) {
+			return;
+		}
 
-	// 		// update the download properties
-	// 		item.download = {
-	// 			show: true,
-	// 			url: data.url
-	// 		};
-	// 		item.status = "done";
-
-	// 		this.setState({[fileType]: item});
-	// 	}
-
-	// 	if (this.isUnmounted) {
-	// 		return;
-	// 	}
-
-	// 	if (runCheck && !this.isUnmounted) {
-	// 		// wait 5 seconds and check the file status again
-	// 		window.setTimeout(() => {
-	// 			this.checkFileStatus(data.job_id);
-	// 		}, timerDuration * 1000);
-	// 	}
-	// }
+		if (runCheck && !this.isUnmounted) {
+			// wait 5 seconds and check the file status again
+			window.setTimeout(() => {
+				this.checkFileStatus(this.props.submission.id);
+			}, timerDuration * 1000);
+		}
+	}
 
 	render() {
 		let subTierAgencyIcon = <Icons.Building />;
@@ -288,19 +299,19 @@ export default class UploadDetachedFilesPage extends React.Component {
 		if (this.state.showDatePicker) {
 			let value = {
 				datePlaceholder: "Action",
-				endDate: this.state.award.endDate, 
+				endDate: this.state.detachedAward.endDate, 
 				label: "File D2: Financial Assistance",
-				startDate: this.state.award.startDate
+				startDate: this.state.detachedAward.startDate
 			}
 			datePicker = <DateRangeWrapper {...this.state} 
-								handleDateChange={this.handleDateChange.bind(this, "award")} 
+								handleDateChange={this.handleDateChange.bind(this, "detachedAward")} 
 								hideError={this.hideError.bind(this)} 
 								showError={this.showError.bind(this)} 
 								value={value} />;
 		}
 
 		let uploadFilesBox = null;
-		if (this.state.award.valid) {
+		if (this.state.detachedAward.valid) {
 			uploadFilesBox = <UploadDetachedFilesBox {...this.state} 
 								hideError={this.hideError.bind(this)}
 								showError={this.showError.bind(this)}
@@ -309,11 +320,11 @@ export default class UploadDetachedFilesPage extends React.Component {
 		}
 
 		let errorMessage = null;
-		if (this.state.award.error.show) {
+		if (this.state.detachedAward.error.show) {
 			errorMessage = <div className="alert alert-error text-left" role="alert">
 								<span className="usa-da-icon error-icon"><Icons.ExclamationCircle /></span>
-								<div className="alert-header-text">{this.state.award.error.header}</div>
-								<p>{this.state.award.error.description}</p>
+								<div className="alert-header-text">{this.state.detachedAward.error.header}</div>
+								<p>{this.state.detachedAward.error.description}</p>
 							</div>;
 		}
 		
