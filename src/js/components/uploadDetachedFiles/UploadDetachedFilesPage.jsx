@@ -11,14 +11,16 @@ import moment from 'moment';
 import Navbar from '../SharedComponents/navigation/NavigationComponent.jsx';
 import Footer from '../SharedComponents/FooterComponent.jsx';
 import SubTierAgencyListContainer from '../../containers/SharedContainers/SubTierAgencyListContainer.jsx';
+import ValidateValuesFileContainer from '../../containers/validateData/ValidateValuesFileContainer.jsx';
+import ValidateDataFileContainer from '../../containers/validateData/ValidateDataFileContainer.jsx';
 import UploadDetachedFilesBox from './UploadDetachedFilesBox.jsx';
 import DateRangeWrapper from './DateRangeWrapper.jsx';
 
 import * as Icons from '../SharedComponents/icons/Icons.jsx';
 
-import * as UploadHelper from '../../helpers/UploadHelper.js';
+import * as UploadHelper from '../../helpers/uploadHelper.js';
 import * as GenerateFilesHelper from '../../helpers/generateFilesHelper.js';
-import * as UploadActions from '../../redux/actions/UploadActions.js';
+import * as ReviewHelper from '../../helpers/reviewHelper.js';
 import { kGlobalConstants } from '../../GlobalConstants.js';
 
 const timerDuration = 5;
@@ -34,6 +36,7 @@ export default class UploadDetachedFilesPage extends React.Component {
 			agencyError: false,
 			showDatePicker: false,
 			showUploadFilesBox: false,
+			showValidationBox: false,
 			detachedAward: {
 				startDate: null,
 				endDate: null,
@@ -45,8 +48,11 @@ export default class UploadDetachedFilesPage extends React.Component {
 				valid: false,
 				status: ""
 			},
+			jobResults: {detached_award: {}},
 			notAllowed: false,
-			errorMessage: ""
+			errorMessage: "",
+			headerErrors: false,
+			validationFinished: false
 		};
 	}
 
@@ -142,7 +148,10 @@ export default class UploadDetachedFilesPage extends React.Component {
 			dFile.valid = false;
 		}
 
-		this.setState({[file]:dFile});
+		this.setState({
+			[file]:dFile,
+			showUploadFilesBox: dFile.valid
+		});
 	}
 
 	showError(file, header, description) {
@@ -187,7 +196,7 @@ export default class UploadDetachedFilesPage extends React.Component {
                 .then((submissionID) => {
                     // TODO: Remove this when this is eventually tied to user accounts
                     this.props.setSubmissionId(submissionID);
-                    this.checkFileStatus(submissionID);
+					this.checkFileStatus(submissionID);
                 })
 				.catch((err) => {
 					if (err.httpStatus == 403) {
@@ -235,44 +244,73 @@ export default class UploadDetachedFilesPage extends React.Component {
 				if (this.isUnmounted) {
 					return;
 				}
-				this.parseJobStates(response);
+
+				const job = Object.assign({}, this.state.jobResults);
+				job.detached_award = response.jobs[0];
+				this.setState({
+					showUploadFilesBox: false,
+					showValidationBox: true,
+					jobResults: job
+				}, () => {
+					this.parseJobStates(response);
+				});				
 			});
 	}
 
 	parseJobStates(data) {
 		let runCheck = true;
 
-		for(let i = 0; i < data.jobs.length; i++) {
-			if (data.jobs[i].job_status == 'failed' || data.jobs[i].job_status == 'invalid') {
-				// don't run the check again if it failed
-				runCheck = false;
+		if (data.jobs[0].job_status == 'failed' || data.jobs[0].job_status == 'invalid') {
+			// don't run the check again if it failed
+			runCheck = false;
 
-				let message = 'Error during D2 validation.';
+			let message = 'Error during D2 validation.';
 
-				if (data.jobs[i].error_description != '') {
-					message = data.jobs[i].error_description;
-				}
-
-				// make a clone of the file's react state
-				const item = Object.assign({}, this.state.detachedAward);
-				item.status = "failed";
-				this.setState({detachedAward: item});
-
-				// this.showError(fileType, data.file_type + ' File Error', message);
+			if (!data.jobs[0].error_data[0] && data.jobs[0].error_data[0].error_description != '') {
+				message = data.jobs[0].error_data[0].error_description;
 			}
-			else if (data.jobs[i].job_status == 'finished') {
-				// don't run the check again if it's done
-				runCheck = false;
 
-				// this.hideError(fileType);
+			// make a clone of the file's react state
+			const item = Object.assign({}, this.state.detachedAward);
+			item.status = "failed";
 
-				// display dowload buttons
-				// make a clone of the file's react state
-				const item = Object.assign({}, this.state.detachedAward);
-				item.status = "done";
-
-				this.setState({detachedAward: item});
+			if(data.jobs[0].error_type == "header_errors") {
+				this.setState({
+					detachedAward: item,
+					validationFinished: true,
+					headerErrors: true
+				});
 			}
+			else {
+				ReviewHelper.validateDetachedSubmission(this.props.submission.id)
+				.then((response) => {
+					this.setState({
+						detachedAward: item,
+						validationFinished: true,
+						headerErrors: false,
+						jobResults: response
+					});
+				});
+			}
+		}
+		else if (data.jobs[0].job_status == 'finished') {
+			// don't run the check again if it's done
+			runCheck = false;
+
+			// display dowload buttons
+			// make a clone of the file's react state
+			const item = Object.assign({}, this.state.detachedAward);
+			item.status = "done";
+
+			ReviewHelper.validateDetachedSubmission(this.props.submission.id)
+				.then((response) => {
+					this.setState({
+						detachedAward: item,
+						validationFinished: true,
+						headerErrors: false,
+						jobResults: response
+					});
+				});
 		}
 
 		if (this.isUnmounted) {
@@ -307,16 +345,31 @@ export default class UploadDetachedFilesPage extends React.Component {
 								handleDateChange={this.handleDateChange.bind(this, "detachedAward")} 
 								hideError={this.hideError.bind(this)} 
 								showError={this.showError.bind(this)} 
-								value={value} />;
+								value={value}
+								disabled={this.state.showValidationBox} />;
 		}
 
 		let uploadFilesBox = null;
-		if (this.state.detachedAward.valid) {
+		if (this.state.detachedAward.valid && this.state.showUploadFilesBox) {
 			uploadFilesBox = <UploadDetachedFilesBox {...this.state} 
 								hideError={this.hideError.bind(this)}
 								showError={this.showError.bind(this)}
 								submission={this.props.submission}  
 								uploadFile={this.uploadFile.bind(this)} />;
+		}
+
+		let validationBox = null;
+		if(this.state.showValidationBox) {
+			const type = {
+				fileTitle: 'File D2: Award',
+				fileTemplateName: 'detached_award.csv',
+				requestName: 'detached_award',
+				progress: '0'
+			}
+			validationBox = <ValidateDataFileContainer type={type} data={this.state.jobResults} />;
+			if(!this.state.headerErrors && this.state.validationFinished) {
+				validationBox = <ValidateValuesFileContainer type={type} data={this.state.jobResults} />;
+			}
 		}
 
 		let errorMessage = null;
@@ -338,7 +391,7 @@ export default class UploadDetachedFilesPage extends React.Component {
 								<div className="row usa-da-page-title">
 									<div className="col-lg-12 mt-40 mb-20">
 										<div className="display-2">
-											Upload File D2: Financial Assistance
+											Upload Bi-Monthly Financial Assistance Data
 										</div>
 									</div>
 								</div>
@@ -356,7 +409,7 @@ export default class UploadDetachedFilesPage extends React.Component {
 
 										<div className="row">
 											<div className="col-sm-12 col-md-12 typeahead-holder" data-testid="agencytypeahead">
-												<SubTierAgencyListContainer placeholder="Enter the name of the reporting sub-tier agency" onSelect={this.handleChange.bind(this)} customClass={subTierAgencyClass} internalValue='agency_code' />
+												<SubTierAgencyListContainer placeholder="Enter the name of the reporting sub-tier agency" onSelect={this.handleChange.bind(this)} customClass={subTierAgencyClass} internalValue='agency_code' disabled={this.state.showValidationBox} />
 												<div className={"usa-da-icon usa-da-form-icon" + subTierAgencyClass}>
 													{subTierAgencyIcon}
 												</div>
@@ -369,6 +422,10 @@ export default class UploadDetachedFilesPage extends React.Component {
 
 										<ReactCSSTransitionGroup transitionName="usa-da-meta-fade" transitionEnterTimeout={600} transitionLeaveTimeout={200}>
 											{uploadFilesBox}
+										</ReactCSSTransitionGroup>
+
+										<ReactCSSTransitionGroup transitionName="usa-da-meta-fade" transitionEnterTimeout={600} transitionLeaveTimeout={200}>
+											{validationBox}
 										</ReactCSSTransitionGroup>
 
 										{errorMessage}

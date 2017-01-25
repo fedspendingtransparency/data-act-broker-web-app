@@ -15,6 +15,15 @@
 			font-size: 1.6rem;
 		}
 
+		.usa-da-typeahead {
+			&.disabled {
+				input {
+					background-color: #f1f1f3;
+					color: #bfb4b3;
+				}
+			}
+		}
+
 		.dashed-border-top {
 			margin: 31px 0 10px;
 			border-top: 1px dashed $color-gray-lighter;
@@ -23,6 +32,21 @@
 		.usa-da-date-select {
 			padding-top: 30px;
 			@import "../generateFiles/generateItem/generateItem";
+
+			// have to create this layer of classes so it overrides the imported ones
+			.usa-da-generate-item .date-range-wrapper .generate-datepicker {
+
+				&.disabled {
+					input {
+						background-color: #f1f1f3;
+						color: #bfb4b3;
+					}
+
+					a {
+						cursor: default;
+					}
+				}
+			}
 		}
 
 		.usa-da-upload-detached-files-box {
@@ -33,6 +57,11 @@
 				margin-bottom: 10px;
 			}
 		}
+
+		.usa-da-validate-item {
+	        @import "../validateData/fileItem/fileItem";
+	        @include fileItem;
+	    }
 
 		// import the alerts
 		.alert-error {

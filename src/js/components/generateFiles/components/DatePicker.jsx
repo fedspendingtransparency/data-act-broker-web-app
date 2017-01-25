@@ -50,9 +50,11 @@ export default class DatePicker extends React.Component {
 	toggleDatePicker(e) {
 		e.preventDefault();
 
-		this.setState({
-			showDatePicker: !this.state.showDatePicker
-		}, this.datePickerChangeEvent.bind(this));
+		if(!this.props.disabled || this.state.showDatePicker) {
+			this.setState({
+				showDatePicker: !this.state.showDatePicker
+			}, this.datePickerChangeEvent.bind(this));
+		}
 	}
 
 	datePickerChangeEvent() {
@@ -191,18 +193,22 @@ export default class DatePicker extends React.Component {
 			};
 		}
 
-
+		let disabledClass = "";
+		if(this.props.disabled) {
+			disabledClass = " disabled";
+		}
 
 		return (
 			<div className="generate-datepicker-wrap">
-				<div className="generate-datepicker">
+				<div className={"generate-datepicker" + disabledClass}>
 	            	<input type="text"
 	            		placeholder={this.props.title}
 	            		value={this.state.inputValue}
 	            		tabIndex={this.props.tabIndex}
 	            		ref="text"
 	            		onChange={this.handleTypedDate.bind(this)}
-	            		onBlur={this.handleInputBlur.bind(this)} />
+	            		onBlur={this.handleInputBlur.bind(this)} 
+						disabled={this.props.disabled} />
 	                <a href="#" onClick={this.toggleDatePicker.bind(this)} tabIndex={this.props.tabIndex + 1} className="usa-da-icon picker-icon date" aria-haspopup={true}>
 	                    <Icons.Calendar alt="Date picker" />
 	                </a>

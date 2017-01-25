@@ -40,7 +40,7 @@ class SubTierAgencyListContainer extends React.Component {
 
 	render() {
 		return (
-			<Typeahead {...this.props} values={this.props.subTierAgencyList.subTierAgencies} formatter={this.dataFormatter} />
+			<Typeahead {...this.props} values={this.props.subTierAgencyList.subTierAgencies} formatter={this.dataFormatter} disabled={this.props.disabled}/>
 		)
 	}
 

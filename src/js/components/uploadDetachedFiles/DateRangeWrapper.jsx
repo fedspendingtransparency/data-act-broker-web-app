@@ -35,7 +35,8 @@ export default class DateRangeWrapper extends React.Component {
 										value={this.props.value.startDate} 
 										opposite={this.props.value.endDate}  
 										showError={this.props.showError} 
-										hideError={this.props.hideError} />
+										hideError={this.props.hideError}
+										disabled={this.props.disabled} />
 							<div className="through-text">
 								through
 							</div>
@@ -46,7 +47,8 @@ export default class DateRangeWrapper extends React.Component {
 										value={this.props.value.endDate} 
 										opposite={this.props.value.startDate} 
 										showError={this.props.showError} 
-										hideError={this.props.hideError} />
+										hideError={this.props.hideError}
+										disabled={this.props.disabled} />
 						</div>
 					</div>
 				</div>
