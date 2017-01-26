@@ -124,7 +124,8 @@ export default class ErrorBox extends React.Component {
 
 	changeTab(tab) {
 		this.setState({
-			activeTab: tab
+			activeTab: tab,
+			signedUrl: ''
 		});
 	}
 
