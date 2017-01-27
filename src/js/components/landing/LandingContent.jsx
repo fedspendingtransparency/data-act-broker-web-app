@@ -55,12 +55,41 @@ export default class LandingContent extends React.Component {
         this.refs.modal.openModal();
     }
 
+    toggleExpand() {
+        this.setState({
+            expanded: !this.state.expanded
+        })
+    }
+
     render() {
         const affiliations = this.props.session.user.affiliations;
+
+        //Size to set off the limiting of the recent activity
+        let limit=1;
+
         let agencyName = 'Your Agency';
-        if (affiliations && affiliations.length > 0) {
+        if (affiliations && affiliations.length > 0 && this.state.expanded) {
+            agencyName = affiliations.map((a) => a.agency_name).join(', ');
+        }else if(affiliations && affiliations.length > limit && !this.state.expanded){
+            agencyName = affiliations.map((a) => a.agency_name)[0] + "...";
+        }else if(affiliations && affiliations.length < limit && affiliations.length > 0 && !this.state.expanded){
             agencyName = affiliations.map((a) => a.agency_name).join(', ');
         }
+
+        let recentHeader = 'recent-activity-header';
+        let recentActivity = 'recent-activity';
+        let expand = 'hide block';
+        let expandContent = '';
+        if(affiliations.length > limit && !this.state.expanded){
+            recentHeader +='-hidden';
+            recentActivity +='-hidden';
+            expand = 'expand-button block'
+            expandContent = 'Show More';
+        }else if(affiliations.length > limit && this.state.expanded){
+            expand = 'expand-button block'
+            expandContent = 'Show Less';
+        }
+
         return (
                 <div className="site_content">
                     <div className="usa-da-content-dark">
@@ -93,7 +122,13 @@ export default class LandingContent extends React.Component {
                         <div className="container">
                             <div className="row">
                                 <div className="col-md-12">
-                                    <h2 className="recent-activity-header">Recent Activity for {agencyName}</h2>
+                                    <h2 className={recentHeader}>
+                                        <div className="recent-header">Recent Activity for:</div>
+                                        <div className={recentActivity}>{agencyName}</div>
+                                    </h2>
+                                    <div className='see-more-wrapper'>
+                                        <a className={expand} onClick={this.toggleExpand.bind(this)}>{expandContent}</a>
+                                    </div>
                                     <RecentActivityTable />
                                 </div>
                             </div>
