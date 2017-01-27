@@ -65,7 +65,7 @@ export default class LandingContent extends React.Component {
         const affiliations = this.props.session.user.affiliations;
 
         //Size to set off the limiting of the recent activity
-        let limit=1;
+        let limit=3;
 
         let agencyName = 'Your Agency';
         if (affiliations && affiliations.length > 0 && this.state.expanded) {
