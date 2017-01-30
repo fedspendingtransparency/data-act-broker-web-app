@@ -23,3 +23,21 @@ export const fetchAgencies = () => {
 
     return deferred.promise;
 }
+
+export const fetchSubTierAgencies = () => {
+
+    const deferred = Q.defer();
+
+    Request.get(kGlobalConstants.API + 'list_sub_tier_agencies/')
+        .send()
+        .end((err, res) => {
+            if (err) {
+                deferred.reject(err);
+            }
+            else {
+                deferred.resolve(res.body['sub_tier_agency_list']);
+            }
+        });
+
+    return deferred.promise;
+}

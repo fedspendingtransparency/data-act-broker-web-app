@@ -355,6 +355,29 @@ export const validateSubmission  = (submissionId) => {
 
 }
 
+export const validateDetachedSubmission = (submissionId) => {
+
+	const deferred = Q.defer();
+
+	// set the submission ID
+	const store = new StoreSingleton().store;
+	store.dispatch(uploadActions.setSubmissionId(submissionId));
+
+	let status;
+	fetchStatus(submissionId)
+		.then((statusRes) => {
+			status = getFileStates(statusRes);
+			deferred.resolve(status);
+		})
+		.catch((err) => {
+			const response = Object.assign({}, err.body);
+			response.httpStatus = err.status;
+			deferred.reject(response);
+		});
+
+	return deferred.promise;
+}
+
 export const listUsers = () => {
 	const deferred = Q.defer();
 
