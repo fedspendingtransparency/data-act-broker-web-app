@@ -25,8 +25,7 @@ export default class RecentActivityTable extends React.Component {
 			'Submitted By',
 			'Last Modified Date',
 			'Size',
-			'Status',
-			// 'Errors'
+			'Status'
 		];
 
 		this.state = {
