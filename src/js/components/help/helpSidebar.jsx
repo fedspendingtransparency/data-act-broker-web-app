@@ -7,10 +7,24 @@ import React from 'react';
 import HelpSidebarItem from './helpSidebarItem.jsx';
 
 export default class HelpSidebar extends React.Component {
+
+    constructor(props) {
+        super(props);
+    }
+
     render() {
         const sectionList = this.props.sections.map((section, index) => {
             return <HelpSidebarItem key={index} sectionName={section.name} sectionId={section.link} />
         });
+
+        let membership = '';
+        if(this.props.helpOnly){
+            membership=
+                     <li>
+                        <a href="/#/help?section=agencyAccess">Request Agency Access</a>
+                    </li>;
+        }
+        
 
         return (
             <div className="usa-da-help-sidebar">
@@ -23,6 +37,7 @@ export default class HelpSidebar extends React.Component {
                 </ul>
                 <h6>Getting More Help</h6>
                 <ul>
+                    {membership}
                     <li>
                         <a href="/#/help?section=filingIssue">Filing an Issue</a>
                     </li>
