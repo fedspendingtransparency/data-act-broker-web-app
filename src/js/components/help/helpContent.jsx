@@ -21,7 +21,7 @@ export default class HelpContent extends React.Component {
         this.state = {
             rssUrl: '',
             validationRulesUrl: '#',
-            domainValuesUrl: '#',
+            domainValuesUrl: '#'
         };
     }
 

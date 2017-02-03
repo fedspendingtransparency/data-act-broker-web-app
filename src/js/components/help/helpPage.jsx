@@ -43,7 +43,6 @@ export default class HelpPage extends React.Component {
     }
 
     render() {
-
         return (
             <div className="usa-da-help-style-page" name="top">
                 <div className="usa-da-page-content">
