@@ -18,6 +18,8 @@ import ValidateDataErrorReport from './ValidateDataErrorReport.jsx';
 import ValidateDataUploadButton from './ValidateDataUploadButton.jsx';
 import * as Icons from '../SharedComponents/icons/Icons.jsx';
 
+import * as GenerateFilesHelper from '../../helpers/generateFilesHelper.js';
+
 const propTypes = {
 
 };
@@ -25,6 +27,13 @@ const propTypes = {
 export default class ValidateDataFileComponent extends React.Component {
     constructor(props) {
         super(props);
+
+        console.log(this.props)
+
+        GenerateFilesHelper.fetchFile('A', this.props.submission.id)
+            .then((response)=>{
+                console.log(response);
+            })
 
         this.state = {
             showError: false,
