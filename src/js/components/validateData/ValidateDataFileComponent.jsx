@@ -240,6 +240,7 @@ export default class ValidateDataFileComponent extends React.Component {
         // override this data if a new file is dropped in
         let uploadProgress = '';
         let fileName = this.props.item.filename;
+
         if (this.isReplacingFile()) {
             // also display the new file name
             const newFile = this.props.submission.files[this.props.type.requestName];
@@ -284,7 +285,9 @@ export default class ValidateDataFileComponent extends React.Component {
                                     </div>
                                 </div>
                                 {uploadProgress}
-                                <div className="usa-da-validate-item-file-name">{fileName}</div>
+                                <div className="usa-da-validate-item-file-name">
+                                    {fileName}
+                                </div>
                                 <div className={"usa-da-validate-item-file-section-correct-button" + disabledCorrect} data-testid="validate-upload">
                                     <div className="row">
                                         <div className='col-md-12'>
