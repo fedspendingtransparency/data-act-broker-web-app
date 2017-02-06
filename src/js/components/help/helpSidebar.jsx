@@ -17,7 +17,7 @@ export default class HelpSidebar extends React.Component {
             return <HelpSidebarItem key={index} sectionName={section.name} sectionId={section.link} />
         });
 
-        let membership = '';
+        let membership = null;
         if(this.props.helpOnly){
             membership=
                      <li>

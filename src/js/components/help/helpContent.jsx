@@ -62,7 +62,7 @@ export default class HelpContent extends React.Component {
     }
 
     render() {
-        let membership = '';;
+        let membership = null;
         if(this.props.helpOnly){
             membership = <div>
             <h4 name='agencyAccess'>Request Agency Access</h4>
