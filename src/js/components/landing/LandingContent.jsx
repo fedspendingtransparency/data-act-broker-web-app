@@ -65,14 +65,12 @@ export default class LandingContent extends React.Component {
         const affiliations = this.props.session.user.affiliations;
 
         //Size to set off the limiting of the recent activity
-        let limit=3;
+        const limit=3;
 
         let agencyName = 'Your Agency';
-        if (affiliations && affiliations.length > 0 && this.state.expanded) {
-            agencyName = affiliations.map((a) => a.agency_name).join(', ');
-        }else if(affiliations && affiliations.length > limit && !this.state.expanded){
-            agencyName = affiliations.map((a) => a.agency_name)[0] + "...";
-        }else if(affiliations && affiliations.length < limit && affiliations.length > 0 && !this.state.expanded){
+        if(affiliations && affiliations.length > limit && !this.state.expanded){
+            agencyName = affiliations.slice(0, limit).map((a) => a.agency_name).join(', ') + "...";
+        }else if(affiliations && affiliations.length > 0){
             agencyName = affiliations.map((a) => a.agency_name).join(', ');
         }
 
