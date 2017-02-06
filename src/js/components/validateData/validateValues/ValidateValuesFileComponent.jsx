@@ -28,7 +28,6 @@ const propTypes = {
 export default class ValidateDataFileComponent extends React.Component {
     constructor(props) {
         super(props);
-        console.log(props);
         this.state = {
             showWarning: false,
             showError: false,
@@ -39,7 +38,7 @@ export default class ValidateDataFileComponent extends React.Component {
 
     componentDidMount() {
         this.determineErrors(this.props.item);
-        this.getFileUrl(this.props.item);
+        // this.getFileUrl(this.props.item);
     }
 
     componentWillReceiveProps(nextProps) {
@@ -86,18 +85,19 @@ export default class ValidateDataFileComponent extends React.Component {
         return stagedFile;
     }
 
-    getFileUrl(item){
+    downloadFile(item){
+        console.log(item);
         if(item.file_type=='appropriations'){
             GenerateFilesHelper.fetchFile('A', this.props.submission.id).then((result)=>{
-                this.setState({url: result.url});
+                window.location = result.url;
             })
         }else if(item.file_type=='program_activity'){
             GenerateFilesHelper.fetchFile('B', this.props.submission.id).then((result)=>{
-                this.setState({url: result.url});
+                window.location = result.url;
             })
         }else if(item.file_type=='award_financial'){
             GenerateFilesHelper.fetchFile('C', this.props.submission.id).then((result)=>{
-                this.setState({url: result.url});
+                window.location = result.url;
             })
         }
     }
@@ -244,9 +244,9 @@ export default class ValidateDataFileComponent extends React.Component {
                                 </div>
                             </div>
                             <div className="row usa-da-validate-item-file-name">
-                                <a href={this.state.url} download={fileName} rel="noopener noreferrer">
+                                <div className='file-download' onClick={this.downloadFile.bind(this, this.props.item)} download={fileName} rel="noopener noreferrer">
                                     {fileName}
-                                </a>
+                                </div>
                             </div>
                             {uploadProgress}
                             {validationElement}

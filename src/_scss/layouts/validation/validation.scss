@@ -32,4 +32,14 @@
 	.with-overlay {
 	    padding-bottom: 180px !important;
 	}
+
+	//Styling the document download link
+	.file-download {
+		cursor: pointer;
+		color: #337ab7;
+	}
+
+	.file-download:hover {
+		color: #205493;
+	}
 }
