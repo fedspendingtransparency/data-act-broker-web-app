@@ -3,3 +3,66 @@
     font-weight: 200;
     line-height: 1;
 }
+
+.recent-activity-header-hidden {
+	font-size: 3.0rem;
+    font-weight: 200;
+    line-height: 1;
+    overflow: hidden;
+    height: 1em;
+    text-overflow: ellipsis;
+    margin-bottom: 10px;
+}
+.test-header {
+	font-size: 3.0rem;
+    font-weight: 200;
+    line-height: 1;
+    overflow: hidden;
+    height: 1em;
+    text-overflow: ellipsis;
+    margin-bottom: 10px;
+}
+
+.recent-header{
+	display:inline-block;
+	padding-right:5px;
+}
+
+.recent-header-test{
+	display:inline-block;
+	padding-right:5px;
+}
+
+.recent-activity{
+	height: 1em;
+	display: inline;
+}
+
+.recent-activity-hidden{
+	height: 1em;
+	overflow: hidden;
+	display: inline;
+}
+
+.expand-button{
+	font-size: 1.2rem;
+	font-weight: 700;
+	text-decoration: none;
+	text-align:center;
+	width:100%;
+	cursor: pointer;
+}
+
+.see-more-wrapper{
+	width:100%;
+	text-align:center;
+	padding-bottom: 10px;
+}
+
+.hide{
+	display:none;
+}
+
+.block {
+	padding-bottom: 15px;
+}
