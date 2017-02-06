@@ -18,8 +18,6 @@ import ValidateDataErrorReport from './ValidateDataErrorReport.jsx';
 import ValidateDataUploadButton from './ValidateDataUploadButton.jsx';
 import * as Icons from '../SharedComponents/icons/Icons.jsx';
 
-import * as GenerateFilesHelper from '../../helpers/generateFilesHelper.js';
-
 const propTypes = {
 
 };
@@ -27,11 +25,6 @@ const propTypes = {
 export default class ValidateDataFileComponent extends React.Component {
     constructor(props) {
         super(props);
-
-        GenerateFilesHelper.fetchFile('A', this.props.submission.id)
-            .then((response)=>{
-                console.log(response);
-            })
 
         this.state = {
             showError: false,
@@ -247,6 +240,7 @@ export default class ValidateDataFileComponent extends React.Component {
         // override this data if a new file is dropped in
         let uploadProgress = '';
         let fileName = this.props.item.filename;
+
         if (this.isReplacingFile()) {
             // also display the new file name
             const newFile = this.props.submission.files[this.props.type.requestName];
@@ -291,7 +285,9 @@ export default class ValidateDataFileComponent extends React.Component {
                                     </div>
                                 </div>
                                 {uploadProgress}
-                                <div className="usa-da-validate-item-file-name">{fileName}</div>
+                                <div className="usa-da-validate-item-file-name">
+                                    {fileName}
+                                </div>
                                 <div className={"usa-da-validate-item-file-section-correct-button" + disabledCorrect} data-testid="validate-upload">
                                     <div className="row">
                                         <div className='col-md-12'>

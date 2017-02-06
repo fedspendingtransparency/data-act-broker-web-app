@@ -19,6 +19,7 @@ import ValidateValuesErrorReport from './ValidateValuesErrorReport.jsx';
 import FileDetailBox from './ValidateValuesFileDetailBox.jsx';
 import CorrectButtonOverlay from '../CorrectButtonOverlay.jsx';
 import * as Icons from '../../SharedComponents/icons/Icons.jsx';
+import * as GenerateFilesHelper from '../../../helpers/generateFilesHelper.js';
 
 const propTypes = {
 
@@ -27,7 +28,7 @@ const propTypes = {
 export default class ValidateDataFileComponent extends React.Component {
     constructor(props) {
         super(props);
-
+        console.log(props);
         this.state = {
             showWarning: false,
             showError: false,
@@ -38,6 +39,7 @@ export default class ValidateDataFileComponent extends React.Component {
 
     componentDidMount() {
         this.determineErrors(this.props.item);
+        this.getFileUrl(this.props.item);
     }
 
     componentWillReceiveProps(nextProps) {
@@ -82,6 +84,22 @@ export default class ValidateDataFileComponent extends React.Component {
             stagedFile = true;
         }
         return stagedFile;
+    }
+
+    getFileUrl(item){
+        if(item.file_type=='appropriations'){
+            GenerateFilesHelper.fetchFile('A', this.props.submission.id).then((result)=>{
+                this.setState({url: result.url});
+            })
+        }else if(item.file_type=='program_activity'){
+            GenerateFilesHelper.fetchFile('B', this.props.submission.id).then((result)=>{
+                this.setState({url: result.url});
+            })
+        }else if(item.file_type=='award_financial'){
+            GenerateFilesHelper.fetchFile('C', this.props.submission.id).then((result)=>{
+                this.setState({url: result.url});
+            })
+        }
     }
 
     determineErrors(item) {
@@ -225,7 +243,11 @@ export default class ValidateDataFileComponent extends React.Component {
                                     {this.displayIcon()}
                                 </div>
                             </div>
-                            <div className="row usa-da-validate-item-file-name">{fileName}</div>
+                            <div className="row usa-da-validate-item-file-name">
+                                <a href={this.state.url} download={fileName} rel="noopener noreferrer">
+                                    {fileName}
+                                </a>
+                            </div>
                             {uploadProgress}
                             {validationElement}
                         </div>
