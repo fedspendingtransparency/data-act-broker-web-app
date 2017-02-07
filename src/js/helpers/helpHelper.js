@@ -111,7 +111,7 @@ const loadChangelog = () => {
 const loadTechnicalNotes = () => {
 	const deferred = Q.defer();
 
-	Request.get('/help/changelog.md')
+	Request.get('/help/technical.md')
 	        .send()
 	        .end((err, res) => {
 	        	if (err) {
@@ -138,6 +138,35 @@ export const loadHelp = () => {
 	};
 
 	loadChangelog()
+		.then((data) => {
+			output.html = data.html;
+			output.sections = data.sections;
+			return loadHistory();
+		})
+		.then((data) => {
+			output.history = data;
+
+			deferred.resolve(output);
+		})
+		.catch((err) => {
+			deferred.reject(err);
+		});
+
+	return deferred.promise;
+
+}
+
+export const loadTechnical = () => {
+
+	const deferred = Q.defer();
+
+	const output = {
+		html: '',
+		sections: [],
+		history: ''
+	};
+
+	loadTechnicalNotes()
 		.then((data) => {
 			output.html = data.html;
 			output.sections = data.sections;

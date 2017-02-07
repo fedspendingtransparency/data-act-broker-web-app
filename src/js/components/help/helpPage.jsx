@@ -21,12 +21,15 @@ export default class HelpPage extends React.Component {
 
         this.state = {
             changelog: '',
-            sections: []
+            technical: '',
+            CLsections: [],
+            Tsections: []
         };
     }
 
     componentDidMount() {
         this.loadChangelog();
+        this.loadTechnical();
     }
 
     loadChangelog() {
@@ -34,7 +37,20 @@ export default class HelpPage extends React.Component {
             .then((output) => {
                 this.setState({
                     changelog: output.html,
-                    sections: output.sections
+                    CLsections: output.sections
+                });
+            })
+            .catch((err) => {
+                console.log(err);
+            });
+    }
+
+    loadTechnical() {
+        HelpHelper.loadTechnical()
+            .then((output) => {
+                this.setState({
+                    technical: output.html,
+                    Tsections: output.sections
                 });
             })
             .catch((err) => {
@@ -61,10 +77,10 @@ export default class HelpPage extends React.Component {
                     <div className="container">
                         <div className="row usa-da-help-page">
                             <div className="col-md-4">
-                                <HelpSidebar sections={this.state.sections} helpOnly={this.props.helpOnly} />
+                                <HelpSidebar changeSections={this.state.CLsections} technicalSections={this.state.Tsections} helpOnly={this.props.helpOnly} />
                             </div>
                             <div className="col-md-8">
-                                <HelpContent section={this.props.location.query.section} helpOnly={this.props.helpOnly} changelog={this.state.changelog} />
+                                <HelpContent section={this.props.location.query.section} helpOnly={this.props.helpOnly} changelog={this.state.changelog} technical={this.state.technical} />
                             </div>
                         </div>
                     </div>
