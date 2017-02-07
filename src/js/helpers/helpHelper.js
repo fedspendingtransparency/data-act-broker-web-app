@@ -108,6 +108,25 @@ const loadChangelog = () => {
 	return deferred.promise;
 }
 
+const loadTechnicalNotes = () => {
+	const deferred = Q.defer();
+
+	Request.get('/help/changelog.md')
+	        .send()
+	        .end((err, res) => {
+	        	if (err) {
+	        		deferred.reject(err);
+	        	}
+	        	else {
+	        		const output = parseMarkdown(res.text);
+	        		deferred.resolve(output);
+	        	}
+
+	        });
+
+	return deferred.promise;
+}
+
 export const loadHelp = () => {
 
 	const deferred = Q.defer();
