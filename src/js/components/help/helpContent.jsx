@@ -66,8 +66,17 @@ export default class HelpContent extends React.Component {
         if(this.props.helpOnly){
             membership = <div>
             <h4 name='agencyAccess'>Request Agency Access</h4>
-
-            <p>Click here to <a href='https://community.max.gov/x/fJwuRQ' target="_blank">request agency access</a></p>
+            <p>
+                The DATA Act Broker leverages MAX.gov for user accounts and password authentication. 
+                To request a Broker account, you will first need a MAX.gov account. 
+                If you do not have a MAX.gov account, you may register for one <a href='https://max.gov/maxportal/registrationForm.action' target='_blank'>here</a>.
+            </p>
+            <p>
+                Once you have a MAX.gov account, navigate <a href='https://community.max.gov/x/fJwuRQ' target="_blank">here</a>, and follow the directions on the page to request access to the DATA Act Broker through your agency.             
+            </p>
+            <p>
+                If you have questions about Broker access, or if your agency is not listed on the MAX page linked above, email <a href='mailto:DATAPMO@fiscal.treasury.gov?subject=Broker%20Access%20Information' target='_top'>DATAPMO@fiscal.treasury.gov</a>.
+            </p>
             </div>;
         }
 
