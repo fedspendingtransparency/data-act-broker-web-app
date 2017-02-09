@@ -7,8 +7,10 @@ import React from 'react';
 import _ from 'lodash';
 import FormattedTable from '../../SharedComponents/table/FormattedTable.jsx';
 import SubmissionLink from './SubmissionLink.jsx';
+import DeleteLink from './DeleteLink.jsx';
 
 import * as SubmissionListHelper from '../../../helpers/submissionListHelper.js';
+import * as LoginHelper from '../../../helpers/loginHelper.js';
 import * as Status from './SubmissionStatus.jsx';
 
 
@@ -18,16 +20,6 @@ export default class RecentActivityTable extends React.Component {
 
 		this.didUnmount = false;
 
-		this.tableHeaders = [
-			'View',
-			'Agency',
-			'Reporting Period',
-			'Submitted By',
-			'Last Modified Date',
-			'Size',
-			'Status'
-		];
-
 		this.state = {
 			cachedResponse: [],
 			data: [],
@@ -35,17 +27,37 @@ export default class RecentActivityTable extends React.Component {
 			headerClasses: [],
 			message: 'Loading recent activity...',
 			sortDirection: 'desc',
-			sortColumn: 1
+			sortColumn: 1,
+			account: null,
+			user: true
 		};
+
+		this.tableHeaders = 
+			[
+			'View',
+			'Agency',
+			'Reporting Period',
+			'Submitted By',
+			'Last Modified Date',
+			'Status',
+			'Delete'
+			];
 	}
 
 	componentDidMount() {
 		this.loadActivity();
+		this.loadUser();
 		this.didUnmount = false;
 	}
 
 	componentWillUnmount() {
 		this.didUnmount = true;
+	}
+
+	loadUser(){
+		LoginHelper.fetchActiveUser().then((user)=>{
+			this.setState({account: user});
+		})
 	}
 
 	loadActivity() {
@@ -72,16 +84,17 @@ export default class RecentActivityTable extends React.Component {
 				console.log(err);
 			});
 	}
+	
 
 	buildRow() {
 		// iterate through the recent activity
 		const output = [];
 		const rowClasses = [];
 
-		const classes = ['row-10 text-center', 'row-20 text-center', 'row-15 text-right white-space', 'row-15 text-right', 'row-15 text-right','row-10 text-right', 'row-15 text-right progress-cell'];
+		const classes = ['row-10 text-center', 'row-20 text-center', 'row-15 text-right white-space', 'row-15 text-right', 'row-15 text-right','row-15 text-right progress-cell', 'row-10 text-center'];
 
 		// sort the array by object key
-		const orderKeys = ['sortableReportingDate', 'sortableName', 'sortableDate', 'sortableSize', 'sortableStatus', 'errors'];
+		const orderKeys = ['sortableReportingDate', 'sortableName', 'sortableDate', 'sortableSize', 'sortableStatus'];
 		const data = _.orderBy(this.state.cachedResponse, orderKeys[this.state.sortColumn - 1], this.state.sortDirection);
 
 		// iterate through each item returned from the API
@@ -98,14 +111,15 @@ export default class RecentActivityTable extends React.Component {
 			}
 
             // break the object out into an array for the table component
-			const row = [
+			const row = 
+			[
 				<SubmissionLink submissionId={item.submission_id} />,
 				item.agency,
 				reportingDateString,
 				userName,
 				item.last_modified,
-				item.fileSize,
-				<Status.SubmissionStatus status={item.rowStatus} />
+				<Status.SubmissionStatus status={item.rowStatus} />,
+				<DeleteLink submissionId={item.submission_id} reload={this.buildRow.bind(this)} item={item} account={this.state.account}/>
 			];
 
 			rowClasses.push(classes);
