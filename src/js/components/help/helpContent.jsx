@@ -62,6 +62,15 @@ export default class HelpContent extends React.Component {
     }
 
     render() {
+        let membership = null;
+        if(this.props.helpOnly){
+            membership = <div>
+            <h4 name='agencyAccess'>Request Agency Access</h4>
+
+            <p>Click here to <a href='https://community.max.gov/x/fJwuRQ' target="_blank">request agency access</a></p>
+            </div>;
+        }
+
         return (
             <div className="usa-da-help-content">
 
@@ -70,6 +79,8 @@ export default class HelpContent extends React.Component {
                 <div dangerouslySetInnerHTML={{__html:this.props.changelog}} />
 
                 <h2 className="mt-50">Getting More Help</h2>
+
+                {membership}
 
                 <h4 name="filingIssue">Filing an Issue</h4>
 

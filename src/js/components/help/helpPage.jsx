@@ -61,10 +61,10 @@ export default class HelpPage extends React.Component {
                     <div className="container">
                         <div className="row usa-da-help-page">
                             <div className="col-md-4">
-                                <HelpSidebar sections={this.state.sections} />
+                                <HelpSidebar sections={this.state.sections} helpOnly={this.props.helpOnly} />
                             </div>
                             <div className="col-md-8">
-                                <HelpContent section={this.props.location.query.section} changelog={this.state.changelog} />
+                                <HelpContent section={this.props.location.query.section} helpOnly={this.props.helpOnly} changelog={this.state.changelog} />
                             </div>
                         </div>
                     </div>
