@@ -89,6 +89,25 @@ const loadHistory = () => {
 	return deferred.promise;
 }
 
+const loadTechnicalHistory = () => {
+	const deferred = Q.defer();
+
+	Request.get('/help/history.md')
+	        .send()
+	        .end((err, res) => {
+	        	if (err) {
+	        		deferred.reject(err);
+	        	}
+	        	else {
+	        		const output = parseMarkdown(res.text);
+	        		deferred.resolve(output.html);
+	        	}
+	        });
+
+
+	return deferred.promise;
+}
+
 const loadChangelog = () => {
 	const deferred = Q.defer();
 
@@ -111,7 +130,7 @@ const loadChangelog = () => {
 const loadTechnicalNotes = () => {
 	const deferred = Q.defer();
 
-	Request.get('/help/technical.md')
+	Request.get('/help/technicalHistory.md')
 	        .send()
 	        .end((err, res) => {
 	        	if (err) {
@@ -170,7 +189,7 @@ export const loadTechnical = () => {
 		.then((data) => {
 			output.html = data.html;
 			output.sections = data.sections;
-			return loadHistory();
+			return loadTechnicalHistory();
 		})
 		.then((data) => {
 			output.history = data;

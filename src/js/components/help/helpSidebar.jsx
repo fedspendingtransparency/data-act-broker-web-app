@@ -13,11 +13,11 @@ export default class HelpSidebar extends React.Component {
     }
 
     render() {
-        const CLsectionList = this.props.changeSections.map((section, index) => {
+        const clSectionList = this.props.changeSections.map((section, index) => {
             return <HelpSidebarItem key={index} sectionName={section.name} sectionId={section.link} />
         });
 
-        const TsectionList = this.props.technicalSections.map((section, index) => {
+        const tSectionList = this.props.technicalSections.map((section, index) => {
             return <HelpSidebarItem key={index} sectionName={section.name} sectionId={section.link} />
         });
 
@@ -34,14 +34,14 @@ export default class HelpSidebar extends React.Component {
             <div className="usa-da-help-sidebar">
                 <h6>What’s New in This Release</h6>
                 <ul>
-                    {CLsectionList}
+                    {clSectionList}
 					<li>
                         <a href="/#/history">Release Notes Archive</a>
                     </li>
                 </ul>
                 <h6>This Release's Technical Notes</h6>
                 <ul>
-                    {TsectionList}
+                    {tSectionList}
                     <li>
                         <a href="/#/history">Technical Notes Archive</a>
                     </li>
