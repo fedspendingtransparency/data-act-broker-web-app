@@ -92,7 +92,7 @@ const loadHistory = () => {
 const loadTechnicalHistory = () => {
 	const deferred = Q.defer();
 
-	Request.get('/help/history.md')
+	Request.get('/help/technicalHistory.md')
 	        .send()
 	        .end((err, res) => {
 	        	if (err) {
@@ -130,7 +130,7 @@ const loadChangelog = () => {
 const loadTechnicalNotes = () => {
 	const deferred = Q.defer();
 
-	Request.get('/help/technicalHistory.md')
+	Request.get('/help/technical.md')
 	        .send()
 	        .end((err, res) => {
 	        	if (err) {
