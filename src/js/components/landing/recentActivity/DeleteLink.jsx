@@ -71,7 +71,7 @@ export default class DeleteLink extends React.Component {
 			if(this.state.active){
 				button = 
 					<div onClick={this.delete.bind(this)}>
-						<a className='usa-da-button btn-danger'>Delete</a>
+						<a className='usa-da-button btn-danger'>Delete?</a>
 					</div>;
 			}	
 		}
