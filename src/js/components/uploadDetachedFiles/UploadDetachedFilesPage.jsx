@@ -328,6 +328,7 @@ export default class UploadDetachedFilesPage extends React.Component {
 	render() {
 		let subTierAgencyIcon = <Icons.Building />;
 		let subTierAgencyClass = '';
+		let contentSize = 'col-lg-offset-2 col-lg-8';
 
 		let header = <div className="usa-da-content-dark">
 							<div className="container">
@@ -378,6 +379,7 @@ export default class UploadDetachedFilesPage extends React.Component {
 			uploadFilesBox = null;
 			datePicker = null;
 			subTierAgencyIcon = null;
+			contentSize = 'col-xs-12';
 
 			const type = {
 				fileTitle: 'File D2: Award',
@@ -428,7 +430,7 @@ export default class UploadDetachedFilesPage extends React.Component {
 
 						<div className="container center-block">
 							<div className="row text-center usa-da-select-agency">
-								<div className="col-lg-offset-2 col-lg-8 mt-60 mb-60">
+								<div className="{contentSize} mt-60 mb-60">
 									{title}
 									<div className="select-agency-holder">
 										
