@@ -40,7 +40,8 @@ export default class HelpPage extends React.Component {
                 .catch((err) => {
                     console.log(err);
                 });
-        }else{
+        }
+        else{
             HelpHelper.loadHelp()
                 .then((output) => {
                     this.setState({
