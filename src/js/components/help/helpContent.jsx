@@ -84,7 +84,7 @@ export default class HelpContent extends React.Component {
 
                 <h4 name="filingIssue">Filing an Issue</h4>
 
-                <p>If you encounter a bug, have a question, or need help, <a href="https://federal-spending-transparency.atlassian.net/projects/ABF/issues/ABF-2?filter=allopenissues" target="_blank"  rel="noopener noreferrer">please file an issue in JIRA</a>, our issue tracker. You do not need an account to file an issue, but if you would like to be notified of updates, please put your email in the "Reporter Email" field. If you can&#39;t access JIRA, please email <a href='&#109;&#97;&#105;lt&#111;&#58;DAT&#65;&#37;42r%&#54;&#70;ke&#114;&#64;&#37;&#54;6%6&#57;&#115;%6&#51;a&#37;6&#67;%&#50;E&#37;&#55;4%72eas&#37;75ry%2&#69;go&#37;76'>DATAB&#114;oke&#114;&#64;f&#105;&#115;ca&#108;&#46;tre&#97;&#115;ury&#46;gov</a>.</p>
+                <p>If you encounter a bug, have a question, or need help, <a href="https://federal-spending-transparency.atlassian.net/projects/ABF/issues/ABF-2?filter=allopenissues" target="_blank"  rel="noopener noreferrer">please file an issue in JIRA</a>, our issue tracker. You do not need an account to file an issue, but if you would like to be notified of updates, please put your email in the "Reporter Email" field. If you can&#39;t access JIRA, please email <a href="mailto:DATAPMO@fiscal.treasury.gov">DATAPMO@fiscal.treasury.gov</a>.</p>
 
                 <p>Information posted on JIRA is visible to the public.</p>
 
@@ -94,7 +94,7 @@ export default class HelpContent extends React.Component {
                     <img src={gifSrc}/>
                 </p>
 
-                <p>If you need assistance using the Broker or if you would like to schedule a hands-on sandbox session with Treasury staff, please email <a href='&#109;&#97;&#105;lt&#111;&#58;DAT&#65;&#37;42r%&#54;&#70;ke&#114;&#64;&#37;&#54;6%6&#57;&#115;%6&#51;a&#37;6&#67;%&#50;E&#37;&#55;4%72eas&#37;75ry%2&#69;go&#37;76'>DATAB&#114;oke&#114;&#64;f&#105;&#115;ca&#108;&#46;tre&#97;&#115;ury&#46;gov</a>.</p>
+                <p>If you need assistance using the Broker or if you would like to schedule a hands-on sandbox session with Treasury staff, please email <a href="mailto:DATAPMO@fiscal.treasury.gov">DATAPMO@fiscal.treasury.gov</a>.</p>
 	    </div>
         );
     }
