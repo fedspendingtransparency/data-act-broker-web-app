@@ -402,8 +402,9 @@ export default class UploadDetachedFilesPage extends React.Component {
 
 		let subtierAgency = null;
 
-		if(this.state.showValidationBox){
-			subtierAgency = <div className="row usa-da-select-agency-label">
+		if(!this.state.showValidationBox){
+			subtierAgency = <div>
+				<div className="row usa-da-select-agency-label">
 					The files will be used when submitting data for...
 				</div>
 
@@ -414,6 +415,7 @@ export default class UploadDetachedFilesPage extends React.Component {
 							{subTierAgencyIcon}
 						</div>
 					</div>
+				</div>
 				</div>;
 		}
 		
@@ -430,7 +432,7 @@ export default class UploadDetachedFilesPage extends React.Component {
 									{title}
 									<div className="select-agency-holder">
 										
-										{subTierAgency}
+										{subtierAgency}
 
 										<ReactCSSTransitionGroup transitionName="usa-da-meta-fade" transitionEnterTimeout={600} transitionLeaveTimeout={200}>
 											{datePicker}
