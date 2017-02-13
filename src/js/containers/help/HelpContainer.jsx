@@ -65,7 +65,7 @@ class HelpPageContainer extends React.Component {
                 <HistoryPage {...this.props} history='release' helpOnly={this.state.helpOnly} />
             );
         }
-        else if (this.props.route.path == 'technical-history') {
+        else if (this.props.route.path == 'technicalHistory') {
             return (
                 <HistoryPage {...this.props} history='technical' helpOnly={this.state.helpOnly} />
             );

@@ -226,7 +226,7 @@ const routeDefinitions = {
             }
         },
         {
-            path: 'technical-history',
+            path: 'technicalHistory',
             onEnter: checkHelpUserPermissions,
             getComponent(nextState, cb) {
                 require.ensure([], (require) => {
