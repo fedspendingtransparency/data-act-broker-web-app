@@ -20,7 +20,6 @@ export default class HelpPage extends React.Component {
 
         this.state = {
             history: '',
-			sections: [],
             clSections: [],
             tSections: []
         };
@@ -37,7 +36,6 @@ export default class HelpPage extends React.Component {
             .then((output) => {
                 this.setState({
                     history: output.history,
-                    changelog: output.html,
                     clSections: output.sections
                 });
             })
@@ -51,7 +49,6 @@ export default class HelpPage extends React.Component {
             .then((output) => {
                 this.setState({
                     history: output.history,
-                    technical: output.html,
                     tSections: output.sections
                 });
             })
