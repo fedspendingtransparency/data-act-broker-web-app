@@ -328,6 +328,21 @@ export default class UploadDetachedFilesPage extends React.Component {
 	render() {
 		let subTierAgencyIcon = <Icons.Building />;
 		let subTierAgencyClass = '';
+
+		let header = <div className="usa-da-content-dark">
+							<div className="container">
+								<div className="row usa-da-page-title">
+									<div className="col-lg-12 mt-40 mb-20">
+										<div className="display-2">
+											Upload Bi-Monthly Financial Assistance Data
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>; 
+
+		let title = <h5>Please begin by telling us about files you would like to upload</h5>;
+
 		if (this.state.agencyError) {
 			subTierAgencyIcon = <Icons.Building />;
 			subTierAgencyClass = ' error usa-da-form-icon';
@@ -360,6 +375,10 @@ export default class UploadDetachedFilesPage extends React.Component {
 
 		let validationBox = null;
 		if(this.state.showValidationBox) {
+			uploadFilesBox = null;
+			datePicker = null;
+			subTierAgencyIcon = null;
+
 			const type = {
 				fileTitle: 'File D2: Award',
 				fileTemplateName: 'detached_award.csv',
@@ -380,41 +399,38 @@ export default class UploadDetachedFilesPage extends React.Component {
 								<p>{this.state.detachedAward.error.description}</p>
 							</div>;
 		}
+
+		let subtierAgency = null;
+
+		if(this.state.showValidationBox){
+			subtierAgency = <div className="row usa-da-select-agency-label">
+					The files will be used when submitting data for...
+				</div>
+
+				<div className="row">
+					<div className="col-sm-12 col-md-12 typeahead-holder" data-testid="agencytypeahead">
+						<SubTierAgencyListContainer placeholder="Enter the name of the reporting sub-tier agency" onSelect={this.handleChange.bind(this)} customClass={subTierAgencyClass} internalValue='agency_code' disabled={this.state.showValidationBox} />
+						<div className={"usa-da-icon usa-da-form-icon" + subTierAgencyClass}>
+							{subTierAgencyIcon}
+						</div>
+					</div>
+				</div>;
+		}
 		
 		return (
 			<div className="usa-da-upload-detached-files-page">
 				<div className="usa-da-site_wrap">
 					<div className="usa-da-page-content">
 						<Navbar activeTab="submissionGuide" />
-						<div className="usa-da-content-dark">
-							<div className="container">
-								<div className="row usa-da-page-title">
-									<div className="col-lg-12 mt-40 mb-20">
-										<div className="display-2">
-											Upload Bi-Monthly Financial Assistance Data
-										</div>
-									</div>
-								</div>
-							</div>
-						</div>
+						{header}
 
 						<div className="container center-block">
 							<div className="row text-center usa-da-select-agency">
 								<div className="col-lg-offset-2 col-lg-8 mt-60 mb-60">
-									<h5>Please begin by telling us about files you would like to upload</h5>
+									{title}
 									<div className="select-agency-holder">
-										<div className="row usa-da-select-agency-label">
-											The files will be used when submitting data for...
-										</div>
-
-										<div className="row">
-											<div className="col-sm-12 col-md-12 typeahead-holder" data-testid="agencytypeahead">
-												<SubTierAgencyListContainer placeholder="Enter the name of the reporting sub-tier agency" onSelect={this.handleChange.bind(this)} customClass={subTierAgencyClass} internalValue='agency_code' disabled={this.state.showValidationBox} />
-												<div className={"usa-da-icon usa-da-form-icon" + subTierAgencyClass}>
-													{subTierAgencyIcon}
-												</div>
-											</div>
-										</div>
+										
+										{subTierAgency}
 
 										<ReactCSSTransitionGroup transitionName="usa-da-meta-fade" transitionEnterTimeout={600} transitionLeaveTimeout={200}>
 											{datePicker}
