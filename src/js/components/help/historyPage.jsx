@@ -22,18 +22,25 @@ export default class HelpPage extends React.Component {
             history: '',
             title: '',
             clSections: [],
-            tSections: []
+            tSections: [],
+            mounted: true
         };
     }
 
     componentDidMount() {
         this.loadChangelog();
         this.loadTechnical()
+        this.setState({mounted: false});
+    }
+    componentWillUnmount(){
+        this.setState({mounted: false})
     }
 
 	componentDidUpdate() {
-        this.loadChangelog();
-        this.loadTechnical()
+        if(this.state.mounted){
+            this.loadChangelog();
+            this.loadTechnical()
+        }
     }
 
     loadChangelog() {
