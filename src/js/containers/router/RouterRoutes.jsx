@@ -226,6 +226,15 @@ const routeDefinitions = {
             }
         },
         {
+            path: 'technical-history',
+            onEnter: checkHelpUserPermissions,
+            getComponent(nextState, cb) {
+                require.ensure([], (require) => {
+                    cb(null, require('../../containers/help/HelpContainer.jsx').default)
+                });
+            }
+        },
+        {
             path: '*',
             getComponent(nextState, cb) {
                 require.ensure([], (require) => {

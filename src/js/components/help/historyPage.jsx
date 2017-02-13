@@ -29,16 +29,29 @@ export default class HelpPage extends React.Component {
     }
 
     loadChangelog() {
-        HelpHelper.loadHelp()
-            .then((output) => {
-                this.setState({
-                    history: output.history,
-					sections: output.sections
+        if(this.props.history == 'technical'){
+            HelpHelper.loadTechnical()
+                .then((output) => {
+                    this.setState({
+                        history: output.history,
+                        sections: output.sections
+                    });
+                })
+                .catch((err) => {
+                    console.log(err);
                 });
-            })
-            .catch((err) => {
-                console.log(err);
-            });
+        }else{
+            HelpHelper.loadHelp()
+                .then((output) => {
+                    this.setState({
+                        history: output.history,
+    					sections: output.sections
+                    });
+                })
+                .catch((err) => {
+                    console.log(err);
+                });
+        }
     }
 
     render() {

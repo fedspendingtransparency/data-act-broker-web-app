@@ -43,7 +43,7 @@ export default class HelpSidebar extends React.Component {
                 <ul>
                     {tSectionList}
                     <li>
-                        <a href="/#/history">Technical Notes Archive</a>
+                        <a href="/#/technical-history">Technical Notes Archive</a>
                     </li>
                 </ul>
                 <h6>Getting More Help</h6>
