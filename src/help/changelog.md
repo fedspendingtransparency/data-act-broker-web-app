@@ -1,25 +1,34 @@
-#### February 1, 2017
+#### February 13, 2017
 On September 30, 2016, we released the full version of the DATA Act Broker that contained everything agencies need to test the data validation and submission process. Now we are making improvements to the Broker and responding to issues discovered through continued agency use.
 
-This release of the Broker was focused primarily on maintenance. Notable fixes rolled out in this release include improved processing of high volume files submissions and fixes for rules B9, B10, and B12.
+In this release of the Broker, bugs were fixed relating to downloading cross file warning/error reports, the B14/B15 validations, and Program Activities with the code '0000' and title 'Unknown/Other'. Functionality improvements were rolled out, including downloading submission files, padding zero values for Object Class and Program Activity, and others.
 
 
-  - [Improved Processing Time](#/help?section=time)
-  - [B12 Validation fix](#/help?section=b12)
-  - [B9/B10 validation fix](#/help?section=b9)
+  - [B14/B15 validation Fix](#/help?section=b14)
+  - [Program Activity](#/help?section=pa)
+  - [Cross file warning/error reports](#/help?section=cross)
+  - [Functionality Improvements](#/help?section=improvements)
 
 
-##### Improved processing time fix{section=time}
+##### B14/B15 validation fix{section=b14}
 
-In this release, we implemented a solution to improve the processing and stability of file submissions at a high volume.
+In earlier versions of the Broker, the B14/B15 validations produced fatal errors. In this release, the B14/B15 validation was changed to a warning.
 
-##### B12 validation fix{section=b12}
+##### Program Activity{section=pa}
 
-In earlier versions of the Broker, the B12 validation would prompt a warning if the Direct/Reimbursable (D/R) flag field was not populated for transfer USSGLs (4831, 4832, 4931), which conflicted with GTAS requirements. We made changes to this rule to allow for the submission of blank D/R fields when submitting transfer USSGLs (4831, 4832, 4931).
+In this release of the Broker, Program Activities with the code '0000' and title 'Unknown/Other' will validate without warnings.
 
-##### B9/B10 validation fix{section=b9}
+##### Cross file warning/error reports{section=cross}
 
-In earlier versions of the Broker, the B9/B10 validations produced warnings for FY 2017 Program Activity codes. Treasury has not received the authoritative list of FY 2017 Program Activity codes yet. This rule was modified to only validate Program Activity for years that we have domain values for.
+We discovered a bug in the process for downloading cross file warning and error reports. This has been fixed and users should no longer experience issues when downloading the cross file warning and error reports.
+
+##### Functionality Improvements{section=improvements}
+
+  * File names on the submission page are now links that can download the most recent file uploaded.
+  * Object Class and Program activity pass for zero values that are not fully padded to '000' or '0000', respectively.
+  * A Broker registration link has been added to the help page for users that do not have a Broker account.
+  * A column has been added for agency name in the submission dashboard.
+  * Improved processing time for file submissions at a high volume.
 
 
 ##### Browser Requirements & Known Issues{section=browser}
@@ -43,11 +52,11 @@ Known Issues
 The DATA Act implementation team is committed to providing a website that is accessible to the widest possible audience, regardless of technology or ability. To meet this commitment we develop this website to conform to the [Web Content Accessibility Guidelines 2.0](https://www.w3.org/TR/WCAG/). These guidelines explain how to make websites more accessible to people with disabilities, and we believe they also make our website easier for everyone to use.
 The [Accessible Rich Internet Applications Suite (WAI-ARIA)](https://www.w3.org/WAI/intro/aria) addresses accessibility challenges by defining new ways to provide functionality with assistive technology. With WAI-ARIA, developers are able to provide usable and accessible advanced Web applications to people with disabilities. Alpha-broker.usaspending.gov also uses The Voluntary Product Accessibility Template® (VPAT®) to document adherence with Section 508 of the Rehabilitation Act accessibility standards.
 
-We know our website changes regularly so we’re always looking for ways to improve. If there is information you think should be included on this page, or if you experience any difficulty accessing this site, please contact us at [DATABroker@fiscal.treasury.gov](mailto:DATABroker@fiscal.treasury.gov) for assistance.
+We know our website changes regularly so we’re always looking for ways to improve. If there is information you think should be included on this page, or if you experience any difficulty accessing this site, please contact us at [DATAPMO@fiscal.treasury.gov](mailto:DATAPMO@fiscal.treasury.gov) for assistance.
 
 ###### Documents
 
-The documents offered within Alpha-broker.usaspending.gov use multiple file formats. Below is a list that will help you identify which software downloads are needed to view different file extensions. If you require a file format other than those currently provided or experience accessibility issues, please contact us at [DATABroker@fiscal.treasury.gov] (mailto:DATABroker@fiscal.treasury.gov) for assistance.
+The documents offered within Alpha-broker.usaspending.gov use multiple file formats. Below is a list that will help you identify which software downloads are needed to view different file extensions. If you require a file format other than those currently provided or experience accessibility issues, please contact us at [DATAPMO@fiscal.treasury.gov] (mailto:DATAPMO@fiscal.treasury.gov) for assistance.
 
 ###### Document Files
 

@@ -1,3 +1,27 @@
+#### February 1, 2017
+On September 30, 2016, we released the full version of the DATA Act Broker that contained everything agencies need to test the data validation and submission process. Now we are making improvements to the Broker and responding to issues discovered through continued agency use.
+
+This release of the Broker was focused primarily on maintenance. Notable fixes rolled out in this release include improved processing of high volume files submissions and fixes for rules B9, B10, and B12.
+
+
+  - [Improved Processing Time](#/help?section=time)
+  - [B12 Validation fix](#/help?section=b12)
+  - [B9/B10 validation fix](#/help?section=b9)
+
+
+##### Improved processing time fix{section=time}
+
+In this release, we implemented a solution to improve the processing and stability of file submissions at a high volume.
+
+##### B12 validation fix{section=b12}
+
+In earlier versions of the Broker, the B12 validation would prompt a warning if the Direct/Reimbursable (D/R) flag field was not populated for transfer USSGLs (4831, 4832, 4931), which conflicted with GTAS requirements. We made changes to this rule to allow for the submission of blank D/R fields when submitting transfer USSGLs (4831, 4832, 4931).
+
+##### B9/B10 validation fix{section=b9}
+
+In earlier versions of the Broker, the B9/B10 validations produced warnings for FY 2017 Program Activity codes. Treasury has not received the authoritative list of FY 2017 Program Activity codes yet. This rule was modified to only validate Program Activity for years that we have domain values for.
+
+
 #### January 18, 2017
 
 In this version of the Broker, several bugs were fixed relating to the flex fields, the C23 validation, file E creation, and rule B18. Additionally, financing accounts are now excluded from the A33 validation, per the new loan policy.
