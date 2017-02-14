@@ -20,12 +20,12 @@ const defaultProps = {
 
 const tableHeaders = [
     'View',
+    'Agency',
     'Reporting Period',
     'Submitted By',
     'Last Modified Date',
     'Size',
-    'Status',
-    'Errors'
+    'Status'
 ];
 
 export default class DashboardTable extends React.Component {
@@ -64,12 +64,12 @@ export default class DashboardTable extends React.Component {
         const output = [];
         const rowClasses = [];
 
-        const classes = ['row-10 text-center', 'row-15 text-right', 'row-15 text-right', 'row-15 text-right','row-10 text-right', 'row-25 text-right progress-cell', 'row-10 text-right'];
+        const classes = ['row-10 text-center', 'row-20 text-center', 'row-15 text-right white-space', 'row-15 text-right', 'row-15 text-right','row-10 text-right', 'row-15 text-right progress-cell'];
 
         // iterate through each item returned from the API
         this.props.data.forEach((item) => {
 
-            let reportingDateString = item.reporting_start_date + ' to ' + item.reporting_end_date;
+            let reportingDateString = "Start: "+item.reporting_start_date + "\nEnd: " + item.reporting_end_date;
             if (!item.reporting_start_date || !item.reporting_end_date) {
                 reportingDateString = 'No reporting period specified';
             }
@@ -82,12 +82,12 @@ export default class DashboardTable extends React.Component {
             // break the object out into an array for the table component
             const row = [
                 <SubmissionLink submissionId={item.submission_id} />,
+                item.agency,
                 reportingDateString,
                 userName,
                 item.last_modified,
                 item.fileSize,
-                <Status.SubmissionStatus status={item.rowStatus} />,
-                item.errors
+                <Status.SubmissionStatus status={item.rowStatus} />
             ];
 
             rowClasses.push(classes);

@@ -31,14 +31,15 @@ class GenerateEFContainer extends React.Component {
 			isReady: false,
 			hasErrors: false,
 			e: {},
-			f: {}
+			f: {},
+			generated: false
 		};
 
 	}
 
 	componentDidMount() {
 		this.isUnmounted = false;
-		this.generateFiles();
+		this.checkFileStatus();
 	}
 
 	componentWillUnmount() {
@@ -59,7 +60,13 @@ class GenerateEFContainer extends React.Component {
 				data = response.value;
 
 				if (data.status == 'invalid') {
-					data.message = 'Prerequisites required to generate this file are incomplete.';
+					if(!this.state.generated){
+						this.setState({'generated': true});
+						this.generateFiles();
+						return;
+					}else{
+						data.message = 'Prerequisites required to generate this file are incomplete.';
+					}
 				}
 			}
 			else {

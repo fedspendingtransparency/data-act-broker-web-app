@@ -186,9 +186,14 @@ export default class Typeahead extends React.Component {
 			warning = <TypeaheadWarning {...errorProps} />;
 		}
 
+		let disabledClass = "";
+		if(this.props.disabled) {
+			disabledClass = " disabled";
+		}
+
 		return (
-			<div className="usa-da-typeahead">
-				<input className={this.props.customClass} ref="awesomplete" type="text" placeholder={placeholder} value={this.state.value} onChange={this.changedText.bind(this)} tabIndex={this.props.tabIndex} disabled={disabled} aria-required={this.props.isRequired} />
+			<div className={"usa-da-typeahead"+disabledClass}>
+				<input className={this.props.customClass} ref="awesomplete" type="text" placeholder={placeholder} value={this.state.value} onChange={this.changedText.bind(this)} tabIndex={this.props.tabIndex} disabled={disabled} aria-required={this.props.isRequired} disabled={this.props.disabled}/>
 				{warning}
 			</div>
 		);
