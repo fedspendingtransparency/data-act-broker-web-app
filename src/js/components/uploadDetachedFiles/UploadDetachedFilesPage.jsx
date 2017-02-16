@@ -52,12 +52,18 @@ export default class UploadDetachedFilesPage extends React.Component {
 			notAllowed: false,
 			errorMessage: "",
 			headerErrors: false,
-			validationFinished: false
+			validationFinished: false,
+			error: 0,
+			submit: true
 		};
 	}
 
 	componentDidMount() {
 		this.isUnmounted = false;
+		if(this.props.params.submissionID){
+			this.props.setSubmissionId(this.props.params.submissionID);
+			this.checkFileStatus(this.props.params.submissionID);
+		}
 	}
 
 	componentWillUnmount() {
@@ -197,8 +203,10 @@ export default class UploadDetachedFilesPage extends React.Component {
                     // TODO: Remove this when this is eventually tied to user accounts
                     this.props.setSubmissionId(submissionID);
 					this.checkFileStatus(submissionID);
+					this.props.history.push('/uploaddetachedfiles/'+submissionID);
                 })
 				.catch((err) => {
+					console.log('error', err);
 					if (err.httpStatus == 403) {
 						this.setState({
 							notAllowed: true,
@@ -208,7 +216,7 @@ export default class UploadDetachedFilesPage extends React.Component {
 					else {
 						console.log(err);
 						this.setState({
-							errorMessage: err.message
+							errorMessage: err.body.message
 						});
 					}
 				});
@@ -219,8 +227,11 @@ export default class UploadDetachedFilesPage extends React.Component {
 					// TODO: Remove this when this is eventually tied to user accounts
 					this.props.setSubmissionId(submissionID);
 					this.checkFileStatus(submissionID);
+					this.props.history.push('/uploaddetachedfiles/'+submissionID);
+
 				})
 				.catch((err) => {
+					console.log('error', err)
 					if (err.httpStatus == 403) {
 						this.setState({
 							notAllowed: true,
@@ -244,7 +255,12 @@ export default class UploadDetachedFilesPage extends React.Component {
 				if (this.isUnmounted) {
 					return;
 				}
-
+				if(response.publish_status=='unpublished'){
+					this.setState({submit: true})
+				}
+				else if(response.publish_status=='published'){
+					this.setState({submit: false})
+				}
 				const job = Object.assign({}, this.state.jobResults);
 				job.detached_award = response.jobs[0];
 				this.setState({
@@ -254,6 +270,14 @@ export default class UploadDetachedFilesPage extends React.Component {
 				}, () => {
 					this.parseJobStates(response);
 				});				
+			})
+			.catch((err)=>{
+				// ERROR check if it has been submitted, if so show error
+				// ERROR 
+				console.log('error', err)
+				if(err.status == 400){
+					this.setState({error: 2, submit: false});
+				}
 			});
 	}
 
@@ -325,10 +349,29 @@ export default class UploadDetachedFilesPage extends React.Component {
 		}
 	}
 
+	submitFabs(){
+		UploadHelper.submitFabs({'submission_id': this.props.submission.id})
+			.then((response)=>{
+				this.setState({submit: false})
+				console.log(response);
+			})
+			.catch((error)=>{
+				console.log(error)
+				if(error.httpStatus == 400){
+					this.setState({error: 1, submit: false});
+				}
+			})
+	}
+
+	// ERRORS
+	// 1: submission is already published
+
 	render() {
 		let subTierAgencyIcon = <Icons.Building />;
 		let subTierAgencyClass = '';
-		let contentSize = 'col-lg-offset-2 col-lg-8';
+		let contentSize = 'col-lg-offset-2 col-lg-8 mt-60 mb-60';
+		let agencyClass = 'select-agency-holder';
+		let validationButton = null;
 
 		let header = <div className="usa-da-content-dark">
 							<div className="container">
@@ -379,7 +422,9 @@ export default class UploadDetachedFilesPage extends React.Component {
 			uploadFilesBox = null;
 			datePicker = null;
 			subTierAgencyIcon = null;
-			contentSize = 'col-xs-12';
+			contentSize = 'col-xs-12 mt-60 mb-60';
+			agencyClass = null;
+			title = null;
 
 			const type = {
 				fileTitle: 'File D2: Award',
@@ -387,9 +432,15 @@ export default class UploadDetachedFilesPage extends React.Component {
 				requestName: 'detached_award',
 				progress: '0'
 			}
-			validationBox = <ValidateDataFileContainer type={type} data={this.state.jobResults} />;
+			validationBox = <ValidateDataFileContainer type={type} data={this.state.jobResults}/>;
 			if(!this.state.headerErrors && this.state.validationFinished) {
 				validationBox = <ValidateValuesFileContainer type={type} data={this.state.jobResults} />;
+			}
+			if(!this.state.headerErrors && this.state.validationFinished && this.state.submit) {
+				validationButton = <button className='pull-right col-xs-3 us-da-button' onClick={this.submitFabs.bind(this)}>Submit</button>;
+			}
+			else if(!this.state.headerErrors && this.state.validationFinished && !this.state.submit) {
+				validationButton = <button className='pull-right col-xs-3 us-da-disabled-button' onClick={this.submitFabs.bind(this)} disabled>File Already Submitted</button>;
 			}
 		}
 
@@ -399,6 +450,18 @@ export default class UploadDetachedFilesPage extends React.Component {
 								<span className="usa-da-icon error-icon"><Icons.ExclamationCircle /></span>
 								<div className="alert-header-text">{this.state.detachedAward.error.header}</div>
 								<p>{this.state.detachedAward.error.description}</p>
+							</div>;
+		}
+		else if(this.state.error == 1){
+			errorMessage = <div className="row alert alert-error text-left" role="alert">
+								<span className="col-xs-2 col-xs-offset-3 usa-da-icon error-icon"><Icons.ExclamationCircle /></span>
+								<div className="col-xs-4 alert-header-text">This submission has already been published</div>
+							</div>;
+		}
+		else if(this.state.error == 2){
+			errorMessage = <div className="row alert alert-error text-left" role="alert">
+								<span className="col-xs-2 col-xs-offset-3 usa-da-icon error-icon"><Icons.ExclamationCircle /></span>
+								<div className="col-xs-4 alert-header-text">This file has already been submitted</div>
 							</div>;
 		}
 
@@ -429,10 +492,10 @@ export default class UploadDetachedFilesPage extends React.Component {
 						{header}
 
 						<div className="container center-block">
-							<div className="row text-center usa-da-select-agency">
-								<div className="{contentSize} mt-60 mb-60">
+							<div className="row usa-da-select-agency">
+								<div className={contentSize}>
 									{title}
-									<div className="select-agency-holder">
+									<div className={agencyClass}>
 										
 										{subtierAgency}
 
@@ -446,6 +509,9 @@ export default class UploadDetachedFilesPage extends React.Component {
 
 										<ReactCSSTransitionGroup transitionName="usa-da-meta-fade" transitionEnterTimeout={600} transitionLeaveTimeout={200}>
 											{validationBox}
+										</ReactCSSTransitionGroup>
+										<ReactCSSTransitionGroup transitionName="usa-da-meta-fade" transitionEnterTimeout={600} transitionLeaveTimeout={200}>
+											{validationButton}
 										</ReactCSSTransitionGroup>
 
 										{errorMessage}

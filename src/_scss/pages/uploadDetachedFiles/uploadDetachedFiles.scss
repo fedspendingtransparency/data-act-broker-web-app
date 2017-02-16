@@ -58,11 +58,6 @@
 			}
 		}
 
-		.usa-da-validate-item {
-	        @import "../validateData/fileItem/fileItem";
-	        @include fileItem;
-	    }
-
 		// import the alerts
 		.alert-error {
 			@import "../../components/alerts/_alerts";
@@ -103,4 +98,31 @@
 			text-align: right;
 		}
 	}
+
+	.usa-da-validate-item {
+        @import "../validateData/fileItem/fileItem";
+        @include fileItem;
+    }
+
+    .us-da-disabled-button {
+    	color: #5b616b;
+    	background: #d6d7d9;
+    	padding: 1rem 2rem;
+    	font-size: 1.4rem;
+    	font-weight: 700;
+    	border-style: none;
+    	opacity:.55;
+    	box-shadow: none;
+    	cursor: not-allowed;
+    }
+
+    .us-da-button {
+    	color: #ffffff;
+    	background: #0071bc;
+    	padding: 1rem 2rem;
+    	font-size: 1.4rem;
+    	font-weight: 700;
+    	border-style: none;
+    	box-shadow: none;
+    }
 }

@@ -111,6 +111,26 @@ const prepareFiles = (fileDict) => {
 	return deferred.promise;
 }
 
+export const submitFabs = (submissionId) => {
+
+    const deferred = Q.defer();
+
+    Request.post(kGlobalConstants.API + 'submit_detached_file/')
+        .send(submissionId)
+        .end((err, res) => {
+            if (err) {
+                const response = Object.assign({}, res.body);
+                response.httpStatus = res.status;
+                deferred.reject(response);
+            }
+            else {
+                deferred.resolve(res);
+            }
+        });
+
+    return deferred.promise;
+}
+
 const prepareDetachedFiles = (fileDict) => {
 	const deferred = Q.defer();
 
@@ -420,6 +440,7 @@ export const performDetachedFileUpload = (submission) => {
             deferred.resolve(submissionID);
         })
         .catch((err) => {
+            console.log(err);
             store.dispatch(uploadActions.setSubmissionState('failed'));
             deferred.reject(err);
         });
