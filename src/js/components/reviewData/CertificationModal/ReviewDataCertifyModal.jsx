@@ -54,10 +54,15 @@ export default class ReviewDataCertifyModal extends React.Component {
 				this.closeModal();
 			})
 	        .catch((error) => {
-	        	console.log(error)
-	            this.setState({
-	            	errorMessage: "An error occurred while attempting to certify the submission. Please contact your administrator for assistance."
-	            });
+	        	if (error.httpStatus == 400 || error.httpStatus == 403) {
+	        	    this.setState({
+	            	    errorMessage: error.message
+	                });
+	        	} else {
+                    this.setState({
+                        errorMessage: "An error occurred while attempting to certify the submission. Please contact your administrator for assistance."
+                    });
+                }
 	        });
 	}
 

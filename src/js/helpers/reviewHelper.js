@@ -504,7 +504,9 @@ export const certifySubmission = (submissionId) => {
 		.end((err, res) => {
 
 			if (err) {
-				deferred.reject(err);
+			    const response = Object.assign({}, res.body);
+                response.httpStatus = res.status;
+                deferred.reject(response);
 			}
 			else {
 				deferred.resolve(res.body);
