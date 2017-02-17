@@ -353,18 +353,20 @@ export default class UploadDetachedFilesPage extends React.Component {
 		UploadHelper.submitFabs({'submission_id': this.props.submission.id})
 			.then((response)=>{
 				this.setState({submit: false})
-				console.log(response);
 			})
 			.catch((error)=>{
-				console.log(error)
 				if(error.httpStatus == 400){
 					this.setState({error: 1, submit: false});
+				}else if(error.httpStatus == 500){
+					this.setState({error: 3, submit: false});
 				}
 			})
 	}
 
 	// ERRORS
 	// 1: submission is already published
+	// 2: 
+	// 3: File already has been submitted in another submission
 
 	render() {
 		let subTierAgencyIcon = <Icons.Building />;
@@ -436,11 +438,14 @@ export default class UploadDetachedFilesPage extends React.Component {
 			if(!this.state.headerErrors && this.state.validationFinished) {
 				validationBox = <ValidateValuesFileContainer type={type} data={this.state.jobResults} />;
 			}
-			if(!this.state.headerErrors && this.state.validationFinished && this.state.submit) {
-				validationButton = <button className='pull-right col-xs-3 us-da-button' onClick={this.submitFabs.bind(this)}>Submit</button>;
+			if(this.state.headerErrors && this.state.validationFinished) {
+				// validationButton = <button className='pull-right col-xs-3 us-da-button' onClick={this.uploadFile.bind(this)}>Re-Upload</button>;
+			}
+			else if(!this.state.headerErrors && this.state.validationFinished && this.state.submit) {
+				validationButton = <button className='pull-right col-xs-3 us-da-button' onClick={this.submitFabs.bind(this)}>Publish</button>;
 			}
 			else if(!this.state.headerErrors && this.state.validationFinished && !this.state.submit) {
-				validationButton = <button className='pull-right col-xs-3 us-da-disabled-button' onClick={this.submitFabs.bind(this)} disabled>File Already Submitted</button>;
+				validationButton = <button className='pull-right col-xs-3 us-da-disabled-button' onClick={this.submitFabs.bind(this)} disabled>File Already Published</button>;
 			}
 		}
 
@@ -454,14 +459,20 @@ export default class UploadDetachedFilesPage extends React.Component {
 		}
 		else if(this.state.error == 1){
 			errorMessage = <div className="row alert alert-error text-left" role="alert">
-								<span className="col-xs-2 col-xs-offset-3 usa-da-icon error-icon"><Icons.ExclamationCircle /></span>
-								<div className="col-xs-4 alert-header-text">This submission has already been published</div>
+								<span className="col-xs-1 col-xs-offset-3 usa-da-icon error-icon"><Icons.ExclamationCircle /></span>
+								<div className="col-xs-5 alert-header-text">This submission has already been published</div>
 							</div>;
 		}
 		else if(this.state.error == 2){
 			errorMessage = <div className="row alert alert-error text-left" role="alert">
-								<span className="col-xs-2 col-xs-offset-3 usa-da-icon error-icon"><Icons.ExclamationCircle /></span>
-								<div className="col-xs-4 alert-header-text">This file has already been submitted</div>
+								<span className="col-xs-1 col-xs-offset-3 usa-da-icon error-icon"><Icons.ExclamationCircle /></span>
+								<div className="col-xs-5 alert-header-text">This file has already been submitted</div>
+							</div>;
+		}
+		else if(this.state.error == 3){
+			errorMessage = <div className="row alert alert-error text-left" role="alert">
+								<span className="col-xs-1 col-xs-offset-3 usa-da-icon error-icon"><Icons.ExclamationCircle /></span>
+								<div className="col-xs-5 alert-header-text">This file has already been submitted in another submission</div>
 							</div>;
 		}
 
