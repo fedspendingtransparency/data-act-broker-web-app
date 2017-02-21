@@ -251,11 +251,9 @@ export default class UploadDetachedFilesPage extends React.Component {
 				if (this.isUnmounted) {
 					return;
 				}
-				if(response.publish_status=='unpublished'){
-					this.setState({submit: true})
-				}
-				else if(response.publish_status=='published'){
-					this.setState({submit: false})
+				var submission = true;
+				if(response.publish_status=='published'){
+					submission = false;
 				}
 				const job = Object.assign({}, this.state.jobResults);
 				job.detached_award = response.jobs[0];
@@ -263,7 +261,8 @@ export default class UploadDetachedFilesPage extends React.Component {
 					showUploadFilesBox: false,
 					showValidationBox: true,
 					showDatePicker: false,
-					jobResults: job
+					jobResults: job,
+					submit: submission
 				}, () => {
 					this.parseJobStates(response);
 				});				
@@ -358,8 +357,8 @@ export default class UploadDetachedFilesPage extends React.Component {
 	}
 
 	// ERRORS
-	// 1: submission is already published
-	// 2: 
+	// 1: Submission is already published
+	// 2: Fetching file metadata failed
 	// 3: File already has been submitted in another submission
 
 	render() {
