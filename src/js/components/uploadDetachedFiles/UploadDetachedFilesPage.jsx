@@ -206,7 +206,6 @@ export default class UploadDetachedFilesPage extends React.Component {
 					this.props.history.push('/uploaddetachedfiles/'+submissionID);
                 })
 				.catch((err) => {
-					console.log('error', err);
 					if (err.httpStatus == 403) {
 						this.setState({
 							notAllowed: true,
@@ -214,7 +213,6 @@ export default class UploadDetachedFilesPage extends React.Component {
 						});
 					}
 					else {
-						console.log(err);
 						this.setState({
 							errorMessage: err.body.message
 						});
@@ -231,7 +229,6 @@ export default class UploadDetachedFilesPage extends React.Component {
 
 				})
 				.catch((err) => {
-					console.log('error', err)
 					if (err.httpStatus == 403) {
 						this.setState({
 							notAllowed: true,
@@ -239,7 +236,6 @@ export default class UploadDetachedFilesPage extends React.Component {
 						});
 					}
 					else {
-						console.log(err);
 						this.setState({
 							errorMessage: err.message
 						});
@@ -272,9 +268,6 @@ export default class UploadDetachedFilesPage extends React.Component {
 				});				
 			})
 			.catch((err)=>{
-				// ERROR check if it has been submitted, if so show error
-				// ERROR 
-				console.log('error', err)
 				if(err.status == 400){
 					this.setState({error: 2, submit: false});
 				}
@@ -437,42 +430,33 @@ export default class UploadDetachedFilesPage extends React.Component {
 			validationBox = <ValidateDataFileContainer type={type} data={this.state.jobResults}/>;
 			if(!this.state.headerErrors && this.state.validationFinished) {
 				validationBox = <ValidateValuesFileContainer type={type} data={this.state.jobResults} />;
-			}
-			if(this.state.headerErrors && this.state.validationFinished) {
-				// validationButton = <button className='pull-right col-xs-3 us-da-button' onClick={this.uploadFile.bind(this)}>Re-Upload</button>;
-			}
-			else if(!this.state.headerErrors && this.state.validationFinished && this.state.submit) {
-				validationButton = <button className='pull-right col-xs-3 us-da-button' onClick={this.submitFabs.bind(this)}>Publish</button>;
-			}
-			else if(!this.state.headerErrors && this.state.validationFinished && !this.state.submit) {
-				validationButton = <button className='pull-right col-xs-3 us-da-disabled-button' onClick={this.submitFabs.bind(this)} disabled>File Already Published</button>;
+				if(this.state.submit) {
+					validationButton = <button className='pull-right col-xs-3 us-da-button' onClick={this.submitFabs.bind(this)}>Publish</button>;
+				}
+				else {
+					validationButton = <button className='pull-right col-xs-3 us-da-disabled-button' onClick={this.submitFabs.bind(this)} disabled>File Already Published</button>;
+				}
 			}
 		}
 
 		let errorMessage = null;
-		if (this.state.detachedAward.error.show) {
+		let errorText = null;
+		let errorDesc = null;
+		if (this.state.detachedAward.error.show || this.state.error != 0) {
+			if(this.state.detachedAward.error.show){
+				errorText = this.state.detachedAward.error.header;
+				errorDesc = this.state.detachedAward.error.description;
+			}else if(this.state.error == 1){
+				errorText = 'This submission has already been published';
+			}else if(this.state.error == 2){
+				errorText = 'This file has already been submitted';
+			}else if(this.state.error == 3){
+				errorText = 'This file has already been submitted in another submission';
+			}
 			errorMessage = <div className="alert alert-error text-left" role="alert">
-								<span className="usa-da-icon error-icon"><Icons.ExclamationCircle /></span>
-								<div className="alert-header-text">{this.state.detachedAward.error.header}</div>
-								<p>{this.state.detachedAward.error.description}</p>
-							</div>;
-		}
-		else if(this.state.error == 1){
-			errorMessage = <div className="row alert alert-error text-left" role="alert">
-								<span className="col-xs-1 col-xs-offset-3 usa-da-icon error-icon"><Icons.ExclamationCircle /></span>
-								<div className="col-xs-5 alert-header-text">This submission has already been published</div>
-							</div>;
-		}
-		else if(this.state.error == 2){
-			errorMessage = <div className="row alert alert-error text-left" role="alert">
-								<span className="col-xs-1 col-xs-offset-3 usa-da-icon error-icon"><Icons.ExclamationCircle /></span>
-								<div className="col-xs-5 alert-header-text">This file has already been submitted</div>
-							</div>;
-		}
-		else if(this.state.error == 3){
-			errorMessage = <div className="row alert alert-error text-left" role="alert">
-								<span className="col-xs-1 col-xs-offset-3 usa-da-icon error-icon"><Icons.ExclamationCircle /></span>
-								<div className="col-xs-5 alert-header-text">This file has already been submitted in another submission</div>
+								<span className="usa-da-icon error-icon col-xs-2"><Icons.ExclamationCircle /></span>
+								<div className="alert-header-text">{errorText}</div>
+								<p>{errorDesc}</p>
 							</div>;
 		}
 

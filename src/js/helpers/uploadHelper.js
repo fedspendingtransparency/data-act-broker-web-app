@@ -440,7 +440,6 @@ export const performDetachedFileUpload = (submission) => {
             deferred.resolve(submissionID);
         })
         .catch((err) => {
-            console.log(err);
             store.dispatch(uploadActions.setSubmissionState('failed'));
             deferred.reject(err);
         });
