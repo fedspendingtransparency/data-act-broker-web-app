@@ -495,3 +495,23 @@ export const saveNarrative = (submissionId, narrative) => {
 
 	return deferred.promise;
 }
+
+export const certifySubmission = (submissionId) => {
+	const deferred = Q.defer();
+
+	Request.post(kGlobalConstants.API + 'certify_submission/')
+		.send({"submission_id": submissionId})
+		.end((err, res) => {
+
+			if (err) {
+			    const response = Object.assign({}, res.body);
+                response.httpStatus = res.status;
+                deferred.reject(response);
+			}
+			else {
+				deferred.resolve(res.body);
+			}
+		});
+
+	return deferred.promise;
+}
