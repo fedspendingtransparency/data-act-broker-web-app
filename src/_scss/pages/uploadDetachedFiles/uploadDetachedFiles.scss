@@ -5,6 +5,13 @@
 	// import typeahead styles
 	@import "../../components/typeahead/_typeahead";
 
+	.validation-holder {
+		.alert-error {
+			@import "../../components/alerts/_alerts";
+			@include dangerAlert;
+		}
+	}
+
 	.select-agency-holder {
 		@include contentBlockWrapper;
 		padding: 15px 30px 30px 30px;

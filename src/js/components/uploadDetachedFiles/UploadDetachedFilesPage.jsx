@@ -371,6 +371,8 @@ export default class UploadDetachedFilesPage extends React.Component {
 		let validationBox = null;
 		let datePicker = null;
 		let uploadFilesBox = null;
+		let validationContent = 'hidden';
+		let validationContentClass = '';
 
 		let header = <div className="usa-da-content-dark">
 							<div className="container">
@@ -416,12 +418,14 @@ export default class UploadDetachedFilesPage extends React.Component {
 		}
 
 		if(this.state.showValidationBox) {
-			// uploadFilesBox = null;
-			// datePicker = null;
-			// subTierAgencyIcon = null;
-			// agencyClass = null;
-			// title = null;
-			contentSize = 'col-xs-12 mt-60 mb-60';
+			uploadFilesBox = null;
+			datePicker = null;
+			subTierAgencyIcon = null;
+			agencyClass = '';
+			title = null;
+			contentSize = 'hidden';
+			validationContent = 'col-xs-12 mt-60 mb-60';
+			validationContentClass = 'validation-holder'
 
 			const type = {
 				fileTitle: 'File D2: Award',
@@ -456,7 +460,7 @@ export default class UploadDetachedFilesPage extends React.Component {
 				errorText = 'This file has already been submitted in another submission';
 			}
 			errorMessage = <div className="alert alert-error text-left" role="alert">
-								<span className="usa-da-icon error-icon col-xs-2"><Icons.ExclamationCircle /></span>
+								<span className="usa-da-icon error-icon"><Icons.ExclamationCircle /></span>
 								<div className="alert-header-text">{errorText}</div>
 								<p>{errorDesc}</p>
 							</div>;
@@ -503,7 +507,11 @@ export default class UploadDetachedFilesPage extends React.Component {
 										<ReactCSSTransitionGroup transitionName="usa-da-meta-fade" transitionEnterTimeout={600} transitionLeaveTimeout={200}>
 											{uploadFilesBox}
 										</ReactCSSTransitionGroup>
-
+										{errorMessage}
+									</div>
+								</div>
+								<div className = {validationContent}>
+									<div className = {validationContentClass}>
 										<ReactCSSTransitionGroup transitionName="usa-da-meta-fade" transitionEnterTimeout={600} transitionLeaveTimeout={200}>
 											{validationBox}
 										</ReactCSSTransitionGroup>
