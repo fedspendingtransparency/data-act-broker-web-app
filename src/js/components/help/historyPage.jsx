@@ -18,23 +18,63 @@ export default class HelpPage extends React.Component {
     constructor(props) {
         super(props);
 
+        this.isMounted = false;
+
         this.state = {
             history: '',
-			sections: []
+            title: '',
+            clSections: [],
+            tSections: []
         };
     }
 
-	componentDidMount() {
+    componentDidMount() {
+        this.isMounted = true;
         this.loadChangelog();
+        this.loadTechnical()
+    }
+    componentWillUnmount(){
+        this.isMounted = false;
+    }
+
+	componentWillReceiveProps() {
+        if(this.isMounted && this.props.history){
+            this.loadChangelog();
+            this.loadTechnical()
+        }
     }
 
     loadChangelog() {
         HelpHelper.loadHelp()
             .then((output) => {
                 this.setState({
-                    history: output.history,
-					sections: output.sections
+                    clSections: output.sections
                 });
+
+                if(this.props.history=='release'){
+                    this.setState({
+                        history: output.history,
+                        title: 'Release Notes Archive'
+                    })
+                }
+            })
+            .catch((err) => {
+                console.log(err);
+            });
+    }
+
+    loadTechnical() {
+        HelpHelper.loadTechnical()
+            .then((output) => {
+                this.setState({
+                    tSections: output.sections
+                });
+                if(this.props.history=='technical'){
+                    this.setState({
+                        history: output.history,
+                        title: 'Technical Notes Archive'
+                    })
+                }
             })
             .catch((err) => {
                 console.log(err);
@@ -59,10 +99,10 @@ export default class HelpPage extends React.Component {
                     <div className="container">
                         <div className="row usa-da-help-page">
 							<div className="col-md-4">
-                                <HelpSidebar sections={this.state.sections} />
+                                <HelpSidebar changeSections={this.state.clSections} technicalSections={this.state.tSections} sections={this.state.sections}/>
                             </div>
                             <div className="col-md-8">
-                                <HistoryContent history={this.state.history}/>
+                                <HistoryContent history={this.state.history} title={this.state.title}/>
                             </div>
                         </div>
                     </div>
