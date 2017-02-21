@@ -18,7 +18,7 @@ export default class HelpPage extends React.Component {
     constructor(props) {
         super(props);
 
-        this.isMounted = false;
+        this.isUnmounted = true;
 
         this.state = {
             history: '',
@@ -29,16 +29,16 @@ export default class HelpPage extends React.Component {
     }
 
     componentDidMount() {
-        this.isMounted = true;
+        this.isUnmounted = false;
         this.loadChangelog();
         this.loadTechnical()
     }
     componentWillUnmount(){
-        this.isMounted = false;
+        this.isUnmounted = true;
     }
 
 	componentWillReceiveProps() {
-        if(this.isMounted && this.props.history){
+        if(!this.isUnmounted && this.props.history){
             this.loadChangelog();
             this.loadTechnical()
         }
