@@ -18,26 +18,27 @@ export default class HelpPage extends React.Component {
     constructor(props) {
         super(props);
 
+        this.isMounted = false;
+
         this.state = {
             history: '',
             title: '',
             clSections: [],
-            tSections: [],
-            mounted: false
+            tSections: []
         };
     }
 
     componentDidMount() {
-        this.setState({mounted: true})
+        this.isMounted = true;
         this.loadChangelog();
         this.loadTechnical()
     }
     componentWillUnmount(){
-        this.setState({mounted: false})
+        this.isMounted = false;
     }
 
 	componentWillReceiveProps() {
-        if(this.state.mounted && this.props.history){
+        if(this.isMounted && this.props.history){
             this.loadChangelog();
             this.loadTechnical()
         }
