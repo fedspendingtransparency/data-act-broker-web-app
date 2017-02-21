@@ -262,6 +262,7 @@ export default class UploadDetachedFilesPage extends React.Component {
 				this.setState({
 					showUploadFilesBox: false,
 					showValidationBox: true,
+					showDatePicker: false,
 					jobResults: job
 				}, () => {
 					this.parseJobStates(response);
@@ -367,6 +368,9 @@ export default class UploadDetachedFilesPage extends React.Component {
 		let contentSize = 'col-lg-offset-2 col-lg-8 mt-60 mb-60';
 		let agencyClass = 'select-agency-holder';
 		let validationButton = null;
+		let validationBox = null;
+		let datePicker = null;
+		let uploadFilesBox = null;
 
 		let header = <div className="usa-da-content-dark">
 							<div className="container">
@@ -387,7 +391,6 @@ export default class UploadDetachedFilesPage extends React.Component {
 			subTierAgencyClass = ' error usa-da-form-icon';
 		}
 
-		let datePicker = null;
 		if (this.state.showDatePicker) {
 			let value = {
 				datePlaceholder: "Action",
@@ -403,7 +406,7 @@ export default class UploadDetachedFilesPage extends React.Component {
 								disabled={this.state.showValidationBox} />;
 		}
 
-		let uploadFilesBox = null;
+		
 		if (this.state.detachedAward.valid && this.state.showUploadFilesBox) {
 			uploadFilesBox = <UploadDetachedFilesBox {...this.state} 
 								hideError={this.hideError.bind(this)}
@@ -412,14 +415,13 @@ export default class UploadDetachedFilesPage extends React.Component {
 								uploadFile={this.uploadFile.bind(this)} />;
 		}
 
-		let validationBox = null;
 		if(this.state.showValidationBox) {
-			uploadFilesBox = null;
-			datePicker = null;
-			subTierAgencyIcon = null;
+			// uploadFilesBox = null;
+			// datePicker = null;
+			// subTierAgencyIcon = null;
+			// agencyClass = null;
+			// title = null;
 			contentSize = 'col-xs-12 mt-60 mb-60';
-			agencyClass = null;
-			title = null;
 
 			const type = {
 				fileTitle: 'File D2: Award',
@@ -505,6 +507,7 @@ export default class UploadDetachedFilesPage extends React.Component {
 										<ReactCSSTransitionGroup transitionName="usa-da-meta-fade" transitionEnterTimeout={600} transitionLeaveTimeout={200}>
 											{validationBox}
 										</ReactCSSTransitionGroup>
+
 										<ReactCSSTransitionGroup transitionName="usa-da-meta-fade" transitionEnterTimeout={600} transitionLeaveTimeout={200}>
 											{validationButton}
 										</ReactCSSTransitionGroup>
