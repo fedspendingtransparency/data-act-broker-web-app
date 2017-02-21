@@ -500,7 +500,7 @@ export const deleteSubmission = (submission_id) => {
     const deferred = Q.defer();
 
      Request.post(kGlobalConstants.API + 'delete_submission/')
-            .query({ submission_id })
+            .send({ submission_id })
             .end((err, res) => {
 
                 if (err) {
