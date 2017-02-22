@@ -10,6 +10,8 @@ import _ from 'lodash';
 import FormattedTable from '../SharedComponents/table/FormattedTable.jsx';
 import SubmissionLink from '../landing/recentActivity/SubmissionLink.jsx';
 import * as Status from '../landing/recentActivity//SubmissionStatus.jsx';
+import * as LoginHelper from '../../helpers/loginHelper.js';
+import DeleteLink from '../landing/recentActivity/DeleteLink.jsx';
 
 import DashboardPaginator from './DashboardPaginator.jsx';
 
@@ -25,7 +27,7 @@ const tableHeaders = [
     'Submitted By',
     'Last Modified Date',
     'Size',
-    'Status'
+    'Delete'
 ];
 
 export default class DashboardTable extends React.Component {
@@ -37,18 +39,27 @@ export default class DashboardTable extends React.Component {
             headerClasses: [],
             message: 'Loading submissions...',
             currentPage: 1,
-            totalPages: 1
+            totalPages: 1,
+            account: null,
+            user: true
         }
     };
 
     componentDidMount() {
         this.props.loadTableData(this.state.currentPage, this.props.isCertified);
+        this.loadUser();
     }
 
     componentDidUpdate(prevProps, prevState) {
         if (!_.isEqual(prevProps.data, this.props.data)) {
             this.buildRow();
         }
+    }
+
+    loadUser(){
+        LoginHelper.fetchActiveUser().then((user)=>{
+            this.setState({account: user});
+        })
     }
 
     changePage(newPage) {
@@ -59,12 +70,17 @@ export default class DashboardTable extends React.Component {
         });
     }
 
+    reload(){
+        this.props.loadTableData(this.state.currentPage, this.props.isCertified);
+        buildRow();
+    }
+
     buildRow() {
         // iterate through the recent activity
         const output = [];
         const rowClasses = [];
 
-        const classes = ['row-10 text-center', 'row-20 text-center', 'row-15 text-right white-space', 'row-15 text-right', 'row-15 text-right','row-10 text-right', 'row-15 text-right progress-cell'];
+        const classes = ['row-10 text-center', 'row-20 text-center', 'row-15 text-right white-space', 'row-15 text-right', 'row-15 text-right','row-15 text-right progress-cell', 'row-10 text-center'];
 
         // iterate through each item returned from the API
         this.props.data.forEach((item) => {
@@ -80,14 +96,15 @@ export default class DashboardTable extends React.Component {
             }
 
             // break the object out into an array for the table component
-            const row = [
+            const row = 
+            [
                 <SubmissionLink submissionId={item.submission_id} />,
                 item.agency,
                 reportingDateString,
                 userName,
                 item.last_modified,
-                item.fileSize,
-                <Status.SubmissionStatus status={item.rowStatus} />
+                <Status.SubmissionStatus status={item.rowStatus} />,
+                <DeleteLink submissionId={item.submission_id} reload={this.reload.bind(this)} item={item} account={this.state.account}/>
             ];
 
             rowClasses.push(classes);
