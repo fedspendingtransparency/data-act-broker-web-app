@@ -27,7 +27,7 @@ const tableHeaders = [
     'Submitted By',
     'Last Modified Date',
     'Size',
-    'Status'
+    'Delete'
 ];
 
 export default class DashboardTable extends React.Component {

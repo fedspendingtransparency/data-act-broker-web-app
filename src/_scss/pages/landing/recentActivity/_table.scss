@@ -17,6 +17,7 @@
 
     .trash-link:hover{
         text-decoration: none;
+        cursor: pointer;
     }
 
     @import "../../../components/tables/_submissionTableProgress";
