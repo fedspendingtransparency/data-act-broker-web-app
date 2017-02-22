@@ -70,6 +70,11 @@ export default class DashboardTable extends React.Component {
         });
     }
 
+    reload(){
+        this.props.loadTableData(this.state.currentPage, this.props.isCertified);
+        buildRow();
+    }
+
     buildRow() {
         // iterate through the recent activity
         const output = [];
@@ -99,7 +104,7 @@ export default class DashboardTable extends React.Component {
                 userName,
                 item.last_modified,
                 <Status.SubmissionStatus status={item.rowStatus} />,
-                <DeleteLink submissionId={item.submission_id} reload={this.buildRow.bind(this)} item={item} account={this.state.account}/>
+                <DeleteLink submissionId={item.submission_id} reload={this.reload.bind(this)} item={item} account={this.state.account}/>
             ];
 
             rowClasses.push(classes);

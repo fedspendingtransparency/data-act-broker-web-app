@@ -53,7 +53,7 @@ export default class DeleteLink extends React.Component {
 		ReviewHelper.deleteSubmission(this.props.submissionId)
 			.then((data) =>{
 				if(data.message == 'Success'){
-					console.log('Delete Success')
+					this.confirm();
 					this.props.reload();
 				}else{
 					console.log('Delete Failed')
