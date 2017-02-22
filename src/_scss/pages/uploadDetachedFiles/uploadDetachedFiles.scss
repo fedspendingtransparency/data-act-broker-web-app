@@ -111,6 +111,18 @@
         @include fileItem;
     }
 
+    .header-box{
+   	    right: 41px;
+	    font-size: 1.1rem;
+	    letter-spacing: 0.031rem;
+	    color: #f1f1f1;
+	    background: #262B30;
+	    padding: 4px 10px;
+	    width: 90%;
+	    margin-left: -25%;
+	    margin-top: 25%;
+    }
+
     .us-da-disabled-button {
     	color: #5b616b;
     	background: #d6d7d9;

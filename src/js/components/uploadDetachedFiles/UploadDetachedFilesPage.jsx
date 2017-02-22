@@ -54,6 +54,8 @@ export default class UploadDetachedFilesPage extends React.Component {
 			headerErrors: false,
 			validationFinished: false,
 			error: 0,
+			rep_start: '',
+			rep_end: '',
 			submit: true
 		};
 	}
@@ -262,6 +264,9 @@ export default class UploadDetachedFilesPage extends React.Component {
 					showValidationBox: true,
 					showDatePicker: false,
 					jobResults: job,
+					agency: response.agency_name,
+					rep_start: response.reporting_period_start_date,
+					rep_end: response.reporting_period_end_date,
 					submit: submission
 				}, () => {
 					this.parseJobStates(response);
@@ -372,15 +377,34 @@ export default class UploadDetachedFilesPage extends React.Component {
 		let uploadFilesBox = null;
 		let validationContent = 'hidden';
 		let validationContentClass = '';
+		let agency = this.state.agency;
+		let startDate = this.state.rep_start;
+		let endDate = this.state.rep_end;
+
+		let headerDate = null;
+		if(this.state.agency != '' && this.state.rep_start != '' && this.state.rep_end != ''){
+			headerDate = <div className="col-md-2 ">
+										<div className = 'header-box'>
+												<span>
+												Agency: {this.state.agency}
+												</span>
+												<br/>
+												<span>
+												Date: {startDate} - {endDate}
+												</span>
+											</div>
+									</div>;
+		}
 
 		let header = <div className="usa-da-content-dark">
 							<div className="container">
 								<div className="row usa-da-page-title">
-									<div className="col-lg-12 mt-40 mb-20">
+									<div className="col-md-10 mt-40 mb-20">
 										<div className="display-2">
 											Upload Bi-Monthly Financial Assistance Data
 										</div>
 									</div>
+									{headerDate}
 								</div>
 							</div>
 						</div>; 
@@ -427,7 +451,7 @@ export default class UploadDetachedFilesPage extends React.Component {
 			validationContentClass = 'validation-holder'
 
 			const type = {
-				fileTitle: 'File D2: Award',
+				fileTitle: 'Upload',
 				fileTemplateName: 'detached_award.csv',
 				requestName: 'detached_award',
 				progress: '0'
@@ -509,20 +533,24 @@ export default class UploadDetachedFilesPage extends React.Component {
 										{errorMessage}
 									</div>
 								</div>
-								<div className = {validationContent}>
-									<div className = {validationContentClass}>
-										<ReactCSSTransitionGroup transitionName="usa-da-meta-fade" transitionEnterTimeout={600} transitionLeaveTimeout={200}>
-											{validationBox}
-										</ReactCSSTransitionGroup>
-
-										<ReactCSSTransitionGroup transitionName="usa-da-meta-fade" transitionEnterTimeout={600} transitionLeaveTimeout={200}>
-											{validationButton}
-										</ReactCSSTransitionGroup>
-
-										{errorMessage}
-									</div>
-								</div>
 							</div>
+						</div>
+						<div className='container'>
+						<div className = {validationContent}>
+							<div className = {validationContentClass}>
+
+
+								<ReactCSSTransitionGroup transitionName="usa-da-meta-fade" transitionEnterTimeout={600} transitionLeaveTimeout={200}>
+									{validationBox}
+								</ReactCSSTransitionGroup>
+
+								<ReactCSSTransitionGroup transitionName="usa-da-meta-fade" transitionEnterTimeout={600} transitionLeaveTimeout={200}>
+									{validationButton}
+								</ReactCSSTransitionGroup>
+
+								{errorMessage}
+							</div>
+						</div>
 						</div>
 					</div>
 				</div>
