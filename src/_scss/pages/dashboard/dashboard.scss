@@ -8,5 +8,13 @@
         line-height: 1;
     }
 
+    .trash-icon{
+		cursor: pointer;
+	}
+
+	.trash-link:hover{
+        text-decoration: none;
+    }
+
     @import "./_table";
 }
