@@ -86,7 +86,7 @@ export default class RecentActivityTable extends React.Component {
 	}
 	
 	reload(){
-        this.props.loadTableData(this.state.currentPage, this.props.isCertified);
+        this.loadActivity();
         buildRow();
     }
 
