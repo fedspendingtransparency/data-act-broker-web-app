@@ -87,6 +87,10 @@ export default class HelpContent extends React.Component {
 
                 <div dangerouslySetInnerHTML={{__html:this.props.changelog}} />
 
+                <h2>This Release&#39;s Technical Notes</h2>
+
+                <div dangerouslySetInnerHTML={{__html:this.props.technical}} />
+
                 <h2 className="mt-50">Getting More Help</h2>
 
                 {membership}
