@@ -495,3 +495,24 @@ export const saveNarrative = (submissionId, narrative) => {
 
 	return deferred.promise;
 }
+
+export const deleteSubmission = (submission_id) => {
+    const deferred = Q.defer();
+
+     Request.post(kGlobalConstants.API + 'delete_submission/')
+            .send({ submission_id })
+            .end((err, res) => {
+
+                if (err) {
+                    deferred.reject(err);
+                }
+                else {
+                    const output = {
+                        message: res.body.message,
+                    };
+                    deferred.resolve(output);
+                }
+            });
+
+    return deferred.promise;
+}
