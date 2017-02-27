@@ -12,7 +12,9 @@ In this release of the Broker, bug fixes were rolled out for B14/B15, C8/C9, C11
   - [Deleting an old submission](#/help?section=delete)
   - [File B header processing fix](#/help?section=header)
   - [Updated list of agency CGAC codes](#/help?section=cgac)
-  - [Improved processing time fix](#/help?section=improvements)
+  - [Improved processing time fix](#/help?section=improvements)  
+  - [B11 validation fix](#/help?section=b11)
+
 
 
 ##### B14/B15 validation fix{section=b14}
@@ -46,6 +48,10 @@ In this release of the Broker, we implemented an updated list of agency CGAC cod
 ##### Improved processing time fix{section=improvements}
 
 In this release, we implemented a solution to improve the processing and stability of file submissions at a high volume.
+
+##### B11 validation fix{section=b11}
+
+Previously, the B11 validation was checking the direct/reimbursable flag. We updated this rule to check the object class only. 
 
 
 ##### Browser Requirements & Known Issues{section=browser}
