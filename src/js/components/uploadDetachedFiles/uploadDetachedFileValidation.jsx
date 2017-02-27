@@ -45,8 +45,6 @@ export default class UploadDetachedFileValidation extends React.Component {
 				status: ""
 			},
 			jobResults: {detached_award: {}},
-			notAllowed: false,
-			errorMessage: "",
 			headerErrors: false,
 			validationFinished: false,
 			error: 0,
@@ -66,37 +64,6 @@ export default class UploadDetachedFileValidation extends React.Component {
 	componentWillUnmount() {
 		this.isUnmounted = true;
 	}
-
-	showError(file, header, description) {
-		// Show any error that occurs at any point during file upload
-		const state = Object.assign({}, this.state[file], {
-			error: {
-				show: true,
-				header: header,
-				description: description
-			}
-		});
-		
-		this.setState({
-			[file]: state
-		});
-	}
-
-	hideError(file) {
-		// Stop displaying the error for the given file
-		const state = Object.assign({}, this.state[file], {
-			error: {
-				show: false,
-				header: '',
-				description: ''
-			}
-		});
-
-		this.setState({
-			[file]: state
-		});
-	}
-
 
 	checkFileStatus(submissionID) {
 		// callback to check file status
@@ -129,7 +96,6 @@ export default class UploadDetachedFileValidation extends React.Component {
 	}
 
 	parseJobStates(data) {
-		console.log(data);
 		let runCheck = true;
 
 		if (data.jobs[0].job_status == 'failed' || data.jobs[0].job_status == 'invalid') {
@@ -218,14 +184,8 @@ export default class UploadDetachedFileValidation extends React.Component {
 	// 3: File already has been submitted in another submission
 
 	render() {
-		let contentSize = 'col-lg-offset-2 col-lg-8 mt-60 mb-60';
-		let agencyClass = 'select-agency-holder';
 		let validationButton = null;
 		let validationBox = null;
-		let datePicker = null;
-		let uploadFilesBox = null;
-		let validationContent = 'hidden';
-		let validationContentClass = '';
 		let agency = this.state.agency;
 		let startDate = this.state.rep_start;
 		let endDate = this.state.rep_end;
@@ -245,25 +205,6 @@ export default class UploadDetachedFileValidation extends React.Component {
 									</div>;
 		}
 
-		let header = null;
-		if(headerDate){
-			header = <div className="usa-da-content-dark">
-							<div className="container">
-								<div className="row usa-da-page-title">
-									<div className="col-md-10 mt-40 mb-20">
-										<div className="display-2">
-											Upload Bi-Monthly Financial Assistance Data
-										</div>
-									</div>
-									{headerDate}
-								</div>
-							</div>
-						</div>; 
-		}
-
-		validationContent = 'col-xs-12 mt-60 mb-60';
-		validationContentClass = 'validation-holder'
-
 		const type = {
 			fileTitle: 'Upload',
 			fileTemplateName: 'detached_award.csv',
@@ -271,7 +212,6 @@ export default class UploadDetachedFileValidation extends React.Component {
 			progress: '0'
 		}
 		validationBox = <ValidateDataFileContainer type={type} data={this.state.jobResults}/>;
-		console.log(this.state.jobResults)
 		if(!this.state.headerErrors && this.state.validationFinished) {
 			validationBox = <ValidateValuesFileContainer type={type} data={this.state.jobResults} />;
 			if(this.state.jobResults.detached_award.error_type == "none" && this.state.error == 0) {
@@ -308,10 +248,21 @@ export default class UploadDetachedFileValidation extends React.Component {
 				<div className="usa-da-site_wrap">
 					<div className="usa-da-page-content">
 						<Navbar activeTab="submissionGuide" />
-						{header}
+						<div className="usa-da-content-dark">
+							<div className="container">
+								<div className="row usa-da-page-title">
+									<div className="col-md-10 mt-40 mb-20">
+										<div className="display-2">
+											Upload Bi-Monthly Financial Assistance Data
+										</div>
+									</div>
+									{headerDate}
+								</div>
+							</div>
+						</div>
 						<div className='container'>
-						<div className = {validationContent}>
-							<div className = {validationContentClass}>
+						<div className = 'col-xs-12 mt-60 mb-60'>
+							<div className = 'validation-holder'>
 
 								<ReactCSSTransitionGroup transitionName="usa-da-meta-fade" transitionEnterTimeout={600} transitionLeaveTimeout={200}>
 									{validationBox}

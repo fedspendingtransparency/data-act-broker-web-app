@@ -36,7 +36,6 @@ export default class UploadDetachedFileMeta extends React.Component {
 			agencyError: false,
 			showDatePicker: false,
 			showUploadFilesBox: false,
-			showValidationBox: false,
 			detachedAward: {
 				startDate: null,
 				endDate: null,
@@ -192,7 +191,7 @@ export default class UploadDetachedFileMeta extends React.Component {
 		this.props.submission.meta['endDate'] = this.state.detachedAward.endDate.format('DD/MM/YYYY');
 		this.props.submission.meta['subTierAgency'] = this.state.agency;
 		
-		if (kGlobalConstants.LOCAL == true) {
+		if (kGlobalConstants.LOCAL == true && !this.isUnmounted) {
 			UploadHelper.performDetachedLocalUpload(this.props.submission)
                 .then((submissionID) => {
                     // TODO: Remove this when this is eventually tied to user accounts
@@ -344,33 +343,13 @@ export default class UploadDetachedFileMeta extends React.Component {
 	// 3: File already has been submitted in another submission
 
 	render() {
-		let subTierAgencyIcon = <Icons.Building />;
 		let subTierAgencyClass = '';
-		let contentSize = 'col-lg-offset-2 col-lg-8 mt-60 mb-60';
-		let agencyClass = 'select-agency-holder';
 		let validationButton = null;
 		let validationBox = null;
 		let datePicker = null;
 		let uploadFilesBox = null;
-		let validationContent = 'hidden';
-		let validationContentClass = '';
-
-		let header = <div className="usa-da-content-dark">
-							<div className="container">
-								<div className="row usa-da-page-title">
-									<div className="col-md-10 mt-40 mb-20">
-										<div className="display-2">
-											Upload Bi-Monthly Financial Assistance Data
-										</div>
-									</div>
-								</div>
-							</div>
-						</div>; 
-
-		let title = <h5>Please begin by telling us about files you would like to upload</h5>;
 
 		if (this.state.agencyError) {
-			subTierAgencyIcon = <Icons.Building />;
 			subTierAgencyClass = ' error usa-da-form-icon';
 		}
 
@@ -432,7 +411,7 @@ export default class UploadDetachedFileMeta extends React.Component {
 					<div className="col-sm-12 col-md-12 typeahead-holder" data-testid="agencytypeahead">
 						<SubTierAgencyListContainer placeholder="Enter the name of the reporting sub-tier agency" onSelect={this.handleChange.bind(this)} customClass={subTierAgencyClass} internalValue='agency_code' disabled={this.state.showValidationBox} />
 						<div className={"usa-da-icon usa-da-form-icon" + subTierAgencyClass}>
-							{subTierAgencyIcon}
+							<Icons.Building />
 						</div>
 					</div>
 				</div>
@@ -442,12 +421,22 @@ export default class UploadDetachedFileMeta extends React.Component {
 		return (
 			<div className="usa-da-page-content">
 				<Navbar activeTab="submissionGuide" />
-				{header}
+					<div className="usa-da-content-dark">
+						<div className="container">
+							<div className="row usa-da-page-title">
+								<div className="col-md-10 mt-40 mb-20">
+									<div className="display-2">
+										Upload Bi-Monthly Financial Assistance Data
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
 				<div className="container center-block">
 					<div className="row usa-da-select-agency">
-						<div className={contentSize}>
-							{title}
-							<div className={agencyClass}>
+						<div className='col-lg-offset-2 col-lg-8 mt-60 mb-60'>
+							<h5>Please begin by telling us about files you would like to upload</h5>
+							<div className='select-agency-holder'>
 								
 								{subtierAgency}
 
