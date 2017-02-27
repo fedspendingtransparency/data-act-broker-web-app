@@ -1,34 +1,51 @@
-#### February 13, 2017
+#### March 1, 2017
 On September 30, 2016, we released the full version of the DATA Act Broker that contained everything agencies need to test the data validation and submission process. Now we are making improvements to the Broker and responding to issues discovered through continued agency use.
 
-In this release of the Broker, bugs were fixed relating to downloading cross file warning/error reports, the B14/B15 validations, and Program Activities with the code '0000' and title 'Unknown/Other'. Functionality improvements were rolled out, including downloading submission files, padding zero values for Object Class and Program Activity, and others.
+In this release of the Broker, bug fixes were rolled out for B14/B15, C8/C9, C11/C12, and C23.  Functionality improvements were rolled out, including a delete button for non-certified submissions, a File B header processing fix, and updates to improve file processing time. We also implemented an updated list of agency CGAC codes, names, and abbreviations.
+
 
 
   - [B14/B15 validation Fix](#/help?section=b14)
-  - [Program Activity](#/help?section=pa)
-  - [Cross file warning/error reports](#/help?section=cross)
-  - [Functionality Improvements](#/help?section=improvements)
+  - [C8/C9 validation fix](#/help?section=c8)
+  - [C23 validation fix](#/help?section=c23)
+  - [Reporting SGL data in File C](#/help?section=sgl)
+  - [Deleting an old submission](#/help?section=delete)
+  - [File B header processing fix](#/help?section=header)
+  - [Updated list of agency CGAC codes](#/help?section=cgac)
+  - [Improved processing time fix](#/help?section=improvements)
 
 
 ##### B14/B15 validation fix{section=b14}
 
-In earlier versions of the Broker, the B14/B15 validations produced fatal errors. In this release, the B14/B15 validation was changed to a warning.
+In previous versions of the Broker, the B14/B15 validation would produce a failure in the File B related to GTAS lines 2004 (direct) and 2104(reimbursable). In this release of the Broker, the B14/B15 validation was updated to add up correctly to compare against the SF 133 lines 2004/2104.
 
-##### Program Activity{section=pa}
+##### C8/C9 validation fix{section=c8}
 
-In this release of the Broker, Program Activities with the code '0000' and title 'Unknown/Other' will validate without warnings.
+In earlier versions of the Broker, the C8/C9 validations produced warnings if both a FAIN and URI were reported for a record. In this release, the C8/C9 validation will not trigger a warning if both a FAIN and URI are reported together.
 
-##### Cross file warning/error reports{section=cross}
+##### C23 validation fix{section=c23}
 
-We discovered a bug in the process for downloading cross file warning and error reports. This has been fixed and users should no longer experience issues when downloading the cross file warning and error reports.
+In this release of the Broker, the C23 cross file validation was updated so that if `parent_award_id` is present, both `PIID` and `parent_award_id` are used to cross validate Files C and D1. If `parent_award_id` is not present, the validator compares `PIID` in File C to the `PIID` in File D1 only.
 
-##### Functionality Improvements{section=improvements}
+##### Reporting SGL data in File C{section=sgl}
 
-  * File names on the submission page are now links that can download the most recent file uploaded.
-  * Object Class and Program activity pass for zero values that are not fully padded to '000' or '0000', respectively.
-  * A Broker registration link has been added to the help page for users that do not have a Broker account.
-  * A column has been added for agency name in the submission dashboard.
-  * Improved processing time for file submissions at a high volume.
+In earlier versions of the Broker, the validation rules were generating warnings for File C submissions that had SGL balances for an award without D1/D2 activity in the reporting period. In this release of the Broker, the C8/C9 and C11/C12 validations have been updated to only run on rows in File C that have a transaction obligated amount value in the field.
+
+##### Deleting an old submission{section=delete}
+
+In this release of the Broker, we rolled out a delete button in the submission dashboard that upload users can use to delete non-certified submissions. Submissions that are deleted are permanently removed from the website and are unable to be recovered.
+
+##### File B header processing fix{section=header}
+
+In this release of the Broker, we rolled out a functionality fix to allow users to submit File B that either does or does not have the typo on the DeobligationsRecoveriesRefundsdOfPriorYearByProgramObjectClass_CPE field.
+
+##### Updated list of agency CGAC codes{section=cgac}
+
+In this release of the Broker, we implemented an updated list of agency CGAC codes, names and abbreviations. The full list is available [here](https://github.com/fedspendingtransparency/data-act-broker-backend/blob/development/dataactvalidator/config/agency_list.csv).
+
+##### Improved processing time fix{section=improvements}
+
+In this release, we implemented a solution to improve the processing and stability of file submissions at a high volume.
 
 
 ##### Browser Requirements & Known Issues{section=browser}
