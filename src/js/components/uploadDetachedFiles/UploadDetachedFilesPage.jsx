@@ -40,11 +40,6 @@ export default class UploadDetachedFilesPage extends React.Component {
 		})
 	}
 
-	// ERRORS
-	// 1: Submission is already published
-	// 2: Fetching file metadata failed
-	// 3: File already has been submitted in another submission
-
 	render() {
 		let content = null;
 		if(!this.state.showMeta){
@@ -57,7 +52,7 @@ export default class UploadDetachedFilesPage extends React.Component {
 		return (
 			<div className="usa-da-upload-detached-files-page">
 				<div className="usa-da-site_wrap">
-				{content}
+					{content}
 				</div>
 				<Footer />
 			</div>
