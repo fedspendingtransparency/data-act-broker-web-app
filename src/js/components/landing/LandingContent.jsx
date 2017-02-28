@@ -78,12 +78,12 @@ export default class LandingContent extends React.Component {
         let recentActivity = 'recent-activity';
         let expand = 'hide block';
         let expandContent = '';
-        if(affiliations.length > limit && !this.state.expanded){
+        if(affiliations && affiliations.length > limit && !this.state.expanded){
             recentHeader +='-hidden';
             recentActivity +='-hidden';
             expand = 'expand-button block'
             expandContent = 'Show More';
-        }else if(affiliations.length > limit && this.state.expanded){
+        }else if(affiliations && affiliations.length > limit && this.state.expanded){
             expand = 'expand-button block'
             expandContent = 'Show Less';
         }
