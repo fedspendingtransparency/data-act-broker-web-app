@@ -536,3 +536,23 @@ export const deleteSubmission = (submission_id) => {
 
     return deferred.promise;
 }
+
+export const revalidateSubmission = (submission_id) => {
+	const deferred = Q.defer();
+
+	Request.post(kGlobalConstants.API + 'restart_validation/')
+		.send({submission_id})
+		.end((err, res) => {
+			if (err) {
+				deferred.reject(err);
+			}
+			else {
+				const output = {
+					message: res.body.message,
+				};
+				deferred.resolve(output);
+			}
+		});
+
+	return deferred.promise;
+}
