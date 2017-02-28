@@ -15,8 +15,6 @@ export default class ReviewDataModal extends React.Component {
 	constructor(props) {
 		super(props);
 
-		console.log(props.data.created_on)
-
 		this.state = {
 			closeable: true,
 			errorMessage: ""
