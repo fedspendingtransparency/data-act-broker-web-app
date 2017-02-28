@@ -122,7 +122,7 @@ export default class ReviewDataContent extends React.Component {
     render() {
 
         let modalToOpen = 'Certify';
-        if (new Date(this.props.created_on) < new Date('02/17/2017') || true) {
+        if (new Date(this.props.last_validated) < new Date('02/17/2017') || true) {
             modalToOpen = 'Revalidate';
         }
         
