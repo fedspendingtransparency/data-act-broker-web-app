@@ -22,7 +22,6 @@ export default class UploadDetachedFilesPage extends React.Component {
 
 		this.state = {
 			showMeta: true
-
 		};
 	}
 
@@ -39,7 +38,6 @@ export default class UploadDetachedFilesPage extends React.Component {
 		this.setState({
 			showMeta: false
 		})
-
 	}
 
 	// ERRORS
