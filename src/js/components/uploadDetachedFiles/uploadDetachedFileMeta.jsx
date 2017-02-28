@@ -31,6 +31,8 @@ export default class UploadDetachedFileMeta extends React.Component {
 
 		this.isUnmounted = false;
 
+		this.submission = this.props.submission;
+
 		this.state = {
 			agency: "",
 			agencyError: false,
@@ -187,12 +189,12 @@ export default class UploadDetachedFileMeta extends React.Component {
 	uploadFile() {
 		// upload specified file
 		this.props.setSubmissionState('uploading');
-		this.props.submission.meta['startDate'] = this.state.detachedAward.startDate.format('DD/MM/YYYY');
-		this.props.submission.meta['endDate'] = this.state.detachedAward.endDate.format('DD/MM/YYYY');
-		this.props.submission.meta['subTierAgency'] = this.state.agency;
+		this.submission.meta['startDate'] = this.state.detachedAward.startDate.format('DD/MM/YYYY');
+		this.submission.meta['endDate'] = this.state.detachedAward.endDate.format('DD/MM/YYYY');
+		this.submission.meta['subTierAgency'] = this.state.agency;
 		
 		if (kGlobalConstants.LOCAL == true && !this.isUnmounted) {
-			UploadHelper.performDetachedLocalUpload(this.props.submission)
+			UploadHelper.performDetachedLocalUpload(this.submission)
                 .then((submissionID) => {
                     // TODO: Remove this when this is eventually tied to user accounts
                     this.props.setSubmissionId(submissionID);
@@ -215,7 +217,7 @@ export default class UploadDetachedFileMeta extends React.Component {
 				});
 		}
 		else {
-			UploadHelper.performDetachedFileUpload(this.props.submission)
+			UploadHelper.performDetachedFileUpload(this.submission)
 				.then((submissionID) => {
 					// TODO: Remove this when this is eventually tied to user accounts
 					this.props.setSubmissionId(submissionID);
@@ -294,7 +296,7 @@ export default class UploadDetachedFileMeta extends React.Component {
 				});
 			}
 			else {
-				ReviewHelper.validateDetachedSubmission(this.props.submission.id)
+				ReviewHelper.validateDetachedSubmission(this.submission.id)
 				.then((response) => {
 					this.setState({
 						detachedAward: item,
@@ -314,7 +316,7 @@ export default class UploadDetachedFileMeta extends React.Component {
 			const item = Object.assign({}, this.state.detachedAward);
 			item.status = "done";
 
-			ReviewHelper.validateDetachedSubmission(this.props.submission.id)
+			ReviewHelper.validateDetachedSubmission(this.submission.id)
 				.then((response) => {
 					this.setState({
 						detachedAward: item,
@@ -332,7 +334,7 @@ export default class UploadDetachedFileMeta extends React.Component {
 		if (runCheck && !this.isUnmounted) {
 			// wait 5 seconds and check the file status again
 			window.setTimeout(() => {
-				this.checkFileStatus(this.props.submission.id);
+				this.checkFileStatus(this.submission.id);
 			}, timerDuration * 1000);
 		}
 	}
@@ -373,9 +375,8 @@ export default class UploadDetachedFileMeta extends React.Component {
 			uploadFilesBox = <UploadDetachedFilesBox {...this.state} 
 								hideError={this.hideError.bind(this)}
 								showError={this.showError.bind(this)}
-								submission={this.props.submission}
+								submission={this.submission}
 								uploadFile={this.uploadFile.bind(this)} />;  
-								// uploadFile={this.props.upload} />;
 		}
 
 		let errorMessage = null;
