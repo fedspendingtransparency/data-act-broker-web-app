@@ -1,3 +1,36 @@
+#### February 13, 2017
+On September 30, 2016, we released the full version of the DATA Act Broker that contained everything agencies need to test the data validation and submission process. Now we are making improvements to the Broker and responding to issues discovered through continued agency use.
+
+In this release of the Broker, bugs were fixed relating to downloading cross file warning/error reports, the B14/B15 validations, and Program Activities with the code '0000' and title 'Unknown/Other'. Functionality improvements were rolled out, including downloading submission files, padding zero values for Object Class and Program Activity, and others.
+
+
+  - [B14/B15 validation Fix](#/help?section=b14)
+  - [Program Activity](#/help?section=pa)
+  - [Cross file warning/error reports](#/help?section=cross)
+  - [Functionality Improvements](#/help?section=improvements)
+
+
+##### B14/B15 validation fix{section=b14}
+
+In earlier versions of the Broker, the B14/B15 validations produced fatal errors. In this release, the B14/B15 validation was changed to a warning.
+
+##### Program Activity{section=pa}
+
+In this release of the Broker, Program Activities with the code '0000' and title 'Unknown/Other' will validate without warnings.
+
+##### Cross file warning/error reports{section=cross}
+
+We discovered a bug in the process for downloading cross file warning and error reports. This has been fixed and users should no longer experience issues when downloading the cross file warning and error reports.
+
+##### Functionality Improvements{section=improvements}
+
+  * File names on the submission page are now links that can download the most recent file uploaded.
+  * Object Class and Program activity pass for zero values that are not fully padded to '000' or '0000', respectively.
+  * A Broker registration link has been added to the help page for users that do not have a Broker account.
+  * A column has been added for agency name in the submission dashboard.
+  * Improved processing time for file submissions at a high volume.
+
+
 #### February 1, 2017
 On September 30, 2016, we released the full version of the DATA Act Broker that contained everything agencies need to test the data validation and submission process. Now we are making improvements to the Broker and responding to issues discovered through continued agency use.
 
