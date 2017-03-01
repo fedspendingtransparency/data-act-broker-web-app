@@ -11,8 +11,8 @@ import moment from 'moment';
 import Footer from '../SharedComponents/FooterComponent.jsx';
 import Navbar from '../SharedComponents/navigation/NavigationComponent.jsx';
 
-import UploadDetachedFileMeta from './uploadDetachedFileMeta.jsx';
-import UploadDetachedFileValidation from './uploadDetachedFileValidation.jsx';
+import UploadDetachedFileMeta from './UploadDetachedFileMeta.jsx';
+import UploadDetachedFileValidation from './UploadDetachedFileValidation.jsx';
 
 import * as Icons from '../SharedComponents/icons/Icons.jsx';
 

@@ -14,6 +14,8 @@ import SubTierAgencyListContainer from '../../containers/SharedContainers/SubTie
 import ValidateValuesFileContainer from '../../containers/validateData/ValidateValuesFileContainer.jsx';
 import ValidateDataFileContainer from '../../containers/validateData/ValidateDataFileContainer.jsx';
 
+import UploadDetachedFilesError from './UploadDetachedFilesError.jsx';
+
 import * as Icons from '../SharedComponents/icons/Icons.jsx';
 
 import * as UploadHelper from '../../helpers/uploadHelper.js';
@@ -175,18 +177,6 @@ export default class UploadDetachedFileValidation extends React.Component {
 	// 1: Submission is already published
 	// 2: Fetching file metadata failed
 	// 3: File already has been submitted in another submission
-	getErrorMessage(errorCode){
-		switch(errorCode){
-			case 1:
-				return 'This submission has already been published'
-			case 2:
-				return 'This file has already been submitted';
-			case 3:
-				return 'This file has already been submitted in another submission'
-			default:
-				return 'There was an error with your submission. Please contact an administrator'
-		}
-	}
 
 	render() {
 		let validationButton = null;
@@ -227,10 +217,12 @@ export default class UploadDetachedFileValidation extends React.Component {
 
 		let errorMessage = null;
 		if (this.state.error !== 0) {
-			errorMessage = <div className="alert alert-error text-left" role="alert">
+			errorMessage = errorMessage = <UploadDetachedFilesError errorCode={this.state.error}/>
+
+			/**<div className="alert alert-error text-left" role="alert">
 								<span className="usa-da-icon error-icon"><Icons.ExclamationCircle /></span>
 								<div className="alert-header-text">{this.getErrorMessage()}</div>
-							</div>;
+							</div>;*/
 		}
 		
 		return (

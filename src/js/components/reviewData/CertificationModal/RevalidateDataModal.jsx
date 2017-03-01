@@ -32,8 +32,8 @@ export default class ReviewDataModal extends React.Component {
             })
             .catch((error) => {
                 this.setState({
-                    errorMessage: (error.httpStats === 400 || error.httpStatus === 403) ? error.message : "An error occurred while attempting to certify the submission. Please contact your administrator for assistance.";
-                });∂
+                    errorMessage: (error.httpStats === 400 || error.httpStatus === 403) ? error.message : "An error occurred while attempting to certify the submission. Please contact your administrator for assistance."
+                });
             });
 	}
 
