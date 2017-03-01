@@ -283,13 +283,7 @@ export default class UploadDetachedFileMeta extends React.Component {
 		let errorMessage = null;
 
 		if (this.state.detachedAward.error.show) {
-			errorMessage = <UploadDetachedFilesError error={this.state.detachedAward.error}/>
-
-/**			<div className="alert alert-error text-left" role="alert">
-								<span className="usa-da-icon error-icon"><Icons.ExclamationCircle /></span>
-								<div className="alert-header-text">{this.state.detachedAward.error.header}</div>
-								<p>{this.state.detachedAward.error.description}</p>
-							</div>;*/
+			errorMessage = <UploadDetachedFilesError error={this.state.detachedAward.error} />
 		}
 
 		let subtierAgency = null;

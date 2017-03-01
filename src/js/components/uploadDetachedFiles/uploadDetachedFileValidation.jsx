@@ -217,12 +217,7 @@ export default class UploadDetachedFileValidation extends React.Component {
 
 		let errorMessage = null;
 		if (this.state.error !== 0) {
-			errorMessage = errorMessage = <UploadDetachedFilesError errorCode={this.state.error}/>
-
-			/**<div className="alert alert-error text-left" role="alert">
-								<span className="usa-da-icon error-icon"><Icons.ExclamationCircle /></span>
-								<div className="alert-header-text">{this.getErrorMessage()}</div>
-							</div>;*/
+			errorMessage = errorMessage = <UploadDetachedFilesError errorCode={this.state.error} />
 		}
 		
 		return (
