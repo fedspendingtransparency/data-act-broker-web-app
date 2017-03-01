@@ -13,14 +13,6 @@ export default class UploadDetachedFilesBox extends React.Component {
 		this.props.handleDateChange(file, date, dateType);
 	}
 
-	showError(file, header, description) {
-		this.props.showError(file, header, description);
-	}
-
-	hideError(file) {
-		this.props.hideError(file);
-	}
-
 	uploadFile(file) {
 		this.props.uploadFile(file);
 	}

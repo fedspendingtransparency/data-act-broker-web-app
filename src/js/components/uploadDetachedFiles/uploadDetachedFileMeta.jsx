@@ -268,8 +268,7 @@ export default class UploadDetachedFileMeta extends React.Component {
 			}
 			datePicker = <DateRangeWrapper {...this.state} 
 								handleDateChange={this.handleDateChange.bind(this, "detachedAward")} 
-								hideError={this.updateError.bind(this)} 
-								showError={this.updateError.bind(this)} 
+								updateError={this.updateError.bind(this)} 
 								value={value}
 								disabled={this.state.showValidationBox} />;
 		}
@@ -277,8 +276,6 @@ export default class UploadDetachedFileMeta extends React.Component {
 		
 		if (this.state.detachedAward.valid && this.state.showUploadFilesBox) {
 			uploadFilesBox = <UploadDetachedFilesBox {...this.state} 
-								hideError={this.updateError.bind(this)}
-								showError={this.updateError.bind(this)}
 								submission={this.props.submission}
 								uploadFile={this.uploadFile.bind(this)} />;  
 		}
