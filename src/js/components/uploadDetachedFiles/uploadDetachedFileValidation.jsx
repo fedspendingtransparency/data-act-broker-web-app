@@ -71,7 +71,7 @@ export default class UploadDetachedFileValidation extends React.Component {
 					return;
 				}
 				var submission = true;
-				if(response.publish_status=='published'){
+				if(response.publish_status==='published'){
 					submission = false;
 				}
 				const job = Object.assign({}, this.state.jobResults);
@@ -109,13 +109,13 @@ export default class UploadDetachedFileValidation extends React.Component {
 	parseJobStates(data) {
 		let runCheck = true;
 
-		if (data.jobs[0].job_status == 'failed' || data.jobs[0].job_status == 'invalid') {
+		if (data.jobs[0].job_status === 'failed' || data.jobs[0].job_status === 'invalid') {
 			// don't run the check again if it failed
 			runCheck = false;
 
 			let message = 'Error during D2 validation.';
 
-			if (!data.jobs[0].error_data[0] && data.jobs[0].error_data[0].error_description != '') {
+			if (!data.jobs[0].error_data[0] && data.jobs[0].error_data[0].error_description !== '') {
 				message = data.jobs[0].error_data[0].error_description;
 			}
 
@@ -123,7 +123,7 @@ export default class UploadDetachedFileValidation extends React.Component {
 			const item = Object.assign({}, this.state.detachedAward);
 			item.status = "failed";
 
-			if(data.jobs[0].error_type == "header_errors") {
+			if(data.jobs[0].error_type === "header_errors") {
 				this.setState({
 					detachedAward: item,
 					validationFinished: true,
@@ -134,7 +134,7 @@ export default class UploadDetachedFileValidation extends React.Component {
 				this.validateSubmission(item);
 			}
 		}
-		else if (data.jobs[0].job_status == 'finished') {
+		else if (data.jobs[0].job_status === 'finished') {
 			// don't run the check again if it's done
 			runCheck = false;
 
@@ -163,9 +163,9 @@ export default class UploadDetachedFileValidation extends React.Component {
 				this.setState({submit: false})
 			})
 			.catch((error)=>{
-				if(error.httpStatus == 400){
+				if(error.httpStatus === 400){
 					this.setState({error: 1, submit: false});
-				}else if(error.httpStatus == 500){
+				}else if(error.httpStatus === 500){
 					this.setState({error: 3, submit: false});
 				}
 			})
@@ -194,7 +194,7 @@ export default class UploadDetachedFileValidation extends React.Component {
 		let endDate = this.state.rep_end;
 
 		let headerDate = null;
-		if(this.state.agency != '' && this.state.rep_start != '' && this.state.rep_end != ''){
+		if(this.state.agency !== '' && this.state.rep_start !== '' && this.state.rep_end !== ''){
 			headerDate = <div className="col-md-2 ">
 										<div className = 'header-box'>
 												<span>
@@ -217,16 +217,16 @@ export default class UploadDetachedFileValidation extends React.Component {
 		validationBox = <ValidateDataFileContainer type={type} data={this.state.jobResults}/>;
 		if(!this.state.headerErrors && this.state.validationFinished) {
 			validationBox = <ValidateValuesFileContainer type={type} data={this.state.jobResults} />;
-			if(this.state.jobResults.detached_award.error_type == "none" && this.state.error == 0) {
+			if(this.state.jobResults.detached_award.error_type === "none" && this.state.error === 0) {
 				validationButton = <button className='pull-right col-xs-3 us-da-button' onClick={this.submitFabs.bind(this)}>Publish</button>;
-				if(this.state.published == 'published'){
+				if(this.state.published === 'published'){
 					validationButton = <button className='pull-right col-xs-3 us-da-disabled-button' onClick={this.submitFabs.bind(this)} disabled>File Already Published</button>;
 				}
 			}
 		}
 
 		let errorMessage = null;
-		if (this.state.error != 0) {
+		if (this.state.error !== 0) {
 			errorMessage = <div className="alert alert-error text-left" role="alert">
 								<span className="usa-da-icon error-icon"><Icons.ExclamationCircle /></span>
 								<div className="alert-header-text">{this.getErrorMessage()}</div>

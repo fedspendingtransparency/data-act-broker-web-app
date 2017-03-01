@@ -139,7 +139,7 @@ export default class UploadDetachedFileMeta extends React.Component {
 		submission.meta['endDate'] = this.state.detachedAward.endDate.format('DD/MM/YYYY');
 		submission.meta['subTierAgency'] = this.state.agency;
 
-		this.uploadFileHelper(kGlobalConstants.LOCAL == true && !this.isUnmounted, submission)
+		this.uploadFileHelper(kGlobalConstants.LOCAL === true && !this.isUnmounted, submission)
 			.then((submissionID) => {
                     // TODO: Remove this when this is eventually tied to user accounts
                     this.props.setSubmissionId(submissionID);
@@ -149,8 +149,8 @@ export default class UploadDetachedFileMeta extends React.Component {
                 })
 				.catch((err) => {
 					this.setState({
-						notAllowed: err.httpStatus == 403,
-						errorMessage: err.httpStatus == 403 ? err.message : err.body.message
+						notAllowed: err.httpStatus === 403,
+						errorMessage: err.httpStatus === 403 ? err.message : err.body.message
 					});
 				});
 	}
@@ -174,7 +174,7 @@ export default class UploadDetachedFileMeta extends React.Component {
 				});				
 			})
 			.catch((err)=>{
-				if(err.status == 400){
+				if(err.status === 400){
 					this.setState({error: 2, submit: false});
 				}
 			});
@@ -196,13 +196,13 @@ export default class UploadDetachedFileMeta extends React.Component {
 		console.log('parse job states')
 		let runCheck = true;
 
-		if (data.jobs[0].job_status == 'failed' || data.jobs[0].job_status == 'invalid') {
+		if (data.jobs[0].job_status === 'failed' || data.jobs[0].job_status === 'invalid') {
 			// don't run the check again if it failed
 			runCheck = false;
 
 			let message = 'Error during D2 validation.';
 
-			if (!data.jobs[0].error_data[0] && data.jobs[0].error_data[0].error_description != '') {
+			if (!data.jobs[0].error_data[0] && data.jobs[0].error_data[0].error_description !== '') {
 				message = data.jobs[0].error_data[0].error_description;
 			}
 
@@ -210,7 +210,7 @@ export default class UploadDetachedFileMeta extends React.Component {
 			const item = Object.assign({}, this.state.detachedAward);
 			item.status = "failed";
 
-			if(data.jobs[0].error_type == "header_errors") {
+			if(data.jobs[0].error_type === "header_errors") {
 				this.setState({
 					detachedAward: item,
 					validationFinished: true,
@@ -221,7 +221,7 @@ export default class UploadDetachedFileMeta extends React.Component {
 				this.validateSubmission(this.props.submission.id);
 			}
 		}
-		else if (data.jobs[0].job_status == 'finished') {
+		else if (data.jobs[0].job_status === 'finished') {
 			// don't run the check again if it's done
 			runCheck = false;
 
