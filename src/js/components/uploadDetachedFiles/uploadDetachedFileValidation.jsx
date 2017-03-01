@@ -95,6 +95,19 @@ export default class UploadDetachedFileValidation extends React.Component {
 			});
 	}
 
+	validateSubmission(item, publishDate=undefined){
+		ReviewHelper.validateDetachedSubmission(this.props.submission.id)
+				.then((response) => {
+					this.setState({
+						detachedAward: item,
+						validationFinished: true,
+						headerErrors: false,
+						jobResults: response,
+						published: publishDate
+					});
+				});
+	}
+
 	parseJobStates(data) {
 		let runCheck = true;
 
@@ -120,15 +133,7 @@ export default class UploadDetachedFileValidation extends React.Component {
 				});
 			}
 			else {
-				ReviewHelper.validateDetachedSubmission(this.props.submission.id)
-				.then((response) => {
-					this.setState({
-						detachedAward: item,
-						validationFinished: true,
-						headerErrors: false,
-						jobResults: response
-					});
-				});
+				this.validateSubmission(item);
 			}
 		}
 		else if (data.jobs[0].job_status == 'finished') {
@@ -139,17 +144,7 @@ export default class UploadDetachedFileValidation extends React.Component {
 			// make a clone of the file's react state
 			const item = Object.assign({}, this.state.detachedAward);
 			item.status = "done";
-
-			ReviewHelper.validateDetachedSubmission(this.props.submission.id)
-				.then((response) => {
-					this.setState({
-						detachedAward: item,
-						validationFinished: true,
-						headerErrors: false,
-						jobResults: response,
-						published: data.publish_status
-					});
-				});
+			this.validateSubmission(item, data.publish_status);
 		}
 
 		if (this.isUnmounted) {
@@ -182,6 +177,16 @@ export default class UploadDetachedFileValidation extends React.Component {
 	// 1: Submission is already published
 	// 2: Fetching file metadata failed
 	// 3: File already has been submitted in another submission
+	getErrorMessage(errorCode){
+		switch(errorCode){
+			case 1:
+				return 'This submission has already been published'
+			case 2:
+				return 'This file has already been submitted';
+			case 3:
+				return 'This file has already been submitted in another submission'
+		}
+	}
 
 	render() {
 		let validationButton = null;
@@ -223,58 +228,40 @@ export default class UploadDetachedFileValidation extends React.Component {
 		}
 
 		let errorMessage = null;
-		let errorText = null;
-		let errorDesc = null;
-		if (this.state.detachedAward.error.show || this.state.error != 0) {
-			if(this.state.detachedAward.error.show){
-				errorText = this.state.detachedAward.error.header;
-				errorDesc = this.state.detachedAward.error.description;
-			}else if(this.state.error == 1){
-				errorText = 'This submission has already been published';
-			}else if(this.state.error == 2){
-				errorText = 'This file has already been submitted';
-			}else if(this.state.error == 3){
-				errorText = 'This file has already been submitted in another submission';
-			}
+		if (this.state.error != 0) {
 			errorMessage = <div className="alert alert-error text-left" role="alert">
 								<span className="usa-da-icon error-icon"><Icons.ExclamationCircle /></span>
-								<div className="alert-header-text">{errorText}</div>
-								<p>{errorDesc}</p>
+								<div className="alert-header-text">{this.getErrorMessage()}</div>
 							</div>;
 		}
 		
 		return (
-			<div className="usa-da-upload-detached-files-page">
-				<div className="usa-da-site_wrap">
-					<div className="usa-da-page-content">
-						<Navbar activeTab="submissionGuide" />
-						<div className="usa-da-content-dark">
-							<div className="container">
-								<div className="row usa-da-page-title">
-									<div className="col-md-10 mt-40 mb-20">
-										<div className="display-2">
-											Upload Bi-Monthly Financial Assistance Data
-										</div>
-									</div>
-									{headerDate}
+			<div>
+				<div className="usa-da-content-dark">
+					<div className="container">
+						<div className="row usa-da-page-title">
+							<div className="col-md-10 mt-40 mb-20">
+								<div className="display-2">
+									Upload Bi-Monthly Financial Assistance Data
 								</div>
 							</div>
+							{headerDate}
 						</div>
-						<div className='container'>
-						<div className = 'col-xs-12 mt-60 mb-60'>
-							<div className = 'validation-holder'>
+					</div>
+				</div>
+				<div className='container'>
+					<div className = 'col-xs-12 mt-60 mb-60'>
+						<div className = 'validation-holder'>
 
-								<ReactCSSTransitionGroup transitionName="usa-da-meta-fade" transitionEnterTimeout={600} transitionLeaveTimeout={200}>
-									{validationBox}
-								</ReactCSSTransitionGroup>
+							<ReactCSSTransitionGroup transitionName="usa-da-meta-fade" transitionEnterTimeout={600} transitionLeaveTimeout={200}>
+								{validationBox}
+							</ReactCSSTransitionGroup>
 
-								<ReactCSSTransitionGroup transitionName="usa-da-meta-fade" transitionEnterTimeout={600} transitionLeaveTimeout={200}>
-									{validationButton}
-								</ReactCSSTransitionGroup>
+							<ReactCSSTransitionGroup transitionName="usa-da-meta-fade" transitionEnterTimeout={600} transitionLeaveTimeout={200}>
+								{validationButton}
+							</ReactCSSTransitionGroup>
 
-								{errorMessage}
-							</div>
-						</div>
+							{errorMessage}
 						</div>
 					</div>
 				</div>
