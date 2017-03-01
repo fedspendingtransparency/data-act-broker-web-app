@@ -55,10 +55,6 @@ export default class ReviewDataModal extends React.Component {
 	}
 
 	render() {
-		let action = <RevalidateButtons {...this.props}
-                        clickedRevalidateButton={this.clickedRevalidateButton.bind(this)} />;
-
-
 		let hideClose = "";
 		if (!this.state.closeable) {
 			hideClose = " hide";
@@ -80,7 +76,7 @@ export default class ReviewDataModal extends React.Component {
 
                         <div className="usa-da-certify-modal-content">
 
-	                        {action}
+	                        <RevalidateButtons {...this.props} clickedRevalidateButton={this.clickedRevalidateButton.bind(this)} />
 
 	                        {error}
 

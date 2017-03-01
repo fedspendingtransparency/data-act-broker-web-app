@@ -183,15 +183,14 @@ export default class UploadDetachedFileValidation extends React.Component {
 				return 'This file has already been submitted';
 			case 3:
 				return 'This file has already been submitted in another submission'
+			default:
+				return 'There was an error with your submission. Please contact an administrator'
 		}
 	}
 
 	render() {
 		let validationButton = null;
 		let validationBox = null;
-		let agency = this.state.agency;
-		let startDate = this.state.rep_start;
-		let endDate = this.state.rep_end;
 
 		let headerDate = null;
 		if(this.state.agency !== '' && this.state.rep_start !== '' && this.state.rep_end !== ''){
@@ -202,7 +201,7 @@ export default class UploadDetachedFileValidation extends React.Component {
 												</span>
 												<br/>
 												<span>
-												Date: {startDate} - {endDate}
+												Date: {this.state.rep_start} - {this.state.rep_end}
 												</span>
 											</div>
 									</div>;
@@ -214,6 +213,7 @@ export default class UploadDetachedFileValidation extends React.Component {
 			requestName: 'detached_award',
 			progress: '0'
 		}
+		
 		validationBox = <ValidateDataFileContainer type={type} data={this.state.jobResults}/>;
 		if(!this.state.headerErrors && this.state.validationFinished) {
 			validationBox = <ValidateValuesFileContainer type={type} data={this.state.jobResults} />;

@@ -193,7 +193,6 @@ export default class UploadDetachedFileMeta extends React.Component {
 	}
 
 	parseJobStates(data) {
-		console.log('parse job states')
 		let runCheck = true;
 
 		if (data.jobs[0].job_status === 'failed' || data.jobs[0].job_status === 'invalid') {

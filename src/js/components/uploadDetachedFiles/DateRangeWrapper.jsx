@@ -12,7 +12,6 @@ export default class DateRangeWrapper extends React.Component {
 	}
 
 	updateError(file, header, description) {
-		console.log('wrapper', file)
 		this.props.updateError(file, header, description);
 	}
 
