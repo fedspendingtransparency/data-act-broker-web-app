@@ -31,15 +31,9 @@ export default class ReviewDataModal extends React.Component {
                 hashHistory.push('/validateData/' + this.props.submissionID);
             })
             .catch((error) => {
-                if (error.httpStatus == 400 || error.httpStatus == 403) {
-                    this.setState({
-                        errorMessage: error.message
-                    });
-                } else {
-                    this.setState({
-                        errorMessage: "An error occurred while attempting to certify the submission. Please contact your administrator for assistance."
-                    });
-                }
+                this.setState({
+                    errorMessage: (error.httpStats == 400 || error.httpStatus == 403) ? error.message : "An error occurred while attempting to certify the submission. Please contact your administrator for assistance.";
+                });∂
             });
 	}
 
