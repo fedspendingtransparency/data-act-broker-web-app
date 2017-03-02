@@ -110,7 +110,7 @@ export default class ReviewDataCertifyModal extends React.Component {
 
 		let error = '';
 		if (this.state.errorMessage) {
-            error = <div className="alert alert-danger text-center" role="alert">{this.state.errorMessage}</div>;
+			error = <div className="alert alert-danger text-center" role="alert">{this.state.errorMessage}</div>;
         }
 
 		return (
