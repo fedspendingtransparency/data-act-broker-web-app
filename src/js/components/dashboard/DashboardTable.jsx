@@ -75,6 +75,17 @@ export default class DashboardTable extends React.Component {
         buildRow();
     }
 
+    sortTable(direction, column) {
+        // the table sorting changed
+        this.setState({
+            sortDirection: direction,
+            sortColumn: column
+        }, () => {
+            // re-display the data
+            this.buildRow();
+        });
+    }
+
     buildRow() {
         // iterate through the recent activity
         const output = [];
@@ -145,7 +156,7 @@ export default class DashboardTable extends React.Component {
         return (
             <div className="usa-da-submission-list">
                 <div className={"submission-table-content" + loadingClass}>
-                    <FormattedTable headers={tableHeaders} data={this.state.parsedData} sortable={false} cellClasses={this.state.cellClasses} headerClasses={this.state.headerClasses} />
+                    <FormattedTable headers={tableHeaders} data={this.state.parsedData} sortable={true} cellClasses={this.state.cellClasses} unsortable={[0,6]} headerClasses={this.state.headerClasses} onSort={this.sortTable.bind(this)} />
                 </div>
                 <div className="text-center">
                     {this.state.message}
