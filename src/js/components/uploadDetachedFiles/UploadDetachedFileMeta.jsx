@@ -166,7 +166,6 @@ export default class UploadDetachedFileMeta extends React.Component {
 				job.detached_award = response.jobs[0];
 				this.setState({
 					showUploadFilesBox: false,
-					showValidationBox: true,
 					showDatePicker: false,
 					jobResults: job
 				}, () => {
@@ -268,8 +267,7 @@ export default class UploadDetachedFileMeta extends React.Component {
 			datePicker = <DateRangeWrapper {...this.state} 
 								handleDateChange={this.handleDateChange.bind(this, "detachedAward")} 
 								updateError={this.updateError.bind(this)} 
-								value={value}
-								disabled={this.state.showValidationBox} />;
+								value={value} />;
 		}
 
 		
@@ -285,23 +283,19 @@ export default class UploadDetachedFileMeta extends React.Component {
 			errorMessage = <UploadDetachedFilesError error={this.state.detachedAward.error} />
 		}
 
-		let subtierAgency = null;
-
-		if(!this.state.showValidationBox){
-			subtierAgency = <div>
+		let subtierAgency =  <div>
 				<div className="row usa-da-select-agency-label">
 					The files will be used when submitting data for...
 				</div>
 				<div className="row">
 					<div className="col-sm-12 col-md-12 typeahead-holder" data-testid="agencytypeahead">
-						<SubTierAgencyListContainer placeholder="Enter the name of the reporting sub-tier agency" onSelect={this.handleChange.bind(this)} customClass={subTierAgencyClass} internalValue='agency_code' disabled={this.state.showValidationBox} />
+						<SubTierAgencyListContainer placeholder="Enter the name of the reporting sub-tier agency" onSelect={this.handleChange.bind(this)} customClass={subTierAgencyClass} internalValue='agency_code' />
 						<div className={"usa-da-icon usa-da-form-icon" + subTierAgencyClass}>
 							<Icons.Building />
 						</div>
 					</div>
 				</div>
 			</div>;
-		}
 		
 		return (
 			<div>

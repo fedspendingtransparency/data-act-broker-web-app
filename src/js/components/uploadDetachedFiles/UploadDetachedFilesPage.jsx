@@ -59,10 +59,10 @@ export default class UploadDetachedFilesPage extends React.Component {
 							<div className="usa-da-site_wrap">
 								{content}
 							</div>
-							<Footer />
 						</div>
 					</div>
 				</div>
+				<Footer />
 			</div>
 		);
 	}
