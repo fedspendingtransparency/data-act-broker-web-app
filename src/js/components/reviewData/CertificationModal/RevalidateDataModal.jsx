@@ -31,11 +31,9 @@ export default class RevalidateDataModal extends React.Component {
                 hashHistory.push('/validateData/' + this.props.submissionID);
             })
             .catch((error) => {
-                let errMsg = '';
+                let errMsg = "An error occurred while attempting to certify the submission. Please contact your administrator for assistance.";
                 if (error.httpStatus == 400 || error.httpStatus == 403) {
                     errMsg = error.message;
-                } else {
-                    errMsg = "An error occurred while attempting to certify the submission. Please contact your administrator for assistance.";
                 }
 
                 this.setState({errorMessage: errMsg});
