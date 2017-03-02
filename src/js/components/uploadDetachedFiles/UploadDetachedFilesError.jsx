@@ -18,7 +18,7 @@ export default class UploadDetachedFileError extends React.Component {
 	}
 
 	componentDidMount() {
-		this.loadContent()
+		this.loadContent();
 	}
 
 	loadContent(){

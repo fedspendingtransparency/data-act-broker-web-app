@@ -181,8 +181,8 @@ export default class UploadDetachedFileValidation extends React.Component {
 	render() {
 		let validationButton = null;
 		let validationBox = null;
-
 		let headerDate = null;
+		
 		if(this.state.agency !== '' && this.state.rep_start !== '' && this.state.rep_end !== ''){
 			headerDate = <div className="col-md-2 ">
 										<div className = 'header-box'>

@@ -92,7 +92,6 @@ export default class UploadDetachedFileMeta extends React.Component {
 
 		const dFile = Object.assign({}, this.state[file]);
 
-		// validate the date ranges
 		const start = this.state[file].startDate;
 		const end = this.state[file].endDate;
 
@@ -293,7 +292,6 @@ export default class UploadDetachedFileMeta extends React.Component {
 				<div className="row usa-da-select-agency-label">
 					The files will be used when submitting data for...
 				</div>
-
 				<div className="row">
 					<div className="col-sm-12 col-md-12 typeahead-holder" data-testid="agencytypeahead">
 						<SubTierAgencyListContainer placeholder="Enter the name of the reporting sub-tier agency" onSelect={this.handleChange.bind(this)} customClass={subTierAgencyClass} internalValue='agency_code' disabled={this.state.showValidationBox} />
