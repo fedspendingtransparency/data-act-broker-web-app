@@ -11,7 +11,7 @@ import * as Icons from '../../SharedComponents/icons/Icons.jsx';
 import RevalidateButtons from './RevalidateButtons.jsx';
 import * as ReviewHelper from '../../../helpers/reviewHelper.js';
 
-export default class ReviewDataModal extends React.Component {
+export default class RevalidateDataModal extends React.Component {
 	constructor(props) {
 		super(props);
 
@@ -31,15 +31,14 @@ export default class ReviewDataModal extends React.Component {
                 hashHistory.push('/validateData/' + this.props.submissionID);
             })
             .catch((error) => {
+                let errMsg = '';
                 if (error.httpStatus == 400 || error.httpStatus == 403) {
-                    this.setState({
-                        errorMessage: error.message
-                    });
+                    errMsg = error.message;
                 } else {
-                    this.setState({
-                        errorMessage: "An error occurred while attempting to certify the submission. Please contact your administrator for assistance."
-                    });
+                    errMsg = "An error occurred while attempting to certify the submission. Please contact your administrator for assistance.";
                 }
+
+                this.setState({errorMessage: errMsg});
             });
 	}
 
@@ -62,7 +61,8 @@ export default class ReviewDataModal extends React.Component {
 
 	render() {
 		let action = <RevalidateButtons {...this.props}
-                        clickedRevalidateButton={this.clickedRevalidateButton.bind(this)} />;
+                        clickedRevalidateButton={this.clickedRevalidateButton.bind(this)} 
+                        revalidation_threshold={this.props.data.revalidation_threshold} />;
 
 
 		let hideClose = "";

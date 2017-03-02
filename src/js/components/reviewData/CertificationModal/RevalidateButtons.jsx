@@ -1,6 +1,6 @@
 /**
   * RevalidateButtons.jsx
-  * Created by Kevin Li 9/7/16
+  * Created by Nipun Monga 02/27/17
   **/
 
 import React from 'react';
@@ -11,7 +11,7 @@ export default class RevalidateButtons extends React.Component {
 			<div>
 				<div className="row">
 	            	<div className="col-md-12" id="certify-check">
-	            		This submission was created prior to 02/22/2017. Please revalidate this submission before certifying it.
+	            		This submission was created prior to {this.props.revalidation_threshold}. Please revalidate this submission before certifying it.
 	            	</div>
 	            </div>
 				<div className="row">
