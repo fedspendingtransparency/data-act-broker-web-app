@@ -72,8 +72,8 @@ export default class RevalidateDataModal extends React.Component {
 
 		let error = '';
 		if (this.state.errorMessage) {
-            error = <div className="alert alert-danger text-center" role="alert">{this.state.errorMessage}</div>;
-        }
+ 			error = <div className="alert alert-danger text-center" role="alert">{this.state.errorMessage}</div>;
+		}
 
 		return (
 			<Modal mounted={this.props.isOpen} onExit={this.closeModal.bind(this)} underlayClickExits={this.state.closeable}
