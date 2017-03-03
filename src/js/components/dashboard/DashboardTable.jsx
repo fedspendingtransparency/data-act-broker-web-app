@@ -41,12 +41,14 @@ export default class DashboardTable extends React.Component {
             currentPage: 1,
             totalPages: 1,
             account: null,
+            sortColumn: 0,
+            sortDirection: 'desc',
             user: true
         }
     };
 
     componentDidMount() {
-        this.props.loadTableData(this.state.currentPage, this.props.isCertified);
+        this.props.loadTableData(this.state.currentPage, this.props.isCertified, this.getCategory(), this.state.sortDirection);
         this.loadUser();
     }
 
@@ -66,12 +68,12 @@ export default class DashboardTable extends React.Component {
         this.setState({
             currentPage: newPage,
         }, () => {
-            this.props.loadTableData(this.state.currentPage, this.props.isCertified);
+            this.props.loadTableData(this.state.currentPage, this.props.isCertified, this.getCategory(), this.state.sortDirection);
         });
     }
 
     reload(){
-        this.props.loadTableData(this.state.currentPage, this.props.isCertified);
+        this.props.loadTableData(this.state.currentPage, this.props.isCertified, this.getCategory(), this.state.sortDirection);
         buildRow();
     }
 
@@ -82,8 +84,31 @@ export default class DashboardTable extends React.Component {
             sortColumn: column
         }, () => {
             // re-display the data
+            this.props.loadTableData(this.state.currentPage, this.props.isCertified, this.getCategory(), this.state.sortDirection);
             this.buildRow();
         });
+    }
+
+    getCategory(){
+        switch(this.state.sortColumn){
+            case 1:
+                return 'agency';
+                break;
+            case 2:
+                return 'reporting';
+                break;
+            case 3:
+                return 'submitted_by';
+                break;
+            case 4: 
+                return 'modified';
+                break;
+            case 5:
+                return 'status';
+                break;
+            default:
+                return 'modified';
+        }
     }
 
     buildRow() {
