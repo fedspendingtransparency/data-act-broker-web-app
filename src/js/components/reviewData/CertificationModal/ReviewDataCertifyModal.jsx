@@ -53,17 +53,14 @@ export default class ReviewDataCertifyModal extends React.Component {
 			.then(() => {
 				this.closeModal();
 			})
-	        .catch((error) => {
-	        	if (error.httpStatus == 400 || error.httpStatus == 403) {
-	        	    this.setState({
-	            	    errorMessage: error.message
-	                });
-	        	} else {
-                    this.setState({
-                        errorMessage: "An error occurred while attempting to certify the submission. Please contact your administrator for assistance."
-                    });
-                }
-	        });
+			.catch((error) => {
+				let errorMessage = "An error occurred while attempting to certify the submission. Please contact your administrator for assistance.";
+				if (error.httpStatus == 400 || error.httpStatus == 403) {
+					errorMessage = error.message
+				}
+
+				this.setState({errorMessage: errorMessage});
+			});
 	}
 
 	closeModal(e) {
@@ -111,36 +108,36 @@ export default class ReviewDataCertifyModal extends React.Component {
 		let error = '';
 		if (this.state.errorMessage) {
 			error = <div className="alert alert-danger text-center" role="alert">{this.state.errorMessage}</div>;
-        }
+		}
 
 		return (
 			<Modal mounted={this.props.isOpen} onExit={this.closeModal.bind(this)} underlayClickExits={this.state.closeable}
 				verticallyCenter={true} initialFocus="#certify-check" titleId="usa-da-certify-modal">
 				<div className="usa-da-modal-page">
 					<div id="usa-da-certify-modal" className="usa-da-certify-modal">
-                        <div className={"usa-da-certify-modal-close usa-da-icon usa-da-icon-times" + hideClose}>
-                            <a href="#" onClick={this.closeModal.bind(this)}> <Icons.Times /> </a>
-                        </div>
+						<div className={"usa-da-certify-modal-close usa-da-icon usa-da-icon-times" + hideClose}>
+							<a href="#" onClick={this.closeModal.bind(this)}> <Icons.Times /> </a>
+						</div>
 
-                        <div className="usa-da-certify-modal-content">
-                        	<div className="row">
-	                            <div className="col-md-12 title-field">
-	                                <h6>Are you sure you want to publish your data?</h6>
-	                                {message}
-	                            </div>
-	                        </div>
-	                        <div className="row">
-	                        	<div className="col-md-12">
-		                        	<CertifyDisclaimer />
-		                        </div>
-	                        </div>
+						<div className="usa-da-certify-modal-content">
+							<div className="row">
+								<div className="col-md-12 title-field">
+									<h6>Are you sure you want to publish your data?</h6>
+									{message}
+								</div>
+							</div>
+							<div className="row">
+								<div className="col-md-12">
+									<CertifyDisclaimer />
+								</div>
+							</div>
 
-	                        {action}
+							{action}
 
-	                        {error}
+							{error}
 
-                        </div>
-                    </div>
+						</div>
+					</div>
 				</div>
 			</Modal>
 		)
