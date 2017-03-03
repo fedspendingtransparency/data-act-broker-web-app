@@ -282,20 +282,6 @@ export default class UploadDetachedFileMeta extends React.Component {
 		if (this.state.detachedAward.error.show) {
 			errorMessage = <UploadDetachedFilesError error={this.state.detachedAward.error} />
 		}
-
-		let subtierAgency =  <div>
-				<div className="row usa-da-select-agency-label">
-					The files will be used when submitting data for...
-				</div>
-				<div className="row">
-					<div className="col-sm-12 col-md-12 typeahead-holder" data-testid="agencytypeahead">
-						<SubTierAgencyListContainer placeholder="Enter the name of the reporting sub-tier agency" onSelect={this.handleChange.bind(this)} customClass={subTierAgencyClass} internalValue='agency_code' />
-						<div className={"usa-da-icon usa-da-form-icon" + subTierAgencyClass}>
-							<Icons.Building />
-						</div>
-					</div>
-				</div>
-			</div>;
 		
 		return (
 			<div>
@@ -315,8 +301,19 @@ export default class UploadDetachedFileMeta extends React.Component {
 						<div className='col-lg-offset-2 col-lg-8 mt-60 mb-60'>
 							<h5>Please begin by telling us about files you would like to upload</h5>
 							<div className='select-agency-holder'>
-								
-								{subtierAgency}
+								<div>
+									<div className="row usa-da-select-agency-label">
+										The files will be used when submitting data for...
+									</div>
+									<div className="row">
+										<div className="col-sm-12 col-md-12 typeahead-holder" data-testid="agencytypeahead">
+											<SubTierAgencyListContainer placeholder="Enter the name of the reporting sub-tier agency" onSelect={this.handleChange.bind(this)} customClass={subTierAgencyClass} internalValue='agency_code' />
+											<div className={"usa-da-icon usa-da-form-icon" + subTierAgencyClass}>
+												<Icons.Building />
+											</div>
+										</div>
+									</div>
+								</div>
 
 								<ReactCSSTransitionGroup transitionName="usa-da-meta-fade" transitionEnterTimeout={600} transitionLeaveTimeout={200}>
 									{datePicker}
@@ -325,7 +322,9 @@ export default class UploadDetachedFileMeta extends React.Component {
 								<ReactCSSTransitionGroup transitionName="usa-da-meta-fade" transitionEnterTimeout={600} transitionLeaveTimeout={200}>
 									{uploadFilesBox}
 								</ReactCSSTransitionGroup>
+
 								{errorMessage}
+								
 							</div>
 						</div>
 					</div>
