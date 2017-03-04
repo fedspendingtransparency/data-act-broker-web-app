@@ -161,6 +161,13 @@ export default class ReviewDataContent extends React.Component {
             reportRows.push(<ReviewDataContentRow key={j} label={reportLabels[j]} data={reportData[j]} />);
         }
 
+        let certifyButtonText = "Certify & Publish the Submission to USAspending.gov";
+        let buttonClass = "";
+        if (this.props.data.publish_status == "published") {
+            certifyButtonText = "Submission has already been certified";
+            buttonClass = " btn-disabled";
+        }
+
         return (
             <div className="container">
                 <div className="row center-block mt-60">
@@ -200,13 +207,13 @@ export default class ReviewDataContent extends React.Component {
                     <div className="mt-20">
                         <div className="submission-wrapper">
                             <div className="left-link">
-                                <button onClick={this.openModal.bind(this, modalToOpen)} className="usa-da-button btn-primary btn-lg btn-full">
+                                <button onClick={this.openModal.bind(this, modalToOpen)} className={"usa-da-button btn-primary btn-lg btn-full " + buttonClass}>
                                     <div className="button-wrapper">
                                         <div className="button-icon">
                                             <Icons.Globe />
                                         </div>
                                         <div className="button-content">
-                                            Certify & Publish the Submission to USAspending.gov
+                                            {certifyButtonText}
                                         </div>
                                     </div>
                                 </button>

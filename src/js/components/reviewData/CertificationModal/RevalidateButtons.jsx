@@ -10,7 +10,7 @@ export default class RevalidateButtons extends React.Component {
 		return (
 			<div>
 				<div className="row">
-					<div className="col-md-12" id="certify-check">
+					<div className="col-md-12 mb-10 text-center" id="certify-check">
 						This submission was created prior to {this.props.revalidation_threshold}. Please revalidate this submission before certifying it.
 					</div>
 				</div>
