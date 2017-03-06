@@ -10,6 +10,7 @@ import * as Icons from '../../SharedComponents/icons/Icons.jsx';
 import CertifyDisclaimer from './CertifyDisclaimer.jsx';
 import CertifyButtons from './CertifyButtons.jsx';
 import CertifyProgress from './CertifyProgress.jsx';
+import * as ReviewHelper from '../../../helpers/reviewHelper.js';
 
 class VariableMessage extends React.Component {
 	render() {
@@ -34,7 +35,8 @@ export default class ReviewDataCertifyModal extends React.Component {
 			certified: false,
 			showProgress: false,
 			publishComplete: false,
-			closeable: true
+			closeable: true,
+			errorMessage: ""
 		};
 	}
 
@@ -47,19 +49,19 @@ export default class ReviewDataCertifyModal extends React.Component {
 	clickedCertifyButton(e) {
 		e.preventDefault();
 
-		// show the progress bar
-		this.setState({
-			showProgress: true,
-			closeable: false
-		}, () => {
-			// mock the API completion
-			window.setTimeout(() => {
-				this.setState({
-					publishComplete: true,
-					closeable: true
-				});
-			}, 5 * 1000);
-		});
+		ReviewHelper.certifySubmission(this.props.submissionID)
+			.then(() => {
+				this.closeModal();
+			})
+	        .catch((error) => {
+	        	let msg =  "An error occurred while attempting to certify the submission. Please contact your administrator for assistance.";
+	        	if (error.httpStatus == 400 || error.httpStatus == 403) {
+	        		msg = error.msg;
+	        	}
+	        	this.setState({
+	            	    errorMessage: msg
+	                });
+	        });
 	}
 
 	closeModal(e) {
@@ -75,7 +77,8 @@ export default class ReviewDataCertifyModal extends React.Component {
 		this.setState({
 			showProgress: false,
 			certified: false,
-			publishComplete: false
+			publishComplete: false,
+			errorMessage: ''
 		}, () => {
 			this.props.closeModal();
 		});
@@ -103,6 +106,11 @@ export default class ReviewDataCertifyModal extends React.Component {
 			hideClose = " hide";
 		}
 
+		let error = '';
+		if (this.state.errorMessage) {
+            error = <div className="alert alert-danger text-center" role="alert">{this.state.errorMessage}</div>;
+        }
+
 		return (
 			<Modal mounted={this.props.isOpen} onExit={this.closeModal.bind(this)} underlayClickExits={this.state.closeable}
 				verticallyCenter={true} initialFocus="#certify-check" titleId="usa-da-certify-modal">
@@ -125,13 +133,9 @@ export default class ReviewDataCertifyModal extends React.Component {
 		                        </div>
 	                        </div>
 
-							<div className="alert alert-warning">
-								<span className="usa-da-icon"><Icons.ExclamationCircle /></span>
-			                    <div className="alert-header-text">Simulated Publish</div>
-			                    <p>Data is not submitted or published at this time.</p>
-							</div>
-
 	                        {action}
+
+	                        {error}
 
                         </div>
                     </div>

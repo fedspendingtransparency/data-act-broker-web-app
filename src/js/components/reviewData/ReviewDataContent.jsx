@@ -11,6 +11,7 @@ import ReviewDataContentRow from './ReviewDataContentRow.jsx';
 import ReviewDataButton from './ReviewDataButton.jsx';
 import ReviewDataNotifyModal from './ReviewDataNotifyModal.jsx';
 import ReviewDataCertifyModal from './CertificationModal/ReviewDataCertifyModal.jsx';
+import RevalidateDataModal from './CertificationModal/RevalidateDataModal.jsx';
 import ReviewDataNarrative from './ReviewDataNarrative.jsx'
 import moment from 'moment';
 
@@ -28,6 +29,7 @@ export default class ReviewDataContent extends React.Component {
         this.state = {
             openNotify: false,
             openCertify: false,
+            openRevalidate: false,
             calculatedData: {
                 totalSize: '0 KB',
                 totalWarnings: 0
@@ -118,6 +120,11 @@ export default class ReviewDataContent extends React.Component {
     }
 
     render() {
+
+        let modalToOpen = 'Certify';
+        if (new Date(this.props.last_validated) < new Date('02/17/2017')) {
+            modalToOpen = 'Revalidate';
+        }
         
         // The first parameter in each of these arrays is the corresponding class for the SVG icon
         const buttonContent = [[<Icons.CheckCircle />,'Publish this data to USAspending.gov'],
@@ -193,7 +200,7 @@ export default class ReviewDataContent extends React.Component {
                     <div className="mt-20">
                         <div className="submission-wrapper">
                             <div className="left-link">
-                                <button onClick={this.openModal.bind(this, 'Certify')} className="usa-da-button btn-primary btn-lg btn-full">
+                                <button onClick={this.openModal.bind(this, modalToOpen)} className="usa-da-button btn-primary btn-lg btn-full">
                                     <div className="button-wrapper">
                                         <div className="button-icon">
                                             <Icons.Globe />
@@ -224,6 +231,9 @@ export default class ReviewDataContent extends React.Component {
                     </div>
                     <div id="reviewDataCertifyModalHolder">
                         <ReviewDataCertifyModal {...this.props} closeModal={this.closeModal.bind(this, 'Certify')} isOpen={this.state.openCertify} warnings={this.state.totalWarnings} />
+                    </div>
+                    <div id="revalidateDataModalHolder">
+                        <RevalidateDataModal {...this.props} closeModal={this.closeModal.bind(this, 'Revalidate')} isOpen={this.state.openRevalidate} />
                     </div>
                 </div>
             </div>
