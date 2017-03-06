@@ -84,7 +84,7 @@ export default class DatePicker extends React.Component {
 
 	handleDatePick(e, day) {
 		this.props.onDateChange(day, this.props.type);
-		this.props.hideError();
+		this.props.updateError();
 		// close the popup if is shown
 		if (this.state.showDatePicker) {
 			this.setState({
@@ -130,7 +130,7 @@ export default class DatePicker extends React.Component {
 	handleInputBlur(e) {
 		if (this.state.inputValue.length > 0 && !this.props.value) {
 			// user entered something into the input field and no date has been set yet, input must have been invalid
-			this.props.showError('Invalid Date', 'The date entered is not a valid date.');
+			this.props.updateError('Invalid Date', 'The date entered is not a valid date.');
 		}
 		else if (this.state.inputValue.length > 0) {
 			this.parseValueForInput();

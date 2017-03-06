@@ -11,12 +11,8 @@ export default class DateRangeWrapper extends React.Component {
 		this.props.handleDateChange(file, date, dateType);
 	}
 
-	showError(file, header, description) {
-		this.props.showError(file, header, description);
-	}
-
-	hideError(file) {
-		this.props.hideError(file);
+	updateError(file, header, description) {
+		this.props.updateError(file, header, description);
 	}
 
 	render() {
@@ -34,8 +30,7 @@ export default class DateRangeWrapper extends React.Component {
 										onDateChange={this.props.handleDateChange} 
 										value={this.props.value.startDate} 
 										opposite={this.props.value.endDate}  
-										showError={this.props.showError} 
-										hideError={this.props.hideError}
+										updateError={this.props.updateError} 
 										disabled={this.props.disabled} />
 							<div className="through-text">
 								through
@@ -46,8 +41,7 @@ export default class DateRangeWrapper extends React.Component {
 										onDateChange={this.props.handleDateChange} 
 										value={this.props.value.endDate} 
 										opposite={this.props.value.startDate} 
-										showError={this.props.showError} 
-										hideError={this.props.hideError}
+										updateError={this.props.updateError} 
 										disabled={this.props.disabled} />
 						</div>
 					</div>
