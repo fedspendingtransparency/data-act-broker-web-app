@@ -11,6 +11,7 @@ import CertifyDisclaimer from './CertifyDisclaimer.jsx';
 import CertifyButtons from './CertifyButtons.jsx';
 import CertifyProgress from './CertifyProgress.jsx';
 import * as ReviewHelper from '../../../helpers/reviewHelper.js';
+import { hashHistory } from 'react-router';
 
 class VariableMessage extends React.Component {
 	render() {

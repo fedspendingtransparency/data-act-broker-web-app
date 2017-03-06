@@ -163,9 +163,11 @@ export default class ReviewDataContent extends React.Component {
 
         let certifyButtonText = "Certify & Publish the Submission to USAspending.gov";
         let buttonClass = "";
+        let buttonAction = this.openModal.bind(this, modalToOpen);
         if (this.props.data.publish_status == "published") {
             certifyButtonText = "Submission has already been certified";
             buttonClass = " btn-disabled";
+            buttonAction = "";
         }
 
         return (
@@ -207,7 +209,7 @@ export default class ReviewDataContent extends React.Component {
                     <div className="mt-20">
                         <div className="submission-wrapper">
                             <div className="left-link">
-                                <button onClick={this.openModal.bind(this, modalToOpen)} className={"usa-da-button btn-primary btn-lg btn-full " + buttonClass}>
+                                <button onClick={buttonAction} className={"usa-da-button btn-primary btn-lg btn-full " + buttonClass}>
                                     <div className="button-wrapper">
                                         <div className="button-icon">
                                             <Icons.Globe />
