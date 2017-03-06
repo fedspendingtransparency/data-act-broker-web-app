@@ -13,26 +13,26 @@ Q.longStackSupport = true;
 
 const availablePairs = ['appropriations-program_activity', 'program_activity-award_financial', 'award_financial-award_procurement', 'award_financial-award'];
 export const globalFileData = {
-	appropriations: {
-		name: 'Appropriations Account',
-		letter: 'A'
-	},
-	program_activity: {
-		name: 'Program Activity and Object Class Data',
-		letter: 'B'
-	},
-	award_financial: {
-		name: 'Award Financial',
-		letter: 'C'
-	},
-	award_procurement: {
-		 name: 'Award Procurement',
-		 letter: 'D1'
-	},
-	award: {
-		name: 'Financial Assistance Award',
-		letter: 'D2'
-	}
+    appropriations: {
+        name: 'Appropriations Account',
+        letter: 'A'
+    },
+    program_activity: {
+        name: 'Program Activity and Object Class Data',
+        letter: 'B'
+    },
+    award_financial: {
+        name: 'Award Financial',
+        letter: 'C'
+    },
+    award_procurement: {
+         name: 'Award Procurement',
+         letter: 'D1'
+    },
+    award: {
+        name: 'Financial Assistance Award',
+        letter: 'D2'
+    }
 };
 
 const determineExpectedPairs = () => {
@@ -67,53 +67,53 @@ export const fetchStatus = (submissionId) => {
 	const store = new StoreSingleton().store;
 
 	Request.post(kGlobalConstants.API + 'check_status/')
-			.send({'submission_id': submissionId})
-			.end((errFile, res) => {
+	        .send({'submission_id': submissionId})
+	        .end((errFile, res) => {
 
-				// calculate how long the API call took
-				const endTime = new Date().getTime();
-				const duration = endTime - startTime;
-				// log the API call duration
-				const reduxData = store.getState();
-				const action = sessionActions.setApiMeta({
-					time: duration
-				});
-				store.dispatch(action);
+	        	// calculate how long the API call took
+	        	const endTime = new Date().getTime();
+	        	const duration = endTime - startTime;
+	        	// log the API call duration
+	        	const reduxData = store.getState();
+	        	const action = sessionActions.setApiMeta({
+	        		time: duration
+	        	});
+                store.dispatch(action);
 
 
-				if (errFile) {
-					let detail = '';
-					if (res.body != null && res.body.hasOwnProperty('message')) {
-						detail = res.body.message;
-					}
+	        	if (errFile) {
+	        		let detail = '';
+	        		if (res.body != null && res.body.hasOwnProperty('message')) {
+	        			detail = res.body.message;
+	        		}
 
-					deferred.reject({
-						reason: res.statusCode,
-						error: errFile,
-						detail: detail
-					});
-				}
-				else {
-					// return only jobs related to CSV validation
-					const response = Object.assign({}, res.body);
-					const csvJobs = [];
-					let crossFileJob = {};
-					response.jobs.forEach((job) => {
-						if (job.job_type == 'csv_record_validation') {
-							csvJobs.push(job);
-						}
-						else if (job.job_type == 'validation') {
-							crossFileJob = job;
-						}
-					});
+	        		deferred.reject({
+	        			reason: res.statusCode,
+	        			error: errFile,
+	        			detail: detail
+	        		});
+	        	}
+	        	else {
+	        		// return only jobs related to CSV validation
+	        		const response = Object.assign({}, res.body);
+	        		const csvJobs = [];
+	        		let crossFileJob = {};
+	        		response.jobs.forEach((job) => {
+	        			if (job.job_type == 'csv_record_validation') {
+	        				csvJobs.push(job);
+	        			}
+	        			else if (job.job_type == 'validation') {
+	        				crossFileJob = job;
+	        			}
+	        		});
 
-					response.jobs = csvJobs;
-					response.crossFile = crossFileJob;
+	        		response.jobs = csvJobs;
+	        		response.crossFile = crossFileJob;
 
-					deferred.resolve(response);
-				}
+	        		deferred.resolve(response);
+	        	}
 
-			});
+	        });
 
 	return deferred.promise;
 }
@@ -324,13 +324,13 @@ export const validateSubmission  = (submissionId) => {
 			return fetchErrorReports(submissionId);
 		})
 		.then((reports) => {
-			getFileReports(status, reports);
+		    getFileReports(status, reports);
 			crossFileErrorReports = getCrossFileReports('errors', crossFile.errors, reports);
 
 			return fetchWarningReports(submissionId);
 		})
 		.then((reports) => {
-			getFileWarningReports(status, reports);
+            getFileWarningReports(status, reports);
 			crossFileWarningReports = getCrossFileReports('warnings', crossFile.warnings, reports);
 
 			deferred.resolve({
@@ -400,23 +400,23 @@ export const listUsers = () => {
 }
 
 export const sendNotification = (users, id) => {
-	const deferred = Q.defer();
+    const deferred = Q.defer();
 
-	Request.post(kGlobalConstants.API + 'email_users/')
-		.send({
-			'users': users,
-			'email_template': 'review_submission',
-			'submission_id': id
-		})
-		.end((errFile, res) => {
-			if (errFile) {
-				deferred.reject(errFile);
-			}
-			else {
-				deferred.resolve(res.body);
-			}
-		});
-	return deferred.promise;
+    Request.post(kGlobalConstants.API + 'email_users/')
+        .send({
+        	'users': users,
+        	'email_template': 'review_submission',
+        	'submission_id': id
+        })
+        .end((errFile, res) => {
+            if (errFile) {
+                deferred.reject(errFile);
+            }
+            else {
+                deferred.resolve(res.body);
+            }
+        });
+    return deferred.promise;
 }
 
 export const fetchObligations = (submissionId) => {
@@ -439,24 +439,24 @@ export const fetchObligations = (submissionId) => {
 }
 
 export const submissionReport = (submissionId, warning, fileType, crossType) => {
-	const deferred = Q.defer();
+    const deferred = Q.defer();
 
-	Request.post(kGlobalConstants.API + 'submission/' + submissionId + '/report_url')
-		.send({
-			'warning': warning,
-			'file_type': fileType,
-			'cross_type': crossType
-		})
-		.end((errFile, res) => {
-			if (errFile) {
-				deferred.reject(errFile, res);
-			}
-			else {
-				deferred.resolve(res.body);
-			}
-		});
+    Request.post(kGlobalConstants.API + 'submission/' + submissionId + '/report_url')
+        .send({
+            'warning': warning,
+            'file_type': fileType,
+            'cross_type': crossType
+        })
+        .end((errFile, res) => {
+            if (errFile) {
+                deferred.reject(errFile, res);
+            }
+            else {
+                deferred.resolve(res.body);
+            }
+        });
 
-	return deferred.promise;
+    return deferred.promise;
 }
 
 export const fetchSubmissionNarrative = (submissionId) => {
@@ -517,24 +517,24 @@ export const certifySubmission = (submissionId) => {
 }
 
 export const deleteSubmission = (submission_id) => {
-	const deferred = Q.defer();
+    const deferred = Q.defer();
 
-	 Request.post(kGlobalConstants.API + 'delete_submission/')
-			.send({ submission_id })
-			.end((err, res) => {
+     Request.post(kGlobalConstants.API + 'delete_submission/')
+            .send({ submission_id })
+            .end((err, res) => {
 
-				if (err) {
-					deferred.reject(err);
-				}
-				else {
-					const output = {
-						message: res.body.message,
-					};
-					deferred.resolve(output);
-				}
-			});
+                if (err) {
+                    deferred.reject(err);
+                }
+                else {
+                    const output = {
+                        message: res.body.message,
+                    };
+                    deferred.resolve(output);
+                }
+            });
 
-	return deferred.promise;
+    return deferred.promise;
 }
 
 export const revalidateSubmission = (submission_id) => {
