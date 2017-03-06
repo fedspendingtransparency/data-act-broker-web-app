@@ -158,7 +158,7 @@ export default class GenerateDetachedFilesPage extends React.Component {
         this.setState({[file]:dFile});
     }
 
-    updateError(file, header='', description='') {
+    updateError(file, header, description) {
         // Show any error that occurs at any point during file upload
         const state = Object.assign({}, this.state[file], {
             error: {
