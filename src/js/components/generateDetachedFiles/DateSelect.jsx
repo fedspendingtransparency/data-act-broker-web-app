@@ -12,12 +12,8 @@ export default class DateSelect extends React.Component {
         this.props.handleDateChange(file, date, dateType);
     }
 
-    showError(file, header, description) {
-        this.props.showError(file, header, description);
-    }
-
-    hideError(file) {
-        this.props.hideError(file);
+    updateError(file, header='', description='') {
+        this.props.updateError(file, header, description);
     }
 
     render() {
@@ -50,8 +46,7 @@ export default class DateSelect extends React.Component {
                     error={this.props.d1.error}
                     download={this.props.d1.download}
                     onDateChange={this.handleDateChange.bind(this, "d1")}
-                    showError={this.showError.bind(this, "d1")}
-                    hideError={this.hideError.bind(this, "d1")} />
+                    updateError={this.updateError.bind(this, "d1")} />
 
                 <div className="right-align-box">
                     <button className="usa-da-button btn-default" disabled={!this.props.d1.valid || this.props.d1.status == "generating"} onClick={this.props.generateFile.bind(this, "d1")}>{loadingD1}{d1Text}</button>
@@ -65,8 +60,7 @@ export default class DateSelect extends React.Component {
                     error={this.props.d2.error}
                     download={this.props.d2.download}
                     onDateChange={this.handleDateChange.bind(this, "d2")} 
-                    showError={this.showError.bind(this, "d2")}
-                    hideError={this.hideError.bind(this, "d2")} />
+                    updateError={this.updateError.bind(this, "d2")} />
 
                 <div className="right-align-box">
                     <button className="usa-da-button btn-default" disabled={!this.props.d2.valid || this.props.d2.status == "generating"} onClick={this.props.generateFile.bind(this, "d2")}>{loadingD2}{d2Text}</button>
