@@ -158,35 +158,20 @@ export default class GenerateDetachedFilesPage extends React.Component {
         this.setState({[file]:dFile});
     }
 
-    showError(file, header, description) {
-        // show error that occurs at any point during file generation
-		const state = Object.assign({}, this.state[file], {
-			error: {
-				show: true,
-				header: header,
-				description: description
-			}
-		});
-		
-		this.setState({
-			[file]: state
-		});
-	}
-
-    hideError(file) {
-        // stop displaying the error for the given file
-		const state = Object.assign({}, this.state[file], {
-			error: {
-				show: false,
-				header: '',
-				description: ''
-			}
-		});
-
-		this.setState({
-			[file]: state
-		});
-	}
+    updateError(file, header='', description='') {
+        // Show any error that occurs at any point during file upload
+        const state = Object.assign({}, this.state[file], {
+            error: {
+                show: header !='' && description !='',
+                header: header,
+                description: description
+            }
+        });
+        
+        this.setState({
+            [file]: state
+        });
+    }
 
     generateFile(file) {
         // generate specified file
@@ -289,7 +274,7 @@ export default class GenerateDetachedFilesPage extends React.Component {
         if (this.state.showDateSelect) {
             dateSelect = <DateSelect {...this.state} 
                             handleDateChange={this.handleDateChange.bind(this)} 
-                            showError={this.showError.bind(this)} hideError={this.hideError.bind(this)} 
+                            updateError={this.updateError.bind(this)}
                             generateFile={this.generateFile.bind(this)} />;
         }
         

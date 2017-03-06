@@ -50,7 +50,7 @@ export default class GenerateFilesContent extends React.Component {
                             error={this.props.d1.error}
                             download={this.props.d1.download}
                             onDateChange={this.handleDateChange.bind(this, "d1")}
-                            updateError={this.updateError.bind(this, "d1")}/>
+                            updateError={this.updateError.bind(this, "d1")} />
 
                         <GenerateFileBox 
                             label="File D2: Financial Assistance" 
