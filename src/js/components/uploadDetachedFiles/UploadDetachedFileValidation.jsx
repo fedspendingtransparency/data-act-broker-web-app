@@ -178,6 +178,11 @@ export default class UploadDetachedFileValidation extends React.Component {
 	// 2: Fetching file metadata failed
 	// 3: File already has been submitted in another submission
 
+	testBind(item){
+		console.log('testing 123', item)
+		console.log(this.props.submission)
+	}
+
 	render() {
 		let validationButton = null;
 		let validationBox = null;
@@ -206,7 +211,7 @@ export default class UploadDetachedFileValidation extends React.Component {
 		
 		validationBox = <ValidateDataFileContainer type={type} data={this.state.jobResults}/>;
 		if(!this.state.headerErrors && this.state.validationFinished) {
-			validationBox = <ValidateValuesFileContainer type={type} data={this.state.jobResults} />;
+			validationBox = <ValidateValuesFileContainer type={type} data={this.state.jobResults} setUploadItem={this.testBind.bind(this)} updateItem={this.testBind.bind(this)} />;
 			if(this.state.jobResults.detached_award.error_type === "none" && this.state.error === 0) {
 				validationButton = <button className='pull-right col-xs-3 us-da-button' onClick={this.submitFabs.bind(this)}>Publish</button>;
 				if(this.state.published === 'published'){
