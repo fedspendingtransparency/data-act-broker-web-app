@@ -54,7 +54,7 @@ export default class UploadDetachedFileValidation extends React.Component {
 			submit: true
 		};
 
-		this.checkFileStatus(this.props.submission.id);
+		this.checkFileStatus(this.props.params.submissionID);
 	}
 
 	componentDidMount() {
@@ -203,7 +203,7 @@ export default class UploadDetachedFileValidation extends React.Component {
 			requestName: 'detached_award',
 			progress: '0'
 		}
-		
+		 
 		validationBox = <ValidateDataFileContainer type={type} data={this.state.jobResults}/>;
 		if(!this.state.headerErrors && this.state.validationFinished) {
 			validationBox = <ValidateValuesFileContainer type={type} data={this.state.jobResults} />;

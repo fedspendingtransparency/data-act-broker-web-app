@@ -144,8 +144,9 @@ export default class UploadDetachedFileMeta extends React.Component {
                     // TODO: Remove this when this is eventually tied to user accounts
                     this.props.setSubmissionId(submissionID);
 					this.checkFileStatus(submissionID);
-					this.props.history.push('/uploaddetachedfiles/'+submissionID);
-					this.props.validate();
+					// this.props.history.push('/uploaddetachedfiles/'+submissionID);
+					// this.context.router.transitionTo('/uploadDetachedfiles/'+submissionID);
+					this.props.validate(submissionID);
                 })
 				.catch((err) => {
 					this.setState({
