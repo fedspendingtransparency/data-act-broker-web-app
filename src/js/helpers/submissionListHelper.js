@@ -19,7 +19,7 @@ const parseRecentActivity = (submissions) => {
         'validation_errors': Status.StatusTypes.HASERRORS,
         'file_errors': Status.StatusTypes.HASERRORS,
         'failed': Status.StatusTypes.SERVERERROR,
-        'submitted': Status.StatusTypes.SUBMITTED
+        'certified': Status.StatusTypes.CERTIFIED
     };
 
     submissions.forEach((item) => {

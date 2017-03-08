@@ -26,7 +26,7 @@ const tableHeaders = [
     'Reporting Period',
     'Submitted By',
     'Last Modified Date',
-    'Size',
+    'Status',
     'Delete'
 ];
 
