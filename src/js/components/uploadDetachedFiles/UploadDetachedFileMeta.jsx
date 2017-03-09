@@ -158,6 +158,9 @@ export default class UploadDetachedFileMeta extends React.Component {
 
 	checkFileStatus(submissionID) {
 		// callback to check file status
+		if(!submissionID){
+			return;
+		}
 		GenerateFilesHelper.fetchSubmissionMetadata(submissionID)
 			.then((response) => {
 				if (this.isUnmounted) {
