@@ -29,23 +29,32 @@ export default class DeleteLink extends React.Component {
 		this.didUnmount = true;
 	}
 
+	componentWillReceiveProps(nextProps){
+		if(nextProps.confirm !== this.props.confirm){
+			this.props.reload();
+		}
+		this.canDelete();
+	}
+
 	confirm(){
-		this.setState({active: !this.state.active});
+		this.props.warning(this.props.index);
 	}
 
 	canDelete(){
-		if(this.props.account.website_admin==true){
-			this.setState({delete: true});
-			return;
-		}else if(this.props.account.helpOnly==true){
-			this.setState({delete: false});
-			return;
+		let deletable = (this.props.account.website_admin || !this.props.account.helpOnly);
+
+		if(!deletable){
+			this.props.account.affiliations.forEach((aff)=>{
+				if(aff.agency_name == this.props.item.agency && (aff.permission == "writer" || aff.permission == 'submitter')){
+					deletable = true;
+					return;
+				}
+			})
 		}
-		this.props.account.affiliations.forEach((aff)=>{
-			if(aff.agency_name == this.props.item.agency && (aff.permission == "writer" || aff.permission == 'submitter')){
-				this.setState({delete:true});
-				return;
-			}
+
+		this.setState({
+			delete: deletable,
+			active: this.props.confirm
 		})
 	}
 
