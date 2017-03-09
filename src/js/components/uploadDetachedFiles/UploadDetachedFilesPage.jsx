@@ -33,8 +33,6 @@ export default class UploadDetachedFilesPage extends React.Component {
 		if(this.props.params.submissionID){
 			this.props.setSubmissionId(this.props.params.submissionID);
 			showMeta = false;
-		}else{
-			showMeta = true;
 		}
 		if(this.state.showMeta !== showMeta){
 			this.setState({
