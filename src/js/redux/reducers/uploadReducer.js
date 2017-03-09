@@ -16,7 +16,8 @@ const initialUploadState = {
 		warnings: {}
 	},
 	crossFileOrder: [],
-	crossFileStaging: {}
+	crossFileStaging: {},
+	publishStatus: ''
 }
 
 const setUploadItem = (state, action) => {
@@ -92,6 +93,11 @@ export const uploadReducer = (state = initialUploadState, action) => {
 		case 'SET_SUBMISSION_ID':
 			return Object.assign({}, state, {
 				id: action.state
+			});
+
+		case 'SET_SUBMISSION_PUBLISH_STATUS':
+			return Object.assign({}, state, {
+				publishStatus: action.state
 			});
 
 		case 'RESET_SUBMISSION':

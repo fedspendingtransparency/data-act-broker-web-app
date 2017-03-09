@@ -166,6 +166,7 @@ class GenerateFilesContainer extends React.Component {
 		GenerateFilesHelper.fetchSubmissionMetadata(this.props.submissionID)
 			.then((data) => {
 				this.props.setSubmissionId(this.props.submissionID);
+				this.props.setSubmissionPublishStatus(data.publish_status);
 
 				// check if quarter or month
 				const defaultStart = moment(this.parseDate(data.reporting_period_start_date, 'start'), 'MM/DD/YYYY');
