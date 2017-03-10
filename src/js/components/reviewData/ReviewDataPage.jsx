@@ -11,6 +11,7 @@ import Footer from '../SharedComponents/FooterComponent.jsx';
 
 import ReviewDataContent from './ReviewDataContent.jsx';
 import ReviewLoading from './ReviewLoading.jsx';
+import PublishedSubmissionWarningBanner from '../../components/SharedComponents/PublishedSubmissionWarningBanner.jsx';
 
 export default class ReviewDataPage extends React.Component {
     render() {
@@ -23,6 +24,11 @@ export default class ReviewDataPage extends React.Component {
         else {
             currentComponent = <ReviewDataContent {...this.props} submissionID={submissionID} />;
         }
+
+        let warningMessage = null;
+		if(this.props.submission.publishStatus !== "unpublished") {
+			warningMessage = <PublishedSubmissionWarningBanner />;
+		}
 
         return (
             <div className="usa-da-review-data-page">
@@ -37,6 +43,7 @@ export default class ReviewDataPage extends React.Component {
                                 </div>
                             </div>
                         </div>
+                        {warningMessage}
                         {currentComponent}
                     </div>
                 </div>

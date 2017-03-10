@@ -14,6 +14,7 @@ import Q from 'q';
 
 import { kGlobalConstants } from '../../GlobalConstants.js';
 import GenerateFilesContent from '../../components/generateFiles/GenerateFilesContent.jsx';
+import PublishedSubmissionWarningBanner from '../../components/SharedComponents/PublishedSubmissionWarningBanner.jsx';
 
 import * as uploadActions from '../../redux/actions/uploadActions.js';
 
@@ -438,12 +439,19 @@ class GenerateFilesContainer extends React.Component {
 	}
 
 	render() {
+		let warningMessage = null;
+		if(this.props.submission.publishStatus !== "unpublished") {
+			warningMessage = <PublishedSubmissionWarningBanner />;
+		}
 		return (
-			<GenerateFilesContent {...this.props} {...this.state}
-				handleDateChange={this.handleDateChange.bind(this)}
-				updateError={this.updateError.bind(this)}
-				generateFiles={this.generateFiles.bind(this)}
-				nextPage={this.nextPage.bind(this)} />
+			<div>
+				{warningMessage}
+				<GenerateFilesContent {...this.props} {...this.state}
+					handleDateChange={this.handleDateChange.bind(this)}
+					updateError={this.updateError.bind(this)}
+					generateFiles={this.generateFiles.bind(this)}
+					nextPage={this.nextPage.bind(this)} />
+			</div>
 		);
 	}
 }
