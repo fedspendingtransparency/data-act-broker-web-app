@@ -100,9 +100,6 @@ export default class DashboardTable extends React.Component {
             case 3:
                 return 'submitted_by';
                 break;
-            case 4: 
-                return 'modified';
-                break;
             case 5:
                 return 'status';
                 break;
