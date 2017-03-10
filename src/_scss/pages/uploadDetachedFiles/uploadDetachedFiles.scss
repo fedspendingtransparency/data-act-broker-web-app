@@ -5,6 +5,13 @@
 	// import typeahead styles
 	@import "../../components/typeahead/_typeahead";
 
+	.validation-holder {
+		.alert-error {
+			@import "../../components/alerts/_alerts";
+			@include dangerAlert;
+		}
+	}
+
 	.select-agency-holder {
 		@include contentBlockWrapper;
 		padding: 15px 30px 30px 30px;
@@ -58,11 +65,6 @@
 			}
 		}
 
-		.usa-da-validate-item {
-	        @import "../validateData/fileItem/fileItem";
-	        @include fileItem;
-	    }
-
 		// import the alerts
 		.alert-error {
 			@import "../../components/alerts/_alerts";
@@ -103,4 +105,43 @@
 			text-align: right;
 		}
 	}
+
+	.usa-da-validate-item {
+        @import "../validateData/fileItem/fileItem";
+        @include fileItem;
+    }
+
+    .header-box{
+   	    right: 41px;
+	    font-size: 1.1rem;
+	    letter-spacing: 0.031rem;
+	    color: #f1f1f1;
+	    background: #262B30;
+	    padding: 4px 10px;
+	    width: 90%;
+	    margin-left: -25%;
+	    margin-top: 25%;
+    }
+
+    .us-da-disabled-button {
+    	color: #5b616b;
+    	background: #d6d7d9;
+    	padding: 1rem 2rem;
+    	font-size: 1.4rem;
+    	font-weight: 700;
+    	border-style: none;
+    	opacity:.55;
+    	box-shadow: none;
+    	cursor: not-allowed;
+    }
+
+    .us-da-button {
+    	color: #ffffff;
+    	background: #0071bc;
+    	padding: 1rem 2rem;
+    	font-size: 1.4rem;
+    	font-weight: 700;
+    	border-style: none;
+    	box-shadow: none;
+    }
 }

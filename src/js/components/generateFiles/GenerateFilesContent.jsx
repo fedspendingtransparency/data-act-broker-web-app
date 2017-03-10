@@ -21,14 +21,9 @@ export default class GenerateFilesContent extends React.Component {
         this.props.handleDateChange(file, date, dateType);
     }
 
-    showError(file, header, description) {
-        this.props.showError(file, header, description);
+    updateError(file, header='', description='') {
+        this.props.updateError(file, header, description);
     }
-
-    hideError(file) {
-        this.props.hideError(file);
-    }
-
 
 	render() {
 		return (
@@ -55,8 +50,7 @@ export default class GenerateFilesContent extends React.Component {
                             error={this.props.d1.error}
                             download={this.props.d1.download}
                             onDateChange={this.handleDateChange.bind(this, "d1")}
-                            showError={this.showError.bind(this, "d1")}
-                            hideError={this.hideError.bind(this, "d1")} />
+                            updateError={this.updateError.bind(this, "d1")} />
 
                         <GenerateFileBox 
                             label="File D2: Financial Assistance" 
@@ -66,8 +60,7 @@ export default class GenerateFilesContent extends React.Component {
                             error={this.props.d2.error}
                             download={this.props.d2.download}
                             onDateChange={this.handleDateChange.bind(this, "d2")} 
-                            showError={this.showError.bind(this, "d2")}
-                            hideError={this.hideError.bind(this, "d2")} />
+                            updateError={this.updateError.bind(this, "d2")} />
 	                </div>
 	            </div>
 	            <GenerateFilesOverlay {...this.props} />

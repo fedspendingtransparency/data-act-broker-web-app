@@ -496,6 +496,26 @@ export const saveNarrative = (submissionId, narrative) => {
 	return deferred.promise;
 }
 
+export const certifySubmission = (submissionId) => {
+	const deferred = Q.defer();
+
+	Request.post(kGlobalConstants.API + 'certify_submission/')
+		.send({"submission_id": submissionId})
+		.end((err, res) => {
+
+			if (err) {
+				const response = Object.assign({}, res.body);
+				response.httpStatus = res.status;
+				deferred.reject(response);
+			}
+			else {
+				deferred.resolve(res.body);
+			}
+		});
+
+	return deferred.promise;
+}
+
 export const deleteSubmission = (submission_id) => {
     const deferred = Q.defer();
 
@@ -515,4 +535,24 @@ export const deleteSubmission = (submission_id) => {
             });
 
     return deferred.promise;
+}
+
+export const revalidateSubmission = (submission_id) => {
+	const deferred = Q.defer();
+
+	Request.post(kGlobalConstants.API + 'restart_validation/')
+		.send({submission_id})
+		.end((err, res) => {
+			if (err) {
+				deferred.reject(err);
+			}
+			else {
+				const output = {
+					message: res.body.message,
+				};
+				deferred.resolve(output);
+			}
+		});
+
+	return deferred.promise;
 }
