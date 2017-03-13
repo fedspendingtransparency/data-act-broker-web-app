@@ -64,6 +64,7 @@ export default class DeleteLink extends React.Component {
 	}
 
 	reset(){
+		this.props.warning(-1)
 		this.setState({
 			active: false
 		})
