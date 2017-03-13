@@ -85,13 +85,13 @@ export default class ValidateDataFileComponent extends React.Component {
         let errorData = [];
         let hasFailed = false;
 
-        if (item.missing_headers.length > 0) {
+        if (item.missing_headers && item.missing_headers.length > 0) {
             errorKeys.push('missing_headers');
             hasErrorReport = true;
             isError = true;
             headerTitle = 'Critical Error: Missing fields in header row';
         }
-        if (item.duplicated_headers.length > 0) {
+        if (item.duplicated_headers && item.duplicated_headers.length > 0) {
             errorKeys.push('duplicated_headers');
             hasErrorReport = true;
             isError = true;
@@ -131,7 +131,7 @@ export default class ValidateDataFileComponent extends React.Component {
             });
         }
 
-        else if (item.missing_headers.length == 0 && item.duplicated_headers.length == 0 && item.error_type == 'header_errors') {
+        else if (item.missing_headers && item.missing_headers.length == 0 && item.duplicated_headers.length == 0 && item.error_type == 'header_errors') {
             // special case where the header rows could not be read
             headerTitle = 'Critical Error: The header row could not be parsed.';
             errorData = [];
