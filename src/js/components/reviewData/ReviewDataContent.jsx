@@ -177,8 +177,8 @@ export default class ReviewDataContent extends React.Component {
             buttonAction = "";
             notifyButtonText = "Notify Another User that the Submission is Ready";
             monthlySubmissionError = <div className="alert alert-danger text-center monthly-submission-error" role="alert">
-				Monthly submissions cannot be certified
-			</div>
+                                        Monthly submissions cannot be certified
+                                    </div>
         }
 
         return (
