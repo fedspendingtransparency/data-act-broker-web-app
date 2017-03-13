@@ -25,7 +25,11 @@ class DashboardContainer extends React.Component {
         };
     }
 
-    loadTableData(page = 1, certified = false) {
+    loadTableData(page = 1, certified = false, category='modified', order='desc') {
+        /**
+        Sortable fields: Valid values for category
+        'modified','reporting','status','agency','submitted_by'
+        */
         let tableName = 'active';
         if (certified) {
             tableName = 'certified';
@@ -34,7 +38,7 @@ class DashboardContainer extends React.Component {
         this.setState({
             [tableName + 'Loading']: true
         }, () => {
-             SubmissionListHelper.loadSubmissionList(page, 10, certified)
+             SubmissionListHelper.loadSubmissionList(page, 10, certified, category, order)
                 .then((data) => {
                     this.setState({
                         [tableName + 'Total']: data.total,

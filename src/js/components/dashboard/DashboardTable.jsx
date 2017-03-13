@@ -26,7 +26,7 @@ const tableHeaders = [
     'Reporting Period',
     'Submitted By',
     'Last Modified Date',
-    'Size',
+    'Status',
     'Delete'
 ];
 
@@ -41,12 +41,14 @@ export default class DashboardTable extends React.Component {
             currentPage: 1,
             totalPages: 1,
             account: null,
+            sortColumn: 0,
+            sortDirection: 'desc',
             user: true
         }
     };
 
     componentDidMount() {
-        this.props.loadTableData(this.state.currentPage, this.props.isCertified);
+        this.props.loadTableData(this.state.currentPage, this.props.isCertified, this.getCategory(), this.state.sortDirection);
         this.loadUser();
     }
 
@@ -66,13 +68,44 @@ export default class DashboardTable extends React.Component {
         this.setState({
             currentPage: newPage,
         }, () => {
-            this.props.loadTableData(this.state.currentPage, this.props.isCertified);
+            this.props.loadTableData(this.state.currentPage, this.props.isCertified, this.getCategory(), this.state.sortDirection);
         });
     }
 
     reload(){
-        this.props.loadTableData(this.state.currentPage, this.props.isCertified);
+        this.props.loadTableData(this.state.currentPage, this.props.isCertified, this.getCategory(), this.state.sortDirection);
         buildRow();
+    }
+
+    sortTable(direction, column) {
+        // the table sorting changed
+        this.setState({
+            sortDirection: direction,
+            sortColumn: column
+        }, () => {
+            // re-display the data
+            this.props.loadTableData(this.state.currentPage, this.props.isCertified, this.getCategory(), this.state.sortDirection);
+            this.buildRow();
+        });
+    }
+
+    getCategory(){
+        switch(this.state.sortColumn){
+            case 1:
+                return 'agency';
+                break;
+            case 2:
+                return 'reporting';
+                break;
+            case 3:
+                return 'submitted_by';
+                break;
+            case 5:
+                return 'status';
+                break;
+            default:
+                return 'modified';
+        }
     }
 
     buildRow() {
@@ -145,7 +178,7 @@ export default class DashboardTable extends React.Component {
         return (
             <div className="usa-da-submission-list">
                 <div className={"submission-table-content" + loadingClass}>
-                    <FormattedTable headers={tableHeaders} data={this.state.parsedData} sortable={false} cellClasses={this.state.cellClasses} headerClasses={this.state.headerClasses} />
+                    <FormattedTable headers={tableHeaders} data={this.state.parsedData} sortable={true} cellClasses={this.state.cellClasses} unsortable={[0,6]} headerClasses={this.state.headerClasses} onSort={this.sortTable.bind(this)} />
                 </div>
                 <div className="text-center">
                     {this.state.message}

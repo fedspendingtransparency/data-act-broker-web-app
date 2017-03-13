@@ -11,7 +11,7 @@ import * as Icons from '../../SharedComponents/icons/Icons.jsx';
 import RevalidateButtons from './RevalidateButtons.jsx';
 import * as ReviewHelper from '../../../helpers/reviewHelper.js';
 
-export default class ReviewDataModal extends React.Component {
+export default class RevalidateDataModal extends React.Component {
 	constructor(props) {
 		super(props);
 
@@ -22,19 +22,22 @@ export default class ReviewDataModal extends React.Component {
 	}
 
 	clickedRevalidateButton(e) {
-        e.preventDefault();
+		e.preventDefault();
 
-        ReviewHelper.revalidateSubmission(this.props.submissionID)
-            .then(() => {
-                this.closeModal();
-                // Redirect to validateData page
-                hashHistory.push('/validateData/' + this.props.submissionID);
-            })
-            .catch((error) => {
-                this.setState({
-                    errorMessage: (error.httpStats === 400 || error.httpStatus === 403) ? error.message : "An error occurred while attempting to certify the submission. Please contact your administrator for assistance."
-                });
-            });
+		ReviewHelper.revalidateSubmission(this.props.submissionID)
+			.then(() => {
+				this.closeModal();
+				// Redirect to validateData page
+				hashHistory.push('/validateData/' + this.props.submissionID);
+			})
+			.catch((error) => {
+				let errMsg = "An error occurred while attempting to certify the submission. Please contact your administrator for assistance.";
+				if (error.httpStatus == 400 || error.httpStatus == 403) {
+					errMsg = error.message;
+				}
+
+				this.setState({errorMessage: errMsg});
+			});
 	}
 
 	closeModal(e) {
@@ -55,6 +58,10 @@ export default class ReviewDataModal extends React.Component {
 	}
 
 	render() {
+		let action = <RevalidateButtons {...this.props}
+						clickedRevalidateButton={this.clickedRevalidateButton.bind(this)} 
+						revalidation_threshold={this.props.data.revalidation_threshold} />;
+
 		let hideClose = "";
 		if (!this.state.closeable) {
 			hideClose = " hide";
@@ -62,26 +69,26 @@ export default class ReviewDataModal extends React.Component {
 
 		let error = '';
 		if (this.state.errorMessage) {
-            error = <div className="alert alert-danger text-center" role="alert">{this.state.errorMessage}</div>;
-        }
+			error = <div className="alert alert-danger text-center" role="alert">{this.state.errorMessage}</div>;
+		}
 
 		return (
 			<Modal mounted={this.props.isOpen} onExit={this.closeModal.bind(this)} underlayClickExits={this.state.closeable}
 				verticallyCenter={true} initialFocus="#certify-check" titleId="usa-da-certify-modal">
 				<div className="usa-da-modal-page">
 					<div id="usa-da-certify-modal" className="usa-da-certify-modal">
-                        <div className={"usa-da-certify-modal-close usa-da-icon usa-da-icon-times" + hideClose}>
-                            <a href="#" onClick={this.closeModal.bind(this)}> <Icons.Times /> </a>
-                        </div>
+						<div className={"usa-da-certify-modal-close usa-da-icon usa-da-icon-times" + hideClose}>
+							<a href="#" onClick={this.closeModal.bind(this)}> <Icons.Times /> </a>
+						</div>
 
-                        <div className="usa-da-certify-modal-content">
+						<div className="usa-da-certify-modal-content">
 
-	                        <RevalidateButtons {...this.props} clickedRevalidateButton={this.clickedRevalidateButton.bind(this)} />
+							{action}
 
-	                        {error}
+							{error}
 
-                        </div>
-                    </div>
+						</div>
+					</div>
 				</div>
 			</Modal>
 		)

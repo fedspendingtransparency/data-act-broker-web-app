@@ -19,7 +19,7 @@ const parseRecentActivity = (submissions) => {
         'validation_errors': Status.StatusTypes.HASERRORS,
         'file_errors': Status.StatusTypes.HASERRORS,
         'failed': Status.StatusTypes.SERVERERROR,
-        'submitted': Status.StatusTypes.SUBMITTED
+        'certified': Status.StatusTypes.CERTIFIED
     };
 
     submissions.forEach((item) => {
@@ -59,11 +59,11 @@ const parseRecentActivity = (submissions) => {
     return parsedSubmissions;
 }
 
-export const loadSubmissionList = (page = 1, limit = 10, certified = false) => {
+export const loadSubmissionList = (page = 1, limit = 10, certified = false, sort = 'updated', order = 'desc') => {
     const deferred = Q.defer();
 
      Request.get(kGlobalConstants.API + 'list_submissions/')
-            .query({ page, limit, certified })
+            .query({ page, limit, certified, sort, order })
             .end((err, res) => {
 
                 if (err) {

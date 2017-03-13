@@ -33,6 +33,7 @@ export default class UploadDetachedFileValidation extends React.Component {
 
 		this.state = {
 			agency: "",
+			submissionID: 0,
 			detachedAward: {
 				startDate: null,
 				endDate: null,
@@ -53,12 +54,19 @@ export default class UploadDetachedFileValidation extends React.Component {
 			published: false,
 			submit: true
 		};
-
-		this.checkFileStatus(this.props.submission.id);
 	}
 
 	componentDidMount() {
 		this.isUnmounted = false;
+	}
+
+	componentWillReceiveProps(nextProps) {
+		if(this.state.agency==="" || nextProps.params.submissionID !== this.state.submissionID){
+			this.setState({
+				submissionID: nextProps.params.submissionID
+			})
+			this.checkFileStatus(this.props.params.submissionID);	
+		}
 	}
 
 	componentWillUnmount() {
@@ -96,7 +104,7 @@ export default class UploadDetachedFileValidation extends React.Component {
 	}
 
 	validateSubmission(item, publishDate=undefined){
-		ReviewHelper.validateDetachedSubmission(this.props.submission.id)
+		ReviewHelper.validateDetachedSubmission(this.props.params.submissionID)
 				.then((response) => {
 					this.setState({
 						detachedAward: item,
@@ -154,7 +162,9 @@ export default class UploadDetachedFileValidation extends React.Component {
 		if (runCheck && !this.isUnmounted) {
 			// wait 5 seconds and check the file status again
 			window.setTimeout(() => {
-				this.checkFileStatus(this.props.submission.id);
+				if(this.props.params.submissionID){
+					this.checkFileStatus(this.props.params.submissionID);	
+				}
 			}, timerDuration * 1000);
 		}
 	}
@@ -183,6 +193,37 @@ export default class UploadDetachedFileValidation extends React.Component {
 		console.log(this.props.submission)
 	}
 
+	uploadFileHelper(local, submission){
+		if(local){
+			return UploadHelper.performDetachedLocalUpload(submission);
+		}
+		return UploadHelper.performDetachedFileUpload(submission);
+	}
+
+	uploadFile(item) {
+		// upload specified file
+		this.props.setSubmissionState('uploading');
+		let submission = this.props.submission;
+		console.log(submission)
+		submission.files.detached_award.file = item;
+		submission.meta['startDate'] = this.state.detachedAward.startDate.format('DD/MM/YYYY');
+		submission.meta['endDate'] = this.state.detachedAward.endDate.format('DD/MM/YYYY');
+		submission.meta['subTierAgency'] = this.state.agency;
+
+		this.uploadFileHelper(kGlobalConstants.LOCAL === true && !this.isUnmounted, submission)
+			.then((submissionID) => {
+                    this.props.setSubmissionId(submissionID);
+					this.checkFileStatus(submissionID);
+					this.props.validate(submissionID);
+                })
+				.catch((err) => {
+					this.setState({
+						notAllowed: err.httpStatus === 403,
+						errorMessage: err.httpStatus === 403 ? err.message : err.body.message
+					});
+				});
+	}
+
 	render() {
 		let validationButton = null;
 		let validationBox = null;
@@ -208,10 +249,10 @@ export default class UploadDetachedFileValidation extends React.Component {
 			requestName: 'detached_award',
 			progress: '0'
 		}
-		
+		 
 		validationBox = <ValidateDataFileContainer type={type} data={this.state.jobResults}/>;
 		if(!this.state.headerErrors && this.state.validationFinished) {
-			validationBox = <ValidateValuesFileContainer type={type} data={this.state.jobResults} setUploadItem={this.testBind.bind(this)} updateItem={this.testBind.bind(this)} />;
+			validationBox = <ValidateValuesFileContainer type={type} data={this.state.jobResults} setUploadItem={this.uploadFile.bind(this)} updateItem={this.uploadFile.bind(this)} />;
 			if(this.state.jobResults.detached_award.error_type === "none" && this.state.error === 0) {
 				validationButton = <button className='pull-right col-xs-3 us-da-button' onClick={this.submitFabs.bind(this)}>Publish</button>;
 				if(this.state.published === 'published'){
