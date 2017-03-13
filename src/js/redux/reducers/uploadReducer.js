@@ -69,13 +69,11 @@ export const uploadReducer = (state = initialUploadState, action) => {
 			});
 
 		case 'SET_UPLOAD_PROGRESS':
-
 			return Object.assign({}, state, {
 				files: setUploadProgress(state, action)
 			});
 
 		case 'SET_UPLOAD_STATE':
-
 			return Object.assign({}, state, {
 				files: setUploadState(state, action)
 			});

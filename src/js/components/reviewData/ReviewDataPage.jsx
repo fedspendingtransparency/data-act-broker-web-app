@@ -26,9 +26,9 @@ export default class ReviewDataPage extends React.Component {
         }
 
         let warningMessage = null;
-		if(this.props.submission.publishStatus !== "unpublished") {
-			warningMessage = <PublishedSubmissionWarningBanner />;
-		}
+        if(this.props.submission.publishStatus !== "unpublished") {
+            warningMessage = <PublishedSubmissionWarningBanner />;
+        }
 
         return (
             <div className="usa-da-review-data-page">
