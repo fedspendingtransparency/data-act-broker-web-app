@@ -123,11 +123,6 @@ export default class DashboardTable extends React.Component {
 
             rowClasses.push(classes);
             output.push(row);
-
-            if(this.state.deleteIndex !== -1 && index === this.state.deleteIndex){
-                rowClasses.push(['row-100 text-center warning']);
-                output.push(['Warning: This will delete the submission for the entire agency']);
-            }
         });
 
         const headerClasses = classes;
