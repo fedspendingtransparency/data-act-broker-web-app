@@ -37,6 +37,11 @@ export const setSubmissionId = (state) => ({
 	state: state
 })
 
+export const setSubmissionPublishStatus = (state) => ({
+	type: 'SET_SUBMISSION_PUBLISH_STATUS',
+	state: state
+})
+
 export const resetSubmission = () => ({
 	type: 'RESET_SUBMISSION'
 })

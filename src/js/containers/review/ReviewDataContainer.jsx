@@ -77,5 +77,6 @@ class ReviewDataContainer extends React.Component {
 }
 
 export default connect(
-    state => ({ session: state.session })
+    state => ({ submission: state.submission,
+                session: state.session })
 )(ReviewDataContainer)
