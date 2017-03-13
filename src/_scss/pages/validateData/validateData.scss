@@ -2,6 +2,12 @@
 	@import "../../layouts/validation/validation";
 	@include validationLayout;
 
+	// style the warning for published submissions
+	.published-submission-warning-banner {
+		@import "../../layouts/login/_topBanner";
+		@include loginTopBanner;
+	}
+
 	.usa-da-submission-items {
 	    margin-top: 60px;
 	    padding-bottom: 30px;
