@@ -16,7 +16,8 @@ export default class DeleteLink extends React.Component {
 
 		this.state = {
 			active: false,
-			delete: false
+			delete: false,
+			errorMessage: ''
 		}
 	}
 
@@ -58,7 +59,16 @@ export default class DeleteLink extends React.Component {
 				}else{
 					console.log('Delete Failed')
 				}
-			})
+			}).catch((error) => {
+				console.log('CATCH', error);
+				let errorMessage = "";
+					errorMessage = error.message
+
+				this.setState({errorMessage: errorMessage});
+				setTimeout( ()=>{
+					this.setState({errorMessage: '', delete: true, active: false });
+				}, 5000)
+			});
 	}
 
 	render() {
@@ -76,10 +86,9 @@ export default class DeleteLink extends React.Component {
 			}	
 		}
 		
-
 		return (
 			<div className="usa-da-recent-activity-link" >
-				{button}
+				{this.state.errorMessage ? this.state.errorMessage : button }
 			</div>
 		);
 	}
