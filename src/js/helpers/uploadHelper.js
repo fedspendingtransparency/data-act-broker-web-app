@@ -52,6 +52,7 @@ export const performLocalUpload = (submission) => {
     for (let fileType in submission.files) {
 		const file = submission.files[fileType].file;
         uploadOperations.push(uploadLocalFile(file, fileType));
+        console.log(fileType)
         types.push(fileType);
     }
 
@@ -459,6 +460,9 @@ export const performDetachedLocalUpload = (submission) => {
 
     prepareMetadata(submission.meta, request);
     request.agency_code = submission.meta.subTierAgency
+    if(submission.sub){
+        request.submission_id = submission.sub
+    }
 
     let i = 0;
 

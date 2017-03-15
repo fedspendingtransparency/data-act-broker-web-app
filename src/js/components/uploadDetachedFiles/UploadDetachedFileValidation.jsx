@@ -45,6 +45,7 @@ export default class UploadDetachedFileValidation extends React.Component {
 				valid: false,
 				status: ""
 			},
+			cgac_code:'',
 			jobResults: {detached_award: {}},
 			headerErrors: false,
 			validationFinished: false,
@@ -80,6 +81,7 @@ export default class UploadDetachedFileValidation extends React.Component {
 				if (this.isUnmounted) {
 					return;
 				}
+				console.log(response)
 				var submission = true;
 				if(response.publish_status==='published'){
 					submission = false;
@@ -91,7 +93,8 @@ export default class UploadDetachedFileValidation extends React.Component {
 					agency: response.agency_name,
 					rep_start: response.reporting_period_start_date,
 					rep_end: response.reporting_period_end_date,
-					submit: submission
+					submit: submission,
+					cgac_code: response.cgac_code
 				}, () => {
 					this.parseJobStates(response);
 				});			
@@ -188,11 +191,6 @@ export default class UploadDetachedFileValidation extends React.Component {
 	// 2: Fetching file metadata failed
 	// 3: File already has been submitted in another submission
 
-	testBind(item){
-		console.log('testing 123', item)
-		console.log(this.props.submission)
-	}
-
 	uploadFileHelper(local, submission){
 		if(local){
 			return UploadHelper.performDetachedLocalUpload(submission);
@@ -204,10 +202,11 @@ export default class UploadDetachedFileValidation extends React.Component {
 		// upload specified file
 		this.props.setSubmissionState('uploading');
 		let submission = this.props.submission;
-		console.log(submission)
+		submission.files.detached_award = this.state.detachedAward;
 		submission.files.detached_award.file = item;
-		submission.meta['startDate'] = this.state.detachedAward.startDate.format('DD/MM/YYYY');
-		submission.meta['endDate'] = this.state.detachedAward.endDate.format('DD/MM/YYYY');
+		submission.sub = this.state.submissionID;
+		submission.meta['startDate'] = this.state.rep_start;
+		submission.meta['endDate'] = this.state.rep_end;
 		submission.meta['subTierAgency'] = this.state.agency;
 
 		this.uploadFileHelper(kGlobalConstants.LOCAL === true && !this.isUnmounted, submission)
