@@ -54,7 +54,6 @@ export default class DeleteLink extends React.Component {
 	}
 
 	delete(){
-		this.confirm();
 		this.props.reload();
 	}
 
