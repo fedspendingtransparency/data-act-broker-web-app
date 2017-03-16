@@ -74,14 +74,13 @@ export default class UploadDetachedFileValidation extends React.Component {
 		this.isUnmounted = true;
 	}
 
-	checkFileStatus(submissionID) {
+	checkFileStatus(submissionID, forceCheck=false) {
 		// callback to check file status
 		GenerateFilesHelper.fetchSubmissionMetadata(submissionID)
 			.then((response) => {
 				if (this.isUnmounted) {
 					return;
 				}
-				console.log(response)
 				var submission = true;
 				if(response.publish_status==='published'){
 					submission = false;
@@ -96,7 +95,7 @@ export default class UploadDetachedFileValidation extends React.Component {
 					submit: submission,
 					cgac_code: response.cgac_code
 				}, () => {
-					this.parseJobStates(response);
+					this.parseJobStates(response, forceCheck);
 				});			
 			})
 			.catch((err)=>{
@@ -119,7 +118,7 @@ export default class UploadDetachedFileValidation extends React.Component {
 				});
 	}
 
-	parseJobStates(data) {
+	parseJobStates(data, forceCheck) {
 		let runCheck = true;
 
 		if (data.jobs[0].job_status === 'failed' || data.jobs[0].job_status === 'invalid') {
@@ -136,7 +135,7 @@ export default class UploadDetachedFileValidation extends React.Component {
 			const item = Object.assign({}, this.state.detachedAward);
 			item.status = "failed";
 
-			if(data.jobs[0].error_type === "header_errors") {
+			if(data.jobs[0].error_type && data.jobs[0].error_type === "header_errors") {
 				this.setState({
 					detachedAward: item,
 					validationFinished: true,
@@ -162,7 +161,7 @@ export default class UploadDetachedFileValidation extends React.Component {
 			return;
 		}
 
-		if (runCheck && !this.isUnmounted) {
+		if ((runCheck || forceCheck) && !this.isUnmounted) {
 			// wait 5 seconds and check the file status again
 			window.setTimeout(() => {
 				if(this.props.params.submissionID){
@@ -193,9 +192,9 @@ export default class UploadDetachedFileValidation extends React.Component {
 
 	uploadFileHelper(local, submission){
 		if(local){
-			return UploadHelper.performDetachedLocalUpload(submission);
+			return UploadHelper.performDetachedLocalCorrectedUpload(submission);
 		}
-		return UploadHelper.performDetachedFileUpload(submission);
+		return UploadHelper.performDetachedFileCorrectedUpload(submission);
 	}
 
 	uploadFile(item) {
@@ -211,16 +210,19 @@ export default class UploadDetachedFileValidation extends React.Component {
 
 		this.uploadFileHelper(kGlobalConstants.LOCAL === true && !this.isUnmounted, submission)
 			.then((submissionID) => {
-                    this.props.setSubmissionId(submissionID);
-					this.checkFileStatus(submissionID);
-					this.props.validate(submissionID);
-                })
-				.catch((err) => {
-					this.setState({
-						notAllowed: err.httpStatus === 403,
-						errorMessage: err.httpStatus === 403 ? err.message : err.body.message
-					});
+                this.props.setSubmissionId(submissionID);
+				this.checkFileStatus(submissionID, true);
+				this.setState({
+					validationFinished: false
+				})
+            })
+			.catch((err) => {
+				this.setState({
+					validationFinished: false,
+					notAllowed: err.httpStatus === 403,
+					errorMessage: err.httpStatus === 403 ? err.message : err.body.message
 				});
+			});
 	}
 
 	render() {
