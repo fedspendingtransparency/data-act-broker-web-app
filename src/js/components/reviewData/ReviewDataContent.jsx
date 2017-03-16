@@ -162,12 +162,23 @@ export default class ReviewDataContent extends React.Component {
         }
 
         let certifyButtonText = "Certify & Publish the Submission to USAspending.gov";
+        let notifyButtonText = "Notify Another User that the Submission is Ready for Certification";
         let buttonClass = "";
         let buttonAction = this.openModal.bind(this, modalToOpen);
+        let monthlySubmissionError = null;
         if (this.props.data.publish_status == "published") {
             certifyButtonText = "Submission has already been certified";
             buttonClass = " btn-disabled";
             buttonAction = "";
+        }
+        if (!this.props.data.quarterly_submission) {
+            certifyButtonText = "Monthly submissions cannot be certified";
+            buttonClass = " btn-disabled";
+            buttonAction = "";
+            notifyButtonText = "Notify Another User that the Submission is Ready";
+            monthlySubmissionError = <div className="alert alert-danger text-center monthly-submission-error" role="alert">
+                                        Monthly submissions cannot be certified
+                                    </div>
         }
 
         return (
@@ -227,12 +238,13 @@ export default class ReviewDataContent extends React.Component {
                                             <Icons.Bell />
                                         </div>
                                         <div className="button-content">
-                                            Notify Another User that the Submission is Ready for Certification
+                                            {notifyButtonText}
                                         </div>
                                     </div>
                                 </button>
                             </div>
                         </div>
+                        {monthlySubmissionError}
                     </div>
 
                     <div id="reviewDataNotifyModalHolder">
