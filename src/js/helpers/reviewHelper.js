@@ -525,7 +525,7 @@ export const deleteSubmission = (submission_id) => {
             .end((err, res) => {
 
                 if (err) {
-                    deferred.reject(err);
+                    deferred.reject(res.body);
                 }
                 else {
                     const output = {
