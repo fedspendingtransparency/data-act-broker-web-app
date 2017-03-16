@@ -11,14 +11,13 @@ const propTypes = {
 
 const defaultProps = {
 	cellClass: '',
-	data: '',
-	colSpan: '1'
+	data: ''
 };
 
 export default class TableCell extends React.Component {
     render() {
         return (
-            <td colSpan={this.props.colspan} className={this.props.cellClass}>{this.props.data}</td>
+            <td className={this.props.cellClass}>{this.props.data}</td>
         );
     }
 }

@@ -75,7 +75,7 @@ export default class DashboardTable extends React.Component {
     }
 
     reload(){
-        this.props.loadTableData(this.state.currentPage, this.props.isCertified);
+        this.props.loadTableData(this.state.currentPage, this.props.isCertified, this.getCategory(), this.state.sortDirection);
         this.buildRow();
     }
 
