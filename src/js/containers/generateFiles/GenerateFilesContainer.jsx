@@ -278,29 +278,15 @@ class GenerateFilesContainer extends React.Component {
     	this.setState(output);
 	}
 
-	showError(file, header, description) {
+	updateError(file, header='', description='') {
 		const state = Object.assign({}, this.state[file], {
 			error: {
-				show: true,
+				show: header != '' && description != '',
 				header: header,
 				description: description
 			}
 		});
 		
-		this.setState({
-			[file]: state
-		});
-	}
-
-	hideError(file) {
-		const state = Object.assign({}, this.state[file], {
-			error: {
-				show: false,
-				header: '',
-				description: ''
-			}
-		});
-
 		this.setState({
 			[file]: state
 		});
@@ -381,7 +367,7 @@ class GenerateFilesContainer extends React.Component {
 
             if (fileData.httpStatus == 401) {
              	 errors.push(file);
-                 this.showError(file, 'Permission Error', fileData.message);
+                 this.updateError(file, 'Permission Error', fileData.message);
             }
 			else if (fileData.status == 'waiting') {
 				allDone = false;
@@ -395,10 +381,10 @@ class GenerateFilesContainer extends React.Component {
 					message = fileData.message;
 				}
 
-				this.showError(file, fileData.file_type.toUpperCase() + ' File Error', message);
+				this.updateError(file, fileData.file_type.toUpperCase() + ' File Error', message);
 			}
 			else if (fileData.status == 'finished') {
-				this.hideError(file);
+				this.updateError(file);
 
 				// display dowload buttons
 				// make a clone of the file's react state
@@ -415,7 +401,7 @@ class GenerateFilesContainer extends React.Component {
 				// something terrible has happened, show a failure
 				errors.push(file);
 				let message = 'An error occurred while generating this file.';
-				this.showError(file, 'General Error', message);
+				this.updateError(file, 'General Error', message);
 			}
 		});
 
@@ -454,8 +440,7 @@ class GenerateFilesContainer extends React.Component {
 		return (
 			<GenerateFilesContent {...this.props} {...this.state}
 				handleDateChange={this.handleDateChange.bind(this)}
-				showError={this.showError.bind(this)}
-				hideError={this.hideError.bind(this)}
+				updateError={this.updateError.bind(this)}
 				generateFiles={this.generateFiles.bind(this)}
 				nextPage={this.nextPage.bind(this)} />
 		);

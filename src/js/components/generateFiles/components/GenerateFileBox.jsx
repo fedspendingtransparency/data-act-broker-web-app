@@ -39,11 +39,11 @@ export default class GenerateFileBox extends React.Component {
 		                	{this.props.label}
 		                </div>
 		                <div className="date-range-wrapper">
-		                	<DatePicker type="startDate" title={this.props.datePlaceholder + " Start Date"} tabIndex={this.props.startingTab} onDateChange={this.props.onDateChange} value={this.props.value.startDate} opposite={this.props.value.endDate}  showError={this.props.showError} hideError={this.props.hideError} />
+		                	<DatePicker type="startDate" title={this.props.datePlaceholder + " Start Date"} tabIndex={this.props.startingTab} onDateChange={this.props.onDateChange} value={this.props.value.startDate} opposite={this.props.value.endDate}  updateError={this.props.updateError} />
 		                	<div className="through-text">
 		                		through
 		                	</div>
-		                	<DatePicker type="endDate" title={this.props.datePlaceholder + " End Date"} tabIndex={this.props.startingTab + 4} onDateChange={this.props.onDateChange} value={this.props.value.endDate} opposite={this.props.value.startDate} showError={this.props.showError} hideError={this.props.hideError} />
+		                	<DatePicker type="endDate" title={this.props.datePlaceholder + " End Date"} tabIndex={this.props.startingTab + 4} onDateChange={this.props.onDateChange} value={this.props.value.endDate} opposite={this.props.value.startDate} updateError={this.props.updateError} />
 		                </div>
 		            </div>
 		            <div className={"usa-da-generate-download" + showDownload}>

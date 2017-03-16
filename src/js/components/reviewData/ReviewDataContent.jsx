@@ -11,6 +11,7 @@ import ReviewDataContentRow from './ReviewDataContentRow.jsx';
 import ReviewDataButton from './ReviewDataButton.jsx';
 import ReviewDataNotifyModal from './ReviewDataNotifyModal.jsx';
 import ReviewDataCertifyModal from './CertificationModal/ReviewDataCertifyModal.jsx';
+import RevalidateDataModal from './CertificationModal/RevalidateDataModal.jsx';
 import ReviewDataNarrative from './ReviewDataNarrative.jsx'
 import moment from 'moment';
 
@@ -28,6 +29,7 @@ export default class ReviewDataContent extends React.Component {
         this.state = {
             openNotify: false,
             openCertify: false,
+            openRevalidate: false,
             calculatedData: {
                 totalSize: '0 KB',
                 totalWarnings: 0
@@ -118,6 +120,11 @@ export default class ReviewDataContent extends React.Component {
     }
 
     render() {
+
+        let modalToOpen = 'Certify';
+        if (!this.props.data.last_validated || new Date(this.props.data.last_validated) < new Date(this.props.data.revalidation_threshold)) {
+            modalToOpen = 'Revalidate';
+        }
         
         // The first parameter in each of these arrays is the corresponding class for the SVG icon
         const buttonContent = [[<Icons.CheckCircle />,'Publish this data to USAspending.gov'],
@@ -152,6 +159,15 @@ export default class ReviewDataContent extends React.Component {
 
         for (let j = 0; j < reportLabels.length; j++){
             reportRows.push(<ReviewDataContentRow key={j} label={reportLabels[j]} data={reportData[j]} />);
+        }
+
+        let certifyButtonText = "Certify & Publish the Submission to USAspending.gov";
+        let buttonClass = "";
+        let buttonAction = this.openModal.bind(this, modalToOpen);
+        if (this.props.data.publish_status == "published") {
+            certifyButtonText = "Submission has already been certified";
+            buttonClass = " btn-disabled";
+            buttonAction = "";
         }
 
         return (
@@ -193,13 +209,13 @@ export default class ReviewDataContent extends React.Component {
                     <div className="mt-20">
                         <div className="submission-wrapper">
                             <div className="left-link">
-                                <button onClick={this.openModal.bind(this, 'Certify')} className="usa-da-button btn-primary btn-lg btn-full">
+                                <button onClick={buttonAction} className={"usa-da-button btn-primary btn-lg btn-full " + buttonClass}>
                                     <div className="button-wrapper">
                                         <div className="button-icon">
                                             <Icons.Globe />
                                         </div>
                                         <div className="button-content">
-                                            Certify & Publish the Submission to USAspending.gov
+                                            {certifyButtonText}
                                         </div>
                                     </div>
                                 </button>
@@ -224,6 +240,9 @@ export default class ReviewDataContent extends React.Component {
                     </div>
                     <div id="reviewDataCertifyModalHolder">
                         <ReviewDataCertifyModal {...this.props} closeModal={this.closeModal.bind(this, 'Certify')} isOpen={this.state.openCertify} warnings={this.state.totalWarnings} />
+                    </div>
+                    <div id="revalidateDataModalHolder">
+                        <RevalidateDataModal {...this.props} closeModal={this.closeModal.bind(this, 'Revalidate')} isOpen={this.state.openRevalidate} />
                     </div>
                 </div>
             </div>

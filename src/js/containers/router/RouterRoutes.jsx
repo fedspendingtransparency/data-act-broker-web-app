@@ -125,6 +125,11 @@ const routeDefinitions = {
             component: AddDataPageContainer
         },
         {
+            path: 'uploadDetachedFiles/:submissionID',
+            onEnter: checkUserPermissions,
+            component: UploadDetachedFilesPageContainer
+        },
+        {
             path: 'uploadDetachedFiles',
             onEnter: checkUserPermissions,
             component: UploadDetachedFilesPageContainer
