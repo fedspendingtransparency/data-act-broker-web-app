@@ -12,5 +12,9 @@
     .monthly-submission-error {
         margin-left: 15px;
         margin-top: 10px;
+
+        @media(max-width: $medium-screen) {
+            margin-left: 0;
+        }
     }
 }
