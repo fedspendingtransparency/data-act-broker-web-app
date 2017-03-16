@@ -25,7 +25,17 @@ export default class DeleteModal extends React.Component {
 		ReviewHelper.deleteSubmission(this.props.id)
 			.then((data) =>{
 				if(data.message == 'Success'){
-					this.props.delete;
+					this.props.delete();
+					if (!this.state.closeable) {
+						return;
+					}
+
+					// reset the modal if closed
+					this.setState({
+						errorMessage: ''
+					}, () => {
+						this.props.closeModal();
+					});
 				}
 			})
 			.catch((error) => {

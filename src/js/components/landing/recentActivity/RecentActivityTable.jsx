@@ -87,7 +87,7 @@ export default class RecentActivityTable extends React.Component {
 	
 	reload(){
         this.loadActivity();
-        buildRow();
+        this.buildRow();
     }
 
     deleteWarning(index){
@@ -133,7 +133,7 @@ export default class RecentActivityTable extends React.Component {
 				userName,
 				item.last_modified,
 				<Status.SubmissionStatus status={item.rowStatus} />,
-				<DeleteLink submissionId={item.submission_id} index={index} warning={this.deleteWarning.bind(this)} confirm={deleteConfirm} reload={this.buildRow.bind(this)} item={item} account={this.state.account}/>
+				<DeleteLink submissionId={item.submission_id} index={index} warning={this.deleteWarning.bind(this)} confirm={deleteConfirm} reload={this.reload.bind(this)} item={item} account={this.state.account}/>
 			];
 
 			rowClasses.push(classes);
