@@ -74,7 +74,7 @@ export default class UploadDetachedFileValidation extends React.Component {
 		this.isUnmounted = true;
 	}
 
-	checkFileStatus(submissionID, forceCheck=false) {
+	checkFileStatus(submissionID) {
 		// callback to check file status
 		GenerateFilesHelper.fetchSubmissionMetadata(submissionID)
 			.then((response) => {
@@ -97,7 +97,7 @@ export default class UploadDetachedFileValidation extends React.Component {
 					submit: submission,
 					cgac_code: response.cgac_code
 				}, () => {
-					this.parseJobStates(response, forceCheck);
+					this.parseJobStates(response);
 				});			
 			})
 			.catch((err)=>{
@@ -121,7 +121,7 @@ export default class UploadDetachedFileValidation extends React.Component {
 				});
 	}
 
-	parseJobStates(data, forceCheck) {
+	parseJobStates(data) {
 		let runCheck = true;
 
 		if (data.jobs[0].job_status === 'failed' || data.jobs[0].job_status === 'invalid') {
@@ -220,7 +220,7 @@ export default class UploadDetachedFileValidation extends React.Component {
 					validationFinished: false
 				})
 				setTimeout(()=>{
-					this.checkFileStatus(submissionID, true);
+					this.checkFileStatus(submissionID);
 				}, 2000);
 				
             })
