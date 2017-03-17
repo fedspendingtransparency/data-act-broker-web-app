@@ -81,14 +81,12 @@ export default class UploadDetachedFileValidation extends React.Component {
 				if (this.isUnmounted) {
 					return;
 				}
-				console.log(response)
 				var submission = true;
 				if(response.publish_status==='published'){
 					submission = false;
 				}
 				const job = Object.assign({}, this.state.jobResults);
 				job.detached_award = response.jobs[0];
-				console.log(job)
 				this.setState({
 					jobResults: job,
 					agency: response.agency_name,
@@ -117,7 +115,6 @@ export default class UploadDetachedFileValidation extends React.Component {
 						jobResults: response,
 						published: publishDate
 					});
-					console.log('post validate', this.state)
 				});
 	}
 
@@ -125,7 +122,6 @@ export default class UploadDetachedFileValidation extends React.Component {
 		let runCheck = true;
 
 		if (data.jobs[0].job_status === 'failed' || data.jobs[0].job_status === 'invalid') {
-			console.log('failed/invalid')
 			// don't run the check again if it failed
 			runCheck = false;
 
@@ -151,7 +147,6 @@ export default class UploadDetachedFileValidation extends React.Component {
 			}
 		}
 		else if (data.jobs[0].job_status === 'finished') {
-			console.log('finished')
 			// don't run the check again if it's done
 			runCheck = false;
 
@@ -159,7 +154,6 @@ export default class UploadDetachedFileValidation extends React.Component {
 			// make a clone of the file's react state
 			const item = Object.assign({}, this.state.detachedAward);
 			item.status = "done";
-			console.log('prevalidate', this.state)
 			this.validateSubmission(item, data.publish_status);
 		}
 
