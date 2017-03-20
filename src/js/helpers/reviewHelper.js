@@ -523,7 +523,6 @@ export const deleteSubmission = (submission_id) => {
      Request.post(kGlobalConstants.API + 'delete_submission/')
             .send({ submission_id })
             .end((err, res) => {
-
                 if (err) {
                     deferred.reject(res.body);
                 }

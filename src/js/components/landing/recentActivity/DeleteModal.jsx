@@ -16,8 +16,7 @@ export default class DeleteModal extends React.Component {
 
 		this.state = {
 			errorMessage: "",
-			disable: false,
-			errorMessage: ''
+			disable: false
 		};
 	}
 
@@ -34,10 +33,10 @@ export default class DeleteModal extends React.Component {
 						this.props.closeModal();
 					});
 				}
-			}).catch((error) => {
-				console.log('CATCH', error);
+			})
+			.catch((error) => {
 				let errorMessage = "";
-					errorMessage = error.message
+				errorMessage = error.message
 
 				this.setState({errorMessage: errorMessage});
 				this.setState({disable: true});
