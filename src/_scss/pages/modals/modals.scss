@@ -6,4 +6,13 @@
 	@import "./reviewData/reviewData";
 
 	@import "./generateFile/generateFile";
+
+	.delete-button{
+		margin-right:10px;
+	}
+
+	.delete-modal-content{
+		background-color:#f2dede;
+		padding:15px;
+	}
 }

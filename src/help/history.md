@@ -1,3 +1,59 @@
+#### March 1, 2017
+On September 30, 2016, we released the full version of the DATA Act Broker that contained everything agencies need to test the data validation and submission process. Now we are making improvements to the Broker and responding to issues discovered through continued agency use.
+
+In this release of the Broker, bug fixes were rolled out for B14/B15, C8/C9, C11/C12, and C23.  Functionality improvements were rolled out, including a delete button for non-certified submissions, a File B header processing fix, and updates to improve file processing time. We also implemented an updated list of agency CGAC codes, names, and abbreviations.
+
+
+
+  - [B14/B15 validation Fix](#/help?section=b14)
+  - [C8/C9 validation fix](#/help?section=c8)
+  - [C23 validation fix](#/help?section=c23)
+  - [Reporting SGL data in File C](#/help?section=sgl)
+  - [Deleting an old submission](#/help?section=delete)
+  - [File B header processing fix](#/help?section=header)
+  - [Updated list of agency CGAC codes](#/help?section=cgac)
+  - [Improved processing time fix](#/help?section=improvements)  
+  - [B11 validation fix](#/help?section=b11)
+
+
+
+##### B14/B15 validation fix{section=b14}
+
+In previous versions of the Broker, the B14/B15 validation would produce a failure in the File B related to GTAS lines 2004 (direct) and 2104(reimbursable). In this release of the Broker, the B14/B15 validation was updated to add up correctly to compare against the SF 133 lines 2004/2104.
+
+##### C8/C9 validation fix{section=c8}
+
+In earlier versions of the Broker, the C8/C9 validations produced warnings if both a FAIN and URI were reported for a record. In this release, the C8/C9 validation will not trigger a warning if both a FAIN and URI are reported together.
+
+##### C23 validation fix{section=c23}
+
+In this release of the Broker, the C23 cross file validation was updated so that if `parent_award_id` is present, both `PIID` and `parent_award_id` are used to cross validate Files C and D1. If `parent_award_id` is not present, the validator compares `PIID` in File C to the `PIID` in File D1 only.
+
+##### Reporting SGL data in File C{section=sgl}
+
+In earlier versions of the Broker, the validation rules were generating warnings for File C submissions that had SGL balances for an award without D1/D2 activity in the reporting period. In this release of the Broker, the C8/C9 and C11/C12 validations have been updated to only run on rows in File C that have a transaction obligated amount value in the field.
+
+##### Deleting an old submission{section=delete}
+
+In this release of the Broker, we rolled out a delete button in the submission dashboard that upload users can use to delete non-certified submissions. Submissions that are deleted are permanently removed from the website and are unable to be recovered.
+
+##### File B header processing fix{section=header}
+
+In this release of the Broker, we rolled out a functionality fix to allow users to submit File B that either does or does not have the typo on the DeobligationsRecoveriesRefundsdOfPriorYearByProgramObjectClass_CPE field.
+
+##### Updated list of agency CGAC codes{section=cgac}
+
+In this release of the Broker, we implemented an updated list of agency CGAC codes, names and abbreviations. The full list is available [here](https://github.com/fedspendingtransparency/data-act-broker-backend/blob/development/dataactvalidator/config/agency_list.csv).
+
+##### Improved processing time fix{section=improvements}
+
+In this release, we implemented a solution to improve the processing and stability of file submissions at a high volume.
+
+##### B11 validation fix{section=b11}
+
+Previously, the B11 validation was checking the direct/reimbursable flag. We updated this rule to check the object class only.
+
+
 #### February 13, 2017
 On September 30, 2016, we released the full version of the DATA Act Broker that contained everything agencies need to test the data validation and submission process. Now we are making improvements to the Broker and responding to issues discovered through continued agency use.
 

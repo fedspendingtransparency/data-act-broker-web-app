@@ -6,7 +6,7 @@
 import React from 'react';
 import * as Icons from '../../SharedComponents/icons/Icons.jsx';
 
-import * as ReviewHelper from '../../../helpers/reviewHelper.js';
+import DeleteModal from './DeleteModal.jsx';
 
 
 
@@ -30,56 +30,58 @@ export default class DeleteLink extends React.Component {
 	}
 
 	confirm(){
-		this.setState({active: !this.state.active});
+		this.setState({
+			active: true
+		})
 	}
 
 	canDelete(){
-		if(this.props.account.website_admin==true){
-			this.setState({delete: true});
-			return;
-		}else if(this.props.account.helpOnly==true){
-			this.setState({delete: false});
-			return;
+		let deletable = (this.props.account.website_admin || !this.props.account.helpOnly);
+
+		if(!deletable){
+			this.props.account.affiliations.forEach((aff)=>{
+				if(aff.agency_name == this.props.item.agency && (aff.permission == "writer" || aff.permission == 'submitter')){
+					deletable = true;
+					return;
+				}
+			})
 		}
-		this.props.account.affiliations.forEach((aff)=>{
-			if(aff.agency_name == this.props.item.agency && (aff.permission == "writer" || aff.permission == 'submitter')){
-				this.setState({delete:true});
-				return;
-			}
+
+		this.setState({
+			delete: deletable,
+			active: this.props.confirm
 		})
 	}
 
 	delete(){
-		ReviewHelper.deleteSubmission(this.props.submissionId)
-			.then((data) =>{
-				if(data.message == 'Success'){
-					this.confirm();
-					this.props.reload();
-				}else{
-					console.log('Delete Failed')
-				}
-			})
+		this.props.reload();
+	}
+
+	reset(){
+		this.props.warning(-1)
+		this.setState({
+			active: false
+		})
 	}
 
 	render() {
 		let button = 'N/A';
+		let modal = null;
 		if(this.state.delete){
-			button = 
-			<div onClick={this.confirm.bind(this)} className='trash-icon'>
-				<Icons.Trash alt="Delete" />
-			</div>;
-			if(this.state.active){
-				button = 
-					<div onClick={this.delete.bind(this)}>
-						<a className='usa-da-button btn-danger trash-link'>Delete?</a>
+			button = <div onClick={this.confirm.bind(this)} className='trash-icon'>
+						<Icons.Trash alt="Delete" />
 					</div>;
-			}	
+			modal = <DeleteModal isOpen={this.state.active} closeModal={this.reset.bind(this)} delete={this.delete.bind(this)} id={this.props.submissionId} />
+
 		}
 		
 
 		return (
-			<div className="usa-da-recent-activity-link" >
-				{button}
+			<div>
+				<div className="usa-da-recent-activity-link" >
+					{button}
+				</div>
+				{modal}
 			</div>
 		);
 	}

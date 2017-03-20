@@ -1,58 +1,46 @@
-#### March 1, 2017
+#### March 15, 2017
+
 On September 30, 2016, we released the full version of the DATA Act Broker that contained everything agencies need to test the data validation and submission process. Now we are making improvements to the Broker and responding to issues discovered through continued agency use.
 
-In this release of the Broker, bug fixes were rolled out for B14/B15, C8/C9, C11/C12, and C23.  Functionality improvements were rolled out, including a delete button for non-certified submissions, a File B header processing fix, and updates to improve file processing time. We also implemented an updated list of agency CGAC codes, names, and abbreviations.
+In this release of the Broker, agencies are now able to certify and submit data for publication. We rolled out bug fixes for flex fields, B11 and C11/C12 validation rules, and Program Activity case sensitivity. We also improved the submission dashboard functionality and updated the warning and error messages to reflect clarifications to the validation rules.  submission dashboard and the warning and error messages were updated to reflect recent changes to the validation rules.
 
 
-
-  - [B14/B15 validation Fix](#/help?section=b14)
-  - [C8/C9 validation fix](#/help?section=c8)
-  - [C23 validation fix](#/help?section=c23)
-  - [Reporting SGL data in File C](#/help?section=sgl)
-  - [Deleting an old submission](#/help?section=delete)
-  - [File B header processing fix](#/help?section=header)
-  - [Updated list of agency CGAC codes](#/help?section=cgac)
-  - [Improved processing time fix](#/help?section=improvements)  
+  - [Data Submission](#/help?section=data)
+  - [Program Activity case sensitive fix](#/help?section=case)
   - [B11 validation fix](#/help?section=b11)
+  - [C11/C12 validation fix](#/help?section=c11)
+  - [Flex field fix](#/help?section=flex)
+  - [Updated warning/error messages](#/help?section=warning)
+  - [Functionality improvement](#/help?section=imp)
 
 
+##### Data Submission{section=data}
 
-##### B14/B15 validation fix{section=b14}
+In this release of the Broker, agencies are now able to certify and submit data. Certified data will be available in the DATA Act Outbound Application Programming Interface (API) and will be sent to the data store for publication on the future website. All test submissions certified before March 15th are marked as not certified and are not available for publication unless the files are recertified.
 
-In previous versions of the Broker, the B14/B15 validation would produce a failure in the File B related to GTAS lines 2004 (direct) and 2104(reimbursable). In this release of the Broker, the B14/B15 validation was updated to add up correctly to compare against the SF 133 lines 2004/2104.
+##### Program Activity case sensitive fix{section=case}
 
-##### C8/C9 validation fix{section=c8}
-
-In earlier versions of the Broker, the C8/C9 validations produced warnings if both a FAIN and URI were reported for a record. In this release, the C8/C9 validation will not trigger a warning if both a FAIN and URI are reported together.
-
-##### C23 validation fix{section=c23}
-
-In this release of the Broker, the C23 cross file validation was updated so that if `parent_award_id` is present, both `PIID` and `parent_award_id` are used to cross validate Files C and D1. If `parent_award_id` is not present, the validator compares `PIID` in File C to the `PIID` in File D1 only.
-
-##### Reporting SGL data in File C{section=sgl}
-
-In earlier versions of the Broker, the validation rules were generating warnings for File C submissions that had SGL balances for an award without D1/D2 activity in the reporting period. In this release of the Broker, the C8/C9 and C11/C12 validations have been updated to only run on rows in File C that have a transaction obligated amount value in the field.
-
-##### Deleting an old submission{section=delete}
-
-In this release of the Broker, we rolled out a delete button in the submission dashboard that upload users can use to delete non-certified submissions. Submissions that are deleted are permanently removed from the website and are unable to be recovered.
-
-##### File B header processing fix{section=header}
-
-In this release of the Broker, we rolled out a functionality fix to allow users to submit File B that either does or does not have the typo on the DeobligationsRecoveriesRefundsdOfPriorYearByProgramObjectClass_CPE field.
-
-##### Updated list of agency CGAC codes{section=cgac}
-
-In this release of the Broker, we implemented an updated list of agency CGAC codes, names and abbreviations. The full list is available [here](https://github.com/fedspendingtransparency/data-act-broker-backend/blob/development/dataactvalidator/config/agency_list.csv).
-
-##### Improved processing time fix{section=improvements}
-
-In this release, we implemented a solution to improve the processing and stability of file submissions at a high volume.
+In this release of the Broker, we rolled out a fix to make validations for Program Activity not case sensitive.
 
 ##### B11 validation fix{section=b11}
 
-Previously, the B11 validation was checking the direct/reimbursable flag. We updated this rule to check the object class only. 
+In previous versions of the Broker, the B11 validation produced an error for a blank reimbursable/direct indicator. In this release, we updated the B11 validation to only check for Object Class validity.
 
+##### C11/C12 validation fix{section=c11}
+
+In the previous version of the Broker, the C11/C12 validation produced a warning if both PIID and ParentAwardID were submitted. We corrected this to not produce a warning if both PIID and ParentAwardID are submitted.
+
+##### Flex field fix{section=flex}
+
+In previous versions of the Broker, flex fields were not available in the cross file validation reports. We updated the Broker to show flex fields in the cross file validation reports.
+
+##### Updated warning/error messages{section=warning}
+
+In this release of the Broker, we updated the warning and error messages to reflect clarifications made to the validation rules from recent releases.
+
+##### Functionality improvement{section=imp}
+
+We updated the submission dashboard to allow the user to sort the submission tables by any of the column headers.
 
 ##### Browser Requirements & Known Issues{section=browser}
 The Broker is currently tested with the following browsers:

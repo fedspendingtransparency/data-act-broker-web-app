@@ -158,7 +158,7 @@ export default class GenerateDetachedFilesPage extends React.Component {
         this.setState({[file]:dFile});
     }
 
-    updateError(file, header, description) {
+    updateError(file, header='', description='') {
         // Show any error that occurs at any point during file upload
         const state = Object.assign({}, this.state[file], {
             error: {
@@ -234,7 +234,7 @@ export default class GenerateDetachedFilesPage extends React.Component {
             // don't run the check again if it's done
             runCheck = false;
 
-            this.hideError(fileType);
+            this.updateError(fileType);
 
             // display dowload buttons
             // make a clone of the file's react state
