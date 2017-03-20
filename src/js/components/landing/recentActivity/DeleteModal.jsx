@@ -35,11 +35,14 @@ export default class DeleteModal extends React.Component {
 				}
 			})
 			.catch((error) => {
-				this.setState({
-					disable: true,
-					errorMessage: (error.httpStats === 400 || error.httpStatus === 403) ? error.message : "An error occurred while attempting to delete the submission. Please contact your administrator for assistance."
-				});
+				let errorMessage = "default error messsage"
+				if (error.message && error.message !== "") {
+    					errorMessage = error.message
+				}
+				this.setState({errorMessage: errorMessage});
+				this.setState({disable: true});
 			});
+
 	}
 
 	closeModal(e) {
