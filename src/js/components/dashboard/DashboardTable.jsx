@@ -41,6 +41,7 @@ export default class DashboardTable extends React.Component {
             currentPage: 1,
             totalPages: 1,
             account: null,
+            deleteIndex: -1,
             sortColumn: 0,
             sortDirection: 'desc',
             user: true
@@ -74,7 +75,15 @@ export default class DashboardTable extends React.Component {
 
     reload(){
         this.props.loadTableData(this.state.currentPage, this.props.isCertified, this.getCategory(), this.state.sortDirection);
-        buildRow();
+        this.buildRow();
+    }
+
+    deleteWarning(index){
+        this.setState({
+            deleteIndex: index
+        }, () =>{
+            this.buildRow()
+        })
     }
 
     sortTable(direction, column) {
@@ -116,7 +125,7 @@ export default class DashboardTable extends React.Component {
         const classes = ['row-10 text-center', 'row-20 text-center', 'row-15 text-right white-space', 'row-15 text-right', 'row-15 text-right','row-15 text-right progress-cell', 'row-10 text-center'];
 
         // iterate through each item returned from the API
-        this.props.data.forEach((item) => {
+        this.props.data.forEach((item, index) => {
 
             let reportingDateString = "Start: "+item.reporting_start_date + "\nEnd: " + item.reporting_end_date;
             if (!item.reporting_start_date || !item.reporting_end_date) {
@@ -128,6 +137,11 @@ export default class DashboardTable extends React.Component {
                 userName = item.user.name;
             }
 
+            let deleteConfirm = false;
+            if(this.state.deleteIndex !== -1 && index === this.state.deleteIndex){
+                deleteConfirm = true;
+            }
+
             // break the object out into an array for the table component
             const row = 
             [
@@ -137,7 +151,7 @@ export default class DashboardTable extends React.Component {
                 userName,
                 item.last_modified,
                 <Status.SubmissionStatus status={item.rowStatus} />,
-                <DeleteLink submissionId={item.submission_id} reload={this.reload.bind(this)} item={item} account={this.state.account}/>
+                <DeleteLink submissionId={item.submission_id} index={index} warning={this.deleteWarning.bind(this)} confirm={deleteConfirm} reload={this.reload.bind(this)} item={item} account={this.state.account}/>
             ];
 
             rowClasses.push(classes);

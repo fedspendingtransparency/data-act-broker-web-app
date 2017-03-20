@@ -87,7 +87,15 @@ export default class RecentActivityTable extends React.Component {
 	
 	reload(){
         this.loadActivity();
-        buildRow();
+        this.buildRow();
+    }
+
+    deleteWarning(index){
+        this.setState({
+            deleteIndex: index
+        }, () =>{
+            this.buildRow()
+        })
     }
 
 	buildRow() {
@@ -102,7 +110,7 @@ export default class RecentActivityTable extends React.Component {
 		const data = _.orderBy(this.state.cachedResponse, orderKeys[this.state.sortColumn - 1], this.state.sortDirection);
 
 		// iterate through each item returned from the API
-		data.forEach((item) => {
+		data.forEach((item, index) => {
 
 			let reportingDateString = "Start: "+item.reporting_start_date + "\nEnd: " + item.reporting_end_date;
 			if (!item.reporting_start_date || !item.reporting_end_date) {
@@ -114,6 +122,11 @@ export default class RecentActivityTable extends React.Component {
 				userName = item.user.name;
 			}
 
+			let deleteConfirm = false;
+            if(this.state.deleteIndex !== -1 && index === this.state.deleteIndex){
+                deleteConfirm = true;
+            }
+
             // break the object out into an array for the table component
 			const row = 
 			[
@@ -123,7 +136,7 @@ export default class RecentActivityTable extends React.Component {
 				userName,
 				item.last_modified,
 				<Status.SubmissionStatus status={item.rowStatus} />,
-				<DeleteLink submissionId={item.submission_id} reload={this.reload.bind(this)} item={item} account={this.state.account}/>
+				<DeleteLink submissionId={item.submission_id} index={index} warning={this.deleteWarning.bind(this)} confirm={deleteConfirm} reload={this.reload.bind(this)} item={item} account={this.state.account}/>
 			];
 
 			rowClasses.push(classes);
