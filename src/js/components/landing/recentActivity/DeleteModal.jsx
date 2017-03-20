@@ -35,9 +35,10 @@ export default class DeleteModal extends React.Component {
 				}
 			})
 			.catch((error) => {
-				let errorMessage = "";
-				errorMessage = error.message
-
+				let errorMessage = "default error messsage"
+				if (error.message && error.message !== "") {
+    					errorMessage = error.message
+				}
 				this.setState({errorMessage: errorMessage});
 				this.setState({disable: true});
 			});
