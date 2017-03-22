@@ -35,13 +35,7 @@ export default class GenerateFilesContent extends React.Component {
 						</div>
 					</div>
 
-					<div className="usa-da-generate-content">
-                        <div className="alert alert-warning">
-                                <span className="usa-da-icon"><Icons.ExclamationCircle /></span>
-                                <div className="alert-header-text">NOTICE</div>
-                                <p><b>PLEASE NOTE:</b> The D1/D2 integration with ASP and FPDS is still being tested.</p>
-                        </div>
-                        
+					<div className="usa-da-generate-content">                        
 	                    <GenerateFileBox 
                             label="File D1: Procurement Awards (FPDS data)"
                             datePlaceholder="Sign"
