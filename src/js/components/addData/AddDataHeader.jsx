@@ -16,7 +16,7 @@ class SubmissionContext extends React.Component {
                 <br />
                 {this.props.agencyName}
                 <br />
-                {this.props.timePeriodLabel}
+                Reporting Period: {this.props.timePeriodLabel}
             </div>
         );
     }

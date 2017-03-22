@@ -35,7 +35,7 @@ export default class DeleteModal extends React.Component {
 				}
 			})
 			.catch((error) => {
-				let errorMessage = "default error messsage"
+				let errorMessage = "An error occurred while attempting to delete the submission. Please contact your administrator for assistance."
 				if (error.message && error.message !== "") {
     					errorMessage = error.message
 				}
