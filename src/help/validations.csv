@@ -16,8 +16,6 @@ A,A15,UnobligatedBalance_CPE= value for GTAS SF 133 line #2490 for the same repo
 "A, B",A18,"GrossOutlayAmountByTAS_CPE (file A) = sum of all GrossOutlayAmountByProgramObjectClass (file B).
  {This value is the sum of all Gross Outlay Amounts reported in file B, to indicate year-to-date activity by TAS/Subaccount.}",Warning,Implemented,Calculation
 "A, B",A19,"ObligationsIncurredTotalByTAS_CPE (File A) = negative sum of ObligationsIncurredByProgramObjectClass_CPE (File B), as of the same reporting period.",Warning,Implemented,Calculation
-A,A20,AllocationTransferAgencyIdentifier and AgencyIdentifier provided values must be valid Agency ID in the Common Government-wide Accounting Classification (CGAC),Fatal Error,Implemented,Requirement
-A,A21,Only acceptable values for AvailabilityTypeCode are x and [blank],Fatal Error,Implemented,Requirement
 A,A22,"ObligationsIncurredTotalByTAS_CPE= value for GTAS SF 133 line #2190, as of the same reporting period.",Fatal Error,Implemented,Calculation
 A,A23,"StatusOfBudgetaryResourcesTotal_CPE= value for GTAS SF 133 line #2500, as of the same reporting period.",Fatal Error,Implemented,Calculation
 A,A24,StatusOfBudgetaryResourcesTotal_CPE = BudgetAuthorityAvailableAmountTotal_CPE,Fatal Error,Implemented,Calculation
