@@ -119,6 +119,20 @@ export default class ReviewDataContent extends React.Component {
         return formattedCurrencyString;
     }
 
+    checkAffiliations(){
+        let affiliations = this.props.session.user.affiliations;
+        for(let i = 0; i < affiliations.length; i++){
+            if(affiliations[i].agency_name === this.props.data.agency_name){
+                console.log('match')
+                if(affiliations[i].permission === 'reader'){
+                    return true;
+                }
+                return false;
+            }
+        }
+        return false;
+    }
+
     render() {
 
         let modalToOpen = 'Certify';
@@ -179,6 +193,11 @@ export default class ReviewDataContent extends React.Component {
             monthlySubmissionError = <div className="alert alert-danger text-center monthly-submission-error" role="alert">
                                         Monthly submissions cannot be certified
                                     </div>
+        }
+        if (this.checkAffiliations() && !this.props.session.admin) {
+            certifyButtonText = "You Do Not Have Proper Permissions";
+            buttonClass = " btn-disabled";
+            buttonAction = "";
         }
 
         return (
