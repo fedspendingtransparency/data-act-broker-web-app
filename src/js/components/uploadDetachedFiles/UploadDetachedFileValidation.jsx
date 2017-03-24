@@ -33,6 +33,7 @@ export default class UploadDetachedFileValidation extends React.Component {
 
 		this.state = {
 			agency: "",
+			submissionID: 0,
 			detachedAward: {
 				startDate: null,
 				endDate: null,
@@ -53,12 +54,19 @@ export default class UploadDetachedFileValidation extends React.Component {
 			published: false,
 			submit: true
 		};
-
-		this.checkFileStatus(this.props.submission.id);
 	}
 
 	componentDidMount() {
 		this.isUnmounted = false;
+	}
+
+	componentWillReceiveProps(nextProps) {
+		if(this.state.agency==="" || nextProps.params.submissionID !== this.state.submissionID){
+			this.setState({
+				submissionID: nextProps.params.submissionID
+			})
+			this.checkFileStatus(this.props.params.submissionID);	
+		}
 	}
 
 	componentWillUnmount() {
@@ -96,7 +104,7 @@ export default class UploadDetachedFileValidation extends React.Component {
 	}
 
 	validateSubmission(item, publishDate=undefined){
-		ReviewHelper.validateDetachedSubmission(this.props.submission.id)
+		ReviewHelper.validateDetachedSubmission(this.props.params.submissionID)
 				.then((response) => {
 					this.setState({
 						detachedAward: item,
@@ -154,7 +162,9 @@ export default class UploadDetachedFileValidation extends React.Component {
 		if (runCheck && !this.isUnmounted) {
 			// wait 5 seconds and check the file status again
 			window.setTimeout(() => {
-				this.checkFileStatus(this.props.submission.id);
+				if(this.props.params.submissionID){
+					this.checkFileStatus(this.props.params.submissionID);	
+				}
 			}, timerDuration * 1000);
 		}
 	}
@@ -203,7 +213,7 @@ export default class UploadDetachedFileValidation extends React.Component {
 			requestName: 'detached_award',
 			progress: '0'
 		}
-		
+		 
 		validationBox = <ValidateDataFileContainer type={type} data={this.state.jobResults}/>;
 		if(!this.state.headerErrors && this.state.validationFinished) {
 			validationBox = <ValidateValuesFileContainer type={type} data={this.state.jobResults} />;

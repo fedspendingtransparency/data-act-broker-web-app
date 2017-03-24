@@ -16,6 +16,8 @@ import UploadDetachedFileValidation from './UploadDetachedFileValidation.jsx';
 
 import * as Icons from '../SharedComponents/icons/Icons.jsx';
 
+import { hashHistory } from 'react-router';
+
 
 export default class UploadDetachedFilesPage extends React.Component {
 	constructor(props) {
@@ -27,24 +29,45 @@ export default class UploadDetachedFilesPage extends React.Component {
 	}
 
 	componentDidMount(){
+		let showMeta = true;
 		if(this.props.params.submissionID){
 			this.props.setSubmissionId(this.props.params.submissionID);
+			showMeta = false;
+		}
+		if(this.state.showMeta !== showMeta){
 			this.setState({
-				showMeta: false
-			});
+				showMeta: showMeta
+			})
 		}
 	}
 
-	validate(){
+	validate(submissionID){
+		this.props.setSubmissionId(submissionID);
+		hashHistory.push('/uploadDetachedFiles/'+submissionID);
 		this.setState({
 			showMeta: false
 		})
+
+	}
+
+	componentWillReceiveProps(nextProps){
+		let showMeta = false;
+		if(nextProps.params.submissionID && this.state.showMeta){
+			this.props.setSubmissionId(this.props.params.submissionID);
+		}else if(!nextProps.params.submissionID){
+			showMeta = true;
+		}
+		if(this.state.showMeta !== showMeta){
+			this.setState({
+				showMeta: showMeta
+			})
+		}
 	}
 
 	render() {
 		let content = null;
 		if(!this.state.showMeta){
-			content = <UploadDetachedFileValidation submission={this.props.submission} setSubmissionId={this.props.setSubmissionId.bind(this)} />
+			content = <UploadDetachedFileValidation {...this.props} submission={this.props.submission} setSubmissionId={this.props.setSubmissionId.bind(this)} />
 		}else{
 			content = <UploadDetachedFileMeta setSubmissionState={this.props.setSubmissionState} setSubmissionId={this.props.setSubmissionId.bind(this)} 
 				history={this.props.history} submission={this.props.submission} validate={this.validate.bind(this)} />;

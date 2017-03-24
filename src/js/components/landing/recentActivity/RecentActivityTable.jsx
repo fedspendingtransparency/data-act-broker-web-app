@@ -87,7 +87,31 @@ export default class RecentActivityTable extends React.Component {
 	
 	reload(){
         this.loadActivity();
-        buildRow();
+        this.buildRow();
+    }
+
+    deleteWarning(index){
+        this.setState({
+            deleteIndex: index
+        }, () =>{
+            this.buildRow()
+        })
+    }
+
+	reportingEndDate(oldDate){
+        // YYYY-MM-DD
+        let date = oldDate.split('-');
+        date = new Date(date[0], date[1], 0);
+        let year = date.getFullYear();
+        let month = date.getMonth()+1;
+        if(month < 10){
+            month = "0"+month;
+        }
+        let day = date.getDate();
+        if(day <10){
+            day = "0"+day;
+        }
+        return year+"-"+month+"-"+day;
     }
 
 	buildRow() {
@@ -102,9 +126,9 @@ export default class RecentActivityTable extends React.Component {
 		const data = _.orderBy(this.state.cachedResponse, orderKeys[this.state.sortColumn - 1], this.state.sortDirection);
 
 		// iterate through each item returned from the API
-		data.forEach((item) => {
+		data.forEach((item, index) => {
 
-			let reportingDateString = "Start: "+item.reporting_start_date + "\nEnd: " + item.reporting_end_date;
+			let reportingDateString = "Start: " + item.reporting_start_date + "\nEnd: " + this.reportingEndDate(item.reporting_end_date);
 			if (!item.reporting_start_date || !item.reporting_end_date) {
 				reportingDateString = 'No reporting period specified';
 			}
@@ -113,6 +137,11 @@ export default class RecentActivityTable extends React.Component {
 			if (item.hasOwnProperty('user')) {
 				userName = item.user.name;
 			}
+
+			let deleteConfirm = false;
+            if(this.state.deleteIndex !== -1 && index === this.state.deleteIndex){
+                deleteConfirm = true;
+            }
 
             // break the object out into an array for the table component
 			const row = 
@@ -123,7 +152,7 @@ export default class RecentActivityTable extends React.Component {
 				userName,
 				item.last_modified,
 				<Status.SubmissionStatus status={item.rowStatus} />,
-				<DeleteLink submissionId={item.submission_id} reload={this.reload.bind(this)} item={item} account={this.state.account}/>
+				<DeleteLink submissionId={item.submission_id} index={index} warning={this.deleteWarning.bind(this)} confirm={deleteConfirm} reload={this.reload.bind(this)} item={item} account={this.state.account}/>
 			];
 
 			rowClasses.push(classes);
@@ -160,7 +189,7 @@ export default class RecentActivityTable extends React.Component {
 	render() {
 		return (
 			<div className="usa-da-recent-activity">
-				<FormattedTable headers={this.tableHeaders} data={this.state.data} sortable={true} cellClasses={this.state.cellClasses} headerClasses={this.state.headerClasses} unsortable={[0]} onSort={this.sortTable.bind(this)} />
+				<FormattedTable headers={this.tableHeaders} data={this.state.data} sortable={true} cellClasses={this.state.cellClasses} headerClasses={this.state.headerClasses} unsortable={[0,6]} onSort={this.sortTable.bind(this)} />
 				<div className="text-center">
 					{this.state.message}
 				</div>
