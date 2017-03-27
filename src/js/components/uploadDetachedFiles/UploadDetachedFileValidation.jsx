@@ -93,7 +93,8 @@ export default class UploadDetachedFileValidation extends React.Component {
 					rep_start: response.reporting_period_start_date,
 					rep_end: response.reporting_period_end_date,
 					submit: submission,
-					cgac_code: response.cgac_code
+					cgac_code: response.cgac_code,
+					published: (response.publish_status === 'published' ? true : false)
 				}, () => {
 					this.parseJobStates(response);
 				});			
@@ -105,15 +106,14 @@ export default class UploadDetachedFileValidation extends React.Component {
 			});
 	}
 
-	validateSubmission(item, publishDate=undefined){
+	validateSubmission(item){
 		ReviewHelper.validateDetachedSubmission(this.props.params.submissionID)
 				.then((response) => {
 					this.setState({
 						detachedAward: item,
 						validationFinished: true,
 						headerErrors: false,
-						jobResults: response,
-						published: publishDate
+						jobResults: response
 					});
 				});
 	}
@@ -154,7 +154,7 @@ export default class UploadDetachedFileValidation extends React.Component {
 			// make a clone of the file's react state
 			const item = Object.assign({}, this.state.detachedAward);
 			item.status = "done";
-			this.validateSubmission(item, data.publish_status);
+			this.validateSubmission(item);
 		}
 
 		if (this.isUnmounted) {
@@ -174,7 +174,7 @@ export default class UploadDetachedFileValidation extends React.Component {
 	submitFabs(){
 		UploadHelper.submitFabs({'submission_id': this.props.submission.id})
 			.then((response)=>{
-				this.setState({submit: false})
+				this.setState({submit: false, published: true})
 			})
 			.catch((error)=>{
 				if(error.httpStatus === 400){
@@ -258,7 +258,7 @@ export default class UploadDetachedFileValidation extends React.Component {
 			validationBox = <ValidateValuesFileContainer type={type} data={this.state.jobResults} setUploadItem={this.uploadFile.bind(this)} updateItem={this.uploadFile.bind(this)} />;
 			if(this.state.jobResults.detached_award.error_type === "none" && this.state.error === 0) {
 				validationButton = <button className='pull-right col-xs-3 us-da-button' onClick={this.submitFabs.bind(this)}>Publish</button>;
-				if(this.state.published === 'published'){
+				if(this.state.published){
 					validationButton = <button className='pull-right col-xs-3 us-da-disabled-button' onClick={this.submitFabs.bind(this)} disabled>File Already Published</button>;
 				}
 			}
