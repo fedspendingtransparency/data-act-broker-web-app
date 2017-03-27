@@ -255,12 +255,10 @@ export default class UploadDetachedFileValidation extends React.Component {
 
 		validationBox = <ValidateDataFileContainer type={type} data={this.state.jobResults}/>;
 		if(!this.state.headerErrors && this.state.validationFinished) {
-			validationBox = <ValidateValuesFileContainer type={type} data={this.state.jobResults} setUploadItem={this.uploadFile.bind(this)} updateItem={this.uploadFile.bind(this)} />;
-			if(this.state.jobResults.detached_award.error_type === "none" && this.state.error === 0) {
-				validationButton = <button className='pull-right col-xs-3 us-da-button' onClick={this.submitFabs.bind(this)}>Publish</button>;
-				if(this.state.published){
-					validationButton = <button className='pull-right col-xs-3 us-da-disabled-button' onClick={this.submitFabs.bind(this)} disabled>File Already Published</button>;
-				}
+			validationBox = <ValidateValuesFileContainer type={type} data={this.state.jobResults} setUploadItem={this.uploadFile.bind(this)} updateItem={this.uploadFile.bind(this)} published={this.state.published}/>;
+			validationButton = <button className='pull-right col-xs-3 us-da-button' onClick={this.submitFabs.bind(this)}>Publish</button>;
+			if(this.state.published){
+				validationButton = <button className='pull-right col-xs-3 us-da-disabled-button' onClick={this.submitFabs.bind(this)} disabled>File Already Published</button>;
 			}
 		}
 
