@@ -169,7 +169,7 @@ export default class DashboardTable extends React.Component {
             ];
 
             if(!this.props.isCertified) {
-                row.push(<DeleteLink submissionId={item.submission_id} index={index} warning={this.deleteWarning.bind(this)} confirm={deleteConfirm} reload={this.reload.bind(this)} item={item} account={this.state.account}/>)
+                row.push(<DeleteLink submissionId={item.submission_id} index={index} warning={this.deleteWarning.bind(this)} confirm={deleteConfirm} reload={this.reload.bind(this)} item={item} account={this.state.account}/>);
             }
             else {
                 row.push(item.certifying_user);

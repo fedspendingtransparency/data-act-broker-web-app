@@ -151,9 +151,15 @@ export default class RecentActivityTable extends React.Component {
 				reportingDateString,
 				userName,
 				item.last_modified,
-				<Status.SubmissionStatus status={item.rowStatus} />,
-				<DeleteLink submissionId={item.submission_id} index={index} warning={this.deleteWarning.bind(this)} confirm={deleteConfirm} reload={this.reload.bind(this)} item={item} account={this.state.account}/>
+				<Status.SubmissionStatus status={item.rowStatus} />
 			];
+
+			if(item.publish_status === "unpublished") {
+				row.push(<DeleteLink submissionId={item.submission_id} index={index} warning={this.deleteWarning.bind(this)} confirm={deleteConfirm} reload={this.reload.bind(this)} item={item} account={this.state.account}/>);
+			}
+			else {
+				row.push("N/A");
+			}
 
 			rowClasses.push(classes);
 			output.push(row);
