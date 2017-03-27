@@ -166,7 +166,7 @@ export default class DashboardTable extends React.Component {
                 reportingDateString,
                 userName,
                 item.last_modified,
-                <Status.SubmissionStatus status={item.rowStatus} certified={this.props.certified} />,
+                <Status.SubmissionStatus status={item.rowStatus} certified={this.props.isCertified} />,
                 <DeleteLink submissionId={item.submission_id} index={index} warning={this.deleteWarning.bind(this)} confirm={deleteConfirm} reload={this.reload.bind(this)} item={item} account={this.state.account}/>
             ];
 
