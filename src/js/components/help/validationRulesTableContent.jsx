@@ -32,7 +32,7 @@ export default class ValidationRulesTableContent extends React.Component {
 		this.urlPromise.promise
 			.then((urls) => {
 				this.setState({
-					validationRulesUrl: urls['Validation_Rules_v1.06_20170301.xlsx']
+					validationRulesUrl: urls['Validation_Rules_v1.07_20170412.xlsx']
 				});
 
 				this.urlPromise = null;
