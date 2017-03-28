@@ -25,8 +25,14 @@ const tableHeaders = [
     'Agency',
     'Reporting Period',
     'Submitted By',
+<<<<<<< HEAD
     'Last Modified Date',
     'Status'
+=======
+    'Last Modified',
+    'Status',
+    'Delete'
+>>>>>>> dev
 ];
 
 export default class DashboardTable extends React.Component {
@@ -137,7 +143,7 @@ export default class DashboardTable extends React.Component {
         const output = [];
         const rowClasses = [];
 
-        const classes = ['row-10 text-center', 'row-20 text-center', 'row-15 text-right white-space', 'row-15 text-right', 'row-15 text-right','row-15 text-right progress-cell', 'row-10 text-center'];
+        const classes = ['row-10 text-center', 'row-20 text-center', 'row-15 text-right white-space', 'row-15 text-right', 'row-10 text-right','row-20 text-right progress-cell', 'row-10 text-center'];
 
         // iterate through each item returned from the API
         this.props.data.forEach((item, index) => {
@@ -165,7 +171,7 @@ export default class DashboardTable extends React.Component {
                 reportingDateString,
                 userName,
                 item.last_modified,
-                <Status.SubmissionStatus status={item.rowStatus} />
+                <Status.SubmissionStatus status={item.rowStatus} certified={this.props.isCertified} />
             ];
 
             if(!this.props.isCertified) {
