@@ -161,7 +161,7 @@ export default class UploadDetachedFileValidation extends React.Component {
 			return;
 		}
 
-		if ((runCheck || forceCheck) && !this.isUnmounted) {
+		if (runCheck && !this.isUnmounted) {
 			// wait 5 seconds and check the file status again
 			window.setTimeout(() => {
 				if(this.props.params.submissionID){
@@ -198,6 +198,11 @@ export default class UploadDetachedFileValidation extends React.Component {
 	}
 
 	uploadFile(item) {
+
+		if(this.isUnmounted){
+			return;
+		}
+
 		// upload specified file
 		this.props.setSubmissionState('uploading');
 		let submission = this.props.submission;
@@ -210,14 +215,13 @@ export default class UploadDetachedFileValidation extends React.Component {
 
 		this.uploadFileHelper(kGlobalConstants.LOCAL === true && !this.isUnmounted, submission)
 			.then((submissionID) => {
-                this.setState({
+				this.setState({
 					validationFinished: false
 				})
 				setTimeout(()=>{
 					this.checkFileStatus(submissionID);
 				}, 2000);
-				
-            })
+			})
 			.catch((err) => {
 				this.setState({
 					validationFinished: false,
@@ -234,16 +238,16 @@ export default class UploadDetachedFileValidation extends React.Component {
 		
 		if(this.state.agency !== '' && this.state.rep_start !== '' && this.state.rep_end !== ''){
 			headerDate = <div className="col-md-2 ">
-										<div className = 'header-box'>
-												<span>
-												Agency: {this.state.agency}
-												</span>
-												<br/>
-												<span>
-												Date: {this.state.rep_start} - {this.state.rep_end}
-												</span>
-											</div>
-									</div>;
+							<div className = 'header-box'>
+									<span>
+									Agency: {this.state.agency}
+									</span>
+									<br/>
+									<span>
+									Date: {this.state.rep_start} - {this.state.rep_end}
+									</span>
+								</div>
+						</div>;
 		}
 
 		const type = {
@@ -258,7 +262,7 @@ export default class UploadDetachedFileValidation extends React.Component {
 			validationBox = <ValidateValuesFileContainer type={type} data={this.state.jobResults} setUploadItem={this.uploadFile.bind(this)} updateItem={this.uploadFile.bind(this)} published={this.state.published}/>;
 			validationButton = <button className='pull-right col-xs-3 us-da-button' onClick={this.submitFabs.bind(this)}>Publish</button>;
 			if(this.state.published){
-				validationButton = <button className='pull-right col-xs-3 us-da-disabled-button' onClick={this.submitFabs.bind(this)} disabled>File Already Published</button>;
+				validationButton = <button className='pull-right col-xs-3 us-da-disabled-button' disabled>File Already Published</button>;
 			}
 		}
 
