@@ -24,7 +24,7 @@ const tableHeaders = [
     'View',
     'Agency',
     'Reporting Period',
-    'Submitted By'
+    'Submitted By',
     'Last Modified',
     'Status'
 ];
