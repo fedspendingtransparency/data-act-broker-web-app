@@ -25,8 +25,8 @@ export default class GenerateFilesContent extends React.Component {
         this.props.updateError(file, header, description);
     }
 
-	render() {
-		return (
+    render() {
+        return (
             <div>
                 <div className="container center-block with-overlay">
                     <div className="row usa-da-submission-instructions">
