@@ -123,7 +123,6 @@ export default class ReviewDataContent extends React.Component {
         let affiliations = this.props.session.user.affiliations;
         for(let i = 0; i < affiliations.length; i++){
             if(affiliations[i].agency_name === this.props.data.agency_name){
-                console.log('match')
                 if(affiliations[i].permission === 'reader'){
                     return true;
                 }
@@ -195,7 +194,7 @@ export default class ReviewDataContent extends React.Component {
                                     </div>
         }
         if (this.checkAffiliations() && !this.props.session.admin) {
-            certifyButtonText = "You Do Not Have Proper Permissions";
+            certifyButtonText = "You do not have permissions to certify";
             buttonClass = " btn-disabled";
             buttonAction = "";
         }
