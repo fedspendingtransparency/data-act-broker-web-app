@@ -24,15 +24,9 @@ const tableHeaders = [
     'View',
     'Agency',
     'Reporting Period',
-    'Submitted By',
-<<<<<<< HEAD
-    'Last Modified Date',
-    'Status'
-=======
+    'Submitted By'
     'Last Modified',
-    'Status',
-    'Delete'
->>>>>>> dev
+    'Status'
 ];
 
 export default class DashboardTable extends React.Component {
