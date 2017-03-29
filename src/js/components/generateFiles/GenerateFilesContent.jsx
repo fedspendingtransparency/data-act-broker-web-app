@@ -25,24 +25,18 @@ export default class GenerateFilesContent extends React.Component {
         this.props.updateError(file, header, description);
     }
 
-	render() {
-		return (
-			<div>
-				<div className="container center-block with-overlay">
-					<div className="row usa-da-submission-instructions">
-						<div className="col-md-12">
-							<p>Select the durations for the generated D1 and D2 files. By default, this range is set to the submission date range you selected in step one.</p>
-						</div>
-					</div>
-
-					<div className="usa-da-generate-content">
-                        <div className="alert alert-warning">
-                                <span className="usa-da-icon"><Icons.ExclamationCircle /></span>
-                                <div className="alert-header-text">NOTICE</div>
-                                <p><b>PLEASE NOTE:</b> The D1/D2 integration with ASP and FPDS is still being tested.</p>
+    render() {
+        return (
+            <div>
+                <div className="container center-block with-overlay">
+                    <div className="row usa-da-submission-instructions">
+                        <div className="col-md-12">
+                            <p>Select the durations for the generated D1 and D2 files. By default, this range is set to the submission date range you selected in step one.</p>
                         </div>
-                        
-	                    <GenerateFileBox 
+                    </div>
+
+                    <div className="usa-da-generate-content">                        
+                        <GenerateFileBox 
                             label="File D1: Procurement Awards (FPDS data)"
                             datePlaceholder="Sign"
                             startingTab={1}
@@ -61,10 +55,10 @@ export default class GenerateFilesContent extends React.Component {
                             download={this.props.d2.download}
                             onDateChange={this.handleDateChange.bind(this, "d2")} 
                             updateError={this.updateError.bind(this, "d2")} />
-	                </div>
-	            </div>
-	            <GenerateFilesOverlay {...this.props} />
-	        </div>
-		)
-	}
+                    </div>
+                </div>
+                <GenerateFilesOverlay {...this.props} />
+            </div>
+        )
+    }
 }
