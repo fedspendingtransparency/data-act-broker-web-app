@@ -12,14 +12,14 @@ import AgencyListContainer from '../../containers/SharedContainers/AgencyListCon
 import * as Icons from '../SharedComponents/icons/Icons.jsx';
 
 import Progress from '../SharedComponents/ProgressComponent.jsx';
-
+import Modal from '../SharedComponents/Modal.jsx';
 import DateTypeField from './metadata/DateTypeField.jsx';
 import DateRangeField from './metadata/DateRangeField.jsx';
 
 import SubmitComponent from './metadata/SubmitComponent.jsx';
 
 import * as AgencyHelper from '../../helpers/agencyHelper.js';
-
+import { Link } from 'react-router';
 const propTypes = {
     updateMetaData: PropTypes.func
 };
@@ -42,8 +42,18 @@ export default class AddDataMeta extends React.Component {
             showDateRangeField: false,
             showSubmitButton: false,
             buttonDisabled: true,
+            modalMessage: '',
+            showModal: false, 
             message: this.successMessage
         };
+        this.closeModal = () =>{
+            
+
+            this.setState({
+                showModal: false,
+                modalMessage:  ''
+            })        
+        }
     }
 
     handleChange(agency, isValid){
@@ -118,10 +128,36 @@ export default class AddDataMeta extends React.Component {
         }
     }
 
-    submitMetadata(){
-        this.props.updateMetaData(this.state);
-    }
+    submitMetadata(e){
+        let agency = this.state.agency, 
+            endDate = this.state.endDate,
+            year = endDate.substr(3),
+            quarter = endDate.substr(0, 2);  
+            switch (quarter) {
+                case '12': quarter = '3';
+                    // First quarter (Oct-Dec) has end-year of a previous year.
+                    // Add 1 to make it the same FYE.
+                    year = parseInt(year) + 1;
+                    break;
+                case '03': quarter = '6';
+                    break;
+                 case '06': quarter = '9';
+                    break;
+                case '09': quarter = '12';
+                    break;
+                default: quarter = '0';
+            }
 
+        AgencyHelper.checkYearQuarter(agency,year,quarter).then(()=>{
+            this.props.updateMetaData(this.state);
+        }).catch(err => {
+            let modalMessage = "An error occurred while attempting to create a submission. Please contact your administrator for assistance.";
+            
+            this.setState({
+                showModal : true,
+                modalMessage : <div>{err.message} You can update the certified submission <Link to={`/validateData/${err.submissionId}`}>here</Link>.</div>});
+        });
+    }    
     validateAgency() {
         if (this.state.agency == '') {
             this.setState({
@@ -220,7 +256,13 @@ export default class AddDataMeta extends React.Component {
                                 </div>
                             </div>
                         </div>
-                    </div>
+                        <Modal onClose={this.closeModal} isOpen={this.state.showModal} buttons={
+                            <div>
+                                <button id="modal-button" className="btn btn-primary" onClick={this.closeModal}>OK</button>
+                            </div>
+                        } 
+                        content={this.state.modalMessage}/>  
+                        </div>
             );
         }
     }
