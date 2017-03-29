@@ -213,7 +213,7 @@ export default class UploadDetachedFileValidation extends React.Component {
 		submission.meta['endDate'] = this.state.rep_end;
 		submission.meta['subTierAgency'] = this.state.agency;
 
-		this.uploadFileHelper(kGlobalConstants.LOCAL === true && !this.isUnmounted, submission)
+		this.uploadFileHelper(kGlobalConstants.LOCAL === true, submission)
 			.then((submissionID) => {
 				this.setState({
 					validationFinished: false
