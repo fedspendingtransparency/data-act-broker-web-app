@@ -42,9 +42,10 @@ export const fetchSubTierAgencies = () => {
     return deferred.promise;
 }
 
-export function checkYearQuarter(cgac, year, quarter ) {
-    const deferred = Q.defer();
+export function checkYearQuarter(cgac, year, quarter) {  
 
+    const deferred = Q.defer();
+    
     Request.get(kGlobalConstants.API + `check_year_quarter/?cgac_code=${cgac}&reporting_fiscal_year=${year}&reporting_fiscal_period=${quarter}`)
         .end((err, res) => {
             if (err) {
