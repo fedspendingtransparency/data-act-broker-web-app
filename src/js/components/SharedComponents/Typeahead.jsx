@@ -63,7 +63,17 @@ export default class Typeahead extends React.Component {
 
 	mountAwesomeplete() {
 		const target = this.refs.awesomplete;
-		this.typeahead = new Awesomplete(target);
+		if(this.props.prioritySort) {
+			this.typeahead = new Awesomplete(target, {sort: function(a, b) {
+				if(a.value.priority > b.value.priority) {
+					return 1;
+				}
+				return -1;
+			}});
+		}
+		else {
+			this.typeahead = new Awesomplete(target);
+		}
 		this.typeahead.autoFirst = true;
 
 		if (this.props.formatter) {
@@ -191,6 +201,7 @@ export default class Typeahead extends React.Component {
 			disabledClass = " disabled";
 		}
 
+		// console.log(this.props.values)
 		return (
 			<div className={"usa-da-typeahead"+disabledClass}>
 				<input className={this.props.customClass} ref="awesomplete" type="text" placeholder={placeholder} value={this.state.value} onChange={this.changedText.bind(this)} tabIndex={this.props.tabIndex} disabled={disabled} aria-required={this.props.isRequired} disabled={this.props.disabled}/>
