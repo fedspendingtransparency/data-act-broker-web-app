@@ -262,7 +262,7 @@ export default class AddDataMeta extends React.Component {
                             </div>
                         } 
                         content={this.state.modalMessage}/>  
-                        </div>
+                    </div>
             );
         }
     }
