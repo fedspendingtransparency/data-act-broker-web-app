@@ -96,6 +96,7 @@ export const fetchStatus = (submissionId) => {
 	        	else {
 	        		// return only jobs related to CSV validation
 	        		const response = Object.assign({}, res.body);
+	        		store.dispatch(uploadActions.setSubmissionPublishStatus(response.publish_status));
 	        		const csvJobs = [];
 	        		let crossFileJob = {};
 	        		response.jobs.forEach((job) => {
@@ -522,9 +523,8 @@ export const deleteSubmission = (submission_id) => {
      Request.post(kGlobalConstants.API + 'delete_submission/')
             .send({ submission_id })
             .end((err, res) => {
-
                 if (err) {
-                    deferred.reject(err);
+                    deferred.reject(res.body);
                 }
                 else {
                     const output = {

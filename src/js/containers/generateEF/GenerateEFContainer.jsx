@@ -16,6 +16,7 @@ import * as GenerateHelper from '../../helpers/generateFilesHelper.js';
 
 import GenerateEFContent from '../../components/generateEF/GenerateEFContent.jsx';
 import GenerateEFError from '../../components/generateEF/GenerateEFError.jsx';
+import PublishedSubmissionWarningBanner from '../../components/SharedComponents/PublishedSubmissionWarningBanner.jsx';
 
 const timerDuration = 10;
 
@@ -148,9 +149,15 @@ class GenerateEFContainer extends React.Component {
 		if (this.state.fullPageError) {
 			content = <GenerateEFError message={this.state.fullPageMessage} />;
 		}
+
+		let warningMessage = null;
+		if(this.props.submission.publishStatus !== "unpublished") {
+			warningMessage = <PublishedSubmissionWarningBanner />;
+		}
 		
 		return (
 			<div>
+				{warningMessage}
 				{content}
 			</div>
 		)

@@ -16,6 +16,7 @@ import ValidateValuesContent from '../../components/validateData/validateValues/
 import ValidateCancellation from '../../components/validateData/ValidateCancellation.jsx';
 import ValidateNotYours from '../../components/validateData/ValidateNotYours.jsx';
 import ValidateLoadingScreen from '../../components/validateData/ValidateLoadingScreen.jsx';
+import PublishedSubmissionWarningBanner from '../../components/SharedComponents/PublishedSubmissionWarningBanner.jsx';
 import { fileTypes } from '../addData/fileTypes.js';
 import { kGlobalConstants } from '../../GlobalConstants.js';
 
@@ -194,8 +195,14 @@ class ValidateDataContainer extends React.Component {
 			validationContent = <ValidateNotYours message="This is not a valid submission. Check your validation URL and try again." />;
 		}
 
+		let warningMessage = null;
+		if(!this.state.notYours && !this.state.serverError && this.props.submission.publishStatus !== "unpublished") {
+			warningMessage = <PublishedSubmissionWarningBanner />;
+		}
+
 		return (
 			<div>
+				{warningMessage}
 				{validationContent}
 			</div>
 		);

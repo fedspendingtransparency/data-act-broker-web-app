@@ -15,6 +15,7 @@ import * as UploadHelper from '../../helpers/uploadHelper.js';
 import * as ReviewHelper from '../../helpers/reviewHelper.js';
 
 import CrossFileContent from '../../components/crossFile/CrossFileContent.jsx';
+import PublishedSubmissionWarningBanner from '../../components/SharedComponents/PublishedSubmissionWarningBanner.jsx';
 
 const timerDuration = 10;
 
@@ -209,8 +210,15 @@ class CrossFileContentContainer extends React.Component {
 	}
 
 	render() {
+		let warningMessage = null;
+		if(this.props.submission.publishStatus !== "unpublished") {
+			warningMessage = <PublishedSubmissionWarningBanner />;
+		}
 		return (
-			<CrossFileContent {...this.props} uploadFiles={this.uploadFiles.bind(this)} reloadData={this.reloadData.bind(this)} />
+			<div>
+				{warningMessage}
+				<CrossFileContent {...this.props} uploadFiles={this.uploadFiles.bind(this)} reloadData={this.reloadData.bind(this)} />
+			</div>
 		);
 	}
 }

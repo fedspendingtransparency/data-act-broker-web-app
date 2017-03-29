@@ -95,7 +95,6 @@ export default class UploadDetachedFileMeta extends React.Component {
 		const start = this.state[file].startDate;
 		const end = this.state[file].endDate;
 
-		// ((start && end) && end.isSameOrAfter(start))
 		dFile.error = {
 				show: ((start && end) && !end.isSameOrAfter(start)) ? true : false,
 				header: ((start && end) && !end.isSameOrAfter(start)) ? 'Invalid Dates' : '',
@@ -141,11 +140,9 @@ export default class UploadDetachedFileMeta extends React.Component {
 
 		this.uploadFileHelper(kGlobalConstants.LOCAL === true && !this.isUnmounted, submission)
 			.then((submissionID) => {
-                    // TODO: Remove this when this is eventually tied to user accounts
                     this.props.setSubmissionId(submissionID);
 					this.checkFileStatus(submissionID);
-					this.props.history.push('/uploaddetachedfiles/'+submissionID);
-					this.props.validate();
+					this.props.validate(submissionID);
                 })
 				.catch((err) => {
 					this.setState({
