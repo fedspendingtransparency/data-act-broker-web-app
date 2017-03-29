@@ -201,7 +201,6 @@ export default class Typeahead extends React.Component {
 			disabledClass = " disabled";
 		}
 
-		// console.log(this.props.values)
 		return (
 			<div className={"usa-da-typeahead"+disabledClass}>
 				<input className={this.props.customClass} ref="awesomplete" type="text" placeholder={placeholder} value={this.state.value} onChange={this.changedText.bind(this)} tabIndex={this.props.tabIndex} disabled={disabled} aria-required={this.props.isRequired} disabled={this.props.disabled}/>
