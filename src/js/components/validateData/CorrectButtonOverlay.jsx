@@ -30,6 +30,11 @@ export default class CorrectButtonOverlay extends React.Component {
         this.setState({showOverlay: !this.state.showOverlay});
     }
 
+    removeFile() {
+        this.setState({showOverlay: !this.state.showOverlay});
+        this.props.removeFile();
+    }
+
     render() {
         let displayText = 'Choose a New File';
 
@@ -39,7 +44,7 @@ export default class CorrectButtonOverlay extends React.Component {
 
         let chooseFileOverlay = null;
         if (this.state.showOverlay){
-            chooseFileOverlay = <CorrectButtonFullOverlay text={displayText} optional={true} onDrop={this.props.onDrop} buttonClicked={this.buttonClicked.bind(this)} />;
+            chooseFileOverlay = <CorrectButtonFullOverlay text={displayText} optional={true} onDrop={this.props.onDrop} buttonClicked={this.removeFile.bind(this)} />;
         }
 
         return (
