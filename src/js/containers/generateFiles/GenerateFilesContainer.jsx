@@ -89,7 +89,7 @@ class GenerateFilesContainer extends React.Component {
 		}
 		else {
 			// it's months
-			month = raw.split('/')[0];
+			month = moment().month(raw.split(' ')[0]).format("MM");
 			year = raw.split('/')[1];
 		}
 
