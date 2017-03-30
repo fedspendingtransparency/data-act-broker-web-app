@@ -12,8 +12,7 @@ export default class ErrorModal extends React.Component {
 	}
 
 	render() {
-		
-      return (
+      	return (
 			<Modal mounted={this.props.isOpen} onExit={this.closeModal.bind(this)} underlayClickExits={true}
 				verticallyCenter={true} initialFocus="#modal-button" titleId="usa-da-certify-modal">
 				<div className="usa-da-modal-page">

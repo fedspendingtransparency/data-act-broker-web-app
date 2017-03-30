@@ -47,8 +47,6 @@ export default class AddDataMeta extends React.Component {
             message: this.successMessage
         };
         this.closeModal = () =>{
-            
-
             this.setState({
                 showModal: false,
                 modalMessage:  ''
