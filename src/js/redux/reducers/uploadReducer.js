@@ -35,7 +35,7 @@ const setUploadItem = (state, action) => {
 }
 
 const removeUploadItem = (state, action) => {
-	if (action.name && state.files[action.name]){
+	if (action.name && state.files[action.name]) {
 		delete state.files[action.name];
 	}
 
