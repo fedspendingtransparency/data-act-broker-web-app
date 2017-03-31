@@ -135,7 +135,9 @@ export default class AddDataMeta extends React.Component {
         switch (quarter) {
             case '12': quarter = '3';
                 // First quarter (Oct-Dec) has end-year of the previous year. Add 1 to make it the same FYE.
-                year = parseInt(year) + 1;
+                if (quarter == '3') {
+                    year = parseInt(year) + 1;
+                }
                 break;
             case '03': quarter = '6';
                 break;
@@ -213,6 +215,8 @@ export default class AddDataMeta extends React.Component {
             submissionComponent = <SubmitComponent message={this.state.message} onSubmit={this.submitMetadata.bind(this)} disabled={this.state.buttonDisabled} />
         }
 
+        let button = <button id="modal-button" className="btn btn-primary" onClick={this.closeModal}>OK</button>
+                      
         return (
                 <div>
                     <div className="usa-da-content-step-block" name="content-top">
@@ -258,12 +262,7 @@ export default class AddDataMeta extends React.Component {
                                 </div>
                             </div>
                         </div>
-                        <Modal onClose={this.closeModal} isOpen={this.state.showModal} buttons={
-                            <div>
-                                <button id="modal-button" className="btn btn-primary" onClick={this.closeModal}>OK</button>
-                            </div>
-                        } 
-                        content={this.state.modalMessage}/>  
+                        <Modal onClose={this.closeModal} isOpen={this.state.showModal} buttons={button} content={this.state.modalMessage}/>  
                     </div>
             );
         }
