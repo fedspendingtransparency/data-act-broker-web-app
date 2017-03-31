@@ -20,6 +20,7 @@ import SubmitComponent from './metadata/SubmitComponent.jsx';
 
 import * as AgencyHelper from '../../helpers/agencyHelper.js';
 import { Link } from 'react-router';
+
 const propTypes = {
     updateMetaData: PropTypes.func
 };
