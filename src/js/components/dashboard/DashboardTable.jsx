@@ -26,8 +26,7 @@ const tableHeaders = [
     'Reporting Period',
     'Submitted By',
     'Last Modified',
-    'Status',
-    'Delete'
+    'Status'
 ];
 
 export default class DashboardTable extends React.Component {
@@ -163,9 +162,15 @@ export default class DashboardTable extends React.Component {
                 reportingDateString,
                 userName,
                 item.last_modified,
-                <Status.SubmissionStatus status={item.rowStatus} certified={this.props.isCertified} />,
-                <DeleteLink submissionId={item.submission_id} index={index} warning={this.deleteWarning.bind(this)} confirm={deleteConfirm} reload={this.reload.bind(this)} item={item} account={this.state.account}/>
+                <Status.SubmissionStatus status={item.rowStatus} certified={this.props.isCertified} />
             ];
+
+            if(!this.props.isCertified) {
+                row.push(<DeleteLink submissionId={item.submission_id} index={index} warning={this.deleteWarning.bind(this)} confirm={deleteConfirm} reload={this.reload.bind(this)} item={item} account={this.state.account}/>);
+            }
+            else {
+                row.push(item.certifying_user);
+            }
 
             rowClasses.push(classes);
             output.push(row);
@@ -202,10 +207,15 @@ export default class DashboardTable extends React.Component {
             loadingClass = ' loading';
         }
 
+        let lastColumn = "Delete";
+        if(this.props.isCertified) {
+            lastColumn = "Certified By";
+        }
+
         return (
             <div className="usa-da-submission-list">
                 <div className={"submission-table-content" + loadingClass}>
-                    <FormattedTable headers={tableHeaders} data={this.state.parsedData} sortable={true} cellClasses={this.state.cellClasses} unsortable={[0,5,6]} headerClasses={this.state.headerClasses} onSort={this.sortTable.bind(this)} />
+                    <FormattedTable headers={tableHeaders.concat(lastColumn)} data={this.state.parsedData} sortable={true} cellClasses={this.state.cellClasses} unsortable={[0,5,6]} headerClasses={this.state.headerClasses} onSort={this.sortTable.bind(this)} />
                 </div>
                 <div className="text-center">
                     {this.state.message}
