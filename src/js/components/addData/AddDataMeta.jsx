@@ -134,17 +134,21 @@ export default class AddDataMeta extends React.Component {
             year = endDate.substr(3),
             quarter = endDate.substr(0, 2);  
         switch (quarter) {
-            case '12': quarter = '3';
+            case '12': 
+                quarter = '3';
                 // First quarter (Oct-Dec) has end-year of the previous year. Add 1 to make it the same FYE.
                 if (quarter == '3') {
                     year = parseInt(year) + 1;
                 }
                 break;
-            case '03': quarter = '6';
+            case '03': 
+                quarter = '6';
                 break;
-            case '06': quarter = '9';
+            case '06': 
+                quarter = '9';
                 break;
-            case '09': quarter = '12';
+            case '09': 
+                quarter = '12';
                 break;
             default: quarter = '0';
             }
@@ -163,6 +167,7 @@ export default class AddDataMeta extends React.Component {
             this.props.updateMetaData(this.state);
         }
     }    
+    
     validateAgency() {
         if (this.state.agency == '') {
             this.setState({
