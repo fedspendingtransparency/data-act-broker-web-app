@@ -108,9 +108,6 @@ export default class DashboardTable extends React.Component {
             case 3:
                 return 'submitted_by';
                 break;
-            case 5:
-                return 'status';
-                break;
             default:
                 return 'modified';
         }
@@ -218,7 +215,7 @@ export default class DashboardTable extends React.Component {
         return (
             <div className="usa-da-submission-list">
                 <div className={"submission-table-content" + loadingClass}>
-                    <FormattedTable headers={tableHeaders.concat(lastColumn)} data={this.state.parsedData} sortable={true} cellClasses={this.state.cellClasses} unsortable={[0,6]} headerClasses={this.state.headerClasses} onSort={this.sortTable.bind(this)} />
+                    <FormattedTable headers={tableHeaders.concat(lastColumn)} data={this.state.parsedData} sortable={true} cellClasses={this.state.cellClasses} unsortable={[0,5,6]} headerClasses={this.state.headerClasses} onSort={this.sortTable.bind(this)} />
                 </div>
                 <div className="text-center">
                     {this.state.message}

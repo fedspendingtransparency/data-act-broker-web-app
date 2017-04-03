@@ -69,6 +69,8 @@ export default class ValidateValuesOverlay extends React.Component {
 			if (this.isUploadingFiles()) {
 				uploadButtonDisabled = false;
 				uploadButtonClass = ' btn-primary';
+				nextButtonClass = '-disabled';
+				nextButtonDisabled = true;
 			}
 		}
 

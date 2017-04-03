@@ -5,6 +5,12 @@ export const setUploadItem = (state) => ({
 	state: state.state,
 })
 
+export const removeUploadItem = (state) => ({
+	type: 'REMOVE_UPLOAD_ITEM',
+	name: state.name,
+	state: state.state
+})
+
 export const setUploadProgress = (state) => ({
 	type: 'SET_UPLOAD_PROGRESS',
 	name: state.name,
