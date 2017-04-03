@@ -189,7 +189,7 @@ export default class RecentActivityTable extends React.Component {
 	render() {
 		return (
 			<div className="usa-da-recent-activity">
-				<FormattedTable headers={this.tableHeaders} data={this.state.data} sortable={true} cellClasses={this.state.cellClasses} headerClasses={this.state.headerClasses} unsortable={[0,6]} onSort={this.sortTable.bind(this)} />
+				<FormattedTable headers={this.tableHeaders} data={this.state.data} sortable={true} cellClasses={this.state.cellClasses} headerClasses={this.state.headerClasses} unsortable={[0,5,6]} onSort={this.sortTable.bind(this)} />
 				<div className="text-center">
 					{this.state.message}
 				</div>
