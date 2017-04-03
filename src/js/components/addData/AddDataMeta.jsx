@@ -132,26 +132,13 @@ export default class AddDataMeta extends React.Component {
             endDate = this.state.endDate,
             dateType = this.state.dateType,
             year = endDate.substr(3),
-            quarter = endDate.substr(0, 2);  
-        switch (quarter) {
-            case '12': 
-                quarter = '3';
-                // First quarter (Oct-Dec) has end-year of the previous year. Add 1 to make it the same FYE.
-                if (quarter == '3') {
-                    year = parseInt(year) + 1;
-                }
-                break;
-            case '03': 
-                quarter = '6';
-                break;
-            case '06': 
-                quarter = '9';
-                break;
-            case '09': 
-                quarter = '12';
-                break;
-            default: quarter = '0';
+            month = endDate.substr(0, 2), 
+            quarter = parseInt(month)%12 + 3;
+
+            if (quarter == 3){
+                year++
             }
+   
         // Only make a request to check certified submission for quarterly submission. 
         if (dateType == 'quarter') {
             AgencyHelper.checkYearQuarter(agency,year,quarter).then(()=>{
@@ -167,7 +154,7 @@ export default class AddDataMeta extends React.Component {
             this.props.updateMetaData(this.state);
         }
     }    
-    
+
     validateAgency() {
         if (this.state.agency == '') {
             this.setState({
