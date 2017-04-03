@@ -30,10 +30,14 @@ class ValidateValuesFileContainer extends React.Component {
 		}
 	}
 
+	removeFile() {
+		this.props.removeUploadItem({name: this.props.type.requestName})
+	}
+
 	render() {
 
 		return (
-			<ValidateValuesFileComponent {...this.props} item={this.props.data[this.props.type.requestName]} onFileChange={this.selectedFile.bind(this)} />
+			<ValidateValuesFileComponent {...this.props} item={this.props.data[this.props.type.requestName]} onFileChange={this.selectedFile.bind(this)} removeFile={this.removeFile.bind(this)} />
 		)
 	}
 }
