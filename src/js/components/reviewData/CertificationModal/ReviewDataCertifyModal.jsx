@@ -59,9 +59,7 @@ export default class ReviewDataCertifyModal extends React.Component {
 			.catch((error) => {
 				let errorMessage = "An error occurred while attempting to certify the submission. Please contact your administrator for assistance.";
 				if (error.httpStatus == 400 || error.httpStatus == 403) {
-					if (!error.submissionId) {
-						errorMessage = error.message 
-					}
+					errorMessage = error.message
 					if (error.submissionId) {
 						errorMessage = <div>{error.message} You can update the certified submission <Link to={`/validateData/${error.submissionId}`}>here</Link>.</div>
 					}

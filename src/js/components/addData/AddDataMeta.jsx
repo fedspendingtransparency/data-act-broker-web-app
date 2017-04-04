@@ -47,12 +47,13 @@ export default class AddDataMeta extends React.Component {
             showModal: false, 
             message: this.successMessage
         };
-        this.closeModal = () =>{
-            this.setState({
-                showModal: false,
-                modalMessage:  ''
-            })        
-        }
+    }
+
+    closeModal () {    
+        this.setState({
+            showModal: false,
+            modalMessage:  ''
+        })        
     }
 
     handleChange(agency, isValid){
@@ -69,7 +70,6 @@ export default class AddDataMeta extends React.Component {
             }, this.checkComplete);
         }
     }
-
 
     handleDateChange(startDate, endDate, dateError) {
 
@@ -97,7 +97,6 @@ export default class AddDataMeta extends React.Component {
             dateType: dateType
         }, this.checkComplete);
     }
-
 
     checkComplete() {
 
@@ -130,17 +129,19 @@ export default class AddDataMeta extends React.Component {
     submitMetadata(e){
         let agency = this.state.agency, 
             endDate = this.state.endDate,
-            dateType = this.state.dateType,
-            year = endDate.substr(3),
-            month = endDate.substr(0, 2), 
-            quarter = parseInt(month)%12 + 3;
+            dateType = this.state.dateType;
 
+        // Only make a request to check certified submission for quarterly submission. 
+        if (dateType == 'quarter') {
+        
+            let month = endDate.substr(0, 2), 
+                quarter = parseInt(month)%12 + 3,
+                year = endDate.substr(3);
+            
             if (quarter == 3){
                 year++
             }
-   
-        // Only make a request to check certified submission for quarterly submission. 
-        if (dateType == 'quarter') {
+
             AgencyHelper.checkYearQuarter(agency,year,quarter).then(()=>{
                 this.props.updateMetaData(this.state);
             }).catch(err => {
@@ -207,8 +208,6 @@ export default class AddDataMeta extends React.Component {
         if (this.state.showSubmitButton) {
             submissionComponent = <SubmitComponent message={this.state.message} onSubmit={this.submitMetadata.bind(this)} disabled={this.state.buttonDisabled} />
         }
-
-        let button = <button id="modal-button" className="btn btn-primary" onClick={this.closeModal}>OK</button>
                       
         return (
                 <div>
@@ -231,32 +230,32 @@ export default class AddDataMeta extends React.Component {
                                     <div className="row">
                                         <div className="col-sm-12 col-md-12 typeahead-holder" data-testid="agencytypeahead">
                                             <AgencyListContainer placeholder="Enter the name of the reporting agency" onSelect={this.handleChange.bind(this)} customClass={agencyClass} />
-                                                <div className={"usa-da-icon usa-da-form-icon" + agencyClass}>
-                                                    {agencyIcon}
-                                                </div>
+                                            <div className={"usa-da-icon usa-da-form-icon" + agencyClass}>
+                                                {agencyIcon}
                                             </div>
                                         </div>
-
-                                        <ReactCSSTransitionGroup transitionName="usa-da-meta-fade" transitionEnterTimeout={500} transitionLeaveTimeout={300}>
-                                            {dateTypeField}
-                                        </ReactCSSTransitionGroup>
-
-                                        <ReactCSSTransitionGroup transitionName="usa-da-meta-fade" transitionEnterTimeout={500} transitionLeaveTimeout={300}>
-                                            {dateRangeField}
-                                        </ReactCSSTransitionGroup>
-
-                                        <ReactCSSTransitionGroup transitionName="usa-da-meta-fade" transitionEnterTimeout={500} transitionLeaveTimeout={300}>
-                                            {submissionComponent}
-                                        </ReactCSSTransitionGroup>
                                     </div>
-                                    <div className="usa-da-guide-link">
-                                        <a href="#/submissionGuide?force=true">View Submission Guide</a>
-                                    </div>
+
+                                    <ReactCSSTransitionGroup transitionName="usa-da-meta-fade" transitionEnterTimeout={500} transitionLeaveTimeout={300}>
+                                        {dateTypeField}
+                                    </ReactCSSTransitionGroup>
+
+                                    <ReactCSSTransitionGroup transitionName="usa-da-meta-fade" transitionEnterTimeout={500} transitionLeaveTimeout={300}>
+                                        {dateRangeField}
+                                    </ReactCSSTransitionGroup>
+
+                                    <ReactCSSTransitionGroup transitionName="usa-da-meta-fade" transitionEnterTimeout={500} transitionLeaveTimeout={300}>
+                                        {submissionComponent}
+                                    </ReactCSSTransitionGroup>
+                                </div>
+                                <div className="usa-da-guide-link">
+                                    <a href="#/submissionGuide?force=true">View Submission Guide</a>
                                 </div>
                             </div>
                         </div>
-                        <Modal onClose={this.closeModal} isOpen={this.state.showModal} buttons={button} content={this.state.modalMessage}/>  
                     </div>
+                    <Modal onClose={this.closeModal.bind(this)} isOpen={this.state.showModal} content={this.state.modalMessage} />
+                </div>
             );
         }
     }
