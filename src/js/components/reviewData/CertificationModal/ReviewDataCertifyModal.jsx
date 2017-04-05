@@ -11,7 +11,7 @@ import CertifyDisclaimer from './CertifyDisclaimer.jsx';
 import CertifyButtons from './CertifyButtons.jsx';
 import CertifyProgress from './CertifyProgress.jsx';
 import * as ReviewHelper from '../../../helpers/reviewHelper.js';
-import { hashHistory } from 'react-router';
+import { hashHistory, Link } from 'react-router';
 
 class VariableMessage extends React.Component {
 	render() {
@@ -60,6 +60,9 @@ export default class ReviewDataCertifyModal extends React.Component {
 				let errorMessage = "An error occurred while attempting to certify the submission. Please contact your administrator for assistance.";
 				if (error.httpStatus == 400 || error.httpStatus == 403) {
 					errorMessage = error.message
+					if (error.submissionId) {
+						errorMessage = <div>{error.message} You can update the certified submission <Link to={`/validateData/${error.submissionId}`}>here</Link>.</div>
+					}
 				}
 
 				this.setState({errorMessage: errorMessage});
@@ -136,9 +139,8 @@ export default class ReviewDataCertifyModal extends React.Component {
 							</div>
 
 							{action}
-
 							{error}
-
+							
 						</div>
 					</div>
 				</div>
