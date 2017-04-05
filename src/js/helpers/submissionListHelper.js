@@ -41,18 +41,15 @@ const parseRecentActivity = (submissions) => {
         item.fileSize = fileSize;
         item.rowStatus = rowStatus;
 
+        item.sortableAgency = item.agency
         // sortable date parses the date into unix time stamp for simple sortablity
-        item.sortableDate = moment(item.last_modified, "MM/DD/YYYY").unix();
-
+        item.sortableDate = moment(item.last_modified).unix();
         // do the same thing for size and status, since they are going to be parsed into strings of differing units by the component
-        item.sortableSize = item.size;
-        item.sortableStatus = rowStatus;
-        item.sortableReportingDate = moment(item.reporting_start_date, "MM/DD/YYYY").unix();
+        item.sortableReportingDate = moment(item.reporting_start_date).unix();
         item.sortableName = '';
         if (item.hasOwnProperty("user")) {
             item.sortableName = item.user.name;
         }
-
         parsedSubmissions.push(item);
     });
 
