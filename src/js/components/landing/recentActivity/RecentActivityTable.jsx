@@ -27,7 +27,7 @@ export default class RecentActivityTable extends React.Component {
 			headerClasses: [],
 			message: 'Loading recent activity...',
 			sortDirection: 'desc',
-			sortColumn: 1,
+			sortColumn: 4,
 			account: null,
 			user: true
 		};
@@ -122,7 +122,7 @@ export default class RecentActivityTable extends React.Component {
 		const classes = ['row-10 text-center', 'row-20 text-center', 'row-15 text-right white-space', 'row-15 text-right', 'row-15 text-right','row-15 text-right progress-cell', 'row-10 text-center'];
 
 		// sort the array by object key
-		const orderKeys = ['sortableReportingDate', 'sortableName', 'sortableDate', 'sortableSize', 'sortableStatus'];
+		const orderKeys = ['sortableAgency', 'sortableReportingDate', 'sortableName', 'sortableDate'];
 		const data = _.orderBy(this.state.cachedResponse, orderKeys[this.state.sortColumn - 1], this.state.sortDirection);
 
 		// iterate through each item returned from the API
