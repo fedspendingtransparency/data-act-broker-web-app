@@ -149,7 +149,8 @@ export default class AddDataMeta extends React.Component {
                 
                 this.setState({
                     showModal : true,
-                    modalMessage : <div>{err.message} You can update the certified submission <Link to={`/validateData/${err.submissionId}`}>here</Link>.</div>});
+                    modalMessage : <div>{err.message} You can update the certified submission <Link to={`/validateData/${err.submissionId}`}>here</Link>.</div>
+                });
             });
         } else {
             this.props.updateMetaData(this.state);
