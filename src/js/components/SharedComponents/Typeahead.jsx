@@ -63,7 +63,20 @@ export default class Typeahead extends React.Component {
 
 	mountAwesomeplete() {
 		const target = this.refs.awesomplete;
-		this.typeahead = new Awesomplete(target);
+		if(this.props.prioritySort) {
+			this.typeahead = new Awesomplete(target, {sort: function(a, b) {
+				if(a.value.priority > b.value.priority) {
+					return 1;
+				}
+				if(a.value.priority < b.value.priority) {
+					return -1;
+				}
+				return 0;
+			}});
+		}
+		else {
+			this.typeahead = new Awesomplete(target);
+		}
 		this.typeahead.autoFirst = true;
 
 		if (this.props.formatter) {

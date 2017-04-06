@@ -38,7 +38,7 @@ export default class RecentActivityTable extends React.Component {
 			'Agency',
 			'Reporting Period',
 			'Submitted By',
-			'Last Modified Date',
+			'Last Modified',
 			'Status',
 			'Delete'
 			];
@@ -119,7 +119,7 @@ export default class RecentActivityTable extends React.Component {
 		const output = [];
 		const rowClasses = [];
 
-		const classes = ['row-10 text-center', 'row-20 text-center', 'row-15 text-right white-space', 'row-15 text-right', 'row-15 text-right','row-15 text-right progress-cell', 'row-10 text-center'];
+		const classes = ['row-10 text-center', 'row-20 text-center', 'row-15 text-right white-space', 'row-15 text-right', 'row-10 text-right','row-20 text-right progress-cell', 'row-10 text-center'];
 
 		// sort the array by object key
 		const orderKeys = ['sortableAgency', 'sortableReportingDate', 'sortableName', 'sortableDate'];
@@ -151,9 +151,15 @@ export default class RecentActivityTable extends React.Component {
 				reportingDateString,
 				userName,
 				item.last_modified,
-				<Status.SubmissionStatus status={item.rowStatus} />,
-				<DeleteLink submissionId={item.submission_id} index={index} warning={this.deleteWarning.bind(this)} confirm={deleteConfirm} reload={this.reload.bind(this)} item={item} account={this.state.account}/>
+				<Status.SubmissionStatus status={item.rowStatus} certified={item.publish_status !== 'unpublished'} />
 			];
+
+			if(item.publish_status === "unpublished") {
+				row.push(<DeleteLink submissionId={item.submission_id} index={index} warning={this.deleteWarning.bind(this)} confirm={deleteConfirm} reload={this.reload.bind(this)} item={item} account={this.state.account}/>);
+			}
+			else {
+				row.push("N/A");
+			}
 
 			rowClasses.push(classes);
 			output.push(row);

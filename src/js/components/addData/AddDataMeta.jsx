@@ -12,13 +12,14 @@ import AgencyListContainer from '../../containers/SharedContainers/AgencyListCon
 import * as Icons from '../SharedComponents/icons/Icons.jsx';
 
 import Progress from '../SharedComponents/ProgressComponent.jsx';
-
+import Modal from '../SharedComponents/Modal.jsx';
 import DateTypeField from './metadata/DateTypeField.jsx';
 import DateRangeField from './metadata/DateRangeField.jsx';
 
 import SubmitComponent from './metadata/SubmitComponent.jsx';
 
 import * as AgencyHelper from '../../helpers/agencyHelper.js';
+import { Link } from 'react-router';
 
 const propTypes = {
     updateMetaData: PropTypes.func
@@ -42,8 +43,17 @@ export default class AddDataMeta extends React.Component {
             showDateRangeField: false,
             showSubmitButton: false,
             buttonDisabled: true,
+            modalMessage: '',
+            showModal: false, 
             message: this.successMessage
         };
+    }
+
+    closeModal () {    
+        this.setState({
+            showModal: false,
+            modalMessage:  ''
+        })        
     }
 
     handleChange(agency, isValid){
@@ -60,7 +70,6 @@ export default class AddDataMeta extends React.Component {
             }, this.checkComplete);
         }
     }
-
 
     handleDateChange(startDate, endDate, dateError) {
 
@@ -88,7 +97,6 @@ export default class AddDataMeta extends React.Component {
             dateType: dateType
         }, this.checkComplete);
     }
-
 
     checkComplete() {
 
@@ -118,9 +126,34 @@ export default class AddDataMeta extends React.Component {
         }
     }
 
-    submitMetadata(){
-        this.props.updateMetaData(this.state);
-    }
+    submitMetadata(e){
+        let agency = this.state.agency, 
+            endDate = this.state.endDate,
+            dateType = this.state.dateType;
+
+        // Only make a request to check certified submission for quarterly submission. 
+        if (dateType == 'quarter') {
+        
+            let month = endDate.substr(0, 2), 
+                quarter = parseInt(month)%12 + 3,
+                year = endDate.substr(3);
+            
+            if (quarter == 3){
+                year++
+            }
+
+            AgencyHelper.checkYearQuarter(agency,year,quarter).then(()=>{
+                this.props.updateMetaData(this.state);
+            }).catch(err => {
+                this.setState({
+                    showModal : true,
+                    modalMessage : <div>{err.message} You can update the certified submission <Link to={`/validateData/${err.submissionId}`}>here</Link>.</div>
+                });
+            });
+        } else {
+            this.props.updateMetaData(this.state);
+        }
+    }    
 
     validateAgency() {
         if (this.state.agency == '') {
@@ -174,7 +207,7 @@ export default class AddDataMeta extends React.Component {
         if (this.state.showSubmitButton) {
             submissionComponent = <SubmitComponent message={this.state.message} onSubmit={this.submitMetadata.bind(this)} disabled={this.state.buttonDisabled} />
         }
-
+                      
         return (
                 <div>
                     <div className="usa-da-content-step-block" name="content-top">
@@ -196,31 +229,32 @@ export default class AddDataMeta extends React.Component {
                                     <div className="row">
                                         <div className="col-sm-12 col-md-12 typeahead-holder" data-testid="agencytypeahead">
                                             <AgencyListContainer placeholder="Enter the name of the reporting agency" onSelect={this.handleChange.bind(this)} customClass={agencyClass} />
-                                                <div className={"usa-da-icon usa-da-form-icon" + agencyClass}>
-                                                    {agencyIcon}
-                                                </div>
+                                            <div className={"usa-da-icon usa-da-form-icon" + agencyClass}>
+                                                {agencyIcon}
                                             </div>
                                         </div>
-
-                                        <ReactCSSTransitionGroup transitionName="usa-da-meta-fade" transitionEnterTimeout={500} transitionLeaveTimeout={300}>
-                                            {dateTypeField}
-                                        </ReactCSSTransitionGroup>
-
-                                        <ReactCSSTransitionGroup transitionName="usa-da-meta-fade" transitionEnterTimeout={500} transitionLeaveTimeout={300}>
-                                            {dateRangeField}
-                                        </ReactCSSTransitionGroup>
-
-                                        <ReactCSSTransitionGroup transitionName="usa-da-meta-fade" transitionEnterTimeout={500} transitionLeaveTimeout={300}>
-                                            {submissionComponent}
-                                        </ReactCSSTransitionGroup>
                                     </div>
-                                    <div className="usa-da-guide-link">
-                                        <a href="#/submissionGuide?force=true">View Submission Guide</a>
-                                    </div>
+
+                                    <ReactCSSTransitionGroup transitionName="usa-da-meta-fade" transitionEnterTimeout={500} transitionLeaveTimeout={300}>
+                                        {dateTypeField}
+                                    </ReactCSSTransitionGroup>
+
+                                    <ReactCSSTransitionGroup transitionName="usa-da-meta-fade" transitionEnterTimeout={500} transitionLeaveTimeout={300}>
+                                        {dateRangeField}
+                                    </ReactCSSTransitionGroup>
+
+                                    <ReactCSSTransitionGroup transitionName="usa-da-meta-fade" transitionEnterTimeout={500} transitionLeaveTimeout={300}>
+                                        {submissionComponent}
+                                    </ReactCSSTransitionGroup>
+                                </div>
+                                <div className="usa-da-guide-link">
+                                    <a href="#/submissionGuide?force=true">View Submission Guide</a>
                                 </div>
                             </div>
                         </div>
                     </div>
+                    <Modal onClose={this.closeModal.bind(this)} isOpen={this.state.showModal} content={this.state.modalMessage} />
+                </div>
             );
         }
     }
