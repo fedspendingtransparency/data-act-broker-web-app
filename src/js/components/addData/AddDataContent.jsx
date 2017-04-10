@@ -51,25 +51,14 @@ export default class AddDataContent extends React.Component {
 
         return (
             <div>
-                <div className="usa-da-content-step-block" name="content-top">
-                    <div className="container center-block">
-                        <div className="row">
-                            <Progress totalSteps={5} currentStep={2} id={this.props.params.submissionID} />
-                        </div>
+                <div className="container center-block">
+                    <div className="row">
+                        <SubmissionComponent files={this.props.fileTypes} />
                     </div>
-                </div>
-                <div>
-                    <div className="container center-block">
-                        <div className="row">
-                            <SubmissionComponent
-                                files={this.props.fileTypes}
-                            />
-                        </div>
-                        <div className="row text-center">
-                            <div className="col-md-offset-3 col-md-6">
-                                {actionArea}
-                                {this.state.submissionID !== 0 ? <a className="usa-da-submit-review" href={subLink}>{subID}</a> : null }
-                            </div>
+                    <div className="row text-center">
+                        <div className="col-md-offset-3 col-md-6">
+                            {actionArea}
+                            {this.state.submissionID !== 0 ? <a className="usa-da-submit-review" href={subLink}>{subID}</a> : null }
                         </div>
                     </div>
                 </div>

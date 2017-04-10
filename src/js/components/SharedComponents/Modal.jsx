@@ -11,14 +11,6 @@ export default class ErrorModal extends React.Component {
 		typeof this.props.onClose === 'function'? this.props.onClose(e) : null;
 	}
 
-	componentWillMount(){
-		console.log('mouting modal')
-	}
-
-	componentWillUnmount(){
-		console.log('unmounting modal')
-	}
-
 	render() {
 		return (
 			<Modal mounted={this.props.isOpen} onExit={this.closeModal.bind(this)} underlayClickExits={true}
