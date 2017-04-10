@@ -9,7 +9,6 @@ import DropZone from '../addData/DropZone.jsx';
 import DropZoneContainer from '../../containers/addData/DropZoneContainer.jsx';
 import Navbar from '../SharedComponents/navigation/NavigationComponent.jsx';
 import AddDataHeader from './../addData/AddDataHeader.jsx';
-import Progress from '../SharedComponents/ProgressComponent.jsx';
 import SubmitButton from '../SharedComponents/SubmitButton.jsx';
 import FileProgress from '../SharedComponents/FileProgress.jsx';
 import MetaData from '../addData/AddDataMetaDisplay.jsx';

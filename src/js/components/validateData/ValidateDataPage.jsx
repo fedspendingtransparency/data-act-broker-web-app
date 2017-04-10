@@ -132,6 +132,10 @@ class UnknownIDComponent extends React.Component {
 }
 
 export default class ValidateDataPage extends React.Component {
+    constructor(props) {
+        super(props)
+    }
+
     render() {
         let currentComponent;
         const submissionID = this.props.params.submissionID;
@@ -149,7 +153,7 @@ export default class ValidateDataPage extends React.Component {
                 <div className="usa-da-content-step-block" name="content-top">
                     <div className="container center-block">
                         <div className="row">
-                            <Progress totalSteps={4} currentStep={3} />
+                            <Progress currentStep={1} id={this.props.params.submissionID} />
                         </div>
                     </div>
                 </div>

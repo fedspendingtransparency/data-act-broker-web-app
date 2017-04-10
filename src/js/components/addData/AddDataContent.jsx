@@ -54,7 +54,7 @@ export default class AddDataContent extends React.Component {
                 <div className="usa-da-content-step-block" name="content-top">
                     <div className="container center-block">
                         <div className="row">
-                            <Progress totalSteps={4} currentStep={2} />
+                            <Progress totalSteps={5} currentStep={2} id={this.props.params.submissionID} />
                         </div>
                     </div>
                 </div>

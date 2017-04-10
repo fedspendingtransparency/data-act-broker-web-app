@@ -13,8 +13,11 @@ const propTypes = {
 
 const defaultProps = {
     currentStep: 1,
-    totalSteps: 4,
-    stepNames: ['Name Submission', 'Upload .CSV Files', 'Validate .CSV Data', 'Review & Publish']
+    totalSteps: 5,
+    // stepNames: ['Name Submission', 'Upload .CSV Files', 'Validate .CSV Data', 'Review & Publish']
+    stepNames: ['Upload Files', 'Generate D', 'Cross File', 'Generate EF', 'Review & Publish'],
+    stepLink: ['#/validateData', '#/generateFiles', '#/validateCrossFile', '#/generateEF', '#/reviewData'],
+    // upload data (validateData), d file (generateFiles), cross file (validateCrossFile), EF (generateEF), review publish (reviewData)
 };
 
 export default class Progress extends React.Component {
@@ -26,11 +29,12 @@ export default class Progress extends React.Component {
         const progressBar = [];
         const progressLabels = [];
         const stepNames = this.props.stepNames;
+        const stepLink = this.props.stepLink;
 
         for (let i = 1; i <= this.props.totalSteps; i++) {
             if (i < this.props.currentStep) {
                 progressBar.push(<li key={i} className="usa-da-progress-bar-step-done"><span className="step">{i}</span></li>);
-                progressLabels.push(<li key={i} className="usa-da-progress-bar-step-done"><span className="name">{stepNames[i - 1]}</span></li>);
+                progressLabels.push(<li key={i} className="usa-da-progress-bar-step-done"><a href={stepLink[i-1] +"/"+ this.props.id} ><span className="name">{stepNames[i - 1]}</span></a></li>);
             } else if (i === this.props.currentStep) {
                 progressBar.push(<li key={i} className="usa-da-progress-bar-step-current"><span className="step">{i}</span></li>);
                 progressLabels.push(<li key={i} className="usa-da-progress-bar-step-current"><span className="name">{stepNames[i - 1]}</span></li>);
