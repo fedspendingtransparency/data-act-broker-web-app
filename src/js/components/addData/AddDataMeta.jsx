@@ -145,6 +145,7 @@ export default class AddDataMeta extends React.Component {
             AgencyHelper.checkYearQuarter(agency,year,quarter).then(()=>{
                 this.props.updateMetaData(this.state);
             }).catch(err => {
+                console.log(err.message)
                 this.setState({
                     showModal : true,
                     modalMessage : <div>{err.message} You can update the certified submission <Link to={`/validateData/${err.submissionId}`}>here</Link>.</div>
