@@ -5,11 +5,7 @@
 
 import React, { PropTypes } from 'react';
 import { kGlobalConstants } from '../../GlobalConstants.js';
-import FileProgress from '../SharedComponents/FileProgress.jsx';
-import TypeSelector from './AddDataTypeSelector.jsx';
 import SubmissionComponent from './SubmissionComponent.jsx';
-import MetaData from './AddDataMetaDisplay.jsx';
-import Progress from '../SharedComponents/ProgressComponent.jsx';
 import SubmitButton from '../SharedComponents/SubmitButton.jsx';
 
 const propTypes = {

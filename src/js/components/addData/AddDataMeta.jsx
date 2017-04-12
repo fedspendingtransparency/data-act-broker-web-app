@@ -49,14 +49,6 @@ export default class AddDataMeta extends React.Component {
         };
     }
 
-    componentWillMount(){
-        this.setState({isMounted: true})
-    }
-
-    componentWillUnmount(){
-        this.setState({isMounted: false})
-    }
-
     closeModal () {    
         this.setState({
             showModal: false,
