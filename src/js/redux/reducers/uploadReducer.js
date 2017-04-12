@@ -34,6 +34,14 @@ const setUploadItem = (state, action) => {
 	return files;
 }
 
+const removeUploadItem = (state, action) => {
+	if (action.name && state.files[action.name]) {
+		delete state.files[action.name];
+	}
+
+	return state.files;
+}
+
 const setUploadProgress = (state, action) => {
 	let file = Object.assign({}, state.files[action.name]);
 	file.progress = action.progress;
@@ -63,9 +71,13 @@ const setUploadState = (state, action) => {
 export const uploadReducer = (state = initialUploadState, action) => {
 	switch (action.type) {
 		case 'SET_UPLOAD_ITEM':
-
 			return Object.assign({}, state, {
 				files: setUploadItem(state, action)
+			});
+
+		case 'REMOVE_UPLOAD_ITEM':
+			return Object.assign({}, state, {
+				files: removeUploadItem(state, action)
 			});
 
 		case 'SET_UPLOAD_PROGRESS':

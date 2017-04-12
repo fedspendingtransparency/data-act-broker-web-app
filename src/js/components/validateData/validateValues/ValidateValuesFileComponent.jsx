@@ -230,19 +230,19 @@ export default class ValidateDataFileComponent extends React.Component {
             }
         }
 
-        if (!this.state.hasErrors && !this.state.hasWarnings) {
+        if (!this.state.hasErrors && !this.state.hasWarnings && !this.props.published) {
             optionalUpload = true;
             uploadText = 'Overwrite File';
-            correctButtonOverlay = <CorrectButtonOverlay isReplacingFile={this.isReplacingFile()} fileKey={this.props.type.requestName} onDrop={this.props.onFileChange} fileName={fileName}/>
+            correctButtonOverlay = <CorrectButtonOverlay isReplacingFile={this.isReplacingFile()} fileKey={this.props.type.requestName} onDrop={this.props.onFileChange} removeFile={this.props.removeFile} fileName={fileName}/>
             validationElement = <p className='usa-da-success-txt'>File successfully validated</p>;
         }
-        else if (!this.state.hasErrors && this.state.hasWarnings) {
+        else if (!this.state.hasErrors && this.state.hasWarnings && !this.props.published) {
             optionalUpload = true;
             uploadText = 'Overwrite File';
-            correctButtonOverlay = <CorrectButtonOverlay isReplacingFile={this.isReplacingFile()} fileKey={this.props.type.requestName} onDrop={this.props.onFileChange} fileName={fileName}/>
+            correctButtonOverlay = <CorrectButtonOverlay isReplacingFile={this.isReplacingFile()} fileKey={this.props.type.requestName} onDrop={this.props.onFileChange} removeFile={this.props.removeFile} fileName={fileName}/>
             validationElement = <p className='usa-da-warning-txt'>File validated with warnings</p>;
         }
-        else {
+        else if(!this.props.published){
             validationElement = <div className="row usa-da-validate-item-file-section-correct-button" data-testid="validate-upload"><div className="col-md-12">
                 <ValidateDataUploadButton optional={optionalUpload} onDrop={this.props.onFileChange} text={uploadText} />
                 </div>

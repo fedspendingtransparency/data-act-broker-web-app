@@ -34,13 +34,13 @@ class SubTierAgencyListContainer extends React.Component {
 	dataFormatter(item, input) {
 		return {
 			label: item.agency_name,
-			value: item.agency_code
+			value: {value:item.agency_code, priority:item.priority}
 		};
 	}
 
 	render() {
 		return (
-			<Typeahead {...this.props} values={this.props.subTierAgencyList.subTierAgencies} formatter={this.dataFormatter} disabled={this.props.disabled}/>
+			<Typeahead {...this.props} values={this.props.subTierAgencyList.subTierAgencies} formatter={this.dataFormatter} disabled={this.props.disabled} prioritySort={true}/>
 		)
 	}
 
