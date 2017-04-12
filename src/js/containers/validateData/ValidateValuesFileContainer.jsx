@@ -15,6 +15,9 @@ import { fileTypes } from '../addData/fileTypes.js';
 import { kGlobalConstants } from '../../GlobalConstants.js';
 
 class ValidateValuesFileContainer extends React.Component {
+	constructor(props){
+		super(props);
+	}
 
 	selectedFile(file) {
 		this.props.setUploadItem({
@@ -22,12 +25,19 @@ class ValidateValuesFileContainer extends React.Component {
 			state: 'ready',
 			file: file
 		});
+		if(this.props.updateItem){
+			this.props.updateItem(file);
+		}
+	}
+
+	removeFile() {
+		this.props.removeUploadItem({name: this.props.type.requestName})
 	}
 
 	render() {
 
 		return (
-			<ValidateValuesFileComponent {...this.props} item={this.props.data[this.props.type.requestName]} onFileChange={this.selectedFile.bind(this)} />
+			<ValidateValuesFileComponent {...this.props} item={this.props.data[this.props.type.requestName]} onFileChange={this.selectedFile.bind(this)} removeFile={this.removeFile.bind(this)} />
 		)
 	}
 }

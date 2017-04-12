@@ -25,9 +25,8 @@ const tableHeaders = [
     'Agency',
     'Reporting Period',
     'Submitted By',
-    'Last Modified Date',
-    'Status',
-    'Delete'
+    'Last Modified',
+    'Status'
 ];
 
 export default class DashboardTable extends React.Component {
@@ -109,9 +108,6 @@ export default class DashboardTable extends React.Component {
             case 3:
                 return 'submitted_by';
                 break;
-            case 5:
-                return 'status';
-                break;
             default:
                 return 'modified';
         }
@@ -138,7 +134,7 @@ export default class DashboardTable extends React.Component {
         const output = [];
         const rowClasses = [];
 
-        const classes = ['row-10 text-center', 'row-20 text-center', 'row-15 text-right white-space', 'row-15 text-right', 'row-15 text-right','row-15 text-right progress-cell', 'row-10 text-center'];
+        const classes = ['row-10 text-center', 'row-20 text-center', 'row-15 text-right white-space', 'row-15 text-right', 'row-10 text-right','row-20 text-right progress-cell', 'row-10 text-center'];
 
         // iterate through each item returned from the API
         this.props.data.forEach((item, index) => {
@@ -166,9 +162,15 @@ export default class DashboardTable extends React.Component {
                 reportingDateString,
                 userName,
                 item.last_modified,
-                <Status.SubmissionStatus status={item.rowStatus} />,
-                <DeleteLink submissionId={item.submission_id} index={index} warning={this.deleteWarning.bind(this)} confirm={deleteConfirm} reload={this.reload.bind(this)} item={item} account={this.state.account}/>
+                <Status.SubmissionStatus status={item.rowStatus} certified={this.props.isCertified} />
             ];
+
+            if(!this.props.isCertified) {
+                row.push(<DeleteLink submissionId={item.submission_id} index={index} warning={this.deleteWarning.bind(this)} confirm={deleteConfirm} reload={this.reload.bind(this)} item={item} account={this.state.account}/>);
+            }
+            else {
+                row.push(item.certifying_user);
+            }
 
             rowClasses.push(classes);
             output.push(row);
@@ -205,10 +207,15 @@ export default class DashboardTable extends React.Component {
             loadingClass = ' loading';
         }
 
+        let lastColumn = "Delete";
+        if(this.props.isCertified) {
+            lastColumn = "Certified By";
+        }
+
         return (
             <div className="usa-da-submission-list">
                 <div className={"submission-table-content" + loadingClass}>
-                    <FormattedTable headers={tableHeaders} data={this.state.parsedData} sortable={true} cellClasses={this.state.cellClasses} unsortable={[0,6]} headerClasses={this.state.headerClasses} onSort={this.sortTable.bind(this)} />
+                    <FormattedTable headers={tableHeaders.concat(lastColumn)} data={this.state.parsedData} sortable={true} cellClasses={this.state.cellClasses} unsortable={[0,5,6]} headerClasses={this.state.headerClasses} onSort={this.sortTable.bind(this)} />
                 </div>
                 <div className="text-center">
                     {this.state.message}

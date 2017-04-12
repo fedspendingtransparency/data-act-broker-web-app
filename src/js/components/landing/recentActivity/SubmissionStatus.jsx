@@ -63,11 +63,15 @@ export class SubmissionStatus extends React.Component {
 	render() {
 
 		const colors = this.progressBar(this.props.status);
+		let label = this.statusStrings[this.props.status]
+		if(this.props.status !== 5 && this.props.certified){
+			label += '\n(Needs Recertification)'
+		}
 
 		return (
 			<div className="usa-da-table-submission-status">
 				<div className="usa-da-status-label">
-					{this.statusStrings[this.props.status]}
+					{label}
 				</div>
 				<div className="usa-da-submission-progress-bars">
 					<div className={"step " + colors[0]} />
