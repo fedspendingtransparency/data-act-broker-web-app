@@ -14,10 +14,8 @@ const propTypes = {
 const defaultProps = {
     currentStep: 1,
     totalSteps: 5,
-    // stepNames: ['Name Submission', 'Upload .CSV Files', 'Validate .CSV Data', 'Review & Publish']
     stepNames: ['Validate Data', 'Generate D', 'Cross File', 'Generate EF', 'Review & Publish'],
-    stepLink: ['#/validateData', '#/generateFiles', '#/validateCrossFile', '#/generateEF', '#/reviewData'],
-    // upload data (validateData), d file (generateFiles), cross file (validateCrossFile), EF (generateEF), review publish (reviewData)
+    stepLink: ['#/validateData', '#/generateFiles', '#/validateCrossFile', '#/generateEF', '#/reviewData']
 };
 
 export default class Progress extends React.Component {
