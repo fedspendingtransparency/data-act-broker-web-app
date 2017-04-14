@@ -7,13 +7,8 @@ import React, { PropTypes } from 'react';
 import { kGlobalConstants } from '../../GlobalConstants.js';
 import Navbar from '../SharedComponents/navigation/NavigationComponent.jsx';
 import Table from '../SharedComponents/table/TableComponent.jsx';
-import SubmissionComponent from './../addData/SubmissionComponent.jsx';
 import AddDataHeader from './../addData/AddDataHeader.jsx';
 import Progress from '../SharedComponents/ProgressComponent.jsx';
-import SubmitButton from '../SharedComponents/SubmitButton.jsx';
-import MetaData from '../addData/AddDataMetaDisplay.jsx';
-import FileComponent from '../addData/FileComponent.jsx';
-import ValidateDataContent from './ValidateDataContent.jsx';
 
 import ValidateDataContainer from '../../containers/validateData/ValidateDataContainer.jsx';
 
