@@ -9,7 +9,7 @@ In this release of the Broker, we deployed the FY2017 Program Activity code list
   - [Improved processing time](#/help?section=processingtime)
   - [Functionality improvements](#/help?section=functionality)
 
-##### Changes to previously certified files{section=pa17}
+##### FY 2017 Program Activity codes{section=pa17}
 In this release of the Broker, Treasury deployed the FY2017 Program Activity code list. You can access a copy of this list on [Github](https://github.com/fedspendingtransparency/data-act-broker-backend/blob/development/dataactvalidator/config/example_program_activity.csv). If you have questions or issues related to the list, please contact OMB at SpendingTransparency@omb.eop.gov.The new Program Activity list applies to the validation rules B9 and B10.
 
 ##### Program Activity and Object Class warnings{section=paoc}
