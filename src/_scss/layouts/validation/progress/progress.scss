@@ -30,6 +30,9 @@
 
 		.usa-da-progress-bar-step-done {
 			@include validationProgressDoneStep;
+			a {
+				color: #323a45;
+			}
 		}
 	}
 }
