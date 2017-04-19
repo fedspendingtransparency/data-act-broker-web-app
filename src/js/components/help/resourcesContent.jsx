@@ -41,7 +41,7 @@ export default class ResourcesContent extends React.Component {
             .then((urls) => {
                 this.setState({
                     rssUrl: urls[rssFileKey()],
-                    validationRulesUrl: urls['Validation_Rules_v1.07_20170412.xlsx'],
+                    validationRulesUrl: urls['Validation_Rules_v1.08_20170413.xlsx'],
                     domainValuesUrl: urls['Domain_Values.xlsx'],
 				    agencyLabelUrl: urls['AgencyLabel_to_TerseLabel_v1.0.1.xlsx'],
 				    daimsErrataUrl: urls['DAIMS_Errata.xlsx'],
