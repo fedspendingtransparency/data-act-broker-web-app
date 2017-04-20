@@ -73,12 +73,12 @@ export const currentQuarter = (type) => {
 
 	if (month == 12) {
 		// Add a year for quarter 1, since 1/2 are already in the new year do not need to update
-		year = moment().add(1, 'years').format('YYYY');;
-	}else if (month >= 9) {
+		year = moment().add(1, 'years').format('YYYY');
+	} else if (month >= 9) {
 		quarter = 4;
-	}else if (month >= 6) {
+	} else if (month >= 6) {
 		quarter = 3;
-	}else if (month >= 3) {
+	} else if (month >= 3) {
 		quarter = 2;
 	}
 
