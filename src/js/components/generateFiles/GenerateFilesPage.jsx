@@ -57,7 +57,7 @@ export default class GenerateFilesPage extends React.Component {
                 <div className="usa-da-content-step-block" name="content-top">
                     <div className="container center-block">
                         <div className="row">
-                            <Progress totalSteps={4} currentStep={3} />
+                            <Progress currentStep={2} id={this.props.params.submissionID} />
                         </div>
                     </div>
                 </div>

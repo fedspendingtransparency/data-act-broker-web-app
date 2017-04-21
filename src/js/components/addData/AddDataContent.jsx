@@ -5,11 +5,7 @@
 
 import React, { PropTypes } from 'react';
 import { kGlobalConstants } from '../../GlobalConstants.js';
-import FileProgress from '../SharedComponents/FileProgress.jsx';
-import TypeSelector from './AddDataTypeSelector.jsx';
 import SubmissionComponent from './SubmissionComponent.jsx';
-import MetaData from './AddDataMetaDisplay.jsx';
-import Progress from '../SharedComponents/ProgressComponent.jsx';
 import SubmitButton from '../SharedComponents/SubmitButton.jsx';
 
 const propTypes = {
@@ -51,25 +47,14 @@ export default class AddDataContent extends React.Component {
 
         return (
             <div>
-                <div className="usa-da-content-step-block" name="content-top">
-                    <div className="container center-block">
-                        <div className="row">
-                            <Progress totalSteps={4} currentStep={2} />
-                        </div>
+                <div className="container center-block">
+                    <div className="row">
+                        <SubmissionComponent files={this.props.fileTypes} />
                     </div>
-                </div>
-                <div>
-                    <div className="container center-block">
-                        <div className="row">
-                            <SubmissionComponent
-                                files={this.props.fileTypes}
-                            />
-                        </div>
-                        <div className="row text-center">
-                            <div className="col-md-offset-3 col-md-6">
-                                {actionArea}
-                                {this.state.submissionID !== 0 ? <a className="usa-da-submit-review" href={subLink}>{subID}</a> : null }
-                            </div>
+                    <div className="row text-center">
+                        <div className="col-md-offset-3 col-md-6">
+                            {actionArea}
+                            {this.state.submissionID !== 0 ? <a className="usa-da-submit-review" href={subLink}>{subID}</a> : null }
                         </div>
                     </div>
                 </div>
