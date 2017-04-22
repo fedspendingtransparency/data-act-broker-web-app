@@ -1,9 +1,9 @@
 language: node_js
 node_js:
   # latest in each series
-  - "6"
-  - "5"
-  - "4"
+    - "6"
+    - "5"
+    - "4"
 # Need a C++ compiler
 addons:
   apt:
@@ -13,8 +13,10 @@ addons:
       - g++-4.8
 env:
   - CXX=g++-4.8
-before_script:
+install:
+  - npm install
   - npm install -g gulp
+before_script:
   - cp sampleGlobalConstants_local.js GlobalConstants_local.js
 script:
   - gulp buildLocal
