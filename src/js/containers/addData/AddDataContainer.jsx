@@ -23,7 +23,7 @@ class AddDataContainer extends React.Component {
 
 		this.state = {
 			notAllowed: false,
-            errorMessage: ""
+			errorMessage: ""
 		};
 
 	}
@@ -46,30 +46,30 @@ class AddDataContainer extends React.Component {
 					hashHistory.push('/validateData/' + submissionID);
 
 				}).catch((err) => {
-        			if (err.httpStatus == 403) {
-                        this.setState({
-                            notAllowed: true,
-                            errorMessage: err.message
-                        });
+					if (err.httpStatus == 403) {
+						this.setState({
+							notAllowed: true,
+							errorMessage: err.message
+						});
 					}
-        		});
-        }
-        else {
-        	UploadHelper.performRemoteUpload(this.props.submission)
-        		.then((submissionID) => {
-        			// TODO: Remove this when this is eventually tied to user accounts
-        			this.props.setSubmissionId(submissionID);
-                    hashHistory.push('/validateData/' + submissionID);
-        		})
-        		.catch((err) => {
-        			if (err.httpStatus == 403) {
-                        this.setState({
-                            notAllowed: true,
-                            errorMessage: err.message
-                        });
-				    }
-        		});
-        }
+				});
+		}
+		else {
+			UploadHelper.performRemoteUpload(this.props.submission)
+				.then((submissionID) => {
+					// TODO: Remove this when this is eventually tied to user accounts
+					this.props.setSubmissionId(submissionID);
+					hashHistory.push('/validateData/' + submissionID);
+				})
+				.catch((err) => {
+					if (err.httpStatus == 403) {
+						this.setState({
+							notAllowed: true,
+							errorMessage: err.message
+						});
+				}
+			});
+		}
 	}
 
 
