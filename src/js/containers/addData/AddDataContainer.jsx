@@ -51,7 +51,7 @@ class AddDataContainer extends React.Component {
                             notAllowed: true,
                             errorMessage: err.message
                         });
-				    }
+					}
         		});
         }
         else {
