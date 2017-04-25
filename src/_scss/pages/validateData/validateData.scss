@@ -13,6 +13,16 @@
 	    padding-bottom: 30px;
 	}
 
+	@import "../../components/alerts/_alerts";
+
+	.alert-warning {
+		@include warningAlert;
+	}
+
+	.alert-error {
+		@include dangerAlert;	
+	}
+
 	.usa-da-validate-items {
 	    padding: 0;
 	    .usa-da-validate-item {

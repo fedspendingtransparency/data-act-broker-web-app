@@ -27,8 +27,8 @@ class AddDataContainer extends React.Component {
 		};
 
 	}
-	componentDidUpdate(prevProps, prevState) {
-		
+
+	componentDidUpdate(prevProps, prevState) {		
 		if (prevProps.submission.state == 'empty') {
 			if (Object.keys(this.props.submission.files).length == fileTypes.length) {
 				this.props.setSubmissionState('ready');
@@ -45,7 +45,14 @@ class AddDataContainer extends React.Component {
 					this.props.setSubmissionId(submissionID);
 					hashHistory.push('/validateData/' + submissionID);
 
-				});
+				}).catch((err) => {
+        			if (err.httpStatus == 403) {
+                        this.setState({
+                            notAllowed: true,
+                            errorMessage: err.message
+                        });
+				    }
+        		});
         }
         else {
         	UploadHelper.performRemoteUpload(this.props.submission)
