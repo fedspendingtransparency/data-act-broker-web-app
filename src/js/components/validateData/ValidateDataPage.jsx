@@ -7,13 +7,8 @@ import React, { PropTypes } from 'react';
 import { kGlobalConstants } from '../../GlobalConstants.js';
 import Navbar from '../SharedComponents/navigation/NavigationComponent.jsx';
 import Table from '../SharedComponents/table/TableComponent.jsx';
-import SubmissionComponent from './../addData/SubmissionComponent.jsx';
 import AddDataHeader from './../addData/AddDataHeader.jsx';
 import Progress from '../SharedComponents/ProgressComponent.jsx';
-import SubmitButton from '../SharedComponents/SubmitButton.jsx';
-import MetaData from '../addData/AddDataMetaDisplay.jsx';
-import FileComponent from '../addData/FileComponent.jsx';
-import ValidateDataContent from './ValidateDataContent.jsx';
 
 import ValidateDataContainer from '../../containers/validateData/ValidateDataContainer.jsx';
 
@@ -132,6 +127,10 @@ class UnknownIDComponent extends React.Component {
 }
 
 export default class ValidateDataPage extends React.Component {
+    constructor(props) {
+        super(props)
+    }
+
     render() {
         let currentComponent;
         const submissionID = this.props.params.submissionID;
@@ -149,7 +148,7 @@ export default class ValidateDataPage extends React.Component {
                 <div className="usa-da-content-step-block" name="content-top">
                     <div className="container center-block">
                         <div className="row">
-                            <Progress totalSteps={4} currentStep={3} />
+                            <Progress currentStep={1} id={this.props.params.submissionID} />
                         </div>
                     </div>
                 </div>

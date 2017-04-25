@@ -1,22 +1,18 @@
-#### March 29, 2017
+#### April 26, 2017
 
 On September 30, 2016, we released the full version of the DATA Act Broker that contains everything agencies need to test the data validation and submission process. We continue to make improvements to the Broker and respond to issues discovered through agency use.
 
-In this release of the Broker, agencies are now able to make changes to previously certified files. We also rolled out bug fixes for C9 and C12. 
+In this release of the Broker, we rolled out functionality improvements for users to navigate to previously completed steps and a disabled certify button for users without certification permissions. We also added a link to the USAspending Service Desk on the Help page.
 
-  - [Changes to previously certified files](#/help?section=certified)
-  - [Error report fix](#/help?section=reportFix)
-  - [C9 warning message](#/help?section=c9warning)
-  - [C12 warning message](#/help?section=c12warning)
- 
-##### Changes to previously certified files{section=certified}
-In this release of the Broker, agencies are now able to make changes to previously certified files. To update a previously certified submission, go to the submissions that you want to correct and upload the corrected files.  Go through the file validations and certify the corrected files. 
+  - [Broker navigation between validation steps](#/help?section=navigation)
+  - [Display of certify button for users without certification permissions](#/help?section=button)
+  - [Service Desk link](#/help?section=servicedesk)
 
-##### Error report fix{section=reportFix}
-In previous versions of the Broker, users experienced an issue with the error report not showing the same number of errors listed on the submission page. We rolled out a fix to correct this issue.
+##### Broker navigation between validation steps{section=navigation}
+In this release of the Broker, we implemented a functionality improvement for users to navigate to any previously completed step in the submission process.
 
-##### C9 warning message{section=c9warning}
-In the previous version of the Broker, the C9 validation was not consistently producing warnings. We updated the implementation to reflect the C9 validation rule in the DAIMS that states, “Unique FAIN and/or URI from file D2 should exist in file C, except D2 records where FederalActionObligation and OriginalLoanSubsidyCost = 0. FAIN may be null for aggregated records. URI may be null for non-aggregated records.” 
+##### Display of certify button for users without certification permissions{section=button}
+In this release, we updated the Broker so that only users in an agency’s certify permission group will see an active certify button on the final submission page of the Broker.
 
-##### C12 warning message{section=c12warning}
-In the previous version of the Broker, the C12 validation was not consistently producing warnings. We updated the implementation to reflect the C9 validation rule in the DAIMS that states, “Each unique PIID (or combination of PIID/ParentAwardId) from file D1 should exist in file C during the same reporting period, except D1 records where FederalActionObligation = 0.”
+##### Service Desk link{section=servicedesk}
+In this release, we added a link to the USAspending Service Desk on the Help page under "Getting More Help."

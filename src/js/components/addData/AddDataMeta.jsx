@@ -6,12 +6,9 @@
 import React, { PropTypes } from 'react';
 import ReactCSSTransitionGroup from 'react-addons-css-transition-group';
 
-import DatePicker from 'react-datepicker';
-import moment from 'moment';
 import AgencyListContainer from '../../containers/SharedContainers/AgencyListContainer.jsx';
 import * as Icons from '../SharedComponents/icons/Icons.jsx';
 
-import Progress from '../SharedComponents/ProgressComponent.jsx';
 import Modal from '../SharedComponents/Modal.jsx';
 import DateTypeField from './metadata/DateTypeField.jsx';
 import DateRangeField from './metadata/DateRangeField.jsx';
@@ -141,7 +138,6 @@ export default class AddDataMeta extends React.Component {
             if (quarter == 3){
                 year++
             }
-
             AgencyHelper.checkYearQuarter(agency,year,quarter).then(()=>{
                 this.props.updateMetaData(this.state);
             }).catch(err => {
@@ -210,13 +206,6 @@ export default class AddDataMeta extends React.Component {
                       
         return (
                 <div>
-                    <div className="usa-da-content-step-block" name="content-top">
-                        <div className="container center-block">
-                            <div className="row">
-                                <Progress totalSteps={4} currentStep={1} />
-                            </div>
-                        </div>
-                    </div>
                     <div className="container center-block">
                         <div className="row text-center usa-da-add-data-meta">
                             <div className="col-md-offset-2 col-md-8 mt-60 mb-60">
