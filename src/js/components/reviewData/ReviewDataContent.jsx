@@ -123,10 +123,9 @@ export default class ReviewDataContent extends React.Component {
         let affiliations = this.props.session.user.affiliations;
         for(let i = 0; i < affiliations.length; i++){
             if(affiliations[i].agency_name === this.props.data.agency_name){
-                if(affiliations[i].permission === 'reader'){
+                if(affiliations[i].permission === 'submitter'){
                     return true;
                 }
-                return false;
             }
         }
         return false;
@@ -174,10 +173,10 @@ export default class ReviewDataContent extends React.Component {
             reportRows.push(<ReviewDataContentRow key={j} label={reportLabels[j]} data={reportData[j]} />);
         }
 
-        let certifyButtonText = "Certify & Publish the Submission to USAspending.gov";
+        let certifyButtonText = "You do not have permissions to certify";
         let notifyButtonText = "Notify Another User that the Submission is Ready for Certification";
-        let buttonClass = "";
-        let buttonAction = this.openModal.bind(this, modalToOpen);
+        let buttonClass = "btn-disabled";
+        let buttonAction = "";
         let monthlySubmissionError = null;
         if (this.props.data.publish_status == "published") {
             certifyButtonText = "Submission has already been certified";
@@ -193,10 +192,10 @@ export default class ReviewDataContent extends React.Component {
                                         Monthly submissions cannot be certified
                                     </div>
         }
-        if (this.checkAffiliations() && !this.props.session.admin) {
-            certifyButtonText = "You do not have permissions to certify";
-            buttonClass = " btn-disabled";
-            buttonAction = "";
+        if (this.checkAffiliations() || this.props.session.admin) {
+            certifyButtonText = "Certify & Publish the Submission to USAspending.gov";
+            buttonClass = "";
+            buttonAction = this.openModal.bind(this, modalToOpen);;
         }
 
         return (
