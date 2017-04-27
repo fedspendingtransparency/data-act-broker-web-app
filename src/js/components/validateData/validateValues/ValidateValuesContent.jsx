@@ -37,7 +37,7 @@ export default class ValidateValuesContent extends React.Component {
                     warnings.push(type.requestName);
                 }
 
-                return <ValidateValuesFileContainer key={index} data={validation} type={type}  />;
+                return <ValidateValuesFileContainer key={index} data={validation} type={type} session={this.props.session} />;
             }
 
         });

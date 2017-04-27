@@ -32,21 +32,34 @@ export class Navbar extends React.Component {
         });
     }
 
-    render() {
-        let tabNames = {}
+    getTabs() {
+        let tabNames = {};
         if (this.props.session.user.helpOnly) {
             tabNames = {
                 'Help': 'help'
             };
         }
-        else {
+        else if (this.props.session.admin || this.props.session.user.affiliations && this.props.session.user.affiliations.length > 0){
             tabNames = {
                 'Home': 'landing',
                 'Upload & Validate New Submission': 'submissionGuide',
                 'Submission Dashboard': 'dashboard',
                 'Help': 'help'
             };
+        } else {
+            tabNames = {
+                'Home': 'landing',
+                'Upload & Validate New Submission': 'disabled',
+                'Submission Dashboard': 'dashboard',
+                'Help': 'help'
+            };
         }
+        return tabNames;
+    }
+
+    render() {
+        let tabNames = this.getTabs();
+        
 
         let headerTabs = [];
         const context = this;

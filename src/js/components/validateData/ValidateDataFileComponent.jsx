@@ -9,6 +9,7 @@ import FileProgress from '../SharedComponents/FileProgress.jsx';
 import ValidateDataErrorReport from './ValidateDataErrorReport.jsx';
 import ValidateDataUploadButton from './ValidateDataUploadButton.jsx';
 import * as Icons from '../SharedComponents/icons/Icons.jsx';
+import * as ReviewHelper from '../../helpers/reviewHelper.js';
 
 const propTypes = {
 
@@ -30,6 +31,18 @@ export default class ValidateDataFileComponent extends React.Component {
 
     componentDidMount() {
         this.determineErrors(this.props.item);
+        if (this.props.submission.id != null) {
+            ReviewHelper.fetchStatus(this.props.submission.id)
+                .then((data) => {
+                    data.ready = true;
+                    if (!this.isUnmounted) {
+                        this.setState(data);
+                    }
+                })
+                .catch((error) => {
+                    console.log(error);
+                });
+        }
     }
 
     componentWillReceiveProps(nextProps) {
@@ -198,6 +211,20 @@ export default class ValidateDataFileComponent extends React.Component {
         return icon;
     }
 
+    hasPermissions(){
+        if(this.props.session.admin){
+            return true;
+        }else if(this.props.session.user && this.props.session.user.affiliations.length > 0){
+            let affiliations = this.props.session.user.affiliations;
+            for(var i = 0; i < affiliations.length; i++){
+                if(affiliations[i].permission !== 'reader' && affiliations[i].agency_name === this.state.agency_name){
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+
     render() {
        
         
@@ -241,6 +268,10 @@ export default class ValidateDataFileComponent extends React.Component {
             if (newFile.state == 'uploading') {
                 uploadProgress = <FileProgress fileStatus={newFile.progress} />;
             }
+        }
+
+        if(!this.hasPermissions()){
+            disabledCorrect = ' hide';
         }
 
         return (
