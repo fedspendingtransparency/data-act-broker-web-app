@@ -29,17 +29,21 @@ export default class ValidateDataFileComponent extends React.Component {
     constructor(props) {
         super(props);
 
+        this.isUnmounted = false;
+
         this.state = {
             showWarning: false,
             showError: false,
             hasErrors: false,
             hasWarnings: false,
             signedUrl: '',
-            signInProgress: false
+            signInProgress: false, 
         };
     }
 
     componentDidMount() {
+        this.isUnmounted = false;
+
         this.determineErrors(this.props.item);
         if (this.props.submission.id != null) {
             ReviewHelper.fetchStatus(this.props.submission.id)
@@ -53,6 +57,10 @@ export default class ValidateDataFileComponent extends React.Component {
                     console.log(error);
                 });
         }
+    }
+
+    componentWillUnmount(){
+        this.isUnmounted = true;
     }
 
     componentWillReceiveProps(nextProps) {
@@ -223,7 +231,9 @@ export default class ValidateDataFileComponent extends React.Component {
     }
 
     hasPermissions(){
-        if(this.props.session.admin){
+        if(!this.props.session.user.affiliations){
+            return false;
+        }else if(this.props.session.admin){
             return true;
         }else if(this.props.session.user && this.props.session.user.affiliations.length > 0){
             let affiliations = this.props.session.user.affiliations;
