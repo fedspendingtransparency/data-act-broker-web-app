@@ -113,22 +113,6 @@ export default class DashboardTable extends React.Component {
         }
     }
 
-    reportingEndDate(oldDate){
-        // YYYY-MM-DD
-        let date = oldDate.split('-');
-        date = new Date(date[0], date[1], 0);
-        let year = date.getFullYear();
-        let month = date.getMonth()+1;
-        if(month < 10){
-            month = "0"+month;
-        }
-        let day = date.getDate();
-        if(day <10){
-            day = "0"+day;
-        }
-        return year+"-"+month+"-"+day;
-    }
-
     buildRow() {
         // iterate through the recent activity
         const output = [];
@@ -139,7 +123,7 @@ export default class DashboardTable extends React.Component {
         // iterate through each item returned from the API
         this.props.data.forEach((item, index) => {
 
-            let reportingDateString = "Start: "+item.reporting_start_date + "\nEnd: " + this.reportingEndDate(item.reporting_end_date);
+            let reportingDateString = "Start: "+item.reporting_start_date + "\nEnd: " + item.reporting_end_date;
             if (!item.reporting_start_date || !item.reporting_end_date) {
                 reportingDateString = 'No reporting period specified';
             }
