@@ -20,8 +20,6 @@ const defaultProps = {
 export class Navbar extends React.Component {
     constructor(props) {
         super(props);
-
-        console.log(this.props)
     }
 
     logout(e) {
