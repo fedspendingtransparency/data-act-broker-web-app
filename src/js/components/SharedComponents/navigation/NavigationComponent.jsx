@@ -46,33 +46,21 @@ export class Navbar extends React.Component {
 
     }
 
-    getTabs() {
+    render() {
         let tabNames = {};
+
         if (this.props.session.user.helpOnly) {
             tabNames = {
                 'Help': 'help'
             };
         }
-        else if (this.props.session.admin || this.checkPermissions()){
+        else {
             tabNames = {
                 'Home': 'landing',
                 'Upload & Validate New Submission': 'submissionGuide',
                 'Submission Dashboard': 'dashboard',
                 'Help': 'help'
             };
-        } else {
-            tabNames = {
-                'Home': 'landing',
-                'Upload & Validate New Submission': 'disabled',
-                'Submission Dashboard': 'dashboard',
-                'Help': 'help'
-            };
-        }
-        return tabNames;
-    }
-
-    render() {
-        let tabNames = this.getTabs();
         
 
         let headerTabs = [];

@@ -62,18 +62,6 @@
                 right: 0;
                 z-index: 9999;
             }
-            & .permissionsRequired {
-                text-align: center;
-                font-size: 1.3rem;
-                background: url('../graphics/permissions_ribbon.png');
-                height: 65px;
-                width: 106px;
-                display: block;
-                position: absolute;
-                top: 0;
-                right: 0;
-                z-index: 9999;
-            }
             &:hover {
                 background-color: $color-gray-dark;
             }

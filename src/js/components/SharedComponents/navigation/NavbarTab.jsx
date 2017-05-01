@@ -31,16 +31,6 @@ export default class NavbarTab extends React.Component {
                     </a>
                 </li>
             );
-        } else if (this.props.tabClass === 'disabled') {
-            return (
-                <li>
-                    <a className="usa-da-header-link disabled">{this.props.name}
-                        <span className={isActiveClass ? 'sr-only' : ''}>{isActiveClass ? '(current)' : ''}
-                            <div className='permissionsRequired'></div>
-                        </span>
-                    </a>
-                </li>
-            );
         } else {
             return (
                 <li className={isActiveClass ? 'active' : ''}>
