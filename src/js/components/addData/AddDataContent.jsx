@@ -28,8 +28,11 @@ export default class AddDataContent extends React.Component {
     }
 
     componentWillUnmount(){
-        if(this.props.submission.state == 'uploading' && this.props.submission.id !== null){
-            ReviewHelper.deleteSubmission(this.props.submission.id);
+        if((this.props.submission.state == 'uploading' || this.props.submission.state == 'failed') && this.props.submission.id !== null){
+            ReviewHelper.failUpload(this.props.submission.id).then(
+                () =>{
+                    ReviewHelper.deleteSubmission(this.props.submission.id);        
+                })
         }
     }
 

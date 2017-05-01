@@ -517,6 +517,24 @@ export const certifySubmission = (submissionId) => {
 	return deferred.promise;
 }
 
+export const failUpload = (fileID) => {
+    
+    const deferred = Q.defer();
+
+    Request.post(kGlobalConstants.API + 'fail_job/')
+               .send({ 'upload_id': fileID })
+               .end((err, res) => {
+                   if (err) {
+                       console.log(err + JSON.stringify(res.body));
+                       deferred.reject();
+                   } else {
+                       deferred.resolve();
+                   }
+               });
+
+    return deferred.promise;
+}
+
 export const deleteSubmission = (submission_id) => {
     const deferred = Q.defer();
 

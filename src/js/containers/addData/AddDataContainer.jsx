@@ -62,13 +62,16 @@ class AddDataContainer extends React.Component {
 					hashHistory.push('/validateData/' + submissionID);
 				})
 				.catch((err) => {
+					if(err.submissionID !== null && err.submissionID !== 0){
+						this.props.setSubmissionId(err.submissionID)
+					}
 					if (err.httpStatus == 403) {
 						this.setState({
 							notAllowed: true,
 							errorMessage: err.message
 						});
-				}
-			});
+					}
+				});
 		}
 	}
 
