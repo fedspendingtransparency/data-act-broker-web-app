@@ -10,7 +10,6 @@ export default class DashboardContent extends React.Component {
     constructor(props) {
         super(props);
 
-        console.log(this.props)
         this.state = {
             activePage: 1,
             certifiedPage: 1

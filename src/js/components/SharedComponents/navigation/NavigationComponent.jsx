@@ -12,6 +12,7 @@ import SkipNavigationLink from './SkipNavigationLink.jsx';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import * as sessionActions from '../../../redux/actions/sessionActions.js';
+import * as permissionHelper from '../../../helpers/permissionsHelper.js';
 
 const defaultProps = {
     logoOnly: false
@@ -32,19 +33,6 @@ export class Navbar extends React.Component {
         });
     }
 
-    checkPermissions(){
-        if(!this.props.session.user.affiliations || this.props.session.user.affiliations.length == 0){
-            return false;
-        }
-        let aff = this.props.session.user.affiliations;
-        for(let i = 0; i < aff.length; i++){
-            if(aff[i].permission !== 'reader'){
-                return true;
-            }
-        }
-        return false;
-    }
-
     getTabs() {
         let tabNames = {};
         if (this.props.session.user.helpOnly) {
@@ -52,7 +40,7 @@ export class Navbar extends React.Component {
                 'Help': 'help'
             };
         }
-        else if (this.props.session.admin || this.checkPermissions()){
+        else if (this.props.session.admin || permissionHelper.checkPermissions(this.props.session)){
             tabNames = {
                 'Home': 'landing',
                 'Upload & Validate New Submission': 'submissionGuide',

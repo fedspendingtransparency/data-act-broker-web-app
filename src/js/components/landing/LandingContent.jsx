@@ -10,6 +10,7 @@ import LandingBlockBottomLink from './blocks/LandingBlockBottomLink.jsx';
 import LandingRequirementsModal from './blocks/LandingRequirementsModal.jsx';
 
 import * as Icons from '../SharedComponents/icons/Icons.jsx';
+import * as permissionHelper from '../../helpers/permissionsHelper.js';
 import { generateRSSUrl } from '../../helpers/util.js';
 
 const defaultProps = {
@@ -61,22 +62,6 @@ export default class LandingContent extends React.Component {
         })
     }
 
-    checkPermissions(){
-        if(this.props.session.user.admin){
-            return true;
-        }
-        if(!this.props.session.user.affiliations || this.props.session.user.affiliations.length == 0){
-            return false;
-        }
-        let aff = this.props.session.user.affiliations;
-        for(let i = 0; i < aff.length; i++){
-            if(aff[i].permission !== 'reader'){
-                return true;
-            }
-        }
-        return false;
-    }
-
     render() {
         const affiliations = this.props.session.user.affiliations;
 
@@ -105,7 +90,7 @@ export default class LandingContent extends React.Component {
         }
 
         let uploadBlock = <LandingBlock icon={<Icons.CloudUpload />} text="In order to upload and validate your agency's files, please follow the link below to request access" buttonText="Request Access" url="https://community.max.gov/x/fJwuRQ"></LandingBlock>;
-        if(this.checkPermissions()){
+        if(permissionHelper.checkPermissions(this.props.session)){
             uploadBlock = <LandingBlock icon={<Icons.CloudUpload />} text="Ready to upload and validate your agency's files? Great, we'll be happy to walk you through the process.*" buttonText="Upload & Validate a New Submission" url="#/submissionGuide">
                                 <LandingBlockBottomLink onClick={this.clickedUploadReqs.bind(this)} />
                         </LandingBlock>
