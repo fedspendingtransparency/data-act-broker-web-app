@@ -104,9 +104,7 @@ export default class LandingContent extends React.Component {
             expandContent = 'Show Less';
         }
 
-        let uploadBlock = <LandingBlock icon={<Icons.CloudUpload />} text="Ready to start uploading and validating your agency's files? Click here to get setup.*" buttonText="Request Access" url="https://community.max.gov/x/fJwuRQ">
-                                <LandingBlockBottomLink onClick={this.clickedUploadReqs.bind(this)} />
-                        </LandingBlock>;
+        let uploadBlock = <LandingBlock icon={<Icons.CloudUpload />} text="In order to upload and validate your agency's files, please follow the link below to request access" buttonText="Request Access" url="https://community.max.gov/x/fJwuRQ"></LandingBlock>;
         if(this.checkPermissions()){
             uploadBlock = <LandingBlock icon={<Icons.CloudUpload />} text="Ready to upload and validate your agency's files? Great, we'll be happy to walk you through the process.*" buttonText="Upload & Validate a New Submission" url="#/submissionGuide">
                                 <LandingBlockBottomLink onClick={this.clickedUploadReqs.bind(this)} />

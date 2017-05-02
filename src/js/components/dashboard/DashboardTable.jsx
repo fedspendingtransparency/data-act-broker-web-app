@@ -32,6 +32,9 @@ const tableHeaders = [
 export default class DashboardTable extends React.Component {
     constructor(props) {
         super(props);
+
+        console.log(this.props)
+
         this.state = {
             parsedData: [],
             cellClasses: [],
@@ -127,6 +130,10 @@ export default class DashboardTable extends React.Component {
             day = "0"+day;
         }
         return year+"-"+month+"-"+day;
+    }
+
+    checkPermissions(agencyName){
+        // for(var i = 0; i < this.props.)
     }
 
     buildRow() {
