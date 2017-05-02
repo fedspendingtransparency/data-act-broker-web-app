@@ -75,6 +75,23 @@ const checkUserPermissions = (nextState, replace) => {
     }
 }
 
+const checkReadUserPermissions = (nextState, replace) => {
+    getStore();
+    const session = store.getState().session;
+    if (session.login != "loggedIn") {
+        performAutoLogin(nextState.location, replace);
+    }
+    else if (!session.admin) {
+        for(var i = 0; i < session.user.affiliations.length; i++){
+            if(session.user.affiliations[i].permission != 'reader'){
+                return;
+            }
+        }
+        // if no permissions, bounce to landing
+        replace('/landing');
+    }
+}
+
 const checkHelpUserPermissions = (nextState, replace) => {
     getStore();
     const session = store.getState().session;
@@ -121,7 +138,7 @@ const routeDefinitions = {
         },
         {
             path: 'addData',
-            onEnter: checkUserPermissions,
+            onEnter: checkReadUserPermissions,
             component: AddDataPageContainer
         },
         {
