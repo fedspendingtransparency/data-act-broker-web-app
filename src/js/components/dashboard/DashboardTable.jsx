@@ -32,6 +32,7 @@ const tableHeaders = [
 export default class DashboardTable extends React.Component {
     constructor(props) {
         super(props);
+
         this.state = {
             parsedData: [],
             cellClasses: [],
@@ -129,6 +130,21 @@ export default class DashboardTable extends React.Component {
         return year+"-"+month+"-"+day;
     }
 
+    hasPermission(agency_name){
+        if(this.props.session.admin){
+            return true;
+        }else if(this.props.session.user.affiliations.length === 0){
+            return false;
+        }
+        let aff = this.props.session.user.affiliations;
+        for(var i = 0; i < aff.length; i++){
+            if(aff[i].agency_name === agency_name){
+                return (aff[i].permission !== 'reader')
+            }
+        }
+        return false;
+    }
+
     buildRow() {
         // iterate through the recent activity
         const output = [];
@@ -166,7 +182,11 @@ export default class DashboardTable extends React.Component {
             ];
 
             if(!this.props.isCertified) {
-                row.push(<DeleteLink submissionId={item.submission_id} index={index} warning={this.deleteWarning.bind(this)} confirm={deleteConfirm} reload={this.reload.bind(this)} item={item} account={this.state.account}/>);
+                if(this.hasPermission(item.agency)){
+                    row.push(<DeleteLink submissionId={item.submission_id} index={index} warning={this.deleteWarning.bind(this)} confirm={deleteConfirm} reload={this.reload.bind(this)} item={item} account={this.state.account}/>);
+                }else{
+                    row.push('N/A')
+                }
             }
             else {
                 row.push(item.certifying_user);

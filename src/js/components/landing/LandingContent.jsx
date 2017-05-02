@@ -127,7 +127,7 @@ export default class LandingContent extends React.Component {
                                     <div className='see-more-wrapper'>
                                         <a className={expand} onClick={this.toggleExpand.bind(this)}>{expandContent}</a>
                                     </div>
-                                    <RecentActivityTable />
+                                    <RecentActivityTable {...this.props} />
                                 </div>
                             </div>
                         </div>
