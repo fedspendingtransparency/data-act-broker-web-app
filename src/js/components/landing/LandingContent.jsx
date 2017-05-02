@@ -10,6 +10,7 @@ import LandingBlockBottomLink from './blocks/LandingBlockBottomLink.jsx';
 import LandingRequirementsModal from './blocks/LandingRequirementsModal.jsx';
 
 import * as Icons from '../SharedComponents/icons/Icons.jsx';
+import * as permissionHelper from '../../helpers/permissionsHelper.js';
 import { generateRSSUrl } from '../../helpers/util.js';
 
 const defaultProps = {
@@ -88,6 +89,13 @@ export default class LandingContent extends React.Component {
             expandContent = 'Show Less';
         }
 
+        let uploadBlock = <LandingBlock icon={<Icons.CloudUpload />} text="In order to upload and validate your agency's files, please follow the link below to request access" buttonText="Request Access" url="https://community.max.gov/x/fJwuRQ"></LandingBlock>;
+        if(permissionHelper.checkPermissions(this.props.session)){
+            uploadBlock = <LandingBlock icon={<Icons.CloudUpload />} text="Ready to upload and validate your agency's files? Great, we'll be happy to walk you through the process.*" buttonText="Upload & Validate a New Submission" url="#/submissionGuide">
+                                <LandingBlockBottomLink onClick={this.clickedUploadReqs.bind(this)} />
+                        </LandingBlock>
+        }
+
         return (
                 <div className="site_content">
                     <div className="usa-da-content-dark">
@@ -105,9 +113,7 @@ export default class LandingContent extends React.Component {
                             <div className="row">
                                 <div className="usa-da-landing col-md-12">
                                     <div className="usa-da-landing-btns">
-                                        <LandingBlock icon={<Icons.CloudUpload />} text="Ready to upload and validate your agency's files? Great, we'll be happy to walk you through the process.*" buttonText="Upload & Validate a New Submission" url="#/submissionGuide">
-                                        <LandingBlockBottomLink onClick={this.clickedUploadReqs.bind(this)} />
-                                        </LandingBlock>
+                                        {uploadBlock}
                                         <LandingBlock icon={<Icons.Floppy />} text="Did you start a submission but were unable to complete it? No problem, we can help you pick up where you left off." buttonText="Continue or Certify a Saved Submission" url="#/dashboard" />
                                         <LandingBlock icon={<Icons.CloudDownload />} text="Generate your D1 and D2 award files without having to create a submission." buttonText="Generate D Files" url="#/generateDetachedFiles" />
                                         <div id="modalHolder">

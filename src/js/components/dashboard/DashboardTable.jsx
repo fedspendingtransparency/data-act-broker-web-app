@@ -32,6 +32,7 @@ const tableHeaders = [
 export default class DashboardTable extends React.Component {
     constructor(props) {
         super(props);
+
         this.state = {
             parsedData: [],
             cellClasses: [],
