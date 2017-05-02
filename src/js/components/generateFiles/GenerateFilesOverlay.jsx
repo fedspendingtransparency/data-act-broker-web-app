@@ -115,7 +115,6 @@ export default class GenerateFilesOverlay extends React.Component {
 
 		if(!buttonDisabled){
 			buttonDisabled = !this.checkPermissions();
-			console.log(buttonDisabled)
 		}
 
 		return (
