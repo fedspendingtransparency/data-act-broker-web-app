@@ -264,7 +264,7 @@ export default class ValidateDataFileComponent extends React.Component {
             }
         }
 
-        if(!permissionsHelper.checkAgencyPermissions(this.state.agency_name)){
+        if(!PermissionsHelper.checkAgencyPermissions(this.props.session, this.state.agency_name)){
             disabledCorrect = ' hide';
         }
 

@@ -8,7 +8,7 @@ import CommonOverlay from '../SharedComponents/overlays/CommonOverlay.jsx';
 import * as Icons from '../SharedComponents/icons/Icons.jsx';
 import LoadingBauble from '../SharedComponents/overlays/LoadingBauble.jsx';
 import * as ReviewHelper from '../../helpers/reviewHelper.js';
-import * as PermissionHelper from '../../helpers/PermissionHelper.js';
+import * as PermissionHelper from '../../helpers/permissionsHelper.js';
 
 const defaultProps = {
 	state: 'incomplete'
@@ -18,6 +18,9 @@ export default class GenerateFilesOverlay extends React.Component {
 
 	constructor(props){
 		super(props);
+		this.state = {
+			agency_name: ''
+		}
 	}
 
 	componentDidMount(){

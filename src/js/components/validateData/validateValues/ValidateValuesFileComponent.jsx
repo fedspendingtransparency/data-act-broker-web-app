@@ -231,22 +231,6 @@ export default class ValidateDataFileComponent extends React.Component {
         return icon;
     }
 
-    hasPermissions(){
-        if(!this.props.session.user.affiliations){
-            return false;
-        }else if(this.props.session.admin){
-            return true;
-        }else if(this.props.session.user && this.props.session.user.affiliations.length > 0){
-            let affiliations = this.props.session.user.affiliations;
-            for(var i = 0; i < affiliations.length; i++){
-                if(affiliations[i].permission !== 'reader' && affiliations[i].agency_name === this.state.agency_name){
-                    return true;
-                }
-            }
-        }
-        return false;
-    }
-
     render() {
         let correctButtonOverlay = '';
 
@@ -267,19 +251,19 @@ export default class ValidateDataFileComponent extends React.Component {
             }
         }
 
-        if (!this.state.hasErrors && !this.state.hasWarnings && !this.props.published && PermissionsHelper.checkAgencyPermissions(this.state.agency_name)) {
+        if (!this.state.hasErrors && !this.state.hasWarnings && !this.props.published && PermissionsHelper.checkAgencyPermissions(this.props.session, this.state.agency_name)) {
             optionalUpload = true;
             uploadText = 'Overwrite File';
             correctButtonOverlay = <CorrectButtonOverlay isReplacingFile={this.isReplacingFile()} fileKey={this.props.type.requestName} onDrop={this.props.onFileChange} removeFile={this.props.removeFile} fileName={fileName}/>
             validationElement = <p className='usa-da-success-txt'>File successfully validated</p>;
         }
-        else if (!this.state.hasErrors && this.state.hasWarnings && !this.props.published && PermissionsHelper.checkAgencyPermissions(this.state.agency_name)) {
+        else if (!this.state.hasErrors && this.state.hasWarnings && !this.props.published && PermissionsHelper.checkAgencyPermissions(this.props.session, this.state.agency_name)) {
             optionalUpload = true;
             uploadText = 'Overwrite File';
             correctButtonOverlay = <CorrectButtonOverlay isReplacingFile={this.isReplacingFile()} fileKey={this.props.type.requestName} onDrop={this.props.onFileChange} removeFile={this.props.removeFile} fileName={fileName}/>
             validationElement = <p className='usa-da-warning-txt'>File validated with warnings</p>;
         }
-        else if(!this.props.published && this.PermissionsHelper.checkAgencyPermissions(this.state.agency_name)){
+        else if(!this.props.published && this.PermissionsHelper.checkAgencyPermissions(this.props.session, this.state.agency_name)){
             validationElement = <div className="row usa-da-validate-item-file-section-correct-button" data-testid="validate-upload"><div className="col-md-12">
                 <ValidateDataUploadButton optional={optionalUpload} onDrop={this.props.onFileChange} text={uploadText} />
                 </div>
