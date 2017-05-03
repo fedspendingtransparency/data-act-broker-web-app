@@ -10,6 +10,7 @@ import ValidateDataErrorReport from './ValidateDataErrorReport.jsx';
 import ValidateDataUploadButton from './ValidateDataUploadButton.jsx';
 import * as Icons from '../SharedComponents/icons/Icons.jsx';
 import * as ReviewHelper from '../../helpers/reviewHelper.js';
+import * as PermissionsHelper from '../../helpers/permissionsHelper.js';
 
 const propTypes = {
 
@@ -218,22 +219,6 @@ export default class ValidateDataFileComponent extends React.Component {
         return icon;
     }
 
-    hasPermissions(){
-        if(!this.props.session.user.affiliations){
-            return false;
-        }else if(this.props.session.admin){
-            return true;
-        }else if(this.props.session.user && this.props.session.user.affiliations.length > 0){
-            let affiliations = this.props.session.user.affiliations;
-            for(var i = 0; i < affiliations.length; i++){
-                if(affiliations[i].permission !== 'reader' && affiliations[i].agency_name === this.state.agency_name){
-                    return true;
-                }
-            }
-        }
-        return false;
-    }
-
     render() {
        
         
@@ -279,7 +264,7 @@ export default class ValidateDataFileComponent extends React.Component {
             }
         }
 
-        if(!this.hasPermissions()){
+        if(!permissionsHelper.checkAgencyPermissions(this.state.agency_name)){
             disabledCorrect = ' hide';
         }
 

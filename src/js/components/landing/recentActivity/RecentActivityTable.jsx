@@ -11,6 +11,7 @@ import DeleteLink from './DeleteLink.jsx';
 
 import * as SubmissionListHelper from '../../../helpers/submissionListHelper.js';
 import * as LoginHelper from '../../../helpers/loginHelper.js';
+import * as PermissionsHelper from '../../../helpers/permissionsHelper.js';
 import * as Status from './SubmissionStatus.jsx';
 
 
@@ -114,21 +115,6 @@ export default class RecentActivityTable extends React.Component {
         return year+"-"+month+"-"+day;
     }
 
-    hasPermission(agency_name){
-        if(this.props.session.admin){
-            return true;
-        }else if(this.props.session.user.affiliations.length === 0){
-            return false;
-        }
-        let aff = this.props.session.user.affiliations;
-        for(var i = 0; i < aff.length; i++){
-            if(aff[i].agency_name === agency_name){
-                return (aff[i].permission !== 'reader')
-            }
-        }
-        return false;
-    }
-
 	buildRow() {
 		// iterate through the recent activity
 		const output = [];
@@ -169,7 +155,7 @@ export default class RecentActivityTable extends React.Component {
 				<Status.SubmissionStatus status={item.rowStatus} certified={item.publish_status !== 'unpublished'} />
 			];
 
-			if(item.publish_status === "unpublished" && this.hasPermission()) {
+			if(item.publish_status === "unpublished" && PermissionsHelper.checkAgencyPermissions(this.props.session, item.agency)) {
 				row.push(<DeleteLink submissionId={item.submission_id} index={index} warning={this.deleteWarning.bind(this)} confirm={deleteConfirm} reload={this.reload.bind(this)} item={item} account={this.state.account}/>);
 			}
 			else {

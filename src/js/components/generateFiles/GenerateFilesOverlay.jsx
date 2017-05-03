@@ -8,6 +8,7 @@ import CommonOverlay from '../SharedComponents/overlays/CommonOverlay.jsx';
 import * as Icons from '../SharedComponents/icons/Icons.jsx';
 import LoadingBauble from '../SharedComponents/overlays/LoadingBauble.jsx';
 import * as ReviewHelper from '../../helpers/reviewHelper.js';
+import * as PermissionHelper from '../../helpers/PermissionHelper.js';
 
 const defaultProps = {
 	state: 'incomplete'
@@ -21,33 +22,16 @@ export default class GenerateFilesOverlay extends React.Component {
 
 	componentDidMount(){
 		if (this.props.submissionID !== null) {
-            ReviewHelper.fetchStatus(this.props.submissionID)
-                .then((data) => {
-                    data.ready = true;
-                    this.setState({'agency_name':data.agency_name})
-                })
-                .catch((error) => {
-                    console.log(error);
-                });
-        }
-	}
-
-	checkPermissions(){
-		if(this.props.session.admin){
-			return true;
+			ReviewHelper.fetchStatus(this.props.submissionID)
+				.then((data) => {
+					data.ready = true;
+					this.setState({'agency_name':data.agency_name})
+				})
+				.catch((error) => {
+					console.log(error);
+				});
 		}
-        if(!this.props.session.user.affiliations || this.props.session.user.affiliations.length == 0){
-            return false;
-        }
-        let aff = this.props.session.user.affiliations;
-        for(let i = 0; i < aff.length; i++){
-            if(aff[i].permission !== 'reader' && aff[i].agency_name === this.state.agency_name){
-                return true;
-            }
-        }
-        return false;
-
-    }
+	}
 
 	clickedGenerate(e) {
 		e.preventDefault();
@@ -114,7 +98,7 @@ export default class GenerateFilesOverlay extends React.Component {
 		}
 
 		if(!buttonDisabled){
-			buttonDisabled = !this.checkPermissions();
+			buttonDisabled = !PermissionHelper.checkAgencyPermissions(this.props.session, this.state.agency_name);
 		}
 
 		return (
