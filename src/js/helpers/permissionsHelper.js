@@ -25,7 +25,7 @@ export const checkAgencyPermissions = (session, agency_name) => {
     }
     let aff = session.user.affiliations;
     for (let i = 0; i < aff.length; i++) {
-        if(aff[i].agency_name === agency_name){
+        if (aff[i].agency_name === agency_name) {
                 return (aff[i].permission !== 'reader')
             }
     }
