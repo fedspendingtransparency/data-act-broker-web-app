@@ -4,7 +4,7 @@ export const checkPermissions = (session) => {
     if (session.admin) {
         return true;
     }
-    if (session.user.affiliations || session.user.affiliations.length == 0) {
+    if (!session.user.affiliations || session.user.affiliations.length == 0) {
         return false;
     }
     let aff = session.user.affiliations;
