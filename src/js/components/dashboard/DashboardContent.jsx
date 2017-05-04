@@ -28,7 +28,8 @@ export default class DashboardContent extends React.Component {
                             loadTableData={this.props.loadTableData}
                             total={this.props.activeTotal}
                             data={this.props.activeSubmissions}
-                            page={this.state.activePage} />
+                            page={this.state.activePage} 
+                            session={this.props.session} />
                     </div>
                 </div>
                 <div className="row">
@@ -40,7 +41,8 @@ export default class DashboardContent extends React.Component {
                             loadTableData={this.props.loadTableData}
                             total={this.props.certifiedTotal}
                             data={this.props.certifiedSubmissions}
-                            page={this.state.certifiedPage} />
+                            page={this.state.certifiedPage}
+                            session={this.props.session} />
                     </div>
                 </div>
             </div>

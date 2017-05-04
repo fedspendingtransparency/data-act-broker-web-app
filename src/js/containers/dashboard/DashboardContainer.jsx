@@ -51,7 +51,7 @@ class DashboardContainer extends React.Component {
 
 	render() {
 		return (
-			<DashboardContent {...this.state} loadTableData={this.loadTableData.bind(this)} />
+			<DashboardContent {...this.state} {...this.props} loadTableData={this.loadTableData.bind(this)} />
 		)
 	}
 }
