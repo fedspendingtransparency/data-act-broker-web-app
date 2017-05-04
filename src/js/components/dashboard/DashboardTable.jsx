@@ -130,6 +130,20 @@ export default class DashboardTable extends React.Component {
         return year+"-"+month+"-"+day;
     }
 
+    formatDate(dateToFormat) {
+        // format date as YYYY-MM-DD
+        const year = dateToFormat.getFullYear()
+        let month = dateToFormat.getMonth()+1;
+        if(month < 10){
+            month = "0"+month;
+        }
+        let day = dateToFormat.getDate();
+        if(day <10){
+            day = "0"+day;
+        }
+        return year + "-" + month + "-" + day;
+    }
+
     buildRow() {
         // iterate through the recent activity
         const output = [];
@@ -175,7 +189,18 @@ export default class DashboardTable extends React.Component {
             }
             else {
                 row.push(item.certifying_user);
-                row.push(item.certified_on)
+
+                // get certified on date and process it
+                let certified_on = item.certified_on;
+                if(certified_on !== "") {
+                    // convert date to local date (toString converts it to whatever the local time is but doesn't allow formatting)
+                    const tmpDate = new Date(certified_on + " UTC");
+                    const localDate = new Date(tmpDate.toString())
+
+                    // call a function to format the date properly
+                    certified_on = this.formatDate(localDate);
+                }
+                row.push(certified_on)
             }
 
             rowClasses.push(classes);
