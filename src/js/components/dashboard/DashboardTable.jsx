@@ -114,14 +114,18 @@ export default class DashboardTable extends React.Component {
         }
     }
 
-    formatDate(dateToFormat) {
+    convertToLocalDate(dateToConvert) {
+        // convert date to local date (toString converts it to whatever the local time is but doesn't allow formatting)
+        const tmpDate = new Date(dateToConvert + " UTC");
+        const localDate = new Date(tmpDate.toString())
+        
         // format date as YYYY-MM-DD
-        const year = dateToFormat.getFullYear()
-        let month = dateToFormat.getMonth()+1;
+        const year = localDate.getFullYear()
+        let month = localDate.getMonth()+1;
         if(month < 10){
             month = "0"+month;
         }
-        let day = dateToFormat.getDate();
+        let day = localDate.getDate();
         if(day <10){
             day = "0"+day;
         }
@@ -164,7 +168,7 @@ export default class DashboardTable extends React.Component {
                 item.agency,
                 reportingDateString,
                 userName,
-                item.last_modified,
+                this.convertToLocalDate(item.last_modified),
                 <Status.SubmissionStatus status={item.rowStatus} certified={this.props.isCertified} />
             ];
 
@@ -177,12 +181,8 @@ export default class DashboardTable extends React.Component {
                 // get certified on date and process it
                 let certified_on = item.certified_on;
                 if(certified_on !== "") {
-                    // convert date to local date (toString converts it to whatever the local time is but doesn't allow formatting)
-                    const tmpDate = new Date(certified_on + " UTC");
-                    const localDate = new Date(tmpDate.toString())
-
-                    // call a function to format the date properly
-                    certified_on = this.formatDate(localDate);
+                    // call a function to convert/format the date properly
+                    certified_on = this.convertToLocalDate(certified_on);
                 }
                 row.push(certified_on)
             }
