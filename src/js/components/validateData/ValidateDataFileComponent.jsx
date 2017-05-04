@@ -58,7 +58,7 @@ export default class ValidateDataFileComponent extends React.Component {
 
         if ((this.props.submission.state == 'uploading' || this.props.submission.state == 'prepare') && nextProps.submission.state == 'review') {
             // we've finished uploading files, close any open error reports
-            if (this.state.showError) {
+            if (this.state.showError && !this.isUnmounted) {
                 this.setState({
                     showError: false
                 });
@@ -67,7 +67,9 @@ export default class ValidateDataFileComponent extends React.Component {
     }
 
     toggleErrorReport(){
-        this.setState({ showError: !this.state.showError });
+        if(!this.isUnmounted){
+            this.setState({ showError: !this.state.showError });
+        }
     }
 
     isFileReady() {
@@ -168,14 +170,15 @@ export default class ValidateDataFileComponent extends React.Component {
             isError = false;
             hasFailed = true;
         }
-
-        this.setState({
-            headerTitle: headerTitle,
-            errorReports: errorData,
-            hasErrorReport: hasErrorReport,
-            isError: isError,
-            hasFailed: hasFailed
-        });
+        if(!this.isUnmounted){
+            this.setState({
+                headerTitle: headerTitle,
+                errorReports: errorData,
+                hasErrorReport: hasErrorReport,
+                isError: isError,
+                hasFailed: hasFailed
+            });
+        }
     }
 
     displayFileMeta() {

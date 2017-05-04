@@ -13,6 +13,7 @@ import FileWarning from './FileWarning.jsx';
 import ErrorTabs from './ErrorTabs.jsx';
 
 import * as ReviewHelper from '../../../helpers/reviewHelper.js';
+import * as PermissionsHelper from '../../../helpers/permissionsHelper.js';
 import * as Icons from '../../SharedComponents/icons/Icons.jsx';
 
 const dFiles = ['d1', 'd2'];
@@ -20,6 +21,8 @@ const dFiles = ['d1', 'd2'];
 export default class ErrorBox extends React.Component {
 	constructor(props) {
 		super(props);
+
+		this.isUnmounted = false;
 
 		this.state = {
 			firstType: '',
@@ -34,13 +37,30 @@ export default class ErrorBox extends React.Component {
 	}
 
 	componentDidMount() {
+		this.isUnmounted = false;
 		if (this.props.status == 'warning') {
 			this.setState({
 				activeTab: 'warnings'
 			});
 		}
 		this.stagedFiles();
+		if (this.props.submissionID != null) {
+            ReviewHelper.fetchStatus(this.props.submissionID)
+                .then((data) => {
+                    data.ready = true;
+                    if (!this.isUnmounted) {
+                        this.setState(data);
+                    }
+                })
+                .catch((error) => {
+                    console.log(error);
+                });
+        }
 	}
+
+	componentWillUnmount(){
+        this.isUnmounted = true;
+    }
 
 	componentDidUpdate(prevProps, prevState) {
 		if (!_.isEqual(prevProps.submission.files,this.props.submission.files)) {
@@ -203,6 +223,24 @@ export default class ErrorBox extends React.Component {
         if (this.state.signInProgress) {
             downloadLabel = `Preparing ${reportName}...`;
         }
+        let uploadHeader = null;
+        let upload = null;
+        if(PermissionsHelper.checkAgencyPermissions(this.props.session, this.state.agency_name)){
+        	uploadHeader = 'Upload Corrected Files';
+        	upload = <div>
+        				<div className="row mb-10">
+							<div className="col-md-12">
+								{this.state.firstButton}
+							</div>
+						</div>
+
+						<div className="row">
+							<div className="col-md-12">
+								{this.state.secondButton}
+							</div>
+						</div>
+					</div>
+        }
 
 		return (
 			<div className="col-md-12">
@@ -223,7 +261,7 @@ export default class ErrorBox extends React.Component {
 				            	            	{downloadLabel}
 				            	            </a>
 				            	            <div className="upload-title">
-												Upload Corrected Files
+												{uploadHeader}
 											</div>
 										</div>
 									</div>
@@ -242,17 +280,7 @@ export default class ErrorBox extends React.Component {
 										</div>
 									</div>
 
-									<div className="row mb-10">
-										<div className="col-md-12">
-											{this.state.firstButton}
-										</div>
-									</div>
-
-									<div className="row">
-										<div className="col-md-12">
-											{this.state.secondButton}
-										</div>
-									</div>
+									
 								</div>
 							</div>
 						</div>
