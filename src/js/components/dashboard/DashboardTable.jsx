@@ -135,7 +135,11 @@ export default class DashboardTable extends React.Component {
         const output = [];
         const rowClasses = [];
 
-        const classes = ['row-10 text-center', 'row-20 text-center', 'row-15 text-right white-space', 'row-15 text-right', 'row-10 text-right','row-20 text-right progress-cell', 'row-10 text-center'];
+        let classes = ['row-10 text-center', 'row-20 text-center', 'row-15 text-right white-space', 'row-15 text-right', 'row-10 text-right','row-20 text-right progress-cell', 'row-10 text-center'];
+
+        if(this.props.isCertified) {
+            classes = ['row-10 text-center', 'row-15 text-center', 'row-12_5 text-right white-space', 'row-12_5 text-right', 'row-10 text-right','row-20 text-right progress-cell', 'row-10 text-center', 'row-10 text-center']
+        }
 
         // iterate through each item returned from the API
         this.props.data.forEach((item, index) => {
@@ -171,6 +175,7 @@ export default class DashboardTable extends React.Component {
             }
             else {
                 row.push(item.certifying_user);
+                row.push(item.certified_on)
             }
 
             rowClasses.push(classes);
@@ -210,13 +215,13 @@ export default class DashboardTable extends React.Component {
 
         let lastColumn = "Delete";
         if(this.props.isCertified) {
-            lastColumn = "Certified By";
+            lastColumn = ["Certified By", "Certified On"];
         }
 
         return (
             <div className="usa-da-submission-list">
                 <div className={"submission-table-content" + loadingClass}>
-                    <FormattedTable headers={tableHeaders.concat(lastColumn)} data={this.state.parsedData} sortable={true} cellClasses={this.state.cellClasses} unsortable={[0,5,6]} headerClasses={this.state.headerClasses} onSort={this.sortTable.bind(this)} />
+                    <FormattedTable headers={tableHeaders.concat(lastColumn)} data={this.state.parsedData} sortable={true} cellClasses={this.state.cellClasses} unsortable={[0,5,6,7]} headerClasses={this.state.headerClasses} onSort={this.sortTable.bind(this)} />
                 </div>
                 <div className="text-center">
                     {this.state.message}
