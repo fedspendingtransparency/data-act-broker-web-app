@@ -78,6 +78,14 @@ export default class HelpContent extends React.Component {
                 If you have questions about Broker access, or if your agency is not listed on the MAX page linked above, email <a href='mailto:DATAPMO@fiscal.treasury.gov?subject=Broker%20Access%20Information' target='_top'>DATAPMO@fiscal.treasury.gov</a>.
             </p>
             </div>;
+        }else{
+            membership = <p>
+                If you encounter a bug, have a question, or need help, 
+                please register for the <a href='https://servicedesk.usaspending.gov'>USAspending Service Desk</a> and submit a ticket. 
+                We can better resolve your issue if you provide us as much information as possible, 
+                including the exact steps we should follow to replicate your issue and the page where you encountered it. 
+                The Service Desk will email you if more information or clarification is needed. 
+            </p>
         }
 
         return (
