@@ -106,8 +106,6 @@ export default class SubmissionGuideContent extends React.Component {
                                         <ul>
                                             <li>Notify another user that the submission is ready for them to review, certify, and publish.</li>
                                             <li>Review, certify, and publish your agency’s data.</li>
-                                            <li>Download your submission to review and archive.</li>
-                                            <li>Delete the submission.</li>
                                         </ul>
                                     </div>
                                 </div>
