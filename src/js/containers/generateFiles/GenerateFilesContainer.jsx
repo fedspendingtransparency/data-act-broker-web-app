@@ -389,6 +389,13 @@ class GenerateFilesContainer extends React.Component {
 				}
 
 				this.updateError(file, fileData.file_type.toUpperCase() + ' File Error', message);
+
+				const item = Object.assign({}, this.state[file]);
+				// update the download properties
+				item.download = {
+					show: true,
+					url: fileData.url
+				};
 			}
 			else if (fileData.status == 'finished') {
 				this.updateError(file);
