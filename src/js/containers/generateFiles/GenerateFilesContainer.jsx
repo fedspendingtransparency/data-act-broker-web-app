@@ -368,7 +368,6 @@ class GenerateFilesContainer extends React.Component {
 		let message = '';
 
 		files.forEach((file) => {
-
 			const fileData = responses[file];
 			output[file + 'Status'] = fileData.status;
 
@@ -390,18 +389,31 @@ class GenerateFilesContainer extends React.Component {
 
 				this.updateError(file, fileData.file_type.toUpperCase() + ' File Error', message);
 
+
 				const item = Object.assign({}, this.state[file]);
-				// update the download properties
-				item.download = {
-					show: true,
-					url: fileData.url
-				};
+				//ONLY IF FILEDATAURL EXISTRS
+
+				if(fileData.url){
+					// update the download properties
+					item.download = {
+						show: true,
+						url: fileData.url
+					};
+					let header = fileData.file_type.toUpperCase() + ' File Error'
+					item.error = {
+						show: header != '' && message != '',
+						header: header,
+						description: message
+					}
+					output[file] = item;
+				}
 			}
 			else if (fileData.status == 'finished') {
 				this.updateError(file);
 
 				// display dowload buttons
 				// make a clone of the file's react state
+				console.log(fileData)
 				const item = Object.assign({}, this.state[file]);
 				// update the download properties
 				item.download = {
