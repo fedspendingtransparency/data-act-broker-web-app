@@ -369,6 +369,7 @@ class GenerateFilesContainer extends React.Component {
 
 		files.forEach((file) => {
 			const fileData = responses[file];
+			console.log(fileData)
 			output[file + 'Status'] = fileData.status;
 
             if (fileData.httpStatus == 401) {
@@ -410,10 +411,8 @@ class GenerateFilesContainer extends React.Component {
 			}
 			else if (fileData.status == 'finished') {
 				this.updateError(file);
-
 				// display dowload buttons
 				// make a clone of the file's react state
-				console.log(fileData)
 				const item = Object.assign({}, this.state[file]);
 				// update the download properties
 				item.download = {
