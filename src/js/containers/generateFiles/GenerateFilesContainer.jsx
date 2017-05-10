@@ -418,6 +418,14 @@ class GenerateFilesContainer extends React.Component {
 					show: true,
 					url: fileData.url
 				};
+				if(fileData.url === '' || fileData.url === '#' || fileData.url == null){
+					let header = fileData.file_type.toUpperCase() + ' File Error'
+					item.error = {
+						show: true,
+						header: header,
+						description: 'No data found for the specified period'
+					}
+				}
 				// add this to the new state
 				output[file] = item;
 			}
