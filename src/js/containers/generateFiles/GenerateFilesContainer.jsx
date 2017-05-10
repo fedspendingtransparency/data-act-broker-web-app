@@ -369,7 +369,6 @@ class GenerateFilesContainer extends React.Component {
 
 		files.forEach((file) => {
 			const fileData = responses[file];
-			console.log(fileData)
 			output[file + 'Status'] = fileData.status;
 
             if (fileData.httpStatus == 401) {
@@ -394,7 +393,7 @@ class GenerateFilesContainer extends React.Component {
 				const item = Object.assign({}, this.state[file]);
 				//ONLY IF FILEDATAURL EXISTRS
 
-				if(fileData.url){
+				if(fileData.url && fileData.size){
 					// update the download properties
 					item.download = {
 						show: true,
