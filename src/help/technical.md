@@ -9,4 +9,4 @@ In this release, here is a list of technical changes that may require infrastruc
   * Updated published_award_financial_assistance table
 * Added script to retrieve Zip Code data: readZips.py
 * New SQL rules added
-* Removed depedency on Celery & RabbitMQ
+* Removed dependency on Celery & RabbitMQ
