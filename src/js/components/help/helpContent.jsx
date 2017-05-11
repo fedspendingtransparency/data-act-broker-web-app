@@ -63,7 +63,7 @@ export default class HelpContent extends React.Component {
 
     render() {
         let membership = null;
-        if(this.props.helpOnly){
+        if (this.props.helpOnly) {
             membership = <div>
             <h4 name='agencyAccess'>Request Agency Access</h4>
             <p>
@@ -78,10 +78,11 @@ export default class HelpContent extends React.Component {
                 If you have questions about Broker access, or if your agency is not listed on the MAX page linked above, email <a href='mailto:DATAPMO@fiscal.treasury.gov?subject=Broker%20Access%20Information' target='_top'>DATAPMO@fiscal.treasury.gov</a>.
             </p>
             </div>;
-        }else{
+        }
+        else {
             membership = <p>
                 If you encounter a bug, have a question, or need help, 
-                please register for the <a href='https://servicedesk.usaspending.gov'>USAspending Service Desk</a> and submit a ticket. 
+                please register for the <a href='https://servicedesk.usaspending.gov' target='_blank'>USAspending Service Desk</a> and submit a ticket. 
                 We can better resolve your issue if you provide us as much information as possible, 
                 including the exact steps we should follow to replicate your issue and the page where you encountered it. 
                 The Service Desk will email you if more information or clarification is needed. 
