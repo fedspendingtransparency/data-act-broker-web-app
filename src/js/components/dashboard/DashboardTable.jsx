@@ -222,15 +222,15 @@ export default class DashboardTable extends React.Component {
             loadingClass = ' loading';
         }
 
-        let lastColumn = "Delete";
+        let lastColumns = "Delete";
         if(this.props.isCertified) {
-            lastColumn = ["Certified By", "Certified On"];
+            lastColumns = ["Certified By", "Certified On"];
         }
 
         return (
             <div className="usa-da-submission-list">
                 <div className={"submission-table-content" + loadingClass}>
-                    <FormattedTable headers={tableHeaders.concat(lastColumn)} data={this.state.parsedData} sortable={true} cellClasses={this.state.cellClasses} unsortable={[0,5,6,7]} headerClasses={this.state.headerClasses} onSort={this.sortTable.bind(this)} />
+                    <FormattedTable headers={tableHeaders.concat(lastColumns)} data={this.state.parsedData} sortable={true} cellClasses={this.state.cellClasses} unsortable={[0,5,6,7]} headerClasses={this.state.headerClasses} onSort={this.sortTable.bind(this)} />
                 </div>
                 <div className="text-center">
                     {this.state.message}
