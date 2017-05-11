@@ -79,7 +79,7 @@ export default class LandingContent extends React.Component {
                                 <div className="col-md-7 mt-40 mb-50">
                                     <h1 className="display-2" data-contentstart="start" tabIndex={-1}>Welcome to the DATA Act Broker</h1>
                                     <p>Upload your agency’s files and validate them against the latest version of the DATA Act Information Model Schema (DAIMS).</p>
-                                    <p>Details on how to format your data, including required and optional fields, can be found in the <a href="https://broker.usaspending.gov/#/resources?_k=4bsu0y" target="_blank" rel="noopener noreferrer" >Resources section.</a>.</p>
+                                    <p>Details on how to format your data, including required and optional fields, can be found in the <a href="https://broker.usaspending.gov/#/resources" target="_blank" rel="noopener noreferrer" >Resources section.</a>.</p>
                                 </div>
                             </div>
                         </div>
