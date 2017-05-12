@@ -5,6 +5,7 @@
 
 import React from 'react';
 import * as Icons from '../../SharedComponents/icons/Icons.jsx';
+import * as SubmissionHelper from '../../../helpers/submissionGuideHelper.js';
 
 const propTypes = {
 	submissionId: React.PropTypes.oneOfType([
@@ -18,10 +19,27 @@ const defaultProps = {
 }
 
 export default class SubmissionLink extends React.Component {
+	constructor(props) {
+		super(props);
+		this.state = {
+			page: '#/'
+		}
+		console.log('loading')
+	}
+
+	componentDidMount() {
+		console.log('loading2')
+		SubmissionHelper.getSubmissionPage(this.props.submissionId)
+			.then((res) => {
+				this.setState({page: res})
+			});
+	}
+
+
 	render() {
 		return (
 			<div className="usa-da-recent-activity-link">
-				<a href={"#/validateData/" + this.props.submissionId}>
+				<a href={this.state.page}>
 					<Icons.Eye alt="View" />
 				</a>
 			</div>

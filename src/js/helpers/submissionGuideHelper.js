@@ -30,3 +30,33 @@ export const setSkipGuide = (skip_guide) => {
 
     return deferred.promise;
 }
+
+export const getSubmissionPage = (submission_id) => {
+    const deferred = Q.defer();
+
+    const store = new StoreSingleton().store;
+    console.log(submission_id)
+
+    Request.get(kGlobalConstants.API + 'check_current_page/?submission_id=' + submission_id)
+        .end((err, res) => {
+            if (err) {
+                deferred.reject(err);
+            } else {
+                // Only skip the guide if the user wants to skip the guide
+                let pages = [
+                    '#/landing',
+                    '#/validateData/'+submission_id,
+                    '#/generateFiles/'+submission_id,
+                    '#/validateCrossFile/'+submission_id,
+                    '#/generateEF/'+submission_id,
+                    '#/reviewData/'+submission_id
+                ]
+                let index = parseInt(res.text);
+
+                deferred.resolve(pages[index]);
+            }
+
+        });
+
+    return deferred.promise;
+}
