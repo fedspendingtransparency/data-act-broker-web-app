@@ -51,9 +51,13 @@ export const getSubmissionPage = (submission_id) => {
                     '#/generateEF/'+submission_id,
                     '#/reviewData/'+submission_id
                 ]
-                let index = parseInt(res.text);
+                let index = parseInt(res.text, 10);
+                let response = {
+                    url: pages[index],
+                    page: index
+                }
 
-                deferred.resolve(pages[index]);
+                deferred.resolve(response);
             }
 
         });

@@ -24,14 +24,12 @@ export default class SubmissionLink extends React.Component {
 		this.state = {
 			page: '#/'
 		}
-		console.log('loading')
 	}
 
 	componentDidMount() {
-		console.log('loading2')
 		SubmissionHelper.getSubmissionPage(this.props.submissionId)
 			.then((res) => {
-				this.setState({page: res})
+				this.setState({page: res.url})
 			});
 	}
 
