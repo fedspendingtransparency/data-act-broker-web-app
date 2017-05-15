@@ -44,12 +44,12 @@ export const getSubmissionPage = (submission_id) => {
             } else {
                 // Only skip the guide if the user wants to skip the guide
                 let pages = [
-                    '#/landing',
-                    '#/validateData/'+submission_id,
-                    '#/generateFiles/'+submission_id,
-                    '#/validateCrossFile/'+submission_id,
-                    '#/generateEF/'+submission_id,
-                    '#/reviewData/'+submission_id
+                    '/landing',
+                    '/validateData/'+submission_id,
+                    '/generateFiles/'+submission_id,
+                    '/validateCrossFile/'+submission_id,
+                    '/generateEF/'+submission_id,
+                    '/reviewData/'+submission_id
                 ]
                 let index = parseInt(res.text, 10);
                 let response = {

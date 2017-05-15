@@ -15,6 +15,8 @@ class ReviewDataContainer extends React.Component {
     constructor(props) {
         super(props);
 
+        this.isUnmounted = false;
+
         this.state = {
         	jobs: null,
             cgac_code: null,
@@ -33,7 +35,11 @@ class ReviewDataContainer extends React.Component {
     }
 
     componentDidMount() {
-    	this.loadData();
+        this.loadData();    
+    }
+
+    componentWillUnmount(){
+        this.isUnmounted = true;
     }
 
     componentDidUpdate(prevProps, prevState) {
@@ -44,29 +50,31 @@ class ReviewDataContainer extends React.Component {
     }
 
     loadData() {
+        if(!this.isUnmounted){
+            let submission = {};
 
-        let submission = {};
+            ReviewHelper.fetchStatus(this.props.params.submissionID)
+                .then((data) => {
+                    data.ready = true;
+                    submission = data;
 
-    	ReviewHelper.fetchStatus(this.props.params.submissionID)
-            .then((data) => {
-                data.ready = true;
-                submission = data;
-
-                return ReviewHelper.fetchSubmissionNarrative(this.props.params.submissionID);
-            })
-            .then((narrative) => {
-                submission.file_narrative = narrative;
-                return ReviewHelper.fetchObligations(this.props.params.submissionID);
-            })
-            .then((data) => {
-                submission.total_obligations = data.total_obligations;
-                submission.total_assistance_obligations = data.total_assistance_obligations;
-                submission.total_procurement_obligations = data.total_procurement_obligations;
-                this.setState(submission);
-            })
-            .catch((error) => {
-                console.log(error);
-            });
+                    return ReviewHelper.fetchSubmissionNarrative(this.props.params.submissionID);
+                })
+                .then((narrative) => {
+                    submission.file_narrative = narrative;
+                    return ReviewHelper.fetchObligations(this.props.params.submissionID);
+                })
+                .then((data) => {
+                    submission.total_obligations = data.total_obligations;
+                    submission.total_assistance_obligations = data.total_assistance_obligations;
+                    submission.total_procurement_obligations = data.total_procurement_obligations;
+                    this.setState(submission);
+                })
+                .catch((error) => {
+                    console.log(error);
+                });  
+        }
+        
     }
 
     render() {
