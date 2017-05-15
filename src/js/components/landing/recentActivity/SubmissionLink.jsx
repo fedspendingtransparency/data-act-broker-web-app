@@ -37,7 +37,7 @@ export default class SubmissionLink extends React.Component {
 	render() {
 		return (
 			<div className="usa-da-recent-activity-link">
-				<a href={this.state.page}>
+				<a href={'#'+this.state.page}>
 					<Icons.Eye alt="View" />
 				</a>
 			</div>

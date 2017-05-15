@@ -35,7 +35,6 @@ export const getSubmissionPage = (submission_id) => {
     const deferred = Q.defer();
 
     const store = new StoreSingleton().store;
-    console.log(submission_id)
 
     Request.get(kGlobalConstants.API + 'check_current_page/?submission_id=' + submission_id)
         .end((err, res) => {
@@ -51,7 +50,7 @@ export const getSubmissionPage = (submission_id) => {
                     '/generateEF/'+submission_id,
                     '/reviewData/'+submission_id
                 ]
-                let index = parseInt(res.text, 10);
+                let index = parseInt(res.body.step, 10);
                 let response = {
                     url: pages[index],
                     page: index
