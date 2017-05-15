@@ -126,9 +126,6 @@ class GenerateFilesContainer extends React.Component {
 					}
 					// certified submission files have been updated, hide prepopulate D1/D2
 					// ask to regenerate D1/D2 and forced to revalidate
-					if (this.props.submission.publishStatus == "updated") {
-						allRequested = false;
-					}
 					else {
 						combinedData.push(response.value);
 					}
