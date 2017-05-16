@@ -418,7 +418,8 @@ class GenerateFilesContainer extends React.Component {
 					show: true,
 					url: fileData.url
 				};
-				if(fileData.url === '' || fileData.url === '#' || fileData.url == null){
+				let failCases = ['', '#', null]
+				if(_.findIndex(failCases, fileData.url) != -1){
 					let header = fileData.file_type.toUpperCase() + ' File Error'
 					item.error = {
 						show: true,
