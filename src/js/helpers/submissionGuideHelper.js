@@ -43,7 +43,7 @@ export const getSubmissionPage = (submission_id) => {
             } else {
                 // Only skip the guide if the user wants to skip the guide
                 let pages = [
-                    '/landing',
+                    '/404',
                     '/validateData/'+submission_id,
                     '/generateFiles/'+submission_id,
                     '/validateCrossFile/'+submission_id,
