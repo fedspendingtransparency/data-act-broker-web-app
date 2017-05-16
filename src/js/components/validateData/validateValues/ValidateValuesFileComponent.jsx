@@ -30,8 +30,6 @@ export default class ValidateDataFileComponent extends React.Component {
     constructor(props) {
         super(props);
 
-        console.log('ValuesFile')
-
         this.isUnmounted = false;
 
         this.state = {
@@ -286,7 +284,6 @@ export default class ValidateDataFileComponent extends React.Component {
             active: '#02bfe7',
             activeBorder: '#046b99'
         };
-        console.log('prerender')
 
         return (
             <div className="row center-block usa-da-validate-item" data-testid={"validate-wrapper-" + this.props.type.requestName}>

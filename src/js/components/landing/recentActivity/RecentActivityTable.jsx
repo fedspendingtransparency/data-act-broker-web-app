@@ -19,6 +19,8 @@ export default class RecentActivityTable extends React.Component {
 	constructor(props) {
 		super(props);
 
+		console.log(this.props)
+
 		this.didUnmount = false;
 
 		this.state = {
@@ -32,8 +34,8 @@ export default class RecentActivityTable extends React.Component {
 			account: null,
 			user: true
 		};
-
-		this.tableHeaders = 
+		if(PermissionsHelper.checkAgencyPermissions(this.props.session)){
+			this.tableHeaders = 
 			[
 			'View',
 			'Agency',
@@ -42,7 +44,19 @@ export default class RecentActivityTable extends React.Component {
 			'Last Modified',
 			'Status',
 			'Delete'
+			];	
+		} else {
+			this.tableHeaders = 
+			[
+			'View',
+			'Agency',
+			'Reporting Period',
+			'Submitted By',
+			'Last Modified',
+			'Status'
 			];
+		}
+		
 	}
 
 	componentDidMount() {
@@ -138,12 +152,13 @@ export default class RecentActivityTable extends React.Component {
 				item.last_modified,
 				<Status.SubmissionStatus status={item.rowStatus} certified={item.publish_status !== 'unpublished'} />
 			];
-
-			if(item.publish_status === "unpublished" && PermissionsHelper.checkAgencyPermissions(this.props.session, item.agency)) {
-				row.push(<DeleteLink submissionId={item.submission_id} index={index} warning={this.deleteWarning.bind(this)} confirm={deleteConfirm} reload={this.reload.bind(this)} item={item} account={this.state.account}/>);
-			}
-			else {
-				row.push("N/A");
+			if(PermissionsHelper.checkAgencyPermissions(this.props.session)) {
+				if(item.publish_status === "unpublished" && PermissionsHelper.checkAgencyPermissions(this.props.session, item.agency)) {
+					row.push(<DeleteLink submissionId={item.submission_id} index={index} warning={this.deleteWarning.bind(this)} confirm={deleteConfirm} reload={this.reload.bind(this)} item={item} account={this.state.account}/>);
+				}
+				else {
+					row.push("N/A");
+				}	
 			}
 
 			rowClasses.push(classes);
