@@ -198,17 +198,19 @@ export default class DashboardTable extends React.Component {
             loadingClass = ' loading';
         }
 
+        let newHeaders = null;
+
         if(PermissionsHelper.checkAgencyPermissions(this.props.session)){
-            tableHeaders.concat('Delete');
+            newHeaders = tableHeaders.concat('Delete');
         }
         if(this.props.isCertified) {
-            tableHeaders.concat("Certified By");
+            newHeaders = tableHeaders.concat("Certified By");
         }
 
         return (
             <div className="usa-da-submission-list">
                 <div className={"submission-table-content" + loadingClass}>
-                    <FormattedTable headers={tableHeaders} data={this.state.parsedData} sortable={true} cellClasses={this.state.cellClasses} unsortable={[0,5,6]} headerClasses={this.state.headerClasses} onSort={this.sortTable.bind(this)} />
+                    <FormattedTable headers={newHeaders} data={this.state.parsedData} sortable={true} cellClasses={this.state.cellClasses} unsortable={[0,5,6]} headerClasses={this.state.headerClasses} onSort={this.sortTable.bind(this)} />
                 </div>
                 <div className="text-center">
                     {this.state.message}
