@@ -363,7 +363,6 @@ class GenerateFilesContainer extends React.Component {
 		let message = '';
 
 		files.forEach((file) => {
-
 			const fileData = responses[file];
 			output[file + 'Status'] = fileData.status;
 
@@ -384,10 +383,28 @@ class GenerateFilesContainer extends React.Component {
 				}
 
 				this.updateError(file, fileData.file_type.toUpperCase() + ' File Error', message);
+
+
+				const item = Object.assign({}, this.state[file]);
+				//ONLY IF FILEDATAURL EXISTRS
+
+				if(fileData.url && fileData.size){
+					// update the download properties
+					item.download = {
+						show: true,
+						url: fileData.url
+					};
+					let header = fileData.file_type.toUpperCase() + ' File Error'
+					item.error = {
+						show: header != '' && message != '',
+						header: header,
+						description: message
+					}
+					output[file] = item;
+				}
 			}
 			else if (fileData.status == 'finished') {
 				this.updateError(file);
-
 				// display dowload buttons
 				// make a clone of the file's react state
 				const item = Object.assign({}, this.state[file]);
@@ -396,6 +413,15 @@ class GenerateFilesContainer extends React.Component {
 					show: true,
 					url: fileData.url
 				};
+				let failCases = ['', '#', null]
+				if(_.findIndex(failCases, fileData.url) != -1){
+					let header = fileData.file_type.toUpperCase() + ' File Error'
+					item.error = {
+						show: true,
+						header: header,
+						description: 'No data found for the specified period'
+					}
+				}
 				// add this to the new state
 				output[file] = item;
 			}
