@@ -66,7 +66,7 @@ export default class ValidateValuesErrorReport extends React.Component {
 
             let description = item.error_description;
             if (item.error_name == 'rule_failed') {
-                description = ['Rule ' + item.original_label + ': ' + item.rule_failed];
+                description = 'Rule ' + item.original_label + ': ' + item.rule_failed;
             }
 
             const row = [item.field_name, description, parseInt(item.occurrences)];
