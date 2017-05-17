@@ -18,6 +18,11 @@ const defaultProps = {
 export default class FileComponent extends React.Component {
 	constructor(props){
 		super(props)
+
+		this.state = {
+			agency_name: ''
+		}
+
 		this.isUnmounted = false;
 	}
 
@@ -36,16 +41,16 @@ export default class FileComponent extends React.Component {
         }
 	}
 
-	componentDidUnmount(){
+	componentWillUnmount(){
 		this.isUnmounted = true;
 	}
 
 	render() {
 		let replaceButton = null;
-
 		if (this.props.status == 'success' && PermissionsHelper.checkAgencyPermissions(this.props.session, this.state.agency_name)) {
 			replaceButton = <ReplacementButton buttonClicked={this.props.toggleUploadBox} {...this.props} />;
-		}
+		}	
+	
 
 		return (
 			<div className="file-box">

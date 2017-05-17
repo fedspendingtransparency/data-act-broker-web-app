@@ -262,6 +262,7 @@ export default class ErrorBox extends React.Component {
 				            	            </a>
 				            	            <div className="upload-title">
 												{uploadHeader}
+												{upload}
 											</div>
 										</div>
 									</div>
