@@ -228,7 +228,7 @@ export default class DashboardTable extends React.Component {
             loadingClass = ' loading';
         }
 
-        let newHeaders = null;
+        let newHeaders = tableHeaders;
 
         if(PermissionsHelper.checkAgencyPermissions(this.props.session)){
             newHeaders = tableHeaders.concat('Delete');
