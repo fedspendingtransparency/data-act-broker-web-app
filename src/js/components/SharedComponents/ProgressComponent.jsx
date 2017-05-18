@@ -3,9 +3,6 @@
  * Created by Mike Bray 12/31/15
  **/
 
-import * as SubmissionHelper from '../../helpers/submissionGuideHelper.js';
-import { hashHistory } from 'react-router';
-
 import React, { PropTypes } from 'react';
 
 const propTypes = {
@@ -24,15 +21,6 @@ const defaultProps = {
 export default class Progress extends React.Component {
     constructor(props) {
         super(props);
-    }
-
-    componentDidMount(){
-        SubmissionHelper.getSubmissionPage(this.props.id)
-            .then((res) => {
-                if(this.props.currentStep > res.page){
-                    hashHistory.push(res.url);
-                }
-            });
     }
 
     render() {
