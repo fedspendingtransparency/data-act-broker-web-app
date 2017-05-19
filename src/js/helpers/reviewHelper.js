@@ -522,7 +522,7 @@ export const failUpload = (fileID) => {
     const deferred = Q.defer();
 
     Request.post(kGlobalConstants.API + 'fail_job/')
-               .send({ 'upload_id': fileID })
+               .send({ 'submission_id': fileID })
                .end((err, res) => {
                    if (err) {
                        console.log(err + JSON.stringify(res.body));
