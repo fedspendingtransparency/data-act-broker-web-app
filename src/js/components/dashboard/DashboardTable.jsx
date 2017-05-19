@@ -114,12 +114,34 @@ export default class DashboardTable extends React.Component {
         }
     }
 
+    convertToLocalDate(dateToConvert) {
+        // convert date to local date (toString converts it to whatever the local time is but doesn't allow formatting)
+        const tmpDate = new Date(dateToConvert + " UTC");
+        const localDate = new Date(tmpDate.toString())
+        
+        // format date as YYYY-MM-DD
+        const year = localDate.getFullYear()
+        let month = localDate.getMonth()+1;
+        if(month < 10){
+            month = "0"+month;
+        }
+        let day = localDate.getDate();
+        if(day <10){
+            day = "0"+day;
+        }
+        return year + "-" + month + "-" + day;
+    }
+
     buildRow() {
         // iterate through the recent activity
         const output = [];
         const rowClasses = [];
 
-        const classes = ['row-10 text-center', 'row-20 text-center', 'row-15 text-right white-space', 'row-15 text-right', 'row-10 text-right','row-20 text-right progress-cell', 'row-10 text-center'];
+        let classes = ['row-10 text-center', 'row-20 text-center', 'row-15 text-right white-space', 'row-15 text-right', 'row-10 text-right','row-20 text-right progress-cell', 'row-10 text-center'];
+
+        if(this.props.isCertified) {
+            classes = ['row-10 text-center', 'row-15 text-center', 'row-12_5 text-right white-space', 'row-12_5 text-right', 'row-10 text-right','row-20 text-right progress-cell', 'row-10 text-center', 'row-10 text-center']
+        }
 
         // iterate through each item returned from the API
         this.props.data.forEach((item, index) => {
@@ -146,7 +168,7 @@ export default class DashboardTable extends React.Component {
                 item.agency,
                 reportingDateString,
                 userName,
-                item.last_modified,
+                this.convertToLocalDate(item.last_modified),
                 <Status.SubmissionStatus status={item.rowStatus} certified={this.props.isCertified} />
             ];
 
@@ -155,6 +177,14 @@ export default class DashboardTable extends React.Component {
             }
             else {
                 row.push(item.certifying_user);
+
+                // get certified on date and process it
+                let certified_on = item.certified_on;
+                if(certified_on !== "") {
+                    // call a function to convert/format the date properly
+                    certified_on = this.convertToLocalDate(certified_on);
+                }
+                row.push(certified_on)
             }
 
             rowClasses.push(classes);
@@ -192,15 +222,15 @@ export default class DashboardTable extends React.Component {
             loadingClass = ' loading';
         }
 
-        let lastColumn = "Delete";
+        let lastColumns = "Delete";
         if(this.props.isCertified) {
-            lastColumn = "Certified By";
+            lastColumns = ["Certified By", "Certified On"];
         }
 
         return (
             <div className="usa-da-submission-list">
                 <div className={"submission-table-content" + loadingClass}>
-                    <FormattedTable headers={tableHeaders.concat(lastColumn)} data={this.state.parsedData} sortable={true} cellClasses={this.state.cellClasses} unsortable={[0,5,6]} headerClasses={this.state.headerClasses} onSort={this.sortTable.bind(this)} />
+                    <FormattedTable headers={tableHeaders.concat(lastColumns)} data={this.state.parsedData} sortable={true} cellClasses={this.state.cellClasses} unsortable={[0,5,6,7]} headerClasses={this.state.headerClasses} onSort={this.sortTable.bind(this)} />
                 </div>
                 <div className="text-center">
                     {this.state.message}
