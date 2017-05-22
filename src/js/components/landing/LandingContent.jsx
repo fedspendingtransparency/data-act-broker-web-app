@@ -10,7 +10,7 @@ import LandingBlockBottomLink from './blocks/LandingBlockBottomLink.jsx';
 import LandingRequirementsModal from './blocks/LandingRequirementsModal.jsx';
 
 import * as Icons from '../SharedComponents/icons/Icons.jsx';
-import { generateRSSUrl } from '../../helpers/util.js';
+import * as permissionHelper from '../../helpers/permissionsHelper.js';
 
 const defaultProps = {
     session: {
@@ -23,31 +23,7 @@ const defaultProps = {
 export default class LandingContent extends React.Component {
     constructor(props) {
         super(props);
-
-        this.rssPromise = null;
-
-        this.state = {
-            rssUrl: ''
-        };
     }
-    componentDidMount() {
-        this.rssPromise = generateRSSUrl();
-        this.rssPromise.promise
-            .then((url) => {
-                this.setState({
-                    rssUrl: url
-                });
-
-                this.rssPromise = null;
-            });
-    }
-
-    componentWillUnmount() {
-        if (this.rssPromise) {
-            this.rssPromise.cancel();
-        }
-    }
-
 
     clickedUploadReqs(e) {
         e.preventDefault();
@@ -88,6 +64,13 @@ export default class LandingContent extends React.Component {
             expandContent = 'Show Less';
         }
 
+        let uploadBlock = <LandingBlock icon={<Icons.CloudUpload />} text="In order to upload and validate your agency's files, please follow the link below to request access" buttonText="Request Access" url="https://community.max.gov/x/fJwuRQ"></LandingBlock>;
+        if(permissionHelper.checkPermissions(this.props.session)){
+            uploadBlock = <LandingBlock icon={<Icons.CloudUpload />} text="Ready to upload and validate your agency's files? Great, we'll be happy to walk you through the process." buttonText="Upload & Validate a New Submission" url="#/submissionGuide">
+                                <LandingBlockBottomLink onClick={this.clickedUploadReqs.bind(this)} />
+                        </LandingBlock>
+        }
+
         return (
                 <div className="site_content">
                     <div className="usa-da-content-dark">
@@ -95,45 +78,39 @@ export default class LandingContent extends React.Component {
                             <div className="row usa-da-content-landing usa-da-page-title">
                                 <div className="col-md-7 mt-40 mb-50">
                                     <h1 className="display-2" data-contentstart="start" tabIndex={-1}>Welcome to the DATA Act Broker</h1>
-                                    <p>Upload your agency's files and validate them against the latest version of the DATA Act Information Model Schema.</p>
-                                    <p>Details on how to format your data, including required and optional fields, can be found in the <a href={this.state.rssUrl} target="_blank" rel="noopener noreferrer" aria-label="Download the RSS specification as an Excel file">Reporting Submission Specification (RSS) v1.0</a>.</p>
+                                    <p>Upload your agency’s files and validate them against the latest version of the DATA Act Information Model Schema (DAIMS).</p>
+                                    <p>Details on how to format your data, including required and optional fields, can be found in the <a href="https://broker.usaspending.gov/#/resources" target="_blank" rel="noopener noreferrer" >Resources section.</a>.</p>
                                 </div>
                             </div>
                         </div>
                     </div>
-                        <div className="container mb-60">
-                            <div className="row">
-                                <div className="usa-da-landing col-md-12">
-                                    <div className="usa-da-landing-btns">
-                                        <LandingBlock icon={<Icons.CloudUpload />} text="Ready to upload and validate your agency's files? Great, we'll be happy to walk you through the process.*" buttonText="Upload & Validate a New Submission" url="#/submissionGuide">
-                                        <LandingBlockBottomLink onClick={this.clickedUploadReqs.bind(this)} />
-                                        </LandingBlock>
-                                        <LandingBlock icon={<Icons.Floppy />} text="Did you start a submission but were unable to complete it? No problem, we can help you pick up where you left off." buttonText="Continue or Certify a Saved Submission" url="#/dashboard" />
-                                        <LandingBlock icon={<Icons.CloudDownload />} text="Generate your D1 and D2 award files without having to create a submission." buttonText="Generate D Files" url="#/generateDetachedFiles" />
-                                        <div id="modalHolder">
-                                            <LandingRequirementsModal ref="modal" />
-                                        </div>
+                    <div className="container mb-60">
+                        <div className="row">
+                            <div className="usa-da-landing col-md-12">
+                                <div className="usa-da-landing-btns">
+                                    {uploadBlock}
+                                    <LandingBlock icon={<Icons.Floppy />} text="Did you start a submission but were unable to complete it? No problem, we can help you pick up where you left off." buttonText="Continue or Certify a Saved Submission" url="#/dashboard" />
+                                    <LandingBlock icon={<Icons.CloudDownload />} text="Generate your D1 and D2 award files without having to create a submission." buttonText="Generate D Files" url="#/generateDetachedFiles" />
+                                    <div id="modalHolder">
+                                        <LandingRequirementsModal ref="modal" />
                                     </div>
                                 </div>
                             </div>
                         </div>
-                        <div className="container">
-                            <div className="row">
-                                <div className="col-md-12">
-                                    <h2 className={recentHeader}>
-                                        <div className="recent-header">Recent Activity for:</div>
-                                        <div className={recentActivity}>{agencyName}</div>
-                                    </h2>
-                                    <div className='see-more-wrapper'>
-                                        <a className={expand} onClick={this.toggleExpand.bind(this)}>{expandContent}</a>
-                                    </div>
-                                    <RecentActivityTable />
+                    </div>
+                    <div className="container">
+                        <div className="row">
+                            <div className="col-md-12">
+                                <h2 className={recentHeader}>
+                                    <div className="recent-header">Recent Activity for:</div>
+                                    <div className={recentActivity}>{agencyName}</div>
+                                </h2>
+                                <div className='see-more-wrapper'>
+                                    <a className={expand} onClick={this.toggleExpand.bind(this)}>{expandContent}</a>
                                 </div>
+                                <RecentActivityTable />
                             </div>
                         </div>
-
-                    <div className="usa-da-landing-disclosure text-center">
-                        * The DATA Act Broker allows agencies to test financial data but does not connect to USAspending.gov.
                     </div>
                 </div>
             );

@@ -80,11 +80,6 @@ export default class LandingRequirementsModal extends React.Component {
 									File F: Sub-award Attributes data
 								</li>
 							</ul>
-
-			                <div className="alert alert-warning mt-60 mb-0">
-			                    <span className="usa-da-icon"><Icons.ExclamationCircle /></span>
-			                    <p>The current DATA Act Broker allows agencies to upload and test their data as it is required under the DATA Act. It is not currently connected to USAspending.gov</p>
-			                </div>
 						</div>
 					</div>
 				</div>
