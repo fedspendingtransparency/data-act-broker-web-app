@@ -28,7 +28,6 @@ export default class AddDataContent extends React.Component {
     }
 
     componentWillUnmount(){
-        console.log(this.props.submission)
         if((this.props.submission.state == 'uploading' || this.props.submission.state == 'failed') && this.props.submission.id !== null){
             ReviewHelper.failUpload(this.props.submission.id)
         }
