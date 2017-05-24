@@ -98,6 +98,24 @@ export default class RecentActivityTable extends React.Component {
         })
     }
 
+	convertToLocalDate(dateToConvert) {
+		// convert date to local date (toString converts it to whatever the local time is but doesn't allow formatting)
+		const tmpDate = new Date(dateToConvert + " UTC");
+		const localDate = new Date(tmpDate.toString())
+        
+		// format date as YYYY-MM-DD
+		const year = localDate.getFullYear()
+		let month = localDate.getMonth() + 1;
+		if(month < 10){
+			month = "0" + month;
+		}
+		let day = localDate.getDate();
+		if (day < 10){
+			day = "0" + day;
+		}
+		return year + "-" + month + "-" + day;
+	}
+
 	buildRow() {
 		// iterate through the recent activity
 		const output = [];
@@ -134,7 +152,7 @@ export default class RecentActivityTable extends React.Component {
 				item.agency,
 				reportingDateString,
 				userName,
-				item.last_modified,
+				this.convertToLocalDate(item.last_modified),
 				<Status.SubmissionStatus status={item.rowStatus} certified={item.publish_status !== 'unpublished'} />
 			];
 

@@ -156,7 +156,7 @@ export default class ReviewDataContent extends React.Component {
             fileSize += this.props.data.jobs[k].file_size;
         }
 
-        const reportLabels = ['Agency Name:', 'Report Start Date:', 'Report End Date:', 'Total Obligations Incurred:', 'Total Financial Assistance Obligations:', 'Total Procurement Obligations:'];
+        const reportLabels = ['Agency Name:', 'Report Start Date:', 'Report End Date:', 'Award Obligations Incurred (file C):', 'Total Financial Assistance Obligations:', 'Total Procurement Obligations:'];
 
         const reportData = [
             this.props.data.agency_name,
@@ -218,10 +218,6 @@ export default class ReviewDataContent extends React.Component {
                                         <li>Total Rows: <strong>{this.props.data.number_of_rows}</strong></li>
                                         <li>Created on: <strong>{this.props.data.created_on}</strong></li>
                                         <li>Total Warnings: <strong>{this.state.totalWarnings}</strong></li>
-                                    </ul>
-                                    <ul className="usa-da-submission-bottom-links no-bullet">
-                                        <li><a href="#" onClick={this.disabledLink.bind(this)}><span className="usa-da-icon usa-da-icon-CloudDownload"><Icons.CloudDownload /></span>Download</a></li>
-                                        <li><a href="#" onClick={this.disabledLink.bind(this)}><span className="usa-da-icon usa-da-icon-Trash"><Icons.Trash /></span>Delete</a></li>
                                     </ul>
                                 </div>
                             </div>

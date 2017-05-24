@@ -50,7 +50,7 @@ export default class HelpSidebar extends React.Component {
                 <ul>
                     {membership}
                     <li>
-                        <a href="https://servicedesk.usaspending.gov">Contact the Service Desk</a>
+                        <a href="/#/help?section=membership">Contact the Service Desk</a>
                     </li>
                     <li>
                         <a href="/#/help?section=filingIssue">Filing an Issue</a>
