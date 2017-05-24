@@ -80,7 +80,7 @@ export default class HelpContent extends React.Component {
             </div>;
         }
         else {
-            membership = <p>
+            membership = <p name='membership'>
                 If you encounter a bug, have a question, or need help, 
                 please register for the <a href='https://servicedesk.usaspending.gov' target='_blank'>USAspending Service Desk</a> and submit a ticket. 
                 We can better resolve your issue if you provide us as much information as possible, 
