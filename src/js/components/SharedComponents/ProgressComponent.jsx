@@ -3,6 +3,9 @@
  * Created by Mike Bray 12/31/15
  **/
 
+import * as SubmissionHelper from '../../helpers/submissionGuideHelper.js';
+import { hashHistory } from 'react-router';
+
 import React, { PropTypes } from 'react';
 
 const propTypes = {
