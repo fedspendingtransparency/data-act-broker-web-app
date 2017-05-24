@@ -21,16 +21,23 @@ const defaultProps = {
 export default class SubmissionLink extends React.Component {
 	constructor(props) {
 		super(props);
+		this.isUnmounted = false;
 		this.state = {
 			page: '/'
 		}
 	}
 
-	componentDidMount() {
+	componentDidMount() {	
 		SubmissionHelper.getSubmissionPage(this.props.submissionId)
 			.then((res) => {
-				this.setState({page: res.url})
-			});
+				if(!this.isUnmounted){
+					this.setState({page: res.url})
+				}
+			});			
+	}
+
+	componentWillUnmount() {
+		this.isUnmounted = true;
 	}
 	render() {
 		return (
