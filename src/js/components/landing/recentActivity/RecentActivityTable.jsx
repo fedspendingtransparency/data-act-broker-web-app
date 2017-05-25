@@ -5,7 +5,6 @@
 
 import React from 'react';
 import _ from 'lodash';
-import $ from 'jquery';
 import FormattedTable from '../../SharedComponents/table/FormattedTable.jsx';
 import SubmissionLink from './SubmissionLink.jsx';
 import DeleteLink from './DeleteLink.jsx';
