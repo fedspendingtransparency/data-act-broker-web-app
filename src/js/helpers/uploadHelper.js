@@ -307,6 +307,9 @@ export const performRemoteUpload = (submission) => {
 			deferred.resolve(submissionID);
 		})
 		.catch((err) => {
+            if (submissionID !== null) {
+                err.submissionID = submissionID;
+            }
 			store.dispatch(uploadActions.setSubmissionState('failed'));
 			deferred.reject(err);
 		});
