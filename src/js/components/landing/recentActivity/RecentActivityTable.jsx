@@ -11,6 +11,7 @@ import DeleteLink from './DeleteLink.jsx';
 
 import * as SubmissionListHelper from '../../../helpers/submissionListHelper.js';
 import * as LoginHelper from '../../../helpers/loginHelper.js';
+import * as PermissionsHelper from '../../../helpers/permissionsHelper.js';
 import * as Status from './SubmissionStatus.jsx';
 
 
@@ -31,8 +32,8 @@ export default class RecentActivityTable extends React.Component {
 			account: null,
 			user: true
 		};
-
-		this.tableHeaders = 
+		if(PermissionsHelper.checkAgencyPermissions(this.props.session)){
+			this.tableHeaders = 
 			[
 			'View',
 			'Agency',
@@ -41,7 +42,19 @@ export default class RecentActivityTable extends React.Component {
 			'Last Modified',
 			'Status',
 			'Delete'
+			];	
+		} else {
+			this.tableHeaders = 
+			[
+			'View',
+			'Agency',
+			'Reporting Period',
+			'Submitted By',
+			'Last Modified',
+			'Status'
 			];
+		}
+		
 	}
 
 	componentDidMount() {
@@ -59,6 +72,24 @@ export default class RecentActivityTable extends React.Component {
 			this.setState({account: user});
 		})
 	}
+
+	convertToLocalDate(dateToConvert) {
+        // convert date to local date (toString converts it to whatever the local time is but doesn't allow formatting)
+        const tmpDate = new Date(dateToConvert + " UTC");
+        const localDate = new Date(tmpDate.toString())
+        
+        // format date as YYYY-MM-DD
+        const year = localDate.getFullYear()
+        let month = localDate.getMonth()+1;
+        if(month < 10){
+            month = "0"+month;
+        }
+        let day = localDate.getDate();
+        if(day <10){
+            day = "0"+day;
+        }
+        return year + "-" + month + "-" + day;
+    }
 
 	loadActivity() {
 		SubmissionListHelper.loadRecentActivity()
@@ -155,12 +186,13 @@ export default class RecentActivityTable extends React.Component {
 				this.convertToLocalDate(item.last_modified),
 				<Status.SubmissionStatus status={item.rowStatus} certified={item.publish_status !== 'unpublished'} />
 			];
-
-			if(item.publish_status === "unpublished") {
-				row.push(<DeleteLink submissionId={item.submission_id} index={index} warning={this.deleteWarning.bind(this)} confirm={deleteConfirm} reload={this.reload.bind(this)} item={item} account={this.state.account}/>);
-			}
-			else {
-				row.push("N/A");
+			if(PermissionsHelper.checkAgencyPermissions(this.props.session)) {
+				if(item.publish_status === "unpublished" && PermissionsHelper.checkAgencyPermissions(this.props.session, item.agency)) {
+					row.push(<DeleteLink submissionId={item.submission_id} index={index} warning={this.deleteWarning.bind(this)} confirm={deleteConfirm} reload={this.reload.bind(this)} item={item} account={this.state.account}/>);
+				}
+				else {
+					row.push("N/A");
+				}	
 			}
 
 			rowClasses.push(classes);

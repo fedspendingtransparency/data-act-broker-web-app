@@ -13,6 +13,7 @@ import FileWarning from './FileWarning.jsx';
 import ErrorTabs from './ErrorTabs.jsx';
 
 import * as ReviewHelper from '../../../helpers/reviewHelper.js';
+import * as PermissionsHelper from '../../../helpers/permissionsHelper.js';
 import * as Icons from '../../SharedComponents/icons/Icons.jsx';
 
 const dFiles = ['d1', 'd2'];
@@ -21,6 +22,8 @@ export default class ErrorBox extends React.Component {
 	constructor(props) {
 		super(props);
 
+		this.isUnmounted = false;
+
 		this.state = {
 			firstType: '',
 			secondType: '',
@@ -28,18 +31,35 @@ export default class ErrorBox extends React.Component {
 			secondButton: null,
 			stagedFiles: [],
 			activeTab: 'errors',
-            signInProgress: false,
-            signedUrl: ''
+			signInProgress: false,
+			signedUrl: ''
 		};
 	}
 
 	componentDidMount() {
+		this.isUnmounted = false;
 		if (this.props.status == 'warning') {
 			this.setState({
 				activeTab: 'warnings'
 			});
 		}
 		this.stagedFiles();
+		if (this.props.submissionID != null) {
+			ReviewHelper.fetchStatus(this.props.submissionID)
+				.then((data) => {
+					data.ready = true;
+					if (!this.isUnmounted) {
+						this.setState(data);
+					}
+				})
+				.catch((error) => {
+					console.log(error);
+				});
+		}
+	}
+
+	componentWillUnmount(){
+		this.isUnmounted = true;
 	}
 
 	componentDidUpdate(prevProps, prevState) {
@@ -129,48 +149,48 @@ export default class ErrorBox extends React.Component {
 		});
 	}
 
-    openReport() {
-        window.location = this.state.signedUrl;
-    }
+	openReport() {
+		window.location = this.state.signedUrl;
+	}
 
-    signReport(warning) {
-        ReviewHelper.submissionReport(this.props.submission.id, warning, this.props.meta.firstKey, this.props.meta.secondKey)
-            .then((data) => {
-                this.setState({
-                    signInProgress: false,
-                    signedUrl: data.url
-                }, () => {
-                    this.openReport();
-                });
-            })
-            .catch((err) => {
-                this.setState({
-                    signInProgress: false
-                });
-                console.log(err);
-            });
-    }
+	signReport(warning) {
+		ReviewHelper.submissionReport(this.props.submission.id, warning, this.props.meta.firstKey, this.props.meta.secondKey)
+			.then((data) => {
+				this.setState({
+					signInProgress: false,
+					signedUrl: data.url
+				}, () => {
+					this.openReport();
+				});
+			})
+			.catch((err) => {
+				this.setState({
+					signInProgress: false
+				});
+				console.log(err);
+			});
+	}
 
-    clickedReport(warning, e) {
-        e.preventDefault();
-        // check if the link is already signed
-        if (this.state.signInProgress) {
-            // sign is in progress, do nothing
-            return;
-        }
-        else if (this.state.signedUrl !== '') {
-            // it is signed, open immediately
-            this.openReport();
-        }
-        else {
-            // not signed yet, sign
-            this.setState({
-                signInProgress: true
-            }, () => {
-                this.signReport(warning);
-            });
-        }
-    }
+	clickedReport(warning, e) {
+		e.preventDefault();
+		// check if the link is already signed
+		if (this.state.signInProgress) {
+			// sign is in progress, do nothing
+			return;
+		}
+		else if (this.state.signedUrl !== '') {
+			// it is signed, open immediately
+			this.openReport();
+		}
+		else {
+			// not signed yet, sign
+			this.setState({
+				signInProgress: true
+			}, () => {
+				this.signReport(warning);
+			});
+		}
+	}
 
 
 	render() {
@@ -199,10 +219,28 @@ export default class ErrorBox extends React.Component {
 			reportWarning = true;
 		}
 
-        let downloadLabel = `Download ${reportName}`;
-        if (this.state.signInProgress) {
-            downloadLabel = `Preparing ${reportName}...`;
-        }
+		let downloadLabel = `Download ${reportName}`;
+		if (this.state.signInProgress) {
+			downloadLabel = `Preparing ${reportName}...`;
+		}
+		let uploadHeader = null;
+		let upload = null;
+		if(PermissionsHelper.checkAgencyPermissions(this.props.session, this.state.agency_name)){
+			uploadHeader = 'Upload Corrected Files';
+			upload = <div>
+						<div className="row mb-10">
+							<div className="col-md-12">
+								{this.state.firstButton}
+							</div>
+						</div>
+
+						<div className="row">
+							<div className="col-md-12">
+								{this.state.secondButton}
+							</div>
+						</div>
+					</div>
+		}
 
 		return (
 			<div className="col-md-12">
@@ -219,11 +257,12 @@ export default class ErrorBox extends React.Component {
 								<div className="button-list">
 									<div className="row">
 										<div className="col-md-12">
-                                            <a href="#" onClick={this.clickedReport.bind(this, reportWarning)} className="usa-da-button btn-full btn-primary">
-				            	            	{downloadLabel}
-				            	            </a>
-				            	            <div className="upload-title">
-												Upload Corrected Files
+											<a href="#" onClick={this.clickedReport.bind(this, reportWarning)} className="usa-da-button btn-full btn-primary">
+												{downloadLabel}
+											</a>
+											<div className="upload-title">
+												{uploadHeader}
+												{upload}
 											</div>
 										</div>
 									</div>
@@ -242,17 +281,7 @@ export default class ErrorBox extends React.Component {
 										</div>
 									</div>
 
-									<div className="row mb-10">
-										<div className="col-md-12">
-											{this.state.firstButton}
-										</div>
-									</div>
-
-									<div className="row">
-										<div className="col-md-12">
-											{this.state.secondButton}
-										</div>
-									</div>
+									
 								</div>
 							</div>
 						</div>
