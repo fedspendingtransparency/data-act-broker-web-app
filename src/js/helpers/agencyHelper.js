@@ -24,6 +24,24 @@ export const fetchAgencies = () => {
     return deferred.promise;
 }
 
+export const fetchAllAgencies = () => {
+
+    const deferred = Q.defer();
+
+    Request.get(kGlobalConstants.API + 'list_all_agencies/')
+        .send()
+        .end((err, res) => {
+            if (err) {
+                deferred.reject(err);
+            }
+            else {
+                deferred.resolve(res.body['cgac_agency_list']);
+            }
+        });
+
+    return deferred.promise;
+}
+
 export const fetchSubTierAgencies = () => {
 
     const deferred = Q.defer();
