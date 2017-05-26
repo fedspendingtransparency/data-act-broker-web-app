@@ -234,7 +234,7 @@ export default class DashboardTable extends React.Component {
             newHeaders = tableHeaders.concat('Delete');
         }
         if(this.props.isCertified) {
-            newHeaders = tableHeaders.concat("Certified By").concat("Certified Date");
+            newHeaders = tableHeaders.concat("Certified By").concat("Certified On");
         }
 
         return (
