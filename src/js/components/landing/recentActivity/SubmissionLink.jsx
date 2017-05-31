@@ -33,6 +33,11 @@ export default class SubmissionLink extends React.Component {
 				if(!this.isUnmounted){
 					this.setState({page: res.url})
 				}
+			})
+			.catch((err) => {
+				if(!this.isUnmounted){
+					this.setState({page: '/404'})
+				}
 			});			
 	}
 
