@@ -116,21 +116,22 @@ export default class DashboardTable extends React.Component {
     }
 
     convertToLocalDate(dateToConvert) {
-        // convert date to local date (toString converts it to whatever the local time is but doesn't allow formatting)
-        const tmpDate = new Date(dateToConvert + " UTC");
-        const localDate = new Date(tmpDate.toString())
+        // convert date to local date, need to replace the space with a T for Date() formatting
+		// Add a Z to the end to imply the date is in UTC
+		dateToConvert = dateToConvert.replace(" ", "T") + "Z";
+		const tmpDate = new Date(dateToConvert);
         
-        // format date as YYYY-MM-DD
-        const year = localDate.getFullYear()
-        let month = localDate.getMonth()+1;
-        if(month < 10){
-            month = "0"+month;
-        }
-        let day = localDate.getDate();
-        if(day <10){
-            day = "0"+day;
-        }
-        return year + "-" + month + "-" + day;
+		// format date as YYYY-MM-DD
+		const year = tmpDate.getFullYear()
+		let month = tmpDate.getMonth() + 1;
+		if(month < 10){
+			month = "0" + month;
+		}
+		let day = tmpDate.getDate();
+		if (day < 10){
+			day = "0" + day;
+		}
+		return year + "-" + month + "-" + day;
     }
 
     buildRow() {
