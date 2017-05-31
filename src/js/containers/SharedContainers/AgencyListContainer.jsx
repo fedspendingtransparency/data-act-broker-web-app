@@ -22,7 +22,7 @@ class AgencyListContainer extends React.Component {
 		if (this.props.agencyList.agencies.length == 0) {
 			// we need to populate the list
 			if(this.props.detached){
-				AgencyHelper.fetchAgencies()
+				AgencyHelper.fetchAllAgencies()
 				.then((agencies) => {
 					this.props.setAgencyList(agencies);
 				})
