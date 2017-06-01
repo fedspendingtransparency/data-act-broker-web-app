@@ -86,7 +86,7 @@ export default class GenerateEFOverlay extends React.Component {
 			nextDisabled = true;
 		}
 
-		if(PermissionsHelper.checkAgencyPermissions(this.props.session), this.state.agency_name){
+		if(!PermissionsHelper.checkAgencyPermissions(this.props.session, this.state.agency_name)){
 			buttonClass = '-disabled';
 			buttonDisabled = true;
 		}
