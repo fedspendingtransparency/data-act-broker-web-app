@@ -104,18 +104,6 @@ export default class HelpContent extends React.Component {
 
                 {membership}
 
-                <h4 name="filingIssue">Filing an Issue</h4>
-
-                <p>If you encounter a bug, have a question, or need help, <a href="https://federal-spending-transparency.atlassian.net/projects/ABF/issues/ABF-2?filter=allopenissues" target="_blank"  rel="noopener noreferrer">please file an issue in JIRA</a>, our issue tracker. You do not need an account to file an issue, but if you would like to be notified of updates, please put your email in the "Reporter Email" field. If you can&#39;t access JIRA, please email <a href="mailto:DATAPMO@fiscal.treasury.gov">DATAPMO@fiscal.treasury.gov</a>.</p>
-
-                <p>Information posted on JIRA is visible to the public.</p>
-
-                <p>We can better resolve your issue if you provide us as much information as possible, including the exact steps to follow to replicate your issue. Below is a short demo on how to <a href="https://federal-spending-transparency.atlassian.net/projects/ABF/issues/ABF-2?filter=allopenissues" target="_blank"  rel="noopener noreferrer">file an issue in JIRA</a>.</p>
-
-                <p>
-                    <img src={gifSrc}/>
-                </p>
-
                 <p>If you need assistance using the Broker or if you would like to schedule a hands-on sandbox session with Treasury staff, please email <a href="mailto:DATAPMO@fiscal.treasury.gov">DATAPMO@fiscal.treasury.gov</a>.</p>
 	    </div>
         );

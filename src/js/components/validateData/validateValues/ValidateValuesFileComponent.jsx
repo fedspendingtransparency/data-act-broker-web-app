@@ -19,6 +19,8 @@ import FileDetailBox from './ValidateValuesFileDetailBox.jsx';
 import CorrectButtonOverlay from '../CorrectButtonOverlay.jsx';
 import * as Icons from '../../SharedComponents/icons/Icons.jsx';
 import * as GenerateFilesHelper from '../../../helpers/generateFilesHelper.js';
+import * as ReviewHelper from '../../../helpers/reviewHelper.js';
+import * as PermissionsHelper from '../../../helpers/permissionsHelper.js';
 
 const propTypes = {
 
@@ -28,18 +30,38 @@ export default class ValidateDataFileComponent extends React.Component {
     constructor(props) {
         super(props);
 
+        this.isUnmounted = false;
+
         this.state = {
             showWarning: false,
             showError: false,
             hasErrors: false,
             hasWarnings: false,
             signedUrl: '',
-            signInProgress: false
+            signInProgress: false, 
         };
     }
 
     componentDidMount() {
+        this.isUnmounted = false;
+
         this.determineErrors(this.props.item);
+        if (this.props.submission.id != null) {
+            ReviewHelper.fetchStatus(this.props.submission.id)
+                .then((data) => {
+                    data.ready = true;
+                    if (!this.isUnmounted) {
+                        this.setState(data);
+                    }
+                })
+                .catch((error) => {
+                    console.log(error);
+                });
+        }
+    }
+
+    componentWillUnmount(){
+        this.isUnmounted = true;
     }
 
     componentWillReceiveProps(nextProps) {
@@ -229,24 +251,27 @@ export default class ValidateDataFileComponent extends React.Component {
             }
         }
 
-        if (!this.state.hasErrors && !this.state.hasWarnings && !this.props.published) {
+        let permission = PermissionsHelper.checkAgencyPermissions(this.props.session, this.state.agency_name);
+
+        if (!this.state.hasErrors && !this.state.hasWarnings && !this.props.published && permission) {
             optionalUpload = true;
             uploadText = 'Overwrite File';
             correctButtonOverlay = <CorrectButtonOverlay isReplacingFile={this.isReplacingFile()} fileKey={this.props.type.requestName} onDrop={this.props.onFileChange} removeFile={this.props.removeFile} fileName={fileName}/>
             validationElement = <p className='usa-da-success-txt'>File successfully validated</p>;
         }
-        else if (!this.state.hasErrors && this.state.hasWarnings && !this.props.published) {
+        else if (!this.state.hasErrors && this.state.hasWarnings && !this.props.published && permission) {
             optionalUpload = true;
             uploadText = 'Overwrite File';
             correctButtonOverlay = <CorrectButtonOverlay isReplacingFile={this.isReplacingFile()} fileKey={this.props.type.requestName} onDrop={this.props.onFileChange} removeFile={this.props.removeFile} fileName={fileName}/>
             validationElement = <p className='usa-da-warning-txt'>File validated with warnings</p>;
         }
-        else if(!this.props.published){
+        else if(!this.props.published && permission){
             validationElement = <div className="row usa-da-validate-item-file-section-correct-button" data-testid="validate-upload"><div className="col-md-12">
                 <ValidateDataUploadButton optional={optionalUpload} onDrop={this.props.onFileChange} text={uploadText} />
                 </div>
             </div>;
         }
+
 
         const warningBaseColors = {
             base: '#fdb81e',

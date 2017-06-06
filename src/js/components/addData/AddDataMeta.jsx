@@ -217,7 +217,7 @@ export default class AddDataMeta extends React.Component {
 
                                     <div className="row">
                                         <div className="col-sm-12 col-md-12 typeahead-holder" data-testid="agencytypeahead">
-                                            <AgencyListContainer placeholder="Enter the name of the reporting agency" onSelect={this.handleChange.bind(this)} customClass={agencyClass} />
+                                            <AgencyListContainer placeholder="Enter the name of the reporting agency" onSelect={this.handleChange.bind(this)} customClass={agencyClass} detached={false}/>
                                             <div className={"usa-da-icon usa-da-form-icon" + agencyClass}>
                                                 {agencyIcon}
                                             </div>
