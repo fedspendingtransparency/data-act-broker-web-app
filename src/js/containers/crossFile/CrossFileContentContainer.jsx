@@ -224,6 +224,7 @@ class CrossFileContentContainer extends React.Component {
 }
 
 export default connect(
-	state => ({ submission: state.submission }),
+	state => ({ submission: state.submission,
+	session: state.session }),
 	dispatch => bindActionCreators(uploadActions, dispatch)
 )(CrossFileContentContainer)

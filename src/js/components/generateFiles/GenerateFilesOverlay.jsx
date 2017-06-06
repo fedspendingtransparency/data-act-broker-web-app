@@ -7,12 +7,34 @@ import React from 'react';
 import CommonOverlay from '../SharedComponents/overlays/CommonOverlay.jsx';
 import * as Icons from '../SharedComponents/icons/Icons.jsx';
 import LoadingBauble from '../SharedComponents/overlays/LoadingBauble.jsx';
+import * as ReviewHelper from '../../helpers/reviewHelper.js';
+import * as PermissionHelper from '../../helpers/permissionsHelper.js';
 
 const defaultProps = {
 	state: 'incomplete'
 };
 
 export default class GenerateFilesOverlay extends React.Component {
+
+	constructor(props){
+		super(props);
+		this.state = {
+			agency_name: ''
+		}
+	}
+
+	componentDidMount(){
+		if (this.props.submissionID !== null) {
+			ReviewHelper.fetchStatus(this.props.submissionID)
+				.then((data) => {
+					data.ready = true;
+					this.setState({'agency_name':data.agency_name})
+				})
+				.catch((error) => {
+					console.log(error);
+				});
+		}
+	}
 
 	clickedGenerate(e) {
 		e.preventDefault();
@@ -76,6 +98,10 @@ export default class GenerateFilesOverlay extends React.Component {
 			iconClass = 'usa-da-successGreen';
 
 			header = "Your files have been generated. Click Next to begin cross-file validations.";
+		}
+
+		if(!buttonDisabled){
+			buttonDisabled = !PermissionHelper.checkAgencyPermissions(this.props.session, this.state.agency_name);
 		}
 
 		return (

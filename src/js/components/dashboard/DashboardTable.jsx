@@ -11,6 +11,7 @@ import FormattedTable from '../SharedComponents/table/FormattedTable.jsx';
 import SubmissionLink from '../landing/recentActivity/SubmissionLink.jsx';
 import * as Status from '../landing/recentActivity//SubmissionStatus.jsx';
 import * as LoginHelper from '../../helpers/loginHelper.js';
+import * as PermissionsHelper from '../../helpers/permissionsHelper.js';
 import DeleteLink from '../landing/recentActivity/DeleteLink.jsx';
 
 import DashboardPaginator from './DashboardPaginator.jsx';
@@ -173,10 +174,15 @@ export default class DashboardTable extends React.Component {
                 <Status.SubmissionStatus status={item.rowStatus} certified={this.props.isCertified} />
             ];
 
-            if(!this.props.isCertified) {
-                row.push(<DeleteLink submissionId={item.submission_id} index={index} warning={this.deleteWarning.bind(this)} confirm={deleteConfirm} reload={this.reload.bind(this)} item={item} account={this.state.account}/>);
+            if(!this.props.isCertified && PermissionsHelper.checkAgencyPermissions(this.props.session)) {
+                if(item.publish_status === "unpublished" && PermissionsHelper.checkAgencyPermissions(this.props.session, item.agency)) {
+                    row.push(<DeleteLink submissionId={item.submission_id} index={index} warning={this.deleteWarning.bind(this)} confirm={deleteConfirm} reload={this.reload.bind(this)} item={item} account={this.state.account}/>);
+                }
+                else {
+                    row.push("N/A");
+                }   
             }
-            else {
+            else if(this.props.isCertified) {
                 row.push(item.certifying_user);
 
                 // get certified on date and process it
@@ -223,15 +229,19 @@ export default class DashboardTable extends React.Component {
             loadingClass = ' loading';
         }
 
-        let lastColumns = "Delete";
+        let newHeaders = tableHeaders;
+
+        if(PermissionsHelper.checkAgencyPermissions(this.props.session)){
+            newHeaders = tableHeaders.concat('Delete');
+        }
         if(this.props.isCertified) {
-            lastColumns = ["Certified By", "Certified On"];
+            newHeaders = tableHeaders.concat(["Certified By","Certified On"]);
         }
 
         return (
             <div className="usa-da-submission-list">
                 <div className={"submission-table-content" + loadingClass}>
-                    <FormattedTable headers={tableHeaders.concat(lastColumns)} data={this.state.parsedData} sortable={true} cellClasses={this.state.cellClasses} unsortable={[0,5,6,7]} headerClasses={this.state.headerClasses} onSort={this.sortTable.bind(this)} />
+                    <FormattedTable headers={newHeaders} data={this.state.parsedData} sortable={true} cellClasses={this.state.cellClasses} unsortable={[0,5,6]} headerClasses={this.state.headerClasses} onSort={this.sortTable.bind(this)} />
                 </div>
                 <div className="text-center">
                     {this.state.message}

@@ -32,7 +32,6 @@ export default class ValidateValuesOverlay extends React.Component {
 	}
 
 	render() {
-
 		let icon = <Icons.ExclamationCircle />;
 		let iconClass = 'usa-da-errorRed';
 
