@@ -16,6 +16,7 @@ import { fileTypes } from './fileTypes.js';
 import { kGlobalConstants } from '../../GlobalConstants.js';
 
 import * as UploadHelper from '../../helpers/uploadHelper.js';
+import * as GuideHelper from '../../helpers/SubmissionGuideHelper.js';
 
 class AddDataContainer extends React.Component {
 	constructor(props) {
@@ -41,10 +42,22 @@ class AddDataContainer extends React.Component {
 		if (kGlobalConstants.LOCAL == true) {
 			UploadHelper.performLocalUpload(this.props.submission)
 				.then((submissionID) => {
-					// TODO: Remove this when this is eventually tied to user accounts
 					this.props.setSubmissionId(submissionID);
-					hashHistory.push('/validateData/' + submissionID);
-
+					// Looping because we need to allow backend to catchup to front end and prevent incorrect 404
+					let count = 10;
+					for(let i = 0; i < count; i++){
+						GuideHelper.getSubmissionPage(submissionID)
+							.then((res) => {
+								hashHistory.push('/validateData/' + submissionID)
+							})
+							.catch((err) => {
+								if(i == count - 1) {
+									hashHistory.push('/404/' )
+								}else{
+									setTimeout(()=>{},500);
+								}
+							})
+					}
 				}).catch((err) => {
 					if (err.httpStatus == 403) {
 						this.setState({
@@ -57,9 +70,22 @@ class AddDataContainer extends React.Component {
 		else {
 			UploadHelper.performRemoteUpload(this.props.submission)
 				.then((submissionID) => {
-					// TODO: Remove this when this is eventually tied to user accounts
 					this.props.setSubmissionId(submissionID);
-					hashHistory.push('/validateData/' + submissionID);
+					// Looping because we need to allow backend to catchup to front end and prevent incorrect 404
+					let count = 10;
+					for(let i = 0; i < count; i++){
+						GuideHelper.getSubmissionPage(submissionID)
+							.then((res) => {
+								hashHistory.push('/validateData/' + submissionID)
+							})
+							.catch((err) => {
+								if(i == count - 1) {
+									hashHistory.push('/404/' )
+								}else{
+									setTimeout(()=>{},500);
+								}
+							})
+					}
 				})
 				.catch((err) => {
 					if(err.submissionID !== null && err.submissionID !== 0){

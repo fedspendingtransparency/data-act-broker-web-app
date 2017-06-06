@@ -9,6 +9,7 @@ import _ from 'lodash';
 
 import FormattedTable from '../SharedComponents/table/FormattedTable.jsx';
 import SubmissionLink from '../landing/recentActivity/SubmissionLink.jsx';
+import HistoryLink from './historyLink.jsx';
 import * as Status from '../landing/recentActivity//SubmissionStatus.jsx';
 import * as LoginHelper from '../../helpers/loginHelper.js';
 import * as PermissionsHelper from '../../helpers/permissionsHelper.js';
@@ -21,13 +22,24 @@ const defaultProps = {
     isLoading: true
 };
 
-const tableHeaders = [
+const tableHeadersActive = [
     'View',
     'Agency',
     'Reporting Period',
     'Submitted By',
     'Last Modified',
     'Status'
+];
+
+const tableHeadersCertified = [
+    'Reporting Period',
+    'Agency',
+    'Submitted By',
+    'Last Modified',
+    'Status',
+    'Certified By',
+    'Certified On',
+    'history'
 ];
 
 export default class DashboardTable extends React.Component {
@@ -55,6 +67,7 @@ export default class DashboardTable extends React.Component {
     }
 
     componentDidUpdate(prevProps, prevState) {
+
         if (!_.isEqual(prevProps.data, this.props.data)) {
             this.buildRow();
         }
@@ -142,7 +155,7 @@ export default class DashboardTable extends React.Component {
         let classes = ['row-10 text-center', 'row-20 text-center', 'row-15 text-right white-space', 'row-15 text-right', 'row-10 text-right','row-20 text-right progress-cell', 'row-10 text-center'];
 
         if(this.props.isCertified) {
-            classes = ['row-10 text-center', 'row-15 text-center', 'row-12_5 text-right white-space', 'row-12_5 text-right', 'row-10 text-right','row-20 text-right progress-cell', 'row-10 text-center', 'row-10 text-center']
+            classes = ['row-15 text-center', 'row-12_5 text-right white-space', 'row-12_5 text-right', 'row-10 text-right','row-20 text-right progress-cell', 'row-10 text-center', 'row-10 text-center', 'row-10 text-center']
         }
 
         // iterate through each item returned from the API
@@ -164,34 +177,42 @@ export default class DashboardTable extends React.Component {
             }
 
             // break the object out into an array for the table component
-            const row = 
-            [
-                <SubmissionLink submissionId={item.submission_id} />,
-                item.agency,
-                reportingDateString,
-                userName,
-                this.convertToLocalDate(item.last_modified),
-                <Status.SubmissionStatus status={item.rowStatus} certified={this.props.isCertified} />
-            ];
+            let row = [];
+            if(this.props.isCertified){
+                row = [
+                    reportingDateString,
+                    item.agency,
+                    userName,
+                    this.convertToLocalDate(item.last_modified),
+                    <Status.SubmissionStatus status={item.rowStatus} certified={this.props.isCertified} />,
+                    certifying_user,
 
-            if(!this.props.isCertified && PermissionsHelper.checkAgencyPermissions(this.props.session)) {
-                if(item.publish_status === "unpublished" && PermissionsHelper.checkAgencyPermissions(this.props.session, item.agency)) {
-                    row.push(<DeleteLink submissionId={item.submission_id} index={index} warning={this.deleteWarning.bind(this)} confirm={deleteConfirm} reload={this.reload.bind(this)} item={item} account={this.state.account}/>);
-                }
-                else {
-                    row.push("N/A");
-                }   
-            }
-            else if(this.props.isCertified) {
-                row.push(item.certifying_user);
-
-                // get certified on date and process it
+                    <HistoryLink submissionId={item.submission_id} />
+                ];
                 let certified_on = item.certified_on;
                 if(certified_on !== "") {
                     // call a function to convert/format the date properly
                     certified_on = this.convertToLocalDate(certified_on);
                 }
                 row.push(certified_on)
+                console.log(row)
+            } else {
+                row = [
+                    <SubmissionLink submissionId={item.submission_id} />,
+                    item.agency,
+                    reportingDateString,
+                    userName,
+                    this.convertToLocalDate(item.last_modified),
+                    <Status.SubmissionStatus status={item.rowStatus} certified={this.props.isCertified} />
+                ];    
+                if(PermissionsHelper.checkAgencyPermissions(this.props.session)) {
+                    if(item.publish_status === "unpublished" && PermissionsHelper.checkAgencyPermissions(this.props.session, item.agency)) {
+                        row.push(<DeleteLink submissionId={item.submission_id} index={index} warning={this.deleteWarning.bind(this)} confirm={deleteConfirm} reload={this.reload.bind(this)} item={item} account={this.state.account}/>);
+                    }
+                    else {
+                        row.push("N/A");
+                    }   
+                }
             }
 
             rowClasses.push(classes);
@@ -229,13 +250,14 @@ export default class DashboardTable extends React.Component {
             loadingClass = ' loading';
         }
 
-        let newHeaders = tableHeaders;
+        let newHeaders = tableHeadersActive;
 
-        if(PermissionsHelper.checkAgencyPermissions(this.props.session)){
-            newHeaders = tableHeaders.concat('Delete');
-        }
-        if(this.props.isCertified) {
-            newHeaders = tableHeaders.concat(["Certified By","Certified On"]);
+        //cannot be added to the const because if a user is read only then delete will not be created
+
+        if(PermissionsHelper.checkAgencyPermissions(this.props.session) && !this.props.isCertified){
+            newHeaders = tableHeadersActive.concat('Delete');
+        } else if(this.props.isCertified) {
+            newHeaders = tableHeadersCertified;
         }
 
         return (
