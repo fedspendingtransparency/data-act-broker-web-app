@@ -40,25 +40,26 @@ class AddDataContainer extends React.Component {
 	performUpload() {
 		this.props.setSubmissionState('uploading');
 		if (kGlobalConstants.LOCAL == true) {
-			UploadHelper.performLocalUpload(this.props.submission)
+			UploadHelper.performRemoteUpload(this.props.submission)
 				.then((submissionID) => {
 					this.props.setSubmissionId(submissionID);
 					// Looping because we need to allow backend to catchup to front end and prevent incorrect 404
-					let count = 10;
-					for(let i = 0; i < count; i++){
+					let count = 9;
+					for(let i = 0; i <= count; i++){
 						GuideHelper.getSubmissionPage(submissionID)
 							.then((res) => {
 								hashHistory.push('/validateData/' + submissionID);
 							})
 							.catch((err) => {
-								if(i == count - 1) {
+								if(i == count) {
 									hashHistory.push('/404/' )
 								}else{
 									setTimeout(()=>{},500);
 								}
 							})
 					}
-				}).catch((err) => {
+				})
+				.catch((err) => {
 					if (err.httpStatus == 403) {
 						this.setState({
 							notAllowed: true,
@@ -72,14 +73,14 @@ class AddDataContainer extends React.Component {
 				.then((submissionID) => {
 					this.props.setSubmissionId(submissionID);
 					// Looping because we need to allow backend to catchup to front end and prevent incorrect 404
-					let count = 10;
-					for(let i = 0; i < count; i++){
+					let count = 9;
+					for(let i = 0; i <= count; i++){
 						GuideHelper.getSubmissionPage(submissionID)
 							.then((res) => {
 								hashHistory.push('/validateData/' + submissionID);
 							})
 							.catch((err) => {
-								if(i == count - 1) {
+								if(i == count) {
 									hashHistory.push('/404/' )
 								}else{
 									setTimeout(()=>{},500);
