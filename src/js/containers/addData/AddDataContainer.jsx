@@ -48,7 +48,7 @@ class AddDataContainer extends React.Component {
 					for(let i = 0; i < count; i++){
 						GuideHelper.getSubmissionPage(submissionID)
 							.then((res) => {
-								hashHistory.push('/validateData/' + submissionID)
+								hashHistory.push('/validateData/' + submissionID);
 							})
 							.catch((err) => {
 								if(i == count - 1) {
@@ -76,7 +76,7 @@ class AddDataContainer extends React.Component {
 					for(let i = 0; i < count; i++){
 						GuideHelper.getSubmissionPage(submissionID)
 							.then((res) => {
-								hashHistory.push('/validateData/' + submissionID)
+								hashHistory.push('/validateData/' + submissionID);
 							})
 							.catch((err) => {
 								if(i == count - 1) {
