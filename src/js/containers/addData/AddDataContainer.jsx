@@ -16,7 +16,7 @@ import { fileTypes } from './fileTypes.js';
 import { kGlobalConstants } from '../../GlobalConstants.js';
 
 import * as UploadHelper from '../../helpers/uploadHelper.js';
-import * as GuideHelper from '../../helpers/SubmissionGuideHelper.js';
+import * as GuideHelper from '../../helpers/submissionGuideHelper.js';
 
 class AddDataContainer extends React.Component {
 	constructor(props) {
