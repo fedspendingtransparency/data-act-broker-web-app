@@ -40,7 +40,7 @@ class AddDataContainer extends React.Component {
 	performUpload() {
 		this.props.setSubmissionState('uploading');
 		if (kGlobalConstants.LOCAL == true) {
-			UploadHelper.performRemoteUpload(this.props.submission)
+			UploadHelper.performLocalUpload(this.props.submission)
 				.then((submissionID) => {
 					this.props.setSubmissionId(submissionID);
 					// Looping because we need to allow backend to catchup to front end and prevent incorrect 404
