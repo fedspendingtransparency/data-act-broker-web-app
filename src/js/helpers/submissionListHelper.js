@@ -79,6 +79,30 @@ export const loadSubmissionList = (page = 1, limit = 10, certified = false, sort
     return deferred.promise;
 }
 
+export const loadSubmissionHistory = (submissionID) => {
+    const deferred = Q.defer();
+
+     Request.post(kGlobalConstants.API + 'list_certifications/')
+            .query({ submission_id: submissionID })
+            .end((err, res) => {
+
+                if (err) {
+                    deferred.reject(err);
+                }
+                else {
+
+                    deferred.resolve(res.body);
+                }
+            });
+
+    return deferred.promise;
+}
+
+export const loadSubmissionHistoryList = (submissionID) => {
+
+    return deferred.promise;
+}
+
 export const loadRecentActivity = () => {
 	return loadSubmissionList(1, 5, 'mixed');
 }
