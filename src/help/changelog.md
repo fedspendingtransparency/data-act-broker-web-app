@@ -5,8 +5,7 @@ In this release of the Broker, all users are now able to generate D files outsid
   - [Generating D files outside of a submission](#/help?section=generatedfile)
   - [Improved processing time](#/help?section=processingtime)
 
-##### Generating D files outside of a submission
-{section=generatedfile}
+##### Generating D files outside of a submission{section=generatedfile}
 In this release, we updated the Broker so that all users can generate D files outside the context of a submission regardless of the user’s permissions.
 
 ##### Improved processing time{section=processingtime}
