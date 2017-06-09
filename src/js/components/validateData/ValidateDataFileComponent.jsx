@@ -9,6 +9,8 @@ import FileProgress from '../SharedComponents/FileProgress.jsx';
 import ValidateDataErrorReport from './ValidateDataErrorReport.jsx';
 import ValidateDataUploadButton from './ValidateDataUploadButton.jsx';
 import * as Icons from '../SharedComponents/icons/Icons.jsx';
+import * as ReviewHelper from '../../helpers/reviewHelper.js';
+import * as PermissionsHelper from '../../helpers/permissionsHelper.js';
 
 const propTypes = {
 
@@ -17,6 +19,8 @@ const propTypes = {
 export default class ValidateDataFileComponent extends React.Component {
     constructor(props) {
         super(props);
+
+        this.isUnmounted = false;
 
         this.state = {
             showError: false,
@@ -29,7 +33,24 @@ export default class ValidateDataFileComponent extends React.Component {
     }
 
     componentDidMount() {
+        this.isUnmounted = false;
         this.determineErrors(this.props.item);
+        if (this.props.submission.id != null) {
+            ReviewHelper.fetchStatus(this.props.submission.id)
+                .then((data) => {
+                    data.ready = true;
+                    if (!this.isUnmounted) {
+                        this.setState(data);
+                    }
+                })
+                .catch((error) => {
+                    console.log(error);
+                });
+        }
+    }
+
+    componentWillUnmount(){
+        this.isUnmounted = true;
     }
 
     componentWillReceiveProps(nextProps) {
@@ -37,7 +58,7 @@ export default class ValidateDataFileComponent extends React.Component {
 
         if ((this.props.submission.state == 'uploading' || this.props.submission.state == 'prepare') && nextProps.submission.state == 'review') {
             // we've finished uploading files, close any open error reports
-            if (this.state.showError) {
+            if (this.state.showError && !this.isUnmounted) {
                 this.setState({
                     showError: false
                 });
@@ -46,7 +67,9 @@ export default class ValidateDataFileComponent extends React.Component {
     }
 
     toggleErrorReport(){
-        this.setState({ showError: !this.state.showError });
+        if(!this.isUnmounted){
+            this.setState({ showError: !this.state.showError });
+        }
     }
 
     isFileReady() {
@@ -147,14 +170,15 @@ export default class ValidateDataFileComponent extends React.Component {
             isError = false;
             hasFailed = true;
         }
-
-        this.setState({
-            headerTitle: headerTitle,
-            errorReports: errorData,
-            hasErrorReport: hasErrorReport,
-            isError: isError,
-            hasFailed: hasFailed
-        });
+        if(!this.isUnmounted){
+            this.setState({
+                headerTitle: headerTitle,
+                errorReports: errorData,
+                hasErrorReport: hasErrorReport,
+                isError: isError,
+                hasFailed: hasFailed
+            });
+        }
     }
 
     displayFileMeta() {
@@ -241,6 +265,10 @@ export default class ValidateDataFileComponent extends React.Component {
             if (newFile.state == 'uploading') {
                 uploadProgress = <FileProgress fileStatus={newFile.progress} />;
             }
+        }
+
+        if(!PermissionsHelper.checkAgencyPermissions(this.props.session, this.state.agency_name)){
+            disabledCorrect = ' hide';
         }
 
         return (
