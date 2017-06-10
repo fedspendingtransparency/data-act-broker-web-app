@@ -9,6 +9,9 @@ import * as Icons from '../SharedComponents/icons/Icons.jsx';
 import CommonOverlay from '../SharedComponents/overlays/CommonOverlay.jsx';
 import LoadingBauble from '../SharedComponents/overlays/LoadingBauble.jsx';
 
+import * as PermissionsHelper from '../../helpers/permissionsHelper.js';
+import * as ReviewHelper from '../../helpers/reviewHelper.js';
+
 const defaultProps = {
 	errors: ['error'],
 	loading: true
@@ -31,6 +34,8 @@ export default class CrossFileOverlay extends React.Component {
 	constructor(props) {
 		super(props);
 
+		this.isUnmounted = false;
+
 		this.defaultOverlay = {
 			icon: <Icons.ExclamationCircle />,
 			iconClass: 'usa-da-errorRed',
@@ -51,7 +56,24 @@ export default class CrossFileOverlay extends React.Component {
 	}
 
 	componentDidMount() {
+		this.isUnmounted = false;
 		this.prepareOverlayContents();
+		if (this.props.submissionID != null) {
+            ReviewHelper.fetchStatus(this.props.submissionID)
+                .then((data) => {
+                    data.ready = true;
+                    if (!this.isUnmounted) {
+                        this.setState(data);
+                    }
+                })
+                .catch((error) => {
+                    console.log(error);
+                });
+        }
+	}
+
+	componentWillUnmount(){
+		this.isUnmounted = true;
 	}
 
 	componentDidUpdate(prevProps, prevState) {
@@ -164,9 +186,12 @@ export default class CrossFileOverlay extends React.Component {
 		}
 
 		// enable the upload button if the correct files have been staged for upload
-		if (this.state.allowUpload || this.isUploadingFiles()) {
+		if ((this.state.allowUpload || this.isUploadingFiles()) && PermissionsHelper.checkAgencyPermissions(this.props.session, this.state.agency_name)) {
 			overlay.uploadButtonDisabled = false;
 			overlay.uploadButtonClass = ' btn-primary';
+		} else {
+			overlay.uploadButtonDisabled = true;
+			overlay.uploadButtonDisabled = '-disabled';
 		}
 
 		this.setState({
@@ -175,6 +200,8 @@ export default class CrossFileOverlay extends React.Component {
 	}
 
 	render() {
+
+
 
 		return (
 			<CommonOverlay

@@ -8,7 +8,37 @@ import * as Icons from '../SharedComponents/icons/Icons.jsx';
 import CommonOverlay from '../SharedComponents/overlays/CommonOverlay.jsx';
 import LoadingBauble from '../SharedComponents/overlays/LoadingBauble.jsx';
 
+import * as PermissionsHelper from '../../helpers/permissionsHelper.js';
+import * as ReviewHelper from '../../helpers/reviewHelper.js';
+
 export default class GenerateEFOverlay extends React.Component {
+	constructor(props) {
+		super(props);
+
+		this.state = {};
+
+		this.isUnmounted = false;
+	}
+
+	componentDidMount() {
+		this.isUnmounted = false;
+		if (this.props.submissionID != null) {
+            ReviewHelper.fetchStatus(this.props.submissionID)
+                .then((data) => {
+                    data.ready = true;
+                    if (!this.isUnmounted) {
+                        this.setState(data);
+                    }
+                })
+                .catch((error) => {
+                    console.log(error);
+                });
+        }
+	}
+
+	componentWillUnmount(){
+		this.isUnmounted = true;
+	}
 	clickedNext(e) {
 		e.preventDefault();
 		this.props.nextPage();
@@ -54,6 +84,11 @@ export default class GenerateEFOverlay extends React.Component {
 			buttonDisabled = false;
 			nextClass = '-disabled';
 			nextDisabled = true;
+		}
+
+		if(!PermissionsHelper.checkAgencyPermissions(this.props.session, this.state.agency_name)){
+			buttonClass = '-disabled';
+			buttonDisabled = true;
 		}
 
 
