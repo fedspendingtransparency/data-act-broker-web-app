@@ -1,0 +1,74 @@
+.usa-da-history-page {
+	@import "../../layouts/content/content";
+	@include contentLayout;
+
+	@import "../../components/alerts/_alerts";
+	.alert-danger {
+		@include dangerAlert;
+	}
+	.alert-warning {
+		@include warningAlert;
+	}
+
+    .trash-icon{
+		cursor: pointer;
+	}
+
+	.trash-link:hover{
+        text-decoration: none;
+        cursor: pointer;
+    }
+
+    ul, submission_list {
+    	display: block;
+    	list-style: none;
+    	list-style-type: none;
+    }
+
+    .file-link {
+    	cursor: pointer;
+    	font-size: 2rem;
+    }
+    .file-link:hover {
+    	cursor: pointer;
+    }
+
+    .active-submission {
+    	display: block;
+    	background-color: #323A45;
+    	color: white;
+    	border-radius: 5px;
+    	font-size: 2rem;
+    	list-style-type: none;
+    	padding: 10px;
+    	list-style: none;
+    }
+
+    .submission {
+    	font-size:2rem;
+    	padding: 10px;
+    	cursor:pointer;
+	}
+
+	.submission:before {
+		content: "";
+		color:white;
+	}
+
+    .submission-list {
+    	list-style: none;
+    	list-style-type: none;
+    	display: block;
+    }
+
+    .metadata {
+    	margin-bottom: 5px;
+    }
+
+    .header {
+    	padding-top:1.5rem;
+    	font-size: 1.5rem;
+    }
+
+
+}

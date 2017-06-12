@@ -126,9 +126,13 @@ export default class HistoryTable extends React.Component {
         let certifications = this.state.submission.certifications;
         for(let i = 0; i < certifications.length; i++) {
             if(this.state.active == i) {
-                list.push(<li className='active' onClick={this.setActiveSubmission.bind(this, i)}>Submission: {this.convertToLocalDate(certifications[i].certify_date)}</li>);
+                list.push(<li onClick={this.setActiveSubmission.bind(this, i)}>
+                        <span className='active-submission'>Submission: {certifications[i].certifying_user.name}-{this.convertToLocalDate(certifications[i].certify_date)}</span>
+                    </li>);
             } else {
-                list.push(<li onClick={this.setActiveSubmission.bind(this, i)}>Submission: {this.convertToLocalDate(certifications[i].certify_date)}</li>);    
+                list.push(<li onClick={this.setActiveSubmission.bind(this, i)}>
+                        <span className='submission' >Submission: {certifications[i].certifying_user.name}-{this.convertToLocalDate(certifications[i].certify_date)}</span>
+                    </li>);    
             }
             
         }
@@ -142,7 +146,7 @@ export default class HistoryTable extends React.Component {
         let activeSubmissionsFiles = this.state.submission.certifications[this.state.active].certified_files
         let list = [];
         for(let i = 0; i < activeSubmissionsFiles.length; i++) {
-            list.push(<li onClick={this.getSignedUrl.bind(this, i)}>{activeSubmissionsFiles[i].filename}</li>);  
+            list.push(<li className='file-link' onClick={this.getSignedUrl.bind(this, i)}>{activeSubmissionsFiles[i].filename}</li>);  
         }
         return list;
     }
@@ -184,6 +188,7 @@ export default class HistoryTable extends React.Component {
         let submissions = this.submissionList();
         let fileList = this.activeList();
         let warning = null;
+        let current = this.convertToLocalDate(this.state.submission.certifications[this.state.active].certify_date)
         if(this.state.warning.active) {
             warning = <div className={'alert alert-' + this.state.warning.type}>
                         <span className="usa-da-icon error-icon"><Icons.ExclamationCircle /></span>
@@ -200,14 +205,14 @@ export default class HistoryTable extends React.Component {
                     </div>
                 </div>
                 <div className='row'>
-                    <div className='col-md-3'>
-                        <h3>Submissions</h3>
-                        <ul>
+                    <div className='col-md-6'>
+                        <h3>Certifications</h3>
+                        <ul className='submission-list'>
                             {submissions}
                         </ul>
                     </div>
                     <div className='col-md-6'>
-                        <h3>Download Files</h3>
+                        <h3>Download Files: {current}</h3>
                         <ul>
                             {fileList}
                         </ul>

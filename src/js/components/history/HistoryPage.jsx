@@ -7,6 +7,7 @@ import React from 'react';
 import Navbar from '../SharedComponents/navigation/NavigationComponent.jsx';
 import Footer from '../SharedComponents/FooterComponent.jsx';
 import HistoryTable from './HistoryTable.jsx';
+import HistoryHeader from './HistoryHeader.jsx';
 
 export default class HistoryPage extends React.Component {
     constructor(props){
@@ -29,6 +30,7 @@ export default class HistoryPage extends React.Component {
                             </div>
                         </div>
                     </div>
+                    <HistoryHeader submissionID={this.props.submissionID}/>
                     <HistoryTable submissionID={this.props.submissionID}/>
                 </div>
                 <Footer />
