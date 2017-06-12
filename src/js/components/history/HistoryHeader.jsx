@@ -27,7 +27,6 @@ export default class HistoryTable extends React.Component {
         this.state = {
             metadata: null
         }
-
     };
 
     componentDidMount() {
@@ -42,12 +41,6 @@ export default class HistoryTable extends React.Component {
 
     componentWillUnmount() {
         this.isUnmounted = false;
-    }
-
-    loadUser(){
-        LoginHelper.fetchActiveUser().then((user)=>{
-            this.setState({account: user});
-        })
     }
 
     convertToLocalDate(dateToConvert) {
@@ -68,7 +61,6 @@ export default class HistoryTable extends React.Component {
 		}
 		return year + "-" + month + "-" + day;
     }
-
 
     render() {
         if(!this.state.metadata){

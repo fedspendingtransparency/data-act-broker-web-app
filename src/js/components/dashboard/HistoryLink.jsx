@@ -21,7 +21,6 @@ const defaultProps = {
 export default class HistoryLink extends React.Component {
 	constructor(props) {
 		super(props);
-
 	}
 
 	render() {

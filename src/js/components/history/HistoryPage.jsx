@@ -14,8 +14,8 @@ export default class HistoryPage extends React.Component {
         super(props)
     }
 
-	render() {
-		return (
+    render() {
+        return (
             <div>
                 <div className="usa-da-site_wrap usa-da-history-page">
                     <Navbar activeTab="dashboard"/>
@@ -23,7 +23,7 @@ export default class HistoryPage extends React.Component {
                         <div className="container">
                             <div className="row">
                                 <div className="col-md-12 mt-40 mb-20">
-                                    <div className="display-2" data-contentstart="start" tabIndex={-1}>
+                                    <div className="display-2" data-contentstart="start">
                                         Submission History
                                     </div>
                                 </div>
@@ -35,6 +35,6 @@ export default class HistoryPage extends React.Component {
                 </div>
                 <Footer />
             </div>
-		)
-	}
+        )
+    }
 }

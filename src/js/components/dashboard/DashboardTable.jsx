@@ -160,8 +160,6 @@ export default class DashboardTable extends React.Component {
 
         // iterate through each item returned from the API
         this.props.data.forEach((item, index) => {
-	        
-
             let reportingDateString = "Start: "+item.reporting_start_date + "\nEnd: " + item.reporting_end_date;
             if (!item.reporting_start_date || !item.reporting_end_date) {
                 reportingDateString = 'No reporting period specified';
