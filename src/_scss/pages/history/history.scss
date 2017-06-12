@@ -27,10 +27,17 @@
 
     .file-link {
     	cursor: pointer;
-    	font-size: 2rem;
+    	font-size: 1.5rem;
     }
     .file-link:hover {
     	cursor: pointer;
+    }
+    .file-link:before {
+    	content: '-';
+    }
+
+    .file-link:after{
+    	margin: none;
     }
 
     .active-submission {
@@ -44,15 +51,14 @@
     	list-style: none;
     }
 
+    li:before {
+    	content: '';
+    }
+
     .submission {
     	font-size:2rem;
     	padding: 10px;
     	cursor:pointer;
-	}
-
-
-	li:before {
-		content: '';
 	}
 
     .submission-list {
@@ -73,6 +79,8 @@
     .download-box {
     	border: solid 1px #323A45;
     	min-height:300px;
+    	margin-top: 3rem;
+    	overflow: scroll;
     }
 
     .header {

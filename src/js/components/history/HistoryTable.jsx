@@ -27,7 +27,41 @@ export default class HistoryTable extends React.Component {
             active: 0,
             submission: {
                 "submission_id": this.props.submissionID,
-                "certifications": []
+                "certifications": [{
+                    "certify_date": "2017-05-11 18:10:18.366988",
+                    "certify_history_id": 4,
+                    "certifying_user": {
+                        "name": "User Name",
+                        "user_id": 1
+                    },
+                    "certified_files": [{
+                        "certified_files_history_id": 1,
+                        "filename": "1492041855_file_c.csv",
+                        "is_warning": false,
+                        "narrative": "Comment on the file"
+                        },
+                        {"certified_files_history_id": 1,
+                        "filename": "submission_7_award_financial_warning_report.csv",
+                        "is_warning": true,
+                        "narrative": null}
+                    ]},
+                    {"certify_date": "2017-05-08 12:07:18.366988",
+                    "certify_history_id": 3,
+                    "certifying_user": {
+                        "name": "Admin User Name",
+                        "user_id": 2
+                    },
+                    "certified_files": [{
+                        "certified_files_history_id": 3,
+                        "filename": "1492041855_file_a.csv",
+                        "is_warning": false,
+                        "narrative": "This is also a comment"
+                        },
+                        {"certified_files_history_id": 6,
+                        "filename": "submission_280_cross_warning_appropriations_program_activity.csvsubmission_280_cross_warning_appropriations_program_activity.csv",
+                        "is_warning": true,
+                        "narrative": null}
+                    ]}]
             },
             warning: {
                 active: false,
@@ -120,6 +154,7 @@ export default class HistoryTable extends React.Component {
         let cert_file = this.state.submission.certifications[this.state.active].certified_files[index]
         this.setState({
                     warning: {
+                        active: true,
                         type: 'warning', 
                         header: 'Opening File. Please Wait',
                         body: 'Retreiving file from server. Please wait.'
@@ -128,6 +163,9 @@ export default class HistoryTable extends React.Component {
         SubmissionListHelper.getSubmissionFile(this.props.submissionID, cert_file.certified_files_history_id, cert_file.is_warning)
             .then((response)=>{
                 window.open(response.url)
+                this.setState({
+                    active: false
+                })
             })
             .catch((err)=>{
                 console.log(err)
@@ -148,8 +186,6 @@ export default class HistoryTable extends React.Component {
     }
 
     render() {
-        console.log(this.state)
-
         let submissions = this.submissionList();
         let fileList = this.activeList();
         let warning = null;
