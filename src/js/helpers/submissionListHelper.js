@@ -98,7 +98,25 @@ export const loadSubmissionHistory = (submissionID) => {
     return deferred.promise;
 }
 
-export const loadSubmissionHistoryList = (submissionID) => {
+export const getSubmissionFile = (submissionID, certified_files_history, is_warning) => {
+
+    const deferred = Q.defer();
+
+     Request.post(kGlobalConstants.API + 'list_certifications/')
+            .query({ 
+                submission_id: submissionID,
+                certified_files_history_id: certified_files_history,
+                is_warning: is_warning 
+            })
+            .end((err, res) => {
+
+                if (err) {
+                    deferred.reject(err);
+                }
+                else {
+                    deferred.resolve(res.body);
+                }
+            });
 
     return deferred.promise;
 }

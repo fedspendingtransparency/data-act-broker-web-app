@@ -122,7 +122,7 @@ export default class HistoryTable extends React.Component {
             if(this.state.active == i) {
                 list.push(<li className='active' onClick={this.setActiveSubmission.bind(this, i)}>Submission: {this.convertToLocalDate(certifications[i].certify_date)}</li>);
             } else {
-                list.push(<li onClick={this.setActiveSubmission.bind(this, i)}>Submission: {certifications[i].certify_date}</li>);    
+                list.push(<li onClick={this.setActiveSubmission.bind(this, i)}>Submission: {this.convertToLocalDate(certifications[i].certify_date)}</li>);    
             }
             
         }
@@ -144,9 +144,10 @@ export default class HistoryTable extends React.Component {
 
     getSignedUrl(index){
         let cert_file = this.state.submission.certifications[this.state.active].certified_files[index]
-        SubmissionListHelper.getSignedUrl(this.props.submissionID, cert_file.certified_files_history_id, cert_file.is_warning)
+        SubmissionListHelper.getSubmissionFile(this.props.submissionID, cert_file.certified_files_history_id, cert_file.is_warning)
             .then((response)=>{
                 console.log(response)
+                window.open(response.url)
             })
             .catch((err)=>{
                 console.log(err)
@@ -167,7 +168,7 @@ export default class HistoryTable extends React.Component {
         return (
             <div className='container'>
                 <div className='row'>
-                    <div className='col-md-4'>
+                    <div className='col-md-3'>
                         <h3>Submissions</h3>
                         <ul>
                             {submissions}
