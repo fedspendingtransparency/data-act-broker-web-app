@@ -139,7 +139,7 @@ export default class HistoryTable extends React.Component {
     }
 
     activeList(){
-        if(this.isUnmounted){
+        if(this.isUnmounted && this.state.submission.certifications[this.state.active].certified_files){
             return null;
         }
         let activeSubmissionsFiles = this.state.submission.certifications[this.state.active].certified_files
@@ -164,7 +164,9 @@ export default class HistoryTable extends React.Component {
             .then((response)=>{
                 window.open(response.url)
                 this.setState({
-                    active: false
+                    warning: {
+                        active: false
+                    }
                 })
             })
             .catch((err)=>{

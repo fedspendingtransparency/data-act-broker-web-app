@@ -84,7 +84,7 @@ export default class HistoryTable extends React.Component {
                     </div>
                     <div className='col-xs-6'>
                         <p className='metadata'>Created: {this.state.metadata.created_on}</p>
-                        <p className='metadata'>Last Validated: {this.state.metadata.agency_name}</p>
+                        <p className='metadata'>Last Validated: {this.state.metadata.last_validated}</p>
                     </div>
                     <div className='col-xs-12'>
                         <hr/>
