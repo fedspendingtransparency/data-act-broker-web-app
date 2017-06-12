@@ -33,7 +33,6 @@ export default class HistoryTable extends React.Component {
     componentDidMount() {
         FileHelper.fetchSubmissionMetadata(this.props.submissionID)
             .then((response) => {
-                console.log(response)
                 this.setState({metadata: response})
             }).catch((err) =>{
                 console.log(err)

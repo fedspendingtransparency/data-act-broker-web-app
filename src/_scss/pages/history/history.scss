@@ -50,9 +50,9 @@
     	cursor:pointer;
 	}
 
-	.submission:before {
-		content: "";
-		color:white;
+
+	li:before {
+		content: '';
 	}
 
     .submission-list {
@@ -75,5 +75,16 @@
     	min-height:300px;
     }
 
+    .header {
+    	font-weight: 200;
+    }
+
+    .download-header {
+    	font-size:4rem;
+    }
+
+    .cert-header {
+    	font-size:6rem;
+    }
 
 }
