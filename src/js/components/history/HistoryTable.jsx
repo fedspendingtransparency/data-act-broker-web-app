@@ -53,12 +53,6 @@ export default class HistoryTable extends React.Component {
         this.isUnmounted = false;
     }
 
-    loadUser(){
-        LoginHelper.fetchActiveUser().then((user)=>{
-            this.setState({account: user});
-        })
-    }
-
     convertToLocalDate(dateToConvert) {
         // convert date to local date, need to replace the space with a T for Date() formatting
 		// Add a Z to the end to imply the date is in UTC
