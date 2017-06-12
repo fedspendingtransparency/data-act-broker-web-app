@@ -12,6 +12,7 @@ import * as Status from '../landing/recentActivity//SubmissionStatus.jsx';
 import * as LoginHelper from '../../helpers/loginHelper.js';
 import * as PermissionsHelper from '../../helpers/permissionsHelper.js';
 import * as SubmissionListHelper from '../../helpers/submissionListHelper.js';
+import * as Icons from '../SharedComponents/icons/Icons.jsx';
 
 import DashboardPaginator from '../dashboard/DashboardPaginator.jsx';
 
@@ -19,50 +20,55 @@ import DashboardPaginator from '../dashboard/DashboardPaginator.jsx';
 export default class HistoryTable extends React.Component {
     constructor(props) {
         super(props);
-        console.log(this.props)
 
-        this.isUnmounted = true;
+        this.isUnmounted = false;
 
         this.state = {
             active: 0,
             submission: {
-                // "submission_id": 7,
-                // "certifications": [{
-                //     "certify_date": "2017-05-11 18:10:18.366988",
-                //     "certify_history_id": 4,
-                //     "certifying_user": {
-                //         "name": "User Name",
-                //         "user_id": 1
-                //     },
-                //     "certified_files": [{
-                //         "certified_files_history_id": 1,
-                //         "filename": "1492041855_file_c.csv",
-                //         "is_warning": false,
-                //         "narrative": "Comment on the file"
-                //         },
-                //         {"certified_files_history_id": 1,
-                //         "filename": "submission_7_award_financial_warning_report.csv",
-                //         "is_warning": true,
-                //         "narrative": null}
-                //     ]},
-                //     {"certify_date": "2017-05-08 12:07:18.366988",
-                //     "certify_history_id": 3,
-                //     "certifying_user": {
-                //         "name": "Admin User Name",
-                //         "user_id": 2
-                //     },
-                //     "certified_files": [{
-                //         "certified_files_history_id": 3,
-                //         "filename": "1492041855_file_a.csv",
-                //         "is_warning": false,
-                //         "narrative": "This is also a comment"
-                //         },
-                //         {"certified_files_history_id": 6,
-                //         "filename": "submission_280_cross_warning_appropriations_program_activity.csv",
-                //         "is_warning": true,
-                //         "narrative": null}
-                //     ]}
-                // ]
+                "submission_id": 7,
+                "certifications": [{
+                    "certify_date": "2017-05-11 18:10:18.366988",
+                    "certify_history_id": 4,
+                    "certifying_user": {
+                        "name": "User Name",
+                        "user_id": 1
+                    },
+                    "certified_files": [{
+                        "certified_files_history_id": 1,
+                        "filename": "1492041855_file_c.csv",
+                        "is_warning": false,
+                        "narrative": "Comment on the file"
+                        },
+                        {"certified_files_history_id": 1,
+                        "filename": "submission_7_award_financial_warning_report.csv",
+                        "is_warning": true,
+                        "narrative": null}
+                    ]},
+                    {"certify_date": "2017-05-08 12:07:18.366988",
+                    "certify_history_id": 3,
+                    "certifying_user": {
+                        "name": "Admin User Name",
+                        "user_id": 2
+                    },
+                    "certified_files": [{
+                        "certified_files_history_id": 3,
+                        "filename": "1492041855_file_a.csv",
+                        "is_warning": false,
+                        "narrative": "This is also a comment"
+                        },
+                        {"certified_files_history_id": 6,
+                        "filename": "submission_280_cross_warning_appropriations_program_activity.csv",
+                        "is_warning": true,
+                        "narrative": null}
+                    ]}
+                ]
+            },
+            warning: {
+                active: false,
+                type:'warning',
+                header: 'Error',
+                body: 'test text'
             }
         }
 
@@ -71,7 +77,7 @@ export default class HistoryTable extends React.Component {
     componentDidMount() {
         SubmissionListHelper.loadSubmissionHistory(this.props.submissionID)
             .then((response)=>{
-                this.setState({submission: response})
+                // this.setState({submission: response})
             })
             .catch((err)=>{
                 console.log(err)
@@ -133,7 +139,6 @@ export default class HistoryTable extends React.Component {
         if(this.isUnmounted){
             return null;
         }
-        console.log(this.state)
         let activeSubmissionsFiles = this.state.submission.certifications[this.state.active].certified_files
         let list = [];
         for(let i = 0; i < activeSubmissionsFiles.length; i++) {
@@ -144,13 +149,26 @@ export default class HistoryTable extends React.Component {
 
     getSignedUrl(index){
         let cert_file = this.state.submission.certifications[this.state.active].certified_files[index]
+        this.setState({
+                    warning: {
+                        type: 'warning', 
+                        header: 'Opening File. Please Wait',
+                        body: 'Retreiving file from server. Please wait.'
+                    }
+                })
         SubmissionListHelper.getSubmissionFile(this.props.submissionID, cert_file.certified_files_history_id, cert_file.is_warning)
             .then((response)=>{
-                console.log(response)
                 window.open(response.url)
             })
             .catch((err)=>{
                 console.log(err)
+                this.setState({
+                    warning: {
+                        type: 'danger', 
+                        header: 'History Error',
+                        body: err.message
+                    }
+                })
             })
     }
 
@@ -161,12 +179,26 @@ export default class HistoryTable extends React.Component {
     }
 
     render() {
+        console.log(this.state)
 
         let submissions = this.submissionList();
         let fileList = this.activeList();
+        let warning = null;
+        if(this.state.warning.active) {
+            warning = <div className={'alert alert-' + this.state.warning.type}>
+                        <span className="usa-da-icon error-icon"><Icons.ExclamationCircle /></span>
+                        <h3>{this.state.warning.header}</h3>
+                        <div>{this.state.warning.body}</div>
+                    </div>;
+        }
 
         return (
             <div className='container'>
+                <div className='row'>
+                    <div className='col-md-12'>
+                        {warning}
+                    </div>
+                </div>
                 <div className='row'>
                     <div className='col-md-3'>
                         <h3>Submissions</h3>
