@@ -171,6 +171,7 @@ export default class HistoryTable extends React.Component {
                 console.log(err)
                 this.setState({
                     warning: {
+                        active: true,
                         type: 'danger', 
                         header: 'History Error',
                         body: err.message

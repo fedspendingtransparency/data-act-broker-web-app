@@ -103,7 +103,7 @@ export const getSubmissionFile = (submissionID, certified_files_history, is_warn
     const deferred = Q.defer();
 
      Request.post(kGlobalConstants.API + 'get_certified_file/')
-            .query({ 
+            .send({ 
                 submission_id: submissionID,
                 certified_files_history_id: certified_files_history,
                 is_warning: is_warning 
