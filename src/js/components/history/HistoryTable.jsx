@@ -211,8 +211,8 @@ export default class HistoryTable extends React.Component {
                             {submissions}
                         </ul>
                     </div>
-                    <div className='col-md-6'>
-                        <h3>Download Files: {current}</h3>
+                    <div className='col-md-6 download-box'>
+                        <h5>Download Files: {current}</h5>
                         <ul>
                             {fileList}
                         </ul>
