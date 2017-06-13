@@ -5,7 +5,6 @@
 
 import React from 'react';
 import * as Icons from '../SharedComponents/icons/Icons.jsx';
-// import * as SubmissionHelper from '../../../helpers/submissionGuideHelper.js';
 
 const propTypes = {
 	submissionId: React.PropTypes.oneOfType([

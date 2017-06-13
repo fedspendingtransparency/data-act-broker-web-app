@@ -88,7 +88,6 @@ export default class HistoryTable extends React.Component {
                         <span className='submission'>Certified by {certifications[i].certifying_user.name} on {this.convertToLocalDate(certifications[i].certify_date)}</span>
                     </li>);    
             }
-            
         }
         return list;
     }

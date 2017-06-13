@@ -1,98 +1,98 @@
 .usa-da-history-page {
-	@import "../../layouts/content/content";
-	@include contentLayout;
+    @import "../../layouts/content/content";
+    @include contentLayout;
 
-	@import "../../components/alerts/_alerts";
-	.alert-danger {
-		@include dangerAlert;
-	}
-	.alert-warning {
-		@include warningAlert;
-	}
+    @import "../../components/alerts/_alerts";
+    .alert-danger {
+        @include dangerAlert;
+    }
+    .alert-warning {
+        @include warningAlert;
+    }
 
     .trash-icon{
-		cursor: pointer;
-	}
+        cursor: pointer;
+    }
 
-	.trash-link:hover{
+    .trash-link:hover{
         text-decoration: none;
         cursor: pointer;
     }
 
     ul, submission_list {
-    	display: block;
-    	list-style: none;
-    	list-style-type: none;
+        display: block;
+        list-style: none;
+        list-style-type: none;
     }
 
     .file-link {
-    	cursor: pointer;
-    	font-size: 1.5rem;
+        cursor: pointer;
+        font-size: 1.5rem;
     }
     .file-link:hover {
-    	cursor: pointer;
+        cursor: pointer;
     }
     .file-link:before {
-    	content: '-';
+        content: '-';
     }
 
     .file-link:after{
-    	margin: none;
+        margin: none;
     }
 
     .active-submission {
-    	display: block;
-    	background-color: #323A45;
-    	color: white;
-    	border-radius: 5px;
-    	font-size: 2rem;
-    	list-style-type: none;
-    	padding: 10px;
-    	list-style: none;
+        display: block;
+        background-color: #323A45;
+        color: white;
+        border-radius: 5px;
+        font-size: 2rem;
+        list-style-type: none;
+        padding: 10px;
+        list-style: none;
     }
 
     li:before {
-    	content: '';
+        content: '';
     }
 
     .submission {
-    	font-size:2rem;
-    	padding: 10px;
-    	cursor:pointer;
-	}
+        font-size:2rem;
+        padding: 10px;
+        cursor:pointer;
+    }
 
     .submission-list {
-    	list-style: none;
-    	list-style-type: none;
-    	display: block;
+        list-style: none;
+        list-style-type: none;
+        display: block;
     }
 
     .metadata {
-    	margin-bottom: 5px;
+        margin-bottom: 5px;
     }
 
     .header {
-    	padding-top:1.5rem;
-    	font-size: 1.5rem;
+        padding-top:1.5rem;
+        font-size: 1.5rem;
     }
 
     .download-box {
-    	border: solid 1px #323A45;
-    	min-height:300px;
-    	margin-top: 3rem;
-    	overflow: scroll;
+        border: solid 1px #323A45;
+        min-height:300px;
+        margin-top: 3rem;
+        overflow: scroll;
     }
 
     .header {
-    	font-weight: 200;
+        font-weight: 200;
     }
 
     .download-header {
-    	font-size:4rem;
+        font-size:4rem;
     }
 
     .cert-header {
-    	font-size:6rem;
+        font-size:6rem;
     }
 
 }

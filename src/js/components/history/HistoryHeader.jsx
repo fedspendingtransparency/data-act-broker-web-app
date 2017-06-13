@@ -43,25 +43,6 @@ export default class HistoryTable extends React.Component {
         this.isUnmounted = false;
     }
 
-    convertToLocalDate(dateToConvert) {
-        // convert date to local date, need to replace the space with a T for Date() formatting
-		// Add a Z to the end to imply the date is in UTC
-		dateToConvert = dateToConvert.replace(" ", "T") + "Z";
-		const tmpDate = new Date(dateToConvert);
-        
-		// format date as YYYY-MM-DD
-		const year = tmpDate.getFullYear()
-		let month = tmpDate.getMonth() + 1;
-		if(month < 10){
-			month = "0" + month;
-		}
-		let day = tmpDate.getDate();
-		if (day < 10){
-			day = "0" + day;
-		}
-		return year + "-" + month + "-" + day;
-    }
-
     render() {
         if(!this.state.metadata){
             return null;
