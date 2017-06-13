@@ -1,6 +1,6 @@
 /**
   * HistoryTable.jsx
-  * Created by Kevin Li 10/28/16
+  * Created by Minahm Kim 6/12/17
   **/
 
 import React from 'react';

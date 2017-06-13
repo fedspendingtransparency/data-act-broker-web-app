@@ -1,6 +1,6 @@
 /**
   * HistoryPage.jsx
-  * Created by Minahm Kim Li 06/08/17
+  * Created by Minahm Kim 06/08/17
   **/
 
 import React from 'react';
