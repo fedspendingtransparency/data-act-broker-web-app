@@ -5,6 +5,10 @@
     .usa-da-recent-activity-link {
         @import "../../components/tables/_submissionTableLink";
         @include submissionTableLink;
+
+        .date-link {
+            white-space: pre;
+        }
     }
 
     @import "../../components/tables/_submissionTableProgress";
