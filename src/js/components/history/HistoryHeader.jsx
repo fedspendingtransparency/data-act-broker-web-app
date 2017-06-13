@@ -7,13 +7,7 @@ import React from 'react';
 import Reactable from 'reactable';
 import _ from 'lodash';
 
-import FormattedTable from '../SharedComponents/table/FormattedTable.jsx';
-import * as Status from '../landing/recentActivity//SubmissionStatus.jsx';
-import * as LoginHelper from '../../helpers/loginHelper.js';
-import * as PermissionsHelper from '../../helpers/permissionsHelper.js';
-import * as SubmissionListHelper from '../../helpers/submissionListHelper.js';
 import * as FileHelper from '../../helpers/generateFilesHelper.js';
-import * as Icons from '../SharedComponents/icons/Icons.jsx';
 
 import DashboardPaginator from '../dashboard/DashboardPaginator.jsx';
 
