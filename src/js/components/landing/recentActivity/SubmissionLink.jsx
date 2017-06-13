@@ -23,27 +23,45 @@ export default class SubmissionLink extends React.Component {
 		super(props);
 		this.isUnmounted = false;
 		this.state = {
-			page: '/'
+			page: '/',
+			submissionId: null
 		}
 	}
 
 	componentDidMount() {	
-		SubmissionHelper.getSubmissionPage(this.props.submissionId)
-			.then((res) => {
-				if(!this.isUnmounted){
-					this.setState({page: res.url})
-				}
-			})
-			.catch((err) => {
-				if(!this.isUnmounted){
-					this.setState({page: '/404'})
-				}
-			});			
+		this.getPage(this.props.submissionId);
 	}
 
 	componentWillUnmount() {
 		this.isUnmounted = true;
 	}
+
+	componentWillReceiveProps(nextProps) {
+		if (nextProps.submissionId !== this.state.submissionId) {
+			this.getPage(nextProps.submissionId);
+		}
+	}
+
+	getPage(submissionId) {
+		SubmissionHelper.getSubmissionPage(submissionId)
+			.then((res) => {
+				if(!this.isUnmounted){
+					this.setState({
+						page: res.url,
+						submissionId: submissionId
+					});
+				}
+			})
+			.catch((err) => {
+				if(!this.isUnmounted){
+					this.setState({
+						page: '/404',
+						submissionId: null
+					});
+				}
+			});	
+	}
+
 	render() {
 		if(this.props.value){
 			return (

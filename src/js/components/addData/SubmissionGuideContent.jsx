@@ -69,14 +69,14 @@ export default class SubmissionGuideContent extends React.Component {
                                         <h4>Upload Files (.csv or .txt)</h4>
                                         <p>You'll need the following files to complete your submission. Files A, B, and C can be provided as comma-separate values (.csv) or pipe-separated values (.txt). Sample files are available for download in the DATA Act Broker.</p>
                                         <ul>
-                                            <li>File A: Appropriation Account data. <a href="https://s3-us-gov-west-1.amazonaws.com/prod-data-act-web-static-files/sample-files/appropValid.csv" target="_blank" rel="noopener noreferrer" data-reactid=".0.0.1.0.0.0.1.1.1.0">(Sample file)</a></li>
-                                            <li>File B: Object Class and Program Activity. <a href="https://s3-us-gov-west-1.amazonaws.com/prod-data-act-web-static-files/sample-files/programActivityValid.csv" target="_blank" rel="noopener noreferrer" data-reactid=".0.0.1.0.0.0.1.2.1.0">(Sample file)</a></li>
-                                            <li>File C: Award Financial data. <a href="https://s3-us-gov-west-1.amazonaws.com/prod-data-act-web-static-files/sample-files/awardFinancialValid.csv" target="_blank" rel="noopener noreferrer" data-reactid=".0.0.1.0.0.0.1.3.1.0">(Sample file)</a></li>
+                                            <li>File A: Appropriation Account data.</li>
+                                            <li>File B: Object Class and Program Activity.</li>
+                                            <li>File C: Award Financial data.</li>
                                         </ul>
                                         <p><strong>Files D1, D2, E, and F will be generated for you based on the reporting period you provide.</strong></p>
                                         <ul>
                                             <li>File D1: Award and Awardee Attributes (Procurement Award) data.</li>
-                                            <li>File D2: Award and Awardee Attributes (Financial Assistance) data. <a href="https://s3-us-gov-west-1.amazonaws.com/prod-data-act-web-static-files/sample-files/awardValid.csv" target="_blank" rel="noopener noreferrer" data-reactid=".0.0.1.0.0.0.1.4.1.0">(Sample file)</a></li>
+                                            <li>File D2: Award and Awardee Attributes (Financial Assistance) data.</li>
                                             <li>File E: Additional Awardee Attributes data.</li>
                                             <li>File F: Sub-award Attributes data.</li>
                                         </ul>
