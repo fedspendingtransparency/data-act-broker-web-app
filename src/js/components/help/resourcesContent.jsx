@@ -102,6 +102,39 @@ export default class ResourcesContent extends React.Component {
                                         <li><a href={this.state.faqFileC}>TransactionObligatedAmount FAQs</a>
 										</li>
 					</ul>
+					<h6>RSS Sample Files</h6>
+					<ul>
+										<li>
+					                        File A: Appropriation Account data&nbsp;
+					                        <a href="https://s3-us-gov-west-1.amazonaws.com/prod-data-act-web-static-files/sample-files/appropValid.csv" target="_blank" rel="noopener noreferrer">Download sample file</a>
+					                    </li>
+					                    <li>
+					                        File B: Object Class and Program Activity data&nbsp;
+					                        <a href="https://s3-us-gov-west-1.amazonaws.com/prod-data-act-web-static-files/sample-files/programActivityValid.csv" target="_blank" rel="noopener noreferrer">Download sample file</a>
+					                    </li>
+					                    <li>
+					                        File C: Award Financial data&nbsp;
+					                        <a href="https://s3-us-gov-west-1.amazonaws.com/prod-data-act-web-static-files/sample-files/awardFinancialValid.csv" target="_blank" rel="noopener noreferrer">Download sample file</a>
+					                    </li>
+					</ul>
+					<h6>RSS Webinars</h6>
+					<ul>
+										<li>
+										Webinar on File A: Appropriations Account&nbsp;
+										<a href="http://www.yorkcast.com/treasury/events/2016/06/24/data-act/clip-1/" target="_blank" rel="noopener noreferrer">Webcast</a>&nbsp;&nbsp;
+										<a href={this.state.schemaFileAUrl} target="_blank" rel="noopener noreferrer">Slide deck</a>
+										</li>
+										<li>
+										Webinar on File B: Object Class and Program Activity&nbsp;
+										<a href="http://www.yorkcast.com/treasury/events/2016/06/24/data-act/clip-2/" target="_blank" rel="noopener noreferrer">Webcast</a>&nbsp;&nbsp;
+										<a href={this.state.schemaFileBUrl} target="_blank" rel="noopener noreferrer">Slide deck</a>
+										</li>
+										<li>
+										Webinar on File C: Award Financial&nbsp;
+										<a href="http://www.yorkcast.com/treasury/events/2016/06/24/data-act/clip-3/" target="_blank" rel="noopener noreferrer">Webcast</a>&nbsp;&nbsp;
+										<a href={this.state.schemaFileCUrl} target="_blank" rel="noopener noreferrer">Slide deck</a>
+										</li>
+					</ul>
 					<h6>DAIMS Diagrams for RSS</h6>
 					<p>These are visual representations of how the different data elements are related. They show the groupings of elements and attributes.</p>
 					<ul>
@@ -120,6 +153,14 @@ export default class ResourcesContent extends React.Component {
 					<ul>
 					                    <li>
 										<a href={this.state.iDDUrl}>IDD v1.01 (12/21/2016)</a>
+										</li>
+					</ul>
+					<h6>IDD Webinar</h6>
+					<ul>
+										<li>
+										Financial Assistance Data Submission Format&nbsp;
+										<a href="http://www.yorkcast.com/treasury/events/2016/07/20/data-act/" target="_blank" rel="noopener noreferrer">Webcast</a>&nbsp;&nbsp;
+										<a href={this.state.pmoWebCastUrl} target="_blank" rel="noopener noreferrer">Slide deck</a>
 										</li>
 					</ul>
 					<h6>DAIMS Diagrams for IDD</h6>
