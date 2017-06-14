@@ -28,7 +28,7 @@ Assumptions:
 
 4. Switch to the alpha release version of the code. This is the latest stable release.
 
-        $ git checkout v0.1.0-alpha
+        $ git checkout master
 
     **Note:** If you'd rather use the latest, work-in-progress features of the DATA Act broker, replace the above command with `git checkout staging`.
 
