@@ -54,13 +54,13 @@ export default class LandingRequirementsModal extends React.Component {
 
 							<ul>
 								<li>
-									File A: Appropriation Account data
+									File A: Appropriation Account data (<a href="https://s3-us-gov-west-1.amazonaws.com/prod-data-act-web-static-files/sample-files/appropValid.csv" target="_blank" rel="noopener noreferrer">Download sample file</a>)
 								</li>
 								<li>
-									File B: Object Class and Program Activity data
+									File B: Object Class and Program Activity data (<a href="https://s3-us-gov-west-1.amazonaws.com/prod-data-act-web-static-files/sample-files/programActivityValid.csv" target="_blank" rel="noopener noreferrer">Download sample file</a>)
 								</li>
 								<li>
-									File C: Award Financial data
+									File C: Award Financial data (<a href="https://s3-us-gov-west-1.amazonaws.com/prod-data-act-web-static-files/sample-files/awardFinancialValid.csv" target="_blank" rel="noopener noreferrer">Download sample file</a>)
 								</li>
 							</ul>
 
@@ -71,7 +71,7 @@ export default class LandingRequirementsModal extends React.Component {
 									File D1: Procurement Awards data (Award and Awardee Attributes)
 								</li>
 								<li>
-									File D2: Financial Assistance data (Award and Awardee Attributes)
+									File D2: Financial Assistance data (Award and Awardee Attributes) (<a href="https://s3-us-gov-west-1.amazonaws.com/prod-data-act-web-static-files/sample-files/awardValid.csv" target="_blank" rel="noopener noreferrer">download sample file</a>)
 								</li>
 								<li>
 									File E: Additional Awardee Attributes data

@@ -102,6 +102,21 @@ export default class ResourcesContent extends React.Component {
                                         <li><a href={this.state.faqFileC}>TransactionObligatedAmount FAQs</a>
 										</li>
 					</ul>
+					<h6>RSS Sample Files</h6>
+					<ul>
+										<li>
+					                        File A: Appropriation Account data&nbsp;
+					                        <a href="https://s3-us-gov-west-1.amazonaws.com/prod-data-act-web-static-files/sample-files/appropValid.csv" target="_blank" rel="noopener noreferrer">Download sample file</a>
+					                    </li>
+					                    <li>
+					                        File B: Object Class and Program Activity data&nbsp;
+					                        <a href="https://s3-us-gov-west-1.amazonaws.com/prod-data-act-web-static-files/sample-files/programActivityValid.csv" target="_blank" rel="noopener noreferrer">Download sample file</a>
+					                    </li>
+					                    <li>
+					                        File C: Award Financial data&nbsp;
+					                        <a href="https://s3-us-gov-west-1.amazonaws.com/prod-data-act-web-static-files/sample-files/awardFinancialValid.csv" target="_blank" rel="noopener noreferrer">Download sample file</a>
+					                    </li>
+					</ul>
 					<h6>DAIMS Diagrams for RSS</h6>
 					<p>These are visual representations of how the different data elements are related. They show the groupings of elements and attributes.</p>
 					<ul>
