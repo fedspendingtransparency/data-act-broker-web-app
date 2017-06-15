@@ -23,6 +23,10 @@ const defaultProps = {
 export default class LandingContent extends React.Component {
     constructor(props) {
         super(props);
+
+        this.state = {
+            expanded: false
+        };
     }
 
     clickedUploadReqs(e) {
