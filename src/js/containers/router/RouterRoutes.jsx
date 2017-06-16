@@ -197,6 +197,15 @@ const routeDefinitions = {
             }
         },
         {
+            path: 'submissionHistory/:submissionID',
+            onEnter: checkUserPermissions,
+            getComponent(nextState, cb) {
+                require.ensure([], (require) => {
+                    cb(null, require('../../containers/history/HistoryContainer.jsx').default)
+                });
+            }
+        },
+        {
             path: 'generateDetachedFiles',
             onEnter: checkUserPermissions,
             component: GenerateDetachedFilesPageContainer
