@@ -203,7 +203,7 @@ export default class DashboardTable extends React.Component {
                     this.convertToLocalDate(item.last_modified),
                     <Status.SubmissionStatus status={item.rowStatus} certified={this.props.isCertified} />
                 ];    
-                if(PermissionsHelper.checkAgencyPermissions(this.props.session)) {
+                if(PermissionsHelper.checkPermissions(this.props.session)) {
                     if(item.publish_status === "unpublished" && PermissionsHelper.checkAgencyPermissions(this.props.session, item.agency)) {
                         row.push(<DeleteLink submissionId={item.submission_id} index={index} warning={this.deleteWarning.bind(this)} confirm={deleteConfirm} reload={this.reload.bind(this)} item={item} account={this.state.account}/>);
                     }
@@ -252,7 +252,7 @@ export default class DashboardTable extends React.Component {
 
         //cannot be added to the const because if a user is read only then delete will not be created
 
-        if(PermissionsHelper.checkAgencyPermissions(this.props.session) && !this.props.isCertified){
+        if(PermissionsHelper.checkPermissions(this.props.session) && !this.props.isCertified){
             newHeaders = tableHeadersActive.concat('Delete');
         } else if(this.props.isCertified) {
             newHeaders = tableHeadersCertified;
