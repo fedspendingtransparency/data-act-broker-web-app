@@ -63,6 +63,15 @@ export default class SubmissionLink extends React.Component {
 	}
 
 	render() {
+		if(this.props.value){
+			return (
+				<div className="usa-da-recent-activity-link">
+					<a href={"#" + this.state.page} className='date-link'>
+						{this.props.value}
+					</a>
+				</div>
+			);	
+		}
 		return (
 			<div className="usa-da-recent-activity-link">
 				<a href={"#" + this.state.page}>
