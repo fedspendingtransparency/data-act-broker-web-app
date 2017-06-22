@@ -32,7 +32,7 @@ export default class RecentActivityTable extends React.Component {
 			account: null,
 			user: true
 		};
-		if(PermissionsHelper.checkAgencyPermissions(this.props.session)){
+		if(PermissionsHelper.checkPermissions(this.props.session)){
 			this.tableHeaders = 
 			[
 			'View',
@@ -187,7 +187,7 @@ export default class RecentActivityTable extends React.Component {
 				this.convertToLocalDate(item.last_modified),
 				<Status.SubmissionStatus status={item.rowStatus} certified={item.publish_status !== 'unpublished'} />
 			];
-			if(PermissionsHelper.checkAgencyPermissions(this.props.session)) {
+			if(PermissionsHelper.checkPermissions(this.props.session)) {
 				if(item.publish_status === "unpublished" && PermissionsHelper.checkAgencyPermissions(this.props.session, item.agency)) {
 					row.push(<DeleteLink submissionId={item.submission_id} index={index} warning={this.deleteWarning.bind(this)} confirm={deleteConfirm} reload={this.reload.bind(this)} item={item} account={this.state.account}/>);
 				}
