@@ -79,6 +79,45 @@ export const loadSubmissionList = (page = 1, limit = 10, certified = false, sort
     return deferred.promise;
 }
 
+export const loadSubmissionHistory = (submissionID) => {
+    const deferred = Q.defer();
+
+     Request.post(kGlobalConstants.API + 'list_certifications/')
+            .send({ submission_id: submissionID })
+            .end((err, res) => {
+                if (err) {
+                    deferred.reject(err);
+                }
+                else {
+                    deferred.resolve(res.body);
+                }
+            });
+
+    return deferred.promise;
+}
+
+export const getSubmissionFile = (submissionID, certified_files_history, is_warning) => {
+
+    const deferred = Q.defer();
+
+     Request.post(kGlobalConstants.API + 'get_certified_file/')
+            .send({ 
+                submission_id: submissionID,
+                certified_files_history_id: certified_files_history,
+                is_warning: is_warning 
+            })
+            .end((err, res) => {
+                if (err) {
+                    deferred.reject(err);
+                }
+                else {
+                    deferred.resolve(res.body);
+                }
+            });
+
+    return deferred.promise;
+}
+
 export const loadRecentActivity = () => {
 	return loadSubmissionList(1, 5, 'mixed');
 }
