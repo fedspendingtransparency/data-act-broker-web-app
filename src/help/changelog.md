@@ -1,12 +1,8 @@
-#### June 9, 2017
+#### June 21, 2017
 
-In this release of the Broker, all users are now able to generate D files outside the context of a submission. We also implemented processing time improvements.
+In this release of the Broker, we made updates to the submission dashboard to show previously certified files.
 
-  - [Generating D files outside of a submission](#/help?section=generatedfile)
-  - [Improved processing time](#/help?section=processingtime)
+  - [Viewing all previously certified files](#/help?section=certhistory)
 
-##### Generating D files outside of a submission{section=generatedfile}
-In this release, we updated the Broker so that all users can generate D files outside the context of a submission regardless of the user’s permissions.
-
-##### Improved processing time{section=processingtime}
-In this release, we implemented changes to improve the processing time so that high volume file validations can be completed in a timely manner.
+##### Viewing all previously certified files{section=certhistory}
+In this release, we updated the Broker so that all users can view and download previous certifications. Users can also see warning files accompanied with the certifications.
