@@ -25,6 +25,10 @@ export default class DeleteLink extends React.Component {
 		this.canDelete();
 	}
 
+	componentDidUpdate() {
+		this.canDelete();
+	}
+
 	componentWillUnmount() {
 		this.didUnmount = true;
 	}
