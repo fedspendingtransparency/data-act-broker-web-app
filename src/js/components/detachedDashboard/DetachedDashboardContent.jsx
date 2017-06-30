@@ -4,7 +4,7 @@
   **/
 
 import React from 'react';
-import DashboardTable from '../dashboard/DashboardTable.jsx';
+import DetachedDashboardTable from './DetachedDashboardTable.jsx';
 
 export default class DetachedDashboardContent extends React.Component {
     constructor(props) {
@@ -22,7 +22,7 @@ export default class DetachedDashboardContent extends React.Component {
                 <div className="row">
                     <div className="col-md-12">
                         <h2 className="table-title">Active Submissions</h2>
-                        <DashboardTable
+                        <DetachedDashboardTable
                             isLoading={this.props.activeLoading}
                             isCertified={false}
                             loadTableData={this.props.loadTableData}
@@ -36,7 +36,7 @@ export default class DetachedDashboardContent extends React.Component {
                 <div className="row">
                     <div className="col-md-12">
                         <h2 className="table-title">Certified Submissions</h2>
-                        <DashboardTable
+                        <DetachedDashboardTable
                             isLoading={this.props.certifiedLoading}
                             isCertified={true}
                             loadTableData={this.props.loadTableData}

@@ -13,7 +13,6 @@ import ValidateValuesFileContainer from '../../containers/validateData/ValidateV
 import ValidateDataFileContainer from '../../containers/validateData/ValidateDataFileContainer.jsx';
 import UploadDetachedFilesBox from './UploadDetachedFilesBox.jsx';
 import UploadDetachedFilesError from './UploadDetachedFilesError.jsx';
-import DateRangeWrapper from './DateRangeWrapper.jsx';
 
 import * as Icons from '../SharedComponents/icons/Icons.jsx';
 
@@ -24,6 +23,22 @@ import { kGlobalConstants } from '../../GlobalConstants.js';
 
 const timerDuration = 5;
 
+function currentDate() {
+	var today = new Date();
+	var dd = today.getDate();
+	var mm = today.getMonth()+1; //January is 0!
+
+	var yyyy = today.getFullYear();
+	if(dd<10){
+	    dd='0'+dd;
+	} 
+	if(mm<10){
+	    mm='0'+mm;
+	} 
+	var today = dd+'/'+mm+'/'+yyyy;
+	return today;
+}
+
 export default class UploadDetachedFileMeta extends React.Component {
 	constructor(props) {
 		super(props);
@@ -33,11 +48,8 @@ export default class UploadDetachedFileMeta extends React.Component {
 		this.state = {
 			agency: "",
 			agencyError: false,
-			showDatePicker: false,
 			showUploadFilesBox: false,
 			detachedAward: {
-				startDate: null,
-				endDate: null,
 				error: {
 					show: false,
 					header: '',
@@ -68,44 +80,8 @@ export default class UploadDetachedFileMeta extends React.Component {
 		this.setState({
 				agency: agency,
 				agencyError: !isValid,
-				showUploadFilesBox: isValid && this.state.showDatePicker,
-				showDatePicker: isValid
+				showUploadFilesBox: isValid
 			 });
-	}
-
-	handleDateChange(file, date, dateType) {
-		// merge the new date into the file's state without affecting the other keys
-		const newState = Object.assign(this.state[file], {
-			[dateType]: moment(date)
-		});
-
-		this.setState({
-			[file]: newState
-		}, () => {
-			this.validateDates(file);
-		});
-	}
-
-	validateDates(file) {
-		// validate that dates are provided for both fields and the end dates don't come before the start dates
-		let state = "incomplete";
-
-		const dFile = Object.assign({}, this.state[file]);
-
-		const start = this.state[file].startDate;
-		const end = this.state[file].endDate;
-
-		dFile.error = {
-				show: ((start && end) && !end.isSameOrAfter(start)) ? true : false,
-				header: ((start && end) && !end.isSameOrAfter(start)) ? 'Invalid Dates' : '',
-				description: ((start && end) && !end.isSameOrAfter(start)) ? 'The end date cannot be earlier than the start date.' : ''
-			}
-			dFile.valid = ((start && end) && end.isSameOrAfter(start)) ? true : false;
-
-		this.setState({
-			[file]:dFile,
-			showUploadFilesBox: dFile.valid
-		});
 	}
 
 	updateError(file, header='', description='') {
@@ -134,8 +110,9 @@ export default class UploadDetachedFileMeta extends React.Component {
 		// upload specified file
 		this.props.setSubmissionState('uploading');
 		let submission = this.props.submission;
-		submission.meta['startDate'] = this.state.detachedAward.startDate.format('DD/MM/YYYY');
-		submission.meta['endDate'] = this.state.detachedAward.endDate.format('DD/MM/YYYY');
+		console.log(this.props.submission)
+		submission.meta['startDate'] = currentDate();
+		submission.meta['endDate'] = currentDate();
 		submission.meta['subTierAgency'] = this.state.agency;
 
 		this.uploadFileHelper(kGlobalConstants.LOCAL === true && !this.isUnmounted, submission)
@@ -163,7 +140,6 @@ export default class UploadDetachedFileMeta extends React.Component {
 				job.detached_award = response.jobs[0];
 				this.setState({
 					showUploadFilesBox: false,
-					showDatePicker: false,
 					jobResults: job
 				}, () => {
 					this.parseJobStates(response);
@@ -247,28 +223,17 @@ export default class UploadDetachedFileMeta extends React.Component {
 
 	render() {
 		let subTierAgencyClass = '';
-		let datePicker = null;
 		let uploadFilesBox = null;
 
 		if (this.state.agencyError) {
 			subTierAgencyClass = ' error usa-da-form-icon';
 		}
 
-		if (this.state.showDatePicker) {
+		if (this.state.showUploadFilesBox) {
 			let value = {
 				datePlaceholder: "Action",
-				endDate: this.state.detachedAward.endDate, 
-				label: "File D2: Financial Assistance",
-				startDate: this.state.detachedAward.startDate
+				label: "Financial Assistance Broker Submission (FABS) File"
 			}
-			datePicker = <DateRangeWrapper {...this.state} 
-								handleDateChange={this.handleDateChange.bind(this, "detachedAward")} 
-								updateError={this.updateError.bind(this)} 
-								value={value} />;
-		}
-
-		
-		if (this.state.detachedAward.valid && this.state.showUploadFilesBox) {
 			uploadFilesBox = <UploadDetachedFilesBox {...this.state} 
 								submission={this.props.submission}
 								uploadFile={this.uploadFile.bind(this)} />;  
@@ -311,10 +276,6 @@ export default class UploadDetachedFileMeta extends React.Component {
 										</div>
 									</div>
 								</div>
-
-								<ReactCSSTransitionGroup transitionName="usa-da-meta-fade" transitionEnterTimeout={600} transitionLeaveTimeout={200}>
-									{datePicker}
-								</ReactCSSTransitionGroup>
 
 								<ReactCSSTransitionGroup transitionName="usa-da-meta-fade" transitionEnterTimeout={600} transitionLeaveTimeout={200}>
 									{uploadFilesBox}
