@@ -13,6 +13,7 @@ import DeleteModal from './DeleteModal.jsx';
 export default class DeleteLink extends React.Component {
 	constructor(props){
 		super(props);
+		this.load = false;
 
 		this.state = {
 			active: false,
@@ -25,8 +26,8 @@ export default class DeleteLink extends React.Component {
 		this.canDelete();
 	}
 
-	componentWillReceiveProps(currProps, nextProps) {
-		if(currProps != nextProps){
+	componentDidUpdate(currProps, nextProps) {
+		if(!this.load){
 			this.canDelete();	
 		}
 	}
@@ -45,6 +46,7 @@ export default class DeleteLink extends React.Component {
 		if(!this.props.account){
 			return;
 		}
+		this.load = true;
 
 		let deletable = (this.props.account.website_admin || !this.props.account.helpOnly);
 
