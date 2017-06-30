@@ -48,7 +48,8 @@ export const getSubmissionPage = (submission_id) => {
                     '/generateFiles/'+submission_id,
                     '/validateCrossFile/'+submission_id,
                     '/generateEF/'+submission_id,
-                    '/reviewData/'+submission_id
+                    '/reviewData/'+submission_id,
+                    '/uploadDetachedFiles/'+submission_id,
                 ]
                 let index = parseInt(res.body.step, 10);
                 let response = {
