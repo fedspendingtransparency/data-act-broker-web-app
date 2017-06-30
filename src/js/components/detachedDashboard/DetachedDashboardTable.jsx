@@ -190,7 +190,7 @@ export default class DetachedDashboardTable extends React.Component {
                     <Status.SubmissionStatus status={item.rowStatus} certified={this.props.isCertified} />,
                     item.certifying_user,
                     certified_on,
-                    <HistoryLink submissionId={item.submission_id} />
+                    <DetachedHistoryLink submissionId={item.submission_id} />
                 ];
             } else {
                 row = [
