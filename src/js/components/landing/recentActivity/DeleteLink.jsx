@@ -36,6 +36,10 @@ export default class DeleteLink extends React.Component {
 	}
 
 	canDelete(){
+		if(!this.props.account){
+			return;
+		}
+
 		let deletable = (this.props.account.website_admin || !this.props.account.helpOnly);
 
 		if(!deletable){
