@@ -6,6 +6,7 @@
 import React from 'react';
 import $ from 'jquery';
 import { generateProtectedUrls } from '../../helpers/util.js';
+import DaimsMessage from './DaimsMessage.jsx';
 
 export default class PracticesProceduresContent extends React.Component {
 
@@ -59,6 +60,7 @@ export default class PracticesProceduresContent extends React.Component {
 				<div className="practices-procedures">
 
 				<h2>Practices &amp; Procedures</h2>
+				<DaimsMessage type='practices' />
 				<p><em>Last updated: December 21, 2016</em></p>
 
 				<p>The following are additional overall instructions for creating and understanding DATA Act reporting and validation rules.  The Practices and Procedures spreadsheet, with change log, is available for download.  <a href={this.state.practicesProceduresUrl} target="_blank" rel="noopener noreferrer">Download file</a></p>
