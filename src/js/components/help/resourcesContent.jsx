@@ -6,7 +6,7 @@
 import React from 'react';
 import $ from 'jquery';
 import { generateRSSUrl, generateProtectedUrls, rssFileKey } from '../../helpers/util.js';
-import DaimsMessage from './DaimsMessage.jsx';
+import DaimsMessage from './daimsMessage.jsx';
 
 
 let gifSrc = 'graphics/reportabug.gif';

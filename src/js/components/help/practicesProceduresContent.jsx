@@ -6,7 +6,7 @@
 import React from 'react';
 import $ from 'jquery';
 import { generateProtectedUrls } from '../../helpers/util.js';
-import DaimsMessage from './DaimsMessage.jsx';
+import DaimsMessage from './daimsMessage.jsx';
 
 export default class PracticesProceduresContent extends React.Component {
 

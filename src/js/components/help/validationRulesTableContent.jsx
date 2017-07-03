@@ -8,7 +8,7 @@ import $ from 'jquery';
 import Reactable from 'reactable';
 import Papa from 'papaparse';
 import { generateProtectedUrls } from '../../helpers/util.js';
-import DaimsMessage from './DaimsMessage.jsx';
+import DaimsMessage from './daimsMessage.jsx';
 
 
 export default class ValidationRulesTableContent extends React.Component {
