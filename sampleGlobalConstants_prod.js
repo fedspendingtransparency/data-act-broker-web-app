@@ -8,6 +8,7 @@ export const kGlobalConstants = {
     GA_TRACKING_ID: '',
     LOCAL: false,
     DEV: false,
+    STAGING: false,
     BUCKET_NAME: '',
     AWS_REGION: ''
 };
