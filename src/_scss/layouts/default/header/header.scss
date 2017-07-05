@@ -1,6 +1,7 @@
 @import "./_userBar";
 @import "./_menuBar";
 @import "./_titleBar";
+@import "./_warningBanner";
 
 @mixin defaultHeader {
 	.usa-da-header {
@@ -9,8 +10,13 @@
 	    height: $header-height;
 	    border-radius: 0;
 	    margin-bottom: 0;
+
+		&.tall {
+			height: ($header-height + $warning-banner-height);
+		}
 	    
 	    @include headerUserBar;
+		@include headerWarningBanner;
 	}
 
 	.usa-da-header-container {
