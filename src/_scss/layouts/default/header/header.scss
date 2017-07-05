@@ -6,16 +6,16 @@
 @mixin defaultHeader {
 	.usa-da-header {
 		background-color: $color-gray-dark;
-	    border: none;
-	    height: $header-height;
-	    border-radius: 0;
-	    margin-bottom: 0;
+		border: none;
+		height: $header-height;
+		border-radius: 0;
+		margin-bottom: 0;
 
 		&.tall {
 			height: ($header-height + $warning-banner-height);
 		}
 	    
-	    @include headerUserBar;
+		@include headerUserBar;
 		@include headerWarningBanner;
 	}
 
