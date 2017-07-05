@@ -110,7 +110,6 @@ export default class UploadDetachedFileMeta extends React.Component {
 		// upload specified file
 		this.props.setSubmissionState('uploading');
 		let submission = this.props.submission;
-		console.log(this.props.submission)
 		submission.meta['startDate'] = currentDate();
 		submission.meta['endDate'] = currentDate();
 		submission.meta['subTierAgency'] = this.state.agency;
