@@ -160,8 +160,8 @@ export default class DetachedDashboardTable extends React.Component {
 
         // iterate through each item returned from the API
         this.props.data.forEach((item, index) => {
-            let reportingDateString = "Earliest: "+item.earliest_action_date + "\nLatest: " + item.latest_action_date;
-            if (!item.earliest_action_date || !item.latest_action_date) {
+            let reportingDateString = "Earliest: "+item.reporting_start_date + "\nLatest: " + item.reporting_start_date;
+            if (!item.reporting_start_date || !item.reporting_start_date) {
                 reportingDateString = 'No action dates found';
             }
 
