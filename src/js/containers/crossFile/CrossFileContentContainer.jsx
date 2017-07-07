@@ -16,6 +16,7 @@ import * as ReviewHelper from '../../helpers/reviewHelper.js';
 
 import CrossFileContent from '../../components/crossFile/CrossFileContent.jsx';
 import PublishedSubmissionWarningBanner from '../../components/SharedComponents/PublishedSubmissionWarningBanner.jsx';
+import GTASBanner from '../../components/SharedComponents/GTASWarningBanner.jsx';
 
 const timerDuration = 10;
 
@@ -25,12 +26,16 @@ class CrossFileContentContainer extends React.Component {
 
 		this.dataTimer;
 		this.isUnmounted = false;
+		this.state = {
+			gtas: null
+		}
 	}
 
 	componentDidMount() {
 		this.isUnmounted = false;
 		this.loadData();
 		this.startTimer();
+		this.isGtas();
 	}
 
 	componentWillUnmount() {
@@ -40,6 +45,18 @@ class CrossFileContentContainer extends React.Component {
 			window.clearInterval(this.dataTimer);
 			this.dataTimer = null;
 		}
+	}
+
+	isGtas() {
+		ReviewHelper.isGtasWindow()
+			.then((res) => {
+				if(res.open != this.state.gtas) {
+					this.setState({gtas: res})
+				}
+			})
+			.catch((err) =>{
+				console.log(err)
+			})
 	}
 
 	uploadFiles() {
@@ -214,9 +231,16 @@ class CrossFileContentContainer extends React.Component {
 		if(this.props.submission.publishStatus !== "unpublished") {
 			warningMessage = <PublishedSubmissionWarningBanner />;
 		}
+
+		let gtasWarning = null;
+		if(this.state.gtas && this.state.gtas.open){
+			gtasWarning = <GTASBanner data={this.state.gtas}/>
+		}
+
 		return (
 			<div>
 				{warningMessage}
+				{gtasWarning}
 				<CrossFileContent {...this.props} uploadFiles={this.uploadFiles.bind(this)} reloadData={this.reloadData.bind(this)} />
 			</div>
 		);

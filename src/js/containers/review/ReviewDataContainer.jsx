@@ -28,12 +28,14 @@ class ReviewDataContainer extends React.Component {
             total_obligations: null,
             total_assistance_obligations: null,
             total_procurement_obligations: null,
-            file_narrative: {}
+            file_narrative: {},
+            gtas: null
         }
     }
 
     componentDidMount() {
     	this.loadData();
+        this.isGtas();
     }
 
     componentDidUpdate(prevProps, prevState) {
@@ -41,6 +43,18 @@ class ReviewDataContainer extends React.Component {
     		// URL submission ID changed, reload
     		this.loadData();
     	}
+    }
+
+    isGtas() {
+        ReviewHelper.isGtasWindow()
+            .then((res) => {
+                if(res.open != this.state.gtas) {
+                    this.setState({gtas: res})
+                }
+            })
+            .catch((err) =>{
+                console.log(err)
+            })
     }
 
     loadData() {

@@ -503,7 +503,6 @@ export const certifySubmission = (submissionId) => {
 	Request.post(kGlobalConstants.API + 'certify_submission/')
 		.send({"submission_id": submissionId})
 		.end((err, res) => {
-
 			if (err) {
 				const response = Object.assign({}, res.body);
 				response.httpStatus = res.status;
@@ -551,6 +550,24 @@ export const revalidateSubmission = (submission_id) => {
 					message: res.body.message,
 				};
 				deferred.resolve(output);
+			}
+		});
+
+	return deferred.promise;
+}
+
+export const isGtasWindow = () =>{
+	const deferred = Q.defer();
+
+	Request.get(kGlobalConstants.API + 'gtas_window/')
+		.end((err, res) =>{
+			if (err) {
+				const response = Object.assign({}, res.body);
+				response.httpStatus = res.status;
+				deferred.reject(response);
+			}
+			else {
+				deferred.resolve(res.body);
 			}
 		});
 
