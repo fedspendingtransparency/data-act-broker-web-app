@@ -44,7 +44,7 @@ class AgencyListContainer extends React.Component {
 	dataFormatter(item, input) {
 		return {
 			label: item.agency_name,
-			value: item.cgac_code
+			value: item.cgac_code ? item.cgac_code : item.frec_code
 		};
 	}
 
