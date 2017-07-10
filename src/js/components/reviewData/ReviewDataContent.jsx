@@ -149,7 +149,8 @@ export default class ReviewDataContent extends React.Component {
             buttons.push(<ReviewDataButton key={i} icon={buttonContent[i][0]} label={buttonContent[i][1]} />);
         }
 
-        const reportName = this.props.data.cgac_code.replace(/ /g,'_') + '_' + moment(this.props.data.created_on, 'MM/DD/YYYY').format('DDMMYYYY')  + '_' + this.props.submissionID;
+        let agency_code = this.props.data.cgac_code ? this.props.data.cgac_code : this.props.data.frec_code;
+        const reportName = agency_code.replace(/ /g,'_') + '_' + moment(this.props.data.created_on, 'MM/DD/YYYY').format('DDMMYYYY')  + '_' + this.props.submissionID;
         let fileSize = 0;
 
         for (let k = 0; k < this.props.data.jobs.length; k++){

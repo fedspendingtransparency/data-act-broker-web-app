@@ -40,6 +40,7 @@ class AddDataContainer extends React.Component {
 	performUpload() {
 		this.props.setSubmissionState('uploading');
 		if (kGlobalConstants.LOCAL == true) {
+			console.log(this.props);
 			UploadHelper.performLocalUpload(this.props.submission)
 				.then((submissionID) => {
 					this.props.setSubmissionId(submissionID);

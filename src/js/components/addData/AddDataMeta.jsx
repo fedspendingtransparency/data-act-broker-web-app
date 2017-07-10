@@ -30,6 +30,7 @@ export default class AddDataMeta extends React.Component {
 
         this.state = {
             agency: "",
+            codeType: "",
             startDate: null,
             endDate: null,
             dateType: null,
@@ -53,16 +54,18 @@ export default class AddDataMeta extends React.Component {
         })        
     }
 
-    handleChange(agency, isValid){
+    handleChange(agency, codeType, isValid){
         if (agency != '' && isValid) {
             this.setState({
                 agency: agency,
+                codeType: codeType,
                 agencyError: false
              }, this.checkComplete);
         }
         else {
             this.setState({
                 agency: '',
+                codeType: '',
                 agencyError: true
             }, this.checkComplete);
         }
@@ -125,6 +128,7 @@ export default class AddDataMeta extends React.Component {
 
     submitMetadata(e){
         let agency = this.state.agency, 
+            codeType = this.state.codeType,
             endDate = this.state.endDate,
             dateType = this.state.dateType;
 
@@ -138,7 +142,9 @@ export default class AddDataMeta extends React.Component {
             if (quarter == 3){
                 year++
             }
-            AgencyHelper.checkYearQuarter(agency,year,quarter).then(()=>{
+            let cgac_code = codeType == 'cgac_code' ? agency : null;
+            let frec_code = codeType == 'frec_code' ? agency : null;
+            AgencyHelper.checkYearQuarter(cgac_code,frec_code,year,quarter).then(()=>{
                 this.props.updateMetaData(this.state);
             }).catch(err => {
                 this.setState({
