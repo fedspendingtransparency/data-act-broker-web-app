@@ -556,11 +556,11 @@ export const revalidateSubmission = (submission_id) => {
 	return deferred.promise;
 }
 
-export const isGtasWindow = () =>{
+export const isGtasWindow = () => {
 	const deferred = Q.defer();
 
 	Request.get(kGlobalConstants.API + 'gtas_window/')
-		.end((err, res) =>{
+		.end((err, res) => {
 			if (err) {
 				const response = Object.assign({}, res.body);
 				response.httpStatus = res.status;

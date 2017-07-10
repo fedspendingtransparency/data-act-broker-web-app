@@ -178,11 +178,13 @@ export default class ReviewDataContent extends React.Component {
         let buttonClass = "btn-disabled";
         let buttonAction = "";
         let monthlySubmissionError = null;
+
         if (this.props.data.publish_status == "published") {
             certifyButtonText = "Submission has already been certified";
             buttonClass = " btn-disabled";
             buttonAction = "";
         }
+
         if (!this.props.data.quarterly_submission) {
             certifyButtonText = "Monthly submissions cannot be certified";
             buttonClass = " btn-disabled";
@@ -192,10 +194,17 @@ export default class ReviewDataContent extends React.Component {
                                         Monthly submissions cannot be certified
                                     </div>
         }
-        if (this.checkAffiliations() || this.props.session.admin) {
+
+        if ((this.checkAffiliations() || this.props.session.admin ) && buttonClass != " btn-disabled") {
             certifyButtonText = "Certify & Publish the Submission to USAspending.gov";
             buttonClass = "";
-            buttonAction = this.openModal.bind(this, modalToOpen);;
+            buttonAction = this.openModal.bind(this, modalToOpen);
+        }
+
+        if(buttonClass != " btn-disabled" && this.props.data.gtas.open) {
+            certifyButtonText = "Certification is not allowed during the GTAS Submission Window";
+            buttonClass = " btn-disabled";
+            buttonAction = "";
         }
 
         return (

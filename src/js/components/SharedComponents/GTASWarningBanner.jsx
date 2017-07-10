@@ -5,12 +5,21 @@
 
 import React from 'react';
 import * as Icons from '../SharedComponents/icons/Icons.jsx';
+import Moment from 'moment'
 
 export default class PublishedSubmissionWarningBanner extends React.Component {
     constructor(props) {
         super(props)
     }
+
+    parseDate(data){
+        // YYYY-MM-DD
+        let date = new Date(data).toDateString();
+        return date
+    }
+
     render() {
+        let date = this.parseDate(this.props.data.data.end_date)
         return (
                 <div className="published-submission-warning-banner">
                     <div className="container">
@@ -19,7 +28,7 @@ export default class PublishedSubmissionWarningBanner extends React.Component {
                                 <i className="usa-da-icon"><Icons.ExclamationTriangle /> </i>
                             </div>
                             <div className="col-xs-11">
-                                <p>The GTAS Submission Window is currently open. You cannot certify or re-certify until the window closes on {this.props.data.data.end_date}</p>
+                                <p>The GTAS Submission Window is currently open. You cannot certify or re-certify until the window closes on {date}</p>
                             </div>
                         </div>
                     </div>
