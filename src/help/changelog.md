@@ -13,8 +13,8 @@ Treasury released the DATA Act Information Model Schema (DAIMS) v1.1. DAIMS v1.1
 
 In this release, we implemented improvements and fixed bugs related to the submission process. These updates include:
 
-* D file with new lines generated without error: Users can now generate a D file that contains a new line and does not cause an error, allowing the submission to complete all cross file validations.
-* Shared service providers testing submissions: Shared service providers can successfully log into the Broker to test submissions.
-* Submission link correction: Users will be directed to the correct submission page without skipping any steps.
-* Warnings for same-period submissions: User will be properly warned if they try to create a submission in the same period as a certified/updated submission. This way, users can understand what the error in their submission is.
-* Permissions for “Delete Submission” button: Users with uploader rights will now be able to see the “trash can” deletion icon.
+- D file with new lines generated without error: Users can now generate a D file that contains a new line and does not cause an error, allowing the submission to complete all cross file validations.
+- Shared service providers testing submissions: Shared service providers can successfully log into the Broker to test submissions.
+- Submission link correction: Users will be directed to the correct submission page without skipping any steps.
+- Warnings for same-period submissions: User will be properly warned if they try to create a submission in the same period as a certified/updated submission. This way, users can understand what the error in their submission is.
+- Permissions for “Delete Submission” button: Users with uploader rights will now be able to see the “trash can” deletion icon.
