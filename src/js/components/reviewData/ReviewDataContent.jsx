@@ -175,28 +175,30 @@ export default class ReviewDataContent extends React.Component {
 
         let certifyButtonText = "You do not have permissions to certify";
         let notifyButtonText = "Notify Another User that the Submission is Ready for Certification";
-        let buttonClass = "btn-disabled";
+        let buttonClass = " btn-disabled";
         let buttonAction = "";
         let monthlySubmissionError = null;
+
         if (this.props.data.publish_status == "published") {
             certifyButtonText = "Submission has already been certified";
-            buttonClass = " btn-disabled";
-            buttonAction = "";
         }
-        if (!this.props.data.quarterly_submission) {
+        else if (!this.props.data.quarterly_submission) {
             certifyButtonText = "Monthly submissions cannot be certified";
-            buttonClass = " btn-disabled";
-            buttonAction = "";
             notifyButtonText = "Notify Another User that the Submission is Ready";
             monthlySubmissionError = <div className="alert alert-danger text-center monthly-submission-error" role="alert">
                                         Monthly submissions cannot be certified
                                     </div>
         }
-        if (this.checkAffiliations() || this.props.session.admin) {
+        else if(this.props.data.gtas) {
+            certifyButtonText = "Certification is not allowed during the GTAS Submission Window";
+        }
+        else if (this.checkAffiliations() || this.props.session.admin) {
             certifyButtonText = "Certify & Publish the Submission to USAspending.gov";
             buttonClass = "";
-            buttonAction = this.openModal.bind(this, modalToOpen);;
+            buttonAction = this.openModal.bind(this, modalToOpen);
         }
+
+        
 
         return (
             <div className="container">

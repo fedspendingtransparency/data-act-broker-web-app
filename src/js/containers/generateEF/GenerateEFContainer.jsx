@@ -13,10 +13,12 @@ import Q from 'q';
 import * as uploadActions from '../../redux/actions/uploadActions.js';
 import { kGlobalConstants } from '../../GlobalConstants.js';
 import * as GenerateHelper from '../../helpers/generateFilesHelper.js';
+import * as ReviewHelper from '../../helpers/reviewHelper.js';
 
 import GenerateEFContent from '../../components/generateEF/GenerateEFContent.jsx';
 import GenerateEFError from '../../components/generateEF/GenerateEFError.jsx';
 import PublishedSubmissionWarningBanner from '../../components/SharedComponents/PublishedSubmissionWarningBanner.jsx';
+import GTASBanner from '../../components/SharedComponents/GTASWarningBanner.jsx';
 
 const timerDuration = 10;
 
@@ -33,7 +35,8 @@ class GenerateEFContainer extends React.Component {
 			hasErrors: false,
 			e: {},
 			f: {},
-			generated: false
+			generated: false,
+			gtas: null
 		};
 
 	}
@@ -41,6 +44,17 @@ class GenerateEFContainer extends React.Component {
 	componentDidMount() {
 		this.isUnmounted = false;
 		this.checkFileStatus();
+		this.isGtas();
+	}
+
+	isGtas() {
+		ReviewHelper.isGtasWindow()
+			.then((res) => {
+				this.setState({gtas: res.data})
+			})
+			.catch((err) =>{
+				console.log(err)
+			})
 	}
 
 	componentWillUnmount() {
@@ -154,10 +168,16 @@ class GenerateEFContainer extends React.Component {
 		if(this.props.submission.publishStatus !== "unpublished") {
 			warningMessage = <PublishedSubmissionWarningBanner />;
 		}
+
+		let gtasWarning = null;
+		if(this.state.gtas){
+			gtasWarning = <GTASBanner data={this.state.gtas}/>
+		}
 		
 		return (
 			<div>
 				{warningMessage}
+				{gtasWarning}
 				{content}
 			</div>
 		)

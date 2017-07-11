@@ -170,6 +170,15 @@ const routeDefinitions = {
             }
         },
         {
+            path: 'submission/:submissionID',
+            onEnter: checkUserPermissions,
+            getComponent(nextState, cb) {
+                require.ensure([], (require) => {
+                    cb(null, require('../../containers/submission/SubmissionContainer.jsx').default)
+                });
+            }
+        },
+        {
             path: 'generateFiles/:submissionID',
             onEnter: checkUserPermissions,
             getComponent(nextState, cb) {
