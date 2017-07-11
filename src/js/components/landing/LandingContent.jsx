@@ -10,7 +10,10 @@ import LandingBlockBottomLink from './blocks/LandingBlockBottomLink.jsx';
 import LandingRequirementsModal from './blocks/LandingRequirementsModal.jsx';
 
 import * as Icons from '../SharedComponents/icons/Icons.jsx';
+import GTASBanner from '../SharedComponents/GTASWarningBanner.jsx';
 import * as permissionHelper from '../../helpers/permissionsHelper.js';
+
+import * as ReviewHelper from '../../helpers/reviewHelper.js';
 
 const defaultProps = {
     session: {
@@ -25,8 +28,23 @@ export default class LandingContent extends React.Component {
         super(props);
 
         this.state = {
-            expanded: false
+            expanded: false,
+            gtas: null
         };
+    }
+
+    componentDidMount() {
+        this.isGtas();
+    }
+
+    isGtas() {
+        ReviewHelper.isGtasWindow()
+            .then((res) => {
+                this.setState({gtas: res.data})
+            })
+            .catch((err) => {
+                console.log(err)
+            })
     }
 
     clickedUploadReqs(e) {
@@ -58,6 +76,8 @@ export default class LandingContent extends React.Component {
         let recentActivity = 'recent-activity';
         let expand = 'hide block';
         let expandContent = '';
+        let gtasWarning = null;
+
         if(affiliations && affiliations.length > limit && !this.state.expanded){
             recentHeader +='-hidden';
             recentActivity +='-hidden';
@@ -75,6 +95,10 @@ export default class LandingContent extends React.Component {
                         </LandingBlock>
         }
 
+        if(this.state.gtas){
+            gtasWarning = <GTASBanner data={this.state.gtas}/>
+        }
+
         return (
                 <div className="site_content">
                     <div className="usa-da-content-dark">
@@ -88,6 +112,7 @@ export default class LandingContent extends React.Component {
                             </div>
                         </div>
                     </div>
+                    {gtasWarning}
                     <div className="container mb-60">
                         <div className="row">
                             <div className="usa-da-landing col-md-12">

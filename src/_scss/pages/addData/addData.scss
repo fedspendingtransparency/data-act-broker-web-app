@@ -7,6 +7,12 @@
 
 	@import "./uploadPage/uploadPage";
 
+	// style the warning for published submissions
+	.published-submission-warning-banner {
+		@import "../../layouts/login/_topBanner";
+		@include loginTopBanner;
+	}
+
 	.alert-error { 
 		@import "../../components/alerts/_alerts";
 		@include dangerAlert;
