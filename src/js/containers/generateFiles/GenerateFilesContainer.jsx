@@ -76,9 +76,7 @@ class GenerateFilesContainer extends React.Component {
 	isGtas() {
 		ReviewHelper.isGtasWindow()
 			.then((res) => {
-				if(res != this.state.gtas) {
-					this.setState({gtas: res})
-				}
+				this.setState({gtas: res.data})
 			})
 			.catch((err) =>{
 				console.log(err)
@@ -488,7 +486,7 @@ class GenerateFilesContainer extends React.Component {
 		}
 
 		let gtasWarning = null;
-		if(this.state.gtas && this.state.gtas.data){
+		if(this.state.gtas){
 			gtasWarning = <GTASBanner data={this.state.gtas}/>
 		}
 		return (

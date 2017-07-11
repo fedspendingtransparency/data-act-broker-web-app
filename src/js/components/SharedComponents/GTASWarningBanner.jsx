@@ -10,7 +10,6 @@ import Moment from 'moment'
 export default class GTASWarningBanner extends React.Component {
     constructor(props) {
         super(props)
-        console.log(this.props)
     }
 
     parseDate(data){
@@ -20,7 +19,7 @@ export default class GTASWarningBanner extends React.Component {
     }
 
     render() {
-        let date = this.parseDate(this.props.data.data.end_date)
+        let date = this.parseDate(this.props.data.end_date)
         return (
                 <div className="published-submission-warning-banner">
                     <div className="container">
