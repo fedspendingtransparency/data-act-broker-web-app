@@ -13,9 +13,8 @@ export default class GTASWarningBanner extends React.Component {
     }
 
     parseDate(data){
-        // YYYY-MM-DD
-        let date = new Date(data).toDateString();
-        return date
+        let date = Moment(data).format("dddd, MMMM D, YYYY")
+        return date;
     }
 
     render() {

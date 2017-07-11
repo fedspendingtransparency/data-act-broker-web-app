@@ -121,7 +121,7 @@ export default class LandingContent extends React.Component {
                                     <LandingBlock icon={<Icons.Floppy />} text="Did you start a submission but were unable to complete it? No problem, we can help you pick up where you left off." buttonText="Continue or Certify a Saved Submission" url="#/dashboard" />
                                     <LandingBlock icon={<Icons.CloudDownload />} text="Generate your D1 and D2 award files without having to create a submission." buttonText="Generate D Files" url="#/generateDetachedFiles" />
                                     <div id="modalHolder">
-                                        <LandingRequirementsModal ref="modal" />
+                                        <LandingRequirementsModal ref="modal" gtas={this.state.gtas}/>
                                     </div>
                                 </div>
                             </div>
