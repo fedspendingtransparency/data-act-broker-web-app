@@ -32,7 +32,7 @@ export default class ReviewDataPage extends React.Component {
         }
 
         let gtasWarning = null;
-        if(this.props.data.gtas && this.props.data.gtas.open) {
+        if(this.props.data.gtas && this.props.data.gtas.data) {
             gtasWarning = <GTASBanner data={this.props.data.gtas}/>
         }
 

@@ -201,7 +201,7 @@ export default class ReviewDataContent extends React.Component {
             buttonAction = this.openModal.bind(this, modalToOpen);
         }
 
-        if(buttonClass != " btn-disabled" && this.props.data.gtas.open) {
+        if(buttonClass != " btn-disabled" && this.props.data.gtas && this.props.data.gtas.data) {
             certifyButtonText = "Certification is not allowed during the GTAS Submission Window";
             buttonClass = " btn-disabled";
             buttonAction = "";

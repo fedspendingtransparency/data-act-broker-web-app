@@ -172,7 +172,7 @@ class GenerateEFContainer extends React.Component {
 		}
 
 		let gtasWarning = null;
-		if(this.state.gtas && this.state.gtas.open){
+		if(this.state.gtas && this.state.gtas.data){
 			gtasWarning = <GTASBanner data={this.state.gtas}/>
 		}
 		

@@ -48,7 +48,7 @@ class ReviewDataContainer extends React.Component {
     isGtas() {
         ReviewHelper.isGtasWindow()
             .then((res) => {
-                if(res.open != this.state.gtas) {
+                if(res != this.state.gtas) {
                     this.setState({gtas: res})
                 }
             })

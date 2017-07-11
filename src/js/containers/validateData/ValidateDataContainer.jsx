@@ -66,7 +66,7 @@ class ValidateDataContainer extends React.Component {
 	isGtas() {
 		ReviewHelper.isGtasWindow()
 			.then((res) => {
-				if(res.open != this.state.gtas) {
+				if(res != this.state.gtas) {
 					this.setState({gtas: res})
 				}
 			})
@@ -216,7 +216,7 @@ class ValidateDataContainer extends React.Component {
 		}
 
 		let gtasWarning = null;
-		if(this.state.gtas && this.state.gtas.open){
+		if(this.state.gtas && this.state.gtas.data){
 			gtasWarning = <GTASBanner data={this.state.gtas}/>
 		}
 

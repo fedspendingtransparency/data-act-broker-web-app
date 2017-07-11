@@ -1,15 +1,16 @@
 /**
-* PublishedSubmissionWarningBanner.jsx
-* Created by Alisa Burdeyny 3/10/17
+* GTASWarningBanner.jsx
+* Created by Minahm Kim 07/07/17
 **/
 
 import React from 'react';
 import * as Icons from '../SharedComponents/icons/Icons.jsx';
 import Moment from 'moment'
 
-export default class PublishedSubmissionWarningBanner extends React.Component {
+export default class GTASWarningBanner extends React.Component {
     constructor(props) {
         super(props)
+        console.log(this.props)
     }
 
     parseDate(data){
