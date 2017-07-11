@@ -179,12 +179,7 @@ export default class ReviewDataContent extends React.Component {
         let buttonAction = "";
         let monthlySubmissionError = null;
 
-        if(this.props.data.gtas && this.props.data.gtas) {
-            certifyButtonText = "Certification is not allowed during the GTAS Submission Window";
-            buttonClass = " btn-disabled";
-            buttonAction = "";
-        }
-        else if (this.props.data.publish_status == "published") {
+        if (this.props.data.publish_status == "published") {
             certifyButtonText = "Submission has already been certified";
             buttonClass = " btn-disabled";
             buttonAction = "";
@@ -197,6 +192,11 @@ export default class ReviewDataContent extends React.Component {
             monthlySubmissionError = <div className="alert alert-danger text-center monthly-submission-error" role="alert">
                                         Monthly submissions cannot be certified
                                     </div>
+        }
+        else if(this.props.data.gtas && this.props.data.gtas) {
+            certifyButtonText = "Certification is not allowed during the GTAS Submission Window";
+            buttonClass = " btn-disabled";
+            buttonAction = "";
         }
         else if (this.checkAffiliations() || this.props.session.admin) {
             certifyButtonText = "Certify & Publish the Submission to USAspending.gov";
