@@ -15,8 +15,7 @@ const propTypes = {
 	onSelect: PropTypes.func.isRequired,
 	customClass: PropTypes.string,
 	keyValue: PropTypes.string,
-	internalValue: PropTypes.array,
-	selectedInternalValue: PropTypes.string
+	internalValue: PropTypes.array
 }
 
 const defaultProps = {
@@ -26,7 +25,6 @@ const defaultProps = {
 	formatter: null,
 	keyValue: 'agency_name',
 	internalValue: ['frec_code', 'cgac_code'],
-	selectedInternalValue: 'cgac_code',
 	tabIndex: null,
 	isRequired: false,
 	errorHeader: null,
@@ -39,6 +37,7 @@ export default class Typeahead extends React.Component {
 
 		this.typeahead = null;
 		this.dataDictionary = {};
+		this.internalValueDictionary = {};
 
 		this.state = {
 			value: '',
@@ -62,7 +61,7 @@ export default class Typeahead extends React.Component {
 			for (var i = 0; i < this.props.internalValue.length; i++) {
 				if (value[this.props.internalValue[i]]) {
 					this.dataDictionary[value[this.props.keyValue]] = value[this.props.internalValue[i]];
-					this.selectedInternalValue = this.props.internalValue[i];
+					this.internalValueDictionary[value[this.props.keyValue]] = this.props.internalValue[i];
 				}
 			}
 		});
@@ -144,7 +143,7 @@ export default class Typeahead extends React.Component {
 		// force the change up into the parent components
 		// validate the current value is on the autocomplete list
 		const validity = this.dataDictionary.hasOwnProperty(this.state.value);
-		this.props.onSelect(this.dataDictionary[this.state.value], this.selectedInternalValue, validity);
+		this.props.onSelect(this.dataDictionary[this.state.value], this.internalValueDictionary[this.state.value], validity);
 	}
 
 

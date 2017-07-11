@@ -18,6 +18,7 @@ class ReviewDataContainer extends React.Component {
         this.state = {
         	jobs: null,
             cgac_code: null,
+            frec_code: null,
             agency_name: '--',
             reporting_period_start_date: null,
             reporting_period_end_date: null,
