@@ -5,6 +5,7 @@
 
 import React from 'react';
 import Modal from 'react-aria-modal';
+import Moment from 'moment'
 
 
 import * as Icons from '../../SharedComponents/icons/Icons.jsx';
@@ -35,6 +36,12 @@ export default class LandingRequirementsModal extends React.Component {
 	}
 
 	render() {
+		let gtas = null;
+		if(this.props.gtas){
+			let date = Moment(this.props.gtas.end_date).format("dddd, MMMM D, YYYY");
+			gtas = <strong>*Note: The GTAS Submission Window is currently open. You cannot certify or re-certify until the window closes on {date}.</strong>
+		}
+
 		return (
 			<Modal mounted={this.state.isOpen} onExit={this.closeModal.bind(this)} underlayClickExists={false}
 					verticallyCenter={true} titleId="usa-da-landing-modal">
@@ -80,6 +87,7 @@ export default class LandingRequirementsModal extends React.Component {
 									File F: Sub-award Attributes data
 								</li>
 							</ul>
+							{gtas}
 						</div>
 					</div>
 				</div>
