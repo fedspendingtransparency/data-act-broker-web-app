@@ -175,17 +175,21 @@ export default class ReviewDataContent extends React.Component {
 
         let certifyButtonText = "You do not have permissions to certify";
         let notifyButtonText = "Notify Another User that the Submission is Ready for Certification";
-        let buttonClass = "btn-disabled";
+        let buttonClass = " btn-disabled";
         let buttonAction = "";
         let monthlySubmissionError = null;
 
-        if (this.props.data.publish_status == "published") {
+        if(this.props.data.gtas && this.props.data.gtas) {
+            certifyButtonText = "Certification is not allowed during the GTAS Submission Window";
+            buttonClass = " btn-disabled";
+            buttonAction = "";
+        }
+        else if (this.props.data.publish_status == "published") {
             certifyButtonText = "Submission has already been certified";
             buttonClass = " btn-disabled";
             buttonAction = "";
         }
-
-        if (!this.props.data.quarterly_submission) {
+        else if (!this.props.data.quarterly_submission) {
             certifyButtonText = "Monthly submissions cannot be certified";
             buttonClass = " btn-disabled";
             buttonAction = "";
@@ -194,18 +198,13 @@ export default class ReviewDataContent extends React.Component {
                                         Monthly submissions cannot be certified
                                     </div>
         }
-
-        if ((this.checkAffiliations() || this.props.session.admin ) && buttonClass != " btn-disabled") {
+        else if (this.checkAffiliations() || this.props.session.admin) {
             certifyButtonText = "Certify & Publish the Submission to USAspending.gov";
             buttonClass = "";
             buttonAction = this.openModal.bind(this, modalToOpen);
         }
 
-        if(buttonClass != " btn-disabled" && this.props.data.gtas && this.props.data.gtas.data) {
-            certifyButtonText = "Certification is not allowed during the GTAS Submission Window";
-            buttonClass = " btn-disabled";
-            buttonAction = "";
-        }
+        
 
         return (
             <div className="container">

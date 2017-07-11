@@ -8,8 +8,6 @@ import Navbar from '../SharedComponents/navigation/NavigationComponent.jsx';
 import AddDataHeader from './../addData/AddDataHeader.jsx';
 import Progress from '../SharedComponents/ProgressComponent.jsx';
 
-import * as ReviewHelper from '../../helpers/reviewHelper.js';
-
 import GenerateEFContainer from '../../containers/generateEF/GenerateEFContainer.jsx';
 import GenerateEFError from './GenerateEFError.jsx';
 
