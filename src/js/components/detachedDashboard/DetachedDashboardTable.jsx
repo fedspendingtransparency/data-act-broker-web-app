@@ -1,6 +1,6 @@
 /**
   * DashboardTable.jsx
-  * Created by Kevin Li 10/28/16
+  * Created by Daniel Boos 6/29/17
   **/
 
 import React from 'react';
@@ -67,7 +67,6 @@ export default class DetachedDashboardTable extends React.Component {
     }
 
     componentDidUpdate(prevProps, prevState) {
-
         if (!_.isEqual(prevProps.data, this.props.data)) {
             this.buildRow();
         }

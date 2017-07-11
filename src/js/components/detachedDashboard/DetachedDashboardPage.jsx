@@ -9,8 +9,8 @@ import Footer from '../SharedComponents/FooterComponent.jsx';
 import DetachedDashboardContainer from '../../containers/detachedDashboard/DetachedDashboardContainer.jsx';
 
 export default class DetachedDashboardPage extends React.Component {
-	render() {
-		return (
+    render() {
+        return (
             <div>
                 <div className="usa-da-site_wrap usa-da-dashboard-page">
                     <Navbar activeTab="dashboard"/>

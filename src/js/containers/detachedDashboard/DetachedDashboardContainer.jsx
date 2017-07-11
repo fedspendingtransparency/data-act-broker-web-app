@@ -48,11 +48,11 @@ class DetachedDashboardContainer extends React.Component {
         })
     }
 
-	render() {
-		return (
-			<DetachedDashboardContent {...this.state} {...this.props} loadTableData={this.loadTableData.bind(this)} />
-		)
-	}
+    render() {
+        return (
+            <DetachedDashboardContent {...this.state} {...this.props} loadTableData={this.loadTableData.bind(this)} />
+        )
+    }
 }
 
 export default connect(
