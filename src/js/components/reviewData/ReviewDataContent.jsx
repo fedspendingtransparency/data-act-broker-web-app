@@ -181,22 +181,16 @@ export default class ReviewDataContent extends React.Component {
 
         if (this.props.data.publish_status == "published") {
             certifyButtonText = "Submission has already been certified";
-            buttonClass = " btn-disabled";
-            buttonAction = "";
         }
         else if (!this.props.data.quarterly_submission) {
             certifyButtonText = "Monthly submissions cannot be certified";
-            buttonClass = " btn-disabled";
-            buttonAction = "";
             notifyButtonText = "Notify Another User that the Submission is Ready";
             monthlySubmissionError = <div className="alert alert-danger text-center monthly-submission-error" role="alert">
                                         Monthly submissions cannot be certified
                                     </div>
         }
-        else if(this.props.data.gtas && this.props.data.gtas) {
+        else if(this.props.data.gtas) {
             certifyButtonText = "Certification is not allowed during the GTAS Submission Window";
-            buttonClass = " btn-disabled";
-            buttonAction = "";
         }
         else if (this.checkAffiliations() || this.props.session.admin) {
             certifyButtonText = "Certify & Publish the Submission to USAspending.gov";
