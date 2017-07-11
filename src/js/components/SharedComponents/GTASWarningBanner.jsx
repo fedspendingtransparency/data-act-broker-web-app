@@ -7,9 +7,6 @@ import React from 'react';
 import * as Icons from '../SharedComponents/icons/Icons.jsx';
 import Moment from 'moment'
 
-const days = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday']
-const months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
-
 export default class GTASWarningBanner extends React.Component {
     constructor(props) {
         super(props)
