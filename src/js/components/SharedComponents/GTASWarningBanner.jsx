@@ -27,7 +27,7 @@ export default class GTASWarningBanner extends React.Component {
                                 <i className="usa-da-icon"><Icons.ExclamationTriangle /> </i>
                             </div>
                             <div className="col-xs-11">
-                                <p>The GTAS Submission Window is currently open. You cannot certify or re-certify until the window closes on {date}</p>
+                                <p>The GTAS Submission Window is currently open. You cannot certify or re-certify until after the window closes on {date}</p>
                             </div>
                         </div>
                     </div>
