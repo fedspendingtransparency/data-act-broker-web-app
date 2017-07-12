@@ -39,7 +39,7 @@ export default class LandingRequirementsModal extends React.Component {
 		let gtas = null;
 		if(this.props.gtas){
 			let date = Moment(this.props.gtas.end_date).format("dddd, MMMM D, YYYY");
-			gtas = <strong>*Note: The GTAS Submission Window is currently open. You cannot certify or re-certify until the window closes on {date}.</strong>
+			gtas = <strong>*Note: The GTAS Submission Window is currently open. You cannot certify or re-certify until after the window closes on {date}.</strong>
 		}
 
 		return (
