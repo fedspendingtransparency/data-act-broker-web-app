@@ -57,11 +57,11 @@ const parseRecentActivity = (submissions) => {
     return parsedSubmissions;
 }
 
-export const loadSubmissionList = (page = 1, limit = 10, certified = false, sort = 'updated', order = 'desc') => {
+export const loadSubmissionList = (page = 1, limit = 10, certified = false, sort = 'updated', order = 'desc', d2_submission = false) => {
     const deferred = Q.defer();
 
      Request.get(kGlobalConstants.API + 'list_submissions/')
-            .query({ page, limit, certified, sort, order })
+            .query({ page, limit, certified, sort, order, d2_submission})
             .end((err, res) => {
 
                 if (err) {
