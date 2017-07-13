@@ -113,6 +113,24 @@ export default class DashboardTable extends React.Component {
     }
 
     getCategory(){
+        if(this.props.isCertified) {
+            switch(this.state.sortColumn){
+                case 1:
+                    return 'agency';
+                    break;
+                case 2:
+                    return 'submitted_by';
+                    break;
+                case 3:
+                    return 'modified';
+                    break;
+                case 6:
+                    return 'certified_on';
+                    break;
+                default:
+                    return 'modified';
+            }
+        }
         switch(this.state.sortColumn){
             case 1:
                 return 'agency';
@@ -256,14 +274,14 @@ export default class DashboardTable extends React.Component {
             newHeaders = tableHeadersCertified;
         }
         let unsortable = [0,5,6]
-        if(this.isCertified){
-        	unsortable = [0,4,7]
+        if(this.props.isCertified){
+        	unsortable = [0,4,5,7]
         }
 
         return (
             <div className="usa-da-submission-list">
                 <div className={"submission-table-content" + loadingClass}>
-                    <FormattedTable headers={newHeaders} data={this.state.parsedData} sortable={true} cellClasses={this.state.cellClasses} unsortable={[0,5,6]} headerClasses={this.state.headerClasses} onSort={this.sortTable.bind(this)} />
+                    <FormattedTable headers={newHeaders} data={this.state.parsedData} sortable={true} cellClasses={this.state.cellClasses} unsortable={unsortable} headerClasses={this.state.headerClasses} onSort={this.sortTable.bind(this)} />
                 </div>
                 <div className="text-center">
                     {this.state.message}

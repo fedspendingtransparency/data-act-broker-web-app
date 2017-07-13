@@ -19,7 +19,7 @@ export default class DetachedDashboardPage extends React.Component {
                             <div className="row">
                                 <div className="col-md-12 mt-40 mb-20">
                                     <div className="display-2" data-contentstart="start" tabIndex={-1}>
-                                        Detached Submission Dashboard
+                                        FABS Dashboard
                                     </div>
                                 </div>
                             </div>
