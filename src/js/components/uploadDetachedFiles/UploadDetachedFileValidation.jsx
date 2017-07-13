@@ -278,7 +278,7 @@ export default class UploadDetachedFileValidation extends React.Component {
 						<div className="row usa-da-page-title">
 							<div className="col-md-10 mt-40 mb-20">
 								<div className="display-2">
-									Upload Bi-Monthly Financial Assistance Data
+									Upload Financial Assistance Broker Submission
 								</div>
 							</div>
 							{headerDate}

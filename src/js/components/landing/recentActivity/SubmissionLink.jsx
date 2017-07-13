@@ -11,11 +11,13 @@ const propTypes = {
 	submissionId: React.PropTypes.oneOfType([
 		React.PropTypes.string,
 		React.PropTypes.number
-	]).isRequired
+	]).isRequired,
+	disabled : React.PropTypes.bool
 }
 
 const defaultProps = {
-	submissionId: ''
+	submissionId: '',
+	disabled: false
 }
 
 export default class SubmissionLink extends React.Component {
@@ -25,20 +27,23 @@ export default class SubmissionLink extends React.Component {
 
 
 	render() {
-		if(this.props.value){
-			return (
-				<div className="usa-da-recent-activity-link">
-					<a href={"#/submission/" + this.props.submissionId} className='date-link'>
-						{this.props.value}
-					</a>
-				</div>
-			);	
+		let link = <Icons.Eye alt="View" />;
+		if(this.props.value) {
+			link = this.props.value
+		}
+
+		let content = <a href={"#/submission/" + this.props.submissionId} className='date-link'>
+						{link}
+					</a>;
+
+		if(this.props.disabled) {
+			content = <div className='date-link'>
+						{link}
+					</div>;
 		}
 		return (
 			<div className="usa-da-recent-activity-link">
-				<a href={"#/submission/" + this.props.submissionId}>
-					<Icons.Eye alt="View" />
-				</a>
+				{content}
 			</div>
 		);
 	}
