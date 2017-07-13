@@ -25,6 +25,7 @@ export default class DetachedDashboardContent extends React.Component {
                             data={this.props.activeSubmissions}
                             page={1}
                             session={this.props.session} />
+                        <h2 className="table-title">Published Submissions</h2>
                         <DetachedDashboardTable
                             isLoading={this.props.certifiedLoading}
                             isCertified={true}
