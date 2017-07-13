@@ -120,9 +120,6 @@ export default class DetachedDashboardTable extends React.Component {
                 case 3:
                     return 'modified';
                     break;
-                case 5:
-                    return 'certified_on';
-                    break;
                 default:
                     return 'modified';
             }
@@ -269,7 +266,7 @@ export default class DetachedDashboardTable extends React.Component {
         }
         let unsortable = [0,5,6]
         if(this.props.isCertified){
-        	unsortable = [0,4]
+        	unsortable = [0,4,5]
         }
 
         return (

@@ -275,7 +275,7 @@ export default class DashboardTable extends React.Component {
         }
         let unsortable = [0,5,6]
         if(this.props.isCertified){
-        	unsortable = [0,4,5]
+        	unsortable = [0,4,5,7]
         }
 
         return (
