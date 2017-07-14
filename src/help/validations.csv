@@ -19,10 +19,6 @@ A,A15,UnobligatedBalance_CPE= value for GTAS SF 133 line #2490 for the same repo
 A,A22,"ObligationsIncurredTotalByTAS_CPE= value for GTAS SF 133 line #2190, as of the same reporting period.",Fatal Error,Implemented,Calculation
 A,A23,"StatusOfBudgetaryResourcesTotal_CPE= value for GTAS SF 133 line #2500, as of the same reporting period.",Fatal Error,Implemented,Calculation
 A,A24,StatusOfBudgetaryResourcesTotal_CPE = BudgetAuthorityAvailableAmountTotal_CPE,Fatal Error,Implemented,Calculation
-A,A25,"BorrowingAuthorityAmountTotal_CPE must be provided if TAS has borrowing authority value provided in GTAS. If no borrowing authority on TAS, leave blank.",Fatal Error,Implemented,Required if applicable
-A,A26,"ContractAuthorityAmountTotal_CPE must be provided if TAS has contract authority value provided in GTAS. If no contract authority on TAS, leave blank.",Fatal Error,Implemented,Required if applicable
-A,A27,"SpendingAuthorityfromOffsettingCollectionsAmountTotal_CPE must be provided if TAS has spending authority value provided in GTAS. If no spending authority on TAS, leave blank.",Fatal Error,Implemented,Required if applicable
-A,A28,"OtherBudgetaryResourcesAmount_CPE must be provided if TAS has borrowing, contract and/or spending authority provided in File A. If not applicable, leave blank.",Warning,Implemented,Required if applicable
 A,A29,"DeobligationsRecoveriesRefundsByTAS_CPE = aggregate value for GTAS SF 133 line 1021+1033, as of the same reporting period.",Fatal Error,Implemented,Requirement
 A,A30,"All TAS values in File A (appropriations) should exist in File B (object class program activity), and vice versa, for the same reporting period.",Fatal Error,Implemented,Requirement
 "A, B, C",A31,Beginning Period of Availability and Ending Period of Availability must be blank if Availability Type Code = X,Fatal Error,Implemented,Requirement
