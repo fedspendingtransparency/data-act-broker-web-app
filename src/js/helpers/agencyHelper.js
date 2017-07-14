@@ -35,7 +35,7 @@ export const fetchAllAgencies = () => {
                 deferred.reject(err);
             }
             else {
-                deferred.resolve(res.body['cgac_agency_list'].concat(res.body['shared_agency_list']));
+                deferred.resolve(res.body['agency_list'].concat(res.body['shared_agency_list']));
             }
         });
 
