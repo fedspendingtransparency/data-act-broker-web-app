@@ -13,7 +13,7 @@ export default class DetachedDashboardPage extends React.Component {
         return (
             <div>
                 <div className="usa-da-site_wrap usa-da-dashboard-page">
-                    <Navbar activeTab="dashboard"/>
+                    <Navbar activeTab="detachedDashboard" type={this.props.route.type}/>
                     <div className="usa-da-content-dark">
                         <div className="container">
                             <div className="row">

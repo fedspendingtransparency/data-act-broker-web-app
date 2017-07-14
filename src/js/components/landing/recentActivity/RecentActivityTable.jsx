@@ -32,29 +32,13 @@ export default class RecentActivityTable extends React.Component {
 			account: null,
 			user: true
 		};
-		if(PermissionsHelper.checkPermissions(this.props.session)){
-			this.tableHeaders = 
-			[
-			'View',
-			'Agency',
-			'Reporting Period',
-			'Submitted By',
-			'Last Modified',
-			'Status',
-			'Delete'
-			];	
-		} else {
-			this.tableHeaders = 
-			[
-			'View',
-			'Agency',
-			'Reporting Period',
-			'Submitted By',
-			'Last Modified',
-			'Status'
-			];
+	}
+
+	componentWillReceiveProps(nextProps){
+		if(this.props.type != nextProps.type){
+			this.loadActivity(nextProps.type);
+			this.loadUser();
 		}
-		
 	}
 
 	componentDidMount() {
@@ -91,8 +75,8 @@ export default class RecentActivityTable extends React.Component {
         return year + "-" + month + "-" + day;
     }
 
-	loadActivity() {
-		SubmissionListHelper.loadRecentActivity()
+	loadActivity(type=this.props.type) {
+		SubmissionListHelper.loadRecentActivity(type)
 			.then((data) => {
 				if (this.didUnmount) {
 					return;
@@ -129,6 +113,39 @@ export default class RecentActivityTable extends React.Component {
         })
     }
 
+    getHeaders(){
+		if(this.props.type == 'fabs') {
+			return [
+			'View',
+		    'Agency',
+		    'Action Date Range',
+		    'Submitted By',
+		    'Last Modified', 
+		    'Delete'
+		    ]
+		}
+		else if(PermissionsHelper.checkPermissions(this.props.session)) {
+			return [
+			'View',
+			'Agency',
+			'Reporting Period',
+			'Submitted By',
+			'Last Modified',
+			'Status',
+			'Delete'
+			];	
+		} else {
+			return [
+			'View',
+			'Agency',
+			'Reporting Period',
+			'Submitted By',
+			'Last Modified',
+			'Status'
+			];
+		}
+    }
+
 	convertToLocalDate(dateToConvert) {
 		// convert date to local date, need to replace the space with a T for Date() formatting
 		// Add a Z to the end to imply the date is in UTC
@@ -153,48 +170,18 @@ export default class RecentActivityTable extends React.Component {
 		const output = [];
 		const rowClasses = [];
 
-		const classes = ['row-10 text-center', 'row-20 text-center', 'row-15 text-right white-space', 'row-15 text-right', 'row-10 text-right','row-20 text-right progress-cell', 'row-10 text-center'];
-
+		let classes = ['row-10 text-center', 'row-20 text-center', 'row-15 text-right white-space', 'row-15 text-right', 'row-10 text-right','row-20 text-right progress-cell', 'row-10 text-center'];
+		if(this.props.type == 'fabs') {
+			classes = ['row-10 text-center', 'row-40 text-center', 'row-15 text-right white-space', 'row-15 text-right', 'row-15 text-right','row-10 text-center'];
+		}
 		// sort the array by object key
 		const orderKeys = ['sortableAgency', 'sortableReportingDate', 'sortableName', 'sortableDate'];
 		const data = _.orderBy(this.state.cachedResponse, orderKeys[this.state.sortColumn - 1], this.state.sortDirection);
 
 		// iterate through each item returned from the API
 		data.forEach((item, index) => {
-
-			let reportingDateString = "Start: " + item.reporting_start_date + "\nEnd: " + item.reporting_end_date;
-			if (!item.reporting_start_date || !item.reporting_end_date) {
-				reportingDateString = 'No reporting period specified';
-			}
-
-			let userName = '--';
-			if (item.hasOwnProperty('user')) {
-				userName = item.user.name;
-			}
-
-			let deleteConfirm = false;
-            if(this.state.deleteIndex !== -1 && index === this.state.deleteIndex){
-                deleteConfirm = true;
-            }
-
             // break the object out into an array for the table component
-			const row = 
-			[
-				<SubmissionLink submissionId={item.submission_id} />,
-				item.agency,
-				reportingDateString,
-				userName,
-				this.convertToLocalDate(item.last_modified),
-				<Status.SubmissionStatus status={item.rowStatus} certified={item.publish_status !== 'unpublished'} />
-			];
-			if(PermissionsHelper.checkPermissions(this.props.session)) {
-				if(item.publish_status === "unpublished" && PermissionsHelper.checkAgencyPermissions(this.props.session, item.agency)) {
-					row.push(<DeleteLink submissionId={item.submission_id} index={index} warning={this.deleteWarning.bind(this)} confirm={deleteConfirm} reload={this.reload.bind(this)} item={item} account={this.state.account}/>);
-				}
-				else {
-					row.push("N/A");
-				}	
-			}
+			const row = this.formatRow(item, index);
 
 			rowClasses.push(classes);
 			output.push(row);
@@ -215,6 +202,55 @@ export default class RecentActivityTable extends React.Component {
 		});
 	}
 
+	formatRow(rowData, index) {
+		let link = <SubmissionLink submissionId={rowData.submission_id} />;
+		if(rowData.publish_status === "published") {
+			link = <SubmissionLink submissionId={rowData.submission_id} disabled={true} />
+		}
+		
+		let reportingDateString = "Start: " + rowData.reporting_start_date + "\nEnd: " + rowData.reporting_end_date;
+		if (!rowData.reporting_start_date || !rowData.reporting_end_date) {
+			reportingDateString = 'No reporting period specified';
+		}
+
+		let userName = '--';
+		if (rowData.hasOwnProperty('user')) {
+			userName = rowData.user.name;
+		}
+
+		let deleteConfirm = false;
+        if(this.state.deleteIndex !== -1 && index === this.state.deleteIndex){
+            deleteConfirm = true;
+        }
+
+		let row = [
+				link,
+				rowData.agency,
+				reportingDateString,
+				userName,
+				this.convertToLocalDate(rowData.last_modified),
+				<Status.SubmissionStatus status={rowData.rowStatus} certified={rowData.publish_status !== 'unpublished'} />
+			];
+		if(this.props.type == 'fabs') {
+			row = [
+                link,
+                rowData.agency,
+                reportingDateString,
+                userName,
+                this.convertToLocalDate(rowData.last_modified)
+            ];
+        }
+        if(PermissionsHelper.checkPermissions(this.props.session)) {
+            if(rowData.publish_status === "unpublished" && PermissionsHelper.checkAgencyPermissions(this.props.session, rowData.agency)) {
+                row.push(<DeleteLink submissionId={rowData.submission_id} index={index} warning={this.deleteWarning.bind(this)} confirm={deleteConfirm} reload={this.reload.bind(this)} item={rowData} account={this.state.account}/>);
+            }
+            else {
+                row.push("N/A");
+            }   
+        }
+		return row;
+	}
+
 	sortTable(direction, column) {
 		// the table sorting changed
         this.setState({
@@ -230,7 +266,7 @@ export default class RecentActivityTable extends React.Component {
 	render() {
 		return (
 			<div className="usa-da-recent-activity">
-				<FormattedTable headers={this.tableHeaders} data={this.state.data} sortable={true} cellClasses={this.state.cellClasses} headerClasses={this.state.headerClasses} unsortable={[0,5,6]} onSort={this.sortTable.bind(this)} />
+				<FormattedTable headers={this.getHeaders()} data={this.state.data} sortable={true} cellClasses={this.state.cellClasses} headerClasses={this.state.headerClasses} unsortable={[0,5,6]} onSort={this.sortTable.bind(this)} />
 				<div className="text-center">
 					{this.state.message}
 				</div>
