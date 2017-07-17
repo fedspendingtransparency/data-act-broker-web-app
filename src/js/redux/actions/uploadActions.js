@@ -32,6 +32,7 @@ export const setMeta = (state) => ({
 	type: 'SET_META',
 	state: {
 		agency: state.agency,
+		codeType: state.codeType,
 		startDate: state.startDate,
 		endDate: state.endDate,
 		dateType: state.dateType
