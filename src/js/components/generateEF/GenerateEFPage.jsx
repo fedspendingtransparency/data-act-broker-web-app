@@ -48,7 +48,6 @@ export default class GenerateEFPage extends React.Component {
                         </div>
                     </div>
                 </div>
-
                 {pageContent}
             </div>
             

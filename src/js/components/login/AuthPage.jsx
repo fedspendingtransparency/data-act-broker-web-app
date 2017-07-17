@@ -4,18 +4,26 @@
 **/
 
 import React from 'react';
+import { kGlobalConstants } from '../../GlobalConstants.js';
 import AuthContainer from '../../containers/login/AuthContainer.jsx';
 import LoginBanner from './LoginBanner.jsx';
 import LoginWarningTxt from './LoginWarningTxt.jsx';
 import LoginIntro from './LoginIntro.jsx';
+import TestEnvironmentBanner from '../SharedComponents/banners/TestEnvironmentBanner.jsx';
 
 
 export default class AuthPage extends React.Component {
     render() {
+        let testBanner = null;
+        if (kGlobalConstants.STAGING) {
+            testBanner = <TestEnvironmentBanner />
+        }
+
         return (
             <div className="usa-da-login-page">
                 <div className="flex-wrapper">
                     <div className="usa-da-login container-fluid">
+                        {testBanner}
                         <div className="login-banner-wrap">
                             <div className="usa-da-login-wrap">
                                 <LoginIntro/>

@@ -1,6 +1,6 @@
 /**
   * DashboardTable.jsx
-  * Created by Kevin Li 10/28/16
+  * Created by Daniel Boos 6/29/17
   **/
 
 import React from 'react';
@@ -9,13 +9,12 @@ import _ from 'lodash';
 
 import FormattedTable from '../SharedComponents/table/FormattedTable.jsx';
 import SubmissionLink from '../landing/recentActivity/SubmissionLink.jsx';
-import HistoryLink from './HistoryLink.jsx';
-import * as Status from '../landing/recentActivity//SubmissionStatus.jsx';
+import * as Status from '../landing/recentActivity/SubmissionStatus.jsx';
 import * as LoginHelper from '../../helpers/loginHelper.js';
 import * as PermissionsHelper from '../../helpers/permissionsHelper.js';
 import DeleteLink from '../landing/recentActivity/DeleteLink.jsx';
 
-import DashboardPaginator from './DashboardPaginator.jsx';
+import DashboardPaginator from '../dashboard/DashboardPaginator.jsx';
 
 const defaultProps = {
     data: [],
@@ -25,24 +24,22 @@ const defaultProps = {
 const tableHeadersActive = [
     'View',
     'Agency',
-    'Reporting Period',
+    'Action Date Range',
     'Submitted By',
     'Last Modified',
     'Status'
 ];
 
 const tableHeadersCertified = [
-    'Reporting Period',
+    'Action Date Range',
     'Agency',
     'Submitted By',
     'Last Modified',
-    'Status',
-    'Certified By',
-    'Certified On',
-    'History'
+    'Published By',
+    'Published On'
 ];
 
-export default class DashboardTable extends React.Component {
+export default class DetachedDashboardTable extends React.Component {
     constructor(props) {
         super(props);
 
@@ -67,7 +64,6 @@ export default class DashboardTable extends React.Component {
     }
 
     componentDidUpdate(prevProps, prevState) {
-
         if (!_.isEqual(prevProps.data, this.props.data)) {
             this.buildRow();
         }
@@ -124,9 +120,6 @@ export default class DashboardTable extends React.Component {
                 case 3:
                     return 'modified';
                     break;
-                case 6:
-                    return 'certified_on';
-                    break;
                 default:
                     return 'modified';
             }
@@ -173,14 +166,14 @@ export default class DashboardTable extends React.Component {
         let classes = ['row-10 text-center', 'row-20 text-center', 'row-15 text-right white-space', 'row-15 text-right', 'row-10 text-right','row-20 text-right progress-cell', 'row-10 text-center'];
 
         if(this.props.isCertified) {
-            classes = ['row-15 text-center', 'row-20 text-right white-space', 'row-12_5 text-right', 'row-10 text-right','row-20 text-right progress-cell', 'row-10 text-center', 'row-10 text-center', 'row-10 text-center']
+            classes = ['row-20 text-center', 'row-30 text-right white-space', 'row-12_5 text-right', 'row-15 text-right','row-12_5 text-right']
         }
 
         // iterate through each item returned from the API
         this.props.data.forEach((item, index) => {
-            let reportingDateString = "Start: "+item.reporting_start_date + "\nEnd: " + item.reporting_end_date;
+            let reportingDateString = "Earliest: "+item.reporting_start_date + "\nLatest: " + item.reporting_end_date;
             if (!item.reporting_start_date || !item.reporting_end_date) {
-                reportingDateString = 'No reporting period specified';
+                reportingDateString = 'No action dates found';
             }
 
             let userName = '--';
@@ -201,14 +194,12 @@ export default class DashboardTable extends React.Component {
             		certified_on = this.convertToLocalDate(certified_on)
             	}
             	row = [
-                    <SubmissionLink submissionId={item.submission_id} value={reportingDateString} />,
+                    <SubmissionLink submissionId={item.submission_id} value={reportingDateString} disabled={true}/>,
                     item.agency,
                     userName,
                     this.convertToLocalDate(item.last_modified),
-                    <Status.SubmissionStatus status={item.rowStatus} certified={this.props.isCertified} />,
                     item.certifying_user,
-                    certified_on,
-                    <HistoryLink submissionId={item.submission_id} />
+                    certified_on
                 ];
             } else {
                 row = [
@@ -275,7 +266,7 @@ export default class DashboardTable extends React.Component {
         }
         let unsortable = [0,5,6]
         if(this.props.isCertified){
-        	unsortable = [0,4,5,7]
+        	unsortable = [0,4,5]
         }
 
         return (
@@ -294,4 +285,4 @@ export default class DashboardTable extends React.Component {
     }
 }
 
-DashboardTable.defaultProps = defaultProps;
+DetachedDashboardTable.defaultProps = defaultProps;

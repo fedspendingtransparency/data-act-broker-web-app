@@ -11,72 +11,39 @@ const propTypes = {
 	submissionId: React.PropTypes.oneOfType([
 		React.PropTypes.string,
 		React.PropTypes.number
-	]).isRequired
+	]).isRequired,
+	disabled : React.PropTypes.bool
 }
 
 const defaultProps = {
-	submissionId: ''
+	submissionId: '',
+	disabled: false
 }
 
 export default class SubmissionLink extends React.Component {
 	constructor(props) {
 		super(props);
-		this.isUnmounted = false;
-		this.state = {
-			page: '/',
-			submissionId: null
-		}
 	}
 
-	componentDidMount() {	
-		this.getPage(this.props.submissionId);
-	}
-
-	componentWillUnmount() {
-		this.isUnmounted = true;
-	}
-
-	componentWillReceiveProps(nextProps) {
-		if (nextProps.submissionId !== this.state.submissionId) {
-			this.getPage(nextProps.submissionId);
-		}
-	}
-
-	getPage(submissionId) {
-		SubmissionHelper.getSubmissionPage(submissionId)
-			.then((res) => {
-				if(!this.isUnmounted){
-					this.setState({
-						page: res.url,
-						submissionId: submissionId
-					});
-				}
-			})
-			.catch((err) => {
-				if(!this.isUnmounted){
-					this.setState({
-						page: '/404',
-						submissionId: null
-					});
-				}
-			});	
-	}
 
 	render() {
-		if(this.props.value){
-			return (
-				<div className="usa-da-recent-activity-link">
-					<a href={"#" + this.state.page} className='date-link'>
-						{this.props.value}
-					</a>
-				</div>
-			);	
+		let link = <Icons.Eye alt="View" />;
+		if(this.props.value) {
+			link = this.props.value
+		}
+
+		let content = <a href={"#/submission/" + this.props.submissionId} className='date-link'>
+						{link}
+					</a>;
+
+		if(this.props.disabled) {
+			content = <div className='date-link'>
+						{link}
+					</div>;
 		}
 		return (
 			<div className="usa-da-recent-activity-link">
-				<a href={"#" + this.state.page}>
-					<Icons.Eye alt="View" />
-				</a>
+				{content}
 			</div>
 		);
 	}
