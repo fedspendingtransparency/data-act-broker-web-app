@@ -137,6 +137,15 @@ const routeDefinitions = {
             }
         },
         {
+            path: 'detachedDashboard',
+            onEnter: checkUserPermissions,
+            getComponent(nextState, cb) {
+                require.ensure([], (require) => {
+                    cb(null, require('../../components/detachedDashboard/DetachedDashboardPage.jsx').default)
+                });
+            }
+        },
+        {
             path: 'addData',
             onEnter: checkReadUserPermissions,
             component: AddDataPageContainer
@@ -157,6 +166,15 @@ const routeDefinitions = {
             getComponent(nextState, cb) {
                 require.ensure([], (require) => {
                     cb(null, require('../../components/validateData/ValidateDataPage.jsx').default)
+                });
+            }
+        },
+        {
+            path: 'submission/:submissionID',
+            onEnter: checkUserPermissions,
+            getComponent(nextState, cb) {
+                require.ensure([], (require) => {
+                    cb(null, require('../../containers/submission/SubmissionContainer.jsx').default)
                 });
             }
         },
