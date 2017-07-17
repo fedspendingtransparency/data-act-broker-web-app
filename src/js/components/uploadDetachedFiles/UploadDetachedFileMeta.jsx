@@ -250,7 +250,7 @@ export default class UploadDetachedFileMeta extends React.Component {
 									</div>
 									<div className="row">
 										<div className="col-sm-12 col-md-12 typeahead-holder" data-testid="agencytypeahead">
-											<SubTierAgencyListContainer placeholder="Enter the name of the reporting sub-tier agency" onSelect={this.handleChange.bind(this)} customClass={subTierAgencyClass} internalValue='agency_code' />
+											<SubTierAgencyListContainer placeholder="Enter the name of the reporting sub-tier agency" onSelect={this.handleChange.bind(this)} customClass={subTierAgencyClass} internalValue={['agency_code']} />
 											<div className={"usa-da-icon usa-da-form-icon" + subTierAgencyClass}>
 												<Icons.Building />
 											</div>

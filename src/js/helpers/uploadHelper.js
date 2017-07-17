@@ -259,8 +259,9 @@ const finalizeMultipleUploads = (fileIds) => {
 
 const prepareMetadata = (metadata, request) => {
 
-     // add the metadata to the request
-    request.cgac_code = metadata.agency;
+    // add the metadata to the request
+    request.cgac_code = metadata.codeType == 'cgac_code' ? metadata.agency : null;
+    request.frec_code = metadata.codeType == 'frec_code' ? metadata.agency : null;
     request.reporting_period_start_date = metadata.startDate;
     request.reporting_period_end_date = metadata.endDate;
     request.is_quarter = false;
