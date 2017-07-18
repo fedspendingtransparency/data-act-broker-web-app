@@ -48,10 +48,7 @@ export default class LandingRequirementsModal extends React.Component {
 								<Icons.Times />
 							</a>
 						</div>
-
-						<div className="usa-da-landing-modal-content">
-							<LandingBody {...this.props} />
-						</div>
+						<LandingBody {...this.props} />
 					</div>
 				</div>
 			</Modal>
