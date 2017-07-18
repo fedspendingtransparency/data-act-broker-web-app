@@ -134,16 +134,18 @@ const routeDefinitions = {
                 require.ensure([], (require) => {
                     cb(null, require('../../components/dashboard/DashboardPage.jsx').default)
                 });
-            }
+            },
+            type: 'dabs'
         },
         {
             path: 'detachedDashboard',
             onEnter: checkUserPermissions,
             getComponent(nextState, cb) {
                 require.ensure([], (require) => {
-                    cb(null, require('../../components/detachedDashboard/DetachedDashboardPage.jsx').default)
+                    cb(null, require('../../components/dashboard/DashboardPage.jsx').default)
                 });
-            }
+            },
+            type: 'fabs'
         },
         {
             path: 'addData',

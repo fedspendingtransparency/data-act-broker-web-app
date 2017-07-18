@@ -29,7 +29,8 @@ export default class DashboardContent extends React.Component {
                             total={this.props.activeTotal}
                             data={this.props.activeSubmissions}
                             page={this.state.activePage} 
-                            session={this.props.session} />
+                            session={this.props.session}
+                            type={this.props.type} />
                     </div>
                 </div>
                 <div className="row">
@@ -42,7 +43,8 @@ export default class DashboardContent extends React.Component {
                             total={this.props.certifiedTotal}
                             data={this.props.certifiedSubmissions}
                             page={this.state.certifiedPage} 
-                            session={this.props.session} />
+                            session={this.props.session}
+                            type={this.props.type} />
                     </div>
                 </div>
             </div>
