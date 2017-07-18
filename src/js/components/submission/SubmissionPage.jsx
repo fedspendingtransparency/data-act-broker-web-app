@@ -28,6 +28,7 @@ export default class LoadingPage extends React.Component {
 		let dummy = {
         	jobs: [],
             cgac_code: '',
+            frec_code: '',
             agency_name: '--',
             reporting_period_start_date: null,
             reporting_period_end_date: null,

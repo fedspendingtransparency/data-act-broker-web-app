@@ -146,7 +146,7 @@ export default class LandingContent extends React.Component {
                                     <LandingBlock type={this.props.type} icon={<Icons.Floppy />} text="Did you start a submission but were unable to complete it? No problem, we can help you pick up where you left off." buttonText={dashboardButton} url={dashboardLink} />
                                     {dBlock}
                                     <div id="modalHolder">
-                                        <LandingRequirementsModal ref="modal" gtas={this.state.gtas}/>
+                                        <LandingRequirementsModal ref="modal" gtas={this.state.gtas} type={this.props.type}/>
                                     </div>
                                 </div>
                             </div>

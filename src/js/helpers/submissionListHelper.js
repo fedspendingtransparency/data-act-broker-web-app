@@ -118,6 +118,11 @@ export const getSubmissionFile = (submissionID, certified_files_history, is_warn
     return deferred.promise;
 }
 
+<<<<<<< HEAD
 export const loadRecentActivity = (type) => {
 	return loadSubmissionList(1, 5, 'mixed', 'updated', 'desc', type=='fabs');
+=======
+export const loadRecentActivity = () => {
+	return loadSubmissionList(1, 5, 'mixed', 'updated', 'desc');
+>>>>>>> 77ed6a5a529590cf0f235359fd92e0aa5695d37c
 }
