@@ -28,7 +28,7 @@ export default class LandingBlock extends React.Component {
 	render() {
 		let size = ' col-md-4';
 		if(this.props.type=='fabs') {
-			size = ' col-md-6'
+			size = ' col-md-6';
 		}
 		return (
 			<div className={"usa-da-landing-block-wrap" + size} >
