@@ -41,7 +41,7 @@ export class Navbar extends React.Component {
         };
         if (this.props.type == 'fabs' && !this.props.session.user.helpOnly) {
             // user has FABS permissions 
-            let fabsWrite = this.props.session.admin || PermissionHelper.checkFabsWriterPerms(this.props.session);
+            let fabsWrite = this.props.session.admin || PermissionHelper.checkFabsPermissions(this.props.session);
             tabNames = {
                 'Home': 'detachedLanding',
                 'Upload & Validate New Submission': fabsWrite ? 'uploadDetachedFiles' : 'disabled',
@@ -49,9 +49,9 @@ export class Navbar extends React.Component {
                 'Help': 'help'
             };
         }
-        else if (this.props.session.admin || PermissionHelper.checkDabsPermissions(this.props.session)) {
+        else if (this.props.session.admin || PermissionHelper.checkDabsReader(this.props.session)) {
             // user has DABS permissions
-            let dabsWrite = this.props.session.admin || PermissionHelper.checkDabsWriterPerms(this.props.session);
+            let dabsWrite = this.props.session.admin || PermissionHelper.checkPermissions(this.props.session);
             tabNames = {
                 'Home': 'landing',
                 'Upload & Validate New Submission': dabsWrite ? 'submissionGuide' : 'disabled',

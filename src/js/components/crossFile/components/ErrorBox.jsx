@@ -225,7 +225,7 @@ export default class ErrorBox extends React.Component {
 		}
 		let uploadHeader = null;
 		let upload = null;
-		if (PermissionsHelper.checkDabsAgencyPermissions(this.props.session, this.state.agency_name)) {
+		if (PermissionsHelper.checkAgencyPermissions(this.props.session, this.state.agency_name)) {
 			uploadHeader = 'Upload Corrected Files';
 			upload = <div>
 						<div className="row mb-10">

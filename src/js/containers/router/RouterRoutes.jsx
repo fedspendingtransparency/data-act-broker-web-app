@@ -70,7 +70,7 @@ const checkUserPermissions = (nextState, replace) => {
     if (session.login != "loggedIn") {
         performAutoLogin(nextState.location, replace);
     }
-    else if (session.user.helpOnly || (nextState.routes.length > 1 && nextState.routes[1].type == 'dabs' && !PermissionsHelper.checkDabsPermissions(session))) {
+    else if (session.user.helpOnly || (nextState.routes.length > 1 && nextState.routes[1].type == 'dabs' && !PermissionsHelper.checkDabsReader(session))) {
         // if no permissions or attempting to reach DABS with improper permissions, bounce to help
         replace('/help');
     }

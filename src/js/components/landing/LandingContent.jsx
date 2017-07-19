@@ -92,13 +92,13 @@ export default class LandingContent extends React.Component {
 
         let uploadBlock = <LandingBlock type={this.props.type} icon={<Icons.CloudUpload />} text="In order to upload and validate your agency's files, please follow the link below to request access" buttonText="Request Access" url="https://community.max.gov/x/fJwuRQ"></LandingBlock>;
         if (this.props.type == 'fabs') {
-            if (permissionHelper.checkFabsWriterPerms(this.props.session)) {
+            if (permissionHelper.checkFabsPermissions(this.props.session)) {
                 uploadBlock = <LandingBlock type={this.props.type} icon={<Icons.CloudUpload />} text="Ready to upload and validate your agency's files? Great, we'll be happy to walk you through the process." buttonText="Upload & Validate a New Submission" url="#/uploadDetachedFiles">
                                   <LandingBlockBottomLink onClick={this.clickedUploadReqs.bind(this)} />
                               </LandingBlock>
             }
         }
-        else if (permissionHelper.checkDabsWriterPerms(this.props.session)) {
+        else if (permissionHelper.checkPermissions(this.props.session)) {
             uploadBlock = <LandingBlock type={this.props.type} icon={<Icons.CloudUpload />} text="Ready to upload and validate your agency's files? Great, we'll be happy to walk you through the process." buttonText="Upload & Validate a New Submission" url="#/submissionGuide">
                               <LandingBlockBottomLink onClick={this.clickedUploadReqs.bind(this)} />
                           </LandingBlock>

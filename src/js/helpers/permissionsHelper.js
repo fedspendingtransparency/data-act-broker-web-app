@@ -1,6 +1,6 @@
 import { dispatch } from 'redux';
 
-export const checkDabsPermissions = (session) => {
+export const checkDabsReader = (session) => {
     if (session.admin) {
         return true;
     }
@@ -16,7 +16,7 @@ export const checkDabsPermissions = (session) => {
     return false;
 }
 
-export const checkDabsWriterPerms = (session) => {
+export const checkPermissions = (session) => {
     if (session.admin) {
         return true;
     }
@@ -32,7 +32,7 @@ export const checkDabsWriterPerms = (session) => {
     return false;
 }
 
-export const checkFabsWriterPerms = (session) => {
+export const checkFabsPermissions = (session) => {
     if (session.admin) {
         return true;
     }
@@ -48,7 +48,7 @@ export const checkFabsWriterPerms = (session) => {
     return false;
 }
 
-export const checkDabsAgencyPermissions = (session, agency_name) => {
+export const checkAgencyPermissions = (session, agency_name) => {
     if (session.admin) {
         return true;
     }

@@ -101,7 +101,7 @@ export default class GenerateFilesOverlay extends React.Component {
 		}
 
 		if (!buttonDisabled) {
-			buttonDisabled = !PermissionHelper.checkDabsAgencyPermissions(this.props.session, this.state.agency_name);
+			buttonDisabled = !PermissionHelper.checkAgencyPermissions(this.props.session, this.state.agency_name);
 		}
 
 		return (

@@ -250,7 +250,7 @@ export default class DashboardTable extends React.Component {
                     this.convertToLocalDate(item.last_modified),
                     <Status.SubmissionStatus status={item.rowStatus} certified={this.props.isCertified} />
                 ];    
-                if (PermissionsHelper.checkFabsWriterPerms(this.props.session)) {
+                if (PermissionsHelper.checkFabsPermissions(this.props.session)) {
                     if (item.publish_status === "unpublished" && PermissionsHelper.checkFabsAgencyPermissions(this.props.session, item.agency)) {
                         row.push(<DeleteLink submissionId={item.submission_id} index={index} warning={this.deleteWarning.bind(this)} confirm={deleteConfirm} reload={this.reload.bind(this)} item={item} account={this.state.account}/>);
                     }
@@ -286,8 +286,8 @@ export default class DashboardTable extends React.Component {
                     this.convertToLocalDate(item.last_modified),
                     <Status.SubmissionStatus status={item.rowStatus} certified={this.props.isCertified} />
                 ];    
-                if (PermissionsHelper.checkDabsWriterPerms(this.props.session)) {
-                    if (item.publish_status === "unpublished" && PermissionsHelper.checkDabsAgencyPermissions(this.props.session, item.agency)) {
+                if (PermissionsHelper.checkPermissions(this.props.session)) {
+                    if (item.publish_status === "unpublished" && PermissionsHelper.checkAgencyPermissions(this.props.session, item.agency)) {
                         row.push(<DeleteLink submissionId={item.submission_id} index={index} warning={this.deleteWarning.bind(this)} confirm={deleteConfirm} reload={this.reload.bind(this)} item={item} account={this.state.account}/>);
                     }
                     else {
@@ -355,11 +355,11 @@ export default class DashboardTable extends React.Component {
         //cannot be added to the const because if a user is read only then delete will not be created
 
         if (this.state.type == 'fabs') {
-            if (PermissionsHelper.checkFabsWriterPerms(this.props.session) && !this.props.isCertified){
+            if (PermissionsHelper.checkFabsPermissions(this.props.session) && !this.props.isCertified){
                 headers = headers.concat('Delete');
             }
         }
-        else if (PermissionsHelper.checkDabsWriterPerms(this.props.session) && !this.props.isCertified){
+        else if (PermissionsHelper.checkPermissions(this.props.session) && !this.props.isCertified){
             headers = headers.concat('Delete');
         }
 
