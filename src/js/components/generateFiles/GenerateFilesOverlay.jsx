@@ -100,8 +100,8 @@ export default class GenerateFilesOverlay extends React.Component {
 			header = "Your files have been generated. Click Next to begin cross-file validations.";
 		}
 
-		if(!buttonDisabled){
-			buttonDisabled = !PermissionHelper.checkAgencyPermissions(this.props.session, this.state.agency_name);
+		if (!buttonDisabled) {
+			buttonDisabled = !PermissionHelper.checkDabsAgencyPermissions(this.props.session, this.state.agency_name);
 		}
 
 		return (

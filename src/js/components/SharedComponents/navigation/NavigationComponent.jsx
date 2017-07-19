@@ -35,32 +35,26 @@ export class Navbar extends React.Component {
     }
 
     getTabs() {
-        let tabNames = {};
-        if (this.props.session.user.helpOnly) {
+        // default access: only Help page
+        let tabNames = {
+            'Help': 'help'
+        };
+        if (this.props.type == 'fabs' && !this.props.session.user.helpOnly) {
+            // user has FABS permissions 
+            let fabsWrite = this.props.session.admin || PermissionHelper.checkFabsWriterPerms(this.props.session);
             tabNames = {
+                'Home': 'detachedLanding',
+                'Upload & Validate New Submission': fabsWrite ? 'uploadDetachedFiles' : 'disabled',
+                'Submission Dashboard': 'detachedDashboard',
                 'Help': 'help'
             };
         }
-        else if (this.props.session.admin || PermissionHelper.checkPermissions(this.props.session)){
-            if(this.props.type == 'fabs') {
-                tabNames = {
-                    'Home': 'detachedLanding',
-                    'Upload & Validate New Submission': 'uploadDetachedFiles',
-                    'Submission Dashboard': 'detachedDashboard',
-                    'Help': 'help'
-                };
-            }else {
-                tabNames = {
-                    'Home': 'landing',
-                    'Upload & Validate New Submission': 'submissionGuide',
-                    'Submission Dashboard': 'dashboard',
-                    'Help': 'help'
-                };
-            }
-        } else {
+        else if (this.props.session.admin || PermissionHelper.checkDabsPermissions(this.props.session)) {
+            // user has DABS permissions
+            let dabsWrite = this.props.session.admin || PermissionHelper.checkDabsWriterPerms(this.props.session);
             tabNames = {
                 'Home': 'landing',
-                'Upload & Validate New Submission': 'disabled',
+                'Upload & Validate New Submission': dabsWrite ? 'submissionGuide' : 'disabled',
                 'Submission Dashboard': 'dashboard',
                 'Help': 'help'
             };
@@ -70,7 +64,6 @@ export class Navbar extends React.Component {
 
     render() {
         let tabNames = this.getTabs();
-        
 
         let headerTabs = [];
         const context = this;
@@ -89,8 +82,8 @@ export class Navbar extends React.Component {
             headerTabs = null;
         }
 
-        let testBanner = null;
         let navClass = "";
+        let testBanner = null;
         if (kGlobalConstants.STAGING) {
             navClass = " tall";
             testBanner = <TestEnvironmentBanner />

@@ -251,7 +251,13 @@ export default class ValidateDataFileComponent extends React.Component {
             }
         }
 
-        let permission = PermissionsHelper.checkAgencyPermissions(this.props.session, this.state.agency_name);
+        let permission = false;
+        if (this.props.type.requestName == 'detached_award') {
+            permission = PermissionsHelper.checkFabsAgencyPermissions(this.props.session, this.state.agency_name);
+        }
+        else {
+            permission = PermissionsHelper.checkDabsAgencyPermissions(this.props.session, this.state.agency_name);
+        }
 
         if (!this.state.hasErrors && !this.state.hasWarnings && !this.props.published && permission) {
             optionalUpload = true;

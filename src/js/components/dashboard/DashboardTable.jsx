@@ -212,10 +212,7 @@ export default class DashboardTable extends React.Component {
             userName = item.user.name;
         }
 
-        let deleteConfirm = false;
-        if(this.state.deleteIndex !== -1 && index === this.state.deleteIndex){
-            deleteConfirm = true;
-        }
+        let deleteConfirm = this.state.deleteIndex !== -1 && index === this.state.deleteIndex;
 
         let link = <SubmissionLink submissionId={item.submission_id} />;
         if(this.state.type == "fabs") {
@@ -229,10 +226,10 @@ export default class DashboardTable extends React.Component {
         }
 
         let row = [];
-        if(this.state.type == 'fabs') {
-            if(this.props.isCertified){
+        if (this.state.type == 'fabs') {
+            if (this.props.isCertified) {
                 let certified_on = item.certified_on;
-                if(certified_on !== "") {
+                if (certified_on !== "") {
                     certified_on = this.convertToLocalDate(certified_on)
                 }
                 row = [
@@ -243,7 +240,8 @@ export default class DashboardTable extends React.Component {
                     item.certifying_user,
                     certified_on
                 ];
-            } else {
+            }
+            else {
                 row = [
                     link,
                     item.agency,
@@ -252,8 +250,8 @@ export default class DashboardTable extends React.Component {
                     this.convertToLocalDate(item.last_modified),
                     <Status.SubmissionStatus status={item.rowStatus} certified={this.props.isCertified} />
                 ];    
-                if(PermissionsHelper.checkPermissions(this.props.session)) {
-                    if(item.publish_status === "unpublished" && PermissionsHelper.checkAgencyPermissions(this.props.session, item.agency)) {
+                if (PermissionsHelper.checkFabsWriterPerms(this.props.session)) {
+                    if (item.publish_status === "unpublished" && PermissionsHelper.checkFabsAgencyPermissions(this.props.session, item.agency)) {
                         row.push(<DeleteLink submissionId={item.submission_id} index={index} warning={this.deleteWarning.bind(this)} confirm={deleteConfirm} reload={this.reload.bind(this)} item={item} account={this.state.account}/>);
                     }
                     else {
@@ -261,10 +259,11 @@ export default class DashboardTable extends React.Component {
                     }   
                 }
             }
-        }else {
-            if(this.props.isCertified){
+        }
+        else {
+            if (this.props.isCertified){
                 let certified_on = item.certified_on;
-                if(certified_on !== "") {
+                if (certified_on !== "") {
                     certified_on = this.convertToLocalDate(certified_on)
                 }
                 row = [
@@ -277,7 +276,8 @@ export default class DashboardTable extends React.Component {
                     certified_on,
                     <HistoryLink submissionId={item.submission_id} />
                 ];
-            } else {
+            }
+            else {
                 row = [
                     link,
                     item.agency,
@@ -286,8 +286,8 @@ export default class DashboardTable extends React.Component {
                     this.convertToLocalDate(item.last_modified),
                     <Status.SubmissionStatus status={item.rowStatus} certified={this.props.isCertified} />
                 ];    
-                if(PermissionsHelper.checkPermissions(this.props.session)) {
-                    if(item.publish_status === "unpublished" && PermissionsHelper.checkAgencyPermissions(this.props.session, item.agency)) {
+                if (PermissionsHelper.checkDabsWriterPerms(this.props.session)) {
+                    if (item.publish_status === "unpublished" && PermissionsHelper.checkDabsAgencyPermissions(this.props.session, item.agency)) {
                         row.push(<DeleteLink submissionId={item.submission_id} index={index} warning={this.deleteWarning.bind(this)} confirm={deleteConfirm} reload={this.reload.bind(this)} item={item} account={this.state.account}/>);
                     }
                     else {
@@ -306,7 +306,7 @@ export default class DashboardTable extends React.Component {
 
         let classes = ['row-10 text-center', 'row-20 text-center', 'row-15 text-right white-space', 'row-15 text-right', 'row-10 text-right','row-20 text-right progress-cell', 'row-10 text-center'];
 
-        if(this.props.isCertified) {
+        if (this.props.isCertified) {
             classes = ['row-15 text-center', 'row-20 text-right white-space', 'row-12_5 text-right', 'row-10 text-right','row-20 text-right progress-cell', 'row-10 text-center', 'row-10 text-center', 'row-10 text-center']
         }
 
@@ -354,15 +354,20 @@ export default class DashboardTable extends React.Component {
 
         //cannot be added to the const because if a user is read only then delete will not be created
 
-        if(PermissionsHelper.checkPermissions(this.props.session) && !this.props.isCertified){
+        if (this.state.type == 'fabs') {
+            if (PermissionsHelper.checkFabsWriterPerms(this.props.session) && !this.props.isCertified){
+                headers = headers.concat('Delete');
+            }
+        }
+        else if (PermissionsHelper.checkDabsWriterPerms(this.props.session) && !this.props.isCertified){
             headers = headers.concat('Delete');
         }
 
-        let unsortable = [0,5,6]
+        let unsortable = [0,5,6];
         if(this.props.isCertified && this.state.type == 'fabs'){
-            unsortable = [0,4,5]
+            unsortable = [0,4,5];
         } else if(this.props.isCertified) {
-        	unsortable = [0,4,5,7]
+        	unsortable = [0,4,5,7];
         }
 
         return (

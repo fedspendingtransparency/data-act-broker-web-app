@@ -35,7 +35,7 @@ export default class RecentActivityTable extends React.Component {
 	}
 
 	componentWillReceiveProps(nextProps){
-		if(this.props.type != nextProps.type){
+		if (this.props.type != nextProps.type) {
 			this.loadActivity(nextProps.type);
 			this.loadUser();
 		}
@@ -54,7 +54,7 @@ export default class RecentActivityTable extends React.Component {
 	loadUser(){
 		LoginHelper.fetchActiveUser().then((user)=>{
 			this.setState({account: user});
-		})
+		});
 	}
 
 	convertToLocalDate(dateToConvert) {
@@ -114,36 +114,33 @@ export default class RecentActivityTable extends React.Component {
     }
 
     getHeaders(){
-		if(this.props.type == 'fabs') {
-			return [
-			'View',
-		    'Agency',
-		    'Action Date Range',
-		    'Submitted By',
-		    'Last Modified', 
-		    'Delete'
-		    ]
+    	let headers = [];
+		if (this.props.type == 'fabs') {
+			headers = [
+				'View',
+			    'Agency',
+			    'Action Date Range',
+			    'Submitted By',
+			    'Last Modified'
+		    ];
+		    if (PermissionsHelper.checkFabsWriterPerms(this.props.session)) {
+		    	headers.push('Delete');
+		    }
 		}
-		else if(PermissionsHelper.checkPermissions(this.props.session)) {
-			return [
-			'View',
-			'Agency',
-			'Reporting Period',
-			'Submitted By',
-			'Last Modified',
-			'Status',
-			'Delete'
-			];	
-		} else {
-			return [
-			'View',
-			'Agency',
-			'Reporting Period',
-			'Submitted By',
-			'Last Modified',
-			'Status'
+		else {
+			headers = [
+				'View',
+				'Agency',
+				'Reporting Period',
+				'Submitted By',
+				'Last Modified',
+				'Status'
 			];
+			if (PermissionsHelper.checkDabsWriterPerms(this.props.session)) {
+				headers.push('Delete');
+			}
 		}
+		return headers;
     }
 
 	convertToLocalDate(dateToConvert) {
@@ -171,7 +168,7 @@ export default class RecentActivityTable extends React.Component {
 		const rowClasses = [];
 
 		let classes = ['row-10 text-center', 'row-20 text-center', 'row-15 text-right white-space', 'row-15 text-right', 'row-10 text-right','row-20 text-right progress-cell', 'row-10 text-center'];
-		if(this.props.type == 'fabs') {
+		if (this.props.type == 'fabs') {
 			classes = ['row-10 text-center', 'row-40 text-center', 'row-15 text-right white-space', 'row-15 text-right', 'row-15 text-right','row-10 text-center'];
 		}
 		// sort the array by object key
@@ -189,64 +186,52 @@ export default class RecentActivityTable extends React.Component {
 
 		const headerClasses = classes;
 
-		let message = '';
-		if (data.length == 0) {
-			message = 'No recent activity';
-		}
-
 		this.setState({
 			data: output,
 			cellClasses: rowClasses,
 			headerClasses: headerClasses,
-			message: message
+			message: (data.length == 0) ? 'No recent activity' : ''
 		});
 	}
 
 	formatRow(rowData, index) {
-		let link = <SubmissionLink submissionId={rowData.submission_id} />;
-		if(rowData.publish_status === "published") {
-			link = <SubmissionLink submissionId={rowData.submission_id} disabled={true} />
-		}
+		let link = <SubmissionLink submissionId={rowData.submission_id} disabled={(rowData.publish_status === "published")} />
 		
 		let reportingDateString = "Start: " + rowData.reporting_start_date + "\nEnd: " + rowData.reporting_end_date;
 		if (!rowData.reporting_start_date || !rowData.reporting_end_date) {
 			reportingDateString = 'No reporting period specified';
 		}
-
-		let userName = '--';
-		if (rowData.hasOwnProperty('user')) {
-			userName = rowData.user.name;
-		}
-
-		let deleteConfirm = false;
-        if(this.state.deleteIndex !== -1 && index === this.state.deleteIndex){
-            deleteConfirm = true;
-        }
+		let userName = rowData.hasOwnProperty('user') ? rowData.user.name : '--';
+		let deleteConfirm = (this.state.deleteIndex !== -1 && index === this.state.deleteIndex);
 
 		let row = [
 				link,
 				rowData.agency,
 				reportingDateString,
 				userName,
-				this.convertToLocalDate(rowData.last_modified),
-				<Status.SubmissionStatus status={rowData.rowStatus} certified={rowData.publish_status !== 'unpublished'} />
+				this.convertToLocalDate(rowData.last_modified)
 			];
-		if(this.props.type == 'fabs') {
-			row = [
-                link,
-                rowData.agency,
-                reportingDateString,
-                userName,
-                this.convertToLocalDate(rowData.last_modified)
-            ];
+		if (this.props.type == 'fabs') {
+            if (PermissionsHelper.checkFabsWriterPerms(this.props.session)) {
+	            if(rowData.publish_status === "unpublished" && PermissionsHelper.checkFabsAgencyPermissions(this.props.session, rowData.agency)) {
+	                row.push(<DeleteLink submissionId={rowData.submission_id} index={index} warning={this.deleteWarning.bind(this)} confirm={deleteConfirm} reload={this.reload.bind(this)} item={rowData} account={this.state.account}/>);
+	            }
+	            else {
+	                row.push("N/A");
+	            }
+	        }
         }
-        if(PermissionsHelper.checkPermissions(this.props.session)) {
-            if(rowData.publish_status === "unpublished" && PermissionsHelper.checkAgencyPermissions(this.props.session, rowData.agency)) {
-                row.push(<DeleteLink submissionId={rowData.submission_id} index={index} warning={this.deleteWarning.bind(this)} confirm={deleteConfirm} reload={this.reload.bind(this)} item={rowData} account={this.state.account}/>);
-            }
-            else {
-                row.push("N/A");
-            }   
+        else {
+        	row.push(<Status.SubmissionStatus status={rowData.rowStatus} certified={rowData.publish_status !== 'unpublished'} />);
+
+        	if (PermissionsHelper.checkDabsWriterPerms(this.props.session)) {
+	            if (rowData.publish_status === "unpublished" && PermissionsHelper.checkDabsAgencyPermissions(this.props.session, rowData.agency)) {
+	                row.push(<DeleteLink submissionId={rowData.submission_id} index={index} warning={this.deleteWarning.bind(this)} confirm={deleteConfirm} reload={this.reload.bind(this)} item={rowData} account={this.state.account}/>);
+	            }
+	            else {
+	                row.push("N/A");
+	            }
+	        }
         }
 		return row;
 	}

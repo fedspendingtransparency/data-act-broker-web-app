@@ -8,6 +8,7 @@ import SubmissionGuideContainer from '../../containers/addData/SubmissionGuideCo
 import AddDataPageContainer from '../../containers/addData/AddDataPageContainer.jsx';
 import UploadDetachedFilesPageContainer from '../../containers/uploadDetachedFiles/UploadDetachedFilesPageContainer.jsx';
 import GenerateDetachedFilesPageContainer from '../../containers/generateDetachedFiles/GenerateDetachedFilesPageContainer.jsx';
+import * as PermissionsHelper from '../../helpers/permissionsHelper.js';
 
 import StoreSingleton from '../../redux/storeSingleton.js';
 
@@ -69,8 +70,8 @@ const checkUserPermissions = (nextState, replace) => {
     if (session.login != "loggedIn") {
         performAutoLogin(nextState.location, replace);
     }
-    else if (session.user.helpOnly) {
-        // if no permissions, bounce to help
+    else if (session.user.helpOnly || (nextState.routes.length > 1 && nextState.routes[1].type == 'dabs' && !PermissionsHelper.checkDabsPermissions(session))) {
+        // if no permissions or attempting to reach DABS with improper permissions, bounce to help
         replace('/help');
     }
 }

@@ -186,7 +186,7 @@ export default class CrossFileOverlay extends React.Component {
 		}
 
 		// enable the upload button if the correct files have been staged for upload
-		if ((this.state.allowUpload || this.isUploadingFiles()) && PermissionsHelper.checkAgencyPermissions(this.props.session, this.state.agency_name)) {
+		if ((this.state.allowUpload || this.isUploadingFiles()) && PermissionsHelper.checkDabsAgencyPermissions(this.props.session, this.state.agency_name)) {
 			overlay.uploadButtonDisabled = false;
 			overlay.uploadButtonClass = ' btn-primary';
 		} else {

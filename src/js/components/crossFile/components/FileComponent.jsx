@@ -47,7 +47,7 @@ export default class FileComponent extends React.Component {
 
 	render() {
 		let replaceButton = null;
-		if (this.props.status == 'success' && PermissionsHelper.checkAgencyPermissions(this.props.session, this.state.agency_name)) {
+		if (this.props.status == 'success' && PermissionsHelper.checkDabsAgencyPermissions(this.props.session, this.state.agency_name)) {
 			replaceButton = <ReplacementButton buttonClicked={this.props.toggleUploadBox} {...this.props} />;
 		}	
 	

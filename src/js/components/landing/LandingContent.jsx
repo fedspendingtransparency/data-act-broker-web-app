@@ -66,9 +66,10 @@ export default class LandingContent extends React.Component {
         const limit=3;
 
         let agencyName = 'Your Agency';
-        if(affiliations && affiliations.length > limit && !this.state.expanded){
+        if (affiliations && affiliations.length > limit && !this.state.expanded) {
             agencyName = affiliations.slice(0, limit).map((a) => a.agency_name).join(', ') + "...";
-        }else if(affiliations && affiliations.length > 0){
+        }
+        else if (affiliations && affiliations.length > 0) {
             agencyName = affiliations.map((a) => a.agency_name).join(', ');
         }
 
@@ -78,27 +79,29 @@ export default class LandingContent extends React.Component {
         let expandContent = '';
         let gtasWarning = null;
 
-        if(affiliations && affiliations.length > limit && !this.state.expanded){
+        if (affiliations && affiliations.length > limit && !this.state.expanded) {
             recentHeader +='-hidden';
             recentActivity +='-hidden';
             expand = 'expand-button block'
             expandContent = 'Show More';
-        }else if(affiliations && affiliations.length > limit && this.state.expanded){
+        }
+        else if (affiliations && affiliations.length > limit && this.state.expanded) {
             expand = 'expand-button block'
             expandContent = 'Show Less';
         }
 
-        let uploadBlock = <LandingBlock icon={<Icons.CloudUpload />} text="In order to upload and validate your agency's files, please follow the link below to request access" buttonText="Request Access" url="https://community.max.gov/x/fJwuRQ"></LandingBlock>;
-        if(permissionHelper.checkPermissions(this.props.session)){
-            if(this.props.type=='fabs'){
+        let uploadBlock = <LandingBlock type={this.props.type} icon={<Icons.CloudUpload />} text="In order to upload and validate your agency's files, please follow the link below to request access" buttonText="Request Access" url="https://community.max.gov/x/fJwuRQ"></LandingBlock>;
+        if (this.props.type == 'fabs') {
+            if (permissionHelper.checkFabsWriterPerms(this.props.session)) {
                 uploadBlock = <LandingBlock type={this.props.type} icon={<Icons.CloudUpload />} text="Ready to upload and validate your agency's files? Great, we'll be happy to walk you through the process." buttonText="Upload & Validate a New Submission" url="#/uploadDetachedFiles">
-                                    <LandingBlockBottomLink onClick={this.clickedUploadReqs.bind(this)} />
-                            </LandingBlock>
-            }else {
-                uploadBlock = <LandingBlock type={this.props.type} icon={<Icons.CloudUpload />} text="Ready to upload and validate your agency's files? Great, we'll be happy to walk you through the process." buttonText="Upload & Validate a New Submission" url="#/submissionGuide">
-                                    <LandingBlockBottomLink onClick={this.clickedUploadReqs.bind(this)} />
-                            </LandingBlock>
+                                  <LandingBlockBottomLink onClick={this.clickedUploadReqs.bind(this)} />
+                              </LandingBlock>
             }
+        }
+        else if (permissionHelper.checkDabsWriterPerms(this.props.session)) {
+            uploadBlock = <LandingBlock type={this.props.type} icon={<Icons.CloudUpload />} text="Ready to upload and validate your agency's files? Great, we'll be happy to walk you through the process." buttonText="Upload & Validate a New Submission" url="#/submissionGuide">
+                              <LandingBlockBottomLink onClick={this.clickedUploadReqs.bind(this)} />
+                          </LandingBlock>
         }
 
         if(this.state.gtas){
