@@ -120,7 +120,14 @@ const routeDefinitions = {
         {
             path: 'landing',
             onEnter: checkUserPermissions,
-            component: LandingPage
+            component: LandingPage,
+            type: 'dabs'
+        },
+        {
+            path: 'detachedLanding',
+            onEnter: checkUserPermissions,
+            component: LandingPage,
+            type: 'fabs'
         },
         {
             path: 'submissionGuide',
@@ -155,12 +162,14 @@ const routeDefinitions = {
         {
             path: 'uploadDetachedFiles/:submissionID',
             onEnter: checkUserPermissions,
-            component: UploadDetachedFilesPageContainer
+            component: UploadDetachedFilesPageContainer,
+            type:'fabs'
         },
         {
             path: 'uploadDetachedFiles',
             onEnter: checkUserPermissions,
-            component: UploadDetachedFilesPageContainer
+            component: UploadDetachedFilesPageContainer,
+            type:'fabs'
         },
         {
             path: 'validateData/:submissionID',

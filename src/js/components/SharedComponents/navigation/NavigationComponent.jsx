@@ -42,12 +42,21 @@ export class Navbar extends React.Component {
             };
         }
         else if (this.props.session.admin || PermissionHelper.checkPermissions(this.props.session)){
-            tabNames = {
-                'Home': 'landing',
-                'Upload & Validate New Submission': 'submissionGuide',
-                'Submission Dashboard': 'dashboard',
-                'Help': 'help'
-            };
+            if(this.props.type == 'fabs') {
+                tabNames = {
+                    'Home': 'detachedLanding',
+                    'Upload & Validate New Submission': 'uploadDetachedFiles',
+                    'Submission Dashboard': 'detachedDashboard',
+                    'Help': 'help'
+                };
+            }else {
+                tabNames = {
+                    'Home': 'landing',
+                    'Upload & Validate New Submission': 'submissionGuide',
+                    'Submission Dashboard': 'dashboard',
+                    'Help': 'help'
+                };
+            }
         } else {
             tabNames = {
                 'Home': 'landing',

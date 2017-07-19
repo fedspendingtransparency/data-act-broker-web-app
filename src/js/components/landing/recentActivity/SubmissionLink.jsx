@@ -30,6 +30,8 @@ export default class SubmissionLink extends React.Component {
 		let link = <Icons.Eye alt="View" />;
 		if(this.props.value) {
 			link = this.props.value
+		} else if(this.props.disabled) {
+			link = 'N/A'
 		}
 
 		let content = <a href={"#/submission/" + this.props.submissionId} className='date-link'>

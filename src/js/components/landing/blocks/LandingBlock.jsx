@@ -11,7 +11,8 @@ const propTypes = {
 	buttonText: React.PropTypes.string,
 	url: React.PropTypes.string,
 	disabled: React.PropTypes.bool,
-	comingSoon: React.PropTypes.string
+	comingSoon: React.PropTypes.string,
+	type: React.PropTypes.string
 };
 
 const defaultProps = {
@@ -19,13 +20,18 @@ const defaultProps = {
 	buttonText: '',
 	url: '#/',
 	disabled: false,
-	comingSoon: ''
+	comingSoon: '',
+	type: 'dabs'
 };
 
 export default class LandingBlock extends React.Component {
 	render() {
+		let size = ' col-md-4';
+		if(this.props.type=='fabs') {
+			size = ' col-md-6';
+		}
 		return (
-			<div className="usa-da-landing-block-wrap col-md-4">
+			<div className={"usa-da-landing-block-wrap" + size} >
 				<div className={"usa-da-landing-block " + this.props.comingSoon}>
 					<div className="usa-da-landing-block-icon text-center">
 						{this.props.icon}

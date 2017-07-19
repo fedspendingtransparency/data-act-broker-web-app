@@ -90,24 +90,49 @@ export default class LandingContent extends React.Component {
 
         let uploadBlock = <LandingBlock icon={<Icons.CloudUpload />} text="In order to upload and validate your agency's files, please follow the link below to request access" buttonText="Request Access" url="https://community.max.gov/x/fJwuRQ"></LandingBlock>;
         if(permissionHelper.checkPermissions(this.props.session)){
-            uploadBlock = <LandingBlock icon={<Icons.CloudUpload />} text="Ready to upload and validate your agency's files? Great, we'll be happy to walk you through the process." buttonText="Upload & Validate a New Submission" url="#/submissionGuide">
-                                <LandingBlockBottomLink onClick={this.clickedUploadReqs.bind(this)} />
-                        </LandingBlock>
+            if(this.props.type=='fabs'){
+                uploadBlock = <LandingBlock type={this.props.type} icon={<Icons.CloudUpload />} text="Ready to upload and validate your agency's files? Great, we'll be happy to walk you through the process." buttonText="Upload & Validate a New Submission" url="#/uploadDetachedFiles">
+                                    <LandingBlockBottomLink onClick={this.clickedUploadReqs.bind(this)} />
+                            </LandingBlock>
+            }else {
+                uploadBlock = <LandingBlock type={this.props.type} icon={<Icons.CloudUpload />} text="Ready to upload and validate your agency's files? Great, we'll be happy to walk you through the process." buttonText="Upload & Validate a New Submission" url="#/submissionGuide">
+                                    <LandingBlockBottomLink onClick={this.clickedUploadReqs.bind(this)} />
+                            </LandingBlock>
+            }
         }
 
         if(this.state.gtas){
             gtasWarning = <GTASBanner data={this.state.gtas}/>
         }
+        let dBlock = <LandingBlock icon={<Icons.CloudDownload />} text="Generate your D1 and D2 award files without having to create a submission." buttonText="Generate D Files" url="#/generateDetachedFiles" />;
+        let dashboardLink = '#/dashboard'
+        let dashboardButton = 'Continue or Certify a Saved Submission'
+        if(this.props.type=='fabs'){
+            dBlock = null;
+            dashboardLink = '#/detachedDashboard'
+            dashboardButton = 'Continue or Publish a Saved Submission'
+        }
+
+        let header = "Welcome to the DATA Act Broker";
+        let headerBody = <div>
+                            <p>Upload your agency’s files and validate them against the latest version of the DATA Act Information Model Schema (DAIMS).</p>
+                            <p>Details on how to format your data, including required and optional fields, can be found in the <a href="https://broker.usaspending.gov/#/resources" target="_blank" rel="noopener noreferrer" >Resources section.</a>.</p>
+                        </div>;
+        let headerClass = 'dark';
+        if(this.props.type == 'fabs') {
+            header = "Financial Assistance Broker Submission (FABS)";
+            headerBody = <div></div>
+            headerClass = 'teal'
+        }
 
         return (
                 <div className="site_content">
-                    <div className="usa-da-content-dark">
+                    <div className={"usa-da-content-"+headerClass}>
                         <div className="container">
                             <div className="row usa-da-content-landing usa-da-page-title">
                                 <div className="col-md-7 mt-40 mb-50">
-                                    <h1 className="display-2" data-contentstart="start" tabIndex={-1}>Welcome to the DATA Act Broker</h1>
-                                    <p>Upload your agency’s files and validate them against the latest version of the DATA Act Information Model Schema (DAIMS).</p>
-                                    <p>Details on how to format your data, including required and optional fields, can be found in the <a href="https://broker.usaspending.gov/#/resources" target="_blank" rel="noopener noreferrer" >Resources section.</a>.</p>
+                                    <h1 className="display-2" data-contentstart="start" tabIndex={-1}>{header}</h1>
+                                    {headerBody}
                                 </div>
                             </div>
                         </div>
@@ -118,10 +143,10 @@ export default class LandingContent extends React.Component {
                             <div className="usa-da-landing col-md-12">
                                 <div className="usa-da-landing-btns">
                                     {uploadBlock}
-                                    <LandingBlock icon={<Icons.Floppy />} text="Did you start a submission but were unable to complete it? No problem, we can help you pick up where you left off." buttonText="Continue or Certify a Saved Submission" url="#/dashboard" />
-                                    <LandingBlock icon={<Icons.CloudDownload />} text="Generate your D1 and D2 award files without having to create a submission." buttonText="Generate D Files" url="#/generateDetachedFiles" />
+                                    <LandingBlock type={this.props.type} icon={<Icons.Floppy />} text="Did you start a submission but were unable to complete it? No problem, we can help you pick up where you left off." buttonText={dashboardButton} url={dashboardLink} />
+                                    {dBlock}
                                     <div id="modalHolder">
-                                        <LandingRequirementsModal ref="modal" gtas={this.state.gtas}/>
+                                        <LandingRequirementsModal ref="modal" gtas={this.state.gtas} type={this.props.type}/>
                                     </div>
                                 </div>
                             </div>
