@@ -202,36 +202,36 @@ export default class RecentActivityTable extends React.Component {
 			reportingDateString = 'No reporting period specified';
 		}
 		let userName = rowData.hasOwnProperty('user') ? rowData.user.name : '--';
-		let deleteConfirm = (this.state.deleteIndex !== -1 && index === this.state.deleteIndex);
 
 		let row = [
-				link,
-				rowData.agency,
-				reportingDateString,
-				userName,
-				this.convertToLocalDate(rowData.last_modified)
-			];
-		if (this.props.type == 'fabs') {
-            if (PermissionsHelper.checkFabsPermissions(this.props.session)) {
-	            if(rowData.publish_status === "unpublished" && PermissionsHelper.checkFabsAgencyPermissions(this.props.session, rowData.agency)) {
-	                row.push(<DeleteLink submissionId={rowData.submission_id} index={index} warning={this.deleteWarning.bind(this)} confirm={deleteConfirm} reload={this.reload.bind(this)} item={rowData} account={this.state.account}/>);
-	            }
-	            else {
-	                row.push("N/A");
-	            }
-	        }
-        }
-        else {
-        	row.push(<Status.SubmissionStatus status={rowData.rowStatus} certified={rowData.publish_status !== 'unpublished'} />);
+			link,
+			rowData.agency,
+			reportingDateString,
+			userName,
+			this.convertToLocalDate(rowData.last_modified)
+		];
 
-        	if (PermissionsHelper.checkPermissions(this.props.session)) {
-	            if (rowData.publish_status === "unpublished" && PermissionsHelper.checkAgencyPermissions(this.props.session, rowData.agency)) {
-	                row.push(<DeleteLink submissionId={rowData.submission_id} index={index} warning={this.deleteWarning.bind(this)} confirm={deleteConfirm} reload={this.reload.bind(this)} item={rowData} account={this.state.account}/>);
-	            }
-	            else {
-	                row.push("N/A");
-	            }
+		let deleteRow = false;
+		let canDelete = rowData.publish_status === "unpublished";
+		if (this.props.type === 'fabs') {
+			let deleteRow = PermissionsHelper.checkFabsPermissions(this.props.session);
+			let canDelete = canDelete && PermissionsHelper.checkFabsAgencyPermissions(this.props.session, rowData.agency)
+		}
+		else {
+			row.push(<Status.SubmissionStatus status={rowData.rowStatus} certified={rowData.publish_status !== 'unpublished'} />);
+
+			deleteRow = PermissionsHelper.checkPermissions(this.props.session);
+			canDelete = canDelete && PermissionsHelper.checkAgencyPermissions(this.props.session, rowData.agency);
+		}
+
+        if (deleteRow) {
+        	if (canDelete) {
+				let deleteConfirm = (this.state.deleteIndex !== -1 && index === this.state.deleteIndex);
+	        	row.push(<DeleteLink submissionId={rowData.submission_id} index={index} warning={this.deleteWarning.bind(this)} confirm={deleteConfirm} reload={this.reload.bind(this)} item={rowData} account={this.state.account}/>);
 	        }
+        	else {
+        		row.push("N/A");
+        	}
         }
 		return row;
 	}
