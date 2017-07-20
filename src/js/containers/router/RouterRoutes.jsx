@@ -106,7 +106,8 @@ const routeDefinitions = {
     path: '/',
     indexRoute: {
         onEnter: checkUserPermissions,
-        component: LandingPage
+        component: LandingPage,
+        type: 'home'
     },
     childRoutes: [
         {
