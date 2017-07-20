@@ -17,7 +17,7 @@ export const fetchAgencies = () => {
                 deferred.reject(err);
             }
             else {
-                deferred.resolve(res.body['cgac_agency_list']);
+                deferred.resolve(res.body['cgac_agency_list'].concat(res.body['frec_agency_list']));
             }
         });
 
@@ -35,7 +35,7 @@ export const fetchAllAgencies = () => {
                 deferred.reject(err);
             }
             else {
-                deferred.resolve(res.body['cgac_agency_list']);
+                deferred.resolve(res.body['agency_list'].concat(res.body['shared_agency_list']));
             }
         });
 
@@ -60,10 +60,12 @@ export const fetchSubTierAgencies = () => {
     return deferred.promise;
 }
 
-export function checkYearQuarter(cgac, year, quarter) {  
+export function checkYearQuarter(cgac, frec, year, quarter) {
 
     const deferred = Q.defer();
-    Request.get(kGlobalConstants.API + `check_year_quarter/?cgac_code=${cgac}&reporting_fiscal_year=${year}&reporting_fiscal_period=${quarter}`)
+    cgac = cgac ? cgac : '';
+    frec = frec ? frec : '';
+    Request.get(kGlobalConstants.API + `check_year_quarter/?cgac_code=${cgac}&frec_code=${frec}&reporting_fiscal_year=${year}&reporting_fiscal_period=${quarter}`)
         .end((err, res) => {
             if (err) {
                 const response = Object.assign({}, res.body);

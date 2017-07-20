@@ -8,6 +8,7 @@ import { kGlobalConstants } from '../../../GlobalConstants.js';
 import NavbarTab from './NavbarTab.jsx';
 import UserButton from './UserButton.jsx';
 import SkipNavigationLink from './SkipNavigationLink.jsx';
+import TestEnvironmentBanner from '../banners/TestEnvironmentBanner.jsx';
 
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
@@ -79,10 +80,18 @@ export class Navbar extends React.Component {
             headerTabs = null;
         }
 
+        let testBanner = null;
+        let navClass = "";
+        if (kGlobalConstants.STAGING) {
+            navClass = " tall";
+            testBanner = <TestEnvironmentBanner />
+        }
+
         return (
-            <nav className="navbar navbar-default usa-da-header">
+            <nav className={"navbar navbar-default usa-da-header" + navClass}>
                 <SkipNavigationLink />
                 <a className="hidden-screen-reader" href="#">Home</a>
+                {testBanner}
                 <div className="container-fluid">
                     <div className="row">
                         <div className="col-md-12 usa-da-top-head">

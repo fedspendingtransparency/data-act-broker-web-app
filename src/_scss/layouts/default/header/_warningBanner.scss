@@ -1,0 +1,27 @@
+@import "../../../components/alerts/_alerts";
+
+// this is the warning banner at the top of the page
+@mixin headerWarningBanner {	
+    .usa-da-header-warning-banner {
+        @include baseAlert;
+        @include alert-variant($alert-warning-bg, $alert-warning-border, black);
+
+        margin: 0 !important;
+        height: $warning-banner-height;
+        width: 100%;
+
+        .usa-da-icon {
+            top: 5px;
+        }
+
+        p {
+            padding: ($warning-banner-height / 5);
+            margin: 0 0 0 48px;
+            vertical-align: middle;
+        }
+
+        svg {
+            fill: #f0ad4e;
+        }
+    }
+}
