@@ -19,8 +19,9 @@ class HelpPageContainer extends React.Component {
         super(props);
 
         this.state = {
-          helpOnly: false
-      };
+            helpOnly: false,
+            type: props.route.type
+        };
     }
 
     componentDidMount() {
@@ -40,35 +41,23 @@ class HelpPageContainer extends React.Component {
     }
 
     render() {
-       if (this.props.route.path == 'help') {
-           return (
-                <HelpPage {...this.props} helpOnly={this.state.helpOnly} />
-             );
+       if (this.props.route.path == 'help' || this.props.route.path == 'detachedHelp') {
+            return <HelpPage {...this.props} helpOnly={this.state.helpOnly} type={this.state.type} />;
        }
-       else if (this.props.route.path == 'resources') {
-           return (
-                <ResourcesPage {...this.props} helpOnly={this.state.helpOnly} />
-             );
+       else if (this.props.route.path == 'resources' || this.props.route.path == 'detachedResources') {
+            return <ResourcesPage {...this.props} helpOnly={this.state.helpOnly} type={this.state.type} />;
        }
-       else if (this.props.route.path == 'validations') {
-            return (
-                <ValidationRulesTablePage {...this.props} helpOnly={this.state.helpOnly} />
-            );
+       else if (this.props.route.path == 'validations' || this.props.route.path == 'detachedValidations') {
+            return <ValidationRulesTablePage {...this.props} helpOnly={this.state.helpOnly} type={this.state.type} />;
         }
-        else if (this.props.route.path == 'practices') {
-            return (
-                <PracticesProceduresPage {...this.props} helpOnly={this.state.helpOnly} />
-            );
+        else if (this.props.route.path == 'practices' || this.props.route.path == 'detachedPractices') {
+            return <PracticesProceduresPage {...this.props} helpOnly={this.state.helpOnly} type={this.state.type} />;
         }
-        else if (this.props.route.path == 'history') {
-            return (
-                <HistoryPage {...this.props} history='release' helpOnly={this.state.helpOnly} />
-            );
+        else if (this.props.route.path == 'history' || this.props.route.path == 'detachedHistory') {
+            return <HistoryPage {...this.props} history='release' helpOnly={this.state.helpOnly} type={this.state.type} />;
         }
-        else if (this.props.route.path == 'technicalHistory') {
-            return (
-                <HistoryPage {...this.props} history='technical' helpOnly={this.state.helpOnly} />
-            );
+        else if (this.props.route.path == 'technicalHistory' || this.props.route.path == 'detachedTechnicalHistory') {
+            return <HistoryPage {...this.props} history='technical' helpOnly={this.state.helpOnly} type={this.state.type} />;
         }
     }
 }
