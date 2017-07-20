@@ -24,10 +24,11 @@ export default class ResourcesPage extends React.Component {
 
     render() {
         const resources = this.props.type === 'fabs' ? '#/detachedResources' : '#/resources';
+        const activeTab = this.props.type === 'fabs' ? 'detachedHelp' : 'help';
         return (
             <div className="usa-da-help-style-page" name="top">
                 <div className="usa-da-page-content">
-                    <Navbar activeTab="help" type={this.props.type} />
+                    <Navbar activeTab={activeTab} type={this.props.type} />
                     <div className="usa-da-content-dark mb-60">
                         <div className="container">
                             <div className="row">
@@ -49,7 +50,7 @@ export default class ResourcesPage extends React.Component {
                 </div>
                 <Footer />
                 <div className="usa-da-help-top-button">
-                    <a href={resources+"?section=top"} aria-label="Back to top">
+                    <a href={resources + "?section=top"} aria-label="Back to top">
                         <div className="usa-da-icon">
                             <Icons.AngleUp alt="Arrow pointing up" />
                         </div>

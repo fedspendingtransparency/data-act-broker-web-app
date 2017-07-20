@@ -24,10 +24,11 @@ export default class DashboardPage extends React.Component {
     }
 
 	render() {
+        const activeTab = this.state.type === 'fabs' ? 'detachedDashboard' : 'dashboard';
 		return (
             <div>
                 <div className="usa-da-site_wrap usa-da-dashboard-page">
-                    <Navbar activeTab="dashboard" type={this.state.type} />
+                    <Navbar activeTab={activeTab} type={this.state.type} />
                     <div className="usa-da-content-dark">
                         <div className="container">
                             <div className="row">

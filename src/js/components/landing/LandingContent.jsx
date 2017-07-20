@@ -110,7 +110,6 @@ export default class LandingContent extends React.Component {
 
         let blockContent = <BlockContent type={this.props.type} clickedUploadReqs={this.clickedUploadReqs} session={this.props.session}/>
 
-        console.log(this.props);
         let recentActivityTable = <div className="container">
                         <div className="row">
                             <div className="col-md-12">

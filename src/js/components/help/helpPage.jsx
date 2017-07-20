@@ -59,11 +59,11 @@ export default class HelpPage extends React.Component {
     }
 
     render() {
-        const help = this.props.type === 'fabs' ? '#/detachedHelp' : '#/help';
+        const help = this.props.type === 'fabs' ? 'detachedHelp' : 'help';
         return (
             <div className="usa-da-help-style-page" name="top">
                 <div className="usa-da-page-content">
-                    <Navbar activeTab="help" type={this.props.type} />
+                    <Navbar activeTab={help} type={this.props.type} />
                     <div className="usa-da-content-dark mb-60">
                         <div className="container">
                             <div className="row">
@@ -88,7 +88,7 @@ export default class HelpPage extends React.Component {
                 </div>
                 <Footer />
                 <div className="usa-da-help-top-button">
-                    <a href={help+"?section=top"} aria-label="Back to top">
+                    <a href={'#/' + help + "?section=top"} aria-label="Back to top">
                         <div className="usa-da-icon">
                             <Icons.AngleUp alt="Arrow pointing up" />
                         </div>

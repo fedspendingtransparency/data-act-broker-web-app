@@ -111,7 +111,7 @@ const checkHelpUserPermissions = (nextState, replace) => {
 const routeDefinitions = {
     path: '/',
     indexRoute: {
-        onEnter: checkHelpUserPermissions,
+        onEnter: kGlobalConstants.STAGING ? checkHelpUserPermissions : checkUserPermissions,
         component: LandingPage,
         type: kGlobalConstants.STAGING ? 'home' : 'dabs'
     },
