@@ -106,7 +106,8 @@ const routeDefinitions = {
     path: '/',
     indexRoute: {
         onEnter: checkUserPermissions,
-        component: LandingPage
+        component: LandingPage,
+        type: kGlobalConstants.STAGING ? 'home' : 'dabs'
     },
     childRoutes: [
         {

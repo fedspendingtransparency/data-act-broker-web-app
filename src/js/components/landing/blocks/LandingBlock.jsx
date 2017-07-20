@@ -27,7 +27,7 @@ const defaultProps = {
 export default class LandingBlock extends React.Component {
 	render() {
 		let size = ' col-md-4';
-		if(this.props.type=='fabs') {
+		if(this.props.type!='dabs') {
 			size = ' col-md-6';
 		}
 		return (

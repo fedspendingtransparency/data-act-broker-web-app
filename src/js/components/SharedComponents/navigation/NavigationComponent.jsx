@@ -85,7 +85,7 @@ export class Navbar extends React.Component {
             headerTabs.push(<NavbarTab key={tabNames[key]} name={key} tabClass={tabNames[key]} activeTabClassName={context.props.activeTab} />);
         });
 
-        if (this.props.logoOnly) {
+        if (this.props.logoOnly || this.props.type=='home') {
             headerTabs = null;
         }
 
@@ -121,7 +121,7 @@ export class Navbar extends React.Component {
                                 <span className="icon-bar"></span>
                                 <span className="icon-bar"></span>
                             </button>
-                            <a className="navbar-brand usa-da-header-brand" href="#/landing">DATA Act Broker</a>
+                            <a className="navbar-brand usa-da-header-brand" href="#/">DATA Act Broker</a>
                         </div>
 
                         <div className="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
