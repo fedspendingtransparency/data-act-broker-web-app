@@ -198,101 +198,85 @@ export default class DashboardTable extends React.Component {
     formatRow(item, index) {
         let start = "Start: ";
         let end = "\nEnd: ";
-        if(this.state.type == 'fabs'){
-            start="Earliest: ";
-            end="\nLatest: "
+        if (this.state.type == 'fabs') {
+            start = "Earliest: ";
+            end = "\nLatest: "
         }
-        let reportingDateString = start+item.reporting_start_date + end + item.reporting_end_date;
+        let reportingDateString = start + item.reporting_start_date + end + item.reporting_end_date;
         if (!item.reporting_start_date || !item.reporting_end_date) {
             reportingDateString = 'No reporting period specified';
         }
 
-        let userName = '--';
-        if (item.hasOwnProperty('user')) {
-            userName = item.user.name;
-        }
+        let userName = item.hasOwnProperty('user') ? item.user.name : '--';
 
         let deleteConfirm = this.state.deleteIndex !== -1 && index === this.state.deleteIndex;
 
         let link = <SubmissionLink submissionId={item.submission_id} />;
-        if(this.state.type == "fabs") {
+        if (this.state.type == "fabs") {
             if(this.props.isCertified) {
                 link = <SubmissionLink submissionId={item.submission_id} value={reportingDateString} disabled={true}/>;
-            } else {
-                link = <SubmissionLink submissionId={item.submission_id} />;
             }
         } else if(this.props.isCertified) {
             link = <SubmissionLink submissionId={item.submission_id} value={reportingDateString} />;
         }
 
         let row = [];
-        if (this.state.type == 'fabs') {
-            if (this.props.isCertified) {
-                let certified_on = item.certified_on;
-                if (certified_on !== "") {
-                    certified_on = this.convertToLocalDate(certified_on)
-                }
-                row = [
-                    link,
-                    item.agency,
-                    userName,
-                    this.convertToLocalDate(item.last_modified),
+        if (this.props.isCertified) {
+            // Certified Submissions table
+            row = [
+                link,
+                item.agency,
+                userName,
+                this.convertToLocalDate(item.last_modified)
+            ];
+
+            let certified_on = item.certified_on;
+            if (certified_on !== "") {
+                certified_on = this.convertToLocalDate(certified_on)
+            }
+            if (this.props.type === 'fabs') {
+                row = row.concat([
                     item.certifying_user,
                     certified_on
-                ];
+                ]);
             }
             else {
-                row = [
-                    link,
-                    item.agency,
-                    reportingDateString,
-                    userName,
-                    this.convertToLocalDate(item.last_modified),
-                    <Status.SubmissionStatus status={item.rowStatus} certified={this.props.isCertified} />
-                ];    
-                if (PermissionsHelper.checkFabsPermissions(this.props.session)) {
-                    if (item.publish_status === "unpublished" && PermissionsHelper.checkFabsAgencyPermissions(this.props.session, item.agency)) {
-                        row.push(<DeleteLink submissionId={item.submission_id} index={index} warning={this.deleteWarning.bind(this)} confirm={deleteConfirm} reload={this.reload.bind(this)} item={item} account={this.state.account}/>);
-                    }
-                    else {
-                        row.push("N/A");
-                    }   
-                }
-            }
-        }
-        else {
-            if (this.props.isCertified){
-                let certified_on = item.certified_on;
-                if (certified_on !== "") {
-                    certified_on = this.convertToLocalDate(certified_on)
-                }
-                row = [
-                    link,
-                    item.agency,
-                    userName,
-                    this.convertToLocalDate(item.last_modified),
+                row = row.concat([
                     <Status.SubmissionStatus status={item.rowStatus} certified={this.props.isCertified} />,
                     item.certifying_user,
                     certified_on,
                     <HistoryLink submissionId={item.submission_id} />
-                ];
+                ]);
+            }
+        }
+        else {
+            // Active Submissions table
+            row = [
+                link,
+                item.agency,
+                reportingDateString,
+                userName,
+                this.convertToLocalDate(item.last_modified),
+                <Status.SubmissionStatus status={item.rowStatus} certified={this.props.isCertified} />
+            ];
+
+            let deleteCol = false;
+            let canDelete = item.publish_status === 'unpublished';
+            if (this.props.state === 'fabs') {
+                deleteCol = PermissionsHelper.checkFabsPermissions(this.props.session);
+                canDelete = canDelete && PermissionsHelper.checkFabsAgencyPermissions(this.props.session, item.agency);
             }
             else {
-                row = [
-                    link,
-                    item.agency,
-                    reportingDateString,
-                    userName,
-                    this.convertToLocalDate(item.last_modified),
-                    <Status.SubmissionStatus status={item.rowStatus} certified={this.props.isCertified} />
-                ];    
-                if (PermissionsHelper.checkPermissions(this.props.session)) {
-                    if (item.publish_status === "unpublished" && PermissionsHelper.checkAgencyPermissions(this.props.session, item.agency)) {
-                        row.push(<DeleteLink submissionId={item.submission_id} index={index} warning={this.deleteWarning.bind(this)} confirm={deleteConfirm} reload={this.reload.bind(this)} item={item} account={this.state.account}/>);
-                    }
-                    else {
-                        row.push("N/A");
-                    }   
+                deleteCol = PermissionsHelper.checkPermissions(this.props.session);
+                canDelete = canDelete && PermissionsHelper.checkAgencyPermissions(this.props.session, item.agency);
+            }
+
+            if (deleteCol) {
+                if (canDelete) {
+                    row.push(<DeleteLink submissionId={item.submission_id} index={index} warning={this.deleteWarning.bind(this)} confirm={deleteConfirm} reload={this.reload.bind(this)} item={item} account={this.state.account}/>);
+                }
+                else {
+                    row.push('N/A');
                 }
             }
         }

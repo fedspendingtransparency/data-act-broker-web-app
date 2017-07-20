@@ -211,20 +211,20 @@ export default class RecentActivityTable extends React.Component {
 			this.convertToLocalDate(rowData.last_modified)
 		];
 
-		let deleteRow = false;
+		let deleteCol = false;
 		let canDelete = rowData.publish_status === "unpublished";
 		if (this.props.type === 'fabs') {
-			let deleteRow = PermissionsHelper.checkFabsPermissions(this.props.session);
-			let canDelete = canDelete && PermissionsHelper.checkFabsAgencyPermissions(this.props.session, rowData.agency)
+			deleteCol = PermissionsHelper.checkFabsPermissions(this.props.session);
+			canDelete = canDelete && PermissionsHelper.checkFabsAgencyPermissions(this.props.session, rowData.agency)
 		}
 		else {
 			row.push(<Status.SubmissionStatus status={rowData.rowStatus} certified={rowData.publish_status !== 'unpublished'} />);
 
-			deleteRow = PermissionsHelper.checkPermissions(this.props.session);
+			deleteCol = PermissionsHelper.checkPermissions(this.props.session);
 			canDelete = canDelete && PermissionsHelper.checkAgencyPermissions(this.props.session, rowData.agency);
 		}
 
-        if (deleteRow) {
+        if (deleteCol) {
         	if (canDelete) {
 				let deleteConfirm = (this.state.deleteIndex !== -1 && index === this.state.deleteIndex);
 	        	row.push(<DeleteLink submissionId={rowData.submission_id} index={index} warning={this.deleteWarning.bind(this)} confirm={deleteConfirm} reload={this.reload.bind(this)} item={rowData} account={this.state.account}/>);
