@@ -20,7 +20,7 @@ export default class BlockContent extends React.Component {
     render() {
         let firstBlock = <LandingBlock icon={<Icons.CloudUpload />} text="In order to upload and validate your agency's files, please follow the link below to request access" buttonText="Request Access" url="https://community.max.gov/x/fJwuRQ"></LandingBlock>;
         if(this.props.type=='home'){
-        	firstBlock = <LandingBlock type={this.props.type} icon={<h5>DATA Act Broker Submission</h5>} text="Enter this section to submit quarterly and monthly financial reports or to update and certify existing submissions." buttonText='Enter' url='#/landing' />
+        	firstBlock = <LandingBlock type={this.props.type} icon={<h5>DATA Act Broker Submission</h5>} text="Submit quarterly and monthly financial data." buttonText='Enter' url='#/landing' />
         } else if(permissionHelper.checkPermissions(this.props.session)){
             if(this.props.type=='fabs'){
                 firstBlock = <LandingBlock type={this.props.type} icon={<Icons.CloudUpload />} text="Ready to upload and validate your agency's files? Great, we'll be happy to walk you through the process." buttonText="Upload & Validate a New Submission" url="#/uploadDetachedFiles">
@@ -35,7 +35,7 @@ export default class BlockContent extends React.Component {
 
 	    let secondBlock = <LandingBlock type={this.props.type} icon={<Icons.Floppy />} text="Did you start a submission but were unable to complete it? No problem, we can help you pick up where you left off." buttonText='Continue or Certify a Saved Submission' url='#/dashboard' />
         if(this.props.type=='home') {
-        	secondBlock = <LandingBlock type={this.props.type} icon={<h5>Financial Assistance Broker Submission</h5>} text="Upload and publish Financial Assistance data" buttonText='Enter' url='#/detachedLanding' />
+        	secondBlock = <LandingBlock type={this.props.type} icon={<h5>Financial Assistance Broker Submission</h5>} text="Submit bi-monthly Financial Assistance award data." buttonText='Enter' url='#/detachedLanding' />
         }else if(this.props.type=='fabs'){
             <LandingBlock type={this.props.type} icon={<Icons.Floppy />} text="Did you start a submission but were unable to complete it? No problem, we can help you pick up where you left off." buttonText='Continue or Publish a Saved Submission' url='#/detachedDashboard' />
         }else if(this.props.type=='home') {
