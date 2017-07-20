@@ -64,7 +64,7 @@ export default class HistoryContent extends React.Component {
     render() {
         return (
             <div className="usa-da-help-content">
-		<h2>{this.props.title}</h2>
+                <h2>{this.props.title}</h2>
                 <div dangerouslySetInnerHTML={{__html:this.props.history}} />
             </div>
         );

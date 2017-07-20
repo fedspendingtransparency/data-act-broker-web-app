@@ -47,7 +47,7 @@ export class Navbar extends React.Component {
                     'Home': 'detachedLanding',
                     'Upload & Validate New Submission': 'uploadDetachedFiles',
                     'Submission Dashboard': 'detachedDashboard',
-                    'Help': 'help'
+                    'Help': 'detachedHelp'
                 };
             }else {
                 tabNames = {

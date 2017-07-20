@@ -13,7 +13,7 @@ export default class DashboardPage extends React.Component {
         super(props)
 
         this.state = {
-            type: this.props.route.type
+            type: props.route.type
         }
     }
 
