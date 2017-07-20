@@ -24,6 +24,14 @@ class HelpPageContainer extends React.Component {
         };
     }
 
+    componentWillReceiveProps(nextProps) {
+        if (nextProps.route.type !== this.state.type) {
+            this.setState({
+                type: nextProps.route.type
+            });
+        }
+    }
+
     componentDidMount() {
         this.checkHelpOnly();
     }
