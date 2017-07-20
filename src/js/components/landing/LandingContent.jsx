@@ -94,19 +94,23 @@ export default class LandingContent extends React.Component {
         }
 
         let header = "Welcome to the DATA Act Broker";
-        let headerBody = <div>
+        let headerBody = <div></div>;
+        let headerClass = 'dark';
+        if (this.props.type == 'fabs') {
+            header = "Financial Assistance Broker Submission (FABS)";
+            headerClass = 'teal'
+        }
+        if (this.props.type == 'dabs') {
+            header = "DATA Act Broker Submission (DABS)";
+            headerBody = <div>
                             <p>Upload your agency’s files and validate them against the latest version of the DATA Act Information Model Schema (DAIMS).</p>
                             <p>Details on how to format your data, including required and optional fields, can be found in the <a href="https://broker.usaspending.gov/#/resources" target="_blank" rel="noopener noreferrer" >Resources section.</a>.</p>
                         </div>;
-        let headerClass = 'dark';
-        if(this.props.type == 'fabs') {
-            header = "Financial Assistance Broker Submission (FABS)";
-            headerBody = <div></div>
-            headerClass = 'teal'
         }
 
         let blockContent = <BlockContent type={this.props.type} clickedUploadReqs={this.clickedUploadReqs} session={this.props.session}/>
 
+        console.log(this.props);
         let recentActivityTable = <div className="container">
                         <div className="row">
                             <div className="col-md-12">
@@ -121,7 +125,7 @@ export default class LandingContent extends React.Component {
                             </div>
                         </div>
                     </div>;
-        if(this.props.type == 'home'){
+        if (this.props.type == 'home'){
             recentActivityTable = null;
         }
 
@@ -130,7 +134,7 @@ export default class LandingContent extends React.Component {
                     <div className={"usa-da-content-"+headerClass}>
                         <div className="container">
                             <div className="row usa-da-content-landing usa-da-page-title">
-                                <div className="col-md-7 mt-40 mb-50">
+                                <div className="col-md-8 mt-40 mb-50">
                                     <h1 className="display-2" data-contentstart="start" tabIndex={-1}>{header}</h1>
                                     {headerBody}
                                 </div>

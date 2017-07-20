@@ -14,17 +14,15 @@ export default class LandingPage extends React.Component {
     }
 
     render() {
-        let activeTab = 'landing';
-        if(this.props.route.type=='fabs') {
-            activeTab = 'detachedLanding'
-        }
+        let activeTab = this.props.route.type === 'fabs' ? 'detachedLanding' : 'landing';
+
         return (
             <div>
                 <div className="usa-da-site_wrap">
                     <div className="usa-da-landing-page">
         	            <div className="usa-da-page-content">
         	                <Navbar activeTab={activeTab} type={this.props.route.type} />
-        	                <LandingContentContainer type={this.props.route.type} />
+        	                <LandingContentContainer type={this.props.route.type}/>
         	            </div>
                     </div>
                 </div>

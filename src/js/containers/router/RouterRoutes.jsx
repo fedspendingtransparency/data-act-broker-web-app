@@ -70,6 +70,11 @@ const checkUserPermissions = (nextState, replace) => {
     if (session.login != "loggedIn") {
         performAutoLogin(nextState.location, replace);
     }
+    else if (kGlobalConstants.STAGING) {
+        if (session.user.helpOnly || (nextState.routes.length > 1 && nextState.routes[1].type == 'dabs' && !PermissionsHelper.checkDabsReader(session))) {
+            replace('/');
+        }
+    }
     else if (session.user.helpOnly || (nextState.routes.length > 1 && nextState.routes[1].type == 'dabs' && !PermissionsHelper.checkDabsReader(session))) {
         // if no permissions or attempting to reach DABS with improper permissions, bounce to help
         replace('/help');
@@ -106,7 +111,7 @@ const checkHelpUserPermissions = (nextState, replace) => {
 const routeDefinitions = {
     path: '/',
     indexRoute: {
-        onEnter: checkUserPermissions,
+        onEnter: checkHelpUserPermissions,
         component: LandingPage,
         type: kGlobalConstants.STAGING ? 'home' : 'dabs'
     },
@@ -165,13 +170,13 @@ const routeDefinitions = {
             path: 'uploadDetachedFiles/:submissionID',
             onEnter: checkUserPermissions,
             component: UploadDetachedFilesPageContainer,
-            type:'fabs'
+            type: 'fabs'
         },
         {
             path: 'uploadDetachedFiles',
             onEnter: checkUserPermissions,
             component: UploadDetachedFilesPageContainer,
-            type:'fabs'
+            type: 'fabs'
         },
         {
             path: 'validateData/:submissionID',
@@ -180,7 +185,8 @@ const routeDefinitions = {
                 require.ensure([], (require) => {
                     cb(null, require('../../components/validateData/ValidateDataPage.jsx').default)
                 });
-            }
+            },
+            type: 'dabs'
         },
         {
             path: 'submission/:submissionID',
@@ -189,7 +195,8 @@ const routeDefinitions = {
                 require.ensure([], (require) => {
                     cb(null, require('../../containers/submission/SubmissionContainer.jsx').default)
                 });
-            }
+            },
+            type: 'dabs'
         },
         {
             path: 'generateFiles/:submissionID',
@@ -198,7 +205,8 @@ const routeDefinitions = {
                 require.ensure([], (require) => {
                     cb(null, require('../../components/generateFiles/GenerateFilesPage.jsx').default)
                 });
-            }
+            },
+            type: 'dabs'
         },
         {
             path: 'generateEF/:submissionID',
@@ -207,7 +215,8 @@ const routeDefinitions = {
                 require.ensure([], (require) => {
                     cb(null, require('../../components/generateEF/GenerateEFPage.jsx').default)
                 });
-            }
+            },
+            type: 'dabs'
         },
         {
             path: 'validateCrossFile/:submissionID',
@@ -216,7 +225,8 @@ const routeDefinitions = {
                 require.ensure([], (require) => {
                     cb(null, require('../../components/crossFile/CrossFilePage.jsx').default)
                 });
-            }
+            },
+            type: 'dabs'
         },
         {
             path: 'reviewData/:submissionID',
@@ -225,7 +235,8 @@ const routeDefinitions = {
                 require.ensure([], (require) => {
                     cb(null, require('../../containers/review/ReviewDataContainer.jsx').default)
                 });
-            }
+            },
+            type: 'dabs'
         },
         {
             path: 'submissionHistory/:submissionID',
@@ -234,12 +245,14 @@ const routeDefinitions = {
                 require.ensure([], (require) => {
                     cb(null, require('../../containers/history/HistoryContainer.jsx').default)
                 });
-            }
+            },
+            type: 'dabs'
         },
         {
             path: 'generateDetachedFiles',
             onEnter: checkUserPermissions,
-            component: GenerateDetachedFilesPageContainer
+            component: GenerateDetachedFilesPageContainer,
+            type: 'dabs'
         },
         {
             path: 'help',
@@ -248,7 +261,8 @@ const routeDefinitions = {
                 require.ensure([], (require) => {
                     cb(null, require('../../containers/help/HelpContainer.jsx').default)
                 });
-            }
+            },
+            type: 'dabs'
         },
         {
             path: 'practices',
@@ -257,7 +271,8 @@ const routeDefinitions = {
                 require.ensure([], (require) => {
                     cb(null, require('../../containers/help/HelpContainer.jsx').default)
                 });
-            }
+            },
+            type: 'dabs'
         },
         {
             path: 'validations',
@@ -266,7 +281,8 @@ const routeDefinitions = {
                 require.ensure([], (require) => {
                     cb(null, require('../../containers/help/HelpContainer.jsx').default)
                 });
-            }
+            },
+            type: 'dabs'
         },
 		{
             path: 'resources',
@@ -275,7 +291,8 @@ const routeDefinitions = {
                 require.ensure([], (require) => {
                     cb(null, require('../../containers/help/HelpContainer.jsx').default)
                 });
-            }
+            },
+            type: 'dabs'
         },
 
 		{
@@ -285,7 +302,8 @@ const routeDefinitions = {
                 require.ensure([], (require) => {
                     cb(null, require('../../containers/help/HelpContainer.jsx').default)
                 });
-            }
+            },
+            type: 'dabs'
         },
         {
             path: 'technicalHistory',
@@ -294,7 +312,8 @@ const routeDefinitions = {
                 require.ensure([], (require) => {
                     cb(null, require('../../containers/help/HelpContainer.jsx').default)
                 });
-            }
+            },
+            type: 'dabs'
         },
         {
             path: 'detachedHelp',

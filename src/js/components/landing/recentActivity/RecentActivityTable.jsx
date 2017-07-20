@@ -169,7 +169,7 @@ export default class RecentActivityTable extends React.Component {
 
 		let classes = ['row-10 text-center', 'row-20 text-center', 'row-15 text-right white-space', 'row-15 text-right', 'row-10 text-right','row-20 text-right progress-cell', 'row-10 text-center'];
 		if (this.props.type == 'fabs') {
-			classes = ['row-10 text-center', 'row-40 text-center', 'row-15 text-right white-space', 'row-15 text-right', 'row-15 text-right','row-10 text-center'];
+			classes = ['row-10 text-center', 'row-40 text-center', 'row-15 text-right', 'row-15 text-right', 'row-15 text-right','row-10 text-center'];
 		}
 		// sort the array by object key
 		const orderKeys = ['sortableAgency', 'sortableReportingDate', 'sortableName', 'sortableDate'];

@@ -15,10 +15,6 @@ import { connect } from 'react-redux';
 import * as sessionActions from '../../../redux/actions/sessionActions.js';
 import * as PermissionHelper from '../../../helpers/permissionsHelper.js';
 
-const defaultProps = {
-    logoOnly: false
-};
-
 export class Navbar extends React.Component {
     constructor(props) {
         super(props);
@@ -39,7 +35,7 @@ export class Navbar extends React.Component {
         let tabNames = {
             'Help': 'help'
         };
-        if (this.props.type == 'fabs' && !this.props.session.user.helpOnly) {
+        if (this.props.type === 'fabs' && !this.props.session.user.helpOnly) {
             // user has FABS permissions 
             let fabsWrite = this.props.session.admin || PermissionHelper.checkFabsPermissions(this.props.session);
             tabNames = {
@@ -49,7 +45,7 @@ export class Navbar extends React.Component {
                 'Help': 'detachedhelp'
             };
         }
-        else if (this.props.session.admin || PermissionHelper.checkDabsReader(this.props.session)) {
+        else if (this.props.type !== 'home' && (this.props.session.admin || PermissionHelper.checkDabsReader(this.props.session))) {
             // user has DABS permissions
             let dabsWrite = this.props.session.admin || PermissionHelper.checkPermissions(this.props.session);
             tabNames = {
@@ -77,10 +73,6 @@ export class Navbar extends React.Component {
         Object.keys(tabNames).map((key) => {
             headerTabs.push(<NavbarTab key={tabNames[key]} name={key} tabClass={tabNames[key]} activeTabClassName={context.props.activeTab} />);
         });
-
-        if (this.props.logoOnly || this.props.type=='home') {
-            headerTabs = null;
-        }
 
         let navClass = "";
         let testBanner = null;
@@ -128,8 +120,6 @@ export class Navbar extends React.Component {
         );
     }
 }
-
-Navbar.defaultProps = defaultProps;
 
 export default connect(
   state => ({ session: state.session }),

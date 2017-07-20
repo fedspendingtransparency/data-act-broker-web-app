@@ -26,9 +26,9 @@ const defaultProps = {
 
 export default class LandingBlock extends React.Component {
 	render() {
-		let size = ' col-md-4';
-		if(this.props.type!='dabs') {
-			size = ' col-md-6';
+		let size = ' col-md-6';
+		if(this.props.type === 'dabs') {
+			size = ' col-md-4';
 		}
 		return (
 			<div className={"usa-da-landing-block-wrap" + size} >
