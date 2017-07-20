@@ -67,9 +67,10 @@ export default class DashboardTable extends React.Component {
     }
 
     getHeaders() {
-        if(this.state.type=='fabs'){
-            if(this.props.isCertified){
-                return [
+        let headers = [];
+        if (this.props.isCertified) {
+            if (this.state.type === 'fabs') {
+                headers = [
                     'Action Date Range',
                     'Agency',
                     'Submitted By',
@@ -77,19 +78,9 @@ export default class DashboardTable extends React.Component {
                     'Published By',
                     'Published On'
                 ];
-            }else{
-                return [
-                    'View',
-                    'Agency',
-                    'Action Date Range',
-                    'Submitted By',
-                    'Last Modified',
-                    'Status'
-                ];
             }
-        } else {
-            if(this.props.isCertified) {
-                return [
+            else {
+                headers = [
                     'Reporting Period',
                     'Agency',
                     'Submitted By',
@@ -99,17 +90,32 @@ export default class DashboardTable extends React.Component {
                     'Certified On',
                     'History'
                 ];
-            } else {
-                return [
-                    'View',
-                    'Agency',
-                    'Reporting Period',
-                    'Submitted By',
-                    'Last Modified',
-                    'Status'
-                ];
             }
         }
+        else {
+            let dateName = '';
+            let canDelete = false;
+            if (this.state.type === 'fabs') {
+                dateName = 'Action Date Range';
+                canDelete = PermissionsHelper.checkFabsPermissions(this.props.session);
+            }
+            else {
+                dateName = 'Reporting Period';
+                canDelete = PermissionsHelper.checkPermissions(this.props.session);
+            }
+            headers = [
+                'View',
+                'Agency',
+                dateName,
+                'Submitted By',
+                'Last Modified',
+                'Status'
+            ];
+            if (canDelete) {
+                headers = headers.concat('Delete');
+            }
+        }
+        return headers;
     }
 
     changePage(newPage) {
@@ -261,18 +267,18 @@ export default class DashboardTable extends React.Component {
             ];
 
             let deleteCol = false;
-            let canDelete = item.publish_status === 'unpublished';
-            if (this.props.state === 'fabs') {
+            let canDelete = false;
+            if (this.props.type === 'fabs') {
                 deleteCol = PermissionsHelper.checkFabsPermissions(this.props.session);
-                canDelete = canDelete && PermissionsHelper.checkFabsAgencyPermissions(this.props.session, item.agency);
+                canDelete = PermissionsHelper.checkFabsAgencyPermissions(this.props.session, item.agency);
             }
             else {
                 deleteCol = PermissionsHelper.checkPermissions(this.props.session);
-                canDelete = canDelete && PermissionsHelper.checkAgencyPermissions(this.props.session, item.agency);
+                canDelete = PermissionsHelper.checkAgencyPermissions(this.props.session, item.agency);
             }
 
             if (deleteCol) {
-                if (canDelete) {
+                if (canDelete && item.publish_status === 'unpublished') {
                     row.push(<DeleteLink submissionId={item.submission_id} index={index} warning={this.deleteWarning.bind(this)} confirm={deleteConfirm} reload={this.reload.bind(this)} item={item} account={this.state.account}/>);
                 }
                 else {
@@ -337,21 +343,11 @@ export default class DashboardTable extends React.Component {
         let headers = this.getHeaders();
 
         //cannot be added to the const because if a user is read only then delete will not be created
-
-        if (this.state.type == 'fabs') {
-            if (PermissionsHelper.checkFabsPermissions(this.props.session) && !this.props.isCertified){
-                headers = headers.concat('Delete');
-            }
-        }
-        else if (PermissionsHelper.checkPermissions(this.props.session) && !this.props.isCertified){
-            headers = headers.concat('Delete');
-        }
-
-        let unsortable = [0,5,6];
+        let unsortable = [0, 5, 6];
         if(this.props.isCertified && this.state.type == 'fabs'){
-            unsortable = [0,4,5];
+            unsortable = [0, 4, 5];
         } else if(this.props.isCertified) {
-        	unsortable = [0,4,5,7];
+        	unsortable = [0, 4, 5, 7];
         }
 
         return (
