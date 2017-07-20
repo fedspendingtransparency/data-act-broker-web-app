@@ -5,9 +5,8 @@
 
 import React from 'react';
 import RecentActivityTable from './recentActivity/RecentActivityTable.jsx';
-import LandingBlock from './blocks/LandingBlock.jsx';
-import LandingBlockBottomLink from './blocks/LandingBlockBottomLink.jsx';
 import LandingRequirementsModal from './blocks/LandingRequirementsModal.jsx';
+import BlockContent from './BlockContent.jsx';
 
 import * as Icons from '../SharedComponents/icons/Icons.jsx';
 import GTASBanner from '../SharedComponents/GTASWarningBanner.jsx';
@@ -90,30 +89,8 @@ export default class LandingContent extends React.Component {
             expandContent = 'Show Less';
         }
 
-        let uploadBlock = <LandingBlock type={this.props.type} icon={<Icons.CloudUpload />} text="In order to upload and validate your agency's files, please follow the link below to request access" buttonText="Request Access" url="https://community.max.gov/x/fJwuRQ"></LandingBlock>;
-        if (this.props.type == 'fabs') {
-            if (permissionHelper.checkFabsPermissions(this.props.session)) {
-                uploadBlock = <LandingBlock type={this.props.type} icon={<Icons.CloudUpload />} text="Ready to upload and validate your agency's files? Great, we'll be happy to walk you through the process." buttonText="Upload & Validate a New Submission" url="#/uploadDetachedFiles">
-                                  <LandingBlockBottomLink onClick={this.clickedUploadReqs.bind(this)} />
-                              </LandingBlock>
-            }
-        }
-        else if (permissionHelper.checkPermissions(this.props.session)) {
-            uploadBlock = <LandingBlock type={this.props.type} icon={<Icons.CloudUpload />} text="Ready to upload and validate your agency's files? Great, we'll be happy to walk you through the process." buttonText="Upload & Validate a New Submission" url="#/submissionGuide">
-                              <LandingBlockBottomLink onClick={this.clickedUploadReqs.bind(this)} />
-                          </LandingBlock>
-        }
-
         if(this.state.gtas){
             gtasWarning = <GTASBanner data={this.state.gtas}/>
-        }
-        let dBlock = <LandingBlock icon={<Icons.CloudDownload />} text="Generate your D1 and D2 award files without having to create a submission." buttonText="Generate D Files" url="#/generateDetachedFiles" />;
-        let dashboardLink = '#/dashboard'
-        let dashboardButton = 'Continue or Certify a Saved Submission'
-        if(this.props.type=='fabs'){
-            dBlock = null;
-            dashboardLink = '#/detachedDashboard'
-            dashboardButton = 'Continue or Publish a Saved Submission'
         }
 
         let header = "Welcome to the DATA Act Broker";
@@ -126,6 +103,26 @@ export default class LandingContent extends React.Component {
             header = "Financial Assistance Broker Submission (FABS)";
             headerBody = <div></div>
             headerClass = 'teal'
+        }
+
+        let blockContent = <BlockContent type={this.props.type} clickedUploadReqs={this.clickedUploadReqs} session={this.props.session}/>
+
+        let recentActivityTable = <div className="container">
+                        <div className="row">
+                            <div className="col-md-12">
+                                <h2 className={recentHeader}>
+                                    <div className="recent-header">Recent Activity for:</div>
+                                    <div className={recentActivity}>{agencyName}</div>
+                                </h2>
+                                <div className='see-more-wrapper'>
+                                    <a className={expand} onClick={this.toggleExpand.bind(this)}>{expandContent}</a>
+                                </div>
+                                <RecentActivityTable {...this.props} />
+                            </div>
+                        </div>
+                    </div>;
+        if(this.props.type == 'home'){
+            recentActivityTable = null;
         }
 
         return (
@@ -145,9 +142,7 @@ export default class LandingContent extends React.Component {
                         <div className="row">
                             <div className="usa-da-landing col-md-12">
                                 <div className="usa-da-landing-btns">
-                                    {uploadBlock}
-                                    <LandingBlock type={this.props.type} icon={<Icons.Floppy />} text="Did you start a submission but were unable to complete it? No problem, we can help you pick up where you left off." buttonText={dashboardButton} url={dashboardLink} />
-                                    {dBlock}
+                                    {blockContent}
                                     <div id="modalHolder">
                                         <LandingRequirementsModal ref="modal" gtas={this.state.gtas} type={this.props.type}/>
                                     </div>
@@ -155,20 +150,7 @@ export default class LandingContent extends React.Component {
                             </div>
                         </div>
                     </div>
-                    <div className="container">
-                        <div className="row">
-                            <div className="col-md-12">
-                                <h2 className={recentHeader}>
-                                    <div className="recent-header">Recent Activity for:</div>
-                                    <div className={recentActivity}>{agencyName}</div>
-                                </h2>
-                                <div className='see-more-wrapper'>
-                                    <a className={expand} onClick={this.toggleExpand.bind(this)}>{expandContent}</a>
-                                </div>
-                                <RecentActivityTable {...this.props} />
-                            </div>
-                        </div>
-                    </div>
+                    {recentActivityTable}
                 </div>
             );
         }

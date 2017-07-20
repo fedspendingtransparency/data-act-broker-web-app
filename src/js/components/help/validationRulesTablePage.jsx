@@ -14,20 +14,25 @@ import * as Icons from '../SharedComponents/icons/Icons.jsx';
 export default class ValidationRulesTablePage extends React.Component {
     constructor(props) {
         super(props);
+
+        this.state = {
+            type: props.route.type
+        }
     }
 
     render() {
+      const validations = this.props.type === 'fabs' ? '#/detachedValidations' : '#/validations';
         return (
           <div className="usa-da-help-style-page" name="top">
               <div className="usa-da-page-content">
-                  <Navbar activeTab="help" logoOnly={this.props.helpOnly} />
+                  <Navbar activeTab="help" logoOnly={this.props.helpOnly} type={this.props.type} />
                   <div className="usa-da-content-dark mb-60">
                       <div className="container">
                           <div className="row">
                               <div className="col-md-12 mt-40 mb-20">
                                   <div className="display-2" data-contentstart="start" tabIndex={-1}>Help | DATA Act Broker
-									  <HelpNav selected="Validations" />
-								  </div>
+                									  <HelpNav selected="Validations" type={this.props.type} />
+                								  </div>
                               </div>
                           </div>
                       </div>
@@ -42,7 +47,7 @@ export default class ValidationRulesTablePage extends React.Component {
                   </div>
                   <Footer />
                   <div className="usa-da-help-top-button">
-                      <a href="#/validations?section=top" aria-label="Back to top">
+                      <a href={validations+"?section=top"} aria-label="Back to top">
                           <div className="usa-da-icon">
                               <Icons.AngleUp alt="Arrow pointing up" />
                           </div>

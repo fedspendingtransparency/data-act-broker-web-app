@@ -107,7 +107,8 @@ const routeDefinitions = {
     path: '/',
     indexRoute: {
         onEnter: checkUserPermissions,
-        component: LandingPage
+        component: LandingPage,
+        type: kGlobalConstants.STAGING ? 'home' : 'dabs'
     },
     childRoutes: [
         {
@@ -294,6 +295,67 @@ const routeDefinitions = {
                     cb(null, require('../../containers/help/HelpContainer.jsx').default)
                 });
             }
+        },
+        {
+            path: 'detachedHelp',
+            onEnter: checkHelpUserPermissions,
+            getComponent(nextState, cb) {
+                require.ensure([], (require) => {
+                    cb(null, require('../../containers/help/HelpContainer.jsx').default)
+                });
+            },
+            type: 'fabs'
+        },
+        {
+            path: 'detachedPractices',
+            onEnter: checkHelpUserPermissions,
+            getComponent(nextState, cb) {
+                require.ensure([], (require) => {
+                    cb(null, require('../../containers/help/HelpContainer.jsx').default)
+                });
+            },
+            type: 'fabs'
+        },
+        {
+            path: 'detachedValidations',
+            onEnter: checkHelpUserPermissions,
+            getComponent(nextState, cb) {
+                require.ensure([], (require) => {
+                    cb(null, require('../../containers/help/HelpContainer.jsx').default)
+                });
+            },
+            type: 'fabs'
+        },
+        {
+            path: 'detachedResources',
+            onEnter: checkHelpUserPermissions,
+            getComponent(nextState, cb) {
+                require.ensure([], (require) => {
+                    cb(null, require('../../containers/help/HelpContainer.jsx').default)
+                });
+            },
+            type: 'fabs'
+        },
+
+        {
+            path: 'detachedHistory',
+            onEnter: checkHelpUserPermissions,
+            getComponent(nextState, cb) {
+                require.ensure([], (require) => {
+                    cb(null, require('../../containers/help/HelpContainer.jsx').default)
+                });
+            },
+            type: 'fabs'
+        },
+        {
+            path: 'detachedTechnicalHistory',
+            onEnter: checkHelpUserPermissions,
+            getComponent(nextState, cb) {
+                require.ensure([], (require) => {
+                    cb(null, require('../../containers/help/HelpContainer.jsx').default)
+                });
+            },
+            type: 'fabs'
         },
         {
             path: '*',
