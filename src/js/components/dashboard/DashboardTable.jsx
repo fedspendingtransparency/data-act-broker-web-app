@@ -236,10 +236,7 @@ export default class DashboardTable extends React.Component {
                 this.convertToLocalDate(item.last_modified)
             ];
 
-            let certified_on = item.certified_on;
-            if (certified_on !== "") {
-                certified_on = this.convertToLocalDate(certified_on)
-            }
+            let certified_on = item.certified_on !== "" ? this.convertToLocalDate(item.certified_on) : item.certified_on;
             if (this.props.type === 'fabs') {
                 row = row.concat([
                     item.certifying_user,

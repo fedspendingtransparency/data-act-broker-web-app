@@ -58,22 +58,22 @@ export default class RecentActivityTable extends React.Component {
 	}
 
 	convertToLocalDate(dateToConvert) {
-        // convert date to local date (toString converts it to whatever the local time is but doesn't allow formatting)
-        const tmpDate = new Date(dateToConvert + " UTC");
-        const localDate = new Date(tmpDate.toString())
-        
-        // format date as YYYY-MM-DD
-        const year = localDate.getFullYear()
-        let month = localDate.getMonth()+1;
-        if(month < 10){
-            month = "0"+month;
-        }
-        let day = localDate.getDate();
-        if(day <10){
-            day = "0"+day;
-        }
-        return year + "-" + month + "-" + day;
-    }
+		// convert date to local date (toString converts it to whatever the local time is but doesn't allow formatting)
+		const tmpDate = new Date(dateToConvert + " UTC");
+		const localDate = new Date(tmpDate.toString())
+		
+		// format date as YYYY-MM-DD
+		const year = localDate.getFullYear()
+		let month = localDate.getMonth()+1;
+		if(month < 10){
+			month = "0"+month;
+		}
+		let day = localDate.getDate();
+		if(day <10){
+			day = "0"+day;
+		}
+		return year + "-" + month + "-" + day;
+	}
 
 	loadActivity(type=this.props.type) {
 		SubmissionListHelper.loadRecentActivity(type)
@@ -101,31 +101,31 @@ export default class RecentActivityTable extends React.Component {
 	}
 	
 	reload(){
-        this.loadActivity();
-        this.buildRow();
-    }
+		this.loadActivity();
+		this.buildRow();
+	}
 
-    deleteWarning(index){
-        this.setState({
-            deleteIndex: index
-        }, () =>{
-            this.buildRow()
-        })
-    }
+	deleteWarning(index){
+		this.setState({
+			deleteIndex: index
+		}, () =>{
+			this.buildRow()
+		})
+	}
 
-    getHeaders(){
-    	let headers = [];
+	getHeaders(){
+		let headers = [];
 		if (this.props.type === 'fabs') {
 			headers = [
 				'View',
-			    'Agency',
-			    'Action Date Range',
-			    'Submitted By',
-			    'Last Modified'
-		    ];
-		    if (PermissionsHelper.checkFabsPermissions(this.props.session)) {
-		    	headers.push('Delete');
-		    }
+				'Agency',
+				'Action Date Range',
+				'Submitted By',
+				'Last Modified'
+			];
+			if (PermissionsHelper.checkFabsPermissions(this.props.session)) {
+				headers.push('Delete');
+			}
 		}
 		else {
 			headers = [
@@ -141,14 +141,14 @@ export default class RecentActivityTable extends React.Component {
 			}
 		}
 		return headers;
-    }
+	}
 
 	convertToLocalDate(dateToConvert) {
 		// convert date to local date, need to replace the space with a T for Date() formatting
 		// Add a Z to the end to imply the date is in UTC
 		dateToConvert = dateToConvert.replace(" ", "T") + "Z";
 		const tmpDate = new Date(dateToConvert);
-        
+		
 		// format date as YYYY-MM-DD
 		const year = tmpDate.getFullYear()
 		let month = tmpDate.getMonth() + 1;
@@ -177,7 +177,7 @@ export default class RecentActivityTable extends React.Component {
 
 		// iterate through each item returned from the API
 		data.forEach((item, index) => {
-            // break the object out into an array for the table component
+			// break the object out into an array for the table component
 			const row = this.formatRow(item, index);
 
 			rowClasses.push(classes);
@@ -225,28 +225,28 @@ export default class RecentActivityTable extends React.Component {
 			canDelete = PermissionsHelper.checkAgencyPermissions(this.props.session, rowData.agency);
 		}
 
-        if (deleteCol) {
-        	if (canDelete && unpublished) {
+		if (deleteCol) {
+			if (canDelete && unpublished) {
 				let deleteConfirm = (this.state.deleteIndex !== -1 && index === this.state.deleteIndex);
-	        	row.push(<DeleteLink submissionId={rowData.submission_id} index={index} warning={this.deleteWarning.bind(this)} confirm={deleteConfirm} reload={this.reload.bind(this)} item={rowData} account={this.state.account}/>);
-	        }
-        	else {
-        		row.push("N/A");
-        	}
-        }
+				row.push(<DeleteLink submissionId={rowData.submission_id} index={index} warning={this.deleteWarning.bind(this)} confirm={deleteConfirm} reload={this.reload.bind(this)} item={rowData} account={this.state.account}/>);
+			}
+			else {
+				row.push("N/A");
+			}
+		}
 		return row;
 	}
 
 	sortTable(direction, column) {
 		// the table sorting changed
-        this.setState({
-            sortDirection: direction,
-            sortColumn: column
-        }, () => {
-        	// re-display the data
-        	this.buildRow();
-        });
-    }
+		this.setState({
+			sortDirection: direction,
+			sortColumn: column
+		}, () => {
+			// re-display the data
+			this.buildRow();
+		});
+	}
 
 
 	render() {
