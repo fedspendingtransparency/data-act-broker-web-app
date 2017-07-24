@@ -147,7 +147,7 @@ export default class LandingContent extends React.Component {
                                 <div className="usa-da-landing-btns">
                                     {blockContent}
                                     <div id="modalHolder">
-                                        <LandingRequirementsModal ref="modal" gtas={this.state.gtas} type={this.props.type}/>
+                                        <LandingRequirementsModal ref="modal" window={this.state.window} type={this.props.type}/>
                                     </div>
                                 </div>
                             </div>

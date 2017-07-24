@@ -41,7 +41,9 @@ export default class BlockContent extends React.Component {
         else if (this.props.type === 'dabs') {
             if (permissionHelper.checkPermissions(this.props.session)) {
                 // DABS submission access
-                firstBlock = <LandingBlock type={this.props.type} icon={<Icons.CloudUpload />} text="Ready to upload and validate your agency's files? Great, we'll be happy to walk you through the process." buttonText="Upload & Validate a New Submission" url="#/submissionGuide" />;
+                firstBlock = <LandingBlock type={this.props.type} icon={<Icons.CloudUpload />} text="Ready to upload and validate your agency's files? Great, we'll be happy to walk you through the process." buttonText="Upload & Validate a New Submission" url="#/submissionGuide" >
+                                <LandingBlockBottomLink onClick={this.props.clickedUploadReqs} />
+                            </LandingBlock>;
             }
             thirdBlock = <LandingBlock type={this.props.type} icon={<Icons.CloudDownload />} text="Generate your D1 and D2 award files without having to create a submission." buttonText="Generate D Files" url="#/generateDetachedFiles" />;
         }

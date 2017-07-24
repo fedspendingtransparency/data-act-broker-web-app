@@ -12,11 +12,25 @@ export default class LandingRequirementsBody extends React.Component {
 		super(props)
 	}
 
+    windowBlocked(){
+        for(let i = 0; i < this.props.window.length; i++){
+            if(this.props.window[i].notice_block){
+                return this.props.window[i];
+            }
+        }
+        return false;
+    }
+
 	render() {
-		let gtas = null;
-		if(this.props.gtas){
-			let date = Moment(this.props.gtas.end_date).format("dddd, MMMM D, YYYY");
-			gtas = <strong>*Note: The GTAS Submission Window is currently open. You cannot certify or re-certify until after the window closes on {date}.</strong>
+		let windowWarning = null;
+		let windowBlock = this.windowBlocked();
+		if(windowBlock){
+			windowWarning = <strong>{"Note: You cannot certify until"  + Moment(windowBlock.end_date).format("dddd, MMMM D, YYYY")}</strong>
+		}
+
+		if(this.props.window){
+			let date = Moment(this.props.window.end_date).format("dddd, MMMM D, YYYY");
+			windowWarning = <strong>*Note: {this.props.window.message} {date}.</strong>
 		}
 
 		let practices = this.props.type === 'fabs' ? '#/detachedPractices' : '#/practices';
@@ -88,7 +102,7 @@ export default class LandingRequirementsBody extends React.Component {
 			<div className="usa-da-landing-modal-content">
 				<h4>{header}</h4>
 				{body}
-				{gtas}
+				{windowWarning}
 			</div>
 		)
 	}
