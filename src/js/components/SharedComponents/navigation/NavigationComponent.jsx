@@ -15,10 +15,6 @@ import { connect } from 'react-redux';
 import * as sessionActions from '../../../redux/actions/sessionActions.js';
 import * as PermissionHelper from '../../../helpers/permissionsHelper.js';
 
-const defaultProps = {
-    logoOnly: false
-};
-
 export class Navbar extends React.Component {
     constructor(props) {
         super(props);
@@ -35,32 +31,26 @@ export class Navbar extends React.Component {
     }
 
     getTabs() {
-        let tabNames = {};
-        if (this.props.session.user.helpOnly) {
+        // default access: only Help page
+        let tabNames = {
+            'Help': 'help'
+        };
+        if (this.props.type === 'fabs' && !this.props.session.user.helpOnly) {
+            // user has FABS permissions 
+            let fabsWrite = this.props.session.admin || PermissionHelper.checkFabsPermissions(this.props.session);
             tabNames = {
-                'Help': 'help'
+                'Home': 'detachedLanding',
+                'Upload & Validate New Submission': fabsWrite ? 'uploadDetachedFiles' : 'disabled',
+                'Submission Dashboard': 'detachedDashboard',
+                'Help': 'detachedhelp'
             };
         }
-        else if (this.props.session.admin || PermissionHelper.checkPermissions(this.props.session)){
-            if(this.props.type == 'fabs') {
-                tabNames = {
-                    'Home': 'detachedLanding',
-                    'Upload & Validate New Submission': 'uploadDetachedFiles',
-                    'Submission Dashboard': 'detachedDashboard',
-                    'Help': 'detachedHelp'
-                };
-            }else {
-                tabNames = {
-                    'Home': 'landing',
-                    'Upload & Validate New Submission': 'submissionGuide',
-                    'Submission Dashboard': 'dashboard',
-                    'Help': 'help'
-                };
-            }
-        } else {
+        else if (this.props.type !== 'home' && (this.props.session.admin || PermissionHelper.checkDabsReader(this.props.session))) {
+            // user has DABS permissions
+            let dabsWrite = this.props.session.admin || PermissionHelper.checkPermissions(this.props.session);
             tabNames = {
                 'Home': 'landing',
-                'Upload & Validate New Submission': 'disabled',
+                'Upload & Validate New Submission': dabsWrite ? 'submissionGuide' : 'disabled',
                 'Submission Dashboard': 'dashboard',
                 'Help': 'help'
             };
@@ -70,7 +60,6 @@ export class Navbar extends React.Component {
 
     render() {
         let tabNames = this.getTabs();
-        
 
         let headerTabs = [];
         const context = this;
@@ -85,12 +74,8 @@ export class Navbar extends React.Component {
             headerTabs.push(<NavbarTab key={tabNames[key]} name={key} tabClass={tabNames[key]} activeTabClassName={context.props.activeTab} />);
         });
 
-        if (this.props.logoOnly || this.props.type=='home') {
-            headerTabs = null;
-        }
-
-        let testBanner = null;
         let navClass = "";
+        let testBanner = null;
         if (kGlobalConstants.STAGING) {
             navClass = " tall";
             testBanner = <TestEnvironmentBanner />
@@ -135,8 +120,6 @@ export class Navbar extends React.Component {
         );
     }
 }
-
-Navbar.defaultProps = defaultProps;
 
 export default connect(
   state => ({ session: state.session }),

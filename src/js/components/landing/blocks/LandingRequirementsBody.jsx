@@ -19,6 +19,8 @@ export default class LandingRequirementsBody extends React.Component {
 			gtas = <strong>*Note: The GTAS Submission Window is currently open. You cannot certify or re-certify until after the window closes on {date}.</strong>
 		}
 
+		let practices = this.props.type === 'fabs' ? '#/detachedPractices' : '#/practices';
+		let resources = this.props.type === 'fabs' ? '#/detachedResources' : '#/resources';
 		let header = "You'll need the following files in order to complete your submission";
 		let body = <div>
 				<p>
@@ -70,9 +72,9 @@ export default class LandingRequirementsBody extends React.Component {
 					<ul>
 						<li>Validation Checklist</li>
 						<li>Error Codes and Messages</li>
-						<li><a href="#/resources" target="_blank" rel="noopener noreferrer">DATA Act Information Model Schema (DAIMS)</a> resources related to FABS. See:
+						<li><a href={resources} target="_blank" rel="noopener noreferrer">DATA Act Information Model Schema (DAIMS)</a> resources related to FABS. See:
 							<ul>
-								<li><a href="#/practices" target="_blank" rel="noopener noreferrer">DAIMS Practices &amp; Procedures</a></li>
+								<li><a href={practices} target="_blank" rel="noopener noreferrer">DAIMS Practices &amp; Procedures</a></li>
 								<li>DAIMS IDD (D2 tab)</li>
 								<li>DAIMS Domain Values</li>
 							</ul>

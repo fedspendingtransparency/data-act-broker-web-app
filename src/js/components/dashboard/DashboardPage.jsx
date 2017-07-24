@@ -24,12 +24,14 @@ export default class DashboardPage extends React.Component {
     }
 
 	render() {
-        let color = this.state.type === 'fabs' ? 'teal' : 'dark';
-        let header = this.state.type === 'fabs' ? 'FABS Submission Dashboard' : 'Submission Dashboard'
-		return (
+        let isFabs = this.state.type === 'fabs';
+        let color = isFabs ? 'teal' : 'dark';
+        let header = isFabs ? 'FABS Submission Dashboard' : 'Submission Dashboard';
+        let activeTab = isFabs ? 'detachedDashboard' : 'dashboard';
+        return (
             <div>
                 <div className="usa-da-site_wrap usa-da-dashboard-page">
-                    <Navbar activeTab="dashboard" type={this.state.type} />
+                    <Navbar activeTab={activeTab} type={this.state.type} />
                     <div className={"usa-da-content-" + color}>
                         <div className="container">
                             <div className="row">

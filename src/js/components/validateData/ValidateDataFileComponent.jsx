@@ -267,8 +267,15 @@ export default class ValidateDataFileComponent extends React.Component {
             }
         }
 
-        if(!PermissionsHelper.checkAgencyPermissions(this.props.session, this.state.agency_name)){
-            disabledCorrect = ' hide';
+        if (this.props.type.requestName === 'detached_award') {
+            if (!PermissionsHelper.checkFabsAgencyPermissions(this.props.session, this.state.agency_name)){
+                disabledCorrect = ' hide';
+            }
+        }
+        else {
+            if (!PermissionsHelper.checkAgencyPermissions(this.props.session, this.state.agency_name)){
+                disabledCorrect = ' hide';
+            }
         }
 
         return (

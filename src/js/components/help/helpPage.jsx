@@ -19,8 +19,6 @@ export default class HelpPage extends React.Component {
     constructor(props) {
         super(props);
 
-        console.log(this.props)
-
         this.state = {
             changelog: '',
             technical: '',
@@ -61,12 +59,12 @@ export default class HelpPage extends React.Component {
     }
 
     render() {
-        const help = this.props.type === 'fabs' ? '#/detachedHelp' : '#/help';
-        let color = this.props.type === 'fabs' ? 'teal' : 'dark';
+        const help = this.props.type === 'fabs' ? 'detachedHelp' : 'help';
+        const color = this.props.type === 'fabs' ? 'teal' : 'dark';
         return (
             <div className="usa-da-help-style-page" name="top">
                 <div className="usa-da-page-content">
-                    <Navbar activeTab="help" logoOnly={this.props.helpOnly} type={this.props.type} />
+                    <Navbar activeTab={help} type={this.props.type} />
                     <div className={"usa-da-content-" + color + " mb-60"}>
                         <div className="container">
                             <div className="row">
@@ -91,7 +89,7 @@ export default class HelpPage extends React.Component {
                 </div>
                 <Footer />
                 <div className="usa-da-help-top-button">
-                    <a href={help+"?section=top"} aria-label="Back to top">
+                    <a href={'#/' + help + "?section=top"} aria-label="Back to top">
                         <div className="usa-da-icon">
                             <Icons.AngleUp alt="Arrow pointing up" />
                         </div>
