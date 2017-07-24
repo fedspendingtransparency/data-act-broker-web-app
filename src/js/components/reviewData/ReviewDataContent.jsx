@@ -190,8 +190,8 @@ export default class ReviewDataContent extends React.Component {
                                         Monthly submissions cannot be certified
                                     </div>
         }
-        else if(this.props.data.gtas) {
-            certifyButtonText = "Certification is not allowed during the GTAS Submission Window";
+        else if(this.props.data.window.notice_block) {
+            certifyButtonText = this.props.data.window.notice_message;
         }
         else if (this.checkAffiliations() || this.props.session.admin) {
             certifyButtonText = "Certify & Publish the Submission to USAspending.gov";
