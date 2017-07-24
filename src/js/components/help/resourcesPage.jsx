@@ -24,11 +24,12 @@ export default class ResourcesPage extends React.Component {
 
     render() {
         const resources = this.props.type === 'fabs' ? '#/detachedResources' : '#/resources';
+        let color = this.state.type === 'fabs' ? 'teal' : 'dark';
         return (
             <div className="usa-da-help-style-page" name="top">
                 <div className="usa-da-page-content">
                     <Navbar activeTab="help" logoOnly={this.props.helpOnly} type={this.props.type} />
-                    <div className="usa-da-content-dark mb-60">
+                    <div className={"usa-da-content-" + color + " mb-60"}>
                         <div className="container">
                             <div className="row">
                                 <div className="col-md-12 mt-40 mb-20">
