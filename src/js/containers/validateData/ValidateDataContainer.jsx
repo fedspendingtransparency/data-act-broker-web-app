@@ -213,7 +213,7 @@ class ValidateDataContainer extends React.Component {
 			warningMessage = <PublishedSubmissionWarningBanner />;
 		}
 
-		let warning = null;
+		let windowWarning = null;
 		if(this.state.window){
 			windowWarning = <Banner data={this.state.window}/>
 		}

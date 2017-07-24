@@ -90,7 +90,7 @@ export default class LandingContent extends React.Component {
         }
 
         if(this.state.window){
-            windowWarning = <Banner data={this.state.warning}/>
+            windowWarning = <Banner data={this.state.window}/>
         }
 
         let header = "Welcome to the DATA Act Broker";

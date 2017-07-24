@@ -131,6 +131,14 @@ export default class ReviewDataContent extends React.Component {
         return false;
     }
 
+    windowBlocked(){
+        for(let i = 0; i < this.props.data.window.length; i++){
+            if(this.props.data.window[i].notice_block){
+                return true;
+            }
+        }
+    }
+
     render() {
 
         let modalToOpen = 'Certify';
@@ -190,8 +198,8 @@ export default class ReviewDataContent extends React.Component {
                                         Monthly submissions cannot be certified
                                     </div>
         }
-        else if(this.props.data.window.notice_block) {
-            certifyButtonText = this.props.data.window.notice_message;
+        else if(this.windowBlocked()) {
+            certifyButtonText = "You cannot certify until " + moment(this.props.data.window.end_date).format("dddd, MMMM D, YYYY");
         }
         else if (this.checkAffiliations() || this.props.session.admin) {
             certifyButtonText = "Certify & Publish the Submission to USAspending.gov";
