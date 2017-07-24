@@ -273,7 +273,7 @@ export default class UploadDetachedFileValidation extends React.Component {
 		
 		return (
 			<div>
-				<div className="usa-da-content-dark">
+				<div className="usa-da-content-teal">
 					<div className="container">
 						<div className="row usa-da-page-title">
 							<div className="col-md-10 mt-40 mb-20">
