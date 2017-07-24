@@ -60,11 +60,12 @@ export default class HelpPage extends React.Component {
 
     render() {
         const help = this.props.type === 'fabs' ? 'detachedHelp' : 'help';
+        const color = this.props.type === 'fabs' ? 'teal' : 'dark';
         return (
             <div className="usa-da-help-style-page" name="top">
                 <div className="usa-da-page-content">
                     <Navbar activeTab={help} type={this.props.type} />
-                    <div className="usa-da-content-dark mb-60">
+                    <div className={"usa-da-content-" + color + " mb-60"}>
                         <div className="container">
                             <div className="row">
                                 <div className="col-md-12 mt-40 mb-20">
