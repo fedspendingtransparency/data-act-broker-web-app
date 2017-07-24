@@ -217,15 +217,15 @@ export default class DashboardTable extends React.Component {
             deleteConfirm = true;
         }
 
-        let link = <SubmissionLink submissionId={item.submission_id} />;
+        let link = <SubmissionLink submissionId={item.submission_id} type={this.state.type}/>;
         if(this.state.type == "fabs") {
             if(this.props.isCertified) {
-                link = <SubmissionLink submissionId={item.submission_id} value={reportingDateString} disabled={true}/>;
+                link = <SubmissionLink submissionId={item.submission_id} value={reportingDateString} disabled={true} type={this.state.type}/>;
             } else {
-                link = <SubmissionLink submissionId={item.submission_id} />;
+                link = <SubmissionLink submissionId={item.submission_id} type={this.state.type}/>;
             }
         } else if(this.props.isCertified) {
-            link = <SubmissionLink submissionId={item.submission_id} value={reportingDateString} />;
+            link = <SubmissionLink submissionId={item.submission_id} value={reportingDateString} type={this.state.type}/>;
         }
 
         let row = [];
