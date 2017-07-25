@@ -77,7 +77,7 @@ export const fetchFile = (type, submissionId) => {
     return deferred.promise;
 }
 
-export const generateDetachedFile = (type, start, end, cgac_code) => {
+export const generateDetachedFile = (type, start, end, cgac_code, frec_code) => {
     const deferred = Q.defer();
 
     Request.post(kGlobalConstants.API + 'generate_detached_file/')
@@ -85,10 +85,10 @@ export const generateDetachedFile = (type, start, end, cgac_code) => {
                 'file_type': type,
                 'start': start,
                 'end': end,
-                'cgac_code': cgac_code
+                'cgac_code': cgac_code,
+                'frec_code': frec_code
             })
             .end((errFile, res) => {
-
                 if (errFile) {
                     const response = Object.assign({}, res.body);
                     response.httpStatus = res.status;

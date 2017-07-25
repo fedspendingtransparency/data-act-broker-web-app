@@ -26,6 +26,7 @@ export default class GenerateDetachedFilesPage extends React.Component {
 
         this.state = {
             agency: "",
+            codeType: 'cgac',
             agencyError: false,
             showDateSelect: false,
             showSubmitButton: false,
@@ -71,17 +72,19 @@ export default class GenerateDetachedFilesPage extends React.Component {
 		this.isUnmounted = true;
 	}
 
-    handleChange(agency, isValid){
+    handleChange(agency, codeType, isValid){
         // display or hide file generation based on agency validity and set agency
         if (agency != '' && isValid) {
             this.setState({
                 agency: agency,
+                codeType: codeType,
                 agencyError: false
              }, this.checkComplete);
         }
         else {
             this.setState({
                 agency: '',
+                codeType: null,
                 agencyError: true
             }, this.checkComplete);
         }
@@ -175,11 +178,14 @@ export default class GenerateDetachedFilesPage extends React.Component {
 
     generateFile(file) {
         // generate specified file
+        let cgac_code = this.state.codeType !== 'frec_code' ? this.state.agency : '',
+            frec_code = this.state.codeType === 'frec_code' ? this.state.agency : '';
+
         const tmpFile = Object.assign({}, this.state[file]);
         tmpFile.status = "generating";
         this.setState({[file]: tmpFile});
 
-        GenerateFilesHelper.generateDetachedFile(file.toUpperCase(), tmpFile.startDate.format('MM/DD/YYYY'), tmpFile.endDate.format('MM/DD/YYYY'), this.state.agency)
+        GenerateFilesHelper.generateDetachedFile(file.toUpperCase(), tmpFile.startDate.format('MM/DD/YYYY'), tmpFile.endDate.format('MM/DD/YYYY'), cgac_code, frec_code)
             .then((response) => {
                 if(this.isUnmounted) {
                     return;
