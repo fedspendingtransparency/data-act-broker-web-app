@@ -13,6 +13,9 @@ export default class LandingRequirementsBody extends React.Component {
 	}
 
     windowBlocked(){
+    	if(!this.props.window) {
+    		return false;
+    	}
         for(let i = 0; i < this.props.window.length; i++){
             if(this.props.window[i].notice_block){
                 return this.props.window[i];
@@ -25,12 +28,7 @@ export default class LandingRequirementsBody extends React.Component {
 		let windowWarning = null;
 		let windowBlock = this.windowBlocked();
 		if(windowBlock){
-			windowWarning = <strong>{"Note: You cannot certify until"  + Moment(windowBlock.end_date).format("dddd, MMMM D, YYYY")}</strong>
-		}
-
-		if(this.props.window){
-			let date = Moment(this.props.window.end_date).format("dddd, MMMM D, YYYY");
-			windowWarning = <strong>*Note: {this.props.window.message} {date}.</strong>
+			windowWarning = <strong>{"Note: You cannot certify until "  + Moment(windowBlock.end_date).format("dddd, MMMM D, YYYY")}</strong>
 		}
 
 		let practices = this.props.type === 'fabs' ? '#/detachedPractices' : '#/practices';
