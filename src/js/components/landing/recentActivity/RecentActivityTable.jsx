@@ -195,7 +195,7 @@ export default class RecentActivityTable extends React.Component {
 	}
 
 	formatRow(rowData, index) {
-		let link = <SubmissionLink submissionId={rowData.submission_id} disabled={(rowData.publish_status === "published")} />
+		let link = <SubmissionLink submissionId={rowData.submission_id} disabled={(rowData.publish_status === "published")} type={this.props.type} />
 		
 		let reportingDateString = "Start: " + rowData.reporting_start_date + "\nEnd: " + rowData.reporting_end_date;
 		if (!rowData.reporting_start_date || !rowData.reporting_end_date) {
