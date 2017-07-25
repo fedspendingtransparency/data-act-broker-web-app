@@ -132,11 +132,15 @@ export default class ReviewDataContent extends React.Component {
     }
 
     windowBlocked(){
+        if(!this.props.data.window) {
+            return false;
+        }
         for(let i = 0; i < this.props.data.window.length; i++){
             if(this.props.data.window[i].notice_block){
                 return true;
             }
         }
+        return false;
     }
 
     render() {
