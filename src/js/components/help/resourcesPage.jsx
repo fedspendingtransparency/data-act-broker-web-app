@@ -44,7 +44,7 @@ export default class ResourcesPage extends React.Component {
                     <div className="container">
                         <div className="row usa-da-help-page">
                             <div className="col-md-12">
-                                <ResourcesContent />
+                                <ResourcesContent type={this.state.type} />
                             </div>
                         </div>
                     </div>
