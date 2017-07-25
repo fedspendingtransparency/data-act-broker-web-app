@@ -9,7 +9,7 @@ import LandingRequirementsModal from './blocks/LandingRequirementsModal.jsx';
 import BlockContent from './BlockContent.jsx';
 
 import * as Icons from '../SharedComponents/icons/Icons.jsx';
-import GTASBanner from '../SharedComponents/GTASWarningBanner.jsx';
+import Banner from '../SharedComponents/Banner.jsx';
 import * as permissionHelper from '../../helpers/permissionsHelper.js';
 
 import * as ReviewHelper from '../../helpers/reviewHelper.js';
@@ -28,18 +28,18 @@ export default class LandingContent extends React.Component {
 
         this.state = {
             expanded: false,
-            gtas: null
+            window: null
         };
     }
 
     componentDidMount() {
-        this.isGtas();
+        this.isWindow();
     }
 
-    isGtas() {
-        ReviewHelper.isGtasWindow()
+    isWindow() {
+        ReviewHelper.isWindow()
             .then((res) => {
-                this.setState({gtas: res.data})
+                this.setState({window: res.data})
             })
             .catch((err) => {
                 console.log(err)
@@ -76,7 +76,7 @@ export default class LandingContent extends React.Component {
         let recentActivity = 'recent-activity';
         let expand = 'hide block';
         let expandContent = '';
-        let gtasWarning = null;
+        let windowWarning = null;
 
         if (affiliations && affiliations.length > limit && !this.state.expanded) {
             recentHeader +='-hidden';
@@ -89,8 +89,8 @@ export default class LandingContent extends React.Component {
             expandContent = 'Show Less';
         }
 
-        if(this.state.gtas){
-            gtasWarning = <GTASBanner data={this.state.gtas}/>
+        if(this.state.window){
+            windowWarning = <Banner data={this.state.window}/>
         }
 
         let header = "Welcome to the DATA Act Broker";
@@ -140,14 +140,14 @@ export default class LandingContent extends React.Component {
                             </div>
                         </div>
                     </div>
-                    {gtasWarning}
+                    {windowWarning}
                     <div className="container mb-60">
                         <div className="row">
                             <div className="usa-da-landing col-md-12">
                                 <div className="usa-da-landing-btns">
                                     {blockContent}
                                     <div id="modalHolder">
-                                        <LandingRequirementsModal ref="modal" gtas={this.state.gtas} type={this.props.type}/>
+                                        <LandingRequirementsModal ref="modal" window={this.state.window} type={this.props.type}/>
                                     </div>
                                 </div>
                             </div>

@@ -12,7 +12,7 @@ import AddDataContainer from '../../containers/addData/AddDataContainer.jsx';
 import Footer from '../SharedComponents/FooterComponent.jsx';
 
 import * as ReviewHelper from '../../helpers/reviewHelper.js';
-import GTASBanner from '..//SharedComponents/GTASWarningBanner.jsx';
+import Banner from '..//SharedComponents/Banner.jsx';
 
 
 export default class AddDataPage extends React.Component {
@@ -20,18 +20,18 @@ export default class AddDataPage extends React.Component {
         super(props);
 
         this.state = {
-            gtas: null
+            window: null
         }
     }
 
     componentDidMount() {
-        this.isGtas();
+        this.isWindow();
     }
 
-    isGtas() {
-        ReviewHelper.isGtasWindow()
+    isWindow() {
+        ReviewHelper.isWindow()
             .then((res) => {
-                this.setState({gtas: res.data})
+                this.setState({window: res.data})
             })
             .catch((err) =>{
                 console.log(err)
@@ -47,9 +47,9 @@ export default class AddDataPage extends React.Component {
             bodyComponent = <AddDataContainer metaData={this.props.submission.meta} />;
         }
 
-        let gtasWarning = null;
-        if(this.state.gtas){
-            gtasWarning = <GTASBanner data={this.state.gtas}/>
+        let windowWarning = null;
+        if(this.state.window){
+            windowWarning = <Banner data={this.state.window}/>
         }
 
         return (
@@ -57,7 +57,7 @@ export default class AddDataPage extends React.Component {
                 <div className="usa-da-site_wrap">
                     <Navbar activeTab="submissionGuide"/>
                     <AddDataHeader />
-                    {gtasWarning}
+                    {windowWarning}
                     {bodyComponent}
                 </div>
                 <Footer />

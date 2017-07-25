@@ -15,7 +15,7 @@ import Q from 'q';
 import { kGlobalConstants } from '../../GlobalConstants.js';
 import GenerateFilesContent from '../../components/generateFiles/GenerateFilesContent.jsx';
 import PublishedSubmissionWarningBanner from '../../components/SharedComponents/PublishedSubmissionWarningBanner.jsx';
-import GTASBanner from '../../components/SharedComponents/GTASWarningBanner.jsx';
+import Banner from '../../components/SharedComponents/Banner.jsx';
 
 import * as uploadActions from '../../redux/actions/uploadActions.js';
 
@@ -63,20 +63,20 @@ class GenerateFilesContainer extends React.Component {
 			d1Status: "waiting",
 			d2Status: "waiting",
 			errorDetails: "",
-			gtas: null
+			window: null
 		};
 	}
 
 	componentDidMount() {
 		this.isUnmounted = false;
 		this.checkForPreviousFiles();
-		this.isGtas();
+		this.isWindow();
 	}
 
-	isGtas() {
-		ReviewHelper.isGtasWindow()
+	isWindow() {
+		ReviewHelper.isWindow()
 			.then((res) => {
-				this.setState({gtas: res.data})
+				this.setState({window: res.data})
 			})
 			.catch((err) =>{
 				console.log(err)
@@ -485,14 +485,14 @@ class GenerateFilesContainer extends React.Component {
 			warningMessage = <PublishedSubmissionWarningBanner />;
 		}
 
-		let gtasWarning = null;
-		if(this.state.gtas){
-			gtasWarning = <GTASBanner data={this.state.gtas}/>
+		let windowWarning = null;
+		if(this.state.window){
+			windowWarning = <Banner data={this.state.window}/>
 		}
 		return (
 			<div>
 				{warningMessage}
-				{gtasWarning}
+				{windowWarning}
 				<GenerateFilesContent {...this.props} {...this.state}
 					handleDateChange={this.handleDateChange.bind(this)}
 					updateError={this.updateError.bind(this)}
