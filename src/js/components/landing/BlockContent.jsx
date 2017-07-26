@@ -50,7 +50,9 @@ export default class BlockContent extends React.Component {
         else if (this.props.type === 'fabs') {
             if (permissionHelper.checkFabsPermissions(this.props.session)) {
                 // FABS submission access
-                firstBlock = <LandingBlock type={this.props.type} icon={<Icons.CloudUpload />} text="Ready to upload and validate your agency's files? Great, we'll be happy to walk you through the process." buttonText="Upload & Validate a New Submission" url="#/uploadDetachedFiles" />;
+                firstBlock = <LandingBlock type={this.props.type} icon={<Icons.CloudUpload />} text="Ready to upload and validate your agency's files? Great, we'll be happy to walk you through the process." buttonText="Upload & Validate a New Submission" url="#/uploadDetachedFiles" >
+                                <LandingBlockBottomLink onClick={this.props.clickedUploadReqs} />
+                            </LandingBlock>;
             }
             secondBlock = <LandingBlock type={this.props.type} icon={<Icons.Floppy />} text="Did you start a submission but were unable to complete it? No problem, we can help you pick up where you left off." buttonText='Continue or Certify a Saved Submission' url='#/detachedDashboard' />;
         }

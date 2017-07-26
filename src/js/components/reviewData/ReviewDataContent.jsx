@@ -132,11 +132,24 @@ export default class ReviewDataContent extends React.Component {
     }
 
     windowBlocked(){
+        if(!this.props.data.window) {
+            return false;
+        }
+        let currentWindow = null;
         for(let i = 0; i < this.props.data.window.length; i++){
             if(this.props.data.window[i].notice_block){
-                return true;
+                if(currentWindow == null) {
+                    currentWindow = this.props.data.window[i];
+                }
+                else if(moment(this.props.data.window[i].end_date) > moment(currentWindow.end_date)) {
+                    currentWindow = this.props.data.window[i];
+                }
             }
         }
+        if(currentWindow) {
+            return currentWindow;
+        }
+        return false;
     }
 
     render() {
@@ -187,6 +200,7 @@ export default class ReviewDataContent extends React.Component {
         let buttonClass = " btn-disabled";
         let buttonAction = "";
         let monthlySubmissionError = null;
+        let blockedWindow = this.windowBlocked();
 
         if (this.props.data.publish_status == "published") {
             certifyButtonText = "Submission has already been certified";
@@ -198,8 +212,8 @@ export default class ReviewDataContent extends React.Component {
                                         Monthly submissions cannot be certified
                                     </div>
         }
-        else if(this.windowBlocked()) {
-            certifyButtonText = "You cannot certify until " + moment(this.props.data.window.end_date).format("dddd, MMMM D, YYYY");
+        else if(blockedWindow) {
+            certifyButtonText = "You cannot certify until " + moment(blockedWindow.end_date).format("dddd, MMMM D, YYYY");
         }
         else if (this.checkAffiliations() || this.props.session.admin) {
             certifyButtonText = "Certify & Publish the Submission to USAspending.gov";
