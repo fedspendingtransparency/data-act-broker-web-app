@@ -15,4 +15,9 @@
 
 	@import "./_daims.scss";
 
+	.published-submission-warning-banner {
+		@import "../../layouts/login/_topBanner";
+		@include loginTopBanner;
+	}
+
 }

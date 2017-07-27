@@ -7,6 +7,9 @@ import React from 'react';
 import * as Icons from '../SharedComponents/icons/Icons.jsx';
 import * as ReviewHelper from '../../helpers/reviewHelper.js';
 
+const defaultProps = {
+    type: 'all'
+}
 
 export default class Banner extends React.Component {
     constructor(props) {
@@ -85,5 +88,7 @@ export default class Banner extends React.Component {
                     {message}
                 </div>
             );
-        }
     }
+}
+
+Banner.defaultProps = defaultProps

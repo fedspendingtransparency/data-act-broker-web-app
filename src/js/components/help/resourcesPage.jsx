@@ -7,6 +7,7 @@ import React from 'react';
 import Navbar from '../SharedComponents/navigation/NavigationComponent.jsx';
 import HelpNav from './helpNav.jsx';
 import ResourcesContent from './resourcesContent.jsx';
+import Banner from '../SharedComponents/Banner.jsx';
 import Footer from '../SharedComponents/FooterComponent.jsx';
 
 import * as Icons from '../SharedComponents/icons/Icons.jsx';
@@ -40,6 +41,7 @@ export default class ResourcesPage extends React.Component {
                                 </div>
                             </div>
                         </div>
+                        <Banner />
                     </div>
                     <div className="container">
                         <div className="row usa-da-help-page">
