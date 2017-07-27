@@ -59,16 +59,18 @@ export default class HelpPage extends React.Component {
     }
 
     render() {
+        const help = this.props.type === 'fabs' ? 'detachedHelp' : 'help';
+        const color = this.props.type === 'fabs' ? 'teal' : 'dark';
         return (
             <div className="usa-da-help-style-page" name="top">
                 <div className="usa-da-page-content">
-                    <Navbar activeTab="help" logoOnly={this.props.helpOnly} />
-                    <div className="usa-da-content-dark mb-60">
+                    <Navbar activeTab={help} type={this.props.type} />
+                    <div className={"usa-da-content-" + color + " mb-60"}>
                         <div className="container">
                             <div className="row">
                                 <div className="col-md-12 mt-40 mb-20">
                                     <div className="display-2" data-contentstart="start" tabIndex={-1}>Help | DATA Act Broker
-										<HelpNav selected="Help" />
+										<HelpNav selected="Help" type={this.props.type} />
 									</div>
                                 </div>
                             </div>
@@ -77,7 +79,7 @@ export default class HelpPage extends React.Component {
                     <div className="container">
                         <div className="row usa-da-help-page">
                             <div className="col-md-4">
-                                <HelpSidebar changeSections={this.state.clSections} technicalSections={this.state.tSections} helpOnly={this.props.helpOnly}/>
+                                <HelpSidebar changeSections={this.state.clSections} technicalSections={this.state.tSections} helpOnly={this.props.helpOnly} type={this.props.type} />
                             </div>
                             <div className="col-md-8">
                                 <HelpContent section={this.props.location.query.section} helpOnly={this.props.helpOnly} changelog={this.state.changelog} technical={this.state.technical} />
@@ -87,7 +89,7 @@ export default class HelpPage extends React.Component {
                 </div>
                 <Footer />
                 <div className="usa-da-help-top-button">
-                    <a href="#/help?section=top" aria-label="Back to top">
+                    <a href={'#/' + help + "?section=top"} aria-label="Back to top">
                         <div className="usa-da-icon">
                             <Icons.AngleUp alt="Arrow pointing up" />
                         </div>

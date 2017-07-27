@@ -27,4 +27,9 @@
 	.usa-da-content-dark {
 		@include headerTitleBar;		
 	}
+
+	.usa-da-content-teal {
+		@include headerTitleBar;
+		background-color: #13646C;
+	}
 }

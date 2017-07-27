@@ -14,11 +14,11 @@ export default class HelpSidebar extends React.Component {
 
     render() {
         const clSectionList = this.props.changeSections.map((section, index) => {
-            return <HelpSidebarItem key={index} sectionName={section.name} sectionId={section.link} />
+            return <HelpSidebarItem key={index} sectionName={section.name} sectionId={section.link} type={this.props.type} />
         });
 
         const tSectionList = this.props.technicalSections.map((section, index) => {
-            return <HelpSidebarItem key={index} sectionName={section.name} sectionId={section.link} />
+            return <HelpSidebarItem key={index} sectionName={section.name} sectionId={section.link} type={this.props.type} />
         });
 
         let membership = null;
@@ -29,37 +29,41 @@ export default class HelpSidebar extends React.Component {
                     </li>;
         }
         
-
+        const help = this.props.type === 'fabs' ? "/#/detachedHelp" : '/#/help';
+        const history = this.props.type === 'fabs' ? "/#/detachedHistory" : '/#/history';
+        const technicalHistory = this.props.type === 'fabs' ? "/#/detachedTechnicalHistory" : '/#/technicalHistory';
+        const resources = this.props.type === 'fabs' ? "/#/detachedResources" : '/#/resources';
+        const validations = this.props.type === 'fabs' ? "/#/detachedValidations" : '/#/validations';
         return (
             <div className="usa-da-help-sidebar">
                 <h6>What’s New in This Release</h6>
                 <ul>
                     {clSectionList}
 					<li>
-                        <a href="/#/history">Release Notes Archive</a>
+                        <a href={history}>Release Notes Archive</a>
                     </li>
                 </ul>
-                <h6>This Release's Technical Notes</h6>
+                <h6>This Releases Technical Notes</h6>
                 <ul>
                     {tSectionList}
                     <li>
-                        <a href="/#/technicalHistory">Technical Notes Archive</a>
+                        <a href={technicalHistory}>Technical Notes Archive</a>
                     </li>
                 </ul>
                 <h6>Getting More Help</h6>
                 <ul>
                     {membership}
                     <li>
-                        <a href="/#/help?section=membership">Contact the Service Desk</a>
+                        <a href={help+"?section=membership"}>Contact the Service Desk</a>
                     </li>
                     <li>
-                        <a href="/#/help?section=filingIssue">Filing an Issue</a>
+                        <a href={help+"?section=filingIssue"}>Filing an Issue</a>
                     </li>
 		    <li>
-                        <a href="/#/resources">Resources - DAIMS</a>
+                        <a href={resources}>Resources - DAIMS</a>
                     </li>
 		    <li>
-                        <a href="/#/validations">Validations</a>
+                        <a href={validations}>Validations</a>
                     </li>
                 </ul>
             </div>

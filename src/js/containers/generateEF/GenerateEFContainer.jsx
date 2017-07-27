@@ -18,7 +18,7 @@ import * as ReviewHelper from '../../helpers/reviewHelper.js';
 import GenerateEFContent from '../../components/generateEF/GenerateEFContent.jsx';
 import GenerateEFError from '../../components/generateEF/GenerateEFError.jsx';
 import PublishedSubmissionWarningBanner from '../../components/SharedComponents/PublishedSubmissionWarningBanner.jsx';
-import GTASBanner from '../../components/SharedComponents/GTASWarningBanner.jsx';
+import Banner from '../../components/SharedComponents/Banner.jsx';
 
 const timerDuration = 10;
 
@@ -36,7 +36,7 @@ class GenerateEFContainer extends React.Component {
 			e: {},
 			f: {},
 			generated: false,
-			gtas: null
+			window: null
 		};
 
 	}
@@ -44,13 +44,13 @@ class GenerateEFContainer extends React.Component {
 	componentDidMount() {
 		this.isUnmounted = false;
 		this.checkFileStatus();
-		this.isGtas();
+		this.isWindow();
 	}
 
-	isGtas() {
-		ReviewHelper.isGtasWindow()
+	isWindow() {
+		ReviewHelper.isWindow()
 			.then((res) => {
-				this.setState({gtas: res.data})
+				this.setState({window: res.data})
 			})
 			.catch((err) =>{
 				console.log(err)
@@ -169,15 +169,15 @@ class GenerateEFContainer extends React.Component {
 			warningMessage = <PublishedSubmissionWarningBanner />;
 		}
 
-		let gtasWarning = null;
+		let windowWarning = null;
 		if(this.state.gtas){
-			gtasWarning = <GTASBanner data={this.state.gtas}/>
+			windowWarning = <Banner data={this.state.window}/>
 		}
 		
 		return (
 			<div>
 				{warningMessage}
-				{gtasWarning}
+				{windowWarning}
 				{content}
 			</div>
 		)
