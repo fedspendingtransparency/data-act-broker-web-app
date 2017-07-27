@@ -82,7 +82,7 @@ export default class LandingRequirementsBody extends React.Component {
 						Here are some additional resources to assist you with your submission:
 					</p>
 					<ul>
-						<li>Validation Checklist</li>
+						<li><a href='https://s3-us-gov-west-1.amazonaws.com/prod-data-act-web-static-files/sample-files/DRAFT_DAIMS_FABS_Validation_Checklist_v1.1.pdf' target="_blank" rel="noopener noreferrer">Validation Checklist</a></li>
 						<li>Error Codes and Messages</li>
 						<li><a href={resources} target="_blank" rel="noopener noreferrer">DATA Act Information Model Schema (DAIMS)</a> resources related to FABS. See:
 							<ul>
