@@ -11,7 +11,6 @@ import Footer from '../SharedComponents/FooterComponent.jsx';
 export default class LandingPage extends React.Component {
     constructor(props) {
         super(props)
-        console.log(this.props.route)
         this.state = {
             'type': this.props.route ? this.props.route.type : 'home'
         }

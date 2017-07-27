@@ -15,8 +15,6 @@ export default class Banner extends React.Component {
     constructor(props) {
         super(props)
 
-        console.log('banner')
-
         this.state = {
             type: this.props.type,
             window: []
@@ -44,7 +42,6 @@ export default class Banner extends React.Component {
         ReviewHelper.isWindow()
             .then((res) => {
                 let windows = []
-                console.log(res.data, this.state)
                 for(let i = 0; i < res.data.length; i++) {
                     if(res.data[i].type.toLowerCase() == this.state.type.toLowerCase() || res.data[i].type.toLowerCase() == 'all') {
                         windows.push(res.data[i]);
