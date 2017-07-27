@@ -26,16 +26,12 @@ class CrossFileContentContainer extends React.Component {
 
 		this.dataTimer;
 		this.isUnmounted = false;
-		this.state = {
-			window: null
-		}
 	}
 
 	componentDidMount() {
 		this.isUnmounted = false;
 		this.loadData();
 		this.startTimer();
-		this.isWindow();
 	}
 
 	componentWillUnmount() {
@@ -45,16 +41,6 @@ class CrossFileContentContainer extends React.Component {
 			window.clearInterval(this.dataTimer);
 			this.dataTimer = null;
 		}
-	}
-
-	isWindow() {
-		ReviewHelper.isWindow()
-			.then((res) => {
-				this.setState({window: res.data})
-			})
-			.catch((err) =>{
-				console.log(err)
-			})
 	}
 
 	uploadFiles() {
@@ -230,15 +216,10 @@ class CrossFileContentContainer extends React.Component {
 			warningMessage = <PublishedSubmissionWarningBanner />;
 		}
 
-		let windowWarning = null;
-		if(this.state.window){
-			windowWarning = <Banner data={this.state.window}/>
-		}
-
 		return (
 			<div>
 				{warningMessage}
-				{windowWarning}
+				<Banner type='fabs' />
 				<CrossFileContent {...this.props} uploadFiles={this.uploadFiles.bind(this)} reloadData={this.reloadData.bind(this)} />
 			</div>
 		);

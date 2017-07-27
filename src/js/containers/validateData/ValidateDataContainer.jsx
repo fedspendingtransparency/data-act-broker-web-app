@@ -33,6 +33,8 @@ class ValidateDataContainer extends React.Component {
 	constructor(props) {
 		super(props);
 
+		console.log(this.props)
+
 		this.state = {
 			finishedPageLoad: false,
 			headerErrors: true,
@@ -50,7 +52,6 @@ class ValidateDataContainer extends React.Component {
 	componentDidMount() {
 		this.isCancelled = false;
 		this.validateSubmission();
-		this.isWindow();
 		
 	}
 
@@ -61,16 +62,6 @@ class ValidateDataContainer extends React.Component {
 			clearTimeout(statusTimer);
 			statusTimer = null;
 		}
-	}
-
-	isWindow() {
-		ReviewHelper.isWindow()
-			.then((res) => {
-				this.setState({window: res.data})
-			})
-			.catch((err) =>{
-				console.log(err)
-			})
 	}
 
 	componentDidUpdate(prevProps, prevState) {
@@ -213,15 +204,10 @@ class ValidateDataContainer extends React.Component {
 			warningMessage = <PublishedSubmissionWarningBanner />;
 		}
 
-		let windowWarning = null;
-		if(this.state.window){
-			windowWarning = <Banner data={this.state.window}/>
-		}
-
 		return (
 			<div>
 				{warningMessage}
-				{windowWarning}
+				<Banner type='fabs' />
 				{validationContent}
 			</div>
 		);

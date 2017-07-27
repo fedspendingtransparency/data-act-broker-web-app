@@ -13,6 +13,7 @@ import Footer from '../SharedComponents/FooterComponent.jsx';
 import SubTierAgencyListContainer from '../../containers/SharedContainers/SubTierAgencyListContainer.jsx';
 import ValidateValuesFileContainer from '../../containers/validateData/ValidateValuesFileContainer.jsx';
 import ValidateDataFileContainer from '../../containers/validateData/ValidateDataFileContainer.jsx';
+import Banner from '../SharedComponents/Banner.jsx';
 
 import UploadDetachedFilesError from './UploadDetachedFilesError.jsx';
 
@@ -22,6 +23,7 @@ import * as UploadHelper from '../../helpers/uploadHelper.js';
 import * as GenerateFilesHelper from '../../helpers/generateFilesHelper.js';
 import * as ReviewHelper from '../../helpers/reviewHelper.js';
 import { kGlobalConstants } from '../../GlobalConstants.js';
+
 
 const timerDuration = 5;
 
@@ -285,6 +287,7 @@ export default class UploadDetachedFileValidation extends React.Component {
 						</div>
 					</div>
 				</div>
+				<Banner type='fabs' />
 				<div className='container'>
 					<div className = 'col-xs-12 mt-60 mb-60'>
 						<div className = 'validation-holder'>

@@ -5,6 +5,7 @@
 
 import React from 'react';
 import { hashHistory } from 'react-router';
+import Banner from '../SharedComponents/Banner.jsx';
 
 export default class SubmissionGuideContent extends React.Component {
     constructor(props) {
@@ -41,6 +42,7 @@ export default class SubmissionGuideContent extends React.Component {
                         </div>
                     </div>
                 </div>
+                <Banner type='fabs' />
                 <div className="container usa-da-submission-guide">
                     <div className="row text-center">
                         <div className="col-md-12 mt-60">

@@ -26,24 +26,30 @@ export default class LandingContent extends React.Component {
     constructor(props) {
         super(props);
 
+        this.didUnmount = false;
+
         this.state = {
             expanded: false,
+            type: this.props.type,
             window: null
         };
     }
 
     componentDidMount() {
-        this.isWindow();
+        this.didUnmount = false;
     }
 
-    isWindow() {
-        ReviewHelper.isWindow()
-            .then((res) => {
-                this.setState({window: res.data})
+    componentWillReceiveProps(nextProps) {
+        let type = null;
+        console.log('new props', nextProps.type)
+        if(this.state.type !== nextProps.type){
+            type = nextProps.type;
+        }
+        if(type && type != this.state.type) {
+            this.setState({
+                'type': type
             })
-            .catch((err) => {
-                console.log(err)
-            })
+        }
     }
 
     clickedUploadReqs(e) {
@@ -76,7 +82,6 @@ export default class LandingContent extends React.Component {
         let recentActivity = 'recent-activity';
         let expand = 'hide block';
         let expandContent = '';
-        let windowWarning = null;
 
         if (affiliations && affiliations.length > limit && !this.state.expanded) {
             recentHeader +='-hidden';
@@ -89,18 +94,14 @@ export default class LandingContent extends React.Component {
             expandContent = 'Show Less';
         }
 
-        if(this.state.window){
-            windowWarning = <Banner data={this.state.window}/>
-        }
-
         let header = "Welcome to the DATA Act Broker";
         let headerBody = <div></div>;
         let headerClass = 'dark';
-        if (this.props.type == 'fabs') {
+        if (this.state.type == 'fabs') {
             header = "Financial Assistance Broker Submission (FABS)";
             headerClass = 'teal'
         }
-        if (this.props.type == 'dabs') {
+        if (this.state.type == 'dabs') {
             header = "DATA Act Broker Submission (DABS)";
             headerBody = <div>
                             <p>Upload your agency’s files and validate them against the latest version of the DATA Act Information Model Schema (DAIMS).</p>
@@ -108,9 +109,11 @@ export default class LandingContent extends React.Component {
                         </div>;
         }
 
-        let blockContent = <BlockContent type={this.props.type} clickedUploadReqs={this.clickedUploadReqs.bind(this)} session={this.props.session}/>
+        let blockContent = <BlockContent type={this.state.type} clickedUploadReqs={this.clickedUploadReqs.bind(this)} session={this.props.session}/>
 
-        let recentActivityTable = <div className="container">
+        let recentActivityTable = null;
+        if (this.state.type !== 'home'){
+            recentActivityTable = <div className="container">
                         <div className="row">
                             <div className="col-md-12">
                                 <h2 className={recentHeader}>
@@ -123,9 +126,7 @@ export default class LandingContent extends React.Component {
                                 <RecentActivityTable {...this.props} />
                             </div>
                         </div>
-                    </div>;
-        if (this.props.type == 'home'){
-            recentActivityTable = null;
+                    </div>;;
         }
 
         return (
@@ -140,14 +141,14 @@ export default class LandingContent extends React.Component {
                             </div>
                         </div>
                     </div>
-                    {windowWarning}
+                    <Banner type={this.state.type} />
                     <div className="container mb-60">
                         <div className="row">
                             <div className="usa-da-landing col-md-12">
                                 <div className="usa-da-landing-btns">
                                     {blockContent}
                                     <div id="modalHolder">
-                                        <LandingRequirementsModal ref="modal" window={this.state.window} type={this.props.type}/>
+                                        <LandingRequirementsModal ref="modal" type={this.props.type}/>
                                     </div>
                                 </div>
                             </div>

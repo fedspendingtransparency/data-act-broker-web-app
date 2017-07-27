@@ -21,7 +21,6 @@ import * as uploadActions from '../../redux/actions/uploadActions.js';
 
 import * as GenerateFilesHelper from '../../helpers/generateFilesHelper.js';
 import * as UtilHelper from '../../helpers/util.js';
-import * as ReviewHelper from '../../helpers/reviewHelper.js';
 
 const timerDuration = 10;
 
@@ -63,24 +62,12 @@ class GenerateFilesContainer extends React.Component {
 			d1Status: "waiting",
 			d2Status: "waiting",
 			errorDetails: "",
-			window: null
 		};
 	}
 
 	componentDidMount() {
 		this.isUnmounted = false;
 		this.checkForPreviousFiles();
-		this.isWindow();
-	}
-
-	isWindow() {
-		ReviewHelper.isWindow()
-			.then((res) => {
-				this.setState({window: res.data})
-			})
-			.catch((err) =>{
-				console.log(err)
-			})
 	}
 
 
@@ -485,14 +472,10 @@ class GenerateFilesContainer extends React.Component {
 			warningMessage = <PublishedSubmissionWarningBanner />;
 		}
 
-		let windowWarning = null;
-		if(this.state.window){
-			windowWarning = <Banner data={this.state.window}/>
-		}
 		return (
 			<div>
 				{warningMessage}
-				{windowWarning}
+				<Banner type='fabs' />
 				<GenerateFilesContent {...this.props} {...this.state}
 					handleDateChange={this.handleDateChange.bind(this)}
 					updateError={this.updateError.bind(this)}

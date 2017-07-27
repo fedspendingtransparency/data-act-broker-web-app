@@ -5,15 +5,60 @@
 
 import React from 'react';
 import * as Icons from '../SharedComponents/icons/Icons.jsx';
+import * as ReviewHelper from '../../helpers/reviewHelper.js';
+
 
 export default class Banner extends React.Component {
     constructor(props) {
         super(props)
+
+        console.log('banner')
+
+        this.state = {
+            type: this.props.type,
+            window: []
+        }
+    }
+
+    componentDidMount(){
+        this.isWindow();
+    }
+
+    componentWillReceiveProps(nextProps) {
+        let type = null;
+        if(this.state.type !== nextProps.type){
+            type = nextProps.type;
+        }
+        if(type && type != this.state.type) {
+            this.setState({
+                'type': type
+            })
+            this.isWindow()
+        }
+    }
+
+    isWindow() {
+        ReviewHelper.isWindow()
+            .then((res) => {
+                let windows = []
+                console.log(res.data, this.state)
+                for(let i = 0; i < res.data.length; i++) {
+                    if(res.data[i].type.toLowerCase() == this.state.type.toLowerCase() || res.data[i].type.toLowerCase() == 'all') {
+                        windows.push(res.data[i]);
+                    }
+                }
+                if(windows.length != 0) {
+                    this.setState({window: windows})
+                }
+            })
+            .catch((err) => {
+                console.log(err)
+            })
     }
 
     getRows(){
         let msg = [];
-        for(let i = 0; i < this.props.data.length; i++) {
+        for(let i = 0; i < this.state.window.length; i++) {
             msg.push(
                 <div key={'banner'+i} className="published-submission-warning-banner">
                     <div className='container'>
@@ -22,7 +67,7 @@ export default class Banner extends React.Component {
                                 <i className="usa-da-icon"><Icons.ExclamationTriangle /> </i>
                             </div>
                             <div className="col-xs-11">
-                                <p>{this.props.data[i].message}</p>
+                                <p>{this.state.window[i].message}</p>
                             </div>
                         </div>
                     </div>
