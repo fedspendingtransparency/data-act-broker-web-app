@@ -82,16 +82,19 @@ export default class HelpPage extends React.Component {
     }
 
     render() {
+        const history = this.props.type === 'fabs' ? '#/detachedHistory' : '#/history';
+        const activeTab = this.props.type === 'fabs' ? 'detachedHelp' : 'help';
+        const color = this.props.type === 'fabs' ? 'teal' : 'dark';
         return (
             <div className="usa-da-help-style-page" name="top">
                 <div className="usa-da-page-content">
-                    <Navbar activeTab="help" logoOnly={this.props.helpOnly} />
-                    <div className="usa-da-content-dark mb-60">
+                    <Navbar activeTab={activeTab} type={this.props.type} />
+                    <div className={"usa-da-content-" + color + " mb-60"}>
                         <div className="container">
                             <div className="row">
                                 <div className="col-md-12 mt-40 mb-20">
                                     <div className="display-2" data-contentstart="start" tabIndex={-1}>Help | DATA Act Broker</div>
-                                    <HelpNav selected="Help" />
+                                    <HelpNav selected="Help" type={this.props.type} />
                                 </div>
                             </div>
                         </div>
@@ -99,7 +102,7 @@ export default class HelpPage extends React.Component {
                     <div className="container">
                         <div className="row usa-da-help-page">
 							<div className="col-md-4">
-                                <HelpSidebar changeSections={this.state.clSections} technicalSections={this.state.tSections} sections={this.state.sections}/>
+                                <HelpSidebar changeSections={this.state.clSections} technicalSections={this.state.tSections} sections={this.state.sections} type={this.props.type} />
                             </div>
                             <div className="col-md-8">
                                 <HistoryContent history={this.state.history} title={this.state.title}/>
@@ -109,7 +112,7 @@ export default class HelpPage extends React.Component {
                 </div>
                 <Footer />
                 <div className="usa-da-help-top-button">
-                    <a href="#/history?section=top" aria-label="Back to top">
+                    <a href={history + "?section=top"} aria-label="Back to top">
                         <div className="usa-da-icon">
                             <Icons.AngleUp alt="Arrow pointing up" />
                         </div>

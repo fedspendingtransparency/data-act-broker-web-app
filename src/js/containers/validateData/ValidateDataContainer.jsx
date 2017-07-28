@@ -17,7 +17,7 @@ import ValidateCancellation from '../../components/validateData/ValidateCancella
 import ValidateNotYours from '../../components/validateData/ValidateNotYours.jsx';
 import ValidateLoadingScreen from '../../components/validateData/ValidateLoadingScreen.jsx';
 import PublishedSubmissionWarningBanner from '../../components/SharedComponents/PublishedSubmissionWarningBanner.jsx';
-import GTASBanner from '../../components/SharedComponents/GTASWarningBanner.jsx';
+import Banner from '../../components/SharedComponents/Banner.jsx';
 import { fileTypes } from '../addData/fileTypes.js';
 import { kGlobalConstants } from '../../GlobalConstants.js';
 
@@ -50,7 +50,7 @@ class ValidateDataContainer extends React.Component {
 	componentDidMount() {
 		this.isCancelled = false;
 		this.validateSubmission();
-		this.isGtas();
+		this.isWindow();
 		
 	}
 
@@ -63,10 +63,10 @@ class ValidateDataContainer extends React.Component {
 		}
 	}
 
-	isGtas() {
-		ReviewHelper.isGtasWindow()
+	isWindow() {
+		ReviewHelper.isWindow()
 			.then((res) => {
-				this.setState({gtas: res.data})
+				this.setState({window: res.data})
 			})
 			.catch((err) =>{
 				console.log(err)
@@ -213,15 +213,15 @@ class ValidateDataContainer extends React.Component {
 			warningMessage = <PublishedSubmissionWarningBanner />;
 		}
 
-		let gtasWarning = null;
-		if(this.state.gtas){
-			gtasWarning = <GTASBanner data={this.state.gtas}/>
+		let windowWarning = null;
+		if(this.state.window){
+			windowWarning = <Banner data={this.state.window}/>
 		}
 
 		return (
 			<div>
 				{warningMessage}
-				{gtasWarning}
+				{windowWarning}
 				{validationContent}
 			</div>
 		);

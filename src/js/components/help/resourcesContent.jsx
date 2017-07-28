@@ -42,7 +42,7 @@ export default class ResourcesContent extends React.Component {
 			.then((urls) => {
 				this.setState({
 					rssUrl: urls[rssFileKey()],
-					validationRulesUrl: urls['Validation_Rules_v1.08_20170413.xlsx'],
+					validationRulesUrl: urls['Validation_Rules_v1.11.xlsx'],
 					domainValuesUrl: urls['Domain_Values.xlsx'],
 					agencyLabelUrl: urls['AgencyLabel_to_TerseLabel_v1.0.1.xlsx'],
 					daimsErrataUrl: urls['DAIMS_Errata.xlsx'],
@@ -85,6 +85,8 @@ export default class ResourcesContent extends React.Component {
 	}
 
 	render() {
+		let practices = this.props.type === 'fabs' ? '/#/detachedPractices' : '/#/practices';
+		let validations = this.props.type === 'fabs' ? '/#/detachedValidations' : '/#/validations';
 		return (
 			<div className="usa-da-help-content">
 				<div className="resources-page">
@@ -161,10 +163,10 @@ export default class ResourcesContent extends React.Component {
 					<a href="http://fedspendingtransparency.github.io/assets/img/informationflow.png" target="_blank" rel="noopener noreferrer">Information Flow Diagram</a> - An overview of the reporting cadences and sources of data included in the DAIMS.
 					</li>
 					<li>
-					<a href="/#/practices" target="_blank" rel="noopener noreferrer">Practices and Procedures page</a>
+					<a href={practices} target="_blank" rel="noopener noreferrer">Practices and Procedures page</a>
 					</li>
 					<li>
-					<a href="/#/validations" target="_blank" rel="noopener noreferrer">Validation Rules page</a>
+					<a href={validations} target="_blank" rel="noopener noreferrer">Validation Rules page</a>
 					</li>
 					<li>
 					<a href={this.state.domainValuesUrl}>Domain Values</a> - A listing of the specific set of allowed values for a data element.
