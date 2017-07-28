@@ -22,21 +22,8 @@ export default class BlockContent extends React.Component {
         let thirdBlock = null;
 
         if (this.props.type === 'home') {
-            if (this.props.session.user.helpOnly) {
-                // No access
-                firstBlock = <LandingBlock type={this.props.type} icon={<h5>DATA Act Broker Submission</h5>} text="In order to view the DATA Act Broker Submissions, please follow the link below to request access" buttonText="Request Access" url="https://community.max.gov/x/fJwuRQ" />;
-                secondBlock = <LandingBlock type={this.props.type} icon={<h5>Financial Assistance Broker Submission</h5>} text="In order to view the Financial Assistance Broker Submissions, please follow the link below to request access" buttonText="Request Access" url="https://community.max.gov/x/fJwuRQ" />;
-            }
-            else if (permissionHelper.checkDabsReader(this.props.session)) {
-                // Access to FABS and DABS
-                firstBlock = <LandingBlock type={this.props.type} icon={<h5>DATA Act Broker Submission</h5>} text="Submit quarterly and monthly financial data." buttonText="Enter" url="#/landing" />;
-                secondBlock = <LandingBlock type={this.props.type} icon={<h5>Financial Assistance Broker Submission</h5>} text="Submit bi-monthly Financial Assistance award data." buttonText='Enter' url='#/detachedLanding' />;
-            }
-            else {
-                // Only access to FABS
-                firstBlock = <LandingBlock type={this.props.type} icon={<h5>DATA Act Broker Submission</h5>} text="In order to view the DATA Act Broker Submissions, please follow the link below to request access" buttonText="Request Access" url="https://community.max.gov/x/fJwuRQ" />;
-                secondBlock = <LandingBlock type={this.props.type} icon={<h5>Financial Assistance Broker Submission</h5>} text="Submit bi-monthly Financial Assistance award data." buttonText='Enter' url='#/detachedLanding' />;
-            }
+            firstBlock = <LandingBlock type={this.props.type} icon={<h5>DATA Act Broker Submission</h5>} text="Submit quarterly and monthly financial data." buttonText="Enter" url="#/landing" />;
+            secondBlock = <LandingBlock type={this.props.type} icon={<h5>Financial Assistance Broker Submission</h5>} text="Submit bi-monthly Financial Assistance award data." buttonText='Enter' url='#/detachedLanding' />;
         }
         else if (this.props.type === 'dabs') {
             if (permissionHelper.checkPermissions(this.props.session)) {

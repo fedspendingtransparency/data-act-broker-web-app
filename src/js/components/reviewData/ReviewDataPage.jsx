@@ -40,7 +40,7 @@ export default class ReviewDataPage extends React.Component {
             <div className="usa-da-review-data-page">
                 <div className="usa-da-site_wrap">
                     <div className="usa-da-page-content">
-                        <Navbar activeTab="submissionGuide"/>
+                        <Navbar activeTab="submissionGuide" type={this.props.route.type} />
                         <AddDataHeader submissionID={submissionID} />
                         <div className="usa-da-content-step-block" name="content-top">
                             <div className="container center-block">

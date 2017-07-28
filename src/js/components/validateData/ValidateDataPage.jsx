@@ -143,7 +143,7 @@ export default class ValidateDataPage extends React.Component {
 
         return (
             <div className="usa-da-validate-data-page">
-                <Navbar activeTab="submissionGuide"/>
+                <Navbar activeTab="submissionGuide" type={this.props.type} />
                 <AddDataHeader submissionID={submissionID} />
                 <div className="usa-da-content-step-block" name="content-top">
                     <div className="container center-block">

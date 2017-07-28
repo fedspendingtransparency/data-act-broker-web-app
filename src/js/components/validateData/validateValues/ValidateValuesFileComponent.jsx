@@ -7,7 +7,6 @@ import React, { PropTypes } from 'react';
 import { kGlobalConstants } from '../../../GlobalConstants.js';
 import DropZone from '../../addData/DropZone.jsx';
 import DropZoneContainer from '../../../containers/addData/DropZoneContainer.jsx';
-import Navbar from '../../SharedComponents/navigation/NavigationComponent.jsx';
 import AddDataHeader from './../../addData/AddDataHeader.jsx';
 import SubmitButton from '../../SharedComponents/SubmitButton.jsx';
 import FileProgress from '../../SharedComponents/FileProgress.jsx';
