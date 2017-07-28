@@ -128,7 +128,7 @@ class UnknownIDComponent extends React.Component {
 
 export default class ValidateDataPage extends React.Component {
     constructor(props) {
-        super(props)
+        super(props);
     }
 
     render() {
@@ -143,7 +143,7 @@ export default class ValidateDataPage extends React.Component {
 
         return (
             <div className="usa-da-validate-data-page">
-                <Navbar activeTab="submissionGuide" type={this.props.type} />
+                <Navbar activeTab="submissionGuide" type={this.props.route.type} />
                 <AddDataHeader submissionID={submissionID} />
                 <div className="usa-da-content-step-block" name="content-top">
                     <div className="container center-block">
