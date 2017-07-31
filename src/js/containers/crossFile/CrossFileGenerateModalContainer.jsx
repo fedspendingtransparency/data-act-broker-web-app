@@ -318,7 +318,8 @@ export default class CrossFileGenerateModalContainer extends React.Component {
                 download={this.state.file.download}
                 onDateChange={this.handleDateChange.bind(this)} 
                 showError={this.showError.bind(this)}
-                hideError={this.hideError.bind(this)} />
+                hideError={this.hideError.bind(this)} 
+                updateError={this.validateDates.bind(this)} />
 		);
 	}
 }
