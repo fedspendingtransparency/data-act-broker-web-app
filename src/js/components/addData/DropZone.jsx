@@ -18,6 +18,10 @@ export default class DropZone extends React.Component {
         super(props);
     }
 
+    componentWillUnmount() {
+        this.props.resetSubmission();
+    }
+
     render() {
 
         let dropzoneString = "Drag and drop or click here to upload your <b>" + this.props.fileTitle + "</b>.";
