@@ -12,7 +12,8 @@ export default class DashboardContent extends React.Component {
 
         this.state = {
             activePage: 1,
-            certifiedPage: 1
+            certifiedPage: 1,
+            title: this.props.type === 'fabs' ? 'Published Submissions' : 'Certified Submissions'
         }
     }
 
@@ -35,7 +36,7 @@ export default class DashboardContent extends React.Component {
                 </div>
                 <div className="row">
                     <div className="col-md-12">
-                        <h2 className="table-title">Certified Submissions</h2>
+                        <h2 className="table-title">{this.state.title}</h2>
                         <DashboardTable
                             isLoading={this.props.certifiedLoading}
                             isCertified={true}

@@ -99,12 +99,16 @@ export default class LandingContent extends React.Component {
         if (this.props.type == 'fabs') {
             header = "Financial Assistance Broker Submission (FABS)";
             headerClass = 'teal'
+            headerBody = <div>
+                            <p>Upload your agency’s fiancial assistance data and validate it against the latest version of the DATA Act Information Model Schema (DAIMS).</p>
+                            <p>Details on how to format your data, including required and optional fields, can be found in the <a href="https://broker.usaspending.gov/#/detachedHelp" target="_blank" rel="noopener noreferrer" >Help section.</a>.</p>
+                        </div>;
         }
         if (this.props.type == 'dabs') {
             header = "DATA Act Broker Submission (DABS)";
             headerBody = <div>
-                            <p>Upload your agency’s files and validate them against the latest version of the DATA Act Information Model Schema (DAIMS).</p>
-                            <p>Details on how to format your data, including required and optional fields, can be found in the <a href="https://broker.usaspending.gov/#/resources" target="_blank" rel="noopener noreferrer" >Resources section.</a>.</p>
+                            <p>Upload your agency’s financial data and validate it against the latest version of the DATA Act Information Model Schema (DAIMS).</p>
+                            <p>Details on how to format your data, including required and optional fields, can be found in the <a href="https://broker.usaspending.gov/#/help" target="_blank" rel="noopener noreferrer" >Help section.</a>.</p>
                         </div>;
         }
 
