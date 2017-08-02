@@ -33,8 +33,6 @@ class ValidateDataContainer extends React.Component {
 	constructor(props) {
 		super(props);
 
-		console.log(this.props)
-
 		this.state = {
 			finishedPageLoad: false,
 			headerErrors: true,
@@ -207,7 +205,7 @@ class ValidateDataContainer extends React.Component {
 		return (
 			<div>
 				{warningMessage}
-				<Banner type='fabs' />
+				<Banner type='dabs' />
 				{validationContent}
 			</div>
 		);

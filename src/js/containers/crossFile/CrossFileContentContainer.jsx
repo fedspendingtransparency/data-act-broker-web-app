@@ -219,7 +219,7 @@ class CrossFileContentContainer extends React.Component {
 		return (
 			<div>
 				{warningMessage}
-				<Banner type='fabs' />
+				<Banner type='dabs' />
 				<CrossFileContent {...this.props} uploadFiles={this.uploadFiles.bind(this)} reloadData={this.reloadData.bind(this)} />
 			</div>
 		);

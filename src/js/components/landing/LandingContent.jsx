@@ -41,7 +41,7 @@ export default class LandingContent extends React.Component {
 
     componentWillReceiveProps(nextProps) {
         let type = null;
-        console.log('new props', nextProps.type)
+
         if(this.state.type !== nextProps.type){
             type = nextProps.type;
         }

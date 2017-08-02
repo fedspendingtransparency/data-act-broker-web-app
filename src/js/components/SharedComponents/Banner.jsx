@@ -41,6 +41,9 @@ export default class Banner extends React.Component {
     isWindow() {
         ReviewHelper.isWindow()
             .then((res) => {
+                if(!res.data) {
+                    return;
+                }
                 let windows = []
                 for(let i = 0; i < res.data.length; i++) {
                     if(res.data[i].type.toLowerCase() == this.state.type.toLowerCase() || res.data[i].type.toLowerCase() == 'all') {

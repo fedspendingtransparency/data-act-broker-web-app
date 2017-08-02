@@ -33,7 +33,7 @@ export default class AddDataPage extends React.Component {
                 <div className="usa-da-site_wrap">
                     <Navbar activeTab="submissionGuide"/>
                     <AddDataHeader />
-                    <Banner type='fabs' />
+                    <Banner type='dabs' />
                     {bodyComponent}
                 </div>
                 <Footer />

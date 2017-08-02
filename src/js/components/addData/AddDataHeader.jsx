@@ -33,16 +33,29 @@ export default class AddDataHeader extends React.Component {
         this.isUnmounted = false;
 
         this.state = {
-            submissionID: null,
+            submissionID: this.props.submissionID ? this.props.submissionID : null,
             last_updated: null,
             ready: false
         };
     }
 
+    componentWillReceiveProps(nextProps) {
+        if(this.state.submissionID !== nextProps.submissionID) {
+            this.setState({submissionID: nextProps.submissionID})
+            this.loadData(nextProps.submissionID)
+        }
+        
+    }
+
     componentDidMount() {
         this.isUnmounted = false;
         if (this.props.submissionID != null && !this.props.load) {
-            ReviewHelper.fetchStatus(this.props.submissionID)
+            this.loadData(this.props.submissionID);
+        }
+    }
+
+    loadData(submissionID){
+        ReviewHelper.fetchStatus(submissionID)
                 .then((data) => {
                     data.ready = true;
                     if (!this.isUnmounted) {
@@ -52,7 +65,6 @@ export default class AddDataHeader extends React.Component {
                 .catch((error) => {
                     console.log(error);
                 });
-        }
     }
 
     componentWillUnmount() {

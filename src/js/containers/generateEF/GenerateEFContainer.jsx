@@ -160,7 +160,7 @@ class GenerateEFContainer extends React.Component {
 		return (
 			<div>
 				{warningMessage}
-				<Banner type='fabs' />
+				<Banner type='dabs' />
 				{content}
 			</div>
 		)

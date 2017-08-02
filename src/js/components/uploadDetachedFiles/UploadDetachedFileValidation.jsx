@@ -24,7 +24,6 @@ import * as GenerateFilesHelper from '../../helpers/generateFilesHelper.js';
 import * as ReviewHelper from '../../helpers/reviewHelper.js';
 import { kGlobalConstants } from '../../GlobalConstants.js';
 
-
 const timerDuration = 5;
 
 export default class UploadDetachedFileValidation extends React.Component {
@@ -35,7 +34,7 @@ export default class UploadDetachedFileValidation extends React.Component {
 
 		this.state = {
 			agency: "",
-			submissionID: 0,
+			submissionID: this.props.params.submissionID ? this.props.params.submissionID: 0,
 			detachedAward: {
 				startDate: null,
 				endDate: null,
@@ -61,6 +60,7 @@ export default class UploadDetachedFileValidation extends React.Component {
 
 	componentDidMount() {
 		this.isUnmounted = false;
+		this.checkFileStatus(this.state.submissionID)
 	}
 
 	componentWillReceiveProps(nextProps) {
@@ -68,7 +68,7 @@ export default class UploadDetachedFileValidation extends React.Component {
 			this.setState({
 				submissionID: nextProps.params.submissionID
 			})
-			this.checkFileStatus(this.props.params.submissionID);	
+			this.checkFileStatus(nextProps.params.submissionID);	
 		}
 	}
 
@@ -96,7 +96,8 @@ export default class UploadDetachedFileValidation extends React.Component {
 					rep_end: response.reporting_period_end_date,
 					submit: submission,
 					cgac_code: response.cgac_code,
-					published: (response.publish_status === 'published' ? true : false)
+					published: (response.publish_status === 'published' ? true : false),
+					error: 0
 				}, () => {
 					this.parseJobStates(response);
 				});			

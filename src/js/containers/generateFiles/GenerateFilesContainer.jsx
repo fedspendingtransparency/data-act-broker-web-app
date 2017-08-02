@@ -475,7 +475,7 @@ class GenerateFilesContainer extends React.Component {
 		return (
 			<div>
 				{warningMessage}
-				<Banner type='fabs' />
+				<Banner type='dabs' />
 				<GenerateFilesContent {...this.props} {...this.state}
 					handleDateChange={this.handleDateChange.bind(this)}
 					updateError={this.updateError.bind(this)}

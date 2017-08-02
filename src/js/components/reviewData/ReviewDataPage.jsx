@@ -45,7 +45,7 @@ export default class ReviewDataPage extends React.Component {
                             </div>
                         </div>
                         {warningMessage}
-                        <Banner type='fabs' />
+                        <Banner type='dabs' />
                         {currentComponent}
                     </div>
                 </div>
