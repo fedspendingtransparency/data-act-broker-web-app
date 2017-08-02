@@ -81,7 +81,6 @@ export default class Banner extends React.Component {
     }
 
     render() {
-        // let date = this.parseDate(this.props.data.end_date)
         let message = this.getRows();
         return (
                 <div>
