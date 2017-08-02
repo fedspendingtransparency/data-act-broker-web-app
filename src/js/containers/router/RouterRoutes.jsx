@@ -76,7 +76,7 @@ const checkUserPermissions = (nextState, replace) => {
     }
 }
 
-const checkDabsUserPermissions = (nextState, replace) => {
+const checkDabsUploadPermissions = (nextState, replace) => {
     getStore();
     const session = store.getState().session;
     if (session.login != "loggedIn") {
@@ -93,7 +93,7 @@ const checkDabsUserPermissions = (nextState, replace) => {
     }
 }
 
-const checkFabsUserPermissions = (nextState, replace) => {
+const checkFabsUploadPermissions = (nextState, replace) => {
     getStore();
     const session = store.getState().session;
     if (session.login != "loggedIn") {
@@ -175,7 +175,7 @@ const routeDefinitions = {
         },
         {
             path: 'addData',
-            onEnter: checkDabsUserPermissions,
+            onEnter: checkDabsUploadPermissions,
             component: AddDataPageContainer,
             type: 'dabs'
         },
@@ -187,7 +187,7 @@ const routeDefinitions = {
         },
         {
             path: 'uploadDetachedFiles',
-            onEnter: checkFabsUserPermissions,
+            onEnter: checkFabsUploadPermissions,
             component: UploadDetachedFilesPageContainer,
             type: 'fabs'
         },

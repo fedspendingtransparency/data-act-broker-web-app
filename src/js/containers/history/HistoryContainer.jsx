@@ -17,7 +17,7 @@ class HistoryContainer extends React.Component {
 
     render() {
        return(
-        	<HistoryPage submissionID={this.props.params.submissionID} type={this.props.route.type}></HistoryPage>
+        	<HistoryPage submissionID={this.props.params.submissionID} type={this.props.route.type} />
         )
     }
 }

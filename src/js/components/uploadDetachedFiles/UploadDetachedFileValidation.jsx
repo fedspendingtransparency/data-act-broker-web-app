@@ -268,6 +268,8 @@ class UploadDetachedFileValidation extends React.Component {
 				if (this.state.published){
 					validationButton = <button className='pull-right col-xs-3 us-da-disabled-button' disabled>File Already Published</button>;
 				}
+			} else {
+				validationButton = <button className='pull-right col-xs-3 us-da-disabled-button' disabled>You do not have permissions to publish</button>;
 			}
 		}
 
