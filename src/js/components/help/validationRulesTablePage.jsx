@@ -28,7 +28,7 @@ export default class ValidationRulesTablePage extends React.Component {
         return (
             <div className="usa-da-help-style-page" name="top">
                 <div className="usa-da-page-content">
-                    <Navbar activeTab={activeTab} type={this.props.type} />
+                    <Navbar activeTab={activeTab} type={this.props.type} logoOnly={this.props.helpOnly} />
                     <div className={"usa-da-content-" + color + " mb-60"}>
                         <div className="container">
                             <div className="row">

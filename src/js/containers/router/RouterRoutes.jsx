@@ -70,18 +70,13 @@ const checkUserPermissions = (nextState, replace) => {
     if (session.login != "loggedIn") {
         performAutoLogin(nextState.location, replace);
     }
-    else if (kGlobalConstants.STAGING) {
-        if (session.user.helpOnly || (nextState.routes.length > 1 && nextState.routes[1].type == 'dabs' && !PermissionsHelper.checkDabsReader(session))) {
-            replace('/');
-        }
-    }
-    else if (session.user.helpOnly || (nextState.routes.length > 1 && nextState.routes[1].type == 'dabs' && !PermissionsHelper.checkDabsReader(session))) {
+    else if (session.user.helpOnly) {
         // if no permissions or attempting to reach DABS with improper permissions, bounce to help
         replace('/help');
     }
 }
 
-const checkReadUserPermissions = (nextState, replace) => {
+const checkDabsUploadPermissions = (nextState, replace) => {
     getStore();
     const session = store.getState().session;
     if (session.login != "loggedIn") {
@@ -89,12 +84,29 @@ const checkReadUserPermissions = (nextState, replace) => {
     }
     else if (!session.admin) {
         for(var i = 0; i < session.user.affiliations.length; i++){
-            if(session.user.affiliations[i].permission != 'reader'){
+            if (session.user.affiliations[i].permission === 'writer' || session.user.affiliations[i].permission === 'submitter'){
                 return;
             }
         }
         // if no permissions, bounce to landing
         replace('/landing');
+    }
+}
+
+const checkFabsUploadPermissions = (nextState, replace) => {
+    getStore();
+    const session = store.getState().session;
+    if (session.login != "loggedIn") {
+        performAutoLogin(nextState.location, replace);
+    }
+    else if (!session.admin) {
+        for(var i = 0; i < session.user.affiliations.length; i++){
+            if (session.user.affiliations[i].permission === 'fabs'){
+                return;
+            }
+        }
+        // if no permissions, bounce to landing
+        replace('/detachedLanding');
     }
 }
 
@@ -111,7 +123,7 @@ const checkHelpUserPermissions = (nextState, replace) => {
 const routeDefinitions = {
     path: '/',
     indexRoute: {
-        onEnter: kGlobalConstants.STAGING ? checkHelpUserPermissions : checkUserPermissions,
+        onEnter: checkUserPermissions,
         component: LandingPage,
         type: kGlobalConstants.STAGING ? 'home' : 'dabs'
     },
@@ -163,8 +175,9 @@ const routeDefinitions = {
         },
         {
             path: 'addData',
-            onEnter: checkReadUserPermissions,
-            component: AddDataPageContainer
+            onEnter: checkDabsUploadPermissions,
+            component: AddDataPageContainer,
+            type: 'dabs'
         },
         {
             path: 'uploadDetachedFiles/:submissionID',
@@ -174,7 +187,7 @@ const routeDefinitions = {
         },
         {
             path: 'uploadDetachedFiles',
-            onEnter: checkUserPermissions,
+            onEnter: checkFabsUploadPermissions,
             component: UploadDetachedFilesPageContainer,
             type: 'fabs'
         },
@@ -317,7 +330,7 @@ const routeDefinitions = {
         },
         {
             path: 'detachedHelp',
-            onEnter: checkHelpUserPermissions,
+            onEnter: checkUserPermissions,
             getComponent(nextState, cb) {
                 require.ensure([], (require) => {
                     cb(null, require('../../containers/help/HelpContainer.jsx').default)
@@ -327,7 +340,7 @@ const routeDefinitions = {
         },
         {
             path: 'detachedPractices',
-            onEnter: checkHelpUserPermissions,
+            onEnter: checkUserPermissions,
             getComponent(nextState, cb) {
                 require.ensure([], (require) => {
                     cb(null, require('../../containers/help/HelpContainer.jsx').default)
@@ -337,7 +350,7 @@ const routeDefinitions = {
         },
         {
             path: 'detachedValidations',
-            onEnter: checkHelpUserPermissions,
+            onEnter: checkUserPermissions,
             getComponent(nextState, cb) {
                 require.ensure([], (require) => {
                     cb(null, require('../../containers/help/HelpContainer.jsx').default)
@@ -347,7 +360,7 @@ const routeDefinitions = {
         },
         {
             path: 'detachedResources',
-            onEnter: checkHelpUserPermissions,
+            onEnter: checkUserPermissions,
             getComponent(nextState, cb) {
                 require.ensure([], (require) => {
                     cb(null, require('../../containers/help/HelpContainer.jsx').default)
@@ -358,7 +371,7 @@ const routeDefinitions = {
 
         {
             path: 'detachedHistory',
-            onEnter: checkHelpUserPermissions,
+            onEnter: checkUserPermissions,
             getComponent(nextState, cb) {
                 require.ensure([], (require) => {
                     cb(null, require('../../containers/help/HelpContainer.jsx').default)
@@ -368,7 +381,7 @@ const routeDefinitions = {
         },
         {
             path: 'detachedTechnicalHistory',
-            onEnter: checkHelpUserPermissions,
+            onEnter: checkUserPermissions,
             getComponent(nextState, cb) {
                 require.ensure([], (require) => {
                     cb(null, require('../../containers/help/HelpContainer.jsx').default)
@@ -378,11 +391,13 @@ const routeDefinitions = {
         },
         {
             path: '*',
+            onEnter: checkUserPermissions,
             getComponent(nextState, cb) {
                 require.ensure([], (require) => {
                     cb(null, require('../../components/error/ErrorPage.jsx').default)
                 });
-            }
+            },
+            type: 'home'
         }
     ]
 }
