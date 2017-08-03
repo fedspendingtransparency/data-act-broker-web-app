@@ -26,17 +26,11 @@ export default class LandingContent extends React.Component {
     constructor(props) {
         super(props);
 
-        this.didUnmount = false;
-
         this.state = {
             expanded: false,
             type: this.props.type,
             window: null
         };
-    }
-
-    componentDidMount() {
-        this.didUnmount = false;
     }
 
     componentWillReceiveProps(nextProps) {
