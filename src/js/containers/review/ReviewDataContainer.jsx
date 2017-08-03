@@ -30,13 +30,13 @@ class ReviewDataContainer extends React.Component {
             total_assistance_obligations: null,
             total_procurement_obligations: null,
             file_narrative: {},
-            gtas: null
+            window: null
         }
     }
 
     componentDidMount() {
     	this.loadData();
-        this.isGtas();
+        this.isWindow();
     }
 
     componentDidUpdate(prevProps, prevState) {
@@ -46,10 +46,10 @@ class ReviewDataContainer extends React.Component {
     	}
     }
 
-    isGtas() {
-        ReviewHelper.isGtasWindow()
+    isWindow() {
+        ReviewHelper.isWindow()
             .then((res) => {
-                this.setState({gtas: res.data})
+                this.setState({window: res.data})
             })
             .catch((err) =>{
                 console.log(err)

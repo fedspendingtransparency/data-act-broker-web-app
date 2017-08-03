@@ -15,14 +15,22 @@ class DashboardContainer extends React.Component {
     constructor(props) {
         super(props);
 
+
         this.state = {
             activeLoading: true,
             certifiedLoading: true,
             activeTotal: 0,
             certifiedTotal: 0,
             activeSubmissions: [],
-            certifiedSubmissions: []
+            certifiedSubmissions: [],
+            type: this.props.type
         };
+    }
+
+    componentWillReceiveProps(nextProps){
+        if(nextProps.type != this.state.type) {
+            this.setState({type: nextProps.type})
+        }
     }
 
     loadTableData(page = 1, certified = false, category='modified', order='desc') {
@@ -38,7 +46,7 @@ class DashboardContainer extends React.Component {
         this.setState({
             [tableName + 'Loading']: true
         }, () => {
-             SubmissionListHelper.loadSubmissionList(page, 10, certified, category, order)
+             SubmissionListHelper.loadSubmissionList(page, 10, certified, category, order, this.state.type=='fabs')
                 .then((data) => {
                     this.setState({
                         [tableName + 'Total']: data.total,

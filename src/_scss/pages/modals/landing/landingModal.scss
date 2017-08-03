@@ -14,10 +14,15 @@
         font-size: $small-font-size;
         color: #525252;
     }
+
     ul {
         margin-top: 1.5rem;
         margin-bottom: 3.5rem;
-        margin-left: 0;
+        margin-left: 0px;
+        ul {
+            padding-left: 20px;
+            list-style-type: circle;
+        }
     }
     .usa-da-review-data-user-row {
         height: 41px;

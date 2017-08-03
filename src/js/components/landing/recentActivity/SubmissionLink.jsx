@@ -12,12 +12,14 @@ const propTypes = {
 		React.PropTypes.string,
 		React.PropTypes.number
 	]).isRequired,
-	disabled : React.PropTypes.bool
+	disabled : React.PropTypes.bool,
+	type: React.PropTypes.string
 }
 
 const defaultProps = {
 	submissionId: '',
-	disabled: false
+	disabled: false,
+	type: 'dabs'
 }
 
 export default class SubmissionLink extends React.Component {
@@ -30,11 +32,18 @@ export default class SubmissionLink extends React.Component {
 		let link = <Icons.Eye alt="View" />;
 		if(this.props.value) {
 			link = this.props.value
+		} else if(this.props.disabled) {
+			link = 'N/A'
 		}
 
 		let content = <a href={"#/submission/" + this.props.submissionId} className='date-link'>
 						{link}
 					</a>;
+		if(this.props.type == 'fabs') {
+			content = <a href={"#/uploadDetachedFiles/" + this.props.submissionId} className='date-link'>
+						{link}
+					</a>;
+		}
 
 		if(this.props.disabled) {
 			content = <div className='date-link'>
