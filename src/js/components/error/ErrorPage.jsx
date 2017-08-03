@@ -5,7 +5,7 @@ export default class ErrorPage extends React.Component {
 	render() {
 		return (
 			<div className="site_wrap usa-da-error-page">
-                <Navbar />
+                <Navbar type={this.props.type} logoOnly={this.props.helpOnly} />
                 
                 <div className="site_content pending-page">
 	                <div className="usa-da-content-dark">

@@ -55,7 +55,7 @@ export default class AddDataPage extends React.Component {
         return (
             <div className="usa-da-add-data-page">
                 <div className="usa-da-site_wrap">
-                    <Navbar activeTab="submissionGuide"/>
+                    <Navbar activeTab="submissionGuide" type={this.props.route.type} />
                     <AddDataHeader />
                     {windowWarning}
                     {bodyComponent}

@@ -7,8 +7,8 @@ import ReactCSSTransitionGroup from 'react-addons-css-transition-group';
 
 import React from 'react';
 import moment from 'moment';
+import { connect } from 'react-redux';
 
-import Navbar from '../SharedComponents/navigation/NavigationComponent.jsx';
 import Footer from '../SharedComponents/FooterComponent.jsx';
 import SubTierAgencyListContainer from '../../containers/SharedContainers/SubTierAgencyListContainer.jsx';
 import ValidateValuesFileContainer from '../../containers/validateData/ValidateValuesFileContainer.jsx';
@@ -21,12 +21,13 @@ import * as Icons from '../SharedComponents/icons/Icons.jsx';
 
 import * as UploadHelper from '../../helpers/uploadHelper.js';
 import * as GenerateFilesHelper from '../../helpers/generateFilesHelper.js';
+import * as PermissionsHelper from '../../helpers/permissionsHelper.js';
 import * as ReviewHelper from '../../helpers/reviewHelper.js';
 import { kGlobalConstants } from '../../GlobalConstants.js';
 
 const timerDuration = 5;
 
-export default class UploadDetachedFileValidation extends React.Component {
+class UploadDetachedFileValidation extends React.Component {
 	constructor(props) {
 		super(props);
 
@@ -55,7 +56,8 @@ export default class UploadDetachedFileValidation extends React.Component {
 			rep_end: '',
 			published: false,
 			submit: true,
-			showPublish: false
+			showPublish: false,
+			type: props.route.type
 		};
 	}
 
@@ -252,7 +254,7 @@ export default class UploadDetachedFileValidation extends React.Component {
 		let validationBox = null;
 		let headerDate = null;
 		
-		if(this.state.agency !== '' && this.state.rep_start !== '' && this.state.rep_end !== ''){
+		if (this.state.agency !== '' && this.state.rep_start !== '' && this.state.rep_end !== ''){
 			headerDate = <div className="col-md-2 ">
 							<div className = 'header-box'>
 									<span>
@@ -274,11 +276,19 @@ export default class UploadDetachedFileValidation extends React.Component {
 		}
 
 		validationBox = <ValidateDataFileContainer type={type} data={this.state.jobResults}/>;
-		if(!this.state.headerErrors && this.state.validationFinished) {
+		if (!this.state.headerErrors && this.state.validationFinished) {
 			validationBox = <ValidateValuesFileContainer type={type} data={this.state.jobResults} setUploadItem={this.uploadFile.bind(this)} updateItem={this.uploadFile.bind(this)} published={this.state.published}/>;
 			validationButton = <button className='pull-right col-xs-3 us-da-button' onClick={this.openModal.bind(this)}>Publish</button>;
 			if(this.state.published){
 				validationButton = <button className='pull-right col-xs-3 us-da-disabled-button' disabled>File Already Published</button>;
+			}
+			else if (PermissionsHelper.checkFabsPermissions(this.props.session)) {
+				// User has permissions to publish this unpublished submission
+				validationButton = <button className='pull-right col-xs-3 us-da-button' onClick={this.submitFabs.bind(this)}>Publish</button>;
+			}
+			else {
+				// User does not have permissions to publish 
+				validationButton = <button className='pull-right col-xs-3 us-da-disabled-button' disabled>You do not have permissions to publish</button>;
 			}
 		}
 
@@ -322,3 +332,7 @@ export default class UploadDetachedFileValidation extends React.Component {
 		);
 	}
 }
+
+export default connect(
+    state => ({ session: state.session })
+)(UploadDetachedFileValidation)
