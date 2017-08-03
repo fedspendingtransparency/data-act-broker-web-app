@@ -45,7 +45,7 @@ export default class PublishModal extends React.Component {
 
 	render() {
 		let message = <p>This will publish only rows that have passed validation</p>;
-		
+
 		let action = <div className='row'>
 						<div className='col-sm-6'>
 							<button id='publish-button' onClick={this.props.validate.bind(this)}className='usa-da-button btn-primary btn-full'>Publish</button>
@@ -77,7 +77,7 @@ export default class PublishModal extends React.Component {
 						<div className="usa-da-certify-modal-content">
 							<div className="row">
 								<div className="col-md-12 title-field">
-									<h6>Are you sure you want to publish your data?</h6>
+									<h6>Are you sure you want to publish your data to <a href='http://www.usaspending.gov' target='_blank'>USAspending.gov</a>?</h6>
 									{message}
 								</div>
 							</div>
