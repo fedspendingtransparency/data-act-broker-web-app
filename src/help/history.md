@@ -1,8 +1,57 @@
+#### July 19, 2017
+
+In this release of the Broker, we made improvements to Broker validations, navigation, and user assistance, along with several other user enhancements.
+
+  - [Financial Assistance Broker Submission (FABS) Development](#/history?section=fabsdevelopment)
+  - [Broker Navigation & Assistance](#/history?section=brokernav)
+  - [DAIMS v1.1 Updates](#/history?section=daimshelpupdate)
+
+##### Financial Assistance Broker Submission (FABS) Development{section=fabsdevelopment}
+
+Treasury released the DATA Act Information Model Schema (DAIMS) v1.1. DAIMS v1.1 is a minor update of the schema and will be implemented in production in the fall of 2017. Find out more information in the Resources section.
+
+##### Broker Navigation & Assistance{section=brokernav}
+
+In this release, we implemented improvements and fixed bugs related to the submission process. These updates include:
+
+- D file with new lines generated without error: Users can now generate a D file that contains a new line and does not cause an error, allowing the submission to complete all cross file validations.
+- Shared service providers testing submissions: Shared service providers can successfully log into the Broker to test submissions.
+- Submission link correction: Users will be directed to the correct submission page without skipping any steps.
+- Warnings for same-period submissions: User will be properly warned if they try to create a submission in the same period as a certified/updated submission. This way, users can understand what the error in their submission is.
+- Permissions for "Delete Submission" button: Users with uploader rights will now be able to see the "trash can" deletion icon.
+
+##### DAIMS v1.1 Updates{section=daimshelpupdate}
+
+Treasury released the DATA Act Information Model Schema (DAIMS) v1.1. DAIMS v1.1 is a minor update of the schema and will be implemented in production in the fall of 2017. Find out more information in the Resources section.
+
+
+#### July 5, 2017
+
+In this release of the Broker, Treasury  released a schema update: DAIMS v1.1 as well as improvements to the submission process.updates were made so that users can generate D files without new line errors, improvements were made to submission links, logins, and error warnings, and deletion permissions were restored. Also, we released a schema update: DAIMS v1.1.
+
+  - [Schema Release](#/history?section=schemarelease)
+  - [Submission Improvements](#/history?section=submissionimprovements)
+
+##### Schema Release{section=schemarelease}
+
+Treasury released the DATA Act Information Model Schema (DAIMS) v1.1. DAIMS v1.1 is a minor update of the schema and will be implemented in production in the fall of 2017. Find out more information in the Resources section.
+
+##### Submission Improvements{section=submissionimprovements}
+
+In this release, we implemented improvements and fixed bugs related to the submission process. These updates include:
+
+- D file with new lines generated without error: Users can now generate a D file that contains a new line and does not cause an error, allowing the submission to complete all cross file validations.
+- Shared service providers testing submissions: Shared service providers can successfully log into the Broker to test submissions.
+- Submission link correction: Users will be directed to the correct submission page without skipping any steps.
+- Warnings for same-period submissions: User will be properly warned if they try to create a submission in the same period as a certified/updated submission. This way, users can understand what the error in their submission is.
+- Permissions for "Delete Submission" button: Users with uploader rights will now be able to see the "trash can" deletion icon.
+
+
 #### June 21, 2017
 
 In this release of the Broker, we made updates to the submission dashboard to show previously certified files.
 
-  - [Viewing all previously certified files](#/help?section=certhistory)
+  - [Viewing all previously certified files](#/history?section=certhistory)
 
 ##### Viewing all previously certified files{section=certhistory}
 In this release, we updated the Broker so that all users can view and download previous certifications. Users can also see warning files accompanied with the certifications.
@@ -12,11 +61,11 @@ In this release, we updated the Broker so that all users can view and download p
 
 In this release of the Broker, all users are now able to generate D files outside the context of a submission. We also implemented processing time improvements.
 
-  - [Generating D files outside of a submission](#/help?section=generatedfile)
-  - [Improved processing time](#/help?section=processingtime)
+  - [Generating D files outside of a submission](#/history?section=generatedfile)
+  - [Improved processing time](#/history?section=processingtime)
 
 ##### Generating D files outside of a submission{section=generatedfile}
-In this release, we updated the Broker so that all users can generate D files outside the context of a submission regardless of the user’s permissions.
+In this release, we updated the Broker so that all users can generate D files outside the context of a submission regardless of the user's permissions.
 
 ##### Improved processing time{section=processingtime}
 In this release, we implemented changes to improve the processing time so that high volume file validations can be completed in a timely manner.
@@ -26,9 +75,9 @@ In this release, we implemented changes to improve the processing time so that h
 
 In this release of the Broker, we added a certified data column to the submission dashboard, updated the warning/error reports to include the rule label, and updated the help page with information about the Service Desk.
 
-  - [Certified date column in the submission dashboard](#/help?section=certifieddatecolumn)
-  - [Rule label included in error and warning descriptions](#/help?section=rulelabeldesc)
-  - [Service Desk information on help page](#/help?section=servicedeskinfo)
+  - [Certified date column in the submission dashboard](#/history?section=certifieddatecolumn)
+  - [Rule label included in error and warning descriptions](#/history?section=rulelabeldesc)
+  - [Service Desk information on help page](#/history?section=servicedeskinfo)
 
 ##### Certified date column in the submission dashboard{section=certifieddatecolumn}
 In this release, we updated the submission dashboard so that users can see when the file was certified.
@@ -37,18 +86,18 @@ In this release, we updated the submission dashboard so that users can see when 
 In this release, we updated the error and warning reports so that users can view the rule label (i.e. A9) for each error or warning.
 
 ##### Service Desk information on help page{section=servicedeskinfo}
-In this release, we updated the Help Page so that users can access information on the Service Desk under “Getting More Help.”
+In this release, we updated the Help Page so that users can access information on the Service Desk under "Getting More Help."
 
 
 #### May 10, 2017
 
 In this release of the Broker, we rolled out functionality improvements for the cross-file validation processing time and a disabled upload button for users without upload or certify permissions.
 
-  - [Display of Upload & Validate feature for users without upload permissions](#/help?section=permissions)
-  - [Improved processing time](#/help?section=processing)
+  - [Display of Upload & Validate feature for users without upload permissions](#/history?section=permissions)
+  - [Improved processing time](#/history?section=processing)
 
 ##### Display of Upload & Validate feature for users without upload permissions{section=permissions}
-In this release, we updated the Broker so that only users in an agency’s upload and certify permission group will see an active Upload & Validate button on the home page of the Broker.
+In this release, we updated the Broker so that only users in an agency's upload and certify permission group will see an active Upload & Validate button on the home page of the Broker.
 
 ##### Improved processing time{section=processing}
 In this release, we implemented a solution to improve the processing time for cross-file validations.
@@ -58,15 +107,15 @@ In this release, we implemented a solution to improve the processing time for cr
 
 In this release of the Broker, we rolled out functionality improvements for users to navigate to previously completed steps and a disabled certify button for users without certification permissions. We also added a link to the USAspending Service Desk on the Help page.
 
-  - [Broker navigation between validation steps](#/help?section=navigation)
-  - [Display of certify button for users without certification permissions](#/help?section=button)
-  - [Service Desk link](#/help?section=servicedesk)
+  - [Broker navigation between validation steps](#/history?section=navigation)
+  - [Display of certify button for users without certification permissions](#/history?section=button)
+  - [Service Desk link](#/history?section=servicedesk)
 
 ##### Broker navigation between validation steps{section=navigation}
 In this release of the Broker, we implemented a functionality improvement for users to navigate to any previously completed step in the submission process.
 
 ##### Display of certify button for users without certification permissions{section=button}
-In this release, we updated the Broker so that only users in an agency’s certify permission group will see an active certify button on the final submission page of the Broker.
+In this release, we updated the Broker so that only users in an agency's certify permission group will see an active certify button on the final submission page of the Broker.
 
 ##### Service Desk link{section=servicedesk}
 In this release, we added a link to the USAspending Service Desk on the Help page under "Getting More Help."
@@ -76,10 +125,10 @@ In this release, we added a link to the USAspending Service Desk on the Help pag
 
 In this release of the Broker, we deployed the FY2017 Program Activity code list. We rolled out a bug fix for Program Activity and Object Class warnings and implemented a solution to improve the validation processing time, along with other improvements.
 
-  - [FY 2017 Program Activity codes](#/help?section=pa17)
-  - [Program Activity and Object Class warnings](#/help?section=paoc)
-  - [Improved processing time](#/help?section=processingtime)
-  - [Functionality improvements](#/help?section=functionality)
+  - [FY 2017 Program Activity codes](#/history?section=pa17)
+  - [Program Activity and Object Class warnings](#/history?section=paoc)
+  - [Improved processing time](#/history?section=processingtime)
+  - [Functionality improvements](#/history?section=functionality)
 
 ##### FY 2017 Program Activity codes{section=pa17}
 In this release of the Broker, Treasury deployed the FY2017 Program Activity code list. You can access a copy of this list on [Github](https://github.com/fedspendingtransparency/data-act-broker-backend/blob/development/dataactvalidator/config/example_program_activity.csv). If you have questions or issues related to the list, please contact OMB at SpendingTransparency@omb.eop.gov.The new Program Activity list applies to the validation rules B9 and B10.
@@ -103,10 +152,10 @@ In this release, we made improvements to the submission dashboard and submission
 
 In this release of the Broker, agencies are now able to make changes to previously certified files. We also rolled out bug fixes for C9 and C12.
 
-  - [Changes to previously certified files](#/help?section=certified)
-  - [Error report fix](#/help?section=reportFix)
-  - [C9 warning message](#/help?section=c9warning)
-  - [C12 warning message](#/help?section=c12warning)
+  - [Changes to previously certified files](#/history?section=certified)
+  - [Error report fix](#/history?section=reportFix)
+  - [C9 warning message](#/history?section=c9warning)
+  - [C12 warning message](#/history?section=c12warning)
 
 ##### Changes to previously certified files{section=certified}
 In this release of the Broker, agencies are now able to make changes to previously certified files. To update a previously certified submission, go to the submissions that you want to correct and upload the corrected files.  Go through the file validations and certify the corrected files.
@@ -115,10 +164,10 @@ In this release of the Broker, agencies are now able to make changes to previous
 In previous versions of the Broker, users experienced an issue with the error report not showing the same number of errors listed on the submission page. We rolled out a fix to correct this issue.
 
 ##### C9 warning message{section=c9warning}
-In the previous version of the Broker, the C9 validation was not consistently producing warnings. We updated the implementation to reflect the C9 validation rule in the DAIMS that states, “Unique FAIN and/or URI from file D2 should exist in file C, except D2 records where FederalActionObligation and OriginalLoanSubsidyCost = 0. FAIN may be null for aggregated records. URI may be null for non-aggregated records.”
+In the previous version of the Broker, the C9 validation was not consistently producing warnings. We updated the implementation to reflect the C9 validation rule in the DAIMS that states, "Unique FAIN and/or URI from file D2 should exist in file C, except D2 records where FederalActionObligation and OriginalLoanSubsidyCost = 0. FAIN may be null for aggregated records. URI may be null for non-aggregated records."
 
 ##### C12 warning message{section=c12warning}
-In the previous version of the Broker, the C12 validation was not consistently producing warnings. We updated the implementation to reflect the C12 validation rule in the DAIMS that states, “Each unique PIID (or combination of PIID/ParentAwardId) from file D1 should exist in file C during the same reporting period, except D1 records where FederalActionObligation = 0.”
+In the previous version of the Broker, the C12 validation was not consistently producing warnings. We updated the implementation to reflect the C12 validation rule in the DAIMS that states, "Each unique PIID (or combination of PIID/ParentAwardId) from file D1 should exist in file C during the same reporting period, except D1 records where FederalActionObligation = 0."
 
 
 #### March 15, 2017
@@ -126,13 +175,13 @@ In the previous version of the Broker, the C12 validation was not consistently p
 In this release of the Broker, agencies are now able to certify and submit data for publication. We rolled out bug fixes for flex fields, B11 and C11/C12 validation rules, and Program Activity case sensitivity. We also improved the submission dashboard functionality and updated the warning and error messages to reflect clarifications to the validation rules.  submission dashboard and the warning and error messages were updated to reflect recent changes to the validation rules.
 
 
-  - [Data Submission](#/help?section=data)
-  - [Program Activity case sensitive fix](#/help?section=case)
-  - [B11 validation fix](#/help?section=b11)
-  - [C11/C12 validation fix](#/help?section=c11)
-  - [Flex field fix](#/help?section=flex)
-  - [Updated warning/error messages](#/help?section=warning)
-  - [Functionality improvement](#/help?section=imp)
+  - [Data Submission](#/history?section=data)
+  - [Program Activity case sensitive fix](#/history?section=case)
+  - [B11 validation fix](#/history?section=b11)
+  - [C11/C12 validation fix](#/history?section=c11)
+  - [Flex field fix](#/history?section=flex)
+  - [Updated warning/error messages](#/history?section=warning)
+  - [Functionality improvement](#/history?section=imp)
 
 
 ##### Data Submission{section=data}
@@ -184,11 +233,11 @@ Known Issues
 The DATA Act implementation team is committed to providing a website that is accessible to the widest possible audience, regardless of technology or ability. To meet this commitment we develop this website to conform to the [Web Content Accessibility Guidelines 2.0](https://www.w3.org/TR/WCAG/). These guidelines explain how to make websites more accessible to people with disabilities, and we believe they also make our website easier for everyone to use.
 The [Accessible Rich Internet Applications Suite (WAI-ARIA)](https://www.w3.org/WAI/intro/aria) addresses accessibility challenges by defining new ways to provide functionality with assistive technology. With WAI-ARIA, developers are able to provide usable and accessible advanced Web applications to people with disabilities. Alpha-broker.usaspending.gov also uses The Voluntary Product Accessibility Template® (VPAT®) to document adherence with Section 508 of the Rehabilitation Act accessibility standards.
 
-We know our website changes regularly so we’re always looking for ways to improve. If there is information you think should be included on this page, or if you experience any difficulty accessing this site, please contact us at [DATAPMO@fiscal.treasury.gov](mailto:DATAPMO@fiscal.treasury.gov) for assistance.
+We know our website changes regularly so we're always looking for ways to improve. If there is information you think should be included on this page, or if you experience any difficulty accessing this site, please contact us at [DATAPMO@fiscal.treasury.gov](mailto:DATAPMO@fiscal.treasury.gov) for assistance.
 
 ###### Documents
 
-The documents offered within Alpha-broker.usaspending.gov use multiple file formats. Below is a list that will help you identify which software downloads are needed to view different file extensions. If you require a file format other than those currently provided or experience accessibility issues, please contact us at [DATAPMO@fiscal.treasury.gov] (mailto:DATAPMO@fiscal.treasury.gov) for assistance.
+The documents offered within Alpha-broker.usaspending.gov use multiple file formats. Below is a list that will help you identify which software downloads are needed to view different file extensions. If you require a file format other than those currently provided or experience accessibility issues, please contact us at [DATAPMO@fiscal.treasury.gov](mailto:DATAPMO@fiscal.treasury.gov) for assistance.
 
 ###### Document Files
 
@@ -204,15 +253,15 @@ In this release of the Broker, bug fixes were rolled out for B14/B15, C8/C9, C11
 
 
 
-  - [B14/B15 validation Fix](#/help?section=b14)
-  - [C8/C9 validation fix](#/help?section=c8)
-  - [C23 validation fix](#/help?section=c23)
-  - [Reporting SGL data in File C](#/help?section=sgl)
-  - [Deleting an old submission](#/help?section=delete)
-  - [File B header processing fix](#/help?section=header)
-  - [Updated list of agency CGAC codes](#/help?section=cgac)
-  - [Improved processing time fix](#/help?section=improvements)  
-  - [B11 validation fix](#/help?section=b11)
+  - [B14/B15 validation Fix](#/history?section=b14)
+  - [C8/C9 validation fix](#/history?section=c8)
+  - [C23 validation fix](#/history?section=c23)
+  - [Reporting SGL data in File C](#/history?section=sgl)
+  - [Deleting an old submission](#/history?section=delete)
+  - [File B header processing fix](#/history?section=header)
+  - [Updated list of agency CGAC codes](#/history?section=cgac)
+  - [Improved processing time fix](#/history?section=improvements)
+  - [B11 validation fix](#/history?section=b11)
 
 
 
@@ -258,10 +307,10 @@ Previously, the B11 validation was checking the direct/reimbursable flag. We upd
 In this release of the Broker, bugs were fixed relating to downloading cross file warning/error reports, the B14/B15 validations, and Program Activities with the code '0000' and title 'Unknown/Other'. Functionality improvements were rolled out, including downloading submission files, padding zero values for Object Class and Program Activity, and others.
 
 
-  - [B14/B15 validation Fix](#/help?section=b14)
-  - [Program Activity](#/help?section=pa)
-  - [Cross file warning/error reports](#/help?section=cross)
-  - [Functionality Improvements](#/help?section=improvements)
+  - [B14/B15 validation Fix](#/history?section=b14)
+  - [Program Activity](#/history?section=pa)
+  - [Cross file warning/error reports](#/history?section=cross)
+  - [Functionality Improvements](#/history?section=improvements)
 
 
 ##### B14/B15 validation fix{section=b14}
@@ -290,9 +339,9 @@ We discovered a bug in the process for downloading cross file warning and error 
 This release of the Broker was focused primarily on maintenance. Notable fixes rolled out in this release include improved processing of high volume files submissions and fixes for rules B9, B10, and B12.
 
 
-  - [Improved Processing Time](#/help?section=time)
-  - [B12 Validation fix](#/help?section=b12)
-  - [B9/B10 validation fix](#/help?section=b9)
+  - [Improved Processing Time](#/history?section=time)
+  - [B12 Validation fix](#/history?section=b12)
+  - [B9/B10 validation fix](#/history?section=b9)
 
 
 ##### Improved processing time fix{section=time}
@@ -312,11 +361,11 @@ In earlier versions of the Broker, the B9/B10 validations produced warnings for 
 
 In this version of the Broker, several bugs were fixed relating to the flex fields, the C23 validation, file E creation, and rule B18. Additionally, financing accounts are now excluded from the A33 validation, per the new loan policy.
 
-  - [Flex field fix](#/help?section=flexfield)
-  - [C23 validation fix](#/help?section=c23)
-  - [File E generation fix](#/help?section=filee)
-  - [Update to rule B18](#/help?section=B18)
-  - [Financing accounts exclusion](#/help?section=A33)
+  - [Flex field fix](#/history?section=flexfield)
+  - [C23 validation fix](#/history?section=c23)
+  - [File E generation fix](#/history?section=filee)
+  - [Update to rule B18](#/history?section=B18)
+  - [Financing accounts exclusion](#/history?section=A33)
 
 ##### Flex field fix{section=flexfield}
 
@@ -343,14 +392,14 @@ Rule A33 was modified so that users will no longer see a warning if the submissi
 
 In this version of the Broker, users are able to generate D files outside of a submission, rules that were temporarily warnings are changed back to errors, the Broker is available at a new URL, rule B5 is updated, object class validations require a specific value when an object class is unknown, and MAX permissions allow users who are part of of multiple agency permission groups to have different permissions for different agencies.
 
-  - [Generate D files outside of a submission](#/help?section=Dfiles)
-  - [Temporary Warnings Changed Back to Errors](#/help?section=warnings2Errors)
-  - [New URL for the Data Broker](#/help?section=URL)
-  - [Update to Rule B5](#/help?section=B5)
-  - [Object Class Validation Update](#/help?section=objectClass)
-  - [MAX Group Permissions Allow for Different Permissions for a User Who is Part of a Multiple Agency Permission Group](#/help?section=maxGroup)
-  - [Browser Requirements & Known Issues](#/help?section=browser)
-  - [Accessibility Statement](#/help?section=accessibilityStatemen)
+  - [Generate D files outside of a submission](#/history?section=Dfiles)
+  - [Temporary Warnings Changed Back to Errors](#/history?section=warnings2Errors)
+  - [New URL for the Data Broker](#/history?section=URL)
+  - [Update to Rule B5](#/history?section=B5)
+  - [Object Class Validation Update](#/history?section=objectClass)
+  - [MAX Group Permissions Allow for Different Permissions for a User Who is Part of a Multiple Agency Permission Group](#/history?section=maxGroup)
+  - [Browser Requirements & Known Issues](#/history?section=browser)
+  - [Accessibility Statement](#/history?section=accessibilityStatemen)
 
 ##### Generate D Files Outside of a Submission{section=Dfiles}
 
@@ -378,11 +427,11 @@ In this release we are making improvements to the Broker and responding to issue
 
 In this release there are bugfixes, improvements, and changes to the way the Data Broker handles certain conditions.
 
-  - [Flex Fields](#/help?section=flexfields)
-  - [Comment box available for each file in certification](#/help?section=comments)
-  - [White space bugfix](#/help?section=whitespace)
-  - [Improvements to local install process](#/help?section=local)
-  - [Rounding error bugfix](#/help?section=rounding)
+  - [Flex Fields](#/history?section=flexfields)
+  - [Comment box available for each file in certification](#/history?section=comments)
+  - [White space bugfix](#/history?section=whitespace)
+  - [Improvements to local install process](#/history?section=local)
+  - [Rounding error bugfix](#/history?section=rounding)
 
 ##### Flex Fields{section=flexfields}
 
@@ -409,9 +458,9 @@ In previous versions of the broker, certain GTAS lines were being rounded when t
 
 In this version of the Broker, we are using MAX to manage user accounts, we updated how the Broker processes several rules and reports errors, revised Rule A16, and populated the information in the summary table on the final Broker screen.
 
-  - [Sign In Using MAX](#/help?section=MAXsign)
-  - [Processing of Validation Rules](#/help?section=ValidationRules)
-  - [Summary Table](#/help?section=SummaryTable)
+  - [Sign In Using MAX](#/history?section=MAXsign)
+  - [Processing of Validation Rules](#/history?section=ValidationRules)
+  - [Summary Table](#/history?section=SummaryTable)
 
 ##### Sign In Using MAX{section=MAXsign}
 If you are seeing this in What's New in This Release, you already know about the MAX.gov sign in that was implemented with this release. If your coworkers are having trouble signing in, they should contact their agency administrator for MAX. If the agency doesn't have a MAX administrator, email DATAPMO@fiscal.treasury.gov
@@ -434,11 +483,11 @@ On September 30, 2016, we released the full version of the DATA Act Broker that 
 
 In this version of the Broker, we have improved the cross-file validation and file download experience, improved the Broker processing of PIID and FAIN/URI, and improved the readability of the Help pages.
 
-  - [Validation and File Download](#/help?section=crossFileDownload)
-  - [Better PIID and FAIN/URI Processing](#/help?section=C14Processing)
-  - [Help Pages Readability](#/help?section=helpReadability)
-  - [Browser Requirements & Known Issues](#/help?section=browser)
-  - [Accessibility Statement](#/help?section=accessibilityStatement)
+  - [Validation and File Download](#/history?section=crossFileDownload)
+  - [Better PIID and FAIN/URI Processing](#/history?section=C14Processing)
+  - [Help Pages Readability](#/history?section=helpReadability)
+  - [Browser Requirements & Known Issues](#/history?section=browser)
+  - [Accessibility Statement](#/history?section=accessibilityStatement)
 
 ###### Validation and File Download{section=crossFileDownload}
 
@@ -462,11 +511,11 @@ This version of the DATA Act Broker contains everything agencies need to test th
 
 In this version of the Broker, we have improved the cross-file validation experience, implemented all the current validation rules, reorganized the Help section, including new pages for Resources and Validation Rules.
 
-  - [Cross-File Validation Improvements](#/help?section=crossFileImp)
-  - [Validation Rules Implemented](#/help?section=validationRulesStatus)
-  - [New Help](#/help?section=newHelp)
-  - [Browser Requirements & Known Issues](#/help?section=browser)
-  - [Accessibility Statement](#/help?section=accessibilityStatement)
+  - [Cross-File Validation Improvements](#/history?section=crossFileImp)
+  - [Validation Rules Implemented](#/history?section=validationRulesStatus)
+  - [New Help](#/history?section=newHelp)
+  - [Browser Requirements & Known Issues](#/history?section=browser)
+  - [Accessibility Statement](#/history?section=accessibilityStatement)
 
 ###### Cross-File Validation Improvements{section=crossFileImp}
 
@@ -480,7 +529,7 @@ All the current validation rules for Files A, B, and C, plus the cross-file vali
 
 This Help section of the Broker has been reorganized. The main page only includes the latest release notes. The prior release notes are on the [Release Notes Archive](/#/history) page.
 
-The new [Resources - DAIMS](/#/resources) page includes all the information from the old Resources section and has been expanded to include a web page of the [Practices and Procedures](/#/practices). Some content from other websites was moved from other websites. Some Resources content has been updated, including the Domain Values and the Long Element Name to Short Element Name Crosswalk.  
+The new [Resources - DAIMS](/#/resources) page includes all the information from the old Resources section and has been expanded to include a web page of the [Practices and Procedures](/#/practices). Some content from other websites was moved from other websites. Some Resources content has been updated, including the Domain Values and the Long Element Name to Short Element Name Crosswalk.
 
 The [Validation Rules](/#/validations) page contains not only the most current information on the rules status, but also a severity column that indicates whether a rule generates a warning or a fatal error.
 
@@ -490,10 +539,10 @@ This is the Full Version of the DATA Act Broker and contains everything agencies
 
 In this version of the Broker, we have improved how the Broker receives D1 and D2 file information from the USAspending UAT environment, added screens for certifying submissions, improved the data we are using for Broker testing, corrected a Resources file, and updated the table of validations.
 
-  - [Receiving Files D1 and D2](#/help?section=receivingd1d2)
-  - [Screens for Certification](#/help?section=certifyScreens)
-  - [Broker Test Data](#/help?section=testData)
-  - [Updated Validations](#/help?section=updatedValidations)
+  - [Receiving Files D1 and D2](#/history?section=receivingd1d2)
+  - [Screens for Certification](#/history?section=certifyScreens)
+  - [Broker Test Data](#/history?section=testData)
+  - [Updated Validations](#/history?section=updatedValidations)
 
 ###### Receiving Files D1 and D2{section=receivingd1d2}
 
@@ -516,8 +565,8 @@ Below is a cumulative table of validations in the RSS and IDD. The status column
 
 In this version of the Broker, we are importing D1 and D2 file information from the USAspending UAT environment, improved the handling of encoding in files, corrected a Resources file, and added and updated some validations.
 
-  - [Updated: Generating D1 and D2](#/help?section=d1d2updated)
-  - [Encoding in Files](#/help?section=encoding)
+  - [Updated: Generating D1 and D2](#/history?section=d1d2updated)
+  - [Encoding in Files](#/history?section=encoding)
 
 ###### Updated: Generating D1 and D2{section=d1d2updated}
 
@@ -531,12 +580,12 @@ Some users reported errors trying to submit files. We improved how the Broker ha
 
 In this version of the Broker, we separated out the validation checks into warnings and critical errors, added the interface to create D1 and D2 files, improved 508 compliance, increased server capacity, added an interface for broker users to notify other users that a submission is ready, and fixed a bug that incorrectly showed submissions as valid on the home page submission table.
 
-  - [Warnings and Errors](#/help?section=warnings)
-  - [Generating D1 and D2](#/help?section=d1d2)
-  - [Improved 508 Compliance](#/help?section=508compliance)
-  - [Increased Server Capacity](#/help?section=capacity)
-  - [Notify Another User](#/help?section=notifyauser)
-  - [Bugfix: Submissions Incorrectly Show as Valid](#/help?section=homepagesubmissiontable)
+  - [Warnings and Errors](#/history?section=warnings)
+  - [Generating D1 and D2](#/history?section=d1d2)
+  - [Improved 508 Compliance](#/history?section=508compliance)
+  - [Increased Server Capacity](#/history?section=capacity)
+  - [Notify Another User](#/history?section=notifyauser)
+  - [Bugfix: Submissions Incorrectly Show as Valid](#/history?section=homepagesubmissiontable)
 
 ###### Warnings and Errors{section=warnings}
 
@@ -566,12 +615,12 @@ Several users reported a minor bug with the submission table that appears on the
 
 In this version of the Broker, we updated the Broker branding to Beta, improved the validation processing time, implemented short data element names, made the styling more consistent, improved the accessibility of the Broker, added a resources section, and updated the information on validations.
 
-  - [DATA Act Broker - Beta Release](#/help?section=betaRelease)
-  - [Validation Processing Time](#/help?section=processingTime)
-  - [Short Data Element Names](#/help?section=shortNames)
-  - [Consistent Style](#/help?section=consistentStyle)
-  - [More Validations in SQL](#/help?section=validationSQL3)
-  - [Accessibility Improvements](#/help?section=accessibilityImprovements)
+  - [DATA Act Broker - Beta Release](#/history?section=betaRelease)
+  - [Validation Processing Time](#/history?section=processingTime)
+  - [Short Data Element Names](#/history?section=shortNames)
+  - [Consistent Style](#/history?section=consistentStyle)
+  - [More Validations in SQL](#/history?section=validationSQL3)
+  - [Accessibility Improvements](#/history?section=accessibilityImprovements)
 
 
 ###### DATA Act Broker - Beta Release{section=betaRelease}
@@ -601,11 +650,11 @@ NOTE: The DATA Act Broker - Alpha Release is now in beta status (as of the June 
 
 In this version of the Broker, we changed the submission date timeframe, reduced the errors generated by blanks, improved the display of the tree map for errors, display the cross file validations, and updated some more validations to SQL.
 
-  - [Reporting Date Timeframe](#/help?section=reportingDateTimeframe)
-  - [Tree Map for Errors](#/help?section=treeMap)
-  - [Display of Cross-File Validations](#/help?section=crossFileValv2)
-  - [More Validations in SQL](#/help?section=validationSQL2)
-  - [Updated Validations](#/help?section=updatedValidations)
+  - [Reporting Date Timeframe](#/history?section=reportingDateTimeframe)
+  - [Tree Map for Errors](#/history?section=treeMap)
+  - [Display of Cross-File Validations](#/history?section=crossFileValv2)
+  - [More Validations in SQL](#/history?section=validationSQL2)
+  - [Updated Validations](#/history?section=updatedValidations)
 
 ###### Reporting Date Timeframe{section=reportingDateTimeframe}
 When you create a new submission, the date selection is for one month or one quarter. Examples: June 2016 or Quarter 4 - 2016.
@@ -614,8 +663,7 @@ When you create a new submission, the date selection is for one month or one qua
 We updated the color of the tree map and the language used to describe the errors. Look for further improvements to the error descriptions in future releases.
 
 ###### Display of Cross-File Validations{section=crossFileValv2}
-After each individual file is validated, the Broker performs some cross-file validations. You will now see the results of these validations in the Broker, see a table of errors,  
-be able to download an error report, and upload corrected files.
+After each individual file is validated, the Broker performs some cross-file validations. You will now see the results of these validations in the Broker, see a table of errors, be able to download an error report, and upload corrected files.
 
 ###### More Validations in SQL{section=validationSQL2}
 Agency developers may be interested to know that we transitioned more of the Broker validations to using SQL statements. The list of SQL statements is publically available on [GitHub](https://github.com/fedspendingtransparency/data-act-broker-backend/tree/master/dataactvalidator/config/sqlrules).
@@ -626,12 +674,12 @@ In this release we have transitioned all of these validations to SQL except A1, 
 #### What's New in This Release - June 29, 2016
 In this version of the Broker, we made several small changes to make the Broker easier to use, added a section to display submissions from your agency, clarified the process to upload corrected files, added an email notification feature, transitioned some of the validation rules to SQL statements, and updated some of the validations.
 
-  - [Ease of Use Improvements](#/help?section=easeofUse)
-  - [Submissions from Your Agency](#/help?section=agencySubdashboard)
-  - [Uploading Corrected Files](#/help?section=uploadCorrectedFiles)
-  - [Send Email Notifications](#/help?section=sendEmail)
-  - [Some Validations in SQL](#/help?section=validationSQL)
-  - [Updated Validations](#/help?section=updatedValidations)
+  - [Ease of Use Improvements](#/history?section=easeofUse)
+  - [Submissions from Your Agency](#/history?section=agencySubdashboard)
+  - [Uploading Corrected Files](#/history?section=uploadCorrectedFiles)
+  - [Send Email Notifications](#/history?section=sendEmail)
+  - [Some Validations in SQL](#/history?section=validationSQL)
+  - [Updated Validations](#/history?section=updatedValidations)
 
 ###### Ease of Use Improvements{section=easeofUse}
 - **Confirm Password** When you create a Broker account, you are prompted to enter a Password and then to Confirm Password.
@@ -661,9 +709,9 @@ In this release we included rules A18, A19, A20, B9, B10, B11, B12, and C18. See
 #### What's New in This Release - June 15, 2016
 In this version of the Broker, we made it easier to select your agency, made it easier to submit your data without errors, and updated some of the validations.
 
-* [Easier Agency Selection](#/help?section=agencyCGAC)
-* [Accidental Commas in Dollar Amounts](#/help?section=removeCommas)
-* [Header Row Capitalization Errors](#/help?section=elementCaps)
+* [Easier Agency Selection](#/history?section=agencyCGAC)
+* [Accidental Commas in Dollar Amounts](#/history?section=removeCommas)
+* [Header Row Capitalization Errors](#/history?section=elementCaps)
 
 ###### Easier Agency Selection{section=agencyCGAC}
 When you register for an account or create a submission, you can enter your CGAC code to correctly select your agency.
@@ -676,9 +724,9 @@ The Practices and Procedures document specifies that the element names in the he
 #### What's New in This Release - June 1, 2016
 In this version of the broker, we have added some information on the screens to help you with your data submission, added some functionality to help you select the reporting period, and updated some of the validations. __Note:__ Validation details are included in the cumulative updated validations table.
 
-* [Step-by-Step Guide on the Broker Home Page](#/help?section=stepby)
-* [Submission Guide](#/help?section=subguide)
-* [Selecting Reporting Period](#/help?section=dateselect)
+* [Step-by-Step Guide on the Broker Home Page](#/history?section=stepby)
+* [Submission Guide](#/history?section=subguide)
+* [Selecting Reporting Period](#/history?section=dateselect)
 
 ###### Step-by-Step Guide on the Broker Home Page{section=stepby}
 When you log into the Broker, you will see three choices that guide you to _Upload and validate a new submission_, _Continue with an existing submission_, and _Review, certify, and publish a submission_.
@@ -692,10 +740,10 @@ Based on user feedback, the quarterly submission dates are displayed as the quar
 #### What's New in This Release - May 17, 2016
 In this version of the Broker, we have made a change if you are logging in with Internet Explorer, added functionality for the Broker to recognize files with the pipe symbol as a delimiter, and updated some of the validations.
 
-* [Logging into the Broker with Internet Explorer](#/help?section=brokerIE)
-* [Submit Files with Pipe Symbol](#/help?section=pipe)
-* [File Validations per RSS v1.0](#/help?section=fileValv1)
-* [Cross File Validations](#/help?section=crossFileValv1)
+* [Logging into the Broker with Internet Explorer](#/history?section=brokerIE)
+* [Submit Files with Pipe Symbol](#/history?section=pipe)
+* [File Validations per RSS v1.0](#/history?section=fileValv1)
+* [Cross File Validations](#/history?section=crossFileValv1)
 
 ###### Logging into the Broker with Internet Explorer{section=brokerIE}
 During user testing, some Internet Explorer users were unable to log into the Broker and upload files. We implemented a workaround so users with Internet Explorer on __medium security settings__ can log in and upload files. See Known Issues below.
