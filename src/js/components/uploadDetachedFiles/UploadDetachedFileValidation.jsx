@@ -68,7 +68,7 @@ class UploadDetachedFileValidation extends React.Component {
 			this.setState({
 				submissionID: nextProps.params.submissionID
 			})
-			this.checkFileStatus(this.props.params.submissionID);	
+			this.checkFileStatus(nextProps.params.submissionID);	
 		}
 	}
 
@@ -238,7 +238,7 @@ class UploadDetachedFileValidation extends React.Component {
 		let validationBox = null;
 		let headerDate = null;
 		
-		if(this.state.agency !== '' && this.state.rep_start !== '' && this.state.rep_end !== ''){
+		if (this.state.agency !== '' && this.state.rep_start !== '' && this.state.rep_end !== ''){
 			headerDate = <div className="col-md-2 ">
 							<div className = 'header-box'>
 									<span>
@@ -262,13 +262,16 @@ class UploadDetachedFileValidation extends React.Component {
 		validationBox = <ValidateDataFileContainer type={type} data={this.state.jobResults}/>;
 		if (!this.state.headerErrors && this.state.validationFinished) {
 			validationBox = <ValidateValuesFileContainer type={type} data={this.state.jobResults} setUploadItem={this.uploadFile.bind(this)} updateItem={this.uploadFile.bind(this)} published={this.state.published}/>;
-
-			if (PermissionsHelper.checkFabsPermissions(this.props.session)) {
+			if (this.state.published){
+				// Submission is published and cannot be re-published
+				validationButton = <button className='pull-right col-xs-3 us-da-disabled-button' disabled>File Already Published</button>;
+			}
+			else if (PermissionsHelper.checkFabsPermissions(this.props.session)) {
+				// User has permissions to publish this unpublished submission
 				validationButton = <button className='pull-right col-xs-3 us-da-button' onClick={this.submitFabs.bind(this)}>Publish</button>;
-				if (this.state.published){
-					validationButton = <button className='pull-right col-xs-3 us-da-disabled-button' disabled>File Already Published</button>;
-				}
-			} else {
+			}
+			else {
+				// User does not have permissions to publish 
 				validationButton = <button className='pull-right col-xs-3 us-da-disabled-button' disabled>You do not have permissions to publish</button>;
 			}
 		}
