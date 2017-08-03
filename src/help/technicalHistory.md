@@ -1,3 +1,33 @@
+#### July 19, 2017{section=technical}
+
+In this release, here is a list of technical changes that may require infrastructure or database updates, or represents additional functionality.
+
+* New alembic migrations:
+  * Created frec table
+  * Added frec to user_affiliation and submission models
+  * Removed awarding_agency_code from detached_award_financial_assistance
+  * Allowed submission.reporting_start_date and submission.reporting_end_date to be null
+  * Created gtas_submission_window table
+  * Added activation and expiration dates to excutive_compensation table
+* Changed list_agencies and list_all_agencies routes to include FRECs
+* Created get_frecs route to return a list of FRECs
+* Created gtas_window route
+* Added FREC permissions and allowing submission by FREC instead of cgac
+* Added executive_compensation data load script
+
+
+#### July 5, 2017{section=technical}
+
+In this release, here is a list of technical changes that may require infrastructure or database updates, or represents additional functionality.
+
+* New alembic migrations:
+  * Added country_code table
+  * Added city_code table
+* Added zip loader to initialize.py
+* Added SQL rules related to PrimaryPlaceOfPerformance
+* Modified csvReader to allow for newlines within fields
+
+
 #### June 21, 2017{section=technical}
 
 In this release, here is a list of technical changes that may require infrastructure or database updates, or represents additional functionality.
