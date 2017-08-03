@@ -39,7 +39,7 @@ export default class GenerateEFPage extends React.Component {
 
 		return (
 			<div className="usa-da-generate-ef-page">
-                <Navbar activeTab="submissionGuide"/>
+                <Navbar activeTab="submissionGuide" type={this.props.route.type} />
                 <AddDataHeader submissionID={this.props.params.submissionID} />
                 <div className="usa-da-content-step-block" name="content-top">
                     <div className="container center-block">
