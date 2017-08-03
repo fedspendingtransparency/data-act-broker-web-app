@@ -13,6 +13,7 @@ import Footer from '../SharedComponents/FooterComponent.jsx';
 import SubTierAgencyListContainer from '../../containers/SharedContainers/SubTierAgencyListContainer.jsx';
 import ValidateValuesFileContainer from '../../containers/validateData/ValidateValuesFileContainer.jsx';
 import ValidateDataFileContainer from '../../containers/validateData/ValidateDataFileContainer.jsx';
+import PublishModal from './PublishModal.jsx';
 
 import UploadDetachedFilesError from './UploadDetachedFilesError.jsx';
 
@@ -53,7 +54,8 @@ export default class UploadDetachedFileValidation extends React.Component {
 			rep_start: '',
 			rep_end: '',
 			published: false,
-			submit: true
+			submit: true,
+			showPublish: false
 		};
 	}
 
@@ -74,6 +76,18 @@ export default class UploadDetachedFileValidation extends React.Component {
 	componentWillUnmount() {
 		this.isUnmounted = true;
 	}
+
+	openModal() {
+        this.setState({
+            showPublish: true
+        });
+    }
+
+    closeModal() {
+        this.setState({
+            showPublish: false
+        });
+    }
 
 	checkFileStatus(submissionID) {
 		// callback to check file status
@@ -176,7 +190,7 @@ export default class UploadDetachedFileValidation extends React.Component {
 	submitFabs(){
 		UploadHelper.submitFabs({'submission_id': this.props.submission.id})
 			.then((response)=>{
-				this.setState({submit: false, published: true})
+				this.setState({submit: false, published: true, showPublish: false})
 			})
 			.catch((error)=>{
 				if(error.httpStatus === 400){
@@ -262,7 +276,7 @@ export default class UploadDetachedFileValidation extends React.Component {
 		validationBox = <ValidateDataFileContainer type={type} data={this.state.jobResults}/>;
 		if(!this.state.headerErrors && this.state.validationFinished) {
 			validationBox = <ValidateValuesFileContainer type={type} data={this.state.jobResults} setUploadItem={this.uploadFile.bind(this)} updateItem={this.uploadFile.bind(this)} published={this.state.published}/>;
-			validationButton = <button className='pull-right col-xs-3 us-da-button' onClick={this.submitFabs.bind(this)}>Publish</button>;
+			validationButton = <button className='pull-right col-xs-3 us-da-button' onClick={this.openModal.bind(this)}>Publish</button>;
 			if(this.state.published){
 				validationButton = <button className='pull-right col-xs-3 us-da-disabled-button' disabled>File Already Published</button>;
 			}
@@ -303,6 +317,7 @@ export default class UploadDetachedFileValidation extends React.Component {
 						</div>
 					</div>
 				</div>
+				<PublishModal validate={this.submitFabs.bind(this)} submissionID={this.state.submissionID} closeModal={this.closeModal.bind(this)} isOpen={this.state.showPublish} />
 			</div>
 		);
 	}
