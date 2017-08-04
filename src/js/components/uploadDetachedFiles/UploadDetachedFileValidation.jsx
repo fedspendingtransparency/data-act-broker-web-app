@@ -57,6 +57,7 @@ class UploadDetachedFileValidation extends React.Component {
 			published: false,
 			submit: true,
 			showPublish: false,
+			modified_date: null,
 			type: props.route.type
 		};
 	}
@@ -112,6 +113,7 @@ class UploadDetachedFileValidation extends React.Component {
 					submit: submission,
 					cgac_code: response.cgac_code,
 					published: (response.publish_status === 'published' ? true : false),
+					modified_date: response.last_updated,
 					error: 0
 				}, () => {
 					this.parseJobStates(response);
@@ -253,6 +255,10 @@ class UploadDetachedFileValidation extends React.Component {
 		let validationButton = null;
 		let validationBox = null;
 		let headerDate = null;
+		let updated = null;
+		if(this.state.modified_date) {
+			updated = moment(this.state.modified_date).format('MM/DD/YYYY')
+		}
 		
 		if (this.state.agency !== '' && this.state.rep_start !== '' && this.state.rep_end !== ''){
 			headerDate = <div className="col-md-2 ">
@@ -262,7 +268,7 @@ class UploadDetachedFileValidation extends React.Component {
 									</span>
 									<br/>
 									<span>
-									Date: {this.state.rep_start} - {this.state.rep_end}
+									Last Modified Date: {updated}
 									</span>
 								</div>
 						</div>;
