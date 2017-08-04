@@ -119,6 +119,9 @@ export default class ValidateDataFileComponent extends React.Component {
             case 'award_financial':
                 type='C';
                 break;
+            case 'detached_award':
+                type='D2_detached';
+                break;
             default:
                 break;
         }
