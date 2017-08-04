@@ -10,6 +10,7 @@ import HelpSidebar from './helpSidebar.jsx';
 import HelpContent from './helpContent.jsx';
 import HelpNav from './helpNav.jsx';
 import Footer from '../SharedComponents/FooterComponent.jsx';
+import Banner from '../SharedComponents/Banner.jsx';
 
 import * as Icons from '../SharedComponents/icons/Icons.jsx';
 
@@ -75,6 +76,7 @@ export default class HelpPage extends React.Component {
                                 </div>
                             </div>
                         </div>
+                        <Banner />
                     </div>
                     <div className="container">
                         <div className="row usa-da-help-page">

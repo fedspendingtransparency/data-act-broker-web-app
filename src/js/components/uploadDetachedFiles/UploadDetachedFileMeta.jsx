@@ -13,6 +13,7 @@ import ValidateValuesFileContainer from '../../containers/validateData/ValidateV
 import ValidateDataFileContainer from '../../containers/validateData/ValidateDataFileContainer.jsx';
 import UploadDetachedFilesBox from './UploadDetachedFilesBox.jsx';
 import UploadDetachedFilesError from './UploadDetachedFilesError.jsx';
+import Banner from '../SharedComponents/Banner.jsx';
 
 import * as Icons from '../SharedComponents/icons/Icons.jsx';
 
@@ -239,6 +240,7 @@ export default class UploadDetachedFileMeta extends React.Component {
 						</div>
 					</div>
 				</div>
+				<Banner type='fabs' />
 				<div className="container center-block">
 					<div className="row usa-da-select-agency">
 						<div className='col-lg-offset-2 col-lg-8 mt-60 mb-60'>

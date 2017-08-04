@@ -29,14 +29,12 @@ class ReviewDataContainer extends React.Component {
             total_obligations: null,
             total_assistance_obligations: null,
             total_procurement_obligations: null,
-            file_narrative: {},
-            window: null
+            file_narrative: {}
         }
     }
 
     componentDidMount() {
     	this.loadData();
-        this.isWindow();
     }
 
     componentDidUpdate(prevProps, prevState) {
@@ -44,16 +42,6 @@ class ReviewDataContainer extends React.Component {
     		// URL submission ID changed, reload
     		this.loadData();
     	}
-    }
-
-    isWindow() {
-        ReviewHelper.isWindow()
-            .then((res) => {
-                this.setState({window: res.data})
-            })
-            .catch((err) =>{
-                console.log(err)
-            })
     }
 
     loadData() {

@@ -12,6 +12,11 @@
 		}
 	}
 
+	.published-submission-warning-banner {
+		@import "../../layouts/login/_topBanner";
+		@include loginTopBanner;
+	}
+
 	.select-agency-holder {
 		@include contentBlockWrapper;
 		padding: 15px 30px 30px 30px;
