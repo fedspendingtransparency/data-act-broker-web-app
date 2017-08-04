@@ -11,6 +11,7 @@ import ValidateDataUploadButton from './ValidateDataUploadButton.jsx';
 import * as Icons from '../SharedComponents/icons/Icons.jsx';
 import * as ReviewHelper from '../../helpers/reviewHelper.js';
 import * as PermissionsHelper from '../../helpers/permissionsHelper.js';
+import * as GenerateFilesHelper from '../../helpers/generateFilesHelper.js';
 
 const propTypes = {
 
@@ -28,7 +29,9 @@ export default class ValidateDataFileComponent extends React.Component {
             errorReports: [],
             hasErrorReport: false,
             isError: false,
-            hasFailed: false
+            hasFailed: false,
+            signedUrl: '',
+            signInProgress: false
         };
     }
 
@@ -222,6 +225,72 @@ export default class ValidateDataFileComponent extends React.Component {
         return icon;
     }
 
+    signReport(item){
+        let type = null;
+        switch(item.file_type){
+            case 'appropriations':
+                type='A';
+                break;
+            case 'program_activity':
+                type='B';
+                break;
+            case 'award_financial':
+                type='C';
+                break;
+            case 'detached_award':
+                type='D2_detached';
+                break;
+            default:
+                break;
+        }
+        if(type){
+            GenerateFilesHelper.fetchFile(type, this.props.submission.id)
+            .then((result)=>{
+                this.setState({
+                    signInProgress: false,
+                    signedUrl: result.url
+                }, () => {
+                    this.openReport();
+                });
+            })
+            .catch((err) => {
+                this.setState({
+                    signInProgress: false
+                });
+                console.log(err);
+            });    
+        }else{
+            console.log('Invalid File type selected: '+item.file_type)
+        }
+        
+    }
+
+    openReport() {
+        window.open(this.state.signedUrl);
+    }
+
+    clickedReport(item) {
+        console.log(item)
+
+        // check if the link is already signed
+        if (this.state.signInProgress) {
+            // sign is in progress, do nothing
+            return;
+        }
+        else if (this.state.signedUrl !== '') {
+            // it is signed, open immediately
+            this.openReport();
+        }
+        else {
+            // not signed yet, sign
+            this.setState({
+                signInProgress: true
+            }, () => {
+                this.signReport(item);
+            });
+        }
+    }
+
     render() {
        
         
@@ -312,7 +381,7 @@ export default class ValidateDataFileComponent extends React.Component {
                                     </div>
                                 </div>
                                 {uploadProgress}
-                                <div className="usa-da-validate-item-file-name">
+                                <div className='file-download' onClick={this.clickedReport.bind(this, this.props.item)} download={fileName} rel="noopener noreferrer">
                                     {fileName}
                                 </div>
                                 <div className={"usa-da-validate-item-file-section-correct-button" + disabledCorrect} data-testid="validate-upload">

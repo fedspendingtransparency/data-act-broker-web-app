@@ -148,7 +148,7 @@ export default class ValidateDataFileComponent extends React.Component {
     }
 
     openReport() {
-        window.location = this.state.signedUrl;
+        window.open(this.state.signedUrl);
     }
 
     clickedReport(item) {
