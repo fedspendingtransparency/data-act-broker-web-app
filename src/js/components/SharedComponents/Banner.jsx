@@ -5,15 +5,63 @@
 
 import React from 'react';
 import * as Icons from '../SharedComponents/icons/Icons.jsx';
+import * as ReviewHelper from '../../helpers/reviewHelper.js';
+
+const defaultProps = {
+    type: 'all'
+}
 
 export default class Banner extends React.Component {
     constructor(props) {
         super(props)
+
+        this.state = {
+            type: this.props.type,
+            app_window: []
+        }
+    }
+
+    componentDidMount(){
+        this.isWindow();
+    }
+
+    componentWillReceiveProps(nextProps) {
+        let type = null;
+        if(this.state.type !== nextProps.type){
+            type = nextProps.type;
+        }
+        if(type && type != this.state.type) {
+            this.setState({
+                'type': type
+            })
+            this.isWindow()
+        }
+    }
+
+    isWindow() {
+        ReviewHelper.isWindow()
+            .then((res) => {
+                if(!res.data) {
+                    return;
+                }
+                let app_window = []
+                for(let i = 0; i < res.data.length; i++) {
+                    if(res.data[i].type.toLowerCase() == this.state.type.toLowerCase() || res.data[i].type.toLowerCase() == 'all') {
+                        app_window.push(res.data[i]);
+                    }
+                }
+                if(app_window.length != 0) {
+                    this.setState({app_window: app_window})
+                }
+            })
+            .catch((err) => {
+                console.log(err)
+            })
     }
 
     getRows(){
         let msg = [];
-        for(let i = 0; i < this.props.data.length; i++) {
+        for(let i = 0; i < this.state.app_window.length; i++) {
             msg.push(
                 <div key={'banner'+i} className="published-submission-warning-banner">
                     <div className='container'>
@@ -22,7 +70,7 @@ export default class Banner extends React.Component {
                                 <i className="usa-da-icon"><Icons.ExclamationTriangle /> </i>
                             </div>
                             <div className="col-xs-11">
-                                <p>{this.props.data[i].message}</p>
+                                <p>{this.state.app_window[i].message}</p>
                             </div>
                         </div>
                     </div>
@@ -33,12 +81,13 @@ export default class Banner extends React.Component {
     }
 
     render() {
-        // let date = this.parseDate(this.props.data.end_date)
         let message = this.getRows();
         return (
                 <div>
                     {message}
                 </div>
             );
-        }
     }
+}
+
+Banner.defaultProps = defaultProps

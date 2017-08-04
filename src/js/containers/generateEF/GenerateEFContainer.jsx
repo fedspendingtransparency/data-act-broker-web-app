@@ -35,8 +35,7 @@ class GenerateEFContainer extends React.Component {
 			hasErrors: false,
 			e: {},
 			f: {},
-			generated: false,
-			window: null
+			generated: false
 		};
 
 	}
@@ -44,17 +43,6 @@ class GenerateEFContainer extends React.Component {
 	componentDidMount() {
 		this.isUnmounted = false;
 		this.checkFileStatus();
-		this.isWindow();
-	}
-
-	isWindow() {
-		ReviewHelper.isWindow()
-			.then((res) => {
-				this.setState({window: res.data})
-			})
-			.catch((err) =>{
-				console.log(err)
-			})
 	}
 
 	componentWillUnmount() {
@@ -168,16 +156,11 @@ class GenerateEFContainer extends React.Component {
 		if(this.props.submission.publishStatus !== "unpublished") {
 			warningMessage = <PublishedSubmissionWarningBanner />;
 		}
-
-		let windowWarning = null;
-		if(this.state.gtas){
-			windowWarning = <Banner data={this.state.window}/>
-		}
 		
 		return (
 			<div>
 				{warningMessage}
-				{windowWarning}
+				<Banner type='dabs' />
 				{content}
 			</div>
 		)

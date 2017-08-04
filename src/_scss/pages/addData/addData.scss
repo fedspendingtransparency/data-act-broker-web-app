@@ -22,3 +22,10 @@
 		margin-bottom: -40px;
 	}
 }
+
+.site_content { 
+	.published-submission-warning-banner {
+		@import "../../layouts/login/_topBanner";
+		@include loginTopBanner;
+	}
+}

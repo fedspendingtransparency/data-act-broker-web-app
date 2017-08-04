@@ -31,11 +31,6 @@ export default class ReviewDataPage extends React.Component {
             warningMessage = <PublishedSubmissionWarningBanner />;
         }
 
-        let windowWarning = null;
-        if(this.props.data.window) {
-            windowWarning = <Banner data={this.props.data.window}/>
-        }
-
         return (
             <div className="usa-da-review-data-page">
                 <div className="usa-da-site_wrap">
@@ -50,7 +45,7 @@ export default class ReviewDataPage extends React.Component {
                             </div>
                         </div>
                         {warningMessage}
-                        {windowWarning}
+                        <Banner type='dabs' />
                         {currentComponent}
                     </div>
                 </div>
