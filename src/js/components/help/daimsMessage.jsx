@@ -12,10 +12,8 @@ export default class DaimsMessage extends React.Component {
 
     render() {
         let type = <span>.</span>;
-        let version = 'v1.1.1';
-        if(this.props.type == 'validations') {
-            type = <span> and its <a href='https://community.max.gov/download/attachments/1286474850/DAIMS_Validation_Rules_v1.1.xlsx?version=1&modificationDate=1498857363500&api=v2' className='daims-link'>Validations {version}.</a></span>
-        } else if(this.props.type == 'practices') {
+        let version = 'v1.1';
+        if(this.props.type == 'practices') {
             type = <span> and its <a href='https://community.max.gov/download/attachments/1286474850/DAIMS_Practices_Procedures_v1.1.pdf?version=1&modificationDate=1498857477698&api=v2' className='daims-link'>Practices &amp; Procedures {version}.</a></span>
         }
 
