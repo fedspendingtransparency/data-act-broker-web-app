@@ -1,4 +1,4 @@
-#### July 19, 2017
+#### August 2, 2017
 
 In this release of the Broker, we made improvements to Broker validations and submissions and implemented financial reporting entity code (FREC) functionality.
 
