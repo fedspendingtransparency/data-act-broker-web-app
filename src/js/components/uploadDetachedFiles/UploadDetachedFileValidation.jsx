@@ -293,7 +293,8 @@ class UploadDetachedFileValidation extends React.Component {
 				// User has permissions to publish this unpublished submission
 				validationButton = <button className='pull-right col-xs-3 us-da-button' onClick={this.openModal.bind(this)}>Publish</button>;
 			}
-
+		}
+		
 		let errorMessage = null;
 		if (this.state.error !== 0) {
 			errorMessage = <UploadDetachedFilesError errorCode={this.state.error} />
