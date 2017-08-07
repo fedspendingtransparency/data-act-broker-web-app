@@ -151,7 +151,8 @@ const routeDefinitions = {
         {
             path: 'submissionGuide',
             onEnter: checkUserPermissions,
-            component: SubmissionGuideContainer
+            component: SubmissionGuideContainer,
+            type: 'dabs'
         },
         {
             path: 'dashboard',
