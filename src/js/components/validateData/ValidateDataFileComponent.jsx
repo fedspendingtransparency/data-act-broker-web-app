@@ -13,6 +13,8 @@ import * as ReviewHelper from '../../helpers/reviewHelper.js';
 import * as PermissionsHelper from '../../helpers/permissionsHelper.js';
 import * as GenerateFilesHelper from '../../helpers/generateFilesHelper.js';
 
+import UploadDetachedFilesError from '../uploadDetachedFiles/UploadDetachedFilesError.jsx';
+
 const propTypes = {
 
 };
@@ -31,7 +33,8 @@ export default class ValidateDataFileComponent extends React.Component {
             isError: false,
             hasFailed: false,
             signedUrl: '',
-            signInProgress: false
+            signInProgress: false,
+            error: null
         };
     }
 
@@ -255,15 +258,23 @@ export default class ValidateDataFileComponent extends React.Component {
             })
             .catch((err) => {
                 this.setState({
-                    signInProgress: false
+                    signInProgress: false,
+                    error: {
+                        header: 'Invalid File Type Selected '+item.file_type,
+                        body: ''
+                    }
                 });
-                console.log(err);
             });    
         }
         else {
-            console.log('Invalid File type selected: '+item.file_type)
+            this.setState({
+                    signInProgress: false,
+                    error: {
+                        header: 'Invalid File Type Selected '+item.file_type,
+                        body: ''
+                    }
+                });
         }
-        
     }
 
     openReport() {
@@ -346,9 +357,15 @@ export default class ValidateDataFileComponent extends React.Component {
             }
         }
 
+        let errorMessage = null;
+        if(this.state.error) {
+            errorMessage = <UploadDetachedFilesError error={this.state.error} />
+        }
+
         return (
             <div className={"row center-block usa-da-validate-item" + successfulFade} data-testid={"validate-wrapper-" + this.props.type.requestName}>
                 <div className="col-md-12">
+                    {errorMessage}
                     <div className="row usa-da-validate-item-top-section">
                         <div className="col-md-9 usa-da-validate-item-status-section">
                             <div className="row usa-da-validate-item-header">
