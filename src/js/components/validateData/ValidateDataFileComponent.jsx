@@ -259,7 +259,8 @@ export default class ValidateDataFileComponent extends React.Component {
                 });
                 console.log(err);
             });    
-        }else{
+        }
+        else {
             console.log('Invalid File type selected: '+item.file_type)
         }
         
@@ -270,8 +271,6 @@ export default class ValidateDataFileComponent extends React.Component {
     }
 
     clickedReport(item) {
-        console.log(item)
-
         // check if the link is already signed
         if (this.state.signInProgress) {
             // sign is in progress, do nothing
