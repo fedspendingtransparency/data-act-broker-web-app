@@ -254,7 +254,7 @@ class UploadDetachedFileValidation extends React.Component {
 
 	render() {
 		let validationButton = null;
-		let validationBox = null;
+		let validationBox = <ValidateDataFileContainer type={type} data={this.state.jobResults}/>;
 		let headerDate = null;
 		let updated = null;
 		if(this.state.modified_date) {
@@ -281,17 +281,17 @@ class UploadDetachedFileValidation extends React.Component {
 			requestName: 'detached_award',
 			progress: '0'
 		}
-
-		validationBox = <ValidateDataFileContainer type={type} data={this.state.jobResults}/>;
 		if (!this.state.headerErrors && this.state.validationFinished) {
 			validationBox = <ValidateValuesFileContainer type={type} data={this.state.jobResults} setUploadItem={this.uploadFile.bind(this)} updateItem={this.uploadFile.bind(this)} published={this.state.published}/>;
-			validationButton = <button className='pull-right col-xs-3 us-da-disabled-button' disabled>You do not have permissions to publish</button>;
 			if(this.state.published){
 				validationButton = <button className='pull-right col-xs-3 us-da-disabled-button' disabled>File Already Published</button>;
 			}
 			else if (PermissionsHelper.checkFabsPermissions(this.props.session)) {
 				// User has permissions to publish this unpublished submission
 				validationButton = <button className='pull-right col-xs-3 us-da-button' onClick={this.openModal.bind(this)}>Publish</button>;
+			}
+			else {
+				validationButton = <button className='pull-right col-xs-3 us-da-disabled-button' disabled>You do not have permissions to publish</button>;
 			}
 		}
 
