@@ -16,6 +16,14 @@ export default class DashboardContent extends React.Component {
             title: this.props.type === 'fabs' ? 'Published Submissions' : 'Certified Submissions'
         }
     }
+    
+    componentWillReceiveProps(nextProps) {
+        if(nextProps.type !== this.props.type) {
+            this.setState({
+                title: nextProps.type === 'fabs' ? 'Published Submissions' : 'Certified Submissions'
+            })
+        }
+    }
 
     render() {
         return (

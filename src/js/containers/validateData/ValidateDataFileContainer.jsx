@@ -25,7 +25,6 @@ class ValidateDataFileContainer extends React.Component {
 	}
 
 	render() {
-
 		return (
 			<ValidateDataFileComponent {...this.props} item={this.props.data[this.props.type.requestName]} onFileChange={this.selectedFile.bind(this)} />
 		)

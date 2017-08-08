@@ -254,7 +254,7 @@ class UploadDetachedFileValidation extends React.Component {
 
 	render() {
 		let validationButton = null;
-		let validationBox = <ValidateDataFileContainer type={type} data={this.state.jobResults}/>;
+		let validationBox = null;;
 		let headerDate = null;
 		let updated = null;
 		if(this.state.modified_date) {
@@ -281,6 +281,7 @@ class UploadDetachedFileValidation extends React.Component {
 			requestName: 'detached_award',
 			progress: '0'
 		}
+		validationBox = <ValidateDataFileContainer type={type} data={this.state.jobResults}/>;
 		if (!this.state.headerErrors && this.state.validationFinished) {
 			validationBox = <ValidateValuesFileContainer type={type} data={this.state.jobResults} setUploadItem={this.uploadFile.bind(this)} updateItem={this.uploadFile.bind(this)} published={this.state.published}/>;
 			if(this.state.published){

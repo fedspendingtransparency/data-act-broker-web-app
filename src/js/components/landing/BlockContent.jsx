@@ -18,7 +18,7 @@ export default class BlockContent extends React.Component {
 
     render() {
         let firstBlock = <LandingBlock type={this.props.type} icon={<Icons.CloudUpload />} text="In order to upload and validate your agency's files, please follow the link below to request access" buttonText="Request Access" url="https://community.max.gov/x/fJwuRQ" />;
-        let secondBlock = <LandingBlock type={this.props.type} icon={<Icons.Floppy />} text="Did you start a submission but were unable to complete it? No problem, we can help you pick up where you left off." buttonText='Continue or Certify a Saved Submission' url='#/dashboard' />;
+        let secondBlock = <LandingBlock type={this.props.type} icon={<Icons.Floppy />} text="Did you start a submission but were unable to complete it? Want to see your certified submissions? Continue here to the submissions dashboard." buttonText='View Submissions Dashboard' url='#/dashboard' />;
         let thirdBlock = null;
 
         if (this.props.type === 'home') {
@@ -41,7 +41,7 @@ export default class BlockContent extends React.Component {
                                 <LandingBlockBottomLink onClick={this.props.clickedUploadReqs} />
                             </LandingBlock>;
             }
-            secondBlock = <LandingBlock type={this.props.type} icon={<Icons.Floppy />} text="Did you start a submission but were unable to complete it? No problem, we can help you pick up where you left off." buttonText='Continue or Certify a Saved Submission' url='#/detachedDashboard' />;
+            secondBlock = <LandingBlock type={this.props.type} icon={<Icons.Floppy />} text="Did you start a submission but were unable to complete it? Want to see your certified submissions? Continue here to the submissions dashboard." buttonText='View Submissions Dashboard' url='#/detachedDashboard' />;
         }
 
         return (
