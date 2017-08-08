@@ -41,7 +41,7 @@ export default class BlockContent extends React.Component {
                                 <LandingBlockBottomLink onClick={this.props.clickedUploadReqs} />
                             </LandingBlock>;
             }
-            secondBlock = <LandingBlock type={this.props.type} icon={<Icons.Floppy />} text="Did you start a submission but were unable to complete it? Want to see your certified submissions? Continue here to the submissions dashboard." buttonText='View Submissions Dashboard' url='#/detachedDashboard' />;
+            secondBlock = <LandingBlock type={this.props.type} icon={<Icons.Floppy />} text="Did you start a submission but were unable to complete it? Want to see your previous submissions? Continue here to the submissions dashboard." buttonText='View Submissions Dashboard' url='#/detachedDashboard' />;
         }
 
         return (

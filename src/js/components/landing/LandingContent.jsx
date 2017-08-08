@@ -96,20 +96,20 @@ export default class LandingContent extends React.Component {
             headerClass = 'teal'
             headerBody = <div>
                             <p>Upload your agency’s fiancial assistance data and validate it against the latest version of the DATA Act Information Model Schema (DAIMS).</p>
-                            <p>Details on how to format your data, including required and optional fields, can be found in the <a href="https://broker.usaspending.gov/#/detachedHelp" target="_blank" rel="noopener noreferrer" >Help section.</a>.</p>
+                            <p>Details on how to format your data, including required and optional fields, can be found in the <a href="/#/detachedHelp" target="_blank" rel="noopener noreferrer" >Help section</a>.</p>
                         </div>;
         }
         else if (this.state.type == 'dabs') {
             header = "DATA Act Broker Submission (DABS)";
             headerBody = <div>
                             <p>Upload your agency’s financial data and validate it against the latest version of the DATA Act Information Model Schema (DAIMS).</p>
-                            <p>Details on how to format your data, including required and optional fields, can be found in the <a href="https://broker.usaspending.gov/#/help" target="_blank" rel="noopener noreferrer" >Help section.</a>.</p>
+                            <p>Details on how to format your data, including required and optional fields, can be found in the <a href="/#/help" target="_blank" rel="noopener noreferrer" >Help section</a>.</p>
                         </div>;
         }
         else if (this.state.type == 'home') {
             headerBody = <div>
                             <p>Upload, validate, and publish your agency’s federal spending transparency data.</p>
-                            <p>Details on how to format your data against the latest version of the DATA Act Information Model Schema (DAIMS) can be found on the <a href="/#/help" target="_blank" rel="noopener noreferrer" >Help section.</a>.</p>
+                            <p>Details on how to format your data against the latest version of the DATA Act Information Model Schema (DAIMS) can be found on the <a href="/#/help" target="_blank" rel="noopener noreferrer" >Help section</a>.</p>
                         </div>
         }
 

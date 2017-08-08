@@ -254,7 +254,7 @@ class UploadDetachedFileValidation extends React.Component {
 
 	render() {
 		let validationButton = null;
-		let validationBox = null;;
+		let validationBox = null;
 		let headerDate = null;
 		let updated = null;
 		if(this.state.modified_date) {
