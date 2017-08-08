@@ -31,7 +31,6 @@ export default class LandingRequirementsBody extends React.Component {
 			windowWarning = <strong>{"Note: You cannot certify until "  + Moment(windowBlock.end_date).format("dddd, MMMM D, YYYY")}</strong>
 		}
 
-		let practices = this.props.type === 'fabs' ? '#/detachedPractices' : '#/practices';
 		let resources = this.props.type === 'fabs' ? '#/detachedResources' : '#/resources';
 		let header = "You'll need the following files in order to complete your submission";
 		let body = <div>
