@@ -86,9 +86,9 @@ export default class LandingRequirementsBody extends React.Component {
 						<li>Error Codes and Messages</li>
 						<li><a href={resources} target="_blank" rel="noopener noreferrer">DATA Act Information Model Schema (DAIMS)</a> resources related to FABS. See:
 							<ul>
-								<li><a href={practices} target="_blank" rel="noopener noreferrer">DAIMS Practices &amp; Procedures</a></li>
-								<li>DAIMS IDD (D2 tab)</li>
-								<li>DAIMS Domain Values</li>
+								<li><a href='https://community.max.gov/download/attachments/1286474850/DAIMS_Practices_Procedures_v1.1.pdf?version=1&modificationDate=1498857477698&api=v2' target="_blank" rel="noopener noreferrer">DAIMS Practices &amp; Procedures v1.1</a></li>
+								<li><a href='http://fedspendingtransparency.github.io/assets/docs/DAIMS_IDD_v1.1.xlsx' target='_blank' rel='noopener noreferrer'>DAIMS IDD v1.1 (D2 tab)</a></li>
+								<li><a href='http://fedspendingtransparency.github.io/assets/docs/DAIMS_Domain_Values_v1.1.xlsx' target='_blank' rel='noopener noreferrer'>DAIMS Domain Values v1.1</a></li>
 							</ul>
 						</li>
 					</ul>
