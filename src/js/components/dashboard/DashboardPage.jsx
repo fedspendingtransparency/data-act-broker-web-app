@@ -27,7 +27,7 @@ export default class DashboardPage extends React.Component {
 	render() {
         let isFabs = this.state.type === 'fabs';
         let color = isFabs ? 'teal' : 'dark';
-        let header = isFabs ? 'FABS Submission Dashboard' : 'Submission Dashboard';
+        let header = isFabs ? 'FABS Submission Dashboard' : 'DABS Submission Dashboard';
         let activeTab = isFabs ? 'detachedDashboard' : 'dashboard';
         return (
             <div>
