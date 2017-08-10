@@ -15,7 +15,7 @@ import TestEnvironmentBanner from '../SharedComponents/banners/TestEnvironmentBa
 export default class LoginPage extends React.Component {
     render() {
         let testBanner = null;
-        if (kGlobalConstants.STAGING) {
+        if (!kGlobalConstants.PROD) {
             testBanner = <TestEnvironmentBanner />
         }
 
