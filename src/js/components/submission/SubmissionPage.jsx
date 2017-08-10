@@ -46,7 +46,7 @@ export default class LoadingPage extends React.Component {
             <div className="usa-da-review-data-page">
                 <div className="usa-da-site_wrap">
                     <div className="usa-da-page-content">
-                        <Navbar activeTab="submissionGuide"/>
+                        <Navbar activeTab="submissionGuide" type={this.props.route.type} />
                         <AddDataHeader submissionID={this.props.submissionID} load={false}/>
                         <ReviewDataContent {...this.props} data={dummy} submissionID={this.props.submissionID}/>
                     </div>

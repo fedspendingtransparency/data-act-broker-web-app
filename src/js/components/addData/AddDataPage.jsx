@@ -11,31 +11,12 @@ import AddDataMeta from './AddDataMeta.jsx';
 import AddDataContainer from '../../containers/addData/AddDataContainer.jsx';
 import Footer from '../SharedComponents/FooterComponent.jsx';
 
-import * as ReviewHelper from '../../helpers/reviewHelper.js';
-import Banner from '..//SharedComponents/Banner.jsx';
+import Banner from '../SharedComponents/Banner.jsx';
 
 
 export default class AddDataPage extends React.Component {
     constructor(props) {
         super(props);
-
-        this.state = {
-            window: null
-        }
-    }
-
-    componentDidMount() {
-        this.isWindow();
-    }
-
-    isWindow() {
-        ReviewHelper.isWindow()
-            .then((res) => {
-                this.setState({window: res.data})
-            })
-            .catch((err) =>{
-                console.log(err)
-            })
     }
 
     render() {
@@ -47,17 +28,12 @@ export default class AddDataPage extends React.Component {
             bodyComponent = <AddDataContainer metaData={this.props.submission.meta} />;
         }
 
-        let windowWarning = null;
-        if(this.state.window){
-            windowWarning = <Banner data={this.state.window}/>
-        }
-
         return (
             <div className="usa-da-add-data-page">
                 <div className="usa-da-site_wrap">
-                    <Navbar activeTab="submissionGuide"/>
+                    <Navbar activeTab="submissionGuide" type={this.props.route.type} />
                     <AddDataHeader />
-                    {windowWarning}
+                    <Banner type='dabs' />
                     {bodyComponent}
                 </div>
                 <Footer />

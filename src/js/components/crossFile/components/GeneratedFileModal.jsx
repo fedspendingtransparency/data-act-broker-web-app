@@ -69,7 +69,7 @@ export default class GeneratedFileModal extends React.Component {
 						</div>
 						
 						<CrossFileGenerateModalContainer 
-							type={this.props.file.letter.toLowerCase()}
+							type={this.props.file.letter.toUpperCase()}
 							label={"File " + this.props.file.letter + ": " + this.props.file.name}
 							ref="container"
 							submissionID={this.props.submissionID}

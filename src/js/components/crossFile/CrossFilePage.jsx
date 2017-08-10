@@ -53,7 +53,7 @@ export default class CrossFilePage extends React.Component {
 
 		return (
                <div className="usa-da-cross-file-page">
-                    <Navbar activeTab="submissionGuide"/>
+                    <Navbar activeTab="submissionGuide" type={this.props.route.type} />
                     <AddDataHeader submissionID={this.props.params.submissionID} />
                     <div className="usa-da-content-step-block" name="content-top">
                          <div className="container center-block">

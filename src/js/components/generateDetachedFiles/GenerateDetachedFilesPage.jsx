@@ -288,7 +288,7 @@ export default class GenerateDetachedFilesPage extends React.Component {
             <div className="usa-da-generate-detached-files-page">
                 <div className="usa-da-site_wrap">
                     <div className="usa-da-page-content">
-                        <Navbar activeTab="submissionGuide" />
+                        <Navbar activeTab="submissionGuide" type={this.props.route.type} />
                         <div className="usa-da-content-dark">
                             <div className="container">
                                 <div className="row usa-da-page-title">

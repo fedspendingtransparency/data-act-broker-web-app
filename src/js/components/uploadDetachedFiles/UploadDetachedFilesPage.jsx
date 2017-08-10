@@ -77,7 +77,7 @@ export default class UploadDetachedFilesPage extends React.Component {
 			<div className="usa-da-upload-detached-files-page">
 				<div className="usa-da-site_wrap">
 					<div className="usa-da-page-content">
-						<Navbar activeTab="uploadDetachedFiles" type={this.props.route.type}/>
+						<Navbar activeTab="uploadDetachedFiles" type={this.props.route.type} />
 						<div className="usa-da-upload-detached-files-page">
 							<div className="usa-da-site_wrap">
 								{content}

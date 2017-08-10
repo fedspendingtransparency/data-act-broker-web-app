@@ -218,11 +218,7 @@ export default class DashboardTable extends React.Component {
         let deleteConfirm = this.state.deleteIndex !== -1 && index === this.state.deleteIndex;
 
         let link = <SubmissionLink submissionId={item.submission_id} type={this.state.type}/>;
-        if (this.state.type == "fabs") {
-            if (this.props.isCertified) {
-                link = <SubmissionLink submissionId={item.submission_id} value={reportingDateString} disabled={true} type={this.state.type}/>;
-            }
-        } else if (this.props.isCertified) {
+        if (this.props.isCertified) {
             link = <SubmissionLink submissionId={item.submission_id} value={reportingDateString} type={this.state.type}/>;
         }
 

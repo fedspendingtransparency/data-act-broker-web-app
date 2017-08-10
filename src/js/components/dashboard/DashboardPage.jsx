@@ -7,6 +7,7 @@ import React from 'react';
 import Navbar from '../SharedComponents/navigation/NavigationComponent.jsx';
 import Footer from '../SharedComponents/FooterComponent.jsx';
 import DashboardContainer from '../../containers/dashboard/DashboardContainer.jsx';
+import Banner from '../SharedComponents/Banner.jsx';
 
 export default class DashboardPage extends React.Component {
     constructor(props) {
@@ -26,7 +27,7 @@ export default class DashboardPage extends React.Component {
 	render() {
         let isFabs = this.state.type === 'fabs';
         let color = isFabs ? 'teal' : 'dark';
-        let header = isFabs ? 'FABS Submission Dashboard' : 'Submission Dashboard';
+        let header = isFabs ? 'FABS Submission Dashboard' : 'DABS Submission Dashboard';
         let activeTab = isFabs ? 'detachedDashboard' : 'dashboard';
         return (
             <div>
@@ -43,6 +44,7 @@ export default class DashboardPage extends React.Component {
                             </div>
                         </div>
                     </div>
+                    <Banner type={this.state.type} />
                     <DashboardContainer type={this.state.type}/>
                 </div>
                 <Footer />

@@ -14,7 +14,7 @@ export default class LandingPage extends React.Component {
             <div className="usa-da-submission-guide-page">
                 <div className="usa-da-site_wrap">
                     <div className="usa-da-page-content">
-                        <Navbar activeTab="submissionGuide"/>
+                        <Navbar activeTab="submissionGuide" type={this.props.route.type} />
                         <SubmissionGuideContent {...this.props} />
                     </div>
                 </div>
