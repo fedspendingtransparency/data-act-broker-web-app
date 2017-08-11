@@ -119,92 +119,9 @@ const checkHelpUserPermissions = (nextState, replace) => {
     }
 }
 
-function getRoutes() {
-    let returnRoutes = [];
-    console.log(window.location.pathname)
-    let sharedRoutes = [
-        {
-            path: 'landing',
-            onEnter: [checkUserPermissions],
-            component: LandingPage,
-            componentURL: '/../../components/landing/LandingPage.jsx'
-        },
-        {
-            path: 'dashboard',
-            onEnter: [checkUserPermissions],
-            componentURL: '../../components/dashboard/DashboardPage.jsx'
-        },
-        {
-            path: 'help',
-            onEnter: [checkHelpUserPermissions, checkUserPermissions],
-            componentURL: './../../containers/help/HelpContainer.jsx'
-        },
-        {
-            path: 'practices',
-            onEnter: [checkHelpUserPermissions, checkUserPermissions],
-            componentURL: './../../containers/help/HelpContainer.jsx'
-        },
-        {
-            path: 'validations',
-            onEnter: [checkHelpUserPermissions, checkUserPermissions],
-            componentURL: './../../containers/help/HelpContainer.jsx'
-        },
-        {
-            path: 'resources',
-            onEnter: [checkHelpUserPermissions, checkUserPermissions],
-            componentURL: './../../containers/help/HelpContainer.jsx'
-        },
-        {
-            path: 'history',
-            onEnter: [checkHelpUserPermissions, checkUserPermissions],
-            componentURL: './../../containers/help/HelpContainer.jsx'
-        },
-        {
-            path: 'technicalHistory',
-            onEnter: [checkHelpUserPermissions, checkUserPermissions],
-            componentURL: './../../containers/help/HelpContainer.jsx'
-        }
-    ]  
-    for(let i = 0; i < sharedRoutes.length; i++) {
-        if(sharedRoutes[i].onEnter.length == 1) {
-            returnRoutes.push(routeConstructor(sharedRoutes[i], 0, 'dabs'))
-            returnRoutes.push(routeConstructor(sharedRoutes[i], 0, 'fabs'));
-        }
-        else {
-            returnRoutes.push(routeConstructor(sharedRoutes[i], 0, 'dabs'))
-            returnRoutes.push(routeConstructor(sharedRoutes[i], 1, 'fabs'));
-        }
-    }
-    return returnRoutes;
-}
 
-function routeConstructor(props, onEnterIndex, type) {
-    let prefix = '';
-    if(type == 'fabs') {
-        prefix = 'FABS'
-    }
-
-    return {
-        path: prefix + props.path,
-        onEnter: props.onEnter[onEnterIndex],
-        getComponent(nextState, cb) {
-            require.ensure([], (require) => {
-                cb(null, require(props.componentURL).default)
-            });
-        },
-        type: type
-    }
-}
-
-// defining the routes outside of the component because React Router cannot handle state/prop changes that Redux causes
-const routeDefinitions = {
-    path: '/',
-    indexRoute: {
-        onEnter: checkUserPermissions,
-        component: LandingPage,
-        type: kGlobalConstants.STAGING ? 'home' : 'dabs'
-    },
-    childRoutes: [
+const getRoutes = () => {
+    let returnRoutes = [
         {
             path: 'login',
             component: LoginPage
@@ -313,7 +230,117 @@ const routeDefinitions = {
             component: GenerateDetachedFilesPageContainer,
             type: 'dabs'
         }
-    ].concat(getRoutes())
+    ];
+
+    //Duplicated routes for FABS/DABS
+    let sharedRoutes = [
+        {
+            path: 'landing',
+            onEnter: [checkUserPermissions],
+            component: 'landing'
+        },
+        {
+            path: 'dashboard',
+            onEnter: [checkUserPermissions],
+            component: 'dashboard'
+        },
+        {
+            path: 'help',
+            onEnter: [checkHelpUserPermissions, checkUserPermissions],
+            component: 'help'
+        },
+        {
+            path: 'practices',
+            onEnter: [checkHelpUserPermissions, checkUserPermissions],
+            component: 'help'
+        },
+        {
+            path: 'validations',
+            onEnter: [checkHelpUserPermissions, checkUserPermissions],
+            component: 'help'
+        },
+        {
+            path: 'resources',
+            onEnter: [checkHelpUserPermissions, checkUserPermissions],
+            component: 'help'
+        },
+        {
+            path: 'history',
+            onEnter: [checkHelpUserPermissions, checkUserPermissions],
+            component: 'help'
+        },
+        {
+            path: 'technicalHistory',
+            onEnter: [checkHelpUserPermissions, checkUserPermissions],
+            component: 'help'
+        }
+    ]  
+    for(let i = 0; i < sharedRoutes.length; i++) {
+        if(sharedRoutes[i].onEnter.length == 1) {
+            returnRoutes.push(routeConstructor(sharedRoutes[i], 0, 'dabs'))
+            returnRoutes.push(routeConstructor(sharedRoutes[i], 0, 'fabs'));
+        }
+        else {
+            returnRoutes.push(routeConstructor(sharedRoutes[i], 0, 'dabs'))
+            returnRoutes.push(routeConstructor(sharedRoutes[i], 1, 'fabs'));
+        }
+    }
+    return returnRoutes;
+}
+
+function routeConstructor(route_info, onEnterIndex, type) {
+    let prefix = '';
+    if(type == 'fabs') {
+        prefix = 'FABS'
+    }
+
+    if(route_info.component === 'landing') {
+        return {
+            path: prefix + route_info.path,
+            onEnter: route_info.onEnter[onEnterIndex],
+            getComponent(nextState, cb) {
+                require.ensure([], (require) => {
+                    cb(null, require('../../components/landing/LandingPage.jsx').default)
+                });
+            },
+            type: type
+        }
+    }
+    else if(route_info.component === 'dashboard') {
+        return {
+            path: prefix + route_info.path,
+            onEnter: route_info.onEnter[onEnterIndex],
+            getComponent(nextState, cb) {
+                require.ensure([], (require) => {
+                    cb(null, require('../../components/dashboard/dashboardPage.jsx').default)
+                });
+            },
+            type: type
+        }
+    }
+    else if(route_info.component ==='help') {
+        return {
+            path: prefix + route_info.path,
+            onEnter: route_info.onEnter[onEnterIndex],
+            getComponent(nextState, cb) {
+                require.ensure([], (require) => {
+                    cb(null, require('../help/helpContainer.jsx').default)
+                });
+            },
+            type: type
+        }
+    }
+}
+
+// defining the routes outside of the component because React Router cannot handle state/prop changes that Redux causes
+const routeDefinitions = {
+    path: '/',
+    indexRoute: {
+        onEnter: checkUserPermissions,
+        component: LandingPage,
+        type: kGlobalConstants.STAGING ? 'home' : 'dabs'
+    },
+    childRoutes: getRoutes()
 }
 
 export default class RouterRoutes {
