@@ -11,6 +11,9 @@ import ValidateDataUploadButton from './ValidateDataUploadButton.jsx';
 import * as Icons from '../SharedComponents/icons/Icons.jsx';
 import * as ReviewHelper from '../../helpers/reviewHelper.js';
 import * as PermissionsHelper from '../../helpers/permissionsHelper.js';
+import * as GenerateFilesHelper from '../../helpers/generateFilesHelper.js';
+
+import UploadDetachedFilesError from '../uploadDetachedFiles/UploadDetachedFilesError.jsx';
 
 const propTypes = {
 
@@ -28,7 +31,10 @@ export default class ValidateDataFileComponent extends React.Component {
             errorReports: [],
             hasErrorReport: false,
             isError: false,
-            hasFailed: false
+            hasFailed: false,
+            signedUrl: '',
+            signInProgress: false,
+            error: null
         };
     }
 
@@ -222,6 +228,79 @@ export default class ValidateDataFileComponent extends React.Component {
         return icon;
     }
 
+    signReport(item){
+        let type = null;
+        switch(item.file_type){
+            case 'appropriations':
+                type='A';
+                break;
+            case 'program_activity':
+                type='B';
+                break;
+            case 'award_financial':
+                type='C';
+                break;
+            case 'detached_award':
+                type='D2_detached';
+                break;
+            default:
+                break;
+        }
+        if(type){
+            GenerateFilesHelper.fetchFile(type, this.props.submission.id)
+            .then((result)=>{
+                this.setState({
+                    signInProgress: false,
+                    signedUrl: result.url
+                }, () => {
+                    this.openReport();
+                });
+            })
+            .catch((err) => {
+                this.setState({
+                    signInProgress: false,
+                    error: {
+                        header: 'Invalid File Type Selected '+item.file_type,
+                        body: ''
+                    }
+                });
+            });    
+        }
+        else {
+            this.setState({
+                    signInProgress: false,
+                    error: {
+                        header: 'Invalid File Type Selected '+item.file_type,
+                        body: ''
+                    }
+                });
+        }
+    }
+
+    openReport() {
+        window.open(this.state.signedUrl);
+    }
+
+    clickedReport(item) {
+        // check if the link is already signed
+        if (this.state.signInProgress) {
+            // sign is in progress, do nothing
+            return;
+        }
+        else if (this.state.signedUrl !== '') {
+            // it is signed, open immediately
+            this.openReport();
+        }
+        else {
+            // not signed yet, sign
+            this.setState({
+                signInProgress: true
+            }, () => {
+                this.signReport(item);
+            });
+        }
+    }
+
     render() {
        
         
@@ -278,9 +357,15 @@ export default class ValidateDataFileComponent extends React.Component {
             }
         }
 
+        let errorMessage = null;
+        if(this.state.error) {
+            errorMessage = <UploadDetachedFilesError error={this.state.error} />
+        }
+
         return (
             <div className={"row center-block usa-da-validate-item" + successfulFade} data-testid={"validate-wrapper-" + this.props.type.requestName}>
                 <div className="col-md-12">
+                    {errorMessage}
                     <div className="row usa-da-validate-item-top-section">
                         <div className="col-md-9 usa-da-validate-item-status-section">
                             <div className="row usa-da-validate-item-header">
@@ -312,8 +397,10 @@ export default class ValidateDataFileComponent extends React.Component {
                                     </div>
                                 </div>
                                 {uploadProgress}
-                                <div className="usa-da-validate-item-file-name">
-                                    {fileName}
+                                <div className="row usa-da-validate-item-file-name">
+                                    <div className='file-download' onClick={this.clickedReport.bind(this, this.props.item)} download={fileName} rel="noopener noreferrer">
+                                        {fileName}
+                                    </div>
                                 </div>
                                 <div className={"usa-da-validate-item-file-section-correct-button" + disabledCorrect} data-testid="validate-upload">
                                     <div className="row">

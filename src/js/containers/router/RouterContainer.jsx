@@ -43,7 +43,6 @@ class RouterContainer extends React.Component {
     }
 
     logout() {
-
         LoginHelper.performLogout()
             .then(() => {
                 hashHistory.push('/login');
@@ -51,7 +50,7 @@ class RouterContainer extends React.Component {
     }
 
     handleRouteChange() {
-        let path = this.refs.router.state.location.pathname;
+        let path = window.location.hash;
         this.logPageView(path);
     }
 

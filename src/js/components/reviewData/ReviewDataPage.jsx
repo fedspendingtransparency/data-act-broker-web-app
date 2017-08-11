@@ -31,16 +31,11 @@ export default class ReviewDataPage extends React.Component {
             warningMessage = <PublishedSubmissionWarningBanner />;
         }
 
-        let windowWarning = null;
-        if(this.props.data.window) {
-            windowWarning = <Banner data={this.props.data.window}/>
-        }
-
         return (
             <div className="usa-da-review-data-page">
                 <div className="usa-da-site_wrap">
                     <div className="usa-da-page-content">
-                        <Navbar activeTab="submissionGuide"/>
+                        <Navbar activeTab="submissionGuide" type={this.props.route.type} />
                         <AddDataHeader submissionID={submissionID} />
                         <div className="usa-da-content-step-block" name="content-top">
                             <div className="container center-block">
@@ -50,7 +45,7 @@ export default class ReviewDataPage extends React.Component {
                             </div>
                         </div>
                         {warningMessage}
-                        {windowWarning}
+                        <Banner type='dabs' />
                         {currentComponent}
                     </div>
                 </div>

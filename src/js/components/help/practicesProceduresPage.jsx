@@ -6,6 +6,7 @@
 import React from 'react';
 import Navbar from '../SharedComponents/navigation/NavigationComponent.jsx';
 import PracticesProceduresContent from './practicesProceduresContent.jsx';
+import Banner from '../SharedComponents/Banner.jsx';
 import Footer from '../SharedComponents/FooterComponent.jsx';
 
 import * as Icons from '../SharedComponents/icons/Icons.jsx';
@@ -22,7 +23,7 @@ export default class PracticesProceduresPage extends React.Component {
         return (
             <div className="usa-da-help-style-page" name="top">
                 <div className="usa-da-page-content">
-                    <Navbar activeTab={activeTab} type={this.props.type} />
+                    <Navbar activeTab={activeTab} type={this.props.type} logoOnly={this.props.helpOnly} />
                     <div className={"usa-da-content-" + color + " mb-60"}>
                         <div className="container">
                             <div className="row">
@@ -31,6 +32,7 @@ export default class PracticesProceduresPage extends React.Component {
                                 </div>
                             </div>
                         </div>
+                        <Banner />
                     </div>
                     <div className="container">
                         <div className="row usa-da-help-page">
