@@ -106,7 +106,7 @@ const checkFabsUploadPermissions = (nextState, replace) => {
             }
         }
         // if no permissions, bounce to landing
-        replace('/detachedLanding');
+        replace('/FABSLanding');
     }
 }
 

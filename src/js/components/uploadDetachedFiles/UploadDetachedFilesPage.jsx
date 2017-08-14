@@ -43,7 +43,7 @@ export default class UploadDetachedFilesPage extends React.Component {
 
 	validate(submissionID){
 		this.props.setSubmissionId(submissionID);
-		hashHistory.push('/uploadDetachedFiles/'+submissionID);
+		hashHistory.push('/FABSaddData/'+submissionID);
 		this.setState({
 			showMeta: false
 		})
@@ -77,7 +77,7 @@ export default class UploadDetachedFilesPage extends React.Component {
 			<div className="usa-da-upload-detached-files-page">
 				<div className="usa-da-site_wrap">
 					<div className="usa-da-page-content">
-						<Navbar activeTab="uploadDetachedFiles" type={this.props.route.type} />
+						<Navbar activeTab="FABSAddData" type={this.props.route.type} />
 						<div className="usa-da-upload-detached-files-page">
 							<div className="usa-da-site_wrap">
 								{content}

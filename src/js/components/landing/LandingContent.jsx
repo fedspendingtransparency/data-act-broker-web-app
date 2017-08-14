@@ -96,7 +96,7 @@ export default class LandingContent extends React.Component {
             headerClass = 'teal'
             headerBody = <div>
                             <p>Upload your agency’s fiancial assistance data and validate it against the latest version of the DATA Act Information Model Schema (DAIMS).</p>
-                            <p>Details on how to format your data, including required and optional fields, can be found in the <a href="/#/detachedHelp" target="_blank" rel="noopener noreferrer" >Help section</a>.</p>
+                            <p>Details on how to format your data, including required and optional fields, can be found in the <a href="/#/FABSHelp" target="_blank" rel="noopener noreferrer" >Help section</a>.</p>
                         </div>;
         }
         else if (this.state.type == 'dabs') {

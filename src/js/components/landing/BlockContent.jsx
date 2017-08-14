@@ -23,7 +23,7 @@ export default class BlockContent extends React.Component {
 
         if (this.props.type === 'home') {
             firstBlock = <LandingBlock type={this.props.type} icon={<h5>DATA Act Broker Submission</h5>} text="Enter here to upload, validate, and certify your agency's quarterly financial data. You can also test your monthly financial data, generate your award files, and view your DATA Act submissions." buttonText="Enter" url="#/landing" />;
-            secondBlock = <LandingBlock type={this.props.type} icon={<h5>Financial Assistance Broker Submission</h5>} text="Enter here to upload, validate, and publish your agency's financial assistance data. You can also test your financial assistance data and view your submissions." buttonText='Enter' url='#/detachedLanding' />;
+            secondBlock = <LandingBlock type={this.props.type} icon={<h5>Financial Assistance Broker Submission</h5>} text="Enter here to upload, validate, and publish your agency's financial assistance data. You can also test your financial assistance data and view your submissions." buttonText='Enter' url='#/FABSlanding' />;
         }
         else if (this.props.type === 'dabs') {
             if (permissionHelper.checkPermissions(this.props.session)) {
@@ -37,11 +37,11 @@ export default class BlockContent extends React.Component {
         else if (this.props.type === 'fabs') {
             if (permissionHelper.checkFabsPermissions(this.props.session)) {
                 // FABS submission access
-                firstBlock = <LandingBlock type={this.props.type} icon={<Icons.CloudUpload />} text="Ready to upload and validate your agency's files? Great, we'll be happy to walk you through the process." buttonText="Upload & Validate a New Submission" url="#/uploadDetachedFiles" >
+                firstBlock = <LandingBlock type={this.props.type} icon={<Icons.CloudUpload />} text="Ready to upload and validate your agency's files? Great, we'll be happy to walk you through the process." buttonText="Upload & Validate a New Submission" url="#/FABSaddData" >
                                 <LandingBlockBottomLink onClick={this.props.clickedUploadReqs} />
                             </LandingBlock>;
             }
-            secondBlock = <LandingBlock type={this.props.type} icon={<Icons.Floppy />} text="Did you start a submission but were unable to complete it? Want to see your previous submissions? Continue here to the submissions dashboard." buttonText='View Submissions Dashboard' url='#/detachedDashboard' />;
+            secondBlock = <LandingBlock type={this.props.type} icon={<Icons.Floppy />} text="Did you start a submission but were unable to complete it? Want to see your previous submissions? Continue here to the submissions dashboard." buttonText='View Submissions Dashboard' url='#/FABSdashboard' />;
         }
 
         return (

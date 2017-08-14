@@ -49,22 +49,23 @@ class HelpPageContainer extends React.Component {
     }
 
     render() {
-       if (this.props.route.path == 'help' || this.props.route.path == 'detachedHelp') {
+        let currentRoute = this.props.route.path.toLowerCase();
+       if (currentRoute == 'help' || currentRoute == 'FABSHelp'.toLowerCase()) {
             return <HelpPage {...this.props} helpOnly={this.state.helpOnly} type={this.state.type} />;
        }
-       else if (this.props.route.path == 'resources' || this.props.route.path == 'detachedResources') {
+       else if (currentRoute == 'resources' || currentRoute == 'FABSResources'.toLowerCase()) {
             return <ResourcesPage {...this.props} helpOnly={this.state.helpOnly} type={this.state.type} />;
        }
-       else if (this.props.route.path == 'validations' || this.props.route.path == 'detachedValidations') {
+       else if (currentRoute == 'validations' || currentRoute == 'FABSValidations'.toLowerCase()) {
             return <ValidationRulesTablePage {...this.props} helpOnly={this.state.helpOnly} type={this.state.type} />;
         }
-        else if (this.props.route.path == 'practices' || this.props.route.path == 'detachedPractices') {
+        else if (currentRoute == 'practices' || currentRoute == 'FABSPractices'.toLowerCase()) {
             return <PracticesProceduresPage {...this.props} helpOnly={this.state.helpOnly} type={this.state.type} />;
         }
-        else if (this.props.route.path == 'history' || this.props.route.path == 'detachedHistory') {
+        else if (currentRoute == 'history' || currentRoute == 'FABSHistory'.toLowerCase()) {
             return <HistoryPage {...this.props} history='release' helpOnly={this.state.helpOnly} type={this.state.type} />;
         }
-        else if (this.props.route.path == 'technicalHistory' || this.props.route.path == 'detachedTechnicalHistory') {
+        else if (currentRoute == 'technicalHistory' || currentRoute == 'FABSTechnicalHistory'.toLowerCase()) {
             return <HistoryPage {...this.props} history='technical' helpOnly={this.state.helpOnly} type={this.state.type} />;
         }
     }
