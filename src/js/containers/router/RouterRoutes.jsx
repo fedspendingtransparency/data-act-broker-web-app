@@ -323,7 +323,7 @@ function routeConstructor(route_info, onEnterIndex, type) {
             onEnter: route_info.onEnter[onEnterIndex],
             getComponent(nextState, cb) {
                 require.ensure([], (require) => {
-                    cb(null, require('../help/helpContainer.jsx').default)
+                    cb(null, require('../help/HelpContainer.jsx').default)
                 });
             },
             type: type
