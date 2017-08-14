@@ -351,8 +351,6 @@ export default class RouterRoutes {
         instance.routes = () => routeDefinitions;
         instance.autoLogin = (location) => performAutoLogin(location);
 
-        console.log(routeDefinitions)
-
         return instance;
     }
 
