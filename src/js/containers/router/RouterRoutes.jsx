@@ -311,7 +311,7 @@ function routeConstructor(route_info, onEnterIndex, type) {
             onEnter: route_info.onEnter[onEnterIndex],
             getComponent(nextState, cb) {
                 require.ensure([], (require) => {
-                    cb(null, require('../../components/dashboard/dashboardPage.jsx').default)
+                    cb(null, require('../../components/dashboard/DashboardPage.jsx').default)
                 });
             },
             type: type
