@@ -84,7 +84,7 @@ export class Navbar extends React.Component {
 
         let navClass = "";
         let testBanner = null;
-        if (kGlobalConstants.STAGING) {
+        if (!kGlobalConstants.PROD) {
             navClass = " tall";
             testBanner = <TestEnvironmentBanner />
         }

@@ -73,7 +73,7 @@ export default class DashboardTable extends React.Component {
                 headers = [
                     'Action Date Range',
                     'Agency',
-                    'Submitted By',
+                    'Created By',
                     'Last Modified',
                     'Published By',
                     'Published On'
@@ -83,7 +83,7 @@ export default class DashboardTable extends React.Component {
                 headers = [
                     'Reporting Period',
                     'Agency',
-                    'Submitted By',
+                    'Created By',
                     'Last Modified',
                     'Status',
                     'Certified By',
@@ -107,7 +107,7 @@ export default class DashboardTable extends React.Component {
                 'View',
                 'Agency',
                 dateName,
-                'Submitted By',
+                'Created By',
                 'Last Modified',
                 'Status'
             ];

@@ -119,7 +119,6 @@ const checkHelpUserPermissions = (nextState, replace) => {
     }
 }
 
-
 const getRoutes = () => {
     let returnRoutes = [
         {

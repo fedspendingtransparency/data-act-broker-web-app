@@ -120,7 +120,7 @@ export default class RecentActivityTable extends React.Component {
 				'View',
 				'Agency',
 				'Action Date Range',
-				'Submitted By',
+				'Created By',
 				'Last Modified'
 			];
 			if (PermissionsHelper.checkFabsPermissions(this.props.session)) {
@@ -132,7 +132,7 @@ export default class RecentActivityTable extends React.Component {
 				'View',
 				'Agency',
 				'Reporting Period',
-				'Submitted By',
+				'Created By',
 				'Last Modified',
 				'Status'
 			];
