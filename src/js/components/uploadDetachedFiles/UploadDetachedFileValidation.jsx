@@ -156,7 +156,7 @@ class UploadDetachedFileValidation extends React.Component {
 			const item = Object.assign({}, this.state.detachedAward);
 			item.status = "failed";
 
-			if(data.jobs[0].error_type && data.jobs[0].error_type === "header_errors") {
+			if (data.jobs[0].error_type && data.jobs[0].error_type === "header_errors") {
 				this.setState({
 					detachedAward: item,
 					validationFinished: true,
@@ -219,8 +219,7 @@ class UploadDetachedFileValidation extends React.Component {
 	}
 
 	uploadFile(item) {
-
-		if(this.isUnmounted){
+		if (this.isUnmounted) {
 			return;
 		}
 
@@ -233,6 +232,14 @@ class UploadDetachedFileValidation extends React.Component {
 		submission.meta['startDate'] = this.state.rep_start;
 		submission.meta['endDate'] = this.state.rep_end;
 		submission.meta['subTierAgency'] = this.state.agency;
+
+		// reset file and job status
+		let currentResults = this.state.jobResults;
+		currentResults['detached_award'].file_status = '';
+		currentResults['detached_award'].job_status = '';
+		this.setState({
+			jobResults: currentResults
+		});
 
 		this.uploadFileHelper(kGlobalConstants.LOCAL, submission)
 			.then((submissionID) => {
@@ -257,22 +264,22 @@ class UploadDetachedFileValidation extends React.Component {
 		let validationBox = null;
 		let headerDate = null;
 		let updated = null;
-		if(this.state.modified_date) {
+		if (this.state.modified_date) {
 			updated = moment(this.state.modified_date).format('MM/DD/YYYY')
 		}
 		
 		if (this.state.agency !== '' && this.state.rep_start !== '' && this.state.rep_end !== ''){
 			headerDate = <div className="col-md-2 ">
-							<div className = 'header-box'>
-									<span>
-									Agency: {this.state.agency}
-									</span>
-									<br/>
-									<span>
-									Last Modified Date: {updated}
-									</span>
-								</div>
-						</div>;
+							 <div className = 'header-box'>
+								 <span>
+								 	 Agency: {this.state.agency}
+								 </span>
+								 <br/>
+								 <span>
+								 	 Last Modified Date: {updated}
+								 </span>
+							 </div>
+						 </div>;
 		}
 
 		const type = {
@@ -281,10 +288,22 @@ class UploadDetachedFileValidation extends React.Component {
 			requestName: 'detached_award',
 			progress: '0'
 		}
-		validationBox = <ValidateDataFileContainer type={type} data={this.state.jobResults}/>;
+		const fileData = this.state.jobResults[type.requestName];
+		const status = fileData.job_status;
+		validationBox = <ValidateDataFileContainer type={type} data={this.state.jobResults}
+												   setUploadItem={this.uploadFile.bind(this)}
+												   updateItem={this.uploadFile.bind(this)} />;
 		if (!this.state.headerErrors && this.state.validationFinished) {
-			validationBox = <ValidateValuesFileContainer type={type} data={this.state.jobResults} setUploadItem={this.uploadFile.bind(this)} updateItem={this.uploadFile.bind(this)} published={this.state.published}/>;
-			if(this.state.published){
+			validationBox = <ValidateDataFileContainer type={type} data={this.state.jobResults}
+													   setUploadItem={this.uploadFile.bind(this)}
+													   updateItem={this.uploadFile.bind(this)} />;
+			if (status != 'invalid' || fileData.file_status == 'complete') {
+				validationBox = <ValidateValuesFileContainer type={type} data={this.state.jobResults}
+														 	 setUploadItem={this.uploadFile.bind(this)}
+														 	 updateItem={this.uploadFile.bind(this)}
+														 	 published={this.state.published} />;
+			}
+			if (this.state.published) {
 				// This submission is already published and cannot be republished
 				validationButton = <button className='pull-right col-xs-3 us-da-disabled-button' disabled>File Already Published</button>;
 			}

@@ -80,19 +80,12 @@ export default class ValidateDataFileComponent extends React.Component {
     }
 
     isFileReady() {
-        if (this.props.item.job_status == 'finished' || this.props.item.job_status == 'invalid') {
-            return true;
-        }
-        return false;
+        return (this.props.item.job_status == 'finished' || this.props.item.job_status == 'invalid');
     }
 
     isReplacingFile() {
         // check if the user is trying to replace a file
-        let stagedFile = false;
-        if (this.props.submission.files.hasOwnProperty(this.props.type.requestName)) {
-            stagedFile = true;
-        }
-        return stagedFile;
+        return (this.props.submission.files.hasOwnProperty(this.props.type.requestName));
     }
 
     determineErrors(item) {
@@ -163,7 +156,6 @@ export default class ValidateDataFileComponent extends React.Component {
 
             });
         }
-
         else if (item.missing_headers && item.missing_headers.length == 0 && item.duplicated_headers.length == 0 && item.error_type == 'header_errors') {
             // special case where the header rows could not be read
             headerTitle = 'Critical Error: The header row could not be parsed.';

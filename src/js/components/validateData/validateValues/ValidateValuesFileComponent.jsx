@@ -95,10 +95,7 @@ export default class ValidateDataFileComponent extends React.Component {
     }
 
     isFileReady() {
-        if (this.props.item.file_status != '' && this.props.item.file_status != 'waiting') {
-            return true;
-        }
-        return false;
+        return (this.props.item.file_status != '' && this.props.item.file_status != 'waiting');
     }
 
     isReplacingFile() {
@@ -150,12 +147,12 @@ export default class ValidateDataFileComponent extends React.Component {
         }
         else {
             this.setState({
-                    signInProgress: false,
-                    error: {
-                        header: 'Invalid File Type Selected '+item.file_type,
-                        body: ''
-                    }
-                });
+                signInProgress: false,
+                error: {
+                    header: 'Invalid File Type Selected '+item.file_type,
+                    body: ''
+                }
+            });
         }
         
     }
@@ -203,13 +200,11 @@ export default class ValidateDataFileComponent extends React.Component {
             hasErrors: hasErrors,
             hasWarnings: hasWarnings
         });
-    
     }
 
     displayFileMeta() {
         let size = '--';
         let rows = '--';
-
         if (this.isFileReady()) {
             if (this.props.item.number_of_rows) {
                 rows = this.props.item.number_of_rows;
@@ -230,14 +225,12 @@ export default class ValidateDataFileComponent extends React.Component {
 
     displayIcon() {
         let icon = <Icons.CheckCircle />;
-
         if (this.state.hasErrors) {
             icon = <Icons.ExclamationCircle />;
         }
         else if (this.state.hasWarnings) {
             icon = <div className="usa-da-warning-icon"><Icons.ExclamationCircle /></div>;
         }
-
 
         if (this.isReplacingFile()) {
             icon = <Icons.CloudUpload />;
@@ -277,20 +270,31 @@ export default class ValidateDataFileComponent extends React.Component {
         if (!this.state.hasErrors && !this.state.hasWarnings && !this.props.published && permission) {
             optionalUpload = true;
             uploadText = 'Overwrite File';
-            correctButtonOverlay = <CorrectButtonOverlay isReplacingFile={this.isReplacingFile()} fileKey={this.props.type.requestName} onDrop={this.props.onFileChange} removeFile={this.props.removeFile} fileName={fileName}/>
+            correctButtonOverlay = (<CorrectButtonOverlay isReplacingFile={this.isReplacingFile()} 
+                                                          fileKey={this.props.type.requestName}
+                                                          onDrop={this.props.onFileChange}
+                                                          removeFile={this.props.removeFile}
+                                                          fileName={fileName} />);
             validationElement = <p className='usa-da-success-txt'>File successfully validated</p>;
         }
         else if (!this.state.hasErrors && this.state.hasWarnings && !this.props.published && permission) {
             optionalUpload = true;
             uploadText = 'Overwrite File';
-            correctButtonOverlay = <CorrectButtonOverlay isReplacingFile={this.isReplacingFile()} fileKey={this.props.type.requestName} onDrop={this.props.onFileChange} removeFile={this.props.removeFile} fileName={fileName}/>
+            correctButtonOverlay = (<CorrectButtonOverlay isReplacingFile={this.isReplacingFile()} 
+                                                          fileKey={this.props.type.requestName} 
+                                                          onDrop={this.props.onFileChange} 
+                                                          removeFile={this.props.removeFile} 
+                                                          fileName={fileName} />);
             validationElement = <p className='usa-da-warning-txt'>File validated with warnings</p>;
         }
         else if(!this.props.published && permission){
-            validationElement = <div className="row usa-da-validate-item-file-section-correct-button" data-testid="validate-upload"><div className="col-md-12">
-                <ValidateDataUploadButton optional={optionalUpload} onDrop={this.props.onFileChange} text={uploadText} />
-                </div>
-            </div>;
+            validationElement = (<div className="row usa-da-validate-item-file-section-correct-button" data-testid="validate-upload">
+                                    <div className="col-md-12">
+                                        <ValidateDataUploadButton optional={optionalUpload} 
+                                                                  onDrop={this.props.onFileChange}
+                                                                  text={uploadText} />
+                                    </div>
+                                </div>);
         }
 
 
@@ -307,7 +311,7 @@ export default class ValidateDataFileComponent extends React.Component {
         };
 
         let errorMessage = null;
-        if(this.state.error) {
+        if (this.state.error) {
             errorMessage = <UploadDetachedFilesError error={this.state.error} />
         }
 
