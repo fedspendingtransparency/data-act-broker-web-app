@@ -125,7 +125,7 @@ export default class ValidateDataFileComponent extends React.Component {
             default:
                 break;
         }
-        if(type){
+        if (type) {
             GenerateFilesHelper.fetchFile(type, this.props.submission.id)
             .then((result)=>{
                 this.setState({

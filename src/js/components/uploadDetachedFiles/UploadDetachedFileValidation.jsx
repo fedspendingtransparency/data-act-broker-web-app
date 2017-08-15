@@ -198,10 +198,11 @@ class UploadDetachedFileValidation extends React.Component {
 				this.setState({submit: false, published: true, showPublish: false})
 			})
 			.catch((error)=>{
-				if(error.httpStatus === 400){
+				if (error.httpStatus === 400) {
 					this.setState({error: 1, submit: false});
-				}else if(error.httpStatus === 500){
-					this.setState({error: 3, submit: false});
+				}
+				else if (error.httpStatus === 500) {
+					this.setState({error: 4, submit: false});
 				}
 			})
 	}
