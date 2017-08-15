@@ -9,8 +9,6 @@ import React from 'react';
 import moment from 'moment';
 
 import SubTierAgencyListContainer from '../../containers/SharedContainers/SubTierAgencyListContainer.jsx';
-import ValidateValuesFileContainer from '../../containers/validateData/ValidateValuesFileContainer.jsx';
-import ValidateDataFileContainer from '../../containers/validateData/ValidateDataFileContainer.jsx';
 import UploadDetachedFilesBox from './UploadDetachedFilesBox.jsx';
 import UploadDetachedFilesError from './UploadDetachedFilesError.jsx';
 import Banner from '../SharedComponents/Banner.jsx';

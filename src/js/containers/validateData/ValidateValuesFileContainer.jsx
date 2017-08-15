@@ -25,7 +25,7 @@ class ValidateValuesFileContainer extends React.Component {
 			state: 'ready',
 			file: file
 		});
-		if(this.props.updateItem){
+		if (this.props.updateItem) {
 			this.props.updateItem(file);
 		}
 	}
@@ -35,9 +35,11 @@ class ValidateValuesFileContainer extends React.Component {
 	}
 
 	render() {
-
 		return (
-			<ValidateValuesFileComponent {...this.props} item={this.props.data[this.props.type.requestName]} onFileChange={this.selectedFile.bind(this)} removeFile={this.removeFile.bind(this)} />
+			<ValidateValuesFileComponent {...this.props} 
+										 item={this.props.data[this.props.type.requestName]} 
+										 onFileChange={this.selectedFile.bind(this)} 
+										 removeFile={this.removeFile.bind(this)} />
 		)
 	}
 }
