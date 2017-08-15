@@ -173,7 +173,7 @@ export default class ValidateDataFileComponent extends React.Component {
         }
 
         if (item.job_status == 'failed') {
-            headerTitle = 'An error occurred while validating this file. Contact an administrator for assistance.';
+            headerTitle = 'An error occurred while validating this file. Contact the Service Desk for assistance.';
             errorData = [];
             hasErrorReport = false;
             isError = false;
