@@ -44,7 +44,7 @@ export default class PublishModal extends React.Component {
 	}
 
 	render() {
-		let message = <p>This will publish only rows that have passed validation</p>;
+		let message = <p>This will publish the {this.props.rows.valid_rows} rows that have passed validation out of a total of {this.props.rows.total_rows} rows in your FABS file</p>;
 
 		let action = <div className='row'>
 						<div className='col-sm-6'>

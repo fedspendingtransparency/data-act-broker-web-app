@@ -59,7 +59,8 @@ class UploadDetachedFileValidation extends React.Component {
 			submit: true,
 			showPublish: false,
 			modified_date: null,
-			type: props.route.type
+			type: props.route.type,
+			rows: {valid_rows:0, total_rows: 0}
 		};
 	}
 
@@ -115,7 +116,8 @@ class UploadDetachedFileValidation extends React.Component {
 					cgac_code: response.cgac_code,
 					published: (response.publish_status === 'published' ? true : false),
 					modified_date: response.last_updated,
-					error: 0
+					error: 0,
+					fabs_meta: response.fabs_meta
 				}, () => {
 					this.parseJobStates(response);
 				});			
@@ -283,10 +285,10 @@ class UploadDetachedFileValidation extends React.Component {
 		}
 		validationBox = <ValidateDataFileContainer type={type} data={this.state.jobResults}/>;
 		if (!this.state.headerErrors && this.state.validationFinished) {
-			validationBox = <ValidateValuesFileContainer type={type} data={this.state.jobResults} setUploadItem={this.uploadFile.bind(this)} updateItem={this.uploadFile.bind(this)} published={this.state.published}/>;
+			validationBox = <ValidateValuesFileContainer type={type} data={this.state.jobResults} setUploadItem={this.uploadFile.bind(this)} updateItem={this.uploadFile.bind(this)} published={this.state.published} rows={this.state.fabs_meta} />;
 			if(this.state.published){
 				// This submission is already published and cannot be republished
-				validationButton = <button className='pull-right col-xs-3 us-da-disabled-button' disabled>File Already Published</button>;
+				validationButton = <button className='pull-right col-xs-3 us-da-disabled-button' disabled>File Published:<span className='plain'> {this.state.fabs_meta.valid_rows} rows published on {this.state.fabs_meta.publish_date}</span></button>;
 			}
 			else if (PermissionsHelper.checkFabsPermissions(this.props.session)) {
 				// User has permissions to publish this unpublished submission
@@ -334,7 +336,7 @@ class UploadDetachedFileValidation extends React.Component {
 						</div>
 					</div>
 				</div>
-				<PublishModal validate={this.submitFabs.bind(this)} submissionID={this.state.submissionID} closeModal={this.closeModal.bind(this)} isOpen={this.state.showPublish} />
+				<PublishModal rows={this.state.rows} validate={this.submitFabs.bind(this)} submissionID={this.state.submissionID} closeModal={this.closeModal.bind(this)} isOpen={this.state.showPublish} />
 			</div>
 		);
 	}
