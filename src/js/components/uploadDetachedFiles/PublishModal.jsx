@@ -19,8 +19,17 @@ export default class PublishModal extends React.Component {
 			showProgress: false,
 			publishComplete: false,
 			closeable: true,
-			errorMessage: ""
+			errorMessage: "",
+			rows: this.props.rows
 		};
+	}
+
+	componentWillReceiveProps(nextProps) {
+		if(this.state.rows != nextProps) {
+			this.setState({
+				rows: nextProps.rows
+			})
+		}
 	}
 
 	closeModal(e) {
@@ -44,7 +53,7 @@ export default class PublishModal extends React.Component {
 	}
 
 	render() {
-		let message = <p>This will publish the {this.props.rows.valid_rows} rows that have passed validation out of a total of {this.props.rows.total_rows} rows in your FABS file</p>;
+		let message = <p>This will publish the {this.state.rows.valid_rows} rows that have passed validation out of a total of {this.state.rows.total_rows} rows in your FABS file</p>;
 
 		let action = <div className='row'>
 						<div className='col-sm-6'>

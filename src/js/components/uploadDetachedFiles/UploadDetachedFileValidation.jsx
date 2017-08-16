@@ -60,7 +60,7 @@ class UploadDetachedFileValidation extends React.Component {
 			showPublish: false,
 			modified_date: null,
 			type: props.route.type,
-			rows: {valid_rows:0, total_rows: 0}
+			fabs_meta: {valid_rows:0, total_rows: 0, publish_date: null}
 		};
 	}
 
@@ -259,6 +259,7 @@ class UploadDetachedFileValidation extends React.Component {
 		let validationBox = null;
 		let headerDate = null;
 		let updated = null;
+
 		if(this.state.modified_date) {
 			updated = moment(this.state.modified_date).format('MM/DD/YYYY')
 		}
@@ -283,6 +284,7 @@ class UploadDetachedFileValidation extends React.Component {
 			requestName: 'detached_award',
 			progress: '0'
 		}
+		
 		validationBox = <ValidateDataFileContainer type={type} data={this.state.jobResults}/>;
 		if (!this.state.headerErrors && this.state.validationFinished) {
 			validationBox = <ValidateValuesFileContainer type={type} data={this.state.jobResults} setUploadItem={this.uploadFile.bind(this)} updateItem={this.uploadFile.bind(this)} published={this.state.published} rows={this.state.fabs_meta} />;
@@ -336,7 +338,7 @@ class UploadDetachedFileValidation extends React.Component {
 						</div>
 					</div>
 				</div>
-				<PublishModal rows={this.state.rows} validate={this.submitFabs.bind(this)} submissionID={this.state.submissionID} closeModal={this.closeModal.bind(this)} isOpen={this.state.showPublish} />
+				<PublishModal rows={this.state.fabs_meta} validate={this.submitFabs.bind(this)} submissionID={this.state.submissionID} closeModal={this.closeModal.bind(this)} isOpen={this.state.showPublish} />
 			</div>
 		);
 	}
