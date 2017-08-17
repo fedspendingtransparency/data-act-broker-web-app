@@ -132,6 +132,12 @@ export default class ValidateDataFileComponent extends React.Component {
             hasErrorReport = false;
             isError = true;
         }
+        else if (item.file_status == 'row_count_error') {
+            headerTitle = 'Critical Error: Raw file row count does not match the number of rows validated';
+            hasErrorReport = false;
+            isError = true;
+            canDownload = true;
+        }
         else if (item.file_status == 'complete') {
             headerTitle = '';
             hasErrorReport = false;
