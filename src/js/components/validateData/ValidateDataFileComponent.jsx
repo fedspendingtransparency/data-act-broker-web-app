@@ -94,8 +94,12 @@ export default class ValidateDataFileComponent extends React.Component {
         }
 
         let headerTitle = 'Validating...';
-        let hasErrorReport = isError = hasFailed = canDownload = false;
-        const errorKeys = errorData = [];
+        let isError = false;
+        let hasFailed = false;
+        let canDownload = false;
+        let hasErrorReport = false;
+        const errorKeys = [];
+        let errorData = [];
 
         if (item.missing_headers && item.missing_headers.length > 0) {
             errorKeys.push('missing_headers');
