@@ -30,7 +30,7 @@ export default class ValidationContent extends React.Component {
 
             if (fileData) {
                 let status = fileData.job_status;
-                if (status == 'ready' || status == 'running' || (status == 'invalid' && fileData.file_status != 'complete')) {
+                if (!this.props.hasFinished || this.props.hasFailed || (status == 'invalid' && fileData.file_status != 'complete')) {
                     errors.push(type.requestName);
                     return <ValidateDataFileContainer key={index} type={type} data={data} />;
                 }
