@@ -94,12 +94,8 @@ export default class ValidateDataFileComponent extends React.Component {
         }
 
         let headerTitle = 'Validating...';
-        let hasErrorReport = false;
-        let isError = false;
-        const errorKeys = [];
-        let errorData = [];
-        let hasFailed = false;
-        let canDownload = false;
+        let hasErrorReport = isError = hasFailed = canDownload = false;
+        const errorKeys = errorData = [];
 
         if (item.missing_headers && item.missing_headers.length > 0) {
             errorKeys.push('missing_headers');
@@ -115,10 +111,33 @@ export default class ValidateDataFileComponent extends React.Component {
             headerTitle = 'Critical Error: Duplicate fields in header row';
             canDownload = true;
         }
+        if (errorKeys.length > 0) {
+            if (errorKeys.length == 2) {
+                headerTitle = 'Critical Errors: Missing fields in header row & duplicate fields in header row';
+            }
+            errorKeys.forEach((key) => {
+                let tableTitle = '';
+                if (key == 'missing_headers') {
+                    tableTitle = 'Missing Headers: Field Name';
+                }
+                else if (key == 'duplicated_headers') {
+                    tableTitle = 'Duplicate Headers: Field Name';
+                }
 
-        if (errorKeys.length == 2) {
-            headerTitle = 'Critical Errors: Missing fields in header row & duplicate fields in header row';
-            canDownload = true;
+                errorData.push({
+                    header: tableTitle,
+                    data: item[key]
+                });
+
+            });
+        }
+        else if (item.missing_headers && item.missing_headers.length == 0 && item.duplicated_headers.length == 0 && item.error_type == 'header_errors') {
+            // special case where the header rows could not be read
+            headerTitle = 'Critical Error: The header row could not be parsed.';
+            errorData = [];
+            hasErrorReport = false;
+            hasFailed = true;
+            isError = true;
         }
 
         if (item.file_status == 'single_row_error') {
@@ -144,32 +163,6 @@ export default class ValidateDataFileComponent extends React.Component {
             isError = false;
             canDownload = true;
         }
-        
-        if (errorKeys.length > 0) {
-            errorKeys.forEach((key) => {
-                let tableTitle = '';
-                if (key == 'missing_headers') {
-                    tableTitle = 'Missing Headers: Field Name';
-                }
-                else if (key == 'duplicated_headers') {
-                    tableTitle = 'Duplicate Headers: Field Name';
-                }
-
-                errorData.push({
-                    header: tableTitle,
-                    data: item[key]
-                });
-
-            });
-        }
-        else if (item.missing_headers && item.missing_headers.length == 0 && item.duplicated_headers.length == 0 && item.error_type == 'header_errors') {
-            // special case where the header rows could not be read
-            headerTitle = 'Critical Error: The header row could not be parsed.';
-            errorData = [];
-            hasErrorReport = false;
-            hasFailed = true;
-            isError = true;
-        } 
 
         if (item.file_status == 'incomplete' || !this.isFileReady()) {
             headerTitle = 'Validating...';
@@ -185,7 +178,8 @@ export default class ValidateDataFileComponent extends React.Component {
             isError = false;
             hasFailed = true;
         }
-        if(!this.isUnmounted){
+
+        if (!this.isUnmounted) {
             this.setState({
                 headerTitle: headerTitle,
                 errorReports: errorData,
@@ -370,11 +364,8 @@ export default class ValidateDataFileComponent extends React.Component {
             errorMessage = <UploadDetachedFilesError error={this.state.error} />
         }
 
-        let clickDownload = null, clickDownloadClass = '';
-        if (this.state.canDownload) {
-            clickDownload = this.clickedReport.bind(this, this.props.item);
-            clickDownloadClass = 'file-download';
-        }
+        let clickDownload = this.state.canDownload ? this.clickedReport.bind(this, this.props.item) : null;
+        let clickDownloadClass = this.state.canDownload ? 'file-download' : '';
 
         return (
             <div className={"row center-block usa-da-validate-item" + successfulFade} data-testid={"validate-wrapper-" + this.props.type.requestName}>

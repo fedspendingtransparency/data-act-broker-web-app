@@ -27,7 +27,7 @@ const propTypes = {
 
 };
 
-export default class ValidateDataFileComponent extends React.Component {
+export default class ValidateValuesFileComponent extends React.Component {
     constructor(props) {
         super(props);
 
@@ -376,4 +376,4 @@ export default class ValidateDataFileComponent extends React.Component {
     }
 }
 
-ValidateDataFileComponent.propTypes = propTypes;
+ValidateValuesFileComponent.propTypes = propTypes;
