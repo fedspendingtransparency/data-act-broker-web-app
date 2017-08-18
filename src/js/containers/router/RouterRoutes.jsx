@@ -284,7 +284,18 @@ const getRoutes = () => {
             returnRoutes.push(routeConstructor(sharedRoutes[i], 1, 'fabs'));
         }
     }
-    return returnRoutes;
+    returnRoutes.push(
+        {
+            path: '*',
+            onEnter: checkUserPermissions,
+            getComponent(nextState, cb) {
+                require.ensure([], (require) => {
+                    cb(null, require('../../components/error/ErrorPage.jsx').default)
+                });
+            },
+            type: 'home'
+        });
+    return returnRoutes
 }
 
 function routeConstructor(route_info, onEnterIndex, type) {
@@ -337,7 +348,7 @@ const routeDefinitions = {
     indexRoute: {
         onEnter: checkUserPermissions,
         component: LandingPage,
-        type: kGlobalConstants.STAGING ? 'home' : 'dabs'
+        type: kGlobalConstants.PROD ? 'dabs' : 'home'
     },
     childRoutes: getRoutes()
 }
