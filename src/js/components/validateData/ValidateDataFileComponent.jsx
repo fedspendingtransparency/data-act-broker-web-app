@@ -164,7 +164,7 @@ export default class ValidateDataFileComponent extends React.Component {
             headerTitle = 'An error occurred while validating this file. Contact the Service Desk for assistance.';
             errorData = [];
             hasErrorReport = false;
-            canDownload = false;
+            canDownload = true;
             isError = false;
         }
 
