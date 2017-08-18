@@ -18,8 +18,8 @@ class AddDataPageContainer extends React.Component {
 	componentDidMount() {
 		this.props.resetSubmission();
 	}
+
     render() {
-        
         return (
             <AddDataPage {...this.props} updateMetaData={this.props.setMeta} />
         );

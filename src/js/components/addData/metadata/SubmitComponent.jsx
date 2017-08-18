@@ -1,5 +1,5 @@
 /**
-  * SubmissionComponent.jsx
+  * SubmitComponent.jsx
   * Created by Kevin Li 5/20/16
   **/
 
