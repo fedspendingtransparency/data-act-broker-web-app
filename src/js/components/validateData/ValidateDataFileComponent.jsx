@@ -31,7 +31,6 @@ export default class ValidateDataFileComponent extends React.Component {
             errorReports: [],
             hasErrorReport: false,
             isError: false,
-            hasFailed: false,
             signedUrl: '',
             signInProgress: false,
             error: null,
@@ -94,96 +93,83 @@ export default class ValidateDataFileComponent extends React.Component {
         }
 
         let headerTitle = 'Validating...';
-        let isError = false;
-        let hasFailed = false;
-        let canDownload = false;
-        let hasErrorReport = false;
-        const errorKeys = [];
+        let isError = false, canDownload = false, hasErrorReport = false;
         let errorData = [];
+        const errorKeys = [];
 
-        if (item.missing_headers && item.missing_headers.length > 0) {
-            errorKeys.push('missing_headers');
-            hasErrorReport = true;
-            isError = true;
-            headerTitle = 'Critical Error: Missing fields in header row';
-            canDownload = true;
+        // check if file is still validating
+        if (item.file_status == 'incomplete' || !this.isFileReady) {
+            return;
         }
-        if (item.duplicated_headers && item.duplicated_headers.length > 0) {
-            errorKeys.push('duplicated_headers');
-            hasErrorReport = true;
+
+        // handle header errors
+        let missingHeaders = item.missing_headers ? item.missing_headers.length : 0;
+        let duplicatedHeaders = item.duplicated_headers ? item.duplicated_headers.length : 0;
+        if (missingHeaders > 0 || duplicatedHeaders > 0) {
             isError = true;
-            headerTitle = 'Critical Error: Duplicate fields in header row';
+            hasErrorReport = true;
             canDownload = true;
-        }
-        if (errorKeys.length > 0) {
-            if (errorKeys.length == 2) {
-                headerTitle = 'Critical Errors: Missing fields in header row & duplicate fields in header row';
+            if (missingHeaders > 0) {
+                headerTitle = 'Critical Error: Missing fields in header row';
+                errorKeys.push('missing_headers');
             }
-            errorKeys.forEach((key) => {
-                let tableTitle = '';
-                if (key == 'missing_headers') {
-                    tableTitle = 'Missing Headers: Field Name';
+            if (duplicatedHeaders > 0) {
+                headerTitle = 'Critical Error: Duplicate fields in header row';
+                errorKeys.push('duplicated_headers');
+            }
+            if (errorKeys.length > 0) {
+                if (errorKeys.length == 2) {
+                    headerTitle = 'Critical Errors: Missing fields in header row & duplicate fields in header row';
                 }
-                else if (key == 'duplicated_headers') {
-                    tableTitle = 'Duplicate Headers: Field Name';
-                }
-
-                errorData.push({
-                    header: tableTitle,
-                    data: item[key]
+                let titleDict = {
+                    'missing_headers': 'Missing Headers: Field Name',
+                    'duplicated_headers': 'Duplicate Headers: Field Name'
+                };
+                errorKeys.forEach((key) => {
+                    errorData.push({
+                        header: titleDict[key],
+                        data: item[key]
+                    });
                 });
-
-            });
+            }
         }
-        else if (item.missing_headers && item.missing_headers.length == 0 && item.duplicated_headers.length == 0 && item.error_type == 'header_errors') {
+        else if (item.error_type == 'header_errors') {
             // special case where the header rows could not be read
             headerTitle = 'Critical Error: The header row could not be parsed.';
-            errorData = [];
-            hasErrorReport = false;
-            hasFailed = true;
             isError = true;
-            canDownload = false;
         }
 
-        if (item.file_status == 'single_row_error') {
-            headerTitle = 'Critical Error: CSV file must have a header row and at least one record';
+        // handle file-level errors
+        if (item.file_status != 'complete') {
             hasErrorReport = false;
             isError = true;
             canDownload = true;
-        }
-        else if (item.file_status == 'encoding_error') {
-            headerTitle = 'Critical Error: File contains invalid characters that could not be parsed';
-            hasErrorReport = false;
-            isError = true;
-            canDownload = false;
-        }
-        else if (item.file_status == 'row_count_error') {
-            headerTitle = 'Critical Error: Raw file row count does not match the number of rows validated';
-            hasErrorReport = false;
-            isError = true;
-            canDownload = true;
-        }
-        else if (item.file_status == 'complete') {
-            headerTitle = '';
-            hasErrorReport = false;
-            isError = false;
-            canDownload = true;
+
+            switch(item.file_status) {
+                case 'single_row_error':
+                    headerTitle = 'Critical Error: CSV file must have a header row and at least one record';
+                    break;
+                case 'encoding_error':
+                    headerTitle = 'Critical Error: File contains invalid characters that could not be parsed';
+                    canDownload = false;
+                    break;
+                case 'row_count_error':
+                    headerTitle = 'Critical Error: Raw file row count does not match the number of rows validated';
+                    break;
+                case 'unknown_error':
+                    headerTitle = 'An error occurred while validating this file. Contact the Service Desk for assistance';
+                    isError = false;
+                default:
+                    break;
+            }
         }
 
-        if (item.file_status == 'incomplete' || !this.isFileReady()) {
-            headerTitle = 'Validating...';
-            errorData = [];
-            hasErrorReport = false;
-            isError = false;
-            canDownload = false;
-        }
-
-        if (item.job_status == 'failed' || item.file_status == 'unknown_error') {
+        // handle failed job
+        if (item.job_status == 'failed') {
             headerTitle = 'An error occurred while validating this file. Contact the Service Desk for assistance.';
             errorData = [];
             hasErrorReport = false;
             isError = false;
-            hasFailed = true;
             canDownload = false;
         }
 
@@ -193,7 +179,6 @@ export default class ValidateDataFileComponent extends React.Component {
                 errorReports: errorData,
                 hasErrorReport: hasErrorReport,
                 isError: isError,
-                hasFailed: hasFailed,
                 canDownload: canDownload
             });
         }
@@ -223,7 +208,11 @@ export default class ValidateDataFileComponent extends React.Component {
 
     displayIcon() {
         let icon = '';
-        if (this.isFileReady()) {
+        if (this.isReplacingFile()) {
+            // user is attempting to replace a file
+            icon = <Icons.CloudUpload />;
+        }
+        else if (this.isFileReady()) {
             if (this.props.item.file_status == 'complete') {
                 icon = <Icons.CheckCircle />;
             }
@@ -232,33 +221,28 @@ export default class ValidateDataFileComponent extends React.Component {
             }
         }
 
-        // user is attempting to replace a file
-        if (this.isReplacingFile()) {
-            icon = <Icons.CloudUpload />;
-        }
-
         return icon;
     }
 
     signReport(item){
         let type = null;
-        switch(item.file_type){
+        switch(item.file_type) {
             case 'appropriations':
-                type='A';
+                type = 'A';
                 break;
             case 'program_activity':
-                type='B';
+                type = 'B';
                 break;
             case 'award_financial':
-                type='C';
+                type = 'C';
                 break;
             case 'detached_award':
-                type='D2_detached';
+                type = 'D2_detached';
                 break;
             default:
                 break;
         }
-        if(type){
+        if (type) {
             GenerateFilesHelper.fetchFile(type, this.props.submission.id)
             .then((result)=>{
                 this.setState({
