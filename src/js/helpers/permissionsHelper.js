@@ -1,21 +1,5 @@
 import { dispatch } from 'redux';
 
-export const checkDabsReader = (session) => {
-    if (session.admin) {
-        return true;
-    }
-    if (!session.user.affiliations || session.user.affiliations.length === 0) {
-        return false;
-    }
-    let aff = session.user.affiliations;
-    for (let i = 0; i < aff.length; i++) {
-        if (aff[i].permission != 'fabs') {
-            return true;
-        }
-    }
-    return false;
-}
-
 export const checkPermissions = (session) => {
     if (session.admin) {
         return true;

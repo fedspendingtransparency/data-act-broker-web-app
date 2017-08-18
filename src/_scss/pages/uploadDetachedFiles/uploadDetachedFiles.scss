@@ -5,11 +5,19 @@
 	// import typeahead styles
 	@import "../../components/typeahead/_typeahead";
 
+	@import "../../layouts/validation/validation";
+	@include validationLayout;
+
 	.validation-holder {
 		.alert-error {
 			@import "../../components/alerts/_alerts";
 			@include dangerAlert;
 		}
+	}
+
+	.published-submission-warning-banner {
+		@import "../../layouts/login/_topBanner";
+		@include loginTopBanner;
 	}
 
 	.select-agency-holder {

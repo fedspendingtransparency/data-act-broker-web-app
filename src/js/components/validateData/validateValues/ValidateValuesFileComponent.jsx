@@ -7,7 +7,6 @@ import React, { PropTypes } from 'react';
 import { kGlobalConstants } from '../../../GlobalConstants.js';
 import DropZone from '../../addData/DropZone.jsx';
 import DropZoneContainer from '../../../containers/addData/DropZoneContainer.jsx';
-import Navbar from '../../SharedComponents/navigation/NavigationComponent.jsx';
 import AddDataHeader from './../../addData/AddDataHeader.jsx';
 import SubmitButton from '../../SharedComponents/SubmitButton.jsx';
 import FileProgress from '../../SharedComponents/FileProgress.jsx';
@@ -21,6 +20,8 @@ import * as Icons from '../../SharedComponents/icons/Icons.jsx';
 import * as GenerateFilesHelper from '../../../helpers/generateFilesHelper.js';
 import * as ReviewHelper from '../../../helpers/reviewHelper.js';
 import * as PermissionsHelper from '../../../helpers/permissionsHelper.js';
+
+import UploadDetachedFilesError from '../../uploadDetachedFiles/UploadDetachedFilesError.jsx';
 
 const propTypes = {
 
@@ -38,7 +39,8 @@ export default class ValidateDataFileComponent extends React.Component {
             hasErrors: false,
             hasWarnings: false,
             signedUrl: '',
-            signInProgress: false, 
+            signInProgress: false,
+            error: null
         };
     }
 
@@ -120,6 +122,9 @@ export default class ValidateDataFileComponent extends React.Component {
             case 'award_financial':
                 type='C';
                 break;
+            case 'detached_award':
+                type='D2_detached';
+                break;
             default:
                 break;
         }
@@ -135,18 +140,28 @@ export default class ValidateDataFileComponent extends React.Component {
             })
             .catch((err) => {
                 this.setState({
-                    signInProgress: false
+                    signInProgress: false,
+                    error: {
+                        header: 'Invalid File Type Selected '+item.file_type,
+                        body: ''
+                    }
                 });
-                console.log(err);
             });    
-        }else{
-            console.log('Invalid File type selected: '+item.file_type)
+        }
+        else {
+            this.setState({
+                    signInProgress: false,
+                    error: {
+                        header: 'Invalid File Type Selected '+item.file_type,
+                        body: ''
+                    }
+                });
         }
         
     }
 
     openReport() {
-        window.location = this.state.signedUrl;
+        window.open(this.state.signedUrl);
     }
 
     clickedReport(item) {
@@ -291,9 +306,15 @@ export default class ValidateDataFileComponent extends React.Component {
             activeBorder: '#046b99'
         };
 
+        let errorMessage = null;
+        if(this.state.error) {
+            errorMessage = <UploadDetachedFilesError error={this.state.error} />
+        }
+
         return (
             <div className="row center-block usa-da-validate-item" data-testid={"validate-wrapper-" + this.props.type.requestName}>
                 <div className="col-md-12">
+                    {errorMessage}
                     <div className="row usa-da-validate-item-top-section">
                         <div className="col-md-9 usa-da-validate-item-status-section">
                             <div className="row usa-da-validate-item-header">

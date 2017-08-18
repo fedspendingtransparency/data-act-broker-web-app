@@ -14,7 +14,7 @@ export default class UploadDetachedFilesBox extends React.Component {
 	}
 
 	render() {
-		let d2Text = "Upload D2 File";
+		let d2Text = "Upload FABS File";
 		let loadingD2 = null;
 		if (this.props.detachedAward.status == "uploading") {
 			d2Text = "Uploading";
