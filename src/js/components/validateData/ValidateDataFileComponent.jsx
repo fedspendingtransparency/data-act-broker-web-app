@@ -93,23 +93,16 @@ export default class ValidateDataFileComponent extends React.Component {
         }
 
         let headerTitle = 'Validating...';
-        let isError = false, hasErrorReport = false, canDownload = true;
+        let isError = false, hasErrorReport = false, canDownload = false;
         let errorData = [];
         const errorKeys = [];
-
-        // check if file is still validating
-        if (item.file_status == 'incomplete' || !this.isFileReady) {
-            this.setState({
-                canDownload: false
-            });
-            return;
-        }
 
         // handle header errors
         let missingHeaders = item.missing_headers ? item.missing_headers.length : 0;
         let duplicatedHeaders = item.duplicated_headers ? item.duplicated_headers.length : 0;
         if (missingHeaders > 0 || duplicatedHeaders > 0) {
             isError = true;
+            canDownload = true;
             hasErrorReport = true;
             if (missingHeaders > 0) {
                 headerTitle = 'Critical Error: Missing fields in header row';
@@ -138,7 +131,6 @@ export default class ValidateDataFileComponent extends React.Component {
         else if (item.error_type == 'header_errors') {
             // special case where the header rows could not be read
             headerTitle = 'Critical Error: The header row could not be parsed.';
-            canDownload = false;
             isError = true;
         }
 
@@ -146,6 +138,7 @@ export default class ValidateDataFileComponent extends React.Component {
         if (item.file_status != 'complete') {
             hasErrorReport = false;
             isError = true;
+            canDownload = true;
 
             switch(item.file_status) {
                 case 'single_row_error':
@@ -167,11 +160,20 @@ export default class ValidateDataFileComponent extends React.Component {
         }
 
         // handle failed job
-        if (item.job_status == 'failed' || (item.job_status == 'invalid' && !isError)) {
+        if (item.job_status == 'failed' || item.file_status == 'job_error' || (item.job_status == 'invalid' && !isError)) {
             headerTitle = 'An error occurred while validating this file. Contact the Service Desk for assistance.';
             errorData = [];
             hasErrorReport = false;
+            canDownload = false;
             isError = false;
+        }
+
+        // check if file is still validating
+        if (item.file_status == 'incomplete' || !this.isFileReady) {
+            headerTitle = 'Validating...';
+            hasErrorReport = false;
+            isError = false;
+            canDownload = false;
         }
 
         if (!this.isUnmounted) {
