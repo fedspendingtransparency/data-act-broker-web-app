@@ -93,7 +93,7 @@ export default class ValidateDataFileComponent extends React.Component {
         }
 
         let headerTitle = 'Validating...';
-        let isError = false, canDownload = false, hasErrorReport = false;
+        let isError = false, hasErrorReport = false, canDownload = true;
         let errorData = [];
         const errorKeys = [];
 
@@ -108,7 +108,6 @@ export default class ValidateDataFileComponent extends React.Component {
         if (missingHeaders > 0 || duplicatedHeaders > 0) {
             isError = true;
             hasErrorReport = true;
-            canDownload = true;
             if (missingHeaders > 0) {
                 headerTitle = 'Critical Error: Missing fields in header row';
                 errorKeys.push('missing_headers');
@@ -136,6 +135,7 @@ export default class ValidateDataFileComponent extends React.Component {
         else if (item.error_type == 'header_errors') {
             // special case where the header rows could not be read
             headerTitle = 'Critical Error: The header row could not be parsed.';
+            canDownload = false;
             isError = true;
         }
 
@@ -143,7 +143,6 @@ export default class ValidateDataFileComponent extends React.Component {
         if (item.file_status != 'complete') {
             hasErrorReport = false;
             isError = true;
-            canDownload = true;
 
             switch(item.file_status) {
                 case 'single_row_error':
@@ -157,20 +156,19 @@ export default class ValidateDataFileComponent extends React.Component {
                     headerTitle = 'Critical Error: Raw file row count does not match the number of rows validated';
                     break;
                 case 'unknown_error':
-                    headerTitle = 'An error occurred while validating this file. Contact the Service Desk for assistance';
                     isError = false;
+                    break;
                 default:
                     break;
             }
         }
 
         // handle failed job
-        if (item.job_status == 'failed') {
+        if (item.job_status == 'failed' || (item.job_status == 'invalid' && !isError)) {
             headerTitle = 'An error occurred while validating this file. Contact the Service Desk for assistance.';
             errorData = [];
             hasErrorReport = false;
             isError = false;
-            canDownload = false;
         }
 
         if (!this.isUnmounted) {
@@ -220,7 +218,6 @@ export default class ValidateDataFileComponent extends React.Component {
                 icon = <Icons.ExclamationCircle />;
             }
         }
-
         return icon;
     }
 
@@ -298,15 +295,12 @@ export default class ValidateDataFileComponent extends React.Component {
     }
 
     render() {
-        let successfulFade = '';
         let disabledCorrect = '';
         let messageClass = ' usa-da-validate-item-message';
         if (!this.state.isError && this.isFileReady()) {
-            successfulFade = ' successful';
             disabledCorrect = ' hide';
         }
         else if (!this.isFileReady()) {
-            successfulFade = '';
             messageClass = '';
             disabledCorrect = ' hide';
         }
@@ -360,7 +354,7 @@ export default class ValidateDataFileComponent extends React.Component {
         let clickDownloadClass = this.state.canDownload ? 'file-download' : '';
 
         return (
-            <div className={"row center-block usa-da-validate-item" + successfulFade} data-testid={"validate-wrapper-" + this.props.type.requestName}>
+            <div className="row center-block usa-da-validate-item" data-testid={"validate-wrapper-" + this.props.type.requestName}>
                 <div className="col-md-12">
                     {errorMessage}
                     <div className="row usa-da-validate-item-top-section">
