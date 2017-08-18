@@ -99,6 +99,9 @@ export default class ValidateDataFileComponent extends React.Component {
 
         // check if file is still validating
         if (item.file_status == 'incomplete' || !this.isFileReady) {
+            this.setState({
+                canDownload: false
+            });
             return;
         }
 
