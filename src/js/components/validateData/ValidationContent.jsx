@@ -5,17 +5,12 @@
 
 import React, { PropTypes } from 'react';
 
-import { kGlobalConstants } from '../../GlobalConstants.js';
 import ValidationOverlayContainer from '../../containers/validateData/ValidationOverlayContainer.jsx';
 import ValidateDataFileContainer from '../../containers/validateData/ValidateDataFileContainer.jsx';
 import ValidateValuesFileContainer from '../../containers/validateData/ValidateValuesFileContainer.jsx';
 import ValidateDataInProgressOverlay from './ValidateDataInProgressOverlay.jsx';
 
 import { fileTypes } from '../../containers/addData/fileTypes.js';
-
-const propTypes = {
-    submissionID: PropTypes.string
-};
 
 export default class ValidationContent extends React.Component {
     constructor(props) {
@@ -28,22 +23,18 @@ export default class ValidationContent extends React.Component {
             const data = this.props.submission.validation;
             const fileData = data[type.requestName];
 
-            if (fileData) {
-                let status = fileData.job_status;
-                if (!this.props.hasFinished || this.props.hasFailed || (status == 'invalid' && fileData.file_status != 'complete')) {
+            if (fileData && fileData.file_status == 'complete') {
+                if (fileData.error_data.length > 0) {
                     errors.push(type.requestName);
-                    return <ValidateDataFileContainer key={index} type={type} data={data} />;
                 }
-                else {
-                    if (fileData.error_data.length > 0) {
-                        errors.push(type.requestName);
-                    }
-                    if (fileData.warning_data.length > 0) {
-                        warnings.push(type.requestName);
-                    }
-                    return <ValidateValuesFileContainer key={index} type={type} data={data} 
-                                                        session={this.props.session} />;
+                if (fileData.warning_data.length > 0) {
+                    warnings.push(type.requestName);
                 }
+                return <ValidateValuesFileContainer key={index} type={type} data={data} session={this.props.session} />;
+            }
+            else if (fileData) {
+                errors.push(type.requestName);
+                return <ValidateDataFileContainer key={index} type={type} data={data} />;
             }
         });
 
@@ -69,5 +60,3 @@ export default class ValidationContent extends React.Component {
         );
     }
 }
-
-ValidationContent.propTypes = propTypes;

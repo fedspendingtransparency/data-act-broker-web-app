@@ -142,6 +142,7 @@ export default class ValidateDataFileComponent extends React.Component {
             hasErrorReport = false;
             hasFailed = true;
             isError = true;
+            canDownload = false;
         }
 
         if (item.file_status == 'single_row_error') {
@@ -154,6 +155,7 @@ export default class ValidateDataFileComponent extends React.Component {
             headerTitle = 'Critical Error: File contains invalid characters that could not be parsed';
             hasErrorReport = false;
             isError = true;
+            canDownload = false;
         }
         else if (item.file_status == 'row_count_error') {
             headerTitle = 'Critical Error: Raw file row count does not match the number of rows validated';
@@ -173,14 +175,16 @@ export default class ValidateDataFileComponent extends React.Component {
             errorData = [];
             hasErrorReport = false;
             isError = false;
+            canDownload = false;
         }
 
-        if (item.job_status == 'failed') {
+        if (item.job_status == 'failed' || item.file_status == 'unknown_error') {
             headerTitle = 'An error occurred while validating this file. Contact the Service Desk for assistance.';
             errorData = [];
             hasErrorReport = false;
             isError = false;
             hasFailed = true;
+            canDownload = false;
         }
 
         if (!this.isUnmounted) {

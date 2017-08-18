@@ -83,7 +83,7 @@ export default class UploadDetachedFileMeta extends React.Component {
 	}
 
 	uploadFileHelper(local, submission){
-		if(local){
+		if (local) {
 			return UploadHelper.performDetachedLocalUpload(submission);
 		}
 		return UploadHelper.performDetachedFileUpload(submission);

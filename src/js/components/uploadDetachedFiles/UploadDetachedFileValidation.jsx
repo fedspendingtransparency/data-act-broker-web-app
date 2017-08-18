@@ -213,7 +213,7 @@ class UploadDetachedFileValidation extends React.Component {
 	// 3: File already has been submitted in another submission
 
 	uploadFileHelper(local, submission){
-		if(local){
+		if (local) {
 			return UploadHelper.performDetachedLocalCorrectedUpload(submission);
 		}
 		return UploadHelper.performDetachedFileCorrectedUpload(submission);
@@ -294,11 +294,8 @@ class UploadDetachedFileValidation extends React.Component {
 		validationBox = <ValidateDataFileContainer type={type} data={this.state.jobResults}
 												   setUploadItem={this.uploadFile.bind(this)}
 												   updateItem={this.uploadFile.bind(this)} />;
-		if (!this.state.headerErrors && this.state.validationFinished) {
-			validationBox = <ValidateDataFileContainer type={type} data={this.state.jobResults}
-													   setUploadItem={this.uploadFile.bind(this)}
-													   updateItem={this.uploadFile.bind(this)} />;
-			if (status != 'failed' && (status != 'invalid' || fileData.file_status == 'complete')) {
+		if (fileData.file_status == 'complete' && this.state.validationFinished) {
+			if (status != 'invalid' || fileData.file_status == 'complete') {
 				validationBox = <ValidateValuesFileContainer type={type} data={this.state.jobResults}
 														 	 setUploadItem={this.uploadFile.bind(this)}
 														 	 updateItem={this.uploadFile.bind(this)}
