@@ -298,6 +298,7 @@ export default class ValidateDataFileComponent extends React.Component {
         let disabledCorrect = '';
         let messageClass = ' usa-da-validate-item-message';
         if (!this.state.isError && this.isFileReady()) {
+            messageClass = '';
             disabledCorrect = ' hide';
         }
         else if (!this.isFileReady()) {
