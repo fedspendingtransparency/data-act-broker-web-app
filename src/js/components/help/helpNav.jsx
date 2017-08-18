@@ -17,7 +17,7 @@ export default class HelpNav extends React.Component {
     render() {
         const pageLinks = this.props.pageArray.map((page, index) => {
 		    const dabsUrl = "/#/" + page.toLowerCase();
-		    const fabsUrl = "/#/detached" + page.charAt(0).toUpperCase() + page.slice(1);
+		    const fabsUrl = "/#/FABS" + page.charAt(0).toUpperCase() + page.slice(1);
 		    const url = this.props.type === 'fabs' ? fabsUrl : dabsUrl;
 
 		    if(this.props.selected == page){

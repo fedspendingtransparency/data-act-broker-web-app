@@ -60,7 +60,7 @@ export default class HelpPage extends React.Component {
     }
 
     render() {
-        const help = this.props.type === 'fabs' ? 'detachedHelp' : 'help';
+        const help = this.props.type === 'fabs' ? 'FABShelp' : 'help';
         const color = this.props.type === 'fabs' ? 'teal' : 'dark';
         return (
             <div className="usa-da-help-style-page" name="top">

@@ -17,8 +17,8 @@ export default class PracticesProceduresPage extends React.Component {
     }
 
     render() {
-        const practices = this.props.type === 'fabs' ? '#/detachedPractices' : '#/practices';
-        const activeTab = this.props.type === 'fabs' ? 'detachedHelp' : 'help';
+        const practices = this.props.type === 'fabs' ? '#/FABSPractices' : '#/practices';
+        const activeTab = this.props.type === 'fabs' ? 'FABSHelp' : 'help';
         const color = this.props.type === 'fabs' ? 'teal' : 'dark';
         return (
             <div className="usa-da-help-style-page" name="top">

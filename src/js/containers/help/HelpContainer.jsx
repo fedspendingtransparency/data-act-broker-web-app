@@ -49,22 +49,23 @@ class HelpPageContainer extends React.Component {
     }
 
     render() {
-       if (this.props.route.path == 'help' || this.props.route.path == 'detachedHelp') {
+        let currentRoute = this.props.route.path.toLowerCase();
+       if (currentRoute == 'help' || currentRoute == 'fabshelp') {
             return <HelpPage {...this.props} helpOnly={this.state.helpOnly} type={this.state.type} />;
        }
-       else if (this.props.route.path == 'resources' || this.props.route.path == 'detachedResources') {
+       else if (currentRoute == 'resources' || currentRoute == 'fabsresources') {
             return <ResourcesPage {...this.props} helpOnly={this.state.helpOnly} type={this.state.type} />;
        }
-       else if (this.props.route.path == 'validations' || this.props.route.path == 'detachedValidations') {
+       else if (currentRoute == 'validations' || currentRoute == 'fabsvalidations') {
             return <ValidationRulesTablePage {...this.props} helpOnly={this.state.helpOnly} type={this.state.type} />;
         }
-        else if (this.props.route.path == 'practices' || this.props.route.path == 'detachedPractices') {
+        else if (currentRoute == 'practices' || currentRoute == 'fabspractices') {
             return <PracticesProceduresPage {...this.props} helpOnly={this.state.helpOnly} type={this.state.type} />;
         }
-        else if (this.props.route.path == 'history' || this.props.route.path == 'detachedHistory') {
+        else if (currentRoute == 'history' || currentRoute == 'fabshistory') {
             return <HistoryPage {...this.props} history='release' helpOnly={this.state.helpOnly} type={this.state.type} />;
         }
-        else if (this.props.route.path == 'technicalHistory' || this.props.route.path == 'detachedTechnicalHistory') {
+        else if (currentRoute == 'technicalhistory' || currentRoute == 'fabstechnicalhistory') {
             return <HistoryPage {...this.props} history='technical' helpOnly={this.state.helpOnly} type={this.state.type} />;
         }
     }
