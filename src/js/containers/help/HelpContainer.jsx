@@ -50,22 +50,22 @@ class HelpPageContainer extends React.Component {
 
     render() {
         let currentRoute = this.props.route.path.toLowerCase();
-       if (currentRoute == 'help' || currentRoute == 'fabsHelp') {
+       if (currentRoute == 'help' || currentRoute == 'fabshelp') {
             return <HelpPage {...this.props} helpOnly={this.state.helpOnly} type={this.state.type} />;
        }
-       else if (currentRoute == 'resources' || currentRoute == 'fabsResources') {
+       else if (currentRoute == 'resources' || currentRoute == 'fabsresources') {
             return <ResourcesPage {...this.props} helpOnly={this.state.helpOnly} type={this.state.type} />;
        }
-       else if (currentRoute == 'validations' || currentRoute == 'fabsValidations') {
+       else if (currentRoute == 'validations' || currentRoute == 'fabsvalidations') {
             return <ValidationRulesTablePage {...this.props} helpOnly={this.state.helpOnly} type={this.state.type} />;
         }
-        else if (currentRoute == 'practices' || currentRoute == 'fabsPractices') {
+        else if (currentRoute == 'practices' || currentRoute == 'fabspractices') {
             return <PracticesProceduresPage {...this.props} helpOnly={this.state.helpOnly} type={this.state.type} />;
         }
-        else if (currentRoute == 'history' || currentRoute == 'fabsHistory') {
+        else if (currentRoute == 'history' || currentRoute == 'fabshistory') {
             return <HistoryPage {...this.props} history='release' helpOnly={this.state.helpOnly} type={this.state.type} />;
         }
-        else if (currentRoute == 'technicalHistory' || currentRoute == 'fabsTechnicalHistory') {
+        else if (currentRoute == 'technicalhistory' || currentRoute == 'fabstechnicalhistory') {
             return <HistoryPage {...this.props} history='technical' helpOnly={this.state.helpOnly} type={this.state.type} />;
         }
     }
