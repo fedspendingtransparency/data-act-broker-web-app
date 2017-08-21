@@ -345,9 +345,10 @@ export default class ValidateDataFileComponent extends React.Component {
                 uploadProgress = <FileProgress fileStatus={newFile.progress} />;
             }
         }
-        else {
-            clickDownload = this.state.canDownload ? this.clickedReport.bind(this, this.props.item) : null;
-            clickDownloadClass = this.state.canDownload ? 'file-download' : '';
+        else if (this.state.canDownload) {
+            // no parsing errors and not a new file
+            clickDownload = this.clickedReport.bind(this, this.props.item);
+            clickDownloadClass = 'file-download';
         }
 
         if (this.props.type.requestName === 'detached_award') {
