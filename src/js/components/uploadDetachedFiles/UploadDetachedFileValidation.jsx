@@ -265,22 +265,23 @@ class UploadDetachedFileValidation extends React.Component {
 		let validationBox = null;
 		let headerDate = null;
 		let updated = null;
-		if (this.state.modified_date) {
-			updated = moment(this.state.modified_date).format('MM/DD/YYYY')
+
+		if(this.state.modified_date) {
+			updated = moment.utc(this.state.modified_date).local().format('MM/DD/YYYY h:mm a')
 		}
 		
 		if (this.state.agency !== '' && this.state.rep_start !== '' && this.state.rep_end !== ''){
 			headerDate = <div className="col-md-2 ">
-							 <div className = 'header-box'>
-								 <span>
-								 	 Agency: {this.state.agency}
-								 </span>
-								 <br/>
-								 <span>
-								 	 Last Modified Date: {updated}
-								 </span>
-							 </div>
-						 </div>;
+							<div className = 'header-box'>
+									<span>
+									Agency: {this.state.agency}
+									</span>
+									<br/>
+									<span>
+									Last Modified: {updated}
+									</span>
+								</div>
+						</div>;
 		}
 
 		const type = {
