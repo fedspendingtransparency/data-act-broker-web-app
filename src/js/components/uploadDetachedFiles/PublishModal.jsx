@@ -62,7 +62,7 @@ export default class PublishModal extends React.Component {
 		let cancelText = 'Cancel';
 
 		if (!publishable) {
-			message = <p>You have 0 valid rows in your FABS file. Please reupload a corrected file to publish.</p> 
+			message = <p>Your file cannot be published because none of your records passed validation. Please correct your file and resubmit it.</p> 
 			action = <button id='publish-button' className='us-da-disabled-button col-sm-6'>No Valid Rows</button>
 		}
 
