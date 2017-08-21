@@ -27,7 +27,8 @@ export default class PublishModal extends React.Component {
 	componentWillReceiveProps(nextProps) {
 		if(this.state.rows != nextProps) {
 			this.setState({
-				rows: nextProps.rows
+				rows: nextProps.rows,
+				certified: nextProps.published
 			})
 		}
 	}

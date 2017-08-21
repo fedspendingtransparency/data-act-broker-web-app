@@ -355,7 +355,7 @@ class UploadDetachedFileValidation extends React.Component {
 						</div>
 					</div>
 				</div>
-				<PublishModal rows={this.state.fabs_meta} validate={this.submitFabs.bind(this)} submissionID={this.state.submissionID} closeModal={this.closeModal.bind(this)} isOpen={this.state.showPublish} />
+				<PublishModal rows={this.state.fabs_meta} validate={this.submitFabs.bind(this)} submissionID={this.state.submissionID} closeModal={this.closeModal.bind(this)} isOpen={this.state.showPublish} published={this.state.published} />
 			</div>
 		);
 	}
