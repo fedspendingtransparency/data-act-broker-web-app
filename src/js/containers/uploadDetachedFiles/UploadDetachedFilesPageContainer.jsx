@@ -1,5 +1,5 @@
 /**
-* AddDataPageContainer.jsx
+* UploadDetachedFilesPageContainer.jsx
 * Created by Mike Hess
 **/
 

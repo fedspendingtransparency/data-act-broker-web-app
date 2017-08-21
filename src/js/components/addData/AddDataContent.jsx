@@ -62,7 +62,7 @@ export default class AddDataContent extends React.Component {
 
         let warning = null;
          
-        if(this.props.submission.state === 'failed'){
+        if (this.props.submission.state === 'failed') {
             warning = <div className='container short'>
                         <div className={"alert alert-error text-left"} role="alert">
                             <span className="usa-da-icon error-icon"><Icons.ExclamationCircle /></span>
@@ -70,14 +70,15 @@ export default class AddDataContent extends React.Component {
                             <p>Please try again. If the problem persists, contact the service desk.</p>
                         </div>
                     </div>;
-        }else if(this.state.upload){
+        }
+        else if (this.state.upload) {
             warning = <div className='container short'>
-                        <div className={"alert alert-error text-left"} role="alert">
-                            <span className="usa-da-icon error-icon"><Icons.ExclamationCircle /></span>
-                            <div className="alert-header-text">Your files are uploading</div>
-                            <p>Please stay on this page until they're complete or your submission may not be created properly.</p>
-                        </div>
-                    </div>;
+                          <div className={"alert alert-error text-left"} role="alert">
+                              <span className="usa-da-icon error-icon"><Icons.ExclamationCircle /></span>
+                              <div className="alert-header-text">Your files are uploading</div>
+                              <p>Please stay on this page until they're complete or your submission may not be created properly.</p>
+                          </div>
+                      </div>;
         }
 
 

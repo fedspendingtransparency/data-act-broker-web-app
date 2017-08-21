@@ -85,8 +85,8 @@ export default class ResourcesContent extends React.Component {
 	}
 
 	render() {
-		let practices = this.props.type === 'fabs' ? '/#/detachedPractices' : '/#/practices';
-		let validations = this.props.type === 'fabs' ? '/#/detachedValidations' : '/#/validations';
+		let practices = this.props.type === 'fabs' ? '/#/FABSPractices' : '/#/practices';
+		let validations = this.props.type === 'fabs' ? '/#/FABSValidations' : '/#/validations';
 		return (
 			<div className="usa-da-help-content">
 				<div className="resources-page">

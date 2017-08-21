@@ -38,7 +38,7 @@ export default class ValidateDataInProgressOverlay extends React.Component {
 
 		if (this.props.hasFailed) {
 			title = 'An error has occurred while validating your files.';
-			description = 'Contact an administrator for assistance. Provide this URL when describing the issue: ';
+			description = 'Contact the Service Desk for assistance. Provide this URL when describing the issue: ';
 			icon = <Icons.ExclamationCircle />;
 			iconClass = 'usa-da-errorRed';
 		}
