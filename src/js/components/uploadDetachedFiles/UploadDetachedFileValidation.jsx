@@ -197,14 +197,14 @@ class UploadDetachedFileValidation extends React.Component {
 	submitFabs(){
 		UploadHelper.submitFabs({'submission_id': this.props.submission.id})
 			.then((response)=>{
-				this.setState({submit: false, published: true, showPublish: false})
+				this.setState({submit: false, published: true})
 			})
 			.catch((error)=>{
 				if (error.httpStatus === 400) {
 					this.setState({error: 1, submit: false});
 				}
 				else if (error.httpStatus === 500) {
-					this.setState({error: 4, submit: false});
+					this.setState({error: 4, submit: false, showPublish: false});
 				}
 			})
 	}
@@ -295,6 +295,7 @@ class UploadDetachedFileValidation extends React.Component {
 
 		const fileData = this.state.jobResults[type.requestName];
 		const status = fileData.job_status;
+		let errorMessage = null;
 		validationBox = <ValidateDataFileContainer type={type} data={this.state.jobResults}
 												   setUploadItem={this.uploadFile.bind(this)}
 												   updateItem={this.uploadFile.bind(this)} />;
@@ -305,7 +306,11 @@ class UploadDetachedFileValidation extends React.Component {
 														 	 updateItem={this.uploadFile.bind(this)}
 														 	 published={this.state.published} />;
 			}
-			if (this.state.published) {
+
+			if (this.state.error !== 0) {
+				errorMessage = <UploadDetachedFilesError errorCode={this.state.error} />
+			}
+			else if (this.state.published) {
 				// This submission is already published and cannot be republished
 				validationButton = <button className='pull-right col-xs-3 us-da-disabled-button' disabled>File Published:<span className='plain'> {this.state.fabs_meta.valid_rows} rows published on {this.state.fabs_meta.publish_date}</span></button>;
 			}
@@ -317,11 +322,6 @@ class UploadDetachedFileValidation extends React.Component {
 				// User does not have permissions to publish
 				validationButton = <button className='pull-right col-xs-3 us-da-disabled-button' disabled>You do not have permissions to publish</button>;
 			}
-		}
-
-		let errorMessage = null;
-		if (this.state.error !== 0) {
-			errorMessage = <UploadDetachedFilesError errorCode={this.state.error} />
 		}
 		
 		return (
