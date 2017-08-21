@@ -1,5 +1,5 @@
 /**
- * ValidateDataContent.jsx
+ * ValidateDataFileComponent.jsx
  * Created by Mike Bray 3/28/16
  **/
 
@@ -31,10 +31,10 @@ export default class ValidateDataFileComponent extends React.Component {
             errorReports: [],
             hasErrorReport: false,
             isError: false,
-            hasFailed: false,
             signedUrl: '',
             signInProgress: false,
-            error: null
+            error: null,
+            canDownload: false
         };
     }
 
@@ -79,19 +79,12 @@ export default class ValidateDataFileComponent extends React.Component {
     }
 
     isFileReady() {
-        if (this.props.item.job_status == 'finished' || this.props.item.job_status == 'invalid') {
-            return true;
-        }
-        return false;
+        return (this.props.item.job_status == 'finished' || this.props.item.job_status == 'invalid');
     }
 
     isReplacingFile() {
         // check if the user is trying to replace a file
-        let stagedFile = false;
-        if (this.props.submission.files.hasOwnProperty(this.props.type.requestName)) {
-            stagedFile = true;
-        }
-        return stagedFile;
+        return (this.props.submission.files.hasOwnProperty(this.props.type.requestName));
     }
 
     determineErrors(item) {
@@ -100,89 +93,96 @@ export default class ValidateDataFileComponent extends React.Component {
         }
 
         let headerTitle = 'Validating...';
-        let hasErrorReport = false;
-        let isError = false;
-        const errorKeys = [];
+        let isError = false, hasErrorReport = false, canDownload = false;
         let errorData = [];
-        let hasFailed = false;
+        const errorKeys = [];
 
-        if (item.missing_headers && item.missing_headers.length > 0) {
-            errorKeys.push('missing_headers');
+        // handle header errors
+        let missingHeaders = item.missing_headers ? item.missing_headers.length : 0;
+        let duplicatedHeaders = item.duplicated_headers ? item.duplicated_headers.length : 0;
+        if (missingHeaders > 0 || duplicatedHeaders > 0) {
+            isError = true;
+            canDownload = true;
             hasErrorReport = true;
-            isError = true;
-            headerTitle = 'Critical Error: Missing fields in header row';
-        }
-        if (item.duplicated_headers && item.duplicated_headers.length > 0) {
-            errorKeys.push('duplicated_headers');
-            hasErrorReport = true;
-            isError = true;
-            headerTitle = 'Critical Error: Duplicate fields in header row';
-        }
-
-        if (errorKeys.length == 2) {
-            headerTitle = 'Critical Errors: Missing fields in header row & duplicate fields in header row';
-        }
-
-        if (item.file_status == 'single_row_error') {
-            headerTitle = 'Critical Error: CSV file must have a header row and at least one record';
-            hasErrorReport = false;
-            isError = true;
-        }
-        else if (item.file_status == 'complete') {
-            headerTitle = '';
-            hasErrorReport = false;
-            isError = false;
-        }
-        
-        if (errorKeys.length > 0) {
-            errorKeys.forEach((key) => {
-                let tableTitle = '';
-                if (key == 'missing_headers') {
-                    tableTitle = 'Missing Headers: Field Name';
+            if (missingHeaders > 0) {
+                headerTitle = 'Critical Error: Missing fields in header row';
+                errorKeys.push('missing_headers');
+            }
+            if (duplicatedHeaders > 0) {
+                headerTitle = 'Critical Error: Duplicate fields in header row';
+                errorKeys.push('duplicated_headers');
+            }
+            if (errorKeys.length > 0) {
+                if (errorKeys.length == 2) {
+                    headerTitle = 'Critical Errors: Missing fields in header row & duplicate fields in header row';
                 }
-                else if (key == 'duplicated_headers') {
-                    tableTitle = 'Duplicate Headers: Field Name';
-                }
-
-                errorData.push({
-                    header: tableTitle,
-                    data: item[key]
+                let titleDict = {
+                    'missing_headers': 'Missing Headers: Field Name',
+                    'duplicated_headers': 'Duplicate Headers: Field Name'
+                };
+                errorKeys.forEach((key) => {
+                    errorData.push({
+                        header: titleDict[key],
+                        data: item[key]
+                    });
                 });
-
-            });
+            }
         }
-
-        else if (item.missing_headers && item.missing_headers.length == 0 && item.duplicated_headers.length == 0 && item.error_type == 'header_errors') {
+        else if (item.error_type == 'header_errors') {
             // special case where the header rows could not be read
             headerTitle = 'Critical Error: The header row could not be parsed.';
-            errorData = [];
-            hasErrorReport = false;
-            hasFailed = true;
             isError = true;
-        } 
+        }
 
+        // handle file-level errors
+        if (item.file_status != 'complete') {
+            hasErrorReport = false;
+            isError = true;
+            canDownload = true;
 
-        if (item.file_status == 'incomplete' || !this.isFileReady()) {
+            switch(item.file_status) {
+                case 'single_row_error':
+                    headerTitle = 'Critical Error: CSV file must have a header row and at least one record';
+                    break;
+                case 'encoding_error':
+                    headerTitle = 'Critical Error: File contains invalid characters that could not be parsed';
+                    canDownload = false;
+                    break;
+                case 'row_count_error':
+                    headerTitle = 'Critical Error: Raw file row count does not match the number of rows validated';
+                    break;
+                case 'unknown_error':
+                    isError = false;
+                    break;
+                default:
+                    break;
+            }
+        }
+
+        // handle failed job
+        if (item.job_status == 'failed' || item.file_status == 'job_error' || (item.job_status == 'invalid' && !isError)) {
+            headerTitle = 'An error occurred while validating this file. Contact the Service Desk for assistance.';
+            errorData = [];
+            hasErrorReport = false;
+            canDownload = true;
+            isError = false;
+        }
+
+        // check if file is still validating
+        if (item.file_status == 'incomplete' || !this.isFileReady) {
             headerTitle = 'Validating...';
-            errorData = [];
             hasErrorReport = false;
             isError = false;
+            canDownload = false;
         }
 
-        if (item.job_status == 'failed') {
-            headerTitle = 'An error occurred while validating this file. Contact an administrator for assistance.';
-            errorData = [];
-            hasErrorReport = false;
-            isError = false;
-            hasFailed = true;
-        }
-        if(!this.isUnmounted){
+        if (!this.isUnmounted) {
             this.setState({
                 headerTitle: headerTitle,
                 errorReports: errorData,
                 hasErrorReport: hasErrorReport,
                 isError: isError,
-                hasFailed: hasFailed
+                canDownload: canDownload
             });
         }
     }
@@ -211,7 +211,11 @@ export default class ValidateDataFileComponent extends React.Component {
 
     displayIcon() {
         let icon = '';
-        if (this.isFileReady()) {
+        if (this.isReplacingFile()) {
+            // user is attempting to replace a file
+            icon = <Icons.CloudUpload />;
+        }
+        else if (this.isFileReady()) {
             if (this.props.item.file_status == 'complete') {
                 icon = <Icons.CheckCircle />;
             }
@@ -219,34 +223,28 @@ export default class ValidateDataFileComponent extends React.Component {
                 icon = <Icons.ExclamationCircle />;
             }
         }
-
-        // user is attempting to replace a file
-        if (this.isReplacingFile()) {
-            icon = <Icons.CloudUpload />;
-        }
-
         return icon;
     }
 
     signReport(item){
         let type = null;
-        switch(item.file_type){
+        switch(item.file_type) {
             case 'appropriations':
-                type='A';
+                type = 'A';
                 break;
             case 'program_activity':
-                type='B';
+                type = 'B';
                 break;
             case 'award_financial':
-                type='C';
+                type = 'C';
                 break;
             case 'detached_award':
-                type='D2_detached';
+                type = 'D2_detached';
                 break;
             default:
                 break;
         }
-        if(type){
+        if (type) {
             GenerateFilesHelper.fetchFile(type, this.props.submission.id)
             .then((result)=>{
                 this.setState({
@@ -302,17 +300,13 @@ export default class ValidateDataFileComponent extends React.Component {
     }
 
     render() {
-       
-        
-        let successfulFade = '';
         let disabledCorrect = '';
         let messageClass = ' usa-da-validate-item-message';
         if (!this.state.isError && this.isFileReady()) {
-            successfulFade = ' successful';
+            messageClass = '';
             disabledCorrect = ' hide';
         }
         else if (!this.isFileReady()) {
-            successfulFade = '';
             messageClass = '';
             disabledCorrect = ' hide';
         }
@@ -362,8 +356,11 @@ export default class ValidateDataFileComponent extends React.Component {
             errorMessage = <UploadDetachedFilesError error={this.state.error} />
         }
 
+        let clickDownload = this.state.canDownload ? this.clickedReport.bind(this, this.props.item) : null;
+        let clickDownloadClass = this.state.canDownload ? 'file-download' : '';
+
         return (
-            <div className={"row center-block usa-da-validate-item" + successfulFade} data-testid={"validate-wrapper-" + this.props.type.requestName}>
+            <div className="row center-block usa-da-validate-item" data-testid={"validate-wrapper-" + this.props.type.requestName}>
                 <div className="col-md-12">
                     {errorMessage}
                     <div className="row usa-da-validate-item-top-section">
@@ -398,7 +395,7 @@ export default class ValidateDataFileComponent extends React.Component {
                                 </div>
                                 {uploadProgress}
                                 <div className="row usa-da-validate-item-file-name">
-                                    <div className='file-download' onClick={this.clickedReport.bind(this, this.props.item)} download={fileName} rel="noopener noreferrer">
+                                    <div className={clickDownloadClass} onClick={clickDownload} download={fileName} rel="noopener noreferrer">
                                         {fileName}
                                     </div>
                                 </div>
@@ -412,10 +409,9 @@ export default class ValidateDataFileComponent extends React.Component {
                             </div>
                         </div>
                     </div>
-                    {this.state.showError ? <ValidateDataErrorReport
-                        submission={this.props.submission.id}
-                        type={this.props.item.file_type}
-                        data={this.state.errorReports} /> : null}
+                    {this.state.showError ? <ValidateDataErrorReport submission={this.props.submission.id}
+                                                                     type={this.props.item.file_type}
+                                                                     data={this.state.errorReports} /> : null}
                 </div>
             </div>
         );

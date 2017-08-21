@@ -1,43 +1,35 @@
 /**
- * ValidateValuesOverlay.jsx
+ * ValidationOverlay.jsx
  * Created by Kevin Li 3/31/2016
  */
 
 import React from 'react';
 import { hashHistory } from 'react-router';
-import * as Icons from '../../SharedComponents/icons/Icons.jsx';
-import CommonOverlay from '../../SharedComponents/overlays/CommonOverlay.jsx';
+import * as Icons from '../SharedComponents/icons/Icons.jsx';
+import CommonOverlay from '../SharedComponents/overlays/CommonOverlay.jsx';
 
 const defaultProps = {
 	allowUpload: false
 };
 
-export default class ValidateValuesOverlay extends React.Component {
-
+export default class ValidationOverlay extends React.Component {
 	constructor(props) {
 		super(props);
 	}
 
 	pressedNext(e) {
-
 		hashHistory.push('/generateFiles/' + this.props.submission.id);
-
 	}
 
 	isUploadingFiles() {
-		if (Object.keys(this.props.submission.files).length > 0) {
-			return true;
-		}
-		return false;
+		return (Object.keys(this.props.submission.files).length > 0);
 	}
 
 	render() {
 		let icon = <Icons.ExclamationCircle />;
 		let iconClass = 'usa-da-errorRed';
-
 		let uploadButtonClass = '-disabled';
 		let uploadButtonDisabled = true;
-
 		let nextButtonClass = ' hide';
 		let nextButtonDisabled = true;
 		if (this.props.allowUpload) {
@@ -120,4 +112,4 @@ export default class ValidateValuesOverlay extends React.Component {
 	}
 }
 
-ValidateValuesOverlay.defaultProps = defaultProps;
+ValidationOverlay.defaultProps = defaultProps;

@@ -7,13 +7,10 @@ import React from 'react';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { hashHistory } from 'react-router';
-import moment from 'moment';
 
 import * as uploadActions from '../../redux/actions/uploadActions.js';
 
-import ValidateDataContent from '../../components/validateData/ValidateDataContent.jsx';
-import ValidateValuesContent from '../../components/validateData/validateValues/ValidateValuesContent.jsx';
-import ValidateCancellation from '../../components/validateData/ValidateCancellation.jsx';
+import ValidationContent from '../../components/validateData/ValidationContent.jsx';
 import ValidateNotYours from '../../components/validateData/ValidateNotYours.jsx';
 import ValidateLoadingScreen from '../../components/validateData/ValidateLoadingScreen.jsx';
 import PublishedSubmissionWarningBanner from '../../components/SharedComponents/PublishedSubmissionWarningBanner.jsx';
@@ -21,7 +18,6 @@ import Banner from '../../components/SharedComponents/Banner.jsx';
 import { fileTypes } from '../addData/fileTypes.js';
 import { kGlobalConstants } from '../../GlobalConstants.js';
 
-import * as UploadHelper from '../../helpers/uploadHelper.js';
 import * as ReviewHelper from '../../helpers/reviewHelper.js';
 
 let statusTimer;
@@ -87,15 +83,12 @@ class ValidateDataContainer extends React.Component {
 	}
 
 	processData(callback) {
-		
-		
 		let isFinished = true;
 		let hasFailed = false;
 		let hasHeaderErrors = false;
 
-		// iterate through the validation data to look for header errors, validation failures, and incomplete validations
+		// iterate through the data to look for header errors, validation failures, and incomplete validations
 		for (let key of singleFileValidations) {
-
 			if (!this.props.submission.validation.hasOwnProperty(key)) {
 				// required files don't exist, fail
 				this.setState({
@@ -109,11 +102,9 @@ class ValidateDataContainer extends React.Component {
 			if (item.error_type == 'header_errors') {
 				hasHeaderErrors = true;
 			}
-
 			if (item.job_status == 'failed') {
 				hasFailed = true;
 			}
-
 			if (item.job_status != 'finished' && item.job_status != 'invalid' || item.file_status == 'incomplete' ) {
 				isFinished = false;
 			}
@@ -132,16 +123,15 @@ class ValidateDataContainer extends React.Component {
 
 		ReviewHelper.validateSubmission(this.props.submissionID)
 			.then((data) => {
-
 				if (this.isCancelled) {
-					// the component has been unmounted, so don't bother with updating the state (it doesn't exist anymore anyway)
+					// the component has been unmounted, so don't bother with updating the state 
+					// (it doesn't exist anymore anyway)
 					return;
 				}
 
 				this.setState({
 					finishedPageLoad: true
 				});
-
 				this.props.setSubmissionState('review');
 				this.props.setValidation(data.file);
 				
@@ -177,28 +167,24 @@ class ValidateDataContainer extends React.Component {
 	}
 
 	render() {
-		
-		let checkingValues = false;
+		let validationContent = <ValidationContent {...this.props} hasFinished={this.state.validationFinished} 
+																   hasFailed={this.state.validationFailed} 
+																   submissionID={this.props.submissionID} />;
 
-		let validationContent = <ValidateDataContent {...this.props} hasFinished={this.state.validationFinished} hasFailed={this.state.validationFailed} submissionID={this.props.submissionID} />;
-		if (!this.state.headerErrors && this.state.validationFinished) {
-			// no header errors, move onto content errors
-			checkingValues = true;
-			validationContent = <ValidateValuesContent {...this.props} submissionID={this.props.submissionID} />;
-		}
-		else if (!this.state.finishedPageLoad) {
+		if (!this.state.finishedPageLoad) {
 			validationContent = <ValidateLoadingScreen />;
 		}
-
 		if (this.state.notYours) {
-			validationContent = <ValidateNotYours message="You cannot view or modify this submission because you are not the original submitter." />;
+			validationContent = <ValidateNotYours message={"You cannot view or modify this submission because you " +
+														  "are not the original submitter."} />;
 		}
-		if(this.state.serverError) {
-			validationContent = <ValidateNotYours message="This is not a valid submission. Check your validation URL and try again." />;
+		if (this.state.serverError) {
+			validationContent = <ValidateNotYours message={"This is not a valid submission. Check your validation " +
+														    "URL and try again."} />;
 		}
 
 		let warningMessage = null;
-		if(!this.state.notYours && !this.state.serverError && this.props.submission.publishStatus !== "unpublished") {
+		if (!this.state.notYours && !this.state.serverError && this.props.submission.publishStatus !== "unpublished") {
 			warningMessage = <PublishedSubmissionWarningBanner />;
 		}
 
