@@ -326,7 +326,7 @@ class UploadDetachedFileValidation extends React.Component {
 			}
 			else if (this.state.published) {
 				// This submission is already published and cannot be republished
-				validationButton = <button className='pull-right col-xs-3 us-da-disabled-button' disabled>File Published:<span className='plain'> {this.state.fabs_meta.valid_rows} rows published on {this.state.fabs_meta.publish_date}</span></button>;
+				validationButton = <button className='pull-right col-xs-3 us-da-disabled-button' disabled>File Published:<span className='plain'> {this.state.fabs_meta.valid_rows} rows published at {this.state.fabs_meta.publish_date}</span></button>;
 			}
 			else if (PermissionsHelper.checkFabsPermissions(this.props.session)) {
 				// User has permissions to publish this unpublished submission
