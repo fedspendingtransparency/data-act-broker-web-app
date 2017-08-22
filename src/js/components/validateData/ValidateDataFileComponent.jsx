@@ -95,38 +95,34 @@ export default class ValidateDataFileComponent extends React.Component {
         let headerTitle = 'Validating...';
         let isError = false, hasErrorReport = false, canDownload = false;
         let errorData = [];
-        const errorKeys = [];
 
         // handle header errors
         let missingHeaders = item.missing_headers ? item.missing_headers.length : 0;
         let duplicatedHeaders = item.duplicated_headers ? item.duplicated_headers.length : 0;
         if (missingHeaders > 0 || duplicatedHeaders > 0) {
+            let errorKeys = [];
             isError = true;
             canDownload = true;
             hasErrorReport = true;
-            if (missingHeaders > 0) {
+            if (missingHeaders > 0 && duplicatedHeaders > 0) {
+                headerTitle = 'Critical Errors: Missing fields in header row & duplicate fields in header row';
+                errorKeys = ["missing_headers", "duplicated_headers"];
+            }
+            else if (missingHeaders > 0) {
                 headerTitle = 'Critical Error: Missing fields in header row';
-                errorKeys.push('missing_headers');
+                errorKeys = ["missing_headers"];
             }
-            if (duplicatedHeaders > 0) {
+            else {
                 headerTitle = 'Critical Error: Duplicate fields in header row';
-                errorKeys.push('duplicated_headers');
+                errorKeys = ["duplicated_headers"];
             }
-            if (errorKeys.length > 0) {
-                if (errorKeys.length == 2) {
-                    headerTitle = 'Critical Errors: Missing fields in header row & duplicate fields in header row';
-                }
-                let titleDict = {
-                    'missing_headers': 'Missing Headers: Field Name',
-                    'duplicated_headers': 'Duplicate Headers: Field Name'
-                };
-                errorKeys.forEach((key) => {
-                    errorData.push({
-                        header: titleDict[key],
-                        data: item[key]
-                    });
+            errorKeys.forEach((key) => {
+                errorData.push({
+                    header: (key=='missing_headers') ? 'Missing Headers:' : 'Duplicate Headers:',
+                    data: item[key]
                 });
-            }
+            });
+
         }
         else if (item.error_type == 'header_errors') {
             // special case where the header rows could not be read
@@ -137,7 +133,7 @@ export default class ValidateDataFileComponent extends React.Component {
 
         // handle file-level errors
         if (item.file_status != 'complete') {
-            hasErrorReport = false;
+            hasErrorReport = item.file_status == 'header_error';
             isError = true;
             canDownload = true;
 
