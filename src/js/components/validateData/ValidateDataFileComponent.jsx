@@ -132,6 +132,7 @@ export default class ValidateDataFileComponent extends React.Component {
             // special case where the header rows could not be read
             headerTitle = 'Critical Error: The header row could not be parsed.';
             isError = true;
+            canDownload = true;
         }
 
         // handle file-level errors
@@ -146,10 +147,12 @@ export default class ValidateDataFileComponent extends React.Component {
                     break;
                 case 'encoding_error':
                     headerTitle = 'Critical Error: File contains invalid characters that could not be parsed';
-                    canDownload = false;
                     break;
                 case 'row_count_error':
                     headerTitle = 'Critical Error: Raw file row count does not match the number of rows validated';
+                    break;
+                case 'file_type_error':
+                    headerTitle = 'Critical Error: Invalid file type. Valid file types include .csv and .txt';
                     break;
                 case 'unknown_error':
                     isError = false;
@@ -330,6 +333,9 @@ export default class ValidateDataFileComponent extends React.Component {
         let uploadProgress = '';
         let fileName = this.props.item.filename;
 
+        let clickDownload = null;
+        let clickDownloadClass = '';
+
         if (this.isReplacingFile()) {
             // also display the new file name
             const newFile = this.props.submission.files[this.props.type.requestName];
@@ -338,6 +344,11 @@ export default class ValidateDataFileComponent extends React.Component {
             if (newFile.state == 'uploading') {
                 uploadProgress = <FileProgress fileStatus={newFile.progress} />;
             }
+        }
+        else if (this.state.canDownload) {
+            // no parsing errors and not a new file
+            clickDownload = this.clickedReport.bind(this, this.props.item);
+            clickDownloadClass = 'file-download';
         }
 
         if (this.props.type.requestName === 'detached_award') {
@@ -355,9 +366,6 @@ export default class ValidateDataFileComponent extends React.Component {
         if(this.state.error) {
             errorMessage = <UploadDetachedFilesError error={this.state.error} />
         }
-
-        let clickDownload = this.state.canDownload ? this.clickedReport.bind(this, this.props.item) : null;
-        let clickDownloadClass = this.state.canDownload ? 'file-download' : '';
 
         return (
             <div className="row center-block usa-da-validate-item" data-testid={"validate-wrapper-" + this.props.type.requestName}>
