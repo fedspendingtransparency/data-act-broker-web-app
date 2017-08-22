@@ -107,6 +107,11 @@ class UploadDetachedFileValidation extends React.Component {
 				}
 				const job = Object.assign({}, this.state.jobResults);
 				job.detached_award = response.jobs[0];
+
+				if (this.state.published && response.fabs_meta.publish_date && this.dataTimer) {
+					window.clearInterval(this.dataTimer);
+					this.dataTimer = null;
+				}
 				this.setState({
 					jobResults: job,
 					agency: response.agency_name,
@@ -127,6 +132,13 @@ class UploadDetachedFileValidation extends React.Component {
 					this.setState({error: 2, submit: false});
 				}
 			});
+	}
+
+	checkFile(submissionID) {
+		let interval = 1;
+		this.dataTimer = window.setInterval(() => {
+			this.checkFileStatus(submissionID);
+		}, interval * 1000);
 	}
 
 	validateSubmission(item){
@@ -207,6 +219,8 @@ class UploadDetachedFileValidation extends React.Component {
 					this.setState({error: 4, submit: false, showPublish: false});
 				}
 			})
+
+		this.checkFile(this.props.submission.id);
 	}
 
 	// ERRORS
