@@ -132,6 +132,7 @@ export default class ValidateDataFileComponent extends React.Component {
             // special case where the header rows could not be read
             headerTitle = 'Critical Error: The header row could not be parsed.';
             isError = true;
+            canDownload = true;
         }
 
         // handle file-level errors
@@ -146,7 +147,6 @@ export default class ValidateDataFileComponent extends React.Component {
                     break;
                 case 'encoding_error':
                     headerTitle = 'Critical Error: File contains invalid characters that could not be parsed';
-                    canDownload = false;
                     break;
                 case 'row_count_error':
                     headerTitle = 'Critical Error: Raw file row count does not match the number of rows validated';
