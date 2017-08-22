@@ -59,17 +59,10 @@ export default class PublishModal extends React.Component {
 		let message = <p>This will publish the {this.state.rows.valid_rows} rows that have passed validation out of a total of {this.state.rows.total_rows} rows in your FABS file</p>;
 
 		let action = <button id='publish-button' onClick={this.props.validate.bind(this)}className='us-da-button col-sm-6'>Publish</button>
-		let cancelText = 'Cancel';
 
 		if (!publishable) {
 			message = <p>Your file cannot be published because none of your records passed validation. Please correct your file and resubmit it.</p> 
 			action = <button id='publish-button' className='us-da-disabled-button col-sm-6'>No Valid Rows</button>
-		}
-
-		if (this.state.certified) {
-			message = <p>You have succesfully published your submission</p>
-			action = <button id='publish-button' className='us-da-disabled-button col-sm-6'>Submission Published</button>
-			cancelText = 'Close'
 		}
 
 		let hideClose = "";
@@ -106,7 +99,7 @@ export default class PublishModal extends React.Component {
 							<div className='row'>
 								{action}
 								<div className='col-sm-6'>
-									<button onClick={this.closeModal.bind(this)} className='usa-da-button btn-warning btn-full'>{cancelText}</button>
+									<button onClick={this.closeModal.bind(this)} className='usa-da-button btn-warning btn-full'>Cancel</button>
 								</div>
 							</div>
 							{error}

@@ -13,6 +13,11 @@
 			@import "../../components/alerts/_alerts";
 			@include dangerAlert;
 		}
+
+		.alert-success {
+			@import "../../components/alerts/_alerts";
+			@include successAlert;
+		}
 	}
 
 	.published-submission-warning-banner {

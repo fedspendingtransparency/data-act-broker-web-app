@@ -13,7 +13,16 @@ export default class UploadDetachedFilesError extends React.Component {
 
 		this.state = {
 			header: '',
-			message: ''
+			message: '',
+			type: this.props.type
+		}
+	}
+
+	componentWillReceiveProps(nextProps) {
+		if (nextProps.type != this.state.type) {
+			this.setState({
+				type: this.state.type
+			})
 		}
 	}
 
@@ -25,7 +34,10 @@ export default class UploadDetachedFilesError extends React.Component {
 		let header = '';
 		let message = '';
 
-		if (this.props.error) {
+		if (this.state.type == 'success') {
+			header = 'Your submission has been succesfully published';
+		}
+		else if (this.props.error) {
 			header = this.props.error.header;
 			message = this.props.error.description
 		}
@@ -53,8 +65,17 @@ export default class UploadDetachedFilesError extends React.Component {
 	}
 
 	render() {
-		return(<div className="alert alert-error text-left" role="alert">
-				  <span className="usa-da-icon error-icon"><Icons.ExclamationCircle /></span>
+
+		let icon = <Icons.ExclamationCircle />
+		let className = 'error'
+
+		if(this.state.type == 'success') {
+			icon = <Icons.CheckCircle />
+			className = 'success'
+		}
+
+		return(<div className={"alert alert-" + className + " text-left"} role="alert">
+				  <span className="usa-da-icon error-icon">{icon}</span>
 				  <div className="alert-header-text">{this.state.header}</div>
 				  <p>{this.state.message}</p>
 			  </div>);

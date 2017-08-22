@@ -59,7 +59,8 @@ class UploadDetachedFileValidation extends React.Component {
 			submit: true,
 			showPublish: false,
 			modified_date: null,
-			type: props.route.type,
+			type: this.props.route.type,
+			showSuccess: false,
 			fabs_meta: {valid_rows:0, total_rows: 0, publish_date: null}
 		};
 	}
@@ -209,7 +210,8 @@ class UploadDetachedFileValidation extends React.Component {
 	submitFabs(){
 		UploadHelper.submitFabs({'submission_id': this.props.submission.id})
 			.then((response)=>{
-				this.setState({submit: false, published: true})
+				this.setState({submit: false, published: true, showPublish: false, showSuccess: true})
+				this.checkFile(this.props.submission.id);
 			})
 			.catch((error)=>{
 				if (error.httpStatus === 400) {
@@ -219,8 +221,6 @@ class UploadDetachedFileValidation extends React.Component {
 					this.setState({error: 4, submit: false, showPublish: false});
 				}
 			})
-
-		this.checkFile(this.props.submission.id);
 	}
 
 	// ERRORS
@@ -321,8 +321,12 @@ class UploadDetachedFileValidation extends React.Component {
 														 	 published={this.state.published} />;
 			}
 
-			if (this.state.error !== 0) {
-				errorMessage = <UploadDetachedFilesError errorCode={this.state.error} />
+			if (this.state.showSuccess ) {
+				errorMessage = <UploadDetachedFilesError errorCode={this.state.error} type='success' />
+				validationButton = null;
+			}
+			else if (this.state.error !== 0) {
+				errorMessage = <UploadDetachedFilesError errorCode={this.state.error} type='error' />
 			}
 			else if (this.state.published) {
 				// This submission is already published and cannot be republished
