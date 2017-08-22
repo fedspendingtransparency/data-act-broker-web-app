@@ -59,7 +59,9 @@ class UploadDetachedFileValidation extends React.Component {
 			submit: true,
 			showPublish: false,
 			modified_date: null,
-			type: props.route.type
+			type: this.props.route.type,
+			showSuccess: false,
+			fabs_meta: {valid_rows:0, total_rows: 0, publish_date: null}
 		};
 	}
 
@@ -106,6 +108,11 @@ class UploadDetachedFileValidation extends React.Component {
 				}
 				const job = Object.assign({}, this.state.jobResults);
 				job.detached_award = response.jobs[0];
+
+				if (this.state.published && response.fabs_meta.publish_date && this.dataTimer) {
+					window.clearInterval(this.dataTimer);
+					this.dataTimer = null;
+				}
 				this.setState({
 					jobResults: job,
 					agency: response.agency_name,
@@ -115,7 +122,8 @@ class UploadDetachedFileValidation extends React.Component {
 					cgac_code: response.cgac_code,
 					published: (response.publish_status === 'published' ? true : false),
 					modified_date: response.last_updated,
-					error: 0
+					error: 0,
+					fabs_meta: response.fabs_meta
 				}, () => {
 					this.parseJobStates(response);
 				});			
@@ -125,6 +133,13 @@ class UploadDetachedFileValidation extends React.Component {
 					this.setState({error: 2, submit: false});
 				}
 			});
+	}
+
+	checkFile(submissionID) {
+		let interval = 1;
+		this.dataTimer = window.setInterval(() => {
+			this.checkFileStatus(submissionID);
+		}, interval * 1000);
 	}
 
 	validateSubmission(item){
@@ -195,14 +210,15 @@ class UploadDetachedFileValidation extends React.Component {
 	submitFabs(){
 		UploadHelper.submitFabs({'submission_id': this.props.submission.id})
 			.then((response)=>{
-				this.setState({submit: false, published: true, showPublish: false})
+				this.setState({submit: false, published: true, showPublish: false, showSuccess: true})
+				this.checkFile(this.props.submission.id);
 			})
 			.catch((error)=>{
 				if (error.httpStatus === 400) {
 					this.setState({error: 1, submit: false});
 				}
 				else if (error.httpStatus === 500) {
-					this.setState({error: 4, submit: false});
+					this.setState({error: 4, submit: false, showPublish: false});
 				}
 			})
 	}
@@ -290,8 +306,10 @@ class UploadDetachedFileValidation extends React.Component {
 			requestName: 'detached_award',
 			progress: '0'
 		}
+
 		const fileData = this.state.jobResults[type.requestName];
 		const status = fileData.job_status;
+		let errorMessage = null;
 		validationBox = <ValidateDataFileContainer type={type} data={this.state.jobResults}
 												   setUploadItem={this.uploadFile.bind(this)}
 												   updateItem={this.uploadFile.bind(this)} />;
@@ -302,9 +320,17 @@ class UploadDetachedFileValidation extends React.Component {
 														 	 updateItem={this.uploadFile.bind(this)}
 														 	 published={this.state.published} />;
 			}
-			if (this.state.published) {
+
+			if (this.state.showSuccess ) {
+				errorMessage = <UploadDetachedFilesError errorCode={this.state.error} type='success' />
+				validationButton = null;
+			}
+			else if (this.state.error !== 0) {
+				errorMessage = <UploadDetachedFilesError errorCode={this.state.error} type='error' />
+			}
+			else if (this.state.published) {
 				// This submission is already published and cannot be republished
-				validationButton = <button className='pull-right col-xs-3 us-da-disabled-button' disabled>File Already Published</button>;
+				validationButton = <button className='pull-right col-xs-3 us-da-disabled-button' disabled>File Published:<span className='plain'> {this.state.fabs_meta.valid_rows} rows published at {this.state.fabs_meta.publish_date}</span></button>;
 			}
 			else if (PermissionsHelper.checkFabsPermissions(this.props.session)) {
 				// User has permissions to publish this unpublished submission
@@ -314,11 +340,6 @@ class UploadDetachedFileValidation extends React.Component {
 				// User does not have permissions to publish
 				validationButton = <button className='pull-right col-xs-3 us-da-disabled-button' disabled>You do not have permissions to publish</button>;
 			}
-		}
-
-		let errorMessage = null;
-		if (this.state.error !== 0) {
-			errorMessage = <UploadDetachedFilesError errorCode={this.state.error} />
 		}
 		
 		return (
@@ -352,7 +373,7 @@ class UploadDetachedFileValidation extends React.Component {
 						</div>
 					</div>
 				</div>
-				<PublishModal validate={this.submitFabs.bind(this)} submissionID={this.state.submissionID} closeModal={this.closeModal.bind(this)} isOpen={this.state.showPublish} />
+				<PublishModal rows={this.state.fabs_meta} validate={this.submitFabs.bind(this)} submissionID={this.state.submissionID} closeModal={this.closeModal.bind(this)} isOpen={this.state.showPublish} published={this.state.published} />
 			</div>
 		);
 	}
