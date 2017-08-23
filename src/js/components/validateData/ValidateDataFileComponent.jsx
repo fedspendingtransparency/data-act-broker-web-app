@@ -122,7 +122,6 @@ export default class ValidateDataFileComponent extends React.Component {
                     data: item[key]
                 });
             });
-
         }
         else if (item.error_type == 'header_errors') {
             // special case where the header rows could not be read
@@ -149,6 +148,7 @@ export default class ValidateDataFileComponent extends React.Component {
                     break;
                 case 'file_type_error':
                     headerTitle = 'Critical Error: Invalid file type. Valid file types include .csv and .txt';
+                    canDownload = false;
                     break;
                 case 'unknown_error':
                     isError = false;
