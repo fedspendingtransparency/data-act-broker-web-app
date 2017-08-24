@@ -29,7 +29,7 @@ export default class LandingPage extends React.Component {
     }
 
     render() {
-        let activeTab = this.state.type === 'fabs' ? 'detachedLanding' : 'landing';
+        let activeTab = this.state.type === 'fabs' ? 'FABSlanding' : 'landing';
 
         return (
             <div>

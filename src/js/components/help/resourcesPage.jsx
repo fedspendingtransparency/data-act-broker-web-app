@@ -24,8 +24,8 @@ export default class ResourcesPage extends React.Component {
     }
 
     render() {
-        const resources = this.props.type === 'fabs' ? '#/detachedResources' : '#/resources';
-        const activeTab = this.props.type === 'fabs' ? 'detachedHelp' : 'help';
+        const resources = this.props.type === 'fabs' ? '#/FABSResources' : '#/resources';
+        const activeTab = this.props.type === 'fabs' ? 'FABSHelp' : 'help';
         const color = this.state.type === 'fabs' ? 'teal' : 'dark';
         return (
             <div className="usa-da-help-style-page" name="top">

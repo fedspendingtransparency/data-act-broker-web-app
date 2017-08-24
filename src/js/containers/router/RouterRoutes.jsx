@@ -106,7 +106,7 @@ const checkFabsUploadPermissions = (nextState, replace) => {
             }
         }
         // if no permissions, bounce to landing
-        replace('/detachedLanding');
+        replace('/FABSLanding');
     }
 }
 
@@ -119,15 +119,8 @@ const checkHelpUserPermissions = (nextState, replace) => {
     }
 }
 
-// defining the routes outside of the component because React Router cannot handle state/prop changes that Redux causes
-const routeDefinitions = {
-    path: '/',
-    indexRoute: {
-        onEnter: checkUserPermissions,
-        component: LandingPage,
-        type: kGlobalConstants.STAGING ? 'home' : 'dabs'
-    },
-    childRoutes: [
+const getRoutes = () => {
+    let returnRoutes = [
         {
             path: 'login',
             component: LoginPage
@@ -137,42 +130,10 @@ const routeDefinitions = {
             component: AuthPage
         },
         {
-            path: 'landing',
-            onEnter: checkUserPermissions,
-            component: LandingPage,
-            type: 'dabs'
-        },
-        {
-            path: 'detachedLanding',
-            onEnter: checkUserPermissions,
-            component: LandingPage,
-            type: 'fabs'
-        },
-        {
             path: 'submissionGuide',
             onEnter: checkUserPermissions,
             component: SubmissionGuideContainer,
             type: 'dabs'
-        },
-        {
-            path: 'dashboard',
-            onEnter: checkUserPermissions,
-            getComponent(nextState, cb) {
-                require.ensure([], (require) => {
-                    cb(null, require('../../components/dashboard/DashboardPage.jsx').default)
-                });
-            },
-            type: 'dabs'
-        },
-        {
-            path: 'detachedDashboard',
-            onEnter: checkUserPermissions,
-            getComponent(nextState, cb) {
-                require.ensure([], (require) => {
-                    cb(null, require('../../components/dashboard/DashboardPage.jsx').default)
-                });
-            },
-            type: 'fabs'
         },
         {
             path: 'addData',
@@ -181,13 +142,13 @@ const routeDefinitions = {
             type: 'dabs'
         },
         {
-            path: 'uploadDetachedFiles/:submissionID',
+            path: 'FABSaddData/:submissionID',
             onEnter: checkUserPermissions,
             component: UploadDetachedFilesPageContainer,
             type: 'fabs'
         },
         {
-            path: 'uploadDetachedFiles',
+            path: 'FABSaddData',
             onEnter: checkFabsUploadPermissions,
             component: UploadDetachedFilesPageContainer,
             type: 'fabs'
@@ -267,129 +228,63 @@ const routeDefinitions = {
             onEnter: checkUserPermissions,
             component: GenerateDetachedFilesPageContainer,
             type: 'dabs'
+        }
+    ];
+
+    //Duplicated routes for FABS/DABS
+    let sharedRoutes = [
+        {
+            path: 'landing',
+            onEnter: [checkUserPermissions],
+            component: 'landing'
+        },
+        {
+            path: 'dashboard',
+            onEnter: [checkUserPermissions],
+            component: 'dashboard'
         },
         {
             path: 'help',
-            onEnter: checkHelpUserPermissions,
-            getComponent(nextState, cb) {
-                require.ensure([], (require) => {
-                    cb(null, require('../../containers/help/HelpContainer.jsx').default)
-                });
-            },
-            type: 'dabs'
+            onEnter: [checkHelpUserPermissions, checkUserPermissions],
+            component: 'help'
         },
         {
             path: 'practices',
-            onEnter: checkHelpUserPermissions,
-            getComponent(nextState, cb) {
-                require.ensure([], (require) => {
-                    cb(null, require('../../containers/help/HelpContainer.jsx').default)
-                });
-            },
-            type: 'dabs'
+            onEnter: [checkHelpUserPermissions, checkUserPermissions],
+            component: 'help'
         },
         {
             path: 'validations',
-            onEnter: checkHelpUserPermissions,
-            getComponent(nextState, cb) {
-                require.ensure([], (require) => {
-                    cb(null, require('../../containers/help/HelpContainer.jsx').default)
-                });
-            },
-            type: 'dabs'
+            onEnter: [checkHelpUserPermissions, checkUserPermissions],
+            component: 'help'
         },
-		{
+        {
             path: 'resources',
-            onEnter: checkHelpUserPermissions,
-            getComponent(nextState, cb) {
-                require.ensure([], (require) => {
-                    cb(null, require('../../containers/help/HelpContainer.jsx').default)
-                });
-            },
-            type: 'dabs'
+            onEnter: [checkHelpUserPermissions, checkUserPermissions],
+            component: 'help'
         },
-
-		{
+        {
             path: 'history',
-            onEnter: checkHelpUserPermissions,
-            getComponent(nextState, cb) {
-                require.ensure([], (require) => {
-                    cb(null, require('../../containers/help/HelpContainer.jsx').default)
-                });
-            },
-            type: 'dabs'
+            onEnter: [checkHelpUserPermissions, checkUserPermissions],
+            component: 'help'
         },
         {
             path: 'technicalHistory',
-            onEnter: checkHelpUserPermissions,
-            getComponent(nextState, cb) {
-                require.ensure([], (require) => {
-                    cb(null, require('../../containers/help/HelpContainer.jsx').default)
-                });
-            },
-            type: 'dabs'
-        },
-        {
-            path: 'detachedHelp',
-            onEnter: checkUserPermissions,
-            getComponent(nextState, cb) {
-                require.ensure([], (require) => {
-                    cb(null, require('../../containers/help/HelpContainer.jsx').default)
-                });
-            },
-            type: 'fabs'
-        },
-        {
-            path: 'detachedPractices',
-            onEnter: checkUserPermissions,
-            getComponent(nextState, cb) {
-                require.ensure([], (require) => {
-                    cb(null, require('../../containers/help/HelpContainer.jsx').default)
-                });
-            },
-            type: 'fabs'
-        },
-        {
-            path: 'detachedValidations',
-            onEnter: checkUserPermissions,
-            getComponent(nextState, cb) {
-                require.ensure([], (require) => {
-                    cb(null, require('../../containers/help/HelpContainer.jsx').default)
-                });
-            },
-            type: 'fabs'
-        },
-        {
-            path: 'detachedResources',
-            onEnter: checkUserPermissions,
-            getComponent(nextState, cb) {
-                require.ensure([], (require) => {
-                    cb(null, require('../../containers/help/HelpContainer.jsx').default)
-                });
-            },
-            type: 'fabs'
-        },
-
-        {
-            path: 'detachedHistory',
-            onEnter: checkUserPermissions,
-            getComponent(nextState, cb) {
-                require.ensure([], (require) => {
-                    cb(null, require('../../containers/help/HelpContainer.jsx').default)
-                });
-            },
-            type: 'fabs'
-        },
-        {
-            path: 'detachedTechnicalHistory',
-            onEnter: checkUserPermissions,
-            getComponent(nextState, cb) {
-                require.ensure([], (require) => {
-                    cb(null, require('../../containers/help/HelpContainer.jsx').default)
-                });
-            },
-            type: 'fabs'
-        },
+            onEnter: [checkHelpUserPermissions, checkUserPermissions],
+            component: 'help'
+        }
+    ]  
+    for(let i = 0; i < sharedRoutes.length; i++) {
+        if(sharedRoutes[i].onEnter.length == 1) {
+            returnRoutes.push(routeConstructor(sharedRoutes[i], 0, 'dabs'))
+            returnRoutes.push(routeConstructor(sharedRoutes[i], 0, 'fabs'));
+        }
+        else {
+            returnRoutes.push(routeConstructor(sharedRoutes[i], 0, 'dabs'))
+            returnRoutes.push(routeConstructor(sharedRoutes[i], 1, 'fabs'));
+        }
+    }
+    returnRoutes.push(
         {
             path: '*',
             onEnter: checkUserPermissions,
@@ -399,8 +294,63 @@ const routeDefinitions = {
                 });
             },
             type: 'home'
+        });
+    return returnRoutes
+}
+
+function routeConstructor(route_info, onEnterIndex, type) {
+    let prefix = '';
+    if(type == 'fabs') {
+        prefix = 'FABS'
+    }
+
+    if(route_info.component === 'landing') {
+        return {
+            path: prefix + route_info.path,
+            onEnter: route_info.onEnter[onEnterIndex],
+            getComponent(nextState, cb) {
+                require.ensure([], (require) => {
+                    cb(null, require('../../components/landing/LandingPage.jsx').default)
+                });
+            },
+            type: type
         }
-    ]
+    }
+    else if(route_info.component === 'dashboard') {
+        return {
+            path: prefix + route_info.path,
+            onEnter: route_info.onEnter[onEnterIndex],
+            getComponent(nextState, cb) {
+                require.ensure([], (require) => {
+                    cb(null, require('../../components/dashboard/DashboardPage.jsx').default)
+                });
+            },
+            type: type
+        }
+    }
+    else if(route_info.component ==='help') {
+        return {
+            path: prefix + route_info.path,
+            onEnter: route_info.onEnter[onEnterIndex],
+            getComponent(nextState, cb) {
+                require.ensure([], (require) => {
+                    cb(null, require('../help/HelpContainer.jsx').default)
+                });
+            },
+            type: type
+        }
+    }
+}
+
+// defining the routes outside of the component because React Router cannot handle state/prop changes that Redux causes
+const routeDefinitions = {
+    path: '/',
+    indexRoute: {
+        onEnter: checkUserPermissions,
+        component: LandingPage,
+        type: kGlobalConstants.PROD ? 'dabs' : 'home'
+    },
+    childRoutes: getRoutes()
 }
 
 export default class RouterRoutes {
