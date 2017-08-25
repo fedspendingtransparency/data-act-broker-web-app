@@ -43,7 +43,7 @@ export default class UploadDetachedFilesPage extends React.Component {
 
 	validate(submissionID){
 		this.props.setSubmissionId(submissionID);
-		hashHistory.push('/uploadDetachedFiles/'+submissionID);
+		hashHistory.push('/FABSaddData/'+submissionID);
 		this.setState({
 			showMeta: false
 		})
@@ -66,18 +66,22 @@ export default class UploadDetachedFilesPage extends React.Component {
 
 	render() {
 		let content = null;
-		if(!this.state.showMeta){
-			content = <UploadDetachedFileValidation {...this.props} submission={this.props.submission} setSubmissionId={this.props.setSubmissionId.bind(this)} />
-		}else{
-			content = <UploadDetachedFileMeta setSubmissionState={this.props.setSubmissionState} setSubmissionId={this.props.setSubmissionId.bind(this)} 
-				history={this.props.history} submission={this.props.submission} validate={this.validate.bind(this)} />;
+		if (!this.state.showMeta) {
+			content = (<UploadDetachedFileValidation {...this.props} submission={this.props.submission}
+													 setSubmissionId={this.props.setSubmissionId.bind(this)} />);
+		}
+		else {
+			content = (<UploadDetachedFileMeta setSubmissionState={this.props.setSubmissionState}
+											   setSubmissionId={this.props.setSubmissionId.bind(this)}
+											   history={this.props.history} submission={this.props.submission}
+											   validate={this.validate.bind(this)} />);
 		}
 
 		return (
 			<div className="usa-da-upload-detached-files-page">
 				<div className="usa-da-site_wrap">
 					<div className="usa-da-page-content">
-						<Navbar activeTab="uploadDetachedFiles" type={this.props.route.type} />
+						<Navbar activeTab="FABSAddData" type={this.props.route.type} />
 						<div className="usa-da-upload-detached-files-page">
 							<div className="usa-da-site_wrap">
 								{content}

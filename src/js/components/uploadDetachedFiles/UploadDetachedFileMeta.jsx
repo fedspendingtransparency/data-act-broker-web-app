@@ -9,8 +9,6 @@ import React from 'react';
 import moment from 'moment';
 
 import SubTierAgencyListContainer from '../../containers/SharedContainers/SubTierAgencyListContainer.jsx';
-import ValidateValuesFileContainer from '../../containers/validateData/ValidateValuesFileContainer.jsx';
-import ValidateDataFileContainer from '../../containers/validateData/ValidateDataFileContainer.jsx';
 import UploadDetachedFilesBox from './UploadDetachedFilesBox.jsx';
 import UploadDetachedFilesError from './UploadDetachedFilesError.jsx';
 import Banner from '../SharedComponents/Banner.jsx';
@@ -85,7 +83,7 @@ export default class UploadDetachedFileMeta extends React.Component {
 	}
 
 	uploadFileHelper(local, submission){
-		if(local){
+		if (local) {
 			return UploadHelper.performDetachedLocalUpload(submission);
 		}
 		return UploadHelper.performDetachedFileUpload(submission);

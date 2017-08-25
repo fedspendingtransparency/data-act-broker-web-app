@@ -22,8 +22,8 @@ export default class ValidationRulesTablePage extends React.Component {
     }
 
     render() {
-        const validations = this.props.type === 'fabs' ? '#/detachedValidations' : '#/validations';
-        const activeTab = this.props.type === 'fabs' ? 'detachedHelp' : 'help';
+        const validations = this.props.type === 'fabs' ? '#/FABSValidations' : '#/validations';
+        const activeTab = this.props.type === 'fabs' ? 'FABSHelp' : 'help';
         const color = this.state.type === 'fabs' ? 'teal' : 'dark';
         return (
             <div className="usa-da-help-style-page" name="top">

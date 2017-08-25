@@ -1,5 +1,5 @@
 /**
- * ValidateDataContent.jsx
+ * ValidateDataErrorReport.jsx
  * Created by Mike Bray 3/28/16
  **/
 

@@ -7,7 +7,7 @@ import React from 'react';
 
 export default class HelpSidebarItem extends React.Component {
 	render() {
-        const help = this.props.type === 'fabs' ? '/#/detachedHelp' : '/#/help';
+        const help = this.props.type === 'fabs' ? '/#/FABShelp' : '/#/help';
 		return (
 			<li>
                 <a href={help + "?section=" + this.props.sectionId}>

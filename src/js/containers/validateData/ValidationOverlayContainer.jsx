@@ -1,5 +1,5 @@
 /**
-* ValidateValuesContainer.jsx
+* ValidationOverlayContainer.jsx
 * Created by Kevin Li 3/29/16
 **/
 
@@ -11,14 +11,14 @@ import _ from 'lodash';
 
 import * as uploadActions from '../../redux/actions/uploadActions.js';
 
-import ValidateValuesOverlay from '../../components/validateData/validateValues/ValidateValuesOverlay.jsx';
+import ValidationOverlay from '../../components/validateData/ValidationOverlay.jsx';
 import { fileTypes } from '../addData/fileTypes.js';
 import { kGlobalConstants } from '../../GlobalConstants.js';
 
 import * as UploadHelper from '../../helpers/uploadHelper.js';
 import * as ReviewHelper from '../../helpers/reviewHelper.js';
 
-class ValidateValuesOverlayContainer extends React.Component {
+class ValidationOverlayContainer extends React.Component {
 	constructor(props) {
 		super(props);
 		this.state = {
@@ -56,7 +56,6 @@ class ValidateValuesOverlayContainer extends React.Component {
 			}
 		}
 
-
 		let allowUpload = false;
 		const missingKeys = [];
 		requiredKeys.forEach((key) => {
@@ -64,13 +63,13 @@ class ValidateValuesOverlayContainer extends React.Component {
 				missingKeys.push(key);
 			}
 		});
-
 		if (missingKeys.length == 0) {
 			allowUpload = true;
 		}
 
 		return (
-			<ValidateValuesOverlay {...this.props} uploadFiles={this.uploadFiles.bind(this)} allowUpload={allowUpload} notAllowed={this.state.notAllowed} />
+			<ValidationOverlay {...this.props} uploadFiles={this.uploadFiles.bind(this)} 
+							   allowUpload={allowUpload} notAllowed={this.state.notAllowed} />
 		);
 	}
 }
@@ -78,4 +77,4 @@ class ValidateValuesOverlayContainer extends React.Component {
 export default connect(
 	state => ({ submission: state.submission }),
 	dispatch => bindActionCreators(uploadActions, dispatch)
-)(ValidateValuesOverlayContainer)
+)(ValidationOverlayContainer)

@@ -47,10 +47,10 @@ export class Navbar extends React.Component {
             // user has FABS permissions 
             let fabsWrite = this.props.session.admin || PermissionHelper.checkFabsPermissions(this.props.session);
             tabNames = {
-                'Home': 'detachedLanding',
-                'Upload & Validate New Submission': fabsWrite ? 'uploadDetachedFiles' : 'disabled',
-                'Submission Dashboard': 'detachedDashboard',
-                'Help': 'detachedhelp'
+                'Home': 'FABSlanding',
+                'Upload & Validate New Submission': fabsWrite ? 'FABSaddData' : 'disabled',
+                'Submission Dashboard': 'FABSdashboard',
+                'Help': 'FABShelp'
             };
         }
         else if (this.props.type === 'dabs') {
@@ -84,7 +84,7 @@ export class Navbar extends React.Component {
 
         let navClass = "";
         let testBanner = null;
-        if (kGlobalConstants.STAGING) {
+        if (!kGlobalConstants.PROD) {
             navClass = " tall";
             testBanner = <TestEnvironmentBanner />
         }

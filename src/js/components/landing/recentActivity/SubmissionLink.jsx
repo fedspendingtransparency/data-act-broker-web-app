@@ -40,7 +40,7 @@ export default class SubmissionLink extends React.Component {
 						{link}
 					</a>;
 		if(this.props.type == 'fabs') {
-			content = <a href={"#/uploadDetachedFiles/" + this.props.submissionId} className='date-link'>
+			content = <a href={"#/FABSAddData/" + this.props.submissionId} className='date-link'>
 						{link}
 					</a>;
 		}
