@@ -377,7 +377,7 @@ export default class ValidateDataFileComponent extends React.Component {
                                     <p>File Size: {this.displayFileMeta().size}</p>
                                 </div>
                                 <div className="col-md-2">
-                                    <p className="pr-20">Rows: {this.displayFileMeta().rows}</p>
+                                    <p className="pr-20">Lines in File: {this.displayFileMeta().rows}</p>
                                 </div>
                             </div>
                             <div className="row usa-da-validate-item-body">
