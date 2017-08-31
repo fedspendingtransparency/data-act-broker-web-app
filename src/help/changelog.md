@@ -1,20 +1,17 @@
 #### August 17, 2017
 
+In this release of the Broker, we continued to develop the Financial Assistance Broker Submission (FABS) as well as made improvements to the Broker submission process.
 
-In this release of the Broker, we improved FABS and front-end navigation, and loaded historical data.
+  - [Financial Assistance Broker Submission (FABS) Development](#/help?section=fabsdevelopment)
+  - [Broker Improvements](#/help?section=brokerimprovements)
 
+##### Financial Assistance Broker Submission (FABS) Development{section=fabsdevelopment}
+In this release, we continued to develop and improve FABS. Specifically, we updated:
+- validation rules related to legal entity (DUNS)
+- derivations related to congressional district
+- submission dashboard and navigation between FABS and quarterly DATA Act Broker Submission (DABS)
+In addition, we implemented performance improvements to decrease the time it takes to validate a FABS file.
 
+##### Broker Submission Improvements{section=brokerimprovements}
 
-##### Resolved issues found during FABS testing
-In this release, FABS issues with certain data elements were fixed and the submission process was improved.
-
-##### Front-end updates to improve navigation
-
-In this release, updates were made to FABS to improve user navigation and ease of use.
-
-##### Historical data load
-In this release, legacy USAspending historical data from 2000 to 2016 was loaded to the Broker’s database
-
---------
-
- 
+In this release, we implemented bug fixes related to program activity and D1/D2 file generation, as well as updated the Help content. We also continued to work on loading historical procurement and financial assistance data.
