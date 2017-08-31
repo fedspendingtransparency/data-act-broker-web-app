@@ -1,4 +1,4 @@
-#### August 17, 2017
+#### August 31, 2017
 
 In this release of the Broker, we improved FABS and front-end navigation, and loaded historical data.
 
