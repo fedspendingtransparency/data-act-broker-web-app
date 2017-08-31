@@ -2,11 +2,11 @@
 
 In this release of the Broker, we improved FABS and front-end navigation, and loaded historical data.
 
-  - [Resolved issues found during FABS testing](#/help?section=fabsdevelopment)
+  - [Resolved issues found during FABS testing](#/help?section=fabsdevelopment2)
   - [Broker Improvements](#/help?section=frontendimprovements)
   - [Historical data load](#/help?section=Historicaldataload)
 
-##### Resolved issues found during FABS testing{section=fabsdevelopment}
+##### Resolved issues found during FABS testing{section=fabsdevelopment2}
 In this release, FABS issues with certain data elements were fixed and the submission process was improved.
 
 ##### Front-end updates to improve navigation{section=frontendimprovements}
