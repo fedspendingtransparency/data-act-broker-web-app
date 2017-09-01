@@ -6,13 +6,10 @@
 import React from 'react';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
-import { hashHistory } from 'react-router';
 
 import * as uploadActions from '../../redux/actions/uploadActions.js';
 
 import ValidateValuesFileComponent from '../../components/validateData/validateValues/ValidateValuesFileComponent.jsx';
-import { fileTypes } from '../addData/fileTypes.js';
-import { kGlobalConstants } from '../../GlobalConstants.js';
 
 class ValidateValuesFileContainer extends React.Component {
 	constructor(props){
@@ -25,7 +22,7 @@ class ValidateValuesFileContainer extends React.Component {
 			state: 'ready',
 			file: file
 		});
-		if(this.props.updateItem){
+		if (this.props.updateItem) {
 			this.props.updateItem(file);
 		}
 	}
@@ -35,9 +32,11 @@ class ValidateValuesFileContainer extends React.Component {
 	}
 
 	render() {
-
 		return (
-			<ValidateValuesFileComponent {...this.props} item={this.props.data[this.props.type.requestName]} onFileChange={this.selectedFile.bind(this)} removeFile={this.removeFile.bind(this)} />
+			<ValidateValuesFileComponent {...this.props} 
+										 item={this.props.data[this.props.type.requestName]} 
+										 onFileChange={this.selectedFile.bind(this)} 
+										 removeFile={this.removeFile.bind(this)} />
 		)
 	}
 }

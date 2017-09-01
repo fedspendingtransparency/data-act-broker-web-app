@@ -29,11 +29,11 @@ export default class HelpSidebar extends React.Component {
                     </li>;
         }
         
-        const help = this.props.type === 'fabs' ? "/#/detachedHelp" : '/#/help';
-        const history = this.props.type === 'fabs' ? "/#/detachedHistory" : '/#/history';
-        const technicalHistory = this.props.type === 'fabs' ? "/#/detachedTechnicalHistory" : '/#/technicalHistory';
-        const resources = this.props.type === 'fabs' ? "/#/detachedResources" : '/#/resources';
-        const validations = this.props.type === 'fabs' ? "/#/detachedValidations" : '/#/validations';
+        const help = this.props.type === 'fabs' ? "/#/FABSHelp" : '/#/help';
+        const history = this.props.type === 'fabs' ? "/#/FABSHistory" : '/#/history';
+        const technicalHistory = this.props.type === 'fabs' ? "/#/FABSTechnicalHistory" : '/#/technicalHistory';
+        const resources = this.props.type === 'fabs' ? "/#/FABSResources" : '/#/resources';
+        const validations = this.props.type === 'fabs' ? "/#/FABSValidations" : '/#/validations';
         return (
             <div className="usa-da-help-sidebar">
                 <h6>What’s New in This Release</h6>

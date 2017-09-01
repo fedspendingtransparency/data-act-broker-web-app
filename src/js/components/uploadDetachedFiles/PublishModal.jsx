@@ -19,8 +19,18 @@ export default class PublishModal extends React.Component {
 			showProgress: false,
 			publishComplete: false,
 			closeable: true,
-			errorMessage: ""
+			errorMessage: "",
+			rows: this.props.rows
 		};
+	}
+
+	componentWillReceiveProps(nextProps) {
+		if(this.state.rows != nextProps) {
+			this.setState({
+				rows: nextProps.rows,
+				certified: nextProps.published
+			})
+		}
 	}
 
 	closeModal(e) {
@@ -44,16 +54,16 @@ export default class PublishModal extends React.Component {
 	}
 
 	render() {
-		let message = <p>This will publish only rows that have passed validation</p>;
+		let publishable = this.state.rows.valid_rows != 0;
 
-		let action = <div className='row'>
-						<div className='col-sm-6'>
-							<button id='publish-button' onClick={this.props.validate.bind(this)}className='usa-da-button btn-primary btn-full'>Publish</button>
-						</div>
-						<div className='col-sm-6'>
-							<button onClick={this.closeModal.bind(this)} className='usa-da-button btn-warning btn-full'>Cancel</button>
-						</div>
-					</div>;
+		let message = <p>This will publish the {this.state.rows.valid_rows} rows that have passed validation out of a total of {this.state.rows.total_rows} rows in your FABS file</p>;
+
+		let action = <button id='publish-button' onClick={this.props.validate.bind(this)}className='us-da-button col-sm-6'>Publish</button>
+
+		if (!publishable) {
+			message = <p>Your file cannot be published because none of your records passed validation. Please correct your file and resubmit it.</p> 
+			action = <button id='publish-button' className='us-da-disabled-button col-sm-6'>No Valid Rows</button>
+		}
 
 		let hideClose = "";
 		if (!this.state.closeable) {
@@ -86,8 +96,12 @@ export default class PublishModal extends React.Component {
 
 								</div>
 							</div>
-
-							{action}
+							<div className='row'>
+								{action}
+								<div className='col-sm-6'>
+									<button onClick={this.closeModal.bind(this)} className='usa-da-button btn-warning btn-full'>Cancel</button>
+								</div>
+							</div>
 							{error}
 							
 						</div>
