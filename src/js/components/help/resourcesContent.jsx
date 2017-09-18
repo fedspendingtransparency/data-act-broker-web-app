@@ -85,7 +85,6 @@ export default class ResourcesContent extends React.Component {
 	}
 
 	render() {
-		let practices = this.props.type === 'fabs' ? '/#/FABSPractices' : '/#/practices';
 		let validations = this.props.type === 'fabs' ? '/#/FABSValidations' : '/#/validations';
 		return (
 			<div className="usa-da-help-content">
@@ -99,9 +98,7 @@ export default class ResourcesContent extends React.Component {
 					<p>The RSS is a listing of the data elements with specific instructions for submitting content in the appropriate format.</p>
 					 <ul>
 										<li>
-										<a href={this.state.rssUrl}>RSS v1.0</a>
-										</li>
-										<li><a href={this.state.daimsErrataUrl}>Errata</a>
+										<a href="http://fedspendingtransparency.github.io/assets/docs/DAIMS_RSS_v1.1.xlsx">RSS v1.1</a>
 										</li>
 										<li><a href={this.state.faqFileC}>TransactionObligatedAmount FAQs</a>
 										</li>
@@ -125,54 +122,54 @@ export default class ResourcesContent extends React.Component {
 					<p>These are visual representations of how the different data elements are related. They show the groupings of elements and attributes.</p>
 					<ul>
 					<li>
-					<a href="http://fedspendingtransparency.github.io/assets/docs/DAIMS_RSS_Diagram_File_A_v1.0_04292016.pdf" target="_blank" rel="noopener noreferrer">File A - Appropriation Account Detail</a>
+					<a href="http://fedspendingtransparency.github.io/assets/docs/DAIMS_RSS_Diagram_File_A_v1.1.pdf" target="_blank" rel="noopener noreferrer">File A - Appropriation Account Detail</a>
 					</li>
 					<li>
-					<a href="http://fedspendingtransparency.github.io/assets/docs/DAIMS_RSS_Diagram_File_B_v1.0_04292016.pdf" target="_blank" rel="noopener noreferrer">File B - Object Class and Program Activity Detail</a>
+					<a href="http://fedspendingtransparency.github.io/assets/docs/DAIMS_RSS_Diagram_File_B_v1.1.pdf" target="_blank" rel="noopener noreferrer">File B - Object Class and Program Activity Detail</a>
 					</li>
 					<li>
-					<a href="http://fedspendingtransparency.github.io/assets/docs/DAIMS_RSS_Diagram_File_C_v1.0_04292016.pdf" target="_blank" rel="noopener noreferrer">File C - Award Financial Detail</a>
+					<a href="http://fedspendingtransparency.github.io/assets/docs/DAIMS_RSS_Diagram_File_C_v1.1.pdf" target="_blank" rel="noopener noreferrer">File C - Award Financial Detail</a>
 					</li>
 					</ul>
 					<h5>Interface Definition Document (IDD) Resources</h5>
 					<p>The IDD is listing of the data elements that will be extracted from government-wide procurement and financial assistance systems.</p>
 					<ul>
 										<li>
-										<a href={this.state.iDDUrl}>IDD v1.01 (12/21/2016)</a>
+										<a href="http://fedspendingtransparency.github.io/assets/docs/DAIMS_IDD_v1.1.xlsx">IDD v1.1</a>
 										</li>
 					</ul>
 					<h6>DAIMS Diagrams for IDD</h6>
 					<p>These are visual representations of how the different data elements are related. They show the groupings of elements and attributes.</p>
 					<ul>
 					<li>
-					<a href="http://fedspendingtransparency.github.io/assets/docs/DAIMS_IDD_Diagram_File_D1_v1.0.1.pdf" target="_blank" rel="noopener noreferrer">File D1 - Award and Awardee Attributes (Procurement)</a>
+					<a href="http://fedspendingtransparency.github.io/assets/docs/DAIMS_IDD_Diagram_File_D1_v1.1.pdf" target="_blank" rel="noopener noreferrer">File D1 - Award and Awardee Attributes (Procurement)</a>
 					</li>
 					<li>
-					<a href="http://fedspendingtransparency.github.io/assets/docs/DAIMS_IDD_Diagram_File_D2_v1.0.1.pdf" target="_blank" rel="noopener noreferrer">File D2 - Award and Awardee Attributes (Financial Assistance)</a>
+					<a href="http://fedspendingtransparency.github.io/assets/docs/DAIMS_IDD_Diagram_File_D2_v1.1.pdf" target="_blank" rel="noopener noreferrer">File D2 - Award and Awardee Attributes (Financial Assistance)</a>
 					</li>
 					<li>
-					<a href="http://fedspendingtransparency.github.io/assets/docs/DAIMS_IDD_Diagram_File_E_v1.0.1.pdf" target="_blank" rel="noopener noreferrer">File E - Additional Awardee Attributes</a>
+					<a href="http://fedspendingtransparency.github.io/assets/docs/DAIMS_IDD_Diagram_File_E_v1.1.pdf" target="_blank" rel="noopener noreferrer">File E - Additional Awardee Attributes</a>
 					</li>
 					<li>
-					<a href="http://fedspendingtransparency.github.io/assets/docs/DAIMS_IDD_Diagram_File_F_v1.0.1.pdf" target="_blank" rel="noopener noreferrer">File F - Sub-Award Attributes</a>
+					<a href="http://fedspendingtransparency.github.io/assets/docs/DAIMS_IDD_Diagram_File_F_v1.1.pdf" target="_blank" rel="noopener noreferrer">File F - Sub-Award Attributes</a>
 					</li>
 					</ul>
 					<h5>Overall DAIMS Resources</h5>
 					<ul>
 					<li>
-					<a href="http://fedspendingtransparency.github.io/assets/img/informationflow.png" target="_blank" rel="noopener noreferrer">Information Flow Diagram</a> - An overview of the reporting cadences and sources of data included in the DAIMS.
+					<a href="http://fedspendingtransparency.github.io/assets/docs/DAIMS_Information_Flow_Diagram_v1.1.png" target="_blank" rel="noopener noreferrer">Information Flow Diagram</a> - An overview of the reporting cadences and sources of data included in the DAIMS.
 					</li>
 					<li>
-					<a href={practices} target="_blank" rel="noopener noreferrer">Practices and Procedures page</a>
+					<a href="https://community.max.gov/download/attachments/1286474850/DAIMS_Practices_Procedures_v1.1.pdf?api=v2" target="_blank" rel="noopener noreferrer">Practices and Procedures page</a>
 					</li>
 					<li>
 					<a href={validations} target="_blank" rel="noopener noreferrer">Validation Rules page</a>
 					</li>
 					<li>
-					<a href={this.state.domainValuesUrl}>Domain Values</a> - A listing of the specific set of allowed values for a data element.
+					<a href="http://fedspendingtransparency.github.io/assets/docs/DAIMS_Domain_Values_v1.1.xlsx">Domain Values</a> - A listing of the specific set of allowed values for a data element.
 					</li>
 					<li>
-					<a href={this.state.agencyLabelUrl}>Long Element Name to Short Element Name Crosswalk</a> - A listing of the shortened column names for the data elements in the RSS and IDD.
+					<a href="http://fedspendingtransparency.github.io/assets/docs/DAIMS_Agency_Label_To_Terse_Label_v1.1.xlsx">Long Element Name to Short Element Name Crosswalk</a> - A listing of the shortened column names for the data elements in the RSS and IDD.
 					</li>
 					</ul>
 			</div>
