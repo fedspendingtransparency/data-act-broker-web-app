@@ -184,7 +184,7 @@ export default class ResourcesContent extends React.Component {
 							<a href="http://fedspendingtransparency.github.io/assets/docs/DAIMS_Information_Flow_Diagram_v1.1.png" target="_blank" rel="noopener noreferrer">Information Flow Diagram</a> - An overview of the reporting cadences and sources of data included in the DAIMS.
 						</li>
 						<li>
-							<a href="https://community.max.gov/download/attachments/1286474850/DAIMS_Practices_Procedures_v1.1.pdf?api=v2" target="_blank" rel="noopener noreferrer">Practices and Procedures page</a>
+							<a href="https://community.max.gov/download/attachments/1286474850/DAIMS_Practices_Procedures_v1.1.pdf?api=v2" target="_blank" rel="noopener noreferrer">Practices and Procedures</a>
 						</li>
 						<li>
 							<a href='/#/FABSValidations' target="_blank" rel="noopener noreferrer">FABS Validation Rules page</a>

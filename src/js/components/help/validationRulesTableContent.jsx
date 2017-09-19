@@ -36,7 +36,6 @@ export default class ValidationRulesTableContent extends React.Component {
 					validationRulesUrl: urls['DAIMS_Validation_Rules_v1.1.1.xlsx'],
 					checkList: urls['DAIMS_FABS_Validation_Checklist_v1.1.pdf']
 				});
-
 				this.urlPromise = null;
 		});
 
