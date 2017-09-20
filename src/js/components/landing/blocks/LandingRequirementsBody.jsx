@@ -75,13 +75,13 @@ export default class LandingRequirementsBody extends React.Component {
 						You may download and use the following sample file to help prepare your submission if you don’t have any previous submission files on hand
 					</p>
 					<ul>
-						<li>Financial Assistance data (Award and Awardee Attributes) (<a href="https://s3-us-gov-west-1.amazonaws.com/prod-data-act-web-static-files/sample-files/FABSSampleSubmissionFile.csv" target="_blank" rel="noopener noreferrer">download sample file</a>)</li>
+						<li>Financial Assistance data (Award and Awardee Attributes) (<a href="https://s3-us-gov-west-1.amazonaws.com/prod-data-act-web-static-files/help-files/DAIMS_FABS_Sample_Submission_File_v1.1.csv" target="_blank" rel="noopener noreferrer">download sample file</a>)</li>
 					</ul>
 					<p>
 						Here are some additional resources to assist you with your submission:
 					</p>
 					<ul>
-						<li><a href='https://s3-us-gov-west-1.amazonaws.com/prod-data-act-web-static-files/sample-files/DRAFT_DAIMS_FABS_Validation_Checklist_v1.1.pdf' target="_blank" rel="noopener noreferrer">Validation Checklist</a></li>
+						<li><a href='https://s3-us-gov-west-1.amazonaws.com/prod-data-act-web-static-files/help-files/DAIMS_FABS_Validation_Checklist_v1.1.pdf' target="_blank" rel="noopener noreferrer">Validation Checklist</a></li>
 						<li>Error Codes and Messages</li>
 						<li><a href={resources} target="_blank" rel="noopener noreferrer">DATA Act Information Model Schema (DAIMS)</a> resources related to FABS. See:
 							<ul>
