@@ -348,7 +348,7 @@ const routeDefinitions = {
     indexRoute: {
         onEnter: checkUserPermissions,
         component: LandingPage,
-        type: kGlobalConstants.PROD ? 'dabs' : 'home'
+        type: 'home'
     },
     childRoutes: getRoutes()
 }
