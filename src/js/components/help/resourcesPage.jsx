@@ -23,6 +23,15 @@ export default class ResourcesPage extends React.Component {
         };
     }
 
+    componentWillReceiveProps(nextProps) {
+        console.log(nextProps.route.type)
+        if(nextProps.route.type !== this.state.type) {
+            this.setState({
+                type: nextProps.route.type
+            })
+        }
+    }
+
     render() {
         const resources = this.props.type === 'fabs' ? '#/FABSResources' : '#/resources';
         const activeTab = this.props.type === 'fabs' ? 'FABSHelp' : 'help';
