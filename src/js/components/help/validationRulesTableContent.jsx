@@ -33,13 +33,15 @@ export default class ValidationRulesTableContent extends React.Component {
 		this.urlPromise.promise
 			.then((urls) => {
 				this.setState({
-					validationRulesUrl: urls['Validation_Rules_v1.1.1.xlsx']
+					validationRulesUrl: urls['DAIMS_Validation_Rules_v1.1.1.xlsx'],
+					checkList: urls['DAIMS_FABS_Validation_Checklist_v1.1.pdf']
 				});
-
 				this.urlPromise = null;
 		});
 
-		Papa.parse('./help/validations.csv', {
+		let fileName = this.props.type == 'fabs' ? './help/fabs_validations.csv' : './help/validations.csv'
+
+		Papa.parse(fileName, {
 			download: true,
 			header: true,
 			encoding: "UTF-8",
@@ -70,12 +72,27 @@ export default class ValidationRulesTableContent extends React.Component {
 	}
 
 	render() {
+		let message = <p>Below is a cumulative table of validations in the RSS and IDD. The status column indicates whether they are currently implemented in the Broker. The table has been revised to match the latest Validations Rules spreadsheet, except for FABS. FABS validations are available in the downloadable file. The Validations Rules spreadsheet, with change log, is available for download.  <a href={this.state.validationRulesUrl} target="_blank" rel="noopener noreferrer">Download file</a></p>
+		if (this.props.type == 'fabs') {
+			message = <div>
+				<p>Here are validation resources for the Reporting Submission Specification - Financial Assistance Broker Submission (RSS-FABS)</p>
+				<ul>
+					<li>
+						<a href={this.state.checkList} target='_blank'>Validation Checklist:</a> contains file-wide practices, data element-level validation rule explanations, technical procedures for formatting submission files, and a change log
+					</li>
+					<li>
+						<a href={this.state.validationRulesUrl} target='_blank'>DAIMS Validations Rules:</a> contains the validations rules for the RSS and IDD, along with a change log
+					</li>
+				</ul>
+			</div>
+		}
+
 		return (
 			<div className="usa-da-help-content">
 				<div className="validation-table">
 					<h2>Validations</h2>
 					<DaimsMessage type='validations' />
-					<p>Below is a cumulative table of validations in the RSS and IDD. The status column indicates whether they are currently implemented in the Broker. The table has been revised to match the latest Validations Rules spreadsheet. The Validations Rules spreadsheet, with change log, is available for download.  <a href={this.state.validationRulesUrl} target="_blank" rel="noopener noreferrer">Download file</a></p>
+					{message}
 					<Reactable.Table className="table usa-da-table table-bordered"
 						data={this.state.data} filterable={['Rule Detail']}
 						sortable={[

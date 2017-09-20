@@ -27,8 +27,16 @@
 	}
 
 	ul {
-		margin-top: 1.4rem;
-	}
+        margin-top: 1.5rem;
+        margin-bottom: 3.5rem;
+        margin-left: 0px;
+        ul {
+            padding-left: 20px;
+            list-style-type: circle;
+        }
+    }
+
+	
 
 	.reactable-th-severity {
 		width:150px;
