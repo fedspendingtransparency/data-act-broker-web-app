@@ -33,7 +33,7 @@ export default class ValidationRulesTablePage extends React.Component {
                         <div className="container">
                             <div className="row">
                                 <div className="col-md-12 mt-40 mb-20">
-                                    <div className="display-2" data-contentstart="start" tabIndex={-1}>Help | DATA Act Broker
+                                    <div className="display-2" data-contentstart="start" tabIndex={-1}>{this.state.type.toUpperCase()} | Validations
                                         <HelpNav selected="Validations" type={this.props.type} />
                                     </div>
                                 </div>
