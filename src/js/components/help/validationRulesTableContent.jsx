@@ -100,7 +100,6 @@ export default class ValidationRulesTableContent extends React.Component {
 				</ul>
 			</div>
 		}
-		console.log(this.state.data)
 
 		return (
 			<div className="usa-da-help-content">
