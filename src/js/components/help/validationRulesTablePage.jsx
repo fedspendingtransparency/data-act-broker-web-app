@@ -21,6 +21,14 @@ export default class ValidationRulesTablePage extends React.Component {
         };
     }
 
+    componentWillReceiveProps(nextProps) {
+        if(nextProps.route.type !== this.state.type) {
+            this.setState({
+                type: nextProps.route.type
+            })
+        }
+    }
+
     render() {
         const validations = this.props.type === 'fabs' ? '#/FABSValidations' : '#/validations';
         const activeTab = this.props.type === 'fabs' ? 'FABSHelp' : 'help';

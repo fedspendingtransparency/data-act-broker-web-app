@@ -21,11 +21,25 @@ export default class ValidationRulesTableContent extends React.Component {
 		this.state = {
 			data: [],
 			validationRulesUrl: '#',
-			domainValuesUrl: '#'
+			domainValuesUrl: '#',
+			type: this.props.type
 		}
 	}
 
+	componentWillReceiveProps(nextProps) {
+        if(nextProps.type !== this.state.type) {
+            this.loadData(nextProps.type)
+            this.setState({
+                type: nextProps.type
+            })
+        }
+    }
+
 	componentDidMount() {
+		this.loadData(this.state.type)
+	}
+
+	loadData(type='fabs') {
 		this.scrollToTop();
 
 		// also load the remaining URLs
@@ -39,7 +53,7 @@ export default class ValidationRulesTableContent extends React.Component {
 				this.urlPromise = null;
 		});
 
-		let fileName = this.props.type == 'fabs' ? './help/fabs_validations.csv' : './help/validations.csv'
+		let fileName = type == 'fabs' ? './help/fabs_validations.csv' : './help/validations.csv'
 
 		Papa.parse(fileName, {
 			download: true,
@@ -86,6 +100,7 @@ export default class ValidationRulesTableContent extends React.Component {
 				</ul>
 			</div>
 		}
+		console.log(this.state.data)
 
 		return (
 			<div className="usa-da-help-content">
