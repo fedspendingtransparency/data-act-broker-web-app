@@ -74,7 +74,7 @@ export default class PublishModal extends React.Component {
 		}
 
 		if (this.state.publishStarted) {
-			message = <p>Your file is being published. Please do not leave this page white we publish your submission.</p> 
+			message = <p>Your file is being published. Please do not leave this page until publishing is complete.</p> 
 			action = <button id='publish-button' className='us-da-disabled-button col-sm-6'>Publishing</button>
 		}
 
