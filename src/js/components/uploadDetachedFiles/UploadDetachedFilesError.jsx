@@ -40,6 +40,8 @@ export default class UploadDetachedFilesError extends React.Component {
 		else if (this.props.error) {
 			header = this.props.error.header;
 			message = this.props.error.description
+		} else if (this.props.message) {
+			header = this.props.message
 		}
 		else {
 			switch(this.props.errorCode){

@@ -61,6 +61,7 @@ class UploadDetachedFileValidation extends React.Component {
 			modified_date: null,
 			type: this.props.route.type,
 			showSuccess: false,
+			error_message: '',
 			fabs_meta: {valid_rows:0, total_rows: 0, publish_date: null}
 		};
 	}
@@ -102,14 +103,11 @@ class UploadDetachedFileValidation extends React.Component {
 				if (this.isUnmounted) {
 					return;
 				}
-				var submission = true;
-				if(response.publish_status==='published'){
-					submission = false;
-				}
+
 				const job = Object.assign({}, this.state.jobResults);
 				job.detached_award = response.jobs[0];
 
-				if (this.state.published && response.fabs_meta.publish_date && this.dataTimer) {
+				if (this.state.published !== 'publishing' && response.fabs_meta.publish_date && this.dataTimer) {
 					window.clearInterval(this.dataTimer);
 					this.dataTimer = null;
 				}
@@ -118,9 +116,8 @@ class UploadDetachedFileValidation extends React.Component {
 					agency: response.agency_name,
 					rep_start: response.reporting_period_start_date,
 					rep_end: response.reporting_period_end_date,
-					submit: submission,
 					cgac_code: response.cgac_code,
-					published: (response.publish_status === 'published' ? true : false),
+					published: response.publish_status,
 					modified_date: response.last_updated,
 					error: 0,
 					fabs_meta: response.fabs_meta
@@ -215,12 +212,16 @@ class UploadDetachedFileValidation extends React.Component {
 			})
 			.catch((error)=>{
 				if (error.httpStatus === 400) {
-					this.setState({error: 1, submit: false});
+					this.setState({error: 1, submit: false, error_message: error.message});
 				}
 				else if (error.httpStatus === 500) {
 					this.setState({error: 4, submit: false, showPublish: false});
 				}
 			})
+		this.setState({
+			published: 'publishing',
+			showPublish: false
+		})
 	}
 
 	// ERRORS
@@ -312,8 +313,9 @@ class UploadDetachedFileValidation extends React.Component {
 		let errorMessage = null;
 		validationBox = <ValidateDataFileContainer type={type} data={this.state.jobResults}
 												   setUploadItem={this.uploadFile.bind(this)}
-												   updateItem={this.uploadFile.bind(this)} />;
-		if (fileData.file_status == 'complete' && this.state.validationFinished) {
+												   updateItem={this.uploadFile.bind(this)} 
+												   publishing={this.state.published === 'publishing'}/>;
+		if (fileData.file_status == 'complete' && this.state.validationFinished && this.state.published !== 'publishing') {
 			if (status != 'invalid' || fileData.file_status == 'complete') {
 				validationBox = <ValidateValuesFileContainer type={type} data={this.state.jobResults}
 														 	 setUploadItem={this.uploadFile.bind(this)}
@@ -321,14 +323,14 @@ class UploadDetachedFileValidation extends React.Component {
 														 	 published={this.state.published} />;
 			}
 
-			if (this.state.showSuccess ) {
-				errorMessage = <UploadDetachedFilesError errorCode={this.state.error} type='success' />
+			if (this.state.showSuccess) {
+				errorMessage = <UploadDetachedFilesError errorCode={this.state.error} type='success' message={this.state.error_message} />
 				validationButton = null;
 			}
-			else if (this.state.error !== 0) {
-				errorMessage = <UploadDetachedFilesError errorCode={this.state.error} type='error' />
+			else if (this.state.published === 'publishing') {
+				validationButton = null;
 			}
-			else if (this.state.published) {
+			else if (this.state.published === 'published') {
 				// This submission is already published and cannot be republished
 				validationButton = <button className='pull-right col-xs-3 us-da-disabled-button' disabled>File Published:<span className='plain'> {this.state.fabs_meta.valid_rows} rows published at {this.state.fabs_meta.publish_date}</span></button>;
 			}
@@ -340,6 +342,10 @@ class UploadDetachedFileValidation extends React.Component {
 				// User does not have permissions to publish
 				validationButton = <button className='pull-right col-xs-3 us-da-disabled-button' disabled>You do not have permissions to publish</button>;
 			}
+		}
+
+		if (this.state.error !== 0) {
+			errorMessage = <UploadDetachedFilesError errorCode={this.state.error} type='error' message={this.state.error_message} />
 		}
 		
 		return (
