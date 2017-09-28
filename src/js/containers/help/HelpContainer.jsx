@@ -20,14 +20,16 @@ class HelpPageContainer extends React.Component {
 
         this.state = {
             helpOnly: false,
-            type: props.route.type
+            type: props.route.type, 
+            path: 'help'
         };
     }
 
     componentWillReceiveProps(nextProps) {
-        if (nextProps.route.type !== this.state.type) {
+        if (nextProps.route.type !== this.state.type || nextProps.route.path !== this.state.path) {
             this.setState({
-                type: nextProps.route.type
+                type: nextProps.route.type,
+                path: nextProps.route.path.toLowerCase()
             });
         }
     }
@@ -49,14 +51,14 @@ class HelpPageContainer extends React.Component {
     }
 
     render() {
-        let currentRoute = this.props.route.path.toLowerCase();
-       if (currentRoute == 'help' || currentRoute == 'fabshelp') {
+        let currentRoute = this.state.path;
+        if (currentRoute == 'help' || currentRoute == 'fabshelp') {
             return <HelpPage {...this.props} helpOnly={this.state.helpOnly} type={this.state.type} />;
-       }
-       else if (currentRoute == 'resources' || currentRoute == 'fabsresources') {
+        }
+        else if (currentRoute == 'resources' || currentRoute == 'fabsresources') {
             return <ResourcesPage {...this.props} helpOnly={this.state.helpOnly} type={this.state.type} />;
-       }
-       else if (currentRoute == 'validations' || currentRoute == 'fabsvalidations') {
+        }
+        else if (currentRoute == 'validations' || currentRoute == 'fabsvalidations') {
             return <ValidationRulesTablePage {...this.props} helpOnly={this.state.helpOnly} type={this.state.type} />;
         }
         else if (currentRoute == 'practices' || currentRoute == 'fabspractices') {
