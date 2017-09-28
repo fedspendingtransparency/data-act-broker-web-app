@@ -21,6 +21,14 @@ export default class ValidationRulesTablePage extends React.Component {
         };
     }
 
+    componentWillReceiveProps(nextProps) {
+        if(nextProps.route.type !== this.state.type) {
+            this.setState({
+                type: nextProps.route.type
+            })
+        }
+    }
+
     render() {
         const validations = this.props.type === 'fabs' ? '#/FABSValidations' : '#/validations';
         const activeTab = this.props.type === 'fabs' ? 'FABSHelp' : 'help';
@@ -33,7 +41,7 @@ export default class ValidationRulesTablePage extends React.Component {
                         <div className="container">
                             <div className="row">
                                 <div className="col-md-12 mt-40 mb-20">
-                                    <div className="display-2" data-contentstart="start" tabIndex={-1}>Help | DATA Act Broker
+                                    <div className="display-2" data-contentstart="start" tabIndex={-1}>{this.state.type.toUpperCase()} | Validations
                                         <HelpNav selected="Validations" type={this.props.type} />
                                     </div>
                                 </div>
@@ -44,7 +52,7 @@ export default class ValidationRulesTablePage extends React.Component {
                     <div className="container">
                         <div className="row usa-da-help-page">
                             <div className="col-md-12">
-                                <ValidationRulesTableContent />
+                                <ValidationRulesTableContent type={this.state.type} />
                             </div>
                         </div>
                     </div>
