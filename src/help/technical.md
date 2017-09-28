@@ -1,6 +1,6 @@
-#### August 31, 2017{section=technical}
+#### September 28, 2017{section=technical}
 
-In this release, here is a list of technical changes that may require infrastructure or database updates, or represents additional functionality.
+<!-- In this release, here is a list of technical changes that may require infrastructure or database updates, or represents additional functionality.
 
 * Alembic migrations:
   * Modified frec, cgac and sub_tier_agency tables to accomodate FREC data
@@ -10,5 +10,5 @@ In this release, here is a list of technical changes that may require infrastruc
 * Added new error types (rowCountError and fileTypeError)
 * Updated FABS derivations and FPDS script to accommodate FREC agencies
 * Updated FPDS loader script to pull csv extracts
-
+ -->
 
