@@ -55,7 +55,7 @@ class UploadDetachedFileValidation extends React.Component {
 			error: 0,
 			rep_start: '',
 			rep_end: '',
-			published: 'publishing',
+			published: 'unpublished',
 			submit: true,
 			showPublish: false,
 			modified_date: null,
@@ -107,7 +107,7 @@ class UploadDetachedFileValidation extends React.Component {
 				const job = Object.assign({}, this.state.jobResults);
 				job.detached_award = response.jobs[0];
 
-				if (this.state.published !== 'publishing' && response.fabs_meta.publish_date && this.dataTimer) {
+				if (this.state.published !== 'publishing' && this.dataTimer) {
 					window.clearInterval(this.dataTimer);
 					this.dataTimer = null;
 				}
@@ -327,9 +327,6 @@ class UploadDetachedFileValidation extends React.Component {
 				errorMessage = <UploadDetachedFilesError errorCode={this.state.error} type='success' message={this.state.error_message} />
 				validationButton = null;
 			}
-			else if (this.state.published === 'publishing') {
-				validationButton = null;
-			}
 			else if (this.state.published === 'published') {
 				// This submission is already published and cannot be republished
 				validationButton = <button className='pull-right col-xs-3 us-da-disabled-button' disabled>File Published:<span className='plain'> {this.state.fabs_meta.valid_rows} rows published at {this.state.fabs_meta.publish_date}</span></button>;
@@ -344,8 +341,9 @@ class UploadDetachedFileValidation extends React.Component {
 			}
 		}
 
-		if (this.state.error !== 0) {
+		if (this.state.published == 'publishing' && this.state.error !== 0) {
 			errorMessage = <UploadDetachedFilesError errorCode={this.state.error} type='error' message={this.state.error_message} />
+			validationButton = null;
 		}
 		
 		return (
