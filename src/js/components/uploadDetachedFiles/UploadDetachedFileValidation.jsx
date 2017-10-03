@@ -111,6 +111,10 @@ class UploadDetachedFileValidation extends React.Component {
 					window.clearInterval(this.dataTimer);
 					this.dataTimer = null;
 				}
+				else if (!this.dataTimer && response.publish_status == 'publishing') {
+					this.checkFile(submissionID);
+					return;
+				}
 				this.setState({
 					jobResults: job,
 					agency: response.agency_name,
