@@ -55,7 +55,7 @@ class UploadDetachedFileValidation extends React.Component {
 			error: 0,
 			rep_start: '',
 			rep_end: '',
-			published: false,
+			published: 'publishing',
 			submit: true,
 			showPublish: false,
 			modified_date: null,
@@ -68,7 +68,7 @@ class UploadDetachedFileValidation extends React.Component {
 
 	componentDidMount() {
 		this.isUnmounted = false;
-		this.checkFileStatus(this.state.submissionID)
+		this.checkFile(this.state.submissionID)
 	}
 
 	componentWillReceiveProps(nextProps) {
