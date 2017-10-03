@@ -137,10 +137,9 @@ class UploadDetachedFileValidation extends React.Component {
 	}
 
 	checkFile(submissionID) {
-		let interval = 1;
 		this.dataTimer = window.setInterval(() => {
 			this.checkFileStatus(submissionID);
-		}, interval * 5000);
+		}, timerDuration * 1000);
 	}
 
 	validateSubmission(item){
