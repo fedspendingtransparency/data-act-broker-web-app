@@ -175,6 +175,10 @@ export default class ValidateDataFileComponent extends React.Component {
             canDownload = false;
         }
 
+        if (this.props.publishing) {
+            headerTitle = 'Publishing...'
+        }
+
         if (!this.isUnmounted) {
             this.setState({
                 headerTitle: headerTitle,
