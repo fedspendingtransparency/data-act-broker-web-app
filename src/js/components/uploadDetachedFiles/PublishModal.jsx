@@ -53,29 +53,16 @@ export default class PublishModal extends React.Component {
 		});
 	}
 
-	activate() {
-		this.setState({
-			publishStarted: true,
-			closeable: false
-		})
-		this.props.validate();
-	}
-
 	render() {
 		let publishable = this.state.rows.valid_rows != 0;
 
 		let message = <p>This will publish the {this.state.rows.valid_rows} data rows that have passed validation out of a total of {this.state.rows.total_rows} data rows in your FABS file</p>;
 
-		let action = <button id='publish-button' onClick={this.activate.bind(this)}className='us-da-button col-sm-6'>Publish</button>
+		let action = <button id='publish-button' onClick={this.props.validate.bind(this)}className='us-da-button col-sm-6'>Publish</button>
 
 		if (!publishable) {
 			message = <p>Your file cannot be published because none of your records passed validation. Please correct your file and resubmit it.</p> 
 			action = <button id='publish-button' className='us-da-disabled-button col-sm-6'>No Valid Rows</button>
-		}
-
-		if (this.state.publishStarted) {
-			message = <p>Your file is being published. Please do not leave this page until publishing is complete.</p> 
-			action = <button id='publish-button' className='us-da-disabled-button col-sm-6'>Publishing</button>
 		}
 
 		let hideClose = "";
