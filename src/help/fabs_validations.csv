@@ -2,6 +2,8 @@ Relates to Files,Rule Name,Rule Detail,Severity,Status
 FABS,FABS1,"FAIN is required for non-aggregate records (i.e., when RecordType = 2).",Fatal Error,Implemented
 FABS,FABS2.1,"The combination of FAIN, AwardModificationAmendmentNumber, URI, and AwardingSubTierAgencyCode must be unique within the submission file.",Fatal Error,Implemented
 FABS,FABS2.2,"The combination of FAIN, AwardModificationAmendmentNumber, URI, and AwardingSubTierAgencyCode must be unique when compared to currently published data--unless the record is a correction or deletion (i.e., if CorrectionLateDeleteIndicator = C or D). In this particular case, the combination of these four fields in this transaction has already been published in USAspending, making this second attempt a duplicate.",Fatal Error,Implemented
+FABS,FABS2.3,"The unique combination of FAIN, AwardModificationAmendmentNumber, URI, and AwardingSubTierAgencyCode must exist as a currently published record when the record is a correction (i.e., if CorrectionLateDeleteIndicator = C).",Fatal Error,Implemented
+FABS,FABS2.4,"The unique combination of FAIN, AwardModificationAmendmentNumber, URI, and AwardingSubTierAgencyCode must exist as a currently published record when the record is a deletion (i.e., if CorrectionLateDeleteIndicator = D).",Fatal Error,Implemented
 FABS,FABS3.1,"ActionType is required for non-aggregate records (i.e., when RecordType = 2).",Fatal Error,Implemented
 FABS,FABS3.2,"ActionType must contain one of the following values: ""A"", ""B"", ""C"", ""D"", or blank.",Fatal Error,Implemented
 FABS,FABS4.1,"ActionDate must follow YYYYMMDD format, where YYYY is the year, MM the month and DD the day.",Fatal Error,Implemented
