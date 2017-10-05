@@ -79,7 +79,7 @@ export default class ValidateDataFileComponent extends React.Component {
     }
 
     isFileReady() {
-        return (this.props.item.job_status == 'finished' || this.props.item.job_status == 'invalid');
+        return (this.props.item.job_status === 'finished' || this.props.item.job_status === 'invalid');
     }
 
     isReplacingFile() {
