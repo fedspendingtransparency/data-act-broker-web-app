@@ -57,7 +57,7 @@ export default class LandingRequirementsBody extends React.Component {
 						File D1: Procurement Awards data (Award and Awardee Attributes)
 					</li>
 					<li>
-						File D2: Financial Assistance data (Award and Awardee Attributes) (<a href="https://s3-us-gov-west-1.amazonaws.com/prod-data-act-web-static-files/sample-files/awardValid.csv" target="_blank" rel="noopener noreferrer">download sample file</a>)
+						File D2: Financial Assistance data (Award and Awardee Attributes)
 					</li>
 					<li>
 						File E: Additional Awardee Attributes data

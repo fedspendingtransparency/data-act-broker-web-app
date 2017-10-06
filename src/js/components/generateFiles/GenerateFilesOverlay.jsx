@@ -60,7 +60,7 @@ export default class GenerateFilesOverlay extends React.Component {
 		let showIcon = true;
 
 		if (this.props.state == "generating") {
-			header = "Creating your D1 and D2 files from ASP and FPDS. This may take a few minutes.";
+			header = "Creating your D1 and D2 files from FABS and FPDS. This may take a few minutes.";
 		}
 		else if (this.props.state == "failed") {
 			buttonClass = ' btn-primary';

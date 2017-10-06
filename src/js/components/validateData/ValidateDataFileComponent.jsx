@@ -79,7 +79,7 @@ export default class ValidateDataFileComponent extends React.Component {
     }
 
     isFileReady() {
-        return (this.props.item.job_status == 'finished' || this.props.item.job_status == 'invalid');
+        return (this.props.item.job_status === 'finished' || this.props.item.job_status === 'invalid');
     }
 
     isReplacingFile() {
@@ -173,6 +173,10 @@ export default class ValidateDataFileComponent extends React.Component {
             hasErrorReport = false;
             isError = false;
             canDownload = false;
+        }
+
+        if (this.props.publishing) {
+            headerTitle = 'Publishing...'
         }
 
         if (!this.isUnmounted) {
