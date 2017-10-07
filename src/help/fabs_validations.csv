@@ -29,7 +29,6 @@ FABS,FABS16,"LegalEntityForeignProvinceName must be blank for domestic recipient
 FABS,FABS17,"LegalEntityForeignPostalCode must be blank for domestic recipients (i.e., when LegalEntityCountryCode = USA)",Fatal Error,Implemented
 FABS,FABS18,BusinessTypes must be one to three letters in length. BusinessTypes values must be non-repeated letters from A to X.,Fatal Error,Implemented
 FABS,FABS19,LegalEntityCountryCode Field must contain a valid three character GENC Standard Edition 3.0 (Update 4) country code.,Fatal Error,Implemented
-FABS,FABS20,"FundingAgencyCode is an optional field, but when provided must be a valid 3-digit CGAC.",Fatal Error,Implemented
 FABS,FABS21,"FundingSubTierAgencyCode is an optional field, but when provided must be a valid 4-digit sub-tier agency code.",Fatal Error,Implemented
 FABS,FABS22,"When provided, CorrectionLateDeleteIndicator must contain one of the following values: ""C"", ""D"", or ""L"".",Fatal Error,Implemented
 FABS,FABS23,AwardingSubTierAgencyCode must be a valid 4-digit sub-tier agency code.,Fatal Error,Implemented
