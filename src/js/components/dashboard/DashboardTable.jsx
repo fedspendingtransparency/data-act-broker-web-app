@@ -95,17 +95,20 @@ export default class DashboardTable extends React.Component {
         else {
             let dateName = '';
             let canDelete = false;
+            let agency = '';
             if (this.state.type === 'fabs') {
                 dateName = 'Action Date Range';
                 canDelete = PermissionsHelper.checkFabsPermissions(this.props.session);
+                agency = 'Agency:Filename'
             }
             else {
                 dateName = 'Reporting Period';
                 canDelete = PermissionsHelper.checkPermissions(this.props.session);
+                agency = 'Agency'
             }
             headers = [
                 'View',
-                'Agency',
+                agency,
                 dateName,
                 'Created By',
                 'Last Modified',
