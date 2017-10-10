@@ -72,7 +72,7 @@ FABS,FABS41.1,"For PrimaryPlaceOfPerformanceCode XX#####, city code ##### must b
 FABS,FABS41.2,"City codes must exist in the state indicated by the PrimaryPlaceOfPerformanceCode. If a valid PrimaryPlaceOfPerformanceZIP+4 is provided, this will only trigger a warning.",Warning,Implemented
 FABS,FABS41.3,The provided PrimaryPlaceofPerformanceZIP+4 must be in the state specified by PrimaryPlaceOfPerformanceCode.,Fatal Error,Implemented
 FABS,FABS41.4,"When provided, PrimaryPlaceofPerformanceZIP+4 must be in the format #####, #########, #####-####, or contain 'city-wide'.",Fatal Error,Implemented
-FABS,FABS41.5,The provided PrimaryPlaceofPerformanceZIP+4 must be in the state specified by PrimaryPlaceOfPerformanceCode.,Fatal Error,Implemented
+FABS,FABS41.5,The provided PrimaryPlaceofPerformanceZIP+4 must be in the state specified by PrimaryPlaceOfPerformanceCode.,Warning,Implemented
 FABS,FABS41.6,"If PrimaryPlaceOfPerformanceCode is XX00000, PrimaryPlaceOfPerformanceZip+4 must not be 'city-wide'.",Fatal Error,Implemented
 FABS,FABS42.1,"PrimaryPlaceOfPerformanceForeignLocationDescription is required for foreign places of performance (i.e., when PrimaryPlaceOfPerformanceCountryCode does not equal USA).",Fatal Error,Implemented
 FABS,FABS42.2,"PrimaryPlaceOfPerformanceForeignLocationDescription must be blank for domestic recipients (i.e., when PrimaryPlaceOfPerformanceCountryCode = USA).",Fatal Error,Implemented
