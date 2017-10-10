@@ -72,7 +72,7 @@ export default class DashboardTable extends React.Component {
             if (this.state.type === 'fabs') {
                 headers = [
                     'Action Date Range',
-                    'Agency',
+                    'Agency:Filename',
                     'Created By',
                     'Last Modified',
                     'Published By',
@@ -227,7 +227,7 @@ export default class DashboardTable extends React.Component {
             // Certified Submissions table
             row = [
                 link,
-                item.agency,
+                this.getAgency(item),
                 userName,
                 this.convertToLocalDate(item.last_modified)
             ];
@@ -252,7 +252,7 @@ export default class DashboardTable extends React.Component {
             // Active Submissions table
             row = [
                 link,
-                item.agency,
+                this.getAgency(item),
                 reportingDateString,
                 userName,
                 this.convertToLocalDate(item.last_modified),
@@ -320,6 +320,14 @@ export default class DashboardTable extends React.Component {
             message: message,
             totalPages: Math.ceil(this.props.total / 10)
         });
+    }
+
+    getAgency(item) {
+        let agency = item.agency
+        if (this.props.type === 'fabs') {
+            return agency += ":\n" + item.files[0].split('/').pop().replace(/^[0-9]*_/,"")
+        }
+        return agency
     }
 
     render() {
