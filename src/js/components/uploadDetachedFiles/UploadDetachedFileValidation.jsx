@@ -94,7 +94,32 @@ class UploadDetachedFileValidation extends React.Component {
         this.setState({
             showPublish: false
         });
-    }
+	}
+
+	startRevalidation() {
+		this.setState({
+			validationFinished: false,
+			published:'unpublished'
+		}, this.revalidate())
+	}
+	
+	revalidate() {
+		ReviewHelper.revalidateSubmission(this.state.submissionID, true)
+			.then(() => {
+				this.checkFileStatus(this.state.submissionID)
+			})
+			.catch((error) => {
+				let errMsg = "An error occurred while attempting to revalidate the submission. Please contact the Service Desk.";
+				if (error.httpStatus == 400 || error.httpStatus == 403) {
+					errMsg = error.message;
+				}
+
+				this.setState({
+					error: 4,
+					error_message: errMsg
+				});
+			});
+	}
 
 	checkFileStatus(submissionID) {
 		// callback to check file status
@@ -282,6 +307,7 @@ class UploadDetachedFileValidation extends React.Component {
 
 	render() {
 		let validationButton = null;
+		let revalidateButton = null;
 		let validationBox = null;
 		let headerDate = null;
 		let updated = null;
@@ -329,24 +355,34 @@ class UploadDetachedFileValidation extends React.Component {
 			if (this.state.showSuccess) {
 				errorMessage = <UploadDetachedFilesError errorCode={this.state.error} type='success' message={this.state.error_message} />
 				validationButton = null;
+				revalidateButton = null;
 			}
 			else if (this.state.published === 'published') {
 				// This submission is already published and cannot be republished
 				validationButton = <button className='pull-right col-xs-3 us-da-disabled-button' disabled>File Published:<span className='plain'> {this.state.fabs_meta.valid_rows} rows published at {this.state.fabs_meta.publish_date}</span></button>;
+				revalidateButton = null;
 			}
 			else if (PermissionsHelper.checkFabsPermissions(this.props.session)) {
 				// User has permissions to publish this unpublished submission
 				validationButton = <button className='pull-right col-xs-3 us-da-button' onClick={this.openModal.bind(this)}>Publish</button>;
+				revalidateButton = <button className='pull-right col-xs-3 us-da-button revalidate-button' onClick={this.startRevalidation.bind(this)}>Revalidate</button>;
 			}
 			else {
 				// User does not have permissions to publish
 				validationButton = <button className='pull-right col-xs-3 us-da-disabled-button' disabled>You do not have permissions to publish</button>;
+				revalidateButton = null;
 			}
 		}
 
 		if (this.state.published == 'publishing' && this.state.error !== 0) {
 			errorMessage = <UploadDetachedFilesError errorCode={this.state.error} type='error' message={this.state.error_message} />
 			validationButton = null;
+			revalidateButton = <button className='pull-right col-xs-3 us-da-button' onClick={this.startRevalidation.bind(this)}>Revalidate</button>;
+		}
+		else if (this.state.published == 'unpublished' && this.state.error !== 0) {
+			errorMessage = <UploadDetachedFilesError errorCode={this.state.error} type='error' message={this.state.error_message} />
+			validationButton = null;
+			revalidateButton = null;
 		}
 		
 		return (
@@ -372,11 +408,12 @@ class UploadDetachedFileValidation extends React.Component {
 								{validationBox}
 							</ReactCSSTransitionGroup>
 
+							{errorMessage}
+
 							<ReactCSSTransitionGroup transitionName="usa-da-meta-fade" transitionEnterTimeout={600} transitionLeaveTimeout={200}>
 								{validationButton}
+								{revalidateButton}
 							</ReactCSSTransitionGroup>
-
-							{errorMessage}
 						</div>
 					</div>
 				</div>
