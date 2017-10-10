@@ -118,7 +118,7 @@ export default class RecentActivityTable extends React.Component {
 		if (this.props.type === 'fabs') {
 			headers = [
 				'View',
-				'Agency',
+				'Agency:Filename',
 				'Action Date Range',
 				'Created By',
 				'Last Modified'
@@ -142,6 +142,14 @@ export default class RecentActivityTable extends React.Component {
 		}
 		return headers;
 	}
+
+	getAgency(item) {
+        let agency = item.agency
+        if (this.props.type === 'fabs') {
+            return agency += ":\n" + item.files[0].split('/').pop().replace(/^[0-9]*_/,"")
+        }
+        return agency
+    }
 
 	convertToLocalDate(dateToConvert) {
 		// convert date to local date, need to replace the space with a T for Date() formatting
@@ -205,7 +213,7 @@ export default class RecentActivityTable extends React.Component {
 
 		let row = [
 			link,
-			rowData.agency,
+			this.getAgency(rowData),
 			reportingDateString,
 			userName,
 			this.convertToLocalDate(rowData.last_modified)
