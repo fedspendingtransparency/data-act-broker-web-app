@@ -71,10 +71,10 @@ export default class DashboardTable extends React.Component {
         if (this.props.isCertified) {
             if (this.state.type === 'fabs') {
                 headers = [
-                    'Action Date Range',
+                    'Submission ID',
                     'Agency:Filename',
                     'Created By',
-                    'Last Modified',
+                    'Action Date Range',
                     'Published By',
                     'Published On'
                 ];
@@ -96,10 +96,12 @@ export default class DashboardTable extends React.Component {
             let dateName = '';
             let canDelete = false;
             let agency = '';
+            let view = 'View'
             if (this.state.type === 'fabs') {
                 dateName = 'Action Date Range';
                 canDelete = PermissionsHelper.checkFabsPermissions(this.props.session);
                 agency = 'Agency:Filename'
+                view = 'Submission ID'
             }
             else {
                 dateName = 'Reporting Period';
@@ -107,7 +109,7 @@ export default class DashboardTable extends React.Component {
                 agency = 'Agency'
             }
             headers = [
-                'View',
+                view,
                 agency,
                 dateName,
                 'Created By',
@@ -213,7 +215,7 @@ export default class DashboardTable extends React.Component {
         }
         let reportingDateString = start + item.reporting_start_date + end + item.reporting_end_date;
         if (!item.reporting_start_date || !item.reporting_end_date) {
-            reportingDateString = 'No reporting period specified';
+            reportingDateString = 'No reporting period\nspecified';
         }
 
         let userName = item.hasOwnProperty('user') ? item.user.name : '--';
@@ -221,6 +223,7 @@ export default class DashboardTable extends React.Component {
         let deleteConfirm = this.state.deleteIndex !== -1 && index === this.state.deleteIndex;
 
         let link = <SubmissionLink submissionId={item.submission_id} type={this.state.type}/>;
+
         if (this.props.isCertified) {
             link = <SubmissionLink submissionId={item.submission_id} value={reportingDateString} type={this.state.type}/>;
         }
@@ -231,19 +234,20 @@ export default class DashboardTable extends React.Component {
             row = [
                 link,
                 this.getAgency(item),
-                userName,
-                this.convertToLocalDate(item.last_modified)
+                userName
             ];
 
             let certified_on = item.certified_on !== "" ? this.convertToLocalDate(item.certified_on) : item.certified_on;
             if (this.props.type === 'fabs') {
                 row = row.concat([
+                    reportingDateString,
                     item.certifying_user,
                     certified_on
                 ]);
             }
             else {
                 row = row.concat([
+                    this.convertToLocalDate(item.last_modified),
                     <Status.SubmissionStatus status={item.rowStatus} certified={this.props.isCertified} />,
                     item.certifying_user,
                     certified_on,
@@ -289,13 +293,14 @@ export default class DashboardTable extends React.Component {
         // iterate through the recent activity
         const output = [];
         const rowClasses = [];
-
-        let classes = ['row-10 text-center', 'row-20 text-center', 'row-15 text-right white-space', 'row-15 text-right', 'row-10 text-right','row-20 text-right progress-cell', 'row-10 text-center'];
+        let progress_size = this.props.type == 'fabs' ? 15 : 20;
+        let view_size = this.props.type == 'fabs' ? 15 : 10;
+        let classes = ['row-10 text-center', 'row-20 text-center', 'row-15 text-right white-space', 'row-15 text-right', 'row-10 text-right','row-' + progress_size + ' text-right progress-cell', 'row-10 text-center'];
 
         if (this.props.isCertified) {
-            classes = ['row-15 text-center', 'row-20 text-right white-space', 'row-12_5 text-right', 'row-10 text-right','row-20 text-right progress-cell', 'row-10 text-center', 'row-10 text-center', 'row-10 text-center'];
+            classes = ['row-' + view_size + ' text-center', 'row-20 text-right white-space', 'row-12_5 text-right', 'row-10 text-right','row-20 text-right progress-cell', 'row-10 text-center', 'row-10 text-center', 'row-10 text-center'];
             if(this.state.type == 'fabs') {
-                classes = ['row-15 text-center', 'row-20 text-right white-space', 'row-12_5 text-right', 'row-10 text-right','row-20 text-right', 'row-10 text-center'];
+                classes = ['row-10 text-center', 'row-25 text-right', 'row-10 text-right', 'row-15 text-right white-space','row-10 text-right', 'row-10 text-center'];
             }
             
         }
