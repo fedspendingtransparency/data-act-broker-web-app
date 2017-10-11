@@ -168,6 +168,9 @@ export default class DashboardTable extends React.Component {
                 case 3:
                     return 'modified';
                     break;
+                case 5:
+                    return 'modified';
+                    break;
                 default:
                     return 'modified';
             }
@@ -358,7 +361,7 @@ export default class DashboardTable extends React.Component {
         //cannot be added to the const because if a user is read only then delete will not be created
         let unsortable = [0, 5, 6];
         if(this.props.isCertified && this.state.type == 'fabs'){
-            unsortable = [0, 4, 5];
+            unsortable = [0, 3, 4];
         } else if(this.props.isCertified) {
         	unsortable = [0, 4, 5, 7];
         }
