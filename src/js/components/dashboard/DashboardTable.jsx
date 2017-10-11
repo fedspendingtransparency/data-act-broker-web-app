@@ -359,11 +359,12 @@ export default class DashboardTable extends React.Component {
         let headers = this.getHeaders();
 
         //cannot be added to the const because if a user is read only then delete will not be created
-        let unsortable = [0, 5, 6];
+        let unsortable = [0, 2, 5, 6];
         if(this.props.isCertified && this.state.type == 'fabs'){
             unsortable = [0, 3, 4];
-        } else if(this.props.isCertified) {
-        	unsortable = [0, 4, 5, 7];
+        }
+        else if(this.props.isCertified) {
+        	unsortable = [0, 4, 5, 6, 7];
         }
 
         return (
