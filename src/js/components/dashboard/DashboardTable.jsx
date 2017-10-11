@@ -72,7 +72,7 @@ export default class DashboardTable extends React.Component {
             if (this.state.type === 'fabs') {
                 headers = [
                     'Submission ID',
-                    'Agency:Filename',
+                    'Agency: Filename',
                     'Created By',
                     'Action Date Range',
                     'Published By',

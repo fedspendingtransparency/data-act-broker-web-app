@@ -118,7 +118,7 @@ export default class RecentActivityTable extends React.Component {
 		if (this.props.type === 'fabs') {
 			headers = [
 				'View',
-				'Agency:Filename',
+				'Agency: Filename',
 				'Action Date Range',
 				'Created By',
 				'Last Modified'
