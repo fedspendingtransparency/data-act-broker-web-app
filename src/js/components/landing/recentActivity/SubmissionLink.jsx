@@ -29,8 +29,8 @@ export default class SubmissionLink extends React.Component {
 
 
 	render() {
-		let link = <Icons.Eye alt="View" />;
-		if(this.props.value) {
+		let link = 'Submission ID:\n' + this.props.submissionId;
+		if(this.props.value && this.props.type !== 'fabs') {
 			link = this.props.value;
 		} 
 		else if(this.props.disabled) {
@@ -41,7 +41,6 @@ export default class SubmissionLink extends React.Component {
 						{link}
 					</a>;
 		if(this.props.type == 'fabs') {
-			link = 'Submission ID:\n' + this.props.submissionId;
 			content = <a href={"#/FABSAddData/" + this.props.submissionId} className='date-link'>
 						{link}
 					</a>;
