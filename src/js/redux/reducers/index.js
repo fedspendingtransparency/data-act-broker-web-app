@@ -6,10 +6,10 @@ import { agencyReducer } from './agencyReducer.js';
 import { subTierAgencyReducer } from './subTierAgencyReducer.js';
 
 const appReducer = combineReducers({
-	session: sessionReducer,
-	submission: uploadReducer,
-	agencyList: agencyReducer,
-	subTierAgencyList: subTierAgencyReducer
+    session: sessionReducer,
+    submission: uploadReducer,
+    agencyList: agencyReducer,
+    subTierAgencyList: subTierAgencyReducer
 });
 
 export default appReducer;
