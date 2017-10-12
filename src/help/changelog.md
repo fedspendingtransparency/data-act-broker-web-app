@@ -1,4 +1,4 @@
- #### October 6, 2017
+#### October 6, 2017
 
 In this release of the Broker, we released the ability to generate D1/D2 files via the Broker and made improvements to the Financial Assistance Broker Submission (FABS).
 
