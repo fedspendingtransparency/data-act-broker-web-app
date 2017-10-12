@@ -117,7 +117,7 @@ export default class RecentActivityTable extends React.Component {
 		let headers = [];
 		if (this.props.type === 'fabs') {
 			headers = [
-				'View',
+				'Submission ID',
 				'Agency: Filename',
 				'Action Date Range',
 				'Created By',
@@ -129,7 +129,7 @@ export default class RecentActivityTable extends React.Component {
 		}
 		else {
 			headers = [
-				'View',
+				'Submission ID',
 				'Agency',
 				'Reporting Period',
 				'Created By',
