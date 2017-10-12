@@ -81,7 +81,7 @@ export default class DashboardTable extends React.Component {
             }
             else {
                 headers = [
-                    'Reporting Period',
+                    'Reporting Period\nSubmission ID',
                     'Agency',
                     'Created By',
                     'Last Modified',

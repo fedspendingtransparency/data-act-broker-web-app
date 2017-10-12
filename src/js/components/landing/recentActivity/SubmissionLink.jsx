@@ -31,7 +31,7 @@ export default class SubmissionLink extends React.Component {
 	render() {
 		let link = 'Submission ID:\n' + this.props.submissionId;
 		if(this.props.value && this.props.type !== 'fabs') {
-			link = this.props.value;
+			link = this.props.value + '\nSubmission ID: ' + this.props.submissionId;
 		} 
 		else if(this.props.disabled) {
 			link = 'N/A';
