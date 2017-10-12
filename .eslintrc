@@ -32,7 +32,7 @@
         // downgrading to warning when using props purely within componentWillReceiveProps
         "react/no-unused-prop-types": [1],
         // also set the tab width for the max line width with a max length of 100
-        "max-len": [1, 100, {"tabWidth": 4}],
+        "max-len": [1, 100],
         // do not allow dangling commas at the end of arrays, objects, etc.
         "comma-dangle": [2, "never"],
         // downgrade extra semicolons to warnings
@@ -56,9 +56,6 @@
         "import/prefer-default-export": [1],
         // disabling class method "this" requirement to avoid React conflicts
         "class-methods-use-this": [0],
-        "no-underscore-dangle": [0, {
-            "allowAfterThis": true
-        }],
         // allow ++ and -- in for loops
         "no-plusplus": [2, {
             "allowForLoopAfterthoughts": true
