@@ -2,11 +2,11 @@
 
 In this release of the Broker, we released the ability to generate D1/D2 files via the Broker and made improvements to the Financial Assistance Broker Submission (FABS).
 
-  - [D1/D2 File Generation](#/help?section=releasedraftv3)
+  - [D1/D2 File Generation](#/help?section=dfilegeneration)
   - [FABS Improvements](#/help?section=fabsimprovements2)
 
 
-##### D1/D2 File Generation {section=releasedraftv3}
+##### D1/D2 File Generation {section=dfilegeneration}
 In this release, we transitioned the backed infrastructure that is used to generate the D1/D2 files from the legacy USAspending.gov infrastructure to the Broker. D2 file generation will include agencies’ FABS data. D1 file generation will be provided to the Broker via the FPDS-NG ATOM feed.
 
 
