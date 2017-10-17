@@ -24,7 +24,7 @@ const parseRecentActivity = (submissions) => {
 
     submissions.forEach((item) => {
         // determine the status
-        let rowStatus = Status.StatusTypes.UNKNOWN
+        let rowStatus = Status.StatusTypes.UNKNOWN;
         if (statusMap.hasOwnProperty(item.status)) {
             rowStatus = statusMap[item.status];
         }
@@ -42,7 +42,7 @@ const parseRecentActivity = (submissions) => {
         item.rowStatus = rowStatus;
 
         // creating sortable agency to be consistent with other sortable keys
-        item.sortableAgency = item.agency
+        item.sortableAgency = item.agency;
         // sortable date parses the date into unix time stamp for simple sortablity
         item.sortableDate = moment(item.last_modified).unix();
         // sortable reporting date parses the date into unix time stamp for simple sortablity
@@ -55,15 +55,15 @@ const parseRecentActivity = (submissions) => {
     });
 
     return parsedSubmissions;
-}
+};
 
-export const loadSubmissionList = (page = 1, limit = 10, certified = false, sort = 'updated', order = 'desc', d2_submission = false) => {
+export const loadSubmissionList = (page = 1, limit = 10, certified = false, sort = 'updated', order = 'desc',
+                                   d2_submission = false) => {
     const deferred = Q.defer();
 
-     Request.get(kGlobalConstants.API + 'list_submissions/')
-            .query({ page, limit, certified, sort, order, d2_submission})
+    Request.get(kGlobalConstants.API + 'list_submissions/')
+            .query({ page, limit, certified, sort, order, d2_submission })
             .end((err, res) => {
-
                 if (err) {
                     deferred.reject(err);
                 }
@@ -77,12 +77,12 @@ export const loadSubmissionList = (page = 1, limit = 10, certified = false, sort
             });
 
     return deferred.promise;
-}
+};
 
 export const loadSubmissionHistory = (submissionID) => {
     const deferred = Q.defer();
 
-     Request.post(kGlobalConstants.API + 'list_certifications/')
+    Request.post(kGlobalConstants.API + 'list_certifications/')
             .send({ submission_id: submissionID })
             .end((err, res) => {
                 if (err) {
@@ -94,17 +94,16 @@ export const loadSubmissionHistory = (submissionID) => {
             });
 
     return deferred.promise;
-}
+};
 
 export const getSubmissionFile = (submissionID, certified_files_history, is_warning) => {
-
     const deferred = Q.defer();
 
-     Request.post(kGlobalConstants.API + 'get_certified_file/')
-            .send({ 
+    Request.post(kGlobalConstants.API + 'get_certified_file/')
+            .send({
                 submission_id: submissionID,
                 certified_files_history_id: certified_files_history,
-                is_warning: is_warning 
+                is_warning: is_warning
             })
             .end((err, res) => {
                 if (err) {
@@ -116,8 +115,8 @@ export const getSubmissionFile = (submissionID, certified_files_history, is_warn
             });
 
     return deferred.promise;
-}
+};
 
 export const loadRecentActivity = (type) => {
-	return loadSubmissionList(1, 5, 'mixed', 'updated', 'desc', type=='fabs');
-}
+    return loadSubmissionList(1, 5, 'mixed', 'updated', 'desc', type==='fabs');
+};

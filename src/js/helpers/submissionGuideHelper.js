@@ -12,24 +12,24 @@ export const setSkipGuide = (skip_guide) => {
     const store = new StoreSingleton().store;
 
     Request.post(kGlobalConstants.API + 'set_skip_guide/')
-        .send({skip_guide: skip_guide})
+        .send({ skip_guide: skip_guide })
         .end((err, res) => {
             if (err) {
                 deferred.reject(err);
-            } else {
+            }
+            else {
                 // Only skip the guide if the user wants to skip the guide
-                if (skip_guide == true) {
+                if (skip_guide === true) {
                     const action = sessionActions.setSkipGuide(skip_guide);
                     store.dispatch(action);
                 }
 
                 deferred.resolve(res.body);
             }
-
         });
 
     return deferred.promise;
-}
+};
 
 export const getSubmissionPage = (submission_id) => {
     const deferred = Q.defer();
@@ -40,7 +40,8 @@ export const getSubmissionPage = (submission_id) => {
         .end((err, res) => {
             if (err) {
                 deferred.reject(err);
-            } else {
+            }
+            else {
                 // Only skip the guide if the user wants to skip the guide
                 let pages = [
                     '/404',
@@ -49,18 +50,17 @@ export const getSubmissionPage = (submission_id) => {
                     '/validateCrossFile/'+submission_id,
                     '/generateEF/'+submission_id,
                     '/reviewData/'+submission_id,
-                    '/FABSaddData/'+submission_id,
-                ]
+                    '/FABSaddData/'+submission_id
+                ];
                 let index = parseInt(res.body.step, 10);
                 let response = {
                     url: pages[index],
                     page: index
-                }
+                };
 
                 deferred.resolve(response);
             }
-
         });
 
     return deferred.promise;
-}
+};

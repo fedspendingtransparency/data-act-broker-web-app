@@ -8,63 +8,63 @@ import d3 from 'd3';
 import tinycolor from 'tinycolor2';
 
 const defaultProps = {
-	title: 'Unspecified',
-	active: false
+    title: 'Unspecified',
+    active: false
 };
 
 export default class TreemapCell extends React.Component {
 
-	constructor(props) {
-		super(props);
+    constructor(props) {
+        super(props);
 
-		this.state = {
-			hover: false
-		};
-	}
+        this.state = {
+            hover: false
+        };
+    }
 
-	mouseOver(e) {
-		this.setState({
-			hover: true
-		});
-	}
+    mouseOver(e) {
+        this.setState({
+            hover: true
+        });
+    }
 
-	mouseOut(e) {
-		this.setState({
-			hover: false
-		});
-	}
+    mouseOut(e) {
+        this.setState({
+            hover: false
+        });
+    }
 
-	clickEvent(e) {
-		this.props.clickedItem(this.props);
-	}
+    clickEvent(e) {
+        this.props.clickedItem(this.props);
+    }
 
-	render() {
+    render() {
+        const style = {
+            top: this.props.y,
+            left: this.props.x,
+            height: this.props.height,
+            width: this.props.width,
+            backgroundColor: this.props.cellColor,
+            border: '1px solid #fff'
+        };
 
-		const style = {
-			top: this.props.y,
-			left: this.props.x,
-			height: this.props.height,
-			width: this.props.width,
-			backgroundColor: this.props.cellColor,
-			border: '1px solid #fff'
-		};
+        if (this.state.hover) {
+            style.backgroundColor = tinycolor(this.props.cellColor).lighten().desaturate().toString();
+            style.border = '1px solid #323a45';
+        }
+        if (this.props.active) {
+            style.backgroundColor = this.props.colors.active;
+            style.border = '1px solid ' + this.props.colors.activeBorder;
+            style.color = '#fff';
+        }
 
-		if (this.state.hover) {
-			style.backgroundColor = tinycolor(this.props.cellColor).lighten().desaturate().toString();
-			style.border = '1px solid #323a45';
-		}
-		if (this.props.active) {
-			style.backgroundColor = this.props.colors.active;
-			style.border = '1px solid ' + this.props.colors.activeBorder;
-			style.color = '#fff'
-		}
-		
-		return (
-			<div className="usa-da-treemap-cell" style={style} onMouseOver={this.mouseOver.bind(this)} onMouseOut={this.mouseOut.bind(this)} onClick={this.clickEvent.bind(this)}>
-				<div className="treemap-rule">{this.props.title}</div>
-			</div>
-		);
-	}
+        return (
+            <div className="usa-da-treemap-cell" style={style} onMouseOver={this.mouseOver.bind(this)}
+                onMouseOut={this.mouseOut.bind(this)} onClick={this.clickEvent.bind(this)}>
+                <div className="treemap-rule">{this.props.title}</div>
+            </div>
+        );
+    }
 }
 
 TreemapCell.defaultProps = defaultProps;

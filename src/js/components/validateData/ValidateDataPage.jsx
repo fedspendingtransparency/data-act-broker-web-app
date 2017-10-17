@@ -51,7 +51,7 @@ class GetErrors extends React.Component {
                 this.setState({ response: true, csv_url: data });
             })
             .catch((err) => {
-                console.log(err + res);
+                console.log(err);
             });
     }
 
@@ -70,8 +70,10 @@ class GetErrors extends React.Component {
                         <form className="form-inline">
                             <div className="form-group">
                                 <label htmlFor="submission-id" className="sr-only">Submission ID</label>
-                                <input className="form-control" id="submission-id" name="submission-id" placeholder="Submission ID" onChange={this.setSubmissionId.bind(this)} />
-                                    <a className="btn btn-default" onClick={this.onClick.bind(this, this.props.submissionId)}>Review Data</a>
+                                <input className="form-control" id="submission-id" name="submission-id"
+                                    placeholder="Submission ID" onChange={this.setSubmissionId.bind(this)} />
+                                <a className="btn btn-default"
+                                    onClick={this.onClick.bind(this, this.props.submissionId)}>Review Data</a>
                                 {hasLink}
                             </div>
                         </form>
@@ -137,7 +139,8 @@ export default class ValidateDataPage extends React.Component {
 
         if (!this.props.params.submissionID) {
             currentComponent = <UnknownIDComponent />;
-        } else {
+        }
+        else {
             currentComponent = <ValidateDataContainer submissionID={submissionID} />;
         }
 

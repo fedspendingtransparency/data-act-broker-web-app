@@ -20,8 +20,8 @@ import PendingPage from '../components/login/PendingPage.jsx';
 // create the state store
 let devExtension = undefined;
 if (kGlobalConstants.DEV) {
-	// only enable Redux debugging in dev mode
-	devExtension = window.devToolsExtension ? window.devToolsExtension() : undefined;
+    // only enable Redux debugging in dev mode
+    devExtension = window.devToolsExtension ? window.devToolsExtension() : undefined;
 }
 
 const store = createStore(reducers, {}, devExtension);
@@ -30,52 +30,52 @@ const storeSingleton = new StoreSingleton();
 storeSingleton.setStore(store);
 
 export default class AppContainer extends React.Component {
-	constructor(props) {
-		super(props);
+    constructor(props) {
+        super(props);
 
-		this.state = {
-			appReady: false,
-			showPending: true
-		};
-	}
-	componentDidMount() {
-		// check if we have a login cookie set
-		if (!Cookies.get('brokerLogin')) {
-			// cookie is not set
-			this.setState({
-				showPending: false
-			});
-		}
+        this.state = {
+            appReady: false,
+            showPending: true
+        };
+    }
 
-		// cookie state is only used as a shorthand to determine if we should show the loading page
-		// regardless, we still need to check the backend for the user session
-		fetchActiveUser()
-			.then((res) => {
-				// logged in
-				this.setState({
-					appReady: true
-				});
-			})
-			.catch((err) => {
-				this.setState({
-					appReady: true
-				});
-			});
-	}
+    componentDidMount() {
+        // check if we have a login cookie set
+        if (!Cookies.get('brokerLogin')) {
+            // cookie is not set
+            this.setState({
+                showPending: false
+            });
+        }
 
-	render() {
+        // cookie state is only used as a shorthand to determine if we should show the loading page
+        // regardless, we still need to check the backend for the user session
+        fetchActiveUser()
+            .then((res) => {
+                // logged in
+                this.setState({
+                    appReady: true
+                });
+            })
+            .catch((err) => {
+                this.setState({
+                    appReady: true
+                });
+            });
+    }
 
-		// show a loading page that resembles a non-interactive version of the landing page if the user has an active session
-		let appContents = <PendingPage />;
-		// once the server responds with the actual user session, show the real app
-		if (this.state.appReady || !this.state.showPending) {
-			appContents = <RouterContainer store={store} />;
-		}
+    render() {
+        // show loading page that resembles non-interactive version of landing page if user has an active session
+        let appContents = <PendingPage />;
+        // once the server responds with the actual user session, show the real app
+        if (this.state.appReady || !this.state.showPending) {
+            appContents = <RouterContainer store={store} />;
+        }
 
-		return (
-			<Provider store={store}>
-				{appContents}
-			</Provider>
-		);
-	}
+        return (
+            <Provider store={store}>
+                {appContents}
+            </Provider>
+        );
+    }
 }

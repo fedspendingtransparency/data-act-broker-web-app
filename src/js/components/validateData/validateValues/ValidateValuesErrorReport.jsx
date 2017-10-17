@@ -27,7 +27,7 @@ export default class ValidateValuesErrorReport extends React.Component {
         this.state = {
             sortDirection: 'asc',
             sortField: 0,
-            headerClasses: ['headerColA','headerColB', 'headerColC'],
+            headerClasses: ['headerColA', 'headerColB', 'headerColC'],
             cellClasses: ['cellColA', 'cellColB', 'cellColC'],
             table: null,
             signedUrl: '',
@@ -41,14 +41,13 @@ export default class ValidateValuesErrorReport extends React.Component {
     }
 
     componentDidUpdate(prevProps, prevState) {
-        if (!_.isEqual(prevProps.data, this.props.data) || prevProps.dataKey != this.props.dataKey) {
+        if (!_.isEqual(prevProps.data, this.props.data) || prevProps.dataKey !== this.props.dataKey) {
             this.createTable();
         }
     }
 
     createTable() {
-        // retrieve the data for the appropriate key, parse it, and save the table component in the state to reduce the render function load
-
+        // retrieve the data for the appropriate key, parse it, and save table component into state
         const data = this.props.data[this.props.dataKey];
         this.setState({
             table: this.processData(data)
@@ -56,16 +55,14 @@ export default class ValidateValuesErrorReport extends React.Component {
     }
 
     processData(data) {
-
         let table = '';
 
         const headers = ['Field Name', this.props.name, 'Occurrences'];
 
         const rows = [];
         data.forEach((item) => {
-
             let description = item.error_description;
-            if (item.error_name == 'rule_failed') {
+            if (item.error_name === 'rule_failed') {
                 description = 'Rule ' + item.original_label + ': ' + item.rule_failed;
             }
 
@@ -76,15 +73,12 @@ export default class ValidateValuesErrorReport extends React.Component {
 
         // sort the data
         const sortedRows = this.sortData(rows);
-        
-        table = <ScrollableTable headers={headers} data={sortedRows} sortable={true} onSort={this.sortTable.bind(this)} cellClasses={this.state.cellClasses} headerClasses={this.state.headerClasses} />
-
+        table = <ScrollableTable headers={headers} data={sortedRows} sortable={true} onSort={this.sortTable.bind(this)}
+            cellClasses={this.state.cellClasses} headerClasses={this.state.headerClasses} />;
         return table;
-
     }
 
     sortData(data) {
-
         // sort the data based on the selected column (defaults to the first one)
         let output = _.clone(data);
         output = _.sortBy(data, (col) => {
@@ -92,7 +86,7 @@ export default class ValidateValuesErrorReport extends React.Component {
         });
 
         // lodash sorts by ascending, so if we want descending, reverse the array
-        if (this.state.sortDirection == 'desc') {
+        if (this.state.sortDirection === 'desc') {
             output = _.reverse(output);
         }
 
@@ -100,7 +94,7 @@ export default class ValidateValuesErrorReport extends React.Component {
     }
 
     sortTable(direction, column) {
-        if (direction != this.state.sortDirection || column != this.state.sortField) {
+        if (direction !== this.state.sortDirection || column !== this.state.sortField) {
             this.setState({
                 sortDirection: direction,
                 sortField: column
@@ -131,7 +125,6 @@ export default class ValidateValuesErrorReport extends React.Component {
     }
 
     clickedReport() {
-
         // check if the link is already signed
         if (this.state.signInProgress) {
             // sign is in progress, do nothing
@@ -152,7 +145,6 @@ export default class ValidateValuesErrorReport extends React.Component {
     }
 
     render() {
-
         let reportLinkText = `Download ${this.props.name}s Report`;
         if (this.state.signInProgress) {
             reportLinkText = `Preparing ${this.props.name}s Report...`;
@@ -174,7 +166,8 @@ export default class ValidateValuesErrorReport extends React.Component {
                         <div className="col-md-12">
                             {this.state.table}
                             <div className="mt-20">
-                                <ValidateValuesTreemap data={this.props.data[this.props.dataKey]} type="error" colors={this.props.colors} />
+                                <ValidateValuesTreemap data={this.props.data[this.props.dataKey]} type="error"
+                                    colors={this.props.colors} />
                             </div>
                         </div>
                     </div>

@@ -7,7 +7,6 @@ import StoreSingleton from '../redux/storeSingleton.js';
 import { kGlobalConstants } from '../GlobalConstants.js';
 
 export const fetchAgencies = () => {
-
     const deferred = Q.defer();
 
     Request.get(kGlobalConstants.API + 'list_agencies/')
@@ -22,10 +21,9 @@ export const fetchAgencies = () => {
         });
 
     return deferred.promise;
-}
+};
 
 export const fetchAllAgencies = () => {
-
     const deferred = Q.defer();
 
     Request.get(kGlobalConstants.API + 'list_all_agencies/')
@@ -40,10 +38,9 @@ export const fetchAllAgencies = () => {
         });
 
     return deferred.promise;
-}
+};
 
 export const fetchSubTierAgencies = () => {
-
     const deferred = Q.defer();
 
     Request.get(kGlobalConstants.API + 'list_sub_tier_agencies/')
@@ -58,14 +55,14 @@ export const fetchSubTierAgencies = () => {
         });
 
     return deferred.promise;
-}
+};
 
 export function checkYearQuarter(cgac, frec, year, quarter) {
-
     const deferred = Q.defer();
     cgac = cgac ? cgac : '';
     frec = frec ? frec : '';
-    Request.get(kGlobalConstants.API + `check_year_quarter/?cgac_code=${cgac}&frec_code=${frec}&reporting_fiscal_year=${year}&reporting_fiscal_period=${quarter}`)
+    Request.get(kGlobalConstants.API +`check_year_quarter/?cgac_code=${cgac}&frec_code=${frec}&`+
+                `reporting_fiscal_year=${year}&reporting_fiscal_period=${quarter}`)
         .end((err, res) => {
             if (err) {
                 const response = Object.assign({}, res.body);

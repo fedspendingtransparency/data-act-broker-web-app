@@ -23,4 +23,4 @@ class UploadDetachedFilesPageContainer extends React.Component {
 export default connect(
     state => ({ submission: state.submission }),
     dispatch => bindActionCreators(uploadActions, dispatch)
-)(UploadDetachedFilesPageContainer)
+)(UploadDetachedFilesPageContainer);

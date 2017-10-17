@@ -6,6 +6,7 @@
 import React from 'react';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
+import _ from 'lodash';
 
 import HelpPage from '../../components/help/helpPage.jsx';
 import ResourcesPage from '../../components/help/resourcesPage.jsx';
@@ -20,9 +21,13 @@ class HelpPageContainer extends React.Component {
 
         this.state = {
             helpOnly: false,
-            type: props.route.type, 
+            type: props.route.type,
             path: 'help'
         };
+    }
+
+    componentDidMount() {
+        this.checkHelpOnly();
     }
 
     componentWillReceiveProps(nextProps) {
@@ -32,10 +37,6 @@ class HelpPageContainer extends React.Component {
                 path: nextProps.route.path.toLowerCase()
             });
         }
-    }
-
-    componentDidMount() {
-        this.checkHelpOnly();
     }
 
     componentDidUpdate(prevProps, prevState) {
@@ -52,27 +53,29 @@ class HelpPageContainer extends React.Component {
 
     render() {
         let currentRoute = this.state.path;
-        if (currentRoute == 'help' || currentRoute == 'fabshelp') {
+        if (currentRoute === 'help' || currentRoute === 'fabshelp') {
             return <HelpPage {...this.props} helpOnly={this.state.helpOnly} type={this.state.type} />;
         }
-        else if (currentRoute == 'resources' || currentRoute == 'fabsresources') {
+        else if (currentRoute === 'resources' || currentRoute === 'fabsresources') {
             return <ResourcesPage {...this.props} helpOnly={this.state.helpOnly} type={this.state.type} />;
         }
-        else if (currentRoute == 'validations' || currentRoute == 'fabsvalidations') {
+        else if (currentRoute === 'validations' || currentRoute === 'fabsvalidations') {
             return <ValidationRulesTablePage {...this.props} helpOnly={this.state.helpOnly} type={this.state.type} />;
         }
-        else if (currentRoute == 'practices' || currentRoute == 'fabspractices') {
+        else if (currentRoute === 'practices' || currentRoute === 'fabspractices') {
             return <PracticesProceduresPage {...this.props} helpOnly={this.state.helpOnly} type={this.state.type} />;
         }
-        else if (currentRoute == 'history' || currentRoute == 'fabshistory') {
-            return <HistoryPage {...this.props} history='release' helpOnly={this.state.helpOnly} type={this.state.type} />;
+        else if (currentRoute === 'history' || currentRoute === 'fabshistory') {
+            return <HistoryPage {...this.props} history="release" helpOnly={this.state.helpOnly}
+                type={this.state.type} />;
         }
-        else if (currentRoute == 'technicalhistory' || currentRoute == 'fabstechnicalhistory') {
-            return <HistoryPage {...this.props} history='technical' helpOnly={this.state.helpOnly} type={this.state.type} />;
+        else if (currentRoute === 'technicalhistory' || currentRoute === 'fabstechnicalhistory') {
+            return <HistoryPage {...this.props} history="technical" helpOnly={this.state.helpOnly}
+                type={this.state.type} />;
         }
     }
 }
 
 export default connect(
     state => ({ session: state.session })
-)(HelpPageContainer)
+)(HelpPageContainer);

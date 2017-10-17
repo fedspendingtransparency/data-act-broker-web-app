@@ -13,28 +13,26 @@ import DropZone from '../../components/addData/DropZone.jsx';
 
 class DropZoneContainer extends React.Component {
 
+    onDrop(files) {
+        const file = files[0];
 
-	onDrop(files) {
-		const file = files[0];
-		
-		this.props.setUploadItem({
-			name: this.props.requestName,
-			state: 'ready',
-			file: file
-		});
-	}
-	
-	render() {
-		return (
-			<div>
-				<DropZone {...this.props} onDrop={this.onDrop.bind(this)} />
-			</div>
-			
-		);
-	}
+        this.props.setUploadItem({
+            name: this.props.requestName,
+            state: 'ready',
+            file: file
+        });
+    }
+
+    render() {
+        return (
+            <div>
+                <DropZone {...this.props} onDrop={this.onDrop.bind(this)} />
+            </div>
+        );
+    }
 }
 
 export default connect(
-	state => ({ submission: state.submission }),
-	dispatch => bindActionCreators(uploadActions, dispatch)
-)(DropZoneContainer)
+    state => ({ submission: state.submission }),
+    dispatch => bindActionCreators(uploadActions, dispatch)
+)(DropZoneContainer);

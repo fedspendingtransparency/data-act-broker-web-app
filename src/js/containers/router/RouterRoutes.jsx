@@ -6,8 +6,10 @@ import LoginPage from '../../components/login/LoginPage.jsx';
 import AuthPage from '../../components/login/AuthPage.jsx';
 import SubmissionGuideContainer from '../../containers/addData/SubmissionGuideContainer.jsx';
 import AddDataPageContainer from '../../containers/addData/AddDataPageContainer.jsx';
-import UploadDetachedFilesPageContainer from '../../containers/uploadDetachedFiles/UploadDetachedFilesPageContainer.jsx';
-import GenerateDetachedFilesPageContainer from '../../containers/generateDetachedFiles/GenerateDetachedFilesPageContainer.jsx';
+import UploadDetachedFilesPageContainer from
+    '../../containers/uploadDetachedFiles/UploadDetachedFilesPageContainer.jsx';
+import GenerateDetachedFilesPageContainer
+    from '../../containers/generateDetachedFiles/GenerateDetachedFilesPageContainer.jsx';
 import * as PermissionsHelper from '../../helpers/permissionsHelper.js';
 
 import StoreSingleton from '../../redux/storeSingleton.js';
@@ -21,7 +23,7 @@ const getStore = () => {
         store = new StoreSingleton().store;
     }
     return store;
-}
+};
 
 const performAutoLogin = (location, replace) => {
     getStore();
@@ -37,12 +39,10 @@ const performAutoLogin = (location, replace) => {
         pushMethod = replace;
     }
 
-
-
-    if (path == "/login") {
-        if (session.login == "loggedIn") {
+    if (path === "/login") {
+        if (session.login === "loggedIn") {
             // user is logged in, go to landing page
-            if (search != "" && query.hasOwnProperty('redirect')) {
+            if (search !== "" && query.hasOwnProperty('redirect')) {
                 // a redirect option was provided
                 pushMethod(query.redirect);
             }
@@ -52,8 +52,8 @@ const performAutoLogin = (location, replace) => {
         }
     }
     else {
-        if (session.login != "loggedIn") {
-            if (path == "/login") {
+        if (session.login !== "loggedIn") {
+            if (path === "/login") {
                 pushMethod('/login');
             }
             else {
@@ -61,63 +61,63 @@ const performAutoLogin = (location, replace) => {
             }
         }
     }
-
-}
+};
 
 const checkUserPermissions = (nextState, replace) => {
     getStore();
     const session = store.getState().session;
-    if (session.login != "loggedIn") {
+    if (session.login !== "loggedIn") {
         performAutoLogin(nextState.location, replace);
     }
     else if (session.user.helpOnly) {
         // if no permissions or attempting to reach DABS with improper permissions, bounce to help
         replace('/help');
     }
-}
+};
 
 const checkDabsUploadPermissions = (nextState, replace) => {
     getStore();
     const session = store.getState().session;
-    if (session.login != "loggedIn") {
+    if (session.login !== "loggedIn") {
         performAutoLogin(nextState.location, replace);
     }
     else if (!session.admin) {
-        for(var i = 0; i < session.user.affiliations.length; i++){
-            if (session.user.affiliations[i].permission === 'writer' || session.user.affiliations[i].permission === 'submitter'){
+        for (let i = 0; i < session.user.affiliations.length; i++) {
+            if (session.user.affiliations[i].permission === 'writer' ||
+                session.user.affiliations[i].permission === 'submitter') {
                 return;
             }
         }
         // if no permissions, bounce to landing
         replace('/landing');
     }
-}
+};
 
 const checkFabsUploadPermissions = (nextState, replace) => {
     getStore();
     const session = store.getState().session;
-    if (session.login != "loggedIn") {
+    if (session.login !== "loggedIn") {
         performAutoLogin(nextState.location, replace);
     }
     else if (!session.admin) {
-        for(var i = 0; i < session.user.affiliations.length; i++){
-            if (session.user.affiliations[i].permission === 'fabs'){
+        for (let i = 0; i < session.user.affiliations.length; i++) {
+            if (session.user.affiliations[i].permission === 'fabs') {
                 return;
             }
         }
         // if no permissions, bounce to landing
         replace('/FABSLanding');
     }
-}
+};
 
 const checkHelpUserPermissions = (nextState, replace) => {
     getStore();
     const session = store.getState().session;
 
-    if (session.login != "loggedIn") {
+    if (session.login !== "loggedIn") {
         performAutoLogin(nextState.location, replace);
     }
-}
+};
 
 const getRoutes = () => {
     let returnRoutes = [
@@ -158,7 +158,7 @@ const getRoutes = () => {
             onEnter: checkUserPermissions,
             getComponent(nextState, cb) {
                 require.ensure([], (require) => {
-                    cb(null, require('../../components/validateData/ValidateDataPage.jsx').default)
+                    cb(null, require('../../components/validateData/ValidateDataPage.jsx').default);
                 });
             },
             type: 'dabs'
@@ -168,7 +168,7 @@ const getRoutes = () => {
             onEnter: checkUserPermissions,
             getComponent(nextState, cb) {
                 require.ensure([], (require) => {
-                    cb(null, require('../../containers/submission/SubmissionContainer.jsx').default)
+                    cb(null, require('../../containers/submission/SubmissionContainer.jsx').default);
                 });
             },
             type: 'dabs'
@@ -178,7 +178,7 @@ const getRoutes = () => {
             onEnter: checkUserPermissions,
             getComponent(nextState, cb) {
                 require.ensure([], (require) => {
-                    cb(null, require('../../components/generateFiles/GenerateFilesPage.jsx').default)
+                    cb(null, require('../../components/generateFiles/GenerateFilesPage.jsx').default);
                 });
             },
             type: 'dabs'
@@ -188,7 +188,7 @@ const getRoutes = () => {
             onEnter: checkUserPermissions,
             getComponent(nextState, cb) {
                 require.ensure([], (require) => {
-                    cb(null, require('../../components/generateEF/GenerateEFPage.jsx').default)
+                    cb(null, require('../../components/generateEF/GenerateEFPage.jsx').default);
                 });
             },
             type: 'dabs'
@@ -198,7 +198,7 @@ const getRoutes = () => {
             onEnter: checkUserPermissions,
             getComponent(nextState, cb) {
                 require.ensure([], (require) => {
-                    cb(null, require('../../components/crossFile/CrossFilePage.jsx').default)
+                    cb(null, require('../../components/crossFile/CrossFilePage.jsx').default);
                 });
             },
             type: 'dabs'
@@ -208,7 +208,7 @@ const getRoutes = () => {
             onEnter: checkUserPermissions,
             getComponent(nextState, cb) {
                 require.ensure([], (require) => {
-                    cb(null, require('../../containers/review/ReviewDataContainer.jsx').default)
+                    cb(null, require('../../containers/review/ReviewDataContainer.jsx').default);
                 });
             },
             type: 'dabs'
@@ -218,7 +218,7 @@ const getRoutes = () => {
             onEnter: checkUserPermissions,
             getComponent(nextState, cb) {
                 require.ensure([], (require) => {
-                    cb(null, require('../../containers/history/HistoryContainer.jsx').default)
+                    cb(null, require('../../containers/history/HistoryContainer.jsx').default);
                 });
             },
             type: 'dabs'
@@ -231,7 +231,7 @@ const getRoutes = () => {
         }
     ];
 
-    //Duplicated routes for FABS/DABS
+    // Duplicated routes for FABS/DABS
     let sharedRoutes = [
         {
             path: 'landing',
@@ -273,14 +273,14 @@ const getRoutes = () => {
             onEnter: [checkHelpUserPermissions, checkUserPermissions],
             component: 'help'
         }
-    ]  
-    for(let i = 0; i < sharedRoutes.length; i++) {
-        if(sharedRoutes[i].onEnter.length == 1) {
-            returnRoutes.push(routeConstructor(sharedRoutes[i], 0, 'dabs'))
+    ];
+    for (let i = 0; i < sharedRoutes.length; i++) {
+        if (sharedRoutes[i].onEnter.length === 1) {
+            returnRoutes.push(routeConstructor(sharedRoutes[i], 0, 'dabs'));
             returnRoutes.push(routeConstructor(sharedRoutes[i], 0, 'fabs'));
         }
         else {
-            returnRoutes.push(routeConstructor(sharedRoutes[i], 0, 'dabs'))
+            returnRoutes.push(routeConstructor(sharedRoutes[i], 0, 'dabs'));
             returnRoutes.push(routeConstructor(sharedRoutes[i], 1, 'fabs'));
         }
     }
@@ -290,55 +290,55 @@ const getRoutes = () => {
             onEnter: checkUserPermissions,
             getComponent(nextState, cb) {
                 require.ensure([], (require) => {
-                    cb(null, require('../../components/error/ErrorPage.jsx').default)
+                    cb(null, require('../../components/error/ErrorPage.jsx').default);
                 });
             },
             type: 'home'
         });
-    return returnRoutes
-}
+    return returnRoutes;
+};
 
 function routeConstructor(route_info, onEnterIndex, type) {
     let prefix = '';
-    if(type == 'fabs') {
-        prefix = 'FABS'
+    if (type === 'fabs') {
+        prefix = 'FABS';
     }
 
-    if(route_info.component === 'landing') {
+    if (route_info.component === 'landing') {
         return {
             path: prefix + route_info.path,
             onEnter: route_info.onEnter[onEnterIndex],
             getComponent(nextState, cb) {
                 require.ensure([], (require) => {
-                    cb(null, require('../../components/landing/LandingPage.jsx').default)
+                    cb(null, require('../../components/landing/LandingPage.jsx').default);
                 });
             },
             type: type
-        }
+        };
     }
-    else if(route_info.component === 'dashboard') {
+    else if (route_info.component === 'dashboard') {
         return {
             path: prefix + route_info.path,
             onEnter: route_info.onEnter[onEnterIndex],
             getComponent(nextState, cb) {
                 require.ensure([], (require) => {
-                    cb(null, require('../../components/dashboard/DashboardPage.jsx').default)
+                    cb(null, require('../../components/dashboard/DashboardPage.jsx').default);
                 });
             },
             type: type
-        }
+        };
     }
-    else if(route_info.component ==='help') {
+    else if (route_info.component ==='help') {
         return {
             path: prefix + route_info.path,
             onEnter: route_info.onEnter[onEnterIndex],
             getComponent(nextState, cb) {
                 require.ensure([], (require) => {
-                    cb(null, require('../help/HelpContainer.jsx').default)
+                    cb(null, require('../help/HelpContainer.jsx').default);
                 });
             },
             type: type
-        }
+        };
     }
 }
 
@@ -351,7 +351,7 @@ const routeDefinitions = {
         type: 'home'
     },
     childRoutes: getRoutes()
-}
+};
 
 export default class RouterRoutes {
     constructor() {
@@ -364,5 +364,4 @@ export default class RouterRoutes {
 
         return instance;
     }
-
 }

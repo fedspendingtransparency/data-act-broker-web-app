@@ -16,12 +16,12 @@ class HistoryContainer extends React.Component {
     }
 
     render() {
-       return(
-        	<HistoryPage submissionID={this.props.params.submissionID} type={this.props.route.type} />
-        )
+        return (
+            <HistoryPage submissionID={this.props.params.submissionID} type={this.props.route.type} />
+        );
     }
 }
 
 export default connect(
     state => ({ session: state.session })
-)(HistoryContainer)
+)(HistoryContainer);

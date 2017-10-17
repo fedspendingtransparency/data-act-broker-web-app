@@ -12,28 +12,28 @@ import * as SubmissionGuideHelper from '../../helpers/submissionGuideHelper.js';
 import LoadingPage from '../../components/submission/SubmissionPage.jsx';
 
 class SubmissionContainer extends React.Component {
-	constructor(props){
-		super(props)
-	}
+    constructor(props) {
+        super(props);
+    }
 
     componentDidMount() {
-    	SubmissionGuideHelper.getSubmissionPage(this.props.params.submissionID)
-    		.then((res) => {
-    			hashHistory.replace(res.url)
-			})
-			.catch((err) => {
-				hashHistory.replace(res.url)
-			});
+        SubmissionGuideHelper.getSubmissionPage(this.props.params.submissionID)
+            .then((res) => {
+                hashHistory.replace(res.url);
+            })
+            .catch((err) => {
+                hashHistory.replace(err.url);
+            });
     }
 
 
     render() {
         return (
-        	<LoadingPage {...this.props} submissionID={this.props.params.submissionID}/>
+            <LoadingPage {...this.props} submissionID={this.props.params.submissionID}/>
         );
     }
 }
 
 export default connect(
-    state => ({session: state.session })
-)(SubmissionContainer)
+    state => ({ session: state.session })
+)(SubmissionContainer);

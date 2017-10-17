@@ -29,14 +29,15 @@ class RouterContainer extends React.Component {
     }
 
     componentDidUpdate(prevProps) {
-        if (this.props.session.login != prevProps.session.login) {
-            if (this.props.session.login == "loggedIn") {
-                // we've switched from either a logged out state to logged in or we've received session data back from the backend
+        if (this.props.session.login !== prevProps.session.login) {
+            if (this.props.session.login === "loggedIn") {
+                // we've switched from either a logged out state to logged in or
+                // we've received session data back from the backend
                 // so we should auto-relogin
                 Routes.autoLogin(this.refs.router.state.location);
                 this.monitorSession();
             }
-            else if (this.props.session.login == "loggedOut" && prevProps.session.login == "loggedIn") {
+            else if (this.props.session.login === "loggedOut" && prevProps.session.login === "loggedIn") {
                 this.logout();
             }
         }
@@ -71,9 +72,9 @@ class RouterContainer extends React.Component {
 
     render() {
         return (
-            <Router routes={Routes.routes()} history={hashHistory} onUpdate={this.handleRouteChange.bind(this)} ref="router" />
+            <Router routes={Routes.routes()} history={hashHistory}
+                onUpdate={this.handleRouteChange.bind(this)} ref="router" />
         );
-
     }
 }
 
@@ -83,4 +84,4 @@ export default connect(
         session: state.session
     }),
     dispatch => bindActionCreators(sessionActions, dispatch)
-)(RouterContainer)
+)(RouterContainer);

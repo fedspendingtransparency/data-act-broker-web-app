@@ -9,52 +9,50 @@ import CommonOverlay from '../SharedComponents/overlays/CommonOverlay.jsx';
 import LoadingBauble from '../SharedComponents/overlays/LoadingBauble.jsx';
 
 const defaultProps = {
-	hasFailed: false
+    hasFailed: false
 };
 
 class OverlayDetail extends React.Component {
-	render() {
-		<div>
-			{this.props.description}
-			<br />
-			<a href={window.location.href}>{window.location.href}</a>
-		</div>
-	}
+    render() {
+        <div>
+            {this.props.description}
+            <br />
+            <a href={window.location.href}>{window.location.href}</a>
+        </div>;
+    }
 }
 
 export default class ValidateDataInProgressOverlay extends React.Component {
+    constructor(props) {
+        super(props);
+    }
 
-	constructor(props) {
-		super(props);
-	}
-	
-	render() {
+    render() {
+        let title = 'Your files are being validated.';
+        let description = 'You can return to this page at any time to check the validation status by using this link: ';
 
-		let title = 'Your files are being validated.';
-		let description = 'You can return to this page at any time to check the validation status by using this link: ';
+        let icon = <LoadingBauble />;
+        let iconClass = 'overlay-animation';
 
-		let icon = <LoadingBauble />;
-		let iconClass = 'overlay-animation';
+        if (this.props.hasFailed) {
+            title = 'An error has occurred while validating your files.';
+            description = 'Contact the Service Desk for assistance. Provide this URL when describing the issue: ';
+            icon = <Icons.ExclamationCircle />;
+            iconClass = 'usa-da-errorRed';
+        }
 
-		if (this.props.hasFailed) {
-			title = 'An error has occurred while validating your files.';
-			description = 'Contact the Service Desk for assistance. Provide this URL when describing the issue: ';
-			icon = <Icons.ExclamationCircle />;
-			iconClass = 'usa-da-errorRed';
-		}
-
-		const detail = <div>{description}<br /><a href={window.location.href}>{window.location.href}</a></div>;
+        const detail = <div>{description}<br /><a href={window.location.href}>{window.location.href}</a></div>;
 
 
-		return (
-			<CommonOverlay
-				header={title}
-				detail={detail}
-				showIcon={true}
-				icon={icon}
-				iconClass={iconClass} />
-		);
-	}
+        return (
+            <CommonOverlay
+                header={title}
+                detail={detail}
+                showIcon={true}
+                icon={icon}
+                iconClass={iconClass} />
+        );
+    }
 }
 
 ValidateDataInProgressOverlay.defaultProps = defaultProps;

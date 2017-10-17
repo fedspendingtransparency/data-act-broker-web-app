@@ -16,7 +16,7 @@ class ReviewDataContainer extends React.Component {
         super(props);
 
         this.state = {
-        	jobs: null,
+            jobs: null,
             cgac_code: null,
             frec_code: null,
             agency_name: '--',
@@ -30,25 +30,24 @@ class ReviewDataContainer extends React.Component {
             total_assistance_obligations: null,
             total_procurement_obligations: null,
             file_narrative: {}
-        }
+        };
     }
 
     componentDidMount() {
-    	this.loadData();
+        this.loadData();
     }
 
     componentDidUpdate(prevProps, prevState) {
-    	if (this.props.params.submissionID != prevProps.params.submissionID) {
-    		// URL submission ID changed, reload
-    		this.loadData();
-    	}
+        if (this.props.params.submissionID !== prevProps.params.submissionID) {
+            // URL submission ID changed, reload
+            this.loadData();
+        }
     }
 
     loadData() {
-
         let submission = {};
 
-    	ReviewHelper.fetchStatus(this.props.params.submissionID)
+        ReviewHelper.fetchStatus(this.props.params.submissionID)
             .then((data) => {
                 data.ready = true;
                 submission = data;
@@ -80,4 +79,4 @@ class ReviewDataContainer extends React.Component {
 export default connect(
     state => ({ submission: state.submission,
                 session: state.session })
-)(ReviewDataContainer)
+)(ReviewDataContainer);

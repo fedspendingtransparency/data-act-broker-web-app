@@ -14,7 +14,7 @@ export const checkPermissions = (session) => {
         }
     }
     return false;
-}
+};
 
 export const checkFabsPermissions = (session) => {
     if (session.admin) {
@@ -30,7 +30,7 @@ export const checkFabsPermissions = (session) => {
         }
     }
     return false;
-}
+};
 
 export const checkAgencyPermissions = (session, agency_name) => {
     if (session.admin) {
@@ -41,12 +41,13 @@ export const checkAgencyPermissions = (session, agency_name) => {
     }
     let aff = session.user.affiliations;
     for (let i = 0; i < aff.length; i++) {
-        if (aff[i].agency_name === agency_name && (aff[i].permission === 'writer' || aff[i].permission === 'submitter')) {
+        if (aff[i].agency_name === agency_name && (aff[i].permission === 'writer' ||
+            aff[i].permission === 'submitter')) {
             return true;
         }
     }
     return false;
-}
+};
 
 export const checkFabsAgencyPermissions = (session, agency_name) => {
     if (session.admin) {
@@ -62,4 +63,4 @@ export const checkFabsAgencyPermissions = (session, agency_name) => {
         }
     }
     return false;
-}
+};

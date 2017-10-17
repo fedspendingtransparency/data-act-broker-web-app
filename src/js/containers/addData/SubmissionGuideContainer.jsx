@@ -19,13 +19,12 @@ class SubmissionGuideContainer extends React.Component {
     }
 
     componentWillMount() {
-
         let forceDisplay = false;
-        if (this.props.location.query.hasOwnProperty('force') && this.props.location.query.force == 'true') {
+        if (this.props.location.query.hasOwnProperty('force') && this.props.location.query.force === 'true') {
             forceDisplay = true;
         }
 
-        if (this.props.session.skipGuide == true && forceDisplay != true){
+        if (this.props.session.skipGuide === true && forceDisplay !== true) {
             this.sendToAddData();
         }
     }
@@ -56,4 +55,4 @@ class SubmissionGuideContainer extends React.Component {
 export default connect(
     state => ({ session: state.session }),
     dispatch => bindActionCreators(sessionActions, dispatch)
-)(SubmissionGuideContainer)
+)(SubmissionGuideContainer);

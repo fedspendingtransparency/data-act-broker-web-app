@@ -27,7 +27,7 @@ export default class ValidateDataErrorReport extends React.Component {
     }
 
     sortTable(direction, column) {
-        if (direction != this.state.sortDirection) {
+        if (direction !== this.state.sortDirection) {
             this.setState({
                 sortDirection: direction
             });
@@ -57,7 +57,6 @@ export default class ValidateDataErrorReport extends React.Component {
     }
 
     clickedReport() {
-
         // check if the link is already signed
         if (this.state.signInProgress) {
             // sign is in progress, do nothing
@@ -78,14 +77,12 @@ export default class ValidateDataErrorReport extends React.Component {
     }
 
     render() {
-                
         let tables = '';
 
         if (this.props.data.length > 0) {
             tables = this.props.data.map((errorData, index) => {
-
                 let rowData = errorData.data;
-                if (this.state.sortDirection != 'asc') {
+                if (this.state.sortDirection !== 'asc') {
                     // reverse the array
                     rowData = _.reverse(_.clone(errorData.data));
                 }
@@ -94,10 +91,9 @@ export default class ValidateDataErrorReport extends React.Component {
                 rowData.forEach((row) => {
                     rows.push([row]);
                 });
-
-                return <ScrollableTable headers={[errorData.header]} data={rows} key={index} sortable={true} onSort={this.sortTable.bind(this)} />
+                return <ScrollableTable headers={[errorData.header]} data={rows} key={index} sortable={true}
+                    onSort={this.sortTable.bind(this)} />;
             });
-            
         }
 
         let reportLinkText = 'Download Error Report';
@@ -115,7 +111,9 @@ export default class ValidateDataErrorReport extends React.Component {
                         <div className="col-md-3 mr-0">
                             <div className="usa-da-download pull-right"
                                 onClick={this.clickedReport.bind(this)}>
-                                <span className="usa-da-icon usa-da-download-report"><Icons.CloudDownload /></span>{reportLinkText}
+                                <span className="usa-da-icon usa-da-download-report">
+                                    <Icons.CloudDownload />
+                                </span>{reportLinkText}
                             </div>
                         </div>
                         <div className="col-md-12">

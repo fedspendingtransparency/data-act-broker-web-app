@@ -27,9 +27,9 @@ class DashboardContainer extends React.Component {
         };
     }
 
-    componentWillReceiveProps(nextProps){
-        if(nextProps.type != this.state.type) {
-            this.setState({type: nextProps.type})
+    componentWillReceiveProps(nextProps) {
+        if (nextProps.type !== this.state.type) {
+            this.setState({ type: nextProps.type });
         }
     }
 
@@ -46,24 +46,24 @@ class DashboardContainer extends React.Component {
         this.setState({
             [tableName + 'Loading']: true
         }, () => {
-             SubmissionListHelper.loadSubmissionList(page, 10, certified, category, order, this.state.type=='fabs')
+            SubmissionListHelper.loadSubmissionList(page, 10, certified, category, order, this.state.type === 'fabs')
                 .then((data) => {
                     this.setState({
                         [tableName + 'Total']: data.total,
                         [tableName + 'Submissions']: data.submissions,
                         [tableName + 'Loading']: false
                     });
-                })
-        })
+                });
+        });
     }
 
-	render() {
-		return (
-			<DashboardContent {...this.state} {...this.props} loadTableData={this.loadTableData.bind(this)} />
-		)
-	}
+    render() {
+        return (
+            <DashboardContent {...this.state} {...this.props} loadTableData={this.loadTableData.bind(this)} />
+        );
+    }
 }
 
 export default connect(
-	state => ({ session: state.session })
-)(DashboardContainer)
+    state => ({ session: state.session })
+)(DashboardContainer);

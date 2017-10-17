@@ -15,9 +15,9 @@ import AddDataPage from '../../components/addData/AddDataPage.jsx';
 import Moment from 'moment';
 
 class AddDataPageContainer extends React.Component {
-	componentDidMount() {
-		this.props.resetSubmission();
-	}
+    componentDidMount() {
+        this.props.resetSubmission();
+    }
 
     render() {
         return (
@@ -29,4 +29,4 @@ class AddDataPageContainer extends React.Component {
 export default connect(
     state => ({ submission: state.submission }),
     dispatch => bindActionCreators(uploadActions, dispatch)
-)(AddDataPageContainer)
+)(AddDataPageContainer);

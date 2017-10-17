@@ -18,12 +18,13 @@ export default class ValidationContent extends React.Component {
     }
 
     render() {
-        let errors = [], warnings = [];
+        let errors = [];
+        let warnings = [];
         let items = fileTypes.map((type, index) => {
             const data = this.props.submission.validation;
             const fileData = data[type.requestName];
 
-            if (fileData && fileData.file_status == 'complete') {
+            if (fileData && fileData.file_status === 'complete') {
                 if (fileData.error_data.length > 0) {
                     errors.push(type.requestName);
                 }

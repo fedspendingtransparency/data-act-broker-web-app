@@ -23,4 +23,4 @@ class GenerateDetachedFilesPageContainer extends React.Component {
 export default connect(
     state => ({ session: state.session }),
     dispatch => bindActionCreators(uploadActions, dispatch)
-)(GenerateDetachedFilesPageContainer)
+)(GenerateDetachedFilesPageContainer);

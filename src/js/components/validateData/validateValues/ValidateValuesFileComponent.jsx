@@ -37,7 +37,7 @@ export default class ValidateValuesFileComponent extends React.Component {
         this.isUnmounted = false;
 
         this.determineErrors(this.props.item);
-        if (this.props.submission.id != null) {
+        if (this.props.submission.id !== null) {
             ReviewHelper.fetchStatus(this.props.submission.id)
                 .then((data) => {
                     data.ready = true;
@@ -51,23 +51,23 @@ export default class ValidateValuesFileComponent extends React.Component {
         }
     }
 
-    componentWillUnmount(){
-        this.isUnmounted = true;
-    }
-
     componentWillReceiveProps(nextProps) {
         this.determineErrors(nextProps.item);
     }
 
-    toggleWarningReport(){
-        this.setState({ 
+    componentWillUnmount() {
+        this.isUnmounted = true;
+    }
+
+    toggleWarningReport() {
+        this.setState({
             showWarning: !this.state.showWarning,
             showError: false
         });
     }
 
-    toggleErrorReport(){
-        this.setState({ 
+    toggleErrorReport() {
+        this.setState({
             showError: !this.state.showError,
             showWarning: false
         });
@@ -82,9 +82,9 @@ export default class ValidateValuesFileComponent extends React.Component {
         return stagedFile;
     }
 
-    signReport(item){
+    signReport(item) {
         let type = null;
-        switch(item.file_type){
+        switch (item.file_type) {
             case 'appropriations':
                 type='A';
                 break;
@@ -102,7 +102,7 @@ export default class ValidateValuesFileComponent extends React.Component {
         }
         if (type) {
             GenerateFilesHelper.fetchFile(type, this.props.submission.id)
-            .then((result)=>{
+            .then((result) => {
                 this.setState({
                     signInProgress: false,
                     signedUrl: result.url
@@ -118,7 +118,7 @@ export default class ValidateValuesFileComponent extends React.Component {
                         body: ''
                     }
                 });
-            });    
+            });
         }
         else {
             this.setState({
@@ -129,7 +129,6 @@ export default class ValidateValuesFileComponent extends React.Component {
                 }
             });
         }
-        
     }
 
     openReport() {
@@ -205,75 +204,82 @@ export default class ValidateValuesFileComponent extends React.Component {
             // also display the new file name
             const newFile = this.props.submission.files[this.props.type.requestName];
             fileName = newFile.file.name;
-            if (newFile.state == 'uploading') {
+            if (newFile.state === 'uploading') {
                 uploadProgress = <FileProgress fileStatus={newFile.progress} />;
             }
         }
 
         let permission = false;
-        if (this.props.type.requestName == 'detached_award') {
+        if (this.props.type.requestName === 'detached_award') {
             permission = PermissionsHelper.checkFabsAgencyPermissions(this.props.session, this.state.agency_name);
         }
         else {
             permission = PermissionsHelper.checkAgencyPermissions(this.props.session, this.state.agency_name);
         }
 
-        let buttonOverlay = '', validationElement = '', isOptional = false, uploadText = 'Choose Corrected File';
+        let buttonOverlay = '';
+        let validationElement = '';
+        let isOptional = false;
+        let uploadText = 'Choose Corrected File';
         if (!this.props.published && permission) {
             // user has permissions and submission is not published
             if (this.state.hasErrors) {
                 // has errors
-                validationElement = (<div className="row usa-da-validate-item-file-section-correct-button" data-testid="validate-upload">
-                                        <div className="col-md-12">
-                                            <ValidateDataUploadButton optional={isOptional} 
-                                                                      onDrop={this.props.onFileChange}
-                                                                      text={uploadText} />
-                                        </div>
-                                    </div>);
+                validationElement = (<div className="row usa-da-validate-item-file-section-correct-button"
+                    data-testid="validate-upload">
+                    <div className="col-md-12">
+                        <ValidateDataUploadButton optional={isOptional}
+                            onDrop={this.props.onFileChange}
+                            text={uploadText} />
+                    </div>
+                </div>);
             }
             else if (this.state.hasWarnings) {
                 // has warnings
                 isOptional = true;
                 uploadText = 'Overwrite File';
-                buttonOverlay = (<CorrectButtonOverlay isReplacingFile={this.isReplacingFile()} 
-                                                              fileKey={this.props.type.requestName} 
-                                                              onDrop={this.props.onFileChange} 
-                                                              removeFile={this.props.removeFile} 
-                                                              fileName={fileName} />);
-                validationElement = <p className='usa-da-warning-txt'>File validated with warnings</p>;
-            } else {
+                buttonOverlay = (<CorrectButtonOverlay isReplacingFile={this.isReplacingFile()}
+                    fileKey={this.props.type.requestName}
+                    onDrop={this.props.onFileChange}
+                    removeFile={this.props.removeFile}
+                    fileName={fileName} />);
+                validationElement = <p className="usa-da-warning-txt">File validated with warnings</p>;
+            }
+            else {
                 // no errors, no warnings
                 isOptional = true;
                 uploadText = 'Overwrite File';
-                buttonOverlay = (<CorrectButtonOverlay isReplacingFile={this.isReplacingFile()} 
-                                                              fileKey={this.props.type.requestName}
-                                                              onDrop={this.props.onFileChange}
-                                                              removeFile={this.props.removeFile}
-                                                              fileName={fileName} />);
-                validationElement = <p className='usa-da-success-txt'>File successfully validated</p>;
+                buttonOverlay = (<CorrectButtonOverlay isReplacingFile={this.isReplacingFile()}
+                    fileKey={this.props.type.requestName}
+                    onDrop={this.props.onFileChange}
+                    removeFile={this.props.removeFile}
+                    fileName={fileName} />);
+                validationElement = <p className="usa-da-success-txt">File successfully validated</p>;
             }
         }
 
-        const warningBaseColors = {base: '#fdb81e', active: '#FF6F00', activeBorder: '#BF360C'};
-        const errorBaseColors = {base: '#5d87bb', active: '#02bfe7', activeBorder: '#046b99'};
+        const warningBaseColors = { base: '#fdb81e', active: '#FF6F00', activeBorder: '#BF360C' };
+        const errorBaseColors = { base: '#5d87bb', active: '#02bfe7', activeBorder: '#046b99' };
 
         let errorMessage = this.state.error ? <UploadDetachedFilesError error={this.state.error} /> : null;
-        let warningSection = null, errorSection = null;
+        let warningSection = null;
+        let errorSection = null;
         if (this.state.showWarning) {
             warningSection = (<ValidateValuesErrorReport submission={this.props.submission.id}
-                                                         fileType={this.props.item.file_type} reportType="warning"
-                                                         data={this.props.item} dataKey="warning_data" name="Warning"
-                                                         colors={warningBaseColors} />)
+                fileType={this.props.item.file_type} reportType="warning"
+                data={this.props.item} dataKey="warning_data" name="Warning"
+                colors={warningBaseColors} />);
         }
         if (this.state.showError) {
             errorSection = (<ValidateValuesErrorReport submission={this.props.submission.id}
-                                                       fileType={this.props.item.file_type} reportType="error" 
-                                                       data={this.props.item} dataKey="error_data" name="Critical Error"
-                                                       colors={errorBaseColors} />)
+                fileType={this.props.item.file_type} reportType="error"
+                data={this.props.item} dataKey="error_data" name="Critical Error"
+                colors={errorBaseColors} />);
         }
 
         return (
-            <div className="row center-block usa-da-validate-item" data-testid={"validate-wrapper-" + this.props.type.requestName}>
+            <div className="row center-block usa-da-validate-item"
+                data-testid={"validate-wrapper-" + this.props.type.requestName}>
                 <div className="col-md-12">
                     {errorMessage}
                     <div className="row usa-da-validate-item-top-section">
@@ -290,8 +296,12 @@ export default class ValidateValuesFileComponent extends React.Component {
                                 </div>
                             </div>
                             <div className="row">
-                                <FileDetailBox styleClass="usa-da-validate-item-warning" label="Warnings" count={this.props.item.warning_count} expandedReport={this.state.showWarning} onClick={this.toggleWarningReport.bind(this)} />
-                                <FileDetailBox styleClass="usa-da-validate-item-critical" label="Critical Errors" count={this.props.item.error_count} expandedReport={this.state.showError} onClick={this.toggleErrorReport.bind(this)} />
+                                <FileDetailBox styleClass="usa-da-validate-item-warning" label="Warnings"
+                                    count={this.props.item.warning_count} expandedReport={this.state.showWarning}
+                                    onClick={this.toggleWarningReport.bind(this)} />
+                                <FileDetailBox styleClass="usa-da-validate-item-critical" label="Critical Errors"
+                                    count={this.props.item.error_count} expandedReport={this.state.showError}
+                                    onClick={this.toggleErrorReport.bind(this)} />
                             </div>
                         </div>
 
@@ -303,7 +313,8 @@ export default class ValidateValuesFileComponent extends React.Component {
                                 </div>
                             </div>
                             <div className="row usa-da-validate-item-file-name">
-                                <div className='file-download' onClick={this.clickedReport.bind(this, this.props.item)} download={fileName} rel="noopener noreferrer">
+                                <div className="file-download" onClick={this.clickedReport.bind(this, this.props.item)}
+                                    download={fileName} rel="noopener noreferrer">
                                     {fileName}
                                 </div>
                             </div>
