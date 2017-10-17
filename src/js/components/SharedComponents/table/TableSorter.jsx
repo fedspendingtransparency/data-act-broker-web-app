@@ -12,35 +12,37 @@ const propTypes = {
 };
 
 const defaultProps = {
-	active: ''
+    active: ''
 };
 
 export default class TableSorter extends React.Component {
 
-	sortAsc() {
-		this.props.onSort('asc', this.props.col);
-	}
-	sortDesc() {
-		this.props.onSort('desc', this.props.col);
-	}
+    sortAsc() {
+        this.props.onSort('asc', this.props.col);
+    }
+    sortDesc() {
+        this.props.onSort('desc', this.props.col);
+    }
 
-	render() {
-		let upClass = '';
-		let downClass = '';
-		if (this.props.active == 'asc') {
-			upClass = ' active';
-		}
-		else if (this.props.active == 'desc') {
-			downClass = ' active';
-		}
+    render() {
+        let upClass = '';
+        let downClass = '';
+        if (this.props.active === 'asc') {
+            upClass = ' active';
+        }
+        else if (this.props.active === 'desc') {
+            downClass = ' active';
+        }
 
-		return (
-			<div className="usa-da-table-sorter">
-				<div className={"usa-da-icon sort-icon usa-da-icon-angle-up" + upClass} onClick={this.sortAsc.bind(this)}><Icons.AngleUp /></div>
-				<div className={"usa-da-icon sort-icon usa-da-icon-angle-down" + downClass} onClick={this.sortDesc.bind(this)}><Icons.AngleDown /></div>
-			</div>
-		);
-	}
+        return (
+            <div className="usa-da-table-sorter">
+                <div className={"usa-da-icon sort-icon usa-da-icon-angle-up" + upClass}
+                    onClick={this.sortAsc.bind(this)}><Icons.AngleUp /></div>
+                <div className={"usa-da-icon sort-icon usa-da-icon-angle-down" + downClass}
+                    onClick={this.sortDesc.bind(this)}><Icons.AngleDown /></div>
+            </div>
+        );
+    }
 }
 
 TableSorter.propTypes = propTypes;

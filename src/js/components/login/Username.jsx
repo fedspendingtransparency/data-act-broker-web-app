@@ -11,8 +11,8 @@ const propTypes = {
 };
 
 const defaultProps = {
-  tabIndex: "1"
-}
+    tabIndex: "1"
+};
 
 export default class Username extends React.Component {
     render() {
@@ -20,18 +20,17 @@ export default class Username extends React.Component {
             <div className="usa-da-input-container">
                 <label className="sr-only" htmlFor="username">Email address</label>
                 <input
-                  className="usa-da-input-with-icon"
-                  id="username"
-                  name="username"
-                  type="text"
-                  placeholder="Email Address"
-                  aria-describedby="username"
-                  onChange={this.props.handleChange}
-                  tabIndex={this.props.tabIndex}
-                />
+                    className="usa-da-input-with-icon"
+                    id="username"
+                    name="username"
+                    type="text"
+                    placeholder="Email Address"
+                    aria-describedby="username"
+                    onChange={this.props.handleChange}
+                    tabIndex={this.props.tabIndex} />
                 <span className="usa-da-icon">
                     <Icons.User alt="Email Address" />
-               </span>
+                </span>
             </div>
         );
     }

@@ -31,7 +31,7 @@ export default class Table extends React.Component {
 
         let extra = '';
         this.props.extraClasses.forEach((className) => {
-            extra += ' ' +  className;
+            extra += ' ' + className;
         });
 
         return (

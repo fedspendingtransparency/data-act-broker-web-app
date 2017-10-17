@@ -64,7 +64,7 @@ export default class UploadDetachedFileMeta extends React.Component {
             agency: agency,
             agencyError: !isValid,
             showUploadFilesBox: isValid
-         });
+        });
     }
 
     updateError(file, header='', description='') {
@@ -76,7 +76,7 @@ export default class UploadDetachedFileMeta extends React.Component {
                 description: description
             }
         });
-        
+
         this.setState({
             [file]: state
         });
@@ -97,16 +97,16 @@ export default class UploadDetachedFileMeta extends React.Component {
 
         this.uploadFileHelper(kGlobalConstants.LOCAL === true && !this.isUnmounted, submission)
             .then((submissionID) => {
-                    this.props.setSubmissionId(submissionID);
-                    this.checkFileStatus(submissionID);
-                    this.props.validate(submissionID);
-                })
-                .catch((err) => {
-                    this.setState({
-                        notAllowed: err.httpStatus === 403,
-                        errorMessage: err.httpStatus === 403 ? err.message : err.body.message
-                    });
+                this.props.setSubmissionId(submissionID);
+                this.checkFileStatus(submissionID);
+                this.props.validate(submissionID);
+            })
+            .catch((err) => {
+                this.setState({
+                    notAllowed: err.httpStatus === 403,
+                    errorMessage: err.httpStatus === 403 ? err.message : err.body.message
                 });
+            });
     }
 
     checkFileStatus(submissionID) {
@@ -123,11 +123,11 @@ export default class UploadDetachedFileMeta extends React.Component {
                     jobResults: job
                 }, () => {
                     this.parseJobStates(response);
-                });             
+                });
             })
-            .catch((err)=>{
+            .catch((err) => {
                 if (err.status === 400) {
-                    this.setState({error: 2, submit: false});
+                    this.setState({ error: 2, submit: false });
                 }
             });
     }

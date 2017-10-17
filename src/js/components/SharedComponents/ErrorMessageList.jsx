@@ -21,7 +21,7 @@ export default class ErrorMessageList extends React.Component {
             errorListItems.push(<ErrorMessageListItem key={i} data={this.props.errorMessages[i]} />);
         }
         return (
-           <div className="col-md-12 alert alert-error mt-40 mb-0" role="alert">
+            <div className="col-md-12 alert alert-error mt-40 mb-0" role="alert">
                 <span className="usa-da-icon usa-da-icon-exclamation-circle"></span>
                 <div className="alert-header-text">Error</div>
                 <ul>{errorListItems}</ul>
@@ -29,5 +29,6 @@ export default class ErrorMessageList extends React.Component {
         );
     }
 }
+
 ErrorMessageList.defaultProps = defaultProps;
 ErrorMessageList.propTypes = propTypes;

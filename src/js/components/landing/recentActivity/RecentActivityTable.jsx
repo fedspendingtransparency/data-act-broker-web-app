@@ -16,247 +16,254 @@ import * as Status from './SubmissionStatus.jsx';
 
 
 export default class RecentActivityTable extends React.Component {
-	constructor(props) {
-		super(props);
+    constructor(props) {
+        super(props);
 
-		this.didUnmount = false;
+        this.didUnmount = false;
 
-		this.state = {
-			cachedResponse: [],
-			data: [],
-			cellClasses: [],
-			headerClasses: [],
-			message: 'Loading recent activity...',
-			sortDirection: 'desc',
-			sortColumn: 4,
-			account: null,
-			user: true
-		};
-	}
+        this.state = {
+            cachedResponse: [],
+            data: [],
+            cellClasses: [],
+            headerClasses: [],
+            message: 'Loading recent activity...',
+            sortDirection: 'desc',
+            sortColumn: 4,
+            account: null,
+            user: true
+        };
+    }
 
-	componentWillReceiveProps(nextProps){
-		if (this.props.type != nextProps.type) {
-			this.loadActivity(nextProps.type);
-			this.loadUser();
-		}
-	}
+    componentDidMount() {
+        this.loadActivity();
+        this.loadUser();
+        this.didUnmount = false;
+    }
 
-	componentDidMount() {
-		this.loadActivity();
-		this.loadUser();
-		this.didUnmount = false;
-	}
+    componentWillReceiveProps(nextProps) {
+        if (this.props.type !== nextProps.type) {
+            this.loadActivity(nextProps.type);
+            this.loadUser();
+        }
+    }
 
-	componentWillUnmount() {
-		this.didUnmount = true;
-	}
+    componentWillUnmount() {
+        this.didUnmount = true;
+    }
 
-	loadUser(){
-		LoginHelper.fetchActiveUser().then((user)=>{
-			this.setState({account: user});
-		});
-	}
+    getHeaders() {
+        let headers = [];
+        if (this.props.type === 'fabs') {
+            headers = [
+                'View',
+                'Agency',
+                'Action Date Range',
+                'Created By',
+                'Last Modified'
+            ];
+            if (PermissionsHelper.checkFabsPermissions(this.props.session)) {
+                headers.push('Delete');
+            }
+        }
+        else {
+            headers = [
+                'View',
+                'Agency',
+                'Reporting Period',
+                'Created By',
+                'Last Modified',
+                'Status'
+            ];
+            if (PermissionsHelper.checkPermissions(this.props.session)) {
+                headers.push('Delete');
+            }
+        }
+        return headers;
+    }
 
-	convertToLocalDate(dateToConvert) {
-		// convert date to local date (toString converts it to whatever the local time is but doesn't allow formatting)
-		const tmpDate = new Date(dateToConvert + " UTC");
-		const localDate = new Date(tmpDate.toString())
-		
-		// format date as YYYY-MM-DD
-		const year = localDate.getFullYear()
-		let month = localDate.getMonth()+1;
-		if(month < 10){
-			month = "0"+month;
-		}
-		let day = localDate.getDate();
-		if(day <10){
-			day = "0"+day;
-		}
-		return year + "-" + month + "-" + day;
-	}
+    deleteWarning(index) {
+        this.setState({
+            deleteIndex: index
+        }, () => {
+            this.buildRow();
+        });
+    }
 
-	loadActivity(type=this.props.type) {
-		SubmissionListHelper.loadRecentActivity(type)
-			.then((data) => {
-				if (this.didUnmount) {
-					return;
-				}
-				// save the response for sorting later
-				this.setState({
-					cachedResponse: data.submissions
-				}, () => {
-					// show the response once the data is in place
-					this.buildRow();
-				});
-			})
-			.catch((err) => {
-				if (this.didUnmount) {
-					return;
-				}
-				this.setState({
-					message: 'An error occurred while loading recent activity.'
-				});
-				console.log(err);
-			});
-	}
-	
-	reload(){
-		this.loadActivity();
-		this.buildRow();
-	}
+    loadActivity(type=this.props.type) {
+        SubmissionListHelper.loadRecentActivity(type)
+            .then((data) => {
+                if (this.didUnmount) {
+                    return;
+                }
+                // save the response for sorting later
+                this.setState({
+                    cachedResponse: data.submissions
+                }, () => {
+                    // show the response once the data is in place
+                    this.buildRow();
+                });
+            })
+            .catch((err) => {
+                if (this.didUnmount) {
+                    return;
+                }
+                this.setState({
+                    message: 'An error occurred while loading recent activity.'
+                });
+                console.log(err);
+            });
+    }
 
-	deleteWarning(index){
-		this.setState({
-			deleteIndex: index
-		}, () =>{
-			this.buildRow()
-		})
-	}
+    reload() {
+        this.loadActivity();
+        this.buildRow();
+    }
 
-	getHeaders(){
-		let headers = [];
-		if (this.props.type === 'fabs') {
-			headers = [
-				'View',
-				'Agency',
-				'Action Date Range',
-				'Created By',
-				'Last Modified'
-			];
-			if (PermissionsHelper.checkFabsPermissions(this.props.session)) {
-				headers.push('Delete');
-			}
-		}
-		else {
-			headers = [
-				'View',
-				'Agency',
-				'Reporting Period',
-				'Created By',
-				'Last Modified',
-				'Status'
-			];
-			if (PermissionsHelper.checkPermissions(this.props.session)) {
-				headers.push('Delete');
-			}
-		}
-		return headers;
-	}
+    convertToLocalDate(dateToConvert) {
+        // convert date to local date (toString converts it to whatever the local time is but doesn't allow formatting)
+        const tmpDate = new Date(dateToConvert + " UTC");
+        const localDate = new Date(tmpDate.toString());
 
-	convertToLocalDate(dateToConvert) {
-		// convert date to local date, need to replace the space with a T for Date() formatting
-		// Add a Z to the end to imply the date is in UTC
-		dateToConvert = dateToConvert.replace(" ", "T") + "Z";
-		const tmpDate = new Date(dateToConvert);
-		
-		// format date as YYYY-MM-DD
-		const year = tmpDate.getFullYear()
-		let month = tmpDate.getMonth() + 1;
-		if(month < 10){
-			month = "0" + month;
-		}
-		let day = tmpDate.getDate();
-		if (day < 10){
-			day = "0" + day;
-		}
-		return year + "-" + month + "-" + day;
-	}
+        // format date as YYYY-MM-DD
+        const year = localDate.getFullYear();
+        let month = localDate.getMonth()+1;
+        if (month < 10) {
+            month = "0"+month;
+        }
+        let day = localDate.getDate();
+        if (day <10) {
+            day = "0"+day;
+        }
+        return year + "-" + month + "-" + day;
+    }
 
-	buildRow() {
-		// iterate through the recent activity
-		const output = [];
-		const rowClasses = [];
+    loadUser() {
+        LoginHelper.fetchActiveUser().then((user) => {
+            this.setState({ account: user });
+        });
+    }
 
-		let classes = ['row-10 text-center', 'row-20 text-center', 'row-15 text-right white-space', 'row-15 text-right', 'row-10 text-right','row-20 text-right progress-cell', 'row-10 text-center'];
-		if (this.props.type == 'fabs') {
-			classes = ['row-10 text-center', 'row-40 text-center', 'row-15 text-right', 'row-15 text-right', 'row-15 text-right','row-10 text-center'];
-		}
-		// sort the array by object key
-		const orderKeys = ['sortableAgency', 'sortableReportingDate', 'sortableName', 'sortableDate'];
-		const data = _.orderBy(this.state.cachedResponse, orderKeys[this.state.sortColumn - 1], this.state.sortDirection);
+    convertToLocalDate(dateToConvert) {
+        // convert date to local date, need to replace the space with a T for Date() formatting
+        // Add a Z to the end to imply the date is in UTC
+        dateToConvert = dateToConvert.replace(" ", "T") + "Z";
+        const tmpDate = new Date(dateToConvert);
 
-		// iterate through each item returned from the API
-		data.forEach((item, index) => {
-			// break the object out into an array for the table component
-			const row = this.formatRow(item, index);
+        // format date as YYYY-MM-DD
+        const year = tmpDate.getFullYear();
+        let month = tmpDate.getMonth() + 1;
+        if (month < 10) {
+            month = "0" + month;
+        }
+        let day = tmpDate.getDate();
+        if (day < 10) {
+            day = "0" + day;
+        }
+        return year + "-" + month + "-" + day;
+    }
 
-			rowClasses.push(classes);
-			output.push(row);
-		});
+    buildRow() {
+        // iterate through the recent activity
+        const output = [];
+        const rowClasses = [];
 
-		const headerClasses = classes;
+        let classes = ['row-10 text-center', 'row-20 text-center', 'row-15 text-right white-space',
+            'row-15 text-right', 'row-10 text-right', 'row-20 text-right progress-cell', 'row-10 text-center'];
+        if (this.props.type === 'fabs') {
+            classes = ['row-10 text-center', 'row-40 text-center', 'row-15 text-right', 'row-15 text-right',
+                'row-15 text-right', 'row-10 text-center'];
+        }
+        // sort the array by object key
+        const orderKeys = ['sortableAgency', 'sortableReportingDate', 'sortableName', 'sortableDate'];
+        const data = _.orderBy(this.state.cachedResponse, orderKeys[this.state.sortColumn - 1],
+            this.state.sortDirection);
 
-		this.setState({
-			data: output,
-			cellClasses: rowClasses,
-			headerClasses: headerClasses,
-			message: (data.length == 0) ? 'No recent activity' : ''
-		});
-	}
+        // iterate through each item returned from the API
+        data.forEach((item, index) => {
+            // break the object out into an array for the table component
+            const row = this.formatRow(item, index);
 
-	formatRow(rowData, index) {
-		let link = <SubmissionLink submissionId={rowData.submission_id} type={this.props.type} />
-		
-		let reportingDateString = "Start: " + rowData.reporting_start_date + "\nEnd: " + rowData.reporting_end_date;
-		if (!rowData.reporting_start_date || !rowData.reporting_end_date) {
-			reportingDateString = 'No reporting period specified';
-		}
-		let userName = rowData.hasOwnProperty('user') ? rowData.user.name : '--';
+            rowClasses.push(classes);
+            output.push(row);
+        });
 
-		let row = [
-			link,
-			rowData.agency,
-			reportingDateString,
-			userName,
-			this.convertToLocalDate(rowData.last_modified)
-		];
+        const headerClasses = classes;
 
-		let unpublished = rowData.publish_status === 'unpublished';
-		let deleteCol = false;
-		let canDelete = false;
-		if (this.props.type === 'fabs') {
-			deleteCol = PermissionsHelper.checkFabsPermissions(this.props.session);
-			canDelete = PermissionsHelper.checkFabsAgencyPermissions(this.props.session, rowData.agency);
-		}
-		else {
-			row.push(<Status.SubmissionStatus status={rowData.rowStatus} certified={!unpublished} />);
+        this.setState({
+            data: output,
+            cellClasses: rowClasses,
+            headerClasses: headerClasses,
+            message: (data.length === 0) ? 'No recent activity' : ''
+        });
+    }
 
-			deleteCol = PermissionsHelper.checkPermissions(this.props.session);
-			canDelete = PermissionsHelper.checkAgencyPermissions(this.props.session, rowData.agency);
-		}
+    formatRow(rowData, index) {
+        let link = <SubmissionLink submissionId={rowData.submission_id} type={this.props.type} />;
 
-		if (deleteCol) {
-			if (canDelete && unpublished) {
-				let deleteConfirm = (this.state.deleteIndex !== -1 && index === this.state.deleteIndex);
-				row.push(<DeleteLink submissionId={rowData.submission_id} index={index} warning={this.deleteWarning.bind(this)} confirm={deleteConfirm} reload={this.reload.bind(this)} item={rowData} account={this.state.account}/>);
-			}
-			else {
-				row.push("N/A");
-			}
-		}
-		return row;
-	}
+        let reportingDateString = "Start: " + rowData.reporting_start_date + "\nEnd: " + rowData.reporting_end_date;
+        if (!rowData.reporting_start_date || !rowData.reporting_end_date) {
+            reportingDateString = 'No reporting period specified';
+        }
+        let userName = rowData.hasOwnProperty('user') ? rowData.user.name : '--';
 
-	sortTable(direction, column) {
-		// the table sorting changed
-		this.setState({
-			sortDirection: direction,
-			sortColumn: column
-		}, () => {
-			// re-display the data
-			this.buildRow();
-		});
-	}
+        let row = [
+            link,
+            rowData.agency,
+            reportingDateString,
+            userName,
+            this.convertToLocalDate(rowData.last_modified)
+        ];
+
+        let unpublished = rowData.publish_status === 'unpublished';
+        let deleteCol = false;
+        let canDelete = false;
+        if (this.props.type === 'fabs') {
+            deleteCol = PermissionsHelper.checkFabsPermissions(this.props.session);
+            canDelete = PermissionsHelper.checkFabsAgencyPermissions(this.props.session, rowData.agency);
+        }
+        else {
+            row.push(<Status.SubmissionStatus status={rowData.rowStatus} certified={!unpublished} />);
+
+            deleteCol = PermissionsHelper.checkPermissions(this.props.session);
+            canDelete = PermissionsHelper.checkAgencyPermissions(this.props.session, rowData.agency);
+        }
+
+        if (deleteCol) {
+            if (canDelete && unpublished) {
+                let deleteConfirm = (this.state.deleteIndex !== -1 && index === this.state.deleteIndex);
+                row.push(<DeleteLink submissionId={rowData.submission_id} index={index}
+                    warning={this.deleteWarning.bind(this)} confirm={deleteConfirm} reload={this.reload.bind(this)}
+                    item={rowData} account={this.state.account}/>);
+            }
+            else {
+                row.push("N/A");
+            }
+        }
+        return row;
+    }
+
+    sortTable(direction, column) {
+        // the table sorting changed
+        this.setState({
+            sortDirection: direction,
+            sortColumn: column
+        }, () => {
+            // re-display the data
+            this.buildRow();
+        });
+    }
 
 
-	render() {
-		return (
-			<div className="usa-da-recent-activity">
-				<FormattedTable headers={this.getHeaders()} data={this.state.data} sortable={true} cellClasses={this.state.cellClasses} headerClasses={this.state.headerClasses} unsortable={[0,5,6]} onSort={this.sortTable.bind(this)} />
-				<div className="text-center">
-					{this.state.message}
-				</div>
-			</div>
-		);
-	}
+    render() {
+        return (
+            <div className="usa-da-recent-activity">
+                <FormattedTable headers={this.getHeaders()} data={this.state.data} sortable={true}
+                    cellClasses={this.state.cellClasses} headerClasses={this.state.headerClasses}
+                    unsortable={[0, 5, 6]} onSort={this.sortTable.bind(this)} />
+                <div className="text-center">
+                    {this.state.message}
+                </div>
+            </div>
+        );
+    }
 }

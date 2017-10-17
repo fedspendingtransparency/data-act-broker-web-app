@@ -9,59 +9,38 @@ import * as ReviewHelper from '../../helpers/reviewHelper.js';
 
 const defaultProps = {
     type: 'all'
-}
+};
 
 export default class Banner extends React.Component {
     constructor(props) {
-        super(props)
+        super(props);
 
         this.state = {
             type: this.props.type,
             app_window: []
-        }
+        };
     }
 
-    componentDidMount(){
+    componentDidMount() {
         this.isWindow();
     }
 
     componentWillReceiveProps(nextProps) {
         let type = null;
-        if(this.state.type !== nextProps.type){
+        if (this.state.type !== nextProps.type) {
             type = nextProps.type;
         }
-        if(type && type != this.state.type) {
+        if (type && type !== this.state.type) {
             this.setState({
                 'type': type
-            })
-            this.isWindow()
+            });
+            this.isWindow();
         }
     }
 
-    isWindow() {
-        ReviewHelper.isWindow()
-            .then((res) => {
-                if(!res.data) {
-                    return;
-                }
-                let app_window = []
-                for(let i = 0; i < res.data.length; i++) {
-                    if(res.data[i].type.toLowerCase() == this.state.type.toLowerCase() || res.data[i].type.toLowerCase() == 'all') {
-                        app_window.push(res.data[i]);
-                    }
-                }
-                if(app_window.length != 0) {
-                    this.setState({app_window: app_window})
-                }
-            })
-            .catch((err) => {
-                console.log(err)
-            })
-    }
-
-    getRows(){
+    getRows() {
         let msg = [];
-        for(let i = 0; i < this.state.app_window.length; i++) {
+        for (let i = 0; i < this.state.app_window.length; i++) {
             msg.push(
                 <div key={'banner'+i} className="published-submission-warning-banner">
                     <div className='container'>
@@ -75,19 +54,41 @@ export default class Banner extends React.Component {
                         </div>
                     </div>
                 </div>
-                )
+                );
         }
         return msg;
+    }
+
+    isWindow() {
+        ReviewHelper.isWindow()
+            .then((res) => {
+                if (!res.data) {
+                    return;
+                }
+                let app_window = [];
+                for (let i = 0; i < res.data.length; i++) {
+                    if (res.data[i].type.toLowerCase() === this.state.type.toLowerCase() ||
+                        res.data[i].type.toLowerCase() === 'all') {
+                        app_window.push(res.data[i]);
+                    }
+                }
+                if (app_window.length !== 0) {
+                    this.setState({ app_window: app_window });
+                }
+            })
+            .catch((err) => {
+                console.log(err);
+            });
     }
 
     render() {
         let message = this.getRows();
         return (
-                <div>
-                    {message}
-                </div>
-            );
+            <div>
+                {message}
+            </div>
+        );
     }
 }
 
-Banner.defaultProps = defaultProps
+Banner.defaultProps = defaultProps;

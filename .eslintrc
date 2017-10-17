@@ -91,6 +91,10 @@
         "no-loop-func": [0],
         "new-cap": [0],
         "no-plusplus": [0],
-        "react/no-multi-comp": [0]
+        "react/no-multi-comp": [0],
+        "no-undef": [0],
+        "func-names": [0],
+        "no-extra-semi": [0],
+        "jsx-quotes": [0]
     }
 }

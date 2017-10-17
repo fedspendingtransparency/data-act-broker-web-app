@@ -9,7 +9,6 @@ const propTypes = {
     data: PropTypes.string.isRequired
 };
 
-
 export default class ErrorMessageListItem extends React.Component {
     render() {
         return (

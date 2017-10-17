@@ -14,6 +14,6 @@ export default class TestEnvironmentBanner extends React.Component {
                 <span className="usa-da-icon error-icon"><Icons.ExclamationTriangle /></span>
                 <p>This is a test environment.</p>
             </div>
-        )
+        );
     }
 }

@@ -21,56 +21,58 @@ const defaultProps = {
     headers: ['Table Data Missing'],
     sortable: false,
     cellClasses: [],
-    headerClasses:[],
+    headerClasses: [],
     unsortable: []
 };
 
 export default class FormattedTable extends React.Component {
-	constructor(props) {
-		super(props);
+    constructor(props) {
+        super(props);
 
-		this.state = {
-			sort: {
-				direction: '',
-				col: -1
-			}
-		};
-	}
+        this.state = {
+            sort: {
+                direction: '',
+                col: -1
+            }
+        };
+    }
 
-	sortTable(direction, col) {
-		this.props.onSort(direction, col);
-		this.setState({
-			sort: {
-				direction: direction,
-				col: col
-			}
-		});
-	}
+    sortTable(direction, col) {
+        this.props.onSort(direction, col);
+        this.setState({
+            sort: {
+                direction: direction,
+                col: col
+            }
+        });
+    }
 
-	render() {
-		const tableRows = [];
+    render() {
+        const tableRows = [];
         for (let i = 0; i < this.props.data.length; i++) {
             tableRows.push(<TableRow key={i} data={this.props.data[i]} cellClasses={this.props.cellClasses[i]} />);
         }
-		return (
-			<div className="usa-da-formatted-table">
-				<div className="usa-da-table-header">
-					<table className="usa-da-table table-bordered">
-						<thead>
-		                    <TableHeaders data={this.props.headers} sortable={this.props.sortable} unsortable={this.props.unsortable} onSort={this.sortTable.bind(this)} currentSort={this.state.sort} headerClasses={this.props.headerClasses} />
-		                </thead>
-		            </table>
-	            </div>
-	           	<div className="usa-da-table-content">
-		            <table className="usa-da-table table-bordered">
-		            	<tbody>
-		                    {tableRows}
-		                </tbody>
-		            </table>
-		        </div>
-			</div>
-		);
-	}
+        return (
+            <div className="usa-da-formatted-table">
+                <div className="usa-da-table-header">
+                    <table className="usa-da-table table-bordered">
+                        <thead>
+                            <TableHeaders data={this.props.headers} sortable={this.props.sortable}
+                                unsortable={this.props.unsortable} onSort={this.sortTable.bind(this)}
+                                currentSort={this.state.sort} headerClasses={this.props.headerClasses} />
+                        </thead>
+                    </table>
+                </div>
+                <div className="usa-da-table-content">
+                    <table className="usa-da-table table-bordered">
+                        <tbody>
+                            {tableRows}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        );
+    }
 }
 
 FormattedTable.propTypes = propTypes;

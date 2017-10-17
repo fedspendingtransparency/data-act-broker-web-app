@@ -5,28 +5,28 @@ import Footer from '../SharedComponents/FooterComponent.jsx';
 import AddDataHeader from './../addData/AddDataHeader.jsx';
 
 export default class LoadingPage extends React.Component {
-	constructor(props){
-		super(props)
-	}
+    constructor(props) {
+        super(props);
+    }
 
-	componentWillMount(){
-		let header = 'Your Submission is Loading'
-		let message = 'We are gathering your submissions state. Please wait while we gather your data'
-		if(this.props.message) {
-			message = this.props.message
-		}
-		if(this.props.header) {
-			header = this.props.header
-		}
-		this.setState({
-			message: message,
-			header: header
-		})
-	}
+    componentWillMount() {
+        let header = 'Your Submission is Loading';
+        let message = 'We are gathering your submissions state. Please wait while we gather your data';
+        if (this.props.message) {
+            message = this.props.message;
+        }
+        if (this.props.header) {
+            header = this.props.header;
+        }
+        this.setState({
+            message: message,
+            header: header
+        });
+    }
 
-	render() {
-		let dummy = {
-        	jobs: [],
+    render() {
+        let dummy = {
+            jobs: [],
             cgac_code: '',
             frec_code: '',
             agency_name: '--',
@@ -40,9 +40,9 @@ export default class LoadingPage extends React.Component {
             total_assistance_obligations: 0,
             total_procurement_obligations: 0,
             file_narrative: {}
-        }
+        };
 
-		return (
+        return (
             <div className="usa-da-review-data-page">
                 <div className="usa-da-site_wrap">
                     <div className="usa-da-page-content">
@@ -53,6 +53,6 @@ export default class LoadingPage extends React.Component {
                 </div>
                 <Footer />
             </div>
-		);
-	}
+        );
+    }
 }

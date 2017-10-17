@@ -15,7 +15,9 @@ export default class ReviewDataSelectedUser extends React.Component {
     render() {
         return (
             <div className="usa-da-review-data-user-row">
-                <a className="usa-da-icon usa-da-icon-times-circle" onClick={this.props.deselectUser}><Icons.TimesCircle /></a>
+                <a className="usa-da-icon usa-da-icon-times-circle" onClick={this.props.deselectUser}>
+                    <Icons.TimesCircle />
+                </a>
                 <span>
                     {this.props.user.displayName}
                 </span>

@@ -26,14 +26,14 @@ export default class Progress extends React.Component {
         super(props);
     }
 
-    componentDidMount(){
+    componentDidMount() {
         SubmissionHelper.getSubmissionPage(this.props.id)
             .then((res) => {
-                if(this.props.currentStep > res.page){
+                if (this.props.currentStep > res.page) {
                     hashHistory.push(res.url);
                 }
             }).catch((res) => {
-                hashHistory.push('/404')
+                hashHistory.push('/404');
             });
     }
 
@@ -45,14 +45,22 @@ export default class Progress extends React.Component {
 
         for (let i = 1; i <= this.props.totalSteps; i++) {
             if (i < this.props.currentStep) {
-                progressBar.push(<li key={i} className="usa-da-progress-bar-step-done"><a href={stepLink[i-1] +"/"+ this.props.id} ><span className="step">{i}</span></a></li>);
-                progressLabels.push(<li key={i} className="usa-da-progress-bar-step-done"><span className="name"><a href={stepLink[i-1] +"/"+ this.props.id} >{stepNames[i - 1]}</a></span></li>);
-            } else if (i === this.props.currentStep) {
-                progressBar.push(<li key={i} className="usa-da-progress-bar-step-current"><span className="step">{i}</span></li>);
-                progressLabels.push(<li key={i} className="usa-da-progress-bar-step-current"><span className="name">{stepNames[i - 1]}</span></li>);
-            } else {
-                progressBar.push(<li key={i} className="usa-da-progress-bar-step"><span className="step">{i}</span></li>);
-                progressLabels.push(<li key={i} className="usa-da-progress-bar-step"><span className="name">{stepNames[i - 1]}</span></li>);
+                progressBar.push(<li key={i} className="usa-da-progress-bar-step-done">
+                    <a href={stepLink[i-1] +"/"+ this.props.id} ><span className="step">{i}</span></a></li>);
+                progressLabels.push(<li key={i} className="usa-da-progress-bar-step-done"><span className="name">
+                    <a href={stepLink[i-1] +"/"+ this.props.id} >{stepNames[i - 1]}</a></span></li>);
+            }
+            else if (i === this.props.currentStep) {
+                progressBar.push(<li key={i} className="usa-da-progress-bar-step-current"><span className="step">{i}
+                </span></li>);
+                progressLabels.push(<li key={i} className="usa-da-progress-bar-step-current"><span className="name">
+                {stepNames[i - 1]}</span></li>);
+            }
+            else {
+                progressBar.push(<li key={i} className="usa-da-progress-bar-step"><span className="step">{i}</span>
+                </li>);
+                progressLabels.push(<li key={i} className="usa-da-progress-bar-step"><span className="name">
+                {stepNames[i - 1]}</span></li>);
             }
         }
 

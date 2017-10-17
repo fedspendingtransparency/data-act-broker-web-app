@@ -10,8 +10,8 @@ const propTypes = {
 };
 
 const defaultProps = {
-	cellClass: '',
-	data: ''
+    cellClass: '',
+    data: ''
 };
 
 export default class TableCell extends React.Component {

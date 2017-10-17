@@ -12,7 +12,7 @@ const propTypes = {
     iconClass: PropTypes.string,
     error: PropTypes.bool,
     placeholder: PropTypes.string
-}
+};
 
 const defaultProps = {
     fieldID: "password",
@@ -21,7 +21,7 @@ const defaultProps = {
     tabIndex: "2",
     placeholder: "Password",
     isRequired: true
-}
+};
 
 export default class Password extends React.Component {
     render() {
@@ -41,11 +41,10 @@ export default class Password extends React.Component {
                     aria-describedby="password"
                     onChange={this.props.handleChange}
                     tabIndex={this.props.tabIndex}
-                    aria-required={this.props.isRequired}
-                />
+                    aria-required={this.props.isRequired} />
                 <span className="usa-da-icon">
                     <Icons.Lock alt="Password" />
-               </span>
+                </span>
             </div>
         );
     }

@@ -28,7 +28,8 @@ export default class EmailValidation extends React.Component {
         // Activate submit button if input matches provided regex
         if (inputText.match(this.props.regex)) {
             newButtonDisabled = false;
-        } else {
+        }
+        else {
             newButtonDisabled = true;
         }
 
@@ -38,14 +39,12 @@ export default class EmailValidation extends React.Component {
 
     render() {
         return (
-            <input
-              id={this.props.id}
-              name={this.props.id}
-              placeholder={this.props.placeholder}
-              type="text"
-              onChange={this.handleChange.bind(this)}
-              value={this.props.value}
-            />
+            <input id={this.props.id}
+                name={this.props.id}
+                placeholder={this.props.placeholder}
+                type="text"
+                onChange={this.handleChange.bind(this)}
+                value={this.props.value} />
         );
     }
 }

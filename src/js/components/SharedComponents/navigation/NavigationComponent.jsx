@@ -24,16 +24,6 @@ export class Navbar extends React.Component {
         super(props);
     }
 
-    logout(e) {
-        e.preventDefault();
-        this.props.setSession({
-            login: 'loggedOut',
-            user: {},
-            admin: false,
-            skipGuide: false
-        });
-    }
-
     getTabs() {
         // default access: only Help page
         let tabNames = {
@@ -44,7 +34,7 @@ export class Navbar extends React.Component {
             tabNames = {};
         }
         else if (this.props.type === 'fabs') {
-            // user has FABS permissions 
+            // user has FABS permissions
             let fabsWrite = this.props.session.admin || PermissionHelper.checkFabsPermissions(this.props.session);
             tabNames = {
                 'Home': 'FABSlanding',
@@ -66,6 +56,16 @@ export class Navbar extends React.Component {
         return tabNames;
     }
 
+    logout(e) {
+        e.preventDefault();
+        this.props.setSession({
+            login: 'loggedOut',
+            user: {},
+            admin: false,
+            skipGuide: false
+        });
+    }
+
     render() {
         let tabNames = this.getTabs();
 
@@ -74,19 +74,20 @@ export class Navbar extends React.Component {
         const userText = this.props.session.user === '' ? '' : this.props.session.user.name;
 
         let userButton = null;
-        if (this.props.session.login == "loggedIn") {
+        if (this.props.session.login === "loggedIn") {
             userButton = <UserButton buttonText={userText} logout={this.logout.bind(this)} />;
         }
 
         Object.keys(tabNames).map((key) => {
-            headerTabs.push(<NavbarTab key={tabNames[key]} name={key} tabClass={tabNames[key]} activeTabClassName={context.props.activeTab} />);
+            headerTabs.push(<NavbarTab key={tabNames[key]} name={key} tabClass={tabNames[key]}
+                activeTabClassName={context.props.activeTab} />);
         });
 
         let navClass = "";
         let testBanner = null;
         if (!kGlobalConstants.PROD) {
             navClass = " tall";
-            testBanner = <TestEnvironmentBanner />
+            testBanner = <TestEnvironmentBanner />;
         }
 
         return (
@@ -108,7 +109,8 @@ export class Navbar extends React.Component {
                 <div className="container-fluid">
                     <div className="container usa-da-header-container">
                         <div className="navbar-header usa-da-header-navbar">
-                            <button type="button" className="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+                            <button type="button" className="navbar-toggle collapsed" data-toggle="collapse"
+                                data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
                                 <span className="sr-only">Toggle navigation</span>
                                 <span className="icon-bar"></span>
                                 <span className="icon-bar"></span>
@@ -134,4 +136,4 @@ Navbar.defaultProps = defaultProps;
 export default connect(
     state => ({ session: state.session }),
     dispatch => bindActionCreators(sessionActions, dispatch)
-)(Navbar)
+)(Navbar);

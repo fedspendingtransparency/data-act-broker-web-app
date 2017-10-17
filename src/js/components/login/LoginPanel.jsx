@@ -1,7 +1,7 @@
 /**
 * LoginPanel.jsx
 * Created by Kyle Fox 2/19/16
-**/ 
+**/
 
 import React from 'react';
 import Username from './Username.jsx';
@@ -44,13 +44,11 @@ export default class LoginPanel extends React.Component {
     }
 
     render() {
-        
         let errorMessageComponent = null;
 
-        if (this.props.session.login == "failed") {
+        if (this.props.session.login === "failed") {
             errorMessageComponent = <ErrorMessage message={this.props.errorMessage} />;
         }
-
 
         return (
             <div className="login-form-wrap">
@@ -67,7 +65,8 @@ export default class LoginPanel extends React.Component {
                     </div>
                     <div className="row">
                         <div className="col-sm-12 col-md-offset-4 col-md-8">
-                            <SignInButton onClick={this.loginClicked.bind(this)} buttonText="Sign In" disabled={this.props.loading} />
+                            <SignInButton onClick={this.loginClicked.bind(this)} buttonText="Sign In"
+                                disabled={this.props.loading} />
                         </div>
                     </div>
                     <div className="row">

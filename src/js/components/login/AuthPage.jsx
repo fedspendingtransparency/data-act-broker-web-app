@@ -16,7 +16,7 @@ export default class AuthPage extends React.Component {
     render() {
         let testBanner = null;
         if (!kGlobalConstants.PROD) {
-            testBanner = <TestEnvironmentBanner />
+            testBanner = <TestEnvironmentBanner />;
         }
 
         return (
