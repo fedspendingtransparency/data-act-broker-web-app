@@ -71,17 +71,17 @@ export default class DashboardTable extends React.Component {
         if (this.props.isCertified) {
             if (this.state.type === 'fabs') {
                 headers = [
-                    'Action Date Range',
-                    'Agency',
+                    'Submission ID',
+                    'Agency: Filename',
                     'Created By',
-                    'Last Modified',
+                    'Action Date Range',
                     'Published By',
                     'Published On'
                 ];
             }
             else {
                 headers = [
-                    'Reporting Period',
+                    'Reporting Period\nSubmission ID',
                     'Agency',
                     'Created By',
                     'Last Modified',
@@ -95,17 +95,22 @@ export default class DashboardTable extends React.Component {
         else {
             let dateName = '';
             let canDelete = false;
+            let agency = '';
+            let view = 'View'
             if (this.state.type === 'fabs') {
                 dateName = 'Action Date Range';
                 canDelete = PermissionsHelper.checkFabsPermissions(this.props.session);
+                agency = 'Agency:Filename'
+                view = 'Submission ID'
             }
             else {
                 dateName = 'Reporting Period';
                 canDelete = PermissionsHelper.checkPermissions(this.props.session);
+                agency = 'Agency'
             }
             headers = [
-                'View',
-                'Agency',
+                view,
+                agency,
                 dateName,
                 'Created By',
                 'Last Modified',
@@ -163,6 +168,9 @@ export default class DashboardTable extends React.Component {
                 case 3:
                     return 'modified';
                     break;
+                case 5:
+                    return 'modified';
+                    break;
                 default:
                     return 'modified';
             }
@@ -210,7 +218,7 @@ export default class DashboardTable extends React.Component {
         }
         let reportingDateString = start + item.reporting_start_date + end + item.reporting_end_date;
         if (!item.reporting_start_date || !item.reporting_end_date) {
-            reportingDateString = 'No reporting period specified';
+            reportingDateString = 'No reporting period\nspecified';
         }
 
         let userName = item.hasOwnProperty('user') ? item.user.name : '--';
@@ -218,6 +226,7 @@ export default class DashboardTable extends React.Component {
         let deleteConfirm = this.state.deleteIndex !== -1 && index === this.state.deleteIndex;
 
         let link = <SubmissionLink submissionId={item.submission_id} type={this.state.type}/>;
+
         if (this.props.isCertified) {
             link = <SubmissionLink submissionId={item.submission_id} value={reportingDateString} type={this.state.type}/>;
         }
@@ -227,20 +236,21 @@ export default class DashboardTable extends React.Component {
             // Certified Submissions table
             row = [
                 link,
-                item.agency,
-                userName,
-                this.convertToLocalDate(item.last_modified)
+                this.getAgency(item),
+                userName
             ];
 
             let certified_on = item.certified_on !== "" ? this.convertToLocalDate(item.certified_on) : item.certified_on;
             if (this.props.type === 'fabs') {
                 row = row.concat([
+                    reportingDateString,
                     item.certifying_user,
                     certified_on
                 ]);
             }
             else {
                 row = row.concat([
+                    this.convertToLocalDate(item.last_modified),
                     <Status.SubmissionStatus status={item.rowStatus} certified={this.props.isCertified} />,
                     item.certifying_user,
                     certified_on,
@@ -252,7 +262,7 @@ export default class DashboardTable extends React.Component {
             // Active Submissions table
             row = [
                 link,
-                item.agency,
+                this.getAgency(item),
                 reportingDateString,
                 userName,
                 this.convertToLocalDate(item.last_modified),
@@ -286,13 +296,14 @@ export default class DashboardTable extends React.Component {
         // iterate through the recent activity
         const output = [];
         const rowClasses = [];
-
-        let classes = ['row-10 text-center', 'row-20 text-center', 'row-15 text-right white-space', 'row-15 text-right', 'row-10 text-right','row-20 text-right progress-cell', 'row-10 text-center'];
+        let progress_size = this.props.type == 'fabs' ? 15 : 20;
+        let view_size = this.props.type == 'fabs' ? 15 : 10;
+        let classes = ['row-10 text-center', 'row-20 text-center', 'row-15 text-right white-space', 'row-15 text-right', 'row-10 text-right','row-' + progress_size + ' text-right progress-cell', 'row-10 text-center'];
 
         if (this.props.isCertified) {
-            classes = ['row-15 text-center', 'row-20 text-right white-space', 'row-12_5 text-right', 'row-10 text-right','row-20 text-right progress-cell', 'row-10 text-center', 'row-10 text-center', 'row-10 text-center'];
+            classes = ['row-' + view_size + ' text-center', 'row-20 text-right white-space', 'row-12_5 text-right', 'row-10 text-right','row-20 text-right progress-cell', 'row-10 text-center', 'row-10 text-center', 'row-10 text-center'];
             if(this.state.type == 'fabs') {
-                classes = ['row-15 text-center', 'row-20 text-right white-space', 'row-12_5 text-right', 'row-10 text-right','row-20 text-right', 'row-10 text-center'];
+                classes = ['row-10 text-center', 'row-25 text-right', 'row-10 text-right', 'row-15 text-right white-space','row-10 text-right', 'row-10 text-center'];
             }
             
         }
@@ -322,6 +333,14 @@ export default class DashboardTable extends React.Component {
         });
     }
 
+    getAgency(item) {
+        let agency = item.agency
+        if (this.props.type === 'fabs') {
+            return agency += ":\n" + item.files[0].split('/').pop().replace(/^[0-9]*_/,"")
+        }
+        return agency
+    }
+
     render() {
         let paginator;
 
@@ -340,11 +359,12 @@ export default class DashboardTable extends React.Component {
         let headers = this.getHeaders();
 
         //cannot be added to the const because if a user is read only then delete will not be created
-        let unsortable = [0, 5, 6];
+        let unsortable = [0, 2, 5, 6];
         if(this.props.isCertified && this.state.type == 'fabs'){
-            unsortable = [0, 4, 5];
-        } else if(this.props.isCertified) {
-        	unsortable = [0, 4, 5, 7];
+            unsortable = [0, 3, 4];
+        }
+        else if(this.props.isCertified) {
+        	unsortable = [0, 4, 5, 6, 7];
         }
 
         return (
