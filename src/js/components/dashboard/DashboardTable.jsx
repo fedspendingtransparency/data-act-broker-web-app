@@ -86,9 +86,7 @@ export default class DashboardTable extends React.Component {
                     'Created By',
                     'Last Modified',
                     'Status',
-                    'Certified By',
-                    'Certified On',
-                    'History'
+                    'Certification'
                 ];
             }
         }
@@ -252,9 +250,11 @@ export default class DashboardTable extends React.Component {
                 row = row.concat([
                     this.convertToLocalDate(item.last_modified),
                     <Status.SubmissionStatus status={item.rowStatus} certified={this.props.isCertified} />,
-                    item.certifying_user,
-                    certified_on,
-                    <HistoryLink submissionId={item.submission_id} />
+                    <span>
+                        {item.certifying_user}<br/>
+                        {certified_on}<br/>
+                        <HistoryLink submissionId={item.submission_id} />
+                    </span>
                 ]);
             }
         }
@@ -301,7 +301,7 @@ export default class DashboardTable extends React.Component {
         let classes = ['row-10 text-center', 'row-20 text-center', 'row-15 text-right white-space', 'row-15 text-right', 'row-10 text-right','row-' + progress_size + ' text-right progress-cell', 'row-10 text-center'];
 
         if (this.props.isCertified) {
-            classes = ['row-' + view_size + ' text-center', 'row-20 text-right white-space', 'row-12_5 text-right', 'row-10 text-right','row-20 text-right progress-cell', 'row-10 text-center', 'row-10 text-center', 'row-10 text-center'];
+            classes = ['row-' + view_size + ' text-center', 'row-25 text-right white-space', 'row-12_5 text-right', 'row-10 text-right','row-20 text-right progress-cell', 'row-10 text-center'];
             if(this.state.type == 'fabs') {
                 classes = ['row-10 text-center', 'row-25 text-right', 'row-10 text-right', 'row-15 text-right white-space','row-10 text-right', 'row-10 text-center'];
             }
