@@ -23,40 +23,40 @@ const defaultProps = {
 };
 
 export default class SubmissionLink extends React.Component {
-    constructor(props) {
-        super(props);
-    }
+	constructor(props) {
+		super(props);
+	}
 
 
-    render() {
-        let link = <Icons.Eye alt="View" />;
-        if (this.props.value) {
-            link = this.props.value;
-        }
-        else if (this.props.disabled) {
-            link = 'N/A';
-        }
+	render() {
+		let link = 'ID: ' + this.props.submissionId;
+		if(this.props.value && this.props.type !== 'fabs') {
+			link = this.props.value + '\nID: ' + this.props.submissionId;
+		} 
+		else if(this.props.disabled) {
+			link = 'N/A';
+		}
 
-        let content = <a href={"#/submission/" + this.props.submissionId} className='date-link'>
-            {link}
-        </a>;
-        if (this.props.type === 'fabs') {
-            content = <a href={"#/FABSAddData/" + this.props.submissionId} className='date-link'>
-                {link}
-            </a>;
-        }
+		let content = <a href={"#/submission/" + this.props.submissionId} className='date-link'>
+						{link}
+					</a>;
+		if(this.props.type == 'fabs') {
+			content = <a href={"#/FABSAddData/" + this.props.submissionId} className='date-link'>
+						{link}
+					</a>;
+		}
 
-        if (this.props.disabled) {
-            content = <div className='date-link'>
-                {link}
-            </div>;
-        }
-        return (
-            <div className="usa-da-recent-activity-link">
-                {content}
-            </div>
-        );
-    }
+		if(this.props.disabled) {
+			content = <div className='date-link'>
+						{link}
+					</div>;
+		}
+		return (
+			<div className="usa-da-recent-activity-link">
+				{content}
+			</div>
+		);
+	}
 }
 
 SubmissionLink.propTypes = propTypes;

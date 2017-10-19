@@ -94,7 +94,32 @@ class UploadDetachedFileValidation extends React.Component {
         this.setState({
             showPublish: false
         });
-    }
+	}
+
+	startRevalidation() {
+		this.setState({
+			validationFinished: false,
+			published:'unpublished'
+		}, this.revalidate())
+	}
+	
+	revalidate() {
+		ReviewHelper.revalidateSubmission(this.state.submissionID, true)
+			.then(() => {
+				this.checkFileStatus(this.state.submissionID)
+			})
+			.catch((error) => {
+				let errMsg = "An error occurred while attempting to revalidate the submission. Please contact the Service Desk.";
+				if (error.httpStatus == 400 || error.httpStatus == 403) {
+					errMsg = error.message;
+				}
+
+				this.setState({
+					error: 4,
+					error_message: errMsg
+				});
+			});
+	}
 
     checkFileStatus(submissionID) {
         // callback to check file status
