@@ -8,7 +8,16 @@
 
         .date-link {
             white-space: pre;
+            padding: 0px;
         }
+
+        .usa-da-icon-eye {
+            margin-right: 0px;
+        }
+    }
+
+    .white-space {
+        white-space: pre;
     }
 
     @import "../../components/tables/_submissionTableProgress";

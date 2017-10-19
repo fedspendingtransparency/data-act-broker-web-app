@@ -117,8 +117,8 @@ export default class RecentActivityTable extends React.Component {
 		let headers = [];
 		if (this.props.type === 'fabs') {
 			headers = [
-				'View',
-				'Agency',
+				'Submission ID',
+				'Agency: Filename',
 				'Action Date Range',
 				'Created By',
 				'Last Modified'
@@ -129,7 +129,7 @@ export default class RecentActivityTable extends React.Component {
 		}
 		else {
 			headers = [
-				'View',
+				'Submission ID',
 				'Agency',
 				'Reporting Period',
 				'Created By',
@@ -142,6 +142,14 @@ export default class RecentActivityTable extends React.Component {
 		}
 		return headers;
 	}
+
+	getAgency(item) {
+        let agency = item.agency
+        if (this.props.type === 'fabs') {
+            return agency += ":\n" + item.files[0].split('/').pop().replace(/^[0-9]*_/,"")
+        }
+        return agency
+    }
 
 	convertToLocalDate(dateToConvert) {
 		// convert date to local date, need to replace the space with a T for Date() formatting
@@ -205,7 +213,7 @@ export default class RecentActivityTable extends React.Component {
 
 		let row = [
 			link,
-			rowData.agency,
+			this.getAgency(rowData),
 			reportingDateString,
 			userName,
 			this.convertToLocalDate(rowData.last_modified)
@@ -252,7 +260,7 @@ export default class RecentActivityTable extends React.Component {
 	render() {
 		return (
 			<div className="usa-da-recent-activity">
-				<FormattedTable headers={this.getHeaders()} data={this.state.data} sortable={true} cellClasses={this.state.cellClasses} headerClasses={this.state.headerClasses} unsortable={[0,5,6]} onSort={this.sortTable.bind(this)} />
+				<FormattedTable headers={this.getHeaders()} data={this.state.data} sortable={true} cellClasses={this.state.cellClasses} headerClasses={this.state.headerClasses} unsortable={[0,2,5,6]} onSort={this.sortTable.bind(this)} />
 				<div className="text-center">
 					{this.state.message}
 				</div>
