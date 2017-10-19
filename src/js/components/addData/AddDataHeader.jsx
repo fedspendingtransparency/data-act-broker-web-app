@@ -39,22 +39,25 @@ export default class AddDataHeader extends React.Component {
         };
     }
 
-    componentWillReceiveProps(nextProps) {
-        if(this.state.submissionID !== nextProps.submissionID) {
-            this.setState({submissionID: nextProps.submissionID})
-            this.loadData(nextProps.submissionID)
-        }
-        
-    }
-
     componentDidMount() {
         this.isUnmounted = false;
-        if (this.props.submissionID != null && !this.props.load) {
+        if (this.props.submissionID !== null && !this.props.load) {
             this.loadData(this.props.submissionID);
         }
     }
 
-    loadData(submissionID){
+    componentWillReceiveProps(nextProps) {
+        if (this.state.submissionID !== nextProps.submissionID) {
+            this.setState({ submissionID: nextProps.submissionID });
+            this.loadData(nextProps.submissionID);
+        }
+    }
+
+    componentWillUnmount() {
+        this.isUnmounted = true;
+    }
+
+    loadData(submissionID) {
         ReviewHelper.fetchStatus(submissionID)
                 .then((data) => {
                     data.ready = true;
@@ -67,19 +70,14 @@ export default class AddDataHeader extends React.Component {
                 });
     }
 
-    componentWillUnmount() {
-        this.isUnmounted = true;
-    }
-
     render() {
         let submissionContext = null;
         if (this.state.ready) {
             let formattedTime = moment.utc(this.state.last_updated).local().format('MM/DD/YYYY h:mm a');
             submissionContext = <SubmissionContext
-              formattedTime={formattedTime}
-              agencyName={this.state.agency_name}
-              timePeriodLabel={this.state.reporting_period_start_date}
-            />
+                formattedTime={formattedTime}
+                agencyName={this.state.agency_name}
+                timePeriodLabel={this.state.reporting_period_start_date} />;
         }
 
         return (
@@ -92,7 +90,6 @@ export default class AddDataHeader extends React.Component {
                         <div className="col-md-2">
                             {submissionContext}
                         </div>
-                        
                     </div>
                 </div>
             </div>

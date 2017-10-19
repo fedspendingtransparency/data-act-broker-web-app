@@ -10,7 +10,7 @@ const defaultProps = {
     value: 1,
     showLead: false,
     showTail: false
-}
+};
 
 export default class DashboardPaginatorItem extends React.Component {
     clickedPage(e) {

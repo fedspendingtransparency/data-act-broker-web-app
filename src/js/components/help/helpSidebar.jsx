@@ -14,21 +14,23 @@ export default class HelpSidebar extends React.Component {
 
     render() {
         const clSectionList = this.props.changeSections.map((section, index) => {
-            return <HelpSidebarItem key={index} sectionName={section.name} sectionId={section.link} type={this.props.type} />
+            return <HelpSidebarItem key={index} sectionName={section.name} sectionId={section.link}
+                type={this.props.type} />;
         });
 
         const tSectionList = this.props.technicalSections.map((section, index) => {
-            return <HelpSidebarItem key={index} sectionName={section.name} sectionId={section.link} type={this.props.type} />
+            return <HelpSidebarItem key={index} sectionName={section.name} sectionId={section.link}
+                type={this.props.type} />;
         });
 
         let membership = null;
-        if(this.props.helpOnly){
+        if (this.props.helpOnly) {
             membership=
-                     <li>
-                        <a href="/#/help?section=agencyAccess">Request Agency Access</a>
-                    </li>;
+                <li>
+                    <a href="/#/help?section=agencyAccess">Request Agency Access</a>
+                </li>;
         }
-        
+
         const help = this.props.type === 'fabs' ? "/#/FABSHelp" : '/#/help';
         const history = this.props.type === 'fabs' ? "/#/FABSHistory" : '/#/history';
         const technicalHistory = this.props.type === 'fabs' ? "/#/FABSTechnicalHistory" : '/#/technicalHistory';
@@ -39,7 +41,7 @@ export default class HelpSidebar extends React.Component {
                 <h6>What’s New in This Release</h6>
                 <ul>
                     {clSectionList}
-					<li>
+                    <li>
                         <a href={history}>Release Notes Archive</a>
                     </li>
                 </ul>
@@ -59,10 +61,10 @@ export default class HelpSidebar extends React.Component {
                     <li>
                         <a href={help+"?section=filingIssue"}>Filing an Issue</a>
                     </li>
-		    <li>
+                    <li>
                         <a href={resources}>Resources - DAIMS</a>
                     </li>
-		    <li>
+                    <li>
                         <a href={validations}>Validations</a>
                     </li>
                 </ul>

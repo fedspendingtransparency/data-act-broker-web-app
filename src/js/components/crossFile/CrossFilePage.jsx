@@ -12,60 +12,59 @@ import CrossFileContentContainer from '../../containers/crossFile/CrossFileConte
 import CrossFileError from './CrossFileError.jsx';
 
 export default class CrossFilePage extends React.Component {
-     constructor(props) {
-          super(props);
-          this.state = {
-               showError: false,
-               errorMessage: ''
-          };
+    constructor(props) {
+        super(props);
+        this.state = {
+            showError: false,
+            errorMessage: ''
+        };
+    }
 
-     }
+    componentDidUpdate(prevProps, prevState) {
+        if (this.props.params.submissionID !== prevProps.params.submissionID) {
+            // new submission ID, reload
+            if (this.state.showError) {
+                this.hideError();
+            }
+        }
+    }
 
-     componentDidUpdate(prevProps, prevState) {
-          if (this.props.params.submissionID != prevProps.params.submissionID) {
-               // new submission ID, reload
-               if (this.state.showError) {
-                    this.hideError();
-               }
-          }
-     }
+    showError(errorMessage) {
+        this.setState({
+            showError: true,
+            errorMessage: errorMessage
+        });
+    }
+    hideError() {
+        this.setState({
+            showError: false,
+            errorMessage: ''
+        });
+    }
 
-     showError(errorMessage) {
-          this.setState({
-               showError: true,
-               errorMessage: errorMessage
-          });
-     }
-     hideError() {
-          this.setState({
-               showError: false,
-               errorMessage: ''
-          });
-     }
+    render() {
+        let pageContent = <CrossFileContentContainer submissionID={this.props.params.submissionID}
+            showError={this.showError.bind(this)} />;
 
-	render() {
+        if (this.state.showError) {
+            pageContent = <CrossFileError message={this.state.errorMessage} />;
+        }
 
-          let pageContent = <CrossFileContentContainer submissionID={this.props.params.submissionID} showError={this.showError.bind(this)} />;
-
-          if (this.state.showError) {
-               pageContent = <CrossFileError message={this.state.errorMessage} />;
-          }
-
-		return (
-               <div className="usa-da-cross-file-page">
-                    <Navbar activeTab="submissionGuide" type={this.props.route.type} />
-                    <AddDataHeader submissionID={this.props.params.submissionID} />
-                    <div className="usa-da-content-step-block" name="content-top">
-                         <div className="container center-block">
-                              <div className="row">
-                                 <Progress currentStep={3} id={this.props.params.submissionID} />
-                              </div>
-                         </div>
+        return (
+            <div className="usa-da-cross-file-page">
+                <Navbar activeTab="submissionGuide" type={this.props.route.type} />
+                <AddDataHeader submissionID={this.props.params.submissionID} />
+                <div className="usa-da-content-step-block" name="content-top">
+                    <div className="container center-block">
+                        <div className="row">
+                            <Progress currentStep={3} id={this.props.params.submissionID} />
+                        </div>
                     </div>
+                </div>
 
-                    {pageContent}
+                {pageContent}
 
-               </div>
-		)
-	}
+            </div>
+        );
+    }
 }

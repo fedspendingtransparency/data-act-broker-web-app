@@ -6,7 +6,7 @@
 import React from 'react';
 
 const defaultProps = {
-	pageArray: ['Help','Resources','Validations']
+    pageArray: ['Help', 'Resources', 'Validations']
 };
 
 export default class HelpNav extends React.Component {
@@ -16,22 +16,23 @@ export default class HelpNav extends React.Component {
 
     render() {
         const pageLinks = this.props.pageArray.map((page, index) => {
-		    const dabsUrl = "/#/" + page.toLowerCase();
-		    const fabsUrl = "/#/FABS" + page.charAt(0).toUpperCase() + page.slice(1);
-		    const url = this.props.type === 'fabs' ? fabsUrl : dabsUrl;
+            const dabsUrl = "/#/" + page.toLowerCase();
+            const fabsUrl = "/#/FABS" + page.charAt(0).toUpperCase() + page.slice(1);
+            const url = this.props.type === 'fabs' ? fabsUrl : dabsUrl;
 
-		    if(this.props.selected == page){
-		        return <a href={url} className="selected usa-da-button btn-lg" key={index}>{page}</a>;
-		    } else {
-		        return <a href={url} className="usa-da-button btn-lg" key={index}>{page}</a>;
-		    }
+            if (this.props.selected === page) {
+                return <a href={url} className="selected usa-da-button btn-lg" key={index}>{page}</a>;
+            }
+            else {
+                return <a href={url} className="usa-da-button btn-lg" key={index}>{page}</a>;
+            }
         });
-		
+
         return (
-		    <div className="help-nav">
-		        {pageLinks}
-		    </div>
-		);
+            <div className="help-nav">
+                {pageLinks}
+            </div>
+        );
     }
 }
 

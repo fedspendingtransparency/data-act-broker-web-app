@@ -31,17 +31,18 @@ export default class HelpPage extends React.Component {
     componentDidMount() {
         this.isUnmounted = false;
         this.loadChangelog();
-        this.loadTechnical()
-    }
-    componentWillUnmount(){
-        this.isUnmounted = true;
+        this.loadTechnical();
     }
 
-	componentWillReceiveProps() {
-        if(!this.isUnmounted && this.props.history){
+    componentWillReceiveProps() {
+        if (!this.isUnmounted && this.props.history) {
             this.loadChangelog();
-            this.loadTechnical()
+            this.loadTechnical();
         }
+    }
+
+    componentWillUnmount() {
+        this.isUnmounted = true;
     }
 
     loadChangelog() {
@@ -51,11 +52,11 @@ export default class HelpPage extends React.Component {
                     clSections: output.sections
                 });
 
-                if(this.props.history=='release'){
+                if (this.props.history === 'release') {
                     this.setState({
                         history: output.history,
                         title: 'Release Notes Archive'
-                    })
+                    });
                 }
             })
             .catch((err) => {
@@ -69,11 +70,11 @@ export default class HelpPage extends React.Component {
                 this.setState({
                     tSections: output.sections
                 });
-                if(this.props.history=='technical'){
+                if (this.props.history === 'technical') {
                     this.setState({
                         history: output.history,
                         title: 'Technical Notes Archive'
-                    })
+                    });
                 }
             })
             .catch((err) => {
@@ -93,7 +94,9 @@ export default class HelpPage extends React.Component {
                         <div className="container">
                             <div className="row">
                                 <div className="col-md-12 mt-40 mb-20">
-                                    <div className="display-2" data-contentstart="start" tabIndex={-1}>Help | DATA Act Broker</div>
+                                    <div className="display-2" data-contentstart="start" tabIndex={-1}>
+                                        Help | DATA Act Broker
+                                    </div>
                                     <HelpNav selected="Help" type={this.props.type} />
                                 </div>
                             </div>
@@ -101,8 +104,10 @@ export default class HelpPage extends React.Component {
                     </div>
                     <div className="container">
                         <div className="row usa-da-help-page">
-							<div className="col-md-4">
-                                <HelpSidebar changeSections={this.state.clSections} technicalSections={this.state.tSections} sections={this.state.sections} type={this.props.type} />
+                            <div className="col-md-4">
+                                <HelpSidebar changeSections={this.state.clSections}
+                                    technicalSections={this.state.tSections}sections={this.state.sections}
+                                    type={this.props.type} />
                             </div>
                             <div className="col-md-8">
                                 <HistoryContent history={this.state.history} title={this.state.title}/>

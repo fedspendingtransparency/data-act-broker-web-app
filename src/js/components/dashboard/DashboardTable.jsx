@@ -39,31 +39,26 @@ export default class DashboardTable extends React.Component {
             sortDirection: 'desc',
             user: true,
             type: this.props.type
-        }
+        };
     };
 
     componentDidMount() {
-        this.props.loadTableData(this.state.currentPage, this.props.isCertified, this.getCategory(), this.state.sortDirection, this.props.type=='fabs');
+        this.props.loadTableData(this.state.currentPage, this.props.isCertified, this.getCategory(),
+            this.state.sortDirection, this.props.type === 'fabs');
         this.loadUser();
+    }
+
+    componentWillReceiveProps(nextProps) {
+        if (nextProps.type !== this.state.type) {
+            this.reload();
+            this.setState({ type: nextProps.type });
+        }
     }
 
     componentDidUpdate(prevProps, prevState) {
         if (!_.isEqual(prevProps.data, this.props.data)) {
             this.buildRow();
         }
-    }
-
-    componentWillReceiveProps(nextProps){
-        if(nextProps.type != this.state.type) {
-            this.reload()
-            this.setState({type:nextProps.type})
-        }
-    }
-
-    loadUser(){
-        LoginHelper.fetchActiveUser().then((user)=>{
-            this.setState({account: user});
-        })
     }
 
     getHeaders() {
@@ -118,42 +113,9 @@ export default class DashboardTable extends React.Component {
         return headers;
     }
 
-    changePage(newPage) {
-        this.setState({
-            currentPage: newPage,
-        }, () => {
-            this.props.loadTableData(this.state.currentPage, this.props.isCertified, this.getCategory(), this.state.sortDirection);
-        });
-    }
-
-    reload(){
-        this.props.loadTableData(this.state.currentPage, this.props.isCertified, this.getCategory(), this.state.sortDirection);
-        this.buildRow();
-    }
-
-    deleteWarning(index){
-        this.setState({
-            deleteIndex: index
-        }, () =>{
-            this.buildRow()
-        })
-    }
-
-    sortTable(direction, column) {
-        // the table sorting changed
-        this.setState({
-            sortDirection: direction,
-            sortColumn: column
-        }, () => {
-            // re-display the data
-            this.props.loadTableData(this.state.currentPage, this.props.isCertified, this.getCategory(), this.state.sortDirection);
-            this.buildRow();
-        });
-    }
-
-    getCategory(){
-        if(this.props.isCertified) {
-            switch(this.state.sortColumn){
+    getCategory() {
+        if (this.props.isCertified) {
+            switch (this.state.sortColumn) {
                 case 1:
                     return 'agency';
                     break;
@@ -167,7 +129,7 @@ export default class DashboardTable extends React.Component {
                     return 'modified';
             }
         }
-        switch(this.state.sortColumn){
+        switch (this.state.sortColumn) {
             case 1:
                 return 'agency';
                 break;
@@ -182,31 +144,73 @@ export default class DashboardTable extends React.Component {
         }
     }
 
+    deleteWarning(index) {
+        this.setState({
+            deleteIndex: index
+        }, () => {
+            this.buildRow();
+        });
+    }
+
+    sortTable(direction, column) {
+        // the table sorting changed
+        this.setState({
+            sortDirection: direction,
+            sortColumn: column
+        }, () => {
+            // re-display the data
+            this.props.loadTableData(this.state.currentPage, this.props.isCertified, this.getCategory(),
+                this.state.sortDirection);
+            this.buildRow();
+        });
+    }
+
+    changePage(newPage) {
+        this.setState({
+            currentPage: newPage
+        }, () => {
+            this.props.loadTableData(this.state.currentPage, this.props.isCertified, this.getCategory(),
+                this.state.sortDirection);
+        });
+    }
+
+    reload() {
+        this.props.loadTableData(this.state.currentPage, this.props.isCertified, this.getCategory(),
+            this.state.sortDirection);
+        this.buildRow();
+    }
+
+    loadUser() {
+        LoginHelper.fetchActiveUser().then((user) => {
+            this.setState({ account: user });
+        });
+    }
+
     convertToLocalDate(dateToConvert) {
         // convert date to local date, need to replace the space with a T for Date() formatting
-		// Add a Z to the end to imply the date is in UTC
-		dateToConvert = dateToConvert.replace(" ", "T") + "Z";
-		const tmpDate = new Date(dateToConvert);
-        
-		// format date as YYYY-MM-DD
-		const year = tmpDate.getFullYear()
-		let month = tmpDate.getMonth() + 1;
-		if(month < 10){
-			month = "0" + month;
-		}
-		let day = tmpDate.getDate();
-		if (day < 10){
-			day = "0" + day;
-		}
-		return year + "-" + month + "-" + day;
+        // Add a Z to the end to imply the date is in UTC
+        dateToConvert = dateToConvert.replace(" ", "T") + "Z";
+        const tmpDate = new Date(dateToConvert);
+
+        // format date as YYYY-MM-DD
+        const year = tmpDate.getFullYear();
+        let month = tmpDate.getMonth() + 1;
+        if (month < 10) {
+            month = "0" + month;
+        }
+        let day = tmpDate.getDate();
+        if (day < 10) {
+            day = "0" + day;
+        }
+        return year + "-" + month + "-" + day;
     }
 
     formatRow(item, index) {
         let start = "Start: ";
         let end = "\nEnd: ";
-        if (this.state.type == 'fabs') {
+        if (this.state.type === 'fabs') {
             start = "Earliest: ";
-            end = "\nLatest: "
+            end = "\nLatest: ";
         }
         let reportingDateString = start + item.reporting_start_date + end + item.reporting_end_date;
         if (!item.reporting_start_date || !item.reporting_end_date) {
@@ -219,7 +223,8 @@ export default class DashboardTable extends React.Component {
 
         let link = <SubmissionLink submissionId={item.submission_id} type={this.state.type}/>;
         if (this.props.isCertified) {
-            link = <SubmissionLink submissionId={item.submission_id} value={reportingDateString} type={this.state.type}/>;
+            link = <SubmissionLink submissionId={item.submission_id} value={reportingDateString}
+                type={this.state.type}/>;
         }
 
         let row = [];
@@ -232,7 +237,8 @@ export default class DashboardTable extends React.Component {
                 this.convertToLocalDate(item.last_modified)
             ];
 
-            let certified_on = item.certified_on !== "" ? this.convertToLocalDate(item.certified_on) : item.certified_on;
+            let certified_on = item.certified_on !== "" ? this.convertToLocalDate(item.certified_on) :
+                item.certified_on;
             if (this.props.type === 'fabs') {
                 row = row.concat([
                     item.certifying_user,
@@ -272,7 +278,9 @@ export default class DashboardTable extends React.Component {
 
             if (deleteCol) {
                 if (canDelete && item.publish_status === 'unpublished') {
-                    row.push(<DeleteLink submissionId={item.submission_id} index={index} warning={this.deleteWarning.bind(this)} confirm={deleteConfirm} reload={this.reload.bind(this)} item={item} account={this.state.account}/>);
+                    row.push(<DeleteLink submissionId={item.submission_id} index={index}
+                        warning={this.deleteWarning.bind(this)} confirm={deleteConfirm} reload={this.reload.bind(this)}
+                        item={item} account={this.state.account}/>);
                 }
                 else {
                     row.push('N/A');
@@ -287,14 +295,17 @@ export default class DashboardTable extends React.Component {
         const output = [];
         const rowClasses = [];
 
-        let classes = ['row-10 text-center', 'row-20 text-center', 'row-15 text-right white-space', 'row-15 text-right', 'row-10 text-right','row-20 text-right progress-cell', 'row-10 text-center'];
+        let classes = ['row-10 text-center', 'row-20 text-center', 'row-15 text-right white-space', 'row-15 text-right',
+            'row-10 text-right', 'row-20 text-right progress-cell', 'row-10 text-center'];
 
         if (this.props.isCertified) {
-            classes = ['row-15 text-center', 'row-20 text-right white-space', 'row-12_5 text-right', 'row-10 text-right','row-20 text-right progress-cell', 'row-10 text-center', 'row-10 text-center', 'row-10 text-center'];
-            if(this.state.type == 'fabs') {
-                classes = ['row-15 text-center', 'row-20 text-right white-space', 'row-12_5 text-right', 'row-10 text-right','row-20 text-right', 'row-10 text-center'];
+            classes = ['row-15 text-center', 'row-20 text-right white-space', 'row-12_5 text-right',
+                'row-10 text-right', 'row-20 text-right progress-cell', 'row-10 text-center', 'row-10 text-center',
+                'row-10 text-center'];
+            if (this.state.type === 'fabs') {
+                classes = ['row-15 text-center', 'row-20 text-right white-space', 'row-12_5 text-right',
+                    'row-10 text-right', 'row-20 text-right', 'row-10 text-center'];
             }
-            
         }
 
         // iterate through each item returned from the API
@@ -309,7 +320,7 @@ export default class DashboardTable extends React.Component {
         const headerClasses = classes;
 
         let message = '';
-        if (this.props.data.length == 0) {
+        if (this.props.data.length === 0) {
             message = 'No submissions to list';
         }
 
@@ -339,18 +350,21 @@ export default class DashboardTable extends React.Component {
 
         let headers = this.getHeaders();
 
-        //cannot be added to the const because if a user is read only then delete will not be created
+        // cannot be added to the const because if a user is read only then delete will not be created
         let unsortable = [0, 5, 6];
-        if(this.props.isCertified && this.state.type == 'fabs'){
+        if (this.props.isCertified && this.state.type === 'fabs') {
             unsortable = [0, 4, 5];
-        } else if(this.props.isCertified) {
-        	unsortable = [0, 4, 5, 7];
+        }
+        else if (this.props.isCertified) {
+            unsortable = [0, 4, 5, 7];
         }
 
         return (
             <div className="usa-da-submission-list">
                 <div className={"submission-table-content" + loadingClass}>
-                    <FormattedTable headers={headers} data={this.state.parsedData} sortable={true} cellClasses={this.state.cellClasses} unsortable={unsortable} headerClasses={this.state.headerClasses} onSort={this.sortTable.bind(this)} />
+                    <FormattedTable headers={headers} data={this.state.parsedData} sortable={true}
+                        cellClasses={this.state.cellClasses} unsortable={unsortable}
+                        headerClasses={this.state.headerClasses} onSort={this.sortTable.bind(this)} />
                 </div>
                 <div className="text-center">
                     {this.state.message}

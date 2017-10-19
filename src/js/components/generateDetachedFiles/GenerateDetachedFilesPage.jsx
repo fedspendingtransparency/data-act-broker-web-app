@@ -32,54 +32,54 @@ export default class GenerateDetachedFilesPage extends React.Component {
             showSubmitButton: false,
             buttonDisabled: true,
             d1: {
-				startDate: null,
-				endDate: null,
-				error: {
-					show: false,
-					header: '',
-					description: ''
-				},
-				download: {
-					show: false,
-					url: ''
-				},
+                startDate: null,
+                endDate: null,
+                error: {
+                    show: false,
+                    header: '',
+                    description: ''
+                },
+                download: {
+                    show: false,
+                    url: ''
+                },
                 valid: false,
                 status: ""
-			},
-			d2: {
-				startDate: null,
-				endDate: null,
-				error: {
-					show: false,
-					header: '',
-					description: ''
-				},
-				download: {
-					show: false,
-					url: ''
-				},
+            },
+            d2: {
+                startDate: null,
+                endDate: null,
+                error: {
+                    show: false,
+                    header: '',
+                    description: ''
+                },
+                download: {
+                    show: false,
+                    url: ''
+                },
                 valid: false,
                 status: ""
-			}
+            }
         };
     }
 
     componentDidMount() {
-		this.isUnmounted = false;
-	}
+        this.isUnmounted = false;
+    }
 
-	componentWillUnmount() {
-		this.isUnmounted = true;
-	}
+    componentWillUnmount() {
+        this.isUnmounted = true;
+    }
 
-    handleChange(agency, codeType, isValid){
+    handleChange(agency, codeType, isValid) {
         // display or hide file generation based on agency validity and set agency
-        if (agency != '' && isValid) {
+        if (agency !== '' && isValid) {
             this.setState({
                 agency: agency,
                 codeType: codeType,
                 agencyError: false
-             }, this.checkComplete);
+            }, this.checkComplete);
         }
         else {
             this.setState({
@@ -105,23 +105,23 @@ export default class GenerateDetachedFilesPage extends React.Component {
     }
 
     handleDateChange(file, date, dateType) {
-    	// merge the new date into the file's state without affecting the other keys
-    	const newState = Object.assign(this.state[file], {
-    		[dateType]: moment(date)
-    	});
+        // merge the new date into the file's state without affecting the other keys
+        const newState = Object.assign(this.state[file], {
+            [dateType]: moment(date)
+        });
 
-    	this.setState({
-    		[file]: newState
-    	}, () => {
-    		this.validateDates(file);
-    	});
-	}
+        this.setState({
+            [file]: newState
+        }, () => {
+            this.validateDates(file);
+        });
+    }
 
     validateDates(file) {
         // validate that dates are provided for both fields and the end dates don't come before the start dates
-		let state = "incomplete";
+        let state = "incomplete";
 
-    	const dFile = Object.assign({}, this.state[file]);
+        const dFile = Object.assign({}, this.state[file]);
 
         // validate the date ranges
         const start = this.state[file].startDate;
@@ -158,19 +158,19 @@ export default class GenerateDetachedFilesPage extends React.Component {
             dFile.valid = false;
         }
 
-        this.setState({[file]:dFile});
+        this.setState({ [file]: dFile });
     }
 
     updateError(file, header='', description='') {
         // Show any error that occurs at any point during file upload
         const state = Object.assign({}, this.state[file], {
             error: {
-                show: header !='' && description !='',
+                show: header !== '' && description !== '',
                 header: header,
                 description: description
             }
         });
-        
+
         this.setState({
             [file]: state
         });
@@ -178,16 +178,17 @@ export default class GenerateDetachedFilesPage extends React.Component {
 
     generateFile(file) {
         // generate specified file
-        let cgac_code = this.state.codeType !== 'frec_code' ? this.state.agency : '',
-            frec_code = this.state.codeType === 'frec_code' ? this.state.agency : '';
+        let cgac_code = this.state.codeType !== 'frec_code' ? this.state.agency : '';
+        let frec_code = this.state.codeType === 'frec_code' ? this.state.agency : '';
 
         const tmpFile = Object.assign({}, this.state[file]);
         tmpFile.status = "generating";
-        this.setState({[file]: tmpFile});
+        this.setState({ [file]: tmpFile });
 
-        GenerateFilesHelper.generateDetachedFile(file.toUpperCase(), tmpFile.startDate.format('MM/DD/YYYY'), tmpFile.endDate.format('MM/DD/YYYY'), cgac_code, frec_code)
+        GenerateFilesHelper.generateDetachedFile(file.toUpperCase(), tmpFile.startDate.format('MM/DD/YYYY'),
+            tmpFile.endDate.format('MM/DD/YYYY'), cgac_code, frec_code)
             .then((response) => {
-                if(this.isUnmounted) {
+                if (this.isUnmounted) {
                     return;
                 }
 
@@ -200,8 +201,8 @@ export default class GenerateDetachedFilesPage extends React.Component {
         GenerateFilesHelper.fetchDetachedFile(job_id)
             .then((response) => {
                 if (this.isUnmounted) {
-					return;
-				}
+                    return;
+                }
 
                 this.parseFileState(response);
             });
@@ -213,30 +214,30 @@ export default class GenerateDetachedFilesPage extends React.Component {
 
         let runCheck = true;
 
-        if (data.httpStatus == 401) {
+        if (data.httpStatus === 401) {
             // don't run the check again if it failed
             runCheck = false;
 
             this.showError(fileType, 'Permission Error', response.message);
         }
-        else if (data.status == 'failed' || data.status == 'invalid') {
+        else if (data.status === 'failed' || data.status === 'invalid') {
             // don't run the check again if it failed
             runCheck = false;
 
             let message = 'File ' + data.file_type + ' could not be generated.';
 
-            if (data.message != '') {
+            if (data.message !== '') {
                 message = data.message;
             }
 
             // make a clone of the file's react state
             const item = Object.assign({}, this.state[fileType]);
             item.status = "";
-            this.setState({[fileType]: item});
+            this.setState({ [fileType]: item });
 
             this.showError(fileType, data.file_type + ' File Error', message);
         }
-        else if (data.status == 'finished') {
+        else if (data.status === 'finished') {
             // don't run the check again if it's done
             runCheck = false;
 
@@ -253,7 +254,7 @@ export default class GenerateDetachedFilesPage extends React.Component {
             };
             item.status = "done";
 
-            this.setState({[fileType]: item});
+            this.setState({ [fileType]: item });
         }
 
         if (this.isUnmounted) {
@@ -262,9 +263,9 @@ export default class GenerateDetachedFilesPage extends React.Component {
 
         if (runCheck && !this.isUnmounted) {
             // wait 5 seconds and check the file status again
-			window.setTimeout(() => {
-				this.checkFileStatus(data.job_id);
-			}, timerDuration * 1000);
+            window.setTimeout(() => {
+                this.checkFileStatus(data.job_id);
+            }, timerDuration * 1000);
         }
     }
 
@@ -278,12 +279,12 @@ export default class GenerateDetachedFilesPage extends React.Component {
 
         let dateSelect = null;
         if (this.state.showDateSelect) {
-            dateSelect = <DateSelect {...this.state} 
-                            handleDateChange={this.handleDateChange.bind(this)} 
-                            updateError={this.updateError.bind(this)}
-                            generateFile={this.generateFile.bind(this)} />;
+            dateSelect = <DateSelect {...this.state}
+                handleDateChange={this.handleDateChange.bind(this)}
+                updateError={this.updateError.bind(this)}
+                generateFile={this.generateFile.bind(this)} />;
         }
-        
+
         return (
             <div className="usa-da-generate-detached-files-page">
                 <div className="usa-da-site_wrap">
@@ -309,15 +310,20 @@ export default class GenerateDetachedFilesPage extends React.Component {
                                         </div>
 
                                         <div className="row">
-                                            <div className="col-sm-12 col-md-12 typeahead-holder" data-testid="agencytypeahead">
-                                                <AgencyListContainer placeholder="Enter the name of the reporting agency" onSelect={this.handleChange.bind(this)} customClass={agencyClass} detached={true}/>
+                                            <div className="col-sm-12 col-md-12 typeahead-holder"
+                                                data-testid="agencytypeahead">
+                                                <AgencyListContainer
+                                                    placeholder="Enter the name of the reporting agency"
+                                                    onSelect={this.handleChange.bind(this)} customClass={agencyClass}
+                                                    detached={true}/>
                                                 <div className={"usa-da-icon usa-da-form-icon" + agencyClass}>
                                                     {agencyIcon}
                                                 </div>
                                             </div>
                                         </div>
 
-                                        <ReactCSSTransitionGroup transitionName="usa-da-meta-fade" transitionEnterTimeout={500} transitionLeaveTimeout={300}>
+                                        <ReactCSSTransitionGroup transitionName="usa-da-meta-fade"
+                                            transitionEnterTimeout={500} transitionLeaveTimeout={300}>
                                             {dateSelect}
                                         </ReactCSSTransitionGroup>
                                     </div>

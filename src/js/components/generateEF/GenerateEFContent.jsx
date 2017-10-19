@@ -13,30 +13,31 @@ import GenerateEFItem from './generateItem/GenerateEFItem.jsx';
 export default class GenerateFilesContent extends React.Component {
 
 
-	render() {
-		return (
-			<div>
-				<div className="container center-block with-overlay">
-					<div className="row usa-da-submission-instructions">
-						<div className="col-md-12">
-							<p>Please wait while your File E: Executive Compensation Data and F: Sub-award Data files are generated. These files do not undergo any additional validations.</p>
-						</div>
-					</div>
+    render() {
+        return (
+            <div>
+                <div className="container center-block with-overlay">
+                    <div className="row usa-da-submission-instructions">
+                        <div className="col-md-12">
+                            <p>Please wait while your File E: Executive Compensation Data and F: Sub-award Data files
+                            are generated. These files do not undergo any additional validations.</p>
+                        </div>
+                    </div>
 
 
-					<GenerateEFItem {...this.props}
-						type="E"
-						title="Executive Compensation Data"
-						description="Executive Compensation data is generated from the System for Award Management and includes data for the receiving entities of the awards in file C." />
-					<GenerateEFItem {...this.props}
-						type="F"
-						title="Sub-Award Data"
-						description="Sub-award data is generated from the Federal Subaward Reporting System and includes the subawards for the prime awards in file C." />
-
-				</div>
-
-				<GenerateEFOverlay {...this.props} />
-			</div>
-		)
-	}
+                    <GenerateEFItem {...this.props}
+                        type="E"
+                        title="Executive Compensation Data"
+                        description={"Executive Compensation data is generated from the System for Award Management" +
+                            " and includes data for the receiving entities of the awards in file C."} />
+                    <GenerateEFItem {...this.props}
+                        type="F"
+                        title="Sub-Award Data"
+                        description={"Sub-award data is generated from the Federal Subaward Reporting System and " +
+                            "includes the subawards for the prime awards in file C."} />
+                </div>
+                <GenerateEFOverlay {...this.props} />
+            </div>
+        );
+    }
 }

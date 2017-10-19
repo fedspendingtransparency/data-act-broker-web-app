@@ -10,58 +10,56 @@ import * as ReviewHelper from '../../../helpers/reviewHelper.js';
 
 export default class ComparisonTable extends React.Component {
 
-	constructor(props) {
-		super(props);
-		this.state = {
-			sortDirection: 'asc',
-			sortColumn: 0,
-			data: {}
-		};
-	}
+    constructor(props) {
+        super(props);
+        this.state = {
+            sortDirection: 'asc',
+            sortColumn: 0,
+            data: {}
+        };
+    }
 
-	buildRow() {
+    buildRow() {
+        const data = [];
+        this.props.data.forEach((item) => {
+            let description = 'Rule ' + item.original_label + ': ' + item.rule_failed + '.';
+            const row = {
+                source: ReviewHelper.globalFileData[item.source_file].name,
+                description: description,
+                occurrences: item.occurrences
+            };
 
-		const data = [];
-		this.props.data.forEach((item) => {
+            data.push(row);
+        });
 
-			let description = 'Rule ' + item.original_label + ': ' + item.rule_failed + '.';
-			const row = {
-				source: ReviewHelper.globalFileData[item.source_file].name,
-				description: description,
-				occurrences: item.occurrences
-			};
+        const sortFields = ['source', 'description', 'occurrences'];
 
-			data.push(row);
-		});
+        const sortedData = _.orderBy(data, sortFields[this.state.sortColumn], this.state.sortDirection);
 
-		const sortFields = ['source', 'description', 'occurrences'];
+        const output = [];
+        sortedData.forEach((row) => {
+            output.push([row.source, row.description, row.occurrences]);
+        });
 
-		const sortedData = _.orderBy(data, sortFields[this.state.sortColumn], this.state.sortDirection);
+        return output;
+    }
 
-		const output = [];
-		sortedData.forEach((row) => {
-			output.push([row.source, row.description, row.occurrences]);
-		});
+    sortTable(direction, column) {
+        this.setState({
+            sortColumn: column,
+            sortDirection: direction
+        });
+    }
 
-		return output;
-	}
+    render() {
+        const headers = ['Source File', 'Error Message', 'Occurrences'];
 
-	sortTable(direction, column) {
-		this.setState({
-			sortColumn: column,
-			sortDirection: direction
-		});
-	}
+        const data = this.buildRow();
 
-	render() {
-		const headers = ['Source File', 'Error Message', 'Occurrences'];
-
-		const data = this.buildRow();
-
-		return (
-			<div className="comparison-table">
-				<ScrollableTable headers={headers} data={data} sortable={true} onSort={this.sortTable.bind(this)} />
-			</div>
-		)
-	}
+        return (
+            <div className="comparison-table">
+                <ScrollableTable headers={headers} data={data} sortable={true} onSort={this.sortTable.bind(this)} />
+            </div>
+        );
+    }
 }

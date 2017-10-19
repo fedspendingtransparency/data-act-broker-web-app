@@ -20,16 +20,17 @@ export default class HistoryTable extends React.Component {
 
         this.state = {
             metadata: null
-        }
+        };
     };
 
     componentDidMount() {
         FileHelper.fetchSubmissionMetadata(this.props.submissionID)
             .then((response) => {
-                this.setState({metadata: response})
-            }).catch((err) =>{
-                console.log(err)
+                this.setState({ metadata: response });
             })
+            .catch((err) => {
+                console.log(err);
+            });
         this.isUnmounted = false;
     }
 
@@ -38,7 +39,7 @@ export default class HistoryTable extends React.Component {
     }
 
     render() {
-        if(!this.state.metadata){
+        if (!this.state.metadata) {
             return null;
         }
         return (
@@ -46,8 +47,12 @@ export default class HistoryTable extends React.Component {
                 <div className='row header'>
                     <div className='col-xs-6'>
                         <p className='metadata'>Agency: {this.state.metadata.agency_name}</p>
-                        <p className='metadata'>Reporting Period Start: {this.state.metadata.reporting_period_start_date}</p>
-                        <p className='metadata'>Reporting Period End: {this.state.metadata.reporting_period_end_date}</p>
+                        <p className='metadata'>
+                            Reporting Period Start: {this.state.metadata.reporting_period_start_date}
+                        </p>
+                        <p className='metadata'>
+                            Reporting Period End: {this.state.metadata.reporting_period_end_date}
+                        </p>
                     </div>
                     <div className='col-xs-6'>
                         <p className='metadata'>Created: {this.state.metadata.created_on}</p>

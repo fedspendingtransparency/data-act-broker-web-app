@@ -14,14 +14,14 @@ export default class DashboardContent extends React.Component {
             activePage: 1,
             certifiedPage: 1,
             title: this.props.type === 'fabs' ? 'Published Submissions' : 'Certified Submissions'
-        }
+        };
     }
-    
+
     componentWillReceiveProps(nextProps) {
-        if(nextProps.type !== this.props.type) {
+        if (nextProps.type !== this.props.type) {
             this.setState({
                 title: nextProps.type === 'fabs' ? 'Published Submissions' : 'Certified Submissions'
-            })
+            });
         }
     }
 
@@ -37,7 +37,7 @@ export default class DashboardContent extends React.Component {
                             loadTableData={this.props.loadTableData}
                             total={this.props.activeTotal}
                             data={this.props.activeSubmissions}
-                            page={this.state.activePage} 
+                            page={this.state.activePage}
                             session={this.props.session}
                             type={this.props.type} />
                     </div>
@@ -51,7 +51,7 @@ export default class DashboardContent extends React.Component {
                             loadTableData={this.props.loadTableData}
                             total={this.props.certifiedTotal}
                             data={this.props.certifiedSubmissions}
-                            page={this.state.certifiedPage} 
+                            page={this.state.certifiedPage}
                             session={this.props.session}
                             type={this.props.type} />
                     </div>

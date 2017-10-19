@@ -6,14 +6,14 @@
 import React from 'react';
 
 export default class HelpSidebarItem extends React.Component {
-	render() {
+    render() {
         const help = this.props.type === 'fabs' ? '/#/FABShelp' : '/#/help';
-		return (
-			<li>
+        return (
+            <li>
                 <a href={help + "?section=" + this.props.sectionId}>
-                	{this.props.sectionName}
+                    {this.props.sectionName}
                 </a>
             </li>
-		)
-	}
+        );
+    }
 }

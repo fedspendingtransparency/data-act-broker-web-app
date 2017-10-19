@@ -10,21 +10,21 @@ import Footer from '../SharedComponents/FooterComponent.jsx';
 
 export default class LandingPage extends React.Component {
     constructor(props) {
-        super(props)
+        super(props);
         this.state = {
             'type': this.props.route ? this.props.route.type : 'home'
-        }
+        };
     }
 
     componentWillReceiveProps(nextProps) {
         let type = null;
-        if(nextProps.route && this.state.type !== nextProps.route.type){
+        if (nextProps.route && this.state.type !== nextProps.route.type) {
             type = nextProps.route.type;
         }
-        if(type && type != this.state.type) {
+        if (type && type !== this.state.type) {
             this.setState({
                 'type': type
-            })
+            });
         }
     }
 
@@ -35,10 +35,10 @@ export default class LandingPage extends React.Component {
             <div>
                 <div className="usa-da-site_wrap">
                     <div className="usa-da-landing-page">
-        	            <div className="usa-da-page-content">
-        	                <Navbar activeTab={activeTab} type={this.state.type} />
-        	                <LandingContentContainer type={this.state.type}/>
-        	            </div>
+                        <div className="usa-da-page-content">
+                            <Navbar activeTab={activeTab} type={this.state.type} />
+                            <LandingContentContainer type={this.state.type}/>
+                        </div>
                     </div>
                 </div>
                 <Footer />

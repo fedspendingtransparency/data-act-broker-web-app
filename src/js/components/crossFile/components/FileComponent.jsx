@@ -10,24 +10,24 @@ import * as PermissionsHelper from '../../../helpers/permissionsHelper.js';
 import * as ReviewHelper from '../../../helpers/reviewHelper.js';
 
 const defaultProps = {
-	fileType: '',
-	name: '',
-	fileKey: ''
+    fileType: '',
+    name: '',
+    fileKey: ''
 };
 
 export default class FileComponent extends React.Component {
-	constructor(props){
-		super(props)
+    constructor(props) {
+        super(props);
 
-		this.state = {
-			agency_name: ''
-		}
+        this.state = {
+            agency_name: ''
+        };
 
-		this.isUnmounted = false;
-	}
+        this.isUnmounted = false;
+    }
 
-	componentDidMount(){
-		if (this.props.submissionID != null) {
+    componentDidMount() {
+        if (this.props.submissionID !== null) {
             ReviewHelper.fetchStatus(this.props.submissionID)
                 .then((data) => {
                     data.ready = true;
@@ -39,31 +39,31 @@ export default class FileComponent extends React.Component {
                     console.log(error);
                 });
         }
-	}
+    }
 
-	componentWillUnmount(){
-		this.isUnmounted = true;
-	}
+    componentWillUnmount() {
+        this.isUnmounted = true;
+    }
 
-	render() {
-		let replaceButton = null;
-		if (this.props.status == 'success' && PermissionsHelper.checkAgencyPermissions(this.props.session, this.state.agency_name)) {
-			replaceButton = <ReplacementButton buttonClicked={this.props.toggleUploadBox} {...this.props} />;
-		}	
-	
+    render() {
+        let replaceButton = null;
+        if (this.props.status === 'success' && PermissionsHelper.checkAgencyPermissions(this.props.session,
+            this.state.agency_name)) {
+            replaceButton = <ReplacementButton buttonClicked={this.props.toggleUploadBox} {...this.props} />;
+        }
 
-		return (
-			<div className="file-box">
-				<div className="file-type">
-					<div>File {this.props.fileType}</div>
-				</div>
-				<div className="file-name">
-					{this.props.name}
-				</div>
-				{replaceButton}
-			</div>
-		)
-	}
+        return (
+            <div className="file-box">
+                <div className="file-type">
+                    <div>File {this.props.fileType}</div>
+                </div>
+                <div className="file-name">
+                    {this.props.name}
+                </div>
+                {replaceButton}
+            </div>
+        );
+    }
 }
 
 FileComponent.defaultProps = defaultProps;

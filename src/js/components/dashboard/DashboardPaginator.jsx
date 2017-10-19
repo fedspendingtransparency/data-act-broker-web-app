@@ -34,7 +34,7 @@ export default class DashboardPaginator extends React.Component {
     }
 
     moveDirection(direction) {
-        if (direction == 'left') {
+        if (direction === 'left') {
             // go back a page
             this.props.changePage(this.props.current - 1);
         }
@@ -48,7 +48,7 @@ export default class DashboardPaginator extends React.Component {
         const items = [];
 
         let start = 1;
-        
+
         // base the starting page on the total page count if we're near the end
         if ((this.props.total - this.props.current) < 3 && this.props.total > 4) {
             start = this.props.total - 2;
@@ -63,7 +63,7 @@ export default class DashboardPaginator extends React.Component {
             end = this.props.total;
         }
 
-        if (start != 1) {
+        if (start !== 1) {
             const firstItem = <DashboardPaginatorItem
                 key={1}
                 value={1}
@@ -82,7 +82,7 @@ export default class DashboardPaginator extends React.Component {
             items.push(item);
         }
 
-        if (end != this.props.total) {
+        if (end !== this.props.total) {
             const lastItem = <DashboardPaginatorItem
                 key={this.props.total}
                 value={this.props.total}
@@ -99,15 +99,14 @@ export default class DashboardPaginator extends React.Component {
 
 
     render() {
-
         let prevButton = <DashboardPaginatorArrow direction="left" moveDirection={this.moveDirection.bind(this)} />;
-        let nextButton = <DashboardPaginatorArrow direction="right"  moveDirection={this.moveDirection.bind(this)} />;
-        
-        if (this.props.current == 1) {
+        let nextButton = <DashboardPaginatorArrow direction="right" moveDirection={this.moveDirection.bind(this)} />;
+
+        if (this.props.current === 1) {
             prevButton = null;
         }
 
-        if (this.props.current == this.props.total) {
+        if (this.props.current === this.props.total) {
             nextButton = null;
         }
 

@@ -10,8 +10,8 @@ import HistoryTable from './HistoryTable.jsx';
 import HistoryHeader from './HistoryHeader.jsx';
 
 export default class HistoryPage extends React.Component {
-    constructor(props){
-        super(props)
+    constructor(props) {
+        super(props);
     }
 
     render() {
@@ -35,6 +35,6 @@ export default class HistoryPage extends React.Component {
                 </div>
                 <Footer />
             </div>
-        )
+        );
     }
 }

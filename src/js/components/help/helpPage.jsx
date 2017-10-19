@@ -70,9 +70,10 @@ export default class HelpPage extends React.Component {
                         <div className="container">
                             <div className="row">
                                 <div className="col-md-12 mt-40 mb-20">
-                                    <div className="display-2" data-contentstart="start" tabIndex={-1}>{this.props.type.toUpperCase()} | Help
-										<HelpNav selected="Help" type={this.props.type} />
-									</div>
+                                    <div className="display-2" data-contentstart="start" tabIndex={-1}>
+                                        {this.props.type.toUpperCase()} | Help
+                                        <HelpNav selected="Help" type={this.props.type} />
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -81,10 +82,14 @@ export default class HelpPage extends React.Component {
                     <div className="container">
                         <div className="row usa-da-help-page">
                             <div className="col-md-4">
-                                <HelpSidebar changeSections={this.state.clSections} technicalSections={this.state.tSections} helpOnly={this.props.helpOnly} type={this.props.type} />
+                                <HelpSidebar changeSections={this.state.clSections}
+                                    technicalSections={this.state.tSections} helpOnly={this.props.helpOnly}
+                                    type={this.props.type} />
                             </div>
                             <div className="col-md-8">
-                                <HelpContent section={this.props.location.query.section} helpOnly={this.props.helpOnly} changelog={this.state.changelog} technical={this.state.technical} />
+                                <HelpContent section={this.props.location.query.section}
+                                    helpOnly={this.props.helpOnly} changelog={this.state.changelog}
+                                    technical={this.state.technical} />
                             </div>
                         </div>
                     </div>

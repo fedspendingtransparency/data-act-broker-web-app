@@ -26,7 +26,6 @@ export default class HistoryContent extends React.Component {
     }
 
     componentDidMount() {
-
         // also load the remaining URLs
         this.urlPromise = generateProtectedUrls();
         this.urlPromise.promise
@@ -34,12 +33,10 @@ export default class HistoryContent extends React.Component {
                 this.setState({
                     rssUrl: urls[rssFileKey()],
                     validationRulesUrl: urls['Validation_Rules.xlsx'],
-                    domainValuesUrl: urls['Domain_Values.xlsx'],
+                    domainValuesUrl: urls['Domain_Values.xlsx']
                 });
-
                 this.urlPromise = null;
             });
-
     }
 
     componentDidUpdate(prevProps, prevState) {
@@ -65,7 +62,7 @@ export default class HistoryContent extends React.Component {
         return (
             <div className="usa-da-help-content">
                 <h2>{this.props.title}</h2>
-                <div dangerouslySetInnerHTML={{__html:this.props.history}} />
+                <div dangerouslySetInnerHTML={{ __html: this.props.history }} />
             </div>
         );
     }

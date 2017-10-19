@@ -11,20 +11,20 @@ import Banner from '../SharedComponents/Banner.jsx';
 
 export default class DashboardPage extends React.Component {
     constructor(props) {
-        super(props)
+        super(props);
 
         this.state = {
             type: props.route.type
+        };
+    }
+
+    componentWillReceiveProps(nextProps) {
+        if (nextProps.route.type !== this.state.type) {
+            this.setState({ type: nextProps.route.type });
         }
     }
 
-    componentWillReceiveProps(nextProps){
-        if(nextProps.route.type != this.state.type) {
-            this.setState({type:nextProps.route.type})
-        }
-    }
-
-	render() {
+    render() {
         let isFabs = this.state.type === 'fabs';
         let color = isFabs ? 'teal' : 'dark';
         let header = isFabs ? 'FABS Submission Dashboard' : 'DABS Submission Dashboard';
@@ -49,6 +49,6 @@ export default class DashboardPage extends React.Component {
                 </div>
                 <Footer />
             </div>
-		)
-	}
+        );
+    }
 }

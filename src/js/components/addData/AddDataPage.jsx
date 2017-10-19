@@ -22,9 +22,10 @@ export default class AddDataPage extends React.Component {
     render() {
         let bodyComponent = null;
 
-        if (this.props.submission.meta.agency == ""){
+        if (this.props.submission.meta.agency === "") {
             bodyComponent = <AddDataMeta updateMetaData={this.props.updateMetaData}/>;
-        } else {
+        }
+        else {
             bodyComponent = <AddDataContainer metaData={this.props.submission.meta} />;
         }
 
