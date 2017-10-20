@@ -219,7 +219,6 @@ export default class ValidateValuesFileComponent extends React.Component {
         }
 
         let buttonOverlay = '', validationElement = '', isOptional = false, uploadText = 'Choose Corrected File';
-        console.log(this.props, this.state.hasErrors, this.state.hasWarnings)
         if ((this.props.published === 'unpublished' || !this.props.published) && permission) {
             // user has permissions and submission is not published
             if (this.state.hasErrors) {
