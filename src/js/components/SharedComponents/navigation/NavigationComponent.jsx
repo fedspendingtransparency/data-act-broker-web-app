@@ -134,6 +134,6 @@ export class Navbar extends React.Component {
 Navbar.defaultProps = defaultProps;
 
 export default connect(
-    state => ({ session: state.session }),
-    dispatch => bindActionCreators(sessionActions, dispatch)
+    (state) => ({ session: state.session }),
+    (dispatch) => bindActionCreators(sessionActions, dispatch)
 )(Navbar);

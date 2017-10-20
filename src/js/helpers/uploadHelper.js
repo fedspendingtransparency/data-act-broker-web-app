@@ -1,8 +1,6 @@
 import Request from './sessionSuperagent.js';
 import Q from 'q';
 import AWS from 'aws-sdk';
-import { dispatch } from 'redux';
-import moment from 'moment';
 
 import StoreSingleton from '../redux/storeSingleton.js';
 
@@ -33,14 +31,11 @@ export const performLocalUpload = (submission) => {
     const deferred = Q.defer();
 
     const request = {};
-    let successfulUploads = {};
 
     const store = new StoreSingleton().store;
     store.dispatch(uploadActions.setSubmissionState('uploading'));
 
     prepareMetadata(submission.meta, request);
-
-    let i = 0;
 
     const uploadOperations = [];
     const types = [];
@@ -170,7 +165,7 @@ const uploadS3File = (file, fileID, key, credentials, fileType) => {
     }));
 
     s3.upload(s3params)
-        .on('httpUploadProgress', evt => {
+        .on('httpUploadProgress', (evt) => {
             const progress = (evt.loaded / evt.total) * 100;
 
             // update Redux with the upload progress

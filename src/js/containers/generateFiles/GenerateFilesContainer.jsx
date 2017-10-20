@@ -12,7 +12,6 @@ import moment from 'moment';
 import _ from 'lodash';
 import Q from 'q';
 
-import { kGlobalConstants } from '../../GlobalConstants.js';
 import GenerateFilesContent from '../../components/generateFiles/GenerateFilesContent.jsx';
 import PublishedSubmissionWarningBanner from '../../components/SharedComponents/PublishedSubmissionWarningBanner.jsx';
 import Banner from '../../components/SharedComponents/Banner.jsx';
@@ -149,8 +148,8 @@ class GenerateFilesContainer extends React.Component {
                     d1.endDate = d1End;
 
                     const d2 = Object.assign({}, this.state.d2);
-                    d2.startDate = d1Start;
-                    d2.endDate = d1End;
+                    d2.startDate = d2Start;
+                    d2.endDate = d2End;
 
                     this.setState({
                         d1: d1,
@@ -486,7 +485,7 @@ class GenerateFilesContainer extends React.Component {
 }
 
 export default connect(
-    state => ({ submission: state.submission,
+    (state) => ({ submission: state.submission,
         session: state.session }),
-    dispatch => bindActionCreators(uploadActions, dispatch)
+    (dispatch) => bindActionCreators(uploadActions, dispatch)
 )(GenerateFilesContainer);

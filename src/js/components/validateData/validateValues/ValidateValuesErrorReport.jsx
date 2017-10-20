@@ -5,11 +5,7 @@
 
 import React, { PropTypes } from 'react';
 import _ from 'lodash';
-import { kGlobalConstants } from '../../../GlobalConstants.js';
 import ScrollableTable from '../../SharedComponents/table/ScrollableTable.jsx';
-
-import SubmitButton from '../../SharedComponents/SubmitButton.jsx';
-import Table from '../../SharedComponents/table/TableComponent.jsx';
 
 import ValidateValuesTreemap from './ValidateValuesTreemap.jsx';
 import * as Icons from '../../SharedComponents/icons/Icons.jsx';
@@ -40,7 +36,7 @@ export default class ValidateValuesErrorReport extends React.Component {
         this.createTable();
     }
 
-    componentDidUpdate(prevProps, prevState) {
+    componentDidUpdate(prevProps) {
         if (!_.isEqual(prevProps.data, this.props.data) || prevProps.dataKey !== this.props.dataKey) {
             this.createTable();
         }

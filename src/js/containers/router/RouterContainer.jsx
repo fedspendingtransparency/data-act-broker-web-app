@@ -4,9 +4,8 @@
 **/
 
 import React from 'react';
-import ReactDOM from 'react-dom';
 import { kGlobalConstants } from '../../GlobalConstants.js';
-import { Router, Route, Link, hashHistory } from 'react-router';
+import { Router, hashHistory } from 'react-router';
 
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
@@ -80,8 +79,8 @@ class RouterContainer extends React.Component {
 
 
 export default connect(
-    state => ({
+    (state) => ({
         session: state.session
     }),
-    dispatch => bindActionCreators(sessionActions, dispatch)
+    (dispatch) => bindActionCreators(sessionActions, dispatch)
 )(RouterContainer);

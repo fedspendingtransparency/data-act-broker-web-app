@@ -4,7 +4,6 @@
 **/
 
 import React from 'react';
-import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import _ from 'lodash';
 
@@ -39,7 +38,7 @@ class HelpPageContainer extends React.Component {
         }
     }
 
-    componentDidUpdate(prevProps, prevState) {
+    componentDidUpdate(prevProps) {
         if (!_.isEqual(prevProps, this.props)) {
             this.checkHelpOnly();
         }
@@ -77,5 +76,5 @@ class HelpPageContainer extends React.Component {
 }
 
 export default connect(
-    state => ({ session: state.session })
+    (state) => ({ session: state.session })
 )(HelpPageContainer);

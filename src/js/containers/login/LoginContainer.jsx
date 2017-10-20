@@ -6,7 +6,6 @@
 import React from 'react';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
-import { hashHistory } from 'react-router';
 
 import { kGlobalConstants } from '../../GlobalConstants.js';
 import LoginPanel from '../../components/login/LoginPanel.jsx';
@@ -66,6 +65,6 @@ class LoginContainer extends React.Component {
 }
 
 export default connect(
-    state => ({ session: state.session }),
-    dispatch => bindActionCreators(sessionActions, dispatch)
+    (state) => ({ session: state.session }),
+    (dispatch) => bindActionCreators(sessionActions, dispatch)
 )(LoginContainer);

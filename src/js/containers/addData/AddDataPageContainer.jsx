@@ -6,13 +6,10 @@
 import React from 'react';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
-import { hashHistory } from 'react-router';
 
 import * as uploadActions from '../../redux/actions/uploadActions.js';
 
 import AddDataPage from '../../components/addData/AddDataPage.jsx';
-
-import Moment from 'moment';
 
 class AddDataPageContainer extends React.Component {
     componentDidMount() {
@@ -27,6 +24,6 @@ class AddDataPageContainer extends React.Component {
 }
 
 export default connect(
-    state => ({ submission: state.submission }),
-    dispatch => bindActionCreators(uploadActions, dispatch)
+    (state) => ({ submission: state.submission }),
+    (dispatch) => bindActionCreators(uploadActions, dispatch)
 )(AddDataPageContainer);

@@ -6,7 +6,6 @@
 import React from 'react';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
-import { hashHistory } from 'react-router';
 
 import * as uploadActions from '../../redux/actions/uploadActions.js';
 
@@ -15,8 +14,6 @@ import ValidateNotYours from '../../components/validateData/ValidateNotYours.jsx
 import ValidateLoadingScreen from '../../components/validateData/ValidateLoadingScreen.jsx';
 import PublishedSubmissionWarningBanner from '../../components/SharedComponents/PublishedSubmissionWarningBanner.jsx';
 import Banner from '../../components/SharedComponents/Banner.jsx';
-import { fileTypes } from '../addData/fileTypes.js';
-import { kGlobalConstants } from '../../GlobalConstants.js';
 
 import * as ReviewHelper from '../../helpers/reviewHelper.js';
 
@@ -48,7 +45,7 @@ class ValidateDataContainer extends React.Component {
         this.validateSubmission();
     }
 
-    componentDidUpdate(prevProps, prevState) {
+    componentDidUpdate(prevProps) {
         // check if the submission state changed, indicating a re-upload
         if (prevProps.submission.state !== this.props.submission.state) {
             if (this.props.submission.state === "prepare") {
@@ -193,7 +190,7 @@ class ValidateDataContainer extends React.Component {
 }
 
 export default connect(
-    state => ({ submission: state.submission,
+    (state) => ({ submission: state.submission,
     session: state.session }),
-    dispatch => bindActionCreators(uploadActions, dispatch)
+    (dispatch) => bindActionCreators(uploadActions, dispatch)
 )(ValidateDataContainer);

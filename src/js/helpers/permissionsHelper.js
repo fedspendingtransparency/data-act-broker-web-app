@@ -1,5 +1,3 @@
-import { dispatch } from 'redux';
-
 export const checkPermissions = (session) => {
     if (session.admin) {
         return true;
@@ -32,7 +30,7 @@ export const checkFabsPermissions = (session) => {
     return false;
 };
 
-export const checkAgencyPermissions = (session, agency_name) => {
+export const checkAgencyPermissions = (session, agencyName) => {
     if (session.admin) {
         return true;
     }
@@ -41,7 +39,7 @@ export const checkAgencyPermissions = (session, agency_name) => {
     }
     let aff = session.user.affiliations;
     for (let i = 0; i < aff.length; i++) {
-        if (aff[i].agency_name === agency_name && (aff[i].permission === 'writer' ||
+        if (aff[i].agency_name === agencyName && (aff[i].permission === 'writer' ||
             aff[i].permission === 'submitter')) {
             return true;
         }
@@ -49,7 +47,7 @@ export const checkAgencyPermissions = (session, agency_name) => {
     return false;
 };
 
-export const checkFabsAgencyPermissions = (session, agency_name) => {
+export const checkFabsAgencyPermissions = (session, agencyName) => {
     if (session.admin) {
         return true;
     }
@@ -58,7 +56,7 @@ export const checkFabsAgencyPermissions = (session, agency_name) => {
     }
     let aff = session.user.affiliations;
     for (let i = 0; i < aff.length; i++) {
-        if (aff[i].agency_name === agency_name && aff[i].permission === 'fabs') {
+        if (aff[i].agency_name === agencyName && aff[i].permission === 'fabs') {
             return true;
         }
     }

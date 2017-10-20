@@ -1,8 +1,5 @@
 import Request from './sessionSuperagent.js';
 import Q from 'q';
-import _ from 'lodash';
-
-import StoreSingleton from '../redux/storeSingleton.js';
 
 import { kGlobalConstants } from '../GlobalConstants.js';
 

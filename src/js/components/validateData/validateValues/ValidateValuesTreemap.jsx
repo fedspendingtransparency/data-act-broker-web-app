@@ -30,7 +30,7 @@ class ValidateValuesTreemap extends React.Component {
         this.formatData();
     }
 
-    componentDidUpdate(prevProps, prevState) {
+    componentDidUpdate(prevProps) {
         if (!_.isEqual(prevProps.data, this.props.data)) {
             this.formatData();
         }
@@ -63,8 +63,6 @@ class ValidateValuesTreemap extends React.Component {
             if (!minCount || minCount > occurrences) {
                 minCount = occurrences;
             }
-
-            let ruleLabel = item.original_label;
 
             data.push({
                 title: title,

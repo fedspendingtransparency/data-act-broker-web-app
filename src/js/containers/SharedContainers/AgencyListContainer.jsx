@@ -41,7 +41,7 @@ class AgencyListContainer extends React.Component {
         }
     }
 
-    dataFormatter(item, input) {
+    dataFormatter(item) {
         return {
             label: item.agency_name,
             value: item.cgac_code ? item.cgac_code : item.frec_code
@@ -57,6 +57,6 @@ class AgencyListContainer extends React.Component {
 }
 
 export default connect(
-    state => ({ agencyList: state.agencyList }),
-    dispatch => bindActionCreators(agencyActions, dispatch)
+    (state) => ({ agencyList: state.agencyList }),
+    (dispatch) => bindActionCreators(agencyActions, dispatch)
 )(AgencyListContainer);

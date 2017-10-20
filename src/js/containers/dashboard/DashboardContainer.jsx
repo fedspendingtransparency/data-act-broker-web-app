@@ -4,7 +4,6 @@
   **/
 
 import React from 'react';
-import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 
 import * as SubmissionListHelper from '../../helpers/submissionListHelper.js';
@@ -65,5 +64,5 @@ class DashboardContainer extends React.Component {
 }
 
 export default connect(
-    state => ({ session: state.session })
+    (state) => ({ session: state.session })
 )(DashboardContainer);

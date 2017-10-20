@@ -4,7 +4,6 @@
  **/
 
 import React from 'react';
-import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 
 import * as ReviewHelper from '../../helpers/reviewHelper.js';
@@ -37,7 +36,7 @@ class ReviewDataContainer extends React.Component {
         this.loadData();
     }
 
-    componentDidUpdate(prevProps, prevState) {
+    componentDidUpdate(prevProps) {
         if (this.props.params.submissionID !== prevProps.params.submissionID) {
             // URL submission ID changed, reload
             this.loadData();
@@ -77,6 +76,6 @@ class ReviewDataContainer extends React.Component {
 }
 
 export default connect(
-    state => ({ submission: state.submission,
+    (state) => ({ submission: state.submission,
                 session: state.session })
 )(ReviewDataContainer);

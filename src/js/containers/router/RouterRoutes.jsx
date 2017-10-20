@@ -1,6 +1,4 @@
 import { hashHistory } from 'react-router';
-import { kGlobalConstants } from '../../GlobalConstants.js';
-
 import LandingPage from '../../components/landing/LandingPage.jsx';
 import LoginPage from '../../components/login/LoginPage.jsx';
 import AuthPage from '../../components/login/AuthPage.jsx';
@@ -10,13 +8,10 @@ import UploadDetachedFilesPageContainer from
     '../../containers/uploadDetachedFiles/UploadDetachedFilesPageContainer.jsx';
 import GenerateDetachedFilesPageContainer
     from '../../containers/generateDetachedFiles/GenerateDetachedFilesPageContainer.jsx';
-import * as PermissionsHelper from '../../helpers/permissionsHelper.js';
-
-import StoreSingleton from '../../redux/storeSingleton.js';
+import StoreSingleton from '../redux/storeSingleton.js';
 
 let instance = null;
 let store = new StoreSingleton().store;
-let storeListener = null;
 
 const getStore = () => {
     if (!store) {
@@ -298,16 +293,16 @@ const getRoutes = () => {
     return returnRoutes;
 };
 
-function routeConstructor(route_info, onEnterIndex, type) {
+function routeConstructor(routeInfo, onEnterIndex, type) {
     let prefix = '';
     if (type === 'fabs') {
         prefix = 'FABS';
     }
 
-    if (route_info.component === 'landing') {
+    if (routeInfo.component === 'landing') {
         return {
-            path: prefix + route_info.path,
-            onEnter: route_info.onEnter[onEnterIndex],
+            path: prefix + routeInfo.path,
+            onEnter: routeInfo.onEnter[onEnterIndex],
             getComponent(nextState, cb) {
                 require.ensure([], (require) => {
                     cb(null, require('../../components/landing/LandingPage.jsx').default);
@@ -316,10 +311,10 @@ function routeConstructor(route_info, onEnterIndex, type) {
             type: type
         };
     }
-    else if (route_info.component === 'dashboard') {
+    else if (routeInfo.component === 'dashboard') {
         return {
-            path: prefix + route_info.path,
-            onEnter: route_info.onEnter[onEnterIndex],
+            path: prefix + routeInfo.path,
+            onEnter: routeInfo.onEnter[onEnterIndex],
             getComponent(nextState, cb) {
                 require.ensure([], (require) => {
                     cb(null, require('../../components/dashboard/DashboardPage.jsx').default);
@@ -328,10 +323,10 @@ function routeConstructor(route_info, onEnterIndex, type) {
             type: type
         };
     }
-    else if (route_info.component ==='help') {
+    else if (routeInfo.component ==='help') {
         return {
-            path: prefix + route_info.path,
-            onEnter: route_info.onEnter[onEnterIndex],
+            path: prefix + routeInfo.path,
+            onEnter: routeInfo.onEnter[onEnterIndex],
             getComponent(nextState, cb) {
                 require.ensure([], (require) => {
                     cb(null, require('../help/HelpContainer.jsx').default);

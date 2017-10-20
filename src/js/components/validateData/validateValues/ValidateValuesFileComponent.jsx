@@ -110,7 +110,7 @@ export default class ValidateValuesFileComponent extends React.Component {
                     this.openReport();
                 });
             })
-            .catch((err) => {
+            .catch(() => {
                 this.setState({
                     signInProgress: false,
                     error: {

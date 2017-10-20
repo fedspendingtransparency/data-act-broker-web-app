@@ -54,10 +54,10 @@ class AddDataContainer extends React.Component {
                     const count = 9;
                     for (let i = 0; i <= count; i++) {
                         GuideHelper.getSubmissionPage(submissionID)
-                            .then((res) => {
+                            .then(() => {
                                 hashHistory.push('/validateData/' + submissionID);
                             })
-                            .catch((err) => {
+                            .catch(() => {
                                 if (i === count) {
                                     hashHistory.push('/404/');
                                 }
@@ -95,6 +95,6 @@ class AddDataContainer extends React.Component {
 }
 
 export default connect(
-    state => ({ submission: state.submission }),
-    dispatch => bindActionCreators(uploadActions, dispatch)
+    (state) => ({ submission: state.submission }),
+    (dispatch) => bindActionCreators(uploadActions, dispatch)
 )(AddDataContainer);

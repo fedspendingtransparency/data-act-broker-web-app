@@ -11,9 +11,7 @@ import { hashHistory } from 'react-router';
 import Q from 'q';
 
 import * as uploadActions from '../../redux/actions/uploadActions.js';
-import { kGlobalConstants } from '../../GlobalConstants.js';
 import * as GenerateHelper from '../../helpers/generateFilesHelper.js';
-import * as ReviewHelper from '../../helpers/reviewHelper.js';
 
 import GenerateEFContent from '../../components/generateEF/GenerateEFContent.jsx';
 import GenerateEFError from '../../components/generateEF/GenerateEFError.jsx';
@@ -67,9 +65,7 @@ class GenerateEFContainer extends React.Component {
                         this.generateFiles();
                         return;
                     }
-                    else {
-                        data.message = 'Prerequisites required to generate this file are incomplete.';
-                    }
+                    data.message = 'Prerequisites required to generate this file are incomplete.';
                 }
             }
             else {
@@ -170,7 +166,7 @@ class GenerateEFContainer extends React.Component {
 }
 
 export default connect(
-    state => ({ submission: state.submission,
+    (state) => ({ submission: state.submission,
     session: state.session }),
-    dispatch => bindActionCreators(uploadActions, dispatch)
+    (dispatch) => bindActionCreators(uploadActions, dispatch)
 )(GenerateEFContainer);

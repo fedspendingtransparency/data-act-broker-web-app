@@ -6,17 +6,14 @@
 import React from 'react';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
-import { hashHistory } from 'react-router';
 import _ from 'lodash';
 
 import * as uploadActions from '../../redux/actions/uploadActions.js';
 
 import ValidationOverlay from '../../components/validateData/ValidationOverlay.jsx';
-import { fileTypes } from '../addData/fileTypes.js';
 import { kGlobalConstants } from '../../GlobalConstants.js';
 
 import * as UploadHelper from '../../helpers/uploadHelper.js';
-import * as ReviewHelper from '../../helpers/reviewHelper.js';
 
 class ValidationOverlayContainer extends React.Component {
     constructor(props) {
@@ -75,6 +72,6 @@ class ValidationOverlayContainer extends React.Component {
 }
 
 export default connect(
-    state => ({ submission: state.submission }),
-    dispatch => bindActionCreators(uploadActions, dispatch)
+    (state) => ({ submission: state.submission }),
+    (dispatch) => bindActionCreators(uploadActions, dispatch)
 )(ValidationOverlayContainer);

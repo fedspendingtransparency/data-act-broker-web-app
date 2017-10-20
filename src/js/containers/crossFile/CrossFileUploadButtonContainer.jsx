@@ -8,8 +8,6 @@ import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 
 import * as uploadActions from '../../redux/actions/uploadActions.js';
-import { kGlobalConstants } from '../../GlobalConstants.js';
-import * as UploadHelper from '../../helpers/uploadHelper.js';
 
 import UploadButton from '../../components/validateData/ValidateDataUploadButton.jsx';
 
@@ -75,6 +73,6 @@ class CrossFileUploadButtonContainer extends React.Component {
 CrossFileUploadButtonContainer.defaultProps = defaultProps;
 
 export default connect(
-    state => ({ submission: state.submission }),
-    dispatch => bindActionCreators(uploadActions, dispatch)
+    (state) => ({ submission: state.submission }),
+    (dispatch) => bindActionCreators(uploadActions, dispatch)
 )(CrossFileUploadButtonContainer);

@@ -33,6 +33,6 @@ class DropZoneContainer extends React.Component {
 }
 
 export default connect(
-    state => ({ submission: state.submission }),
-    dispatch => bindActionCreators(uploadActions, dispatch)
+    (state) => ({ submission: state.submission }),
+    (dispatch) => bindActionCreators(uploadActions, dispatch)
 )(DropZoneContainer);

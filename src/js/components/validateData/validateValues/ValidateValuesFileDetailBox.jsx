@@ -6,14 +6,6 @@
 import React from 'react';
 import * as Icons from '../../SharedComponents/icons/Icons.jsx';
 
-const defaultProps = {
-    styleClass: '',
-    label: '',
-    count: 0,
-    expandedReport: false,
-    onClick: null
-};
-
 export default class ValidateValuesFileDetailBox extends React.Component {
     render() {
         // handle CSS class for determining if the error/warning count should be color text or black

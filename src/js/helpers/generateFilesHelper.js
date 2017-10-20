@@ -1,8 +1,5 @@
 import Request from './sessionSuperagent.js';
 import Q from 'q';
-import Cookies from 'js-cookie';
-
-import StoreSingleton from '../redux/storeSingleton.js';
 
 import { kGlobalConstants } from '../GlobalConstants.js';
 
@@ -69,7 +66,7 @@ export const fetchFile = (type, submissionId) => {
     return deferred.promise;
 };
 
-export const generateDetachedFile = (type, start, end, cgac_code, frec_code) => {
+export const generateDetachedFile = (type, start, end, cgacCode, frecCode) => {
     const deferred = Q.defer();
 
     Request.post(kGlobalConstants.API + 'generate_detached_file/')
@@ -77,8 +74,8 @@ export const generateDetachedFile = (type, start, end, cgac_code, frec_code) => 
                 'file_type': type,
                 'start': start,
                 'end': end,
-                'cgac_code': cgac_code,
-                'frec_code': frec_code
+                'cgac_code': cgacCode,
+                'frec_code': frecCode
             })
             .end((errFile, res) => {
                 if (errFile) {
@@ -94,12 +91,12 @@ export const generateDetachedFile = (type, start, end, cgac_code, frec_code) => 
     return deferred.promise;
 };
 
-export const fetchDetachedFile = (job_id) => {
+export const fetchDetachedFile = (jobId) => {
     const deferred = Q.defer();
 
     Request.post(kGlobalConstants.API + 'check_detached_generation_status/')
             .send({
-                'job_id': job_id
+                'job_id': jobId
             })
             .end((errFile, res) => {
                 if (errFile) {

@@ -31,7 +31,7 @@ class SubTierAgencyListContainer extends React.Component {
         }
     }
 
-    dataFormatter(item, input) {
+    dataFormatter(item) {
         return {
             label: item.agency_name,
             value: { value: item.agency_code, priority: item.priority }
@@ -48,6 +48,6 @@ class SubTierAgencyListContainer extends React.Component {
 }
 
 export default connect(
-    state => ({ subTierAgencyList: state.subTierAgencyList }),
-    dispatch => bindActionCreators(subTierAgencyActions, dispatch)
+    (state) => ({ subTierAgencyList: state.subTierAgencyList }),
+    (dispatch) => bindActionCreators(subTierAgencyActions, dispatch)
 )(SubTierAgencyListContainer);

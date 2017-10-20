@@ -51,13 +51,13 @@ export default class AppContainer extends React.Component {
         // cookie state is only used as a shorthand to determine if we should show the loading page
         // regardless, we still need to check the backend for the user session
         fetchActiveUser()
-            .then((res) => {
+            .then(() => {
                 // logged in
                 this.setState({
                     appReady: true
                 });
             })
-            .catch((err) => {
+            .catch(() => {
                 this.setState({
                     appReady: true
                 });

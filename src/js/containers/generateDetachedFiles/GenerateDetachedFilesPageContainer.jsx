@@ -10,8 +10,6 @@ import { connect } from 'react-redux';
 import * as uploadActions from '../../redux/actions/uploadActions.js';
 import GenerateDetachedFilesPage from '../../components/generateDetachedFiles/GenerateDetachedFilesPage.jsx';
 
-import Moment from 'moment';
-
 class GenerateDetachedFilesPageContainer extends React.Component {
     render() {
         return (
@@ -21,6 +19,6 @@ class GenerateDetachedFilesPageContainer extends React.Component {
 }
 
 export default connect(
-    state => ({ session: state.session }),
-    dispatch => bindActionCreators(uploadActions, dispatch)
+    (state) => ({ session: state.session }),
+    (dispatch) => bindActionCreators(uploadActions, dispatch)
 )(GenerateDetachedFilesPageContainer);

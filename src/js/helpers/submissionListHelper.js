@@ -1,7 +1,5 @@
 import Request from './sessionSuperagent.js';
 import Q from 'q';
-import { dispatch } from 'redux';
-import _ from 'lodash';
 import moment from 'moment';
 import { kGlobalConstants } from '../GlobalConstants.js';
 
@@ -58,11 +56,11 @@ const parseRecentActivity = (submissions) => {
 };
 
 export const loadSubmissionList = (page = 1, limit = 10, certified = false, sort = 'updated', order = 'desc',
-                                   d2_submission = false) => {
+                                   d2Submission = false) => {
     const deferred = Q.defer();
 
     Request.get(kGlobalConstants.API + 'list_submissions/')
-            .query({ page, limit, certified, sort, order, d2_submission })
+            .query({ page, limit, certified, sort, order, d2Submission })
             .end((err, res) => {
                 if (err) {
                     deferred.reject(err);
@@ -96,14 +94,14 @@ export const loadSubmissionHistory = (submissionID) => {
     return deferred.promise;
 };
 
-export const getSubmissionFile = (submissionID, certified_files_history, is_warning) => {
+export const getSubmissionFile = (submissionID, certifiedFilesHistory, isWarning) => {
     const deferred = Q.defer();
 
     Request.post(kGlobalConstants.API + 'get_certified_file/')
             .send({
                 submission_id: submissionID,
-                certified_files_history_id: certified_files_history,
-                is_warning: is_warning
+                certified_files_history_id: certifiedFilesHistory,
+                is_warning: isWarning
             })
             .end((err, res) => {
                 if (err) {

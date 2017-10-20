@@ -3,7 +3,7 @@
  * Created by Mike Hess 8/15/17
  **/
 
-import React, { PropTypes } from 'react';
+import React from 'react';
 
 import ValidationOverlayContainer from '../../containers/validateData/ValidationOverlayContainer.jsx';
 import ValidateDataFileContainer from '../../containers/validateData/ValidateDataFileContainer.jsx';
@@ -40,7 +40,6 @@ export default class ValidationContent extends React.Component {
         });
 
         let overlay = '';
-        let displayOverlay = '';
         if (!this.props.hasFinished || this.props.hasFailed) {
             // still loading or validating
             overlay = <ValidateDataInProgressOverlay hasFailed={this.props.hasFailed} />;

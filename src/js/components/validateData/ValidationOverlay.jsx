@@ -17,7 +17,7 @@ export default class ValidationOverlay extends React.Component {
         super(props);
     }
 
-    pressedNext(e) {
+    pressedNext() {
         hashHistory.push('/generateFiles/' + this.props.submission.id);
     }
 

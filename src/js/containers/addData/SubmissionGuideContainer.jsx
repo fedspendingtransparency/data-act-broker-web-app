@@ -29,15 +29,16 @@ class SubmissionGuideContainer extends React.Component {
         }
     }
 
-    saveSkipGuide(skip_guide) {
-        SubmissionGuideHelper.setSkipGuide(skip_guide)
+    saveSkipGuide(skipGuide) {
+        SubmissionGuideHelper.setSkipGuide(skipGuide)
             .then(() => {
                 // update the Redux state
-                this.props.setSkipGuide(skip_guide);
+                this.props.setSkipGuide(skipGuide);
                 this.sendToAddData();
             })
             .catch((err) => {
                 // TODO: Figure out how to handle errors
+                console.log(err);
             });
     }
 
@@ -53,6 +54,6 @@ class SubmissionGuideContainer extends React.Component {
 }
 
 export default connect(
-    state => ({ session: state.session }),
-    dispatch => bindActionCreators(sessionActions, dispatch)
+    (state) => ({ session: state.session }),
+    (dispatch) => bindActionCreators(sessionActions, dispatch)
 )(SubmissionGuideContainer);

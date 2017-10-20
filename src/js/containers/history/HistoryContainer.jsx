@@ -4,7 +4,6 @@
 **/
 
 import React from 'react';
-import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 
 import HistoryPage from '../../components/history/HistoryPage.jsx';
@@ -23,5 +22,5 @@ class HistoryContainer extends React.Component {
 }
 
 export default connect(
-    state => ({ session: state.session })
+    (state) => ({ session: state.session })
 )(HistoryContainer);

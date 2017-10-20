@@ -5,7 +5,6 @@
 
 import React from 'react';
 import { hashHistory } from 'react-router';
-import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 
 import * as SubmissionGuideHelper from '../../helpers/submissionGuideHelper.js';
@@ -35,5 +34,5 @@ class SubmissionContainer extends React.Component {
 }
 
 export default connect(
-    state => ({ session: state.session })
+    (state) => ({ session: state.session })
 )(SubmissionContainer);

@@ -227,7 +227,7 @@ export const loadResources = () => {
             output.html = data.html;
             output.sections = data.sections;
         })
-        .then((data) => {
+        .then(() => {
             deferred.resolve(output);
         })
         .catch((err) => {

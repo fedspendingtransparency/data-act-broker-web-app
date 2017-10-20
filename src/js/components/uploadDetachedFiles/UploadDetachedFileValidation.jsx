@@ -424,5 +424,5 @@ class UploadDetachedFileValidation extends React.Component {
 }
 
 export default connect(
-    state => ({ session: state.session })
+    (state) => ({ session: state.session })
 )(UploadDetachedFileValidation);

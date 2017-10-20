@@ -1,6 +1,5 @@
 import Request from './sessionSuperagent.js';
 import Q from 'q';
-import { dispatch } from 'redux';
 import _ from 'lodash';
 
 import StoreSingleton from '../redux/storeSingleton.js';
@@ -72,7 +71,6 @@ export const fetchStatus = (submissionId) => {
                 const endTime = new Date().getTime();
                 const duration = endTime - startTime;
                 // log the API call duration
-                const reduxData = store.getState();
                 const action = sessionActions.setApiMeta({
                     time: duration
                 });
@@ -194,9 +192,6 @@ const getCrossFileData = (data, type, validKeys) => {
     if (type === 'warnings') {
         dataType = 'warning_data';
     }
-
-    // generate the file pair keys
-    let i = 1;
 
     for (let index in data.crossFile[dataType]) {
         // fetch the error object
@@ -492,11 +487,11 @@ export const certifySubmission = (submissionId) => {
     return deferred.promise;
 };
 
-export const deleteSubmission = (submission_id) => {
+export const deleteSubmission = (submissionId) => {
     const deferred = Q.defer();
 
     Request.post(kGlobalConstants.API + 'delete_submission/')
-            .send({ submission_id })
+            .send({ submissionId })
             .end((err, res) => {
                 if (err) {
                     deferred.reject(res.body);
@@ -512,11 +507,11 @@ export const deleteSubmission = (submission_id) => {
     return deferred.promise;
 };
 
-export const revalidateSubmission = (submission_id) => {
+export const revalidateSubmission = (submissionId) => {
     const deferred = Q.defer();
 
     Request.post(kGlobalConstants.API + 'restart_validation/')
-        .send({ submission_id })
+        .send({ submissionId })
         .end((err, res) => {
             if (err) {
                 deferred.reject(err);

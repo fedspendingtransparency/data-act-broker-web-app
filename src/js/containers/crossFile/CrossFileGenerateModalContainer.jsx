@@ -4,23 +4,13 @@
   **/
 
 import React from 'react';
-import { bindActionCreators } from 'redux';
-import { connect } from 'react-redux';
 import { hashHistory } from 'react-router';
 
 import moment from 'moment';
-import _ from 'lodash';
-import Q from 'q';
 
-import StoreSingleton from '../../redux/storeSingleton.js';
-
-import { kGlobalConstants } from '../../GlobalConstants.js';
 import GenerateFileBox from '../../components/generateFiles/components/GenerateFileBox.jsx';
 
-import * as uploadActions from '../../redux/actions/uploadActions.js';
-
 import * as GenerateFilesHelper from '../../helpers/generateFilesHelper.js';
-import * as UtilHelper from '../../helpers/util.js';
 
 export default class CrossFileGenerateModalContainer extends React.Component {
 
@@ -106,7 +96,6 @@ export default class CrossFileGenerateModalContainer extends React.Component {
 
     validateDates() {
         // validate that dates are provided for both fields and the end dates don't come before the start dates
-        let state = "incomplete";
 
         const file = Object.assign({}, this.state.file);
 
@@ -172,7 +161,7 @@ export default class CrossFileGenerateModalContainer extends React.Component {
         });
     }
 
-    hideError(header, description) {
+    hideError() {
         this.setState({
             file: Object.assign(this.state.file, {
                 error: {
@@ -219,12 +208,7 @@ export default class CrossFileGenerateModalContainer extends React.Component {
             .then((allResponses) => {
                 this.parseFileStates(allResponses);
             })
-            .fail((err) => {
-                let errorMessage = 'An error occurred while contacting the server.';
-                if (err && err.body) {
-                    errorMessage = err.body.message;
-                }
-
+            .fail(() => {
                 this.props.setButtonText('Generate File');
                 this.props.enableButton();
             });

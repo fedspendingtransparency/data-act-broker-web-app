@@ -174,7 +174,7 @@ export const performLogout = () => {
 
     Request.post(kGlobalConstants.API + 'logout/')
             .send({})
-            .end((err, res) => {
+            .end((err) => {
                 if (!err) {
                     const action = sessionActions.setLoggedOut();
                     store.dispatch(action);
