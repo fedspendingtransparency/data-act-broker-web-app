@@ -4,7 +4,6 @@
   **/
 
 import React from 'react';
-import Modal from 'react-aria-modal';
 import Moment from 'moment';
 
 export default class LandingRequirementsBody extends React.Component {
@@ -25,7 +24,7 @@ export default class LandingRequirementsBody extends React.Component {
     }
 
     render() {
-        let aws_s3 = "https://s3-us-gov-west-1.amazonaws.com/prod-data-act-web-static-files/";
+        let awsS3 = "https://s3-us-gov-west-1.amazonaws.com/prod-data-act-web-static-files/";
         let windowWarning = null;
         let windowBlock = this.windowBlocked();
         if (windowBlock) {
@@ -43,16 +42,16 @@ export default class LandingRequirementsBody extends React.Component {
 
             <ul>
                 <li>
-                    File A: Appropriation Account data (<a href={aws_s3 + "sample-files/appropValid.csv"}
+                    File A: Appropriation Account data (<a href={awsS3 + "sample-files/appropValid.csv"}
                         target="_blank" rel="noopener noreferrer">Download sample file</a>)
                 </li>
                 <li>
-                    File B: Object Class and Program Activity data (<a href={aws_s3 +
+                    File B: Object Class and Program Activity data (<a href={awsS3 +
                         "sample-files/programActivityValid.csv"} target="_blank"
                         rel="noopener noreferrer">Download sample file</a>)
                 </li>
                 <li>
-                    File C: Award Financial data (<a href={aws_s3 + "sample-files/awardFinancialValid.csv"}
+                    File C: Award Financial data (<a href={awsS3 + "sample-files/awardFinancialValid.csv"}
                         target="_blank" rel="noopener noreferrer">Download sample file</a>)
                 </li>
             </ul>
@@ -84,7 +83,7 @@ export default class LandingRequirementsBody extends React.Component {
                     have any previous submission files on hand
                 </p>
                 <ul>
-                    <li>Financial Assistance data (Award and Awardee Attributes) (<a href={aws_s3 +
+                    <li>Financial Assistance data (Award and Awardee Attributes) (<a href={awsS3 +
                         "help-files/DAIMS_FABS_Sample_Submission_File_v1.1.csv"} target="_blank"
                         rel="noopener noreferrer">download sample file</a>)</li>
                 </ul>
@@ -92,7 +91,7 @@ export default class LandingRequirementsBody extends React.Component {
                     Here are some additional resources to assist you with your submission:
                 </p>
                 <ul>
-                    <li><a href={aws_s3 + "help-files/DAIMS_FABS_Validation_Checklist_v1.1.pdf"} target="_blank"
+                    <li><a href={awsS3 + "help-files/DAIMS_FABS_Validation_Checklist_v1.1.pdf"} target="_blank"
                         rel="noopener noreferrer">Validation Checklist</a></li>
                     <li>Error Codes and Messages</li>
                     <li>

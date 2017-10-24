@@ -4,13 +4,9 @@
  **/
 
 import React from 'react';
-import ReactCSSTransitionGroup from 'react-addons-css-transition-group';
 
-import ValidateDataUploadButton from './ValidateDataUploadButton.jsx';
 import CorrectButtonCornerOverlay from './CorrectButtonCornerOverlay.jsx';
 import CorrectButtonFullOverlay from './CorrectButtonFullOverlay.jsx';
-
-import * as Icons from '../SharedComponents/icons/Icons.jsx';
 
 const defaultProps = {
     fullName: '',

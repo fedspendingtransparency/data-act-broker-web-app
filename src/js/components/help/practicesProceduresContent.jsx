@@ -34,7 +34,7 @@ export default class PracticesProceduresContent extends React.Component {
             });
     }
 
-    componentDidUpdate(prevProps, prevState) {
+    componentDidUpdate() {
         this.scrollToTop();
     }
 
@@ -56,7 +56,7 @@ export default class PracticesProceduresContent extends React.Component {
             <div className="usa-da-help-content">
                 <div className="practices-procedures">
                     <h2>Practices &amp; Procedures</h2>
-                    <DaimsMessage type='practices' />
+                    <DaimsMessage type="practices" />
                     <p><em>Last updated: December 21, 2016</em></p>
 
                     <p>

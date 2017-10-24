@@ -8,7 +8,7 @@ import UploadDetachedFilesPageContainer from
     '../../containers/uploadDetachedFiles/UploadDetachedFilesPageContainer.jsx';
 import GenerateDetachedFilesPageContainer
     from '../../containers/generateDetachedFiles/GenerateDetachedFilesPageContainer.jsx';
-import StoreSingleton from '../redux/storeSingleton.js';
+import StoreSingleton from '../../redux/storeSingleton.js';
 
 let instance = null;
 let store = new StoreSingleton().store;

@@ -4,7 +4,6 @@
  **/
 
 import React, { PropTypes } from 'react';
-import moment from 'moment';
 
 const propTypes = {
     label: PropTypes.string

@@ -20,7 +20,7 @@ export default class CrossFilePage extends React.Component {
         };
     }
 
-    componentDidUpdate(prevProps, prevState) {
+    componentDidUpdate(prevProps) {
         if (this.props.params.submissionID !== prevProps.params.submissionID) {
             // new submission ID, reload
             if (this.state.showError) {

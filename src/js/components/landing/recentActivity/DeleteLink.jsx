@@ -24,7 +24,7 @@ export default class DeleteLink extends React.Component {
         this.canDelete();
     }
 
-    componentDidUpdate(currProps, nextProps) {
+    componentDidUpdate() {
         if (!this.load) {
             this.canDelete();
         }
@@ -79,7 +79,7 @@ export default class DeleteLink extends React.Component {
         let button = 'N/A';
         let modal = null;
         if (this.state.delete) {
-            button = <div onClick={this.confirm.bind(this)} className='trash-icon'>
+            button = <div onClick={this.confirm.bind(this)} className="trash-icon">
                 <Icons.Trash alt="Delete" />
             </div>;
             modal = <DeleteModal isOpen={this.state.active} closeModal={this.reset.bind(this)}

@@ -4,9 +4,7 @@
 **/
 
 import React, { PropTypes } from 'react';
-import DropZone from './DropZone.jsx';
 import DropZoneContainer from '../../containers/addData/DropZoneContainer.jsx';
-import { kGlobalConstants } from '../../GlobalConstants.js';
 
 const propTypes = {
     fileTitle: PropTypes.string.isRequired,

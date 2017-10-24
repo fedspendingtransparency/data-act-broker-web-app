@@ -7,9 +7,6 @@ import React from 'react';
 import Modal from 'react-aria-modal';
 import * as Icons from '../SharedComponents/icons/Icons.jsx';
 
-import * as ReviewHelper from '../../helpers/reviewHelper.js';
-import { hashHistory, Link } from 'react-router';
-
 export default class PublishModal extends React.Component {
     constructor(props) {
         super(props);

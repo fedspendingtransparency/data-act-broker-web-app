@@ -6,7 +6,6 @@
 import React from 'react';
 import FileComponent from '../addData/FileComponent.jsx';
 import LoadingBauble from '../SharedComponents/overlays/LoadingBauble.jsx';
-import SubmitButton from '../SharedComponents/SubmitButton.jsx';
 
 export default class UploadDetachedFilesBox extends React.Component {
     uploadFile(file) {

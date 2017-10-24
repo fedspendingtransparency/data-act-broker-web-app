@@ -4,7 +4,6 @@
 **/
 
 import React from 'react';
-import $ from 'jquery';
 import Navbar from '../SharedComponents/navigation/NavigationComponent.jsx';
 import AddDataHeader from './AddDataHeader.jsx';
 import AddDataMeta from './AddDataMeta.jsx';
@@ -34,7 +33,7 @@ export default class AddDataPage extends React.Component {
                 <div className="usa-da-site_wrap">
                     <Navbar activeTab="submissionGuide" type={this.props.route.type} />
                     <AddDataHeader />
-                    <Banner type='dabs' />
+                    <Banner type="dabs" />
                     {bodyComponent}
                 </div>
                 <Footer />

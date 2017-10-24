@@ -4,7 +4,6 @@
  */
 
 import React from 'react';
-import ReactDOM from 'react-dom';
 import Modal from 'react-aria-modal';
 import _ from 'lodash';
 
@@ -46,7 +45,7 @@ export default class ReviewDataNotifyModal extends React.Component {
             });
     }
 
-    userFormatter(item, input) {
+    userFormatter(item) {
         return {
             label: item.displayName,
             value: item.id
@@ -55,14 +54,14 @@ export default class ReviewDataNotifyModal extends React.Component {
 
     selectUser(id, isValid) {
         if (isValid) {
-            let selectedUser = _.find(this.state.users, user => user.id === id);
+            let selectedUser = _.find(this.state.users, (user) => user.id === id);
             let updatedSelectedUsers = this.state.selectedUsers.slice();
 
             if (updatedSelectedUsers.length === 0 || updatedSelectedUsers[updatedSelectedUsers.length-1].id !== id) {
                 updatedSelectedUsers.push(selectedUser);
                 this.setState({ "selectedUsers": updatedSelectedUsers });
 
-                let updatedUsers = _.remove(this.state.users, user => user.id !== id);
+                let updatedUsers = _.remove(this.state.users, (user) => user.id !== id);
                 this.setState({ "users": updatedUsers });
 
                 this.refs.typeahead.setState({ value: "" });
@@ -72,14 +71,14 @@ export default class ReviewDataNotifyModal extends React.Component {
 
     deselectUser(userId) {
         if (userId) {
-            let deselectedUser = _.find(this.state.selectedUsers, user => user.id === userId);
+            let deselectedUser = _.find(this.state.selectedUsers, (user) => user.id === userId);
             let users = this.state.users.slice();
 
             if (users.length === 0 || users[users.length-1].id !== userId) {
                 users.push(deselectedUser);
                 this.setState({ "users": users });
 
-                let updatedSelectedUsers = _.remove(this.state.selectedUsers, user => user.id !== userId);
+                let updatedSelectedUsers = _.remove(this.state.selectedUsers, (user) => user.id !== userId);
                 this.setState({ "selectedUsers": updatedSelectedUsers });
             }
         }
@@ -88,10 +87,10 @@ export default class ReviewDataNotifyModal extends React.Component {
     sendNotification(e) {
         e.preventDefault();
 
-        let users = this.state.selectedUsers.map(user => user.id);
+        let users = this.state.selectedUsers.map((user) => user.id);
 
         ReviewHelper.sendNotification(users, this.props.submissionID)
-            .then((data) => {
+            .then(() => {
                 this.props.closeModal();
             })
             .catch((error) => {

@@ -3,7 +3,6 @@
 * Created by Minahm Kim
 **/
 import React from 'react';
-import moment from 'moment';
 
 import * as Icons from '../SharedComponents/icons/Icons.jsx';
 

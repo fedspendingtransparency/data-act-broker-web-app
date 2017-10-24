@@ -3,7 +3,7 @@
 * Created by Katie Rose 12/8/15
 **/
 
-import React, { PropTypes } from 'react';
+import React from 'react';
 import { kGlobalConstants } from '../../../GlobalConstants.js';
 import NavbarTab from './NavbarTab.jsx';
 import UserButton from './UserButton.jsx';

@@ -39,7 +39,7 @@ export default class ValidationRulesTableContent extends React.Component {
         }
     }
 
-    componentDidUpdate(prevProps, prevState) {
+    componentDidUpdate() {
         this.scrollToTop();
     }
 
@@ -99,12 +99,12 @@ export default class ValidationRulesTableContent extends React.Component {
                 Broker Submission (RSS-FABS)</p>
                 <ul>
                     <li>
-                        <a href={this.state.checkList} target='_blank'>Validation Checklist:</a> contains file-wide
+                        <a href={this.state.checkList} target="_blank">Validation Checklist:</a> contains file-wide
                         practices, data element-level validation rule explanations, technical procedures for formatting
                         submission files, and a change log
                     </li>
                     <li>
-                        <a href={this.state.validationRulesUrl} target='_blank'>DAIMS Validations Rules:</a> contains
+                        <a href={this.state.validationRulesUrl} target="_blank">DAIMS Validations Rules:</a> contains
                         the validations rules for the RSS and IDD, along with a change log
                     </li>
                 </ul>
@@ -115,7 +115,7 @@ export default class ValidationRulesTableContent extends React.Component {
             <div className="usa-da-help-content">
                 <div className="validation-table">
                     <h2>Validations</h2>
-                    <DaimsMessage type='validations' />
+                    <DaimsMessage type="validations" />
                     {message}
                     <Reactable.Table className="table usa-da-table table-bordered"
                         data={this.state.data} filterable={['Rule Detail']}
@@ -131,9 +131,7 @@ export default class ValidationRulesTableContent extends React.Component {
                                         let bN = parseInt(b.replace(reN, ""), 10);
                                         return aN === bN ? 0 : aN > bN ? 1 : -1;
                                     }
-                                    else {
-                                        return aA > bA ? 1 : -1;
-                                    }
+                                    return aA > bA ? 1 : -1;
                                 }
                             }
                         ]}

@@ -5,7 +5,6 @@
 
 import React from 'react';
 import Modal from 'react-aria-modal';
-import { hashHistory } from 'react-router';
 import * as Icons from '../../SharedComponents/icons/Icons.jsx';
 
 import * as ReviewHelper from '../../../helpers/reviewHelper.js';
@@ -83,7 +82,7 @@ export default class DeleteModal extends React.Component {
                             <button id="delete-button" className="btn btn-danger delete-button"
                                 onClick={this.clickedDeleteButton.bind(this)} disabled={this.state.disable}>Delete
                             </button>
-                            <button className='btn btn-default' onClick={this.closeModal.bind(this)}>Cancel</button>
+                            <button className="btn btn-default" onClick={this.closeModal.bind(this)}>Cancel</button>
                         </div>
                     </div>
                 </div>

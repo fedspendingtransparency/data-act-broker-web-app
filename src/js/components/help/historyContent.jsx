@@ -5,10 +5,7 @@
 
 import React from 'react';
 import $ from 'jquery';
-import { generateRSSUrl, generateProtectedUrls, rssFileKey } from '../../helpers/util.js';
-
-
-let gifSrc = 'graphics/reportabug.gif';
+import { generateProtectedUrls, rssFileKey } from '../../helpers/util.js';
 
 export default class HistoryContent extends React.Component {
 
@@ -39,7 +36,7 @@ export default class HistoryContent extends React.Component {
             });
     }
 
-    componentDidUpdate(prevProps, prevState) {
+    componentDidUpdate() {
         this.scrollToSection();
     }
 

@@ -25,7 +25,7 @@ export default class CrossFileContent extends React.Component {
         this.crossFileItems();
     }
 
-    componentDidUpdate(prevProps, prevState) {
+    componentDidUpdate(prevProps) {
         if (!_.isEqual(prevProps.submission, this.props.submission)) {
             this.crossFileItems();
         }

@@ -4,15 +4,9 @@
   **/
 
 import React from 'react';
-import Reactable from 'reactable';
-import _ from 'lodash';
 
-import FormattedTable from '../SharedComponents/table/FormattedTable.jsx';
 import * as SubmissionListHelper from '../../helpers/submissionListHelper.js';
 import * as Icons from '../SharedComponents/icons/Icons.jsx';
-
-import DashboardPaginator from '../dashboard/DashboardPaginator.jsx';
-
 
 export default class HistoryTable extends React.Component {
     constructor(props) {
@@ -56,7 +50,7 @@ export default class HistoryTable extends React.Component {
     }
 
     getSignedUrl(index) {
-        let cert_file = this.state.certifications[this.state.active].certified_files[index];
+        let certFile = this.state.certifications[this.state.active].certified_files[index];
         this.setState({
             warning: {
                 active: true,
@@ -65,8 +59,8 @@ export default class HistoryTable extends React.Component {
                 body: 'Retreiving file from server. Please wait.'
             }
         });
-        SubmissionListHelper.getSubmissionFile(this.props.submissionID, cert_file.certified_files_history_id,
-            cert_file.is_warning)
+        SubmissionListHelper.getSubmissionFile(this.props.submissionID, certFile.certified_files_history_id,
+            certFile.is_warning)
             .then((response) => {
                 window.open(response.url);
                 this.setState({
@@ -95,7 +89,7 @@ export default class HistoryTable extends React.Component {
         let activeSubmissionsFiles = this.state.certifications[this.state.active].certified_files;
         let list = [];
         for (let i = 0; i < activeSubmissionsFiles.length; i++) {
-            list.push(<li className='file-link' onClick={this.getSignedUrl.bind(this, i)}>
+            list.push(<li className="file-link" onClick={this.getSignedUrl.bind(this, i)}>
                 {activeSubmissionsFiles[i].filename}</li>);
         }
         return list;
@@ -110,13 +104,13 @@ export default class HistoryTable extends React.Component {
         for (let i = 0; i < certifications.length; i++) {
             if (this.state.active === i) {
                 list.push(<li>
-                    <span className='active-submission'>Certified by {certifications[i].certifying_user.name} on
+                    <span className="active-submission">Certified by {certifications[i].certifying_user.name} on
                     {this.convertToLocalDate(certifications[i].certify_date)}</span>
                 </li>);
             }
             else {
                 list.push(<li onClick={this.setActiveSubmission.bind(this, i)}>
-                    <span className='submission'>Certified by {certifications[i].certifying_user.name} on
+                    <span className="submission">Certified by {certifications[i].certifying_user.name} on
                     {this.convertToLocalDate(certifications[i].certify_date)}</span>
                 </li>);
             }
@@ -154,7 +148,7 @@ export default class HistoryTable extends React.Component {
             fileList = this.activeList();
         }
         if (this.state.warning.active) {
-            warning = <div className={'alert alert-' + this.state.warning.type}>
+            warning = <div className={"alert alert-" + this.state.warning.type}>
                 <span className="usa-da-icon error-icon"><Icons.ExclamationCircle /></span>
                 <h3>{this.state.warning.header}</h3>
                 <div>{this.state.warning.body}</div>
@@ -162,24 +156,24 @@ export default class HistoryTable extends React.Component {
         }
 
         return (
-            <div className='container'>
-                <div className='row'>
-                    <div className='col-md-12'>
+            <div className="container">
+                <div className="row">
+                    <div className="col-md-12">
                         {warning}
                     </div>
                 </div>
-                <div className='row'>
-                    <div className='col-md-6'>
-                        <div className='header cert-header'>Certifications</div>
-                        <p className='cert-desc'>
+                <div className="row">
+                    <div className="col-md-6">
+                        <div className="header cert-header">Certifications</div>
+                        <p className="cert-desc">
                             Select a certification date to download the submission and warning files.
                         </p>
-                        <ul className='submission-list'>
+                        <ul className="submission-list">
                             {certifications}
                         </ul>
                     </div>
-                    <div className='col-md-6 download-box'>
-                        <div className='header download-header'>Download Files: {current}</div>
+                    <div className="col-md-6 download-box">
+                        <div className="header download-header">Download Files: {current}</div>
                         <ul>
                             {fileList}
                         </ul>

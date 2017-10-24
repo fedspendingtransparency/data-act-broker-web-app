@@ -4,13 +4,6 @@
   **/
 
 import React from 'react';
-import ReactCSSTransitionGroup from 'react-addons-css-transition-group';
-
-import DatePicker from 'react-datepicker';
-import moment from 'moment';
-import AgencyListContainer from '../../containers/SharedContainers/AgencyListContainer.jsx';
-
-import * as Icons from '../SharedComponents/icons/Icons.jsx';
 
 import GenerateFileBox from './components/GenerateFileBox.jsx';
 import GenerateFilesOverlay from './GenerateFilesOverlay.jsx';

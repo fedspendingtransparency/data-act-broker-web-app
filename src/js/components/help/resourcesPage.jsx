@@ -12,8 +12,6 @@ import Footer from '../SharedComponents/FooterComponent.jsx';
 
 import * as Icons from '../SharedComponents/icons/Icons.jsx';
 
-import * as HelpHelper from '../../helpers/helpHelper.js';
-
 export default class ResourcesPage extends React.Component {
     constructor(props) {
         super(props);

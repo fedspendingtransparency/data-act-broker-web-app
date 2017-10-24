@@ -4,7 +4,6 @@
  **/
 
 import React from 'react';
-import _ from 'lodash';
 import Navbar from '../SharedComponents/navigation/NavigationComponent.jsx';
 import HelpSidebar from './helpSidebar.jsx';
 import HelpContent from './helpContent.jsx';

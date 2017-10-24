@@ -16,7 +16,7 @@ export default class GeneratedErrorButton extends React.Component {
         };
     }
 
-    showModal(e) {
+    showModal() {
         this.setState({
             showModal: !this.state.showModal
         });

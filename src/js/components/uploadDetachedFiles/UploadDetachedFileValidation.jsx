@@ -9,16 +9,11 @@ import React from "react";
 import moment from "moment";
 import { connect } from "react-redux";
 
-import Footer from "../SharedComponents/FooterComponent.jsx";
-import SubTierAgencyListContainer from "../../containers/SharedContainers/SubTierAgencyListContainer.jsx";
 import ValidateValuesFileContainer from "../../containers/validateData/ValidateValuesFileContainer.jsx";
 import ValidateDataFileContainer from "../../containers/validateData/ValidateDataFileContainer.jsx";
 import PublishModal from "./PublishModal.jsx";
 import Banner from "../SharedComponents/Banner.jsx";
-
 import UploadDetachedFilesError from "./UploadDetachedFilesError.jsx";
-
-import * as Icons from "../SharedComponents/icons/Icons.jsx";
 
 import * as UploadHelper from "../../helpers/uploadHelper.js";
 import * as GenerateFilesHelper from "../../helpers/generateFilesHelper.js";
@@ -94,32 +89,33 @@ class UploadDetachedFileValidation extends React.Component {
         this.setState({
             showPublish: false
         });
-	}
+    }
 
-	startRevalidation() {
-		this.setState({
-			validationFinished: false,
-			published:'unpublished'
-		}, this.revalidate())
-	}
-	
-	revalidate() {
-		ReviewHelper.revalidateSubmission(this.state.submissionID, true)
-			.then(() => {
-				this.checkFileStatus(this.state.submissionID)
-			})
-			.catch((error) => {
-				let errMsg = "An error occurred while attempting to revalidate the submission. Please contact the Service Desk.";
-				if (error.httpStatus == 400 || error.httpStatus == 403) {
-					errMsg = error.message;
-				}
+    startRevalidation() {
+        this.setState({
+            validationFinished: false,
+            published: 'unpublished'
+        }, this.revalidate());
+    }
 
-				this.setState({
-					error: 4,
-					error_message: errMsg
-				});
-			});
-	}
+    revalidate() {
+        ReviewHelper.revalidateSubmission(this.state.submissionID, true)
+            .then(() => {
+                this.checkFileStatus(this.state.submissionID);
+            })
+            .catch((error) => {
+                let errMsg = "An error occurred while attempting to revalidate the submission. " +
+                    "Please contact the Service Desk.";
+                if (error.httpStatus === 400 || error.httpStatus === 403) {
+                    errMsg = error.message;
+                }
+
+                this.setState({
+                    error: 4,
+                    error_message: errMsg
+                });
+            });
+    }
 
     checkFileStatus(submissionID) {
         // callback to check file status
@@ -186,12 +182,6 @@ class UploadDetachedFileValidation extends React.Component {
             // don"t run the check again if it failed
             runCheck = false;
 
-            let message = "Error during D2 validation.";
-
-            if (!data.jobs[0].error_data[0] && data.jobs[0].error_data[0].error_description !== "") {
-                message = data.jobs[0].error_data[0].error_description;
-            }
-
             // make a clone of the file"s react state
             const item = Object.assign({ }, this.state.detachedAward);
             item.status = "failed";
@@ -234,7 +224,7 @@ class UploadDetachedFileValidation extends React.Component {
 
     submitFabs() {
         UploadHelper.submitFabs({ "submission_id": this.props.submission.id })
-            .then((response) => {
+            .then(() => {
                 this.setState({ submit: false, published: true, showPublish: false, showSuccess: true });
                 this.checkFile(this.props.submission.id);
             })

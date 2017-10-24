@@ -72,7 +72,7 @@ export default class CrossFileOverlay extends React.Component {
         }
     }
 
-    componentDidUpdate(prevProps, prevState) {
+    componentDidUpdate(prevProps) {
         if (!_.isEqual(prevProps.submission.files, this.props.submission.files) ||
             !_.isEqual(prevProps.submission.crossFile, this.props.submission.crossFile)) {
             this.setState({

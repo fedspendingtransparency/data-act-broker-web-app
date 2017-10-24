@@ -6,7 +6,6 @@
 import ReactCSSTransitionGroup from 'react-addons-css-transition-group';
 
 import React from 'react';
-import moment from 'moment';
 
 import SubTierAgencyListContainer from '../../containers/SharedContainers/SubTierAgencyListContainer.jsx';
 import UploadDetachedFilesBox from './UploadDetachedFilesBox.jsx';
@@ -136,7 +135,7 @@ export default class UploadDetachedFileMeta extends React.Component {
         ReviewHelper.validateDetachedSubmission(submissionID)
                 .then((response) => {
                     this.setState({
-                        detachedAward: item,
+                        detachedAward: response.item,
                         validationFinished: true,
                         headerErrors: false,
                         jobResults: response
@@ -150,12 +149,6 @@ export default class UploadDetachedFileMeta extends React.Component {
         if (data.jobs[0].job_status === 'failed' || data.jobs[0].job_status === 'invalid') {
             // don't run the check again if it failed
             runCheck = false;
-
-            let message = 'Error during D2 validation.';
-
-            if (!data.jobs[0].error_data[0] && data.jobs[0].error_data[0].error_description !== '') {
-                message = data.jobs[0].error_data[0].error_description;
-            }
 
             // make a clone of the file's react state
             const item = Object.assign({}, this.state.detachedAward);
@@ -210,10 +203,6 @@ export default class UploadDetachedFileMeta extends React.Component {
         }
 
         if (this.state.showUploadFilesBox) {
-            let value = {
-                datePlaceholder: "Action",
-                label: "Financial Assistance Broker Submission (FABS) File"
-            };
             uploadFilesBox = <UploadDetachedFilesBox {...this.state}
                 submission={this.props.submission}
                 uploadFile={this.uploadFile.bind(this)} />;

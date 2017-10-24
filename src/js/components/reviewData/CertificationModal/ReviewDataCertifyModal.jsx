@@ -41,7 +41,7 @@ export default class ReviewDataCertifyModal extends React.Component {
         };
     }
 
-    clickedCertifyCheckbox(e) {
+    clickedCertifyCheckbox() {
         this.setState({
             certified: !this.state.certified
         });

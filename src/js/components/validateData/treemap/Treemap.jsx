@@ -38,7 +38,7 @@ export default class Treemap extends React.Component {
         });
     }
 
-    componentDidUpdate(prevProps, prevState) {
+    componentDidUpdate(prevProps) {
         // only re-render when props we care about change
         if (!_.isEqualWith(prevProps, this.props, this.compareProps)) {
             this.setState({

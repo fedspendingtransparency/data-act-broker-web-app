@@ -6,7 +6,7 @@
 import React from 'react';
 
 export default class DateTypeField extends React.Component {
-    pickedType(type, e) {
+    pickedType(type) {
         this.props.onChange(type);
     }
 

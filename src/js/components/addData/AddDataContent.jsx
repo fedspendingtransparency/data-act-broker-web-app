@@ -4,7 +4,6 @@
 **/
 
 import React, { PropTypes } from 'react';
-import { kGlobalConstants } from '../../GlobalConstants.js';
 import SubmissionComponent from './SubmissionComponent.jsx';
 import SubmitButton from '../SharedComponents/SubmitButton.jsx';
 import * as Icons from '../../components/SharedComponents/icons/Icons.jsx';
@@ -66,7 +65,7 @@ export default class AddDataContent extends React.Component {
         let warning = null;
 
         if (this.props.submission.state === 'failed') {
-            warning = <div className='container short'>
+            warning = <div className="container short">
                 <div className={"alert alert-error text-left"} role="alert">
                     <span className="usa-da-icon error-icon"><Icons.ExclamationCircle /></span>
                     <div className="alert-header-text">Your upload has failed</div>
@@ -75,7 +74,7 @@ export default class AddDataContent extends React.Component {
             </div>;
         }
         else if (this.state.upload) {
-            warning = <div className='container short'>
+            warning = <div className="container short">
                 <div className={"alert alert-error text-left"} role="alert">
                     <span className="usa-da-icon error-icon"><Icons.ExclamationCircle /></span>
                     <div className="alert-header-text">Your files are uploading</div>

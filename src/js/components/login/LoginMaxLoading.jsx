@@ -4,7 +4,6 @@
   **/
 
 import React from 'react';
-import { kGlobalConstants } from '../../GlobalConstants.js';
 import LoginMaxErrorMessage from './components/LoginMaxErrorMessage.jsx';
 import LoadingBauble from '../SharedComponents/overlays/LoadingBauble.jsx';
 

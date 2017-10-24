@@ -5,7 +5,7 @@
 
 import React, { PropTypes } from 'react';
 import _ from 'lodash';
-import Awesomeplete from 'awesomplete';
+import Awesomplete from 'awesomplete';
 
 import TypeaheadWarning from './TypeaheadWarning.jsx';
 
@@ -49,7 +49,7 @@ export default class Typeahead extends React.Component {
         this.mountAwesomeplete();
     }
 
-    componentDidUpdate(prevProps, prevState) {
+    componentDidUpdate(prevProps) {
         if (!_.isEqual(prevProps.values, this.props.values) && this.typeahead) {
             this.loadValues();
         }
@@ -102,7 +102,7 @@ export default class Typeahead extends React.Component {
             this.typeahead.close();
         });
 
-        this.refs.awesomplete.addEventListener('blur', (e) => {
+        this.refs.awesomplete.addEventListener('blur', () => {
             this.bubbleUpChange();
         });
 

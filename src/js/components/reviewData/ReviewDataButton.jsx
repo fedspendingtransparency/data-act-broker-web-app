@@ -4,8 +4,6 @@
  **/
 
 import React, { PropTypes } from 'react';
-import BaseIcon from '../SharedComponents/icons/BaseIcon.jsx';
-import * as Icons from '../SharedComponents/icons/Icons.jsx';
 
 const propTypes = {
     icon: PropTypes.element,
@@ -19,7 +17,7 @@ export default class ReviewDataButton extends React.Component {
         return (
             <div className="usa-da-review-data-button-holder">
                 <button className="usa-button-big usa-button-disabled">
-                    <span className='usa-da-icon'>{iconName}</span> &nbsp;{this.props.label}
+                    <span className="usa-da-icon">{iconName}</span> &nbsp;{this.props.label}
                 </button>
             </div>
         );

@@ -32,7 +32,7 @@ export default class Progress extends React.Component {
                 if (this.props.currentStep > res.page) {
                     hashHistory.push(res.url);
                 }
-            }).catch((res) => {
+            }).catch(() => {
                 hashHistory.push('/404');
             });
     }

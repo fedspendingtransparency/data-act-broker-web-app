@@ -27,7 +27,7 @@ export default class DashboardPaginator extends React.Component {
         this.generatePages();
     }
 
-    componentDidUpdate(prevProps, prevState) {
+    componentDidUpdate(prevProps) {
         if (!_.isEqual(prevProps, this.props)) {
             this.generatePages();
         }

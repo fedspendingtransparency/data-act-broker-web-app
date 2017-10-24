@@ -3,8 +3,7 @@
  * Created by Mike Bray 3/28/16
  **/
 
-import React, { PropTypes } from 'react';
-import { kGlobalConstants } from '../../GlobalConstants.js';
+import React from 'react';
 import FileProgress from '../SharedComponents/FileProgress.jsx';
 import ValidateDataErrorReport from './ValidateDataErrorReport.jsx';
 import ValidateDataUploadButton from './ValidateDataUploadButton.jsx';
@@ -14,10 +13,6 @@ import * as PermissionsHelper from '../../helpers/permissionsHelper.js';
 import * as GenerateFilesHelper from '../../helpers/generateFilesHelper.js';
 
 import UploadDetachedFilesError from '../uploadDetachedFiles/UploadDetachedFilesError.jsx';
-
-const propTypes = {
-
-};
 
 export default class ValidateDataFileComponent extends React.Component {
     constructor(props) {
@@ -261,7 +256,7 @@ export default class ValidateDataFileComponent extends React.Component {
                     this.openReport();
                 });
             })
-            .catch((err) => {
+            .catch(() => {
                 this.setState({
                     signInProgress: false,
                     error: {
@@ -436,5 +431,3 @@ export default class ValidateDataFileComponent extends React.Component {
         );
     }
 }
-
-ValidateDataFileComponent.propTypes = propTypes;

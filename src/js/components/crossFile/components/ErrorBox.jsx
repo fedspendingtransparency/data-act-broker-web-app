@@ -14,7 +14,6 @@ import ErrorTabs from './ErrorTabs.jsx';
 
 import * as ReviewHelper from '../../../helpers/reviewHelper.js';
 import * as PermissionsHelper from '../../../helpers/permissionsHelper.js';
-import * as Icons from '../../SharedComponents/icons/Icons.jsx';
 
 const dFiles = ['d1', 'd2'];
 
@@ -58,7 +57,7 @@ export default class ErrorBox extends React.Component {
         }
     }
 
-    componentDidUpdate(prevProps, prevState) {
+    componentDidUpdate(prevProps) {
         if (!_.isEqual(prevProps.submission.files, this.props.submission.files)) {
             this.stagedFiles();
         }

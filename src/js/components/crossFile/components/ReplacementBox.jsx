@@ -5,7 +5,6 @@
 
 import React from 'react';
 import _ from 'lodash';
-import ComparisonTable from './ComparisonTable.jsx';
 import FileProgress from '../../SharedComponents/FileProgress.jsx';
 import UploadButtonContainer from '../../../containers/crossFile/CrossFileUploadButtonContainer.jsx';
 import GeneratedErrorButton from './GeneratedErrorButton.jsx';

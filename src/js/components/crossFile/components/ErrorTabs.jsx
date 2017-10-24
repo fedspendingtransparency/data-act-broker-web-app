@@ -47,7 +47,7 @@ export default class ErrorTabs extends React.Component {
     componentDidMount() {
         this.buildTabs();
     }
-    componentDidUpdate(prevProps, prevState) {
+    componentDidUpdate(prevProps) {
         if (prevProps.status !== this.props.status || prevProps.activeTab !== this.props.activeTab) {
             this.buildTabs();
         }

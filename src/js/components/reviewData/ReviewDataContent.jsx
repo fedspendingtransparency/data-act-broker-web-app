@@ -4,9 +4,6 @@
  **/
 
 import React, { PropTypes } from 'react';
-import $ from 'jquery';
-import { kGlobalConstants } from '../../GlobalConstants.js';
-import SubmitButton from '../SharedComponents/SubmitButton.jsx';
 import ReviewDataContentRow from './ReviewDataContentRow.jsx';
 import ReviewDataButton from './ReviewDataButton.jsx';
 import ReviewDataNotifyModal from './ReviewDataNotifyModal.jsx';
@@ -15,7 +12,6 @@ import RevalidateDataModal from './CertificationModal/RevalidateDataModal.jsx';
 import ReviewDataNarrative from './ReviewDataNarrative.jsx';
 import moment from 'moment';
 
-import * as ReviewHelper from '../../helpers/reviewHelper.js';
 import * as Icons from '../SharedComponents/icons/Icons.jsx';
 
 const propTypes = {
@@ -41,7 +37,7 @@ export default class ReviewDataContent extends React.Component {
         this.calculateFields();
     }
 
-    componentDidUpdate(prevProps, prevState) {
+    componentDidUpdate(prevProps) {
         if (prevProps.submissionID !== this.props.submissionID) {
             this.calculateFields();
         }
@@ -170,9 +166,6 @@ export default class ReviewDataContent extends React.Component {
             buttons.push(<ReviewDataButton key={i} icon={buttonContent[i][0]} label={buttonContent[i][1]} />);
         }
 
-        let agency_code = this.props.data.cgac_code ? this.props.data.cgac_code : this.props.data.frec_code;
-        const reportName = agency_code.replace(/ /g, '_') + '_' + moment(this.props.data.created_on, 'MM/DD/YYYY')
-            .format('DDMMYYYY') + '_' + this.props.submissionID;
         let fileSize = 0;
 
         for (let k = 0; k < this.props.data.jobs.length; k++) {

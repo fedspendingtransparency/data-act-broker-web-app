@@ -22,7 +22,7 @@ export default class DateDropdown extends React.Component {
         this.setValue();
     }
 
-    componentDidUpdate(prevProps, prevState) {
+    componentDidUpdate(prevProps) {
         if (this.props.type !== prevProps.type || this.props.value !== prevProps.value) {
             this.setValue();
         }

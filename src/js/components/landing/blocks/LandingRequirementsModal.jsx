@@ -5,8 +5,6 @@
 
 import React from 'react';
 import Modal from 'react-aria-modal';
-import Moment from 'moment';
-
 
 import * as Icons from '../../SharedComponents/icons/Icons.jsx';
 import LandingBody from './LandingRequirementsBody.jsx';

@@ -43,7 +43,7 @@ export default class ReviewDataNarrative extends React.Component {
             .then(() => {
                 this.setState({ saveState: "Saved" });
             })
-            .catch((error) => {
+            .catch(() => {
                 this.setState({ saveState: "Error" });
             });
     }

@@ -119,8 +119,6 @@ export default class GenerateDetachedFilesPage extends React.Component {
 
     validateDates(file) {
         // validate that dates are provided for both fields and the end dates don't come before the start dates
-        let state = "incomplete";
-
         const dFile = Object.assign({}, this.state[file]);
 
         // validate the date ranges
@@ -178,15 +176,15 @@ export default class GenerateDetachedFilesPage extends React.Component {
 
     generateFile(file) {
         // generate specified file
-        let cgac_code = this.state.codeType !== 'frec_code' ? this.state.agency : '';
-        let frec_code = this.state.codeType === 'frec_code' ? this.state.agency : '';
+        let cgacCode = this.state.codeType !== 'frec_code' ? this.state.agency : '';
+        let frecCode = this.state.codeType === 'frec_code' ? this.state.agency : '';
 
         const tmpFile = Object.assign({}, this.state[file]);
         tmpFile.status = "generating";
         this.setState({ [file]: tmpFile });
 
         GenerateFilesHelper.generateDetachedFile(file.toUpperCase(), tmpFile.startDate.format('MM/DD/YYYY'),
-            tmpFile.endDate.format('MM/DD/YYYY'), cgac_code, frec_code)
+            tmpFile.endDate.format('MM/DD/YYYY'), cgacCode, frecCode)
             .then((response) => {
                 if (this.isUnmounted) {
                     return;
@@ -196,9 +194,9 @@ export default class GenerateDetachedFilesPage extends React.Component {
             });
     }
 
-    checkFileStatus(job_id) {
+    checkFileStatus(jobId) {
         // callback to check file status
-        GenerateFilesHelper.fetchDetachedFile(job_id)
+        GenerateFilesHelper.fetchDetachedFile(jobId)
             .then((response) => {
                 if (this.isUnmounted) {
                     return;
@@ -218,7 +216,7 @@ export default class GenerateDetachedFilesPage extends React.Component {
             // don't run the check again if it failed
             runCheck = false;
 
-            this.showError(fileType, 'Permission Error', response.message);
+            this.showError(fileType, 'Permission Error', data.message);
         }
         else if (data.status === 'failed' || data.status === 'invalid') {
             // don't run the check again if it failed

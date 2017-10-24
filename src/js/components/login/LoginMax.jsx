@@ -7,7 +7,6 @@ import React from 'react';
 import _ from 'lodash';
 import Cookies from 'js-cookie';
 import { kGlobalConstants } from '../../GlobalConstants.js';
-import ErrorMessage from '../SharedComponents/ErrorMessage.jsx';
 
 export default class LoginMax extends React.Component {
     constructor(props) {
@@ -21,7 +20,7 @@ export default class LoginMax extends React.Component {
         this.detectRedirection();
     }
 
-    componentDidUpdate(prevProps, prevState) {
+    componentDidUpdate(prevProps) {
         if (!_.isEqual(prevProps.location, this.props.location)) {
             this.detectRedirection();
         }

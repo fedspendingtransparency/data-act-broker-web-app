@@ -4,7 +4,6 @@
   */
 
 import React from 'react';
-import d3 from 'd3';
 import tinycolor from 'tinycolor2';
 
 const defaultProps = {
@@ -22,19 +21,19 @@ export default class TreemapCell extends React.Component {
         };
     }
 
-    mouseOver(e) {
+    mouseOver() {
         this.setState({
             hover: true
         });
     }
 
-    mouseOut(e) {
+    mouseOut() {
         this.setState({
             hover: false
         });
     }
 
-    clickEvent(e) {
+    clickEvent() {
         this.props.clickedItem(this.props);
     }
 

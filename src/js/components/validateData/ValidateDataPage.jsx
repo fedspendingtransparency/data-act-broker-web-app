@@ -4,9 +4,7 @@
 **/
 
 import React, { PropTypes } from 'react';
-import { kGlobalConstants } from '../../GlobalConstants.js';
 import Navbar from '../SharedComponents/navigation/NavigationComponent.jsx';
-import Table from '../SharedComponents/table/TableComponent.jsx';
 import AddDataHeader from './../addData/AddDataHeader.jsx';
 import Progress from '../SharedComponents/ProgressComponent.jsx';
 
@@ -84,27 +82,6 @@ class GetErrors extends React.Component {
     }
 }
 
-class ErrorContent extends React.Component {
-    render() {
-        const data = [
-            ['AvailabilityTypeCode', 'Required field AvailabilityTypeCode is missing', '17'],
-            ['AllocationTransferAgencyIdentifier', 'AllocationTransferAgencyIdentifier is missing', '38']
-        ];
-
-        const errorHeaders = ['Field Name', 'Error', 'Number of Occurrences'];
-
-        return (
-            <div className="container">
-                <div className="row">
-                    <div className="col-md-12 usa-da-table-holder">
-                        <Table data={data} headers={errorHeaders} />
-                    </div>
-                </div>
-            </div>
-        );
-    }
-}
-
 class DownloadLink extends React.Component {
     render() {
         // create array of download file links from request response data
@@ -160,3 +137,6 @@ export default class ValidateDataPage extends React.Component {
         );
     }
 }
+
+ValidateDataPage.defaultProps = defaultProps;
+ValidateDataPage.propTypes = propTypes;

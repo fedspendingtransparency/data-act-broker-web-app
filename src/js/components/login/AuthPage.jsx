@@ -6,7 +6,6 @@
 import React from 'react';
 import { kGlobalConstants } from '../../GlobalConstants.js';
 import AuthContainer from '../../containers/login/AuthContainer.jsx';
-import LoginBanner from './LoginBanner.jsx';
 import LoginWarningTxt from './LoginWarningTxt.jsx';
 import LoginIntro from './LoginIntro.jsx';
 import TestEnvironmentBanner from '../SharedComponents/banners/TestEnvironmentBanner.jsx';

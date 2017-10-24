@@ -5,11 +5,8 @@
 
 import React from 'react';
 import $ from 'jquery';
-import { generateRSSUrl, generateProtectedUrls, rssFileKey } from '../../helpers/util.js';
+import { generateProtectedUrls, rssFileKey } from '../../helpers/util.js';
 import DaimsMessage from './daimsMessage.jsx';
-
-
-let gifSrc = 'graphics/reportabug.gif';
 
 export default class ResourcesContent extends React.Component {
 
@@ -59,7 +56,7 @@ export default class ResourcesContent extends React.Component {
             });
     }
 
-    componentDidUpdate(prevProps, prevState) {
+    componentDidUpdate() {
         this.scrollToSection();
     }
 
@@ -94,7 +91,7 @@ export default class ResourcesContent extends React.Component {
             <ul>
                 <li>
                     FABS File: Financial Assistance data (Award and Awardee Attributes)
-                    <a href={this.state.fabs_sample} target='_blank'>Download sample file</a>
+                    <a href={this.state.fabs_sample} target="_blank">Download sample file</a>
                 </li>
             </ul>
             <h5>Additional Resources</h5>
@@ -103,7 +100,7 @@ export default class ResourcesContent extends React.Component {
                     <a href="/#/FABSvalidations">FABS Validations page</a>
                 </li>
                 <li>
-                    <a href='/#/resources'>DATA Act Information Model Schema (DAIMS)</a> resources related to
+                    <a href="/#/resources">DATA Act Information Model Schema (DAIMS)</a> resources related to
                     FABS including:
                     <ul>
                         <li>
@@ -215,7 +212,7 @@ export default class ResourcesContent extends React.Component {
                             target="_blank" rel="noopener noreferrer">Practices and Procedures</a>
                     </li>
                     <li>
-                        <a href='/#/FABSValidations' target="_blank" rel="noopener noreferrer">FABS Validation
+                        <a href="/#/FABSValidations" target="_blank" rel="noopener noreferrer">FABS Validation
                         Rules page</a>
                     </li>
                     <li>
@@ -240,7 +237,7 @@ export default class ResourcesContent extends React.Component {
             <div className="usa-da-help-content">
                 <div className="resources-page">
                     <h2>Resources {this.props.type.toUpperCase()}</h2>
-                    <DaimsMessage type='resources' />
+                    <DaimsMessage type="resources" />
                     <span>
                         The DATA Act information Model Schema (DAIMS) gives an overall view of the hundreds of distinct
                         data elements used to tell the story of how federal dollars are spent.

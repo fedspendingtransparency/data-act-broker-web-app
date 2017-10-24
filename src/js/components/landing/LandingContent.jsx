@@ -8,11 +8,7 @@ import RecentActivityTable from './recentActivity/RecentActivityTable.jsx';
 import LandingRequirementsModal from './blocks/LandingRequirementsModal.jsx';
 import BlockContent from './BlockContent.jsx';
 
-import * as Icons from '../SharedComponents/icons/Icons.jsx';
 import Banner from '../SharedComponents/Banner.jsx';
-import * as permissionHelper from '../../helpers/permissionsHelper.js';
-
-import * as ReviewHelper from '../../helpers/reviewHelper.js';
 
 const defaultProps = {
     session: {
@@ -132,7 +128,7 @@ export default class LandingContent extends React.Component {
                             <div className="recent-header">Recent Activity for:</div>
                             <div className={recentActivity}>{agencyName}</div>
                         </h2>
-                        <div className='see-more-wrapper'>
+                        <div className="see-more-wrapper">
                             <a className={expand} onClick={this.toggleExpand.bind(this)}>{expandContent}</a>
                         </div>
                         <RecentActivityTable {...this.props} />

@@ -4,8 +4,6 @@
   **/
 
 import React from 'react';
-import * as Icons from '../../SharedComponents/icons/Icons.jsx';
-import * as SubmissionHelper from '../../../helpers/submissionGuideHelper.js';
 
 const propTypes = {
     submissionId: React.PropTypes.oneOfType([
@@ -27,29 +25,28 @@ export default class SubmissionLink extends React.Component {
         super(props);
     }
 
-
     render() {
         let link = 'ID: ' + this.props.submissionId;
         if (this.props.value && this.props.type !== 'fabs') {
             link = this.props.value + '\nID: ' + this.props.submissionId;
-        } 
+        }
         else if (this.props.disabled) {
             link = 'N/A';
         }
 
-        let content = <a href={"#/submission/" + this.props.submissionId} className='date-link'>
-                        {link}
-                    </a>;
+        let content = <a href={"#/submission/" + this.props.submissionId} className="date-link">
+            {link}
+        </a>;
         if (this.props.type === 'fabs') {
-            content = <a href={"#/FABSAddData/" + this.props.submissionId} className='date-link'>
-                        {link}
-                    </a>;
+            content = <a href={"#/FABSAddData/" + this.props.submissionId} className="date-link">
+                {link}
+            </a>;
         }
 
         if (this.props.disabled) {
-            content = <div className='date-link'>
-                        {link}
-                    </div>;
+            content = <div className="date-link">
+                {link}
+            </div>;
         }
         return (
             <div className="usa-da-recent-activity-link">

@@ -31,7 +31,7 @@ export default class DatePicker extends React.Component {
         this.parseValueForInput();
     }
 
-    componentDidUpdate(prevProps, prevState) {
+    componentDidUpdate(prevProps) {
         if (prevProps.value !== this.props.value) {
             this.parseValueForInput();
         }
@@ -125,7 +125,7 @@ export default class DatePicker extends React.Component {
         });
     }
 
-    handleInputBlur(e) {
+    handleInputBlur() {
         if (this.state.inputValue.length > 0 && !this.props.value) {
             // user entered something into the input field and no date has been set yet, input must have been invalid
             this.props.updateError('Invalid Date', 'The date entered is not a valid date.');
@@ -135,7 +135,7 @@ export default class DatePicker extends React.Component {
         }
     }
 
-    handleDateBlur(e) {
+    handleDateBlur() {
         // blur event gets triggered apparently by any child element
         // blur will trigger before focus per W3C, delay the blur logic so that it can be cancelled if focus shifts to
         // a child element
@@ -146,7 +146,7 @@ export default class DatePicker extends React.Component {
         }, 20);
     }
 
-    handleDateFocus(e) {
+    handleDateFocus() {
         // check if we lost focus from the parent element, if so cancel that blur event
         if (this.delayedBlur) {
             window.clearTimeout(this.delayedBlur);
@@ -216,7 +216,7 @@ export default class DatePicker extends React.Component {
                         ref="datepicker"
                         initialMonth={pickedDay}
                         disabledDays={cutoffFunc}
-                        selectedDays={day => DateUtils.isSameDay(pickedDay, day)}
+                        selectedDays={(day) => DateUtils.isSameDay(pickedDay, day)}
                         onDayClick={this.handleDatePick.bind(this)}
                         onFocus={this.handleDateFocus.bind(this)}
                         onBlur={this.handleDateBlur.bind(this)} />

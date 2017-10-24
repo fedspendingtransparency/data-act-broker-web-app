@@ -33,7 +33,7 @@ export default class DateRangeField extends React.Component {
         this.defaultDates();
     }
 
-    componentDidUpdate(prevProps, prevState) {
+    componentDidUpdate(prevProps) {
         if (prevProps.type !== this.props.type) {
             // type changed
             this.defaultDates();

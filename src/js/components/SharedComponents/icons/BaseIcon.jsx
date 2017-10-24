@@ -5,14 +5,7 @@
 
 import React, { PropTypes } from 'react';
 import svg4everybody from 'svg4everybody';
-import Request from 'superagent';
-import xmldoc from 'xmldoc';
-import { kGlobalConstants } from '../../../GlobalConstants.js';
-
 import IconSingleton from './iconSingleton.js';
-
-const svgData = {};
-let loadingState = 0;
 
 const propTypes = {
     iconClass: PropTypes.string.isRequired,
@@ -79,7 +72,7 @@ export default class BaseIcon extends React.Component {
         }
     }
 
-    svgEvent(event) {
+    svgEvent() {
         // icons have loaded, unsubscribe to reduce memory overhead
         this.iconSingleton.unsubscribe(this.subscription);
         this.subscription = null;

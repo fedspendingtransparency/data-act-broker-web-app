@@ -43,15 +43,13 @@ export default class NavbarTab extends React.Component {
                 </li>
             );
         }
-        else {
-            return (
-                <li className={isActiveClass ? 'active' : ''}>
-                    <a className="usa-da-header-link" href={link}>{this.props.name}
-                        <span className={isActiveClass ? 'sr-only' : ''}>{isActiveClass ? '(current)' : ''}</span>
-                    </a>
-                </li>
-            );
-        }
+        return (
+            <li className={isActiveClass ? 'active' : ''}>
+                <a className="usa-da-header-link" href={link}>{this.props.name}
+                    <span className={isActiveClass ? 'sr-only' : ''}>{isActiveClass ? '(current)' : ''}</span>
+                </a>
+            </li>
+        );
     }
 }
 

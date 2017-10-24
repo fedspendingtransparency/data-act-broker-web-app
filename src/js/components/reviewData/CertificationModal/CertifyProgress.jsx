@@ -36,7 +36,7 @@ export default class CertifyProgress extends React.Component {
         this.startProgress();
     }
 
-    componentDidUpdate(prevProps, prevState) {
+    componentDidUpdate(prevProps) {
         if (prevProps.finished !== this.props.finished) {
             if (this.props.finished) {
                 this.setState({

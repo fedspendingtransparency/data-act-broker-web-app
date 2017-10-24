@@ -124,7 +124,7 @@ export default class AddDataMeta extends React.Component {
         }
     }
 
-    submitMetadata(e) {
+    submitMetadata() {
         let agency = this.state.agency;
         let codeType = this.state.codeType;
         let endDate = this.state.endDate;
@@ -139,11 +139,11 @@ export default class AddDataMeta extends React.Component {
             if (quarter === 3) {
                 year++;
             }
-            let cgac_code = codeType === 'cgac_code' ? agency : null;
-            let frec_code = codeType === 'frec_code' ? agency : null;
-            AgencyHelper.checkYearQuarter(cgac_code, frec_code, year, quarter).then(() => {
+            let cgacCode = codeType === 'cgac_code' ? agency : null;
+            let frecCode = codeType === 'frec_code' ? agency : null;
+            AgencyHelper.checkYearQuarter(cgacCode, frecCode, year, quarter).then(() => {
                 this.props.updateMetaData(this.state);
-            }).catch(err => {
+            }).catch((err) => {
                 this.setState({
                     showModal: true,
                     modalMessage: <div>{err.message} You can update the certified submission <Link

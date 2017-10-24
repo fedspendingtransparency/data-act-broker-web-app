@@ -26,7 +26,7 @@ export default class FileWarning extends React.Component {
         this.prepareData();
     }
 
-    componentDidUpdate(prevProps, prevState) {
+    componentDidUpdate(prevProps) {
         if (!_.isEqual(prevProps.files, this.props.files) || !_.isEqual(prevProps.submission.crossFileStaging,
             this.props.submission.crossFileStaging)) {
             this.prepareData();
@@ -128,9 +128,7 @@ export default class FileWarning extends React.Component {
             if (message === '') {
                 return null;
             }
-            else {
-                noImpact = true;
-            }
+            noImpact = true;
             return <li key={index} dangerouslySetInnerHTML={{ __html: message }} />;
         });
 

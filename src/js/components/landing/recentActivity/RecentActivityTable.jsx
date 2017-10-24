@@ -34,83 +34,29 @@ export default class RecentActivityTable extends React.Component {
         };
     }
 
-    componentWillReceiveProps(nextProps) {
-        if (this.props.type != nextProps.type) {
-            this.loadActivity(nextProps.type);
-            this.loadUser();
-        }
-    }
-
     componentDidMount() {
         this.loadActivity();
         this.loadUser();
         this.didUnmount = false;
     }
 
+    componentWillReceiveProps(nextProps) {
+        if (this.props.type !== nextProps.type) {
+            this.loadActivity(nextProps.type);
+            this.loadUser();
+        }
+    }
+
     componentWillUnmount() {
         this.didUnmount = true;
     }
 
-    loadUser() {
-        LoginHelper.fetchActiveUser().then((user) => {
-            this.setState({account: user});
-        });
-    }
-
-    convertToLocalDate(dateToConvert) {
-        // convert date to local date (toString converts it to whatever the local time is but doesn't allow formatting)
-        const tmpDate = new Date(dateToConvert + " UTC");
-        const localDate = new Date(tmpDate.toString())
-        
-        // format date as YYYY-MM-DD
-        const year = localDate.getFullYear()
-        let month = localDate.getMonth()+1;
-        if (month < 10) {
-            month = "0"+month;
+    getAgency(item) {
+        let agency = item.agency;
+        if (this.props.type === 'fabs') {
+            agency += ":\n" + item.files[0].split('/').pop().replace(/^[0-9]*_/, "");
         }
-        let day = localDate.getDate();
-        if (day <10) {
-            day = "0"+day;
-        }
-        return year + "-" + month + "-" + day;
-    }
-
-    loadActivity(type=this.props.type) {
-        SubmissionListHelper.loadRecentActivity(type)
-            .then((data) => {
-                if (this.didUnmount) {
-                    return;
-                }
-                // save the response for sorting later
-                this.setState({
-                    cachedResponse: data.submissions
-                }, () => {
-                    // show the response once the data is in place
-                    this.buildRow();
-                });
-            })
-            .catch((err) => {
-                if (this.didUnmount) {
-                    return;
-                }
-                this.setState({
-                    message: 'An error occurred while loading recent activity.'
-                });
-                console.log(err);
-            });
-    }
-    
-    reload() {
-        this.loadActivity();
-        this.buildRow();
-    }
-
-    deleteWarning(index) {
-        this.setState({
-            deleteIndex: index
-        }, () => {
-            this.buildRow()
-        })
+        return agency;
     }
 
     getHeaders() {
@@ -143,12 +89,48 @@ export default class RecentActivityTable extends React.Component {
         return headers;
     }
 
-    getAgency(item) {
-        let agency = item.agency
-        if (this.props.type === 'fabs') {
-            return agency += ":\n" + item.files[0].split('/').pop().replace(/^[0-9]*_/,"");
-        }
-        return agency
+    deleteWarning(index) {
+        this.setState({
+            deleteIndex: index
+        }, () => {
+            this.buildRow();
+        });
+    }
+
+    reload() {
+        this.loadActivity();
+        this.buildRow();
+    }
+
+    loadUser() {
+        LoginHelper.fetchActiveUser().then((user) => {
+            this.setState({ account: user });
+        });
+    }
+
+    loadActivity(type=this.props.type) {
+        SubmissionListHelper.loadRecentActivity(type)
+            .then((data) => {
+                if (this.didUnmount) {
+                    return;
+                }
+                // save the response for sorting later
+                this.setState({
+                    cachedResponse: data.submissions
+                }, () => {
+                    // show the response once the data is in place
+                    this.buildRow();
+                });
+            })
+            .catch((err) => {
+                if (this.didUnmount) {
+                    return;
+                }
+                this.setState({
+                    message: 'An error occurred while loading recent activity.'
+                });
+                console.log(err);
+            });
     }
 
     convertToLocalDate(dateToConvert) {
@@ -156,9 +138,9 @@ export default class RecentActivityTable extends React.Component {
         // Add a Z to the end to imply the date is in UTC
         dateToConvert = dateToConvert.replace(" ", "T") + "Z";
         const tmpDate = new Date(dateToConvert);
-        
+
         // format date as YYYY-MM-DD
-        const year = tmpDate.getFullYear()
+        const year = tmpDate.getFullYear();
         let month = tmpDate.getMonth() + 1;
         if (month < 10) {
             month = "0" + month;
@@ -206,9 +188,9 @@ export default class RecentActivityTable extends React.Component {
     }
 
     formatRow(rowData, index) {
-        let link = <SubmissionLink submissionId={rowData.submission_id} type={this.props.type} />
-        
+        let link = <SubmissionLink submissionId={rowData.submission_id} type={this.props.type} />;
         let reportingDateString = "Start: " + rowData.reporting_start_date + "\nEnd: " + rowData.reporting_end_date;
+
         if (!rowData.reporting_start_date || !rowData.reporting_end_date) {
             reportingDateString = 'No reporting period specified';
         }
@@ -266,8 +248,8 @@ export default class RecentActivityTable extends React.Component {
         return (
             <div className="usa-da-recent-activity">
                 <FormattedTable headers={this.getHeaders()} data={this.state.data} sortable={true}
-                    cellClasses={this.state.cellClasses} headerClasses={this.state.headerClasses} unsortable={[0,2,5,6]}
-                    onSort={this.sortTable.bind(this)} />
+                    cellClasses={this.state.cellClasses} headerClasses={this.state.headerClasses}
+                    unsortable={[0, 2, 5, 6]} onSort={this.sortTable.bind(this)} />
                 <div className="text-center">
                     {this.state.message}
                 </div>

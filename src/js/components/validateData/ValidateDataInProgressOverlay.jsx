@@ -12,16 +12,6 @@ const defaultProps = {
     hasFailed: false
 };
 
-class OverlayDetail extends React.Component {
-    render() {
-        <div>
-            {this.props.description}
-            <br />
-            <a href={window.location.href}>{window.location.href}</a>
-        </div>;
-    }
-}
-
 export default class ValidateDataInProgressOverlay extends React.Component {
     constructor(props) {
         super(props);

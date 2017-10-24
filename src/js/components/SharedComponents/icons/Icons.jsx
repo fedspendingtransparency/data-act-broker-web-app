@@ -3,7 +3,6 @@
   * Created by Kevin Li 4/25/2016
   */
 
-import React from 'react';
 import BaseIcon from './BaseIcon.jsx';
 
 export class Unlock extends BaseIcon {};

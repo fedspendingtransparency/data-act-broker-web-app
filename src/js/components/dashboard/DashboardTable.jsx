@@ -4,7 +4,6 @@
   **/
 
 import React from 'react';
-import Reactable from 'reactable';
 import _ from 'lodash';
 
 import FormattedTable from '../SharedComponents/table/FormattedTable.jsx';
@@ -55,7 +54,7 @@ export default class DashboardTable extends React.Component {
         }
     }
 
-    componentDidUpdate(prevProps, prevState) {
+    componentDidUpdate(prevProps) {
         if (!_.isEqual(prevProps.data, this.props.data)) {
             this.buildRow();
         }
@@ -89,17 +88,17 @@ export default class DashboardTable extends React.Component {
             let dateName = '';
             let canDelete = false;
             let agency = '';
-            let view = 'View'
+            let view = 'View';
             if (this.state.type === 'fabs') {
                 dateName = 'Action Date Range';
                 canDelete = PermissionsHelper.checkFabsPermissions(this.props.session);
-                agency = 'Agency:Filename'
-                view = 'Submission ID'
+                agency = 'Agency:Filename';
+                view = 'Submission ID';
             }
             else {
                 dateName = 'Reporting Period';
                 canDelete = PermissionsHelper.checkPermissions(this.props.session);
-                agency = 'Agency'
+                agency = 'Agency';
             }
             headers = [
                 view,
@@ -150,12 +149,145 @@ export default class DashboardTable extends React.Component {
         }
     }
 
-    deleteWarning(index) {
-        this.setState({
-            deleteIndex: index
-        }, () => {
-            this.buildRow();
+    getAgency(item) {
+        let agency = item.agency;
+        if (this.props.type === 'fabs') {
+            agency += ":\n" + item.files[0].split('/').pop().replace(/^[0-9]*_/, "");
+        }
+        return agency;
+    }
+
+    buildRow() {
+        // iterate through the recent activity
+        const output = [];
+        const rowClasses = [];
+        let progressSize = this.props.type === 'fabs' ? 15 : 20;
+        let viewSize = this.props.type === 'fabs' ? 15 : 10;
+        let classes = ['row-10 text-center', 'row-20 text-center', 'row-15 text-right white-space', 'row-15 text-right',
+            'row-10 text-right', 'row-' + progressSize + ' text-right progress-cell', 'row-10 text-center'];
+
+        if (this.props.isCertified) {
+            classes = ['row-' + viewSize + ' text-center', 'row-25 text-right white-space', 'row-12_5 text-right',
+                'row-10 text-right', 'row-20 text-right progress-cell', 'row-10 text-center'];
+            if (this.state.type === 'fabs') {
+                classes = ['row-10 text-center', 'row-25 text-right', 'row-10 text-right',
+                    'row-15 text-right white-space', 'row-10 text-right', 'row-10 text-center'];
+            }
+        }
+
+        // iterate through each item returned from the API
+        this.props.data.forEach((item, index) => {
+            // break the object out into an array for the table component
+            let row = this.formatRow(item, index);
+
+            rowClasses.push(classes);
+            output.push(row);
         });
+
+        const headerClasses = classes;
+
+        let message = '';
+        if (this.props.data.length === 0) {
+            message = 'No submissions to list';
+        }
+
+        this.setState({
+            parsedData: output,
+            cellClasses: rowClasses,
+            headerClasses: headerClasses,
+            message: message,
+            totalPages: Math.ceil(this.props.total / 10)
+        });
+    }
+
+
+    formatRow(item, index) {
+        let start = "Start: ";
+        let end = "\nEnd: ";
+        if (this.state.type === 'fabs') {
+            start = "Earliest: ";
+            end = "\nLatest: ";
+        }
+        let reportingDateString = start + item.reporting_start_date + end + item.reporting_end_date;
+        if (!item.reporting_start_date || !item.reporting_end_date) {
+            reportingDateString = 'No reporting period\nspecified';
+        }
+
+        let userName = item.hasOwnProperty('user') ? item.user.name : '--';
+
+        let deleteConfirm = this.state.deleteIndex !== -1 && index === this.state.deleteIndex;
+
+        let link = <SubmissionLink submissionId={item.submission_id} type={this.state.type}/>;
+
+        if (this.props.isCertified) {
+            link = <SubmissionLink submissionId={item.submission_id} value={reportingDateString}
+                type={this.state.type}/>;
+        }
+
+        let row = [];
+        if (this.props.isCertified) {
+            // Certified Submissions table
+            row = [
+                link,
+                this.getAgency(item),
+                userName
+            ];
+
+            let certifiedOn = item.certified_on !== "" ? this.convertToLocalDate(item.certified_on) :
+                item.certified_on;
+            if (this.props.type === 'fabs') {
+                row = row.concat([
+                    reportingDateString,
+                    item.certifying_user,
+                    certifiedOn
+                ]);
+            }
+            else {
+                row = row.concat([
+                    this.convertToLocalDate(item.last_modified),
+                    <Status.SubmissionStatus status={item.rowStatus} certified={this.props.isCertified} />,
+                    <span>
+                        {item.certifying_user}<br/>
+                        {certifiedOn}<br/>
+                        <HistoryLink submissionId={item.submission_id} />
+                    </span>
+                ]);
+            }
+        }
+        else {
+            // Active Submissions table
+            row = [
+                link,
+                this.getAgency(item),
+                reportingDateString,
+                userName,
+                this.convertToLocalDate(item.last_modified),
+                <Status.SubmissionStatus status={item.rowStatus} certified={this.props.isCertified} />
+            ];
+
+            let deleteCol = false;
+            let canDelete = false;
+            if (this.props.type === 'fabs') {
+                deleteCol = PermissionsHelper.checkFabsPermissions(this.props.session);
+                canDelete = PermissionsHelper.checkFabsAgencyPermissions(this.props.session, item.agency);
+            }
+            else {
+                deleteCol = PermissionsHelper.checkPermissions(this.props.session);
+                canDelete = PermissionsHelper.checkAgencyPermissions(this.props.session, item.agency);
+            }
+
+            if (deleteCol) {
+                if (canDelete && item.publish_status === 'unpublished') {
+                    row.push(<DeleteLink submissionId={item.submission_id} index={index}
+                        warning={this.deleteWarning.bind(this)} confirm={deleteConfirm} reload={this.reload.bind(this)}
+                        item={item} account={this.state.account}/>);
+                }
+                else {
+                    row.push('N/A');
+                }
+            }
+        }
+        return row;
     }
 
     sortTable(direction, column) {
@@ -211,144 +343,12 @@ export default class DashboardTable extends React.Component {
         return year + "-" + month + "-" + day;
     }
 
-    formatRow(item, index) {
-        let start = "Start: ";
-        let end = "\nEnd: ";
-        if (this.state.type === 'fabs') {
-            start = "Earliest: ";
-            end = "\nLatest: ";
-        }
-        let reportingDateString = start + item.reporting_start_date + end + item.reporting_end_date;
-        if (!item.reporting_start_date || !item.reporting_end_date) {
-            reportingDateString = 'No reporting period\nspecified';
-        }
-
-        let userName = item.hasOwnProperty('user') ? item.user.name : '--';
-
-        let deleteConfirm = this.state.deleteIndex !== -1 && index === this.state.deleteIndex;
-
-        let link = <SubmissionLink submissionId={item.submission_id} type={this.state.type}/>;
-
-        if (this.props.isCertified) {
-            link = <SubmissionLink submissionId={item.submission_id} value={reportingDateString}
-                type={this.state.type}/>;
-        }
-
-        let row = [];
-        if (this.props.isCertified) {
-            // Certified Submissions table
-            row = [
-                link,
-                this.getAgency(item),
-                userName
-            ];
-
-            let certified_on = item.certified_on !== "" ? this.convertToLocalDate(item.certified_on) :
-                item.certified_on;
-            if (this.props.type === 'fabs') {
-                row = row.concat([
-                    reportingDateString,
-                    item.certifying_user,
-                    certified_on
-                ]);
-            }
-            else {
-                row = row.concat([
-                    this.convertToLocalDate(item.last_modified),
-                    <Status.SubmissionStatus status={item.rowStatus} certified={this.props.isCertified} />,
-                    <span>
-                        {item.certifying_user}<br/>
-                        {certified_on}<br/>
-                        <HistoryLink submissionId={item.submission_id} />
-                    </span>
-                ]);
-            }
-        }
-        else {
-            // Active Submissions table
-            row = [
-                link,
-                this.getAgency(item),
-                reportingDateString,
-                userName,
-                this.convertToLocalDate(item.last_modified),
-                <Status.SubmissionStatus status={item.rowStatus} certified={this.props.isCertified} />
-            ];
-
-            let deleteCol = false;
-            let canDelete = false;
-            if (this.props.type === 'fabs') {
-                deleteCol = PermissionsHelper.checkFabsPermissions(this.props.session);
-                canDelete = PermissionsHelper.checkFabsAgencyPermissions(this.props.session, item.agency);
-            }
-            else {
-                deleteCol = PermissionsHelper.checkPermissions(this.props.session);
-                canDelete = PermissionsHelper.checkAgencyPermissions(this.props.session, item.agency);
-            }
-
-            if (deleteCol) {
-                if (canDelete && item.publish_status === 'unpublished') {
-                    row.push(<DeleteLink submissionId={item.submission_id} index={index}
-                        warning={this.deleteWarning.bind(this)} confirm={deleteConfirm} reload={this.reload.bind(this)}
-                        item={item} account={this.state.account}/>);
-                }
-                else {
-                    row.push('N/A');
-                }
-            }
-        }
-        return row;
-    }
-
-    buildRow() {
-        // iterate through the recent activity
-        const output = [];
-        const rowClasses = [];
-        let progress_size = this.props.type == 'fabs' ? 15 : 20;
-        let view_size = this.props.type == 'fabs' ? 15 : 10;
-        let classes = ['row-10 text-center', 'row-20 text-center', 'row-15 text-right white-space', 'row-15 text-right',
-            'row-10 text-right','row-' + progress_size + ' text-right progress-cell', 'row-10 text-center'];
-
-        if (this.props.isCertified) {
-            classes = ['row-' + view_size + ' text-center', 'row-25 text-right white-space', 'row-12_5 text-right',
-                'row-10 text-right', 'row-20 text-right progress-cell', 'row-10 text-center'];
-            if(this.state.type == 'fabs') {
-                classes = ['row-10 text-center', 'row-25 text-right', 'row-10 text-right',
-                    'row-15 text-right white-space', 'row-10 text-right', 'row-10 text-center'];
-            }
-        }
-
-        // iterate through each item returned from the API
-        this.props.data.forEach((item, index) => {
-            // break the object out into an array for the table component
-            let row = this.formatRow(item, index);
-
-            rowClasses.push(classes);
-            output.push(row);
-        });
-
-        const headerClasses = classes;
-
-        let message = '';
-        if (this.props.data.length === 0) {
-            message = 'No submissions to list';
-        }
-
+    deleteWarning(index) {
         this.setState({
-            parsedData: output,
-            cellClasses: rowClasses,
-            headerClasses: headerClasses,
-            message: message,
-            totalPages: Math.ceil(this.props.total / 10)
+            deleteIndex: index
+        }, () => {
+            this.buildRow();
         });
-    }
-
-    getAgency(item) {
-        let agency = item.agency
-        if (this.props.type === 'fabs') {
-            return agency += ":\n" + item.files[0].split('/').pop().replace(/^[0-9]*_/,"")
-        }
-        return agency
     }
 
     render() {
@@ -367,13 +367,13 @@ export default class DashboardTable extends React.Component {
         }
 
         let headers = this.getHeaders();
-        //cannot be added to the const because if a user is read only then delete will not be created
+        // cannot be added to the const because if a user is read only then delete will not be created
         let unsortable = [0, 2, 5, 6];
-        if(this.props.isCertified && this.state.type == 'fabs'){
+        if (this.props.isCertified && this.state.type === 'fabs') {
             unsortable = [0, 3, 4];
         }
-        else if(this.props.isCertified) {
-        	unsortable = [0, 4, 5, 6, 7];
+        else if (this.props.isCertified) {
+            unsortable = [0, 4, 5, 6, 7];
         }
 
         return (

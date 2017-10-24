@@ -17,7 +17,7 @@ export default class Banner extends React.Component {
 
         this.state = {
             type: this.props.type,
-            app_window: []
+            appWindow: []
         };
     }
 
@@ -40,16 +40,16 @@ export default class Banner extends React.Component {
 
     getRows() {
         let msg = [];
-        for (let i = 0; i < this.state.app_window.length; i++) {
+        for (let i = 0; i < this.state.appWindow.length; i++) {
             msg.push(
                 <div key={'banner'+i} className="published-submission-warning-banner">
-                    <div className='container'>
-                        <div className='row'>
+                    <div className="container">
+                        <div className="row">
                             <div className="col-xs-1">
                                 <i className="usa-da-icon"><Icons.ExclamationTriangle /> </i>
                             </div>
                             <div className="col-xs-11">
-                                <p>{this.state.app_window[i].message}</p>
+                                <p>{this.state.appWindow[i].message}</p>
                             </div>
                         </div>
                     </div>
@@ -65,15 +65,15 @@ export default class Banner extends React.Component {
                 if (!res.data) {
                     return;
                 }
-                let app_window = [];
+                let appWindow = [];
                 for (let i = 0; i < res.data.length; i++) {
                     if (res.data[i].type.toLowerCase() === this.state.type.toLowerCase() ||
                         res.data[i].type.toLowerCase() === 'all') {
-                        app_window.push(res.data[i]);
+                        appWindow.push(res.data[i]);
                     }
                 }
-                if (app_window.length !== 0) {
-                    this.setState({ app_window: app_window });
+                if (appWindow.length !== 0) {
+                    this.setState({ appWindow: appWindow });
                 }
             })
             .catch((err) => {

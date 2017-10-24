@@ -3,9 +3,7 @@
  * Created by Mike Bray 3/28/16
  **/
 
-import React, { PropTypes } from 'react';
-import { kGlobalConstants } from '../../GlobalConstants.js';
-import * as Icons from '../SharedComponents/icons/Icons.jsx';
+import React from 'react';
 
 const defaultProps = {
     fileTitle: ''

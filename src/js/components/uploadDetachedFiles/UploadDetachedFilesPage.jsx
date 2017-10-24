@@ -3,18 +3,13 @@
 * Created by MichaelHess
 **/
 
-import ReactCSSTransitionGroup from 'react-addons-css-transition-group';
-
 import React from 'react';
-import moment from 'moment';
 
 import Footer from '../SharedComponents/FooterComponent.jsx';
 import Navbar from '../SharedComponents/navigation/NavigationComponent.jsx';
 
 import UploadDetachedFileMeta from './UploadDetachedFileMeta.jsx';
 import UploadDetachedFileValidation from './UploadDetachedFileValidation.jsx';
-
-import * as Icons from '../SharedComponents/icons/Icons.jsx';
 
 import { hashHistory } from 'react-router';
 

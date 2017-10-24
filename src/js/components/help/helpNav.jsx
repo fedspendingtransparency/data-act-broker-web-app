@@ -23,9 +23,7 @@ export default class HelpNav extends React.Component {
             if (this.props.selected === page) {
                 return <a href={url} className="selected usa-da-button btn-lg" key={index}>{page}</a>;
             }
-            else {
-                return <a href={url} className="usa-da-button btn-lg" key={index}>{page}</a>;
-            }
+            return <a href={url} className="usa-da-button btn-lg" key={index}>{page}</a>;
         });
 
         return (

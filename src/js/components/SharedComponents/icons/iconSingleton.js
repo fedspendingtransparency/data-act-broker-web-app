@@ -6,7 +6,6 @@
 import Request from 'superagent';
 import xmldoc from 'xmldoc';
 import uuid from 'node-uuid';
-import { kGlobalConstants } from '../../../GlobalConstants.js';
 
 class IconSingleton {
     constructor() {

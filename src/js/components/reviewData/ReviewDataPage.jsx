@@ -3,7 +3,7 @@
  * Created by Mike Bray 3/31/16
  **/
 
-import React, { PropTypes } from 'react';
+import React from 'react';
 import Navbar from '../SharedComponents/navigation/NavigationComponent.jsx';
 import AddDataHeader from './../addData/AddDataHeader.jsx';
 import Progress from '../SharedComponents/ProgressComponent.jsx';
@@ -45,7 +45,7 @@ export default class ReviewDataPage extends React.Component {
                             </div>
                         </div>
                         {warningMessage}
-                        <Banner type='dabs' />
+                        <Banner type="dabs" />
                         {currentComponent}
                     </div>
                 </div>

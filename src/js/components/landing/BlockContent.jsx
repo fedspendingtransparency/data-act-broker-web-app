@@ -9,7 +9,6 @@ import LandingBlockBottomLink from './blocks/LandingBlockBottomLink.jsx';
 
 import * as Icons from '../SharedComponents/icons/Icons.jsx';
 import * as permissionHelper from '../../helpers/permissionsHelper.js';
-import * as ReviewHelper from '../../helpers/reviewHelper.js';
 
 export default class BlockContent extends React.Component {
     constructor(props) {
@@ -22,8 +21,8 @@ export default class BlockContent extends React.Component {
             buttonText="Request Access" url="https://community.max.gov/x/fJwuRQ" />;
         let secondBlock = <LandingBlock type={this.props.type} icon={<Icons.Floppy />}
             text={"Did you start a submission but were unable to complete it? Want to see your certified " +
-            "submissions? Continue here to the submissions dashboard."} buttonText='View Submissions Dashboard'
-            url='#/dashboard' />;
+            "submissions? Continue here to the submissions dashboard."} buttonText="View Submissions Dashboard"
+            url="#/dashboard" />;
         let thirdBlock = null;
 
         if (this.props.type === 'home') {
@@ -34,8 +33,8 @@ export default class BlockContent extends React.Component {
                 buttonText="Enter" url="#/landing" />;
             secondBlock = <LandingBlock type={this.props.type} icon={<h5>Financial Assistance Broker Submission</h5>}
                 text={"Enter here to upload, validate, and publish your agency's financial assistance data. You can " +
-                "also test your financial assistance data and view your submissions."} buttonText='Enter'
-                url='#/FABSlanding' />;
+                "also test your financial assistance data and view your submissions."} buttonText="Enter"
+                url="#/FABSlanding" />;
         }
         else if (this.props.type === 'dabs') {
             if (permissionHelper.checkPermissions(this.props.session)) {
@@ -61,8 +60,8 @@ export default class BlockContent extends React.Component {
             }
             secondBlock = <LandingBlock type={this.props.type} icon={<Icons.Floppy />}
                 text={"Did you start a submission but were unable to complete it? Want to see your previous " +
-                "submissions? Continue here to the submissions dashboard."} buttonText='View Submissions Dashboard'
-                url='#/FABSdashboard' />;
+                "submissions? Continue here to the submissions dashboard."} buttonText="View Submissions Dashboard"
+                url="#/FABSdashboard" />;
         }
 
         return (

@@ -5,8 +5,6 @@
 
 import React from 'react';
 
-import * as Icons from '../SharedComponents/icons/Icons.jsx';
-
 import GenerateEFOverlay from './GenerateEFOverlay.jsx';
 import GenerateEFItem from './generateItem/GenerateEFItem.jsx';
 

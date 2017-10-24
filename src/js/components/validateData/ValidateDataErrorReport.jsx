@@ -3,17 +3,11 @@
  * Created by Mike Bray 3/28/16
  **/
 
-import React, { PropTypes } from 'react';
-import { kGlobalConstants } from '../../GlobalConstants.js';
-import SubmitButton from '../SharedComponents/SubmitButton.jsx';
+import React from 'react';
 import ScrollableTable from '../SharedComponents/table/ScrollableTable.jsx';
 import * as Icons from '../SharedComponents/icons/Icons.jsx';
 import * as ReviewHelper from '../../helpers/reviewHelper.js';
 import _ from 'lodash';
-
-const propTypes = {
-
-};
 
 export default class ValidateDataErrorReport extends React.Component {
     constructor(props) {
@@ -26,7 +20,7 @@ export default class ValidateDataErrorReport extends React.Component {
         };
     }
 
-    sortTable(direction, column) {
+    sortTable(direction) {
         if (direction !== this.state.sortDirection) {
             this.setState({
                 sortDirection: direction
@@ -125,5 +119,3 @@ export default class ValidateDataErrorReport extends React.Component {
         );
     }
 }
-
-ValidateDataErrorReport.propTypes = propTypes;
