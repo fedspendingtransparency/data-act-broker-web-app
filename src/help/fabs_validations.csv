@@ -2,6 +2,8 @@ Relates to Files,Rule Name,Rule Detail,Severity,Status
 FABS,FABS1,"FAIN is required for non-aggregate records (i.e., when RecordType = 2).",Fatal Error,Implemented
 FABS,FABS2.1,"The combination of FAIN, AwardModificationAmendmentNumber, URI, and AwardingSubTierAgencyCode must be unique within the submission file.",Fatal Error,Implemented
 FABS,FABS2.2,"The combination of FAIN, AwardModificationAmendmentNumber, URI, and AwardingSubTierAgencyCode must be unique when compared to currently published data--unless the record is a correction or deletion (i.e., if CorrectionLateDeleteIndicator = C or D). In this particular case, the combination of these four fields in this transaction has already been published in USAspending, making this second attempt a duplicate.",Fatal Error,Implemented
+FABS,FABS2.3,"The unique combination of FAIN, AwardModificationAmendmentNumber, URI, and AwardingSubTierAgencyCode must exist as a currently published record when the record is a correction (i.e., if CorrectionLateDeleteIndicator = C).",Fatal Error,Implemented
+FABS,FABS2.4,"The unique combination of FAIN, AwardModificationAmendmentNumber, URI, and AwardingSubTierAgencyCode must exist as a currently published record when the record is a deletion (i.e., if CorrectionLateDeleteIndicator = D).",Fatal Error,Implemented
 FABS,FABS3.1,"ActionType is required for non-aggregate records (i.e., when RecordType = 2).",Fatal Error,Implemented
 FABS,FABS3.2,"ActionType must contain one of the following values: ""A"", ""B"", ""C"", ""D"", or blank.",Fatal Error,Implemented
 FABS,FABS4.1,"ActionDate must follow YYYYMMDD format, where YYYY is the year, MM the month and DD the day.",Fatal Error,Implemented
@@ -72,7 +74,7 @@ FABS,FABS41.1,"For PrimaryPlaceOfPerformanceCode XX#####, city code ##### must b
 FABS,FABS41.2,"City codes must exist in the state indicated by the PrimaryPlaceOfPerformanceCode. If a valid PrimaryPlaceOfPerformanceZIP+4 is provided, this will only trigger a warning.",Warning,Implemented
 FABS,FABS41.3,The provided PrimaryPlaceofPerformanceZIP+4 must be in the state specified by PrimaryPlaceOfPerformanceCode.,Fatal Error,Implemented
 FABS,FABS41.4,"When provided, PrimaryPlaceofPerformanceZIP+4 must be in the format #####, #########, #####-####, or contain 'city-wide'.",Fatal Error,Implemented
-FABS,FABS41.5,The provided PrimaryPlaceofPerformanceZIP+4 must be in the state specified by PrimaryPlaceOfPerformanceCode.,Fatal Error,Implemented
+FABS,FABS41.5,The provided PrimaryPlaceofPerformanceZIP+4 must be in the state specified by PrimaryPlaceOfPerformanceCode.,Warning,Implemented
 FABS,FABS41.6,"If PrimaryPlaceOfPerformanceCode is XX00000, PrimaryPlaceOfPerformanceZip+4 must not be 'city-wide'.",Fatal Error,Implemented
 FABS,FABS42.1,"PrimaryPlaceOfPerformanceForeignLocationDescription is required for foreign places of performance (i.e., when PrimaryPlaceOfPerformanceCountryCode does not equal USA).",Fatal Error,Implemented
 FABS,FABS42.2,"PrimaryPlaceOfPerformanceForeignLocationDescription must be blank for domestic recipients (i.e., when PrimaryPlaceOfPerformanceCountryCode = USA).",Fatal Error,Implemented
