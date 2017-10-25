@@ -39,7 +39,7 @@ export default class DashboardTable extends React.Component {
             user: true,
             type: this.props.type
         };
-    };
+    }
 
     componentDidMount() {
         this.props.loadTableData(this.state.currentPage, this.props.isCertified, this.getCategory(),

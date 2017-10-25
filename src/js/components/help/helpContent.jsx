@@ -1,4 +1,4 @@
-﻿/**
+/**
  * HelpContent.jsx
  * Created by Mike Bray 4/1/16
  **/

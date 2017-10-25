@@ -25,7 +25,7 @@ export default class HistoryTable extends React.Component {
                 body: ''
             }
         };
-    };
+    }
 
     componentDidMount() {
         SubmissionListHelper.loadSubmissionHistory(this.props.submissionID)

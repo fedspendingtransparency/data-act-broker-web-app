@@ -1,4 +1,4 @@
-﻿ /**
+/**
  * PracticeProceduresContent.jsx
  * Created by Emily Gullo 9/2/2016
  **/
