@@ -29,7 +29,7 @@
         "react/jsx-indent-props": [2, 4],
         // closing brackets should be aligned with the final prop (props.. />)
         "react/jsx-closing-bracket-location": [2, "after-props"],
-        // downgrading to warning when using props purely within componentWillReceiveProps
+        // downgrading to warnig when using props purely within componentWillReceiveProps
         // "react/no-unused-prop-types": [1],
         // also set the tab width for the max line width with a max length of 120
         "max-len": [1, 120],
@@ -57,7 +57,7 @@
         // disabling class method "this" requirement to avoid React conflicts
         "class-methods-use-this": [0],
         // allow ++ and -- in for loops
-        "no-plusplus": [2, {
+        "no-plusplus": [1, {
             "allowForLoopAfterthoughts": true
         }],
         // allow continue statements
@@ -90,14 +90,14 @@
         "no-unused-expressions": [0],
         "no-loop-func": [0],
         "new-cap": [0],
-        "no-plusplus": [0],
         "react/no-multi-comp": [0],
         // "no-undef": [0],
         "func-names": [0],
-        "no-extra-semi": [0],
         // "jsx-quotes": [0],
         "no-nested-ternary": [0],
         "no-irregular-whitespace": [0],
-        "no-unreachable": [0]
+        "no-unreachable": [0],
+        "key-spacing": [0],
+        "eol-last": [0]
     }
 }
