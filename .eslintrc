@@ -66,7 +66,7 @@
         // for testing
         "import/no-named-as-default": [0],
         // Must use object shorthand
-        // "object-shorthand": [2, "always"]
+        // "object-shorthand": [2, "always"],
         // RERUN WITH THIS REMOVED
         "object-shorthand": [0, "always"],
         "prefer-const": [0],
@@ -87,17 +87,17 @@
         "react/jsx-boolean-value": [0],
         "radix": [0],
         // "no-else-return": [0],
-        "no-unused-expressions": [0],
+        // "no-unused-expressions": [0],
         "no-loop-func": [0],
         "new-cap": [0],
         "no-plusplus": [0],
         "react/no-multi-comp": [0],
         // "no-undef": [0],
-        "func-names": [0],
+        // "func-names": [0],
         "no-extra-semi": [0],
         // "jsx-quotes": [0],
-        "no-nested-ternary": [0],
+        // "no-nested-ternary": [0],
         "no-irregular-whitespace": [0],
-        "no-unreachable": [0]
+        // "no-unreachable": [0]
     }
 }

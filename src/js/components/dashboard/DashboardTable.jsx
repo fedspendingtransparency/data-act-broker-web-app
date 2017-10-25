@@ -120,16 +120,12 @@ export default class DashboardTable extends React.Component {
             switch (this.state.sortColumn) {
                 case 1:
                     return 'agency';
-                    break;
                 case 2:
                     return 'submitted_by';
-                    break;
                 case 3:
                     return 'modified';
-                    break;
                 case 5:
                     return 'modified';
-                    break;
                 default:
                     return 'modified';
             }
@@ -137,13 +133,10 @@ export default class DashboardTable extends React.Component {
         switch (this.state.sortColumn) {
             case 1:
                 return 'agency';
-                break;
             case 2:
                 return 'reporting';
-                break;
             case 3:
                 return 'submitted_by';
-                break;
             default:
                 return 'modified';
         }

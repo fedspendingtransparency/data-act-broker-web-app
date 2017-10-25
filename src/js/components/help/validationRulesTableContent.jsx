@@ -121,7 +121,7 @@ export default class ValidationRulesTableContent extends React.Component {
                         data={this.state.data} filterable={['Rule Detail']}
                         sortable={[
                             {
-                                column: 'Rule Name', sortFunction: function (a, b) {
+                                column: 'Rule Name', sortFunction: (a, b) => {
                                     let reA = /[^a-zA-Z]/g;
                                     let reN = /[^0-9]/g;
                                     let aA = a.replace(reA, "");
@@ -129,7 +129,10 @@ export default class ValidationRulesTableContent extends React.Component {
                                     if (aA === bA) {
                                         let aN = parseInt(a.replace(reN, ""), 10);
                                         let bN = parseInt(b.replace(reN, ""), 10);
-                                        return aN === bN ? 0 : aN > bN ? 1 : -1;
+                                        if (aN === bN) {
+                                            return 0;
+                                        }
+                                        return aN > bN ? 1 : -1;
                                     }
                                     return aA > bA ? 1 : -1;
                                 }

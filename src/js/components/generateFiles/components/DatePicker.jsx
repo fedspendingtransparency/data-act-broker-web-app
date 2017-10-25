@@ -19,7 +19,7 @@ export default class DatePicker extends React.Component {
         super(props);
 
         this.delayedBlur = false;
-        this.escapeEvent;
+        this.escapeEvent = null;
 
         this.state = {
             inputValue: '',
