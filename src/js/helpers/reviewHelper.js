@@ -536,11 +536,14 @@ export const deleteSubmission = (submission_id) => {
     return deferred.promise;
 }
 
-export const revalidateSubmission = (submission_id) => {
+export const revalidateSubmission = (submission_id, d2_submission = false) => {
 	const deferred = Q.defer();
 
 	Request.post(kGlobalConstants.API + 'restart_validation/')
-		.send({submission_id})
+		.send({
+			"submission_id": submission_id,
+			"d2_submission": d2_submission
+		})
 		.end((err, res) => {
 			if (err) {
 				deferred.reject(err);

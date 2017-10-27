@@ -1,17 +1,14 @@
-#### October 6, 2017
+#### October 26, 2017
 
-In this release of the Broker, we released the ability to generate D1/D2 files via the Broker and made improvements to the Financial Assistance Broker Submission (FABS).
+In this release of the Broker, we made improvements to Financial Assistance Broker Submission (FABS).
 
-  - [D1/D2 File Generation](#/help?section=dfilegeneration)
-  - [FABS Improvements](#/help?section=fabsimprovements2)
-
-
-##### D1/D2 File Generation {section=dfilegeneration}
-In this release, we transitioned the backed infrastructure that is used to generate the D1/D2 files from the legacy USAspending.gov infrastructure to the Broker. D2 file generation will include agencies’ FABS data. D1 file generation will be provided to the Broker via the FPDS-NG ATOM feed.
+  - [FABS Improvements](#/help?section=fabsimprovements3)
 
 
-##### FABS Improvements {section=fabsimprovements2}
+
+##### FABS Improvements {section=fabsimprovements3}
 In this release, we made several improvements to FABS, including:
-- Implemented the ability for FABS to derive FundingAgencyCode;
-- Updated validations so that no error (or warning) is triggered if PPOPCongressionalDistrict is blank AND PPOPZIP+4 is 9 digits; and
-- User interface improvements to prevent a user form encountering issues when clicking the “Publish” button.
+- Updated the submission dashboard to include the agency file name; 
+- Implemented a feature to prevent users from publishing duplicate data files; 
+- Updated the FABS validations so that there is no header error in FABS for facevalueloanguarantee or facevalueofdirectloanorloanguarantee
+- Updated validations so that no error (or warning) is triggered if PPOPCongressionalDistrict.

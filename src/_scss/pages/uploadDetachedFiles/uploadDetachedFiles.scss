@@ -169,4 +169,8 @@
 	font-weight: 700;
 	border-style: none;
 	box-shadow: none;
+
+	&.revalidate-button {
+		margin-right: 5px;
+	}
 }
