@@ -61,8 +61,9 @@ FABS,FABS35.1,"When provided, LegalEntityZIPLast4 must be in the #### format.",F
 FABS,FABS35.2,LegalEntityZIP5 must be a valid 5-digit USPS ZIP code.,Fatal Error,Implemented
 FABS,FABS35.3,The combination of LegalEntityZIP5 and LegalEntityZIPLast4 should be a valid 9-digit USPS ZIP+4 code.,Warning,Implemented
 FABS,FABS36,"CFDA_Number must be in XX.XXX format, where # represents a number from 0 to 9.",Fatal Error,Implemented
-FABS,FABS37.1,"For all records, CFDA_Number must have been registered with CFDA.gov at some point in time. For new assistance awards (ActionType = A) specifically, the CFDA_Number must be active as of the ActionDate. This does not apply to correction records (those with CorrectionLateDeleteIndicator = C). ",Fatal Error,Implemented
+FABS,FABS37.1,"For new assistance awards (ActionType = A) specifically, the CFDA_Number must be active as of the ActionDate. This does not apply to correction records (those with CorrectionLateDeleteIndicator = C). ",Fatal Error,Implemented
 FABS,FABS37.2,"For non-new assistance awards (ActionType = B, C, or D), the CFDA_Number need not be active as of the ActionDate, but a warning will trigger in this case. This warning will not trigger for correction records (those with CorrectionLateDeleteIndicator = C).",Warning,Implemented
+FABS,FABS37.1,"For all records, CFDA_Number must have been registered with CFDA.gov at some point in time. ",Fatal Error,Implemented
 FABS,FABS38.1,FundingOfficeCode must be six characters long.,Fatal Error,Implemented
 FABS,FABS38.2,AwardingOfficeCode must be six characters long.,Fatal Error,Implemented
 FABS,FABS39.1,"PrimaryPlaceOfPerformanceCode must be 00*****, 00FORGN, or start with a valid 2-character state code.",Fatal Error,Implemented
