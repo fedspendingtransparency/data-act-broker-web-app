@@ -167,7 +167,7 @@ export default class DashboardTable extends React.Component {
                     return 'modified';
                     break;
                 case 5:
-                    return 'modified';
+                    return 'certified_date';
                     break;
                 default:
                     return 'modified';
@@ -364,7 +364,7 @@ export default class DashboardTable extends React.Component {
             unsortable = [0, 3, 4];
         }
         else if(this.props.isCertified) {
-        	unsortable = [0, 4, 5, 6, 7];
+        	unsortable = [0, 4];
         }
 
         return (
