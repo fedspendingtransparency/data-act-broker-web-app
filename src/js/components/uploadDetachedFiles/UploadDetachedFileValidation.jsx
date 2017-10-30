@@ -170,11 +170,10 @@ class UploadDetachedFileValidation extends React.Component {
     }
 
     signReport(item){
-        let type = 'D2_detached';
-        GenerateFilesHelper.fetchFile(type, this.props.submission.id)
+        GenerateFilesHelper.getFabsMeta(this.props.submission.id)
             .then((result)=>{
                 this.setState({
-                    signedUrl: result.url,
+                    signedUrl: result.published_file,
                     signInProgress: false
                 }, () => {
                     this.openReport();
