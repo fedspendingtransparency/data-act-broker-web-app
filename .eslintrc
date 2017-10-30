@@ -29,14 +29,12 @@
         "react/jsx-indent-props": [2, 4],
         // closing brackets should be aligned with the final prop (props.. />)
         "react/jsx-closing-bracket-location": [2, "after-props"],
-        // downgrading to warning when using props purely within componentWillReceiveProps
-        // "react/no-unused-prop-types": [1],
         // also set the tab width for the max line width with a max length of 120
         "max-len": [1, 120],
         // do not allow dangling commas at the end of arrays, objects, etc.
         "comma-dangle": [2, "never"],
         // downgrade extra semicolons to warnings
-        "no-extra-semi": [1],
+        "no-extra-semi": [2],
         // require parens in arrow functions with single arguments for improved readability
         "arrow-parens": [2, "always"],
         // allow double-quoted strings
@@ -49,11 +47,6 @@
         "react/prefer-stateless-function": [0],
         // allow binding in React props because we don't have autobind in ES6
         "react/jsx-no-bind": [0],
-        // warn instead of erroring on hash links
-        // "jsx-a11y/href-no-hash": [1],
-        // downgrading export default preference to warning, since we may add additional exports
-        // to files in the future
-        // "import/prefer-default-export": [1],
         // disabling class method "this" requirement to avoid React conflicts
         "class-methods-use-this": [0],
         // allow ++ and -- in for loops
@@ -66,38 +59,53 @@
         // for testing
         "import/no-named-as-default": [0],
         // Must use object shorthand
-        // "object-shorthand": [2, "always"],
         // RERUN WITH THIS REMOVED
-        "object-shorthand": [0, "always"],
-        "prefer-const": [0],
-        "no-console": [0],
-        "guard-for-in": [0],
-        "no-param-reassign": [0],
-        "quote-props": [0],
+        "object-shorthand": [1, "always"],
+        "prefer-const": [1],
+        "no-console": [1],
+        "guard-for-in": [2],
+        "no-param-reassign": [2],
+        "quote-props": [1, "as-needed"],
+        "no-use-before-define": [2, "nofunc"],
+        "space-infix-ops": [2],
+
+        "dot-notation": [2],
+        "react/prop-types": [1],
+        "react/wrap-multilines": [2],
+        "react/no-did-update-set-state": [2],
+        "react/no-did-mount-set-state": [2],
+        "react/jsx-boolean-value": [1],
+        "radix": [2],
+
+        "no-unused-expressions": [2, { "allowShortCircuit": true, "allowTernary": true }],
+        "no-loop-func": [2],
+        new-cap: [2, { "capIsNewExceptions": ["Moment", "Dimensions"] }],
+        "react/no-multi-comp": [1, { "ignoreStateless": true}],
+
+        "func-names": [2],
+
+        "no-nested-ternary": [2],
+        "no-irregular-whitespace": [2],
+        "no-unreachable": [2],
+        "key-spacing": [0],
+        "eol-last": [0]
+
+
+        // STILL NEED TO EVALUATE THESE
         // "arrow-parens": [0],
-        "no-use-before-define": [0],
         // "no-unused-vars": [0],
-        "space-infix-ops": [0],
-        // "camelcase": [0],
-        "dot-notation": [0],
-        "react/prop-types": [0],
-        "react/wrap-multilines": [0],
-        "react/no-did-update-set-state": [0],
-        "react/no-did-mount-set-state": [0],
-        "react/jsx-boolean-value": [0],
-        "radix": [0],
         // "no-else-return": [0],
-        // "no-unused-expressions": [0],
-        "no-loop-func": [0],
-        "new-cap": [0],
-        "no-plusplus": [0],
-        "react/no-multi-comp": [0],
+        // "camelcase": [0],
         // "no-undef": [0],
-        // "func-names": [0],
-        // "no-extra-semi": [0],
         // "jsx-quotes": [0],
-        // "no-nested-ternary": [0],
-        // "no-irregular-whitespace": [0],
-        // "no-unreachable": [0]
+
+        // warn instead of erroring on hash links
+        // "jsx-a11y/href-no-hash": [1],
+        // downgrading export default preference to warning, since we may add additional exports
+        // to files in the future
+        // "import/prefer-default-export": [1],
+
+        // downgrading to warnig when using props purely within componentWillReceiveProps
+        // "react/no-unused-prop-types": [1]
     }
 }
