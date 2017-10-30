@@ -298,12 +298,12 @@ export default class DashboardTable extends React.Component {
         const rowClasses = [];
         let progress_size = this.props.type == 'fabs' ? 15 : 20;
         let view_size = this.props.type == 'fabs' ? 15 : 10;
-        let classes = ['row-10 text-center', 'row-20 text-center', 'row-15 text-right white-space', 'row-15 text-right', 'row-10 text-right','row-' + progress_size + ' text-right progress-cell', 'row-10 text-center'];
+        let classes = ['row-10 text-center', 'row-20 text-left', 'row-15 white-space', 'row-12_5', 'row-12_5','row-' + progress_size + ' progress-cell', 'row-10 text-center'];
 
         if (this.props.isCertified) {
-            classes = ['row-' + view_size + ' text-center', 'row-25 text-right white-space', 'row-12_5 text-right', 'row-10 text-right','row-20 text-right progress-cell', 'row-10 text-center'];
+            classes = ['row-' + view_size + ' text-center', 'row-20', 'row-12_5', 'row-10','row-20 progress-cell', 'row-15 text-center'];
             if(this.state.type == 'fabs') {
-                classes = ['row-10 text-center', 'row-25 text-right', 'row-10 text-right', 'row-15 text-right white-space','row-10 text-right', 'row-10 text-center'];
+                classes = ['row-10 text-center', 'row-25', 'row-10', 'row-15 white-space','row-10', 'row-10 text-center'];
             }
             
         }
