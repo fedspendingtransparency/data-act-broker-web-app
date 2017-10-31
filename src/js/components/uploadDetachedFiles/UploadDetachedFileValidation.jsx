@@ -366,16 +366,16 @@ class UploadDetachedFileValidation extends React.Component {
         
         if (this.state.agency !== '' && this.state.rep_start !== '' && this.state.rep_end !== ''){
             headerDate = <div className="col-md-2 ">
-                            <div className = 'header-box'>
-                                    <span>
-                                    Agency: {this.state.agency}
-                                    </span>
-                                    <br/>
-                                    <span>
-                                    Last Modified: {updated}
-                                    </span>
-                                </div>
-                        </div>;
+                             <div className = 'header-box'>
+                                 <span>
+                                     Agency: {this.state.agency}
+                                 </span>
+                                 <br/>
+                                 <span>
+                                     Last Modified: {updated}
+                                 </span>
+                             </div>
+                         </div>;
         }
 
         const type = {
