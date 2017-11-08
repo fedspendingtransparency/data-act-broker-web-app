@@ -10,6 +10,7 @@ td.progress-cell {
     @include justify-content(center);
     .usa-da-status-label {
         padding-right: 15px;
+        padding-left: 15px;
         white-space: pre;
         @include flex(0 1 auto);
     }

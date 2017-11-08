@@ -62,11 +62,28 @@ export const fetchFile = (type, submissionId) => {
                 'file_type': type
             })
             .end((errFile, res) => {
-
                 if (errFile) {
                     const response = Object.assign({}, res.body);
                     response.httpStatus = res.status;
                     deferred.reject(response);
+                }
+                else {
+                    deferred.resolve(res.body);
+                }
+
+            });
+
+    return deferred.promise;
+}
+
+export const getFabsMeta = (submissionId) => {
+    const deferred = Q.defer();
+
+    Request.post(kGlobalConstants.API + 'get_fabs_meta/')
+            .send({'submission_id': submissionId})
+            .end((errFile, res) => {
+                if (errFile) {
+                    deferred.reject(errFile);
                 }
                 else {
                     deferred.resolve(res.body);
