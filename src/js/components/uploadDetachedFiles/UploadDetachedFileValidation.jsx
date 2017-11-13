@@ -391,13 +391,15 @@ class UploadDetachedFileValidation extends React.Component {
         validationBox = <ValidateDataFileContainer type={type} data={this.state.jobResults}
                                                    setUploadItem={this.uploadFile.bind(this)}
                                                    updateItem={this.uploadFile.bind(this)} 
-                                                   publishing={this.state.published === 'publishing'}/>;
+                                                   publishing={this.state.published === 'publishing'}
+                                                   agencyName={this.state.agency} />;
         if (fileData.file_status == 'complete' && this.state.validationFinished && this.state.published !== 'publishing') {
             if (status != 'invalid' || fileData.file_status == 'complete') {
                 validationBox = <ValidateValuesFileContainer type={type} data={this.state.jobResults}
                                                              setUploadItem={this.uploadFile.bind(this)}
                                                              updateItem={this.uploadFile.bind(this)}
-                                                             published={this.state.published} />;
+                                                             published={this.state.published}
+                                                             agencyName={this.state.agency} />;
             }
             if (this.state.showSuccess) {
                 errorMessage = <UploadDetachedFilesError errorCode={this.state.error} type='success' message={this.state.error_message} />;
