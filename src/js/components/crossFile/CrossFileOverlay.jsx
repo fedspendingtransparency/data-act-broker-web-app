@@ -46,7 +46,7 @@ export default class CrossFileOverlay extends React.Component {
 			hideButtons: false,
 			message: 'You must correct the cross-file validation errors listed above.',
 			detail: null,
-			buttonText: 'Upload Corrected CSV Files'
+			buttonText: 'Upload Corrected Files'
 		};
 
 		this.state = {

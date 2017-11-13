@@ -138,7 +138,7 @@ export default class ValidateDataFileComponent extends React.Component {
 
             switch(item.file_status) {
                 case 'single_row_error':
-                    headerTitle = 'Critical Error: CSV file must have a header row and at least one record';
+                    headerTitle = 'Critical Error: File must have a header row and at least one record';
                     break;
                 case 'encoding_error':
                     headerTitle = 'Critical Error: File contains invalid characters that could not be parsed';
