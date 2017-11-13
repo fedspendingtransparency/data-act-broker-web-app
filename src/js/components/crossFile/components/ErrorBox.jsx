@@ -44,18 +44,6 @@ export default class ErrorBox extends React.Component {
 			});
 		}
 		this.stagedFiles();
-		if (this.props.submissionID != null) {
-			ReviewHelper.fetchStatus(this.props.submissionID)
-				.then((data) => {
-					data.ready = true;
-					if (!this.isUnmounted) {
-						this.setState(data);
-					}
-				})
-				.catch((error) => {
-					console.log(error);
-				});
-		}
 	}
 
 	componentWillUnmount(){
@@ -225,7 +213,7 @@ export default class ErrorBox extends React.Component {
 		}
 		let uploadHeader = null;
 		let upload = null;
-		if (PermissionsHelper.checkAgencyPermissions(this.props.session, this.state.agency_name)) {
+		if (PermissionsHelper.checkAgencyPermissions(this.props.session, this.props.agencyName)) {
 			uploadHeader = 'Upload Corrected Files';
 			upload = <div>
 						<div className="row mb-10">

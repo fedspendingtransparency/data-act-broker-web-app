@@ -19,26 +19,7 @@ export default class FileComponent extends React.Component {
 	constructor(props){
 		super(props)
 
-		this.state = {
-			agency_name: ''
-		}
-
 		this.isUnmounted = false;
-	}
-
-	componentDidMount(){
-		if (this.props.submissionID != null) {
-            ReviewHelper.fetchStatus(this.props.submissionID)
-                .then((data) => {
-                    data.ready = true;
-                    if (!this.isUnmounted) {
-                        this.setState(data);
-                    }
-                })
-                .catch((error) => {
-                    console.log(error);
-                });
-        }
 	}
 
 	componentWillUnmount(){
@@ -47,7 +28,7 @@ export default class FileComponent extends React.Component {
 
 	render() {
 		let replaceButton = null;
-		if (this.props.status == 'success' && PermissionsHelper.checkAgencyPermissions(this.props.session, this.state.agency_name)) {
+		if (this.props.status == 'success' && PermissionsHelper.checkAgencyPermissions(this.props.session, this.props.agencyName)) {
 			replaceButton = <ReplacementButton buttonClicked={this.props.toggleUploadBox} {...this.props} />;
 		}	
 	
