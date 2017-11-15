@@ -37,13 +37,13 @@ export default class ValidationOverlay extends React.Component {
 			uploadButtonClass = ' btn-primary';
 		}
 
-		let header = 'You must fix the Critical Errors found in ' + this.props.errors.length + ' of the .CSV files before moving on to the next step. View and download individual reports above.';
+		let header = 'You must fix the Critical Errors found in ' + this.props.errors.length + ' of the files before moving on to the next step. View and download individual reports above.';
 		let detail = '';
 
 		if (this.props.errors.length == 0) {
 			icon = <Icons.CheckCircle />;
 			iconClass = 'usa-da-successGreen';
-			header = 'No Critical Errors were found in the .CSV files. Click Next to generate your D1 and D2 files.';
+			header = 'No Critical Errors were found in the files. Click Next to generate your D1 and D2 files.';
 			uploadButtonDisabled = true;
 			uploadButtonClass = '-disabled';
 			nextButtonClass = ' btn-primary';
@@ -53,7 +53,7 @@ export default class ValidationOverlay extends React.Component {
 				// there are warnings
 				icon = <Icons.ExclamationCircle />
 				iconClass = 'usa-da-warningYellow';
-				header = 'There are warnings in ' + this.props.warnings.length + ' of the .CSV files uploaded in this submission.';
+				header = 'There are warnings in ' + this.props.warnings.length + ' of the files uploaded in this submission.';
 				detail = 'You can correct the files or click Next to generate your D1 and D2 files as-is.';
 			}
 
@@ -65,7 +65,7 @@ export default class ValidationOverlay extends React.Component {
 			}
 		}
 
-		let buttonText = 'Upload Corrected CSV Files';
+		let buttonText = 'Upload Corrected Files';
 		if (this.props.submission.state == 'uploading') {
 			uploadButtonDisabled = true;
 			uploadButtonClass = '-disabled';
