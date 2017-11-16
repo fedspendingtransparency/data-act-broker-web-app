@@ -99,7 +99,7 @@ class GenerateFilesContainer extends React.Component {
             day = '01';
         }
         else if (type === 'end') {
-            const date = moment().month(parseInt(month) - 1).year(year);
+            const date = moment().month(parseInt(month, 10) - 1).year(year);
             day = date.endOf('month').format('DD');
         }
 

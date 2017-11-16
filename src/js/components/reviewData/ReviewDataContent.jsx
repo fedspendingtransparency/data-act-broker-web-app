@@ -76,7 +76,7 @@ export default class ReviewDataContent extends React.Component {
 
             // sum the number of warnings
             job.warning_data.forEach((warning) => {
-                totalWarnings += parseInt(warning.occurrences);
+                totalWarnings += parseInt(warning.occurrences, 10);
             });
         });
 

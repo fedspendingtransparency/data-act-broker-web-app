@@ -62,7 +62,7 @@ export default class ValidateValuesErrorReport extends React.Component {
                 description = 'Rule ' + item.original_label + ': ' + item.rule_failed;
             }
 
-            const row = [item.field_name, description, parseInt(item.occurrences)];
+            const row = [item.field_name, description, parseInt(item.occurrences, 10)];
 
             rows.push(row);
         });

@@ -133,7 +133,7 @@ export default class AddDataMeta extends React.Component {
         // Only make a request to check certified submission for quarterly submission.
         if (dateType === 'quarter') {
             let month = endDate.substr(0, 2);
-            let quarter = parseInt(month)%12 + 3;
+            let quarter = parseInt(month, 10)%12 + 3;
             let year = endDate.substr(3);
 
             if (quarter === 3) {

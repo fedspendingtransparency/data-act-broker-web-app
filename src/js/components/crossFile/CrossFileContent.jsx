@@ -46,7 +46,7 @@ export default class CrossFileContent extends React.Component {
             if (this.props.submission.crossFile.errors.hasOwnProperty(pairKey)) {
                 status = 'error';
                 this.props.submission.crossFile.errors[pairKey].forEach((error) => {
-                    errors += parseInt(error.occurrences);
+                    errors += parseInt(error.occurrences, 10);
                 });
                 overlayMode = 'errors';
             }
@@ -55,7 +55,7 @@ export default class CrossFileContent extends React.Component {
                     status = 'warning';
                 }
                 this.props.submission.crossFile.warnings[pairKey].forEach((warning) => {
-                    warnings += parseInt(warning.occurrences);
+                    warnings += parseInt(warning.occurrences, 10);
                 });
 
                 if (overlayMode !== 'errors') {
