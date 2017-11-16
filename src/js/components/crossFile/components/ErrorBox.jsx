@@ -29,7 +29,7 @@ export default class ErrorBox extends React.Component {
             firstButton: null,
             secondButton: null,
             stagedFiles: [],
-            activeTab: 'errors',
+            activeTab: props.status === 'error'? 'errors' : 'warnings',
             signInProgress: false,
             signedUrl: ''
         };
@@ -37,11 +37,6 @@ export default class ErrorBox extends React.Component {
 
     componentDidMount() {
         this.isUnmounted = false;
-        if (this.props.status === 'warning') {
-            this.setState({
-                activeTab: 'warnings'
-            });
-        }
         this.stagedFiles();
     }
 

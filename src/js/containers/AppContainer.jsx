@@ -41,12 +41,7 @@ export default class AppContainer extends React.Component {
 
     componentDidMount() {
         // check if we have a login cookie set
-        if (!Cookies.get('brokerLogin')) {
-            // cookie is not set
-            this.setState({
-                showPending: false
-            });
-        }
+        this.checkCookies();
 
         // cookie state is only used as a shorthand to determine if we should show the loading page
         // regardless, we still need to check the backend for the user session
@@ -62,6 +57,15 @@ export default class AppContainer extends React.Component {
                     appReady: true
                 });
             });
+    }
+
+    checkCookies() {
+        if (!Cookies.get('brokerLogin')) {
+            // cookie is not set
+            this.setState({
+                showPending: false
+            });
+        }
     }
 
     render() {

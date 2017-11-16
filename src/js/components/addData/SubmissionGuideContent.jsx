@@ -11,14 +11,8 @@ export default class SubmissionGuideContent extends React.Component {
         super(props);
 
         this.state = {
-            skipGuide: false
+            skipGuide: props.session.skipGuide
         };
-    }
-
-    componentDidMount() {
-        this.setState({
-            skipGuide: this.props.session.skipGuide
-        });
     }
 
     toggleSkipGuide() {
