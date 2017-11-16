@@ -8,7 +8,6 @@ import FileProgress from '../SharedComponents/FileProgress.jsx';
 import ValidateDataErrorReport from './ValidateDataErrorReport.jsx';
 import ValidateDataUploadButton from './ValidateDataUploadButton.jsx';
 import * as Icons from '../SharedComponents/icons/Icons.jsx';
-import * as ReviewHelper from '../../helpers/reviewHelper.js';
 import * as PermissionsHelper from '../../helpers/permissionsHelper.js';
 import * as GenerateFilesHelper from '../../helpers/generateFilesHelper.js';
 

@@ -11,7 +11,6 @@ import FileDetailBox from './ValidateValuesFileDetailBox.jsx';
 import CorrectButtonOverlay from '../CorrectButtonOverlay.jsx';
 import * as Icons from '../../SharedComponents/icons/Icons.jsx';
 import * as GenerateFilesHelper from '../../../helpers/generateFilesHelper.js';
-import * as ReviewHelper from '../../../helpers/reviewHelper.js';
 import * as PermissionsHelper from '../../../helpers/permissionsHelper.js';
 
 import UploadDetachedFilesError from '../../uploadDetachedFiles/UploadDetachedFilesError.jsx';

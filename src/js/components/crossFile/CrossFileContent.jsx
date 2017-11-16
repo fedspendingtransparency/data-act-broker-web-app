@@ -80,7 +80,7 @@ export default class CrossFileContent extends React.Component {
 
             items.push(<CrossFileItem key={i} status={status} meta={pairMeta} counts={counts} {...this.props}
                 forceUpdate={this.props.reloadData} />);
-            i++;
+            i += 1;
         });
 
         this.setState({

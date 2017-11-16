@@ -34,7 +34,7 @@ class ValidateDataContainer extends React.Component {
             notYours: false,
             gtas: null,
             serverError: null,
-			agencyName: null
+            agencyName: null
         };
 
         this.isCancelled = false;
@@ -125,7 +125,7 @@ class ValidateDataContainer extends React.Component {
 
                 this.setState({
                     finishedPageLoad: true,
-					agencyName: data.agencyName
+                    agencyName: data.agencyName
                 });
                 this.props.setSubmissionState('review');
                 this.props.setValidation(data.file);

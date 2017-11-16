@@ -10,7 +10,6 @@ import CommonOverlay from '../SharedComponents/overlays/CommonOverlay.jsx';
 import LoadingBauble from '../SharedComponents/overlays/LoadingBauble.jsx';
 
 import * as PermissionsHelper from '../../helpers/permissionsHelper.js';
-import * as ReviewHelper from '../../helpers/reviewHelper.js';
 
 const defaultProps = {
     errors: ['error'],

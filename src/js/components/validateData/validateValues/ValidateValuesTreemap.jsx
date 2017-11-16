@@ -80,7 +80,7 @@ class ValidateValuesTreemap extends React.Component {
         sortedData.forEach((item) => {
             let tmpItem = item;
             tmpItem.index = i;
-            i++;
+            i += 1;
         });
 
         this.setState({

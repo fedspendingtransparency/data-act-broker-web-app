@@ -31,11 +31,13 @@ export default class ValidationContent extends React.Component {
                 if (fileData.warning_data.length > 0) {
                     warnings.push(type.requestName);
                 }
-                return <ValidateValuesFileContainer key={index} type={type} data={data} agencyName={this.props.agencyName} session={this.props.session} />;
+                return <ValidateValuesFileContainer key={index} type={type} data={data}
+                    agencyName={this.props.agencyName} session={this.props.session} />;
             }
             else if (fileData) {
                 errors.push(type.requestName);
-                return <ValidateDataFileContainer key={index} type={type} data={data} agencyName={this.props.agencyName} />;
+                return <ValidateDataFileContainer key={index} type={type} data={data}
+                    agencyName={this.props.agencyName} />;
             }
         });
 

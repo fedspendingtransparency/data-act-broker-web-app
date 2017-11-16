@@ -76,7 +76,7 @@ export default class CertifyProgress extends React.Component {
             if (iteration > 4) {
                 subiteration = 1;
                 unit = (1 - newProgress)/6;
-                iteration++;
+                iteration += 1;
             }
 
             if (!this.isUnmounted && this.state.progress < 100) {

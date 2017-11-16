@@ -6,7 +6,6 @@
 import React from 'react';
 import ReplacementButton from './ReplacementButton.jsx';
 import * as PermissionsHelper from '../../../helpers/permissionsHelper.js';
-import * as ReviewHelper from '../../../helpers/reviewHelper.js';
 
 const defaultProps = {
     fileType: '',

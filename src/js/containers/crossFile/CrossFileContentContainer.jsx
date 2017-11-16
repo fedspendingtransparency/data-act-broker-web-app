@@ -25,11 +25,11 @@ class CrossFileContentContainer extends React.Component {
         super(props);
 
         this.dataTimer = null;
-		this.isUnmounted = false;
-		
-		this.state = {
-			agencyName: ""
-		}
+        this.isUnmounted = false;
+
+        this.state = {
+            agencyName: ""
+        };
     }
 
     componentDidMount() {
@@ -148,10 +148,10 @@ class CrossFileContentContainer extends React.Component {
         this.props.setSubmissionState('empty');
         ReviewHelper.validateSubmission(this.props.submissionID)
         .then((data) => {
-			let done = false;
-			this.setState({
-				agencyName: data.agencyName
-			});
+            let done = false;
+            this.setState({
+                agencyName: data.agencyName
+            });
             // check if invididual files have validation errors
             const individualState = this.individualPassedValidation(data);
             if (individualState === 'passed') {

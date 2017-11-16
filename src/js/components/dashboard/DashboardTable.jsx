@@ -126,7 +126,6 @@ export default class DashboardTable extends React.Component {
                     return 'modified';
                 case 5:
                     return 'certified_date';
-                    break;
                 default:
                     return 'modified';
             }

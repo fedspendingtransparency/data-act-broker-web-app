@@ -70,7 +70,7 @@ export const getFabsMeta = (submissionId) => {
     const deferred = Q.defer();
 
     Request.post(kGlobalConstants.API + 'get_fabs_meta/')
-            .send({'submission_id': submissionId})
+            .send({ 'submission_id': submissionId })
             .end((errFile, res) => {
                 if (errFile) {
                     deferred.reject(errFile);
@@ -78,11 +78,9 @@ export const getFabsMeta = (submissionId) => {
                 else {
                     deferred.resolve(res.body);
                 }
-
             });
-
     return deferred.promise;
-}
+};
 
 export const generateDetachedFile = (type, start, end, cgacCode, frecCode) => {
     const deferred = Q.defer();

@@ -61,7 +61,7 @@ export const loadSubmissionList = (page = 1, limit = 10, certified = false, sort
     const deferred = Q.defer();
 
     Request.get(kGlobalConstants.API + 'list_submissions/')
-            .query({ page, limit, certified, sort, order, d2Submission })
+            .query({ page, limit, certified, sort, order, "d2_submission": d2Submission })
             .end((err, res) => {
                 if (err) {
                     deferred.reject(err);
