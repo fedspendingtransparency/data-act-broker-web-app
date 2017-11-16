@@ -60,9 +60,10 @@ export default class AddDataHeader extends React.Component {
     loadData(submissionID) {
         ReviewHelper.fetchStatus(submissionID)
                 .then((data) => {
-                    data.ready = true;
+                    let tmpData = data;
+                    tmpData.ready = true;
                     if (!this.isUnmounted) {
-                        this.setState(data);
+                        this.setState(tmpData);
                     }
                 })
                 .catch((error) => {

@@ -30,8 +30,9 @@ export default class HistoryTable extends React.Component {
     componentDidMount() {
         SubmissionListHelper.loadSubmissionHistory(this.props.submissionID)
             .then((response) => {
-                response.active = 0;
-                this.setState(response);
+                let tmpResponse = response;
+                tmpResponse.active = 0;
+                this.setState(tmpResponse);
             })
             .catch((err) => {
                 console.log(err);
@@ -121,8 +122,8 @@ export default class HistoryTable extends React.Component {
     convertToLocalDate(dateToConvert) {
         // convert date to local date, need to replace the space with a T for Date() formatting
         // Add a Z to the end to imply the date is in UTC
-        dateToConvert = dateToConvert.replace(" ", "T") + "Z";
-        const tmpDate = new Date(dateToConvert);
+        const formattedDate = dateToConvert.replace(" ", "T") + "Z";
+        const tmpDate = new Date(formattedDate);
 
         // format date as YYYY-MM-DD
         const year = tmpDate.getFullYear();

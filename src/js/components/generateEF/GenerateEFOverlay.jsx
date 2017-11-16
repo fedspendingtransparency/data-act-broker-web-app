@@ -25,9 +25,10 @@ export default class GenerateEFOverlay extends React.Component {
         if (this.props.submissionID !== null) {
             ReviewHelper.fetchStatus(this.props.submissionID)
                 .then((data) => {
-                    data.ready = true;
+                    let tmpData = data;
+                    tmpData.ready = true;
                     if (!this.isUnmounted) {
-                        this.setState(data);
+                        this.setState(tmpData);
                     }
                 })
                 .catch((error) => {

@@ -35,10 +35,11 @@ export default class ReviewDataNotifyModal extends React.Component {
     loadUsers() {
         ReviewHelper.listUsers()
             .then((data) => {
-                for (let i = 0; i < data.length; i++) {
-                    data[i].displayName = data[i].name + " | " + data[i].email;
+                let tmpData = data;
+                for (let i = 0; i < tmpData.length; i++) {
+                    tmpData[i].displayName = tmpData[i].name + " | " + tmpData[i].email;
                 }
-                this.setState({ "users": data });
+                this.setState({ "users": tmpData });
             })
             .catch((error) => {
                 console.log(error);

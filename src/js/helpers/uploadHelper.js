@@ -30,12 +30,12 @@ const uploadLocalFile = (file, type) => {
 export const performLocalUpload = (submission) => {
     const deferred = Q.defer();
 
-    const request = {};
+    let request = {};
 
     const store = new StoreSingleton().store;
     store.dispatch(uploadActions.setSubmissionState('uploading'));
 
-    prepareMetadata(submission.meta, request);
+    request = prepareMetadata(submission.meta, request);
 
     const uploadOperations = [];
     const types = [];
@@ -246,17 +246,18 @@ const finalizeMultipleUploads = (fileIds) => {
 };
 
 const prepareMetadata = (metadata, request) => {
+    let tmpRequest = Object.assign({}, request);
     // add the metadata to the request
-    request.cgac_code = metadata.codeType === 'cgac_code' ? metadata.agency : null;
-    request.frec_code = metadata.codeType === 'frec_code' ? metadata.agency : null;
-    request.reporting_period_start_date = metadata.startDate;
-    request.reporting_period_end_date = metadata.endDate;
-    request.is_quarter = false;
+    tmpRequest.cgac_code = metadata.codeType === 'cgac_code' ? metadata.agency : null;
+    tmpRequest.frec_code = metadata.codeType === 'frec_code' ? metadata.agency : null;
+    tmpRequest.reporting_period_start_date = metadata.startDate;
+    tmpRequest.reporting_period_end_date = metadata.endDate;
+    tmpRequest.is_quarter = false;
     if (metadata.dateType === "quarter") {
-        request.is_quarter = true;
+        tmpRequest.is_quarter = true;
     }
 
-    return request;
+    return tmpRequest;
 };
 
 export const performRemoteUpload = (submission) => {
@@ -272,7 +273,7 @@ export const performRemoteUpload = (submission) => {
         request[fileType] = file.name;
     }
 
-    prepareMetadata(submission.meta, request);
+    request = prepareMetadata(submission.meta, request);
 
     // submit it to the API to set up S3
     let submissionID;
@@ -399,7 +400,7 @@ export const performDetachedFileUpload = (submission) => {
         request[fileType] = file.name;
     }
 
-    prepareMetadata(submission.meta, request);
+    request = prepareMetadata(submission.meta, request);
     request.agency_code = submission.meta.subTierAgency;
 
     // submit it to the API to set up S3
@@ -470,12 +471,12 @@ export const performDetachedFileCorrectedUpload = (submission) => {
 export const performDetachedLocalUpload = (submission) => {
     const deferred = Q.defer();
 
-    const request = {};
+    let request = {};
 
     const store = new StoreSingleton().store;
     store.dispatch(uploadActions.setSubmissionState('uploading'));
 
-    prepareMetadata(submission.meta, request);
+    request = prepareMetadata(submission.meta, request);
     request.agency_code = submission.meta.subTierAgency;
 
     const uploadOperations = [];

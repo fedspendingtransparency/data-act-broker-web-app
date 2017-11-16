@@ -321,8 +321,8 @@ export default class DashboardTable extends React.Component {
     convertToLocalDate(dateToConvert) {
         // convert date to local date, need to replace the space with a T for Date() formatting
         // Add a Z to the end to imply the date is in UTC
-        dateToConvert = dateToConvert.replace(" ", "T") + "Z";
-        const tmpDate = new Date(dateToConvert);
+        const formattedDate = dateToConvert.replace(" ", "T") + "Z";
+        const tmpDate = new Date(formattedDate);
 
         // format date as YYYY-MM-DD
         const year = tmpDate.getFullYear();

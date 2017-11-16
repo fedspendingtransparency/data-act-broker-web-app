@@ -21,35 +21,36 @@ const parseRecentActivity = (submissions) => {
     };
 
     submissions.forEach((item) => {
+        let tmpItem = Object.assign({}, item);
         // determine the status
         let rowStatus = Status.StatusTypes.UNKNOWN;
-        if (statusMap.hasOwnProperty(item.status)) {
-            rowStatus = statusMap[item.status];
+        if (statusMap.hasOwnProperty(tmpItem.status)) {
+            rowStatus = statusMap[tmpItem.status];
         }
 
         // convert the file size to KB or MB as appropriate
         let fileSize = '--';
-        if (item.size) {
-            fileSize = (item.size / 1000000).toFixed(2) + ' MB';
-            if (item.size < 100000) {
-                fileSize = (item.size / 1000).toFixed(2) + ' KB';
+        if (tmpItem.size) {
+            fileSize = (tmpItem.size / 1000000).toFixed(2) + ' MB';
+            if (tmpItem.size < 100000) {
+                fileSize = (tmpItem.size / 1000).toFixed(2) + ' KB';
             }
         }
 
-        item.fileSize = fileSize;
-        item.rowStatus = rowStatus;
+        tmpItem.fileSize = fileSize;
+        tmpItem.rowStatus = rowStatus;
 
         // creating sortable agency to be consistent with other sortable keys
-        item.sortableAgency = item.agency;
+        tmpItem.sortableAgency = tmpItem.agency;
         // sortable date parses the date into unix time stamp for simple sortablity
-        item.sortableDate = moment(item.last_modified).unix();
+        tmpItem.sortableDate = moment(tmpItem.last_modified).unix();
         // sortable reporting date parses the date into unix time stamp for simple sortablity
-        item.sortableReportingDate = moment(item.reporting_start_date).unix();
-        item.sortableName = '';
-        if (item.hasOwnProperty("user")) {
-            item.sortableName = item.user.name;
+        tmpItem.sortableReportingDate = moment(tmpItem.reporting_start_date).unix();
+        tmpItem.sortableName = '';
+        if (tmpItem.hasOwnProperty("user")) {
+            tmpItem.sortableName = tmpItem.user.name;
         }
-        parsedSubmissions.push(item);
+        parsedSubmissions.push(tmpItem);
     });
 
     return parsedSubmissions;

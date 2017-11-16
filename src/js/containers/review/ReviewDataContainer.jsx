@@ -48,8 +48,8 @@ class ReviewDataContainer extends React.Component {
 
         ReviewHelper.fetchStatus(this.props.params.submissionID)
             .then((data) => {
-                data.ready = true;
                 submission = data;
+                submission.ready = true;
 
                 return ReviewHelper.fetchSubmissionNarrative(this.props.params.submissionID);
             })

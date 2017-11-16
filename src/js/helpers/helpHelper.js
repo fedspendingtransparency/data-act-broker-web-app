@@ -4,18 +4,19 @@ import Markdown from 'markdown';
 import ent from 'ent';
 
 const unescapeInlineHtml = (html) => {
+    let tmpHtml = html;
     // find any inline HTML (as denoted by ```!inline-html [CODE] !inline-html```)
     const regex = /<p><code>!inline-html\n[\s\S]*\n!inline-html<\/code><\/p>/;
-    const results = regex.exec(html);
+    const results = regex.exec(tmpHtml);
 
     // we found inline HTML, unescape it and insert it into the parsed Markdown output
     if (results && results.length > 0) {
         const rawHtml = results[0].substring(21, results[0].length - 23);
         const decodedHtml = ent.decode(rawHtml);
-        html = html.replace(regex, decodedHtml);
+        tmpHtml = tmpHtml.replace(regex, decodedHtml);
     }
 
-    return html;
+    return tmpHtml;
 };
 
 
@@ -30,9 +31,10 @@ const parseMarkdown = (rawText) => {
     // look for section headers
     tree.forEach((element) => {
         if (Array.isArray(element)) {
-            const type = element[0];
-            const attributes = element[1];
-            const value = element[2];
+            let tmpElement = element;
+            const type = tmpElement[0];
+            const attributes = tmpElement[1];
+            const value = tmpElement[2];
             if (type === "header") {
                 // found a header, look for the section markdown attribute
                 const regex = /{section=[a-zA-Z0-9]+}/;
@@ -44,15 +46,15 @@ const parseMarkdown = (rawText) => {
 
                     // save it as an HTML attribute
                     attributes.name = nameValue;
-                    element[1] = attributes;
+                    tmpElement[1] = attributes;
 
                     // replace the section link markdown with an empty string
-                    element[2] = value.replace(regex, '');
+                    tmpElement[2] = value.replace(regex, '');
 
                     // also add it as a sidebar item
                     sectionList.push({
                         link: nameValue,
-                        name: element[2]
+                        name: tmpElement[2]
                     });
                 }
             }

@@ -78,7 +78,8 @@ class ValidateValuesTreemap extends React.Component {
         const sortedData = _.orderBy(data, ['value', 'title'], 'desc');
         let i = 0;
         sortedData.forEach((item) => {
-            item.index = i;
+            let tmpItem = item;
+            tmpItem.index = i;
             i++;
         });
 
