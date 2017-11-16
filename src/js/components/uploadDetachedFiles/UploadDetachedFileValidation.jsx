@@ -57,7 +57,9 @@ class UploadDetachedFileValidation extends React.Component {
             type: this.props.route.type,
             showSuccess: false,
             error_message: "",
-            fabs_meta: { valid_rows: 0, total_rows: 0, publish_date: null }
+            fabs_meta: { valid_rows: 0, total_rows: 0, publish_date: null },
+            signedUrl: "",
+            signInProgress: false
         };
     }
 
@@ -128,9 +130,11 @@ class UploadDetachedFileValidation extends React.Component {
                 const job = Object.assign({}, this.state.jobResults);
                 job.detached_award = response.jobs[0];
 
-                if (this.state.published !== "publishing" && this.dataTimer) {
+                let isSuccessful = false;
+                if (response.publish_status !== "publishing" && this.dataTimer) {
                     window.clearInterval(this.dataTimer);
                     this.dataTimer = null;
+                    isSuccessful = true;
                 }
                 else if (!this.dataTimer && response.publish_status === "publishing") {
                     this.checkFile(submissionID);
@@ -145,7 +149,8 @@ class UploadDetachedFileValidation extends React.Component {
                     published: response.publish_status,
                     modified_date: response.last_updated,
                     error: 0,
-                    fabs_meta: response.fabs_meta
+                    fabs_meta: response.fabs_meta,
+                    showSuccess: isSuccessful
                 }, () => {
                     this.parseJobStates(response);
                 });
@@ -159,8 +164,53 @@ class UploadDetachedFileValidation extends React.Component {
 
     checkFile(submissionID) {
         this.dataTimer = window.setInterval(() => {
-            this.checkFileStatus(submissionID);
+            if (this.state.published !== "published") {
+                this.checkFileStatus(submissionID);
+            }
         }, timerDuration * 1000);
+    }
+
+    signReport(item){
+        GenerateFilesHelper.getFabsMeta(this.props.submission.id)
+            .then((result)=>{
+                this.setState({
+                    signedUrl: result.published_file,
+                    signInProgress: false
+                }, () => {
+                    this.openReport();
+                });
+            })
+            .catch((err) => {
+                this.setState({
+                    error: 1,
+                    error_message: "Invalid File Type Selected " + item.file_type,
+                    signInProgress: false
+                });
+            });
+    }
+
+    openReport() {
+        window.open(this.state.signedUrl);
+    }
+
+    clickedReport(item) {
+        // check if the link is already signed
+        if (this.state.signInProgress) {
+            // sign is in progress, do nothing
+            return;
+        }
+        else if (this.state.signedUrl !== "") {
+            // it is signed, open immediately
+            this.openReport();
+        }
+        else {
+            // not signed yet, sign
+            this.setState({
+                signInProgress: true
+            }, () => {
+                this.signReport(item);
+            });
+        }
     }
 
     validateSubmission(item) {
@@ -182,6 +232,12 @@ class UploadDetachedFileValidation extends React.Component {
             // don"t run the check again if it failed
             runCheck = false;
 
+            let message = "Error during D2 validation.";
+
+            if (!data.jobs[0].error_data[0] && data.jobs[0].error_data[0].error_description !== "") {
+                message = data.jobs[0].error_data[0].error_description;
+            }
+
             // make a clone of the file"s react state
             const item = Object.assign({ }, this.state.detachedAward);
             item.status = "failed";
@@ -198,11 +254,11 @@ class UploadDetachedFileValidation extends React.Component {
             }
         }
         else if (data.jobs[0].job_status === "finished") {
-            // don"t run the check again if it"s done
+            // don't run the check again if it's done
             runCheck = false;
 
             // display dowload buttons
-            // make a clone of the file"s react state
+            // make a clone of the file's react state
             const item = Object.assign({}, this.state.detachedAward);
             item.status = "done";
             this.validateSubmission(item);
@@ -224,8 +280,8 @@ class UploadDetachedFileValidation extends React.Component {
 
     submitFabs() {
         UploadHelper.submitFabs({ "submission_id": this.props.submission.id })
-            .then(() => {
-                this.setState({ submit: false, published: true, showPublish: false, showSuccess: true });
+            .then((response) => {
+                this.setState({ submit: false, published: "publishing", showPublish: false });
                 this.checkFile(this.props.submission.id);
             })
             .catch((error) => {
@@ -236,10 +292,6 @@ class UploadDetachedFileValidation extends React.Component {
                     this.setState({ error: 4, submit: false, showPublish: false });
                 }
             });
-        this.setState({
-            published: "publishing",
-            showPublish: false
-        });
     }
 
     // ERRORS
@@ -297,6 +349,8 @@ class UploadDetachedFileValidation extends React.Component {
 
     render() {
         let validationButton = null;
+        let revalidateButton = null;
+        let downloadButton = null;
         let validationBox = null;
         let headerDate = null;
         let updated = null;
@@ -305,7 +359,7 @@ class UploadDetachedFileValidation extends React.Component {
             updated = moment.utc(this.state.modified_date).local().format("MM/DD/YYYY h:mm a");
         }
 
-        if (this.state.agency !== " && this.state.rep_start !== " && this.state.rep_end !== "") {
+        if (this.state.agency !== "" && this.state.rep_start !== "" && this.state.rep_end !== "") {
             headerDate = <div className="col-md-2 ">
                 <div className = "header-box">
                     <span>
@@ -332,32 +386,45 @@ class UploadDetachedFileValidation extends React.Component {
         validationBox = <ValidateDataFileContainer type={type} data={this.state.jobResults}
             setUploadItem={this.uploadFile.bind(this)}
             updateItem={this.uploadFile.bind(this)}
-            publishing={this.state.published === "publishing"}/>;
+            publishing={this.state.published === "publishing"}
+            agencyName={this.state.agency} />;
         if (fileData.file_status === "complete" && this.state.validationFinished &&
             this.state.published !== "publishing") {
             if (status !== "invalid" || fileData.file_status === "complete") {
                 validationBox = <ValidateValuesFileContainer type={type} data={this.state.jobResults}
                     setUploadItem={this.uploadFile.bind(this)}
                     updateItem={this.uploadFile.bind(this)}
-                    published={this.state.published} />;
+                    published={this.state.published}
+                    agencyName={this.state.agency} />;
             }
 
             if (this.state.showSuccess) {
                 errorMessage = <UploadDetachedFilesError errorCode={this.state.error} type="success"
                     message={this.state.error_message} />;
-                validationButton = null;
             }
-            else if (this.state.published === "published") {
+            if (this.state.published === "published") {
                 // This submission is already published and cannot be republished
-                validationButton = <button className="pull-right col-xs-3 us-da-disabled-button"
-                    disabled>File Published:<span className="plain">
-                    {this.state.fabs_meta.valid_rows} rows published at {this.state.fabs_meta.publish_date}</span>
-                </button>;
+                if (this.state.fabs_meta.published_file == null) {
+                    validationButton = <button className="pull-right col-xs-3 us-da-disabled-button"
+                        disabled>File Published:<span className="plain">
+                        {this.state.fabs_meta.valid_rows} rows published at {this.state.fabs_meta.publish_date}</span>
+                    </button>;
+                }
+                else {
+                    downloadButton = <button className="pull-right col-xs-3 us-da-button"
+                        onClick={this.clickedReport.bind(this, this.props.item)}
+                        download={this.state.fabs_meta.published_file}
+                        rel="noopener noreferrer">File Published:<span className="plain">
+                        {this.state.fabs_meta.valid_rows} rows published at {this.state.fabs_meta.publish_date}</span>
+                    </button>;
+                }
             }
             else if (PermissionsHelper.checkFabsPermissions(this.props.session)) {
                 // User has permissions to publish this unpublished submission
                 validationButton = <button className="pull-right col-xs-3 us-da-button"
                     onClick={this.openModal.bind(this)}>Publish</button>;
+                revalidateButton = <button className="pull-right col-xs-3 us-da-button revalidate-button"
+                    onClick={this.startRevalidation.bind(this)}>Revalidate</button>;
             }
             else {
                 // User does not have permissions to publish
@@ -366,10 +433,18 @@ class UploadDetachedFileValidation extends React.Component {
             }
         }
 
-        if (this.state.published === "publishing" && this.state.error !== 0) {
+        if (this.state.published == "publishing" && this.state.error !== 0) {
             errorMessage = <UploadDetachedFilesError errorCode={this.state.error} type="error"
                 message={this.state.error_message} />;
             validationButton = null;
+            revalidateButton = <button className="pull-right col-xs-3 us-da-button"
+                onClick={this.startRevalidation.bind(this)}>Revalidate</button>;
+        }
+        else if (this.state.published == "unpublished" && this.state.error !== 0) {
+            errorMessage = <UploadDetachedFilesError errorCode={this.state.error} type="error"
+                message={this.state.error_message} />;
+            validationButton = null;
+            revalidateButton = null;
         }
 
         return (
@@ -396,12 +471,14 @@ class UploadDetachedFileValidation extends React.Component {
                                 {validationBox}
                             </ReactCSSTransitionGroup>
 
+                            {errorMessage}
+
                             <ReactCSSTransitionGroup transitionName="usa-da-meta-fade" transitionEnterTimeout={600}
                                 transitionLeaveTimeout={200}>
                                 {validationButton}
+                                {revalidateButton}
+                                {downloadButton}
                             </ReactCSSTransitionGroup>
-
-                            {errorMessage}
                         </div>
                     </div>
                 </div>

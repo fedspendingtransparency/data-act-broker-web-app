@@ -1,3 +1,36 @@
+#### October 6, 2017
+
+In this release of the Broker, we released the ability to generate D1/D2 files via the Broker and made improvements to the Financial Assistance Broker Submission (FABS).
+
+  - [D1/D2 File Generation](#/help?section=dfilegeneration)
+  - [FABS Improvements](#/help?section=fabsimprovements2)
+
+
+##### D1/D2 File Generation {section=dfilegeneration}
+In this release, we transitioned the backed infrastructure that is used to generate the D1/D2 files from the legacy USAspending.gov infrastructure to the Broker. D2 file generation will include agencies' FABS data. D1 file generation will be provided to the Broker via the FPDS-NG ATOM feed.
+
+
+##### FABS Improvements {section=fabsimprovements2}
+In this release, we made several improvements to FABS, including:
+- Implemented the ability for FABS to derive FundingAgencyCode;
+- Updated validations so that no error (or warning) is triggered if PPOPCongressionalDistrict is blank AND PPOPZIP+4 is 9 digits; and
+- User interface improvements to prevent a user form encountering issues when clicking the "Publish" button.
+
+
+#### September 28, 2017
+
+In this release of the Broker, we released the draft DAIMS v2.0 and implemented DAIMS v1.1.
+
+  - [Schema - Release Draft v2.0 and Implemented v1.1](#/help?section=releasedraftv2)
+  - [FABS Improvements](#/help?section=fabsimprovements1)
+
+
+##### Schema - Release Draft v2.0 and Implemented v1.1 {section=releasedraftv2}
+Treasury released the draft DATA Act Information Model Schema (DAIMS) v2.0. DAIMS v2.0 is a major update of the schema and will be finalized in December 2017. Find out more information in the Resources section. In addition, Treasury implemented the DATA Act Information Model Schema (DAIMS) v1.1 including the transition of the Award Submission Portal (ASP) to the Financial Assistance Broker Submission (FABS).
+
+
+##### FABS Improvements {section=fabsimprovements1}
+Treasury released the draft DATA Act Information Model Schema (DAIMS) v2.0. DAIMS v2.0 is a major update of the schema and will be finalized in December 2017. Find out more information in the Resources section. In addition, Treasury implemented the DATA Act Information Model Schema (DAIMS) v1.1 including the transition of the Award Submission Portal (ASP) to the Financial Assistance Broker Submission (FABS).
 #### September 20, 2017
 
 In this release of the Broker, we launched the Financial Assistance Broker Submission (FABS).

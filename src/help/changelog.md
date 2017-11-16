@@ -1,14 +1,14 @@
-#### September 28, 2017
+#### October 26, 2017
 
-In this release of the Broker, we released the draft DAIMS v2.0 and implemented DAIMS v1.1.
+In this release of the Broker, we made improvements to Financial Assistance Broker Submission (FABS).
 
-  - [Schema - Release Draft v2.0 and Implemented v1.1](#/help?section=releasedraftv2)
-  - [FABS Improvements](#/help?section=fabsimprovements1)
-
-
-##### Schema - Release Draft v2.0 and Implemented v1.1 {section=releasedraftv2}
-Treasury released the draft DATA Act Information Model Schema (DAIMS) v2.0. DAIMS v2.0 is a major update of the schema and will be finalized in December 2017. Find out more information in the Resources section. In addition, Treasury implemented the DATA Act Information Model Schema (DAIMS) v1.1 including the transition of the Award Submission Portal (ASP) to the Financial Assistance Broker Submission (FABS).
+  - [FABS Improvements](#/help?section=fabsimprovements3)
 
 
-##### FABS Improvements {section=fabsimprovements1}
-Treasury released the draft DATA Act Information Model Schema (DAIMS) v2.0. DAIMS v2.0 is a major update of the schema and will be finalized in December 2017. Find out more information in the Resources section. In addition, Treasury implemented the DATA Act Information Model Schema (DAIMS) v1.1 including the transition of the Award Submission Portal (ASP) to the Financial Assistance Broker Submission (FABS).
+
+##### FABS Improvements {section=fabsimprovements3}
+In this release, we made several improvements to FABS, including:
+- Updated the submission dashboard to include the agency file name; 
+- Implemented a feature to prevent users from publishing duplicate data files; 
+- Updated the FABS validations so that there is no header error in FABS for facevalueloanguarantee or facevalueofdirectloanorloanguarantee
+- Updated validations so that no error (or warning) is triggered if PPOPCongressionalDistrict.

@@ -46,7 +46,7 @@ export default class CrossFileOverlay extends React.Component {
             hideButtons: false,
             message: 'You must correct the cross-file validation errors listed above.',
             detail: null,
-            buttonText: 'Upload Corrected CSV Files'
+            buttonText: 'Upload Corrected Files'
         };
 
         this.state = {
@@ -58,18 +58,6 @@ export default class CrossFileOverlay extends React.Component {
     componentDidMount() {
         this.isUnmounted = false;
         this.prepareOverlayContents();
-        if (this.props.submissionID !== null) {
-            ReviewHelper.fetchStatus(this.props.submissionID)
-                .then((data) => {
-                    data.ready = true;
-                    if (!this.isUnmounted) {
-                        this.setState(data);
-                    }
-                })
-                .catch((error) => {
-                    console.log(error);
-                });
-        }
     }
 
     componentDidUpdate(prevProps) {
@@ -187,7 +175,7 @@ export default class CrossFileOverlay extends React.Component {
 
         // enable the upload button if the correct files have been staged for upload
         if ((this.state.allowUpload || this.isUploadingFiles()) && PermissionsHelper
-            .checkAgencyPermissions(this.props.session, this.state.agency_name)) {
+            .checkAgencyPermissions(this.props.session, this.props.agencyName)) {
             overlay.uploadButtonDisabled = false;
             overlay.uploadButtonClass = ' btn-primary';
         }

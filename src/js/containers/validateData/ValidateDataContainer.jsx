@@ -33,7 +33,8 @@ class ValidateDataContainer extends React.Component {
             validationFinished: false,
             notYours: false,
             gtas: null,
-            serverError: null
+            serverError: null,
+			agencyName: null
         };
 
         this.isCancelled = false;
@@ -123,7 +124,8 @@ class ValidateDataContainer extends React.Component {
                 }
 
                 this.setState({
-                    finishedPageLoad: true
+                    finishedPageLoad: true,
+					agencyName: data.agencyName
                 });
                 this.props.setSubmissionState('review');
                 this.props.setValidation(data.file);
@@ -160,7 +162,8 @@ class ValidateDataContainer extends React.Component {
     render() {
         let validationContent = <ValidationContent {...this.props} hasFinished={this.state.validationFinished}
             hasFailed={this.state.validationFailed}
-            submissionID={this.props.submissionID} />;
+            submissionID={this.props.submissionID}
+            agencyName = {this.state.agencyName} />;
 
         if (!this.state.finishedPageLoad) {
             validationContent = <ValidateLoadingScreen />;

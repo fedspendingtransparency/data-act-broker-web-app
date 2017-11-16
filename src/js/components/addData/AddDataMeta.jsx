@@ -26,7 +26,7 @@ export default class AddDataMeta extends React.Component {
     constructor(props) {
         super(props);
 
-        this.successMessage = 'Everything looks good. Now let\'s work on uploading your .CSV files.';
+        this.successMessage = 'Everything looks good. Now let\'s work on uploading your files.';
 
         this.state = {
             agency: "",

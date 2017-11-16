@@ -66,6 +66,24 @@ export const fetchFile = (type, submissionId) => {
     return deferred.promise;
 };
 
+export const getFabsMeta = (submissionId) => {
+    const deferred = Q.defer();
+
+    Request.post(kGlobalConstants.API + 'get_fabs_meta/')
+            .send({'submission_id': submissionId})
+            .end((errFile, res) => {
+                if (errFile) {
+                    deferred.reject(errFile);
+                }
+                else {
+                    deferred.resolve(res.body);
+                }
+
+            });
+
+    return deferred.promise;
+}
+
 export const generateDetachedFile = (type, start, end, cgacCode, frecCode) => {
     const deferred = Q.defer();
 
