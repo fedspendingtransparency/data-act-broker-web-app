@@ -14,7 +14,7 @@ const propTypes = {
 };
 
 const defaultProps = {
-    buttonDisabled: false,
+    buttonDisabled: true,
     buttonText: 'Submit',
     testId: ''
 };

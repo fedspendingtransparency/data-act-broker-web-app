@@ -6,12 +6,12 @@
 import React from 'react';
 
 const defaultProps = {
-    showIcon: false,
+    showIcon: true,
     icon: null,
     iconClass: '',
     header: '',
     detail: null,
-    showButtons: false
+    showButtons: true
 };
 
 class OverlayIcon extends React.Component {

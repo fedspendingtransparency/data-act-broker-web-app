@@ -38,9 +38,9 @@ export default class ValidateDataInProgressOverlay extends React.Component {
             <CommonOverlay
                 header={title}
                 detail={detail}
-                showIcon={true}
                 icon={icon}
-                iconClass={iconClass} />
+                iconClass={iconClass}
+                showButtons={false} />
         );
     }
 }

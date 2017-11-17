@@ -207,7 +207,7 @@ export default class DatePicker extends React.Component {
                         onBlur={this.handleInputBlur.bind(this)}
                         disabled={this.props.disabled} />
                     <a href="#" onClick={this.toggleDatePicker.bind(this)} tabIndex={this.props.tabIndex + 1}
-                        className="usa-da-icon picker-icon date" aria-haspopup={true}>
+                        className="usa-da-icon picker-icon date" aria-haspopup={"true"}>
                         <Icons.Calendar alt="Date picker" />
                     </a>
                 </div>

@@ -47,7 +47,6 @@ export default class DashboardContent extends React.Component {
                         <h2 className="table-title">{this.state.title}</h2>
                         <DashboardTable
                             isLoading={this.props.certifiedLoading}
-                            isCertified={true}
                             loadTableData={this.props.loadTableData}
                             total={this.props.certifiedTotal}
                             data={this.props.certifiedSubmissions}

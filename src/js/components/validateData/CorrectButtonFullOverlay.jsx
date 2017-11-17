@@ -9,6 +9,10 @@ import ValidateDataUploadButton from './ValidateDataUploadButton.jsx';
 
 import * as Icons from '../SharedComponents/icons/Icons.jsx';
 
+const defaultProps = {
+    optional: true
+};
+
 export default class CorrectButtonFullOverlay extends React.Component {
     constructor(props) {
         super(props);
@@ -30,3 +34,5 @@ export default class CorrectButtonFullOverlay extends React.Component {
         );
     }
 }
+
+CorrectButtonFullOverlay.defaultProps = defaultProps;

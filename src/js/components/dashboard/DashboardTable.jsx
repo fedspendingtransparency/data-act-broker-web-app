@@ -18,7 +18,8 @@ import DashboardPaginator from './DashboardPaginator.jsx';
 
 const defaultProps = {
     data: [],
-    isLoading: true
+    isLoading: true,
+    isCertified: true
 };
 
 export default class DashboardTable extends React.Component {
@@ -372,9 +373,9 @@ export default class DashboardTable extends React.Component {
         return (
             <div className="usa-da-submission-list">
                 <div className={"submission-table-content" + loadingClass}>
-                    <FormattedTable headers={headers} data={this.state.parsedData} sortable={true}
-                        cellClasses={this.state.cellClasses} unsortable={unsortable}
-                        headerClasses={this.state.headerClasses} onSort={this.sortTable.bind(this)} />
+                    <FormattedTable headers={headers} data={this.state.parsedData} cellClasses={this.state.cellClasses}
+                        unsortable={unsortable} headerClasses={this.state.headerClasses}
+                        onSort={this.sortTable.bind(this)} />
                 </div>
                 <div className="text-center">
                     {this.state.message}

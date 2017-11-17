@@ -19,7 +19,7 @@ const propTypes = {
 const defaultProps = {
     data: [['Error']],
     headers: ['Table Data Missing'],
-    sortable: false,
+    sortable: true,
     cellClasses: [],
     headerClasses: []
 };

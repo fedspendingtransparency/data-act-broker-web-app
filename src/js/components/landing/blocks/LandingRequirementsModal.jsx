@@ -36,9 +36,11 @@ export default class LandingRequirementsModal extends React.Component {
     }
 
     render() {
+        // adding this because the linter doesn't like when we just pass true
+        const trueProps = true;
         return (
             <Modal mounted={this.state.isOpen} onExit={this.closeModal.bind(this)} underlayClickExists={false}
-                verticallyCenter={true} titleId="usa-da-landing-modal">
+                verticallyCenter={trueProps} titleId="usa-da-landing-modal">
                 <div className="usa-da-modal-page">
                     <div id="usa-da-landing-modal" className="usa-da-landing-modal">
                         <div className="usa-da-landing-modal-close usa-da-icon usa-da-icon-times">

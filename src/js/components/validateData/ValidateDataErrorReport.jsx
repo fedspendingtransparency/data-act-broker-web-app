@@ -85,7 +85,7 @@ export default class ValidateDataErrorReport extends React.Component {
                 rowData.forEach((row) => {
                     rows.push([row]);
                 });
-                return (<ScrollableTable headers={[errorData.header]} data={rows} key={index} sortable={true}
+                return (<ScrollableTable headers={[errorData.header]} data={rows} key={index}
                     onSort={this.sortTable.bind(this)} />);
             });
         }

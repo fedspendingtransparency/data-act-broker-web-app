@@ -63,9 +63,12 @@ export default class DeleteModal extends React.Component {
             error = <div className="alert alert-danger text-center" role="alert">{this.state.errorMessage}</div>;
         }
 
+        // adding this because the linter doesn't like when we just pass true
+        const trueProps = true;
+
         return (
-            <Modal mounted={this.props.isOpen} onExit={this.closeModal.bind(this)} underlayClickExits={true}
-                verticallyCenter={true} initialFocus="#delete-button" titleId="usa-da-certify-modal">
+            <Modal mounted={this.props.isOpen} onExit={this.closeModal.bind(this)} underlayClickExits={trueProps}
+                verticallyCenter={trueProps} initialFocus="#delete-button" titleId="usa-da-certify-modal">
                 <div className="usa-da-modal-page">
                     <div id="usa-da-certify-modal" className="usa-da-certify-modal">
                         <div className="usa-da-certify-modal-close usa-da-icon usa-da-icon-times">

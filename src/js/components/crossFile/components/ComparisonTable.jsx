@@ -58,7 +58,7 @@ export default class ComparisonTable extends React.Component {
 
         return (
             <div className="comparison-table">
-                <ScrollableTable headers={headers} data={data} sortable={true} onSort={this.sortTable.bind(this)} />
+                <ScrollableTable headers={headers} data={data} onSort={this.sortTable.bind(this)} />
             </div>
         );
     }

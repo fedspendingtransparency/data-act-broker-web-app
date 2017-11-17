@@ -193,7 +193,6 @@ export default class CrossFileOverlay extends React.Component {
             <CommonOverlay
                 header={this.state.overlay.message}
                 detail={this.state.overlay.detail}
-                showIcon={true}
                 icon={this.state.overlay.icon}
                 iconClass={this.state.overlay.iconClass}
                 showButtons={!this.state.overlay.hideButtons}>

@@ -312,8 +312,7 @@ export default class GenerateDetachedFilesPage extends React.Component {
                                                 data-testid="agencytypeahead">
                                                 <AgencyListContainer
                                                     placeholder="Enter the name of the reporting agency"
-                                                    onSelect={this.handleChange.bind(this)} customClass={agencyClass}
-                                                    detached={true}/>
+                                                    onSelect={this.handleChange.bind(this)} customClass={agencyClass} />
                                                 <div className={"usa-da-icon usa-da-form-icon" + agencyClass}>
                                                     {agencyIcon}
                                                 </div>

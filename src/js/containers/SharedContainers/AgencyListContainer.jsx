@@ -12,6 +12,10 @@ import * as AgencyHelper from '../../helpers/agencyHelper.js';
 
 import Typeahead from '../../components/SharedComponents/Typeahead.jsx';
 
+const defaultProps = {
+    detached: true
+};
+
 class AgencyListContainer extends React.Component {
     componentDidMount() {
         this.loadData();
@@ -50,11 +54,14 @@ class AgencyListContainer extends React.Component {
 
     render() {
         return (
-            <Typeahead {...this.props} values={this.props.agencyList.agencies} formatter={this.dataFormatter} />
+            <Typeahead {...this.props} values={this.props.agencyList.agencies} formatter={this.dataFormatter}
+                prioritySort={false} />
         );
     }
 
 }
+
+AgencyListContainer.defaultProps = defaultProps;
 
 export default connect(
     (state) => ({ agencyList: state.agencyList }),

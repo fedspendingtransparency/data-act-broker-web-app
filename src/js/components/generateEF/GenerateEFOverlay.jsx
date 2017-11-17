@@ -97,10 +97,8 @@ export default class GenerateEFOverlay extends React.Component {
             <CommonOverlay
                 header={header}
                 detail={detail}
-                showIcon={true}
                 icon={icon}
-                iconClass={iconClass}
-                showButtons={true}>
+                iconClass={iconClass}>
                 <div className="usa-da-btn-bg">
                     <button className={"usa-da-button" + buttonClass} disabled={buttonDisabled}
                         onClick={this.clickedGenerate.bind(this)}>Regenerate Files</button>

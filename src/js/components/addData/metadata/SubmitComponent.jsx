@@ -21,7 +21,7 @@ export default class SubmitComponent extends React.Component {
                     <div className="col-sm-4" data-testid="submitbutton">
                         <SubmitButton onClick={this.props.onSubmit}
                             className="usa-da-button btn-primary btn-lg pull-right" buttonText="Submit"
-                            buttonDisabled={this.props.disabled} />
+                            buttonDisabled={this.props.disabled} buttonDisabled={false} />
                     </div>
                 </div>
             </div>

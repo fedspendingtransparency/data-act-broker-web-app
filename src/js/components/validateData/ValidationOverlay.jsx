@@ -99,10 +99,8 @@ export default class ValidationOverlay extends React.Component {
             <CommonOverlay
                 header={header}
                 detail={detail}
-                showIcon={true}
                 icon={icon}
-                iconClass={iconClass}
-                showButtons={true}>
+                iconClass={iconClass}>
 
                 <div className="usa-da-btn-bg">
                     <button className={"usa-da-button" + uploadButtonClass} disabled={uploadButtonDisabled}

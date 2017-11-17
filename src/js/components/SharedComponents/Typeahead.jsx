@@ -28,7 +28,8 @@ const defaultProps = {
     tabIndex: null,
     isRequired: false,
     errorHeader: null,
-    errorDescription: null
+    errorDescription: null,
+    prioritySort: true
 };
 
 export default class Typeahead extends React.Component {

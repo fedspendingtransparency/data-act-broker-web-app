@@ -69,7 +69,7 @@ export default class ValidateValuesErrorReport extends React.Component {
 
         // sort the data
         const sortedRows = this.sortData(rows);
-        table = (<ScrollableTable headers={headers} data={sortedRows} sortable={true} onSort={this.sortTable.bind(this)}
+        table = (<ScrollableTable headers={headers} data={sortedRows} onSort={this.sortTable.bind(this)}
             cellClasses={this.state.cellClasses} headerClasses={this.state.headerClasses} />);
         return table;
     }

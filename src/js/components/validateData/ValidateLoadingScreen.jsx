@@ -22,8 +22,8 @@ export default class ValidateLoadingScreen extends React.Component {
             <div className="container">
                 <div className="row center-block usa-da-submission-items with-overlay">
                     <div className="usa-da-validate-items">
-                        <ReactCSSTransitionGroup transitionName="usa-da-validate-fade" transitionAppear={true}
-                            transitionAppearTimeout={500} transitionEnterTimeout={500} transitionLeaveTimeout={500}>
+                        <ReactCSSTransitionGroup transitionName="usa-da-validate-fade" transitionEnterTimeout={500}
+                            transitionLeaveTimeout={500}>
                             <div>
                                 {placeholders}
                             </div>
@@ -32,9 +32,9 @@ export default class ValidateLoadingScreen extends React.Component {
                 </div>
                 <CommonOverlay
                     header="Gathering data..."
-                    showIcon={true}
                     icon={<LoadingBauble />}
-                    iconClass="overlay-animation" />
+                    iconClass="overlay-animation"
+                    showButtons={false} />
             </div>
         );
     }

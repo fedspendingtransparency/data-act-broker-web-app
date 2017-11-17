@@ -117,9 +117,12 @@ export default class ReviewDataNotifyModal extends React.Component {
                 errorDescription="You must select a user from the list that is provided as you type." />);
         }
 
+        // adding this because the linter doesn't like when we just pass true
+        const trueProps = true;
+
         return (
             <Modal mounted={this.props.isOpen} onExit={this.props.closeModal} underlayClickExists={false}
-                verticallyCenter={true} titleId="usa-da-notify-modal">
+                verticallyCenter={trueProps} titleId="usa-da-notify-modal">
                 <div className="usa-da-modal-page">
                     <div id="usa-da-notify-modal" className="usa-da-notify-modal">
                         <div className="usa-da-notify-modal-close usa-da-icon usa-da-icon-times">
