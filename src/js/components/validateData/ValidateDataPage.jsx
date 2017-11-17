@@ -88,7 +88,7 @@ class DownloadLink extends React.Component {
         const dlLinks = [];
 
         for (const key in this.props.link_array) {
-            if (this.props.link_aray.hasOwnProperty(key)) {
+            if (this.props.link_array.hasOwnProperty(key)) {
                 dlLinks.push(<a href={this.props.link_array[key]} >Download Errors</a>);
             }
         }
@@ -140,5 +140,6 @@ export default class ValidateDataPage extends React.Component {
     }
 }
 
-ValidateDataPage.defaultProps = defaultProps;
+GetErrors.propTypes = propTypes;
 ValidateDataPage.propTypes = propTypes;
+ValidateDataPage.defaultProps = defaultProps;
