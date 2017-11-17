@@ -64,31 +64,31 @@ export default class DashboardPaginator extends React.Component {
         }
 
         if (start !== 1) {
-            const firstItem = <DashboardPaginatorItem
+            const firstItem = (<DashboardPaginatorItem
                 key={1}
                 value={1}
                 current={this.props.current === 1}
                 showTail={start > 2}
-                changePage={this.props.changePage} />;
+                changePage={this.props.changePage} />);
             items.push(firstItem);
         }
 
         for (let i = start; i <= end; i++) {
-            const item = <DashboardPaginatorItem
+            const item = (<DashboardPaginatorItem
                 key={i}
                 value={i}
                 current={i === this.props.current}
-                changePage={this.props.changePage} />;
+                changePage={this.props.changePage} />);
             items.push(item);
         }
 
         if (end !== this.props.total) {
-            const lastItem = <DashboardPaginatorItem
+            const lastItem = (<DashboardPaginatorItem
                 key={this.props.total}
                 value={this.props.total}
                 current={this.props.current === this.props.total}
                 showLead={end < this.props.total}
-                changePage={this.props.changePage} />;
+                changePage={this.props.changePage} />);
             items.push(lastItem);
         }
 

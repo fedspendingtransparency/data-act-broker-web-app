@@ -203,9 +203,9 @@ export default class UploadDetachedFileMeta extends React.Component {
         }
 
         if (this.state.showUploadFilesBox) {
-            uploadFilesBox = <UploadDetachedFilesBox {...this.state}
+            uploadFilesBox = (<UploadDetachedFilesBox {...this.state}
                 submission={this.props.submission}
-                uploadFile={this.uploadFile.bind(this)} />;
+                uploadFile={this.uploadFile.bind(this)} />);
         }
 
         let errorMessage = null;

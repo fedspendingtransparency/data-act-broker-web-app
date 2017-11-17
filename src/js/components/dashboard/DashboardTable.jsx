@@ -213,8 +213,8 @@ export default class DashboardTable extends React.Component {
         let link = <SubmissionLink submissionId={item.submission_id} type={this.state.type}/>;
 
         if (this.props.isCertified) {
-            link = <SubmissionLink submissionId={item.submission_id} value={reportingDateString}
-                type={this.state.type}/>;
+            link = (<SubmissionLink submissionId={item.submission_id} value={reportingDateString}
+                type={this.state.type}/>);
         }
 
         let row = [];
@@ -348,10 +348,10 @@ export default class DashboardTable extends React.Component {
         let paginator;
 
         if (this.state.totalPages > 1) {
-            paginator = <DashboardPaginator
+            paginator = (<DashboardPaginator
                 current={this.state.currentPage}
                 total={this.state.totalPages}
-                changePage={this.changePage.bind(this)} />;
+                changePage={this.changePage.bind(this)} />);
         }
 
         let loadingClass = '';

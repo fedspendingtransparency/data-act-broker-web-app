@@ -52,8 +52,8 @@ class LoginContainer extends React.Component {
         let login = <LoginMax location={this.props.location} />;
 
         if (kGlobalConstants.LOCAL) {
-            login = <LoginPanel {...this.props} performLogin={this.performLogin.bind(this)}
-                loading={this.state.loading} errorMessage={this.state.errorMessage} />;
+            login = (<LoginPanel {...this.props} performLogin={this.performLogin.bind(this)}
+                loading={this.state.loading} errorMessage={this.state.errorMessage} />);
         }
 
         return (

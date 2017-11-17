@@ -65,12 +65,12 @@ class HelpPageContainer extends React.Component {
             return <PracticesProceduresPage {...this.props} helpOnly={this.state.helpOnly} type={this.state.type} />;
         }
         else if (currentRoute === 'history' || currentRoute === 'fabshistory') {
-            return <HistoryPage {...this.props} history="release" helpOnly={this.state.helpOnly}
-                type={this.state.type} />;
+            return (<HistoryPage {...this.props} history="release" helpOnly={this.state.helpOnly}
+                type={this.state.type} />);
         }
         else if (currentRoute === 'technicalhistory' || currentRoute === 'fabstechnicalhistory') {
-            return <HistoryPage {...this.props} history="technical" helpOnly={this.state.helpOnly}
-                type={this.state.type} />;
+            return (<HistoryPage {...this.props} history="technical" helpOnly={this.state.helpOnly}
+                type={this.state.type} />);
         }
     }
 }

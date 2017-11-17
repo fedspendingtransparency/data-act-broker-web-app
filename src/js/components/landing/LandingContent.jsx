@@ -90,38 +90,35 @@ export default class LandingContent extends React.Component {
         if (this.state.type === 'fabs') {
             header = "Financial Assistance Broker Submission (FABS)";
             headerClass = 'teal';
-            headerBody = <div>
+            headerBody = (<div>
                 <p>Upload your agency’s fiancial assistance data and validate it against the latest version
                 of the DATA Act Information Model Schema (DAIMS).</p>
                 <p>Details on how to format your data, including required and optional fields, can be found
                     in the <a href="/#/FABSHelp" target="_blank" rel="noopener noreferrer" >Help section</a>.</p>
-            </div>;
+            </div>);
         }
         else if (this.state.type === 'dabs') {
             header = "DATA Act Broker Submission (DABS)";
-            headerBody = <div>
+            headerBody = (<div>
                 <p>Upload your agency’s financial data and validate it against the latest version of the
                 DATA Act Information Model Schema (DAIMS).</p>
                 <p>Details on how to format your data, including required and optional fields, can be found
                     in the <a href="/#/help" target="_blank" rel="noopener noreferrer" >Help section</a>.</p>
-            </div>;
+            </div>);
         }
         else if (this.state.type === 'home') {
-            headerBody = <div>
+            headerBody = (<div>
                 <p>Upload, validate, and publish your agency’s federal spending transparency data.</p>
                 <p>Details on how to format your data against the latest version of the DATA Act
                     Information Model Schema (DAIMS) can be found on the
                     <a href="/#/help" target="_blank" rel="noopener noreferrer" >Help section</a>.
                 </p>
-            </div>;
+            </div>);
         }
-
-        let blockContent = <BlockContent type={this.state.type} clickedUploadReqs={this.clickedUploadReqs.bind(this)}
-            session={this.props.session}/>;
 
         let recentActivityTable = null;
         if (this.state.type !== 'home') {
-            recentActivityTable = <div className="container">
+            recentActivityTable = (<div className="container">
                 <div className="row">
                     <div className="col-md-12">
                         <h2 className={recentHeader}>
@@ -134,7 +131,7 @@ export default class LandingContent extends React.Component {
                         <RecentActivityTable {...this.props} />
                     </div>
                 </div>
-            </div>;
+            </div>);
         }
 
         return (
@@ -154,7 +151,9 @@ export default class LandingContent extends React.Component {
                     <div className="row">
                         <div className="usa-da-landing col-md-12">
                             <div className="usa-da-landing-btns">
-                                {blockContent}
+                                <BlockContent type={this.state.type}
+                                    clickedUploadReqs={this.clickedUploadReqs.bind(this)}
+                                    session={this.props.session}/>
                                 <div id="modalHolder">
                                     <LandingRequirementsModal ref="modal" type={this.props.type}/>
                                 </div>

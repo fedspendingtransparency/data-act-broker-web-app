@@ -86,15 +86,15 @@ export default class ValidationRulesTableContent extends React.Component {
     }
 
     render() {
-        let message = <p>Below is a cumulative table of validations in the RSS and IDD. The status column indicates
+        let message = (<p>Below is a cumulative table of validations in the RSS and IDD. The status column indicates
             whether they are currently implemented in the Broker. The table has been revised to match the latest
             Validations Rules spreadsheet, except for FABS. FABS validations are available in the downloadable file.
             The Validations Rules spreadsheet, with change log, is available for download.
             <a href={this.state.validationRulesUrl} target="_blank" rel="noopener noreferrer">Download file</a>;
-        </p>;
+        </p>);
 
         if (this.props.type === 'fabs') {
-            message = <div>
+            message = (<div>
                 <p>Here are validation resources for the Reporting Submission Specification - Financial Assistance
                 Broker Submission (RSS-FABS)</p>
                 <ul>
@@ -108,7 +108,7 @@ export default class ValidationRulesTableContent extends React.Component {
                         the validations rules for the RSS and IDD, along with a change log
                     </li>
                 </ul>
-            </div>;
+            </div>);
         }
 
         return (

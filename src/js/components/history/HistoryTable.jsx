@@ -149,11 +149,11 @@ export default class HistoryTable extends React.Component {
             fileList = this.activeList();
         }
         if (this.state.warning.active) {
-            warning = <div className={"alert alert-" + this.state.warning.type}>
+            warning = (<div className={"alert alert-" + this.state.warning.type}>
                 <span className="usa-da-icon error-icon"><Icons.ExclamationCircle /></span>
                 <h3>{this.state.warning.header}</h3>
                 <div>{this.state.warning.body}</div>
-            </div>;
+            </div>);
         }
 
         return (

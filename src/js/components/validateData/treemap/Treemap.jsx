@@ -100,10 +100,10 @@ export default class Treemap extends React.Component {
 
             const color = tinycolor(baseColor).lighten(tint).toString();
 
-            return <TreemapCell key={index} width={node.dx} height={node.dy} x={node.x} y={node.y}
+            return (<TreemapCell key={index} width={node.dx} height={node.dy} x={node.x} y={node.y}
                 cellColor={color} colors={this.props.colors} cellId={node.index} active={active} title={node.title}
                 count={node.value} field={node.field} detail={node.detail} description={node.description}
-                clickedItem={this.props.clickedItem} />;
+                clickedItem={this.props.clickedItem} />);
         });
     }
 

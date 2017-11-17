@@ -75,10 +75,10 @@ export default class AddDataHeader extends React.Component {
         let submissionContext = null;
         if (this.state.ready) {
             let formattedTime = moment.utc(this.state.last_updated).local().format('MM/DD/YYYY h:mm a');
-            submissionContext = <SubmissionContext
+            submissionContext = (<SubmissionContext
                 formattedTime={formattedTime}
                 agencyName={this.state.agency_name}
-                timePeriodLabel={this.state.reporting_period_start_date} />;
+                timePeriodLabel={this.state.reporting_period_start_date} />);
         }
 
         return (

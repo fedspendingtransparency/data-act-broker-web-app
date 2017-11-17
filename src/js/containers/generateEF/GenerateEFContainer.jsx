@@ -143,8 +143,8 @@ class GenerateEFContainer extends React.Component {
     }
 
     render() {
-        let content = <GenerateEFContent {...this.props} {...this.state} nextPage={this.nextPage.bind(this)}
-            generateFiles={this.generateFiles.bind(this)} />;
+        let content = (<GenerateEFContent {...this.props} {...this.state} nextPage={this.nextPage.bind(this)}
+            generateFiles={this.generateFiles.bind(this)} />);
 
         if (this.state.fullPageError) {
             content = <GenerateEFError message={this.state.fullPageMessage} />;

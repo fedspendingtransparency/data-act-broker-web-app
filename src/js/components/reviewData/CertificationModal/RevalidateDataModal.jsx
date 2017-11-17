@@ -59,9 +59,9 @@ export default class RevalidateDataModal extends React.Component {
     }
 
     render() {
-        let action = <RevalidateButtons {...this.props}
+        let action = (<RevalidateButtons {...this.props}
             clickedRevalidateButton={this.clickedRevalidateButton.bind(this)}
-            revalidation_threshold={this.props.data.revalidation_threshold} />;
+            revalidation_threshold={this.props.data.revalidation_threshold} />);
 
         let hideClose = "";
         if (!this.state.closeable) {

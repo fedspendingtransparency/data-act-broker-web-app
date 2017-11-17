@@ -28,13 +28,13 @@ export default class LandingRequirementsBody extends React.Component {
         let windowWarning = null;
         let windowBlock = this.windowBlocked();
         if (windowBlock) {
-            windowWarning = <strong>{"Note: You cannot certify until " +
-                Moment(windowBlock.end_date).format("dddd, MMMM D, YYYY")}</strong>;
+            windowWarning = (<strong>{"Note: You cannot certify until " +
+                Moment(windowBlock.end_date).format("dddd, MMMM D, YYYY")}</strong>);
         }
 
         let resources = this.props.type === 'fabs' ? '#/FABSResources' : '#/resources';
         let header = "You'll need the following files in order to complete your submission";
-        let body = <div>
+        let body = (<div>
             <p>
                 You may download and use the following sample data files if you don't have the required files on hand.
                 The sample files can be downloaded below.
@@ -73,11 +73,11 @@ export default class LandingRequirementsBody extends React.Component {
                     File F: Sub-award Attributes data
                 </li>
             </ul>
-        </div>;
+        </div>);
 
         if (this.props.type === 'fabs') {
             header = "You'll need the following files in order to complete your FABS submission";
-            body = <div>
+            body = (<div>
                 <p>
                     You may download and use the following sample file to help prepare your submission if you don’t
                     have any previous submission files on hand
@@ -109,7 +109,7 @@ export default class LandingRequirementsBody extends React.Component {
                         </ul>
                     </li>
                 </ul>
-            </div>;
+            </div>);
         }
 
         return (

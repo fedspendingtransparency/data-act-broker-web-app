@@ -53,17 +53,17 @@ export default class PublishModal extends React.Component {
     render() {
         let publishable = this.state.rows.valid_rows !== 0;
 
-        let message = <p>This will publish the {this.state.rows.valid_rows} data rows that have passed validation out
-            of a total of {this.state.rows.total_rows} data rows in your FABS file</p>;
+        let message = (<p>This will publish the {this.state.rows.valid_rows} data rows that have passed validation out
+            of a total of {this.state.rows.total_rows} data rows in your FABS file</p>);
 
-        let action = <button id="publish-button" onClick={this.props.validate.bind(this)}
-            className="us-da-button col-sm-6">Publish</button>;
+        let action = (<button id="publish-button" onClick={this.props.validate.bind(this)}
+            className="us-da-button col-sm-6">Publish</button>);
 
         if (!publishable) {
-            message = <p>
+            message = (<p>
                 Your file cannot be published because none of your records passed validation. Please correct your file
                 and resubmit it.
-            </p>;
+            </p>);
             action = <button id="publish-button" className="us-da-disabled-button col-sm-6">No Valid Rows</button>;
         }
 

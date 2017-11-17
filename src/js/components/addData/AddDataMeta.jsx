@@ -195,8 +195,8 @@ export default class AddDataMeta extends React.Component {
 
         let dateTypeField = null;
         if (this.state.showDateTypeField) {
-            dateTypeField = <DateTypeField value={this.state.dateType}
-                onChange={this.handleDateTypeChange.bind(this)} />;
+            dateTypeField = (<DateTypeField value={this.state.dateType}
+                onChange={this.handleDateTypeChange.bind(this)} />);
         }
 
         let dateRangeField = null;
@@ -206,8 +206,8 @@ export default class AddDataMeta extends React.Component {
 
         let submissionComponent = null;
         if (this.state.showSubmitButton) {
-            submissionComponent = <SubmitComponent message={this.state.message}
-                onSubmit={this.submitMetadata.bind(this)} disabled={this.state.buttonDisabled} />;
+            submissionComponent = (<SubmitComponent message={this.state.message}
+                onSubmit={this.submitMetadata.bind(this)} disabled={this.state.buttonDisabled} />);
         }
 
         return (

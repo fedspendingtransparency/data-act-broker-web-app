@@ -14,21 +14,21 @@ export default class HelpSidebar extends React.Component {
 
     render() {
         const clSectionList = this.props.changeSections.map((section, index) => {
-            return <HelpSidebarItem key={index} sectionName={section.name} sectionId={section.link}
-                type={this.props.type} />;
+            return (<HelpSidebarItem key={index} sectionName={section.name} sectionId={section.link}
+                type={this.props.type} />);
         });
 
         const tSectionList = this.props.technicalSections.map((section, index) => {
-            return <HelpSidebarItem key={index} sectionName={section.name} sectionId={section.link}
-                type={this.props.type} />;
+            return (<HelpSidebarItem key={index} sectionName={section.name} sectionId={section.link}
+                type={this.props.type} />);
         });
 
         let membership = null;
         if (this.props.helpOnly) {
             membership=
-                <li>
+                (<li>
                     <a href="/#/help?section=agencyAccess">Request Agency Access</a>
-                </li>;
+                </li>);
         }
 
         const help = this.props.type === 'fabs' ? "/#/FABSHelp" : '/#/help';

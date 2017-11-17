@@ -19,9 +19,9 @@ export default class UploadDetachedFilesBox extends React.Component {
             d2Text = "Uploading";
             loadingD2 = <LoadingBauble />;
         }
-        let d2FileUpload = <FileComponent fileTitle="Financial Assistance Broker Submission (FABS) File"
+        let d2FileUpload = (<FileComponent fileTitle="Financial Assistance Broker Submission (FABS) File"
             fileTemplateName="award.csv"
-            requestName="detached_award" />;
+            requestName="detached_award" />);
 
         let fileStateReady = this.props.submission.files && this.props.submission.files.detached_award &&
             this.props.submission.files.detached_award.state === 'ready';

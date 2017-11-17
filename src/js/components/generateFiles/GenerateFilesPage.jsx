@@ -43,8 +43,8 @@ export default class GenerateFilesPage extends React.Component {
     }
 
     render() {
-        let pageContent = <GenerateFilesContainer submissionID={this.props.params.submissionID}
-            showError={this.showError.bind(this)} />;
+        let pageContent = (<GenerateFilesContainer submissionID={this.props.params.submissionID}
+            showError={this.showError.bind(this)} />);
 
         if (this.state.showError) {
             pageContent = <GenerateFilesError message={this.state.errorMessage} />;

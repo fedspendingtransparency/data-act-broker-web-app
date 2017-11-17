@@ -43,8 +43,8 @@ export default class CrossFilePage extends React.Component {
     }
 
     render() {
-        let pageContent = <CrossFileContentContainer submissionID={this.props.params.submissionID}
-            showError={this.showError.bind(this)} />;
+        let pageContent = (<CrossFileContentContainer submissionID={this.props.params.submissionID}
+            showError={this.showError.bind(this)} />);
 
         if (this.state.showError) {
             pageContent = <CrossFileError message={this.state.errorMessage} />;

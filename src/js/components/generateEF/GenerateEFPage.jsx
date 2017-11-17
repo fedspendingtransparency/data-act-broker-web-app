@@ -30,8 +30,8 @@ export default class GenerateEFPage extends React.Component {
     }
 
     render() {
-        let pageContent = <GenerateEFContainer submissionID={this.props.params.submissionID}
-            showError={this.showError.bind(this)} />;
+        let pageContent = (<GenerateEFContainer submissionID={this.props.params.submissionID}
+            showError={this.showError.bind(this)} />);
 
         if (this.state.showError) {
             pageContent = <GenerateEFError message={this.state.errorMessage} />;

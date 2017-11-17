@@ -49,39 +49,39 @@ export default class AddDataContent extends React.Component {
         let actionArea = "";
         const submissionState = this.props.submission.state;
         if (submissionState === 'ready' || submissionState === 'failed') {
-            actionArea = <SubmitButton onClick={this.startUpload.bind(this)}
+            actionArea = (<SubmitButton onClick={this.startUpload.bind(this)}
                 className="usa-da-button-bigger btn-primary" buttonText="Upload & Validate files"
-                testId="upload" />;
+                testId="upload" />);
         }
         else if (submissionState === 'uploading') {
-            actionArea = <SubmitButton className="usa-da-button-bigger" buttonText="Uploading files..."
-                buttonDisabled={true} />;
+            actionArea = (<SubmitButton className="usa-da-button-bigger" buttonText="Uploading files..."
+                buttonDisabled={true} />);
         }
         else {
-            actionArea = <SubmitButton className="usa-da-button-bigger" buttonText="Upload & Validate files"
-                buttonDisabled={true} />;
+            actionArea = (<SubmitButton className="usa-da-button-bigger" buttonText="Upload & Validate files"
+                buttonDisabled={true} />);
         }
 
         let warning = null;
 
         if (this.props.submission.state === 'failed') {
-            warning = <div className="container short">
+            warning = (<div className="container short">
                 <div className={"alert alert-error text-left"} role="alert">
                     <span className="usa-da-icon error-icon"><Icons.ExclamationCircle /></span>
                     <div className="alert-header-text">Your upload has failed</div>
                     <p>Please try again. If the problem persists, contact the service desk.</p>
                 </div>
-            </div>;
+            </div>);
         }
         else if (this.state.upload) {
-            warning = <div className="container short">
+            warning = (<div className="container short">
                 <div className={"alert alert-error text-left"} role="alert">
                     <span className="usa-da-icon error-icon"><Icons.ExclamationCircle /></span>
                     <div className="alert-header-text">Your files are uploading</div>
                     <p>Please stay on this page until they're complete or your submission may not be created
                     properly.</p>
                 </div>
-            </div>;
+            </div>);
         }
 
 

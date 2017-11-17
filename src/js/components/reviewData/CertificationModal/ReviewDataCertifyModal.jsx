@@ -62,8 +62,8 @@ export default class ReviewDataCertifyModal extends React.Component {
                 if (error.httpStatus === 400 || error.httpStatus === 403) {
                     errorMessage = error.message;
                     if (error.submissionId) {
-                        errorMessage = <div>{error.message} You can update the certified submission
-                            <Link to={`/validateData/${error.submissionId}`}>here</Link>.</div>;
+                        errorMessage = (<div>{error.message} You can update the certified submission
+                            <Link to={`/validateData/${error.submissionId}`}>here</Link>.</div>);
                     }
                 }
 
@@ -97,15 +97,15 @@ export default class ReviewDataCertifyModal extends React.Component {
             message = <VariableMessage warnings={this.props.warnings} />;
         }
 
-        let action = <CertifyButtons {...this.props}
+        let action = (<CertifyButtons {...this.props}
             certified={this.state.certified}
             clickedCertifyButton={this.clickedCertifyButton.bind(this)}
-            clickedCertifyCheckbox={this.clickedCertifyCheckbox.bind(this)} />;
+            clickedCertifyCheckbox={this.clickedCertifyCheckbox.bind(this)} />);
 
         if (this.state.showProgress) {
-            action = <CertifyProgress {...this.props.session}
+            action = (<CertifyProgress {...this.props.session}
                 finished={this.state.publishComplete}
-                closeModal={this.closeModal.bind(this)} />;
+                closeModal={this.closeModal.bind(this)} />);
         }
 
         let hideClose = "";

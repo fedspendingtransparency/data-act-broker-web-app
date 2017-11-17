@@ -110,11 +110,11 @@ export default class ReviewDataNotifyModal extends React.Component {
 
         let autoCompleteItems = null;
         if (this.state.users && this.state.users.length > 0) {
-            autoCompleteItems = <Typeahead ref="typeahead"
+            autoCompleteItems = (<Typeahead ref="typeahead"
                 placeholder="Name or email address of the person to certify this submission" keyValue="displayName"
                 internalValue={["id"]} values={this.state.users} formatter={this.userFormatter}
                 onSelect={this.selectUser.bind(this)} errorHeader="Unknown User"
-                errorDescription="You must select a user from the list that is provided as you type." />;
+                errorDescription="You must select a user from the list that is provided as you type." />);
         }
 
         return (

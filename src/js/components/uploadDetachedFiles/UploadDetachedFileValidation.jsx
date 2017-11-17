@@ -354,7 +354,7 @@ class UploadDetachedFileValidation extends React.Component {
         }
 
         if (this.state.agency !== "" && this.state.rep_start !== "" && this.state.rep_end !== "") {
-            headerDate = <div className="col-md-2 ">
+            headerDate = (<div className="col-md-2 ">
                 <div className = "header-box">
                     <span>
                         Agency: {this.state.agency}
@@ -364,7 +364,7 @@ class UploadDetachedFileValidation extends React.Component {
                         Last Modified: {updated}
                     </span>
                 </div>
-            </div>;
+            </div>);
         }
 
         const type = {
@@ -377,66 +377,66 @@ class UploadDetachedFileValidation extends React.Component {
         const fileData = this.state.jobResults[type.requestName];
         const status = fileData.job_status;
         let errorMessage = null;
-        validationBox = <ValidateDataFileContainer type={type} data={this.state.jobResults}
+        validationBox = (<ValidateDataFileContainer type={type} data={this.state.jobResults}
             setUploadItem={this.uploadFile.bind(this)}
             updateItem={this.uploadFile.bind(this)}
             publishing={this.state.published === "publishing"}
-            agencyName={this.state.agency} />;
+            agencyName={this.state.agency} />);
         if (fileData.file_status === "complete" && this.state.validationFinished &&
             this.state.published !== "publishing") {
             if (status !== "invalid" || fileData.file_status === "complete") {
-                validationBox = <ValidateValuesFileContainer type={type} data={this.state.jobResults}
+                validationBox = (<ValidateValuesFileContainer type={type} data={this.state.jobResults}
                     setUploadItem={this.uploadFile.bind(this)}
                     updateItem={this.uploadFile.bind(this)}
                     published={this.state.published}
-                    agencyName={this.state.agency} />;
+                    agencyName={this.state.agency} />);
             }
 
             if (this.state.showSuccess) {
-                errorMessage = <UploadDetachedFilesError errorCode={this.state.error} type="success"
-                    message={this.state.error_message} />;
+                errorMessage = (<UploadDetachedFilesError errorCode={this.state.error} type="success"
+                    message={this.state.error_message} />);
             }
             if (this.state.published === "published") {
                 // This submission is already published and cannot be republished
                 if (this.state.fabs_meta.published_file === null) {
-                    validationButton = <button className="pull-right col-xs-3 us-da-disabled-button"
+                    validationButton = (<button className="pull-right col-xs-3 us-da-disabled-button"
                         disabled>File Published:<span className="plain">
                         {this.state.fabs_meta.valid_rows} rows published at {this.state.fabs_meta.publish_date}</span>
-                    </button>;
+                    </button>);
                 }
                 else {
-                    downloadButton = <button className="pull-right col-xs-3 us-da-button"
+                    downloadButton = (<button className="pull-right col-xs-3 us-da-button"
                         onClick={this.clickedReport.bind(this, this.props.item)}
                         download={this.state.fabs_meta.published_file}
                         rel="noopener noreferrer">File Published:<span className="plain">
                         {this.state.fabs_meta.valid_rows} rows published at {this.state.fabs_meta.publish_date}</span>
-                    </button>;
+                    </button>);
                 }
             }
             else if (PermissionsHelper.checkFabsPermissions(this.props.session)) {
                 // User has permissions to publish this unpublished submission
-                validationButton = <button className="pull-right col-xs-3 us-da-button"
-                    onClick={this.openModal.bind(this)}>Publish</button>;
-                revalidateButton = <button className="pull-right col-xs-3 us-da-button revalidate-button"
-                    onClick={this.startRevalidation.bind(this)}>Revalidate</button>;
+                validationButton = (<button className="pull-right col-xs-3 us-da-button"
+                    onClick={this.openModal.bind(this)}>Publish</button>);
+                revalidateButton = (<button className="pull-right col-xs-3 us-da-button revalidate-button"
+                    onClick={this.startRevalidation.bind(this)}>Revalidate</button>);
             }
             else {
                 // User does not have permissions to publish
-                validationButton = <button className="pull-right col-xs-3 us-da-disabled-button"
-                    disabled>You do not have permissions to publish</button>;
+                validationButton = (<button className="pull-right col-xs-3 us-da-disabled-button"
+                    disabled>You do not have permissions to publish</button>);
             }
         }
 
         if (this.state.published === "publishing" && this.state.error !== 0) {
-            errorMessage = <UploadDetachedFilesError errorCode={this.state.error} type="error"
-                message={this.state.error_message} />;
+            errorMessage = (<UploadDetachedFilesError errorCode={this.state.error} type="error"
+                message={this.state.error_message} />);
             validationButton = null;
-            revalidateButton = <button className="pull-right col-xs-3 us-da-button"
-                onClick={this.startRevalidation.bind(this)}>Revalidate</button>;
+            revalidateButton = (<button className="pull-right col-xs-3 us-da-button"
+                onClick={this.startRevalidation.bind(this)}>Revalidate</button>);
         }
         else if (this.state.published === "unpublished" && this.state.error !== 0) {
-            errorMessage = <UploadDetachedFilesError errorCode={this.state.error} type="error"
-                message={this.state.error_message} />;
+            errorMessage = (<UploadDetachedFilesError errorCode={this.state.error} type="error"
+                message={this.state.error_message} />);
             validationButton = null;
             revalidateButton = null;
         }

@@ -160,21 +160,21 @@ class ValidateDataContainer extends React.Component {
     }
 
     render() {
-        let validationContent = <ValidationContent {...this.props} hasFinished={this.state.validationFinished}
+        let validationContent = (<ValidationContent {...this.props} hasFinished={this.state.validationFinished}
             hasFailed={this.state.validationFailed}
             submissionID={this.props.submissionID}
-            agencyName = {this.state.agencyName} />;
+            agencyName = {this.state.agencyName} />);
 
         if (!this.state.finishedPageLoad) {
             validationContent = <ValidateLoadingScreen />;
         }
         if (this.state.notYours) {
-            validationContent = <ValidateNotYours message={"You cannot view or modify this submission because you " +
-                                                          "are not the original submitter."} />;
+            validationContent = (<ValidateNotYours message={"You cannot view or modify this submission because you " +
+                                                            "are not the original submitter."} />);
         }
         if (this.state.serverError) {
-            validationContent = <ValidateNotYours message={"This is not a valid submission. Check your validation " +
-                                                            "URL and try again."} />;
+            validationContent = (<ValidateNotYours message={"This is not a valid submission. Check your validation " +
+                                                            "URL and try again."} />);
         }
 
         let warningMessage = null;

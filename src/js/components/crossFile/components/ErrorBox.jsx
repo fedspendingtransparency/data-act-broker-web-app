@@ -80,25 +80,25 @@ export default class ErrorBox extends React.Component {
     }
 
     uploadButtons() {
-        let firstUploadButton = <UploadButtonContainer file={ReviewHelper.globalFileData[this.props.meta.firstKey]}
-            fileKey={this.props.meta.firstKey} pair={this.props.meta.key} type={this.state.firstType} />;
-        let secondUploadButton = <UploadButtonContainer file={ReviewHelper.globalFileData[this.props.meta.secondKey]}
-            fileKey={this.props.meta.secondKey} pair={this.props.meta.key} type={this.state.secondType} />;
+        let firstUploadButton = (<UploadButtonContainer file={ReviewHelper.globalFileData[this.props.meta.firstKey]}
+            fileKey={this.props.meta.firstKey} pair={this.props.meta.key} type={this.state.firstType} />);
+        let secondUploadButton = (<UploadButtonContainer file={ReviewHelper.globalFileData[this.props.meta.secondKey]}
+            fileKey={this.props.meta.secondKey} pair={this.props.meta.key} type={this.state.secondType} />);
 
         const firstFile = ReviewHelper.globalFileData[this.props.meta.firstKey];
         const secondFile = ReviewHelper.globalFileData[this.props.meta.secondKey];
 
         if (_.indexOf(dFiles, firstFile.letter.toLowerCase()) > -1) {
             // first file is a D1/D2 file
-            firstUploadButton = <GeneratedErrorButton file={firstFile} fileKey={this.props.meta.firstKey}
+            firstUploadButton = (<GeneratedErrorButton file={firstFile} fileKey={this.props.meta.firstKey}
                 pair={this.props.meta.key} type={this.state.firstType} submissionID={this.props.submissionID}
-                forceUpdate={this.props.forceUpdate} />;
+                forceUpdate={this.props.forceUpdate} />);
         }
         if (_.indexOf(dFiles, secondFile.letter.toLowerCase()) > -1) {
             // second file is a D1/D2 file
-            secondUploadButton = <GeneratedErrorButton file={secondFile} fileKey={this.props.meta.secondKey}
+            secondUploadButton = (<GeneratedErrorButton file={secondFile} fileKey={this.props.meta.secondKey}
                 pair={this.props.meta.key} type={this.state.secondType} submissionID={this.props.submissionID}
-                forceUpdate={this.props.forceUpdate} />;
+                forceUpdate={this.props.forceUpdate} />);
         }
 
         this.setState({
@@ -214,7 +214,7 @@ export default class ErrorBox extends React.Component {
         let upload = null;
         if (PermissionsHelper.checkAgencyPermissions(this.props.session, this.props.agencyName)) {
             uploadHeader = 'Upload Corrected Files';
-            upload = <div>
+            upload = (<div>
                 <div className="row mb-10">
                     <div className="col-md-12">
                         {this.state.firstButton}
@@ -226,7 +226,7 @@ export default class ErrorBox extends React.Component {
                         {this.state.secondButton}
                     </div>
                 </div>
-            </div>;
+            </div>);
         }
 
         return (

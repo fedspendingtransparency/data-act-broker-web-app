@@ -277,10 +277,10 @@ export default class GenerateDetachedFilesPage extends React.Component {
 
         let dateSelect = null;
         if (this.state.showDateSelect) {
-            dateSelect = <DateSelect {...this.state}
+            dateSelect = (<DateSelect {...this.state}
                 handleDateChange={this.handleDateChange.bind(this)}
                 updateError={this.updateError.bind(this)}
-                generateFile={this.generateFile.bind(this)} />;
+                generateFile={this.generateFile.bind(this)} />);
         }
 
         return (

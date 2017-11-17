@@ -34,19 +34,13 @@ export default class SubmissionLink extends React.Component {
             link = 'N/A';
         }
 
-        let content = <a href={"#/submission/" + this.props.submissionId} className="date-link">
-            {link}
-        </a>;
+        let content = <a href={"#/submission/" + this.props.submissionId} className="date-link">{link}</a>;
         if (this.props.type === 'fabs') {
-            content = <a href={"#/FABSAddData/" + this.props.submissionId} className="date-link">
-                {link}
-            </a>;
+            content = <a href={"#/FABSAddData/" + this.props.submissionId} className="date-link">{link}</a>;
         }
 
         if (this.props.disabled) {
-            content = <div className="date-link">
-                {link}
-            </div>;
+            content = <div className="date-link">{link}</div>;
         }
         return (
             <div className="usa-da-recent-activity-link">

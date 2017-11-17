@@ -204,10 +204,10 @@ export default class ReviewDataContent extends React.Component {
         else if (!this.props.data.quarterly_submission) {
             certifyButtonText = "Monthly submissions cannot be certified";
             notifyButtonText = "Notify Another User that the Submission is Ready";
-            monthlySubmissionError = <div className="alert alert-danger text-center monthly-submission-error"
+            monthlySubmissionError = (<div className="alert alert-danger text-center monthly-submission-error"
                 role="alert">
                 Monthly submissions cannot be certified
-            </div>;
+            </div>);
         }
         else if (blockedWindow) {
             certifyButtonText = "You cannot certify until " +

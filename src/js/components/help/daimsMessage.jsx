@@ -14,12 +14,12 @@ export default class DaimsMessage extends React.Component {
         let type = <span>.</span>;
         let version = 'v2.0';
         if (this.props.type === 'practices') {
-            type = <span> and its
+            type = (<span> and its
                 <a href={"https://community.max.gov/download/attachments/1286474850/DAIMS_Practices_Procedures_" +
                     "v1.1.pdf?version=1&modificationDate=1498857477698&api=v2"} className="daims-link">
                     Practices &amp; Procedures {version}.
                 </a>
-            </span>;
+            </span>);
         }
 
         return (
