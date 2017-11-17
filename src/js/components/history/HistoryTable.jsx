@@ -90,7 +90,7 @@ export default class HistoryTable extends React.Component {
         let activeSubmissionsFiles = this.state.certifications[this.state.active].certified_files;
         let list = [];
         for (let i = 0; i < activeSubmissionsFiles.length; i++) {
-            list.push(<li className="file-link" onClick={this.getSignedUrl.bind(this, i)}>
+            list.push(<li className="file-link" onClick={this.getSignedUrl.bind(this, i)} key={i}>
                 {activeSubmissionsFiles[i].filename}</li>);
         }
         return list;
@@ -104,13 +104,13 @@ export default class HistoryTable extends React.Component {
         let certifications = this.state.certifications;
         for (let i = 0; i < certifications.length; i++) {
             if (this.state.active === i) {
-                list.push(<li>
+                list.push(<li key={i}>
                     <span className="active-submission">Certified by {certifications[i].certifying_user.name} on
                     {this.convertToLocalDate(certifications[i].certify_date)}</span>
                 </li>);
             }
             else {
-                list.push(<li onClick={this.setActiveSubmission.bind(this, i)}>
+                list.push(<li onClick={this.setActiveSubmission.bind(this, i)} key={i}>
                     <span className="submission">Certified by {certifications[i].certifying_user.name} on
                     {this.convertToLocalDate(certifications[i].certify_date)}</span>
                 </li>);
