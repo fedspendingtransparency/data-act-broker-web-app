@@ -3,13 +3,23 @@
   * Created by Kevin Li 6/16/16
   **/
 
-import React from 'react';
+import React, { PropTypes } from 'react';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 
 import * as uploadActions from '../../redux/actions/uploadActions.js';
 
 import UploadButton from '../../components/validateData/ValidateDataUploadButton.jsx';
+
+const propTypes = {
+    setCrossFileStage: PropTypes.func,
+    setUploadItem: PropTypes.func,
+    file: PropTypes.object,
+    submission: PropTypes.object,
+    fileKey: PropTypes.string,
+    pair: PropTypes.string,
+    type: PropTypes.string
+};
 
 const defaultProps = {
     file: {
@@ -70,6 +80,7 @@ class CrossFileUploadButtonContainer extends React.Component {
     }
 }
 
+CrossFileUploadButtonContainer.propTypes = propTypes;
 CrossFileUploadButtonContainer.defaultProps = defaultProps;
 
 export default connect(

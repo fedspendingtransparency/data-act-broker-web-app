@@ -3,13 +3,18 @@
 * Created by Kevin Li 3/24/16
 **/
 
-import React from 'react';
+import React, { PropTypes } from 'react';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 
 import * as uploadActions from '../../redux/actions/uploadActions.js';
 
 import DropZone from '../../components/addData/DropZone.jsx';
+
+const propTypes = {
+    setUploadItem: PropTypes.func,
+    requestName: PropTypes.string
+};
 
 class DropZoneContainer extends React.Component {
 
@@ -31,6 +36,8 @@ class DropZoneContainer extends React.Component {
         );
     }
 }
+
+DropZoneContainer.propTypes = propTypes;
 
 export default connect(
     (state) => ({ submission: state.submission }),

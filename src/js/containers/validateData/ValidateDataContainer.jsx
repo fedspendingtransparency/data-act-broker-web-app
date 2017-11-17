@@ -3,7 +3,7 @@
 * Created by Kevin Li 3/29/16
 **/
 
-import React from 'react';
+import React, { PropTypes } from 'react';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 
@@ -16,6 +16,14 @@ import PublishedSubmissionWarningBanner from '../../components/SharedComponents/
 import Banner from '../../components/SharedComponents/Banner.jsx';
 
 import * as ReviewHelper from '../../helpers/reviewHelper.js';
+
+const propTypes = {
+    resetSubmission: PropTypes.func,
+    setSubmissionState: PropTypes.func,
+    setValidation: PropTypes.func,
+    submission: PropTypes.object,
+    submissionID: PropTypes.string
+};
 
 let statusTimer;
 const timerDuration = 10;
@@ -191,6 +199,8 @@ class ValidateDataContainer extends React.Component {
         );
     }
 }
+
+ValidateDataContainer.propTypes = propTypes;
 
 export default connect(
     (state) => ({ submission: state.submission,

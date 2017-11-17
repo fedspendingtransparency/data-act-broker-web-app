@@ -3,7 +3,7 @@
   * Created by Kevin Li 6/1/2016
   **/
 
-import React from 'react';
+import React, { PropTypes } from 'react';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 
@@ -11,6 +11,12 @@ import * as agencyActions from '../../redux/actions/agencyActions.js';
 import * as AgencyHelper from '../../helpers/agencyHelper.js';
 
 import Typeahead from '../../components/SharedComponents/Typeahead.jsx';
+
+const propTypes = {
+    setAgencyList: PropTypes.func,
+    agencyList: PropTypes.object,
+    detached: PropTypes.bool
+};
 
 const defaultProps = {
     detached: true
@@ -61,6 +67,7 @@ class AgencyListContainer extends React.Component {
 
 }
 
+AgencyListContainer.propTypes = propTypes;
 AgencyListContainer.defaultProps = defaultProps;
 
 export default connect(

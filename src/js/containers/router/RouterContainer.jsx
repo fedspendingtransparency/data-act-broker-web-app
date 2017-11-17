@@ -3,7 +3,7 @@
 * Created by Kevin Li 3/16/15
 **/
 
-import React from 'react';
+import React, { PropTypes } from 'react';
 import { kGlobalConstants } from '../../GlobalConstants.js';
 import { Router, hashHistory } from 'react-router';
 
@@ -17,6 +17,10 @@ import RouterRoutes from './RouterRoutes.jsx';
 
 const ga = require('react-ga');
 const GA_OPTIONS = { debug: false };
+
+const propTypes = {
+    session: PropTypes.object
+};
 
 const Routes = new RouterRoutes();
 
@@ -77,6 +81,7 @@ class RouterContainer extends React.Component {
     }
 }
 
+RouterContainer.propTypes = propTypes;
 
 export default connect(
     (state) => ({

@@ -3,7 +3,7 @@
  * Created by Mike Bray 5/23/16
  **/
 
-import React from 'react';
+import React, { PropTypes } from 'react';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { hashHistory } from 'react-router';
@@ -12,6 +12,12 @@ import SubmissionGuidePage from '../../components/addData/SubmissionGuidePage.js
 import * as sessionActions from '../../redux/actions/sessionActions.js';
 
 import * as SubmissionGuideHelper from '../../helpers/submissionGuideHelper.js';
+
+const propTypes = {
+    setSkipGuide: PropTypes.func,
+    location: PropTypes.object,
+    session: PropTypes.object
+};
 
 class SubmissionGuideContainer extends React.Component {
     constructor(props) {
@@ -52,6 +58,8 @@ class SubmissionGuideContainer extends React.Component {
         );
     }
 }
+
+SubmissionGuideContainer.propTypes = propTypes;
 
 export default connect(
     (state) => ({ session: state.session }),

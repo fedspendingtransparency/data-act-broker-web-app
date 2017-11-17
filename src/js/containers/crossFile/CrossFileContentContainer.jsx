@@ -3,7 +3,7 @@
 * Created by Kevin Li 6/14/16
 **/
 
-import React from 'react';
+import React, { PropTypes } from 'react';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { hashHistory } from 'react-router';
@@ -17,6 +17,16 @@ import * as ReviewHelper from '../../helpers/reviewHelper.js';
 import CrossFileContent from '../../components/crossFile/CrossFileContent.jsx';
 import PublishedSubmissionWarningBanner from '../../components/SharedComponents/PublishedSubmissionWarningBanner.jsx';
 import Banner from '../../components/SharedComponents/Banner.jsx';
+
+const propTypes = {
+    resetSubmission: PropTypes.func,
+    setCrossFile: PropTypes.func,
+    setExpectedCrossPairs: PropTypes.func,
+    setSubmissionState: PropTypes.func,
+    showError: PropTypes.func,
+    submission: PropTypes.object,
+    submissionID: PropTypes.string
+};
 
 const timerDuration = 10;
 
@@ -232,6 +242,8 @@ class CrossFileContentContainer extends React.Component {
         );
     }
 }
+
+CrossFileContentContainer.propTypes = propTypes;
 
 export default connect(
     (state) => ({ submission: state.submission,

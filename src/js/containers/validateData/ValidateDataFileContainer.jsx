@@ -3,13 +3,21 @@
   * Created by Kevin Li 4/1/2016
   */
 
-import React from 'react';
+import React, { PropTypes } from 'react';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 
 import * as uploadActions from '../../redux/actions/uploadActions.js';
 
 import ValidateDataFileComponent from '../../components/validateData/ValidateDataFileComponent.jsx';
+
+const propTypes = {
+    updateItem: PropTypes.func,
+    setUploadItem: PropTypes.func,
+    removeUploadItem: PropTypes.func,
+    data: PropTypes.object,
+    type: PropTypes.object
+};
 
 class ValidateDataFileContainer extends React.Component {
 
@@ -41,6 +49,8 @@ class ValidateDataFileContainer extends React.Component {
         );
     }
 }
+
+ValidateDataFileContainer.propTypes = propTypes;
 
 export default connect(
     (state) => ({ submission: state.submission,

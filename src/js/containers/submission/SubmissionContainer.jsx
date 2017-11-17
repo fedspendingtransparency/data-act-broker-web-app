@@ -3,12 +3,16 @@
  * Created by Minahm Kim 6/29/17
  **/
 
-import React from 'react';
+import React, { PropTypes } from 'react';
 import { hashHistory } from 'react-router';
 import { connect } from 'react-redux';
 
 import * as SubmissionGuideHelper from '../../helpers/submissionGuideHelper.js';
 import LoadingPage from '../../components/submission/SubmissionPage.jsx';
+
+const propTypes = {
+    params: PropTypes.object
+};
 
 class SubmissionContainer extends React.Component {
     constructor(props) {
@@ -32,6 +36,8 @@ class SubmissionContainer extends React.Component {
         );
     }
 }
+
+SubmissionContainer.propTypes = propTypes;
 
 export default connect(
     (state) => ({ session: state.session })

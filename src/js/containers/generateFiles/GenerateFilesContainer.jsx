@@ -3,7 +3,7 @@
   * Created by Kevin Li 7/22/16
   */
 
-import React from 'react';
+import React, { PropTypes } from 'react';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { hashHistory } from 'react-router';
@@ -20,6 +20,14 @@ import * as uploadActions from '../../redux/actions/uploadActions.js';
 
 import * as GenerateFilesHelper from '../../helpers/generateFilesHelper.js';
 import * as UtilHelper from '../../helpers/util.js';
+
+const propTypes = {
+    setSubmissionId: PropTypes.func,
+    setSubmissionPublishStatus: PropTypes.func,
+    showError: PropTypes.func,
+    submission: PropTypes.object,
+    submissionID: PropTypes.string
+};
 
 const timerDuration = 10;
 
@@ -483,6 +491,8 @@ class GenerateFilesContainer extends React.Component {
         );
     }
 }
+
+GenerateFilesContainer.propTypes = propTypes;
 
 export default connect(
     (state) => ({ submission: state.submission,

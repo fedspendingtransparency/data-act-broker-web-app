@@ -3,7 +3,7 @@
 * Created by Kevin Li 3/29/16
 **/
 
-import React from 'react';
+import React, { PropTypes } from 'react';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import _ from 'lodash';
@@ -14,6 +14,10 @@ import ValidationOverlay from '../../components/validateData/ValidationOverlay.j
 import { kGlobalConstants } from '../../GlobalConstants.js';
 
 import * as UploadHelper from '../../helpers/uploadHelper.js';
+
+const propTypes = {
+    submission: PropTypes.object
+};
 
 class ValidationOverlayContainer extends React.Component {
     constructor(props) {
@@ -72,6 +76,8 @@ class ValidationOverlayContainer extends React.Component {
         );
     }
 }
+
+ValidationOverlayContainer.propTypes = propTypes;
 
 export default connect(
     (state) => ({ submission: state.submission }),

@@ -3,7 +3,7 @@
 * Created by Nipun Monga 11/21/16
 **/
 
-import React from 'react';
+import React, { PropTypes } from 'react';
 import { connect } from 'react-redux';
 import _ from 'lodash';
 
@@ -13,6 +13,10 @@ import ValidationRulesTablePage from '../../components/help/validationRulesTable
 import PracticesProceduresPage from '../../components/help/practicesProceduresPage.jsx';
 import HistoryPage from '../../components/help/historyPage.jsx';
 
+const propTypes = {
+    route: PropTypes.object,
+    session: PropTypes.object
+};
 
 class HelpPageContainer extends React.Component {
     constructor(props) {
@@ -74,6 +78,8 @@ class HelpPageContainer extends React.Component {
         }
     }
 }
+
+HelpPageContainer.propTypes = propTypes;
 
 export default connect(
     (state) => ({ session: state.session })

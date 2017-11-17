@@ -3,13 +3,18 @@
 * Created by Kevin Li
 **/
 
-import React from 'react';
+import React, { PropTypes } from 'react';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 
 import * as uploadActions from '../../redux/actions/uploadActions.js';
 
 import AddDataPage from '../../components/addData/AddDataPage.jsx';
+
+const propTypes = {
+    resetSubmission: PropTypes.func,
+    setMeta: PropTypes.func
+};
 
 class AddDataPageContainer extends React.Component {
     componentDidMount() {
@@ -22,6 +27,8 @@ class AddDataPageContainer extends React.Component {
         );
     }
 }
+
+AddDataPageContainer.propTypes = propTypes;
 
 export default connect(
     (state) => ({ submission: state.submission }),

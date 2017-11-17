@@ -3,7 +3,7 @@
   * Created by Michael Hess
   **/
 
-import React from 'react';
+import React, { PropTypes } from 'react';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 
@@ -11,6 +11,12 @@ import * as subTierAgencyActions from '../../redux/actions/subTierAgencyActions.
 import * as AgencyHelper from '../../helpers/agencyHelper.js';
 
 import Typeahead from '../../components/SharedComponents/Typeahead.jsx';
+
+const propTypes = {
+    setSubTierAgencyList: PropTypes.func,
+    subTierAgencyList: PropTypes.object,
+    disabled: PropTypes.bool
+};
 
 class SubTierAgencyListContainer extends React.Component {
 
@@ -46,6 +52,8 @@ class SubTierAgencyListContainer extends React.Component {
     }
 
 }
+
+SubTierAgencyListContainer.propTypes = propTypes;
 
 export default connect(
     (state) => ({ subTierAgencyList: state.subTierAgencyList }),

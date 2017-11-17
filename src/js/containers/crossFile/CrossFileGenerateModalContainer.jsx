@@ -3,7 +3,7 @@
   * Created by Kevin Li 7/28/16
   **/
 
-import React from 'react';
+import React, { PropTypes } from 'react';
 import { hashHistory } from 'react-router';
 
 import moment from 'moment';
@@ -11,6 +11,17 @@ import moment from 'moment';
 import GenerateFileBox from '../../components/generateFiles/components/GenerateFileBox.jsx';
 
 import * as GenerateFilesHelper from '../../helpers/generateFilesHelper.js';
+
+const propTypes = {
+    disableButton: PropTypes.func,
+    enableButton: PropTypes.func,
+    finishedGenerating: PropTypes.func,
+    setButtonText: PropTypes.func,
+    setMessage: PropTypes.func,
+    label: PropTypes.string,
+    submissionID: PropTypes.string,
+    type: PropTypes.string
+};
 
 export default class CrossFileGenerateModalContainer extends React.Component {
 
@@ -302,6 +313,8 @@ export default class CrossFileGenerateModalContainer extends React.Component {
         );
     }
 }
+
+CrossFileGenerateModalContainer.propTypes = propTypes;
 
 CrossFileGenerateModalContainer.contextTypes = {
     store: React.PropTypes.object.isRequired

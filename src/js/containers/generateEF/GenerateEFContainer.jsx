@@ -3,7 +3,7 @@
 * Created by Kevin Li 8/23/16
 **/
 
-import React from 'react';
+import React, { PropTypes } from 'react';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { hashHistory } from 'react-router';
@@ -17,6 +17,11 @@ import GenerateEFContent from '../../components/generateEF/GenerateEFContent.jsx
 import GenerateEFError from '../../components/generateEF/GenerateEFError.jsx';
 import PublishedSubmissionWarningBanner from '../../components/SharedComponents/PublishedSubmissionWarningBanner.jsx';
 import Banner from '../../components/SharedComponents/Banner.jsx';
+
+const propTypes = {
+    submission: PropTypes.object,
+    submissionID: PropTypes.string
+};
 
 const timerDuration = 10;
 
@@ -164,6 +169,8 @@ class GenerateEFContainer extends React.Component {
         );
     }
 }
+
+GenerateEFContainer.propTypes = propTypes;
 
 export default connect(
     (state) => ({ submission: state.submission,

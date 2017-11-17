@@ -3,7 +3,7 @@
 * Created by Kevin Li 3/17/16
 **/
 
-import React from 'react';
+import React, { PropTypes } from 'react';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 
@@ -13,6 +13,10 @@ import LoginMax from '../../components/login/LoginMax.jsx';
 import * as sessionActions from '../../redux/actions/sessionActions.js';
 
 import * as LoginHelper from '../../helpers/loginHelper.js';
+
+const propTypes = {
+    location: PropTypes.object
+};
 
 class LoginContainer extends React.Component {
     constructor(props) {
@@ -63,6 +67,8 @@ class LoginContainer extends React.Component {
         );
     }
 }
+
+LoginContainer.propTypes = propTypes;
 
 export default connect(
     (state) => ({ session: state.session }),

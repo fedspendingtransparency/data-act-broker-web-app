@@ -3,7 +3,7 @@
 * Created by Kevin Li 3/24/16
 **/
 
-import React from 'react';
+import React, { PropTypes } from 'react';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { hashHistory } from 'react-router';
@@ -17,6 +17,12 @@ import { kGlobalConstants } from '../../GlobalConstants.js';
 
 import * as UploadHelper from '../../helpers/uploadHelper.js';
 import * as GuideHelper from '../../helpers/submissionGuideHelper.js';
+
+const propTypes = {
+    setSubmissionId: PropTypes.func,
+    setSubmissionState: PropTypes.func,
+    submission: PropTypes.object
+};
 
 class AddDataContainer extends React.Component {
         constructor(props) {
@@ -93,6 +99,8 @@ class AddDataContainer extends React.Component {
             );
         }
 }
+
+AddDataContainer.propTypes = propTypes;
 
 export default connect(
     (state) => ({ submission: state.submission }),

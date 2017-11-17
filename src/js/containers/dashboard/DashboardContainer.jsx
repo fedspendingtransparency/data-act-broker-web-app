@@ -3,12 +3,16 @@
   * Created by Kevin Li 10/21/16
   **/
 
-import React from 'react';
+import React, { PropTypes } from 'react';
 import { connect } from 'react-redux';
 
 import * as SubmissionListHelper from '../../helpers/submissionListHelper.js';
 
 import DashboardContent from '../../components/dashboard/DashboardContent.jsx';
+
+const propTypes = {
+    type: PropTypes.string
+};
 
 class DashboardContainer extends React.Component {
     constructor(props) {
@@ -62,6 +66,8 @@ class DashboardContainer extends React.Component {
         );
     }
 }
+
+DashboardContainer.propTypes = propTypes;
 
 export default connect(
     (state) => ({ session: state.session })

@@ -3,12 +3,16 @@
  * Created by Mike Bray 6/8/16
  **/
 
-import React from 'react';
+import React, { PropTypes } from 'react';
 import { connect } from 'react-redux';
 
 import * as ReviewHelper from '../../helpers/reviewHelper.js';
 
 import ReviewDataPage from '../../components/reviewData/ReviewDataPage.jsx';
+
+const propTypes = {
+    params: PropTypes.object
+};
 
 class ReviewDataContainer extends React.Component {
     constructor(props) {
@@ -74,6 +78,8 @@ class ReviewDataContainer extends React.Component {
         );
     }
 }
+
+ReviewDataContainer.propTypes = propTypes;
 
 export default connect(
     (state) => ({ submission: state.submission,
