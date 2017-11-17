@@ -117,5 +117,5 @@ export const getSubmissionFile = (submissionID, certifiedFilesHistory, isWarning
 };
 
 export const loadRecentActivity = (type) => {
-    return loadSubmissionList(1, 5, 'mixed', 'updated', 'desc', type==='fabs');
+    return loadSubmissionList(1, 5, 'mixed', 'updated', 'desc', type === 'fabs');
 };

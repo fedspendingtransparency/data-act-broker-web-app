@@ -8,7 +8,7 @@ import Modal from 'react-aria-modal';
 
 export default class ErrorModal extends React.Component {
     closeModal(e) {
-        return typeof this.props.onClose === 'function'? this.props.onClose(e) : null;
+        return typeof this.props.onClose === 'function' ? this.props.onClose(e) : null;
     }
 
     render() {

@@ -66,7 +66,7 @@ export default class UploadDetachedFileMeta extends React.Component {
         });
     }
 
-    updateError(file, header='', description='') {
+    updateError(file, header = '', description = '') {
         // Show any error that occurs at any point during file upload
         const state = Object.assign({}, this.state[file], {
             error: {

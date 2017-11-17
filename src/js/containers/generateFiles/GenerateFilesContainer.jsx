@@ -280,7 +280,7 @@ class GenerateFilesContainer extends React.Component {
         this.setState(output);
     }
 
-    updateError(file, header='', description='') {
+    updateError(file, header = '', description = '') {
         const state = Object.assign({}, this.state[file], {
             error: {
                 show: header !== '' && description !== '',

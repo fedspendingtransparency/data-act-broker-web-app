@@ -12,7 +12,7 @@ export default class DateSelect extends React.Component {
         this.props.handleDateChange(file, date, dateType);
     }
 
-    updateError(file, header='', description='') {
+    updateError(file, header = '', description = '') {
         this.props.updateError(file, header, description);
     }
 

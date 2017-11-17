@@ -82,7 +82,7 @@ export default class ReviewDataContent extends React.Component {
 
         let displaySize = totalSize + ' bytes';
         if (totalSize >= 750000) {
-            displaySize = (Math.round((totalSize/ 100000000) * 100) / 100) + ' MB';
+            displaySize = (Math.round((totalSize / 100000000) * 100) / 100) + ' MB';
         }
         else if (totalSize >= 750) {
             displaySize = (Math.round((totalSize / 1000) * 100) / 100) + ' KB';
@@ -104,7 +104,7 @@ export default class ReviewDataContent extends React.Component {
         let cents = currencyString.split(".")[1];
         let dollars = currencyString.split(".")[0];
         // start at the end and every 3 numbers add a comma to the string
-        for (let i = dollars.length - 3; i > 0; i = i-3) {
+        for (let i = dollars.length - 3; i > 0; i = i - 3) {
             dollars = dollars.slice(0, i) + "," + dollars.slice(i);
         }
         let formattedCurrencyString = "$" + dollars + "." + cents;

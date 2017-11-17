@@ -29,7 +29,7 @@ export default class ErrorBox extends React.Component {
             firstButton: null,
             secondButton: null,
             stagedFiles: [],
-            activeTab: props.status === 'error'? 'errors' : 'warnings',
+            activeTab: props.status === 'error' ? 'errors' : 'warnings',
             signInProgress: false,
             signedUrl: ''
         };

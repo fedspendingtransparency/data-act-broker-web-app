@@ -26,7 +26,7 @@ export const fetchActiveUser = () => {
                 }
                 else {
                     // set the login state cookie that expires in 15 minutes
-                    Cookies.set('brokerLogin', Date.now(), { expires: (1/(24*4)) });
+                    Cookies.set('brokerLogin', Date.now(), { expires: (1 / (24 * 4)) });
 
                     const sessionData = {
                         login: 'loggedIn',
@@ -90,7 +90,7 @@ export const performLogin = (username, password) => {
                     }
                 }
                 else {
-                    Cookies.set('brokerLogin', Date.now(), { expires: (1/(24*4)) });
+                    Cookies.set('brokerLogin', Date.now(), { expires: (1 / (24 * 4)) });
 
                     establishSession(res.headers);
                     // check if cookies could be set
@@ -144,7 +144,7 @@ export const performMaxLogin = (ticket) => {
                 }
             }
             else {
-                Cookies.set('brokerLogin', Date.now(), { expires: (1/(24*4)) });
+                Cookies.set('brokerLogin', Date.now(), { expires: (1 / (24 * 4)) });
                 establishSession(res.headers);
                 // check if cookies could be set
                 if (!Cookies.get('session')) {

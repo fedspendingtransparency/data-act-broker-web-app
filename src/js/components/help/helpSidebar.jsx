@@ -25,7 +25,7 @@ export default class HelpSidebar extends React.Component {
 
         let membership = null;
         if (this.props.helpOnly) {
-            membership=
+            membership =
                 (<li>
                     <a href="/#/help?section=agencyAccess">Request Agency Access</a>
                 </li>);
@@ -56,10 +56,10 @@ export default class HelpSidebar extends React.Component {
                 <ul>
                     {membership}
                     <li>
-                        <a href={help+"?section=membership"}>Contact the Service Desk</a>
+                        <a href={help + "?section=membership"}>Contact the Service Desk</a>
                     </li>
                     <li>
-                        <a href={help+"?section=filingIssue"}>Filing an Issue</a>
+                        <a href={help + "?section=filingIssue"}>Filing an Issue</a>
                     </li>
                     <li>
                         <a href={resources}>Resources - DAIMS</a>

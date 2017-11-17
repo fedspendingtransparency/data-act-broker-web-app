@@ -42,7 +42,7 @@ export default class Banner extends React.Component {
         let msg = [];
         for (let i = 0; i < this.state.appWindow.length; i++) {
             msg.push(
-                <div key={'banner'+i} className="published-submission-warning-banner">
+                <div key={'banner' + i} className="published-submission-warning-banner">
                     <div className="container">
                         <div className="row">
                             <div className="col-xs-1">

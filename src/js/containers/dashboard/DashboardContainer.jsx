@@ -32,7 +32,7 @@ class DashboardContainer extends React.Component {
         }
     }
 
-    loadTableData(page = 1, certified = false, category='modified', order='desc') {
+    loadTableData(page = 1, certified = false, category = 'modified', order = 'desc') {
         /**
         Sortable fields: Valid values for category
         'modified','reporting','status','agency','submitted_by'

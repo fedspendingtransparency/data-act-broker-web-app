@@ -103,7 +103,7 @@ export default class ValidateDataFileComponent extends React.Component {
             }
             errorKeys.forEach((key) => {
                 errorData.push({
-                    header: (key==='missing_headers') ? 'Missing Headers:' : 'Duplicate Headers:',
+                    header: (key === 'missing_headers') ? 'Missing Headers:' : 'Duplicate Headers:',
                     data: item[key]
                 });
             });
@@ -247,7 +247,7 @@ export default class ValidateDataFileComponent extends React.Component {
                 this.setState({
                     signInProgress: false,
                     error: {
-                        header: 'Invalid File Type Selected '+item.file_type,
+                        header: 'Invalid File Type Selected ' + item.file_type,
                         body: ''
                     }
                 });
@@ -257,7 +257,7 @@ export default class ValidateDataFileComponent extends React.Component {
             this.setState({
                 signInProgress: false,
                 error: {
-                    header: 'Invalid File Type Selected '+item.file_type,
+                    header: 'Invalid File Type Selected ' + item.file_type,
                     body: ''
                 }
             });

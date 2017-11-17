@@ -73,16 +73,16 @@ export default class ValidateValuesFileComponent extends React.Component {
         let type = null;
         switch (item.file_type) {
             case 'appropriations':
-                type='A';
+                type = 'A';
                 break;
             case 'program_activity':
-                type='B';
+                type = 'B';
                 break;
             case 'award_financial':
-                type='C';
+                type = 'C';
                 break;
             case 'detached_award':
-                type='D2_detached';
+                type = 'D2_detached';
                 break;
             default:
                 break;
@@ -101,7 +101,7 @@ export default class ValidateValuesFileComponent extends React.Component {
                 this.setState({
                     signInProgress: false,
                     error: {
-                        header: 'Invalid File Type Selected '+item.file_type,
+                        header: 'Invalid File Type Selected ' + item.file_type,
                         body: ''
                     }
                 });
@@ -111,7 +111,7 @@ export default class ValidateValuesFileComponent extends React.Component {
             this.setState({
                 signInProgress: false,
                 error: {
-                    header: 'Invalid File Type Selected '+item.file_type,
+                    header: 'Invalid File Type Selected ' + item.file_type,
                     body: ''
                 }
             });

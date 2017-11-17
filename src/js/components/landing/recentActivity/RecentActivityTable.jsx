@@ -108,7 +108,7 @@ export default class RecentActivityTable extends React.Component {
         });
     }
 
-    loadActivity(type=this.props.type) {
+    loadActivity(type = this.props.type) {
         SubmissionListHelper.loadRecentActivity(type)
             .then((data) => {
                 if (this.didUnmount) {

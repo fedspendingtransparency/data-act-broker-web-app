@@ -50,7 +50,7 @@ export default class ValidationRulesTableContent extends React.Component {
         }
     }
 
-    loadData(type='fabs') {
+    loadData(type = 'fabs') {
         this.scrollToTop();
 
         // also load the remaining URLs

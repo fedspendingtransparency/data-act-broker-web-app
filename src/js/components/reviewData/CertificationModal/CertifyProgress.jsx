@@ -22,7 +22,7 @@ export default class CertifyProgress extends React.Component {
 
         this.state = {
             progress: 0,
-            unit: (1/6),
+            unit: (1 / 6),
             subiteration: 1,
             iteration: 0,
             averageDuration: 0,
@@ -75,7 +75,7 @@ export default class CertifyProgress extends React.Component {
 
             if (iteration > 4) {
                 subiteration = 1;
-                unit = (1 - newProgress)/6;
+                unit = (1 - newProgress) / 6;
                 iteration += 1;
             }
 
@@ -92,7 +92,7 @@ export default class CertifyProgress extends React.Component {
                     }
                 });
             }
-        }, this.state.averageDuration/6);
+        }, this.state.averageDuration / 6);
     }
 
     render() {

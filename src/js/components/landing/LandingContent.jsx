@@ -58,7 +58,7 @@ export default class LandingContent extends React.Component {
         const affiliations = this.props.session.user.affiliations;
 
         // Size to set off the limiting of the recent activity
-        const limit=3;
+        const limit = 3;
 
         let agencyName = 'Your Agency';
         if (affiliations && affiliations.length > limit && !this.state.expanded) {
@@ -74,8 +74,8 @@ export default class LandingContent extends React.Component {
         let expandContent = '';
 
         if (affiliations && affiliations.length > limit && !this.state.expanded) {
-            recentHeader +='-hidden';
-            recentActivity +='-hidden';
+            recentHeader += '-hidden';
+            recentActivity += '-hidden';
             expand = 'expand-button block';
             expandContent = 'Show More';
         }
@@ -136,7 +136,7 @@ export default class LandingContent extends React.Component {
 
         return (
             <div className="site_content">
-                <div className={"usa-da-content-"+headerClass}>
+                <div className={"usa-da-content-" + headerClass}>
                     <div className="container">
                         <div className="row usa-da-content-landing usa-da-page-title">
                             <div className="col-md-8 mt-40 mb-50">

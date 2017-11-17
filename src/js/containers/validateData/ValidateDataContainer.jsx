@@ -136,7 +136,7 @@ class ValidateDataContainer extends React.Component {
                         // keep reloading if the validation hasn't finished yet and nothing has failed
                         statusTimer = setTimeout(() => {
                             this.validateSubmission();
-                        }, timerDuration*1000);
+                        }, timerDuration * 1000);
                     }
                 });
             })
@@ -154,7 +154,7 @@ class ValidateDataContainer extends React.Component {
                 else {
                     statusTimer = setTimeout(() => {
                         this.validateSubmission();
-                    }, timerDuration*1000);
+                    }, timerDuration * 1000);
                 }
             });
     }

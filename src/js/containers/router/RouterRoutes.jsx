@@ -323,7 +323,7 @@ function routeConstructor(routeInfo, onEnterIndex, type) {
             type: type
         };
     }
-    else if (routeInfo.component ==='help') {
+    else if (routeInfo.component === 'help') {
         return {
             path: prefix + routeInfo.path,
             onEnter: routeInfo.onEnter[onEnterIndex],

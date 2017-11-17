@@ -46,9 +46,9 @@ export default class Progress extends React.Component {
         for (let i = 1; i <= this.props.totalSteps; i++) {
             if (i < this.props.currentStep) {
                 progressBar.push(<li key={i} className="usa-da-progress-bar-step-done">
-                    <a href={stepLink[i-1] +"/"+ this.props.id} ><span className="step">{i}</span></a></li>);
+                    <a href={stepLink[i - 1] + "/" + this.props.id} ><span className="step">{i}</span></a></li>);
                 progressLabels.push(<li key={i} className="usa-da-progress-bar-step-done"><span className="name">
-                    <a href={stepLink[i-1] +"/"+ this.props.id} >{stepNames[i - 1]}</a></span></li>);
+                    <a href={stepLink[i - 1] + "/" + this.props.id} >{stepNames[i - 1]}</a></span></li>);
             }
             else if (i === this.props.currentStep) {
                 progressBar.push(<li key={i} className="usa-da-progress-bar-step-current"><span className="step">{i}

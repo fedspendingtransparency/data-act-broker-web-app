@@ -31,7 +31,7 @@ class UploadDetachedFileValidation extends React.Component {
 
         this.state = {
             agency: "",
-            submissionID: this.props.params.submissionID ? this.props.params.submissionID: 0,
+            submissionID: this.props.params.submissionID ? this.props.params.submissionID : 0,
             detachedAward: {
                 startDate: null,
                 endDate: null,
@@ -69,7 +69,7 @@ class UploadDetachedFileValidation extends React.Component {
     }
 
     componentWillReceiveProps(nextProps) {
-        if (this.state.agency==="" || nextProps.params.submissionID !== this.state.submissionID) {
+        if (this.state.agency === "" || nextProps.params.submissionID !== this.state.submissionID) {
             this.setState({
                 submissionID: nextProps.params.submissionID
             });

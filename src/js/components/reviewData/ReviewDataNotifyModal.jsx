@@ -58,7 +58,7 @@ export default class ReviewDataNotifyModal extends React.Component {
             let selectedUser = _.find(this.state.users, (user) => user.id === id);
             let updatedSelectedUsers = this.state.selectedUsers.slice();
 
-            if (updatedSelectedUsers.length === 0 || updatedSelectedUsers[updatedSelectedUsers.length-1].id !== id) {
+            if (updatedSelectedUsers.length === 0 || updatedSelectedUsers[updatedSelectedUsers.length - 1].id !== id) {
                 updatedSelectedUsers.push(selectedUser);
                 this.setState({ "selectedUsers": updatedSelectedUsers });
 
@@ -75,7 +75,7 @@ export default class ReviewDataNotifyModal extends React.Component {
             let deselectedUser = _.find(this.state.selectedUsers, (user) => user.id === userId);
             let users = this.state.users.slice();
 
-            if (users.length === 0 || users[users.length-1].id !== userId) {
+            if (users.length === 0 || users[users.length - 1].id !== userId) {
                 users.push(deselectedUser);
                 this.setState({ "users": users });
 

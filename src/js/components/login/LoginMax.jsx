@@ -34,7 +34,7 @@ export default class LoginMax extends React.Component {
             }, () => {
                 // save the redirect destination as a cookie, expire after 5 min (expressed in units of
                 // days per library documentation)
-                Cookies.set('brokerRedirect', this.state.redirect, { expires: (5/(24*60)) });
+                Cookies.set('brokerRedirect', this.state.redirect, { expires: (5 / (24 * 60)) });
             });
         }
         else {
