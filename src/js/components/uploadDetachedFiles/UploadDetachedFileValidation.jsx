@@ -311,14 +311,14 @@ class UploadDetachedFileValidation extends React.Component {
         submission.files.detached_award = this.state.detachedAward;
         submission.files.detached_award.file = item;
         submission.sub = this.state.submissionID;
-        submission.meta["startDate"] = this.state.rep_start;
-        submission.meta["endDate"] = this.state.rep_end;
-        submission.meta["subTierAgency"] = this.state.agency;
+        submission.meta.startDate = this.state.rep_start;
+        submission.meta.endDate = this.state.rep_end;
+        submission.meta.subTierAgency = this.state.agency;
 
         // reset file and job status
         let currentResults = this.state.jobResults;
-        currentResults["detached_award"].file_status = "";
-        currentResults["detached_award"].job_status = "";
+        currentResults.detached_award.file_status = "";
+        currentResults.detached_award.job_status = "";
         this.setState({
             jobResults: currentResults
         });

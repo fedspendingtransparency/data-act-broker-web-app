@@ -52,7 +52,7 @@ export default class ReviewDataNarrative extends React.Component {
         this.setState({
             currentFile: "A",
             fileNarrative: props.narrative,
-            currentNarrative: props.narrative["A"],
+            currentNarrative: props.narrative.A,
             saveState: ""
         });
     }

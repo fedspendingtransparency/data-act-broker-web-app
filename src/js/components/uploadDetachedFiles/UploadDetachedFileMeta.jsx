@@ -92,7 +92,7 @@ export default class UploadDetachedFileMeta extends React.Component {
         // upload specified file
         this.props.setSubmissionState('uploading');
         let submission = this.props.submission;
-        submission.meta['subTierAgency'] = this.state.agency;
+        submission.meta.subTierAgency = this.state.agency;
 
         this.uploadFileHelper(kGlobalConstants.LOCAL === true && !this.isUnmounted, submission)
             .then((submissionID) => {
