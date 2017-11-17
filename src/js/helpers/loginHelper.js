@@ -54,7 +54,9 @@ const establishSession = (responseHeaders) => {
     // lowercase all the headers
     const headers = {};
     for (let headerKey in responseHeaders) {
-        headers[headerKey.toLowerCase()] = _.clone(responseHeaders[headerKey]);
+        if (responseHeaders.hasOwnProperty(headerKey)) {
+            headers[headerKey.toLowerCase()] = _.clone(responseHeaders[headerKey]);
+        }
     }
 
     // check to see if we received a session header

@@ -88,7 +88,9 @@ class DownloadLink extends React.Component {
         const dlLinks = [];
 
         for (const key in this.props.link_array) {
-            dlLinks.push(<a href={this.props.link_array[key]} >Download Errors</a>);
+            if (this.props.link_aray.hasOwnProperty(key)) {
+                dlLinks.push(<a href={this.props.link_array[key]} >Download Errors</a>);
+            }
         }
 
         return (

@@ -55,8 +55,10 @@ class IconSingleton {
     notifySubscribers(event) {
         // iterate through subscribers to notify them that icons are ready
         for (const subscriptionId in this.subscribers) {
-            const subscriber = this.subscribers[subscriptionId];
-            subscriber(event);
+            if (this.subscribers.hasOwnProperty(subscriptionId)) {
+                const subscriber = this.subscribers[subscriptionId];
+                subscriber(event);
+            }
         }
     }
 

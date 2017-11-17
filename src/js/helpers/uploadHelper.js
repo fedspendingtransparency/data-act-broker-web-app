@@ -104,9 +104,11 @@ export const performLocalUpload = (submission) => {
     let submissionID = null;
 
     for (let fileType in submission.files) {
-        const file = submission.files[fileType].file;
-        uploadOperations.push(uploadLocalFile(file, fileType));
-        types.push(fileType);
+        if (submission.files.hasOwnProperty(fileType)) {
+            const file = submission.files[fileType].file;
+            uploadOperations.push(uploadLocalFile(file, fileType));
+            types.push(fileType);
+        }
     }
 
     Q.all(uploadOperations)
@@ -250,11 +252,13 @@ const uploadMultipleFiles = (submission, serverData) => {
     const credentials = serverData.credentials;
 
     for (let fileType in submission.files) {
-        const file = submission.files[fileType].file;
-        const fileID = serverData[fileType + '_id'];
-        const fileKey = serverData[fileType + '_key'];
+        if (submission.files.hasOwnProperty(fileType)) {
+            const file = submission.files[fileType].file;
+            const fileID = serverData[fileType + '_id'];
+            const fileKey = serverData[fileType + '_key'];
 
-        operations.push(uploadS3File(file, fileID, fileKey, credentials, fileType));
+            operations.push(uploadS3File(file, fileID, fileKey, credentials, fileType));
+        }
     }
 
     return Q.all(operations);
@@ -269,8 +273,10 @@ export const performRemoteUpload = (submission) => {
     let request = {};
 
     for (let fileType in submission.files) {
-        const file = submission.files[fileType].file;
-        request[fileType] = file.name;
+        if (submission.files.hasOwnProperty(fileType)) {
+            const file = submission.files[fileType].file;
+            request[fileType] = file.name;
+        }
     }
 
     request = prepareMetadata(submission.meta, request);
@@ -310,8 +316,10 @@ export const performRemoteCorrectedUpload = (submission) => {
         existing_submission_id: submission.id
     };
     for (let fileType in submission.files) {
-        const file = submission.files[fileType].file;
-        request[fileType] = file.name;
+        if (submission.files.hasOwnProperty(fileType)) {
+            const file = submission.files[fileType].file;
+            request[fileType] = file.name;
+        }
     }
 
     prepareFiles(request)
@@ -349,9 +357,11 @@ export const performLocalCorrectedUpload = (submission) => {
     const types = [];
 
     for (let fileType in submission.files) {
-        const file = submission.files[fileType].file;
-        uploadOperations.push(uploadLocalFile(file, fileType));
-        types.push(fileType);
+        if (submission.files.hasOwnProperty(fileType)) {
+            const file = submission.files[fileType].file;
+            uploadOperations.push(uploadLocalFile(file, fileType));
+            types.push(fileType);
+        }
     }
 
     Q.all(uploadOperations)
@@ -396,8 +406,10 @@ export const performDetachedFileUpload = (submission) => {
     let request = {};
 
     for (let fileType in submission.files) {
-        const file = submission.files[fileType].file;
-        request[fileType] = file.name;
+        if (submission.files.hasOwnProperty(fileType)) {
+            const file = submission.files[fileType].file;
+            request[fileType] = file.name;
+        }
     }
 
     request = prepareMetadata(submission.meta, request);
@@ -439,8 +451,10 @@ export const performDetachedFileCorrectedUpload = (submission) => {
     };
 
     for (let fileType in submission.files) {
-        const file = submission.files[fileType].file;
-        request[fileType] = file.name;
+        if (submission.files.hasOwnProperty(fileType)) {
+            const file = submission.files[fileType].file;
+            request[fileType] = file.name;
+        }
     }
 
     // submit it to the API to set up S3
@@ -484,9 +498,11 @@ export const performDetachedLocalUpload = (submission) => {
     let submissionID = null;
 
     for (let fileType in submission.files) {
-        const file = submission.files[fileType].file;
-        uploadOperations.push(uploadLocalFile(file, fileType));
-        types.push(fileType);
+        if (submission.files.hasOwnProperty(fileType)) {
+            const file = submission.files[fileType].file;
+            uploadOperations.push(uploadLocalFile(file, fileType));
+            types.push(fileType);
+        }
     }
 
     Q.all(uploadOperations)
@@ -539,9 +555,11 @@ export const performDetachedLocalCorrectedUpload = (submission) => {
     let submissionID = null;
 
     for (let fileType in submission.files) {
-        const file = submission.files[fileType].file;
-        uploadOperations.push(uploadLocalFile(file, fileType));
-        types.push(fileType);
+        if (submission.files.hasOwnProperty(fileType)) {
+            const file = submission.files[fileType].file;
+            uploadOperations.push(uploadLocalFile(file, fileType));
+            types.push(fileType);
+        }
     }
 
     Q.all(uploadOperations)

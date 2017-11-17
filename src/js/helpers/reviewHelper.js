@@ -194,31 +194,33 @@ const getCrossFileData = (data, type, validKeys) => {
     }
 
     for (let index in data.crossFile[dataType]) {
-        // fetch the error object
-        const item = data.crossFile[dataType][index];
+        if (data.crossFile[dataType].hasOwnProperty(index)) {
+            // fetch the error object
+            const item = data.crossFile[dataType][index];
 
-        // generate possible key names for this pair of target/source files
-        const keyNames = [item.target_file + '-' + item.source_file, item.source_file + '-' + item.target_file];
-        // determine which is the correct name
-        let key = keyNames[0];
-        if (_.indexOf(validKeys, key) === -1) {
-            key = keyNames[1];
-        }
+            // generate possible key names for this pair of target/source files
+            const keyNames = [item.target_file + '-' + item.source_file, item.source_file + '-' + item.target_file];
+            // determine which is the correct name
+            let key = keyNames[0];
+            if (_.indexOf(validKeys, key) === -1) {
+                key = keyNames[1];
+            }
 
-        // check if the key is a valid cross-file pairing we care about
-        if (_.indexOf(validKeys, key) === -1) {
-            // not a valid pair
-            continue;
-        }
+            // check if the key is a valid cross-file pairing we care about
+            if (_.indexOf(validKeys, key) === -1) {
+                // not a valid pair
+                continue;
+            }
 
-        // check if we've already seen an error for this pairing
-        if (output.hasOwnProperty(key)) {
-            // this pair already exists, so append the error to the pair's array
-            output[key].push(item);
-        }
-        else {
-            // doesn't exist yet, so create an array with this error
-            output[key] = [item];
+            // check if we've already seen an error for this pairing
+            if (output.hasOwnProperty(key)) {
+                // this pair already exists, so append the error to the pair's array
+                output[key].push(item);
+            }
+            else {
+                // doesn't exist yet, so create an array with this error
+                output[key] = [item];
+            }
         }
     }
 
@@ -228,12 +230,14 @@ const getCrossFileData = (data, type, validKeys) => {
 
 const getFileReports = (status, reports) => {
     for (let key in status) {
-        let item = status[key];
-        item.report = reports['job_' + item.job_id + '_error_url'];
+        if (status.hasOwnProperty(key)) {
+            let item = status[key];
+            item.report = reports['job_' + item.job_id + '_error_url'];
 
-        // alphabetize any missing and duplicated headers
-        item.missing_headers = _.sortBy(item.missing_headers);
-        item.duplicated_headers = _.sortBy(item.duplicated_headers);
+            // alphabetize any missing and duplicated headers
+            item.missing_headers = _.sortBy(item.missing_headers);
+            item.duplicated_headers = _.sortBy(item.duplicated_headers);
+        }
     }
 
     return status;
@@ -241,12 +245,14 @@ const getFileReports = (status, reports) => {
 
 const getFileWarningReports = (status, reports) => {
     for (let key in status) {
-        let item = status[key];
-        item.warning_report = reports['job_' + item.job_id + '_warning_url'];
+        if (status.hasOwnProperty(key)) {
+            let item = status[key];
+            item.warning_report = reports['job_' + item.job_id + '_warning_url'];
 
-        // alphabetize any missing and duplicated headers
-        item.missing_headers = _.sortBy(item.missing_headers);
-        item.duplicated_headers = _.sortBy(item.duplicated_headers);
+            // alphabetize any missing and duplicated headers
+            item.missing_headers = _.sortBy(item.missing_headers);
+            item.duplicated_headers = _.sortBy(item.duplicated_headers);
+        }
     }
 
     return status;
@@ -261,7 +267,9 @@ const getCrossFileReports = (type, crossFile, reports) => {
     }
 
     for (let key in crossFile) {
-        crossFileReports[key] = reports[keyPrefix + key];
+        if (crossFile.hasOwnProperty(key)) {
+            crossFileReports[key] = reports[keyPrefix + key];
+        }
     }
 
     return crossFileReports;
