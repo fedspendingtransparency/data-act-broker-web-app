@@ -65,7 +65,7 @@ class UploadDetachedFileValidation extends React.Component {
 
     componentDidMount() {
         this.isUnmounted = false;
-        this.checkFile(this.state.submissionID);
+        this.checkFileStatus(this.state.submissionID);
     }
 
     componentWillReceiveProps(nextProps) {
