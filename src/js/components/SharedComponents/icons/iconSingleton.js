@@ -13,8 +13,6 @@ class IconSingleton {
         this.svgCache = {};
         this.svgLoaded = false;
         this.svgRequested = false;
-
-        return instance;
     }
 
     downloadIcons() {

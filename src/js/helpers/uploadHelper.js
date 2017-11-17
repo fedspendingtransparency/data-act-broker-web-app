@@ -27,6 +27,68 @@ const uploadLocalFile = (file, type) => {
     return deferred.promise;
 };
 
+const finalizeUpload = (fileID) => {
+    const deferred = Q.defer();
+
+    Request.post(kGlobalConstants.API + 'finalize_job/')
+               .send({ 'upload_id': fileID })
+               .end((err, res) => {
+                   if (err) {
+                       console.log(err + JSON.stringify(res.body));
+                       deferred.reject();
+                   }
+                   else {
+                       deferred.resolve();
+                   }
+               });
+
+    return deferred.promise;
+};
+
+const finalizeMultipleUploads = (fileIds) => {
+    let operations = [];
+
+    fileIds.forEach((fileID) => {
+        operations.push(finalizeUpload(fileID));
+    });
+
+    return Q.all(operations);
+};
+
+const prepareFiles = (fileDict) => {
+    const deferred = Q.defer();
+
+    Request.post(kGlobalConstants.API + 'submit_files/')
+        .send(fileDict)
+        .end((err, res) => {
+            if (err) {
+                const response = Object.assign({}, res.body);
+                response.httpStatus = res.status;
+                deferred.reject(response);
+            }
+            else {
+                deferred.resolve(res);
+            }
+        });
+
+    return deferred.promise;
+};
+
+const prepareMetadata = (metadata, request) => {
+    let tmpRequest = Object.assign({}, request);
+    // add the metadata to the request
+    tmpRequest.cgac_code = metadata.codeType === 'cgac_code' ? metadata.agency : null;
+    tmpRequest.frec_code = metadata.codeType === 'frec_code' ? metadata.agency : null;
+    tmpRequest.reporting_period_start_date = metadata.startDate;
+    tmpRequest.reporting_period_end_date = metadata.endDate;
+    tmpRequest.is_quarter = false;
+    if (metadata.dateType === "quarter") {
+        tmpRequest.is_quarter = true;
+    }
+
+    return tmpRequest;
+};
+
 export const performLocalUpload = (submission) => {
     const deferred = Q.defer();
 
@@ -77,25 +139,6 @@ export const performLocalUpload = (submission) => {
         .catch(() => {
             store.dispatch(uploadActions.setSubmissionState('failed'));
             deferred.reject();
-        });
-
-    return deferred.promise;
-};
-
-const prepareFiles = (fileDict) => {
-    const deferred = Q.defer();
-
-    Request.post(kGlobalConstants.API + 'submit_files/')
-        .send(fileDict)
-        .end((err, res) => {
-            if (err) {
-                const response = Object.assign({}, res.body);
-                response.httpStatus = res.status;
-                deferred.reject(response);
-            }
-            else {
-                deferred.resolve(res);
-            }
         });
 
     return deferred.promise;
@@ -215,49 +258,6 @@ const uploadMultipleFiles = (submission, serverData) => {
     }
 
     return Q.all(operations);
-};
-
-const finalizeUpload = (fileID) => {
-    const deferred = Q.defer();
-
-    Request.post(kGlobalConstants.API + 'finalize_job/')
-               .send({ 'upload_id': fileID })
-               .end((err, res) => {
-                   if (err) {
-                       console.log(err + JSON.stringify(res.body));
-                       deferred.reject();
-                   }
-                   else {
-                       deferred.resolve();
-                   }
-               });
-
-    return deferred.promise;
-};
-
-const finalizeMultipleUploads = (fileIds) => {
-    let operations = [];
-
-    fileIds.forEach((fileID) => {
-        operations.push(finalizeUpload(fileID));
-    });
-
-    return Q.all(operations);
-};
-
-const prepareMetadata = (metadata, request) => {
-    let tmpRequest = Object.assign({}, request);
-    // add the metadata to the request
-    tmpRequest.cgac_code = metadata.codeType === 'cgac_code' ? metadata.agency : null;
-    tmpRequest.frec_code = metadata.codeType === 'frec_code' ? metadata.agency : null;
-    tmpRequest.reporting_period_start_date = metadata.startDate;
-    tmpRequest.reporting_period_end_date = metadata.endDate;
-    tmpRequest.is_quarter = false;
-    if (metadata.dateType === "quarter") {
-        tmpRequest.is_quarter = true;
-    }
-
-    return tmpRequest;
 };
 
 export const performRemoteUpload = (submission) => {
