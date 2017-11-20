@@ -20,8 +20,8 @@ export default class HistoryTable extends React.Component {
 
         this.state = {
             active: -1,
-            "submission_id": this.props.submissionID,
-            "certifications": null,
+            submission_id: this.props.submissionID,
+            certifications: null,
             warning: {
                 active: false,
                 type: 'warning',

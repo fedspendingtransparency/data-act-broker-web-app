@@ -9,15 +9,15 @@ const parseRecentActivity = (submissions) => {
     const parsedSubmissions = [];
 
     const statusMap = {
-        'ready': Status.StatusTypes.STARTED,
-        'waiting': Status.StatusTypes.STARTED,
-        'running': Status.StatusTypes.INPROGRESS,
-        'validation_successful': Status.StatusTypes.VALIDATED,
-        'validation_successful_warnings': Status.StatusTypes.VALIDATEDWARNINGS,
-        'validation_errors': Status.StatusTypes.HASERRORS,
-        'file_errors': Status.StatusTypes.HASERRORS,
-        'failed': Status.StatusTypes.SERVERERROR,
-        'certified': Status.StatusTypes.CERTIFIED
+        ready: Status.StatusTypes.STARTED,
+        waiting: Status.StatusTypes.STARTED,
+        running: Status.StatusTypes.INPROGRESS,
+        validation_successful: Status.StatusTypes.VALIDATED,
+        validation_successful_warnings: Status.StatusTypes.VALIDATEDWARNINGS,
+        validation_errors: Status.StatusTypes.HASERRORS,
+        file_errors: Status.StatusTypes.HASERRORS,
+        failed: Status.StatusTypes.SERVERERROR,
+        certified: Status.StatusTypes.CERTIFIED
     };
 
     submissions.forEach((item) => {
@@ -61,7 +61,7 @@ export const loadSubmissionList = (page = 1, limit = 10, certified = false, sort
     const deferred = Q.defer();
 
     Request.get(kGlobalConstants.API + 'list_submissions/')
-            .query({ page, limit, certified, sort, order, "d2_submission": d2Submission })
+            .query({ page, limit, certified, sort, order, d2_submission: d2Submission })
             .end((err, res) => {
                 if (err) {
                     deferred.reject(err);

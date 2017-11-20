@@ -45,7 +45,7 @@ export default class ReviewDataNotifyModal extends React.Component {
                 for (let i = 0; i < tmpData.length; i++) {
                     tmpData[i].displayName = tmpData[i].name + " | " + tmpData[i].email;
                 }
-                this.setState({ "users": tmpData });
+                this.setState({ users: tmpData });
             })
             .catch((error) => {
                 console.log(error);
@@ -66,10 +66,10 @@ export default class ReviewDataNotifyModal extends React.Component {
 
             if (updatedSelectedUsers.length === 0 || updatedSelectedUsers[updatedSelectedUsers.length - 1].id !== id) {
                 updatedSelectedUsers.push(selectedUser);
-                this.setState({ "selectedUsers": updatedSelectedUsers });
+                this.setState({ selectedUsers: updatedSelectedUsers });
 
                 let updatedUsers = _.remove(this.state.users, (user) => user.id !== id);
-                this.setState({ "users": updatedUsers });
+                this.setState({ users: updatedUsers });
 
                 this.refs.typeahead.setState({ value: "" });
             }
@@ -83,10 +83,10 @@ export default class ReviewDataNotifyModal extends React.Component {
 
             if (users.length === 0 || users[users.length - 1].id !== userId) {
                 users.push(deselectedUser);
-                this.setState({ "users": users });
+                this.setState({ users: users });
 
                 let updatedSelectedUsers = _.remove(this.state.selectedUsers, (user) => user.id !== userId);
-                this.setState({ "selectedUsers": updatedSelectedUsers });
+                this.setState({ selectedUsers: updatedSelectedUsers });
             }
         }
     }

@@ -31,7 +31,7 @@ const finalizeUpload = (fileID) => {
     const deferred = Q.defer();
 
     Request.post(kGlobalConstants.API + 'finalize_job/')
-               .send({ 'upload_id': fileID })
+               .send({ upload_id: fileID })
                .end((err, res) => {
                    if (err) {
                        console.log(err + JSON.stringify(res.body));
@@ -188,10 +188,10 @@ const uploadS3File = (file, fileID, key, credentials, fileType) => {
     const deferred = Q.defer();
 
     AWS.config.update({
-        'accessKeyId': credentials.AccessKeyId,
-        'secretAccessKey': credentials.SecretAccessKey,
-        'sessionToken': credentials.SessionToken,
-        'region': kGlobalConstants.AWS_REGION
+        accessKeyId: credentials.AccessKeyId,
+        secretAccessKey: credentials.SecretAccessKey,
+        sessionToken: credentials.SessionToken,
+        region: kGlobalConstants.AWS_REGION
     });
 
     const s3 = new AWS.S3();

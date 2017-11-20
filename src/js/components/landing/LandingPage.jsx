@@ -16,7 +16,7 @@ export default class LandingPage extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            'type': this.props.route ? this.props.route.type : 'home'
+            type: this.props.route ? this.props.route.type : 'home'
         };
     }
 
@@ -27,7 +27,7 @@ export default class LandingPage extends React.Component {
         }
         if (type && type !== this.state.type) {
             this.setState({
-                'type': type
+                type: type
             });
         }
     }

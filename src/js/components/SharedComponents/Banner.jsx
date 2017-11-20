@@ -36,7 +36,7 @@ export default class Banner extends React.Component {
         }
         if (type && type !== this.state.type) {
             this.setState({
-                'type': type
+                type: type
             });
             this.isWindow();
         }

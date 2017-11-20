@@ -66,7 +66,7 @@ class GenerateEFContainer extends React.Component {
 
                 if (data.status === 'invalid') {
                     if (!this.state.generated) {
-                        this.setState({ 'generated': true });
+                        this.setState({ generated: true });
                         this.generateFiles();
                         return;
                     }

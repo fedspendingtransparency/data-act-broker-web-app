@@ -42,7 +42,7 @@ export default class LandingContent extends React.Component {
         }
         if (type && type !== this.state.type) {
             this.setState({
-                'type': type
+                type: type
             });
         }
     }

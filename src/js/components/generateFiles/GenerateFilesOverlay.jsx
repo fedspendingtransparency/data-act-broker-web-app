@@ -36,7 +36,7 @@ export default class GenerateFilesOverlay extends React.Component {
         if (this.props.submissionID !== null) {
             ReviewHelper.fetchStatus(this.props.submissionID)
                 .then((data) => {
-                    this.setState({ 'agency_name': data.agency_name });
+                    this.setState({ agency_name: data.agency_name });
                 })
                 .catch((error) => {
                     console.log(error);

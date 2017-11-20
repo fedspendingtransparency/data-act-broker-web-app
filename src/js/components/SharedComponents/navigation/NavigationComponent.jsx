@@ -34,7 +34,7 @@ export class Navbar extends React.Component {
     getTabs() {
         // default access: only Help page
         let tabNames = {
-            'Help': 'help'
+            Help: 'help'
         };
 
         if (this.props.logoOnly) {
@@ -44,20 +44,20 @@ export class Navbar extends React.Component {
             // user has FABS permissions
             let fabsWrite = this.props.session.admin || PermissionHelper.checkFabsPermissions(this.props.session);
             tabNames = {
-                'Home': 'FABSlanding',
+                Home: 'FABSlanding',
                 'Upload & Validate New Submission': fabsWrite ? 'FABSaddData' : 'disabled',
                 'Submission Dashboard': 'FABSdashboard',
-                'Help': 'FABShelp'
+                Help: 'FABShelp'
             };
         }
         else if (this.props.type === 'dabs') {
             // user has DABS permissions
             let dabsWrite = this.props.session.admin || PermissionHelper.checkPermissions(this.props.session);
             tabNames = {
-                'Home': 'landing',
+                Home: 'landing',
                 'Upload & Validate New Submission': dabsWrite ? 'submissionGuide' : 'disabled',
                 'Submission Dashboard': 'dashboard',
-                'Help': 'help'
+                Help: 'help'
             };
         }
         return tabNames;

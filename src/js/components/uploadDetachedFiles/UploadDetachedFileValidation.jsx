@@ -282,7 +282,7 @@ class UploadDetachedFileValidation extends React.Component {
     }
 
     submitFabs() {
-        UploadHelper.submitFabs({ "submission_id": this.props.submission.id })
+        UploadHelper.submitFabs({ submission_id: this.props.submission.id })
             .then(() => {
                 this.setState({ submit: false, published: "publishing", showPublish: false });
                 this.checkFile(this.props.submission.id);

@@ -65,7 +65,7 @@ export const fetchStatus = (submissionId) => {
     const store = new StoreSingleton().store;
 
     Request.post(kGlobalConstants.API + 'check_status/')
-            .send({ 'submission_id': submissionId })
+            .send({ submission_id: submissionId })
             .end((errFile, res) => {
                 // calculate how long the API call took
                 const endTime = new Date().getTime();
@@ -117,7 +117,7 @@ export const fetchErrorReports = (submissionId) => {
     const deferred = Q.defer();
 
     Request.post(kGlobalConstants.API + 'submission_error_reports/')
-            .send({ 'submission_id': submissionId })
+            .send({ submission_id: submissionId })
             .end((errFile, res) => {
                 if (errFile) {
                     deferred.reject(errFile);
@@ -134,7 +134,7 @@ export const fetchWarningReports = (submissionId) => {
     const deferred = Q.defer();
 
     Request.post(kGlobalConstants.API + 'submission_warning_reports/')
-            .send({ 'submission_id': submissionId })
+            .send({ submission_id: submissionId })
             .end((errFile, res) => {
                 if (errFile) {
                     deferred.reject(errFile);
@@ -393,9 +393,9 @@ export const sendNotification = (users, id) => {
 
     Request.post(kGlobalConstants.API + 'email_users/')
         .send({
-            'users': users,
-            'email_template': 'review_submission',
-            'submission_id': id
+            users: users,
+            email_template: 'review_submission',
+            submission_id: id
         })
         .end((errFile, res) => {
             if (errFile) {
@@ -412,7 +412,7 @@ export const fetchObligations = (submissionId) => {
     const deferred = Q.defer();
 
     Request.post(kGlobalConstants.API + 'get_obligations/')
-            .send({ 'submission_id': submissionId })
+            .send({ submission_id: submissionId })
             .end((errFile, res) => {
                 if (errFile) {
                     deferred.reject(errFile);
@@ -430,9 +430,9 @@ export const submissionReport = (submissionId, warning, fileType, crossType) => 
 
     Request.post(kGlobalConstants.API + 'submission/' + submissionId + '/report_url')
         .send({
-            'warning': warning,
-            'file_type': fileType,
-            'cross_type': crossType
+            warning: warning,
+            file_type: fileType,
+            cross_type: crossType
         })
         .end((errFile, res) => {
             if (errFile) {
@@ -483,7 +483,7 @@ export const certifySubmission = (submissionId) => {
     const deferred = Q.defer();
 
     Request.post(kGlobalConstants.API + 'certify_submission/')
-        .send({ "submission_id": submissionId })
+        .send({ submission_id: submissionId })
         .end((err, res) => {
             if (err) {
                 const response = Object.assign({}, res.body);
