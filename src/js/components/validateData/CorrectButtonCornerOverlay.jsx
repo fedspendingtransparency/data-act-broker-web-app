@@ -7,7 +7,7 @@ import React from 'react';
 
 import * as Icons from '../SharedComponents/icons/Icons.jsx';
 
-export default class CorrectButtonOverlay extends React.Component {
+export default class CorrectButtonCornerOverlay extends React.Component {
     constructor(props) {
         super(props);
     }
