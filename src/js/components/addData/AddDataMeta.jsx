@@ -125,22 +125,22 @@ export default class AddDataMeta extends React.Component {
     }
 
     submitMetadata() {
-        let agency = this.state.agency;
-        let codeType = this.state.codeType;
-        let endDate = this.state.endDate;
-        let dateType = this.state.dateType;
+        const agency = this.state.agency;
+        const codeType = this.state.codeType;
+        const endDate = this.state.endDate;
+        const dateType = this.state.dateType;
 
         // Only make a request to check certified submission for quarterly submission.
         if (dateType === 'quarter') {
-            let month = endDate.substr(0, 2);
-            let quarter = parseInt(month, 10) % 12 + 3;
+            const month = endDate.substr(0, 2);
+            const quarter = parseInt(month, 10) % 12 + 3;
             let year = endDate.substr(3);
 
             if (quarter === 3) {
                 year += 1;
             }
-            let cgacCode = codeType === 'cgac_code' ? agency : null;
-            let frecCode = codeType === 'frec_code' ? agency : null;
+            const cgacCode = codeType === 'cgac_code' ? agency : null;
+            const frecCode = codeType === 'frec_code' ? agency : null;
             AgencyHelper.checkYearQuarter(cgacCode, frecCode, year, quarter).then(() => {
                 this.props.updateMetaData(this.state);
             }).catch((err) => {

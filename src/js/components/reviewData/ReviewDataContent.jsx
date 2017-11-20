@@ -98,13 +98,13 @@ export default class ReviewDataContent extends React.Component {
     }
 
     formatCurrency(currencyNumber) {
-        let negative = currencyNumber < 0;
+        const negative = currencyNumber < 0;
         let currencyString = currencyNumber.toFixed(2);
         // remove negative sign for formatting
         if (negative) {
             currencyString = currencyString.substr(1);
         }
-        let cents = currencyString.split(".")[1];
+        const cents = currencyString.split(".")[1];
         let dollars = currencyString.split(".")[0];
         // start at the end and every 3 numbers add a comma to the string
         for (let i = dollars.length - 3; i > 0; i = i - 3) {
@@ -119,7 +119,7 @@ export default class ReviewDataContent extends React.Component {
     }
 
     checkAffiliations() {
-        let affiliations = this.props.session.user.affiliations;
+        const affiliations = this.props.session.user.affiliations;
         for (let i = 0; i < affiliations.length; i++) {
             if (affiliations[i].agency_name === this.props.data.agency_name) {
                 if (affiliations[i].permission === 'submitter') {
@@ -164,7 +164,7 @@ export default class ReviewDataContent extends React.Component {
             [<Icons.CloudDownload />, 'Download this data to your computer'],
             [<Icons.Trash />, 'Delete this data from the Data Broker']];
 
-        let buttons = [];
+        const buttons = [];
         for (let i = 0; i < buttonContent.length; i++) {
             buttons.push(<ReviewDataButton key={i} icon={buttonContent[i][0]} label={buttonContent[i][1]} />);
         }
@@ -188,7 +188,7 @@ export default class ReviewDataContent extends React.Component {
             this.formatCurrency(this.props.data.total_procurement_obligations)
         ];
 
-        let reportRows = [];
+        const reportRows = [];
 
         for (let j = 0; j < reportLabels.length; j++) {
             reportRows.push(<ReviewDataContentRow key={j} label={reportLabels[j]} data={reportData[j]} />);
@@ -199,7 +199,7 @@ export default class ReviewDataContent extends React.Component {
         let buttonClass = " btn-disabled";
         let buttonAction = "";
         let monthlySubmissionError = null;
-        let blockedWindow = this.windowBlocked();
+        const blockedWindow = this.windowBlocked();
 
         if (this.props.data.publish_status === "published") {
             certifyButtonText = "Submission has already been certified";

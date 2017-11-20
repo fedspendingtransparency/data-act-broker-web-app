@@ -31,7 +31,7 @@ const parseMarkdown = (rawText) => {
     // look for section headers
     tree.forEach((element) => {
         if (Array.isArray(element)) {
-            let tmpElement = element;
+            const tmpElement = element;
             const type = tmpElement[0];
             const attributes = tmpElement[1];
             const value = tmpElement[2];

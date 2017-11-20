@@ -128,7 +128,7 @@ class CrossFileContentContainer extends React.Component {
 
         // check if the individual files are done
         let allPassed = true;
-        for (let key in data.file) {
+        for (const key in data.file) {
             if (data.file.hasOwnProperty(key)) {
                 const jobStatus = data.file[key].job_status;
                 const errorType = data.file[key].error_type;

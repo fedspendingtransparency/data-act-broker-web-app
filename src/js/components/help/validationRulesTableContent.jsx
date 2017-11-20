@@ -67,7 +67,7 @@ export default class ValidationRulesTableContent extends React.Component {
                 this.urlPromise = null;
             });
 
-        let fileName = type === 'fabs' ? './help/fabs_validations.csv' : './help/validations.csv';
+        const fileName = type === 'fabs' ? './help/fabs_validations.csv' : './help/validations.csv';
 
         Papa.parse(fileName, {
             download: true,
@@ -125,13 +125,13 @@ export default class ValidationRulesTableContent extends React.Component {
                         sortable={[
                             {
                                 column: 'Rule Name', sortFunction: (a, b) => {
-                                    let reA = /[^a-zA-Z]/g;
-                                    let reN = /[^0-9]/g;
-                                    let aA = a.replace(reA, "");
-                                    let bA = b.replace(reA, "");
+                                    const reA = /[^a-zA-Z]/g;
+                                    const reN = /[^0-9]/g;
+                                    const aA = a.replace(reA, "");
+                                    const bA = b.replace(reA, "");
                                     if (aA === bA) {
-                                        let aN = parseInt(a.replace(reN, ""), 10);
-                                        let bN = parseInt(b.replace(reN, ""), 10);
+                                        const aN = parseInt(a.replace(reN, ""), 10);
+                                        const bN = parseInt(b.replace(reN, ""), 10);
                                         if (aN === bN) {
                                             return 0;
                                         }

@@ -42,7 +42,7 @@ export class Navbar extends React.Component {
         }
         else if (this.props.type === 'fabs') {
             // user has FABS permissions
-            let fabsWrite = this.props.session.admin || PermissionHelper.checkFabsPermissions(this.props.session);
+            const fabsWrite = this.props.session.admin || PermissionHelper.checkFabsPermissions(this.props.session);
             tabNames = {
                 Home: 'FABSlanding',
                 'Upload & Validate New Submission': fabsWrite ? 'FABSaddData' : 'disabled',
@@ -52,7 +52,7 @@ export class Navbar extends React.Component {
         }
         else if (this.props.type === 'dabs') {
             // user has DABS permissions
-            let dabsWrite = this.props.session.admin || PermissionHelper.checkPermissions(this.props.session);
+            const dabsWrite = this.props.session.admin || PermissionHelper.checkPermissions(this.props.session);
             tabNames = {
                 Home: 'landing',
                 'Upload & Validate New Submission': dabsWrite ? 'submissionGuide' : 'disabled',
@@ -74,9 +74,9 @@ export class Navbar extends React.Component {
     }
 
     render() {
-        let tabNames = this.getTabs();
+        const tabNames = this.getTabs();
 
-        let headerTabs = [];
+        const headerTabs = [];
         const context = this;
         const userText = this.props.session.user === '' ? '' : this.props.session.user.name;
 

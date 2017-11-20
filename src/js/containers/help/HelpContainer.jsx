@@ -55,7 +55,7 @@ class HelpPageContainer extends React.Component {
     }
 
     render() {
-        let currentRoute = this.state.path;
+        const currentRoute = this.state.path;
         if (currentRoute === 'help' || currentRoute === 'fabshelp') {
             return <HelpPage {...this.props} helpOnly={this.state.helpOnly} type={this.state.type} />;
         }

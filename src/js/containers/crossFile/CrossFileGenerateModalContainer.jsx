@@ -228,7 +228,7 @@ export default class CrossFileGenerateModalContainer extends React.Component {
     parseFileStates(data, isInitial = false) {
         const output = {};
         let allDone = true;
-        let errors = [];
+        const errors = [];
         let message = '';
         const fileData = data;
         output.status = fileData.status;

@@ -21,7 +21,7 @@ const parseRecentActivity = (submissions) => {
     };
 
     submissions.forEach((item) => {
-        let tmpItem = Object.assign({}, item);
+        const tmpItem = Object.assign({}, item);
         // determine the status
         let rowStatus = Status.StatusTypes.UNKNOWN;
         if (statusMap.hasOwnProperty(tmpItem.status)) {

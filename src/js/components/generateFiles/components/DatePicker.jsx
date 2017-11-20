@@ -52,7 +52,7 @@ export default class DatePicker extends React.Component {
     parseValueForInput() {
         // convert the date to something typeable
         if (this.props.value !== null) {
-            let inputValue = this.props.value.format('MM/DD/YYYY');
+            const inputValue = this.props.value.format('MM/DD/YYYY');
             this.setState({
                 inputValue: inputValue
             });

@@ -76,7 +76,7 @@ export default class FileWarning extends React.Component {
         // generate a message indicating what the impact of replacing a file will be
         const file = ReviewHelper.globalFileData[fileKey];
 
-        let count = this.state.affectedPairs[fileKey].length;
+        const count = this.state.affectedPairs[fileKey].length;
         let message = 'By overwriting <b>File ' + file.letter + '</b>, you will also affect ' + count +
             ' other cross-file validation';
         if (count !== 1) {

@@ -66,10 +66,6 @@ export default class RevalidateDataModal extends React.Component {
     }
 
     render() {
-        let action = (<RevalidateButtons {...this.props}
-            clickedRevalidateButton={this.clickedRevalidateButton.bind(this)}
-            revalidationThreshold={this.props.data.revalidation_threshold} />);
-
         let hideClose = "";
         if (!this.state.closeable) {
             hideClose = " hide";
@@ -94,8 +90,9 @@ export default class RevalidateDataModal extends React.Component {
                         </div>
 
                         <div className="usa-da-certify-modal-content">
-
-                            {action}
+                            <RevalidateButtons {...this.props}
+                                clickedRevalidateButton={this.clickedRevalidateButton.bind(this)}
+                                revalidationThreshold={this.props.data.revalidation_threshold} />
 
                             {error}
 

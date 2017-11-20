@@ -54,8 +54,7 @@ class RouterContainer extends React.Component {
     }
 
     handleRouteChange() {
-        let path = window.location.hash;
-        this.logPageView(path);
+        this.logPageView(window.location.hash);
     }
 
     logPageView(path) {

@@ -192,15 +192,15 @@ export default class RecentActivityTable extends React.Component {
     }
 
     formatRow(rowData, index) {
-        let link = <SubmissionLink submissionId={rowData.submission_id} type={this.props.type} />;
+        const link = <SubmissionLink submissionId={rowData.submission_id} type={this.props.type} />;
         let reportingDateString = "Start: " + rowData.reporting_start_date + "\nEnd: " + rowData.reporting_end_date;
 
         if (!rowData.reporting_start_date || !rowData.reporting_end_date) {
             reportingDateString = 'No reporting period specified';
         }
-        let userName = rowData.hasOwnProperty('user') ? rowData.user.name : '--';
+        const userName = rowData.hasOwnProperty('user') ? rowData.user.name : '--';
 
-        let row = [
+        const row = [
             link,
             this.getAgency(rowData),
             reportingDateString,
@@ -208,7 +208,7 @@ export default class RecentActivityTable extends React.Component {
             this.convertToLocalDate(rowData.last_modified)
         ];
 
-        let unpublished = rowData.publish_status === 'unpublished';
+        const unpublished = rowData.publish_status === 'unpublished';
         let deleteCol = false;
         let canDelete = false;
         if (this.props.type === 'fabs') {
@@ -224,7 +224,7 @@ export default class RecentActivityTable extends React.Component {
 
         if (deleteCol) {
             if (canDelete && unpublished) {
-                let deleteConfirm = (this.state.deleteIndex !== -1 && index === this.state.deleteIndex);
+                const deleteConfirm = (this.state.deleteIndex !== -1 && index === this.state.deleteIndex);
                 row.push(<DeleteLink submissionId={rowData.submission_id} index={index}
                     warning={this.deleteWarning.bind(this)} confirm={deleteConfirm} reload={this.reload.bind(this)}
                     item={rowData} account={this.state.account}/>);

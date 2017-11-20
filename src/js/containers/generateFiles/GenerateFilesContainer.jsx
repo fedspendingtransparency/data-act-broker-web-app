@@ -367,7 +367,7 @@ class GenerateFilesContainer extends React.Component {
 
         const output = {};
         let allDone = true;
-        let errors = [];
+        const errors = [];
         let message = '';
 
         files.forEach((file) => {
@@ -402,7 +402,7 @@ class GenerateFilesContainer extends React.Component {
                         show: true,
                         url: fileData.url
                     };
-                    let header = fileData.file_type.toUpperCase() + ' File Error';
+                    const header = fileData.file_type.toUpperCase() + ' File Error';
                     item.error = {
                         show: header !== '' && message !== '',
                         header: header,
@@ -421,9 +421,9 @@ class GenerateFilesContainer extends React.Component {
                     show: true,
                     url: fileData.url
                 };
-                let failCases = ['', '#', null];
+                const failCases = ['', '#', null];
                 if (_.findIndex(failCases, fileData.url) !== -1) {
-                    let header = fileData.file_type.toUpperCase() + ' File Error';
+                    const header = fileData.file_type.toUpperCase() + ' File Error';
                     item.error = {
                         show: true,
                         header: header,

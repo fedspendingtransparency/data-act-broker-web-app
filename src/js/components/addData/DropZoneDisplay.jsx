@@ -15,7 +15,6 @@ const defaultProps = {
 
 export default class DropZoneDisplay extends React.Component {
     render() {
-        let uploadIcon = <Icons.CloudUpload />;
         let iconClass = "";
         if (this.props.displayMode === 'failure') {
             iconClass = 'fail';
@@ -31,7 +30,7 @@ export default class DropZoneDisplay extends React.Component {
 
         return (
             <div className="center-block">
-                <div className={"text-center " + "usa-da-icon " + iconClass}>{uploadIcon}</div>
+                <div className={"text-center " + "usa-da-icon " + iconClass}><Icons.CloudUpload /></div>
                 <div dangerouslySetInnerHTML={{ __html: this.props.string }}></div>
                 {progress}
             </div>

@@ -193,7 +193,7 @@ const getCrossFileData = (data, type, validKeys) => {
         dataType = 'warning_data';
     }
 
-    for (let index in data.crossFile[dataType]) {
+    for (const index in data.crossFile[dataType]) {
         if (data.crossFile[dataType].hasOwnProperty(index)) {
             // fetch the error object
             const item = data.crossFile[dataType][index];
@@ -229,9 +229,9 @@ const getCrossFileData = (data, type, validKeys) => {
 
 
 const getFileReports = (status, reports) => {
-    for (let key in status) {
+    for (const key in status) {
         if (status.hasOwnProperty(key)) {
-            let item = status[key];
+            const item = status[key];
             item.report = reports['job_' + item.job_id + '_error_url'];
 
             // alphabetize any missing and duplicated headers
@@ -244,9 +244,9 @@ const getFileReports = (status, reports) => {
 };
 
 const getFileWarningReports = (status, reports) => {
-    for (let key in status) {
+    for (const key in status) {
         if (status.hasOwnProperty(key)) {
-            let item = status[key];
+            const item = status[key];
             item.warning_report = reports['job_' + item.job_id + '_warning_url'];
 
             // alphabetize any missing and duplicated headers
@@ -266,7 +266,7 @@ const getCrossFileReports = (type, crossFile, reports) => {
         keyPrefix = 'cross_warning_';
     }
 
-    for (let key in crossFile) {
+    for (const key in crossFile) {
         if (crossFile.hasOwnProperty(key)) {
             crossFileReports[key] = reports[keyPrefix + key];
         }
@@ -282,7 +282,7 @@ export const validateSubmission = (submissionId) => {
     const store = new StoreSingleton().store;
     store.dispatch(uploadActions.setSubmissionId(submissionId));
     // determine the expected cross file validation keys and metadata
-    let possiblePairs = determineExpectedPairs();
+    const possiblePairs = determineExpectedPairs();
     store.dispatch(uploadActions.setExpectedCrossPairs(possiblePairs));
 
     const validKeys = [];
@@ -370,12 +370,8 @@ export const validateDetachedSubmission = (submissionId) => {
 export const listUsers = () => {
     const deferred = Q.defer();
 
-    let request = {
-        status: "approved"
-    };
-
     Request.get(kGlobalConstants.API + 'list_user_emails/')
-        .send(request)
+        .send({ status: "approved" })
         .end((err, res) => {
             if (err) {
                 deferred.reject(err);

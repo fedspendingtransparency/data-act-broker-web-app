@@ -61,8 +61,8 @@ export default class ErrorBox extends React.Component {
     }
 
     stagedFiles() {
-        let leftFile = this.props.submission.files[this.props.meta.firstKey];
-        let rightFile = this.props.submission.files[this.props.meta.secondKey];
+        const leftFile = this.props.submission.files[this.props.meta.firstKey];
+        const rightFile = this.props.submission.files[this.props.meta.secondKey];
 
         const stagedFiles = [];
         let firstType = '';

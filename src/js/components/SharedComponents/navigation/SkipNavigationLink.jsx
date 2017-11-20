@@ -11,7 +11,7 @@ export default class SkipNavigationLink extends React.Component {
         e.preventDefault();
 
         // find the content item
-        let target = document.querySelector('[data-contentstart="start"]');
+        const target = document.querySelector('[data-contentstart="start"]');
         if (target) {
             target.focus();
         }

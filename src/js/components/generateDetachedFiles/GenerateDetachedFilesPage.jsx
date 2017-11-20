@@ -180,8 +180,8 @@ export default class GenerateDetachedFilesPage extends React.Component {
 
     generateFile(file) {
         // generate specified file
-        let cgacCode = this.state.codeType !== 'frec_code' ? this.state.agency : '';
-        let frecCode = this.state.codeType === 'frec_code' ? this.state.agency : '';
+        const cgacCode = this.state.codeType !== 'frec_code' ? this.state.agency : '';
+        const frecCode = this.state.codeType === 'frec_code' ? this.state.agency : '';
 
         const tmpFile = Object.assign({}, this.state[file]);
         tmpFile.status = "generating";

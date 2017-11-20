@@ -100,11 +100,11 @@ export default class CrossFileOverlay extends React.Component {
 
     isReadyForUpload() {
         const expectedPairs = [];
-        for (let pair of this.props.submission.crossFileOrder) {
+        for (const pair of this.props.submission.crossFileOrder) {
             expectedPairs.push(pair.key);
         }
 
-        for (let key in this.props.submission.crossFile) {
+        for (const key in this.props.submission.crossFile) {
             // check if this is a valid cross-file pair
             if (_.indexOf(expectedPairs, key) === -1) {
                 continue;

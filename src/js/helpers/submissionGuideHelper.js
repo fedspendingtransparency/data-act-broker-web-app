@@ -41,7 +41,7 @@ export const getSubmissionPage = (submissionId) => {
             }
             else {
                 // Only skip the guide if the user wants to skip the guide
-                let pages = [
+                const pages = [
                     '/404',
                     '/validateData/' + submissionId,
                     '/generateFiles/' + submissionId,
@@ -50,8 +50,8 @@ export const getSubmissionPage = (submissionId) => {
                     '/reviewData/' + submissionId,
                     '/FABSaddData/' + submissionId
                 ];
-                let index = parseInt(res.body.step, 10);
-                let response = {
+                const index = parseInt(res.body.step, 10);
+                const response = {
                     url: pages[index],
                     page: index
                 };

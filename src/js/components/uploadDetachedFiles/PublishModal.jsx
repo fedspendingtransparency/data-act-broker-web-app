@@ -58,7 +58,7 @@ export default class PublishModal extends React.Component {
     }
 
     render() {
-        let publishable = this.state.rows.valid_rows !== 0;
+        const publishable = this.state.rows.valid_rows !== 0;
 
         let message = (<p>This will publish the {this.state.rows.valid_rows} data rows that have passed validation out
             of a total of {this.state.rows.total_rows} data rows in your FABS file</p>);

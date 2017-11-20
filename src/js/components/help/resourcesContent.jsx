@@ -87,9 +87,9 @@ export default class ResourcesContent extends React.Component {
     }
 
     render() {
-        let github = 'http://fedspendingtransparency.github.io/assets/docs/';
-        let community = 'https://community.max.gov/download/attachments/';
-        let aws = 'https://s3-us-gov-west-1.amazonaws.com/prod-data-act-web-static-files/sample-files/';
+        const github = 'http://fedspendingtransparency.github.io/assets/docs/';
+        const community = 'https://community.max.gov/download/attachments/';
+        const aws = 'https://s3-us-gov-west-1.amazonaws.com/prod-data-act-web-static-files/sample-files/';
 
         let content = (<div>
             <h5>Here are some resources to assist with your submission to FABS</h5>

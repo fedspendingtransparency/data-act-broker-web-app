@@ -316,7 +316,7 @@ class UploadDetachedFileValidation extends React.Component {
 
         // upload specified file
         this.props.setSubmissionState("uploading");
-        let submission = this.props.submission;
+        const submission = this.props.submission;
         submission.files.detached_award = this.state.detachedAward;
         submission.files.detached_award.file = item;
         submission.sub = this.state.submissionID;
@@ -325,7 +325,7 @@ class UploadDetachedFileValidation extends React.Component {
         submission.meta.subTierAgency = this.state.agency;
 
         // reset file and job status
-        let currentResults = this.state.jobResults;
+        const currentResults = this.state.jobResults;
         currentResults.detached_award.file_status = "";
         currentResults.detached_award.job_status = "";
         this.setState({

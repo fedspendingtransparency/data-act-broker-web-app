@@ -165,7 +165,7 @@ export default class ValidateValuesFileComponent extends React.Component {
 
     displayFileMeta() {
         let size = '--';
-        let rows = this.props.item.number_of_rows ? this.props.item.number_of_rows : '--';
+        const rows = this.props.item.number_of_rows ? this.props.item.number_of_rows : '--';
 
         if (this.props.item.file_size) {
             size = (this.props.item.file_size / 1000000).toFixed(2) + ' MB';
@@ -259,7 +259,7 @@ export default class ValidateValuesFileComponent extends React.Component {
         const warningBaseColors = { base: '#fdb81e', active: '#FF6F00', activeBorder: '#BF360C' };
         const errorBaseColors = { base: '#5d87bb', active: '#02bfe7', activeBorder: '#046b99' };
 
-        let errorMessage = this.state.error ? <UploadDetachedFilesError error={this.state.error} /> : null;
+        const errorMessage = this.state.error ? <UploadDetachedFilesError error={this.state.error} /> : null;
         let warningSection = null;
         let errorSection = null;
         if (this.state.showWarning) {

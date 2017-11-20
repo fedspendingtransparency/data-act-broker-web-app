@@ -53,7 +53,7 @@ const establishSession = (responseHeaders) => {
 
     // lowercase all the headers
     const headers = {};
-    for (let headerKey in responseHeaders) {
+    for (const headerKey in responseHeaders) {
         if (responseHeaders.hasOwnProperty(headerKey)) {
             headers[headerKey.toLowerCase()] = _.clone(responseHeaders[headerKey]);
         }

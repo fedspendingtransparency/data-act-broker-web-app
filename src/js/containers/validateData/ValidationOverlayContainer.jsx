@@ -50,7 +50,7 @@ class ValidationOverlayContainer extends React.Component {
         // check if the critical error files are selected for re-upload
         const fileKeys = Object.keys(this.props.submission.files);
         const requiredKeys = [];
-        for (let key in this.props.submission.validation) {
+        for (const key in this.props.submission.validation) {
             if (this.props.submission.validation.hasOwnProperty(key)) {
                 const value = this.props.submission.validation[key];
                 if (value.error_data.length > 0) {

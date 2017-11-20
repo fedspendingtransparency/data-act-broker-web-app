@@ -16,7 +16,7 @@ export default class DaimsMessage extends React.Component {
 
     render() {
         let type = <span>.</span>;
-        let version = 'v2.0';
+        const version = 'v2.0';
         if (this.props.type === 'practices') {
             type = (<span> and its
                 <a href={"https://community.max.gov/download/attachments/1286474850/DAIMS_Practices_Procedures_" +

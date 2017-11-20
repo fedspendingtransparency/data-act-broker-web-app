@@ -92,8 +92,8 @@ export default class ValidateDataFileComponent extends React.Component {
         let errorData = [];
 
         // handle header errors
-        let missingHeaders = item.missing_headers ? item.missing_headers.length : 0;
-        let duplicatedHeaders = item.duplicated_headers ? item.duplicated_headers.length : 0;
+        const missingHeaders = item.missing_headers ? item.missing_headers.length : 0;
+        const duplicatedHeaders = item.duplicated_headers ? item.duplicated_headers.length : 0;
         if (missingHeaders > 0 || duplicatedHeaders > 0) {
             let errorKeys = [];
             isError = true;

@@ -15,7 +15,7 @@ export default class LoadingPage extends React.Component {
     }
 
     render() {
-        let dummy = {
+        const dummy = {
             jobs: [],
             cgac_code: '',
             frec_code: '',

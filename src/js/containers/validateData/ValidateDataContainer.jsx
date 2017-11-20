@@ -93,7 +93,7 @@ class ValidateDataContainer extends React.Component {
         let hasHeaderErrors = false;
 
         // iterate through the data to look for header errors, validation failures, and incomplete validations
-        for (let key of singleFileValidations) {
+        for (const key of singleFileValidations) {
             if (!this.props.submission.validation.hasOwnProperty(key)) {
                 // required files don't exist, fail
                 this.setState({

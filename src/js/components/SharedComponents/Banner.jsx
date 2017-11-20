@@ -43,7 +43,7 @@ export default class Banner extends React.Component {
     }
 
     getRows() {
-        let msg = [];
+        const msg = [];
         for (let i = 0; i < this.state.appWindow.length; i++) {
             msg.push(
                 <div key={'banner' + i} className="published-submission-warning-banner">
@@ -69,7 +69,7 @@ export default class Banner extends React.Component {
                 if (!res.data) {
                     return;
                 }
-                let appWindow = [];
+                const appWindow = [];
                 for (let i = 0; i < res.data.length; i++) {
                     if (res.data[i].type.toLowerCase() === this.state.type.toLowerCase() ||
                         res.data[i].type.toLowerCase() === 'all') {
@@ -86,7 +86,7 @@ export default class Banner extends React.Component {
     }
 
     render() {
-        let message = this.getRows();
+        const message = this.getRows();
         return (
             <div>
                 {message}

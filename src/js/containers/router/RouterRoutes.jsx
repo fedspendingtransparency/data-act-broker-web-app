@@ -23,7 +23,7 @@ const getStore = () => {
 const performAutoLogin = (location, replace) => {
     getStore();
 
-    let session = store.getState().session;
+    const session = store.getState().session;
 
     const path = location.pathname;
     const search = location.search;
@@ -115,7 +115,7 @@ const checkHelpUserPermissions = (nextState, replace) => {
 };
 
 const getRoutes = () => {
-    let returnRoutes = [
+    const returnRoutes = [
         {
             path: 'login',
             component: LoginPage
@@ -227,7 +227,7 @@ const getRoutes = () => {
     ];
 
     // Duplicated routes for FABS/DABS
-    let sharedRoutes = [
+    const sharedRoutes = [
         {
             path: 'landing',
             onEnter: [checkUserPermissions],

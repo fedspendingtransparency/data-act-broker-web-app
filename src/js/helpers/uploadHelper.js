@@ -10,7 +10,7 @@ import * as uploadActions from '../redux/actions/uploadActions.js';
 
 const uploadLocalFile = (file, type) => {
     const deferred = Q.defer();
-    let formData = new FormData();
+    const formData = new FormData();
     formData.append('file', file);
 
     Request.post(kGlobalConstants.API + 'local_upload/')
@@ -46,7 +46,7 @@ const finalizeUpload = (fileID) => {
 };
 
 const finalizeMultipleUploads = (fileIds) => {
-    let operations = [];
+    const operations = [];
 
     fileIds.forEach((fileID) => {
         operations.push(finalizeUpload(fileID));
@@ -75,7 +75,7 @@ const prepareFiles = (fileDict) => {
 };
 
 const prepareMetadata = (metadata, request) => {
-    let tmpRequest = Object.assign({}, request);
+    const tmpRequest = Object.assign({}, request);
     // add the metadata to the request
     tmpRequest.cgac_code = metadata.codeType === 'cgac_code' ? metadata.agency : null;
     tmpRequest.frec_code = metadata.codeType === 'frec_code' ? metadata.agency : null;
@@ -103,7 +103,7 @@ export const performLocalUpload = (submission) => {
     const types = [];
     let submissionID = null;
 
-    for (let fileType in submission.files) {
+    for (const fileType in submission.files) {
         if (submission.files.hasOwnProperty(fileType)) {
             const file = submission.files[fileType].file;
             uploadOperations.push(uploadLocalFile(file, fileType));
@@ -247,11 +247,11 @@ const uploadS3File = (file, fileID, key, credentials, fileType) => {
 };
 
 const uploadMultipleFiles = (submission, serverData) => {
-    let operations = [];
+    const operations = [];
 
     const credentials = serverData.credentials;
 
-    for (let fileType in submission.files) {
+    for (const fileType in submission.files) {
         if (submission.files.hasOwnProperty(fileType)) {
             const file = submission.files[fileType].file;
             const fileID = serverData[fileType + '_id'];
@@ -272,7 +272,7 @@ export const performRemoteUpload = (submission) => {
 
     let request = {};
 
-    for (let fileType in submission.files) {
+    for (const fileType in submission.files) {
         if (submission.files.hasOwnProperty(fileType)) {
             const file = submission.files[fileType].file;
             request[fileType] = file.name;
@@ -312,10 +312,10 @@ export const performRemoteCorrectedUpload = (submission) => {
     const store = new StoreSingleton().store;
     store.dispatch(uploadActions.setSubmissionState('uploading'));
 
-    let request = {
+    const request = {
         existing_submission_id: submission.id
     };
-    for (let fileType in submission.files) {
+    for (const fileType in submission.files) {
         if (submission.files.hasOwnProperty(fileType)) {
             const file = submission.files[fileType].file;
             request[fileType] = file.name;
@@ -356,7 +356,7 @@ export const performLocalCorrectedUpload = (submission) => {
     const uploadOperations = [];
     const types = [];
 
-    for (let fileType in submission.files) {
+    for (const fileType in submission.files) {
         if (submission.files.hasOwnProperty(fileType)) {
             const file = submission.files[fileType].file;
             uploadOperations.push(uploadLocalFile(file, fileType));
@@ -405,7 +405,7 @@ export const performDetachedFileUpload = (submission) => {
 
     let request = {};
 
-    for (let fileType in submission.files) {
+    for (const fileType in submission.files) {
         if (submission.files.hasOwnProperty(fileType)) {
             const file = submission.files[fileType].file;
             request[fileType] = file.name;
@@ -446,11 +446,11 @@ export const performDetachedFileCorrectedUpload = (submission) => {
     const store = new StoreSingleton().store;
     store.dispatch(uploadActions.setSubmissionState('uploading'));
 
-    let request = {
+    const request = {
         existing_submission_id: submission.id
     };
 
-    for (let fileType in submission.files) {
+    for (const fileType in submission.files) {
         if (submission.files.hasOwnProperty(fileType)) {
             const file = submission.files[fileType].file;
             request[fileType] = file.name;
@@ -497,7 +497,7 @@ export const performDetachedLocalUpload = (submission) => {
     const types = [];
     let submissionID = null;
 
-    for (let fileType in submission.files) {
+    for (const fileType in submission.files) {
         if (submission.files.hasOwnProperty(fileType)) {
             const file = submission.files[fileType].file;
             uploadOperations.push(uploadLocalFile(file, fileType));
@@ -554,7 +554,7 @@ export const performDetachedLocalCorrectedUpload = (submission) => {
     const types = [];
     let submissionID = null;
 
-    for (let fileType in submission.files) {
+    for (const fileType in submission.files) {
         if (submission.files.hasOwnProperty(fileType)) {
             const file = submission.files[fileType].file;
             uploadOperations.push(uploadLocalFile(file, fileType));

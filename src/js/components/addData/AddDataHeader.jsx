@@ -70,7 +70,7 @@ export default class AddDataHeader extends React.Component {
     loadData(submissionID) {
         ReviewHelper.fetchStatus(submissionID)
                 .then((data) => {
-                    let tmpData = data;
+                    const tmpData = data;
                     tmpData.ready = true;
                     if (!this.isUnmounted) {
                         this.setState(tmpData);
@@ -84,7 +84,7 @@ export default class AddDataHeader extends React.Component {
     render() {
         let submissionContext = null;
         if (this.state.ready) {
-            let formattedTime = moment.utc(this.state.last_updated).local().format('MM/DD/YYYY h:mm a');
+            const formattedTime = moment.utc(this.state.last_updated).local().format('MM/DD/YYYY h:mm a');
             submissionContext = (<SubmissionContext
                 formattedTime={formattedTime}
                 agencyName={this.state.agency_name}

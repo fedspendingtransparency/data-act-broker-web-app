@@ -5,7 +5,7 @@ export const checkPermissions = (session) => {
     if (!session.user.affiliations || session.user.affiliations.length === 0) {
         return false;
     }
-    let aff = session.user.affiliations;
+    const aff = session.user.affiliations;
     for (let i = 0; i < aff.length; i++) {
         if (aff[i].permission === 'writer' || aff[i].permission === 'submitter') {
             return true;
@@ -21,7 +21,7 @@ export const checkFabsPermissions = (session) => {
     if (!session.user.affiliations || session.user.affiliations.length === 0) {
         return false;
     }
-    let aff = session.user.affiliations;
+    const aff = session.user.affiliations;
     for (let i = 0; i < aff.length; i++) {
         if (aff[i].permission === 'fabs') {
             return true;
@@ -37,7 +37,7 @@ export const checkAgencyPermissions = (session, agencyName) => {
     if (!session.user.affiliations || session.user.affiliations.length === 0) {
         return false;
     }
-    let aff = session.user.affiliations;
+    const aff = session.user.affiliations;
     for (let i = 0; i < aff.length; i++) {
         if (aff[i].agency_name === agencyName && (aff[i].permission === 'writer' ||
             aff[i].permission === 'submitter')) {
@@ -54,7 +54,7 @@ export const checkFabsAgencyPermissions = (session, agencyName) => {
     if (!session.user.affiliations || session.user.affiliations.length === 0) {
         return false;
     }
-    let aff = session.user.affiliations;
+    const aff = session.user.affiliations;
     for (let i = 0; i < aff.length; i++) {
         if (aff[i].agency_name === agencyName && aff[i].permission === 'fabs') {
             return true;

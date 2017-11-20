@@ -29,15 +29,15 @@ export default class LandingRequirementsBody extends React.Component {
     }
 
     render() {
-        let awsS3 = "https://s3-us-gov-west-1.amazonaws.com/prod-data-act-web-static-files/";
+        const awsS3 = "https://s3-us-gov-west-1.amazonaws.com/prod-data-act-web-static-files/";
         let windowWarning = null;
-        let windowBlock = this.windowBlocked();
+        const windowBlock = this.windowBlocked();
         if (windowBlock) {
             windowWarning = (<strong>{"Note: You cannot certify until " +
                 Moment(windowBlock.end_date).format("dddd, MMMM D, YYYY")}</strong>);
         }
 
-        let resources = this.props.type === 'fabs' ? '#/FABSResources' : '#/resources';
+        const resources = this.props.type === 'fabs' ? '#/FABSResources' : '#/resources';
         let header = "You'll need the following files in order to complete your submission";
         let body = (<div>
             <p>

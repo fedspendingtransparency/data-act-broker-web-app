@@ -34,7 +34,7 @@ export default class HistoryTable extends React.Component {
     componentDidMount() {
         SubmissionListHelper.loadSubmissionHistory(this.props.submissionID)
             .then((response) => {
-                let tmpResponse = response;
+                const tmpResponse = response;
                 tmpResponse.active = 0;
                 this.setState(tmpResponse);
             })
@@ -55,7 +55,7 @@ export default class HistoryTable extends React.Component {
     }
 
     getSignedUrl(index) {
-        let certFile = this.state.certifications[this.state.active].certified_files[index];
+        const certFile = this.state.certifications[this.state.active].certified_files[index];
         this.setState({
             warning: {
                 active: true,
@@ -91,8 +91,8 @@ export default class HistoryTable extends React.Component {
         if (this.isUnmounted && this.state.certifications[this.state.active].certified_files) {
             return null;
         }
-        let activeSubmissionsFiles = this.state.certifications[this.state.active].certified_files;
-        let list = [];
+        const activeSubmissionsFiles = this.state.certifications[this.state.active].certified_files;
+        const list = [];
         for (let i = 0; i < activeSubmissionsFiles.length; i++) {
             list.push(<li className="file-link" onClick={this.getSignedUrl.bind(this, i)} key={i}>
                 {activeSubmissionsFiles[i].filename}</li>);
@@ -104,8 +104,8 @@ export default class HistoryTable extends React.Component {
         if (this.isUnmounted) {
             return null;
         }
-        let list = [];
-        let certifications = this.state.certifications;
+        const list = [];
+        const certifications = this.state.certifications;
         for (let i = 0; i < certifications.length; i++) {
             if (this.state.active === i) {
                 list.push(<li key={i}>

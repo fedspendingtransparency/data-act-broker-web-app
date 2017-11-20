@@ -87,7 +87,7 @@ export default class ValidateDataErrorReport extends React.Component {
                     rowData = _.reverse(_.clone(errorData.data));
                 }
 
-                let rows = [];
+                const rows = [];
                 rowData.forEach((row) => {
                     rows.push([row]);
                 });

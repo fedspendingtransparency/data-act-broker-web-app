@@ -20,7 +20,7 @@ export default class SubmissionComponent extends React.Component {
         super(props);
     }
     render() {
-        let submissionItems = [];
+        const submissionItems = [];
 
         for (let i = 0; i < this.props.files.length; i++) {
             const fileVars = this.props.files[i];

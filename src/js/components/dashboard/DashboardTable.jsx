@@ -165,8 +165,8 @@ export default class DashboardTable extends React.Component {
         // iterate through the recent activity
         const output = [];
         const rowClasses = [];
-        let progressSize = this.props.type === 'fabs' ? 15 : 20;
-        let viewSize = this.props.type === 'fabs' ? 15 : 10;
+        const progressSize = this.props.type === 'fabs' ? 15 : 20;
+        const viewSize = this.props.type === 'fabs' ? 15 : 10;
         let classes = ['row-10 text-center', 'row-20 text-left', 'row-15 white-space', 'row-12_5', 'row-12_5',
             'row-' + progressSize + ' progress-cell', 'row-10 text-center'];
 
@@ -182,7 +182,7 @@ export default class DashboardTable extends React.Component {
         // iterate through each item returned from the API
         this.props.data.forEach((item, index) => {
             // break the object out into an array for the table component
-            let row = this.formatRow(item, index);
+            const row = this.formatRow(item, index);
 
             rowClasses.push(classes);
             output.push(row);
@@ -217,9 +217,9 @@ export default class DashboardTable extends React.Component {
             reportingDateString = 'No reporting period\nspecified';
         }
 
-        let userName = item.hasOwnProperty('user') ? item.user.name : '--';
+        const userName = item.hasOwnProperty('user') ? item.user.name : '--';
 
-        let deleteConfirm = this.state.deleteIndex !== -1 && index === this.state.deleteIndex;
+        const deleteConfirm = this.state.deleteIndex !== -1 && index === this.state.deleteIndex;
 
         let link = <SubmissionLink submissionId={item.submission_id} type={this.state.type}/>;
 
@@ -237,7 +237,7 @@ export default class DashboardTable extends React.Component {
                 userName
             ];
 
-            let certifiedOn = item.certified_on !== "" ? this.convertToLocalDate(item.certified_on) :
+            const certifiedOn = item.certified_on !== "" ? this.convertToLocalDate(item.certified_on) :
                 item.certified_on;
             if (this.props.type === 'fabs') {
                 row = row.concat([
@@ -370,7 +370,7 @@ export default class DashboardTable extends React.Component {
             loadingClass = ' loading';
         }
 
-        let headers = this.getHeaders();
+        const headers = this.getHeaders();
         // cannot be added to the const because if a user is read only then delete will not be created
         let unsortable = [0, 2, 5, 6];
         if (this.props.isCertified && this.state.type === 'fabs') {

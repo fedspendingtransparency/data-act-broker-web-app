@@ -26,9 +26,9 @@ export default class ValidationContent extends React.Component {
     }
 
     render() {
-        let errors = [];
-        let warnings = [];
-        let items = fileTypes.map((type, index) => {
+        const errors = [];
+        const warnings = [];
+        const items = fileTypes.map((type, index) => {
             const data = this.props.submission.validation;
             const fileData = data[type.requestName];
 

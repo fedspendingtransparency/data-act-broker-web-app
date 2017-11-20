@@ -12,12 +12,10 @@ const propTypes = {
 
 export default class ReviewDataButton extends React.Component {
     render() {
-        let iconName = this.props.icon;
-
         return (
             <div className="usa-da-review-data-button-holder">
                 <button className="usa-button-big usa-button-disabled">
-                    <span className="usa-da-icon">{iconName}</span> &nbsp;{this.props.label}
+                    <span className="usa-da-icon">{this.props.icon}</span> &nbsp;{this.props.label}
                 </button>
             </div>
         );
