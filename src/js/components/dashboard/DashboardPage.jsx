@@ -3,11 +3,15 @@
   * Created by Kevin Li 10/21/16
   **/
 
-import React from 'react';
+import React, { PropTypes } from 'react';
 import Navbar from '../SharedComponents/navigation/NavigationComponent.jsx';
 import Footer from '../SharedComponents/FooterComponent.jsx';
 import DashboardContainer from '../../containers/dashboard/DashboardContainer.jsx';
 import Banner from '../SharedComponents/Banner.jsx';
+
+const propTypes = {
+    route: PropTypes.object
+};
 
 export default class DashboardPage extends React.Component {
     constructor(props) {
@@ -52,3 +56,5 @@ export default class DashboardPage extends React.Component {
         );
     }
 }
+
+DashboardPage.propTypes = propTypes;

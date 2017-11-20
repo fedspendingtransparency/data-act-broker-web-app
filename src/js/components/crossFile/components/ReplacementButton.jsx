@@ -2,8 +2,13 @@
   * ReplacementButton.jsx
   * Created by Kevin Li 6/30/16
   **/
-import React from 'react';
+import React, { PropTypes } from 'react';
 import * as Icons from '../../SharedComponents/icons/Icons.jsx';
+
+const propTypes = {
+    buttonClicked: PropTypes.func,
+    expanded: PropTypes.bool
+};
 
 export default class ReplacementButton extends React.Component {
 
@@ -24,3 +29,5 @@ export default class ReplacementButton extends React.Component {
         );
     }
 }
+
+ReplacementButton.propTypes = propTypes;

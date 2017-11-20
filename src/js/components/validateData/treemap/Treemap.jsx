@@ -3,12 +3,21 @@
   * Created by Kevin Li 4/11/2016
   */
 
-import React from 'react';
+import React, { PropTypes } from 'react';
 import d3 from 'd3';
 import _ from 'lodash';
 import tinycolor from 'tinycolor2';
 
 import TreemapCell from './TreemapCell.jsx';
+
+const propTypes = {
+    clickedItem: PropTypes.func,
+    colors: PropTypes.object,
+    formattedData: PropTypes.object,
+    activeCell: PropTypes.number,
+    height: PropTypes.number,
+    width: PropTypes.number
+};
 
 const defaultProps = {
     width: 0,
@@ -116,4 +125,5 @@ export default class Treemap extends React.Component {
     }
 }
 
+Treemap.propTypes = propTypes;
 Treemap.defaultProps = defaultProps;

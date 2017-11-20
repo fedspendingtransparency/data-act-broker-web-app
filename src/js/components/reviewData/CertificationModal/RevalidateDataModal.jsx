@@ -3,13 +3,20 @@
   * Created by Nipun Monga 02/27/17
   **/
 
-import React from 'react';
+import React, { PropTypes } from 'react';
 import Modal from 'react-aria-modal';
 import { hashHistory } from 'react-router';
 import * as Icons from '../../SharedComponents/icons/Icons.jsx';
 
 import RevalidateButtons from './RevalidateButtons.jsx';
 import * as ReviewHelper from '../../../helpers/reviewHelper.js';
+
+const propTypes = {
+    closeModal: PropTypes.func,
+    data: PropTypes.object,
+    submissionID: PropTypes.string,
+    isOpen: PropTypes.bool
+};
 
 export default class RevalidateDataModal extends React.Component {
     constructor(props) {
@@ -61,7 +68,7 @@ export default class RevalidateDataModal extends React.Component {
     render() {
         let action = (<RevalidateButtons {...this.props}
             clickedRevalidateButton={this.clickedRevalidateButton.bind(this)}
-            revalidation_threshold={this.props.data.revalidation_threshold} />);
+            revalidationThreshold={this.props.data.revalidation_threshold} />);
 
         let hideClose = "";
         if (!this.state.closeable) {
@@ -99,3 +106,5 @@ export default class RevalidateDataModal extends React.Component {
         );
     }
 }
+
+RevalidateDataModal.propTypes = propTypes;

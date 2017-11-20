@@ -3,13 +3,16 @@
  * Created by Emily Gullo 9/15/2016
  **/
 
-import React from 'react';
+import React, { PropTypes } from 'react';
 import $ from 'jquery';
 import Reactable from 'reactable';
 import Papa from 'papaparse';
 import { generateProtectedUrls } from '../../helpers/util.js';
 import DaimsMessage from './daimsMessage.jsx';
 
+const propTypes = {
+    type: PropTypes.string
+};
 
 export default class ValidationRulesTableContent extends React.Component {
 
@@ -144,3 +147,5 @@ export default class ValidationRulesTableContent extends React.Component {
         );
     }
 }
+
+ValidationRulesTableContent.propTypes = propTypes;

@@ -3,8 +3,13 @@
   * Created by Kevin Li 7/14/16
   **/
 
-import React from 'react';
+import React, { PropTypes } from 'react';
 import * as Icons from './icons/Icons.jsx';
+
+const propTypes = {
+    description: PropTypes.string,
+    header: PropTypes.string
+};
 
 const defaultProps = {
     header: 'Unknown Agency',
@@ -22,4 +27,6 @@ export default class TypeaheadWarning extends React.Component {
         );
     }
 }
+
+TypeaheadWarning.propTypes = propTypes;
 TypeaheadWarning.defaultProps = defaultProps;

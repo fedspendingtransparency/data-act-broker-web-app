@@ -3,7 +3,13 @@
   * Created by Kevin li 5/26/16
   **/
 
-import React from 'react';
+import React, { PropTypes } from 'react';
+
+const propTypes = {
+    sectionId: PropTypes.string,
+    sectionName: PropTypes.string,
+    type: PropTypes.string
+};
 
 export default class HelpSidebarItem extends React.Component {
     render() {
@@ -17,3 +23,5 @@ export default class HelpSidebarItem extends React.Component {
         );
     }
 }
+
+HelpSidebarItem.propTypes = propTypes;

@@ -3,12 +3,13 @@
   * Created by Kevin Li 3/31/16
   */
 
-import React from 'react';
+import React, { PropTypes } from 'react';
 import * as Icons from '../icons/Icons.jsx';
 
 const propTypes = {
-    onSort: React.PropTypes.func.isRequired,
-    active: React.PropTypes.string
+    onSort: PropTypes.func.isRequired,
+    active: PropTypes.string,
+    col: PropTypes.number
 };
 
 const defaultProps = {

@@ -15,6 +15,9 @@ import moment from 'moment';
 import * as Icons from '../SharedComponents/icons/Icons.jsx';
 
 const propTypes = {
+    data: PropTypes.object,
+    params: PropTypes.object,
+    session: PropTypes.object,
     submissionID: PropTypes.string
 };
 

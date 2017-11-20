@@ -3,7 +3,7 @@
  * Created by Kevin Li 4/4/2016
  **/
 
-import React from 'react';
+import React, { PropTypes } from 'react';
 import _ from 'lodash';
 import ScrollableTable from '../../SharedComponents/table/ScrollableTable.jsx';
 
@@ -11,6 +11,16 @@ import ValidateValuesTreemap from './ValidateValuesTreemap.jsx';
 import * as Icons from '../../SharedComponents/icons/Icons.jsx';
 
 import * as ReviewHelper from '../../../helpers/reviewHelper.js';
+
+const propTypes = {
+    colors: PropTypes.object,
+    data: PropTypes.object,
+    dataKey: PropTypes.string,
+    fileType: PropTypes.string,
+    name: PropTypes.string,
+    reportType: PropTypes.string,
+    submission: PropTypes.string
+};
 
 const defaultProps = {
     dataKey: 'error_data'
@@ -173,4 +183,5 @@ export default class ValidateValuesErrorReport extends React.Component {
     }
 }
 
+ValidateValuesErrorReport.propTypes = propTypes;
 ValidateValuesErrorReport.defaultProps = defaultProps;

@@ -1,27 +1,17 @@
-import React from 'react';
+import React, { PropTypes } from 'react';
 import Navbar from '../SharedComponents/navigation/NavigationComponent.jsx';
 import ReviewDataContent from '../reviewData/ReviewLoading.jsx';
 import Footer from '../SharedComponents/FooterComponent.jsx';
 import AddDataHeader from './../addData/AddDataHeader.jsx';
 
+const propTypes = {
+    route: PropTypes.object,
+    submissionID: PropTypes.string
+};
+
 export default class LoadingPage extends React.Component {
     constructor(props) {
         super(props);
-    }
-
-    componentWillMount() {
-        let header = 'Your Submission is Loading';
-        let message = 'We are gathering your submissions state. Please wait while we gather your data';
-        if (this.props.message) {
-            message = this.props.message;
-        }
-        if (this.props.header) {
-            header = this.props.header;
-        }
-        this.setState({
-            message: message,
-            header: header
-        });
     }
 
     render() {
@@ -56,3 +46,5 @@ export default class LoadingPage extends React.Component {
         );
     }
 }
+
+LoadingPage.propTypes = propTypes;

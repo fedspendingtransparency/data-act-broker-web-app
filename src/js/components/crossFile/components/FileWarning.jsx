@@ -2,10 +2,16 @@
   * FileWarning.jsx
   * Created by Kevin Li 6/28/16
   **/
-import React from 'react';
+import React, { PropTypes } from 'react';
 import _ from 'lodash';
 import * as ReviewHelper from '../../../helpers/reviewHelper.js';
 import * as Icons from '../../SharedComponents/icons/Icons.jsx';
+
+const propTypes = {
+    meta: PropTypes.object,
+    submission: PropTypes.object,
+    files: PropTypes.array
+};
 
 const defaultProps = {
     files: []
@@ -152,4 +158,5 @@ export default class FileWarning extends React.Component {
     }
 }
 
+FileWarning.propTypes = propTypes;
 FileWarning.defaultProps = defaultProps;

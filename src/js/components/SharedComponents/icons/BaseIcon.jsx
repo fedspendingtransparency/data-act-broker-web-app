@@ -8,6 +8,7 @@ import svg4everybody from 'svg4everybody';
 import IconSingleton from './iconSingleton.js';
 
 const propTypes = {
+    alt: PropTypes.string,
     iconClass: PropTypes.string.isRequired,
     iconName: PropTypes.string.isRequired
 };

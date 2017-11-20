@@ -3,12 +3,19 @@
   * Created by Kevin Li 4/11/2016
   */
 
-import React from 'react';
+import React, { PropTypes } from 'react';
 import Dimensions from 'react-dimensions';
 import _ from 'lodash';
 import Treemap from '../treemap/Treemap.jsx';
 import TreemapHelp from './ValidateValuesTreemapHelp.jsx';
 import TreemapHelpPlaceholder from './ValidateValuesTreemapHelpPlaceholder.jsx';
+
+const propTypes = {
+    colors: PropTypes.object,
+    data: PropTypes.array,
+    containerWidth: PropTypes.number,
+    type: PropTypes.string
+};
 
 class ValidateValuesTreemap extends React.Component {
 
@@ -119,5 +126,7 @@ class ValidateValuesTreemap extends React.Component {
         );
     }
 }
+
+ValidateValuesTreemap.propTypes = propTypes;
 
 export default Dimensions()(ValidateValuesTreemap);

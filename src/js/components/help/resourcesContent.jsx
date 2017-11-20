@@ -3,10 +3,15 @@
  * Created by Emily Gullo 9/27/16
  **/
 
-import React from 'react';
+import React, { PropTypes } from 'react';
 import $ from 'jquery';
 import { generateProtectedUrls, rssFileKey } from '../../helpers/util.js';
 import DaimsMessage from './daimsMessage.jsx';
+
+const propTypes = {
+    section: PropTypes.object,
+    type: PropTypes.string
+};
 
 export default class ResourcesContent extends React.Component {
 
@@ -252,3 +257,5 @@ export default class ResourcesContent extends React.Component {
         );
     }
 }
+
+ResourcesContent.propTypes = propTypes;

@@ -3,9 +3,13 @@
  * Created by Mike Bray 6/21/16
  **/
 
-import React from 'react';
+import React, { PropTypes } from 'react';
 
 import * as Icons from '../SharedComponents/icons/Icons.jsx';
+
+const propTypes = {
+    buttonClicked: PropTypes.func
+};
 
 export default class CorrectButtonCornerOverlay extends React.Component {
     constructor(props) {
@@ -23,3 +27,5 @@ export default class CorrectButtonCornerOverlay extends React.Component {
         );
     }
 }
+
+CorrectButtonCornerOverlay.propTypes = propTypes;

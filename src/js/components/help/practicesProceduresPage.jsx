@@ -3,13 +3,18 @@
  * Created by Emily Gullo 9/2/16
  **/
 
-import React from 'react';
+import React, { PropTypes } from 'react';
 import Navbar from '../SharedComponents/navigation/NavigationComponent.jsx';
 import PracticesProceduresContent from './practicesProceduresContent.jsx';
 import Banner from '../SharedComponents/Banner.jsx';
 import Footer from '../SharedComponents/FooterComponent.jsx';
 
 import * as Icons from '../SharedComponents/icons/Icons.jsx';
+
+const propTypes = {
+    type: PropTypes.string,
+    helpOnly: PropTypes.bool
+};
 
 export default class PracticesProceduresPage extends React.Component {
     constructor(props) {
@@ -57,3 +62,5 @@ export default class PracticesProceduresPage extends React.Component {
         );
     }
 }
+
+PracticesProceduresPage.propTypes = propTypes;

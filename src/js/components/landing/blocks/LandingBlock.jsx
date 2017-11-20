@@ -3,16 +3,17 @@
   * Created by Kevin Li 5/17/16
   **/
 
-import React from 'react';
+import React, { PropTypes } from 'react';
 
 const propTypes = {
-    icon: React.PropTypes.element,
-    text: React.PropTypes.string,
-    buttonText: React.PropTypes.string,
-    url: React.PropTypes.string,
-    disabled: React.PropTypes.bool,
-    comingSoon: React.PropTypes.string,
-    type: React.PropTypes.string
+    children: PropTypes.object,
+    icon: PropTypes.element,
+    text: PropTypes.string,
+    buttonText: PropTypes.string,
+    url: PropTypes.string,
+    disabled: PropTypes.bool,
+    comingSoon: PropTypes.string,
+    type: PropTypes.string
 };
 
 const defaultProps = {

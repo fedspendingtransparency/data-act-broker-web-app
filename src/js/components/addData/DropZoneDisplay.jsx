@@ -1,6 +1,12 @@
-import React from 'react';
+import React, { PropTypes } from 'react';
 import FileProgress from '../SharedComponents/FileProgress.jsx';
 import * as Icons from '../SharedComponents/icons/Icons.jsx';
+
+const propTypes = {
+    displayMode: PropTypes.string,
+    string: PropTypes.string,
+    progress: PropTypes.number
+};
 
 const defaultProps = {
     showFile: false,
@@ -32,4 +38,6 @@ export default class DropZoneDisplay extends React.Component {
         );
     }
 }
+
+DropZoneDisplay.propTypes = propTypes;
 DropZoneDisplay.defaultProps = defaultProps;

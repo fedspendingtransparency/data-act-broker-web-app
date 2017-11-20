@@ -6,8 +6,10 @@
 import React, { PropTypes } from 'react';
 
 const propTypes = {
+    activeTabClassName: PropTypes.string.isRequired,
     tabClass: PropTypes.string.isRequired,
-    activeTabClassName: PropTypes.string.isRequired
+    name: PropTypes.string,
+    comingSoon: PropTypes.bool
 };
 
 const defaultProps = {

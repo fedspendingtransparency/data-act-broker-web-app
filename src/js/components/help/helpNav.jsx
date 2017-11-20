@@ -3,7 +3,13 @@
  * Created by Emily Gullo 9/27/16
  **/
 
-import React from 'react';
+import React, { PropTypes } from 'react';
+
+const propTypes = {
+    pageArray: PropTypes.array,
+    selected: PropTypes.string,
+    type: PropTypes.string
+};
 
 const defaultProps = {
     pageArray: ['Help', 'Resources', 'Validations']
@@ -34,4 +40,5 @@ export default class HelpNav extends React.Component {
     }
 }
 
+HelpNav.propTypes = propTypes;
 HelpNav.defaultProps = defaultProps;

@@ -3,10 +3,24 @@
 * Created by Kyle Fox 2/19/16
 **/
 
-import React from 'react';
+import React, { PropTypes } from 'react';
 import moment from 'moment';
 
 import * as ReviewHelper from '../../helpers/reviewHelper.js';
+
+const propTypes = {
+    params: PropTypes.object,
+    agencyName: PropTypes.string,
+    formattedTime: PropTypes.string,
+    submissionID: PropTypes.string,
+    timePeriodLabel: PropTypes.string,
+    title: PropTypes.string,
+    load: PropTypes.bool
+};
+
+const defaultProps = {
+    title: 'Upload & Validate a New Submission'
+};
 
 class SubmissionContext extends React.Component {
     render() {
@@ -21,10 +35,6 @@ class SubmissionContext extends React.Component {
         );
     }
 }
-
-const defaultProps = {
-    title: 'Upload & Validate a New Submission'
-};
 
 export default class AddDataHeader extends React.Component {
     constructor(props) {
@@ -98,4 +108,6 @@ export default class AddDataHeader extends React.Component {
     }
 }
 
+SubmissionContext.propTypes = propTypes;
+AddDataHeader.propTypes = propTypes;
 AddDataHeader.defaultProps = defaultProps;

@@ -3,9 +3,15 @@
  * Created by Emily Gullo 9/27/16
  **/
 
-import React from 'react';
+import React, { PropTypes } from 'react';
 import $ from 'jquery';
 import { generateProtectedUrls, rssFileKey } from '../../helpers/util.js';
+
+const propTypes = {
+    history: PropTypes.object,
+    section: PropTypes.string,
+    title: PropTypes.string
+};
 
 export default class HistoryContent extends React.Component {
 
@@ -64,3 +70,5 @@ export default class HistoryContent extends React.Component {
         );
     }
 }
+
+HistoryContent.propTypes = propTypes;

@@ -3,11 +3,17 @@
   * Created by Kevin Li 10/31/16
   **/
 
-import React from 'react';
+import React, { PropTypes } from 'react';
 import _ from 'lodash';
 
 import DashboardPaginatorItem from './DashboardPaginatorItem.jsx';
 import DashboardPaginatorArrow from './DashboardPaginatorArrow.jsx';
+
+const propTypes = {
+    changePage: PropTypes.func,
+    current: PropTypes.number,
+    total: PropTypes.number
+};
 
 const defaultProps = {
     current: 1,
@@ -122,4 +128,5 @@ export default class DashboardPaginator extends React.Component {
     }
 }
 
+DashboardPaginator.propTypes = propTypes;
 DashboardPaginator.defaultProps = defaultProps;

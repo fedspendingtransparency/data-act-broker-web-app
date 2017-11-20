@@ -3,9 +3,15 @@
 * Created by Michael Hess
 **/
 
-import React from 'react';
+import React, { PropTypes } from 'react';
 import FileComponent from '../addData/FileComponent.jsx';
 import LoadingBauble from '../SharedComponents/overlays/LoadingBauble.jsx';
+
+const propTypes = {
+    uploadFile: PropTypes.func,
+    detachedAward: PropTypes.object,
+    submission: PropTypes.object
+};
 
 export default class UploadDetachedFilesBox extends React.Component {
     uploadFile(file) {
@@ -37,3 +43,5 @@ export default class UploadDetachedFilesBox extends React.Component {
         );
     }
 }
+
+UploadDetachedFilesBox.propTypes = propTypes;

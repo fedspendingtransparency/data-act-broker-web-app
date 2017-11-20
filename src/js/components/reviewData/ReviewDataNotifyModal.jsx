@@ -3,7 +3,7 @@
  * Created by Mike Bray 6/5/16
  */
 
-import React from 'react';
+import React, { PropTypes } from 'react';
 import Modal from 'react-aria-modal';
 import _ from 'lodash';
 
@@ -12,6 +12,12 @@ import Typeahead from '../SharedComponents/Typeahead.jsx';
 
 import * as ReviewHelper from '../../helpers/reviewHelper.js';
 import * as Icons from '../SharedComponents/icons/Icons.jsx';
+
+const propTypes = {
+    closeModal: PropTypes.func,
+    submissionID: PropTypes.string,
+    isOpen: PropTypes.bool
+};
 
 const defaultProps = {
     isOpen: false,
@@ -157,4 +163,5 @@ export default class ReviewDataNotifyModal extends React.Component {
     }
 }
 
+ReviewDataNotifyModal.propTypes = propTypes;
 ReviewDataNotifyModal.defaultProps = defaultProps;

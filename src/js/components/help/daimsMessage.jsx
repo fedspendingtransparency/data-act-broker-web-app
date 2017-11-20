@@ -3,7 +3,11 @@
  * Created by Minahm Kim 6/30/2017
  **/
 
-import React from 'react';
+import React, { PropTypes } from 'react';
+
+const propTypes = {
+    type: PropTypes.string
+};
 
 export default class DaimsMessage extends React.Component {
     constructor(props) {
@@ -35,3 +39,5 @@ export default class DaimsMessage extends React.Component {
         );
     }
 }
+
+DaimsMessage.propTypes = propTypes;

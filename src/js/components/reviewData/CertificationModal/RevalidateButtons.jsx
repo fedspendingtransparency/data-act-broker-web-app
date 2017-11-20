@@ -3,7 +3,13 @@
   * Created by Nipun Monga 02/27/17
   **/
 
-import React from 'react';
+import React, { PropTypes } from 'react';
+
+const propTypes = {
+    closeModal: PropTypes.func,
+    clickedRevalidateButton: PropTypes.func,
+    revalidationThreshold: PropTypes.string
+};
 
 export default class RevalidateButtons extends React.Component {
     render() {
@@ -11,7 +17,7 @@ export default class RevalidateButtons extends React.Component {
             <div>
                 <div className="row">
                     <div className="col-md-12 mb-10 text-center" id="certify-check">
-                        This submission was created prior to {this.props.revalidation_threshold}.
+                        This submission was created prior to {this.props.revalidationThreshold}.
                         Please revalidate this submission before certifying it.
                     </div>
                 </div>
@@ -32,3 +38,5 @@ export default class RevalidateButtons extends React.Component {
         );
     }
 }
+
+RevalidateButtons.propTypes = propTypes;

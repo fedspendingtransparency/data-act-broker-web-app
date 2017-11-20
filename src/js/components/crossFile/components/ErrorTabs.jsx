@@ -3,7 +3,26 @@
   * Created by Kevin Li 8/29/16
   **/
 
-import React from 'react';
+import React, { PropTypes } from 'react';
+
+const propTypes = {
+    changeTab: PropTypes.func,
+    counts: PropTypes.object,
+    activeTab: PropTypes.string,
+    label: PropTypes.string,
+    status: PropTypes.string,
+    value: PropTypes.string,
+    count: PropTypes.number,
+    isActive: PropTypes.bool
+};
+
+const defaultProps = {
+    showTabs: "both",
+    counts: {
+        errors: 0,
+        warnings: 0
+    }
+};
 
 class TabItem extends React.Component {
     clickedTab(e) {
@@ -26,14 +45,6 @@ class TabItem extends React.Component {
         );
     }
 }
-
-const defaultProps = {
-    showTabs: "both",
-    counts: {
-        errors: 0,
-        warnings: 0
-    }
-};
 
 export default class ErrorTabs extends React.Component {
     constructor(props) {
@@ -101,4 +112,6 @@ export default class ErrorTabs extends React.Component {
     }
 }
 
+TabItem.propTypes = propTypes;
+ErrorTabs.propTypes = propTypes;
 ErrorTabs.defaultProps = defaultProps;

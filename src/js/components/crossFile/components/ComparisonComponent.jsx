@@ -3,8 +3,12 @@
   * Created by Kevin Li 6/14/16
   **/
 
-import React from 'react';
+import React, { PropTypes } from 'react';
 import * as Icons from '../../SharedComponents/icons/Icons.jsx';
+
+const propTypes = {
+    type: PropTypes.string
+};
 
 const defaultProps = {
     type: 'error'
@@ -38,4 +42,5 @@ export default class ComparisonComponent extends React.Component {
     }
 }
 
+ComparisonComponent.propTypes = propTypes;
 ComparisonComponent.defaultProps = defaultProps;

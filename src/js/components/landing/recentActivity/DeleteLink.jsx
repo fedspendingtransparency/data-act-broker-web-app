@@ -3,10 +3,19 @@
   * Created by Minahm Kim 02/09/17
   **/
 
-import React from 'react';
+import React, { PropTypes } from 'react';
 import * as Icons from '../../SharedComponents/icons/Icons.jsx';
 
 import DeleteModal from './DeleteModal.jsx';
+
+const propTypes = {
+    reload: PropTypes.func,
+    warning: PropTypes.func,
+    account: PropTypes.object,
+    item: PropTypes.object,
+    submissionId: PropTypes.number,
+    confirm: PropTypes.bool
+};
 
 export default class DeleteLink extends React.Component {
     constructor(props) {
@@ -96,3 +105,5 @@ export default class DeleteLink extends React.Component {
         );
     }
 }
+
+DeleteLink.propTypes = propTypes;

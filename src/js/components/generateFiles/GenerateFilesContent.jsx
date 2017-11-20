@@ -3,10 +3,17 @@
   * Created by Kevin Li 7/22/16
   **/
 
-import React from 'react';
+import React, { PropTypes } from 'react';
 
 import GenerateFileBox from './components/GenerateFileBox.jsx';
 import GenerateFilesOverlay from './GenerateFilesOverlay.jsx';
+
+const propTypes = {
+    handleDateChange: PropTypes.func,
+    updateError: PropTypes.func,
+    d1: PropTypes.object,
+    d2: PropTypes.object
+};
 
 export default class GenerateFilesContent extends React.Component {
 
@@ -58,3 +65,5 @@ export default class GenerateFilesContent extends React.Component {
         );
     }
 }
+
+GenerateFilesContent.propTypes = propTypes;

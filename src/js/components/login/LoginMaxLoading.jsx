@@ -3,9 +3,13 @@
   * Createdd by Kevin Li 10/14/16
   **/
 
-import React from 'react';
+import React, { PropTypes } from 'react';
 import LoginMaxErrorMessage from './components/LoginMaxErrorMessage.jsx';
 import LoadingBauble from '../SharedComponents/overlays/LoadingBauble.jsx';
+
+const propTypes = {
+    errorMessage: PropTypes.string
+};
 
 const maxUrl = "https://community.max.gov/pages/viewpage.action?spaceKey=TREASExternal&" +
     "title=DATA+Act+Broker+Registration";
@@ -46,3 +50,5 @@ export default class LoginMaxLoading extends React.Component {
         );
     }
 }
+
+LoginMaxLoading.propTypes = propTypes;

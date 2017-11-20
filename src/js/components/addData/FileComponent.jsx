@@ -8,7 +8,8 @@ import DropZoneContainer from '../../containers/addData/DropZoneContainer.jsx';
 
 const propTypes = {
     fileTitle: PropTypes.string.isRequired,
-    fileTemplateName: PropTypes.string.isRequired
+    fileTemplateName: PropTypes.string.isRequired,
+    requestName: PropTypes.string.isRequired
 };
 
 export default class FileComponent extends React.Component {

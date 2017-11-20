@@ -3,9 +3,14 @@
  * Created by Mike Bray 6/5/16
  */
 
-import React from 'react';
+import React, { PropTypes } from 'react';
 
 import * as Icons from '../SharedComponents/icons/Icons.jsx';
+
+const propTypes = {
+    deselectUser: PropTypes.func,
+    user: PropTypes.object
+};
 
 export default class ReviewDataSelectedUser extends React.Component {
     constructor(props) {
@@ -25,3 +30,5 @@ export default class ReviewDataSelectedUser extends React.Component {
         );
     }
 }
+
+ReviewDataSelectedUser.propTypes = propTypes;

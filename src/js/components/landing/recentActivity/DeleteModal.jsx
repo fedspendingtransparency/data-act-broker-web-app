@@ -3,11 +3,18 @@
   * Created by Minahm Kim 03/10/17
   **/
 
-import React from 'react';
+import React, { PropTypes } from 'react';
 import Modal from 'react-aria-modal';
 import * as Icons from '../../SharedComponents/icons/Icons.jsx';
 
 import * as ReviewHelper from '../../../helpers/reviewHelper.js';
+
+const propTypes = {
+    closeModal: PropTypes.func,
+    delete: PropTypes.func,
+    id: PropTypes.number,
+    isOpen: PropTypes.bool
+};
 
 export default class DeleteModal extends React.Component {
     constructor(props) {
@@ -93,3 +100,5 @@ export default class DeleteModal extends React.Component {
         );
     }
 }
+
+DeleteModal.propTypes = propTypes;

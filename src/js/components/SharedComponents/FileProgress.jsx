@@ -6,6 +6,7 @@
 import React, { PropTypes } from 'react';
 
 const propTypes = {
+    fileStatus: PropTypes.number,
     progress: PropTypes.number.isRequired
 };
 

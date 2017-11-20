@@ -3,13 +3,18 @@
   * Created by Kevin Li 6/14/16
   **/
 
-import React from 'react';
+import React, { PropTypes } from 'react';
 import Navbar from '../SharedComponents/navigation/NavigationComponent.jsx';
 import AddDataHeader from './../addData/AddDataHeader.jsx';
 import Progress from '../SharedComponents/ProgressComponent.jsx';
 
 import CrossFileContentContainer from '../../containers/crossFile/CrossFileContentContainer.jsx';
 import CrossFileError from './CrossFileError.jsx';
+
+const propTypes = {
+    params: PropTypes.object,
+    route: PropTypes.object
+};
 
 export default class CrossFilePage extends React.Component {
     constructor(props) {
@@ -68,3 +73,5 @@ export default class CrossFilePage extends React.Component {
         );
     }
 }
+
+CrossFilePage.propTypes = propTypes;

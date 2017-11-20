@@ -3,13 +3,22 @@
   * Created by Kevin Li 8/24/16
   **/
 
-import React from 'react';
+import React, { PropTypes } from 'react';
 import * as Icons from '../SharedComponents/icons/Icons.jsx';
 import CommonOverlay from '../SharedComponents/overlays/CommonOverlay.jsx';
 import LoadingBauble from '../SharedComponents/overlays/LoadingBauble.jsx';
 
 import * as PermissionsHelper from '../../helpers/permissionsHelper.js';
 import * as ReviewHelper from '../../helpers/reviewHelper.js';
+
+const propTypes = {
+    generateFiles: PropTypes.func,
+    nextPage: PropTypes.func,
+    session: PropTypes.object,
+    submissionID: PropTypes.string,
+    hasErrors: PropTypes.bool,
+    isReady: PropTypes.bool
+};
 
 export default class GenerateEFOverlay extends React.Component {
     constructor(props) {
@@ -109,3 +118,5 @@ export default class GenerateEFOverlay extends React.Component {
         );
     }
 }
+
+GenerateEFOverlay.propTypes = propTypes;

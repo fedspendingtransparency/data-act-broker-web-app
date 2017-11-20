@@ -3,9 +3,13 @@
   * Created by Minahm Kim 6/12/17
   **/
 
-import React from 'react';
+import React, { PropTypes } from 'react';
 
 import * as FileHelper from '../../helpers/generateFilesHelper.js';
+
+const propTypes = {
+    submissionID: PropTypes.string
+};
 
 export default class HistoryTable extends React.Component {
     constructor(props) {
@@ -61,3 +65,5 @@ export default class HistoryTable extends React.Component {
         );
     }
 }
+
+HistoryTable.propTypes = propTypes;

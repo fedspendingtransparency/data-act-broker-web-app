@@ -3,7 +3,16 @@
   * Created by Kevin Li 6/20/16
   **/
 
-import React from 'react';
+import React, { PropTypes } from 'react';
+
+const propTypes = {
+    count: PropTypes.number,
+    description: PropTypes.string,
+    detail: PropTypes.string,
+    field: PropTypes.string,
+    title: PropTypes.string,
+    type: PropTypes.string
+};
 
 const defaultProps = {
     rule: 'Unspecified',
@@ -38,4 +47,5 @@ export default class ValidateValuesTreemapHelp extends React.Component {
     }
 }
 
+ValidateValuesTreemapHelp.propTypes = propTypes;
 ValidateValuesTreemapHelp.defaultProps = defaultProps;

@@ -3,10 +3,22 @@
   * Created by Kevin Li 7/25/16
   **/
 
-import React from 'react';
+import React, { PropTypes } from 'react';
 import * as Icons from '../../SharedComponents/icons/Icons.jsx';
 import DayPicker, { DateUtils } from 'react-day-picker';
 import moment from 'moment';
+
+const propTypes = {
+    onDateChange: PropTypes.func,
+    updateError: PropTypes.func,
+    opposite: PropTypes.object,
+    params: PropTypes.object,
+    value: PropTypes.object,
+    title: PropTypes.string,
+    type: PropTypes.string,
+    tabIndex: PropTypes.number,
+    disabled: PropTypes.bool
+};
 
 const defaultProps = {
     type: 'startDate',
@@ -226,4 +238,5 @@ export default class DatePicker extends React.Component {
     }
 }
 
+DatePicker.propTypes = propTypes;
 DatePicker.defaultProps = defaultProps;

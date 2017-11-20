@@ -3,9 +3,17 @@
 * Created by Alisa Burdeyny
 **/
 
-import React from 'react';
+import React, { PropTypes } from 'react';
 import GenerateFileBox from '../generateFiles/components/GenerateFileBox.jsx';
 import LoadingBauble from '../SharedComponents/overlays/LoadingBauble.jsx';
+
+const propTypes = {
+    generateFile: PropTypes.func,
+    handleDateChange: PropTypes.func,
+    updateError: PropTypes.func,
+    d1: PropTypes.object,
+    d2: PropTypes.object
+};
 
 export default class DateSelect extends React.Component {
     handleDateChange(file, date, dateType) {
@@ -79,3 +87,5 @@ export default class DateSelect extends React.Component {
         );
     }
 }
+
+DateSelect.propTypes = propTypes;

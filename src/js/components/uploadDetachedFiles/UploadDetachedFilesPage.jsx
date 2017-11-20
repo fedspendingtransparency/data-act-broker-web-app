@@ -3,7 +3,7 @@
 * Created by MichaelHess
 **/
 
-import React from 'react';
+import React, { PropTypes } from 'react';
 
 import Footer from '../SharedComponents/FooterComponent.jsx';
 import Navbar from '../SharedComponents/navigation/NavigationComponent.jsx';
@@ -13,6 +13,14 @@ import UploadDetachedFileValidation from './UploadDetachedFileValidation.jsx';
 
 import { hashHistory } from 'react-router';
 
+const propTypes = {
+    setSubmissionId: PropTypes.func,
+    setSubmissionState: PropTypes.func,
+    history: PropTypes.object,
+    params: PropTypes.object,
+    route: PropTypes.object,
+    submission: PropTypes.object
+};
 
 export default class UploadDetachedFilesPage extends React.Component {
     constructor(props) {
@@ -89,3 +97,5 @@ export default class UploadDetachedFilesPage extends React.Component {
         );
     }
 }
+
+UploadDetachedFilesPage.propTypes = propTypes;

@@ -3,8 +3,15 @@
   * Created by Kevin Li 8/24/16
   **/
 
-import React from 'react';
+import React, { PropTypes } from 'react';
 import * as Icons from '../../SharedComponents/icons/Icons.jsx';
+
+const propTypes = {
+    description: PropTypes.string,
+    title: PropTypes.string,
+    type: PropTypes.string,
+    comingSoon: PropTypes.bool
+};
 
 const defaultProps = {
     comingSoon: false
@@ -93,4 +100,5 @@ export default class GenerateEFItem extends React.Component {
     }
 }
 
+GenerateEFItem.propTypes = propTypes;
 GenerateEFItem.defaultProps = defaultProps;

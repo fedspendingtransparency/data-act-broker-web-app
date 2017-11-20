@@ -3,7 +3,7 @@
  * Created by Kevin Li 4/4/2016
  **/
 
-import React from 'react';
+import React, { PropTypes } from 'react';
 import FileProgress from '../../SharedComponents/FileProgress.jsx';
 import ValidateDataUploadButton from './../ValidateDataUploadButton.jsx';
 import ValidateValuesErrorReport from './ValidateValuesErrorReport.jsx';
@@ -14,6 +14,17 @@ import * as GenerateFilesHelper from '../../../helpers/generateFilesHelper.js';
 import * as PermissionsHelper from '../../../helpers/permissionsHelper.js';
 
 import UploadDetachedFilesError from '../../uploadDetachedFiles/UploadDetachedFilesError.jsx';
+
+const propTypes = {
+    onFileChange: PropTypes.func,
+    removeFile: PropTypes.func,
+    item: PropTypes.object,
+    session: PropTypes.object,
+    submission: PropTypes.object,
+    type: PropTypes.object,
+    agencyName: PropTypes.string,
+    published: PropTypes.string
+};
 
 export default class ValidateValuesFileComponent extends React.Component {
     constructor(props) {
@@ -316,3 +327,5 @@ export default class ValidateValuesFileComponent extends React.Component {
         );
     }
 }
+
+ValidateValuesFileComponent.propTypes = propTypes;

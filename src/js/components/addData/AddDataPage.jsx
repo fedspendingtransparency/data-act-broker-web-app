@@ -3,7 +3,7 @@
 * Created by Katie Rose 12/7/15
 **/
 
-import React from 'react';
+import React, { PropTypes } from 'react';
 import Navbar from '../SharedComponents/navigation/NavigationComponent.jsx';
 import AddDataHeader from './AddDataHeader.jsx';
 import AddDataMeta from './AddDataMeta.jsx';
@@ -12,6 +12,11 @@ import Footer from '../SharedComponents/FooterComponent.jsx';
 
 import Banner from '../SharedComponents/Banner.jsx';
 
+const propTypes = {
+    updateMetaData: PropTypes.func,
+    route: PropTypes.object,
+    submission: PropTypes.object
+};
 
 export default class AddDataPage extends React.Component {
     constructor(props) {
@@ -41,3 +46,5 @@ export default class AddDataPage extends React.Component {
         );
     }
 }
+
+AddDataPage.propTypes = propTypes;

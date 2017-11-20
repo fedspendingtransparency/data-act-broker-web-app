@@ -10,12 +10,18 @@ import Awesomplete from 'awesomplete';
 import TypeaheadWarning from './TypeaheadWarning.jsx';
 
 const propTypes = {
-    values: PropTypes.array.isRequired,
-    placeholder: PropTypes.string,
+    formatter: PropTypes.func,
     onSelect: PropTypes.func.isRequired,
+    internalValue: PropTypes.array,
+    values: PropTypes.array.isRequired,
     customClass: PropTypes.string,
+    errorHeader: PropTypes.string,
+    errorDescription: PropTypes.string,
     keyValue: PropTypes.string,
-    internalValue: PropTypes.array
+    placeholder: PropTypes.string,
+    tabIndex: PropTypes.number,
+    isRequired: PropTypes.bool,
+    prioritySort: PropTypes.bool
 };
 
 const defaultProps = {
@@ -208,7 +214,7 @@ export default class Typeahead extends React.Component {
         }
 
         let disabledClass = "";
-        if (this.props.disabled) {
+        if (disabled) {
             disabledClass = " disabled";
         }
 
@@ -216,7 +222,7 @@ export default class Typeahead extends React.Component {
             <div className={"usa-da-typeahead" + disabledClass}>
                 <input className={this.props.customClass} ref="awesomplete" type="text" placeholder={placeholder}
                     value={this.state.value} onChange={this.changedText.bind(this)} tabIndex={this.props.tabIndex}
-                    disabled={disabled} aria-required={this.props.isRequired} disabled={this.props.disabled}/>
+                    disabled={disabled} aria-required={this.props.isRequired} />
                 {warning}
             </div>
         );

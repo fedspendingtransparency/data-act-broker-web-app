@@ -13,6 +13,8 @@ import ValidateDataContainer from '../../containers/validateData/ValidateDataCon
 import * as ReviewHelper from '../../helpers/reviewHelper.js';
 
 const propTypes = {
+    params: PropTypes.object,
+    route: PropTypes.object,
     submissionId: PropTypes.string,
     subID: PropTypes.string,
     csv_url: PropTypes.array,
@@ -140,6 +142,7 @@ export default class ValidateDataPage extends React.Component {
     }
 }
 
+DownloadLink.propTypes = propTypes;
 GetErrors.propTypes = propTypes;
 ValidateDataPage.propTypes = propTypes;
 ValidateDataPage.defaultProps = defaultProps;

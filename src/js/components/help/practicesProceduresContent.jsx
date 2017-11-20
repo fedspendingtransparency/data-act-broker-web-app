@@ -3,10 +3,16 @@
  * Created by Emily Gullo 9/2/2016
  **/
 
-import React from 'react';
+import React, { PropTypes } from 'react';
 import $ from 'jquery';
 import { generateProtectedUrls } from '../../helpers/util.js';
 import DaimsMessage from './daimsMessage.jsx';
+
+const propTypes = {
+    history: PropTypes.object,
+    type: PropTypes.string,
+    helpOnly: PropTypes.bool
+};
 
 export default class PracticesProceduresContent extends React.Component {
 
@@ -275,3 +281,5 @@ export default class PracticesProceduresContent extends React.Component {
         );
     }
 }
+
+PracticesProceduresContent.propTypes = propTypes;

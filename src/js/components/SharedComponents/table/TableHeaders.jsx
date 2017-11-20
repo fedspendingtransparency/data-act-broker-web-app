@@ -8,9 +8,11 @@ import _ from 'lodash';
 import TableSorter from './TableSorter.jsx';
 
 const propTypes = {
-    data: PropTypes.array.isRequired,
     onSort: PropTypes.func,
     currentSort: PropTypes.object,
+    data: PropTypes.array.isRequired,
+    headerClasses: PropTypes.array,
+    unsortable: PropTypes.array,
     sortable: PropTypes.bool
 };
 

@@ -10,8 +10,10 @@ const propTypes = {
     handleChange: PropTypes.func.isRequired,
     fieldID: PropTypes.string,
     iconClass: PropTypes.string,
+    placeholder: PropTypes.string,
+    tabIndex: PropTypes.string,
     error: PropTypes.bool,
-    placeholder: PropTypes.string
+    isRequired: PropTypes.bool
 };
 
 const defaultProps = {

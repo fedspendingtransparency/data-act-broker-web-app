@@ -5,7 +5,7 @@
 
 import ReactCSSTransitionGroup from 'react-addons-css-transition-group';
 
-import React from 'react';
+import React, { PropTypes } from 'react';
 import moment from 'moment';
 import Navbar from '../SharedComponents/navigation/NavigationComponent.jsx';
 import Footer from '../SharedComponents/FooterComponent.jsx';
@@ -15,6 +15,10 @@ import DateSelect from './DateSelect.jsx';
 import * as GenerateFilesHelper from '../../helpers/generateFilesHelper.js';
 
 import * as Icons from '../SharedComponents/icons/Icons.jsx';
+
+const propTypes = {
+    route: PropTypes.object
+};
 
 const timerDuration = 10;
 
@@ -334,3 +338,5 @@ export default class GenerateDetachedFilesPage extends React.Component {
         );
     }
 }
+
+GenerateDetachedFilesPage.propTypes = propTypes;

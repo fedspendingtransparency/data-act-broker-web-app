@@ -3,7 +3,7 @@
  * Created by Emily Gullo 9/27/16
  **/
 
-import React from 'react';
+import React, { PropTypes } from 'react';
 import Navbar from '../SharedComponents/navigation/NavigationComponent.jsx';
 import HelpSidebar from './helpSidebar.jsx';
 import HistoryContent from './historyContent.jsx';
@@ -13,6 +13,12 @@ import HelpNav from './helpNav.jsx';
 import * as Icons from '../SharedComponents/icons/Icons.jsx';
 
 import * as HelpHelper from '../../helpers/helpHelper.js';
+
+const propTypes = {
+    history: PropTypes.object,
+    type: PropTypes.string,
+    helpOnly: PropTypes.bool
+};
 
 export default class HelpPage extends React.Component {
     constructor(props) {
@@ -128,3 +134,5 @@ export default class HelpPage extends React.Component {
         );
     }
 }
+
+HelpPage.propTypes = propTypes;

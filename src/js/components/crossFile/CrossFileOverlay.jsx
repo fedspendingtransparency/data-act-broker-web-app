@@ -2,7 +2,7 @@
   * CrossFileOverlay.jsx
   * Created by Kevin Li 6/16/16
   **/
-import React from 'react';
+import React, { PropTypes } from 'react';
 import _ from 'lodash';
 import { hashHistory } from 'react-router';
 import * as Icons from '../SharedComponents/icons/Icons.jsx';
@@ -10,6 +10,15 @@ import CommonOverlay from '../SharedComponents/overlays/CommonOverlay.jsx';
 import LoadingBauble from '../SharedComponents/overlays/LoadingBauble.jsx';
 
 import * as PermissionsHelper from '../../helpers/permissionsHelper.js';
+
+const propTypes = {
+    uploadFiles: PropTypes.func,
+    session: PropTypes.object,
+    submission: PropTypes.object,
+    agencyName: PropTypes.string,
+    mode: PropTypes.string,
+    loading: PropTypes.bool
+};
 
 const defaultProps = {
     errors: ['error'],
@@ -209,4 +218,5 @@ export default class CrossFileOverlay extends React.Component {
     }
 }
 
+CrossFileOverlay.propTypes = propTypes;
 CrossFileOverlay.defaultProps = defaultProps;

@@ -3,8 +3,14 @@
   * Created by Kevin Li 5/20/16
   **/
 
-import React from 'react';
+import React, { PropTypes } from 'react';
 import SubmitButton from '../../SharedComponents/SubmitButton.jsx';
+
+const propTypes = {
+    onSubmit: PropTypes.func,
+    message: PropTypes.string,
+    disabled: PropTypes.bool
+};
 
 const defaultProps = {
     disabled: false
@@ -29,4 +35,5 @@ export default class SubmitComponent extends React.Component {
     }
 }
 
+SubmitComponent.propTypes = propTypes;
 SubmitComponent.defaultProps = defaultProps;

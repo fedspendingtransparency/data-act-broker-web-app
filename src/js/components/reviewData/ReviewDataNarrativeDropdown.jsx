@@ -3,7 +3,11 @@
  * Created by Alisa Burdeyny 11/21/16
  **/
 
-import React from 'react';
+import React, { PropTypes } from 'react';
+
+const propTypes = {
+    changeFile: PropTypes.func
+};
 
 export default class ReviewDataNarrativeDropdown extends React.Component {
     changeFile(e) {
@@ -26,3 +30,5 @@ export default class ReviewDataNarrativeDropdown extends React.Component {
         );
     }
 }
+
+ReviewDataNarrativeDropdown.propTypes = propTypes;

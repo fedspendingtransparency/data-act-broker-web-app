@@ -3,7 +3,12 @@
  * Created by Alisa Burdeyny 11/21/16
  **/
 
-import React from 'react';
+import React, { PropTypes } from 'react';
+
+const propTypes = {
+    textChanged: PropTypes.func,
+    currentContent: PropTypes.string
+};
 
 export default class ReviewDataNarrativeTextfield extends React.Component {
     textChanged(e) {
@@ -19,3 +24,5 @@ export default class ReviewDataNarrativeTextfield extends React.Component {
         );
     }
 }
+
+ReviewDataNarrativeTextfield.propTypes = propTypes;

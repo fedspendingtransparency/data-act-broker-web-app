@@ -3,7 +3,7 @@
   * Created by Kevin Li 6/15/16
   **/
 
-import React from 'react';
+import React, { PropTypes } from 'react';
 import _ from 'lodash';
 import ComparisonTable from './ComparisonTable.jsx';
 import FileProgress from '../../SharedComponents/FileProgress.jsx';
@@ -14,6 +14,16 @@ import ErrorTabs from './ErrorTabs.jsx';
 
 import * as ReviewHelper from '../../../helpers/reviewHelper.js';
 import * as PermissionsHelper from '../../../helpers/permissionsHelper.js';
+
+const propTypes = {
+    forceUpdate: PropTypes.func,
+    meta: PropTypes.object,
+    session: PropTypes.object,
+    submission: PropTypes.object,
+    agencyName: PropTypes.string,
+    status: PropTypes.string,
+    submissionID: PropTypes.string
+};
 
 const dFiles = ['d1', 'd2'];
 
@@ -277,3 +287,5 @@ export default class ErrorBox extends React.Component {
         );
     }
 }
+
+ErrorBox.propTypes = propTypes;

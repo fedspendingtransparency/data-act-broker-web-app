@@ -3,9 +3,16 @@
  * Created by Mike Bray 4/1/16
  **/
 
-import React from 'react';
+import React, { PropTypes } from 'react';
 import $ from 'jquery';
 import { generateProtectedUrls, rssFileKey } from '../../helpers/util.js';
+
+const propTypes = {
+    changelog: PropTypes.string,
+    section: PropTypes.string,
+    technical: PropTypes.string,
+    helpOnly: PropTypes.bool
+};
 
 export default class HelpContent extends React.Component {
 
@@ -113,3 +120,5 @@ export default class HelpContent extends React.Component {
         );
     }
 }
+
+HelpContent.propTypes = propTypes;

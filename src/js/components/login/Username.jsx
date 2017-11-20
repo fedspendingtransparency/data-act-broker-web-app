@@ -7,7 +7,8 @@ import React, { PropTypes } from 'react';
 import * as Icons from '../SharedComponents/icons/Icons.jsx';
 
 const propTypes = {
-    handleChange: PropTypes.func.isRequired
+    handleChange: PropTypes.func.isRequired,
+    tabIndex: PropTypes.string
 };
 
 const defaultProps = {

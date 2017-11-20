@@ -3,9 +3,14 @@
   * Created by Kevin Li 10/31/16
   **/
 
-import React from 'react';
+import React, { PropTypes } from 'react';
 
 import * as Icons from '../SharedComponents/icons/Icons.jsx';
+
+const propTypes = {
+    moveDirection: PropTypes.func,
+    direction: PropTypes.string
+};
 
 const defaultProps = {
     direction: 'left'
@@ -35,4 +40,5 @@ export default class DashboardPaginatorArrow extends React.Component {
     }
 }
 
+DashboardPaginatorArrow.propTypes = propTypes;
 DashboardPaginatorArrow.defaultProps = defaultProps;

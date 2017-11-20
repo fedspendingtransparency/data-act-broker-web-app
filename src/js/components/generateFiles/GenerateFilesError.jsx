@@ -3,7 +3,11 @@
   * Created by Kevin Li 8/19/2016
   */
 
-import React from 'react';
+import React, { PropTypes } from 'react';
+
+const propTypes = {
+    message: PropTypes.string
+};
 
 export default class GenerateFilesError extends React.Component {
     render() {
@@ -14,3 +18,5 @@ export default class GenerateFilesError extends React.Component {
         );
     }
 }
+
+GenerateFilesError.propTypes = propTypes;

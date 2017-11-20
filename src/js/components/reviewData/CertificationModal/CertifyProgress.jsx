@@ -3,9 +3,16 @@
   * Created by Kevin Li 9/7/16
   **/
 
-import React from 'react';
+import React, { PropTypes } from 'react';
 import FileProgress from '../../SharedComponents/FileProgress.jsx';
 import * as Icons from '../../SharedComponents/icons/Icons.jsx';
+
+const propTypes = {
+    closeModal: PropTypes.func,
+    apiTimeCount: PropTypes.number,
+    apiTimeTotal: PropTypes.number,
+    finished: PropTypes.bool
+};
 
 const defaultProps = {
     finished: false,
@@ -148,4 +155,5 @@ export default class CertifyProgress extends React.Component {
     }
 }
 
+CertifyProgress.propTypes = propTypes;
 CertifyProgress.defaultProps = defaultProps;

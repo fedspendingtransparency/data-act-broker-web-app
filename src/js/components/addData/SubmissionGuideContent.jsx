@@ -3,8 +3,13 @@
  * Created by Mike Bray 5/19/16
  **/
 
-import React from 'react';
+import React, { PropTypes } from 'react';
 import Banner from '../SharedComponents/Banner.jsx';
+
+const propTypes = {
+    saveSkipGuide: PropTypes.func,
+    session: PropTypes.object
+};
 
 export default class SubmissionGuideContent extends React.Component {
     constructor(props) {
@@ -177,3 +182,5 @@ export default class SubmissionGuideContent extends React.Component {
         );
     }
 }
+
+SubmissionGuideContent.propTypes = propTypes;

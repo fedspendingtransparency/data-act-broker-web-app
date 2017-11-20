@@ -3,9 +3,17 @@
   * Created by Kevin Li 5/19/16
   **/
 
-import React from 'react';
+import React, { PropTypes } from 'react';
 import moment from 'moment';
 import * as UtilHelper from '../../../helpers/util.js';
+
+const propTypes = {
+    onChange: PropTypes.func,
+    startEndType: PropTypes.string,
+    type: PropTypes.string,
+    value: PropTypes.string,
+    hasError: PropTypes.bool
+};
 
 export default class DateDropdown extends React.Component {
 
@@ -122,3 +130,5 @@ export default class DateDropdown extends React.Component {
         );
     }
 }
+
+DateDropdown.propTypes = propTypes;

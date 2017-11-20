@@ -3,8 +3,20 @@
   * Created by Kevin Li 4/11/2016
   */
 
-import React from 'react';
+import React, { PropTypes } from 'react';
 import tinycolor from 'tinycolor2';
+
+const propTypes = {
+    clickedItem: PropTypes.func,
+    colors: PropTypes.object,
+    cellColor: PropTypes.string,
+    title: PropTypes.string,
+    height: PropTypes.number,
+    width: PropTypes.number,
+    x: PropTypes.number,
+    y: PropTypes.number,
+    active: PropTypes.bool
+};
 
 const defaultProps = {
     title: 'Unspecified',
@@ -66,4 +78,5 @@ export default class TreemapCell extends React.Component {
     }
 }
 
+TreemapCell.propTypes = propTypes;
 TreemapCell.defaultProps = defaultProps;

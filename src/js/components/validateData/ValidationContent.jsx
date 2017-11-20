@@ -3,7 +3,7 @@
  * Created by Mike Hess 8/15/17
  **/
 
-import React from 'react';
+import React, { PropTypes } from 'react';
 
 import ValidationOverlayContainer from '../../containers/validateData/ValidationOverlayContainer.jsx';
 import ValidateDataFileContainer from '../../containers/validateData/ValidateDataFileContainer.jsx';
@@ -11,6 +11,14 @@ import ValidateValuesFileContainer from '../../containers/validateData/ValidateV
 import ValidateDataInProgressOverlay from './ValidateDataInProgressOverlay.jsx';
 
 import { fileTypes } from '../../containers/addData/fileTypes.js';
+
+const propTypes = {
+    session: PropTypes.object,
+    submission: PropTypes.object,
+    agencyName: PropTypes.string,
+    hasFailed: PropTypes.bool,
+    hasFinished: PropTypes.bool
+};
 
 export default class ValidationContent extends React.Component {
     constructor(props) {
@@ -62,3 +70,5 @@ export default class ValidationContent extends React.Component {
         );
     }
 }
+
+ValidationContent.propTypes = propTypes;

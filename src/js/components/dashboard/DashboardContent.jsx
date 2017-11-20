@@ -3,8 +3,20 @@
   * Created by Kevin Li 10/27/16
   **/
 
-import React from 'react';
+import React, { PropTypes } from 'react';
 import DashboardTable from './DashboardTable.jsx';
+
+const propTypes = {
+    loadTableData: PropTypes.func,
+    session: PropTypes.object,
+    activeSubmissions: PropTypes.array,
+    certifiedSubmissions: PropTypes.array,
+    type: PropTypes.string,
+    activeTotal: PropTypes.number,
+    certifiedTotal: PropTypes.number,
+    activeLoading: PropTypes.bool,
+    certifiedLoading: PropTypes.bool
+};
 
 export default class DashboardContent extends React.Component {
     constructor(props) {
@@ -59,3 +71,5 @@ export default class DashboardContent extends React.Component {
         );
     }
 }
+
+DashboardContent.propTypes = propTypes;

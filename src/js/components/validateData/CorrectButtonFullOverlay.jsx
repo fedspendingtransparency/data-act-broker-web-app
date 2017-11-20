@@ -3,11 +3,18 @@
  * Created by Mike Bray 6/21/16
  **/
 
-import React from 'react';
+import React, { PropTypes } from 'react';
 
 import ValidateDataUploadButton from './ValidateDataUploadButton.jsx';
 
 import * as Icons from '../SharedComponents/icons/Icons.jsx';
+
+const propTypes = {
+    buttonClicked: PropTypes.func,
+    onDrop: PropTypes.func,
+    text: PropTypes.string,
+    optional: PropTypes.bool
+};
 
 const defaultProps = {
     optional: true
@@ -35,4 +42,5 @@ export default class CorrectButtonFullOverlay extends React.Component {
     }
 }
 
+CorrectButtonFullOverlay.propTypes = propTypes;
 CorrectButtonFullOverlay.defaultProps = defaultProps;

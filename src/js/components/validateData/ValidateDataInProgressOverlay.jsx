@@ -3,10 +3,14 @@
  * Created by Kevin Li 3/31/2016
  */
 
-import React from 'react';
+import React, { PropTypes } from 'react';
 import * as Icons from '../SharedComponents/icons/Icons.jsx';
 import CommonOverlay from '../SharedComponents/overlays/CommonOverlay.jsx';
 import LoadingBauble from '../SharedComponents/overlays/LoadingBauble.jsx';
+
+const propTypes = {
+    hasFailed: PropTypes.bool
+};
 
 const defaultProps = {
     hasFailed: false
@@ -45,4 +49,5 @@ export default class ValidateDataInProgressOverlay extends React.Component {
     }
 }
 
+ValidateDataInProgressOverlay.propTypes = propTypes;
 ValidateDataInProgressOverlay.defaultProps = defaultProps;

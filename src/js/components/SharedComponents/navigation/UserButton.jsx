@@ -1,5 +1,10 @@
-import React from 'react';
+import React, { PropTypes } from 'react';
 import * as Icons from '../icons/Icons.jsx';
+
+const propTypes = {
+    logout: PropTypes.func,
+    buttonText: PropTypes.string
+};
 
 export default class UserButton extends React.Component {
     constructor(props) {
@@ -47,3 +52,5 @@ export default class UserButton extends React.Component {
         );
     }
 }
+
+UserButton.propTypes = propTypes;

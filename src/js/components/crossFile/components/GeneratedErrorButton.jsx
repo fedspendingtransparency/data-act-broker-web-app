@@ -3,8 +3,15 @@
   * Created by Kevin Li 7/28/16
   **/
 
-import React from 'react';
+import React, { PropTypes } from 'react';
 import GeneratedFileModal from './GeneratedFileModal.jsx';
+
+const propTypes = {
+    forceUpdate: PropTypes.func,
+    file: PropTypes.object,
+    submissionID: PropTypes.string,
+    type: PropTypes.string
+};
 
 export default class GeneratedErrorButton extends React.Component {
 
@@ -59,3 +66,5 @@ export default class GeneratedErrorButton extends React.Component {
         );
     }
 }
+
+GeneratedErrorButton.propTypes = propTypes;

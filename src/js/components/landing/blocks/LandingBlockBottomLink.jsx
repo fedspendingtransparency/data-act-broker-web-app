@@ -3,7 +3,11 @@
   * Created by Kevin Li 5/17/16
   **/
 
-import React from 'react';
+import React, { PropTypes } from 'react';
+
+const propTypes = {
+    onClick: PropTypes.func
+};
 
 export default class LandingBlockBottomLink extends React.Component {
     render() {
@@ -14,3 +18,5 @@ export default class LandingBlockBottomLink extends React.Component {
         );
     }
 }
+
+LandingBlockBottomLink.propTypes = propTypes;

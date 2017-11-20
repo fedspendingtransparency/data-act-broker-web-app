@@ -3,7 +3,11 @@
   * Created by Kevin Li 4/25/2016
   */
 
-import React from 'react';
+import React, { PropTypes } from 'react';
+
+const propTypes = {
+    message: PropTypes.string
+};
 
 export default class ValidateNotYours extends React.Component {
     render() {
@@ -14,3 +18,5 @@ export default class ValidateNotYours extends React.Component {
         );
     }
 }
+
+ValidateNotYours.propTypes = propTypes;

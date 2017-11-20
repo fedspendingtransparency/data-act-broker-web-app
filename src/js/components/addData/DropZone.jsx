@@ -10,6 +10,10 @@ import DOMPurify from 'dompurify';
 import DropZoneDisplay from './DropZoneDisplay.jsx';
 
 const propTypes = {
+    onDrop: PropTypes.func,
+    resetSubmission: PropTypes.func,
+    submission: PropTypes.object,
+    fileTitle: PropTypes.string,
     requestName: PropTypes.string.isRequired
 };
 

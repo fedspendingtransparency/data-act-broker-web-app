@@ -3,10 +3,18 @@
   * Created by Kevin Li 7/28/16
   **/
 
-import React from 'react';
+import React, { PropTypes } from 'react';
 import Modal from 'react-aria-modal';
 import CrossFileGenerateModalContainer from '../../../containers/crossFile/CrossFileGenerateModalContainer.jsx';
 import * as Icons from '../../SharedComponents/icons/Icons.jsx';
+
+const propTypes = {
+    closeModal: PropTypes.func,
+    finishedGenerating: PropTypes.func,
+    file: PropTypes.object,
+    submissionID: PropTypes.string,
+    showModal: PropTypes.bool
+};
 
 export default class GeneratedFileModal extends React.Component {
     constructor(props) {
@@ -94,3 +102,5 @@ export default class GeneratedFileModal extends React.Component {
         );
     }
 }
+
+GeneratedFileModal.propTypes = propTypes;

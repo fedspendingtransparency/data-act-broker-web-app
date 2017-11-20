@@ -3,7 +3,7 @@
   * Created by Kevin Li 6/30/16
   **/
 
-import React from 'react';
+import React, { PropTypes } from 'react';
 import _ from 'lodash';
 import FileProgress from '../../SharedComponents/FileProgress.jsx';
 import UploadButtonContainer from '../../../containers/crossFile/CrossFileUploadButtonContainer.jsx';
@@ -11,6 +11,13 @@ import GeneratedErrorButton from './GeneratedErrorButton.jsx';
 import FileWarning from './FileWarning.jsx';
 
 import * as ReviewHelper from '../../../helpers/reviewHelper.js';
+
+const propTypes = {
+    forceUpdate: PropTypes.func,
+    meta: PropTypes.object,
+    submission: PropTypes.object,
+    submissionID: PropTypes.string
+};
 
 const dFiles = ['d1', 'd2'];
 
@@ -119,3 +126,5 @@ export default class ReplacementBox extends React.Component {
         );
     }
 }
+
+ReplacementBox.propTypes = propTypes;

@@ -3,12 +3,18 @@
 * Creted By Minahm Kim 7/20/2017
 **/
 
-import React from 'react';
+import React, { PropTypes } from 'react';
 import LandingBlock from './blocks/LandingBlock.jsx';
 import LandingBlockBottomLink from './blocks/LandingBlockBottomLink.jsx';
 
 import * as Icons from '../SharedComponents/icons/Icons.jsx';
 import * as permissionHelper from '../../helpers/permissionsHelper.js';
+
+const propTypes = {
+    clickedUploadReqs: PropTypes.func,
+    session: PropTypes.object,
+    type: PropTypes.string
+};
 
 export default class BlockContent extends React.Component {
     constructor(props) {
@@ -73,3 +79,5 @@ export default class BlockContent extends React.Component {
         );
     }
 }
+
+BlockContent.propTypes = propTypes;

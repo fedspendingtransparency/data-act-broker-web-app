@@ -3,11 +3,18 @@
 * Created by Kyle Fox 2/19/16
 **/
 
-import React from 'react';
+import React, { PropTypes } from 'react';
 import Username from './Username.jsx';
 import Password from './Password.jsx';
 import SignInButton from './SignInButton.jsx';
 import ErrorMessage from '../SharedComponents/ErrorMessage.jsx';
+
+const propTypes = {
+    performLogin: PropTypes.func,
+    session: PropTypes.object,
+    errorMessage: PropTypes.string,
+    loading: PropTypes.bool
+};
 
 export default class LoginPanel extends React.Component {
     constructor(props) {
@@ -79,3 +86,5 @@ export default class LoginPanel extends React.Component {
         );
     }
 }
+
+LoginPanel.propTypes = propTypes;

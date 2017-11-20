@@ -5,7 +5,7 @@
 
 import ReactCSSTransitionGroup from 'react-addons-css-transition-group';
 
-import React from 'react';
+import React, { PropTypes } from 'react';
 
 import SubTierAgencyListContainer from '../../containers/SharedContainers/SubTierAgencyListContainer.jsx';
 import UploadDetachedFilesBox from './UploadDetachedFilesBox.jsx';
@@ -18,6 +18,13 @@ import * as UploadHelper from '../../helpers/uploadHelper.js';
 import * as GenerateFilesHelper from '../../helpers/generateFilesHelper.js';
 import * as ReviewHelper from '../../helpers/reviewHelper.js';
 import { kGlobalConstants } from '../../GlobalConstants.js';
+
+const propTypes = {
+    setSubmissionId: PropTypes.func,
+    setSubmissionState: PropTypes.func,
+    validate: PropTypes.func,
+    submission: PropTypes.object
+};
 
 const timerDuration = 5;
 
@@ -263,3 +270,5 @@ export default class UploadDetachedFileMeta extends React.Component {
         );
     }
 }
+
+UploadDetachedFileMeta.propTypes = propTypes;

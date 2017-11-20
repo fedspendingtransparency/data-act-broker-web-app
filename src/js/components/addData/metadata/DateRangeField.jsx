@@ -3,7 +3,7 @@
   * Created by Kevin Li 5/19/16
   **/
 
-import React from 'react';
+import React, { PropTypes } from 'react';
 import * as Icons from '../../SharedComponents/icons/Icons.jsx';
 import moment from 'moment';
 
@@ -11,6 +11,10 @@ import DateDropdown from './DateDropdown.jsx';
 
 import * as UtilHelper from '../../../helpers/util.js';
 
+const propTypes = {
+    onChange: PropTypes.func,
+    type: PropTypes.string
+};
 
 const defaultProps = {
     startDateError: false,
@@ -113,4 +117,5 @@ export default class DateRangeField extends React.Component {
     }
 }
 
+DateRangeField.propTypes = propTypes;
 DateRangeField.defaultProps = defaultProps;

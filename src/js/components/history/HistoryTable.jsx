@@ -3,10 +3,14 @@
   * Created by Minahm Kim 06/05/17
   **/
 
-import React from 'react';
+import React, { PropTypes } from 'react';
 
 import * as SubmissionListHelper from '../../helpers/submissionListHelper.js';
 import * as Icons from '../SharedComponents/icons/Icons.jsx';
+
+const propTypes = {
+    submissionID: PropTypes.string
+};
 
 export default class HistoryTable extends React.Component {
     constructor(props) {
@@ -184,3 +188,5 @@ export default class HistoryTable extends React.Component {
         );
     }
 }
+
+HistoryTable.propTypes = propTypes;

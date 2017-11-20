@@ -3,7 +3,7 @@
  * Created by Mike Bray 3/31/16
  **/
 
-import React from 'react';
+import React, { PropTypes } from 'react';
 import Navbar from '../SharedComponents/navigation/NavigationComponent.jsx';
 import AddDataHeader from './../addData/AddDataHeader.jsx';
 import Progress from '../SharedComponents/ProgressComponent.jsx';
@@ -13,6 +13,13 @@ import ReviewDataContent from './ReviewDataContent.jsx';
 import ReviewLoading from './ReviewLoading.jsx';
 import PublishedSubmissionWarningBanner from '../../components/SharedComponents/PublishedSubmissionWarningBanner.jsx';
 import Banner from '../../components/SharedComponents/Banner.jsx';
+
+const propTypes = {
+    data: PropTypes.object,
+    params: PropTypes.object,
+    route: PropTypes.object,
+    submission: PropTypes.object
+};
 
 export default class ReviewDataPage extends React.Component {
     render() {
@@ -54,3 +61,5 @@ export default class ReviewDataPage extends React.Component {
         );
     }
 }
+
+ReviewDataPage.propTypes = propTypes;

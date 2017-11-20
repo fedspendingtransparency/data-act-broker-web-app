@@ -3,7 +3,7 @@
 * Created by Katie Rose 12/8/15
 **/
 
-import React from 'react';
+import React, { PropTypes } from 'react';
 import { kGlobalConstants } from '../../../GlobalConstants.js';
 import NavbarTab from './NavbarTab.jsx';
 import UserButton from './UserButton.jsx';
@@ -14,6 +14,13 @@ import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import * as sessionActions from '../../../redux/actions/sessionActions.js';
 import * as PermissionHelper from '../../../helpers/permissionsHelper.js';
+
+const propTypes = {
+    setSession: PropTypes.func,
+    session: PropTypes.object,
+    type: PropTypes.string,
+    logoOnly: PropTypes.bool
+};
 
 const defaultProps = {
     logoOnly: false
@@ -131,6 +138,7 @@ export class Navbar extends React.Component {
     }
 }
 
+Navbar.propTypes = propTypes;
 Navbar.defaultProps = defaultProps;
 
 export default connect(

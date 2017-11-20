@@ -1,5 +1,10 @@
-import React from 'react';
+import React, { PropTypes } from 'react';
 import Navbar from '../SharedComponents/navigation/NavigationComponent.jsx';
+
+const propTypes = {
+    type: PropTypes.string,
+    helpOnly: PropTypes.bool
+};
 
 export default class ErrorPage extends React.Component {
     render() {
@@ -23,3 +28,5 @@ export default class ErrorPage extends React.Component {
         );
     }
 }
+
+ErrorPage.propTypes = propTypes;

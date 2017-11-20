@@ -3,13 +3,18 @@
   * Created by Kevin Li 8/23/16
   **/
 
-import React from 'react';
+import React, { PropTypes } from 'react';
 import Navbar from '../SharedComponents/navigation/NavigationComponent.jsx';
 import AddDataHeader from './../addData/AddDataHeader.jsx';
 import Progress from '../SharedComponents/ProgressComponent.jsx';
 
 import GenerateEFContainer from '../../containers/generateEF/GenerateEFContainer.jsx';
 import GenerateEFError from './GenerateEFError.jsx';
+
+const propTypes = {
+    params: PropTypes.object,
+    route: PropTypes.object
+};
 
 export default class GenerateEFPage extends React.Component {
 
@@ -53,3 +58,5 @@ export default class GenerateEFPage extends React.Component {
         );
     }
 }
+
+GenerateEFPage.propTypes = propTypes;

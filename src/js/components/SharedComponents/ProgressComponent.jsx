@@ -9,9 +9,11 @@ import { hashHistory } from 'react-router';
 import React, { PropTypes } from 'react';
 
 const propTypes = {
+    stepLink: PropTypes.array.isRequired,
+    stepNames: PropTypes.array.isRequired,
+    id: PropTypes.string.isRequired,
     currentStep: PropTypes.number.isRequired,
-    totalSteps: PropTypes.number.isRequired,
-    stepNames: PropTypes.array.isRequired
+    totalSteps: PropTypes.number.isRequired
 };
 
 const defaultProps = {

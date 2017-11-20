@@ -8,12 +8,13 @@ import TableRow from './TableRow.jsx';
 import TableHeaders from './TableHeaders.jsx';
 
 const propTypes = {
-    data: PropTypes.array.isRequired,
-    headers: PropTypes.array.isRequired,
-    sortable: PropTypes.bool,
     onSort: PropTypes.func,
     cellClasses: PropTypes.array,
-    headerClasses: PropTypes.array
+    data: PropTypes.array.isRequired,
+    headerClasses: PropTypes.array,
+    headers: PropTypes.array.isRequired,
+    unsortable: PropTypes.array.isRequired,
+    sortable: PropTypes.bool
 };
 
 const defaultProps = {

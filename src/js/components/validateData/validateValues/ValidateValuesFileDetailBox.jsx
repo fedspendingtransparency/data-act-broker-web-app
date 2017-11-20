@@ -3,8 +3,16 @@
   * Created by Kevin Li 6/27/16
   **/
 
-import React from 'react';
+import React, { PropTypes } from 'react';
 import * as Icons from '../../SharedComponents/icons/Icons.jsx';
+
+const propTypes = {
+    onClick: PropTypes.func,
+    count: PropTypes.number,
+    label: PropTypes.string,
+    styleClass: PropTypes.string,
+    expandedReport: PropTypes.bool
+};
 
 export default class ValidateValuesFileDetailBox extends React.Component {
     render() {
@@ -51,3 +59,5 @@ export default class ValidateValuesFileDetailBox extends React.Component {
         );
     }
 }
+
+ValidateValuesFileDetailBox.propTypes = propTypes;

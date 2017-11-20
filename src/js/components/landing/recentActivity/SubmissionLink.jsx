@@ -3,15 +3,16 @@
   * Created by Kevin Li 05/16/16
   **/
 
-import React from 'react';
+import React, { PropTypes } from 'react';
 
 const propTypes = {
-    submissionId: React.PropTypes.oneOfType([
-        React.PropTypes.string,
-        React.PropTypes.number
+    submissionId: PropTypes.oneOfType([
+        PropTypes.string,
+        PropTypes.number
     ]).isRequired,
-    disabled: React.PropTypes.bool,
-    type: React.PropTypes.string
+    disabled: PropTypes.bool,
+    type: PropTypes.string,
+    value: PropTypes.string
 };
 
 const defaultProps = {

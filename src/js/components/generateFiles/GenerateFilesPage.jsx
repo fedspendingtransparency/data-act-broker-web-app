@@ -3,13 +3,18 @@
   * Created by Kevin Li 7/22/16
   **/
 
-import React from 'react';
+import React, { PropTypes } from 'react';
 import Navbar from '../SharedComponents/navigation/NavigationComponent.jsx';
 import AddDataHeader from './../addData/AddDataHeader.jsx';
 import Progress from '../SharedComponents/ProgressComponent.jsx';
 
 import GenerateFilesContainer from '../../containers/generateFiles/GenerateFilesContainer.jsx';
 import GenerateFilesError from './GenerateFilesError.jsx';
+
+const propTypes = {
+    params: PropTypes.object,
+    route: PropTypes.object
+};
 
 export default class GenerateFilesPage extends React.Component {
     constructor(props) {
@@ -66,3 +71,5 @@ export default class GenerateFilesPage extends React.Component {
         );
     }
 }
+
+GenerateFilesPage.propTypes = propTypes;

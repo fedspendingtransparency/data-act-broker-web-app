@@ -3,12 +3,17 @@
   * Created by Kevin Li 6/14/16
   **/
 
-import React from 'react';
+import React, { PropTypes } from 'react';
 import FileComponent from './components/FileComponent.jsx';
 import ComparisonComponent from './components/ComparisonComponent.jsx';
 import LoadingComponent from './components/LoadingComponent.jsx';
 import ErrorBox from './components/ErrorBox.jsx';
 import ReplacementBox from './components/ReplacementBox.jsx';
+
+const propTypes = {
+    meta: PropTypes.object,
+    status: PropTypes.string
+};
 
 const defaultProps = {
     type: 'loading',
@@ -97,4 +102,5 @@ export default class CrossFileItem extends React.Component {
     }
 }
 
+CrossFileItem.propTypes = propTypes;
 CrossFileItem.defaultProps = defaultProps;

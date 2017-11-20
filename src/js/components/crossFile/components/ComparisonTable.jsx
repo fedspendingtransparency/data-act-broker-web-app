@@ -3,10 +3,14 @@
   * Created by Kevin Li 6/15/16
   **/
 
-import React from 'react';
+import React, { PropTypes } from 'react';
 import _ from 'lodash';
 import ScrollableTable from '../../SharedComponents/table/ScrollableTable.jsx';
 import * as ReviewHelper from '../../../helpers/reviewHelper.js';
+
+const propTypes = {
+    data: PropTypes.array
+};
 
 export default class ComparisonTable extends React.Component {
 
@@ -63,3 +67,5 @@ export default class ComparisonTable extends React.Component {
         );
     }
 }
+
+ComparisonTable.propTypes = propTypes;

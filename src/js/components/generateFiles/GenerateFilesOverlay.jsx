@@ -3,12 +3,21 @@
   * Created by Kevin Li 7/26/16
   **/
 
-import React from 'react';
+import React, { PropTypes } from 'react';
 import CommonOverlay from '../SharedComponents/overlays/CommonOverlay.jsx';
 import * as Icons from '../SharedComponents/icons/Icons.jsx';
 import LoadingBauble from '../SharedComponents/overlays/LoadingBauble.jsx';
 import * as ReviewHelper from '../../helpers/reviewHelper.js';
 import * as PermissionHelper from '../../helpers/permissionsHelper.js';
+
+const propTypes = {
+    generateFiles: PropTypes.func,
+    nextPage: PropTypes.func,
+    session: PropTypes.object,
+    errorDetails: PropTypes.string,
+    state: PropTypes.string,
+    submissionID: PropTypes.string
+};
 
 const defaultProps = {
     state: 'incomplete'
@@ -119,4 +128,5 @@ export default class GenerateFilesOverlay extends React.Component {
     }
 }
 
+GenerateFilesOverlay.propTypes = propTypes;
 GenerateFilesOverlay.defaultProps = defaultProps;

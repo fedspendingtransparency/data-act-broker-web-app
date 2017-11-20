@@ -3,7 +3,12 @@
   * Created by Kevin Li 5/16/16
   */
 
-import React from 'react';
+import React, { PropTypes } from 'react';
+
+const propTypes = {
+    status: PropTypes.number,
+    certified: PropTypes.bool
+};
 
 export const StatusTypes = {
     UNKNOWN: 0,
@@ -83,4 +88,5 @@ export class SubmissionStatus extends React.Component {
     }
 }
 
+SubmissionStatus.propTypes = propTypes;
 SubmissionStatus.defaultProps = defaultProps;

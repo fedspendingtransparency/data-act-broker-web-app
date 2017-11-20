@@ -3,11 +3,15 @@
   * Created by Kevin Li 5/17/16
   **/
 
-import React from 'react';
+import React, { PropTypes } from 'react';
 import Modal from 'react-aria-modal';
 
 import * as Icons from '../../SharedComponents/icons/Icons.jsx';
 import LandingBody from './LandingRequirementsBody.jsx';
+
+const propTypes = {
+    type: PropTypes.string
+};
 
 export default class LandingRequirementsModal extends React.Component {
     constructor(props) {
@@ -55,3 +59,5 @@ export default class LandingRequirementsModal extends React.Component {
         );
     }
 }
+
+LandingRequirementsModal.propTypes = propTypes;

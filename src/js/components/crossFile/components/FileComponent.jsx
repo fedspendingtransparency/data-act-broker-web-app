@@ -3,9 +3,18 @@
   * Created by Kevin Li 6/14/16
   **/
 
-import React from 'react';
+import React, { PropTypes } from 'react';
 import ReplacementButton from './ReplacementButton.jsx';
 import * as PermissionsHelper from '../../../helpers/permissionsHelper.js';
+
+const propTypes = {
+    toggleUploadBox: PropTypes.func,
+    session: PropTypes.object,
+    agencyName: PropTypes.string,
+    fileType: PropTypes.string,
+    name: PropTypes.string,
+    status: PropTypes.string
+};
 
 const defaultProps = {
     fileType: '',
@@ -45,4 +54,5 @@ export default class FileComponent extends React.Component {
     }
 }
 
+FileComponent.propTypes = propTypes;
 FileComponent.defaultProps = defaultProps;

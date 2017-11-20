@@ -2,9 +2,16 @@
 * UploadDetachedFilesError.jsx
 * Created by Minahm Kim
 **/
-import React from 'react';
+import React, { PropTypes } from 'react';
 
 import * as Icons from '../SharedComponents/icons/Icons.jsx';
+
+const propTypes = {
+    error: PropTypes.object,
+    message: PropTypes.string,
+    type: PropTypes.string,
+    errorCode: PropTypes.number
+};
 
 export default class UploadDetachedFilesError extends React.Component {
     constructor(props) {
@@ -82,3 +89,5 @@ export default class UploadDetachedFilesError extends React.Component {
         </div>);
     }
 }
+
+UploadDetachedFilesError.propTypes = propTypes;

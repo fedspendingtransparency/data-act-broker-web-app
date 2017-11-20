@@ -3,7 +3,12 @@
   * Created by Kevin Li 5/19/16
   **/
 
-import React from 'react';
+import React, { PropTypes } from 'react';
+
+const propTypes = {
+    onChange: PropTypes.func,
+    value: PropTypes.string
+};
 
 export default class DateTypeField extends React.Component {
     pickedType(type) {
@@ -51,3 +56,5 @@ export default class DateTypeField extends React.Component {
         );
     }
 }
+
+DateTypeField.propTypes = propTypes;

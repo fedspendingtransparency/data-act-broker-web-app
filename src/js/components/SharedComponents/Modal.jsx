@@ -3,8 +3,14 @@
   * Created by Kate Kuratsu 03/24/17
   **/
 
-import React from 'react';
+import React, { PropTypes } from 'react';
 import Modal from 'react-aria-modal';
+
+const propTypes = {
+    onClose: PropTypes.func,
+    content: PropTypes.node,
+    isOpen: PropTypes.bool
+};
 
 export default class ErrorModal extends React.Component {
     closeModal(e) {
@@ -30,3 +36,5 @@ export default class ErrorModal extends React.Component {
         );
     }
 }
+
+ErrorModal.propTypes = propTypes;

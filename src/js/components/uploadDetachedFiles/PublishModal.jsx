@@ -3,9 +3,16 @@
   * Created by Minahm Kim 8/3/17
   **/
 
-import React from 'react';
+import React, { PropTypes } from 'react';
 import Modal from 'react-aria-modal';
 import * as Icons from '../SharedComponents/icons/Icons.jsx';
+
+const propTypes = {
+    closeModal: PropTypes.func,
+    validate: PropTypes.func,
+    rows: PropTypes.object,
+    isOpen: PropTypes.bool
+};
 
 export default class PublishModal extends React.Component {
     constructor(props) {
@@ -118,3 +125,5 @@ export default class PublishModal extends React.Component {
         );
     }
 }
+
+PublishModal.propTypes = propTypes;

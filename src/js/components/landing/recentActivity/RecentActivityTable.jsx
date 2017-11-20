@@ -3,7 +3,7 @@
   * Created by Kevin Li 5/16/16
   **/
 
-import React from 'react';
+import React, { PropTypes } from 'react';
 import _ from 'lodash';
 import FormattedTable from '../../SharedComponents/table/FormattedTable.jsx';
 import SubmissionLink from './SubmissionLink.jsx';
@@ -14,6 +14,10 @@ import * as LoginHelper from '../../../helpers/loginHelper.js';
 import * as PermissionsHelper from '../../../helpers/permissionsHelper.js';
 import * as Status from './SubmissionStatus.jsx';
 
+const propTypes = {
+    session: PropTypes.object,
+    type: PropTypes.string
+};
 
 export default class RecentActivityTable extends React.Component {
     constructor(props) {
@@ -257,3 +261,5 @@ export default class RecentActivityTable extends React.Component {
         );
     }
 }
+
+RecentActivityTable.propTypes = propTypes;

@@ -3,12 +3,17 @@
 * Created by Kyle Fox 2/19/16
 **/
 
-import React from 'react';
+import React, { PropTypes } from 'react';
 import RecentActivityTable from './recentActivity/RecentActivityTable.jsx';
 import LandingRequirementsModal from './blocks/LandingRequirementsModal.jsx';
 import BlockContent from './BlockContent.jsx';
 
 import Banner from '../SharedComponents/Banner.jsx';
+
+const propTypes = {
+    session: PropTypes.object,
+    type: PropTypes.string
+};
 
 const defaultProps = {
     session: {
@@ -167,4 +172,5 @@ export default class LandingContent extends React.Component {
     }
 }
 
+LandingContent.propTypes = propTypes;
 LandingContent.defaultProps = defaultProps;

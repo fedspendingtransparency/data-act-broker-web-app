@@ -3,10 +3,19 @@
  * Created by Kevin Li 3/31/2016
  */
 
-import React from 'react';
+import React, { PropTypes } from 'react';
 import { hashHistory } from 'react-router';
 import * as Icons from '../SharedComponents/icons/Icons.jsx';
 import CommonOverlay from '../SharedComponents/overlays/CommonOverlay.jsx';
+
+const propTypes = {
+    uploadFiles: PropTypes.func,
+    submission: PropTypes.object,
+    errors: PropTypes.array,
+    warnings: PropTypes.array,
+    allowUpload: PropTypes.bool,
+    notAllowed: PropTypes.bool
+};
 
 const defaultProps = {
     allowUpload: false
@@ -119,4 +128,5 @@ export default class ValidationOverlay extends React.Component {
     }
 }
 
+ValidationOverlay.propTypes = propTypes;
 ValidationOverlay.defaultProps = defaultProps;

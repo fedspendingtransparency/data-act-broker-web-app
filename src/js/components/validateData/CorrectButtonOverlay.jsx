@@ -3,10 +3,17 @@
  * Created by Mike Bray 6/21/16
  **/
 
-import React from 'react';
+import React, { PropTypes } from 'react';
 
 import CorrectButtonCornerOverlay from './CorrectButtonCornerOverlay.jsx';
 import CorrectButtonFullOverlay from './CorrectButtonFullOverlay.jsx';
+
+const propTypes = {
+    onDrop: PropTypes.func,
+    removeFile: PropTypes.func,
+    fileName: PropTypes.string,
+    isReplacingFile: PropTypes.bool
+};
 
 const defaultProps = {
     fullName: '',
@@ -53,4 +60,5 @@ export default class CorrectButtonOverlay extends React.Component {
     }
 }
 
+CorrectButtonOverlay.propTypes = propTypes;
 CorrectButtonOverlay.defaultProps = defaultProps;

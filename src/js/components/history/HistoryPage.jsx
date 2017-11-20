@@ -3,11 +3,16 @@
   * Created by Minahm Kim 06/08/17
   **/
 
-import React from 'react';
+import React, { PropTypes } from 'react';
 import Navbar from '../SharedComponents/navigation/NavigationComponent.jsx';
 import Footer from '../SharedComponents/FooterComponent.jsx';
 import HistoryTable from './HistoryTable.jsx';
 import HistoryHeader from './HistoryHeader.jsx';
+
+const propTypes = {
+    submissionID: PropTypes.string,
+    type: PropTypes.string
+};
 
 export default class HistoryPage extends React.Component {
     constructor(props) {
@@ -38,3 +43,5 @@ export default class HistoryPage extends React.Component {
         );
     }
 }
+
+HistoryPage.propTypes = propTypes;

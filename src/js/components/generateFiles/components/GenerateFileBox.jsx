@@ -3,9 +3,20 @@
   * Created by Kevin Li 7/25/16
   **/
 
-import React from 'react';
+import React, { PropTypes } from 'react';
 import * as Icons from '../../SharedComponents/icons/Icons.jsx';
 import DatePicker from './DatePicker.jsx';
+
+const propTypes = {
+    onDateChange: PropTypes.func,
+    updateError: PropTypes.func,
+    download: PropTypes.object,
+    error: PropTypes.object,
+    value: PropTypes.object,
+    datePlaceholder: PropTypes.string,
+    label: PropTypes.string,
+    startingTab: PropTypes.number
+};
 
 const defaultProps = {
     startingTab: 1,
@@ -78,4 +89,5 @@ export default class GenerateFileBox extends React.Component {
     }
 }
 
+GenerateFileBox.propTypes = propTypes;
 GenerateFileBox.defaultProps = defaultProps;

@@ -10,7 +10,10 @@ import * as Icons from '../../components/SharedComponents/icons/Icons.jsx';
 import * as ReviewHelper from '../../helpers/reviewHelper.js';
 
 const propTypes = {
-    metaData: PropTypes.object
+    performUpload: PropTypes.func,
+    metaData: PropTypes.object,
+    submission: PropTypes.object,
+    fileTypes: PropTypes.array
 };
 
 export default class AddDataContent extends React.Component {

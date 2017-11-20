@@ -3,10 +3,14 @@
   * Createdd by Kevin Li 10/13/16
   **/
 
-import React from 'react';
+import React, { PropTypes } from 'react';
 import _ from 'lodash';
 import Cookies from 'js-cookie';
 import { kGlobalConstants } from '../../GlobalConstants.js';
+
+const propTypes = {
+    location: PropTypes.object
+};
 
 export default class LoginMax extends React.Component {
     constructor(props) {
@@ -60,3 +64,5 @@ export default class LoginMax extends React.Component {
         );
     }
 }
+
+LoginMax.propTypes = propTypes;

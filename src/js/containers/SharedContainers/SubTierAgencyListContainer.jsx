@@ -14,8 +14,7 @@ import Typeahead from '../../components/SharedComponents/Typeahead.jsx';
 
 const propTypes = {
     setSubTierAgencyList: PropTypes.func,
-    subTierAgencyList: PropTypes.object,
-    disabled: PropTypes.bool
+    subTierAgencyList: PropTypes.object
 };
 
 class SubTierAgencyListContainer extends React.Component {
@@ -47,7 +46,7 @@ class SubTierAgencyListContainer extends React.Component {
     render() {
         return (
             <Typeahead {...this.props} values={this.props.subTierAgencyList.subTierAgencies}
-                formatter={this.dataFormatter} disabled={this.props.disabled} />
+                formatter={this.dataFormatter} />
         );
     }
 

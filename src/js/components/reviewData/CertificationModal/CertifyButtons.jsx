@@ -3,7 +3,15 @@
   * Created by Kevin Li 9/7/16
   **/
 
-import React from 'react';
+import React, { PropTypes } from 'react';
+
+const propTypes = {
+    clickedCertifyButton: PropTypes.func,
+    clickedCertifyCheckbox: PropTypes.func,
+    closeModal: PropTypes.func,
+    session: PropTypes.object,
+    certified: PropTypes.bool
+};
 
 export default class CertifyButtons extends React.Component {
     render() {
@@ -42,3 +50,5 @@ export default class CertifyButtons extends React.Component {
         );
     }
 }
+
+CertifyButtons.propTypes = propTypes;

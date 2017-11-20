@@ -3,9 +3,13 @@
 * Created by Minahm Kim 07/07/17
 **/
 
-import React from 'react';
+import React, { PropTypes } from 'react';
 import * as Icons from '../SharedComponents/icons/Icons.jsx';
 import * as ReviewHelper from '../../helpers/reviewHelper.js';
+
+const propTypes = {
+    type: PropTypes.string
+};
 
 const defaultProps = {
     type: 'all'
@@ -91,4 +95,5 @@ export default class Banner extends React.Component {
     }
 }
 
+Banner.propTypes = propTypes;
 Banner.defaultProps = defaultProps;

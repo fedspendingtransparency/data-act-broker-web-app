@@ -3,7 +3,17 @@
   * Created by Kevin Li 8/24/16
   **/
 
-import React from 'react';
+import React, { PropTypes } from 'react';
+
+const propTypes = {
+    children: PropTypes.object,
+    icon: PropTypes.object,
+    detail: PropTypes.node,
+    header: PropTypes.string,
+    iconClass: PropTypes.string,
+    showButtons: PropTypes.bool,
+    showIcon: PropTypes.bool
+};
 
 const defaultProps = {
     showIcon: true,
@@ -74,4 +84,7 @@ export default class CommonOverlay extends React.Component {
     }
 }
 
+OverlayIcon.propTypes = propTypes;
+OverlayDetail.propTypes = propTypes;
+CommonOverlay.propTypes = propTypes;
 CommonOverlay.defaultProps = defaultProps;

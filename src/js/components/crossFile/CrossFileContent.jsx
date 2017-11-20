@@ -3,10 +3,16 @@
   * Created by Kevin Li 6/14/16
   **/
 
-import React from 'react';
+import React, { PropTypes } from 'react';
 import _ from 'lodash';
 import CrossFileItem from './CrossFileItem.jsx';
 import CrossFileOverlay from './CrossFileOverlay.jsx';
+
+const propTypes = {
+    reloadData: PropTypes.func,
+    uploadFiles: PropTypes.func,
+    submission: PropTypes.object
+};
 
 export default class CrossFileContent extends React.Component {
 
@@ -118,3 +124,5 @@ export default class CrossFileContent extends React.Component {
         );
     }
 }
+
+CrossFileContent.propTypes = propTypes;

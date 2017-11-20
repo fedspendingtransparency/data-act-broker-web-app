@@ -3,8 +3,13 @@
   * Created by Minahm Kim 7/17/17
   **/
 
-import React from 'react';
+import React, { PropTypes } from 'react';
 import Moment from 'moment';
+
+const propTypes = {
+    window: PropTypes.array,
+    type: PropTypes.string
+};
 
 export default class LandingRequirementsBody extends React.Component {
     constructor(props) {
@@ -121,3 +126,5 @@ export default class LandingRequirementsBody extends React.Component {
         );
     }
 }
+
+LandingRequirementsBody.propTypes = propTypes;

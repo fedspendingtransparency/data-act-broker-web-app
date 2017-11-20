@@ -5,7 +5,7 @@
 
 import ReactCSSTransitionGroup from "react-addons-css-transition-group";
 
-import React from "react";
+import React, { PropTypes } from "react";
 import moment from "moment";
 import { connect } from "react-redux";
 
@@ -20,6 +20,15 @@ import * as GenerateFilesHelper from "../../helpers/generateFilesHelper.js";
 import * as PermissionsHelper from "../../helpers/permissionsHelper.js";
 import * as ReviewHelper from "../../helpers/reviewHelper.js";
 import { kGlobalConstants } from "../../GlobalConstants.js";
+
+const propTypes = {
+    setSubmissionState: PropTypes.func,
+    item: PropTypes.object,
+    params: PropTypes.object,
+    route: PropTypes.object,
+    session: PropTypes.object,
+    submission: PropTypes.object
+};
 
 const timerDuration = 5;
 
@@ -483,6 +492,8 @@ class UploadDetachedFileValidation extends React.Component {
         );
     }
 }
+
+UploadDetachedFileValidation.propTypes = propTypes;
 
 export default connect(
     (state) => ({ session: state.session })

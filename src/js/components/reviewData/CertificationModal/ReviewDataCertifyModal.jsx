@@ -3,7 +3,7 @@
   * Created by Kevin Li 9/6/16
   **/
 
-import React from 'react';
+import React, { PropTypes } from 'react';
 import Modal from 'react-aria-modal';
 import * as Icons from '../../SharedComponents/icons/Icons.jsx';
 
@@ -12,6 +12,14 @@ import CertifyButtons from './CertifyButtons.jsx';
 import CertifyProgress from './CertifyProgress.jsx';
 import * as ReviewHelper from '../../../helpers/reviewHelper.js';
 import { hashHistory, Link } from 'react-router';
+
+const propTypes = {
+    closeModal: PropTypes.func,
+    session: PropTypes.object,
+    submissionID: PropTypes.string,
+    warnings: PropTypes.number,
+    isOpen: PropTypes.bool
+};
 
 class VariableMessage extends React.Component {
     render() {
@@ -152,3 +160,6 @@ export default class ReviewDataCertifyModal extends React.Component {
         );
     }
 }
+
+VariableMessage.propTypes = propTypes;
+ReviewDataCertifyModal.propTypes = propTypes;

@@ -6,6 +6,7 @@
 import React, { PropTypes } from 'react';
 
 const propTypes = {
+    data: PropTypes.string,
     label: PropTypes.string
 };
 

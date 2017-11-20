@@ -3,10 +3,14 @@
 * Created by Katie Rose 12/7/15
 **/
 
-import React from 'react';
+import React, { PropTypes } from 'react';
 import Navbar from '../SharedComponents/navigation/NavigationComponent.jsx';
 import LandingContentContainer from '../../containers/landing/LandingContentContainer.jsx';
 import Footer from '../SharedComponents/FooterComponent.jsx';
+
+const propTypes = {
+    route: PropTypes.object
+};
 
 export default class LandingPage extends React.Component {
     constructor(props) {
@@ -46,3 +50,5 @@ export default class LandingPage extends React.Component {
         );
     }
 }
+
+LandingPage.propTypes = propTypes;

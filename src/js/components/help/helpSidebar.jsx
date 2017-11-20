@@ -3,8 +3,15 @@
  * Created by Mike Bray 4/1/16
  **/
 
-import React from 'react';
+import React, { PropTypes } from 'react';
 import HelpSidebarItem from './helpSidebarItem.jsx';
+
+const propTypes = {
+    changeSections: PropTypes.array,
+    technicalSections: PropTypes.array,
+    type: PropTypes.string,
+    helpOnly: PropTypes.bool
+};
 
 export default class HelpSidebar extends React.Component {
 
@@ -72,3 +79,5 @@ export default class HelpSidebar extends React.Component {
         );
     }
 }
+
+HelpSidebar.propTypes = propTypes;

@@ -3,11 +3,15 @@
  * Created by Alisa Burdeyny 11/21/16
  **/
 
-import React from 'react';
+import React, { PropTypes } from 'react';
 import ReviewDataNarrativeDropdown from './ReviewDataNarrativeDropdown.jsx';
 import ReviewDataNarrativeTextfield from './ReviewDataNarrativeTextfield.jsx';
 
 import * as ReviewHelper from '../../helpers/reviewHelper.js';
+
+const propTypes = {
+    submissionID: PropTypes.string
+};
 
 export default class ReviewDataNarrative extends React.Component {
     constructor(props) {
@@ -92,3 +96,5 @@ export default class ReviewDataNarrative extends React.Component {
         );
     }
 }
+
+ReviewDataNarrative.propTypes = propTypes;

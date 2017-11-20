@@ -3,7 +3,11 @@
  * Created by Mike Bray 3/28/16
  **/
 
-import React from 'react';
+import React, { PropTypes } from 'react';
+
+const propTypes = {
+    fileTitle: PropTypes.string
+};
 
 const defaultProps = {
     fileTitle: ''
@@ -48,4 +52,5 @@ export default class ValidateDataFilePlaceholder extends React.Component {
     }
 }
 
+ValidateDataFilePlaceholder.propTypes = propTypes;
 ValidateDataFilePlaceholder.defaultProps = defaultProps;

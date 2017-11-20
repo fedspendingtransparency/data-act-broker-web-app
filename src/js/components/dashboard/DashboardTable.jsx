@@ -3,7 +3,7 @@
   * Created by Kevin Li 10/28/16
   **/
 
-import React from 'react';
+import React, { PropTypes } from 'react';
 import _ from 'lodash';
 
 import FormattedTable from '../SharedComponents/table/FormattedTable.jsx';
@@ -15,6 +15,16 @@ import * as PermissionsHelper from '../../helpers/permissionsHelper.js';
 import DeleteLink from '../landing/recentActivity/DeleteLink.jsx';
 
 import DashboardPaginator from './DashboardPaginator.jsx';
+
+const propTypes = {
+    loadTableData: PropTypes.func,
+    session: PropTypes.object,
+    data: PropTypes.array,
+    type: PropTypes.string,
+    total: PropTypes.number,
+    isCertified: PropTypes.bool,
+    isLoading: PropTypes.bool
+};
 
 const defaultProps = {
     data: [],
@@ -388,4 +398,5 @@ export default class DashboardTable extends React.Component {
     }
 }
 
+DashboardTable.propTypes = propTypes;
 DashboardTable.defaultProps = defaultProps;

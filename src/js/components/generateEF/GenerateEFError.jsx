@@ -3,9 +3,13 @@
   * Created by Kevin Li 8/24/2016
   */
 
-import React from 'react';
+import React, { PropTypes } from 'react';
 
-export default class GenerateFilesError extends React.Component {
+const propTypes = {
+    message: PropTypes.string
+};
+
+export default class GenerateEFError extends React.Component {
     render() {
         return (
             <div className="alert alert-danger text-center" role="alert">
@@ -14,3 +18,5 @@ export default class GenerateFilesError extends React.Component {
         );
     }
 }
+
+GenerateEFError.propTypes = propTypes;
