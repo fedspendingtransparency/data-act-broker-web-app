@@ -39,7 +39,7 @@ export default class UploadDetachedFilesPage extends React.Component {
         }
         if (this.state.showMeta !== showMeta) {
             this.setState({
-                showMeta: showMeta
+                showMeta
             });
         }
     }
@@ -54,7 +54,7 @@ export default class UploadDetachedFilesPage extends React.Component {
         }
         if (this.state.showMeta !== showMeta) {
             this.setState({
-                showMeta: showMeta
+                showMeta
             });
         }
     }

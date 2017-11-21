@@ -83,7 +83,7 @@ export default class ReviewDataNotifyModal extends React.Component {
 
             if (users.length === 0 || users[users.length - 1].id !== userId) {
                 users.push(deselectedUser);
-                this.setState({ users: users });
+                this.setState({ users });
 
                 const updatedSelectedUsers = _.remove(this.state.selectedUsers, (user) => user.id !== userId);
                 this.setState({ selectedUsers: updatedSelectedUsers });

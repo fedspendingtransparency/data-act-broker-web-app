@@ -46,10 +46,10 @@ const determineExpectedPairs = () => {
             key: keyName,
             firstType: globalFileData[firstKey].letter,
             firstName: globalFileData[firstKey].name,
-            firstKey: firstKey,
+            firstKey,
             secondType: globalFileData[secondKey].letter,
             secondName: globalFileData[secondKey].name,
-            secondKey: secondKey
+            secondKey
         };
 
         output.push(item);
@@ -86,7 +86,7 @@ export const fetchStatus = (submissionId) => {
                     deferred.reject({
                         reason: res.statusCode,
                         error: errFile,
-                        detail: detail
+                        detail
                     });
                 }
                 else {
@@ -325,7 +325,7 @@ export const validateSubmission = (submissionId) => {
 
             deferred.resolve({
                 file: status,
-                agencyName: agencyName,
+                agencyName,
                 crossFile: {
                     state: crossFileState,
                     reports: {
@@ -389,7 +389,7 @@ export const sendNotification = (users, id) => {
 
     Request.post(kGlobalConstants.API + 'email_users/')
         .send({
-            users: users,
+            users,
             email_template: 'review_submission',
             submission_id: id
         })
@@ -426,7 +426,7 @@ export const submissionReport = (submissionId, warning, fileType, crossType) => 
 
     Request.post(kGlobalConstants.API + 'submission/' + submissionId + '/report_url')
         .send({
-            warning: warning,
+            warning,
             file_type: fileType,
             cross_type: crossType
         })

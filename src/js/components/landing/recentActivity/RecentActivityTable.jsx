@@ -186,7 +186,7 @@ export default class RecentActivityTable extends React.Component {
         this.setState({
             data: output,
             cellClasses: rowClasses,
-            headerClasses: headerClasses,
+            headerClasses,
             message: (data.length === 0) ? 'No recent activity' : ''
         });
     }

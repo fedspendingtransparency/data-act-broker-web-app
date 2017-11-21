@@ -80,8 +80,8 @@ export default class GenerateDetachedFilesPage extends React.Component {
         // display or hide file generation based on agency validity and set agency
         if (agency !== '' && isValid) {
             this.setState({
-                agency: agency,
-                codeType: codeType,
+                agency,
+                codeType,
                 agencyError: false
             }, this.checkComplete);
         }
@@ -168,8 +168,8 @@ export default class GenerateDetachedFilesPage extends React.Component {
         const state = Object.assign({}, this.state[file], {
             error: {
                 show: header !== '' && description !== '',
-                header: header,
-                description: description
+                header,
+                description
             }
         });
 

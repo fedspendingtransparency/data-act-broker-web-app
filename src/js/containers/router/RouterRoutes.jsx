@@ -308,7 +308,7 @@ function routeConstructor(routeInfo, onEnterIndex, type) {
                     cb(null, require('../../components/landing/LandingPage.jsx').default);
                 });
             },
-            type: type
+            type
         };
     }
     else if (routeInfo.component === 'dashboard') {
@@ -320,7 +320,7 @@ function routeConstructor(routeInfo, onEnterIndex, type) {
                     cb(null, require('../../components/dashboard/DashboardPage.jsx').default);
                 });
             },
-            type: type
+            type
         };
     }
     else if (routeInfo.component === 'help') {
@@ -332,7 +332,7 @@ function routeConstructor(routeInfo, onEnterIndex, type) {
                     cb(null, require('../help/HelpContainer.jsx').default);
                 });
             },
-            type: type
+            type
         };
     }
 }

@@ -27,8 +27,8 @@ export const generateFile = (type, submissionId, start, end) => {
             .send({
                 submission_id: submissionId,
                 file_type: type,
-                start: start,
-                end: end
+                start,
+                end
             })
             .end((errFile, res) => {
                 if (errFile) {
@@ -88,8 +88,8 @@ export const generateDetachedFile = (type, start, end, cgacCode, frecCode) => {
     Request.post(kGlobalConstants.API + 'generate_detached_file/')
             .send({
                 file_type: type,
-                start: start,
-                end: end,
+                start,
+                end,
                 cgac_code: cgacCode,
                 frec_code: frecCode
             })

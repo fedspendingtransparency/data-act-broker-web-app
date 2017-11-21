@@ -67,7 +67,7 @@ export default class UploadDetachedFileMeta extends React.Component {
     handleChange(agency, isValid) {
         // set Sub-Tier Agency and update validity
         this.setState({
-            agency: agency,
+            agency,
             agencyError: !isValid,
             showUploadFilesBox: isValid
         });
@@ -78,8 +78,8 @@ export default class UploadDetachedFileMeta extends React.Component {
         const state = Object.assign({}, this.state[file], {
             error: {
                 show: header !== '' && description !== '',
-                header: header,
-                description: description
+                header,
+                description
             }
         });
 

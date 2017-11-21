@@ -40,8 +40,8 @@ export default class ScrollableTable extends React.Component {
         this.props.onSort(direction, col);
         this.setState({
             sort: {
-                direction: direction,
-                col: col
+                direction,
+                col
             }
         });
     }

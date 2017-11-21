@@ -95,7 +95,7 @@ export default class ErrorTabs extends React.Component {
         }
 
         this.setState({
-            tabs: tabs
+            tabs
         });
     }
 

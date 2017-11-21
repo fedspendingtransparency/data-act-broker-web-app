@@ -177,11 +177,11 @@ export default class ValidateDataFileComponent extends React.Component {
 
         if (!this.isUnmounted) {
             this.setState({
-                headerTitle: headerTitle,
+                headerTitle,
                 errorReports: errorData,
-                hasErrorReport: hasErrorReport,
-                isError: isError,
-                canDownload: canDownload
+                hasErrorReport,
+                isError,
+                canDownload
             });
         }
     }
@@ -203,8 +203,8 @@ export default class ValidateDataFileComponent extends React.Component {
         }
 
         return {
-            size: size,
-            rows: rows
+            size,
+            rows
         };
     }
 

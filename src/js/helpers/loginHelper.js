@@ -74,7 +74,7 @@ export const performLogin = (username, password) => {
     Cookies.remove('session');
 
     Request.post(kGlobalConstants.API + 'login/')
-            .send({ username: username, password: password })
+            .send({ username, password })
             .end((err, res) => {
                 if (err) {
                     const action = sessionActions.setLoginState('failed');
@@ -128,7 +128,7 @@ export const performMaxLogin = (ticket) => {
     const service = encodeURIComponent(kGlobalConstants.AUTH_CALLBACK);
 
     Request.post(kGlobalConstants.API + 'max_login/')
-        .send({ ticket: ticket, service: service })
+        .send({ ticket, service })
         .end((err, res) => {
             if (err) {
                 const action = sessionActions.setLoginState('failed');

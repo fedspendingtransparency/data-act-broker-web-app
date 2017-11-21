@@ -198,8 +198,8 @@ export default class DashboardTable extends React.Component {
         this.setState({
             parsedData: output,
             cellClasses: rowClasses,
-            headerClasses: headerClasses,
-            message: message,
+            headerClasses,
+            message,
             totalPages: Math.ceil(this.props.total / 10)
         });
     }

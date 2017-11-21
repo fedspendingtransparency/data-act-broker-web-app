@@ -27,7 +27,7 @@ export default class LandingPage extends React.Component {
         }
         if (type && type !== this.state.type) {
             this.setState({
-                type: type
+                type
             });
         }
     }

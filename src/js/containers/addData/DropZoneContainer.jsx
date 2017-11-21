@@ -24,7 +24,7 @@ class DropZoneContainer extends React.Component {
         this.props.setUploadItem({
             name: this.props.requestName,
             state: 'ready',
-            file: file
+            file
         });
     }
 

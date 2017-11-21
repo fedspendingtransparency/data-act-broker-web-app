@@ -38,7 +38,7 @@ class CrossFileUploadButtonContainer extends React.Component {
         this.props.setUploadItem({
             name: this.props.fileKey,
             state: 'ready',
-            file: file
+            file
         });
 
         // update the cross file staging Redux object

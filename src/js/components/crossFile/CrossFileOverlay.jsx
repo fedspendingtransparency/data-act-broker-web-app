@@ -193,7 +193,7 @@ export default class CrossFileOverlay extends React.Component {
         }
 
         this.setState({
-            overlay: overlay
+            overlay
         });
     }
 

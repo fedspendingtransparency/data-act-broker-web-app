@@ -29,7 +29,7 @@ class ValidateDataFileContainer extends React.Component {
         this.props.setUploadItem({
             name: this.props.type.requestName,
             state: 'ready',
-            file: file
+            file
         });
         if (this.props.updateItem) {
             this.props.updateItem(file);

@@ -160,8 +160,8 @@ class GenerateFilesContainer extends React.Component {
                     d2.endDate = d2End;
 
                     this.setState({
-                        d1: d1,
-                        d2: d2
+                        d1,
+                        d2
                     }, () => {
                         // now parse the data (in case the files were still in pending state)
                         this.parseFileStates(combinedData);
@@ -238,8 +238,8 @@ class GenerateFilesContainer extends React.Component {
         const d2 = Object.assign({}, this.state.d2);
 
         const output = {
-            d1: d1,
-            d2: d2
+            d1,
+            d2
         };
 
         let allValid = true;
@@ -292,8 +292,8 @@ class GenerateFilesContainer extends React.Component {
         const state = Object.assign({}, this.state[file], {
             error: {
                 show: header !== '' && description !== '',
-                header: header,
-                description: description
+                header,
+                description
             }
         });
 
@@ -405,7 +405,7 @@ class GenerateFilesContainer extends React.Component {
                     const header = fileData.file_type.toUpperCase() + ' File Error';
                     item.error = {
                         show: header !== '' && message !== '',
-                        header: header,
+                        header,
                         description: message
                     };
                     output[file] = item;
@@ -426,7 +426,7 @@ class GenerateFilesContainer extends React.Component {
                     const header = fileData.file_type.toUpperCase() + ' File Error';
                     item.error = {
                         show: true,
-                        header: header,
+                        header,
                         description: 'No data found for the specified period'
                     };
                 }

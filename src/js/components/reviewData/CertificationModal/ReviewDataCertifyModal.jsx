@@ -75,7 +75,7 @@ export default class ReviewDataCertifyModal extends React.Component {
                     }
                 }
 
-                this.setState({ errorMessage: errorMessage });
+                this.setState({ errorMessage });
             });
     }
 

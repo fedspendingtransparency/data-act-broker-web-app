@@ -130,9 +130,9 @@ class GenerateEFContainer extends React.Component {
 
         this.setState({
             fullPageError: showFullPageError,
-            fullPageMessage: fullPageMessage,
-            hasErrors: hasErrors,
-            isReady: isReady
+            fullPageMessage,
+            hasErrors,
+            isReady
         });
 
         if (!isReady && !this.isUnmounted) {

@@ -216,7 +216,7 @@ const uploadS3File = (file, fileID, key, credentials, fileType) => {
             // update Redux with the upload progress
             store.dispatch(uploadActions.setUploadProgress({
                 name: fileType,
-                progress: progress
+                progress
             }));
         })
         .send((error) => {
@@ -229,7 +229,7 @@ const uploadS3File = (file, fileID, key, credentials, fileType) => {
                 }));
 
                 deferred.reject({
-                    error: error,
+                    error,
                     file: fileType
                 });
             }

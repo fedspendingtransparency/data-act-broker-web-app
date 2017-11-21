@@ -37,7 +37,7 @@ export default class CrossFilePage extends React.Component {
     showError(errorMessage) {
         this.setState({
             showError: true,
-            errorMessage: errorMessage
+            errorMessage
         });
     }
     hideError() {

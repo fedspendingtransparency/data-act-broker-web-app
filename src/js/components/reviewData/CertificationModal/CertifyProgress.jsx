@@ -62,7 +62,7 @@ export default class CertifyProgress extends React.Component {
         const averageDuration = this.props.apiTimeTotal / this.props.apiTimeCount;
         this.setState({
             progress: 0,
-            averageDuration: averageDuration
+            averageDuration
         }, () => {
             this.predictedProgress();
         });
@@ -89,9 +89,9 @@ export default class CertifyProgress extends React.Component {
             if (!this.isUnmounted && this.state.progress < 100) {
                 this.setState({
                     progress: newProgress,
-                    subiteration: subiteration,
-                    unit: unit,
-                    iteration: iteration
+                    subiteration,
+                    unit,
+                    iteration
                 }, () => {
                     // just give up after 10 full iterations
                     if (iteration <= 10) {

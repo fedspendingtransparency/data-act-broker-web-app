@@ -93,7 +93,7 @@ export default class ReviewDataContent extends React.Component {
 
         this.setState({
             totalSize: displaySize,
-            totalWarnings: totalWarnings
+            totalWarnings
         });
     }
 

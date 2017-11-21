@@ -51,8 +51,8 @@ export default class FileWarning extends React.Component {
         });
 
         this.setState({
-            affectedPairs: affectedPairs,
-            causedBy: causedBy
+            affectedPairs,
+            causedBy
         }, () => {
             this.generateMessages();
         });
@@ -121,7 +121,7 @@ export default class FileWarning extends React.Component {
 
 
         this.setState({
-            messages: messages
+            messages
         });
     }
 

@@ -80,8 +80,8 @@ export default class CrossFileContent extends React.Component {
 
             // each pair should have easy top-level access to the pair's occurrence counts
             const counts = {
-                errors: errors,
-                warnings: warnings
+                errors,
+                warnings
             };
 
             items.push(<CrossFileItem key={i} status={status} meta={pairMeta} counts={counts} {...this.props}

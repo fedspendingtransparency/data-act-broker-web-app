@@ -25,7 +25,7 @@ export const setUploadState = (state) => ({
 
 export const setSubmissionState = (state) => ({
     type: 'SET_SUBMISSION_STATE',
-    state: state
+    state
 });
 
 export const setMeta = (state) => ({
@@ -41,12 +41,12 @@ export const setMeta = (state) => ({
 
 export const setSubmissionId = (state) => ({
     type: 'SET_SUBMISSION_ID',
-    state: state
+    state
 });
 
 export const setSubmissionPublishStatus = (state) => ({
     type: 'SET_SUBMISSION_PUBLISH_STATUS',
-    state: state
+    state
 });
 
 export const resetSubmission = () => ({
@@ -55,20 +55,20 @@ export const resetSubmission = () => ({
 
 export const setValidation = (state) => ({
     type: 'SET_VALIDATION',
-    state: state
+    state
 });
 
 export const setCrossFile = (state) => ({
     type: 'SET_CROSS_FILE',
-    state: state
+    state
 });
 
 export const setExpectedCrossPairs = (state) => ({
     type: 'SET_EXPECTED_CROSS_PAIRS',
-    state: state
+    state
 });
 
 export const setCrossFileStage = (state) => ({
     type: 'SET_CROSS_FILE_STAGE',
-    state: state
+    state
 });

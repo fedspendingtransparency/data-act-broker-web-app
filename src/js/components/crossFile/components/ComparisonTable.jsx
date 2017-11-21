@@ -29,7 +29,7 @@ export default class ComparisonTable extends React.Component {
             const description = 'Rule ' + item.original_label + ': ' + item.rule_failed + '.';
             const row = {
                 source: ReviewHelper.globalFileData[item.source_file].name,
-                description: description,
+                description,
                 occurrences: item.occurrences
             };
 

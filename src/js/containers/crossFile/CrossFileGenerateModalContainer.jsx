@@ -111,7 +111,7 @@ export default class CrossFileGenerateModalContainer extends React.Component {
         const file = Object.assign({}, this.state.file);
 
         const output = {
-            file: file
+            file
         };
 
         let isValid = true;
@@ -165,8 +165,8 @@ export default class CrossFileGenerateModalContainer extends React.Component {
             file: Object.assign(this.state.file, {
                 error: {
                     show: true,
-                    header: header,
-                    description: description
+                    header,
+                    description
                 }
             })
         });

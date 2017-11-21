@@ -81,9 +81,9 @@ export default class ErrorBox extends React.Component {
         }
 
         this.setState({
-            firstType: firstType,
-            secondType: secondType,
-            stagedFiles: stagedFiles
+            firstType,
+            secondType,
+            stagedFiles
         }, () => {
             this.uploadButtons();
         });

@@ -68,8 +68,8 @@ export default class UploadDetachedFilesError extends React.Component {
         }
 
         this.setState({
-            header: header,
-            message: message
+            header,
+            message
         });
     }
 

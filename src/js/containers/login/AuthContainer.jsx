@@ -40,7 +40,7 @@ export default class AuthContainer extends React.Component {
 
             // save the ticket value in the component state
             this.setState({
-                ticket: ticket,
+                ticket,
                 error: ''
             }, () => {
                 // remove the ticket from the URL

@@ -57,8 +57,8 @@ export default class AddDataMeta extends React.Component {
     handleChange(agency, codeType, isValid) {
         if (agency !== '' && isValid) {
             this.setState({
-                agency: agency,
-                codeType: codeType,
+                agency,
+                codeType,
                 agencyError: false
             }, this.checkComplete);
         }
@@ -80,10 +80,10 @@ export default class AddDataMeta extends React.Component {
         }
 
         this.setState({
-            startDate: startDate,
-            endDate: endDate,
-            message: message,
-            buttonDisabled: buttonDisabled
+            startDate,
+            endDate,
+            message,
+            buttonDisabled
         }, () => {
             if (dateError !== true) {
                 this.checkComplete();
@@ -93,7 +93,7 @@ export default class AddDataMeta extends React.Component {
 
     handleDateTypeChange(dateType) {
         this.setState({
-            dateType: dateType
+            dateType
         }, this.checkComplete);
     }
 

@@ -175,8 +175,8 @@ export default class ValidateValuesFileComponent extends React.Component {
         }
 
         return {
-            size: size,
-            rows: rows
+            size,
+            rows
         };
     }
 
