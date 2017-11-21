@@ -284,19 +284,27 @@ class UploadDetachedFileValidation extends React.Component {
     }
 
     submitFabs(){
-        UploadHelper.submitFabs({'submission_id': this.props.submission.id})
-            .then((response)=>{
-                this.setState({submit: false, published: 'publishing', showPublish: false})
-                this.checkFile(this.props.submission.id);
-            })
-            .catch((error)=>{
-                if (error.httpStatus === 400) {
-                    this.setState({error: 1, submit: false, error_message: error.message});
-                }
-                else if (error.httpStatus === 500) {
-                    this.setState({error: 4, submit: false, showPublish: false});
-                }
-            });
+        this.setState({submit: false, published: 'publishing', showPublish: false},
+            () => {
+                UploadHelper.submitFabs({'submission_id': this.props.submission.id})
+                    .then((response)=>{
+                        this.checkFile(this.props.submission.id);
+                    })
+                    .catch((error)=>{
+                        if (error.httpStatus === 400) {
+                            this.setState({
+                                error: 1,
+                                submit: false,
+                                error_message: error.message,
+                                published: 'unpublished'
+                            });
+                        }
+                        else if (error.httpStatus === 500) {
+                            this.setState({error: 4, submit: false, showPublish: false, published: 'unpublished'});
+                        }
+                    })
+            }
+        )
     }
 
     // ERRORS

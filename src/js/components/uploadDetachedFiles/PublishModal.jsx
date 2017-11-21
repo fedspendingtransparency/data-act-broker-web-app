@@ -53,6 +53,13 @@ export default class PublishModal extends React.Component {
 		});
 	}
 
+	publish() {
+		this.setState({publishStarted: true},
+			() => {
+				this.props.validate()
+			});
+	}
+
 	render() {
 		let publishable = this.state.rows.valid_rows != 0;
 
@@ -63,6 +70,9 @@ export default class PublishModal extends React.Component {
 		if (!publishable) {
 			message = <p>Your file cannot be published because none of your records passed validation. Please correct your file and resubmit it.</p> 
 			action = <button id='publish-button' className='us-da-disabled-button col-sm-6'>No Valid Rows</button>
+		}
+		else if(this.state.publishStarted) {
+			action = <button id='publish-button' className='us-da-disabled-button col-sm-6'>Publishing</button>
 		}
 
 		let hideClose = "";
