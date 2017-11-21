@@ -79,7 +79,7 @@
 
         "no-unused-expressions": [2, { "allowShortCircuit": true, "allowTernary": true }],
         "no-loop-func": [2],
-        new-cap: [2, { "capIsNewExceptions": ["Moment", "Dimensions"] }],
+        "new-cap": [2, { "capIsNewExceptions": ["Moment", "Dimensions"] }],
         "react/no-multi-comp": [1, { "ignoreStateless": true}],
 
         "func-names": [2],
