@@ -46,15 +46,19 @@ export default class CertifyProgress extends React.Component {
     componentDidUpdate(prevProps) {
         if (prevProps.finished !== this.props.finished) {
             if (this.props.finished) {
-                this.setState({
-                    progress: 100
-                });
+                this.finish();
             }
         }
     }
 
     componentWillUnmount() {
         this.isUnmounted = true;
+    }
+
+    finish() {
+        this.setState({
+            progress: 100
+        });
     }
 
     startProgress() {

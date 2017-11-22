@@ -38,9 +38,7 @@ export default class UploadDetachedFilesPage extends React.Component {
             showMeta = false;
         }
         if (this.state.showMeta !== showMeta) {
-            this.setState({
-                showMeta
-            });
+            this.updateMeta(showMeta);
         }
     }
 
@@ -53,10 +51,14 @@ export default class UploadDetachedFilesPage extends React.Component {
             showMeta = true;
         }
         if (this.state.showMeta !== showMeta) {
-            this.setState({
-                showMeta
-            });
+            this.updateMeta(showMeta);
         }
+    }
+
+    updateMeta(meta) {
+        this.setState({
+            meta
+        });
     }
 
     validate(submissionID) {

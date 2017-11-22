@@ -21,21 +21,6 @@ const propTypes = {
     isOpen: PropTypes.bool
 };
 
-class VariableMessage extends React.Component {
-    render() {
-        let message = "1 warning";
-        if (this.props.warnings !== 1) {
-            message = this.props.warnings + " warnings";
-        }
-
-        return (
-            <h6>
-                This submission contains <span className="variable-field">{message}</span>.
-            </h6>
-        );
-    }
-}
-
 export default class ReviewDataCertifyModal extends React.Component {
     constructor(props) {
         super(props);
@@ -102,7 +87,13 @@ export default class ReviewDataCertifyModal extends React.Component {
     render() {
         let message = null;
         if (this.props.warnings > 0) {
-            message = <VariableMessage warnings={this.props.warnings} />;
+            let warning = " warning";
+            if (this.props.warnings !== 1) {
+                warning = " warnings";
+            }
+            message = (<h6>
+                This submission contains <span className="variable-field">{this.props.warnings + warning}</span>.
+            </h6>);
         }
 
         let action = (<CertifyButtons {...this.props}
@@ -161,5 +152,4 @@ export default class ReviewDataCertifyModal extends React.Component {
     }
 }
 
-VariableMessage.propTypes = propTypes;
 ReviewDataCertifyModal.propTypes = propTypes;

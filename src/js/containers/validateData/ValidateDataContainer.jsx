@@ -65,16 +65,7 @@ class ValidateDataContainer extends React.Component {
         // additionally, restart the process if the submission ID changes
         if (prevProps.submissionID !== this.props.submissionID) {
             this.props.resetSubmission();
-            this.setState({
-                finishedPageLoad: false,
-                headerErrors: true,
-                validationFailed: false,
-                validationFinished: false,
-                notYours: false,
-                serverError: null
-            }, () => {
-                this.validateSubmission();
-            });
+            this.reset();
         }
     }
 
@@ -85,6 +76,19 @@ class ValidateDataContainer extends React.Component {
             clearTimeout(statusTimer);
             statusTimer = null;
         }
+    }
+
+    reset() {
+        this.setState({
+            finishedPageLoad: false,
+            headerErrors: true,
+            validationFailed: false,
+            validationFinished: false,
+            notYours: false,
+            serverError: null
+        }, () => {
+            this.validateSubmission();
+        });
     }
 
     processData(callback) {

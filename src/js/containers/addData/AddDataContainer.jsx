@@ -42,11 +42,22 @@ class AddDataContainer extends React.Component {
             }
         }
 
-        uploadFileHelper(local, submission) {
-            if (local) {
-                return UploadHelper.performLocalUpload(submission);
-            }
-            return UploadHelper.performRemoteUpload(submission);
+        getPage(submissionID, index) {
+            const count = 9;
+            GuideHelper.getSubmissionPage(submissionID)
+                .then(() => {
+                    hashHistory.push('/validateData/' + submissionID);
+                })
+                .catch(() => {
+                    if (index === count) {
+                        hashHistory.push('/404/');
+                    }
+                    else {
+                        setTimeout(() => {
+                            this.getPage(index + 1);
+                        }, 500);
+                    }
+                });
         }
 
         performUpload() {
@@ -57,21 +68,7 @@ class AddDataContainer extends React.Component {
                     this.props.setSubmissionId(submissionID);
                     // Looping because we need to allow backend to catchup to front end and prevent
                     // incorrect 404
-                    const count = 9;
-                    for (let i = 0; i <= count; i++) {
-                        GuideHelper.getSubmissionPage(submissionID)
-                            .then(() => {
-                                hashHistory.push('/validateData/' + submissionID);
-                            })
-                            .catch(() => {
-                                if (i === count) {
-                                    hashHistory.push('/404/');
-                                }
-                                else {
-                                    setTimeout(() => {}, 500);
-                                }
-                            });
-                    }
+                    this.getPage(submissionID, 0);
                 })
                 .catch((err) => {
                     if (!kGlobalConstants.LOCAL && err.submissionID !== null && err.submissionID !== 0) {
@@ -84,6 +81,13 @@ class AddDataContainer extends React.Component {
                         });
                     }
                 });
+        }
+
+        uploadFileHelper(local, submission) {
+            if (local) {
+                return UploadHelper.performLocalUpload(submission);
+            }
+            return UploadHelper.performRemoteUpload(submission);
         }
 
         render() {

@@ -24,38 +24,22 @@ const defaultProps = {
     showButtons: true
 };
 
-class OverlayIcon extends React.Component {
-    render() {
-        return (
-            <div className="overlay-icon">
-                <div className="usa-da-icon">
-                    <div className={this.props.iconClass}>{this.props.icon}</div>
-                </div>
-            </div>
-        );
-    }
-}
-
-class OverlayDetail extends React.Component {
-    render() {
-        return (
-            <div className="overlay-help-text">
-                {this.props.detail}
-            </div>
-        );
-    }
-}
-
 export default class CommonOverlay extends React.Component {
     render() {
         let icon = null;
         if (this.props.showIcon) {
-            icon = <OverlayIcon {...this.props} />;
+            icon = (<div className="overlay-icon">
+                <div className="usa-da-icon">
+                    <div className={this.props.iconClass}>{this.props.icon}</div>
+                </div>
+            </div>);
         }
 
         let detail = null;
         if (this.props.detail) {
-            detail = <OverlayDetail {...this.props} />;
+            detail = (<div className="overlay-help-text">
+                {this.props.detail}
+            </div>);
         }
 
         let buttons = null;
@@ -84,7 +68,5 @@ export default class CommonOverlay extends React.Component {
     }
 }
 
-OverlayIcon.propTypes = propTypes;
-OverlayDetail.propTypes = propTypes;
 CommonOverlay.propTypes = propTypes;
 CommonOverlay.defaultProps = defaultProps;
