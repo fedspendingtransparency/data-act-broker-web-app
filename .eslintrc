@@ -62,7 +62,7 @@
         // RERUN WITH THIS REMOVED
         "object-shorthand": [1, "always"],
         "prefer-const": [1],
-        "no-console": [1],
+        "no-console": [0],
         "guard-for-in": [2],
         "no-param-reassign": [2],
         "quote-props": [1, "as-needed"],

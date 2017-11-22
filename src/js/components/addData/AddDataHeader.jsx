@@ -22,20 +22,6 @@ const defaultProps = {
     title: 'Upload & Validate a New Submission'
 };
 
-class SubmissionContext extends React.Component {
-    render() {
-        return (
-            <div className="last-updated">
-                Last Saved: {this.props.formattedTime}
-                <br />
-                {this.props.agencyName}
-                <br />
-                Reporting Period: {this.props.timePeriodLabel}
-            </div>
-        );
-    }
-}
-
 export default class AddDataHeader extends React.Component {
     constructor(props) {
         super(props);
@@ -85,10 +71,13 @@ export default class AddDataHeader extends React.Component {
         let submissionContext = null;
         if (this.state.ready) {
             const formattedTime = moment.utc(this.state.last_updated).local().format('MM/DD/YYYY h:mm a');
-            submissionContext = (<SubmissionContext
-                formattedTime={formattedTime}
-                agencyName={this.state.agency_name}
-                timePeriodLabel={this.state.reporting_period_start_date} />);
+            submissionContext = (<div className="last-updated">
+                Last Saved: {formattedTime}
+                <br />
+                {this.state.agencyName}
+                <br />
+                Reporting Period: {this.state.reporting_period_start_date}
+            </div>);
         }
 
         return (
@@ -108,6 +97,5 @@ export default class AddDataHeader extends React.Component {
     }
 }
 
-SubmissionContext.propTypes = propTypes;
 AddDataHeader.propTypes = propTypes;
 AddDataHeader.defaultProps = defaultProps;

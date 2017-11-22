@@ -25,18 +25,6 @@ const defaultProps = {
     loading: true
 };
 
-class CrossFileLoadingDetail extends React.Component {
-    render() {
-        return (
-            <div>
-                You can return to this page at any time to check the validation status by using this link:
-                <br />
-                <a href={window.location.href}>{window.location.href}</a>
-            </div>
-        );
-    }
-}
-
 export default class CrossFileOverlay extends React.Component {
 
     constructor(props) {
@@ -71,11 +59,7 @@ export default class CrossFileOverlay extends React.Component {
     componentDidUpdate(prevProps) {
         if (!_.isEqual(prevProps.submission.files, this.props.submission.files) ||
             !_.isEqual(prevProps.submission.crossFile, this.props.submission.crossFile)) {
-            this.setState({
-                allowUpload: this.isReadyForUpload()
-            }, () => {
-                this.prepareOverlayContents();
-            });
+            this.setAllowUpload();
         }
         else if (prevProps.loading !== this.props.loading || prevProps.mode !== this.props.mode) {
             this.prepareOverlayContents();
@@ -84,6 +68,14 @@ export default class CrossFileOverlay extends React.Component {
 
     componentWillUnmount() {
         this.isUnmounted = true;
+    }
+
+    setAllowUpload() {
+        this.setState({
+            allowUpload: this.isReadyForUpload()
+        }, () => {
+            this.prepareOverlayContents();
+        });
     }
 
     pressedNext(e) {
@@ -139,7 +131,11 @@ export default class CrossFileOverlay extends React.Component {
             overlay.iconClass = 'overlay-animation';
             overlay.message = 'Your files are being validated.';
             overlay.hideButtons = true;
-            overlay.detail = <CrossFileLoadingDetail />;
+            overlay.detail = (<div>
+                You can return to this page at any time to check the validation status by using this link:
+                <br />
+                <a href={window.location.href}>{window.location.href}</a>
+            </div>);
         }
         else if (this.props.mode === 'success') {
             // loading finished, show success (default state is to show errors)

@@ -4,6 +4,7 @@
   **/
 
 import React, { PropTypes } from 'react';
+import * as TabItem from './TabItem.jsx';
 
 const propTypes = {
     changeTab: PropTypes.func,
@@ -23,28 +24,6 @@ const defaultProps = {
         warnings: 0
     }
 };
-
-class TabItem extends React.Component {
-    clickedTab(e) {
-        e.preventDefault();
-        this.props.changeTab(this.props.value);
-    }
-    render() {
-        let activeClass = '';
-        if (this.props.isActive) {
-            activeClass = ' active';
-        }
-
-        return (
-            <a href="#" className={"tab-item" + activeClass} onClick={this.clickedTab.bind(this)}>
-                {this.props.label}
-                <span className="count-badge">
-                    {this.props.count}
-                </span>
-            </a>
-        );
-    }
-}
 
 export default class ErrorTabs extends React.Component {
     constructor(props) {
@@ -80,7 +59,6 @@ export default class ErrorTabs extends React.Component {
             count: this.props.counts.warnings
         };
 
-
         if (this.props.activeTab === "warnings") {
             warnings.isActive = true;
             errors.isActive = false;
@@ -112,6 +90,5 @@ export default class ErrorTabs extends React.Component {
     }
 }
 
-TabItem.propTypes = propTypes;
 ErrorTabs.propTypes = propTypes;
 ErrorTabs.defaultProps = defaultProps;
