@@ -1,7 +1,7 @@
 import Q from 'q';
+import moment from 'moment';
 import { kGlobalConstants } from '../GlobalConstants.js';
 import Request from './sessionSuperagent.js';
-import moment from 'moment';
 
 export const generateProtectedUrls = () => {
     let isCanceled = false;
@@ -47,7 +47,7 @@ export const generateRSSUrl = () => {
             }
         })
         .catch((err) => {
-            console.log(err);
+            console.error(err);
             deferred.reject(err);
         });
 

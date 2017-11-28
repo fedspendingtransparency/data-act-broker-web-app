@@ -1,7 +1,7 @@
 /**
 * AppContainer.jsx
 * Created by Kevin Li 3/16/15
-**/
+*/
 
 import React from 'react';
 import { Provider } from 'react-redux';

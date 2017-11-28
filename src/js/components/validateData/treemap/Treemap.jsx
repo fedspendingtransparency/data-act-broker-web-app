@@ -16,7 +16,8 @@ const propTypes = {
     formattedData: PropTypes.object,
     activeCell: PropTypes.number,
     height: PropTypes.number,
-    width: PropTypes.number
+    width: PropTypes.number,
+    color: PropTypes.string
 };
 
 const defaultProps = {

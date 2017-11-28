@@ -1,7 +1,7 @@
 /**
   * ValidateValuesTreemapHelp.jsx
   * Created by Kevin Li 6/20/16
-  **/
+  */
 
 import React, { PropTypes } from 'react';
 
@@ -11,7 +11,8 @@ const propTypes = {
     detail: PropTypes.string,
     field: PropTypes.string,
     title: PropTypes.string,
-    type: PropTypes.string
+    type: PropTypes.string,
+    rule: PropTypes.string
 };
 
 const defaultProps = {

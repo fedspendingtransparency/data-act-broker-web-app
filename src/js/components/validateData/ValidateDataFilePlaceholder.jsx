@@ -1,7 +1,7 @@
 /**
  * ValidateDataFilePlaceholder.jsx
  * Created by Mike Bray 3/28/16
- **/
+ */
 
 import React, { PropTypes } from 'react';
 
@@ -41,7 +41,7 @@ export default class ValidateDataFilePlaceholder extends React.Component {
                         <div className="col-md-3">
                             <div className="usa-da-validate-item-file-section">
                                 <div className="usa-da-validate-item-file-section-result">
-                                    <div className="usa-da-icon" data-testid="validate-icon"></div>
+                                    <div className="usa-da-icon" data-testid="validate-icon" />
                                 </div>
                             </div>
                         </div>

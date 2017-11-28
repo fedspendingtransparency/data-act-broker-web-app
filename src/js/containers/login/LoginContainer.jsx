@@ -1,7 +1,7 @@
 /**
 * LoginContainer.jsx
 * Created by Kevin Li 3/17/16
-**/
+*/
 
 import React, { PropTypes } from 'react';
 import { bindActionCreators } from 'redux';

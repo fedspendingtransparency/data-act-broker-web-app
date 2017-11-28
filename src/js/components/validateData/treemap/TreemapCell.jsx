@@ -24,7 +24,6 @@ const defaultProps = {
 };
 
 export default class TreemapCell extends React.Component {
-
     constructor(props) {
         super(props);
 

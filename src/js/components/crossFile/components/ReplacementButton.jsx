@@ -1,7 +1,7 @@
 /**
   * ReplacementButton.jsx
   * Created by Kevin Li 6/30/16
-  **/
+  */
 import React, { PropTypes } from 'react';
 import * as Icons from '../../SharedComponents/icons/Icons.jsx';
 
@@ -11,7 +11,6 @@ const propTypes = {
 };
 
 export default class ReplacementButton extends React.Component {
-
     render() {
         let icon = <Icons.Trash />;
         if (this.props.expanded) {

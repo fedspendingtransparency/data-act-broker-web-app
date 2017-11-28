@@ -1,7 +1,7 @@
 /**
   * CertifyButtons.jsx
   * Created by Kevin Li 9/7/16
-  **/
+  */
 
 import React, { PropTypes } from 'react';
 

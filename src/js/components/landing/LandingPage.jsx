@@ -1,7 +1,7 @@
 /**
 * LandingPage.jsx
 * Created by Katie Rose 12/7/15
-**/
+*/
 
 import React, { PropTypes } from 'react';
 import Navbar from '../SharedComponents/navigation/NavigationComponent.jsx';
@@ -41,7 +41,7 @@ export default class LandingPage extends React.Component {
                     <div className="usa-da-landing-page">
                         <div className="usa-da-page-content">
                             <Navbar activeTab={activeTab} type={this.state.type} />
-                            <LandingContentContainer type={this.state.type}/>
+                            <LandingContentContainer type={this.state.type} />
                         </div>
                     </div>
                 </div>

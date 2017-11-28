@@ -1,7 +1,7 @@
 /**
   * CertifyProgress.jsx
   * Created by Kevin Li 9/7/16
-  **/
+  */
 
 import React, { PropTypes } from 'react';
 import FileProgress from '../../SharedComponents/FileProgress.jsx';
@@ -21,7 +21,6 @@ const defaultProps = {
 };
 
 export default class CertifyProgress extends React.Component {
-
     constructor(props) {
         super(props);
 

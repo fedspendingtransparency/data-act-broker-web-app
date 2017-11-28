@@ -1,7 +1,7 @@
 /**
   * LoadingBauble.jsx
   * Created by Kevin Li 8/25/16
-  **/
+  */
 
 import React from 'react';
 

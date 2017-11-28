@@ -1,7 +1,7 @@
 /**
 * HelpPageContainer.jsx
 * Created by Nipun Monga 11/21/16
-**/
+*/
 
 import React, { PropTypes } from 'react';
 import { connect } from 'react-redux';
@@ -56,10 +56,7 @@ class HelpPageContainer extends React.Component {
 
     render() {
         const currentRoute = this.state.path;
-        if (currentRoute === 'help' || currentRoute === 'fabshelp') {
-            return <HelpPage {...this.props} helpOnly={this.state.helpOnly} type={this.state.type} />;
-        }
-        else if (currentRoute === 'resources' || currentRoute === 'fabsresources') {
+        if (currentRoute === 'resources' || currentRoute === 'fabsresources') {
             return <ResourcesPage {...this.props} helpOnly={this.state.helpOnly} type={this.state.type} />;
         }
         else if (currentRoute === 'validations' || currentRoute === 'fabsvalidations') {
@@ -76,6 +73,7 @@ class HelpPageContainer extends React.Component {
             return (<HistoryPage {...this.props} history="technical" helpOnly={this.state.helpOnly}
                 type={this.state.type} />);
         }
+        return <HelpPage {...this.props} helpOnly={this.state.helpOnly} type={this.state.type} />;
     }
 }
 

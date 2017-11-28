@@ -1,7 +1,7 @@
 /**
 * AddDataPage.jsx
 * Created by Katie Rose 12/7/15
-**/
+*/
 
 import React, { PropTypes } from 'react';
 import Navbar from '../SharedComponents/navigation/NavigationComponent.jsx';
@@ -27,7 +27,7 @@ export default class AddDataPage extends React.Component {
         let bodyComponent = null;
 
         if (this.props.submission.meta.agency === "") {
-            bodyComponent = <AddDataMeta updateMetaData={this.props.updateMetaData}/>;
+            bodyComponent = <AddDataMeta updateMetaData={this.props.updateMetaData} />;
         }
         else {
             bodyComponent = <AddDataContainer metaData={this.props.submission.meta} />;

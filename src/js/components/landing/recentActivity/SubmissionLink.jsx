@@ -1,7 +1,7 @@
 /**
   * SubmissionLink.jsx
   * Created by Kevin Li 05/16/16
-  **/
+  */
 
 import React, { PropTypes } from 'react';
 
@@ -16,7 +16,6 @@ const propTypes = {
 };
 
 const defaultProps = {
-    submissionId: '',
     disabled: false,
     type: 'dabs'
 };

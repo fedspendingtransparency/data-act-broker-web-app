@@ -1,7 +1,7 @@
 /**
   * AgencyListContainer.jsx
   * Created by Kevin Li 6/1/2016
-  **/
+  */
 
 import React, { PropTypes } from 'react';
 import { bindActionCreators } from 'redux';
@@ -32,21 +32,21 @@ class AgencyListContainer extends React.Component {
             // we need to populate the list
             if (this.props.detached) {
                 AgencyHelper.fetchAllAgencies()
-                .then((agencies) => {
-                    this.props.setAgencyList(agencies);
-                })
-                .catch((err) => {
-                    console.log(err);
-                });
+                    .then((agencies) => {
+                        this.props.setAgencyList(agencies);
+                    })
+                    .catch((err) => {
+                        console.error(err);
+                    });
             }
             else {
                 AgencyHelper.fetchAgencies()
-                .then((agencies) => {
-                    this.props.setAgencyList(agencies);
-                })
-                .catch((err) => {
-                    console.log(err);
-                });
+                    .then((agencies) => {
+                        this.props.setAgencyList(agencies);
+                    })
+                    .catch((err) => {
+                        console.error(err);
+                    });
             }
         }
     }
@@ -64,7 +64,6 @@ class AgencyListContainer extends React.Component {
                 prioritySort={false} />
         );
     }
-
 }
 
 AgencyListContainer.propTypes = propTypes;

@@ -1,7 +1,7 @@
 /**
 * UploadDetachedFilesPageContainer.jsx
 * Created by Mike Hess
-**/
+*/
 
 import React from 'react';
 import { bindActionCreators } from 'redux';

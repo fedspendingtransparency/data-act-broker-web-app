@@ -8,8 +8,8 @@ import TableRow from './TableRow.jsx';
 import TableHeaders from './TableHeaders.jsx';
 
 const propTypes = {
-    data: PropTypes.array.isRequired,
-    headers: PropTypes.array.isRequired,
+    data: PropTypes.array,
+    headers: PropTypes.array,
     sortable: PropTypes.bool,
     onSort: PropTypes.func,
     cellClasses: PropTypes.array,

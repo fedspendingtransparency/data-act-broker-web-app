@@ -1,17 +1,16 @@
 /**
   * ReviewDataCertifyModal.jsx
   * Created by Kevin Li 9/6/16
-  **/
+  */
 
 import React, { PropTypes } from 'react';
 import Modal from 'react-aria-modal';
+import { hashHistory, Link } from 'react-router';
 import * as Icons from '../../SharedComponents/icons/Icons.jsx';
-
 import CertifyDisclaimer from './CertifyDisclaimer.jsx';
 import CertifyButtons from './CertifyButtons.jsx';
 import CertifyProgress from './CertifyProgress.jsx';
 import * as ReviewHelper from '../../../helpers/reviewHelper.js';
-import { hashHistory, Link } from 'react-router';
 
 const propTypes = {
     closeModal: PropTypes.func,
@@ -55,8 +54,10 @@ export default class ReviewDataCertifyModal extends React.Component {
                 if (error.httpStatus === 400 || error.httpStatus === 403) {
                     errorMessage = error.message;
                     if (error.submissionId) {
-                        errorMessage = (<div>{error.message} You can update the certified submission
-                            <Link to={`/validateData/${error.submissionId}`}>here</Link>.</div>);
+                        errorMessage = (
+                            <div>{error.message} You can update the certified submission
+                                <Link to={`/validateData/${error.submissionId}`}>here</Link>.
+                            </div>);
                     }
                 }
 
@@ -91,9 +92,10 @@ export default class ReviewDataCertifyModal extends React.Component {
             if (this.props.warnings !== 1) {
                 warning = " warnings";
             }
-            message = (<h6>
-                This submission contains <span className="variable-field">{this.props.warnings + warning}</span>.
-            </h6>);
+            message = (
+                <h6>
+                    This submission contains <span className="variable-field">{this.props.warnings + warning}</span>.
+                </h6>);
         }
 
         let action = (<CertifyButtons {...this.props}

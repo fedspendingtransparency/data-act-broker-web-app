@@ -1,7 +1,7 @@
 /**
   * Modal.jsx
   * Created by Kate Kuratsu 03/24/17
-  **/
+  */
 
 import React, { PropTypes } from 'react';
 import Modal from 'react-aria-modal';
@@ -27,7 +27,7 @@ export default class ErrorModal extends React.Component {
                     <div id="usa-da-certify-modal" className="usa-da-certify-modal">
                         {this.props.content}
                         <div className="pull-right">
-                            <br/>
+                            <br />
                             <button className="btn btn-primary" onClick={this.closeModal.bind(this)}>Ok</button>
                         </div>
                     </div>

@@ -1,7 +1,7 @@
 /**
   * ComparisonComponent.jsx
   * Created by Kevin Li 6/14/16
-  **/
+  */
 
 import React, { PropTypes } from 'react';
 import * as Icons from '../../SharedComponents/icons/Icons.jsx';

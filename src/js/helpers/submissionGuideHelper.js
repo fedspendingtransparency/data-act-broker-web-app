@@ -1,5 +1,5 @@
-import Request from './sessionSuperagent.js';
 import Q from 'q';
+import Request from './sessionSuperagent.js';
 
 import StoreSingleton from '../redux/storeSingleton.js';
 

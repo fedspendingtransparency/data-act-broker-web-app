@@ -1,7 +1,7 @@
 /**
   * GenerateEFItem.jsx
   * Created by Kevin Li 8/24/16
-  **/
+  */
 
 import React, { PropTypes } from 'react';
 import * as Icons from '../../SharedComponents/icons/Icons.jsx';
@@ -18,7 +18,6 @@ const defaultProps = {
 };
 
 export default class GenerateEFItem extends React.Component {
-
     clickedDownload(e) {
         e.preventDefault();
         const download = window.open(this.props[this.props.type.toLowerCase()].url, '_target');

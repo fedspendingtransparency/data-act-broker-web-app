@@ -1,7 +1,7 @@
 /**
   * FileComponent.jsx
   * Created by Kevin Li 6/14/16
-  **/
+  */
 
 import React, { PropTypes } from 'react';
 import ReplacementButton from './ReplacementButton.jsx';
@@ -13,7 +13,8 @@ const propTypes = {
     agencyName: PropTypes.string,
     fileType: PropTypes.string,
     name: PropTypes.string,
-    status: PropTypes.string
+    status: PropTypes.string,
+    fileKey: PropTypes.string
 };
 
 const defaultProps = {

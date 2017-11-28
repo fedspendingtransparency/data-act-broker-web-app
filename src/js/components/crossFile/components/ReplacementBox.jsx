@@ -1,7 +1,7 @@
 /**
   * ReplacementBox.jsx
   * Created by Kevin Li 6/30/16
-  **/
+  */
 
 import React, { PropTypes } from 'react';
 import _ from 'lodash';

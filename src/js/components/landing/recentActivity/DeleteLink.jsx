@@ -1,7 +1,7 @@
 /**
   * DeleteLink.jsx
   * Created by Minahm Kim 02/09/17
-  **/
+  */
 
 import React, { PropTypes } from 'react';
 import * as Icons from '../../SharedComponents/icons/Icons.jsx';
@@ -88,9 +88,10 @@ export default class DeleteLink extends React.Component {
         let button = 'N/A';
         let modal = null;
         if (this.state.delete) {
-            button = (<div onClick={this.confirm.bind(this)} className="trash-icon">
-                <Icons.Trash alt="Delete" />
-            </div>);
+            button = (
+                <div onClick={this.confirm.bind(this)} className="trash-icon">
+                    <Icons.Trash alt="Delete" />
+                </div>);
             modal = (<DeleteModal isOpen={this.state.active} closeModal={this.reset.bind(this)}
                 delete={this.delete.bind(this)} id={this.props.submissionId} />);
         }

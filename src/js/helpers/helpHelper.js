@@ -1,7 +1,7 @@
-import Request from './sessionSuperagent.js';
 import Q from 'q';
 import Markdown from 'markdown';
 import ent from 'ent';
+import Request from './sessionSuperagent.js';
 
 const unescapeInlineHtml = (html) => {
     let tmpHtml = html;
@@ -75,16 +75,16 @@ const loadHistory = () => {
     const deferred = Q.defer();
 
     Request.get('/help/history.md')
-            .send()
-            .end((err, res) => {
-                if (err) {
-                    deferred.reject(err);
-                }
-                else {
-                    const output = parseMarkdown(res.text);
-                    deferred.resolve(output.html);
-                }
-            });
+        .send()
+        .end((err, res) => {
+            if (err) {
+                deferred.reject(err);
+            }
+            else {
+                const output = parseMarkdown(res.text);
+                deferred.resolve(output.html);
+            }
+        });
 
 
     return deferred.promise;
@@ -94,16 +94,16 @@ const loadTechnicalHistory = () => {
     const deferred = Q.defer();
 
     Request.get('/help/technicalHistory.md')
-            .send()
-            .end((err, res) => {
-                if (err) {
-                    deferred.reject(err);
-                }
-                else {
-                    const output = parseMarkdown(res.text);
-                    deferred.resolve(output.html);
-                }
-            });
+        .send()
+        .end((err, res) => {
+            if (err) {
+                deferred.reject(err);
+            }
+            else {
+                const output = parseMarkdown(res.text);
+                deferred.resolve(output.html);
+            }
+        });
 
     return deferred.promise;
 };
@@ -112,16 +112,16 @@ const loadChangelog = () => {
     const deferred = Q.defer();
 
     Request.get('/help/changelog.md')
-            .send()
-            .end((err, res) => {
-                if (err) {
-                    deferred.reject(err);
-                }
-                else {
-                    const output = parseMarkdown(res.text);
-                    deferred.resolve(output);
-                }
-            });
+        .send()
+        .end((err, res) => {
+            if (err) {
+                deferred.reject(err);
+            }
+            else {
+                const output = parseMarkdown(res.text);
+                deferred.resolve(output);
+            }
+        });
 
     return deferred.promise;
 };
@@ -130,16 +130,16 @@ const loadTechnicalNotes = () => {
     const deferred = Q.defer();
 
     Request.get('/help/technical.md')
-            .send()
-            .end((err, res) => {
-                if (err) {
-                    deferred.reject(err);
-                }
-                else {
-                    const output = parseMarkdown(res.text);
-                    deferred.resolve(output);
-                }
-            });
+        .send()
+        .end((err, res) => {
+            if (err) {
+                deferred.reject(err);
+            }
+            else {
+                const output = parseMarkdown(res.text);
+                deferred.resolve(output);
+            }
+        });
 
     return deferred.promise;
 };
@@ -202,16 +202,16 @@ const loadResourcesFile = () => {
     const deferred = Q.defer();
 
     Request.get('/help/resources.md')
-            .send()
-            .end((err, res) => {
-                if (err) {
-                    deferred.reject(err);
-                }
-                else {
-                    const output = parseMarkdown(res.text);
-                    deferred.resolve(output);
-                }
-            });
+        .send()
+        .end((err, res) => {
+            if (err) {
+                deferred.reject(err);
+            }
+            else {
+                const output = parseMarkdown(res.text);
+                deferred.resolve(output);
+            }
+        });
 
     return deferred.promise;
 };

@@ -1,7 +1,7 @@
 /**
   * DateDropdown.jsx
   * Created by Kevin Li 5/19/16
-  **/
+  */
 
 import React, { PropTypes } from 'react';
 import moment from 'moment';
@@ -16,7 +16,6 @@ const propTypes = {
 };
 
 export default class DateDropdown extends React.Component {
-
     constructor(props) {
         super(props);
 

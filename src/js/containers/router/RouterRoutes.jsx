@@ -46,14 +46,12 @@ const performAutoLogin = (location, replace) => {
             }
         }
     }
-    else {
-        if (session.login !== "loggedIn") {
-            if (path === "/login") {
-                pushMethod('/login');
-            }
-            else {
-                pushMethod('/login?redirect=' + path);
-            }
+    else if (session.login !== "loggedIn") {
+        if (path === "/login") {
+            pushMethod('/login');
+        }
+        else {
+            pushMethod('/login?redirect=' + path);
         }
     }
 };
@@ -335,6 +333,7 @@ function routeConstructor(routeInfo, onEnterIndex, type) {
             type
         };
     }
+    return null;
 }
 
 // defining the routes outside of the component because React Router cannot handle state/prop changes that Redux causes

@@ -1,7 +1,7 @@
 /**
  * CorrectButtonFullOverlay.jsx
  * Created by Mike Bray 6/21/16
- **/
+ */
 
 import React, { PropTypes } from 'react';
 

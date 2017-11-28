@@ -1,7 +1,7 @@
 /**
   * GenerateFilesPage.jsx
   * Created by Kevin Li 7/22/16
-  **/
+  */
 
 import React, { PropTypes } from 'react';
 
@@ -16,7 +16,6 @@ const propTypes = {
 };
 
 export default class GenerateFilesContent extends React.Component {
-
     handleDateChange(file, date, dateType) {
         this.props.handleDateChange(file, date, dateType);
     }

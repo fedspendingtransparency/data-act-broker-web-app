@@ -1,7 +1,7 @@
 /**
   * AuthContainer.jsx
   * Created by Kevin Li 10/13/16
-  **/
+  */
 
 import React from 'react';
 import { hashHistory } from 'react-router';

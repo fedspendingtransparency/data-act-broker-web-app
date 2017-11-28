@@ -1,7 +1,7 @@
 /**
  * ValidateDataFileComponent.jsx
  * Created by Mike Bray 3/28/16
- **/
+ */
 
 import React, { PropTypes } from 'react';
 import FileProgress from '../SharedComponents/FileProgress.jsx';
@@ -245,23 +245,23 @@ export default class ValidateDataFileComponent extends React.Component {
         }
         if (type) {
             GenerateFilesHelper.fetchFile(type, this.props.submission.id)
-            .then((result) => {
-                this.setState({
-                    signInProgress: false,
-                    signedUrl: result.url
-                }, () => {
-                    this.openReport();
+                .then((result) => {
+                    this.setState({
+                        signInProgress: false,
+                        signedUrl: result.url
+                    }, () => {
+                        this.openReport();
+                    });
+                })
+                .catch(() => {
+                    this.setState({
+                        signInProgress: false,
+                        error: {
+                            header: 'Invalid File Type Selected ' + item.file_type,
+                            body: ''
+                        }
+                    });
                 });
-            })
-            .catch(() => {
-                this.setState({
-                    signInProgress: false,
-                    error: {
-                        header: 'Invalid File Type Selected ' + item.file_type,
-                        body: ''
-                    }
-                });
-            });
         }
         else {
             this.setState({
@@ -352,10 +352,8 @@ export default class ValidateDataFileComponent extends React.Component {
                 disabledCorrect = ' hide';
             }
         }
-        else {
-            if (!PermissionsHelper.checkAgencyPermissions(this.props.session, this.props.agencyName)) {
-                disabledCorrect = ' hide';
-            }
+        else if (!PermissionsHelper.checkAgencyPermissions(this.props.session, this.props.agencyName)) {
+            disabledCorrect = ' hide';
         }
 
         let errorMessage = null;
@@ -383,13 +381,15 @@ export default class ValidateDataFileComponent extends React.Component {
                             </div>
                             <div className="row usa-da-validate-item-body">
                                 <div className={"col-md-12 usa-da-validate-txt-wrap" + messageClass}
-                                    data-testid="validate-message">{this.state.headerTitle}</div>
+                                    data-testid="validate-message">
+                                    {this.state.headerTitle}
+                                </div>
                             </div>
                             <div className="row usa-da-validate-item-footer-wrapper">
                                 <div className={"usa-da-validate-item-footer usa-da-header-error" + showFooter + " " +
                                     footerStatus} onClick={this.toggleErrorReport.bind(this)}>
-                                    <div>View &amp; Download Header Error Report <span className={"usa-da-icon"}>
-                                        {chevronDirection}</span>
+                                    <div>View &amp; Download Header Error Report
+                                        <span className="usa-da-icon">{chevronDirection}</span>
                                     </div>
                                 </div>
                             </div>

@@ -1,7 +1,7 @@
 /**
  * ResourcesPage.jsx
  * Created by Emily Gullo 9/27/16
- **/
+ */
 
 import React, { PropTypes } from 'react';
 import Navbar from '../SharedComponents/navigation/NavigationComponent.jsx';

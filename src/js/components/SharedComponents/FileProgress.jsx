@@ -1,13 +1,13 @@
 /**
 * FileProgress.jsx
 * Created by Kyle Fox 2/16/16
-**/
+*/
 
 import React, { PropTypes } from 'react';
 
 const propTypes = {
     fileStatus: PropTypes.number,
-    progress: PropTypes.number.isRequired
+    progress: PropTypes.number
 };
 
 const defaultProps = {
@@ -15,7 +15,6 @@ const defaultProps = {
 };
 
 export default class FileProgress extends React.Component {
-
     render() {
         const style = {
             width: this.props.fileStatus + '%'
@@ -25,7 +24,8 @@ export default class FileProgress extends React.Component {
             <div>
                 <div className="progress">
                     <div className="progress-bar" role="progressbar" aria-valuenow={this.props.fileStatus}
-                        aria-valuemin="0" aria-valuemax="100" style={style}>{Math.round(this.props.fileStatus)}%</div>
+                        aria-valuemin="0" aria-valuemax="100" style={style}>{Math.round(this.props.fileStatus)}%
+                    </div>
                 </div>
             </div>
         );

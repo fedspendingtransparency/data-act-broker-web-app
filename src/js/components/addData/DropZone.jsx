@@ -1,7 +1,7 @@
 /**
 * DropZone.jsx
 * Created by Kyle Fox 2/19/16
-**/
+*/
 
 import React, { PropTypes } from 'react';
 import Dropzone from 'react-dropzone';

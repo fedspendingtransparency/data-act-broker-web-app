@@ -1,7 +1,7 @@
 /**
   * GenerateFilesPage.jsx
   * Created by Kevin Li 7/22/16
-  **/
+  */
 
 import React, { PropTypes } from 'react';
 import Navbar from '../SharedComponents/navigation/NavigationComponent.jsx';

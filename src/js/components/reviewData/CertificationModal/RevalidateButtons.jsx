@@ -1,7 +1,7 @@
 /**
   * RevalidateButtons.jsx
   * Created by Nipun Monga 02/27/17
-  **/
+  */
 
 import React, { PropTypes } from 'react';
 
@@ -24,7 +24,7 @@ export default class RevalidateButtons extends React.Component {
                 <div className="row">
                     <div className="col-md-6 mb-10">
                         <button onClick={this.props.clickedRevalidateButton}
-                            className={"usa-da-button btn-full btn-primary"}>
+                            className="usa-da-button btn-full btn-primary">
                             Revalidate Submission
                         </button>
                     </div>

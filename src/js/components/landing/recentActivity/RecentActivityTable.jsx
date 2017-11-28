@@ -1,7 +1,7 @@
 /**
   * RecentActivityTable.jsx
   * Created by Kevin Li 5/16/16
-  **/
+  */
 
 import React, { PropTypes } from 'react';
 import _ from 'lodash';
@@ -133,7 +133,7 @@ export default class RecentActivityTable extends React.Component {
                 this.setState({
                     message: 'An error occurred while loading recent activity.'
                 });
-                console.log(err);
+                console.error(err);
             });
     }
 
@@ -227,7 +227,7 @@ export default class RecentActivityTable extends React.Component {
                 const deleteConfirm = (this.state.deleteIndex !== -1 && index === this.state.deleteIndex);
                 row.push(<DeleteLink submissionId={rowData.submission_id} index={index}
                     warning={this.deleteWarning.bind(this)} confirm={deleteConfirm} reload={this.reload.bind(this)}
-                    item={rowData} account={this.state.account}/>);
+                    item={rowData} account={this.state.account} />);
             }
             else {
                 row.push("N/A");

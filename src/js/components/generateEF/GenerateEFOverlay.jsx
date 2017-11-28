@@ -1,7 +1,7 @@
 /**
   * GenerateEFOverlay.jsx
   * Created by Kevin Li 8/24/16
-  **/
+  */
 
 import React, { PropTypes } from 'react';
 import * as Icons from '../SharedComponents/icons/Icons.jsx';
@@ -41,7 +41,7 @@ export default class GenerateEFOverlay extends React.Component {
                     }
                 })
                 .catch((error) => {
-                    console.log(error);
+                    console.error(error);
                 });
         }
     }
@@ -110,9 +110,13 @@ export default class GenerateEFOverlay extends React.Component {
                 iconClass={iconClass}>
                 <div className="usa-da-btn-bg">
                     <button className={"usa-da-button" + buttonClass} disabled={buttonDisabled}
-                        onClick={this.clickedGenerate.bind(this)}>Regenerate Files</button>
+                        onClick={this.clickedGenerate.bind(this)}>
+                        Regenerate Files
+                    </button>
                     <button className={"usa-da-button usa-da-validation-overlay-review " + nextClass}
-                        disabled={nextDisabled} onClick={this.clickedNext.bind(this)}>Next</button>
+                        disabled={nextDisabled} onClick={this.clickedNext.bind(this)}>
+                        Next
+                    </button>
                 </div>
             </CommonOverlay>
         );

@@ -1,7 +1,7 @@
 /**
   * DashboardContainer.jsx
   * Created by Kevin Li 10/21/16
-  **/
+  */
 
 import React, { PropTypes } from 'react';
 import { connect } from 'react-redux';

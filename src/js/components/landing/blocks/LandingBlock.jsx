@@ -1,7 +1,7 @@
 /**
   * LandingBlock.jsx
   * Created by Kevin Li 5/17/16
-  **/
+  */
 
 import React, { PropTypes } from 'react';
 

@@ -1,14 +1,12 @@
 /**
   * DateTypeField.jsx
   * Created by Kevin Li 5/19/16
-  **/
+  */
 
 import React, { PropTypes } from 'react';
-import * as Icons from '../../SharedComponents/icons/Icons.jsx';
 import moment from 'moment';
-
+import * as Icons from '../../SharedComponents/icons/Icons.jsx';
 import DateDropdown from './DateDropdown.jsx';
-
 import * as UtilHelper from '../../../helpers/util.js';
 
 const propTypes = {
@@ -16,13 +14,7 @@ const propTypes = {
     type: PropTypes.string
 };
 
-const defaultProps = {
-    startDateError: false,
-    endDateError: false
-};
-
 export default class DateRangeField extends React.Component {
-
     constructor(props) {
         super(props);
 
@@ -118,4 +110,3 @@ export default class DateRangeField extends React.Component {
 }
 
 DateRangeField.propTypes = propTypes;
-DateRangeField.defaultProps = defaultProps;

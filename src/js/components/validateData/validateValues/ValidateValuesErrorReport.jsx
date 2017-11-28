@@ -1,7 +1,7 @@
 /**
  * ValidateValuesErrorReport.jsx
  * Created by Kevin Li 4/4/2016
- **/
+ */
 
 import React, { PropTypes } from 'react';
 import _ from 'lodash';
@@ -126,7 +126,7 @@ export default class ValidateValuesErrorReport extends React.Component {
                 this.setState({
                     signInProgress: false
                 });
-                console.log(err);
+                console.error(err);
             });
     }
 

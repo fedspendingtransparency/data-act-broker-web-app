@@ -1,7 +1,7 @@
 /**
 * LoginBanner.jsx
 * Created by Kyle Fox 2/19/16
-**/
+*/
 
 import React from 'react';
 import LoginIntro from './LoginIntro.jsx';

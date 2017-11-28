@@ -1,6 +1,6 @@
-import Request from './sessionSuperagent.js';
 import Q from 'q';
 import moment from 'moment';
+import Request from './sessionSuperagent.js';
 import { kGlobalConstants } from '../GlobalConstants.js';
 
 import * as Status from '../components/landing/recentActivity/SubmissionStatus.jsx';
@@ -57,23 +57,25 @@ const parseRecentActivity = (submissions) => {
 };
 
 export const loadSubmissionList = (page = 1, limit = 10, certified = false, sort = 'updated', order = 'desc',
-                                   d2Submission = false) => {
+    d2Submission = false) => {
     const deferred = Q.defer();
 
     Request.get(kGlobalConstants.API + 'list_submissions/')
-            .query({ page, limit, certified, sort, order, d2_submission: d2Submission })
-            .end((err, res) => {
-                if (err) {
-                    deferred.reject(err);
-                }
-                else {
-                    const output = {
-                        submissions: parseRecentActivity(res.body.submissions),
-                        total: res.body.total
-                    };
-                    deferred.resolve(output);
-                }
-            });
+        .query({
+            page, limit, certified, sort, order, d2_submission: d2Submission
+        })
+        .end((err, res) => {
+            if (err) {
+                deferred.reject(err);
+            }
+            else {
+                const output = {
+                    submissions: parseRecentActivity(res.body.submissions),
+                    total: res.body.total
+                };
+                deferred.resolve(output);
+            }
+        });
 
     return deferred.promise;
 };
@@ -82,15 +84,15 @@ export const loadSubmissionHistory = (submissionID) => {
     const deferred = Q.defer();
 
     Request.post(kGlobalConstants.API + 'list_certifications/')
-            .send({ submission_id: submissionID })
-            .end((err, res) => {
-                if (err) {
-                    deferred.reject(err);
-                }
-                else {
-                    deferred.resolve(res.body);
-                }
-            });
+        .send({ submission_id: submissionID })
+        .end((err, res) => {
+            if (err) {
+                deferred.reject(err);
+            }
+            else {
+                deferred.resolve(res.body);
+            }
+        });
 
     return deferred.promise;
 };
@@ -99,19 +101,19 @@ export const getSubmissionFile = (submissionID, certifiedFilesHistory, isWarning
     const deferred = Q.defer();
 
     Request.post(kGlobalConstants.API + 'get_certified_file/')
-            .send({
-                submission_id: submissionID,
-                certified_files_history_id: certifiedFilesHistory,
-                is_warning: isWarning
-            })
-            .end((err, res) => {
-                if (err) {
-                    deferred.reject(err);
-                }
-                else {
-                    deferred.resolve(res.body);
-                }
-            });
+        .send({
+            submission_id: submissionID,
+            certified_files_history_id: certifiedFilesHistory,
+            is_warning: isWarning
+        })
+        .end((err, res) => {
+            if (err) {
+                deferred.reject(err);
+            }
+            else {
+                deferred.resolve(res.body);
+            }
+        });
 
     return deferred.promise;
 };

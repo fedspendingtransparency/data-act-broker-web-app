@@ -1,7 +1,7 @@
 /**
 * GenerateDetachedFilesPage.jsx
 * Created by Alisa Burdeyny
-**/
+*/
 
 import ReactCSSTransitionGroup from 'react-addons-css-transition-group';
 

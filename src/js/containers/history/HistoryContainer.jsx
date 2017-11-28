@@ -1,7 +1,7 @@
 /**
 * HistoryContainer.jsx
 * Created by Minahm Kim 6/7/17
-**/
+*/
 
 import React, { PropTypes } from 'react';
 import { connect } from 'react-redux';

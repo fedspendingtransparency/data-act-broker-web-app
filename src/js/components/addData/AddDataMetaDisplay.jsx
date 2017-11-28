@@ -1,7 +1,7 @@
 /**
 * AddDataMetaDisplay.jsx
 * Created by Mike Bray 3/22/16
-**/
+*/
 
 import React, { PropTypes } from 'react';
 import moment from 'moment';

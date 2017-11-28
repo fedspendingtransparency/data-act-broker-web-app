@@ -1,7 +1,7 @@
 /**
 * LandingContent.jsx
 * Created by Kyle Fox 2/19/16
-**/
+*/
 
 import React, { PropTypes } from 'react';
 import RecentActivityTable from './recentActivity/RecentActivityTable.jsx';
@@ -90,53 +90,66 @@ export default class LandingContent extends React.Component {
         }
 
         let header = "Welcome to the DATA Act Broker";
-        let headerBody = <div></div>;
+        let headerBody = <div />;
         let headerClass = 'dark';
         if (this.state.type === 'fabs') {
             header = "Financial Assistance Broker Submission (FABS)";
             headerClass = 'teal';
-            headerBody = (<div>
-                <p>Upload your agency’s fiancial assistance data and validate it against the latest version
-                of the DATA Act Information Model Schema (DAIMS).</p>
-                <p>Details on how to format your data, including required and optional fields, can be found
-                    in the <a href="/#/FABSHelp" target="_blank" rel="noopener noreferrer" >Help section</a>.</p>
-            </div>);
+            headerBody = (
+                <div>
+                    <p>
+                        Upload your agency’s fiancial assistance data and validate it against the latest version
+                        of the DATA Act Information Model Schema (DAIMS).
+                    </p>
+                    <p>
+                        Details on how to format your data, including required and optional fields, can be found
+                        in the <a href="/#/FABSHelp" target="_blank" rel="noopener noreferrer" >Help section</a>.
+                    </p>
+                </div>);
         }
         else if (this.state.type === 'dabs') {
             header = "DATA Act Broker Submission (DABS)";
-            headerBody = (<div>
-                <p>Upload your agency’s financial data and validate it against the latest version of the
-                DATA Act Information Model Schema (DAIMS).</p>
-                <p>Details on how to format your data, including required and optional fields, can be found
-                    in the <a href="/#/help" target="_blank" rel="noopener noreferrer" >Help section</a>.</p>
-            </div>);
+            headerBody = (
+                <div>
+                    <p>
+                        Upload your agency’s financial data and validate it against the latest version of the
+                        DATA Act Information Model Schema (DAIMS).
+                    </p>
+                    <p>
+                        Details on how to format your data, including required and optional fields, can be found
+                        in the <a href="/#/help" target="_blank" rel="noopener noreferrer" >Help section</a>.
+                    </p>
+                </div>);
         }
         else if (this.state.type === 'home') {
-            headerBody = (<div>
-                <p>Upload, validate, and publish your agency’s federal spending transparency data.</p>
-                <p>Details on how to format your data against the latest version of the DATA Act
-                    Information Model Schema (DAIMS) can be found on the
-                    <a href="/#/help" target="_blank" rel="noopener noreferrer" >Help section</a>.
-                </p>
-            </div>);
+            headerBody = (
+                <div>
+                    <p>Upload, validate, and publish your agency’s federal spending transparency data.</p>
+                    <p>
+                        Details on how to format your data against the latest version of the DATA Act
+                        Information Model Schema (DAIMS) can be found on the
+                        <a href="/#/help" target="_blank" rel="noopener noreferrer" >Help section</a>.
+                    </p>
+                </div>);
         }
 
         let recentActivityTable = null;
         if (this.state.type !== 'home') {
-            recentActivityTable = (<div className="container">
-                <div className="row">
-                    <div className="col-md-12">
-                        <h2 className={recentHeader}>
-                            <div className="recent-header">Recent Activity for:</div>
-                            <div className={recentActivity}>{agencyName}</div>
-                        </h2>
-                        <div className="see-more-wrapper">
-                            <a className={expand} onClick={this.toggleExpand.bind(this)}>{expandContent}</a>
+            recentActivityTable = (
+                <div className="container">
+                    <div className="row">
+                        <div className="col-md-12">
+                            <h2 className={recentHeader}>
+                                <div className="recent-header">Recent Activity for:</div>
+                                <div className={recentActivity}>{agencyName}</div>
+                            </h2>
+                            <div className="see-more-wrapper">
+                                <a className={expand} onClick={this.toggleExpand.bind(this)}>{expandContent}</a>
+                            </div>
+                            <RecentActivityTable {...this.props} />
                         </div>
-                        <RecentActivityTable {...this.props} />
                     </div>
-                </div>
-            </div>);
+                </div>);
         }
 
         return (
@@ -158,9 +171,9 @@ export default class LandingContent extends React.Component {
                             <div className="usa-da-landing-btns">
                                 <BlockContent type={this.state.type}
                                     clickedUploadReqs={this.clickedUploadReqs.bind(this)}
-                                    session={this.props.session}/>
+                                    session={this.props.session} />
                                 <div id="modalHolder">
-                                    <LandingRequirementsModal ref="modal" type={this.props.type}/>
+                                    <LandingRequirementsModal ref="modal" type={this.props.type} />
                                 </div>
                             </div>
                         </div>

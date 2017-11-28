@@ -1,7 +1,7 @@
 /**
  * ReviewDataNarrativeDropdown.jsx
  * Created by Alisa Burdeyny 11/21/16
- **/
+ */
 
 import React, { PropTypes } from 'react';
 

@@ -1,7 +1,7 @@
 /**
   * ErrorBox.jsx
   * Created by Kevin Li 6/15/16
-  **/
+  */
 
 import React, { PropTypes } from 'react';
 import _ from 'lodash';
@@ -165,7 +165,7 @@ export default class ErrorBox extends React.Component {
                 this.setState({
                     signInProgress: false
                 });
-                console.log(err);
+                console.error(err);
             });
     }
 
@@ -224,19 +224,21 @@ export default class ErrorBox extends React.Component {
         let upload = null;
         if (PermissionsHelper.checkAgencyPermissions(this.props.session, this.props.agencyName)) {
             uploadHeader = 'Upload Corrected Files';
-            upload = (<div>
-                <div className="row mb-10">
-                    <div className="col-md-12">
-                        {this.state.firstButton}
+            upload = (
+                <div>
+                    <div className="row mb-10">
+                        <div className="col-md-12">
+                            {this.state.firstButton}
+                        </div>
                     </div>
-                </div>
 
-                <div className="row">
-                    <div className="col-md-12">
-                        {this.state.secondButton}
+                    <div className="row">
+                        <div className="col-md-12">
+                            {this.state.secondButton}
+                        </div>
                     </div>
                 </div>
-            </div>);
+            );
         }
 
         return (

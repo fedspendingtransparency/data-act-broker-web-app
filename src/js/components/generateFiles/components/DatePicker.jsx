@@ -1,12 +1,12 @@
 /**
   * DatePicker.jsx
   * Created by Kevin Li 7/25/16
-  **/
+  */
 
 import React, { PropTypes } from 'react';
-import * as Icons from '../../SharedComponents/icons/Icons.jsx';
 import DayPicker, { DateUtils } from 'react-day-picker';
 import moment from 'moment';
+import * as Icons from '../../SharedComponents/icons/Icons.jsx';
 
 const propTypes = {
     onDateChange: PropTypes.func,
@@ -26,7 +26,6 @@ const defaultProps = {
 };
 
 export default class DatePicker extends React.Component {
-
     constructor(props) {
         super(props);
 
@@ -219,7 +218,7 @@ export default class DatePicker extends React.Component {
                         onBlur={this.handleInputBlur.bind(this)}
                         disabled={this.props.disabled} />
                     <a href="#" onClick={this.toggleDatePicker.bind(this)} tabIndex={this.props.tabIndex + 1}
-                        className="usa-da-icon picker-icon date" aria-haspopup={"true"}>
+                        className="usa-da-icon picker-icon date" aria-haspopup="true">
                         <Icons.Calendar alt="Date picker" />
                     </a>
                 </div>

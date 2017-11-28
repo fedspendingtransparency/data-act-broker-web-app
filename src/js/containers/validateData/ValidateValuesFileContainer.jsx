@@ -52,7 +52,9 @@ class ValidateValuesFileContainer extends React.Component {
 ValidateValuesFileContainer.propTypes = propTypes;
 
 export default connect(
-    (state) => ({ submission: state.submission,
-    session: state.session }),
+    (state) => ({
+        submission: state.submission,
+        session: state.session
+    }),
     (dispatch) => bindActionCreators(uploadActions, dispatch)
 )(ValidateValuesFileContainer);

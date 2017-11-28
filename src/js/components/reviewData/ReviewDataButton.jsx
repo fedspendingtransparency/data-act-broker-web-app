@@ -1,7 +1,7 @@
 /**
  * ReviewDataButton.jsx
  * Created by Mike Bray 4/5/16
- **/
+ */
 
 import React, { PropTypes } from 'react';
 

@@ -1,7 +1,7 @@
 /**
  * SubmissionGuideContent.jsx
  * Created by Mike Bray 5/19/16
- **/
+ */
 
 import React, { PropTypes } from 'react';
 import Banner from '../SharedComponents/Banner.jsx';
@@ -97,8 +97,12 @@ export default class SubmissionGuideContent extends React.Component {
                                                 </a>
                                             </li>
                                         </ul>
-                                        <p><strong>Files D1, D2, E, and F will be generated for you based on the
-                                        reporting period you provide.</strong></p>
+                                        <p>
+                                            <strong>
+                                                Files D1, D2, E, and F will be generated for you based on the
+                                                reporting period you provide.
+                                            </strong>
+                                        </p>
                                         <ul>
                                             <li>File D1: Award and Awardee Attributes (Procurement Award) data.</li>
                                             <li>File D2: Award and Awardee Attributes (Financial Assistance) data.
@@ -140,8 +144,10 @@ export default class SubmissionGuideContent extends React.Component {
                                     </div>
                                     <div className="col-md-11 usa-da-reg-wrapper mt-20">
                                         <h4>Review, Certify, and Publish</h4>
-                                        <p>Once your submission has successfully passed validation, this step allows you
-                                        to:</p>
+                                        <p>
+                                            Once your submission has successfully passed validation, this step allows
+                                            you to:
+                                        </p>
                                         <ul>
                                             <li>
                                                 Notify another user that the submission is ready for them to review,

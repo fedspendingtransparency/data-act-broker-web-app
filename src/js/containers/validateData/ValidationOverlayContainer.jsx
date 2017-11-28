@@ -1,7 +1,7 @@
 /**
 * ValidationOverlayContainer.jsx
 * Created by Kevin Li 3/29/16
-**/
+*/
 
 import React, { PropTypes } from 'react';
 import { bindActionCreators } from 'redux';
@@ -23,8 +23,7 @@ class ValidationOverlayContainer extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            notAllowed: false,
-            errorMessage: ""
+            notAllowed: false
         };
     }
 
@@ -34,14 +33,14 @@ class ValidationOverlayContainer extends React.Component {
         }
         else {
             UploadHelper.performRemoteCorrectedUpload(this.props.submission)
-            .catch((err) => {
-                if (err.httpStatus === 403) {
-                    this.setState({
-                        notAllowed: true,
-                        errorMessage: err.message
-                    });
-                }
-            });
+                .catch((err) => {
+                    if (err.httpStatus === 403) {
+                        console.error(err.message);
+                        this.setState({
+                            notAllowed: true
+                        });
+                    }
+                });
         }
     }
 

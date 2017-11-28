@@ -32,7 +32,6 @@ const propTypes = {
 const timerDuration = 10;
 
 class GenerateFilesContainer extends React.Component {
-
     constructor(props) {
         super(props);
 
@@ -210,7 +209,7 @@ class GenerateFilesContainer extends React.Component {
                     this.props.showError(JSON.parse(err.text).message);
                 }
                 else {
-                    console.log(err);
+                    console.error(err);
                 }
             });
     }
@@ -495,7 +494,9 @@ class GenerateFilesContainer extends React.Component {
 GenerateFilesContainer.propTypes = propTypes;
 
 export default connect(
-    (state) => ({ submission: state.submission,
-        session: state.session }),
+    (state) => ({
+        submission: state.submission,
+        session: state.session
+    }),
     (dispatch) => bindActionCreators(uploadActions, dispatch)
 )(GenerateFilesContainer);

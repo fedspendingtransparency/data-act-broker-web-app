@@ -1,7 +1,7 @@
 /**
   * DashboardPage.jsx
   * Created by Kevin Li 10/21/16
-  **/
+  */
 
 import React, { PropTypes } from 'react';
 import Navbar from '../SharedComponents/navigation/NavigationComponent.jsx';
@@ -49,7 +49,7 @@ export default class DashboardPage extends React.Component {
                         </div>
                     </div>
                     <Banner type={this.state.type} />
-                    <DashboardContainer type={this.state.type}/>
+                    <DashboardContainer type={this.state.type} />
                 </div>
                 <Footer />
             </div>

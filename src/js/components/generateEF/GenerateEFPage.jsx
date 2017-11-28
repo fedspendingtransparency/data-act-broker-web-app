@@ -1,7 +1,7 @@
 /**
   * GenerateEFPage.jsx
   * Created by Kevin Li 8/23/16
-  **/
+  */
 
 import React, { PropTypes } from 'react';
 import Navbar from '../SharedComponents/navigation/NavigationComponent.jsx';
@@ -17,7 +17,6 @@ const propTypes = {
 };
 
 export default class GenerateEFPage extends React.Component {
-
     constructor(props) {
         super(props);
 

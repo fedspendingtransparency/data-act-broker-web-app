@@ -1,13 +1,13 @@
 /**
  * ValidateDataErrorReport.jsx
  * Created by Mike Bray 3/28/16
- **/
+ */
 
 import React, { PropTypes } from 'react';
+import _ from 'lodash';
 import ScrollableTable from '../SharedComponents/table/ScrollableTable.jsx';
 import * as Icons from '../SharedComponents/icons/Icons.jsx';
 import * as ReviewHelper from '../../helpers/reviewHelper.js';
-import _ from 'lodash';
 
 const propTypes = {
     data: PropTypes.object,
@@ -52,7 +52,7 @@ export default class ValidateDataErrorReport extends React.Component {
                 this.setState({
                     signInProgress: false
                 });
-                console.log(err);
+                console.error(err);
             });
     }
 

@@ -1,6 +1,6 @@
-import Request from './sessionSuperagent.js';
 import Q from 'q';
 import AWS from 'aws-sdk';
+import Request from './sessionSuperagent.js';
 
 import StoreSingleton from '../redux/storeSingleton.js';
 
@@ -14,15 +14,15 @@ const uploadLocalFile = (file, type) => {
     formData.append('file', file);
 
     Request.post(kGlobalConstants.API + 'local_upload/')
-            .send(formData)
-            .end((err, res) => {
-                if (err) {
-                    deferred.reject(err);
-                }
-                else {
-                    deferred.resolve([type, res.body.path]);
-                }
-            });
+        .send(formData)
+        .end((err, res) => {
+            if (err) {
+                deferred.reject(err);
+            }
+            else {
+                deferred.resolve([type, res.body.path]);
+            }
+        });
 
     return deferred.promise;
 };
@@ -31,16 +31,16 @@ const finalizeUpload = (fileID) => {
     const deferred = Q.defer();
 
     Request.post(kGlobalConstants.API + 'finalize_job/')
-               .send({ upload_id: fileID })
-               .end((err, res) => {
-                   if (err) {
-                       console.log(err + JSON.stringify(res.body));
-                       deferred.reject();
-                   }
-                   else {
-                       deferred.resolve();
-                   }
-               });
+        .send({ upload_id: fileID })
+        .end((err, res) => {
+            if (err) {
+                console.error(err + JSON.stringify(res.body));
+                deferred.reject();
+            }
+            else {
+                deferred.resolve();
+            }
+        });
 
     return deferred.promise;
 };
@@ -221,7 +221,7 @@ const uploadS3File = (file, fileID, key, credentials, fileType) => {
         })
         .send((error) => {
             if (error) {
-                console.log(error);
+                console.error(error);
                 // update Redux with the upload state
                 store.dispatch(uploadActions.setUploadState({
                     name: fileType,
@@ -366,7 +366,7 @@ export const performLocalCorrectedUpload = (submission) => {
 
     Q.all(uploadOperations)
         .then((uploads) => {
-           // prepare the request
+            // prepare the request
             uploads.forEach((upload) => {
                 request[upload[0]] = upload[1];
             });

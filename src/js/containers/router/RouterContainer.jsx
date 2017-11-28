@@ -1,21 +1,19 @@
 /**
 * RouterContainer.jsx
 * Created by Kevin Li 3/16/15
-**/
+*/
 
 import React, { PropTypes } from 'react';
-import { kGlobalConstants } from '../../GlobalConstants.js';
 import { Router, hashHistory } from 'react-router';
-
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
+import { kGlobalConstants } from '../../GlobalConstants.js';
 import * as sessionActions from '../../redux/actions/sessionActions.js';
-
 import * as LoginHelper from '../../helpers/loginHelper.js';
-
 import RouterRoutes from './RouterRoutes.jsx';
 
 const ga = require('react-ga');
+
 const GA_OPTIONS = { debug: false };
 
 const propTypes = {

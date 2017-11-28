@@ -1,7 +1,7 @@
 /**
  * HelpPage.jsx
  * Created by Mike Bray 4/1/16
- **/
+ */
 
 import React, { PropTypes } from 'react';
 import Navbar from '../SharedComponents/navigation/NavigationComponent.jsx';
@@ -47,7 +47,7 @@ export default class HelpPage extends React.Component {
                 });
             })
             .catch((err) => {
-                console.log(err);
+                console.error(err);
             });
     }
 
@@ -60,7 +60,7 @@ export default class HelpPage extends React.Component {
                 });
             })
             .catch((err) => {
-                console.log(err);
+                console.error(err);
             });
     }
 

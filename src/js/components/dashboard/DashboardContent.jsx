@@ -1,7 +1,7 @@
 /**
   * DashboardContent.jsx
   * Created by Kevin Li 10/27/16
-  **/
+  */
 
 import React, { PropTypes } from 'react';
 import DashboardTable from './DashboardTable.jsx';

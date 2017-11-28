@@ -1,9 +1,10 @@
 /**
  * ReviewDataPage.jsx
  * Created by Mike Bray 3/31/16
- **/
+ */
 
-import React, { PropTypes } from 'react';
+import React from 'react';
+import PropTypes from 'prop-types';
 import Navbar from '../SharedComponents/navigation/NavigationComponent.jsx';
 import AddDataHeader from './../addData/AddDataHeader.jsx';
 import Progress from '../SharedComponents/ProgressComponent.jsx';

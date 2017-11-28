@@ -1,7 +1,7 @@
 /**
 * ErrorMessage.jsx
 * Created by Martin Press 3/4/16
-**/
+*/
 
 import React, { PropTypes } from 'react';
 

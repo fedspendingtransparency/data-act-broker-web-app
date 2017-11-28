@@ -4,8 +4,8 @@
   */
 
 import React from 'react';
-import ValidateDataFilePlaceholder from './ValidateDataFilePlaceholder.jsx';
 import ReactCSSTransitionGroup from 'react-addons-css-transition-group';
+import ValidateDataFilePlaceholder from './ValidateDataFilePlaceholder.jsx';
 
 import CommonOverlay from '../SharedComponents/overlays/CommonOverlay.jsx';
 import LoadingBauble from '../SharedComponents/overlays/LoadingBauble.jsx';

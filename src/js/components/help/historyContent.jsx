@@ -1,7 +1,7 @@
 /**
  * HistoryContent.jsx
  * Created by Emily Gullo 9/27/16
- **/
+ */
 
 import React, { PropTypes } from 'react';
 import $ from 'jquery';
@@ -14,7 +14,6 @@ const propTypes = {
 };
 
 export default class HistoryContent extends React.Component {
-
     constructor(props) {
         super(props);
 

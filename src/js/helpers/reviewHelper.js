@@ -1,6 +1,6 @@
-import Request from './sessionSuperagent.js';
 import Q from 'q';
 import _ from 'lodash';
+import Request from './sessionSuperagent.js';
 
 import StoreSingleton from '../redux/storeSingleton.js';
 
@@ -11,7 +11,7 @@ import * as sessionActions from '../redux/actions/sessionActions.js';
 Q.longStackSupport = true;
 
 const availablePairs = ['appropriations-program_activity', 'program_activity-award_financial',
-                        'award_financial-award_procurement', 'award_financial-award'];
+    'award_financial-award_procurement', 'award_financial-award'];
 export const globalFileData = {
     appropriations: {
         name: 'Appropriations Account',
@@ -65,50 +65,50 @@ export const fetchStatus = (submissionId) => {
     const store = new StoreSingleton().store;
 
     Request.post(kGlobalConstants.API + 'check_status/')
-            .send({ submission_id: submissionId })
-            .end((errFile, res) => {
-                // calculate how long the API call took
-                const endTime = new Date().getTime();
-                const duration = endTime - startTime;
-                // log the API call duration
-                const action = sessionActions.setApiMeta({
-                    time: duration
-                });
-                store.dispatch(action);
-
-
-                if (errFile) {
-                    let detail = '';
-                    if (res.body !== null && res.body.hasOwnProperty('message')) {
-                        detail = res.body.message;
-                    }
-
-                    deferred.reject({
-                        reason: res.statusCode,
-                        error: errFile,
-                        detail
-                    });
-                }
-                else {
-                    // return only jobs related to CSV validation
-                    const response = Object.assign({}, res.body);
-                    store.dispatch(uploadActions.setSubmissionPublishStatus(response.publish_status));
-                    const csvJobs = [];
-                    let crossFileJob = {};
-                    response.jobs.forEach((job) => {
-                        if (job.job_type === 'csv_record_validation') {
-                            csvJobs.push(job);
-                        }
-                        else if (job.job_type === 'validation') {
-                            crossFileJob = job;
-                        }
-                    });
-
-                    response.jobs = csvJobs;
-                    response.crossFile = crossFileJob;
-                    deferred.resolve(response);
-                }
+        .send({ submission_id: submissionId })
+        .end((errFile, res) => {
+            // calculate how long the API call took
+            const endTime = new Date().getTime();
+            const duration = endTime - startTime;
+            // log the API call duration
+            const action = sessionActions.setApiMeta({
+                time: duration
             });
+            store.dispatch(action);
+
+
+            if (errFile) {
+                let detail = '';
+                if (res.body !== null && res.body.hasOwnProperty('message')) {
+                    detail = res.body.message;
+                }
+
+                deferred.reject({
+                    reason: res.statusCode,
+                    error: errFile,
+                    detail
+                });
+            }
+            else {
+                // return only jobs related to CSV validation
+                const response = Object.assign({}, res.body);
+                store.dispatch(uploadActions.setSubmissionPublishStatus(response.publish_status));
+                const csvJobs = [];
+                let crossFileJob = {};
+                response.jobs.forEach((job) => {
+                    if (job.job_type === 'csv_record_validation') {
+                        csvJobs.push(job);
+                    }
+                    else if (job.job_type === 'validation') {
+                        crossFileJob = job;
+                    }
+                });
+
+                response.jobs = csvJobs;
+                response.crossFile = crossFileJob;
+                deferred.resolve(response);
+            }
+        });
 
     return deferred.promise;
 };
@@ -117,15 +117,15 @@ export const fetchErrorReports = (submissionId) => {
     const deferred = Q.defer();
 
     Request.post(kGlobalConstants.API + 'submission_error_reports/')
-            .send({ submission_id: submissionId })
-            .end((errFile, res) => {
-                if (errFile) {
-                    deferred.reject(errFile);
-                }
-                else {
-                    deferred.resolve(res.body);
-                }
-            });
+        .send({ submission_id: submissionId })
+        .end((errFile, res) => {
+            if (errFile) {
+                deferred.reject(errFile);
+            }
+            else {
+                deferred.resolve(res.body);
+            }
+        });
 
     return deferred.promise;
 };
@@ -134,15 +134,15 @@ export const fetchWarningReports = (submissionId) => {
     const deferred = Q.defer();
 
     Request.post(kGlobalConstants.API + 'submission_warning_reports/')
-            .send({ submission_id: submissionId })
-            .end((errFile, res) => {
-                if (errFile) {
-                    deferred.reject(errFile);
-                }
-                else {
-                    deferred.resolve(res.body);
-                }
-            });
+        .send({ submission_id: submissionId })
+        .end((errFile, res) => {
+            if (errFile) {
+                deferred.reject(errFile);
+            }
+            else {
+                deferred.resolve(res.body);
+            }
+        });
 
     return deferred.promise;
 };
@@ -408,15 +408,15 @@ export const fetchObligations = (submissionId) => {
     const deferred = Q.defer();
 
     Request.post(kGlobalConstants.API + 'get_obligations/')
-            .send({ submission_id: submissionId })
-            .end((errFile, res) => {
-                if (errFile) {
-                    deferred.reject(errFile);
-                }
-                else {
-                    deferred.resolve(res.body);
-                }
-            });
+        .send({ submission_id: submissionId })
+        .end((errFile, res) => {
+            if (errFile) {
+                deferred.reject(errFile);
+            }
+            else {
+                deferred.resolve(res.body);
+            }
+        });
 
     return deferred.promise;
 };
@@ -446,14 +446,14 @@ export const fetchSubmissionNarrative = (submissionId) => {
     const deferred = Q.defer();
 
     Request.get(kGlobalConstants.API + 'submission/' + submissionId + '/narrative')
-            .end((errFile, res) => {
-                if (errFile) {
-                    deferred.reject(errFile);
-                }
-                else {
-                    deferred.resolve(res.body);
-                }
-            });
+        .end((errFile, res) => {
+            if (errFile) {
+                deferred.reject(errFile);
+            }
+            else {
+                deferred.resolve(res.body);
+            }
+        });
 
     return deferred.promise;
 };
@@ -462,15 +462,15 @@ export const saveNarrative = (submissionId, narrative) => {
     const deferred = Q.defer();
 
     Request.post(kGlobalConstants.API + 'submission/' + submissionId + '/narrative')
-            .send(narrative)
-            .end((errFile, res) => {
-                if (errFile) {
-                    deferred.reject(errFile);
-                }
-                else {
-                    deferred.resolve(res.body);
-                }
-            });
+        .send(narrative)
+        .end((errFile, res) => {
+            if (errFile) {
+                deferred.reject(errFile);
+            }
+            else {
+                deferred.resolve(res.body);
+            }
+        });
 
     return deferred.promise;
 };
@@ -498,18 +498,18 @@ export const deleteSubmission = (submissionId) => {
     const deferred = Q.defer();
 
     Request.post(kGlobalConstants.API + 'delete_submission/')
-            .send({ submissionId })
-            .end((err, res) => {
-                if (err) {
-                    deferred.reject(res.body);
-                }
-                else {
-                    const output = {
-                        message: res.body.message
-                    };
-                    deferred.resolve(output);
-                }
-            });
+        .send({ submissionId })
+        .end((err, res) => {
+            if (err) {
+                deferred.reject(res.body);
+            }
+            else {
+                const output = {
+                    message: res.body.message
+                };
+                deferred.resolve(output);
+            }
+        });
 
     return deferred.promise;
 };

@@ -1,7 +1,7 @@
 /**
   * ReviewLoading.jsx
   * Created by Kevin Li 6/21/16
-  **/
+  */
 
 import React from 'react';
 

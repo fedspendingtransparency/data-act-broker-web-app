@@ -1,7 +1,7 @@
 /**
   * RevalidateDataModal.jsx
   * Created by Nipun Monga 02/27/17
-  **/
+  */
 
 import React, { PropTypes } from 'react';
 import Modal from 'react-aria-modal';
@@ -86,7 +86,9 @@ export default class RevalidateDataModal extends React.Component {
                 <div className="usa-da-modal-page">
                     <div id="usa-da-certify-modal" className="usa-da-certify-modal">
                         <div className={"usa-da-certify-modal-close usa-da-icon usa-da-icon-times" + hideClose}>
-                            <a href="#" onClick={this.closeModal.bind(this)}> <Icons.Times /> </a>
+                            <a href="#" onClick={this.closeModal.bind(this)}>
+                                <Icons.Times />
+                            </a>
                         </div>
 
                         <div className="usa-da-certify-modal-content">

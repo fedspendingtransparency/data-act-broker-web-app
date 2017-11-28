@@ -1,7 +1,7 @@
 /**
   * CertifyDisclaimer.jsx
   * Created by Kevin Li 9/6/16
-  **/
+  */
 
 import React from 'react';
 

@@ -1,7 +1,7 @@
 /**
  * ValidationContent.jsx
  * Created by Mike Hess 8/15/17
- **/
+ */
 
 import React, { PropTypes } from 'react';
 
@@ -47,6 +47,7 @@ export default class ValidationContent extends React.Component {
                 return (<ValidateDataFileContainer key={index} type={type} data={data}
                     agencyName={this.props.agencyName} />);
             }
+            return null;
         });
 
         let overlay = '';

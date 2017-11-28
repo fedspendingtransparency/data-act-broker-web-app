@@ -1,7 +1,7 @@
 /**
  * ReviewDataNarrative.jsx
  * Created by Alisa Burdeyny 11/21/16
- **/
+ */
 
 import React, { PropTypes } from 'react';
 import ReviewDataNarrativeDropdown from './ReviewDataNarrativeDropdown.jsx';
@@ -82,7 +82,7 @@ export default class ReviewDataNarrative extends React.Component {
                 <div className="row">
                     <ReviewDataNarrativeDropdown changeFile={this.changeFile.bind(this)} />
                     <ReviewDataNarrativeTextfield currentContent={this.state.currentNarrative}
-                        textChanged={this.textChanged.bind(this)}/>
+                        textChanged={this.textChanged.bind(this)} />
                 </div>
                 <div className="row">
                     <div className="col-md-10">

@@ -1,7 +1,7 @@
 /**
   * ComparisonTable.jsx
   * Created by Kevin Li 6/15/16
-  **/
+  */
 
 import React, { PropTypes } from 'react';
 import _ from 'lodash';
@@ -13,7 +13,6 @@ const propTypes = {
 };
 
 export default class ComparisonTable extends React.Component {
-
     constructor(props) {
         super(props);
         this.state = {

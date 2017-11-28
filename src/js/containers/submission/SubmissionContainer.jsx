@@ -1,7 +1,7 @@
 /**
  * SubmissionContainer.jsx
  * Created by Minahm Kim 6/29/17
- **/
+ */
 
 import React, { PropTypes } from 'react';
 import { hashHistory } from 'react-router';
@@ -32,7 +32,7 @@ class SubmissionContainer extends React.Component {
 
     render() {
         return (
-            <LoadingPage {...this.props} submissionID={this.props.params.submissionID}/>
+            <LoadingPage {...this.props} submissionID={this.props.params.submissionID} />
         );
     }
 }

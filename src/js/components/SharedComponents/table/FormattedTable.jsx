@@ -10,10 +10,10 @@ import TableHeaders from './TableHeaders.jsx';
 const propTypes = {
     onSort: PropTypes.func,
     cellClasses: PropTypes.array,
-    data: PropTypes.array.isRequired,
+    data: PropTypes.array,
     headerClasses: PropTypes.array,
-    headers: PropTypes.array.isRequired,
-    unsortable: PropTypes.array.isRequired,
+    headers: PropTypes.array,
+    unsortable: PropTypes.array,
     sortable: PropTypes.bool
 };
 

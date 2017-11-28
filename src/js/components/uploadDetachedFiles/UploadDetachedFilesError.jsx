@@ -1,7 +1,7 @@
 /**
 * UploadDetachedFilesError.jsx
 * Created by Minahm Kim
-**/
+*/
 import React, { PropTypes } from 'react';
 
 import * as Icons from '../SharedComponents/icons/Icons.jsx';
@@ -82,11 +82,12 @@ export default class UploadDetachedFilesError extends React.Component {
             className = 'success';
         }
 
-        return (<div className={"alert alert-" + className + " text-left"} role="alert">
-            <span className="usa-da-icon error-icon">{icon}</span>
-            <div className="alert-header-text">{this.state.header}</div>
-            <p>{this.state.message}</p>
-        </div>);
+        return (
+            <div className={"alert alert-" + className + " text-left"} role="alert">
+                <span className="usa-da-icon error-icon">{icon}</span>
+                <div className="alert-header-text">{this.state.header}</div>
+                <p>{this.state.message}</p>
+            </div>);
     }
 }
 

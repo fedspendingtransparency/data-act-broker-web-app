@@ -1,7 +1,7 @@
 /**
 * ValidateDataPage.jsx
 * Created by Katie Rose 1/4/16
-**/
+*/
 
 import React, { PropTypes } from 'react';
 import Navbar from '../SharedComponents/navigation/NavigationComponent.jsx';

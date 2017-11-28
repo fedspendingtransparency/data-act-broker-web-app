@@ -21,9 +21,11 @@
     // overrides to the Airbnb style follow
     "rules": {
         // indentation should be 4 spaces (use soft tabs) and switch cases should be indented
-        "indent": [2, 4, {
-            "SwitchCase": 1
-        }],
+        // "indent": [2, 4, {
+        //     "SwitchCase": 1
+        // }],
+        // React indent is more accurate than the regular indent rule
+        "indent": [0],
         // require 4 spaces in JSX as well
         "react/jsx-indent": [2, 4],
         "react/jsx-indent-props": [2, 4],
@@ -62,7 +64,6 @@
         // RERUN WITH THIS REMOVED
         "object-shorthand": [1, "always"],
         "prefer-const": [1],
-        "no-console": [0],
         "guard-for-in": [2],
         "no-param-reassign": [2],
         "quote-props": [1, "as-needed"],
@@ -71,7 +72,6 @@
 
         "dot-notation": [2],
         "react/prop-types": [1],
-        "react/wrap-multilines": [2],
         "react/no-did-update-set-state": [2],
         "react/no-did-mount-set-state": [2],
         "react/jsx-boolean-value": [1],
@@ -88,24 +88,44 @@
         "no-irregular-whitespace": [2],
         "no-unreachable": [2],
         "key-spacing": [0],
-        "eol-last": [0]
+        "eol-last": [0],
+        "no-console": [2, {"allow": ["warn", "error"]}],
+        "react/display-name": [0, { "ignoreTranspilerName": true }],
+        "no-unneeded-ternary": [2, {"defaultAssignment": true}],
 
+        // "react/wrap-multilines": [2],
 
-        // STILL NEED TO EVALUATE THESE
-        // "arrow-parens": [0],
-        // "no-unused-vars": [0],
-        // "no-else-return": [0],
-        // "camelcase": [0],
-        // "no-undef": [0],
-        // "jsx-quotes": [0],
-
-        // warn instead of erroring on hash links
-        // "jsx-a11y/href-no-hash": [1],
-        // downgrading export default preference to warning, since we may add additional exports
-        // to files in the future
-        // "import/prefer-default-export": [1],
-
-        // downgrading to warnig when using props purely within componentWillReceiveProps
-        // "react/no-unused-prop-types": [1]
+        // TODO
+        // "import/extensions": [0],
+        "import/prefer-default-export": [0],
+        "arrow-body-style": [0],
+        "prefer-destructuring": [0],
+        "no-undef": [0],
+        "prefer-template": [0],
+        "no-prototype-builtins": [0],
+        "function-paren-newline": [0],
+        "react/require-default-props": [0],
+        "react/forbid-prop-types": [0],
+        "react/no-unused-state": [0],
+        "react/jsx-first-prop-new-line": [0],
+        "react/jsx-max-props-per-line": [0],
+        "no-useless-constructor": [0],
+        "react/no-string-refs": [0],
+        "no-undef-init": [0],
+        "react/no-array-index-key": [0],
+        "array-callback-return": [0],
+        "jsx-a11y/no-static-element-interactions": [0],
+        "jsx-a11y/click-events-have-key-events": [0],
+        "no-useless-return": [0],
+        // NEEDS TO BE TESTED (31 instances)
+        "react/no-unused-prop-types": [0],
+        "jsx-a11y/anchor-is-valid": [0],
+        "jsx-a11y/label-has-for": [0],
+        "jsx-a11y/mouse-events-have-key-events": [0],
+        "react/no-unescaped-entities": [0],
+        "jsx-a11y/tabindex-no-positive": [0],
+        "jsx-a11y/no-noninteractive-element-interactions": [0],
+        "react/no-danger": [0],
+        "import/no-extraneous-dependencies": [0]
     }
 }

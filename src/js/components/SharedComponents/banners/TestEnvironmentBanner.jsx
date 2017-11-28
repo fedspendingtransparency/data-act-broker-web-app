@@ -1,7 +1,7 @@
 /**
   * TestEnvironmentBanner.jsx
   * Created by Alisa Burdeyny 7/5/17
-  **/
+  */
 
 import React from 'react';
 import * as Icons from '../../SharedComponents/icons/Icons.jsx';

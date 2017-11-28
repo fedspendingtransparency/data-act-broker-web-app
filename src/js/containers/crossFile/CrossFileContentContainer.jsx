@@ -1,7 +1,7 @@
 /**
 * CrossFileContentContainer.jsx
 * Created by Kevin Li 6/14/16
-**/
+*/
 
 import React, { PropTypes } from 'react';
 import { bindActionCreators } from 'redux';
@@ -159,58 +159,58 @@ class CrossFileContentContainer extends React.Component {
     loadData() {
         this.props.setSubmissionState('empty');
         ReviewHelper.validateSubmission(this.props.submissionID)
-        .then((data) => {
-            let done = false;
-            this.setState({
-                agencyName: data.agencyName
-            });
-            // check if invididual files have validation errors
-            const individualState = this.individualPassedValidation(data);
-            if (individualState === 'passed') {
-                // everything finished and passed
-                done = true;
-            }
-            else if (individualState === 'errors') {
-                // there are individual errors, return to file validation screen
+            .then((data) => {
+                let done = false;
+                this.setState({
+                    agencyName: data.agencyName
+                });
+                // check if invididual files have validation errors
+                const individualState = this.individualPassedValidation(data);
+                if (individualState === 'passed') {
+                    // everything finished and passed
+                    done = true;
+                }
+                else if (individualState === 'errors') {
+                    // there are individual errors, return to file validation screen
+                    // stop the timer
+                    if (this.dataTimer) {
+                        window.clearInterval(this.dataTimer);
+                        this.dataTimer = null;
+                    }
+
+                    // redirect
+                    hashHistory.push('/validateData/' + this.props.submissionID);
+                }
+                // individual files are done and valid
+                if (done && this.crossFileComplete(data)) {
+                    // stop the timer once the validations are complete
+                    this.props.setSubmissionState('crossFile');
+                    this.props.setCrossFile(data.crossFile.data);
+                    this.prepareCrossFileReports(data);
+
+                    if (this.dataTimer) {
+                        window.clearInterval(this.dataTimer);
+                        this.dataTimer = null;
+                    }
+                }
+            })
+            .catch((err) => {
+                // check if the error has an associated user-displayable message
+                if (err.hasOwnProperty('detail') && err.detail !== '') {
+                    if (!this.isUnmounted) {
+                        this.props.showError(err.detail);
+                    }
+                }
+                else {
+                    console.error(err);
+                }
+
                 // stop the timer
                 if (this.dataTimer) {
                     window.clearInterval(this.dataTimer);
                     this.dataTimer = null;
                 }
-
-                // redirect
-                hashHistory.push('/validateData/' + this.props.submissionID);
-            }
-            // individual files are done and valid
-            if (done && this.crossFileComplete(data)) {
-                // stop the timer once the validations are complete
-                this.props.setSubmissionState('crossFile');
-                this.props.setCrossFile(data.crossFile.data);
-                this.prepareCrossFileReports(data);
-
-                if (this.dataTimer) {
-                    window.clearInterval(this.dataTimer);
-                    this.dataTimer = null;
-                }
-            }
-        })
-        .catch((err) => {
-            // check if the error has an associated user-displayable message
-            if (err.hasOwnProperty('detail') && err.detail !== '') {
-                if (!this.isUnmounted) {
-                    this.props.showError(err.detail);
-                }
-            }
-            else {
-                console.log(err);
-            }
-
-            // stop the timer
-            if (this.dataTimer) {
-                window.clearInterval(this.dataTimer);
-                this.dataTimer = null;
-            }
-        });
+            });
     }
 
     startTimer() {
@@ -246,7 +246,9 @@ class CrossFileContentContainer extends React.Component {
 CrossFileContentContainer.propTypes = propTypes;
 
 export default connect(
-    (state) => ({ submission: state.submission,
-    session: state.session }),
+    (state) => ({
+        submission: state.submission,
+        session: state.session
+    }),
     (dispatch) => bindActionCreators(uploadActions, dispatch)
 )(CrossFileContentContainer);

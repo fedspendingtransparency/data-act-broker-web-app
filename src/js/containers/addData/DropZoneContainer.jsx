@@ -1,7 +1,7 @@
 /**
 * DropZoneContainer.jsx
 * Created by Kevin Li 3/24/16
-**/
+*/
 
 import React, { PropTypes } from 'react';
 import { bindActionCreators } from 'redux';
@@ -17,7 +17,6 @@ const propTypes = {
 };
 
 class DropZoneContainer extends React.Component {
-
     onDrop(files) {
         const file = files[0];
 

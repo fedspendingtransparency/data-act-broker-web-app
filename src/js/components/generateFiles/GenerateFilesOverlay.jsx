@@ -1,7 +1,7 @@
 /**
   * GenerateFilesOverlay.jsx
   * Created by Kevin Li 7/26/16
-  **/
+  */
 
 import React, { PropTypes } from 'react';
 import CommonOverlay from '../SharedComponents/overlays/CommonOverlay.jsx';
@@ -24,7 +24,6 @@ const defaultProps = {
 };
 
 export default class GenerateFilesOverlay extends React.Component {
-
     constructor(props) {
         super(props);
         this.state = {
@@ -39,7 +38,7 @@ export default class GenerateFilesOverlay extends React.Component {
                     this.setState({ agency_name: data.agency_name });
                 })
                 .catch((error) => {
-                    console.log(error);
+                    console.error(error);
                 });
         }
     }
@@ -119,9 +118,13 @@ export default class GenerateFilesOverlay extends React.Component {
                 iconClass={iconClass}>
                 <div className="usa-da-btn-bg">
                     <button className={"usa-da-button" + buttonClass} disabled={buttonDisabled}
-                        onClick={this.clickedGenerate.bind(this)}>Generate Files</button>
+                        onClick={this.clickedGenerate.bind(this)}>
+                        Generate Files
+                    </button>
                     <button className={"usa-da-button usa-da-validation-overlay-review " + nextClass}
-                        disabled={nextDisabled} onClick={this.clickedNext.bind(this)}>Next</button>
+                        disabled={nextDisabled} onClick={this.clickedNext.bind(this)}>
+                        Next
+                    </button>
                 </div>
             </CommonOverlay>
         );

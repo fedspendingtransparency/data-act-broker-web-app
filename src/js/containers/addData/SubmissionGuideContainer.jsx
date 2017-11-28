@@ -1,7 +1,7 @@
 /**
  * SubmissionGuideContainer.jsx
  * Created by Mike Bray 5/23/16
- **/
+ */
 
 import React, { PropTypes } from 'react';
 import { bindActionCreators } from 'redux';
@@ -44,7 +44,7 @@ class SubmissionGuideContainer extends React.Component {
             })
             .catch((err) => {
                 // TODO: Figure out how to handle errors
-                console.log(err);
+                console.error(err);
             });
     }
 

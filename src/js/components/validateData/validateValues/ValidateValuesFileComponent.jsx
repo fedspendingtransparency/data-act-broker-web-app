@@ -1,7 +1,7 @@
 /**
  * ValidateValuesFileComponent.jsx
  * Created by Kevin Li 4/4/2016
- **/
+ */
 
 import React, { PropTypes } from 'react';
 import FileProgress from '../../SharedComponents/FileProgress.jsx';
@@ -100,23 +100,23 @@ export default class ValidateValuesFileComponent extends React.Component {
         }
         if (type) {
             GenerateFilesHelper.fetchFile(type, this.props.submission.id)
-            .then((result) => {
-                this.setState({
-                    signInProgress: false,
-                    signedUrl: result.url
-                }, () => {
-                    this.openReport();
+                .then((result) => {
+                    this.setState({
+                        signInProgress: false,
+                        signedUrl: result.url
+                    }, () => {
+                        this.openReport();
+                    });
+                })
+                .catch(() => {
+                    this.setState({
+                        signInProgress: false,
+                        error: {
+                            header: 'Invalid File Type Selected ' + item.file_type,
+                            body: ''
+                        }
+                    });
                 });
-            })
-            .catch(() => {
-                this.setState({
-                    signInProgress: false,
-                    error: {
-                        header: 'Invalid File Type Selected ' + item.file_type,
-                        body: ''
-                    }
-                });
-            });
         }
         else {
             this.setState({
@@ -223,14 +223,15 @@ export default class ValidateValuesFileComponent extends React.Component {
             // user has permissions and submission is not published
             if (this.state.hasErrors) {
                 // has errors
-                validationElement = (<div className="row usa-da-validate-item-file-section-correct-button"
-                    data-testid="validate-upload">
-                    <div className="col-md-12">
-                        <ValidateDataUploadButton optional={isOptional}
-                            onDrop={this.props.onFileChange}
-                            text={uploadText} />
+                validationElement = (
+                    <div className="row usa-da-validate-item-file-section-correct-button" data-testid="validate-upload">
+                        <div className="col-md-12">
+                            <ValidateDataUploadButton optional={isOptional}
+                                onDrop={this.props.onFileChange}
+                                text={uploadText} />
+                        </div>
                     </div>
-                </div>);
+                );
             }
             else if (this.state.hasWarnings) {
                 // has warnings

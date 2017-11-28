@@ -1,7 +1,7 @@
 /**
 * GenerateDetachedFilesPageContainer.jsx
 * Created by Alisa Burdeyny
-**/
+*/
 
 import React from 'react';
 import { bindActionCreators } from 'redux';

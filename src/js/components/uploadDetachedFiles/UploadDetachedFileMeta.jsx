@@ -1,7 +1,7 @@
 /**
 * UploadDetachedFileMeta.jsx
 * Created by Minahm Kim
-**/
+*/
 
 import ReactCSSTransitionGroup from 'react-addons-css-transition-group';
 
@@ -140,14 +140,14 @@ export default class UploadDetachedFileMeta extends React.Component {
 
     validateSubmission(submissionID) {
         ReviewHelper.validateDetachedSubmission(submissionID)
-                .then((response) => {
-                    this.setState({
-                        detachedAward: response.item,
-                        validationFinished: true,
-                        headerErrors: false,
-                        jobResults: response
-                    });
+            .then((response) => {
+                this.setState({
+                    detachedAward: response.item,
+                    validationFinished: true,
+                    headerErrors: false,
+                    jobResults: response
                 });
+            });
     }
 
     parseJobStates(data) {

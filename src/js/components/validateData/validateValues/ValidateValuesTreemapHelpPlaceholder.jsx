@@ -1,7 +1,7 @@
 /**
   * ValidateValuesTreemapHelpPlaceholder.jsx
   * Created by Kevin Li 6/20/16
-  **/
+  */
 
 import React, { PropTypes } from 'react';
 

@@ -1,7 +1,7 @@
-import Request from './sessionSuperagent.js';
 import Q from 'q';
 import Cookies from 'js-cookie';
 import _ from 'lodash';
+import Request from './sessionSuperagent.js';
 
 import StoreSingleton from '../redux/storeSingleton.js';
 
@@ -14,33 +14,33 @@ export const fetchActiveUser = () => {
     const store = new StoreSingleton().store;
 
     Request.get(kGlobalConstants.API + 'current_user/')
-            .send()
-            .end((err, res) => {
-                if (err) {
-                    const action = sessionActions.setLoggedOut();
-                    store.dispatch(action);
+        .send()
+        .end((err, res) => {
+            if (err) {
+                const action = sessionActions.setLoggedOut();
+                store.dispatch(action);
 
-                    // unset the login state cookie
-                    Cookies.remove('brokerLogin');
-                    deferred.reject(err);
-                }
-                else {
-                    // set the login state cookie that expires in 15 minutes
-                    Cookies.set('brokerLogin', Date.now(), { expires: (1 / (24 * 4)) });
+                // unset the login state cookie
+                Cookies.remove('brokerLogin');
+                deferred.reject(err);
+            }
+            else {
+                // set the login state cookie that expires in 15 minutes
+                Cookies.set('brokerLogin', Date.now(), { expires: (1 / (24 * 4)) });
 
-                    const sessionData = {
-                        login: 'loggedIn',
-                        user: res.body,
-                        admin: res.body.website_admin,
-                        skipGuide: res.body.skip_guide
-                    };
-                    sessionData.user.helpOnly = !res.body.website_admin && res.body.affiliations.length === 0;
+                const sessionData = {
+                    login: 'loggedIn',
+                    user: res.body,
+                    admin: res.body.website_admin,
+                    skipGuide: res.body.skip_guide
+                };
+                sessionData.user.helpOnly = !res.body.website_admin && res.body.affiliations.length === 0;
 
-                    const action = sessionActions.setSession(sessionData);
-                    store.dispatch(action);
-                    deferred.resolve(res.body);
-                }
-            });
+                const action = sessionActions.setSession(sessionData);
+                store.dispatch(action);
+                deferred.resolve(res.body);
+            }
+        });
 
     return deferred.promise;
 };
@@ -74,45 +74,45 @@ export const performLogin = (username, password) => {
     Cookies.remove('session');
 
     Request.post(kGlobalConstants.API + 'login/')
-            .send({ username, password })
-            .end((err, res) => {
-                if (err) {
-                    const action = sessionActions.setLoginState('failed');
-                    store.dispatch(action);
+        .send({ username, password })
+        .end((err, res) => {
+            if (err) {
+                const action = sessionActions.setLoginState('failed');
+                store.dispatch(action);
 
-                    // unset the login state cookie
-                    Cookies.remove('brokerLogin');
+                // unset the login state cookie
+                Cookies.remove('brokerLogin');
 
-                    // if a message is available, display that
-                    if (res.body && res.body.hasOwnProperty('message')) {
-                        deferred.reject(res.body.message);
-                    }
-                    else {
-                        deferred.reject(err);
-                    }
+                // if a message is available, display that
+                if (res.body && res.body.hasOwnProperty('message')) {
+                    deferred.reject(res.body.message);
                 }
                 else {
-                    Cookies.set('brokerLogin', Date.now(), { expires: (1 / (24 * 4)) });
+                    deferred.reject(err);
+                }
+            }
+            else {
+                Cookies.set('brokerLogin', Date.now(), { expires: (1 / (24 * 4)) });
 
-                    establishSession(res.headers);
-                    // check if cookies could be set
-                    if (!Cookies.get('session')) {
-                        // couldn't set cookie, fail this request and notify the user
-                        const action = sessionActions.setLoginState('failed');
-                        store.dispatch(action);
-                        deferred.reject('cookie');
-                        return;
-                    }
+                establishSession(res.headers);
+                // check if cookies could be set
+                if (!Cookies.get('session')) {
+                    // couldn't set cookie, fail this request and notify the user
+                    const action = sessionActions.setLoginState('failed');
+                    store.dispatch(action);
+                    deferred.reject('cookie');
+                    return;
+                }
 
-                    fetchActiveUser(store)
+                fetchActiveUser(store)
                     .then((data) => {
                         deferred.resolve(data);
                     })
                     .catch((dataErr) => {
                         deferred.reject(dataErr);
                     });
-                }
-            });
+            }
+        });
 
     return deferred.promise;
 };
@@ -158,12 +158,12 @@ export const performMaxLogin = (ticket) => {
                 }
 
                 fetchActiveUser(store)
-                .then((data) => {
-                    deferred.resolve(data);
-                })
-                .catch((dataErr) => {
-                    deferred.reject(dataErr);
-                });
+                    .then((data) => {
+                        deferred.resolve(data);
+                    })
+                    .catch((dataErr) => {
+                        deferred.reject(dataErr);
+                    });
             }
         });
     return deferred.promise;
@@ -175,19 +175,19 @@ export const performLogout = () => {
     const store = new StoreSingleton().store;
 
     Request.post(kGlobalConstants.API + 'logout/')
-            .send({})
-            .end((err) => {
-                if (!err) {
-                    const action = sessionActions.setLoggedOut();
-                    store.dispatch(action);
+        .send({})
+        .end((err) => {
+            if (!err) {
+                const action = sessionActions.setLoggedOut();
+                store.dispatch(action);
 
-                    // unset the login state cookie
-                    Cookies.remove('brokerLogin');
-                    Cookies.remove('session');
+                // unset the login state cookie
+                Cookies.remove('brokerLogin');
+                Cookies.remove('session');
 
-                    deferred.resolve();
-                }
-            });
+                deferred.resolve();
+            }
+        });
 
     return deferred.promise;
 };

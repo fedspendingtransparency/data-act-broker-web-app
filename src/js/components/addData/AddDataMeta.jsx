@@ -1,22 +1,18 @@
 /**
 * AddDataMeta.jsx
 * Created by Mike Bray 3/21/16
-**/
+*/
 
 import React, { PropTypes } from 'react';
 import ReactCSSTransitionGroup from 'react-addons-css-transition-group';
-
+import { Link } from 'react-router';
 import AgencyListContainer from '../../containers/SharedContainers/AgencyListContainer.jsx';
 import * as Icons from '../SharedComponents/icons/Icons.jsx';
-
 import Modal from '../SharedComponents/Modal.jsx';
 import DateTypeField from './metadata/DateTypeField.jsx';
 import DateRangeField from './metadata/DateRangeField.jsx';
-
 import SubmitComponent from './metadata/SubmitComponent.jsx';
-
 import * as AgencyHelper from '../../helpers/agencyHelper.js';
-import { Link } from 'react-router';
 
 const propTypes = {
     updateMetaData: PropTypes.func
@@ -133,7 +129,7 @@ export default class AddDataMeta extends React.Component {
         // Only make a request to check certified submission for quarterly submission.
         if (dateType === 'quarter') {
             const month = endDate.substr(0, 2);
-            const quarter = parseInt(month, 10) % 12 + 3;
+            const quarter = (parseInt(month, 10) % 12) + 3;
             let year = endDate.substr(3);
 
             if (quarter === 3) {
@@ -146,8 +142,15 @@ export default class AddDataMeta extends React.Component {
             }).catch((err) => {
                 this.setState({
                     showModal: true,
-                    modalMessage: <div>{err.message} You can update the certified submission <Link
-                        to={`/validateData/${err.submissionId}`}>here</Link>.</div>
+                    modalMessage: (
+                        <div>
+                            {err.message} You can update the certified submission
+                            <Link to={`/validateData/${err.submissionId}`}>
+                                here
+                            </Link>
+                            .
+                        </div>
+                    )
                 });
             });
         }
@@ -226,7 +229,7 @@ export default class AddDataMeta extends React.Component {
                                         data-testid="agencytypeahead">
                                         <AgencyListContainer placeholder="Enter the name of the reporting agency"
                                             onSelect={this.handleChange.bind(this)} customClass={agencyClass}
-                                            detached={false}/>
+                                            detached={false} />
                                         <div className={"usa-da-icon usa-da-form-icon" + agencyClass}>
                                             {agencyIcon}
                                         </div>

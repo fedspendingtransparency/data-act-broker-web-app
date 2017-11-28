@@ -1,7 +1,7 @@
 /**
   * HistoryPage.jsx
   * Created by Minahm Kim 06/08/17
-  **/
+  */
 
 import React, { PropTypes } from 'react';
 import Navbar from '../SharedComponents/navigation/NavigationComponent.jsx';
@@ -35,8 +35,8 @@ export default class HistoryPage extends React.Component {
                             </div>
                         </div>
                     </div>
-                    <HistoryHeader submissionID={this.props.submissionID}/>
-                    <HistoryTable submissionID={this.props.submissionID}/>
+                    <HistoryHeader submissionID={this.props.submissionID} />
+                    <HistoryTable submissionID={this.props.submissionID} />
                 </div>
                 <Footer />
             </div>

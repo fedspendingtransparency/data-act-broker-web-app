@@ -1,7 +1,7 @@
 /**
   * helpSidebarItem.jsx
   * Created by Kevin li 5/26/16
-  **/
+  */
 
 import React, { PropTypes } from 'react';
 

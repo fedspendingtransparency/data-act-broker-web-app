@@ -1,7 +1,7 @@
 /**
 * ValidateDataErrors.jsx
 * Created by Minahm Kim= 11/22/17
-**/
+*/
 
 import React, { PropTypes } from 'react';
 import * as ReviewHelper from '../../helpers/reviewHelper.js';
@@ -40,7 +40,7 @@ export default class GetErrors extends React.Component {
                 this.setState({ response: true, csv_url: data });
             })
             .catch((err) => {
-                console.log(err);
+                console.error(err);
             });
     }
 
@@ -70,7 +70,9 @@ export default class GetErrors extends React.Component {
                                 <input className="form-control" id="submission-id" name="submission-id"
                                     placeholder="Submission ID" onChange={this.setSubmissionId.bind(this)} />
                                 <a className="btn btn-default"
-                                    onClick={this.onClick.bind(this, this.props.submissionId)}>Review Data</a>
+                                    onClick={this.onClick.bind(this, this.props.submissionId)}>
+                                    Review Data
+                                </a>
                                 {hasLink}
                             </div>
                         </form>

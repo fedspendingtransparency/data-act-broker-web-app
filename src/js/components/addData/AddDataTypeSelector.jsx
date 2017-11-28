@@ -1,7 +1,7 @@
 /**
 * AddDataTypeSelector.jsx
 * Created by Kyle Fox 12/29/15
-**/
+*/
 
 import React from 'react';
 

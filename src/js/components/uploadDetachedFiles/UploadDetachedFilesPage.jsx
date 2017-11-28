@@ -1,17 +1,16 @@
 /**
 * UploadDetachedFilesPage.jsx
 * Created by MichaelHess
-**/
+*/
 
 import React, { PropTypes } from 'react';
+import { hashHistory } from 'react-router';
 
 import Footer from '../SharedComponents/FooterComponent.jsx';
 import Navbar from '../SharedComponents/navigation/NavigationComponent.jsx';
 
 import UploadDetachedFileMeta from './UploadDetachedFileMeta.jsx';
 import UploadDetachedFileValidation from './UploadDetachedFileValidation.jsx';
-
-import { hashHistory } from 'react-router';
 
 const propTypes = {
     setSubmissionId: PropTypes.func,

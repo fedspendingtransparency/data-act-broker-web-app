@@ -1,7 +1,7 @@
 /**
 * GTASWarningBanner.jsx
 * Created by Minahm Kim 07/07/17
-**/
+*/
 
 import React, { PropTypes } from 'react';
 import * as Icons from '../SharedComponents/icons/Icons.jsx';
@@ -58,7 +58,7 @@ export default class Banner extends React.Component {
                         </div>
                     </div>
                 </div>
-                );
+            );
         }
         return msg;
     }
@@ -81,7 +81,7 @@ export default class Banner extends React.Component {
                 }
             })
             .catch((err) => {
-                console.log(err);
+                console.error(err);
             });
     }
 

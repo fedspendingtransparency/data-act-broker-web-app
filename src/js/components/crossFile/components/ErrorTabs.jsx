@@ -1,7 +1,7 @@
 /**
   * ErrorTabs.jsx
   * Created by Kevin Li 8/29/16
-  **/
+  */
 
 import React, { PropTypes } from 'react';
 import * as TabItem from './TabItem.jsx';
@@ -14,7 +14,8 @@ const propTypes = {
     status: PropTypes.string,
     value: PropTypes.string,
     count: PropTypes.number,
-    isActive: PropTypes.bool
+    isActive: PropTypes.bool,
+    showTabs: PropTypes.string
 };
 
 const defaultProps = {

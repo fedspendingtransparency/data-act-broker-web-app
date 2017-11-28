@@ -1,7 +1,7 @@
 /**
 * ValidateDataContainer.jsx
 * Created by Kevin Li 3/29/16
-**/
+*/
 
 import React, { PropTypes } from 'react';
 import { bindActionCreators } from 'redux';
@@ -36,11 +36,9 @@ class ValidateDataContainer extends React.Component {
 
         this.state = {
             finishedPageLoad: false,
-            headerErrors: true,
             validationFailed: false,
             validationFinished: false,
             notYours: false,
-            gtas: null,
             serverError: null,
             agencyName: null
         };
@@ -81,7 +79,6 @@ class ValidateDataContainer extends React.Component {
     reset() {
         this.setState({
             finishedPageLoad: false,
-            headerErrors: true,
             validationFailed: false,
             validationFinished: false,
             notYours: false,
@@ -94,7 +91,6 @@ class ValidateDataContainer extends React.Component {
     processData(callback) {
         let isFinished = true;
         let hasFailed = false;
-        let hasHeaderErrors = false;
 
         // iterate through the data to look for header errors, validation failures, and incomplete validations
         for (const key of singleFileValidations) {
@@ -107,20 +103,16 @@ class ValidateDataContainer extends React.Component {
             }
 
             const item = this.props.submission.validation[key];
-
-            if (item.error_type === 'header_errors') {
-                hasHeaderErrors = true;
-            }
             if (item.job_status === 'failed') {
                 hasFailed = true;
             }
-            if (item.job_status !== 'finished' && item.job_status !== 'invalid' || item.file_status === 'incomplete') {
+            if ((item.job_status !== 'finished' && item.job_status !== 'invalid')
+                || item.file_status === 'incomplete') {
                 isFinished = false;
             }
         }
 
         this.setState({
-            headerErrors: hasHeaderErrors,
             validationFailed: hasFailed,
             validationFinished: isFinished
         }, callback);
@@ -175,7 +167,7 @@ class ValidateDataContainer extends React.Component {
         let validationContent = (<ValidationContent {...this.props} hasFinished={this.state.validationFinished}
             hasFailed={this.state.validationFailed}
             submissionID={this.props.submissionID}
-            agencyName = {this.state.agencyName} />);
+            agencyName={this.state.agencyName} />);
 
         if (!this.state.finishedPageLoad) {
             validationContent = <ValidateLoadingScreen />;
@@ -207,7 +199,9 @@ class ValidateDataContainer extends React.Component {
 ValidateDataContainer.propTypes = propTypes;
 
 export default connect(
-    (state) => ({ submission: state.submission,
-    session: state.session }),
+    (state) => ({
+        submission: state.submission,
+        session: state.session
+    }),
     (dispatch) => bindActionCreators(uploadActions, dispatch)
 )(ValidateDataContainer);

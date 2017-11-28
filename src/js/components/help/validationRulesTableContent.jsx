@@ -1,7 +1,7 @@
 /**
  * validationRulesTableContent.jsx
  * Created by Emily Gullo 9/15/2016
- **/
+ */
 
 import React, { PropTypes } from 'react';
 import $ from 'jquery';
@@ -15,7 +15,6 @@ const propTypes = {
 };
 
 export default class ValidationRulesTableContent extends React.Component {
-
     constructor(props) {
         super(props);
 
@@ -89,29 +88,36 @@ export default class ValidationRulesTableContent extends React.Component {
     }
 
     render() {
-        let message = (<p>Below is a cumulative table of validations in the RSS and IDD. The status column indicates
-            whether they are currently implemented in the Broker. The table has been revised to match the latest
-            Validations Rules spreadsheet, except for FABS. FABS validations are available in the downloadable file.
-            The Validations Rules spreadsheet, with change log, is available for download.
-            <a href={this.state.validationRulesUrl} target="_blank" rel="noopener noreferrer">Download file</a>;
-        </p>);
+        let message = (
+            <p>
+                Below is a cumulative table of validations in the RSS and IDD. The status column indicates
+                whether they are currently implemented in the Broker. The table has been revised to match the latest
+                Validations Rules spreadsheet, except for FABS. FABS validations are available in the downloadable file.
+                The Validations Rules spreadsheet, with change log, is available for download.
+                <a href={this.state.validationRulesUrl} target="_blank" rel="noopener noreferrer">Download file</a>;
+            </p>
+        );
 
         if (this.props.type === 'fabs') {
-            message = (<div>
-                <p>Here are validation resources for the Reporting Submission Specification - Financial Assistance
-                Broker Submission (RSS-FABS)</p>
-                <ul>
-                    <li>
-                        <a href={this.state.checkList} target="_blank">Validation Checklist:</a> contains file-wide
-                        practices, data element-level validation rule explanations, technical procedures for formatting
-                        submission files, and a change log
-                    </li>
-                    <li>
-                        <a href={this.state.validationRulesUrl} target="_blank">DAIMS Validations Rules:</a> contains
-                        the validations rules for the RSS and IDD, along with a change log
-                    </li>
-                </ul>
-            </div>);
+            message = (
+                <div>
+                    <p>
+                        Here are validation resources for the Reporting Submission Specification - Financial Assistance
+                        Broker Submission (RSS-FABS)
+                    </p>
+                    <ul>
+                        <li>
+                            <a href={this.state.checkList} target="_blank">Validation Checklist:</a> contains file-wide
+                            practices, data element-level validation rule explanations, technical procedures for
+                            formatting submission files, and a change log
+                        </li>
+                        <li>
+                            <a href={this.state.validationRulesUrl} target="_blank">DAIMS Validations Rules:</a>
+                            contains the validations rules for the RSS and IDD, along with a change log
+                        </li>
+                    </ul>
+                </div>
+            );
         }
 
         return (
@@ -124,7 +130,8 @@ export default class ValidationRulesTableContent extends React.Component {
                         data={this.state.data} filterable={['Rule Detail']}
                         sortable={[
                             {
-                                column: 'Rule Name', sortFunction: (a, b) => {
+                                column: 'Rule Name',
+                                sortFunction: (a, b) => {
                                     const reA = /[^a-zA-Z]/g;
                                     const reN = /[^0-9]/g;
                                     const aA = a.replace(reA, "");

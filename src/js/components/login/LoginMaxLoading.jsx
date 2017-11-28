@@ -1,7 +1,7 @@
 /**
   * LoginMaxLoading.jsx
   * Createdd by Kevin Li 10/14/16
-  **/
+  */
 
 import React, { PropTypes } from 'react';
 import LoginMaxErrorMessage from './components/LoginMaxErrorMessage.jsx';

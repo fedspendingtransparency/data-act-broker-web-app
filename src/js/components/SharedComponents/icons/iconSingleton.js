@@ -1,7 +1,7 @@
 /**
   * IconSingleton.js
   * Created by Kevin Li 7/19/16
-  **/
+  */
 
 import Request from 'superagent';
 import xmldoc from 'xmldoc';

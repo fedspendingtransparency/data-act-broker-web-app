@@ -1,9 +1,10 @@
 /**
  * ReviewDataContainer.jsx
  * Created by Mike Bray 6/8/16
- **/
+ */
 
-import React, { PropTypes } from 'react';
+import React from 'react';
+import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
 import * as ReviewHelper from '../../helpers/reviewHelper.js';
@@ -65,10 +66,25 @@ class ReviewDataContainer extends React.Component {
                 submission.total_obligations = data.total_obligations;
                 submission.total_assistance_obligations = data.total_assistance_obligations;
                 submission.total_procurement_obligations = data.total_procurement_obligations;
-                this.setState(submission);
+                this.setState({
+                    jobs: submission.jobs,
+                    cgac_code: submission.cgac_code,
+                    frec_code: submission.frec_code,
+                    agency_name: submission.agency_name,
+                    reporting_period_start_date: submission.reporting_period_start_date,
+                    reporting_period_end_date: submission.reporting_period_end_date,
+                    number_of_errors: submission.number_of_errors,
+                    number_of_rows: submission.number_of_rows,
+                    created_on: submission.created_on,
+                    ready: submission.ready,
+                    total_obligations: submission.total_obligations,
+                    total_assistance_obligations: submission.total_assistance_obligations,
+                    total_procurement_obligations: submission.total_procurement_obligations,
+                    file_narrative: submission.file_narrative
+                });
             })
             .catch((error) => {
-                console.log(error);
+                console.error(error);
             });
     }
 
@@ -82,6 +98,8 @@ class ReviewDataContainer extends React.Component {
 ReviewDataContainer.propTypes = propTypes;
 
 export default connect(
-    (state) => ({ submission: state.submission,
-                session: state.session })
+    (state) => ({
+        submission: state.submission,
+        session: state.session
+    })
 )(ReviewDataContainer);

@@ -1,7 +1,7 @@
 /**
 * ErrorMessage.jsx
 * Created by Kyle Fox 2/24/16
-**/
+*/
 
 import React, { PropTypes } from 'react';
 import * as Icons from './icons/Icons.jsx';

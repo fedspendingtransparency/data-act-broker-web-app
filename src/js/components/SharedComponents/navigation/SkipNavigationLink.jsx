@@ -1,7 +1,7 @@
 /**
   * SkipNavigationLink.jsx
   * Created by Kevin Li 7/13/16
-  **/
+  */
 
 import React from 'react';
 

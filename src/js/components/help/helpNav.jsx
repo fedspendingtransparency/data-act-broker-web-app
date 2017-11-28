@@ -1,7 +1,7 @@
 /**
  * HelpNav.jsx
  * Created by Emily Gullo 9/27/16
- **/
+ */
 
 import React, { PropTypes } from 'react';
 

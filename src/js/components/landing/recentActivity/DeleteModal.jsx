@@ -1,7 +1,7 @@
 /**
   * DeleteModal.jsx
   * Created by Minahm Kim 03/10/17
-  **/
+  */
 
 import React, { PropTypes } from 'react';
 import Modal from 'react-aria-modal';
@@ -88,7 +88,7 @@ export default class DeleteModal extends React.Component {
                         </div>
                         {error}
                         <div className="pull-right">
-                            <br/>
+                            <br />
                             <button id="delete-button" className="btn btn-danger delete-button"
                                 onClick={this.clickedDeleteButton.bind(this)} disabled={this.state.disable}>Delete
                             </button>

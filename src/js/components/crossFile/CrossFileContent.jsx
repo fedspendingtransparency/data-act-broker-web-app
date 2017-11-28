@@ -1,7 +1,7 @@
 /**
   * CrossFileContent.jsx
   * Created by Kevin Li 6/14/16
-  **/
+  */
 
 import React, { PropTypes } from 'react';
 import _ from 'lodash';
@@ -15,7 +15,6 @@ const propTypes = {
 };
 
 export default class CrossFileContent extends React.Component {
-
     constructor(props) {
         super(props);
 
@@ -109,8 +108,10 @@ export default class CrossFileContent extends React.Component {
                     <div className={"usa-da-cross-file" + loadingClass}>
                         <div className="row usa-da-submission-instructions">
                             <div className="col-md-12">
-                                <p>Cross-file validation will now be performed on some of your files. As before, if any
-                                errors are found they will be displayed below.</p>
+                                <p>
+                                    Cross-file validation will now be performed on some of your files. As before, if any
+                                    errors are found they will be displayed below.
+                                </p>
                             </div>
                         </div>
 

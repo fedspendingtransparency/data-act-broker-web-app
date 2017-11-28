@@ -40,12 +40,13 @@ export default class TableHeaders extends React.Component {
                 sorters = <TableSorter onSort={this.props.onSort} col={i} active={activeSort} />;
             }
 
-            tableHeaders.push(<th key={i} className={this.props.headerClasses[i]}>
-                <div className={className} >
-                    {this.props.data[i]}
-                </div>
-                {sorters}
-            </th>);
+            tableHeaders.push(
+                <th key={i} className={this.props.headerClasses[i]}>
+                    <div className={className} >
+                        {this.props.data[i]}
+                    </div>
+                    {sorters}
+                </th>);
         }
 
         return (

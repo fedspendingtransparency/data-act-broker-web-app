@@ -1,7 +1,7 @@
 /**
 * GenerateEFContainer.jsx
 * Created by Kevin Li 8/23/16
-**/
+*/
 
 import React, { PropTypes } from 'react';
 import { bindActionCreators } from 'redux';
@@ -84,23 +84,25 @@ class GenerateEFContainer extends React.Component {
     }
 
     generateFiles() {
-        Q.allSettled([
-            GenerateHelper.generateFile('E', this.props.submissionID, '', ''),
-            GenerateHelper.generateFile('F', this.props.submissionID, '', '')
-        ])
-        .then((allResponses) => {
-            this.handleResponse(allResponses);
-        });
+        Q
+            .allSettled([
+                GenerateHelper.generateFile('E', this.props.submissionID, '', ''),
+                GenerateHelper.generateFile('F', this.props.submissionID, '', '')
+            ])
+            .then((allResponses) => {
+                this.handleResponse(allResponses);
+            });
     }
 
     checkFileStatus() {
-        Q.allSettled([
-            GenerateHelper.fetchFile('E', this.props.submissionID),
-            GenerateHelper.fetchFile('F', this.props.submissionID)
-        ])
-        .then((allResponses) => {
-            this.handleResponse(allResponses);
-        });
+        Q
+            .allSettled([
+                GenerateHelper.fetchFile('E', this.props.submissionID),
+                GenerateHelper.fetchFile('F', this.props.submissionID)
+            ])
+            .then((allResponses) => {
+                this.handleResponse(allResponses);
+            });
     }
 
     parseState() {
@@ -173,7 +175,9 @@ class GenerateEFContainer extends React.Component {
 GenerateEFContainer.propTypes = propTypes;
 
 export default connect(
-    (state) => ({ submission: state.submission,
-    session: state.session }),
+    (state) => ({
+        submission: state.submission,
+        session: state.session
+    }),
     (dispatch) => bindActionCreators(uploadActions, dispatch)
 )(GenerateEFContainer);

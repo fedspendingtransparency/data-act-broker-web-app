@@ -1,7 +1,7 @@
 /**
  * HelpSidebar.jsx
  * Created by Mike Bray 4/1/16
- **/
+ */
 
 import React, { PropTypes } from 'react';
 import HelpSidebarItem from './helpSidebarItem.jsx';
@@ -14,7 +14,6 @@ const propTypes = {
 };
 
 export default class HelpSidebar extends React.Component {
-
     constructor(props) {
         super(props);
     }
@@ -32,10 +31,11 @@ export default class HelpSidebar extends React.Component {
 
         let membership = null;
         if (this.props.helpOnly) {
-            membership =
-                (<li>
+            membership = (
+                <li>
                     <a href="/#/help?section=agencyAccess">Request Agency Access</a>
-                </li>);
+                </li>
+            );
         }
 
         const help = this.props.type === 'fabs' ? "/#/FABSHelp" : '/#/help';

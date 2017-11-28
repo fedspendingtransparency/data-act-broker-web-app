@@ -4,7 +4,7 @@
 *
 * This button needs to be given a function to run when it is clicked.
 * Pass this function through props, calling it onClick
-**/
+*/
 
 import React, { PropTypes } from 'react';
 

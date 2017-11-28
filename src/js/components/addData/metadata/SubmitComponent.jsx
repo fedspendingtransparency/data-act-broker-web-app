@@ -1,7 +1,7 @@
 /**
   * SubmitComponent.jsx
   * Created by Kevin Li 5/20/16
-  **/
+  */
 
 import React, { PropTypes } from 'react';
 import SubmitButton from '../../SharedComponents/SubmitButton.jsx';
@@ -27,7 +27,7 @@ export default class SubmitComponent extends React.Component {
                     <div className="col-sm-4" data-testid="submitbutton">
                         <SubmitButton onClick={this.props.onSubmit}
                             className="usa-da-button btn-primary btn-lg pull-right" buttonText="Submit"
-                            buttonDisabled={this.props.disabled} buttonDisabled={false} />
+                            buttonDisabled={this.props.disabled} />
                     </div>
                 </div>
             </div>

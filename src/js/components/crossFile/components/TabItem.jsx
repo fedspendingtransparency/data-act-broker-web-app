@@ -1,7 +1,7 @@
 /**
   * TabItem.jsx
   * Created by Minahm Kim 11/21/17
-  **/
+  */
 
 import React, { PropTypes } from 'react';
 

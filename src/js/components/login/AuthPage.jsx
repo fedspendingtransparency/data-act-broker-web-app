@@ -1,7 +1,7 @@
 /**
 * LoginPage.jsx
 * Created by Kevin Li 10/24/16
-**/
+*/
 
 import React from 'react';
 import { kGlobalConstants } from '../../GlobalConstants.js';
@@ -25,11 +25,11 @@ export default class AuthPage extends React.Component {
                         {testBanner}
                         <div className="login-banner-wrap">
                             <div className="usa-da-login-wrap">
-                                <LoginIntro/>
-                                <AuthContainer/>
+                                <LoginIntro />
+                                <AuthContainer />
                             </div>
                         </div>
-                        <LoginWarningTxt/>
+                        <LoginWarningTxt />
                     </div>
                 </div>
             </div>

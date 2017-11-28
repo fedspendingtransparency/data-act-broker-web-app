@@ -1,7 +1,7 @@
 /**
   * SubTierAgencyListContainer.jsx
   * Created by Michael Hess
-  **/
+  */
 
 import React, { PropTypes } from 'react';
 import { bindActionCreators } from 'redux';
@@ -18,7 +18,6 @@ const propTypes = {
 };
 
 class SubTierAgencyListContainer extends React.Component {
-
     componentDidMount() {
         this.loadData();
     }
@@ -31,7 +30,7 @@ class SubTierAgencyListContainer extends React.Component {
                     this.props.setSubTierAgencyList(agencies);
                 })
                 .catch((err) => {
-                    console.log(err);
+                    console.error(err);
                 });
         }
     }
@@ -49,7 +48,6 @@ class SubTierAgencyListContainer extends React.Component {
                 formatter={this.dataFormatter} />
         );
     }
-
 }
 
 SubTierAgencyListContainer.propTypes = propTypes;

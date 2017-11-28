@@ -1,7 +1,7 @@
 /**
   * CommonOverlay.jsx
   * Created by Kevin Li 8/24/16
-  **/
+  */
 
 import React, { PropTypes } from 'react';
 
@@ -28,18 +28,20 @@ export default class CommonOverlay extends React.Component {
     render() {
         let icon = null;
         if (this.props.showIcon) {
-            icon = (<div className="overlay-icon">
-                <div className="usa-da-icon">
-                    <div className={this.props.iconClass}>{this.props.icon}</div>
-                </div>
-            </div>);
+            icon = (
+                <div className="overlay-icon">
+                    <div className="usa-da-icon">
+                        <div className={this.props.iconClass}>{this.props.icon}</div>
+                    </div>
+                </div>);
         }
 
         let detail = null;
         if (this.props.detail) {
-            detail = (<div className="overlay-help-text">
-                {this.props.detail}
-            </div>);
+            detail = (
+                <div className="overlay-help-text">
+                    {this.props.detail}
+                </div>);
         }
 
         let buttons = null;

@@ -1,7 +1,7 @@
 /**
 * LandingContentContainer.jsx
 * Created by Kevin Li 5/31/16
-**/
+*/
 
 import React from 'react';
 import { connect } from 'react-redux';

@@ -1,7 +1,7 @@
 /**
   * GenerateFileBox.jsx
   * Created by Kevin Li 7/25/16
-  **/
+  */
 
 import React, { PropTypes } from 'react';
 import * as Icons from '../../SharedComponents/icons/Icons.jsx';

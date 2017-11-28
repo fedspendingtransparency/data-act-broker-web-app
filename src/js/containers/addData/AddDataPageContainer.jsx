@@ -1,7 +1,7 @@
 /**
 * AddDataPageContainer.jsx
 * Created by Kevin Li
-**/
+*/
 
 import React, { PropTypes } from 'react';
 import { bindActionCreators } from 'redux';

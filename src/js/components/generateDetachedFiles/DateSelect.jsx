@@ -1,7 +1,7 @@
 /**
 * DateSelect.jsx
 * Created by Alisa Burdeyny
-**/
+*/
 
 import React, { PropTypes } from 'react';
 import GenerateFileBox from '../generateFiles/components/GenerateFileBox.jsx';

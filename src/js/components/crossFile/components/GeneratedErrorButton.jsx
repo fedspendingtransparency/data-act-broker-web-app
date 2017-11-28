@@ -1,7 +1,7 @@
 /**
   * GeneratedErrorButton.jsx
   * Created by Kevin Li 7/28/16
-  **/
+  */
 
 import React, { PropTypes } from 'react';
 import GeneratedFileModal from './GeneratedFileModal.jsx';
@@ -14,7 +14,6 @@ const propTypes = {
 };
 
 export default class GeneratedErrorButton extends React.Component {
-
     constructor(props) {
         super(props);
 

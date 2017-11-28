@@ -1,7 +1,7 @@
 /**
   * DashboardPaginator.jsx
   * Created by Kevin Li 10/31/16
-  **/
+  */
 
 import React, { PropTypes } from 'react';
 import _ from 'lodash';

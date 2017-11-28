@@ -1,7 +1,7 @@
 /**
   * HistoryTable.jsx
   * Created by Minahm Kim 06/05/17
-  **/
+  */
 
 import React, { PropTypes } from 'react';
 
@@ -39,7 +39,7 @@ export default class HistoryTable extends React.Component {
                 this.setState(tmpResponse);
             })
             .catch((err) => {
-                console.log(err);
+                console.error(err);
             });
         this.isUnmounted = false;
     }
@@ -75,7 +75,7 @@ export default class HistoryTable extends React.Component {
                 });
             })
             .catch((err) => {
-                console.log(err);
+                console.error(err);
                 this.setState({
                     warning: {
                         active: true,
@@ -94,8 +94,10 @@ export default class HistoryTable extends React.Component {
         const activeSubmissionsFiles = this.state.certifications[this.state.active].certified_files;
         const list = [];
         for (let i = 0; i < activeSubmissionsFiles.length; i++) {
-            list.push(<li className="file-link" onClick={this.getSignedUrl.bind(this, i)} key={i}>
-                {activeSubmissionsFiles[i].filename}</li>);
+            list.push(
+                <li className="file-link" onClick={this.getSignedUrl.bind(this, i)} key={i}>
+                    {activeSubmissionsFiles[i].filename}
+                </li>);
         }
         return list;
     }
@@ -108,16 +110,22 @@ export default class HistoryTable extends React.Component {
         const certifications = this.state.certifications;
         for (let i = 0; i < certifications.length; i++) {
             if (this.state.active === i) {
-                list.push(<li key={i}>
-                    <span className="active-submission">Certified by {certifications[i].certifying_user.name} on
-                    {this.convertToLocalDate(certifications[i].certify_date)}</span>
-                </li>);
+                list.push(
+                    <li key={i}>
+                        <span className="active-submission">
+                            Certified by {certifications[i].certifying_user.name} on
+                            {this.convertToLocalDate(certifications[i].certify_date)}
+                        </span>
+                    </li>);
             }
             else {
-                list.push(<li onClick={this.setActiveSubmission.bind(this, i)} key={i}>
-                    <span className="submission">Certified by {certifications[i].certifying_user.name} on
-                    {this.convertToLocalDate(certifications[i].certify_date)}</span>
-                </li>);
+                list.push(
+                    <li onClick={this.setActiveSubmission.bind(this, i)} key={i}>
+                        <span className="submission">
+                            Certified by {certifications[i].certifying_user.name} on
+                            {this.convertToLocalDate(certifications[i].certify_date)}
+                        </span>
+                    </li>);
             }
         }
         return list;
@@ -153,11 +161,13 @@ export default class HistoryTable extends React.Component {
             fileList = this.activeList();
         }
         if (this.state.warning.active) {
-            warning = (<div className={"alert alert-" + this.state.warning.type}>
-                <span className="usa-da-icon error-icon"><Icons.ExclamationCircle /></span>
-                <h3>{this.state.warning.header}</h3>
-                <div>{this.state.warning.body}</div>
-            </div>);
+            warning = (
+                <div className={"alert alert-" + this.state.warning.type}>
+                    <span className="usa-da-icon error-icon"><Icons.ExclamationCircle /></span>
+                    <h3>{this.state.warning.header}</h3>
+                    <div>{this.state.warning.body}</div>
+                </div>
+            );
         }
 
         return (

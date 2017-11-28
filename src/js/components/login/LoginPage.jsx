@@ -1,7 +1,7 @@
 /**
 * LoginPage.jsx
 * Created by Kyle Fox 12/4/15
-**/
+*/
 
 import React from 'react';
 import { kGlobalConstants } from '../../GlobalConstants.js';

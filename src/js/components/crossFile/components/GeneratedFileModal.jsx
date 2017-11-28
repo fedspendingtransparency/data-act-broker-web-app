@@ -1,7 +1,7 @@
 /**
   * GeneratedFileModal.jsx
   * Created by Kevin Li 7/28/16
-  **/
+  */
 
 import React, { PropTypes } from 'react';
 import Modal from 'react-aria-modal';

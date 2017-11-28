@@ -1,7 +1,7 @@
 /**
 * UploadDetachedFilesBox.jsx
 * Created by Michael Hess
-**/
+*/
 
 import React, { PropTypes } from 'react';
 import FileComponent from '../addData/FileComponent.jsx';
@@ -36,7 +36,9 @@ export default class UploadDetachedFilesBox extends React.Component {
                     requestName="detached_award" />
                 <div className="right-align-box">
                     <button className="usa-da-button btn-default" disabled={disabled}
-                        onClick={this.props.uploadFile.bind(this, "award")}>{loadingD2}{d2Text}</button>
+                        onClick={this.props.uploadFile.bind(this, "award")}>
+                        {loadingD2}{d2Text}
+                    </button>
                 </div>
             </div>
         );

@@ -1,13 +1,15 @@
 /**
 * SubmissionComponent.jsx
 * Created by Katie Rose 12/8/15
-**/
+*/
 
 import React, { PropTypes } from 'react';
 import FileComponent from './FileComponent.jsx';
 
 const propTypes = {
-    files: PropTypes.array.isRequired
+    files: PropTypes.array.isRequired,
+    data: PropTypes.array,
+    headers: PropTypes.array
 };
 
 const defaultProps = {

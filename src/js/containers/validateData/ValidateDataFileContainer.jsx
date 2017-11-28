@@ -20,7 +20,6 @@ const propTypes = {
 };
 
 class ValidateDataFileContainer extends React.Component {
-
     constructor(props) {
         super(props);
     }
@@ -53,7 +52,9 @@ class ValidateDataFileContainer extends React.Component {
 ValidateDataFileContainer.propTypes = propTypes;
 
 export default connect(
-    (state) => ({ submission: state.submission,
-    session: state.session }),
+    (state) => ({
+        submission: state.submission,
+        session: state.session
+    }),
     (dispatch) => bindActionCreators(uploadActions, dispatch)
 )(ValidateDataFileContainer);

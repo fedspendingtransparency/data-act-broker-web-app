@@ -1,7 +1,7 @@
 /**
  * HistoryPage.jsx
  * Created by Emily Gullo 9/27/16
- **/
+ */
 
 import React, { PropTypes } from 'react';
 import Navbar from '../SharedComponents/navigation/NavigationComponent.jsx';
@@ -66,7 +66,7 @@ export default class HelpPage extends React.Component {
                 }
             })
             .catch((err) => {
-                console.log(err);
+                console.error(err);
             });
     }
 
@@ -84,7 +84,7 @@ export default class HelpPage extends React.Component {
                 }
             })
             .catch((err) => {
-                console.log(err);
+                console.error(err);
             });
     }
 
@@ -116,7 +116,7 @@ export default class HelpPage extends React.Component {
                                     type={this.props.type} />
                             </div>
                             <div className="col-md-8">
-                                <HistoryContent history={this.state.history} title={this.state.title}/>
+                                <HistoryContent history={this.state.history} title={this.state.title} />
                             </div>
                         </div>
                     </div>

@@ -1,7 +1,7 @@
 /**
   * DashboardTable.jsx
   * Created by Kevin Li 10/28/16
-  **/
+  */
 
 import React, { PropTypes } from 'react';
 import _ from 'lodash';
@@ -221,11 +221,11 @@ export default class DashboardTable extends React.Component {
 
         const deleteConfirm = this.state.deleteIndex !== -1 && index === this.state.deleteIndex;
 
-        let link = <SubmissionLink submissionId={item.submission_id} type={this.state.type}/>;
+        let link = <SubmissionLink submissionId={item.submission_id} type={this.state.type} />;
 
         if (this.props.isCertified) {
             link = (<SubmissionLink submissionId={item.submission_id} value={reportingDateString}
-                type={this.state.type}/>);
+                type={this.state.type} />);
         }
 
         let row = [];
@@ -251,8 +251,8 @@ export default class DashboardTable extends React.Component {
                     this.convertToLocalDate(item.last_modified),
                     <Status.SubmissionStatus status={item.rowStatus} certified={this.props.isCertified} />,
                     <span>
-                        {item.certifying_user}<br/>
-                        {certifiedOn}<br/>
+                        {item.certifying_user}<br />
+                        {certifiedOn}<br />
                         <HistoryLink submissionId={item.submission_id} />
                     </span>
                 ]);
@@ -284,7 +284,7 @@ export default class DashboardTable extends React.Component {
                 if (canDelete && item.publish_status === 'unpublished') {
                     row.push(<DeleteLink submissionId={item.submission_id} index={index}
                         warning={this.deleteWarning.bind(this)} confirm={deleteConfirm} reload={this.reload.bind(this)}
-                        item={item} account={this.state.account}/>);
+                        item={item} account={this.state.account} />);
                 }
                 else {
                     row.push('N/A');

@@ -1,17 +1,16 @@
 /**
 * NavigationComponent.jsx
 * Created by Katie Rose 12/8/15
-**/
+*/
 
 import React, { PropTypes } from 'react';
+import { bindActionCreators } from 'redux';
+import { connect } from 'react-redux';
 import { kGlobalConstants } from '../../../GlobalConstants.js';
 import NavbarTab from './NavbarTab.jsx';
 import UserButton from './UserButton.jsx';
 import SkipNavigationLink from './SkipNavigationLink.jsx';
 import TestEnvironmentBanner from '../banners/TestEnvironmentBanner.jsx';
-
-import { bindActionCreators } from 'redux';
-import { connect } from 'react-redux';
 import * as sessionActions from '../../../redux/actions/sessionActions.js';
 import * as PermissionHelper from '../../../helpers/permissionsHelper.js';
 
@@ -119,9 +118,9 @@ export class Navbar extends React.Component {
                             <button type="button" className="navbar-toggle collapsed" data-toggle="collapse"
                                 data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
                                 <span className="sr-only">Toggle navigation</span>
-                                <span className="icon-bar"></span>
-                                <span className="icon-bar"></span>
-                                <span className="icon-bar"></span>
+                                <span className="icon-bar" />
+                                <span className="icon-bar" />
+                                <span className="icon-bar" />
                             </button>
                             <a className="navbar-brand usa-da-header-brand" href="#/">DATA Act Broker</a>
                         </div>

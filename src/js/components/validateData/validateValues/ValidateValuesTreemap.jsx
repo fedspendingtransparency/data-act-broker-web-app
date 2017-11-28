@@ -18,7 +18,6 @@ const propTypes = {
 };
 
 class ValidateValuesTreemap extends React.Component {
-
     constructor(props) {
         super(props);
 

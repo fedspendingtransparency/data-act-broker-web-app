@@ -1,7 +1,7 @@
 /**
   * CrossFileItem.jsx
   * Created by Kevin Li 6/14/16
-  **/
+  */
 
 import React, { PropTypes } from 'react';
 import FileComponent from './components/FileComponent.jsx';
@@ -12,13 +12,12 @@ import ReplacementBox from './components/ReplacementBox.jsx';
 
 const propTypes = {
     meta: PropTypes.object,
-    status: PropTypes.string
+    status: PropTypes.string,
+    type: PropTypes.string
 };
 
 const defaultProps = {
     type: 'loading',
-    firstFile: null,
-    secondFile: null,
     meta: {
         firstKey: '',
         firstName: '',

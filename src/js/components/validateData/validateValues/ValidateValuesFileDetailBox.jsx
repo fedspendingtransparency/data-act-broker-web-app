@@ -1,7 +1,7 @@
 /**
   * ValidateValuesFileDetailBox.jsx
   * Created by Kevin Li 6/27/16
-  **/
+  */
 
 import React, { PropTypes } from 'react';
 import * as Icons from '../../SharedComponents/icons/Icons.jsx';
@@ -51,8 +51,9 @@ export default class ValidateValuesFileDetailBox extends React.Component {
                 <div className="row usa-da-validate-item-footer-wrapper">
                     <div className={"usa-da-validate-item-footer usa-da-header-error" + showButton + footerStatus}
                         onClick={this.props.onClick}>
-                        <div>View &amp; Download {this.props.label} Report <span className={"usa-da-icon"}>{buttonIcon}
-                        </span></div>
+                        <div>View &amp; Download {this.props.label} Report
+                            <span className="usa-da-icon">{buttonIcon}</span>
+                        </div>
                     </div>
                 </div>
             </div>

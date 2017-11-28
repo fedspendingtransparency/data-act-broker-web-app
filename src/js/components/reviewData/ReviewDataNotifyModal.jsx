@@ -48,7 +48,7 @@ export default class ReviewDataNotifyModal extends React.Component {
                 this.setState({ users: tmpData });
             })
             .catch((error) => {
-                console.log(error);
+                console.error(error);
             });
     }
 
@@ -101,7 +101,7 @@ export default class ReviewDataNotifyModal extends React.Component {
                 this.props.closeModal();
             })
             .catch((error) => {
-                console.log(error);
+                console.error(error);
             });
     }
 
@@ -152,7 +152,8 @@ export default class ReviewDataNotifyModal extends React.Component {
                             <div className="row">
                                 <div className="col-md-12 mb-10">
                                     <a href="#" onClick={this.sendNotification.bind(this)}
-                                        className="usa-da-button btn-primary pull-right">Send Notification</a>
+                                        className="usa-da-button btn-primary pull-right">Send Notification
+                                    </a>
                                 </div>
                             </div>
                         </div>

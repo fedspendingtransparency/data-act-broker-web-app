@@ -1,7 +1,7 @@
 /**
 * SubmitButton.jsx
 * Created by Katie Rose 12/29/15
-**/
+*/
 
 import React, { PropTypes } from 'react';
 

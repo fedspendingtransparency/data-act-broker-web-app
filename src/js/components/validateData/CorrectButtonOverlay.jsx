@@ -1,7 +1,7 @@
 /**
  * CorrectButtonOverlay.jsx
  * Created by Mike Bray 6/21/16
- **/
+ */
 
 import React, { PropTypes } from 'react';
 
@@ -12,7 +12,9 @@ const propTypes = {
     onDrop: PropTypes.func,
     removeFile: PropTypes.func,
     fileName: PropTypes.string,
-    isReplacingFile: PropTypes.bool
+    isReplacingFile: PropTypes.bool,
+    fullName: PropTypes.string,
+    type: PropTypes.string
 };
 
 const defaultProps = {
