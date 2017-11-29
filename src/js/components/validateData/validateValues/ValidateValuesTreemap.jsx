@@ -6,9 +6,9 @@
 import React, { PropTypes } from 'react';
 import Dimensions from 'react-dimensions';
 import _ from 'lodash';
-import Treemap from '../treemap/Treemap.jsx';
-import TreemapHelp from './ValidateValuesTreemapHelp.jsx';
-import TreemapHelpPlaceholder from './ValidateValuesTreemapHelpPlaceholder.jsx';
+import Treemap from '../treemap/Treemap';
+import TreemapHelp from './ValidateValuesTreemapHelp';
+import TreemapHelpPlaceholder from './ValidateValuesTreemapHelpPlaceholder';
 
 const propTypes = {
     colors: PropTypes.object,
@@ -108,14 +108,19 @@ class ValidateValuesTreemap extends React.Component {
     render() {
         let help = <TreemapHelpPlaceholder type={this.props.type} />;
         if (this.state.selected) {
-            help = <TreemapHelp {...this.state.selected} type={this.props.type} />;
+            help = (<TreemapHelp
+                {...this.state.selected}
+                type={this.props.type} />);
         }
 
         return (
             <div className="row">
                 <div className="col-md-9">
-                    <Treemap formattedData={this.state.formattedData} width={this.props.containerWidth * 0.75}
-                        clickedItem={this.clickedItem.bind(this)} colors={this.props.colors}
+                    <Treemap
+                        formattedData={this.state.formattedData}
+                        width={this.props.containerWidth * 0.75}
+                        clickedItem={this.clickedItem.bind(this)}
+                        colors={this.props.colors}
                         activeCell={this.state.activeCell} />
                 </div>
                 <div className="col-md-3">

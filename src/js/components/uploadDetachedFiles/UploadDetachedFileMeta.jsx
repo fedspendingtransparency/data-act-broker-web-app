@@ -7,17 +7,17 @@ import ReactCSSTransitionGroup from 'react-addons-css-transition-group';
 
 import React, { PropTypes } from 'react';
 
-import SubTierAgencyListContainer from '../../containers/SharedContainers/SubTierAgencyListContainer.jsx';
-import UploadDetachedFilesBox from './UploadDetachedFilesBox.jsx';
-import UploadDetachedFilesError from './UploadDetachedFilesError.jsx';
-import Banner from '../SharedComponents/Banner.jsx';
+import SubTierAgencyListContainer from '../../containers/SharedContainers/SubTierAgencyListContainer';
+import UploadDetachedFilesBox from './UploadDetachedFilesBox';
+import UploadDetachedFilesError from './UploadDetachedFilesError';
+import Banner from '../SharedComponents/Banner';
 
-import * as Icons from '../SharedComponents/icons/Icons.jsx';
+import * as Icons from '../SharedComponents/icons/Icons';
 
-import * as UploadHelper from '../../helpers/uploadHelper.js';
-import * as GenerateFilesHelper from '../../helpers/generateFilesHelper.js';
-import * as ReviewHelper from '../../helpers/reviewHelper.js';
-import { kGlobalConstants } from '../../GlobalConstants.js';
+import * as UploadHelper from '../../helpers/uploadHelper';
+import * as GenerateFilesHelper from '../../helpers/generateFilesHelper';
+import * as ReviewHelper from '../../helpers/reviewHelper';
+import { kGlobalConstants } from '../../GlobalConstants';
 
 const propTypes = {
     setSubmissionId: PropTypes.func,
@@ -210,7 +210,8 @@ export default class UploadDetachedFileMeta extends React.Component {
         }
 
         if (this.state.showUploadFilesBox) {
-            uploadFilesBox = (<UploadDetachedFilesBox {...this.state}
+            uploadFilesBox = (<UploadDetachedFilesBox
+                {...this.state}
                 submission={this.props.submission}
                 uploadFile={this.uploadFile.bind(this)} />);
         }
@@ -245,19 +246,23 @@ export default class UploadDetachedFileMeta extends React.Component {
                                         The files will be used when submitting data for...
                                     </div>
                                     <div className="row">
-                                        <div className="col-sm-12 col-md-12 typeahead-holder"
+                                        <div
+                                            className="col-sm-12 col-md-12 typeahead-holder"
                                             data-testid="agencytypeahead">
                                             <SubTierAgencyListContainer
                                                 placeholder="Enter the name of the reporting sub-tier agency"
                                                 onSelect={this.handleChange.bind(this)}
-                                                customClass={subTierAgencyClass} internalValue={['agency_code']} />
+                                                customClass={subTierAgencyClass}
+                                                internalValue={['agency_code']} />
                                             <div className={"usa-da-icon usa-da-form-icon" + subTierAgencyClass}>
                                                 <Icons.Building />
                                             </div>
                                         </div>
                                     </div>
                                 </div>
-                                <ReactCSSTransitionGroup transitionName="usa-da-meta-fade" transitionEnterTimeout={600}
+                                <ReactCSSTransitionGroup
+                                    transitionName="usa-da-meta-fade"
+                                    transitionEnterTimeout={600}
                                     transitionLeaveTimeout={200}>
                                     {uploadFilesBox}
                                 </ReactCSSTransitionGroup>

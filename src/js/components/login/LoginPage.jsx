@@ -4,10 +4,10 @@
 */
 
 import React from 'react';
-import { kGlobalConstants } from '../../GlobalConstants.js';
-import LoginBanner from './LoginBanner.jsx';
-import LoginWarningTxt from './LoginWarningTxt.jsx';
-import TestEnvironmentBanner from '../SharedComponents/banners/TestEnvironmentBanner.jsx';
+import { kGlobalConstants } from '../../GlobalConstants';
+import LoginBanner from './LoginBanner';
+import LoginWarningTxt from './LoginWarningTxt';
+import TestEnvironmentBanner from '../SharedComponents/banners/TestEnvironmentBanner';
 
 export default class LoginPage extends React.Component {
     render() {

@@ -4,13 +4,13 @@
  */
 
 import React, { PropTypes } from 'react';
-import Navbar from '../SharedComponents/navigation/NavigationComponent.jsx';
-import HelpNav from './helpNav.jsx';
-import ValidationRulesTableContent from './validationRulesTableContent.jsx';
-import Banner from '../SharedComponents/Banner.jsx';
-import Footer from '../SharedComponents/FooterComponent.jsx';
+import Navbar from '../SharedComponents/navigation/NavigationComponent';
+import HelpNav from './helpNav';
+import ValidationRulesTableContent from './validationRulesTableContent';
+import Banner from '../SharedComponents/Banner';
+import Footer from '../SharedComponents/FooterComponent';
 
-import * as Icons from '../SharedComponents/icons/Icons.jsx';
+import * as Icons from '../SharedComponents/icons/Icons';
 
 const propTypes = {
     route: PropTypes.object,

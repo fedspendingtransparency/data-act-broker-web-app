@@ -4,12 +4,12 @@
   */
 
 import React, { PropTypes } from 'react';
-import * as Icons from '../SharedComponents/icons/Icons.jsx';
-import CommonOverlay from '../SharedComponents/overlays/CommonOverlay.jsx';
-import LoadingBauble from '../SharedComponents/overlays/LoadingBauble.jsx';
+import * as Icons from '../SharedComponents/icons/Icons';
+import CommonOverlay from '../SharedComponents/overlays/CommonOverlay';
+import LoadingBauble from '../SharedComponents/overlays/LoadingBauble';
 
-import * as PermissionsHelper from '../../helpers/permissionsHelper.js';
-import * as ReviewHelper from '../../helpers/reviewHelper.js';
+import * as PermissionsHelper from '../../helpers/permissionsHelper';
+import * as ReviewHelper from '../../helpers/reviewHelper';
 
 const propTypes = {
     generateFiles: PropTypes.func,
@@ -109,12 +109,16 @@ export default class GenerateEFOverlay extends React.Component {
                 icon={icon}
                 iconClass={iconClass}>
                 <div className="usa-da-btn-bg">
-                    <button className={"usa-da-button" + buttonClass} disabled={buttonDisabled}
+                    <button
+                        className={"usa-da-button" + buttonClass}
+                        disabled={buttonDisabled}
                         onClick={this.clickedGenerate.bind(this)}>
                         Regenerate Files
                     </button>
-                    <button className={"usa-da-button usa-da-validation-overlay-review " + nextClass}
-                        disabled={nextDisabled} onClick={this.clickedNext.bind(this)}>
+                    <button
+                        className={"usa-da-button usa-da-validation-overlay-review " + nextClass}
+                        disabled={nextDisabled}
+                        onClick={this.clickedNext.bind(this)}>
                         Next
                     </button>
                 </div>

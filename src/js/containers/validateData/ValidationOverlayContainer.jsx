@@ -8,12 +8,12 @@ import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import _ from 'lodash';
 
-import * as uploadActions from '../../redux/actions/uploadActions.js';
+import * as uploadActions from '../../redux/actions/uploadActions';
 
-import ValidationOverlay from '../../components/validateData/ValidationOverlay.jsx';
-import { kGlobalConstants } from '../../GlobalConstants.js';
+import ValidationOverlay from '../../components/validateData/ValidationOverlay';
+import { kGlobalConstants } from '../../GlobalConstants';
 
-import * as UploadHelper from '../../helpers/uploadHelper.js';
+import * as UploadHelper from '../../helpers/uploadHelper';
 
 const propTypes = {
     submission: PropTypes.object
@@ -70,8 +70,11 @@ class ValidationOverlayContainer extends React.Component {
         }
 
         return (
-            <ValidationOverlay {...this.props} uploadFiles={this.uploadFiles.bind(this)}
-                allowUpload={allowUpload} notAllowed={this.state.notAllowed} />
+            <ValidationOverlay
+                {...this.props}
+                uploadFiles={this.uploadFiles.bind(this)}
+                allowUpload={allowUpload}
+                notAllowed={this.state.notAllowed} />
         );
     }
 }

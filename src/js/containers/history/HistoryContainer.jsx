@@ -6,7 +6,7 @@
 import React, { PropTypes } from 'react';
 import { connect } from 'react-redux';
 
-import HistoryPage from '../../components/history/HistoryPage.jsx';
+import HistoryPage from '../../components/history/HistoryPage';
 
 const propTypes = {
     params: PropTypes.object,

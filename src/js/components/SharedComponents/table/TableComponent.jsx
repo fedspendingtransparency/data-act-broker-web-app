@@ -4,8 +4,8 @@
  */
 
 import React, { PropTypes } from 'react';
-import TableRow from './TableRow.jsx';
-import TableHeaders from './TableHeaders.jsx';
+import TableRow from './TableRow';
+import TableHeaders from './TableHeaders';
 
 const propTypes = {
     data: PropTypes.array,

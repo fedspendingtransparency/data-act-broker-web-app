@@ -4,8 +4,8 @@
   */
 
 import React, { PropTypes } from 'react';
-import ReplacementButton from './ReplacementButton.jsx';
-import * as PermissionsHelper from '../../../helpers/permissionsHelper.js';
+import ReplacementButton from './ReplacementButton';
+import * as PermissionsHelper from '../../../helpers/permissionsHelper';
 
 const propTypes = {
     toggleUploadBox: PropTypes.func,

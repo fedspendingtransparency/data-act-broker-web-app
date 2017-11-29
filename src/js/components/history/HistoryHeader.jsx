@@ -5,7 +5,7 @@
 
 import React, { PropTypes } from 'react';
 
-import * as FileHelper from '../../helpers/generateFilesHelper.js';
+import * as FileHelper from '../../helpers/generateFilesHelper';
 
 const propTypes = {
     submissionID: PropTypes.string

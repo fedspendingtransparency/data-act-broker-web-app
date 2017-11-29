@@ -5,8 +5,8 @@
 
 import React, { PropTypes } from 'react';
 import Modal from 'react-aria-modal';
-import CrossFileGenerateModalContainer from '../../../containers/crossFile/CrossFileGenerateModalContainer.jsx';
-import * as Icons from '../../SharedComponents/icons/Icons.jsx';
+import CrossFileGenerateModalContainer from '../../../containers/crossFile/CrossFileGenerateModalContainer';
+import * as Icons from '../../SharedComponents/icons/Icons';
 
 const propTypes = {
     closeModal: PropTypes.func,
@@ -67,8 +67,12 @@ export default class GeneratedFileModal extends React.Component {
         const trueProps = true;
 
         return (
-            <Modal mounted={this.props.showModal} onExit={this.props.closeModal} underlayClickExists={false}
-                verticallyCenter={trueProps} titleId="usa-da-generate-file-modal">
+            <Modal
+                mounted={this.props.showModal}
+                onExit={this.props.closeModal}
+                underlayClickExists={false}
+                verticallyCenter={trueProps}
+                titleId="usa-da-generate-file-modal">
                 <div className="usa-da-modal-page">
                     <div id="usa-da-generate-file-modal" className="usa-da-generate-file-modal">
                         <div className="usa-da-landing-modal-close usa-da-icon usa-da-icon-times">
@@ -92,8 +96,10 @@ export default class GeneratedFileModal extends React.Component {
                             {this.state.message}
                         </div>
 
-                        <button className={"usa-da-button btn-primary pull-right" + buttonClass}
-                            disabled={buttonDisabled} onClick={this.generateFile.bind(this)}>
+                        <button
+                            className={"usa-da-button btn-primary pull-right" + buttonClass}
+                            disabled={buttonDisabled}
+                            onClick={this.generateFile.bind(this)}>
                             {this.state.buttonText}
                         </button>
                     </div>

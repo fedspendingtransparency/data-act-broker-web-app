@@ -5,7 +5,7 @@
 
 import React, { PropTypes } from 'react';
 import svg4everybody from 'svg4everybody';
-import IconSingleton from './iconSingleton.js';
+import IconSingleton from './iconSingleton';
 
 const propTypes = {
     alt: PropTypes.string,
@@ -84,7 +84,10 @@ export default class BaseIcon extends React.Component {
 
     render() {
         return (
-            <svg className={this.props.iconClass} viewBox={this.state.icon.viewBox} key={this.state.icon.data}
+            <svg
+                className={this.props.iconClass}
+                viewBox={this.state.icon.viewBox}
+                key={this.state.icon.data}
                 aria-label={this.props.alt}>
                 <title>{this.props.alt}</title>
                 <g dangerouslySetInnerHTML={{ __html: this.state.icon.data }} />

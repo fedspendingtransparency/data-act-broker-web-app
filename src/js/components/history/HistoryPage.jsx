@@ -4,10 +4,10 @@
   */
 
 import React, { PropTypes } from 'react';
-import Navbar from '../SharedComponents/navigation/NavigationComponent.jsx';
-import Footer from '../SharedComponents/FooterComponent.jsx';
-import HistoryTable from './HistoryTable.jsx';
-import HistoryHeader from './HistoryHeader.jsx';
+import Navbar from '../SharedComponents/navigation/NavigationComponent';
+import Footer from '../SharedComponents/FooterComponent';
+import HistoryTable from './HistoryTable';
+import HistoryHeader from './HistoryHeader';
 
 const propTypes = {
     submissionID: PropTypes.string,

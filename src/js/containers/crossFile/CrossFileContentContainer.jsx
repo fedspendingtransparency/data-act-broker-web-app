@@ -9,14 +9,14 @@ import { connect } from 'react-redux';
 import { hashHistory } from 'react-router';
 import _ from 'lodash';
 
-import * as uploadActions from '../../redux/actions/uploadActions.js';
-import { kGlobalConstants } from '../../GlobalConstants.js';
-import * as UploadHelper from '../../helpers/uploadHelper.js';
-import * as ReviewHelper from '../../helpers/reviewHelper.js';
+import * as uploadActions from '../../redux/actions/uploadActions';
+import { kGlobalConstants } from '../../GlobalConstants';
+import * as UploadHelper from '../../helpers/uploadHelper';
+import * as ReviewHelper from '../../helpers/reviewHelper';
 
-import CrossFileContent from '../../components/crossFile/CrossFileContent.jsx';
-import PublishedSubmissionWarningBanner from '../../components/SharedComponents/PublishedSubmissionWarningBanner.jsx';
-import Banner from '../../components/SharedComponents/Banner.jsx';
+import CrossFileContent from '../../components/crossFile/CrossFileContent';
+import PublishedSubmissionWarningBanner from '../../components/SharedComponents/PublishedSubmissionWarningBanner';
+import Banner from '../../components/SharedComponents/Banner';
 
 const propTypes = {
     resetSubmission: PropTypes.func,
@@ -236,8 +236,11 @@ class CrossFileContentContainer extends React.Component {
             <div>
                 {warningMessage}
                 <Banner type="dabs" />
-                <CrossFileContent {...this.props} uploadFiles={this.uploadFiles.bind(this)}
-                    reloadData={this.reloadData.bind(this)} agencyName={this.state.agencyName} />
+                <CrossFileContent
+                    {...this.props}
+                    uploadFiles={this.uploadFiles.bind(this)}
+                    reloadData={this.reloadData.bind(this)}
+                    agencyName={this.state.agencyName} />
             </div>
         );
     }

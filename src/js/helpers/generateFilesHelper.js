@@ -1,7 +1,7 @@
 import Q from 'q';
-import Request from './sessionSuperagent.js';
+import Request from './sessionSuperagent';
 
-import { kGlobalConstants } from '../GlobalConstants.js';
+import { kGlobalConstants } from '../GlobalConstants';
 
 export const fetchSubmissionMetadata = (submissionId) => {
     const deferred = Q.defer();

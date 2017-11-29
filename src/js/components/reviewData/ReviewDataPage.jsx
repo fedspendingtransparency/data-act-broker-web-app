@@ -5,15 +5,15 @@
 
 import React from 'react';
 import PropTypes from 'prop-types';
-import Navbar from '../SharedComponents/navigation/NavigationComponent.jsx';
-import AddDataHeader from './../addData/AddDataHeader.jsx';
-import Progress from '../SharedComponents/ProgressComponent.jsx';
-import Footer from '../SharedComponents/FooterComponent.jsx';
+import Navbar from '../SharedComponents/navigation/NavigationComponent';
+import AddDataHeader from './../addData/AddDataHeader';
+import Progress from '../SharedComponents/ProgressComponent';
+import Footer from '../SharedComponents/FooterComponent';
 
-import ReviewDataContent from './ReviewDataContent.jsx';
-import ReviewLoading from './ReviewLoading.jsx';
-import PublishedSubmissionWarningBanner from '../../components/SharedComponents/PublishedSubmissionWarningBanner.jsx';
-import Banner from '../../components/SharedComponents/Banner.jsx';
+import ReviewDataContent from './ReviewDataContent';
+import ReviewLoading from './ReviewLoading';
+import PublishedSubmissionWarningBanner from '../../components/SharedComponents/PublishedSubmissionWarningBanner';
+import Banner from '../../components/SharedComponents/Banner';
 
 const propTypes = {
     data: PropTypes.object,

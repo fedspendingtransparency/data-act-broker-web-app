@@ -8,9 +8,9 @@ import { hashHistory } from 'react-router';
 import _ from 'lodash';
 import Cookies from 'js-cookie';
 
-import LoginMaxLoading from '../../components/login/LoginMaxLoading.jsx';
+import LoginMaxLoading from '../../components/login/LoginMaxLoading';
 
-import * as LoginHelper from '../../helpers/loginHelper.js';
+import * as LoginHelper from '../../helpers/loginHelper';
 
 export default class AuthContainer extends React.Component {
     constructor(props) {

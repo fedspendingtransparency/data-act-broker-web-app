@@ -5,8 +5,8 @@
 
 import React, { PropTypes } from 'react';
 import _ from 'lodash';
-import ScrollableTable from '../../SharedComponents/table/ScrollableTable.jsx';
-import * as ReviewHelper from '../../../helpers/reviewHelper.js';
+import ScrollableTable from '../../SharedComponents/table/ScrollableTable';
+import * as ReviewHelper from '../../../helpers/reviewHelper';
 
 const propTypes = {
     data: PropTypes.array

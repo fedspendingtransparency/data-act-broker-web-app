@@ -5,9 +5,9 @@
 
 import React, { PropTypes } from 'react';
 import Modal from 'react-aria-modal';
-import * as Icons from '../../SharedComponents/icons/Icons.jsx';
+import * as Icons from '../../SharedComponents/icons/Icons';
 
-import * as ReviewHelper from '../../../helpers/reviewHelper.js';
+import * as ReviewHelper from '../../../helpers/reviewHelper';
 
 const propTypes = {
     closeModal: PropTypes.func,
@@ -74,8 +74,13 @@ export default class DeleteModal extends React.Component {
         const trueProps = true;
 
         return (
-            <Modal mounted={this.props.isOpen} onExit={this.closeModal.bind(this)} underlayClickExits={trueProps}
-                verticallyCenter={trueProps} initialFocus="#delete-button" titleId="usa-da-certify-modal">
+            <Modal
+                mounted={this.props.isOpen}
+                onExit={this.closeModal.bind(this)}
+                underlayClickExits={trueProps}
+                verticallyCenter={trueProps}
+                initialFocus="#delete-button"
+                titleId="usa-da-certify-modal">
                 <div className="usa-da-modal-page">
                     <div id="usa-da-certify-modal" className="usa-da-certify-modal">
                         <div className="usa-da-certify-modal-close usa-da-icon usa-da-icon-times">
@@ -89,8 +94,11 @@ export default class DeleteModal extends React.Component {
                         {error}
                         <div className="pull-right">
                             <br />
-                            <button id="delete-button" className="btn btn-danger delete-button"
-                                onClick={this.clickedDeleteButton.bind(this)} disabled={this.state.disable}>Delete
+                            <button
+                                id="delete-button"
+                                className="btn btn-danger delete-button"
+                                onClick={this.clickedDeleteButton.bind(this)}
+                                disabled={this.state.disable}>Delete
                             </button>
                             <button className="btn btn-default" onClick={this.closeModal.bind(this)}>Cancel</button>
                         </div>

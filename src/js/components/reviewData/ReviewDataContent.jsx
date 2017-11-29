@@ -5,13 +5,13 @@
 
 import React, { PropTypes } from 'react';
 import moment from 'moment';
-import ReviewDataContentRow from './ReviewDataContentRow.jsx';
-import ReviewDataButton from './ReviewDataButton.jsx';
-import ReviewDataNotifyModal from './ReviewDataNotifyModal.jsx';
-import ReviewDataCertifyModal from './CertificationModal/ReviewDataCertifyModal.jsx';
-import RevalidateDataModal from './CertificationModal/RevalidateDataModal.jsx';
-import ReviewDataNarrative from './ReviewDataNarrative.jsx';
-import * as Icons from '../SharedComponents/icons/Icons.jsx';
+import ReviewDataContentRow from './ReviewDataContentRow';
+import ReviewDataButton from './ReviewDataButton';
+import ReviewDataNotifyModal from './ReviewDataNotifyModal';
+import ReviewDataCertifyModal from './CertificationModal/ReviewDataCertifyModal';
+import RevalidateDataModal from './CertificationModal/RevalidateDataModal';
+import ReviewDataNarrative from './ReviewDataNarrative';
+import * as Icons from '../SharedComponents/icons/Icons';
 
 const propTypes = {
     data: PropTypes.object,
@@ -201,7 +201,8 @@ export default class ReviewDataContent extends React.Component {
             certifyButtonText = "Monthly submissions cannot be certified";
             notifyButtonText = "Notify Another User that the Submission is Ready";
             monthlySubmissionError = (
-                <div className="alert alert-danger text-center monthly-submission-error"
+                <div
+                    className="alert alert-danger text-center monthly-submission-error"
                     role="alert">
                     Monthly submissions cannot be certified
                 </div>);
@@ -249,13 +250,15 @@ export default class ReviewDataContent extends React.Component {
                     </div>
                     <div className="row">
                         <div className="col-md-4" />
-                        <ReviewDataNarrative narrative={this.props.data.file_narrative}
+                        <ReviewDataNarrative
+                            narrative={this.props.data.file_narrative}
                             submissionID={this.props.params.submissionID} />
                     </div>
                     <div className="mt-20">
                         <div className="submission-wrapper">
                             <div className="left-link">
-                                <button onClick={buttonAction}
+                                <button
+                                    onClick={buttonAction}
                                     className={"usa-da-button btn-primary btn-lg btn-full " + buttonClass}>
                                     <div className="button-wrapper">
                                         <div className="button-icon">
@@ -268,7 +271,8 @@ export default class ReviewDataContent extends React.Component {
                                 </button>
                             </div>
                             <div className="right-link">
-                                <button onClick={this.openModal.bind(this, 'Notify')}
+                                <button
+                                    onClick={this.openModal.bind(this, 'Notify')}
                                     className="usa-da-button btn-primary btn-lg btn-full last">
                                     <div className="button-wrapper">
                                         <div className="button-icon">
@@ -285,15 +289,22 @@ export default class ReviewDataContent extends React.Component {
                     </div>
 
                     <div id="reviewDataNotifyModalHolder">
-                        <ReviewDataNotifyModal {...this.props} closeModal={this.closeModal.bind(this, 'Notify')}
+                        <ReviewDataNotifyModal
+                            {...this.props}
+                            closeModal={this.closeModal.bind(this, 'Notify')}
                             isOpen={this.state.openNotify} />
                     </div>
                     <div id="reviewDataCertifyModalHolder">
-                        <ReviewDataCertifyModal {...this.props} closeModal={this.closeModal.bind(this, 'Certify')}
-                            isOpen={this.state.openCertify} warnings={this.state.totalWarnings} />
+                        <ReviewDataCertifyModal
+                            {...this.props}
+                            closeModal={this.closeModal.bind(this, 'Certify')}
+                            isOpen={this.state.openCertify}
+                            warnings={this.state.totalWarnings} />
                     </div>
                     <div id="revalidateDataModalHolder">
-                        <RevalidateDataModal {...this.props} closeModal={this.closeModal.bind(this, 'Revalidate')}
+                        <RevalidateDataModal
+                            {...this.props}
+                            closeModal={this.closeModal.bind(this, 'Revalidate')}
                             isOpen={this.state.openRevalidate} />
                     </div>
                 </div>

@@ -4,7 +4,7 @@
 */
 
 import React, { PropTypes } from 'react';
-import * as ReviewHelper from '../../helpers/reviewHelper.js';
+import * as ReviewHelper from '../../helpers/reviewHelper';
 
 const propTypes = {
     params: PropTypes.object,
@@ -66,10 +66,19 @@ export default class GetErrors extends React.Component {
                         <h2>Enter the Submission ID to download validation errors.</h2>
                         <form className="form-inline">
                             <div className="form-group">
-                                <label htmlFor="submission-id" className="sr-only">Submission ID</label>
-                                <input className="form-control" id="submission-id" name="submission-id"
-                                    placeholder="Submission ID" onChange={this.setSubmissionId.bind(this)} />
-                                <a className="btn btn-default"
+                                <label
+                                    htmlFor="submission-id"
+                                    className="sr-only">
+                                    Submission ID
+                                </label>
+                                <input
+                                    className="form-control"
+                                    id="submission-id"
+                                    name="submission-id"
+                                    placeholder="Submission ID"
+                                    onChange={this.setSubmissionId.bind(this)} />
+                                <a
+                                    className="btn btn-default"
                                     onClick={this.onClick.bind(this, this.props.submissionId)}>
                                     Review Data
                                 </a>

@@ -5,8 +5,8 @@
 
 import React, { PropTypes } from 'react';
 import _ from 'lodash';
-import CrossFileItem from './CrossFileItem.jsx';
-import CrossFileOverlay from './CrossFileOverlay.jsx';
+import CrossFileItem from './CrossFileItem';
+import CrossFileOverlay from './CrossFileOverlay';
 
 const propTypes = {
     reloadData: PropTypes.func,
@@ -83,7 +83,12 @@ export default class CrossFileContent extends React.Component {
                 warnings
             };
 
-            items.push(<CrossFileItem key={i} status={status} meta={pairMeta} counts={counts} {...this.props}
+            items.push(<CrossFileItem
+                key={i}
+                status={status}
+                meta={pairMeta}
+                counts={counts}
+                {...this.props}
                 forceUpdate={this.props.reloadData} />);
             i += 1;
         });
@@ -119,7 +124,10 @@ export default class CrossFileContent extends React.Component {
 
                     </div>
                 </div>
-                <CrossFileOverlay {...this.props} mode={this.state.overlay} loading={isLoading}
+                <CrossFileOverlay
+                    {...this.props}
+                    mode={this.state.overlay}
+                    loading={isLoading}
                     uploadFiles={this.props.uploadFiles} />
             </div>
         );

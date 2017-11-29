@@ -7,10 +7,10 @@ import React, { PropTypes } from 'react';
 import { Router, hashHistory } from 'react-router';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import { kGlobalConstants } from '../../GlobalConstants.js';
-import * as sessionActions from '../../redux/actions/sessionActions.js';
-import * as LoginHelper from '../../helpers/loginHelper.js';
-import RouterRoutes from './RouterRoutes.jsx';
+import { kGlobalConstants } from '../../GlobalConstants';
+import * as sessionActions from '../../redux/actions/sessionActions';
+import * as LoginHelper from '../../helpers/loginHelper';
+import RouterRoutes from './RouterRoutes';
 
 const ga = require('react-ga');
 
@@ -72,8 +72,11 @@ class RouterContainer extends React.Component {
 
     render() {
         return (
-            <Router routes={Routes.routes()} history={hashHistory}
-                onUpdate={this.handleRouteChange.bind(this)} ref="router" />
+            <Router
+                routes={Routes.routes()}
+                history={hashHistory}
+                onUpdate={this.handleRouteChange.bind(this)}
+                ref="router" />
         );
     }
 }

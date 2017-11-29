@@ -6,7 +6,7 @@
 import React, { PropTypes } from 'react';
 import moment from 'moment';
 
-import * as ReviewHelper from '../../helpers/reviewHelper.js';
+import * as ReviewHelper from '../../helpers/reviewHelper';
 
 const propTypes = {
     params: PropTypes.object,

@@ -8,9 +8,9 @@ import { hashHistory } from 'react-router';
 
 import moment from 'moment';
 
-import GenerateFileBox from '../../components/generateFiles/components/GenerateFileBox.jsx';
+import GenerateFileBox from '../../components/generateFiles/components/GenerateFileBox';
 
-import * as GenerateFilesHelper from '../../helpers/generateFilesHelper.js';
+import * as GenerateFilesHelper from '../../helpers/generateFilesHelper';
 
 const propTypes = {
     disableButton: PropTypes.func,

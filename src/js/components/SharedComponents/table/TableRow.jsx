@@ -4,7 +4,7 @@
  */
 
 import React, { PropTypes } from 'react';
-import TableCell from './TableCell.jsx';
+import TableCell from './TableCell';
 
 const propTypes = {
     data: PropTypes.array.isRequired,

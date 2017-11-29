@@ -4,7 +4,7 @@
  */
 
 import React, { PropTypes } from 'react';
-import Banner from '../SharedComponents/Banner.jsx';
+import Banner from '../SharedComponents/Banner';
 
 const propTypes = {
     saveSkipGuide: PropTypes.func,
@@ -79,20 +79,29 @@ export default class SubmissionGuideContent extends React.Component {
                                         </p>
                                         <ul>
                                             <li>File A: Appropriation Account data.
-                                                <a href={aws + "appropValid.csv"} target="_blank"
-                                                    rel="noopener noreferrer" data-reactid=".0.0.1.0.0.0.1.1.1.0">
+                                                <a
+                                                    href={aws + "appropValid.csv"}
+                                                    target="_blank"
+                                                    rel="noopener noreferrer"
+                                                    data-reactid=".0.0.1.0.0.0.1.1.1.0">
                                                     (Sample file)
                                                 </a>
                                             </li>
                                             <li>File B: Object Class and Program Activity.
-                                                <a href={aws + "programActivityValid.csv"} target="_blank"
-                                                    rel="noopener noreferrer" data-reactid=".0.0.1.0.0.0.1.2.1.0">
+                                                <a
+                                                    href={aws + "programActivityValid.csv"}
+                                                    target="_blank"
+                                                    rel="noopener noreferrer"
+                                                    data-reactid=".0.0.1.0.0.0.1.2.1.0">
                                                     (Sample file)
                                                 </a>
                                             </li>
                                             <li>File C: Award Financial data.
-                                                <a href={aws + "awardFinancialValid.csv"} target="_blank"
-                                                    rel="noopener noreferrer" data-reactid=".0.0.1.0.0.0.1.3.1.0">
+                                                <a
+                                                    href={aws + "awardFinancialValid.csv"}
+                                                    target="_blank"
+                                                    rel="noopener noreferrer"
+                                                    data-reactid=".0.0.1.0.0.0.1.3.1.0">
                                                     (Sample file)
                                                 </a>
                                             </li>
@@ -106,8 +115,11 @@ export default class SubmissionGuideContent extends React.Component {
                                         <ul>
                                             <li>File D1: Award and Awardee Attributes (Procurement Award) data.</li>
                                             <li>File D2: Award and Awardee Attributes (Financial Assistance) data.
-                                                <a href={aws + "awardValid.csv"} target="_blank"
-                                                    rel="noopener noreferrer" data-reactid=".0.0.1.0.0.0.1.4.1.0">
+                                                <a
+                                                    href={aws + "awardValid.csv"}
+                                                    target="_blank"
+                                                    rel="noopener noreferrer"
+                                                    data-reactid=".0.0.1.0.0.0.1.4.1.0">
                                                     (Sample file)
                                                 </a>
                                             </li>
@@ -165,14 +177,17 @@ export default class SubmissionGuideContent extends React.Component {
                                     <div className="row submitStep">
                                         <div className="col-xs-8 col-md-6 submission-guide-hide checkbox">
                                             <label>
-                                                <input type="checkbox" value="skipGuide"
+                                                <input
+                                                    type="checkbox"
+                                                    value="skipGuide"
                                                     onChange={this.toggleSkipGuide.bind(this)}
                                                     defaultChecked={this.props.session.skipGuide} />
                                                     Hide this page next time I submit files.
                                             </label>
                                         </div>
                                         <div className="col-xs-4 col-md-6">
-                                            <button type="button"
+                                            <button
+                                                type="button"
                                                 className="usa-da-button btn-primary btn-lg pull-right"
                                                 onClick={this.nextClicked.bind(this)}>
                                                 Next

@@ -4,12 +4,12 @@
 */
 
 import React, { PropTypes } from 'react';
-import Navbar from '../SharedComponents/navigation/NavigationComponent.jsx';
-import AddDataHeader from './../addData/AddDataHeader.jsx';
-import Progress from '../SharedComponents/ProgressComponent.jsx';
+import Navbar from '../SharedComponents/navigation/NavigationComponent';
+import AddDataHeader from './../addData/AddDataHeader';
+import Progress from '../SharedComponents/ProgressComponent';
 
-import ValidateDataContainer from '../../containers/validateData/ValidateDataContainer.jsx';
-import ValidateDataErrors from './ValidateDataErrors.jsx';
+import ValidateDataContainer from '../../containers/validateData/ValidateDataContainer';
+import ValidateDataErrors from './ValidateDataErrors';
 
 const propTypes = {
     params: PropTypes.object,

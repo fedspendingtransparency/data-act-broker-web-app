@@ -5,11 +5,11 @@
 import React, { PropTypes } from 'react';
 import _ from 'lodash';
 import { hashHistory } from 'react-router';
-import * as Icons from '../SharedComponents/icons/Icons.jsx';
-import CommonOverlay from '../SharedComponents/overlays/CommonOverlay.jsx';
-import LoadingBauble from '../SharedComponents/overlays/LoadingBauble.jsx';
+import * as Icons from '../SharedComponents/icons/Icons';
+import CommonOverlay from '../SharedComponents/overlays/CommonOverlay';
+import LoadingBauble from '../SharedComponents/overlays/LoadingBauble';
 
-import * as PermissionsHelper from '../../helpers/permissionsHelper.js';
+import * as PermissionsHelper from '../../helpers/permissionsHelper';
 
 const propTypes = {
     uploadFiles: PropTypes.func,
@@ -204,12 +204,16 @@ export default class CrossFileOverlay extends React.Component {
                 iconClass={this.state.overlay.iconClass}
                 showButtons={!this.state.overlay.hideButtons}>
                 <div className="usa-da-btn-bg">
-                    <button className={"usa-da-button" + this.state.overlay.uploadButtonClass}
-                        disabled={this.state.overlay.uploadButtonDisabled} onClick={this.props.uploadFiles}>
+                    <button
+                        className={"usa-da-button" + this.state.overlay.uploadButtonClass}
+                        disabled={this.state.overlay.uploadButtonDisabled}
+                        onClick={this.props.uploadFiles}>
                         {this.state.overlay.buttonText}
                     </button>
-                    <button className={"usa-da-validation-overlay-review usa-da-button" +
-                        this.state.overlay.nextButtonClass} disabled={this.state.overlay.nextButtonDisabled}
+                    <button
+                        className={"usa-da-validation-overlay-review usa-da-button" +
+                        this.state.overlay.nextButtonClass}
+                        disabled={this.state.overlay.nextButtonDisabled}
                         onClick={this.pressedNext.bind(this)}>
                         Next
                     </button>

@@ -1,12 +1,12 @@
 import Q from 'q';
 import Cookies from 'js-cookie';
 import _ from 'lodash';
-import Request from './sessionSuperagent.js';
+import Request from './sessionSuperagent';
 
-import StoreSingleton from '../redux/storeSingleton.js';
+import StoreSingleton from '../redux/storeSingleton';
 
-import { kGlobalConstants } from '../GlobalConstants.js';
-import * as sessionActions from '../redux/actions/sessionActions.js';
+import { kGlobalConstants } from '../GlobalConstants';
+import * as sessionActions from '../redux/actions/sessionActions';
 
 export const fetchActiveUser = () => {
     const deferred = Q.defer();

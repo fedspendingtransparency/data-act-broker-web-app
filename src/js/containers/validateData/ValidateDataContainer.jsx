@@ -7,15 +7,15 @@ import React, { PropTypes } from 'react';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 
-import * as uploadActions from '../../redux/actions/uploadActions.js';
+import * as uploadActions from '../../redux/actions/uploadActions';
 
-import ValidationContent from '../../components/validateData/ValidationContent.jsx';
-import ValidateNotYours from '../../components/validateData/ValidateNotYours.jsx';
-import ValidateLoadingScreen from '../../components/validateData/ValidateLoadingScreen.jsx';
-import PublishedSubmissionWarningBanner from '../../components/SharedComponents/PublishedSubmissionWarningBanner.jsx';
-import Banner from '../../components/SharedComponents/Banner.jsx';
+import ValidationContent from '../../components/validateData/ValidationContent';
+import ValidateNotYours from '../../components/validateData/ValidateNotYours';
+import ValidateLoadingScreen from '../../components/validateData/ValidateLoadingScreen';
+import PublishedSubmissionWarningBanner from '../../components/SharedComponents/PublishedSubmissionWarningBanner';
+import Banner from '../../components/SharedComponents/Banner';
 
-import * as ReviewHelper from '../../helpers/reviewHelper.js';
+import * as ReviewHelper from '../../helpers/reviewHelper';
 
 const propTypes = {
     resetSubmission: PropTypes.func,
@@ -164,7 +164,9 @@ class ValidateDataContainer extends React.Component {
     }
 
     render() {
-        let validationContent = (<ValidationContent {...this.props} hasFinished={this.state.validationFinished}
+        let validationContent = (<ValidationContent
+            {...this.props}
+            hasFinished={this.state.validationFinished}
             hasFailed={this.state.validationFailed}
             submissionID={this.props.submissionID}
             agencyName={this.state.agencyName} />);

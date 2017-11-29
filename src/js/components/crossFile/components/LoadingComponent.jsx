@@ -4,7 +4,7 @@
   */
 
 import React from 'react';
-import * as Icons from '../../SharedComponents/icons/Icons.jsx';
+import * as Icons from '../../SharedComponents/icons/Icons';
 
 export default class LoadingComponent extends React.Component {
     render() {

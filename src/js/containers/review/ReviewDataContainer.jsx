@@ -7,9 +7,9 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
-import * as ReviewHelper from '../../helpers/reviewHelper.js';
+import * as ReviewHelper from '../../helpers/reviewHelper';
 
-import ReviewDataPage from '../../components/reviewData/ReviewDataPage.jsx';
+import ReviewDataPage from '../../components/reviewData/ReviewDataPage';
 
 const propTypes = {
     params: PropTypes.object

@@ -6,9 +6,9 @@
 import React, { PropTypes } from 'react';
 import { connect } from 'react-redux';
 
-import * as SubmissionListHelper from '../../helpers/submissionListHelper.js';
+import * as SubmissionListHelper from '../../helpers/submissionListHelper';
 
-import DashboardContent from '../../components/dashboard/DashboardContent.jsx';
+import DashboardContent from '../../components/dashboard/DashboardContent';
 
 const propTypes = {
     type: PropTypes.string

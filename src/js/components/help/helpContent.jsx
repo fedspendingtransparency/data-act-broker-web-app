@@ -5,7 +5,7 @@
 
 import React, { PropTypes } from 'react';
 import $ from 'jquery';
-import { generateProtectedUrls, rssFileKey } from '../../helpers/util.js';
+import { generateProtectedUrls, rssFileKey } from '../../helpers/util';
 
 const propTypes = {
     changelog: PropTypes.string,
@@ -72,15 +72,16 @@ export default class HelpContent extends React.Component {
                         The DATA Act Broker leverages MAX.gov for user accounts and password authentication.
                         To request a Broker account, you will first need a MAX.gov account.
                         If you do not have a MAX.gov account, you may register for one
-                        <a href="https://max.gov/maxportal/registrationForm.action"
-                            rel="noopener noreferrer" target="_blank">
+                        <a
+                            href="https://max.gov/maxportal/registrationForm.action"
+                            rel="noopener noreferrer"
+                            target="_blank">
                             here
                         </a>.
                     </p>
                     <p>
                         Once you have a MAX.gov account, navigate
-                        <a href="https://community.max.gov/x/fJwuRQ"
-                            rel="noopener noreferrer" target="_blank">
+                        <a href="https://community.max.gov/x/fJwuRQ" rel="noopener noreferrer" target="_blank">
                             here
                         </a>
                         , and follow the directions on
@@ -89,7 +90,8 @@ export default class HelpContent extends React.Component {
                     <p>
                         If you have questions about Broker access, or if your agency is not listed on the MAX page
                         linked above, email
-                        <a href="mailto:DATAPMO@fiscal.treasury.gov?subject=Broker%20Access%20Information"
+                        <a
+                            href="mailto:DATAPMO@fiscal.treasury.gov?subject=Broker%20Access%20Information"
                             target="_top">
                             DATAPMO@fiscal.treasury.gov
                         </a>.

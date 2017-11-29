@@ -4,7 +4,7 @@
   */
 
 import React, { PropTypes } from 'react';
-import * as Icons from '../icons/Icons.jsx';
+import * as Icons from '../icons/Icons';
 
 const propTypes = {
     onSort: PropTypes.func.isRequired,
@@ -36,10 +36,12 @@ export default class TableSorter extends React.Component {
 
         return (
             <div className="usa-da-table-sorter">
-                <div className={"usa-da-icon sort-icon usa-da-icon-angle-up" + upClass}
+                <div
+                    className={"usa-da-icon sort-icon usa-da-icon-angle-up" + upClass}
                     onClick={this.sortAsc.bind(this)}><Icons.AngleUp />
                 </div>
-                <div className={"usa-da-icon sort-icon usa-da-icon-angle-down" + downClass}
+                <div
+                    className={"usa-da-icon sort-icon usa-da-icon-angle-down" + downClass}
                     onClick={this.sortDesc.bind(this)}><Icons.AngleDown />
                 </div>
             </div>

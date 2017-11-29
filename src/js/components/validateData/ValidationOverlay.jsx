@@ -5,8 +5,8 @@
 
 import React, { PropTypes } from 'react';
 import { hashHistory } from 'react-router';
-import * as Icons from '../SharedComponents/icons/Icons.jsx';
-import CommonOverlay from '../SharedComponents/overlays/CommonOverlay.jsx';
+import * as Icons from '../SharedComponents/icons/Icons';
+import CommonOverlay from '../SharedComponents/overlays/CommonOverlay';
 
 const propTypes = {
     uploadFiles: PropTypes.func,
@@ -112,12 +112,17 @@ export default class ValidationOverlay extends React.Component {
                 iconClass={iconClass}>
 
                 <div className="usa-da-btn-bg">
-                    <button className={"usa-da-button" + uploadButtonClass} disabled={uploadButtonDisabled}
-                        onClick={this.props.uploadFiles} data-testid="validate-overlay-upload-button">
+                    <button
+                        className={"usa-da-button" + uploadButtonClass}
+                        disabled={uploadButtonDisabled}
+                        onClick={this.props.uploadFiles}
+                        data-testid="validate-overlay-upload-button">
                         {buttonText}
                     </button>
-                    <button className={"usa-da-validation-overlay-review usa-da-button" + nextButtonClass}
-                        disabled={nextButtonDisabled} onClick={this.pressedNext.bind(this)}
+                    <button
+                        className={"usa-da-validation-overlay-review usa-da-button" + nextButtonClass}
+                        disabled={nextButtonDisabled}
+                        onClick={this.pressedNext.bind(this)}
                         data-testid="validate-overlay-review-button">
                         Next
                     </button>

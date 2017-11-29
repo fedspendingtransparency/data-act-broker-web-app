@@ -5,7 +5,7 @@
 
 import React, { PropTypes } from 'react';
 import $ from 'jquery';
-import { generateProtectedUrls, rssFileKey } from '../../helpers/util.js';
+import { generateProtectedUrls, rssFileKey } from '../../helpers/util';
 
 const propTypes = {
     history: PropTypes.object,

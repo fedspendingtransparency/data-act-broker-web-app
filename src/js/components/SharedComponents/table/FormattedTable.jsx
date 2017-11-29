@@ -4,8 +4,8 @@
   */
 
 import React, { PropTypes } from 'react';
-import TableRow from './TableRow.jsx';
-import TableHeaders from './TableHeaders.jsx';
+import TableRow from './TableRow';
+import TableHeaders from './TableHeaders';
 
 const propTypes = {
     onSort: PropTypes.func,
@@ -58,9 +58,13 @@ export default class FormattedTable extends React.Component {
                 <div className="usa-da-table-header">
                     <table className="usa-da-table table-bordered">
                         <thead>
-                            <TableHeaders data={this.props.headers} sortable={this.props.sortable}
-                                unsortable={this.props.unsortable} onSort={this.sortTable.bind(this)}
-                                currentSort={this.state.sort} headerClasses={this.props.headerClasses} />
+                            <TableHeaders
+                                data={this.props.headers}
+                                sortable={this.props.sortable}
+                                unsortable={this.props.unsortable}
+                                onSort={this.sortTable.bind(this)}
+                                currentSort={this.state.sort}
+                                headerClasses={this.props.headerClasses} />
                         </thead>
                     </table>
                 </div>

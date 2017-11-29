@@ -6,11 +6,11 @@
 import React, { PropTypes } from 'react';
 import Modal from 'react-aria-modal';
 import { hashHistory, Link } from 'react-router';
-import * as Icons from '../../SharedComponents/icons/Icons.jsx';
-import CertifyDisclaimer from './CertifyDisclaimer.jsx';
-import CertifyButtons from './CertifyButtons.jsx';
-import CertifyProgress from './CertifyProgress.jsx';
-import * as ReviewHelper from '../../../helpers/reviewHelper.js';
+import * as Icons from '../../SharedComponents/icons/Icons';
+import CertifyDisclaimer from './CertifyDisclaimer';
+import CertifyButtons from './CertifyButtons';
+import CertifyProgress from './CertifyProgress';
+import * as ReviewHelper from '../../../helpers/reviewHelper';
 
 const propTypes = {
     closeModal: PropTypes.func,
@@ -98,13 +98,15 @@ export default class ReviewDataCertifyModal extends React.Component {
                 </h6>);
         }
 
-        let action = (<CertifyButtons {...this.props}
+        let action = (<CertifyButtons
+            {...this.props}
             certified={this.state.certified}
             clickedCertifyButton={this.clickedCertifyButton.bind(this)}
             clickedCertifyCheckbox={this.clickedCertifyCheckbox.bind(this)} />);
 
         if (this.state.showProgress) {
-            action = (<CertifyProgress {...this.props.session}
+            action = (<CertifyProgress
+                {...this.props.session}
                 finished={this.state.publishComplete}
                 closeModal={this.closeModal.bind(this)} />);
         }
@@ -123,9 +125,13 @@ export default class ReviewDataCertifyModal extends React.Component {
         const trueProps = true;
 
         return (
-            <Modal mounted={this.props.isOpen} onExit={this.closeModal.bind(this)}
+            <Modal
+                mounted={this.props.isOpen}
+                onExit={this.closeModal.bind(this)}
                 underlayClickExits={this.state.closeable}
-                verticallyCenter={trueProps} initialFocus="#certify-check" titleId="usa-da-certify-modal">
+                verticallyCenter={trueProps}
+                initialFocus="#certify-check"
+                titleId="usa-da-certify-modal">
                 <div className="usa-da-modal-page">
                     <div id="usa-da-certify-modal" className="usa-da-certify-modal">
                         <div className={"usa-da-certify-modal-close usa-da-icon usa-da-icon-times" + hideClose}>

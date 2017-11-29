@@ -1,8 +1,8 @@
 import React, { PropTypes } from 'react';
-import Navbar from '../SharedComponents/navigation/NavigationComponent.jsx';
-import ReviewDataContent from '../reviewData/ReviewLoading.jsx';
-import Footer from '../SharedComponents/FooterComponent.jsx';
-import AddDataHeader from './../addData/AddDataHeader.jsx';
+import Navbar from '../SharedComponents/navigation/NavigationComponent';
+import ReviewDataContent from '../reviewData/ReviewLoading';
+import Footer from '../SharedComponents/FooterComponent';
+import AddDataHeader from './../addData/AddDataHeader';
 
 const propTypes = {
     route: PropTypes.object,

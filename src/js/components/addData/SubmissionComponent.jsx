@@ -4,7 +4,7 @@
 */
 
 import React, { PropTypes } from 'react';
-import FileComponent from './FileComponent.jsx';
+import FileComponent from './FileComponent';
 
 const propTypes = {
     files: PropTypes.array.isRequired,
@@ -28,7 +28,8 @@ export default class SubmissionComponent extends React.Component {
             const fileVars = this.props.files[i];
 
             submissionItems.push(
-                <FileComponent key={i}
+                <FileComponent
+                    key={i}
                     fileTitle={fileVars.fileTitle}
                     fileTemplateName={fileVars.fileTemplateName}
                     requestName={fileVars.requestName} />);

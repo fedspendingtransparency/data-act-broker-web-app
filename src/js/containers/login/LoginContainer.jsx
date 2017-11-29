@@ -7,12 +7,12 @@ import React, { PropTypes } from 'react';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 
-import { kGlobalConstants } from '../../GlobalConstants.js';
-import LoginPanel from '../../components/login/LoginPanel.jsx';
-import LoginMax from '../../components/login/LoginMax.jsx';
-import * as sessionActions from '../../redux/actions/sessionActions.js';
+import { kGlobalConstants } from '../../GlobalConstants';
+import LoginPanel from '../../components/login/LoginPanel';
+import LoginMax from '../../components/login/LoginMax';
+import * as sessionActions from '../../redux/actions/sessionActions';
 
-import * as LoginHelper from '../../helpers/loginHelper.js';
+import * as LoginHelper from '../../helpers/loginHelper';
 
 const propTypes = {
     location: PropTypes.object
@@ -56,8 +56,11 @@ class LoginContainer extends React.Component {
         let login = <LoginMax location={this.props.location} />;
 
         if (kGlobalConstants.LOCAL) {
-            login = (<LoginPanel {...this.props} performLogin={this.performLogin.bind(this)}
-                loading={this.state.loading} errorMessage={this.state.errorMessage} />);
+            login = (<LoginPanel
+                {...this.props}
+                performLogin={this.performLogin.bind(this)}
+                loading={this.state.loading}
+                errorMessage={this.state.errorMessage} />);
         }
 
         return (

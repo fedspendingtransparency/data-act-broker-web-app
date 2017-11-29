@@ -4,9 +4,9 @@
  */
 
 import React, { PropTypes } from 'react';
-import * as Icons from '../SharedComponents/icons/Icons.jsx';
-import CommonOverlay from '../SharedComponents/overlays/CommonOverlay.jsx';
-import LoadingBauble from '../SharedComponents/overlays/LoadingBauble.jsx';
+import * as Icons from '../SharedComponents/icons/Icons';
+import CommonOverlay from '../SharedComponents/overlays/CommonOverlay';
+import LoadingBauble from '../SharedComponents/overlays/LoadingBauble';
 
 const propTypes = {
     hasFailed: PropTypes.bool

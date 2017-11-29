@@ -8,10 +8,10 @@ import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { hashHistory } from 'react-router';
 
-import SubmissionGuidePage from '../../components/addData/SubmissionGuidePage.jsx';
-import * as sessionActions from '../../redux/actions/sessionActions.js';
+import SubmissionGuidePage from '../../components/addData/SubmissionGuidePage';
+import * as sessionActions from '../../redux/actions/sessionActions';
 
-import * as SubmissionGuideHelper from '../../helpers/submissionGuideHelper.js';
+import * as SubmissionGuideHelper from '../../helpers/submissionGuideHelper';
 
 const propTypes = {
     setSkipGuide: PropTypes.func,

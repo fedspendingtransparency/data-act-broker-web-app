@@ -6,7 +6,7 @@
 */
 
 import React, { PropTypes } from 'react';
-import * as Icons from './icons/Icons.jsx';
+import * as Icons from './icons/Icons';
 
 const propTypes = {
     message: PropTypes.string.isRequired

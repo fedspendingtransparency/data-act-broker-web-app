@@ -5,9 +5,9 @@
 
 import React, { PropTypes } from 'react';
 import moment from 'moment';
-import * as Icons from '../../SharedComponents/icons/Icons.jsx';
-import DateDropdown from './DateDropdown.jsx';
-import * as UtilHelper from '../../../helpers/util.js';
+import * as Icons from '../../SharedComponents/icons/Icons';
+import DateDropdown from './DateDropdown';
+import * as UtilHelper from '../../../helpers/util';
 
 const propTypes = {
     onChange: PropTypes.func,
@@ -86,8 +86,12 @@ export default class DateRangeField extends React.Component {
                 </div>
                 <div className="row ">
                     <div className="col-sm-12 col-md-12 mt-5 usa-da-endDate">
-                        <DateDropdown onChange={this.handleDateChange.bind(this)} value={this.state.startDate + '-' +
-                            this.state.endDate} hasError={this.state.dateError} type={this.props.type}
+                        <DateDropdown
+                            onChange={this.handleDateChange.bind(this)}
+                            value={this.state.startDate + '-' +
+                            this.state.endDate}
+                            hasError={this.state.dateError}
+                            type={this.props.type}
                             startEndType="start" />
                         <div className={"usa-da-icon usa-da-form-icon date " + dateClass}>
                             {dateIcon}

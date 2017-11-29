@@ -4,7 +4,7 @@
   */
 
 import React, { PropTypes } from 'react';
-import DashboardTable from './DashboardTable.jsx';
+import DashboardTable from './DashboardTable';
 
 const propTypes = {
     loadTableData: PropTypes.func,

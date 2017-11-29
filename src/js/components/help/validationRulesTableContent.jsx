@@ -7,8 +7,8 @@ import React, { PropTypes } from 'react';
 import $ from 'jquery';
 import Reactable from 'reactable';
 import Papa from 'papaparse';
-import { generateProtectedUrls } from '../../helpers/util.js';
-import DaimsMessage from './daimsMessage.jsx';
+import { generateProtectedUrls } from '../../helpers/util';
+import DaimsMessage from './daimsMessage';
 
 const propTypes = {
     type: PropTypes.string
@@ -94,7 +94,11 @@ export default class ValidationRulesTableContent extends React.Component {
                 whether they are currently implemented in the Broker. The table has been revised to match the latest
                 Validations Rules spreadsheet, except for FABS. FABS validations are available in the downloadable file.
                 The Validations Rules spreadsheet, with change log, is available for download.
-                <a href={this.state.validationRulesUrl} target="_blank" rel="noopener noreferrer">Download file</a>;
+                <a
+                    href={this.state.validationRulesUrl}
+                    target="_blank"
+                    rel="noopener noreferrer">Download file
+                </a>;
             </p>
         );
 
@@ -126,8 +130,10 @@ export default class ValidationRulesTableContent extends React.Component {
                     <h2>Validations</h2>
                     <DaimsMessage type="validations" />
                     {message}
-                    <Reactable.Table className="table usa-da-table table-bordered"
-                        data={this.state.data} filterable={['Rule Detail']}
+                    <Reactable.Table
+                        className="table usa-da-table table-bordered"
+                        data={this.state.data}
+                        filterable={['Rule Detail']}
                         sortable={[
                             {
                                 column: 'Rule Name',
@@ -148,7 +154,8 @@ export default class ValidationRulesTableContent extends React.Component {
                                 }
                             }
                         ]}
-                        filterPlaceholder="Rule Detail Search..." noDataText="No matching records found." />
+                        filterPlaceholder="Rule Detail Search..."
+                        noDataText="No matching records found." />
                 </div>
             </div>
         );

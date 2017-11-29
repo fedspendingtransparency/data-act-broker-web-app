@@ -1,5 +1,5 @@
 import React, { PropTypes } from 'react';
-import * as Icons from '../icons/Icons.jsx';
+import * as Icons from '../icons/Icons';
 
 const propTypes = {
     logout: PropTypes.func,
@@ -38,7 +38,9 @@ export default class UserButton extends React.Component {
 
         return (
             <li className="usa-da-top-head-menu-item">
-                <a href="#" onClick={this.toggleDropdown.bind(this)}
+                <a
+                    href="#"
+                    onClick={this.toggleDropdown.bind(this)}
                     className="usa-da-header-link usa-da-user-info dropdown-toggle usa-da-icon"><Icons.User />
                     {this.props.buttonText}
                 </a>

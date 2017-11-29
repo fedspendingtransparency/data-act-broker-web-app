@@ -4,11 +4,11 @@
 */
 
 import React, { PropTypes } from 'react';
-import RecentActivityTable from './recentActivity/RecentActivityTable.jsx';
-import LandingRequirementsModal from './blocks/LandingRequirementsModal.jsx';
-import BlockContent from './BlockContent.jsx';
+import RecentActivityTable from './recentActivity/RecentActivityTable';
+import LandingRequirementsModal from './blocks/LandingRequirementsModal';
+import BlockContent from './BlockContent';
 
-import Banner from '../SharedComponents/Banner.jsx';
+import Banner from '../SharedComponents/Banner';
 
 const propTypes = {
     session: PropTypes.object,
@@ -169,7 +169,8 @@ export default class LandingContent extends React.Component {
                     <div className="row">
                         <div className="usa-da-landing col-md-12">
                             <div className="usa-da-landing-btns">
-                                <BlockContent type={this.state.type}
+                                <BlockContent
+                                    type={this.state.type}
                                     clickedUploadReqs={this.clickedUploadReqs.bind(this)}
                                     session={this.props.session} />
                                 <div id="modalHolder">

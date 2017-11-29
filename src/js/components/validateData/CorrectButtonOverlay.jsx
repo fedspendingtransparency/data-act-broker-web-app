@@ -5,8 +5,8 @@
 
 import React, { PropTypes } from 'react';
 
-import CorrectButtonCornerOverlay from './CorrectButtonCornerOverlay.jsx';
-import CorrectButtonFullOverlay from './CorrectButtonFullOverlay.jsx';
+import CorrectButtonCornerOverlay from './CorrectButtonCornerOverlay';
+import CorrectButtonFullOverlay from './CorrectButtonFullOverlay';
 
 const propTypes = {
     onDrop: PropTypes.func,
@@ -49,7 +49,9 @@ export default class CorrectButtonOverlay extends React.Component {
 
         let chooseFileOverlay = null;
         if (this.state.showOverlay) {
-            chooseFileOverlay = (<CorrectButtonFullOverlay text={displayText} onDrop={this.props.onDrop}
+            chooseFileOverlay = (<CorrectButtonFullOverlay
+                text={displayText}
+                onDrop={this.props.onDrop}
                 buttonClicked={this.removeFile.bind(this)} />);
         }
 

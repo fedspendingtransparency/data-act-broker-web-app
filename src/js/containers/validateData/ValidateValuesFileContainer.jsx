@@ -7,9 +7,9 @@ import React, { PropTypes } from 'react';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 
-import * as uploadActions from '../../redux/actions/uploadActions.js';
+import * as uploadActions from '../../redux/actions/uploadActions';
 
-import ValidateValuesFileComponent from '../../components/validateData/validateValues/ValidateValuesFileComponent.jsx';
+import ValidateValuesFileComponent from '../../components/validateData/validateValues/ValidateValuesFileComponent';
 
 const propTypes = {
     updateItem: PropTypes.func,
@@ -41,7 +41,8 @@ class ValidateValuesFileContainer extends React.Component {
 
     render() {
         return (
-            <ValidateValuesFileComponent {...this.props}
+            <ValidateValuesFileComponent
+                {...this.props}
                 item={this.props.data[this.props.type.requestName]}
                 onFileChange={this.selectedFile.bind(this)}
                 removeFile={this.removeFile.bind(this)} />

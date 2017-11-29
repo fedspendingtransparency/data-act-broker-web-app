@@ -4,8 +4,8 @@
   */
 
 import React, { PropTypes } from 'react';
-import LoginMaxErrorMessage from './components/LoginMaxErrorMessage.jsx';
-import LoadingBauble from '../SharedComponents/overlays/LoadingBauble.jsx';
+import LoginMaxErrorMessage from './components/LoginMaxErrorMessage';
+import LoadingBauble from '../SharedComponents/overlays/LoadingBauble';
 
 const propTypes = {
     errorMessage: PropTypes.string

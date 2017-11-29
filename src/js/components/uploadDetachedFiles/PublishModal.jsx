@@ -5,7 +5,7 @@
 
 import React, { PropTypes } from 'react';
 import Modal from 'react-aria-modal';
-import * as Icons from '../SharedComponents/icons/Icons.jsx';
+import * as Icons from '../SharedComponents/icons/Icons';
 
 const propTypes = {
     closeModal: PropTypes.func,
@@ -66,7 +66,9 @@ export default class PublishModal extends React.Component {
             </p>);
 
         let action = (
-            <button id="publish-button" onClick={this.props.submit.bind(this)}
+            <button
+                id="publish-button"
+                onClick={this.props.submit.bind(this)}
                 className="us-da-button col-sm-6">
                 Publish
             </button>);
@@ -94,11 +96,16 @@ export default class PublishModal extends React.Component {
         const trueProps = true;
 
         return (
-            <Modal mounted={this.props.isOpen} onExit={this.closeModal.bind(this)}
+            <Modal
+                mounted={this.props.isOpen}
+                onExit={this.closeModal.bind(this)}
                 underlayClickExits={this.state.closeable}
-                verticallyCenter={trueProps} titleId="usa-da-certify-modal">
+                verticallyCenter={trueProps}
+                titleId="usa-da-certify-modal">
                 <div className="usa-da-modal-page">
-                    <div id="usa-da-certify-modal" className="usa-da-certify-modal">
+                    <div
+                        id="usa-da-certify-modal"
+                        className="usa-da-certify-modal">
                         <div className={"usa-da-certify-modal-close usa-da-icon usa-da-icon-times" + hideClose}>
                             <a href="#" onClick={this.closeModal.bind(this)}> <Icons.Times /> </a>
                         </div>
@@ -123,7 +130,8 @@ export default class PublishModal extends React.Component {
                             <div className="row">
                                 {action}
                                 <div className="col-sm-6">
-                                    <button onClick={this.closeModal.bind(this)}
+                                    <button
+                                        onClick={this.closeModal.bind(this)}
                                         className={'usa-da-button btn-warning btn-full' + hideClose}>
                                         Cancel
                                     </button>

@@ -4,7 +4,7 @@
   */
 
 import React, { PropTypes } from 'react';
-import SubmitButton from '../../SharedComponents/SubmitButton.jsx';
+import SubmitButton from '../../SharedComponents/SubmitButton';
 
 const propTypes = {
     onSubmit: PropTypes.func,
@@ -25,8 +25,10 @@ export default class SubmitComponent extends React.Component {
                         {this.props.message}
                     </div>
                     <div className="col-sm-4" data-testid="submitbutton">
-                        <SubmitButton onClick={this.props.onSubmit}
-                            className="usa-da-button btn-primary btn-lg pull-right" buttonText="Submit"
+                        <SubmitButton
+                            onClick={this.props.onSubmit}
+                            className="usa-da-button btn-primary btn-lg pull-right"
+                            buttonText="Submit"
                             buttonDisabled={this.props.disabled} />
                     </div>
                 </div>

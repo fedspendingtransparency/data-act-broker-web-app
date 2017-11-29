@@ -3,7 +3,7 @@
   * Created by Kevin Li 4/25/2016
   */
 
-import BaseIcon from './BaseIcon.jsx';
+import BaseIcon from './BaseIcon';
 
 export class Unlock extends BaseIcon {}
 Unlock.defaultProps = {

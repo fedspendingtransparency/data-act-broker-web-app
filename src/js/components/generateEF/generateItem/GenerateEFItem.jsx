@@ -4,7 +4,7 @@
   */
 
 import React, { PropTypes } from 'react';
-import * as Icons from '../../SharedComponents/icons/Icons.jsx';
+import * as Icons from '../../SharedComponents/icons/Icons';
 
 const propTypes = {
     description: PropTypes.string,
@@ -82,7 +82,8 @@ export default class GenerateEFItem extends React.Component {
                                     <span /><span /><span /><span /><span />
                                 </div>
                             </div>
-                            <button className={"usa-da-button btn-primary btn-full" + hideDownload}
+                            <button
+                                className={"usa-da-button btn-primary btn-full" + hideDownload}
                                 onClick={this.clickedDownload.bind(this)}>
                                 Download
                             </button>

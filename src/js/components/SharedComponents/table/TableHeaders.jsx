@@ -5,7 +5,7 @@
 
 import React, { PropTypes } from 'react';
 import _ from 'lodash';
-import TableSorter from './TableSorter.jsx';
+import TableSorter from './TableSorter';
 
 const propTypes = {
     onSort: PropTypes.func,

@@ -4,9 +4,9 @@
 */
 
 import React, { PropTypes } from 'react';
-import Navbar from '../SharedComponents/navigation/NavigationComponent.jsx';
-import LandingContentContainer from '../../containers/landing/LandingContentContainer.jsx';
-import Footer from '../SharedComponents/FooterComponent.jsx';
+import Navbar from '../SharedComponents/navigation/NavigationComponent';
+import LandingContentContainer from '../../containers/landing/LandingContentContainer';
+import Footer from '../SharedComponents/FooterComponent';
 
 const propTypes = {
     route: PropTypes.object

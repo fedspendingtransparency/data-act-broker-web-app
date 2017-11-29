@@ -6,13 +6,13 @@
 import React, { PropTypes } from 'react';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
-import { kGlobalConstants } from '../../../GlobalConstants.js';
-import NavbarTab from './NavbarTab.jsx';
-import UserButton from './UserButton.jsx';
-import SkipNavigationLink from './SkipNavigationLink.jsx';
-import TestEnvironmentBanner from '../banners/TestEnvironmentBanner.jsx';
-import * as sessionActions from '../../../redux/actions/sessionActions.js';
-import * as PermissionHelper from '../../../helpers/permissionsHelper.js';
+import { kGlobalConstants } from '../../../GlobalConstants';
+import NavbarTab from './NavbarTab';
+import UserButton from './UserButton';
+import SkipNavigationLink from './SkipNavigationLink';
+import TestEnvironmentBanner from '../banners/TestEnvironmentBanner';
+import * as sessionActions from '../../../redux/actions/sessionActions';
+import * as PermissionHelper from '../../../helpers/permissionsHelper';
 
 const propTypes = {
     setSession: PropTypes.func,
@@ -85,7 +85,10 @@ export class Navbar extends React.Component {
         }
 
         Object.keys(tabNames).map((key) => {
-            headerTabs.push(<NavbarTab key={tabNames[key]} name={key} tabClass={tabNames[key]}
+            headerTabs.push(<NavbarTab
+                key={tabNames[key]}
+                name={key}
+                tabClass={tabNames[key]}
                 activeTabClassName={context.props.activeTab} />);
         });
 
@@ -115,8 +118,12 @@ export class Navbar extends React.Component {
                 <div className="container-fluid">
                     <div className="container usa-da-header-container">
                         <div className="navbar-header usa-da-header-navbar">
-                            <button type="button" className="navbar-toggle collapsed" data-toggle="collapse"
-                                data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+                            <button
+                                type="button"
+                                className="navbar-toggle collapsed"
+                                data-toggle="collapse"
+                                data-target="#bs-example-navbar-collapse-1"
+                                aria-expanded="false">
                                 <span className="sr-only">Toggle navigation</span>
                                 <span className="icon-bar" />
                                 <span className="icon-bar" />

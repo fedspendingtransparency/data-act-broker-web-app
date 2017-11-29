@@ -4,10 +4,10 @@
 */
 
 import React, { PropTypes } from 'react';
-import SubmissionComponent from './SubmissionComponent.jsx';
-import SubmitButton from '../SharedComponents/SubmitButton.jsx';
-import * as Icons from '../../components/SharedComponents/icons/Icons.jsx';
-import * as ReviewHelper from '../../helpers/reviewHelper.js';
+import SubmissionComponent from './SubmissionComponent';
+import SubmitButton from '../SharedComponents/SubmitButton';
+import * as Icons from '../../components/SharedComponents/icons/Icons';
+import * as ReviewHelper from '../../helpers/reviewHelper';
 
 const propTypes = {
     performUpload: PropTypes.func,
@@ -52,9 +52,12 @@ export default class AddDataContent extends React.Component {
         let actionArea = "";
         const submissionState = this.props.submission.state;
         if (submissionState === 'ready' || submissionState === 'failed') {
-            actionArea = (<SubmitButton onClick={this.startUpload.bind(this)}
-                className="usa-da-button-bigger btn-primary" buttonText="Upload & Validate files"
-                testId="upload" buttonDisabled={false} />);
+            actionArea = (<SubmitButton
+                onClick={this.startUpload.bind(this)}
+                className="usa-da-button-bigger btn-primary"
+                buttonText="Upload & Validate files"
+                testId="upload"
+                buttonDisabled={false} />);
         }
         else if (submissionState === 'uploading') {
             actionArea = <SubmitButton className="usa-da-button-bigger" buttonText="Uploading files..." />;

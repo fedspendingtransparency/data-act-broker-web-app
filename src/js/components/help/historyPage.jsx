@@ -4,15 +4,15 @@
  */
 
 import React, { PropTypes } from 'react';
-import Navbar from '../SharedComponents/navigation/NavigationComponent.jsx';
-import HelpSidebar from './helpSidebar.jsx';
-import HistoryContent from './historyContent.jsx';
-import Footer from '../SharedComponents/FooterComponent.jsx';
-import HelpNav from './helpNav.jsx';
+import Navbar from '../SharedComponents/navigation/NavigationComponent';
+import HelpSidebar from './helpSidebar';
+import HistoryContent from './historyContent';
+import Footer from '../SharedComponents/FooterComponent';
+import HelpNav from './helpNav';
 
-import * as Icons from '../SharedComponents/icons/Icons.jsx';
+import * as Icons from '../SharedComponents/icons/Icons';
 
-import * as HelpHelper from '../../helpers/helpHelper.js';
+import * as HelpHelper from '../../helpers/helpHelper';
 
 const propTypes = {
     history: PropTypes.object,
@@ -111,8 +111,10 @@ export default class HelpPage extends React.Component {
                     <div className="container">
                         <div className="row usa-da-help-page">
                             <div className="col-md-4">
-                                <HelpSidebar changeSections={this.state.clSections}
-                                    technicalSections={this.state.tSections}sections={this.state.sections}
+                                <HelpSidebar
+                                    changeSections={this.state.clSections}
+                                    technicalSections={this.state.tSections}
+                                    sections={this.state.sections}
                                     type={this.props.type} />
                             </div>
                             <div className="col-md-8">

@@ -4,8 +4,8 @@
 */
 
 import React from 'react';
-import LoginIntro from './LoginIntro.jsx';
-import LoginContainer from '../../containers/login/LoginContainer.jsx';
+import LoginIntro from './LoginIntro';
+import LoginContainer from '../../containers/login/LoginContainer';
 
 export default class LoginBanner extends React.Component {
     render() {

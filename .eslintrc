@@ -96,19 +96,21 @@
         // "react/wrap-multilines": [2],
 
         // TODO
-        // "import/extensions": [0],
+        // 434 problems
         "import/prefer-default-export": [0],
         "arrow-body-style": [0],
-        "prefer-destructuring": [0],
+        "prefer-destructuring": [0], // 77
         "no-undef": [0],
-        "prefer-template": [0],
+        "prefer-template": [0], // 284
         "no-prototype-builtins": [0],
-        "function-paren-newline": [0],
-        "react/require-default-props": [0],
-        "react/forbid-prop-types": [0],
-        "react/no-unused-state": [0],
-        "react/jsx-first-prop-new-line": [0],
-        "react/jsx-max-props-per-line": [0],
+
+        // 786 problems
+        "function-paren-newline": [0], //61
+        // "react/require-default-props": [0], // 451
+        "react/forbid-prop-types": [0], // 182
+        "react/no-unused-state": [0], // 92
+
+        // 104 problems
         "no-useless-constructor": [0],
         "react/no-string-refs": [0],
         "no-undef-init": [0],
@@ -117,6 +119,8 @@
         "jsx-a11y/no-static-element-interactions": [0],
         "jsx-a11y/click-events-have-key-events": [0],
         "no-useless-return": [0],
+
+        // 94 problems
         // NEEDS TO BE TESTED (31 instances)
         "react/no-unused-prop-types": [0],
         "jsx-a11y/anchor-is-valid": [0],

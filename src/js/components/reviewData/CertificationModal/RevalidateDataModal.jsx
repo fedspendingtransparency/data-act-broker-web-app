@@ -6,10 +6,10 @@
 import React, { PropTypes } from 'react';
 import Modal from 'react-aria-modal';
 import { hashHistory } from 'react-router';
-import * as Icons from '../../SharedComponents/icons/Icons.jsx';
+import * as Icons from '../../SharedComponents/icons/Icons';
 
-import RevalidateButtons from './RevalidateButtons.jsx';
-import * as ReviewHelper from '../../../helpers/reviewHelper.js';
+import RevalidateButtons from './RevalidateButtons';
+import * as ReviewHelper from '../../../helpers/reviewHelper';
 
 const propTypes = {
     closeModal: PropTypes.func,
@@ -80,9 +80,13 @@ export default class RevalidateDataModal extends React.Component {
         const trueProps = true;
 
         return (
-            <Modal mounted={this.props.isOpen} onExit={this.closeModal.bind(this)}
+            <Modal
+                mounted={this.props.isOpen}
+                onExit={this.closeModal.bind(this)}
                 underlayClickExits={this.state.closeable}
-                verticallyCenter={trueProps} initialFocus="#certify-check" titleId="usa-da-certify-modal">
+                verticallyCenter={trueProps}
+                initialFocus="#certify-check"
+                titleId="usa-da-certify-modal">
                 <div className="usa-da-modal-page">
                     <div id="usa-da-certify-modal" className="usa-da-certify-modal">
                         <div className={"usa-da-certify-modal-close usa-da-icon usa-da-icon-times" + hideClose}>
@@ -92,7 +96,8 @@ export default class RevalidateDataModal extends React.Component {
                         </div>
 
                         <div className="usa-da-certify-modal-content">
-                            <RevalidateButtons {...this.props}
+                            <RevalidateButtons
+                                {...this.props}
                                 clickedRevalidateButton={this.clickedRevalidateButton.bind(this)}
                                 revalidationThreshold={this.props.data.revalidation_threshold} />
 

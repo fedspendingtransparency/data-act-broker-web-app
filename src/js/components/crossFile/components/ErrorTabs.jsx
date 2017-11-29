@@ -4,7 +4,7 @@
   */
 
 import React, { PropTypes } from 'react';
-import * as TabItem from './TabItem.jsx';
+import * as TabItem from './TabItem';
 
 const propTypes = {
     changeTab: PropTypes.func,

@@ -4,7 +4,7 @@
 */
 
 import React, { PropTypes } from 'react';
-import ErrorMessageListItem from './ErrorMessageListItem.jsx';
+import ErrorMessageListItem from './ErrorMessageListItem';
 
 const propTypes = {
     errorMessages: PropTypes.array

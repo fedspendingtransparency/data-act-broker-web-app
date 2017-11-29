@@ -1,9 +1,9 @@
 import Q from 'q';
 import moment from 'moment';
-import Request from './sessionSuperagent.js';
-import { kGlobalConstants } from '../GlobalConstants.js';
+import Request from './sessionSuperagent';
+import { kGlobalConstants } from '../GlobalConstants';
 
-import * as Status from '../components/landing/recentActivity/SubmissionStatus.jsx';
+import * as Status from '../components/landing/recentActivity/SubmissionStatus';
 
 const parseRecentActivity = (submissions) => {
     const parsedSubmissions = [];

@@ -18,8 +18,10 @@ export default class TypeSelector extends React.Component {
                             </a>
                         </div>
                         <div className="col-md-6">
-                            <a className="usa-da-button-big usa-da-button-biggest submit disabled"
-                                value="Setup a Data Feed" disabled>Setup a Data Feed
+                            <a
+                                className="usa-da-button-big usa-da-button-biggest submit disabled"
+                                value="Setup a Data Feed"
+                                disabled>Setup a Data Feed
                                 <div><em>Coming Soon</em></div>
                             </a>
                         </div>

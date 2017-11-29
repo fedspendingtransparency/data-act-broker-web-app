@@ -7,10 +7,10 @@ import React, { PropTypes } from 'react';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 
-import * as subTierAgencyActions from '../../redux/actions/subTierAgencyActions.js';
-import * as AgencyHelper from '../../helpers/agencyHelper.js';
+import * as subTierAgencyActions from '../../redux/actions/subTierAgencyActions';
+import * as AgencyHelper from '../../helpers/agencyHelper';
 
-import Typeahead from '../../components/SharedComponents/Typeahead.jsx';
+import Typeahead from '../../components/SharedComponents/Typeahead';
 
 const propTypes = {
     setSubTierAgencyList: PropTypes.func,
@@ -44,7 +44,9 @@ class SubTierAgencyListContainer extends React.Component {
 
     render() {
         return (
-            <Typeahead {...this.props} values={this.props.subTierAgencyList.subTierAgencies}
+            <Typeahead
+                {...this.props}
+                values={this.props.subTierAgencyList.subTierAgencies}
                 formatter={this.dataFormatter} />
         );
     }

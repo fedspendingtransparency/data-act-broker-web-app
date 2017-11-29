@@ -5,12 +5,12 @@
 
 import React, { PropTypes } from 'react';
 import _ from 'lodash';
-import FileProgress from '../../SharedComponents/FileProgress.jsx';
-import UploadButtonContainer from '../../../containers/crossFile/CrossFileUploadButtonContainer.jsx';
-import GeneratedErrorButton from './GeneratedErrorButton.jsx';
-import FileWarning from './FileWarning.jsx';
+import FileProgress from '../../SharedComponents/FileProgress';
+import UploadButtonContainer from '../../../containers/crossFile/CrossFileUploadButtonContainer';
+import GeneratedErrorButton from './GeneratedErrorButton';
+import FileWarning from './FileWarning';
 
-import * as ReviewHelper from '../../../helpers/reviewHelper.js';
+import * as ReviewHelper from '../../../helpers/reviewHelper';
 
 const propTypes = {
     forceUpdate: PropTypes.func,
@@ -72,25 +72,39 @@ export default class ReplacementBox extends React.Component {
         }
 
         // only show upload buttons for non-generated files
-        let firstButton = (<UploadButtonContainer file={ReviewHelper.globalFileData[this.props.meta.firstKey]}
-            fileKey={this.props.meta.firstKey} pair={this.props.meta.key} type="optional" />);
-        let secondButton = (<UploadButtonContainer file={ReviewHelper.globalFileData[this.props.meta.secondKey]}
-            fileKey={this.props.meta.secondKey} pair={this.props.meta.key} type="optional" />);
+        let firstButton = (<UploadButtonContainer
+            file={ReviewHelper.globalFileData[this.props.meta.firstKey]}
+            fileKey={this.props.meta.firstKey}
+            pair={this.props.meta.key}
+            type="optional" />);
+        let secondButton = (<UploadButtonContainer
+            file={ReviewHelper.globalFileData[this.props.meta.secondKey]}
+            fileKey={this.props.meta.secondKey}
+            pair={this.props.meta.key}
+            type="optional" />);
 
         const firstFile = ReviewHelper.globalFileData[this.props.meta.firstKey];
         const secondFile = ReviewHelper.globalFileData[this.props.meta.secondKey];
 
         if (_.indexOf(dFiles, firstFile.letter.toLowerCase()) > -1) {
             // first file is a D1/D2 file
-            firstButton = (<GeneratedErrorButton file={firstFile} fileKey={this.props.meta.firstKey}
-                pair={this.props.meta.key} type="optional" submissionID={this.props.submissionID}
+            firstButton = (<GeneratedErrorButton
+                file={firstFile}
+                fileKey={this.props.meta.firstKey}
+                pair={this.props.meta.key}
+                type="optional"
+                submissionID={this.props.submissionID}
                 forceUpdate={this.props.forceUpdate} />);
         }
 
         if (_.indexOf(dFiles, secondFile.letter.toLowerCase()) > -1) {
             // second file is a D1/D2 file
-            secondButton = (<GeneratedErrorButton file={secondFile} fileKey={this.props.meta.secondKey}
-                pair={this.props.meta.key} type="optional" submissionID={this.props.submissionID}
+            secondButton = (<GeneratedErrorButton
+                file={secondFile}
+                fileKey={this.props.meta.secondKey}
+                pair={this.props.meta.key}
+                type="optional"
+                submissionID={this.props.submissionID}
                 forceUpdate={this.props.forceUpdate} />);
         }
 

@@ -1,7 +1,7 @@
 import Q from 'q';
 import moment from 'moment';
-import { kGlobalConstants } from '../GlobalConstants.js';
-import Request from './sessionSuperagent.js';
+import { kGlobalConstants } from '../GlobalConstants';
+import Request from './sessionSuperagent';
 
 export const generateProtectedUrls = () => {
     let isCanceled = false;

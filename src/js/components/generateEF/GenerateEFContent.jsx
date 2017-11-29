@@ -5,8 +5,8 @@
 
 import React from 'react';
 
-import GenerateEFOverlay from './GenerateEFOverlay.jsx';
-import GenerateEFItem from './generateItem/GenerateEFItem.jsx';
+import GenerateEFOverlay from './GenerateEFOverlay';
+import GenerateEFItem from './generateItem/GenerateEFItem';
 
 export default class GenerateFilesContent extends React.Component {
     render() {
@@ -23,12 +23,14 @@ export default class GenerateFilesContent extends React.Component {
                     </div>
 
 
-                    <GenerateEFItem {...this.props}
+                    <GenerateEFItem
+                        {...this.props}
                         type="E"
                         title="Executive Compensation Data"
                         description={"Executive Compensation data is generated from the System for Award Management" +
                             " and includes data for the receiving entities of the awards in file C."} />
-                    <GenerateEFItem {...this.props}
+                    <GenerateEFItem
+                        {...this.props}
                         type="F"
                         title="Sub-Award Data"
                         description={"Sub-award data is generated from the Federal Subaward Reporting System and " +

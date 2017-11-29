@@ -5,8 +5,8 @@
 
 import React, { PropTypes } from 'react';
 
-import GenerateFileBox from './components/GenerateFileBox.jsx';
-import GenerateFilesOverlay from './GenerateFilesOverlay.jsx';
+import GenerateFileBox from './components/GenerateFileBox';
+import GenerateFilesOverlay from './GenerateFilesOverlay';
 
 const propTypes = {
     handleDateChange: PropTypes.func,

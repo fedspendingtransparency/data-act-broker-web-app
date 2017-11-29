@@ -5,14 +5,14 @@
 
 import React, { PropTypes } from 'react';
 import _ from 'lodash';
-import FormattedTable from '../../SharedComponents/table/FormattedTable.jsx';
-import SubmissionLink from './SubmissionLink.jsx';
-import DeleteLink from './DeleteLink.jsx';
+import FormattedTable from '../../SharedComponents/table/FormattedTable';
+import SubmissionLink from './SubmissionLink';
+import DeleteLink from './DeleteLink';
 
-import * as SubmissionListHelper from '../../../helpers/submissionListHelper.js';
-import * as LoginHelper from '../../../helpers/loginHelper.js';
-import * as PermissionsHelper from '../../../helpers/permissionsHelper.js';
-import * as Status from './SubmissionStatus.jsx';
+import * as SubmissionListHelper from '../../../helpers/submissionListHelper';
+import * as LoginHelper from '../../../helpers/loginHelper';
+import * as PermissionsHelper from '../../../helpers/permissionsHelper';
+import * as Status from './SubmissionStatus';
 
 const propTypes = {
     session: PropTypes.object,
@@ -225,9 +225,14 @@ export default class RecentActivityTable extends React.Component {
         if (deleteCol) {
             if (canDelete && unpublished) {
                 const deleteConfirm = (this.state.deleteIndex !== -1 && index === this.state.deleteIndex);
-                row.push(<DeleteLink submissionId={rowData.submission_id} index={index}
-                    warning={this.deleteWarning.bind(this)} confirm={deleteConfirm} reload={this.reload.bind(this)}
-                    item={rowData} account={this.state.account} />);
+                row.push(<DeleteLink
+                    submissionId={rowData.submission_id}
+                    index={index}
+                    warning={this.deleteWarning.bind(this)}
+                    confirm={deleteConfirm}
+                    reload={this.reload.bind(this)}
+                    item={rowData}
+                    account={this.state.account} />);
             }
             else {
                 row.push("N/A");
@@ -251,8 +256,12 @@ export default class RecentActivityTable extends React.Component {
     render() {
         return (
             <div className="usa-da-recent-activity">
-                <FormattedTable headers={this.getHeaders()} data={this.state.data} cellClasses={this.state.cellClasses}
-                    headerClasses={this.state.headerClasses} unsortable={[0, 2, 5, 6]}
+                <FormattedTable
+                    headers={this.getHeaders()}
+                    data={this.state.data}
+                    cellClasses={this.state.cellClasses}
+                    headerClasses={this.state.headerClasses}
+                    unsortable={[0, 2, 5, 6]}
                     onSort={this.sortTable.bind(this)} />
                 <div className="text-center">
                     {this.state.message}

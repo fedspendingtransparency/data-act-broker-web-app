@@ -4,12 +4,12 @@
   */
 
 import React, { PropTypes } from 'react';
-import Navbar from '../SharedComponents/navigation/NavigationComponent.jsx';
-import AddDataHeader from './../addData/AddDataHeader.jsx';
-import Progress from '../SharedComponents/ProgressComponent.jsx';
+import Navbar from '../SharedComponents/navigation/NavigationComponent';
+import AddDataHeader from './../addData/AddDataHeader';
+import Progress from '../SharedComponents/ProgressComponent';
 
-import GenerateFilesContainer from '../../containers/generateFiles/GenerateFilesContainer.jsx';
-import GenerateFilesError from './GenerateFilesError.jsx';
+import GenerateFilesContainer from '../../containers/generateFiles/GenerateFilesContainer';
+import GenerateFilesError from './GenerateFilesError';
 
 const propTypes = {
     params: PropTypes.object,
@@ -48,7 +48,8 @@ export default class GenerateFilesPage extends React.Component {
     }
 
     render() {
-        let pageContent = (<GenerateFilesContainer submissionID={this.props.params.submissionID}
+        let pageContent = (<GenerateFilesContainer
+            submissionID={this.props.params.submissionID}
             showError={this.showError.bind(this)} />);
 
         if (this.state.showError) {

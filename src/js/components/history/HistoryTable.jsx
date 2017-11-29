@@ -5,8 +5,8 @@
 
 import React, { PropTypes } from 'react';
 
-import * as SubmissionListHelper from '../../helpers/submissionListHelper.js';
-import * as Icons from '../SharedComponents/icons/Icons.jsx';
+import * as SubmissionListHelper from '../../helpers/submissionListHelper';
+import * as Icons from '../SharedComponents/icons/Icons';
 
 const propTypes = {
     submissionID: PropTypes.string

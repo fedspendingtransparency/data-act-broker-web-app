@@ -5,8 +5,8 @@
 
 import React, { PropTypes } from 'react';
 import $ from 'jquery';
-import { generateProtectedUrls } from '../../helpers/util.js';
-import DaimsMessage from './daimsMessage.jsx';
+import { generateProtectedUrls } from '../../helpers/util';
+import DaimsMessage from './daimsMessage';
 
 const propTypes = {
     history: PropTypes.object,

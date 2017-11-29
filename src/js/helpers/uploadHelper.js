@@ -1,11 +1,11 @@
 import Q from 'q';
 import AWS from 'aws-sdk';
-import Request from './sessionSuperagent.js';
+import Request from './sessionSuperagent';
 
-import StoreSingleton from '../redux/storeSingleton.js';
+import StoreSingleton from '../redux/storeSingleton';
 
-import { kGlobalConstants } from '../GlobalConstants.js';
-import * as uploadActions from '../redux/actions/uploadActions.js';
+import { kGlobalConstants } from '../GlobalConstants';
+import * as uploadActions from '../redux/actions/uploadActions';
 
 
 const uploadLocalFile = (file, type) => {

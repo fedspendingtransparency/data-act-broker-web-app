@@ -7,9 +7,9 @@ import React, { PropTypes } from 'react';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 
-import * as uploadActions from '../../redux/actions/uploadActions.js';
+import * as uploadActions from '../../redux/actions/uploadActions';
 
-import UploadButton from '../../components/validateData/ValidateDataUploadButton.jsx';
+import UploadButton from '../../components/validateData/ValidateDataUploadButton';
 
 const propTypes = {
     setCrossFileStage: PropTypes.func,
@@ -73,7 +73,10 @@ class CrossFileUploadButtonContainer extends React.Component {
         }
 
         return (
-            <UploadButton text={displayText} optional={isOptional} additionalClasses={additionalClasses}
+            <UploadButton
+                text={displayText}
+                optional={isOptional}
+                additionalClasses={additionalClasses}
                 onDrop={this.onDrop.bind(this)} />
         );
     }

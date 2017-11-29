@@ -4,14 +4,14 @@
  */
 
 import React, { PropTypes } from 'react';
-import FileProgress from '../SharedComponents/FileProgress.jsx';
-import ValidateDataErrorReport from './ValidateDataErrorReport.jsx';
-import ValidateDataUploadButton from './ValidateDataUploadButton.jsx';
-import * as Icons from '../SharedComponents/icons/Icons.jsx';
-import * as PermissionsHelper from '../../helpers/permissionsHelper.js';
-import * as GenerateFilesHelper from '../../helpers/generateFilesHelper.js';
+import FileProgress from '../SharedComponents/FileProgress';
+import ValidateDataErrorReport from './ValidateDataErrorReport';
+import ValidateDataUploadButton from './ValidateDataUploadButton';
+import * as Icons from '../SharedComponents/icons/Icons';
+import * as PermissionsHelper from '../../helpers/permissionsHelper';
+import * as GenerateFilesHelper from '../../helpers/generateFilesHelper';
 
-import UploadDetachedFilesError from '../uploadDetachedFiles/UploadDetachedFilesError.jsx';
+import UploadDetachedFilesError from '../uploadDetachedFiles/UploadDetachedFilesError';
 
 const propTypes = {
     onFileChange: PropTypes.func,
@@ -362,7 +362,8 @@ export default class ValidateDataFileComponent extends React.Component {
         }
 
         return (
-            <div className="row center-block usa-da-validate-item"
+            <div
+                className="row center-block usa-da-validate-item"
                 data-testid={"validate-wrapper-" + this.props.type.requestName}>
                 <div className="col-md-12">
                     {errorMessage}
@@ -380,14 +381,17 @@ export default class ValidateDataFileComponent extends React.Component {
                                 </div>
                             </div>
                             <div className="row usa-da-validate-item-body">
-                                <div className={"col-md-12 usa-da-validate-txt-wrap" + messageClass}
+                                <div
+                                    className={"col-md-12 usa-da-validate-txt-wrap" + messageClass}
                                     data-testid="validate-message">
                                     {this.state.headerTitle}
                                 </div>
                             </div>
                             <div className="row usa-da-validate-item-footer-wrapper">
-                                <div className={"usa-da-validate-item-footer usa-da-header-error" + showFooter + " " +
-                                    footerStatus} onClick={this.toggleErrorReport.bind(this)}>
+                                <div
+                                    className={"usa-da-validate-item-footer usa-da-header-error" + showFooter + " " +
+                                        footerStatus}
+                                    onClick={this.toggleErrorReport.bind(this)}>
                                     <div>View &amp; Download Header Error Report
                                         <span className="usa-da-icon">{chevronDirection}</span>
                                     </div>
@@ -398,18 +402,24 @@ export default class ValidateDataFileComponent extends React.Component {
                         <div className="col-md-3">
                             <div className="usa-da-validate-item-file-section">
                                 <div className="usa-da-validate-item-file-section-result">
-                                    <div className="usa-da-icon" data-testid="validate-icon">
+                                    <div
+                                        className="usa-da-icon"
+                                        data-testid="validate-icon">
                                         {this.displayIcon()}
                                     </div>
                                 </div>
                                 {uploadProgress}
                                 <div className="row usa-da-validate-item-file-name">
-                                    <div className={clickDownloadClass} onClick={clickDownload} download={fileName}
+                                    <div
+                                        className={clickDownloadClass}
+                                        onClick={clickDownload}
+                                        download={fileName}
                                         rel="noopener noreferrer">
                                         {fileName}
                                     </div>
                                 </div>
-                                <div className={"usa-da-validate-item-file-section-correct-button" + disabledCorrect}
+                                <div
+                                    className={"usa-da-validate-item-file-section-correct-button" + disabledCorrect}
                                     data-testid="validate-upload">
                                     <div className="row">
                                         <div className="col-md-12">
@@ -420,7 +430,8 @@ export default class ValidateDataFileComponent extends React.Component {
                             </div>
                         </div>
                     </div>
-                    {this.state.showError ? <ValidateDataErrorReport submission={this.props.submission.id}
+                    {this.state.showError ? <ValidateDataErrorReport
+                        submission={this.props.submission.id}
                         type={this.props.item.file_type}
                         data={this.state.errorReports} /> : null}
                 </div>

@@ -4,9 +4,9 @@
   */
 
 import React, { PropTypes } from 'react';
-import * as Icons from '../../SharedComponents/icons/Icons.jsx';
+import * as Icons from '../../SharedComponents/icons/Icons';
 
-import DeleteModal from './DeleteModal.jsx';
+import DeleteModal from './DeleteModal';
 
 const propTypes = {
     reload: PropTypes.func,
@@ -92,8 +92,11 @@ export default class DeleteLink extends React.Component {
                 <div onClick={this.confirm.bind(this)} className="trash-icon">
                     <Icons.Trash alt="Delete" />
                 </div>);
-            modal = (<DeleteModal isOpen={this.state.active} closeModal={this.reset.bind(this)}
-                delete={this.delete.bind(this)} id={this.props.submissionId} />);
+            modal = (<DeleteModal
+                isOpen={this.state.active}
+                closeModal={this.reset.bind(this)}
+                delete={this.delete.bind(this)}
+                id={this.props.submissionId} />);
         }
 
         return (

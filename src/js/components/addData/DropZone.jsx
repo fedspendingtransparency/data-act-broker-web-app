@@ -7,7 +7,7 @@ import React, { PropTypes } from 'react';
 import Dropzone from 'react-dropzone';
 import DOMPurify from 'dompurify';
 
-import DropZoneDisplay from './DropZoneDisplay.jsx';
+import DropZoneDisplay from './DropZoneDisplay';
 
 const propTypes = {
     onDrop: PropTypes.func,
@@ -60,8 +60,12 @@ export default class DropZone extends React.Component {
         dropzoneString = DOMPurify.sanitize(dropzoneString, { ALLOWED_TAGS: ['b'] });
 
         return (
-            <Dropzone className={"usa-da-dropzone text-center" + dropped} activeClassName="active" multiple={false}
-                onDrop={this.props.onDrop} data-testid={"upload-" + this.props.requestName}>
+            <Dropzone
+                className={"usa-da-dropzone text-center" + dropped}
+                activeClassName="active"
+                multiple={false}
+                onDrop={this.props.onDrop}
+                data-testid={"upload-" + this.props.requestName}>
                 <DropZoneDisplay displayMode={displayMode} string={dropzoneString} progress={progress} />
             </Dropzone>
         );

@@ -1,5 +1,5 @@
 import React, { PropTypes } from 'react';
-import Navbar from '../SharedComponents/navigation/NavigationComponent.jsx';
+import Navbar from '../SharedComponents/navigation/NavigationComponent';
 
 const propTypes = {
     type: PropTypes.string,

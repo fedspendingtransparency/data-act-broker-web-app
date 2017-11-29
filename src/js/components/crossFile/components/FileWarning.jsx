@@ -4,8 +4,8 @@
   */
 import React, { PropTypes } from 'react';
 import _ from 'lodash';
-import * as ReviewHelper from '../../../helpers/reviewHelper.js';
-import * as Icons from '../../SharedComponents/icons/Icons.jsx';
+import * as ReviewHelper from '../../../helpers/reviewHelper';
+import * as Icons from '../../SharedComponents/icons/Icons';
 
 const propTypes = {
     meta: PropTypes.object,

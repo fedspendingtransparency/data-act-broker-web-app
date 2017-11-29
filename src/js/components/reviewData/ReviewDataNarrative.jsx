@@ -4,10 +4,10 @@
  */
 
 import React, { PropTypes } from 'react';
-import ReviewDataNarrativeDropdown from './ReviewDataNarrativeDropdown.jsx';
-import ReviewDataNarrativeTextfield from './ReviewDataNarrativeTextfield.jsx';
+import ReviewDataNarrativeDropdown from './ReviewDataNarrativeDropdown';
+import ReviewDataNarrativeTextfield from './ReviewDataNarrativeTextfield';
 
-import * as ReviewHelper from '../../helpers/reviewHelper.js';
+import * as ReviewHelper from '../../helpers/reviewHelper';
 
 const propTypes = {
     submissionID: PropTypes.string
@@ -81,7 +81,8 @@ export default class ReviewDataNarrative extends React.Component {
                 <h4>Add comments to files</h4>
                 <div className="row">
                     <ReviewDataNarrativeDropdown changeFile={this.changeFile.bind(this)} />
-                    <ReviewDataNarrativeTextfield currentContent={this.state.currentNarrative}
+                    <ReviewDataNarrativeTextfield
+                        currentContent={this.state.currentNarrative}
                         textChanged={this.textChanged.bind(this)} />
                 </div>
                 <div className="row">

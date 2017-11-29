@@ -7,9 +7,9 @@ import React, { PropTypes } from 'react';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 
-import * as uploadActions from '../../redux/actions/uploadActions.js';
+import * as uploadActions from '../../redux/actions/uploadActions';
 
-import AddDataPage from '../../components/addData/AddDataPage.jsx';
+import AddDataPage from '../../components/addData/AddDataPage';
 
 const propTypes = {
     resetSubmission: PropTypes.func,

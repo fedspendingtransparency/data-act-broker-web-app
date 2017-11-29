@@ -6,8 +6,8 @@
 import React, { PropTypes } from 'react';
 import _ from 'lodash';
 
-import DashboardPaginatorItem from './DashboardPaginatorItem.jsx';
-import DashboardPaginatorArrow from './DashboardPaginatorArrow.jsx';
+import DashboardPaginatorItem from './DashboardPaginatorItem';
+import DashboardPaginatorArrow from './DashboardPaginatorArrow';
 
 const propTypes = {
     changePage: PropTypes.func,

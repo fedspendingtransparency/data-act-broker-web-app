@@ -6,7 +6,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 
-import LandingContent from '../../components/landing/LandingContent.jsx';
+import LandingContent from '../../components/landing/LandingContent';
 
 class LandingContentContainer extends React.Component {
     constructor(props) {

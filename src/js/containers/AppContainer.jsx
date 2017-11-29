@@ -8,13 +8,13 @@ import { Provider } from 'react-redux';
 import { createStore } from 'redux';
 import Cookies from 'js-cookie';
 
-import reducers from '../redux/reducers/index.js';
-import { kGlobalConstants } from '../GlobalConstants.js';
-import StoreSingleton from '../redux/storeSingleton.js';
-import { fetchActiveUser } from '../helpers/loginHelper.js';
+import reducers from '../redux/reducers/index';
+import { kGlobalConstants } from '../GlobalConstants';
+import StoreSingleton from '../redux/storeSingleton';
+import { fetchActiveUser } from '../helpers/loginHelper';
 
-import RouterContainer from './router/RouterContainer.jsx';
-import PendingPage from '../components/login/PendingPage.jsx';
+import RouterContainer from './router/RouterContainer';
+import PendingPage from '../components/login/PendingPage';
 
 
 // create the state store

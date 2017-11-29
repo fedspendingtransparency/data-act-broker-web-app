@@ -9,17 +9,17 @@ import React, { PropTypes } from "react";
 import moment from "moment";
 import { connect } from "react-redux";
 
-import ValidateValuesFileContainer from "../../containers/validateData/ValidateValuesFileContainer.jsx";
-import ValidateDataFileContainer from "../../containers/validateData/ValidateDataFileContainer.jsx";
-import PublishModal from "./PublishModal.jsx";
-import Banner from "../SharedComponents/Banner.jsx";
-import UploadDetachedFilesError from "./UploadDetachedFilesError.jsx";
+import ValidateValuesFileContainer from "../../containers/validateData/ValidateValuesFileContainer";
+import ValidateDataFileContainer from "../../containers/validateData/ValidateDataFileContainer";
+import PublishModal from "./PublishModal";
+import Banner from "../SharedComponents/Banner";
+import UploadDetachedFilesError from "./UploadDetachedFilesError";
 
-import * as UploadHelper from "../../helpers/uploadHelper.js";
-import * as GenerateFilesHelper from "../../helpers/generateFilesHelper.js";
-import * as PermissionsHelper from "../../helpers/permissionsHelper.js";
-import * as ReviewHelper from "../../helpers/reviewHelper.js";
-import { kGlobalConstants } from "../../GlobalConstants.js";
+import * as UploadHelper from "../../helpers/uploadHelper";
+import * as GenerateFilesHelper from "../../helpers/generateFilesHelper";
+import * as PermissionsHelper from "../../helpers/permissionsHelper";
+import * as ReviewHelper from "../../helpers/reviewHelper";
+import { kGlobalConstants } from "../../GlobalConstants";
 
 const propTypes = {
     setSubmissionState: PropTypes.func,
@@ -390,7 +390,9 @@ class UploadDetachedFileValidation extends React.Component {
         const fileData = this.state.jobResults[type.requestName];
         const status = fileData.job_status;
         let errorMessage = null;
-        validationBox = (<ValidateDataFileContainer type={type} data={this.state.jobResults}
+        validationBox = (<ValidateDataFileContainer
+            type={type}
+            data={this.state.jobResults}
             setUploadItem={this.uploadFile.bind(this)}
             updateItem={this.uploadFile.bind(this)}
             publishing={this.state.published === "publishing"}
@@ -398,7 +400,9 @@ class UploadDetachedFileValidation extends React.Component {
         if (fileData.file_status === "complete" && this.state.validationFinished &&
             this.state.published !== "publishing") {
             if (status !== "invalid" || fileData.file_status === "complete") {
-                validationBox = (<ValidateValuesFileContainer type={type} data={this.state.jobResults}
+                validationBox = (<ValidateValuesFileContainer
+                    type={type}
+                    data={this.state.jobResults}
                     setUploadItem={this.uploadFile.bind(this)}
                     updateItem={this.uploadFile.bind(this)}
                     published={this.state.published}
@@ -406,14 +410,18 @@ class UploadDetachedFileValidation extends React.Component {
             }
 
             if (this.state.showSuccess) {
-                errorMessage = (<UploadDetachedFilesError errorCode={this.state.error} type="success"
+                errorMessage = (<UploadDetachedFilesError
+                    errorCode={this.state.error}
+                    type="success"
                     message={this.state.error_message} />);
             }
             if (this.state.published === "published") {
                 // This submission is already published and cannot be republished
                 if (this.state.fabs_meta.published_file === null) {
                     validationButton = (
-                        <button className="pull-right col-xs-3 us-da-disabled-button" disabled>File Published:
+                        <button
+                            className="pull-right col-xs-3 us-da-disabled-button"
+                            disabled>File Published:
                             <span className="plain">
                                 {this.state.fabs_meta.valid_rows} rows published at {this.state.fabs_meta.publish_date}
                             </span>
@@ -421,7 +429,8 @@ class UploadDetachedFileValidation extends React.Component {
                 }
                 else {
                     downloadButton = (
-                        <button className="pull-right col-xs-3 us-da-button"
+                        <button
+                            className="pull-right col-xs-3 us-da-button"
                             onClick={this.clickedReport.bind(this, this.props.item)}
                             download={this.state.fabs_meta.published_file}
                             rel="noopener noreferrer">File Published:
@@ -434,12 +443,14 @@ class UploadDetachedFileValidation extends React.Component {
             else if (PermissionsHelper.checkFabsPermissions(this.props.session)) {
                 // User has permissions to publish this unpublished submission
                 validationButton = (
-                    <button className="pull-right col-xs-3 us-da-button"
+                    <button
+                        className="pull-right col-xs-3 us-da-button"
                         onClick={this.openModal.bind(this)}>
                         Publish
                     </button>);
                 revalidateButton = (
-                    <button className="pull-right col-xs-3 us-da-button revalidate-button"
+                    <button
+                        className="pull-right col-xs-3 us-da-button revalidate-button"
                         onClick={this.startRevalidation.bind(this)}>
                         Revalidate
                     </button>);
@@ -447,7 +458,8 @@ class UploadDetachedFileValidation extends React.Component {
             else {
                 // User does not have permissions to publish
                 validationButton = (
-                    <button className="pull-right col-xs-3 us-da-disabled-button"
+                    <button
+                        className="pull-right col-xs-3 us-da-disabled-button"
                         disabled>
                         You do not have permissions to publish
                     </button>);
@@ -455,17 +467,22 @@ class UploadDetachedFileValidation extends React.Component {
         }
 
         if (this.state.published === "publishing" && this.state.error !== 0) {
-            errorMessage = (<UploadDetachedFilesError errorCode={this.state.error} type="error"
+            errorMessage = (<UploadDetachedFilesError
+                errorCode={this.state.error}
+                type="error"
                 message={this.state.error_message} />);
             validationButton = null;
             revalidateButton = (
-                <button className="pull-right col-xs-3 us-da-button"
+                <button
+                    className="pull-right col-xs-3 us-da-button"
                     onClick={this.startRevalidation.bind(this)}>
                     Revalidate
                 </button>);
         }
         else if (this.state.published === "unpublished" && this.state.error !== 0) {
-            errorMessage = (<UploadDetachedFilesError errorCode={this.state.error} type="error"
+            errorMessage = (<UploadDetachedFilesError
+                errorCode={this.state.error}
+                type="error"
                 message={this.state.error_message} />);
             validationButton = null;
             revalidateButton = null;
@@ -490,14 +507,18 @@ class UploadDetachedFileValidation extends React.Component {
                     <div className="col-xs-12 mt-60 mb-60">
                         <div className="validation-holder">
 
-                            <ReactCSSTransitionGroup transitionName="usa-da-meta-fade" transitionEnterTimeout={600}
+                            <ReactCSSTransitionGroup
+                                transitionName="usa-da-meta-fade"
+                                transitionEnterTimeout={600}
                                 transitionLeaveTimeout={200}>
                                 {validationBox}
                             </ReactCSSTransitionGroup>
 
                             {errorMessage}
 
-                            <ReactCSSTransitionGroup transitionName="usa-da-meta-fade" transitionEnterTimeout={600}
+                            <ReactCSSTransitionGroup
+                                transitionName="usa-da-meta-fade"
+                                transitionEnterTimeout={600}
                                 transitionLeaveTimeout={200}>
                                 {validationButton}
                                 {revalidateButton}
@@ -506,9 +527,13 @@ class UploadDetachedFileValidation extends React.Component {
                         </div>
                     </div>
                 </div>
-                <PublishModal rows={this.state.fabs_meta} submit={this.submitFabs.bind(this)}
-                    submissionID={this.state.submissionID} closeModal={this.closeModal.bind(this)}
-                    isOpen={this.state.showPublish} published={this.state.published} />
+                <PublishModal
+                    rows={this.state.fabs_meta}
+                    submit={this.submitFabs.bind(this)}
+                    submissionID={this.state.submissionID}
+                    closeModal={this.closeModal.bind(this)}
+                    isOpen={this.state.showPublish}
+                    published={this.state.published} />
             </div>
         );
     }

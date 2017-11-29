@@ -4,7 +4,7 @@
  */
 
 import React, { PropTypes } from 'react';
-import HelpSidebarItem from './helpSidebarItem.jsx';
+import HelpSidebarItem from './helpSidebarItem';
 
 const propTypes = {
     changeSections: PropTypes.array,
@@ -20,12 +20,18 @@ export default class HelpSidebar extends React.Component {
 
     render() {
         const clSectionList = this.props.changeSections.map((section, index) => {
-            return (<HelpSidebarItem key={index} sectionName={section.name} sectionId={section.link}
+            return (<HelpSidebarItem
+                key={index}
+                sectionName={section.name}
+                sectionId={section.link}
                 type={this.props.type} />);
         });
 
         const tSectionList = this.props.technicalSections.map((section, index) => {
-            return (<HelpSidebarItem key={index} sectionName={section.name} sectionId={section.link}
+            return (<HelpSidebarItem
+                key={index}
+                sectionName={section.name}
+                sectionId={section.link}
                 type={this.props.type} />);
         });
 

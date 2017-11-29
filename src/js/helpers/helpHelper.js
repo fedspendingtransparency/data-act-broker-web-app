@@ -1,7 +1,7 @@
 import Q from 'q';
 import Markdown from 'markdown';
 import ent from 'ent';
-import Request from './sessionSuperagent.js';
+import Request from './sessionSuperagent';
 
 const unescapeInlineHtml = (html) => {
     let tmpHtml = html;

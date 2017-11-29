@@ -4,7 +4,7 @@
   */
 
 import React, { PropTypes } from 'react';
-import * as Icons from './icons/Icons.jsx';
+import * as Icons from './icons/Icons';
 
 const propTypes = {
     description: PropTypes.string,

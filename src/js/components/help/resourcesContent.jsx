@@ -5,8 +5,8 @@
 
 import React, { PropTypes } from 'react';
 import $ from 'jquery';
-import { generateProtectedUrls, rssFileKey } from '../../helpers/util.js';
-import DaimsMessage from './daimsMessage.jsx';
+import { generateProtectedUrls, rssFileKey } from '../../helpers/util';
+import DaimsMessage from './daimsMessage';
 
 const propTypes = {
     section: PropTypes.object,
@@ -173,19 +173,25 @@ export default class ResourcesContent extends React.Component {
                     </p>
                     <ul>
                         <li>
-                            <a href={github + "DAIMS_RSS_Diagram_File_A_v1.1.pdf"} target="_blank"
+                            <a
+                                href={github + "DAIMS_RSS_Diagram_File_A_v1.1.pdf"}
+                                target="_blank"
                                 rel="noopener noreferrer">
                                 File A - Appropriation Account Detail
                             </a>
                         </li>
                         <li>
-                            <a href={github + "DAIMS_RSS_Diagram_File_B_v1.1.pdf"} target="_blank"
+                            <a
+                                href={github + "DAIMS_RSS_Diagram_File_B_v1.1.pdf"}
+                                target="_blank"
                                 rel="noopener noreferrer">
                                 File B - Object Class and Program Activity Detail
                             </a>
                         </li>
                         <li>
-                            <a href={github + "DAIMS_RSS_Diagram_File_C_v1.1.pdf"} target="_blank"
+                            <a
+                                href={github + "DAIMS_RSS_Diagram_File_C_v1.1.pdf"}
+                                target="_blank"
                                 rel="noopener noreferrer">
                                 File C - Award Financial Detail
                             </a>
@@ -208,25 +214,33 @@ export default class ResourcesContent extends React.Component {
                     </p>
                     <ul>
                         <li>
-                            <a href={github + "DAIMS_IDD_Diagram_File_D1_v1.1.pdf"} target="_blank"
+                            <a
+                                href={github + "DAIMS_IDD_Diagram_File_D1_v1.1.pdf"}
+                                target="_blank"
                                 rel="noopener noreferrer">
                                 File D1 - Award and Awardee Attributes (Procurement)
                             </a>
                         </li>
                         <li>
-                            <a href={github + "DAIMS_IDD_Diagram_File_D2_v1.1.pdf"} target="_blank"
+                            <a
+                                href={github + "DAIMS_IDD_Diagram_File_D2_v1.1.pdf"}
+                                target="_blank"
                                 rel="noopener noreferrer">
                                 File D2 - Award and Awardee Attributes (Financial Assistance)
                             </a>
                         </li>
                         <li>
-                            <a href={github + "DAIMS_IDD_Diagram_File_E_v1.1.pdf"} target="_blank"
+                            <a
+                                href={github + "DAIMS_IDD_Diagram_File_E_v1.1.pdf"}
+                                target="_blank"
                                 rel="noopener noreferrer">
                                 File E - Additional Awardee Attributes
                             </a>
                         </li>
                         <li>
-                            <a href={github + "DAIMS_IDD_Diagram_File_F_v1.1.pdf"} target="_blank"
+                            <a
+                                href={github + "DAIMS_IDD_Diagram_File_F_v1.1.pdf"}
+                                target="_blank"
                                 rel="noopener noreferrer">
                                 File F - Sub-Award Attributes
                             </a>
@@ -235,15 +249,19 @@ export default class ResourcesContent extends React.Component {
                     <h5>Overall DAIMS Resources</h5>
                     <ul>
                         <li>
-                            <a href={github + "DAIMS_Information_Flow_Diagram_v1.1.png"} target="_blank"
+                            <a
+                                href={github + "DAIMS_Information_Flow_Diagram_v1.1.png"}
+                                target="_blank"
                                 rel="noopener noreferrer">
                                 Information Flow Diagram
                             </a>
                             - An overview of the reporting cadences and sources of data included in the DAIMS.
                         </li>
                         <li>
-                            <a href={community + "1286474850/DAIMS_Practices_Procedures_v1.1.pdf?api=v2"}
-                                target="_blank" rel="noopener noreferrer">
+                            <a
+                                href={community + "1286474850/DAIMS_Practices_Procedures_v1.1.pdf?api=v2"}
+                                target="_blank"
+                                rel="noopener noreferrer">
                                 Practices and Procedures
                             </a>
                         </li>

@@ -8,15 +8,15 @@ import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { hashHistory } from 'react-router';
 
-import * as uploadActions from '../../redux/actions/uploadActions.js';
+import * as uploadActions from '../../redux/actions/uploadActions';
 
-import AddDataContent from '../../components/addData/AddDataContent.jsx';
-import ErrorMessage from '../../components/SharedComponents/ErrorMessage.jsx';
-import { fileTypes } from './fileTypes.js';
-import { kGlobalConstants } from '../../GlobalConstants.js';
+import AddDataContent from '../../components/addData/AddDataContent';
+import ErrorMessage from '../../components/SharedComponents/ErrorMessage';
+import { fileTypes } from './fileTypes';
+import { kGlobalConstants } from '../../GlobalConstants';
 
-import * as UploadHelper from '../../helpers/uploadHelper.js';
-import * as GuideHelper from '../../helpers/submissionGuideHelper.js';
+import * as UploadHelper from '../../helpers/uploadHelper';
+import * as GuideHelper from '../../helpers/submissionGuideHelper';
 
 const propTypes = {
     setSubmissionId: PropTypes.func,
@@ -98,7 +98,9 @@ class AddDataContainer extends React.Component {
         }
 
         return (
-            <AddDataContent {...this.props} fileTypes={fileTypes}
+            <AddDataContent
+                {...this.props}
+                fileTypes={fileTypes}
                 performUpload={this.performUpload.bind(this)} />
         );
     }

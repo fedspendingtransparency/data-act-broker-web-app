@@ -4,8 +4,8 @@
   */
 
 import React, { PropTypes } from 'react';
-import FileProgress from '../../SharedComponents/FileProgress.jsx';
-import * as Icons from '../../SharedComponents/icons/Icons.jsx';
+import FileProgress from '../../SharedComponents/FileProgress';
+import * as Icons from '../../SharedComponents/icons/Icons';
 
 const propTypes = {
     closeModal: PropTypes.func,

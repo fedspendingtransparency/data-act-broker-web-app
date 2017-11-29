@@ -51,24 +51,29 @@ export default class LandingRequirementsBody extends React.Component {
                 <ul>
                     <li>
                         File A: Appropriation Account data (
-                        <a href={awsS3 + "sample-files/appropValid.csv"}
-                            target="_blank" rel="noopener noreferrer">
+                        <a
+                            href={awsS3 + "sample-files/appropValid.csv"}
+                            target="_blank"
+                            rel="noopener noreferrer">
                             Download sample file
                         </a>
                         )
                     </li>
                     <li>
                         File B: Object Class and Program Activity data (
-                        <a href={awsS3 +
-                            "sample-files/programActivityValid.csv"} target="_blank"
+                        <a
+                            href={awsS3 + "sample-files/programActivityValid.csv"}
+                            target="_blank"
                             rel="noopener noreferrer">
                             Download sample file
                         </a>)
                     </li>
                     <li>
                         File C: Award Financial data (
-                        <a href={awsS3 + "sample-files/awardFinancialValid.csv"}
-                            target="_blank" rel="noopener noreferrer">
+                        <a
+                            href={awsS3 + "sample-files/awardFinancialValid.csv"}
+                            target="_blank"
+                            rel="noopener noreferrer">
                             Download sample file
                         </a>
                         )
@@ -107,8 +112,10 @@ export default class LandingRequirementsBody extends React.Component {
                     </p>
                     <ul>
                         <li>Financial Assistance data (Award and Awardee Attributes) (
-                            <a href={awsS3 +
-                                "help-files/DAIMS_FABS_Sample_Submission_File_v1.1.csv"} target="_blank"
+                            <a
+                                href={awsS3 +
+                                "help-files/DAIMS_FABS_Sample_Submission_File_v1.1.csv"}
+                                target="_blank"
                                 rel="noopener noreferrer">
                                 download sample file
                             </a>)
@@ -119,7 +126,9 @@ export default class LandingRequirementsBody extends React.Component {
                     </p>
                     <ul>
                         <li>
-                            <a href={awsS3 + "help-files/DAIMS_FABS_Validation_Checklist_v1.1.pdf"} target="_blank"
+                            <a
+                                href={awsS3 + "help-files/DAIMS_FABS_Validation_Checklist_v1.1.pdf"}
+                                target="_blank"
                                 rel="noopener noreferrer">
                                 Validation Checklist
                             </a>
@@ -132,21 +141,29 @@ export default class LandingRequirementsBody extends React.Component {
                             resources related to FABS. See:
                             <ul>
                                 <li>
-                                    <a href={"https://community.max.gov/download/attachments/1286474850/" +
+                                    <a
+                                        href={"https://community.max.gov/download/attachments/1286474850/" +
                                         "DAIMS_Practices_Procedures_v1.1.pdf?version=1&modificationDate=" +
-                                        "1498857477698&api=v2"} target="_blank" rel="noopener noreferrer">
+                                        "1498857477698&api=v2"}
+                                        target="_blank"
+                                        rel="noopener noreferrer">
                                         DAIMS Practices &amp; Procedures v1.1
                                     </a>
                                 </li>
                                 <li>
-                                    <a href="http://fedspendingtransparency.github.io/assets/docs/DAIMS_IDD_v1.1.xlsx"
-                                        target="_blank" rel="noopener noreferrer">
+                                    <a
+                                        href="http://fedspendingtransparency.github.io/assets/docs/DAIMS_IDD_v1.1.xlsx"
+                                        target="_blank"
+                                        rel="noopener noreferrer">
                                         DAIMS IDD v1.1 (D2 tab)
                                     </a>
                                 </li>
                                 <li>
-                                    <a href={"http://fedspendingtransparency.github.io/assets/docs/DAIMS_Domain_Values_"
-                                    + "v1.1.xlsx"} target="_blank" rel="noopener noreferrer">
+                                    <a
+                                        href={"http://fedspendingtransparency.github.io/assets/docs/DAIMS_Domain_Values"
+                                            + "_v1.1.xlsx"}
+                                        target="_blank"
+                                        rel="noopener noreferrer">
                                         DAIMS Domain Values v1.1
                                     </a>
                                 </li>

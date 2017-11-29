@@ -8,7 +8,7 @@ import d3 from 'd3';
 import _ from 'lodash';
 import tinycolor from 'tinycolor2';
 
-import TreemapCell from './TreemapCell.jsx';
+import TreemapCell from './TreemapCell';
 
 const propTypes = {
     clickedItem: PropTypes.func,
@@ -112,9 +112,21 @@ export default class Treemap extends React.Component {
 
             const color = tinycolor(baseColor).lighten(tint).toString();
 
-            return (<TreemapCell key={index} width={node.dx} height={node.dy} x={node.x} y={node.y}
-                cellColor={color} colors={this.props.colors} cellId={node.index} active={active} title={node.title}
-                count={node.value} field={node.field} detail={node.detail} description={node.description}
+            return (<TreemapCell
+                key={index}
+                width={node.dx}
+                height={node.dy}
+                x={node.x}
+                y={node.y}
+                cellColor={color}
+                colors={this.props.colors}
+                cellId={node.index}
+                active={active}
+                title={node.title}
+                count={node.value}
+                field={node.field}
+                detail={node.detail}
+                description={node.description}
                 clickedItem={this.props.clickedItem} />);
         });
     }

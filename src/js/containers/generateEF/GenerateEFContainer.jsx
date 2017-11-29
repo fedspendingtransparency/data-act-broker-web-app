@@ -10,13 +10,13 @@ import { hashHistory } from 'react-router';
 
 import Q from 'q';
 
-import * as uploadActions from '../../redux/actions/uploadActions.js';
-import * as GenerateHelper from '../../helpers/generateFilesHelper.js';
+import * as uploadActions from '../../redux/actions/uploadActions';
+import * as GenerateHelper from '../../helpers/generateFilesHelper';
 
-import GenerateEFContent from '../../components/generateEF/GenerateEFContent.jsx';
-import GenerateEFError from '../../components/generateEF/GenerateEFError.jsx';
-import PublishedSubmissionWarningBanner from '../../components/SharedComponents/PublishedSubmissionWarningBanner.jsx';
-import Banner from '../../components/SharedComponents/Banner.jsx';
+import GenerateEFContent from '../../components/generateEF/GenerateEFContent';
+import GenerateEFError from '../../components/generateEF/GenerateEFError';
+import PublishedSubmissionWarningBanner from '../../components/SharedComponents/PublishedSubmissionWarningBanner';
+import Banner from '../../components/SharedComponents/Banner';
 
 const propTypes = {
     submission: PropTypes.object,
@@ -150,7 +150,10 @@ class GenerateEFContainer extends React.Component {
     }
 
     render() {
-        let content = (<GenerateEFContent {...this.props} {...this.state} nextPage={this.nextPage.bind(this)}
+        let content = (<GenerateEFContent
+            {...this.props}
+            {...this.state}
+            nextPage={this.nextPage.bind(this)}
             generateFiles={this.generateFiles.bind(this)} />);
 
         if (this.state.fullPageError) {

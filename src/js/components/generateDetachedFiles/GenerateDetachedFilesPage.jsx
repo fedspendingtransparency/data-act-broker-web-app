@@ -7,14 +7,14 @@ import ReactCSSTransitionGroup from 'react-addons-css-transition-group';
 
 import React, { PropTypes } from 'react';
 import moment from 'moment';
-import Navbar from '../SharedComponents/navigation/NavigationComponent.jsx';
-import Footer from '../SharedComponents/FooterComponent.jsx';
-import AgencyListContainer from '../../containers/SharedContainers/AgencyListContainer.jsx';
-import DateSelect from './DateSelect.jsx';
+import Navbar from '../SharedComponents/navigation/NavigationComponent';
+import Footer from '../SharedComponents/FooterComponent';
+import AgencyListContainer from '../../containers/SharedContainers/AgencyListContainer';
+import DateSelect from './DateSelect';
 
-import * as GenerateFilesHelper from '../../helpers/generateFilesHelper.js';
+import * as GenerateFilesHelper from '../../helpers/generateFilesHelper';
 
-import * as Icons from '../SharedComponents/icons/Icons.jsx';
+import * as Icons from '../SharedComponents/icons/Icons';
 
 const propTypes = {
     route: PropTypes.object
@@ -281,7 +281,8 @@ export default class GenerateDetachedFilesPage extends React.Component {
 
         let dateSelect = null;
         if (this.state.showDateSelect) {
-            dateSelect = (<DateSelect {...this.state}
+            dateSelect = (<DateSelect
+                {...this.state}
                 handleDateChange={this.handleDateChange.bind(this)}
                 updateError={this.updateError.bind(this)}
                 generateFile={this.generateFile.bind(this)} />);
@@ -312,19 +313,23 @@ export default class GenerateDetachedFilesPage extends React.Component {
                                         </div>
 
                                         <div className="row">
-                                            <div className="col-sm-12 col-md-12 typeahead-holder"
+                                            <div
+                                                className="col-sm-12 col-md-12 typeahead-holder"
                                                 data-testid="agencytypeahead">
                                                 <AgencyListContainer
                                                     placeholder="Enter the name of the reporting agency"
-                                                    onSelect={this.handleChange.bind(this)} customClass={agencyClass} />
+                                                    onSelect={this.handleChange.bind(this)}
+                                                    customClass={agencyClass} />
                                                 <div className={"usa-da-icon usa-da-form-icon" + agencyClass}>
                                                     {agencyIcon}
                                                 </div>
                                             </div>
                                         </div>
 
-                                        <ReactCSSTransitionGroup transitionName="usa-da-meta-fade"
-                                            transitionEnterTimeout={500} transitionLeaveTimeout={300}>
+                                        <ReactCSSTransitionGroup
+                                            transitionName="usa-da-meta-fade"
+                                            transitionEnterTimeout={500}
+                                            transitionLeaveTimeout={300}>
                                             {dateSelect}
                                         </ReactCSSTransitionGroup>
                                     </div>

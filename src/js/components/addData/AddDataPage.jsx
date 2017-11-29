@@ -4,13 +4,13 @@
 */
 
 import React, { PropTypes } from 'react';
-import Navbar from '../SharedComponents/navigation/NavigationComponent.jsx';
-import AddDataHeader from './AddDataHeader.jsx';
-import AddDataMeta from './AddDataMeta.jsx';
-import AddDataContainer from '../../containers/addData/AddDataContainer.jsx';
-import Footer from '../SharedComponents/FooterComponent.jsx';
+import Navbar from '../SharedComponents/navigation/NavigationComponent';
+import AddDataHeader from './AddDataHeader';
+import AddDataMeta from './AddDataMeta';
+import AddDataContainer from '../../containers/addData/AddDataContainer';
+import Footer from '../SharedComponents/FooterComponent';
 
-import Banner from '../SharedComponents/Banner.jsx';
+import Banner from '../SharedComponents/Banner';
 
 const propTypes = {
     updateMetaData: PropTypes.func,

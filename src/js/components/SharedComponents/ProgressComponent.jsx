@@ -5,7 +5,7 @@
 
 import { hashHistory } from 'react-router';
 import React, { PropTypes } from 'react';
-import * as SubmissionHelper from '../../helpers/submissionGuideHelper.js';
+import * as SubmissionHelper from '../../helpers/submissionGuideHelper';
 
 const propTypes = {
     stepLink: PropTypes.array,

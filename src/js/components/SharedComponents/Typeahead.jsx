@@ -7,7 +7,7 @@ import React, { PropTypes } from 'react';
 import _ from 'lodash';
 import Awesomplete from 'awesomplete';
 
-import TypeaheadWarning from './TypeaheadWarning.jsx';
+import TypeaheadWarning from './TypeaheadWarning';
 
 const propTypes = {
     formatter: PropTypes.func,
@@ -222,9 +222,16 @@ export default class Typeahead extends React.Component {
 
         return (
             <div className={"usa-da-typeahead" + disabledClass}>
-                <input className={this.props.customClass} ref="awesomplete" type="text" placeholder={placeholder}
-                    value={this.state.value} onChange={this.changedText.bind(this)} tabIndex={this.props.tabIndex}
-                    disabled={disabled} aria-required={this.props.isRequired} />
+                <input
+                    className={this.props.customClass}
+                    ref="awesomplete"
+                    type="text"
+                    placeholder={placeholder}
+                    value={this.state.value}
+                    onChange={this.changedText.bind(this)}
+                    tabIndex={this.props.tabIndex}
+                    disabled={disabled}
+                    aria-required={this.props.isRequired} />
                 {warning}
             </div>
         );

@@ -5,7 +5,7 @@
 
 import React, { PropTypes } from 'react';
 import moment from 'moment';
-import * as UtilHelper from '../../../helpers/util.js';
+import * as UtilHelper from '../../../helpers/util';
 
 const propTypes = {
     onChange: PropTypes.func,
@@ -122,7 +122,9 @@ export default class DateDropdown extends React.Component {
         }
 
         return (
-            <select className={"usa-da-date-dropdown" + errorClass} onChange={this.dateChanged.bind(this)}
+            <select
+                className={"usa-da-date-dropdown" + errorClass}
+                onChange={this.dateChanged.bind(this)}
                 value={value}>
                 {dates}
             </select>

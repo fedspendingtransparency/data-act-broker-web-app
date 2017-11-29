@@ -23,7 +23,8 @@ export default class RevalidateButtons extends React.Component {
                 </div>
                 <div className="row">
                     <div className="col-md-6 mb-10">
-                        <button onClick={this.props.clickedRevalidateButton}
+                        <button
+                            onClick={this.props.clickedRevalidateButton}
                             className="usa-da-button btn-full btn-primary">
                             Revalidate Submission
                         </button>

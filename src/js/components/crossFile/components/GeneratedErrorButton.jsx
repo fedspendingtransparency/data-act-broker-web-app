@@ -4,7 +4,7 @@
   */
 
 import React, { PropTypes } from 'react';
-import GeneratedFileModal from './GeneratedFileModal.jsx';
+import GeneratedFileModal from './GeneratedFileModal';
 
 const propTypes = {
     forceUpdate: PropTypes.func,
@@ -54,11 +54,16 @@ export default class GeneratedErrorButton extends React.Component {
 
         return (
             <div>
-                <div className={"usa-da-button btn-full " + buttonClass} onClick={this.showModal.bind(this)}>
+                <div
+                    className={"usa-da-button btn-full " + buttonClass}
+                    onClick={this.showModal.bind(this)}>
                     File {this.props.file.letter}: {this.props.file.name}
                 </div>
-                <GeneratedFileModal showModal={this.state.showModal} closeModal={this.closeModal.bind(this)}
-                    file={this.props.file} finishedGenerating={this.finishedGenerating.bind(this)}
+                <GeneratedFileModal
+                    showModal={this.state.showModal}
+                    closeModal={this.closeModal.bind(this)}
+                    file={this.props.file}
+                    finishedGenerating={this.finishedGenerating.bind(this)}
                     submissionID={this.props.submissionID} />
             </div>
 

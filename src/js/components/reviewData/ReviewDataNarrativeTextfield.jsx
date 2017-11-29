@@ -18,7 +18,9 @@ export default class ReviewDataNarrativeTextfield extends React.Component {
     render() {
         return (
             <div className="col-md-8">
-                <textarea id="submission-review-narrative" value={this.props.currentContent}
+                <textarea
+                    id="submission-review-narrative"
+                    value={this.props.currentContent}
                     onChange={this.textChanged.bind(this)} />
             </div>
         );

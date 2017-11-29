@@ -4,8 +4,8 @@
 */
 
 import React, { PropTypes } from 'react';
-import * as Icons from '../SharedComponents/icons/Icons.jsx';
-import * as ReviewHelper from '../../helpers/reviewHelper.js';
+import * as Icons from '../SharedComponents/icons/Icons';
+import * as ReviewHelper from '../../helpers/reviewHelper';
 
 const propTypes = {
     type: PropTypes.string

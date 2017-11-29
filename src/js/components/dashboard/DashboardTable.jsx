@@ -6,15 +6,15 @@
 import React, { PropTypes } from 'react';
 import _ from 'lodash';
 
-import FormattedTable from '../SharedComponents/table/FormattedTable.jsx';
-import SubmissionLink from '../landing/recentActivity/SubmissionLink.jsx';
-import HistoryLink from './HistoryLink.jsx';
-import * as Status from '../landing/recentActivity//SubmissionStatus.jsx';
-import * as LoginHelper from '../../helpers/loginHelper.js';
-import * as PermissionsHelper from '../../helpers/permissionsHelper.js';
-import DeleteLink from '../landing/recentActivity/DeleteLink.jsx';
+import FormattedTable from '../SharedComponents/table/FormattedTable';
+import SubmissionLink from '../landing/recentActivity/SubmissionLink';
+import HistoryLink from './HistoryLink';
+import * as Status from '../landing/recentActivity//SubmissionStatus';
+import * as LoginHelper from '../../helpers/loginHelper';
+import * as PermissionsHelper from '../../helpers/permissionsHelper';
+import DeleteLink from '../landing/recentActivity/DeleteLink';
 
-import DashboardPaginator from './DashboardPaginator.jsx';
+import DashboardPaginator from './DashboardPaginator';
 
 const propTypes = {
     loadTableData: PropTypes.func,
@@ -224,7 +224,9 @@ export default class DashboardTable extends React.Component {
         let link = <SubmissionLink submissionId={item.submission_id} type={this.state.type} />;
 
         if (this.props.isCertified) {
-            link = (<SubmissionLink submissionId={item.submission_id} value={reportingDateString}
+            link = (<SubmissionLink
+                submissionId={item.submission_id}
+                value={reportingDateString}
                 type={this.state.type} />);
         }
 
@@ -282,9 +284,14 @@ export default class DashboardTable extends React.Component {
 
             if (deleteCol) {
                 if (canDelete && item.publish_status === 'unpublished') {
-                    row.push(<DeleteLink submissionId={item.submission_id} index={index}
-                        warning={this.deleteWarning.bind(this)} confirm={deleteConfirm} reload={this.reload.bind(this)}
-                        item={item} account={this.state.account} />);
+                    row.push(<DeleteLink
+                        submissionId={item.submission_id}
+                        index={index}
+                        warning={this.deleteWarning.bind(this)}
+                        confirm={deleteConfirm}
+                        reload={this.reload.bind(this)}
+                        item={item}
+                        account={this.state.account} />);
                 }
                 else {
                     row.push('N/A');
@@ -383,8 +390,12 @@ export default class DashboardTable extends React.Component {
         return (
             <div className="usa-da-submission-list">
                 <div className={"submission-table-content" + loadingClass}>
-                    <FormattedTable headers={headers} data={this.state.parsedData} cellClasses={this.state.cellClasses}
-                        unsortable={unsortable} headerClasses={this.state.headerClasses}
+                    <FormattedTable
+                        headers={headers}
+                        data={this.state.parsedData}
+                        cellClasses={this.state.cellClasses}
+                        unsortable={unsortable}
+                        headerClasses={this.state.headerClasses}
                         onSort={this.sortTable.bind(this)} />
                 </div>
                 <div className="text-center">

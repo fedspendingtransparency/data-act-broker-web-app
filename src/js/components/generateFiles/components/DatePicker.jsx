@@ -6,7 +6,7 @@
 import React, { PropTypes } from 'react';
 import DayPicker, { DateUtils } from 'react-day-picker';
 import moment from 'moment';
-import * as Icons from '../../SharedComponents/icons/Icons.jsx';
+import * as Icons from '../../SharedComponents/icons/Icons';
 
 const propTypes = {
     onDateChange: PropTypes.func,
@@ -209,7 +209,8 @@ export default class DatePicker extends React.Component {
         return (
             <div className="generate-datepicker-wrap">
                 <div className={"generate-datepicker" + disabledClass}>
-                    <input type="text"
+                    <input
+                        type="text"
                         placeholder={this.props.title}
                         value={this.state.inputValue}
                         tabIndex={this.props.tabIndex}
@@ -217,8 +218,12 @@ export default class DatePicker extends React.Component {
                         onChange={this.handleTypedDate.bind(this)}
                         onBlur={this.handleInputBlur.bind(this)}
                         disabled={this.props.disabled} />
-                    <a href="#" onClick={this.toggleDatePicker.bind(this)} tabIndex={this.props.tabIndex + 1}
-                        className="usa-da-icon picker-icon date" aria-haspopup="true">
+                    <a
+                        href="#"
+                        onClick={this.toggleDatePicker.bind(this)}
+                        tabIndex={this.props.tabIndex + 1}
+                        className="usa-da-icon picker-icon date"
+                        aria-haspopup="true">
                         <Icons.Calendar alt="Date picker" />
                     </a>
                 </div>

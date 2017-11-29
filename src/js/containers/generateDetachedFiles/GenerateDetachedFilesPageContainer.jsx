@@ -7,8 +7,8 @@ import React from 'react';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 
-import * as uploadActions from '../../redux/actions/uploadActions.js';
-import GenerateDetachedFilesPage from '../../components/generateDetachedFiles/GenerateDetachedFilesPage.jsx';
+import * as uploadActions from '../../redux/actions/uploadActions';
+import GenerateDetachedFilesPage from '../../components/generateDetachedFiles/GenerateDetachedFilesPage';
 
 class GenerateDetachedFilesPageContainer extends React.Component {
     render() {

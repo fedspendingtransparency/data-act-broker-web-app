@@ -7,8 +7,8 @@ import React, { PropTypes } from 'react';
 import { hashHistory } from 'react-router';
 import { connect } from 'react-redux';
 
-import * as SubmissionGuideHelper from '../../helpers/submissionGuideHelper.js';
-import LoadingPage from '../../components/submission/SubmissionPage.jsx';
+import * as SubmissionGuideHelper from '../../helpers/submissionGuideHelper';
+import LoadingPage from '../../components/submission/SubmissionPage';
 
 const propTypes = {
     params: PropTypes.object

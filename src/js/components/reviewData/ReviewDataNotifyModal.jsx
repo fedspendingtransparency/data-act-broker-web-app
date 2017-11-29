@@ -7,11 +7,11 @@ import React, { PropTypes } from 'react';
 import Modal from 'react-aria-modal';
 import _ from 'lodash';
 
-import ReviewDataSelectedUser from './ReviewDataSelectedUser.jsx';
-import Typeahead from '../SharedComponents/Typeahead.jsx';
+import ReviewDataSelectedUser from './ReviewDataSelectedUser';
+import Typeahead from '../SharedComponents/Typeahead';
 
-import * as ReviewHelper from '../../helpers/reviewHelper.js';
-import * as Icons from '../SharedComponents/icons/Icons.jsx';
+import * as ReviewHelper from '../../helpers/reviewHelper';
+import * as Icons from '../SharedComponents/icons/Icons';
 
 const propTypes = {
     closeModal: PropTypes.func,
@@ -109,17 +109,24 @@ export default class ReviewDataNotifyModal extends React.Component {
         const selectedUsers = [];
         if (this.state.selectedUsers && this.state.selectedUsers.length > 0) {
             for (const user of this.state.selectedUsers) {
-                selectedUsers.push(<ReviewDataSelectedUser key={user.id} user={user}
+                selectedUsers.push(<ReviewDataSelectedUser
+                    key={user.id}
+                    user={user}
                     deselectUser={this.deselectUser.bind(this, user.id)} />);
             }
         }
 
         let autoCompleteItems = null;
         if (this.state.users && this.state.users.length > 0) {
-            autoCompleteItems = (<Typeahead ref="typeahead"
-                placeholder="Name or email address of the person to certify this submission" keyValue="displayName"
-                internalValue={["id"]} values={this.state.users} formatter={this.userFormatter}
-                onSelect={this.selectUser.bind(this)} errorHeader="Unknown User"
+            autoCompleteItems = (<Typeahead
+                ref="typeahead"
+                placeholder="Name or email address of the person to certify this submission"
+                keyValue="displayName"
+                internalValue={["id"]}
+                values={this.state.users}
+                formatter={this.userFormatter}
+                onSelect={this.selectUser.bind(this)}
+                errorHeader="Unknown User"
                 errorDescription="You must select a user from the list that is provided as you type." />);
         }
 
@@ -127,8 +134,12 @@ export default class ReviewDataNotifyModal extends React.Component {
         const trueProps = true;
 
         return (
-            <Modal mounted={this.props.isOpen} onExit={this.props.closeModal} underlayClickExists={false}
-                verticallyCenter={trueProps} titleId="usa-da-notify-modal">
+            <Modal
+                mounted={this.props.isOpen}
+                onExit={this.props.closeModal}
+                underlayClickExists={false}
+                verticallyCenter={trueProps}
+                titleId="usa-da-notify-modal">
                 <div className="usa-da-modal-page">
                     <div id="usa-da-notify-modal" className="usa-da-notify-modal">
                         <div className="usa-da-notify-modal-close usa-da-icon usa-da-icon-times">
@@ -151,7 +162,9 @@ export default class ReviewDataNotifyModal extends React.Component {
                             </div>
                             <div className="row">
                                 <div className="col-md-12 mb-10">
-                                    <a href="#" onClick={this.sendNotification.bind(this)}
+                                    <a
+                                        href="#"
+                                        onClick={this.sendNotification.bind(this)}
                                         className="usa-da-button btn-primary pull-right">Send Notification
                                     </a>
                                 </div>
