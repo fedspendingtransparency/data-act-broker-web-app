@@ -29,7 +29,11 @@ const propTypes = {
 const defaultProps = {
     data: [],
     isLoading: true,
-    isCertified: true
+    isCertified: true,
+    loadTableData: null,
+    session: null,
+    type: '',
+    total: 0
 };
 
 export default class DashboardTable extends React.Component {

@@ -19,6 +19,12 @@ const propTypes = {
     session: PropTypes.object
 };
 
+const defaultProps = {
+    setSkipGuide: () => {},
+    location: {},
+    session: {}
+};
+
 class SubmissionGuideContainer extends React.Component {
     constructor(props) {
         super(props);
@@ -60,6 +66,7 @@ class SubmissionGuideContainer extends React.Component {
 }
 
 SubmissionGuideContainer.propTypes = propTypes;
+SubmissionGuideContainer.defaultProps = defaultProps;
 
 export default connect(
     (state) => ({ session: state.session }),

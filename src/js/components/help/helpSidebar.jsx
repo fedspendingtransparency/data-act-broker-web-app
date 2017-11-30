@@ -13,6 +13,13 @@ const propTypes = {
     helpOnly: PropTypes.bool
 };
 
+const defaultProps = {
+    changeSections: [],
+    technicalSections: [],
+    type: '',
+    helpOnly: false
+};
+
 export default class HelpSidebar extends React.Component {
     constructor(props) {
         super(props);
@@ -87,3 +94,4 @@ export default class HelpSidebar extends React.Component {
 }
 
 HelpSidebar.propTypes = propTypes;
+HelpSidebar.defaultProps = defaultProps;

@@ -16,6 +16,11 @@ const propTypes = {
     helpOnly: PropTypes.bool
 };
 
+const defaultProps = {
+    type: '',
+    helpOnly: false
+};
+
 export default class PracticesProceduresPage extends React.Component {
     constructor(props) {
         super(props);
@@ -64,3 +69,4 @@ export default class PracticesProceduresPage extends React.Component {
 }
 
 PracticesProceduresPage.propTypes = propTypes;
+PracticesProceduresPage.defaultProps = defaultProps;

@@ -23,7 +23,13 @@ const defaultProps = {
     download: {
         show: false,
         url: '#'
-    }
+    },
+    onDateChange: null,
+    updateError: null,
+    error: null,
+    value: null,
+    datePlaceholder: '',
+    label: ''
 };
 
 export default class GenerateFileBox extends React.Component {

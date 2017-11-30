@@ -14,6 +14,7 @@ const propTypes = {
 };
 
 const defaultProps = {
+    onDrop: () => {},
     optional: false,
     text: 'Upload Corrected File',
     additionalClasses: ' btn-danger-outline'

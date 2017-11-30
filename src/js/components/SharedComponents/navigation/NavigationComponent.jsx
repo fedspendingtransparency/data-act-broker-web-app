@@ -22,6 +22,9 @@ const propTypes = {
 };
 
 const defaultProps = {
+    setSession: () => {},
+    session: null,
+    type: '',
     logoOnly: false
 };
 

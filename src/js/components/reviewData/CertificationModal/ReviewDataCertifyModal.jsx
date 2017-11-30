@@ -20,6 +20,14 @@ const propTypes = {
     isOpen: PropTypes.bool
 };
 
+const defaultProps = {
+    closeModal: null,
+    session: null,
+    submissionID: '',
+    warnings: 0,
+    isOpen: false
+};
+
 export default class ReviewDataCertifyModal extends React.Component {
     constructor(props) {
         super(props);
@@ -161,3 +169,4 @@ export default class ReviewDataCertifyModal extends React.Component {
 }
 
 ReviewDataCertifyModal.propTypes = propTypes;
+ReviewDataCertifyModal.defaultProps = defaultProps;

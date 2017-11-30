@@ -11,6 +11,10 @@ const propTypes = {
     buttonClicked: PropTypes.func
 };
 
+const defaultProps = {
+    buttonClicked: () => {}
+};
+
 export default class CorrectButtonCornerOverlay extends React.Component {
     constructor(props) {
         super(props);
@@ -29,3 +33,4 @@ export default class CorrectButtonCornerOverlay extends React.Component {
 }
 
 CorrectButtonCornerOverlay.propTypes = propTypes;
+CorrectButtonCornerOverlay.defaultProps = defaultProps;

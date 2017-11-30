@@ -12,6 +12,10 @@ const propTypes = {
     route: PropTypes.object
 };
 
+const defaultProps = {
+    route: null
+};
+
 export default class LandingPage extends React.Component {
     render() {
         return (
@@ -29,3 +33,4 @@ export default class LandingPage extends React.Component {
 }
 
 LandingPage.propTypes = propTypes;
+LandingPage.defaultProps = defaultProps;

@@ -15,6 +15,14 @@ const propTypes = {
     hasError: PropTypes.bool
 };
 
+const defaultProps = {
+    onChange: null,
+    startEndType: '',
+    type: '',
+    value: '',
+    hasError: false
+};
+
 export default class DateDropdown extends React.Component {
     constructor(props) {
         super(props);
@@ -133,3 +141,4 @@ export default class DateDropdown extends React.Component {
 }
 
 DateDropdown.propTypes = propTypes;
+DateDropdown.defaultProps = defaultProps;

@@ -10,6 +10,11 @@ const propTypes = {
     value: PropTypes.string
 };
 
+const defaultProps = {
+    onChange: null,
+    value: ''
+};
+
 export default class DateTypeField extends React.Component {
     pickedType(type) {
         this.props.onChange(type);
@@ -68,3 +73,4 @@ export default class DateTypeField extends React.Component {
 }
 
 DateTypeField.propTypes = propTypes;
+DateTypeField.defaultProps = defaultProps;

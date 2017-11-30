@@ -12,6 +12,12 @@ const propTypes = {
     isOpen: PropTypes.bool
 };
 
+const defaultProps = {
+    onClose: () => {},
+    content: null,
+    isOpen: false
+};
+
 export default class ErrorModal extends React.Component {
     closeModal(e) {
         return typeof this.props.onClose === 'function' ? this.props.onClose(e) : null;
@@ -43,3 +49,4 @@ export default class ErrorModal extends React.Component {
 }
 
 ErrorModal.propTypes = propTypes;
+ErrorModal.defaultProps = defaultProps;

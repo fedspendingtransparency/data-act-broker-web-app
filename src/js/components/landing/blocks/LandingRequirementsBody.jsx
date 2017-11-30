@@ -11,6 +11,11 @@ const propTypes = {
     type: PropTypes.string
 };
 
+const defaultProps = {
+    window: [],
+    type: ''
+};
+
 export default class LandingRequirementsBody extends React.Component {
     constructor(props) {
         super(props);
@@ -184,3 +189,4 @@ export default class LandingRequirementsBody extends React.Component {
 }
 
 LandingRequirementsBody.propTypes = propTypes;
+LandingRequirementsBody.defaultProps = defaultProps;

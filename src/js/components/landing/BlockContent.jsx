@@ -16,6 +16,12 @@ const propTypes = {
     type: PropTypes.string
 };
 
+const defaultProps = {
+    clickedUploadReqs: null,
+    session: null,
+    type: ''
+};
+
 export default class BlockContent extends React.Component {
     constructor(props) {
         super(props);
@@ -111,3 +117,4 @@ export default class BlockContent extends React.Component {
 }
 
 BlockContent.propTypes = propTypes;
+BlockContent.defaultProps = defaultProps;

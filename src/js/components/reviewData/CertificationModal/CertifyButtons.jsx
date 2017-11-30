@@ -13,6 +13,14 @@ const propTypes = {
     certified: PropTypes.bool
 };
 
+const defaultProps = {
+    clickedCertifyButton: null,
+    clickedCertifyCheckbox: null,
+    closeModal: null,
+    session: {},
+    certified: false
+};
+
 export default class CertifyButtons extends React.Component {
     render() {
         let buttonClass = "";
@@ -56,3 +64,4 @@ export default class CertifyButtons extends React.Component {
 }
 
 CertifyButtons.propTypes = propTypes;
+CertifyButtons.defaultProps = defaultProps;

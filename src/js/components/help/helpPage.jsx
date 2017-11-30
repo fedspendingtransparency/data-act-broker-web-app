@@ -21,6 +21,12 @@ const propTypes = {
     helpOnly: PropTypes.bool
 };
 
+const defaultProps = {
+    location: null,
+    type: '',
+    helpOnly: false
+};
+
 export default class HelpPage extends React.Component {
     constructor(props) {
         super(props);
@@ -118,3 +124,4 @@ export default class HelpPage extends React.Component {
 }
 
 HelpPage.propTypes = propTypes;
+HelpPage.defaultProps = defaultProps;

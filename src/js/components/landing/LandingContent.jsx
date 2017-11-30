@@ -16,6 +16,7 @@ const propTypes = {
 };
 
 const defaultProps = {
+    type: '',
     session: {
         user: {
             agency_name: "Your Agency"

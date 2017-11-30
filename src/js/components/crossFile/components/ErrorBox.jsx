@@ -25,6 +25,16 @@ const propTypes = {
     submissionID: PropTypes.string
 };
 
+const defaultProps = {
+    forceUpdate: null,
+    meta: null,
+    session: null,
+    submission: null,
+    agencyName: '',
+    status: '',
+    submissionID: ''
+};
+
 const dFiles = ['d1', 'd2'];
 
 export default class ErrorBox extends React.Component {
@@ -307,3 +317,4 @@ export default class ErrorBox extends React.Component {
 }
 
 ErrorBox.propTypes = propTypes;
+ErrorBox.defaultProps = defaultProps;

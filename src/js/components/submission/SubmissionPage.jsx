@@ -9,6 +9,11 @@ const propTypes = {
     submissionID: PropTypes.string
 };
 
+const defaultProps = {
+    route: {},
+    submissionID: ''
+};
+
 export default class LoadingPage extends React.Component {
     constructor(props) {
         super(props);
@@ -48,3 +53,4 @@ export default class LoadingPage extends React.Component {
 }
 
 LoadingPage.propTypes = propTypes;
+LoadingPage.defaultProps = defaultProps;

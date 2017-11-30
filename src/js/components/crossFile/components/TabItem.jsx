@@ -16,6 +16,17 @@ const propTypes = {
     isActive: PropTypes.bool
 };
 
+const defaultProps = {
+    changeTab: null,
+    counts: null,
+    activeTab: '',
+    label: '',
+    status: '',
+    value: '',
+    count: 0,
+    isActive: false
+};
+
 export default class TabItem extends React.Component {
     clickedTab(e) {
         e.preventDefault();
@@ -39,3 +50,4 @@ export default class TabItem extends React.Component {
 }
 
 TabItem.propTypes = propTypes;
+TabItem.defaultProps = defaultProps;

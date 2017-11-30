@@ -14,7 +14,10 @@ const propTypes = {
 };
 
 const defaultProps = {
-    comingSoon: false
+    comingSoon: false,
+    type: '',
+    title: '',
+    description: ''
 };
 
 export default class GenerateEFItem extends React.Component {

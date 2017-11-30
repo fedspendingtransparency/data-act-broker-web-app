@@ -28,6 +28,16 @@ const propTypes = {
     submissionID: PropTypes.string
 };
 
+const defaultProps = {
+    resetSubmission: () => {},
+    setCrossFile: () => {},
+    setExpectedCrossPairs: () => {},
+    setSubmissionState: () => {},
+    showError: () => {},
+    submission: {},
+    submissionID: ""
+};
+
 const timerDuration = 10;
 
 class CrossFileContentContainer extends React.Component {
@@ -247,6 +257,7 @@ class CrossFileContentContainer extends React.Component {
 }
 
 CrossFileContentContainer.propTypes = propTypes;
+CrossFileContentContainer.defaultProps = defaultProps;
 
 export default connect(
     (state) => ({

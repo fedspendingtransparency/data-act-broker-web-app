@@ -14,6 +14,13 @@ const propTypes = {
     helpOnly: PropTypes.bool
 };
 
+const defaultProps = {
+    changelog: '',
+    section: '',
+    technical: '',
+    helpOnly: false
+};
+
 export default class HelpContent extends React.Component {
     constructor(props) {
         super(props);
@@ -139,3 +146,4 @@ export default class HelpContent extends React.Component {
 }
 
 HelpContent.propTypes = propTypes;
+HelpContent.defaultProps = defaultProps;

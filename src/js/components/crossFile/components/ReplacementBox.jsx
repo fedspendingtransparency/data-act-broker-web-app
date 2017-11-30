@@ -19,6 +19,13 @@ const propTypes = {
     submissionID: PropTypes.string
 };
 
+const defaultProps = {
+    forceUpdate: null,
+    meta: null,
+    submission: null,
+    submissionID: ''
+};
+
 const dFiles = ['d1', 'd2'];
 
 export default class ReplacementBox extends React.Component {
@@ -142,3 +149,4 @@ export default class ReplacementBox extends React.Component {
 }
 
 ReplacementBox.propTypes = propTypes;
+ReplacementBox.defaultProps = defaultProps;

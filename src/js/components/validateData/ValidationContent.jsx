@@ -20,6 +20,14 @@ const propTypes = {
     hasFinished: PropTypes.bool
 };
 
+const defaultProps = {
+    session: {},
+    submission: {},
+    agencyName: "",
+    hasFailed: false,
+    hasFinished: false
+};
+
 export default class ValidationContent extends React.Component {
     constructor(props) {
         super(props);
@@ -82,3 +90,4 @@ export default class ValidationContent extends React.Component {
 }
 
 ValidationContent.propTypes = propTypes;
+ValidationContent.defaultProps = defaultProps;

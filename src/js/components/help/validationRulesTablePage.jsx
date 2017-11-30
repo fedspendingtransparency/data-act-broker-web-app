@@ -18,6 +18,12 @@ const propTypes = {
     helpOnly: PropTypes.bool
 };
 
+const defaultProps = {
+    route: null,
+    type: '',
+    helpOnly: true
+};
+
 export default class ValidationRulesTablePage extends React.Component {
     constructor(props) {
         super(props);
@@ -79,3 +85,4 @@ export default class ValidationRulesTablePage extends React.Component {
 }
 
 ValidationRulesTablePage.propTypes = propTypes;
+ValidationRulesTablePage.defaultProps = defaultProps;

@@ -19,6 +19,14 @@ const propTypes = {
     type: PropTypes.object
 };
 
+const defaultProps = {
+    updateItem: () => {},
+    setUploadItem: () => {},
+    removeUploadItem: () => {},
+    data: {},
+    type: {}
+};
+
 class ValidateValuesFileContainer extends React.Component {
     constructor(props) {
         super(props);
@@ -51,6 +59,7 @@ class ValidateValuesFileContainer extends React.Component {
 }
 
 ValidateValuesFileContainer.propTypes = propTypes;
+ValidateValuesFileContainer.defaultProps = defaultProps;
 
 export default connect(
     (state) => ({

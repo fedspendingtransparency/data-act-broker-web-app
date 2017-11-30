@@ -13,6 +13,12 @@ const propTypes = {
     title: PropTypes.string
 };
 
+const defaultProps = {
+    history: null,
+    section: '',
+    title: ''
+};
+
 export default class HistoryContent extends React.Component {
     constructor(props) {
         super(props);
@@ -71,3 +77,4 @@ export default class HistoryContent extends React.Component {
 }
 
 HistoryContent.propTypes = propTypes;
+HistoryContent.defaultProps = defaultProps;

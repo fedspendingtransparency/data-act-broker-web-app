@@ -26,6 +26,13 @@ const propTypes = {
     submission: PropTypes.object
 };
 
+const defaultProps = {
+    setSubmissionId: () => {},
+    setSubmissionState: () => {},
+    validate: () => {},
+    submission: {}
+};
+
 const timerDuration = 5;
 
 export default class UploadDetachedFileMeta extends React.Component {
@@ -277,3 +284,4 @@ export default class UploadDetachedFileMeta extends React.Component {
 }
 
 UploadDetachedFileMeta.propTypes = propTypes;
+UploadDetachedFileMeta.defaultProps = defaultProps;

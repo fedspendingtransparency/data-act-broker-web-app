@@ -18,6 +18,10 @@ const propTypes = {
 };
 
 const defaultProps = {
+    onDrop: () => {},
+    removeFile: () => {},
+    fileName: '',
+    isReplacingFile: false,
     fullName: '',
     type: ''
 };

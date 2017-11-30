@@ -14,6 +14,11 @@ const propTypes = {
     type: PropTypes.string
 };
 
+const defaultProps = {
+    onChange: null,
+    type: ''
+};
+
 export default class DateRangeField extends React.Component {
     constructor(props) {
         super(props);
@@ -114,3 +119,4 @@ export default class DateRangeField extends React.Component {
 }
 
 DateRangeField.propTypes = propTypes;
+DateRangeField.defaultProps = defaultProps;

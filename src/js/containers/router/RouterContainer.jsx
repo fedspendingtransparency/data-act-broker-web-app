@@ -20,6 +20,10 @@ const propTypes = {
     session: PropTypes.object
 };
 
+const defaultProps = {
+    session: {}
+};
+
 const Routes = new RouterRoutes();
 
 let sessionChecker;
@@ -82,6 +86,7 @@ class RouterContainer extends React.Component {
 }
 
 RouterContainer.propTypes = propTypes;
+RouterContainer.defaultProps = defaultProps;
 
 export default connect(
     (state) => ({

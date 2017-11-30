@@ -15,6 +15,15 @@ const propTypes = {
     link_array: PropTypes.array
 };
 
+const defaultProps = {
+    params: {},
+    route: {},
+    submissionId: '',
+    subID: '',
+    csv_url: [],
+    link_array: []
+};
+
 export default class GetErrors extends React.Component {
     constructor(props) {
         super(props);
@@ -93,3 +102,4 @@ export default class GetErrors extends React.Component {
 }
 
 GetErrors.propTypes = propTypes;
+GetErrors.defaultProps = defaultProps;

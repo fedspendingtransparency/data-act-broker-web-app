@@ -11,6 +11,11 @@ const propTypes = {
     session: PropTypes.object
 };
 
+const defaultProps = {
+    saveSkipGuide: null,
+    session: null
+};
+
 export default class SubmissionGuideContent extends React.Component {
     constructor(props) {
         super(props);
@@ -205,3 +210,4 @@ export default class SubmissionGuideContent extends React.Component {
 }
 
 SubmissionGuideContent.propTypes = propTypes;
+SubmissionGuideContent.defaultProps = defaultProps;

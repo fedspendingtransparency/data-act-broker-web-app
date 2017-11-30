@@ -23,7 +23,13 @@ const propTypes = {
 };
 
 const defaultProps = {
-    dataKey: 'error_data'
+    colors: {},
+    data: {},
+    dataKey: 'error_data',
+    fileType: '',
+    name: '',
+    reportType: '',
+    submission: ''
 };
 
 export default class ValidateValuesErrorReport extends React.Component {

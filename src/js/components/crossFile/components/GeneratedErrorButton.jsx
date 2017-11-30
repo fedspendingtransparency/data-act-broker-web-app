@@ -13,6 +13,13 @@ const propTypes = {
     type: PropTypes.string
 };
 
+const defaultProps = {
+    forceUpdate: null,
+    file: null,
+    submissionID: '',
+    type: ''
+};
+
 export default class GeneratedErrorButton extends React.Component {
     constructor(props) {
         super(props);
@@ -72,3 +79,4 @@ export default class GeneratedErrorButton extends React.Component {
 }
 
 GeneratedErrorButton.propTypes = propTypes;
+GeneratedErrorButton.defaultProps = defaultProps;

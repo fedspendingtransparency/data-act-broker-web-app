@@ -15,7 +15,8 @@ const propTypes = {
 const defaultProps = {
     tabClass: 'landing',
     activeTabClassName: 'landing',
-    comingSoon: false
+    comingSoon: false,
+    name: ''
 };
 
 export default class NavbarTab extends React.Component {

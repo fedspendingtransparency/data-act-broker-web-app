@@ -6,7 +6,7 @@
 import React, { PropTypes } from 'react';
 
 const propTypes = {
-    message: PropTypes.string
+    message: PropTypes.string.isRequired
 };
 
 export default class CrossFileError extends React.Component {

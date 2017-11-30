@@ -23,6 +23,11 @@ const propTypes = {
     submissionID: PropTypes.string
 };
 
+const defaultProps = {
+    submission: {},
+    submissionID: ""
+};
+
 const timerDuration = 10;
 
 class GenerateEFContainer extends React.Component {
@@ -176,6 +181,7 @@ class GenerateEFContainer extends React.Component {
 }
 
 GenerateEFContainer.propTypes = propTypes;
+GenerateEFContainer.defaultProps = defaultProps;
 
 export default connect(
     (state) => ({

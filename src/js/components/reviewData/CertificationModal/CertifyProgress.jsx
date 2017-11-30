@@ -17,7 +17,8 @@ const propTypes = {
 const defaultProps = {
     finished: false,
     apiTimeTotal: 1000,
-    apiTimeCount: 1
+    apiTimeCount: 1,
+    closeModal: null
 };
 
 export default class CertifyProgress extends React.Component {

@@ -15,6 +15,10 @@ const propTypes = {
     params: PropTypes.object
 };
 
+const defaultProps = {
+    params: {}
+};
+
 class ReviewDataContainer extends React.Component {
     constructor(props) {
         super(props);
@@ -96,6 +100,7 @@ class ReviewDataContainer extends React.Component {
 }
 
 ReviewDataContainer.propTypes = propTypes;
+ReviewDataContainer.defaultProps = defaultProps;
 
 export default connect(
     (state) => ({

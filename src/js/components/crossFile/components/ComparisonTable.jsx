@@ -12,6 +12,10 @@ const propTypes = {
     data: PropTypes.array
 };
 
+const defaultProps = {
+    data: []
+};
+
 export default class ComparisonTable extends React.Component {
     constructor(props) {
         super(props);
@@ -68,3 +72,4 @@ export default class ComparisonTable extends React.Component {
 }
 
 ComparisonTable.propTypes = propTypes;
+ComparisonTable.defaultProps = defaultProps;

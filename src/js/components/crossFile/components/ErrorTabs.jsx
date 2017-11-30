@@ -23,7 +23,14 @@ const defaultProps = {
     counts: {
         errors: 0,
         warnings: 0
-    }
+    },
+    changeTab: null,
+    activeTab: '',
+    label: '',
+    status: '',
+    value: '',
+    count: 0,
+    isActive: false
 };
 
 export default class ErrorTabs extends React.Component {

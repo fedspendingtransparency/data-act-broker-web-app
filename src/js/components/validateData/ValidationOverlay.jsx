@@ -18,7 +18,12 @@ const propTypes = {
 };
 
 const defaultProps = {
-    allowUpload: false
+    allowUpload: false,
+    uploadFiles: () => {},
+    submission: {},
+    errors: [],
+    warnings: [],
+    notAllowed: false
 };
 
 export default class ValidationOverlay extends React.Component {

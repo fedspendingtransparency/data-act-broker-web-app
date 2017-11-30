@@ -10,7 +10,7 @@ import * as uploadActions from '../redux/actions/uploadActions';
 
 const uploadLocalFile = (file, type) => {
     const deferred = Q.defer();
-    const formData = new FormData();
+    const formData = new window.FormData();
     formData.append('file', file);
 
     Request.post(kGlobalConstants.API + 'local_upload/')

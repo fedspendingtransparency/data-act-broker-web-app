@@ -22,7 +22,14 @@ const propTypes = {
 
 const defaultProps = {
     type: 'startDate',
-    tabIndex: 1
+    tabIndex: 1,
+    onDateChange: null,
+    updateError: null,
+    opposite: null,
+    params: null,
+    value: null,
+    title: '',
+    disabled: false
 };
 
 export default class DatePicker extends React.Component {

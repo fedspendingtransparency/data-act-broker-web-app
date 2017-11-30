@@ -11,6 +11,12 @@ const propTypes = {
     type: PropTypes.string
 };
 
+const defaultProps = {
+    sectionId: '',
+    sectionName: '',
+    type: ''
+};
+
 export default class HelpSidebarItem extends React.Component {
     render() {
         const help = this.props.type === 'fabs' ? '/#/FABShelp' : '/#/help';
@@ -25,3 +31,4 @@ export default class HelpSidebarItem extends React.Component {
 }
 
 HelpSidebarItem.propTypes = propTypes;
+HelpSidebarItem.defaultProps = defaultProps;

@@ -22,6 +22,13 @@ const propTypes = {
     submission: PropTypes.object
 };
 
+const defaultProps = {
+    data: null,
+    params: null,
+    route: null,
+    submission: null
+};
+
 export default class ReviewDataPage extends React.Component {
     render() {
         let currentComponent;
@@ -64,3 +71,4 @@ export default class ReviewDataPage extends React.Component {
 }
 
 ReviewDataPage.propTypes = propTypes;
+ReviewDataPage.defaultProps = defaultProps;

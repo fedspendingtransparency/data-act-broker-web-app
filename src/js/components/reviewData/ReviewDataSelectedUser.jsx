@@ -12,6 +12,11 @@ const propTypes = {
     user: PropTypes.object
 };
 
+const defaultProps = {
+    deselectUser: null,
+    user: null
+};
+
 export default class ReviewDataSelectedUser extends React.Component {
     constructor(props) {
         super(props);
@@ -32,3 +37,4 @@ export default class ReviewDataSelectedUser extends React.Component {
 }
 
 ReviewDataSelectedUser.propTypes = propTypes;
+ReviewDataSelectedUser.defaultProps = defaultProps;

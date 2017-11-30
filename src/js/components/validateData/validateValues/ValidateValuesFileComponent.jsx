@@ -26,6 +26,17 @@ const propTypes = {
     published: PropTypes.string
 };
 
+const defaultProps = {
+    onFileChange: PropTypes.func,
+    removeFile: PropTypes.func,
+    item: PropTypes.object,
+    session: PropTypes.object,
+    submission: PropTypes.object,
+    type: PropTypes.object,
+    agencyName: PropTypes.string,
+    published: PropTypes.string
+};
+
 export default class ValidateValuesFileComponent extends React.Component {
     constructor(props) {
         super(props);
@@ -355,3 +366,4 @@ export default class ValidateValuesFileComponent extends React.Component {
 }
 
 ValidateValuesFileComponent.propTypes = propTypes;
+ValidateValuesFileComponent.defaultProps = defaultProps;

@@ -17,6 +17,9 @@ const propTypes = {
 };
 
 const defaultProps = {
+    buttonClicked: () => {},
+    onDrop: () => {},
+    text: '',
     optional: true
 };
 

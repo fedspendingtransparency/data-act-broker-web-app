@@ -25,6 +25,14 @@ const propTypes = {
     submissionID: PropTypes.string
 };
 
+const defaultProps = {
+    resetSubmission: () => {},
+    setSubmissionState: () => {},
+    setValidation: () => {},
+    submission: {},
+    submissionID: ''
+};
+
 let statusTimer;
 const timerDuration = 10;
 
@@ -199,6 +207,7 @@ class ValidateDataContainer extends React.Component {
 }
 
 ValidateDataContainer.propTypes = propTypes;
+ValidateDataContainer.defaultProps = defaultProps;
 
 export default connect(
     (state) => ({

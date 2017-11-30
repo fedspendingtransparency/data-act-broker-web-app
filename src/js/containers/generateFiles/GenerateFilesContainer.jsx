@@ -29,6 +29,14 @@ const propTypes = {
     submissionID: PropTypes.string
 };
 
+const defaultProps = {
+    setSubmissionId: () => {},
+    setSubmissionPublishStatus: () => {},
+    showError: () => {},
+    submission: {},
+    submissionID: ""
+};
+
 const timerDuration = 10;
 
 class GenerateFilesContainer extends React.Component {
@@ -494,6 +502,7 @@ class GenerateFilesContainer extends React.Component {
 }
 
 GenerateFilesContainer.propTypes = propTypes;
+GenerateFilesContainer.defaultProps = defaultProps;
 
 export default connect(
     (state) => ({

@@ -14,6 +14,14 @@ const propTypes = {
     expandedReport: PropTypes.bool
 };
 
+const defaultProps = {
+    onClick: () => {},
+    count: 0,
+    label: '',
+    styleClass: '',
+    expandedReport: false
+};
+
 export default class ValidateValuesFileDetailBox extends React.Component {
     render() {
         // handle CSS class for determining if the error/warning count should be color text or black
@@ -63,3 +71,4 @@ export default class ValidateValuesFileDetailBox extends React.Component {
 }
 
 ValidateValuesFileDetailBox.propTypes = propTypes;
+ValidateValuesFileDetailBox.defaultProps = defaultProps;

@@ -16,6 +16,13 @@ const propTypes = {
     isOpen: PropTypes.bool
 };
 
+const defaultProps = {
+    closeModal: () => {},
+    delete: () => {},
+    id: null,
+    isOpen: false
+};
+
 export default class DeleteModal extends React.Component {
     constructor(props) {
         super(props);
@@ -110,3 +117,4 @@ export default class DeleteModal extends React.Component {
 }
 
 DeleteModal.propTypes = propTypes;
+DeleteModal.defaultProps = defaultProps;

@@ -11,6 +11,7 @@ const propTypes = {
 };
 
 const defaultProps = {
+    fileStatus: 0,
     progress: 0
 };
 

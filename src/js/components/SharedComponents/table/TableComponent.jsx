@@ -16,6 +16,7 @@ const propTypes = {
 };
 
 const defaultProps = {
+    onSort: () => {},
     data: [['Error']],
     headers: ['Table Data Missing'],
     sortable: false,

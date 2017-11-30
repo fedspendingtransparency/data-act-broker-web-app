@@ -14,6 +14,10 @@ const propTypes = {
     params: PropTypes.object
 };
 
+const defaultProps = {
+    params: {}
+};
+
 class SubmissionContainer extends React.Component {
     constructor(props) {
         super(props);
@@ -38,6 +42,7 @@ class SubmissionContainer extends React.Component {
 }
 
 SubmissionContainer.propTypes = propTypes;
+SubmissionContainer.defaultProps = defaultProps;
 
 export default connect(
     (state) => ({ session: state.session })

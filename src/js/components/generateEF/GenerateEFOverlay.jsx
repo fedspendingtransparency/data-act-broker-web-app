@@ -20,6 +20,15 @@ const propTypes = {
     isReady: PropTypes.bool
 };
 
+const defaultProps = {
+    generateFiles: null,
+    nextPage: null,
+    session: null,
+    submissionID: '',
+    hasErrors: false,
+    isReady: false
+};
+
 export default class GenerateEFOverlay extends React.Component {
     constructor(props) {
         super(props);
@@ -128,3 +137,4 @@ export default class GenerateEFOverlay extends React.Component {
 }
 
 GenerateEFOverlay.propTypes = propTypes;
+GenerateEFOverlay.defaultProps = defaultProps;

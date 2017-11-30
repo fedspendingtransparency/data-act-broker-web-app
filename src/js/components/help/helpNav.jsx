@@ -12,7 +12,9 @@ const propTypes = {
 };
 
 const defaultProps = {
-    pageArray: ['Help', 'Resources', 'Validations']
+    pageArray: ['Help', 'Resources', 'Validations'],
+    selected: '',
+    type: ''
 };
 
 export default class HelpNav extends React.Component {

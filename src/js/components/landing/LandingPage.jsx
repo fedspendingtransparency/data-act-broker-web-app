@@ -12,6 +12,10 @@ const propTypes = {
     route: PropTypes.object
 };
 
+const defaultProps = {
+    route: {}
+};
+
 export default class LandingPage extends React.Component {
     constructor(props) {
         super(props);
@@ -52,3 +56,4 @@ export default class LandingPage extends React.Component {
 }
 
 LandingPage.propTypes = propTypes;
+LandingPage.defaultProps = defaultProps;

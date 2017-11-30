@@ -17,6 +17,8 @@ const propTypes = {
 };
 
 const defaultProps = {
+    children: null,
+    icon: null,
     text: '',
     buttonText: '',
     url: '#/',

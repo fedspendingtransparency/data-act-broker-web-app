@@ -16,6 +16,14 @@ const propTypes = {
     showModal: PropTypes.bool
 };
 
+const defaultProps = {
+    closeModal: null,
+    finishedGenerating: null,
+    file: null,
+    submissionID: '',
+    showModal: false
+};
+
 export default class GeneratedFileModal extends React.Component {
     constructor(props) {
         super(props);
@@ -110,3 +118,4 @@ export default class GeneratedFileModal extends React.Component {
 }
 
 GeneratedFileModal.propTypes = propTypes;
+GeneratedFileModal.defaultProps = defaultProps;

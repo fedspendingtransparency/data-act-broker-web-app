@@ -19,7 +19,13 @@ const propTypes = {
 };
 
 const defaultProps = {
-    title: 'Upload & Validate a New Submission'
+    title: 'Upload & Validate a New Submission',
+    params: null,
+    agencyName: '',
+    formattedTime: '',
+    submissionID: '',
+    timePeriodLabel: '',
+    load: false
 };
 
 export default class AddDataHeader extends React.Component {

@@ -20,7 +20,9 @@ const defaultProps = {
     description: '',
     detail: null,
     count: 0,
-    type: 'error'
+    type: 'error',
+    field: '',
+    title: ''
 };
 
 export default class ValidateValuesTreemapHelp extends React.Component {

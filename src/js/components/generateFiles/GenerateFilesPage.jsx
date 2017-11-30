@@ -16,6 +16,11 @@ const propTypes = {
     route: PropTypes.object
 };
 
+const defaultProps = {
+    params: null,
+    route: null
+};
+
 export default class GenerateFilesPage extends React.Component {
     constructor(props) {
         super(props);
@@ -74,3 +79,4 @@ export default class GenerateFilesPage extends React.Component {
 }
 
 GenerateFilesPage.propTypes = propTypes;
+GenerateFilesPage.defaultProps = defaultProps;

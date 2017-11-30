@@ -10,6 +10,11 @@ const propTypes = {
     currentContent: PropTypes.string
 };
 
+const defaultProps = {
+    textChanged: null,
+    currentContent: ''
+};
+
 export default class ReviewDataNarrativeTextfield extends React.Component {
     textChanged(e) {
         this.props.textChanged(e.target.value);
@@ -28,3 +33,4 @@ export default class ReviewDataNarrativeTextfield extends React.Component {
 }
 
 ReviewDataNarrativeTextfield.propTypes = propTypes;
+ReviewDataNarrativeTextfield.defaultProps = defaultProps;

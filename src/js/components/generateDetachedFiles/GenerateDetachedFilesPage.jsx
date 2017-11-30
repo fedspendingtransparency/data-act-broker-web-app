@@ -20,6 +20,10 @@ const propTypes = {
     route: PropTypes.object
 };
 
+const defaultProps = {
+    route: null
+};
+
 const timerDuration = 10;
 
 export default class GenerateDetachedFilesPage extends React.Component {
@@ -345,3 +349,4 @@ export default class GenerateDetachedFilesPage extends React.Component {
 }
 
 GenerateDetachedFilesPage.propTypes = propTypes;
+GenerateDetachedFilesPage.defaultProps = defaultProps;

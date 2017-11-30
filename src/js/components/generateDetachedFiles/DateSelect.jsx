@@ -15,6 +15,14 @@ const propTypes = {
     d2: PropTypes.object
 };
 
+const defaultProps = {
+    generateFile: null,
+    handleDateChange: null,
+    updateError: null,
+    d1: null,
+    d2: null
+};
+
 export default class DateSelect extends React.Component {
     handleDateChange(file, date, dateType) {
         this.props.handleDateChange(file, date, dateType);
@@ -93,3 +101,4 @@ export default class DateSelect extends React.Component {
 }
 
 DateSelect.propTypes = propTypes;
+DateSelect.defaultProps = defaultProps;

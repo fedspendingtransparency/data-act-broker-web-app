@@ -10,14 +10,19 @@ import TableSorter from './TableSorter';
 const propTypes = {
     onSort: PropTypes.func,
     currentSort: PropTypes.object,
-    data: PropTypes.array.isRequired,
+    data: PropTypes.array,
     headerClasses: PropTypes.array,
     unsortable: PropTypes.array,
     sortable: PropTypes.bool
 };
 
 const defaultProps = {
-    headerClasses: []
+    onSort: () => {},
+    currentSort: {},
+    data: [],
+    headerClasses: [],
+    unsortable: [],
+    sortable: true
 };
 
 export default class TableHeaders extends React.Component {

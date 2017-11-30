@@ -19,6 +19,11 @@ const propTypes = {
     type: PropTypes.string
 };
 
+const defaultProps = {
+    session: {},
+    type: ''
+};
+
 export default class RecentActivityTable extends React.Component {
     constructor(props) {
         super(props);
@@ -272,3 +277,4 @@ export default class RecentActivityTable extends React.Component {
 }
 
 RecentActivityTable.propTypes = propTypes;
+RecentActivityTable.defaultProps = defaultProps;

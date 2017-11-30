@@ -16,6 +16,11 @@ const propTypes = {
     setMeta: PropTypes.func
 };
 
+const defaultProps = {
+    resetSubmission: () => {},
+    setMeta: () => {}
+};
+
 class AddDataPageContainer extends React.Component {
     componentDidMount() {
         this.props.resetSubmission();
@@ -29,6 +34,8 @@ class AddDataPageContainer extends React.Component {
 }
 
 AddDataPageContainer.propTypes = propTypes;
+AddDataPageContainer.defaultProps = defaultProps;
+
 
 export default connect(
     (state) => ({ submission: state.submission }),

@@ -9,6 +9,10 @@ const propTypes = {
     type: PropTypes.string
 };
 
+const defaultProps = {
+    type: ''
+};
+
 export default class DaimsMessage extends React.Component {
     constructor(props) {
         super(props);
@@ -46,3 +50,4 @@ export default class DaimsMessage extends React.Component {
 }
 
 DaimsMessage.propTypes = propTypes;
+DaimsMessage.defaultProps = defaultProps;

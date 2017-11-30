@@ -13,6 +13,13 @@ const propTypes = {
     errorCode: PropTypes.number
 };
 
+const defaultProps = {
+    error: {},
+    message: '',
+    type: '',
+    errorCode: 0
+};
+
 export default class UploadDetachedFilesError extends React.Component {
     constructor(props) {
         super(props);
@@ -92,3 +99,4 @@ export default class UploadDetachedFilesError extends React.Component {
 }
 
 UploadDetachedFilesError.propTypes = propTypes;
+UploadDetachedFilesError.defaultProps = defaultProps;

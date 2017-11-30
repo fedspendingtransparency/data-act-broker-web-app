@@ -23,6 +23,17 @@ const propTypes = {
     type: PropTypes.string
 };
 
+const defaultProps = {
+    disableButton: () => {},
+    enableButton: () => {},
+    finishedGenerating: () => {},
+    setButtonText: () => {},
+    setMessage: () => {},
+    label: '',
+    submissionID: '',
+    type: ''
+};
+
 export default class CrossFileGenerateModalContainer extends React.Component {
     constructor(props) {
         super(props);
@@ -316,6 +327,7 @@ export default class CrossFileGenerateModalContainer extends React.Component {
 }
 
 CrossFileGenerateModalContainer.propTypes = propTypes;
+CrossFileGenerateModalContainer.defaultProps = defaultProps;
 
 CrossFileGenerateModalContainer.contextTypes = {
     store: React.PropTypes.object.isRequired

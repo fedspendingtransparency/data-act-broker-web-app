@@ -12,6 +12,10 @@ const propTypes = {
     location: PropTypes.object
 };
 
+const defaultProps = {
+    location: null
+};
+
 export default class LoginMax extends React.Component {
     constructor(props) {
         super(props);
@@ -69,3 +73,4 @@ export default class LoginMax extends React.Component {
 }
 
 LoginMax.propTypes = propTypes;
+LoginMax.defaultProps = defaultProps;

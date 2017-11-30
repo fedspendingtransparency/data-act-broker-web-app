@@ -16,6 +16,8 @@ const propTypes = {
 const defaultProps = {
     buttonDisabled: true,
     buttonText: 'Submit',
+    className: '',
+    onClick: () => {},
     testId: ''
 };
 

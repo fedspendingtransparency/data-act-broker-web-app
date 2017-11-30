@@ -9,7 +9,7 @@ const propTypes = {
     submissionId: PropTypes.oneOfType([
         PropTypes.string,
         PropTypes.number
-    ]).isRequired,
+    ]),
     disabled: PropTypes.bool,
     type: PropTypes.string,
     value: PropTypes.string
@@ -17,7 +17,9 @@ const propTypes = {
 
 const defaultProps = {
     disabled: false,
-    type: 'dabs'
+    type: 'dabs',
+    value: '',
+    submissionId: ''
 };
 
 export default class SubmissionLink extends React.Component {

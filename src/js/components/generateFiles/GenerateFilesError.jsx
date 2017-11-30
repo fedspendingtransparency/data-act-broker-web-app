@@ -9,6 +9,10 @@ const propTypes = {
     message: PropTypes.string
 };
 
+const defaultProps = {
+    message: ''
+};
+
 export default class GenerateFilesError extends React.Component {
     render() {
         return (
@@ -20,3 +24,4 @@ export default class GenerateFilesError extends React.Component {
 }
 
 GenerateFilesError.propTypes = propTypes;
+GenerateFilesError.defaultProps = defaultProps;

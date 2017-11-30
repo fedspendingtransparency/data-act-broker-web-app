@@ -21,6 +21,7 @@ const propTypes = {
 };
 
 const defaultProps = {
+    clickedItem: () => {},
     width: 0,
     height: 300,
     activeCell: -1,
@@ -29,7 +30,8 @@ const defaultProps = {
         max: 0,
         min: 0
     },
-    color: '#5d87bb'
+    color: '#5d87bb',
+    colors: {}
 };
 
 

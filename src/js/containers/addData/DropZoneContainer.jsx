@@ -16,6 +16,11 @@ const propTypes = {
     requestName: PropTypes.string
 };
 
+const defaultProps = {
+    setUploadItem: () => {},
+    requestName: ""
+};
+
 class DropZoneContainer extends React.Component {
     onDrop(files) {
         const file = files[0];
@@ -37,6 +42,7 @@ class DropZoneContainer extends React.Component {
 }
 
 DropZoneContainer.propTypes = propTypes;
+DropZoneContainer.defaultProps = defaultProps;
 
 export default connect(
     (state) => ({ submission: state.submission }),

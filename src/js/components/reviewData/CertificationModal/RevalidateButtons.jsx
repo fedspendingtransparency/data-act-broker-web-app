@@ -11,6 +11,12 @@ const propTypes = {
     revalidationThreshold: PropTypes.string
 };
 
+const defaultProps = {
+    closeModal: null,
+    clickedRevalidateButton: null,
+    revalidationThreshold: ''
+};
+
 export default class RevalidateButtons extends React.Component {
     render() {
         return (
@@ -41,3 +47,4 @@ export default class RevalidateButtons extends React.Component {
 }
 
 RevalidateButtons.propTypes = propTypes;
+RevalidateButtons.defaultProps = defaultProps;

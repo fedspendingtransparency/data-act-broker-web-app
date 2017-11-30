@@ -15,6 +15,14 @@ const propTypes = {
     published: PropTypes.bool
 };
 
+const defaultProps = {
+    closeModal: () => {},
+    submit: () => {},
+    rows: {},
+    isOpen: false,
+    published: false
+};
+
 export default class PublishModal extends React.Component {
     constructor(props) {
         super(props);
@@ -147,3 +155,4 @@ export default class PublishModal extends React.Component {
 }
 
 PublishModal.propTypes = propTypes;
+PublishModal.defaultProps = defaultProps;

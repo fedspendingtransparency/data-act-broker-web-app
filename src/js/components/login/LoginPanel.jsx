@@ -16,6 +16,13 @@ const propTypes = {
     loading: PropTypes.bool
 };
 
+const defaultProps = {
+    performLogin: null,
+    session: null,
+    errorMessage: '',
+    loading: false
+};
+
 export default class LoginPanel extends React.Component {
     constructor(props) {
         super(props);
@@ -90,3 +97,4 @@ export default class LoginPanel extends React.Component {
 }
 
 LoginPanel.propTypes = propTypes;
+LoginPanel.defaultProps = defaultProps;

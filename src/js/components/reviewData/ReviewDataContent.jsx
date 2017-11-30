@@ -20,6 +20,13 @@ const propTypes = {
     submissionID: PropTypes.string
 };
 
+const defaultProps = {
+    data: null,
+    params: null,
+    session: null,
+    submissionID: ''
+};
+
 export default class ReviewDataContent extends React.Component {
     constructor(props) {
         super(props);
@@ -314,3 +321,4 @@ export default class ReviewDataContent extends React.Component {
 }
 
 ReviewDataContent.propTypes = propTypes;
+ReviewDataContent.defaultProps = defaultProps;

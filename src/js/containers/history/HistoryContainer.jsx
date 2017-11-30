@@ -13,6 +13,11 @@ const propTypes = {
     route: PropTypes.object
 };
 
+const defaultProps = {
+    params: {},
+    route: {}
+};
+
 class HistoryContainer extends React.Component {
     constructor(props) {
         super(props);
@@ -26,6 +31,7 @@ class HistoryContainer extends React.Component {
 }
 
 HistoryContainer.propTypes = propTypes;
+HistoryContainer.defaultProps = defaultProps;
 
 export default connect(
     (state) => ({ session: state.session })

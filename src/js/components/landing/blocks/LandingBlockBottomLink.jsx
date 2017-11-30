@@ -9,6 +9,10 @@ const propTypes = {
     onClick: PropTypes.func
 };
 
+const defaultProps = {
+    onClick: null
+};
+
 export default class LandingBlockBottomLink extends React.Component {
     render() {
         return (
@@ -20,3 +24,4 @@ export default class LandingBlockBottomLink extends React.Component {
 }
 
 LandingBlockBottomLink.propTypes = propTypes;
+LandingBlockBottomLink.defaultProps = defaultProps;

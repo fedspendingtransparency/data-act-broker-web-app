@@ -17,7 +17,8 @@ const propTypes = {
 
 const defaultProps = {
     current: 1,
-    total: 1
+    total: 1,
+    changePage: null
 };
 
 export default class DashboardPaginator extends React.Component {

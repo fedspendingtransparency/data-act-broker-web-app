@@ -18,6 +18,18 @@ const propTypes = {
     certifiedLoading: PropTypes.bool
 };
 
+const defaultProps = {
+    loadTableData: null,
+    session: null,
+    activeSubmissions: [],
+    certifiedSubmissions: [],
+    type: '',
+    activeTotal: 0,
+    certifiedTotal: 0,
+    activeLoading: false,
+    certifiedLoading: false
+};
+
 export default class DashboardContent extends React.Component {
     constructor(props) {
         super(props);
@@ -73,3 +85,4 @@ export default class DashboardContent extends React.Component {
 }
 
 DashboardContent.propTypes = propTypes;
+DashboardContent.defaultProps = defaultProps;

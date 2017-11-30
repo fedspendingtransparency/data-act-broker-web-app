@@ -22,6 +22,9 @@ const propTypes = {
 };
 
 const defaultProps = {
+    setCrossFileStage: () => {},
+    setUploadItem: () => {},
+    submission: {},
     file: {
         letter: '',
         name: '',

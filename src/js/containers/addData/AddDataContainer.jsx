@@ -24,6 +24,12 @@ const propTypes = {
     submission: PropTypes.object
 };
 
+const defaultProps = {
+    setSubmissionId: () => {},
+    setSubmissionState: () => {},
+    submission: {}
+};
+
 class AddDataContainer extends React.Component {
     constructor(props) {
         super(props);
@@ -107,6 +113,7 @@ class AddDataContainer extends React.Component {
 }
 
 AddDataContainer.propTypes = propTypes;
+AddDataContainer.defaultProps = defaultProps;
 
 export default connect(
     (state) => ({ submission: state.submission }),

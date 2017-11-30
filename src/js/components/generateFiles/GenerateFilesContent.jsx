@@ -15,6 +15,13 @@ const propTypes = {
     d2: PropTypes.object
 };
 
+const defaultProps = {
+    handleDateChange: null,
+    updateError: null,
+    d1: null,
+    d2: null
+};
+
 export default class GenerateFilesContent extends React.Component {
     handleDateChange(file, date, dateType) {
         this.props.handleDateChange(file, date, dateType);
@@ -66,3 +73,4 @@ export default class GenerateFilesContent extends React.Component {
 }
 
 GenerateFilesContent.propTypes = propTypes;
+GenerateFilesContent.defaultProps = defaultProps;

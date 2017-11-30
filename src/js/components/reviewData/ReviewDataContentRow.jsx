@@ -10,6 +10,11 @@ const propTypes = {
     label: PropTypes.string
 };
 
+const defaultProps = {
+    data: '',
+    label: ''
+};
+
 export default class ReviewDataContentRow extends React.Component {
     render() {
         return (
@@ -22,3 +27,4 @@ export default class ReviewDataContentRow extends React.Component {
 }
 
 ReviewDataContentRow.propTypes = propTypes;
+ReviewDataContentRow.defaultProps = defaultProps;

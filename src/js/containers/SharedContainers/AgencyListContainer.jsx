@@ -19,6 +19,8 @@ const propTypes = {
 };
 
 const defaultProps = {
+    setAgencyList: () => {},
+    agencyList: {},
     detached: true
 };
 

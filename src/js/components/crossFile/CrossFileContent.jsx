@@ -14,6 +14,12 @@ const propTypes = {
     submission: PropTypes.object
 };
 
+const defaultProps = {
+    reloadData: null,
+    uploadFiles: null,
+    submission: null
+};
+
 export default class CrossFileContent extends React.Component {
     constructor(props) {
         super(props);
@@ -135,3 +141,4 @@ export default class CrossFileContent extends React.Component {
 }
 
 CrossFileContent.propTypes = propTypes;
+CrossFileContent.defaultProps = defaultProps;

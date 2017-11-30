@@ -17,6 +17,13 @@ const propTypes = {
     requestName: PropTypes.string.isRequired
 };
 
+const defaultProps = {
+    onDrop: null,
+    resetSubmission: null,
+    submission: null,
+    fileTitle: ''
+};
+
 export default class DropZone extends React.Component {
     constructor(props) {
         super(props);
@@ -73,3 +80,4 @@ export default class DropZone extends React.Component {
 }
 
 DropZone.propTypes = propTypes;
+DropZone.defaultProps = defaultProps;

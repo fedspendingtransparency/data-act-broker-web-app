@@ -14,7 +14,9 @@ const propTypes = {
 };
 
 const defaultProps = {
-    files: []
+    files: [],
+    meta: null,
+    submission: null
 };
 
 export default class FileWarning extends React.Component {

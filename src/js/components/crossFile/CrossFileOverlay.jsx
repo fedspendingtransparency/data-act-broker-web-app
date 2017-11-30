@@ -23,7 +23,12 @@ const propTypes = {
 
 const defaultProps = {
     errors: ['error'],
-    loading: true
+    loading: true,
+    uploadFiles: null,
+    session: null,
+    submission: null,
+    agencyName: '',
+    mode: ''
 };
 
 export default class CrossFileOverlay extends React.Component {

@@ -23,6 +23,16 @@ const propTypes = {
     publishing: PropTypes.bool
 };
 
+const defaultProps = {
+    onFileChange: () => {},
+    item: {},
+    session: {},
+    submission: {},
+    type: {},
+    agencyName: '',
+    publishing: false
+};
+
 export default class ValidateDataFileComponent extends React.Component {
     constructor(props) {
         super(props);
@@ -441,3 +451,4 @@ export default class ValidateDataFileComponent extends React.Component {
 }
 
 ValidateDataFileComponent.propTypes = propTypes;
+ValidateDataFileComponent.defaultProps = defaultProps;

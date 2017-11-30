@@ -15,6 +15,12 @@ const propTypes = {
     type: PropTypes.string
 };
 
+const defaultProps = {
+    data: {},
+    submission: '',
+    type: ''
+};
+
 export default class ValidateDataErrorReport extends React.Component {
     constructor(props) {
         super(props);
@@ -131,3 +137,4 @@ export default class ValidateDataErrorReport extends React.Component {
 }
 
 ValidateDataErrorReport.propTypes = propTypes;
+ValidateDataErrorReport.defaultProps = defaultProps;

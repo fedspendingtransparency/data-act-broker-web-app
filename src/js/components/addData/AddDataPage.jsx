@@ -18,6 +18,12 @@ const propTypes = {
     submission: PropTypes.object
 };
 
+const defaultProps = {
+    updateMetaData: null,
+    route: null,
+    submission: null
+};
+
 export default class AddDataPage extends React.Component {
     constructor(props) {
         super(props);
@@ -48,3 +54,4 @@ export default class AddDataPage extends React.Component {
 }
 
 AddDataPage.propTypes = propTypes;
+AddDataPage.defaultProps = defaultProps;

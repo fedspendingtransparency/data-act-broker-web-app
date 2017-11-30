@@ -20,7 +20,12 @@ const propTypes = {
 };
 
 const defaultProps = {
-    state: 'incomplete'
+    state: 'incomplete',
+    generateFiles: null,
+    nextPage: null,
+    session: null,
+    errorDetails: '',
+    submissionID: ''
 };
 
 export default class GenerateFilesOverlay extends React.Component {

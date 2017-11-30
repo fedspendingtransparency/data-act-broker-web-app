@@ -18,6 +18,13 @@ const propTypes = {
     isOpen: PropTypes.bool
 };
 
+const defaultProps = {
+    closeModal: null,
+    data: null,
+    submissionID: '',
+    isOpen: false
+};
+
 export default class RevalidateDataModal extends React.Component {
     constructor(props) {
         super(props);
@@ -112,3 +119,4 @@ export default class RevalidateDataModal extends React.Component {
 }
 
 RevalidateDataModal.propTypes = propTypes;
+RevalidateDataModal.defaultProps = defaultProps;

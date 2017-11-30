@@ -7,12 +7,14 @@ import React, { PropTypes } from 'react';
 import * as Icons from '../icons/Icons';
 
 const propTypes = {
-    onSort: PropTypes.func.isRequired,
+    onSort: PropTypes.func,
     active: PropTypes.string,
     col: PropTypes.number
 };
 
 const defaultProps = {
+    onSort: () => {},
+    col: 0,
     active: ''
 };
 

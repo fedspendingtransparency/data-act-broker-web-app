@@ -16,6 +16,13 @@ const propTypes = {
     fileTypes: PropTypes.array
 };
 
+const defaultProps = {
+    performUpload: null,
+    metaData: null,
+    submission: null,
+    fileTypes: []
+};
+
 export default class AddDataContent extends React.Component {
     constructor(props) {
         super(props);
@@ -121,3 +128,4 @@ export default class AddDataContent extends React.Component {
 }
 
 AddDataContent.propTypes = propTypes;
+AddDataContent.defaultProps = defaultProps;

@@ -23,7 +23,8 @@ const defaultProps = {
     sortable: true,
     cellClasses: [],
     headerClasses: [],
-    unsortable: []
+    unsortable: [],
+    onSort: () => {}
 };
 
 export default class FormattedTable extends React.Component {

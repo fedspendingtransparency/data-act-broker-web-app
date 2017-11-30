@@ -25,7 +25,8 @@ const defaultProps = {
         secondKey: '',
         secondName: '',
         secondType: ''
-    }
+    },
+    status: null
 };
 
 export default class CrossFileItem extends React.Component {

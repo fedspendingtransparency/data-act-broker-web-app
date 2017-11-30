@@ -18,6 +18,10 @@ const propTypes = {
     updateMetaData: PropTypes.func
 };
 
+const defaultProps = {
+    updateMetaData: null
+};
+
 export default class AddDataMeta extends React.Component {
     constructor(props) {
         super(props);
@@ -279,3 +283,4 @@ export default class AddDataMeta extends React.Component {
 }
 
 AddDataMeta.propTypes = propTypes;
+AddDataMeta.defaultProps = defaultProps;

@@ -21,7 +21,8 @@ const defaultProps = {
     iconClass: '',
     header: '',
     detail: null,
-    showButtons: true
+    showButtons: true,
+    children: null
 };
 
 export default class CommonOverlay extends React.Component {

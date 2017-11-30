@@ -10,6 +10,11 @@ const propTypes = {
     label: PropTypes.string
 };
 
+const defaultProps = {
+    icon: null,
+    label: ''
+};
+
 export default class ReviewDataButton extends React.Component {
     render() {
         return (
@@ -23,3 +28,4 @@ export default class ReviewDataButton extends React.Component {
 }
 
 ReviewDataButton.propTypes = propTypes;
+ReviewDataButton.defaultProps = defaultProps;

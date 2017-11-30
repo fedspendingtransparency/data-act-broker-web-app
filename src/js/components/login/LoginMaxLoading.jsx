@@ -11,6 +11,10 @@ const propTypes = {
     errorMessage: PropTypes.string
 };
 
+const defaultProps = {
+    errorMessage: ''
+};
+
 const maxUrl = "https://community.max.gov/pages/viewpage.action?spaceKey=TREASExternal&" +
     "title=DATA+Act+Broker+Registration";
 
@@ -52,3 +56,4 @@ export default class LoginMaxLoading extends React.Component {
 }
 
 LoginMaxLoading.propTypes = propTypes;
+LoginMaxLoading.defaultProps = defaultProps;

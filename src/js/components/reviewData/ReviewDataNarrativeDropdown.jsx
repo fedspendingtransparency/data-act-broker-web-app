@@ -9,6 +9,10 @@ const propTypes = {
     changeFile: PropTypes.func
 };
 
+const defaultProps = {
+    changeFile: null
+};
+
 export default class ReviewDataNarrativeDropdown extends React.Component {
     changeFile(e) {
         e.preventDefault();
@@ -32,3 +36,4 @@ export default class ReviewDataNarrativeDropdown extends React.Component {
 }
 
 ReviewDataNarrativeDropdown.propTypes = propTypes;
+ReviewDataNarrativeDropdown.defaultProps = defaultProps;

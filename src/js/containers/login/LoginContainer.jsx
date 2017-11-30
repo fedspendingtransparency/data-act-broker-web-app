@@ -18,6 +18,10 @@ const propTypes = {
     location: PropTypes.object
 };
 
+const defaultProps = {
+    location: {}
+};
+
 class LoginContainer extends React.Component {
     constructor(props) {
         super(props);
@@ -72,6 +76,7 @@ class LoginContainer extends React.Component {
 }
 
 LoginContainer.propTypes = propTypes;
+LoginContainer.defaultProps = defaultProps;
 
 export default connect(
     (state) => ({ session: state.session }),

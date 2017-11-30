@@ -13,6 +13,10 @@ const propTypes = {
     route: PropTypes.object
 };
 
+const defaultProps = {
+    route: null
+};
+
 export default class DashboardPage extends React.Component {
     constructor(props) {
         super(props);
@@ -58,3 +62,4 @@ export default class DashboardPage extends React.Component {
 }
 
 DashboardPage.propTypes = propTypes;
+DashboardPage.defaultProps = defaultProps;

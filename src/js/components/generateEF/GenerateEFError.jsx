@@ -9,6 +9,10 @@ const propTypes = {
     message: PropTypes.string
 };
 
+const defaultProps = {
+    message: ''
+};
+
 export default class GenerateEFError extends React.Component {
     render() {
         return (
@@ -20,3 +24,4 @@ export default class GenerateEFError extends React.Component {
 }
 
 GenerateEFError.propTypes = propTypes;
+GenerateEFError.defaultProps = defaultProps;

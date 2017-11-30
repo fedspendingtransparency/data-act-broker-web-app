@@ -21,7 +21,8 @@ const defaultProps = {
     headers: ['Table Data Missing'],
     sortable: true,
     cellClasses: [],
-    headerClasses: []
+    headerClasses: [],
+    onSort: () => {}
 };
 
 export default class ScrollableTable extends React.Component {

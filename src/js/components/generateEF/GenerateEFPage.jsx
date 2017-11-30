@@ -16,6 +16,11 @@ const propTypes = {
     route: PropTypes.object
 };
 
+const defaultProps = {
+    params: null,
+    route: null
+};
+
 export default class GenerateEFPage extends React.Component {
     constructor(props) {
         super(props);
@@ -60,3 +65,4 @@ export default class GenerateEFPage extends React.Component {
 }
 
 GenerateEFPage.propTypes = propTypes;
+GenerateEFPage.defaultProps = defaultProps;

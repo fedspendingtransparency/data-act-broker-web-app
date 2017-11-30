@@ -22,7 +22,8 @@ export const StatusTypes = {
 };
 
 const defaultProps = {
-    status: StatusTypes.UNKNOWN
+    status: StatusTypes.UNKNOWN,
+    certified: false
 };
 
 export class SubmissionStatus extends React.Component {

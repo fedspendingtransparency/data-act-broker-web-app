@@ -13,6 +13,11 @@ const propTypes = {
     type: PropTypes.string
 };
 
+const defaultProps = {
+    section: null,
+    type: ''
+};
+
 export default class ResourcesContent extends React.Component {
     constructor(props) {
         super(props);
@@ -311,3 +316,4 @@ export default class ResourcesContent extends React.Component {
 }
 
 ResourcesContent.propTypes = propTypes;
+ResourcesContent.defaultProps = defaultProps;

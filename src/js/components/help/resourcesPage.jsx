@@ -18,6 +18,12 @@ const propTypes = {
     helpOnly: PropTypes.bool
 };
 
+const defaultProps = {
+    route: null,
+    type: '',
+    helpOnly: false
+};
+
 export default class ResourcesPage extends React.Component {
     constructor(props) {
         super(props);
@@ -79,3 +85,4 @@ export default class ResourcesPage extends React.Component {
 }
 
 ResourcesPage.propTypes = propTypes;
+ResourcesPage.defaultProps = defaultProps;

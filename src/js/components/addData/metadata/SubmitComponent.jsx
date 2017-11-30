@@ -13,7 +13,9 @@ const propTypes = {
 };
 
 const defaultProps = {
-    disabled: false
+    disabled: false,
+    onSubmit: null,
+    message: ''
 };
 
 export default class SubmitComponent extends React.Component {

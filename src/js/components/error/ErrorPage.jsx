@@ -6,6 +6,11 @@ const propTypes = {
     helpOnly: PropTypes.bool
 };
 
+const defaultProps = {
+    type: '',
+    helpOnly: false
+};
+
 export default class ErrorPage extends React.Component {
     render() {
         return (
@@ -30,3 +35,4 @@ export default class ErrorPage extends React.Component {
 }
 
 ErrorPage.propTypes = propTypes;
+ErrorPage.defaultProps = defaultProps;

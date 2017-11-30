@@ -21,6 +21,10 @@ const propTypes = {
 };
 
 const defaultProps = {
+    params: {},
+    route: {},
+    submissionId: '',
+    csv_url: [],
     link_array: [null],
     subID: null
 };

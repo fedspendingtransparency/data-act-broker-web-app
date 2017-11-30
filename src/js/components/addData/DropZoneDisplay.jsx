@@ -11,7 +11,9 @@ const propTypes = {
 
 const defaultProps = {
     showFile: false,
-    string: ''
+    string: '',
+    displayMode: '',
+    progress: 0
 };
 
 export default class DropZoneDisplay extends React.Component {

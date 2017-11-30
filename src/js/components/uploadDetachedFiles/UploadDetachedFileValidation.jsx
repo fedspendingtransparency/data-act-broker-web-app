@@ -30,6 +30,15 @@ const propTypes = {
     submission: PropTypes.object
 };
 
+const defaultProps = {
+    setSubmissionState: () => {},
+    item: {},
+    params: {},
+    route: {},
+    session: {},
+    submission: {}
+};
+
 const timerDuration = 5;
 
 class UploadDetachedFileValidation extends React.Component {
@@ -540,6 +549,7 @@ class UploadDetachedFileValidation extends React.Component {
 }
 
 UploadDetachedFileValidation.propTypes = propTypes;
+UploadDetachedFileValidation.defaultProps = defaultProps;
 
 export default connect(
     (state) => ({ session: state.session })

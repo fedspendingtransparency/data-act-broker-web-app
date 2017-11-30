@@ -21,7 +21,8 @@ const propTypes = {
 
 const defaultProps = {
     isOpen: false,
-    closeModal: () => {}
+    closeModal: () => {},
+    submissionID: ''
 };
 
 export default class ReviewDataNotifyModal extends React.Component {

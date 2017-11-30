@@ -20,7 +20,11 @@ const propTypes = {
 const defaultProps = {
     fileType: '',
     name: '',
-    fileKey: ''
+    fileKey: '',
+    status: '',
+    toggleUploadBox: null,
+    session: null,
+    agencyName: ''
 };
 
 export default class FileComponent extends React.Component {

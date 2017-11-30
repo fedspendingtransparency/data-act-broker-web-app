@@ -10,6 +10,11 @@ const propTypes = {
     expanded: PropTypes.bool
 };
 
+const defaultProps = {
+    buttonClicked: null,
+    expanded: false
+};
+
 export default class ReplacementButton extends React.Component {
     render() {
         let icon = <Icons.Trash />;
@@ -30,3 +35,4 @@ export default class ReplacementButton extends React.Component {
 }
 
 ReplacementButton.propTypes = propTypes;
+ReplacementButton.defaultProps = defaultProps;

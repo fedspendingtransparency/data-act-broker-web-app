@@ -10,6 +10,10 @@ const propTypes = {
     data: PropTypes.object
 };
 
+const defaultProps = {
+    data: null
+};
+
 export default class MetaData extends React.Component {
     render() {
         return (
@@ -26,3 +30,4 @@ export default class MetaData extends React.Component {
 }
 
 MetaData.propTypes = propTypes;
+MetaData.defaultProps = defaultProps;

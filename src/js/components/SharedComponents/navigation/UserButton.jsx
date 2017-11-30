@@ -6,6 +6,11 @@ const propTypes = {
     buttonText: PropTypes.string
 };
 
+const defaultProps = {
+    logout: () => {},
+    buttonText: ''
+};
+
 export default class UserButton extends React.Component {
     constructor(props) {
         super(props);
@@ -56,3 +61,4 @@ export default class UserButton extends React.Component {
 }
 
 UserButton.propTypes = propTypes;
+UserButton.defaultProps = defaultProps;

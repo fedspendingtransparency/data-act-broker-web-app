@@ -19,6 +19,10 @@ const propTypes = {
     submission: PropTypes.object
 };
 
+const defaultProps = {
+    submission: {}
+};
+
 class ValidationOverlayContainer extends React.Component {
     constructor(props) {
         super(props);
@@ -80,6 +84,7 @@ class ValidationOverlayContainer extends React.Component {
 }
 
 ValidationOverlayContainer.propTypes = propTypes;
+ValidationOverlayContainer.defaultProps = defaultProps;
 
 export default connect(
     (state) => ({ submission: state.submission }),

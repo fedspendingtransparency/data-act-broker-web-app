@@ -17,6 +17,11 @@ const propTypes = {
     subTierAgencyList: PropTypes.object
 };
 
+const defaultProps = {
+    setSubTierAgencyList: () => {},
+    subTierAgencyList: {}
+};
+
 class SubTierAgencyListContainer extends React.Component {
     componentDidMount() {
         this.loadData();
@@ -53,6 +58,7 @@ class SubTierAgencyListContainer extends React.Component {
 }
 
 SubTierAgencyListContainer.propTypes = propTypes;
+SubTierAgencyListContainer.defaultProps = defaultProps;
 
 export default connect(
     (state) => ({ subTierAgencyList: state.subTierAgencyList }),

@@ -17,6 +17,13 @@ const propTypes = {
     type: PropTypes.string
 };
 
+const defaultProps = {
+    colors: {},
+    data: [],
+    containerWidth: 100,
+    type: ''
+};
+
 class ValidateValuesTreemap extends React.Component {
     constructor(props) {
         super(props);
@@ -132,5 +139,6 @@ class ValidateValuesTreemap extends React.Component {
 }
 
 ValidateValuesTreemap.propTypes = propTypes;
+ValidateValuesTreemap.defaultProps = defaultProps;
 
 export default Dimensions()(ValidateValuesTreemap);

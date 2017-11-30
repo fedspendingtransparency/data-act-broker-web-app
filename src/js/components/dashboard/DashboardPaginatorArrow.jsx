@@ -13,7 +13,8 @@ const propTypes = {
 };
 
 const defaultProps = {
-    direction: 'left'
+    direction: 'left',
+    moveDirection: null
 };
 
 export default class DashboardPaginatorArrow extends React.Component {

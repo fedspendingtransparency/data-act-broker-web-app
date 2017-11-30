@@ -14,6 +14,11 @@ const propTypes = {
     type: PropTypes.string
 };
 
+const defaultProps = {
+    submissionID: '',
+    type: ''
+};
+
 export default class HistoryPage extends React.Component {
     constructor(props) {
         super(props);
@@ -45,3 +50,4 @@ export default class HistoryPage extends React.Component {
 }
 
 HistoryPage.propTypes = propTypes;
+HistoryPage.defaultProps = defaultProps;

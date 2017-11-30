@@ -16,6 +16,11 @@ const propTypes = {
     route: PropTypes.object
 };
 
+const defaultProps = {
+    params: null,
+    route: null
+};
+
 export default class CrossFilePage extends React.Component {
     constructor(props) {
         super(props);
@@ -76,3 +81,4 @@ export default class CrossFilePage extends React.Component {
 }
 
 CrossFilePage.propTypes = propTypes;
+CrossFilePage.defaultProps = defaultProps;

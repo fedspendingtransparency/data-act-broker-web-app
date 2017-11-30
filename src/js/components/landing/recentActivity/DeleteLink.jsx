@@ -17,6 +17,15 @@ const propTypes = {
     confirm: PropTypes.bool
 };
 
+const defaultProps = {
+    reload: null,
+    warning: null,
+    account: null,
+    item: null,
+    submissionId: null,
+    confirm: false
+};
+
 export default class DeleteLink extends React.Component {
     constructor(props) {
         super(props);
@@ -111,3 +120,4 @@ export default class DeleteLink extends React.Component {
 }
 
 DeleteLink.propTypes = propTypes;
+DeleteLink.defaultProps = defaultProps;

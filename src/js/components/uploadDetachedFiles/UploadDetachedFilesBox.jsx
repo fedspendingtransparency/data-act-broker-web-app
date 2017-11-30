@@ -13,6 +13,12 @@ const propTypes = {
     submission: PropTypes.object
 };
 
+const defaultProps = {
+    uploadFile: () => {},
+    detachedAward: {},
+    submission: {}
+};
+
 export default class UploadDetachedFilesBox extends React.Component {
     uploadFile(file) {
         this.props.uploadFile(file);
@@ -49,3 +55,4 @@ export default class UploadDetachedFilesBox extends React.Component {
 }
 
 UploadDetachedFilesBox.propTypes = propTypes;
+UploadDetachedFilesBox.defaultProps = defaultProps;

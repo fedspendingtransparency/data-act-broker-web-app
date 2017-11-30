@@ -13,6 +13,10 @@ const propTypes = {
     type: PropTypes.string
 };
 
+const defaultProps = {
+    type: ''
+};
+
 export default class LandingRequirementsModal extends React.Component {
     constructor(props) {
         super(props);
@@ -65,3 +69,4 @@ export default class LandingRequirementsModal extends React.Component {
 }
 
 LandingRequirementsModal.propTypes = propTypes;
+LandingRequirementsModal.defaultProps = defaultProps;

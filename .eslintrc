@@ -93,43 +93,30 @@
         "react/display-name": [0, { "ignoreTranspilerName": true }],
         "no-unneeded-ternary": [2, {"defaultAssignment": true}],
 
-        // "react/wrap-multilines": [2],
-
         // TODO
-        // 434 problems
-        "import/prefer-default-export": [0],
-        "arrow-body-style": [0],
+        "import/prefer-default-export": [0], // 8
+        "arrow-body-style": [0], // 16
         "prefer-destructuring": [0], // 77
-        "no-undef": [0],
         "prefer-template": [0], // 284
         "no-prototype-builtins": [0],
-
-        // 786 problems
-        "function-paren-newline": [0], //61
-        // "react/require-default-props": [0], // 451
+        "function-paren-newline": [0], //61 
         "react/forbid-prop-types": [0], // 182
         "react/no-unused-state": [0], // 92
-
-        // 104 problems
-        "no-useless-constructor": [0],
-        "react/no-string-refs": [0],
-        "no-undef-init": [0],
-        "react/no-array-index-key": [0],
-        "array-callback-return": [0],
-        "jsx-a11y/no-static-element-interactions": [0],
-        "jsx-a11y/click-events-have-key-events": [0],
-        "no-useless-return": [0],
-
-        // 94 problems
+        "no-useless-constructor": [0], // 30
+        "react/no-string-refs": [0], // 17
+        "react/no-array-index-key": [0], // 12
+        "array-callback-return": [0], // 1
+        "jsx-a11y/no-static-element-interactions": [0], // 17
+        "jsx-a11y/click-events-have-key-events": [0], // 19
+        "no-useless-return": [0], // 7
         // NEEDS TO BE TESTED (31 instances)
-        "react/no-unused-prop-types": [0],
-        "jsx-a11y/anchor-is-valid": [0],
-        "jsx-a11y/label-has-for": [0],
-        "jsx-a11y/mouse-events-have-key-events": [0],
-        "react/no-unescaped-entities": [0],
-        "jsx-a11y/tabindex-no-positive": [0],
-        "jsx-a11y/no-noninteractive-element-interactions": [0],
-        "react/no-danger": [0],
-        "import/no-extraneous-dependencies": [0]
+        "react/no-unused-prop-types": [0], // 31
+        "jsx-a11y/anchor-is-valid": [0], // 28
+        "jsx-a11y/label-has-for": [0], // 6
+        "react/no-unescaped-entities": [0], // 13
+        "jsx-a11y/tabindex-no-positive": [0], // 2
+        "jsx-a11y/no-noninteractive-element-interactions": [0], // 3
+        "react/no-danger": [0], // 6
+        "import/no-extraneous-dependencies": [0] // 3
     }
 }

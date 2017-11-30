@@ -14,6 +14,10 @@ const propTypes = {
     type: PropTypes.string
 };
 
+const defaultProps = {
+    type: ''
+};
+
 export default class ValidationRulesTableContent extends React.Component {
     constructor(props) {
         super(props);
@@ -163,3 +167,4 @@ export default class ValidationRulesTableContent extends React.Component {
 }
 
 ValidationRulesTableContent.propTypes = propTypes;
+ValidationRulesTableContent.defaultProps = defaultProps;

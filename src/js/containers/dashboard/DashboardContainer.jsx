@@ -14,6 +14,10 @@ const propTypes = {
     type: PropTypes.string
 };
 
+const defaultProps = {
+    type: ""
+};
+
 class DashboardContainer extends React.Component {
     constructor(props) {
         super(props);
@@ -68,6 +72,7 @@ class DashboardContainer extends React.Component {
 }
 
 DashboardContainer.propTypes = propTypes;
+DashboardContainer.defaultProps = defaultProps;
 
 export default connect(
     (state) => ({ session: state.session })

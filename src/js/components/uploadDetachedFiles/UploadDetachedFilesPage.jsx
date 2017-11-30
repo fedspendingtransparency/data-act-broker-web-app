@@ -21,6 +21,15 @@ const propTypes = {
     submission: PropTypes.object
 };
 
+const defaultProps = {
+    setSubmissionId: () => {},
+    setSubmissionState: () => {},
+    history: {},
+    params: {},
+    route: {},
+    submission: {}
+};
+
 export default class UploadDetachedFilesPage extends React.Component {
     constructor(props) {
         super(props);
@@ -56,7 +65,7 @@ export default class UploadDetachedFilesPage extends React.Component {
 
     updateMeta(meta) {
         this.setState({
-            meta
+            showMeta: meta
         });
     }
 
@@ -106,3 +115,4 @@ export default class UploadDetachedFilesPage extends React.Component {
 }
 
 UploadDetachedFilesPage.propTypes = propTypes;
+UploadDetachedFilesPage.defaultProps = defaultProps;

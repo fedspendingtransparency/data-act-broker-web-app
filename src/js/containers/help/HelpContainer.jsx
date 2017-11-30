@@ -18,6 +18,11 @@ const propTypes = {
     session: PropTypes.object
 };
 
+const defaultProps = {
+    route: {},
+    session: {}
+};
+
 class HelpPageContainer extends React.Component {
     constructor(props) {
         super(props);
@@ -96,6 +101,7 @@ class HelpPageContainer extends React.Component {
 }
 
 HelpPageContainer.propTypes = propTypes;
+HelpPageContainer.defaultProps = defaultProps;
 
 export default connect(
     (state) => ({ session: state.session })

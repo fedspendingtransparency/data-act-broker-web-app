@@ -14,6 +14,7 @@ const propTypes = {
 };
 
 const defaultProps = {
+    changePage: null,
     current: false,
     value: 1,
     showLead: false,
