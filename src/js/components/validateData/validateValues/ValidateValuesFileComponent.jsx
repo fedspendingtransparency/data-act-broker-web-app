@@ -37,18 +37,6 @@ export default class ValidateValuesFileComponent extends React.Component {
         this.isUnmounted = false;
 
         this.determineErrors(this.props.item);
-        if (this.props.submission.id != null) {
-            ReviewHelper.fetchStatus(this.props.submission.id)
-                .then((data) => {
-                    data.ready = true;
-                    if (!this.isUnmounted) {
-                        this.setState(data);
-                    }
-                })
-                .catch((error) => {
-                    console.log(error);
-                });
-        }
     }
 
     componentWillUnmount(){
@@ -212,10 +200,10 @@ export default class ValidateValuesFileComponent extends React.Component {
 
         let permission = false;
         if (this.props.type.requestName == 'detached_award') {
-            permission = PermissionsHelper.checkFabsAgencyPermissions(this.props.session, this.state.agency_name);
+            permission = PermissionsHelper.checkFabsAgencyPermissions(this.props.session, this.props.agencyName);
         }
         else {
-            permission = PermissionsHelper.checkAgencyPermissions(this.props.session, this.state.agency_name);
+            permission = PermissionsHelper.checkAgencyPermissions(this.props.session, this.props.agencyName);
         }
 
         let buttonOverlay = '', validationElement = '', isOptional = false, uploadText = 'Choose Corrected File';
