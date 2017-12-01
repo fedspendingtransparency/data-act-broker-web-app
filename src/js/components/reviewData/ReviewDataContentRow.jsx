@@ -1,13 +1,18 @@
 /**
  * ReviewDataContentRow.jsx
  * Created by Mike Bray 4/5/16
- **/
+ */
 
 import React, { PropTypes } from 'react';
-import moment from 'moment';
 
 const propTypes = {
+    data: PropTypes.string,
     label: PropTypes.string
+};
+
+const defaultProps = {
+    data: '',
+    label: ''
 };
 
 export default class ReviewDataContentRow extends React.Component {
@@ -22,3 +27,4 @@ export default class ReviewDataContentRow extends React.Component {
 }
 
 ReviewDataContentRow.propTypes = propTypes;
+ReviewDataContentRow.defaultProps = defaultProps;

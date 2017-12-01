@@ -1,14 +1,29 @@
 /**
   * DateDropdown.jsx
   * Created by Kevin Li 5/19/16
-  **/
+  */
 
-import React from 'react';
+import React, { PropTypes } from 'react';
 import moment from 'moment';
-import * as UtilHelper from '../../../helpers/util.js';
+import * as UtilHelper from '../../../helpers/util';
+
+const propTypes = {
+    onChange: PropTypes.func,
+    startEndType: PropTypes.string,
+    type: PropTypes.string,
+    value: PropTypes.string,
+    hasError: PropTypes.bool
+};
+
+const defaultProps = {
+    onChange: null,
+    startEndType: '',
+    type: '',
+    value: '',
+    hasError: false
+};
 
 export default class DateDropdown extends React.Component {
-
     constructor(props) {
         super(props);
 
@@ -22,14 +37,14 @@ export default class DateDropdown extends React.Component {
         this.setValue();
     }
 
-    componentDidUpdate(prevProps, prevState) {
-        if (this.props.type != prevProps.type || this.props.value != prevProps.value) {
+    componentDidUpdate(prevProps) {
+        if (this.props.type !== prevProps.type || this.props.value !== prevProps.value) {
             this.setValue();
         }
     }
 
     setValue() {
-        if (this.props.type == "quarter") {
+        if (this.props.type === "quarter") {
             this.setState({
                 quarter: this.props.value
             });
@@ -41,32 +56,32 @@ export default class DateDropdown extends React.Component {
         }
     }
 
-	generateDates() {
-    	const months = [];
-    	const years = [];
+    generateDates() {
+        const months = [];
+        const years = [];
 
-    	for (let i = 0; i < 12; i++) {
-    		months.push({
-    			string: moment().month(i).format('MMMM'),
-    			value: moment().month(i).format('MM'),
-    		});
-    	}
+        for (let i = 0; i < 12; i++) {
+            months.push({
+                string: moment().month(i).format('MMMM'),
+                value: moment().month(i).format('MM')
+            });
+        }
 
-    	for (let i = -2; i <= 1; i++) {
-    		years.push(moment().add(i, 'years').format('YYYY'));
-    	}
+        for (let i = -2; i <= 1; i++) {
+            years.push(moment().add(i, 'years').format('YYYY'));
+        }
 
-    	const dates = [];
-    	years.forEach((year) => {
-    		months.forEach((month) => {
-    			dates.push({
-    				string: month.string + ' ' + year,
-    				value: month.value + '/' + year + '-' + month.value + '/' + year
-    			});
-    		});
-    	});
+        const dates = [];
+        years.forEach((year) => {
+            months.forEach((month) => {
+                dates.push({
+                    string: month.string + ' ' + year,
+                    value: month.value + '/' + year + '-' + month.value + '/' + year
+                });
+            });
+        });
 
-    	return dates;
+        return dates;
     }
 
     generateQuarters() {
@@ -89,36 +104,41 @@ export default class DateDropdown extends React.Component {
     }
 
     dateChanged(e) {
-    	e.preventDefault();
-    	this.props.onChange(e.target.value);
+        e.preventDefault();
+        this.props.onChange(e.target.value);
     }
 
-	render() {
-
+    render() {
         let value;
         let dates;
-        if (this.props.type == "quarter") {
+        if (this.props.type === "quarter") {
             dates = this.generateQuarters().map((date, index) => {
                 return <option key={index} value={date.value}>{date.string}</option>;
             });
             value = this.state.quarter;
         }
         else {
-    		dates = this.generateDates().map((date, index) => {
-            	return <option key={index} value={date.value}>{date.string}</option>;
-    		});
+            dates = this.generateDates().map((date, index) => {
+                return <option key={index} value={date.value}>{date.string}</option>;
+            });
             value = this.state.month;
         }
 
-		let errorClass = '';
+        let errorClass = '';
         if (this.props.hasError) {
             errorClass = ' error';
         }
 
-		return (
-			<select className={"usa-da-date-dropdown" + errorClass} onChange={this.dateChanged.bind(this)} value={value}>
-        		{dates}
-        	</select>
-		);
-	}
+        return (
+            <select
+                className={"usa-da-date-dropdown" + errorClass}
+                onChange={this.dateChanged.bind(this)}
+                value={value}>
+                {dates}
+            </select>
+        );
+    }
 }
+
+DateDropdown.propTypes = propTypes;
+DateDropdown.defaultProps = defaultProps;

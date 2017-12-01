@@ -1,82 +1,78 @@
 /**
   * IconSingleton.js
   * Created by Kevin Li 7/19/16
-  **/
+  */
 
 import Request from 'superagent';
 import xmldoc from 'xmldoc';
 import uuid from 'node-uuid';
-import { kGlobalConstants } from '../../../GlobalConstants.js';
 
 class IconSingleton {
-	constructor() {
+    constructor() {
+        this.subscribers = {};
+        this.svgCache = {};
+        this.svgLoaded = false;
+        this.svgRequested = false;
+    }
 
-		this.subscribers = {};
-		this.svgCache = {};
-		this.svgLoaded = false;
-		this.svgRequested = false;
+    downloadIcons() {
+        this.svgRequested = true;
+        Request.get("graphics/icons.svg")
+            .send()
+            .end((err, res) => {
+                if (!err) {
+                    // parse the response
+                    this.parseSvg(res.text);
 
-		return instance;
-	}
+                    // mark the SVG as loaded
+                    this.svgLoaded = true;
 
-	downloadIcons() {
-		this.svgRequested = true;
-		Request.get("graphics/icons.svg")
-			.send()
-			.end((err, res) => {
-				if (!err) {
-					// parse the response
-					this.parseSvg(res.text);
+                    // notify any other icon components that the SVG data is ready
+                    this.notifySubscribers('usa-da-icons.loaded');
+                }
+            });
+    }
 
-					// mark the SVG as loaded
-					this.svgLoaded = true;
+    parseSvg(rawSvg) {
+        // downloaded raw SVG data, send it through an XML parser
+        const data = new xmldoc.XmlDocument(rawSvg);
 
-					// notify any other icon components that the SVG data is ready
-					this.notifySubscribers('usa-da-icons.loaded');
-				}
-			});
-	}
+        // iterate through each symbol and extract the symbol's content XML as a string and also its viewbox attribute
+        data.childrenNamed('symbol').forEach((symbol) => {
+            let childData = '';
+            symbol.eachChild((child) => {
+                childData += child.toString();
+            });
 
-	parseSvg(rawSvg) {
-		// downloaded raw SVG data, send it through an XML parser
-		const data = new xmldoc.XmlDocument(rawSvg);
+            // save all this data into the svg data singleton
+            this.svgCache[symbol.attr.id] = {
+                data: childData,
+                viewBox: symbol.attr.viewBox
+            };
+        });
+    }
 
-		// iterate through each symbol and extract the symbol's content XML as a string and also its viewbox attribute
-		data.childrenNamed('symbol').forEach((symbol) => {
-			let childData = '';
-			symbol.eachChild((child) => {
-				childData += child.toString();
-			});
+    notifySubscribers(event) {
+        // iterate through subscribers to notify them that icons are ready
+        for (const subscriptionId in this.subscribers) {
+            if (this.subscribers.hasOwnProperty(subscriptionId)) {
+                const subscriber = this.subscribers[subscriptionId];
+                subscriber(event);
+            }
+        }
+    }
 
-			// save all this data into the svg data singleton
-			this.svgCache[symbol.attr.id] = {
-				data: childData,
-				viewBox: symbol.attr.viewBox
-			};
-		});
-	}
+    subscribe(subscriber) {
+        // add a subscriber and return a UUID as a subscription ID so they can later unsubscribe
+        const subscriptionId = uuid.v4();
+        this.subscribers[subscriptionId] = subscriber;
+        return subscriptionId;
+    }
 
-
-
-	notifySubscribers(event) {
-		// iterate through subscribers to notify them that icons are ready
-		for (const subscriptionId in this.subscribers) {
-			const subscriber = this.subscribers[subscriptionId];
-			subscriber(event);
-		}
-	}
-
-	subscribe(subscriber) {
-		// add a subscriber and return a UUID as a subscription ID so they can later unsubscribe
-		const subscriptionId = uuid.v4();
-		this.subscribers[subscriptionId] = subscriber;
-		return subscriptionId;
-	}
-
-	unsubscribe(subscriptionId) {
-		// unsubscribe the observer
-		delete this.subscribers[subscriptionId];
-	}
+    unsubscribe(subscriptionId) {
+        // unsubscribe the observer
+        delete this.subscribers[subscriptionId];
+    }
 }
 
 const instance = new IconSingleton();

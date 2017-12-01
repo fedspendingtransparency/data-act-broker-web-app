@@ -1,19 +1,22 @@
 /**
 * NavbarTab.jsx
 * Created by Kyle Fox 2/19/16
-**/
+*/
 
 import React, { PropTypes } from 'react';
 
 const propTypes = {
-    tabClass: PropTypes.string.isRequired,
-    activeTabClassName: PropTypes.string.isRequired
+    activeTabClassName: PropTypes.string,
+    tabClass: PropTypes.string,
+    name: PropTypes.string,
+    comingSoon: PropTypes.bool
 };
 
 const defaultProps = {
     tabClass: 'landing',
     activeTabClassName: 'landing',
-    comingSoon: false
+    comingSoon: false,
+    name: ''
 };
 
 export default class NavbarTab extends React.Component {
@@ -26,30 +29,30 @@ export default class NavbarTab extends React.Component {
                 <li>
                     <a className="usa-da-header-link disabled">{this.props.name}
                         <span className={isActiveClass ? 'sr-only' : ''}>{isActiveClass ? '(current)' : ''}
-                            <div className='comingSoon'></div>
+                            <div className="comingSoon" />
                         </span>
-                    </a>
-                </li>
-            );
-        } else if (this.props.tabClass === 'disabled') {
-            return (
-                <li>
-                    <a className="usa-da-header-link disabled">{this.props.name}
-                        <span className={isActiveClass ? 'sr-only' : ''}>{isActiveClass ? '(current)' : ''}
-                            <div className='permissionsRequired'></div>
-                        </span>
-                    </a>
-                </li>
-            );
-        } else{
-            return (
-                <li className={isActiveClass ? 'active' : ''}>
-                    <a className="usa-da-header-link" href={link}>{this.props.name}
-                        <span className={isActiveClass ? 'sr-only' : ''}>{isActiveClass ? '(current)' : ''}</span>
                     </a>
                 </li>
             );
         }
+        else if (this.props.tabClass === 'disabled') {
+            return (
+                <li>
+                    <a className="usa-da-header-link disabled">{this.props.name}
+                        <span className={isActiveClass ? 'sr-only' : ''}>{isActiveClass ? '(current)' : ''}
+                            <div className="permissionsRequired" />
+                        </span>
+                    </a>
+                </li>
+            );
+        }
+        return (
+            <li className={isActiveClass ? 'active' : ''}>
+                <a className="usa-da-header-link" href={link}>{this.props.name}
+                    <span className={isActiveClass ? 'sr-only' : ''}>{isActiveClass ? '(current)' : ''}</span>
+                </a>
+            </li>
+        );
     }
 }
 

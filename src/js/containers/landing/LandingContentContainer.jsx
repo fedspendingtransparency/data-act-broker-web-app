@@ -1,26 +1,25 @@
 /**
 * LandingContentContainer.jsx
 * Created by Kevin Li 5/31/16
-**/
+*/
 
 import React from 'react';
-import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 
-import LandingContent from '../../components/landing/LandingContent.jsx'
+import LandingContent from '../../components/landing/LandingContent';
 
 class LandingContentContainer extends React.Component {
-	constructor(props) {
-		super(props);
-	}
+    constructor(props) {
+        super(props);
+    }
 
-	render() {
-		return (
-			<LandingContent {...this.props} />
-		);
-	}
+    render() {
+        return (
+            <LandingContent {...this.props} />
+        );
+    }
 }
 
 export default connect(
-	state => ({ session: state.session })
-)(LandingContentContainer)
+    (state) => ({ session: state.session })
+)(LandingContentContainer);

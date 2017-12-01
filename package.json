@@ -30,7 +30,8 @@
     ]
   },
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "lint": "./node_modules/.bin/eslint --config .eslintrc --ext .jsx,.js \"src/js/**\"; exit 0;"
   },
   "repository": {
     "type": "git",
@@ -57,9 +58,11 @@
     "classnames": "^2.2.3",
     "css-loader": "^0.23.1",
     "del": "^2.2.0",
-    "eslint": "^1.10.3",
-    "eslint-config-airbnb": "^3.1.0",
-    "eslint-plugin-react": "^3.14.0",
+    "eslint": "^4.0.0",
+    "eslint-config-airbnb": "^16.0.0",
+    "eslint-plugin-import": "^2.8.0",
+    "eslint-plugin-jsx-a11y": "^6.0.2",
+    "eslint-plugin-react": "^7.4.0",
     "eventemitter2": "^1.0.3",
     "express": "^4.13.3",
     "gulp": "^3.9.0",

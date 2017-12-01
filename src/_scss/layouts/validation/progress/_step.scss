@@ -37,6 +37,10 @@
 		display: inline-block;
 		z-index: 0;
 
+		.stepLink {
+			color: $color-gray-cool-light;
+		}
+
 		span {
 			opacity: 0.3;
 		}

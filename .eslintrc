@@ -1,35 +1,117 @@
+// Use this file as a starting point for your project's .eslintrc.
+// Copy this file, and add rule overrides as needed.
+// the base style guide for this project is Airbnb
+// see: https://github.com/airbnb/javascript
 {
     "extends": "airbnb",
+    "env": {
+        "es6": true
+    },
+    "globals": {
+        "window": true,
+        "document": true
+    },
+    "settings": {
+        "import/resolver": {
+            "node": {
+                "moduleDirectory": ["node_modules", "src/js"]
+            }
+        }
+    },
+    // overrides to the Airbnb style follow
     "rules": {
-        // Override any settings from the airbnb configuration
-        // "indent": [2, 4],
-        "comma-dangle": 0,
-        // To fix
-        "brace-style": 0,
-        "camelcase": 0,
-        "comma-spacing": 0,
-        "dot-notation": 0,
-        "eol-last": 0,
-        "eqeqeq": 0,    // ASAP
-        "guard-for-in": 0,
-        "indent": 0,
-        "key-spacing": 0,
-        "max-len": 0,
-        "no-console": 0,
-        "no-mixed-spaces-and-tabs": 0,
-        "no-multiple-empty-lines": 0,
-        "no-multi-spaces": 0,
-        "no-param-reassign": 0,
-        "no-trailing-spaces": 0,
-        "no-unused-vars": 0,
-        "no-use-before-define": 0,  // ASAP
-        "object-curly-spacing": 0,
-        "object-shorthand": 0,
-        "padded-blocks": 0,
-        "prefer-const": 0,
-        "quote-props": 0,
-        "quotes": 0,
-        "semi": 0,
-        "space-infix-ops": 0,
+        // React indent is more accurate than the regular indent rule
+        "indent": [0],
+        // require 4 spaces in JSX as well
+        "react/jsx-indent": [2, 4],
+        "react/jsx-indent-props": [2, 4],
+        // closing brackets should be aligned with the final prop (props.. />)
+        "react/jsx-closing-bracket-location": [2, "after-props"],
+        // also set the tab width for the max line width with a max length of 120
+        "max-len": [1, 120],
+        // do not allow dangling commas at the end of arrays, objects, etc.
+        "comma-dangle": [2, "never"],
+        // downgrade extra semicolons to warnings
+        "no-extra-semi": [2],
+        // require parens in arrow functions with single arguments for improved readability
+        "arrow-parens": [2, "always"],
+        // allow double-quoted strings
+        "quotes": [0],
+        // allow for loops
+        "no-restricted-syntax": [2, "LabeledStatement", "WithStatement"],
+        // require stroustrup brace styles
+        "brace-style": [1, "stroustrup"],
+        // disallow stateless functions in place of fully declared React components
+        "react/prefer-stateless-function": [0],
+        // allow binding in React props because we don't have autobind in ES6
+        "react/jsx-no-bind": [0],
+        // disabling class method "this" requirement to avoid React conflicts
+        "class-methods-use-this": [0],
+        // allow ++ and -- in for loops
+        "no-plusplus": [2, {
+            "allowForLoopAfterthoughts": true
+        }],
+        // allow continue statements
+        "no-continue": [0],
+        // allow named exports in files with default exports in order to expose containers
+        // for testing
+        "import/no-named-as-default": [0],
+        // Must use object shorthand
+        "object-shorthand": [1, "always"],
+        "prefer-const": [1],
+        "guard-for-in": [2],
+        "no-param-reassign": [2],
+        "quote-props": [1, "as-needed"],
+        "no-use-before-define": [2, "nofunc"],
+        "space-infix-ops": [2],
+
+        "dot-notation": [2],
+        "react/prop-types": [1],
+        "react/no-did-update-set-state": [2],
+        "react/no-did-mount-set-state": [2],
+        "react/jsx-boolean-value": [1],
+        "radix": [2],
+
+        "no-unused-expressions": [2, { "allowShortCircuit": true, "allowTernary": true }],
+        "no-loop-func": [2],
+        "new-cap": [2, { "capIsNewExceptions": ["Moment", "Dimensions"] }],
+        "react/no-multi-comp": [1, { "ignoreStateless": true}],
+
+        "func-names": [2],
+
+        "no-nested-ternary": [2],
+        "no-irregular-whitespace": [2],
+        "no-unreachable": [2],
+        "key-spacing": [0],
+        "eol-last": [0],
+        "no-console": [2, {"allow": ["warn", "error"]}],
+        "react/display-name": [0, { "ignoreTranspilerName": true }],
+        "no-unneeded-ternary": [2, {"defaultAssignment": true}],
+
+        // TODO
+        "import/prefer-default-export": [0], // 8
+        "arrow-body-style": [0], // 16
+        "prefer-destructuring": [0], // 77
+        "prefer-template": [0], // 284
+        "no-prototype-builtins": [0],
+        "function-paren-newline": [0], //61 
+        "react/forbid-prop-types": [0], // 182
+        "react/no-unused-state": [0], // 92
+        "no-useless-constructor": [0], // 30
+        "react/no-string-refs": [0], // 17
+        "react/no-array-index-key": [0], // 12
+        "array-callback-return": [0], // 1
+        "jsx-a11y/no-static-element-interactions": [0], // 17
+        "jsx-a11y/click-events-have-key-events": [0], // 19
+        "no-useless-return": [0], // 7
+        // NEEDS TO BE TESTED (31 instances)
+        "react/no-unused-prop-types": [0], // 31
+        "jsx-a11y/anchor-is-valid": [0], // 28
+        "jsx-a11y/label-has-for": [0], // 6
+        "react/no-unescaped-entities": [0], // 13
+        "jsx-a11y/tabindex-no-positive": [0], // 2
+        "jsx-a11y/no-noninteractive-element-interactions": [0], // 3
+        "react/no-danger": [0], // 6
+        "import/no-extraneous-dependencies": [0] // 3
     }
 }

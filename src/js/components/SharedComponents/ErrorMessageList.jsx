@@ -1,13 +1,13 @@
 /**
 * ErrorMessage.jsx
 * Created by Martin Press 3/4/16
-**/
+*/
 
 import React, { PropTypes } from 'react';
-import ErrorMessageListItem from './ErrorMessageListItem.jsx';
+import ErrorMessageListItem from './ErrorMessageListItem';
 
 const propTypes = {
-    errorMessages: PropTypes.array.isRequired
+    errorMessages: PropTypes.array
 };
 
 const defaultProps = {
@@ -21,13 +21,14 @@ export default class ErrorMessageList extends React.Component {
             errorListItems.push(<ErrorMessageListItem key={i} data={this.props.errorMessages[i]} />);
         }
         return (
-           <div className="col-md-12 alert alert-error mt-40 mb-0" role="alert">
-                <span className="usa-da-icon usa-da-icon-exclamation-circle"></span>
+            <div className="col-md-12 alert alert-error mt-40 mb-0" role="alert">
+                <span className="usa-da-icon usa-da-icon-exclamation-circle" />
                 <div className="alert-header-text">Error</div>
                 <ul>{errorListItems}</ul>
             </div>
         );
     }
 }
+
 ErrorMessageList.defaultProps = defaultProps;
 ErrorMessageList.propTypes = propTypes;

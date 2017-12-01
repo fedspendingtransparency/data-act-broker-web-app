@@ -1,14 +1,20 @@
 /**
   * LoginMax.jsx
   * Createdd by Kevin Li 10/13/16
-  **/
+  */
 
-import React from 'react';
+import React, { PropTypes } from 'react';
 import _ from 'lodash';
 import Cookies from 'js-cookie';
+import { kGlobalConstants } from '../../GlobalConstants';
 
-import { kGlobalConstants } from '../../GlobalConstants.js';
-import ErrorMessage from '../SharedComponents/ErrorMessage.jsx';
+const propTypes = {
+    location: PropTypes.object
+};
+
+const defaultProps = {
+    location: null
+};
 
 export default class LoginMax extends React.Component {
     constructor(props) {
@@ -22,7 +28,7 @@ export default class LoginMax extends React.Component {
         this.detectRedirection();
     }
 
-    componentDidUpdate(prevProps, prevState) {
+    componentDidUpdate(prevProps) {
         if (!_.isEqual(prevProps.location, this.props.location)) {
             this.detectRedirection();
         }
@@ -34,8 +40,9 @@ export default class LoginMax extends React.Component {
             this.setState({
                 redirect: this.props.location.query.redirect
             }, () => {
-                // save the redirect destination as a cookie, expire after 5 min (expressed in units of days per library documentation)
-                Cookies.set('brokerRedirect', this.state.redirect, {expires: (5/(24*60))});
+                // save the redirect destination as a cookie, expire after 5 min (expressed in units of
+                // days per library documentation)
+                Cookies.set('brokerRedirect', this.state.redirect, { expires: (5 / (24 * 60)) });
             });
         }
         else {
@@ -48,14 +55,22 @@ export default class LoginMax extends React.Component {
         }
     }
 
-	render() {
-		return (
-                <div className="row">
-                    <div className="col-xs-12">
-                    	<p className="instructions">Sign in or register for the DATA Act Broker using your MAX ID.</p>
-                        <a href={kGlobalConstants.CAS_ROOT + '/cas/login?service=' + encodeURIComponent(kGlobalConstants.AUTH_CALLBACK)} className="usa-da-button btn-primary btn-lg btn-full">Sign In Using MAX</a>
-                    </div>
+    render() {
+        return (
+            <div className="row">
+                <div className="col-xs-12">
+                    <p className="instructions">Sign in or register for the DATA Act Broker using your MAX ID.</p>
+                    <a
+                        href={kGlobalConstants.CAS_ROOT + '/cas/login?service=' +
+                        encodeURIComponent(kGlobalConstants.AUTH_CALLBACK)}
+                        className="usa-da-button btn-primary btn-lg btn-full">
+                        Sign In Using MAX
+                    </a>
                 </div>
-		)
-	}
+            </div>
+        );
+    }
 }
+
+LoginMax.propTypes = propTypes;
+LoginMax.defaultProps = defaultProps;
