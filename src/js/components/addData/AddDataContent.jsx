@@ -51,13 +51,13 @@ export default class AddDataContent extends React.Component {
         let actionArea = "";
         const submissionState = this.props.submission.state;
         if (submissionState == 'ready' || submissionState == 'failed') {
-            actionArea = <SubmitButton onClick={this.startUpload.bind(this)} className="usa-da-button-bigger btn-primary" buttonText="Upload & Validate CSV files" testId="upload" />;
+            actionArea = <SubmitButton onClick={this.startUpload.bind(this)} className="usa-da-button-bigger btn-primary" buttonText="Upload & Validate files" testId="upload" />;
         }
         else if (submissionState == 'uploading') {
             actionArea = <SubmitButton className="usa-da-button-bigger" buttonText="Uploading files..." buttonDisabled={true} />;
         }
         else {
-            actionArea = <SubmitButton className="usa-da-button-bigger" buttonText="Upload & Validate CSV files" buttonDisabled={true} />;
+            actionArea = <SubmitButton className="usa-da-button-bigger" buttonText="Upload & Validate files" buttonDisabled={true} />;
         }
 
         let warning = null;

@@ -41,18 +41,6 @@ export default class ValidateDataFileComponent extends React.Component {
     componentDidMount() {
         this.isUnmounted = false;
         this.determineErrors(this.props.item);
-        if (this.props.submission.id != null) {
-            ReviewHelper.fetchStatus(this.props.submission.id)
-                .then((data) => {
-                    data.ready = true;
-                    if (!this.isUnmounted) {
-                        this.setState(data);
-                    }
-                })
-                .catch((error) => {
-                    console.log(error);
-                });
-        }
     }
 
     componentWillUnmount(){
@@ -138,7 +126,7 @@ export default class ValidateDataFileComponent extends React.Component {
 
             switch(item.file_status) {
                 case 'single_row_error':
-                    headerTitle = 'Critical Error: CSV file must have a header row and at least one record';
+                    headerTitle = 'Critical Error: File must have a header row and at least one record';
                     break;
                 case 'encoding_error':
                     headerTitle = 'Critical Error: File contains invalid characters that could not be parsed';
@@ -352,12 +340,12 @@ export default class ValidateDataFileComponent extends React.Component {
         }
 
         if (this.props.type.requestName === 'detached_award') {
-            if (!PermissionsHelper.checkFabsAgencyPermissions(this.props.session, this.state.agency_name)){
+            if (!PermissionsHelper.checkFabsAgencyPermissions(this.props.session, this.props.agencyName)){
                 disabledCorrect = ' hide';
             }
         }
         else {
-            if (!PermissionsHelper.checkAgencyPermissions(this.props.session, this.state.agency_name)){
+            if (!PermissionsHelper.checkAgencyPermissions(this.props.session, this.props.agencyName)){
                 disabledCorrect = ' hide';
             }
         }

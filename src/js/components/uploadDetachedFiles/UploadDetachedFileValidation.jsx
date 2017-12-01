@@ -284,19 +284,22 @@ class UploadDetachedFileValidation extends React.Component {
     }
 
     submitFabs(){
-        UploadHelper.submitFabs({'submission_id': this.props.submission.id})
-            .then((response)=>{
-                this.setState({submit: false, published: 'publishing', showPublish: false})
-                this.checkFile(this.props.submission.id);
-            })
-            .catch((error)=>{
-                if (error.httpStatus === 400) {
-                    this.setState({error: 1, submit: false, error_message: error.message});
-                }
-                else if (error.httpStatus === 500) {
-                    this.setState({error: 4, submit: false, showPublish: false});
-                }
-            });
+        this.setState({submit: false, published: 'publishing', showPublish: false},
+            () => {
+                UploadHelper.submitFabs({'submission_id': this.props.submission.id})
+                    .then((response)=>{
+                        this.checkFile(this.props.submission.id);
+                    })
+                    .catch((error)=>{
+                        if (error.httpStatus === 400) {
+                            this.setState({error: 1, error_message: error.message, published: 'unpublished'});
+                        }
+                        else if (error.httpStatus === 500) {
+                            this.setState({error: 4, published: 'unpublished'});
+                        }
+                    })
+            }
+        )
     }
 
     // ERRORS
@@ -391,13 +394,15 @@ class UploadDetachedFileValidation extends React.Component {
         validationBox = <ValidateDataFileContainer type={type} data={this.state.jobResults}
                                                    setUploadItem={this.uploadFile.bind(this)}
                                                    updateItem={this.uploadFile.bind(this)} 
-                                                   publishing={this.state.published === 'publishing'}/>;
+                                                   publishing={this.state.published === 'publishing'}
+                                                   agencyName={this.state.agency} />;
         if (fileData.file_status == 'complete' && this.state.validationFinished && this.state.published !== 'publishing') {
             if (status != 'invalid' || fileData.file_status == 'complete') {
                 validationBox = <ValidateValuesFileContainer type={type} data={this.state.jobResults}
                                                              setUploadItem={this.uploadFile.bind(this)}
                                                              updateItem={this.uploadFile.bind(this)}
-                                                             published={this.state.published} />;
+                                                             published={this.state.published}
+                                                             agencyName={this.state.agency} />;
             }
             if (this.state.showSuccess) {
                 errorMessage = <UploadDetachedFilesError errorCode={this.state.error} type='success' message={this.state.error_message} />;
@@ -465,7 +470,7 @@ class UploadDetachedFileValidation extends React.Component {
                         </div>
                     </div>
                 </div>
-                <PublishModal rows={this.state.fabs_meta} validate={this.submitFabs.bind(this)} submissionID={this.state.submissionID} closeModal={this.closeModal.bind(this)} isOpen={this.state.showPublish} published={this.state.published} />
+                <PublishModal rows={this.state.fabs_meta} submit={this.submitFabs.bind(this)} submissionID={this.state.submissionID} closeModal={this.closeModal.bind(this)} isOpen={this.state.showPublish} published={this.state.published} />
             </div>
         );
     }

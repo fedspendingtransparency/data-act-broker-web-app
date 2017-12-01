@@ -304,6 +304,7 @@ export const validateSubmission  = (submissionId) => {
 	});
 
 	let status;
+	let agencyName;
 	let crossFile;
 	let crossFileState = {}
 	let crossFileErrorReports;
@@ -312,6 +313,7 @@ export const validateSubmission  = (submissionId) => {
 	fetchStatus(submissionId)
 		.then((statusRes) => {
 			status = getFileStates(statusRes);
+			agencyName = statusRes.agency_name;
 			crossFile = {
 				errors: getCrossFileData(statusRes, 'errors', validKeys),
 				warnings: getCrossFileData(statusRes, 'warnings', validKeys)
@@ -336,6 +338,7 @@ export const validateSubmission  = (submissionId) => {
 
 			deferred.resolve({
 				file: status,
+				agencyName: agencyName,
 				crossFile: {
 					state: crossFileState,
 					reports: {
