@@ -45,38 +45,25 @@ export default class Progress extends React.Component {
         const stepLink = this.props.stepLink;
 
         for (let i = 1; i <= this.props.totalSteps; i++) {
+            let bar = i;
+            let barClass = 'usa-da-progress-bar-step-step';
+            let label = stepNames[i - 1];
             if (i < this.props.currentStep) {
-                progressBar.push(
-                    <li key={i} className="usa-da-progress-bar-step-done">
-                        <a href={stepLink[i - 1] + "/" + this.props.id} ><span className="step">{i}</span></a>
-                    </li>);
-                progressLabels.push(
-                    <li key={i} className="usa-da-progress-bar-step-done">
-                        <span className="name">
-                            <a href={stepLink[i - 1] + "/" + this.props.id} >{stepNames[i - 1]}</a>
-                        </span>
-                    </li>);
+                bar = <a href={stepLink[i - 1] + "/" + this.props.id} className="stepLink">{bar}</a>;
+                label = <a href={stepLink[i - 1] + "/" + this.props.id} >{label}</a>;
+                barClass = 'usa-da-progress-bar-step-done';
             }
             else if (i === this.props.currentStep) {
-                progressBar.push(
-                    <li key={i} className="usa-da-progress-bar-step-current">
-                        <span className="step">{i}</span>
-                    </li>);
-                progressLabels.push(
-                    <li key={i} className="usa-da-progress-bar-step-current">
-                        <span className="name">{stepNames[i - 1]}</span>
-                    </li>);
+                barClass = 'usa-da-progress-bar-step-current';
             }
-            else {
-                progressBar.push(
-                    <li key={i} className="usa-da-progress-bar-step">
-                        <span className="step">{i}</span>
-                    </li>);
-                progressLabels.push(
-                    <li key={i} className="usa-da-progress-bar-step">
-                        <span className="name">{stepNames[i - 1]}</span>
-                    </li>);
-            }
+            progressBar.push(
+                <li key={i} className={barClass}>
+                    <span className="step">{bar}</span>
+                </li>);
+            progressLabels.push(
+                <li key={i} className={barClass}>
+                    <span className="name">{label}</span>
+                </li>);
         }
 
         return (
