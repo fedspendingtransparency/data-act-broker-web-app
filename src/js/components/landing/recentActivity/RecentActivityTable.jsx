@@ -11,6 +11,7 @@ import DeleteLink from './DeleteLink';
 
 import * as SubmissionListHelper from '../../../helpers/submissionListHelper';
 import * as LoginHelper from '../../../helpers/loginHelper';
+import * as UtilHelper from '../../../helpers/util';
 import * as PermissionsHelper from '../../../helpers/permissionsHelper';
 import * as Status from './SubmissionStatus';
 
@@ -142,25 +143,6 @@ export default class RecentActivityTable extends React.Component {
             });
     }
 
-    convertToLocalDate(dateToConvert) {
-        // convert date to local date, need to replace the space with a T for Date() formatting
-        // Add a Z to the end to imply the date is in UTC
-        const formattedDate = dateToConvert.replace(" ", "T") + "Z";
-        const tmpDate = new Date(formattedDate);
-
-        // format date as YYYY-MM-DD
-        const year = tmpDate.getFullYear();
-        let month = tmpDate.getMonth() + 1;
-        if (month < 10) {
-            month = "0" + month;
-        }
-        let day = tmpDate.getDate();
-        if (day < 10) {
-            day = "0" + day;
-        }
-        return year + "-" + month + "-" + day;
-    }
-
     buildRow() {
         // iterate through the recent activity
         const output = [];
@@ -210,7 +192,7 @@ export default class RecentActivityTable extends React.Component {
             this.getAgency(rowData),
             reportingDateString,
             userName,
-            this.convertToLocalDate(rowData.last_modified)
+            UtilHelper.convertToLocalDate(rowData.last_modified)
         ];
 
         const unpublished = rowData.publish_status === 'unpublished';

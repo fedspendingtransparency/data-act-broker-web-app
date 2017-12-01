@@ -6,6 +6,7 @@
 import React, { PropTypes } from 'react';
 
 import * as SubmissionListHelper from '../../helpers/submissionListHelper';
+import * as UtilHelper from '../../helpers/util';
 import * as Icons from '../SharedComponents/icons/Icons';
 
 const propTypes = {
@@ -118,7 +119,7 @@ export default class HistoryTable extends React.Component {
                     <li key={i}>
                         <span className="active-submission">
                             Certified by {certifications[i].certifying_user.name} on
-                            {this.convertToLocalDate(certifications[i].certify_date)}
+                            {UtilHelper.convertToLocalDate(certifications[i].certify_date)}
                         </span>
                     </li>);
             }
@@ -127,31 +128,12 @@ export default class HistoryTable extends React.Component {
                     <li onClick={this.setActiveSubmission.bind(this, i)} key={i}>
                         <span className="submission">
                             Certified by {certifications[i].certifying_user.name} on
-                            {this.convertToLocalDate(certifications[i].certify_date)}
+                            {UtilHelper.convertToLocalDate(certifications[i].certify_date)}
                         </span>
                     </li>);
             }
         }
         return list;
-    }
-
-    convertToLocalDate(dateToConvert) {
-        // convert date to local date, need to replace the space with a T for Date() formatting
-        // Add a Z to the end to imply the date is in UTC
-        const formattedDate = dateToConvert.replace(" ", "T") + "Z";
-        const tmpDate = new Date(formattedDate);
-
-        // format date as YYYY-MM-DD
-        const year = tmpDate.getFullYear();
-        let month = tmpDate.getMonth() + 1;
-        if (month < 10) {
-            month = "0" + month;
-        }
-        let day = tmpDate.getDate();
-        if (day < 10) {
-            day = "0" + day;
-        }
-        return year + "-" + month + "-" + day;
     }
 
     render() {
@@ -160,7 +142,7 @@ export default class HistoryTable extends React.Component {
         let warning = null;
         let current = null;
         if (this.state.active !== -1) {
-            current = this.convertToLocalDate(this.state.certifications[this.state.active].certify_date);
+            current = UtilHelper.convertToLocalDate(this.state.certifications[this.state.active].certify_date);
             certifications = this.certificationList();
             fileList = this.activeList();
         }

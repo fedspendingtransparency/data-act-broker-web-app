@@ -11,6 +11,7 @@ import SubmissionLink from '../landing/recentActivity/SubmissionLink';
 import HistoryLink from './HistoryLink';
 import * as Status from '../landing/recentActivity//SubmissionStatus';
 import * as LoginHelper from '../../helpers/loginHelper';
+import * as UtilHelper from '../../helpers/util';
 import * as PermissionsHelper from '../../helpers/permissionsHelper';
 import DeleteLink from '../landing/recentActivity/DeleteLink';
 
@@ -243,7 +244,7 @@ export default class DashboardTable extends React.Component {
                 userName
             ];
 
-            const certifiedOn = item.certified_on !== "" ? this.convertToLocalDate(item.certified_on) :
+            const certifiedOn = item.certified_on !== "" ? UtilHelper.convertToLocalDate(item.certified_on) :
                 item.certified_on;
             if (this.props.type === 'fabs') {
                 row = row.concat([
@@ -254,7 +255,7 @@ export default class DashboardTable extends React.Component {
             }
             else {
                 row = row.concat([
-                    this.convertToLocalDate(item.last_modified),
+                    UtilHelper.convertToLocalDate(item.last_modified),
                     <Status.SubmissionStatus status={item.rowStatus} certified={this.props.isCertified} />,
                     <span>
                         {item.certifying_user}<br />
@@ -271,7 +272,7 @@ export default class DashboardTable extends React.Component {
                 this.getAgency(item),
                 reportingDateString,
                 userName,
-                this.convertToLocalDate(item.last_modified),
+                UtilHelper.convertToLocalDate(item.last_modified),
                 <Status.SubmissionStatus status={item.rowStatus} certified={this.props.isCertified} />
             ];
 
@@ -337,25 +338,6 @@ export default class DashboardTable extends React.Component {
         LoginHelper.fetchActiveUser().then((user) => {
             this.setState({ account: user });
         });
-    }
-
-    convertToLocalDate(dateToConvert) {
-        // convert date to local date, need to replace the space with a T for Date() formatting
-        // Add a Z to the end to imply the date is in UTC
-        const formattedDate = dateToConvert.replace(" ", "T") + "Z";
-        const tmpDate = new Date(formattedDate);
-
-        // format date as YYYY-MM-DD
-        const year = tmpDate.getFullYear();
-        let month = tmpDate.getMonth() + 1;
-        if (month < 10) {
-            month = "0" + month;
-        }
-        let day = tmpDate.getDate();
-        if (day < 10) {
-            day = "0" + day;
-        }
-        return year + "-" + month + "-" + day;
     }
 
     deleteWarning(index) {
