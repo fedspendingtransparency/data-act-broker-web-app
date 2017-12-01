@@ -3,8 +3,7 @@
  * Created by Mike Bray 3/31/16
  */
 
-import React from 'react';
-import PropTypes from 'prop-types';
+import React, { PropTypes } from 'react';
 import Navbar from '../SharedComponents/navigation/NavigationComponent';
 import AddDataHeader from './../addData/AddDataHeader';
 import Progress from '../SharedComponents/ProgressComponent';
