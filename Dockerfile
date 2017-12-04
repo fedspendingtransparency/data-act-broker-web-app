@@ -9,6 +9,8 @@ WORKDIR /node-workspace
 
 RUN npm install
 
+RUN npm update
+
 COPY . /node-workspace
 
 VOLUME /node-workspace
