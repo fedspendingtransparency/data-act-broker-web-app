@@ -32,7 +32,6 @@ storeSingleton.setStore(store);
 export default class AppContainer extends React.Component {
     constructor(props) {
         super(props);
-
         this.state = {
             appReady: false,
             showPending: true
