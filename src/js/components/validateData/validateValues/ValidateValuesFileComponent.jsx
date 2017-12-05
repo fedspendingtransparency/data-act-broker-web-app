@@ -27,14 +27,14 @@ const propTypes = {
 };
 
 const defaultProps = {
-    onFileChange: PropTypes.func,
-    removeFile: PropTypes.func,
-    item: PropTypes.object,
-    session: PropTypes.object,
-    submission: PropTypes.object,
-    type: PropTypes.object,
-    agencyName: PropTypes.string,
-    published: PropTypes.string
+    onFileChange: null,
+    removeFile: null,
+    item: null,
+    session: null,
+    submission: null,
+    type: null,
+    agencyName: "",
+    published: ""
 };
 
 export default class ValidateValuesFileComponent extends React.Component {
