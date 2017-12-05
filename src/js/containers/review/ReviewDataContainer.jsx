@@ -84,7 +84,9 @@ class ReviewDataContainer extends React.Component {
                     total_assistance_obligations: submission.total_assistance_obligations,
                     total_procurement_obligations: submission.total_procurement_obligations,
                     file_narrative: submission.file_narrative,
-                    quarterly_submission: submission.quarterly_submission
+                    quarterly_submission: submission.quarterly_submission,
+                    revalidation_threshold: submission.revalidation_threshold,
+                    last_validated: submission.last_validated
                 });
             })
             .catch((error) => {
