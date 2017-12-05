@@ -12,7 +12,7 @@ const propTypes = {
     submit: PropTypes.func,
     rows: PropTypes.object,
     isOpen: PropTypes.bool,
-    published: PropTypes.bool
+    published: PropTypes.string
 };
 
 const defaultProps = {

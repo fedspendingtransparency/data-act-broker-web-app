@@ -3,7 +3,7 @@
  * Created by Mike Bray 6/8/16
  */
 
-import React, {PropTypes} from 'react';
+import React, { PropTypes } from 'react';
 import { connect } from 'react-redux';
 
 import * as ReviewHelper from '../../helpers/reviewHelper';
@@ -83,7 +83,8 @@ class ReviewDataContainer extends React.Component {
                     total_obligations: submission.total_obligations,
                     total_assistance_obligations: submission.total_assistance_obligations,
                     total_procurement_obligations: submission.total_procurement_obligations,
-                    file_narrative: submission.file_narrative
+                    file_narrative: submission.file_narrative,
+                    quarterly_submission: submission.quarterly_submission
                 });
             })
             .catch((error) => {

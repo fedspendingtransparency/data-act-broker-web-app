@@ -128,8 +128,8 @@ export default class LandingContent extends React.Component {
                     <p>Upload, validate, and publish your agency’s federal spending transparency data.</p>
                     <p>
                         Details on how to format your data against the latest version of the DATA Act
-                        Information Model Schema (DAIMS) can be found on the
-                        <a href="/#/help" target="_blank" rel="noopener noreferrer" >Help section</a>.
+                        Information Model Schema (DAIMS) can be found on
+                        the <a href="/#/help" target="_blank" rel="noopener noreferrer" >Help section</a>.
                     </p>
                 </div>);
         }
