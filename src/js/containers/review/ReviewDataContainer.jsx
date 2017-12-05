@@ -3,7 +3,7 @@
  * Created by Mike Bray 6/8/16
  */
 
-import React, {PropTypes} from 'react';
+import React, { PropTypes } from 'react';
 import { connect } from 'react-redux';
 
 import * as ReviewHelper from '../../helpers/reviewHelper';
