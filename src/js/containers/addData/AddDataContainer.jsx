@@ -60,7 +60,7 @@ class AddDataContainer extends React.Component {
                 }
                 else {
                     setTimeout(() => {
-                        this.getPage(index + 1);
+                        this.getPage(submissionID, index + 1);
                     }, 500);
                 }
             });
