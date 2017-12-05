@@ -25,8 +25,8 @@ const propTypes = {
 };
 
 const defaultProps = {
-    setSubmissionId: () => {},
-    setSubmissionState: () => {},
+    setSubmissionId: uploadActions.setSubmissionId(),
+    setSubmissionState: uploadActions.setSubmissionId(),
     submission: {}
 };
 

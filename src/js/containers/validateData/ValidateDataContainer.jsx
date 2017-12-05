@@ -127,6 +127,9 @@ class ValidateDataContainer extends React.Component {
     }
 
     validateSubmission() {
+        if (this.props.submissionID === "") {
+            return;
+        }
         ReviewHelper.validateSubmission(this.props.submissionID)
             .then((data) => {
                 if (this.isCancelled) {

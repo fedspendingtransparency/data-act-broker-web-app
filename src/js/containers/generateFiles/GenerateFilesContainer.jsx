@@ -30,8 +30,8 @@ const propTypes = {
 };
 
 const defaultProps = {
-    setSubmissionId: () => {},
-    setSubmissionPublishStatus: () => {},
+    setSubmissionId: uploadActions.setSubmissionId(),
+    setSubmissionPublishStatus: uploadActions.setSubmissionPublishStatus(),
     showError: () => {},
     submission: {},
     submissionID: ""
