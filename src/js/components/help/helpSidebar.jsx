@@ -70,6 +70,7 @@ export default class HelpSidebar extends React.Component {
         if (this.props.type === 'fabs') {
             schedule = null;
         }
+
         return (
             <div className="usa-da-help-sidebar">
                 {schedule}
