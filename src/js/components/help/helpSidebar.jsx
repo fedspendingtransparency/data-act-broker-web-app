@@ -56,8 +56,9 @@ export default class HelpSidebar extends React.Component {
         const technicalHistory = this.props.type === 'fabs' ? "/#/FABSTechnicalHistory" : '/#/technicalHistory';
         const resources = this.props.type === 'fabs' ? "/#/FABSResources" : '/#/resources';
         const validations = this.props.type === 'fabs' ? "/#/FABSValidations" : '/#/validations';
-        let schedule = (
-            <div>
+        let schedule = null;
+        if (this.props.type === 'dabs') {
+            schedule = (<div>
                 <h6>Submission Deadlines</h6>
                 <a
                     target="_blank"
@@ -67,8 +68,6 @@ export default class HelpSidebar extends React.Component {
                     Fiscal Year 2018 DABS Reporting Window Schedule
                 </a>
             </div>);
-        if (this.props.type === 'fabs') {
-            schedule = null;
         }
 
         return (
