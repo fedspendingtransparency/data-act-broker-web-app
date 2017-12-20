@@ -21,7 +21,7 @@ export default class DaimsMessage extends React.Component {
             <div className='daims'>
                 <span className='daims-header'>December 22, 2017: </span>
                 <span className='daims-message'>
-                    Treasury released the DATA Act Information Model Schema (DAIMS) {version}. DAIMS {version} is a minor update of the schema and will be implementated for the submission of Q3 FY 2018. Find out more information about the final <a className='daims-link' href='https://community.max.gov/x/Nwn4Tg'>DAIMS {version}</a>{type}
+                    Treasury released the DATA Act Information Model Schema (DAIMS) {version}. DAIMS {version} is a minor update of the schema and will be implemented for the submission of Q3 FY 2018 data. Find out more information about the final <a className='daims-link' href='https://community.max.gov/x/Dwn4Tg'>DAIMS {version}</a>{type}
                 </span>
             </div>
         );
