@@ -3,14 +3,25 @@
   * Created by Kevin Li 8/24/2016
   */
 
-import React from 'react';
+import React, { PropTypes } from 'react';
 
-export default class GenerateFilesError extends React.Component {
-	render() {
-		return (
-			<div className="alert alert-danger text-center" role="alert">
-				<b>Error:</b> {this.props.message}
-			</div>
-		);
-	}
+const propTypes = {
+    message: PropTypes.string
+};
+
+const defaultProps = {
+    message: ''
+};
+
+export default class GenerateEFError extends React.Component {
+    render() {
+        return (
+            <div className="alert alert-danger text-center" role="alert">
+                <b>Error:</b> {this.props.message}
+            </div>
+        );
+    }
 }
+
+GenerateEFError.propTypes = propTypes;
+GenerateEFError.defaultProps = defaultProps;

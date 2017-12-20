@@ -1,16 +1,14 @@
 /**
 * UploadDetachedFilesPageContainer.jsx
 * Created by Mike Hess
-**/
+*/
 
 import React from 'react';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 
-import * as uploadActions from '../../redux/actions/uploadActions.js';
-import UploadDetachedFilesPage from '../../components/uploadDetachedFiles/UploadDetachedFilesPage.jsx';
-
-import Moment from 'moment';
+import * as uploadActions from '../../redux/actions/uploadActions';
+import UploadDetachedFilesPage from '../../components/uploadDetachedFiles/UploadDetachedFilesPage';
 
 class UploadDetachedFilesPageContainer extends React.Component {
     render() {
@@ -21,6 +19,6 @@ class UploadDetachedFilesPageContainer extends React.Component {
 }
 
 export default connect(
-    state => ({ submission: state.submission }),
-    dispatch => bindActionCreators(uploadActions, dispatch)
-)(UploadDetachedFilesPageContainer)
+    (state) => ({ submission: state.submission }),
+    (dispatch) => bindActionCreators(uploadActions, dispatch)
+)(UploadDetachedFilesPageContainer);

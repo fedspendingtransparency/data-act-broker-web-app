@@ -1,67 +1,75 @@
 /**
   * ComparisonTable.jsx
   * Created by Kevin Li 6/15/16
-  **/
+  */
 
-import React from 'react';
+import React, { PropTypes } from 'react';
 import _ from 'lodash';
-import ScrollableTable from '../../SharedComponents/table/ScrollableTable.jsx';
-import * as ReviewHelper from '../../../helpers/reviewHelper.js';
+import ScrollableTable from '../../SharedComponents/table/ScrollableTable';
+import * as ReviewHelper from '../../../helpers/reviewHelper';
+
+const propTypes = {
+    data: PropTypes.array
+};
+
+const defaultProps = {
+    data: []
+};
 
 export default class ComparisonTable extends React.Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+            sortDirection: 'asc',
+            sortColumn: 0,
+            data: {}
+        };
+    }
 
-	constructor(props) {
-		super(props);
-		this.state = {
-			sortDirection: 'asc',
-			sortColumn: 0,
-			data: {}
-		};
-	}
+    buildRow() {
+        const data = [];
+        this.props.data.forEach((item) => {
+            const description = 'Rule ' + item.original_label + ': ' + item.rule_failed + '.';
+            const row = {
+                source: ReviewHelper.globalFileData[item.source_file].name,
+                description,
+                occurrences: item.occurrences
+            };
 
-	buildRow() {
+            data.push(row);
+        });
 
-		const data = [];
-		this.props.data.forEach((item) => {
+        const sortFields = ['source', 'description', 'occurrences'];
 
-			let description = 'Rule ' + item.original_label + ': ' + item.rule_failed + '.';
-			const row = {
-				source: ReviewHelper.globalFileData[item.source_file].name,
-				description: description,
-				occurrences: item.occurrences
-			};
+        const sortedData = _.orderBy(data, sortFields[this.state.sortColumn], this.state.sortDirection);
 
-			data.push(row);
-		});
+        const output = [];
+        sortedData.forEach((row) => {
+            output.push([row.source, row.description, row.occurrences]);
+        });
 
-		const sortFields = ['source', 'description', 'occurrences'];
+        return output;
+    }
 
-		const sortedData = _.orderBy(data, sortFields[this.state.sortColumn], this.state.sortDirection);
+    sortTable(direction, column) {
+        this.setState({
+            sortColumn: column,
+            sortDirection: direction
+        });
+    }
 
-		const output = [];
-		sortedData.forEach((row) => {
-			output.push([row.source, row.description, row.occurrences]);
-		});
+    render() {
+        const headers = ['Source File', 'Error Message', 'Occurrences'];
 
-		return output;
-	}
+        const data = this.buildRow();
 
-	sortTable(direction, column) {
-		this.setState({
-			sortColumn: column,
-			sortDirection: direction
-		});
-	}
-
-	render() {
-		const headers = ['Source File', 'Error Message', 'Occurrences'];
-
-		const data = this.buildRow();
-
-		return (
-			<div className="comparison-table">
-				<ScrollableTable headers={headers} data={data} sortable={true} onSort={this.sortTable.bind(this)} />
-			</div>
-		)
-	}
+        return (
+            <div className="comparison-table">
+                <ScrollableTable headers={headers} data={data} onSort={this.sortTable.bind(this)} />
+            </div>
+        );
+    }
 }
+
+ComparisonTable.propTypes = propTypes;
+ComparisonTable.defaultProps = defaultProps;

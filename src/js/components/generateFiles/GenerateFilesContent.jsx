@@ -1,27 +1,33 @@
 /**
   * GenerateFilesPage.jsx
   * Created by Kevin Li 7/22/16
-  **/
+  */
 
-import React from 'react';
-import ReactCSSTransitionGroup from 'react-addons-css-transition-group';
+import React, { PropTypes } from 'react';
 
-import DatePicker from 'react-datepicker';
-import moment from 'moment';
-import AgencyListContainer from '../../containers/SharedContainers/AgencyListContainer.jsx';
+import GenerateFileBox from './components/GenerateFileBox';
+import GenerateFilesOverlay from './GenerateFilesOverlay';
 
-import * as Icons from '../SharedComponents/icons/Icons.jsx';
+const propTypes = {
+    handleDateChange: PropTypes.func,
+    updateError: PropTypes.func,
+    d1: PropTypes.object,
+    d2: PropTypes.object
+};
 
-import GenerateFileBox from './components/GenerateFileBox.jsx';
-import GenerateFilesOverlay from './GenerateFilesOverlay.jsx';
+const defaultProps = {
+    handleDateChange: null,
+    updateError: null,
+    d1: null,
+    d2: null
+};
 
 export default class GenerateFilesContent extends React.Component {
-
     handleDateChange(file, date, dateType) {
         this.props.handleDateChange(file, date, dateType);
     }
 
-    updateError(file, header='', description='') {
+    updateError(file, header = '', description = '') {
         this.props.updateError(file, header, description);
     }
 
@@ -31,12 +37,15 @@ export default class GenerateFilesContent extends React.Component {
                 <div className="container center-block with-overlay">
                     <div className="row usa-da-submission-instructions">
                         <div className="col-md-12">
-                            <p>Select the durations for the generated D1 and D2 files. By default, this range is set to the submission date range you selected in step one.</p>
+                            <p>
+                                Select the durations for the generated D1 and D2 files. By default, this range is set to
+                                the submission date range you selected in step one.
+                            </p>
                         </div>
                     </div>
 
-                    <div className="usa-da-generate-content">                        
-                        <GenerateFileBox 
+                    <div className="usa-da-generate-content">
+                        <GenerateFileBox
                             label="File D1: Procurement Awards (FPDS data)"
                             datePlaceholder="Sign"
                             startingTab={1}
@@ -46,19 +55,22 @@ export default class GenerateFilesContent extends React.Component {
                             onDateChange={this.handleDateChange.bind(this, "d1")}
                             updateError={this.updateError.bind(this, "d1")} />
 
-                        <GenerateFileBox 
-                            label="File D2: Financial Assistance" 
+                        <GenerateFileBox
+                            label="File D2: Financial Assistance"
                             datePlaceholder="Action"
                             startingTab={9}
                             value={this.props.d2}
                             error={this.props.d2.error}
                             download={this.props.d2.download}
-                            onDateChange={this.handleDateChange.bind(this, "d2")} 
+                            onDateChange={this.handleDateChange.bind(this, "d2")}
                             updateError={this.updateError.bind(this, "d2")} />
                     </div>
                 </div>
                 <GenerateFilesOverlay {...this.props} />
             </div>
-        )
+        );
     }
 }
+
+GenerateFilesContent.propTypes = propTypes;
+GenerateFilesContent.defaultProps = defaultProps;

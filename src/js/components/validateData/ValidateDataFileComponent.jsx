@@ -1,22 +1,36 @@
 /**
  * ValidateDataFileComponent.jsx
  * Created by Mike Bray 3/28/16
- **/
+ */
 
 import React, { PropTypes } from 'react';
-import { kGlobalConstants } from '../../GlobalConstants.js';
-import FileProgress from '../SharedComponents/FileProgress.jsx';
-import ValidateDataErrorReport from './ValidateDataErrorReport.jsx';
-import ValidateDataUploadButton from './ValidateDataUploadButton.jsx';
-import * as Icons from '../SharedComponents/icons/Icons.jsx';
-import * as ReviewHelper from '../../helpers/reviewHelper.js';
-import * as PermissionsHelper from '../../helpers/permissionsHelper.js';
-import * as GenerateFilesHelper from '../../helpers/generateFilesHelper.js';
+import FileProgress from '../SharedComponents/FileProgress';
+import ValidateDataErrorReport from './ValidateDataErrorReport';
+import ValidateDataUploadButton from './ValidateDataUploadButton';
+import * as Icons from '../SharedComponents/icons/Icons';
+import * as PermissionsHelper from '../../helpers/permissionsHelper';
+import * as GenerateFilesHelper from '../../helpers/generateFilesHelper';
 
-import UploadDetachedFilesError from '../uploadDetachedFiles/UploadDetachedFilesError.jsx';
+import UploadDetachedFilesError from '../uploadDetachedFiles/UploadDetachedFilesError';
 
 const propTypes = {
+    onFileChange: PropTypes.func,
+    item: PropTypes.object,
+    session: PropTypes.object,
+    submission: PropTypes.object,
+    type: PropTypes.object,
+    agencyName: PropTypes.string,
+    publishing: PropTypes.bool
+};
 
+const defaultProps = {
+    onFileChange: () => {},
+    item: {},
+    session: {},
+    submission: {},
+    type: {},
+    agencyName: '',
+    publishing: false
 };
 
 export default class ValidateDataFileComponent extends React.Component {
@@ -43,14 +57,11 @@ export default class ValidateDataFileComponent extends React.Component {
         this.determineErrors(this.props.item);
     }
 
-    componentWillUnmount(){
-        this.isUnmounted = true;
-    }
-
     componentWillReceiveProps(nextProps) {
         this.determineErrors(nextProps.item);
 
-        if ((this.props.submission.state == 'uploading' || this.props.submission.state == 'prepare') && nextProps.submission.state == 'review') {
+        if ((this.props.submission.state === 'uploading' || this.props.submission.state === 'prepare') &&
+            nextProps.submission.state === 'review') {
             // we've finished uploading files, close any open error reports
             if (this.state.showError && !this.isUnmounted) {
                 this.setState({
@@ -60,8 +71,12 @@ export default class ValidateDataFileComponent extends React.Component {
         }
     }
 
-    toggleErrorReport(){
-        if(!this.isUnmounted){
+    componentWillUnmount() {
+        this.isUnmounted = true;
+    }
+
+    toggleErrorReport() {
+        if (!this.isUnmounted) {
             this.setState({ showError: !this.state.showError });
         }
     }
@@ -81,12 +96,14 @@ export default class ValidateDataFileComponent extends React.Component {
         }
 
         let headerTitle = 'Validating...';
-        let isError = false, hasErrorReport = false, canDownload = false;
+        let isError = false;
+        let hasErrorReport = false;
+        let canDownload = false;
         let errorData = [];
 
         // handle header errors
-        let missingHeaders = item.missing_headers ? item.missing_headers.length : 0;
-        let duplicatedHeaders = item.duplicated_headers ? item.duplicated_headers.length : 0;
+        const missingHeaders = item.missing_headers ? item.missing_headers.length : 0;
+        const duplicatedHeaders = item.duplicated_headers ? item.duplicated_headers.length : 0;
         if (missingHeaders > 0 || duplicatedHeaders > 0) {
             let errorKeys = [];
             isError = true;
@@ -106,12 +123,12 @@ export default class ValidateDataFileComponent extends React.Component {
             }
             errorKeys.forEach((key) => {
                 errorData.push({
-                    header: (key=='missing_headers') ? 'Missing Headers:' : 'Duplicate Headers:',
+                    header: (key === 'missing_headers') ? 'Missing Headers:' : 'Duplicate Headers:',
                     data: item[key]
                 });
             });
         }
-        else if (item.error_type == 'header_errors') {
+        else if (item.error_type === 'header_errors') {
             // special case where the header rows could not be read
             headerTitle = 'Critical Error: The header row could not be parsed.';
             isError = true;
@@ -119,12 +136,12 @@ export default class ValidateDataFileComponent extends React.Component {
         }
 
         // handle file-level errors
-        if (item.file_status != 'complete') {
-            hasErrorReport = item.file_status == 'header_error';
+        if (item.file_status !== 'complete') {
+            hasErrorReport = item.file_status === 'header_error';
             isError = true;
             canDownload = true;
 
-            switch(item.file_status) {
+            switch (item.file_status) {
                 case 'single_row_error':
                     headerTitle = 'Critical Error: File must have a header row and at least one record';
                     break;
@@ -147,7 +164,8 @@ export default class ValidateDataFileComponent extends React.Component {
         }
 
         // handle failed job
-        if (item.job_status == 'failed' || item.file_status == 'job_error' || (item.job_status == 'invalid' && !isError)) {
+        if (item.job_status === 'failed' || item.file_status === 'job_error' ||
+            (item.job_status === 'invalid' && !isError)) {
             headerTitle = 'An error occurred while validating this file. Contact the Service Desk for assistance.';
             errorData = [];
             hasErrorReport = false;
@@ -156,7 +174,7 @@ export default class ValidateDataFileComponent extends React.Component {
         }
 
         // check if file is still validating
-        if (item.file_status == 'incomplete' || !this.isFileReady) {
+        if (item.file_status === 'incomplete' || !this.isFileReady) {
             headerTitle = 'Validating...';
             hasErrorReport = false;
             isError = false;
@@ -164,16 +182,16 @@ export default class ValidateDataFileComponent extends React.Component {
         }
 
         if (this.props.publishing) {
-            headerTitle = 'Publishing...'
+            headerTitle = 'Publishing...';
         }
 
         if (!this.isUnmounted) {
             this.setState({
-                headerTitle: headerTitle,
+                headerTitle,
                 errorReports: errorData,
-                hasErrorReport: hasErrorReport,
-                isError: isError,
-                canDownload: canDownload
+                hasErrorReport,
+                isError,
+                canDownload
             });
         }
     }
@@ -195,8 +213,8 @@ export default class ValidateDataFileComponent extends React.Component {
         }
 
         return {
-            size: size,
-            rows: rows
+            size,
+            rows
         };
     }
 
@@ -207,7 +225,7 @@ export default class ValidateDataFileComponent extends React.Component {
             icon = <Icons.CloudUpload />;
         }
         else if (this.isFileReady()) {
-            if (this.props.item.file_status == 'complete') {
+            if (this.props.item.file_status === 'complete') {
                 icon = <Icons.CheckCircle />;
             }
             else {
@@ -217,9 +235,9 @@ export default class ValidateDataFileComponent extends React.Component {
         return icon;
     }
 
-    signReport(item){
+    signReport(item) {
         let type = null;
-        switch(item.file_type) {
+        switch (item.file_type) {
             case 'appropriations':
                 type = 'A';
                 break;
@@ -237,32 +255,32 @@ export default class ValidateDataFileComponent extends React.Component {
         }
         if (type) {
             GenerateFilesHelper.fetchFile(type, this.props.submission.id)
-            .then((result)=>{
-                this.setState({
-                    signInProgress: false,
-                    signedUrl: result.url
-                }, () => {
-                    this.openReport();
+                .then((result) => {
+                    this.setState({
+                        signInProgress: false,
+                        signedUrl: result.url
+                    }, () => {
+                        this.openReport();
+                    });
+                })
+                .catch(() => {
+                    this.setState({
+                        signInProgress: false,
+                        error: {
+                            header: 'Invalid File Type Selected ' + item.file_type,
+                            body: ''
+                        }
+                    });
                 });
-            })
-            .catch((err) => {
-                this.setState({
-                    signInProgress: false,
-                    error: {
-                        header: 'Invalid File Type Selected '+item.file_type,
-                        body: ''
-                    }
-                });
-            });    
         }
         else {
             this.setState({
-                    signInProgress: false,
-                    error: {
-                        header: 'Invalid File Type Selected '+item.file_type,
-                        body: ''
-                    }
-                });
+                signInProgress: false,
+                error: {
+                    header: 'Invalid File Type Selected ' + item.file_type,
+                    body: ''
+                }
+            });
         }
     }
 
@@ -329,7 +347,7 @@ export default class ValidateDataFileComponent extends React.Component {
             const newFile = this.props.submission.files[this.props.type.requestName];
             fileName = newFile.file.name;
 
-            if (newFile.state == 'uploading') {
+            if (newFile.state === 'uploading') {
                 uploadProgress = <FileProgress fileStatus={newFile.progress} />;
             }
         }
@@ -340,23 +358,23 @@ export default class ValidateDataFileComponent extends React.Component {
         }
 
         if (this.props.type.requestName === 'detached_award') {
-            if (!PermissionsHelper.checkFabsAgencyPermissions(this.props.session, this.props.agencyName)){
+            if (!PermissionsHelper.checkFabsAgencyPermissions(this.props.session, this.props.agencyName)) {
                 disabledCorrect = ' hide';
             }
         }
-        else {
-            if (!PermissionsHelper.checkAgencyPermissions(this.props.session, this.props.agencyName)){
-                disabledCorrect = ' hide';
-            }
+        else if (!PermissionsHelper.checkAgencyPermissions(this.props.session, this.props.agencyName)) {
+            disabledCorrect = ' hide';
         }
 
         let errorMessage = null;
-        if(this.state.error) {
-            errorMessage = <UploadDetachedFilesError error={this.state.error} />
+        if (this.state.error) {
+            errorMessage = <UploadDetachedFilesError error={this.state.error} />;
         }
 
         return (
-            <div className="row center-block usa-da-validate-item" data-testid={"validate-wrapper-" + this.props.type.requestName}>
+            <div
+                className="row center-block usa-da-validate-item"
+                data-testid={"validate-wrapper-" + this.props.type.requestName}>
                 <div className="col-md-12">
                     {errorMessage}
                     <div className="row usa-da-validate-item-top-section">
@@ -373,11 +391,20 @@ export default class ValidateDataFileComponent extends React.Component {
                                 </div>
                             </div>
                             <div className="row usa-da-validate-item-body">
-                                <div className={"col-md-12 usa-da-validate-txt-wrap" + messageClass} data-testid="validate-message">{this.state.headerTitle}</div>
+                                <div
+                                    className={"col-md-12 usa-da-validate-txt-wrap" + messageClass}
+                                    data-testid="validate-message">
+                                    {this.state.headerTitle}
+                                </div>
                             </div>
                             <div className="row usa-da-validate-item-footer-wrapper">
-                                <div className={"usa-da-validate-item-footer usa-da-header-error" + showFooter +" "+footerStatus} onClick={this.toggleErrorReport.bind(this)}>
-                                    <div>View &amp; Download Header Error Report <span className={"usa-da-icon"}>{chevronDirection}</span></div>
+                                <div
+                                    className={"usa-da-validate-item-footer usa-da-header-error" + showFooter + " " +
+                                        footerStatus}
+                                    onClick={this.toggleErrorReport.bind(this)}>
+                                    <div>View &amp; Download Header Error Report
+                                        <span className="usa-da-icon">{chevronDirection}</span>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -385,19 +412,27 @@ export default class ValidateDataFileComponent extends React.Component {
                         <div className="col-md-3">
                             <div className="usa-da-validate-item-file-section">
                                 <div className="usa-da-validate-item-file-section-result">
-                                    <div className="usa-da-icon" data-testid="validate-icon">
+                                    <div
+                                        className="usa-da-icon"
+                                        data-testid="validate-icon">
                                         {this.displayIcon()}
                                     </div>
                                 </div>
                                 {uploadProgress}
                                 <div className="row usa-da-validate-item-file-name">
-                                    <div className={clickDownloadClass} onClick={clickDownload} download={fileName} rel="noopener noreferrer">
+                                    <div
+                                        className={clickDownloadClass}
+                                        onClick={clickDownload}
+                                        download={fileName}
+                                        rel="noopener noreferrer">
                                         {fileName}
                                     </div>
                                 </div>
-                                <div className={"usa-da-validate-item-file-section-correct-button" + disabledCorrect} data-testid="validate-upload">
+                                <div
+                                    className={"usa-da-validate-item-file-section-correct-button" + disabledCorrect}
+                                    data-testid="validate-upload">
                                     <div className="row">
-                                        <div className='col-md-12'>
+                                        <div className="col-md-12">
                                             <ValidateDataUploadButton onDrop={this.props.onFileChange} />
                                         </div>
                                     </div>
@@ -405,9 +440,10 @@ export default class ValidateDataFileComponent extends React.Component {
                             </div>
                         </div>
                     </div>
-                    {this.state.showError ? <ValidateDataErrorReport submission={this.props.submission.id}
-                                                                     type={this.props.item.file_type}
-                                                                     data={this.state.errorReports} /> : null}
+                    {this.state.showError ? <ValidateDataErrorReport
+                        submission={this.props.submission.id}
+                        type={this.props.item.file_type}
+                        data={this.state.errorReports} /> : null}
                 </div>
             </div>
         );
@@ -415,3 +451,4 @@ export default class ValidateDataFileComponent extends React.Component {
 }
 
 ValidateDataFileComponent.propTypes = propTypes;
+ValidateDataFileComponent.defaultProps = defaultProps;

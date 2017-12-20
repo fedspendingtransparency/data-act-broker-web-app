@@ -5,218 +5,237 @@
 
 import React, { PropTypes } from 'react';
 import _ from 'lodash';
-import Awesomeplete from 'awesomplete';
+import Awesomplete from 'awesomplete';
 
-import TypeaheadWarning from './TypeaheadWarning.jsx';
+import TypeaheadWarning from './TypeaheadWarning';
 
 const propTypes = {
-	values: PropTypes.array.isRequired,
-	placeholder: PropTypes.string,
-	onSelect: PropTypes.func.isRequired,
-	customClass: PropTypes.string,
-	keyValue: PropTypes.string,
-	internalValue: PropTypes.array
-}
+    formatter: PropTypes.func,
+    onSelect: PropTypes.func.isRequired,
+    internalValue: PropTypes.array,
+    values: PropTypes.array,
+    customClass: PropTypes.string,
+    errorHeader: PropTypes.string,
+    errorDescription: PropTypes.string,
+    keyValue: PropTypes.string,
+    placeholder: PropTypes.string,
+    tabIndex: PropTypes.number,
+    isRequired: PropTypes.bool,
+    prioritySort: PropTypes.bool
+};
 
 const defaultProps = {
-	values: [],
-	placeholder: '',
-	customClass: '',
-	formatter: null,
-	keyValue: 'agency_name',
-	internalValue: ['frec_code', 'cgac_code'],
-	tabIndex: null,
-	isRequired: false,
-	errorHeader: null,
-	errorDescription: null
-}
+    values: [],
+    placeholder: '',
+    customClass: '',
+    formatter: null,
+    keyValue: 'agency_name',
+    internalValue: ['frec_code', 'cgac_code'],
+    tabIndex: null,
+    isRequired: false,
+    errorHeader: null,
+    errorDescription: null,
+    prioritySort: true
+};
 
 export default class Typeahead extends React.Component {
-	constructor(props) {
-		super(props);
+    constructor(props) {
+        super(props);
 
-		this.typeahead = null;
-		this.dataDictionary = {};
-		this.internalValueDictionary = {};
+        this.typeahead = null;
+        this.dataDictionary = {};
+        this.internalValueDictionary = {};
 
-		this.state = {
-			value: '',
-			showWarning: false
-		};
-	}
-	componentDidMount() {
-		this.mountAwesomeplete();
-	}
+        this.state = {
+            value: '',
+            showWarning: false
+        };
+    }
 
-	componentDidUpdate(prevProps, prevState) {
-		if (!_.isEqual(prevProps.values, this.props.values) && this.typeahead) {
-			this.loadValues();
-		}
-	}
+    componentDidMount() {
+        this.mountAwesomeplete();
+    }
 
-	loadValues() {
-		this.typeahead.list = this.props.values;
+    componentDidUpdate(prevProps) {
+        if (!_.isEqual(prevProps.values, this.props.values) && this.typeahead) {
+            this.loadValues();
+        }
+    }
 
-		this.props.values.forEach((value) => {
-			for (var i = 0; i < this.props.internalValue.length; i++) {
-				if (value[this.props.internalValue[i]]) {
-					this.dataDictionary[value[this.props.keyValue]] = value[this.props.internalValue[i]];
-					this.internalValueDictionary[value[this.props.keyValue]] = this.props.internalValue[i];
-				}
-			}
-		});
-	}
+    loadValues() {
+        this.typeahead.list = this.props.values;
 
-	mountAwesomeplete() {
-		const target = this.refs.awesomplete;
-		if(this.props.prioritySort) {
-			this.typeahead = new Awesomplete(target, {sort: function(a, b) {
-				if(a.value.priority > b.value.priority) {
-					return 1;
-				}
-				if(a.value.priority < b.value.priority) {
-					return -1;
-				}
-				return 0;
-			}});
-		}
-		else {
-			this.typeahead = new Awesomplete(target);
-		}
-		this.typeahead.autoFirst = true;
+        this.props.values.forEach((value) => {
+            for (let i = 0; i < this.props.internalValue.length; i++) {
+                if (value[this.props.internalValue[i]]) {
+                    this.dataDictionary[value[this.props.keyValue]] = value[this.props.internalValue[i]];
+                    this.internalValueDictionary[value[this.props.keyValue]] = this.props.internalValue[i];
+                }
+            }
+        });
+    }
 
-		if (this.props.formatter) {
-			this.typeahead.data = this.props.formatter;
-		}
+    mountAwesomeplete() {
+        const target = this.refs.awesomplete;
+        if (this.props.prioritySort) {
+            this.typeahead = new Awesomplete(target, {
+                sort: (a, b) => {
+                    if (a.value.priority > b.value.priority) {
+                        return 1;
+                    }
+                    if (a.value.priority < b.value.priority) {
+                        return -1;
+                    }
+                    return 0;
+                }
+            });
+        }
+        else {
+            this.typeahead = new Awesomplete(target);
+        }
+        this.typeahead.autoFirst = true;
 
-		this.loadValues();
+        if (this.props.formatter) {
+            this.typeahead.data = this.props.formatter;
+        }
 
-		// set up event handlers
-		this.refs.awesomplete.addEventListener('awesomplete-selectcomplete', (e) => {
-			this.setState({
-				value: e.text.label
-			}, () => {
-				this.bubbleUpChange();
-			});
-			this.typeahead.close();
-		});
+        this.loadValues();
 
-		this.refs.awesomplete.addEventListener('blur', (e) => {
-			this.bubbleUpChange();
-		});
+        // set up event handlers
+        this.refs.awesomplete.addEventListener('awesomplete-selectcomplete', (e) => {
+            this.setState({
+                value: e.text.label
+            }, () => {
+                this.bubbleUpChange();
+            });
+            this.typeahead.close();
+        });
 
-		// enable tab keyboard shortcut for selection
-		this.refs.awesomplete.addEventListener('keydown', (e) => {
-			if (e.keyCode == 9) {
-				this.typeahead.select();
-			}
-		});
-	}
+        this.refs.awesomplete.addEventListener('blur', () => {
+            this.bubbleUpChange();
+        });
 
-	changedText(e) {
-		this.setState({
-			value: e.target.value
-		}, this.detectEmptySuggestions);
-	}
+        // enable tab keyboard shortcut for selection
+        this.refs.awesomplete.addEventListener('keydown', (e) => {
+            if (e.keyCode === 9) {
+                this.typeahead.select();
+            }
+        });
+    }
 
-	detectEmptySuggestions() {
-		if (this.state.value.length > 2 && this.typeahead.suggestions.length == 0) {
-			if (!this.state.showWarning) {
-				// we need to show a warning that no matching agencies were found
-				this.setState({
-					showWarning: true
-				});
-			}
-			return;
-		}
+    changedText(e) {
+        this.setState({
+            value: e.target.value
+        }, this.detectEmptySuggestions);
+    }
 
-		// otherwise hide the warning
-		if (this.state.showWarning) {
-			this.setState({
-				showWarning: false
-			});
-		}
+    detectEmptySuggestions() {
+        if (this.state.value.length > 2 && this.typeahead.suggestions.length === 0) {
+            if (!this.state.showWarning) {
+                // we need to show a warning that no matching agencies were found
+                this.setState({
+                    showWarning: true
+                });
+            }
+            return;
+        }
 
-	}
+        // otherwise hide the warning
+        if (this.state.showWarning) {
+            this.setState({
+                showWarning: false
+            });
+        }
+    }
 
-	bubbleUpChange() {
-		// force the change up into the parent components
-		// validate the current value is on the autocomplete list
-		const validity = this.dataDictionary.hasOwnProperty(this.state.value);
-		this.props.onSelect(this.dataDictionary[this.state.value], this.internalValueDictionary[this.state.value], validity);
-	}
+    bubbleUpChange() {
+        // force the change up into the parent components
+        // validate the current value is on the autocomplete list
+        const validity = this.dataDictionary.hasOwnProperty(this.state.value);
+        this.props.onSelect(this.dataDictionary[this.state.value],
+            this.internalValueDictionary[this.state.value], validity);
+    }
 
 
-	// create public functions to perform Awesomplete actions
-	expand() {
-		if (this.typeahead) {
-			this.typeahead.open();
-		}
-	}
+    // create public functions to perform Awesomplete actions
+    expand() {
+        if (this.typeahead) {
+            this.typeahead.open();
+        }
+    }
 
-	collapse() {
-		if (this.typeahead) {
-			this.typeahead.close();
-		}
-	}
+    collapse() {
+        if (this.typeahead) {
+            this.typeahead.close();
+        }
+    }
 
-	nextItem() {
-		if (this.typeahead) {
-			this.typeahead.next();
-		}
-	}
+    nextItem() {
+        if (this.typeahead) {
+            this.typeahead.next();
+        }
+    }
 
-	prevItem() {
-		if (this.typeahead) {
-			this.typeahead.previous();
-		}
-	}
+    prevItem() {
+        if (this.typeahead) {
+            this.typeahead.previous();
+        }
+    }
 
-	selectItem() {
-		if (this.typeahead) {
-			this.typeahead.select();
-		}
-	}
+    selectItem() {
+        if (this.typeahead) {
+            this.typeahead.select();
+        }
+    }
 
-	jumpTo(i) {
-		if (this.typeahead) {
-			this.typeahead.goto(i);
-		}
-	}
+    jumpTo(i) {
+        if (this.typeahead) {
+            this.typeahead.goto(i);
+        }
+    }
 
-	render() {
-		let disabled = null;
-		let placeholder = this.props.placeholder;
-		if (this.props.values.length == 0) {
-			disabled = 'disabled';
-			placeholder = 'Loading list...';
-		}
+    render() {
+        let disabled = null;
+        let placeholder = this.props.placeholder;
+        if (this.props.values.length === 0) {
+            disabled = 'disabled';
+            placeholder = 'Loading list...';
+        }
 
-		let warning = null;
-		if (this.state.showWarning) {
-			const errorProps = {};
-			if (this.props.errorHeader) {
-				errorProps.header = this.props.errorHeader;
-			}
-			if (this.props.errorDescription) {
-				errorProps.description = this.props.errorDescription;
-			}
+        let warning = null;
+        if (this.state.showWarning) {
+            const errorProps = {};
+            if (this.props.errorHeader) {
+                errorProps.header = this.props.errorHeader;
+            }
+            if (this.props.errorDescription) {
+                errorProps.description = this.props.errorDescription;
+            }
 
-			warning = <TypeaheadWarning {...errorProps} />;
-		}
+            warning = <TypeaheadWarning {...errorProps} />;
+        }
 
-		let disabledClass = "";
-		if(this.props.disabled) {
-			disabledClass = " disabled";
-		}
+        let disabledClass = "";
+        if (disabled) {
+            disabledClass = " disabled";
+        }
 
-		return (
-			<div className={"usa-da-typeahead"+disabledClass}>
-				<input className={this.props.customClass} ref="awesomplete" type="text" placeholder={placeholder} value={this.state.value} onChange={this.changedText.bind(this)} tabIndex={this.props.tabIndex} disabled={disabled} aria-required={this.props.isRequired} disabled={this.props.disabled}/>
-				{warning}
-			</div>
-		);
-	}
+        return (
+            <div className={"usa-da-typeahead" + disabledClass}>
+                <input
+                    className={this.props.customClass}
+                    ref="awesomplete"
+                    type="text"
+                    placeholder={placeholder}
+                    value={this.state.value}
+                    onChange={this.changedText.bind(this)}
+                    tabIndex={this.props.tabIndex}
+                    disabled={disabled}
+                    aria-required={this.props.isRequired} />
+                {warning}
+            </div>
+        );
+    }
 }
 
 Typeahead.defaultProps = defaultProps;

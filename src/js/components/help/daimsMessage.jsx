@@ -1,9 +1,17 @@
 /**
  * daimsMessage.jsx
  * Created by Minahm Kim 6/30/2017
- **/
+ */
 
-import React from 'react';
+import React, { PropTypes } from 'react';
+
+const propTypes = {
+    type: PropTypes.string
+};
+
+const defaultProps = {
+    type: ''
+};
 
 export default class DaimsMessage extends React.Component {
     constructor(props) {
@@ -12,7 +20,7 @@ export default class DaimsMessage extends React.Component {
 
     render() {
         let type = <span>.</span>;
-        let version = 'v1.2';
+        const version = 'v1.2';
         if(this.props.type == 'practices') {
             type = <span> and its <a href='https://community.max.gov/download/attachments/1286474850/DAIMS_Practices_Procedures_v1.1.pdf?version=1&modificationDate=1498857477698&api=v2' className='daims-link'>Practices &amp; Procedures {version}.</a></span>
         }
@@ -27,3 +35,6 @@ export default class DaimsMessage extends React.Component {
         );
     }
 }
+
+DaimsMessage.propTypes = propTypes;
+DaimsMessage.defaultProps = defaultProps;

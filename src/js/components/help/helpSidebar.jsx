@@ -1,34 +1,56 @@
 /**
  * HelpSidebar.jsx
  * Created by Mike Bray 4/1/16
- **/
+ */
 
-import React from 'react';
-import HelpSidebarItem from './helpSidebarItem.jsx';
+import React, { PropTypes } from 'react';
+import HelpSidebarItem from './helpSidebarItem';
+
+const propTypes = {
+    changeSections: PropTypes.array,
+    technicalSections: PropTypes.array,
+    type: PropTypes.string,
+    helpOnly: PropTypes.bool
+};
+
+const defaultProps = {
+    changeSections: [],
+    technicalSections: [],
+    type: '',
+    helpOnly: false
+};
 
 export default class HelpSidebar extends React.Component {
-
     constructor(props) {
         super(props);
     }
 
     render() {
         const clSectionList = this.props.changeSections.map((section, index) => {
-            return <HelpSidebarItem key={index} sectionName={section.name} sectionId={section.link} type={this.props.type} />
+            return (<HelpSidebarItem
+                key={index}
+                sectionName={section.name}
+                sectionId={section.link}
+                type={this.props.type} />);
         });
 
         const tSectionList = this.props.technicalSections.map((section, index) => {
-            return <HelpSidebarItem key={index} sectionName={section.name} sectionId={section.link} type={this.props.type} />
+            return (<HelpSidebarItem
+                key={index}
+                sectionName={section.name}
+                sectionId={section.link}
+                type={this.props.type} />);
         });
 
         let membership = null;
-        if(this.props.helpOnly){
-            membership=
-                     <li>
-                        <a href="/#/help?section=agencyAccess">Request Agency Access</a>
-                    </li>;
+        if (this.props.helpOnly) {
+            membership = (
+                <li>
+                    <a href="/#/help?section=agencyAccess">Request Agency Access</a>
+                </li>
+            );
         }
-        
+
         const help = this.props.type === 'fabs' ? "/#/FABSHelp" : '/#/help';
         const history = this.props.type === 'fabs' ? "/#/FABSHistory" : '/#/history';
         const technicalHistory = this.props.type === 'fabs' ? "/#/FABSTechnicalHistory" : '/#/technicalHistory';
@@ -58,7 +80,7 @@ export default class HelpSidebar extends React.Component {
                 <h6>What’s New in This Release</h6>
                 <ul>
                     {clSectionList}
-					<li>
+                    <li>
                         <a href={history}>Release Notes Archive</a>
                     </li>
                 </ul>
@@ -73,15 +95,15 @@ export default class HelpSidebar extends React.Component {
                 <ul>
                     {membership}
                     <li>
-                        <a href={help+"?section=membership"}>Contact the Service Desk</a>
+                        <a href={help + "?section=membership"}>Contact the Service Desk</a>
                     </li>
                     <li>
-                        <a href={help+"?section=filingIssue"}>Filing an Issue</a>
+                        <a href={help + "?section=filingIssue"}>Filing an Issue</a>
                     </li>
-		    <li>
+                    <li>
                         <a href={resources}>Resources - DAIMS</a>
                     </li>
-		    <li>
+                    <li>
                         <a href={validations}>Validations</a>
                     </li>
                 </ul>
@@ -89,3 +111,6 @@ export default class HelpSidebar extends React.Component {
         );
     }
 }
+
+HelpSidebar.propTypes = propTypes;
+HelpSidebar.defaultProps = defaultProps;

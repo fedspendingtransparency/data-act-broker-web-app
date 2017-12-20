@@ -1,32 +1,27 @@
-import React from 'react';
-import Navbar from '../SharedComponents/navigation/NavigationComponent.jsx';
-import ReviewDataContent from '../reviewData/ReviewLoading.jsx';
-import Footer from '../SharedComponents/FooterComponent.jsx';
-import AddDataHeader from './../addData/AddDataHeader.jsx';
+import React, { PropTypes } from 'react';
+import Navbar from '../SharedComponents/navigation/NavigationComponent';
+import ReviewDataContent from '../reviewData/ReviewLoading';
+import Footer from '../SharedComponents/FooterComponent';
+import AddDataHeader from './../addData/AddDataHeader';
+
+const propTypes = {
+    route: PropTypes.object,
+    submissionID: PropTypes.string
+};
+
+const defaultProps = {
+    route: {},
+    submissionID: ''
+};
 
 export default class LoadingPage extends React.Component {
-	constructor(props){
-		super(props)
-	}
+    constructor(props) {
+        super(props);
+    }
 
-	componentWillMount(){
-		let header = 'Your Submission is Loading'
-		let message = 'We are gathering your submissions state. Please wait while we gather your data'
-		if(this.props.message) {
-			message = this.props.message
-		}
-		if(this.props.header) {
-			header = this.props.header
-		}
-		this.setState({
-			message: message,
-			header: header
-		})
-	}
-
-	render() {
-		let dummy = {
-        	jobs: [],
+    render() {
+        const dummy = {
+            jobs: [],
             cgac_code: '',
             frec_code: '',
             agency_name: '--',
@@ -40,19 +35,22 @@ export default class LoadingPage extends React.Component {
             total_assistance_obligations: 0,
             total_procurement_obligations: 0,
             file_narrative: {}
-        }
+        };
 
-		return (
+        return (
             <div className="usa-da-review-data-page">
                 <div className="usa-da-site_wrap">
                     <div className="usa-da-page-content">
                         <Navbar activeTab="submissionGuide" type={this.props.route.type} />
-                        <AddDataHeader submissionID={this.props.submissionID} load={false}/>
-                        <ReviewDataContent {...this.props} data={dummy} submissionID={this.props.submissionID}/>
+                        <AddDataHeader submissionID={this.props.submissionID} load={false} />
+                        <ReviewDataContent {...this.props} data={dummy} submissionID={this.props.submissionID} />
                     </div>
                 </div>
                 <Footer />
             </div>
-		);
-	}
+        );
+    }
 }
+
+LoadingPage.propTypes = propTypes;
+LoadingPage.defaultProps = defaultProps;

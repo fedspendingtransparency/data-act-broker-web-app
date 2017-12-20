@@ -1,66 +1,64 @@
-import Request from './sessionSuperagent.js';
 import Q from 'q';
+import Request from './sessionSuperagent';
 
-import StoreSingleton from '../redux/storeSingleton.js';
+import StoreSingleton from '../redux/storeSingleton';
 
-import { kGlobalConstants } from '../GlobalConstants.js';
-import * as sessionActions from '../redux/actions/sessionActions.js';
+import { kGlobalConstants } from '../GlobalConstants';
+import * as sessionActions from '../redux/actions/sessionActions';
 
-export const setSkipGuide = (skip_guide) => {
+export const setSkipGuide = (skipGuide) => {
     const deferred = Q.defer();
 
     const store = new StoreSingleton().store;
 
     Request.post(kGlobalConstants.API + 'set_skip_guide/')
-        .send({skip_guide: skip_guide})
+        .send({ skip_guide: skipGuide })
         .end((err, res) => {
             if (err) {
                 deferred.reject(err);
-            } else {
+            }
+            else {
                 // Only skip the guide if the user wants to skip the guide
-                if (skip_guide == true) {
-                    const action = sessionActions.setSkipGuide(skip_guide);
+                if (skipGuide === true) {
+                    const action = sessionActions.setSkipGuide(skipGuide);
                     store.dispatch(action);
                 }
 
                 deferred.resolve(res.body);
             }
-
         });
 
     return deferred.promise;
-}
+};
 
-export const getSubmissionPage = (submission_id) => {
+export const getSubmissionPage = (submissionId) => {
     const deferred = Q.defer();
 
-    const store = new StoreSingleton().store;
-
-    Request.get(kGlobalConstants.API + 'check_current_page/?submission_id=' + submission_id)
+    Request.get(kGlobalConstants.API + 'check_current_page/?submission_id=' + submissionId)
         .end((err, res) => {
             if (err) {
                 deferred.reject(err);
-            } else {
+            }
+            else {
                 // Only skip the guide if the user wants to skip the guide
-                let pages = [
+                const pages = [
                     '/404',
-                    '/validateData/'+submission_id,
-                    '/generateFiles/'+submission_id,
-                    '/validateCrossFile/'+submission_id,
-                    '/generateEF/'+submission_id,
-                    '/reviewData/'+submission_id,
-                    '/FABSaddData/'+submission_id,
-                ]
-                let index = parseInt(res.body.step, 10);
-                let response = {
+                    '/validateData/' + submissionId,
+                    '/generateFiles/' + submissionId,
+                    '/validateCrossFile/' + submissionId,
+                    '/generateEF/' + submissionId,
+                    '/reviewData/' + submissionId,
+                    '/FABSaddData/' + submissionId
+                ];
+                const index = parseInt(res.body.step, 10);
+                const response = {
                     url: pages[index],
                     page: index
-                }
+                };
 
                 deferred.resolve(response);
             }
-
         });
 
     return deferred.promise;
-}
+};
