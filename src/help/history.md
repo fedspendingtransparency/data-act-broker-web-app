@@ -1,3 +1,29 @@
+#### November 30, 2017
+
+In this release of the Broker, we made several improvements, including: 
+
+- Making overall Broker performance improvements to improve validation times and D1/D2 file generation.
+- Updating FABS so that flex fields in agency submission files appear in the warning and error files when the only error is a missing required element.
+- Updating the FABS dashboard so that users can accurately sort on the “Published” status category. 
+- Updating the DABS Upload & Validate error message to accommodate non-csv files.
+- Updating the DABS reference tables to be up-to-date with the most recent program activity names/codes and Treasury Account Symbols. 
+
+
+#### October 26, 2017
+
+In this release of the Broker, we made improvements to Financial Assistance Broker Submission (FABS).
+
+  - [FABS Improvements](#/help?section=fabsimprovements3)
+
+
+##### FABS Improvements {section=fabsimprovements3}
+In this release, we made several improvements to FABS, including:
+- Updated the submission dashboard to include the agency file name; 
+- Implemented a feature to prevent users from publishing duplicate data files; 
+- Updated the FABS validations so that there is no header error in FABS for facevalueloanguarantee or facevalueofdirectloanorloanguarantee
+- Updated validations so that no error (or warning) is triggered if PPOPCongressionalDistrict.
+
+
 #### October 6, 2017
 
 In this release of the Broker, we released the ability to generate D1/D2 files via the Broker and made improvements to the Financial Assistance Broker Submission (FABS).
