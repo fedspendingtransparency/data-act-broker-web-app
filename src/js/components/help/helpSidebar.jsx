@@ -45,7 +45,7 @@ export default class HelpSidebar extends React.Component {
                             rel="noopener noreferrer"
                             href={"https://s3-us-gov-west-1.amazonaws.com/prod-data-act-web-static" +
                             "-files/help-files/FY18+DABS+Reporting+Window+Schedule.xls"}>
-                                Fiscal Year 2018 DABS Reporting Window Schedule
+                                Fiscal Year 2018 DABS Reporting Schedule
                         </a>
                     </li>
                 </ul>
