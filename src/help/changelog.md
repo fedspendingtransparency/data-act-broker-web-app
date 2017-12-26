@@ -1,9 +1,14 @@
-#### November 30, 2017
+#### December 22, 2017
 
-In this release of the Broker, we made several improvements, including: 
+In this release of the Broker, we made the following updates:
 
-- Making overall Broker performance improvements to improve validation times and D1/D2 file generation.
-- Updating FABS so that flex fields in agency submission files appear in the warning and error files when the only error is a missing required element.
-- Updating the FABS dashboard so that users can accurately sort on the “Published” status category. 
-- Updating the DABS Upload & Validate error message to accommodate non-csv files.
-- Updating the DABS reference tables to be up-to-date with the most recent program activity names/codes and Treasury Account Symbols. 
+ - [Schema - Release DAIMS v1.2](#/help?section=daims12release)
+
+ - [DATA Act Broker Submission Deadlines](#/help?section=dabsSubmissionsDeadlines)
+
+
+#### Schema - Released DAIMS v1.2 {section=daims12release}
+Treasury released the final DATA Act Information Model Schema (DAIMS) v1.2. DAIMS v1.2 is a minor update of the schema and addresses some agency feedback, implements policy requirements, promote additional data standardization and reduce agency burden. The release is targeted for implementation in production for the submission of FY 2018 Quarter 3 data. Find out more information in the [DABS Resources](#/resources) section.
+
+#### DATA Act Broker Submission Deadlines {section=dabsSubmissionsDeadlines}
+In this release of the Broker we published the DATA Act Broker submission deadlines for fiscal year 2018. You can find the submission calendar on the Help page.
