@@ -35,11 +35,13 @@ export default class HelpSidebar extends React.Component {
         });
 
         const tSectionList = this.props.technicalSections.map((section, index) => {
-            return (<HelpSidebarItem
-                key={index}
-                sectionName={section.name}
-                sectionId={section.link}
-                type={this.props.type} />);
+            return (
+                <HelpSidebarItem
+                    key={index}
+                    sectionName={section.name}
+                    sectionId={section.link}
+                    type={this.props.type} />
+                );
         });
 
         let membership = null;
