@@ -22,7 +22,7 @@
 			@include validationProgress;
 		}
 	}
-
+ 
 	// implement the overlay
 	.usa-da-validation-overlay {
 		@include validationOverlay;
@@ -30,7 +30,7 @@
 
 	// add extra padding at the bottom of the page to account for the overlay
 	.with-overlay {
-	    padding-bottom: 180px !important;
+		padding-bottom: 180px !important;
 	}
 
 	//Styling the document download link

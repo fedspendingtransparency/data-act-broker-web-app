@@ -1,6 +1,46 @@
-#### May 10, 2017
+#### June 21, 2017
 
-On September 30, 2016, we released the full version of the DATA Act Broker that contains everything agencies need to test the data validation and submission process. We continue to make improvements to the Broker and respond to issues discovered through agency use.
+In this release of the Broker, we made updates to the submission dashboard to show previously certified files.
+
+  - [Viewing all previously certified files](#/help?section=certhistory)
+
+##### Viewing all previously certified files{section=certhistory}
+In this release, we updated the Broker so that all users can view and download previous certifications. Users can also see warning files accompanied with the certifications.
+
+
+#### June 9, 2017
+
+In this release of the Broker, all users are now able to generate D files outside the context of a submission. We also implemented processing time improvements.
+
+  - [Generating D files outside of a submission](#/help?section=generatedfile)
+  - [Improved processing time](#/help?section=processingtime)
+
+##### Generating D files outside of a submission{section=generatedfile}
+In this release, we updated the Broker so that all users can generate D files outside the context of a submission regardless of the user’s permissions.
+
+##### Improved processing time{section=processingtime}
+In this release, we implemented changes to improve the processing time so that high volume file validations can be completed in a timely manner.
+
+
+#### May 24, 2017
+
+In this release of the Broker, we added a certified data column to the submission dashboard, updated the warning/error reports to include the rule label, and updated the help page with information about the Service Desk.
+
+  - [Certified date column in the submission dashboard](#/help?section=certifieddatecolumn)
+  - [Rule label included in error and warning descriptions](#/help?section=rulelabeldesc)
+  - [Service Desk information on help page](#/help?section=servicedeskinfo)
+
+##### Certified date column in the submission dashboard{section=certifieddatecolumn}
+In this release, we updated the submission dashboard so that users can see when the file was certified.
+
+##### Rule label included in error and warning descriptions{section=rulelabeldesc}
+In this release, we updated the error and warning reports so that users can view the rule label (i.e. A9) for each error or warning.
+
+##### Service Desk information on help page{section=servicedeskinfo}
+In this release, we updated the Help Page so that users can access information on the Service Desk under “Getting More Help.”
+
+
+#### May 10, 2017
 
 In this release of the Broker, we rolled out functionality improvements for the cross-file validation processing time and a disabled upload button for users without upload or certify permissions.
 
@@ -15,8 +55,6 @@ In this release, we implemented a solution to improve the processing time for cr
 
 
 #### April 26, 2017
-
-On September 30, 2016, we released the full version of the DATA Act Broker that contains everything agencies need to test the data validation and submission process. We continue to make improvements to the Broker and respond to issues discovered through agency use.
 
 In this release of the Broker, we rolled out functionality improvements for users to navigate to previously completed steps and a disabled certify button for users without certification permissions. We also added a link to the USAspending Service Desk on the Help page.
 
@@ -35,8 +73,6 @@ In this release, we added a link to the USAspending Service Desk on the Help pag
 
 
 #### April 12, 2017
-
-On September 30, 2016, we released the full version of the DATA Act Broker that contains everything agencies need to test the data validation and submission process. We continue to make improvements to the Broker and respond to issues discovered through agency use.
 
 In this release of the Broker, we deployed the FY2017 Program Activity code list. We rolled out a bug fix for Program Activity and Object Class warnings and implemented a solution to improve the validation processing time, along with other improvements.
 
@@ -65,8 +101,6 @@ In this release, we made improvements to the submission dashboard and submission
 
 #### March 29, 2017
 
-On September 30, 2016, we released the full version of the DATA Act Broker that contains everything agencies need to test the data validation and submission process. We continue to make improvements to the Broker and respond to issues discovered through agency use.
-
 In this release of the Broker, agencies are now able to make changes to previously certified files. We also rolled out bug fixes for C9 and C12.
 
   - [Changes to previously certified files](#/help?section=certified)
@@ -88,8 +122,6 @@ In the previous version of the Broker, the C12 validation was not consistently p
 
 
 #### March 15, 2017
-
-On September 30, 2016, we released the full version of the DATA Act Broker that contained everything agencies need to test the data validation and submission process. Now we are making improvements to the Broker and responding to issues discovered through continued agency use.
 
 In this release of the Broker, agencies are now able to certify and submit data for publication. We rolled out bug fixes for flex fields, B11 and C11/C12 validation rules, and Program Activity case sensitivity. We also improved the submission dashboard functionality and updated the warning and error messages to reflect clarifications to the validation rules.  submission dashboard and the warning and error messages were updated to reflect recent changes to the validation rules.
 
@@ -167,7 +199,6 @@ The documents offered within Alpha-broker.usaspending.gov use multiple file form
 * [Microsoft PowerPoint Viewer](http://www.microsoft.com/en-us/download/details.aspx?id=6) (.ppt, .pptx) For viewing full-featured presentations created in PowerPoint 97 and later versions.
 
 #### March 1, 2017
-On September 30, 2016, we released the full version of the DATA Act Broker that contained everything agencies need to test the data validation and submission process. Now we are making improvements to the Broker and responding to issues discovered through continued agency use.
 
 In this release of the Broker, bug fixes were rolled out for B14/B15, C8/C9, C11/C12, and C23.  Functionality improvements were rolled out, including a delete button for non-certified submissions, a File B header processing fix, and updates to improve file processing time. We also implemented an updated list of agency CGAC codes, names, and abbreviations.
 
@@ -223,7 +254,6 @@ Previously, the B11 validation was checking the direct/reimbursable flag. We upd
 
 
 #### February 13, 2017
-On September 30, 2016, we released the full version of the DATA Act Broker that contained everything agencies need to test the data validation and submission process. Now we are making improvements to the Broker and responding to issues discovered through continued agency use.
 
 In this release of the Broker, bugs were fixed relating to downloading cross file warning/error reports, the B14/B15 validations, and Program Activities with the code '0000' and title 'Unknown/Other'. Functionality improvements were rolled out, including downloading submission files, padding zero values for Object Class and Program Activity, and others.
 
@@ -256,7 +286,6 @@ We discovered a bug in the process for downloading cross file warning and error 
 
 
 #### February 1, 2017
-On September 30, 2016, we released the full version of the DATA Act Broker that contained everything agencies need to test the data validation and submission process. Now we are making improvements to the Broker and responding to issues discovered through continued agency use.
 
 This release of the Broker was focused primarily on maintenance. Notable fixes rolled out in this release include improved processing of high volume files submissions and fixes for rules B9, B10, and B12.
 
@@ -311,7 +340,6 @@ Rule A33 was modified so that users will no longer see a warning if the submissi
 
 
 #### December 21, 2016
-On September 30, 2016, we released the full version of the DATA Act Broker that contained everything agencies need to test the data validation and submission process. Now we are making improvements to the Broker and responding to issues discovered through greater agency use.
 
 In this version of the Broker, users are able to generate D files outside of a submission, rules that were temporarily warnings are changed back to errors, the Broker is available at a new URL, rule B5 is updated, object class validations require a specific value when an object class is unknown, and MAX permissions allow users who are part of of multiple agency permission groups to have different permissions for different agencies.
 
@@ -378,8 +406,6 @@ In previous versions of the broker, certain GTAS lines were being rounded when t
 
 
 ##### November 30, 2016
-
-On September 30, 2016, we released the full version of the DATA Act Broker that contained everything agencies need to test the data validation and submission process. Now we are making improvements to the Broker and responding to issues discovered through greater agency use.
 
 In this version of the Broker, we are using MAX to manage user accounts, we updated how the Broker processes several rules and reports errors, revised Rule A16, and populated the information in the summary table on the final Broker screen.
 

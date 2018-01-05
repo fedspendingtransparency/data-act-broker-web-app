@@ -7,12 +7,18 @@
 
 	@import "./uploadPage/uploadPage";
 
-	.alert-error {
-        @import "../../components/alerts/_alerts";
-        @include dangerAlert;
-    }
+	// style the warning for published submissions
+	.published-submission-warning-banner {
+		@import "../../layouts/login/_topBanner";
+		@include loginTopBanner;
+	}
 
-    .short {
-    	margin-bottom: -40px;
-    }
+	.alert-error { 
+		@import "../../components/alerts/_alerts";
+		@include dangerAlert;
+	}
+
+	.short {
+		margin-bottom: -40px;
+	}
 }

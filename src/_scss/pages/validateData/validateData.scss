@@ -7,10 +7,10 @@
 		@import "../../layouts/login/_topBanner";
 		@include loginTopBanner;
 	}
-
+ 
 	.usa-da-submission-items {
-	    margin-top: 60px;
-	    padding-bottom: 30px;
+		margin-top: 60px;
+		padding-bottom: 30px;
 	}
 
 	@import "../../components/alerts/_alerts";
@@ -24,14 +24,14 @@
 	}
 
 	.usa-da-validate-items {
-	    padding: 0;
-	    .usa-da-validate-item {
-	        @import "./fileItem/fileItem";
-	        @include fileItem;
-	    }
+		padding: 0;
+		.usa-da-validate-item {
+			@import "./fileItem/fileItem";
+			@include fileItem;
+		}
 
-	    // validate header errors
-	    @import "./headers/headers";
+		// validate header errors
+		@import "./headers/headers";
 	}
 
 }

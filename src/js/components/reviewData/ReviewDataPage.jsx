@@ -12,6 +12,7 @@ import Footer from '../SharedComponents/FooterComponent.jsx';
 import ReviewDataContent from './ReviewDataContent.jsx';
 import ReviewLoading from './ReviewLoading.jsx';
 import PublishedSubmissionWarningBanner from '../../components/SharedComponents/PublishedSubmissionWarningBanner.jsx';
+import GTASBanner from '../../components/SharedComponents/GTASWarningBanner.jsx';
 
 export default class ReviewDataPage extends React.Component {
     render() {
@@ -30,6 +31,11 @@ export default class ReviewDataPage extends React.Component {
             warningMessage = <PublishedSubmissionWarningBanner />;
         }
 
+        let gtasWarning = null;
+        if(this.props.data.gtas) {
+            gtasWarning = <GTASBanner data={this.props.data.gtas}/>
+        }
+
         return (
             <div className="usa-da-review-data-page">
                 <div className="usa-da-site_wrap">
@@ -44,6 +50,7 @@ export default class ReviewDataPage extends React.Component {
                             </div>
                         </div>
                         {warningMessage}
+                        {gtasWarning}
                         {currentComponent}
                     </div>
                 </div>

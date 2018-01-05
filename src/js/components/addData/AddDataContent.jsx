@@ -8,7 +8,6 @@ import { kGlobalConstants } from '../../GlobalConstants.js';
 import SubmissionComponent from './SubmissionComponent.jsx';
 import SubmitButton from '../SharedComponents/SubmitButton.jsx';
 import * as Icons from '../../components/SharedComponents/icons/Icons.jsx';
-
 import * as ReviewHelper from '../../helpers/reviewHelper.js';
 
 const propTypes = {
@@ -22,7 +21,7 @@ export default class AddDataContent extends React.Component {
         this.state = {
             fileHolder: [],
             submissionID: 0,
-            progress: 0,
+            progress: 0, 
             upload: false
         };
     }
@@ -32,11 +31,12 @@ export default class AddDataContent extends React.Component {
             ReviewHelper.failUpload(this.props.submission.id)
         }
     }
-
+ 
     startUpload(){
         this.setState({upload: true});
         this.props.performUpload();
     }
+ 
 
     render() {
 
@@ -61,7 +61,7 @@ export default class AddDataContent extends React.Component {
         }
 
         let warning = null;
-        
+         
         if(this.props.submission.state === 'failed'){
             warning = <div className='container short'>
                         <div className={"alert alert-error text-left"} role="alert">
@@ -80,9 +80,10 @@ export default class AddDataContent extends React.Component {
                     </div>;
         }
 
+
         return (
             <div>
-                {warning}
+            {warning}
                 <div className="container center-block">
                     <div className="row">
                         <SubmissionComponent files={this.props.fileTypes} />

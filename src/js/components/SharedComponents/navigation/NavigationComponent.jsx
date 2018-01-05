@@ -8,11 +8,12 @@ import { kGlobalConstants } from '../../../GlobalConstants.js';
 import NavbarTab from './NavbarTab.jsx';
 import UserButton from './UserButton.jsx';
 import SkipNavigationLink from './SkipNavigationLink.jsx';
+import TestEnvironmentBanner from '../banners/TestEnvironmentBanner.jsx';
 
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import * as sessionActions from '../../../redux/actions/sessionActions.js';
-import * as permissionHelper from '../../../helpers/permissionsHelper.js';
+import * as PermissionHelper from '../../../helpers/permissionsHelper.js';
 
 const defaultProps = {
     logoOnly: false
@@ -40,13 +41,22 @@ export class Navbar extends React.Component {
                 'Help': 'help'
             };
         }
-        else if (this.props.session.admin || permissionHelper.checkPermissions(this.props.session)){
-            tabNames = {
-                'Home': 'landing',
-                'Upload & Validate New Submission': 'submissionGuide',
-                'Submission Dashboard': 'dashboard',
-                'Help': 'help'
-            };
+        else if (this.props.session.admin || PermissionHelper.checkPermissions(this.props.session)){
+            if(this.props.type == 'fabs') {
+                tabNames = {
+                    'Home': 'detachedLanding',
+                    'Upload & Validate New Submission': 'uploadDetachedFiles',
+                    'Submission Dashboard': 'detachedDashboard',
+                    'Help': 'help'
+                };
+            }else {
+                tabNames = {
+                    'Home': 'landing',
+                    'Upload & Validate New Submission': 'submissionGuide',
+                    'Submission Dashboard': 'dashboard',
+                    'Help': 'help'
+                };
+            }
         } else {
             tabNames = {
                 'Home': 'landing',
@@ -75,14 +85,22 @@ export class Navbar extends React.Component {
             headerTabs.push(<NavbarTab key={tabNames[key]} name={key} tabClass={tabNames[key]} activeTabClassName={context.props.activeTab} />);
         });
 
-        if (this.props.logoOnly) {
+        if (this.props.logoOnly || this.props.type=='home') {
             headerTabs = null;
         }
 
+        let testBanner = null;
+        let navClass = "";
+        if (kGlobalConstants.STAGING) {
+            navClass = " tall";
+            testBanner = <TestEnvironmentBanner />
+        }
+
         return (
-            <nav className="navbar navbar-default usa-da-header">
+            <nav className={"navbar navbar-default usa-da-header" + navClass}>
                 <SkipNavigationLink />
                 <a className="hidden-screen-reader" href="#">Home</a>
+                {testBanner}
                 <div className="container-fluid">
                     <div className="row">
                         <div className="col-md-12 usa-da-top-head">
@@ -103,7 +121,7 @@ export class Navbar extends React.Component {
                                 <span className="icon-bar"></span>
                                 <span className="icon-bar"></span>
                             </button>
-                            <a className="navbar-brand usa-da-header-brand" href="#/landing">DATA Act Broker</a>
+                            <a className="navbar-brand usa-da-header-brand" href="#/">DATA Act Broker</a>
                         </div>
 
                         <div className="collapse navbar-collapse" id="bs-example-navbar-collapse-1">

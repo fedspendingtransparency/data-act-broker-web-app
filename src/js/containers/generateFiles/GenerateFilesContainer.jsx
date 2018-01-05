@@ -15,11 +15,13 @@ import Q from 'q';
 import { kGlobalConstants } from '../../GlobalConstants.js';
 import GenerateFilesContent from '../../components/generateFiles/GenerateFilesContent.jsx';
 import PublishedSubmissionWarningBanner from '../../components/SharedComponents/PublishedSubmissionWarningBanner.jsx';
+import GTASBanner from '../../components/SharedComponents/GTASWarningBanner.jsx';
 
 import * as uploadActions from '../../redux/actions/uploadActions.js';
 
 import * as GenerateFilesHelper from '../../helpers/generateFilesHelper.js';
 import * as UtilHelper from '../../helpers/util.js';
+import * as ReviewHelper from '../../helpers/reviewHelper.js';
 
 const timerDuration = 10;
 
@@ -60,14 +62,27 @@ class GenerateFilesContainer extends React.Component {
 			},
 			d1Status: "waiting",
 			d2Status: "waiting",
-			errorDetails: ""
+			errorDetails: "",
+			gtas: null
 		};
 	}
 
 	componentDidMount() {
 		this.isUnmounted = false;
 		this.checkForPreviousFiles();
+		this.isGtas();
 	}
+
+	isGtas() {
+		ReviewHelper.isGtasWindow()
+			.then((res) => {
+				this.setState({gtas: res.data})
+			})
+			.catch((err) =>{
+				console.log(err)
+			})
+	}
+
 
 	componentWillUnmount() {
 		this.isUnmounted = true;
@@ -469,9 +484,15 @@ class GenerateFilesContainer extends React.Component {
 		if(this.props.submission.publishStatus !== "unpublished") {
 			warningMessage = <PublishedSubmissionWarningBanner />;
 		}
+
+		let gtasWarning = null;
+		if(this.state.gtas){
+			gtasWarning = <GTASBanner data={this.state.gtas}/>
+		}
 		return (
 			<div>
 				{warningMessage}
+				{gtasWarning}
 				<GenerateFilesContent {...this.props} {...this.state}
 					handleDateChange={this.handleDateChange.bind(this)}
 					updateError={this.updateError.bind(this)}
@@ -483,6 +504,7 @@ class GenerateFilesContainer extends React.Component {
 }
 
 export default connect(
-	state => ({ submission: state.submission }),
+	state => ({ submission: state.submission, 
+		session: state.session }),
 	dispatch => bindActionCreators(uploadActions, dispatch)
 )(GenerateFilesContainer)

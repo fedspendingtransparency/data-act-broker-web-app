@@ -106,7 +106,8 @@ const routeDefinitions = {
     path: '/',
     indexRoute: {
         onEnter: checkUserPermissions,
-        component: LandingPage
+        component: LandingPage,
+        type: kGlobalConstants.STAGING ? 'home' : 'dabs'
     },
     childRoutes: [
         {
@@ -120,7 +121,14 @@ const routeDefinitions = {
         {
             path: 'landing',
             onEnter: checkUserPermissions,
-            component: LandingPage
+            component: LandingPage,
+            type: 'dabs'
+        },
+        {
+            path: 'detachedLanding',
+            onEnter: checkUserPermissions,
+            component: LandingPage,
+            type: 'fabs'
         },
         {
             path: 'submissionGuide',
@@ -134,7 +142,18 @@ const routeDefinitions = {
                 require.ensure([], (require) => {
                     cb(null, require('../../components/dashboard/DashboardPage.jsx').default)
                 });
-            }
+            },
+            type: 'dabs'
+        },
+        {
+            path: 'detachedDashboard',
+            onEnter: checkUserPermissions,
+            getComponent(nextState, cb) {
+                require.ensure([], (require) => {
+                    cb(null, require('../../components/dashboard/DashboardPage.jsx').default)
+                });
+            },
+            type: 'fabs'
         },
         {
             path: 'addData',
@@ -144,12 +163,14 @@ const routeDefinitions = {
         {
             path: 'uploadDetachedFiles/:submissionID',
             onEnter: checkUserPermissions,
-            component: UploadDetachedFilesPageContainer
+            component: UploadDetachedFilesPageContainer,
+            type:'fabs'
         },
         {
             path: 'uploadDetachedFiles',
             onEnter: checkUserPermissions,
-            component: UploadDetachedFilesPageContainer
+            component: UploadDetachedFilesPageContainer,
+            type:'fabs'
         },
         {
             path: 'validateData/:submissionID',
@@ -157,6 +178,15 @@ const routeDefinitions = {
             getComponent(nextState, cb) {
                 require.ensure([], (require) => {
                     cb(null, require('../../components/validateData/ValidateDataPage.jsx').default)
+                });
+            }
+        },
+        {
+            path: 'submission/:submissionID',
+            onEnter: checkUserPermissions,
+            getComponent(nextState, cb) {
+                require.ensure([], (require) => {
+                    cb(null, require('../../containers/submission/SubmissionContainer.jsx').default)
                 });
             }
         },
@@ -193,6 +223,15 @@ const routeDefinitions = {
             getComponent(nextState, cb) {
                 require.ensure([], (require) => {
                     cb(null, require('../../containers/review/ReviewDataContainer.jsx').default)
+                });
+            }
+        },
+        {
+            path: 'submissionHistory/:submissionID',
+            onEnter: checkUserPermissions,
+            getComponent(nextState, cb) {
+                require.ensure([], (require) => {
+                    cb(null, require('../../containers/history/HistoryContainer.jsx').default)
                 });
             }
         },

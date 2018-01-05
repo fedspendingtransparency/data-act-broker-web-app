@@ -10,7 +10,8 @@ import TableSorter from './TableSorter.jsx';
 const propTypes = {
     data: PropTypes.array.isRequired,
     onSort: PropTypes.func,
-    currentSort: PropTypes.object
+    currentSort: PropTypes.object,
+    sortable: PropTypes.bool
 };
 
 const defaultProps = {

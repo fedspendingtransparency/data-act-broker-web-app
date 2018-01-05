@@ -9,11 +9,25 @@ import Footer from '../SharedComponents/FooterComponent.jsx';
 import DashboardContainer from '../../containers/dashboard/DashboardContainer.jsx';
 
 export default class DashboardPage extends React.Component {
+    constructor(props) {
+        super(props)
+
+        this.state = {
+            type: this.props.route.type
+        }
+    }
+
+    componentWillReceiveProps(nextProps){
+        if(nextProps.route.type != this.state.type) {
+            this.setState({type:nextProps.route.type})
+        }
+    }
+
 	render() {
 		return (
             <div>
                 <div className="usa-da-site_wrap usa-da-dashboard-page">
-                    <Navbar activeTab="dashboard"/>
+                    <Navbar activeTab="dashboard" type={this.state.type} />
                     <div className="usa-da-content-dark">
                         <div className="container">
                             <div className="row">
@@ -25,7 +39,7 @@ export default class DashboardPage extends React.Component {
                             </div>
                         </div>
                     </div>
-                    <DashboardContainer />
+                    <DashboardContainer type={this.state.type}/>
                 </div>
                 <Footer />
             </div>

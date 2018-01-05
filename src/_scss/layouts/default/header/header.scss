@@ -1,16 +1,22 @@
 @import "./_userBar";
 @import "./_menuBar";
 @import "./_titleBar";
+@import "./_warningBanner";
 
 @mixin defaultHeader {
 	.usa-da-header {
 		background-color: $color-gray-dark;
-	    border: none;
-	    height: $header-height;
-	    border-radius: 0;
-	    margin-bottom: 0;
+		border: none;
+		height: $header-height;
+		border-radius: 0;
+		margin-bottom: 0;
+
+		&.tall {
+			height: ($header-height + $warning-banner-height);
+		}
 	    
-	    @include headerUserBar;
+		@include headerUserBar;
+		@include headerWarningBanner;
 	}
 
 	.usa-da-header-container {
@@ -20,5 +26,10 @@
 
 	.usa-da-content-dark {
 		@include headerTitleBar;		
+	}
+
+	.usa-da-content-teal {
+		@include headerTitleBar;
+		background-color: #13646C;
 	}
 }
