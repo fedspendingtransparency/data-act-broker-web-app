@@ -35,11 +35,13 @@ export default class HelpSidebar extends React.Component {
         });
 
         const tSectionList = this.props.technicalSections.map((section, index) => {
-            return (<HelpSidebarItem
-                key={index}
-                sectionName={section.name}
-                sectionId={section.link}
-                type={this.props.type} />);
+            return (
+                <HelpSidebarItem
+                    key={index}
+                    sectionName={section.name}
+                    sectionId={section.link}
+                    type={this.props.type} />
+                );
         });
 
         let membership = null;
@@ -56,8 +58,29 @@ export default class HelpSidebar extends React.Component {
         const technicalHistory = this.props.type === 'fabs' ? "/#/FABSTechnicalHistory" : '/#/technicalHistory';
         const resources = this.props.type === 'fabs' ? "/#/FABSResources" : '/#/resources';
         const validations = this.props.type === 'fabs' ? "/#/FABSValidations" : '/#/validations';
+        let schedule = null;
+        if (this.props.type === 'dabs') {
+            schedule = (
+                <div>
+                    <h6>Submission Deadlines</h6>
+                    <ul>
+                        <li>
+                            <a
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                href={"https://s3-us-gov-west-1.amazonaws.com/prod-data-act-web-static" +
+                                "-files/help-files/FY18+DABS+Reporting+Window+Schedule.xls"}>
+                                    Fiscal Year 2018 DABS Reporting Schedule
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            );
+        }
+
         return (
             <div className="usa-da-help-sidebar">
+                {schedule}
                 <h6>What’s New in This Release</h6>
                 <ul>
                     {clSectionList}

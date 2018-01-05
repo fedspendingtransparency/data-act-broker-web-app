@@ -60,6 +60,9 @@ export default class AddDataHeader extends React.Component {
     }
 
     loadData(submissionID) {
+        if (submissionID === null || submissionID === '') {
+            return;
+        }
         ReviewHelper.fetchStatus(submissionID)
             .then((data) => {
                 const tmpData = data;

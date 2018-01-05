@@ -4,7 +4,7 @@
   */
 
 import React, { PropTypes } from 'react';
-import * as TabItem from './TabItem';
+import TabItem from './TabItem';
 
 const propTypes = {
     changeTab: PropTypes.func,
@@ -86,9 +86,15 @@ export default class ErrorTabs extends React.Component {
     }
 
     render() {
-        const tabs = this.state.tabs.map((tab, index) => {
-            return <TabItem {...tab} key={index} changeTab={this.props.changeTab} />;
-        });
+        const tabs = this.state.tabs.map((tab, index) =>
+            (<TabItem
+                label={tab.value}
+                count={tab.count}
+                value={tab.value}
+                isActive={tab.isActive}
+                key={index}
+                changeTab={this.props.changeTab} />)
+        );
 
         return (
             <div className="error-tabs">
