@@ -86,14 +86,14 @@ export default class ErrorTabs extends React.Component {
     }
 
     render() {
-        const tabs = this.state.tabs.map((tab, index) => 
-            <TabItem
+        const tabs = this.state.tabs.map((tab, index) =>
+            (<TabItem
                 label={tab.value}
                 count={tab.count}
                 value={tab.value}
                 isActive={tab.isActive}
                 key={index}
-                changeTab={this.props.changeTab} />
+                changeTab={this.props.changeTab} />)
         );
 
         return (

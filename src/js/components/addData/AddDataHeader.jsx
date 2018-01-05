@@ -60,7 +60,7 @@ export default class AddDataHeader extends React.Component {
     }
 
     loadData(submissionID) {
-        if (isNaN(submissionID) || submissionID === '') {
+        if (submissionID === null || submissionID === '') {
             return;
         }
         ReviewHelper.fetchStatus(submissionID)
