@@ -1,18 +1,28 @@
 /**
  * ResourcesPage.jsx
  * Created by Emily Gullo 9/27/16
- **/
+ */
 
-import React from 'react';
-import Navbar from '../SharedComponents/navigation/NavigationComponent.jsx';
-import HelpNav from './helpNav.jsx';
-import ResourcesContent from './resourcesContent.jsx';
-import Banner from '../SharedComponents/Banner.jsx';
-import Footer from '../SharedComponents/FooterComponent.jsx';
+import React, { PropTypes } from 'react';
+import Navbar from '../SharedComponents/navigation/NavigationComponent';
+import HelpNav from './helpNav';
+import ResourcesContent from './resourcesContent';
+import Banner from '../SharedComponents/Banner';
+import Footer from '../SharedComponents/FooterComponent';
 
-import * as Icons from '../SharedComponents/icons/Icons.jsx';
+import * as Icons from '../SharedComponents/icons/Icons';
 
-import * as HelpHelper from '../../helpers/helpHelper.js';
+const propTypes = {
+    route: PropTypes.object,
+    type: PropTypes.string,
+    helpOnly: PropTypes.bool
+};
+
+const defaultProps = {
+    route: null,
+    type: '',
+    helpOnly: false
+};
 
 export default class ResourcesPage extends React.Component {
     constructor(props) {
@@ -24,10 +34,10 @@ export default class ResourcesPage extends React.Component {
     }
 
     componentWillReceiveProps(nextProps) {
-        if(nextProps.route.type !== this.state.type) {
+        if (nextProps.route.type !== this.state.type) {
             this.setState({
                 type: nextProps.route.type
-            })
+            });
         }
     }
 
@@ -43,9 +53,10 @@ export default class ResourcesPage extends React.Component {
                         <div className="container">
                             <div className="row">
                                 <div className="col-md-12 mt-40 mb-20">
-                                    <div className="display-2" data-contentstart="start" tabIndex={-1}>{this.props.type.toUpperCase()} | Resources
-										<HelpNav selected="Resources" type={this.props.type} />
-									</div>
+                                    <div className="display-2" data-contentstart="start" tabIndex={-1}>
+                                        {this.props.type.toUpperCase()} | Resources
+                                        <HelpNav selected="Resources" type={this.props.type} />
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -72,3 +83,6 @@ export default class ResourcesPage extends React.Component {
         );
     }
 }
+
+ResourcesPage.propTypes = propTypes;
+ResourcesPage.defaultProps = defaultProps;

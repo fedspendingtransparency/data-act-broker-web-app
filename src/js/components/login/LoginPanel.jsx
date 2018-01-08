@@ -1,13 +1,27 @@
 /**
 * LoginPanel.jsx
 * Created by Kyle Fox 2/19/16
-**/ 
+*/
 
-import React from 'react';
-import Username from './Username.jsx';
-import Password from './Password.jsx';
-import SignInButton from './SignInButton.jsx';
-import ErrorMessage from '../SharedComponents/ErrorMessage.jsx';
+import React, { PropTypes } from 'react';
+import Username from './Username';
+import Password from './Password';
+import SignInButton from './SignInButton';
+import ErrorMessage from '../SharedComponents/ErrorMessage';
+
+const propTypes = {
+    performLogin: PropTypes.func,
+    session: PropTypes.object,
+    errorMessage: PropTypes.string,
+    loading: PropTypes.bool
+};
+
+const defaultProps = {
+    performLogin: null,
+    session: null,
+    errorMessage: '',
+    loading: false
+};
 
 export default class LoginPanel extends React.Component {
     constructor(props) {
@@ -44,13 +58,11 @@ export default class LoginPanel extends React.Component {
     }
 
     render() {
-        
         let errorMessageComponent = null;
 
-        if (this.props.session.login == "failed") {
+        if (this.props.session.login === "failed") {
             errorMessageComponent = <ErrorMessage message={this.props.errorMessage} />;
         }
-
 
         return (
             <div className="login-form-wrap">
@@ -67,7 +79,10 @@ export default class LoginPanel extends React.Component {
                     </div>
                     <div className="row">
                         <div className="col-sm-12 col-md-offset-4 col-md-8">
-                            <SignInButton onClick={this.loginClicked.bind(this)} buttonText="Sign In" disabled={this.props.loading} />
+                            <SignInButton
+                                onClick={this.loginClicked.bind(this)}
+                                buttonText="Sign In"
+                                disabled={this.props.loading} />
                         </div>
                     </div>
                     <div className="row">
@@ -80,3 +95,6 @@ export default class LoginPanel extends React.Component {
         );
     }
 }
+
+LoginPanel.propTypes = propTypes;
+LoginPanel.defaultProps = defaultProps;

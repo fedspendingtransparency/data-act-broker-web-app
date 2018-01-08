@@ -1,104 +1,108 @@
 /**
   * ErrorTabs.jsx
   * Created by Kevin Li 8/29/16
-  **/
+  */
 
-import React from 'react';
+import React, { PropTypes } from 'react';
+import TabItem from './TabItem';
 
-class TabItem extends React.Component {
-	clickedTab(e) {
-		e.preventDefault();
-		this.props.changeTab(this.props.value);
-	}
-	render() {
-		let activeClass = '';
-		if (this.props.isActive) {
-			activeClass = ' active';
-		}
-		
-		return (
-			<a href="#" className={"tab-item" + activeClass} onClick={this.clickedTab.bind(this)}>
-				{this.props.label}
-				<span className="count-badge">
-					{this.props.count}
-				</span>
-			</a>
-		)
-	}
-}
+const propTypes = {
+    changeTab: PropTypes.func,
+    counts: PropTypes.object,
+    activeTab: PropTypes.string,
+    label: PropTypes.string,
+    status: PropTypes.string,
+    value: PropTypes.string,
+    count: PropTypes.number,
+    isActive: PropTypes.bool,
+    showTabs: PropTypes.string
+};
 
 const defaultProps = {
-	showTabs: "both",
-	counts: {
-		errors: 0,
-		warnings: 0
-	}
+    showTabs: "both",
+    counts: {
+        errors: 0,
+        warnings: 0
+    },
+    changeTab: null,
+    activeTab: '',
+    label: '',
+    status: '',
+    value: '',
+    count: 0,
+    isActive: false
 };
 
 export default class ErrorTabs extends React.Component {
-	constructor(props) {
-		super(props);
+    constructor(props) {
+        super(props);
 
-		this.state = {
-			tabs: []
-		};
-	}
+        this.state = {
+            tabs: []
+        };
+    }
 
-	componentDidMount() {
-		this.buildTabs();
-	}
-	componentDidUpdate(prevProps, prevState) {
-		if (prevProps.status != this.props.status || prevProps.activeTab != this.props.activeTab) {
-			this.buildTabs();
-		}
-	}
+    componentDidMount() {
+        this.buildTabs();
+    }
+    componentDidUpdate(prevProps) {
+        if (prevProps.status !== this.props.status || prevProps.activeTab !== this.props.activeTab) {
+            this.buildTabs();
+        }
+    }
 
-	buildTabs() {
-		const tabs = [];
+    buildTabs() {
+        const tabs = [];
 
-		const errors = {
-			label: "Cross-File Validation Errors",
-			value: "errors",
-			isActive: true,
-			count: this.props.counts.errors
-		};
-		const warnings = {
-			label: "Cross-File Validation Warnings",
-			value: "warnings",
-			isActive: false,
-			count: this.props.counts.warnings
-		};
+        const errors = {
+            label: "Cross-File Validation Errors",
+            value: "errors",
+            isActive: true,
+            count: this.props.counts.errors
+        };
+        const warnings = {
+            label: "Cross-File Validation Warnings",
+            value: "warnings",
+            isActive: false,
+            count: this.props.counts.warnings
+        };
 
+        if (this.props.activeTab === "warnings") {
+            warnings.isActive = true;
+            errors.isActive = false;
+        }
 
-		if (this.props.activeTab == "warnings") {
-			warnings.isActive = true;
-			errors.isActive = false;
-		}
+        if (this.props.status === "error") {
+            tabs.push(errors);
+            tabs.push(warnings);
+        }
+        else if (this.props.status === "warning") {
+            tabs.push(warnings);
+        }
 
-		if (this.props.status == "error") {
-			tabs.push(errors);
-			tabs.push(warnings);
-		}
-		else if (this.props.status == "warning") {
-			tabs.push(warnings);
-		}
+        this.setState({
+            tabs
+        });
+    }
 
-		this.setState({
-			tabs: tabs
-		});
-	}
+    render() {
+        const tabs = this.state.tabs.map((tab, index) =>
+            (<TabItem
+                label={tab.value}
+                count={tab.count}
+                value={tab.value}
+                isActive={tab.isActive}
+                key={index}
+                changeTab={this.props.changeTab} />)
+        );
 
-	render() {
-		const tabs = this.state.tabs.map((tab, index) => {
-			return <TabItem {...tab} key={index} changeTab={this.props.changeTab} />;
-		});
-
-		return (
-			<div className="error-tabs">
-				{tabs}
-			</div>
-		)
-	}
+        return (
+            <div className="error-tabs">
+                {tabs}
+            </div>
+        );
+    }
 }
 
+ErrorTabs.propTypes = propTypes;
 ErrorTabs.defaultProps = defaultProps;

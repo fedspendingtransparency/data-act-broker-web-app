@@ -1,18 +1,27 @@
 /**
   * GenerateEFPage.jsx
   * Created by Kevin Li 8/23/16
-  **/
+  */
 
-import React from 'react';
-import Navbar from '../SharedComponents/navigation/NavigationComponent.jsx';
-import AddDataHeader from './../addData/AddDataHeader.jsx';
-import Progress from '../SharedComponents/ProgressComponent.jsx';
+import React, { PropTypes } from 'react';
+import Navbar from '../SharedComponents/navigation/NavigationComponent';
+import AddDataHeader from './../addData/AddDataHeader';
+import Progress from '../SharedComponents/ProgressComponent';
 
-import GenerateEFContainer from '../../containers/generateEF/GenerateEFContainer.jsx';
-import GenerateEFError from './GenerateEFError.jsx';
+import GenerateEFContainer from '../../containers/generateEF/GenerateEFContainer';
+import GenerateEFError from './GenerateEFError';
+
+const propTypes = {
+    params: PropTypes.object,
+    route: PropTypes.object
+};
+
+const defaultProps = {
+    params: null,
+    route: null
+};
 
 export default class GenerateEFPage extends React.Component {
-
     constructor(props) {
         super(props);
 
@@ -29,16 +38,17 @@ export default class GenerateEFPage extends React.Component {
         });
     }
 
-	render() {
-
-        let pageContent = <GenerateEFContainer submissionID={this.props.params.submissionID} showError={this.showError.bind(this)} />;
+    render() {
+        let pageContent = (<GenerateEFContainer
+            submissionID={this.props.params.submissionID}
+            showError={this.showError.bind(this)} />);
 
         if (this.state.showError) {
-           pageContent = <GenerateEFError message={this.state.errorMessage} />;
+            pageContent = <GenerateEFError message={this.state.errorMessage} />;
         }
 
-		return (
-			<div className="usa-da-generate-ef-page">
+        return (
+            <div className="usa-da-generate-ef-page">
                 <Navbar activeTab="submissionGuide" type={this.props.route.type} />
                 <AddDataHeader submissionID={this.props.params.submissionID} />
                 <div className="usa-da-content-step-block" name="content-top">
@@ -50,7 +60,9 @@ export default class GenerateEFPage extends React.Component {
                 </div>
                 {pageContent}
             </div>
-            
-		)
-	}
+        );
+    }
 }
+
+GenerateEFPage.propTypes = propTypes;
+GenerateEFPage.defaultProps = defaultProps;

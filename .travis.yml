@@ -3,7 +3,6 @@ node_js:
   # latest in each series
   - "6"
   - "5"
-  - "4"
 # Need a C++ compiler
 addons:
   apt:
@@ -18,4 +17,4 @@ before_script:
   - cp sampleGlobalConstants_local.js GlobalConstants_local.js
 script:
   - gulp buildLocal
-  - eslint src/js
+  - eslint --config .eslintrc src/js

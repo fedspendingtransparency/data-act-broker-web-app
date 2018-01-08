@@ -1,18 +1,20 @@
 /**
 * Password.jsx
 * Created by Kyle Fox 12/4/15
-**/
+*/
 
 import React, { PropTypes } from 'react';
-import * as Icons from '../SharedComponents/icons/Icons.jsx';
+import * as Icons from '../SharedComponents/icons/Icons';
 
 const propTypes = {
     handleChange: PropTypes.func.isRequired,
     fieldID: PropTypes.string,
     iconClass: PropTypes.string,
+    placeholder: PropTypes.string,
+    tabIndex: PropTypes.string,
     error: PropTypes.bool,
-    placeholder: PropTypes.string
-}
+    isRequired: PropTypes.bool
+};
 
 const defaultProps = {
     fieldID: "password",
@@ -21,7 +23,7 @@ const defaultProps = {
     tabIndex: "2",
     placeholder: "Password",
     isRequired: true
-}
+};
 
 export default class Password extends React.Component {
     render() {
@@ -41,11 +43,10 @@ export default class Password extends React.Component {
                     aria-describedby="password"
                     onChange={this.props.handleChange}
                     tabIndex={this.props.tabIndex}
-                    aria-required={this.props.isRequired}
-                />
+                    aria-required={this.props.isRequired} />
                 <span className="usa-da-icon">
                     <Icons.Lock alt="Password" />
-               </span>
+                </span>
             </div>
         );
     }

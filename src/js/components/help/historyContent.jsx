@@ -1,17 +1,25 @@
 /**
  * HistoryContent.jsx
  * Created by Emily Gullo 9/27/16
- **/
+ */
 
-import React from 'react';
+import React, { PropTypes } from 'react';
 import $ from 'jquery';
-import { generateRSSUrl, generateProtectedUrls, rssFileKey } from '../../helpers/util.js';
+import { generateProtectedUrls, rssFileKey } from '../../helpers/util';
 
+const propTypes = {
+    history: PropTypes.object,
+    section: PropTypes.string,
+    title: PropTypes.string
+};
 
-let gifSrc = 'graphics/reportabug.gif';
+const defaultProps = {
+    history: null,
+    section: '',
+    title: ''
+};
 
 export default class HistoryContent extends React.Component {
-
     constructor(props) {
         super(props);
 
@@ -26,7 +34,6 @@ export default class HistoryContent extends React.Component {
     }
 
     componentDidMount() {
-
         // also load the remaining URLs
         this.urlPromise = generateProtectedUrls();
         this.urlPromise.promise
@@ -34,15 +41,13 @@ export default class HistoryContent extends React.Component {
                 this.setState({
                     rssUrl: urls[rssFileKey()],
                     validationRulesUrl: urls['Validation_Rules.xlsx'],
-                    domainValuesUrl: urls['Domain_Values.xlsx'],
+                    domainValuesUrl: urls['Domain_Values.xlsx']
                 });
-
                 this.urlPromise = null;
             });
-
     }
 
-    componentDidUpdate(prevProps, prevState) {
+    componentDidUpdate() {
         this.scrollToSection();
     }
 
@@ -65,8 +70,11 @@ export default class HistoryContent extends React.Component {
         return (
             <div className="usa-da-help-content">
                 <h2>{this.props.title}</h2>
-                <div dangerouslySetInnerHTML={{__html:this.props.history}} />
+                <div dangerouslySetInnerHTML={{ __html: this.props.history }} />
             </div>
         );
     }
 }
+
+HistoryContent.propTypes = propTypes;
+HistoryContent.defaultProps = defaultProps;

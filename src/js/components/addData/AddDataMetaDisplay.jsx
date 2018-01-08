@@ -1,13 +1,17 @@
 /**
 * AddDataMetaDisplay.jsx
 * Created by Mike Bray 3/22/16
-**/
+*/
 
 import React, { PropTypes } from 'react';
 import moment from 'moment';
 
 const propTypes = {
     data: PropTypes.object
+};
+
+const defaultProps = {
+    data: null
 };
 
 export default class MetaData extends React.Component {
@@ -26,3 +30,4 @@ export default class MetaData extends React.Component {
 }
 
 MetaData.propTypes = propTypes;
+MetaData.defaultProps = defaultProps;

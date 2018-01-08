@@ -1,17 +1,27 @@
 /**
   * HistoryPage.jsx
   * Created by Minahm Kim 06/08/17
-  **/
+  */
 
-import React from 'react';
-import Navbar from '../SharedComponents/navigation/NavigationComponent.jsx';
-import Footer from '../SharedComponents/FooterComponent.jsx';
-import HistoryTable from './HistoryTable.jsx';
-import HistoryHeader from './HistoryHeader.jsx';
+import React, { PropTypes } from 'react';
+import Navbar from '../SharedComponents/navigation/NavigationComponent';
+import Footer from '../SharedComponents/FooterComponent';
+import HistoryTable from './HistoryTable';
+import HistoryHeader from './HistoryHeader';
+
+const propTypes = {
+    submissionID: PropTypes.string,
+    type: PropTypes.string
+};
+
+const defaultProps = {
+    submissionID: '',
+    type: ''
+};
 
 export default class HistoryPage extends React.Component {
-    constructor(props){
-        super(props)
+    constructor(props) {
+        super(props);
     }
 
     render() {
@@ -30,11 +40,14 @@ export default class HistoryPage extends React.Component {
                             </div>
                         </div>
                     </div>
-                    <HistoryHeader submissionID={this.props.submissionID}/>
-                    <HistoryTable submissionID={this.props.submissionID}/>
+                    <HistoryHeader submissionID={this.props.submissionID} />
+                    <HistoryTable submissionID={this.props.submissionID} />
                 </div>
                 <Footer />
             </div>
-        )
+        );
     }
 }
+
+HistoryPage.propTypes = propTypes;
+HistoryPage.defaultProps = defaultProps;
