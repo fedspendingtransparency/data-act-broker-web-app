@@ -1,23 +1,28 @@
 /**
 * RouterContainer.jsx
 * Created by Kevin Li 3/16/15
-**/
+*/
 
-import React from 'react';
-import ReactDOM from 'react-dom';
-import { kGlobalConstants } from '../../GlobalConstants.js';
-import { Router, Route, Link, hashHistory } from 'react-router';
-
+import React, { PropTypes } from 'react';
+import { Router, hashHistory } from 'react-router';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import * as sessionActions from '../../redux/actions/sessionActions.js';
-
-import * as LoginHelper from '../../helpers/loginHelper.js';
-
-import RouterRoutes from './RouterRoutes.jsx';
+import { kGlobalConstants } from '../../GlobalConstants';
+import * as sessionActions from '../../redux/actions/sessionActions';
+import * as LoginHelper from '../../helpers/loginHelper';
+import RouterRoutes from './RouterRoutes';
 
 const ga = require('react-ga');
+
 const GA_OPTIONS = { debug: false };
+
+const propTypes = {
+    session: PropTypes.object
+};
+
+const defaultProps = {
+    session: {}
+};
 
 const Routes = new RouterRoutes();
 
@@ -29,14 +34,15 @@ class RouterContainer extends React.Component {
     }
 
     componentDidUpdate(prevProps) {
-        if (this.props.session.login != prevProps.session.login) {
-            if (this.props.session.login == "loggedIn") {
-                // we've switched from either a logged out state to logged in or we've received session data back from the backend
+        if (this.props.session.login !== prevProps.session.login) {
+            if (this.props.session.login === "loggedIn") {
+                // we've switched from either a logged out state to logged in or
+                // we've received session data back from the backend
                 // so we should auto-relogin
                 Routes.autoLogin(this.refs.router.state.location);
                 this.monitorSession();
             }
-            else if (this.props.session.login == "loggedOut" && prevProps.session.login == "loggedIn") {
+            else if (this.props.session.login === "loggedOut" && prevProps.session.login === "loggedIn") {
                 this.logout();
             }
         }
@@ -50,8 +56,7 @@ class RouterContainer extends React.Component {
     }
 
     handleRouteChange() {
-        let path = window.location.hash;
-        this.logPageView(path);
+        this.logPageView(window.location.hash);
     }
 
     logPageView(path) {
@@ -71,16 +76,21 @@ class RouterContainer extends React.Component {
 
     render() {
         return (
-            <Router routes={Routes.routes()} history={hashHistory} onUpdate={this.handleRouteChange.bind(this)} ref="router" />
+            <Router
+                routes={Routes.routes()}
+                history={hashHistory}
+                onUpdate={this.handleRouteChange.bind(this)}
+                ref="router" />
         );
-
     }
 }
 
+RouterContainer.propTypes = propTypes;
+RouterContainer.defaultProps = defaultProps;
 
 export default connect(
-    state => ({
+    (state) => ({
         session: state.session
     }),
-    dispatch => bindActionCreators(sessionActions, dispatch)
-)(RouterContainer)
+    (dispatch) => bindActionCreators(sessionActions, dispatch)
+)(RouterContainer);

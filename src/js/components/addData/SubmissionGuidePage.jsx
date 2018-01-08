@@ -1,12 +1,20 @@
 /**
  * SubmissionGuidePage.jsx
  * Created by Mike Bray 5/19/16
- **/
+ */
 
-import React from 'react';
-import Navbar from '../SharedComponents/navigation/NavigationComponent.jsx';
-import SubmissionGuideContent from './SubmissionGuideContent.jsx';
-import Footer from '../SharedComponents/FooterComponent.jsx';
+import React, { PropTypes } from 'react';
+import Navbar from '../SharedComponents/navigation/NavigationComponent';
+import SubmissionGuideContent from './SubmissionGuideContent';
+import Footer from '../SharedComponents/FooterComponent';
+
+const propTypes = {
+    route: PropTypes.object
+};
+
+const defaultProps = {
+    route: null
+};
 
 export default class LandingPage extends React.Component {
     render() {
@@ -23,3 +31,6 @@ export default class LandingPage extends React.Component {
         );
     }
 }
+
+LandingPage.propTypes = propTypes;
+LandingPage.defaultProps = defaultProps;

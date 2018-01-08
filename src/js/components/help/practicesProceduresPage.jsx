@@ -1,15 +1,25 @@
 /**
  * practicesProceduresPage.jsx
  * Created by Emily Gullo 9/2/16
- **/
+ */
 
-import React from 'react';
-import Navbar from '../SharedComponents/navigation/NavigationComponent.jsx';
-import PracticesProceduresContent from './practicesProceduresContent.jsx';
-import Banner from '../SharedComponents/Banner.jsx';
-import Footer from '../SharedComponents/FooterComponent.jsx';
+import React, { PropTypes } from 'react';
+import Navbar from '../SharedComponents/navigation/NavigationComponent';
+import PracticesProceduresContent from './practicesProceduresContent';
+import Banner from '../SharedComponents/Banner';
+import Footer from '../SharedComponents/FooterComponent';
 
-import * as Icons from '../SharedComponents/icons/Icons.jsx';
+import * as Icons from '../SharedComponents/icons/Icons';
+
+const propTypes = {
+    type: PropTypes.string,
+    helpOnly: PropTypes.bool
+};
+
+const defaultProps = {
+    type: '',
+    helpOnly: false
+};
 
 export default class PracticesProceduresPage extends React.Component {
     constructor(props) {
@@ -28,7 +38,9 @@ export default class PracticesProceduresPage extends React.Component {
                         <div className="container">
                             <div className="row">
                                 <div className="col-md-12 mt-40 mb-20">
-                                    <div className="display-2" data-contentstart="start" tabIndex={-1}>Help | DATA Act Broker</div>
+                                    <div className="display-2" data-contentstart="start" tabIndex={-1}>
+                                        Help | DATA Act Broker
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -55,3 +67,6 @@ export default class PracticesProceduresPage extends React.Component {
         );
     }
 }
+
+PracticesProceduresPage.propTypes = propTypes;
+PracticesProceduresPage.defaultProps = defaultProps;

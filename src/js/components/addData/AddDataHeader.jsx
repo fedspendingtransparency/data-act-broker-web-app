@@ -1,29 +1,31 @@
 /**
 * AddDataHeader.jsx
 * Created by Kyle Fox 2/19/16
-**/
+*/
 
-import React from 'react';
+import React, { PropTypes } from 'react';
 import moment from 'moment';
 
-import * as ReviewHelper from '../../helpers/reviewHelper.js';
+import * as ReviewHelper from '../../helpers/reviewHelper';
 
-class SubmissionContext extends React.Component {
-    render() {
-        return (
-            <div className="last-updated">
-                Last Saved: {this.props.formattedTime}
-                <br />
-                {this.props.agencyName}
-                <br />
-                Reporting Period: {this.props.timePeriodLabel}
-            </div>
-        );
-    }
-}
+const propTypes = {
+    params: PropTypes.object,
+    agencyName: PropTypes.string,
+    formattedTime: PropTypes.string,
+    submissionID: PropTypes.string,
+    timePeriodLabel: PropTypes.string,
+    title: PropTypes.string,
+    load: PropTypes.bool
+};
 
 const defaultProps = {
-    title: 'Upload & Validate a New Submission'
+    title: 'Upload & Validate a New Submission',
+    params: null,
+    agencyName: '',
+    formattedTime: '',
+    submissionID: '',
+    timePeriodLabel: '',
+    load: false
 };
 
 export default class AddDataHeader extends React.Component {
@@ -39,47 +41,54 @@ export default class AddDataHeader extends React.Component {
         };
     }
 
-    componentWillReceiveProps(nextProps) {
-        if(this.state.submissionID !== nextProps.submissionID) {
-            this.setState({submissionID: nextProps.submissionID})
-            this.loadData(nextProps.submissionID)
-        }
-        
-    }
-
     componentDidMount() {
         this.isUnmounted = false;
-        if (this.props.submissionID != null && !this.props.load) {
+        if (this.props.submissionID !== null && !this.props.load) {
             this.loadData(this.props.submissionID);
         }
     }
 
-    loadData(submissionID){
-        ReviewHelper.fetchStatus(submissionID)
-                .then((data) => {
-                    data.ready = true;
-                    if (!this.isUnmounted) {
-                        this.setState(data);
-                    }
-                })
-                .catch((error) => {
-                    console.log(error);
-                });
+    componentWillReceiveProps(nextProps) {
+        if (this.state.submissionID !== nextProps.submissionID) {
+            this.setState({ submissionID: nextProps.submissionID });
+            this.loadData(nextProps.submissionID);
+        }
     }
 
     componentWillUnmount() {
         this.isUnmounted = true;
     }
 
+    loadData(submissionID) {
+        if (submissionID === null || submissionID === '') {
+            return;
+        }
+        ReviewHelper.fetchStatus(submissionID)
+            .then((data) => {
+                const tmpData = data;
+                tmpData.ready = true;
+                if (!this.isUnmounted) {
+                    this.setState(tmpData);
+                }
+            })
+            .catch((error) => {
+                console.error(error);
+            });
+    }
+
     render() {
         let submissionContext = null;
         if (this.state.ready) {
-            let formattedTime = moment.utc(this.state.last_updated).local().format('MM/DD/YYYY h:mm a');
-            submissionContext = <SubmissionContext
-              formattedTime={formattedTime}
-              agencyName={this.state.agency_name}
-              timePeriodLabel={this.state.reporting_period_start_date}
-            />
+            const formattedTime = moment.utc(this.state.last_updated).local().format('MM/DD/YYYY h:mm a');
+            submissionContext = (
+                <div className="last-updated">
+                    Last Saved: {formattedTime}
+                    <br />
+                    {this.state.agencyName}
+                    <br />
+                    Reporting Period: {this.state.reporting_period_start_date}
+                </div>
+            );
         }
 
         return (
@@ -92,7 +101,6 @@ export default class AddDataHeader extends React.Component {
                         <div className="col-md-2">
                             {submissionContext}
                         </div>
-                        
                     </div>
                 </div>
             </div>
@@ -100,4 +108,5 @@ export default class AddDataHeader extends React.Component {
     }
 }
 
+AddDataHeader.propTypes = propTypes;
 AddDataHeader.defaultProps = defaultProps;

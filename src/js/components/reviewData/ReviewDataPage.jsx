@@ -1,18 +1,32 @@
 /**
  * ReviewDataPage.jsx
  * Created by Mike Bray 3/31/16
- **/
+ */
 
 import React, { PropTypes } from 'react';
-import Navbar from '../SharedComponents/navigation/NavigationComponent.jsx';
-import AddDataHeader from './../addData/AddDataHeader.jsx';
-import Progress from '../SharedComponents/ProgressComponent.jsx';
-import Footer from '../SharedComponents/FooterComponent.jsx';
+import Navbar from '../SharedComponents/navigation/NavigationComponent';
+import AddDataHeader from './../addData/AddDataHeader';
+import Progress from '../SharedComponents/ProgressComponent';
+import Footer from '../SharedComponents/FooterComponent';
 
-import ReviewDataContent from './ReviewDataContent.jsx';
-import ReviewLoading from './ReviewLoading.jsx';
-import PublishedSubmissionWarningBanner from '../../components/SharedComponents/PublishedSubmissionWarningBanner.jsx';
-import Banner from '../../components/SharedComponents/Banner.jsx';
+import ReviewDataContent from './ReviewDataContent';
+import ReviewLoading from './ReviewLoading';
+import PublishedSubmissionWarningBanner from '../../components/SharedComponents/PublishedSubmissionWarningBanner';
+import Banner from '../../components/SharedComponents/Banner';
+
+const propTypes = {
+    data: PropTypes.object,
+    params: PropTypes.object,
+    route: PropTypes.object,
+    submission: PropTypes.object
+};
+
+const defaultProps = {
+    data: null,
+    params: null,
+    route: null,
+    submission: null
+};
 
 export default class ReviewDataPage extends React.Component {
     render() {
@@ -27,7 +41,7 @@ export default class ReviewDataPage extends React.Component {
         }
 
         let warningMessage = null;
-        if(this.props.submission.publishStatus !== "unpublished") {
+        if (this.props.submission.publishStatus !== "unpublished") {
             warningMessage = <PublishedSubmissionWarningBanner />;
         }
 
@@ -45,7 +59,7 @@ export default class ReviewDataPage extends React.Component {
                             </div>
                         </div>
                         {warningMessage}
-                        <Banner type='dabs' />
+                        <Banner type="dabs" />
                         {currentComponent}
                     </div>
                 </div>
@@ -54,3 +68,6 @@ export default class ReviewDataPage extends React.Component {
         );
     }
 }
+
+ReviewDataPage.propTypes = propTypes;
+ReviewDataPage.defaultProps = defaultProps;

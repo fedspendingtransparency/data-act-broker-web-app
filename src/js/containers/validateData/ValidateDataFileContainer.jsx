@@ -3,49 +3,68 @@
   * Created by Kevin Li 4/1/2016
   */
 
-import React from 'react';
+import React, { PropTypes } from 'react';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
-import { hashHistory } from 'react-router';
 
-import * as uploadActions from '../../redux/actions/uploadActions.js';
+import * as uploadActions from '../../redux/actions/uploadActions';
 
-import ValidateDataFileComponent from '../../components/validateData/ValidateDataFileComponent.jsx';
-import { fileTypes } from '../addData/fileTypes.js';
-import { kGlobalConstants } from '../../GlobalConstants.js';
+import ValidateDataFileComponent from '../../components/validateData/ValidateDataFileComponent';
+
+const propTypes = {
+    updateItem: PropTypes.func,
+    setUploadItem: PropTypes.func,
+    removeUploadItem: PropTypes.func,
+    data: PropTypes.object,
+    type: PropTypes.object
+};
+
+const defaultProps = {
+    updateItem: () => {},
+    setUploadItem: () => {},
+    removeUploadItem: () => {},
+    data: {},
+    type: {}
+};
 
 class ValidateDataFileContainer extends React.Component {
-	constructor(props){
-		super(props);
-	}
+    constructor(props) {
+        super(props);
+    }
 
-	selectedFile(file) {
-		this.props.setUploadItem({
-			name: this.props.type.requestName,
-			state: 'ready',
-			file: file
-		});
-		if (this.props.updateItem) {
-			this.props.updateItem(file);
-		}
-	}
+    selectedFile(file) {
+        this.props.setUploadItem({
+            name: this.props.type.requestName,
+            state: 'ready',
+            file
+        });
+        if (this.props.updateItem) {
+            this.props.updateItem(file);
+        }
+    }
 
-	removeFile() {
-		this.props.removeUploadItem({name: this.props.type.requestName})
-	}
+    removeFile() {
+        this.props.removeUploadItem({ name: this.props.type.requestName });
+    }
 
-	render() {
-		return (
-			<ValidateDataFileComponent {...this.props} 
-									   item={this.props.data[this.props.type.requestName]} 
-									   onFileChange={this.selectedFile.bind(this)} 
-									   removeFile={this.removeFile.bind(this)} />
-		)
-	}
+    render() {
+        return (
+            <ValidateDataFileComponent
+                {...this.props}
+                item={this.props.data[this.props.type.requestName]}
+                onFileChange={this.selectedFile.bind(this)}
+                removeFile={this.removeFile.bind(this)} />
+        );
+    }
 }
 
+ValidateDataFileContainer.propTypes = propTypes;
+ValidateDataFileContainer.defaultProps = defaultProps;
+
 export default connect(
-	state => ({ submission: state.submission,
-	session: state.session }),
-	dispatch => bindActionCreators(uploadActions, dispatch)
-)(ValidateDataFileContainer)
+    (state) => ({
+        submission: state.submission,
+        session: state.session
+    }),
+    (dispatch) => bindActionCreators(uploadActions, dispatch)
+)(ValidateDataFileContainer);
