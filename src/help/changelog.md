@@ -1,14 +1,24 @@
-#### December 22, 2017
+#### January 10, 2018
 
 In this release of the Broker, we made the following updates:
 
- - [Schema - Release DAIMS v1.2](#/help?section=daims12release)
+ - [FABS 31.1 Rule Update](#/help?section=0110rule311)
 
- - [DATA Act Broker Submission Deadlines](#/help?section=dabsSubmissionsDeadlines)
+ - [Update Database Fields](#/help?section=0110databaseUpdate)
+
+ - [Update B9/B10 rules](#/help?section=0110ruleUpdate)
+
+ - [Bug Fixes](#/help?section=0110bugs)
 
 
-#### Schema - Released DAIMS v1.2 {section=daims12release}
-Treasury released the final DATA Act Information Model Schema (DAIMS) v1.2. DAIMS v1.2 is a minor update of the schema and addresses some agency feedback, implements policy requirements, promote additional data standardization and reduce agency burden. The release is targeted for implementation in production for the submission of FY 2018 Quarter 3 data. Find out more information in the [DABS Resources](#/resources) section.
+#### Update FABS rule 31.1 error message {section=0110rule311}
+In this release of the broker we updated the language of FABS rule 31.1 to be more descriptive.
 
-#### DATA Act Broker Submission Deadlines {section=dabsSubmissionsDeadlines}
-In this release of the Broker we published the DATA Act Broker submission deadlines for fiscal year 2018. You can find the submission calendar on the Help page.
+#### Update B9/B10 to check for 2016-2018 (changed from just 2016-2017) {section=0110ruleUpdate}
+In this relase of the broker we have updated rules B9 and B10.
+
+#### Bug Fixes {section=0110bugs}
+In this release, the following bugs have been found and addressed
+ - Users were unable to create a DABS submission if a FABS submission shared the same agency and action dates. 
+ - Users were unable to start re-validation of certain submissions due to missing values in the API call. 
+ - Users were unable to delete submissions that contain a cached D file.
