@@ -1,23 +1,30 @@
 /**
 * AddDataPageContainer.jsx
 * Created by Kevin Li
-**/
+*/
 
-import React from 'react';
+import React, { PropTypes } from 'react';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
-import { hashHistory } from 'react-router';
 
-import * as uploadActions from '../../redux/actions/uploadActions.js';
+import * as uploadActions from '../../redux/actions/uploadActions';
 
-import AddDataPage from '../../components/addData/AddDataPage.jsx';
+import AddDataPage from '../../components/addData/AddDataPage';
 
-import Moment from 'moment';
+const propTypes = {
+    resetSubmission: PropTypes.func,
+    setMeta: PropTypes.func
+};
+
+const defaultProps = {
+    resetSubmission: () => {},
+    setMeta: () => {}
+};
 
 class AddDataPageContainer extends React.Component {
-	componentDidMount() {
-		this.props.resetSubmission();
-	}
+    componentDidMount() {
+        this.props.resetSubmission();
+    }
 
     render() {
         return (
@@ -26,7 +33,11 @@ class AddDataPageContainer extends React.Component {
     }
 }
 
+AddDataPageContainer.propTypes = propTypes;
+AddDataPageContainer.defaultProps = defaultProps;
+
+
 export default connect(
-    state => ({ submission: state.submission }),
-    dispatch => bindActionCreators(uploadActions, dispatch)
-)(AddDataPageContainer)
+    (state) => ({ submission: state.submission }),
+    (dispatch) => bindActionCreators(uploadActions, dispatch)
+)(AddDataPageContainer);

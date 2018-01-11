@@ -1,15 +1,22 @@
 /**
   * DashboardContainer.jsx
   * Created by Kevin Li 10/21/16
-  **/
+  */
 
-import React from 'react';
-import { bindActionCreators } from 'redux';
+import React, { PropTypes } from 'react';
 import { connect } from 'react-redux';
 
-import * as SubmissionListHelper from '../../helpers/submissionListHelper.js';
+import * as SubmissionListHelper from '../../helpers/submissionListHelper';
 
-import DashboardContent from '../../components/dashboard/DashboardContent.jsx';
+import DashboardContent from '../../components/dashboard/DashboardContent';
+
+const propTypes = {
+    type: PropTypes.string
+};
+
+const defaultProps = {
+    type: ""
+};
 
 class DashboardContainer extends React.Component {
     constructor(props) {
@@ -27,13 +34,13 @@ class DashboardContainer extends React.Component {
         };
     }
 
-    componentWillReceiveProps(nextProps){
-        if(nextProps.type != this.state.type) {
-            this.setState({type: nextProps.type})
+    componentWillReceiveProps(nextProps) {
+        if (nextProps.type !== this.state.type) {
+            this.setState({ type: nextProps.type });
         }
     }
 
-    loadTableData(page = 1, certified = false, category='modified', order='desc') {
+    loadTableData(page = 1, certified = false, category = 'modified', order = 'desc') {
         /**
         Sortable fields: Valid values for category
         'modified','reporting','status','agency','submitted_by'
@@ -46,24 +53,27 @@ class DashboardContainer extends React.Component {
         this.setState({
             [tableName + 'Loading']: true
         }, () => {
-             SubmissionListHelper.loadSubmissionList(page, 10, certified, category, order, this.state.type=='fabs')
+            SubmissionListHelper.loadSubmissionList(page, 10, certified, category, order, this.state.type === 'fabs')
                 .then((data) => {
                     this.setState({
                         [tableName + 'Total']: data.total,
                         [tableName + 'Submissions']: data.submissions,
                         [tableName + 'Loading']: false
                     });
-                })
-        })
+                });
+        });
     }
 
-	render() {
-		return (
-			<DashboardContent {...this.state} {...this.props} loadTableData={this.loadTableData.bind(this)} />
-		)
-	}
+    render() {
+        return (
+            <DashboardContent {...this.state} {...this.props} loadTableData={this.loadTableData.bind(this)} />
+        );
+    }
 }
 
+DashboardContainer.propTypes = propTypes;
+DashboardContainer.defaultProps = defaultProps;
+
 export default connect(
-	state => ({ session: state.session })
-)(DashboardContainer)
+    (state) => ({ session: state.session })
+)(DashboardContainer);

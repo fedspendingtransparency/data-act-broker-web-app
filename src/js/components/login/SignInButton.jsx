@@ -4,7 +4,7 @@
 *
 * This button needs to be given a function to run when it is clicked.
 * Pass this function through props, calling it onClick
-**/
+*/
 
 import React, { PropTypes } from 'react';
 
@@ -15,17 +15,22 @@ const propTypes = {
 };
 
 const defaultProps = {
-	disabled: false
-}
+    disabled: false
+};
 
 export default class SignInButton extends React.Component {
     render() {
-    	let disabled = '';
-    	if (this.props.disabled) {
-    		disabled = ' usa-da-btn-disabled';
-    	}
+        let disabled = '';
+        if (this.props.disabled) {
+            disabled = ' usa-da-btn-disabled';
+        }
         return (
-            <button className={"usa-da-button btn-primary btn-lg pull-right" + disabled} disabled={this.props.disabled} type="button" onClick={this.props.onClick} data-testid="signin">
+            <button
+                className={"usa-da-button btn-primary btn-lg pull-right" + disabled}
+                disabled={this.props.disabled}
+                type="button"
+                onClick={this.props.onClick}
+                data-testid="signin">
                 {this.props.buttonText}
             </button>
         );

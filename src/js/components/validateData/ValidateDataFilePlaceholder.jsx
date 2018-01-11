@@ -1,11 +1,13 @@
 /**
  * ValidateDataFilePlaceholder.jsx
  * Created by Mike Bray 3/28/16
- **/
+ */
 
 import React, { PropTypes } from 'react';
-import { kGlobalConstants } from '../../GlobalConstants.js';
-import * as Icons from '../SharedComponents/icons/Icons.jsx';
+
+const propTypes = {
+    fileTitle: PropTypes.string
+};
 
 const defaultProps = {
     fileTitle: ''
@@ -29,7 +31,9 @@ export default class ValidateDataFilePlaceholder extends React.Component {
                                 <div className="col-md-4" />
                             </div>
                             <div className="row usa-da-validate-item-body">
-                                <div className="col-md-12 usa-da-validate-txt-wrap usa-da-validate-loading-message" data-testid="validate-message">
+                                <div
+                                    className="col-md-12 usa-da-validate-txt-wrap usa-da-validate-loading-message"
+                                    data-testid="validate-message">
                                     Gathering data...
                                 </div>
                             </div>
@@ -38,9 +42,9 @@ export default class ValidateDataFilePlaceholder extends React.Component {
                         <div className="col-md-3">
                             <div className="usa-da-validate-item-file-section">
                                 <div className="usa-da-validate-item-file-section-result">
-                                    <div className="usa-da-icon" data-testid="validate-icon">
-                                        
-                                    </div>
+                                    <div
+                                        className="usa-da-icon"
+                                        data-testid="validate-icon" />
                                 </div>
                             </div>
                         </div>
@@ -51,4 +55,5 @@ export default class ValidateDataFilePlaceholder extends React.Component {
     }
 }
 
+ValidateDataFilePlaceholder.propTypes = propTypes;
 ValidateDataFilePlaceholder.defaultProps = defaultProps;

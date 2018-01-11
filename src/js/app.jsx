@@ -1,7 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import 'babel-polyfill';
-import AppContainer from './containers/AppContainer.jsx';
+import AppContainer from './containers/AppContainer';
 
 const documentLocation = document.getElementById('app');
 

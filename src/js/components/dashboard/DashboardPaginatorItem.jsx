@@ -1,16 +1,25 @@
 /**
   * DashboardPaginatorItem.jsx
   * Created by Kevin Li 10/31/16
-  **/
+  */
 
-import React from 'react';
+import React, { PropTypes } from 'react';
+
+const propTypes = {
+    changePage: PropTypes.func,
+    value: PropTypes.number,
+    current: PropTypes.bool,
+    showLead: PropTypes.bool,
+    showTail: PropTypes.bool
+};
 
 const defaultProps = {
-    current: 1,
+    changePage: null,
+    current: false,
     value: 1,
     showLead: false,
     showTail: false
-}
+};
 
 export default class DashboardPaginatorItem extends React.Component {
     clickedPage(e) {
@@ -47,4 +56,5 @@ export default class DashboardPaginatorItem extends React.Component {
     }
 }
 
+DashboardPaginatorItem.propTypes = propTypes;
 DashboardPaginatorItem.defaultProps = defaultProps;

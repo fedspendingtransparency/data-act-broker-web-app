@@ -1,13 +1,21 @@
 /**
  * CorrectButtonCornerOverlay.jsx
  * Created by Mike Bray 6/21/16
- **/
+ */
 
-import React from 'react';
+import React, { PropTypes } from 'react';
 
-import * as Icons from '../SharedComponents/icons/Icons.jsx';
+import * as Icons from '../SharedComponents/icons/Icons';
 
-export default class CorrectButtonOverlay extends React.Component {
+const propTypes = {
+    buttonClicked: PropTypes.func
+};
+
+const defaultProps = {
+    buttonClicked: () => {}
+};
+
+export default class CorrectButtonCornerOverlay extends React.Component {
     constructor(props) {
         super(props);
     }
@@ -23,3 +31,6 @@ export default class CorrectButtonOverlay extends React.Component {
         );
     }
 }
+
+CorrectButtonCornerOverlay.propTypes = propTypes;
+CorrectButtonCornerOverlay.defaultProps = defaultProps;

@@ -1,27 +1,68 @@
 /**
 * NavigationComponent.jsx
 * Created by Katie Rose 12/8/15
-**/
+*/
 
 import React, { PropTypes } from 'react';
-import { kGlobalConstants } from '../../../GlobalConstants.js';
-import NavbarTab from './NavbarTab.jsx';
-import UserButton from './UserButton.jsx';
-import SkipNavigationLink from './SkipNavigationLink.jsx';
-import TestEnvironmentBanner from '../banners/TestEnvironmentBanner.jsx';
-
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
-import * as sessionActions from '../../../redux/actions/sessionActions.js';
-import * as PermissionHelper from '../../../helpers/permissionsHelper.js';
+import { kGlobalConstants } from '../../../GlobalConstants';
+import NavbarTab from './NavbarTab';
+import UserButton from './UserButton';
+import SkipNavigationLink from './SkipNavigationLink';
+import TestEnvironmentBanner from '../banners/TestEnvironmentBanner';
+import * as sessionActions from '../../../redux/actions/sessionActions';
+import * as PermissionHelper from '../../../helpers/permissionsHelper';
+
+const propTypes = {
+    setSession: PropTypes.func,
+    session: PropTypes.object,
+    type: PropTypes.string,
+    logoOnly: PropTypes.bool
+};
 
 const defaultProps = {
+    setSession: () => {},
+    session: null,
+    type: '',
     logoOnly: false
 };
 
 export class Navbar extends React.Component {
     constructor(props) {
         super(props);
+    }
+
+    getTabs() {
+        // default access: only Help page
+        let tabNames = {
+            Help: 'help'
+        };
+
+        if (this.props.logoOnly) {
+            tabNames = {};
+        }
+        else if (this.props.type === 'fabs') {
+            // user has FABS permissions
+            const fabsWrite = this.props.session.admin || PermissionHelper.checkFabsPermissions(this.props.session);
+            tabNames = {
+                Home: 'FABSlanding',
+                'Upload & Validate New Submission': fabsWrite ? 'FABSaddData' : 'disabled',
+                'Submission Dashboard': 'FABSdashboard',
+                Help: 'FABShelp'
+            };
+        }
+        else if (this.props.type === 'dabs') {
+            // user has DABS permissions
+            const dabsWrite = this.props.session.admin || PermissionHelper.checkPermissions(this.props.session);
+            tabNames = {
+                Home: 'landing',
+                'Upload & Validate New Submission': dabsWrite ? 'submissionGuide' : 'disabled',
+                'Submission Dashboard': 'dashboard',
+                Help: 'help'
+            };
+        }
+        return tabNames;
     }
 
     logout(e) {
@@ -34,59 +75,31 @@ export class Navbar extends React.Component {
         });
     }
 
-    getTabs() {
-        // default access: only Help page
-        let tabNames = {
-            'Help': 'help'
-        };
-
-        if (this.props.logoOnly) {
-            tabNames = {};
-        }
-        else if (this.props.type === 'fabs') {
-            // user has FABS permissions 
-            let fabsWrite = this.props.session.admin || PermissionHelper.checkFabsPermissions(this.props.session);
-            tabNames = {
-                'Home': 'FABSlanding',
-                'Upload & Validate New Submission': fabsWrite ? 'FABSaddData' : 'disabled',
-                'Submission Dashboard': 'FABSdashboard',
-                'Help': 'FABShelp'
-            };
-        }
-        else if (this.props.type === 'dabs') {
-            // user has DABS permissions
-            let dabsWrite = this.props.session.admin || PermissionHelper.checkPermissions(this.props.session);
-            tabNames = {
-                'Home': 'landing',
-                'Upload & Validate New Submission': dabsWrite ? 'submissionGuide' : 'disabled',
-                'Submission Dashboard': 'dashboard',
-                'Help': 'help'
-            };
-        }
-        return tabNames;
-    }
-
     render() {
-        let tabNames = this.getTabs();
+        const tabNames = this.getTabs();
 
-        let headerTabs = [];
+        const headerTabs = [];
         const context = this;
         const userText = this.props.session.user === '' ? '' : this.props.session.user.name;
 
         let userButton = null;
-        if (this.props.session.login == "loggedIn") {
+        if (this.props.session.login === "loggedIn") {
             userButton = <UserButton buttonText={userText} logout={this.logout.bind(this)} />;
         }
 
         Object.keys(tabNames).map((key) => {
-            headerTabs.push(<NavbarTab key={tabNames[key]} name={key} tabClass={tabNames[key]} activeTabClassName={context.props.activeTab} />);
+            headerTabs.push(<NavbarTab
+                key={tabNames[key]}
+                name={key}
+                tabClass={tabNames[key]}
+                activeTabClassName={context.props.activeTab} />);
         });
 
         let navClass = "";
         let testBanner = null;
         if (!kGlobalConstants.PROD) {
             navClass = " tall";
-            testBanner = <TestEnvironmentBanner />
+            testBanner = <TestEnvironmentBanner />;
         }
 
         return (
@@ -108,11 +121,16 @@ export class Navbar extends React.Component {
                 <div className="container-fluid">
                     <div className="container usa-da-header-container">
                         <div className="navbar-header usa-da-header-navbar">
-                            <button type="button" className="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+                            <button
+                                type="button"
+                                className="navbar-toggle collapsed"
+                                data-toggle="collapse"
+                                data-target="#bs-example-navbar-collapse-1"
+                                aria-expanded="false">
                                 <span className="sr-only">Toggle navigation</span>
-                                <span className="icon-bar"></span>
-                                <span className="icon-bar"></span>
-                                <span className="icon-bar"></span>
+                                <span className="icon-bar" />
+                                <span className="icon-bar" />
+                                <span className="icon-bar" />
                             </button>
                             <a className="navbar-brand usa-da-header-brand" href="#/">DATA Act Broker</a>
                         </div>
@@ -129,9 +147,10 @@ export class Navbar extends React.Component {
     }
 }
 
+Navbar.propTypes = propTypes;
 Navbar.defaultProps = defaultProps;
 
 export default connect(
-    state => ({ session: state.session }),
-    dispatch => bindActionCreators(sessionActions, dispatch)
-)(Navbar)
+    (state) => ({ session: state.session }),
+    (dispatch) => bindActionCreators(sessionActions, dispatch)
+)(Navbar);

@@ -3,114 +3,144 @@
   * Created by Kevin Li 4/11/2016
   */
 
-import React from 'react';
+import React, { PropTypes } from 'react';
 import d3 from 'd3';
 import _ from 'lodash';
 import tinycolor from 'tinycolor2';
 
-import TreemapCell from './TreemapCell.jsx';
+import TreemapCell from './TreemapCell';
+
+const propTypes = {
+    clickedItem: PropTypes.func,
+    colors: PropTypes.object,
+    formattedData: PropTypes.object,
+    activeCell: PropTypes.number,
+    height: PropTypes.number,
+    width: PropTypes.number,
+    color: PropTypes.string
+};
 
 const defaultProps = {
-	width: 0,
-	height: 300,
-	activeCell: -1,
-	formattedData: {
-		data: [],
-		max: 0,
-		min: 0
-	},
-	color: '#5d87bb'
-}
+    clickedItem: () => {},
+    width: 0,
+    height: 300,
+    activeCell: -1,
+    formattedData: {
+        data: [],
+        max: 0,
+        min: 0
+    },
+    color: '#5d87bb',
+    colors: {}
+};
 
 
 export default class Treemap extends React.Component {
-	constructor(props) {
-		super(props);
+    constructor(props) {
+        super(props);
 
-		this.state = {
-			chart: null
-		};
-	}
+        this.state = {
+            chart: null
+        };
+    }
 
-	componentDidMount() {
-		this.setState({
-			chart: this.drawChart()
-		});
-	}
+    componentDidMount() {
+        this.setChart();
+    }
 
-	componentDidUpdate(prevProps, prevState) {
-		// only re-render when props we care about change
-		if (!_.isEqualWith(prevProps, this.props, this.compareProps)) {
-			this.setState({
-				chart: this.drawChart()
-			});
-		}
-	}
+    componentDidUpdate(prevProps) {
+        // only re-render when props we care about change
+        if (!_.isEqualWith(prevProps, this.props, this.compareProps)) {
+            this.setChart();
+        }
+    }
 
-	compareProps(prevProps, newProps) {
-		// custom object comparison to only look at those keys we care about
-		if (!_.isEqual(prevProps.formattedData, newProps.formattedData)) {
-			// data changed, always re-render
-			return false;
-		}
+    setChart() {
+        this.setState({
+            chart: this.drawChart()
+        });
+    }
 
-		if (prevProps.activeCell != newProps.activeCell) {
-			// active cell changed, re-render
-			return false;
-		}
+    compareProps(prevProps, newProps) {
+        // custom object comparison to only look at those keys we care about
+        if (!_.isEqual(prevProps.formattedData, newProps.formattedData)) {
+            // data changed, always re-render
+            return false;
+        }
 
-		if (prevProps.width != newProps.width) {
-			// re-render because window width changed (to keep it responsive)
-			return false;
-		}
+        if (prevProps.activeCell !== newProps.activeCell) {
+            // active cell changed, re-render
+            return false;
+        }
 
-		// don't care about the other props
-		return true;
-	}
+        if (prevProps.width !== newProps.width) {
+            // re-render because window width changed (to keep it responsive)
+            return false;
+        }
 
-	drawChart() {
-		const layout = d3.layout.treemap()
-			.children((d) => d)
-			.size([this.props.width, this.props.height])
-			.sort((a, b) => {
-				// order by the parent component's pre-sorted array indices
-				return b.index - a.index;
-			})
-			.sticky(true);
+        // don't care about the other props
+        return true;
+    }
 
-		const treemap = layout(this.props.formattedData.data);
+    drawChart() {
+        const layout = d3.layout.treemap()
+            .children((d) => d)
+            .size([this.props.width, this.props.height])
+            .sort((a, b) => {
+                // order by the parent component's pre-sorted array indices
+                return b.index - a.index;
+            })
+            .sticky(true);
 
-		const baseColor = this.props.colors.base;
-		return treemap.map((node, index) => {
-			const max = this.props.formattedData.max;
-			const min = this.props.formattedData.min;
+        const treemap = layout(this.props.formattedData.data);
 
-			let tint = 0;
-			if (max != min) {
-				// prevent divide by zero errors
-				tint = (40 / (this.props.formattedData.max - this.props.formattedData.min)) * (this.props.formattedData.max - node.value);
-			}
+        const baseColor = this.props.colors.base;
+        return treemap.map((node, index) => {
+            const max = this.props.formattedData.max;
+            const min = this.props.formattedData.min;
 
-			// determine if the cell is currently selected
-			let active = false;
-			if (node.index == this.props.activeCell) {
-				active = true;
-			}
+            let tint = 0;
+            if (max !== min) {
+                // prevent divide by zero errors
+                tint = (40 / (this.props.formattedData.max - this.props.formattedData.min)) *
+                    (this.props.formattedData.max - node.value);
+            }
 
-			const color = tinycolor(baseColor).lighten(tint).toString();
+            // determine if the cell is currently selected
+            let active = false;
+            if (node.index === this.props.activeCell) {
+                active = true;
+            }
 
-			return <TreemapCell key={index} width={node.dx} height={node.dy} x={node.x} y={node.y} cellColor={color} colors={this.props.colors} cellId={node.index} active={active} title={node.title} count={node.value} field={node.field} detail={node.detail} description={node.description} clickedItem={this.props.clickedItem} />;
-		});
+            const color = tinycolor(baseColor).lighten(tint).toString();
 
-	}
+            return (<TreemapCell
+                key={index}
+                width={node.dx}
+                height={node.dy}
+                x={node.x}
+                y={node.y}
+                cellColor={color}
+                colors={this.props.colors}
+                cellId={node.index}
+                active={active}
+                title={node.title}
+                count={node.value}
+                field={node.field}
+                detail={node.detail}
+                description={node.description}
+                clickedItem={this.props.clickedItem} />);
+        });
+    }
 
-	render() {
-		return (
-			<div className="usa-da-treemap">
-				{this.state.chart}
-			</div>
-		);
-	}
+    render() {
+        return (
+            <div className="usa-da-treemap">
+                {this.state.chart}
+            </div>
+        );
+    }
 }
 
+Treemap.propTypes = propTypes;
 Treemap.defaultProps = defaultProps;
