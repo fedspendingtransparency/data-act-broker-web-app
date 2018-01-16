@@ -89,7 +89,7 @@ export const quarterToMonth = (quarter, quarterYear, type) => {
     }
 
     let year = parseInt(quarterYear, 10);
-    if (quarter === 1) {
+    if (quarter === '1') {
         // decrement the year by one for the first quarter of the fiscal year
         year -= 1;
     }
