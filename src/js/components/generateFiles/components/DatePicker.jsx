@@ -78,7 +78,7 @@ export default class DatePicker extends React.Component {
     datePickerChangeEvent() {
         if (this.state.showDatePicker) {
             // focus on the date picker
-            this.refs.datepicker.refs.dayPicker.querySelector('.DayPicker-Day--selected').focus();
+            this.refs.datepicker.dayPicker.querySelector('.DayPicker-Day--selected').focus();
 
             // we want to close the date picker on escape key
             // have to hold a reference to the bound function in order to cancel the listener later
