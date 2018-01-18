@@ -137,8 +137,9 @@ export default class AddDataMeta extends React.Component {
             let year = endDate.substr(3);
 
             if (quarter === 3) {
-                year += 1;
+                year = parseInt(year, 10) + 1;
             }
+
             const cgacCode = codeType === 'cgac_code' ? agency : null;
             const frecCode = codeType === 'frec_code' ? agency : null;
             AgencyHelper.checkYearQuarter(cgacCode, frecCode, year, quarter).then(() => {
