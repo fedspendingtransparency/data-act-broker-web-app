@@ -83,13 +83,16 @@ export const quarterToMonth = (quarter, quarterYear, type) => {
     const startMonth = ["10", "01", "04", "07"];
     const endMonth = ["12", "03", "06", "09"];
 
-    let month = startMonth[quarter - 1];
+    const normalQuarter = quarter.toString();
+
+    let month = startMonth[normalQuarter - 1];
+
     if (type === "end") {
-        month = endMonth[quarter - 1];
+        month = endMonth[normalQuarter - 1];
     }
 
     let year = parseInt(quarterYear, 10);
-    if (quarter === 1) {
+    if (normalQuarter === '1') {
         // decrement the year by one for the first quarter of the fiscal year
         year -= 1;
     }
