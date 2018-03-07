@@ -35,7 +35,6 @@ FABS,FABS21,"FundingSubTierAgencyCode is an optional field, but when provided mu
 FABS,FABS22,"When provided, CorrectionLateDeleteIndicator must contain one of the following values: ""C"", ""D"", or ""L"".",Fatal Error,Implemented
 FABS,FABS23,AwardingSubTierAgencyCode must be a valid 4-digit sub-tier agency code.,Fatal Error,Implemented
 FABS,FABS24,PrimaryPlaceOfPerformanceCountryCode must contain a valid three character GENC Standard Edition 3.0 (Update 4) country code.,Fatal Error,Implemented
-FABS,FABS25,"AwardDescription is required for non-aggregate records (i.e., when RecordType = 2).",Fatal Error,Implemented
 FABS,FABS26.1,"FederalActionObligation must be blank or 0 for loans (i.e., when AssistanceType = 07 or 08).",Fatal Error,Implemented
 FABS,FABS26.2,"FederalActionObligation is required for non-loans (i.e., when AssistanceType is not 07 or 08).",Fatal Error,Implemented
 FABS,FABS27,"NonFederalFundingAmount must be blank or 0 or for loans (i.e., when AssistanceType = 07 or 08).",Fatal Error,Implemented
@@ -82,6 +81,8 @@ FABS,FABS42.2,"PrimaryPlaceOfPerformanceForeignLocationDescription must be blank
 FABS,FABS43.1,"When PrimaryPlaceOfPerformanceCountryCode is not USA, PrimaryPlaceOfPerformanceCongressionalDistrict must be blank.",Fatal Error,Implemented
 FABS,FABS43.2,"If PrimaryPlaceOfPerformanceZIP+4 is 5-digits or blank, a PrimaryPlaceOfPerformanceCongressionalDistrict must be provided.",Fatal Error,Implemented
 FABS,FABS43.3,"If PrimaryPlaceOfPerformanceCongressionalDistrict is provided, it must be valid in the state or territory indicated by the PrimaryPlaceOfPerformanceCode.",Fatal Error,Implemented
+FABS,FABS44.1,"If LegalEntityZIPLast4 is not provided and LegalEntityZIP5 is, LegalEntityCongressionalDistrict must be provided.",Fatal Error,Implemented
+FABS,FABS44.2,"If LegalEntityCongressionalDistrict is provided, it must be valid in the 5-digit zip code indicated by LegalEntityZIP5.",Fatal Error,Implemented
 FABS,FABSREQ*,This field is required for all submissions but was not provided in this row (PrimaryPlaceOfPerformanceCountryCode),Fatal Error,Implemented
 FABS,FABSREQ*,This field is required for all submissions but was not provided in this row (AwardingSubtierAgencyCode),Fatal Error,Implemented
 FABS,FABSREQ*,This field is required for all submissions but was not provided in this row (PrimaryPlaceOfPerformanceCode),Fatal Error,Implemented
@@ -93,6 +94,7 @@ FABS,FABSREQ*,This field is required for all submissions but was not provided in
 FABS,FABSREQ*,This field is required for all submissions but was not provided in this row (ActionDate),Fatal Error,Implemented
 FABS,FABSREQ*,This field is required for all submissions but was not provided in this row (AwardeeOrRecipientLegalEntityName),Fatal Error,Implemented
 FABS,FABSREQ*,This field is required for all submissions but was not provided in this row (CFDA_Number),Fatal Error,Implemented
+FABS,FABSREQ*,This field is required for all submissions but was not provided in this row (AwardDescription),Fatal Error,Implemented
 FABS,FABSTYPE*,The value provided was of the wrong type. Note that all type errors in a line must be fixed before the rest of the validation logic is applied to that line. (FederalActionObligation),Fatal Error,Implemented
 FABS,FABSTYPE*,The value provided was of the wrong type. Note that all type errors in a line must be fixed before the rest of the validation logic is applied to that line. (NonFederalFundingAmount),Fatal Error,Implemented
 FABS,FABSTYPE*,The value provided was of the wrong type. Note that all type errors in a line must be fixed before the rest of the validation logic is applied to that line. (FaceValueLoanGuarantee),Fatal Error,Implemented
