@@ -12,8 +12,6 @@ FABS,FABS4.3,A future ActionDate is valid only if it occurs within the current f
 FABS,FABS5,"AssistanceType field must contain one of the following values: ""02"", ""03"", ""04"", ""05"", ""06"", ""07"", ""08"", ""09"", ""10"", or ""11"".",Fatal Error,Implemented
 FABS,FABS6,"RecordType field must contain one of the following values: ""1"", ""2"", or ""3"".",Fatal Error,Implemented
 FABS,FABS7,"URI is a required field for aggregate records (i.e., when RecordType = 1)",Fatal Error,Implemented
-FABS,FABS8.1,"FiscalYearAndQuarterCorrection is an optional field, but when provided must follow YYYYQ format, where YYYY is a year and Q represents fiscal quarter and takes value 1, 2, 3, or 4.",Fatal Error,Implemented
-FABS,FABS8.2,Year provided in FiscalYearQuarterCorrection must be in current or directly previous fiscal year (as compared to the date of submission).,Fatal Error,Implemented
 FABS,FABS9.1,"AwardeeOrRecipientLegalEntityName must contain ""MULTIPLE RECIPIENTS"" for aggregate records (i.e., when RecordType = 1).",Fatal Error,Implemented
 FABS,FABS9.2,"AwardeeOrRecipientLegalEntityName must contain ""REDACTED DUE TO PII"" for PII-redacted non-aggregate records (i.e., when RecordType = 3).",Fatal Error,Implemented
 FABS,FABS10.1,"LegalEntityAddressLine1 is required for non-aggregate records (i.e., when RecordType = 2)",Fatal Error,Implemented
