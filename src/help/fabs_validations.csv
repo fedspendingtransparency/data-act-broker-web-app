@@ -17,7 +17,6 @@ FABS,FABS9.2,"AwardeeOrRecipientLegalEntityName must contain ""REDACTED DUE TO P
 FABS,FABS10.1,"LegalEntityAddressLine1 is required for non-aggregate records (i.e., when RecordType = 2)",Fatal Error,Implemented
 FABS,FABS10.2,"LegalEntityAddressLine1 must be blank for aggregate and PII-redacted non-aggregate records (i.e., when RecordType = 1 or 3)",Fatal Error,Implemented
 FABS,FABS11,"LegalEntityAddressLine2 is optional, but must be blank for aggregate and PII-redacted non-aggregate records (i.e., when RecordType = 1 or 3)",Fatal Error,Implemented
-FABS,FABS12,"LegalEntityAddressLine3 is optional, but must be blank for aggregate and PII-redacted non-aggregate records (i.e., when RecordType = 1 or 3)",Fatal Error,Implemented
 FABS,FABS13.1,"LegalEntityZIP5 must be blank for aggregate records (i.e., when RecordType = 1)",Fatal Error,Implemented
 FABS,FABS13.2,"LegalEntityZIP5 must be blank for foreign recipients (i.e., when LegalEntityCountryCode is not USA)",Fatal Error,Implemented
 FABS,FABS13.3,"LegalEntityZIP5 is required for domestic recipients (i.e., when LegalEntityCountryCode = USA) for non-aggregate and PII-redacted non-aggregate records (i.e., when RecordType = 2 or 3)",Fatal Error,Implemented
