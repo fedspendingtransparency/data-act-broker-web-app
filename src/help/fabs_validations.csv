@@ -33,7 +33,7 @@ FABS,FABS17,"LegalEntityForeignPostalCode must be blank for domestic recipients 
 FABS,FABS18,BusinessTypes must be one to three letters in length. BusinessTypes values must be non-repeated letters from A to X.,Fatal Error,Implemented
 FABS,FABS19,LegalEntityCountryCode Field must contain a valid three character GENC Standard Edition 3.0 (Update 4) country code.,Fatal Error,Implemented
 FABS,FABS21,"FundingSubTierAgencyCode is an optional field, but when provided must be a valid 4-digit sub-tier agency code.",Fatal Error,Implemented
-FABS,FABS22,"When provided, CorrectionDeleteIndicator must contain one of the following values: ""C"", ""D"", or ""L"".",Fatal Error,Implemented
+FABS,FABS22,"When provided, CorrectionDeleteIndicator must contain one of the following values: ""C"" or ""D"".",Fatal Error,Implemented
 FABS,FABS23,AwardingSubTierAgencyCode must be a valid 4-digit sub-tier agency code.,Fatal Error,Implemented
 FABS,FABS24.1,"PrimaryPlaceOfPerformanceCountryCode must contain a valid three character GENC Standard Edition 3.0 (Update 4) country code for aggregate or non-aggregate records (i.e., when RecordType = 1 or 2).",Fatal Error,Implemented
 FABS,FABS24.2,"PrimaryPlaceOfPerformanceCountryCode must be blank for PII-redacted non-aggregate records (i.e., when RecordType = 3).",Fatal Error,Implemented
