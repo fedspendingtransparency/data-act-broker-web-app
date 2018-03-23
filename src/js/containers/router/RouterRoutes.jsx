@@ -242,11 +242,6 @@ const getRoutes = () => {
             component: 'help'
         },
         {
-            path: 'practices',
-            onEnter: [checkHelpUserPermissions, checkUserPermissions],
-            component: 'help'
-        },
-        {
             path: 'validations',
             onEnter: [checkHelpUserPermissions, checkUserPermissions],
             component: 'help'
