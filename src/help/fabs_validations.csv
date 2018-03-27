@@ -84,20 +84,20 @@ FABS,FABS43.2,"If PrimaryPlaceOfPerformanceZIP+4 is 5-digits or blank, a Primary
 FABS,FABS43.3,"If PrimaryPlaceOfPerformanceCongressionalDistrict is provided, it must be valid in the state or territory indicated by the PrimaryPlaceOfPerformanceCode. For PII-redacted non-aggregate records (i.e., when RecordType = 3), PrimaryPlaceOfPerformanceCongressionalDistrict must be blank.",Fatal Error,Implemented
 FABS,FABS44.1,"If LegalEntityZIPLast4 is not provided and LegalEntityZIP5 is, LegalEntityCongressionalDistrict must be provided.",Fatal Error,Implemented
 FABS,FABS44.2,"If LegalEntityCongressionalDistrict is provided, it must be valid in the 5-digit zip code indicated by LegalEntityZIP5.",Fatal Error,Implemented
-FABS,FABSREQ*,This field is required for all submissions but was not provided in this row (AwardingSubtierAgencyCode),Fatal Error,Implemented
-FABS,FABSREQ*,This field is required for all submissions but was not provided in this row (RecordType),Fatal Error,Implemented
-FABS,FABSREQ*,This field is required for all submissions but was not provided in this row (BusinessFundsIndicator),Fatal Error,Implemented
-FABS,FABSREQ*,This field is required for all submissions but was not provided in this row (LegalEntityCountryCode),Fatal Error,Implemented
-FABS,FABSREQ*,This field is required for all submissions but was not provided in this row (BusinessTypes),Fatal Error,Implemented
-FABS,FABSREQ*,This field is required for all submissions but was not provided in this row (AssistanceType),Fatal Error,Implemented
-FABS,FABSREQ*,This field is required for all submissions but was not provided in this row (ActionDate),Fatal Error,Implemented
-FABS,FABSREQ*,This field is required for all submissions but was not provided in this row (AwardeeOrRecipientLegalEntityName),Fatal Error,Implemented
-FABS,FABSREQ*,This field is required for all submissions but was not provided in this row (CFDA_Number),Fatal Error,Implemented
-FABS,FABSREQ*,This field is required for all submissions but was not provided in this row (AwardDescription),Fatal Error,Implemented
-FABS,FABSTYPE*,The value provided was of the wrong type. Note that all type errors in a line must be fixed before the rest of the validation logic is applied to that line. (FederalActionObligation),Fatal Error,Implemented
-FABS,FABSTYPE*,The value provided was of the wrong type. Note that all type errors in a line must be fixed before the rest of the validation logic is applied to that line. (NonFederalFundingAmount),Fatal Error,Implemented
-FABS,FABSTYPE*,The value provided was of the wrong type. Note that all type errors in a line must be fixed before the rest of the validation logic is applied to that line. (FaceValueLoanGuarantee),Fatal Error,Implemented
-FABS,FABSTYPE*,The value provided was of the wrong type. Note that all type errors in a line must be fixed before the rest of the validation logic is applied to that line. (OriginalLoanSubsidyCost),Fatal Error,Implemented
+FABS,FABSREQ1*,This field is required for all submissions but was not provided in this row (AwardDescription),Fatal Error,Implemented
+FABS,FABSREQ2*,This field is required for all submissions but was not provided in this row (AwardingSubtierAgencyCode),Fatal Error,Implemented
+FABS,FABSREQ3*,This field is required for all submissions but was not provided in this row (RecordType),Fatal Error,Implemented
+FABS,FABSREQ4*,This field is required for all submissions but was not provided in this row (BusinessFundsIndicator),Fatal Error,Implemented
+FABS,FABSREQ5*,This field is required for all submissions but was not provided in this row (LegalEntityCountryCode),Fatal Error,Implemented
+FABS,FABSREQ6*,This field is required for all submissions but was not provided in this row (BusinessTypes),Fatal Error,Implemented
+FABS,FABSREQ7*,This field is required for all submissions but was not provided in this row (AssistanceType),Fatal Error,Implemented
+FABS,FABSREQ8*,This field is required for all submissions but was not provided in this row (ActionDate),Fatal Error,Implemented
+FABS,FABSREQ9*,This field is required for all submissions but was not provided in this row (AwardeeOrRecipientLegalEntityName),Fatal Error,Implemented
+FABS,FABSREQ10*,This field is required for all submissions but was not provided in this row (CFDA_Number),Fatal Error,Implemented
+FABS,FABSTYPE1*,The value provided was of the wrong type. Note that all type errors in a line must be fixed before the rest of the validation logic is applied to that line. (FederalActionObligation),Fatal Error,Implemented
+FABS,FABSTYPE2*,The value provided was of the wrong type. Note that all type errors in a line must be fixed before the rest of the validation logic is applied to that line. (NonFederalFundingAmount),Fatal Error,Implemented
+FABS,FABSTYPE3*,The value provided was of the wrong type. Note that all type errors in a line must be fixed before the rest of the validation logic is applied to that line. (FaceValueLoanGuarantee),Fatal Error,Implemented
+FABS,FABSTYPE4*,The value provided was of the wrong type. Note that all type errors in a line must be fixed before the rest of the validation logic is applied to that line. (OriginalLoanSubsidyCost),Fatal Error,Implemented
 FABS,FABSLENGTH*,Value was longer than maximum length for this field (applies to each field in a FABS submission file).,Fatal Error,Implemented
 FABS,FABSHEADER*,Missing fields in header row (applies to each field in FABS submission file if omitted).,Fatal Error,Implemented
 FABS,FABSFILE*,Invalid file type. Valid file types include .csv and .txt,Fatal Error,Implemented
