@@ -30,8 +30,7 @@ export default class HelpContent extends React.Component {
 
         this.state = {
             rssUrl: '',
-            validationRulesUrl: '#',
-            domainValuesUrl: '#'
+            validationRulesUrl: '#'
         };
     }
 
@@ -42,8 +41,7 @@ export default class HelpContent extends React.Component {
             .then((urls) => {
                 this.setState({
                     rssUrl: urls[rssFileKey()],
-                    validationRulesUrl: urls['Validation_Rules.xlsx'],
-                    domainValuesUrl: urls['Domain_Values.xlsx']
+                    validationRulesUrl: urls['Validation_Rules.xlsx']
                 });
 
                 this.urlPromise = null;

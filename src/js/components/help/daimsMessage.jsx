@@ -25,8 +25,8 @@ export default class DaimsMessage extends React.Component {
             type = (
                 <span> and its
                     <a
-                        href={"https://community.max.gov/download/attachments/1286474850/DAIMS_Practices_Procedures" +
-                        "_v1.1.pdf?version=1&modificationDate=1498857477698&api=v2"}
+                        href={"https://community.max.gov/download/attachments/1324878095/DAIMS_Practices_Procedures" +
+                        "_v1.2.pdf"}
                         className="daims-link">
                         Practices &amp; Procedures {version}.
                     </a>
