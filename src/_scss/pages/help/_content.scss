@@ -36,29 +36,12 @@
         }
     }
 
-	
-
 	.reactable-th-severity {
 		width:150px;
 	}
 
 	.reactable-th-rule-name::after {
 		content: '\21C5';
-	}
-
-	.practices-procedures {
-		ul {
-			padding-left:40px;
-		}
-
-		ul li:before{
-			content:none;
-		}
-
-		p {
-			max-width:110rem;
-		}
-
 	}
 
 	.validation-table {
