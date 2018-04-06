@@ -10,7 +10,6 @@ import _ from 'lodash';
 import HelpPage from '../../components/help/helpPage';
 import ResourcesPage from '../../components/help/resourcesPage';
 import ValidationRulesTablePage from '../../components/help/validationRulesTablePage';
-import PracticesProceduresPage from '../../components/help/practicesProceduresPage';
 import HistoryPage from '../../components/help/historyPage';
 
 const propTypes = {
@@ -69,12 +68,6 @@ class HelpPageContainer extends React.Component {
         }
         else if (currentRoute === 'validations' || currentRoute === 'fabsvalidations') {
             return (<ValidationRulesTablePage
-                {...this.props}
-                helpOnly={this.state.helpOnly}
-                type={this.state.type} />);
-        }
-        else if (currentRoute === 'practices' || currentRoute === 'fabspractices') {
-            return (<PracticesProceduresPage
                 {...this.props}
                 helpOnly={this.state.helpOnly}
                 type={this.state.type} />);
