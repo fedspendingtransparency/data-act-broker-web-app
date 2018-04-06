@@ -119,7 +119,7 @@ export default class LandingRequirementsBody extends React.Component {
                         <li>Financial Assistance data (Award and Awardee Attributes) (
                             <a
                                 href={awsS3 +
-                                "help-files/DAIMS_FABS_Sample_Submission_File_v1.1.csv"}
+                                "help-files/Sample+FABS+Submission+File+v1_2.csv"}
                                 target="_blank"
                                 rel="noopener noreferrer">
                                 download sample file
@@ -147,12 +147,11 @@ export default class LandingRequirementsBody extends React.Component {
                             <ul>
                                 <li>
                                     <a
-                                        href={"https://community.max.gov/download/attachments/1286474850/" +
-                                        "DAIMS_Practices_Procedures_v1.1.pdf?version=1&modificationDate=" +
-                                        "1498857477698&api=v2"}
+                                        href={"https://community.max.gov/download/attachments/1324878095/" +
+                                        "DAIMS_Practices_Procedures_v1.2.pdf"}
                                         target="_blank"
                                         rel="noopener noreferrer">
-                                        DAIMS Practices &amp; Procedures v1.1
+                                        DAIMS Practices &amp; Procedures v1.2
                                     </a>
                                 </li>
                                 <li>
@@ -161,15 +160,6 @@ export default class LandingRequirementsBody extends React.Component {
                                         target="_blank"
                                         rel="noopener noreferrer">
                                         DAIMS IDD v1.1 (D2 tab)
-                                    </a>
-                                </li>
-                                <li>
-                                    <a
-                                        href={"http://fedspendingtransparency.github.io/assets/docs/DAIMS_Domain_Values"
-                                            + "_v1.1.xlsx"}
-                                        target="_blank"
-                                        rel="noopener noreferrer">
-                                        DAIMS Domain Values v1.1
                                     </a>
                                 </li>
                             </ul>
