@@ -113,40 +113,6 @@ export const fetchStatus = (submissionId) => {
     return deferred.promise;
 };
 
-export const fetchErrorReports = (submissionId) => {
-    const deferred = Q.defer();
-
-    Request.post(kGlobalConstants.API + 'submission_error_reports/')
-        .send({ submission_id: submissionId })
-        .end((errFile, res) => {
-            if (errFile) {
-                deferred.reject(errFile);
-            }
-            else {
-                deferred.resolve(res.body);
-            }
-        });
-
-    return deferred.promise;
-};
-
-export const fetchWarningReports = (submissionId) => {
-    const deferred = Q.defer();
-
-    Request.post(kGlobalConstants.API + 'submission_warning_reports/')
-        .send({ submission_id: submissionId })
-        .end((errFile, res) => {
-            if (errFile) {
-                deferred.reject(errFile);
-            }
-            else {
-                deferred.resolve(res.body);
-            }
-        });
-
-    return deferred.promise;
-};
-
 const getFileStates = (status) => {
     const output = {};
 
@@ -227,54 +193,6 @@ const getCrossFileData = (data, type, validKeys) => {
     return output;
 };
 
-
-const getFileReports = (status, reports) => {
-    for (const key in status) {
-        if (status.hasOwnProperty(key)) {
-            const item = status[key];
-            item.report = reports['job_' + item.job_id + '_error_url'];
-
-            // alphabetize any missing and duplicated headers
-            item.missing_headers = _.sortBy(item.missing_headers);
-            item.duplicated_headers = _.sortBy(item.duplicated_headers);
-        }
-    }
-
-    return status;
-};
-
-const getFileWarningReports = (status, reports) => {
-    for (const key in status) {
-        if (status.hasOwnProperty(key)) {
-            const item = status[key];
-            item.warning_report = reports['job_' + item.job_id + '_warning_url'];
-
-            // alphabetize any missing and duplicated headers
-            item.missing_headers = _.sortBy(item.missing_headers);
-            item.duplicated_headers = _.sortBy(item.duplicated_headers);
-        }
-    }
-
-    return status;
-};
-
-const getCrossFileReports = (type, crossFile, reports) => {
-    const crossFileReports = {};
-
-    let keyPrefix = 'cross_';
-    if (type === 'warnings') {
-        keyPrefix = 'cross_warning_';
-    }
-
-    for (const key in crossFile) {
-        if (crossFile.hasOwnProperty(key)) {
-            crossFileReports[key] = reports[keyPrefix + key];
-        }
-    }
-
-    return crossFileReports;
-};
-
 export const validateSubmission = (submissionId) => {
     const deferred = Q.defer();
 
@@ -294,8 +212,6 @@ export const validateSubmission = (submissionId) => {
     let agencyName;
     let crossFile;
     let crossFileState = {};
-    let crossFileErrorReports;
-    let crossFileWarningReports;
 
     fetchStatus(submissionId)
         .then((statusRes) => {
@@ -311,27 +227,11 @@ export const validateSubmission = (submissionId) => {
                 file: statusRes.crossFile.file_status
             };
 
-            return fetchErrorReports(submissionId);
-        })
-        .then((reports) => {
-            getFileReports(status, reports);
-            crossFileErrorReports = getCrossFileReports('errors', crossFile.errors, reports);
-
-            return fetchWarningReports(submissionId);
-        })
-        .then((reports) => {
-            getFileWarningReports(status, reports);
-            crossFileWarningReports = getCrossFileReports('warnings', crossFile.warnings, reports);
-
             deferred.resolve({
                 file: status,
                 agencyName,
                 crossFile: {
                     state: crossFileState,
-                    reports: {
-                        errors: crossFileErrorReports,
-                        warnings: crossFileWarningReports
-                    },
                     data: crossFile
                 }
             });
