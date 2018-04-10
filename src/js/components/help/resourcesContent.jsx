@@ -57,7 +57,7 @@ export default class ResourcesContent extends React.Component {
                     schemaFileBUrl: urls['DATA_Act_Schema_v1_0_File_B_20160622.pdf'],
                     schemaFileCUrl: urls['DATA_Act_Schema_v1_0_File_C_20160622.pdf'],
                     faqFileC: urls['DATA_Act_PMO_FileC_TOA_FAQ_20160913.pdf'],
-                    fabs_sample: urls['Sample+FABS+Submission+File+v1_2.csv']
+                    fabs_sample: urls['Sample FABS Submission File v1_2.csv']
                 });
 
                 this.urlPromise = null;
