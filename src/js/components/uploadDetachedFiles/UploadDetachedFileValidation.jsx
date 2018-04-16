@@ -62,7 +62,7 @@ class UploadDetachedFileValidation extends React.Component {
                 status: ""
             },
             cgac_code: "",
-            jobResults: { detached_award: {} },
+            jobResults: { fabs: {} },
             headerErrors: false,
             validationFinished: false,
             error: 0,
@@ -146,7 +146,7 @@ class UploadDetachedFileValidation extends React.Component {
                 }
 
                 const job = Object.assign({}, this.state.jobResults);
-                job.detached_award = response.jobs[0];
+                job.fabs = response.jobs[0];
 
                 let isSuccessful = false;
                 if (response.publish_status !== "publishing" && this.dataTimer) {
@@ -329,8 +329,8 @@ class UploadDetachedFileValidation extends React.Component {
         // upload specified file
         this.props.setSubmissionState("uploading");
         const submission = this.props.submission;
-        submission.files.detached_award = this.state.detachedAward;
-        submission.files.detached_award.file = item;
+        submission.files.fabs = this.state.detachedAward;
+        submission.files.fabs.file = item;
         submission.sub = this.state.submissionID;
         submission.meta.startDate = this.state.rep_start;
         submission.meta.endDate = this.state.rep_end;
@@ -338,8 +338,8 @@ class UploadDetachedFileValidation extends React.Component {
 
         // reset file and job status
         const currentResults = this.state.jobResults;
-        currentResults.detached_award.file_status = "";
-        currentResults.detached_award.job_status = "";
+        currentResults.fabs.file_status = "";
+        currentResults.fabs.job_status = "";
         this.setState({
             jobResults: currentResults
         });
@@ -391,8 +391,7 @@ class UploadDetachedFileValidation extends React.Component {
 
         const type = {
             fileTitle: "Upload",
-            fileTemplateName: "detached_award.csv",
-            requestName: "detached_award",
+            requestName: "fabs",
             progress: "0"
         };
 

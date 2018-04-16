@@ -32,15 +32,14 @@ export default class UploadDetachedFilesBox extends React.Component {
             loadingD2 = <LoadingBauble />;
         }
 
-        const fileStateReady = this.props.submission.files && this.props.submission.files.detached_award &&
-            this.props.submission.files.detached_award.state === 'ready';
+        const fileStateReady = this.props.submission.files && this.props.submission.files.fabs &&
+            this.props.submission.files.fabs.state === 'ready';
         const disabled = !fileStateReady || (this.props.detachedAward.status === "uploading");
         return (
             <div className="usa-da-upload-detached-files-box dashed-border-top">
                 <FileComponent
                     fileTitle="Financial Assistance Broker Submission (FABS) File"
-                    fileTemplateName="award.csv"
-                    requestName="detached_award" />
+                    requestName="fabs" />
                 <div className="right-align-box">
                     <button
                         className="usa-da-button btn-default"

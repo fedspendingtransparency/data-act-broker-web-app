@@ -247,8 +247,8 @@ export default class ValidateDataFileComponent extends React.Component {
             case 'award_financial':
                 type = 'C';
                 break;
-            case 'detached_award':
-                type = 'D2_detached';
+            case 'fabs':
+                type = 'FABS';
                 break;
             default:
                 break;
@@ -357,7 +357,7 @@ export default class ValidateDataFileComponent extends React.Component {
             clickDownloadClass = 'file-download';
         }
 
-        if (this.props.type.requestName === 'detached_award') {
+        if (this.props.type.requestName === 'fabs') {
             if (!PermissionsHelper.checkFabsAgencyPermissions(this.props.session, this.props.agencyName)) {
                 disabledCorrect = ' hide';
             }

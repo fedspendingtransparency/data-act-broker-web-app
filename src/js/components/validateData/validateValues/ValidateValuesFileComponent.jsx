@@ -103,8 +103,8 @@ export default class ValidateValuesFileComponent extends React.Component {
             case 'award_financial':
                 type = 'C';
                 break;
-            case 'detached_award':
-                type = 'D2_detached';
+            case 'fabs':
+                type = 'FABS';
                 break;
             default:
                 break;
@@ -219,7 +219,7 @@ export default class ValidateValuesFileComponent extends React.Component {
         }
 
         let permission = false;
-        if (this.props.type.requestName === 'detached_award') {
+        if (this.props.type.requestName === 'fabs') {
             permission = PermissionsHelper.checkFabsAgencyPermissions(this.props.session, this.props.agencyName);
         }
         else {

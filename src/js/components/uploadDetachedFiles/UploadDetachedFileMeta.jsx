@@ -54,7 +54,7 @@ export default class UploadDetachedFileMeta extends React.Component {
                 valid: false,
                 status: ""
             },
-            jobResults: { detached_award: {} },
+            jobResults: { fabs: {} },
             notAllowed: false,
             errorMessage: "",
             headerErrors: false,
@@ -130,7 +130,7 @@ export default class UploadDetachedFileMeta extends React.Component {
                     return;
                 }
                 const job = Object.assign({}, this.state.jobResults);
-                job.detached_award = response.jobs[0];
+                job.fabs = response.jobs[0];
                 this.setState({
                     showUploadFilesBox: false,
                     jobResults: job
