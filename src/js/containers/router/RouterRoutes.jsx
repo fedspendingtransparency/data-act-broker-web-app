@@ -4,8 +4,8 @@ import LoginPage from '../../components/login/LoginPage';
 import AuthPage from '../../components/login/AuthPage';
 import SubmissionGuideContainer from '../../containers/addData/SubmissionGuideContainer';
 import AddDataPageContainer from '../../containers/addData/AddDataPageContainer';
-import UploadDetachedFilesPageContainer from
-    '../../containers/uploadDetachedFiles/UploadDetachedFilesPageContainer';
+import UploadFabsFilePageContainer from
+    '../../containers/uploadFabsFile/UploadFabsFilePageContainer';
 import GenerateDetachedFilesPageContainer
     from '../../containers/generateDetachedFiles/GenerateDetachedFilesPageContainer';
 import StoreSingleton from '../../redux/storeSingleton';
@@ -137,13 +137,13 @@ const getRoutes = () => {
         {
             path: 'FABSaddData/:submissionID',
             onEnter: checkUserPermissions,
-            component: UploadDetachedFilesPageContainer,
+            component: UploadFabsFilePageContainer,
             type: 'fabs'
         },
         {
             path: 'FABSaddData',
             onEnter: checkFabsUploadPermissions,
-            component: UploadDetachedFilesPageContainer,
+            component: UploadFabsFilePageContainer,
             type: 'fabs'
         },
         {
