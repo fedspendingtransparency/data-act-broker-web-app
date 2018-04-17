@@ -165,7 +165,7 @@ export const submitFabs = (submissionId) => {
     return deferred.promise;
 };
 
-const prepareDetachedFiles = (fileDict) => {
+const prepareFabsFiles = (fileDict) => {
     const deferred = Q.defer();
 
     Request.post(kGlobalConstants.API + 'upload_detached_file/')
@@ -397,7 +397,7 @@ export const performLocalCorrectedUpload = (submission) => {
     return deferred.promise;
 };
 
-export const performDetachedFileUpload = (submission) => {
+export const performFabsFileUpload = (submission) => {
     const deferred = Q.defer();
 
     const store = new StoreSingleton().store;
@@ -418,7 +418,7 @@ export const performDetachedFileUpload = (submission) => {
     // submit it to the API to set up S3
     let submissionID;
 
-    prepareDetachedFiles(request)
+    prepareFabsFiles(request)
         .then((res) => {
             // now do the actual uploading
             submissionID = res.body.submission_id;
@@ -440,7 +440,7 @@ export const performDetachedFileUpload = (submission) => {
     return deferred.promise;
 };
 
-export const performDetachedFileCorrectedUpload = (submission) => {
+export const performFabsFileCorrectedUpload = (submission) => {
     const deferred = Q.defer();
 
     const store = new StoreSingleton().store;
@@ -460,7 +460,7 @@ export const performDetachedFileCorrectedUpload = (submission) => {
     // submit it to the API to set up S3
     let submissionID;
 
-    prepareDetachedFiles(request)
+    prepareFabsFiles(request)
         .then((res) => {
             // now do the actual uploading
             submissionID = res.body.submission_id;
@@ -482,7 +482,7 @@ export const performDetachedFileCorrectedUpload = (submission) => {
     return deferred.promise;
 };
 
-export const performDetachedLocalUpload = (submission) => {
+export const performFabsLocalUpload = (submission) => {
     const deferred = Q.defer();
 
     let request = {};
@@ -513,7 +513,7 @@ export const performDetachedLocalUpload = (submission) => {
             });
 
             // submit the files
-            return prepareDetachedFiles(request);
+            return prepareFabsFiles(request);
         })
         .then((res) => {
             submissionID = res.body.submission_id;
@@ -540,7 +540,7 @@ export const performDetachedLocalUpload = (submission) => {
     return deferred.promise;
 };
 
-export const performDetachedLocalCorrectedUpload = (submission) => {
+export const performFabsLocalCorrectedUpload = (submission) => {
     const deferred = Q.defer();
 
     const request = {
@@ -570,7 +570,7 @@ export const performDetachedLocalCorrectedUpload = (submission) => {
             });
 
             // submit the files
-            return prepareDetachedFiles(request);
+            return prepareFabsFiles(request);
         })
         .then((res) => {
             submissionID = res.body.submission_id;

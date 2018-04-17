@@ -97,9 +97,9 @@ export default class UploadFabsFileMeta extends React.Component {
 
     uploadFileHelper(local, submission) {
         if (local) {
-            return UploadHelper.performDetachedLocalUpload(submission);
+            return UploadHelper.performFabsLocalUpload(submission);
         }
-        return UploadHelper.performDetachedFileUpload(submission);
+        return UploadHelper.performFabsFileUpload(submission);
     }
 
     uploadFile() {
@@ -146,7 +146,7 @@ export default class UploadFabsFileMeta extends React.Component {
     }
 
     validateSubmission(submissionID) {
-        ReviewHelper.validateDetachedSubmission(submissionID)
+        ReviewHelper.validateFabsSubmission(submissionID)
             .then((response) => {
                 this.setState({
                     fabs: response.item,

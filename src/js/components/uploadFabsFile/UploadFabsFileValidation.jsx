@@ -232,7 +232,7 @@ class UploadFabsFileValidation extends React.Component {
     }
 
     validateSubmission(item) {
-        ReviewHelper.validateDetachedSubmission(this.props.params.submissionID)
+        ReviewHelper.validateFabsSubmission(this.props.params.submissionID)
             .then((response) => {
                 this.setState({
                     fabs: item,
@@ -316,9 +316,9 @@ class UploadFabsFileValidation extends React.Component {
 
     uploadFileHelper(local, submission) {
         if (local) {
-            return UploadHelper.performDetachedLocalCorrectedUpload(submission);
+            return UploadHelper.performFabsLocalCorrectedUpload(submission);
         }
-        return UploadHelper.performDetachedFileCorrectedUpload(submission);
+        return UploadHelper.performFabsFileCorrectedUpload(submission);
     }
 
     uploadFile(item) {
