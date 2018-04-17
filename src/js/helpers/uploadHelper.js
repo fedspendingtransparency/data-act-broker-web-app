@@ -165,7 +165,7 @@ export const submitFabs = (submissionId) => {
     return deferred.promise;
 };
 
-const prepareFabsFiles = (fileDict) => {
+const prepareFabsFile = (fileDict) => {
     const deferred = Q.defer();
 
     Request.post(kGlobalConstants.API + 'upload_detached_file/')
@@ -418,7 +418,7 @@ export const performFabsFileUpload = (submission) => {
     // submit it to the API to set up S3
     let submissionID;
 
-    prepareFabsFiles(request)
+    prepareFabsFile(request)
         .then((res) => {
             // now do the actual uploading
             submissionID = res.body.submission_id;
@@ -460,7 +460,7 @@ export const performFabsFileCorrectedUpload = (submission) => {
     // submit it to the API to set up S3
     let submissionID;
 
-    prepareFabsFiles(request)
+    prepareFabsFile(request)
         .then((res) => {
             // now do the actual uploading
             submissionID = res.body.submission_id;
@@ -513,7 +513,7 @@ export const performFabsLocalUpload = (submission) => {
             });
 
             // submit the files
-            return prepareFabsFiles(request);
+            return prepareFabsFile(request);
         })
         .then((res) => {
             submissionID = res.body.submission_id;
@@ -570,7 +570,7 @@ export const performFabsLocalCorrectedUpload = (submission) => {
             });
 
             // submit the files
-            return prepareFabsFiles(request);
+            return prepareFabsFile(request);
         })
         .then((res) => {
             submissionID = res.body.submission_id;
