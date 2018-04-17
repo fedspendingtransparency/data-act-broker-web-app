@@ -9,13 +9,13 @@ import LoadingBauble from '../SharedComponents/overlays/LoadingBauble';
 
 const propTypes = {
     uploadFile: PropTypes.func,
-    detachedAward: PropTypes.object,
+    fabs: PropTypes.object,
     submission: PropTypes.object
 };
 
 const defaultProps = {
     uploadFile: () => {},
-    detachedAward: {},
+    fabs: {},
     submission: {}
 };
 
@@ -27,14 +27,14 @@ export default class UploadDetachedFilesBox extends React.Component {
     render() {
         let d2Text = "Upload FABS File";
         let loadingD2 = null;
-        if (this.props.detachedAward.status === "uploading") {
+        if (this.props.fabs.status === "uploading") {
             d2Text = "Uploading";
             loadingD2 = <LoadingBauble />;
         }
 
         const fileStateReady = this.props.submission.files && this.props.submission.files.fabs &&
             this.props.submission.files.fabs.state === 'ready';
-        const disabled = !fileStateReady || (this.props.detachedAward.status === "uploading");
+        const disabled = !fileStateReady || (this.props.fabs.status === "uploading");
         return (
             <div className="usa-da-upload-detached-files-box dashed-border-top">
                 <FileComponent

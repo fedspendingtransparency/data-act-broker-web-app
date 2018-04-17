@@ -50,7 +50,7 @@ class UploadDetachedFileValidation extends React.Component {
         this.state = {
             agency: "",
             submissionID: this.props.params.submissionID ? this.props.params.submissionID : 0,
-            detachedAward: {
+            fabs: {
                 startDate: null,
                 endDate: null,
                 error: {
@@ -235,7 +235,7 @@ class UploadDetachedFileValidation extends React.Component {
         ReviewHelper.validateDetachedSubmission(this.props.params.submissionID)
             .then((response) => {
                 this.setState({
-                    detachedAward: item,
+                    fabs: item,
                     validationFinished: true,
                     headerErrors: false,
                     jobResults: response
@@ -251,12 +251,12 @@ class UploadDetachedFileValidation extends React.Component {
             runCheck = false;
 
             // make a clone of the file"s react state
-            const item = Object.assign({ }, this.state.detachedAward);
+            const item = Object.assign({ }, this.state.fabs);
             item.status = "failed";
 
             if (data.jobs[0].error_type && data.jobs[0].error_type === "header_errors") {
                 this.setState({
-                    detachedAward: item,
+                    fabs: item,
                     validationFinished: true,
                     headerErrors: true
                 });
@@ -271,7 +271,7 @@ class UploadDetachedFileValidation extends React.Component {
 
             // display dowload buttons
             // make a clone of the file's react state
-            const item = Object.assign({}, this.state.detachedAward);
+            const item = Object.assign({}, this.state.fabs);
             item.status = "done";
             this.validateSubmission(item);
         }
@@ -329,7 +329,7 @@ class UploadDetachedFileValidation extends React.Component {
         // upload specified file
         this.props.setSubmissionState("uploading");
         const submission = this.props.submission;
-        submission.files.fabs = this.state.detachedAward;
+        submission.files.fabs = this.state.fabs;
         submission.files.fabs.file = item;
         submission.sub = this.state.submissionID;
         submission.meta.startDate = this.state.rep_start;

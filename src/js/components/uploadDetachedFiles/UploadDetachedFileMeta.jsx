@@ -45,7 +45,7 @@ export default class UploadDetachedFileMeta extends React.Component {
             agency: "",
             agencyError: false,
             showUploadFilesBox: false,
-            detachedAward: {
+            fabs: {
                 error: {
                     show: false,
                     header: '',
@@ -149,7 +149,7 @@ export default class UploadDetachedFileMeta extends React.Component {
         ReviewHelper.validateDetachedSubmission(submissionID)
             .then((response) => {
                 this.setState({
-                    detachedAward: response.item,
+                    fabs: response.item,
                     validationFinished: true,
                     headerErrors: false,
                     jobResults: response
@@ -165,12 +165,12 @@ export default class UploadDetachedFileMeta extends React.Component {
             runCheck = false;
 
             // make a clone of the file's react state
-            const item = Object.assign({}, this.state.detachedAward);
+            const item = Object.assign({}, this.state.fabs);
             item.status = "failed";
 
             if (data.jobs[0].error_type === "header_errors") {
                 this.setState({
-                    detachedAward: item,
+                    fabs: item,
                     validationFinished: true,
                     headerErrors: true
                 });
@@ -185,7 +185,7 @@ export default class UploadDetachedFileMeta extends React.Component {
 
             // display dowload buttons
             // make a clone of the file's react state
-            const item = Object.assign({}, this.state.detachedAward);
+            const item = Object.assign({}, this.state.fabs);
             item.status = "done";
 
             this.validateSubmission(this.props.submission.id);
@@ -225,8 +225,8 @@ export default class UploadDetachedFileMeta extends React.Component {
 
         let errorMessage = null;
 
-        if (this.state.detachedAward.error.show) {
-            errorMessage = <UploadDetachedFilesError error={this.state.detachedAward.error} />;
+        if (this.state.fabs.error.show) {
+            errorMessage = <UploadDetachedFilesError error={this.state.fabs.error} />;
         }
 
         return (
