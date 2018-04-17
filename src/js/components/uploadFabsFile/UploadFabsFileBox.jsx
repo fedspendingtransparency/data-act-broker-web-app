@@ -1,5 +1,5 @@
 /**
-* UploadDetachedFilesBox.jsx
+* UploadFabsFileBox.jsx
 * Created by Michael Hess
 */
 
@@ -19,7 +19,7 @@ const defaultProps = {
     submission: {}
 };
 
-export default class UploadDetachedFilesBox extends React.Component {
+export default class UploadFabsFileBox extends React.Component {
     uploadFile(file) {
         this.props.uploadFile(file);
     }
@@ -36,7 +36,7 @@ export default class UploadDetachedFilesBox extends React.Component {
             this.props.submission.files.fabs.state === 'ready';
         const disabled = !fileStateReady || (this.props.fabs.status === "uploading");
         return (
-            <div className="usa-da-upload-detached-files-box dashed-border-top">
+            <div className="usa-da-upload-fabs-file-box dashed-border-top">
                 <FileComponent
                     fileTitle="Financial Assistance Broker Submission (FABS) File"
                     requestName="fabs" />
@@ -53,5 +53,5 @@ export default class UploadDetachedFilesBox extends React.Component {
     }
 }
 
-UploadDetachedFilesBox.propTypes = propTypes;
-UploadDetachedFilesBox.defaultProps = defaultProps;
+UploadFabsFileBox.propTypes = propTypes;
+UploadFabsFileBox.defaultProps = defaultProps;

@@ -1,5 +1,5 @@
 /**
-* UploadDetachedFileValidation.jsx
+* UploadFabsFileValidation.jsx
 * Created by Minahm Kim
 */
 
@@ -13,7 +13,7 @@ import ValidateValuesFileContainer from "../../containers/validateData/ValidateV
 import ValidateDataFileContainer from "../../containers/validateData/ValidateDataFileContainer";
 import PublishModal from "./PublishModal";
 import Banner from "../SharedComponents/Banner";
-import UploadDetachedFilesError from "./UploadDetachedFilesError";
+import UploadFabsFileError from "./UploadFabsFileError";
 
 import * as UploadHelper from "../../helpers/uploadHelper";
 import * as GenerateFilesHelper from "../../helpers/generateFilesHelper";
@@ -41,7 +41,7 @@ const defaultProps = {
 
 const timerDuration = 5;
 
-class UploadDetachedFileValidation extends React.Component {
+class UploadFabsFileValidation extends React.Component {
     constructor(props) {
         super(props);
 
@@ -418,7 +418,7 @@ class UploadDetachedFileValidation extends React.Component {
             }
 
             if (this.state.showSuccess) {
-                errorMessage = (<UploadDetachedFilesError
+                errorMessage = (<UploadFabsFileError
                     errorCode={this.state.error}
                     type="success"
                     message={this.state.error_message} />);
@@ -475,7 +475,7 @@ class UploadDetachedFileValidation extends React.Component {
         }
 
         if (this.state.published === "publishing" && this.state.error !== 0) {
-            errorMessage = (<UploadDetachedFilesError
+            errorMessage = (<UploadFabsFileError
                 errorCode={this.state.error}
                 type="error"
                 message={this.state.error_message} />);
@@ -488,7 +488,7 @@ class UploadDetachedFileValidation extends React.Component {
                 </button>);
         }
         else if (this.state.published === "unpublished" && this.state.error !== 0) {
-            errorMessage = (<UploadDetachedFilesError
+            errorMessage = (<UploadFabsFileError
                 errorCode={this.state.error}
                 type="error"
                 message={this.state.error_message} />);
@@ -547,9 +547,9 @@ class UploadDetachedFileValidation extends React.Component {
     }
 }
 
-UploadDetachedFileValidation.propTypes = propTypes;
-UploadDetachedFileValidation.defaultProps = defaultProps;
+UploadFabsFileValidation.propTypes = propTypes;
+UploadFabsFileValidation.defaultProps = defaultProps;
 
 export default connect(
     (state) => ({ session: state.session })
-)(UploadDetachedFileValidation);
+)(UploadFabsFileValidation);

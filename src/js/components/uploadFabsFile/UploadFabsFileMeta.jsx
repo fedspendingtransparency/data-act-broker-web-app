@@ -1,5 +1,5 @@
 /**
-* UploadDetachedFileMeta.jsx
+* UploadFabsFileMeta.jsx
 * Created by Minahm Kim
 */
 
@@ -8,8 +8,8 @@ import ReactCSSTransitionGroup from 'react-addons-css-transition-group';
 import React, { PropTypes } from 'react';
 
 import SubTierAgencyListContainer from '../../containers/SharedContainers/SubTierAgencyListContainer';
-import UploadDetachedFilesBox from './UploadDetachedFilesBox';
-import UploadDetachedFilesError from './UploadDetachedFilesError';
+import UploadFabsFileBox from './UploadFabsFileBox';
+import UploadFabsFileError from './UploadFabsFileError';
 import Banner from '../SharedComponents/Banner';
 
 import * as Icons from '../SharedComponents/icons/Icons';
@@ -35,7 +35,7 @@ const defaultProps = {
 
 const timerDuration = 5;
 
-export default class UploadDetachedFileMeta extends React.Component {
+export default class UploadFabsFileMeta extends React.Component {
     constructor(props) {
         super(props);
 
@@ -217,7 +217,7 @@ export default class UploadDetachedFileMeta extends React.Component {
         }
 
         if (this.state.showUploadFilesBox) {
-            uploadFilesBox = (<UploadDetachedFilesBox
+            uploadFilesBox = (<UploadFabsFileBox
                 {...this.state}
                 submission={this.props.submission}
                 uploadFile={this.uploadFile.bind(this)} />);
@@ -226,7 +226,7 @@ export default class UploadDetachedFileMeta extends React.Component {
         let errorMessage = null;
 
         if (this.state.fabs.error.show) {
-            errorMessage = <UploadDetachedFilesError error={this.state.fabs.error} />;
+            errorMessage = <UploadFabsFileError error={this.state.fabs.error} />;
         }
 
         return (
@@ -283,5 +283,5 @@ export default class UploadDetachedFileMeta extends React.Component {
     }
 }
 
-UploadDetachedFileMeta.propTypes = propTypes;
-UploadDetachedFileMeta.defaultProps = defaultProps;
+UploadFabsFileMeta.propTypes = propTypes;
+UploadFabsFileMeta.defaultProps = defaultProps;

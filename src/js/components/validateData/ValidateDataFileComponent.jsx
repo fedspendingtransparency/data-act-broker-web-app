@@ -11,7 +11,7 @@ import * as Icons from '../SharedComponents/icons/Icons';
 import * as PermissionsHelper from '../../helpers/permissionsHelper';
 import * as GenerateFilesHelper from '../../helpers/generateFilesHelper';
 
-import UploadDetachedFilesError from '../uploadDetachedFiles/UploadDetachedFilesError';
+import UploadFabsFileError from '../uploadFabsFile/UploadFabsFileError';
 
 const propTypes = {
     onFileChange: PropTypes.func,
@@ -368,7 +368,7 @@ export default class ValidateDataFileComponent extends React.Component {
 
         let errorMessage = null;
         if (this.state.error) {
-            errorMessage = <UploadDetachedFilesError error={this.state.error} />;
+            errorMessage = <UploadFabsFileError error={this.state.error} />;
         }
 
         return (
