@@ -5,6 +5,7 @@
 
 import React, { PropTypes } from 'react';
 import Moment from 'moment';
+import { generateProtectedUrls } from '../../helpers/util';
 
 const propTypes = {
     window: PropTypes.array,
@@ -19,6 +20,33 @@ const defaultProps = {
 export default class LandingRequirementsBody extends React.Component {
     constructor(props) {
         super(props);
+
+        this.urlPromise = null;
+
+        this.state = {
+            validationRulesUrl: '#'
+        };
+    }
+
+    componentDidMount() {
+        // load the validation rules URL
+        this.urlPromise = generateProtectedUrls();
+        this.urlPromise.promise
+            .then((urls) => {
+                this.setState({
+                    validationRulesUrl: urls['DAIMS_Validation_Rules_v1.2.xlsx'],
+                    rssFile: url['DAIMS_RSS_v1.2.xlsx']
+                });
+
+                this.urlPromise = null;
+            });
+    }
+
+    componentWillUnmount() {
+        // cancel in-flight S3 signing requests when the component unmounts
+        if (this.urlPromise) {
+            this.urlPromise.cancel();
+        }
     }
 
     windowBlocked() {
@@ -132,10 +160,10 @@ export default class LandingRequirementsBody extends React.Component {
                     <ul>
                         <li>
                             <a
-                                href={awsS3 + "help-files/DAIMS_FABS_Validation_Checklist_v1.1.pdf"}
+                                href={this.state.validationRulesUrl}
                                 target="_blank"
                                 rel="noopener noreferrer">
-                                Validation Checklist
+                                Validation Rules v1.2
                             </a>
                         </li>
                         <li>Error Codes and Messages</li>
@@ -156,10 +184,10 @@ export default class LandingRequirementsBody extends React.Component {
                                 </li>
                                 <li>
                                     <a
-                                        href="http://fedspendingtransparency.github.io/assets/docs/DAIMS_IDD_v1.1.xlsx"
+                                        href={this.state.rssFile}
                                         target="_blank"
                                         rel="noopener noreferrer">
-                                        DAIMS IDD v1.1 (D2 tab)
+                                        DAIMS RSS v1.2 (FABS tab)
                                     </a>
                                 </li>
                             </ul>

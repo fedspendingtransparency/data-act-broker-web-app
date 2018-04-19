@@ -63,8 +63,7 @@ export default class ValidationRulesTableContent extends React.Component {
         this.urlPromise.promise
             .then((urls) => {
                 this.setState({
-                    validationRulesUrl: urls['DAIMS_Validation_Rules_v1.2.xlsx'],
-                    checkList: urls['DAIMS_FABS_Validation_Checklist_v1.1.pdf']
+                    validationRulesUrl: urls['DAIMS_Validation_Rules_v1.2.xlsx']
                 });
                 this.urlPromise = null;
             });
@@ -113,11 +112,6 @@ export default class ValidationRulesTableContent extends React.Component {
                         Broker Submission (RSS-FABS)
                     </p>
                     <ul>
-                        <li>
-                            <a href={this.state.checkList} target="_blank">Validation Checklist:</a> contains file-wide
-                            practices, data element-level validation rule explanations, technical procedures for
-                            formatting submission files, and a change log
-                        </li>
                         <li>
                             <a href={this.state.validationRulesUrl} target="_blank">DAIMS Validations Rules:</a>
                             contains the validations rules for the RSS and IDD, along with a change log
