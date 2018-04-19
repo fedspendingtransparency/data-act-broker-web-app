@@ -34,8 +34,7 @@ export default class LandingRequirementsBody extends React.Component {
         this.urlPromise.promise
             .then((urls) => {
                 this.setState({
-                    validationRulesUrl: urls['DAIMS_Validation_Rules_v1.2.xlsx'],
-                    rssFile: url['DAIMS_RSS_v1.2.xlsx']
+                    validationRulesUrl: urls['DAIMS_Validation_Rules_v1.2.xlsx']
                 });
 
                 this.urlPromise = null;
@@ -184,7 +183,7 @@ export default class LandingRequirementsBody extends React.Component {
                                 </li>
                                 <li>
                                     <a
-                                        href={this.state.rssFile}
+                                        href="http://fedspendingtransparency.github.io/assets/docs/DAIMS_RSS_v1.2.xlsx"
                                         target="_blank"
                                         rel="noopener noreferrer">
                                         DAIMS RSS v1.2 (FABS tab)

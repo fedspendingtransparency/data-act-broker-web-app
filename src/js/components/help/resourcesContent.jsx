@@ -38,8 +38,7 @@ export default class ResourcesContent extends React.Component {
             .then((urls) => {
                 this.setState({
                     faqFileC: urls['DATA_Act_PMO_FileC_TOA_FAQ_20160913.pdf'],
-                    fabs_sample: urls['Sample FABS Submission File v1_2.csv'],
-                    rssFile: urls['DAIMS_RSS_v1.2.xlsx']
+                    fabs_sample: urls['Sample FABS Submission File v1_2.csv']
                 });
 
                 this.urlPromise = null;
@@ -100,7 +99,7 @@ export default class ResourcesContent extends React.Component {
                                 </a>
                             </li>
                             <li>
-                                <a href={this.state.rssFile}>DAIMS RSS v1.2 (FABS tab)</a>
+                                <a href={github + "DAIMS_RSS_v1.2.xlsx"}>DAIMS RSS v1.2 (FABS tab)</a>
                             </li>
                             <li>
                                 <a href={github + "DAIMS_Information_Flow_Diagram_v1.1.png"}>
