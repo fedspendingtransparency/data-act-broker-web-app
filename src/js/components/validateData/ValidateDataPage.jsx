@@ -9,7 +9,6 @@ import AddDataHeader from './../addData/AddDataHeader';
 import Progress from '../SharedComponents/ProgressComponent';
 
 import ValidateDataContainer from '../../containers/validateData/ValidateDataContainer';
-import ValidateDataErrors from './ValidateDataErrors';
 
 const propTypes = {
     params: PropTypes.object,
@@ -35,15 +34,7 @@ export default class ValidateDataPage extends React.Component {
     }
 
     render() {
-        let currentComponent;
         const submissionID = this.props.params.submissionID;
-
-        if (!this.props.params.submissionID) {
-            currentComponent = <ValidateDataErrors />;
-        }
-        else {
-            currentComponent = <ValidateDataContainer submissionID={submissionID} />;
-        }
 
         return (
             <div className="usa-da-validate-data-page">
@@ -56,7 +47,7 @@ export default class ValidateDataPage extends React.Component {
                         </div>
                     </div>
                 </div>
-                {currentComponent}
+                <ValidateDataContainer submissionID={submissionID} />
             </div>
         );
     }
