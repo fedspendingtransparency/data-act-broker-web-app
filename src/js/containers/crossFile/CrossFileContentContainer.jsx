@@ -21,7 +21,6 @@ import Banner from '../../components/SharedComponents/Banner';
 const propTypes = {
     resetSubmission: PropTypes.func,
     setCrossFile: PropTypes.func,
-    setExpectedCrossPairs: PropTypes.func,
     setSubmissionState: PropTypes.func,
     showError: PropTypes.func,
     submission: PropTypes.object,
@@ -31,7 +30,6 @@ const propTypes = {
 const defaultProps = {
     resetSubmission: () => {},
     setCrossFile: () => {},
-    setExpectedCrossPairs: () => {},
     setSubmissionState: () => {},
     showError: () => {},
     submission: {},
@@ -86,33 +84,6 @@ class CrossFileContentContainer extends React.Component {
                     this.startTimer();
                 });
         }
-    }
-
-    prepareCrossFileReports(data) {
-        // store the cross file report CSV URLs in Redux
-        const reports = data.crossFile.reports;
-
-        const updatedData = [];
-        this.props.submission.crossFileOrder.forEach((pair) => {
-            // create a new metadata object for each expected cross file pairing
-            const reportUrls = {
-                errorsReport: '#',
-                warningsReport: '#'
-            };
-
-            if (reports.errors.hasOwnProperty(pair.key)) {
-                reportUrls.errorsReport = reports.errors[pair.key];
-            }
-            if (reports.warnings.hasOwnProperty(pair.key)) {
-                reportUrls.warningsReport = reports.warnings[pair.key];
-            }
-
-            const updatedPair = Object.assign({}, pair, reportUrls);
-
-            updatedData.push(updatedPair);
-        });
-
-        this.props.setExpectedCrossPairs(updatedData);
     }
 
     crossFileComplete(data) {
@@ -196,7 +167,6 @@ class CrossFileContentContainer extends React.Component {
                     // stop the timer once the validations are complete
                     this.props.setSubmissionState('crossFile');
                     this.props.setCrossFile(data.crossFile.data);
-                    this.prepareCrossFileReports(data);
 
                     if (this.dataTimer) {
                         window.clearInterval(this.dataTimer);
