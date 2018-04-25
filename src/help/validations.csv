@@ -1,9 +1,9 @@
 Relates to Files,Rule Name,Rule Detail,Severity,Status
 "A, B, C",A1,"TAS components: The combination of all the elements that make up the TAS must match the Treasury Central Accounting Reporting System (CARS). AgencyIdentifier, MainAccountCode, and SubAccountCode are always required. AllocationTransferAgencyIdentifier, BeginningPeriodOfAvailability, EndingPeriodOfAvailability and AvailabilityTypeCode are required if present in the CARS table.",Fatal Error,Implemented
-A,A2,BudgetAuthorityAvailableAmountTotal_CPE = BudgetAuthorityAppropriatedAmount_CPE + BudgetAuthorityUnobligatedBalanceBroughtForward_FYB + AdjustmentsToUnobligatedBalanceBroughtForward_CPE + OtherBudgetaryResourcesAmount_CPE,Fatal Error,Implemented
+A,A2,TotalBudgetaryResources_CPE = BudgetAuthorityAppropriatedAmount_CPE + BudgetAuthorityUnobligatedBalanceBroughtForward_FYB + AdjustmentsToUnobligatedBalanceBroughtForward_CPE + OtherBudgetaryResourcesAmount_CPE,Fatal Error,Implemented
 A,A3,OtherBudgetaryResourcesAmount_CPE = ContractAuthorityAmountTotal_CPE + BorrowingAuthorityAmountTotal_CPE + SpendingAuthorityfromOffsettingCollectionsAmountTotal_CPE,Fatal Error,Implemented
 A,A4,StatusOfBudgetaryResourcesTotal_CPE= ObligationsIncurredTotalByTAS_CPE + UnobligatedBalance_CPE,Fatal Error,Implemented
-A,A6,"BudgetAuthorityAvailableAmountTotal_CPE= CPE value for GTAS SF 133 line #1910, for the same reporting period",Fatal Error,Implemented
+A,A6,"TotalBudgetaryResources_CPE= CPE value for GTAS SF 133 line #1910, for the same reporting period",Fatal Error,Implemented
 A,A7,"BudgetAuthorityUnobligatedBalanceBroughtForward_FYB= value for GTAS SF 133 line #1000, for the same reporting period",Fatal Error,Implemented
 A,A8,"BudgetAuthorityAppropriatedAmount_CPE= CPE aggregate value for GTAS SF 133 line #1160 + #1180 + #1260 + #1280, for the same reporting period",Fatal Error,Implemented
 A,A9,"ContractAuthorityAmountTotal_CPE= CPE aggregate value for GTAS SF 133 line #1540 + #1640, for the same reporting period",Fatal Error,Implemented
@@ -18,7 +18,7 @@ A,A15,UnobligatedBalance_CPE= value for GTAS SF 133 line #2490 for the same repo
 "A, B",A19,"ObligationsIncurredTotalByTAS_CPE (File A) = negative sum of ObligationsIncurredByProgramObjectClass_CPE (File B), as of the same reporting period.",Warning,Implemented
 A,A22,"ObligationsIncurredTotalByTAS_CPE= value for GTAS SF 133 line #2190, as of the same reporting period.",Fatal Error,Implemented
 A,A23,"StatusOfBudgetaryResourcesTotal_CPE= value for GTAS SF 133 line #2500, as of the same reporting period.",Fatal Error,Implemented
-A,A24,StatusOfBudgetaryResourcesTotal_CPE = BudgetAuthorityAvailableAmountTotal_CPE,Fatal Error,Implemented
+A,A24,StatusOfBudgetaryResourcesTotal_CPE = TotalBudgetaryResources_CPE,Fatal Error,Implemented
 A,A29,"DeobligationsRecoveriesRefundsByTAS_CPE = aggregate value for GTAS SF 133 line 1021+1033, as of the same reporting period.",Fatal Error,Implemented
 A,A30,"All TAS values in File A (appropriations) should exist in File B (object class program activity), and vice versa, for the same reporting period.",Fatal Error,Implemented
 A,A32,TAS values in File A (appropriations) should be unique,Fatal Error,Implemented
