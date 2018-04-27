@@ -1,11 +1,13 @@
-#### January 10, 2018{section=technical}
+#### April 26, 2018{section=technical}
 
 In this release, here is a list of technical changes that may require infrastructure or database updates, or represents additional functionality.
 
-* Changes to the FPDS loader
-* Alembic migrations
-* New content in config.yml file
 * SQL rule updates
-* Submission-related functions from function_bag.py have been separated out to a submission_handler.py file
-* Front end linter added to confirm code quality
-* NPM update required to work with newer version of ES-lint. Newer ES-lint requires additional libraries which were added to the package.json. Jenkins params were updated (NPM 4 support removed) and added the command `npm update` to make sure the environment is as expected
+* New alembic migrations to support compilation of business categories
+* Technical Improvements
+    * Removed unused job types
+    * Removed unused submission error/warning report endpoints
+    * Config CSVs updated to only include relevant columns
+    * Updated file_type values for D2 files to referend FABS instead of detached_award
+    * Cleaned up sqlRules.csv to reduce redundancy
+    * Removed unused pages from the frontend
