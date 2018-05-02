@@ -5,7 +5,7 @@
 
 import React, { PropTypes } from 'react';
 import Moment from 'moment';
-import { generateProtectedUrls } from '../../helpers/util';
+import { generateProtectedUrls } from '../../../helpers/util';
 
 const propTypes = {
     window: PropTypes.array,
@@ -34,7 +34,8 @@ export default class LandingRequirementsBody extends React.Component {
         this.urlPromise.promise
             .then((urls) => {
                 this.setState({
-                    validationRulesUrl: urls['DAIMS_Validation_Rules_v1.2.xlsx']
+                    validationRulesUrl: urls['DAIMS_Validation_Rules_v1.2.1.xlsx'],
+                    fabsSampleFileUrl: urls['DAIMS_FABS_Sample_Submission_File_v1.2.csv']
                 });
 
                 this.urlPromise = null;
@@ -143,14 +144,13 @@ export default class LandingRequirementsBody extends React.Component {
                         have any previous submission files on hand
                     </p>
                     <ul>
-                        <li>Financial Assistance data (Award and Awardee Attributes) (
+                        <li>
                             <a
-                                href={awsS3 +
-                                "help-files/Sample+FABS+Submission+File+v1_2.csv"}
+                                href={this.state.fabsSampleFileUrl}
                                 target="_blank"
                                 rel="noopener noreferrer">
-                                download sample file
-                            </a>)
+                                DAIMS_FABS_Sample_Submission_File_v1.2.csv
+                            </a>
                         </li>
                     </ul>
                     <p>
@@ -162,10 +162,18 @@ export default class LandingRequirementsBody extends React.Component {
                                 href={this.state.validationRulesUrl}
                                 target="_blank"
                                 rel="noopener noreferrer">
-                                Validation Rules v1.2
+                                DAIMS Validation Rules v1.2.1
                             </a>
                         </li>
-                        <li>Error Codes and Messages</li>
+                        <li>
+                            <a
+                                href={"https://github.com/fedspendingtransparency/data-act-broker-backend/blob/" +
+                                "master/dataactvalidator/config/sqlrules/sqlRules.csv"}
+                                target="_blank"
+                                rel="noopener noreferrer">
+                                Error Codes and Messages
+                            </a>
+                        </li>
                         <li>
                             <a href={resources} target="_blank" rel="noopener noreferrer">
                                 DATA Act Information Model Schema (DAIMS)

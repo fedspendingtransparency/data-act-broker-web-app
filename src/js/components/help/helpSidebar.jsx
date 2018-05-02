@@ -5,6 +5,7 @@
 
 import React, { PropTypes } from 'react';
 import HelpSidebarItem from './helpSidebarItem';
+import { generateProtectedUrls } from '../../helpers/util';
 
 const propTypes = {
     changeSections: PropTypes.array,
@@ -23,6 +24,19 @@ const defaultProps = {
 export default class HelpSidebar extends React.Component {
     constructor(props) {
         super(props);
+    }
+
+    componentDidMount() {
+        // load the validation rules URL
+        this.urlPromise = generateProtectedUrls();
+        this.urlPromise.promise
+            .then((urls) => {
+                this.setState({
+                    reportingWindowUrl: urls['FY18 DABS Reporting Window Schedule.xls']
+                });
+
+                this.urlPromise = null;
+            });
     }
 
     render() {
@@ -68,8 +82,7 @@ export default class HelpSidebar extends React.Component {
                             <a
                                 target="_blank"
                                 rel="noopener noreferrer"
-                                href={"https://s3-us-gov-west-1.amazonaws.com/prod-data-act-web-static" +
-                                "-files/help-files/FY18+DABS+Reporting+Window+Schedule.xls"}>
+                                href={this.state.reportingWindowUrl}>
                                     Fiscal Year 2018 DABS Reporting Schedule
                             </a>
                         </li>

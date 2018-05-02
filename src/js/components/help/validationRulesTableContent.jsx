@@ -113,8 +113,28 @@ export default class ValidationRulesTableContent extends React.Component {
                     </p>
                     <ul>
                         <li>
-                            <a href={this.state.validationRulesUrl} target="_blank">DAIMS Validations Rules:</a>
-                            contains the validations rules for the RSS and IDD, along with a change log
+                            <a
+                                href={"https://community.max.gov/download/attachments/1324878095/" +
+                                "DAIMS_Practices_Procedures_v1.2.pdf"}
+                                target="_blank">
+                                DAIMS Practices & Procedures v1.2
+                            </a>: contains file-wide practices, explanations of how elements are derived based on FABS
+                            data, and information on the submission process (including corrections and deletions),
+                            validation rule source data, user management, technical procedures for formatting submission
+                            files, etc.
+                        </li>
+                        <li>
+                            <a
+                                href={"https://github.com/fedspendingtransparency/data-act-broker-backend/tree/" +
+                                "master/dataactvalidator/config/sqlrules"}
+                                target="_blank">
+                                Broker SQL Validation Rules
+                            </a>: the actual machine logic used in FABS validations. These SQL statements are based
+                            directly on the the FABS validation rules.
+                        </li>
+                        <li>
+                            <a href={this.state.validationRulesUrl} target="_blank">DAIMS Validations Rules</a>
+                            : contains the validations rules for the RSS and IDD, along with a change log
                         </li>
                     </ul>
                 </div>

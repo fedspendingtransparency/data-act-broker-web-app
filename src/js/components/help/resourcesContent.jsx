@@ -38,7 +38,7 @@ export default class ResourcesContent extends React.Component {
             .then((urls) => {
                 this.setState({
                     faqFileC: urls['DATA_Act_PMO_FileC_TOA_FAQ_20160913.pdf'],
-                    fabs_sample: urls['Sample FABS Submission File v1_2.csv']
+                    fabs_sample: urls['DAIMS_FABS_Sample_Submission_File_v1.2.csv']
                 });
 
                 this.urlPromise = null;
