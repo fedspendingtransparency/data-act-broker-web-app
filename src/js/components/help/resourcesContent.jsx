@@ -5,7 +5,7 @@
 
 import React, { PropTypes } from 'react';
 import $ from 'jquery';
-import { generateProtectedUrls, rssFileKey } from '../../helpers/util';
+import { generateProtectedUrls } from '../../helpers/util';
 import DaimsMessage from './daimsMessage';
 
 const propTypes = {
@@ -22,19 +22,9 @@ export default class ResourcesContent extends React.Component {
     constructor(props) {
         super(props);
 
-        this.rssPromise = null;
         this.urlPromise = null;
 
         this.state = {
-            rssUrl: '',
-            validationRulesUrl: '#',
-            agencyLabelUrl: '#',
-            daimsErrataUrl: '#',
-            iDDUrl: '#',
-            pmoWebCastUrl: '#',
-            schemaFileAUrl: '#',
-            schemaFileBUrl: '#',
-            schemaFileCUrl: '#',
             faqFileC: '#',
             fabs_sample: '#'
         };
@@ -47,17 +37,8 @@ export default class ResourcesContent extends React.Component {
         this.urlPromise.promise
             .then((urls) => {
                 this.setState({
-                    rssUrl: urls[rssFileKey()],
-                    validationRulesUrl: urls['DAIMS_Validation_Rules_v1.2.xlsx'],
-                    agencyLabelUrl: urls['AgencyLabel_to_TerseLabel_v1.0.1.xlsx'],
-                    daimsErrataUrl: urls['DAIMS_Errata.xlsx'],
-                    iDDUrl: urls['IDD_v1.01_20161221.xlsx'],
-                    pmoWebCastUrl: urls['DATA_Act_PMO_ASP_Webcast_Deck_20160712.pdf'],
-                    schemaFileAUrl: urls['DATA_Act_Schema_v1_0_File_A_20160622.pdf'],
-                    schemaFileBUrl: urls['DATA_Act_Schema_v1_0_File_B_20160622.pdf'],
-                    schemaFileCUrl: urls['DATA_Act_Schema_v1_0_File_C_20160622.pdf'],
                     faqFileC: urls['DATA_Act_PMO_FileC_TOA_FAQ_20160913.pdf'],
-                    fabs_sample: urls['Sample FABS Submission File v1_2.csv']
+                    fabs_sample: urls['DAIMS_FABS_Sample_Submission_File_v1.2.csv']
                 });
 
                 this.urlPromise = null;
@@ -118,7 +99,7 @@ export default class ResourcesContent extends React.Component {
                                 </a>
                             </li>
                             <li>
-                                <a href={github + "DAIMS_IDD_v1.1.xlsx"}>DAIMS IDD v1.1 (D2 tab)</a>
+                                <a href={github + "DAIMS_RSS_v1.2.xlsx"}>DAIMS RSS v1.2 (FABS tab)</a>
                             </li>
                             <li>
                                 <a href={github + "DAIMS_Information_Flow_Diagram_v1.1.png"}>

@@ -5,7 +5,6 @@
 
 import React, { PropTypes } from 'react';
 import $ from 'jquery';
-import { generateProtectedUrls, rssFileKey } from '../../helpers/util';
 
 const propTypes = {
     changelog: PropTypes.string,
@@ -22,41 +21,8 @@ const defaultProps = {
 };
 
 export default class HelpContent extends React.Component {
-    constructor(props) {
-        super(props);
-
-        this.rssPromise = null;
-        this.urlPromise = null;
-
-        this.state = {
-            rssUrl: '',
-            validationRulesUrl: '#'
-        };
-    }
-
-    componentDidMount() {
-        // also load the remaining URLs
-        this.urlPromise = generateProtectedUrls();
-        this.urlPromise.promise
-            .then((urls) => {
-                this.setState({
-                    rssUrl: urls[rssFileKey()],
-                    validationRulesUrl: urls['Validation_Rules.xlsx']
-                });
-
-                this.urlPromise = null;
-            });
-    }
-
     componentDidUpdate() {
         this.scrollToSection();
-    }
-
-    componentWillUnmount() {
-        // cancel in-flight S3 signing requests when the component unmounts
-        if (this.urlPromise) {
-            this.urlPromise.cancel();
-        }
     }
 
     scrollToSection() {
