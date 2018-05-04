@@ -63,7 +63,7 @@ export default class ValidationRulesTableContent extends React.Component {
         this.urlPromise.promise
             .then((urls) => {
                 this.setState({
-                    validationRulesUrl: urls['DAIMS_Validation_Rules_v1.2.xlsx']
+                    validationRulesUrl: urls['DAIMS_Validation_Rules_v1.2.1.xlsx']
                 });
                 this.urlPromise = null;
             });
@@ -130,7 +130,7 @@ export default class ValidationRulesTableContent extends React.Component {
                                 target="_blank">
                                 Broker SQL Validation Rules
                             </a>: the actual machine logic used in FABS validations. These SQL statements are based
-                            directly on the the FABS validation rules.
+                            directly on the FABS validation rules.
                         </li>
                         <li>
                             <a href={this.state.validationRulesUrl} target="_blank">DAIMS Validations Rules</a>
