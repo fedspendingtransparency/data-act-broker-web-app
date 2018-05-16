@@ -24,6 +24,10 @@ const defaultProps = {
 export default class HelpSidebar extends React.Component {
     constructor(props) {
         super(props);
+
+        this.state = {
+            reportingWindowUrl: '#'
+        };
     }
 
     componentDidMount() {
