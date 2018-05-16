@@ -26,39 +26,6 @@ export const generateProtectedUrls = () => {
     };
 };
 
-export const rssFileKey = () => {
-    // returns the file key name for the RSS file
-    return 'RSS_v1.0.xlsx';
-};
-
-export const generateRSSUrl = () => {
-    let isCanceled = false;
-
-    const deferred = Q.defer();
-
-    // utilize the generateProtectedUrls call to fetch the signed RSS link
-    generateProtectedUrls().promise
-        .then((urls) => {
-            if (isCanceled) {
-                deferred.reject('canceled');
-            }
-            else {
-                deferred.resolve(urls[rssFileKey()]);
-            }
-        })
-        .catch((err) => {
-            console.error(err);
-            deferred.reject(err);
-        });
-
-    return {
-        promise: deferred.promise,
-        cancel: () => {
-            isCanceled = true;
-        }
-    };
-};
-
 export const convertToLocalDate = (dateToConvert) => {
     // convert date to local date, need to replace the space with a T for Date() formatting
     // Add a Z to the end to imply the date is in UTC

@@ -1,4 +1,4 @@
-.usa-da-upload-detached-files-page {
+.usa-da-upload-fabs-file-page {
 	@import "../../layouts/content/content";
 	@include contentLayout;
 
@@ -69,7 +69,7 @@
 			}
 		}
 
-		.usa-da-upload-detached-files-box {
+		.usa-da-upload-fabs-file-box {
 			padding-top: 30px;
 			@import "../addData/uploadPage/uploadDropzone";
 
