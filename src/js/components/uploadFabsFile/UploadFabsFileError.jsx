@@ -1,5 +1,5 @@
 /**
-* UploadDetachedFilesError.jsx
+* UploadFabsFileError.jsx
 * Created by Minahm Kim
 */
 import React, { PropTypes } from 'react';
@@ -20,7 +20,7 @@ const defaultProps = {
     errorCode: 0
 };
 
-export default class UploadDetachedFilesError extends React.Component {
+export default class UploadFabsFileError extends React.Component {
     constructor(props) {
         super(props);
 
@@ -98,5 +98,5 @@ export default class UploadDetachedFilesError extends React.Component {
     }
 }
 
-UploadDetachedFilesError.propTypes = propTypes;
-UploadDetachedFilesError.defaultProps = defaultProps;
+UploadFabsFileError.propTypes = propTypes;
+UploadFabsFileError.defaultProps = defaultProps;

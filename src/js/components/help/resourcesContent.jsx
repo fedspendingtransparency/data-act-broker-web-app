@@ -5,7 +5,7 @@
 
 import React, { PropTypes } from 'react';
 import $ from 'jquery';
-import { generateProtectedUrls, rssFileKey } from '../../helpers/util';
+import { generateProtectedUrls } from '../../helpers/util';
 import DaimsMessage from './daimsMessage';
 
 const propTypes = {
@@ -22,21 +22,11 @@ export default class ResourcesContent extends React.Component {
     constructor(props) {
         super(props);
 
-        this.rssPromise = null;
         this.urlPromise = null;
 
         this.state = {
-            rssUrl: '',
-            validationRulesUrl: '#',
-            domainValuesUrl: '#',
-            agencyLabelUrl: '#',
-            daimsErrataUrl: '#',
-            iDDUrl: '#',
-            pmoWebCastUrl: '#',
-            schemaFileAUrl: '#',
-            schemaFileBUrl: '#',
-            schemaFileCUrl: '#',
-            faqFileC: '#'
+            faqFileC: '#',
+            fabs_sample: '#'
         };
     }
 
@@ -47,18 +37,8 @@ export default class ResourcesContent extends React.Component {
         this.urlPromise.promise
             .then((urls) => {
                 this.setState({
-                    rssUrl: urls[rssFileKey()],
-                    validationRulesUrl: urls['Validation_Rules_v1.1.1.xlsx'],
-                    domainValuesUrl: urls['Domain_Values.xlsx'],
-                    agencyLabelUrl: urls['AgencyLabel_to_TerseLabel_v1.0.1.xlsx'],
-                    daimsErrataUrl: urls['DAIMS_Errata.xlsx'],
-                    iDDUrl: urls['IDD_v1.01_20161221.xlsx'],
-                    pmoWebCastUrl: urls['DATA_Act_PMO_ASP_Webcast_Deck_20160712.pdf'],
-                    schemaFileAUrl: urls['DATA_Act_Schema_v1_0_File_A_20160622.pdf'],
-                    schemaFileBUrl: urls['DATA_Act_Schema_v1_0_File_B_20160622.pdf'],
-                    schemaFileCUrl: urls['DATA_Act_Schema_v1_0_File_C_20160622.pdf'],
                     faqFileC: urls['DATA_Act_PMO_FileC_TOA_FAQ_20160913.pdf'],
-                    fabs_sample: urls['DAIMS_FABS_Sample_Submission_File_v1.1.csv']
+                    fabs_sample: urls['DAIMS_FABS_Sample_Submission_File_v1.2.csv']
                 });
 
                 this.urlPromise = null;
@@ -100,8 +80,7 @@ export default class ResourcesContent extends React.Component {
                 <h5>Here are some resources to assist with your submission to FABS</h5>
                 <ul>
                     <li>
-                        FABS File: Financial Assistance data (Award and Awardee Attributes)
-                        <a href={this.state.fabs_sample} target="_blank">Download sample file</a>
+                        <a href={this.state.fabs_sample} target="_blank">Download FABS sample file</a>
                     </li>
                 </ul>
                 <h5>Additional Resources</h5>
@@ -114,15 +93,12 @@ export default class ResourcesContent extends React.Component {
                         FABS including:
                         <ul>
                             <li>
-                                <a href={community + "1286474850/DAIMS_Practices_Procedures_v1.1.pdf?api=v2"}>
-                                    DAIMS Practices and Procedures v1.1
+                                <a href={community + "1324878095/DAIMS_Practices_Procedures_v1.2.pdf"}>
+                                    DAIMS Practices and Procedures v1.2
                                 </a>
                             </li>
                             <li>
-                                <a href={github + "DAIMS_IDD_v1.1.xlsx"}>DAIMS IDD v1.1 (D2 tab)</a>
-                            </li>
-                            <li>
-                                <a href={github + "DAIMS_Domain_Values_v1.1.xlsx"}>IMS Domain Values v1.1</a>
+                                <a href={github + "DAIMS_RSS_v1.2.xlsx"}>DAIMS RSS v1.2 (FABS tab)</a>
                             </li>
                             <li>
                                 <a href={github + "DAIMS_Information_Flow_Diagram_v1.1.png"}>
@@ -144,7 +120,7 @@ export default class ResourcesContent extends React.Component {
                     </p>
                     <ul>
                         <li>
-                            <a href={github + "DAIMS_RSS_v1.1.xlsx"}>RSS v1.1</a>
+                            <a href={github + "DAIMS_RSS_v1.2.xlsx"}>RSS v1.2</a>
                         </li>
                         <li>
                             <a href={this.state.faqFileC}>TransactionObligatedAmount FAQs</a>
@@ -264,7 +240,7 @@ export default class ResourcesContent extends React.Component {
                         </li>
                         <li>
                             <a
-                                href={community + "1286474850/DAIMS_Practices_Procedures_v1.1.pdf?api=v2"}
+                                href={community + "1324878095/DAIMS_Practices_Procedures_v1.2.pdf"}
                                 target="_blank"
                                 rel="noopener noreferrer">
                                 Practices and Procedures
@@ -279,10 +255,6 @@ export default class ResourcesContent extends React.Component {
                             <a href="/#/FABSresources" target="_blank" rel="noopener noreferrer">
                                 FABS Resources Page
                             </a>
-                        </li>
-                        <li>
-                            <a href={github + "DAIMS_Domain_Values_v1.1.xlsx"}>Domain Values</a>
-                            - A listing of the specific set of allowed values for a data element.
                         </li>
                         <li>
                             <a href={github + "DAIMS_Agency_Label_To_Terse_Label_v1.1.xlsx"}>

@@ -1,5 +1,5 @@
 /**
-* UploadDetachedFileValidation.jsx
+* UploadFabsFileValidation.jsx
 * Created by Minahm Kim
 */
 
@@ -13,7 +13,7 @@ import ValidateValuesFileContainer from "../../containers/validateData/ValidateV
 import ValidateDataFileContainer from "../../containers/validateData/ValidateDataFileContainer";
 import PublishModal from "./PublishModal";
 import Banner from "../SharedComponents/Banner";
-import UploadDetachedFilesError from "./UploadDetachedFilesError";
+import UploadFabsFileError from "./UploadFabsFileError";
 
 import * as UploadHelper from "../../helpers/uploadHelper";
 import * as GenerateFilesHelper from "../../helpers/generateFilesHelper";
@@ -41,7 +41,7 @@ const defaultProps = {
 
 const timerDuration = 5;
 
-class UploadDetachedFileValidation extends React.Component {
+class UploadFabsFileValidation extends React.Component {
     constructor(props) {
         super(props);
 
@@ -50,7 +50,7 @@ class UploadDetachedFileValidation extends React.Component {
         this.state = {
             agency: "",
             submissionID: this.props.params.submissionID ? this.props.params.submissionID : 0,
-            detachedAward: {
+            fabs: {
                 startDate: null,
                 endDate: null,
                 error: {
@@ -62,7 +62,7 @@ class UploadDetachedFileValidation extends React.Component {
                 status: ""
             },
             cgac_code: "",
-            jobResults: { detached_award: {} },
+            jobResults: { fabs: {} },
             headerErrors: false,
             validationFinished: false,
             error: 0,
@@ -146,7 +146,7 @@ class UploadDetachedFileValidation extends React.Component {
                 }
 
                 const job = Object.assign({}, this.state.jobResults);
-                job.detached_award = response.jobs[0];
+                job.fabs = response.jobs[0];
 
                 let isSuccessful = false;
                 if (response.publish_status !== "publishing" && this.dataTimer) {
@@ -232,10 +232,10 @@ class UploadDetachedFileValidation extends React.Component {
     }
 
     validateSubmission(item) {
-        ReviewHelper.validateDetachedSubmission(this.props.params.submissionID)
+        ReviewHelper.validateFabsSubmission(this.props.params.submissionID)
             .then((response) => {
                 this.setState({
-                    detachedAward: item,
+                    fabs: item,
                     validationFinished: true,
                     headerErrors: false,
                     jobResults: response
@@ -251,12 +251,12 @@ class UploadDetachedFileValidation extends React.Component {
             runCheck = false;
 
             // make a clone of the file"s react state
-            const item = Object.assign({ }, this.state.detachedAward);
+            const item = Object.assign({ }, this.state.fabs);
             item.status = "failed";
 
             if (data.jobs[0].error_type && data.jobs[0].error_type === "header_errors") {
                 this.setState({
-                    detachedAward: item,
+                    fabs: item,
                     validationFinished: true,
                     headerErrors: true
                 });
@@ -271,7 +271,7 @@ class UploadDetachedFileValidation extends React.Component {
 
             // display dowload buttons
             // make a clone of the file's react state
-            const item = Object.assign({}, this.state.detachedAward);
+            const item = Object.assign({}, this.state.fabs);
             item.status = "done";
             this.validateSubmission(item);
         }
@@ -316,9 +316,9 @@ class UploadDetachedFileValidation extends React.Component {
 
     uploadFileHelper(local, submission) {
         if (local) {
-            return UploadHelper.performDetachedLocalCorrectedUpload(submission);
+            return UploadHelper.performFabsLocalCorrectedUpload(submission);
         }
-        return UploadHelper.performDetachedFileCorrectedUpload(submission);
+        return UploadHelper.performFabsFileCorrectedUpload(submission);
     }
 
     uploadFile(item) {
@@ -329,8 +329,8 @@ class UploadDetachedFileValidation extends React.Component {
         // upload specified file
         this.props.setSubmissionState("uploading");
         const submission = this.props.submission;
-        submission.files.detached_award = this.state.detachedAward;
-        submission.files.detached_award.file = item;
+        submission.files.fabs = this.state.fabs;
+        submission.files.fabs.file = item;
         submission.sub = this.state.submissionID;
         submission.meta.startDate = this.state.rep_start;
         submission.meta.endDate = this.state.rep_end;
@@ -338,8 +338,8 @@ class UploadDetachedFileValidation extends React.Component {
 
         // reset file and job status
         const currentResults = this.state.jobResults;
-        currentResults.detached_award.file_status = "";
-        currentResults.detached_award.job_status = "";
+        currentResults.fabs.file_status = "";
+        currentResults.fabs.job_status = "";
         this.setState({
             jobResults: currentResults
         });
@@ -391,8 +391,7 @@ class UploadDetachedFileValidation extends React.Component {
 
         const type = {
             fileTitle: "Upload",
-            fileTemplateName: "detached_award.csv",
-            requestName: "detached_award",
+            requestName: "fabs",
             progress: "0"
         };
 
@@ -419,7 +418,7 @@ class UploadDetachedFileValidation extends React.Component {
             }
 
             if (this.state.showSuccess) {
-                errorMessage = (<UploadDetachedFilesError
+                errorMessage = (<UploadFabsFileError
                     errorCode={this.state.error}
                     type="success"
                     message={this.state.error_message} />);
@@ -476,7 +475,7 @@ class UploadDetachedFileValidation extends React.Component {
         }
 
         if (this.state.published === "publishing" && this.state.error !== 0) {
-            errorMessage = (<UploadDetachedFilesError
+            errorMessage = (<UploadFabsFileError
                 errorCode={this.state.error}
                 type="error"
                 message={this.state.error_message} />);
@@ -489,7 +488,7 @@ class UploadDetachedFileValidation extends React.Component {
                 </button>);
         }
         else if (this.state.published === "unpublished" && this.state.error !== 0) {
-            errorMessage = (<UploadDetachedFilesError
+            errorMessage = (<UploadFabsFileError
                 errorCode={this.state.error}
                 type="error"
                 message={this.state.error_message} />);
@@ -548,9 +547,9 @@ class UploadDetachedFileValidation extends React.Component {
     }
 }
 
-UploadDetachedFileValidation.propTypes = propTypes;
-UploadDetachedFileValidation.defaultProps = defaultProps;
+UploadFabsFileValidation.propTypes = propTypes;
+UploadFabsFileValidation.defaultProps = defaultProps;
 
 export default connect(
     (state) => ({ session: state.session })
-)(UploadDetachedFileValidation);
+)(UploadFabsFileValidation);

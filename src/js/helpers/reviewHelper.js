@@ -245,7 +245,7 @@ export const validateSubmission = (submissionId) => {
     return deferred.promise;
 };
 
-export const validateDetachedSubmission = (submissionId) => {
+export const validateFabsSubmission = (submissionId) => {
     const deferred = Q.defer();
 
     // set the submission ID
