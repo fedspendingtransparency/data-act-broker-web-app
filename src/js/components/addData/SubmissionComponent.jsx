@@ -31,7 +31,6 @@ export default class SubmissionComponent extends React.Component {
                 <FileComponent
                     key={i}
                     fileTitle={fileVars.fileTitle}
-                    fileTemplateName={fileVars.fileTemplateName}
                     requestName={fileVars.requestName} />);
         }
 

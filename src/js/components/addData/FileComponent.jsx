@@ -8,7 +8,6 @@ import DropZoneContainer from '../../containers/addData/DropZoneContainer';
 
 const propTypes = {
     fileTitle: PropTypes.string.isRequired,
-    fileTemplateName: PropTypes.string.isRequired,
     requestName: PropTypes.string.isRequired
 };
 
