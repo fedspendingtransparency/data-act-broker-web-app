@@ -1,9 +1,10 @@
-#### April 26, 2018
+#### May 18, 2018
 
-In this release of the Broker, we made the following updates:
+In this release of the Broker, we implemented updates to both FABS and DABS to comply with the DATA Act Information Model Schema (DAIMS) v1.2. Click [here](https://community.max.gov/x/Dwn4Tg) to see the complete details regarding the [DAIMS v1.2](https://community.max.gov/x/Dwn4Tg) changes. 
 
- - Updated A33 so that it does not prompt warnings if financing accounts are not included in File A.
- - Updated rule C5 functionality so that it works similarly to B5.
- - Updated the functionality of C8, C11, and C23 so that they apply when ATA is the same as the AID (previously these rules were ignored whenever ATA was filled in, including when ATA was the same as the AID).
- - Corrected C9 so that it does not prompt warnings for awards with negative OriginalLoanSubsidyCost.
- - Note: FABS changes due to DAIMS v1.2 implementation will go live on May 18.
+See the FABS Resources and Validations pages for additional information to assist with your FABS submission.
+
+See the DABS Resources and Validations pages for additional information to assist with your DABS submission.
+
+Note: DABS and FABS submissions after May 18, 2018 must comply with DAIMS v1.2. This includes re-certifications of previous DABS submissions and updates to FABS submissions.
+
