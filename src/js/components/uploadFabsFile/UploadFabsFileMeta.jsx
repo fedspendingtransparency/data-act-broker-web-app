@@ -1,5 +1,5 @@
 /**
-* UploadDetachedFileMeta.jsx
+* UploadFabsFileMeta.jsx
 * Created by Minahm Kim
 */
 
@@ -8,8 +8,8 @@ import ReactCSSTransitionGroup from 'react-addons-css-transition-group';
 import React, { PropTypes } from 'react';
 
 import SubTierAgencyListContainer from '../../containers/SharedContainers/SubTierAgencyListContainer';
-import UploadDetachedFilesBox from './UploadDetachedFilesBox';
-import UploadDetachedFilesError from './UploadDetachedFilesError';
+import UploadFabsFileBox from './UploadFabsFileBox';
+import UploadFabsFileError from './UploadFabsFileError';
 import Banner from '../SharedComponents/Banner';
 
 import * as Icons from '../SharedComponents/icons/Icons';
@@ -35,7 +35,7 @@ const defaultProps = {
 
 const timerDuration = 5;
 
-export default class UploadDetachedFileMeta extends React.Component {
+export default class UploadFabsFileMeta extends React.Component {
     constructor(props) {
         super(props);
 
@@ -45,7 +45,7 @@ export default class UploadDetachedFileMeta extends React.Component {
             agency: "",
             agencyError: false,
             showUploadFilesBox: false,
-            detachedAward: {
+            fabs: {
                 error: {
                     show: false,
                     header: '',
@@ -54,7 +54,7 @@ export default class UploadDetachedFileMeta extends React.Component {
                 valid: false,
                 status: ""
             },
-            jobResults: { detached_award: {} },
+            jobResults: { fabs: {} },
             notAllowed: false,
             errorMessage: "",
             headerErrors: false,
@@ -97,9 +97,9 @@ export default class UploadDetachedFileMeta extends React.Component {
 
     uploadFileHelper(local, submission) {
         if (local) {
-            return UploadHelper.performDetachedLocalUpload(submission);
+            return UploadHelper.performFabsLocalUpload(submission);
         }
-        return UploadHelper.performDetachedFileUpload(submission);
+        return UploadHelper.performFabsFileUpload(submission);
     }
 
     uploadFile() {
@@ -130,7 +130,7 @@ export default class UploadDetachedFileMeta extends React.Component {
                     return;
                 }
                 const job = Object.assign({}, this.state.jobResults);
-                job.detached_award = response.jobs[0];
+                job.fabs = response.jobs[0];
                 this.setState({
                     showUploadFilesBox: false,
                     jobResults: job
@@ -146,10 +146,10 @@ export default class UploadDetachedFileMeta extends React.Component {
     }
 
     validateSubmission(submissionID) {
-        ReviewHelper.validateDetachedSubmission(submissionID)
+        ReviewHelper.validateFabsSubmission(submissionID)
             .then((response) => {
                 this.setState({
-                    detachedAward: response.item,
+                    fabs: response.item,
                     validationFinished: true,
                     headerErrors: false,
                     jobResults: response
@@ -165,12 +165,12 @@ export default class UploadDetachedFileMeta extends React.Component {
             runCheck = false;
 
             // make a clone of the file's react state
-            const item = Object.assign({}, this.state.detachedAward);
+            const item = Object.assign({}, this.state.fabs);
             item.status = "failed";
 
             if (data.jobs[0].error_type === "header_errors") {
                 this.setState({
-                    detachedAward: item,
+                    fabs: item,
                     validationFinished: true,
                     headerErrors: true
                 });
@@ -185,7 +185,7 @@ export default class UploadDetachedFileMeta extends React.Component {
 
             // display dowload buttons
             // make a clone of the file's react state
-            const item = Object.assign({}, this.state.detachedAward);
+            const item = Object.assign({}, this.state.fabs);
             item.status = "done";
 
             this.validateSubmission(this.props.submission.id);
@@ -217,7 +217,7 @@ export default class UploadDetachedFileMeta extends React.Component {
         }
 
         if (this.state.showUploadFilesBox) {
-            uploadFilesBox = (<UploadDetachedFilesBox
+            uploadFilesBox = (<UploadFabsFileBox
                 {...this.state}
                 submission={this.props.submission}
                 uploadFile={this.uploadFile.bind(this)} />);
@@ -225,8 +225,8 @@ export default class UploadDetachedFileMeta extends React.Component {
 
         let errorMessage = null;
 
-        if (this.state.detachedAward.error.show) {
-            errorMessage = <UploadDetachedFilesError error={this.state.detachedAward.error} />;
+        if (this.state.fabs.error.show) {
+            errorMessage = <UploadFabsFileError error={this.state.fabs.error} />;
         }
 
         return (
@@ -283,5 +283,5 @@ export default class UploadDetachedFileMeta extends React.Component {
     }
 }
 
-UploadDetachedFileMeta.propTypes = propTypes;
-UploadDetachedFileMeta.defaultProps = defaultProps;
+UploadFabsFileMeta.propTypes = propTypes;
+UploadFabsFileMeta.defaultProps = defaultProps;

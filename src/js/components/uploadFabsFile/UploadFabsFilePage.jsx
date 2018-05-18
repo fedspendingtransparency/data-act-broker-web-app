@@ -1,5 +1,5 @@
 /**
-* UploadDetachedFilesPage.jsx
+* UploadFabsFilePage.jsx
 * Created by MichaelHess
 */
 
@@ -9,8 +9,8 @@ import { hashHistory } from 'react-router';
 import Footer from '../SharedComponents/FooterComponent';
 import Navbar from '../SharedComponents/navigation/NavigationComponent';
 
-import UploadDetachedFileMeta from './UploadDetachedFileMeta';
-import UploadDetachedFileValidation from './UploadDetachedFileValidation';
+import UploadFabsFileMeta from './UploadFabsFileMeta';
+import UploadFabsFileValidation from './UploadFabsFileValidation';
 
 const propTypes = {
     setSubmissionId: PropTypes.func,
@@ -30,7 +30,7 @@ const defaultProps = {
     submission: {}
 };
 
-export default class UploadDetachedFilesPage extends React.Component {
+export default class UploadFabsFilePage extends React.Component {
     constructor(props) {
         super(props);
 
@@ -80,13 +80,13 @@ export default class UploadDetachedFilesPage extends React.Component {
     render() {
         let content = null;
         if (!this.state.showMeta) {
-            content = (<UploadDetachedFileValidation
+            content = (<UploadFabsFileValidation
                 {...this.props}
                 submission={this.props.submission}
                 setSubmissionId={this.props.setSubmissionId.bind(this)} />);
         }
         else {
-            content = (<UploadDetachedFileMeta
+            content = (<UploadFabsFileMeta
                 setSubmissionState={this.props.setSubmissionState}
                 setSubmissionId={this.props.setSubmissionId.bind(this)}
                 history={this.props.history}
@@ -95,13 +95,13 @@ export default class UploadDetachedFilesPage extends React.Component {
         }
 
         return (
-            <div className="usa-da-upload-detached-files-page">
+            <div className="usa-da-upload-fabs-file-page">
                 <div className="usa-da-site_wrap">
                     <div className="usa-da-page-content">
                         <Navbar
                             activeTab="FABSAddData"
                             type={this.props.route.type} />
-                        <div className="usa-da-upload-detached-files-page">
+                        <div className="usa-da-upload-fabs-file-page">
                             <div className="usa-da-site_wrap">
                                 {content}
                             </div>
@@ -114,5 +114,5 @@ export default class UploadDetachedFilesPage extends React.Component {
     }
 }
 
-UploadDetachedFilesPage.propTypes = propTypes;
-UploadDetachedFilesPage.defaultProps = defaultProps;
+UploadFabsFilePage.propTypes = propTypes;
+UploadFabsFilePage.defaultProps = defaultProps;

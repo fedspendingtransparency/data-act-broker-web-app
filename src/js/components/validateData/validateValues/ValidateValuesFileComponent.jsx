@@ -13,7 +13,7 @@ import * as Icons from '../../SharedComponents/icons/Icons';
 import * as GenerateFilesHelper from '../../../helpers/generateFilesHelper';
 import * as PermissionsHelper from '../../../helpers/permissionsHelper';
 
-import UploadDetachedFilesError from '../../uploadDetachedFiles/UploadDetachedFilesError';
+import UploadFabsFileError from '../../uploadFabsFile/UploadFabsFileError';
 
 const propTypes = {
     onFileChange: PropTypes.func,
@@ -103,8 +103,8 @@ export default class ValidateValuesFileComponent extends React.Component {
             case 'award_financial':
                 type = 'C';
                 break;
-            case 'detached_award':
-                type = 'D2_detached';
+            case 'fabs':
+                type = 'FABS';
                 break;
             default:
                 break;
@@ -219,7 +219,7 @@ export default class ValidateValuesFileComponent extends React.Component {
         }
 
         let permission = false;
-        if (this.props.type.requestName === 'detached_award') {
+        if (this.props.type.requestName === 'fabs') {
             permission = PermissionsHelper.checkFabsAgencyPermissions(this.props.session, this.props.agencyName);
         }
         else {
@@ -276,7 +276,7 @@ export default class ValidateValuesFileComponent extends React.Component {
         const warningBaseColors = { base: '#fdb81e', active: '#FF6F00', activeBorder: '#BF360C' };
         const errorBaseColors = { base: '#5d87bb', active: '#02bfe7', activeBorder: '#046b99' };
 
-        const errorMessage = this.state.error ? <UploadDetachedFilesError error={this.state.error} /> : null;
+        const errorMessage = this.state.error ? <UploadFabsFileError error={this.state.error} /> : null;
         let warningSection = null;
         let errorSection = null;
         if (this.state.showWarning) {

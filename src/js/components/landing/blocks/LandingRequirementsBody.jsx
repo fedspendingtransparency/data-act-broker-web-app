@@ -5,6 +5,7 @@
 
 import React, { PropTypes } from 'react';
 import Moment from 'moment';
+import { generateProtectedUrls } from '../../../helpers/util';
 
 const propTypes = {
     window: PropTypes.array,
@@ -19,6 +20,33 @@ const defaultProps = {
 export default class LandingRequirementsBody extends React.Component {
     constructor(props) {
         super(props);
+
+        this.urlPromise = null;
+
+        this.state = {
+            validationRulesUrl: '#'
+        };
+    }
+
+    componentDidMount() {
+        // load the validation rules URL
+        this.urlPromise = generateProtectedUrls();
+        this.urlPromise.promise
+            .then((urls) => {
+                this.setState({
+                    validationRulesUrl: urls['DAIMS_Validation_Rules_v1.2.1.xlsx'],
+                    fabsSampleFileUrl: urls['DAIMS_FABS_Sample_Submission_File_v1.2.csv']
+                });
+
+                this.urlPromise = null;
+            });
+    }
+
+    componentWillUnmount() {
+        // cancel in-flight S3 signing requests when the component unmounts
+        if (this.urlPromise) {
+            this.urlPromise.cancel();
+        }
     }
 
     windowBlocked() {
@@ -116,14 +144,13 @@ export default class LandingRequirementsBody extends React.Component {
                         have any previous submission files on hand
                     </p>
                     <ul>
-                        <li>Financial Assistance data (Award and Awardee Attributes) (
+                        <li>
                             <a
-                                href={awsS3 +
-                                "help-files/DAIMS_FABS_Sample_Submission_File_v1.1.csv"}
+                                href={this.state.fabsSampleFileUrl}
                                 target="_blank"
                                 rel="noopener noreferrer">
-                                download sample file
-                            </a>)
+                                DAIMS_FABS_Sample_Submission_File_v1.2.csv
+                            </a>
                         </li>
                     </ul>
                     <p>
@@ -132,13 +159,21 @@ export default class LandingRequirementsBody extends React.Component {
                     <ul>
                         <li>
                             <a
-                                href={awsS3 + "help-files/DAIMS_FABS_Validation_Checklist_v1.1.pdf"}
+                                href={this.state.validationRulesUrl}
                                 target="_blank"
                                 rel="noopener noreferrer">
-                                Validation Checklist
+                                DAIMS Validation Rules v1.2.1
                             </a>
                         </li>
-                        <li>Error Codes and Messages</li>
+                        <li>
+                            <a
+                                href={"https://github.com/fedspendingtransparency/data-act-broker-backend/blob/" +
+                                "master/dataactvalidator/config/sqlrules/sqlRules.csv"}
+                                target="_blank"
+                                rel="noopener noreferrer">
+                                Error Codes and Messages
+                            </a>
+                        </li>
                         <li>
                             <a href={resources} target="_blank" rel="noopener noreferrer">
                                 DATA Act Information Model Schema (DAIMS)
@@ -147,29 +182,19 @@ export default class LandingRequirementsBody extends React.Component {
                             <ul>
                                 <li>
                                     <a
-                                        href={"https://community.max.gov/download/attachments/1286474850/" +
-                                        "DAIMS_Practices_Procedures_v1.1.pdf?version=1&modificationDate=" +
-                                        "1498857477698&api=v2"}
+                                        href={"https://community.max.gov/download/attachments/1324878095/" +
+                                        "DAIMS_Practices_Procedures_v1.2.pdf"}
                                         target="_blank"
                                         rel="noopener noreferrer">
-                                        DAIMS Practices &amp; Procedures v1.1
+                                        DAIMS Practices &amp; Procedures v1.2
                                     </a>
                                 </li>
                                 <li>
                                     <a
-                                        href="http://fedspendingtransparency.github.io/assets/docs/DAIMS_IDD_v1.1.xlsx"
+                                        href="http://fedspendingtransparency.github.io/assets/docs/DAIMS_RSS_v1.2.xlsx"
                                         target="_blank"
                                         rel="noopener noreferrer">
-                                        DAIMS IDD v1.1 (D2 tab)
-                                    </a>
-                                </li>
-                                <li>
-                                    <a
-                                        href={"http://fedspendingtransparency.github.io/assets/docs/DAIMS_Domain_Values"
-                                            + "_v1.1.xlsx"}
-                                        target="_blank"
-                                        rel="noopener noreferrer">
-                                        DAIMS Domain Values v1.1
+                                        DAIMS RSS v1.2 (FABS tab)
                                     </a>
                                 </li>
                             </ul>

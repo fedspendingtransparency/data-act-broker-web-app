@@ -1,5 +1,5 @@
 /**
-* UploadDetachedFilesPageContainer.jsx
+* UploadFabsFilePageContainer.jsx
 * Created by Mike Hess
 */
 
@@ -8,12 +8,12 @@ import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 
 import * as uploadActions from '../../redux/actions/uploadActions';
-import UploadDetachedFilesPage from '../../components/uploadDetachedFiles/UploadDetachedFilesPage';
+import UploadFabsFilePage from '../../components/uploadFabsFile/UploadFabsFilePage';
 
-class UploadDetachedFilesPageContainer extends React.Component {
+class UploadFabsFilePageContainer extends React.Component {
     render() {
         return (
-            <UploadDetachedFilesPage {...this.props} />
+            <UploadFabsFilePage {...this.props} />
         );
     }
 }
@@ -21,4 +21,4 @@ class UploadDetachedFilesPageContainer extends React.Component {
 export default connect(
     (state) => ({ submission: state.submission }),
     (dispatch) => bindActionCreators(uploadActions, dispatch)
-)(UploadDetachedFilesPageContainer);
+)(UploadFabsFilePageContainer);
