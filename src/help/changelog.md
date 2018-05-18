@@ -1,9 +1,10 @@
-#### February 21, 2018
+#### May 18, 2018
 
-In this release of the Broker, we made the following updates:
+In this release of the Broker, we implemented updates to both FABS and DABS to comply with the DATA Act Information Model Schema (DAIMS) v1.2. Click [here](https://community.max.gov/x/Dwn4Tg) to see the complete details regarding the [DAIMS v1.2](https://community.max.gov/x/Dwn4Tg) changes. 
 
- - [Update Historical DUNS](#/help?section=historicalduns)
+See the FABS Resources and Validations pages for additional information to assist with your FABS submission.
 
+See the DABS Resources and Validations pages for additional information to assist with your DABS submission.
 
-#### Update Historical DUNS {section=historicalduns}
-In this release of the broker we updated DUNS data to allow agencies to submit awards with historical (prior to 2014) DUNS information.
+Note: DABS and FABS submissions after May 18, 2018 must comply with DAIMS v1.2. This includes re-certifications of previous DABS submissions and updates to FABS submissions.
+
