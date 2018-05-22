@@ -265,7 +265,7 @@ export default class ResourcesContent extends React.Component {
             <div className="usa-da-help-content">
                 <div className="resources-page">
                     <h2>Resources {this.props.type.toUpperCase()}</h2>
-                    <DaimsMessage type="resources" />
+                    <DaimsMessage type={this.props.type} />
                     <span>
                         The DATA Act information Model Schema (DAIMS) gives an overall view of the hundreds of distinct
                         data elements used to tell the story of how federal dollars are spent.
