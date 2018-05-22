@@ -33,17 +33,16 @@ class HelpPageContainer extends React.Component {
         };
     }
 
+    componentWillMount() {
+        this.setHelpRoute(this.props);
+    }
+
     componentDidMount() {
         this.checkHelpOnly();
     }
 
     componentWillReceiveProps(nextProps) {
-        if (nextProps.route.type !== this.state.type || nextProps.route.path !== this.state.path) {
-            this.setState({
-                type: nextProps.route.type,
-                path: nextProps.route.path.toLowerCase()
-            });
-        }
+        this.setHelpRoute(nextProps);
     }
 
     componentDidUpdate(prevProps) {
@@ -56,6 +55,15 @@ class HelpPageContainer extends React.Component {
         this.setState({
             helpOnly: this.props.session.user.helpOnly
         });
+    }
+
+    setHelpRoute(incomingProps) {
+        if (incomingProps.route.type !== this.state.type || incomingProps.route.path !== this.state.path) {
+            this.setState({
+                type: incomingProps.route.type,
+                path: incomingProps.route.path.toLowerCase()
+            });
+        }
     }
 
     render() {

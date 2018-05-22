@@ -90,27 +90,30 @@ export default class ValidationRulesTableContent extends React.Component {
     }
 
     render() {
-        let message = (
-            <p>
-                Below is a cumulative table of validations in the RSS and IDD. The status column indicates
-                whether they are currently implemented in the Broker. The table has been revised to match the latest
-                Validations Rules spreadsheet, except for FABS. FABS validations are available in the downloadable file.
-                The Validations Rules spreadsheet, with change log, is available for download.
-                <a
-                    href={this.state.validationRulesUrl}
-                    target="_blank"
-                    rel="noopener noreferrer">Download file
-                </a>;
-            </p>
-        );
+        let message = <p>Here are validation resources for the DATA Act Broker Quarterly Submissions:</p>;
+        let submissionProcess = 'information on the submission process';
+        let type = 'DABS'
 
         if (this.props.type === 'fabs') {
             message = (
-                <div>
-                    <p>
-                        Here are validation resources for the Reporting Submission Specification - Financial Assistance
-                        Broker Submission (RSS-FABS)
-                    </p>
+                <p>
+                    Here are validation resources for the Reporting Submission Specification - Financial Assistance
+                    Broker Submission (RSS-FABS)
+                </p>
+            );
+
+            submissionProcess = 'explanations of how elements are derived based on FABS data, and information on the ' +
+                'submission process (including corrections and deletions)';
+            
+            type = 'FABS'
+        }
+
+        return (
+            <div className="usa-da-help-content">
+                <div className="validation-table">
+                    <h2>Validations</h2>
+                    <DaimsMessage type={this.props.type} />
+                    {message}
                     <ul>
                         <li>
                             <a
@@ -118,8 +121,7 @@ export default class ValidationRulesTableContent extends React.Component {
                                 "DAIMS_Practices_Procedures_v1.2.pdf"}
                                 target="_blank">
                                 DAIMS Practices & Procedures v1.2
-                            </a>: contains file-wide practices, explanations of how elements are derived based on FABS
-                            data, and information on the submission process (including corrections and deletions),
+                            </a>: contains file-wide practices, {submissionProcess},
                             validation rule source data, user management, technical procedures for formatting submission
                             files, etc.
                         </li>
@@ -129,24 +131,14 @@ export default class ValidationRulesTableContent extends React.Component {
                                 "master/dataactvalidator/config/sqlrules"}
                                 target="_blank">
                                 Broker SQL Validation Rules
-                            </a>: the actual machine logic used in FABS validations. These SQL statements are based
-                            directly on the FABS validation rules.
+                            </a>: the actual machine logic used in {type} validations. These SQL statements are based
+                            directly on the {type} validation rules.
                         </li>
                         <li>
                             <a href={this.state.validationRulesUrl} target="_blank">DAIMS Validations Rules</a>
-                            : contains the validations rules for the RSS and IDD, along with a change log
+                            : contains the validations rules for the RSS, along with a change log
                         </li>
                     </ul>
-                </div>
-            );
-        }
-
-        return (
-            <div className="usa-da-help-content">
-                <div className="validation-table">
-                    <h2>Validations</h2>
-                    <DaimsMessage type="validations" />
-                    {message}
                     <Reactable.Table
                         className="table usa-da-table table-bordered"
                         data={this.state.data}
