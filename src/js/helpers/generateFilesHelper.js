@@ -6,8 +6,7 @@ import { kGlobalConstants } from '../GlobalConstants';
 export const fetchSubmissionMetadata = (submissionId) => {
     const deferred = Q.defer();
 
-    Request.post(kGlobalConstants.API + 'check_status/')
-        .send({ submission_id: submissionId })
+    Request.get(kGlobalConstants.API + 'submission_metadata/?submission_id=' + submissionId)
         .end((errFile, res) => {
             if (errFile) {
                 deferred.reject(res);

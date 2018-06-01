@@ -19,6 +19,7 @@ import Banner from '../../components/SharedComponents/Banner';
 import * as uploadActions from '../../redux/actions/uploadActions';
 
 import * as GenerateFilesHelper from '../../helpers/generateFilesHelper';
+import * as ReviewHelper from '../../helpers/reviewHelper';
 import * as UtilHelper from '../../helpers/util';
 
 const propTypes = {
@@ -179,7 +180,7 @@ class GenerateFilesContainer extends React.Component {
 
     loadSubmissionData() {
         // prepopulate the fields with the submission metadata dates
-        GenerateFilesHelper.fetchSubmissionMetadata(this.props.submissionID)
+        ReviewHelper.fetchStatus(this.props.submissionID)
             .then((data) => {
                 this.props.setSubmissionId(this.props.submissionID);
                 this.props.setSubmissionPublishStatus(data.publish_status);

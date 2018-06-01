@@ -10,12 +10,12 @@ import React, { PropTypes } from 'react';
 import SubTierAgencyListContainer from '../../containers/SharedContainers/SubTierAgencyListContainer';
 import UploadFabsFileBox from './UploadFabsFileBox';
 import UploadFabsFileError from './UploadFabsFileError';
+import UploadFabsFileHeader from "./UploadFabsFileHeader";
 import Banner from '../SharedComponents/Banner';
 
 import * as Icons from '../SharedComponents/icons/Icons';
 
 import * as UploadHelper from '../../helpers/uploadHelper';
-import * as GenerateFilesHelper from '../../helpers/generateFilesHelper';
 import * as ReviewHelper from '../../helpers/reviewHelper';
 import { kGlobalConstants } from '../../GlobalConstants';
 
@@ -124,7 +124,7 @@ export default class UploadFabsFileMeta extends React.Component {
 
     checkFileStatus(submissionID) {
         // callback to check file status
-        GenerateFilesHelper.fetchSubmissionMetadata(submissionID)
+        ReviewHelper.fetchStatus(submissionID)
             .then((response) => {
                 if (this.isUnmounted) {
                     return;
@@ -231,17 +231,7 @@ export default class UploadFabsFileMeta extends React.Component {
 
         return (
             <div>
-                <div className="usa-da-content-teal">
-                    <div className="container">
-                        <div className="row usa-da-page-title">
-                            <div className="col-md-10 mt-40 mb-20">
-                                <div className="display-2">
-                                    Upload FABS Data
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+                <UploadFabsFileHeader />
                 <Banner type="fabs" />
                 <div className="container center-block">
                     <div className="row usa-da-select-agency">
