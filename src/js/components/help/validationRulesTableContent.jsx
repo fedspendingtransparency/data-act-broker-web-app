@@ -92,7 +92,7 @@ export default class ValidationRulesTableContent extends React.Component {
     render() {
         let message = <p>Here are validation resources for the DATA Act Broker Quarterly Submissions:</p>;
         let submissionProcess = 'information on the submission process';
-        let type = 'DABS'
+        let type = 'DABS';
 
         if (this.props.type === 'fabs') {
             message = (
@@ -104,8 +104,8 @@ export default class ValidationRulesTableContent extends React.Component {
 
             submissionProcess = 'explanations of how elements are derived based on FABS data, and information on the ' +
                 'submission process (including corrections and deletions)';
-            
-            type = 'FABS'
+
+            type = 'FABS';
         }
 
         return (
