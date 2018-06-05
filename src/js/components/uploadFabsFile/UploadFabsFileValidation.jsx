@@ -98,7 +98,7 @@ class UploadFabsFileValidation extends React.Component {
     }
 
     getSubmissionMetadata(submissionID) {
-        GenerateFilesHelper.fetchSubmissionMetadata(submissionID)
+        ReviewHelper.fetchSubmissionMetadata(submissionID)
             .then((response) => {
                 this.setState({
                     metadata: response,

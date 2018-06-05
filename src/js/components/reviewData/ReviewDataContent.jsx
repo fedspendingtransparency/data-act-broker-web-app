@@ -34,22 +34,8 @@ export default class ReviewDataContent extends React.Component {
         this.state = {
             openNotify: false,
             openCertify: false,
-            openRevalidate: false,
-            calculatedData: {
-                totalSize: '0 KB',
-                totalWarnings: 0
-            }
+            openRevalidate: false
         };
-    }
-
-    componentDidMount() {
-        this.calculateFields();
-    }
-
-    componentDidUpdate(prevProps) {
-        if (prevProps.submissionID !== this.props.submissionID) {
-            this.calculateFields();
-        }
     }
 
     openModal(type, e) {
@@ -72,35 +58,6 @@ export default class ReviewDataContent extends React.Component {
 
     disabledLink(e) {
         e.preventDefault();
-    }
-
-    calculateFields() {
-        let totalSize = 0;
-        let totalWarnings = 0;
-
-        this.props.data.jobs.forEach((job) => {
-            if (parseFloat(job.file_size) > 0) {
-                totalSize += parseFloat(job.file_size);
-            }
-
-            // sum the number of warnings
-            job.warning_data.forEach((warning) => {
-                totalWarnings += parseInt(warning.occurrences, 10);
-            });
-        });
-
-        let displaySize = totalSize + ' bytes';
-        if (totalSize >= 750000) {
-            displaySize = (Math.round((totalSize / 100000000) * 100) / 100) + ' MB';
-        }
-        else if (totalSize >= 750) {
-            displaySize = (Math.round((totalSize / 1000) * 100) / 100) + ' KB';
-        }
-
-        this.setState({
-            totalSize: displaySize,
-            totalWarnings
-        });
     }
 
     formatCurrency(currencyNumber) {
@@ -243,10 +200,10 @@ export default class ReviewDataContent extends React.Component {
                                 </div>
                                 <div className="usa-da-submission-info">
                                     <ul className="no-bullet">
-                                        <li>Total File Size: <strong>{this.state.totalSize}</strong></li>
+                                        <li>Total File Size: <strong>{this.props.data.total_size}</strong></li>
                                         <li>Total Rows: <strong>{this.props.data.number_of_rows}</strong></li>
                                         <li>Created on: <strong>{this.props.data.created_on}</strong></li>
-                                        <li>Total Warnings: <strong>{this.state.totalWarnings}</strong></li>
+                                        <li>Total Warnings: <strong>{this.props.data.number_of_warnings}</strong></li>
                                     </ul>
                                 </div>
                             </div>
@@ -306,7 +263,7 @@ export default class ReviewDataContent extends React.Component {
                             {...this.props}
                             closeModal={this.closeModal.bind(this, 'Certify')}
                             isOpen={this.state.openCertify}
-                            warnings={this.state.totalWarnings} />
+                            warnings={this.props.data.number_of_warnings} />
                     </div>
                     <div id="revalidateDataModalHolder">
                         <RevalidateDataModal

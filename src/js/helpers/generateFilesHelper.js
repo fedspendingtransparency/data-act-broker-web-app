@@ -3,22 +3,6 @@ import Request from './sessionSuperagent';
 
 import { kGlobalConstants } from '../GlobalConstants';
 
-export const fetchSubmissionMetadata = (submissionId) => {
-    const deferred = Q.defer();
-
-    Request.get(kGlobalConstants.API + 'submission_metadata/?submission_id=' + submissionId)
-        .end((errFile, res) => {
-            if (errFile) {
-                deferred.reject(res);
-            }
-            else {
-                deferred.resolve(res.body);
-            }
-        });
-
-    return deferred.promise;
-};
-
 export const generateFile = (type, submissionId, start, end) => {
     const deferred = Q.defer();
 
