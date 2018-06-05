@@ -6,7 +6,6 @@
 import ReactCSSTransitionGroup from "react-addons-css-transition-group";
 
 import React, { PropTypes } from "react";
-import moment from "moment";
 import { connect } from "react-redux";
 
 import ValidateValuesFileContainer from "../../containers/validateData/ValidateValuesFileContainer";
@@ -14,6 +13,7 @@ import ValidateDataFileContainer from "../../containers/validateData/ValidateDat
 import PublishModal from "./PublishModal";
 import Banner from "../SharedComponents/Banner";
 import UploadFabsFileError from "./UploadFabsFileError";
+import UploadFabsFileHeader from "./UploadFabsFileHeader";
 
 import * as UploadHelper from "../../helpers/uploadHelper";
 import * as GenerateFilesHelper from "../../helpers/generateFilesHelper";
@@ -66,16 +66,14 @@ class UploadFabsFileValidation extends React.Component {
             headerErrors: false,
             validationFinished: false,
             error: 0,
-            rep_start: "",
-            rep_end: "",
             published: "unpublished",
             submit: true,
             showPublish: false,
-            modified_date: null,
             type: this.props.route.type,
             showSuccess: false,
             error_message: "",
             fabs_meta: { valid_rows: 0, total_rows: 0, publish_date: null },
+            metadata: {},
             signedUrl: "",
             signInProgress: false
         };
@@ -83,7 +81,6 @@ class UploadFabsFileValidation extends React.Component {
 
     componentDidMount() {
         this.isUnmounted = false;
-        this.checkFileStatus(this.state.submissionID);
     }
 
     componentWillReceiveProps(nextProps) {
@@ -91,12 +88,26 @@ class UploadFabsFileValidation extends React.Component {
             this.setState({
                 submissionID: nextProps.params.submissionID
             });
+            this.getSubmissionMetadata(nextProps.params.submissionID);
             this.checkFileStatus(nextProps.params.submissionID);
         }
     }
 
     componentWillUnmount() {
         this.isUnmounted = true;
+    }
+
+    getSubmissionMetadata(submissionID) {
+        GenerateFilesHelper.fetchSubmissionMetadata(submissionID)
+            .then((response) => {
+                this.setState({
+                    metadata: response,
+                    agency: response.agency_name
+                });
+            })
+            .catch((err) => {
+                console.error(err);
+            });
     }
 
     openModal() {
@@ -139,7 +150,7 @@ class UploadFabsFileValidation extends React.Component {
 
     checkFileStatus(submissionID) {
         // callback to check file status
-        GenerateFilesHelper.fetchSubmissionMetadata(submissionID)
+        ReviewHelper.fetchStatus(submissionID)
             .then((response) => {
                 if (this.isUnmounted) {
                     return;
@@ -160,12 +171,8 @@ class UploadFabsFileValidation extends React.Component {
                 }
                 this.setState({
                     jobResults: job,
-                    agency: response.agency_name,
-                    rep_start: response.reporting_period_start_date,
-                    rep_end: response.reporting_period_end_date,
                     cgac_code: response.cgac_code,
                     published: response.publish_status,
-                    modified_date: response.last_updated,
                     error: 0,
                     fabs_meta: response.fabs_meta,
                     showSuccess: isSuccessful
@@ -332,8 +339,6 @@ class UploadFabsFileValidation extends React.Component {
         submission.files.fabs = this.state.fabs;
         submission.files.fabs.file = item;
         submission.sub = this.state.submissionID;
-        submission.meta.startDate = this.state.rep_start;
-        submission.meta.endDate = this.state.rep_end;
         submission.meta.subTierAgency = this.state.agency;
 
         // reset file and job status
@@ -367,27 +372,6 @@ class UploadFabsFileValidation extends React.Component {
         let revalidateButton = null;
         let downloadButton = null;
         let validationBox = null;
-        let headerDate = null;
-        let updated = null;
-
-        if (this.state.modified_date) {
-            updated = moment.utc(this.state.modified_date).local().format("MM/DD/YYYY h:mm a");
-        }
-
-        if (this.state.agency !== "" && this.state.rep_start !== "" && this.state.rep_end !== "") {
-            headerDate = (
-                <div className="col-md-2 ">
-                    <div className="header-box">
-                        <span>
-                            Agency: {this.state.agency}
-                        </span>
-                        <br />
-                        <span>
-                            Last Modified: {updated}
-                        </span>
-                    </div>
-                </div>);
-        }
 
         const type = {
             fileTitle: "Upload",
@@ -498,18 +482,7 @@ class UploadFabsFileValidation extends React.Component {
 
         return (
             <div>
-                <div className="usa-da-content-teal">
-                    <div className="container">
-                        <div className="row usa-da-page-title">
-                            <div className="col-md-10 mt-40 mb-20">
-                                <div className="display-2">
-                                    Upload FABS Data
-                                </div>
-                            </div>
-                            {headerDate}
-                        </div>
-                    </div>
-                </div>
+                <UploadFabsFileHeader details={this.state.metadata} />
                 <Banner type="fabs" />
                 <div className="container">
                     <div className="col-xs-12 mt-60 mb-60">
