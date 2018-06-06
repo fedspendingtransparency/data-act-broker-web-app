@@ -51,45 +51,45 @@ class ReviewDataContainer extends React.Component {
     }
 
     loadData() {
-        let submission_data = {};
+        let submissionData = {};
 
         ReviewHelper.fetchSubmissionMetadata(this.props.params.submissionID)
             .then((data) => {
-                submission_data = data;
-                submission_data.ready = true;
+                submissionData = data;
+                submissionData.ready = true;
 
                 return ReviewHelper.fetchSubmissionNarrative(this.props.params.submissionID);
             })
             .then((narrative) => {
-                submission_data.file_narrative = narrative;
+                submissionData.file_narrative = narrative;
                 return ReviewHelper.fetchObligations(this.props.params.submissionID);
             })
             .then((data) => {
-                submission_data.total_obligations = data.total_obligations;
-                submission_data.total_assistance_obligations = data.total_assistance_obligations;
-                submission_data.total_procurement_obligations = data.total_procurement_obligations;
+                submissionData.total_obligations = data.total_obligations;
+                submissionData.total_assistance_obligations = data.total_assistance_obligations;
+                submissionData.total_procurement_obligations = data.total_procurement_obligations;
                 return ReviewHelper.revalidationThreshold();
             })
             .then((data) => {
-                submission_data.revalidation_threshold = data.revalidation_threshold;
+                submissionData.revalidation_threshold = data.revalidation_threshold;
                 this.setState({
-                    jobs: submission_data.jobs,
-                    cgac_code: submission_data.cgac_code,
-                    frec_code: submission_data.frec_code,
-                    agency_name: submission_data.agency_name,
-                    reporting_period_start_date: submission_data.reporting_period_start_date,
-                    reporting_period_end_date: submission_data.reporting_period_end_date,
-                    number_of_rows: submission_data.number_of_rows,
-                    number_of_warnings: submission_data.number_of_warnings,
-                    created_on: submission_data.created_on,
-                    ready: submission_data.ready,
-                    total_obligations: submission_data.total_obligations,
-                    total_assistance_obligations: submission_data.total_assistance_obligations,
-                    total_procurement_obligations: submission_data.total_procurement_obligations,
-                    file_narrative: submission_data.file_narrative,
-                    quarterly_submission: submission_data.quarterly_submission,
-                    revalidation_threshold: submission_data.revalidation_threshold,
-                    last_validated: submission_data.last_validated
+                    jobs: submissionData.jobs,
+                    cgac_code: submissionData.cgac_code,
+                    frec_code: submissionData.frec_code,
+                    agency_name: submissionData.agency_name,
+                    reporting_period_start_date: submissionData.reporting_period_start_date,
+                    reporting_period_end_date: submissionData.reporting_period_end_date,
+                    number_of_rows: submissionData.number_of_rows,
+                    number_of_warnings: submissionData.number_of_warnings,
+                    created_on: submissionData.created_on,
+                    ready: submissionData.ready,
+                    total_obligations: submissionData.total_obligations,
+                    total_assistance_obligations: submissionData.total_assistance_obligations,
+                    total_procurement_obligations: submissionData.total_procurement_obligations,
+                    file_narrative: submissionData.file_narrative,
+                    quarterly_submission: submissionData.quarterly_submission,
+                    revalidation_threshold: submissionData.revalidation_threshold,
+                    last_validated: submissionData.last_validated
                 });
             })
             .catch((error) => {

@@ -12,6 +12,7 @@ import Q from 'q';
 
 import * as uploadActions from '../../redux/actions/uploadActions';
 import * as GenerateHelper from '../../helpers/generateFilesHelper';
+import * as ReviewHelper from '../../helpers/reviewHelper';
 
 import GenerateEFContent from '../../components/generateEF/GenerateEFContent';
 import GenerateEFError from '../../components/generateEF/GenerateEFError';
@@ -43,17 +44,39 @@ class GenerateEFContainer extends React.Component {
             hasErrors: false,
             e: {},
             f: {},
-            generated: false
+            generated: false,
+            agency_name: ''
         };
     }
 
     componentDidMount() {
         this.isUnmounted = false;
+        this.setAgencyName(this.props);
         this.checkFileStatus();
+    }
+
+    componentWillReceiveProps(nextProps) {
+        if (this.props.submissionID !== nextProps.submissionID) {
+            this.setAgencyName(nextProps);
+        }
     }
 
     componentWillUnmount() {
         this.isUnmounted = true;
+    }
+
+    setAgencyName(givenProps) {
+        if (givenProps.submissionID !== null) {
+            ReviewHelper.fetchSubmissionMetadata(givenProps.submissionID)
+                .then((data) => {
+                    if (!this.isUnmounted) {
+                        this.setState({ agency_name: data.agency_name });
+                    }
+                })
+                .catch((error) => {
+                    console.error(error);
+                });
+        }
     }
 
     handleResponse(allResponses) {
