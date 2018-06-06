@@ -74,6 +74,22 @@ export const fetchSubmissionMetadata = (submissionId) => {
     return deferred.promise;
 };
 
+export const fetchSubmissionData = (submissionId) => {
+    const deferred = Q.defer();
+
+    Request.get(kGlobalConstants.API + 'submission_data/?submission_id=' + submissionId)
+        .end((errFile, res) => {
+            if (errFile) {
+                deferred.reject(res);
+            }
+            else {
+                deferred.resolve(res.body);
+            }
+        });
+
+    return deferred.promise;
+};
+
 export const fetchStatus = (submissionId) => {
     const deferred = Q.defer();
 
@@ -269,7 +285,7 @@ export const validateFabsSubmission = (submissionId) => {
     store.dispatch(uploadActions.setSubmissionId(submissionId));
 
     let status;
-    fetchStatus(submissionId)
+    fetchSubmissionData(submissionId)
         .then((statusRes) => {
             status = getFileStates(statusRes);
             deferred.resolve(status);

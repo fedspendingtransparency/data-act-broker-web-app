@@ -201,14 +201,14 @@ class GenerateFilesContainer extends React.Component {
 
     loadSubmissionData() {
         // prepopulate the fields with the submission metadata dates
-        ReviewHelper.fetchStatus(this.props.submissionID)
+        ReviewHelper.fetchSubmissionMetadata(this.props.submissionID)
             .then((data) => {
                 this.props.setSubmissionId(this.props.submissionID);
                 this.props.setSubmissionPublishStatus(data.publish_status);
 
                 // check if quarter or month
-                const defaultStart = moment(this.parseDate(data.reporting_period_start_date, 'start'), 'MM/DD/YYYY');
-                const defaultEnd = moment(this.parseDate(data.reporting_period_end_date, 'end'), 'MM/DD/YYYY');
+                const defaultStart = moment(this.parseDate(data.reporting_period, 'start'), 'MM/DD/YYYY');
+                const defaultEnd = moment(this.parseDate(data.reporting_period, 'end'), 'MM/DD/YYYY');
 
                 const output = {
                     state: 'ready',
