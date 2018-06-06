@@ -155,7 +155,7 @@ export default class ResourcesContent extends React.Component {
                     <ul>
                         <li>
                             <a
-                                href={github + "DAIMS_RSS_Diagram_File_A_v1.1.pdf"}
+                                href={github + "DAIMS_RSS_Diagram_File_A_v1.2.pdf"}
                                 target="_blank"
                                 rel="noopener noreferrer">
                                 File A - Appropriation Account Detail
@@ -163,7 +163,7 @@ export default class ResourcesContent extends React.Component {
                         </li>
                         <li>
                             <a
-                                href={github + "DAIMS_RSS_Diagram_File_B_v1.1.pdf"}
+                                href={github + "DAIMS_RSS_Diagram_File_B_v1.2.pdf"}
                                 target="_blank"
                                 rel="noopener noreferrer">
                                 File B - Object Class and Program Activity Detail
@@ -171,7 +171,7 @@ export default class ResourcesContent extends React.Component {
                         </li>
                         <li>
                             <a
-                                href={github + "DAIMS_RSS_Diagram_File_C_v1.1.pdf"}
+                                href={github + "DAIMS_RSS_Diagram_File_C_v1.2.pdf"}
                                 target="_blank"
                                 rel="noopener noreferrer">
                                 File C - Award Financial Detail
@@ -185,7 +185,7 @@ export default class ResourcesContent extends React.Component {
                     </p>
                     <ul>
                         <li>
-                            <a href={github + "DAIMS_IDD_v1.1.xlsx"}>IDD v1.1</a>
+                            <a href={github + "DAIMS_IDD_v1.2.xlsx"}>IDD v1.2</a>
                         </li>
                     </ul>
                     <h6>DAIMS Diagrams for IDD</h6>
@@ -196,7 +196,7 @@ export default class ResourcesContent extends React.Component {
                     <ul>
                         <li>
                             <a
-                                href={github + "DAIMS_IDD_Diagram_File_D1_v1.1.pdf"}
+                                href={github + "DAIMS_IDD_Diagram_File_D1_v1.2.pdf"}
                                 target="_blank"
                                 rel="noopener noreferrer">
                                 File D1 - Award and Awardee Attributes (Procurement)
@@ -204,7 +204,7 @@ export default class ResourcesContent extends React.Component {
                         </li>
                         <li>
                             <a
-                                href={github + "DAIMS_IDD_Diagram_File_D2_v1.1.pdf"}
+                                href={github + "DAIMS_IDD_Diagram_File_D2_v1.2.pdf"}
                                 target="_blank"
                                 rel="noopener noreferrer">
                                 File D2 - Award and Awardee Attributes (Financial Assistance)
@@ -212,7 +212,7 @@ export default class ResourcesContent extends React.Component {
                         </li>
                         <li>
                             <a
-                                href={github + "DAIMS_IDD_Diagram_File_E_v1.1.pdf"}
+                                href={github + "DAIMS_IDD_Diagram_File_E_v1.2.pdf"}
                                 target="_blank"
                                 rel="noopener noreferrer">
                                 File E - Additional Awardee Attributes
@@ -220,7 +220,7 @@ export default class ResourcesContent extends React.Component {
                         </li>
                         <li>
                             <a
-                                href={github + "DAIMS_IDD_Diagram_File_F_v1.1.pdf"}
+                                href={github + "DAIMS_IDD_Diagram_File_F_v1.2.pdf"}
                                 target="_blank"
                                 rel="noopener noreferrer">
                                 File F - Sub-Award Attributes
@@ -256,12 +256,6 @@ export default class ResourcesContent extends React.Component {
                                 FABS Resources Page
                             </a>
                         </li>
-                        <li>
-                            <a href={github + "DAIMS_Agency_Label_To_Terse_Label_v1.1.xlsx"}>
-                                Long Element Name to Short Element Name Crosswalk
-                            </a> - A listing of the shortened column names for the data elements
-                            in the RSS and IDD.
-                        </li>
                     </ul>
                 </div>
             );
@@ -271,7 +265,7 @@ export default class ResourcesContent extends React.Component {
             <div className="usa-da-help-content">
                 <div className="resources-page">
                     <h2>Resources {this.props.type.toUpperCase()}</h2>
-                    <DaimsMessage type="resources" />
+                    <DaimsMessage type={this.props.type} />
                     <span>
                         The DATA Act information Model Schema (DAIMS) gives an overall view of the hundreds of distinct
                         data elements used to tell the story of how federal dollars are spent.
