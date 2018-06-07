@@ -191,7 +191,6 @@ export default class ReviewDataContent extends React.Component {
             buttonClass = "";
             buttonAction = this.openModal.bind(this, modalToOpen);
         }
-        console.log(this.props.data);
 
         return (
             <div className="container">
