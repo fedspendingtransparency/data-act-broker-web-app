@@ -114,6 +114,17 @@ export default class ReviewDataContent extends React.Component {
         return false;
     }
 
+    formatSize(totalSize) {
+        let displaySize = totalSize + ' bytes';
+        if (totalSize >= 750000) {
+            displaySize = (Math.round((totalSize / 100000000) * 100) / 100) + ' MB';
+        }
+        else if (totalSize >= 750) {
+            displaySize = (Math.round((totalSize / 1000) * 100) / 100) + ' KB';
+        }
+        return displaySize;
+    }
+
     render() {
         let modalToOpen = 'Certify';
         if (!this.props.data.last_validated || new Date(this.props.data.last_validated) <
@@ -180,6 +191,7 @@ export default class ReviewDataContent extends React.Component {
             buttonClass = "";
             buttonAction = this.openModal.bind(this, modalToOpen);
         }
+        console.log(this.props.data);
 
         return (
             <div className="container">
@@ -200,7 +212,9 @@ export default class ReviewDataContent extends React.Component {
                                 </div>
                                 <div className="usa-da-submission-info">
                                     <ul className="no-bullet">
-                                        <li>Total File Size: <strong>{this.props.data.total_size}</strong></li>
+                                        <li>Total File Size:
+                                            <strong> {this.formatSize(this.props.data.total_size)}</strong>
+                                        </li>
                                         <li>Total Rows: <strong>{this.props.data.number_of_rows}</strong></li>
                                         <li>Created on: <strong>{this.props.data.created_on}</strong></li>
                                         <li>Total Warnings: <strong>{this.props.data.number_of_warnings}</strong></li>
