@@ -6,7 +6,7 @@
 import React, { PropTypes } from 'react';
 import moment from 'moment';
 
-import * as FileHelper from '../../helpers/generateFilesHelper';
+import * as ReviewHelper from '../../helpers/reviewHelper';
 
 const propTypes = {
     submissionID: PropTypes.string
@@ -51,7 +51,7 @@ export default class AddDataHeader extends React.Component {
         if (submissionID === null || submissionID === '') {
             return;
         }
-        FileHelper.fetchSubmissionMetadata(submissionID)
+        ReviewHelper.fetchSubmissionMetadata(submissionID)
             .then((data) => {
                 const tmpData = data;
                 tmpData.ready = true;

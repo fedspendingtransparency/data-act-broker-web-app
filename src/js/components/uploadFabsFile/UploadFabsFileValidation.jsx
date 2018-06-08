@@ -98,7 +98,7 @@ class UploadFabsFileValidation extends React.Component {
     }
 
     getSubmissionMetadata(submissionID) {
-        GenerateFilesHelper.fetchSubmissionMetadata(submissionID)
+        ReviewHelper.fetchSubmissionMetadata(submissionID)
             .then((response) => {
                 this.setState({
                     metadata: response,
@@ -150,35 +150,36 @@ class UploadFabsFileValidation extends React.Component {
 
     checkFileStatus(submissionID) {
         // callback to check file status
-        ReviewHelper.fetchStatus(submissionID)
-            .then((response) => {
+        ReviewHelper.fetchSubmissionMetadata(submissionID)
+            .then((metadataResponse) => {
                 if (this.isUnmounted) {
                     return;
                 }
 
-                const job = Object.assign({}, this.state.jobResults);
-                job.fabs = response.jobs[0];
-
                 let isSuccessful = false;
-                if (response.publish_status !== "publishing" && this.dataTimer) {
+                if (metadataResponse.publish_status !== "publishing" && this.dataTimer) {
                     window.clearInterval(this.dataTimer);
                     this.dataTimer = null;
                     isSuccessful = true;
                 }
-                else if (!this.dataTimer && response.publish_status === "publishing") {
+                else if (!this.dataTimer && metadataResponse.publish_status === "publishing") {
                     this.checkFile(submissionID);
                     return;
                 }
-                this.setState({
-                    jobResults: job,
-                    cgac_code: response.cgac_code,
-                    published: response.publish_status,
-                    error: 0,
-                    fabs_meta: response.fabs_meta,
-                    showSuccess: isSuccessful
-                }, () => {
-                    this.parseJobStates(response);
-                });
+
+                ReviewHelper.fetchSubmissionData(submissionID)
+                    .then((dataResponse) => {
+                        this.setState({
+                            jobResults: { fabs: dataResponse.jobs[0] },
+                            cgac_code: metadataResponse.cgac_code,
+                            published: metadataResponse.publish_status,
+                            error: 0,
+                            fabs_meta: metadataResponse.fabs_meta,
+                            showSuccess: isSuccessful
+                        }, () => {
+                            this.parseJobStates(dataResponse);
+                        });
+                    });
             })
             .catch((err) => {
                 if (err.status === 400) {

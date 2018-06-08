@@ -124,16 +124,14 @@ export default class UploadFabsFileMeta extends React.Component {
 
     checkFileStatus(submissionID) {
         // callback to check file status
-        ReviewHelper.fetchStatus(submissionID)
+        ReviewHelper.fetchSubmissionData(submissionID)
             .then((response) => {
                 if (this.isUnmounted) {
                     return;
                 }
-                const job = Object.assign({}, this.state.jobResults);
-                job.fabs = response.jobs[0];
                 this.setState({
                     showUploadFilesBox: false,
-                    jobResults: job
+                    jobResults: { fabs: response.jobs[0] }
                 }, () => {
                     this.parseJobStates(response);
                 });

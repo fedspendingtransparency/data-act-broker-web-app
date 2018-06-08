@@ -7,7 +7,6 @@ import React, { PropTypes } from 'react';
 import CommonOverlay from '../SharedComponents/overlays/CommonOverlay';
 import * as Icons from '../SharedComponents/icons/Icons';
 import LoadingBauble from '../SharedComponents/overlays/LoadingBauble';
-import * as ReviewHelper from '../../helpers/reviewHelper';
 import * as PermissionHelper from '../../helpers/permissionsHelper';
 
 const propTypes = {
@@ -16,7 +15,8 @@ const propTypes = {
     session: PropTypes.object,
     errorDetails: PropTypes.string,
     state: PropTypes.string,
-    submissionID: PropTypes.string
+    submissionID: PropTypes.string,
+    agency_name: PropTypes.string
 };
 
 const defaultProps = {
@@ -25,29 +25,11 @@ const defaultProps = {
     nextPage: null,
     session: null,
     errorDetails: '',
-    submissionID: ''
+    submissionID: '',
+    agency_name: ''
 };
 
 export default class GenerateFilesOverlay extends React.Component {
-    constructor(props) {
-        super(props);
-        this.state = {
-            agency_name: ''
-        };
-    }
-
-    componentDidMount() {
-        if (this.props.submissionID !== null) {
-            ReviewHelper.fetchStatus(this.props.submissionID)
-                .then((data) => {
-                    this.setState({ agency_name: data.agency_name });
-                })
-                .catch((error) => {
-                    console.error(error);
-                });
-        }
-    }
-
     clickedGenerate(e) {
         e.preventDefault();
         this.props.generateFiles();
@@ -110,8 +92,9 @@ export default class GenerateFilesOverlay extends React.Component {
             header = "Your files have been generated. Click Next to begin cross-file validations.";
         }
 
-        if (!buttonDisabled) {
-            buttonDisabled = !PermissionHelper.checkAgencyPermissions(this.props.session, this.state.agency_name);
+        if (!PermissionHelper.checkAgencyPermissions(this.props.session, this.props.agency_name)) {
+            buttonClass = '-disabled';
+            buttonDisabled = true;
         }
 
         return (
