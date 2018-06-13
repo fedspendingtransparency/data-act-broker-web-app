@@ -149,8 +149,8 @@ export default class ReviewDataContent extends React.Component {
 
         const reportData = [
             this.props.data.agency_name,
-            this.props.data.reporting_period_start_date,
-            this.props.data.reporting_period_end_date,
+            this.props.data.reporting_period,
+            this.props.data.reporting_period,
             this.formatCurrency(this.props.data.total_obligations),
             this.formatCurrency(this.props.data.total_assistance_obligations),
             this.formatCurrency(this.props.data.total_procurement_obligations)
