@@ -51,20 +51,34 @@ class ValidateDataContainer extends React.Component {
             agencyName: null
         };
 
-        this.isCancelled = false;
+        this.isUnmounted = false;
     }
 
 
     componentDidMount() {
-        this.isCancelled = false;
+        this.isUnmounted = false;
+        this.setAgencyName(this.props);
         this.validateSubmission();
+    }
+
+    componentWillReceiveProps(nextProps) {
+        if (this.props.submissionID !== nextProps.submissionID) {
+            this.setAgencyName(nextProps);
+        }
     }
 
     componentDidUpdate(prevProps) {
         // check if the submission state changed, indicating a re-upload
         if (prevProps.submission.state !== this.props.submission.state) {
             if (this.props.submission.state === "prepare") {
-                this.validateSubmission();
+                this.setState({
+                    validationFinished: false,
+                    validationFailed: false
+                }, () => {
+                    // setTimeout(() => {
+                        this.validateSubmission();
+                    // }, timerDuration * 100);
+                });
             }
         }
 
@@ -77,10 +91,24 @@ class ValidateDataContainer extends React.Component {
 
     componentWillUnmount() {
         // remove any timers
-        this.isCancelled = true;
+        this.isUnmounted = true;
         if (statusTimer) {
             clearTimeout(statusTimer);
             statusTimer = null;
+        }
+    }
+
+    setAgencyName(givenProps) {
+        if (givenProps.submissionID !== null) {
+            ReviewHelper.fetchSubmissionMetadata(givenProps.submissionID)
+                .then((data) => {
+                    if (!this.isUnmounted) {
+                        this.setState({ agencyName: data.agency_name });
+                    }
+                })
+                .catch((error) => {
+                    console.error(error);
+                });
         }
     }
 
@@ -130,30 +158,60 @@ class ValidateDataContainer extends React.Component {
         if (this.props.submissionID === "") {
             return;
         }
-        ReviewHelper.validateSubmission(this.props.submissionID)
+        ReviewHelper.fetchStatus(this.props.submissionID)
             .then((data) => {
-                if (this.isCancelled) {
+                if (this.isUnmounted) {
                     // the component has been unmounted, so don't bother with updating the state
                     // (it doesn't exist anymore anyway)
                     return;
                 }
 
-                this.setState({
-                    finishedPageLoad: true,
-                    agencyName: data.agencyName
-                });
-                this.props.setSubmissionState('review');
-                this.props.setValidation(data.file);
-
-                // review the validation data for failures, header errors, and completion state
-                this.processData(() => {
-                    if (!this.state.validationFinished && !this.state.validationFailed) {
-                        // keep reloading if the validation hasn't finished yet and nothing has failed
-                        statusTimer = setTimeout(() => {
-                            this.validateSubmission();
-                        }, timerDuration * 1000);
+                // see if there are any validations still running.
+                let allDone = true;
+                singleFileValidations.forEach((fileType) => {
+                    if (data[fileType].status === 'running' || data[fileType].status === 'uploading') {
+                        allDone = false;
                     }
                 });
+
+                this.setState({ finishedPageLoad: true });
+                this.props.setSubmissionState('review');
+
+                const tmpValidationFiles = this.props.submission.validation;
+                let hasFailed = false;
+                singleFileValidations.forEach((fileType) => {
+                    if (!allDone) {
+                        tmpValidationFiles[fileType] = {
+                            job_status: 'running',
+                            file_status: 'incomplete',
+                            error_data: [],
+                            warning_data: []
+                        };
+                    }
+                    else {
+                        if (data[fileType]['status'] === 'failed') {
+                            hasFailed = true;
+                        }
+                    }
+                });
+
+                if (allDone) {
+                    this.setState({
+                        validationFinished: true,
+                        validationFailed: hasFailed
+                    });
+
+                    ReviewHelper.fetchSubmissionData(this.props.submissionID)
+                        .then((response) => {
+                            this.props.setValidation(ReviewHelper.getFileStates(response));
+                        });
+                }
+                else {
+                    this.props.setValidation(tmpValidationFiles);
+                    statusTimer = setTimeout(() => {
+                        this.validateSubmission();
+                    }, timerDuration * 1000);
+                }
             })
             .catch((err) => {
                 if (err.reason === 400) {

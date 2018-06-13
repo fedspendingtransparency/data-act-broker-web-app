@@ -61,12 +61,18 @@ const determineExpectedPairs = () => {
 export const fetchSubmissionMetadata = (submissionId) => {
     const deferred = Q.defer();
 
+    // set the submission ID
+    const store = new StoreSingleton().store;
+    store.dispatch(uploadActions.setSubmissionId(submissionId));
+
     Request.get(kGlobalConstants.API + 'submission_metadata/?submission_id=' + submissionId)
         .end((errFile, res) => {
             if (errFile) {
                 deferred.reject(res);
             }
             else {
+                const response = Object.assign({}, res.body);
+                store.dispatch(uploadActions.setSubmissionPublishStatus(response.publish_status));
                 deferred.resolve(res.body);
             }
         });
@@ -91,6 +97,44 @@ export const fetchSubmissionData = (submissionId) => {
 };
 
 export const fetchStatus = (submissionId) => {
+    const deferred = Q.defer();
+
+    const startTime = new Date().getTime();
+    const store = new StoreSingleton().store;
+
+    Request.get(kGlobalConstants.API + 'check_status/?submission_id=' + submissionId)
+        .end((errFile, res) => {
+            // calculate how long the API call took
+            const endTime = new Date().getTime();
+            const duration = endTime - startTime;
+            // log the API call duration
+            const action = sessionActions.setApiMeta({
+                time: duration
+            });
+            store.dispatch(action);
+
+
+            if (errFile) {
+                let detail = '';
+                if (res.body !== null && res.body.hasOwnProperty('message')) {
+                    detail = res.body.message;
+                }
+
+                deferred.reject({
+                    reason: res.statusCode,
+                    error: errFile,
+                    detail
+                });
+            }
+            else {
+                deferred.resolve(res.body);
+            }
+        });
+
+    return deferred.promise;
+};
+
+const fetchStatusOld = (submissionId) => {
     const deferred = Q.defer();
 
     const startTime = new Date().getTime();
@@ -145,38 +189,40 @@ export const fetchStatus = (submissionId) => {
     return deferred.promise;
 };
 
-const getFileStates = (status) => {
+export const getFileStates = (status) => {
     const output = {};
 
     status.jobs.forEach((item) => {
-        output[item.file_type] = item;
-        output[item.file_type].report = null;
-        output[item.file_type].error_count = 0;
-        output[item.file_type].warning_count = 0;
+        if (item.file_type) {
+            output[item.file_type] = item;
+            output[item.file_type].report = null;
+            output[item.file_type].error_count = 0;
+            output[item.file_type].warning_count = 0;
 
-        // force an error_data array if no field is passed back in the JSON
-        if (!item.hasOwnProperty('error_data')) {
-            output[item.file_type].error_data = [];
-        }
-        else {
-            let count = 0;
-            item.error_data.forEach((error) => {
-                count += parseInt(error.occurrences, 10);
-            });
+            // force an error_data array if no field is passed back in the JSON
+            if (!item.hasOwnProperty('error_data')) {
+                output[item.file_type].error_data = [];
+            }
+            else {
+                let count = 0;
+                item.error_data.forEach((error) => {
+                    count += parseInt(error.occurrences, 10);
+                });
 
-            output[item.file_type].error_count = count;
-        }
+                output[item.file_type].error_count = count;
+            }
 
-        // do the same for warnings
-        if (!item.hasOwnProperty('warning_data')) {
-            output[item.file_type].warning_data = [];
-        }
-        else {
-            let count = 0;
-            item.warning_data.forEach((warning) => {
-                count += parseInt(warning.occurrences, 10);
-            });
-            output[item.file_type].warning_count = count;
+            // do the same for warnings
+            if (!item.hasOwnProperty('warning_data')) {
+                output[item.file_type].warning_data = [];
+            }
+            else {
+                let count = 0;
+                item.warning_data.forEach((warning) => {
+                    count += parseInt(warning.occurrences, 10);
+                });
+                output[item.file_type].warning_count = count;
+            }
         }
     });
 
@@ -225,9 +271,37 @@ const getCrossFileData = (data, type, validKeys) => {
     return output;
 };
 
-export const validateSubmission = (submissionId) => {
+export const checkSubmissionStatus = (submissionId) => {
     const deferred = Q.defer();
 
+    // TODO: figure all of this out. Do we still need it?
+    // determine the expected cross file validation keys and metadata
+    const store = new StoreSingleton().store;
+    const possiblePairs = determineExpectedPairs();
+    store.dispatch(uploadActions.setExpectedCrossPairs(possiblePairs));
+
+    const validKeys = [];
+    possiblePairs.forEach((pair) => {
+        validKeys.push(pair.key);
+    });
+
+    fetchStatus(submissionId)
+        .then((statusRes) => {
+            deferred.resolve(statusRes);
+        })
+        .catch((err) => {
+            const response = Object.assign({}, err.body);
+            response.httpStatus = err.status;
+            deferred.reject(response);
+        });
+
+    return deferred.promise;
+};
+
+const validateSubmissionOld = (submissionId) => {
+    const deferred = Q.defer();
+
+    // TODO: figure all of this out. Do we still need it?
     // set the submission ID
     const store = new StoreSingleton().store;
     store.dispatch(uploadActions.setSubmissionId(submissionId));
