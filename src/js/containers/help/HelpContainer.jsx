@@ -51,12 +51,6 @@ class HelpPageContainer extends React.Component {
         }
     }
 
-    checkHelpOnly() {
-        this.setState({
-            helpOnly: this.props.session.user.helpOnly
-        });
-    }
-
     setHelpRoute(incomingProps) {
         if (incomingProps.route.type !== this.state.type || incomingProps.route.path !== this.state.path) {
             this.setState({
@@ -64,6 +58,12 @@ class HelpPageContainer extends React.Component {
                 path: incomingProps.route.path.toLowerCase()
             });
         }
+    }
+
+    checkHelpOnly() {
+        this.setState({
+            helpOnly: this.props.session.user.helpOnly
+        });
     }
 
     render() {

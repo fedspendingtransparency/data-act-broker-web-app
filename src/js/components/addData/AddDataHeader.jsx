@@ -9,23 +9,11 @@ import moment from 'moment';
 import * as ReviewHelper from '../../helpers/reviewHelper';
 
 const propTypes = {
-    params: PropTypes.object,
-    agencyName: PropTypes.string,
-    formattedTime: PropTypes.string,
-    submissionID: PropTypes.string,
-    timePeriodLabel: PropTypes.string,
-    title: PropTypes.string,
-    load: PropTypes.bool
+    submissionID: PropTypes.string
 };
 
 const defaultProps = {
-    title: 'Upload & Validate a New Submission',
-    params: null,
-    agencyName: '',
-    formattedTime: '',
-    submissionID: '',
-    timePeriodLabel: '',
-    load: false
+    submissionID: ''
 };
 
 export default class AddDataHeader extends React.Component {
@@ -43,7 +31,7 @@ export default class AddDataHeader extends React.Component {
 
     componentDidMount() {
         this.isUnmounted = false;
-        if (this.props.submissionID !== null && !this.props.load) {
+        if (this.props.submissionID !== null) {
             this.loadData(this.props.submissionID);
         }
     }
@@ -63,7 +51,7 @@ export default class AddDataHeader extends React.Component {
         if (submissionID === null || submissionID === '') {
             return;
         }
-        ReviewHelper.fetchStatus(submissionID)
+        ReviewHelper.fetchSubmissionMetadata(submissionID)
             .then((data) => {
                 const tmpData = data;
                 tmpData.ready = true;
@@ -84,9 +72,9 @@ export default class AddDataHeader extends React.Component {
                 <div className="last-updated">
                     Last Saved: {formattedTime}
                     <br />
-                    {this.state.agencyName}
+                    {this.state.agency_name}
                     <br />
-                    Reporting Period: {this.state.reporting_period_start_date}
+                    Reporting Period: {this.state.reporting_period}
                 </div>
             );
         }
@@ -96,7 +84,9 @@ export default class AddDataHeader extends React.Component {
                 <div className="container">
                     <div className="row usa-da-content-add-data usa-da-page-title flex-center-content-only-height">
                         <div className="col-md-10 mt-40 mb-20">
-                            <div className="display-2" data-contentstart="start" tabIndex={-1}>{this.props.title}</div>
+                            <div className="display-2" data-contentstart="start" tabIndex={-1}>
+                                Upload & Validate a New Submission
+                            </div>
                         </div>
                         <div className="col-md-2">
                             {submissionContext}

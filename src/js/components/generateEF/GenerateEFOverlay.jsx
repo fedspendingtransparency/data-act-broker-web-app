@@ -9,7 +9,6 @@ import CommonOverlay from '../SharedComponents/overlays/CommonOverlay';
 import LoadingBauble from '../SharedComponents/overlays/LoadingBauble';
 
 import * as PermissionsHelper from '../../helpers/permissionsHelper';
-import * as ReviewHelper from '../../helpers/reviewHelper';
 
 const propTypes = {
     generateFiles: PropTypes.func,
@@ -17,7 +16,8 @@ const propTypes = {
     session: PropTypes.object,
     submissionID: PropTypes.string,
     hasErrors: PropTypes.bool,
-    isReady: PropTypes.bool
+    isReady: PropTypes.bool,
+    agency_name: PropTypes.string
 };
 
 const defaultProps = {
@@ -26,38 +26,11 @@ const defaultProps = {
     session: null,
     submissionID: '',
     hasErrors: false,
-    isReady: false
+    isReady: false,
+    agency_name: ''
 };
 
 export default class GenerateEFOverlay extends React.Component {
-    constructor(props) {
-        super(props);
-
-        this.state = {};
-
-        this.isUnmounted = false;
-    }
-
-    componentDidMount() {
-        this.isUnmounted = false;
-        if (this.props.submissionID !== null) {
-            ReviewHelper.fetchStatus(this.props.submissionID)
-                .then((data) => {
-                    const tmpData = data;
-                    tmpData.ready = true;
-                    if (!this.isUnmounted) {
-                        this.setState(tmpData);
-                    }
-                })
-                .catch((error) => {
-                    console.error(error);
-                });
-        }
-    }
-
-    componentWillUnmount() {
-        this.isUnmounted = true;
-    }
     clickedNext(e) {
         e.preventDefault();
         this.props.nextPage();
@@ -105,7 +78,7 @@ export default class GenerateEFOverlay extends React.Component {
             nextDisabled = true;
         }
 
-        if (!PermissionsHelper.checkAgencyPermissions(this.props.session, this.state.agency_name)) {
+        if (!PermissionsHelper.checkAgencyPermissions(this.props.session, this.props.agency_name)) {
             buttonClass = '-disabled';
             buttonDisabled = true;
         }
