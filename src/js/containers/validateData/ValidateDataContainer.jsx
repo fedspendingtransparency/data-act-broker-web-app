@@ -72,13 +72,7 @@ class ValidateDataContainer extends React.Component {
         // check if the submission state changed, indicating a re-upload
         if (prevProps.submission.state !== this.props.submission.state) {
             if (this.props.submission.state === "prepare") {
-                this.setState({
-                    validationFinished: false,
-                    validationFailed: false,
-                    fileValidationsDone: [false, false, false]
-                }, () => {
-                    this.validateSubmission();
-                });
+                this.clearValidationState();
             }
         }
 
@@ -112,6 +106,16 @@ class ValidateDataContainer extends React.Component {
         }
     }
 
+    clearValidationState() {
+        this.setState({
+            validationFinished: false,
+            validationFailed: false,
+            fileValidationsDone: [false, false, false]
+        }, () => {
+            this.validateSubmission();
+        });
+    }
+
     reset() {
         this.setState({
             finishedPageLoad: false,
@@ -143,7 +147,7 @@ class ValidateDataContainer extends React.Component {
             this.setState({
                 validationFinished: true,
                 validationFailed: hasFailed
-            })
+            });
         }
     }
 
@@ -176,7 +180,6 @@ class ValidateDataContainer extends React.Component {
 
                 // if there were any changes, we want to get all the new job statuses
                 if (fileStatusChanged) {
-                    const tmpValidationFiles = this.props.submission.validation;
                     ReviewHelper.fetchSubmissionData(this.props.submissionID)
                         .then((response) => {
                             const fileStates = ReviewHelper.getFileStates(response);
@@ -188,7 +191,7 @@ class ValidateDataContainer extends React.Component {
                                     fileStates[singleFileValidations[i]] = {
                                         job_status: "running",
                                         file_status: "incomplete"
-                                    }
+                                    };
                                 }
                             }
                             this.props.setValidation(fileStates);
