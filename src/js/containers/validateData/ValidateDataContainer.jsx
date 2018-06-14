@@ -48,7 +48,8 @@ class ValidateDataContainer extends React.Component {
             validationFinished: false,
             notYours: false,
             serverError: null,
-            agencyName: null
+            agencyName: null,
+            fileValidationsDone: [false, false, false]
         };
 
         this.isUnmounted = false;
@@ -73,11 +74,10 @@ class ValidateDataContainer extends React.Component {
             if (this.props.submission.state === "prepare") {
                 this.setState({
                     validationFinished: false,
-                    validationFailed: false
+                    validationFailed: false,
+                    fileValidationsDone: [false, false, false]
                 }, () => {
-                    // setTimeout(() => {
-                        this.validateSubmission();
-                    // }, timerDuration * 100);
+                    this.validateSubmission();
                 });
             }
         }
@@ -118,40 +118,33 @@ class ValidateDataContainer extends React.Component {
             validationFailed: false,
             validationFinished: false,
             notYours: false,
-            serverError: null
+            serverError: null,
+            fileValidationsDone: [false, false, false]
         }, () => {
             this.validateSubmission();
         });
     }
 
-    processData(callback) {
-        let isFinished = true;
+    checkFinished(fileStatuses, data) {
         let hasFailed = false;
-
-        // iterate through the data to look for header errors, validation failures, and incomplete validations
-        for (const key of singleFileValidations) {
-            if (!this.props.submission.validation.hasOwnProperty(key)) {
-                // required files don't exist, fail
-                this.setState({
-                    validationFinished: false
-                });
-                return;
-            }
-
-            const item = this.props.submission.validation[key];
-            if (item.job_status === 'failed') {
-                hasFailed = true;
-            }
-            if ((item.job_status !== 'finished' && item.job_status !== 'invalid')
-                || item.file_status === 'incomplete') {
-                isFinished = false;
-            }
+        // if any file status is false, that means we need to check again because we aren't done
+        if (fileStatuses.includes(false)) {
+            statusTimer = setTimeout(() => {
+                this.validateSubmission();
+            }, timerDuration * 1000);
         }
-
-        this.setState({
-            validationFailed: hasFailed,
-            validationFinished: isFinished
-        }, callback);
+        else {
+            // if any of the statuses are "failed" then the submission has failed for some reason
+            singleFileValidations.forEach((fileType) => {
+                if (data[fileType].status === 'failed') {
+                    hasFailed = true;
+                }
+            });
+            this.setState({
+                validationFinished: true,
+                validationFailed: hasFailed
+            })
+        }
     }
 
     validateSubmission() {
@@ -166,51 +159,49 @@ class ValidateDataContainer extends React.Component {
                     return;
                 }
 
-                // see if there are any validations still running.
-                let allDone = true;
-                singleFileValidations.forEach((fileType) => {
-                    if (data[fileType].status === 'running' || data[fileType].status === 'uploading') {
-                        allDone = false;
-                    }
-                });
-
-                this.setState({ finishedPageLoad: true });
+                // this.setState({ finishedPageLoad: true });
                 this.props.setSubmissionState('review');
 
-                const tmpValidationFiles = this.props.submission.validation;
-                let hasFailed = false;
-                singleFileValidations.forEach((fileType) => {
-                    if (!allDone) {
-                        tmpValidationFiles[fileType] = {
-                            job_status: 'running',
-                            file_status: 'incomplete',
-                            error_data: [],
-                            warning_data: []
-                        };
+                // see if there are any validations still running.
+                let fileStatusChanged = false;
+                const fileStatuses = this.state.fileValidationsDone.slice();
+                for (let i = 0; i < singleFileValidations.length; i++) {
+                    const currFile = data[singleFileValidations[i]];
+                    // if a file wasn't done last time this check ran but is this time, the status has "changed"
+                    if (!fileStatuses[i] && currFile.status !== 'running' && currFile.status !== 'uploading') {
+                        fileStatusChanged = true;
+                        fileStatuses[i] = true;
                     }
-                    else {
-                        if (data[fileType]['status'] === 'failed') {
-                            hasFailed = true;
-                        }
-                    }
-                });
+                }
 
-                if (allDone) {
-                    this.setState({
-                        validationFinished: true,
-                        validationFailed: hasFailed
-                    });
-
+                // if there were any changes, we want to get all the new job statuses
+                if (fileStatusChanged) {
+                    const tmpValidationFiles = this.props.submission.validation;
                     ReviewHelper.fetchSubmissionData(this.props.submissionID)
                         .then((response) => {
-                            this.props.setValidation(ReviewHelper.getFileStates(response));
+                            const fileStates = ReviewHelper.getFileStates(response);
+                            // sometimes the delay between checking status and getting the jobs gives the jobs time
+                            // to finish when we think they're still running, this is to make sure the jobs we think
+                            // are still running show as such so there is no visual discrepancy
+                            for (let i = 0; i < fileStatuses.length; i++) {
+                                if (!fileStatuses[i]) {
+                                    fileStates[singleFileValidations[i]] = {
+                                        job_status: "running",
+                                        file_status: "incomplete"
+                                    }
+                                }
+                            }
+                            this.props.setValidation(fileStates);
+                            this.setState({
+                                fileValidationsDone: fileStatuses,
+                                finishedPageLoad: true
+                            }, () => {
+                                this.checkFinished(fileStatuses, data);
+                            });
                         });
                 }
                 else {
-                    this.props.setValidation(tmpValidationFiles);
-                    statusTimer = setTimeout(() => {
-                        this.validateSubmission();
-                    }, timerDuration * 1000);
+                    this.checkFinished(fileStatuses, data);
                 }
             })
             .catch((err) => {
