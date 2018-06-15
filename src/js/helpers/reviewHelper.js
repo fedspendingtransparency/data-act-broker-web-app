@@ -58,6 +58,55 @@ const determineExpectedPairs = () => {
     return output;
 };
 
+export const getCrossFileData = (data, type) => {
+    const output = {};
+
+    let dataType = 'error_data';
+    if (type === 'warnings') {
+        dataType = 'warning_data';
+    }
+
+    const possiblePairs = determineExpectedPairs();
+
+    const validKeys = [];
+    possiblePairs.forEach((pair) => {
+        validKeys.push(pair.key);
+    });
+
+    for (const index in data[dataType]) {
+        if (data[dataType].hasOwnProperty(index)) {
+            // fetch the error object
+            const item = data[dataType][index];
+
+            // generate possible key names for this pair of target/source files
+            const keyNames = [item.target_file + '-' + item.source_file, item.source_file + '-' + item.target_file];
+            // determine which is the correct name
+            let key = keyNames[0];
+            if (_.indexOf(validKeys, key) === -1) {
+                key = keyNames[1];
+            }
+
+            // check if the key is a valid cross-file pairing we care about
+            if (_.indexOf(validKeys, key) === -1) {
+                // not a valid pair
+                continue;
+            }
+
+            // check if we've already seen an error for this pairing
+            if (output.hasOwnProperty(key)) {
+                // this pair already exists, so append the error to the pair's array
+                output[key].push(item);
+            }
+            else {
+                // doesn't exist yet, so create an array with this error
+                output[key] = [item];
+            }
+        }
+    }
+
+    return output;
+};
+
 export const fetchSubmissionMetadata = (submissionId) => {
     const deferred = Q.defer();
 
@@ -80,10 +129,15 @@ export const fetchSubmissionMetadata = (submissionId) => {
     return deferred.promise;
 };
 
-export const fetchSubmissionData = (submissionId) => {
+export const fetchSubmissionData = (submissionId, type = '') => {
     const deferred = Q.defer();
 
-    Request.get(kGlobalConstants.API + 'submission_data/?submission_id=' + submissionId)
+    let typeFilter = '';
+    if (type) {
+        typeFilter = '&type=' + type;
+    }
+
+    Request.get(kGlobalConstants.API + 'submission_data/?submission_id=' + submissionId + typeFilter)
         .end((errFile, res) => {
             if (errFile) {
                 deferred.reject(res);
@@ -96,13 +150,24 @@ export const fetchSubmissionData = (submissionId) => {
     return deferred.promise;
 };
 
-export const fetchStatus = (submissionId) => {
+export const fetchStatus = (submissionId, type = '') => {
     const deferred = Q.defer();
 
-    const startTime = new Date().getTime();
-    const store = new StoreSingleton().store;
+    let typeFilter = '';
+    if (type) {
+        typeFilter = '&type=' + type;
+    }
 
-    Request.get(kGlobalConstants.API + 'check_status/?submission_id=' + submissionId)
+    const startTime = new Date().getTime();
+    // set submission ID
+    const store = new StoreSingleton().store;
+    store.dispatch(uploadActions.setSubmissionId(submissionId));
+
+    // set cross-file pairs
+    const possiblePairs = determineExpectedPairs();
+    store.dispatch(uploadActions.setExpectedCrossPairs(possiblePairs));
+
+    Request.get(kGlobalConstants.API + 'check_status/?submission_id=' + submissionId + typeFilter)
         .end((errFile, res) => {
             // calculate how long the API call took
             const endTime = new Date().getTime();
@@ -128,61 +193,6 @@ export const fetchStatus = (submissionId) => {
             }
             else {
                 deferred.resolve(res.body);
-            }
-        });
-
-    return deferred.promise;
-};
-
-const fetchStatusOld = (submissionId) => {
-    const deferred = Q.defer();
-
-    const startTime = new Date().getTime();
-    const store = new StoreSingleton().store;
-
-    Request.post(kGlobalConstants.API + 'check_status/')
-        .send({ submission_id: submissionId })
-        .end((errFile, res) => {
-            // calculate how long the API call took
-            const endTime = new Date().getTime();
-            const duration = endTime - startTime;
-            // log the API call duration
-            const action = sessionActions.setApiMeta({
-                time: duration
-            });
-            store.dispatch(action);
-
-
-            if (errFile) {
-                let detail = '';
-                if (res.body !== null && res.body.hasOwnProperty('message')) {
-                    detail = res.body.message;
-                }
-
-                deferred.reject({
-                    reason: res.statusCode,
-                    error: errFile,
-                    detail
-                });
-            }
-            else {
-                // return only jobs related to CSV validation
-                const response = Object.assign({}, res.body);
-                store.dispatch(uploadActions.setSubmissionPublishStatus(response.publish_status));
-                const csvJobs = [];
-                let crossFileJob = {};
-                response.jobs.forEach((job) => {
-                    if (job.job_type === 'csv_record_validation') {
-                        csvJobs.push(job);
-                    }
-                    else if (job.job_type === 'validation') {
-                        crossFileJob = job;
-                    }
-                });
-
-                response.jobs = csvJobs;
-                response.crossFile = crossFileJob;
-                deferred.resolve(response);
             }
         });
 
@@ -229,48 +239,6 @@ export const getFileStates = (status) => {
     return output;
 };
 
-const getCrossFileData = (data, type, validKeys) => {
-    const output = {};
-
-    let dataType = 'error_data';
-    if (type === 'warnings') {
-        dataType = 'warning_data';
-    }
-
-    for (const index in data.crossFile[dataType]) {
-        if (data.crossFile[dataType].hasOwnProperty(index)) {
-            // fetch the error object
-            const item = data.crossFile[dataType][index];
-
-            // generate possible key names for this pair of target/source files
-            const keyNames = [item.target_file + '-' + item.source_file, item.source_file + '-' + item.target_file];
-            // determine which is the correct name
-            let key = keyNames[0];
-            if (_.indexOf(validKeys, key) === -1) {
-                key = keyNames[1];
-            }
-
-            // check if the key is a valid cross-file pairing we care about
-            if (_.indexOf(validKeys, key) === -1) {
-                // not a valid pair
-                continue;
-            }
-
-            // check if we've already seen an error for this pairing
-            if (output.hasOwnProperty(key)) {
-                // this pair already exists, so append the error to the pair's array
-                output[key].push(item);
-            }
-            else {
-                // doesn't exist yet, so create an array with this error
-                output[key] = [item];
-            }
-        }
-    }
-
-    return output;
-};
-
 export const checkSubmissionStatus = (submissionId) => {
     const deferred = Q.defer();
 
@@ -288,59 +256,6 @@ export const checkSubmissionStatus = (submissionId) => {
     fetchStatus(submissionId)
         .then((statusRes) => {
             deferred.resolve(statusRes);
-        })
-        .catch((err) => {
-            const response = Object.assign({}, err.body);
-            response.httpStatus = err.status;
-            deferred.reject(response);
-        });
-
-    return deferred.promise;
-};
-
-const validateSubmissionOld = (submissionId) => {
-    const deferred = Q.defer();
-
-    // TODO: figure all of this out. Do we still need it?
-    // set the submission ID
-    const store = new StoreSingleton().store;
-    store.dispatch(uploadActions.setSubmissionId(submissionId));
-    // determine the expected cross file validation keys and metadata
-    const possiblePairs = determineExpectedPairs();
-    store.dispatch(uploadActions.setExpectedCrossPairs(possiblePairs));
-
-    const validKeys = [];
-    possiblePairs.forEach((pair) => {
-        validKeys.push(pair.key);
-    });
-
-    let status;
-    let agencyName;
-    let crossFile;
-    let crossFileState = {};
-
-    fetchStatus(submissionId)
-        .then((statusRes) => {
-            status = getFileStates(statusRes);
-            agencyName = statusRes.agency_name;
-            crossFile = {
-                errors: getCrossFileData(statusRes, 'errors', validKeys),
-                warnings: getCrossFileData(statusRes, 'warnings', validKeys)
-            };
-
-            crossFileState = {
-                job: statusRes.crossFile.job_status,
-                file: statusRes.crossFile.file_status
-            };
-
-            deferred.resolve({
-                file: status,
-                agencyName,
-                crossFile: {
-                    state: crossFileState,
-                    data: crossFile
-                }
-            });
         })
         .catch((err) => {
             const response = Object.assign({}, err.body);

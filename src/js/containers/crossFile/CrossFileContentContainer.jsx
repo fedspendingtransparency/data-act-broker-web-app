@@ -4,10 +4,9 @@
 */
 
 import React, { PropTypes } from 'react';
+import { hashHistory } from 'react-router';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
-import { hashHistory } from 'react-router';
-import _ from 'lodash';
 
 import * as uploadActions from '../../redux/actions/uploadActions';
 import { kGlobalConstants } from '../../GlobalConstants';
@@ -52,8 +51,15 @@ class CrossFileContentContainer extends React.Component {
 
     componentDidMount() {
         this.isUnmounted = false;
+        this.setAgencyName(this.props);
         this.loadData();
         this.startTimer();
+    }
+
+    componentWillReceiveProps(nextProps) {
+        if (this.props.submissionID !== nextProps.submissionID) {
+            this.setAgencyName(nextProps);
+        }
     }
 
     componentWillUnmount() {
@@ -62,6 +68,20 @@ class CrossFileContentContainer extends React.Component {
         if (this.dataTimer) {
             window.clearInterval(this.dataTimer);
             this.dataTimer = null;
+        }
+    }
+
+    setAgencyName(givenProps) {
+        if (givenProps.submissionID !== null) {
+            ReviewHelper.fetchSubmissionMetadata(givenProps.submissionID)
+                .then((data) => {
+                    if (!this.isUnmounted) {
+                        this.setState({ agencyName: data.agency_name });
+                    }
+                })
+                .catch((error) => {
+                    console.error(error);
+                });
         }
     }
 
@@ -86,87 +106,56 @@ class CrossFileContentContainer extends React.Component {
         }
     }
 
-    crossFileComplete(data) {
-        // check if the validations are complete
-        let crossFileDone = false;
-
-        // check if cross file is done
-        if (data.crossFile.state.job === 'finished' || data.crossFile.state.job === 'invalid') {
-            crossFileDone = true;
+    hasEarlierErrors(data) {
+        let errors = '';
+        if (data.appropriations.has_errors || data.program_activity.has_errors || data.award_financial.has_errors) {
+            errors = 'validation';
         }
-
-        // check if cross file file status is done
-        const completedStatuses = ['complete', 'header_error', 'unknown_error', 'single_row_error', 'job_error'];
-        if (_.indexOf(completedStatuses, data.crossFile.state.file) === -1) {
-            crossFileDone = false;
+        else if (data.award_procurement.has_errors || data.award.has_errors) {
+            errors = 'generation';
         }
-
-        return crossFileDone;
-    }
-
-    individualPassedValidation(data) {
-        let state = 'pending';
-
-        // check if the individual files are done
-        let allPassed = true;
-        for (const key in data.file) {
-            if (data.file.hasOwnProperty(key)) {
-                const jobStatus = data.file[key].job_status;
-                const errorType = data.file[key].error_type;
-
-                if (jobStatus === 'invalid' || (jobStatus === 'finished' && errorType !== 'none')) {
-                    state = 'errors';
-                    allPassed = false;
-                    break;
-                }
-                else if (jobStatus !== 'finished') {
-                    allPassed = false;
-
-                    if (jobStatus === 'waiting') {
-                        // there are files that are still missing
-                        state = 'errors';
-                    }
-                }
-            }
-        }
-
-        if (state === 'pending' && allPassed) {
-            state = 'passed';
-        }
-
-        return state;
+        return errors;
     }
 
     loadData() {
         this.props.setSubmissionState('empty');
-        ReviewHelper.validateSubmission(this.props.submissionID)
+        ReviewHelper.fetchStatus(this.props.submissionID)
             .then((data) => {
-                let done = false;
-                this.setState({
-                    agencyName: data.agencyName
-                });
-                // check if invididual files have validation errors
-                const individualState = this.individualPassedValidation(data);
-                if (individualState === 'passed') {
-                    // everything finished and passed
-                    done = true;
-                }
-                else if (individualState === 'errors') {
-                    // there are individual errors, return to file validation screen
-                    // stop the timer
-                    if (this.dataTimer) {
-                        window.clearInterval(this.dataTimer);
-                        this.dataTimer = null;
-                    }
+                const crossInfo = data.cross;
+                if (crossInfo.status === 'ready') {
+                    const earlierErrors = this.hasEarlierErrors(data);
+                    if (earlierErrors) {
+                        if (this.dataTimer) {
+                            window.clearInterval(this.dataTimer);
+                            this.dataTimer = null;
+                        }
 
-                    // redirect
-                    hashHistory.push('/validateData/' + this.props.submissionID);
+                        if (earlierErrors === 'validation') {
+                            hashHistory.push('/validateData/' + this.props.submissionID);
+                        }
+                        else {
+                            hashHistory.push('/generateFiles/' + this.props.submissionID);
+                        }
+                    }
                 }
                 // individual files are done and valid
-                if (done && this.crossFileComplete(data)) {
+                if (crossInfo.status === 'finished' || crossInfo.status === 'failed') {
                     // stop the timer once the validations are complete
-                    this.props.setSubmissionState('crossFile');
-                    this.props.setCrossFile(data.crossFile.data);
+                    ReviewHelper.fetchSubmissionData(this.props.submissionID, 'cross')
+                        .then((response) => {
+                            let crossJob = null;
+                            for (let i = 0; i < response.jobs.length; i++) {
+                                if (response.jobs[i].job_type === 'validation') {
+                                    crossJob = response.jobs[i];
+                                }
+                            }
+                            const crossFile = {
+                                errors: ReviewHelper.getCrossFileData(crossJob, 'errors'),
+                                warnings: ReviewHelper.getCrossFileData(crossJob, 'warnings')
+                            };
+                            this.props.setSubmissionState('crossFile');
+                            this.props.setCrossFile(crossFile);
+                        });
 
                     if (this.dataTimer) {
                         window.clearInterval(this.dataTimer);
