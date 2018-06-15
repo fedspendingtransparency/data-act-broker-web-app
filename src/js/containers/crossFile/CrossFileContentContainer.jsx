@@ -143,15 +143,10 @@ class CrossFileContentContainer extends React.Component {
                     // stop the timer once the validations are complete
                     ReviewHelper.fetchSubmissionData(this.props.submissionID, 'cross')
                         .then((response) => {
-                            let crossJob = null;
-                            for (let i = 0; i < response.jobs.length; i++) {
-                                if (response.jobs[i].job_type === 'validation') {
-                                    crossJob = response.jobs[i];
-                                }
-                            }
+                            // there is only ever one job returned when the type is specified, simply use that one
                             const crossFile = {
-                                errors: ReviewHelper.getCrossFileData(crossJob, 'errors'),
-                                warnings: ReviewHelper.getCrossFileData(crossJob, 'warnings')
+                                errors: ReviewHelper.getCrossFileData(response.jobs[0], 'errors'),
+                                warnings: ReviewHelper.getCrossFileData(response.jobs[0], 'warnings')
                             };
                             this.props.setSubmissionState('crossFile');
                             this.props.setCrossFile(crossFile);
