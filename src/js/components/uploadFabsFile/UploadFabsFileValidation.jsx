@@ -50,17 +50,7 @@ class UploadFabsFileValidation extends React.Component {
         this.state = {
             agency: "",
             submissionID: this.props.params.submissionID ? this.props.params.submissionID : 0,
-            fabs: {
-                startDate: null,
-                endDate: null,
-                error: {
-                    show: false,
-                    header: "",
-                    description: ""
-                },
-                valid: false,
-                status: ""
-            },
+            fabsFile: {},
             cgac_code: "",
             jobResults: { fabs: {} },
             headerErrors: false,
@@ -81,14 +71,18 @@ class UploadFabsFileValidation extends React.Component {
 
     componentDidMount() {
         this.isUnmounted = false;
+        if (this.state.submissionID) {
+            this.setSubmissionMetadata(this.state.submissionID);
+            this.checkFileStatus(this.state.submissionID);
+        }
     }
 
     componentWillReceiveProps(nextProps) {
-        if (this.state.agency === "" || nextProps.params.submissionID !== this.state.submissionID) {
+        if (nextProps.params.submissionID !== this.state.submissionID) {
             this.setState({
                 submissionID: nextProps.params.submissionID
             });
-            this.getSubmissionMetadata(nextProps.params.submissionID);
+            this.setSubmissionMetadata(nextProps.params.submissionID);
             this.checkFileStatus(nextProps.params.submissionID);
         }
     }
@@ -97,12 +91,15 @@ class UploadFabsFileValidation extends React.Component {
         this.isUnmounted = true;
     }
 
-    getSubmissionMetadata(submissionID) {
+    setSubmissionMetadata(submissionID) {
         ReviewHelper.fetchSubmissionMetadata(submissionID)
             .then((response) => {
                 this.setState({
                     metadata: response,
-                    agency: response.agency_name
+                    agency: response.agency_name,
+                    cgac_code: response.cgac_code,
+                    published: response.publish_status,
+                    fabs_meta: response.fabs_meta
                 });
             })
             .catch((err) => {
@@ -150,36 +147,45 @@ class UploadFabsFileValidation extends React.Component {
 
     checkFileStatus(submissionID) {
         // callback to check file status
-        ReviewHelper.fetchSubmissionMetadata(submissionID)
-            .then((metadataResponse) => {
+        ReviewHelper.fetchStatus(submissionID)
+            .then((response) => {
                 if (this.isUnmounted) {
                     return;
                 }
 
-                let isSuccessful = false;
-                if (metadataResponse.publish_status !== "publishing" && this.dataTimer) {
-                    window.clearInterval(this.dataTimer);
-                    this.dataTimer = null;
-                    isSuccessful = true;
-                }
-                else if (!this.dataTimer && metadataResponse.publish_status === "publishing") {
-                    this.checkFile(submissionID);
-                    return;
-                }
+                const fabsData = response.fabs;
+                if (fabsData.status !== 'uploading' && fabsData.status !== 'running') {
+                    let showSuccess = false;
+                    if (this.dataTimer) {
+                        window.clearInterval(this.dataTimer);
+                        this.dataTimer = null;
+                        showSuccess = true;
+                    }
 
-                ReviewHelper.fetchSubmissionData(submissionID)
-                    .then((dataResponse) => {
-                        this.setState({
-                            jobResults: { fabs: dataResponse.jobs[0] },
-                            cgac_code: metadataResponse.cgac_code,
-                            published: metadataResponse.publish_status,
-                            error: 0,
-                            fabs_meta: metadataResponse.fabs_meta,
-                            showSuccess: isSuccessful
-                        }, () => {
-                            this.parseJobStates(dataResponse);
+                    ReviewHelper.fetchSubmissionMetadata(submissionID)
+                        .then((metadataResponse) => {
+                            ReviewHelper.fetchSubmissionData(submissionID)
+                                .then((dataResponse) => {
+                                    const fabsJob = ReviewHelper.getFileStates(dataResponse).fabs;
+                                    this.setState({
+                                        jobResults: { fabs: fabsJob },
+                                        error: 0,
+                                        showSuccess: showSuccess,
+                                        published: metadataResponse.publish_status,
+                                        fabs_meta: metadataResponse.fabs_meta,
+                                        validationFinished: true,
+                                        headerErrors: fabsJob.error_type === 'header_errors'
+                                    });
+                                });
                         });
-                    });
+                }
+                else if (!this.dataTimer) {
+                    window.setTimeout(() => {
+                        if (submissionID) {
+                            this.checkFileStatus(submissionID);
+                        }
+                    }, timerDuration * 1000);
+                }
             })
             .catch((err) => {
                 if (err.status === 400) {
@@ -239,65 +245,6 @@ class UploadFabsFileValidation extends React.Component {
         }
     }
 
-    validateSubmission(item) {
-        ReviewHelper.validateFabsSubmission(this.props.params.submissionID)
-            .then((response) => {
-                this.setState({
-                    fabs: item,
-                    validationFinished: true,
-                    headerErrors: false,
-                    jobResults: response
-                });
-            });
-    }
-
-    parseJobStates(data) {
-        let runCheck = true;
-
-        if (data.jobs[0].job_status === "failed" || data.jobs[0].job_status === "invalid") {
-            // don't run the check again if it failed
-            runCheck = false;
-
-            // make a clone of the file"s react state
-            const item = Object.assign({ }, this.state.fabs);
-            item.status = "failed";
-
-            if (data.jobs[0].error_type && data.jobs[0].error_type === "header_errors") {
-                this.setState({
-                    fabs: item,
-                    validationFinished: true,
-                    headerErrors: true
-                });
-            }
-            else {
-                this.validateSubmission(item);
-            }
-        }
-        else if (data.jobs[0].job_status === "finished") {
-            // don't run the check again if it's done
-            runCheck = false;
-
-            // display dowload buttons
-            // make a clone of the file's react state
-            const item = Object.assign({}, this.state.fabs);
-            item.status = "done";
-            this.validateSubmission(item);
-        }
-
-        if (this.isUnmounted) {
-            return;
-        }
-
-        if (runCheck && !this.isUnmounted) {
-            // wait 5 seconds and check the file status again
-            window.setTimeout(() => {
-                if (this.props.params.submissionID) {
-                    this.checkFileStatus(this.props.params.submissionID);
-                }
-            }, timerDuration * 1000);
-        }
-    }
-
     submitFabs() {
         this.setState({ submit: false, published: 'publishing', showPublish: false },
             () => {
@@ -337,7 +284,7 @@ class UploadFabsFileValidation extends React.Component {
         // upload specified file
         this.props.setSubmissionState("uploading");
         const submission = this.props.submission;
-        submission.files.fabs = this.state.fabs;
+        submission.files.fabs = {};
         submission.files.fabs.file = item;
         submission.sub = this.state.submissionID;
         submission.meta.subTierAgency = this.state.agency;
