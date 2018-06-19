@@ -286,8 +286,6 @@ class UploadFabsFileValidation extends React.Component {
         const submission = this.props.submission;
         submission.files.fabs = {};
         submission.files.fabs.file = item;
-        submission.sub = this.state.submissionID;
-        submission.meta.subTierAgency = this.state.agency;
 
         // reset file and job status
         const currentResults = this.state.jobResults;
