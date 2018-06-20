@@ -27,8 +27,8 @@ export default class LoadingPage extends React.Component {
             agency_name: '--',
             reporting_period_start_date: null,
             reporting_period_end_date: null,
-            number_of_errors: null,
             number_of_rows: null,
+            number_of_warnings: null,
             created_on: null,
             ready: false,
             total_obligations: 0,
@@ -42,7 +42,7 @@ export default class LoadingPage extends React.Component {
                 <div className="usa-da-site_wrap">
                     <div className="usa-da-page-content">
                         <Navbar activeTab="submissionGuide" type={this.props.route.type} />
-                        <AddDataHeader submissionID={this.props.submissionID} load={false} />
+                        <AddDataHeader submissionID={this.props.submissionID} />
                         <ReviewDataContent {...this.props} data={dummy} submissionID={this.props.submissionID} />
                     </div>
                 </div>

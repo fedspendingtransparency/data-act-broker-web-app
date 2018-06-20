@@ -5,7 +5,7 @@
 
 import React, { PropTypes } from 'react';
 
-import * as FileHelper from '../../helpers/generateFilesHelper';
+import * as ReviewHelper from '../../helpers/reviewHelper';
 
 const propTypes = {
     submissionID: PropTypes.string
@@ -27,7 +27,7 @@ export default class HistoryTable extends React.Component {
     }
 
     componentDidMount() {
-        FileHelper.fetchSubmissionMetadata(this.props.submissionID)
+        ReviewHelper.fetchSubmissionMetadata(this.props.submissionID)
             .then((response) => {
                 this.setState({ metadata: response });
             })
@@ -51,10 +51,10 @@ export default class HistoryTable extends React.Component {
                     <div className="col-xs-6">
                         <p className="metadata">Agency: {this.state.metadata.agency_name}</p>
                         <p className="metadata">
-                            Reporting Period Start: {this.state.metadata.reporting_period_start_date}
+                            Reporting Period Start: {this.state.metadata.reporting_period}
                         </p>
                         <p className="metadata">
-                            Reporting Period End: {this.state.metadata.reporting_period_end_date}
+                            Reporting Period End: {this.state.metadata.reporting_period}
                         </p>
                     </div>
                     <div className="col-xs-6">
