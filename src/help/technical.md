@@ -1,11 +1,11 @@
-#### June 6, 2018{section=technical}
+### June 19, 2018
 
 In this release, here is a list of technical changes that may require infrastructure or database updates, or represents additional functionality.
 
-* SQL validations updates corresponding with DAIMS v1.2 mop-up tasks
-* Updates to configuration files to support DAIMS v1.2 mop-up tasks
-* Alembic Migration for `SQSMockQueue` to include a file generation agency code
-* Updated Validator application to handle file generation
-* Updated `initialize.py`. Adding additional argument  to make a separate CFDA loading process for improve tracking data loads
-
-
+* Setup the local developer environment to use Docker containers
+* New API endpoints
+  * /v1/revalidation_threshold/ 
+  * /v1/submission_data/
+* USPS download script exits with status code of 3 and does not update the date when no data is found.
+* Updated initialize.py to separate out the country codes from the “domain data” load.
+* Always update a user’s name on login.
