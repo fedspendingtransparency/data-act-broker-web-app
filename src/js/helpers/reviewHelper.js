@@ -58,132 +58,7 @@ const determineExpectedPairs = () => {
     return output;
 };
 
-export const fetchSubmissionMetadata = (submissionId) => {
-    const deferred = Q.defer();
-
-    Request.get(kGlobalConstants.API + 'submission_metadata/?submission_id=' + submissionId)
-        .end((errFile, res) => {
-            if (errFile) {
-                deferred.reject(res);
-            }
-            else {
-                deferred.resolve(res.body);
-            }
-        });
-
-    return deferred.promise;
-};
-
-export const fetchSubmissionData = (submissionId) => {
-    const deferred = Q.defer();
-
-    Request.get(kGlobalConstants.API + 'submission_data/?submission_id=' + submissionId)
-        .end((errFile, res) => {
-            if (errFile) {
-                deferred.reject(res);
-            }
-            else {
-                deferred.resolve(res.body);
-            }
-        });
-
-    return deferred.promise;
-};
-
-export const fetchStatus = (submissionId) => {
-    const deferred = Q.defer();
-
-    const startTime = new Date().getTime();
-    const store = new StoreSingleton().store;
-
-    Request.post(kGlobalConstants.API + 'check_status/')
-        .send({ submission_id: submissionId })
-        .end((errFile, res) => {
-            // calculate how long the API call took
-            const endTime = new Date().getTime();
-            const duration = endTime - startTime;
-            // log the API call duration
-            const action = sessionActions.setApiMeta({
-                time: duration
-            });
-            store.dispatch(action);
-
-
-            if (errFile) {
-                let detail = '';
-                if (res.body !== null && res.body.hasOwnProperty('message')) {
-                    detail = res.body.message;
-                }
-
-                deferred.reject({
-                    reason: res.statusCode,
-                    error: errFile,
-                    detail
-                });
-            }
-            else {
-                // return only jobs related to CSV validation
-                const response = Object.assign({}, res.body);
-                store.dispatch(uploadActions.setSubmissionPublishStatus(response.publish_status));
-                const csvJobs = [];
-                let crossFileJob = {};
-                response.jobs.forEach((job) => {
-                    if (job.job_type === 'csv_record_validation') {
-                        csvJobs.push(job);
-                    }
-                    else if (job.job_type === 'validation') {
-                        crossFileJob = job;
-                    }
-                });
-
-                response.jobs = csvJobs;
-                response.crossFile = crossFileJob;
-                deferred.resolve(response);
-            }
-        });
-
-    return deferred.promise;
-};
-
-const getFileStates = (status) => {
-    const output = {};
-
-    status.jobs.forEach((item) => {
-        output[item.file_type] = item;
-        output[item.file_type].report = null;
-        output[item.file_type].error_count = 0;
-        output[item.file_type].warning_count = 0;
-
-        // force an error_data array if no field is passed back in the JSON
-        if (!item.hasOwnProperty('error_data')) {
-            output[item.file_type].error_data = [];
-        }
-        else {
-            let count = 0;
-            item.error_data.forEach((error) => {
-                count += parseInt(error.occurrences, 10);
-            });
-
-            output[item.file_type].error_count = count;
-        }
-
-        // do the same for warnings
-        if (!item.hasOwnProperty('warning_data')) {
-            output[item.file_type].warning_data = [];
-        }
-        else {
-            let count = 0;
-            item.warning_data.forEach((warning) => {
-                count += parseInt(warning.occurrences, 10);
-            });
-            output[item.file_type].warning_count = count;
-        }
-    });
-
-    return output;
-};
-
-const getCrossFileData = (data, type, validKeys) => {
+export const getCrossFileData = (data, type) => {
     const output = {};
 
     let dataType = 'error_data';
@@ -191,10 +66,17 @@ const getCrossFileData = (data, type, validKeys) => {
         dataType = 'warning_data';
     }
 
-    for (const index in data.crossFile[dataType]) {
-        if (data.crossFile[dataType].hasOwnProperty(index)) {
+    const possiblePairs = determineExpectedPairs();
+
+    const validKeys = [];
+    possiblePairs.forEach((pair) => {
+        validKeys.push(pair.key);
+    });
+
+    for (const index in data[dataType]) {
+        if (data[dataType].hasOwnProperty(index)) {
             // fetch the error object
-            const item = data.crossFile[dataType][index];
+            const item = data[dataType][index];
 
             // generate possible key names for this pair of target/source files
             const keyNames = [item.target_file + '-' + item.source_file, item.source_file + '-' + item.target_file];
@@ -225,13 +107,144 @@ const getCrossFileData = (data, type, validKeys) => {
     return output;
 };
 
-export const validateSubmission = (submissionId) => {
+export const fetchSubmissionMetadata = (submissionId) => {
     const deferred = Q.defer();
 
     // set the submission ID
     const store = new StoreSingleton().store;
     store.dispatch(uploadActions.setSubmissionId(submissionId));
+
+    Request.get(kGlobalConstants.API + 'submission_metadata/?submission_id=' + submissionId)
+        .end((errFile, res) => {
+            if (errFile) {
+                deferred.reject(res);
+            }
+            else {
+                const response = Object.assign({}, res.body);
+                store.dispatch(uploadActions.setSubmissionPublishStatus(response.publish_status));
+                deferred.resolve(res.body);
+            }
+        });
+
+    return deferred.promise;
+};
+
+export const fetchSubmissionData = (submissionId, type = '') => {
+    const deferred = Q.defer();
+
+    let typeFilter = '';
+    if (type) {
+        typeFilter = '&type=' + type;
+    }
+
+    Request.get(kGlobalConstants.API + 'submission_data/?submission_id=' + submissionId + typeFilter)
+        .end((errFile, res) => {
+            if (errFile) {
+                deferred.reject(res);
+            }
+            else {
+                deferred.resolve(res.body);
+            }
+        });
+
+    return deferred.promise;
+};
+
+export const fetchStatus = (submissionId, type = '') => {
+    const deferred = Q.defer();
+
+    let typeFilter = '';
+    if (type) {
+        typeFilter = '&type=' + type;
+    }
+
+    const startTime = new Date().getTime();
+    // set submission ID
+    const store = new StoreSingleton().store;
+    store.dispatch(uploadActions.setSubmissionId(submissionId));
+
+    // set cross-file pairs
+    const possiblePairs = determineExpectedPairs();
+    store.dispatch(uploadActions.setExpectedCrossPairs(possiblePairs));
+
+    Request.get(kGlobalConstants.API + 'check_status/?submission_id=' + submissionId + typeFilter)
+        .end((errFile, res) => {
+            // calculate how long the API call took
+            const endTime = new Date().getTime();
+            const duration = endTime - startTime;
+            // log the API call duration
+            const action = sessionActions.setApiMeta({
+                time: duration
+            });
+            store.dispatch(action);
+
+
+            if (errFile) {
+                let detail = '';
+                if (res.body !== null && res.body.hasOwnProperty('message')) {
+                    detail = res.body.message;
+                }
+
+                deferred.reject({
+                    reason: res.statusCode,
+                    error: errFile,
+                    detail
+                });
+            }
+            else {
+                deferred.resolve(res.body);
+            }
+        });
+
+    return deferred.promise;
+};
+
+export const getFileStates = (status) => {
+    const output = {};
+
+    status.jobs.forEach((item) => {
+        if (item.file_type) {
+            output[item.file_type] = item;
+            output[item.file_type].report = null;
+            output[item.file_type].error_count = 0;
+            output[item.file_type].warning_count = 0;
+
+            // force an error_data array if no field is passed back in the JSON
+            if (!item.hasOwnProperty('error_data')) {
+                output[item.file_type].error_data = [];
+            }
+            else {
+                let count = 0;
+                item.error_data.forEach((error) => {
+                    count += parseInt(error.occurrences, 10);
+                });
+
+                output[item.file_type].error_count = count;
+            }
+
+            // do the same for warnings
+            if (!item.hasOwnProperty('warning_data')) {
+                output[item.file_type].warning_data = [];
+            }
+            else {
+                let count = 0;
+                item.warning_data.forEach((warning) => {
+                    count += parseInt(warning.occurrences, 10);
+                });
+                output[item.file_type].warning_count = count;
+            }
+        }
+    });
+
+    return output;
+};
+
+export const checkSubmissionStatus = (submissionId) => {
+    const deferred = Q.defer();
+
+    // TODO: figure all of this out. Do we still need it?
     // determine the expected cross file validation keys and metadata
+    const store = new StoreSingleton().store;
     const possiblePairs = determineExpectedPairs();
     store.dispatch(uploadActions.setExpectedCrossPairs(possiblePairs));
 
@@ -240,33 +253,9 @@ export const validateSubmission = (submissionId) => {
         validKeys.push(pair.key);
     });
 
-    let status;
-    let agencyName;
-    let crossFile;
-    let crossFileState = {};
-
     fetchStatus(submissionId)
         .then((statusRes) => {
-            status = getFileStates(statusRes);
-            agencyName = statusRes.agency_name;
-            crossFile = {
-                errors: getCrossFileData(statusRes, 'errors', validKeys),
-                warnings: getCrossFileData(statusRes, 'warnings', validKeys)
-            };
-
-            crossFileState = {
-                job: statusRes.crossFile.job_status,
-                file: statusRes.crossFile.file_status
-            };
-
-            deferred.resolve({
-                file: status,
-                agencyName,
-                crossFile: {
-                    state: crossFileState,
-                    data: crossFile
-                }
-            });
+            deferred.resolve(statusRes);
         })
         .catch((err) => {
             const response = Object.assign({}, err.body);

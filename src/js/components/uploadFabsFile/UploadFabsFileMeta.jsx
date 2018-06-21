@@ -108,7 +108,7 @@ export default class UploadFabsFileMeta extends React.Component {
         const submission = this.props.submission;
         submission.meta.subTierAgency = this.state.agency;
 
-        this.uploadFileHelper(kGlobalConstants.LOCAL === true && !this.isUnmounted, submission)
+        this.uploadFileHelper(kGlobalConstants.LOCAL === true, submission)
             .then((submissionID) => {
                 this.props.setSubmissionId(submissionID);
                 this.checkFileStatus(submissionID);
