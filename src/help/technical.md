@@ -2,10 +2,6 @@
 
 In this release, here is a list of technical changes that may require infrastructure or database updates, or represents additional functionality.
 
-* Setup the local developer environment to use Docker containers
-* New API endpoints
-  * /v1/revalidation_threshold/ 
-  * /v1/submission_data/
-* USPS download script exits with status code of 3 and does not update the date when no data is found.
-* Updated initialize.py to separate out the country codes from the “domain data” load.
-* Always update a user’s name on login.
+* Limited permissions for Service Accounts to facilitate logging in via the inbound API
+  * A service account will be capped at Edit only permissions for DABS and FABS. Service accounts will not be able to certify DABS or publish FABS submissions.
+* Updated the check_status endpoint to limit functionality to only what is necessary to evaluate the status of the submission.
