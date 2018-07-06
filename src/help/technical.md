@@ -1,11 +1,7 @@
-#### June 6, 2018{section=technical}
+### June 19, 2018{section=technical}
 
 In this release, here is a list of technical changes that may require infrastructure or database updates, or represents additional functionality.
 
-* SQL validations updates corresponding with DAIMS v1.2 mop-up tasks
-* Updates to configuration files to support DAIMS v1.2 mop-up tasks
-* Alembic Migration for `SQSMockQueue` to include a file generation agency code
-* Updated Validator application to handle file generation
-* Updated `initialize.py`. Adding additional argument  to make a separate CFDA loading process for improve tracking data loads
-
-
+* Limited permissions for Service Accounts to facilitate logging in via the inbound API
+  * A service account will be capped at Edit only permissions for DABS and FABS. Service accounts will not be able to certify DABS or publish FABS submissions.
+* Updated the check_status endpoint to limit functionality to only what is necessary to evaluate the status of the submission.
