@@ -125,8 +125,8 @@ class GenerateEFContainer extends React.Component {
     checkFileStatus() {
         Q
             .allSettled([
-                GenerateHelper.fetchFile('E', this.props.submissionID),
-                GenerateHelper.fetchFile('F', this.props.submissionID)
+                GenerateHelper.checkGenerationStatus('E', this.props.submissionID),
+                GenerateHelper.checkGenerationStatus('F', this.props.submissionID)
             ])
             .then((allResponses) => {
                 this.handleResponse(allResponses);

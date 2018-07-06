@@ -68,7 +68,7 @@ export default class CrossFileGenerateModalContainer extends React.Component {
 
     checkForPreviousFiles() {
         // check if the file already exists for this submission
-        GenerateFilesHelper.fetchFile(this.props.type, this.props.submissionID)
+        GenerateFilesHelper.checkGenerationStatus(this.props.type, this.props.submissionID)
             .then((response) => {
                 // check if both files have been requested
                 let requested = true;
@@ -227,7 +227,7 @@ export default class CrossFileGenerateModalContainer extends React.Component {
     checkFileStatus() {
         // check the status of the file
         GenerateFilesHelper
-            .fetchFile(this.props.type, this.props.submissionID)
+            .checkGenerationStatus(this.props.type, this.props.submissionID)
             .then((allResponses) => {
                 this.parseFileStates(allResponses);
             })
