@@ -48,23 +48,31 @@ class ValidateDataContainer extends React.Component {
             validationFinished: false,
             notYours: false,
             serverError: null,
-            agencyName: null
+            agencyName: null,
+            fileValidationsDone: [false, false, false]
         };
 
-        this.isCancelled = false;
+        this.isUnmounted = false;
     }
 
 
     componentDidMount() {
-        this.isCancelled = false;
+        this.isUnmounted = false;
+        this.setAgencyName(this.props);
         this.validateSubmission();
+    }
+
+    componentWillReceiveProps(nextProps) {
+        if (this.props.submissionID !== nextProps.submissionID) {
+            this.setAgencyName(nextProps);
+        }
     }
 
     componentDidUpdate(prevProps) {
         // check if the submission state changed, indicating a re-upload
         if (prevProps.submission.state !== this.props.submission.state) {
             if (this.props.submission.state === "prepare") {
-                this.validateSubmission();
+                this.clearValidationState();
             }
         }
 
@@ -77,11 +85,35 @@ class ValidateDataContainer extends React.Component {
 
     componentWillUnmount() {
         // remove any timers
-        this.isCancelled = true;
+        this.isUnmounted = true;
         if (statusTimer) {
             clearTimeout(statusTimer);
             statusTimer = null;
         }
+    }
+
+    setAgencyName(givenProps) {
+        if (givenProps.submissionID !== null) {
+            ReviewHelper.fetchSubmissionMetadata(givenProps.submissionID)
+                .then((data) => {
+                    if (!this.isUnmounted) {
+                        this.setState({ agencyName: data.agency_name });
+                    }
+                })
+                .catch((error) => {
+                    console.error(error);
+                });
+        }
+    }
+
+    clearValidationState() {
+        this.setState({
+            validationFinished: false,
+            validationFailed: false,
+            fileValidationsDone: [false, false, false]
+        }, () => {
+            this.validateSubmission();
+        });
     }
 
     reset() {
@@ -90,70 +122,90 @@ class ValidateDataContainer extends React.Component {
             validationFailed: false,
             validationFinished: false,
             notYours: false,
-            serverError: null
+            serverError: null,
+            fileValidationsDone: [false, false, false]
         }, () => {
             this.validateSubmission();
         });
     }
 
-    processData(callback) {
-        let isFinished = true;
+    checkFinished(fileStatuses, data) {
         let hasFailed = false;
-
-        // iterate through the data to look for header errors, validation failures, and incomplete validations
-        for (const key of singleFileValidations) {
-            if (!this.props.submission.validation.hasOwnProperty(key)) {
-                // required files don't exist, fail
-                this.setState({
-                    validationFinished: false
-                });
-                return;
-            }
-
-            const item = this.props.submission.validation[key];
-            if (item.job_status === 'failed') {
-                hasFailed = true;
-            }
-            if ((item.job_status !== 'finished' && item.job_status !== 'invalid')
-                || item.file_status === 'incomplete') {
-                isFinished = false;
-            }
+        // if any file status is false, that means we need to check again because we aren't done
+        if (fileStatuses.includes(false)) {
+            statusTimer = setTimeout(() => {
+                this.validateSubmission();
+            }, timerDuration * 1000);
         }
-
-        this.setState({
-            validationFailed: hasFailed,
-            validationFinished: isFinished
-        }, callback);
+        else {
+            // if any of the statuses are "failed" then the submission has failed for some reason
+            singleFileValidations.forEach((fileType) => {
+                if (data[fileType].status === 'failed') {
+                    hasFailed = true;
+                }
+            });
+            this.setState({
+                validationFinished: true,
+                validationFailed: hasFailed
+            });
+        }
     }
 
     validateSubmission() {
         if (this.props.submissionID === "") {
             return;
         }
-        ReviewHelper.validateSubmission(this.props.submissionID)
+        ReviewHelper.fetchStatus(this.props.submissionID)
             .then((data) => {
-                if (this.isCancelled) {
+                if (this.isUnmounted) {
                     // the component has been unmounted, so don't bother with updating the state
                     // (it doesn't exist anymore anyway)
                     return;
                 }
 
-                this.setState({
-                    finishedPageLoad: true,
-                    agencyName: data.agencyName
-                });
+                // this.setState({ finishedPageLoad: true });
                 this.props.setSubmissionState('review');
-                this.props.setValidation(data.file);
 
-                // review the validation data for failures, header errors, and completion state
-                this.processData(() => {
-                    if (!this.state.validationFinished && !this.state.validationFailed) {
-                        // keep reloading if the validation hasn't finished yet and nothing has failed
-                        statusTimer = setTimeout(() => {
-                            this.validateSubmission();
-                        }, timerDuration * 1000);
+                // see if there are any validations still running.
+                let fileStatusChanged = false;
+                const fileStatuses = this.state.fileValidationsDone.slice();
+                for (let i = 0; i < singleFileValidations.length; i++) {
+                    const currFile = data[singleFileValidations[i]];
+                    // if a file wasn't done last time this check ran but is this time, the status has "changed"
+                    if (!fileStatuses[i] && currFile.status !== 'running' && currFile.status !== 'uploading') {
+                        fileStatusChanged = true;
+                        fileStatuses[i] = true;
                     }
-                });
+                }
+
+                // if there were any changes, we want to get all the new job statuses
+                if (fileStatusChanged) {
+                    ReviewHelper.fetchSubmissionData(this.props.submissionID)
+                        .then((response) => {
+                            const fileStates = ReviewHelper.getFileStates(response);
+                            // sometimes the delay between checking status and getting the jobs gives the jobs time
+                            // to finish when we think they're still running, this is to make sure the jobs we think
+                            // are still running show as such so there is no visual discrepancy
+                            for (let i = 0; i < fileStatuses.length; i++) {
+                                if (!fileStatuses[i]) {
+                                    fileStates[singleFileValidations[i]] = {
+                                        job_status: "running",
+                                        file_status: "incomplete"
+                                    };
+                                }
+                            }
+                            this.props.setValidation(fileStates);
+                            this.setState({
+                                fileValidationsDone: fileStatuses,
+                                finishedPageLoad: true
+                            }, () => {
+                                this.checkFinished(fileStatuses, data);
+                            });
+                        });
+                }
+                else {
+                    this.checkFinished(fileStatuses, data);
+                }
             })
             .catch((err) => {
                 if (err.reason === 400) {
