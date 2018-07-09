@@ -146,8 +146,8 @@ class GenerateFilesContainer extends React.Component {
     checkForPreviousFiles() {
         // check if D1 and D2 files already exist for this submission
         Q.allSettled([
-            GenerateFilesHelper.fetchFile('D1', this.props.submissionID),
-            GenerateFilesHelper.fetchFile('D2', this.props.submissionID)
+            GenerateFilesHelper.checkGenerationStatus('D1', this.props.submissionID),
+            GenerateFilesHelper.checkGenerationStatus('D2', this.props.submissionID)
         ])
             .then((allResponses) => {
                 if (this.isUnmounted) {
@@ -364,8 +364,8 @@ class GenerateFilesContainer extends React.Component {
     checkFileStatus() {
         // check the status of both D1 and D2 files
         Q.allSettled([
-            GenerateFilesHelper.fetchFile('D1', this.props.submissionID),
-            GenerateFilesHelper.fetchFile('D2', this.props.submissionID)
+            GenerateFilesHelper.checkGenerationStatus('D1', this.props.submissionID),
+            GenerateFilesHelper.checkGenerationStatus('D2', this.props.submissionID)
         ])
             .then((allResponses) => {
                 if (this.isUnmounted) {

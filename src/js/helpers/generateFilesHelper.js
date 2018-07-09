@@ -27,7 +27,7 @@ export const generateFile = (type, submissionId, start, end) => {
     return deferred.promise;
 };
 
-export const fetchFile = (type, submissionId) => {
+export const checkGenerationStatus = (type, submissionId) => {
     const deferred = Q.defer();
 
     Request.post(kGlobalConstants.API + 'check_generation_status/')
@@ -35,6 +35,25 @@ export const fetchFile = (type, submissionId) => {
             submission_id: submissionId,
             file_type: type
         })
+        .end((errFile, res) => {
+            if (errFile) {
+                const response = Object.assign({}, res.body);
+                response.httpStatus = res.status;
+                deferred.reject(response);
+            }
+            else {
+                deferred.resolve(res.body);
+            }
+        });
+
+    return deferred.promise;
+};
+
+export const fetchFile = (type, submissionId) => {
+    const deferred = Q.defer();
+
+    Request.get(kGlobalConstants.API + 'get_file_url?file_type=' + type + '&submission_id=' + submissionId)
+        .send()
         .end((errFile, res) => {
             if (errFile) {
                 const response = Object.assign({}, res.body);
