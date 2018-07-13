@@ -344,13 +344,18 @@ export const fetchObligations = (submissionId) => {
 
 export const submissionReport = (submissionId, warning, fileType, crossType) => {
     const deferred = Q.defer();
+    const params = [];
+    if (warning !== undefined && warning !== null) { 
+        params.push('warning=' + warning);
+    }
+    if (fileType !== undefined && fileType !== null) {
+        params.push('file_type=' + fileType);
+    }
+    if (crossType !== undefined && crossType !== null) {
+        params.push('cross_type=' + crossType);
+    }
 
-    Request.post(kGlobalConstants.API + 'submission/' + submissionId + '/report_url')
-        .send({
-            warning,
-            file_type: fileType,
-            cross_type: crossType
-        })
+    Request.get(kGlobalConstants.API + 'submission/' + submissionId + '/report_url?' + params.join('&'))
         .end((errFile, res) => {
             if (errFile) {
                 deferred.reject(errFile, res);
