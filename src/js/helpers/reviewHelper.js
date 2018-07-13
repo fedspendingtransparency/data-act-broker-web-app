@@ -345,7 +345,9 @@ export const submissionReport = (submissionId, warning, fileType, crossType) => 
     const deferred = Q.defer();
     const params = [];
     if (warning) {
-        params.push('warning=' + warning);
+        params.push('warning=true');
+    } else {
+        params.push('warning=false');
     }
     if (fileType) {
         params.push('file_type=' + fileType);
