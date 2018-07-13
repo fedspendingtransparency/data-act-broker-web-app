@@ -344,13 +344,13 @@ export const fetchObligations = (submissionId) => {
 export const submissionReport = (submissionId, warning, fileType, crossType) => {
     const deferred = Q.defer();
     const params = [];
-    if (warning !== undefined && warning !== null) {
+    if (warning) {
         params.push('warning=' + warning);
     }
-    if (fileType !== undefined && fileType !== null) {
+    if (fileType) {
         params.push('file_type=' + fileType);
     }
-    if (crossType !== undefined && crossType !== null) {
+    if (crossType) {
         params.push('cross_type=' + crossType);
     }
 
