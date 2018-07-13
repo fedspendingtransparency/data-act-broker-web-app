@@ -346,7 +346,8 @@ export const submissionReport = (submissionId, warning, fileType, crossType) => 
     const params = [];
     if (warning) {
         params.push('warning=true');
-    } else {
+    }
+    else {
         params.push('warning=false');
     }
     if (fileType) {
