@@ -6,20 +6,20 @@ import { kGlobalConstants } from '../GlobalConstants';
 export const generateFile = (type, submissionId, start, end) => {
     const deferred = Q.defer();
 
-    const call_body = {
+    const callBody = {
         submission_id: submissionId,
         file_type: type
     };
 
     if (start) {
-        call_body.start = start;
+        callBody.start = start;
     }
     if (end) {
-        call_body.end = end;
+        callBody.end = end;
     }
 
     Request.post(kGlobalConstants.API + 'generate_file/')
-        .send(call_body)
+        .send(callBody)
         .end((errFile, res) => {
             if (errFile) {
                 const response = Object.assign({}, res.body);
