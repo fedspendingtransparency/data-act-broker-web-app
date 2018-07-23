@@ -412,7 +412,6 @@ export const performFabsFileUpload = (submission) => {
         }
     }
 
-    request = prepareMetadata(submission.meta, request);
     request.agency_code = submission.meta.subTierAgency;
 
     // submit it to the API to set up S3
@@ -490,7 +489,6 @@ export const performFabsLocalUpload = (submission) => {
     const store = new StoreSingleton().store;
     store.dispatch(uploadActions.setSubmissionState('uploading'));
 
-    request = prepareMetadata(submission.meta, request);
     request.agency_code = submission.meta.subTierAgency;
 
     const uploadOperations = [];
