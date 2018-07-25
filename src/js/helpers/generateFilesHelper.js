@@ -6,13 +6,20 @@ import { kGlobalConstants } from '../GlobalConstants';
 export const generateFile = (type, submissionId, start, end) => {
     const deferred = Q.defer();
 
+    const callBody = {
+        submission_id: submissionId,
+        file_type: type
+    };
+
+    if (start) {
+        callBody.start = start;
+    }
+    if (end) {
+        callBody.end = end;
+    }
+
     Request.post(kGlobalConstants.API + 'generate_file/')
-        .send({
-            submission_id: submissionId,
-            file_type: type,
-            start,
-            end
-        })
+        .send(callBody)
         .end((errFile, res) => {
             if (errFile) {
                 const response = Object.assign({}, res.body);
@@ -30,11 +37,7 @@ export const generateFile = (type, submissionId, start, end) => {
 export const checkGenerationStatus = (type, submissionId) => {
     const deferred = Q.defer();
 
-    Request.post(kGlobalConstants.API + 'check_generation_status/')
-        .send({
-            submission_id: submissionId,
-            file_type: type
-        })
+    Request.get(kGlobalConstants.API + 'check_generation_status/?submission_id=' + submissionId + '&file_type=' + type)
         .end((errFile, res) => {
             if (errFile) {
                 const response = Object.assign({}, res.body);
@@ -112,10 +115,7 @@ export const generateDetachedFile = (type, start, end, cgacCode, frecCode) => {
 export const fetchDetachedFile = (jobId) => {
     const deferred = Q.defer();
 
-    Request.post(kGlobalConstants.API + 'check_detached_generation_status/')
-        .send({
-            job_id: jobId
-        })
+    Request.get(kGlobalConstants.API + 'check_detached_generation_status/?job_id=' + jobId)
         .end((errFile, res) => {
             if (errFile) {
                 const response = Object.assign({}, res.body);

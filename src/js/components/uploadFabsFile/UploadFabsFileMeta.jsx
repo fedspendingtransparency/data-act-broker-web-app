@@ -115,9 +115,17 @@ export default class UploadFabsFileMeta extends React.Component {
                 this.props.validate(submissionID);
             })
             .catch((err) => {
+                const errorMessage = err.message || err.body.message || '';
                 this.setState({
                     notAllowed: err.httpStatus === 403,
-                    errorMessage: err.httpStatus === 403 ? err.message : err.body.message
+                    errorMessage,
+                    fabs: {
+                        error: {
+                            show: true,
+                            header: 'Upload Error',
+                            description: errorMessage
+                        }
+                    }
                 });
             });
     }

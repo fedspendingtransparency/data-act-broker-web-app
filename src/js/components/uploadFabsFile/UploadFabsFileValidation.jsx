@@ -155,11 +155,11 @@ class UploadFabsFileValidation extends React.Component {
 
                 const fabsData = response.fabs;
                 if (fabsData.status !== 'uploading' && fabsData.status !== 'running') {
-                    let showSuccess = false;
+                    let success = false;
                     if (this.dataTimer) {
                         window.clearInterval(this.dataTimer);
                         this.dataTimer = null;
-                        showSuccess = true;
+                        success = true;
                     }
 
                     ReviewHelper.fetchSubmissionMetadata(submissionID)
@@ -170,7 +170,7 @@ class UploadFabsFileValidation extends React.Component {
                                     this.setState({
                                         jobResults: { fabs: fabsJob },
                                         error: 0,
-                                        showSuccess: showSuccess,
+                                        showSuccess: success,
                                         published: metadataResponse.publish_status,
                                         fabs_meta: metadataResponse.fabs_meta,
                                         validationFinished: true,
