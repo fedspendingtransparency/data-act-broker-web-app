@@ -168,8 +168,18 @@ export const submitFabs = (submissionId) => {
 const prepareFabsFile = (fileDict) => {
     const deferred = Q.defer();
 
+    let fieldType = '';
+
+    if (fileDict.hasOwnProperty('agency_code')) {
+        fieldType = 'agency_code';
+    }
+    else if (fileDict.hasOwnProperty('existing_submission_id')) {
+        fieldType = 'existing_submission_id';
+    }
+
     Request.post(kGlobalConstants.API + 'upload_detached_file/')
-        .send(fileDict)
+        .attach('fabs', fileDict.fabs)
+        .field(fieldType, fileDict[fieldType])
         .end((err, res) => {
             if (err) {
                 const response = Object.assign({}, res.body);
@@ -403,33 +413,19 @@ export const performFabsFileUpload = (submission) => {
     const store = new StoreSingleton().store;
     store.dispatch(uploadActions.setSubmissionState('uploading'));
 
-    let request = {};
+    const request = {
+        agency_code: submission.meta.subTierAgency
+    };
 
-    for (const fileType in submission.files) {
-        if (submission.files.hasOwnProperty(fileType)) {
-            const file = submission.files[fileType].file;
-            request[fileType] = file.name;
-        }
+    if (submission.files.hasOwnProperty('fabs')) {
+        request.fabs = submission.files.fabs.file;
     }
 
-    request.agency_code = submission.meta.subTierAgency;
-
-    // submit it to the API to set up S3
-    let submissionID;
 
     prepareFabsFile(request)
         .then((res) => {
-            // now do the actual uploading
-            submissionID = res.body.submission_id;
-            return uploadMultipleFiles(submission, res.body);
-        })
-        .then((fileIds) => {
-            // upload complete, finalize with the API
-            return finalizeMultipleUploads(fileIds);
-        })
-        .then(() => {
             store.dispatch(uploadActions.setSubmissionState('prepare'));
-            deferred.resolve(submissionID);
+            deferred.resolve(res.body.submission_id);
         })
         .catch((err) => {
             store.dispatch(uploadActions.setSubmissionState('failed'));
@@ -449,29 +445,14 @@ export const performFabsFileCorrectedUpload = (submission) => {
         existing_submission_id: submission.id
     };
 
-    for (const fileType in submission.files) {
-        if (submission.files.hasOwnProperty(fileType)) {
-            const file = submission.files[fileType].file;
-            request[fileType] = file.name;
-        }
+    if (submission.files.hasOwnProperty('fabs')) {
+        request.fabs = submission.files.fabs.file;
     }
-
-    // submit it to the API to set up S3
-    let submissionID;
 
     prepareFabsFile(request)
         .then((res) => {
-            // now do the actual uploading
-            submissionID = res.body.submission_id;
-            return uploadMultipleFiles(submission, res.body);
-        })
-        .then((fileIds) => {
-            // upload complete, finalize with the API
-            return finalizeMultipleUploads(fileIds);
-        })
-        .then(() => {
             store.dispatch(uploadActions.setSubmissionState('prepare'));
-            deferred.resolve(submissionID);
+            deferred.resolve(res.body.submission_id);
         })
         .catch((err) => {
             store.dispatch(uploadActions.setSubmissionState('failed'));
@@ -484,51 +465,21 @@ export const performFabsFileCorrectedUpload = (submission) => {
 export const performFabsLocalUpload = (submission) => {
     const deferred = Q.defer();
 
-    let request = {};
+    const request = {
+        agency_code: submission.meta.subTierAgency
+    };
 
     const store = new StoreSingleton().store;
     store.dispatch(uploadActions.setSubmissionState('uploading'));
 
-    request.agency_code = submission.meta.subTierAgency;
-
-    const uploadOperations = [];
-    const types = [];
-    let submissionID = null;
-
-    for (const fileType in submission.files) {
-        if (submission.files.hasOwnProperty(fileType)) {
-            const file = submission.files[fileType].file;
-            uploadOperations.push(uploadLocalFile(file, fileType));
-            types.push(fileType);
-        }
+    if (submission.files.hasOwnProperty('fabs')) {
+        request.fabs = submission.files.fabs.file;
     }
 
-    Q.all(uploadOperations)
-        .then((uploads) => {
-            // prepare the request
-            uploads.forEach((upload) => {
-                request[upload[0]] = upload[1];
-            });
-
-            // submit the files
-            return prepareFabsFile(request);
-        })
+    prepareFabsFile(request)
         .then((res) => {
-            submissionID = res.body.submission_id;
-
-            // get all the file IDs
-            const fileIds = [];
-            types.forEach((type) => {
-                const key = type + '_id';
-                fileIds.push(res.body[key]);
-            });
-
-            // finalize all the files
-            return finalizeMultipleUploads(fileIds);
-        })
-        .then(() => {
             store.dispatch(uploadActions.setSubmissionState('prepare'));
-            deferred.resolve(submissionID);
+            deferred.resolve(res.body.submission_id);
         })
         .catch((err) => {
             store.dispatch(uploadActions.setSubmissionState('failed'));
@@ -548,44 +499,14 @@ export const performFabsLocalCorrectedUpload = (submission) => {
     const store = new StoreSingleton().store;
     store.dispatch(uploadActions.setSubmissionState('uploading'));
 
-    const uploadOperations = [];
-    const types = [];
-    let submissionID = null;
-
-    for (const fileType in submission.files) {
-        if (submission.files.hasOwnProperty(fileType)) {
-            const file = submission.files[fileType].file;
-            uploadOperations.push(uploadLocalFile(file, fileType));
-            types.push(fileType);
-        }
+    if (submission.files.hasOwnProperty('fabs')) {
+        request.fabs = submission.files.fabs.file;
     }
 
-    Q.all(uploadOperations)
-        .then((uploads) => {
-            // prepare the request
-            uploads.forEach((upload) => {
-                request[upload[0]] = upload[1];
-            });
-
-            // submit the files
-            return prepareFabsFile(request);
-        })
+    prepareFabsFile(request)
         .then((res) => {
-            submissionID = res.body.submission_id;
-
-            // get all the file IDs
-            const fileIds = [];
-            types.forEach((type) => {
-                const key = type + '_id';
-                fileIds.push(res.body[key]);
-            });
-
-            // finalize all the files
-            return finalizeMultipleUploads(fileIds);
-        })
-        .then(() => {
             store.dispatch(uploadActions.setSubmissionState('prepare'));
-            deferred.resolve(submissionID);
+            deferred.resolve(res.body.submission_id);
         })
         .catch((err) => {
             store.dispatch(uploadActions.setSubmissionState('failed'));
