@@ -128,8 +128,7 @@ export const performRemoteUpload = (submission) => {
 
     for (const fileType in submission.files) {
         if (submission.files.hasOwnProperty(fileType)) {
-            const file = submission.files[fileType].file;
-            request[fileType] = file.name;
+            request[fileType] = submission.files[fileType].file;
         }
     }
 
@@ -159,8 +158,7 @@ export const performRemoteCorrectedUpload = (submission) => {
     };
     for (const fileType in submission.files) {
         if (submission.files.hasOwnProperty(fileType)) {
-            const file = submission.files[fileType].file;
-            request[fileType] = file.name;
+            request[fileType] = submission.files[fileType].file;
         }
     }
 
