@@ -59,8 +59,6 @@ The sample files require you to provide values for:
 * `CAS_ROOT` is the root endpoint for the [CAS server](https://apereo.github.io/cas/4.2.x/protocol/CAS-Protocol-Specification.html#cas-uris) when a CAS single sign-on service is used.
 * `AUTH_CALLBACK` is the [callback URL](https://apereo.github.io/cas/4.2.x/protocol/CAS-Protocol-Specification.html#response) that the CAS server redirects to upon successful login.
 * `GA_TRACKING_ID` is the tracking ID for Google Analytics.
-* `BUCKET_NAME` is the name of the AWS S3 bucket where uploaded files will reside.
-* `AWS_REGION` is the name of the [AWS region](http://docs.aws.amazon.com/general/latest/gr/rande.html) where the S3 bucket is hosted.
 
 Other fields, such as `LOCAL` and `DEV` should be left based on their sample values.
 
