@@ -55,11 +55,40 @@ const finalizeMultipleUploads = (fileIds) => {
     return Q.all(operations);
 };
 
-const prepareFiles = (fileDict) => {
+const prepareFilesNewSub = (fileDict) => {
     const deferred = Q.defer();
 
     Request.post(kGlobalConstants.API + 'submit_files/')
-        .send(fileDict)
+        .attach('appropriations', fileDict.appropriations)
+        .attach('program_activity', fileDict.program_activity)
+        .attach('award_financial', fileDict.award_financial)
+        .field('cgac_code', fileDict.cgac_code)
+        .field('frec_code', fileDict.frec_code)
+        .field('reporting_period_start_date', fileDict.reporting_period_start_date)
+        .field('reporting_period_end_date', fileDict.reporting_period_end_date)
+        .field('is_quarter', fileDict.is_quarter)
+        .end((err, res) => {
+            if (err) {
+                const response = Object.assign({}, res.body);
+                response.httpStatus = res.status;
+                deferred.reject(response);
+            }
+            else {
+                deferred.resolve(res);
+            }
+        });
+
+    return deferred.promise;
+};
+
+const prepareFilesExistingSub = (fileDict) => {
+    const deferred = Q.defer();
+
+    Request.post(kGlobalConstants.API + 'submit_files/')
+        .attach('appropriations', fileDict.appropriations)
+        .attach('program_activity', fileDict.program_activity)
+        .attach('award_financial', fileDict.award_financial)
+        .field('existing_submission_id', fileDict.existing_submission_id)
         .end((err, res) => {
             if (err) {
                 const response = Object.assign({}, res.body);
@@ -87,63 +116,6 @@ const prepareMetadata = (metadata, request) => {
     }
 
     return tmpRequest;
-};
-
-export const performLocalUpload = (submission) => {
-    const deferred = Q.defer();
-
-    let request = {};
-
-    const store = new StoreSingleton().store;
-    store.dispatch(uploadActions.setSubmissionState('uploading'));
-
-    request = prepareMetadata(submission.meta, request);
-
-    const uploadOperations = [];
-    const types = [];
-    let submissionID = null;
-
-    for (const fileType in submission.files) {
-        if (submission.files.hasOwnProperty(fileType)) {
-            const file = submission.files[fileType].file;
-            uploadOperations.push(uploadLocalFile(file, fileType));
-            types.push(fileType);
-        }
-    }
-
-    Q.all(uploadOperations)
-        .then((uploads) => {
-            // prepare the request
-            uploads.forEach((upload) => {
-                request[upload[0]] = upload[1];
-            });
-
-            // submit the files
-            return prepareFiles(request);
-        })
-        .then((res) => {
-            submissionID = res.body.submission_id;
-
-            // get all the file IDs
-            const fileIds = [];
-            types.forEach((type) => {
-                const key = type + '_id';
-                fileIds.push(res.body[key]);
-            });
-
-            // finalize all the files
-            return finalizeMultipleUploads(fileIds);
-        })
-        .then(() => {
-            store.dispatch(uploadActions.setSubmissionState('prepare'));
-            deferred.resolve(submissionID);
-        })
-        .catch(() => {
-            store.dispatch(uploadActions.setSubmissionState('failed'));
-            deferred.reject();
-        });
-
-    return deferred.promise;
 };
 
 export const submitFabs = (submissionId) => {
@@ -291,22 +263,10 @@ export const performRemoteUpload = (submission) => {
 
     request = prepareMetadata(submission.meta, request);
 
-    // submit it to the API to set up S3
-    let submissionID;
-
-    prepareFiles(request)
+    prepareFilesNewSub(request)
         .then((res) => {
-            // now do the actual uploading
-            submissionID = res.body.submission_id;
-            return uploadMultipleFiles(submission, res.body);
-        })
-        .then((fileIds) => {
-            // upload complete, finalize with the API
-            return finalizeMultipleUploads(fileIds);
-        })
-        .then(() => {
             store.dispatch(uploadActions.setSubmissionState('prepare'));
-            deferred.resolve(submissionID);
+            deferred.resolve(res.body.submission_id);
         })
         .catch((err) => {
             store.dispatch(uploadActions.setSubmissionState('failed'));
@@ -332,15 +292,7 @@ export const performRemoteCorrectedUpload = (submission) => {
         }
     }
 
-    prepareFiles(request)
-        .then((res) => {
-            // now do the actual uploading
-            return uploadMultipleFiles(submission, res.body);
-        })
-        .then((fileIds) => {
-            // upload complete, finalize with the API
-            return finalizeMultipleUploads(fileIds);
-        })
+    prepareFilesExistingSub(request)
         .then(() => {
             store.dispatch(uploadActions.setSubmissionState('prepare'));
             deferred.resolve(submission.id);
@@ -348,6 +300,35 @@ export const performRemoteCorrectedUpload = (submission) => {
         .catch((err) => {
             store.dispatch(uploadActions.setSubmissionState('failed'));
             deferred.reject(err);
+        });
+
+    return deferred.promise;
+};
+
+export const performLocalUpload = (submission) => {
+    const deferred = Q.defer();
+
+    let request = {};
+
+    const store = new StoreSingleton().store;
+    store.dispatch(uploadActions.setSubmissionState('uploading'));
+
+    request = prepareMetadata(submission.meta, request);
+
+    for (const fileType in submission.files) {
+        if (submission.files.hasOwnProperty(fileType)) {
+            request[fileType] = submission.files[fileType].file;
+        }
+    }
+
+    prepareFilesNewSub(request)
+        .then((res) => {
+            store.dispatch(uploadActions.setSubmissionState('prepare'));
+            deferred.resolve(res.body.submission_id);
+        })
+        .catch(() => {
+            store.dispatch(uploadActions.setSubmissionState('failed'));
+            deferred.reject();
         });
 
     return deferred.promise;
@@ -363,38 +344,13 @@ export const performLocalCorrectedUpload = (submission) => {
         existing_submission_id: submission.id
     };
 
-    const uploadOperations = [];
-    const types = [];
-
     for (const fileType in submission.files) {
         if (submission.files.hasOwnProperty(fileType)) {
-            const file = submission.files[fileType].file;
-            uploadOperations.push(uploadLocalFile(file, fileType));
-            types.push(fileType);
+            request[fileType] = submission.files[fileType].file;
         }
     }
 
-    Q.all(uploadOperations)
-        .then((uploads) => {
-            // prepare the request
-            uploads.forEach((upload) => {
-                request[upload[0]] = upload[1];
-            });
-
-            // submit the files
-            return prepareFiles(request);
-        })
-        .then((res) => {
-            // get all the file IDs
-            const fileIds = [];
-            types.forEach((type) => {
-                const key = type + '_id';
-                fileIds.push(res.body[key]);
-            });
-
-            // finalize all the files
-            return finalizeMultipleUploads(fileIds);
-        })
+    prepareFilesExistingSub(request)
         .then(() => {
             store.dispatch(uploadActions.setSubmissionState('prepare'));
             deferred.resolve(submission.id);
