@@ -10,7 +10,7 @@ import * as uploadActions from '../redux/actions/uploadActions';
 const prepareFilesNewSub = (fileDict) => {
     const deferred = Q.defer();
 
-    Request.post(kGlobalConstants.API + 'submit_files/')
+    Request.post(kGlobalConstants.API + 'upload_dabs_files/')
         .attach('appropriations', fileDict.appropriations)
         .attach('program_activity', fileDict.program_activity)
         .attach('award_financial', fileDict.award_financial)
@@ -36,7 +36,7 @@ const prepareFilesNewSub = (fileDict) => {
 const prepareFilesExistingSub = (fileDict) => {
     const deferred = Q.defer();
 
-    Request.post(kGlobalConstants.API + 'submit_files/')
+    Request.post(kGlobalConstants.API + 'upload_dabs_files/')
         .attach('appropriations', fileDict.appropriations)
         .attach('program_activity', fileDict.program_activity)
         .attach('award_financial', fileDict.award_financial)
