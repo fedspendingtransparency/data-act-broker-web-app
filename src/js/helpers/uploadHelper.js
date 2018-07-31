@@ -101,7 +101,7 @@ const prepareFabsFile = (fileDict) => {
         fieldType = 'existing_submission_id';
     }
 
-    Request.post(kGlobalConstants.API + 'upload_detached_file/')
+    Request.post(kGlobalConstants.API + 'upload_fabs_file/')
         .attach('fabs', fileDict.fabs)
         .field(fieldType, fileDict[fieldType])
         .end((err, res) => {
