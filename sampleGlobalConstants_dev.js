@@ -9,7 +9,5 @@ export const kGlobalConstants = {
     LOCAL: false,
     DEV: true,
     STAGING: false,
-    PROD: false,
-    BUCKET_NAME: '',
-    AWS_REGION: ''
+    PROD: false
 };
