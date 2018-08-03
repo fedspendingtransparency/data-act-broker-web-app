@@ -60,9 +60,14 @@ export const loadSubmissionList = (
     page = 1, limit = 10, certified = false, sort = 'updated', order = 'desc', d2Submission = false) => {
     const deferred = Q.defer();
 
-    Request.get(kGlobalConstants.API + 'list_submissions/')
-        .query({
-            page, limit, certified, sort, order, d2_submission: d2Submission
+    Request.post(kGlobalConstants.API + 'list_submissions/')
+        .send({
+            page,
+            limit,
+            certified: certified.toString(),
+            sort,
+            order,
+            d2_submission: d2Submission
         })
         .end((err, res) => {
             if (err) {
