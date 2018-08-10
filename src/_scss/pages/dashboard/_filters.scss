@@ -25,6 +25,15 @@
         .dashboard-filters__filter {
             @include display(flex);
             @include flex(0 0 auto);
+            &.dashboard-filters__filter_agency {
+                @import '../../components/typeahead/_typeahead';
+                // override dropdown width
+                .typeahead-holder {
+                    .awesomplete ul {
+                        width: 35%;
+                    }
+                }
+            }
         }
         .dashboard-filters__reset {
             @include display(flex);

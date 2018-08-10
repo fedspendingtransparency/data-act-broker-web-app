@@ -5,8 +5,8 @@
 
 export const initialState = {
     agency: {
-        id: '',
-        name: ''
+        code: '',
+        codeType: ''
     },
     fileName: '',
     submissionId: '',
