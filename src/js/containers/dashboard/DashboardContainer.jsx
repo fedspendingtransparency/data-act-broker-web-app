@@ -5,13 +5,19 @@
 
 import React, { PropTypes } from 'react';
 import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
+
+import * as dashboardFilterActions from '../../redux/actions/dashboardFilterActions';
 
 import * as SubmissionListHelper from '../../helpers/submissionListHelper';
 
 import DashboardContent from '../../components/dashboard/DashboardContent';
 
 const propTypes = {
-    type: PropTypes.string
+    type: PropTypes.string,
+    updateDashboardFilter: PropTypes.func,
+    resetDashboardFilters: PropTypes.func,
+    currentFilters: PropTypes.object
 };
 
 const defaultProps = {
@@ -66,7 +72,10 @@ class DashboardContainer extends React.Component {
 
     render() {
         return (
-            <DashboardContent {...this.state} {...this.props} loadTableData={this.loadTableData.bind(this)} />
+            <DashboardContent
+                {...this.state}
+                {...this.props}
+                loadTableData={this.loadTableData.bind(this)} />
         );
     }
 }
@@ -75,5 +84,9 @@ DashboardContainer.propTypes = propTypes;
 DashboardContainer.defaultProps = defaultProps;
 
 export default connect(
-    (state) => ({ session: state.session })
+    (state) => ({
+        session: state.session,
+        currentFilters: state.dashboardFilters
+    }),
+    (dispatch) => bindActionCreators(dashboardFilterActions, dispatch)
 )(DashboardContainer);
