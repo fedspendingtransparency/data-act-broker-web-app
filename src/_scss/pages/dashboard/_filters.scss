@@ -1,0 +1,28 @@
+.dashboard-filters-wrapper {
+    background-color: $color-gray;
+    padding: rem(15);
+    border: solid rem(1) $color-white;
+    .dashboard-filters {
+        @include display(flex);
+        @include align-items(center);
+        @include justify-content(space-between);
+        .dashboard-filters__filter {
+            @include display(flex);
+            @include flex(0 0 auto);
+        }
+        .dashboard-filters__reset {
+            @include display(flex);
+            @include flex(0 0 auto);
+            border: 0;
+            color: $color-white;
+            background-color: transparent;
+        }
+        .dashboard-filters__submit {
+            @include display(flex);
+            @include flex(0 0 auto);
+            border: 0;
+            border-radius: rem(5);
+            padding: rem(5) rem(15);
+        }
+    }
+}

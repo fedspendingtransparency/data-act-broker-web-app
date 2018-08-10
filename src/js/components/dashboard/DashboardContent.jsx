@@ -5,6 +5,7 @@
 
 import React, { PropTypes } from 'react';
 import DashboardTable from './DashboardTable';
+import DashboardFilters from "./DashboardFilters";
 
 const propTypes = {
     loadTableData: PropTypes.func,
@@ -15,7 +16,10 @@ const propTypes = {
     activeTotal: PropTypes.number,
     certifiedTotal: PropTypes.number,
     activeLoading: PropTypes.bool,
-    certifiedLoading: PropTypes.bool
+    certifiedLoading: PropTypes.bool,
+    updateDashboardFilter: PropTypes.func,
+    resetDashboardFilters: PropTypes.func,
+    currentFilters: PropTypes.object
 };
 
 const defaultProps = {
@@ -55,6 +59,10 @@ export default class DashboardContent extends React.Component {
                 <div className="row">
                     <div className="col-md-12">
                         <h2 className="table-title">Active Submissions</h2>
+                        <DashboardFilters
+                            updateDashboardFilter={this.props.updateDashboardFilter}
+                            resetDashboardFilters={this.props.resetDashboardFilters}
+                            currentFilters={this.props.currentFilters} />
                         <DashboardTable
                             isLoading={this.props.activeLoading}
                             isCertified={false}
@@ -69,6 +77,10 @@ export default class DashboardContent extends React.Component {
                 <div className="row">
                     <div className="col-md-12">
                         <h2 className="table-title">{this.state.title}</h2>
+                        <DashboardFilters
+                            updateDashboardFilter={this.props.updateDashboardFilter}
+                            resetDashboardFilters={this.props.resetDashboardFilters}
+                            currentFilters={this.props.currentFilters} />
                         <DashboardTable
                             isLoading={this.props.certifiedLoading}
                             loadTableData={this.props.loadTableData}

@@ -22,5 +22,6 @@
         @include loginTopBanner;
     }
 
+    @import "./_filters";
     @import "./_table";
 }
