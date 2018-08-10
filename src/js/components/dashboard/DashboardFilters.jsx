@@ -5,6 +5,9 @@
 
 import React, {PropTypes} from 'react';
 
+import { Filter } from '../../components/SharedComponents/icons/Icons';
+import AgencyFilter from './filters/AgencyFilter';
+
 const propTypes = {
     updateDashboardFilter: PropTypes.func,
     resetDashboardFilters: PropTypes.func,
@@ -37,7 +40,16 @@ export default class DashboardFilters extends React.Component {
                 <form
                     className="dashboard-filters"
                     onSubmit={this.handleSubmit}>
-                    Filters Here
+                    <div className="dashboard-filters__label">
+                        <span className="usa-da-icon filter-icon">
+                            <Filter />
+                        </span>
+                        Filter by:
+                    </div>
+                    <AgencyFilter
+                        currentAgency={this.props.currentFilters.agency}
+                        updateDashboardFilter={this.props.updateDashboardFilter} />
+
                     <button
                         className="dashboard-filters__reset"
                         onClick={this.resetForm}>

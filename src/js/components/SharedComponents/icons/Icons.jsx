@@ -234,3 +234,10 @@ Bell.defaultProps = {
     iconClass: 'usa-da-icon-bell-o',
     alt: 'Notify'
 };
+
+export class Filter extends BaseIcon {}
+Filter.defaultProps = {
+    iconName: 'usa-da-icon-filter',
+    iconClass: 'usa-da-icon-filter',
+    alt: 'Icon Depicting a Filter'
+};

@@ -6,6 +6,22 @@
         @include display(flex);
         @include align-items(center);
         @include justify-content(space-between);
+        .dashboard-filters__label {
+            @include display(flex);
+            @include flex(0 0 auto);
+            @include align-items(center);
+            color: $color-white;
+            .filter-icon {
+                height: rem(14);
+                width: rem(20);
+                padding-right: rem(6);
+                .usa-da-icon-filter {
+                    height: rem(14);
+                    width: rem(14);
+                    fill: $color-white;
+                }
+            }
+        }
         .dashboard-filters__filter {
             @include display(flex);
             @include flex(0 0 auto);
