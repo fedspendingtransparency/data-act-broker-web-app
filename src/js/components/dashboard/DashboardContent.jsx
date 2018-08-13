@@ -6,6 +6,7 @@
 import React, { PropTypes } from 'react';
 import DashboardTable from './DashboardTable';
 import DashboardFilters from "./DashboardFilters";
+import FiltersMessage from "./filters/FiltersMessage";
 
 const propTypes = {
     loadTableData: PropTypes.func,
@@ -90,7 +91,11 @@ export default class DashboardContent extends React.Component {
             <div className="container">
                 <div className="row">
                     <div className="col-md-12">
-                        <h2 className="table-title">Active Submissions</h2>
+                        <div className="table-heading">
+                            <h2 className="table-heading__title">Active Submissions</h2>
+                            <FiltersMessage
+                                currentFilters={currentFilters.active} />
+                        </div>
                         <DashboardFilters
                             updateFilter={this.updateFilter}
                             updateFilterList={this.updateFilterList}
@@ -110,7 +115,11 @@ export default class DashboardContent extends React.Component {
                 </div>
                 <div className="row">
                     <div className="col-md-12">
-                        <h2 className="table-title">{this.state.title}</h2>
+                        <div className="table-heading">
+                            <h2 className="table-title">{this.state.title}</h2>
+                            <FiltersMessage
+                                currentFilters={currentFilters[secondTable]} />
+                        </div>
                         <DashboardFilters
                             updateFilter={this.updateFilter}
                             updateFilterList={this.updateFilterList}

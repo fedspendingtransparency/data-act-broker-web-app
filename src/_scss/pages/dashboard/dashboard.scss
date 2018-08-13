@@ -2,10 +2,41 @@
 	@import "../../layouts/content/content";
 	@include contentLayout;
 
-    .table-title {
-        font-size: 3.0rem;
-        font-weight: 200;
-        line-height: 1;
+    .table-heading {
+        @include display(flex);
+        @include justify-content(space-between);
+        @include align-items(center);
+        .table-heading__title {
+            @include display(flex);
+            @include flex(1 1 auto);
+            font-size: 3.0rem;
+            font-weight: 200;
+            line-height: 1;
+        }
+        .table-heading__message {
+            @include display(flex);
+            @include flex(0 0 auto);
+            font-style: italic;
+            .filters-message {
+                @include display(flex);
+                @include justify-content(flex-start);
+                svg {
+                    height: rem(20);
+                    width: rem(20);
+                    @include flex(0 0 auto);
+                    fill: $color-gray;
+                    margin-right: rem(4);
+                }
+                span.filters-message__count {
+                    padding: 0 rem(6);
+                    margin: 0 rem(4);
+                    background-color: $color-gold;
+                    border-radius: rem(2);
+                    font-style: normal;
+                    font-weight: $font-bold;
+                }
+            }
+        }
     }
 
     .trash-icon{
