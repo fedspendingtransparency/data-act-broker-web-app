@@ -18,6 +18,7 @@ const propTypes = {
     activeLoading: PropTypes.bool,
     certifiedLoading: PropTypes.bool,
     updateDashboardFilter: PropTypes.func,
+    updateDashboardFilterList: PropTypes.func,
     resetDashboardFilters: PropTypes.func,
     currentFilters: PropTypes.object
 };
@@ -61,8 +62,10 @@ export default class DashboardContent extends React.Component {
                         <h2 className="table-title">Active Submissions</h2>
                         <DashboardFilters
                             updateDashboardFilter={this.props.updateDashboardFilter}
+                            updateDashboardFilterList={this.props.updateDashboardFilterList}
                             resetDashboardFilters={this.props.resetDashboardFilters}
-                            currentFilters={this.props.currentFilters} />
+                            currentFilters={this.props.currentFilters.active}
+                            table="active" />
                         <DashboardTable
                             isLoading={this.props.activeLoading}
                             isCertified={false}
@@ -79,8 +82,10 @@ export default class DashboardContent extends React.Component {
                         <h2 className="table-title">{this.state.title}</h2>
                         <DashboardFilters
                             updateDashboardFilter={this.props.updateDashboardFilter}
+                            updateDashboardFilterList={this.props.updateDashboardFilterList}
                             resetDashboardFilters={this.props.resetDashboardFilters}
-                            currentFilters={this.props.currentFilters} />
+                            currentFilters={this.props.currentFilters.certified}
+                            table={this.props.type === 'fabs' ? 'published' : 'certified'} />
                         <DashboardTable
                             isLoading={this.props.certifiedLoading}
                             loadTableData={this.props.loadTableData}

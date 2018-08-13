@@ -10,8 +10,10 @@ import AgencyFilter from './filters/AgencyFilter';
 
 const propTypes = {
     updateDashboardFilter: PropTypes.func,
+    updateDashboardFilterList: PropTypes.func,
     resetDashboardFilters: PropTypes.func,
     currentFilters: PropTypes.object,
+    table: PropTypes.string
 };
 
 export default class DashboardFilters extends React.Component {
@@ -20,6 +22,8 @@ export default class DashboardFilters extends React.Component {
 
         this.handleSubmit = this.handleSubmit.bind(this);
         this.resetForm = this.resetForm.bind(this);
+        this.updateFilter = this.updateFilter.bind(this);
+        this.updateFilterList = this.updateFilterList.bind(this);
     }
 
     handleSubmit(e) {
@@ -31,7 +35,25 @@ export default class DashboardFilters extends React.Component {
 
     resetForm(e) {
         e.preventDefault();
-        this.props.resetDashboardFilters();
+        this.props.resetDashboardFilters({
+            table: this.props.table
+        });
+    }
+
+    updateFilter(filter, value) {
+        this.props.updateDashboardFilter({
+            table: this.props.table,
+            filter,
+            value
+        });
+    }
+
+    updateFilterList(filter, value) {
+        this.props.updateDashboardFilterList({
+            table: this.props.table,
+            filter,
+            value
+        });
     }
 
     render() {
@@ -47,9 +69,8 @@ export default class DashboardFilters extends React.Component {
                         Filter by:
                     </div>
                     <AgencyFilter
-                        currentAgency={this.props.currentFilters.agency}
-                        updateDashboardFilter={this.props.updateDashboardFilter} />
-
+                        currentAgencies={this.props.currentFilters.agencies}
+                        updateFilter={this.updateFilterList} />
                     <button
                         className="dashboard-filters__reset"
                         onClick={this.resetForm}>

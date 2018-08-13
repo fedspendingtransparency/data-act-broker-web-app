@@ -16,6 +16,7 @@ import DashboardContent from '../../components/dashboard/DashboardContent';
 const propTypes = {
     type: PropTypes.string,
     updateDashboardFilter: PropTypes.func,
+    updateDashboardFilterList: PropTypes.func,
     resetDashboardFilters: PropTypes.func,
     currentFilters: PropTypes.object
 };

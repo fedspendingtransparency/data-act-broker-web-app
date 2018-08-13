@@ -8,7 +8,8 @@ import React, { PropTypes } from 'react';
 import AgencyListContainer from '../../../containers/SharedContainers/AgencyListContainer';
 
 const propTypes = {
-    updateDashboardFilter: PropTypes.func,
+    currentAgencies: PropTypes.array,
+    updateFilter: PropTypes.func,
 };
 
 export default class AgencyFilter extends React.Component {
@@ -20,8 +21,8 @@ export default class AgencyFilter extends React.Component {
 
     handleAgencySelect(code, codeType, isValid) {
         if (code !== '' && isValid) {
-            this.props.updateDashboardFilter({
-                filter: 'agency',
+            this.props.updateFilter({
+                filter: 'agencies',
                 value: {
                     code,
                     codeType
