@@ -21,13 +21,13 @@ export default class AgencyFilter extends React.Component {
 
     handleAgencySelect(code, codeType, isValid) {
         if (code !== '' && isValid) {
-            this.props.updateFilter({
-                filter: 'agencies',
-                value: {
+            this.props.updateFilter(
+                'agencies',
+                {
                     code,
                     codeType
                 }
-            });
+            );
         }
     }
 

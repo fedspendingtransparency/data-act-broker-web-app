@@ -9,9 +9,9 @@ import { Filter } from '../../components/SharedComponents/icons/Icons';
 import AgencyFilter from './filters/AgencyFilter';
 
 const propTypes = {
-    updateDashboardFilter: PropTypes.func,
-    updateDashboardFilterList: PropTypes.func,
-    resetDashboardFilters: PropTypes.func,
+    updateFilter: PropTypes.func,
+    updateFilterList: PropTypes.func,
+    resetFilters: PropTypes.func,
     currentFilters: PropTypes.object,
     table: PropTypes.string
 };
@@ -35,25 +35,15 @@ export default class DashboardFilters extends React.Component {
 
     resetForm(e) {
         e.preventDefault();
-        this.props.resetDashboardFilters({
-            table: this.props.table
-        });
+        this.props.resetFilters(this.props.table);
     }
 
     updateFilter(filter, value) {
-        this.props.updateDashboardFilter({
-            table: this.props.table,
-            filter,
-            value
-        });
+        this.props.updateFilter(this.props.table, filter, value);
     }
 
     updateFilterList(filter, value) {
-        this.props.updateDashboardFilterList({
-            table: this.props.table,
-            filter,
-            value
-        });
+        this.props.updateFilterList(this.props.table, filter, value);
     }
 
     render() {

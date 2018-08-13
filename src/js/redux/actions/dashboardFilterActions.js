@@ -5,6 +5,7 @@
 
 export const updateDashboardFilter = (state) => ({
     type: 'UPDATE_DASHBOARD_FILTER',
+    dashboard: state.dashboard,
     table: state.table,
     filter: state.filter,
     value: state.value
@@ -12,6 +13,7 @@ export const updateDashboardFilter = (state) => ({
 
 export const updateDashboardFilterList = (state) => ({
     type: 'UPDATE_DASHBOARD_FILTER_LIST',
+    dashboard: state.dashboard,
     table: state.table,
     filter: state.filter,
     value: state.value
@@ -19,5 +21,6 @@ export const updateDashboardFilterList = (state) => ({
 
 export const resetDashboardFilters = (state) => ({
     type: 'RESET_DASHBOARD_FILTERS',
-    table: state.table,
+    dashboard: state.dashboard,
+    table: state.table
 });

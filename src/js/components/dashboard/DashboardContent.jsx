@@ -44,6 +44,10 @@ export default class DashboardContent extends React.Component {
             certifiedPage: 1,
             title: this.props.type === 'fabs' ? 'Published Submissions' : 'Certified Submissions'
         };
+
+        this.resetFilters = this.resetFilters.bind(this);
+        this.updateFilter = this.updateFilter.bind(this);
+        this.updateFilterList = this.updateFilterList.bind(this);
     }
 
     componentWillReceiveProps(nextProps) {
@@ -54,17 +58,44 @@ export default class DashboardContent extends React.Component {
         }
     }
 
+    resetFilters(table) {
+        this.props.resetDashboardFilters({
+            dashboard: this.props.type,
+            table
+        });
+    }
+
+    updateFilter(table, filter, value) {
+        this.props.updateDashboardFilter({
+            dashboard: this.props.type,
+            table,
+            filter,
+            value
+        });
+    }
+
+    updateFilterList(table, filter, value) {
+        this.props.updateDashboardFilterList({
+            dashboard: this.props.type,
+            table,
+            filter,
+            value
+        });
+    }
+
     render() {
+        const currentFilters = this.props.currentFilters[this.props.type];
+        const secondTable = `${this.props.type === 'fabs' ? 'published' : 'certified'}`;
         return (
             <div className="container">
                 <div className="row">
                     <div className="col-md-12">
                         <h2 className="table-title">Active Submissions</h2>
                         <DashboardFilters
-                            updateDashboardFilter={this.props.updateDashboardFilter}
-                            updateDashboardFilterList={this.props.updateDashboardFilterList}
-                            resetDashboardFilters={this.props.resetDashboardFilters}
-                            currentFilters={this.props.currentFilters.active}
+                            updateFilter={this.updateFilter}
+                            updateFilterList={this.updateFilterList}
+                            resetFilters={this.resetFilters}
+                            currentFilters={currentFilters.active}
                             table="active" />
                         <DashboardTable
                             isLoading={this.props.activeLoading}
@@ -81,11 +112,11 @@ export default class DashboardContent extends React.Component {
                     <div className="col-md-12">
                         <h2 className="table-title">{this.state.title}</h2>
                         <DashboardFilters
-                            updateDashboardFilter={this.props.updateDashboardFilter}
-                            updateDashboardFilterList={this.props.updateDashboardFilterList}
-                            resetDashboardFilters={this.props.resetDashboardFilters}
-                            currentFilters={this.props.currentFilters.certified}
-                            table={this.props.type === 'fabs' ? 'published' : 'certified'} />
+                            updateFilter={this.updateFilter}
+                            updateFilterList={this.updateFilterList}
+                            resetFilters={this.resetFilters}
+                            currentFilters={currentFilters[secondTable]}
+                            table={secondTable} />
                         <DashboardTable
                             isLoading={this.props.certifiedLoading}
                             loadTableData={this.props.loadTableData}
