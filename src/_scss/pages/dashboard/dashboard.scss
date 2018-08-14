@@ -20,7 +20,7 @@
             .filters-message {
                 @include display(flex);
                 @include justify-content(flex-start);
-                svg {
+                .usa-da-icon-exclamation-circle {
                     height: rem(20);
                     width: rem(20);
                     @include flex(0 0 auto);

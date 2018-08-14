@@ -7,13 +7,15 @@ import React, { PropTypes } from 'react';
 
 import { Filter } from '../../components/SharedComponents/icons/Icons';
 import AgencyFilter from './filters/AgencyFilter';
+import FilterBar from './filters/FilterBar';
 
 const propTypes = {
     updateFilter: PropTypes.func,
     toggleFilter: PropTypes.func,
     resetFilters: PropTypes.func,
     currentFilters: PropTypes.object,
-    table: PropTypes.string
+    table: PropTypes.string,
+    filterCount: PropTypes.number
 };
 
 const defaultProps = {
@@ -21,7 +23,8 @@ const defaultProps = {
     toggleFilter: null,
     resetFilters: null,
     currentFilters: {},
-    table: ''
+    table: '',
+    filterCount: 0
 };
 
 export default class DashboardFilters extends React.Component {
@@ -55,6 +58,14 @@ export default class DashboardFilters extends React.Component {
     }
 
     render() {
+        let filterBar = null;
+        if (this.props.filterCount > 0) {
+            filterBar = (
+                <FilterBar
+                    currentFilters={this.props.currentFilters}
+                    toggleFilter={this.updateFilterList} />
+            );
+        }
         return (
             <div className="dashboard-filters-wrapper">
                 <form
@@ -79,6 +90,7 @@ export default class DashboardFilters extends React.Component {
                         type="submit"
                         value="Submit" />
                 </form>
+                {filterBar}
             </div>
         );
     }

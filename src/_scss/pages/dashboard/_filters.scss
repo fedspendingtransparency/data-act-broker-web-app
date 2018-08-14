@@ -1,8 +1,9 @@
 .dashboard-filters-wrapper {
-    background-color: $color-gray;
-    padding: rem(15);
-    border: solid rem(1) $color-white;
     .dashboard-filters {
+        background-color: $color-gray;
+        padding: rem(10);
+        border: solid rem(1) $color-white;
+        border-bottom: 0;
         @include display(flex);
         @include align-items(center);
         @include justify-content(space-between);
@@ -50,4 +51,5 @@
             padding: rem(5) rem(15);
         }
     }
+    @import "./_filterBar";
 }
