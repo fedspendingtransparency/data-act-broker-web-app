@@ -76,10 +76,10 @@ export default class ResourcesContent extends React.Component {
                 <h5>Additional Broker Resources</h5>
                 <ul>
                     <li>
-                        <a href="https://fiscal.treasury.gov/fsservices/gov/data-trans/DAIMS-Validation-Rules-v1.2.1.xlsx">Validation Rules:</a> documents the business rules employed by the DATA Act Broker for field and cross-file validations.
+                        <a href="https://fiscal.treasury.gov/fsservices/gov/data-trans/DAIMS-Validation-Rules-v1.2.1.xlsx" target="_blank" rel="noopener noreferrer">Validation Rules:</a> documents the business rules employed by the DATA Act Broker for field and cross-file validations.
                     </li>
                     <li>
-                        <a href="https://github.com/fedspendingtransparency/data-act-broker-backend/tree/master/dataactvalidator/config/sqlrules">SQL Validation Rules:</a> the actual machine logic used in FABS validations. These SQL statements are based directly on the FABS validation rules.
+                        <a href="https://github.com/fedspendingtransparency/data-act-broker-backend/tree/master/dataactvalidator/config/sqlrules" target="_blank" rel="noopener noreferrer">SQL Validation Rules:</a> the actual machine logic used in FABS validations. These SQL statements are based directly on the FABS validation rules.
                     </li>
                 </ul>
             </div>

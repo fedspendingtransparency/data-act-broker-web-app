@@ -108,7 +108,7 @@ export default class LandingRequirementsBody extends React.Component {
                         File F: Sub-award Attributes data
                     </li>
                 </ul>
-                <p>Submission information is available on the DAIMS page of the Data Transparency site for the Bureau of the Fiscal Service. </p>
+                <p>Submission information is available on the <a href="https://fiscal.treasury.gov/fsservices/gov/data-trans/dt-daims.htm" target="_blank" rel="noopener noreferrer">DAIMS</a> page of the Data Transparency site for the Bureau of the Fiscal Service. </p>
             </div>);
 
         if (this.props.type === 'fabs') {
