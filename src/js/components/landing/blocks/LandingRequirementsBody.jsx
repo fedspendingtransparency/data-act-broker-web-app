@@ -76,40 +76,15 @@ export default class LandingRequirementsBody extends React.Component {
         let header = "You'll need the following files in order to complete your submission";
         let body = (
             <div>
-                <p>
-                    You may download and use the following sample data files if you don't have the required files on
-                    hand. The sample files can be downloaded below.
-                </p>
-
                 <ul>
                     <li>
-                        File A: Appropriation Account data (
-                        <a
-                            href={awsS3 + "sample-files/appropValid.csv"}
-                            target="_blank"
-                            rel="noopener noreferrer">
-                            Download sample file
-                        </a>
-                        )
+                        File A: Appropriation Account data
                     </li>
                     <li>
-                        File B: Object Class and Program Activity data (
-                        <a
-                            href={awsS3 + "sample-files/programActivityValid.csv"}
-                            target="_blank"
-                            rel="noopener noreferrer">
-                            Download sample file
-                        </a>)
+                        File B: Object Class and Program Activity data
                     </li>
                     <li>
-                        File C: Award Financial data (
-                        <a
-                            href={awsS3 + "sample-files/awardFinancialValid.csv"}
-                            target="_blank"
-                            rel="noopener noreferrer">
-                            Download sample file
-                        </a>
-                        )
+                        File C: Award Financial data
                     </li>
                 </ul>
 
@@ -133,73 +108,21 @@ export default class LandingRequirementsBody extends React.Component {
                         File F: Sub-award Attributes data
                     </li>
                 </ul>
+                <p>Submission information is available on the <a href="https://fiscal.treasury.gov/fsservices/gov/data-trans/dt-daims.htm" target="_blank" rel="noopener noreferrer">DAIMS</a> page of the Data Transparency site for the Bureau of the Fiscal Service. </p>
             </div>);
 
         if (this.props.type === 'fabs') {
             header = "You'll need the following files in order to complete your FABS submission";
             body = (
                 <div>
-                    <p>
-                        You may download and use the following sample file to help prepare your submission if you don’t
-                        have any previous submission files on hand
-                    </p>
                     <ul>
                         <li>
-                            <a
-                                href={this.state.fabsSampleFileUrl}
-                                target="_blank"
-                                rel="noopener noreferrer">
-                                DAIMS_FABS_Sample_Submission_File_v1.2.csv
-                            </a>
+                            FABS File: Financial Assistance data
                         </li>
                     </ul>
                     <p>
-                        Here are some additional resources to assist you with your submission:
+                        Submission information is available on the <a target="_blank" rel="noopener noreferrer" href="https://fiscal.treasury.gov/fsservices/gov/data-trans/dt-daims.htm">DAIMS</a> page of the Data Transparency site for the Bureau of the Fiscal Service.
                     </p>
-                    <ul>
-                        <li>
-                            <a
-                                href={this.state.validationRulesUrl}
-                                target="_blank"
-                                rel="noopener noreferrer">
-                                DAIMS Validation Rules v1.2.1
-                            </a>
-                        </li>
-                        <li>
-                            <a
-                                href={"https://github.com/fedspendingtransparency/data-act-broker-backend/blob/" +
-                                "master/dataactvalidator/config/sqlrules/sqlRules.csv"}
-                                target="_blank"
-                                rel="noopener noreferrer">
-                                Error Codes and Messages
-                            </a>
-                        </li>
-                        <li>
-                            <a href={resources} target="_blank" rel="noopener noreferrer">
-                                DATA Act Information Model Schema (DAIMS)
-                            </a>
-                            resources related to FABS. See:
-                            <ul>
-                                <li>
-                                    <a
-                                        href={"https://community.max.gov/download/attachments/1324878095/" +
-                                        "DAIMS_Practices_Procedures_v1.2.pdf"}
-                                        target="_blank"
-                                        rel="noopener noreferrer">
-                                        DAIMS Practices &amp; Procedures v1.2
-                                    </a>
-                                </li>
-                                <li>
-                                    <a
-                                        href="http://fedspendingtransparency.github.io/assets/docs/DAIMS_RSS_v1.2.xlsx"
-                                        target="_blank"
-                                        rel="noopener noreferrer">
-                                        DAIMS RSS v1.2 (FABS tab)
-                                    </a>
-                                </li>
-                            </ul>
-                        </li>
-                    </ul>
                 </div>);
         }
 
