@@ -1,7 +1,9 @@
 /**
  * dashboardFilterReducer.js
  * Created by Lizzie Salita 8/10/18
- **/
+ */
+
+import { findIndex, isEqual } from 'lodash';
 
 export const initialState = {
     dabs: {
@@ -65,11 +67,22 @@ export const dashboardFilterReducer = (state = initialState, action) => {
                 [action.dashboard]: dashboard
             });
         }
-        case 'UPDATE_DASHBOARD_FILTER_LIST': {
-            // make a copy of the existing list
+        case 'TOGGLE_DASHBOARD_FILTER': {
+            // get the existing list
             const list = state[action.dashboard][action.table][action.filter].slice();
-            // append the new value
-            list.push(action.value);
+
+            const index = findIndex(list, (filter) => {
+                return isEqual(filter, action.value);
+            });
+
+            if (index === -1) {
+                // append the new value
+                list.push(action.value);
+            }
+            else {
+                // remove the item
+                list.splice(index, 1);
+            }
 
             const table = Object.assign({}, state[action.dashboard][action.table], {
                 [action.filter]: list

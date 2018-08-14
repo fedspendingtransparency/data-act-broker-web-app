@@ -19,7 +19,7 @@ const propTypes = {
     activeLoading: PropTypes.bool,
     certifiedLoading: PropTypes.bool,
     updateDashboardFilter: PropTypes.func,
-    updateDashboardFilterList: PropTypes.func,
+    toggleDashboardFilter: PropTypes.func,
     resetDashboardFilters: PropTypes.func,
     currentFilters: PropTypes.object
 };
@@ -33,7 +33,11 @@ const defaultProps = {
     activeTotal: 0,
     certifiedTotal: 0,
     activeLoading: false,
-    certifiedLoading: false
+    certifiedLoading: false,
+    updateDashboardFilter: null,
+    toggleDashboardFilter: null,
+    resetDashboardFilters: null,
+    currentFilters: {}
 };
 
 export default class DashboardContent extends React.Component {
@@ -48,7 +52,7 @@ export default class DashboardContent extends React.Component {
 
         this.resetFilters = this.resetFilters.bind(this);
         this.updateFilter = this.updateFilter.bind(this);
-        this.updateFilterList = this.updateFilterList.bind(this);
+        this.toggleFilter = this.toggleFilter.bind(this);
     }
 
     componentWillReceiveProps(nextProps) {
@@ -75,8 +79,8 @@ export default class DashboardContent extends React.Component {
         });
     }
 
-    updateFilterList(table, filter, value) {
-        this.props.updateDashboardFilterList({
+    toggleFilter(table, filter, value) {
+        this.props.toggleDashboardFilter({
             dashboard: this.props.type,
             table,
             filter,
@@ -98,7 +102,7 @@ export default class DashboardContent extends React.Component {
                         </div>
                         <DashboardFilters
                             updateFilter={this.updateFilter}
-                            updateFilterList={this.updateFilterList}
+                            toggleFilter={this.toggleFilter}
                             resetFilters={this.resetFilters}
                             currentFilters={currentFilters.active}
                             table="active" />
@@ -122,7 +126,7 @@ export default class DashboardContent extends React.Component {
                         </div>
                         <DashboardFilters
                             updateFilter={this.updateFilter}
-                            updateFilterList={this.updateFilterList}
+                            toggleFilter={this.toggleFilter}
                             resetFilters={this.resetFilters}
                             currentFilters={currentFilters[secondTable]}
                             table={secondTable} />

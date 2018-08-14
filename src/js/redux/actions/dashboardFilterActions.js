@@ -1,7 +1,7 @@
 /**
  * dashboardFilterActions.js
  * Created by Lizzie Salita 8/10/18
- **/
+ */
 
 export const updateDashboardFilter = (state) => ({
     type: 'UPDATE_DASHBOARD_FILTER',
@@ -11,8 +11,8 @@ export const updateDashboardFilter = (state) => ({
     value: state.value
 });
 
-export const updateDashboardFilterList = (state) => ({
-    type: 'UPDATE_DASHBOARD_FILTER_LIST',
+export const toggleDashboardFilter = (state) => ({
+    type: 'TOGGLE_DASHBOARD_FILTER',
     dashboard: state.dashboard,
     table: state.table,
     filter: state.filter,

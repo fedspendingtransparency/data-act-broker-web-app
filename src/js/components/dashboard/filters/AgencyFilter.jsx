@@ -9,11 +9,16 @@ import AgencyListContainer from '../../../containers/SharedContainers/AgencyList
 
 const propTypes = {
     currentAgencies: PropTypes.array,
-    updateFilter: PropTypes.func,
+    updateFilter: PropTypes.func
+};
+
+const defaultProps = {
+    currentAgencies: [],
+    updateFilter: null
 };
 
 export default class AgencyFilter extends React.Component {
-    constructor (props) {
+    constructor(props) {
         super(props);
 
         this.handleAgencySelect = this.handleAgencySelect.bind(this);
@@ -45,3 +50,4 @@ export default class AgencyFilter extends React.Component {
 }
 
 AgencyFilter.propTypes = propTypes;
+AgencyFilter.defaultProps = defaultProps;

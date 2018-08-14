@@ -10,6 +10,10 @@ const propTypes = {
     currentFilters: PropTypes.object
 };
 
+const defaultProps = {
+    currentFilters: {}
+};
+
 export default class FiltersMessage extends React.Component {
     constructor(props) {
         super(props);
@@ -54,3 +58,4 @@ export default class FiltersMessage extends React.Component {
 }
 
 FiltersMessage.propTypes = propTypes;
+FiltersMessage.defaultProps = defaultProps;

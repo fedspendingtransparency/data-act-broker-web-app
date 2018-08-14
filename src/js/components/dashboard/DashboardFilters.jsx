@@ -3,21 +3,29 @@
  * Created by Lizzie Salita 8/10/18
  */
 
-import React, {PropTypes} from 'react';
+import React, { PropTypes } from 'react';
 
 import { Filter } from '../../components/SharedComponents/icons/Icons';
 import AgencyFilter from './filters/AgencyFilter';
 
 const propTypes = {
     updateFilter: PropTypes.func,
-    updateFilterList: PropTypes.func,
+    toggleFilter: PropTypes.func,
     resetFilters: PropTypes.func,
     currentFilters: PropTypes.object,
     table: PropTypes.string
 };
 
+const defaultProps = {
+    updateFilter: null,
+    toggleFilter: null,
+    resetFilters: null,
+    currentFilters: {},
+    table: ''
+};
+
 export default class DashboardFilters extends React.Component {
-    constructor (props) {
+    constructor(props) {
         super(props);
 
         this.handleSubmit = this.handleSubmit.bind(this);
@@ -43,7 +51,7 @@ export default class DashboardFilters extends React.Component {
     }
 
     updateFilterList(filter, value) {
-        this.props.updateFilterList(this.props.table, filter, value);
+        this.props.toggleFilter(this.props.table, filter, value);
     }
 
     render() {
@@ -69,7 +77,7 @@ export default class DashboardFilters extends React.Component {
                     <input
                         className="btn-primary dashboard-filters__submit"
                         type="submit"
-                        value="Submit"/>
+                        value="Submit" />
                 </form>
             </div>
         );
@@ -77,3 +85,4 @@ export default class DashboardFilters extends React.Component {
 }
 
 DashboardFilters.propTypes = propTypes;
+DashboardFilters.defaultProps = defaultProps;

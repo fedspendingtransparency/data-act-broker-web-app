@@ -16,13 +16,17 @@ import DashboardContent from '../../components/dashboard/DashboardContent';
 const propTypes = {
     type: PropTypes.string,
     updateDashboardFilter: PropTypes.func,
-    updateDashboardFilterList: PropTypes.func,
+    toggleDashboardFilter: PropTypes.func,
     resetDashboardFilters: PropTypes.func,
     currentFilters: PropTypes.object
 };
 
 const defaultProps = {
-    type: ""
+    type: "",
+    updateDashboardFilter: null,
+    toggleDashboardFilter: null,
+    resetDashboardFilters: null,
+    currentFilters: {}
 };
 
 class DashboardContainer extends React.Component {
