@@ -36,19 +36,22 @@
                 }
             }
         }
-        .dashboard-filters__reset {
+        .dashboard-filters__submit-content {
             @include display(flex);
-            @include flex(0 0 auto);
-            border: 0;
-            color: $color-white;
-            background-color: transparent;
-        }
-        .dashboard-filters__submit {
-            @include display(flex);
-            @include flex(0 0 auto);
-            border: 0;
-            border-radius: rem(5);
-            padding: rem(5) rem(15);
+            .dashboard-filters__reset {
+                @include display(flex);
+                @include flex(0 0 auto);
+                border: 0;
+                color: $color-white;
+                background-color: transparent;
+            }
+            .dashboard-filters__submit {
+                @include display(flex);
+                @include flex(0 0 auto);
+                border: 0;
+                border-radius: rem(5);
+                padding: rem(5) rem(15);
+            }
         }
     }
     @import "./_filterBar";

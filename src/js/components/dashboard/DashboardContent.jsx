@@ -138,6 +138,7 @@ export default class DashboardContent extends React.Component {
                             toggleFilter={this.toggleFilter}
                             resetFilters={this.resetFilters}
                             currentFilters={currentFilters.active}
+                            type={this.props.type}
                             table="active"
                             filterCount={activeFilterCount} />
                         <DashboardTable
@@ -163,6 +164,7 @@ export default class DashboardContent extends React.Component {
                             resetFilters={this.resetFilters}
                             currentFilters={currentFilters[secondTable]}
                             table={secondTable}
+                            type={this.props.type}
                             filterCount={secondFilterCount} />
                         <DashboardTable
                             isLoading={this.props.certifiedLoading}

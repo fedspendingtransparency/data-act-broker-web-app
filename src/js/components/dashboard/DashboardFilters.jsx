@@ -6,8 +6,8 @@
 import React, { PropTypes } from 'react';
 
 import { Filter } from '../../components/SharedComponents/icons/Icons';
-import AgencyFilter from './filters/AgencyFilter';
 import FilterBar from './filters/FilterBar';
+import FilterSubmitContainer from '../../containers/dashboard/FilterSubmitContainer';
 
 const propTypes = {
     updateFilter: PropTypes.func,
@@ -15,6 +15,7 @@ const propTypes = {
     resetFilters: PropTypes.func,
     currentFilters: PropTypes.object,
     table: PropTypes.string,
+    type: PropTypes.string,
     filterCount: PropTypes.number
 };
 
@@ -24,29 +25,16 @@ const defaultProps = {
     resetFilters: null,
     currentFilters: {},
     table: '',
+    type: '',
     filterCount: 0
 };
 
 export default class DashboardFilters extends React.Component {
     constructor(props) {
         super(props);
-
-        this.handleSubmit = this.handleSubmit.bind(this);
-        this.resetForm = this.resetForm.bind(this);
+        
         this.updateFilter = this.updateFilter.bind(this);
         this.updateFilterList = this.updateFilterList.bind(this);
-    }
-
-    handleSubmit(e) {
-        e.preventDefault();
-
-        // TODO - Lizzie: implement submit filters
-        console.log(this.props.currentFilters);
-    }
-
-    resetForm(e) {
-        e.preventDefault();
-        this.props.resetFilters(this.props.table);
     }
 
     updateFilter(filter, value) {
@@ -68,27 +56,16 @@ export default class DashboardFilters extends React.Component {
         }
         return (
             <div className="dashboard-filters-wrapper">
-                <form
-                    className="dashboard-filters"
-                    onSubmit={this.handleSubmit}>
+                <form className="dashboard-filters">
                     <div className="dashboard-filters__label">
                         <span className="usa-da-icon filter-icon">
                             <Filter />
                         </span>
                         Filter by:
                     </div>
-                    <AgencyFilter
-                        currentAgencies={this.props.currentFilters.agencies}
-                        updateFilter={this.updateFilterList} />
-                    <button
-                        className="dashboard-filters__reset"
-                        onClick={this.resetForm}>
-                        Reset Filters
-                    </button>
-                    <input
-                        className="btn-primary dashboard-filters__submit"
-                        type="submit"
-                        value="Submit" />
+                    <FilterSubmitContainer
+                        type={this.props.type}
+                        table={this.props.table} />
                 </form>
                 {filterBar}
             </div>

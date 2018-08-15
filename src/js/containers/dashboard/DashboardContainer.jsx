@@ -7,7 +7,7 @@ import React, { PropTypes } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 
-import * as dashboardFilterActions from '../../redux/actions/dashboardFilterActions';
+import * as dashboardFilterActions from '../../redux/actions/dashboard/dashboardFilterActions';
 
 import * as SubmissionListHelper from '../../helpers/submissionListHelper';
 
