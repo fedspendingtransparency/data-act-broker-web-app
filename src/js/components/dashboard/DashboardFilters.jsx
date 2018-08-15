@@ -8,6 +8,7 @@ import React, { PropTypes } from 'react';
 import { Filter } from '../../components/SharedComponents/icons/Icons';
 import FilterBar from './filters/FilterBar';
 import FilterSubmitContainer from '../../containers/dashboard/FilterSubmitContainer';
+import SubmissionIdFilter from './filters/SubmissionIdFilter';
 
 const propTypes = {
     updateFilter: PropTypes.func,
@@ -32,7 +33,7 @@ const defaultProps = {
 export default class DashboardFilters extends React.Component {
     constructor(props) {
         super(props);
-        
+
         this.updateFilter = this.updateFilter.bind(this);
         this.updateFilterList = this.updateFilterList.bind(this);
     }
@@ -56,17 +57,19 @@ export default class DashboardFilters extends React.Component {
         }
         return (
             <div className="dashboard-filters-wrapper">
-                <form className="dashboard-filters">
+                <div className="dashboard-filters">
                     <div className="dashboard-filters__label">
                         <span className="usa-da-icon filter-icon">
                             <Filter />
                         </span>
                         Filter by:
                     </div>
+                    <SubmissionIdFilter
+                        updateFilterList={this.updateFilterList} />
                     <FilterSubmitContainer
                         type={this.props.type}
                         table={this.props.table} />
-                </form>
+                </div>
                 {filterBar}
             </div>
         );

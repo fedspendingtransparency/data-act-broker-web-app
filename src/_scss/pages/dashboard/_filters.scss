@@ -35,6 +35,7 @@
                     }
                 }
             }
+            @import './_textFilter';
         }
         .dashboard-filters__submit-content {
             @include display(flex);

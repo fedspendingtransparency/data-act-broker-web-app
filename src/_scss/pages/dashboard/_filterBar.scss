@@ -11,6 +11,7 @@
         background-color: $color-gray-lighter;
         border-radius: rem(4);
         padding: rem(2) rem(8);
+        margin: rem(2) rem(5) rem(2) 0;
         .filter-tag__name {
             @include display(flex);
             @include flex(1 1 auto);

@@ -26,7 +26,7 @@ export default class FilterBar extends React.Component {
                     return (
                         <TagItem
                             key={filter.name}
-                            name={filter.name || 'mock tag'}
+                            name={filter.name}
                             value={filter}
                             group={filterGroup}
                             toggleFilter={this.props.toggleFilter} />
@@ -38,7 +38,7 @@ export default class FilterBar extends React.Component {
                 return (
                     <TagItem
                         key={filter.name}
-                        name={filter.name || 'mock tag'}
+                        name={filter.name}
                         value={filter}
                         group="lastModified"
                         toggleFilter={this.props.toggleFilter} />
