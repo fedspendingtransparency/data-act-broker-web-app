@@ -9,8 +9,8 @@ import TagItem from './TagItem';
 const propTypes = {
     filters: PropTypes.array,
     toggleDashboardFilter: PropTypes.func,
-    type: PropTypes.type,
-    table: PropTypes.table
+    type: PropTypes.string,
+    table: PropTypes.string
 };
 
 const defaultProps = {

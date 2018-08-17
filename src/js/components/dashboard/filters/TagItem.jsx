@@ -8,7 +8,7 @@ import { Times } from '../../SharedComponents/icons/Icons';
 
 const propTypes = {
     name: PropTypes.string,
-    value: PropTypes.object,
+    value: PropTypes.string,
     group: PropTypes.string,
     toggleFilter: PropTypes.func
 };
