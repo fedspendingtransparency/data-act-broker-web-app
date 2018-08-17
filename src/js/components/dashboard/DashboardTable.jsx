@@ -9,7 +9,7 @@ import _ from 'lodash';
 import FormattedTable from '../SharedComponents/table/FormattedTable';
 import SubmissionLink from '../landing/recentActivity/SubmissionLink';
 import HistoryLink from './HistoryLink';
-import * as Status from '../landing/recentActivity//SubmissionStatus';
+import * as Status from '../landing/recentActivity/SubmissionStatus';
 import * as LoginHelper from '../../helpers/loginHelper';
 import * as UtilHelper from '../../helpers/util';
 import * as PermissionsHelper from '../../helpers/permissionsHelper';
@@ -19,12 +19,15 @@ import DashboardPaginator from './DashboardPaginator';
 
 const propTypes = {
     loadTableData: PropTypes.func,
+    appliedFilters: PropTypes.object,
     session: PropTypes.object,
     data: PropTypes.array,
     type: PropTypes.string,
+    table: PropTypes.string,
     total: PropTypes.number,
     isCertified: PropTypes.bool,
-    isLoading: PropTypes.bool
+    isLoading: PropTypes.bool,
+    setAppliedFilterCompletion: PropTypes.func
 };
 
 const defaultProps = {
@@ -32,9 +35,12 @@ const defaultProps = {
     isLoading: true,
     isCertified: true,
     loadTableData: null,
+    appliedFilters: {},
     session: null,
     type: '',
-    total: 0
+    table: '',
+    total: 0,
+    setAppliedFilterCompletion: null
 };
 
 export default class DashboardTable extends React.Component {
@@ -59,7 +65,7 @@ export default class DashboardTable extends React.Component {
 
     componentDidMount() {
         this.props.loadTableData(this.state.currentPage, this.props.isCertified, this.getCategory(),
-            this.state.sortDirection, this.props.type === 'fabs');
+            this.state.sortDirection, this.props.type === 'fabs', this.props.appliedFilters);
         this.loadUser();
     }
 
@@ -71,6 +77,10 @@ export default class DashboardTable extends React.Component {
     }
 
     componentDidUpdate(prevProps) {
+        if (!_.isEqual(prevProps.appliedFilters, this.props.appliedFilters)) {
+            this.reload(true);
+        }
+
         if (!_.isEqual(prevProps.data, this.props.data)) {
             this.buildRow();
         }
@@ -314,7 +324,7 @@ export default class DashboardTable extends React.Component {
         }, () => {
             // re-display the data
             this.props.loadTableData(this.state.currentPage, this.props.isCertified, this.getCategory(),
-                this.state.sortDirection);
+                this.state.sortDirection, this.props.appliedFilters);
             this.buildRow();
         });
     }
@@ -324,14 +334,22 @@ export default class DashboardTable extends React.Component {
             currentPage: newPage
         }, () => {
             this.props.loadTableData(this.state.currentPage, this.props.isCertified, this.getCategory(),
-                this.state.sortDirection);
+                this.state.sortDirection, this.props.appliedFilters);
         });
     }
 
-    reload() {
+    reload(filtersChanged) {
         this.props.loadTableData(this.state.currentPage, this.props.isCertified, this.getCategory(),
-            this.state.sortDirection);
+            this.state.sortDirection, this.props.appliedFilters);
         this.buildRow();
+        if (filtersChanged) {
+            // Update redux to indicate the filters have been applied
+            this.props.setAppliedFilterCompletion({
+                complete: true,
+                dashboard: this.props.type,
+                table: this.props.table
+            });
+        }
     }
 
     loadUser() {

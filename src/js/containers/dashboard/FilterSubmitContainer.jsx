@@ -7,6 +7,7 @@ import React, { PropTypes } from 'react';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { is } from 'immutable';
+import { isEqual } from 'lodash';
 
 import * as appliedFilterActions from '../../redux/actions/dashboard/appliedFilterActions';
 import { resetDashboardFilters as clearStagedFilters } from '../../redux/actions/dashboard/dashboardFilterActions';
@@ -52,12 +53,12 @@ export class FilterSubmitContainer extends React.Component {
     }
 
     componentDidUpdate(prevProps) {
-        if (prevProps.stagedFilters[prevProps.type][prevProps.table]
-            !== this.props.stagedFilters[this.props.type][this.props.table]) {
+        if (!isEqual(prevProps.stagedFilters[prevProps.type][prevProps.table],
+                this.props.stagedFilters[this.props.type][this.props.table])) {
             this.stagingChanged();
         }
-        else if (prevProps.appliedFilters[prevProps.type][prevProps.table]
-            !== this.props.appliedFilters[this.props.type][this.props.table]) {
+        else if (!isEqual(prevProps.appliedFilters[prevProps.type][prevProps.table],
+                this.props.appliedFilters[this.props.type][this.props.table])) {
             this.stagingChanged();
         }
     }

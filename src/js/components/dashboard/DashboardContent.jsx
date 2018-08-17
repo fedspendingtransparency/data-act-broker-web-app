@@ -22,7 +22,9 @@ const propTypes = {
     updateDashboardFilter: PropTypes.func,
     toggleDashboardFilter: PropTypes.func,
     resetDashboardFilters: PropTypes.func,
-    stagedFilters: PropTypes.object
+    setAppliedFilterCompletion: PropTypes.func,
+    stagedFilters: PropTypes.object,
+    appliedFilters: PropTypes.object
 };
 
 const defaultProps = {
@@ -38,7 +40,9 @@ const defaultProps = {
     updateDashboardFilter: null,
     toggleDashboardFilter: null,
     resetDashboardFilters: null,
-    stagedFilters: {}
+    setAppliedFilterCompletion: null,
+    stagedFilters: {},
+    appliedFilters: {}
 };
 
 export default class DashboardContent extends React.Component {
@@ -160,11 +164,14 @@ export default class DashboardContent extends React.Component {
                             isLoading={this.props.activeLoading}
                             isCertified={false}
                             loadTableData={this.props.loadTableData}
+                            appliedFilters={this.props.appliedFilters[this.props.type].active.filters}
                             total={this.props.activeTotal}
                             data={this.props.activeSubmissions}
                             page={this.state.activePage}
                             session={this.props.session}
-                            type={this.props.type} />
+                            table={secondTable}
+                            type={this.props.type}
+                            setAppliedFilterCompletion={this.props.setAppliedFilterCompletion} />
                     </div>
                 </div>
                 <div className="row">
@@ -187,11 +194,14 @@ export default class DashboardContent extends React.Component {
                         <DashboardTable
                             isLoading={this.props.certifiedLoading}
                             loadTableData={this.props.loadTableData}
+                            appliedFilters={this.props.appliedFilters[this.props.type][secondTable].filters}
                             total={this.props.certifiedTotal}
                             data={this.props.certifiedSubmissions}
                             page={this.state.certifiedPage}
                             session={this.props.session}
-                            type={this.props.type} />
+                            table={secondTable}
+                            type={this.props.type}
+                            setAppliedFilterCompletion={this.props.setAppliedFilterCompletion} />
                     </div>
                 </div>
             </div>

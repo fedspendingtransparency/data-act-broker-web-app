@@ -8,16 +8,20 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 
 import * as dashboardFilterActions from '../../redux/actions/dashboard/dashboardFilterActions';
+import * as appliedFilterActions from '../../redux/actions/dashboard/appliedFilterActions';
 
 import * as SubmissionListHelper from '../../helpers/submissionListHelper';
 
 import DashboardContent from '../../components/dashboard/DashboardContent';
+
+const combinedActions = Object.assign({}, dashboardFilterActions, appliedFilterActions);
 
 const propTypes = {
     type: PropTypes.string,
     updateDashboardFilter: PropTypes.func,
     toggleDashboardFilter: PropTypes.func,
     resetDashboardFilters: PropTypes.func,
+    setAppliedFilterCompletion: PropTypes.func,
     stagedFilters: PropTypes.object,
     appliedFilters: PropTypes.object
 };
@@ -27,6 +31,7 @@ const defaultProps = {
     updateDashboardFilter: null,
     toggleDashboardFilter: null,
     resetDashboardFilters: null,
+    setAppliedFilterCompletion: null,
     stagedFilters: {},
     appliedFilters: {}
 };
@@ -53,7 +58,7 @@ class DashboardContainer extends React.Component {
         }
     }
 
-    loadTableData(page = 1, certified = false, category = 'modified', order = 'desc') {
+    loadTableData(page = 1, certified = false, category = 'modified', order = 'desc', appliedFilters) {
         /**
         Sortable fields: Valid values for category
         'modified','reporting','status','agency','submitted_by'
@@ -63,10 +68,15 @@ class DashboardContainer extends React.Component {
             tableName = 'certified';
         }
 
+        // Generate the filter params
+        const filters = {
+            submissionIds: appliedFilters.submissionIds
+        };
+
         this.setState({
             [tableName + 'Loading']: true
         }, () => {
-            SubmissionListHelper.loadSubmissionList(page, 10, certified, category, order, this.state.type === 'fabs')
+            SubmissionListHelper.loadSubmissionList(page, 10, certified, category, order, this.state.type === 'fabs', filters)
                 .then((data) => {
                     this.setState({
                         [tableName + 'Total']: data.total,
@@ -96,5 +106,5 @@ export default connect(
         stagedFilters: state.dashboardFilters,
         appliedFilters: state.appliedDashboardFilters
     }),
-    (dispatch) => bindActionCreators(dashboardFilterActions, dispatch)
+    (dispatch) => bindActionCreators(combinedActions, dispatch)
 )(DashboardContainer);
