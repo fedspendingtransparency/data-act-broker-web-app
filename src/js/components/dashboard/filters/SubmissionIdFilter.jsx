@@ -33,9 +33,7 @@ export default class SubmissionIdFilter extends React.Component {
     handleSubmit(e) {
         e.preventDefault();
 
-        this.props.updateFilterList('submissionIds', {
-            name: this.state.value
-        });
+        this.props.updateFilterList('submissionIds', this.state.value);
 
         // clear the value
         this.setState({

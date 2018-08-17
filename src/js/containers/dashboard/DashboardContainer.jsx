@@ -18,7 +18,8 @@ const propTypes = {
     updateDashboardFilter: PropTypes.func,
     toggleDashboardFilter: PropTypes.func,
     resetDashboardFilters: PropTypes.func,
-    currentFilters: PropTypes.object
+    stagedFilters: PropTypes.object,
+    appliedFilters: PropTypes.object
 };
 
 const defaultProps = {
@@ -26,7 +27,8 @@ const defaultProps = {
     updateDashboardFilter: null,
     toggleDashboardFilter: null,
     resetDashboardFilters: null,
-    currentFilters: {}
+    stagedFilters: {},
+    appliedFilters: {}
 };
 
 class DashboardContainer extends React.Component {
@@ -91,7 +93,8 @@ DashboardContainer.defaultProps = defaultProps;
 export default connect(
     (state) => ({
         session: state.session,
-        currentFilters: state.dashboardFilters
+        stagedFilters: state.dashboardFilters,
+        appliedFilters: state.appliedDashboardFilters
     }),
     (dispatch) => bindActionCreators(dashboardFilterActions, dispatch)
 )(DashboardContainer);

@@ -4,9 +4,10 @@
   */
 
 import React, { PropTypes } from 'react';
+import FilterBarContainer from '../../containers/dashboard/FilterBarContainer';
 import DashboardTable from './DashboardTable';
-import DashboardFilters from "./DashboardFilters";
-import FiltersMessage from "./filters/FiltersMessage";
+import DashboardFilters from './DashboardFilters';
+import FiltersMessage from './filters/FiltersMessage';
 
 const propTypes = {
     loadTableData: PropTypes.func,
@@ -21,7 +22,7 @@ const propTypes = {
     updateDashboardFilter: PropTypes.func,
     toggleDashboardFilter: PropTypes.func,
     resetDashboardFilters: PropTypes.func,
-    currentFilters: PropTypes.object
+    stagedFilters: PropTypes.object
 };
 
 const defaultProps = {
@@ -37,7 +38,7 @@ const defaultProps = {
     updateDashboardFilter: null,
     toggleDashboardFilter: null,
     resetDashboardFilters: null,
-    currentFilters: {}
+    stagedFilters: {}
 };
 
 export default class DashboardContent extends React.Component {
@@ -47,12 +48,23 @@ export default class DashboardContent extends React.Component {
         this.state = {
             activePage: 1,
             certifiedPage: 1,
-            title: this.props.type === 'fabs' ? 'Published Submissions' : 'Certified Submissions'
+            title: this.props.type === 'fabs' ? 'Published Submissions' : 'Certified Submissions',
+            filterCounts: {
+                dabs: {
+                    active: 0,
+                    certified: 0
+                },
+                fabs: {
+                    active: 0,
+                    published: 0
+                }
+            }
         };
 
         this.resetFilters = this.resetFilters.bind(this);
         this.updateFilter = this.updateFilter.bind(this);
         this.toggleFilter = this.toggleFilter.bind(this);
+        this.updateFilterCount = this.updateFilterCount.bind(this);
         this.generateMessage = this.generateMessage.bind(this);
     }
 
@@ -89,41 +101,41 @@ export default class DashboardContent extends React.Component {
         });
     }
 
-    calculateFilterCount(currentFilters) {
-        let count = 0;
-        const filterLists = ['agencies', 'fileNames', 'submissionIds', 'createdBy'];
+    /**
+     * Use the top filter bar container's internal filter parsing to track the current number of
+     * filters applied
+     */
 
-        for (let i = 0; i < filterLists.length; i++) {
-            const filter = filterLists[i];
-            count += currentFilters[filter].length;
-        }
-        if (currentFilters.lastModified.startDate || currentFilters.lastModified.endDate) {
-            count += 1;
-        }
+    updateFilterCount(count, type, tableType) {
+        const dashboard = Object.assign({}, this.state.filterCounts[type], {
+            [tableType]: count
+        });
 
-        return count;
+        const filterCounts = Object.assign({}, this.state.filterCounts, {
+            [type]: dashboard
+        });
+
+        this.setState({
+            filterCounts
+        });
     }
 
-    generateMessage(count, currentFilters) {
+    generateMessage(count) {
         if (count > 0) {
             return (
                 <FiltersMessage
-                    filterCount={count}
-                    currentFilters={currentFilters} />
+                    filterCount={count} />
             );
         }
         return null;
     }
 
     render() {
-        const currentFilters = this.props.currentFilters[this.props.type];
+        const stagedFilters = this.props.stagedFilters[this.props.type];
         const secondTable = `${this.props.type === 'fabs' ? 'published' : 'certified'}`;
 
-        const activeFilterCount = this.calculateFilterCount(currentFilters.active);
-        const secondFilterCount = this.calculateFilterCount(currentFilters[secondTable]);
-
-        const activeMessage = this.generateMessage(activeFilterCount, currentFilters.active);
-        const secondMessage = this.generateMessage(secondFilterCount, currentFilters[secondTable]);
+        const activeMessage = this.generateMessage(this.state.filterCounts[this.props.type].active);
+        const secondMessage = this.generateMessage(this.state.filterCounts[this.props.type][secondTable]);
 
         return (
             <div className="container">
@@ -137,10 +149,13 @@ export default class DashboardContent extends React.Component {
                             updateFilter={this.updateFilter}
                             toggleFilter={this.toggleFilter}
                             resetFilters={this.resetFilters}
-                            currentFilters={currentFilters.active}
+                            stagedFilters={stagedFilters.active}
+                            type={this.props.type}
+                            table="active" />
+                        <FilterBarContainer
                             type={this.props.type}
                             table="active"
-                            filterCount={activeFilterCount} />
+                            updateFilterCount={this.updateFilterCount} />
                         <DashboardTable
                             isLoading={this.props.activeLoading}
                             isCertified={false}
@@ -162,10 +177,13 @@ export default class DashboardContent extends React.Component {
                             updateFilter={this.updateFilter}
                             toggleFilter={this.toggleFilter}
                             resetFilters={this.resetFilters}
-                            currentFilters={currentFilters[secondTable]}
+                            stagedFilters={stagedFilters[secondTable]}
                             table={secondTable}
+                            type={this.props.type} />
+                        <FilterBarContainer
                             type={this.props.type}
-                            filterCount={secondFilterCount} />
+                            table={secondTable}
+                            updateFilterCount={this.updateFilterCount} />
                         <DashboardTable
                             isLoading={this.props.certifiedLoading}
                             loadTableData={this.props.loadTableData}

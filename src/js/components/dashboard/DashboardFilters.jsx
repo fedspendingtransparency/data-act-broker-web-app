@@ -6,7 +6,6 @@
 import React, { PropTypes } from 'react';
 
 import { Filter } from '../../components/SharedComponents/icons/Icons';
-import FilterBar from './filters/FilterBar';
 import FilterSubmitContainer from '../../containers/dashboard/FilterSubmitContainer';
 import SubmissionIdFilter from './filters/SubmissionIdFilter';
 
@@ -14,20 +13,18 @@ const propTypes = {
     updateFilter: PropTypes.func,
     toggleFilter: PropTypes.func,
     resetFilters: PropTypes.func,
-    currentFilters: PropTypes.object,
+    stagedFilters: PropTypes.object,
     table: PropTypes.string,
-    type: PropTypes.string,
-    filterCount: PropTypes.number
+    type: PropTypes.string
 };
 
 const defaultProps = {
     updateFilter: null,
     toggleFilter: null,
     resetFilters: null,
-    currentFilters: {},
+    stagedFilters: {},
     table: '',
-    type: '',
-    filterCount: 0
+    type: ''
 };
 
 export default class DashboardFilters extends React.Component {
@@ -47,30 +44,19 @@ export default class DashboardFilters extends React.Component {
     }
 
     render() {
-        let filterBar = null;
-        if (this.props.filterCount > 0) {
-            filterBar = (
-                <FilterBar
-                    currentFilters={this.props.currentFilters}
-                    toggleFilter={this.updateFilterList} />
-            );
-        }
         return (
-            <div className="dashboard-filters-wrapper">
-                <div className="dashboard-filters">
-                    <div className="dashboard-filters__label">
-                        <span className="usa-da-icon filter-icon">
-                            <Filter />
-                        </span>
-                        Filter by:
-                    </div>
-                    <SubmissionIdFilter
-                        updateFilterList={this.updateFilterList} />
-                    <FilterSubmitContainer
-                        type={this.props.type}
-                        table={this.props.table} />
+            <div className="dashboard-filters">
+                <div className="dashboard-filters__label">
+                    <span className="usa-da-icon filter-icon">
+                        <Filter />
+                    </span>
+                    Filter by:
                 </div>
-                {filterBar}
+                <SubmissionIdFilter
+                    updateFilterList={this.updateFilterList} />
+                <FilterSubmitContainer
+                    type={this.props.type}
+                    table={this.props.table} />
             </div>
         );
     }

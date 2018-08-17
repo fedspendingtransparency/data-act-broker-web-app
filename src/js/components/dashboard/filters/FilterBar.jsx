@@ -7,45 +7,47 @@ import React, { PropTypes } from 'react';
 import TagItem from './TagItem';
 
 const propTypes = {
-    currentFilters: PropTypes.object,
-    toggleFilter: PropTypes.func
+    filters: PropTypes.array,
+    toggleDashboardFilter: PropTypes.func,
+    type: PropTypes.type,
+    table: PropTypes.table
 };
 
 const defaultProps = {
-    currentFilters: {},
-    toggleFilter: null
+    filters: [],
+    toggleDashboardFilter: null,
+    type: '',
+    table: ''
 };
 
 export default class FilterBar extends React.Component {
-    render() {
-        const filterGroups = Object.keys(this.props.currentFilters);
+    constructor(props) {
+        super(props);
 
-        const tags = filterGroups.map((filterGroup) => {
-            if (filterGroup !== 'lastModified') {
-                return this.props.currentFilters[filterGroup].map((filter) => {
-                    return (
-                        <TagItem
-                            key={filter.name}
-                            name={filter.name}
-                            value={filter}
-                            group={filterGroup}
-                            toggleFilter={this.props.toggleFilter} />
-                    );
-                });
-            }
-            const filter = this.props.currentFilters.lastModified;
-            if (filter.startDate || filter.endDate) {
-                return (
-                    <TagItem
-                        key={filter.name}
-                        name={filter.name}
-                        value={filter}
-                        group="lastModified"
-                        toggleFilter={this.props.toggleFilter} />
-                );
-            }
-            return null;
+        this.toggleFilter = this.toggleFilter.bind(this);
+    }
+
+    toggleFilter(filter, value) {
+        this.props.toggleDashboardFilter({
+            dashboard: this.props.type,
+            table: this.props.table,
+            filter,
+            value
         });
+    }
+
+    render() {
+        const tags = this.props.filters.map((filter) => {
+            return (
+                <TagItem
+                    key={filter.name}
+                    name={filter.name}
+                    value={filter.value}
+                    group={filter.group}
+                    toggleFilter={this.toggleFilter} />
+            );
+        });
+
 
         return (
             <div className="filter-bar">
