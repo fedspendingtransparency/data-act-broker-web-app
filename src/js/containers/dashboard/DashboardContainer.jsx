@@ -75,16 +75,21 @@ class DashboardContainer extends React.Component {
 
         this.setState({
             [tableName + 'Loading']: true
-        }, () => {
-            SubmissionListHelper.loadSubmissionList(page, 10, certified, category, order, this.state.type === 'fabs', filters)
-                .then((data) => {
-                    this.setState({
-                        [tableName + 'Total']: data.total,
-                        [tableName + 'Submissions']: data.submissions,
-                        [tableName + 'Loading']: false
-                    });
-                });
         });
+
+        SubmissionListHelper.loadSubmissionList(page, 10, certified, category, order, this.state.type === 'fabs', filters)
+            .then((data) => {
+                this.setState({
+                    [tableName + 'Total']: data.total,
+                    [tableName + 'Submissions']: data.submissions,
+                    [tableName + 'Loading']: false
+                });
+                this.props.setAppliedFilterCompletion({
+                    complete: true,
+                    dashboard: this.props.type,
+                    table: this.props.table
+                });
+            });
     }
 
     render() {

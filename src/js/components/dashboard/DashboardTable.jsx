@@ -78,7 +78,7 @@ export default class DashboardTable extends React.Component {
 
     componentDidUpdate(prevProps) {
         if (!_.isEqual(prevProps.appliedFilters, this.props.appliedFilters)) {
-            this.reload(true);
+            this.reload();
         }
 
         if (!_.isEqual(prevProps.data, this.props.data)) {
@@ -338,18 +338,10 @@ export default class DashboardTable extends React.Component {
         });
     }
 
-    reload(filtersChanged) {
+    reload() {
         this.props.loadTableData(this.state.currentPage, this.props.isCertified, this.getCategory(),
             this.state.sortDirection, this.props.appliedFilters);
         this.buildRow();
-        if (filtersChanged) {
-            // Update redux to indicate the filters have been applied
-            this.props.setAppliedFilterCompletion({
-                complete: true,
-                dashboard: this.props.type,
-                table: this.props.table
-            });
-        }
     }
 
     loadUser() {

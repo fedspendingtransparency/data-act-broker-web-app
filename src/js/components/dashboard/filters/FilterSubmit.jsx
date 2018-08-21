@@ -7,14 +7,12 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 const propTypes = {
-    requestsComplete: PropTypes.bool,
     filtersChanged: PropTypes.bool,
     applyStagedFilters: PropTypes.func,
     resetFilters: PropTypes.func
 };
 
 const defaultProps = {
-    requestsComplete: true,
     filtersChanged: false,
     applyStagedFilters: null,
     resetFilters: null
@@ -22,7 +20,7 @@ const defaultProps = {
 
 const FilterSubmit = (props) => {
     let disabled = false;
-    if (!props.requestsComplete || !props.filtersChanged) {
+    if (!props.filtersChanged) {
         disabled = true;
     }
 
@@ -31,7 +29,6 @@ const FilterSubmit = (props) => {
             <button
                 className="dashboard-filters__reset"
                 aria-label="Reset search"
-                disabled={!props.requestsComplete}
                 onClick={props.resetFilters}>
                 Reset Filters
             </button>

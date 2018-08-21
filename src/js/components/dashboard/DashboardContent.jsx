@@ -136,6 +136,7 @@ export default class DashboardContent extends React.Component {
 
     render() {
         const stagedFilters = this.props.stagedFilters[this.props.type];
+        const appliedFilters = this.props.appliedFilters[this.props.type];
         const secondTable = `${this.props.type === 'fabs' ? 'published' : 'certified'}`;
 
         const activeMessage = this.generateMessage(this.state.filterCounts[this.props.type].active);
@@ -154,17 +155,20 @@ export default class DashboardContent extends React.Component {
                             toggleFilter={this.toggleFilter}
                             resetFilters={this.resetFilters}
                             stagedFilters={stagedFilters.active}
+                            appliedFilters={appliedFilters.active.filters}
                             type={this.props.type}
                             table="active" />
                         <FilterBarContainer
                             type={this.props.type}
                             table="active"
+                            stagedFilters={stagedFilters.active}
+                            appliedFilters={appliedFilters.active.filters}
                             updateFilterCount={this.updateFilterCount} />
                         <DashboardTable
                             isLoading={this.props.activeLoading}
                             isCertified={false}
                             loadTableData={this.props.loadTableData}
-                            appliedFilters={this.props.appliedFilters[this.props.type].active.filters}
+                            appliedFilters={appliedFilters.active.filters}
                             total={this.props.activeTotal}
                             data={this.props.activeSubmissions}
                             page={this.state.activePage}
@@ -185,16 +189,19 @@ export default class DashboardContent extends React.Component {
                             toggleFilter={this.toggleFilter}
                             resetFilters={this.resetFilters}
                             stagedFilters={stagedFilters[secondTable]}
+                            appliedFilters={appliedFilters[secondTable].filters}
                             table={secondTable}
                             type={this.props.type} />
                         <FilterBarContainer
                             type={this.props.type}
                             table={secondTable}
+                            stagedFilters={stagedFilters[secondTable]}
+                            appliedFilters={appliedFilters[secondTable].filters}
                             updateFilterCount={this.updateFilterCount} />
                         <DashboardTable
                             isLoading={this.props.certifiedLoading}
                             loadTableData={this.props.loadTableData}
-                            appliedFilters={this.props.appliedFilters[this.props.type][secondTable].filters}
+                            appliedFilters={appliedFilters[secondTable].filters}
                             total={this.props.certifiedTotal}
                             data={this.props.certifiedSubmissions}
                             page={this.state.certifiedPage}

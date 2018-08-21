@@ -55,10 +55,12 @@ export class FilterSubmitContainer extends React.Component {
     componentDidUpdate(prevProps) {
         if (!isEqual(prevProps.stagedFilters[prevProps.type][prevProps.table],
                 this.props.stagedFilters[this.props.type][this.props.table])) {
+            // staged filters changed
             this.stagingChanged();
         }
         else if (!isEqual(prevProps.appliedFilters[prevProps.type][prevProps.table],
                 this.props.appliedFilters[this.props.type][this.props.table])) {
+            // applied filters changed
             this.stagingChanged();
         }
     }
@@ -125,11 +127,9 @@ export class FilterSubmitContainer extends React.Component {
     }
 
     render() {
-        const requestsComplete = this.props.appliedFilters[this.props.type][this.props.table]._complete;
         return (
             <FilterSubmit
                 filtersChanged={this.state.filtersChanged}
-                requestsComplete={requestsComplete}
                 applyStagedFilters={this.applyStagedFilters}
                 resetFilters={this.resetFilters} />
         );

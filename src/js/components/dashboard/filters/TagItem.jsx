@@ -10,6 +10,7 @@ const propTypes = {
     name: PropTypes.string,
     value: PropTypes.string,
     group: PropTypes.string,
+    applied: PropTypes.bool,
     toggleFilter: PropTypes.func
 };
 
@@ -17,6 +18,7 @@ const defaultProps = {
     name: '',
     value: {},
     group: '',
+    applied: false,
     toggleFilter: null
 };
 
@@ -32,8 +34,9 @@ export default class FilterBar extends React.Component {
     }
 
     render() {
+        const tagClass = this.props.applied ? 'filter-tag_applied' : 'filter-tag_staged';
         return (
-            <div className="filter-tag">
+            <div className={`filter-tag ${tagClass}`}>
                 <div className="filter-tag__name">
                     {this.props.name}
                 </div>

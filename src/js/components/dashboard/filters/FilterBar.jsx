@@ -41,13 +41,10 @@ export default class FilterBar extends React.Component {
             return (
                 <TagItem
                     key={filter.name}
-                    name={filter.name}
-                    value={filter.value}
-                    group={filter.group}
+                    {...filter}
                     toggleFilter={this.toggleFilter} />
             );
         });
-
 
         return (
             <div className="filter-bar">

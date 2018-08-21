@@ -6,6 +6,7 @@
 import React, { PropTypes } from 'react';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
+import { isEqual } from 'lodash';
 
 import * as dashboardFilterActions from '../../redux/actions/dashboard/dashboardFilterActions';
 
@@ -13,6 +14,7 @@ import FilterBar from '../../components/dashboard/filters/FilterBar';
 
 const propTypes = {
     stagedFilters: PropTypes.object,
+    appliedFilters: PropTypes.object,
     toggleDashboardFilter: PropTypes.func,
     type: PropTypes.string,
     table: PropTypes.string,
@@ -21,6 +23,7 @@ const propTypes = {
 
 const defaultProps = {
     stagedFilters: {},
+    appliedFilters: {},
     toggleDashboardFilter: null,
     type: '',
     table: '',
@@ -41,26 +44,39 @@ export class FilterBarContainer extends React.Component {
     componentDidMount() {
         // prepare filters on initial mount to handle pre-populated filters (such as a back
         // button event)
-        this.prepareFilters();
+        if (isEqual(this.props.stagedFilters, this.props.appliedFilters)) {
+            // filters have been applied or staged filters are empty
+            this.prepareFilters(this.props.appliedFilters, true);
+        }
+
+        else {
+            // filters are staged but have not been applied
+            this.prepareFilters(this.props.stagedFilters, false);
+        }
     }
 
     componentDidUpdate(prevProps) {
-        const type = this.props.type;
-        const table = this.props.table;
+        if (!isEqual(prevProps.appliedFilters, this.props.appliedFilters)) {
+            // new filters have been applied
+            this.prepareFilters(this.props.appliedFilters, true);
+        }
 
-        if (!Object.is(prevProps.stagedFilters[type][table], this.props.stagedFilters[type][table])) {
+        else if (!isEqual(prevProps.stagedFilters, this.props.stagedFilters)) {
             // staged filters changed
-            this.prepareFilters();
+            this.prepareFilters(this.props.stagedFilters, false);
         }
     }
 
     /**
      * Convert the Redux filter data into JS objects
      */
-    prepareFilters() {
+    prepareFilters(props, applied) {
+        this.setState({
+            applied
+        });
+
         const type = this.props.type;
         const table = this.props.table;
-        const props = this.props.stagedFilters[type][table];
 
         let filters = [];
 
@@ -87,7 +103,8 @@ export class FilterBarContainer extends React.Component {
             return props.submissionIds.map((id) => ({
                     name: id,
                     value: id,
-                    group: 'submissionIds'
+                    group: 'submissionIds',
+                    applied: this.state.applied
                 }
             ));
         }
@@ -134,8 +151,6 @@ FilterBarContainer.propTypes = propTypes;
 FilterBarContainer.defaultProps = defaultProps;
 
 export default connect(
-    (state) => ({
-        stagedFilters: state.dashboardFilters
-    }),
+    (state) => ({}),
     (dispatch) => bindActionCreators(dashboardFilterActions, dispatch)
 )(FilterBarContainer);
