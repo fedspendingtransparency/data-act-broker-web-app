@@ -33,7 +33,10 @@ export default class SubmissionIdFilter extends React.Component {
     handleSubmit(e) {
         e.preventDefault();
 
-        this.props.updateFilterList('submissionIds', this.state.value);
+        if (this.state.value) {
+            // prevent submitting an empty string
+            this.props.updateFilterList('submissionIds', this.state.value);
+        }
 
         // clear the value
         this.setState({
@@ -57,6 +60,7 @@ export default class SubmissionIdFilter extends React.Component {
                     <button
                         className="text-filter__button"
                         onClick={this.handleSubmit}
+                        disabled={!this.state.value}
                         title="Add"
                         aria-label="Filter by Submission ID">
                         Add
