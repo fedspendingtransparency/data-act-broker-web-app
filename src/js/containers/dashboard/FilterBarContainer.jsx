@@ -71,10 +71,6 @@ export class FilterBarContainer extends React.Component {
      * Convert the Redux filter data into JS objects
      */
     prepareFilters(props, applied) {
-        this.setState({
-            applied
-        });
-
         const type = this.props.type;
         const table = this.props.table;
 
@@ -88,6 +84,7 @@ export class FilterBarContainer extends React.Component {
 
         this.setState({
             filters,
+            applied,
             filterCount: filters.length
         }, () => {
             this.props.updateFilterCount(this.state.filterCount, type, table);
@@ -103,8 +100,7 @@ export class FilterBarContainer extends React.Component {
             return props.submissionIds.map((id) => ({
                     name: id,
                     value: id,
-                    group: 'submissionIds',
-                    applied: this.state.applied
+                    group: 'submissionIds'
                 }
             ));
         }
@@ -138,8 +134,7 @@ export class FilterBarContainer extends React.Component {
                 <FilterBar
                     {...this.props}
                     applied={this.state.applied}
-                    filters={this.state.filters}
-                    filterCount={this.state.filterCount} />
+                    filters={this.state.filters} />
             );
         }
 
@@ -151,6 +146,6 @@ FilterBarContainer.propTypes = propTypes;
 FilterBarContainer.defaultProps = defaultProps;
 
 export default connect(
-    (state) => ({}),
+    () => ({}),
     (dispatch) => bindActionCreators(dashboardFilterActions, dispatch)
 )(FilterBarContainer);

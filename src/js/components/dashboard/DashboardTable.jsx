@@ -26,8 +26,7 @@ const propTypes = {
     table: PropTypes.string,
     total: PropTypes.number,
     isCertified: PropTypes.bool,
-    isLoading: PropTypes.bool,
-    setAppliedFilterCompletion: PropTypes.func
+    isLoading: PropTypes.bool
 };
 
 const defaultProps = {
@@ -39,8 +38,7 @@ const defaultProps = {
     session: null,
     type: '',
     table: '',
-    total: 0,
-    setAppliedFilterCompletion: null
+    total: 0
 };
 
 export default class DashboardTable extends React.Component {

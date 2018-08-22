@@ -10,14 +10,16 @@ const propTypes = {
     filters: PropTypes.array,
     toggleDashboardFilter: PropTypes.func,
     type: PropTypes.string,
-    table: PropTypes.string
+    table: PropTypes.string,
+    applied: PropTypes.bool
 };
 
 const defaultProps = {
     filters: [],
     toggleDashboardFilter: null,
     type: '',
-    table: ''
+    table: '',
+    applied: false
 };
 
 export default class FilterBar extends React.Component {
@@ -42,6 +44,7 @@ export default class FilterBar extends React.Component {
                 <TagItem
                     key={filter.name}
                     {...filter}
+                    applied={this.props.applied}
                     toggleFilter={this.toggleFilter} />
             );
         });

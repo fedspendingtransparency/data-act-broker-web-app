@@ -6,7 +6,6 @@
 import React, { PropTypes } from 'react';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
-import { is } from 'immutable';
 import { isEqual } from 'lodash';
 
 import * as appliedFilterActions from '../../redux/actions/dashboard/appliedFilterActions';
@@ -53,46 +52,24 @@ export class FilterSubmitContainer extends React.Component {
     }
 
     componentDidUpdate(prevProps) {
-        if (!isEqual(prevProps.stagedFilters[prevProps.type][prevProps.table],
-                this.props.stagedFilters[this.props.type][this.props.table])) {
+        if (!isEqual(prevProps.stagedFilters, this.props.stagedFilters)) {
             // staged filters changed
             this.stagingChanged();
         }
-        else if (!isEqual(prevProps.appliedFilters[prevProps.type][prevProps.table],
-                this.props.appliedFilters[this.props.type][this.props.table])) {
+        else if (!isEqual(prevProps.appliedFilters, this.props.appliedFilters)) {
             // applied filters changed
             this.stagingChanged();
         }
     }
 
-    compareStores() {
-        // access the filters for this dashboard type and table type
-        const appliedFilters = this.props.appliedFilters[this.props.type][this.props.table].filters;
-        const stagedFilters = this.props.stagedFilters[this.props.type][this.props.table];
-
-        // we need to do a deep equality check by comparing every store key
-        const storeKeys = Object.keys(stagedFilters);
-        if (storeKeys.length !== Object.keys(appliedFilters).length) {
-            // key lengths do not match, there's a difference so fail immediately
-            return false;
-        }
-
-        // check that the key exists in the appliedFilters object and also that it
-        // is equal (using Immutable's equality check utilty function) in both stores
-        return storeKeys.every((key) => (
-            {}.hasOwnProperty.call(appliedFilters, key) &&
-            is(appliedFilters[key], stagedFilters[key])
-        ));
-    }
-
     stagingChanged() {
-        // do a deep equality check between the staged filters and applied filters
-        if (!this.compareStores()) {
+        // do an equality check between the staged filters and applied filters
+        if (!isEqual(this.props.stagedFilters, this.props.appliedFilters)) {
             this.setState({
                 filtersChanged: true
             });
         }
-        else if (this.state.filtersChanged) {
+        else {
             this.setState({
                 filtersChanged: false
             });
@@ -106,7 +83,7 @@ export class FilterSubmitContainer extends React.Component {
             table: this.props.table
         });
         this.props.applyStagedFilters({
-            filters: this.props.stagedFilters[this.props.type][this.props.table],
+            filters: this.props.stagedFilters,
             dashboard: this.props.type,
             table: this.props.table
         });
@@ -137,10 +114,7 @@ export class FilterSubmitContainer extends React.Component {
 }
 
 export default connect(
-    (state) => ({
-        stagedFilters: state.dashboardFilters,
-        appliedFilters: state.appliedDashboardFilters
-    }),
+    () => ({}),
     (dispatch) => bindActionCreators(combinedActions, dispatch)
 )(FilterSubmitContainer);
 

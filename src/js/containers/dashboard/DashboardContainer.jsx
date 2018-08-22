@@ -77,7 +77,8 @@ class DashboardContainer extends React.Component {
             [tableName + 'Loading']: true
         });
 
-        SubmissionListHelper.loadSubmissionList(page, 10, certified, category, order, this.state.type === 'fabs', filters)
+        SubmissionListHelper.loadSubmissionList(
+            page, 10, certified, category, order, this.state.type === 'fabs', filters)
             .then((data) => {
                 this.setState({
                     [tableName + 'Total']: data.total,
@@ -87,7 +88,7 @@ class DashboardContainer extends React.Component {
                 this.props.setAppliedFilterCompletion({
                     complete: true,
                     dashboard: this.props.type,
-                    table: this.props.table
+                    table: tableName
                 });
             });
     }

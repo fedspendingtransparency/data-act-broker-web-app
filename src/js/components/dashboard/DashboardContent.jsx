@@ -19,7 +19,6 @@ const propTypes = {
     certifiedTotal: PropTypes.number,
     activeLoading: PropTypes.bool,
     certifiedLoading: PropTypes.bool,
-    updateDashboardFilter: PropTypes.func,
     toggleDashboardFilter: PropTypes.func,
     resetDashboardFilters: PropTypes.func,
     setAppliedFilterCompletion: PropTypes.func,
@@ -37,7 +36,6 @@ const defaultProps = {
     certifiedTotal: 0,
     activeLoading: false,
     certifiedLoading: false,
-    updateDashboardFilter: null,
     toggleDashboardFilter: null,
     resetDashboardFilters: null,
     setAppliedFilterCompletion: null,
@@ -66,7 +64,6 @@ export default class DashboardContent extends React.Component {
         };
 
         this.resetFilters = this.resetFilters.bind(this);
-        this.updateFilter = this.updateFilter.bind(this);
         this.toggleFilter = this.toggleFilter.bind(this);
         this.updateFilterCount = this.updateFilterCount.bind(this);
         this.generateMessage = this.generateMessage.bind(this);
@@ -84,15 +81,6 @@ export default class DashboardContent extends React.Component {
         this.props.resetDashboardFilters({
             dashboard: this.props.type,
             table
-        });
-    }
-
-    updateFilter(table, filter, value) {
-        this.props.updateDashboardFilter({
-            dashboard: this.props.type,
-            table,
-            filter,
-            value
         });
     }
 
@@ -151,7 +139,6 @@ export default class DashboardContent extends React.Component {
                             {activeMessage}
                         </div>
                         <DashboardFilters
-                            updateFilter={this.updateFilter}
                             toggleFilter={this.toggleFilter}
                             resetFilters={this.resetFilters}
                             stagedFilters={stagedFilters.active}
@@ -174,8 +161,7 @@ export default class DashboardContent extends React.Component {
                             page={this.state.activePage}
                             session={this.props.session}
                             table={secondTable}
-                            type={this.props.type}
-                            setAppliedFilterCompletion={this.props.setAppliedFilterCompletion} />
+                            type={this.props.type} />
                     </div>
                 </div>
                 <div className="row">
@@ -185,7 +171,6 @@ export default class DashboardContent extends React.Component {
                             {secondMessage}
                         </div>
                         <DashboardFilters
-                            updateFilter={this.updateFilter}
                             toggleFilter={this.toggleFilter}
                             resetFilters={this.resetFilters}
                             stagedFilters={stagedFilters[secondTable]}
@@ -207,8 +192,7 @@ export default class DashboardContent extends React.Component {
                             page={this.state.certifiedPage}
                             session={this.props.session}
                             table={secondTable}
-                            type={this.props.type}
-                            setAppliedFilterCompletion={this.props.setAppliedFilterCompletion} />
+                            type={this.props.type} />
                     </div>
                 </div>
             </div>

@@ -119,7 +119,8 @@ export default class ValidationRulesTableContent extends React.Component {
                             <a
                                 href={"https://community.max.gov/download/attachments/1324878095/" +
                                 "DAIMS_Practices_Procedures_v1.2.pdf"}
-                                target="_blank">
+                                target="_blank"
+                                rel="noopener noreferrer">
                                 DAIMS Practices & Procedures v1.2
                             </a>: contains file-wide practices, {submissionProcess},
                             validation rule source data, user management, technical procedures for formatting submission
@@ -129,13 +130,19 @@ export default class ValidationRulesTableContent extends React.Component {
                             <a
                                 href={"https://github.com/fedspendingtransparency/data-act-broker-backend/tree/" +
                                 "master/dataactvalidator/config/sqlrules"}
-                                target="_blank">
+                                target="_blank"
+                                rel="noopener noreferrer">
                                 Broker SQL Validation Rules
                             </a>: the actual machine logic used in {type} validations. These SQL statements are based
                             directly on the {type} validation rules.
                         </li>
                         <li>
-                            <a href={this.state.validationRulesUrl} target="_blank">DAIMS Validations Rules</a>
+                            <a
+                                href={this.state.validationRulesUrl}
+                                target="_blank"
+                                rel="noopener noreferrer">
+                                DAIMS Validations Rules
+                            </a>
                             : contains the validations rules for the RSS, along with a change log
                         </li>
                     </ul>

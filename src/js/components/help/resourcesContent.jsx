@@ -80,7 +80,12 @@ export default class ResourcesContent extends React.Component {
                 <h5>Here are some resources to assist with your submission to FABS</h5>
                 <ul>
                     <li>
-                        <a href={this.state.fabs_sample} target="_blank">Download FABS sample file</a>
+                        <a
+                            href={this.state.fabs_sample}
+                            target="_blank"
+                            rel="noopener noreferrer">
+                            Download FABS sample file
+                        </a>
                     </li>
                 </ul>
                 <h5>Additional Resources</h5>
