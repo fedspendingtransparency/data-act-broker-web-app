@@ -3,41 +3,18 @@
  * Created by Minahm Kim 6/30/2017
  */
 
-import React, { PropTypes } from 'react';
+import React from 'react';
 
-const propTypes = {
-    type: PropTypes.string
-};
-
-const defaultProps = {
-    type: ''
-};
 
 export default class DaimsMessage extends React.Component {
-    constructor(props) {
-        super(props);
-    }
-
     render() {
-        let type = 'DABS submissions (including submissions of earlier quarters)';
-        const version = 'v1.2';
-        if (this.props.type === 'fabs') {
-            type = 'FABS submissions';
-        }
-
         return (
             <div className="daims">
-                <span className="daims-header">May 18th, 2018: </span>
+                <span className="daims-header">May 2018: </span>
                 <span className="daims-message">
-                    Treasury implemented the DATA Act Information Model Schema (DAIMS) v1.2, a minor update to the
-                    schema. With the implementation of DAIMS v1.2, all {type} must conform to its
-                    specifications. Find out more about the requirements of DAIMS {version}
-                    <a className="daims-link" href="https://community.max.gov/x/Dwn4Tg"> here</a>.
+                    The U.S. Department of the Treasury released the next minor update of the DATA Act Information Model Schema (DAIMS). DAIMS version 1.2 was implemented with the submission of fiscal year 2018 quarter 3 data.
                 </span>
             </div>
         );
     }
 }
-
-DaimsMessage.propTypes = propTypes;
-DaimsMessage.defaultProps = defaultProps;
