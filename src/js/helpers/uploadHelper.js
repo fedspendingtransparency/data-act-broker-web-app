@@ -36,15 +36,15 @@ const prepareFilesNewSub = (fileDict) => {
 const prepareFilesExistingSub = (fileDict) => {
     const deferred = Q.defer();
 
-    const req = Request.post(kGlobalConstants.API + 'upload_dabs_files/')
+    const req = Request.post(kGlobalConstants.API + 'upload_dabs_files/');
     if (fileDict.appropriations) {
-        req.attach('appropriations', fileDict.appropriations)
+        req.attach('appropriations', fileDict.appropriations);
     }
     if (fileDict.program_activity) {
-        req.attach('program_activity', fileDict.program_activity)
+        req.attach('program_activity', fileDict.program_activity);
     }
     if (fileDict.award_financial) {
-        req.attach('award_financial', fileDict.award_financial)
+        req.attach('award_financial', fileDict.award_financial);
     }
     req.field('existing_submission_id', fileDict.existing_submission_id)
         .end((err, res) => {
