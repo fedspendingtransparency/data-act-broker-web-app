@@ -63,7 +63,13 @@ export class FilterBarContainer extends React.Component {
 
         else if (!isEqual(prevProps.stagedFilters, this.props.stagedFilters)) {
             // staged filters changed
-            this.prepareFilters(this.props.stagedFilters, false);
+            if (!isEqual(this.props.stagedFilters, this.props.appliedFilters)) {
+                this.prepareFilters(this.props.stagedFilters, false);
+            }
+            else {
+                // staged filters match the applied filters
+                this.prepareFilters(this.props.appliedFilters, true);
+            }
         }
     }
 

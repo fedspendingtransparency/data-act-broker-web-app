@@ -52,15 +52,16 @@ export class FilterSubmitContainer extends React.Component {
     componentDidUpdate(prevProps) {
         if (!isEqual(prevProps.stagedFilters, this.props.stagedFilters)) {
             // staged filters changed
-            this.stagingChanged();
+            this.filtersChanged();
         }
         else if (!isEqual(prevProps.appliedFilters, this.props.appliedFilters)) {
             // applied filters changed
-            this.stagingChanged();
+            this.filtersChanged();
         }
     }
 
-    stagingChanged() {
+
+    filtersChanged() {
         // do an equality check between the staged filters and applied filters
         if (!isEqual(this.props.stagedFilters, this.props.appliedFilters)) {
             this.setState({
@@ -68,6 +69,7 @@ export class FilterSubmitContainer extends React.Component {
             });
         }
         else {
+            // staged filters have been changed back to what's already applied
             this.setState({
                 filtersChanged: false
             });

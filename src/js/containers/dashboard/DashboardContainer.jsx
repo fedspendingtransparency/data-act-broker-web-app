@@ -76,11 +76,6 @@ class DashboardContainer extends React.Component {
                     [tableName + 'Submissions']: data.submissions,
                     [tableName + 'Loading']: false
                 });
-                this.props.setAppliedFilterCompletion({
-                    complete: true,
-                    dashboard: this.props.type,
-                    table: tableName
-                });
             });
     }
 
