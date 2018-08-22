@@ -73,14 +73,17 @@ export class FilterBarContainer extends React.Component {
         }
     }
 
-    /**
-     * Convert the Redux filter data into JS objects
-     */
     prepareFilters(props, applied) {
         const type = this.props.type;
         const table = this.props.table;
 
         let filters = [];
+
+        // prepare the file name filters
+        const fileNameFilters = this.prepareFileNames(props);
+        if (fileNameFilters) {
+            filters = filters.concat(fileNameFilters);
+        }
 
         // prepare the submission id filters
         const submissionIdFilters = this.prepareSubmissionIds(props);
@@ -97,10 +100,18 @@ export class FilterBarContainer extends React.Component {
         });
     }
 
-    /**
-     * Logic for parsing the current Redux submission ID filter into a JS object that can be parsed by the
-     * filter bar
-     */
+    prepareFileNames(props) {
+        if (props.fileNames.length > 0) {
+            return props.fileNames.map((name) => ({
+                    name,
+                    value: name,
+                    group: 'fileNames'
+                }
+            ));
+        }
+        return null;
+    }
+
     prepareSubmissionIds(props) {
         if (props.submissionIds.length > 0) {
             return props.submissionIds.map((id) => ({
@@ -113,9 +124,7 @@ export class FilterBarContainer extends React.Component {
         return null;
     }
 
-    /**
-     * Determine the current number of filters that have been applied
-     */
+    // Determine the current number of filters that have been applied
     determineFilterCount(filters) {
         let filterCount = 0;
         filters.forEach((filter) => {
