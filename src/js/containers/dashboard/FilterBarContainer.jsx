@@ -85,7 +85,7 @@ export class FilterBarContainer extends React.Component {
         this.setState({
             filters,
             applied,
-            filterCount: filters.length
+            filterCount: applied ? 0 : filters.length
         }, () => {
             this.props.updateFilterCount(this.state.filterCount, type, table);
         });

@@ -142,20 +142,20 @@ export default class DashboardContent extends React.Component {
                             toggleFilter={this.toggleFilter}
                             resetFilters={this.resetFilters}
                             stagedFilters={stagedFilters.active}
-                            appliedFilters={appliedFilters.active.filters}
+                            appliedFilters={appliedFilters.active}
                             type={this.props.type}
                             table="active" />
                         <FilterBarContainer
                             type={this.props.type}
                             table="active"
                             stagedFilters={stagedFilters.active}
-                            appliedFilters={appliedFilters.active.filters}
+                            appliedFilters={appliedFilters.active}
                             updateFilterCount={this.updateFilterCount} />
                         <DashboardTable
                             isLoading={this.props.activeLoading}
                             isCertified={false}
                             loadTableData={this.props.loadTableData}
-                            appliedFilters={appliedFilters.active.filters}
+                            appliedFilters={appliedFilters.active}
                             total={this.props.activeTotal}
                             data={this.props.activeSubmissions}
                             page={this.state.activePage}
@@ -174,19 +174,19 @@ export default class DashboardContent extends React.Component {
                             toggleFilter={this.toggleFilter}
                             resetFilters={this.resetFilters}
                             stagedFilters={stagedFilters[secondTable]}
-                            appliedFilters={appliedFilters[secondTable].filters}
+                            appliedFilters={appliedFilters[secondTable]}
                             table={secondTable}
                             type={this.props.type} />
                         <FilterBarContainer
                             type={this.props.type}
                             table={secondTable}
                             stagedFilters={stagedFilters[secondTable]}
-                            appliedFilters={appliedFilters[secondTable].filters}
+                            appliedFilters={appliedFilters[secondTable]}
                             updateFilterCount={this.updateFilterCount} />
                         <DashboardTable
                             isLoading={this.props.certifiedLoading}
                             loadTableData={this.props.loadTableData}
-                            appliedFilters={appliedFilters[secondTable].filters}
+                            appliedFilters={appliedFilters[secondTable]}
                             total={this.props.certifiedTotal}
                             data={this.props.certifiedSubmissions}
                             page={this.state.certifiedPage}
