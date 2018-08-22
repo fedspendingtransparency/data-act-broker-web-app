@@ -8,30 +8,21 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 
 import * as dashboardFilterActions from '../../redux/actions/dashboard/dashboardFilterActions';
-import * as appliedFilterActions from '../../redux/actions/dashboard/appliedFilterActions';
 
 import * as SubmissionListHelper from '../../helpers/submissionListHelper';
 
 import DashboardContent from '../../components/dashboard/DashboardContent';
 
-const combinedActions = Object.assign({}, dashboardFilterActions, appliedFilterActions);
-
 const propTypes = {
     type: PropTypes.string,
-    updateDashboardFilter: PropTypes.func,
     toggleDashboardFilter: PropTypes.func,
-    resetDashboardFilters: PropTypes.func,
-    setAppliedFilterCompletion: PropTypes.func,
     stagedFilters: PropTypes.object,
     appliedFilters: PropTypes.object
 };
 
 const defaultProps = {
     type: "",
-    updateDashboardFilter: null,
     toggleDashboardFilter: null,
-    resetDashboardFilters: null,
-    setAppliedFilterCompletion: null,
     stagedFilters: {},
     appliedFilters: {}
 };
@@ -112,5 +103,5 @@ export default connect(
         stagedFilters: state.dashboardFilters,
         appliedFilters: state.appliedDashboardFilters
     }),
-    (dispatch) => bindActionCreators(combinedActions, dispatch)
+    (dispatch) => bindActionCreators(dashboardFilterActions, dispatch)
 )(DashboardContainer);

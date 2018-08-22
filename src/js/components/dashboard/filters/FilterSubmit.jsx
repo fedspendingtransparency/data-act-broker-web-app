@@ -19,11 +19,6 @@ const defaultProps = {
 };
 
 const FilterSubmit = (props) => {
-    let disabled = false;
-    if (!props.filtersChanged) {
-        disabled = true;
-    }
-
     return (
         <div className="dashboard-filters__submit-content">
             <button
@@ -36,7 +31,7 @@ const FilterSubmit = (props) => {
                 className="btn-primary dashboard-filters__submit"
                 title="Submit"
                 aria-label="Submit"
-                disabled={disabled}
+                disabled={!props.filtersChanged}
                 onClick={props.applyStagedFilters}>
                 Submit
             </button>

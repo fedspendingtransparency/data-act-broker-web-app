@@ -24,7 +24,6 @@ const propTypes = {
     appliedFilters: PropTypes.object,
     applyStagedFilters: PropTypes.func,
     clearStagedFilters: PropTypes.func,
-    setAppliedFilterCompletion: PropTypes.func,
     resetAppliedFilters: PropTypes.func
 };
 
@@ -35,7 +34,6 @@ const defaultProps = {
     appliedFilters: {},
     applyStagedFilters: null,
     clearStagedFilters: null,
-    setAppliedFilterCompletion: null,
     resetAppliedFilters: null
 };
 
@@ -77,11 +75,6 @@ export class FilterSubmitContainer extends React.Component {
     }
 
     applyStagedFilters() {
-        this.props.setAppliedFilterCompletion({
-            complete: false,
-            dashboard: this.props.type,
-            table: this.props.table
-        });
         this.props.applyStagedFilters({
             filters: this.props.stagedFilters,
             dashboard: this.props.type,

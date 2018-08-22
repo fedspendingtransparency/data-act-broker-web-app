@@ -11,7 +11,6 @@ import SubmissionIdFilter from './filters/SubmissionIdFilter';
 
 const propTypes = {
     toggleFilter: PropTypes.func,
-    resetFilters: PropTypes.func,
     stagedFilters: PropTypes.object,
     appliedFilters: PropTypes.object,
     table: PropTypes.string,
@@ -20,7 +19,6 @@ const propTypes = {
 
 const defaultProps = {
     toggleFilter: null,
-    resetFilters: null,
     stagedFilters: {},
     appliedFilters: {},
     table: '',

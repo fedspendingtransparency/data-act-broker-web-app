@@ -23,7 +23,6 @@ const propTypes = {
     session: PropTypes.object,
     data: PropTypes.array,
     type: PropTypes.string,
-    table: PropTypes.string,
     total: PropTypes.number,
     isCertified: PropTypes.bool,
     isLoading: PropTypes.bool
@@ -37,7 +36,6 @@ const defaultProps = {
     appliedFilters: {},
     session: null,
     type: '',
-    table: '',
     total: 0
 };
 

@@ -19,12 +19,8 @@ export const initialState = {
 export const appliedFiltersReducer = (state = initialState, action) => {
     switch (action.type) {
         case 'APPLY_STAGED_FILTERS': {
-            const table = Object.assign({}, state[action.dashboard][action.table], {
-                filters: action.filters
-            });
-
             const dashboard = Object.assign({}, state[action.dashboard], {
-                [action.table]: table
+                [action.table]: action.filters
             });
 
             return Object.assign({}, state, {
