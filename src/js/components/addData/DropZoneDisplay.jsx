@@ -1,44 +1,33 @@
 import React, { PropTypes } from 'react';
-import FileProgress from '../SharedComponents/FileProgress';
 import * as Icons from '../SharedComponents/icons/Icons';
 
 const propTypes = {
-    displayMode: PropTypes.string,
-    string: PropTypes.string,
-    progress: PropTypes.number,
-    showFile: PropTypes.bool
+  displayMode: PropTypes.string,
+  string: PropTypes.string,
 };
 
 const defaultProps = {
-    showFile: false,
-    string: '',
-    displayMode: '',
-    progress: 0
+  string: '',
+  displayMode: '',
 };
 
 export default class DropZoneDisplay extends React.Component {
-    render() {
-        let iconClass = "";
-        if (this.props.displayMode === 'failure') {
-            iconClass = 'fail';
-        }
-        if (this.props.displayMode === 'success') {
-            iconClass = 'success';
-        }
-
-        let progress = "";
-        if (this.props.displayMode === 'uploading') {
-            progress = <FileProgress fileStatus={this.props.progress} />;
-        }
-
-        return (
-            <div className="center-block">
-                <div className={"text-center usa-da-icon " + iconClass}><Icons.CloudUpload /></div>
-                <div dangerouslySetInnerHTML={{ __html: this.props.string }} />
-                {progress}
-            </div>
-        );
-    }
+  render() {
+    return (
+      <div className="center-block">
+        {(() => {
+          switch (this.props.displayMode) {
+            case 'ready': return <div className="text-center usa-da-icon"><Icons.CloudUpload /></div>;
+            case 'uploading': return <div className="text-center usa-da-icon-loading-spinner"><Icons.LoadingSpinner /></div>;
+            case 'failed': return <div className="text-center usa-da-icon fail"><Icons.CloudUpload /></div>;
+            case 'prepare': return <div className="text-center usa-da-icon success"><Icons.CloudUpload /></div>;
+            default: return <div className="text-center usa-da-icon"><Icons.CloudUpload /></div>;
+          }
+        })()}
+        <div dangerouslySetInnerHTML={{ __html: this.props.string }} />
+      </div>
+    );
+  }
 }
 
 DropZoneDisplay.propTypes = propTypes;

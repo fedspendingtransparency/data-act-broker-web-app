@@ -1,4 +1,21 @@
 <svg xmlns="http://www.w3.org/2000/svg" style="display: none;">
+    <symbol id="usa-da-icon-file-upload" viewBox="0 0 105 145">
+      <rect width="105" height="145" fill="none"/>
+      <rect width="105" height="145" fill="black" fill-opacity="0"/>
+      <path d="M0.999998 0H61.0968C61.6491 0 62.0968 0.447716 62.0968 1V43.1797C62.0968 43.732 62.5445 44.1797 63.0968 44.1797H104C104.552 44.1797 105 44.6274 105 45.1797V144C105 144.552 104.552 145 104 145H1C0.447715 145 0 144.552 0 144V1C0 0.447715 0.447713 0 0.999998 0Z" fill="#F4C744"/>
+      <path d="M67.5 38V2.48278C67.5 1.58239 68.5968 1.14063 69.2208 1.78966L103.372 37.3069C103.983 37.9423 103.533 39 102.651 39H68.5C67.9477 39 67.5 38.5523 67.5 38Z" fill="#F4C744"/>
+      <rect width="64" height="57" fill="black" fill-opacity="0" transform="translate(21 60)"/>
+      <path d="M50.7193 62.669C51.9168 61.2676 54.0832 61.2676 55.2807 62.669L76.4839 87.4821C78.1476 89.429 76.7641 92.431 74.2032 92.431H31.7968C29.2359 92.431 27.8524 89.429 29.5161 87.4821L50.7193 62.669Z" fill="white"/>
+      <rect x="46.9048" y="83.5862" width="12.1905" height="33.4138" rx="1" fill="white"/>
+    </symbol>
+    <symbol id="usa-da-icon-loading-spinner" viewBox="0 0 66 66">
+      <animateTransform attributeName="transform" type="rotate" values="0 33 33;270 33 33" begin="0s" dur="1.4s" fill="freeze" repeatCount="indefinite"/>
+      <circle fill="none" stroke-width="6" stroke-linecap="round" cx="33" cy="33" r="30" stroke-dasharray="187" stroke-dashoffset="610">
+        <animate attributeName="stroke" values="#f4c744" begin="0s" dur="5.6s" fill="freeze" repeatCount="indefinite"/>
+        <animateTransform attributeName="transform" type="rotate" values="0 33 33;135 33 33;450 33 33" begin="0s" dur="1.4s" fill="freeze" repeatCount="indefinite"/>
+        <animate attributeName="stroke-dashoffset" values="187;46.75;187" begin="0s" dur="1.4s" fill="freeze" repeatCount="indefinite"/>
+      </circle>
+ 		</symbol>
     <symbol id="usa-da-icon-unlock" viewBox="0 0 512 512">
         <path d="m494 133l0 73c0 5-2 9-6 13-3 3-8 5-13 5l-18 0c-5 0-9-2-13-5-3-4-5-8-5-13l0-73c0-21-7-38-22-52-14-14-31-22-51-22-20 0-38 8-52 22-14 14-21 31-21 52l0 54 27 0c8 0 14 3 19 8 6 6 8 12 8 20l0 164c0 8-2 15-8 20-5 5-11 8-19 8l-274 0c-8 0-14-3-20-8-5-5-8-12-8-20l0-164c0-8 3-14 8-20 6-5 12-8 20-8l192 0 0-54c0-36 12-66 37-91 25-25 55-37 91-37 35 0 65 12 90 37 25 25 38 55 38 91z" />
     </symbol>
