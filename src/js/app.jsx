@@ -5,6 +5,8 @@ import AppContainer from './containers/AppContainer';
 
 const documentLocation = document.getElementById('app');
 
-ReactDOM.render((
-    <AppContainer />
-), documentLocation);
+ReactDOM.render(
+  (
+      <AppContainer />
+  ), documentLocation,
+);
