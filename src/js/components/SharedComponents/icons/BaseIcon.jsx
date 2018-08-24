@@ -10,11 +10,11 @@ import IconSingleton from './iconSingleton';
 const propTypes = {
   alt: PropTypes.string,
   iconClass: PropTypes.string.isRequired,
-  iconName: PropTypes.string.isRequired,
+  iconName: PropTypes.string.isRequired
 };
 
 const defaultProps = {
-  alt: '',
+  alt: ''
 };
 
 export default class BaseIcon extends React.Component {
@@ -24,8 +24,8 @@ export default class BaseIcon extends React.Component {
     this.state = {
       icon: {
         data: '',
-        viewBox: '0 0 0 0',
-      },
+        viewBox: '0 0 0 0'
+      }
     };
 
     this.iconSingleton = IconSingleton;
@@ -37,7 +37,7 @@ export default class BaseIcon extends React.Component {
 
     // necessary for IE support
     svg4everybody({
-      polyfill: true,
+      polyfill: true
     });
   }
   componentWillUnmount() {
@@ -57,7 +57,8 @@ export default class BaseIcon extends React.Component {
         // not requested either, let's request it now
         this.iconSingleton.downloadIcons();
       }
-    } else {
+    }
+ else {
       // icons are ready
       this.displayIcon();
     }
@@ -67,7 +68,7 @@ export default class BaseIcon extends React.Component {
     // set the state to the correct SVG data
     if (this.iconSingleton.svgCache.hasOwnProperty(this.props.iconName)) {
       this.setState({
-        icon: this.iconSingleton.svgCache[this.props.iconName],
+        icon: this.iconSingleton.svgCache[this.props.iconName]
       });
     }
   }
@@ -83,15 +84,14 @@ export default class BaseIcon extends React.Component {
 
   render() {
     return (
-      <svg
-        className={this.props.iconClass}
-        viewBox={this.state.icon.viewBox}
-        key={this.state.icon.data}
-        aria-label={this.props.alt}
-      >
-        <title>{this.props.alt}</title>
-        <g dangerouslySetInnerHTML={{ __html: this.state.icon.data }} />
-      </svg>
+        <svg
+            className={this.props.iconClass}
+            viewBox={this.state.icon.viewBox}
+            key={this.state.icon.data}
+            aria-label={this.props.alt}>
+            <title>{this.props.alt}</title>
+            <g dangerouslySetInnerHTML={{ __html: this.state.icon.data }} />
+        </svg>
     );
   }
 }

@@ -14,14 +14,14 @@ const propTypes = {
   resetSubmission: PropTypes.func,
   submission: PropTypes.object,
   fileTitle: PropTypes.string,
-  requestName: PropTypes.string.isRequired,
+  requestName: PropTypes.string.isRequired
 };
 
 const defaultProps = {
   onDrop: null,
   resetSubmission: null,
   submission: null,
-  fileTitle: '',
+  fileTitle: ''
 };
 
 export default class DropZone extends React.Component {
@@ -62,15 +62,14 @@ export default class DropZone extends React.Component {
     dropzoneString = DOMPurify.sanitize(dropzoneString, { ALLOWED_TAGS: ['b'] });
 
     return (
-      <Dropzone
-        className={`usa-da-dropzone text-center${dropped}`}
-        activeClassName="active"
-        multiple={false}
-        onDrop={this.props.onDrop}
-        data-testid={`upload-${this.props.requestName}`}
-      >
-        <DropZoneDisplay displayMode={this.props.submission.state} string={dropzoneString} progress={progress} />
-      </Dropzone>
+        <Dropzone
+            className={`usa-da-dropzone text-center${dropped}`}
+            activeClassName="active"
+            multiple={false}
+            onDrop={this.props.onDrop}
+            data-testid={`upload-${this.props.requestName}`}>
+            <DropZoneDisplay displayMode={this.props.submission.state} string={dropzoneString} progress={progress} />
+        </Dropzone>
     );
   }
 }

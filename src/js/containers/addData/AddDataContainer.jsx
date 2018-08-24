@@ -21,13 +21,13 @@ import * as GuideHelper from '../../helpers/submissionGuideHelper';
 const propTypes = {
   setSubmissionId: PropTypes.func,
   setSubmissionState: PropTypes.func,
-  submission: PropTypes.object,
+  submission: PropTypes.object
 };
 
 const defaultProps = {
   setSubmissionId: uploadActions.setSubmissionId(),
   setSubmissionState: uploadActions.setSubmissionId(),
-  submission: {},
+  submission: {}
 };
 
 class AddDataContainer extends React.Component {
@@ -36,7 +36,7 @@ class AddDataContainer extends React.Component {
 
     this.state = {
       notAllowed: false,
-      errorMessage: '',
+      errorMessage: ''
     };
   }
 
@@ -57,7 +57,8 @@ class AddDataContainer extends React.Component {
       .catch(() => {
         if (index === count) {
           hashHistory.push('/404/');
-        } else {
+        }
+ else {
           setTimeout(() => {
             this.getPage(submissionID, index + 1);
           }, 500);
@@ -82,7 +83,7 @@ class AddDataContainer extends React.Component {
         if (err.httpStatus === 403) {
           this.setState({
             notAllowed: true,
-            errorMessage: err.message,
+            errorMessage: err.message
           });
         }
       });
@@ -98,16 +99,15 @@ class AddDataContainer extends React.Component {
   render() {
     if (this.state.notAllowed) {
       return (
-        <ErrorMessage message={this.state.errorMessage} />
+          <ErrorMessage message={this.state.errorMessage} />
       );
     }
 
     return (
-      <AddDataContent
-        {...this.props}
-        fileTypes={fileTypes}
-        performUpload={this.performUpload.bind(this)}
-      />
+        <AddDataContent
+            {...this.props}
+            fileTypes={fileTypes}
+            performUpload={this.performUpload.bind(this)} />
     );
   }
 }
@@ -116,6 +116,6 @@ AddDataContainer.propTypes = propTypes;
 AddDataContainer.defaultProps = defaultProps;
 
 export default connect(
-  state => ({ submission: state.submission }),
-  dispatch => bindActionCreators(uploadActions, dispatch),
+  (state) => ({ submission: state.submission }),
+  (dispatch) => bindActionCreators(uploadActions, dispatch),
 )(AddDataContainer);

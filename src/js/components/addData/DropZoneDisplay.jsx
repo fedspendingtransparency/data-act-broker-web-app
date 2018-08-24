@@ -3,19 +3,19 @@ import * as Icons from '../SharedComponents/icons/Icons';
 
 const propTypes = {
   displayMode: PropTypes.string,
-  string: PropTypes.string,
+  string: PropTypes.string
 };
 
 const defaultProps = {
   string: '',
-  displayMode: '',
+  displayMode: ''
 };
 
 export default class DropZoneDisplay extends React.Component {
   render() {
     return (
-      <div className="center-block">
-        {(() => {
+        <div className="center-block">
+            {(() => {
           switch (this.props.displayMode) {
             case 'ready': return <div className="text-center usa-da-icon"><Icons.CloudUpload /></div>;
             case 'uploading': return <div className="text-center usa-da-icon-loading-spinner"><Icons.LoadingSpinner /></div>;
@@ -24,8 +24,8 @@ export default class DropZoneDisplay extends React.Component {
             default: return <div className="text-center usa-da-icon"><Icons.CloudUpload /></div>;
           }
         })()}
-        <div dangerouslySetInnerHTML={{ __html: this.props.string }} />
-      </div>
+            <div dangerouslySetInnerHTML={{ __html: this.props.string }} />
+        </div>
     );
   }
 }
