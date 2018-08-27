@@ -80,12 +80,13 @@ class DashboardContainer extends React.Component {
         // Generate the filter params
         const filters = {};
 
-        if (appliedFilters && appliedFilters.submissionIds.length > 0) {
-            filters.submission_ids = appliedFilters.submissionIds;
-        }
-
-        if (appliedFilters && appliedFilters.fileNames.length > 0) {
-            filters.file_names = appliedFilters.fileNames;
+        if (appliedFilters) {
+            if (appliedFilters.submissionIds && appliedFilters.submissionIds.length > 0) {
+                filters.submission_ids = appliedFilters.submissionIds;
+            }
+            if (appliedFilters.fileNames && appliedFilters.fileNames.length > 0) {
+                filters.file_names = appliedFilters.fileNames;
+            }
         }
 
         this.setState({
