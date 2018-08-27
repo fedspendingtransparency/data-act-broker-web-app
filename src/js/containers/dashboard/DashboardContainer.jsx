@@ -8,23 +8,32 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 
 import * as dashboardFilterActions from '../../redux/actions/dashboard/dashboardFilterActions';
+import { resetAppliedFilters } from '../../redux/actions/dashboard/appliedFilterActions';
 
 import * as SubmissionListHelper from '../../helpers/submissionListHelper';
 
 import DashboardContent from '../../components/dashboard/DashboardContent';
 
+const combinedActions = Object.assign({}, dashboardFilterActions, {
+    resetAppliedFilters
+});
+
 const propTypes = {
     type: PropTypes.string,
     toggleDashboardFilter: PropTypes.func,
     stagedFilters: PropTypes.object,
-    appliedFilters: PropTypes.object
+    appliedFilters: PropTypes.object,
+    resetDashboardFilters: PropTypes.func,
+    resetAppliedFilters: PropTypes.func
 };
 
 const defaultProps = {
     type: "",
     toggleDashboardFilter: null,
     stagedFilters: {},
-    appliedFilters: {}
+    appliedFilters: {},
+    resetDashboardFilters: null,
+    resetAppliedFilters: null
 };
 
 class DashboardContainer extends React.Component {
@@ -49,6 +58,15 @@ class DashboardContainer extends React.Component {
         }
     }
 
+    componentWillUnmount() {
+        this.props.resetDashboardFilters({
+            dashboard: this.props.type
+        });
+        this.props.resetAppliedFilters({
+            dashboard: this.props.type
+        });
+    }
+
     loadTableData(page = 1, certified = false, category = 'modified', order = 'desc', appliedFilters) {
         /**
         Sortable fields: Valid values for category
@@ -60,9 +78,11 @@ class DashboardContainer extends React.Component {
         }
 
         // Generate the filter params
-        const filters = {
-            submissionIds: appliedFilters.submissionIds
-        };
+        const filters = {};
+
+        if (appliedFilters && appliedFilters.submissionIds.length > 0) {
+            filters.submission_ids = appliedFilters.submissionIds;
+        }
 
         this.setState({
             [tableName + 'Loading']: true
@@ -98,5 +118,5 @@ export default connect(
         stagedFilters: state.dashboardFilters,
         appliedFilters: state.appliedDashboardFilters
     }),
-    (dispatch) => bindActionCreators(dashboardFilterActions, dispatch)
+    (dispatch) => bindActionCreators(combinedActions, dispatch)
 )(DashboardContainer);

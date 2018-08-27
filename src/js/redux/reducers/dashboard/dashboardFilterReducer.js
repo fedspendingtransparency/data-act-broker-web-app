@@ -97,12 +97,19 @@ export const dashboardFilterReducer = (state = initialState, action) => {
             });
         }
         case 'RESET_DASHBOARD_FILTERS': {
-            const dashboard = Object.assign({}, state[action.dashboard], {
-                [action.table]: initialState[action.dashboard][action.table]
-            });
+            if (action.table) {
+                // Just reset one table
+                const dashboard = Object.assign({}, state[action.dashboard], {
+                    [action.table]: initialState[action.dashboard][action.table]
+                });
 
+                return Object.assign({}, state, {
+                    [action.dashboard]: dashboard
+                });
+            }
+            // Reset either all dabs or all fabs filters
             return Object.assign({}, state, {
-                [action.dashboard]: dashboard
+                [action.dashboard]: initialState[action.dashboard]
             });
         }
         default:
