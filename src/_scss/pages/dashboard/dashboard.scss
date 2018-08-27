@@ -9,6 +9,8 @@
         .table-heading__title {
             @include display(flex);
             @include flex(1 1 auto);
+            margin: 0;
+            padding: rem(40) 0 rem(15);
             font-size: 3.0rem;
             font-weight: 200;
             line-height: 1;

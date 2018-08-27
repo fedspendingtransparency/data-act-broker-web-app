@@ -5,11 +5,11 @@
     border-bottom: 0;
     @include display(flex);
     @include align-items(center);
-    @include justify-content(space-between);
     .dashboard-filters__label {
         @include display(flex);
         @include flex(0 0 auto);
         @include align-items(center);
+        padding-right: rem(15);
         color: $color-white;
         .filter-icon {
             height: rem(14);
@@ -26,6 +26,7 @@
         @include display(flex);
         @include flex(0 0 auto);
         @import './_textFilter';
+        padding-right: rem(10);
     }
     .dashboard-filters__submit-content {
         @include display(flex);
@@ -41,11 +42,17 @@
             @include display(flex);
             @include flex(0 0 auto);
             border: 0;
-            border-radius: rem(5);
-            padding: rem(5) rem(15);
+            padding: rem(10) rem(20);
+            background-color: $color-primary;
+            font-weight: $font-bold;
+            &:hover {
+                background-color: $color-primary-darker;
+            }
             &:disabled {
+                background-color: $color-gray-lighter;
+                color: $color-gray;
                 cursor: not-allowed;
-                opacity: 0.5;
+                opacity: 0.65;
             }
         }
     }
