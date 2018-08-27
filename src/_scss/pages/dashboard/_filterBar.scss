@@ -23,7 +23,6 @@
         &.filter-tag_staged {
             background-color: $color-gray-dark;
             color: $color-white;
-            border: solid rem(1) $color-white;
             .filter-tag__close {
                 svg {
                     fill: $color-white;
