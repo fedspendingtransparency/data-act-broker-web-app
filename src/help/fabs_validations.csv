@@ -84,6 +84,7 @@ FABS,FABS43.4,"If PrimaryPlaceOfPerformanceCongressionalDistrict is provided, it
 FABS,FABS44.1,"For foreign recipients (LegalEntityCountryCode is not USA), LegalEntityCongressionalDistrict must be blank.",Fatal Error,Implemented
 FABS,FABS44.2,"For non-aggregate and PII-redacted non-aggregate records (RecordType = 2 or 3) with domestic recipients (LegalEntityCountryCode = USA): If LegalEntityZIPLast4 is not provided and LegalEntityZIP5 is, LegalEntityCongressionalDistrict must be provided.",Fatal Error,Partial; pending minor modification per v1.2.1.
 FABS,FABS44.3,"If LegalEntityCongressionalDistrict is provided, it must be valid in the state or territory indicated by LegalEntityZIP5. Districts that were created under the 2000 census or later are considered valid for purposes of this rule.",Fatal Error,Partial; pending reimplementation
+FABS,FABS44.4,"LegalEntityCongressionalDistrict must be blank for aggregate records (RecordType = 1).",Fatal Error,Implemented
 FABS,FABSREQ1*,This field is required for all submissions but was not provided in this row (AwardDescription).,Fatal Error,Implemented
 FABS,FABSREQ2*,This field is required for all submissions but was not provided in this row (AwardingSubtierAgencyCode).,Fatal Error,Implemented
 FABS,FABSREQ3*,This field is required for all submissions but was not provided in this row (RecordType).,Fatal Error,Implemented
