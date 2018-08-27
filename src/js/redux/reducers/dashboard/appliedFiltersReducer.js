@@ -28,14 +28,19 @@ export const appliedFiltersReducer = (state = initialState, action) => {
             });
         }
         case 'CLEAR_APPLIED_FILTERS': {
-            const table = Object.assign({}, initialState[action.dashboard][action.table]);
+            if (action.table) {
+                // Just reset one table
+                const dashboard = Object.assign({}, state[action.dashboard], {
+                    [action.table]: initialState[action.dashboard][action.table]
+                });
 
-            const dashboard = Object.assign({}, state[action.dashboard], {
-                [action.table]: table
-            });
-
+                return Object.assign({}, state, {
+                    [action.dashboard]: dashboard
+                });
+            }
+            // Reset the either all dabs or all fabs filters
             return Object.assign({}, state, {
-                [action.dashboard]: dashboard
+                [action.dashboard]: initialState[action.dashboard]
             });
         }
         default:

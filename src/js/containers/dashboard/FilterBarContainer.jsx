@@ -41,20 +41,6 @@ export class FilterBarContainer extends React.Component {
         };
     }
 
-    componentDidMount() {
-        // prepare filters on initial mount to handle pre-populated filters (such as a back
-        // button event)
-        if (isEqual(this.props.stagedFilters, this.props.appliedFilters)) {
-            // filters have been applied or staged filters are empty
-            this.prepareFilters(this.props.appliedFilters, true);
-        }
-
-        else {
-            // filters are staged but have not been applied
-            this.prepareFilters(this.props.stagedFilters, false);
-        }
-    }
-
     componentDidUpdate(prevProps) {
         if (!isEqual(prevProps.appliedFilters, this.props.appliedFilters)) {
             // new filters have been applied
