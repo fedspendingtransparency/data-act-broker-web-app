@@ -8,6 +8,7 @@ import React, { PropTypes } from 'react';
 import { Filter } from '../../components/SharedComponents/icons/Icons';
 import FilterSubmitContainer from '../../containers/dashboard/FilterSubmitContainer';
 import SubmissionIdFilter from './filters/SubmissionIdFilter';
+import FileNameFilter from './filters/FileNameFilter';
 
 const propTypes = {
     toggleFilter: PropTypes.func,
@@ -45,6 +46,8 @@ export default class DashboardFilters extends React.Component {
                     </span>
                     Filter by:
                 </div>
+                <FileNameFilter
+                    updateFilterList={this.updateFilterList} />
                 <SubmissionIdFilter
                     updateFilterList={this.updateFilterList} />
                 <FilterSubmitContainer
