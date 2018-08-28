@@ -1,0 +1,52 @@
+.filter-bar {
+    background-color: $color-gray;
+    padding: rem(10);
+    border: solid rem(1) $color-white;
+    border-bottom: 0;
+    @include display(flex);
+    @include align-items(center);
+    .filter-tag {
+        @include display(flex);
+        @include align-items(center);
+        border-radius: rem(4);
+        padding: rem(2) rem(8);
+        margin: rem(2) rem(5) rem(2) 0;
+        &.filter-tag_applied {
+            background-color: $color-gray-lighter;
+            color: $color-gray;
+            .filter-tag__close {
+                svg {
+                    fill: $color-gray;
+                }
+            }
+        }
+        &.filter-tag_staged {
+            background-color: $color-gray-dark;
+            color: $color-white;
+            .filter-tag__close {
+                svg {
+                    fill: $color-white;
+                }
+            }
+        }
+        .filter-tag__name {
+            @include display(flex);
+            @include flex(1 1 auto);
+        }
+        .filter-tag__close {
+            @include display(flex);
+            @include flex(0 0 auto);
+            // override button styles
+            background-color: transparent;
+            border: 0;
+            padding: 0;
+            height: rem(14);
+            width: rem(18);
+            padding-left: rem(4);
+            svg {
+                height: rem(14);
+                width: rem(14);
+            }
+        }
+    }
+}

@@ -1,0 +1,59 @@
+.dashboard-filters {
+    background-color: $color-gray;
+    padding: rem(10);
+    border: solid rem(1) $color-white;
+    border-bottom: 0;
+    @include display(flex);
+    @include align-items(center);
+    .dashboard-filters__label {
+        @include display(flex);
+        @include flex(0 0 auto);
+        @include align-items(center);
+        padding-right: rem(15);
+        color: $color-white;
+        .filter-icon {
+            height: rem(14);
+            width: rem(20);
+            padding-right: rem(6);
+            .usa-da-icon-filter {
+                height: rem(14);
+                width: rem(14);
+                fill: $color-white;
+            }
+        }
+    }
+    .dashboard-filters__filter {
+        @include display(flex);
+        @include flex(0 0 auto);
+        @import './_textFilter';
+        padding-right: rem(10);
+    }
+    .dashboard-filters__submit-content {
+        @include display(flex);
+        .dashboard-filters__reset {
+            @include display(flex);
+            @include flex(0 0 auto);
+            border: 0;
+            color: $color-white;
+            background-color: transparent;
+            margin-right: rem(10);
+        }
+        .dashboard-filters__submit {
+            @include display(flex);
+            @include flex(0 0 auto);
+            border: 0;
+            padding: rem(10) rem(20);
+            background-color: $color-primary;
+            font-weight: $font-bold;
+            &:hover {
+                background-color: $color-primary-darker;
+            }
+            &:disabled {
+                background-color: $color-gray-lighter;
+                color: $color-gray;
+                cursor: not-allowed;
+                opacity: 0.65;
+            }
+        }
+    }
+}

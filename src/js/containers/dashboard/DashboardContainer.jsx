@@ -5,17 +5,35 @@
 
 import React, { PropTypes } from 'react';
 import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
+
+import * as dashboardFilterActions from '../../redux/actions/dashboard/dashboardFilterActions';
+import { resetAppliedFilters } from '../../redux/actions/dashboard/appliedFilterActions';
 
 import * as SubmissionListHelper from '../../helpers/submissionListHelper';
 
 import DashboardContent from '../../components/dashboard/DashboardContent';
 
+const combinedActions = Object.assign({}, dashboardFilterActions, {
+    resetAppliedFilters
+});
+
 const propTypes = {
-    type: PropTypes.string
+    type: PropTypes.string,
+    toggleDashboardFilter: PropTypes.func,
+    stagedFilters: PropTypes.object,
+    appliedFilters: PropTypes.object,
+    resetDashboardFilters: PropTypes.func,
+    resetAppliedFilters: PropTypes.func
 };
 
 const defaultProps = {
-    type: ""
+    type: "",
+    toggleDashboardFilter: null,
+    stagedFilters: {},
+    appliedFilters: {},
+    resetDashboardFilters: null,
+    resetAppliedFilters: null
 };
 
 class DashboardContainer extends React.Component {
@@ -40,7 +58,16 @@ class DashboardContainer extends React.Component {
         }
     }
 
-    loadTableData(page = 1, certified = false, category = 'modified', order = 'desc') {
+    componentWillUnmount() {
+        this.props.resetDashboardFilters({
+            dashboard: this.props.type
+        });
+        this.props.resetAppliedFilters({
+            dashboard: this.props.type
+        });
+    }
+
+    loadTableData(page = 1, certified = false, category = 'modified', order = 'desc', appliedFilters) {
         /**
         Sortable fields: Valid values for category
         'modified','reporting','status','agency','submitted_by'
@@ -50,23 +77,36 @@ class DashboardContainer extends React.Component {
             tableName = 'certified';
         }
 
+        // Generate the filter params
+        const filters = {};
+
+        if (appliedFilters) {
+            if (appliedFilters.submissionIds && appliedFilters.submissionIds.length > 0) {
+                filters.submission_ids = appliedFilters.submissionIds;
+            }
+        }
+
         this.setState({
             [tableName + 'Loading']: true
-        }, () => {
-            SubmissionListHelper.loadSubmissionList(page, 10, certified, category, order, this.state.type === 'fabs')
-                .then((data) => {
-                    this.setState({
-                        [tableName + 'Total']: data.total,
-                        [tableName + 'Submissions']: data.submissions,
-                        [tableName + 'Loading']: false
-                    });
-                });
         });
+
+        SubmissionListHelper.loadSubmissionList(
+            page, 10, certified, category, order, this.state.type === 'fabs', filters)
+            .then((data) => {
+                this.setState({
+                    [tableName + 'Total']: data.total,
+                    [tableName + 'Submissions']: data.submissions,
+                    [tableName + 'Loading']: false
+                });
+            });
     }
 
     render() {
         return (
-            <DashboardContent {...this.state} {...this.props} loadTableData={this.loadTableData.bind(this)} />
+            <DashboardContent
+                {...this.state}
+                {...this.props}
+                loadTableData={this.loadTableData.bind(this)} />
         );
     }
 }
@@ -75,5 +115,10 @@ DashboardContainer.propTypes = propTypes;
 DashboardContainer.defaultProps = defaultProps;
 
 export default connect(
-    (state) => ({ session: state.session })
+    (state) => ({
+        session: state.session,
+        stagedFilters: state.dashboardFilters,
+        appliedFilters: state.appliedDashboardFilters
+    }),
+    (dispatch) => bindActionCreators(combinedActions, dispatch)
 )(DashboardContainer);
