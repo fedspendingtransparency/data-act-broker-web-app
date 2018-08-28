@@ -5,7 +5,7 @@
     .table-heading {
         @include display(flex);
         @include justify-content(space-between);
-        @include align-items(center);
+        @include align-items(baseline);
         .table-heading__title {
             @include display(flex);
             @include flex(1 1 auto);
