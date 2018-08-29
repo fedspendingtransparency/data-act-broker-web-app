@@ -87,6 +87,9 @@ class DashboardContainer extends React.Component {
             if (appliedFilters.fileNames && appliedFilters.fileNames.length > 0) {
                 filters.file_names = appliedFilters.fileNames;
             }
+            if (appliedFilters.agencies && appliedFilters.agencies.length > 0) {
+                filters.agency_codes = appliedFilters.agencies.map((agency) => agency.code);
+            }
         }
 
         this.setState({

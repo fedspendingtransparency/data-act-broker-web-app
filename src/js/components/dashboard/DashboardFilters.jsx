@@ -9,6 +9,7 @@ import { Filter } from '../../components/SharedComponents/icons/Icons';
 import FilterSubmitContainer from '../../containers/dashboard/FilterSubmitContainer';
 import SubmissionIdFilter from './filters/SubmissionIdFilter';
 import FileNameFilter from './filters/FileNameFilter';
+import AgencyFilter from './filters/AgencyFilter';
 
 const propTypes = {
     toggleFilter: PropTypes.func,
@@ -46,6 +47,8 @@ export default class DashboardFilters extends React.Component {
                     </span>
                     Filter by:
                 </div>
+                <AgencyFilter
+                    updateFilterList={this.updateFilterList} />
                 <FileNameFilter
                     updateFilterList={this.updateFilterList} />
                 <SubmissionIdFilter

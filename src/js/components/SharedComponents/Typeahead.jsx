@@ -111,10 +111,6 @@ export default class Typeahead extends React.Component {
             this.typeahead.close();
         });
 
-        this.refs.awesomplete.addEventListener('blur', () => {
-            this.bubbleUpChange();
-        });
-
         // enable tab keyboard shortcut for selection
         this.refs.awesomplete.addEventListener('keydown', (e) => {
             if (e.keyCode === 9) {
@@ -153,7 +149,7 @@ export default class Typeahead extends React.Component {
         // validate the current value is on the autocomplete list
         const validity = this.dataDictionary.hasOwnProperty(this.state.value);
         this.props.onSelect(this.dataDictionary[this.state.value],
-            this.internalValueDictionary[this.state.value], validity);
+            this.internalValueDictionary[this.state.value], validity, this.state.value);
     }
 
 

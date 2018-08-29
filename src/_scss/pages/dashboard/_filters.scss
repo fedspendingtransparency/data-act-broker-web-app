@@ -27,6 +27,16 @@
         @include flex(0 0 auto);
         @import './_textFilter';
         padding-right: rem(10);
+
+        &.dashboard-filters__filter_agency {
+            @import '../../components/typeahead/_typeahead';
+            // override dropdown width
+            .typeahead-holder {
+                .awesomplete ul {
+                    width: 35%;
+                }
+            }
+        }
     }
     .dashboard-filters__submit-content {
         @include display(flex);

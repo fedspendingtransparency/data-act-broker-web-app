@@ -77,6 +77,12 @@ export class FilterBarContainer extends React.Component {
             filters = filters.concat(submissionIdFilters);
         }
 
+        // prepare the agency filters
+        const agencyFilters = this.prepareAgencies(props);
+        if (agencyFilters) {
+            filters = filters.concat(agencyFilters);
+        }
+
         this.setState({
             filters,
             applied,
@@ -89,11 +95,10 @@ export class FilterBarContainer extends React.Component {
     prepareFileNames(props) {
         if (props.fileNames.length > 0) {
             return props.fileNames.map((name) => ({
-                    name,
-                    value: name,
-                    group: 'fileNames'
-                }
-            ));
+                name,
+                value: name,
+                group: 'fileNames'
+            }));
         }
         return null;
     }
@@ -101,11 +106,21 @@ export class FilterBarContainer extends React.Component {
     prepareSubmissionIds(props) {
         if (props.submissionIds.length > 0) {
             return props.submissionIds.map((id) => ({
-                    name: id,
-                    value: id,
-                    group: 'submissionIds'
-                }
-            ));
+                name: id,
+                value: id,
+                group: 'submissionIds'
+            }));
+        }
+        return null;
+    }
+
+    prepareAgencies(props) {
+        if (props.agencies.length > 0) {
+            return props.agencies.map((agency) => ({
+                name: agency.name,
+                value: agency,
+                group: 'agencies'
+            }));
         }
         return null;
     }
