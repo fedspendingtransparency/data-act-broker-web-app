@@ -48,6 +48,8 @@ export default class DashboardFilters extends React.Component {
                     Filter by:
                 </div>
                 <AgencyFilter
+                    type={this.props.type}
+                    table={this.props.table}
                     updateFilterList={this.updateFilterList} />
                 <FileNameFilter
                     updateFilterList={this.updateFilterList} />

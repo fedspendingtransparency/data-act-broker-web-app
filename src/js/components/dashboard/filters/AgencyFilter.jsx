@@ -5,14 +5,18 @@
 
 import React, { PropTypes } from 'react';
 
-import AgencyListContainer from '../../../containers/SharedContainers/AgencyListContainer';
+import AgencyFilterContainer from '../../../containers/dashboard/AgencyFilterContainer';
 
 const propTypes = {
-    updateFilterList: PropTypes.func
+    updateFilterList: PropTypes.func,
+    type: PropTypes.string,
+    table: PropTypes.string
 };
 
 const defaultProps = {
-    updateFilterList: null
+    updateFilterList: null,
+    type: '',
+    table: ''
 };
 
 export default class AgencyFilter extends React.Component {
@@ -38,7 +42,9 @@ export default class AgencyFilter extends React.Component {
         return (
             <div className="dashboard-filters__filter dashboard-filters__filter_agency">
                 <div className="typeahead-holder">
-                    <AgencyListContainer
+                    <AgencyFilterContainer
+                        type={this.props.type}
+                        table={this.props.table}
                         placeholder="Agency Name"
                         onSelect={this.handleAgencySelect} />
                 </div>
