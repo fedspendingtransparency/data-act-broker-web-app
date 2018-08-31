@@ -1,0 +1,42 @@
+.dashboard-filters__filter_typeahead {
+    @import '../../components/typeahead/_typeahead';
+    // override typeahead styles
+    .typeahead-holder {
+        .usa-da-typeahead {
+            margin: 0;
+            .awesomplete {
+                margin: 0;
+                input {
+                    margin: 0;
+                    padding: rem(5) rem(10);
+                    border-radius: rem(5);
+                }
+                ul {
+                    width: 35%;
+                }
+            }
+            .alert-error {
+                @include display(flex);
+                @include align-items(center);
+                margin-bottom: 0;
+                border: 0;
+                padding: 0;
+                .error-icon {
+                    padding-right: rem(5);
+                    svg {
+                        height: rem(20);
+                        width: rem(20);
+                    }
+                }
+                .alert-header-text {
+                    font-size: $small-font-size;
+                    width: auto;
+                    color: $color-white;
+                }
+                p {
+                    display: none;
+                }
+            }
+        }
+    }
+}

@@ -4,7 +4,7 @@
     border: solid rem(1) $color-white;
     border-bottom: 0;
     @include display(flex);
-    @include align-items(baseline);
+    @include align-items(center);
     @include justify-content(space-between);
     .dashboard-filters__label {
         @include display(flex);
@@ -26,52 +26,10 @@
     .dashboard-filters__filter {
         @include display(flex);
         @include flex(0 0 auto);
-        @import './_textFilter';
         padding-right: rem(10);
-
-        &.dashboard-filters__filter_agency {
-            @import '../../components/typeahead/_typeahead';
-            // override typeahead styles
-            .typeahead-holder {
-                .usa-da-typeahead {
-                    margin: 0;
-                    .awesomplete {
-                        margin: 0;
-                        input {
-                            margin: 0;
-                            padding: rem(5) rem(10);
-                            border-radius: rem(5);
-                        }
-                        ul {
-                            width: 35%;
-                        }
-                    }
-                    .alert-error {
-                        @include display(flex);
-                        @include align-items(center);
-                        margin-bottom: 0;
-                        border: 0;
-                        padding: 0;
-                        .error-icon {
-                            padding-right: rem(5);
-                            svg {
-                                height: rem(20);
-                                width: rem(20);
-                            }
-                        }
-                        .alert-header-text {
-                            font-size: $small-font-size;
-                            width: auto;
-                            color: $color-white;
-                        }
-                        p {
-                            display: none;
-                        }
-                    }
-                }
-            }
-        }
+        @import './_textFilter';
     }
+    @import './_typeaheadFilter';
     .dashboard-filters__submit-content {
         @include display(flex);
         .dashboard-filters__reset {
