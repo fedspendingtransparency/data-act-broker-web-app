@@ -2,7 +2,6 @@
 
 In this release, here is a list of technical changes that may require infrastructure or database updates, or represents additional functionality.
 
-* Made an update to the DUNS loader to not replace data if the retrieved column is empty.
 * Add `user_id` filter to the `/v1/list_submissions` endpoint.
 * Update `/v1/generate_file/` and `/v1/generate_detached_file/` to allow for D file generation by awarding agency or funding agency.
 * Created `/v1/list_submission_users` to list names of users who have created submissions that the current user can see.
