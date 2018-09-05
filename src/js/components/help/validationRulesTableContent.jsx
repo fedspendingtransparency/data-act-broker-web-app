@@ -73,7 +73,7 @@ export default class ValidationRulesTableContent extends React.Component {
         Papa.parse(fileName, {
             download: true,
             header: true,
-            encoding: "UTF-8",
+            encoding: 'UTF-8',
             complete: (results) => {
                 // logic
                 this.setState({
@@ -117,8 +117,9 @@ export default class ValidationRulesTableContent extends React.Component {
                     <ul>
                         <li>
                             <a
-                                href={"https://community.max.gov/download/attachments/1324878095/" +
-                                "DAIMS_Practices_Procedures_v1.2.pdf"}
+                                href={'https://community.max.gov/download/attachments/1324878095/' +
+                                'DAIMS_Practices_Procedures_v1.2.pdf'}
+                                rel="noopener noreferrer"
                                 target="_blank">
                                 DAIMS Practices & Procedures v1.2
                             </a>: contains file-wide practices, {submissionProcess},
@@ -127,15 +128,16 @@ export default class ValidationRulesTableContent extends React.Component {
                         </li>
                         <li>
                             <a
-                                href={"https://github.com/fedspendingtransparency/data-act-broker-backend/tree/" +
-                                "master/dataactvalidator/config/sqlrules"}
+                                href={'https://github.com/fedspendingtransparency/data-act-broker-backend/tree/' +
+                                'master/dataactvalidator/config/sqlrules'}
+                                rel="noopener noreferrer"
                                 target="_blank">
                                 Broker SQL Validation Rules
                             </a>: the actual machine logic used in {type} validations. These SQL statements are based
                             directly on the {type} validation rules.
                         </li>
                         <li>
-                            <a href={this.state.validationRulesUrl} target="_blank">DAIMS Validations Rules</a>
+                            <a href={this.state.validationRulesUrl} target="_blank" rel="noopener noreferrer" >DAIMS Validations Rules</a>
                             : contains the validations rules for the RSS, along with a change log
                         </li>
                     </ul>
@@ -149,11 +151,11 @@ export default class ValidationRulesTableContent extends React.Component {
                                 sortFunction: (a, b) => {
                                     const reA = /[^a-zA-Z]/g;
                                     const reN = /[^0-9]/g;
-                                    const aA = a.replace(reA, "");
-                                    const bA = b.replace(reA, "");
+                                    const aA = a.replace(reA, '');
+                                    const bA = b.replace(reA, '');
                                     if (aA === bA) {
-                                        const aN = parseInt(a.replace(reN, ""), 10);
-                                        const bN = parseInt(b.replace(reN, ""), 10);
+                                        const aN = parseInt(a.replace(reN, ''), 10);
+                                        const bN = parseInt(b.replace(reN, ''), 10);
                                         if (aN === bN) {
                                             return 0;
                                         }
