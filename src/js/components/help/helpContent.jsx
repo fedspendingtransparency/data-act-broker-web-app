@@ -100,9 +100,18 @@ export default class HelpContent extends React.Component {
 
                 {membership}
 
-                <p>If you need assistance using the Broker or if you would like to schedule a hands-on sandbox session
+                <p>
+                    If you need assistance using the Broker or if you would like to schedule a hands-on sandbox session
                     with Treasury staff, please email
                     <a href="mailto:DATAPMO@fiscal.treasury.gov">DATAPMO@fiscal.treasury.gov</a>.
+                </p>
+
+                <p>
+                    If you would like to subscribe to a list-serv for Broker updates (including release notes) please
+                    send a blank e-mail message to
+                    <a href="mailto:join-data-act-broker@lists.fiscal.treasury.gov">
+                        join-data-act-broker@lists.fiscal.treasury.gov
+                    </a>.
                 </p>
             </div>
         );
