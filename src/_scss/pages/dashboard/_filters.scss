@@ -5,6 +5,7 @@
     border-bottom: 0;
     @include display(flex);
     @include align-items(center);
+    @include justify-content(flex-start);
     .dashboard-filters__label {
         @include display(flex);
         @include flex(0 0 auto);
@@ -25,9 +26,10 @@
     .dashboard-filters__filter {
         @include display(flex);
         @include flex(0 0 auto);
-        @import './_textFilter';
         padding-right: rem(10);
+        @import './_textFilter';
     }
+    @import './_typeaheadFilter';
     .dashboard-filters__submit-content {
         @include display(flex);
         .dashboard-filters__reset {
