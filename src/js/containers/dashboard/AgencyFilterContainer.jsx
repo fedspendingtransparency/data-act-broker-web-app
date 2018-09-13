@@ -18,7 +18,9 @@ const propTypes = {
     detached: PropTypes.bool,
     selectedFilters: PropTypes.object,
     type: PropTypes.string,
-    table: PropTypes.string
+    table: PropTypes.string,
+    placeholder: PropTypes.string,
+    onSelect: PropTypes.func
 };
 
 const defaultProps = {
@@ -27,7 +29,9 @@ const defaultProps = {
     detached: true,
     selectedFilters: [],
     table: '',
-    type: ''
+    type: '',
+    placeholder: '',
+    onSelect: () => {}
 };
 
 class AgencyFilterContainer extends React.Component {
@@ -84,7 +88,8 @@ class AgencyFilterContainer extends React.Component {
                 {...this.props}
                 values={values}
                 formatter={this.dataFormatter}
-                prioritySort={false} />
+                prioritySort={false}
+                clearAfterSelect />
         );
     }
 }
