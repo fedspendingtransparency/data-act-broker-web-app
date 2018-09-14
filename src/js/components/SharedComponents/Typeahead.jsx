@@ -21,7 +21,8 @@ const propTypes = {
     placeholder: PropTypes.string,
     tabIndex: PropTypes.number,
     isRequired: PropTypes.bool,
-    prioritySort: PropTypes.bool
+    prioritySort: PropTypes.bool,
+    clearAfterSelect: PropTypes.bool
 };
 
 const defaultProps = {
@@ -35,7 +36,8 @@ const defaultProps = {
     isRequired: false,
     errorHeader: null,
     errorDescription: null,
-    prioritySort: true
+    prioritySort: true,
+    clearAfterSelect: false
 };
 
 export default class Typeahead extends React.Component {
@@ -108,6 +110,12 @@ export default class Typeahead extends React.Component {
             }, () => {
                 this.bubbleUpChange();
             });
+            if (this.props.clearAfterSelect) {
+                e.target.value = '';
+                this.setState({
+                    value: ''
+                });
+            }
             this.typeahead.close();
         });
 
