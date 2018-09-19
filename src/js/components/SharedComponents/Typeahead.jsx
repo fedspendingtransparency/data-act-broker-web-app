@@ -21,7 +21,8 @@ const propTypes = {
     placeholder: PropTypes.string,
     tabIndex: PropTypes.number,
     isRequired: PropTypes.bool,
-    prioritySort: PropTypes.bool
+    prioritySort: PropTypes.bool,
+    clearAfterSelect: PropTypes.bool
 };
 
 const defaultProps = {
@@ -35,7 +36,8 @@ const defaultProps = {
     isRequired: false,
     errorHeader: null,
     errorDescription: null,
-    prioritySort: true
+    prioritySort: true,
+    clearAfterSelect: false
 };
 
 export default class Typeahead extends React.Component {
@@ -108,11 +110,13 @@ export default class Typeahead extends React.Component {
             }, () => {
                 this.bubbleUpChange();
             });
+            if (this.props.clearAfterSelect) {
+                e.target.value = '';
+                this.setState({
+                    value: ''
+                });
+            }
             this.typeahead.close();
-        });
-
-        this.refs.awesomplete.addEventListener('blur', () => {
-            this.bubbleUpChange();
         });
 
         // enable tab keyboard shortcut for selection
@@ -153,7 +157,7 @@ export default class Typeahead extends React.Component {
         // validate the current value is on the autocomplete list
         const validity = this.dataDictionary.hasOwnProperty(this.state.value);
         this.props.onSelect(this.dataDictionary[this.state.value],
-            this.internalValueDictionary[this.state.value], validity);
+            this.internalValueDictionary[this.state.value], validity, this.state.value);
     }
 
 
