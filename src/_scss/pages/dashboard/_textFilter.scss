@@ -18,6 +18,7 @@ form.text-filter {
         border-bottom-right-radius: rem(5);
         padding: rem(5) rem(10) rem(5) rem(5);
         color: $color-primary;
+        background-color: $color-white;
         &:disabled {
             color: $color-gray-light;
             cursor: not-allowed;

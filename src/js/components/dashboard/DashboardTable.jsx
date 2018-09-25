@@ -74,7 +74,8 @@ export default class DashboardTable extends React.Component {
 
     componentDidUpdate(prevProps) {
         if (!_.isEqual(prevProps.appliedFilters, this.props.appliedFilters)) {
-            this.reload();
+            // reset to page 1
+            this.changePage(1);
         }
 
         if (!_.isEqual(prevProps.data, this.props.data)) {
