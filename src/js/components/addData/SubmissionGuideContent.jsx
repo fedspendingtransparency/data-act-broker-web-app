@@ -6,7 +6,7 @@
 import React, { PropTypes } from 'react';
 import Banner from '../SharedComponents/Banner';
 
-import { kGlobalConstants } from '../GlobalConstants';
+import { kGlobalConstants } from '../../GlobalConstants';
 
 const propTypes = {
     saveSkipGuide: PropTypes.func,
