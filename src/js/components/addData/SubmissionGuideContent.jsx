@@ -6,6 +6,8 @@
 import React, { PropTypes } from 'react';
 import Banner from '../SharedComponents/Banner';
 
+import { kGlobalConstants } from '../GlobalConstants';
+
 const propTypes = {
     saveSkipGuide: PropTypes.func,
     session: PropTypes.object
@@ -34,7 +36,6 @@ export default class SubmissionGuideContent extends React.Component {
     }
 
     render() {
-        const aws = "https://s3-us-gov-west-1.amazonaws.com/prod-data-act-web-static-files/sample-files/";
         return (
             <div className="site_content">
                 <div className="usa-da-content-dark">
@@ -85,7 +86,7 @@ export default class SubmissionGuideContent extends React.Component {
                                         <ul>
                                             <li>File A: Appropriation Account data.
                                                 <a
-                                                    href={aws + "appropValid.csv"}
+                                                    href={kGlobalConstants.PUBLIC_FILES + "appropValid.csv"}
                                                     target="_blank"
                                                     rel="noopener noreferrer"
                                                     data-reactid=".0.0.1.0.0.0.1.1.1.0">
@@ -94,7 +95,7 @@ export default class SubmissionGuideContent extends React.Component {
                                             </li>
                                             <li>File B: Object Class and Program Activity.
                                                 <a
-                                                    href={aws + "programActivityValid.csv"}
+                                                    href={kGlobalConstants.PUBLIC_FILES + "programActivityValid.csv"}
                                                     target="_blank"
                                                     rel="noopener noreferrer"
                                                     data-reactid=".0.0.1.0.0.0.1.2.1.0">
@@ -103,7 +104,7 @@ export default class SubmissionGuideContent extends React.Component {
                                             </li>
                                             <li>File C: Award Financial data.
                                                 <a
-                                                    href={aws + "awardFinancialValid.csv"}
+                                                    href={kGlobalConstants.PUBLIC_FILES + "awardFinancialValid.csv"}
                                                     target="_blank"
                                                     rel="noopener noreferrer"
                                                     data-reactid=".0.0.1.0.0.0.1.3.1.0">
@@ -121,7 +122,7 @@ export default class SubmissionGuideContent extends React.Component {
                                             <li>File D1: Award and Awardee Attributes (Procurement Award) data.</li>
                                             <li>File D2: Award and Awardee Attributes (Financial Assistance) data.
                                                 <a
-                                                    href={aws + "awardValid.csv"}
+                                                    href={kGlobalConstants.PUBLIC_FILES + "awardValid.csv"}
                                                     target="_blank"
                                                     rel="noopener noreferrer"
                                                     data-reactid=".0.0.1.0.0.0.1.4.1.0">
