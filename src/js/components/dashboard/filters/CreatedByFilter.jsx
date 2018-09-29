@@ -1,11 +1,11 @@
 /**
- * AgencyFilter.jsx
- * Created by Lizzie Salita 8/24/18
+ * CreatedByFilter.jsx
+ * Created by Kwadwo Opoku-Debrah 8/25/18
  */
 
 import React, { PropTypes } from 'react';
 
-import AgencyFilterContainer from '../../../containers/dashboard/AgencyFilterContainer';
+import CreatedByFilterContainer from '../../../containers/dashboard/CreatedByContainer';
 
 const propTypes = {
   updateFilterList: PropTypes.func,
@@ -19,20 +19,21 @@ const defaultProps = {
   table: '',
 };
 
-export default class AgencyFilter extends React.Component {
+export default class CreatedByFilter extends React.Component {
   constructor(props) {
     super(props);
 
-    this.handleAgencySelect = this.handleAgencySelect.bind(this);
+    this.createdBySelect = this.createdBySelect.bind(this);
   }
 
-  handleAgencySelect(code, codeType, isValid, name) {
-    if (code && name && isValid) {
+  createdBySelect(user, name) {
+    if (user && name) {
       this.props.updateFilterList(
-        'agencies',
+        'createdBy',
         {
-          code,
-          name,
+          user: {
+            name,
+          },
         },
       );
     }
@@ -42,11 +43,11 @@ export default class AgencyFilter extends React.Component {
     return (
       <div className="dashboard-filters__filter dashboard-filters__filter_typeahead">
         <div className="typeahead-holder">
-          <AgencyFilterContainer
+          <CreatedByFilterContainer
             type={this.props.type}
             table={this.props.table}
-            placeholder="Agency Name"
-            onSelect={this.handleAgencySelect}
+            placeholder="Created By"
+            onSelect={this.createdBySelect}
           />
         </div>
       </div>
@@ -54,5 +55,5 @@ export default class AgencyFilter extends React.Component {
   }
 }
 
-AgencyFilter.propTypes = propTypes;
-AgencyFilter.defaultProps = defaultProps;
+CreatedByFilter.propTypes = propTypes;
+CreatedByFilter.defaultProps = defaultProps;

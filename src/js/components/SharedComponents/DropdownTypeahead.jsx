@@ -1,6 +1,6 @@
 /**
-  * Typeahead.jsx
-  * Created by Kevin Li 4/20/2016
+  * DropdownTypeahead.jsx
+  * Created by Kwadwo Opoku-Debrah 8/25/18
   */
 
 import React, { PropTypes } from 'react';
@@ -40,7 +40,7 @@ const defaultProps = {
   clearAfterSelect: false,
 };
 
-export default class Typeahead extends React.Component {
+export default class DropdownTypeahead extends React.Component {
   constructor(props) {
     super(props);
 
@@ -62,6 +62,11 @@ export default class Typeahead extends React.Component {
     if (!_.isEqual(prevProps.values, this.props.values) && this.typeahead) {
       this.loadValues();
     }
+  }
+
+  toggleDropdown(e) {
+    e.preventDefault();
+    console.log(e.target, 'The link was clicked.');
   }
 
   loadValues() {
@@ -226,23 +231,34 @@ export default class Typeahead extends React.Component {
     }
 
     return (
-      <div className={`usa-da-typeahead${disabledClass}`}>
-        <input
-          className={this.props.customClass}
-          ref="awesomplete"
-          type="text"
-          placeholder={placeholder}
-          value={this.state.value}
-          onChange={this.changedText.bind(this)}
-          tabIndex={this.props.tabIndex}
-          disabled={disabled}
-          aria-required={this.props.isRequired}
-        />
-        {warning}
+      <div>
+        <div className="dropdown">
+          <button onClick={this.toggleDropdown} className="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+	    			Dropdown
+            <span className="caret" />
+          </button>
+          <ul className="dropdown-menu" style={{ display: 'block' }} aria-labelledby="dropdownMenu1">
+            <li className={`usa-da-typeahead${disabledClass}`}>
+              <input
+                className={this.props.customClass}
+                ref="awesomplete"
+                type="text"
+                placeholder={placeholder}
+                value={this.state.value}
+                onChange={this.changedText.bind(this)}
+                tabIndex={this.props.tabIndex}
+                disabled={disabled}
+                aria-required={this.props.isRequired}
+              />
+              {warning}
+            </li>
+          </ul>
+        </div>
       </div>
+
     );
   }
 }
 
-Typeahead.defaultProps = defaultProps;
-Typeahead.propTypes = propTypes;
+DropdownTypeahead.defaultProps = defaultProps;
+DropdownTypeahead.propTypes = propTypes;
