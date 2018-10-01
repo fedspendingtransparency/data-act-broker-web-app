@@ -92,7 +92,7 @@ class DashboardContainer extends React.Component {
       }
 
       if (appliedFilters.createdBy && appliedFilters.createdBy.length > 0) {
-        filters.createdBy = appliedFilters.createdBy.map(createdByNames => createdByNames.name);
+        filters.user_ids = appliedFilters.createdBy.map(createdByNames => createdByNames.userId);
       }
     }
 
