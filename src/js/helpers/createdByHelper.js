@@ -10,11 +10,8 @@ export const fetchCreatedBy = () => {
     .send({
       certified: 'false',
       d2_submission: false,
-      // filters: {}
       limit: 200,
-      order: 'desc',
-      // page: 1
-      // sort: "modified"
+      order: 'desc'
     })
     .end((err, res) => {
       if (err) {

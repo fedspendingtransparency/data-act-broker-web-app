@@ -1,4 +1,4 @@
-export const setAgencyList = state => ({
+export const setAgencyList = (state) => ({
   type: 'SET_AGENCY_LIST',
-  agencies: state,
+  agencies: state
 });

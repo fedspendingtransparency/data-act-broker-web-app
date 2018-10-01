@@ -1,4 +1,4 @@
-export const setCreatedByList = state => ({
+export const setCreatedByList = (state) => ({
   type: 'SET_CREATEDBY_LIST',
-  createdBy: state,
+  createdBy: state
 });
