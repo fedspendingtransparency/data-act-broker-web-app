@@ -85,7 +85,6 @@ class CreatedByContainer extends React.Component {
     };
   }
 
-
   render() {
     let values = this.props.createdByList.createdBy;
     if (this.props.type && this.props.table) {
@@ -114,18 +113,21 @@ class CreatedByContainer extends React.Component {
     }
 
     return (
-      <DropdownTypeahead
-        {...this.props}
-        errorHeader="Unknown Name"
-        errorDescription="You must select an name from the list that is provided as you type."
-        values={values}
-        keyValue="name"
-        internalValue={['user_id']}
-        formatter={this.dataFormatter}
-        prioritySort={false}
-        bubbledRemovedFilterValue={this.props.bubbledRemovedFilterValue}
-        clearAfterSelect
-      />
+      <div>
+        <DropdownTypeahead
+          {...this.props}
+          errorHeader="Unknown Name"
+          errorDescription="You must select an name from the list that is provided as you type."
+          values={values}
+          keyValue="name"
+          internalValue={['user_id']}
+          formatter={this.dataFormatter}
+          prioritySort={false}
+          bubbledRemovedFilterValue={this.props.bubbledRemovedFilterValue}
+          clearAfterSelect
+        />
+      </div>
+
     );
   }
 }

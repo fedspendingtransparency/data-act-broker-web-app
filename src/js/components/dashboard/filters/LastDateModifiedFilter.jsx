@@ -1,11 +1,11 @@
 /**
- * DateModifiedFilter.jsx
+ * LastDateModifiedFilter.jsx
  * Created by Kwadwo Opoku-Debrah 8/25/18
  */
 
 import React, { PropTypes } from 'react';
 
-import DateModifiedContainer from '../../../containers/dashboard/DateModifiedContainer';
+import LastDateModifiedContainer from '../../../containers/dashboard/LastDateModifiedContainer';
 
 const propTypes = {
   updateFilterList: PropTypes.func,
@@ -19,20 +19,19 @@ const defaultProps = {
   table: '',
 };
 
-export default class DateModifiedFilter extends React.Component {
+export default class LastDateModifiedFilter extends React.Component {
   constructor(props) {
     super(props);
 
-    this.dateModifiedSelect = this.dateModifiedSelect.bind(this);
+    this.lastDateModifiedSelect = this.lastDateModifiedSelect.bind(this);
   }
 
-  dateModifiedSelect(userId, codeType, isValid, name) {
-    if (userId && name && isValid) {
+  lastDateModifiedSelect(lastDateModified) {
+    if (lastDateModified) {
       this.props.updateFilterList(
-        'dateModified',
+        'lastDateModified',
         {
-          userId,
-          name,
+          lastDateModified,
         },
       );
     }
@@ -42,11 +41,11 @@ export default class DateModifiedFilter extends React.Component {
     return (
       <div className="dashboard-filters__filter dashboard-filters__filter_typeahead">
         <div className="typeahead-holder">
-          <DateModifiedContainer
+          <LastDateModifiedContainer
             type={this.props.type}
             table={this.props.table}
-            placeholder="Created By"
-            onSelect={this.dateModifiedSelect}
+            placeholder="Last Date Modified"
+            onSelect={this.lastDateModifiedSelect}
           />
         </div>
       </div>
@@ -54,5 +53,5 @@ export default class DateModifiedFilter extends React.Component {
   }
 }
 
-DateModifiedFilter.propTypes = propTypes;
-DateModifiedFilter.defaultProps = defaultProps;
+LastDateModifiedFilter.propTypes = propTypes;
+LastDateModifiedFilter.defaultProps = defaultProps;

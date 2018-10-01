@@ -88,6 +88,12 @@ export class FilterBarContainer extends React.Component {
       filters = filters.concat(createdByFilters);
     }
 
+    // prepare the lastDateModified filters
+    const lastDateModifiedFilters = this.prepareLastDateModified(props);
+    if (lastDateModifiedFilters) {
+      filters = filters.concat(lastDateModifiedFilters);
+    }
+
     this.setState({
       filters,
       applied,
@@ -136,6 +142,17 @@ export class FilterBarContainer extends React.Component {
         name: createdBylist.name,
         value: createdBylist,
         group: 'createdBy',
+      }));
+    }
+    return null;
+  }
+
+  prepareLastDateModified(props) {
+    if (props.lastDateModified) {
+      return props.lastDateModified.map(lastDateModifiedlist => ({
+        name: lastDateModifiedlist.name,
+        value: lastDateModifiedlist,
+        group: 'lastDateModified',
       }));
     }
     return null;
