@@ -5,7 +5,7 @@
 
 import React, { PropTypes } from 'react';
 
-import CreatedByFilterContainer from '../../../containers/dashboard/CreatedByContainer';
+import CreatedByContainer from '../../../containers/dashboard/CreatedByContainer';
 
 const propTypes = {
   updateFilterList: PropTypes.func,
@@ -26,14 +26,13 @@ export default class CreatedByFilter extends React.Component {
     this.createdBySelect = this.createdBySelect.bind(this);
   }
 
-  createdBySelect(user, name) {
-    if (user && name) {
+  createdBySelect(userId, codeType, isValid, name) {
+    if (userId && name && isValid) {
       this.props.updateFilterList(
         'createdBy',
         {
-          user: {
-            name,
-          },
+          userId,
+          name,
         },
       );
     }
@@ -43,7 +42,7 @@ export default class CreatedByFilter extends React.Component {
     return (
       <div className="dashboard-filters__filter dashboard-filters__filter_typeahead">
         <div className="typeahead-holder">
-          <CreatedByFilterContainer
+          <CreatedByContainer
             type={this.props.type}
             table={this.props.table}
             placeholder="Created By"

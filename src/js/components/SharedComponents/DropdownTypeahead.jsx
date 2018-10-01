@@ -1,11 +1,12 @@
 /**
   * DropdownTypeahead.jsx
-  * Created by Kwadwo Opoku-Debrah 8/25/18
+  * Created by Kwadwo Opoku-Debrah 09/28/2018
   */
 
 import React, { PropTypes } from 'react';
 import _ from 'lodash';
 import Awesomplete from 'awesomplete';
+import DropdownTypeaheadCheckbox from './DropdownTypeaheadCheckbox';
 
 import TypeaheadWarning from './TypeaheadWarning';
 
@@ -49,9 +50,16 @@ export default class DropdownTypeahead extends React.Component {
     this.internalValueDictionary = {};
 
     this.state = {
+      dropdownopen: false,
       value: '',
       showWarning: false,
+      selectedValues: [],
+      unselectedValues: [],
     };
+
+    this.onDropdownChange = this.onDropdownChange.bind(this);
+    this.getSelectedName = this.getSelectedName.bind(this);
+    this.passSelectedName = this.passSelectedName.bind(this);
   }
 
   componentDidMount() {
@@ -63,10 +71,11 @@ export default class DropdownTypeahead extends React.Component {
       this.loadValues();
     }
   }
-
-  toggleDropdown(e) {
-    e.preventDefault();
-    console.log(e.target, 'The link was clicked.');
+  onDropdownChange() {
+    const currentState = this.state.dropdownopen;
+    this.setState({
+      dropdownopen: !currentState,
+    });
   }
 
   loadValues() {
@@ -112,7 +121,7 @@ export default class DropdownTypeahead extends React.Component {
       this.setState({
         value: e.text.label,
       }, () => {
-        this.bubbleUpChange();
+        this.getSelectedName();
       });
       if (this.props.clearAfterSelect) {
         e.target.value = '';
@@ -156,13 +165,39 @@ export default class DropdownTypeahead extends React.Component {
     }
   }
 
-  bubbleUpChange() {
-    // force the change up into the parent components
-    // validate the current value is on the autocomplete list
-    const validity = this.dataDictionary.hasOwnProperty(this.state.value);
+  getSelectedName() {
+    if (this.state.unselectedValues.includes(this.state.value) || this.state.selectedValues.includes(this.state.value)) {
+      alert('This name is already used, please use the checkbox in the dropdown.');
+    } else {
+      this.setState({
+        unselectedValues: this.state.unselectedValues.concat(this.state.value),
+      });
+    }
+  }
+
+  passSelectedName(clickedCheckboxValue, checkStatus) {
+    if (!checkStatus) {
+      this.setState({
+        selectedValues: this.state.selectedValues.concat(clickedCheckboxValue),
+      });
+      this.setState({
+        unselectedValues: this.state.unselectedValues.filter(value => value !== clickedCheckboxValue),
+      });
+    } else {
+      this.setState({
+        unselectedValues: this.state.unselectedValues.concat(clickedCheckboxValue),
+      });
+      this.setState({
+        selectedValues: this.state.selectedValues.filter(value => value !== clickedCheckboxValue),
+      });
+    }
+
+    const validity = this.dataDictionary.hasOwnProperty(clickedCheckboxValue);
     this.props.onSelect(
-      this.dataDictionary[this.state.value],
-      this.internalValueDictionary[this.state.value], validity, this.state.value,
+      this.dataDictionary[clickedCheckboxValue],
+      this.internalValueDictionary[clickedCheckboxValue],
+      validity,
+      clickedCheckboxValue,
     );
   }
 
@@ -231,29 +266,44 @@ export default class DropdownTypeahead extends React.Component {
     }
 
     return (
-      <div>
-        <div className="dropdown">
-          <button onClick={this.toggleDropdown} className="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
-	    			Dropdown
-            <span className="caret" />
-          </button>
-          <ul className="dropdown-menu" style={{ display: 'block' }} aria-labelledby="dropdownMenu1">
-            <li className={`usa-da-typeahead${disabledClass}`}>
-              <input
-                className={this.props.customClass}
-                ref="awesomplete"
-                type="text"
-                placeholder={placeholder}
-                value={this.state.value}
-                onChange={this.changedText.bind(this)}
-                tabIndex={this.props.tabIndex}
-                disabled={disabled}
-                aria-required={this.props.isRequired}
-              />
-              {warning}
-            </li>
-          </ul>
-        </div>
+      <div className="dropdown filterdropdown">
+        <button onClick={this.onDropdownChange} className={this.state.dropdownopen ? 'btn btn-default dropdown-toggle active' : 'btn btn-default dropdown-toggle'} type="button" id="createdbydropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+          Created By
+          <span className="caret" />
+        </button>
+        <ul className="dropdown-menu" style={this.state.dropdownopen ? { display: 'block' } : { display: 'none' }} aria-labelledby="createdbydropdown">
+          <li className={`usa-da-typeahead${disabledClass}`}>
+            <input
+              className={this.props.customClass}
+              ref="awesomplete"
+              type="text"
+              placeholder={placeholder}
+              value={this.state.value}
+              onChange={this.changedText.bind(this)}
+              tabIndex={this.props.tabIndex}
+              disabled={disabled}
+              aria-required={this.props.isRequired}
+            />
+            {warning}
+          </li>
+
+          {this.state.selectedValues.length > 0 ? this.state.selectedValues.map(value =>
+              (
+                <DropdownTypeaheadCheckbox checkCheckbox key={value} passSelectedNameFunc={this.passSelectedName} fieldValue={value} />
+             )) : ''
+          }
+
+          {
+            this.state.selectedValues.length > 0 ? <li role="separator" className="divider" /> : ''
+          }
+
+          {this.state.unselectedValues.length > 0 ? this.state.unselectedValues.map(value =>
+              (
+                <DropdownTypeaheadCheckbox key={value} passSelectedNameFunc={this.passSelectedName} fieldValue={value} />
+             )) : ''
+          }
+
+        </ul>
       </div>
 
     );

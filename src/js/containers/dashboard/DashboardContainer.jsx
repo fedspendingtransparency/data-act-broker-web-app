@@ -90,6 +90,10 @@ class DashboardContainer extends React.Component {
       if (appliedFilters.agencies && appliedFilters.agencies.length > 0) {
         filters.agency_codes = appliedFilters.agencies.map(agency => agency.code);
       }
+
+      if (appliedFilters.createdBy && appliedFilters.createdBy.length > 0) {
+        filters.createdBy = appliedFilters.createdBy.map(createdByNames => createdByNames.name);
+      }
     }
 
     this.setState({
