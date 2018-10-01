@@ -89,7 +89,7 @@ export default class DropdownTypeahead extends React.Component {
     }
 
     if (!_.isEqual(prevProps.bubbledRemovedFilterValue, this.props.bubbledRemovedFilterValue) && this.props.bubbledRemovedFilterValue.value) {
-      this.removeClickedFilterBarItemFromDropdown(this.props.bubbledRemovedFilterValue.value);
+      this.removeClickedFilterBarItemFromDropdown(this.props.bubbledRemovedFilterValue);
     }
   }
 
@@ -232,7 +232,9 @@ export default class DropdownTypeahead extends React.Component {
   }
 
   removeClickedFilterBarItemFromDropdown(filterValuefromFilterBarDropdown) {
-    this.unselectCheckbox(filterValuefromFilterBarDropdown.name);
+    if (filterValuefromFilterBarDropdown.filter === 'createdBy') {
+      this.unselectCheckbox(filterValuefromFilterBarDropdown.value.name);
+    }
   }
 
 
