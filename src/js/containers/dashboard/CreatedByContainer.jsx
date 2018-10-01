@@ -15,6 +15,13 @@ import * as createdByHelper from '../../helpers/createdByHelper';
 import DropdownTypeahead from '../../components/SharedComponents/DropdownTypeahead';
 
 const propTypes = {
+  bubbledRemovedFilterValue: PropTypes.shape({
+    filter: PropTypes.string,
+    value: PropTypes.shape({
+      userId: PropTypes.number,
+      name: PropTypes.string,
+    }),
+  }),
   setCreatedByList: PropTypes.func,
   createdByList: PropTypes.object,
   detached: PropTypes.bool,
@@ -26,6 +33,13 @@ const propTypes = {
 };
 
 const defaultProps = {
+  bubbledRemovedFilterValue: {
+    filter: '',
+    value: {
+      userId: 0,
+      name: '',
+    },
+  },
   setCreatedByList: () => {},
   createdByList: {},
   detached: true,
@@ -109,6 +123,7 @@ class CreatedByContainer extends React.Component {
         internalValue={['user_id']}
         formatter={this.dataFormatter}
         prioritySort={false}
+        bubbledRemovedFilterValue={this.props.bubbledRemovedFilterValue}
         clearAfterSelect
       />
     );
