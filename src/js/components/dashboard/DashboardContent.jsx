@@ -57,11 +57,13 @@ export default class DashboardContent extends React.Component {
           published: 0,
         },
       },
+      bubbledRemovedFilterValue: {},
     };
 
     this.toggleFilter = this.toggleFilter.bind(this);
     this.updateFilterCount = this.updateFilterCount.bind(this);
     this.generateMessage = this.generateMessage.bind(this);
+    this.bubbleRemovedFilterValuetoFilteringComponent = this.bubbleRemovedFilterValuetoFilteringComponent.bind(this);
   }
 
   componentWillReceiveProps(nextProps) {
@@ -78,6 +80,15 @@ export default class DashboardContent extends React.Component {
       table,
       filter,
       value,
+    });
+  }
+
+  bubbleRemovedFilterValuetoFilteringComponent(filter, value) {
+    this.setState({
+      bubbledRemovedFilterValue: {
+        filter,
+        value,
+      },
     });
   }
 
@@ -129,12 +140,14 @@ export default class DashboardContent extends React.Component {
             </div>
             <DashboardFilters
               toggleFilter={this.toggleFilter}
+              bubbledRemovedFilterValue={this.state.bubbledRemovedFilterValue}
               stagedFilters={stagedFilters.active}
               appliedFilters={appliedFilters.active}
               type={this.props.type}
               table="active"
             />
             <FilterBarContainer
+              bubbleRemovedFilterValuetoFilteringComponent={this.bubbleRemovedFilterValuetoFilteringComponent}
               type={this.props.type}
               table="active"
               stagedFilters={stagedFilters.active}
@@ -168,6 +181,7 @@ export default class DashboardContent extends React.Component {
               type={this.props.type}
             />
             <FilterBarContainer
+              bubbleRemovedFilterValuetoFilteringComponent={this.bubbleRemovedFilterValuetoFilteringComponent}
               type={this.props.type}
               table={secondTable}
               stagedFilters={stagedFilters[secondTable]}

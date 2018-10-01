@@ -11,6 +11,13 @@ import DropdownTypeaheadCheckbox from './DropdownTypeaheadCheckbox';
 import TypeaheadWarning from './TypeaheadWarning';
 
 const propTypes = {
+  bubbledRemovedFilterValue: PropTypes.shape({
+    filter: PropTypes.string,
+    value: PropTypes.shape({
+      userId: PropTypes.number,
+      name: PropTypes.string,
+    }),
+  }),
   formatter: PropTypes.func,
   onSelect: PropTypes.func.isRequired,
   internalValue: PropTypes.array,
@@ -27,6 +34,13 @@ const propTypes = {
 };
 
 const defaultProps = {
+  bubbledRemovedFilterValue: {
+    filter: '',
+    value: {
+      userId: 0,
+      name: '',
+    },
+  },
   values: [],
   placeholder: '',
   customClass: '',
@@ -60,6 +74,9 @@ export default class DropdownTypeahead extends React.Component {
     this.onDropdownChange = this.onDropdownChange.bind(this);
     this.getSelectedName = this.getSelectedName.bind(this);
     this.passSelectedName = this.passSelectedName.bind(this);
+    this.selectCheckbox = this.selectCheckbox.bind(this);
+    this.unselectCheckbox = this.unselectCheckbox.bind(this);
+    this.removeClickedFilterBarItemFromDropdown = this.removeClickedFilterBarItemFromDropdown.bind(this);
   }
 
   componentDidMount() {
@@ -70,12 +87,27 @@ export default class DropdownTypeahead extends React.Component {
     if (!_.isEqual(prevProps.values, this.props.values) && this.typeahead) {
       this.loadValues();
     }
+
+    if (!_.isEqual(prevProps.bubbledRemovedFilterValue, this.props.bubbledRemovedFilterValue) && this.props.bubbledRemovedFilterValue.value) {
+      this.removeClickedFilterBarItemFromDropdown(this.props.bubbledRemovedFilterValue.value);
+    }
   }
+
   onDropdownChange() {
     const currentState = this.state.dropdownopen;
     this.setState({
       dropdownopen: !currentState,
     });
+  }
+
+  getSelectedName() {
+    if (this.state.unselectedValues.includes(this.state.value) || this.state.selectedValues.includes(this.state.value)) {
+      alert('This name is already used, please use the checkbox in the dropdown.');
+    } else {
+      this.setState({
+        unselectedValues: this.state.unselectedValues.concat(this.state.value),
+      });
+    }
   }
 
   loadValues() {
@@ -165,31 +197,29 @@ export default class DropdownTypeahead extends React.Component {
     }
   }
 
-  getSelectedName() {
-    if (this.state.unselectedValues.includes(this.state.value) || this.state.selectedValues.includes(this.state.value)) {
-      alert('This name is already used, please use the checkbox in the dropdown.');
-    } else {
-      this.setState({
-        unselectedValues: this.state.unselectedValues.concat(this.state.value),
-      });
-    }
+  selectCheckbox(filterValue) {
+    this.setState({
+      selectedValues: this.state.selectedValues.concat(filterValue),
+    });
+    this.setState({
+      unselectedValues: this.state.unselectedValues.filter(value => value !== filterValue),
+    });
+  }
+
+  unselectCheckbox(filterValue) {
+    this.setState({
+      unselectedValues: this.state.unselectedValues.concat(filterValue),
+    });
+    this.setState({
+      selectedValues: this.state.selectedValues.filter(value => value !== filterValue),
+    });
   }
 
   passSelectedName(clickedCheckboxValue, checkStatus) {
     if (!checkStatus) {
-      this.setState({
-        selectedValues: this.state.selectedValues.concat(clickedCheckboxValue),
-      });
-      this.setState({
-        unselectedValues: this.state.unselectedValues.filter(value => value !== clickedCheckboxValue),
-      });
+      this.selectCheckbox(clickedCheckboxValue);
     } else {
-      this.setState({
-        unselectedValues: this.state.unselectedValues.concat(clickedCheckboxValue),
-      });
-      this.setState({
-        selectedValues: this.state.selectedValues.filter(value => value !== clickedCheckboxValue),
-      });
+      this.unselectCheckbox(clickedCheckboxValue);
     }
 
     const validity = this.dataDictionary.hasOwnProperty(clickedCheckboxValue);
@@ -199,6 +229,10 @@ export default class DropdownTypeahead extends React.Component {
       validity,
       clickedCheckboxValue,
     );
+  }
+
+  removeClickedFilterBarItemFromDropdown(filterValuefromFilterBarDropdown) {
+    this.unselectCheckbox(filterValuefromFilterBarDropdown.name);
   }
 
 

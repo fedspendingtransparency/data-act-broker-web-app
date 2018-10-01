@@ -13,6 +13,7 @@ import * as dashboardFilterActions from '../../redux/actions/dashboard/dashboard
 import FilterBar from '../../components/dashboard/filters/FilterBar';
 
 const propTypes = {
+  bubbleRemovedFilterValuetoFilteringComponent: PropTypes.func,
   stagedFilters: PropTypes.object,
   appliedFilters: PropTypes.object,
   toggleDashboardFilter: PropTypes.func,
@@ -22,6 +23,7 @@ const propTypes = {
 };
 
 const defaultProps = {
+  bubbleRemovedFilterValuetoFilteringComponent: null,
   stagedFilters: {},
   appliedFilters: {},
   toggleDashboardFilter: null,

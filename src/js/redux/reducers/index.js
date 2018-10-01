@@ -15,7 +15,7 @@ const appReducer = combineReducers({
   createdByList: createdByReducer,
   subTierAgencyList: subTierAgencyReducer,
   dashboardFilters: dashboardFilterReducer,
-  appliedDashboardFilters: appliedFiltersReducer,
+  appliedDashboardFilters: appliedFiltersReducer
 });
 
 export default appReducer;

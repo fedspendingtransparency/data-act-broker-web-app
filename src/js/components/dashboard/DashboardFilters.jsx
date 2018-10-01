@@ -13,6 +13,13 @@ import AgencyFilter from './filters/AgencyFilter';
 import CreatedByFilter from './filters/CreatedByFilter';
 
 const propTypes = {
+  bubbledRemovedFilterValue: PropTypes.shape({
+    filter: PropTypes.string,
+    value: PropTypes.shape({
+      userId: PropTypes.number,
+      name: PropTypes.string,
+    }),
+  }),
   toggleFilter: PropTypes.func,
   stagedFilters: PropTypes.object,
   appliedFilters: PropTypes.object,
@@ -21,6 +28,13 @@ const propTypes = {
 };
 
 const defaultProps = {
+  bubbledRemovedFilterValue: {
+    filter: '',
+    value: {
+      userId: 0,
+      name: '',
+    },
+  },
   toggleFilter: null,
   stagedFilters: {},
   appliedFilters: {},
@@ -63,6 +77,7 @@ export default class DashboardFilters extends React.Component {
           type={this.props.type}
           table={this.props.table}
           updateFilterList={this.updateFilterList}
+          bubbledRemovedFilterValue={this.props.bubbledRemovedFilterValue}
         />
         <FilterSubmitContainer
           stagedFilters={this.props.stagedFilters}
