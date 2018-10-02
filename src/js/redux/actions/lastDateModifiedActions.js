@@ -1,4 +1,4 @@
-export const setLastDateModifiedList = state => ({
+export const setLastDateModifiedList = (state) => ({
   type: 'SET_LASTDATEMODIFIED_LIST',
-  lastDateModified: state,
+  lastDateModified: state
 });

@@ -92,4 +92,21 @@
       }
     }
   }
+
+  .calendar-range-datepicker {
+    min-width: 435px;
+    left: -130px;
+
+    .innerCalendarDatePicker {
+      display: block;
+      font-size: 1.1rem;
+      .DayPicker-Month {
+        width: auto;
+        color: initial;
+      }
+      .DayPicker-Day {
+        border: 1px solid lightgrey;
+      }
+    }
+  }
 }

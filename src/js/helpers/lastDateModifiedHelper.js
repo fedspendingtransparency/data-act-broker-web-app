@@ -11,7 +11,7 @@ export const fetchLastDateModified = () => {
       certified: 'false',
       d2_submission: false,
       limit: 200,
-      order: 'desc',
+      order: 'desc'
     })
     .end((err, res) => {
       if (err) {

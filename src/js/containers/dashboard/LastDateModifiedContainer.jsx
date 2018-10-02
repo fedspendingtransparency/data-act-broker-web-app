@@ -42,7 +42,7 @@ class LastDateModifiedContainer extends React.Component {
   }
 
   loadData() {
-    if (this.props.lastDateModifiedList.lastDateModified.length === 0) {
+    if (_.isEmpty(this.props.lastDateModifiedList)) {
       // we need to populate the list
       if (this.props.detached) {
         lastDateModifiedHelper.fetchLastDateModified()
@@ -65,17 +65,6 @@ class LastDateModifiedContainer extends React.Component {
   }
 
   render() {
-    const thevalues = this.props.lastDateModifiedList.lastDateModified;
-    console.log();
-    if (this.props.type && this.props.table) {
-      const selectedLastDateModified = this.props.selectedFilters[this.props.type][this.props.table].lastDateModified;
-      console.log(selectedLastDateModified);
-      // if (selectedLastDateModified.length > 0) {
-      //   // remove selected agencies from the options
-      //   const selectedLastDateModifiedNames = selectedLastDateModified.map(selectedLastDateModifiedItems => selectedLastDateModifiedItems.lastDateModified);
-      //   thevalues = thevalues.filter(lastDateModified => !selectedLastDateModifiedNames.includes(lastDateModified));
-      // }
-    }
     return (
       <CalendarRangeDatePicker {...this.props} />
     );

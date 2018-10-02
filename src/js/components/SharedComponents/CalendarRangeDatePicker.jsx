@@ -1,6 +1,8 @@
 import React, { PropTypes } from 'react';
 import DayPicker, { DateUtils } from 'react-day-picker';
 
+import Moment from 'moment';
+
 const propTypes = {
   numberOfMonths: PropTypes.number,
   onSelect: PropTypes.func.isRequired,
@@ -18,10 +20,13 @@ export default class CalendarRangeDatePicker extends React.Component {
 
     this.state = {
       dropdownopen: false,
+      from: null,
+      to: null,
     };
 
     this.onDropdownChange = this.onDropdownChange.bind(this);
     this.handleDayClick = this.handleDayClick.bind(this);
+    this.sendToFilters = this.sendToFilters.bind(this);
   }
 
   onDropdownChange() {
@@ -33,10 +38,15 @@ export default class CalendarRangeDatePicker extends React.Component {
 
   sendToFilters() {
     if (this.dateValues.to) {
-      console.log(this.dateValues, 'the date');
-      this.props.onSelect({
-        startDate: this.dateValues.from,
-        endDate: this.dateValues.to,
+      const dates = {
+        startDate: Moment(this.dateValues.from).format('MM/DD/YYYY'),
+        endDate: Moment(this.dateValues.to).format('MM/DD/YYYY'),
+      };
+      this.props.onSelect(dates);
+      this.setState({
+        dropdownopen: false,
+        from: '',
+        to: '',
       });
     }
   }
@@ -49,32 +59,26 @@ export default class CalendarRangeDatePicker extends React.Component {
   render() {
     const { from, to } = this.state;
     const modifiers = { start: from, end: to };
-    this.dateValues.from = from;
-    this.dateValues.to = to;
-    this.sendToFilters();
+    this.dateValues = this.state;
     return (
       <div className="dropdown filterdropdown">
         <button onClick={this.onDropdownChange} className={this.state.dropdownopen ? 'btn btn-default dropdown-toggle active' : 'btn btn-default dropdown-toggle'} type="button" id="createdbydropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
             Last Modified
           <span className="caret" />
         </button>
-        <ul className="dropdown-menu" style={this.state.dropdownopen ? { display: 'block' } : { display: 'none' }} aria-labelledby="createdbydropdown">
+        <ul className="dropdown-menu calendar-range-datepicker" style={this.state.dropdownopen ? { display: 'block' } : { display: 'none' }} aria-labelledby="createdbydropdown">
           <li>
             <div className="RangeCalendarRangeDatePicker">
-              <p>
-                {!from && !to && 'Please select the first day.'}
-                {from && !to && 'Please select the last day.'}
-                {from && to && `Selected from ${from.toLocaleDateString()} to
-                  ${to.toLocaleDateString()}`}
-              </p>
               <DayPicker
-                className="Selectable"
+                showOutsideDays
+                className="innerCalendarDatePicker"
                 numberOfMonths={this.props.numberOfMonths}
                 selectedDays={[from, { from, to }]}
                 modifiers={modifiers}
                 onDayClick={this.handleDayClick}
               />
             </div>
+            <button className="btn btn-primary" onClick={this.sendToFilters}> Send Value</button>
           </li>
         </ul>
       </div>

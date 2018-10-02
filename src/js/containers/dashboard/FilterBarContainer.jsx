@@ -148,12 +148,12 @@ export class FilterBarContainer extends React.Component {
   }
 
   prepareLastDateModified(props) {
-    if (props.lastDateModified) {
-      return props.lastDateModified.map(lastDateModifiedlist => ({
-        name: lastDateModifiedlist.name,
-        value: lastDateModifiedlist,
+    if (props.lastDateModified.endDate) {
+      return {
+        name: `${props.lastDateModified.startDate} - ${props.lastDateModified.endDate}`,
+        value: props.lastDateModified,
         group: 'lastDateModified',
-      }));
+      };
     }
     return null;
   }

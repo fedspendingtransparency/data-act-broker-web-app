@@ -28,10 +28,13 @@ export default class LastDateModifiedFilter extends React.Component {
 
   lastDateModifiedSelect(lastDateModified) {
     if (lastDateModified) {
+      const startDate = lastDateModified.startDate;
+      const endDate = lastDateModified.endDate;
       this.props.updateFilterList(
         'lastDateModified',
         {
-          lastDateModified,
+          startDate,
+          endDate,
         },
       );
     }
@@ -40,7 +43,7 @@ export default class LastDateModifiedFilter extends React.Component {
   render() {
     return (
       <div className="dashboard-filters__filter dashboard-filters__filter_typeahead">
-        <div className="typeahead-holder">
+        <div className="">
           <LastDateModifiedContainer
             type={this.props.type}
             table={this.props.table}

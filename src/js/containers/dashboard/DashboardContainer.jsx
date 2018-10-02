@@ -95,11 +95,11 @@ class DashboardContainer extends React.Component {
         filters.user_ids = appliedFilters.createdBy.map(createdByNames => createdByNames.userId);
       }
 
-      if (appliedFilters.lastDateModified && appliedFilters.lastDateModified.length > 0) {
-        filters.last_modified_range = appliedFilters.lastDateModified.map(dates => ({
-          start_date: dates.startDate,
-          end_date: dates.endDate,
-        }));
+      if (appliedFilters.lastDateModified && appliedFilters.lastDateModified.endDate) {
+        filters.last_modified_range = {
+          start_date: appliedFilters.lastDateModified.startDate,
+          end_date: appliedFilters.lastDateModified.endDate,
+        };
       }
     }
 
