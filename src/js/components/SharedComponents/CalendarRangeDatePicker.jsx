@@ -3,6 +3,41 @@ import DayPicker, { DateUtils } from 'react-day-picker';
 
 import Moment from 'moment';
 
+function Navbar({
+  onPreviousClick,
+  onNextClick,
+  className,
+}) {
+  const styleLeft = {
+    float: 'left',
+  };
+  const styleRight = {
+    float: 'right',
+  };
+  return (
+    <div className={className}>
+      <button style={styleLeft} onClick={() => onPreviousClick()}>
+        ←
+      </button>
+      <button style={styleRight} onClick={() => onNextClick()}>
+         →
+      </button>
+    </div>
+  );
+}
+
+Navbar.propTypes = {
+  onPreviousClick: PropTypes.func,
+  onNextClick: PropTypes.func,
+  className: PropTypes.string,
+};
+
+Navbar.defaultProps = {
+  onPreviousClick: null,
+  onNextClick: null,
+  className: '',
+};
+
 const propTypes = {
   numberOfMonths: PropTypes.number,
   onSelect: PropTypes.func.isRequired,
@@ -71,6 +106,8 @@ export default class CalendarRangeDatePicker extends React.Component {
             <div className="RangeCalendarRangeDatePicker">
               <DayPicker
                 showOutsideDays
+                fixedWeeks
+                navbarElement={<Navbar />}
                 className="innerCalendarDatePicker"
                 numberOfMonths={this.props.numberOfMonths}
                 selectedDays={[from, { from, to }]}
@@ -78,7 +115,9 @@ export default class CalendarRangeDatePicker extends React.Component {
                 onDayClick={this.handleDayClick}
               />
             </div>
-            <button className="btn btn-primary" onClick={this.sendToFilters}> Send Value</button>
+            <div className="button-bar">
+              <button className="btn btn-primary" disabled={!this.state.to} onClick={this.sendToFilters}> Filter By Dates</button>
+            </div>
           </li>
         </ul>
       </div>

@@ -1,7 +1,10 @@
 // Color
 $color-primary:              #0071bc;
+$color-primary-dark:         #78a0d6;
 $color-primary-darker:       #205493;
 $color-primary-darkest:      #112e51;
+$color-primary-light:        #3f6fb3;
+$color-primary-lighter:      #0071bc;
 
 $color-gray-dark:            #323a45;
 $color-gray:                 #5b616b; // lighten($color-gray-dark, 20%)
@@ -33,7 +36,7 @@ $color-gold-light:           #f9c642; //  lighten($color-gold, 20%)
 $color-gold-lighter:         #fad980; //  lighten($color-gold, 60%)
 $color-gold-lightest:        #fff1d2; //  lighten($color-gold, 83%)
 
-$color-green:                #2e8540;  
+$color-green:                #2e8540;
 $color-green-light:          #4aa564; // lighten($color-green, 20%)
 $color-green-lighter:        #94bfa2; // lighten($color-green, 60%)
 $color-green-lightest:       #e7f4e4; // lighten($color-green, 60%)
