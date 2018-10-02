@@ -9,10 +9,11 @@ function Navbar({
   className,
 }) {
   const styleLeft = {
-    float: 'left',
+    position: 'relative',
   };
   const styleRight = {
-    float: 'right',
+    position: 'relative',
+    marginLeft: 'auto',
   };
   return (
     <div className={className}>
@@ -116,7 +117,7 @@ export default class CalendarRangeDatePicker extends React.Component {
               />
             </div>
             <div className="button-bar">
-              <button className="btn btn-primary" disabled={!this.state.to} onClick={this.sendToFilters}> Filter By Dates</button>
+              <button className="btn btn-primary" disabled={!this.state.to} onClick={this.sendToFilters}> Add Filter</button>
             </div>
           </li>
         </ul>

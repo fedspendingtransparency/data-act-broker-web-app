@@ -5,7 +5,7 @@
   border: none;
 
   .RangeCalendarRangeDatePicker {
-    margin: rem(20) rem(20) rem(10) rem(20);
+    margin: 0 rem(20) rem(10) rem(20);
   }
 
   .DayPicker {
@@ -15,16 +15,11 @@
 
   .DayPicker-wrapper {
     position: relative;
-
     flex-direction: row;
     padding-bottom: 1em;
-
     -webkit-user-select: none;
-
        -moz-user-select: none;
-
         -ms-user-select: none;
-
             user-select: none;
   }
 
@@ -52,8 +47,10 @@
   }
 
   .DayPicker-NavBar {
-    overflow: auto;
+    z-index: 5;
+    display: flex;
     button {
+      top: rem(23);
       background-color: transparent;
       background-image: none;
       padding: 0 rem(9);
