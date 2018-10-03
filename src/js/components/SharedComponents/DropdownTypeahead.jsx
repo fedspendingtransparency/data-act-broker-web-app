@@ -11,13 +11,7 @@ import DropdownTypeaheadCheckbox from './DropdownTypeaheadCheckbox';
 import TypeaheadWarning from './TypeaheadWarning';
 
 const propTypes = {
-  bubbledRemovedFilterValue: PropTypes.shape({
-    filter: PropTypes.string,
-    value: PropTypes.shape({
-      userId: PropTypes.number,
-      name: PropTypes.string
-    })
-  }),
+  bubbledRemovedFilterValue: PropTypes.array,
   formatter: PropTypes.func,
   onSelect: PropTypes.func.isRequired,
   internalValue: PropTypes.array,
@@ -34,13 +28,7 @@ const propTypes = {
 };
 
 const defaultProps = {
-  bubbledRemovedFilterValue: {
-    filter: '',
-    value: {
-      userId: 0,
-      name: ''
-    }
-  },
+  bubbledRemovedFilterValue: PropTypes.array,
   values: [],
   placeholder: '',
   customClass: '',
@@ -85,11 +73,12 @@ export default class DropdownTypeahead extends React.Component {
 
   componentDidUpdate(prevProps) {
     if (!_.isEqual(prevProps.values, this.props.values) && this.typeahead) {
-      this.loadValues();
+        this.loadValues();
     }
 
-    if (!_.isEqual(prevProps.bubbledRemovedFilterValue, this.props.bubbledRemovedFilterValue) && this.props.bubbledRemovedFilterValue.value) {
-      this.removeClickedFilterBarItemFromDropdown(this.props.bubbledRemovedFilterValue);
+    if (!_.isEqual(prevProps.bubbledRemovedFilterValue, this.props.bubbledRemovedFilterValue)) {
+        console.log(this.props.bubbledRemovedFilterValue, 'passedval');
+        this.removeClickedFilterBarItemFromDropdown(this.props.bubbledRemovedFilterValue);
     }
   }
 
@@ -101,7 +90,7 @@ export default class DropdownTypeahead extends React.Component {
   }
 
   getSelectedName() {
-    if (this.state.unselectedValues.includes(this.state.value) || this.state.selectedValues.includes(this.state.value)) {
+    if (this.state.unselectedValues.includes(this.state.value) || this.props.bubbledRemovedFilterValue.includes(this.state.value)) {
       alert('This name is already used, please use the checkbox in the dropdown.');
     }
     else {
@@ -201,7 +190,7 @@ export default class DropdownTypeahead extends React.Component {
 
   selectCheckbox(filterValue) {
     this.setState({
-      selectedValues: this.state.selectedValues.concat(filterValue)
+      selectedValues: this.props.bubbledRemovedFilterValue.concat(filterValue)
     });
     this.setState({
       unselectedValues: this.state.unselectedValues.filter((value) => value !== filterValue)
@@ -213,7 +202,7 @@ export default class DropdownTypeahead extends React.Component {
       unselectedValues: this.state.unselectedValues.concat(filterValue)
     });
     this.setState({
-      selectedValues: this.state.selectedValues.filter((value) => value !== filterValue)
+      selectedValues: this.props.bubbledRemovedFilterValue.filter((value) => value !== filterValue)
     });
   }
 
@@ -306,11 +295,21 @@ export default class DropdownTypeahead extends React.Component {
 
     return (
         <div className="dropdown filterdropdown">
-            <button onClick={this.onDropdownChange} className={this.state.dropdownopen ? 'btn btn-default dropdown-toggle active' : 'btn btn-default dropdown-toggle'} type="button" id="createdbydropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
-          Created By
+            <button
+                onClick={this.onDropdownChange}
+                className={this.state.dropdownopen ? 'btn btn-default dropdown-toggle active' : 'btn btn-default dropdown-toggle'}
+                type="button"
+                id="createdbydropdown"
+                data-toggle="dropdown"
+                aria-haspopup="true"
+                aria-expanded="true">
+                Created By
                 <span className="caret" />
             </button>
-            <ul className="dropdown-menu" style={this.state.dropdownopen ? { display: 'block' } : { display: 'none' }} aria-labelledby="createdbydropdown">
+            <ul
+                className="dropdown-menu"
+                style={this.state.dropdownopen ? { display: 'block' } : { display: 'none' }}
+                aria-labelledby="createdbydropdown">
                 <li className={`usa-da-typeahead${disabledClass}`}>
                     <input
                         className={this.props.customClass}
@@ -325,21 +324,22 @@ export default class DropdownTypeahead extends React.Component {
                     {warning}
                 </li>
 
-                {this.state.selectedValues.length > 0 ? this.state.selectedValues.map((value) =>
-              (
-                  <DropdownTypeaheadCheckbox checkCheckbox key={value} passSelectedNameFunc={this.passSelectedName} fieldValue={value} />
-             )) : ''
-          }
+                {
+                    this.props.bubbledRemovedFilterValue.length > 0 ? this.props.bubbledRemovedFilterValue.map((value) =>
+                    (
+                        <DropdownTypeaheadCheckbox checkCheckbox key={value.userId} passSelectedNameFunc={this.passSelectedName} fieldValue={value.name} />
+                    )) : ''
+                }
 
                 {
-            this.state.selectedValues.length > 0 ? <li role="separator" className="divider" /> : ''
-          }
+                    this.props.bubbledRemovedFilterValue.length > 0 ? <li role="separator" className="divider" /> : ''
+                }
 
                 {this.state.unselectedValues.length > 0 ? this.state.unselectedValues.map((value) =>
-              (
-                  <DropdownTypeaheadCheckbox key={value} passSelectedNameFunc={this.passSelectedName} fieldValue={value} />
-             )) : ''
-          }
+                      (
+                          <DropdownTypeaheadCheckbox key={value} passSelectedNameFunc={this.passSelectedName} fieldValue={value} />
+                     )) : ''
+                 }
 
             </ul>
         </div>

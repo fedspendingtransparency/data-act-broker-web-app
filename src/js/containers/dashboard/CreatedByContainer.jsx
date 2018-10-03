@@ -93,7 +93,7 @@ class CreatedByContainer extends React.Component {
     if (this.props.type && this.props.table) {
       const selectedCreatedBy = this.props.selectedFilters[this.props.type][this.props.table].createdBy;
       if (selectedCreatedBy.length > 0) {
-        // remove selected agencies from the options
+        // remove selected users from the options
         const selectedCreatedByNames = selectedCreatedBy.map((selectedCreatedByItems) => selectedCreatedByItems.name);
         values = values.filter((user) => {
           const userid = user.userId;
@@ -125,7 +125,7 @@ class CreatedByContainer extends React.Component {
             internalValue={['user_id']}
             formatter={this.dataFormatter}
             prioritySort={false}
-            bubbledRemovedFilterValue={this.props.bubbledRemovedFilterValue}
+            bubbledRemovedFilterValue={this.props.selectedFilters[this.props.type][this.props.table].createdBy}
             clearAfterSelect />
     );
   }
