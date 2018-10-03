@@ -42,7 +42,7 @@ class LastDateModifiedContainer extends React.Component {
   }
 
   loadData() {
-    if (_.isEmpty(this.props.lastDateModifiedList)) {
+    if (_.isEmpty(this.props.lastDateModifiedList.lastDateModified)) {
       // we need to populate the list
       if (this.props.detached) {
         lastDateModifiedHelper.fetchLastDateModified()
@@ -66,8 +66,21 @@ class LastDateModifiedContainer extends React.Component {
   }
 
   render() {
+      let values = this.props.lastDateModifiedList.lastDateModified.length > 0 ? this.props.lastDateModifiedList.lastDateModified : {};
+      // Reduce and find Min/Max for last modified dates
+      if (!_.isEmpty(values)) {
+        const payload = [];
+        values.forEach((value) => {
+          payload.push(new Date(value.last_modified));
+        });
+        const finalPayload = {
+            maxDate: new Date(Math.max.apply(null, payload)),
+            minDate: new Date(Math.min.apply(null, payload))
+        };
+        values = finalPayload;
+      }
     return (
-        <CalendarRangeDatePicker {...this.props} />
+        <CalendarRangeDatePicker minmaxDates={values} {...this.props} />
     );
   }
 }

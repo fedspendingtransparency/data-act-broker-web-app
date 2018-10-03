@@ -6,46 +6,51 @@ import Moment from 'moment';
 function Navbar({
   onPreviousClick,
   onNextClick,
-  className,
+  className
 }) {
   const styleLeft = {
-    position: 'relative',
+    position: 'relative'
   };
   const styleRight = {
     position: 'relative',
-    marginLeft: 'auto',
+    marginLeft: 'auto'
   };
   return (
-    <div className={className}>
-      <button style={styleLeft} onClick={() => onPreviousClick()}>
+      <div className={className}>
+          <button style={styleLeft} onClick={() => onPreviousClick()}>
         ←
-      </button>
-      <button style={styleRight} onClick={() => onNextClick()}>
+          </button>
+          <button style={styleRight} onClick={() => onNextClick()}>
          →
-      </button>
-    </div>
+          </button>
+      </div>
   );
 }
 
 Navbar.propTypes = {
   onPreviousClick: PropTypes.func,
   onNextClick: PropTypes.func,
-  className: PropTypes.string,
+  className: PropTypes.string
 };
 
 Navbar.defaultProps = {
   onPreviousClick: null,
   onNextClick: null,
-  className: '',
+  className: ''
 };
 
 const propTypes = {
   numberOfMonths: PropTypes.number,
   onSelect: PropTypes.func.isRequired,
+  minmaxDates: PropTypes.object
 };
 
 const defaultProps = {
   numberOfMonths: 2,
+  minmaxDates: {
+      maxDate: '',
+      minDate: ''
+  }
 };
 
 export default class CalendarRangeDatePicker extends React.Component {
@@ -57,7 +62,7 @@ export default class CalendarRangeDatePicker extends React.Component {
     this.state = {
       dropdownopen: false,
       from: null,
-      to: null,
+      to: null
     };
 
     this.onDropdownChange = this.onDropdownChange.bind(this);
@@ -68,7 +73,7 @@ export default class CalendarRangeDatePicker extends React.Component {
   onDropdownChange() {
     const currentState = this.state.dropdownopen;
     this.setState({
-      dropdownopen: !currentState,
+      dropdownopen: !currentState
     });
   }
 
@@ -76,13 +81,13 @@ export default class CalendarRangeDatePicker extends React.Component {
     if (this.dateValues.to) {
       const dates = {
         startDate: Moment(this.dateValues.from).format('MM/DD/YYYY'),
-        endDate: Moment(this.dateValues.to).format('MM/DD/YYYY'),
+        endDate: Moment(this.dateValues.to).format('MM/DD/YYYY')
       };
       this.props.onSelect(dates);
       this.setState({
         dropdownopen: false,
         from: '',
-        to: '',
+        to: ''
       });
     }
   }
@@ -92,36 +97,44 @@ export default class CalendarRangeDatePicker extends React.Component {
     this.setState(range);
   }
 
+  drawDatePicker() {
+      this.dateValues = this.state;
+      const { from, to } = this.state;
+      const modifiers = { start: from, end: to };
+      if (this.props.minmaxDates.maxDate && this.props.minmaxDates.minDate) {
+          return (<DayPicker
+              showOutsideDays
+              fixedWeeks
+              fromMonth={this.props.minmaxDates.minDate}
+              toMonth={this.props.minmaxDates.maxDate}
+              navbarElement={<Navbar />}
+              className="innerCalendarDatePicker"
+              numberOfMonths={this.props.numberOfMonths}
+              selectedDays={[from, { from, to }]}
+              modifiers={modifiers}
+              onDayClick={this.handleDayClick} />);
+      }
+      return <p>Loading Dates...</p>;
+  }
+
   render() {
-    const { from, to } = this.state;
-    const modifiers = { start: from, end: to };
-    this.dateValues = this.state;
     return (
-      <div className="dropdown filterdropdown">
-        <button onClick={this.onDropdownChange} className={this.state.dropdownopen ? 'btn btn-default dropdown-toggle active' : 'btn btn-default dropdown-toggle'} type="button" id="createdbydropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+        <div className="dropdown filterdropdown">
+            <button onClick={this.onDropdownChange} className={this.state.dropdownopen ? 'btn btn-default dropdown-toggle active' : 'btn btn-default dropdown-toggle'} type="button" id="createdbydropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
             Last Modified
-          <span className="caret" />
-        </button>
-        <ul className="dropdown-menu calendar-range-datepicker" style={this.state.dropdownopen ? { display: 'block' } : { display: 'none' }} aria-labelledby="createdbydropdown">
-          <li>
-            <div className="RangeCalendarRangeDatePicker">
-              <DayPicker
-                showOutsideDays
-                fixedWeeks
-                navbarElement={<Navbar />}
-                className="innerCalendarDatePicker"
-                numberOfMonths={this.props.numberOfMonths}
-                selectedDays={[from, { from, to }]}
-                modifiers={modifiers}
-                onDayClick={this.handleDayClick}
-              />
-            </div>
-            <div className="button-bar">
-              <button className="btn btn-primary" disabled={!this.state.to} onClick={this.sendToFilters}> Add Filter</button>
-            </div>
-          </li>
-        </ul>
-      </div>
+                <span className="caret" />
+            </button>
+            <ul className="dropdown-menu calendar-range-datepicker" style={this.state.dropdownopen ? { display: 'block' } : { display: 'none' }} aria-labelledby="createdbydropdown">
+                <li>
+                    <div className="RangeCalendarRangeDatePicker">
+                        {this.drawDatePicker()}
+                    </div>
+                    <div className="button-bar">
+                        <button className="btn btn-primary" disabled={!this.state.to} onClick={this.sendToFilters}> Add Filter</button>
+                    </div>
+                </li>
+            </ul>
+        </div>
 
     );
   }
