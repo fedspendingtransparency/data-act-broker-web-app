@@ -22,7 +22,7 @@ const propTypes = {
   type: PropTypes.string,
   table: PropTypes.string,
   placeholder: PropTypes.string,
-  onSelect: PropTypes.func,
+  onSelect: PropTypes.func
 };
 
 const defaultProps = {
@@ -33,7 +33,7 @@ const defaultProps = {
   table: '',
   type: '',
   placeholder: '',
-  onSelect: () => {},
+  onSelect: () => {}
 };
 
 class LastDateModifiedContainer extends React.Component {
@@ -52,7 +52,8 @@ class LastDateModifiedContainer extends React.Component {
           .catch((err) => {
             console.error(err);
           });
-      } else {
+      }
+      else {
         lastDateModifiedHelper.fetchLastDateModified()
           .then((data) => {
             this.props.setLastDateModifiedList(data);
@@ -66,7 +67,7 @@ class LastDateModifiedContainer extends React.Component {
 
   render() {
     return (
-      <CalendarRangeDatePicker {...this.props} />
+        <CalendarRangeDatePicker {...this.props} />
     );
   }
 }
@@ -75,9 +76,9 @@ LastDateModifiedContainer.propTypes = propTypes;
 LastDateModifiedContainer.defaultProps = defaultProps;
 
 export default connect(
-  state => ({
+  (state) => ({
     lastDateModifiedList: state.lastDateModifiedList,
-    selectedFilters: state.dashboardFilters,
+    selectedFilters: state.dashboardFilters
   }),
-  dispatch => bindActionCreators(lastDateModifiedActions, dispatch),
+  (dispatch) => bindActionCreators(lastDateModifiedActions, dispatch),
 )(LastDateModifiedContainer);
