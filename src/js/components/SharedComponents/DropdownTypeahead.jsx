@@ -77,7 +77,6 @@ export default class DropdownTypeahead extends React.Component {
     }
 
     if (!_.isEqual(prevProps.bubbledRemovedFilterValue, this.props.bubbledRemovedFilterValue)) {
-        console.log(this.props.bubbledRemovedFilterValue, 'passedval');
         this.removeClickedFilterBarItemFromDropdown(this.props.bubbledRemovedFilterValue);
     }
   }
