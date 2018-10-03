@@ -15,7 +15,7 @@ import * as SubmissionListHelper from '../../helpers/submissionListHelper';
 import DashboardContent from '../../components/dashboard/DashboardContent';
 
 const combinedActions = Object.assign({}, dashboardFilterActions, {
-  resetAppliedFilters,
+  resetAppliedFilters
 });
 
 const propTypes = {
@@ -24,7 +24,7 @@ const propTypes = {
   stagedFilters: PropTypes.object,
   appliedFilters: PropTypes.object,
   resetDashboardFilters: PropTypes.func,
-  resetAppliedFilters: PropTypes.func,
+  resetAppliedFilters: PropTypes.func
 };
 
 const defaultProps = {
@@ -33,7 +33,7 @@ const defaultProps = {
   stagedFilters: {},
   appliedFilters: {},
   resetDashboardFilters: null,
-  resetAppliedFilters: null,
+  resetAppliedFilters: null
 };
 
 class DashboardContainer extends React.Component {
@@ -48,7 +48,7 @@ class DashboardContainer extends React.Component {
       certifiedTotal: 0,
       activeSubmissions: [],
       certifiedSubmissions: [],
-      type: this.props.type,
+      type: this.props.type
     };
   }
 
@@ -60,10 +60,10 @@ class DashboardContainer extends React.Component {
 
   componentWillUnmount() {
     this.props.resetDashboardFilters({
-      dashboard: this.props.type,
+      dashboard: this.props.type
     });
     this.props.resetAppliedFilters({
-      dashboard: this.props.type,
+      dashboard: this.props.type
     });
   }
 
@@ -88,16 +88,16 @@ class DashboardContainer extends React.Component {
         filters.file_names = appliedFilters.fileNames;
       }
       if (appliedFilters.agencies && appliedFilters.agencies.length > 0) {
-        filters.agency_codes = appliedFilters.agencies.map(agency => agency.code);
+        filters.agency_codes = appliedFilters.agencies.map((agency) => agency.code);
       }
 
       if (appliedFilters.createdBy && appliedFilters.createdBy.length > 0) {
-        filters.user_ids = appliedFilters.createdBy.map(createdByNames => createdByNames.userId);
+        filters.user_ids = appliedFilters.createdBy.map((createdByNames) => createdByNames.userId);
       }
     }
 
     this.setState({
-      [`${tableName}Loading`]: true,
+      [`${tableName}Loading`]: true
     });
 
     SubmissionListHelper.loadSubmissionList(page, 10, certified, category, order, this.state.type === 'fabs', filters)
@@ -105,18 +105,17 @@ class DashboardContainer extends React.Component {
         this.setState({
           [`${tableName}Total`]: data.total,
           [`${tableName}Submissions`]: data.submissions,
-          [`${tableName}Loading`]: false,
+          [`${tableName}Loading`]: false
         });
       });
   }
 
   render() {
     return (
-      <DashboardContent
-        {...this.state}
-        {...this.props}
-        loadTableData={this.loadTableData.bind(this)}
-      />
+        <DashboardContent
+            {...this.state}
+            {...this.props}
+            loadTableData={this.loadTableData.bind(this)} />
     );
   }
 }
@@ -125,10 +124,10 @@ DashboardContainer.propTypes = propTypes;
 DashboardContainer.defaultProps = defaultProps;
 
 export default connect(
-  state => ({
+  (state) => ({
     session: state.session,
     stagedFilters: state.dashboardFilters,
-    appliedFilters: state.appliedDashboardFilters,
+    appliedFilters: state.appliedDashboardFilters
   }),
-  dispatch => bindActionCreators(combinedActions, dispatch),
+  (dispatch) => bindActionCreators(combinedActions, dispatch),
 )(DashboardContainer);

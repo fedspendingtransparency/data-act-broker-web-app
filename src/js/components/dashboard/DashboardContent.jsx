@@ -21,7 +21,7 @@ const propTypes = {
   certifiedLoading: PropTypes.bool,
   toggleDashboardFilter: PropTypes.func,
   stagedFilters: PropTypes.object,
-  appliedFilters: PropTypes.object,
+  appliedFilters: PropTypes.object
 };
 
 const defaultProps = {
@@ -36,7 +36,7 @@ const defaultProps = {
   certifiedLoading: false,
   toggleDashboardFilter: null,
   stagedFilters: {},
-  appliedFilters: {},
+  appliedFilters: {}
 };
 
 export default class DashboardContent extends React.Component {
@@ -50,14 +50,14 @@ export default class DashboardContent extends React.Component {
       filterCounts: {
         dabs: {
           active: 0,
-          certified: 0,
+          certified: 0
         },
         fabs: {
           active: 0,
-          published: 0,
-        },
+          published: 0
+        }
       },
-      bubbledRemovedFilterValue: {},
+      bubbledRemovedFilterValue: {}
     };
 
     this.toggleFilter = this.toggleFilter.bind(this);
@@ -69,7 +69,7 @@ export default class DashboardContent extends React.Component {
   componentWillReceiveProps(nextProps) {
     if (nextProps.type !== this.props.type) {
       this.setState({
-        title: nextProps.type === 'fabs' ? 'Published Submissions' : 'Certified Submissions',
+        title: nextProps.type === 'fabs' ? 'Published Submissions' : 'Certified Submissions'
       });
     }
   }
@@ -79,7 +79,7 @@ export default class DashboardContent extends React.Component {
       dashboard: this.props.type,
       table,
       filter,
-      value,
+      value
     });
   }
 
@@ -87,8 +87,8 @@ export default class DashboardContent extends React.Component {
     this.setState({
       bubbledRemovedFilterValue: {
         filter,
-        value,
-      },
+        value
+      }
     });
   }
 
@@ -99,24 +99,23 @@ export default class DashboardContent extends React.Component {
 
   updateFilterCount(count, type, tableType) {
     const dashboard = Object.assign({}, this.state.filterCounts[type], {
-      [tableType]: count,
+      [tableType]: count
     });
 
     const filterCounts = Object.assign({}, this.state.filterCounts, {
-      [type]: dashboard,
+      [type]: dashboard
     });
 
     this.setState({
-      filterCounts,
+      filterCounts
     });
   }
 
   generateMessage(count) {
     if (count > 0) {
       return (
-        <FiltersMessage
-          filterCount={count}
-        />
+          <FiltersMessage
+              filterCount={count} />
       );
     }
     return null;
@@ -131,76 +130,70 @@ export default class DashboardContent extends React.Component {
     const secondMessage = this.generateMessage(this.state.filterCounts[this.props.type][secondTable]);
 
     return (
-      <div className="container">
-        <div className="row">
-          <div className="col-md-12">
-            <div className="table-heading">
-              <h2 className="table-heading__title">Active Submissions</h2>
-              {activeMessage}
+        <div className="container">
+            <div className="row">
+                <div className="col-md-12">
+                    <div className="table-heading">
+                        <h2 className="table-heading__title">Active Submissions</h2>
+                        {activeMessage}
+                    </div>
+                    <DashboardFilters
+                        toggleFilter={this.toggleFilter}
+                        bubbledRemovedFilterValue={this.state.bubbledRemovedFilterValue}
+                        stagedFilters={stagedFilters.active}
+                        appliedFilters={appliedFilters.active}
+                        type={this.props.type}
+                        table="active" />
+                    <FilterBarContainer
+                        bubbleRemovedFilterValuetoFilteringComponent={this.bubbleRemovedFilterValuetoFilteringComponent}
+                        type={this.props.type}
+                        table="active"
+                        stagedFilters={stagedFilters.active}
+                        appliedFilters={appliedFilters.active}
+                        updateFilterCount={this.updateFilterCount} />
+                    <DashboardTable
+                        isLoading={this.props.activeLoading}
+                        isCertified={false}
+                        loadTableData={this.props.loadTableData}
+                        appliedFilters={appliedFilters.active}
+                        total={this.props.activeTotal}
+                        data={this.props.activeSubmissions}
+                        page={this.state.activePage}
+                        session={this.props.session}
+                        type={this.props.type} />
+                </div>
             </div>
-            <DashboardFilters
-              toggleFilter={this.toggleFilter}
-              bubbledRemovedFilterValue={this.state.bubbledRemovedFilterValue}
-              stagedFilters={stagedFilters.active}
-              appliedFilters={appliedFilters.active}
-              type={this.props.type}
-              table="active"
-            />
-            <FilterBarContainer
-              bubbleRemovedFilterValuetoFilteringComponent={this.bubbleRemovedFilterValuetoFilteringComponent}
-              type={this.props.type}
-              table="active"
-              stagedFilters={stagedFilters.active}
-              appliedFilters={appliedFilters.active}
-              updateFilterCount={this.updateFilterCount}
-            />
-            <DashboardTable
-              isLoading={this.props.activeLoading}
-              isCertified={false}
-              loadTableData={this.props.loadTableData}
-              appliedFilters={appliedFilters.active}
-              total={this.props.activeTotal}
-              data={this.props.activeSubmissions}
-              page={this.state.activePage}
-              session={this.props.session}
-              type={this.props.type}
-            />
-          </div>
-        </div>
-        <div className="row">
-          <div className="col-md-12">
-            <div className="table-heading">
-              <h2 className="table-heading__title">{this.state.title}</h2>
-              {secondMessage}
+            <div className="row">
+                <div className="col-md-12">
+                    <div className="table-heading">
+                        <h2 className="table-heading__title">{this.state.title}</h2>
+                        {secondMessage}
+                    </div>
+                    <DashboardFilters
+                        toggleFilter={this.toggleFilter}
+                        stagedFilters={stagedFilters[secondTable]}
+                        appliedFilters={appliedFilters[secondTable]}
+                        table={secondTable}
+                        type={this.props.type} />
+                    <FilterBarContainer
+                        bubbleRemovedFilterValuetoFilteringComponent={this.bubbleRemovedFilterValuetoFilteringComponent}
+                        type={this.props.type}
+                        table={secondTable}
+                        stagedFilters={stagedFilters[secondTable]}
+                        appliedFilters={appliedFilters[secondTable]}
+                        updateFilterCount={this.updateFilterCount} />
+                    <DashboardTable
+                        isLoading={this.props.certifiedLoading}
+                        loadTableData={this.props.loadTableData}
+                        appliedFilters={appliedFilters[secondTable]}
+                        total={this.props.certifiedTotal}
+                        data={this.props.certifiedSubmissions}
+                        page={this.state.certifiedPage}
+                        session={this.props.session}
+                        type={this.props.type} />
+                </div>
             </div>
-            <DashboardFilters
-              toggleFilter={this.toggleFilter}
-              stagedFilters={stagedFilters[secondTable]}
-              appliedFilters={appliedFilters[secondTable]}
-              table={secondTable}
-              type={this.props.type}
-            />
-            <FilterBarContainer
-              bubbleRemovedFilterValuetoFilteringComponent={this.bubbleRemovedFilterValuetoFilteringComponent}
-              type={this.props.type}
-              table={secondTable}
-              stagedFilters={stagedFilters[secondTable]}
-              appliedFilters={appliedFilters[secondTable]}
-              updateFilterCount={this.updateFilterCount}
-            />
-            <DashboardTable
-              isLoading={this.props.certifiedLoading}
-              loadTableData={this.props.loadTableData}
-              appliedFilters={appliedFilters[secondTable]}
-              total={this.props.certifiedTotal}
-              data={this.props.certifiedSubmissions}
-              page={this.state.certifiedPage}
-              session={this.props.session}
-              type={this.props.type}
-            />
-          </div>
         </div>
-      </div>
     );
   }
 }

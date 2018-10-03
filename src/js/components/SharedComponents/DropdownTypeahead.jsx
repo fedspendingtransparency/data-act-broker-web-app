@@ -15,8 +15,8 @@ const propTypes = {
     filter: PropTypes.string,
     value: PropTypes.shape({
       userId: PropTypes.number,
-      name: PropTypes.string,
-    }),
+      name: PropTypes.string
+    })
   }),
   formatter: PropTypes.func,
   onSelect: PropTypes.func.isRequired,
@@ -30,7 +30,7 @@ const propTypes = {
   tabIndex: PropTypes.number,
   isRequired: PropTypes.bool,
   prioritySort: PropTypes.bool,
-  clearAfterSelect: PropTypes.bool,
+  clearAfterSelect: PropTypes.bool
 };
 
 const defaultProps = {
@@ -38,8 +38,8 @@ const defaultProps = {
     filter: '',
     value: {
       userId: 0,
-      name: '',
-    },
+      name: ''
+    }
   },
   values: [],
   placeholder: '',
@@ -52,7 +52,7 @@ const defaultProps = {
   errorHeader: null,
   errorDescription: null,
   prioritySort: true,
-  clearAfterSelect: false,
+  clearAfterSelect: false
 };
 
 export default class DropdownTypeahead extends React.Component {
@@ -68,7 +68,7 @@ export default class DropdownTypeahead extends React.Component {
       value: '',
       showWarning: false,
       selectedValues: [],
-      unselectedValues: [],
+      unselectedValues: []
     };
 
     this.onDropdownChange = this.onDropdownChange.bind(this);
@@ -96,16 +96,17 @@ export default class DropdownTypeahead extends React.Component {
   onDropdownChange() {
     const currentState = this.state.dropdownopen;
     this.setState({
-      dropdownopen: !currentState,
+      dropdownopen: !currentState
     });
   }
 
   getSelectedName() {
     if (this.state.unselectedValues.includes(this.state.value) || this.state.selectedValues.includes(this.state.value)) {
       alert('This name is already used, please use the checkbox in the dropdown.');
-    } else {
+    }
+    else {
       this.setState({
-        unselectedValues: this.state.unselectedValues.concat(this.state.value),
+        unselectedValues: this.state.unselectedValues.concat(this.state.value)
       });
     }
   }
@@ -135,9 +136,10 @@ export default class DropdownTypeahead extends React.Component {
             return -1;
           }
           return 0;
-        },
+        }
       });
-    } else {
+    }
+    else {
       this.typeahead = new Awesomplete(target);
     }
     this.typeahead.autoFirst = true;
@@ -151,14 +153,14 @@ export default class DropdownTypeahead extends React.Component {
     // set up event handlers
     this.refs.awesomplete.addEventListener('awesomplete-selectcomplete', (e) => {
       this.setState({
-        value: e.text.label,
+        value: e.text.label
       }, () => {
         this.getSelectedName();
       });
       if (this.props.clearAfterSelect) {
         e.target.value = '';
         this.setState({
-          value: '',
+          value: ''
         });
       }
       this.typeahead.close();
@@ -174,16 +176,16 @@ export default class DropdownTypeahead extends React.Component {
 
   changedText(e) {
     this.setState({
-      value: e.target.value,
+      value: e.target.value
     }, this.detectEmptySuggestions);
   }
 
   detectEmptySuggestions() {
     if (this.state.value.length > 2 && this.typeahead.suggestions.length === 0) {
       if (!this.state.showWarning) {
-        // we need to show a warning that no matching agencies were found
+        // we need to show a warning that no matching users were found
         this.setState({
-          showWarning: true,
+          showWarning: true
         });
       }
       return;
@@ -192,33 +194,34 @@ export default class DropdownTypeahead extends React.Component {
     // otherwise hide the warning
     if (this.state.showWarning) {
       this.setState({
-        showWarning: false,
+        showWarning: false
       });
     }
   }
 
   selectCheckbox(filterValue) {
     this.setState({
-      selectedValues: this.state.selectedValues.concat(filterValue),
+      selectedValues: this.state.selectedValues.concat(filterValue)
     });
     this.setState({
-      unselectedValues: this.state.unselectedValues.filter(value => value !== filterValue),
+      unselectedValues: this.state.unselectedValues.filter((value) => value !== filterValue)
     });
   }
 
   unselectCheckbox(filterValue) {
     this.setState({
-      unselectedValues: this.state.unselectedValues.concat(filterValue),
+      unselectedValues: this.state.unselectedValues.concat(filterValue)
     });
     this.setState({
-      selectedValues: this.state.selectedValues.filter(value => value !== filterValue),
+      selectedValues: this.state.selectedValues.filter((value) => value !== filterValue)
     });
   }
 
   passSelectedName(clickedCheckboxValue, checkStatus) {
     if (!checkStatus) {
       this.selectCheckbox(clickedCheckboxValue);
-    } else {
+    }
+    else {
       this.unselectCheckbox(clickedCheckboxValue);
     }
 
@@ -302,45 +305,44 @@ export default class DropdownTypeahead extends React.Component {
     }
 
     return (
-      <div className="dropdown filterdropdown">
-        <button onClick={this.onDropdownChange} className={this.state.dropdownopen ? 'btn btn-default dropdown-toggle active' : 'btn btn-default dropdown-toggle'} type="button" id="createdbydropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+        <div className="dropdown filterdropdown">
+            <button onClick={this.onDropdownChange} className={this.state.dropdownopen ? 'btn btn-default dropdown-toggle active' : 'btn btn-default dropdown-toggle'} type="button" id="createdbydropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
           Created By
-          <span className="caret" />
-        </button>
-        <ul className="dropdown-menu" style={this.state.dropdownopen ? { display: 'block' } : { display: 'none' }} aria-labelledby="createdbydropdown">
-          <li className={`usa-da-typeahead${disabledClass}`}>
-            <input
-              className={this.props.customClass}
-              ref="awesomplete"
-              type="text"
-              placeholder={placeholder}
-              value={this.state.value}
-              onChange={this.changedText.bind(this)}
-              tabIndex={this.props.tabIndex}
-              disabled={disabled}
-              aria-required={this.props.isRequired}
-            />
-            {warning}
-          </li>
+                <span className="caret" />
+            </button>
+            <ul className="dropdown-menu" style={this.state.dropdownopen ? { display: 'block' } : { display: 'none' }} aria-labelledby="createdbydropdown">
+                <li className={`usa-da-typeahead${disabledClass}`}>
+                    <input
+                        className={this.props.customClass}
+                        ref="awesomplete"
+                        type="text"
+                        placeholder={placeholder}
+                        value={this.state.value}
+                        onChange={this.changedText.bind(this)}
+                        tabIndex={this.props.tabIndex}
+                        disabled={disabled}
+                        aria-required={this.props.isRequired} />
+                    {warning}
+                </li>
 
-          {this.state.selectedValues.length > 0 ? this.state.selectedValues.map(value =>
+                {this.state.selectedValues.length > 0 ? this.state.selectedValues.map((value) =>
               (
-                <DropdownTypeaheadCheckbox checkCheckbox key={value} passSelectedNameFunc={this.passSelectedName} fieldValue={value} />
+                  <DropdownTypeaheadCheckbox checkCheckbox key={value} passSelectedNameFunc={this.passSelectedName} fieldValue={value} />
              )) : ''
           }
 
-          {
+                {
             this.state.selectedValues.length > 0 ? <li role="separator" className="divider" /> : ''
           }
 
-          {this.state.unselectedValues.length > 0 ? this.state.unselectedValues.map(value =>
+                {this.state.unselectedValues.length > 0 ? this.state.unselectedValues.map((value) =>
               (
-                <DropdownTypeaheadCheckbox key={value} passSelectedNameFunc={this.passSelectedName} fieldValue={value} />
+                  <DropdownTypeaheadCheckbox key={value} passSelectedNameFunc={this.passSelectedName} fieldValue={value} />
              )) : ''
           }
 
-        </ul>
-      </div>
+            </ul>
+        </div>
 
     );
   }

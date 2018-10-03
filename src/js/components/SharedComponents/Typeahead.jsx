@@ -22,7 +22,7 @@ const propTypes = {
   tabIndex: PropTypes.number,
   isRequired: PropTypes.bool,
   prioritySort: PropTypes.bool,
-  clearAfterSelect: PropTypes.bool,
+  clearAfterSelect: PropTypes.bool
 };
 
 const defaultProps = {
@@ -37,7 +37,7 @@ const defaultProps = {
   errorHeader: null,
   errorDescription: null,
   prioritySort: true,
-  clearAfterSelect: false,
+  clearAfterSelect: false
 };
 
 export default class Typeahead extends React.Component {
@@ -50,7 +50,7 @@ export default class Typeahead extends React.Component {
 
     this.state = {
       value: '',
-      showWarning: false,
+      showWarning: false
     };
   }
 
@@ -89,9 +89,10 @@ export default class Typeahead extends React.Component {
             return -1;
           }
           return 0;
-        },
+        }
       });
-    } else {
+    }
+    else {
       this.typeahead = new Awesomplete(target);
     }
     this.typeahead.autoFirst = true;
@@ -105,14 +106,14 @@ export default class Typeahead extends React.Component {
     // set up event handlers
     this.refs.awesomplete.addEventListener('awesomplete-selectcomplete', (e) => {
       this.setState({
-        value: e.text.label,
+        value: e.text.label
       }, () => {
         this.bubbleUpChange();
       });
       if (this.props.clearAfterSelect) {
         e.target.value = '';
         this.setState({
-          value: '',
+          value: ''
         });
       }
       this.typeahead.close();
@@ -128,7 +129,7 @@ export default class Typeahead extends React.Component {
 
   changedText(e) {
     this.setState({
-      value: e.target.value,
+      value: e.target.value
     }, this.detectEmptySuggestions);
   }
 
@@ -137,7 +138,7 @@ export default class Typeahead extends React.Component {
       if (!this.state.showWarning) {
         // we need to show a warning that no matching agencies were found
         this.setState({
-          showWarning: true,
+          showWarning: true
         });
       }
       return;
@@ -146,7 +147,7 @@ export default class Typeahead extends React.Component {
     // otherwise hide the warning
     if (this.state.showWarning) {
       this.setState({
-        showWarning: false,
+        showWarning: false
       });
     }
   }
@@ -226,20 +227,19 @@ export default class Typeahead extends React.Component {
     }
 
     return (
-      <div className={`usa-da-typeahead${disabledClass}`}>
-        <input
-          className={this.props.customClass}
-          ref="awesomplete"
-          type="text"
-          placeholder={placeholder}
-          value={this.state.value}
-          onChange={this.changedText.bind(this)}
-          tabIndex={this.props.tabIndex}
-          disabled={disabled}
-          aria-required={this.props.isRequired}
-        />
-        {warning}
-      </div>
+        <div className={`usa-da-typeahead${disabledClass}`}>
+            <input
+                className={this.props.customClass}
+                ref="awesomplete"
+                type="text"
+                placeholder={placeholder}
+                value={this.state.value}
+                onChange={this.changedText.bind(this)}
+                tabIndex={this.props.tabIndex}
+                disabled={disabled}
+                aria-required={this.props.isRequired} />
+            {warning}
+        </div>
     );
   }
 }

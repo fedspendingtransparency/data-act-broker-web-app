@@ -8,20 +8,20 @@ import React, { PropTypes } from 'react';
 const propTypes = {
   passSelectedNameFunc: PropTypes.func,
   fieldValue: PropTypes.string,
-  checkCheckbox: PropTypes.bool,
+  checkCheckbox: PropTypes.bool
 };
 
 const defaultProps = {
   passSelectedNameFunc: null,
   fieldValue: '',
-  checkCheckbox: false,
+  checkCheckbox: false
 };
 
 export default class DropdownTypeaheadCheckbox extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      isChecked: this.props.checkCheckbox,
+      isChecked: this.props.checkCheckbox
     };
     this.handleChecked = this.handleChecked.bind(this);
   }
@@ -33,10 +33,10 @@ export default class DropdownTypeaheadCheckbox extends React.Component {
 
   render() {
     return (
-      <li>
-        <input type="checkbox" defaultChecked={this.props.checkCheckbox} onChange={this.handleChecked} />
-        {this.props.fieldValue}
-      </li>
+        <li>
+            <input type="checkbox" defaultChecked={this.props.checkCheckbox} onChange={this.handleChecked} />
+            {this.props.fieldValue}
+        </li>
     );
   }
 }

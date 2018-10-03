@@ -20,7 +20,7 @@ const propTypes = {
   type: PropTypes.string,
   table: PropTypes.string,
   placeholder: PropTypes.string,
-  onSelect: PropTypes.func,
+  onSelect: PropTypes.func
 };
 
 const defaultProps = {
@@ -31,7 +31,7 @@ const defaultProps = {
   table: '',
   type: '',
   placeholder: '',
-  onSelect: () => {},
+  onSelect: () => {}
 };
 
 class AgencyFilterContainer extends React.Component {
@@ -50,7 +50,8 @@ class AgencyFilterContainer extends React.Component {
           .catch((err) => {
             console.error(err);
           });
-      } else {
+      }
+      else {
         AgencyHelper.fetchAgencies()
           .then((agencies) => {
             this.props.setAgencyList(agencies);
@@ -65,7 +66,7 @@ class AgencyFilterContainer extends React.Component {
   dataFormatter(item) {
     return {
       label: item.agency_name,
-      value: item.cgac_code ? item.cgac_code : item.frec_code,
+      value: item.cgac_code ? item.cgac_code : item.frec_code
     };
   }
 
@@ -75,7 +76,7 @@ class AgencyFilterContainer extends React.Component {
       const selectedAgencies = this.props.selectedFilters[this.props.type][this.props.table].agencies;
       if (selectedAgencies.length > 0) {
         // remove selected agencies from the options
-        const selectedAgencyCodes = selectedAgencies.map(selectedAgency => selectedAgency.code);
+        const selectedAgencyCodes = selectedAgencies.map((selectedAgency) => selectedAgency.code);
         values = values.filter((agency) => {
           const code = agency.cgac_code || agency.frec_code;
           return !selectedAgencyCodes.includes(code);
@@ -83,13 +84,12 @@ class AgencyFilterContainer extends React.Component {
       }
     }
     return (
-      <Typeahead
-        {...this.props}
-        values={values}
-        formatter={this.dataFormatter}
-        prioritySort={false}
-        clearAfterSelect
-      />
+        <Typeahead
+            {...this.props}
+            values={values}
+            formatter={this.dataFormatter}
+            prioritySort={false}
+            clearAfterSelect />
     );
   }
 }
@@ -98,9 +98,9 @@ AgencyFilterContainer.propTypes = propTypes;
 AgencyFilterContainer.defaultProps = defaultProps;
 
 export default connect(
-  state => ({
+  (state) => ({
     agencyList: state.agencyList,
-    selectedFilters: state.dashboardFilters,
+    selectedFilters: state.dashboardFilters
   }),
-  dispatch => bindActionCreators(agencyActions, dispatch),
+  (dispatch) => bindActionCreators(agencyActions, dispatch),
 )(AgencyFilterContainer);

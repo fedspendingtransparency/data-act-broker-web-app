@@ -1,7 +1,8 @@
 /**
  * CreatedByContainer.jsx
- * Created by Lizzie Salita 8/30/18
+ * Created by Kwadwo Opoku-Debrah 09/28/2018
  */
+
 
 import React, { PropTypes } from 'react';
 import { bindActionCreators } from 'redux';
@@ -19,8 +20,8 @@ const propTypes = {
     filter: PropTypes.string,
     value: PropTypes.shape({
       userId: PropTypes.number,
-      name: PropTypes.string,
-    }),
+      name: PropTypes.string
+    })
   }),
   setCreatedByList: PropTypes.func,
   createdByList: PropTypes.object,
@@ -29,7 +30,7 @@ const propTypes = {
   type: PropTypes.string,
   table: PropTypes.string,
   placeholder: PropTypes.string,
-  onSelect: PropTypes.func,
+  onSelect: PropTypes.func
 };
 
 const defaultProps = {
@@ -37,8 +38,8 @@ const defaultProps = {
     filter: '',
     value: {
       userId: 0,
-      name: '',
-    },
+      name: ''
+    }
   },
   setCreatedByList: () => {},
   createdByList: {},
@@ -47,7 +48,7 @@ const defaultProps = {
   table: '',
   type: '',
   placeholder: '',
-  onSelect: () => {},
+  onSelect: () => {}
 };
 
 class CreatedByContainer extends React.Component {
@@ -66,7 +67,8 @@ class CreatedByContainer extends React.Component {
           .catch((err) => {
             console.error(err);
           });
-      } else {
+      }
+      else {
         createdByHelper.fetchCreatedBy()
           .then((data) => {
             this.props.setCreatedByList(data);
@@ -81,7 +83,7 @@ class CreatedByContainer extends React.Component {
   dataFormatter(item) {
     return {
       label: item.name,
-      value: item.user_id,
+      value: item.user_id
     };
   }
 
@@ -92,7 +94,7 @@ class CreatedByContainer extends React.Component {
       const selectedCreatedBy = this.props.selectedFilters[this.props.type][this.props.table].createdBy;
       if (selectedCreatedBy.length > 0) {
         // remove selected agencies from the options
-        const selectedCreatedByNames = selectedCreatedBy.map(selectedCreatedByItems => selectedCreatedByItems.name);
+        const selectedCreatedByNames = selectedCreatedBy.map((selectedCreatedByItems) => selectedCreatedByItems.name);
         values = values.filter((user) => {
           const userid = user.userId;
           return !selectedCreatedByNames.includes(userid);
@@ -106,7 +108,7 @@ class CreatedByContainer extends React.Component {
       values.forEach((value) => {
         payload.push({
           name: value.user.name,
-          user_id: value.user.user_id,
+          user_id: value.user.user_id
         });
       });
       const removeDuplicateNames = _.uniqBy(payload, 'name');
@@ -114,18 +116,17 @@ class CreatedByContainer extends React.Component {
     }
 
     return (
-      <DropdownTypeahead
-        {...this.props}
-        errorHeader="Unknown Name"
-        errorDescription="You must select an name from the list that is provided as you type."
-        values={values}
-        keyValue="name"
-        internalValue={['user_id']}
-        formatter={this.dataFormatter}
-        prioritySort={false}
-        bubbledRemovedFilterValue={this.props.bubbledRemovedFilterValue}
-        clearAfterSelect
-      />
+        <DropdownTypeahead
+            {...this.props}
+            errorHeader="Unknown Name"
+            errorDescription="You must select an name from the list that is provided as you type."
+            values={values}
+            keyValue="name"
+            internalValue={['user_id']}
+            formatter={this.dataFormatter}
+            prioritySort={false}
+            bubbledRemovedFilterValue={this.props.bubbledRemovedFilterValue}
+            clearAfterSelect />
     );
   }
 }
@@ -134,9 +135,9 @@ CreatedByContainer.propTypes = propTypes;
 CreatedByContainer.defaultProps = defaultProps;
 
 export default connect(
-  state => ({
+  (state) => ({
     createdByList: state.createdByList,
-    selectedFilters: state.dashboardFilters,
+    selectedFilters: state.dashboardFilters
   }),
-  dispatch => bindActionCreators(createdByActions, dispatch),
+  (dispatch) => bindActionCreators(createdByActions, dispatch),
 )(CreatedByContainer);

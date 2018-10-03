@@ -25,7 +25,7 @@ const propTypes = {
   type: PropTypes.string,
   total: PropTypes.number,
   isCertified: PropTypes.bool,
-  isLoading: PropTypes.bool,
+  isLoading: PropTypes.bool
 };
 
 const defaultProps = {
@@ -36,7 +36,7 @@ const defaultProps = {
   appliedFilters: {},
   session: null,
   type: '',
-  total: 0,
+  total: 0
 };
 
 export default class DashboardTable extends React.Component {
@@ -55,7 +55,7 @@ export default class DashboardTable extends React.Component {
       sortColumn: 0,
       sortDirection: 'desc',
       user: true,
-      type: this.props.type,
+      type: this.props.type
     };
   }
 
@@ -95,19 +95,21 @@ export default class DashboardTable extends React.Component {
           'Created By',
           'Action Date Range',
           'Published By',
-          'Published On',
+          'Published On'
         ];
-      } else {
+      }
+      else {
         headers = [
           'Reporting Period\nSubmission ID',
           'Agency',
           'Created By',
           'Last Modified',
           'Status',
-          'Certification',
+          'Certification'
         ];
       }
-    } else {
+    }
+    else {
       let dateName = '';
       let canDelete = false;
       let agency = '';
@@ -117,7 +119,8 @@ export default class DashboardTable extends React.Component {
         canDelete = PermissionsHelper.checkFabsPermissions(this.props.session);
         agency = 'Agency:Filename';
         view = 'Submission ID';
-      } else {
+      }
+      else {
         dateName = 'Reporting Period';
         canDelete = PermissionsHelper.checkPermissions(this.props.session);
         agency = 'Agency';
@@ -128,7 +131,7 @@ export default class DashboardTable extends React.Component {
         dateName,
         'Created By',
         'Last Modified',
-        'Status',
+        'Status'
       ];
       if (canDelete) {
         headers = headers.concat('Delete');
@@ -211,7 +214,7 @@ export default class DashboardTable extends React.Component {
       cellClasses: rowClasses,
       headerClasses,
       message,
-      totalPages: Math.ceil(this.props.total / 10),
+      totalPages: Math.ceil(this.props.total / 10)
     });
   }
 
@@ -236,10 +239,9 @@ export default class DashboardTable extends React.Component {
 
     if (this.props.isCertified) {
       link = (<SubmissionLink
-        submissionId={item.submission_id}
-        value={reportingDateString}
-        type={this.state.type}
-      />);
+          submissionId={item.submission_id}
+          value={reportingDateString}
+          type={this.state.type} />);
     }
 
     let row = [];
@@ -248,7 +250,7 @@ export default class DashboardTable extends React.Component {
       row = [
         link,
         this.getAgency(item),
-        userName,
+        userName
       ];
 
       const certifiedOn = item.certified_on !== '' ? UtilHelper.convertToLocalDate(item.certified_on) :
@@ -257,20 +259,22 @@ export default class DashboardTable extends React.Component {
         row = row.concat([
           reportingDateString,
           item.certifying_user,
-          certifiedOn,
-        ]);
-      } else {
-        row = row.concat([
-          UtilHelper.convertToLocalDate(item.last_modified),
-          <Status.SubmissionStatus status={item.rowStatus} certified={this.props.isCertified} />,
-          <span>
-            {item.certifying_user}<br />
-            {certifiedOn}<br />
-            <HistoryLink submissionId={item.submission_id} />
-          </span>,
+          certifiedOn
         ]);
       }
-    } else {
+      else {
+        row = row.concat([
+          UtilHelper.convertToLocalDate(item.last_modified),
+            <Status.SubmissionStatus status={item.rowStatus} certified={this.props.isCertified} />,
+            <span>
+                {item.certifying_user}<br />
+                {certifiedOn}<br />
+                <HistoryLink submissionId={item.submission_id} />
+            </span>
+        ]);
+      }
+    }
+    else {
       // Active Submissions table
       row = [
         link,
@@ -278,7 +282,7 @@ export default class DashboardTable extends React.Component {
         reportingDateString,
         userName,
         UtilHelper.convertToLocalDate(item.last_modified),
-        <Status.SubmissionStatus status={item.rowStatus} certified={this.props.isCertified} />,
+          <Status.SubmissionStatus status={item.rowStatus} certified={this.props.isCertified} />
       ];
 
       let deleteCol = false;
@@ -286,7 +290,8 @@ export default class DashboardTable extends React.Component {
       if (this.props.type === 'fabs') {
         deleteCol = PermissionsHelper.checkFabsPermissions(this.props.session);
         canDelete = PermissionsHelper.checkFabsAgencyPermissions(this.props.session, item.agency);
-      } else {
+      }
+      else {
         deleteCol = PermissionsHelper.checkPermissions(this.props.session);
         canDelete = PermissionsHelper.checkAgencyPermissions(this.props.session, item.agency);
       }
@@ -294,15 +299,15 @@ export default class DashboardTable extends React.Component {
       if (deleteCol) {
         if (canDelete && item.publish_status === 'unpublished') {
           row.push(<DeleteLink
-            submissionId={item.submission_id}
-            index={index}
-            warning={this.deleteWarning.bind(this)}
-            confirm={deleteConfirm}
-            reload={this.reload.bind(this)}
-            item={item}
-            account={this.state.account}
-          />);
-        } else {
+              submissionId={item.submission_id}
+              index={index}
+              warning={this.deleteWarning.bind(this)}
+              confirm={deleteConfirm}
+              reload={this.reload.bind(this)}
+              item={item}
+              account={this.state.account} />);
+        }
+        else {
           row.push('N/A');
         }
       }
@@ -314,7 +319,7 @@ export default class DashboardTable extends React.Component {
     // the table sorting changed
     this.setState({
       sortDirection: direction,
-      sortColumn: column,
+      sortColumn: column
     }, () => {
       // re-display the data
       this.props.loadTableData(
@@ -327,7 +332,7 @@ export default class DashboardTable extends React.Component {
 
   changePage(newPage) {
     this.setState({
-      currentPage: newPage,
+      currentPage: newPage
     }, () => {
       this.props.loadTableData(
         this.state.currentPage, this.props.isCertified, this.getCategory(),
@@ -352,7 +357,7 @@ export default class DashboardTable extends React.Component {
 
   deleteWarning(index) {
     this.setState({
-      deleteIndex: index,
+      deleteIndex: index
     }, () => {
       this.buildRow();
     });
@@ -363,10 +368,9 @@ export default class DashboardTable extends React.Component {
 
     if (this.state.totalPages > 1) {
       paginator = (<DashboardPaginator
-        current={this.state.currentPage}
-        total={this.state.totalPages}
-        changePage={this.changePage.bind(this)}
-      />);
+          current={this.state.currentPage}
+          total={this.state.totalPages}
+          changePage={this.changePage.bind(this)} />);
     }
 
     let loadingClass = '';
@@ -379,29 +383,29 @@ export default class DashboardTable extends React.Component {
     let unsortable = [0, 2, 5, 6];
     if (this.props.isCertified && this.state.type === 'fabs') {
       unsortable = [0, 3, 4];
-    } else if (this.props.isCertified) {
+    }
+    else if (this.props.isCertified) {
       unsortable = [0, 4];
     }
 
     return (
-      <div className="usa-da-submission-list">
-        <div className={`submission-table-content${loadingClass}`}>
-          <FormattedTable
-            headers={headers}
-            data={this.state.parsedData}
-            cellClasses={this.state.cellClasses}
-            unsortable={unsortable}
-            headerClasses={this.state.headerClasses}
-            onSort={this.sortTable.bind(this)}
-          />
+        <div className="usa-da-submission-list">
+            <div className={`submission-table-content${loadingClass}`}>
+                <FormattedTable
+                    headers={headers}
+                    data={this.state.parsedData}
+                    cellClasses={this.state.cellClasses}
+                    unsortable={unsortable}
+                    headerClasses={this.state.headerClasses}
+                    onSort={this.sortTable.bind(this)} />
+            </div>
+            <div className="text-center">
+                {this.state.message}
+            </div>
+            <div className="paginator-wrap">
+                {paginator}
+            </div>
         </div>
-        <div className="text-center">
-          {this.state.message}
-        </div>
-        <div className="paginator-wrap">
-          {paginator}
-        </div>
-      </div>
     );
   }
 }
