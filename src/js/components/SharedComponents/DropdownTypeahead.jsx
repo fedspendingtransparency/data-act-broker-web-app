@@ -76,8 +76,8 @@ export default class DropdownTypeahead extends React.Component {
         this.loadValues();
     }
 
-    if (!_.isEqual(prevProps.bubbledRemovedFilterValue, this.props.bubbledRemovedFilterValue)) {
-        this.removeClickedFilterBarItemFromDropdown(this.props.bubbledRemovedFilterValue);
+    if (JSON.stringify(prevProps.bubbledRemovedFilterValue) !== JSON.stringify(this.props.bubbledRemovedFilterValue)) {
+        this.removeClickedFilterBarItemFromDropdown(this.props.bubbledRemovedFilterValue, prevProps.bubbledRemovedFilterValue);
     }
   }
 
@@ -89,7 +89,7 @@ export default class DropdownTypeahead extends React.Component {
   }
 
   getSelectedName() {
-    if (this.state.unselectedValues.includes(this.state.value) || this.props.bubbledRemovedFilterValue.includes(this.state.value)) {
+    if (this.state.unselectedValues.includes(this.state.value) || this.state.selectedValues.includes(this.state.value)) {
       alert('This name is already used, please use the checkbox in the dropdown.');
     }
     else {
@@ -189,7 +189,7 @@ export default class DropdownTypeahead extends React.Component {
 
   selectCheckbox(filterValue) {
     this.setState({
-      selectedValues: this.props.bubbledRemovedFilterValue.concat(filterValue)
+      selectedValues: this.state.selectedValues.concat(filterValue)
     });
     this.setState({
       unselectedValues: this.state.unselectedValues.filter((value) => value !== filterValue)
@@ -201,18 +201,11 @@ export default class DropdownTypeahead extends React.Component {
       unselectedValues: this.state.unselectedValues.concat(filterValue)
     });
     this.setState({
-      selectedValues: this.props.bubbledRemovedFilterValue.filter((value) => value !== filterValue)
+      selectedValues: this.state.selectedValues.filter((value) => value !== filterValue)
     });
   }
 
-  passSelectedName(clickedCheckboxValue, checkStatus) {
-    if (!checkStatus) {
-      this.selectCheckbox(clickedCheckboxValue);
-    }
-    else {
-      this.unselectCheckbox(clickedCheckboxValue);
-    }
-
+  passSelectedName(clickedCheckboxValue) {
     const validity = this.dataDictionary.hasOwnProperty(clickedCheckboxValue);
     this.props.onSelect(
       this.dataDictionary[clickedCheckboxValue],
@@ -222,10 +215,14 @@ export default class DropdownTypeahead extends React.Component {
     );
   }
 
-  removeClickedFilterBarItemFromDropdown(filterValuefromFilterBarDropdown) {
-    if (filterValuefromFilterBarDropdown.filter === 'createdBy') {
-      this.unselectCheckbox(filterValuefromFilterBarDropdown.value.name);
-    }
+  removeClickedFilterBarItemFromDropdown(filterValuefromFilterBarDropdown, oldProps) {
+      if (_.isEmpty(oldProps) && !_.isEmpty(filterValuefromFilterBarDropdown)) {
+          this.selectCheckbox(filterValuefromFilterBarDropdown[0].name);
+      }
+
+      if (_.isEmpty(filterValuefromFilterBarDropdown) && !_.isEmpty(oldProps)) {
+          this.unselectCheckbox(oldProps[0].name);
+      }
   }
 
 
@@ -324,14 +321,14 @@ export default class DropdownTypeahead extends React.Component {
                 </li>
 
                 {
-                    this.props.bubbledRemovedFilterValue.length > 0 ? this.props.bubbledRemovedFilterValue.map((value) =>
+                    this.state.selectedValues.length > 0 ? this.state.selectedValues.map((value) =>
                     (
-                        <DropdownTypeaheadCheckbox checkCheckbox key={value.userId} passSelectedNameFunc={this.passSelectedName} fieldValue={value.name} />
+                        <DropdownTypeaheadCheckbox checkCheckbox key={value} passSelectedNameFunc={this.passSelectedName} fieldValue={value} />
                     )) : ''
                 }
 
                 {
-                    this.props.bubbledRemovedFilterValue.length > 0 ? <li role="separator" className="divider" /> : ''
+                    this.state.selectedValues.length > 0 ? <li role="separator" className="divider" /> : ''
                 }
 
                 {this.state.unselectedValues.length > 0 ? this.state.unselectedValues.map((value) =>
