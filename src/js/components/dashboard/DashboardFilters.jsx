@@ -76,6 +76,10 @@ export default class DashboardFilters extends React.Component {
                 table={this.props.table}
                 updateFilterList={this.updateFilterList}
                 bubbledRemovedFilterValue={this.props.bubbledRemovedFilterValue} />
+            <LastDateModifiedFilter
+                type={this.props.type}
+                table={this.props.table}
+                updateFilterList={this.updateFilterList} />
             <FilterSubmitContainer
                 stagedFilters={this.props.stagedFilters}
                 appliedFilters={this.props.appliedFilters}
