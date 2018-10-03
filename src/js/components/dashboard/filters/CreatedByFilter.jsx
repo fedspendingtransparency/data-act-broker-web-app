@@ -12,12 +12,12 @@ const propTypes = {
     filter: PropTypes.string,
     value: PropTypes.shape({
       userId: PropTypes.number,
-      name: PropTypes.string,
-    }),
+      name: PropTypes.string
+    })
   }),
   updateFilterList: PropTypes.func,
   type: PropTypes.string,
-  table: PropTypes.string,
+  table: PropTypes.string
 };
 
 const defaultProps = {
@@ -25,12 +25,12 @@ const defaultProps = {
     filter: '',
     value: {
       userId: 0,
-      name: '',
-    },
+      name: ''
+    }
   },
   updateFilterList: null,
   type: '',
-  table: '',
+  table: ''
 };
 
 export default class CreatedByFilter extends React.Component {
@@ -46,7 +46,7 @@ export default class CreatedByFilter extends React.Component {
         'createdBy',
         {
           userId,
-          name,
+          name
         },
       );
     }
@@ -54,17 +54,16 @@ export default class CreatedByFilter extends React.Component {
 
   render() {
     return (
-      <div className="dashboard-filters__filter dashboard-filters__filter_typeahead">
-        <div className="typeahead-holder">
-          <CreatedByContainer
-            type={this.props.type}
-            table={this.props.table}
-            placeholder="Created By"
-            onSelect={this.createdBySelect}
-            bubbledRemovedFilterValue={this.props.bubbledRemovedFilterValue}
-          />
+        <div className="dashboard-filters__filter dashboard-filters__filter_typeahead">
+            <div className="typeahead-holder">
+                <CreatedByContainer
+                    type={this.props.type}
+                    table={this.props.table}
+                    placeholder="Created By"
+                    onSelect={this.createdBySelect}
+                    bubbledRemovedFilterValue={this.props.bubbledRemovedFilterValue} />
+            </div>
         </div>
-      </div>
     );
   }
 }

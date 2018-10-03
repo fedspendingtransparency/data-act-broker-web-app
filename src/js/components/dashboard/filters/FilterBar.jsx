@@ -11,7 +11,7 @@ const propTypes = {
   toggleDashboardFilter: PropTypes.func,
   type: PropTypes.string,
   table: PropTypes.string,
-  applied: PropTypes.bool,
+  applied: PropTypes.bool
 };
 
 const defaultProps = {
@@ -19,7 +19,7 @@ const defaultProps = {
   toggleDashboardFilter: null,
   type: '',
   table: '',
-  applied: false,
+  applied: false
 };
 
 export default class FilterBar extends React.Component {
@@ -34,25 +34,24 @@ export default class FilterBar extends React.Component {
       dashboard: this.props.type,
       table: this.props.table,
       filter,
-      value,
+      value
     });
     this.props.bubbleRemovedFilterValuetoFilteringComponent(filter, value);
   }
 
   render() {
-    const tags = this.props.filters.map(filter => (
-      <TagItem
-        key={filter.name}
-        {...filter}
-        applied={this.props.applied}
-        toggleFilter={this.toggleFilter}
-      />
+    const tags = this.props.filters.map((filter) => (
+        <TagItem
+            key={filter.name}
+            {...filter}
+            applied={this.props.applied}
+            toggleFilter={this.toggleFilter} />
     ));
 
     return (
-      <div className="filter-bar">
-        {tags}
-      </div>
+        <div className="filter-bar">
+            {tags}
+        </div>
     );
   }
 }

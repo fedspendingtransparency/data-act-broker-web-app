@@ -19,7 +19,7 @@ const propTypes = {
   toggleDashboardFilter: PropTypes.func,
   type: PropTypes.string,
   table: PropTypes.string,
-  updateFilterCount: PropTypes.func,
+  updateFilterCount: PropTypes.func
 };
 
 const defaultProps = {
@@ -29,7 +29,7 @@ const defaultProps = {
   toggleDashboardFilter: null,
   type: '',
   table: '',
-  updateFilterCount: null,
+  updateFilterCount: null
 };
 
 export class FilterBarContainer extends React.Component {
@@ -39,7 +39,7 @@ export class FilterBarContainer extends React.Component {
     this.state = {
       filters: [],
       filterCount: 0,
-      applied: false,
+      applied: false
     };
   }
 
@@ -47,11 +47,13 @@ export class FilterBarContainer extends React.Component {
     if (!isEqual(prevProps.appliedFilters, this.props.appliedFilters)) {
       // new filters have been applied
       this.prepareFilters(this.props.appliedFilters, true);
-    } else if (!isEqual(prevProps.stagedFilters, this.props.stagedFilters)) {
+    }
+    else if (!isEqual(prevProps.stagedFilters, this.props.stagedFilters)) {
       // staged filters changed
       if (!isEqual(this.props.stagedFilters, this.props.appliedFilters)) {
         this.prepareFilters(this.props.stagedFilters, false);
-      } else {
+      }
+      else {
         // staged filters match the applied filters
         this.prepareFilters(this.props.appliedFilters, true);
       }
@@ -97,7 +99,7 @@ export class FilterBarContainer extends React.Component {
     this.setState({
       filters,
       applied,
-      filterCount: applied ? 0 : filters.length,
+      filterCount: applied ? 0 : filters.length
     }, () => {
       this.props.updateFilterCount(this.state.filterCount, type, table);
     });
@@ -105,10 +107,10 @@ export class FilterBarContainer extends React.Component {
 
   prepareFileNames(props) {
     if (props.fileNames.length > 0) {
-      return props.fileNames.map(name => ({
+      return props.fileNames.map((name) => ({
         name,
         value: name,
-        group: 'fileNames',
+        group: 'fileNames'
       }));
     }
     return null;
@@ -116,10 +118,10 @@ export class FilterBarContainer extends React.Component {
 
   prepareSubmissionIds(props) {
     if (props.submissionIds.length > 0) {
-      return props.submissionIds.map(id => ({
+      return props.submissionIds.map((id) => ({
         name: id,
         value: id,
-        group: 'submissionIds',
+        group: 'submissionIds'
       }));
     }
     return null;
@@ -127,10 +129,10 @@ export class FilterBarContainer extends React.Component {
 
   prepareAgencies(props) {
     if (props.agencies.length > 0) {
-      return props.agencies.map(agency => ({
+      return props.agencies.map((agency) => ({
         name: agency.name,
         value: agency,
-        group: 'agencies',
+        group: 'agencies'
       }));
     }
     return null;
@@ -138,10 +140,10 @@ export class FilterBarContainer extends React.Component {
 
   prepareCreatedBy(props) {
     if (props.createdBy.length > 0) {
-      return props.createdBy.map(createdBylist => ({
+      return props.createdBy.map((createdBylist) => ({
         name: createdBylist.name,
         value: createdBylist,
-        group: 'createdBy',
+        group: 'createdBy'
       }));
     }
     return null;
@@ -164,9 +166,11 @@ export class FilterBarContainer extends React.Component {
     filters.forEach((filter) => {
       if (typeof filter === 'string') {
         filterCount += 1;
-      } else if (filter instanceof Array) {
+      }
+      else if (filter instanceof Array) {
         filterCount += filter.values.length;
-      } else {
+      }
+      else {
         filterCount += Object.keys(filter).length;
       }
     });
@@ -178,11 +182,10 @@ export class FilterBarContainer extends React.Component {
     let output = null;
     if (this.state.filters.length > 0) {
       output = (
-        <FilterBar
-          {...this.props}
-          applied={this.state.applied}
-          filters={this.state.filters}
-        />
+          <FilterBar
+              {...this.props}
+              applied={this.state.applied}
+              filters={this.state.filters} />
       );
     }
 
@@ -195,5 +198,5 @@ FilterBarContainer.defaultProps = defaultProps;
 
 export default connect(
   () => ({}),
-  dispatch => bindActionCreators(dashboardFilterActions, dispatch),
+  (dispatch) => bindActionCreators(dashboardFilterActions, dispatch),
 )(FilterBarContainer);

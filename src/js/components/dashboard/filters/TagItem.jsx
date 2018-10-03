@@ -10,11 +10,11 @@ const propTypes = {
   name: PropTypes.string,
   value: PropTypes.oneOfType([
     PropTypes.string,
-    PropTypes.object,
+    PropTypes.object
   ]),
   group: PropTypes.string,
   applied: PropTypes.bool,
-  toggleFilter: PropTypes.func,
+  toggleFilter: PropTypes.func
 };
 
 const defaultProps = {
@@ -22,7 +22,7 @@ const defaultProps = {
   value: {},
   group: '',
   applied: false,
-  toggleFilter: null,
+  toggleFilter: null
 };
 
 export default class FilterBar extends React.Component {
@@ -39,18 +39,17 @@ export default class FilterBar extends React.Component {
   render() {
     const tagClass = this.props.applied ? 'filter-tag_applied' : 'filter-tag_staged';
     return (
-      <div className={`filter-tag ${tagClass}`}>
-        <div className="filter-tag__name">
-          {this.props.name}
+        <div className={`filter-tag ${tagClass}`}>
+            <div className="filter-tag__name">
+                {this.props.name}
+            </div>
+            <button
+                aria-label="Remove filter"
+                onClick={this.removeFilter}
+                className="filter-tag__close">
+                <Times />
+            </button>
         </div>
-        <button
-          aria-label="Remove filter"
-          onClick={this.removeFilter}
-          className="filter-tag__close"
-        >
-          <Times />
-        </button>
-      </div>
     );
   }
 }

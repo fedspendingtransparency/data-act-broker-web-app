@@ -10,13 +10,13 @@ import AgencyFilterContainer from '../../../containers/dashboard/AgencyFilterCon
 const propTypes = {
   updateFilterList: PropTypes.func,
   type: PropTypes.string,
-  table: PropTypes.string,
+  table: PropTypes.string
 };
 
 const defaultProps = {
   updateFilterList: null,
   type: '',
-  table: '',
+  table: ''
 };
 
 export default class AgencyFilter extends React.Component {
@@ -32,7 +32,7 @@ export default class AgencyFilter extends React.Component {
         'agencies',
         {
           code,
-          name,
+          name
         },
       );
     }
@@ -40,16 +40,15 @@ export default class AgencyFilter extends React.Component {
 
   render() {
     return (
-      <div className="dashboard-filters__filter dashboard-filters__filter_typeahead">
-        <div className="typeahead-holder">
-          <AgencyFilterContainer
-            type={this.props.type}
-            table={this.props.table}
-            placeholder="Agency Name"
-            onSelect={this.handleAgencySelect}
-          />
+        <div className="dashboard-filters__filter dashboard-filters__filter_typeahead">
+            <div className="typeahead-holder">
+                <AgencyFilterContainer
+                    type={this.props.type}
+                    table={this.props.table}
+                    placeholder="Agency Name"
+                    onSelect={this.handleAgencySelect} />
+            </div>
         </div>
-      </div>
     );
   }
 }

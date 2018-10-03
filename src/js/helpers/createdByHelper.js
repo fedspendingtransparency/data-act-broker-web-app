@@ -16,7 +16,8 @@ export const fetchCreatedBy = () => {
     .end((err, res) => {
       if (err) {
         deferred.reject(err);
-      } else {
+      }
+      else {
         deferred.resolve(res.body.submissions);
       }
     });

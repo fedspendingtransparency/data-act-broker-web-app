@@ -18,14 +18,14 @@ const propTypes = {
     filter: PropTypes.string,
     value: PropTypes.shape({
       userId: PropTypes.number,
-      name: PropTypes.string,
-    }),
+      name: PropTypes.string
+    })
   }),
   toggleFilter: PropTypes.func,
   stagedFilters: PropTypes.object,
   appliedFilters: PropTypes.object,
   table: PropTypes.string,
-  type: PropTypes.string,
+  type: PropTypes.string
 };
 
 const defaultProps = {
@@ -33,14 +33,14 @@ const defaultProps = {
     filter: '',
     value: {
       userId: 0,
-      name: '',
-    },
+      name: ''
+    }
   },
   toggleFilter: null,
   stagedFilters: {},
   appliedFilters: {},
   table: '',
-  type: '',
+  type: ''
 };
 
 export default class DashboardFilters extends React.Component {
@@ -56,42 +56,32 @@ export default class DashboardFilters extends React.Component {
 
   render() {
     return (
-      <div className="dashboard-filters">
-        <div className="dashboard-filters__label">
-          <span className="usa-da-icon filter-icon">
-            <Filter />
-          </span>
+        <div className="dashboard-filters">
+            <div className="dashboard-filters__label">
+                <span className="usa-da-icon filter-icon">
+                    <Filter />
+                </span>
                     Filter by:
+            </div>
+            <AgencyFilter
+                type={this.props.type}
+                table={this.props.table}
+                updateFilterList={this.updateFilterList} />
+            <FileNameFilter
+                updateFilterList={this.updateFilterList} />
+            <SubmissionIdFilter
+                updateFilterList={this.updateFilterList} />
+            <CreatedByFilter
+                type={this.props.type}
+                table={this.props.table}
+                updateFilterList={this.updateFilterList}
+                bubbledRemovedFilterValue={this.props.bubbledRemovedFilterValue} />
+            <FilterSubmitContainer
+                stagedFilters={this.props.stagedFilters}
+                appliedFilters={this.props.appliedFilters}
+                type={this.props.type}
+                table={this.props.table} />
         </div>
-        <AgencyFilter
-          type={this.props.type}
-          table={this.props.table}
-          updateFilterList={this.updateFilterList}
-        />
-        <FileNameFilter
-          updateFilterList={this.updateFilterList}
-        />
-        <SubmissionIdFilter
-          updateFilterList={this.updateFilterList}
-        />
-        <CreatedByFilter
-          type={this.props.type}
-          table={this.props.table}
-          updateFilterList={this.updateFilterList}
-          bubbledRemovedFilterValue={this.props.bubbledRemovedFilterValue}
-        />
-        <LastDateModifiedFilter
-          type={this.props.type}
-          table={this.props.table}
-          updateFilterList={this.updateFilterList}
-        />
-        <FilterSubmitContainer
-          stagedFilters={this.props.stagedFilters}
-          appliedFilters={this.props.appliedFilters}
-          type={this.props.type}
-          table={this.props.table}
-        />
-      </div>
     );
   }
 }
