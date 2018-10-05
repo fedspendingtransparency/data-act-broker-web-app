@@ -7,54 +7,53 @@ import React, { PropTypes } from 'react';
 import TagItem from './TagItem';
 
 const propTypes = {
-    filters: PropTypes.array,
-    toggleDashboardFilter: PropTypes.func,
-    type: PropTypes.string,
-    table: PropTypes.string,
-    applied: PropTypes.bool
+  filters: PropTypes.array,
+  toggleDashboardFilter: PropTypes.func,
+  type: PropTypes.string,
+  table: PropTypes.string,
+  applied: PropTypes.bool
 };
 
 const defaultProps = {
-    filters: [],
-    toggleDashboardFilter: null,
-    type: '',
-    table: '',
-    applied: false
+  filters: [],
+  toggleDashboardFilter: null,
+  type: '',
+  table: '',
+  applied: false
 };
 
 export default class FilterBar extends React.Component {
-    constructor(props) {
-        super(props);
+  constructor(props) {
+    super(props);
 
-        this.toggleFilter = this.toggleFilter.bind(this);
-    }
+    this.toggleFilter = this.toggleFilter.bind(this);
+  }
 
-    toggleFilter(filter, value) {
-        this.props.toggleDashboardFilter({
-            dashboard: this.props.type,
-            table: this.props.table,
-            filter,
-            value
-        });
-    }
+  toggleFilter(filter, value) {
+    this.props.toggleDashboardFilter({
+      dashboard: this.props.type,
+      table: this.props.table,
+      filter,
+      value
+    });
+    this.props.bubbleRemovedFilterValuetoFilteringComponent(filter, value);
+  }
 
-    render() {
-        const tags = this.props.filters.map((filter) => {
-            return (
-                <TagItem
-                    key={filter.name}
-                    {...filter}
-                    applied={this.props.applied}
-                    toggleFilter={this.toggleFilter} />
-            );
-        });
+  render() {
+    const tags = this.props.filters.map((filter) => (
+        <TagItem
+            key={filter.name}
+            {...filter}
+            applied={this.props.applied}
+            toggleFilter={this.toggleFilter} />
+    ));
 
-        return (
-            <div className="filter-bar">
-                {tags}
-            </div>
-        );
-    }
+    return (
+        <div className="filter-bar">
+            {tags}
+        </div>
+    );
+  }
 }
 
 FilterBar.propTypes = propTypes;
