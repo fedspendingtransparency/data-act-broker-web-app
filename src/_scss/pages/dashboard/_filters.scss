@@ -26,7 +26,7 @@
     .dashboard-filters__filter {
         @include display(flex);
         @include flex(0 0 auto);
-        padding-right: rem(10);
+        padding-right: rem(8);
         @import './_textFilter';
     }
     @import './_typeaheadFilter';

@@ -2,42 +2,7 @@ import React, { PropTypes } from 'react';
 import DayPicker, { DateUtils } from 'react-day-picker';
 
 import Moment from 'moment';
-
-function Navbar({
-  onPreviousClick,
-  onNextClick,
-  className
-}) {
-  const styleLeft = {
-    position: 'relative'
-  };
-  const styleRight = {
-    position: 'relative',
-    marginLeft: 'auto'
-  };
-  return (
-      <div className={className}>
-          <button style={styleLeft} onClick={() => onPreviousClick()}>
-        ←
-          </button>
-          <button style={styleRight} onClick={() => onNextClick()}>
-         →
-          </button>
-      </div>
-  );
-}
-
-Navbar.propTypes = {
-  onPreviousClick: PropTypes.func,
-  onNextClick: PropTypes.func,
-  className: PropTypes.string
-};
-
-Navbar.defaultProps = {
-  onPreviousClick: null,
-  onNextClick: null,
-  className: ''
-};
+import Navbar from './CalendarRangeDatePickerNavbar';
 
 const propTypes = {
   numberOfMonths: PropTypes.number,
