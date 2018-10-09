@@ -52,11 +52,51 @@ export const initialState = {
   }
 };
 
+const defaultObjectValues = {
+    dabs: {
+      active: {
+        lastDateModified: {
+          startDate: '',
+          endDate: ''
+        }
+      },
+      certified: {
+        lastDateModified: {
+          startDate: '',
+          endDate: ''
+        }
+      }
+    },
+    fabs: {
+      active: {
+        lastDateModified: {
+          startDate: '',
+          endDate: ''
+        }
+      },
+      published: {
+        lastDateModified: {
+          startDate: '',
+          endDate: ''
+        }
+      }
+    }
+};
+
 export const dashboardFilterReducer = (state = initialState, action) => {
   switch (action.type) {
     case 'UPDATE_DASHBOARD_FILTER': {
+      let filterObject;
+      const Objectlist = action.value;
+      const prevFilter = state[action.dashboard][action.table][action.filter];
+      if (prevFilter.startDate === Objectlist.startDate && prevFilter.endDate === Objectlist.endDate) {
+        filterObject = defaultObjectValues[action.dashboard][action.table][action.filter];
+      }
+      else {
+        filterObject = Object.assign({}, Objectlist);
+      }
       const table = Object.assign({}, state[action.dashboard][action.table], {
-        [action.filter]: action.value
+        [action.filter]: filterObject
       });
 
       const dashboard = Object.assign({}, state[action.dashboard], {
@@ -69,29 +109,16 @@ export const dashboardFilterReducer = (state = initialState, action) => {
     }
     case 'TOGGLE_DASHBOARD_FILTER': {
       // get the existing list
-      let list;
-      if (!Array.isArray(state[action.dashboard][action.table][action.filter])) {
-        const Objectlist = action.value;
-        const prevFilter = state[action.dashboard][action.table][action.filter];
-        if (prevFilter.startDate === Objectlist.startDate && prevFilter.endDate === Objectlist.endDate) {
-          list = {
-            startDate: '',
-            endDate: ''
-          };
-        } else {
-          list = Object.assign({}, Objectlist);
-        }
-      } else {
-        list = state[action.dashboard][action.table][action.filter].slice();
-        const index = findIndex(list, filter => isEqual(filter, action.value)); // eslint-disable-line arrow-parens
+      const list = state[action.dashboard][action.table][action.filter].slice();
+      const index = findIndex(list, filter => isEqual(filter, action.value)); // eslint-disable-line arrow-parens
 
-        if (index === -1) {
+      if (index === -1) {
           // append the new value
           list.push(action.value);
-        } else {
+      }
+      else {
           // remove the item
           list.splice(index, 1);
-        }
       }
 
       const table = Object.assign({}, state[action.dashboard][action.table], {

@@ -4,7 +4,7 @@ const initialState = {
 
 export const lastDateModifiedReducer = (state = initialState, action) => {
   switch (action.type) {
-    case 'SET_LASTDATEMODIFIED_LIST':
+    case 'SET_LAST_DATE_MODIFIED_LIST':
       return Object.assign({}, state, {
         lastDateModified: action.lastDateModified
       });

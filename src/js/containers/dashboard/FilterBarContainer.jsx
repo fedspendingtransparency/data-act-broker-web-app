@@ -17,6 +17,7 @@ const propTypes = {
   stagedFilters: PropTypes.object,
   appliedFilters: PropTypes.object,
   toggleDashboardFilter: PropTypes.func,
+  updateDashboardFilter: PropTypes.func,
   type: PropTypes.string,
   table: PropTypes.string,
   updateFilterCount: PropTypes.func
@@ -27,6 +28,7 @@ const defaultProps = {
   stagedFilters: {},
   appliedFilters: {},
   toggleDashboardFilter: null,
+  updateDashboardFilter: null,
   type: '',
   table: '',
   updateFilterCount: null
@@ -154,7 +156,7 @@ export class FilterBarContainer extends React.Component {
       return {
         name: `${props.lastDateModified.startDate} - ${props.lastDateModified.endDate}`,
         value: props.lastDateModified,
-        group: 'lastDateModified',
+        group: 'lastDateModified'
       };
     }
     return null;
