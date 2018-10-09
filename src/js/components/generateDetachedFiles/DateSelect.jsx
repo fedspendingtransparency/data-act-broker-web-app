@@ -6,6 +6,8 @@
 import React, { PropTypes } from 'react';
 import GenerateFileBox from '../generateFiles/components/GenerateFileBox';
 import LoadingBauble from '../SharedComponents/overlays/LoadingBauble';
+import AgencyToggle from './AgencyToggle';
+import { InfoCircle } from "../SharedComponents/icons/Icons";
 
 const propTypes = {
     generateFile: PropTypes.func,
@@ -54,6 +56,13 @@ export default class DateSelect extends React.Component {
         }
         return (
             <div className="usa-da-date-select dashed-border-top">
+                <div className="agency-toggle-section">
+                    Generate File D1 and D2 from records where my agency is the:
+                    <AgencyToggle />
+                    <div className="toggle__tooltip">
+                        <InfoCircle />
+                    </div>
+                </div>
                 <GenerateFileBox
                     label="File D1: Procurement Awards (FPDS data)"
                     datePlaceholder="Sign"
