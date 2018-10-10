@@ -1,7 +1,11 @@
 .usa-da-help-content{
     @include contentBlockWrapper;
     padding: 20px 30px;
-    margin: 0 0 40px;
+	margin: 0 0 40px;
+	
+	.usa-da-help-content-subheading {
+		margin-top: -4rem;
+	}
 
     // resize the JIRA GIF
     img {

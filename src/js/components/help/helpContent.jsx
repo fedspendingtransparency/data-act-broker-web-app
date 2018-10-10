@@ -88,15 +88,15 @@ export default class HelpContent extends React.Component {
         return (
             <div className="usa-da-help-content">
 
-                <h2>What&#39;s New in This Release</h2>
+                <h2>What&#8217;s New in This Release</h2>
 
                 <div dangerouslySetInnerHTML={{ __html: this.props.changelog }} />
 
-                <h2>This Release&#39;s Technical Notes</h2>
+                <h2>Technical Notes for this Release</h2>
 
                 <div dangerouslySetInnerHTML={{ __html: this.props.technical }} />
 
-                <h2 className="mt-50">Getting More Help</h2>
+                <h2 className="usa-da-help-content-subheading">Getting More Help</h2>
 
                 {membership}
 
@@ -104,14 +104,6 @@ export default class HelpContent extends React.Component {
                     If you need assistance using the Broker or if you would like to schedule a hands-on sandbox session
                     with Treasury staff, please email
                     <a href="mailto:DATAPMO@fiscal.treasury.gov">DATAPMO@fiscal.treasury.gov</a>.
-                </p>
-
-                <p>
-                    If you would like to subscribe to a list-serv for Broker updates (including release notes) please
-                    send a blank e-mail message to
-                    <a href="mailto:join-data-act-broker@lists.fiscal.treasury.gov">
-                        join-data-act-broker@lists.fiscal.treasury.gov
-                    </a>.
                 </p>
             </div>
         );

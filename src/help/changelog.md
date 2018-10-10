@@ -1,5 +1,4 @@
-### September 5, 2018
-
+##### **September 5, 2018**
 In this release of the Broker, we:
 
 * Updated rule B9 (which checks that the provided TAS/Program Activity matches the authoritative source from OMB) so that users can submit or resubmit data for FY17Q2 or FY17Q3 without triggering a warning. Note that the rule is not applicable to this timeframe as the OMB BDR Program Activity process was not in place yet.
