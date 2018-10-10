@@ -14,7 +14,9 @@ const propTypes = {
     handleDateChange: PropTypes.func,
     updateError: PropTypes.func,
     d1: PropTypes.object,
-    d2: PropTypes.object
+    d2: PropTypes.object,
+    fundingAgency: PropTypes.bool,
+    toggleAgencyType: PropTypes.func
 };
 
 const defaultProps = {
@@ -22,32 +24,18 @@ const defaultProps = {
     handleDateChange: null,
     updateError: null,
     d1: null,
-    d2: null
+    d2: null,
+    fundingAgency: false,
+    toggleAgencyType: null
 };
 
 export default class DateSelect extends React.Component {
-    constructor(props) {
-        super(props);
-
-        this.state = {
-            fundingAgency: false
-        };
-
-        this.toggleAgencyType = this.toggleAgencyType.bind(this);
-    }
-
     handleDateChange(file, date, dateType) {
         this.props.handleDateChange(file, date, dateType);
     }
 
     updateError(file, header = '', description = '') {
         this.props.updateError(file, header, description);
-    }
-
-    toggleAgencyType() {
-        this.setState({
-            fundingAgency: !this.state.fundingAgency
-        });
     }
 
     render() {
@@ -77,8 +65,8 @@ export default class DateSelect extends React.Component {
                         Generate File D1 and D2 from records where my agency is the:
                     </div>
                     <AgencyToggle
-                        funding={this.state.fundingAgency}
-                        toggleAgencyType={this.toggleAgencyType} />
+                        funding={this.props.fundingAgency}
+                        toggleAgencyType={this.props.toggleAgencyType} />
                     <div className="agency-toggle__tooltip">
                         <InfoCircle />
                     </div>
