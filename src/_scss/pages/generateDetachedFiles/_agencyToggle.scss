@@ -1,8 +1,13 @@
 .agency-toggle {
     @include display(flex);
     @include align-items(center);
-    @include justify-content(space-between);
     padding-bottom: rem(15);
+    .agency-toggle__text {
+        font-size: rem(13);
+        padding-right: rem(5);
+        @include display(flex);
+        @include flex(1 1 auto);
+    }
     .agency-toggle__button {
         @include button-unstyled;
         @include display(flex);
@@ -12,13 +17,10 @@
         padding: 0 rem(2);
 
         .agency-toggle__label {
-            font-size: $smallest-font-size;
+            font-size: rem(12);
             color: #494E58;
-            // use a 2px offset to deal with the text width difference due to bold vs not bold text
-            margin: 0 0 0 2px;
-            &:first-child {
-                margin: 0 2px 0 0;
-            }
+            // use a fixed width to deal with the text width difference due to bold vs not bold text
+            width: rem(105);
 
             &.agency-toggle__label_active {
                 font-weight: $font-semibold;
@@ -28,7 +30,7 @@
     }
 
     .agency-toggle__switch {
-        margin: 0 rem(12);
+        margin: 0 rem(10);
         .agency-switch__track {
             fill: #0074BE;
             box-shadow: inset 0 0 1px 1px rgba(0,0,0,0.31), 0 2px 2px 0 rgba(0,0,0,0.5);

@@ -8,20 +8,15 @@ import PropTypes from 'prop-types';
 
 const propTypes = {
     funding: PropTypes.bool,
-    setAgencyType: PropTypes.func
+    toggleAgencyType: PropTypes.func
+};
+
+const defaultProps = {
+    funding: false,
+    toggleAgencyType: null
 };
 
 export default class AgencyToggle extends React.Component {
-    constructor(props) {
-        super(props);
-
-        this.toggledSwitch = this.toggledSwitch.bind(this);
-    }
-    toggledSwitch() {
-        const newValue = !this.props.funding;
-        this.props.setAgencyType(newValue);
-    }
-
     render() {
         const awardingActive = this.props.funding ? '' : 'agency-toggle__label_active';
         const fundingActive = this.props.funding ? 'agency-toggle__label_active' : '';
@@ -30,7 +25,7 @@ export default class AgencyToggle extends React.Component {
         return (
             <button
                 className="agency-toggle__button"
-                onClick={this.toggledSwitch}
+                onClick={this.props.toggleAgencyType}
                 aria-pressed={!this.props.funding}
                 aria-label={`Toggle between Awarding Agency and Funding Agency. Currently selected: ${currentSelection}`}>
                 <div className={`agency-toggle__label ${awardingActive}`}>
@@ -64,6 +59,8 @@ export default class AgencyToggle extends React.Component {
                                 className="agency-switch__switch-fill"
                                 cy="10"
                                 r="10"
+                                stroke="#d6d7d9"
+                                strokeWidth="1"
                                 filter="url(#agency-toggle__filters)" />
                         </g>
                     </g>
@@ -77,3 +74,4 @@ export default class AgencyToggle extends React.Component {
 }
 
 AgencyToggle.propTypes = propTypes;
+AgencyToggle.defaultProps = defaultProps;
