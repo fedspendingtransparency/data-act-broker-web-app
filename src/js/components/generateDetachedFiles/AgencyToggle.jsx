@@ -29,7 +29,7 @@ export default class AgencyToggle extends React.Component {
         const currentSelection = this.props.funding ? 'Funding Agency' : 'Awarding Agency';
         return (
             <button
-                className="agency-toggle"
+                className="agency-toggle__button"
                 onClick={this.toggledSwitch}
                 aria-pressed={!this.props.funding}
                 aria-label={`Toggle between Awarding Agency and Funding Agency. Currently selected: ${currentSelection}`}>
@@ -37,7 +37,7 @@ export default class AgencyToggle extends React.Component {
                     Awarding Agency
                 </div>
                 <svg
-                    className="agency-toggle__switch subaward-switch"
+                    className="agency-toggle__switch"
                     width="45"
                     height="24">
                     <filter id="agency-toggle__filters">

@@ -1,0 +1,56 @@
+.agency-toggle {
+    @include display(flex);
+    @include align-items(center);
+    @include justify-content(space-between);
+    padding-bottom: rem(15);
+    .agency-toggle__button {
+        @include button-unstyled;
+        @include display(flex);
+        @include justify-content(flex-end);
+        @include align-items(center);
+        color: $color-base;
+        padding: 0 rem(2);
+
+        .agency-toggle__label {
+            font-size: $smallest-font-size;
+            color: #494E58;
+            // use a 2px offset to deal with the text width difference due to bold vs not bold text
+            margin: 0 0 0 2px;
+            &:first-child {
+                margin: 0 2px 0 0;
+            }
+
+            &.agency-toggle__label_active {
+                font-weight: $font-semibold;
+                margin: 0;
+            }
+        }
+    }
+
+    .agency-toggle__switch {
+        margin: 0 rem(12);
+        .agency-switch__track {
+            fill: #0074BE;
+            box-shadow: inset 0 0 1px 1px rgba(0,0,0,0.31), 0 2px 2px 0 rgba(0,0,0,0.5);
+            @include transition(fill 200ms);
+        }
+
+        .agency-switch__switch {
+            @include transition(transform 200ms);
+        }
+
+        .agency-switch__switch-fill {
+            fill: $color-white;
+        }
+    }
+
+    .agency-toggle__tooltip {
+        @include display(flex);
+        @include flex(0 0 auto);
+        svg {
+            height: rem(15);
+            width: rem(15);
+            fill: $color-gray;
+        }
+    }
+}

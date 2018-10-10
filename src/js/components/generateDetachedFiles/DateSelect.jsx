@@ -56,10 +56,10 @@ export default class DateSelect extends React.Component {
         }
         return (
             <div className="usa-da-date-select dashed-border-top">
-                <div className="agency-toggle-section">
+                <div className="agency-toggle">
                     Generate File D1 and D2 from records where my agency is the:
                     <AgencyToggle />
-                    <div className="toggle__tooltip">
+                    <div className="agency-toggle__tooltip">
                         <InfoCircle />
                     </div>
                 </div>
