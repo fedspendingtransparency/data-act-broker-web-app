@@ -1,6 +1,6 @@
 .dashboard-filters {
     background-color: $color-gray;
-    padding: rem(10);
+    padding: rem(7.5);
     border: solid rem(1) $color-white;
     border-bottom: 0;
     @include display(flex);
@@ -26,7 +26,7 @@
     .dashboard-filters__filter {
         @include display(flex);
         @include flex(0 0 auto);
-        padding-right: rem(10);
+        padding-right: rem(8);
         @import './_textFilter';
     }
     @import './_typeaheadFilter';
@@ -38,7 +38,7 @@
             border: 0;
             color: $color-white;
             background-color: transparent;
-            margin-right: rem(10);
+            margin-right: rem(5);
         }
         .dashboard-filters__submit {
             @include display(flex);

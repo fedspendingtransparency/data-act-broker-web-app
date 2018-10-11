@@ -21,6 +21,7 @@ const combinedActions = Object.assign({}, dashboardFilterActions, {
 const propTypes = {
   type: PropTypes.string,
   toggleDashboardFilter: PropTypes.func,
+  updateDashboardFilter: PropTypes.func,
   stagedFilters: PropTypes.object,
   appliedFilters: PropTypes.object,
   resetDashboardFilters: PropTypes.func,
@@ -30,6 +31,7 @@ const propTypes = {
 const defaultProps = {
   type: '',
   toggleDashboardFilter: null,
+  updateDashboardFilter: null,
   stagedFilters: {},
   appliedFilters: {},
   resetDashboardFilters: null,
@@ -93,6 +95,13 @@ class DashboardContainer extends React.Component {
 
       if (appliedFilters.createdBy && appliedFilters.createdBy.length > 0) {
         filters.user_ids = appliedFilters.createdBy.map((createdByNames) => createdByNames.userId);
+      }
+
+      if (appliedFilters.lastDateModified && appliedFilters.lastDateModified.endDate) {
+        filters.last_modified_range = {
+          start_date: appliedFilters.lastDateModified.startDate,
+          end_date: appliedFilters.lastDateModified.endDate
+        };
       }
     }
 

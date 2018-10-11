@@ -11,6 +11,7 @@ import SubmissionIdFilter from './filters/SubmissionIdFilter';
 import FileNameFilter from './filters/FileNameFilter';
 import AgencyFilter from './filters/AgencyFilter';
 import CreatedByFilter from './filters/CreatedByFilter';
+import LastDateModifiedFilter from './filters/LastDateModifiedFilter';
 
 const propTypes = {
   bubbledRemovedFilterValue: PropTypes.shape({
@@ -75,6 +76,10 @@ export default class DashboardFilters extends React.Component {
                 table={this.props.table}
                 updateFilterList={this.updateFilterList}
                 bubbledRemovedFilterValue={this.props.bubbledRemovedFilterValue} />
+            <LastDateModifiedFilter
+                type={this.props.type}
+                table={this.props.table}
+                updateFilterList={this.updateFilterList} />
             <FilterSubmitContainer
                 stagedFilters={this.props.stagedFilters}
                 appliedFilters={this.props.appliedFilters}

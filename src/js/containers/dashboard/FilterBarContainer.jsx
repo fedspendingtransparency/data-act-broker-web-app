@@ -17,6 +17,7 @@ const propTypes = {
   stagedFilters: PropTypes.object,
   appliedFilters: PropTypes.object,
   toggleDashboardFilter: PropTypes.func,
+  updateDashboardFilter: PropTypes.func,
   type: PropTypes.string,
   table: PropTypes.string,
   updateFilterCount: PropTypes.func
@@ -27,6 +28,7 @@ const defaultProps = {
   stagedFilters: {},
   appliedFilters: {},
   toggleDashboardFilter: null,
+  updateDashboardFilter: null,
   type: '',
   table: '',
   updateFilterCount: null
@@ -90,6 +92,12 @@ export class FilterBarContainer extends React.Component {
       filters = filters.concat(createdByFilters);
     }
 
+    // prepare the lastDateModified filters
+    const lastDateModifiedFilters = this.prepareLastDateModified(props);
+    if (lastDateModifiedFilters) {
+      filters = filters.concat(lastDateModifiedFilters);
+    }
+
     this.setState({
       filters,
       applied,
@@ -139,6 +147,17 @@ export class FilterBarContainer extends React.Component {
         value: createdBylist,
         group: 'createdBy'
       }));
+    }
+    return null;
+  }
+
+  prepareLastDateModified(props) {
+    if (props.lastDateModified.endDate) {
+      return {
+        name: `${props.lastDateModified.startDate} - ${props.lastDateModified.endDate}`,
+        value: props.lastDateModified,
+        group: 'lastDateModified'
+      };
     }
     return null;
   }

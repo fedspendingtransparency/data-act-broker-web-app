@@ -87,7 +87,6 @@ class CreatedByContainer extends React.Component {
     };
   }
 
-
   render() {
     let values = this.props.createdByList.createdBy;
     if (this.props.type && this.props.table) {
