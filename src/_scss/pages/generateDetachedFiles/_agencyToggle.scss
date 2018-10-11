@@ -2,12 +2,14 @@
     @include display(flex);
     @include align-items(center);
     padding-bottom: rem(15);
+
     .agency-toggle__text {
         font-size: rem(13);
         padding-right: rem(5);
         @include display(flex);
         @include flex(1 1 auto);
     }
+
     .agency-toggle__button {
         @include button-unstyled;
         @include display(flex);
@@ -46,13 +48,5 @@
         }
     }
 
-    .agency-toggle__tooltip {
-        @include display(flex);
-        @include flex(0 0 auto);
-        svg {
-            height: rem(15);
-            width: rem(15);
-            fill: $color-gray;
-        }
-    }
+    @import "./_agencyToggleTooltip";
 }

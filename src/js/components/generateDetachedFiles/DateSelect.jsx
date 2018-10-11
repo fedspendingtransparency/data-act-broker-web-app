@@ -7,7 +7,8 @@ import React, { PropTypes } from 'react';
 import GenerateFileBox from '../generateFiles/components/GenerateFileBox';
 import LoadingBauble from '../SharedComponents/overlays/LoadingBauble';
 import AgencyToggle from './AgencyToggle';
-import { InfoCircle } from "../SharedComponents/icons/Icons";
+import AgencyToggleTooltip from './AgencyToggleTooltip';
+import { InfoCircle } from '../SharedComponents/icons/Icons';
 
 const propTypes = {
     generateFile: PropTypes.func,
@@ -30,12 +31,35 @@ const defaultProps = {
 };
 
 export default class DateSelect extends React.Component {
+    constructor(props) {
+        super(props);
+
+        this.state = {
+            showInfoTooltip: false
+        };
+
+        this.showTooltip = this.showTooltip.bind(this);
+        this.closeTooltip = this.closeTooltip.bind(this);
+    }
+
     handleDateChange(file, date, dateType) {
         this.props.handleDateChange(file, date, dateType);
     }
 
     updateError(file, header = '', description = '') {
         this.props.updateError(file, header, description);
+    }
+
+    showTooltip() {
+        this.setState({
+            showInfoTooltip: true
+        });
+    }
+
+    closeTooltip() {
+        this.setState({
+            showInfoTooltip: false
+        });
     }
 
     render() {
@@ -58,6 +82,23 @@ export default class DateSelect extends React.Component {
         else if (this.props.d2.status === "done") {
             d2Text = "Regenerate D2 File";
         }
+
+        let tooltip = null;
+        if (this.state.showInfoTooltip) {
+            const style = {
+                top: this.referenceDiv.offsetTop - 180,
+                right: 15
+            };
+
+            tooltip = (
+                <div
+                    className="agency-toggle__tooltip-spacer"
+                    style={style}>
+                    <AgencyToggleTooltip />
+                </div>
+            );
+        }
+
         return (
             <div className="usa-da-date-select dashed-border-top">
                 <div className="agency-toggle">
@@ -67,9 +108,22 @@ export default class DateSelect extends React.Component {
                     <AgencyToggle
                         funding={this.props.fundingAgency}
                         toggleAgencyType={this.props.toggleAgencyType} />
-                    <div className="agency-toggle__tooltip">
-                        <InfoCircle />
-                    </div>
+                    <span className="agency-toggle__info-icon-holder">
+                        <div ref={(div) => {
+                            this.referenceDiv = div;
+                        }}>
+                            {tooltip}
+                            <button
+                                id="agency-toggle__info-icon"
+                                className="agency-toggle__info-icon"
+                                onFocus={this.showTooltip}
+                                onBlur={this.closeTooltip}
+                                onMouseLeave={this.closeTooltip}
+                                onMouseEnter={this.showTooltip} >
+                                <InfoCircle />
+                            </button>
+                        </div>
+                    </span>
                 </div>
                 <GenerateFileBox
                     label="File D1: Procurement Awards (FPDS data)"
