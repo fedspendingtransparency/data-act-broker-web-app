@@ -16,13 +16,6 @@ import * as createdByHelper from '../../helpers/createdByHelper';
 import DropdownTypeahead from '../../components/SharedComponents/DropdownTypeahead';
 
 const propTypes = {
-  bubbledRemovedFilterValue: PropTypes.shape({
-    filter: PropTypes.string,
-    value: PropTypes.shape({
-      userId: PropTypes.number,
-      name: PropTypes.string
-    })
-  }),
   setCreatedByList: PropTypes.func,
   createdByList: PropTypes.object,
   detached: PropTypes.bool,
@@ -34,13 +27,6 @@ const propTypes = {
 };
 
 const defaultProps = {
-  bubbledRemovedFilterValue: {
-    filter: '',
-    value: {
-      userId: 0,
-      name: ''
-    }
-  },
   setCreatedByList: () => {},
   createdByList: {},
   detached: true,
@@ -87,7 +73,6 @@ class CreatedByContainer extends React.Component {
     };
   }
 
-
   render() {
     let values = this.props.createdByList.createdBy;
     if (this.props.type && this.props.table) {
@@ -119,6 +104,7 @@ class CreatedByContainer extends React.Component {
         <DropdownTypeahead
             {...this.props}
             errorHeader="Unknown Name"
+            duplicateHeader="Duplicate Name"
             errorDescription="You must select an name from the list that is provided as you type."
             values={values}
             keyValue="name"
