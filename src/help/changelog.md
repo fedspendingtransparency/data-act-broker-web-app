@@ -1,6 +1,8 @@
-### September 25, 2018
+### October 11, 2018
 
 In this release of the Broker, we:
 
-* Added frontend functionality to filter the Submission Dashboard by agency.
-* Updated detached D file generation to immediately return cached files.
+* Updated all Broker download URLs to use a .gov domain.
+* Improved inbound API documentation, error handling, and error messages based on user feedback.
+* Updated Broker generated D1/D2 File layout and casing so it is fully consistent with DAIMS.
+* Various backend improvements in error handling, tools.
