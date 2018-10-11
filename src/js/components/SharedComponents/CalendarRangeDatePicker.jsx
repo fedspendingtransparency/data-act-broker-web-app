@@ -22,8 +22,6 @@ export default class CalendarRangeDatePicker extends React.Component {
   constructor(props) {
     super(props);
 
-    this.dateValues = {};
-
     this.state = {
       dropdownopen: false,
       from: null,
@@ -43,10 +41,10 @@ export default class CalendarRangeDatePicker extends React.Component {
   }
 
   sendToFilters() {
-    if (this.dateValues.to) {
+    if (this.state.to) {
       const dates = {
-        startDate: Moment(this.dateValues.from).format('MM/DD/YYYY'),
-        endDate: Moment(this.dateValues.to).format('MM/DD/YYYY')
+        startDate: Moment(this.state.from).format('MM/DD/YYYY'),
+        endDate: Moment(this.state.to).format('MM/DD/YYYY')
       };
       this.props.onSelect(dates);
       this.setState({
@@ -63,7 +61,6 @@ export default class CalendarRangeDatePicker extends React.Component {
   }
 
   drawDatePicker() {
-      this.dateValues = this.state;
       const { from, to } = this.state;
       const modifiers = { start: from, end: to };
       if (this.props.minmaxDates.maxDate && this.props.minmaxDates.minDate) {

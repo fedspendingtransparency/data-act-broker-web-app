@@ -44,38 +44,27 @@ class LastDateModifiedContainer extends React.Component {
   loadData() {
     if (_.isEmpty(this.props.lastDateModifiedList.lastDateModified)) {
       // we need to populate the list
-      if (this.props.detached) {
-        lastDateModifiedHelper.fetchLastDateModified()
-          .then((data) => {
-            this.props.setLastDateModifiedList(data);
-          })
-          .catch((err) => {
-            console.error(err);
+      lastDateModifiedHelper.fetchLastDateModified()
+        .then((data) => {
+          const payload = [];
+          data.forEach((value) => {
+            payload.push(new Date(value.last_modified));
           });
-      }
-      else {
-        lastDateModifiedHelper.fetchLastDateModified()
-          .then((data) => {
-            this.props.setLastDateModifiedList(data);
-          })
-          .catch((err) => {
-            console.error(err);
-          });
-      }
+          this.props.setLastDateModifiedList(payload);
+        })
+        .catch((err) => {
+          console.error(err);
+        });
     }
   }
 
   render() {
       let values = this.props.lastDateModifiedList.lastDateModified.length > 0 ? this.props.lastDateModifiedList.lastDateModified : {};
-      // Reduce and find Min/Max for last modified dates
+      // Find Min/Max for last modified dates
       if (!_.isEmpty(values)) {
-        const payload = [];
-        values.forEach((value) => {
-          payload.push(new Date(value.last_modified));
-        });
         const finalPayload = {
-            maxDate: new Date(Math.max.apply(null, payload)),
-            minDate: new Date(Math.min.apply(null, payload))
+            maxDate: new Date(Math.max.apply(null, values)),
+            minDate: new Date(Math.min.apply(null, values))
         };
         values = finalPayload;
       }
