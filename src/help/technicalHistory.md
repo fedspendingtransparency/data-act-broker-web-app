@@ -1,3 +1,23 @@
+#### September 25, 2018{section=technical}
+
+In this release, here is a list of technical changes that may require infrastructure or database updates, or represents additional functionality.
+
+* Enforce uniqueness in the CFDA database table.
+* Begin making code changes for a refactor of D generation file caching.
+  * D file generations now check the cache before sending a message to the SQS queue.
+* Update the fields required to make an IDV record unique. Script created to update the database contents to remove duplicated IDV records and those that should have been deleted historically.
+
+#### September 5, 2018{section=technical}
+
+In this release, here is a list of technical changes that may require infrastructure or database updates, or represents additional functionality.
+
+* Add `user_id` filter to the `/v1/list_submissions` endpoint.
+* Update `/v1/generate_file/` and `/v1/generate_detached_file/` to allow for D file generation by awarding agency or funding agency.
+* Created `/v1/list_submission_users` to list names of users who have created submissions that the current user can see.
+* Database migrations:
+  * Add `agency_type` to the FileRequest and SQS table.
+  * Add `dba_name` to the DUNS table.
+
 #### August 22, 2018{section=technical}
 
 In this release, here is a list of technical changes that may require infrastructure or database updates, or represents additional functionality.
