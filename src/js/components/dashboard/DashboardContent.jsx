@@ -20,6 +20,7 @@ const propTypes = {
   activeLoading: PropTypes.bool,
   certifiedLoading: PropTypes.bool,
   toggleDashboardFilter: PropTypes.func,
+  updateDashboardFilter: PropTypes.func,
   stagedFilters: PropTypes.object,
   appliedFilters: PropTypes.object
 };
@@ -35,6 +36,7 @@ const defaultProps = {
   activeLoading: false,
   certifiedLoading: false,
   toggleDashboardFilter: null,
+  updateDashboardFilter: null,
   stagedFilters: {},
   appliedFilters: {}
 };
@@ -73,12 +75,22 @@ export default class DashboardContent extends React.Component {
   }
 
   toggleFilter(table, filter, value) {
-    this.props.toggleDashboardFilter({
-      dashboard: this.props.type,
-      table,
-      filter,
-      value
-    });
+    if (filter === 'lastDateModified') {
+        this.props.updateDashboardFilter({
+            dashboard: this.props.type,
+            table,
+            filter,
+            value
+        });
+    }
+    else {
+        this.props.toggleDashboardFilter({
+          dashboard: this.props.type,
+          table,
+          filter,
+          value
+        });
+    }
   }
 
   bubbleRemovedFilterValuetoFilteringComponent(filter, value) {

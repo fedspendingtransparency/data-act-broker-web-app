@@ -11,6 +11,7 @@ import SubmissionIdFilter from './filters/SubmissionIdFilter';
 import FileNameFilter from './filters/FileNameFilter';
 import AgencyFilter from './filters/AgencyFilter';
 import CreatedByFilter from './filters/CreatedByFilter';
+import LastDateModifiedFilter from './filters/LastDateModifiedFilter';
 
 const propTypes = {
   toggleFilter: PropTypes.func,
@@ -57,6 +58,10 @@ export default class DashboardFilters extends React.Component {
             <SubmissionIdFilter
                 updateFilterList={this.updateFilterList} />
             <CreatedByFilter
+                type={this.props.type}
+                table={this.props.table}
+                updateFilterList={this.updateFilterList} />
+            <LastDateModifiedFilter
                 type={this.props.type}
                 table={this.props.table}
                 updateFilterList={this.updateFilterList} />
