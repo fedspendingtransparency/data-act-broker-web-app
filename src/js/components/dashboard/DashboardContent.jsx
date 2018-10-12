@@ -93,15 +93,6 @@ export default class DashboardContent extends React.Component {
     }
   }
 
-  bubbleRemovedFilterValuetoFilteringComponent(filter, value) {
-    this.setState({
-      bubbledRemovedFilterValue: {
-        filter,
-        value
-      }
-    });
-  }
-
   /**
      * Use the top filter bar container's internal filter parsing to track the current number of
      * filters applied

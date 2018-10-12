@@ -48,7 +48,6 @@ export default class FilterBar extends React.Component {
             value
          });
      }
-    this.props.bubbleRemovedFilterValuetoFilteringComponent(filter, value);
   }
 
   render() {
