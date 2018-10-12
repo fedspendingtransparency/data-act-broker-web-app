@@ -1,5 +1,6 @@
 .usa-da-help-sidebar {
     $dark-blue: #0071BC;
+    $light-gray: #CCCCCC;
 
     ul {
         margin-top: 0;
@@ -21,14 +22,20 @@
 
     .usa-da-help-sidebar__signup {
         background-color: white;
-        width: 28rem;
-        padding: 4rem;
+        width: rem(260);
+        border: 1px solid $light-gray;
     }
 
-    .usa-da-help-sidebar__sign-up-btn {
+    .usa-da-help-sidebar__signup-content {
+        padding: rem(30);
+        width: rem(230);
+        margin: 0 auto;
+    }
+
+    .usa-da-help-sidebar__signup-btn {
         background-color: $dark-blue;
-        width: 5rem;
-        padding: 1.2rem;
+        width: rem(50);
+        padding: rem(12);
         color: white;
         font-weight: 600;
         text-decoration: none;
@@ -36,10 +43,10 @@
 
     .usa-da-help-sidebar__signup-header {
         text-transform: capitalize;
-        font-size: rem(20);
+        font-size: rem(22);
         margin-bottom: rem(10);
         display: inline-block;
-
+        font-family: "Source Sans Light";
     }
 
     .usa-da-help-sidebar__signup-header_bold {

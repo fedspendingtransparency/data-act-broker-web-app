@@ -112,7 +112,7 @@ export default class HelpSidebar extends React.Component {
                 <ul>
                     {membership}
                     <li>
-                        <a href={`${help }?section=membership`}>Contact the Service Desk</a>
+                        <a href={`${help}?section=membership`}>Contact the Service Desk</a>
                     </li>
                     <li>
                         <a href={resources}>Resources - DAIMS</a>
@@ -122,9 +122,11 @@ export default class HelpSidebar extends React.Component {
                     </li>
                 </ul>
                 <div className="usa-da-help-sidebar__signup">
-                    <span className="usa-da-help-sidebar__signup-header usa-da-help-sidebar__signup-header_bold">Receive Data Act Broker Updates</span>
-                    <p>Subscribe to a list-serv for Broker updates as well as regular release notes.</p>
-                    <a className="usa-da-help-sidebar__sign-up-btn" href="mailto:join-data-act-broker@lists.fiscal.treasury.gov?subject=Sign%20Up%20for%20Broker%20Updates&body=Yes,%20sign%20me%20up%20for%20Data%20Act%20Broker%20Updates!">Sign-up</a>
+                    <div className="usa-da-help-sidebar__signup-content">
+                        <span className="usa-da-help-sidebar__signup-header usa-da-help-sidebar__signup-header_bold">Receive Data Act Broker Updates</span>
+                        <p>Subscribe to a list-serv for Broker updates as well as regular release notes.</p>
+                        <a className="usa-da-help-sidebar__signup-btn" href="mailto:join-data-act-broker@lists.fiscal.treasury.gov?subject=Sign%20Up%20for%20Broker%20Updates&body=Yes,%20sign%20me%20up%20for%20Data%20Act%20Broker%20Updates!">Sign-up</a>
+                    </div>
                 </div>
             </div>
         );

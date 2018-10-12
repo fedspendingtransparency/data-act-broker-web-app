@@ -88,11 +88,11 @@ export default class HelpContent extends React.Component {
         return (
             <div className="usa-da-help-content">
 
-                <h2>What&#8217;s New in This Release</h2>
+                <h2 className="usa-da-help-content__header">What&#8217;s New in This Release</h2>
 
                 <div dangerouslySetInnerHTML={{ __html: this.props.changelog }} />
 
-                <h2>Technical Notes for this Release</h2>
+                <h2 className="usa-da-help-content__header">Technical Notes for this Release</h2>
 
                 <div dangerouslySetInnerHTML={{ __html: this.props.technical }} />
 
