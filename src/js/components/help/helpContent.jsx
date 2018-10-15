@@ -103,7 +103,7 @@ export default class HelpContent extends React.Component {
                 <p>
                     If you need assistance using the Broker or if you would like to schedule a hands-on sandbox session
                     with Treasury staff, please email
-                    <a href="mailto:DATAPMO@fiscal.treasury.gov">DATAPMO@fiscal.treasury.gov</a>.
+                    <a href="mailto:DATAPMO@fiscal.treasury.gov"> DATAPMO@fiscal.treasury.gov</a>.
                 </p>
             </div>
         );

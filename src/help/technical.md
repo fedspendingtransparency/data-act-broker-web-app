@@ -1,4 +1,4 @@
-##### **October 11, 2018**
+##### October 11, 2018{section=technical}
 
 In this release, here is a list of technical changes that may require infrastructure or database updates, or represents additional functionality.
 
