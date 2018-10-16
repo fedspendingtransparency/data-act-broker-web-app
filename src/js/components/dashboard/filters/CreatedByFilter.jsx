@@ -8,26 +8,12 @@ import React, { PropTypes } from 'react';
 import CreatedByContainer from '../../../containers/dashboard/CreatedByContainer';
 
 const propTypes = {
-  bubbledRemovedFilterValue: PropTypes.shape({
-    filter: PropTypes.string,
-    value: PropTypes.shape({
-      userId: PropTypes.number,
-      name: PropTypes.string
-    })
-  }),
   updateFilterList: PropTypes.func,
   type: PropTypes.string,
   table: PropTypes.string
 };
 
 const defaultProps = {
-  bubbledRemovedFilterValue: {
-    filter: '',
-    value: {
-      userId: 0,
-      name: ''
-    }
-  },
   updateFilterList: null,
   type: '',
   table: ''
@@ -60,8 +46,7 @@ export default class CreatedByFilter extends React.Component {
                     type={this.props.type}
                     table={this.props.table}
                     placeholder="Created By"
-                    onSelect={this.createdBySelect}
-                    bubbledRemovedFilterValue={this.props.bubbledRemovedFilterValue} />
+                    onSelect={this.createdBySelect} />
             </div>
         </div>
     );

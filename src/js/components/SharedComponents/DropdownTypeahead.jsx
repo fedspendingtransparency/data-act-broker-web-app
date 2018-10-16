@@ -19,6 +19,7 @@ const propTypes = {
   customClass: PropTypes.string,
   errorHeader: PropTypes.string,
   errorDescription: PropTypes.string,
+  duplicateHeader: PropTypes.string,
   keyValue: PropTypes.string,
   placeholder: PropTypes.string,
   tabIndex: PropTypes.number,
@@ -39,6 +40,7 @@ const defaultProps = {
   isRequired: false,
   errorHeader: null,
   errorDescription: null,
+  duplicateHeader: null,
   prioritySort: true,
   clearAfterSelect: false
 };
@@ -55,6 +57,7 @@ export default class DropdownTypeahead extends React.Component {
       dropdownopen: false,
       value: '',
       showWarning: false,
+      warningType: 'invalid',
       selectedValues: [],
       unselectedValues: []
     };
@@ -90,7 +93,10 @@ export default class DropdownTypeahead extends React.Component {
 
   getSelectedName() {
     if (this.state.unselectedValues.includes(this.state.value) || this.state.selectedValues.includes(this.state.value)) {
-      alert('This name is already used, please use the checkbox in the dropdown.');
+      this.setState({
+        showWarning: true,
+        warningType: 'duplicate'
+      });
     }
     else {
       this.setState({
@@ -173,7 +179,8 @@ export default class DropdownTypeahead extends React.Component {
       if (!this.state.showWarning) {
         // we need to show a warning that no matching users were found
         this.setState({
-          showWarning: true
+          showWarning: true,
+          warningType: 'invalid'
         });
       }
       return;
@@ -273,15 +280,12 @@ export default class DropdownTypeahead extends React.Component {
 
     let warning = null;
     if (this.state.showWarning) {
-      const errorProps = {};
-      if (this.props.errorHeader) {
-        errorProps.header = this.props.errorHeader;
-      }
-      if (this.props.errorDescription) {
-        errorProps.description = this.props.errorDescription;
-      }
-
-      warning = <TypeaheadWarning {...errorProps} />;
+        const errorProps = {};
+        errorProps.header = this.state.warningType === 'duplicate' ? this.props.duplicateHeader : this.props.errorHeader;
+        if (this.props.errorDescription) {
+          errorProps.description = this.props.errorDescription;
+        }
+        warning = <TypeaheadWarning {...errorProps} />;
     }
 
     let disabledClass = '';
