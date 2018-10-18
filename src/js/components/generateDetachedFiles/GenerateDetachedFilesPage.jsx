@@ -39,6 +39,7 @@ export default class GenerateDetachedFilesPage extends React.Component {
             showDateSelect: false,
             showSubmitButton: false,
             buttonDisabled: true,
+            fundingAgency: false,
             d1: {
                 startDate: null,
                 endDate: null,
@@ -70,6 +71,8 @@ export default class GenerateDetachedFilesPage extends React.Component {
                 status: ""
             }
         };
+
+        this.toggleAgencyType = this.toggleAgencyType.bind(this);
     }
 
     componentDidMount() {
@@ -182,17 +185,24 @@ export default class GenerateDetachedFilesPage extends React.Component {
         });
     }
 
+    toggleAgencyType() {
+        this.setState({
+            fundingAgency: !this.state.fundingAgency
+        });
+    }
+
     generateFile(file) {
         // generate specified file
         const cgacCode = this.state.codeType !== 'frec_code' ? this.state.agency : '';
         const frecCode = this.state.codeType === 'frec_code' ? this.state.agency : '';
+        const agencyType = this.state.fundingAgency ? 'funding' : 'awarding';
 
         const tmpFile = Object.assign({}, this.state[file]);
         tmpFile.status = "generating";
         this.setState({ [file]: tmpFile });
 
         GenerateFilesHelper.generateDetachedFile(file.toUpperCase(), tmpFile.startDate.format('MM/DD/YYYY'),
-            tmpFile.endDate.format('MM/DD/YYYY'), cgacCode, frecCode)
+            tmpFile.endDate.format('MM/DD/YYYY'), cgacCode, frecCode, agencyType)
             .then((response) => {
                 if (this.isUnmounted) {
                     return;
@@ -289,7 +299,8 @@ export default class GenerateDetachedFilesPage extends React.Component {
                 {...this.state}
                 handleDateChange={this.handleDateChange.bind(this)}
                 updateError={this.updateError.bind(this)}
-                generateFile={this.generateFile.bind(this)} />);
+                generateFile={this.generateFile.bind(this)}
+                toggleAgencyType={this.toggleAgencyType} />);
         }
 
         return (

@@ -1,0 +1,26 @@
+.tooltip-pointer {
+    width: 0;
+    height: 0;
+    position: absolute;
+    top: rem(12);
+    left: rem(-9);
+    &:after {
+        content: "";
+        position: absolute;
+        width: rem(16);
+        height: rem(16);
+        background: $color-white;
+        border-bottom: 1px solid $color-tooltip-border;
+        border-left: 1px solid $color-tooltip-border;
+        transform: rotate(45deg);
+        pointer-events: none;
+    }
+    &.bottom {
+        z-index: 11;
+        top: calc(100% - 8px);
+        left: calc(100% - 45px);
+        &:after {
+            transform: rotate(315deg);
+        }
+    }
+}
