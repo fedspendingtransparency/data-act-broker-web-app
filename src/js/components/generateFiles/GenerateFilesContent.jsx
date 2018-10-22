@@ -100,7 +100,7 @@ export default class GenerateFilesContent extends React.Component {
                             <div ref={(div) => {
                                 this.referenceDiv = div;
                             }}>
-                            {tooltip}
+                                {tooltip}
                                 <button
                                     id="agency-toggle__info-icon"
                                     className="agency-toggle__info-icon"
