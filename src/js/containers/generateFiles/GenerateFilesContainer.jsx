@@ -77,8 +77,11 @@ class GenerateFilesContainer extends React.Component {
             d1Status: "waiting",
             d2Status: "waiting",
             errorDetails: "",
-            agency_name: ""
+            agency_name: "",
+            fundingAgency: false
         };
+
+        this.toggleAgencyType = this.toggleAgencyType.bind(this);
     }
 
     componentDidMount() {
@@ -331,16 +334,25 @@ class GenerateFilesContainer extends React.Component {
         });
     }
 
+    toggleAgencyType() {
+        this.setState({
+            fundingAgency: !this.state.fundingAgency
+        });
+    }
+
     generateFiles() {
         this.setState({
             state: 'generating'
         });
+
+        const agencyType = this.state.fundingAgency ? 'funding' : 'awarding';
+
         // submit both D1 and D2 date ranges to the API
         Q.allSettled([
             GenerateFilesHelper.generateFile('D1', this.props.submissionID,
-                this.state.d1.startDate.format('MM/DD/YYYY'), this.state.d1.endDate.format('MM/DD/YYYY')),
+                this.state.d1.startDate.format('MM/DD/YYYY'), this.state.d1.endDate.format('MM/DD/YYYY'), agencyType),
             GenerateFilesHelper.generateFile('D2', this.props.submissionID,
-                this.state.d2.startDate.format('MM/DD/YYYY'), this.state.d2.endDate.format('MM/DD/YYYY'))
+                this.state.d2.startDate.format('MM/DD/YYYY'), this.state.d2.endDate.format('MM/DD/YYYY'), agencyType)
         ])
             .then((allResponses) => {
                 if (this.isUnmounted) {
@@ -517,7 +529,8 @@ class GenerateFilesContainer extends React.Component {
                     handleDateChange={this.handleDateChange.bind(this)}
                     updateError={this.updateError.bind(this)}
                     generateFiles={this.generateFiles.bind(this)}
-                    nextPage={this.nextPage.bind(this)} />
+                    nextPage={this.nextPage.bind(this)}
+                    toggleAgencyType={this.toggleAgencyType} />
             </div>
         );
     }
