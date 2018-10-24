@@ -6,19 +6,14 @@ import { kGlobalConstants } from '../GlobalConstants';
 export const fetchCreatedBy = () => {
   const deferred = Q.defer();
 
-  Request.post(`${kGlobalConstants.API}list_submissions/`)
-    .send({
-      certified: 'false',
-      d2_submission: false,
-      limit: 200,
-      order: 'desc'
-    })
+  Request.get(`${kGlobalConstants.API}list_submission_users/`)
+    .send()
     .end((err, res) => {
       if (err) {
         deferred.reject(err);
       }
       else {
-        deferred.resolve(res.body.submissions);
+        deferred.resolve(res.body.users);
       }
     });
 

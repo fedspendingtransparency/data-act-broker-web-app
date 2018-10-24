@@ -28,7 +28,7 @@ export default class DropdownTypeaheadCheckbox extends React.Component {
 
   handleChecked() {
     this.setState({ isChecked: !this.state.isChecked });
-    this.props.passSelectedNameFunc(this.props.fieldValue, this.state.isChecked);
+    this.props.passSelectedNameFunc(this.props.fieldValue);
   }
 
   render() {
