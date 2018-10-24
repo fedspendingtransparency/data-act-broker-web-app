@@ -3,7 +3,7 @@ import Request from './sessionSuperagent';
 
 import { kGlobalConstants } from '../GlobalConstants';
 
-export const generateFile = (type, submissionId, start, end) => {
+export const generateFile = (type, submissionId, start, end, agencyType) => {
     const deferred = Q.defer();
 
     const callBody = {
@@ -16,6 +16,9 @@ export const generateFile = (type, submissionId, start, end) => {
     }
     if (end) {
         callBody.end = end;
+    }
+    if (agencyType) {
+        callBody.agency_type = agencyType;
     }
 
     Request.post(kGlobalConstants.API + 'generate_file/')

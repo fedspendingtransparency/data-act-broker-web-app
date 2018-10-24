@@ -18,6 +18,7 @@
 		@import "./generateItem/generateItem";
 	}
 
+	@import "../generateDetachedFiles/_agencyToggle";
 	@import "../../components/alerts/_alerts";
 
 	.alert-warning {

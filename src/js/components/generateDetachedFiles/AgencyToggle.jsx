@@ -27,7 +27,7 @@ export default class AgencyToggle extends React.Component {
                 className="agency-toggle__button"
                 onClick={this.props.toggleAgencyType}
                 role="switch"
-                aria-pressed={!this.props.funding}
+                aria-checked={!this.props.funding}
                 aria-label={`Toggle between Awarding Agency and Funding Agency. Currently selected: ${currentSelection}`}>
                 <div className={`agency-toggle__label ${awardingActive}`}>
                     Awarding Agency

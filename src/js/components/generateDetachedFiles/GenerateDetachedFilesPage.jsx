@@ -324,7 +324,7 @@ export default class GenerateDetachedFilesPage extends React.Component {
                                     <h5>Please begin by telling us about files you would like to generate</h5>
                                     <div className="select-agency-holder">
                                         <div className="row usa-da-select-agency-label">
-                                            The generated files will be used when submiting data for...
+                                            The generated files will be used when submitting data for...
                                         </div>
 
                                         <div className="row">
