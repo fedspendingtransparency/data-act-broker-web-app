@@ -16,10 +16,11 @@
     b {
         color: $color-gray;
     }
-    & .usa-da-icon-cloud-upload {
+    & .usa-da-icon-cloud-upload, & .usa-da-icon-exclamation-circle {
         position: absolute;
         top: 2rem;
         left: 49%;
+        font-size: 4rem;
         height: 4.0rem;
         width: 4.5rem;
         padding-top: 0;
@@ -32,13 +33,8 @@
             fill: $color-gray;
         }
     }
-    & .usa-da-icon-cloud-upload {
-        position: absolute;
-        top: 2rem;
-        left: 49%;
-        font-size: 4rem;
-        padding-top: 0;
-        padding-left: 0;
+    & .usa-da-icon-exclamation-circle {
+        fill: $color-secondary;
     }
     &.dropped {
         & .usa-da-icon-cloud-upload {

@@ -82,10 +82,12 @@ class AddDataContainer extends React.Component {
         }
         if (err.httpStatus === 403) {
           this.setState({
-            notAllowed: true,
-            errorMessage: err.message
+            notAllowed: true
           });
         }
+        this.setState({
+          errorMessage: err.message
+        });
       });
   }
 
@@ -106,6 +108,7 @@ class AddDataContainer extends React.Component {
     return (
         <AddDataContent
             {...this.props}
+            errorMessage={this.state.errorMessage}
             fileTypes={fileTypes}
             performUpload={this.performUpload.bind(this)} />
     );
