@@ -28,6 +28,9 @@
         @include flex(0 0 auto);
         padding-right: rem(8);
         @import './_textFilter';
+        input {
+           max-width: rem(120);
+        }
     }
     @import './_typeaheadFilter';
     .dashboard-filters__submit-content {

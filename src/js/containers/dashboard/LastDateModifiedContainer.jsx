@@ -63,8 +63,8 @@ class LastDateModifiedContainer extends React.Component {
       // Find Min/Max for last modified dates
       if (!_.isEmpty(values)) {
         const finalPayload = {
-            maxDate: new Date(Math.max.apply(null, values)),
-            minDate: new Date(Math.min.apply(null, values))
+            minDate: _.min(values),
+            maxDate: _.max(values)
         };
         values = finalPayload;
       }
