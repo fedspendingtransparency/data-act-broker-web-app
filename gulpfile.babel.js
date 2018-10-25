@@ -10,13 +10,10 @@ import rename from 'gulp-rename';
 import del from 'del';
 import vinylPaths from 'vinyl-paths';
 import replace from 'gulp-replace';
-import gulpif from 'gulp-if';
-import cssNano from 'gulp-cssnano';
 import merge from 'merge-stream';
 import git from 'gulp-git';
 import header from 'gulp-header';
 import moment from 'moment-timezone';
-import mocha from 'gulp-mocha';
 
 // for debugging webpack
 // import StatsPlugin from 'stats-webpack-plugin';
@@ -59,7 +56,7 @@ gulp.task('setDevHosted', () => {
     constantsFile = 'GlobalConstants_dev.js';
 
     gutil.log('You are running in ' + chalk.black.bgYellow(' DEVELOPMENT (HOSTED) ') + ' mode.');
-})
+});
 
 gulp.task('setProd', () => {
     minified = true;
@@ -173,7 +170,7 @@ gulp.task('copyAssets', ['copyConstants'], () => {
 // build the SASS
 gulp.task('sass', ['copyAssets'], () => {
 
-    if (environment == environmentTypes.DEVLOCAL) {
+    if (environment === environmentTypes.DEVLOCAL) {
         // set up a watcher for future SASS changes
         gulp.watch(['src/css/**/*.scss', 'src/_scss/**/*.scss'])
             .on('change', () => {
@@ -248,7 +245,7 @@ gulp.task('webpackCore', ['sass'], (callback) => {
     };
 
     // only minify if not local development
-    if (environment != environmentTypes.DEVLOCAL) {
+    if (environment !== environmentTypes.DEVLOCAL) {
         config.plugins.push(new webpack.optimize.UglifyJsPlugin({
             compress: true,
             warnings: false,
@@ -317,7 +314,7 @@ gulp.task('webpack', ['webpackCore'], () => {
     };
 
     // watch if in local dev mode
-    if (environment == environmentTypes.DEVLOCAL) {
+    if (environment === environmentTypes.DEVLOCAL) {
 
         // enable debugging on the JS output
         config.devtool = 'eval';
@@ -355,7 +352,7 @@ gulp.task('webpack', ['webpackCore'], () => {
                     .pipe(connect.reload())
                 });
     }
-    else if (environment != environmentTypes.DEVHOSTED) {
+    else if (environment !== environmentTypes.DEVHOSTED) {
         // if it's not a development environment, minify everything
         config.plugins.push(new webpack.optimize.UglifyJsPlugin({
             compress: {
@@ -418,7 +415,7 @@ gulp.task('modifyHtml', ['webpack'], () => {
 gulp.task('serve', serverDeps, () => {
 
     let reload = true;
-    if (environment != environmentTypes.DEVLOCAL) {
+    if (environment !== environmentTypes.DEVLOCAL) {
         reload = false;
     }
 
@@ -453,30 +450,3 @@ gulp.task('production', ['setProd', 'modifyHtml'], () => {
 });
 
 gulp.task('default', ['local']);
-
-
-
-// run unit tests
-gulp.task('expresso', () => {
-    return gulp.src(['./__unittests__/**/*-spec.js','./__unittests__/**/*-spec.jsx', '!./__unittests__/support/*.js'], { read: false })
-        .pipe(mocha({
-            compilers: {
-                js: require('babel-core/register')
-            },
-            require: ['./__unittests__/setup.js']
-        }))
-})
-
-gulp.task('mocha', () => {
-    return gulp.src(['./__unittests__/**/*-spec.js','./__unittests__/**/*-spec.jsx', '!./__unittests__/support/*.js'], { read: false })
-        .pipe(mocha({
-            compilers: {
-                js: require('babel-core/register')
-            },
-            require: ['./__unittests__/setup.js'],
-            reporter: 'mocha-junit-reporter',
-            reporterOptions: {
-                mochaFile: './__unittests__/mocha.xml'
-            }
-        }))
-})
