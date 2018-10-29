@@ -64,9 +64,23 @@ export default class GenerateFilesContent extends React.Component {
     render() {
         let tooltip = null;
         if (this.state.showInfoTooltip) {
+            // Calculate the right margin based on window width breakpoints
+            const windowWidth = window.innerWidth;
+
+            let rightMargin = 0;
+            if (windowWidth >= 1200) {
+                rightMargin = (windowWidth - 1170) / 2;
+            }
+            else if (windowWidth >= 992) {
+                rightMargin = (windowWidth - 970) / 2;
+            }
+            else if (windowWidth >= 768) {
+                rightMargin = (windowWidth - 750) / 2;
+            }
+
             const style = {
                 top: this.referenceDiv.offsetTop - 180,
-                right: 115
+                right: rightMargin - 15
             };
 
             tooltip = (
