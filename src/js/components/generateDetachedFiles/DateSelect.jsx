@@ -87,7 +87,7 @@ export default class DateSelect extends React.Component {
         if (this.state.showInfoTooltip) {
             const style = {
                 top: this.referenceDiv.offsetTop - 180,
-                right: 15
+                right: -30
             };
 
             tooltip = (
