@@ -24,11 +24,33 @@
             right: 0px !important;
         }
     }
-    
+
     @import "./_dropdownList";
 
     input {
         @import "../inputs/_generic";
         @include genericInput;
+    }
+    
+    // REPLACE RESPONSIVE WITH BOOTSTRAP IN THE FUTURE
+    /* Small Devices, Tablets */
+    @media (min-width : 768px) and (max-width : 991px) {
+        input {
+            max-width: rem(120);
+        }
+    }
+
+    /* Medium Devices, Desktops */
+    @media (min-width : 992px) and (max-width : 1199px) {
+        input {
+            max-width: rem(120);
+        }
+    }
+
+    /* Large Devices, Wide Screens */
+    @media (min-width : 1200px) {
+        input {
+            max-width: none;
+        }
     }
 }
