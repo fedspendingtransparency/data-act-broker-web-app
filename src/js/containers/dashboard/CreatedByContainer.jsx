@@ -45,7 +45,7 @@ class CreatedByContainer extends React.Component {
   loadData() {
     if (this.props.createdByList.createdBy.length === 0) {
       // we need to populate the list
-      createdByHelper.fetchCreatedBy()
+      createdByHelper.fetchCreatedBy(this.props.type)
         .then((data) => {
           this.props.setCreatedByList(data);
         })
