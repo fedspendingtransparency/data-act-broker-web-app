@@ -37,22 +37,34 @@ export default class DropZone extends React.Component {
     let dropzoneString = `Drag and drop or click here to upload your <b>${this.props.fileTitle}</b>.`;
     const progress = 0;
     let dropped = '';
+    let isFileValid = 'unset';
 
     if (this.props.submission.files.hasOwnProperty(this.props.requestName)) {
       const submission = this.props.submission;
       const submissionItem = this.props.submission.files[this.props.requestName];
       dropped = ' dropped';
 
-      if (submissionItem.state === 'ready' && submissionItem.file) {
+      isFileValid = !!(submissionItem.file &&
+        (submissionItem.file.type === 'text/csv' || submissionItem.file.type === 'text/plain'));
+
+      if (submissionItem.state === 'ready' && isFileValid) {
         dropzoneString = `<b>${submissionItem.file.name}</b> file selected`;
+      }
+      else if (submissionItem.state === 'ready' && !isFileValid) {
+        dropzoneString = `<b>${submissionItem.file.name}</b> must be CSV or TXT format`;
       }
 
       if (submission.state === 'prepare') {
         dropzoneString = `<b>${submissionItem.file.name}</b> was uploaded successfully`;
       }
-      if (submission.state === 'failed') {
-        dropzoneString = `<b>${submissionItem.file.name}</b> failed to upload`;
+
+      if (submission.state === 'failed' && isFileValid) {
+        dropzoneString = `<b>${submissionItem.file.name}</b> is the correct file type, but the submission upload has failed`;
       }
+      else if (submissionItem.state === 'failed' && !isFileValid) {
+        dropzoneString = `<b>${submissionItem.file.name}</b> must be CSV or TXT format`;
+      }
+
       if (submission.state === 'uploading') {
         dropzoneString = `<b>${submissionItem.file.name}</b>`;
       }
@@ -68,7 +80,7 @@ export default class DropZone extends React.Component {
             multiple={false}
             onDrop={this.props.onDrop}
             data-testid={`upload-${this.props.requestName}`}>
-            <DropZoneDisplay displayMode={this.props.submission.state} string={dropzoneString} progress={progress} />
+            <DropZoneDisplay displayMode={isFileValid ? this.props.submission.state : 'invalid'} string={dropzoneString} progress={progress} />
         </Dropzone>
     );
   }

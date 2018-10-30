@@ -28,9 +28,24 @@ export default class CalendarRangeDatePicker extends React.Component {
       to: null
     };
 
+    this.dropdownNode = null;
+
+    this.setDropdownNodeRef = (element) => {
+      this.dropdownNode = element;
+    };
+
     this.onDropdownChange = this.onDropdownChange.bind(this);
     this.handleDayClick = this.handleDayClick.bind(this);
     this.sendToFilters = this.sendToFilters.bind(this);
+    this.handleOutsideClick = this.handleOutsideClick.bind(this);
+  }
+
+  componentDidMount() {
+    document.addEventListener('mousedown', this.handleOutsideClick, false);
+  }
+
+  componentWillUnmount() {
+    document.removeEventListener('mousedown', this.handleOutsideClick, false);
   }
 
   onDropdownChange() {
@@ -39,6 +54,17 @@ export default class CalendarRangeDatePicker extends React.Component {
       dropdownopen: !currentState
     });
   }
+
+  handleOutsideClick(e) {
+    if (this.dropdownNode && this.dropdownNode.contains(e.target)) {
+        return false;
+    }
+    this.setState({
+        dropdownopen : false
+    });
+    return true;
+  }
+
 
   sendToFilters() {
     if (this.state.to) {
@@ -67,8 +93,8 @@ export default class CalendarRangeDatePicker extends React.Component {
           return (<DayPicker
               showOutsideDays
               fixedWeeks
-              fromMonth={this.props.minmaxDates.minDate}
-              toMonth={this.props.minmaxDates.maxDate}
+              // fromMonth={this.props.minmaxDates.minDate}
+              // toMonth={this.props.minmaxDates.maxDate}
               navbarElement={<Navbar />}
               className="innerCalendarDatePicker"
               numberOfMonths={this.props.numberOfMonths}
@@ -81,7 +107,7 @@ export default class CalendarRangeDatePicker extends React.Component {
 
   render() {
     return (
-        <div className="dropdown filterdropdown">
+        <div className="dropdown filterdropdown" ref={this.setDropdownNodeRef}>
             <button onClick={this.onDropdownChange} className={this.state.dropdownopen ? 'btn btn-default dropdown-toggle active' : 'btn btn-default dropdown-toggle'} type="button" id="createdbydropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
             Last Modified
                 <span className="caret" />

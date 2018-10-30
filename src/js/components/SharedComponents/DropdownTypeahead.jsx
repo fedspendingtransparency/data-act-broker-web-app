@@ -52,6 +52,11 @@ export default class DropdownTypeahead extends React.Component {
     this.typeahead = null;
     this.dataDictionary = {};
     this.internalValueDictionary = {};
+    this.dropdownNode = null;
+
+    this.setDropdownNodeRef = (element) => {
+      this.dropdownNode = element;
+    };
 
     this.state = {
       dropdownopen: false,
@@ -68,10 +73,12 @@ export default class DropdownTypeahead extends React.Component {
     this.selectCheckbox = this.selectCheckbox.bind(this);
     this.unselectCheckbox = this.unselectCheckbox.bind(this);
     this.removeClickedFilterBarItemFromDropdown = this.removeClickedFilterBarItemFromDropdown.bind(this);
+    this.handleOutsideClick = this.handleOutsideClick.bind(this);
   }
 
   componentDidMount() {
     this.mountAwesomeplete();
+    document.addEventListener('mousedown', this.handleOutsideClick, false);
   }
 
   componentDidUpdate(prevProps) {
@@ -82,6 +89,11 @@ export default class DropdownTypeahead extends React.Component {
     if (JSON.stringify(prevProps.bubbledRemovedFilterValue) !== JSON.stringify(this.props.bubbledRemovedFilterValue)) {
         this.removeClickedFilterBarItemFromDropdown(this.props.bubbledRemovedFilterValue, prevProps.bubbledRemovedFilterValue);
     }
+  }
+
+  componentWillUnmount() {
+    this.mountAwesomeplete();
+    document.removeEventListener('mousedown', this.handleOutsideClick, false);
   }
 
   onDropdownChange() {
@@ -103,6 +115,16 @@ export default class DropdownTypeahead extends React.Component {
         unselectedValues: this.state.unselectedValues.concat(this.state.value)
       });
     }
+  }
+
+  handleOutsideClick(e) {
+      if (this.dropdownNode && this.dropdownNode.contains(e.target)) {
+          return false;
+      }
+      this.setState({
+          dropdownopen : false
+      });
+      return true;
   }
 
   loadValues() {
@@ -223,12 +245,34 @@ export default class DropdownTypeahead extends React.Component {
   }
 
   removeClickedFilterBarItemFromDropdown(filterValuefromFilterBarDropdown, oldProps) {
-      if (_.isEmpty(oldProps) && !_.isEmpty(filterValuefromFilterBarDropdown)) {
-          this.selectCheckbox(filterValuefromFilterBarDropdown[0].name);
-      }
+      const parsedNewProps = filterValuefromFilterBarDropdown.map((item) => {
+          return item.name;
+      });
 
-      if (_.isEmpty(filterValuefromFilterBarDropdown) && !_.isEmpty(oldProps)) {
-          this.unselectCheckbox(oldProps[0].name);
+      const parsedOldProps = oldProps.map((item) => {
+          return item.name;
+      });
+
+      if (!filterValuefromFilterBarDropdown.length) {
+          const finalUnselected = parsedOldProps.concat(this.state.unselectedValues);
+          this.setState({
+            selectedValues: []
+          });
+
+          this.setState({
+            unselectedValues: finalUnselected
+          });
+      }
+      else {
+          const added = _.difference(parsedNewProps, parsedOldProps)[0];
+          const removed = _.difference(parsedOldProps, parsedNewProps)[0];
+          if (removed) {
+             this.unselectCheckbox(removed);
+          }
+
+          if (added) {
+             this.selectCheckbox(added);
+          }
       }
   }
 
@@ -294,7 +338,7 @@ export default class DropdownTypeahead extends React.Component {
     }
 
     return (
-        <div className="dropdown filterdropdown">
+        <div className="dropdown filterdropdown" ref={this.setDropdownNodeRef}>
             <button
                 onClick={this.onDropdownChange}
                 className={this.state.dropdownopen ? 'btn btn-default dropdown-toggle active' : 'btn btn-default dropdown-toggle'}
