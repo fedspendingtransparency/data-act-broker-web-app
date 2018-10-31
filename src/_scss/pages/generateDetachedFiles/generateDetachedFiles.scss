@@ -5,12 +5,14 @@
     // import typeahead styles
     @import "../../components/typeahead/_typeahead";
 
+    @import "./_agencyToggle";
+
     .select-agency-holder {
         padding: 15px 30px 30px 30px;
         @include contentBlockWrapper;
 
         .usa-da-select-agency-label {
-            margin: 15px 0px 10px;
+            margin: 15px 0 10px;
             text-align: left;
             font-size: 1.6rem;
         }

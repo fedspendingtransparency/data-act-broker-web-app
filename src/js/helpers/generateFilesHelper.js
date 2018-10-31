@@ -3,7 +3,7 @@ import Request from './sessionSuperagent';
 
 import { kGlobalConstants } from '../GlobalConstants';
 
-export const generateFile = (type, submissionId, start, end) => {
+export const generateFile = (type, submissionId, start, end, agencyType) => {
     const deferred = Q.defer();
 
     const callBody = {
@@ -16,6 +16,9 @@ export const generateFile = (type, submissionId, start, end) => {
     }
     if (end) {
         callBody.end = end;
+    }
+    if (agencyType) {
+        callBody.agency_type = agencyType;
     }
 
     Request.post(kGlobalConstants.API + 'generate_file/')
@@ -87,7 +90,7 @@ export const getFabsMeta = (submissionId) => {
     return deferred.promise;
 };
 
-export const generateDetachedFile = (type, start, end, cgacCode, frecCode) => {
+export const generateDetachedFile = (type, start, end, cgacCode, frecCode, agencyType) => {
     const deferred = Q.defer();
 
     Request.post(kGlobalConstants.API + 'generate_detached_file/')
@@ -96,7 +99,8 @@ export const generateDetachedFile = (type, start, end, cgacCode, frecCode) => {
             start,
             end,
             cgac_code: cgacCode,
-            frec_code: frecCode
+            frec_code: frecCode,
+            agency_type: agencyType
         })
         .end((errFile, res) => {
             if (errFile) {

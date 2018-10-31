@@ -38,5 +38,81 @@
                 }
             }
         }
+        // REPLACE RESPONSIVE WITH BOOTSTRAP IN THE FUTURE
+        /* Small Devices, Tablets */
+        @media (min-width : 768px) and (max-width : 991px) {
+            input {
+                max-width: rem(120);
+            }
+        }
+
+        /* Medium Devices, Desktops */
+        @media (min-width : 992px) and (max-width : 1199px) {
+            input {
+                max-width: rem(120);
+            }
+        }
+
+        /* Large Devices, Wide Screens */
+        @media (min-width : 1200px) {
+            input {
+                max-width: none;
+            }
+        }
     }
+
+  .filterdropdown {
+    .btn-default {
+      color: $color-white;
+      background-color: transparent;
+      width: 120px;
+      height: 32px;
+    }
+    .btn .caret {
+      margin-left: 5px;
+    }
+    .active {
+      background-color: $color-gray-dark;
+      border: 0;
+      border-radius: 0;
+      font-size: rem(14);
+      font-weight: 600;
+    }
+    .dropdown-menu {
+      padding: rem(12.5) rem(10) rem(5) rem(10);
+      margin-top: rem(14);
+      border-radius: 0;
+      li {
+        display: block;
+      }
+      li:after {
+        margin-bottom: rem(10);
+      }
+      li::before {
+        display: none;
+      }
+      .divider {
+        width: 100%;
+        &:after {
+          margin-bottom: 0;
+        }
+      }
+      input {
+        display: inline;
+        border-radius: 0 !important;
+        width: auto;
+        margin-right: rem(10);
+      }
+    }
+    .typeahead-warning {
+      position: relative;
+    }
+    .usa-da-typeahead .alert-error {
+      .alert-header-text {
+        color: $color-secondary;
+        position: relative;
+        bottom: rem(2);
+      }
+    }
+  }
 }

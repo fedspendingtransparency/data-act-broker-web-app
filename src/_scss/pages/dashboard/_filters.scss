@@ -1,6 +1,6 @@
 .dashboard-filters {
     background-color: $color-gray;
-    padding: rem(10);
+    padding: rem(7.5);
     border: solid rem(1) $color-white;
     border-bottom: 0;
     @include display(flex);
@@ -26,8 +26,29 @@
     .dashboard-filters__filter {
         @include display(flex);
         @include flex(0 0 auto);
-        padding-right: rem(10);
+        padding-right: rem(8);
         @import './_textFilter';
+        // REPLACE RESPONSIVE WITH BOOTSTRAP IN THE FUTURE
+        /* Small Devices, Tablets */
+        @media (min-width : 768px) and (max-width : 991px) {
+            input {
+                max-width: rem(80);
+            }
+        }
+
+        /* Medium Devices, Desktops */
+        @media (min-width : 992px) and (max-width : 1199px) {
+            input {
+                max-width: rem(80);
+            }
+        }
+
+        /* Large Devices, Wide Screens */
+        @media (min-width : 1200px) {
+            input {
+                max-width: rem(120);
+            }
+        }
     }
     @import './_typeaheadFilter';
     .dashboard-filters__submit-content {
@@ -38,7 +59,7 @@
             border: 0;
             color: $color-white;
             background-color: transparent;
-            margin-right: rem(10);
+            margin-right: rem(5);
         }
         .dashboard-filters__submit {
             @include display(flex);

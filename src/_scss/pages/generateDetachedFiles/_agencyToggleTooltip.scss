@@ -1,0 +1,42 @@
+.agency-toggle__info-icon-holder {
+    z-index: 10;
+    position: relative;
+    
+    .agency-toggle__tooltip-spacer {
+        display: block;
+        position: absolute;
+    }
+
+    .agency-toggle-tooltip {
+        width: rem(270);
+        .agency-toggle-tooltip__interior {
+            position: relative;
+            // inherit from the standard tooltip arrow style
+            $color-tooltip-border: $color-gray;
+            @import "../../components/tooltip/_arrow";
+            .agency-toggle-tooltip__content {
+                @include display(flex);
+                @include justify-content(center);
+                @include align-items(center);
+                position: relative;
+                box-shadow: $box-shadow;
+                background-color: $color-white;
+                border: solid rem(1) $color-gray;
+                padding: rem(15);
+                text-align: left;
+                font-size: $small-font-size;
+            }
+        }
+    }
+
+    .agency-toggle__info-icon {
+        @include display(flex);
+        @include flex(0 0 auto);
+        @include button-unstyled;
+        svg {
+            height: rem(15);
+            width: rem(15);
+            fill: $color-gray;
+        }
+    }
+}

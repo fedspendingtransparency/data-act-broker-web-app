@@ -7,51 +7,51 @@ import React, { PropTypes } from 'react';
 import { Times } from '../../SharedComponents/icons/Icons';
 
 const propTypes = {
-    name: PropTypes.string,
-    value: PropTypes.oneOfType([
-        PropTypes.string,
-        PropTypes.object
-    ]),
-    group: PropTypes.string,
-    applied: PropTypes.bool,
-    toggleFilter: PropTypes.func
+  name: PropTypes.string,
+  value: PropTypes.oneOfType([
+    PropTypes.string,
+    PropTypes.object
+  ]),
+  group: PropTypes.string,
+  applied: PropTypes.bool,
+  toggleFilter: PropTypes.func
 };
 
 const defaultProps = {
-    name: '',
-    value: {},
-    group: '',
-    applied: false,
-    toggleFilter: null
+  name: '',
+  value: {},
+  group: '',
+  applied: false,
+  toggleFilter: null
 };
 
 export default class FilterBar extends React.Component {
-    constructor(props) {
-        super(props);
+  constructor(props) {
+    super(props);
 
-        this.removeFilter = this.removeFilter.bind(this);
-    }
+    this.removeFilter = this.removeFilter.bind(this);
+  }
 
-    removeFilter() {
-        this.props.toggleFilter(this.props.group, this.props.value);
-    }
+  removeFilter() {
+    this.props.toggleFilter(this.props.group, this.props.value);
+  }
 
-    render() {
-        const tagClass = this.props.applied ? 'filter-tag_applied' : 'filter-tag_staged';
-        return (
-            <div className={`filter-tag ${tagClass}`}>
-                <div className="filter-tag__name">
-                    {this.props.name}
-                </div>
-                <button
-                    aria-label="Remove filter"
-                    onClick={this.removeFilter}
-                    className="filter-tag__close">
-                    <Times />
-                </button>
+  render() {
+    const tagClass = this.props.applied ? 'filter-tag_applied' : 'filter-tag_staged';
+    return (
+        <div className={`filter-tag ${tagClass}`}>
+            <div className="filter-tag__name">
+                {this.props.name}
             </div>
-        );
-    }
+            <button
+                aria-label="Remove filter"
+                onClick={this.removeFilter}
+                className="filter-tag__close">
+                <Times />
+            </button>
+        </div>
+    );
+  }
 }
 
 FilterBar.propTypes = propTypes;

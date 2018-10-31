@@ -1,5 +1,4 @@
-### October 11, 2018
-
+##### October 11, 2018
 In this release of the Broker, we:
 
 * Updated all Broker download URLs to use a .gov domain.

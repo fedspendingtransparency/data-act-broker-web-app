@@ -202,9 +202,9 @@ export const performLocalUpload = (submission) => {
             store.dispatch(uploadActions.setSubmissionState('prepare'));
             deferred.resolve(res.body.submission_id);
         })
-        .catch(() => {
+        .catch((err) => {
             store.dispatch(uploadActions.setSubmissionState('failed'));
-            deferred.reject();
+            deferred.reject(err);
         });
 
     return deferred.promise;
@@ -231,9 +231,9 @@ export const performLocalCorrectedUpload = (submission) => {
             store.dispatch(uploadActions.setSubmissionState('prepare'));
             deferred.resolve(submission.id);
         })
-        .catch(() => {
+        .catch((err) => {
             store.dispatch(uploadActions.setSubmissionState('failed'));
-            deferred.reject();
+            deferred.reject(err);
         });
 
     return deferred.promise;

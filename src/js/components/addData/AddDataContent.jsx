@@ -13,14 +13,16 @@ const propTypes = {
   performUpload: PropTypes.func,
   metaData: PropTypes.object,
   submission: PropTypes.object,
-  fileTypes: PropTypes.array
+  fileTypes: PropTypes.array,
+  errorMessage: PropTypes.string
 };
 
 const defaultProps = {
   performUpload: null,
   metaData: null,
   submission: null,
-  fileTypes: []
+  fileTypes: [],
+  errorMessage: null
 };
 
 export default class AddDataContent extends React.Component {
@@ -66,10 +68,10 @@ export default class AddDataContent extends React.Component {
           testId="upload"
           buttonDisabled={false} />);
     }
- else if (submissionState === 'uploading') {
+    else if (submissionState === 'uploading') {
       actionArea = <SubmitButton className="usa-da-button-bigger" buttonText="Uploading files..." />;
     }
- else {
+    else {
       actionArea = <SubmitButton className="usa-da-button-bigger" buttonText="Upload & Validate files" />;
     }
 
@@ -81,12 +83,12 @@ export default class AddDataContent extends React.Component {
               <div className="alert alert-error text-left" role="alert">
                   <span className="usa-da-icon error-icon"><Icons.ExclamationCircle /></span>
                   <div className="alert-header-text">Your upload has failed</div>
-                  <p>Please try again. If the problem persists, contact the service desk.</p>
+                  <p>{this.props.errorMessage || 'Please try again. If the problem persists, contact the service desk.'}</p>
               </div>
           </div>
       );
     }
- else if (this.state.upload) {
+    else if (this.state.upload) {
       warning = (
           <div className="container short">
               <div className="alert alert-warning text-left" role="alert">
@@ -110,12 +112,12 @@ export default class AddDataContent extends React.Component {
                     <div className="col-md-offset-3 col-md-6">
                         {actionArea}
                         {
-                                this.state.submissionID !== 0 ?
-                                    <a className="usa-da-submit-review" href={subLink}>
-                                        {subID}
-                                    </a>
-                                    : null
-                            }
+                            this.state.submissionID !== 0 ?
+                                <a className="usa-da-submit-review" href={subLink}>
+                                    {subID}
+                                </a>
+                                : null
+                        }
                     </div>
                 </div>
             </div>
