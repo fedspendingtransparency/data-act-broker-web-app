@@ -24,7 +24,7 @@ describe('util helper functions', () => {
         });
     });
     describe('currentQuarter', () => {
-        it('should return the date corresponding to the start of the current quarter', () => {
+        it('should return the date corresponding to the start of the current quarter (DEV-1768)', () => {
             const mockedDate = moment('2015-04-01', 'YYYY-MM-DD').toDate();
             moment.now = () => (mockedDate);
 
@@ -34,7 +34,7 @@ describe('util helper functions', () => {
             // reset moment's date to the current time
             moment.now = () => (new Date());
         });
-        it('should return the date corresponding to the end of the current quarter', () => {
+        it('should return the date corresponding to the end of the current quarter (DEV-1768)', () => {
             const mockedDate = moment('2015-04-01', 'YYYY-MM-DD').toDate();
             moment.now = () => (mockedDate);
 
