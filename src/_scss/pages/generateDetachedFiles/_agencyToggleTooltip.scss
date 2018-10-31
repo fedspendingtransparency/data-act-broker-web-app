@@ -1,6 +1,7 @@
 .agency-toggle__info-icon-holder {
     z-index: 10;
-
+    position: relative;
+    
     .agency-toggle__tooltip-spacer {
         display: block;
         position: absolute;

@@ -66,7 +66,7 @@ export default class GenerateFilesContent extends React.Component {
         if (this.state.showInfoTooltip) {
             const style = {
                 top: this.referenceDiv.offsetTop - 180,
-                right: 115
+                right: -30
             };
 
             tooltip = (

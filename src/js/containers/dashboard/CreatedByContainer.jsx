@@ -43,27 +43,13 @@ class CreatedByContainer extends React.Component {
   }
 
   loadData() {
-    if (this.props.createdByList.createdBy.length === 0) {
-      // we need to populate the list
-      if (this.props.detached) {
-        createdByHelper.fetchCreatedBy()
-          .then((data) => {
-            this.props.setCreatedByList(data);
-          })
-          .catch((err) => {
-            console.error(err);
-          });
-      }
-      else {
-        createdByHelper.fetchCreatedBy()
-          .then((data) => {
-            this.props.setCreatedByList(data);
-          })
-          .catch((err) => {
-            console.error(err);
-          });
-      }
-    }
+    createdByHelper.fetchCreatedBy(this.props.type)
+     .then((data) => {
+          this.props.setCreatedByList(data);
+     })
+     .catch((err) => {
+          console.error(err);
+     });
   }
 
   dataFormatter(item) {
@@ -74,39 +60,17 @@ class CreatedByContainer extends React.Component {
   }
 
   render() {
-    let values = this.props.createdByList.createdBy;
-    if (this.props.type && this.props.table) {
-      const selectedCreatedBy = this.props.selectedFilters[this.props.type][this.props.table].createdBy;
-      if (selectedCreatedBy.length > 0) {
-        // remove selected users from the options
-        const selectedCreatedByNames = selectedCreatedBy.map((selectedCreatedByItems) => selectedCreatedByItems.name);
-        values = values.filter((user) => {
-          const userid = user.userId;
-          return !selectedCreatedByNames.includes(userid);
-        });
-      }
-    }
+    const values = this.props.createdByList.createdBy;
 
-    // Reduce and Dedupe data
-    if (values.length > 0) {
-      const payload = [];
-      values.forEach((value) => {
-        payload.push({
-          name: value.user.name,
-          user_id: value.user.user_id
-        });
-      });
-      const removeDuplicateNames = _.uniqBy(payload, 'name');
-      values = removeDuplicateNames;
-    }
-
+    // Dedupe data
+    const finalValues = values.length > 0 ? _.uniqBy(values, 'user_id') : [];
     return (
         <DropdownTypeahead
             {...this.props}
             errorHeader="Unknown Name"
             duplicateHeader="Duplicate Name"
             errorDescription="You must select an name from the list that is provided as you type."
-            values={values}
+            values={finalValues}
             keyValue="name"
             internalValue={['user_id']}
             formatter={this.dataFormatter}

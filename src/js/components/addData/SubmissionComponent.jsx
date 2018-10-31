@@ -39,7 +39,7 @@ export default class SubmissionComponent extends React.Component {
                 <div className="row usa-da-submission-instructions">
                     <div className="col-md-12">
                         <p>
-                                Please choose the three files that you want to upload to the DATA Act Broker. Once all
+                                Please choose the three files that you want to upload to the DATA Act Broker. <br /> Once all
                                 three files are chosen, a button will appear at the bottom of the page allowing you to
                                 begin the upload and validation process.
                         </p>
