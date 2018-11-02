@@ -10,6 +10,7 @@ import CommonOverlay from '../SharedComponents/overlays/CommonOverlay';
 
 const propTypes = {
     uploadFiles: PropTypes.func,
+    uploadApiCallError: PropTypes.string,
     submission: PropTypes.object,
     errors: PropTypes.array,
     warnings: PropTypes.array,
@@ -19,6 +20,7 @@ const propTypes = {
 
 const defaultProps = {
     allowUpload: false,
+    uploadApiCallError: '',
     uploadFiles: () => {},
     submission: {},
     errors: [],
@@ -107,6 +109,10 @@ export default class ValidationOverlay extends React.Component {
             header = "You are not authorized to perform the requested task. Please contact your administrator.";
             icon = <Icons.ExclamationCircle />;
             iconClass = 'usa-da-errorRed';
+        }
+
+        if (this.props.uploadApiCallError) {
+            header = this.props.uploadApiCallError;
         }
 
         return (

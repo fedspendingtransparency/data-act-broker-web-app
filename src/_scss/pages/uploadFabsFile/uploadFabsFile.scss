@@ -122,6 +122,9 @@
 	.usa-da-validate-item {
         @import "../validateData/fileItem/fileItem";
         @include fileItem;
+		.file-container {
+			padding-top: rem(20);
+		}
         .usa-da-validate-item-file-section {
         	.usa-da-validate-corrected-file-holder.full-width{
         		.full-overlay{
