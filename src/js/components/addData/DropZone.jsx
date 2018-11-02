@@ -9,6 +9,8 @@ import DOMPurify from 'dompurify';
 
 import DropZoneDisplay from './DropZoneDisplay';
 
+import { validUploadFileChecker } from '../../helpers/util';
+
 const propTypes = {
   onDrop: PropTypes.func,
   resetSubmission: PropTypes.func,
@@ -44,8 +46,7 @@ export default class DropZone extends React.Component {
       const submissionItem = this.props.submission.files[this.props.requestName];
       dropped = ' dropped';
 
-      isFileValid = !!(submissionItem.file &&
-        (submissionItem.file.type === 'text/csv' || submissionItem.file.type === 'text/plain'));
+      isFileValid = validUploadFileChecker(submissionItem);
 
       if (submissionItem.state === 'ready' && isFileValid) {
         dropzoneString = `<b>${submissionItem.file.name}</b> file selected`;

@@ -100,3 +100,12 @@ export const fyStartDate = () => {
 
     return quarterToMonth(1, year, 'start');
 };
+
+export const validUploadFileChecker = (rawFile) => {
+    if (rawFile.file) {
+        const parsed = rawFile.file.name.split('.');
+        const fileType = parsed[parsed.length - 1];
+        return !!((fileType === 'csv' || fileType === 'txt'));
+    }
+    return 'unset';
+};

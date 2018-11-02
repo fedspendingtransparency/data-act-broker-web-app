@@ -12,6 +12,7 @@ import * as PermissionsHelper from '../../helpers/permissionsHelper';
 import * as GenerateFilesHelper from '../../helpers/generateFilesHelper';
 
 import UploadFabsFileError from '../uploadFabsFile/UploadFabsFileError';
+import { validUploadFileChecker } from '../../helpers/util';
 
 const propTypes = {
     onFileChange: PropTypes.func,
@@ -310,6 +311,7 @@ export default class ValidateDataFileComponent extends React.Component {
 
     render() {
         let disabledCorrect = '';
+        let isFileValid = 'unset';
         let messageClass = ' usa-da-validate-item-message';
         if (!this.state.isError && this.isFileReady()) {
             messageClass = '';
@@ -342,9 +344,12 @@ export default class ValidateDataFileComponent extends React.Component {
         let clickDownload = null;
         let clickDownloadClass = '';
 
+
         if (this.isReplacingFile()) {
             // also display the new file name
             const newFile = this.props.submission.files[this.props.type.requestName];
+
+            isFileValid = validUploadFileChecker(newFile);
             fileName = newFile.file.name;
 
             if (newFile.state === 'uploading') {
@@ -394,7 +399,7 @@ export default class ValidateDataFileComponent extends React.Component {
                                 <div
                                     className={"col-md-12 usa-da-validate-txt-wrap" + messageClass}
                                     data-testid="validate-message">
-                                    {this.state.headerTitle}
+                                    {isFileValid ? this.state.headerTitle : `${fileName} must be CSV or TXT format`}
                                 </div>
                             </div>
                             <div className="row usa-da-validate-item-footer-wrapper">
@@ -409,13 +414,13 @@ export default class ValidateDataFileComponent extends React.Component {
                             </div>
                         </div>
 
-                        <div className="col-md-3">
+                        <div className="col-md-3 file-container">
                             <div className="usa-da-validate-item-file-section">
                                 <div className="usa-da-validate-item-file-section-result">
                                     <div
                                         className="usa-da-icon"
                                         data-testid="validate-icon">
-                                        {this.displayIcon()}
+                                        {isFileValid ? this.displayIcon() : <Icons.ExclamationCircle />}
                                     </div>
                                 </div>
                                 {uploadProgress}
@@ -428,8 +433,9 @@ export default class ValidateDataFileComponent extends React.Component {
                                         {fileName}
                                     </div>
                                 </div>
+                                {isFileValid ? '' : `${fileName} must be CSV or TXT format`}
                                 <div
-                                    className={"usa-da-validate-item-file-section-correct-button" + disabledCorrect}
+                                    className={`usa-da-validate-item-file-section-correct-button ${isFileValid ? disabledCorrect : ''}`}
                                     data-testid="validate-upload">
                                     <div className="row">
                                         <div className="col-md-12">
