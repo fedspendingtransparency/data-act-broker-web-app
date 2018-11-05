@@ -27,23 +27,37 @@ class ValidationOverlayContainer extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            notAllowed: false
+            notAllowed: false,
+            uploadApiCallError: ''
         };
     }
 
     uploadFiles() {
         if (kGlobalConstants.LOCAL === true) {
-            UploadHelper.performLocalCorrectedUpload(this.props.submission);
-        }
-        else {
-            UploadHelper.performRemoteCorrectedUpload(this.props.submission)
+            UploadHelper.performLocalCorrectedUpload(this.props.submission)
                 .catch((err) => {
                     if (err.httpStatus === 403) {
-                        console.error(err.message);
                         this.setState({
                             notAllowed: true
                         });
                     }
+                    this.setState({
+                        uploadApiCallError : err.message
+                    });
+                });
+        }
+        else {
+            UploadHelper.performRemoteCorrectedUpload(this.props.submission)
+                .catch((err) => {
+                    console.error(err);
+                    if (err.httpStatus === 403) {
+                        this.setState({
+                            notAllowed: true
+                        });
+                    }
+                    this.setState({
+                        uploadApiCallError : err.message
+                    });
                 });
         }
     }
@@ -77,6 +91,7 @@ class ValidationOverlayContainer extends React.Component {
             <ValidationOverlay
                 {...this.props}
                 uploadFiles={this.uploadFiles.bind(this)}
+                uploadApiCallError={this.state.uploadApiCallError}
                 allowUpload={allowUpload}
                 notAllowed={this.state.notAllowed} />
         );
