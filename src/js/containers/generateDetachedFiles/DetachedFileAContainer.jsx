@@ -30,8 +30,8 @@ export class DetachedFileAContainer extends React.Component {
             agency: '',
             codeType: 'cgac',
             agencyError: false,
-            fy: '',
-            quarter: '',
+            fy: '2019',
+            quarter: 1,
             errorType: '',
             errorMessage: '',
             status: '',
@@ -42,6 +42,8 @@ export class DetachedFileAContainer extends React.Component {
 
         this.generateFileA = this.generateFileA.bind(this);
         this.handleAgencyChange = this.handleAgencyChange.bind(this);
+        this.pickedYear = this.pickedYear.bind(this);
+        this.pickedQuarter = this.pickedQuarter.bind(this);
     }
 
     updateError(message = '') {
@@ -131,6 +133,18 @@ export class DetachedFileAContainer extends React.Component {
         }
     }
 
+    pickedYear(fy) {
+        this.setState({
+            fy
+        });
+    }
+
+    pickedQuarter(quarter) {
+        this.setState({
+            quarter
+        });
+    }
+
     render() {
         return (
             <DetachedFileA
@@ -138,7 +152,11 @@ export class DetachedFileAContainer extends React.Component {
                 generateFileA={this.generateFileA}
                 handleAgencyChange={this.handleAgencyChange}
                 agencyError={this.state.agencyError}
-                status={this.state.status} />
+                status={this.state.status}
+                pickedYear={this.pickedYear}
+                pickedQuarter={this.pickedQuarter}
+                fy={this.state.fy}
+                quarter={this.state.quarter} />
         );
     }
 }

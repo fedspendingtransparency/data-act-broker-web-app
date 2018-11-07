@@ -1,0 +1,49 @@
+.usa-da-detached-file-a-page {
+    @import "../../layouts/content/content";
+    @include contentLayout;
+
+    // import typeahead styles
+    @import "../../components/typeahead/_typeahead";
+
+    @import "./quarterPicker";
+    @import "./fyPicker";
+
+    .select-agency-holder {
+        padding: 15px 30px 30px 30px;
+        @include contentBlockWrapper;
+
+        .usa-da-select-agency-label {
+            margin: 15px 0 10px;
+            text-align: left;
+            font-size: 1.6rem;
+        }
+
+        .dashed-border-top {
+            margin: 31px 0 10px;
+            border-top: 1px dashed $color-gray-lighter;
+        }
+
+        // import the alerts
+        .alert-error {
+            @import "../../components/alerts/_alerts";
+            @include dangerAlert;
+        }
+
+        // style the icons
+        .usa-da-form-icon {
+            @import "../../components/inputs/_fieldIcon";
+            @include fieldIcon;
+        }
+    }
+
+    .description {
+        background-color: $color-gray-lightest;
+        padding: rem(15);
+        margin: rem(15) 0;
+        .description__content {
+            border-left: solid rem(5) $color-primary-alt-light;
+            text-align: left;
+            padding: rem(15);
+        }
+    }
+}

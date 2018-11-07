@@ -9,19 +9,28 @@ import Footer from '../SharedComponents/FooterComponent';
 import AgencyListContainer from '../../containers/SharedContainers/AgencyListContainer';
 
 import * as Icons from '../SharedComponents/icons/Icons';
+import QuarterPicker from "./QuarterPicker";
 
 const propTypes = {
     route: PropTypes.object,
     generateFileA: PropTypes.func,
     handleAgencyChange: PropTypes.func,
-    agencyError: PropTypes.bool
+    agencyError: PropTypes.bool,
+    pickedYear: PropTypes.func,
+    pickedQuarter: PropTypes.func,
+    fy: PropTypes.string,
+    quarter: PropTypes.number
 };
 
 const defaultProps = {
     route: null,
     generateFileA: null,
     handleAgencyChange: null,
-    agencyError: false
+    agencyError: false,
+    pickedYear: null,
+    pickedQuarter: null,
+    fy: '',
+    quarter: 0
 };
 
 export default class DetachedFileA extends React.Component {
@@ -34,7 +43,7 @@ export default class DetachedFileA extends React.Component {
         }
 
         return (
-            <div className="usa-da-generate-detached-files-page">
+            <div className="usa-da-detached-file-a-page">
                 <div className="usa-da-site_wrap">
                     <div className="usa-da-page-content">
                         <Navbar activeTab="submissionGuide" type={this.props.route.type} />
@@ -79,6 +88,11 @@ export default class DetachedFileA extends React.Component {
                                                 non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
                                             </div>
                                         </div>
+                                        <QuarterPicker
+                                            pickedYear={this.props.pickedYear}
+                                            pickedQuarter={this.props.pickedQuarter}
+                                            fy={this.props.fy}
+                                            quarter={this.props.quarter} />
                                     </div>
                                 </div>
                             </div>
