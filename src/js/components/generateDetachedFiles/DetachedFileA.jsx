@@ -10,32 +10,73 @@ import AgencyListContainer from '../../containers/SharedContainers/AgencyListCon
 
 import * as Icons from '../SharedComponents/icons/Icons';
 import QuarterPicker from "./QuarterPicker";
+import GenerateButton from "./GenerateButton";
 
 const propTypes = {
     route: PropTypes.object,
     generateFileA: PropTypes.func,
-    handleAgencyChange: PropTypes.func,
-    agencyError: PropTypes.bool,
-    pickedYear: PropTypes.func,
-    pickedQuarter: PropTypes.func,
-    fy: PropTypes.string,
-    quarter: PropTypes.number,
     status: PropTypes.string
 };
 
 const defaultProps = {
     route: null,
     generateFileA: null,
-    handleAgencyChange: null,
-    agencyError: false,
-    pickedYear: null,
-    pickedQuarter: null,
-    fy: '',
-    quarter: 1,
     status: ''
 };
 
 export default class DetachedFileA extends React.Component {
+    constructor(props) {
+        super(props);
+
+        this.state = {
+            agency: '',
+            codeType: 'cgac',
+            agencyError: false,
+            // TODO - Lizzie: use dynamic current FY and quarter
+            fy: '2019',
+            quarter: 1
+        };
+
+        this.handleAgencyChange = this.handleAgencyChange.bind(this);
+        this.pickedYear = this.pickedYear.bind(this);
+        this.pickedQuarter = this.pickedQuarter.bind(this);
+        this.generate = this.generate.bind(this);
+    }
+
+    handleAgencyChange(agency, codeType, isValid) {
+        // display or hide file generation based on agency validity and set agency
+        if (agency !== '' && isValid) {
+            this.setState({
+                agency,
+                codeType,
+                agencyError: false
+            });
+        }
+        else {
+            this.setState({
+                agency: '',
+                codeType: null,
+                agencyError: true
+            });
+        }
+    }
+
+    pickedYear(fy) {
+        this.setState({
+            fy
+        });
+    }
+
+    pickedQuarter(quarter) {
+        this.setState({
+            quarter
+        });
+    }
+
+    generate() {
+        this.props.generateFileA(this.state.agency, this.state.codeType, this.state.quarter, this.state.fy);
+    }
+
     render() {
         let agencyIcon = <Icons.Building />;
         let agencyClass = '';
@@ -73,7 +114,7 @@ export default class DetachedFileA extends React.Component {
                                                 data-testid="agencytypeahead">
                                                 <AgencyListContainer
                                                     placeholder="Enter the name of the reporting agency"
-                                                    onSelect={this.props.handleAgencyChange}
+                                                    onSelect={this.handleAgencyChange}
                                                     customClass={agencyClass} />
                                                 <div className={"usa-da-icon usa-da-form-icon" + agencyClass}>
                                                     {agencyIcon}
@@ -96,12 +137,16 @@ export default class DetachedFileA extends React.Component {
                                             </div>
                                             <div className="file-a-section__date">
                                                 <QuarterPicker
-                                                    pickedYear={this.props.pickedYear}
-                                                    pickedQuarter={this.props.pickedQuarter}
-                                                    fy={this.props.fy}
-                                                    quarter={this.props.quarter} />
+                                                    pickedYear={this.pickedYear}
+                                                    pickedQuarter={this.pickedQuarter}
+                                                    fy={this.state.fy}
+                                                    quarter={this.state.quarter} />
                                             </div>
                                         </div>
+                                        <GenerateButton
+                                            agency={this.state.agency}
+                                            generate={this.generate}
+                                            status={this.props.status} />
                                     </div>
                                 </div>
                             </div>

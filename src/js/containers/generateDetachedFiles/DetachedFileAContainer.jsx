@@ -27,11 +27,6 @@ export class DetachedFileAContainer extends React.Component {
         super(props);
 
         this.state = {
-            agency: '',
-            codeType: 'cgac',
-            agencyError: false,
-            fy: '2019',
-            quarter: 1,
             errorType: '',
             errorMessage: '',
             status: '',
@@ -41,9 +36,6 @@ export class DetachedFileAContainer extends React.Component {
         this.request = null;
 
         this.generateFileA = this.generateFileA.bind(this);
-        this.handleAgencyChange = this.handleAgencyChange.bind(this);
-        this.pickedYear = this.pickedYear.bind(this);
-        this.pickedQuarter = this.pickedQuarter.bind(this);
     }
 
     updateError(message = '') {
@@ -53,15 +45,16 @@ export class DetachedFileAContainer extends React.Component {
         });
     }
 
-    generateFileA() {
+    generateFileA(agency, codeType, quarter, fy) {
         this.setState({
             status: 'generating'
         });
 
         const params = {
-            agency: this.state.agency,
-            fy: this.state.fy,
-            quarter: this.state.quarter
+            file_type: 'A',
+            cgac_code: codeType !== 'frec_code' ? agency : '',
+            frec_code: codeType === 'frec_code' ? agency : '',
+            quarter: `Q${quarter}/${fy}`
         };
 
         GenerateFilesHelper.generateDetachedFile(params)
@@ -115,48 +108,12 @@ export class DetachedFileAContainer extends React.Component {
         }
     }
 
-    handleAgencyChange(agency, codeType, isValid) {
-        // display or hide file generation based on agency validity and set agency
-        if (agency !== '' && isValid) {
-            this.setState({
-                agency,
-                codeType,
-                agencyError: false
-            });
-        }
-        else {
-            this.setState({
-                agency: '',
-                codeType: null,
-                agencyError: true
-            });
-        }
-    }
-
-    pickedYear(fy) {
-        this.setState({
-            fy
-        });
-    }
-
-    pickedQuarter(quarter) {
-        this.setState({
-            quarter
-        });
-    }
-
     render() {
         return (
             <DetachedFileA
                 {...this.props}
                 generateFileA={this.generateFileA}
-                handleAgencyChange={this.handleAgencyChange}
-                agencyError={this.state.agencyError}
-                status={this.state.status}
-                pickedYear={this.pickedYear}
-                pickedQuarter={this.pickedQuarter}
-                fy={this.state.fy}
-                quarter={this.state.quarter} />
+                status={this.state.status} />
         );
     }
 }

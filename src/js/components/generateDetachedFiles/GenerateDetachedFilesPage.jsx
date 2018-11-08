@@ -201,8 +201,16 @@ export default class GenerateDetachedFilesPage extends React.Component {
         tmpFile.status = "generating";
         this.setState({ [file]: tmpFile });
 
-        GenerateFilesHelper.generateDetachedFile(file.toUpperCase(), tmpFile.startDate.format('MM/DD/YYYY'),
-            tmpFile.endDate.format('MM/DD/YYYY'), cgacCode, frecCode, agencyType)
+        const params = {
+            file_type: file.toUpperCase(),
+            cgac_code: cgacCode,
+            frec_code: frecCode,
+            start: tmpFile.startDate.format('MM/DD/YYYY'),
+            end: tmpFile.endDate.format('MM/DD/YYYY'),
+            agency_type: agencyType
+        };
+
+        GenerateFilesHelper.generateDetachedFile(params)
             .then((response) => {
                 if (this.isUnmounted) {
                     return;

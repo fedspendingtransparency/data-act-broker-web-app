@@ -90,18 +90,11 @@ export const getFabsMeta = (submissionId) => {
     return deferred.promise;
 };
 
-export const generateDetachedFile = (type, start, end, cgacCode, frecCode, agencyType) => {
+export const generateDetachedFile = (params) => {
     const deferred = Q.defer();
 
     Request.post(kGlobalConstants.API + 'generate_detached_file/')
-        .send({
-            file_type: type,
-            start,
-            end,
-            cgac_code: cgacCode,
-            frec_code: frecCode,
-            agency_type: agencyType
-        })
+        .send(params)
         .end((errFile, res) => {
             if (errFile) {
                 const response = Object.assign({}, res.body);
