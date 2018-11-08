@@ -1,6 +1,8 @@
 @import '../../abstract/mixins/buttons';
 .fy-picker {
     @include display(flex);
+    padding: 0 rem(15);
+
     .fy-picker__header {
         @include display(flex);
         @include justify-content(flex-start);

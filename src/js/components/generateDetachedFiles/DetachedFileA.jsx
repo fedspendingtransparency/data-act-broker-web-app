@@ -19,7 +19,8 @@ const propTypes = {
     pickedYear: PropTypes.func,
     pickedQuarter: PropTypes.func,
     fy: PropTypes.string,
-    quarter: PropTypes.number
+    quarter: PropTypes.number,
+    status: PropTypes.string
 };
 
 const defaultProps = {
@@ -30,7 +31,8 @@ const defaultProps = {
     pickedYear: null,
     pickedQuarter: null,
     fy: '',
-    quarter: 0
+    quarter: 1,
+    status: ''
 };
 
 export default class DetachedFileA extends React.Component {
@@ -88,11 +90,18 @@ export default class DetachedFileA extends React.Component {
                                                 non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
                                             </div>
                                         </div>
-                                        <QuarterPicker
-                                            pickedYear={this.props.pickedYear}
-                                            pickedQuarter={this.props.pickedQuarter}
-                                            fy={this.props.fy}
-                                            quarter={this.props.quarter} />
+                                        <div className="file-a-section">
+                                            <div className="file-a-section__label">
+                                                File A: Appropriations Accounts
+                                            </div>
+                                            <div className="file-a-section__date">
+                                                <QuarterPicker
+                                                    pickedYear={this.props.pickedYear}
+                                                    pickedQuarter={this.props.pickedQuarter}
+                                                    fy={this.props.fy}
+                                                    quarter={this.props.quarter} />
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
                             </div>

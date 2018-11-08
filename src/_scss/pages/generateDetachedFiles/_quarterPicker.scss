@@ -1,6 +1,7 @@
 @import '../../abstract/mixins/utilities';
 .quarter-picker {
     @include display(flex);
+    padding: 0 rem(15);
 
     ul.quarter-picker__list {
         @include unstyled-list;

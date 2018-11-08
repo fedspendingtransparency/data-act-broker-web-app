@@ -5,9 +5,6 @@
     // import typeahead styles
     @import "../../components/typeahead/_typeahead";
 
-    @import "./quarterPicker";
-    @import "./fyPicker";
-
     .select-agency-holder {
         padding: 15px 30px 30px 30px;
         @include contentBlockWrapper;
@@ -33,6 +30,28 @@
         .usa-da-form-icon {
             @import "../../components/inputs/_fieldIcon";
             @include fieldIcon;
+        }
+    }
+
+    .file-a-section {
+        @include display(flex);
+        .file-a-section__label {
+            @include display(flex);
+            @include justify-content(center);
+            @include flex(0 0 33%);
+            padding: rem(45) rem(15);
+            font-weight: $font-semibold;
+            border: solid rem(1) $color-gray-lighter;
+        }
+        .file-a-section__date {
+            @include display(flex);
+            @include flex(1 1 67%);
+            @include justify-content(center);
+            padding: rem(45) rem(15);
+            border: solid rem(1) $color-gray-lighter;
+            border-left: 0;
+            @import "./quarterPicker";
+            @import "./fyPicker";
         }
     }
 
