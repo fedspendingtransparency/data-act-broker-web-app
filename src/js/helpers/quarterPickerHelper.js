@@ -14,18 +14,22 @@ export const handlePotentialStrings = (input) => {
 };
 
 export const mostRecentQuarter = () => {
-    // go back 45 days prior to today
-    const todayAdjusted = moment().subtract(utils.quarterCloseWindow, 'days');
-    // determine the quarter that date was in
-    let quarter = utils.convertDateToQuarter(todayAdjusted);
+    // get the latest quarter for which GTAS data is available
+    const today = moment();
+    let year = today.year();
+    let quarter = 4;
 
-    const year = utils.defaultFiscalYear();
-
-    // now go back one additional quarter (so we go to the most recently closed quarter, rather than
-    // the active in-progress quarter)
-    quarter -= 1;
-    if (quarter === 0) {
-        quarter = 4;
+    if (today.isBetween(moment(`01/01/${year}`, 'MM-DD-YYYY'), moment(`01-08-${year}`, 'MM-DD-YYYY'))) {
+        year -= 1;
+    }
+    else if (today.isBetween(moment(`01/08/${year}`, 'MM-DD-YYYY'), moment(`04/05/${year}`, 'MM-DD-YYYY'))) {
+        quarter = 1;
+    }
+    else if (today.isBetween(moment(`04/05/${year}`, 'MM-DD-YYYY'), moment(`06/05/${year}`, 'MM-DD-YYYY'))) {
+        quarter = 2;
+    }
+    else if (today.isBetween(moment(`06/05/${year}`, 'MM-DD-YYYY'), moment(`10/05/${year}`, 'MM-DD-YYYY'))) {
+        quarter = 3;
     }
 
     return {
