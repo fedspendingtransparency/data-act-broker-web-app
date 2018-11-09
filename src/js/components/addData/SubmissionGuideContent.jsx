@@ -135,8 +135,9 @@ export default class SubmissionGuideContent extends React.Component {
                                         </ul>
                                         <p>
                                             Submission information, including sample files and explanations of how Files
-                                            D1, D2, E and F are generated, is available on the DAIMS page of the Data
-                                            Transparency site for the Bureau of the Fiscal Service.
+                                            D1, D2, E and F are generated, is available on the&nbsp;
+                                            <a target="_blank" rel="noopener noreferrer" href="https://fiscal.treasury.gov/fsservices/gov/data-trans/dt-daims.htm">DAIMS</a>
+                                            &nbsp;page of the Data Transparency site for the Bureau of the Fiscal Service.
                                         </p>
                                     </div>
                                 </div>
