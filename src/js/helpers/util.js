@@ -109,3 +109,60 @@ export const validUploadFileChecker = (rawFile) => {
     }
     return 'unset';
 };
+
+export const earliestFileAYear = 2017;
+// number of days to wait after the close of each quarter before enabling it
+export const quarterCloseWindow = 45;
+
+export const convertDateToQuarter = (date) => {
+    // Returns the fiscal quarter that the date falls in
+    let quarter = 0;
+    const month = moment(date).month();
+
+    if (month >= 9 && month <= 11) {
+        quarter = 1;
+    }
+
+    else if (month >= 0 && month <= 2) {
+        quarter = 2;
+    }
+
+    else if (month >= 3 && month <= 5) {
+        quarter = 3;
+    }
+    else if (month >= 6 && month <= 8) {
+        quarter = 4;
+    }
+
+    return quarter;
+};
+
+export const currentFiscalYear = () => {
+    // determine the current fiscal year
+    const currentMonth = moment().month();
+    let currentFY = moment().year();
+    if (currentMonth >= 9) {
+        // months are zero-indexed, so 9 is October
+        // starting in October we are in the next fiscal year
+        currentFY = moment().year() + 1;
+    }
+
+    return currentFY;
+};
+
+export const defaultFiscalYear = () => {
+    // Calculate the configurable delay for Q1 close so that we aren't requesting data
+    // for a new FY when no data exists in it yet
+    const today = moment();
+    const newFiscalYearStartDate = moment()
+        .startOf('year')
+        .add(quarterCloseWindow, 'days');
+    // momentjs has zero-based months (https://momentjs.com/docs/#/get-set/month/)
+    const newFiscalYearEndDate = moment([moment().year(), '8', '30']);
+
+    if (today.isSameOrAfter(newFiscalYearStartDate) && today.isSameOrBefore(newFiscalYearEndDate)) {
+        return currentFiscalYear();
+    }
+
+    return currentFiscalYear() - 1;
+};

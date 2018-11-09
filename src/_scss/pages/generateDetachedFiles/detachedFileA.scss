@@ -35,6 +35,7 @@
 
     .file-a-section {
         @include display(flex);
+        padding-bottom: rem(30);
         .file-a-section__label {
             @include display(flex);
             @include justify-content(center);
@@ -64,5 +65,14 @@
             text-align: left;
             padding: rem(15);
         }
+    }
+
+    .right-align-box {
+        text-align: right;
+    }
+
+    .generate-button {
+        @import "../../components/buttons/_optional";
+        @include optionalButton;
     }
 }

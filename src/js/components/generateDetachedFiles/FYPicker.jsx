@@ -4,17 +4,12 @@
  */
 
 import React, { PropTypes } from 'react';
-
+import * as utils from '../../helpers/util';
 import { AngleDown } from '../SharedComponents/icons/Icons';
 
 const propTypes = {
-    fy: PropTypes.string,
-    pickedYear: PropTypes.func
-};
-
-const defaultProps = {
-    fy: '',
-    pickedYear: null
+    fy: PropTypes.string.isRequired,
+    pickedYear: PropTypes.func.isRequired
 };
 
 export default class FYPicker extends React.Component {
@@ -65,9 +60,8 @@ export default class FYPicker extends React.Component {
         });
     }
 
-    clickedYear(e) {
-        e.preventDefault();
-        this.props.pickedYear(e.target.value);
+    clickedYear(year) {
+        this.props.pickedYear(year);
         this.setState({
             expanded: false
         });
@@ -75,10 +69,8 @@ export default class FYPicker extends React.Component {
 
     render() {
         const fy = [];
-        // TODO - Lizzie: use helper method
-        const currentFY = '2019';
-        const earliestFY = '2017';
-        for (let year = currentFY; year >= earliestFY; year--) {
+        const currentFY = utils.defaultFiscalYear();
+        for (let year = currentFY; year >= utils.earliestFileAYear; year--) {
             const item = (
                 <li
                     key={year}
@@ -86,7 +78,7 @@ export default class FYPicker extends React.Component {
                     <button
                         className="fy-picker__list-button"
                         value={year}
-                        onClick={this.clickedYear}>
+                        onClick={() => this.clickedYear(`${year}`)}>
                         FY {year}
                     </button>
                 </li>
@@ -129,4 +121,3 @@ export default class FYPicker extends React.Component {
 }
 
 FYPicker.propTypes = propTypes;
-FYPicker.defaultProps = defaultProps;

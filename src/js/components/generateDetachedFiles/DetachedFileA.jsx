@@ -7,10 +7,13 @@ import React, { PropTypes } from 'react';
 import Navbar from '../SharedComponents/navigation/NavigationComponent';
 import Footer from '../SharedComponents/FooterComponent';
 import AgencyListContainer from '../../containers/SharedContainers/AgencyListContainer';
+import { defaultQuarters } from '../../helpers/quarterPickerHelper';
 
 import * as Icons from '../SharedComponents/icons/Icons';
 import QuarterPicker from "./QuarterPicker";
 import GenerateButton from "./GenerateButton";
+
+const initialQuarters = defaultQuarters();
 
 const propTypes = {
     route: PropTypes.object,
@@ -32,9 +35,8 @@ export default class DetachedFileA extends React.Component {
             agency: '',
             codeType: 'cgac',
             agencyError: false,
-            // TODO - Lizzie: use dynamic current FY and quarter
-            fy: '2019',
-            quarter: 1
+            fy: `${initialQuarters.year}`,
+            quarter: Math.max(...initialQuarters.quarters)
         };
 
         this.handleAgencyChange = this.handleAgencyChange.bind(this);

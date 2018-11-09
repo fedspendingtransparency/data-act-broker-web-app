@@ -25,12 +25,14 @@ export default class GenerateButton extends React.Component {
             message = 'Regenerate';
         }
         return (
-            <button
-                className="generate-button"
-                disabled={disabled}
-                onClick={this.props.generate}>
-                {message}
-            </button>
+            <div className="right-align-box">
+                <button
+                    className="usa-da-button btn-default generate-button"
+                    disabled={disabled}
+                    onClick={this.props.generate}>
+                    {message}
+                </button>
+            </div>
         );
     }
 }

@@ -5,24 +5,16 @@
 
 import React, { PropTypes } from 'react';
 
+import { availableQuartersInFY } from '../../helpers/quarterPickerHelper';
+
 import FYPicker from './FYPicker';
 import QuarterButton from './QuarterButton';
 
-// TODO - Lizzie: use a helper method
-const availableQuarters = [2, 3, 4];
-
 const propTypes = {
-    fy: PropTypes.string,
-    quarter: PropTypes.number,
-    pickedQuarter: PropTypes.func,
-    pickedYear: PropTypes.func
-};
-
-const defaultProps = {
-    fy: '',
-    quarter: 0,
-    pickedQuarter: null,
-    pickedYear: null
+    fy: PropTypes.string.isRequired,
+    quarter: PropTypes.number.isRequired,
+    pickedQuarter: PropTypes.func.isRequired,
+    pickedYear: PropTypes.func.isRequired
 };
 
 export default class QuarterPicker extends React.Component {
@@ -53,7 +45,7 @@ export default class QuarterPicker extends React.Component {
     }
 
     hoveredQuarter(quarter) {
-        // const availableQuarters = availableQuartersInFY(this.props.fy).quarters;
+        const availableQuarters = availableQuartersInFY(this.props.fy).quarters;
         const newState = {};
         for (let i = 1; i <= 4; i++) {
             newState[`Q${i}`] = Boolean(quarter >= i && availableQuarters.indexOf(i) > -1);
@@ -69,7 +61,7 @@ export default class QuarterPicker extends React.Component {
     }
 
     render() {
-        // const availableQuarters = availableQuartersInFY(this.props.fy).quarters;
+        const availableQuarters = availableQuartersInFY(this.props.fy).quarters;
         return (
             <div className="quarter-picker">
                 <div className="quarter-picker__fy">
@@ -123,4 +115,3 @@ export default class QuarterPicker extends React.Component {
 }
 
 QuarterPicker.propTypes = propTypes;
-QuarterPicker.defaultProps = defaultProps;
