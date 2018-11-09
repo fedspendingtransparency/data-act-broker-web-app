@@ -4,33 +4,35 @@
  */
 
 import React, { PropTypes } from 'react';
+import LoadingBauble from '../SharedComponents/overlays/LoadingBauble';
 
 const propTypes = {
-    agency: PropTypes.string,
-    generate: PropTypes.func,
-    status: PropTypes.string
-};
-
-const defaultProps = {
-    agency: '',
-    generate: () => {},
-    status: ''
+    agency: PropTypes.string.isRequired,
+    generate: PropTypes.func.isRequired,
+    status: PropTypes.string.isRequired
 };
 
 export default class GenerateButton extends React.Component {
     render() {
         let message = 'Generate File A';
-        const disabled = (this.props.status === 'generating') || !this.props.agency;
-        if (this.props.status === 'done' || this.props.status === 'failed') {
-            message = 'Regenerate';
+        let loadingMessage = '';
+        if (this.props.status === 'generating') {
+            message = 'Generating';
+            loadingMessage = <LoadingBauble />;
         }
+        else if (this.props.status === 'done') {
+            message = 'Regenerate File A';
+        }
+
+        const disabled = (this.props.status === 'generating') || !this.props.agency;
+
         return (
             <div className="right-align-box">
                 <button
                     className="usa-da-button btn-default generate-button"
                     disabled={disabled}
                     onClick={this.props.generate}>
-                    {message}
+                    {loadingMessage}{message}
                 </button>
             </div>
         );
@@ -38,4 +40,3 @@ export default class GenerateButton extends React.Component {
 }
 
 GenerateButton.propTypes = propTypes;
-GenerateButton.defaultProps = defaultProps;

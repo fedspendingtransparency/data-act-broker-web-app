@@ -5,6 +5,13 @@
     // import typeahead styles
     @import "../../components/typeahead/_typeahead";
 
+    .detached-heading {
+        font-size: rem(22);
+        padding-bottom: rem(22);
+        font-weight: $font-bold;
+        color: $color-gray;
+    }
+
     .select-agency-holder {
         padding: 15px 30px 30px 30px;
         @include contentBlockWrapper;
@@ -74,5 +81,22 @@
     .generate-button {
         @import "../../components/buttons/_optional";
         @include optionalButton;
+
+        @import "../../lib/spinkit/spinners/2-double-bounce";
+
+        .sk-double-bounce {
+            margin: 0;
+            margin-right: 7.5px;
+
+            display: inline-block;
+            width: 15px;
+            height: 15px;
+
+            top: 2px;
+
+            .sk-child {
+                background-color: black;
+            }
+        }
     }
 }

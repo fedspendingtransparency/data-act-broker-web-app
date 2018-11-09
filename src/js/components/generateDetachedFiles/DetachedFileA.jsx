@@ -12,19 +12,26 @@ import { defaultQuarters } from '../../helpers/quarterPickerHelper';
 import * as Icons from '../SharedComponents/icons/Icons';
 import QuarterPicker from "./QuarterPicker";
 import GenerateButton from "./GenerateButton";
+import DownloadFile from "./DownloadFile";
 
 const initialQuarters = defaultQuarters();
 
 const propTypes = {
     route: PropTypes.object,
     generateFileA: PropTypes.func,
-    status: PropTypes.string
+    status: PropTypes.string,
+    errorType: PropTypes.string,
+    errorMessage: PropTypes.string,
+    url: PropTypes.string
 };
 
 const defaultProps = {
     route: null,
-    generateFileA: null,
-    status: ''
+    generateFileA: () => {},
+    status: '',
+    errorType: '',
+    errorMessage: '',
+    url: ''
 };
 
 export default class DetachedFileA extends React.Component {
@@ -105,7 +112,7 @@ export default class DetachedFileA extends React.Component {
                         <div className="container center-block">
                             <div className="row text-center usa-da-select-agency">
                                 <div className="col-lg-offset-2 col-lg-8 mt-60 mb-60">
-                                    <h5>Please begin by telling us about the files you would like to generate</h5>
+                                    <div className="detached-heading">Please begin by telling us about the files you would like to generate.</div>
                                     <div className="select-agency-holder">
                                         <div className="row usa-da-select-agency-label">
                                             The generated files will be used when submitting data for...
@@ -129,8 +136,7 @@ export default class DetachedFileA extends React.Component {
                                                 tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
                                                 quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
                                                 consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
-                                                cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat
-                                                non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+                                                cillum dolore eu fugiat nulla pariatur.
                                             </div>
                                         </div>
                                         <div className="file-a-section">
@@ -149,6 +155,11 @@ export default class DetachedFileA extends React.Component {
                                             agency={this.state.agency}
                                             generate={this.generate}
                                             status={this.props.status} />
+                                        <DownloadFile
+                                            label="File A: Appropriations Accounts"
+                                            errorType={this.props.errorType}
+                                            errorMessage={this.props.errorMessage}
+                                            url={this.props.url} />
                                     </div>
                                 </div>
                             </div>

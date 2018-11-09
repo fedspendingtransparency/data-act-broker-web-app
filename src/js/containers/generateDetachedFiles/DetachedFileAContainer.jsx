@@ -38,13 +38,6 @@ export class DetachedFileAContainer extends React.Component {
         this.generateFileA = this.generateFileA.bind(this);
     }
 
-    updateError(message = '') {
-        // Show any error that occurs at any point during file upload
-        this.setState({
-            error: message
-        });
-    }
-
     generateFileA(agency, codeType, quarter, fy) {
         this.setState({
             status: 'generating'
@@ -60,6 +53,13 @@ export class DetachedFileAContainer extends React.Component {
         GenerateFilesHelper.generateDetachedFile(params)
             .then((response) => {
                 this.parseFileState(response);
+            })
+            .catch(() => {
+                this.setState({
+                    status: 'failed',
+                    errorType: 'Request Error',
+                    errorMessage: 'There was a problem with the request.'
+                });
             });
     }
 
@@ -112,8 +112,8 @@ export class DetachedFileAContainer extends React.Component {
         return (
             <DetachedFileA
                 {...this.props}
-                generateFileA={this.generateFileA}
-                status={this.state.status} />
+                {...this.state}
+                generateFileA={this.generateFileA} />
         );
     }
 }
