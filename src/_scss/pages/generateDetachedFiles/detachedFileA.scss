@@ -47,7 +47,7 @@
             @include display(flex);
             @include justify-content(center);
             @include flex(0 0 33%);
-            padding: rem(45) rem(15);
+            padding: rem(45) rem(10);
             font-weight: $font-semibold;
             border: solid rem(1) $color-gray-lighter;
         }
@@ -71,6 +71,12 @@
             border-left: solid rem(5) $color-primary-alt-light;
             text-align: left;
             padding: rem(15);
+            p {
+                margin-bottom: rem(15);
+                &:last-child {
+                    margin-bottom: 0;
+                }
+            }
         }
     }
 

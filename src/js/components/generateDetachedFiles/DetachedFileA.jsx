@@ -112,10 +112,10 @@ export default class DetachedFileA extends React.Component {
                         <div className="container center-block">
                             <div className="row text-center usa-da-select-agency">
                                 <div className="col-lg-offset-2 col-lg-8 mt-60 mb-60">
-                                    <div className="detached-heading">Please begin by telling us about the files you would like to generate.</div>
+                                    <div className="detached-heading">Please begin by telling us about the file you would like to generate.</div>
                                     <div className="select-agency-holder">
                                         <div className="row usa-da-select-agency-label">
-                                            The generated files will be used when submitting data for...
+                                            The generated file will be used when submitting data for...
                                         </div>
                                         <div className="row">
                                             <div
@@ -132,11 +132,36 @@ export default class DetachedFileA extends React.Component {
                                         </div>
                                         <div className="description">
                                             <div className="description__content">
-                                                Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod
-                                                tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
-                                                quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
-                                                consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
-                                                cillum dolore eu fugiat nulla pariatur.
+                                                <p>
+                                                    Select a Fiscal Year, Quarter, and Agency, and the Broker will
+                                                    generate a provisional File A for that agency. You are responsible
+                                                    for reviewing and amending (e.g., if any TAS need to be added or
+                                                    deleted) the generated File A to remedy any deficiencies it may
+                                                    have before certifying to it in any submission.
+                                                </p>
+                                                <p>
+                                                    File A generation changes nothing about the existing DABS
+                                                    submission process (including validation, cross-file validation,
+                                                    and certification), other than facilitating reconciliation and
+                                                    providing a starting point for agency submissions. File A is
+                                                    generated outside the submission context. The Broker will not
+                                                    automatically attach it to any submission.
+                                                </p>
+                                                <p>
+                                                    Consistent with DATA Act Broker Quarterly Submissions (DABS)
+                                                    guidelines, generated files are at the 'agency-wide level'; the
+                                                    goal is to include all accounts for a given agency that are
+                                                    appropriate for DATA Act submissions. Financing accounts are
+                                                    automatically excluded, and child allocation accounts are bucketed
+                                                    with the child agency. File A is generated based on GTAS SF-133
+                                                    data, which GTAS provides to the Broker on a daily basis during any
+                                                    reporting/revision windows (note that the Broker will take up to 24
+                                                    hours to load these daily files after receiving them from GTAS).
+                                                    For a more detailed explanation of the approach for generating File
+                                                    A, see the Practices and Procedures document available on the&nbsp;
+                                                    <a target="_blank" rel="noopener noreferrer" href="https://fiscal.treasury.gov/fsservices/gov/data-trans/dt-daims.htm">DAIMS</a>
+                                                    &nbsp;page of the Data Transparency site of the Bureau of the Fiscal Service.
+                                                </p>
                                             </div>
                                         </div>
                                         <div className="file-a-section">

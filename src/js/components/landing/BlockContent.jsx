@@ -86,7 +86,7 @@ export default class BlockContent extends React.Component {
                 <LandingBlock
                     type={this.props.type}
                     icon={<Icons.CloudDownload />}
-                    text="[Copy Pending]"
+                    text="Generate File A for reconciliation purposes or as a starting point for your submission."
                     buttonText="Generate File A"
                     url="#/generateDetachedFileA" />
             );
