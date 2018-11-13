@@ -33,8 +33,6 @@ export class DetachedFileAContainer extends React.Component {
             url: ''
         };
 
-        this.request = null;
-
         this.generateFileA = this.generateFileA.bind(this);
     }
 
@@ -53,13 +51,18 @@ export class DetachedFileAContainer extends React.Component {
         GenerateFilesHelper.generateDetachedFile(params)
             .then((response) => {
                 this.parseFileState(response);
-            })
-            .catch(() => {
-                this.setState({
-                    status: 'failed',
-                    errorType: 'Request Error',
-                    errorMessage: 'There was a problem with the request.'
-                });
+            });
+    }
+
+    checkFileStatus(jobId) {
+        // callback to check file status
+        GenerateFilesHelper.fetchDetachedFile(jobId)
+            .then((response) => {
+                if (this.isUnmounted) {
+                    return;
+                }
+
+                this.parseFileState(response);
             });
     }
 
