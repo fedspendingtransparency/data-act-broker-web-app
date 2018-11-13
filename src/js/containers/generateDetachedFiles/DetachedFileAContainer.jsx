@@ -85,6 +85,7 @@ export class DetachedFileAContainer extends React.Component {
             const message = data.message || 'File A could not be generated.';
 
             this.setState({
+                status: data.status,
                 errorType: 'File A Error',
                 errorMessage: message
             });
@@ -95,10 +96,7 @@ export class DetachedFileAContainer extends React.Component {
 
             this.setState({
                 errorType: '',
-                errorMessage: ''
-            });
-
-            this.setState({
+                errorMessage: '',
                 status: 'done',
                 url: data.url
             });
