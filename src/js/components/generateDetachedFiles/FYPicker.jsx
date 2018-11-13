@@ -5,6 +5,7 @@
 
 import React, { PropTypes } from 'react';
 import * as utils from '../../helpers/util';
+import * as quarterPickerHelper from '../../helpers/quarterPickerHelper';
 import { AngleDown } from '../SharedComponents/icons/Icons';
 
 const propTypes = {
@@ -69,7 +70,7 @@ export default class FYPicker extends React.Component {
 
     render() {
         const fy = [];
-        const currentFY = utils.defaultFiscalYear();
+        const currentFY = quarterPickerHelper.defaultFiscalYear();
         for (let year = currentFY; year >= utils.earliestFileAYear; year--) {
             const item = (
                 <li

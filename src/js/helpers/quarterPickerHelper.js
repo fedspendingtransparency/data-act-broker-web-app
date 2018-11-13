@@ -91,3 +91,8 @@ export const defaultQuarters = () => {
     const current = mostRecentQuarter();
     return availableQuartersInFY(current.year);
 };
+
+export const defaultFiscalYear = () => {
+    const current = mostRecentQuarter();
+    return current.year;
+};
