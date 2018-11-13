@@ -94,6 +94,17 @@ export default class DetachedFileA extends React.Component {
             agencyClass = ' error usa-da-form-icon';
         }
 
+        let submissionLink = null;
+        if (this.props.status === 'done') {
+            submissionLink = (
+                <div className="submission-link">
+                    <a href="/#/submissionGuide">
+                        Start a new submission
+                    </a>
+                </div>
+            );
+        }
+
         return (
             <div className="usa-da-detached-file-a-page">
                 <div className="usa-da-site_wrap">
@@ -136,8 +147,8 @@ export default class DetachedFileA extends React.Component {
                                                     Select a Fiscal Year, Quarter, and Agency, and the Broker will
                                                     generate a provisional File A for that agency. You are responsible
                                                     for reviewing and amending (e.g., if any TAS need to be added or
-                                                    deleted) the generated File A to remedy any deficiencies it may
-                                                    have before certifying to it in any submission.
+                                                    deleted) the generated File A for accuracy and completeness before
+                                                    certifying to it in any submission.
                                                 </p>
                                                 <p>
                                                     File A generation changes nothing about the existing DABS
@@ -185,6 +196,7 @@ export default class DetachedFileA extends React.Component {
                                             errorType={this.props.errorType}
                                             errorMessage={this.props.errorMessage}
                                             url={this.props.url} />
+                                        {submissionLink}
                                     </div>
                                 </div>
                             </div>
