@@ -42,7 +42,6 @@
 
     .file-a-section {
         @include display(flex);
-        padding-bottom: rem(30);
         .file-a-section__label {
             @include display(flex);
             @include justify-content(center);
@@ -103,6 +102,15 @@
             .sk-child {
                 background-color: black;
             }
+        }
+    }
+
+    @import "../generateFiles/generateItem/generateItem";
+
+    .usa-da-generate-item-wrap {
+        margin-bottom: rem(10);
+        .usa-da-generate-item {
+            border: 0;
         }
     }
 

@@ -187,15 +187,15 @@ export default class DetachedFileA extends React.Component {
                                                     quarter={this.state.quarter} />
                                             </div>
                                         </div>
-                                        <GenerateButton
-                                            agency={this.state.agency}
-                                            generate={this.generate}
-                                            status={this.props.status} />
                                         <DownloadFile
                                             label="File A: Appropriations Accounts"
                                             errorType={this.props.errorType}
                                             errorMessage={this.props.errorMessage}
                                             url={this.props.url} />
+                                        <GenerateButton
+                                            agency={this.state.agency}
+                                            generate={this.generate}
+                                            status={this.props.status} />
                                         {submissionLink}
                                     </div>
                                 </div>
