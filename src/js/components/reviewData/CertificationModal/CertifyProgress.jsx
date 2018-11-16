@@ -125,7 +125,7 @@ export default class CertifyProgress extends React.Component {
                     <FileProgress fileStatus={this.state.progress * 100} />
                 </div>
 
-                <div className={"completed-content" + hideProgress}>
+                <div className={`completed-content${hideProgress}`}>
                     <div className="success-wrapper">
                         <div className="success-header">
                             Publish in progress...
@@ -133,7 +133,7 @@ export default class CertifyProgress extends React.Component {
                     </div>
                 </div>
 
-                <div className={"completed-content" + hideClass}>
+                <div className={`completed-content${hideClass}`}>
                     <div className="success-wrapper">
                         <div className="success-header">
                             Complete!
@@ -148,7 +148,7 @@ export default class CertifyProgress extends React.Component {
                     </button>
                 </div>
 
-                <div className={"alert alert-danger" + hideError}>
+                <div className={`alert alert-danger${hideError}`}>
                     <span className="usa-da-icon"><Icons.ExclamationCircle /></span>
                     <div className="alert-header-text">Publish Failed</div>
                     <p>An error occurred while attempting to publish this submission.</p>

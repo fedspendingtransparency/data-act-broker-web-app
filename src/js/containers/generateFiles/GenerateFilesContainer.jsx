@@ -143,7 +143,7 @@ class GenerateFilesContainer extends React.Component {
             day = date.endOf('month').format('DD');
         }
 
-        return month + '/' + day + '/' + year;
+        return `${month}/${day}/${year}`;
     }
 
     checkForPreviousFiles() {
@@ -413,7 +413,7 @@ class GenerateFilesContainer extends React.Component {
 
         files.forEach((file) => {
             const fileData = responses[file];
-            output[file + 'Status'] = fileData.status;
+            output[`${file}Status`] = fileData.status;
 
             if (fileData.httpStatus === 401) {
                 errors.push(file);
@@ -425,13 +425,13 @@ class GenerateFilesContainer extends React.Component {
             else if (fileData.status === 'failed' || fileData.status === 'invalid') {
                 errors.push(file);
 
-                message = 'File ' + fileData.file_type + ' could not be generated.';
+                message = `File ${fileData.file_type} could not be generated.`;
 
                 if (fileData.message !== '') {
                     message = fileData.message;
                 }
 
-                this.updateError(file, fileData.file_type.toUpperCase() + ' File Error', message);
+                this.updateError(file, `${fileData.file_type.toUpperCase()} File Error`, message);
 
 
                 const item = Object.assign({}, this.state[file]);
@@ -443,7 +443,7 @@ class GenerateFilesContainer extends React.Component {
                         show: true,
                         url: fileData.url
                     };
-                    const header = fileData.file_type.toUpperCase() + ' File Error';
+                    const header = `${fileData.file_type.toUpperCase()} File Error`;
                     item.error = {
                         show: header !== '' && message !== '',
                         header,
@@ -464,7 +464,7 @@ class GenerateFilesContainer extends React.Component {
                 };
                 const failCases = ['', '#', null];
                 if (_.findIndex(failCases, fileData.url) !== -1) {
-                    const header = fileData.file_type.toUpperCase() + ' File Error';
+                    const header = `${fileData.file_type.toUpperCase()} File Error`;
                     item.error = {
                         show: true,
                         header,
@@ -510,7 +510,7 @@ class GenerateFilesContainer extends React.Component {
     }
 
     nextPage() {
-        hashHistory.push('validateCrossFile/' + this.props.submissionID);
+        hashHistory.push(`validateCrossFile/${this.props.submissionID}`);
     }
 
     render() {

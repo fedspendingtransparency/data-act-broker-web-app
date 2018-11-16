@@ -26,7 +26,7 @@ export default class SignInButton extends React.Component {
         }
         return (
             <button
-                className={"usa-da-button btn-primary btn-lg pull-right" + disabled}
+                className={`usa-da-button btn-primary btn-lg pull-right${disabled}`}
                 disabled={this.props.disabled}
                 type="button"
                 onClick={this.props.onClick}

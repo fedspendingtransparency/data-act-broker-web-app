@@ -79,8 +79,8 @@ export default class FileWarning extends React.Component {
         const file = ReviewHelper.globalFileData[fileKey];
 
         const count = this.state.affectedPairs[fileKey].length;
-        let message = 'By overwriting <b>File ' + file.letter + '</b>, you will also affect ' + count +
-            ' other cross-file validation';
+        let message = `By overwriting <b>File ${file.letter}</b>, you will also affect ${count
+        } other cross-file validation`;
         if (count !== 1) {
             message += 's';
         }
@@ -100,10 +100,10 @@ export default class FileWarning extends React.Component {
         const firstFile = ReviewHelper.globalFileData[causedByKey.split('-')[0]];
         const secondFile = ReviewHelper.globalFileData[causedByKey.split('-')[1]];
 
-        const pairName = 'File ' + firstFile.letter + '-File ' + secondFile.letter;
+        const pairName = `File ${firstFile.letter}-File ${secondFile.letter}`;
 
-        return '<b>File ' + file.letter + '</b> will be overwritten using the file selected in the ' + pairName +
-            ' cross-file validation.';
+        return `<b>File ${file.letter}</b> will be overwritten using the file selected in the ${pairName
+        } cross-file validation.`;
     }
 
     generateMessages() {
@@ -144,7 +144,7 @@ export default class FileWarning extends React.Component {
         }
 
         return (
-            <div className={"file-warning" + hide}>
+            <div className={`file-warning${hide}`}>
                 <div className="icon-wrap">
                     <div className="usa-da-icon">
                         <Icons.InfoCircle />

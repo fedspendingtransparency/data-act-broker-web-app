@@ -47,7 +47,7 @@ export default class DashboardPaginatorItem extends React.Component {
         return (
             <li className={className}>
                 {start}
-                <a href="#" onClick={this.clickedPage.bind(this)} title={"Go to page " + this.props.value}>
+                <a href="#" onClick={this.clickedPage.bind(this)} title={`Go to page ${this.props.value}`}>
                     {this.props.value}
                 </a>
                 {end}

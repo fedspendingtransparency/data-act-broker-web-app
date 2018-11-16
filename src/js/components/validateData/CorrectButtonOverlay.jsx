@@ -48,7 +48,7 @@ export default class CorrectButtonOverlay extends React.Component {
         let displayText = 'Choose a New File';
 
         if (this.props.isReplacingFile) {
-            displayText = 'File: ' + this.props.fileName;
+            displayText = `File: ${this.props.fileName}`;
         }
 
         let chooseFileOverlay = null;

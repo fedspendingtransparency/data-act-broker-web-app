@@ -123,7 +123,7 @@ export default class ValidateValuesFileComponent extends React.Component {
                     this.setState({
                         signInProgress: false,
                         error: {
-                            header: 'Invalid File Type Selected ' + item.file_type,
+                            header: `Invalid File Type Selected ${item.file_type}`,
                             body: ''
                         }
                     });
@@ -133,7 +133,7 @@ export default class ValidateValuesFileComponent extends React.Component {
             this.setState({
                 signInProgress: false,
                 error: {
-                    header: 'Invalid File Type Selected ' + item.file_type,
+                    header: `Invalid File Type Selected ${item.file_type}`,
                     body: ''
                 }
             });
@@ -148,7 +148,7 @@ export default class ValidateValuesFileComponent extends React.Component {
         // check if the link is already signed
         if (this.state.signInProgress) {
             // sign is in progress, do nothing
-            return;
+
         }
         else if (this.state.signedUrl !== '') {
             // it is signed, open immediately
@@ -179,9 +179,9 @@ export default class ValidateValuesFileComponent extends React.Component {
         const rows = this.props.item.number_of_rows ? this.props.item.number_of_rows : '--';
 
         if (this.props.item.file_size) {
-            size = (this.props.item.file_size / 1000000).toFixed(2) + ' MB';
+            size = `${(this.props.item.file_size / 1000000).toFixed(2)} MB`;
             if (this.props.item.file_size < 100000) {
-                size = (this.props.item.file_size / 1000).toFixed(2) + ' KB';
+                size = `${(this.props.item.file_size / 1000).toFixed(2)} KB`;
             }
         }
 
@@ -303,7 +303,7 @@ export default class ValidateValuesFileComponent extends React.Component {
         return (
             <div
                 className="row center-block usa-da-validate-item"
-                data-testid={"validate-wrapper-" + this.props.type.requestName}>
+                data-testid={`validate-wrapper-${this.props.type.requestName}`}>
                 <div className="col-md-12">
                     {errorMessage}
                     <div className="row usa-da-validate-item-top-section">

@@ -33,7 +33,7 @@ export default class LoginMaxLoading extends React.Component {
         return (
             <div>
                 <div className="row">
-                    <div className={"col-md-12 login-loading" + hideLoading}>
+                    <div className={`col-md-12 login-loading${hideLoading}`}>
                         <div className="loading-animation">
                             <LoadingBauble />
                         </div>
@@ -42,7 +42,7 @@ export default class LoginMaxLoading extends React.Component {
                         </div>
                     </div>
                 </div>
-                <div className={"row" + hideError}>
+                <div className={`row${hideError}`}>
                     <div className="col-md-12">
                         {errorMessageComponent}
                         <div className="back-link">

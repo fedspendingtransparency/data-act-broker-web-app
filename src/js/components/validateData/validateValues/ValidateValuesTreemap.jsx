@@ -61,7 +61,7 @@ class ValidateValuesTreemap extends React.Component {
             let title = item.field_name;
             if (item.error_name === 'rule_failed') {
                 detail = item.rule_failed;
-                title = 'Rule ' + item.original_label;
+                title = `Rule ${item.original_label}`;
                 if (item.original_label === '') {
                     title = 'Unknown Rule';
                 }

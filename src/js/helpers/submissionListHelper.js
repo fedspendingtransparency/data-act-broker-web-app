@@ -31,9 +31,9 @@ const parseRecentActivity = (submissions) => {
         // convert the file size to KB or MB as appropriate
         let fileSize = '--';
         if (tmpItem.size) {
-            fileSize = (tmpItem.size / 1000000).toFixed(2) + ' MB';
+            fileSize = `${(tmpItem.size / 1000000).toFixed(2)} MB`;
             if (tmpItem.size < 100000) {
-                fileSize = (tmpItem.size / 1000).toFixed(2) + ' KB';
+                fileSize = `${(tmpItem.size / 1000).toFixed(2)} KB`;
             }
         }
 
@@ -60,7 +60,7 @@ export const loadSubmissionList = (
     page = 1, limit = 10, certified = false, sort = 'updated', order = 'desc', d2Submission = false, filters = {}) => {
     const deferred = Q.defer();
 
-    Request.post(kGlobalConstants.API + 'list_submissions/')
+    Request.post(`${kGlobalConstants.API}list_submissions/`)
         .send({
             page,
             limit,
@@ -89,7 +89,7 @@ export const loadSubmissionList = (
 export const loadSubmissionHistory = (submissionID) => {
     const deferred = Q.defer();
 
-    Request.post(kGlobalConstants.API + 'list_certifications/')
+    Request.post(`${kGlobalConstants.API}list_certifications/`)
         .send({ submission_id: submissionID })
         .end((err, res) => {
             if (err) {
@@ -106,7 +106,7 @@ export const loadSubmissionHistory = (submissionID) => {
 export const getSubmissionFile = (submissionID, certifiedFilesHistory, isWarning) => {
     const deferred = Q.defer();
 
-    Request.post(kGlobalConstants.API + 'get_certified_file/')
+    Request.post(`${kGlobalConstants.API}get_certified_file/`)
         .send({
             submission_id: submissionID,
             certified_files_history_id: certifiedFilesHistory,
@@ -124,6 +124,4 @@ export const getSubmissionFile = (submissionID, certifiedFilesHistory, isWarning
     return deferred.promise;
 };
 
-export const loadRecentActivity = (type) => {
-    return loadSubmissionList(1, 5, 'mixed', 'updated', 'desc', type === 'fabs');
-};
+export const loadRecentActivity = (type) => loadSubmissionList(1, 5, 'mixed', 'updated', 'desc', type === 'fabs');

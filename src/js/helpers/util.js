@@ -7,7 +7,7 @@ export const generateProtectedUrls = () => {
     let isCanceled = false;
     const deferred = Q.defer();
 
-    Request.get(kGlobalConstants.API + 'get_protected_files/')
+    Request.get(`${kGlobalConstants.API}get_protected_files/`)
         .send()
         .end((err, res) => {
             if (isCanceled || err) {
@@ -29,20 +29,20 @@ export const generateProtectedUrls = () => {
 export const convertToLocalDate = (dateToConvert) => {
     // convert date to local date, need to replace the space with a T for Date() formatting
     // Add a Z to the end to imply the date is in UTC
-    const formattedDate = dateToConvert.replace(" ", "T") + "Z";
+    const formattedDate = `${dateToConvert.replace(" ", "T")}Z`;
     const tmpDate = new Date(formattedDate);
 
     // format date as YYYY-MM-DD
     const year = tmpDate.getFullYear();
     let month = tmpDate.getMonth() + 1;
     if (month < 10) {
-        month = "0" + month;
+        month = `0${month}`;
     }
     let day = tmpDate.getDate();
     if (day < 10) {
-        day = "0" + day;
+        day = `0${day}`;
     }
-    return year + "-" + month + "-" + day;
+    return `${year}-${month}-${day}`;
 };
 
 export const quarterToMonth = (quarter, quarterYear, type) => {
@@ -64,7 +64,7 @@ export const quarterToMonth = (quarter, quarterYear, type) => {
         year -= 1;
     }
 
-    return month + '/' + year;
+    return `${month}/${year}`;
 };
 
 export const currentQuarter = (type) => {

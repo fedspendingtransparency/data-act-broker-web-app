@@ -59,7 +59,7 @@ class CrossFileUploadButtonContainer extends React.Component {
     }
 
     render() {
-        let displayText = 'File ' + this.props.file.letter + ': ' + this.props.file.name;
+        let displayText = `File ${this.props.file.letter}: ${this.props.file.name}`;
         let additionalClasses = ' btn-danger-outline';
         let isOptional = false;
         if (this.props.type === 'optional') {
@@ -68,8 +68,8 @@ class CrossFileUploadButtonContainer extends React.Component {
         }
 
         if (this.isFileStaged()) {
-            displayText = 'File ' + this.props.file.letter + ': ' +
-                this.props.submission.files[this.props.fileKey].file.name;
+            displayText = `File ${this.props.file.letter}: ${
+                this.props.submission.files[this.props.fileKey].file.name}`;
             // technically this is an optional upload, but we are going to pass a different CSS class in instead
             isOptional = false;
             additionalClasses = ' btn-staged-upload';

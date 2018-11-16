@@ -142,7 +142,7 @@ export default class ReviewDataCertifyModal extends React.Component {
                 titleId="usa-da-certify-modal">
                 <div className="usa-da-modal-page">
                     <div id="usa-da-certify-modal" className="usa-da-certify-modal">
-                        <div className={"usa-da-certify-modal-close usa-da-icon usa-da-icon-times" + hideClose}>
+                        <div className={`usa-da-certify-modal-close usa-da-icon usa-da-icon-times${hideClose}`}>
                             <a href="#" onClick={this.closeModal.bind(this)}> <Icons.Times /> </a>
                         </div>
 

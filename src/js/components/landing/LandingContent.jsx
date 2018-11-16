@@ -68,7 +68,7 @@ export default class LandingContent extends React.Component {
 
         let agencyName = 'Your Agency';
         if (affiliations && affiliations.length > limit && !this.state.expanded) {
-            agencyName = affiliations.slice(0, limit).map((a) => a.agency_name).join(', ') + "...";
+            agencyName = `${affiliations.slice(0, limit).map((a) => a.agency_name).join(', ')}...`;
         }
         else if (affiliations && affiliations.length > 0) {
             agencyName = affiliations.map((a) => a.agency_name).join(', ');
@@ -155,7 +155,7 @@ export default class LandingContent extends React.Component {
 
         return (
             <div className="site_content">
-                <div className={"usa-da-content-" + headerClass}>
+                <div className={`usa-da-content-${headerClass}`}>
                     <div className="container">
                         <div className="row usa-da-content-landing usa-da-page-title">
                             <div className="col-md-8 mt-40 mb-50">

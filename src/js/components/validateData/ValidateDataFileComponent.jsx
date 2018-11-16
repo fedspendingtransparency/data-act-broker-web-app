@@ -206,9 +206,9 @@ export default class ValidateDataFileComponent extends React.Component {
                 rows = this.props.item.number_of_rows;
             }
             if (this.props.item.file_size) {
-                size = (this.props.item.file_size / 1000000).toFixed(2) + ' MB';
+                size = `${(this.props.item.file_size / 1000000).toFixed(2)} MB`;
                 if (this.props.item.file_size < 100000) {
-                    size = (this.props.item.file_size / 1000).toFixed(2) + ' KB';
+                    size = `${(this.props.item.file_size / 1000).toFixed(2)} KB`;
                 }
             }
         }
@@ -268,7 +268,7 @@ export default class ValidateDataFileComponent extends React.Component {
                     this.setState({
                         signInProgress: false,
                         error: {
-                            header: 'Invalid File Type Selected ' + item.file_type,
+                            header: `Invalid File Type Selected ${item.file_type}`,
                             body: ''
                         }
                     });
@@ -278,7 +278,7 @@ export default class ValidateDataFileComponent extends React.Component {
             this.setState({
                 signInProgress: false,
                 error: {
-                    header: 'Invalid File Type Selected ' + item.file_type,
+                    header: `Invalid File Type Selected ${item.file_type}`,
                     body: ''
                 }
             });
@@ -293,7 +293,7 @@ export default class ValidateDataFileComponent extends React.Component {
         // check if the link is already signed
         if (this.state.signInProgress) {
             // sign is in progress, do nothing
-            return;
+
         }
         else if (this.state.signedUrl !== '') {
             // it is signed, open immediately
@@ -379,7 +379,7 @@ export default class ValidateDataFileComponent extends React.Component {
         return (
             <div
                 className="row center-block usa-da-validate-item"
-                data-testid={"validate-wrapper-" + this.props.type.requestName}>
+                data-testid={`validate-wrapper-${this.props.type.requestName}`}>
                 <div className="col-md-12">
                     {errorMessage}
                     <div className="row usa-da-validate-item-top-section">
@@ -397,15 +397,15 @@ export default class ValidateDataFileComponent extends React.Component {
                             </div>
                             <div className="row usa-da-validate-item-body">
                                 <div
-                                    className={"col-md-12 usa-da-validate-txt-wrap" + messageClass}
+                                    className={`col-md-12 usa-da-validate-txt-wrap${messageClass}`}
                                     data-testid="validate-message">
                                     {isFileValid ? this.state.headerTitle : `${fileName} must be CSV or TXT format`}
                                 </div>
                             </div>
                             <div className="row usa-da-validate-item-footer-wrapper">
                                 <div
-                                    className={"usa-da-validate-item-footer usa-da-header-error" + showFooter + " " +
-                                        footerStatus}
+                                    className={`usa-da-validate-item-footer usa-da-header-error${showFooter} ${
+                                        footerStatus}`}
                                     onClick={this.toggleErrorReport.bind(this)}>
                                     <div>View &amp; Download Header Error Report
                                         <span className="usa-da-icon">{chevronDirection}</span>

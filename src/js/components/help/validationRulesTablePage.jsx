@@ -49,7 +49,7 @@ export default class ValidationRulesTablePage extends React.Component {
             <div className="usa-da-help-style-page" name="top">
                 <div className="usa-da-page-content">
                     <Navbar activeTab={activeTab} type={this.props.type} logoOnly={this.props.helpOnly} />
-                    <div className={"usa-da-content-" + color + " mb-60"}>
+                    <div className={`usa-da-content-${color} mb-60`}>
                         <div className="container">
                             <div className="row">
                                 <div className="col-md-12 mt-40 mb-20">
@@ -72,7 +72,7 @@ export default class ValidationRulesTablePage extends React.Component {
                 </div>
                 <Footer />
                 <div className="usa-da-help-top-button">
-                    <a href={validations + "?section=top"} aria-label="Back to top">
+                    <a href={`${validations}?section=top`} aria-label="Back to top">
                         <div className="usa-da-icon">
                             <Icons.AngleUp alt="Arrow pointing up" />
                         </div>

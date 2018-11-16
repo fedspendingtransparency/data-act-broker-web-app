@@ -31,8 +31,8 @@ export default class LandingBlock extends React.Component {
     render() {
         const size = this.props.type === 'dabs' ? ' col-md-3' : ' col-md-6';
         return (
-            <div className={"usa-da-landing-block-wrap" + size} >
-                <div className={"usa-da-landing-block " + this.props.comingSoon}>
+            <div className={`usa-da-landing-block-wrap${size}`} >
+                <div className={`usa-da-landing-block ${this.props.comingSoon}`}>
                     <div className="usa-da-landing-block-icon text-center">
                         {this.props.icon}
                     </div>

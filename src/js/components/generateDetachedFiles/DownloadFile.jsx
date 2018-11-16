@@ -35,7 +35,7 @@ export default class DownloadFile extends React.Component {
         return (
             <div className="usa-da-generate-item-wrap">
                 <div className="usa-da-generate-item">
-                    <div className={"usa-da-generate-download" + showDownload}>
+                    <div className={`usa-da-generate-download${showDownload}`}>
                         <div className="row">
                             <div className="col-sm-12">
                                 <div className="download-title text-right">
@@ -56,7 +56,7 @@ export default class DownloadFile extends React.Component {
                     </div>
                 </div>
 
-                <div className={"alert alert-error text-left" + errorClass} role="alert">
+                <div className={`alert alert-error text-left${errorClass}`} role="alert">
                     <span className="usa-da-icon error-icon"><Icons.ExclamationCircle /></span>
                     <div className="alert-header-text">{this.props.errorType}</div>
                     <p>{this.props.errorMessage}</p>

@@ -103,7 +103,7 @@ export class Navbar extends React.Component {
         }
 
         return (
-            <nav className={"navbar navbar-default usa-da-header" + navClass}>
+            <nav className={`navbar navbar-default usa-da-header${navClass}`}>
                 <SkipNavigationLink />
                 <a className="hidden-screen-reader" href="#">Home</a>
                 {testBanner}

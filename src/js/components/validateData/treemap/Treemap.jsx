@@ -86,10 +86,10 @@ export default class Treemap extends React.Component {
         const layout = d3.layout.treemap()
             .children((d) => d)
             .size([this.props.width, this.props.height])
-            .sort((a, b) => {
+            .sort((a, b) =>
                 // order by the parent component's pre-sorted array indices
-                return b.index - a.index;
-            })
+                b.index - a.index
+            )
             .sticky(true);
 
         const treemap = layout(this.props.formattedData.data);

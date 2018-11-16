@@ -27,7 +27,7 @@ export default class SubmitButton extends React.Component {
         let newButtonClass = this.props.className;
 
         if (this.props.buttonDisabled) {
-            newButtonClass = 'usa-button-disabled ' + this.props.className;
+            newButtonClass = `usa-button-disabled ${this.props.className}`;
         }
 
         return (

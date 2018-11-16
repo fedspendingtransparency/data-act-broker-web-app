@@ -66,7 +66,7 @@ export default class ValidateDataErrorReport extends React.Component {
         // check if the link is already signed
         if (this.state.signInProgress) {
             // sign is in progress, do nothing
-            return;
+
         }
         else if (this.state.signedUrl !== '') {
             // it is signed, open immediately

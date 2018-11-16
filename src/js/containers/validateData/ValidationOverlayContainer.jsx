@@ -42,7 +42,7 @@ class ValidationOverlayContainer extends React.Component {
                         });
                     }
                     this.setState({
-                        uploadApiCallError : err.message
+                        uploadApiCallError: err.message
                     });
                 });
         }
@@ -56,7 +56,7 @@ class ValidationOverlayContainer extends React.Component {
                         });
                     }
                     this.setState({
-                        uploadApiCallError : err.message
+                        uploadApiCallError: err.message
                     });
                 });
         }

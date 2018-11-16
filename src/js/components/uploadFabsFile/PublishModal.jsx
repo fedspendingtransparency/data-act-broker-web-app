@@ -114,7 +114,7 @@ export default class PublishModal extends React.Component {
                     <div
                         id="usa-da-certify-modal"
                         className="usa-da-certify-modal">
-                        <div className={"usa-da-certify-modal-close usa-da-icon usa-da-icon-times" + hideClose}>
+                        <div className={`usa-da-certify-modal-close usa-da-icon usa-da-icon-times${hideClose}`}>
                             <a href="#" onClick={this.closeModal.bind(this)}> <Icons.Times /> </a>
                         </div>
 
@@ -140,7 +140,7 @@ export default class PublishModal extends React.Component {
                                 <div className="col-sm-6">
                                     <button
                                         onClick={this.closeModal.bind(this)}
-                                        className={'usa-da-button btn-warning btn-full' + hideClose}>
+                                        className={`usa-da-button btn-warning btn-full${hideClose}`}>
                                         Cancel
                                     </button>
                                 </div>

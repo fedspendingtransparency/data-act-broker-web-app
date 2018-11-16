@@ -44,7 +44,7 @@ export default class ReviewDataNotifyModal extends React.Component {
             .then((data) => {
                 const tmpData = data;
                 for (let i = 0; i < tmpData.length; i++) {
-                    tmpData[i].displayName = tmpData[i].name + " | " + tmpData[i].email;
+                    tmpData[i].displayName = `${tmpData[i].name} | ${tmpData[i].email}`;
                 }
                 this.setState({ users: tmpData });
             })

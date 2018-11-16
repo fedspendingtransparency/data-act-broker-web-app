@@ -10,9 +10,9 @@ import AgencyListContainer from '../../containers/SharedContainers/AgencyListCon
 import { defaultQuarters } from '../../helpers/quarterPickerHelper';
 
 import * as Icons from '../SharedComponents/icons/Icons';
-import QuarterPicker from "./QuarterPicker";
-import GenerateButton from "./GenerateButton";
-import DownloadFile from "./DownloadFile";
+import QuarterPicker from './QuarterPicker';
+import GenerateButton from './GenerateButton';
+import DownloadFile from './DownloadFile';
 
 const initialQuarters = defaultQuarters();
 
@@ -53,7 +53,7 @@ export default class DetachedFileA extends React.Component {
     }
 
     handleAgencyChange(agency, codeType, isValid) {
-        // display or hide file generation based on agency validity and set agency
+    // display or hide file generation based on agency validity and set agency
         if (agency !== '' && isValid) {
             this.setState({
                 agency,
@@ -138,7 +138,7 @@ export default class DetachedFileA extends React.Component {
                                                     placeholder="Enter the name of the reporting agency"
                                                     onSelect={this.handleAgencyChange}
                                                     customClass={agencyClass} />
-                                                <div className={"usa-da-icon usa-da-form-icon" + agencyClass}>
+                                                <div className={`usa-da-icon usa-da-form-icon${agencyClass}`}>
                                                     {agencyIcon}
                                                 </div>
                                             </div>

@@ -39,7 +39,7 @@ export default class TabItem extends React.Component {
         }
 
         return (
-            <a href="#" className={"tab-item" + activeClass} onClick={this.clickedTab.bind(this)}>
+            <a href="#" className={`tab-item${activeClass}`} onClick={this.clickedTab.bind(this)}>
                 {this.props.label}
                 <span className="count-badge">
                     {this.props.count}

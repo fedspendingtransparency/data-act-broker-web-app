@@ -71,7 +71,6 @@ export default class DeleteLink extends React.Component {
                 if (aff.agency_name === this.props.item.agency && (aff.permission === "writer" ||
                     aff.permission === 'submitter')) {
                     deletable = true;
-                    return;
                 }
             });
         }

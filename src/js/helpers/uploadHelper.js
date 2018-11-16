@@ -10,7 +10,7 @@ import * as uploadActions from '../redux/actions/uploadActions';
 const prepareFilesNewSub = (fileDict) => {
     const deferred = Q.defer();
 
-    Request.post(kGlobalConstants.API + 'upload_dabs_files/')
+    Request.post(`${kGlobalConstants.API}upload_dabs_files/`)
         .attach('appropriations', fileDict.appropriations)
         .attach('program_activity', fileDict.program_activity)
         .attach('award_financial', fileDict.award_financial)
@@ -36,7 +36,7 @@ const prepareFilesNewSub = (fileDict) => {
 const prepareFilesExistingSub = (fileDict) => {
     const deferred = Q.defer();
 
-    const req = Request.post(kGlobalConstants.API + 'upload_dabs_files/');
+    const req = Request.post(`${kGlobalConstants.API}upload_dabs_files/`);
     if (fileDict.appropriations) {
         req.attach('appropriations', fileDict.appropriations);
     }
@@ -79,7 +79,7 @@ const prepareMetadata = (metadata, request) => {
 export const submitFabs = (submissionId) => {
     const deferred = Q.defer();
 
-    Request.post(kGlobalConstants.API + 'submit_detached_file/')
+    Request.post(`${kGlobalConstants.API}submit_detached_file/`)
         .send(submissionId)
         .end((err, res) => {
             if (err) {
@@ -107,7 +107,7 @@ const prepareFabsFile = (fileDict) => {
         fieldType = 'existing_submission_id';
     }
 
-    Request.post(kGlobalConstants.API + 'upload_fabs_file/')
+    Request.post(`${kGlobalConstants.API}upload_fabs_file/`)
         .attach('fabs', fileDict.fabs)
         .field(fieldType, fileDict[fieldType])
         .end((err, res) => {

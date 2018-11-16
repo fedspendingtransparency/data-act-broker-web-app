@@ -85,7 +85,7 @@ export default class CrossFileOverlay extends React.Component {
 
     pressedNext(e) {
         e.preventDefault();
-        hashHistory.push('/generateEF/' + this.props.submission.id);
+        hashHistory.push(`/generateEF/${this.props.submission.id}`);
     }
 
     isUploadingFiles() {
@@ -210,14 +210,14 @@ export default class CrossFileOverlay extends React.Component {
                 showButtons={!this.state.overlay.hideButtons}>
                 <div className="usa-da-btn-bg">
                     <button
-                        className={"usa-da-button" + this.state.overlay.uploadButtonClass}
+                        className={`usa-da-button${this.state.overlay.uploadButtonClass}`}
                         disabled={this.state.overlay.uploadButtonDisabled}
                         onClick={this.props.uploadFiles}>
                         {this.state.overlay.buttonText}
                     </button>
                     <button
-                        className={"usa-da-validation-overlay-review usa-da-button" +
-                        this.state.overlay.nextButtonClass}
+                        className={`usa-da-validation-overlay-review usa-da-button${
+                            this.state.overlay.nextButtonClass}`}
                         disabled={this.state.overlay.nextButtonDisabled}
                         onClick={this.pressedNext.bind(this)}>
                         Next

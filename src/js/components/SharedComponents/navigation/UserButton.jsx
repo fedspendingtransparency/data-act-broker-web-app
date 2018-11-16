@@ -49,7 +49,7 @@ export default class UserButton extends React.Component {
                     className="usa-da-header-link usa-da-user-info dropdown-toggle usa-da-icon"><Icons.User />
                     {this.props.buttonText}
                 </a>
-                <ul className={"header-dropdown" + hideDropdown}>
+                <ul className={`header-dropdown${hideDropdown}`}>
                     <li>
                         <a className="logout" href="#" onClick={this.props.logout}>Log Out</a>
                     </li>

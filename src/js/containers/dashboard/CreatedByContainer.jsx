@@ -16,78 +16,78 @@ import * as createdByHelper from '../../helpers/createdByHelper';
 import DropdownTypeahead from '../../components/SharedComponents/DropdownTypeahead';
 
 const propTypes = {
-  setCreatedByList: PropTypes.func,
-  createdByList: PropTypes.object,
-  detached: PropTypes.bool,
-  selectedFilters: PropTypes.object,
-  type: PropTypes.string,
-  table: PropTypes.string,
-  placeholder: PropTypes.string,
-  onSelect: PropTypes.func
+    setCreatedByList: PropTypes.func,
+    createdByList: PropTypes.object,
+    detached: PropTypes.bool,
+    selectedFilters: PropTypes.object,
+    type: PropTypes.string,
+    table: PropTypes.string,
+    placeholder: PropTypes.string,
+    onSelect: PropTypes.func
 };
 
 const defaultProps = {
-  setCreatedByList: () => {},
-  createdByList: {},
-  detached: true,
-  selectedFilters: [],
-  table: '',
-  type: '',
-  placeholder: '',
-  onSelect: () => {}
+    setCreatedByList: () => {},
+    createdByList: {},
+    detached: true,
+    selectedFilters: [],
+    table: '',
+    type: '',
+    placeholder: '',
+    onSelect: () => {}
 };
 
 class CreatedByContainer extends React.Component {
-  componentDidMount() {
-    this.loadData();
-  }
+    componentDidMount() {
+        this.loadData();
+    }
 
-  loadData() {
-    createdByHelper.fetchCreatedBy(this.props.type)
-     .then((data) => {
-          this.props.setCreatedByList(data);
-     })
-     .catch((err) => {
-          console.error(err);
-     });
-  }
+    loadData() {
+        createdByHelper.fetchCreatedBy(this.props.type)
+            .then((data) => {
+                this.props.setCreatedByList(data);
+            })
+            .catch((err) => {
+                console.error(err);
+            });
+    }
 
-  dataFormatter(item) {
-    return {
-      label: item.name,
-      value: item.user_id
-    };
-  }
+    dataFormatter(item) {
+        return {
+            label: item.name,
+            value: item.user_id
+        };
+    }
 
-  render() {
-    const values = this.props.createdByList.createdBy;
+    render() {
+        const values = this.props.createdByList.createdBy;
 
-    // Dedupe data
-    const finalValues = values.length > 0 ? _.uniqBy(values, 'user_id') : [];
-    return (
-        <DropdownTypeahead
-            {...this.props}
-            errorHeader="Unknown Name"
-            duplicateHeader="Duplicate Name"
-            errorDescription="You must select an name from the list that is provided as you type."
-            values={finalValues}
-            keyValue="name"
-            internalValue={['user_id']}
-            formatter={this.dataFormatter}
-            prioritySort={false}
-            bubbledRemovedFilterValue={this.props.selectedFilters[this.props.type][this.props.table].createdBy}
-            clearAfterSelect />
-    );
-  }
+        // Dedupe data
+        const finalValues = values.length > 0 ? _.uniqBy(values, 'user_id') : [];
+        return (
+            <DropdownTypeahead
+                {...this.props}
+                errorHeader="Unknown Name"
+                duplicateHeader="Duplicate Name"
+                errorDescription="You must select an name from the list that is provided as you type."
+                values={finalValues}
+                keyValue="name"
+                internalValue={['user_id']}
+                formatter={this.dataFormatter}
+                prioritySort={false}
+                bubbledRemovedFilterValue={this.props.selectedFilters[this.props.type][this.props.table].createdBy}
+                clearAfterSelect />
+        );
+    }
 }
 
 CreatedByContainer.propTypes = propTypes;
 CreatedByContainer.defaultProps = defaultProps;
 
 export default connect(
-  (state) => ({
-    createdByList: state.createdByList,
-    selectedFilters: state.dashboardFilters
-  }),
-  (dispatch) => bindActionCreators(createdByActions, dispatch),
+    (state) => ({
+        createdByList: state.createdByList,
+        selectedFilters: state.dashboardFilters
+    }),
+    (dispatch) => bindActionCreators(createdByActions, dispatch),
 )(CreatedByContainer);

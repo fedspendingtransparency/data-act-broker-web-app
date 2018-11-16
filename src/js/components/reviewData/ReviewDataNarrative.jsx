@@ -94,7 +94,7 @@ export default class ReviewDataNarrative extends React.Component {
                         <button onClick={this.saveNarrative.bind(this)} className="usa-da-button btn-default">
                             Save Changes
                         </button>
-                        <p className={"save-state " + this.state.saveState}>{this.state.saveState}</p>
+                        <p className={`save-state ${this.state.saveState}`}>{this.state.saveState}</p>
                     </div>
                 </div>
             </div>

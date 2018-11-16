@@ -71,7 +71,7 @@ export default class TreemapCell extends React.Component {
         }
         if (this.props.active) {
             style.backgroundColor = this.props.colors.active;
-            style.border = '1px solid ' + this.props.colors.activeBorder;
+            style.border = `1px solid ${this.props.colors.activeBorder}`;
             style.color = '#fff';
         }
 

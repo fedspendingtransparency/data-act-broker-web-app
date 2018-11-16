@@ -131,10 +131,10 @@ class CrossFileContentContainer extends React.Component {
                         }
 
                         if (earlierErrors === 'validation') {
-                            hashHistory.push('/validateData/' + this.props.submissionID);
+                            hashHistory.push(`/validateData/${this.props.submissionID}`);
                         }
                         else {
-                            hashHistory.push('/generateFiles/' + this.props.submissionID);
+                            hashHistory.push(`/generateFiles/${this.props.submissionID}`);
                         }
                     }
                 }

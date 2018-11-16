@@ -53,7 +53,7 @@ const performAutoLogin = (location, replace) => {
             pushMethod('/login');
         }
         else {
-            pushMethod('/login?redirect=' + path);
+            pushMethod(`/login?redirect=${path}`);
         }
     }
 };

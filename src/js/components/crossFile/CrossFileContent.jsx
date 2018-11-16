@@ -116,7 +116,7 @@ export default class CrossFileContent extends React.Component {
         return (
             <div>
                 <div className="container center-block with-overlay">
-                    <div className={"usa-da-cross-file" + loadingClass}>
+                    <div className={`usa-da-cross-file${loadingClass}`}>
                         <div className="row usa-da-submission-instructions">
                             <div className="col-md-12">
                                 <p>

@@ -75,8 +75,8 @@ export default class DateDropdown extends React.Component {
         years.forEach((year) => {
             months.forEach((month) => {
                 dates.push({
-                    string: month.string + ' ' + year,
-                    value: month.value + '/' + year + '-' + month.value + '/' + year
+                    string: `${month.string} ${year}`,
+                    value: `${month.value}/${year}-${month.value}/${year}`
                 });
             });
         });
@@ -94,8 +94,8 @@ export default class DateDropdown extends React.Component {
         years.forEach((year) => {
             for (let i = 1; i <= 4; i++) {
                 quarters.push({
-                    string: 'Quarter ' + i + ' - ' + year,
-                    value: UtilHelper.quarterToMonth(i, year, 'start') + '-' + UtilHelper.quarterToMonth(i, year, 'end')
+                    string: `Quarter ${i} - ${year}`,
+                    value: `${UtilHelper.quarterToMonth(i, year, 'start')}-${UtilHelper.quarterToMonth(i, year, 'end')}`
                 });
             }
         });
@@ -112,15 +112,11 @@ export default class DateDropdown extends React.Component {
         let value;
         let dates;
         if (this.props.type === "quarter") {
-            dates = this.generateQuarters().map((date, index) => {
-                return <option key={index} value={date.value}>{date.string}</option>;
-            });
+            dates = this.generateQuarters().map((date, index) => <option key={index} value={date.value}>{date.string}</option>);
             value = this.state.quarter;
         }
         else {
-            dates = this.generateDates().map((date, index) => {
-                return <option key={index} value={date.value}>{date.string}</option>;
-            });
+            dates = this.generateDates().map((date, index) => <option key={index} value={date.value}>{date.string}</option>);
             value = this.state.month;
         }
 
@@ -131,7 +127,7 @@ export default class DateDropdown extends React.Component {
 
         return (
             <select
-                className={"usa-da-date-dropdown" + errorClass}
+                className={`usa-da-date-dropdown${errorClass}`}
                 onChange={this.dateChanged.bind(this)}
                 value={value}>
                 {dates}

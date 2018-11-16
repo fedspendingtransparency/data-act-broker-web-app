@@ -42,7 +42,7 @@ export default class ReviewDataContent extends React.Component {
         e.preventDefault();
 
         this.setState({
-            ['open' + type]: true
+            [`open${type}`]: true
         });
     }
 
@@ -51,7 +51,7 @@ export default class ReviewDataContent extends React.Component {
             e.preventDefault();
         }
         this.setState({
-            ['open' + type]: false
+            [`open${type}`]: false
         });
     }
 
@@ -71,12 +71,12 @@ export default class ReviewDataContent extends React.Component {
         let dollars = currencyString.split(".")[0];
         // start at the end and every 3 numbers add a comma to the string
         for (let i = dollars.length - 3; i > 0; i -= 3) {
-            dollars = dollars.slice(0, i) + "," + dollars.slice(i);
+            dollars = `${dollars.slice(0, i)},${dollars.slice(i)}`;
         }
-        let formattedCurrencyString = "$" + dollars + "." + cents;
+        let formattedCurrencyString = `$${dollars}.${cents}`;
         // add negative sign for formatting
         if (negative) {
-            formattedCurrencyString = "-" + formattedCurrencyString;
+            formattedCurrencyString = `-${formattedCurrencyString}`;
         }
         return formattedCurrencyString;
     }
@@ -115,12 +115,12 @@ export default class ReviewDataContent extends React.Component {
     }
 
     formatSize(totalSize) {
-        let displaySize = totalSize + ' bytes';
+        let displaySize = `${totalSize} bytes`;
         if (totalSize >= 750000) {
-            displaySize = (Math.round((totalSize / 100000000) * 100) / 100) + ' MB';
+            displaySize = `${Math.round((totalSize / 100000000) * 100) / 100} MB`;
         }
         else if (totalSize >= 750) {
-            displaySize = (Math.round((totalSize / 1000) * 100) / 100) + ' KB';
+            displaySize = `${Math.round((totalSize / 1000) * 100) / 100} KB`;
         }
         return displaySize;
     }
@@ -183,8 +183,8 @@ export default class ReviewDataContent extends React.Component {
                 </div>);
         }
         else if (blockedWindow) {
-            certifyButtonText = "You cannot certify until " +
-                moment(blockedWindow.end_date).format("dddd, MMMM D, YYYY");
+            certifyButtonText = `You cannot certify until ${
+                moment(blockedWindow.end_date).format("dddd, MMMM D, YYYY")}`;
         }
         else if (this.checkAffiliations() || this.props.session.admin) {
             certifyButtonText = "Certify & Publish the Submission to USAspending.gov";
@@ -236,7 +236,7 @@ export default class ReviewDataContent extends React.Component {
                             <div className="left-link">
                                 <button
                                     onClick={buttonAction}
-                                    className={"usa-da-button btn-primary btn-lg btn-full " + buttonClass}>
+                                    className={`usa-da-button btn-primary btn-lg btn-full ${buttonClass}`}>
                                     <div className="button-wrapper">
                                         <div className="button-icon">
                                             <Icons.Globe />

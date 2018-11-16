@@ -41,7 +41,7 @@ export default class ValidateValuesTreemapHelp extends React.Component {
                     <b>{this.props.type}:</b> {this.props.description}<br />
                     <b>Occurrences: </b>{this.props.count}
                 </div>
-                <div className={"treemap-help-detail" + detail}>
+                <div className={`treemap-help-detail${detail}`}>
                     <b>More information:</b><br />
                     {this.props.detail}
                 </div>

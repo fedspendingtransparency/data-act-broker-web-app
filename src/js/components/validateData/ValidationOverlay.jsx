@@ -34,7 +34,7 @@ export default class ValidationOverlay extends React.Component {
     }
 
     pressedNext() {
-        hashHistory.push('/generateFiles/' + this.props.submission.id);
+        hashHistory.push(`/generateFiles/${this.props.submission.id}`);
     }
 
     isUploadingFiles() {
@@ -53,8 +53,8 @@ export default class ValidationOverlay extends React.Component {
             uploadButtonClass = ' btn-primary';
         }
 
-        let header = 'You must fix the Critical Errors found in ' + this.props.errors.length +
-        ' of the files before moving on to the next step. View and download individual reports above.';
+        let header = `You must fix the Critical Errors found in ${this.props.errors.length
+        } of the files before moving on to the next step. View and download individual reports above.`;
         let detail = '';
 
         if (this.props.errors.length === 0) {
@@ -70,8 +70,8 @@ export default class ValidationOverlay extends React.Component {
                 // there are warnings
                 icon = <Icons.ExclamationCircle />;
                 iconClass = 'usa-da-warningYellow';
-                header = 'There are warnings in ' + this.props.warnings.length +
-                ' of the files uploaded in this submission.';
+                header = `There are warnings in ${this.props.warnings.length
+                } of the files uploaded in this submission.`;
                 detail = 'You can correct the files or click Next to generate your D1 and D2 files as-is.';
             }
 
@@ -124,14 +124,14 @@ export default class ValidationOverlay extends React.Component {
 
                 <div className="usa-da-btn-bg">
                     <button
-                        className={"usa-da-button" + uploadButtonClass}
+                        className={`usa-da-button${uploadButtonClass}`}
                         disabled={uploadButtonDisabled}
                         onClick={this.props.uploadFiles}
                         data-testid="validate-overlay-upload-button">
                         {buttonText}
                     </button>
                     <button
-                        className={"usa-da-validation-overlay-review usa-da-button" + nextButtonClass}
+                        className={`usa-da-validation-overlay-review usa-da-button${nextButtonClass}`}
                         disabled={nextButtonDisabled}
                         onClick={this.pressedNext.bind(this)}
                         data-testid="validate-overlay-review-button">

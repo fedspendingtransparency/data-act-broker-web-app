@@ -35,7 +35,7 @@ export default class Password extends React.Component {
             <div className="usa-da-input-container usa-da-input-password">
                 <label className="sr-only" htmlFor="password">Password</label>
                 <input
-                    className={"usa-da-input-with-icon" + className}
+                    className={`usa-da-input-with-icon${className}`}
                     id={this.props.fieldID}
                     name={this.props.fieldID}
                     type="password"
