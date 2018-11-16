@@ -8,6 +8,8 @@ import UploadFabsFilePageContainer from
     '../../containers/uploadFabsFile/UploadFabsFilePageContainer';
 import GenerateDetachedFilesPageContainer
     from '../../containers/generateDetachedFiles/GenerateDetachedFilesPageContainer';
+import DetachedFileAContainer
+    from '../../containers/generateDetachedFiles/DetachedFileAContainer';
 import StoreSingleton from '../../redux/storeSingleton';
 
 let instance = null;
@@ -220,6 +222,12 @@ const getRoutes = () => {
             path: 'generateDetachedFiles',
             onEnter: checkUserPermissions,
             component: GenerateDetachedFilesPageContainer,
+            type: 'dabs'
+        },
+        {
+            path: 'generateDetachedFileA',
+            onEnter: checkUserPermissions,
+            component: DetachedFileAContainer,
             type: 'dabs'
         }
     ];

@@ -4,3 +4,19 @@
     -ms-#{$property}: $value;
     -o-#{$property}: $value;
 }
+
+@mixin unstyled-list() {
+    @include margin(0 null);
+    list-style-type: none;
+    padding-left: 0;
+
+    > li {
+        margin-bottom: 0;
+        &:before {
+            display: none;
+        }
+        &:after {
+            display: none;
+        }
+    }
+}

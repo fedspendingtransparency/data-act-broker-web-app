@@ -38,7 +38,7 @@ const defaultProps = {
   resetAppliedFilters: null
 };
 
-class DashboardContainer extends React.Component {
+export class DashboardContainer extends React.Component {
   constructor(props) {
     super(props);
 
