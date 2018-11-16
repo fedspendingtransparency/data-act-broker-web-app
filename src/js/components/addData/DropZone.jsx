@@ -60,7 +60,10 @@ export default class DropZone extends React.Component {
       }
 
       if (submission.state === 'failed' && isFileValid) {
-        dropzoneString = `<b>${submissionItem.file.name}</b> is the correct file type, but the submission upload has failed`;
+        dropzoneString = `
+            <b>${submissionItem.file.name}</b> is the correct file type,
+            but the submission upload has failed
+        `;
       }
       else if (submissionItem.state === 'failed' && !isFileValid) {
         dropzoneString = `<b>${submissionItem.file.name}</b> must be CSV or TXT format`;
@@ -81,7 +84,10 @@ export default class DropZone extends React.Component {
             multiple={false}
             onDrop={this.props.onDrop}
             data-testid={`upload-${this.props.requestName}`}>
-            <DropZoneDisplay displayMode={isFileValid ? this.props.submission.state : 'invalid'} string={dropzoneString} progress={progress} />
+            <DropZoneDisplay
+                displayMode={isFileValid ? this.props.submission.state : 'invalid'}
+                string={dropzoneString}
+                progress={progress} />
         </Dropzone>
     );
   }

@@ -72,7 +72,7 @@ export default class DropdownTypeahead extends React.Component {
     this.passSelectedName = this.passSelectedName.bind(this);
     this.selectCheckbox = this.selectCheckbox.bind(this);
     this.unselectCheckbox = this.unselectCheckbox.bind(this);
-    this.removeClickedFilterBarItemFromDropdown = this.removeClickedFilterBarItemFromDropdown.bind(this);
+    this.removedFilterItemFromDropdown = this.removedFilterItemFromDropdown.bind(this);
     this.handleOutsideClick = this.handleOutsideClick.bind(this);
   }
 
@@ -87,7 +87,9 @@ export default class DropdownTypeahead extends React.Component {
     }
 
     if (JSON.stringify(prevProps.bubbledRemovedFilterValue) !== JSON.stringify(this.props.bubbledRemovedFilterValue)) {
-        this.removeClickedFilterBarItemFromDropdown(this.props.bubbledRemovedFilterValue, prevProps.bubbledRemovedFilterValue);
+        this.removedFilterItemFromDropdown(
+            this.props.bubbledRemovedFilterValue, prevProps.bubbledRemovedFilterValue
+        );
     }
   }
 
@@ -104,7 +106,8 @@ export default class DropdownTypeahead extends React.Component {
   }
 
   getSelectedName() {
-    if (this.state.unselectedValues.includes(this.state.value) || this.state.selectedValues.includes(this.state.value)) {
+    if (this.state.unselectedValues.includes(this.state.value) ||
+        this.state.selectedValues.includes(this.state.value)) {
       this.setState({
         showWarning: true,
         warningType: 'duplicate'
@@ -244,7 +247,7 @@ export default class DropdownTypeahead extends React.Component {
     );
   }
 
-  removeClickedFilterBarItemFromDropdown(filterValuefromFilterBarDropdown, oldProps) {
+  removedFilterItemFromDropdown(filterValuefromFilterBarDropdown, oldProps) {
       const parsedNewProps = filterValuefromFilterBarDropdown.map((item) => {
           return item.name;
       });
@@ -325,7 +328,9 @@ export default class DropdownTypeahead extends React.Component {
     let warning = null;
     if (this.state.showWarning) {
         const errorProps = {};
-        errorProps.header = this.state.warningType === 'duplicate' ? this.props.duplicateHeader : this.props.errorHeader;
+        errorProps.header = this.state.warningType === 'duplicate' ?
+        this.props.duplicateHeader : this.props.errorHeader;
+
         if (this.props.errorDescription) {
           errorProps.description = this.props.errorDescription;
         }
@@ -341,7 +346,10 @@ export default class DropdownTypeahead extends React.Component {
         <div className="dropdown filterdropdown" ref={this.setDropdownNodeRef}>
             <button
                 onClick={this.onDropdownChange}
-                className={this.state.dropdownopen ? 'btn btn-default dropdown-toggle active' : 'btn btn-default dropdown-toggle'}
+                className={
+                    this.state.dropdownopen ?
+                    'btn btn-default dropdown-toggle active' : 'btn btn-default dropdown-toggle'
+                }
                 type="button"
                 id="createdbydropdown"
                 data-toggle="dropdown"
@@ -371,7 +379,11 @@ export default class DropdownTypeahead extends React.Component {
                 {
                     this.state.selectedValues.length > 0 ? this.state.selectedValues.map((value) =>
                     (
-                        <DropdownTypeaheadCheckbox checkCheckbox key={value} passSelectedNameFunc={this.passSelectedName} fieldValue={value} />
+                        <DropdownTypeaheadCheckbox
+                            checkCheckbox
+                            key={value}
+                            passSelectedNameFunc={this.passSelectedName}
+                            fieldValue={value} />
                     )) : ''
                 }
 
@@ -381,7 +393,10 @@ export default class DropdownTypeahead extends React.Component {
 
                 {this.state.unselectedValues.length > 0 ? this.state.unselectedValues.map((value) =>
                       (
-                          <DropdownTypeaheadCheckbox key={value} passSelectedNameFunc={this.passSelectedName} fieldValue={value} />
+                          <DropdownTypeaheadCheckbox
+                              key={value}
+                              passSelectedNameFunc={this.passSelectedName}
+                              fieldValue={value} />
                      )) : ''
                  }
 

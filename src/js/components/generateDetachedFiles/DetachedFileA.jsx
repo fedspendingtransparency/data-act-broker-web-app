@@ -89,7 +89,7 @@ export default class DetachedFileA extends React.Component {
     render() {
         let agencyIcon = <Icons.Building />;
         let agencyClass = '';
-        if (this.props.agencyError) {
+        if (this.state.agencyError) {
             agencyIcon = <Icons.Building />;
             agencyClass = ' error usa-da-form-icon';
         }
@@ -123,7 +123,9 @@ export default class DetachedFileA extends React.Component {
                         <div className="container center-block">
                             <div className="row text-center usa-da-select-agency">
                                 <div className="col-lg-offset-2 col-lg-8 mt-60 mb-60">
-                                    <div className="detached-heading">Please begin by telling us about the file you would like to generate.</div>
+                                    <div className="detached-heading">
+                                        Please begin by telling us about the file you would like to generate.
+                                    </div>
                                     <div className="select-agency-holder">
                                         <div className="row usa-da-select-agency-label">
                                             The generated file will be used when submitting data for...
@@ -170,8 +172,15 @@ export default class DetachedFileA extends React.Component {
                                                     hours to load these daily files after receiving them from GTAS).
                                                     For a more detailed explanation of the approach for generating File
                                                     A, see the Practices and Procedures document available on the&nbsp;
-                                                    <a target="_blank" rel="noopener noreferrer" href="https://fiscal.treasury.gov/fsservices/gov/data-trans/dt-daims.htm">DAIMS</a>
-                                                    &nbsp;page of the Data Transparency site of the Bureau of the Fiscal Service.
+                                                    <a
+                                                        target="_blank"
+                                                        rel="noopener noreferrer"
+                                                        href="https://fiscal.treasury.gov/fsservices/
+                                                        gov/data-trans/dt-daims.htm">
+                                                        DAIMS
+                                                    </a>
+                                                    &nbsp;page of the Data Transparency site of the
+                                                    Bureau of the Fiscal Service.
                                                 </p>
                                             </div>
                                         </div>

@@ -38,8 +38,8 @@ export default class AddDataContent extends React.Component {
   }
 
   componentWillUnmount() {
-    if ((this.props.submission.state === 'uploading' || this.props.submission.state === 'failed') &&
-            this.props.submission.id !== null) {
+    if ((this.props.submission.state === 'uploading' || this.props.submission.state === 'failed')
+        && this.props.submission.id !== null) {
       ReviewHelper.failUpload(this.props.submission.id);
     }
   }
@@ -83,7 +83,12 @@ export default class AddDataContent extends React.Component {
               <div className="alert alert-error text-left" role="alert">
                   <span className="usa-da-icon error-icon"><Icons.ExclamationCircle /></span>
                   <div className="alert-header-text">Your upload has failed</div>
-                  <p>{this.props.errorMessage || 'Please try again. If the problem persists, contact the service desk.'}</p>
+                  <p>
+                      {
+                          this.props.errorMessage ||
+                          'Please try again. If the problem persists, contact the service desk.'
+                      }
+                  </p>
               </div>
           </div>
       );
@@ -94,7 +99,10 @@ export default class AddDataContent extends React.Component {
               <div className="alert alert-warning text-left" role="alert">
                   <span className="usa-da-icon usa-da-icon-file-upload"><Icons.FileUpload /></span>
                   <div className="alert-header-text">Your files are uploading</div>
-                  <p>Please stay on this page until they&apos;re complete or your submission may not be created properly.</p>
+                  <p>
+                    Please stay on this page until they&apos;re complete or
+                    your submission may not be created properly.
+                  </p>
               </div>
           </div>
       );

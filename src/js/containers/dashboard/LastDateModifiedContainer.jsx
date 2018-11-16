@@ -59,7 +59,9 @@ class LastDateModifiedContainer extends React.Component {
   }
 
   render() {
-      let values = this.props.lastDateModifiedList.lastDateModified.length > 0 ? this.props.lastDateModifiedList.lastDateModified : {};
+      let values = this.props.lastDateModifiedList.lastDateModified.length > 0 ?
+      this.props.lastDateModifiedList.lastDateModified : {};
+
       // Find Min/Max for last modified dates
       if (!_.isEmpty(values)) {
         const finalPayload = {

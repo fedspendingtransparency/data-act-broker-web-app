@@ -46,7 +46,10 @@ export default class DownloadFile extends React.Component {
                                     target="_blank"
                                     rel="noopener noreferrer"
                                     className="usa-da-download pull-right">
-                                    <span className="usa-da-icon usa-da-download-report"><Icons.CloudDownload /></span>Download File
+                                    <span className="usa-da-icon usa-da-download-report">
+                                        <Icons.CloudDownload />
+                                    </span>
+                                    Download File
                                 </a>
                             </div>
                         </div>

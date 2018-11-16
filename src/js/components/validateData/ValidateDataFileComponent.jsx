@@ -435,7 +435,10 @@ export default class ValidateDataFileComponent extends React.Component {
                                 </div>
                                 {isFileValid ? '' : `${fileName} must be CSV or TXT format`}
                                 <div
-                                    className={`usa-da-validate-item-file-section-correct-button ${isFileValid ? disabledCorrect : ''}`}
+                                    className={`
+                                        usa-da-validate-item-file-section-correct-button
+                                        ${isFileValid ? disabledCorrect : ''}
+                                        `}
                                     data-testid="validate-upload">
                                     <div className="row">
                                         <div className="col-md-12">
