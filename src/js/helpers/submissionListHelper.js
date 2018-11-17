@@ -24,7 +24,7 @@ const parseRecentActivity = (submissions) => {
         const tmpItem = Object.assign({}, item);
         // determine the status
         let rowStatus = Status.StatusTypes.UNKNOWN;
-        if (statusMap.hasOwnProperty(tmpItem.status)) {
+        if (Object.prototype.hasOwnProperty.call(statusMap, tmpItem.status)) {
             rowStatus = statusMap[tmpItem.status];
         }
 
@@ -47,7 +47,7 @@ const parseRecentActivity = (submissions) => {
         // sortable reporting date parses the date into unix time stamp for simple sortablity
         tmpItem.sortableReportingDate = moment(tmpItem.reporting_start_date).unix();
         tmpItem.sortableName = '';
-        if (tmpItem.hasOwnProperty("user")) {
+        if (Object.prototype.hasOwnProperty.call(tmpItem, "user")) {
             tmpItem.sortableName = tmpItem.user.name;
         }
         parsedSubmissions.push(tmpItem);

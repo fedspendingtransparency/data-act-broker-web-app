@@ -54,13 +54,13 @@ const establishSession = (responseHeaders) => {
     // lowercase all the headers
     const headers = {};
     for (const headerKey in responseHeaders) {
-        if (responseHeaders.hasOwnProperty(headerKey)) {
+        if (Object.prototype.hasOwnProperty.call(responseHeaders, headerKey)) {
             headers[headerKey.toLowerCase()] = _.clone(responseHeaders[headerKey]);
         }
     }
 
     // check to see if we received a session header
-    if (headers.hasOwnProperty('x-session-id')) {
+    if (Object.prototype.hasOwnProperty.call(headers, 'x-session-id')) {
         // we did, save it in a cookie
         Cookies.set('session', headers['x-session-id'], cookieOpts);
     }
@@ -84,7 +84,7 @@ export const performLogin = (username, password) => {
                 Cookies.remove('brokerLogin');
 
                 // if a message is available, display that
-                if (res.body && res.body.hasOwnProperty('message')) {
+                if (res.body && Object.prototype.hasOwnProperty.call(res.body, 'message')) {
                     deferred.reject(res.body.message);
                 }
                 else {
@@ -138,7 +138,7 @@ export const performMaxLogin = (ticket) => {
                 Cookies.remove('brokerLogin');
 
                 // if a message is available, display that
-                if (res && res.hasOwnProperty('body') && res.body.hasOwnProperty('message')) {
+                if (res && Object.prototype.hasOwnProperty.call(res, 'body') && Object.prototype.hasOwnProperty.call(res.body, 'message')) {
                     deferred.reject(res.body.message);
                 }
                 else {

@@ -74,7 +74,7 @@ export const getCrossFileData = (data, type) => {
     });
 
     for (const index in data[dataType]) {
-        if (data[dataType].hasOwnProperty(index)) {
+        if (Object.prototype.hasOwnProperty.call(data[dataType], index)) {
             // fetch the error object
             const item = data[dataType][index];
 
@@ -93,7 +93,7 @@ export const getCrossFileData = (data, type) => {
             }
 
             // check if we've already seen an error for this pairing
-            if (output.hasOwnProperty(key)) {
+            if (Object.prototype.hasOwnProperty.call(output, key)) {
                 // this pair already exists, so append the error to the pair's array
                 output[key].push(item);
             }
@@ -181,7 +181,7 @@ export const fetchStatus = (submissionId, type = '') => {
 
             if (errFile) {
                 let detail = '';
-                if (res.body !== null && res.body.hasOwnProperty('message')) {
+                if (res.body !== null && Object.prototype.hasOwnProperty.call(res.body, 'message')) {
                     detail = res.body.message;
                 }
 
@@ -210,7 +210,7 @@ export const getFileStates = (status) => {
             output[item.file_type].warning_count = 0;
 
             // force an error_data array if no field is passed back in the JSON
-            if (!item.hasOwnProperty('error_data')) {
+            if (Object.prototype.hasOwnProperty.call(!item, 'error_data')) {
                 output[item.file_type].error_data = [];
             }
             else {
@@ -223,7 +223,7 @@ export const getFileStates = (status) => {
             }
 
             // do the same for warnings
-            if (!item.hasOwnProperty('warning_data')) {
+            if (Object.prototype.hasOwnProperty.call(!item, 'warning_data')) {
                 output[item.file_type].warning_data = [];
             }
             else {

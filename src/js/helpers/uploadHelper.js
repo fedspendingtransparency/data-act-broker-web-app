@@ -99,11 +99,10 @@ const prepareFabsFile = (fileDict) => {
     const deferred = Q.defer();
 
     let fieldType = '';
-
-    if (fileDict.hasOwnProperty('agency_code')) {
+    if (Object.prototype.hasOwnProperty.call(fileDict, 'agency_code')) {
         fieldType = 'agency_code';
     }
-    else if (fileDict.hasOwnProperty('existing_submission_id')) {
+    else if (Object.prototype.hasOwnProperty.call(fileDict, 'existing_submission_id')) {
         fieldType = 'existing_submission_id';
     }
 
@@ -133,7 +132,7 @@ export const performRemoteUpload = (submission) => {
     let request = {};
 
     for (const fileType in submission.files) {
-        if (submission.files.hasOwnProperty(fileType)) {
+        if (Object.prototype.hasOwnProperty.call(submission, fileType)) {
             request[fileType] = submission.files[fileType].file;
         }
     }
@@ -163,7 +162,7 @@ export const performRemoteCorrectedUpload = (submission) => {
         existing_submission_id: submission.id
     };
     for (const fileType in submission.files) {
-        if (submission.files.hasOwnProperty(fileType)) {
+        if (Object.prototype.hasOwnProperty.call(submission, fileType)) {
             request[fileType] = submission.files[fileType].file;
         }
     }
@@ -192,7 +191,7 @@ export const performLocalUpload = (submission) => {
     request = prepareMetadata(submission.meta, request);
 
     for (const fileType in submission.files) {
-        if (submission.files.hasOwnProperty(fileType)) {
+        if (Object.prototype.hasOwnProperty.call(submission, fileType)) {
             request[fileType] = submission.files[fileType].file;
         }
     }
@@ -221,7 +220,7 @@ export const performLocalCorrectedUpload = (submission) => {
     };
 
     for (const fileType in submission.files) {
-        if (submission.files.hasOwnProperty(fileType)) {
+        if (Object.prototype.hasOwnProperty.call(submission, fileType)) {
             request[fileType] = submission.files[fileType].file;
         }
     }
@@ -249,7 +248,7 @@ export const performFabsFileUpload = (submission) => {
         agency_code: submission.meta.subTierAgency
     };
 
-    if (submission.files.hasOwnProperty('fabs')) {
+    if (Object.prototype.hasOwnProperty.call(submission, 'fabs')) {
         request.fabs = submission.files.fabs.file;
     }
 
@@ -277,7 +276,7 @@ export const performFabsFileCorrectedUpload = (submission) => {
         existing_submission_id: submission.id
     };
 
-    if (submission.files.hasOwnProperty('fabs')) {
+    if (Object.prototype.hasOwnProperty.call(submission, 'fabs')) {
         request.fabs = submission.files.fabs.file;
     }
 
@@ -304,7 +303,7 @@ export const performFabsLocalUpload = (submission) => {
     const store = new StoreSingleton().store;
     store.dispatch(uploadActions.setSubmissionState('uploading'));
 
-    if (submission.files.hasOwnProperty('fabs')) {
+    if (Object.prototype.hasOwnProperty.call(submission.files, 'fabs')) {
         request.fabs = submission.files.fabs.file;
     }
 
@@ -331,7 +330,7 @@ export const performFabsLocalCorrectedUpload = (submission) => {
     const store = new StoreSingleton().store;
     store.dispatch(uploadActions.setSubmissionState('uploading'));
 
-    if (submission.files.hasOwnProperty('fabs')) {
+    if (Object.prototype.hasOwnProperty.call(submission.files, 'fabs')) {
         request.fabs = submission.files.fabs.file;
     }
 
