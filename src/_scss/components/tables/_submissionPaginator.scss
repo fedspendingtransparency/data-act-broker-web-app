@@ -1,6 +1,6 @@
 .table-paginator {
     ul, li {
-        // hide list styling 
+        // hide list styling
         list-style-type: none;
         padding: 0;
         margin: 0;
@@ -20,20 +20,21 @@
             margin-left: 0;
         }
 
-        a {
+        button {
             display: inline-block;
             padding: 0.4em 0.8em;
             border: 1px solid black;
+            background-color: transparent;
         }
 
         &.active {
-            a {
+            button {
                 font-weight: bold;
             }
         }
 
         &.page-arrow {
-            a {
+            button {
                 padding: 0.4em 0.2em;
 
                 .usa-da-icon {

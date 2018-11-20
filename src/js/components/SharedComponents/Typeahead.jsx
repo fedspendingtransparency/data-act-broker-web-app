@@ -155,7 +155,7 @@ export default class Typeahead extends React.Component {
     bubbleUpChange() {
     // force the change up into the parent components
     // validate the current value is on the autocomplete list
-        const validity = this.dataDictionary.hasOwnProperty(this.state.value);
+        const validity = Object.prototype.hasOwnProperty.call(this.dataDictionary, this.state.value);
         this.props.onSelect(
             this.dataDictionary[this.state.value],
             this.internalValueDictionary[this.state.value], validity, this.state.value,

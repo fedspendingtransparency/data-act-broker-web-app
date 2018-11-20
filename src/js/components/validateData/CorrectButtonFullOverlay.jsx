@@ -24,10 +24,6 @@ const defaultProps = {
 };
 
 export default class CorrectButtonFullOverlay extends React.Component {
-    constructor(props) {
-        super(props);
-    }
-
     render() {
         return (
             <div className="usa-da-validate-corrected-file-holder full-width">

@@ -33,10 +33,6 @@ const defaultProps = {
 };
 
 export default class GenerateFileBox extends React.Component {
-    constructor(props) {
-        super(props);
-    }
-
     render() {
         let errorClass = ' hide';
         if (this.props.error.show) {

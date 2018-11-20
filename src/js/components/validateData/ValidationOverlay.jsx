@@ -29,10 +29,6 @@ const defaultProps = {
 };
 
 export default class ValidationOverlay extends React.Component {
-    constructor(props) {
-        super(props);
-    }
-
     pressedNext() {
         hashHistory.push(`/generateFiles/${this.props.submission.id}`);
     }

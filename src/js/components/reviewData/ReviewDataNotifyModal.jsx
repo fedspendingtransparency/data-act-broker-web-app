@@ -144,7 +144,7 @@ export default class ReviewDataNotifyModal extends React.Component {
                 <div className="usa-da-modal-page">
                     <div id="usa-da-notify-modal" className="usa-da-notify-modal">
                         <div className="usa-da-notify-modal-close usa-da-icon usa-da-icon-times">
-                            <a href="#" onClick={this.props.closeModal}> <Icons.Times /> </a>
+                            <button onClick={this.props.closeModal}> <Icons.Times /> </button>
                         </div>
 
                         <div className="usa-da-notify-modal-content">
@@ -163,11 +163,10 @@ export default class ReviewDataNotifyModal extends React.Component {
                             </div>
                             <div className="row">
                                 <div className="col-md-12 mb-10">
-                                    <a
-                                        href="#"
+                                    <button
                                         onClick={this.sendNotification.bind(this)}
                                         className="usa-da-button btn-primary pull-right">Send Notification
-                                    </a>
+                                    </button>
                                 </div>
                             </div>
                         </div>

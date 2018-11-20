@@ -231,7 +231,7 @@ export default class DashboardTable extends React.Component {
             reportingDateString = 'No reporting period\nspecified';
         }
 
-        const userName = item.hasOwnProperty('user') ? item.user.name : '--';
+        const userName = Object.prototype.hasOwnProperty.call(item, 'user') ? item.user.name : '--';
 
         const deleteConfirm = this.state.deleteIndex !== -1 && index === this.state.deleteIndex;
 

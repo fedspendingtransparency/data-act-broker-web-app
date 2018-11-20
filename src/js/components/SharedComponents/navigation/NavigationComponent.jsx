@@ -29,10 +29,6 @@ const defaultProps = {
 };
 
 export class Navbar extends React.Component {
-    constructor(props) {
-        super(props);
-    }
-
     getTabs() {
         // default access: only Help page
         let tabNames = {
@@ -93,6 +89,7 @@ export class Navbar extends React.Component {
                 name={key}
                 tabClass={tabNames[key]}
                 activeTabClassName={context.props.activeTab} />);
+            return true;
         });
 
         let navClass = "";
@@ -105,7 +102,7 @@ export class Navbar extends React.Component {
         return (
             <nav className={`navbar navbar-default usa-da-header${navClass}`}>
                 <SkipNavigationLink />
-                <a className="hidden-screen-reader" href="#">Home</a>
+                <button className="hidden-screen-reader" href="#">Home</button>
                 {testBanner}
                 <div className="container-fluid">
                     <div className="row">

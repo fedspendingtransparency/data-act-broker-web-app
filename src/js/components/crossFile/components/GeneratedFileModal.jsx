@@ -84,9 +84,9 @@ export default class GeneratedFileModal extends React.Component {
                 <div className="usa-da-modal-page">
                     <div id="usa-da-generate-file-modal" className="usa-da-generate-file-modal">
                         <div className="usa-da-landing-modal-close usa-da-icon usa-da-icon-times">
-                            <a href="#" onClick={this.props.closeModal}>
+                            <button onClick={this.props.closeModal}>
                                 <Icons.Times />
-                            </a>
+                            </button>
                         </div>
                         <CrossFileGenerateModalContainer
                             type={this.props.file.letter.toUpperCase()}

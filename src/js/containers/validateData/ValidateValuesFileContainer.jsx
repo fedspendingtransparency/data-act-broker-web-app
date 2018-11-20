@@ -28,10 +28,6 @@ const defaultProps = {
 };
 
 class ValidateValuesFileContainer extends React.Component {
-    constructor(props) {
-        super(props);
-    }
-
     selectedFile(file) {
         this.props.setUploadItem({
             name: this.props.type.requestName,

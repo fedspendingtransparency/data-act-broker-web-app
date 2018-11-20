@@ -36,7 +36,8 @@ export default class LoginMax extends React.Component {
 
     detectRedirection() {
         // check if the URL has a redirect param, save it in the state
-        if (this.props.location.query.hasOwnProperty('redirect')) {
+
+        if (Object.prototype.hasOwnProperty.call(this.props.location.query, 'redirect')) {
             this.setState({
                 redirect: this.props.location.query.redirect
             }, () => {

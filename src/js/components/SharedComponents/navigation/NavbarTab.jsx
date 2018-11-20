@@ -27,22 +27,22 @@ export default class NavbarTab extends React.Component {
         if (this.props.comingSoon) {
             return (
                 <li>
-                    <a className="usa-da-header-link disabled">{this.props.name}
+                    <button className="usa-da-header-link disabled">{this.props.name}
                         <span className={isActiveClass ? 'sr-only' : ''}>{isActiveClass ? '(current)' : ''}
                             <div className="comingSoon" />
                         </span>
-                    </a>
+                    </button>
                 </li>
             );
         }
         else if (this.props.tabClass === 'disabled') {
             return (
                 <li>
-                    <a className="usa-da-header-link disabled">{this.props.name}
+                    <button className="usa-da-header-link disabled">{this.props.name}
                         <span className={isActiveClass ? 'sr-only' : ''}>{isActiveClass ? '(current)' : ''}
                             <div className="permissionsRequired" />
                         </span>
-                    </a>
+                    </button>
                 </li>
             );
         }

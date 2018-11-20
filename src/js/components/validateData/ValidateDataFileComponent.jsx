@@ -88,10 +88,11 @@ export default class ValidateDataFileComponent extends React.Component {
 
     isReplacingFile() {
         // check if the user is trying to replace a file
-        return (this.props.submission.files.hasOwnProperty(this.props.type.requestName));
+        return (Object.prototype.hasOwnProperty.call(this.props.submission.files, this.props.type.requestName));
     }
 
     determineErrors(item) {
+        console.log(item, 'item');
         if (!item) {
             return;
         }

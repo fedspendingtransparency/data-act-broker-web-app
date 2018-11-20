@@ -65,8 +65,8 @@ export default class BaseIcon extends React.Component {
     }
 
     displayIcon() {
-    // set the state to the correct SVG data
-        if (this.iconSingleton.svgCache.hasOwnProperty(this.props.iconName)) {
+        // set the state to the correct SVG data
+        if (Object.prototype.hasOwnProperty.call(this.iconSingleton.svgCache, this.props.iconName)) {
             this.setState({
                 icon: this.iconSingleton.svgCache[this.props.iconName]
             });

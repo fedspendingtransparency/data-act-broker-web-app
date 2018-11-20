@@ -7,14 +7,7 @@ import React, { PropTypes } from 'react';
 import FileComponent from './FileComponent';
 
 const propTypes = {
-    files: PropTypes.array.isRequired,
-    data: PropTypes.array,
-    headers: PropTypes.array
-};
-
-const defaultProps = {
-    data: [['Error']],
-    headers: ['Submission Data Missing']
+    files: PropTypes.array.isRequired
 };
 
 export default class SubmissionComponent extends React.Component {
@@ -53,4 +46,3 @@ export default class SubmissionComponent extends React.Component {
 }
 
 SubmissionComponent.propTypes = propTypes;
-SubmissionComponent.defaultProps = defaultProps;

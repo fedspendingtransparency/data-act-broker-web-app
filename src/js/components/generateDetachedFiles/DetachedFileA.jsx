@@ -162,8 +162,8 @@ export default class DetachedFileA extends React.Component {
                                                 </p>
                                                 <p>
                                                     Consistent with DATA Act Broker Quarterly Submissions (DABS)
-                                                    guidelines, generated files are at the 'agency-wide level'; the
-                                                    goal is to include all accounts for a given agency that are
+                                                    guidelines, generated files are at the &apos;agency-wide level&apos;
+                                                    the goal is to include all accounts for a given agency that are
                                                     appropriate for DATA Act submissions. Financing accounts are
                                                     automatically excluded, and child allocation accounts are bucketed
                                                     with the child agency. File A is generated based on GTAS SF-133

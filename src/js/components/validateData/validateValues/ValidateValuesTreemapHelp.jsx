@@ -11,12 +11,10 @@ const propTypes = {
     detail: PropTypes.string,
     field: PropTypes.string,
     title: PropTypes.string,
-    type: PropTypes.string,
-    rule: PropTypes.string
+    type: PropTypes.string
 };
 
 const defaultProps = {
-    rule: 'Unspecified',
     description: '',
     detail: null,
     count: 0,

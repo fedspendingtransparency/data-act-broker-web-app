@@ -29,14 +29,10 @@ const defaultProps = {
 };
 
 export default class ValidationContent extends React.Component {
-    constructor(props) {
-        super(props);
-    }
-
     render() {
         const errors = [];
         const warnings = [];
-        const items = fileTypes.map((type, index) => {
+        const items = fileTypes.map((type) => {
             const data = this.props.submission.validation;
             const fileData = data[type.requestName];
 
@@ -48,7 +44,7 @@ export default class ValidationContent extends React.Component {
                     warnings.push(type.requestName);
                 }
                 return (<ValidateValuesFileContainer
-                    key={index}
+                    key={type.fileTitle}
                     type={type}
                     data={data}
                     agencyName={this.props.agencyName}
@@ -57,7 +53,7 @@ export default class ValidationContent extends React.Component {
             else if (fileData) {
                 errors.push(type.requestName);
                 return (<ValidateDataFileContainer
-                    key={index}
+                    key={type.fileTitle}
                     type={type}
                     data={data}
                     agencyName={this.props.agencyName} />);

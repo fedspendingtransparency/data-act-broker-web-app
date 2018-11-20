@@ -19,7 +19,7 @@ import PendingPage from '../components/login/PendingPage';
 
 // create the state store
 let devExtension;
-if (kGlobalConstants.DEV) {
+if (kGlobalConstants.DEV || kGlobalConstants.LOCAL) {
     // only enable Redux debugging in dev mode
     devExtension = window.devToolsExtension ? window.devToolsExtension() : undefined;
 }

@@ -9,10 +9,6 @@ import { connect } from 'react-redux';
 import LandingContent from '../../components/landing/LandingContent';
 
 class LandingContentContainer extends React.Component {
-    constructor(props) {
-        super(props);
-    }
-
     render() {
         return (
             <LandingContent {...this.props} />

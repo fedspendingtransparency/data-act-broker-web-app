@@ -24,6 +24,15 @@
         "indent": [2, 4, {
             "SwitchCase": 1
         }],
+        // Allows React Router "Link" component to be a11y compliant
+        "jsx-a11y/anchor-is-valid": [ "error", {
+            "components": [ "Link" ],
+            "specialLink": [ "to", "hrefLeft", "hrefRight" ],
+            "aspects": [ "noHref", "invalidHref", "preferButton" ]
+         }],
+        // Restrict console use to only warnings and errors to aid in rapid debugging
+        "no-console": ["error", { allow: ["warn", "error"] }]
+        ,
         // require 4 spaces in JSX as well
         "react/jsx-indent": [2, 4],
         "react/jsx-indent-props": [2, 4],
@@ -31,8 +40,8 @@
         "react/jsx-closing-bracket-location": [2, "after-props"],
         // downgrading to warning when using props purely within componentWillReceiveProps
         "react/no-unused-prop-types": [1],
-        // also set the tab width for the max line width with a max length of 100
-        "max-len": [1, 100, {"tabWidth": 4}],
+        // also set the tab width for the max line width with a max length of 120
+        "max-len": [1, 120, {"tabWidth": 4}],
         // do not allow dangling commas at the end of arrays, objects, etc.
         "comma-dangle": [2, "never"],
         // downgrade extra semicolons to warnings
@@ -86,8 +95,8 @@
         // allow unused state because linter does not always know when a state is passed to child
         // components
         "react/no-unused-state": [0],
-        // downgrade label has for to a warning due to some design considerations
-        "jsx-a11y/label-has-for": [1],
+        // Disabling this rule, since its been deprecated
+        "jsx-a11y/label-has-for": [0],
         // downgrade array index as React key to warning (though it should be higher, this would
         // be an expensive refactor)
         "react/no-array-index-key": [1]

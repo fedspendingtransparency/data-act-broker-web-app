@@ -26,13 +26,10 @@ const defaultProps = {
 };
 
 class SubmissionGuideContainer extends React.Component {
-    constructor(props) {
-        super(props);
-    }
-
     componentWillMount() {
         let forceDisplay = false;
-        if (this.props.location.query.hasOwnProperty('force') && this.props.location.query.force === 'true') {
+        if (Object.prototype.hasOwnProperty.call(this.props.location.query, 'force') &&
+            this.props.location.query.force === 'true') {
             forceDisplay = true;
         }
 

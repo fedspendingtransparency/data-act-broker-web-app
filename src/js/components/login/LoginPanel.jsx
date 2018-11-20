@@ -69,12 +69,12 @@ export default class LoginPanel extends React.Component {
                 <form onKeyPress={this.handleKeyPress.bind(this)}>
                     <div className="row">
                         <div className="col-md-12">
-                            <Username handleChange={this.handleUsernameChange.bind(this)} tabIndex="1" />
+                            <Username handleChange={this.handleUsernameChange.bind(this)} tabIndex="-1" />
                         </div>
                     </div>
                     <div className="row">
                         <div className="col-md-12">
-                            <Password handleChange={this.handlePasswordChange.bind(this)} tabIndex="2" />
+                            <Password handleChange={this.handlePasswordChange.bind(this)} tabIndex="0" />
                         </div>
                     </div>
                     <div className="row">

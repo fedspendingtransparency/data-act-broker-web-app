@@ -43,15 +43,14 @@ export default class UserButton extends React.Component {
 
         return (
             <li className="usa-da-top-head-menu-item">
-                <a
-                    href="#"
+                <button
                     onClick={this.toggleDropdown.bind(this)}
                     className="usa-da-header-link usa-da-user-info dropdown-toggle usa-da-icon"><Icons.User />
                     {this.props.buttonText}
-                </a>
+                </button>
                 <ul className={`header-dropdown${hideDropdown}`}>
                     <li>
-                        <a className="logout" href="#" onClick={this.props.logout}>Log Out</a>
+                        <button className="logout" href="#" onClick={this.props.logout}>Log Out</button>
                     </li>
                 </ul>
             </li>

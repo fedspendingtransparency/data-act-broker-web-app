@@ -12,7 +12,6 @@ const propTypes = {
     onDateChange: PropTypes.func,
     updateError: PropTypes.func,
     opposite: PropTypes.object,
-    params: PropTypes.object,
     value: PropTypes.object,
     title: PropTypes.string,
     type: PropTypes.string,
@@ -26,7 +25,6 @@ const defaultProps = {
     onDateChange: null,
     updateError: null,
     opposite: null,
-    params: null,
     value: null,
     title: '',
     disabled: false
@@ -226,14 +224,13 @@ export default class DatePicker extends React.Component {
                         onChange={this.handleTypedDate}
                         onBlur={this.handleInputBlur.bind(this)}
                         disabled={this.props.disabled} />
-                    <a
-                        href="#"
+                    <button
                         onClick={this.toggleDatePicker.bind(this)}
                         tabIndex={this.props.tabIndex + 1}
                         className="usa-da-icon picker-icon date"
                         aria-haspopup="true">
                         <Icons.Calendar alt="Date picker" />
-                    </a>
+                    </button>
                 </div>
                 <div className={`floating-datepicker${showDatePicker}`} role="dialog">
                     <DayPicker

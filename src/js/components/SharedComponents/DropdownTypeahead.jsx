@@ -86,7 +86,8 @@ export default class DropdownTypeahead extends React.Component {
             this.loadValues();
         }
 
-        if (JSON.stringify(prevProps.bubbledRemovedFilterValue) !== JSON.stringify(this.props.bubbledRemovedFilterValue)) {
+        if (JSON.stringify(prevProps.bubbledRemovedFilterValue)
+            !== JSON.stringify(this.props.bubbledRemovedFilterValue)) {
             this.removedFilterItemFromDropdown(
                 this.props.bubbledRemovedFilterValue, prevProps.bubbledRemovedFilterValue
             );
@@ -238,7 +239,7 @@ export default class DropdownTypeahead extends React.Component {
     }
 
     passSelectedName(clickedCheckboxValue) {
-        const validity = this.dataDictionary.hasOwnProperty(clickedCheckboxValue);
+        const validity = Object.prototype.hasOwnProperty.call(this.dataDictionary, clickedCheckboxValue);
         this.props.onSelect(
             this.dataDictionary[clickedCheckboxValue],
             this.internalValueDictionary[clickedCheckboxValue],

@@ -63,7 +63,8 @@ export default class ReviewDataCertifyModal extends React.Component {
                     errorMessage = error.message;
                     if (error.submissionId) {
                         errorMessage = (
-                            <div>{error.message} You can update the certified submission
+                            <div>
+                                {error.message} You can update the certified submission
                                 <Link to={`/validateData/${error.submissionId}`}>here</Link>.
                             </div>);
                     }
@@ -143,7 +144,7 @@ export default class ReviewDataCertifyModal extends React.Component {
                 <div className="usa-da-modal-page">
                     <div id="usa-da-certify-modal" className="usa-da-certify-modal">
                         <div className={`usa-da-certify-modal-close usa-da-icon usa-da-icon-times${hideClose}`}>
-                            <a href="#" onClick={this.closeModal.bind(this)}> <Icons.Times /> </a>
+                            <button onClick={this.closeModal.bind(this)}> <Icons.Times /> </button>
                         </div>
 
                         <div className="usa-da-certify-modal-content">

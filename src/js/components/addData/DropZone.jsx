@@ -27,10 +27,6 @@ const defaultProps = {
 };
 
 export default class DropZone extends React.Component {
-    constructor(props) {
-        super(props);
-    }
-
     componentWillUnmount() {
         this.props.resetSubmission();
     }
@@ -41,7 +37,7 @@ export default class DropZone extends React.Component {
         let dropped = '';
         let isFileValid = 'unset';
 
-        if (this.props.submission.files.hasOwnProperty(this.props.requestName)) {
+        if (Object.prototype.hasOwnProperty.call(this.props.submission.files, this.props.requestName)) {
             const submission = this.props.submission;
             const submissionItem = this.props.submission.files[this.props.requestName];
             dropped = ' dropped';

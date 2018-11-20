@@ -15,7 +15,6 @@ const propTypes = {
     session: PropTypes.object,
     errorDetails: PropTypes.string,
     state: PropTypes.string,
-    submissionID: PropTypes.string,
     agency_name: PropTypes.string
 };
 
@@ -25,7 +24,6 @@ const defaultProps = {
     nextPage: null,
     session: null,
     errorDetails: '',
-    submissionID: '',
     agency_name: ''
 };
 

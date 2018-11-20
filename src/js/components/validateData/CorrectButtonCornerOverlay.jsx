@@ -16,10 +16,6 @@ const defaultProps = {
 };
 
 export default class CorrectButtonCornerOverlay extends React.Component {
-    constructor(props) {
-        super(props);
-    }
-
     render() {
         return (
             <div className="usa-da-validate-corrected-file-holder">

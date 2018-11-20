@@ -12,18 +12,14 @@ const propTypes = {
     onDrop: PropTypes.func,
     removeFile: PropTypes.func,
     fileName: PropTypes.string,
-    isReplacingFile: PropTypes.bool,
-    fullName: PropTypes.string,
-    type: PropTypes.string
+    isReplacingFile: PropTypes.bool
 };
 
 const defaultProps = {
     onDrop: () => {},
     removeFile: () => {},
     fileName: '',
-    isReplacingFile: false,
-    fullName: '',
-    type: ''
+    isReplacingFile: false
 };
 
 export default class CorrectButtonOverlay extends React.Component {

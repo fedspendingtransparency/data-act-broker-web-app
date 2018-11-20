@@ -23,10 +23,6 @@ const defaultProps = {
 };
 
 export default class SubmissionLink extends React.Component {
-    constructor(props) {
-        super(props);
-    }
-
     render() {
         let link = `ID: ${this.props.submissionId}`;
         if (this.props.value && this.props.type !== 'fabs') {

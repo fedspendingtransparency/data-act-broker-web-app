@@ -46,7 +46,7 @@ export default class LoginMaxLoading extends React.Component {
                     <div className="col-md-12">
                         {errorMessageComponent}
                         <div className="back-link">
-                            <a href="#">Back to login page</a>
+                            <a href="/">Back to login page</a>
                         </div>
                     </div>
                 </div>

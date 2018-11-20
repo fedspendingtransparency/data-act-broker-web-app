@@ -6,13 +6,11 @@
 import React, { PropTypes } from 'react';
 
 const propTypes = {
-    fileStatus: PropTypes.number,
-    progress: PropTypes.number
+    fileStatus: PropTypes.number
 };
 
 const defaultProps = {
-    fileStatus: 0,
-    progress: 0
+    fileStatus: 0
 };
 
 export default class FileProgress extends React.Component {

@@ -52,7 +52,7 @@ class CrossFileUploadButtonContainer extends React.Component {
     }
 
     isFileStaged() {
-        if (this.props.submission.files.hasOwnProperty(this.props.fileKey)) {
+        if (Object.prototype.hasOwnProperty.call(this.props.submission.files, this.props.fileKey)) {
             return true;
         }
         return false;

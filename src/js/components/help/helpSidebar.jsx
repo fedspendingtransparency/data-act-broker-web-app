@@ -44,15 +44,15 @@ export default class HelpSidebar extends React.Component {
     }
 
     render() {
-        const clSectionList = this.props.changeSections.map((section, index) => (<HelpSidebarItem
-            key={index}
+        const clSectionList = this.props.changeSections.map((section) => (<HelpSidebarItem
+            key={section.name}
             sectionName={section.name}
             sectionId={section.link}
             type={this.props.type} />));
 
-        const tSectionList = this.props.technicalSections.map((section, index) => (
+        const tSectionList = this.props.technicalSections.map((section) => (
             <HelpSidebarItem
-                key={index}
+                key={section.name}
                 sectionName={section.name}
                 sectionId={section.link}
                 type={this.props.type} />

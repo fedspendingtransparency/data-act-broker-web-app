@@ -85,7 +85,8 @@ export default class ValidateValuesFileComponent extends React.Component {
     isReplacingFile() {
         // check if the user is trying to replace a file
         let stagedFile = false;
-        if (this.props.submission.files.hasOwnProperty(this.props.type.requestName)) {
+
+        if (Object.prototype.hasOwnProperty.call(this.props.submission.files, this.props.type.requestName)) {
             stagedFile = true;
         }
         return stagedFile;

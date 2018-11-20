@@ -160,7 +160,7 @@ class CrossFileContentContainer extends React.Component {
             })
             .catch((err) => {
                 // check if the error has an associated user-displayable message
-                if (err.hasOwnProperty('detail') && err.detail !== '') {
+                if (Object.prototype.hasOwnProperty.call(err, 'detail') && err.detail !== '') {
                     if (!this.isUnmounted) {
                         this.props.showError(err.detail);
                     }

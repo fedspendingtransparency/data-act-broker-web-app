@@ -112,11 +112,21 @@ export default class DateDropdown extends React.Component {
         let value;
         let dates;
         if (this.props.type === "quarter") {
-            dates = this.generateQuarters().map((date, index) => <option key={index} value={date.value}>{date.string}</option>);
+            dates = this.generateQuarters().map((date) =>
+                (
+                    <option
+                        key={date.value}
+                        value={date.value}>{date.string}
+                    </option>));
             value = this.state.quarter;
         }
         else {
-            dates = this.generateDates().map((date, index) => <option key={index} value={date.value}>{date.string}</option>);
+            dates = this.generateDates().map((date) =>
+                (
+                    <option
+                        key={date.value}
+                        value={date.value}>{date.string}
+                    </option>));
             value = this.state.month;
         }
 

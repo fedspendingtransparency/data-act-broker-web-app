@@ -280,12 +280,12 @@ export default class ErrorBox extends React.Component {
                                 <div className="button-list">
                                     <div className="row">
                                         <div className="col-md-12">
-                                            <a
+                                            <button
                                                 href="#"
                                                 onClick={this.clickedReport.bind(this, reportWarning)}
                                                 className="usa-da-button btn-full btn-primary">
                                                 {downloadLabel}
-                                            </a>
+                                            </button>
                                             <div className="upload-title">
                                                 {uploadHeader}
                                                 {upload}

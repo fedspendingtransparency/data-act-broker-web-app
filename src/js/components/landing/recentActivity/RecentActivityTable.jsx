@@ -185,7 +185,8 @@ export default class RecentActivityTable extends React.Component {
         if (!rowData.reporting_start_date || !rowData.reporting_end_date) {
             reportingDateString = 'No reporting period specified';
         }
-        const userName = rowData.hasOwnProperty('user') ? rowData.user.name : '--';
+
+        const userName = Object.prototype.hasOwnProperty.call(rowData, 'user') ? rowData.user.name : '--';
 
         const row = [
             link,

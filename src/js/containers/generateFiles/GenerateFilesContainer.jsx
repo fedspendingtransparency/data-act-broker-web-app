@@ -237,7 +237,7 @@ class GenerateFilesContainer extends React.Component {
                 });
             })
             .catch((err) => {
-                if (err.hasOwnProperty('text')) {
+                if (Object.prototype.hasOwnProperty.call(err, 'text')) {
                     // handle non-existant submission IDs
                     this.props.showError(JSON.parse(err.text).message);
                 }

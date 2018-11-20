@@ -7,10 +7,7 @@ import React, { PropTypes } from 'react';
 
 const propTypes = {
     changeTab: PropTypes.func,
-    counts: PropTypes.object,
-    activeTab: PropTypes.string,
     label: PropTypes.string,
-    status: PropTypes.string,
     value: PropTypes.string,
     count: PropTypes.number,
     isActive: PropTypes.bool
@@ -18,10 +15,7 @@ const propTypes = {
 
 const defaultProps = {
     changeTab: null,
-    counts: null,
-    activeTab: '',
     label: '',
-    status: '',
     value: '',
     count: 0,
     isActive: false
@@ -39,12 +33,12 @@ export default class TabItem extends React.Component {
         }
 
         return (
-            <a href="#" className={`tab-item${activeClass}`} onClick={this.clickedTab.bind(this)}>
+            <button href="#" className={`tab-item${activeClass}`} onClick={this.clickedTab.bind(this)}>
                 {this.props.label}
                 <span className="count-badge">
                     {this.props.count}
                 </span>
-            </a>
+            </button>
         );
     }
 }

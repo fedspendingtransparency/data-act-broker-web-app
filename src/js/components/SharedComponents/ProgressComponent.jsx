@@ -23,10 +23,6 @@ const defaultProps = {
 };
 
 export default class Progress extends React.Component {
-    constructor(props) {
-        super(props);
-    }
-
     componentDidMount() {
         SubmissionHelper.getSubmissionPage(this.props.id)
             .then((res) => {

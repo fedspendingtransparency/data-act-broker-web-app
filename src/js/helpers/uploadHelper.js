@@ -99,6 +99,7 @@ const prepareFabsFile = (fileDict) => {
     const deferred = Q.defer();
 
     let fieldType = '';
+
     if (Object.prototype.hasOwnProperty.call(fileDict, 'agency_code')) {
         fieldType = 'agency_code';
     }
@@ -132,7 +133,7 @@ export const performRemoteUpload = (submission) => {
     let request = {};
 
     for (const fileType in submission.files) {
-        if (Object.prototype.hasOwnProperty.call(submission, fileType)) {
+        if (Object.prototype.hasOwnProperty.call(submission.files, fileType)) {
             request[fileType] = submission.files[fileType].file;
         }
     }
@@ -162,7 +163,7 @@ export const performRemoteCorrectedUpload = (submission) => {
         existing_submission_id: submission.id
     };
     for (const fileType in submission.files) {
-        if (Object.prototype.hasOwnProperty.call(submission, fileType)) {
+        if (Object.prototype.hasOwnProperty.call(submission.files, fileType)) {
             request[fileType] = submission.files[fileType].file;
         }
     }
@@ -191,7 +192,7 @@ export const performLocalUpload = (submission) => {
     request = prepareMetadata(submission.meta, request);
 
     for (const fileType in submission.files) {
-        if (Object.prototype.hasOwnProperty.call(submission, fileType)) {
+        if (Object.prototype.hasOwnProperty.call(submission.files, fileType)) {
             request[fileType] = submission.files[fileType].file;
         }
     }
@@ -220,7 +221,7 @@ export const performLocalCorrectedUpload = (submission) => {
     };
 
     for (const fileType in submission.files) {
-        if (Object.prototype.hasOwnProperty.call(submission, fileType)) {
+        if (Object.prototype.hasOwnProperty.call(submission.files, fileType)) {
             request[fileType] = submission.files[fileType].file;
         }
     }
@@ -248,7 +249,7 @@ export const performFabsFileUpload = (submission) => {
         agency_code: submission.meta.subTierAgency
     };
 
-    if (Object.prototype.hasOwnProperty.call(submission, 'fabs')) {
+    if (Object.prototype.hasOwnProperty.call(submission.files, 'fabs')) {
         request.fabs = submission.files.fabs.file;
     }
 
@@ -276,7 +277,7 @@ export const performFabsFileCorrectedUpload = (submission) => {
         existing_submission_id: submission.id
     };
 
-    if (Object.prototype.hasOwnProperty.call(submission, 'fabs')) {
+    if (Object.prototype.hasOwnProperty.call(submission.files, 'fabs')) {
         request.fabs = submission.files.fabs.file;
     }
 

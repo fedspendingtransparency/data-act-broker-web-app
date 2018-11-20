@@ -14,7 +14,6 @@ const propTypes = {
     generateFiles: PropTypes.func,
     nextPage: PropTypes.func,
     session: PropTypes.object,
-    submissionID: PropTypes.string,
     hasErrors: PropTypes.bool,
     isReady: PropTypes.bool,
     agency_name: PropTypes.string
@@ -24,7 +23,6 @@ const defaultProps = {
     generateFiles: null,
     nextPage: null,
     session: null,
-    submissionID: '',
     hasErrors: false,
     isReady: false,
     agency_name: ''
