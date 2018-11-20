@@ -12,3 +12,4 @@ export const kGlobalConstants = {
     STAGING: false,
     PROD: true
 };
+export { kGlobalConstants as default };
