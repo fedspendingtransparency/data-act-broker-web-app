@@ -12,3 +12,4 @@ export const agencyReducer = (state = initialState, action) => {
             return state;
     }
 };
+export { agencyReducer as default };

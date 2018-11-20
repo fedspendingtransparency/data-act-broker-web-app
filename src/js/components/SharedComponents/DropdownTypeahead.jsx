@@ -145,7 +145,7 @@ export default class DropdownTypeahead extends React.Component {
     }
 
     mountAwesomeplete() {
-        const target = this.refs.awesomplete;
+        const target = this.awesomplete;
         if (this.props.prioritySort) {
             this.typeahead = new Awesomplete(target, {
                 sort: (a, b) => {
@@ -171,7 +171,7 @@ export default class DropdownTypeahead extends React.Component {
         this.loadValues();
 
         // set up event handlers
-        this.refs.awesomplete.addEventListener('awesomplete-selectcomplete', (e) => {
+        this.awesomplete.addEventListener('awesomplete-selectcomplete', (e) => {
             this.setState({
                 value: e.text.label
             }, () => {
@@ -187,7 +187,7 @@ export default class DropdownTypeahead extends React.Component {
         });
 
         // enable tab keyboard shortcut for selection
-        this.refs.awesomplete.addEventListener('keydown', (e) => {
+        this.awesomplete.addEventListener('keydown', (e) => {
             if (e.keyCode === 9) {
                 this.typeahead.select();
             }
@@ -362,7 +362,9 @@ export default class DropdownTypeahead extends React.Component {
                     <li className={`usa-da-typeahead${disabledClass}`}>
                         <input
                             className={this.props.customClass}
-                            ref="awesomplete"
+                            ref={(c) => {
+                                this.awesomplete = c;
+                            }}
                             type="text"
                             placeholder={placeholder}
                             value={this.state.value}

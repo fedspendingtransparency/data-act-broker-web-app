@@ -20,7 +20,13 @@ export default class CorrectButtonCornerOverlay extends React.Component {
         return (
             <div className="usa-da-validate-corrected-file-holder">
                 <div className="corner-overlay">
-                    <div className="usa-da-icon" onClick={this.props.buttonClicked}><Icons.Trash />
+                    <div
+                        role="button"
+                        tabIndex={-1}
+                        className="usa-da-icon"
+                        onKeyDown={this.props.buttonClicked}
+                        onClick={this.props.buttonClicked}>
+                        <Icons.Trash />
                     </div>
                 </div>
             </div>

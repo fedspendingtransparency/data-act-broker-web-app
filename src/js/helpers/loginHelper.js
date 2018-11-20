@@ -138,7 +138,8 @@ export const performMaxLogin = (ticket) => {
                 Cookies.remove('brokerLogin');
 
                 // if a message is available, display that
-                if (res && Object.prototype.hasOwnProperty.call(res, 'body') && Object.prototype.hasOwnProperty.call(res.body, 'message')) {
+                if (res && Object.prototype.hasOwnProperty.call(res, 'body')
+                && Object.prototype.hasOwnProperty.call(res.body, 'message')) {
                     deferred.reject(res.body.message);
                 }
                 else {

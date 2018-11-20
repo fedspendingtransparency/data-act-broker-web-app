@@ -39,7 +39,7 @@ class RouterContainer extends React.Component {
                 // we've switched from either a logged out state to logged in or
                 // we've received session data back from the backend
                 // so we should auto-relogin
-                Routes.autoLogin(this.refs.router.state.location);
+                Routes.autoLogin(this.router.state.location);
                 this.monitorSession();
             }
             else if (this.props.session.login === "loggedOut" && prevProps.session.login === "loggedIn") {
@@ -80,7 +80,9 @@ class RouterContainer extends React.Component {
                 routes={Routes.routes()}
                 history={hashHistory}
                 onUpdate={this.handleRouteChange.bind(this)}
-                ref="router" />
+                ref={(c) => {
+                    this.router = c;
+                }} />
         );
     }
 }

@@ -77,8 +77,13 @@ export default class TreemapCell extends React.Component {
 
         return (
             <div
+                role="button"
+                tabIndex={-1}
                 className="usa-da-treemap-cell"
                 style={style}
+                onKeyUp={this.mouseOut.bind(this)}
+                onKeyDown={this.clickEvent.bind(this)}
+                onKeyPress={this.mouseOver.bind(this)}
                 onMouseOver={this.mouseOver.bind(this)}
                 onFocus={this.mouseOver.bind(this)}
                 onMouseOut={this.mouseOut.bind(this)}

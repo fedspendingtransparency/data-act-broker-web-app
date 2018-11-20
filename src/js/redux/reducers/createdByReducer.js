@@ -12,3 +12,4 @@ export const createdByReducer = (state = initialState, action) => {
             return state;
     }
 };
+export { createdByReducer as default };

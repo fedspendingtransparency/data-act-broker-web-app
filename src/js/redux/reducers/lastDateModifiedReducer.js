@@ -12,3 +12,4 @@ export const lastDateModifiedReducer = (state = initialState, action) => {
             return state;
     }
 };
+export { lastDateModifiedReducer as default };

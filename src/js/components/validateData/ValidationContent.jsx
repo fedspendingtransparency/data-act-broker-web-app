@@ -10,7 +10,7 @@ import ValidateDataFileContainer from '../../containers/validateData/ValidateDat
 import ValidateValuesFileContainer from '../../containers/validateData/ValidateValuesFileContainer';
 import ValidateDataInProgressOverlay from './ValidateDataInProgressOverlay';
 
-import { fileTypes } from '../../containers/addData/fileTypes';
+import fileTypes from '../../containers/addData/fileTypes';
 
 const propTypes = {
     session: PropTypes.object,

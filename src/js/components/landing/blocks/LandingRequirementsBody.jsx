@@ -108,7 +108,7 @@ export default class LandingRequirementsBody extends React.Component {
                         href="https://fiscal.treasury.gov/fsservices/gov/data-trans/dt-daims.htm"
                         target="_blank"
                         rel="noopener noreferrer">
-                        DAIMS
+                        &nbsp;DAIMS
                     </a> page of the Data Transparency site for the Bureau of the Fiscal Service.
                 </p>
             </div>
@@ -127,7 +127,7 @@ export default class LandingRequirementsBody extends React.Component {
                             target="_blank"
                             rel="noopener noreferrer"
                             href="https://fiscal.treasury.gov/fsservices/gov/data-trans/dt-daims.htm">
-                            DAIMS
+                            &nbsp;DAIMS
                         </a>
                         page of the Data Transparency site for the Bureau of the Fiscal Service.
                     </p>

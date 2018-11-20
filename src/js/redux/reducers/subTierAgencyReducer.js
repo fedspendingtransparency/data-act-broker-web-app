@@ -12,3 +12,4 @@ export const subTierAgencyReducer = (state = initialState, action) => {
             return state;
     }
 };
+export { subTierAgencyReducer as default };

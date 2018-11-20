@@ -72,7 +72,7 @@ export default class ReviewDataNotifyModal extends React.Component {
                 const updatedUsers = _.remove(this.state.users, (user) => user.id !== id);
                 this.setState({ users: updatedUsers });
 
-                this.refs.typeahead.setState({ value: "" });
+                this.typeahead.setState({ value: "" });
             }
         }
     }
@@ -120,7 +120,9 @@ export default class ReviewDataNotifyModal extends React.Component {
         let autoCompleteItems = null;
         if (this.state.users && this.state.users.length > 0) {
             autoCompleteItems = (<Typeahead
-                ref="typeahead"
+                ref={(c) => {
+                    this.typeahead = c;
+                }}
                 placeholder="Name or email address of the person to certify this submission"
                 keyValue="displayName"
                 internalValue={["id"]}

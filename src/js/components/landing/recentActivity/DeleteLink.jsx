@@ -97,7 +97,12 @@ export default class DeleteLink extends React.Component {
         let modal = null;
         if (this.state.delete) {
             button = (
-                <div onClick={this.confirm.bind(this)} className="trash-icon">
+                <div
+                    role="button"
+                    tabIndex={-1}
+                    onKeyDown={this.confirm.bind(this)}
+                    onClick={this.confirm.bind(this)}
+                    className="trash-icon">
                     <Icons.Trash alt="Delete" />
                 </div>);
             modal = (<DeleteModal

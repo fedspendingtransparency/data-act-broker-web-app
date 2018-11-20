@@ -173,7 +173,10 @@ export default class ValidateValuesErrorReport extends React.Component {
                         </div>
                         <div className="col-md-3">
                             <div
+                                role="button"
+                                tabIndex={-1}
                                 className="usa-da-download pull-right"
+                                onKeyDown={this.clickedReport.bind(this)}
                                 onClick={this.clickedReport.bind(this)}>
                                 <span className="usa-da-icon usa-da-download-report"><Icons.CloudDownload /></span>
                                 {reportLinkText}

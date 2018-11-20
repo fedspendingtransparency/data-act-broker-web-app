@@ -92,7 +92,6 @@ export default class ValidateDataFileComponent extends React.Component {
     }
 
     determineErrors(item) {
-        console.log(item, 'item');
         if (!item) {
             return;
         }
@@ -405,8 +404,11 @@ export default class ValidateDataFileComponent extends React.Component {
                             </div>
                             <div className="row usa-da-validate-item-footer-wrapper">
                                 <div
+                                    role="button"
+                                    tabIndex={-1}
                                     className={`usa-da-validate-item-footer usa-da-header-error${showFooter} ${
                                         footerStatus}`}
+                                    onKeyDown={this.toggleErrorReport.bind(this)}
                                     onClick={this.toggleErrorReport.bind(this)}>
                                     <div>View &amp; Download Header Error Report
                                         <span className="usa-da-icon">{chevronDirection}</span>
@@ -427,7 +429,10 @@ export default class ValidateDataFileComponent extends React.Component {
                                 {uploadProgress}
                                 <div className="row usa-da-validate-item-file-name">
                                     <div
+                                        role="button"
+                                        tabIndex={-1}
                                         className={clickDownloadClass}
+                                        onKeyDown={clickDownload}
                                         onClick={clickDownload}
                                         download={fileName}
                                         rel="noopener noreferrer">

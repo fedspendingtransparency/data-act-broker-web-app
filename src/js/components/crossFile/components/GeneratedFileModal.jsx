@@ -59,7 +59,7 @@ export default class GeneratedFileModal extends React.Component {
     }
 
     generateFile() {
-        this.refs.container.generateFile();
+        this.container.generateFile();
     }
 
     render() {
@@ -91,7 +91,9 @@ export default class GeneratedFileModal extends React.Component {
                         <CrossFileGenerateModalContainer
                             type={this.props.file.letter.toUpperCase()}
                             label={`File ${this.props.file.letter}: ${this.props.file.name}`}
-                            ref="container"
+                            ref={(c) => {
+                                this.container = c;
+                            }}
                             submissionID={this.props.submissionID}
                             disableButton={this.disableButton.bind(this)}
                             enableButton={this.enableButton.bind(this)}

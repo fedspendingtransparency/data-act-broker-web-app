@@ -6,6 +6,10 @@
     z-index: 500;
 
     .corner-overlay {
+        button {
+            background-color: transparent;
+            border:none;
+        }
         @import "../../../components/replacementCorner/replacementCorner";
         @include replacementCorner;
 

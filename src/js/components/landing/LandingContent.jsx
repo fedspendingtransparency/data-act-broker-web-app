@@ -51,7 +51,7 @@ export default class LandingContent extends React.Component {
     clickedUploadReqs(e) {
         e.preventDefault();
 
-        this.refs.modal.openModal();
+        this.modal.openModal();
     }
 
     toggleExpand() {
@@ -145,7 +145,10 @@ export default class LandingContent extends React.Component {
                                 <div className={recentActivity}>{agencyName}</div>
                             </h2>
                             <div className="see-more-wrapper">
-                                <a className={expand} onClick={this.toggleExpand.bind(this)}>{expandContent}</a>
+                                <button
+                                    className={expand}
+                                    onClick={this.toggleExpand.bind(this)}>{expandContent}
+                                </button>
                             </div>
                             <RecentActivityTable {...this.props} />
                         </div>
@@ -175,7 +178,11 @@ export default class LandingContent extends React.Component {
                                     clickedUploadReqs={this.clickedUploadReqs.bind(this)}
                                     session={this.props.session} />
                                 <div id="modalHolder">
-                                    <LandingRequirementsModal ref="modal" type={this.props.type} />
+                                    <LandingRequirementsModal
+                                        ref={(c) => {
+                                            this.modal = c;
+                                        }}
+                                        type={this.props.type} />
                                 </div>
                             </div>
                         </div>

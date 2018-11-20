@@ -123,7 +123,7 @@ export default class ResourcesContent extends React.Component {
                             href="https://fiscal.treasury.gov/fsservices/gov/data-trans/dt-daims.htm"
                             target="_blank"
                             rel="noopener noreferrer">
-                            DAIMS
+                            &nbsp;DAIMS
                         </a>
                         page of the Data Transparency site for the Bureau of the Fiscal Service.
                     </span>

@@ -20,3 +20,5 @@ export const fetchCreatedBy = (tablename) => {
 
     return deferred.promise;
 };
+
+export { fetchCreatedBy as default };

@@ -139,3 +139,5 @@ export const uploadReducer = (state = initialUploadState, action) => {
             return state;
     }
 };
+
+export { uploadReducer as default };

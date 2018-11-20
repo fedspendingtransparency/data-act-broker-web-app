@@ -24,3 +24,5 @@ export const fetchLastDateModified = () => {
 
     return deferred.promise;
 };
+
+export { fetchLastDateModified as default };

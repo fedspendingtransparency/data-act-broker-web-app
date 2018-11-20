@@ -92,7 +92,7 @@ export default class DatePicker extends React.Component {
             // date picker is now closed, stop listening for this event
             window.removeEventListener('keyup', this.escapeEvent);
             // return focus to the input field
-            this.refs.text.focus();
+            this.text.focus();
         }
     }
 
@@ -220,7 +220,9 @@ export default class DatePicker extends React.Component {
                         placeholder={this.props.title}
                         value={this.state.inputValue}
                         tabIndex={this.props.tabIndex}
-                        ref="text"
+                        ref={(c) => {
+                            this.text = c;
+                        }}
                         onChange={this.handleTypedDate}
                         onBlur={this.handleInputBlur.bind(this)}
                         disabled={this.props.disabled} />
@@ -234,7 +236,9 @@ export default class DatePicker extends React.Component {
                 </div>
                 <div className={`floating-datepicker${showDatePicker}`} role="dialog">
                     <DayPicker
-                        ref="datepicker"
+                        ref={(c) => {
+                            this.datepicker = c;
+                        }}
                         initialMonth={pickedDay}
                         disabledDays={cutoffFunc}
                         selectedDays={(day) => DateUtils.isSameDay(pickedDay, day)}
