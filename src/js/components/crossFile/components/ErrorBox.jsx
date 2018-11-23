@@ -196,15 +196,11 @@ export default class ErrorBox extends React.Component {
     clickedReport(warning, e) {
         e.preventDefault();
         // check if the link is already signed
-        if (this.state.signInProgress) {
-            // sign is in progress, do nothing
-            console.warn('In Progress');
-        }
-        else if (this.state.signedUrl !== '') {
+        if (this.state.signedUrl !== '' && !this.state.signInProgress) {
             // it is signed, open immediately
             this.openReport();
         }
-        else {
+        else if (!this.state.signInProgress) {
             // not signed yet, sign
             this.setState({
                 signInProgress: true

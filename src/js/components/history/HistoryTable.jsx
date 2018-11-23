@@ -102,7 +102,7 @@ export default class HistoryTable extends React.Component {
             list.push(
                 <div
                     role="button"
-                    tabIndex={-1}
+                    tabIndex={0}
                     className="file-link"
                     onKeyDown={this.getSignedUrl.bind(this, i)}
                     onClick={this.getSignedUrl.bind(this, i)}
@@ -133,7 +133,7 @@ export default class HistoryTable extends React.Component {
                 list.push(
                     <div
                         role="button"
-                        tabIndex={-1}
+                        tabIndex={0}
                         onKeyDown={this.setActiveSubmission.bind(this, i)}
                         onClick={this.setActiveSubmission.bind(this, i)}
                         key={i}>

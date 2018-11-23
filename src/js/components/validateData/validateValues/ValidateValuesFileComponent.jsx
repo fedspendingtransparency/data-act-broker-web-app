@@ -348,7 +348,7 @@ export default class ValidateValuesFileComponent extends React.Component {
                             <div className="row usa-da-validate-item-file-name">
                                 <div
                                     role="button"
-                                    tabIndex={-1}
+                                    tabIndex={0}
                                     className="file-download"
                                     onKeyDown={this.clickedReport.bind(this, this.props.item)}
                                     onClick={this.clickedReport.bind(this, this.props.item)}

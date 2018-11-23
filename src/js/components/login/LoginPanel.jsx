@@ -69,7 +69,7 @@ export default class LoginPanel extends React.Component {
                 <form>
                     <div className="row">
                         <div className="col-md-12">
-                            <Username handleChange={this.handleUsernameChange.bind(this)} tabIndex="-1" />
+                            <Username handleChange={this.handleUsernameChange.bind(this)} tabIndex="0" />
                         </div>
                     </div>
                     <div className="row">

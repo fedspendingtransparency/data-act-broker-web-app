@@ -30,7 +30,7 @@ export default class CorrectButtonFullOverlay extends React.Component {
                 <div className="full-overlay">
                     <div
                         role="button"
-                        tabIndex={-1}
+                        tabIndex={0}
                         className="usa-da-icon"
                         onKeyDown={this.props.buttonClicked.bind(this)}
                         onClick={this.props.buttonClicked.bind(this)}>

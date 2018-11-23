@@ -405,7 +405,7 @@ export default class ValidateDataFileComponent extends React.Component {
                             <div className="row usa-da-validate-item-footer-wrapper">
                                 <div
                                     role="button"
-                                    tabIndex={-1}
+                                    tabIndex={0}
                                     className={`usa-da-validate-item-footer usa-da-header-error${showFooter} ${
                                         footerStatus}`}
                                     onKeyDown={this.toggleErrorReport.bind(this)}
@@ -430,7 +430,7 @@ export default class ValidateDataFileComponent extends React.Component {
                                 <div className="row usa-da-validate-item-file-name">
                                     <div
                                         role="button"
-                                        tabIndex={-1}
+                                        tabIndex={0}
                                         className={clickDownloadClass}
                                         onKeyDown={clickDownload}
                                         onClick={clickDownload}

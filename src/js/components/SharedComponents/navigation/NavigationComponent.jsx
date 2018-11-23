@@ -74,7 +74,6 @@ export class Navbar extends React.Component {
     render() {
         const tabNames = this.getTabs();
 
-        const headerTabs = [];
         const context = this;
         const userText = this.props.session.user === '' ? '' : this.props.session.user.name;
 
@@ -83,14 +82,13 @@ export class Navbar extends React.Component {
             userButton = <UserButton buttonText={userText} logout={this.logout.bind(this)} />;
         }
 
-        Object.keys(tabNames).map((key) => {
-            headerTabs.push(<NavbarTab
+        const headerTabs = Object.keys(tabNames).map((key) => (
+            <NavbarTab
                 key={tabNames[key]}
                 name={key}
                 tabClass={tabNames[key]}
-                activeTabClassName={context.props.activeTab} />);
-            return true;
-        });
+                activeTabClassName={context.props.activeTab} />
+        ));
 
         let navClass = "";
         let testBanner = null;

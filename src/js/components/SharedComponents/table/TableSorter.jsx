@@ -40,7 +40,7 @@ export default class TableSorter extends React.Component {
             <div className="usa-da-table-sorter">
                 <div
                     role="button"
-                    tabIndex={-1}
+                    tabIndex={0}
                     className={`usa-da-icon sort-icon usa-da-icon-angle-up${upClass}`}
                     onKeyDown={this.sortAsc.bind(this)}
                     onClick={this.sortAsc.bind(this)}>
@@ -48,7 +48,7 @@ export default class TableSorter extends React.Component {
                 </div>
                 <div
                     role="button"
-                    tabIndex={-1}
+                    tabIndex={0}
                     className={`usa-da-icon sort-icon usa-da-icon-angle-down${downClass}`}
                     onKeyDown={this.sortDesc.bind(this)}
                     onClick={this.sortDesc.bind(this)}>

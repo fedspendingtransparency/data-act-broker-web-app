@@ -120,7 +120,7 @@ export default class ValidateDataErrorReport extends React.Component {
                         <div className="col-md-3 mr-0">
                             <div
                                 role="button"
-                                tabIndex={-1}
+                                tabIndex={0}
                                 className="usa-da-download pull-right"
                                 onKeyDown={this.clickedReport.bind(this)}
                                 onClick={this.clickedReport.bind(this)}>

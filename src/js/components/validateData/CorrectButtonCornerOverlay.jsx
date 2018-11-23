@@ -22,7 +22,7 @@ export default class CorrectButtonCornerOverlay extends React.Component {
                 <div className="corner-overlay">
                     <div
                         role="button"
-                        tabIndex={-1}
+                        tabIndex={0}
                         className="usa-da-icon"
                         onKeyDown={this.props.buttonClicked}
                         onClick={this.props.buttonClicked}>

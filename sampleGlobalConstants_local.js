@@ -1,5 +1,5 @@
 // Development API path
-export const kGlobalConstants = {
+const kGlobalConstants = {
     API: 'http://localhost:80/v1/',
     LOCAL_ROOT: 'http://localhost:80',
     CAS_ROOT: '',
@@ -12,4 +12,4 @@ export const kGlobalConstants = {
     STAGING: false,
     PROD: false
 };
-export { kGlobalConstants as default };
+export default kGlobalConstants;

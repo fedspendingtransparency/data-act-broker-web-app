@@ -59,7 +59,7 @@ export default class ValidateValuesFileDetailBox extends React.Component {
                 <div className="row usa-da-validate-item-footer-wrapper">
                     <div
                         role="button"
-                        tabIndex={-1}
+                        tabIndex={0}
                         className={`usa-da-validate-item-footer usa-da-header-error${showButton}${footerStatus}`}
                         onKeyDown={this.props.onClick}
                         onClick={this.props.onClick}>

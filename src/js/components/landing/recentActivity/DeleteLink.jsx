@@ -99,7 +99,7 @@ export default class DeleteLink extends React.Component {
             button = (
                 <div
                     role="button"
-                    tabIndex={-1}
+                    tabIndex={0}
                     onKeyDown={this.confirm.bind(this)}
                     onClick={this.confirm.bind(this)}
                     className="trash-icon">
