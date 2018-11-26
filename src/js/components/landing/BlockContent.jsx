@@ -23,10 +23,6 @@ const defaultProps = {
 };
 
 export default class BlockContent extends React.Component {
-    constructor(props) {
-        super(props);
-    }
-
     render() {
         let firstBlock = (<LandingBlock
             type={this.props.type}

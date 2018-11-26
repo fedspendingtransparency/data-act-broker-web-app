@@ -32,11 +32,11 @@ export default class Table extends React.Component {
 
         let extra = '';
         this.props.extraClasses.forEach((className) => {
-            extra += ' ' + className;
+            extra += ` ${className}`;
         });
 
         return (
-            <table className={"usa-da-table" + extra}>
+            <table className={`usa-da-table${extra}`}>
                 <thead>
                     <TableHeaders data={this.props.headers} sortable={this.props.sortable} onSort={this.props.onSort} />
                 </thead>

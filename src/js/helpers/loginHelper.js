@@ -13,7 +13,7 @@ export const fetchActiveUser = () => {
 
     const store = new StoreSingleton().store;
 
-    Request.get(kGlobalConstants.API + 'current_user/')
+    Request.get(`${kGlobalConstants.API}current_user/`)
         .send()
         .end((err, res) => {
             if (err) {
@@ -54,13 +54,13 @@ const establishSession = (responseHeaders) => {
     // lowercase all the headers
     const headers = {};
     for (const headerKey in responseHeaders) {
-        if (responseHeaders.hasOwnProperty(headerKey)) {
+        if (Object.prototype.hasOwnProperty.call(responseHeaders, headerKey)) {
             headers[headerKey.toLowerCase()] = _.clone(responseHeaders[headerKey]);
         }
     }
 
     // check to see if we received a session header
-    if (headers.hasOwnProperty('x-session-id')) {
+    if (Object.prototype.hasOwnProperty.call(headers, 'x-session-id')) {
         // we did, save it in a cookie
         Cookies.set('session', headers['x-session-id'], cookieOpts);
     }
@@ -73,7 +73,7 @@ export const performLogin = (username, password) => {
     // wipe out old session cookies to prevent session weirdness
     Cookies.remove('session');
 
-    Request.post(kGlobalConstants.API + 'login/')
+    Request.post(`${kGlobalConstants.API}login/`)
         .send({ username, password })
         .end((err, res) => {
             if (err) {
@@ -84,7 +84,7 @@ export const performLogin = (username, password) => {
                 Cookies.remove('brokerLogin');
 
                 // if a message is available, display that
-                if (res.body && res.body.hasOwnProperty('message')) {
+                if (res.body && Object.prototype.hasOwnProperty.call(res.body, 'message')) {
                     deferred.reject(res.body.message);
                 }
                 else {
@@ -127,7 +127,7 @@ export const performMaxLogin = (ticket) => {
     // determine the service
     const service = encodeURIComponent(kGlobalConstants.AUTH_CALLBACK);
 
-    Request.post(kGlobalConstants.API + 'max_login/')
+    Request.post(`${kGlobalConstants.API}max_login/`)
         .send({ ticket, service })
         .end((err, res) => {
             if (err) {
@@ -138,7 +138,8 @@ export const performMaxLogin = (ticket) => {
                 Cookies.remove('brokerLogin');
 
                 // if a message is available, display that
-                if (res && res.hasOwnProperty('body') && res.body.hasOwnProperty('message')) {
+                if (res && Object.prototype.hasOwnProperty.call(res, 'body')
+                && Object.prototype.hasOwnProperty.call(res.body, 'message')) {
                     deferred.reject(res.body.message);
                 }
                 else {
@@ -174,7 +175,7 @@ export const performLogout = () => {
 
     const store = new StoreSingleton().store;
 
-    Request.post(kGlobalConstants.API + 'logout/')
+    Request.post(`${kGlobalConstants.API}logout/`)
         .send({})
         .end((err) => {
             if (!err) {
@@ -197,7 +198,7 @@ export const checkSession = () => {
 
     const store = new StoreSingleton().store;
 
-    Request.get(kGlobalConstants.API + 'session/')
+    Request.get(`${kGlobalConstants.API}session/`)
         .send()
         .end((err, res) => {
             if (!err && res.body.status === 'True') {

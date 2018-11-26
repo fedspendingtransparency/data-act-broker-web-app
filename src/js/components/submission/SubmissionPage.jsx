@@ -15,10 +15,6 @@ const defaultProps = {
 };
 
 export default class LoadingPage extends React.Component {
-    constructor(props) {
-        super(props);
-    }
-
     render() {
         const dummy = {
             jobs: [],

@@ -64,7 +64,7 @@ export default class RecentActivityTable extends React.Component {
     getAgency(item) {
         let agency = item.agency;
         if (this.props.type === 'fabs') {
-            agency += ":\n" + item.files[0].split('/').pop().replace(/^[0-9]*_/, "");
+            agency += `:\n${item.files[0].split('/').pop().replace(/^[0-9]*_/, "")}`;
         }
         return agency;
     }
@@ -180,12 +180,13 @@ export default class RecentActivityTable extends React.Component {
 
     formatRow(rowData, index) {
         const link = <SubmissionLink submissionId={rowData.submission_id} type={this.props.type} />;
-        let reportingDateString = "Start: " + rowData.reporting_start_date + "\nEnd: " + rowData.reporting_end_date;
+        let reportingDateString = `Start: ${rowData.reporting_start_date}\nEnd: ${rowData.reporting_end_date}`;
 
         if (!rowData.reporting_start_date || !rowData.reporting_end_date) {
             reportingDateString = 'No reporting period specified';
         }
-        const userName = rowData.hasOwnProperty('user') ? rowData.user.name : '--';
+
+        const userName = Object.prototype.hasOwnProperty.call(rowData, 'user') ? rowData.user.name : '--';
 
         const row = [
             link,

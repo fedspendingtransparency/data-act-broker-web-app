@@ -32,7 +32,7 @@ export default class ComparisonComponent extends React.Component {
 
                 <div className="center-item">
                     <div className="circle">
-                        <div className={"usa-da-icon " + this.props.type}>
+                        <div className={`usa-da-icon ${this.props.type}`}>
                             {icon}
                         </div>
                     </div>

@@ -35,7 +35,7 @@ export default class ValidateDataUploadButton extends React.Component {
             <Dropzone
                 onDrop={this.addedFile.bind(this)}
                 multiple={false}
-                className={"usa-da-button btn-full" + optionalUpload + this.props.additionalClasses}>
+                className={`usa-da-button btn-full${optionalUpload}${this.props.additionalClasses}`}>
                 {this.props.text}
             </Dropzone>
         );

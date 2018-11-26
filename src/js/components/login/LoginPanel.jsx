@@ -66,15 +66,15 @@ export default class LoginPanel extends React.Component {
 
         return (
             <div className="login-form-wrap">
-                <form onKeyPress={this.handleKeyPress.bind(this)}>
+                <form>
                     <div className="row">
                         <div className="col-md-12">
-                            <Username handleChange={this.handleUsernameChange.bind(this)} tabIndex="1" />
+                            <Username handleChange={this.handleUsernameChange.bind(this)} tabIndex="0" />
                         </div>
                     </div>
                     <div className="row">
                         <div className="col-md-12">
-                            <Password handleChange={this.handlePasswordChange.bind(this)} tabIndex="2" />
+                            <Password handleChange={this.handlePasswordChange.bind(this)} tabIndex="0" />
                         </div>
                     </div>
                     <div className="row">

@@ -11,7 +11,7 @@ export const setSkipGuide = (skipGuide) => {
 
     const store = new StoreSingleton().store;
 
-    Request.post(kGlobalConstants.API + 'set_skip_guide/')
+    Request.post(`${kGlobalConstants.API}set_skip_guide/`)
         .send({ skip_guide: skipGuide })
         .end((err, res) => {
             if (err) {
@@ -34,7 +34,7 @@ export const setSkipGuide = (skipGuide) => {
 export const getSubmissionPage = (submissionId) => {
     const deferred = Q.defer();
 
-    Request.get(kGlobalConstants.API + 'check_current_page/?submission_id=' + submissionId)
+    Request.get(`${kGlobalConstants.API}check_current_page/?submission_id=${submissionId}`)
         .end((err, res) => {
             if (err) {
                 deferred.reject(err);
@@ -43,12 +43,12 @@ export const getSubmissionPage = (submissionId) => {
                 // Only skip the guide if the user wants to skip the guide
                 const pages = [
                     '/404',
-                    '/validateData/' + submissionId,
-                    '/generateFiles/' + submissionId,
-                    '/validateCrossFile/' + submissionId,
-                    '/generateEF/' + submissionId,
-                    '/reviewData/' + submissionId,
-                    '/FABSaddData/' + submissionId
+                    `/validateData/${submissionId}`,
+                    `/generateFiles/${submissionId}`,
+                    `/validateCrossFile/${submissionId}`,
+                    `/generateEF/${submissionId}`,
+                    `/reviewData/${submissionId}`,
+                    `/FABSaddData/${submissionId}`
                 ];
                 const index = parseInt(res.body.step, 10);
                 const response = {

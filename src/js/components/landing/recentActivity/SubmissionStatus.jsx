@@ -79,10 +79,10 @@ export class SubmissionStatus extends React.Component {
                     {label}
                 </div>
                 <div className="usa-da-submission-progress-bars">
-                    <div className={"step " + colors[0]} />
-                    <div className={"step " + colors[1]} />
-                    <div className={"step " + colors[2]} />
-                    <div className={"step " + colors[3]} />
+                    <div className={`step ${colors[0]}`} />
+                    <div className={`step ${colors[1]}`} />
+                    <div className={`step ${colors[2]}`} />
+                    <div className={`step ${colors[3]}`} />
                 </div>
             </div>
         );

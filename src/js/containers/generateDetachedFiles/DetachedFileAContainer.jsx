@@ -55,7 +55,7 @@ export class DetachedFileAContainer extends React.Component {
     }
 
     checkFileStatus(jobId) {
-        // callback to check file status
+    // callback to check file status
         GenerateFilesHelper.fetchDetachedFile(jobId)
             .then((response) => {
                 if (this.isUnmounted) {
@@ -124,5 +124,5 @@ DetachedFileAContainer.defaultProps = defaultProps;
 
 export default connect(
     (state) => ({ session: state.session }),
-    (dispatch) => bindActionCreators(uploadActions, dispatch)
+    (dispatch) => bindActionCreators(uploadActions, dispatch),
 )(DetachedFileAContainer);

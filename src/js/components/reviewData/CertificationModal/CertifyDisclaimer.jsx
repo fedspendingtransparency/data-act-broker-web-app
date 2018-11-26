@@ -10,13 +10,15 @@ export default class CertifyDisclaimer extends React.Component {
         return (
             <div className="disclaimer-text">
                 <p>
-                    MPM 2016-03 requires the DATA Act SAO to provide, on a quarterly basis, reasonable assurance that
-                    their agency's internal controls support the reliability and validity of the agency account-level
-                    and award-level  data reported to USAspending.gov. MPM 2016-03 specifies that this assurance should
-                    leverage data quality and management controls established in statute, regulation, and Federal-wide
-                    policy and be aligned with the internal control and risk management strategies in Circular A-123.
+                    MPM 2016-03 requires the DATA Act SAO to provide, on a quarterly basis,
+                    reasonable assurance that their agency&apos;s internal controls support the
+                    reliability and validity of the agency account-level and award-level data
+                    reported to USAspending.gov. MPM 2016-03 specifies that this assurance should
+                    leverage data quality and management controls established in statute, regulation,
+                    and Federal-widepolicy and be aligned with the internal control and
+                    risk management strategies in Circular A-123.
                 </p>
-                <p>Agency's quarterly SAO assurance includes three certification levels:</p>
+                <p>Agency&apos;s quarterly SAO assurance includes three certification levels:</p>
                 <ul>
                     <li>
                         The complete DATA Act quarterly submission to USAspending.gov is valid and reliable. Since a

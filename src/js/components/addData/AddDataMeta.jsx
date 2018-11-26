@@ -239,7 +239,7 @@ export default class AddDataMeta extends React.Component {
                                             onSelect={this.handleChange.bind(this)}
                                             customClass={agencyClass}
                                             detached={false} />
-                                        <div className={"usa-da-icon usa-da-form-icon" + agencyClass}>
+                                        <div className={`usa-da-icon usa-da-form-icon${agencyClass}`}>
                                             {agencyIcon}
                                         </div>
                                     </div>

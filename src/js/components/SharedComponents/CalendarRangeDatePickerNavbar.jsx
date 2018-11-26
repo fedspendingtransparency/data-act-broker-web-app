@@ -13,16 +13,16 @@ const defaultProps = {
 };
 
 export default function Navbar({
-  onPreviousClick,
-  onNextClick,
-  className
+    onPreviousClick,
+    onNextClick,
+    className
 }) {
-  return (
-      <div className={className}>
-          <button onClick={() => onPreviousClick()}> ← </button>
-          <button onClick={() => onNextClick()}> → </button>
-      </div>
-  );
+    return (
+        <div className={className}>
+            <button onClick={() => onPreviousClick()}> ← </button>
+            <button onClick={() => onNextClick()}> → </button>
+        </div>
+    );
 }
 
 Navbar.propTypes = propTypes;

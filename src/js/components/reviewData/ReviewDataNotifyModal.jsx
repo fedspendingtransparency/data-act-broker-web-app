@@ -44,7 +44,7 @@ export default class ReviewDataNotifyModal extends React.Component {
             .then((data) => {
                 const tmpData = data;
                 for (let i = 0; i < tmpData.length; i++) {
-                    tmpData[i].displayName = tmpData[i].name + " | " + tmpData[i].email;
+                    tmpData[i].displayName = `${tmpData[i].name} | ${tmpData[i].email}`;
                 }
                 this.setState({ users: tmpData });
             })
@@ -72,7 +72,7 @@ export default class ReviewDataNotifyModal extends React.Component {
                 const updatedUsers = _.remove(this.state.users, (user) => user.id !== id);
                 this.setState({ users: updatedUsers });
 
-                this.refs.typeahead.setState({ value: "" });
+                this.typeahead.setState({ value: "" });
             }
         }
     }
@@ -120,7 +120,9 @@ export default class ReviewDataNotifyModal extends React.Component {
         let autoCompleteItems = null;
         if (this.state.users && this.state.users.length > 0) {
             autoCompleteItems = (<Typeahead
-                ref="typeahead"
+                ref={(c) => {
+                    this.typeahead = c;
+                }}
                 placeholder="Name or email address of the person to certify this submission"
                 keyValue="displayName"
                 internalValue={["id"]}
@@ -144,7 +146,7 @@ export default class ReviewDataNotifyModal extends React.Component {
                 <div className="usa-da-modal-page">
                     <div id="usa-da-notify-modal" className="usa-da-notify-modal">
                         <div className="usa-da-notify-modal-close usa-da-icon usa-da-icon-times">
-                            <a href="#" onClick={this.props.closeModal}> <Icons.Times /> </a>
+                            <button onClick={this.props.closeModal}> <Icons.Times /> </button>
                         </div>
 
                         <div className="usa-da-notify-modal-content">
@@ -163,11 +165,10 @@ export default class ReviewDataNotifyModal extends React.Component {
                             </div>
                             <div className="row">
                                 <div className="col-md-12 mb-10">
-                                    <a
-                                        href="#"
+                                    <button
                                         onClick={this.sendNotification.bind(this)}
                                         className="usa-da-button btn-primary pull-right">Send Notification
-                                    </a>
+                                    </button>
                                 </div>
                             </div>
                         </div>

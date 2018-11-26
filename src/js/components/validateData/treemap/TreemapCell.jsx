@@ -71,14 +71,19 @@ export default class TreemapCell extends React.Component {
         }
         if (this.props.active) {
             style.backgroundColor = this.props.colors.active;
-            style.border = '1px solid ' + this.props.colors.activeBorder;
+            style.border = `1px solid ${this.props.colors.activeBorder}`;
             style.color = '#fff';
         }
 
         return (
             <div
+                role="button"
+                tabIndex={0}
                 className="usa-da-treemap-cell"
                 style={style}
+                onKeyUp={this.mouseOut.bind(this)}
+                onKeyDown={this.clickEvent.bind(this)}
+                onKeyPress={this.mouseOver.bind(this)}
                 onMouseOver={this.mouseOver.bind(this)}
                 onFocus={this.mouseOver.bind(this)}
                 onMouseOut={this.mouseOut.bind(this)}

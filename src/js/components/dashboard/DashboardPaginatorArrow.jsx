@@ -31,11 +31,11 @@ export default class DashboardPaginatorArrow extends React.Component {
         }
         return (
             <li className="page-arrow">
-                <a href="#" onClick={this.clickedArrow.bind(this)} title={altText}>
+                <button onClick={this.clickedArrow.bind(this)} title={altText}>
                     <div className="usa-da-icon">
                         {arrow}
                     </div>
-                </a>
+                </button>
             </li>
         );
     }

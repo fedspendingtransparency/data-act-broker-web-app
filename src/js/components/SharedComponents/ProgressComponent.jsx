@@ -23,10 +23,6 @@ const defaultProps = {
 };
 
 export default class Progress extends React.Component {
-    constructor(props) {
-        super(props);
-    }
-
     componentDidMount() {
         SubmissionHelper.getSubmissionPage(this.props.id)
             .then((res) => {
@@ -49,8 +45,8 @@ export default class Progress extends React.Component {
             let barClass = 'usa-da-progress-bar-step-step';
             let label = stepNames[i - 1];
             if (i < this.props.currentStep) {
-                bar = <a href={stepLink[i - 1] + "/" + this.props.id} className="stepLink">{bar}</a>;
-                label = <a href={stepLink[i - 1] + "/" + this.props.id} >{label}</a>;
+                bar = <a href={`${stepLink[i - 1]}/${this.props.id}`} className="stepLink">{bar}</a>;
+                label = <a href={`${stepLink[i - 1]}/${this.props.id}`} >{label}</a>;
                 barClass = 'usa-da-progress-bar-step-done';
             }
             else if (i === this.props.currentStep) {

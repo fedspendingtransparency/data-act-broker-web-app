@@ -19,10 +19,6 @@ const defaultProps = {
 };
 
 class SubmissionContainer extends React.Component {
-    constructor(props) {
-        super(props);
-    }
-
     componentDidMount() {
         SubmissionGuideHelper.getSubmissionPage(this.props.params.submissionID)
             .then((res) => {

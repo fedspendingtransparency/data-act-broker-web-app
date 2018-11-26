@@ -15,3 +15,4 @@ export const fileTypes = [
         progress: '0'
     }
 ];
+export { fileTypes as default };
