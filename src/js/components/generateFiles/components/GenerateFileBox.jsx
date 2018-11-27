@@ -33,10 +33,6 @@ const defaultProps = {
 };
 
 export default class GenerateFileBox extends React.Component {
-    constructor(props) {
-        super(props);
-    }
-
     render() {
         let errorClass = ' hide';
         if (this.props.error.show) {
@@ -58,7 +54,7 @@ export default class GenerateFileBox extends React.Component {
                         <div className="date-range-wrapper">
                             <DatePicker
                                 type="startDate"
-                                title={this.props.datePlaceholder + " Start Date"}
+                                title={`${this.props.datePlaceholder} Start Date`}
                                 tabIndex={this.props.startingTab}
                                 onDateChange={this.props.onDateChange}
                                 value={this.props.value.startDate}
@@ -69,7 +65,7 @@ export default class GenerateFileBox extends React.Component {
                             </div>
                             <DatePicker
                                 type="endDate"
-                                title={this.props.datePlaceholder + " End Date"}
+                                title={`${this.props.datePlaceholder} End Date`}
                                 tabIndex={this.props.startingTab + 4}
                                 onDateChange={this.props.onDateChange}
                                 value={this.props.value.endDate}
@@ -77,7 +73,7 @@ export default class GenerateFileBox extends React.Component {
                                 updateError={this.props.updateError} />
                         </div>
                     </div>
-                    <div className={"usa-da-generate-download" + showDownload}>
+                    <div className={`usa-da-generate-download${showDownload}`}>
                         <div className="row">
                             <div className="col-sm-12">
                                 <div className="download-title text-right">
@@ -96,7 +92,7 @@ export default class GenerateFileBox extends React.Component {
                     </div>
                 </div>
 
-                <div className={"alert alert-error text-left" + errorClass} role="alert">
+                <div className={`alert alert-error text-left${errorClass}`} role="alert">
                     <span className="usa-da-icon error-icon"><Icons.ExclamationCircle /></span>
                     <div className="alert-header-text">{this.props.error.header}</div>
                     <p>{this.props.error.description}</p>

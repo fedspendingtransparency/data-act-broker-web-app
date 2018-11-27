@@ -201,8 +201,16 @@ export default class GenerateDetachedFilesPage extends React.Component {
         tmpFile.status = "generating";
         this.setState({ [file]: tmpFile });
 
-        GenerateFilesHelper.generateDetachedFile(file.toUpperCase(), tmpFile.startDate.format('MM/DD/YYYY'),
-            tmpFile.endDate.format('MM/DD/YYYY'), cgacCode, frecCode, agencyType)
+        const params = {
+            file_type: file.toUpperCase(),
+            cgac_code: cgacCode,
+            frec_code: frecCode,
+            start: tmpFile.startDate.format('MM/DD/YYYY'),
+            end: tmpFile.endDate.format('MM/DD/YYYY'),
+            agency_type: agencyType
+        };
+
+        GenerateFilesHelper.generateDetachedFile(params)
             .then((response) => {
                 if (this.isUnmounted) {
                     return;
@@ -240,7 +248,7 @@ export default class GenerateDetachedFilesPage extends React.Component {
             // don't run the check again if it failed
             runCheck = false;
 
-            let message = 'File ' + data.file_type + ' could not be generated.';
+            let message = `File ${data.file_type} could not be generated.`;
 
             if (data.message !== '') {
                 message = data.message;
@@ -251,7 +259,7 @@ export default class GenerateDetachedFilesPage extends React.Component {
             item.status = "";
             this.setState({ [fileType]: item });
 
-            this.showError(fileType, data.file_type + ' File Error', message);
+            this.showError(fileType, `${data.file_type} File Error`, message);
         }
         else if (data.status === 'finished') {
             // don't run the check again if it's done
@@ -335,7 +343,7 @@ export default class GenerateDetachedFilesPage extends React.Component {
                                                     placeholder="Enter the name of the reporting agency"
                                                     onSelect={this.handleChange.bind(this)}
                                                     customClass={agencyClass} />
-                                                <div className={"usa-da-icon usa-da-form-icon" + agencyClass}>
+                                                <div className={`usa-da-icon usa-da-form-icon${agencyClass}`}>
                                                     {agencyIcon}
                                                 </div>
                                             </div>

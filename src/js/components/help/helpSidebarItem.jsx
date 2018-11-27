@@ -22,7 +22,7 @@ export default class HelpSidebarItem extends React.Component {
         const help = this.props.type === 'fabs' ? '/#/FABShelp' : '/#/help';
         return (
             <li>
-                <a href={help + "?section=" + this.props.sectionId}>
+                <a href={`${help}?section=${this.props.sectionId}`}>
                     {this.props.sectionName}
                 </a>
             </li>

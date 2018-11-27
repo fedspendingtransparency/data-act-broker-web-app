@@ -41,7 +41,7 @@ export default class DashboardPage extends React.Component {
             <div>
                 <div className="usa-da-site_wrap usa-da-dashboard-page">
                     <Navbar activeTab={activeTab} type={this.state.type} />
-                    <div className={"usa-da-content-" + color}>
+                    <div className={`usa-da-content-${color}`}>
                         <div className="container">
                             <div className="row">
                                 <div className="col-md-12 mt-40 mb-20">

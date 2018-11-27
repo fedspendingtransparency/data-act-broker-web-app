@@ -10,12 +10,7 @@ const propTypes = {
     changeTab: PropTypes.func,
     counts: PropTypes.object,
     activeTab: PropTypes.string,
-    label: PropTypes.string,
-    status: PropTypes.string,
-    value: PropTypes.string,
-    count: PropTypes.number,
-    isActive: PropTypes.bool,
-    showTabs: PropTypes.string
+    status: PropTypes.string
 };
 
 const defaultProps = {
@@ -26,11 +21,7 @@ const defaultProps = {
     },
     changeTab: null,
     activeTab: '',
-    label: '',
-    status: '',
-    value: '',
-    count: 0,
-    isActive: false
+    status: ''
 };
 
 export default class ErrorTabs extends React.Component {
@@ -86,13 +77,13 @@ export default class ErrorTabs extends React.Component {
     }
 
     render() {
-        const tabs = this.state.tabs.map((tab, index) =>
+        const tabs = this.state.tabs.map((tab) =>
             (<TabItem
                 label={tab.value}
                 count={tab.count}
                 value={tab.value}
                 isActive={tab.isActive}
-                key={index}
+                key={tab.value}
                 changeTab={this.props.changeTab} />)
         );
 

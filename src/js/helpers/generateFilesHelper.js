@@ -21,7 +21,7 @@ export const generateFile = (type, submissionId, start, end, agencyType) => {
         callBody.agency_type = agencyType;
     }
 
-    Request.post(kGlobalConstants.API + 'generate_file/')
+    Request.post(`${kGlobalConstants.API}generate_file/`)
         .send(callBody)
         .end((errFile, res) => {
             if (errFile) {
@@ -40,7 +40,7 @@ export const generateFile = (type, submissionId, start, end, agencyType) => {
 export const checkGenerationStatus = (type, submissionId) => {
     const deferred = Q.defer();
 
-    Request.get(kGlobalConstants.API + 'check_generation_status/?submission_id=' + submissionId + '&file_type=' + type)
+    Request.get(`${kGlobalConstants.API}check_generation_status/?submission_id=${submissionId}&file_type=${type}`)
         .end((errFile, res) => {
             if (errFile) {
                 const response = Object.assign({}, res.body);
@@ -58,7 +58,7 @@ export const checkGenerationStatus = (type, submissionId) => {
 export const fetchFile = (type, submissionId) => {
     const deferred = Q.defer();
 
-    Request.get(kGlobalConstants.API + 'get_file_url?file_type=' + type + '&submission_id=' + submissionId)
+    Request.get(`${kGlobalConstants.API}get_file_url?file_type=${type}&submission_id=${submissionId}`)
         .send()
         .end((errFile, res) => {
             if (errFile) {
@@ -77,7 +77,7 @@ export const fetchFile = (type, submissionId) => {
 export const getFabsMeta = (submissionId) => {
     const deferred = Q.defer();
 
-    Request.post(kGlobalConstants.API + 'get_fabs_meta/')
+    Request.post(`${kGlobalConstants.API}get_fabs_meta/`)
         .send({ submission_id: submissionId })
         .end((errFile, res) => {
             if (errFile) {
@@ -90,18 +90,11 @@ export const getFabsMeta = (submissionId) => {
     return deferred.promise;
 };
 
-export const generateDetachedFile = (type, start, end, cgacCode, frecCode, agencyType) => {
+export const generateDetachedFile = (params) => {
     const deferred = Q.defer();
 
-    Request.post(kGlobalConstants.API + 'generate_detached_file/')
-        .send({
-            file_type: type,
-            start,
-            end,
-            cgac_code: cgacCode,
-            frec_code: frecCode,
-            agency_type: agencyType
-        })
+    Request.post(`${kGlobalConstants.API}generate_detached_file/`)
+        .send(params)
         .end((errFile, res) => {
             if (errFile) {
                 const response = Object.assign({}, res.body);
@@ -119,7 +112,7 @@ export const generateDetachedFile = (type, start, end, cgacCode, frecCode, agenc
 export const fetchDetachedFile = (jobId) => {
     const deferred = Q.defer();
 
-    Request.get(kGlobalConstants.API + 'check_detached_generation_status/?job_id=' + jobId)
+    Request.get(`${kGlobalConstants.API}check_detached_generation_status/?job_id=${jobId}`)
         .end((errFile, res) => {
             if (errFile) {
                 const response = Object.assign({}, res.body);

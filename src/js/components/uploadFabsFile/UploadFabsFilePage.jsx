@@ -71,7 +71,7 @@ export default class UploadFabsFilePage extends React.Component {
 
     validate(submissionID) {
         this.props.setSubmissionId(submissionID);
-        hashHistory.push('/FABSaddData/' + submissionID);
+        hashHistory.push(`/FABSaddData/${submissionID}`);
         this.setState({
             showMeta: false
         });

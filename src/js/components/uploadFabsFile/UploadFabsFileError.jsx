@@ -90,7 +90,7 @@ export default class UploadFabsFileError extends React.Component {
         }
 
         return (
-            <div className={"alert alert-" + className + " text-left"} role="alert">
+            <div className={`alert alert-${className} text-left`} role="alert">
                 <span className="usa-da-icon error-icon">{icon}</span>
                 <div className="alert-header-text">{this.state.header}</div>
                 <p>{this.state.message}</p>

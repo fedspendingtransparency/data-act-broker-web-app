@@ -18,26 +18,24 @@ const defaultProps = {
     resetFilters: null
 };
 
-const FilterSubmit = (props) => {
-    return (
-        <div className="dashboard-filters__submit-content">
-            <button
-                className="dashboard-filters__reset"
-                aria-label="Reset search"
-                onClick={props.resetFilters}>
+const FilterSubmit = (props) => (
+    <div className="dashboard-filters__submit-content">
+        <button
+            className="dashboard-filters__reset"
+            aria-label="Reset search"
+            onClick={props.resetFilters}>
                 Reset Filters
-            </button>
-            <button
-                className="btn-primary dashboard-filters__submit"
-                title="Submit"
-                aria-label="Submit"
-                disabled={!props.filtersChanged}
-                onClick={props.applyStagedFilters}>
+        </button>
+        <button
+            className="btn-primary dashboard-filters__submit"
+            title="Submit"
+            aria-label="Submit"
+            disabled={!props.filtersChanged}
+            onClick={props.applyStagedFilters}>
                 Submit
-            </button>
-        </div>
-    );
-};
+        </button>
+    </div>
+);
 
 FilterSubmit.propTypes = propTypes;
 FilterSubmit.defaultProps = defaultProps;

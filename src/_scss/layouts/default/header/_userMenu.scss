@@ -1,5 +1,5 @@
 @mixin headerUserMenu {
-	ul.usa-da-top-head-menu {
+    ul.usa-da-top-head-menu {
         list-style: none;
         padding: 0;
         display: block;
@@ -14,9 +14,13 @@
         padding-left: 25px;
         margin-top: 0.4rem;
         margin-bottom: 0.4rem;
-        & a:hover,
-        & a:active,
-        & a:focus {
+        button {
+            background-color: transparent;
+            border:none;
+        }
+        & button:hover,
+        & button:active,
+        & button:focus {
             color: $color-gray-light;
             text-decoration: none;
             & .usa-da-icon-user,
@@ -27,7 +31,7 @@
         &:before {
             content: '';
         }
-        & a {
+        & button {
             color: $color-cool-blue-lightest;
             & .usa-da-icon-user,
             & .usa-da-icon-cog {
@@ -51,11 +55,11 @@
             min-width: 100px;
             max-width: 200px;
             margin-top: 0;
-            
+
             & li {
                 float: left;
                 padding: 0 10px;
-                & a {
+                & button {
                     color: $color-white;
                     font-size: 1.2rem;
                 }

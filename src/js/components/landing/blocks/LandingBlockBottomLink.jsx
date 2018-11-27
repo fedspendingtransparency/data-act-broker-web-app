@@ -17,7 +17,7 @@ export default class LandingBlockBottomLink extends React.Component {
     render() {
         return (
             <div className="usa-da-landing-block-bottom-link text-center">
-                <a href="#" onClick={this.props.onClick}>What you will need to submit</a>
+                <button onClick={this.props.onClick}>What you will need to submit</button>
             </div>
         );
     }

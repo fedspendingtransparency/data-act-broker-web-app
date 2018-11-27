@@ -49,9 +49,17 @@
         & a {
             font-size: 1.4rem;
         }
+        button {
+            background-color: transparent;
+            border:none;
+            color: $color-primary;
+            &:hover {
+                color: $color-cool-blue;
+            }
+        }
         & .usa-da-landing-block-bottom-link {
             padding: 15px 20px 20px;
-            & a {
+            & button {
                 font-size: 1.2rem;
                 font-weight: 700;
                 text-decoration: none;
@@ -63,11 +71,11 @@
     @import "../../../components/buttons/_primary";
     .usa-da-button {
         @include primaryButton;
-        
+
         &.btn-lg {
             font-size: 1.4rem;
         }
     }
 
-    
+
 }

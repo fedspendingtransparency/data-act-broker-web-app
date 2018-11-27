@@ -14,7 +14,6 @@ const propTypes = {
     generateFiles: PropTypes.func,
     nextPage: PropTypes.func,
     session: PropTypes.object,
-    submissionID: PropTypes.string,
     hasErrors: PropTypes.bool,
     isReady: PropTypes.bool,
     agency_name: PropTypes.string
@@ -24,7 +23,6 @@ const defaultProps = {
     generateFiles: null,
     nextPage: null,
     session: null,
-    submissionID: '',
     hasErrors: false,
     isReady: false,
     agency_name: ''
@@ -92,13 +90,13 @@ export default class GenerateEFOverlay extends React.Component {
                 iconClass={iconClass}>
                 <div className="usa-da-btn-bg">
                     <button
-                        className={"usa-da-button" + buttonClass}
+                        className={`usa-da-button${buttonClass}`}
                         disabled={buttonDisabled}
                         onClick={this.clickedGenerate.bind(this)}>
                         Regenerate Files
                     </button>
                     <button
-                        className={"usa-da-button usa-da-validation-overlay-review " + nextClass}
+                        className={`usa-da-button usa-da-validation-overlay-review ${nextClass}`}
                         disabled={nextDisabled}
                         onClick={this.clickedNext.bind(this)}>
                         Next

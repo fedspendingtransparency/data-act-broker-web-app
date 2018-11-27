@@ -44,15 +44,15 @@ export default class HelpSidebar extends React.Component {
     }
 
     render() {
-        const clSectionList = this.props.changeSections.map((section, index) => (<HelpSidebarItem
-            key={index}
+        const clSectionList = this.props.changeSections.map((section) => (<HelpSidebarItem
+            key={section.name}
             sectionName={section.name}
             sectionId={section.link}
             type={this.props.type} />));
 
-        const tSectionList = this.props.technicalSections.map((section, index) => (
+        const tSectionList = this.props.technicalSections.map((section) => (
             <HelpSidebarItem
-                key={index}
+                key={section.name}
                 sectionName={section.name}
                 sectionId={section.link}
                 type={this.props.type} />
@@ -123,9 +123,19 @@ export default class HelpSidebar extends React.Component {
                 </ul>
                 <div className="usa-da-help-sidebar__signup">
                     <div className="usa-da-help-sidebar__signup-content">
-                        <span className="usa-da-help-sidebar__signup-header usa-da-help-sidebar__signup-header_bold">Receive Data Act Broker Updates</span>
+                        <span
+                            className="usa-da-help-sidebar__signup-header usa-da-help-sidebar__signup-header_bold">
+                            Receive Data Act Broker Updates
+                        </span>
                         <p>Subscribe to a list-serv for Broker updates as well as regular release notes.</p>
-                        <a className="usa-da-help-sidebar__signup-btn" href="mailto:join-data-act-broker@lists.fiscal.treasury.gov?subject=Sign%20Up%20for%20Broker%20Updates&body=Yes,%20sign%20me%20up%20for%20Data%20Act%20Broker%20Updates!">Sign Up</a>
+                        <a
+                            className="usa-da-help-sidebar__signup-btn"
+                            href="mailto:join-data-act-broker@lists.fiscal.treasury.gov?subject=
+                            Sign%20Up%20for%20Broker%20Updates&body=Yes,%20sign%20me%20up%20for
+                            %20Data%20Act%20Broker%20Updates!">
+
+                            Sign Up
+                        </a>
                     </div>
                 </div>
             </div>

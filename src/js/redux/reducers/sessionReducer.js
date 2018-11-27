@@ -41,3 +41,5 @@ export const sessionReducer = (state = initialSessionState, action) => {
             return state;
     }
 };
+
+export { sessionReducer as default };

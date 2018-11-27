@@ -39,12 +39,20 @@ export default class TableSorter extends React.Component {
         return (
             <div className="usa-da-table-sorter">
                 <div
-                    className={"usa-da-icon sort-icon usa-da-icon-angle-up" + upClass}
-                    onClick={this.sortAsc.bind(this)}><Icons.AngleUp />
+                    role="button"
+                    tabIndex={0}
+                    className={`usa-da-icon sort-icon usa-da-icon-angle-up${upClass}`}
+                    onKeyDown={this.sortAsc.bind(this)}
+                    onClick={this.sortAsc.bind(this)}>
+                    <Icons.AngleUp />
                 </div>
                 <div
-                    className={"usa-da-icon sort-icon usa-da-icon-angle-down" + downClass}
-                    onClick={this.sortDesc.bind(this)}><Icons.AngleDown />
+                    role="button"
+                    tabIndex={0}
+                    className={`usa-da-icon sort-icon usa-da-icon-angle-down${downClass}`}
+                    onKeyDown={this.sortDesc.bind(this)}
+                    onClick={this.sortDesc.bind(this)}>
+                    <Icons.AngleDown />
                 </div>
             </div>
         );

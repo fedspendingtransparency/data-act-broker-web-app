@@ -23,10 +23,6 @@ const defaultProps = {
 };
 
 export default class BlockContent extends React.Component {
-    constructor(props) {
-        super(props);
-    }
-
     render() {
         let firstBlock = (<LandingBlock
             type={this.props.type}
@@ -42,6 +38,7 @@ export default class BlockContent extends React.Component {
             buttonText="View Submissions Dashboard"
             url="#/dashboard" />);
         let thirdBlock = null;
+        let fourthBlock = null;
 
         if (this.props.type === 'home') {
             firstBlock = (<LandingBlock
@@ -81,6 +78,14 @@ export default class BlockContent extends React.Component {
                 text="Generate your D1 and D2 award files without having to create a submission."
                 buttonText="Generate D Files"
                 url="#/generateDetachedFiles" />);
+            fourthBlock = (
+                <LandingBlock
+                    type={this.props.type}
+                    icon={<Icons.CloudDownload />}
+                    text="Generate File A for reconciliation purposes or as a starting point for your submission."
+                    buttonText="Generate File A"
+                    url="#/generateDetachedFileA" />
+            );
         }
         else if (this.props.type === 'fabs') {
             if (permissionHelper.checkFabsPermissions(this.props.session)) {
@@ -111,6 +116,7 @@ export default class BlockContent extends React.Component {
                 {firstBlock}
                 {secondBlock}
                 {thirdBlock}
+                {fourthBlock}
             </div>
         );
     }

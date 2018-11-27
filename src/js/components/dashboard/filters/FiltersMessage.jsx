@@ -14,17 +14,15 @@ const defaultProps = {
     filterCount: 0
 };
 
-const FiltersMessage = (props) => {
-    return (
-        <div className="table-heading__message">
-            <div className="filters-message">
-                <ExclamationCircle />
+const FiltersMessage = (props) => (
+    <div className="table-heading__message">
+        <div className="filters-message">
+            <ExclamationCircle />
                 You have <span className="filters-message__count">{props.filterCount}</span> filters selected.
                 Click the submit button below to apply.
-            </div>
         </div>
-    );
-};
+    </div>
+);
 
 FiltersMessage.propTypes = propTypes;
 FiltersMessage.defaultProps = defaultProps;

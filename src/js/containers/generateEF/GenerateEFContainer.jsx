@@ -174,7 +174,7 @@ class GenerateEFContainer extends React.Component {
     }
 
     nextPage() {
-        hashHistory.push('/reviewData/' + this.props.submissionID);
+        hashHistory.push(`/reviewData/${this.props.submissionID}`);
     }
 
     render() {

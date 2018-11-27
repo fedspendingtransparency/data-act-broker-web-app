@@ -75,7 +75,7 @@ export default class ValidateValuesErrorReport extends React.Component {
         data.forEach((item) => {
             let description = item.error_description;
             if (item.error_name === 'rule_failed') {
-                description = 'Rule ' + item.original_label + ': ' + item.rule_failed;
+                description = `Rule ${item.original_label}: ${item.rule_failed}`;
             }
 
             const row = [item.field_name, description, parseInt(item.occurrences, 10)];
@@ -97,9 +97,7 @@ export default class ValidateValuesErrorReport extends React.Component {
     sortData(data) {
         // sort the data based on the selected column (defaults to the first one)
         let output = _.clone(data);
-        output = _.sortBy(data, (col) => {
-            return col[this.state.sortField];
-        });
+        output = _.sortBy(data, (col) => col[this.state.sortField]);
 
         // lodash sorts by ascending, so if we want descending, reverse the array
         if (this.state.sortDirection === 'desc') {
@@ -144,7 +142,7 @@ export default class ValidateValuesErrorReport extends React.Component {
         // check if the link is already signed
         if (this.state.signInProgress) {
             // sign is in progress, do nothing
-            return;
+
         }
         else if (this.state.signedUrl !== '') {
             // it is signed, open immediately
@@ -175,7 +173,10 @@ export default class ValidateValuesErrorReport extends React.Component {
                         </div>
                         <div className="col-md-3">
                             <div
+                                role="button"
+                                tabIndex={0}
                                 className="usa-da-download pull-right"
+                                onKeyDown={this.clickedReport.bind(this)}
                                 onClick={this.clickedReport.bind(this)}>
                                 <span className="usa-da-icon usa-da-download-report"><Icons.CloudDownload /></span>
                                 {reportLinkText}

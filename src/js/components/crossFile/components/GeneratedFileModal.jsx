@@ -59,7 +59,7 @@ export default class GeneratedFileModal extends React.Component {
     }
 
     generateFile() {
-        this.refs.container.generateFile();
+        this.container.generateFile();
     }
 
     render() {
@@ -84,14 +84,16 @@ export default class GeneratedFileModal extends React.Component {
                 <div className="usa-da-modal-page">
                     <div id="usa-da-generate-file-modal" className="usa-da-generate-file-modal">
                         <div className="usa-da-landing-modal-close usa-da-icon usa-da-icon-times">
-                            <a href="#" onClick={this.props.closeModal}>
+                            <button onClick={this.props.closeModal}>
                                 <Icons.Times />
-                            </a>
+                            </button>
                         </div>
                         <CrossFileGenerateModalContainer
                             type={this.props.file.letter.toUpperCase()}
-                            label={"File " + this.props.file.letter + ": " + this.props.file.name}
-                            ref="container"
+                            label={`File ${this.props.file.letter}: ${this.props.file.name}`}
+                            ref={(c) => {
+                                this.container = c;
+                            }}
                             submissionID={this.props.submissionID}
                             disableButton={this.disableButton.bind(this)}
                             enableButton={this.enableButton.bind(this)}
@@ -105,7 +107,7 @@ export default class GeneratedFileModal extends React.Component {
                         </div>
 
                         <button
-                            className={"usa-da-button btn-primary pull-right" + buttonClass}
+                            className={`usa-da-button btn-primary pull-right${buttonClass}`}
                             disabled={buttonDisabled}
                             onClick={this.generateFile.bind(this)}>
                             {this.state.buttonText}

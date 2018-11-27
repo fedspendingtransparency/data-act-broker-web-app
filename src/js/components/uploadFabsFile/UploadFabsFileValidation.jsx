@@ -215,7 +215,7 @@ class UploadFabsFileValidation extends React.Component {
             .catch(() => {
                 this.setState({
                     error: 1,
-                    error_message: "Invalid File Type Selected " + item.file_type,
+                    error_message: `Invalid File Type Selected ${item.file_type}`,
                     signInProgress: false
                 });
             });
@@ -229,7 +229,7 @@ class UploadFabsFileValidation extends React.Component {
         // check if the link is already signed
         if (this.state.signInProgress) {
             // sign is in progress, do nothing
-            return;
+
         }
         else if (this.state.signedUrl !== "") {
             // it is signed, open immediately

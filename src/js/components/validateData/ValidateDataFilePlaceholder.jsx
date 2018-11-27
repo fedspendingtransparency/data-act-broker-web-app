@@ -14,10 +14,6 @@ const defaultProps = {
 };
 
 export default class ValidateDataFilePlaceholder extends React.Component {
-    constructor(props) {
-        super(props);
-    }
-
     render() {
         return (
             <div className="row center-block usa-da-validate-item successful">

@@ -24,16 +24,15 @@ const defaultProps = {
 };
 
 export default class CorrectButtonFullOverlay extends React.Component {
-    constructor(props) {
-        super(props);
-    }
-
     render() {
         return (
             <div className="usa-da-validate-corrected-file-holder full-width">
                 <div className="full-overlay">
                     <div
+                        role="button"
+                        tabIndex={0}
                         className="usa-da-icon"
+                        onKeyDown={this.props.buttonClicked.bind(this)}
                         onClick={this.props.buttonClicked.bind(this)}>
                         <Icons.Times />
                     </div>

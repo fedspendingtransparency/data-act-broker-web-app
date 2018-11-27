@@ -17,12 +17,10 @@ const propTypes = {
     submission: PropTypes.object,
     agencyName: PropTypes.string,
     mode: PropTypes.string,
-    loading: PropTypes.bool,
-    errors: PropTypes.array
+    loading: PropTypes.bool
 };
 
 const defaultProps = {
-    errors: ['error'],
     loading: true,
     uploadFiles: null,
     session: null,
@@ -85,7 +83,7 @@ export default class CrossFileOverlay extends React.Component {
 
     pressedNext(e) {
         e.preventDefault();
-        hashHistory.push('/generateEF/' + this.props.submission.id);
+        hashHistory.push(`/generateEF/${this.props.submission.id}`);
     }
 
     isUploadingFiles() {
@@ -110,8 +108,8 @@ export default class CrossFileOverlay extends React.Component {
             const firstKey = key.split('-')[0];
             const secondKey = key.split('-')[1];
 
-            if (!this.props.submission.files.hasOwnProperty(firstKey) &&
-                !this.props.submission.files.hasOwnProperty(secondKey)) {
+            if (Object.prototype.hasOwnProperty.call(!this.props.submission.files, firstKey) &&
+                Object.prototype.hasOwnProperty.call(!this.props.submission.files, secondKey)) {
                 // neither file in the pair is staged for upload, submission isn't ready for re-upload
                 return false;
             }
@@ -210,14 +208,14 @@ export default class CrossFileOverlay extends React.Component {
                 showButtons={!this.state.overlay.hideButtons}>
                 <div className="usa-da-btn-bg">
                     <button
-                        className={"usa-da-button" + this.state.overlay.uploadButtonClass}
+                        className={`usa-da-button${this.state.overlay.uploadButtonClass}`}
                         disabled={this.state.overlay.uploadButtonDisabled}
                         onClick={this.props.uploadFiles}>
                         {this.state.overlay.buttonText}
                     </button>
                     <button
-                        className={"usa-da-validation-overlay-review usa-da-button" +
-                        this.state.overlay.nextButtonClass}
+                        className={`usa-da-validation-overlay-review usa-da-button${
+                            this.state.overlay.nextButtonClass}`}
                         disabled={this.state.overlay.nextButtonDisabled}
                         onClick={this.pressedNext.bind(this)}>
                         Next

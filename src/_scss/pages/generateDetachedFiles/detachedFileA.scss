@@ -1,0 +1,121 @@
+.usa-da-detached-file-a-page {
+    @import "../../layouts/content/content";
+    @include contentLayout;
+
+    // import typeahead styles
+    @import "../../components/typeahead/_typeahead";
+
+    .detached-heading {
+        font-size: rem(22);
+        padding-bottom: rem(22);
+        font-weight: $font-bold;
+        color: $color-gray;
+    }
+
+    .select-agency-holder {
+        padding: 15px 30px 30px 30px;
+        @include contentBlockWrapper;
+
+        .usa-da-select-agency-label {
+            margin: 15px 0 10px;
+            text-align: left;
+            font-size: 1.6rem;
+        }
+
+        .dashed-border-top {
+            margin: 31px 0 10px;
+            border-top: 1px dashed $color-gray-lighter;
+        }
+
+        // import the alerts
+        .alert-error {
+            @import "../../components/alerts/_alerts";
+            @include dangerAlert;
+        }
+
+        // style the icons
+        .usa-da-form-icon {
+            @import "../../components/inputs/_fieldIcon";
+            @include fieldIcon;
+        }
+    }
+
+    .file-a-section {
+        @include display(flex);
+        .file-a-section__label {
+            @include display(flex);
+            @include justify-content(center);
+            @include flex(0 0 33%);
+            padding: rem(45) rem(10);
+            font-weight: $font-semibold;
+            border: solid rem(1) $color-gray-lighter;
+        }
+        .file-a-section__date {
+            @include display(flex);
+            @include flex(1 1 67%);
+            @include justify-content(center);
+            padding: rem(45) rem(15);
+            border: solid rem(1) $color-gray-lighter;
+            border-left: 0;
+            @import "./quarterPicker";
+            @import "./fyPicker";
+        }
+    }
+
+    .description {
+        background-color: $color-gray-lightest;
+        padding: rem(15);
+        margin: rem(15) 0;
+        .description__content {
+            border-left: solid rem(5) $color-primary-alt-light;
+            text-align: left;
+            padding: rem(15);
+            p {
+                margin-bottom: rem(15);
+                &:last-child {
+                    margin-bottom: 0;
+                }
+            }
+        }
+    }
+
+    .right-align-box {
+        text-align: right;
+    }
+
+    .generate-button {
+        @import "../../components/buttons/_optional";
+        @include optionalButton;
+
+        @import "../../lib/spinkit/spinners/2-double-bounce";
+
+        .sk-double-bounce {
+            margin: 0;
+            margin-right: 7.5px;
+
+            display: inline-block;
+            width: 15px;
+            height: 15px;
+
+            top: 2px;
+
+            .sk-child {
+                background-color: black;
+            }
+        }
+    }
+
+    @import "../generateFiles/generateItem/generateItem";
+
+    .usa-da-generate-item-wrap {
+        margin-bottom: rem(10);
+        .usa-da-generate-item {
+            border: 0;
+        }
+    }
+
+    .submission-link {
+        padding-top: rem(15);
+        text-align: right;
+    }
+}

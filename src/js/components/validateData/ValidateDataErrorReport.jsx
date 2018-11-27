@@ -66,7 +66,7 @@ export default class ValidateDataErrorReport extends React.Component {
         // check if the link is already signed
         if (this.state.signInProgress) {
             // sign is in progress, do nothing
-            return;
+
         }
         else if (this.state.signedUrl !== '') {
             // it is signed, open immediately
@@ -119,7 +119,10 @@ export default class ValidateDataErrorReport extends React.Component {
                         </div>
                         <div className="col-md-3 mr-0">
                             <div
+                                role="button"
+                                tabIndex={0}
                                 className="usa-da-download pull-right"
+                                onKeyDown={this.clickedReport.bind(this)}
                                 onClick={this.clickedReport.bind(this)}>
                                 <span className="usa-da-icon usa-da-download-report">
                                     <Icons.CloudDownload />

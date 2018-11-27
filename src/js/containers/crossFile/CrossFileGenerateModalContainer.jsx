@@ -80,7 +80,7 @@ export default class CrossFileGenerateModalContainer extends React.Component {
                 if (!requested) {
                     // file has not been requested before
                     // toss back to the generate screen
-                    hashHistory.push('generateFiles/' + this.props.submissionID);
+                    hashHistory.push(`generateFiles/${this.props.submissionID}`);
                 }
                 else {
                     // files have been requested before, load the dates
@@ -255,10 +255,10 @@ export default class CrossFileGenerateModalContainer extends React.Component {
         }
         else if (fileData.status === 'failed' || fileData.status === 'invalid') {
             if (fileData.message !== '') {
-                message = 'File ' + fileData.file.toUpperCase() + ': ' + fileData.message;
+                message = `File ${fileData.file.toUpperCase()}: ${fileData.message}`;
             }
             else {
-                message = 'File ' + fileData.file.toUpperCase() + ' could not be generated.';
+                message = `File ${fileData.file.toUpperCase()} could not be generated.`;
             }
             this.props.enableButton();
             this.props.setButtonText('Generate File');
@@ -306,7 +306,7 @@ export default class CrossFileGenerateModalContainer extends React.Component {
     }
 
     nextPage() {
-        hashHistory.push('validateCrossFile/' + this.props.submissionID);
+        hashHistory.push(`validateCrossFile/${this.props.submissionID}`);
     }
 
     render() {

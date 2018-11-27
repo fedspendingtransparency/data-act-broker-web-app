@@ -15,72 +15,65 @@ import * as lastDateModifiedHelper from '../../helpers/lastDateModifiedHelper';
 import CalendarRangeDatePicker from '../../components/SharedComponents/CalendarRangeDatePicker';
 
 const propTypes = {
-  setLastDateModifiedList: PropTypes.func,
-  lastDateModifiedList: PropTypes.object,
-  detached: PropTypes.bool,
-  selectedFilters: PropTypes.object,
-  type: PropTypes.string,
-  table: PropTypes.string,
-  placeholder: PropTypes.string,
-  onSelect: PropTypes.func
+    setLastDateModifiedList: PropTypes.func,
+    lastDateModifiedList: PropTypes.object,
+    detached: PropTypes.bool,
+    selectedFilters: PropTypes.object,
+    type: PropTypes.string,
+    table: PropTypes.string,
+    placeholder: PropTypes.string,
+    onSelect: PropTypes.func
 };
 
 const defaultProps = {
-  setLastDateModifiedList: () => {},
-  lastDateModifiedList: {},
-  detached: true,
-  selectedFilters: [],
-  table: '',
-  type: '',
-  placeholder: '',
-  onSelect: () => {}
+    setLastDateModifiedList: () => {},
+    lastDateModifiedList: {},
+    detached: true,
+    selectedFilters: [],
+    table: '',
+    type: '',
+    placeholder: '',
+    onSelect: () => {}
 };
 
 class LastDateModifiedContainer extends React.Component {
-  componentDidMount() {
-    this.loadData();
-  }
-
-  loadData() {
-    if (_.isEmpty(this.props.lastDateModifiedList.lastDateModified)) {
-      // we need to populate the list
-      lastDateModifiedHelper.fetchLastDateModified()
-        .then((data) => {
-          const payload = [];
-          data.forEach((value) => {
-            payload.push(new Date(value.last_modified));
-          });
-          this.props.setLastDateModifiedList(payload);
-        })
-        .catch((err) => {
-          console.error(err);
-        });
+    loadData() {
+        if (_.isEmpty(this.props.lastDateModifiedList.lastDateModified)) {
+            // we need to populate the list and load on mounting the component
+            lastDateModifiedHelper.fetchLastDateModified()
+                .then((data) => {
+                    const payload = [];
+                    data.forEach((value) => {
+                        payload.push(new Date(value.last_modified));
+                    });
+                    this.props.setLastDateModifiedList(payload);
+                })
+                .catch((err) => {
+                    console.error(err);
+                });
+        }
     }
-  }
 
-  render() {
-      let values = this.props.lastDateModifiedList.lastDateModified.length > 0 ? this.props.lastDateModifiedList.lastDateModified : {};
-      // Find Min/Max for last modified dates
-      if (!_.isEmpty(values)) {
+    render() {
+        // Temporary min/max dates workaround until backend is ready
         const finalPayload = {
-            minDate: _.min(values),
-            maxDate: _.max(values)
+            minDate: new Date('01/01/2016'),
+            maxDate: new Date(),
         };
-        values = finalPayload;
-      }
-    return (
-        <CalendarRangeDatePicker minmaxDates={values} {...this.props} />
-    );
-  }
+
+        return (
+            <CalendarRangeDatePicker minmaxDates={finalPayload} {...this.props} />
+        );
+    }
 }
 
 LastDateModifiedContainer.propTypes = propTypes;
 LastDateModifiedContainer.defaultProps = defaultProps;
 
 export default connect(
-  (state) => ({
-    lastDateModifiedList: state.lastDateModifiedList,
-    selectedFilters: state.dashboardFilters
-  }),
-  (dispatch) => bindActionCreators(lastDateModifiedActions, dispatch),
+    (state) => ({
+        lastDateModifiedList: state.lastDateModifiedList,
+        selectedFilters: state.dashboardFilters
+    }),
+    (dispatch) => bindActionCreators(lastDateModifiedActions, dispatch),
 )(LastDateModifiedContainer);

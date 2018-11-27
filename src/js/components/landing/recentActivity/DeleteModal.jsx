@@ -91,7 +91,7 @@ export default class DeleteModal extends React.Component {
                 <div className="usa-da-modal-page">
                     <div id="usa-da-certify-modal" className="usa-da-certify-modal">
                         <div className="usa-da-certify-modal-close usa-da-icon usa-da-icon-times">
-                            <a href="#" onClick={this.closeModal.bind(this)}> <Icons.Times /> </a>
+                            <button onClick={this.closeModal.bind(this)}> <Icons.Times /> </button>
                         </div>
 
                         <div className="usa-da-certify-modal-content delete-modal-content">

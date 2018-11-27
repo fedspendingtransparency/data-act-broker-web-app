@@ -133,11 +133,16 @@ export default class ValidationRulesTableContent extends React.Component {
                                 rel="noopener noreferrer"
                                 target="_blank">
                                 Broker SQL Validation Rules
-                            </a>: the actual machine logic used in {type} validations. These SQL statements are based
-                            directly on the {type} validation rules.
+                            </a>: the actual machine logic used in {type} validations.
+                            These SQL statements are based directly on the {type} validation rules.
                         </li>
                         <li>
-                            <a href={this.state.validationRulesUrl} target="_blank" rel="noopener noreferrer" >DAIMS Validations Rules</a>
+                            <a
+                                href={this.state.validationRulesUrl}
+                                target="_blank"
+                                rel="noopener noreferrer" >
+                                DAIMS Validations Rules
+                            </a>
                             : contains the validations rules for the RSS, along with a change log
                         </li>
                     </ul>

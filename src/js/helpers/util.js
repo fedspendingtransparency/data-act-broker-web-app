@@ -7,7 +7,7 @@ export const generateProtectedUrls = () => {
     let isCanceled = false;
     const deferred = Q.defer();
 
-    Request.get(kGlobalConstants.API + 'get_protected_files/')
+    Request.get(`${kGlobalConstants.API}get_protected_files/`)
         .send()
         .end((err, res) => {
             if (isCanceled || err) {
@@ -29,20 +29,20 @@ export const generateProtectedUrls = () => {
 export const convertToLocalDate = (dateToConvert) => {
     // convert date to local date, need to replace the space with a T for Date() formatting
     // Add a Z to the end to imply the date is in UTC
-    const formattedDate = dateToConvert.replace(" ", "T") + "Z";
+    const formattedDate = `${dateToConvert.replace(" ", "T")}Z`;
     const tmpDate = new Date(formattedDate);
 
     // format date as YYYY-MM-DD
     const year = tmpDate.getFullYear();
     let month = tmpDate.getMonth() + 1;
     if (month < 10) {
-        month = "0" + month;
+        month = `0${month}`;
     }
     let day = tmpDate.getDate();
     if (day < 10) {
-        day = "0" + day;
+        day = `0${day}`;
     }
-    return year + "-" + month + "-" + day;
+    return `${year}-${month}-${day}`;
 };
 
 export const quarterToMonth = (quarter, quarterYear, type) => {
@@ -64,7 +64,7 @@ export const quarterToMonth = (quarter, quarterYear, type) => {
         year -= 1;
     }
 
-    return month + '/' + year;
+    return `${month}/${year}`;
 };
 
 export const currentQuarter = (type) => {
@@ -108,4 +108,42 @@ export const validUploadFileChecker = (rawFile) => {
         return !!((fileType === 'csv' || fileType === 'txt'));
     }
     return 'unset';
+};
+
+export const earliestFileAYear = 2017;
+
+export const convertDateToQuarter = (date) => {
+    // Returns the fiscal quarter that the date falls in
+    let quarter = 0;
+    const month = moment(date).month();
+
+    if (month >= 9 && month <= 11) {
+        quarter = 1;
+    }
+
+    else if (month >= 0 && month <= 2) {
+        quarter = 2;
+    }
+
+    else if (month >= 3 && month <= 5) {
+        quarter = 3;
+    }
+    else if (month >= 6 && month <= 8) {
+        quarter = 4;
+    }
+
+    return quarter;
+};
+
+export const currentFiscalYear = () => {
+    // determine the current fiscal year
+    const currentMonth = moment().month();
+    let currentFY = moment().year();
+    if (currentMonth >= 9) {
+        // months are zero-indexed, so 9 is October
+        // starting in October we are in the next fiscal year
+        currentFY = moment().year() + 1;
+    }
+
+    return currentFY;
 };

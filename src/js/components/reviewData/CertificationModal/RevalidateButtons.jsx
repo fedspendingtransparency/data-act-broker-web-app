@@ -37,7 +37,7 @@ export default class RevalidateButtons extends React.Component {
                     </div>
                     <div className="col-md-6 mb-10">
                         <button onClick={this.props.closeModal} className="usa-da-button btn-full decline-button">
-                            Don't Revalidate
+                            Don&apos;t Revalidate
                         </button>
                     </div>
                 </div>

@@ -17,7 +17,7 @@ class IconSingleton {
 
     downloadIcons() {
         this.svgRequested = true;
-        Request.get("graphics/icons.svg")
+        Request.get('graphics/icons.svg')
             .send()
             .end((err, res) => {
                 if (!err) {
@@ -55,7 +55,7 @@ class IconSingleton {
     notifySubscribers(event) {
         // iterate through subscribers to notify them that icons are ready
         for (const subscriptionId in this.subscribers) {
-            if (this.subscribers.hasOwnProperty(subscriptionId)) {
+            if (Object.prototype.hasOwnProperty.call(this.subscribers, subscriptionId)) {
                 const subscriber = this.subscribers[subscriptionId];
                 subscriber(event);
             }
