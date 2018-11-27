@@ -16,7 +16,7 @@ export default class AgencyToggleTooltip extends React.Component {
                     <div className="agency-toggle-tooltip__content">
                         This toggle may benefit small agencies that use a shared service provider (SSP) to manage and
                         issue awards that they fund. The vast majority of agencies will want to leave the toggle in the
-                        default "Awarding Agency" position.
+                        default &quot;Awarding Agency&quot; position.
                     </div>
                 </div>
             </div>

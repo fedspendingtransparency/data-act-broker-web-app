@@ -56,9 +56,9 @@ export default class LandingRequirementsModal extends React.Component {
                 <div className="usa-da-modal-page">
                     <div id="usa-da-landing-modal" className="usa-da-landing-modal">
                         <div className="usa-da-landing-modal-close usa-da-icon usa-da-icon-times">
-                            <a href="#" onClick={this.closeModal.bind(this)}>
+                            <button onClick={this.closeModal.bind(this)}>
                                 <Icons.Times />
-                            </a>
+                            </button>
                         </div>
                         <LandingBody {...this.props} />
                     </div>

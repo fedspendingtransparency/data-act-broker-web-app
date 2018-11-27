@@ -49,7 +49,7 @@ export default class ValidateValuesFileDetailBox extends React.Component {
         }
 
         return (
-            <div className={"col-md-6 " + this.props.styleClass}>
+            <div className={`col-md-6 ${this.props.styleClass}`}>
                 <div className="row usa-da-validate-item-body">
                     <div className="usa-da-validate-txt-wrap">
                         <span className="usa-da-validate-item-message-label">{this.props.label}:&nbsp;</span>
@@ -58,7 +58,10 @@ export default class ValidateValuesFileDetailBox extends React.Component {
                 </div>
                 <div className="row usa-da-validate-item-footer-wrapper">
                     <div
-                        className={"usa-da-validate-item-footer usa-da-header-error" + showButton + footerStatus}
+                        role="button"
+                        tabIndex={0}
+                        className={`usa-da-validate-item-footer usa-da-header-error${showButton}${footerStatus}`}
+                        onKeyDown={this.props.onClick}
                         onClick={this.props.onClick}>
                         <div>View &amp; Download {this.props.label} Report
                             <span className="usa-da-icon">{buttonIcon}</span>

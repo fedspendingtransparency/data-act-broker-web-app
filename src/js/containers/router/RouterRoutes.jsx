@@ -39,7 +39,7 @@ const performAutoLogin = (location, replace) => {
     if (path === "/login") {
         if (session.login === "loggedIn") {
             // user is logged in, go to landing page
-            if (search !== "" && query.hasOwnProperty('redirect')) {
+            if (search !== "" && Object.prototype.hasOwnProperty.call(query, 'redirect')) {
                 // a redirect option was provided
                 pushMethod(query.redirect);
             }
@@ -53,7 +53,7 @@ const performAutoLogin = (location, replace) => {
             pushMethod('/login');
         }
         else {
-            pushMethod('/login?redirect=' + path);
+            pushMethod(`/login?redirect=${path}`);
         }
     }
 };
@@ -232,6 +232,51 @@ const getRoutes = () => {
         }
     ];
 
+    function routeConstructor(routeInfo, onEnterIndex, type) {
+        let prefix = '';
+        if (type === 'fabs') {
+            prefix = 'FABS';
+        }
+
+        if (routeInfo.component === 'landing') {
+            return {
+                path: prefix + routeInfo.path,
+                onEnter: routeInfo.onEnter[onEnterIndex],
+                getComponent(nextState, cb) {
+                    require.ensure([], (require) => {
+                        cb(null, require('../../components/landing/LandingPage').default);
+                    });
+                },
+                type
+            };
+        }
+        else if (routeInfo.component === 'dashboard') {
+            return {
+                path: prefix + routeInfo.path,
+                onEnter: routeInfo.onEnter[onEnterIndex],
+                getComponent(nextState, cb) {
+                    require.ensure([], (require) => {
+                        cb(null, require('../../components/dashboard/DashboardPage').default);
+                    });
+                },
+                type
+            };
+        }
+        else if (routeInfo.component === 'help') {
+            return {
+                path: prefix + routeInfo.path,
+                onEnter: routeInfo.onEnter[onEnterIndex],
+                getComponent(nextState, cb) {
+                    require.ensure([], (require) => {
+                        cb(null, require('../help/HelpContainer').default);
+                    });
+                },
+                type
+            };
+        }
+        return null;
+    }
+
     // Duplicated routes for FABS/DABS
     const sharedRoutes = [
         {
@@ -293,51 +338,6 @@ const getRoutes = () => {
         });
     return returnRoutes;
 };
-
-function routeConstructor(routeInfo, onEnterIndex, type) {
-    let prefix = '';
-    if (type === 'fabs') {
-        prefix = 'FABS';
-    }
-
-    if (routeInfo.component === 'landing') {
-        return {
-            path: prefix + routeInfo.path,
-            onEnter: routeInfo.onEnter[onEnterIndex],
-            getComponent(nextState, cb) {
-                require.ensure([], (require) => {
-                    cb(null, require('../../components/landing/LandingPage').default);
-                });
-            },
-            type
-        };
-    }
-    else if (routeInfo.component === 'dashboard') {
-        return {
-            path: prefix + routeInfo.path,
-            onEnter: routeInfo.onEnter[onEnterIndex],
-            getComponent(nextState, cb) {
-                require.ensure([], (require) => {
-                    cb(null, require('../../components/dashboard/DashboardPage').default);
-                });
-            },
-            type
-        };
-    }
-    else if (routeInfo.component === 'help') {
-        return {
-            path: prefix + routeInfo.path,
-            onEnter: routeInfo.onEnter[onEnterIndex],
-            getComponent(nextState, cb) {
-                require.ensure([], (require) => {
-                    cb(null, require('../help/HelpContainer').default);
-                });
-            },
-            type
-        };
-    }
-    return null;
-}
 
 // defining the routes outside of the component because React Router cannot handle state/prop changes that Redux causes
 const routeDefinitions = {

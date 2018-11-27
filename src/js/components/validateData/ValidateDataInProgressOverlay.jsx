@@ -17,10 +17,6 @@ const defaultProps = {
 };
 
 export default class ValidateDataInProgressOverlay extends React.Component {
-    constructor(props) {
-        super(props);
-    }
-
     render() {
         let title = 'Your files are being validated.';
         let description = 'You can return to this page at any time to check the validation status by using this link: ';

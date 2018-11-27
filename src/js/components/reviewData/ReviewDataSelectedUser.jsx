@@ -18,16 +18,12 @@ const defaultProps = {
 };
 
 export default class ReviewDataSelectedUser extends React.Component {
-    constructor(props) {
-        super(props);
-    }
-
     render() {
         return (
             <div className="usa-da-review-data-user-row">
-                <a className="usa-da-icon usa-da-icon-times-circle" onClick={this.props.deselectUser}>
+                <button className="usa-da-icon usa-da-icon-times-circle" onClick={this.props.deselectUser}>
                     <Icons.TimesCircle />
-                </a>
+                </button>
                 <span>
                     {this.props.user.displayName}
                 </span>

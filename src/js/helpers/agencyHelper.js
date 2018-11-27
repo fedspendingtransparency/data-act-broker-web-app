@@ -6,7 +6,7 @@ import { kGlobalConstants } from '../GlobalConstants';
 export const fetchAgencies = () => {
     const deferred = Q.defer();
 
-    Request.get(kGlobalConstants.API + 'list_agencies/')
+    Request.get(`${kGlobalConstants.API}list_agencies/`)
         .send()
         .end((err, res) => {
             if (err) {
@@ -23,7 +23,7 @@ export const fetchAgencies = () => {
 export const fetchAllAgencies = () => {
     const deferred = Q.defer();
 
-    Request.get(kGlobalConstants.API + 'list_all_agencies/')
+    Request.get(`${kGlobalConstants.API}list_all_agencies/`)
         .send()
         .end((err, res) => {
             if (err) {
@@ -40,7 +40,7 @@ export const fetchAllAgencies = () => {
 export const fetchSubTierAgencies = () => {
     const deferred = Q.defer();
 
-    Request.get(kGlobalConstants.API + 'list_sub_tier_agencies/')
+    Request.get(`${kGlobalConstants.API}list_sub_tier_agencies/`)
         .send()
         .end((err, res) => {
             if (err) {
@@ -56,9 +56,9 @@ export const fetchSubTierAgencies = () => {
 
 export function checkYearQuarter(cgac, frec, year, quarter) {
     const deferred = Q.defer();
-    const validCgac = cgac ? cgac : '';
-    const validFrec = frec ? frec : '';
-    Request.get(kGlobalConstants.API + `check_year_quarter/?cgac_code=${validCgac}&frec_code=${validFrec}&` +
+    const validCgac = cgac || '';
+    const validFrec = frec || '';
+    Request.get(`${kGlobalConstants.API}check_year_quarter/?cgac_code=${validCgac}&frec_code=${validFrec}&` +
                 `reporting_fiscal_year=${year}&reporting_fiscal_period=${quarter}`)
         .end((err, res) => {
             if (err) {

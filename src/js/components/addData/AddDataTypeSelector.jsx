@@ -13,17 +13,17 @@ export default class TypeSelector extends React.Component {
                     <h2>Two ways to submit your data...</h2>
                     <div className="row text-center">
                         <div className="col-md-6">
-                            <a className="usa-da-button-big usa-da-button-biggest submit" value="Upload Files">
+                            <button className="usa-da-button-big usa-da-button-biggest submit" value="Upload Files">
                                 Upload Files
-                            </a>
+                            </button>
                         </div>
                         <div className="col-md-6">
-                            <a
+                            <button
                                 className="usa-da-button-big usa-da-button-biggest submit disabled"
                                 value="Setup a Data Feed"
                                 disabled>Setup a Data Feed
                                 <div><em>Coming Soon</em></div>
-                            </a>
+                            </button>
                         </div>
                     </div>
                 </div>

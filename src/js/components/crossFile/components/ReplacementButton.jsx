@@ -25,9 +25,9 @@ export default class ReplacementButton extends React.Component {
         return (
             <div className="usa-da-validate-corrected-file-holder">
                 <div className="corner-overlay">
-                    <div className="usa-da-icon" onClick={this.props.buttonClicked}>
+                    <button className="usa-da-icon" onClick={this.props.buttonClicked}>
                         {icon}
-                    </div>
+                    </button>
                 </div>
             </div>
         );

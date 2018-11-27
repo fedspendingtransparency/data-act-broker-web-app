@@ -74,12 +74,12 @@ export const getCrossFileData = (data, type) => {
     });
 
     for (const index in data[dataType]) {
-        if (data[dataType].hasOwnProperty(index)) {
+        if (Object.prototype.hasOwnProperty.call(data[dataType], index)) {
             // fetch the error object
             const item = data[dataType][index];
 
             // generate possible key names for this pair of target/source files
-            const keyNames = [item.target_file + '-' + item.source_file, item.source_file + '-' + item.target_file];
+            const keyNames = [`${item.target_file}-${item.source_file}`, `${item.source_file}-${item.target_file}`];
             // determine which is the correct name
             let key = keyNames[0];
             if (_.indexOf(validKeys, key) === -1) {
@@ -93,7 +93,7 @@ export const getCrossFileData = (data, type) => {
             }
 
             // check if we've already seen an error for this pairing
-            if (output.hasOwnProperty(key)) {
+            if (Object.prototype.hasOwnProperty.call(output, key)) {
                 // this pair already exists, so append the error to the pair's array
                 output[key].push(item);
             }
@@ -114,7 +114,7 @@ export const fetchSubmissionMetadata = (submissionId) => {
     const store = new StoreSingleton().store;
     store.dispatch(uploadActions.setSubmissionId(submissionId));
 
-    Request.get(kGlobalConstants.API + 'submission_metadata/?submission_id=' + submissionId)
+    Request.get(`${kGlobalConstants.API}submission_metadata/?submission_id=${submissionId}`)
         .end((errFile, res) => {
             if (errFile) {
                 deferred.reject(res);
@@ -134,10 +134,10 @@ export const fetchSubmissionData = (submissionId, type = '') => {
 
     let typeFilter = '';
     if (type) {
-        typeFilter = '&type=' + type;
+        typeFilter = `&type=${type}`;
     }
 
-    Request.get(kGlobalConstants.API + 'submission_data/?submission_id=' + submissionId + typeFilter)
+    Request.get(`${kGlobalConstants.API}submission_data/?submission_id=${submissionId}${typeFilter}`)
         .end((errFile, res) => {
             if (errFile) {
                 deferred.reject(res);
@@ -155,7 +155,7 @@ export const fetchStatus = (submissionId, type = '') => {
 
     let typeFilter = '';
     if (type) {
-        typeFilter = '&type=' + type;
+        typeFilter = `&type=${type}`;
     }
 
     const startTime = new Date().getTime();
@@ -167,7 +167,7 @@ export const fetchStatus = (submissionId, type = '') => {
     const possiblePairs = determineExpectedPairs();
     store.dispatch(uploadActions.setExpectedCrossPairs(possiblePairs));
 
-    Request.get(kGlobalConstants.API + 'check_status/?submission_id=' + submissionId + typeFilter)
+    Request.get(`${kGlobalConstants.API}check_status/?submission_id=${submissionId}${typeFilter}`)
         .end((errFile, res) => {
             // calculate how long the API call took
             const endTime = new Date().getTime();
@@ -181,7 +181,7 @@ export const fetchStatus = (submissionId, type = '') => {
 
             if (errFile) {
                 let detail = '';
-                if (res.body !== null && res.body.hasOwnProperty('message')) {
+                if (res.body !== null && Object.prototype.hasOwnProperty.call(res.body, 'message')) {
                     detail = res.body.message;
                 }
 
@@ -210,7 +210,7 @@ export const getFileStates = (status) => {
             output[item.file_type].warning_count = 0;
 
             // force an error_data array if no field is passed back in the JSON
-            if (!item.hasOwnProperty('error_data')) {
+            if (Object.prototype.hasOwnProperty.call(!item, 'error_data')) {
                 output[item.file_type].error_data = [];
             }
             else {
@@ -223,7 +223,7 @@ export const getFileStates = (status) => {
             }
 
             // do the same for warnings
-            if (!item.hasOwnProperty('warning_data')) {
+            if (Object.prototype.hasOwnProperty.call(!item, 'warning_data')) {
                 output[item.file_type].warning_data = [];
             }
             else {
@@ -291,7 +291,7 @@ export const validateFabsSubmission = (submissionId) => {
 export const listUsers = () => {
     const deferred = Q.defer();
 
-    Request.get(kGlobalConstants.API + 'list_user_emails/')
+    Request.get(`${kGlobalConstants.API}list_user_emails/`)
         .send({ status: "approved" })
         .end((err, res) => {
             if (err) {
@@ -308,7 +308,7 @@ export const listUsers = () => {
 export const sendNotification = (users, id) => {
     const deferred = Q.defer();
 
-    Request.post(kGlobalConstants.API + 'email_users/')
+    Request.post(`${kGlobalConstants.API}email_users/`)
         .send({
             users,
             email_template: 'review_submission',
@@ -328,7 +328,7 @@ export const sendNotification = (users, id) => {
 export const fetchObligations = (submissionId) => {
     const deferred = Q.defer();
 
-    Request.get(kGlobalConstants.API + 'get_obligations/?submission_id=' + submissionId)
+    Request.get(`${kGlobalConstants.API}get_obligations/?submission_id=${submissionId}`)
         .end((errFile, res) => {
             if (errFile) {
                 deferred.reject(errFile);
@@ -351,13 +351,13 @@ export const submissionReport = (submissionId, warning, fileType, crossType) => 
         params.push('warning=false');
     }
     if (fileType) {
-        params.push('file_type=' + fileType);
+        params.push(`file_type=${fileType}`);
     }
     if (crossType) {
-        params.push('cross_type=' + crossType);
+        params.push(`cross_type=${crossType}`);
     }
 
-    Request.get(kGlobalConstants.API + 'submission/' + submissionId + '/report_url?' + params.join('&'))
+    Request.get(`${kGlobalConstants.API}submission/${submissionId}/report_url?${params.join('&')}`)
         .end((errFile, res) => {
             if (errFile) {
                 deferred.reject(errFile, res);
@@ -373,7 +373,7 @@ export const submissionReport = (submissionId, warning, fileType, crossType) => 
 export const fetchSubmissionNarrative = (submissionId) => {
     const deferred = Q.defer();
 
-    Request.get(kGlobalConstants.API + 'submission/' + submissionId + '/narrative')
+    Request.get(`${kGlobalConstants.API}submission/${submissionId}/narrative`)
         .end((errFile, res) => {
             if (errFile) {
                 deferred.reject(errFile);
@@ -389,7 +389,7 @@ export const fetchSubmissionNarrative = (submissionId) => {
 export const saveNarrative = (submissionId, narrative) => {
     const deferred = Q.defer();
 
-    Request.post(kGlobalConstants.API + 'submission/' + submissionId + '/narrative')
+    Request.post(`${kGlobalConstants.API}submission/${submissionId}/narrative`)
         .send(narrative)
         .end((errFile, res) => {
             if (errFile) {
@@ -406,7 +406,7 @@ export const saveNarrative = (submissionId, narrative) => {
 export const certifySubmission = (submissionId) => {
     const deferred = Q.defer();
 
-    Request.post(kGlobalConstants.API + 'certify_submission/')
+    Request.post(`${kGlobalConstants.API}certify_submission/`)
         .send({ submission_id: submissionId })
         .end((err, res) => {
             if (err) {
@@ -425,7 +425,7 @@ export const certifySubmission = (submissionId) => {
 export const deleteSubmission = (submissionId) => {
     const deferred = Q.defer();
 
-    Request.post(kGlobalConstants.API + 'delete_submission/')
+    Request.post(`${kGlobalConstants.API}delete_submission/`)
         .send({ submission_id: submissionId })
         .end((err, res) => {
             if (err) {
@@ -445,7 +445,7 @@ export const deleteSubmission = (submissionId) => {
 export const revalidateSubmission = (submissionId, d2Submission = false) => {
     const deferred = Q.defer();
 
-    Request.post(kGlobalConstants.API + 'restart_validation/')
+    Request.post(`${kGlobalConstants.API}restart_validation/`)
         .send({
             submission_id: submissionId,
             d2_submission: d2Submission
@@ -468,7 +468,7 @@ export const revalidateSubmission = (submissionId, d2Submission = false) => {
 export const isWindow = () => {
     const deferred = Q.defer();
 
-    Request.get(kGlobalConstants.API + 'window/')
+    Request.get(`${kGlobalConstants.API}window/`)
         .end((err, res) => {
             if (err) {
                 const response = Object.assign({}, res.body);
@@ -486,7 +486,7 @@ export const isWindow = () => {
 export const revalidationThreshold = () => {
     const deferred = Q.defer();
 
-    Request.get(kGlobalConstants.API + 'revalidation_threshold/')
+    Request.get(`${kGlobalConstants.API}revalidation_threshold/`)
         .end((err, res) => {
             if (err) {
                 deferred.reject(err);

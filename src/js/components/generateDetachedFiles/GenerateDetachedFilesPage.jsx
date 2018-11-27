@@ -248,7 +248,7 @@ export default class GenerateDetachedFilesPage extends React.Component {
             // don't run the check again if it failed
             runCheck = false;
 
-            let message = 'File ' + data.file_type + ' could not be generated.';
+            let message = `File ${data.file_type} could not be generated.`;
 
             if (data.message !== '') {
                 message = data.message;
@@ -259,7 +259,7 @@ export default class GenerateDetachedFilesPage extends React.Component {
             item.status = "";
             this.setState({ [fileType]: item });
 
-            this.showError(fileType, data.file_type + ' File Error', message);
+            this.showError(fileType, `${data.file_type} File Error`, message);
         }
         else if (data.status === 'finished') {
             // don't run the check again if it's done
@@ -343,7 +343,7 @@ export default class GenerateDetachedFilesPage extends React.Component {
                                                     placeholder="Enter the name of the reporting agency"
                                                     onSelect={this.handleChange.bind(this)}
                                                     customClass={agencyClass} />
-                                                <div className={"usa-da-icon usa-da-form-icon" + agencyClass}>
+                                                <div className={`usa-da-icon usa-da-form-icon${agencyClass}`}>
                                                     {agencyIcon}
                                                 </div>
                                             </div>

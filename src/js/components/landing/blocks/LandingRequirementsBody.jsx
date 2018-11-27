@@ -102,7 +102,15 @@ export default class LandingRequirementsBody extends React.Component {
                     <li>File E: Additional Awardee Attributes data</li>
                     <li>File F: Sub-award Attributes data</li>
                 </ul>
-                <p>Submission information is available on the <a href="https://fiscal.treasury.gov/fsservices/gov/data-trans/dt-daims.htm" target="_blank" rel="noopener noreferrer">DAIMS</a> page of the Data Transparency site for the Bureau of the Fiscal Service. </p>
+                <p>
+                    Submission information is available on the
+                    <a
+                        href="https://fiscal.treasury.gov/fsservices/gov/data-trans/dt-daims.htm"
+                        target="_blank"
+                        rel="noopener noreferrer">
+                        &nbsp;DAIMS
+                    </a> page of the Data Transparency site for the Bureau of the Fiscal Service.
+                </p>
             </div>
         );
 
@@ -114,7 +122,14 @@ export default class LandingRequirementsBody extends React.Component {
                         <li>FABS File: Financial Assistance data</li>
                     </ul>
                     <p>
-                        Submission information is available on the <a target="_blank" rel="noopener noreferrer" href="https://fiscal.treasury.gov/fsservices/gov/data-trans/dt-daims.htm">DAIMS</a> page of the Data Transparency site for the Bureau of the Fiscal Service.
+                        Submission information is available on the
+                        <a
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            href="https://fiscal.treasury.gov/fsservices/gov/data-trans/dt-daims.htm">
+                            &nbsp;DAIMS
+                        </a>
+                        page of the Data Transparency site for the Bureau of the Fiscal Service.
                     </p>
                 </div>
             );

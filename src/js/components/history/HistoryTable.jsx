@@ -100,9 +100,15 @@ export default class HistoryTable extends React.Component {
         const list = [];
         for (let i = 0; i < activeSubmissionsFiles.length; i++) {
             list.push(
-                <li className="file-link" onClick={this.getSignedUrl.bind(this, i)} key={i}>
+                <div
+                    role="button"
+                    tabIndex={0}
+                    className="file-link"
+                    onKeyDown={this.getSignedUrl.bind(this, i)}
+                    onClick={this.getSignedUrl.bind(this, i)}
+                    key={i}>
                     {activeSubmissionsFiles[i].filename}
-                </li>);
+                </div>);
         }
         return list;
     }
@@ -125,12 +131,17 @@ export default class HistoryTable extends React.Component {
             }
             else {
                 list.push(
-                    <li onClick={this.setActiveSubmission.bind(this, i)} key={i}>
+                    <div
+                        role="button"
+                        tabIndex={0}
+                        onKeyDown={this.setActiveSubmission.bind(this, i)}
+                        onClick={this.setActiveSubmission.bind(this, i)}
+                        key={i}>
                         <span className="submission">
                             Certified by {certifications[i].certifying_user.name} on
                             {UtilHelper.convertToLocalDate(certifications[i].certify_date)}
                         </span>
-                    </li>);
+                    </div>);
             }
         }
         return list;
@@ -148,7 +159,7 @@ export default class HistoryTable extends React.Component {
         }
         if (this.state.warning.active) {
             warning = (
-                <div className={"alert alert-" + this.state.warning.type}>
+                <div className={`alert alert-${this.state.warning.type}`}>
                     <span className="usa-da-icon error-icon"><Icons.ExclamationCircle /></span>
                     <h3>{this.state.warning.header}</h3>
                     <div>{this.state.warning.body}</div>
@@ -175,9 +186,7 @@ export default class HistoryTable extends React.Component {
                     </div>
                     <div className="col-md-6 download-box">
                         <div className="header download-header">Download Files: {current}</div>
-                        <ul>
-                            {fileList}
-                        </ul>
+                        {fileList}
                     </div>
                 </div>
             </div>

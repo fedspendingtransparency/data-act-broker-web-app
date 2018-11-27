@@ -1,7 +1,7 @@
 // Development API path
-export const kGlobalConstants = {
+const kGlobalConstants = {
     API: 'http://localhost:80/v1/',
-    LOCAL_ROOT : 'http://localhost:80',
+    LOCAL_ROOT: 'http://localhost:80',
     CAS_ROOT: '',
     AUTH_CALLBACK: '',
     GITHUB: 'https://github.com/fedspendingtransparency/data-act-validator/tree/development',
@@ -12,3 +12,4 @@ export const kGlobalConstants = {
     STAGING: false,
     PROD: false
 };
+export default kGlobalConstants;

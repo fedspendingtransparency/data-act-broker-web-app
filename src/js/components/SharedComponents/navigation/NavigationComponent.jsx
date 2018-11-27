@@ -29,10 +29,6 @@ const defaultProps = {
 };
 
 export class Navbar extends React.Component {
-    constructor(props) {
-        super(props);
-    }
-
     getTabs() {
         // default access: only Help page
         let tabNames = {
@@ -78,7 +74,6 @@ export class Navbar extends React.Component {
     render() {
         const tabNames = this.getTabs();
 
-        const headerTabs = [];
         const context = this;
         const userText = this.props.session.user === '' ? '' : this.props.session.user.name;
 
@@ -87,13 +82,13 @@ export class Navbar extends React.Component {
             userButton = <UserButton buttonText={userText} logout={this.logout.bind(this)} />;
         }
 
-        Object.keys(tabNames).map((key) => {
-            headerTabs.push(<NavbarTab
+        const headerTabs = Object.keys(tabNames).map((key) => (
+            <NavbarTab
                 key={tabNames[key]}
                 name={key}
                 tabClass={tabNames[key]}
-                activeTabClassName={context.props.activeTab} />);
-        });
+                activeTabClassName={context.props.activeTab} />
+        ));
 
         let navClass = "";
         let testBanner = null;
@@ -103,9 +98,9 @@ export class Navbar extends React.Component {
         }
 
         return (
-            <nav className={"navbar navbar-default usa-da-header" + navClass}>
+            <nav className={`navbar navbar-default usa-da-header${navClass}`}>
                 <SkipNavigationLink />
-                <a className="hidden-screen-reader" href="#">Home</a>
+                <button className="hidden-screen-reader" href="#">Home</button>
                 {testBanner}
                 <div className="container-fluid">
                     <div className="row">

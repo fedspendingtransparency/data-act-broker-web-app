@@ -42,7 +42,7 @@ export default class RevalidateDataModal extends React.Component {
             .then(() => {
                 this.closeModal();
                 // Redirect to validateData page
-                hashHistory.push('/validateData/' + this.props.submissionID);
+                hashHistory.push(`/validateData/${this.props.submissionID}`);
             })
             .catch((error) => {
                 let errMsg = "An error occurred while attempting to certify the submission. " +
@@ -96,10 +96,10 @@ export default class RevalidateDataModal extends React.Component {
                 titleId="usa-da-certify-modal">
                 <div className="usa-da-modal-page">
                     <div id="usa-da-certify-modal" className="usa-da-certify-modal">
-                        <div className={"usa-da-certify-modal-close usa-da-icon usa-da-icon-times" + hideClose}>
-                            <a href="#" onClick={this.closeModal.bind(this)}>
+                        <div className={`usa-da-certify-modal-close usa-da-icon usa-da-icon-times${hideClose}`}>
+                            <button onClick={this.closeModal.bind(this)}>
                                 <Icons.Times />
-                            </a>
+                            </button>
                         </div>
 
                         <div className="usa-da-certify-modal-content">

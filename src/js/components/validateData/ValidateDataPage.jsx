@@ -12,27 +12,15 @@ import ValidateDataContainer from '../../containers/validateData/ValidateDataCon
 
 const propTypes = {
     params: PropTypes.object,
-    route: PropTypes.object,
-    submissionId: PropTypes.string,
-    subID: PropTypes.string,
-    csv_url: PropTypes.array,
-    link_array: PropTypes.array
+    route: PropTypes.object
 };
 
 const defaultProps = {
     params: {},
-    route: {},
-    submissionId: '',
-    csv_url: [],
-    link_array: [null],
-    subID: null
+    route: {}
 };
 
 export default class ValidateDataPage extends React.Component {
-    constructor(props) {
-        super(props);
-    }
-
     render() {
         const submissionID = this.props.params.submissionID;
 

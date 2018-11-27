@@ -19,10 +19,6 @@ const defaultProps = {
 };
 
 class HistoryContainer extends React.Component {
-    constructor(props) {
-        super(props);
-    }
-
     render() {
         return (
             <HistoryPage submissionID={this.props.params.submissionID} type={this.props.route.type} />

@@ -26,9 +26,9 @@ export default class HelpContent extends React.Component {
     }
 
     scrollToSection() {
-        if (this.props.section && $('[name=' + this.props.section + ']').length > 0) {
+        if (this.props.section && $(`[name=${this.props.section}]`).length > 0) {
             $('html, body').animate({
-                scrollTop: $('[name=' + this.props.section + ']').offset().top
+                scrollTop: $(`[name=${this.props.section}]`).offset().top
             }, 500);
         }
     }

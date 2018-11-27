@@ -56,7 +56,7 @@ export default class GenerateEFItem extends React.Component {
 
         return (
             <div className="generate-ef-wrap">
-                <div className={"generate-ef-item" + comingSoon}>
+                <div className={`generate-ef-item${comingSoon}`}>
                     <div className="generate-left">
                         <div className="generate-header">
                             <div className="generate-type">
@@ -80,20 +80,20 @@ export default class GenerateEFItem extends React.Component {
                             <div className="file-name">
                                 File_{this.props.type}.csv
                             </div>
-                            <div className={"spinner" + hideSpinner}>
+                            <div className={`spinner${hideSpinner}`}>
                                 <div className="cssload-squares">
                                     <span /><span /><span /><span /><span />
                                 </div>
                             </div>
                             <button
-                                className={"usa-da-button btn-primary btn-full" + hideDownload}
+                                className={`usa-da-button btn-primary btn-full${hideDownload}`}
                                 onClick={this.clickedDownload.bind(this)}>
                                 Download
                             </button>
                         </div>
                     </div>
                 </div>
-                <div className={"alert alert-danger" + hideError}>
+                <div className={`alert alert-danger${hideError}`}>
                     <span className="usa-da-icon error-icon"><Icons.ExclamationCircle /></span>
                     <div className="alert-header-text">File {this.props.type} Error</div>
                     <p>{this.props[this.props.type.toLowerCase()].message}</p>

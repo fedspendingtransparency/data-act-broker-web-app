@@ -1,14 +1,15 @@
 const initialState = {
-  createdBy: []
+    createdBy: []
 };
 
 export const createdByReducer = (state = initialState, action) => {
-  switch (action.type) {
-    case 'SET_CREATEDBY_LIST':
-      return Object.assign({}, state, {
-        createdBy: action.createdBy
-      });
-    default:
-      return state;
-  }
+    switch (action.type) {
+        case 'SET_CREATEDBY_LIST':
+            return Object.assign({}, state, {
+                createdBy: action.createdBy
+            });
+        default:
+            return state;
+    }
 };
+export { createdByReducer as default };

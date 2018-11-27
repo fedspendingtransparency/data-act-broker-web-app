@@ -14,14 +14,10 @@ const propTypes = {
 };
 
 export default class HistoryLink extends React.Component {
-    constructor(props) {
-        super(props);
-    }
-
     render() {
         return (
             <div className="usa-da-recent-activity-link">
-                <a href={"#/submissionHistory/" + this.props.submissionId}>
+                <a href={`#/submissionHistory/${this.props.submissionId}`}>
                     <Icons.Calendar alt="View" />
                 </a>
             </div>

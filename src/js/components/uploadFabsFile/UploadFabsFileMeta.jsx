@@ -257,7 +257,7 @@ export default class UploadFabsFileMeta extends React.Component {
                                                 onSelect={this.handleChange.bind(this)}
                                                 customClass={subTierAgencyClass}
                                                 internalValue={['agency_code']} />
-                                            <div className={"usa-da-icon usa-da-form-icon" + subTierAgencyClass}>
+                                            <div className={`usa-da-icon usa-da-form-icon${subTierAgencyClass}`}>
                                                 <Icons.Building />
                                             </div>
                                         </div>

@@ -19,7 +19,7 @@ export default class SkipNavigationLink extends React.Component {
 
     render() {
         return (
-            <a href="#" className="hidden-screen-reader" onClick={this.skipNav.bind(this)}>Skip Navigation</a>
+            <button href="#" className="hidden-screen-reader" onClick={this.skipNav.bind(this)}>Skip Navigation</button>
         );
     }
 }

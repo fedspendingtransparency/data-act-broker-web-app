@@ -25,10 +25,6 @@ const defaultProps = {
 };
 
 export default class AddDataPage extends React.Component {
-    constructor(props) {
-        super(props);
-    }
-
     render() {
         let bodyComponent = null;
 

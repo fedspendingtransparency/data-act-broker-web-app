@@ -10,9 +10,9 @@ import AgencyListContainer from '../../containers/SharedContainers/AgencyListCon
 import { defaultQuarters } from '../../helpers/quarterPickerHelper';
 
 import * as Icons from '../SharedComponents/icons/Icons';
-import QuarterPicker from "./QuarterPicker";
-import GenerateButton from "./GenerateButton";
-import DownloadFile from "./DownloadFile";
+import QuarterPicker from './QuarterPicker';
+import GenerateButton from './GenerateButton';
+import DownloadFile from './DownloadFile';
 
 const initialQuarters = defaultQuarters();
 
@@ -53,7 +53,7 @@ export default class DetachedFileA extends React.Component {
     }
 
     handleAgencyChange(agency, codeType, isValid) {
-        // display or hide file generation based on agency validity and set agency
+    // display or hide file generation based on agency validity and set agency
         if (agency !== '' && isValid) {
             this.setState({
                 agency,
@@ -89,7 +89,7 @@ export default class DetachedFileA extends React.Component {
     render() {
         let agencyIcon = <Icons.Building />;
         let agencyClass = '';
-        if (this.props.agencyError) {
+        if (this.state.agencyError) {
             agencyIcon = <Icons.Building />;
             agencyClass = ' error usa-da-form-icon';
         }
@@ -123,7 +123,9 @@ export default class DetachedFileA extends React.Component {
                         <div className="container center-block">
                             <div className="row text-center usa-da-select-agency">
                                 <div className="col-lg-offset-2 col-lg-8 mt-60 mb-60">
-                                    <div className="detached-heading">Please begin by telling us about the file you would like to generate.</div>
+                                    <div className="detached-heading">
+                                        Please begin by telling us about the file you would like to generate.
+                                    </div>
                                     <div className="select-agency-holder">
                                         <div className="row usa-da-select-agency-label">
                                             The generated file will be used when submitting data for...
@@ -136,7 +138,7 @@ export default class DetachedFileA extends React.Component {
                                                     placeholder="Enter the name of the reporting agency"
                                                     onSelect={this.handleAgencyChange}
                                                     customClass={agencyClass} />
-                                                <div className={"usa-da-icon usa-da-form-icon" + agencyClass}>
+                                                <div className={`usa-da-icon usa-da-form-icon${agencyClass}`}>
                                                     {agencyIcon}
                                                 </div>
                                             </div>
@@ -160,8 +162,8 @@ export default class DetachedFileA extends React.Component {
                                                 </p>
                                                 <p>
                                                     Consistent with DATA Act Broker Quarterly Submissions (DABS)
-                                                    guidelines, generated files are at the 'agency-wide level'; the
-                                                    goal is to include all accounts for a given agency that are
+                                                    guidelines, generated files are at the &apos;agency-wide level&apos;
+                                                    the goal is to include all accounts for a given agency that are
                                                     appropriate for DATA Act submissions. Financing accounts are
                                                     automatically excluded, and child allocation accounts are bucketed
                                                     with the child agency. File A is generated based on GTAS SF-133
@@ -170,8 +172,15 @@ export default class DetachedFileA extends React.Component {
                                                     hours to load these daily files after receiving them from GTAS).
                                                     For a more detailed explanation of the approach for generating File
                                                     A, see the Practices and Procedures document available on the&nbsp;
-                                                    <a target="_blank" rel="noopener noreferrer" href="https://fiscal.treasury.gov/fsservices/gov/data-trans/dt-daims.htm">DAIMS</a>
-                                                    &nbsp;page of the Data Transparency site of the Bureau of the Fiscal Service.
+                                                    <a
+                                                        target="_blank"
+                                                        rel="noopener noreferrer"
+                                                        href="https://fiscal.treasury.gov/fsservices/
+                                                        gov/data-trans/dt-daims.htm">
+                                                        DAIMS
+                                                    </a>
+                                                    &nbsp;page of the Data Transparency site of the
+                                                    Bureau of the Fiscal Service.
                                                 </p>
                                             </div>
                                         </div>

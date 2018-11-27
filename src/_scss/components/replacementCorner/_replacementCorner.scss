@@ -4,6 +4,10 @@
     border-style: solid;
     border-width: 0 60px 60px 0;
     border-color: transparent $color-gray-lightest transparent transparent;
+    button {
+        background-color: transparent;
+        border:none;
+    }
 
     .usa-da-icon {
         cursor: pointer;
@@ -14,7 +18,7 @@
             top: 10px;
         }
     }
-    
+
     .usa-da-icon-trash-o {
         fill: $color-gray;
         &:hover {

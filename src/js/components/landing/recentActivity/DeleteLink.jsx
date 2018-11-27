@@ -71,7 +71,6 @@ export default class DeleteLink extends React.Component {
                 if (aff.agency_name === this.props.item.agency && (aff.permission === "writer" ||
                     aff.permission === 'submitter')) {
                     deletable = true;
-                    return;
                 }
             });
         }
@@ -98,7 +97,12 @@ export default class DeleteLink extends React.Component {
         let modal = null;
         if (this.state.delete) {
             button = (
-                <div onClick={this.confirm.bind(this)} className="trash-icon">
+                <div
+                    role="button"
+                    tabIndex={0}
+                    onKeyDown={this.confirm.bind(this)}
+                    onClick={this.confirm.bind(this)}
+                    className="trash-icon">
                     <Icons.Trash alt="Delete" />
                 </div>);
             modal = (<DeleteModal

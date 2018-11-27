@@ -9,7 +9,6 @@ import * as Icons from '../SharedComponents/icons/Icons';
 const propTypes = {
     handleChange: PropTypes.func.isRequired,
     fieldID: PropTypes.string,
-    iconClass: PropTypes.string,
     placeholder: PropTypes.string,
     tabIndex: PropTypes.string,
     error: PropTypes.bool,
@@ -18,7 +17,6 @@ const propTypes = {
 
 const defaultProps = {
     fieldID: "password",
-    iconClass: 'usa-da-icon',
     error: false,
     tabIndex: "2",
     placeholder: "Password",
@@ -35,7 +33,7 @@ export default class Password extends React.Component {
             <div className="usa-da-input-container usa-da-input-password">
                 <label className="sr-only" htmlFor="password">Password</label>
                 <input
-                    className={"usa-da-input-with-icon" + className}
+                    className={`usa-da-input-with-icon${className}`}
                     id={this.props.fieldID}
                     name={this.props.fieldID}
                     type="password"
