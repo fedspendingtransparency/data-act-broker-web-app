@@ -101,10 +101,12 @@ export const fyStartDate = () => {
     return quarterToMonth(1, year, 'start');
 };
 
+
 export const validUploadFileChecker = (rawFile) => {
     if (rawFile.file) {
-        const parsed = rawFile.file.name.split('.');
-        const fileType = parsed[parsed.length - 1];
+        const fileName = rawFile.file.name.toLowerCase();
+        const parsedFileName = fileName.indexOf('.') !== -1 ? fileName.split('.') : ['invalid'];
+        const fileType = parsedFileName[parsedFileName.length - 1];
         return !!((fileType === 'csv' || fileType === 'txt'));
     }
     return 'unset';
