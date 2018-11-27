@@ -37,13 +37,9 @@ const defaultProps = {
 };
 
 class LastDateModifiedContainer extends React.Component {
-    componentDidMount() {
-        this.loadData();
-    }
-
     loadData() {
         if (_.isEmpty(this.props.lastDateModifiedList.lastDateModified)) {
-            // we need to populate the list
+            // we need to populate the list and load on mounting the component
             lastDateModifiedHelper.fetchLastDateModified()
                 .then((data) => {
                     const payload = [];
@@ -59,19 +55,14 @@ class LastDateModifiedContainer extends React.Component {
     }
 
     render() {
-        let values = this.props.lastDateModifiedList.lastDateModified.length > 0 ?
-            this.props.lastDateModifiedList.lastDateModified : {};
+        // Temporary min/max dates workaround until backend is ready
+        const finalPayload = {
+            minDate: new Date('01/01/2016'),
+            maxDate: new Date(),
+        };
 
-        // Find Min/Max for last modified dates
-        if (!_.isEmpty(values)) {
-            const finalPayload = {
-                minDate: _.min(values),
-                maxDate: _.max(values)
-            };
-            values = finalPayload;
-        }
         return (
-            <CalendarRangeDatePicker minmaxDates={values} {...this.props} />
+            <CalendarRangeDatePicker minmaxDates={finalPayload} {...this.props} />
         );
     }
 }
