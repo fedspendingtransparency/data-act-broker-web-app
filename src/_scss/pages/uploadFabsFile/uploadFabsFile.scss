@@ -18,6 +18,19 @@
 			@import "../../components/alerts/_alerts";
 			@include successAlert;
 		}
+
+		& svg.usa-da-icon-check-circle,
+	    & svg.usa-da-icon-info-circle {
+	        width: 2rem;
+	        height: 2rem;
+	        position: relative;
+	    }
+	    & svg.usa-da-icon-check-circle {
+	        fill: $color-green-light;
+	    }
+		& svg.usa-da-icon-info-circle {
+	        fill: $color-gray;
+	    }
 	}
 
 	.published-submission-warning-banner {

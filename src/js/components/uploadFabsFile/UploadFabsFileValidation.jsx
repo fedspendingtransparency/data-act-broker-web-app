@@ -21,6 +21,8 @@ import * as PermissionsHelper from "../../helpers/permissionsHelper";
 import * as ReviewHelper from "../../helpers/reviewHelper";
 import { kGlobalConstants } from "../../GlobalConstants";
 
+import * as Icons from '../SharedComponents/icons/Icons';
+
 const propTypes = {
     setSubmissionState: PropTypes.func,
     item: PropTypes.object,
@@ -355,27 +357,45 @@ class UploadFabsFileValidation extends React.Component {
             }
             if (this.state.published === "published") {
                 // This submission is already published and cannot be republished
+                const parsedDate = this.state.fabs_meta.publish_date.split(' ');
                 if (this.state.fabs_meta.published_file === null) {
                     validationButton = (
-                        <button
-                            className="pull-right col-xs-3 us-da-disabled-button"
-                            disabled>File Published:
-                            <span className="plain">
-                                {this.state.fabs_meta.valid_rows} rows published at {this.state.fabs_meta.publish_date}
-                            </span>
-                        </button>);
+                        <div className="col-xs-12">
+                            <div className="row">
+                                <div className="col-xs-8 text-right">
+                                    <span className="usa-da-icon success">
+                                        <Icons.CheckCircle />
+                                    </span>
+                                    {this.state.fabs_meta.valid_rows}
+                                    row(s) published at {parsedDate[0]} on {parsedDate[1]}
+                                    <span className="usa-da-icon info">
+                                        <Icons.InfoCircle />
+                                    </span>
+                                </div>
+                                <button
+                                    className="pull-right col-xs-3 us-da-disabled-button"
+                                    disabled> Download Published File
+                                </button>
+                            </div>
+                        </div>
+                    );
                 }
                 else {
                     downloadButton = (
-                        <button
-                            className="pull-right col-xs-3 us-da-button"
-                            onClick={this.clickedReport.bind(this, this.props.item)}
-                            download={this.state.fabs_meta.published_file}
-                            rel="noopener noreferrer">File Published:
-                            <span className="plain">
-                                {this.state.fabs_meta.valid_rows} rows published at {this.state.fabs_meta.publish_date}
-                            </span>
-                        </button>);
+                        <div className="col-xs-12">
+                            <div className="row">
+                                <div className="col-xs-8 text-right">
+                                    <Icons.CheckCircle /> {this.state.fabs_meta.valid_rows}
+                                    row(s) published at {parsedDate[0]} on {parsedDate[1]} <Icons.InfoCircle />
+                                </div>
+                                <button
+                                    className="pull-right col-xs-3 us-da-button"
+                                    onClick={this.clickedReport.bind(this, this.props.item)}
+                                    download={this.state.fabs_meta.published_file}
+                                    rel="noopener noreferrer"> Download Published File
+                                </button>
+                            </div>
+                        </div>);
                 }
             }
             else if (PermissionsHelper.checkFabsPermissions(this.props.session)) {
