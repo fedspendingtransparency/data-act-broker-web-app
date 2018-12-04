@@ -362,15 +362,11 @@ class UploadFabsFileValidation extends React.Component {
                     validationButton = (
                         <div className="col-xs-12">
                             <div className="row">
-                                <div className="col-xs-8 text-right">
-                                    <span className="usa-da-icon success">
-                                        <Icons.CheckCircle />
-                                    </span>
-                                    {this.state.fabs_meta.valid_rows}
+                                <div className="col-xs-8 button-text-container text-right">
+                                    <Icons.CheckCircle />
+                                    File Published: {this.state.fabs_meta.valid_rows}
                                     row(s) published at {parsedDate[0]} on {parsedDate[1]}
-                                    <span className="usa-da-icon info">
-                                        <Icons.InfoCircle />
-                                    </span>
+                                    <Icons.InfoCircle />
                                 </div>
                                 <button
                                     className="pull-right col-xs-3 us-da-disabled-button"
@@ -384,9 +380,11 @@ class UploadFabsFileValidation extends React.Component {
                     downloadButton = (
                         <div className="col-xs-12">
                             <div className="row">
-                                <div className="col-xs-8 text-right">
-                                    <Icons.CheckCircle /> {this.state.fabs_meta.valid_rows}
-                                    row(s) published at {parsedDate[0]} on {parsedDate[1]} <Icons.InfoCircle />
+                                <div className="col-xs-8 button-text-container text-right">
+                                    <Icons.CheckCircle />
+                                    File Published: {this.state.fabs_meta.valid_rows}
+                                    row(s) published at {parsedDate[0]} on {parsedDate[1]}
+                                    <Icons.InfoCircle />
                                 </div>
                                 <button
                                     className="pull-right col-xs-3 us-da-button"
