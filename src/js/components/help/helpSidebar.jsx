@@ -71,7 +71,6 @@ export default class HelpSidebar extends React.Component {
         const history = this.props.type === 'fabs' ? "/#/FABSHistory" : '/#/history';
         const technicalHistory = this.props.type === 'fabs' ? "/#/FABSTechnicalHistory" : '/#/technicalHistory';
         const resources = this.props.type === 'fabs' ? "/#/FABSResources" : '/#/resources';
-        const validations = this.props.type === 'fabs' ? "/#/FABSValidations" : '/#/validations';
         let schedule = null;
         if (this.props.type === 'dabs') {
             schedule = (
@@ -116,9 +115,6 @@ export default class HelpSidebar extends React.Component {
                     </li>
                     <li>
                         <a href={resources}>Resources - DAIMS</a>
-                    </li>
-                    <li>
-                        <a href={validations}>Validations</a>
                     </li>
                 </ul>
                 <div className="usa-da-help-sidebar__signup">
