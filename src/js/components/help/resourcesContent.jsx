@@ -77,8 +77,7 @@ export default class ResourcesContent extends React.Component {
                 <ul>
                     <li>
                         <a
-                            href="https://fiscal.treasury.gov/fsservices/gov/data-trans/
-                            DAIMS-Validation-Rules-v1.2.1.xlsx"
+                            href="https://www.fiscal.treasury.gov/data-transparency/data-act-v1.3.html"
                             target="_blank"
                             rel="noopener noreferrer">
 
