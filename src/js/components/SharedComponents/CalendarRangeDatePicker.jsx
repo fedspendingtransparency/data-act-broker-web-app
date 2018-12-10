@@ -60,7 +60,7 @@ export default class CalendarRangeDatePicker extends React.Component {
             return false;
         }
         this.setState({
-            dropdownopen : false
+            dropdownopen: false
         });
         return true;
     }

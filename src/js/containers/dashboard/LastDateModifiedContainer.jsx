@@ -58,7 +58,7 @@ class LastDateModifiedContainer extends React.Component {
         // Temporary min/max dates workaround until backend is ready
         const finalPayload = {
             minDate: new Date('01/01/2016'),
-            maxDate: new Date(),
+            maxDate: new Date()
         };
 
         return (
