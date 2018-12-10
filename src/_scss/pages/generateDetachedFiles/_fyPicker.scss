@@ -53,15 +53,17 @@
         }
     }
 
-    .fy-picker__list {
+    .fy-picker__list, .multiSelect__list {
         @import '../../abstract/mixins/utilities';
         @include unstyled-list;
-
+        @import '../../components/tooltip/_dropdownTooltip';
         position: absolute;
         left: 0;
         right: 0;
         border: 1px solid $color-gray-light;
         background-color: $color-white;
+
+        z-index: 10;
 
         &.fy-picker__list_hidden {
             display: none;
@@ -83,10 +85,75 @@
 
             padding: rem(10) rem(15);
             width: 100%;
+        }
+    }
 
-            &:hover, &:active {
-                background-color: $color-gray-lightest;
+    .period-picker {
+        min-width: 240px;
+    }
+
+    .multiSelect__list  {
+        width: 100%;
+
+        & li {
+            background-color: $color-white;
+        }
+
+        &:hover li, .selected {
+            background-color: $color-gray-lightest;
+        }
+
+        & li:hover,
+        & li:hover ~ li {
+            background-color: $color-white;
+        }
+
+        .fy-picker__list-button {
+            text-align: left;
+            padding: 0.5rem;
+            overflow: auto;
+            font-size: rem(13);
+            border-top: 1px solid $color-gray-light;
+            span:last-child {
+                float: right;
+                font-weight: $font-bold;
             }
+            span:first-child {
+                float: left;
+                font-weight: $font-normal;
+            }
+
+        }
+    }
+
+    .multiSelect__list.override li {
+        background-color:$color-gray-lightest;
+    }
+
+    .multiSelect__list-item.selected, .multiSelect__list-item.selected {
+        background-color: $color-gray-lightest;
+    }
+
+    .multiSelect__list-item.selected ~ li {
+        background-color: $color-white;
+
+        &:hover {
+            background-color: $color-gray-lightest;
+        }
+    }
+
+    .multiSelect__list-item {
+        border-top: 1px solid $color-gray-light;
+        width: 100%;
+
+        &.disabled button {
+            cursor: not-allowed;
+            background-color: $color-gray-lightest;
+            color:$color-gray-lighter;
+        }
+
+        &:first-child {
+            border-top: none;
         }
     }
 }

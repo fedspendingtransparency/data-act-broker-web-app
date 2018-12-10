@@ -149,3 +149,41 @@ export const currentFiscalYear = () => {
 
     return currentFY;
 };
+
+// This is a more "Sane" List of months, with 0 being "January" and so on.
+// So you can pass "0" as January and you'll get the value as expected
+export const getPeriodValueByMonthNumber = (monthNumber) => {
+    const periodDictionary = {
+        0: 4, // January
+        1: 5, // Feburary
+        2: 6, // March
+        3: 7, // April
+        4: 8, // May
+        5: 9, // June
+        6: 10, // July
+        7: 11, // August
+        8: 12, // September
+        9: 1, // October
+        10: 2, // November
+        11: 3 // December
+    };
+    return periodDictionary[monthNumber - 1];
+};
+
+export const getPeriodTextFromValue = (value) => {
+    const periodDictionary = {
+        4: "January",
+        5: "Feburary",
+        6: "March",
+        7: "April",
+        8: "May",
+        9: "June",
+        10: "July",
+        11: "August",
+        12: "September",
+        1: "October",
+        2: "November",
+        3: "December"
+    };
+    return periodDictionary[value + 1];
+};
