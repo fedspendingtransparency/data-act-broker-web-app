@@ -77,14 +77,12 @@ export default class ResourcesContent extends React.Component {
                 <ul>
                     <li>
                         <a
-                            href="https://fiscal.treasury.gov/fsservices/gov/data-trans/
-                            DAIMS-Validation-Rules-v1.2.1.xlsx"
+                            href="https://fiscal.treasury.gov/files/data-transparency/DAIMS-Validation-Rules-v1.2.1.xlsx"
                             target="_blank"
                             rel="noopener noreferrer">
-
                             Validation Rules:
                         </a>
-                        documents the business rules employed by the DATA Act Broker for field
+                        &nbsp;documents the business rules employed by the DATA Act Broker for field
                         and cross-file validations.
                     </li>
                     <li>
@@ -94,7 +92,7 @@ export default class ResourcesContent extends React.Component {
                             target="_blank"
                             rel="noopener noreferrer">SQL Validation Rules:
                         </a>
-                        the actual machine logic used in FABS validations.
+                        &nbsp;the actual machine logic used in FABS validations.
                         These SQL statements are based directly on the FABS validation rules.
                     </li>
                 </ul>
@@ -120,12 +118,12 @@ export default class ResourcesContent extends React.Component {
                         report to Treasury including the authoritative sources of the data elements and the submission
                         format. DAIMS information is available on the
                         <a
-                            href="https://fiscal.treasury.gov/fsservices/gov/data-trans/dt-daims.htm"
+                            href="https://www.fiscal.treasury.gov/data-transparency/data-act-v1.2.html"
                             target="_blank"
                             rel="noopener noreferrer">
                             &nbsp;DAIMS
                         </a>
-                        page of the Data Transparency site for the Bureau of the Fiscal Service.
+                        &nbsp;page of the Data Transparency site for the Bureau of the Fiscal Service.
                     </span>
                     {content}
                 </div>
