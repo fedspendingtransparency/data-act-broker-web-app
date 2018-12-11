@@ -20,6 +20,7 @@ const initialPeriod = defaultPeriods();
 
 const propTypes = {
     route: PropTypes.object,
+    agencyList: PropTypes.object,
     generateFileA: PropTypes.func,
     status: PropTypes.string,
     errorType: PropTypes.string,
@@ -29,6 +30,7 @@ const propTypes = {
 
 const defaultProps = {
     route: null,
+    agencyList: [],
     generateFileA: () => {},
     status: '',
     errorType: '',
@@ -87,7 +89,8 @@ export default class DetachedFileA extends React.Component {
     }
 
     generate() {
-        const fileInfo = `${this.state.agency} | FY ${this.state.fy} | ${utils.getPeriodTextFromValue(this.state.period)}`;
+        const agencyName = _.find(this.props.agencyList.agencies, { cgac_code: `${this.state.agency}` }).agency_name;
+        const fileInfo = `${agencyName} | FY ${this.state.fy} | ${utils.getPeriodTextFromValue(this.state.period)}`;
         this.setState({
             clickedFields: fileInfo
         });

@@ -25,13 +25,19 @@ export default class PeriodPicker extends React.Component {
             selectedDropdownOption: null,
             dropdownOptions: [
                 {
-                    fieldIndex: 0, value: 1, text: '01 - October', disabled: true, tooltip: 'October is not directly selectable since there is no Period 1 reporting window in GTAS. Because File A Data is cumulative within the Fiscal year, Period 1 data is automatically included with data from later periods.'
+                    fieldIndex: 0,
+                    value: 1,
+                    text: '01 - October',
+                    disabled: true,
+                    tooltip: `October is not directly selectable since there is no Period 1 reporting
+                     window in GTAS. Because File A Data is cumulative within the Fiscal year,
+                     Period 1 data is automatically included with data from later periods.`
                 },
                 { fieldIndex: 1, value: 2, text: '02 - November' },
                 { fieldIndex: 2, value: 3, text: '03 - December | Quarter 1' },
                 { fieldIndex: 3, value: 4, text: '04 - January' },
                 {
-                    fieldIndex: 4, value: 5, text: '05 - Feburary', tooltip: 'testy'
+                    fieldIndex: 4, value: 5, text: '05 - Feburary'
                 },
                 { fieldIndex: 5, value: 6, text: '06 - March | Quarters 1 - 2' },
                 { fieldIndex: 6, value: 7, text: '07 - April' },

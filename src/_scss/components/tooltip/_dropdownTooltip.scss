@@ -17,41 +17,21 @@
 /* Position tooltip above the element */
 [data-tooltip]:before {
   position: absolute;
-  bottom: 100%;
-  left: 50%;
-  margin-bottom: 5px;
-  margin-left: -125px;
+  bottom: 73%;
+  left: -50%;
+  margin-bottom: 10px;
+  margin-left: -140px;
   padding: 7px;
   width: 250px;
   background-color: $color-gray-lightest;
   color: $font-color;
   content: attr(data-tooltip);
-  text-align: center;
   font-size: $base-font-size;
   -webkit-box-shadow: 0px 0px 2px 0px rgba(0,0,0,0.75);
   -moz-box-shadow: 0px 0px 2px 0px rgba(0,0,0,0.75);
   box-shadow: 0px 0px 2px 0px rgba(0,0,0,0.75);
   line-height: 1.2;
 }
-
-/* Triangle hack to make tooltip look like a speech bubble */
-// [data-tooltip]:after {
-//   position: absolute;
-//   bottom: 100%;
-//   left: 50%;
-//   margin-left: -5px;
-//   width: 0;
-//   border-top: 5px solid $color-gray-lightest;
-//   border-top: 5px solid $color-gray-lightest;
-//   border-right: 5px solid transparent;
-//   border-left: 5px solid transparent;
-//   -webkit-box-shadow: 0px 0px 2px 0px rgba(0,0,0,0.75);
-//   -moz-box-shadow: 0px 0px 2px 0px rgba(0,0,0,0.75);
-//   box-shadow: 0px 0px 2px 0px rgba(0,0,0,0.75);
-//   content: " ";
-//   font-size: 0;
-//   line-height: 0;
-// }
 
 /* Show tooltip content on hover */
 [data-tooltip]:hover:before,

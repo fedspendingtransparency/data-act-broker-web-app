@@ -111,6 +111,7 @@ export default class MultiSelectionBox extends React.Component {
         if (this.state.expanded) {
             visibleClass = '';
         }
+
         return (
             <div
                 className="fy-picker"
@@ -123,7 +124,9 @@ export default class MultiSelectionBox extends React.Component {
                             className="fy-picker__button period-picker"
                             onClick={this.toggleList}>
                             <div className="fy-picker__button-text">
-                                {this.props.selectedDropdownOption ? this.props.fieldOptions[this.props.selectedDropdownOption].text.replace('|', '') : 'Select a period range'}
+                                {this.props.selectedDropdownOption ?
+                                    `01 October - ${this.props.fieldOptions[this.props.selectedDropdownOption].text.split('|')[0]}` :
+                                    'Select a period range'}
                             </div>
                             <div className="fy-picker__button-icon">
                                 <AngleDown alt="Toggle menu" />
