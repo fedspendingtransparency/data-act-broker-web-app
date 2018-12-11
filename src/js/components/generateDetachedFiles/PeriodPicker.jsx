@@ -4,7 +4,7 @@
  */
 
 import React, { PropTypes } from 'react';
-
+import _ from 'lodash';
 import FYPicker from './FYPicker';
 
 
@@ -12,6 +12,7 @@ import MultiSelectionBox from './MultiSelectionBox';
 
 const propTypes = {
     passedPeriod: PropTypes.number,
+    unavailablePeriod: PropTypes.number,
     fy: PropTypes.string.isRequired,
     pickedPeriod: PropTypes.func.isRequired,
     pickedYear: PropTypes.func.isRequired
@@ -50,25 +51,51 @@ export default class PeriodPicker extends React.Component {
         };
 
         this.updateDropdownModel = this.updateDropdownModel.bind(this);
-        this.setDropdownDefault = this.setDropdownDefault.bind(this);
+        this.setDropdownDefaults = this.setDropdownDefaults.bind(this);
     }
 
     componentDidMount() {
-        this.setDropdownDefault();
+        this.setDropdownDefaults();
     }
 
     componentDidUpdate(prevProps) {
         if (prevProps.fy !== this.props.fy) {
-            this.updateDropdownModel(this.props.passedPeriod);
+            this.updateDropdownForFyChange(this.props.passedPeriod);
         }
     }
 
-    setDropdownDefault() {
+    setDropdownDefaults() {
         if (this.props.passedPeriod) {
             const prevDropdownOptions = this.state.dropdownOptions;
             prevDropdownOptions[this.props.passedPeriod].selected = true;
             this.setState({
                 selectedDropdownOption: this.props.passedPeriod
+            });
+        }
+    }
+
+    updateDropdownForFyChange(pickedOption) {
+        const dropdownOptions = this.state.dropdownOptions;
+
+        // Reset Dropdown Options to default
+        for (let i = 1; i < dropdownOptions.length; i++) {
+            dropdownOptions[i].selected = null;
+            dropdownOptions[i].tooltip = null;
+            dropdownOptions[i].disabled = null;
+        }
+
+        // Get the range of all unavailable periods
+        const parsedRange = _.range(this.props.unavailablePeriod);
+
+        if (!_.isEmpty(parsedRange)) {
+            for (let i = 1; i < parsedRange.length; i++) {
+                const loopValue = parsedRange[i];
+                dropdownOptions[loopValue].disabled = true;
+                dropdownOptions[loopValue].tooltip = 'DATA Act reporting began in FY17Q2';
+            }
+            this.setState({
+                dropdownOptions,
+                selectedDropdownOption: pickedOption
             });
         }
     }
@@ -88,7 +115,7 @@ export default class PeriodPicker extends React.Component {
         else if (selectedField === pickedOption) {
             return;
         }
-        prevDropdownOptions[selectedField].selected = false;
+        prevDropdownOptions[selectedField].selected = null;
         prevDropdownOptions[pickedOption].selected = true;
         this.setState({
             dropdownOptions: prevDropdownOptions,

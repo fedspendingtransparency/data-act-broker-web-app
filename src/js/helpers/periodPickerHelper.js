@@ -25,7 +25,7 @@ export const mostRecentPeriod = () => {
         year -= 1;
     }
     else if (today.isBetween(moment(`10/01/${year - 1}`, 'MM-DD-YYYY'), moment(`12-31-${year}`, 'MM-DD-YYYY'))) {
-        period = utils.getPeriodValueByMonthNumber(month);
+        period = month;
     }
 
     return {
@@ -68,7 +68,7 @@ export const availablePeriodsInFY = (fy) => {
     let firstPeriod = 0;
     if (sanitizedFY === utils.earliestFileAYear) {
         // in the first spending explorer year, the first quarter is not available
-        firstPeriod = 1;
+        firstPeriod = 3;
     }
 
     for (let i = firstPeriod; i <= lastPeriod.period; i++) {
@@ -78,7 +78,8 @@ export const availablePeriodsInFY = (fy) => {
     }
 
     return {
-        period: available,
+        unavailablePeriod: available[0],
+        period: available[available.length - 1],
         year: lastPeriod.year
     };
 };

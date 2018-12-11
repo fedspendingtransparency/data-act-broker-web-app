@@ -4,11 +4,12 @@
  */
 
 import React, { PropTypes } from 'react';
+import _ from 'lodash';
 import Navbar from '../SharedComponents/navigation/NavigationComponent';
 import Footer from '../SharedComponents/FooterComponent';
 import AgencyListContainer from '../../containers/SharedContainers/AgencyListContainer';
 
-import { defaultPeriods, lastCompletedPeriodInFY } from '../../helpers/periodPickerHelper';
+import { defaultPeriods, availablePeriodsInFY } from '../../helpers/periodPickerHelper';
 
 import * as Icons from '../SharedComponents/icons/Icons';
 import * as utils from '../../helpers/util';
@@ -46,7 +47,8 @@ export default class DetachedFileA extends React.Component {
             agency: '',
             codeType: 'cgac',
             agencyError: false,
-            period: initialPeriod.period[initialPeriod.period.length - 1],
+            unavailablePeriod: initialPeriod.unavailablePeriod,
+            period: initialPeriod.period,
             fy: `${initialPeriod.year}`,
             clickedFields: null
         };
@@ -76,8 +78,10 @@ export default class DetachedFileA extends React.Component {
     }
 
     pickedYear(fy) {
+        const fyperiods = availablePeriodsInFY(fy);
         this.setState({
-            period: lastCompletedPeriodInFY(fy).period,
+            unavailablePeriod: fyperiods.unavailablePeriod,
+            period: fyperiods.period,
             fy
         });
     }
@@ -203,6 +207,7 @@ export default class DetachedFileA extends React.Component {
 
                                             <div className="file-a-section__date">
                                                 <PeriodPicker
+                                                    unavailablePeriod={this.state.unavailablePeriod}
                                                     passedPeriod={this.state.period}
                                                     pickedYear={this.pickedYear}
                                                     pickedPeriod={this.pickedPeriod}
