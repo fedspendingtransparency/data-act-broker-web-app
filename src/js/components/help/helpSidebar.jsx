@@ -36,7 +36,7 @@ export default class HelpSidebar extends React.Component {
         this.urlPromise.promise
             .then((urls) => {
                 this.setState({
-                    reportingWindowUrl: urls['FY18 DABS Reporting Window Schedule.xls']
+                    reportingWindowUrl: urls['Fiscal Year 2019 DABS Reporting Schedule.xlsx']
                 });
 
                 this.urlPromise = null;
@@ -82,7 +82,7 @@ export default class HelpSidebar extends React.Component {
                                 target="_blank"
                                 rel="noopener noreferrer"
                                 href={this.state.reportingWindowUrl}>
-                                    Fiscal Year 2018 DABS Reporting Schedule
+                                    Fiscal Year 2019 DABS Reporting Schedule
                             </a>
                         </li>
                     </ul>
