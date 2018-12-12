@@ -17,15 +17,20 @@ export const mostRecentPeriod = () => {
     // get the latest period for which GTAS data is available
     const today = moment();
     let year = today.year();
-    const month = today.month();
 
-    let period = 11;
+    let period = 12;
 
-    if (today.isBetween(moment(`01/01/${year}`, 'MM-DD-YYYY'), moment(`11-30-${year}`, 'MM-DD-YYYY'))) {
+    if (today.isBetween(moment(`01/01/${year}`, 'MM-DD-YYYY'), moment(`01-08-${year}`, 'MM-DD-YYYY'))) {
         year -= 1;
     }
-    else if (today.isBetween(moment(`10/01/${year - 1}`, 'MM-DD-YYYY'), moment(`12-31-${year}`, 'MM-DD-YYYY'))) {
-        period = month;
+    else if (today.isBetween(moment(`01/08/${year}`, 'MM-DD-YYYY'), moment(`04/05/${year}`, 'MM-DD-YYYY'))) {
+        period = utils.convertQuarterToPeriod(1);
+    }
+    else if (today.isBetween(moment(`04/05/${year}`, 'MM-DD-YYYY'), moment(`06/05/${year}`, 'MM-DD-YYYY'))) {
+        period = utils.convertQuarterToPeriod(2);
+    }
+    else if (today.isBetween(moment(`06/05/${year}`, 'MM-DD-YYYY'), moment(`10/05/${year}`, 'MM-DD-YYYY'))) {
+        period = utils.convertQuarterToPeriod(3);
     }
 
     return {
@@ -43,7 +48,7 @@ export const lastCompletedPeriodInFY = (fy) => {
         // user wants a previous year's quarters
         // since we are no longer on that year, it must be completed
         return {
-            period: 11,
+            period: utils.convertQuarterToPeriod(4),
             year: sanitizedFY
         };
     }
@@ -56,19 +61,21 @@ export const availablePeriodsInFY = (fy) => {
     const sanitizedFY = handlePotentialStrings(fy);
     // get the most recent available quarter and year
     const lastPeriod = lastCompletedPeriodInFY(sanitizedFY);
+
     if (lastPeriod.year > sanitizedFY) {
         // FY is in the future
         return {
-            period: 0,
+            periodArray: [1],
+            period: 1,
             year: sanitizedFY
         };
     }
 
     const available = [];
-    let firstPeriod = 0;
+    let firstPeriod = 1;
     if (sanitizedFY === utils.earliestFileAYear) {
         // in the first spending explorer year, the first quarter is not available
-        firstPeriod = 3;
+        firstPeriod = utils.convertQuarterToPeriod(2);
     }
 
     for (let i = firstPeriod; i <= lastPeriod.period; i++) {
@@ -78,8 +85,8 @@ export const availablePeriodsInFY = (fy) => {
     }
 
     return {
-        unavailablePeriod: available[0],
-        period: available[available.length - 1],
+        periodArray: available,
+        period: available[available.length - 1] || 0,
         year: lastPeriod.year
     };
 };

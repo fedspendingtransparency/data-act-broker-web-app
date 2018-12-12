@@ -50,7 +50,7 @@ export default class DownloadFile extends React.Component {
                                     href={this.props.url}
                                     target="_blank"
                                     rel="noopener noreferrer"
-                                    className="usa-da-download">
+                                    className="usa-da-download file-download-btn">
                                     <span className="usa-da-icon usa-da-download-report">
                                         <Icons.CloudDownload />
                                     </span>

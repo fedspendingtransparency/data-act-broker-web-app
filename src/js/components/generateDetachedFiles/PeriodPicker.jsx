@@ -12,7 +12,7 @@ import MultiSelectionBox from './MultiSelectionBox';
 
 const propTypes = {
     passedPeriod: PropTypes.number,
-    unavailablePeriod: PropTypes.number,
+    periodArray: PropTypes.array,
     fy: PropTypes.string.isRequired,
     pickedPeriod: PropTypes.func.isRequired,
     pickedYear: PropTypes.func.isRequired
@@ -26,7 +26,6 @@ export default class PeriodPicker extends React.Component {
             selectedDropdownOption: null,
             dropdownOptions: [
                 {
-                    fieldIndex: 0,
                     value: 1,
                     text: '01 - October',
                     disabled: true,
@@ -34,19 +33,17 @@ export default class PeriodPicker extends React.Component {
                      window in GTAS. Because File A Data is cumulative within the Fiscal year,
                      Period 1 data is automatically included with data from later periods.`
                 },
-                { fieldIndex: 1, value: 2, text: '02 - November' },
-                { fieldIndex: 2, value: 3, text: '03 - December | Quarter 1' },
-                { fieldIndex: 3, value: 4, text: '04 - January' },
-                {
-                    fieldIndex: 4, value: 5, text: '05 - Feburary'
-                },
-                { fieldIndex: 5, value: 6, text: '06 - March | Quarters 1 - 2' },
-                { fieldIndex: 6, value: 7, text: '07 - April' },
-                { fieldIndex: 7, value: 8, text: '08 - May' },
-                { fieldIndex: 8, value: 9, text: '09 - June | Quarters 1 - 3' },
-                { fieldIndex: 9, value: 10, text: '10 - July' },
-                { fieldIndex: 10, value: 11, text: '11 - August' },
-                { fieldIndex: 11, value: 12, text: '12 - September | Quarters 1 - 4' }
+                { value: 2, text: '02 - November' },
+                { value: 3, text: '03 - December | Quarter 1' },
+                { value: 4, text: '04 - January' },
+                { value: 5, text: '05 - Feburary' },
+                { value: 6, text: '06 - March | Quarters 1 - 2' },
+                { value: 7, text: '07 - April' },
+                { value: 8, text: '08 - May' },
+                { value: 9, text: '09 - June | Quarters 1 - 3' },
+                { value: 10, text: '10 - July' },
+                { value: 11, text: '11 - August' },
+                { value: 12, text: '12 - September | Quarters 1 - 4' }
             ]
         };
 
@@ -67,9 +64,9 @@ export default class PeriodPicker extends React.Component {
     setDropdownDefaults() {
         if (this.props.passedPeriod) {
             const prevDropdownOptions = this.state.dropdownOptions;
-            prevDropdownOptions[this.props.passedPeriod].selected = true;
+            prevDropdownOptions[this.props.passedPeriod - 1].selected = true;
             this.setState({
-                selectedDropdownOption: this.props.passedPeriod
+                selectedDropdownOption: this.props.passedPeriod - 1
             });
         }
     }
@@ -85,7 +82,11 @@ export default class PeriodPicker extends React.Component {
         }
 
         // Get the range of all unavailable periods
-        const parsedRange = _.range(this.props.unavailablePeriod);
+        let parsedRange = _.range(this.props.periodArray[0]);
+
+        if (this.props.periodArray.length < 1) {
+            parsedRange = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12];
+        }
 
         if (!_.isEmpty(parsedRange)) {
             for (let i = 1; i < parsedRange.length; i++) {
@@ -95,12 +96,13 @@ export default class PeriodPicker extends React.Component {
             }
             this.setState({
                 dropdownOptions,
-                selectedDropdownOption: pickedOption
+                selectedDropdownOption: pickedOption - 1
             });
         }
     }
 
-    updateDropdownModel(pickedOption) {
+    updateDropdownModel(rawPickedOption) {
+        const pickedOption = rawPickedOption - 1;
         const prevDropdownOptions = this.state.dropdownOptions;
         const selectedField = this.state.selectedDropdownOption;
 
@@ -125,14 +127,14 @@ export default class PeriodPicker extends React.Component {
 
     render() {
         return (
-            <div className="quarter-picker">
-                <div className="quarter-picker__fy">
+            <div className="period-picker">
+                <div className="period-picker__fy">
                     <FYPicker
                         fy={this.props.fy}
                         pickedYear={this.props.pickedYear} />
                 </div>
 
-                <div className="quarter-picker__fy">
+                <div className="period-picker__fy">
                     <MultiSelectionBox
                         selectedDropdownOption={this.state.selectedDropdownOption}
                         defaultDropdownOption={this.props.passedPeriod}

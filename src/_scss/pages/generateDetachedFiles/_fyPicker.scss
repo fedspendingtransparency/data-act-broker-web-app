@@ -1,7 +1,7 @@
 @import '../../abstract/mixins/buttons';
 .fy-picker {
     @include display(flex);
-    padding: 0 rem(15);
+    margin-top: rem(5);
 
     .fy-picker__header {
         @include display(flex);
@@ -39,7 +39,8 @@
             @include flex(1 1 auto);
             margin-right: rem(15);
             color: $color-gray;
-            font-size: rem(20);
+            font-weight: $font-light;
+            font-size: rem(30);
             line-height: rem(25);
         }
 
@@ -53,17 +54,16 @@
         }
     }
 
-    .fy-picker__list, .multiSelect__list {
+    .fy-picker__list {
         @import '../../abstract/mixins/utilities';
         @include unstyled-list;
-        @import '../../components/tooltip/_dropdownTooltip';
+
         position: absolute;
         left: 0;
         right: 0;
         border: 1px solid $color-gray-light;
         background-color: $color-white;
-
-        z-index: 10;
+        width: 100%;
 
         &.fy-picker__list_hidden {
             display: none;
@@ -80,80 +80,15 @@
         .fy-picker__list-button {
             @include button-unstyled;
             color: $color-gray;
-            font-size: rem(18);
+            font-size: rem(20);
             text-align: center;
 
             padding: rem(10) rem(15);
             width: 100%;
-        }
-    }
 
-    .period-picker {
-        min-width: 240px;
-    }
-
-    .multiSelect__list  {
-        width: 100%;
-
-        & li {
-            background-color: $color-white;
-        }
-
-        &:hover li, .selected {
-            background-color: $color-gray-lightest;
-        }
-
-        & li:hover,
-        & li:hover ~ li {
-            background-color: $color-white;
-        }
-
-        .fy-picker__list-button {
-            text-align: left;
-            padding: 0.5rem;
-            overflow: auto;
-            font-size: rem(13);
-            border-top: 1px solid $color-gray-light;
-            span:last-child {
-                float: right;
-                font-weight: $font-bold;
+            &:hover, &:active {
+                background-color: $color-gray-lightest;
             }
-            span:first-child {
-                float: left;
-                font-weight: $font-normal;
-            }
-
-        }
-    }
-
-    .multiSelect__list.override li {
-        background-color:$color-gray-lightest;
-    }
-
-    .multiSelect__list-item.selected, .multiSelect__list-item.selected {
-        background-color: $color-gray-lightest;
-    }
-
-    .multiSelect__list-item.selected ~ li {
-        background-color: $color-white;
-
-        &:hover {
-            background-color: $color-gray-lightest;
-        }
-    }
-
-    .multiSelect__list-item {
-        border-top: 1px solid $color-gray-light;
-        width: 100%;
-
-        &.disabled button {
-            cursor: not-allowed;
-            background-color: $color-gray-lightest;
-            color:$color-gray-lighter;
-        }
-
-        &:first-child {
-            border-top: none;
         }
     }
 }

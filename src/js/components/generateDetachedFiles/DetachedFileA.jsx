@@ -78,10 +78,10 @@ export default class DetachedFileA extends React.Component {
     }
 
     pickedYear(fy) {
-        const fyperiods = availablePeriodsInFY(fy);
+        const fyAvailablePeriods = availablePeriodsInFY(fy);
         this.setState({
-            unavailablePeriod: fyperiods.unavailablePeriod,
-            period: fyperiods.period,
+            periodArray: fyAvailablePeriods.periodArray,
+            period: fyAvailablePeriods.period,
             fy
         });
     }
@@ -93,8 +93,8 @@ export default class DetachedFileA extends React.Component {
     }
 
     generate() {
-        const agencyName = _.find(this.props.agencyList.agencies, { cgac_code: `${this.state.agency}` }).agency_name;
-        const fileInfo = `${agencyName} | FY ${this.state.fy} | ${utils.getPeriodTextFromValue(this.state.period)}`;
+        const agencyName = _.find(this.props.agencyList.agencies, { cgac_code: `${this.state.agency}` }).agency_name || 'Unknown Agency';
+        const fileInfo = `${agencyName} | FY ${this.state.fy} | 01 October - ${utils.getPeriodTextFromValue(this.state.period)}`;
         this.setState({
             clickedFields: fileInfo
         });
@@ -207,7 +207,7 @@ export default class DetachedFileA extends React.Component {
 
                                             <div className="file-a-section__date">
                                                 <PeriodPicker
-                                                    unavailablePeriod={this.state.unavailablePeriod}
+                                                    periodArray={this.state.periodArray}
                                                     passedPeriod={this.state.period}
                                                     pickedYear={this.pickedYear}
                                                     pickedPeriod={this.pickedPeriod}

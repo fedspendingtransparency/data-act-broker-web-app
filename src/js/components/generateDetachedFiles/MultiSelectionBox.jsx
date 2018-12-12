@@ -94,7 +94,7 @@ export default class MultiSelectionBox extends React.Component {
                         className={`multiSelect__list-item ${value.disabled ? 'disabled' : ''} ${value.selected ? 'selected' : ''}`}>
                         <button
                             disabled={value.disabled}
-                            className="fy-picker__list-button"
+                            className="period-picker-dropdown__list-button"
                             value={value.value}
                             data-tooltip={value.tooltip}
                             onClick={() => this.clickedYear(value.fieldIndex)}>
@@ -107,28 +107,28 @@ export default class MultiSelectionBox extends React.Component {
         }
 
 
-        let visibleClass = 'fy-picker__list_hidden';
+        let visibleClass = 'period-picker-dropdown__list_hidden';
         if (this.state.expanded) {
             visibleClass = '';
         }
 
         return (
             <div
-                className="fy-picker"
+                className="period-picker-dropdown"
                 ref={(div) => {
                     this.pickerRef = div;
                 }}>
-                <div className="fy-picker__header">
-                    <div className="fy-picker__dropdown-container">
+                <div className="period-picker-dropdown__header">
+                    <div className="period-picker-dropdown__dropdown-container">
                         <button
-                            className="fy-picker__button period-picker"
+                            className="period-picker-dropdown__button period-picker-dropdown"
                             onClick={this.toggleList}>
-                            <div className="fy-picker__button-text">
+                            <div className="period-picker-dropdown__button-text">
                                 {this.props.selectedDropdownOption ?
                                     `01 October - ${this.props.fieldOptions[this.props.selectedDropdownOption].text.split('|')[0]}` :
                                     'Select a period range'}
                             </div>
-                            <div className="fy-picker__button-icon">
+                            <div className="period-picker-dropdown__button-icon">
                                 <AngleDown alt="Toggle menu" />
                             </div>
                         </button>
