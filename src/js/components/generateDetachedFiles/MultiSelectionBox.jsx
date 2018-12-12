@@ -90,14 +90,14 @@ export default class MultiSelectionBox extends React.Component {
                 const item = (
                     <li
                         key={value.value}
-                        fieldIndex={value.fieldIndex}
+                        fieldIndex={value.value}
                         className={`multiSelect__list-item ${value.disabled ? 'disabled' : ''} ${value.selected ? 'selected' : ''}`}>
                         <button
                             disabled={value.disabled}
                             className="period-picker-dropdown__list-button"
                             value={value.value}
                             data-tooltip={value.tooltip}
-                            onClick={() => this.clickedYear(value.fieldIndex)}>
+                            onClick={() => this.clickedYear(value.value)}>
                             {splitText[0]}{splitText[1]}
                         </button>
                     </li>
