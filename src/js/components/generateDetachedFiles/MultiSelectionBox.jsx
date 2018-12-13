@@ -90,7 +90,6 @@ export default class MultiSelectionBox extends React.Component {
                 const item = (
                     <li
                         key={value.value}
-                        fieldIndex={value.value}
                         className={`multiSelect__list-item ${value.disabled ? 'disabled' : ''} ${value.selected ? 'selected' : ''}`}>
                         <button
                             disabled={value.disabled}
