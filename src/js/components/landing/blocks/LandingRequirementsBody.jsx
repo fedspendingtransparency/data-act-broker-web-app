@@ -103,13 +103,14 @@ export default class LandingRequirementsBody extends React.Component {
                     <li>File F: Sub-award Attributes data</li>
                 </ul>
                 <p>
-                    Submission information is available on the
+                    Submission information is available on the&nbsp;
                     <a
-                        href="https://fiscal.treasury.gov/fsservices/gov/data-trans/dt-daims.htm"
+                        href="https://www.fiscal.treasury.gov/data-transparency/data-act-v1.2.html"
                         target="_blank"
                         rel="noopener noreferrer">
-                        &nbsp;DAIMS
-                    </a> page of the Data Transparency site for the Bureau of the Fiscal Service.
+                        DAIMS
+                    </a>
+                    &nbsp;page of the Data Transparency site for the Bureau of the Fiscal Service.
                 </p>
             </div>
         );
@@ -122,14 +123,14 @@ export default class LandingRequirementsBody extends React.Component {
                         <li>FABS File: Financial Assistance data</li>
                     </ul>
                     <p>
-                        Submission information is available on the
+                        Submission information is available on the&nbsp;
                         <a
                             target="_blank"
                             rel="noopener noreferrer"
-                            href="https://fiscal.treasury.gov/fsservices/gov/data-trans/dt-daims.htm">
-                            &nbsp;DAIMS
+                            href="https://www.fiscal.treasury.gov/data-transparency/data-act-v1.2.html">
+                            DAIMS
                         </a>
-                        page of the Data Transparency site for the Bureau of the Fiscal Service.
+                        &nbsp;page of the Data Transparency site for the Bureau of the Fiscal Service.
                     </p>
                 </div>
             );
