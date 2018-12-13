@@ -9,6 +9,7 @@ import FYPicker from './FYPicker';
 
 
 import MultiSelectionBox from './MultiSelectionBox';
+import * as utils from '../../helpers/util';
 
 const propTypes = {
     passedPeriod: PropTypes.number,
@@ -44,7 +45,8 @@ export default class PeriodPicker extends React.Component {
                 { value: 10, text: '10 - July' },
                 { value: 11, text: '11 - August' },
                 { value: 12, text: '12 - September | Quarters 1 - 4' }
-            ]
+            ],
+            unavailablePeriod: 0
         };
 
         this.updateDropdownModel = this.updateDropdownModel.bind(this);
@@ -84,6 +86,10 @@ export default class PeriodPicker extends React.Component {
         // Get the range of all unavailable periods
         let parsedRange = _.range(this.props.periodArray[0]);
 
+        this.setState({
+            unavailablePeriod: this.props.periodArray[0] === 1 ? 0 : this.props.periodArray[0]
+        });
+
         if (this.props.periodArray.length < 1) {
             parsedRange = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12];
         }
@@ -106,6 +112,9 @@ export default class PeriodPicker extends React.Component {
         const prevDropdownOptions = this.state.dropdownOptions;
         const selectedField = this.state.selectedDropdownOption;
 
+        // Pass the selected period and the unavailable range
+        this.props.pickedPeriod(rawPickedOption, this.state.unavailablePeriod + 1);
+
         if (!selectedField) {
             prevDropdownOptions[pickedOption].selected = true;
             this.setState({
@@ -126,6 +135,8 @@ export default class PeriodPicker extends React.Component {
     }
 
     render() {
+        const minPeriod = utils.getPeriodTextFromValue(this.state.unavailablePeriod + 1);
+        const maxPeriod = utils.getPeriodTextFromValue(this.props.passedPeriod);
         return (
             <div className="period-picker">
                 <div className="period-picker__fy">
@@ -136,10 +147,9 @@ export default class PeriodPicker extends React.Component {
 
                 <div className="period-picker__fy">
                     <MultiSelectionBox
+                        defaultDropdownText={`${minPeriod} - ${maxPeriod}`}
                         selectedDropdownOption={this.state.selectedDropdownOption}
-                        defaultDropdownOption={this.props.passedPeriod}
                         updateDropdownModel={this.updateDropdownModel}
-                        sendSelectedOption={this.props.pickedPeriod}
                         fieldOptions={this.state.dropdownOptions} />
                 </div>
             </div>

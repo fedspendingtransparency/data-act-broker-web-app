@@ -1,5 +1,5 @@
 /**
- * Dropdown.jsx
+ * MultiSelectionBox.jsx
  * Created by Kwadwo Opoku-Debrah 12/06/18
  */
 
@@ -9,13 +9,14 @@ import _ from 'lodash';
 import { AngleDown } from '../SharedComponents/icons/Icons';
 
 const propTypes = {
+    defaultDropdownText: PropTypes.string,
     selectedDropdownOption: PropTypes.number,
     fieldOptions: PropTypes.array.isRequired,
-    sendSelectedOption: PropTypes.func.isRequired,
     updateDropdownModel: PropTypes.func.isRequired
 };
 
 const defaultProps = {
+    defaultDropdownText: 'Dropdown',
     selectedDropdownOption: null
 };
 
@@ -28,7 +29,7 @@ export default class MultiSelectionBox extends React.Component {
         };
 
         this.toggleList = this.toggleList.bind(this);
-        this.clickedYear = this.clickedYear.bind(this);
+        this.clickedOption = this.clickedOption.bind(this);
         this.closeMenu = this.closeMenu.bind(this);
     }
 
@@ -67,8 +68,7 @@ export default class MultiSelectionBox extends React.Component {
         });
     }
 
-    clickedYear(pickedOption) {
-        this.props.sendSelectedOption(parseInt(pickedOption, 10));
+    clickedOption(pickedOption) {
         this.props.updateDropdownModel(pickedOption);
         this.setState({
             expanded: false
@@ -97,7 +97,7 @@ export default class MultiSelectionBox extends React.Component {
                             className="period-picker-dropdown__list-button"
                             value={value.value}
                             data-tooltip={value.tooltip}
-                            onClick={() => this.clickedYear(value.value)}>
+                            onClick={() => this.clickedOption(value.value)}>
                             {splitText[0]}{splitText[1]}
                         </button>
                     </li>
@@ -124,9 +124,7 @@ export default class MultiSelectionBox extends React.Component {
                             className="period-picker-dropdown__button period-picker-dropdown"
                             onClick={this.toggleList}>
                             <div className="period-picker-dropdown__button-text">
-                                {this.props.selectedDropdownOption ?
-                                    `01 October - ${this.props.fieldOptions[this.props.selectedDropdownOption].text.split('|')[0]}` :
-                                    'Select a period range'}
+                                {this.props.defaultDropdownText}
                             </div>
                             <div className="period-picker-dropdown__button-icon">
                                 <AngleDown alt="Toggle menu" />

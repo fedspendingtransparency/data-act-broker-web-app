@@ -47,10 +47,10 @@ export default class DetachedFileA extends React.Component {
             agency: '',
             codeType: 'cgac',
             agencyError: false,
-            unavailablePeriod: initialPeriod.unavailablePeriod,
             period: initialPeriod.period,
             fy: `${initialPeriod.year}`,
-            clickedFields: null
+            unavailablePeriod: null,
+            downloadFields: null
         };
 
         this.handleAgencyChange = this.handleAgencyChange.bind(this);
@@ -86,19 +86,24 @@ export default class DetachedFileA extends React.Component {
         });
     }
 
-    pickedPeriod(period) {
+    pickedPeriod(period, unavailablePeriod) {
         this.setState({
+            unavailablePeriod,
             period
         });
     }
 
     generate() {
-        const agencyName = _.find(this.props.agencyList.agencies, { cgac_code: `${this.state.agency}` }).agency_name || 'Unknown Agency';
-        const fileInfo = `${agencyName} | FY ${this.state.fy} | 01 October - ${utils.getPeriodTextFromValue(this.state.period)}`;
+        const minPeriod = utils.getPeriodTextFromValue(this.state.unavailablePeriod) || 1;
+        const maxPeriod = utils.getPeriodTextFromValue(this.state.period);
+
+        const rawagencyName = _.find(this.props.agencyList.agencies, { cgac_code: `${this.state.agency}` });
+        const agencyName = rawagencyName ? rawagencyName.agency_name : 'Unknown Agency';
+        const fileInfo = `${agencyName} | FY ${this.state.fy} | ${minPeriod} - ${maxPeriod}`;
         this.setState({
-            clickedFields: fileInfo
+            downloadFields: fileInfo
         });
-        this.props.generateFileA(this.state.agency, this.state.codeType, parseInt(this.state.period, 10), parseInt(this.state.fy, 10));
+        this.props.generateFileA(this.state.agency, this.state.codeType, this.state.period, parseInt(this.state.fy, 10));
     }
 
     render() {
@@ -215,7 +220,7 @@ export default class DetachedFileA extends React.Component {
                                             </div>
                                         </div>
                                         <DownloadFile
-                                            fileInfo={this.state.clickedFields}
+                                            fileInfo={this.state.downloadFields}
                                             label="File A: Appropriations Accounts"
                                             errorType={this.props.errorType}
                                             errorMessage={this.props.errorMessage}
