@@ -97,7 +97,7 @@ export default class MultiSelectionBox extends React.Component {
                             value={value.value}
                             data-tooltip={value.tooltip}
                             onClick={() => this.clickedOption(value.value)}>
-                            {splitText[0]}{splitText[1]}
+                            {[...splitText]}
                         </button>
                     </li>
                 );

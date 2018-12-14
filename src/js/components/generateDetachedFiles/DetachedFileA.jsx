@@ -4,7 +4,6 @@
  */
 
 import React, { PropTypes } from 'react';
-import _ from 'lodash';
 import Navbar from '../SharedComponents/navigation/NavigationComponent';
 import Footer from '../SharedComponents/FooterComponent';
 import AgencyListContainer from '../../containers/SharedContainers/AgencyListContainer';
@@ -21,7 +20,6 @@ const initialPeriod = defaultPeriods();
 
 const propTypes = {
     route: PropTypes.object,
-    agencyList: PropTypes.object,
     generateFileA: PropTypes.func,
     status: PropTypes.string,
     errorType: PropTypes.string,
@@ -45,6 +43,7 @@ export default class DetachedFileA extends React.Component {
 
         this.state = {
             agency: '',
+            agencyName: '',
             codeType: 'cgac',
             agencyError: false,
             period: initialPeriod.period,
@@ -59,11 +58,12 @@ export default class DetachedFileA extends React.Component {
         this.generate = this.generate.bind(this);
     }
 
-    handleAgencyChange(agency, codeType, isValid) {
+    handleAgencyChange(agency, codeType, isValid, agencyName) {
         // display or hide file generation based on agency validity and set agency
         if (agency !== '' && isValid) {
             this.setState({
                 agency,
+                agencyName,
                 codeType,
                 agencyError: false
             });
@@ -71,6 +71,7 @@ export default class DetachedFileA extends React.Component {
         else {
             this.setState({
                 agency: '',
+                agencyName: '',
                 codeType: null,
                 agencyError: true
             });
@@ -94,14 +95,11 @@ export default class DetachedFileA extends React.Component {
     }
 
     generate() {
-        const minPeriod = utils.getPeriodTextFromValue(this.state.unavailablePeriod) || 1;
+        const minPeriod = this.state.unavailablePeriod || 1;
         const maxPeriod = utils.getPeriodTextFromValue(this.state.period);
 
-        const rawagencyName = _.find(this.props.agencyList.agencies, { cgac_code: `${this.state.agency}` });
-        const agencyName = rawagencyName ? rawagencyName.agency_name : 'Unknown Agency';
-        const fileInfo = `${agencyName} | FY ${this.state.fy} | ${minPeriod} - ${maxPeriod}`;
         this.setState({
-            downloadFields: fileInfo
+            downloadFields: `${this.state.agencyName} | FY ${this.state.fy} | ${utils.getPeriodTextFromValue(minPeriod)} - ${maxPeriod}`
         });
         this.props.generateFileA(this.state.agency, this.state.codeType, this.state.period, parseInt(this.state.fy, 10));
     }
