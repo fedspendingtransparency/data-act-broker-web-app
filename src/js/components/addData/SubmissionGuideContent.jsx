@@ -145,9 +145,7 @@ export default class SubmissionGuideContent extends React.Component {
                                             <a
                                                 target="_blank"
                                                 rel="noopener noreferrer"
-                                                href="https://fiscal.treasury.gov/fsservices/gov/
-                                                data-trans/dt-daims.htm">
-
+                                                href="https://www.fiscal.treasury.gov/data-transparency/data-act-v1.2.html">
                                                 DAIMS
                                             </a>
                                             &nbsp;page of the Data Transparency site for the
