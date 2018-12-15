@@ -40,26 +40,26 @@ export const mostRecentPeriod = () => {
 };
 
 export const lastCompletedPeriodInFY = (fy) => {
-    // get the most recent available quarter and year
+    // get the most recent available period and year
     const current = mostRecentPeriod();
     const sanitizedFY = handlePotentialStrings(fy);
 
     if (sanitizedFY < current.year) {
-        // user wants a previous year's quarters
+        // user wants a previous year's periods
         // since we are no longer on that year, it must be completed
         return {
-            period: utils.convertQuarterToPeriod(4),
+            period: 12,
             year: sanitizedFY
         };
     }
 
-    // otherwise, return the current year's quarter
+    // otherwise, return the current year's period
     return current;
 };
 
 export const availablePeriodsInFY = (fy) => {
     const sanitizedFY = handlePotentialStrings(fy);
-    // get the most recent available quarter and year
+    // get the most recent available period and year
     const lastPeriod = lastCompletedPeriodInFY(sanitizedFY);
 
     if (lastPeriod.year > sanitizedFY) {
@@ -74,7 +74,7 @@ export const availablePeriodsInFY = (fy) => {
     const available = [];
     let firstPeriod = 1;
     if (sanitizedFY === utils.earliestFileAYear) {
-        // in the first spending explorer year, the first quarter is not available
+        // in the first year of DATA Act reporting, the first period is not available
         firstPeriod = utils.convertQuarterToPeriod(2);
     }
 
