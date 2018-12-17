@@ -77,32 +77,30 @@ export default class ResourcesContent extends React.Component {
                 <ul>
                     <li>
                         <a
-                            href="https://www.fiscal.treasury.gov/data-transparency/data-act-v1.3.html"
+                            href="https://fiscal.treasury.gov/files/data-transparency/DAIMS-Validation-Rules-v1.2.1.xlsx"
                             target="_blank"
                             rel="noopener noreferrer">
-
-                            DAIMS Validation Rules:&nbsp;
+                            DAIMS Validation Rules
                         </a>
-                        documents the business rules employed by the DATA Act Broker for field
+                        : documents the business rules employed by the DATA Act Broker for field
                         and cross-file validations.
                     </li>
                     <li>
                         <a
-                            href="https://github.com/fedspendingtransparency/data-act-broker-backend/
-                            tree/master/dataactvalidator/config/sqlrules"
+                            href="https://github.com/fedspendingtransparency/data-act-broker-backend/tree/master/dataactvalidator/config/sqlrules"
                             target="_blank"
-                            rel="noopener noreferrer">Broker SQL Validation Rules:&nbsp;
+                            rel="noopener noreferrer">Broker SQL Validation Rules
                         </a>
-                        the actual machine logic used in FABS validations.
+                        : the actual machine logic used in FABS validations.
                         These SQL statements are based directly on the FABS validation rules.
                     </li>
                     <li>
                         <a
                             href="https://community.max.gov/download/attachments/1324878095/DAIMS_Practices_Procedures_v1.2.pdf?version=1&#38;modificationDate=1513972272546&#38;api=v2"
                             target="_blank"
-                            rel="noopener noreferrer">DAIMS Practices &#38; Procedures:&nbsp;
+                            rel="noopener noreferrer">DAIMS Practices &#38; Procedures
                         </a>
-                        contains file-wide practices, explanations of how elements are derived based on FABS data, and information on the submission process (including corrections and deletions), validation rule source data, user management, technical procedures for formatting submission files, etc.
+                        : contains file-wide practices, explanations of how elements are derived based on FABS data, and information on the submission process (including corrections and deletions), validation rule source data, user management, technical procedures for formatting submission files, etc.
                     </li>
                 </ul>
             </div>
@@ -125,14 +123,14 @@ export default class ResourcesContent extends React.Component {
                         hundreds of distinct data elements used to tell the story of how federal dollars are spent.
                         It includes artifacts that provide technical guidance for federal agencies about what data to
                         report to Treasury including the authoritative sources of the data elements and the submission
-                        format. DAIMS information is available on the
+                        format. DAIMS information is available on the&nbsp;
                         <a
-                            href="https://fiscal.treasury.gov/fsservices/gov/data-trans/dt-daims.htm"
+                            href="https://www.fiscal.treasury.gov/data-transparency/data-act-v1.2.html"
                             target="_blank"
                             rel="noopener noreferrer">
-                            &nbsp;DAIMS&nbsp;
+                            DAIMS
                         </a>
-                        page of the Data Transparency site for the Bureau of the Fiscal Service.
+                        &nbsp;page of the Data Transparency site for the Bureau of the Fiscal Service.
                     </span>
                     {content}
                 </div>
