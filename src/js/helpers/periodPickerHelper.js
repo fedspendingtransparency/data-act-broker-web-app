@@ -20,17 +20,41 @@ export const mostRecentPeriod = () => {
 
     let period = 12;
 
-    if (today.isBetween(moment(`01/01/${year}`, 'MM-DD-YYYY'), moment(`01-08-${year}`, 'MM-DD-YYYY'))) {
-        year -= 1;
+    if (today.isBetween(moment(`10/18/${year}`, 'MM-DD-YYYY'), moment(`12/05/${year}`, 'MM-DD-YYYY'))) {
+        year -= 1; // October
     }
-    else if (today.isBetween(moment(`01/08/${year}`, 'MM-DD-YYYY'), moment(`04/05/${year}`, 'MM-DD-YYYY'))) {
-        period = utils.convertQuarterToPeriod(1);
+    else if (today.isBetween(moment(`12/06/${year}`, 'MM-DD-YYYY'), moment(`01/06/${year}`, 'MM-DD-YYYY'))) {
+        period = 2; // November
     }
-    else if (today.isBetween(moment(`04/05/${year}`, 'MM-DD-YYYY'), moment(`06/05/${year}`, 'MM-DD-YYYY'))) {
-        period = utils.convertQuarterToPeriod(2);
+    else if (today.isBetween(moment(`01/07/${year}`, 'MM-DD-YYYY'), moment(`02/05/${year}`, 'MM-DD-YYYY'))) {
+        period = 3; // December
     }
-    else if (today.isBetween(moment(`06/05/${year}`, 'MM-DD-YYYY'), moment(`10/05/${year}`, 'MM-DD-YYYY'))) {
-        period = utils.convertQuarterToPeriod(3);
+    else if (today.isBetween(moment(`02/06/${year}`, 'MM-DD-YYYY'), moment(`03/06/${year}`, 'MM-DD-YYYY'))) {
+        period = 4; // January
+    }
+    else if (today.isBetween(moment(`03/06/${year}`, 'MM-DD-YYYY'), moment(`04/03/${year}`, 'MM-DD-YYYY'))) {
+        period = 5; // Feburary
+    }
+    else if (today.isBetween(moment(`04/04/${year}`, 'MM-DD-YYYY'), moment(`05/05/${year}`, 'MM-DD-YYYY'))) {
+        period = 6; // March
+    }
+    else if (today.isBetween(moment(`05/06/${year}`, 'MM-DD-YYYY'), moment(`06/05/${year}`, 'MM-DD-YYYY'))) {
+        period = 7; // April
+    }
+    else if (today.isBetween(moment(`06/06/${year}`, 'MM-DD-YYYY'), moment(`07/04/${year}`, 'MM-DD-YYYY'))) {
+        period = 8; // May
+    }
+    else if (today.isBetween(moment(`07/05/${year}`, 'MM-DD-YYYY'), moment(`08/05/${year}`, 'MM-DD-YYYY'))) {
+        period = 9; // June
+    }
+    else if (today.isBetween(moment(`08/06/${year}`, 'MM-DD-YYYY'), moment(`09/05/${year}`, 'MM-DD-YYYY'))) {
+        period = 10; // July
+    }
+    else if (today.isBetween(moment(`09/06/${year}`, 'MM-DD-YYYY'), moment(`10/03/${year}`, 'MM-DD-YYYY'))) {
+        period = 11; // August
+    }
+    else if (today.isBetween(moment(`10/04/${year}`, 'MM-DD-YYYY'), moment(`10/17/${year}`, 'MM-DD-YYYY'))) {
+        period = 12; // September
     }
 
     return {
@@ -65,8 +89,8 @@ export const availablePeriodsInFY = (fy) => {
     if (lastPeriod.year > sanitizedFY) {
         // FY is in the future
         return {
-            periodArray: [1],
-            period: 1,
+            periodArray: [1, 2],
+            period: 2,
             year: sanitizedFY
         };
     }
@@ -75,7 +99,7 @@ export const availablePeriodsInFY = (fy) => {
     let firstPeriod = 1;
     if (sanitizedFY === utils.earliestFileAYear) {
         // in the first year of DATA Act reporting, the first period is not available
-        firstPeriod = utils.convertQuarterToPeriod(2);
+        firstPeriod = 4;
     }
 
     for (let i = firstPeriod; i <= lastPeriod.period; i++) {

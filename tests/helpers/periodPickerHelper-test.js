@@ -36,7 +36,7 @@ describe('periodPickerHelper', () => {
         it('should return the most recently completed period', () => {
             mockDate('1912-06-01');
             const output = periodPickerHelper.mostRecentPeriod();
-            expect(output.period).toEqual(6);
+            expect(output.period).toEqual(7);
         });
         it('should return the fiscal year of the most recently completed period', () => {
             mockDate('1912-06-01');
@@ -47,24 +47,32 @@ describe('periodPickerHelper', () => {
             mockDate('1912-04-01');
             const output = periodPickerHelper.mostRecentPeriod();
             expect(output).toEqual({
-                period: 3,
+                period: 5,
                 year: 1912
             });
         });
-        it('if GTAS data is not available for period 1, then it should return period 12 of the previous fiscal year', () => {
-            mockDate('1912-01-02');
+        it('if GTAS data is not available for period 2, then it should return period 12 of the previous fiscal year)', () => {
+            mockDate('2018-10-19');
             const output = periodPickerHelper.mostRecentPeriod();
             expect(output).toEqual({
                 period: 12,
-                year: 1911
+                year: 2017
             });
         });
-        it('should use the current fiscal year as the FY when the current date is between Oct 1 and Jan 8', () => {
-            mockDate('2018-10-01');
+        it('if GTAS data is not available for this date , then it should return the previous period (June)', () => {
+            mockDate('1912-06-01');
             const output = periodPickerHelper.mostRecentPeriod();
             expect(output).toEqual({
-                period: 9,
-                year: 2018
+                period: 7,
+                year: 1912
+            });
+        });
+        it('if GTAS data is avaiable for this date, then it should return the current period (July)', () => {
+            mockDate('1912-06-19');
+            const output = periodPickerHelper.mostRecentPeriod();
+            expect(output).toEqual({
+                period: 8,
+                year: 1912
             });
         });
     });
@@ -82,12 +90,12 @@ describe('periodPickerHelper', () => {
             mockDate('1912-06-01');
             const output = periodPickerHelper.lastCompletedPeriodInFY('1912');
             expect(output).toEqual({
-                period: 6,
+                period: 7,
                 year: 1912
             });
         });
         it('if GTAS data is not available for period 2 of the specified FY, it should return the latest period of the previous FY', () => {
-            mockDate('1912-01-05');
+            mockDate('1912-10-19');
             const output = periodPickerHelper.lastCompletedPeriodInFY('1912');
             expect(output).toEqual({
                 period: 12,
@@ -118,8 +126,8 @@ describe('periodPickerHelper', () => {
             mockDate('2020-06-01');
             const output = periodPickerHelper.availablePeriodsInFY(2020);
             expect(output).toEqual({
-                period: 6,
-                periodArray: [1, 2, 3, 4, 5, 6],
+                period: 7,
+                periodArray: [1, 2, 3, 4, 5, 6, 7],
                 year: 2020
             });
         });
@@ -128,7 +136,7 @@ describe('periodPickerHelper', () => {
             const output = periodPickerHelper.availablePeriodsInFY(2017);
             expect(output).toEqual({
                 period: 12,
-                periodArray: [6, 7, 8, 9, 10, 11, 12],
+                periodArray: [4, 5, 6, 7, 8, 9, 10, 11, 12],
                 year: 2017
             });
         });
@@ -136,8 +144,8 @@ describe('periodPickerHelper', () => {
             mockDate('2017-08-30');
             const output = periodPickerHelper.availablePeriodsInFY(2017);
             expect(output).toEqual({
-                period: 9,
-                periodArray: [6, 7, 8, 9],
+                period: 10,
+                periodArray: [4, 5, 6, 7, 8, 9, 10],
                 year: 2017
             });
         });
@@ -165,13 +173,13 @@ describe('periodPickerHelper', () => {
             mockDate('2020-06-01');
             const output = periodPickerHelper.defaultPeriods();
             expect(output).toEqual({
-                period: 6,
-                periodArray: [1, 2, 3, 4, 5, 6],
+                period: 7,
+                periodArray: [1, 2, 3, 4, 5, 6, 7],
                 year: 2020
             });
         });
         it('should return the available period in the previous year if GTAS data is not yet available', () => {
-            mockDate('2020-01-03');
+            mockDate('2020-10-20');
             const output = periodPickerHelper.defaultPeriods();
             expect(output).toEqual({
                 period: 12,
