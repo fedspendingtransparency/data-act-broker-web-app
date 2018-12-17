@@ -9,7 +9,7 @@ export const fetchLastDateModified = () => {
     Request.post(`${kGlobalConstants.API}list_submissions/`)
         .send({
             certified: 'false',
-            d2_submission: false,
+            fabs: false,
             limit: 200,
             order: 'desc'
         })
