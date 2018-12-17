@@ -20,40 +20,40 @@ export const mostRecentPeriod = () => {
 
     let period = 12;
 
-    if (today.isBetween(moment(`10/18/${year}`, 'MM-DD-YYYY'), moment(`12/05/${year}`, 'MM-DD-YYYY'))) {
+    if (today.isBetween(moment(`10/19/${year}`, 'MM-DD-YYYY'), moment(`12/06/${year}`, 'MM-DD-YYYY'))) {
         year -= 1; // October
     }
-    else if (today.isBetween(moment(`12/06/${year}`, 'MM-DD-YYYY'), moment(`01/06/${year}`, 'MM-DD-YYYY'))) {
+    else if (today.isBetween(moment(`12/07/${year}`, 'MM-DD-YYYY'), moment(`01/07/${year}`, 'MM-DD-YYYY'))) {
         period = 2; // November
     }
-    else if (today.isBetween(moment(`01/07/${year}`, 'MM-DD-YYYY'), moment(`02/05/${year}`, 'MM-DD-YYYY'))) {
+    else if (today.isBetween(moment(`01/08/${year}`, 'MM-DD-YYYY'), moment(`02/06/${year}`, 'MM-DD-YYYY'))) {
         period = 3; // December
     }
-    else if (today.isBetween(moment(`02/06/${year}`, 'MM-DD-YYYY'), moment(`03/06/${year}`, 'MM-DD-YYYY'))) {
+    else if (today.isBetween(moment(`02/07/${year}`, 'MM-DD-YYYY'), moment(`03/07/${year}`, 'MM-DD-YYYY'))) {
         period = 4; // January
     }
-    else if (today.isBetween(moment(`03/06/${year}`, 'MM-DD-YYYY'), moment(`04/03/${year}`, 'MM-DD-YYYY'))) {
+    else if (today.isBetween(moment(`03/08/${year}`, 'MM-DD-YYYY'), moment(`04/04/${year}`, 'MM-DD-YYYY'))) {
         period = 5; // Feburary
     }
-    else if (today.isBetween(moment(`04/04/${year}`, 'MM-DD-YYYY'), moment(`05/05/${year}`, 'MM-DD-YYYY'))) {
+    else if (today.isBetween(moment(`04/05/${year}`, 'MM-DD-YYYY'), moment(`05/06/${year}`, 'MM-DD-YYYY'))) {
         period = 6; // March
     }
-    else if (today.isBetween(moment(`05/06/${year}`, 'MM-DD-YYYY'), moment(`06/05/${year}`, 'MM-DD-YYYY'))) {
+    else if (today.isBetween(moment(`05/07/${year}`, 'MM-DD-YYYY'), moment(`06/06/${year}`, 'MM-DD-YYYY'))) {
         period = 7; // April
     }
-    else if (today.isBetween(moment(`06/06/${year}`, 'MM-DD-YYYY'), moment(`07/04/${year}`, 'MM-DD-YYYY'))) {
+    else if (today.isBetween(moment(`06/07/${year}`, 'MM-DD-YYYY'), moment(`07/05/${year}`, 'MM-DD-YYYY'))) {
         period = 8; // May
     }
-    else if (today.isBetween(moment(`07/05/${year}`, 'MM-DD-YYYY'), moment(`08/05/${year}`, 'MM-DD-YYYY'))) {
+    else if (today.isBetween(moment(`07/06/${year}`, 'MM-DD-YYYY'), moment(`08/06/${year}`, 'MM-DD-YYYY'))) {
         period = 9; // June
     }
-    else if (today.isBetween(moment(`08/06/${year}`, 'MM-DD-YYYY'), moment(`09/05/${year}`, 'MM-DD-YYYY'))) {
+    else if (today.isBetween(moment(`08/07/${year}`, 'MM-DD-YYYY'), moment(`09/06/${year}`, 'MM-DD-YYYY'))) {
         period = 10; // July
     }
-    else if (today.isBetween(moment(`09/06/${year}`, 'MM-DD-YYYY'), moment(`10/03/${year}`, 'MM-DD-YYYY'))) {
+    else if (today.isBetween(moment(`09/07/${year}`, 'MM-DD-YYYY'), moment(`10/04/${year}`, 'MM-DD-YYYY'))) {
         period = 11; // August
     }
-    else if (today.isBetween(moment(`10/04/${year}`, 'MM-DD-YYYY'), moment(`10/17/${year}`, 'MM-DD-YYYY'))) {
+    else if (today.isBetween(moment(`10/05/${year}`, 'MM-DD-YYYY'), moment(`10/18/${year}`, 'MM-DD-YYYY'))) {
         period = 12; // September
     }
 
