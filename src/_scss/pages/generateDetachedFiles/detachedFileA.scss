@@ -54,10 +54,11 @@
             @include display(flex);
             @include flex(1 1 67%);
             @include justify-content(center);
-            padding: rem(45) rem(15);
+            padding: rem(40) rem(15);
             border: solid rem(1) $color-gray-lighter;
             border-left: 0;
             @import "./quarterPicker";
+            @import "./periodPicker";
             @import "./fyPicker";
         }
     }

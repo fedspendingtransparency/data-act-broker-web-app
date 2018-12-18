@@ -36,7 +36,7 @@ export default class HelpSidebar extends React.Component {
         this.urlPromise.promise
             .then((urls) => {
                 this.setState({
-                    reportingWindowUrl: urls['FY18 DABS Reporting Window Schedule.xls']
+                    reportingWindowUrl: urls['Fiscal Year 2019 DABS Reporting Schedule.xlsx']
                 });
 
                 this.urlPromise = null;
@@ -71,7 +71,6 @@ export default class HelpSidebar extends React.Component {
         const history = this.props.type === 'fabs' ? "/#/FABSHistory" : '/#/history';
         const technicalHistory = this.props.type === 'fabs' ? "/#/FABSTechnicalHistory" : '/#/technicalHistory';
         const resources = this.props.type === 'fabs' ? "/#/FABSResources" : '/#/resources';
-        const validations = this.props.type === 'fabs' ? "/#/FABSValidations" : '/#/validations';
         let schedule = null;
         if (this.props.type === 'dabs') {
             schedule = (
@@ -83,7 +82,7 @@ export default class HelpSidebar extends React.Component {
                                 target="_blank"
                                 rel="noopener noreferrer"
                                 href={this.state.reportingWindowUrl}>
-                                    Fiscal Year 2018 DABS Reporting Schedule
+                                    Fiscal Year 2019 DABS Reporting Schedule
                             </a>
                         </li>
                     </ul>
@@ -116,9 +115,6 @@ export default class HelpSidebar extends React.Component {
                     </li>
                     <li>
                         <a href={resources}>Resources - DAIMS</a>
-                    </li>
-                    <li>
-                        <a href={validations}>Validations</a>
                     </li>
                 </ul>
                 <div className="usa-da-help-sidebar__signup">

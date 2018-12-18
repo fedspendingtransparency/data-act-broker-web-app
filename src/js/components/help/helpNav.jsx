@@ -12,7 +12,7 @@ const propTypes = {
 };
 
 const defaultProps = {
-    pageArray: ['Help', 'Resources', 'Validations'],
+    pageArray: ['Help', 'Resources'],
     selected: '',
     type: ''
 };

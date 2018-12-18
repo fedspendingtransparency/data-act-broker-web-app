@@ -18,6 +18,31 @@
 			@import "../../components/alerts/_alerts";
 			@include successAlert;
 		}
+
+		.button-text-container {
+			margin-top: 1%;
+			font-weight: $font-bold;
+			color: $color-gray;
+
+			svg {
+				top: rem(3);
+				margin-left: rem(5);
+				margin-right: rem(5);
+			}
+		}
+
+		& svg.usa-da-icon-check-circle,
+	    & svg.usa-da-icon-info-circle {
+			width: rem(15);
+		    height: rem(15);
+		    position: relative;
+	    }
+	    & svg.usa-da-icon-check-circle {
+	        fill: $color-green-light;
+	    }
+		& svg.usa-da-icon-info-circle {
+	        fill: $color-gray;
+	    }
 	}
 
 	.published-submission-warning-banner {

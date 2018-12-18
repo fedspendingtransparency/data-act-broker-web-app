@@ -80,7 +80,7 @@ export default class ResourcesContent extends React.Component {
                             href="https://fiscal.treasury.gov/files/data-transparency/DAIMS-Validation-Rules-v1.2.1.xlsx"
                             target="_blank"
                             rel="noopener noreferrer">
-                            Validation Rules
+                            DAIMS Validation Rules
                         </a>
                         : documents the business rules employed by the DATA Act Broker for field
                         and cross-file validations.
@@ -89,10 +89,19 @@ export default class ResourcesContent extends React.Component {
                         <a
                             href="https://github.com/fedspendingtransparency/data-act-broker-backend/tree/master/dataactvalidator/config/sqlrules"
                             target="_blank"
-                            rel="noopener noreferrer">SQL Validation Rules
+                            rel="noopener noreferrer">
+                            Broker SQL Validation Rules
                         </a>
                         : the actual machine logic used in FABS validations.
                         These SQL statements are based directly on the FABS validation rules.
+                    </li>
+                    <li>
+                        <a
+                            href="https://community.max.gov/download/attachments/1324878095/DAIMS_Practices_Procedures_v1.2.pdf?version=1&#38;modificationDate=1513972272546&#38;api=v2"
+                            target="_blank"
+                            rel="noopener noreferrer">DAIMS Practices &#38; Procedures
+                        </a>
+                        : contains file-wide practices, explanations of how elements are derived based on FABS data, and information on the submission process (including corrections and deletions), validation rule source data, user management, technical procedures for formatting submission files, etc.
                     </li>
                 </ul>
             </div>

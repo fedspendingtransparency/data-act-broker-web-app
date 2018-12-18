@@ -1,7 +1,7 @@
 @import '../../abstract/mixins/buttons';
 .fy-picker {
     @include display(flex);
-    padding: 0 rem(15);
+    margin-top: rem(5);
 
     .fy-picker__header {
         @include display(flex);
@@ -39,7 +39,8 @@
             @include flex(1 1 auto);
             margin-right: rem(15);
             color: $color-gray;
-            font-size: rem(20);
+            font-weight: $font-light;
+            font-size: rem(30);
             line-height: rem(25);
         }
 
@@ -62,6 +63,9 @@
         right: 0;
         border: 1px solid $color-gray-light;
         background-color: $color-white;
+        width: 100%;
+
+        z-index: 10;
 
         &.fy-picker__list_hidden {
             display: none;
@@ -78,7 +82,7 @@
         .fy-picker__list-button {
             @include button-unstyled;
             color: $color-gray;
-            font-size: rem(18);
+            font-size: rem(20);
             text-align: center;
 
             padding: rem(10) rem(15);
