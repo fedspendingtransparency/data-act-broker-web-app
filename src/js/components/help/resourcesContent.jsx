@@ -6,7 +6,6 @@
 import React, { PropTypes } from 'react';
 import $ from 'jquery';
 import { generateProtectedUrls } from '../../helpers/util';
-import DaimsMessage from './daimsMessage';
 
 const propTypes = {
     section: PropTypes.object,
@@ -111,15 +110,14 @@ export default class ResourcesContent extends React.Component {
             <div className="usa-da-help-content">
                 <div className="resources-page">
                     <h2>Resources {this.props.type.toUpperCase()}</h2>
-                    <span>
+                    <p className="resources-page-content">
                         As part of Fiscal Service&#8217;s efforts to provide DAIMS documents in a
                         single location we have created a single DAIMS Resource page on the Broker.
                         This page provides links to agency-only documents (validation rules and SQL
                         validation rules) and a link to the public site for all other DAIMS documents.
                         This will ensure that links always point to the latest DAIMS documents.
-                    </span>
-                    <DaimsMessage type={this.props.type} />
-                    <span>
+                    </p>
+                    <p className="resources-page-content">
                         The DATA Act information Model Schema (DAIMS) gives an overall view of the
                         hundreds of distinct data elements used to tell the story of how federal dollars are spent.
                         It includes artifacts that provide technical guidance for federal agencies about what data to
@@ -132,7 +130,7 @@ export default class ResourcesContent extends React.Component {
                             DAIMS
                         </a>
                         &nbsp;page of the Data Transparency site for the Bureau of the Fiscal Service.
-                    </span>
+                    </p>
                     {content}
                 </div>
             </div>
