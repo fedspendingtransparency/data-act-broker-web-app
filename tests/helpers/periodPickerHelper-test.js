@@ -67,7 +67,7 @@ describe('periodPickerHelper', () => {
                 year: 1912
             });
         });
-        it('if GTAS data is avaiable for this date, then it should return the current period (July)', () => {
+        it('if GTAS data is available for this date, then it should return the current period (July)', () => {
             mockDate('1912-06-19');
             const output = periodPickerHelper.mostRecentPeriod();
             expect(output).toEqual({
