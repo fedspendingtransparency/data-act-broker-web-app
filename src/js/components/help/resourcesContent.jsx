@@ -5,7 +5,6 @@
 
 import React, { PropTypes } from 'react';
 import $ from 'jquery';
-import { generateProtectedUrls } from '../../helpers/util';
 import DaimsMessage from './daimsMessage';
 
 const propTypes = {
@@ -19,41 +18,12 @@ const defaultProps = {
 };
 
 export default class ResourcesContent extends React.Component {
-    constructor(props) {
-        super(props);
-
-        this.urlPromise = null;
-
-        this.state = {
-            faqFileC: '#',
-            fabs_sample: '#'
-        };
-    }
-
     componentDidMount() {
         this.scrollToTop();
-        // also load the remaining URLs
-        this.urlPromise = generateProtectedUrls();
-        this.urlPromise.promise
-            .then((urls) => {
-                this.setState({
-                    faqFileC: urls['DATA_Act_PMO_FileC_TOA_FAQ_20160913.pdf'],
-                    fabs_sample: urls['DAIMS_FABS_Sample_Submission_File_v1.2.csv']
-                });
-
-                this.urlPromise = null;
-            });
     }
 
     componentDidUpdate() {
         this.scrollToSection();
-    }
-
-    componentWillUnmount() {
-        // cancel in-flight S3 signing requests when the component unmounts
-        if (this.urlPromise) {
-            this.urlPromise.cancel();
-        }
     }
 
     scrollToSection() {

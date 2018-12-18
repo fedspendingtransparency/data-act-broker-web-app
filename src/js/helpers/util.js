@@ -1,30 +1,4 @@
-import Q from 'q';
 import moment from 'moment';
-import { kGlobalConstants } from '../GlobalConstants';
-import Request from './sessionSuperagent';
-
-export const generateProtectedUrls = () => {
-    let isCanceled = false;
-    const deferred = Q.defer();
-
-    Request.get(`${kGlobalConstants.API}get_protected_files/`)
-        .send()
-        .end((err, res) => {
-            if (isCanceled || err) {
-                deferred.reject(err);
-            }
-            else {
-                deferred.resolve(res.body.urls);
-            }
-        });
-
-    return {
-        promise: deferred.promise,
-        cancel: () => {
-            isCanceled = true;
-        }
-    };
-};
 
 export const convertToLocalDate = (dateToConvert) => {
     // convert date to local date, need to replace the space with a T for Date() formatting

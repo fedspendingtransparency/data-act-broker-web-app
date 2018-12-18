@@ -4,8 +4,8 @@
  */
 
 import React, { PropTypes } from 'react';
+import { kGlobalConstants } from '../../GlobalConstants';
 import HelpSidebarItem from './helpSidebarItem';
-import { generateProtectedUrls } from '../../helpers/util';
 
 const propTypes = {
     changeSections: PropTypes.array,
@@ -22,27 +22,6 @@ const defaultProps = {
 };
 
 export default class HelpSidebar extends React.Component {
-    constructor(props) {
-        super(props);
-
-        this.state = {
-            reportingWindowUrl: '#'
-        };
-    }
-
-    componentDidMount() {
-        // load the validation rules URL
-        this.urlPromise = generateProtectedUrls();
-        this.urlPromise.promise
-            .then((urls) => {
-                this.setState({
-                    reportingWindowUrl: urls['Fiscal Year 2019 DABS Reporting Schedule.xlsx']
-                });
-
-                this.urlPromise = null;
-            });
-    }
-
     render() {
         const clSectionList = this.props.changeSections.map((section) => (<HelpSidebarItem
             key={section.name}
@@ -71,6 +50,9 @@ export default class HelpSidebar extends React.Component {
         const history = this.props.type === 'fabs' ? "/#/FABSHistory" : '/#/history';
         const technicalHistory = this.props.type === 'fabs' ? "/#/FABSTechnicalHistory" : '/#/technicalHistory';
         const resources = this.props.type === 'fabs' ? "/#/FABSResources" : '/#/resources';
+        const reportingScheduleURL = kGlobalConstants.PROD ?
+            "https://files-broker.usaspending.gov/help/Fiscal Year 2019 DABS Reporting Schedule.xlsx" :
+            "https://files-broker-nonprod.usaspending.gov/help/Fiscal Year 2019 DABS Reporting Schedule.xlsx";
         let schedule = null;
         if (this.props.type === 'dabs') {
             schedule = (
@@ -81,7 +63,7 @@ export default class HelpSidebar extends React.Component {
                             <a
                                 target="_blank"
                                 rel="noopener noreferrer"
-                                href={this.state.reportingWindowUrl}>
+                                href={reportingScheduleURL}>
                                     Fiscal Year 2019 DABS Reporting Schedule
                             </a>
                         </li>
