@@ -101,10 +101,12 @@ export const fyStartDate = () => {
     return quarterToMonth(1, year, 'start');
 };
 
+
 export const validUploadFileChecker = (rawFile) => {
     if (rawFile.file) {
-        const parsed = rawFile.file.name.split('.');
-        const fileType = parsed[parsed.length - 1];
+        const fileName = rawFile.file.name.toLowerCase();
+        const parsedFileName = fileName.indexOf('.') !== -1 ? fileName.split('.') : ['invalid'];
+        const fileType = parsedFileName[parsedFileName.length - 1];
         return !!((fileType === 'csv' || fileType === 'txt'));
     }
     return 'unset';
@@ -146,4 +148,32 @@ export const currentFiscalYear = () => {
     }
 
     return currentFY;
+};
+
+export const convertQuarterToPeriod = (quarter) => {
+    const periodtoQuarters = {
+        1: 3, // Quarter 1
+        2: 6, // Quarter 2
+        3: 9, // Quarter 3
+        4: 12 // Quarter 4
+    };
+    return periodtoQuarters[quarter];
+};
+
+export const getPeriodTextFromValue = (value) => {
+    const periodDictionary = {
+        4: "04 - January",
+        5: "05 - Feburary",
+        6: "06 - March",
+        7: "07 - April",
+        8: "08 - May",
+        9: "09 - June",
+        10: "10 - July",
+        11: "11 - August",
+        12: "12 - September",
+        1: "01 - October",
+        2: "02 - November",
+        3: "03 - December"
+    };
+    return periodDictionary[value];
 };

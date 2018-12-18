@@ -36,7 +36,7 @@ export class DetachedFileAContainer extends React.Component {
         this.generateFileA = this.generateFileA.bind(this);
     }
 
-    generateFileA(agency, codeType, quarter, fy) {
+    generateFileA(agency, codeType, period, fy) {
         this.setState({
             status: 'generating'
         });
@@ -45,7 +45,8 @@ export class DetachedFileAContainer extends React.Component {
             file_type: 'A',
             cgac_code: codeType !== 'frec_code' ? agency : '',
             frec_code: codeType === 'frec_code' ? agency : '',
-            quarter: `Q${quarter}/${fy}`
+            year: fy,
+            period
         };
 
         GenerateFilesHelper.generateDetachedFile(params)

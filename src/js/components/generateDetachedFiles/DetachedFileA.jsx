@@ -7,14 +7,16 @@ import React, { PropTypes } from 'react';
 import Navbar from '../SharedComponents/navigation/NavigationComponent';
 import Footer from '../SharedComponents/FooterComponent';
 import AgencyListContainer from '../../containers/SharedContainers/AgencyListContainer';
-import { defaultQuarters } from '../../helpers/quarterPickerHelper';
+
+import { defaultPeriods, availablePeriodsInFY } from '../../helpers/periodPickerHelper';
 
 import * as Icons from '../SharedComponents/icons/Icons';
-import QuarterPicker from './QuarterPicker';
+import * as utils from '../../helpers/util';
+import PeriodPicker from './PeriodPicker';
 import GenerateButton from './GenerateButton';
 import DownloadFile from './DownloadFile';
 
-const initialQuarters = defaultQuarters();
+const initialPeriod = defaultPeriods();
 
 const propTypes = {
     route: PropTypes.object,
@@ -27,6 +29,7 @@ const propTypes = {
 
 const defaultProps = {
     route: null,
+    agencyList: [],
     generateFileA: () => {},
     status: '',
     errorType: '',
@@ -40,23 +43,27 @@ export default class DetachedFileA extends React.Component {
 
         this.state = {
             agency: '',
+            agencyName: '',
             codeType: 'cgac',
             agencyError: false,
-            fy: `${initialQuarters.year}`,
-            quarter: Math.max(...initialQuarters.quarters)
+            period: initialPeriod.period,
+            fy: `${initialPeriod.year}`,
+            unavailablePeriod: null,
+            downloadFields: null
         };
 
         this.handleAgencyChange = this.handleAgencyChange.bind(this);
         this.pickedYear = this.pickedYear.bind(this);
-        this.pickedQuarter = this.pickedQuarter.bind(this);
+        this.pickedPeriod = this.pickedPeriod.bind(this);
         this.generate = this.generate.bind(this);
     }
 
-    handleAgencyChange(agency, codeType, isValid) {
-    // display or hide file generation based on agency validity and set agency
+    handleAgencyChange(agency, codeType, isValid, agencyName) {
+        // display or hide file generation based on agency validity and set agency
         if (agency !== '' && isValid) {
             this.setState({
                 agency,
+                agencyName,
                 codeType,
                 agencyError: false
             });
@@ -64,6 +71,7 @@ export default class DetachedFileA extends React.Component {
         else {
             this.setState({
                 agency: '',
+                agencyName: '',
                 codeType: null,
                 agencyError: true
             });
@@ -71,19 +79,29 @@ export default class DetachedFileA extends React.Component {
     }
 
     pickedYear(fy) {
+        const fyAvailablePeriods = availablePeriodsInFY(fy);
         this.setState({
+            periodArray: fyAvailablePeriods.periodArray,
+            period: fyAvailablePeriods.period,
             fy
         });
     }
 
-    pickedQuarter(quarter) {
+    pickedPeriod(period, unavailablePeriod) {
         this.setState({
-            quarter
+            unavailablePeriod,
+            period
         });
     }
 
     generate() {
-        this.props.generateFileA(this.state.agency, this.state.codeType, this.state.quarter, this.state.fy);
+        const minPeriod = this.state.unavailablePeriod || 1;
+        const maxPeriod = utils.getPeriodTextFromValue(this.state.period);
+
+        this.setState({
+            downloadFields: `${this.state.agencyName} | FY ${this.state.fy} | ${utils.getPeriodTextFromValue(minPeriod)} - ${maxPeriod}`
+        });
+        this.props.generateFileA(this.state.agency, this.state.codeType, this.state.period, parseInt(this.state.fy, 10));
     }
 
     render() {
@@ -93,6 +111,7 @@ export default class DetachedFileA extends React.Component {
             agencyIcon = <Icons.Building />;
             agencyClass = ' error usa-da-form-icon';
         }
+
 
         let submissionLink = null;
         if (this.props.status === 'done') {
@@ -146,7 +165,7 @@ export default class DetachedFileA extends React.Component {
                                         <div className="description">
                                             <div className="description__content">
                                                 <p>
-                                                    Select a Fiscal Year, Quarter, and Agency, and the Broker will
+                                                    Select a Fiscal Year, Period, and Agency, and the Broker will
                                                     generate a provisional File A for that agency. You are responsible
                                                     for reviewing and amending (e.g., if any TAS need to be added or
                                                     deleted) the generated File A for accuracy and completeness before
@@ -168,8 +187,8 @@ export default class DetachedFileA extends React.Component {
                                                     automatically excluded, and child allocation accounts are bucketed
                                                     with the child agency. File A is generated based on GTAS SF-133
                                                     data, which GTAS provides to the Broker on a daily basis during any
-                                                    reporting/revision windows (note that the Broker will take up to 24
-                                                    hours to load these daily files after receiving them from GTAS).
+                                                    reporting/revision windows (note that it will take up to 24
+                                                    hours for changes agencies make in GTAS to be reflected in the Broker).
                                                     For a more detailed explanation of the approach for generating File
                                                     A, see the Practices and Procedures document available on the&nbsp;
                                                     <a
@@ -188,15 +207,18 @@ export default class DetachedFileA extends React.Component {
                                             <div className="file-a-section__label">
                                                 File A: Appropriations Accounts
                                             </div>
+
                                             <div className="file-a-section__date">
-                                                <QuarterPicker
+                                                <PeriodPicker
+                                                    periodArray={this.state.periodArray}
+                                                    passedPeriod={this.state.period}
                                                     pickedYear={this.pickedYear}
-                                                    pickedQuarter={this.pickedQuarter}
-                                                    fy={this.state.fy}
-                                                    quarter={this.state.quarter} />
+                                                    pickedPeriod={this.pickedPeriod}
+                                                    fy={this.state.fy} />
                                             </div>
                                         </div>
                                         <DownloadFile
+                                            fileInfo={this.state.downloadFields}
                                             label="File A: Appropriations Accounts"
                                             errorType={this.props.errorType}
                                             errorMessage={this.props.errorMessage}

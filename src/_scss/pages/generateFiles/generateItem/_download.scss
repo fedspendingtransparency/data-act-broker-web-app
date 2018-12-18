@@ -6,6 +6,7 @@
 
 	.download-title {
 		font-weight: bold;
+		margin-bottom: rem(5);
 	}
 
 	.usa-da-download {
@@ -13,5 +14,26 @@
 		@import "../../../components/buttons/_download";
 		@include downloadButton;
 		text-decoration: none;
+	}
+
+
+	.file-download-btn {
+		background-color: $color-primary;
+		color: $color-white;
+		padding: 0px 16px 8px 16px;
+		margin-top: 10px;
+		display: inline-block;
+		font-size: rem(14);
+		border: 1px solid $color-primary;
+		.usa-da-icon.usa-da-download-report svg {
+			fill: $color-white;
+		}
+		&:hover {
+			color: $color-primary;
+			background-color: $color-white;
+		}
+		&:hover .usa-da-icon.usa-da-download-report svg {
+			fill: $color-primary;
+		}
 	}
 }
