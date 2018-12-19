@@ -5,7 +5,6 @@
 
 import React, { PropTypes } from 'react';
 import Moment from 'moment';
-import { generateProtectedUrls } from '../../../helpers/util';
 
 const propTypes = {
     window: PropTypes.array,
@@ -18,37 +17,6 @@ const defaultProps = {
 };
 
 export default class LandingRequirementsBody extends React.Component {
-    constructor(props) {
-        super(props);
-
-        this.urlPromise = null;
-
-        this.state = {
-            validationRulesUrl: '#'
-        };
-    }
-
-    componentDidMount() {
-        // load the validation rules URL
-        this.urlPromise = generateProtectedUrls();
-        this.urlPromise.promise
-            .then((urls) => {
-                this.setState({
-                    validationRulesUrl: urls['DAIMS_Validation_Rules_v1.2.1.xlsx'],
-                    fabsSampleFileUrl: urls['DAIMS_FABS_Sample_Submission_File_v1.2.csv']
-                });
-
-                this.urlPromise = null;
-            });
-    }
-
-    componentWillUnmount() {
-        // cancel in-flight S3 signing requests when the component unmounts
-        if (this.urlPromise) {
-            this.urlPromise.cancel();
-        }
-    }
-
     windowBlocked() {
         if (!this.props.window) {
             return false;
@@ -103,13 +71,14 @@ export default class LandingRequirementsBody extends React.Component {
                     <li>File F: Sub-award Attributes data</li>
                 </ul>
                 <p>
-                    Submission information is available on the
+                    Submission information is available on the&nbsp;
                     <a
-                        href="https://fiscal.treasury.gov/fsservices/gov/data-trans/dt-daims.htm"
+                        href="https://www.fiscal.treasury.gov/data-transparency/data-act-v1.2.html"
                         target="_blank"
                         rel="noopener noreferrer">
-                        &nbsp;DAIMS
-                    </a> page of the Data Transparency site for the Bureau of the Fiscal Service.
+                        DAIMS
+                    </a>
+                    &nbsp;page of the Data Transparency site for the Bureau of the Fiscal Service.
                 </p>
             </div>
         );
@@ -122,14 +91,14 @@ export default class LandingRequirementsBody extends React.Component {
                         <li>FABS File: Financial Assistance data</li>
                     </ul>
                     <p>
-                        Submission information is available on the
+                        Submission information is available on the&nbsp;
                         <a
                             target="_blank"
                             rel="noopener noreferrer"
-                            href="https://fiscal.treasury.gov/fsservices/gov/data-trans/dt-daims.htm">
-                            &nbsp;DAIMS
+                            href="https://www.fiscal.treasury.gov/data-transparency/data-act-v1.2.html">
+                            DAIMS
                         </a>
-                        page of the Data Transparency site for the Bureau of the Fiscal Service.
+                        &nbsp;page of the Data Transparency site for the Bureau of the Fiscal Service.
                     </p>
                 </div>
             );
