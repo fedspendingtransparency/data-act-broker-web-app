@@ -46,7 +46,7 @@ export default class ResourcesContent extends React.Component {
                 <ul>
                     <li>
                         <a
-                            href="https://fiscal.treasury.gov/files/data-transparency/DAIMS-Validation-Rules-v1.2.1.xlsx"
+                            href="https://www.fiscal.treasury.gov/files/data-transparency/daims-validation-rules-v1.3.xlsx"
                             target="_blank"
                             rel="noopener noreferrer">
                             DAIMS Validation Rules
@@ -66,7 +66,7 @@ export default class ResourcesContent extends React.Component {
                     </li>
                     <li>
                         <a
-                            href="https://community.max.gov/download/attachments/1324878095/DAIMS_Practices_Procedures_v1.2.pdf?version=1&#38;modificationDate=1513972272546&#38;api=v2"
+                            href="https://community.max.gov/download/attachments/754091528/DAIMS-Practices%20and%20Procedures-v1.3.pdf?api=v2"
                             target="_blank"
                             rel="noopener noreferrer">DAIMS Practices &#38; Procedures
                         </a>
@@ -94,12 +94,12 @@ export default class ResourcesContent extends React.Component {
                         report to Treasury including the authoritative sources of the data elements and the submission
                         format. DAIMS information is available on the&nbsp;
                         <a
-                            href="https://www.fiscal.treasury.gov/data-transparency/data-act-v1.2.html"
+                            href="https://www.fiscal.treasury.gov/data-transparency/data-act-v1.3.html"
                             target="_blank"
                             rel="noopener noreferrer">
-                            DAIMS
+                            DAIMS page
                         </a>
-                        &nbsp;page of the Data Transparency site for the Bureau of the Fiscal Service.
+                        &nbsp;of the Data Transparency site for the Bureau of the Fiscal Service.
                     </p>
                     {content}
                 </div>
