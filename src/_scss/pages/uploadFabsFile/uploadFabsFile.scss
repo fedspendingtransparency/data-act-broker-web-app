@@ -23,7 +23,7 @@
 			margin-top: 1%;
 			font-weight: $font-bold;
 			color: $color-gray;
-
+			@import '../../components/tooltip/_tooltips';
 			svg {
 				top: rem(3);
 				margin-left: rem(5);

@@ -367,7 +367,24 @@ class UploadFabsFileValidation extends React.Component {
                                     File Published: {this.state.fabs_meta.valid_rows}
                                     &nbsp;row(s) of data (excluding header) published at
                                     {parsedDate[0]} on {parsedDate[1]}
-                                    <Icons.InfoCircle />
+                                    <span className="tooltip-popover-container">
+                                        <Icons.InfoCircle />
+                                        <span className="tooltip-popover above">
+                                            The published file differs from the submitted file in two ways:
+                                            <br /><br />
+                                            1) It contains derivations based on agency data, as described
+                                            in the DAIMS Practices and Procedures document;
+                                            <br />
+                                            2) Any rows in the submitted file with unresolved critical
+                                            errors will not be published.
+                                            <br />
+                                            3) Its order matches the header order in DAIMS-IDD-D2,
+                                            rather than that in the submitted file.
+                                            <br />
+                                            4) Any extraneous headers, Flex or otherwise, are not carried
+                                             over to the published file.
+                                        </span>
+                                    </span>
                                 </div>
                                 <button
                                     className="pull-right col-xs-3 us-da-disabled-button"
@@ -386,7 +403,24 @@ class UploadFabsFileValidation extends React.Component {
                                     File Published: {this.state.fabs_meta.valid_rows}
                                     &nbsp;row(s) of data (excluding header) published at
                                     {parsedDate[0]} on {parsedDate[1]}
-                                    <Icons.InfoCircle />
+                                    <span className="tooltip-popover-container">
+                                        <Icons.InfoCircle />
+                                        <span className="tooltip-popover above">
+                                            The published file differs from the submitted file in two ways:
+                                            <br /><br />
+                                            1) It contains derivations based on agency data, as described
+                                            in the DAIMS Practices and Procedures document;
+                                            <br />
+                                            2) Any rows in the submitted file with unresolved critical
+                                            errors will not be published.
+                                            <br />
+                                            3) Its order matches the header order in DAIMS-IDD-D2,
+                                            rather than that in the submitted file.
+                                            <br />
+                                            4) Any extraneous headers, Flex or otherwise, are not carried
+                                             over to the published file.
+                                        </span>
+                                    </span>
                                 </div>
                                 <button
                                     className="pull-right col-xs-3 us-da-button"
