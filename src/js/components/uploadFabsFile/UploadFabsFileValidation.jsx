@@ -365,7 +365,8 @@ class UploadFabsFileValidation extends React.Component {
                                 <div className="col-xs-8 button-text-container text-right">
                                     <Icons.CheckCircle />
                                     File Published: {this.state.fabs_meta.valid_rows}
-                                    &nbsp;row(s) published at {parsedDate[0]} on {parsedDate[1]}
+                                    &nbsp;row(s) of data (excluding header) published at
+                                    {parsedDate[0]} on {parsedDate[1]}
                                     <Icons.InfoCircle />
                                 </div>
                                 <button
@@ -383,7 +384,8 @@ class UploadFabsFileValidation extends React.Component {
                                 <div className="col-xs-8 button-text-container text-right">
                                     <Icons.CheckCircle />
                                     File Published: {this.state.fabs_meta.valid_rows}
-                                    &nbsp;row(s) published at {parsedDate[0]} on {parsedDate[1]}
+                                    &nbsp;row(s) of data (excluding header) published at
+                                    {parsedDate[0]} on {parsedDate[1]}
                                     <Icons.InfoCircle />
                                 </div>
                                 <button

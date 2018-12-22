@@ -354,6 +354,7 @@ export default class ValidateValuesFileComponent extends React.Component {
                                     onClick={this.clickedReport.bind(this, this.props.item)}
                                     download={fileName}
                                     rel="noopener noreferrer">
+                                    <p className="file-text-header">Original Submitted File:</p>
                                     {fileName}
                                 </div>
                             </div>
