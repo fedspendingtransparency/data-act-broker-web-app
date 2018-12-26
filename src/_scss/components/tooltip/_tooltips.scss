@@ -4,17 +4,17 @@
   position: relative;
 
   .tooltip-popover {
-    background-color: $color-background;
+    background-color: $color-white;
     border-radius: 5px;
     bottom: 25px;
     box-shadow: 0 0 5px rgba(0,0,0,0.4);
     color: $font-color;
     display: none;
-    left: -118px;
+    left: -130px;
     font-weight: 400;
     padding: 7px 10px;
     position: absolute;
-    width: 260px;
+    width: 300px;
     z-index: 4;
     text-align: left;
   }
