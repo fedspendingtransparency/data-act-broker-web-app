@@ -364,9 +364,30 @@ class UploadFabsFileValidation extends React.Component {
                             <div className="row">
                                 <div className="col-xs-8 button-text-container text-right">
                                     <Icons.CheckCircle />
-                                    File Published: {this.state.fabs_meta.valid_rows}
-                                    &nbsp;row(s) published at {parsedDate[0]} on {parsedDate[1]}
-                                    <Icons.InfoCircle />
+                                    File Published: {this.state.fabs_meta.valid_rows}&nbsp;
+                                    row(s) of data (excluding header) published at &nbsp;
+                                    {parsedDate[0]} on {parsedDate[1]}
+                                    <span className="tooltip-popover-container">
+                                        <Icons.InfoCircle />
+                                        <span className="tooltip-popover above">
+                                            <span>The published file differs from the submitted file in two ways: </span>
+                                            <span>1) It contains derivations based on agency data, as described
+                                        in the DAIMS Practices and Procedures document;
+                                            </span>
+
+                                            <span>2) Any rows in the submitted file with unresolved critical
+                                        errors will not be published.
+                                            </span>
+
+                                            <span>3) Its order matches the header order in DAIMS-IDD-D2,
+                                        rather than that in the submitted file.
+                                            </span>
+
+                                            <span>4) Any extraneous headers, Flex or otherwise, are not carried
+                                         over to the published file.
+                                            </span>
+                                        </span>
+                                    </span>
                                 </div>
                                 <button
                                     className="pull-right col-xs-3 us-da-disabled-button"
@@ -382,9 +403,30 @@ class UploadFabsFileValidation extends React.Component {
                             <div className="row">
                                 <div className="col-xs-8 button-text-container text-right">
                                     <Icons.CheckCircle />
-                                    File Published: {this.state.fabs_meta.valid_rows}
-                                    &nbsp;row(s) published at {parsedDate[0]} on {parsedDate[1]}
-                                    <Icons.InfoCircle />
+                                    File Published: {this.state.fabs_meta.valid_rows}&nbsp;
+                                    row(s) of data (excluding header) published at &nbsp;
+                                    {parsedDate[0]} on {parsedDate[1]}
+                                    <span className="tooltip-popover-container">
+                                        <Icons.InfoCircle />
+                                        <span className="tooltip-popover above">
+                                            <span>The published file differs from the submitted file in two ways: </span>
+                                            <span>1) It contains derivations based on agency data, as described
+                                        in the DAIMS Practices and Procedures document;
+                                            </span>
+
+                                            <span>2) Any rows in the submitted file with unresolved critical
+                                        errors will not be published.
+                                            </span>
+
+                                            <span>3) Its order matches the header order in DAIMS-IDD-D2,
+                                        rather than that in the submitted file.
+                                            </span>
+
+                                            <span>4) Any extraneous headers, Flex or otherwise, are not carried
+                                         over to the published file.
+                                            </span>
+                                        </span>
+                                    </span>
                                 </div>
                                 <button
                                     className="pull-right col-xs-3 us-da-button"
