@@ -29,6 +29,15 @@
 				margin-left: rem(5);
 				margin-right: rem(5);
 			}
+			.tooltip-popover-container .tooltip-popover {
+			    bottom: 37px;
+				left: -141px;
+				span {
+					margin-bottom: 10px;
+					display: block;
+				}
+			}
+
 		}
 
 		& svg.usa-da-icon-check-circle,

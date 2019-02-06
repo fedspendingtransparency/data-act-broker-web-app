@@ -370,19 +370,22 @@ class UploadFabsFileValidation extends React.Component {
                                     <span className="tooltip-popover-container">
                                         <Icons.InfoCircle />
                                         <span className="tooltip-popover above">
-                                            The published file differs from the submitted file in two ways:
-                                            <br /><br />
-                                            1) It contains derivations based on agency data, as described
-                                            in the DAIMS Practices and Procedures document;
-                                            <br />
-                                            2) Any rows in the submitted file with unresolved critical
-                                            errors will not be published.
-                                            <br />
-                                            3) Its order matches the header order in DAIMS-IDD-D2,
-                                            rather than that in the submitted file.
-                                            <br />
-                                            4) Any extraneous headers, Flex or otherwise, are not carried
-                                             over to the published file.
+                                            <span>The published file differs from the submitted file in two ways: </span>
+                                            <span>1) It contains derivations based on agency data, as described
+                                        in the DAIMS Practices and Procedures document;
+                                            </span>
+
+                                            <span>2) Any rows in the submitted file with unresolved critical
+                                        errors will not be published.
+                                            </span>
+
+                                            <span>3) Its order matches the header order in DAIMS-IDD-D2,
+                                        rather than that in the submitted file.
+                                            </span>
+
+                                            <span>4) Any extraneous headers, Flex or otherwise, are not carried
+                                         over to the published file.
+                                            </span>
                                         </span>
                                     </span>
                                 </div>
@@ -406,19 +409,22 @@ class UploadFabsFileValidation extends React.Component {
                                     <span className="tooltip-popover-container">
                                         <Icons.InfoCircle />
                                         <span className="tooltip-popover above">
-                                            The published file differs from the submitted file in two ways:
-                                            <br /><br />
-                                            1) It contains derivations based on agency data, as described
-                                            in the DAIMS Practices and Procedures document;
-                                            <br />
-                                            2) Any rows in the submitted file with unresolved critical
-                                            errors will not be published.
-                                            <br />
-                                            3) Its order matches the header order in DAIMS-IDD-D2,
-                                            rather than that in the submitted file.
-                                            <br />
-                                            4) Any extraneous headers, Flex or otherwise, are not carried
-                                             over to the published file.
+                                            <span>The published file differs from the submitted file in two ways: </span>
+                                            <span>1) It contains derivations based on agency data, as described
+                                        in the DAIMS Practices and Procedures document;
+                                            </span>
+
+                                            <span>2) Any rows in the submitted file with unresolved critical
+                                        errors will not be published.
+                                            </span>
+
+                                            <span>3) Its order matches the header order in DAIMS-IDD-D2,
+                                        rather than that in the submitted file.
+                                            </span>
+
+                                            <span>4) Any extraneous headers, Flex or otherwise, are not carried
+                                         over to the published file.
+                                            </span>
                                         </span>
                                     </span>
                                 </div>
