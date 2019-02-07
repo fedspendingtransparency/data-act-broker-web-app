@@ -93,11 +93,11 @@ export const availablePeriodsInFY = (fy) => {
     }
 
     const available = [];
-    let firstPeriod = 1;
-    if (sanitizedFY === utils.earliestFileAYear) {
-        // in the first year of DATA Act reporting, the first period is not available
-        firstPeriod = 4;
-    }
+    const firstPeriod = 1;
+    // if (sanitizedFY === utils.earliestFileAYear) {
+    //     // in the first year of DATA Act reporting, the first period is not available
+    //     firstPeriod = 1;
+    // }
 
     for (let i = firstPeriod; i <= lastPeriod.period; i++) {
         if (sanitizedFY >= utils.earliestFileAYear) {

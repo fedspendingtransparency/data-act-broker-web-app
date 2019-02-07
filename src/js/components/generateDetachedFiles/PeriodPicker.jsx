@@ -37,7 +37,7 @@ export default class PeriodPicker extends React.Component {
                 { value: 2, text: '02 - November' },
                 { value: 3, text: '03 - December | Quarter 1' },
                 { value: 4, text: '04 - January' },
-                { value: 5, text: '05 - Feburary' },
+                { value: 5, text: '05 - February' },
                 { value: 6, text: '06 - March | Quarters 1 - 2' },
                 { value: 7, text: '07 - April' },
                 { value: 8, text: '08 - May' },
@@ -137,6 +137,7 @@ export default class PeriodPicker extends React.Component {
     render() {
         const minPeriod = utils.getPeriodTextFromValue(this.state.unavailablePeriod + 1);
         const maxPeriod = utils.getPeriodTextFromValue(this.props.passedPeriod);
+        const maxDropdownOptions = this.state.dropdownOptions.slice(0, this.props.passedPeriod);
         return (
             <div className="period-picker">
                 <div className="period-picker__fy">
@@ -150,7 +151,7 @@ export default class PeriodPicker extends React.Component {
                         defaultDropdownText={`${minPeriod} - ${maxPeriod}`}
                         selectedDropdownOption={this.state.selectedDropdownOption}
                         updateDropdownModel={this.updateDropdownModel}
-                        fieldOptions={this.state.dropdownOptions} />
+                        fieldOptions={maxDropdownOptions} />
                 </div>
             </div>
         );
