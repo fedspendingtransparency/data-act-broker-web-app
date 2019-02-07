@@ -5,7 +5,6 @@
 
 import React, { PropTypes } from 'react';
 import Moment from 'moment';
-import { generateProtectedUrls } from '../../../helpers/util';
 
 const propTypes = {
     window: PropTypes.array,
@@ -18,37 +17,6 @@ const defaultProps = {
 };
 
 export default class LandingRequirementsBody extends React.Component {
-    constructor(props) {
-        super(props);
-
-        this.urlPromise = null;
-
-        this.state = {
-            validationRulesUrl: '#'
-        };
-    }
-
-    componentDidMount() {
-        // load the validation rules URL
-        this.urlPromise = generateProtectedUrls();
-        this.urlPromise.promise
-            .then((urls) => {
-                this.setState({
-                    validationRulesUrl: urls['DAIMS_Validation_Rules_v1.2.1.xlsx'],
-                    fabsSampleFileUrl: urls['DAIMS_FABS_Sample_Submission_File_v1.2.csv']
-                });
-
-                this.urlPromise = null;
-            });
-    }
-
-    componentWillUnmount() {
-        // cancel in-flight S3 signing requests when the component unmounts
-        if (this.urlPromise) {
-            this.urlPromise.cancel();
-        }
-    }
-
     windowBlocked() {
         if (!this.props.window) {
             return false;

@@ -16,6 +16,7 @@
     & .usa-da-success-txt{
         color: $color-green-light;
         font-weight: 600;
+		margin-bottom: 0;
     }
     & .usa-da-warning-txt{
         color: $color-gold;
@@ -35,6 +36,11 @@
 
     .usa-da-validate-item-file-name {
     	@include rightSideFileName;
+		.file-text-header {
+		    margin-bottom: 0.25rem;
+		    font-weight: bold;
+		    margin-top: 0.5rem;
+		}
     }
 
     .usa-da-validate-item-file-section-correct-button {

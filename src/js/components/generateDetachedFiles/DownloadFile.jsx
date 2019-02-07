@@ -7,6 +7,7 @@ import React, { PropTypes } from 'react';
 import * as Icons from '../SharedComponents/icons/Icons';
 
 const propTypes = {
+    fileInfo: PropTypes.string,
     errorType: PropTypes.string,
     errorMessage: PropTypes.string,
     url: PropTypes.string,
@@ -14,6 +15,7 @@ const propTypes = {
 };
 
 const defaultProps = {
+    fileInfo: '',
     url: '',
     errorType: '',
     errorMessage: '',
@@ -38,14 +40,17 @@ export default class DownloadFile extends React.Component {
                     <div className={`usa-da-generate-download${showDownload}`}>
                         <div className="row">
                             <div className="col-sm-12">
-                                <div className="download-title text-right">
+                                <div className="download-title text-center">
                                     Download {this.props.label}
+                                </div>
+                                <div className="col-sm-12">
+                                    {this.props.fileInfo}
                                 </div>
                                 <a
                                     href={this.props.url}
                                     target="_blank"
                                     rel="noopener noreferrer"
-                                    className="usa-da-download pull-right">
+                                    className="usa-da-download file-download-btn">
                                     <span className="usa-da-icon usa-da-download-report">
                                         <Icons.CloudDownload />
                                     </span>

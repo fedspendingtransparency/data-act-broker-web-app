@@ -57,7 +57,7 @@ const parseRecentActivity = (submissions) => {
 };
 
 export const loadSubmissionList = (
-    page = 1, limit = 10, certified = false, sort = 'updated', order = 'desc', d2Submission = false, filters = {}) => {
+    page = 1, limit = 10, certified = false, sort = 'updated', order = 'desc', fabs = false, filters = {}) => {
     const deferred = Q.defer();
 
     Request.post(`${kGlobalConstants.API}list_submissions/`)
@@ -67,7 +67,7 @@ export const loadSubmissionList = (
             certified: certified.toString(),
             sort,
             order,
-            d2_submission: d2Submission,
+            fabs,
             filters
         })
         .end((err, res) => {
