@@ -131,21 +131,21 @@ describe('periodPickerHelper', () => {
                 year: 2020
             });
         });
-        it('for FY 2017, it should return the latest period, but not the first 3 periods', () => {
+        it('for FY 2017, it should return all periods regardless', () => {
             mockDate('2020-06-01');
             const output = periodPickerHelper.availablePeriodsInFY(2017);
             expect(output).toEqual({
                 period: 12,
-                periodArray: [4, 5, 6, 7, 8, 9, 10, 11, 12],
+                periodArray: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12],
                 year: 2017
             });
         });
-        it('if the system clock returns a date within FY 2017, it should return a period that have GTAS data available, excluding period 3', () => {
+        it('if the system clock returns a date within FY 2017, it should return a period that have GTAS data available, in addition to periods starting in October', () => {
             mockDate('2017-08-30');
             const output = periodPickerHelper.availablePeriodsInFY(2017);
             expect(output).toEqual({
                 period: 10,
-                periodArray: [4, 5, 6, 7, 8, 9, 10],
+                periodArray: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10],
                 year: 2017
             });
         });
