@@ -200,6 +200,14 @@ export default class DetachedFileA extends React.Component {
                                                     &nbsp;page of the Data Transparency site of the
                                                     Bureau of the Fiscal Service.
                                                 </p>
+                                                <p>
+                                                    Note: Because there is no Period 01 (October) reporting window in GTAS, a
+                                                    generated File A for a new Fiscal Year is not available until the Period 02
+                                                    GTAS reporting window.
+
+                                                    While Period 01 data is automatically included with data from later periods
+                                                    (because File A Data is cumulative within the Fiscal year), it is not selectable on its own.
+                                                </p>
                                             </div>
                                         </div>
                                         <div className="file-a-section">
