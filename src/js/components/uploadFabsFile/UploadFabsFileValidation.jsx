@@ -370,7 +370,9 @@ class UploadFabsFileValidation extends React.Component {
                                     <span className="tooltip-popover-container">
                                         <Icons.InfoCircle />
                                         <span className="tooltip-popover above">
-                                            <span>The published file differs from the submitted file in two ways: </span>
+                                            <span>
+                                                The published file differs from the submitted file in four ways:
+                                            </span>
                                             <span>1) It contains derivations based on agency data, as described
                                         in the DAIMS Practices and Procedures document;
                                             </span>
