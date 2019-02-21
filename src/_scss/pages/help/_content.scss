@@ -4,11 +4,23 @@
 	margin: 0 0 40px;
 
 	.usa-da-help-content__header {
-		margin-bottom: 0;
+		margin-bottom: 1rem;
+	}
+
+	.usa-da-help-content__date {
+		font-size: 2rem;
+	}
+
+	.usa-da-help-content__content {
+		margin-top: 1rem;
+	}
+
+	.usa-da-help-content__list {
+		margin-bottom: 0.5rem;
 	}
 	
 	.usa-da-help-content-subheading {
-		margin-top: -4rem;
+		margin-top: 0;
 	}
 
 	.resources-page-content {
