@@ -69,6 +69,8 @@ export default class UploadFabsFileError extends React.Component {
                 case 3:
                     header = 'This file has already been submitted in another submission';
                     break;
+                case 4:
+                    header = 'This file does not exist';
                 default:
                     header = 'There was an error with your submission. Please contact the Service Desk';
                     break;

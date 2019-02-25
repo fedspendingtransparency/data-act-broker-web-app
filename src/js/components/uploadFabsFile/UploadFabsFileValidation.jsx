@@ -2,7 +2,7 @@
 * UploadFabsFileValidation.jsx
 * Created by Minahm Kim
 */
-
+/* eslint-disable */
 import ReactCSSTransitionGroup from "react-addons-css-transition-group";
 
 import React, { PropTypes } from "react";
@@ -104,8 +104,17 @@ class UploadFabsFileValidation extends React.Component {
                     fabs_meta: response.fabs_meta
                 });
             })
-            .catch((err) => {
-                console.error(err);
+            .catch((error) => {
+                // Invalid Submission ID
+                if (error.httpStatus === 400) {
+                    console.log("errMsgElse");
+                    const errMsg = "This is not a valid submission. Check your validation URL and try again.";
+                    this.setState({
+                        published: 'unpublished',
+                        error: 4,
+                        error_message: errMsg
+                    });
+                }
             });
     }
 
@@ -146,12 +155,18 @@ class UploadFabsFileValidation extends React.Component {
 
     checkFileStatus(submissionID) {
         // callback to check file status
+
+        console.log("checkFileStatus1")
         ReviewHelper.fetchStatus(submissionID)
             .then((response) => {
+
+                console.log("checkFileStatus2")
                 if (this.isUnmounted) {
+                    console.log("unmounted")
                     return;
                 }
 
+                console.log("checkFileStatusThen");
                 const fabsData = response.fabs;
                 if (fabsData.status !== 'uploading' && fabsData.status !== 'running') {
                     let success = false;
@@ -188,9 +203,12 @@ class UploadFabsFileValidation extends React.Component {
             })
             .catch((err) => {
                 if (err.status === 400) {
+                    console.log("checkFileStatusCatch");
                     this.setState({ error: 2, submit: false });
                 }
             });
+
+        console.log("checkfilestatusOut");
     }
 
     checkFile(submissionID) {
@@ -270,6 +288,7 @@ class UploadFabsFileValidation extends React.Component {
     // 1: Submission is already published
     // 2: Fetching file metadata failed
     // 3: File already has been submitted in another submission
+    // 4: Submission ID does not exist
 
     uploadFileHelper(local, submission) {
         if (local) {
@@ -316,6 +335,7 @@ class UploadFabsFileValidation extends React.Component {
     }
 
     render() {
+        console.log("rendering");
         let validationButton = null;
         let revalidateButton = null;
         let downloadButton = null;
@@ -330,15 +350,18 @@ class UploadFabsFileValidation extends React.Component {
         const fileData = this.state.jobResults[type.requestName];
         const status = fileData.job_status;
         let errorMessage = null;
-        validationBox = (<ValidateDataFileContainer
-            type={type}
-            data={this.state.jobResults}
-            setUploadItem={this.uploadFile.bind(this)}
-            updateItem={this.uploadFile.bind(this)}
-            publishing={this.state.published === "publishing"}
-            agencyName={this.state.agency} />);
+        if(this.state.error === 0 || this.state.published === "publishing" || this.state.validationFinished) {
+            validationBox = (<ValidateDataFileContainer
+                type={type}
+                data={this.state.jobResults}
+                setUploadItem={this.uploadFile.bind(this)}
+                updateItem={this.uploadFile.bind(this)}
+                publishing={this.state.published === "publishing"}
+                agencyName={this.state.agency}/>);
+        }
         if (fileData.file_status === "complete" && this.state.validationFinished &&
             this.state.published !== "publishing") {
+            console.log("passed into fileData");
             if (status !== "invalid" || fileData.file_status === "complete") {
                 validationBox = (<ValidateValuesFileContainer
                     type={type}
@@ -400,6 +423,7 @@ class UploadFabsFileValidation extends React.Component {
                     );
                 }
                 else {
+                    console.log("elsed");
                     downloadButton = (
                         <div className="col-xs-12">
                             <div className="row">
@@ -467,6 +491,7 @@ class UploadFabsFileValidation extends React.Component {
         }
 
         if (this.state.published === "publishing" && this.state.error !== 0) {
+            console.log("marked as publishing");
             errorMessage = (<UploadFabsFileError
                 errorCode={this.state.error}
                 type="error"
@@ -480,10 +505,12 @@ class UploadFabsFileValidation extends React.Component {
                 </button>);
         }
         else if (this.state.published === "unpublished" && this.state.error !== 0) {
+            console.log("unpublished elif");
             errorMessage = (<UploadFabsFileError
                 errorCode={this.state.error}
                 type="error"
                 message={this.state.error_message} />);
+            validationBox = null;
             validationButton = null;
             revalidateButton = null;
         }
