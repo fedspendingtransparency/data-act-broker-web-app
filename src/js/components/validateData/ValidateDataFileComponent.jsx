@@ -95,7 +95,6 @@ export default class ValidateDataFileComponent extends React.Component {
         if (!item) {
             return;
         }
-
         let headerTitle = 'Validating...';
         let isError = false;
         let hasErrorReport = false;
