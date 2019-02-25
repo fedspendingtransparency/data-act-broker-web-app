@@ -137,7 +137,7 @@ export const convertQuarterToPeriod = (quarter) => {
 export const getPeriodTextFromValue = (value) => {
     const periodDictionary = {
         4: "04 - January",
-        5: "05 - Feburary",
+        5: "05 - February",
         6: "06 - March",
         7: "07 - April",
         8: "08 - May",

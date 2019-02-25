@@ -50,12 +50,13 @@ export default class UploadFabsFileError extends React.Component {
         if (this.state.type === 'success') {
             header = 'Your submission has been successfully published';
         }
-        else if (this.props.error) {
+        else if (this.props.error.header || this.props.error.description) {
             header = this.props.error.header;
             message = this.props.error.description;
         }
         else if (this.props.message) {
-            header = this.props.message;
+            header = 'Upload Error';
+            message = this.props.message;
         }
         else {
             switch (this.props.errorCode) {

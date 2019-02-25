@@ -134,11 +134,8 @@ class UploadFabsFileValidation extends React.Component {
                 this.checkFileStatus(this.state.submissionID);
             })
             .catch((error) => {
-                let errMsg = "An error occurred while attempting to revalidate the submission. " +
+                const errMsg = error.message || "An error occurred while attempting to revalidate the submission. " +
                     "Please contact the Service Desk.";
-                if (error.httpStatus === 400 || error.httpStatus === 403) {
-                    errMsg = error.message;
-                }
 
                 this.setState({
                     error: 4,
@@ -259,7 +256,10 @@ class UploadFabsFileValidation extends React.Component {
                             this.setState({ error: 1, error_message: error.message, published: 'unpublished' });
                         }
                         else if (error.httpStatus === 500) {
-                            this.setState({ error: 4, published: 'unpublished' });
+                            this.setState({ error: 4, error_message: error.message, published: 'unpublished' });
+                        }
+                        else {
+                            this.setState({ error: 1, error_message: error.message, published: 'unpublished' });
                         }
                     });
             }
@@ -370,7 +370,9 @@ class UploadFabsFileValidation extends React.Component {
                                     <span className="tooltip-popover-container">
                                         <Icons.InfoCircle />
                                         <span className="tooltip-popover above">
-                                            <span>The published file differs from the submitted file in two ways: </span>
+                                            <span>
+                                                The published file differs from the submitted file in four ways:
+                                            </span>
                                             <span>1) It contains derivations based on agency data, as described
                                         in the DAIMS Practices and Procedures document;
                                             </span>
@@ -409,7 +411,7 @@ class UploadFabsFileValidation extends React.Component {
                                     <span className="tooltip-popover-container">
                                         <Icons.InfoCircle />
                                         <span className="tooltip-popover above">
-                                            <span>The published file differs from the submitted file in two ways: </span>
+                                            <span>The published file differs from the submitted file in four ways: </span>
                                             <span>1) It contains derivations based on agency data, as described
                                         in the DAIMS Practices and Procedures document;
                                             </span>
