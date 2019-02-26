@@ -105,13 +105,18 @@ class UploadFabsFileValidation extends React.Component {
                 });
             })
             .catch((error) => {
-                // Invalid Submission ID
                 if (error.httpStatus === 400) {
                     const errMsg = "Submission does not exist or has been deleted.";
                     this.setState({
                         published: 'unpublished',
                         error: 4,
                         error_message: errMsg
+                    });
+                }
+                else {
+                    this.setState({
+                        published: 'unpublished',
+                        error_message: error.httpStatus
                     });
                 }
             });
