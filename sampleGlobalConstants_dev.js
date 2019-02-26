@@ -1,5 +1,5 @@
 // Development API path
-const kGlobalConstants = {
+export const kGlobalConstants = {
     API: '',
     LOCAL_ROOT: '',
     CAS_ROOT: '',
@@ -12,4 +12,3 @@ const kGlobalConstants = {
     STAGING: false,
     PROD: false
 };
-export default kGlobalConstants;
