@@ -22,10 +22,10 @@ export default class RevalidateButtons extends React.Component {
                 <h6>Are you sure you want to revalidate your submission?</h6>
                 <p>Revalidation cannot be undone and will trigger the following:</p>
                 <ul>
-                    <li>Your submission will be reset and the submission process will be restarted</li>
-                    <li>You will be redirected to the initial submission phase to revalidate Files A, B, and C</li>
-                    <li>Files D1, D2, E and F must be regenerated</li>
-                    <li>Cross-file validations must be run again</li>
+                    <li>You will be redirected to the initial submission phase, where Files A, B, and C will
+                        automatically be revalidated.</li>
+                    <li>Files D1, D2, E and F must be regenerated.</li>
+                    <li>Cross-file validations must be run again.</li>
                 </ul>
                 <div className="row">
                     <div className="col-md-6 mb-10">
