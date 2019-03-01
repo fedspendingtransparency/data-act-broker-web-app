@@ -7,37 +7,38 @@ import React, { PropTypes } from 'react';
 
 const propTypes = {
     closeModal: PropTypes.func,
-    clickedRevalidateButton: PropTypes.func,
-    revalidationThreshold: PropTypes.string
+    clickedRevalidateButton: PropTypes.func
 };
 
 const defaultProps = {
     closeModal: null,
-    clickedRevalidateButton: null,
-    revalidationThreshold: ''
+    clickedRevalidateButton: null
 };
 
 export default class RevalidateButtons extends React.Component {
     render() {
         return (
-            <div>
-                <div className="row">
-                    <div className="col-md-12 mb-10 text-center" id="certify-check">
-                        This submission was created prior to {this.props.revalidationThreshold}.
-                        Please revalidate this submission before certifying it.
-                    </div>
-                </div>
+            <div className="revalidate-content">
+                <h6>Are you sure you want to revalidate your submission?</h6>
+                <p>Revalidation cannot be undone and will trigger the following:</p>
+                <ul>
+                    <li>Your submission will be reset and the submission process will be restarted</li>
+                    <li>You will be redirected to the initial submission phase to revalidate Files A, B, and C</li>
+                    <li>Files D1, D2, E and F must be regenerated</li>
+                    <li>Cross-file validations must be run again</li>
+                </ul>
                 <div className="row">
                     <div className="col-md-6 mb-10">
                         <button
                             onClick={this.props.clickedRevalidateButton}
-                            className="usa-da-button btn-full btn-primary">
-                            Revalidate Submission
+                            className="usa-da-button btn-full revalidate-button"
+                            id="revalidate-button">
+                            Revalidate
                         </button>
                     </div>
                     <div className="col-md-6 mb-10">
-                        <button onClick={this.props.closeModal} className="usa-da-button btn-full decline-button">
-                            Don&apos;t Revalidate
+                        <button onClick={this.props.closeModal} className="usa-da-button btn-full cancel-button">
+                            Cancel
                         </button>
                     </div>
                 </div>

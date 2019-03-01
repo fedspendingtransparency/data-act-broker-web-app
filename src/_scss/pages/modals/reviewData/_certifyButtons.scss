@@ -12,4 +12,24 @@
             color:$color-gray-dark;
         }
 	}
+
+	&.revalidate-button {
+		@include baseButton;
+		background: $color-green;
+		color: $color-white;
+
+		&:hover {
+			background: $color-green-dark;
+		}
+	}
+
+	&.cancel-button {
+		@include baseButton;
+		background: $color-secondary;
+		color: $color-white;
+
+		&:hover {
+			background: $color-secondary-dark;
+		}
+	}
 }
