@@ -27,6 +27,8 @@ export default class RevalidateButtons extends React.Component {
                     <li>Files D1, D2, E and F must be regenerated.</li>
                     <li>Cross-file validations must be run again.</li>
                 </ul>
+                <p>Revalidation will not alter a previously-certified submission, until and if you certify the
+                    revalidated submission.</p>
                 <div className="row">
                     <div className="col-md-6 mb-10">
                         <button
