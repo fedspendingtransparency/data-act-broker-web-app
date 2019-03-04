@@ -3,66 +3,15 @@
 
 .period-picker {
     @include display(flex);
-    padding: 0 rem(15);
-
-    ul.period-picker__list {
-        @include unstyled-list;
-
-        @include display(flex);
-        @include justify-content(center);
-        @include align-items(center);
-    }
-
-    li.period-picker__list-item {
-        margin-right: rem(1);
-        margin-top: 0;
-
-        &:last-child {
-            margin-right: 0;
-        }
-    }
-
-    button.period-picker__quarter {
-        @include button-unstyled;
-        color: $color-white;
-        text-align: center;
-        line-height: rem(22);
-        font-size: rem(12);
-        font-weight: 700;
-
-        background-color: $color-primary-alt-light;
-
-        padding: 0 rem(20);
-
-        &.period-picker__quarter_first {
-            border-radius: rem(11) 0 0 rem(11);
-        }
-        &.period-picker__quarter_last {
-            border-radius: 0 rem(11) rem(11) 0;
-        }
-
-        &:hover, &:active, &.period-picker__quarter_active {
-            background-color:  $color-primary;
-        }
-
-        &[disabled] {
-            background-color: $color-gray-lightest;
-            cursor: not-allowed;
-            color: $color-gray-light;
-        }
-    }
-}
-
-.period-picker-dropdown {
-    @include display(flex);
+    margin-top: rem(5);
     padding-left: rem(30);
 
-    .period-picker-dropdown__header {
+    .period-picker__header {
         @include display(flex);
         @include justify-content(flex-start);
         @include align-items(center);
 
-        .period-picker-dropdown__icon {
+        .period-picker__icon {
             @include flex(0 0 rem(30));
             margin-right: rem(25);
 
@@ -73,24 +22,23 @@
             }
         }
 
-        .period-picker-dropdown__dropdown-container {
+        .period-picker__dropdown-container {
             @include flex(0 1 auto);
             @include align-self(stretch);
             position: relative;
         }
 
-        .period-picker-dropdown__button {
+        .period-picker__button {
             @include button-unstyled;
-
             @include display(flex);
             @include justify-content(center);
             @include align-items(center);
+            padding: rem(3) rem(10);
             background-color: $color-gray-lightest;
-            padding: 3px 10px;
-            border: 1px solid $color-gray;
+            border: rem(1) solid $color-gray;
         }
 
-        .period-picker-dropdown__button-text {
+        .period-picker__button-text {
             @include flex(1 1 auto);
             margin-right: rem(15);
             color: $color-gray;
@@ -98,7 +46,7 @@
             line-height: rem(25);
         }
 
-        .period-picker-dropdown__button-icon {
+        .period-picker__button-icon {
             @include flex(0 0 rem(20));
             svg {
                 margin-top: 5px;
@@ -109,23 +57,23 @@
         }
     }
 
-    .period-picker-dropdown__list, .multiSelect__list {
+    .period-picker__list {
         @import '../../abstract/mixins/utilities';
-        @include unstyled-list;
         @import '../../components/tooltip/_dropdownTooltip';
+        @include unstyled-list;
         position: absolute;
         left: 0;
         right: 0;
         border: 1px solid $color-gray-light;
         background-color: $color-white;
-
+        width: 100%;
         z-index: 10;
 
-        &.period-picker-dropdown__list_hidden {
+        &.period-picker__list_hidden {
             display: none;
         }
 
-        .period-picker-dropdown__list-item {
+        .period-picker__list-item {
             border-top: 1px solid $color-gray-light;
 
             &:first-child {
@@ -133,82 +81,28 @@
             }
         }
 
-        .period-picker-dropdown__list-button {
+        .period-picker__list-button {
             @include button-unstyled;
             color: $color-gray;
-            font-size: rem(18);
-            text-align: center;
-            padding: rem(10) rem(15);
-            width: 100%;
-        }
-    }
-
-    .period-picker-dropdown {
-        min-width: 240px;
-    }
-
-    .multiSelect__list  {
-        width: 100%;
-
-        & li {
             background-color: $color-white;
-        }
-
-        &:hover li, .selected {
-            background-color: $color-gray-lightest;
-        }
-
-        & li:hover,
-        & li:hover ~ li {
-            background-color: $color-white;
-        }
-
-        .period-picker-dropdown__list-button {
-            text-align: left;
-            padding: 0.5rem;
-            overflow: auto;
             font-size: rem(13);
-            border-top: 1px solid $color-gray-light;
-            span:last-child {
+            padding: rem(5);
+            width: 100%;
+
+            span.period-picker__quarter {
+                font-weight: 700;
                 float: right;
-                font-weight: $font-bold;
-            }
-            span:first-child {
-                float: left;
-                font-weight: $font-normal;
             }
 
-        }
-    }
+            &.period-picker__list-button_active {
+                background-color: $color-gray-lightest;
+            }
 
-    .multiSelect__list.override li {
-        background-color:$color-gray-lightest;
-    }
-
-    .multiSelect__list-item.selected, .multiSelect__list-item.selected {
-        background-color: $color-gray-lightest;
-    }
-
-    .multiSelect__list-item.selected ~ li {
-        background-color: $color-white;
-
-        &:hover {
-            background-color: $color-gray-lightest;
-        }
-    }
-
-    .multiSelect__list-item {
-        border-top: 1px solid $color-gray-light;
-        width: 100%;
-
-        &.disabled button {
-            cursor: not-allowed;
-            background-color: $color-gray-lightest;
-            color:$color-gray-lighter;
-        }
-
-        &:first-child {
-            border-top: none;
+            &:disabled {
+                cursor: not-allowed;
+                background-color: $color-gray-lightest;
+                color:$color-gray-lighter;
+            }
         }
     }
 }
