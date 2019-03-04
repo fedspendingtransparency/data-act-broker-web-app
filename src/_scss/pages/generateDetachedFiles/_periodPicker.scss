@@ -74,10 +74,14 @@
         }
 
         .period-picker__list-item {
-            border-top: 1px solid $color-gray-light;
-
+            .period-picker__list-button {
+                border-top: 1px solid $color-gray-light;
+            }
+            
             &:first-child {
-                border-top: none;
+                .period-picker__list-button {
+                    border-top: none;
+                }
             }
         }
 
