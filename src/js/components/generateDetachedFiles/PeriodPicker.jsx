@@ -4,19 +4,15 @@
  */
 
 import React, { PropTypes } from 'react';
-import _ from 'lodash';
-import FYPicker from './FYPicker';
-
-
-import MultiSelectionBox from './MultiSelectionBox';
 import * as utils from '../../helpers/util';
+import { AngleDown } from '../SharedComponents/icons/Icons';
+import PeriodButton from './PeriodButton';
+
 
 const propTypes = {
-    passedPeriod: PropTypes.number,
+    period: PropTypes.number,
     periodArray: PropTypes.array,
-    fy: PropTypes.string.isRequired,
-    pickedPeriod: PropTypes.func.isRequired,
-    pickedYear: PropTypes.func.isRequired
+    pickedPeriod: PropTypes.func.isRequired
 };
 
 export default class PeriodPicker extends React.Component {
@@ -24,134 +20,114 @@ export default class PeriodPicker extends React.Component {
         super(props);
 
         this.state = {
-            selectedDropdownOption: null,
-            dropdownOptions: [
-                {
-                    value: 1,
-                    text: '01 - October',
-                    disabled: true,
-                    tooltip: `October is not directly selectable since there is no Period 1 reporting
-                     window in GTAS. Because File A Data is cumulative within the Fiscal year,
-                     Period 1 data is automatically included with data from later periods.`
-                },
-                { value: 2, text: '02 - November' },
-                { value: 3, text: '03 - December | Quarter 1' },
-                { value: 4, text: '04 - January' },
-                { value: 5, text: '05 - February' },
-                { value: 6, text: '06 - March | Quarters 1 - 2' },
-                { value: 7, text: '07 - April' },
-                { value: 8, text: '08 - May' },
-                { value: 9, text: '09 - June | Quarters 1 - 3' },
-                { value: 10, text: '10 - July' },
-                { value: 11, text: '11 - August' },
-                { value: 12, text: '12 - September | Quarters 1 - 4' }
-            ],
-            unavailablePeriod: 0
+            expanded: false,
+            hoveredPeriod: 1
         };
 
-        this.updateDropdownModel = this.updateDropdownModel.bind(this);
-        this.setDropdownDefaults = this.setDropdownDefaults.bind(this);
+        this.toggleList = this.toggleList.bind(this);
+        this.clickedPeriod = this.clickedPeriod.bind(this);
+        this.closeMenu = this.closeMenu.bind(this);
+        this.hoveredPeriod = this.hoveredPeriod.bind(this);
+        this.highlightCurrentSelection = this.highlightCurrentSelection.bind(this);
     }
 
-    componentDidMount() {
-        this.setDropdownDefaults();
+    componentWillUnmount() {
+        // remove the event listener
+        document.removeEventListener('click', this.closeMenu);
     }
 
-    componentDidUpdate(prevProps) {
-        if (prevProps.fy !== this.props.fy) {
-            this.updateDropdownForFyChange(this.props.passedPeriod);
-        }
-    }
-
-    setDropdownDefaults() {
-        if (this.props.passedPeriod) {
-            const prevDropdownOptions = this.state.dropdownOptions;
-            prevDropdownOptions[this.props.passedPeriod - 1].selected = true;
-            this.setState({
-                selectedDropdownOption: this.props.passedPeriod - 1
-            });
-        }
-    }
-
-    updateDropdownForFyChange(pickedOption) {
-        const dropdownOptions = this.state.dropdownOptions;
-
-        // Reset Dropdown Options to default
-        for (let i = 1; i < dropdownOptions.length; i++) {
-            dropdownOptions[i].selected = null;
-            dropdownOptions[i].tooltip = null;
-            dropdownOptions[i].disabled = null;
-        }
-
-        // Get the range of all unavailable periods
-        let parsedRange = _.range(this.props.periodArray[0]);
-
-        this.setState({
-            unavailablePeriod: this.props.periodArray[0] === 1 ? 0 : this.props.periodArray[0]
-        });
-
-        if (this.props.periodArray.length < 1) {
-            parsedRange = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12];
-        }
-
-        if (!_.isEmpty(parsedRange)) {
-            for (let i = 1; i < parsedRange.length; i++) {
-                const loopValue = parsedRange[i];
-                dropdownOptions[loopValue].disabled = true;
-                dropdownOptions[loopValue].tooltip = 'DATA Act reporting began in FY17Q2';
-            }
-            this.setState({
-                dropdownOptions,
-                selectedDropdownOption: pickedOption - 1
-            });
-        }
-    }
-
-    updateDropdownModel(rawPickedOption) {
-        const pickedOption = rawPickedOption - 1;
-        const prevDropdownOptions = this.state.dropdownOptions;
-        const selectedField = this.state.selectedDropdownOption;
-
-        // Pass the selected period and the unavailable range
-        this.props.pickedPeriod(rawPickedOption, this.state.unavailablePeriod + 1);
-
-        if (!selectedField) {
-            prevDropdownOptions[pickedOption].selected = true;
-            this.setState({
-                dropdownOptions: prevDropdownOptions,
-                selectedDropdownOption: pickedOption
-            });
-        }
-
-        else if (selectedField === pickedOption) {
+    closeMenu(e) {
+        if (this.pickerRef && this.pickerRef.contains(e.target)) {
+            // user clicked inside the dropdown, don't auto-close because it is the user interacting
+            // with the dropdown
             return;
         }
-        prevDropdownOptions[selectedField].selected = null;
-        prevDropdownOptions[pickedOption].selected = true;
         this.setState({
-            dropdownOptions: prevDropdownOptions,
-            selectedDropdownOption: pickedOption
+            expanded: false
+        }, () => {
+            // remove the event listener
+            document.removeEventListener('click', this.closeMenu);
         });
+    }
+
+    toggleList(e) {
+        e.preventDefault();
+        this.setState({
+            expanded: !this.state.expanded
+        }, () => {
+            if (this.state.expanded) {
+                // subscribe to click events on the page to auto-close the menu
+                document.addEventListener('click', this.closeMenu);
+            }
+            else {
+                // remove the event listener
+                document.removeEventListener('click', this.closeMenu);
+            }
+        });
+    }
+
+    clickedPeriod(period) {
+        this.props.pickedPeriod(period);
+        // Close the dropdown after a period has been selected
+        this.setState({
+            expanded: false
+        });
+    }
+
+    hoveredPeriod(hoveredPeriod) {
+        // Highlight periods before and including the one that is currently hovered over
+        // to indicate that a selection is cumulative
+        this.setState({
+            hoveredPeriod
+        });
+    }
+
+    highlightCurrentSelection() {
+        // Use the currently selected period to determine which options to highlight
+        this.hoveredPeriod(this.props.period);
     }
 
     render() {
-        const minPeriod = utils.getPeriodTextFromValue(this.state.unavailablePeriod + 1);
-        const maxPeriod = utils.getPeriodTextFromValue(this.props.passedPeriod);
-        const maxDropdownOptions = this.state.dropdownOptions.slice(0, this.props.passedPeriod);
-        return (
-            <div className="period-picker">
-                <div className="period-picker__fy">
-                    <FYPicker
-                        fy={this.props.fy}
-                        pickedYear={this.props.pickedYear} />
-                </div>
+        const minPeriod = utils.getPeriodTextFromValue(this.props.periodArray[0]);
+        const maxPeriod = utils.getPeriodTextFromValue(this.props.period);
+        const currentSelection = `${minPeriod} - ${maxPeriod}`;
+        const periods = this.props.periodArray.map((period, index) => (
+            <PeriodButton
+                key={period}
+                period={index + 1}
+                active={index + 1 <= this.state.hoveredPeriod}
+                hoveredPeriod={this.hoveredPeriod}
+                endHover={this.highlightCurrentSelection}
+                pickedPeriod={this.clickedPeriod} />
+        ));
 
-                <div className="period-picker__fy">
-                    <MultiSelectionBox
-                        defaultDropdownText={`${minPeriod} - ${maxPeriod}`}
-                        selectedDropdownOption={this.state.selectedDropdownOption}
-                        updateDropdownModel={this.updateDropdownModel}
-                        fieldOptions={maxDropdownOptions} />
+        let visibleClass = 'period-picker__list_hidden';
+        if (this.state.expanded) {
+            visibleClass = '';
+        }
+
+        return (
+            <div
+                className="period-picker"
+                ref={(div) => {
+                    this.pickerRef = div;
+                }}>
+                <div className="period-picker__header">
+                    <div className="period-picker__dropdown-container">
+                        <button
+                            className="period-picker__button"
+                            onClick={this.toggleList}>
+                            <div className="period-picker__button-text">
+                                {currentSelection}
+                            </div>
+                            <div className="period-picker__button-icon">
+                                <AngleDown alt="Toggle menu" />
+                            </div>
+                        </button>
+                        <ul className={`period-picker__list ${visibleClass}`}>
+                            {periods}
+                        </ul>
+                    </div>
                 </div>
             </div>
         );
