@@ -72,10 +72,14 @@
         }
 
         .fy-picker__list-item {
-            border-top: 1px solid $color-gray-light;
-
+            .fy-picker__list-button {
+                border-top: 1px solid $color-gray-light;
+            }
+            
             &:first-child {
-                border-top: none;
+                .fy-picker__list-button {
+                    border-top: none;
+                }
             }
         }
 
@@ -84,7 +88,6 @@
             color: $color-gray;
             font-size: rem(20);
             text-align: center;
-
             padding: rem(10) rem(15);
             width: 100%;
 
