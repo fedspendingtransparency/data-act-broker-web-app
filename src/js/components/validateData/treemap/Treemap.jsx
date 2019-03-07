@@ -113,7 +113,7 @@ export default class Treemap extends React.Component {
             const color = tinycolor(baseColor).lighten(tint).toString();
 
             return (<TreemapCell
-                key={node.description}
+                key={`${node.description}-${node.index}`}
                 width={node.dx}
                 height={node.dy}
                 x={node.x}
