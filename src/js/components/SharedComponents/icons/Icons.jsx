@@ -255,3 +255,10 @@ Filter.defaultProps = {
     iconClass: 'usa-da-icon-filter',
     alt: 'Icon Depicting a Filter'
 };
+
+export class Revalidate extends BaseIcon {}
+Revalidate.defaultProps = {
+    iconName: 'usa-da-icon-revalidate',
+    iconClass: 'usa-da-icon-revalidate',
+    alt: 'Revalidate'
+};

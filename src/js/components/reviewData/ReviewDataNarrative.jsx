@@ -82,19 +82,19 @@ export default class ReviewDataNarrative extends React.Component {
     render() {
         return (
             <div className="narrative-wrapper col-md-8">
-                <h4>Add comments to files</h4>
-                <div className="row">
+                <div className="gray-bg">
+                    <h4>Add comments to files</h4>
                     <ReviewDataNarrativeDropdown changeFile={this.changeFile.bind(this)} />
                     <ReviewDataNarrativeTextfield
                         currentContent={this.state.currentNarrative}
                         textChanged={this.textChanged.bind(this)} />
-                </div>
-                <div className="row">
-                    <div className="col-md-10">
-                        <button onClick={this.saveNarrative.bind(this)} className="usa-da-button btn-default">
-                            Save Changes
-                        </button>
-                        <p className={`save-state ${this.state.saveState}`}>{this.state.saveState}</p>
+                    <div className="row">
+                        <div className="col-md-12">
+                            <button onClick={this.saveNarrative.bind(this)} className="usa-da-button btn-default">
+                                Save Changes
+                            </button>
+                            <p className={`save-state ${this.state.saveState}`}>{this.state.saveState}</p>
+                        </div>
                     </div>
                 </div>
             </div>

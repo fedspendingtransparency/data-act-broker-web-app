@@ -1,16 +1,17 @@
 .narrative-wrapper {
-    padding: 15px;
-    padding-top: 5px;
-    background-color: $color-gray-warm-light;
+
+    &.col-md-8 {
+        padding-left: 0;
+    }
+
+    .gray-bg {
+        padding: 15px;
+        padding-top: 5px;
+        background-color: $color-gray-lightest;
+    }
 
     .row {
         margin-bottom: 0;
-    }
-
-    @media(min-width: $medium-screen) {
-        select {
-            margin-top: 4rem;
-        }
     }
 
     @media(max-width: $medium-screen) {
@@ -54,5 +55,14 @@
         &.Error {
             color: $color-secondary-dark;
         }
+    }
+
+    .file-dropdown {
+        padding-top: 10px;
+        padding-bottom: 15px;
+    }
+
+    .narrative-box {
+        padding-bottom: 10px;
     }
 }
