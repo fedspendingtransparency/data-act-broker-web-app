@@ -57,7 +57,6 @@
             padding: rem(40) rem(15);
             border: solid rem(1) $color-gray-lighter;
             border-left: 0;
-            @import "./quarterPicker";
             @import "./periodPicker";
             @import "./fyPicker";
         }

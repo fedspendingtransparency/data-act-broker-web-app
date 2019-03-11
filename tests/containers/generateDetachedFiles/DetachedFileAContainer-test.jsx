@@ -3,13 +3,12 @@
  * Created by Lizzie Salita 10/29/18
  */
 
-import React, { PropTypes } from 'react';
-import { shallow, mount } from 'enzyme';
+import React from 'react';
+import { shallow } from 'enzyme';
+import { DetachedFileAContainer } from 'containers/generateDetachedFiles/DetachedFileAContainer';
 
 // mock the submission list helper
 jest.mock('helpers/generateFilesHelper', () => require('./mockGenerateFilesHelper'));
-
-import { DetachedFileAContainer } from 'containers/generateDetachedFiles/DetachedFileAContainer';
 
 // mock the child component by replacing it with a function that returns a null element
 jest.mock('components/generateDetachedFiles/DetachedFileA', () => jest.fn(() => null));
@@ -25,15 +24,15 @@ describe('DetachedFileAContainer', () => {
         });
     });
     describe('parseFileState', () => {
-       it('should set a permission error if the httpStatus is 401', () => {
-           const container = shallow(<DetachedFileAContainer />);
+        it('should set a permission error if the httpStatus is 401', () => {
+            const container = shallow(<DetachedFileAContainer />);
 
-           container.instance().parseFileState({
-               httpStatus: 401
-           });
+            container.instance().parseFileState({
+                httpStatus: 401
+            });
 
-           expect(container.state().errorType).toEqual('Permission Error');
-       });
+            expect(container.state().errorType).toEqual('Permission Error');
+        });
         it('should set a File A error if the status is failed or invalid', () => {
             const container = shallow(<DetachedFileAContainer />);
 

@@ -12,9 +12,10 @@ import { defaultPeriods, availablePeriodsInFY } from '../../helpers/periodPicker
 
 import * as Icons from '../SharedComponents/icons/Icons';
 import * as utils from '../../helpers/util';
-import PeriodPicker from './PeriodPicker';
 import GenerateButton from './GenerateButton';
 import DownloadFile from './DownloadFile';
+import FYPicker from './FYPicker';
+import PeriodPicker from './PeriodPicker';
 
 const initialPeriod = defaultPeriods();
 
@@ -30,7 +31,7 @@ const propTypes = {
 const defaultProps = {
     route: null,
     agencyList: [],
-    generateFileA: () => {},
+    generateFileA: () => { },
     status: '',
     errorType: '',
     errorMessage: '',
@@ -48,7 +49,7 @@ export default class DetachedFileA extends React.Component {
             agencyError: false,
             period: initialPeriod.period,
             fy: `${initialPeriod.year}`,
-            unavailablePeriod: null,
+            periodArray: initialPeriod.periodArray,
             downloadFields: null
         };
 
@@ -87,19 +88,18 @@ export default class DetachedFileA extends React.Component {
         });
     }
 
-    pickedPeriod(period, unavailablePeriod) {
+    pickedPeriod(period) {
         this.setState({
-            unavailablePeriod,
             period
         });
     }
 
     generate() {
-        const minPeriod = this.state.unavailablePeriod || 1;
+        const minPeriod = utils.getPeriodTextFromValue(this.state.periodArray[0]);
         const maxPeriod = utils.getPeriodTextFromValue(this.state.period);
 
         this.setState({
-            downloadFields: `${this.state.agencyName} | FY ${this.state.fy} | ${utils.getPeriodTextFromValue(minPeriod)} - ${maxPeriod}`
+            downloadFields: `${this.state.agencyName} | FY ${this.state.fy} | ${minPeriod} - ${maxPeriod}`
         });
         this.props.generateFileA(this.state.agency, this.state.codeType, this.state.period, parseInt(this.state.fy, 10));
     }
@@ -111,7 +111,6 @@ export default class DetachedFileA extends React.Component {
             agencyIcon = <Icons.Building />;
             agencyClass = ' error usa-da-form-icon';
         }
-
 
         let submissionLink = null;
         if (this.props.status === 'done') {
@@ -216,12 +215,14 @@ export default class DetachedFileA extends React.Component {
                                             </div>
 
                                             <div className="file-a-section__date">
+                                                <FYPicker
+                                                    fy={`${this.state.fy}`}
+                                                    pickedYear={this.pickedYear} />
                                                 <PeriodPicker
+                                                    period={this.state.period}
                                                     periodArray={this.state.periodArray}
-                                                    passedPeriod={this.state.period}
-                                                    pickedYear={this.pickedYear}
-                                                    pickedPeriod={this.pickedPeriod}
-                                                    fy={this.state.fy} />
+                                                    pickedPeriod={this.pickedPeriod} />
+
                                             </div>
                                         </div>
                                         <DownloadFile
