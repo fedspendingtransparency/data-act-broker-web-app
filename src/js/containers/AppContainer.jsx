@@ -21,7 +21,7 @@ import PendingPage from '../components/login/PendingPage';
 let devExtension;
 if (kGlobalConstants.DEV || kGlobalConstants.LOCAL) {
     // only enable Redux debugging in dev and local modes
-    devExtension = window.devToolsExtension ? window.devToolsExtension() : undefined;
+    devExtension = window.__REDUX_DEVTOOLS_EXTENSION__ ? window.__REDUX_DEVTOOLS_EXTENSION__() : undefined;
 }
 
 const store = createStore(reducers, {}, devExtension);
