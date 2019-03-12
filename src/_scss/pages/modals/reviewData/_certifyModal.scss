@@ -62,3 +62,16 @@
 	@include warningAlert;
 	margin-top: 0px !important;
 }
+
+.revalidate-content {
+	font-family: "Open Sans", $font-sans;
+
+	p {
+		margin: 15px 0;
+	}
+
+	ul {
+		font-weight: bold;
+		margin: 0;
+	}
+}

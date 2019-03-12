@@ -69,10 +69,6 @@ class ReviewDataContainer extends React.Component {
                 submissionData.total_obligations = data.total_obligations;
                 submissionData.total_assistance_obligations = data.total_assistance_obligations;
                 submissionData.total_procurement_obligations = data.total_procurement_obligations;
-                return ReviewHelper.revalidationThreshold();
-            })
-            .then((data) => {
-                submissionData.revalidation_threshold = data.revalidation_threshold;
                 this.setState({
                     jobs: submissionData.jobs,
                     cgac_code: submissionData.cgac_code,
@@ -89,7 +85,6 @@ class ReviewDataContainer extends React.Component {
                     total_procurement_obligations: submissionData.total_procurement_obligations,
                     file_narrative: submissionData.file_narrative,
                     quarterly_submission: submissionData.quarterly_submission,
-                    revalidation_threshold: submissionData.revalidation_threshold,
                     last_validated: submissionData.last_validated
                 });
             })

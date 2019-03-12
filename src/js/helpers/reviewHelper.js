@@ -482,19 +482,3 @@ export const isWindow = () => {
 
     return deferred.promise;
 };
-
-export const revalidationThreshold = () => {
-    const deferred = Q.defer();
-
-    Request.get(`${kGlobalConstants.API}revalidation_threshold/`)
-        .end((err, res) => {
-            if (err) {
-                deferred.reject(err);
-            }
-            else {
-                deferred.resolve(res.body);
-            }
-        });
-
-    return deferred.promise;
-};
