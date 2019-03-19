@@ -10,7 +10,7 @@ import DatePicker from './DatePicker';
 const propTypes = {
     onDateChange: PropTypes.func,
     updateError: PropTypes.func,
-    download: PropTypes.object,
+    showDownload: PropTypes.bool,
     error: PropTypes.object,
     value: PropTypes.object,
     datePlaceholder: PropTypes.string,
@@ -20,10 +20,7 @@ const propTypes = {
 
 const defaultProps = {
     startingTab: 1,
-    download: {
-        show: false,
-        url: '#'
-    },
+    showDownload: false,
     onDateChange: null,
     updateError: null,
     error: null,
@@ -39,9 +36,9 @@ export default class GenerateFileBox extends React.Component {
             errorClass = '';
         }
 
-        let showDownload = ' hide';
-        if (this.props.download.show && this.props.download.url !== '#') {
-            showDownload = '';
+        let downloadClass = ' hide';
+        if (this.props.showDownload) {
+            downloadClass = '';
         }
 
         return (
@@ -73,20 +70,20 @@ export default class GenerateFileBox extends React.Component {
                                 updateError={this.props.updateError} />
                         </div>
                     </div>
-                    <div className={`usa-da-generate-download${showDownload}`}>
+                    <div className={`usa-da-generate-download${downloadClass}`}>
                         <div className="row">
                             <div className="col-sm-12">
                                 <div className="download-title text-right">
                                     Download {this.props.label}
                                 </div>
-                                <a
-                                    href={this.props.download.url}
-                                    target="_blank"
-                                    rel="noopener noreferrer"
+                                <div
+                                    role="button"
+                                    tabIndex={0}
+                                    onClick={this.props.clickedDownload}
                                     className="usa-da-download pull-right">
                                     <span className="usa-da-icon usa-da-download-report"><Icons.CloudDownload />
                                     </span>Download File
-                                </a>
+                                </div>
                             </div>
                         </div>
                     </div>

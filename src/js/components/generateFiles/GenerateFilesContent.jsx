@@ -41,6 +41,10 @@ export default class GenerateFilesContent extends React.Component {
         this.closeTooltip = this.closeTooltip.bind(this);
     }
 
+    clickedDownload(fileType) {
+        this.props.clickedDownload(fileType);
+    }
+
     handleDateChange(file, date, dateType) {
         this.props.handleDateChange(file, date, dateType);
     }
@@ -121,9 +125,10 @@ export default class GenerateFilesContent extends React.Component {
                             startingTab={1}
                             value={this.props.d1}
                             error={this.props.d1.error}
-                            download={this.props.d1.download}
+                            showDownload={this.props.d1.showDownload}
                             onDateChange={this.handleDateChange.bind(this, "d1")}
-                            updateError={this.updateError.bind(this, "d1")} />
+                            updateError={this.updateError.bind(this, "d1")}
+                            clickedDownload={this.clickedDownload.bind(this, "D1")} />
 
                         <GenerateFileBox
                             label="File D2: Financial Assistance"
@@ -131,9 +136,10 @@ export default class GenerateFilesContent extends React.Component {
                             startingTab={9}
                             value={this.props.d2}
                             error={this.props.d2.error}
-                            download={this.props.d2.download}
+                            showDownload={this.props.d2.showDownload}
                             onDateChange={this.handleDateChange.bind(this, "d2")}
-                            updateError={this.updateError.bind(this, "d2")} />
+                            updateError={this.updateError.bind(this, "d2")}
+                            clickedDownload={this.clickedDownload.bind(this, "D2")} />
                     </div>
                 </div>
                 <GenerateFilesOverlay {...this.props} />

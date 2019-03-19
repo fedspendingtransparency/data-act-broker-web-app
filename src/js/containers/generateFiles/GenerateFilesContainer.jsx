@@ -56,10 +56,7 @@ class GenerateFilesContainer extends React.Component {
                     header: '',
                     description: ''
                 },
-                download: {
-                    show: false,
-                    url: ''
-                }
+                showDownload: false
             },
             d2: {
                 startDate: null,
@@ -69,10 +66,7 @@ class GenerateFilesContainer extends React.Component {
                     header: '',
                     description: ''
                 },
-                download: {
-                    show: false,
-                    url: ''
-                }
+                showDownload: false
             },
             d1Status: "waiting",
             d2Status: "waiting",
@@ -112,6 +106,16 @@ class GenerateFilesContainer extends React.Component {
                     console.error(error);
                 });
         }
+    }
+
+    clickedDownload(fileType) {
+        GenerateFilesHelper.fetchFile(fileType, this.props.submissionID)
+            .then((result) => {
+                window.open(result.url)
+            })
+            .catch((error) => {
+                console.error(error);
+            });
     }
 
     parseDate(raw, type) {
@@ -439,10 +443,7 @@ class GenerateFilesContainer extends React.Component {
 
                 if (fileData.url && fileData.size) {
                     // update the download properties
-                    item.download = {
-                        show: true,
-                        url: fileData.url
-                    };
+                    item.showDownload = true;
                     const header = `${fileData.file_type.toUpperCase()} File Error`;
                     item.error = {
                         show: header !== '' && message !== '',
@@ -458,10 +459,7 @@ class GenerateFilesContainer extends React.Component {
                 // make a clone of the file's react state
                 const item = Object.assign({}, this.state[file]);
                 // update the download properties
-                item.download = {
-                    show: true,
-                    url: fileData.url
-                };
+                item.showDownload = true;
                 const failCases = ['', '#', null];
                 if (_.findIndex(failCases, fileData.url) !== -1) {
                     const header = `${fileData.file_type.toUpperCase()} File Error`;
@@ -530,7 +528,8 @@ class GenerateFilesContainer extends React.Component {
                     updateError={this.updateError.bind(this)}
                     generateFiles={this.generateFiles.bind(this)}
                     nextPage={this.nextPage.bind(this)}
-                    toggleAgencyType={this.toggleAgencyType} />
+                    toggleAgencyType={this.toggleAgencyType}
+                    clickedDownload={this.clickedDownload.bind(this)} />
             </div>
         );
     }
