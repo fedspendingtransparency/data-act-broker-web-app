@@ -111,7 +111,7 @@ class GenerateFilesContainer extends React.Component {
     clickedDownload(fileType) {
         GenerateFilesHelper.fetchFile(fileType, this.props.submissionID)
             .then((result) => {
-                window.open(result.url)
+                window.open(result.url);
             })
             .catch((error) => {
                 console.error(error);

@@ -12,6 +12,7 @@ import AgencyToggleTooltip from '../generateDetachedFiles/AgencyToggleTooltip';
 import { InfoCircle } from '../SharedComponents/icons/Icons';
 
 const propTypes = {
+    clickedDownload: PropTypes.func,
     handleDateChange: PropTypes.func,
     updateError: PropTypes.func,
     d1: PropTypes.object,
@@ -21,6 +22,7 @@ const propTypes = {
 };
 
 const defaultProps = {
+    clickedDownload: null,
     handleDateChange: null,
     updateError: null,
     d1: null,

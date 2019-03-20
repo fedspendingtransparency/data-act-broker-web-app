@@ -8,6 +8,7 @@ import * as Icons from '../../SharedComponents/icons/Icons';
 import DatePicker from './DatePicker';
 
 const propTypes = {
+    clickedDownload: PropTypes.func,
     onDateChange: PropTypes.func,
     updateError: PropTypes.func,
     showDownload: PropTypes.bool,
@@ -19,14 +20,15 @@ const propTypes = {
 };
 
 const defaultProps = {
-    startingTab: 1,
-    showDownload: false,
+    clickedDownload: null,
     onDateChange: null,
     updateError: null,
+    showDownload: false,
     error: null,
     value: null,
     datePlaceholder: '',
-    label: ''
+    label: '',
+    startingTab: 1
 };
 
 export default class GenerateFileBox extends React.Component {
@@ -80,6 +82,7 @@ export default class GenerateFileBox extends React.Component {
                                     role="button"
                                     tabIndex={0}
                                     onClick={this.props.clickedDownload}
+                                    onKeyDown={this.props.clickedDownload}
                                     className="usa-da-download pull-right">
                                     <span className="usa-da-icon usa-da-download-report"><Icons.CloudDownload />
                                     </span>Download File
