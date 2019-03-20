@@ -46,31 +46,38 @@ export default class ResourcesContent extends React.Component {
                 <ul>
                     <li>
                         <a
-                            href="https://www.fiscal.treasury.gov/files/data-transparency/daims-validation-rules-v1.3.xlsx"
+                            href="https://fiscal.treasury.gov/files/data-transparency/DAIMS-Validation-Rules-v1.3.1.xlsx"
                             target="_blank"
                             rel="noopener noreferrer">
-                            DAIMS Validation Rules
+                  DAIMS Validation Rules
                         </a>
-                        : documents the business rules employed by the DATA Act Broker for field
-                        and cross-file validations.
+                : documents the business rules employed by the DATA Act
+                Broker for field and cross-file validations.
                     </li>
                     <li>
                         <a
                             href="https://github.com/fedspendingtransparency/data-act-broker-backend/tree/master/dataactvalidator/config/sqlrules"
                             target="_blank"
                             rel="noopener noreferrer">
-                            Broker SQL Validation Rules
+                  Broker SQL Validation Rules
                         </a>
-                        : the actual machine logic used in FABS validations.
-                        These SQL statements are based directly on the FABS validation rules.
+                : the actual machine logic used in FABS validations.
+                These SQL statements are based directly on the FABS
+                validation rules.
                     </li>
                     <li>
                         <a
                             href="https://community.max.gov/download/attachments/754091528/DAIMS-Practices%20and%20Procedures-v1.3.pdf?api=v2"
                             target="_blank"
-                            rel="noopener noreferrer">DAIMS Practices &#38; Procedures
+                            rel="noopener noreferrer">
+                  DAIMS Practices &#38; Procedures
                         </a>
-                        : contains file-wide practices, explanations of how elements are derived based on FABS data, and information on the submission process (including corrections and deletions), validation rule source data, user management, technical procedures for formatting submission files, etc.
+                : contains file-wide practices, explanations of how
+                elements are derived based on FABS data, and information
+                on the submission process (including corrections and
+                deletions), validation rule source data, user
+                management, technical procedures for formatting
+                submission files, etc.
                     </li>
                 </ul>
             </div>
