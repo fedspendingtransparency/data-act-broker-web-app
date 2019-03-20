@@ -67,7 +67,7 @@ export default class ResourcesContent extends React.Component {
                     </li>
                     <li>
                         <a
-                            href="https://community.max.gov/download/attachments/754091528/DAIMS-Practices%20and%20Procedures-v1.3.pdf?api=v2"
+                            href="https://community.max.gov/download/attachments/754091528/Practices-and-Procedures-v1.3.1.pdf?api=v2-"
                             target="_blank"
                             rel="noopener noreferrer">
                   DAIMS Practices &#38; Procedures
