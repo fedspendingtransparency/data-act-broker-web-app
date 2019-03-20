@@ -81,25 +81,31 @@ export default class ResourcesContent extends React.Component {
                 <div className="resources-page">
                     <h2>Resources {this.props.type.toUpperCase()}</h2>
                     <p className="resources-page-content">
-                        As part of Fiscal Service&#8217;s efforts to provide DAIMS documents in a
-                        single location we have created a single DAIMS Resource page on the Broker.
-                        This page provides links to agency-only documents (validation rules and SQL
-                        validation rules) and a link to the public site for all other DAIMS documents.
-                        This will ensure that links always point to the latest DAIMS documents.
+                As part of Fiscal Service&#8217;s efforts to provide
+                DAIMS documents in a single location we have created a
+                single DAIMS Resource page on the Broker. This page
+                provides links to agency-only documents (validation
+                rules and SQL validation rules) and a link to the public
+                site for all other DAIMS documents. This will ensure
+                that links always point to the latest DAIMS documents.
                     </p>
                     <p className="resources-page-content">
-                        The DATA Act information Model Schema (DAIMS) gives an overall view of the
-                        hundreds of distinct data elements used to tell the story of how federal dollars are spent.
-                        It includes artifacts that provide technical guidance for federal agencies about what data to
-                        report to Treasury including the authoritative sources of the data elements and the submission
-                        format. DAIMS information is available on the&nbsp;
+                The DATA Act information Model Schema (DAIMS) gives an
+                overall view of the hundreds of distinct data elements
+                used to tell the story of how federal dollars are spent.
+                It includes artifacts that provide technical guidance
+                for federal agencies about what data to report to
+                Treasury including the authoritative sources of the data
+                elements and the submission format. DAIMS information is
+                available on the&nbsp;
                         <a
-                            href="https://www.fiscal.treasury.gov/data-transparency/data-act-v1.3.html"
+                            href="https://fiscal.treasury.gov/data-transparency/DAIMS-current.html"
                             target="_blank"
                             rel="noopener noreferrer">
-                            DAIMS page
+                  DAIMS page
                         </a>
-                        &nbsp;of the Data Transparency site for the Bureau of the Fiscal Service.
+                &nbsp;of the Data Transparency site for the Bureau of
+                the Fiscal Service.
                     </p>
                     {content}
                 </div>
