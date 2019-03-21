@@ -4,7 +4,7 @@
 //   */
 
 import React, { PropTypes } from 'react';
-import classNames from 'classnames';
+import cx from 'classnames';
 import _ from 'lodash';
 
 import FormattedTable from '../SharedComponents/table/FormattedTable';
@@ -365,13 +365,6 @@ export default class DashboardTable extends React.Component {
         });
     }
 
-    tableClasses() {
-        return classNames({
-            'submission-table-content': true,
-            loading: this.props.isLoading || this.state.noResults ? 'loading' : ''
-        });
-    }
-
     render() {
         let paginator;
 
@@ -381,6 +374,11 @@ export default class DashboardTable extends React.Component {
                 total={this.state.totalPages}
                 changePage={this.changePage.bind(this)} />);
         }
+
+        const tableClasses = cx({
+            'submission-table-content': true,
+            loading: this.props.isLoading || this.state.noResults
+        });
 
         const headers = this.getHeaders();
         // cannot be added to the const because if a user is read only then delete will not be created
@@ -394,7 +392,7 @@ export default class DashboardTable extends React.Component {
 
         return (
             <div className="usa-da-submission-list">
-                <div className={this.tableClasses()}>
+                <div className={tableClasses}>
                     <FormattedTable
                         headers={headers}
                         data={this.state.parsedData}
