@@ -111,7 +111,7 @@ export class DetachedFileAContainer extends React.Component {
                 errorMessage: '',
                 status: 'done',
                 showDownload: true,
-                jobId: data.job_id,
+                jobId: data.job_id
             });
         }
         if (runCheck) {
