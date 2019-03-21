@@ -39,10 +39,11 @@ export const quarterToMonth = (quarter, quarterYear, type) => {
     return `${month}/${year}`;
 };
 
-export const currentQuarterMonth = (type) => {
-    // gets the first or last month + year of the current quarter.
-    const month = moment().month();
-    let year = moment().year();
+export const previousQuarterMonth = (type) => {
+    // gets the first or last month + year of the previous quarter.
+    const currDate = moment().subtract(3, 'months');
+    const month = currDate.month();
+    let year = currDate.year();
 
     let quarter = 1;
 
