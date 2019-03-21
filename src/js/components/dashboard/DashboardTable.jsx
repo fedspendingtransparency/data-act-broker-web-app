@@ -206,7 +206,7 @@ export default class DashboardTable extends React.Component {
 
         const headerClasses = classes;
 
-        let noResults = '';
+        let noResults = false;
         if (this.props.data.length === 0) {
             noResults = true;
         }
