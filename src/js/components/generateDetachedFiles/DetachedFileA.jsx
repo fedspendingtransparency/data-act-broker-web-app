@@ -21,21 +21,23 @@ const initialPeriod = defaultPeriods();
 
 const propTypes = {
     route: PropTypes.object,
+    clickedDownload: PropTypes.func,
     generateFileA: PropTypes.func,
     status: PropTypes.string,
     errorType: PropTypes.string,
     errorMessage: PropTypes.string,
-    url: PropTypes.string
+    showDownload: PropTypes.bool
 };
 
 const defaultProps = {
     route: null,
     agencyList: [],
+    clickedDownload: null,
     generateFileA: () => { },
     status: '',
     errorType: '',
     errorMessage: '',
-    url: ''
+    showDownload: false
 };
 
 export default class DetachedFileA extends React.Component {
@@ -230,7 +232,8 @@ export default class DetachedFileA extends React.Component {
                                             label="File A: Appropriations Accounts"
                                             errorType={this.props.errorType}
                                             errorMessage={this.props.errorMessage}
-                                            url={this.props.url} />
+                                            clickedDownload={this.props.clickedDownload}
+                                            showDownload={this.props.showDownload} />
                                         <GenerateButton
                                             agency={this.state.agency}
                                             generate={this.generate}
