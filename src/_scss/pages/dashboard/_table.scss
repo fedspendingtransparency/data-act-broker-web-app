@@ -28,3 +28,9 @@
 .paginator-wrap {
     @import "../../components/tables/_submissionPaginator";
 }
+
+.submission-table-content {
+  &.loading {
+      opacity: 0.3;
+  }
+}

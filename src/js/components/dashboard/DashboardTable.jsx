@@ -4,7 +4,7 @@
 //   */
 
 import React, { PropTypes } from 'react';
-
+import classNames from 'classnames';
 import _ from 'lodash';
 
 import FormattedTable from '../SharedComponents/table/FormattedTable';
@@ -17,7 +17,6 @@ import * as PermissionsHelper from '../../helpers/permissionsHelper';
 import DeleteLink from '../landing/recentActivity/DeleteLink';
 import NoResultsMessage from '../SharedComponents/NoResultsMessage';
 import LoadingMessage from '../SharedComponents/LoadingMessage';
-
 
 import DashboardPaginator from './DashboardPaginator';
 
@@ -51,7 +50,6 @@ export default class DashboardTable extends React.Component {
             parsedData: [],
             cellClasses: [],
             headerClasses: [],
-            message: 'Loading submissions...',
             currentPage: 1,
             totalPages: 1,
             account: null,
@@ -367,6 +365,13 @@ export default class DashboardTable extends React.Component {
         });
     }
 
+    tableClasses() {
+        return classNames({
+            'submission-table-content': true,
+            loading: this.props.isLoading || this.state.noResults ? 'loading' : ''
+        });
+    }
+
     render() {
         let paginator;
 
@@ -389,7 +394,7 @@ export default class DashboardTable extends React.Component {
 
         return (
             <div className="usa-da-submission-list">
-                <div>
+                <div className={this.tableClasses()}>
                     <FormattedTable
                         headers={headers}
                         data={this.state.parsedData}
