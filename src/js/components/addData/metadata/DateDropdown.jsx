@@ -29,7 +29,7 @@ export default class DateDropdown extends React.Component {
 
         this.state = {
             month: moment().format('MM/YYYY'),
-            quarter: UtilHelper.currentQuarter(this.props.startEndType)
+            quarter: UtilHelper.currentQuarterMonth(this.props.startEndType)
         };
     }
 
