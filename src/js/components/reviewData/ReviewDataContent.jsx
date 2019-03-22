@@ -81,11 +81,11 @@ export default class ReviewDataContent extends React.Component {
         return formattedCurrencyString;
     }
 
-    checkAffiliations() {
+    checkAffiliations(affil) {
         const affiliations = this.props.session.user.affiliations;
         for (let i = 0; i < affiliations.length; i++) {
             if (affiliations[i].agency_name === this.props.data.agency_name) {
-                if (affiliations[i].permission === 'submitter') {
+                if (affiliations[i].permission === affil) {
                     return true;
                 }
             }
@@ -126,12 +126,6 @@ export default class ReviewDataContent extends React.Component {
     }
 
     render() {
-        let modalToOpen = 'Certify';
-        if (!this.props.data.last_validated || new Date(this.props.data.last_validated) <
-            new Date(this.props.data.revalidation_threshold)) {
-            modalToOpen = 'Revalidate';
-        }
-
         // The first parameter in each of these arrays is the corresponding class for the SVG icon
         const buttonContent = [[<Icons.CheckCircle />, 'Publish this data to USAspending.gov'],
             [<Icons.ShareSquare />, 'Send this data to another Data Broker user'],
@@ -163,10 +157,12 @@ export default class ReviewDataContent extends React.Component {
         }
 
         let certifyButtonText = "You do not have permissions to certify";
-        let notifyButtonText = "Notify Another User that the Submission is Ready for Certification";
+        let revalidateButtonText = "You do not have permission to revalidate";
         let buttonClass = " btn-disabled";
-        let buttonAction = "";
+        let certifyButtonAction = "";
+        let revalidateButtonAction = "";
         let monthlySubmissionError = null;
+        // TODO: I don't think we ever actually have window data to gather, we should look into this
         const blockedWindow = this.windowBlocked();
 
         if (this.props.data.publish_status === "published") {
@@ -174,7 +170,6 @@ export default class ReviewDataContent extends React.Component {
         }
         else if (!this.props.data.quarterly_submission) {
             certifyButtonText = "Monthly submissions cannot be certified";
-            notifyButtonText = "Notify Another User that the Submission is Ready";
             monthlySubmissionError = (
                 <div
                     className="alert alert-danger text-center monthly-submission-error"
@@ -186,10 +181,15 @@ export default class ReviewDataContent extends React.Component {
             certifyButtonText = `You cannot certify until ${
                 moment(blockedWindow.end_date).format("dddd, MMMM D, YYYY")}`;
         }
-        else if (this.checkAffiliations() || this.props.session.admin) {
-            certifyButtonText = "Certify & Publish the Submission to USAspending.gov";
+        else if (this.checkAffiliations('submitter') || this.props.session.admin) {
+            certifyButtonText = "Certify & Publish";
             buttonClass = "";
-            buttonAction = this.openModal.bind(this, modalToOpen);
+            certifyButtonAction = this.openModal.bind(this, 'Certify');
+        }
+
+        if (this.checkAffiliations('writer') || this.props.session.admin) {
+            revalidateButtonText = "Revalidate";
+            revalidateButtonAction = this.openModal.bind(this, 'Revalidate');
         }
 
         return (
@@ -231,11 +231,26 @@ export default class ReviewDataContent extends React.Component {
                             narrative={this.props.data.file_narrative}
                             submissionID={this.props.params.submissionID} />
                     </div>
-                    <div className="mt-20">
-                        <div className="submission-wrapper">
+                    <div className="mt-20 row">
+                        <div className="col-md-4" />
+                        <div className="submission-wrapper col-md-8">
                             <div className="left-link">
                                 <button
-                                    onClick={buttonAction}
+                                    onClick={revalidateButtonAction}
+                                    className={`usa-da-button btn-primary btn-lg btn-full`}>
+                                    <div className="button-wrapper">
+                                        <div className="button-icon">
+                                            <Icons.Revalidate />
+                                        </div>
+                                        <div className="button-content">
+                                            {revalidateButtonText}
+                                        </div>
+                                    </div>
+                                </button>
+                            </div>
+                            <div className="left-link">
+                                <button
+                                    onClick={certifyButtonAction}
                                     className={`usa-da-button btn-primary btn-lg btn-full ${buttonClass}`}>
                                     <div className="button-wrapper">
                                         <div className="button-icon">
@@ -256,7 +271,7 @@ export default class ReviewDataContent extends React.Component {
                                             <Icons.Bell />
                                         </div>
                                         <div className="button-content">
-                                            {notifyButtonText}
+                                            Notify Another User
                                         </div>
                                     </div>
                                 </button>

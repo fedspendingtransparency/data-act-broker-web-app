@@ -92,10 +92,10 @@ export default class RevalidateDataModal extends React.Component {
                 onExit={this.closeModal.bind(this)}
                 underlayClickExits={this.state.closeable}
                 verticallyCenter={trueProps}
-                initialFocus="#certify-check"
-                titleId="usa-da-certify-modal">
+                initialFocus="#revalidate-button"
+                titleId="usa-da-revalidate-modal">
                 <div className="usa-da-modal-page">
-                    <div id="usa-da-certify-modal" className="usa-da-certify-modal">
+                    <div id="usa-da-revalidate-modal" className="usa-da-certify-modal">
                         <div className={`usa-da-certify-modal-close usa-da-icon usa-da-icon-times${hideClose}`}>
                             <button onClick={this.closeModal.bind(this)}>
                                 <Icons.Times />
@@ -105,8 +105,7 @@ export default class RevalidateDataModal extends React.Component {
                         <div className="usa-da-certify-modal-content">
                             <RevalidateButtons
                                 {...this.props}
-                                clickedRevalidateButton={this.clickedRevalidateButton.bind(this)}
-                                revalidationThreshold={this.props.data.revalidation_threshold} />
+                                clickedRevalidateButton={this.clickedRevalidateButton.bind(this)} />
 
                             {error}
 

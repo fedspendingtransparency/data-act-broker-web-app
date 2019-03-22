@@ -22,7 +22,7 @@ export default class ReviewDataNarrativeTextfield extends React.Component {
 
     render() {
         return (
-            <div className="col-md-8">
+            <div className="narrative-box">
                 <textarea
                     id="submission-review-narrative"
                     value={this.props.currentContent}
