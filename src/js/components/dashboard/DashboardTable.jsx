@@ -4,7 +4,6 @@
 //   */
 
 import React, { PropTypes } from 'react';
-import cx from 'classnames';
 import _ from 'lodash';
 
 import FormattedTable from '../SharedComponents/table/FormattedTable';
@@ -375,10 +374,7 @@ export default class DashboardTable extends React.Component {
                 changePage={this.changePage.bind(this)} />);
         }
 
-        const tableClasses = cx({
-            'submission-table-content': true,
-            loading: this.props.isLoading || this.state.noResults
-        });
+        const loadingClass = this.props.isLoading ? 'loading' : '';
 
         const headers = this.getHeaders();
         // cannot be added to the const because if a user is read only then delete will not be created
@@ -392,7 +388,7 @@ export default class DashboardTable extends React.Component {
 
         return (
             <div className="usa-da-submission-list">
-                <div className={tableClasses}>
+                <div className={`submission-table-content ${loadingClass}`}>
                     <FormattedTable
                         headers={headers}
                         data={this.state.parsedData}
