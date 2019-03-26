@@ -1,9 +1,10 @@
-/**
-  * DashboardTable.jsx
-  * Created by Kevin Li 10/28/16
-  */
+// /**
+//   * DashboardTable.jsx
+//   * Created by Kevin Li 10/28/16
+//   */
 
 import React, { PropTypes } from 'react';
+import cx from 'classnames';
 import _ from 'lodash';
 
 import FormattedTable from '../SharedComponents/table/FormattedTable';
@@ -14,6 +15,8 @@ import * as LoginHelper from '../../helpers/loginHelper';
 import * as UtilHelper from '../../helpers/util';
 import * as PermissionsHelper from '../../helpers/permissionsHelper';
 import DeleteLink from '../landing/recentActivity/DeleteLink';
+import NoResultsMessage from '../SharedComponents/NoResultsMessage';
+import LoadingMessage from '../SharedComponents/LoadingMessage';
 
 import DashboardPaginator from './DashboardPaginator';
 
@@ -47,7 +50,6 @@ export default class DashboardTable extends React.Component {
             parsedData: [],
             cellClasses: [],
             headerClasses: [],
-            message: 'Loading submissions...',
             currentPage: 1,
             totalPages: 1,
             account: null,
@@ -204,16 +206,16 @@ export default class DashboardTable extends React.Component {
 
         const headerClasses = classes;
 
-        let message = '';
+        let noResults = false;
         if (this.props.data.length === 0) {
-            message = 'No submissions to list';
+            noResults = true;
         }
 
         this.setState({
             parsedData: output,
             cellClasses: rowClasses,
             headerClasses,
-            message,
+            noResults,
             totalPages: Math.ceil(this.props.total / 10)
         });
     }
@@ -373,10 +375,10 @@ export default class DashboardTable extends React.Component {
                 changePage={this.changePage.bind(this)} />);
         }
 
-        let loadingClass = '';
-        if (this.props.isLoading) {
-            loadingClass = ' loading';
-        }
+        const tableHeaderClasses = cx({
+            'submission-table-content': true,
+            loading: this.props.isLoading || this.state.noResults
+        });
 
         const headers = this.getHeaders();
         // cannot be added to the const because if a user is read only then delete will not be created
@@ -390,7 +392,7 @@ export default class DashboardTable extends React.Component {
 
         return (
             <div className="usa-da-submission-list">
-                <div className={`submission-table-content${loadingClass}`}>
+                <div className={tableHeaderClasses}>
                     <FormattedTable
                         headers={headers}
                         data={this.state.parsedData}
@@ -400,7 +402,8 @@ export default class DashboardTable extends React.Component {
                         onSort={this.sortTable.bind(this)} />
                 </div>
                 <div className="text-center">
-                    {this.state.message}
+                    {this.state.noResults && <NoResultsMessage />}
+                    {this.props.isLoading && <LoadingMessage />}
                 </div>
                 <div className="paginator-wrap">
                     {paginator}
