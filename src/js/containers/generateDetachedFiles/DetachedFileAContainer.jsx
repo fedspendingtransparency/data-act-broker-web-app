@@ -30,10 +30,21 @@ export class DetachedFileAContainer extends React.Component {
             errorType: '',
             errorMessage: '',
             status: '',
-            url: ''
+            showDownload: false,
+            jobId: null
         };
 
         this.generateFileA = this.generateFileA.bind(this);
+    }
+
+    clickedDownload() {
+        GenerateFilesHelper.fetchDetachedFileUrl(this.state.jobId)
+            .then((result) => {
+                window.open(result.url);
+            })
+            .catch((error) => {
+                console.error(error);
+            });
     }
 
     generateFileA(agency, codeType, period, fy) {
@@ -99,7 +110,8 @@ export class DetachedFileAContainer extends React.Component {
                 errorType: '',
                 errorMessage: '',
                 status: 'done',
-                url: data.url
+                showDownload: true,
+                jobId: data.job_id
             });
         }
         if (runCheck) {
@@ -115,7 +127,8 @@ export class DetachedFileAContainer extends React.Component {
             <DetachedFileA
                 {...this.props}
                 {...this.state}
-                generateFileA={this.generateFileA} />
+                generateFileA={this.generateFileA}
+                clickedDownload={this.clickedDownload.bind(this)} />
         );
     }
 }

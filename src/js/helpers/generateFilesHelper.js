@@ -74,6 +74,25 @@ export const fetchFile = (type, submissionId) => {
     return deferred.promise;
 };
 
+export const fetchDetachedFileUrl = (jobId) => {
+    const deferred = Q.defer();
+
+    Request.get(`${kGlobalConstants.API}get_detached_file_url?job_id=${jobId}`)
+        .send()
+        .end((errFile, res) => {
+            if (errFile) {
+                const response = Object.assign({}, res.body);
+                response.httpStatus = res.status;
+                deferred.reject(response);
+            }
+            else {
+                deferred.resolve(res.body);
+            }
+        });
+
+    return deferred.promise;
+};
+
 export const getFabsMeta = (submissionId) => {
     const deferred = Q.defer();
 
