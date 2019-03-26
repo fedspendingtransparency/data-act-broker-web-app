@@ -49,7 +49,7 @@ describe('DetachedFileAContainer', () => {
 
             expect(container.state().errorType).toEqual('File A Error');
         });
-        it('should set the url if the status is finished', () => {
+        it('should set showDownload if the status is finished', () => {
             const container = shallow(<DetachedFileAContainer />);
 
             container.instance().parseFileState({
@@ -63,7 +63,7 @@ describe('DetachedFileAContainer', () => {
                 message: ''
             });
 
-            expect(container.state().url).toEqual('http://mockurl.gov');
+            expect(container.state().showDownload).toEqual(true);
         });
         it('should call checkFileStatus after 10 seconds if status is waiting', () => {
             const container = shallow(<DetachedFileAContainer />);

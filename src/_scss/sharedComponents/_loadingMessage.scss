@@ -1,0 +1,99 @@
+.results-table-content {
+  position: relative;
+  margin-top: rem(15);   
+  min-height: rem(200);
+  @include transition(opacity 0.25s ease-in);
+}
+
+.table-message-fade-enter, .table-message-fade-enter-active {
+  @include animation(tableFadeIn 0.225s ease-in forwards);
+}
+
+.table-message-fade-leave, .table-message-fade-leave-active {
+  @include animation(tableFadeOut 0.195s ease-in forwards);
+}
+
+.results-table-message-container {
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 3;
+
+  @include display(flex);
+  @include justify-content(center);
+  @include align-items(flex-start);
+  
+
+
+  background-color: rgba(255, 255, 255, 0);
+
+  &.full {
+      position: relative;
+      display: block;
+      background-color: $color-white;        
+  }
+
+  .results-table-loading {
+      @include flex(1 1 auto);
+
+      margin-top: rem(50);
+      margin-bottom: rem(50);
+      padding-left: rem(10);
+      padding-right: rem(10);
+      margin-left: auto;
+      margin-right: auto;
+
+      .loading-animation {
+          width: rem(50);
+          height: rem(50);
+          margin-left: auto;
+          margin-right: auto;
+      }
+
+      .loading-message {
+          font-size: rem(36);
+          line-height: rem(45);
+          color: $color-gray-light;
+          text-align: center;
+          white-space: nowrap;
+      }
+  }
+
+  .results-table-no-results {
+      @include flex(1 1 auto);
+      margin-top: rem(50);
+      margin-bottom: rem(50);
+      max-width: rem(450);
+      padding-left: rem(10);
+      padding-right: rem(10);
+      margin-left: auto;
+      margin-right: auto;
+
+      .no-results-icon {
+          width: rem(75);
+          height: rem(72);
+
+          margin-left: auto;
+          margin-right: auto;
+
+          background-image: url('#{$image-path}/no_results.png');
+          background-size: contain;
+          background-repeat: no-repeat;
+      }
+      .title {
+          font-size: rem(36);
+          line-height: rem(45);
+          color: $color-gray-light;
+          text-align: center;
+          font-weight: $font-semibold;
+      }
+      .description {
+          font-size: rem(36);
+          line-height: rem(45);
+          color: $color-gray-light;
+          text-align: center;
+      }
+  }
+
+}

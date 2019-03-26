@@ -48,12 +48,10 @@ export default class GenerateDetachedFilesPage extends React.Component {
                     header: '',
                     description: ''
                 },
-                download: {
-                    show: false,
-                    url: ''
-                },
+                showDownload: false,
                 valid: false,
-                status: ""
+                status: "",
+                jobID: null
             },
             d2: {
                 startDate: null,
@@ -63,12 +61,10 @@ export default class GenerateDetachedFilesPage extends React.Component {
                     header: '',
                     description: ''
                 },
-                download: {
-                    show: false,
-                    url: ''
-                },
+                showDownload: false,
                 valid: false,
-                status: ""
+                status: "",
+                jobID: null
             }
         };
 
@@ -99,6 +95,17 @@ export default class GenerateDetachedFilesPage extends React.Component {
                 agencyError: true
             }, this.checkComplete);
         }
+    }
+
+    clickedDownload(fileType) {
+        const item = Object.assign({}, this.state[fileType]);
+        GenerateFilesHelper.fetchDetachedFileUrl(item.jobID)
+            .then((result) => {
+                window.open(result.url);
+            })
+            .catch((error) => {
+                console.error(error);
+            });
     }
 
     checkComplete() {
@@ -272,10 +279,8 @@ export default class GenerateDetachedFilesPage extends React.Component {
             const item = Object.assign({}, this.state[fileType]);
 
             // update the download properties
-            item.download = {
-                show: true,
-                url: data.url
-            };
+            item.showDownload = true;
+            item.jobID = data.job_id;
             item.status = "done";
 
             this.setState({ [fileType]: item });
@@ -308,7 +313,8 @@ export default class GenerateDetachedFilesPage extends React.Component {
                 handleDateChange={this.handleDateChange.bind(this)}
                 updateError={this.updateError.bind(this)}
                 generateFile={this.generateFile.bind(this)}
-                toggleAgencyType={this.toggleAgencyType} />);
+                toggleAgencyType={this.toggleAgencyType}
+                clickedDownload={this.clickedDownload.bind(this)} />);
         }
 
         return (

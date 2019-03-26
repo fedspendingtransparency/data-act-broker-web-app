@@ -21,21 +21,23 @@ const initialPeriod = defaultPeriods();
 
 const propTypes = {
     route: PropTypes.object,
+    clickedDownload: PropTypes.func,
     generateFileA: PropTypes.func,
     status: PropTypes.string,
     errorType: PropTypes.string,
     errorMessage: PropTypes.string,
-    url: PropTypes.string
+    showDownload: PropTypes.bool
 };
 
 const defaultProps = {
     route: null,
     agencyList: [],
+    clickedDownload: null,
     generateFileA: () => { },
     status: '',
     errorType: '',
     errorMessage: '',
-    url: ''
+    showDownload: false
 };
 
 export default class DetachedFileA extends React.Component {
@@ -101,7 +103,8 @@ export default class DetachedFileA extends React.Component {
         this.setState({
             downloadFields: `${this.state.agencyName} | FY ${this.state.fy} | ${minPeriod} - ${maxPeriod}`
         });
-        this.props.generateFileA(this.state.agency, this.state.codeType, this.state.period, parseInt(this.state.fy, 10));
+        this.props.generateFileA(this.state.agency, this.state.codeType, this.state.period,
+            parseInt(this.state.fy, 10));
     }
 
     render() {
@@ -187,9 +190,10 @@ export default class DetachedFileA extends React.Component {
                                                     with the child agency. File A is generated based on GTAS SF-133
                                                     data, which GTAS provides to the Broker on a daily basis during any
                                                     reporting/revision windows (note that it will take up to 24
-                                                    hours for changes agencies make in GTAS to be reflected in the Broker).
-                                                    For a more detailed explanation of the approach for generating File
-                                                    A, see the Practices and Procedures document available on the&nbsp;
+                                                    hours for changes agencies make in GTAS to be reflected in the
+                                                    Broker). For a more detailed explanation of the approach for
+                                                    generating File A, see the Practices and Procedures document
+                                                    available on the&nbsp;
                                                     <a
                                                         target="_blank"
                                                         rel="noopener noreferrer"
@@ -200,12 +204,13 @@ export default class DetachedFileA extends React.Component {
                                                     Bureau of the Fiscal Service.
                                                 </p>
                                                 <p>
-                                                    Note: Because there is no Period 01 (October) reporting window in GTAS, a
-                                                    generated File A for a new Fiscal Year is not available until the Period 02
-                                                    GTAS reporting window.
+                                                    Note: Because there is no Period 01 (October) reporting window in
+                                                    GTAS, a generated File A for a new Fiscal Year is not available
+                                                    until the Period 02 GTAS reporting window.
 
-                                                    While Period 01 data is automatically included with data from later periods
-                                                    (because File A Data is cumulative within the Fiscal year), it is not selectable on its own.
+                                                    While Period 01 data is automatically included with data from
+                                                    later periods (because File A Data is cumulative within the Fiscal
+                                                    year), it is not selectable on its own.
                                                 </p>
                                             </div>
                                         </div>
@@ -230,7 +235,8 @@ export default class DetachedFileA extends React.Component {
                                             label="File A: Appropriations Accounts"
                                             errorType={this.props.errorType}
                                             errorMessage={this.props.errorMessage}
-                                            url={this.props.url} />
+                                            clickedDownload={this.props.clickedDownload}
+                                            showDownload={this.props.showDownload} />
                                         <GenerateButton
                                             agency={this.state.agency}
                                             generate={this.generate}
