@@ -85,22 +85,28 @@ export default class HelpContent extends React.Component {
             <div className="usa-da-help-content">
 
                 <h2 className="usa-da-help-content__header">What&#8217;s New in This Release</h2>
-                <strong className="usa-da-help-content__date">March 11, 2019</strong>
+                <strong className="usa-da-help-content__date">March 25, 2019</strong>
 
                 <p className="usa-da-help-content__content">In this release of the Broker, we:</p>
                 <ul className="usa-da-help-content__list">
-                    <li>Updated the Broker so that DABS data cannot be certified prior to the opening of the DABS submission window. Such data can still be tested as normal.</li>
-                    <li>Updated the Broker so data that was validated or generated prior to the opening of the certification window for a given quarter must be revalidated once the submission window for that quarter opens. This ensures that DABS validations are run against the full set of GTAS data) and that D files are not outdated for purposes of publication and cross-file validation.</li>
-                    <li>Minor UI improvement (display tweak to help page)</li>
+                    <li>Made edits to File F generation to align with changes in DAIMS v1.3.1</li>
+                    <li>Implemented the FABS38.2.2 validation rule from DAIMS v1.3.1.</li>
+                    <li>Renamed FABS38.2 to FABS38.2.1 to accommodate the new FABS38.2.2 validation rule.</li>
+                    <li>Implemented the FABS38.4.1 validation rule from DAIMS v1.3.1</li>
+                    <li>Renamed FABS38.4 to FABS38.4.1 to accommodate the new FABS38.4.2 validation rule. </li>
+                    <li>Updated B9 Validation Rule to be case-insensitive when checking the program activity name/program activity code combination for the corresponding funding TAS/TAF.</li>
+                    <li>Fixed aberrant display box behavior that occasionally occurred when viewing with the visual summary information on errors or warnings for a submission.</li>
                 </ul>
 
                 <h2 className="usa-da-help-content__header">Technical Notes for this Release</h2>
-                <strong className="usa-da-help-content__date">March 11, 2019</strong>
+                <strong className="usa-da-help-content__date">March 25, 2019</strong>
 
                 <p className="usa-da-help-content__content">In this release, here is a list of technical changes that may require infrastructure or database updates, or represents additional functionality.</p>
                 <ul className="usa-da-help-content__list">
-                    <li>Established quarterly revalidation thresholds to re-enforce user submission windows</li>
-                    <li>Generated unique award key values to help group award data and sync with USASpending.gov</li>
+                    <li>Updated certify_submission API endpoint documents to include new errors for standard quarterly revalidation thresholds and special revalidation thresholds. This rule checks the validation date and confirms the submission is certifiable.</li>
+                    <li>Modified the TAS loader to prevent loading any possible duplicates.</li>
+                    <li>Standardized unique award keys between Broker and USASpending.gov.</li>
+                    <li>Optimized File F generation for performance in memory and speed.</li>
                 </ul>
                 <h2 className="usa-da-help-content-subheading">Getting More Help</h2>
 
