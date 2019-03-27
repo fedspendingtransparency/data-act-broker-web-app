@@ -1,6 +1,10 @@
-##### March 11, 2019
+##### March 25, 2019
 In this release of the Broker, we:
 
-* Updated the Broker so that DABS data cannot be certified prior to the opening of the DABS submission window. Such data can still be tested as normal. 
-* Updated the Broker so data that was validated or generated prior to the opening of the certification window for a given quarter must be revalidated once the submission window for that quarter opens. This ensures that DABS validations are run against the full set of GTAS data) and that D files are not outdated for purposes of publication and cross-file validation.
-* Minor UI improvement (display tweak to help page)
+* Made edits to File F generation to align with changes in DAIMS v1.3.1
+* Implemented the FABS38.2.2 validation rule from DAIMS v1.3.1.
+* Renamed FABS38.2 to FABS38.2.1 to accommodate the new FABS38.2.2 validation rule.
+* Implemented the FABS38.4.1 validation rule from DAIMS v1.3.1
+* Renamed FABS38.4 to FABS38.4.1 to accommodate the new FABS38.4.2 validation rule. 
+* Updated B9 Validation Rule to be case-insensitive when checking the program activity name/program activity code combination for the corresponding funding TAS/TAF.
+* Fixed aberrant display box behavior that occasionally occurred when viewing with the visual summary information on errors or warnings for a submission.
