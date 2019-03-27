@@ -79,7 +79,7 @@ const prepareMetadata = (metadata, request) => {
 export const submitFabs = (submissionId) => {
     const deferred = Q.defer();
 
-    Request.post(`${kGlobalConstants.API}submit_detached_file/`)
+    Request.post(`${kGlobalConstants.API}publish_fabs_file/`)
         .send(submissionId)
         .end((err, res) => {
             if (err) {
