@@ -36,10 +36,10 @@ const PeriodButton = (props) => {
     const activeClass = props.active ? 'period-picker__list-button_active' : '';
 
     let quarterIndicator = null;
-    if ((props.period + 1) % 4 === 0) {
-        // Every 4th period corresponds to the end of a fiscal quarter
+    if ((props.period + 1) % 3 === 0) {
+        // Every 3rd period corresponds to the end of a fiscal quarter
         let quarterText = 'Quarter 1';
-        const quarter = (props.period + 1) / 4;
+        const quarter = (props.period + 1) / 3;
         if (quarter > 1) {
             quarterText = `Quarters 1 - ${quarter}`;
         }
