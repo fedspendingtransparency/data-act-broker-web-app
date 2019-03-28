@@ -24,6 +24,8 @@ export const quarterToMonth = (quarter, quarterYear, type) => {
     const startMonth = ["10", "01", "04", "07"];
     const endMonth = ["12", "03", "06", "09"];
 
+    quarter = parseInt(quarter, 10);
+
     let month = startMonth[quarter - 1];
 
     if (type === "end") {
