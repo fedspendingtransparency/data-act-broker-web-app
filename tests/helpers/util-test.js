@@ -22,6 +22,10 @@ describe('util helper functions', () => {
             const months = utilHelper.quarterToMonth(2, 2018, 'start');
             expect(months).toEqual('01/2018');
         });
+        it('should work when the quarter is passed as a string', () => {
+            const months = utilHelper.quarterToMonth("1", 2018, 'start');
+            expect(months).toEqual('10/2017');
+        });
     });
     describe('previousQuarterMonth', () => {
         it('should return the date corresponding to the start of the previous quarter', () => {
