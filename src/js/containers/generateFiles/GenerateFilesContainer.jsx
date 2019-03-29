@@ -56,7 +56,8 @@ class GenerateFilesContainer extends React.Component {
                     header: '',
                     description: ''
                 },
-                showDownload: false
+                showDownload: false,
+                fundingAgency: false
             },
             d2: {
                 startDate: null,
@@ -66,13 +67,13 @@ class GenerateFilesContainer extends React.Component {
                     header: '',
                     description: ''
                 },
-                showDownload: false
+                showDownload: false,
+                fundingAgency: false
             },
             d1Status: "waiting",
             d2Status: "waiting",
             errorDetails: "",
-            agency_name: "",
-            fundingAgency: false
+            agency_name: ""
         };
 
         this.toggleAgencyType = this.toggleAgencyType.bind(this);
@@ -338,9 +339,11 @@ class GenerateFilesContainer extends React.Component {
         });
     }
 
-    toggleAgencyType() {
+    toggleAgencyType(type) {
+        const newType = _.assign({}, this.state[type]);
+        newType.fundingAgency = !newType.fundingAgency;
         this.setState({
-            fundingAgency: !this.state.fundingAgency
+            [type]: newType
         });
     }
 
@@ -349,14 +352,19 @@ class GenerateFilesContainer extends React.Component {
             state: 'generating'
         });
 
-        const agencyType = this.state.fundingAgency ? 'funding' : 'awarding';
+        const d1AgencyType = this.state.d1.fundingAgency ? 'funding' : 'awarding';
+        const d2AgencyType = this.state.d2.fundingAgency ? 'funding' : 'awarding';
 
         // submit both D1 and D2 date ranges to the API
         Q.allSettled([
             GenerateFilesHelper.generateFile('D1', this.props.submissionID,
-                this.state.d1.startDate.format('MM/DD/YYYY'), this.state.d1.endDate.format('MM/DD/YYYY'), agencyType),
+                this.state.d1.startDate.format('MM/DD/YYYY'),
+                this.state.d1.endDate.format('MM/DD/YYYY'),
+                d1AgencyType),
             GenerateFilesHelper.generateFile('D2', this.props.submissionID,
-                this.state.d2.startDate.format('MM/DD/YYYY'), this.state.d2.endDate.format('MM/DD/YYYY'), agencyType)
+                this.state.d2.startDate.format('MM/DD/YYYY'),
+                this.state.d2.endDate.format('MM/DD/YYYY'),
+                d2AgencyType)
         ])
             .then((allResponses) => {
                 if (this.isUnmounted) {
