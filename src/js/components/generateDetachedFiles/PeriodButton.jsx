@@ -5,6 +5,7 @@
 
 import React, { PropTypes } from 'react';
 import * as utils from '../../helpers/util';
+import PeriodButtonWithTooltip from './PeriodButtonWithTooltip';
 
 const propTypes = {
     active: PropTypes.bool,
@@ -51,33 +52,26 @@ const PeriodButton = (props) => {
     }
 
     let button = (
-        <button
-            className={`period-picker__list-button ${activeClass}`}
-            onMouseOver={hoveredPeriod}
-            onFocus={hoveredPeriod}
-            onMouseLeave={props.endHover}
-            onBlur={props.endHover}
-            onClick={clickedPeriod}>
-            {utils.getPeriodTextFromValue(props.period)}{quarterIndicator}
-        </button>
+        <li className="period-picker__list-item">
+            <button
+                className={`period-picker__list-button ${activeClass}`}
+                onMouseOver={hoveredPeriod}
+                onFocus={hoveredPeriod}
+                onMouseLeave={props.endHover}
+                onBlur={props.endHover}
+                onClick={clickedPeriod}>
+                {utils.getPeriodTextFromValue(props.period)}{quarterIndicator}
+            </button>
+        </li>
     );
 
     if (props.period === 1) {
         button = (
-            <button
-                className={`period-picker__list-button ${activeClass}`}
-                disabled
-                data-tooltip="October is not directly selectable since there is no Period 1 reporting window in GTAS. Because File A Data is cumulative within the Fiscal year, Period 1 data is automatically included with data from later periods.">
-                {utils.getPeriodTextFromValue(props.period)}
-            </button>
+            <PeriodButtonWithTooltip active={props.active} />
         );
     }
 
-    return (
-        <li className="period-picker__list-item">
-            { button }
-        </li>
-    );
+    return button;
 };
 
 
