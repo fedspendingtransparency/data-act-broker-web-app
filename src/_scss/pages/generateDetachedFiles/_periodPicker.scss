@@ -88,7 +88,7 @@
             .period-picker__tooltip {
                 position: absolute;
                 top: rem(10);
-                right: rem(-300);
+                right: rem(-250);
                 width: rem(300);
                 text-align: left;
                 padding: rem(5);
@@ -122,7 +122,7 @@
                 background-color: $color-gray-lightest;
             }
 
-            &:disabled {
+            &.period-picker__list-button_disabled  {
                 cursor: not-allowed;
                 background-color: $color-gray-lightest;
                 color:$color-gray-lighter;

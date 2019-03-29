@@ -39,11 +39,13 @@ export default class PeriodButtonWithTooltip extends React.Component {
     }
 
     render() {
-        const activeClass = this.props.active ? 'period-picker__list-button_active' : '';
         const button = (
             <button
-                className={`period-picker__list-button ${activeClass}`}
-                disabled>
+                onMouseEnter={this.showTooltip}
+                onFocus={this.showTooltip}
+                onMouseLeave={this.hideTooltip}
+                onBlur={this.hideTooltip}
+                className="period-picker__list-button period-picker__list-button_disabled">
                 {utils.getPeriodTextFromValue(1)}
             </button >
         );
@@ -64,10 +66,6 @@ export default class PeriodButtonWithTooltip extends React.Component {
 
         return (
             <li
-                onMouseEnter={this.showTooltip}
-                onFocus={this.showTooltip}
-                onMouseLeave={this.hideTooltip}
-                onBlur={this.hideTooltip}
                 className="period-picker__list-item">
                 {button}
                 {tooltip}
