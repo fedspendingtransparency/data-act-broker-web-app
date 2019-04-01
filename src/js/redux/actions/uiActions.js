@@ -1,5 +1,7 @@
+import { SET_LOADING } from "../types";
+
 const setLoading = (bool) => ({
-    type: 'SET_LOADING',
+    type: SET_LOADING,
     payload: bool
 });
 
