@@ -8,6 +8,7 @@ import { lastDateModifiedReducer } from './lastDateModifiedReducer';
 import { subTierAgencyReducer } from './subTierAgencyReducer';
 import { dashboardFilterReducer } from './dashboard/dashboardFilterReducer';
 import { appliedFiltersReducer } from './dashboard/appliedFiltersReducer';
+import ui from './uiReducer';
 
 const appReducer = combineReducers({
     session: sessionReducer,
@@ -17,7 +18,8 @@ const appReducer = combineReducers({
     lastDateModifiedList: lastDateModifiedReducer,
     subTierAgencyList: subTierAgencyReducer,
     dashboardFilters: dashboardFilterReducer,
-    appliedDashboardFilters: appliedFiltersReducer
+    appliedDashboardFilters: appliedFiltersReducer,
+    ui
 });
 
 export default appReducer;
