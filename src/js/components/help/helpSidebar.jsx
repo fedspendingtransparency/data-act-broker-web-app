@@ -4,7 +4,6 @@
  */
 
 import React, { PropTypes } from 'react';
-import { kGlobalConstants } from '../../GlobalConstants';
 import HelpSidebarItem from './helpSidebarItem';
 
 const propTypes = {
@@ -79,7 +78,7 @@ export default class HelpSidebar extends React.Component {
                         <a href={history}>Release Notes Archive</a>
                     </li>
                 </ul>
-                <h6>This Releases Technical Notes</h6>
+                <h6>This Release&apos;s Technical Notes</h6>
                 <ul>
                     {tSectionList}
                     <li>
