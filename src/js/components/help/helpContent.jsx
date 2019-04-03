@@ -69,10 +69,11 @@ export default class HelpContent extends React.Component {
         else {
             membership = (
                 <p name="membership">
-                    If you encounter a bug, have a question, or need help,
-                    please register for the
-                    <a href="https://servicedesk.usaspending.gov" rel="noopener noreferrer" target="_blank">
-                        USAspending Service Desk
+                    If you encounter a bug, have a question, or need help, please register for the
+                    <a
+                        href="https://servicedesk.usaspending.gov"
+                        rel="noopener noreferrer"
+                        target="_blank"> USAspending Service Desk
                     </a> and submit a ticket.
                     We can better resolve your issue if you provide us as much information as possible,
                     including the exact steps we should follow to replicate your issue and the page where you

@@ -5,30 +5,28 @@
 
 import React, { PropTypes } from 'react';
 import HelpSidebarItem from './helpSidebarItem';
+import ThisReleaseTechnicalNotes from '../../dataMapping/help/thisReleaseTechnicalNotes';
+import ChangeSections from '../../dataMapping/help/changeSections';
 
 const propTypes = {
-    changeSections: PropTypes.array,
-    technicalSections: PropTypes.array,
     type: PropTypes.string,
     helpOnly: PropTypes.bool
 };
 
 const defaultProps = {
-    changeSections: [],
-    technicalSections: [],
     type: '',
     helpOnly: false
 };
 
 export default class HelpSidebar extends React.Component {
     render() {
-        const clSectionList = this.props.changeSections.map((section) => (<HelpSidebarItem
+        const clSectionList = ChangeSections.map((section) => (<HelpSidebarItem
             key={section.name}
             sectionName={section.name}
             sectionId={section.link}
             type={this.props.type} />));
 
-        const tSectionList = this.props.technicalSections.map((section) => (
+        const tSectionList = ThisReleaseTechnicalNotes.map((section) => (
             <HelpSidebarItem
                 key={section.name}
                 sectionName={section.name}

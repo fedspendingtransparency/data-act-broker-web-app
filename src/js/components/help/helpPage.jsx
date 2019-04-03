@@ -33,9 +33,7 @@ export default class HelpPage extends React.Component {
 
         this.state = {
             changelog: '',
-            technical: '',
-            clSections: [],
-            tSections: []
+            technical: ''
         };
     }
 
@@ -48,8 +46,8 @@ export default class HelpPage extends React.Component {
         HelpHelper.loadHelp()
             .then((output) => {
                 this.setState({
-                    changelog: output.html,
-                    clSections: output.sections
+                    changelog: output.html
+                    // clSections: output.sections
                 });
             })
             .catch((err) => {
@@ -94,17 +92,13 @@ export default class HelpPage extends React.Component {
                         <div className="row usa-da-help-page">
                             <div className="col-md-4">
                                 <HelpSidebar
-                                    changeSections={this.state.clSections}
-                                    technicalSections={this.state.tSections}
                                     helpOnly={this.props.helpOnly}
                                     type={this.props.type} />
                             </div>
                             <div className="col-md-8">
                                 <HelpContent
                                     section={this.props.location.query.section}
-                                    helpOnly={this.props.helpOnly}
-                                    changelog={this.state.changelog}
-                                    technical={this.state.technical} />
+                                    helpOnly={this.props.helpOnly} />
                             </div>
                         </div>
                     </div>

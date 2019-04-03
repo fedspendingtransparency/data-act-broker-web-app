@@ -6,6 +6,7 @@
 import React, { PropTypes } from 'react';
 import Navbar from '../SharedComponents/navigation/NavigationComponent';
 import HelpSidebar from './helpSidebar';
+import TechnicalHistoryContent from './TechnicalHistoryContent';
 import HistoryContent from './historyContent';
 import Footer from '../SharedComponents/FooterComponent';
 import HelpNav from './helpNav';
@@ -34,9 +35,7 @@ export default class HelpPage extends React.Component {
 
         this.state = {
             history: '',
-            title: '',
-            clSections: [],
-            tSections: []
+            title: ''
         };
     }
 
@@ -98,6 +97,7 @@ export default class HelpPage extends React.Component {
         const history = this.props.type === 'fabs' ? '#/FABSHistory' : '#/history';
         const activeTab = this.props.type === 'fabs' ? 'FABSHelp' : 'help';
         const color = this.props.type === 'fabs' ? 'teal' : 'dark';
+        const title = this.props.history === 'technical' ? 'Technical Notes Archive' : 'Release Notes Archive';
         return (
             <div className="usa-da-help-style-page" name="top">
                 <div className="usa-da-page-content">
@@ -118,13 +118,14 @@ export default class HelpPage extends React.Component {
                         <div className="row usa-da-help-page">
                             <div className="col-md-4">
                                 <HelpSidebar
-                                    changeSections={this.state.clSections}
-                                    technicalSections={this.state.tSections}
                                     sections={this.state.sections}
                                     type={this.props.type} />
                             </div>
                             <div className="col-md-8">
-                                <HistoryContent history={this.state.history} title={this.state.title} />
+                                {this.props.history === 'technical' &&
+                                <TechnicalHistoryContent history={this.state.history} title={title} />}
+                                {this.props.history === 'release' &&
+                                <HistoryContent history={this.state.history} title={title} />}
                             </div>
                         </div>
                     </div>
