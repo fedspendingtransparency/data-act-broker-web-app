@@ -7,13 +7,11 @@ import React, { PropTypes } from 'react';
 import $ from 'jquery';
 
 const propTypes = {
-    section: PropTypes.string,
-    title: PropTypes.string
+    section: PropTypes.string
 };
 
 const defaultProps = {
-    section: '',
-    title: ''
+    section: ''
 };
 
 export default class HistoryContent extends React.Component {
@@ -35,7 +33,7 @@ export default class HistoryContent extends React.Component {
         );
         return (
             <div className="usa-da-help-content">
-                <h2>{this.props.title}</h2>
+                <h2>Release Notes Archive</h2>
                 <h4>March 11, 2019</h4>
 
                 {releaseStatement}

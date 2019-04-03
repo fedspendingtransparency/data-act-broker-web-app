@@ -13,10 +13,8 @@ import HelpNav from './helpNav';
 
 import * as Icons from '../SharedComponents/icons/Icons';
 
-import * as HelpHelper from '../../helpers/helpHelper';
-
 const propTypes = {
-    history: PropTypes.object,
+    history: PropTypes.string,
     type: PropTypes.string,
     helpOnly: PropTypes.bool
 };
@@ -31,73 +29,16 @@ export default class HelpPage extends React.Component {
     constructor(props) {
         super(props);
 
-        this.isUnmounted = true;
-
         this.state = {
             history: '',
             title: ''
         };
     }
 
-    componentDidMount() {
-        this.isUnmounted = false;
-        this.loadChangelog();
-        this.loadTechnical();
-    }
-
-    componentWillReceiveProps() {
-        if (!this.isUnmounted && this.props.history) {
-            this.loadChangelog();
-            this.loadTechnical();
-        }
-    }
-
-    componentWillUnmount() {
-        this.isUnmounted = true;
-    }
-
-    loadChangelog() {
-        HelpHelper.loadHelp()
-            .then((output) => {
-                this.setState({
-                    clSections: output.sections
-                });
-
-                if (this.props.history === 'release') {
-                    this.setState({
-                        history: output.history,
-                        title: 'Release Notes Archive'
-                    });
-                }
-            })
-            .catch((err) => {
-                console.error(err);
-            });
-    }
-
-    loadTechnical() {
-        HelpHelper.loadTechnical()
-            .then((output) => {
-                this.setState({
-                    tSections: output.sections
-                });
-                if (this.props.history === 'technical') {
-                    this.setState({
-                        history: output.history,
-                        title: 'Technical Notes Archive'
-                    });
-                }
-            })
-            .catch((err) => {
-                console.error(err);
-            });
-    }
-
     render() {
         const history = this.props.type === 'fabs' ? '#/FABSHistory' : '#/history';
         const activeTab = this.props.type === 'fabs' ? 'FABSHelp' : 'help';
         const color = this.props.type === 'fabs' ? 'teal' : 'dark';
-        const title = this.props.history === 'technical' ? 'Technical Notes Archive' : 'Release Notes Archive';
         return (
             <div className="usa-da-help-style-page" name="top">
                 <div className="usa-da-page-content">
@@ -123,9 +64,9 @@ export default class HelpPage extends React.Component {
                             </div>
                             <div className="col-md-8">
                                 {this.props.history === 'technical' &&
-                                <TechnicalHistoryContent history={this.state.history} title={title} />}
+                                <TechnicalHistoryContent />}
                                 {this.props.history === 'release' &&
-                                <HistoryContent history={this.state.history} title={title} />}
+                                <HistoryContent />}
                             </div>
                         </div>
                     </div>

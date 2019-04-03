@@ -13,8 +13,6 @@ import Banner from '../SharedComponents/Banner';
 
 import * as Icons from '../SharedComponents/icons/Icons';
 
-import * as HelpHelper from '../../helpers/helpHelper';
-
 const propTypes = {
     location: PropTypes.object,
     type: PropTypes.string,
@@ -28,45 +26,6 @@ const defaultProps = {
 };
 
 export default class HelpPage extends React.Component {
-    constructor(props) {
-        super(props);
-
-        this.state = {
-            changelog: '',
-            technical: ''
-        };
-    }
-
-    componentDidMount() {
-        this.loadChangelog();
-        this.loadTechnical();
-    }
-
-    loadChangelog() {
-        HelpHelper.loadHelp()
-            .then((output) => {
-                this.setState({
-                    changelog: output.html
-                    // clSections: output.sections
-                });
-            })
-            .catch((err) => {
-                console.error(err);
-            });
-    }
-
-    loadTechnical() {
-        HelpHelper.loadTechnical()
-            .then((output) => {
-                this.setState({
-                    technical: output.html,
-                    tSections: output.sections
-                });
-            })
-            .catch((err) => {
-                console.error(err);
-            });
-    }
 
     render() {
         const help = this.props.type === 'fabs' ? 'FABShelp' : 'help';
