@@ -71,6 +71,7 @@ export default class HelpSidebar extends React.Component {
                 {schedule}
                 <h6>What’s New in This Release</h6>
                 <ul>
+                    {tSectionList}
                     {clSectionList}
                     <li>
                         <a href={history}>Release Notes Archive</a>
