@@ -8,8 +8,6 @@ import { connect } from 'react-redux';
 
 import * as ReviewHelper from '../../helpers/reviewHelper';
 
-import uiActions from "../../redux/actions/uiActions";
-
 import ReviewDataPage from '../../components/reviewData/ReviewDataPage';
 
 const propTypes = {
@@ -107,15 +105,9 @@ ReviewDataContainer.defaultProps = defaultProps;
 
 const mapStateToProps = (state) => ({
     submission: state.submission,
-    session: state.session,
-    loading: state.ui.loading
-});
-
-const mapDispatchToProps = (dispatch) => ({
-    setLoading: (bool) => dispatch(uiActions.setLoading(bool))
+    session: state.session
 });
 
 export default connect(
-    mapStateToProps,
-    mapDispatchToProps
+    mapStateToProps
 )(ReviewDataContainer);
