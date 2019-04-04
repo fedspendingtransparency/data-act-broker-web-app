@@ -14,7 +14,6 @@ import * as ReviewHelper from '../../../helpers/reviewHelper';
 
 const propTypes = {
     closeModal: PropTypes.func,
-    setLoading: PropTypes.func,
     session: PropTypes.object,
     submissionID: PropTypes.string,
     warnings: PropTypes.number,
@@ -38,7 +37,8 @@ export default class ReviewDataCertifyModal extends React.Component {
             showProgress: false,
             publishComplete: false,
             closeable: true,
-            errorMessage: ""
+            errorMessage: "",
+            loading: false
         };
         this.closeModal = this.closeModal.bind(this);
         this.clickedCertifyButton = this.clickedCertifyButton.bind(this);
@@ -52,19 +52,17 @@ export default class ReviewDataCertifyModal extends React.Component {
     }
 
     clickedCertifyButton(e) {
-        // TODO: consider using async action creators per https://redux.js.org/advanced/async-actions
         e.preventDefault();
-        this.props.setLoading(true);
+        this.setState({ loading: true });
 
         ReviewHelper.certifySubmission(this.props.submissionID)
             .then(() => {
-                this.props.setLoading(false);
+                this.setState({ loading: false });
                 this.closeModal();
                 // Redirect to submission dashboard after successful certification
                 hashHistory.push("/dashboard");
             })
             .catch((error) => {
-                this.props.setLoading(false);
                 let errorMessage = "An error occurred while attempting to certify the submission. " +
                     "Please contact your administrator for assistance.";
                 if (error.httpStatus === 400 || error.httpStatus === 403) {
@@ -78,7 +76,7 @@ export default class ReviewDataCertifyModal extends React.Component {
                     }
                 }
 
-                this.setState({ errorMessage });
+                this.setState({ errorMessage, loading: false });
             });
     }
 
@@ -117,6 +115,7 @@ export default class ReviewDataCertifyModal extends React.Component {
 
         let action = (<CertifyButtons
             {...this.props}
+            loading={this.state.loading}
             certified={this.state.certified}
             clickedCertifyButton={this.clickedCertifyButton}
             clickedCertifyCheckbox={this.clickedCertifyCheckbox} />);
