@@ -52,7 +52,7 @@ export default class GenerateDetachedFilesPage extends React.Component {
                 valid: false,
                 status: "",
                 jobID: null,
-                fundingAgency: false
+                isFundingAgency: false
             },
             d2: {
                 startDate: null,
@@ -66,7 +66,7 @@ export default class GenerateDetachedFilesPage extends React.Component {
                 valid: false,
                 status: "",
                 jobID: null,
-                fundingAgency: false
+                isFundingAgency: false
             }
         };
 
@@ -196,7 +196,7 @@ export default class GenerateDetachedFilesPage extends React.Component {
 
     toggleAgencyType(type) {
         const newType = assign({}, this.state[type]);
-        newType.fundingAgency = !newType.fundingAgency;
+        newType.isFundingAgency = !newType.isFundingAgency;
         this.setState({
             [type]: newType
         });
@@ -206,7 +206,7 @@ export default class GenerateDetachedFilesPage extends React.Component {
         // generate specified file
         const cgacCode = this.state.codeType !== 'frec_code' ? this.state.agency : '';
         const frecCode = this.state.codeType === 'frec_code' ? this.state.agency : '';
-        const agencyType = this.state[file].fundingAgency ? 'funding' : 'awarding';
+        const agencyType = this.state[file].isFundingAgency ? 'funding' : 'awarding';
 
         const tmpFile = Object.assign({}, this.state[file]);
         tmpFile.status = "generating";

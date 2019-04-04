@@ -57,7 +57,7 @@ class GenerateFilesContainer extends React.Component {
                     description: ''
                 },
                 showDownload: false,
-                fundingAgency: false
+                isFundingAgency: false
             },
             d2: {
                 startDate: null,
@@ -68,7 +68,7 @@ class GenerateFilesContainer extends React.Component {
                     description: ''
                 },
                 showDownload: false,
-                fundingAgency: false
+                isFundingAgency: false
             },
             d1Status: "waiting",
             d2Status: "waiting",
@@ -341,7 +341,7 @@ class GenerateFilesContainer extends React.Component {
 
     toggleAgencyType(type) {
         const newType = _.assign({}, this.state[type]);
-        newType.fundingAgency = !newType.fundingAgency;
+        newType.isFundingAgency = !newType.isFundingAgency;
         this.setState({
             [type]: newType
         });
@@ -352,8 +352,8 @@ class GenerateFilesContainer extends React.Component {
             state: 'generating'
         });
 
-        const d1AgencyType = this.state.d1.fundingAgency ? 'funding' : 'awarding';
-        const d2AgencyType = this.state.d2.fundingAgency ? 'funding' : 'awarding';
+        const d1AgencyType = this.state.d1.isFundingAgency ? 'funding' : 'awarding';
+        const d2AgencyType = this.state.d2.isFundingAgency ? 'funding' : 'awarding';
 
         // submit both D1 and D2 date ranges to the API
         Q.allSettled([
