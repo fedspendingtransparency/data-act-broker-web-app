@@ -24,7 +24,7 @@ export const quarterToMonth = (quarter, quarterYear, type) => {
     const startMonth = ["10", "01", "04", "07"];
     const endMonth = ["12", "03", "06", "09"];
 
-    const normalQuarter = quarter.toString();
+    const normalQuarter = parseInt(quarter, 10);
 
     let month = startMonth[normalQuarter - 1];
 
@@ -33,7 +33,7 @@ export const quarterToMonth = (quarter, quarterYear, type) => {
     }
 
     let year = parseInt(quarterYear, 10);
-    if (normalQuarter === '1') {
+    if (normalQuarter === 1) {
         // decrement the year by one for the first quarter of the fiscal year
         year -= 1;
     }
@@ -41,23 +41,25 @@ export const quarterToMonth = (quarter, quarterYear, type) => {
     return `${month}/${year}`;
 };
 
-export const currentQuarter = (type) => {
-    const month = parseInt(moment().format("M"), 10);
-    let year = moment().format('YYYY');
+export const previousQuarterMonth = (type) => {
+    // gets the first or last month + year of the previous quarter.
+    const currDate = moment().subtract(3, 'months');
+    const month = currDate.month();
+    let year = currDate.year();
 
     let quarter = 1;
 
-    if (month === 12) {
-        // Add a year for quarter 1, since 1/2 are already in the new year do not need to update
-        year = moment().add(1, 'years').format('YYYY');
-    }
-    else if (month >= 9) {
-        quarter = 4;
+    if (month >= 9) {
+        // Add a year for quarter 1
+        year += 1;
     }
     else if (month >= 6) {
-        quarter = 3;
+        quarter = 4;
     }
     else if (month >= 3) {
+        quarter = 3;
+    }
+    else {
         quarter = 2;
     }
 

@@ -7,19 +7,21 @@ import React, { PropTypes } from 'react';
 import * as Icons from '../SharedComponents/icons/Icons';
 
 const propTypes = {
+    clickedDownload: PropTypes.func,
     fileInfo: PropTypes.string,
     errorType: PropTypes.string,
     errorMessage: PropTypes.string,
-    url: PropTypes.string,
-    label: PropTypes.string
+    label: PropTypes.string,
+    showDownload: PropTypes.bool
 };
 
 const defaultProps = {
+    clickedDownload: null,
     fileInfo: '',
-    url: '',
     errorType: '',
     errorMessage: '',
-    label: ''
+    label: '',
+    showDownload: false
 };
 
 export default class DownloadFile extends React.Component {
@@ -30,7 +32,7 @@ export default class DownloadFile extends React.Component {
         }
 
         let showDownload = ' hide';
-        if (this.props.url) {
+        if (this.props.showDownload) {
             showDownload = '';
         }
 
@@ -46,16 +48,17 @@ export default class DownloadFile extends React.Component {
                                 <div className="col-sm-12">
                                     {this.props.fileInfo}
                                 </div>
-                                <a
-                                    href={this.props.url}
-                                    target="_blank"
-                                    rel="noopener noreferrer"
+                                <div
+                                    role="button"
+                                    tabIndex={0}
+                                    onClick={this.props.clickedDownload}
+                                    onKeyDown={this.props.clickedDownload}
                                     className="usa-da-download file-download-btn">
                                     <span className="usa-da-icon usa-da-download-report">
                                         <Icons.CloudDownload />
                                     </span>
                                     Download File
-                                </a>
+                                </div>
                             </div>
                         </div>
                     </div>

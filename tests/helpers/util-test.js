@@ -22,24 +22,48 @@ describe('util helper functions', () => {
             const months = utilHelper.quarterToMonth(2, 2018, 'start');
             expect(months).toEqual('01/2018');
         });
+        it('should work when the quarter is passed as a string', () => {
+            const months = utilHelper.quarterToMonth("1", 2018, 'start');
+            expect(months).toEqual('10/2017');
+        });
     });
-    describe('currentQuarter', () => {
-        it('should return the date corresponding to the start of the current quarter (DEV-1768)', () => {
+    describe('previousQuarterMonth', () => {
+        it('should return the date corresponding to the start of the previous quarter', () => {
             const mockedDate = moment('2015-04-01', 'YYYY-MM-DD').toDate();
             moment.now = () => (mockedDate);
 
-            const quarter = utilHelper.currentQuarter('start');
-            expect(quarter).toEqual('04/2015');
+            const quarter = utilHelper.previousQuarterMonth('start');
+            expect(quarter).toEqual('01/2015');
 
             // reset moment's date to the current time
             moment.now = () => (new Date());
         });
-        it('should return the date corresponding to the end of the current quarter (DEV-1768)', () => {
+        it('should return the date corresponding to the end of the previous quarter', () => {
             const mockedDate = moment('2015-04-01', 'YYYY-MM-DD').toDate();
             moment.now = () => (mockedDate);
 
-            const quarter = utilHelper.currentQuarter('end');
-            expect(quarter).toEqual('06/2015');
+            const quarter = utilHelper.previousQuarterMonth('end');
+            expect(quarter).toEqual('03/2015');
+
+            // reset moment's date to the current time
+            moment.now = () => (new Date());
+        });
+        it('should properly get the beginning of quarter 1', () => {
+            const mockedDate = moment('2016-03-31', 'YYYY-MM-DD').toDate();
+            moment.now = () => (mockedDate);
+
+            const quarter = utilHelper.previousQuarterMonth('start');
+            expect(quarter).toEqual('10/2015');
+
+            // reset moment's date to the current time
+            moment.now = () => (new Date());
+        });
+        it('should correctly return the 4th quarter dates when given December', () => {
+            const mockedDate = moment('2015-12-31', 'YYYY-MM-DD').toDate();
+            moment.now = () => (mockedDate);
+
+            const quarter = utilHelper.previousQuarterMonth('start');
+            expect(quarter).toEqual('07/2015');
 
             // reset moment's date to the current time
             moment.now = () => (new Date());
