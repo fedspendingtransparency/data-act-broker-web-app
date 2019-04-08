@@ -71,7 +71,7 @@ export default class AgencyToggle extends React.Component {
         return (
             <div className="agency-toggle">
                 <div className="agency-toggle__text">
-                    Generate File {fileName} from records where my agency is the:
+                    {`Generate File ${fileName} from records where my agency is the`}:
                 </div>
                 <button
                     className="agency-toggle__button"
