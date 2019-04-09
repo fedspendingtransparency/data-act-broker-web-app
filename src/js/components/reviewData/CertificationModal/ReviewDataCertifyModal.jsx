@@ -37,8 +37,12 @@ export default class ReviewDataCertifyModal extends React.Component {
             showProgress: false,
             publishComplete: false,
             closeable: true,
-            errorMessage: ""
+            errorMessage: "",
+            loading: false
         };
+        this.closeModal = this.closeModal.bind(this);
+        this.clickedCertifyButton = this.clickedCertifyButton.bind(this);
+        this.clickedCertifyCheckbox = this.clickedCertifyCheckbox.bind(this);
     }
 
     clickedCertifyCheckbox() {
@@ -49,12 +53,14 @@ export default class ReviewDataCertifyModal extends React.Component {
 
     clickedCertifyButton(e) {
         e.preventDefault();
+        this.setState({ loading: true });
 
         ReviewHelper.certifySubmission(this.props.submissionID)
             .then(() => {
+                this.setState({ loading: false });
                 this.closeModal();
                 // Redirect to submission dashboard after successful certification
-                hashHistory.push('/dashboard');
+                hashHistory.push("/dashboard");
             })
             .catch((error) => {
                 let errorMessage = "An error occurred while attempting to certify the submission. " +
@@ -70,7 +76,7 @@ export default class ReviewDataCertifyModal extends React.Component {
                     }
                 }
 
-                this.setState({ errorMessage });
+                this.setState({ errorMessage, loading: false });
             });
     }
 
@@ -109,15 +115,16 @@ export default class ReviewDataCertifyModal extends React.Component {
 
         let action = (<CertifyButtons
             {...this.props}
+            loading={this.state.loading}
             certified={this.state.certified}
-            clickedCertifyButton={this.clickedCertifyButton.bind(this)}
-            clickedCertifyCheckbox={this.clickedCertifyCheckbox.bind(this)} />);
+            clickedCertifyButton={this.clickedCertifyButton}
+            clickedCertifyCheckbox={this.clickedCertifyCheckbox} />);
 
         if (this.state.showProgress) {
             action = (<CertifyProgress
                 {...this.props.session}
                 finished={this.state.publishComplete}
-                closeModal={this.closeModal.bind(this)} />);
+                closeModal={this.closeModal} />);
         }
 
         let hideClose = "";
@@ -136,7 +143,7 @@ export default class ReviewDataCertifyModal extends React.Component {
         return (
             <Modal
                 mounted={this.props.isOpen}
-                onExit={this.closeModal.bind(this)}
+                onExit={this.closeModal}
                 underlayClickExits={this.state.closeable}
                 verticallyCenter={trueProps}
                 initialFocus="#certify-check"
@@ -144,7 +151,7 @@ export default class ReviewDataCertifyModal extends React.Component {
                 <div className="usa-da-modal-page">
                     <div id="usa-da-certify-modal" className="usa-da-certify-modal">
                         <div className={`usa-da-certify-modal-close usa-da-icon usa-da-icon-times${hideClose}`}>
-                            <button onClick={this.closeModal.bind(this)}> <Icons.Times /> </button>
+                            <button onClick={this.closeModal}> <Icons.Times /> </button>
                         </div>
 
                         <div className="usa-da-certify-modal-content">

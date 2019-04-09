@@ -7,6 +7,7 @@ import ReactCSSTransitionGroup from 'react-addons-css-transition-group';
 
 import React, { PropTypes } from 'react';
 import moment from 'moment';
+import { assign } from 'lodash';
 import Navbar from '../SharedComponents/navigation/NavigationComponent';
 import Footer from '../SharedComponents/FooterComponent';
 import AgencyListContainer from '../../containers/SharedContainers/AgencyListContainer';
@@ -39,7 +40,6 @@ export default class GenerateDetachedFilesPage extends React.Component {
             showDateSelect: false,
             showSubmitButton: false,
             buttonDisabled: true,
-            fundingAgency: false,
             d1: {
                 startDate: null,
                 endDate: null,
@@ -51,7 +51,8 @@ export default class GenerateDetachedFilesPage extends React.Component {
                 showDownload: false,
                 valid: false,
                 status: "",
-                jobID: null
+                jobID: null,
+                isFundingAgency: false
             },
             d2: {
                 startDate: null,
@@ -64,7 +65,8 @@ export default class GenerateDetachedFilesPage extends React.Component {
                 showDownload: false,
                 valid: false,
                 status: "",
-                jobID: null
+                jobID: null,
+                isFundingAgency: false
             }
         };
 
@@ -192,9 +194,11 @@ export default class GenerateDetachedFilesPage extends React.Component {
         });
     }
 
-    toggleAgencyType() {
+    toggleAgencyType(type) {
+        const newType = assign({}, this.state[type]);
+        newType.isFundingAgency = !newType.isFundingAgency;
         this.setState({
-            fundingAgency: !this.state.fundingAgency
+            [type]: newType
         });
     }
 
@@ -202,7 +206,7 @@ export default class GenerateDetachedFilesPage extends React.Component {
         // generate specified file
         const cgacCode = this.state.codeType !== 'frec_code' ? this.state.agency : '';
         const frecCode = this.state.codeType === 'frec_code' ? this.state.agency : '';
-        const agencyType = this.state.fundingAgency ? 'funding' : 'awarding';
+        const agencyType = this.state[file].isFundingAgency ? 'funding' : 'awarding';
 
         const tmpFile = Object.assign({}, this.state[file]);
         tmpFile.status = "generating";

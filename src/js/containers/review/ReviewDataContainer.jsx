@@ -103,9 +103,11 @@ class ReviewDataContainer extends React.Component {
 ReviewDataContainer.propTypes = propTypes;
 ReviewDataContainer.defaultProps = defaultProps;
 
+const mapStateToProps = (state) => ({
+    submission: state.submission,
+    session: state.session
+});
+
 export default connect(
-    (state) => ({
-        submission: state.submission,
-        session: state.session
-    })
+    mapStateToProps
 )(ReviewDataContainer);
