@@ -1,4 +1,4 @@
-##### April 5, 2019
+#### April 5, 2019
 In this release of the Broker, we:
 
 * Updated Broker Resource page to reference DAIMS v1.3.1 documents.
