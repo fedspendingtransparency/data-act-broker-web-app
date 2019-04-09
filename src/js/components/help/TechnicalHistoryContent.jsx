@@ -16,6 +16,27 @@ const TechnicalHistoryContent = () => {
     return (
         <div className="usa-da-help-content">
             <h2>Technical Notes Archive</h2>
+            <h4 name="technical">March 25, 2019</h4>
+
+            {releaseStatement}
+
+            <ul>
+                <li>
+                Updated certify_submission API endpoint documents to include new 
+                errors for standard quarterly revalidation thresholds and special 
+                revalidation thresholds. This rule checks the validation date and 
+                confirms the submission is certifiable.
+                </li>
+                <li>
+                Modified the TAS loader to prevent loading any possible duplicates.
+                </li>
+                <li>
+                Standardized unique award keys between Broker and USASpending.gov.
+                </li>
+                <li>
+                Optimized File F generation for performance in memory and speed.
+                </li>
+            </ul>
             <h4 name="technical">March 11, 2019</h4>
 
             {releaseStatement}
