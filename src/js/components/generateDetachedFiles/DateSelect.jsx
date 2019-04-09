@@ -30,7 +30,6 @@ const defaultProps = {
 };
 
 export default class DateSelect extends React.Component {
-
     toggleAgencyType(type) {
         this.props.toggleAgencyType(type);
     }

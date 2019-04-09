@@ -4,7 +4,6 @@
  */
 
 import React, { PropTypes } from 'react';
-import { kGlobalConstants } from '../../GlobalConstants';
 import HelpSidebarItem from './helpSidebarItem';
 
 const propTypes = {

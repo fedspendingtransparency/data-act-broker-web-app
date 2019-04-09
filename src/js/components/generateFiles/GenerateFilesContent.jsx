@@ -28,7 +28,6 @@ const defaultProps = {
 };
 
 export default class GenerateFilesContent extends React.Component {
-
     toggleAgencyType(type) {
         this.props.toggleAgencyType(type);
     }
