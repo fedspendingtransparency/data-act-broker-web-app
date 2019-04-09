@@ -1,14 +1,16 @@
 .usa-da-help-top-button {
-    width: 40px;
-    height: 40px;
+    
     position: fixed;
     bottom: 60px;
     right: 40px;
     overflow: hidden;
-    background-color: $color-gray-light;
     @include transition(all 0.5s ease-in-out);
-    a {
+    button {
+        @include button-unstyled;
+        width: 40px;
+        height: 40px;
         display: block;
+        background-color: $color-gray-light;
         svg {
             fill: $color-white;
             position: relative;
@@ -18,11 +20,11 @@
         .hidden-label {
             font-size: 0;
         }
-    }
-    &:hover {
-        background-color: $color-primary-alt-dark;
-        & svg {
-            top: -5px;
+        &:hover {
+            background-color: $color-primary-alt-dark;
+            & svg {
+                top: -5px;
+            }
         }
     }
 }
