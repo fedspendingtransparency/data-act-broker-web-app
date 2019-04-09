@@ -71,7 +71,7 @@ export default class HelpSidebar extends React.Component {
         return (
             <div className="usa-da-help-sidebar">
                 {schedule}
-                <h6>What’s New in This Release</h6>
+                <h6>What&rsquo;s New in This Release</h6>
                 <ul>
                     {clSectionList}
                     <li>
