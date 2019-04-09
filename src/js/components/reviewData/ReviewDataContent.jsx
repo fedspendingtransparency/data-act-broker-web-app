@@ -237,7 +237,7 @@ export default class ReviewDataContent extends React.Component {
                             <div className="left-link">
                                 <button
                                     onClick={revalidateButtonAction}
-                                    className={`usa-da-button btn-primary btn-lg btn-full`}>
+                                    className="usa-da-button btn-primary btn-lg btn-full">
                                     <div className="button-wrapper">
                                         <div className="button-icon">
                                             <Icons.Revalidate />

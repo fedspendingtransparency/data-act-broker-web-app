@@ -26,7 +26,6 @@ const defaultProps = {
 };
 
 export default class HelpPage extends React.Component {
-
     render() {
         const help = this.props.type === 'fabs' ? 'FABShelp' : 'help';
         const color = this.props.type === 'fabs' ? 'teal' : 'dark';
