@@ -914,7 +914,7 @@ export default class HistoryContent extends React.Component {
                     the error in their submission is.
                     </li>
                     <li>
-                    Permissions for &ldquo;Delete Submission&rdqo; button: Users with uploader
+                    Permissions for &ldquo;Delete Submission&rdquo; button: Users with uploader
                     rights will now be able to see the &ldquo;trash can&rdquo; deletion icon.
                     </li>
                 </ul>
@@ -1107,7 +1107,7 @@ export default class HistoryContent extends React.Component {
                 <h5 name="servicedesk">Service Desk link</h5>
                 <p>
                     In this release, we added a link to the USAspending Service Desk on
-                    the Help page under &ldquo;Getting More Help.&rdqo;
+                    the Help page under &ldquo;Getting More Help.&rdquo;
                 </p>
 
                 <h4>April 12, 2017</h4>
