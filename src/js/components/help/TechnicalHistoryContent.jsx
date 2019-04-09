@@ -3,30 +3,9 @@
  * Created by Jonathan Hill 04/02/19
  */
 
-import React, { PropTypes } from "react";
-import $ from "jquery";
-
-const propTypes = {
-    section: PropTypes.string
-};
-
-const defaultProps = {
-    section: ""
-};
+import React from "react";
 
 export default class TechnicalHistoryContent extends React.Component {
-    componentDidUpdate() {
-        this.scrollToSection();
-    }
-
-    scrollToSection() {
-        if (this.props.section && $(`[name=${this.props.section}]`).length > 0) {
-            $("html, body").animate({
-                scrollTop: $(`[name=${this.props.section}]`).offset().top
-            }, 500);
-        }
-    }
-
     render() {
         const releaseStatement = (
             <p>
@@ -688,6 +667,3 @@ export default class TechnicalHistoryContent extends React.Component {
         );
     }
 }
-
-TechnicalHistoryContent.propTypes = propTypes;
-TechnicalHistoryContent.defaultProps = defaultProps;

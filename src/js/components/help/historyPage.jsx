@@ -34,9 +34,14 @@ export default class HelpPage extends React.Component {
             title: ''
         };
     }
+    scrollToTop() {
+        window.scrollTo({
+            top: 100,
+            behavior: "smooth"
+        });
+    }
 
     render() {
-        const history = this.props.type === 'fabs' ? '#/FABSHistory' : '#/history';
         const activeTab = this.props.type === 'fabs' ? 'FABSHelp' : 'help';
         const color = this.props.type === 'fabs' ? 'teal' : 'dark';
         return (
@@ -73,12 +78,14 @@ export default class HelpPage extends React.Component {
                 </div>
                 <Footer />
                 <div className="usa-da-help-top-button">
-                    <a href={`${history}?section=top`} aria-label="Back to top">
+                    <button
+                        onClick={this.scrollToTop}
+                        aria-label="Back to top">
                         <div className="usa-da-icon">
                             <Icons.AngleUp alt="Arrow pointing up" />
                         </div>
                         <span className="hidden-label">Back to top</span>
-                    </a>
+                    </button>
                 </div>
             </div>
         );
