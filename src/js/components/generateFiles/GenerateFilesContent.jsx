@@ -8,8 +8,6 @@ import React, { PropTypes } from 'react';
 import GenerateFileBox from './components/GenerateFileBox';
 import GenerateFilesOverlay from './GenerateFilesOverlay';
 import AgencyToggle from '../generateDetachedFiles/AgencyToggle';
-import AgencyToggleTooltip from '../generateDetachedFiles/AgencyToggleTooltip';
-import { InfoCircle } from '../SharedComponents/icons/Icons';
 
 const propTypes = {
     clickedDownload: PropTypes.func,
@@ -17,7 +15,6 @@ const propTypes = {
     updateError: PropTypes.func,
     d1: PropTypes.object,
     d2: PropTypes.object,
-    fundingAgency: PropTypes.bool,
     toggleAgencyType: PropTypes.func
 };
 
@@ -27,20 +24,13 @@ const defaultProps = {
     updateError: null,
     d1: null,
     d2: null,
-    fundingAgency: false,
     toggleAgencyType: null
 };
 
 export default class GenerateFilesContent extends React.Component {
-    constructor(props) {
-        super(props);
 
-        this.state = {
-            showInfoTooltip: false
-        };
-
-        this.showTooltip = this.showTooltip.bind(this);
-        this.closeTooltip = this.closeTooltip.bind(this);
+    toggleAgencyType(type) {
+        this.props.toggleAgencyType(type);
     }
 
     clickedDownload(fileType) {
@@ -55,34 +45,9 @@ export default class GenerateFilesContent extends React.Component {
         this.props.updateError(file, header, description);
     }
 
-    showTooltip() {
-        this.setState({
-            showInfoTooltip: true
-        });
-    }
-
-    closeTooltip() {
-        this.setState({
-            showInfoTooltip: false
-        });
-    }
-
     render() {
-        let tooltip = null;
-        if (this.state.showInfoTooltip) {
-            const style = {
-                top: this.referenceDiv.offsetTop - 180,
-                right: -30
-            };
+        const { d1, d2 } = this.props;
 
-            tooltip = (
-                <div
-                    className="agency-toggle__tooltip-spacer"
-                    style={style}>
-                    <AgencyToggleTooltip />
-                </div>
-            );
-        }
         return (
             <div>
                 <div className="container center-block with-overlay">
@@ -95,50 +60,35 @@ export default class GenerateFilesContent extends React.Component {
                         </div>
                     </div>
 
-                    <div className="agency-toggle">
-                        <div className="agency-toggle__text">
-                            Generate File D1 and D2 from records where my agency is the:
-                        </div>
-                        <AgencyToggle
-                            funding={this.props.fundingAgency}
-                            toggleAgencyType={this.props.toggleAgencyType} />
-                        <span className="agency-toggle__info-icon-holder">
-                            <div ref={(div) => {
-                                this.referenceDiv = div;
-                            }}>
-                                {tooltip}
-                                <button
-                                    id="agency-toggle__info-icon"
-                                    className="agency-toggle__info-icon"
-                                    onFocus={this.showTooltip}
-                                    onBlur={this.closeTooltip}
-                                    onMouseLeave={this.closeTooltip}
-                                    onMouseEnter={this.showTooltip} >
-                                    <InfoCircle />
-                                </button>
-                            </div>
-                        </span>
-                    </div>
-
                     <div className="usa-da-generate-content">
+                        <AgencyToggle
+                            funding={d1.isFundingAgency}
+                            toggleAgencyType={this.toggleAgencyType.bind(this, "d1")}
+                            fileName="D1"
+                            fileType="d1" />
                         <GenerateFileBox
                             label="File D1: Procurement Awards (FPDS data)"
                             datePlaceholder="Sign"
                             startingTab={1}
-                            value={this.props.d1}
-                            error={this.props.d1.error}
-                            showDownload={this.props.d1.showDownload}
+                            value={d1}
+                            error={d1.error}
+                            showDownload={d1.showDownload}
                             onDateChange={this.handleDateChange.bind(this, "d1")}
                             updateError={this.updateError.bind(this, "d1")}
                             clickedDownload={this.clickedDownload.bind(this, "D1")} />
 
+                        <AgencyToggle
+                            funding={d2.isFundingAgency}
+                            toggleAgencyType={this.toggleAgencyType.bind(this, "d2")}
+                            fileName="D2"
+                            fileType="d2" />
                         <GenerateFileBox
                             label="File D2: Financial Assistance"
                             datePlaceholder="Action"
                             startingTab={9}
-                            value={this.props.d2}
-                            error={this.props.d2.error}
-                            showDownload={this.props.d2.showDownload}
+                            value={d2}
+                            error={d2.error}
+                            showDownload={d2.showDownload}
                             onDateChange={this.handleDateChange.bind(this, "d2")}
                             updateError={this.updateError.bind(this, "d2")}
                             clickedDownload={this.clickedDownload.bind(this, "D2")} />

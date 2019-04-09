@@ -10,7 +10,8 @@ const propTypes = {
     clickedCertifyCheckbox: PropTypes.func,
     closeModal: PropTypes.func,
     session: PropTypes.object,
-    certified: PropTypes.bool
+    certified: PropTypes.bool,
+    loading: PropTypes.bool
 };
 
 const defaultProps = {
@@ -23,9 +24,13 @@ const defaultProps = {
 
 export default class CertifyButtons extends React.Component {
     render() {
+        let certifyButtonText = "Publish to USAspending.gov";
         let buttonClass = "";
         if (!this.props.certified) {
             buttonClass = " btn-disabled";
+        }
+        if (this.props.loading) {
+            certifyButtonText = "Certifying";
         }
 
         return (
@@ -48,8 +53,8 @@ export default class CertifyButtons extends React.Component {
                         <button
                             onClick={this.props.clickedCertifyButton}
                             className={`usa-da-button btn-full btn-primary${buttonClass}`}
-                            disabled={!this.props.certified}>
-                            Publish to USAspending.gov
+                            disabled={!this.props.certified || this.props.loading}>
+                            {certifyButtonText}
                         </button>
                     </div>
                     <div className="col-md-6 mb-10">
