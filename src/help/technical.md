@@ -1,6 +1,7 @@
-#### April 19, 2019{section=technical}
+#### May 6, 2019{section=technical}
 
 In this release, here is a list of technical changes that may require infrastructure or database updates, or represents additional functionality.
 
-* Updated FPDS loader to generate an artifact detailing the metrics of the run for analysis.
-* Updated CFDA loader to properly encode the source csv and provide cleaner data.
+* Added metrics reports to multiple data loaders for analysis.
+* Updated database and code to reflect changes in the Federal Hierarchy API (specifically the financial assistance office type).
+* Updated country code loader to label U.S. Territories or Freely Associated States.
