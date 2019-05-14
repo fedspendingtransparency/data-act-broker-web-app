@@ -387,7 +387,7 @@ export default class DashboardTable extends React.Component {
             unsortable = [0, 3, 4];
         }
         else if (this.props.isCertified) {
-            unsortable = [0, 4];
+            unsortable = [4];
         }
 
         return (
