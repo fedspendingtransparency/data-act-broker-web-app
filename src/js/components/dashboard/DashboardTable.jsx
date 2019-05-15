@@ -145,6 +145,8 @@ export default class DashboardTable extends React.Component {
     getCategory() {
         if (this.props.isCertified) {
             switch (this.state.sortColumn) {
+                case 0:
+                    return 'reporting';
                 case 1:
                     return 'agency';
                 case 2:
