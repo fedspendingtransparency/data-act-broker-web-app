@@ -99,13 +99,11 @@ module.exports = {
         }]
     },
     plugins: [
-        // new webpack.DllReferencePlugin({
-        //     context: '.',
-        //     manifest: require('./public/js/manifest.json') // this tells webpack where the DLL libraries in the Core are
-        // })
         new CleanWebpackPlugin(),
         new webpack.IgnorePlugin(/^\.\/locale$/, /moment$/),
-        new HtmlWebpackPlugin(),
+        new HtmlWebpackPlugin({
+            template: path.resolve(__dirname, "index.html")
+        }),
         new MiniCssExtractPlugin({
             filename: "[name].[contenthash].css"
         }),
