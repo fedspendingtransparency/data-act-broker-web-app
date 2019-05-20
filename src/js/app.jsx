@@ -1,12 +1,14 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import 'babel-polyfill';
 import AppContainer from './containers/AppContainer';
 
-const documentLocation = document.getElementById('app');
+require("core-js");
+require('../css/main.scss');
+
+const documentLocation = document.querySelector('body');
 
 ReactDOM.render(
-    (
-        <AppContainer />
-    ), documentLocation,
+    <AppContainer />,
+    documentLocation
 );
+
