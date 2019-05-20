@@ -5,7 +5,7 @@ import AppContainer from './containers/AppContainer';
 require("core-js");
 require('../css/main.scss');
 
-const documentLocation = document.querySelector('body');
+const documentLocation = document.getElementById('app');
 
 ReactDOM.render(
     <AppContainer />,
