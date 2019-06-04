@@ -1,7 +1,6 @@
-#### May 20, 2019{section=changelog}
+#### June 3, 2019{section=changelog}
 In this release of the Broker, we:
 
-* Updated domestic city and county codes and USPS ZIP Code data (including all derivations from ZIP such as congressional district mappings).  
-* Updated FABS City Code table and automated update process.  
-* Updated validation rules A7, A9, A10, and A11 to ensure proper handling of null values.
-* Various backend process improvements with validator timeout/termination handling, and memory management.
+* Made the Reporting Period column of Certified Submissions on the DABS Submission Dashboard sortable to allow viewing certified submissions chronologically.
+* Updated how the DABS backend handles DUNS file loads and File E generation for improved efficiency.
+* Added General Ledger Post Date to the Award Financial File C in DABS as indicated in DAIMS 1.3.1 for FY2019 Quarter 3. This is an optional field, but, consistent with longstanding DAIMS requirements, agencies must include it as a header in File C from this point forward.
