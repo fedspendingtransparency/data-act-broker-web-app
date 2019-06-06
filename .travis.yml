@@ -1,8 +1,7 @@
 language: node_js
 node_js:
   # latest in each series
-  - "6"
-  - "5"
+  - "10.15.3"
 # Need a C++ compiler
 addons:
   apt:
@@ -13,8 +12,7 @@ addons:
 env:
   - CXX=g++-4.8
 before_script:
-  - npm install -g gulp
   - cp sampleGlobalConstants_local.js GlobalConstants_local.js
 script:
-  - gulp buildLocal
-  - eslint --config .eslintrc src/js
+  - npm run dev
+  - npm run travis
