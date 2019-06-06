@@ -14,6 +14,7 @@ console.log("Branch for this build: ", gitRevisionPlugin.branch());
 
 module.exports = {
     entry: path.resolve(__dirname, '../src/js/app'),
+    context: path.resolve(__dirname, "../src"),
     output: {
         // https://webpack.js.org/guides/caching/
         publicPath: "/",
@@ -67,10 +68,11 @@ module.exports = {
             test: /\.scss$/,
             use: [
                 { loader: MiniCssExtractPlugin.loader },
-                { loader: "css-loader", options: { url: false, sourceMap: !isProduction } },
+                { loader: "css-loader", options: { url: true, sourceMap: !isProduction } },
                 {
                     loader: "sass-loader",
                     options: {
+                        url: false,
                         sourceMap: !isProduction,
                         includePaths: ["./src/_scss", "./node_modules"]
                     }
@@ -78,11 +80,15 @@ module.exports = {
             ]
         },
         {
-            include: /\.(eot|ttf|woff|woff2|png|svg|ico|gif|jpg)$/,
-            loader: 'file-loader',
-            query: {
-                name: '[path][name].[ext]'
-            }
+            test: /\.(eot|ttf|woff|woff2|png|svg|ico|gif|jpg)$/,
+            use: [
+                {
+                    loader: 'file-loader',
+                    options: {
+                        name: '[path][name].[ext]'
+                    }
+                }
+            ]
         }]
     },
     plugins: [
