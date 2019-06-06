@@ -9,24 +9,12 @@
     "start": "webpack-dev-server --progress --open --config ./webpack/webpack.dev.config.js",
     "dev": "webpack --progress --config ./webpack/webpack.dev.config.js",
     "prod": "webpack --progress --config ./webpack/webpack.prod.config.js",
-    "sass": "webpack --progress --config ./webpack/webpack.sass.config.js"
+    "sass": "webpack --progress --config ./webpack/webpack.sass.config.js",
+    "travis": "./node_modules/.bin/eslint --config .eslintrc --ext .jsx,.js \"src/js/**\" && ./node_modules/.bin/jest --runInBand;"
   },
-  "jest": {
-    "rootDir": ".",
-    "testRegex": "tests/.*-(test)\\.jsx?$",
-    "verbose": true,
-    "bail": false,
-    "collectCoverage": true,
-    "collectCoverageFrom": [
-      "src/js/containers/**/*.{js,jsx}",
-      "src/js/redux/reducers/**/*.{js,jsx}",
-      "!node_modules/**",
-      "!public/**"
-    ],
-    "moduleNameMapper": {
-      "\\.(jpg|jpeg|png|gif|eot|otf|webp|svg|ttf|woff|woff2|mp4|webm|wav|mp3|m4a|aac|oga)$": "<rootDir>/__mocks__/fileMock.js",
-      "\\.(css|less|scss)$": "identity-obj-proxy"
-    }
+  "engines": {
+    "node": ">=6.11.0",
+    "npm": ">=3.10.10"
   },
   "repository": {
     "type": "git",
