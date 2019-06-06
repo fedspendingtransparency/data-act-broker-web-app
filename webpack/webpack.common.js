@@ -13,7 +13,7 @@ console.log("Commit Hash for this build: ", gitRevisionPlugin.commithash());
 console.log("Branch for this build: ", gitRevisionPlugin.branch());
 
 module.exports = {
-    entry: path.resolve(__dirname, 'src/js/app'),
+    entry: path.resolve(__dirname, '../src/js/app'),
     output: {
         // https://webpack.js.org/guides/caching/
         publicPath: "/",
@@ -89,7 +89,7 @@ module.exports = {
         new CleanWebpackPlugin(),
         new webpack.IgnorePlugin(/^\.\/locale$/, /moment$/),
         new HtmlWebpackPlugin({
-            template: path.resolve(__dirname, "index.html")
+            template: path.resolve(__dirname, "../src/index.html")
         }),
         new MiniCssExtractPlugin({
             filename: "[name].[contenthash].css"
