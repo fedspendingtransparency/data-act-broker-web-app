@@ -4,12 +4,12 @@
   "description": "DATA Act Broker",
   "main": "index.js",
   "scripts": {
+    "test": "./node_modules/.bin/jest; exit 0;",
+    "lint": "./node_modules/.bin/eslint --config .eslintrc --ext .jsx,.js \"src/js/**\"; exit 0;",
     "start": "webpack-dev-server --progress --open --config ./webpack.dev.config.js",
     "dev": "webpack --progress --config ./webpack.dev.config.js",
     "prod": "webpack --progress --config ./webpack.prod.config.js",
-    "sass": "webpack --progress --config ./webpack.sass.config.js",
-    "test": "./node_modules/.bin/jest; exit 0;",
-    "lint": "./node_modules/.bin/eslint --config .eslintrc --ext .jsx,.js \"src/js/**\"; exit 0;",
+    "sass": "webpack --progress --config ./webpack.sass.config.js"
   },
   "jest": {
     "rootDir": ".",
