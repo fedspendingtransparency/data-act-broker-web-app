@@ -18,7 +18,7 @@ module.exports = {
         // https://webpack.js.org/guides/caching/
         publicPath: "/",
         filename: "[name].[contenthash].js",
-        path: path.resolve(__dirname, "public")
+        path: path.resolve(__dirname, "../public")
     },
     resolve: {
         extensions: ['.js', '.jsx'],
