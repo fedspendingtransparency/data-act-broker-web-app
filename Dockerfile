@@ -1,4 +1,4 @@
-FROM node:6.16
+FROM node:10.15.3
 
 RUN npm install --global gulp
 
