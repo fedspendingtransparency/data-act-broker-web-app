@@ -50,22 +50,9 @@ module.exports = {
     },
     module: {
         rules: [{
-            test: /\.jsx?$/,
-            include: /src\/js/,
+            test: /\.js$|jsx$/,
             exclude: /node_modules/,
-            loader: 'babel-loader', // the babel loader tells webpack to compile JS/JSX files using Babel
-            query: {
-                cacheDirectory: './cache/', // after initial load, subsequent builds draw from a cache (in dev only) to reduce build time
-                compact: true
-            }
-        },
-        {
-            test: /\.(json)$/,
-            type: 'javascript/auto',
-            loader: 'file-loader',
-            query: {
-                name: '[path][name].[ext]'
-            }
+            loader: 'babel-loader' // the babel loader tells webpack to compile JS/JSX files using Babel
         },
         {
             test: /\.css$/,
