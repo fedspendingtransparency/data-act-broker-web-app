@@ -3,9 +3,8 @@
  * Created by Lizzie Salita 10/24/18.
  */
 
-import * as utilHelper from "../../src/js/helpers/util";
 import moment from "moment";
-import { MarketplaceCommerceAnalytics } from "aws-sdk";
+import * as utilHelper from "../../src/js/helpers/util";
 
 describe("util helper functions", () => {
     describe("convertToLocalDate", () => {
