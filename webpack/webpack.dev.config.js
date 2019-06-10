@@ -1,13 +1,14 @@
-const path = require('path');
-const merge = require('webpack-merge');
-const common = require('./webpack.common');
+const path = require("path");
+const merge = require("webpack-merge");
 
-module.exports = merge(common, {
+const getCommonConfig = require("./webpack.common");
+
+module.exports = (env) => merge(getCommonConfig(env), {
     mode: "development",
     devtool: "eval",
     optimization: {
         splitChunks: {
-            chunks: 'all'
+            chunks: "all"
         }
     },
     devServer: {
