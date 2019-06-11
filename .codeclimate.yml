@@ -1,8 +1,9 @@
 exclude_paths:
 - node_modules/
 - tests/
+- test/
 - public/
 - coverage/
 - cache/
-- gulpfile.babel.js
 - webpack/
+- gulpfile.babel.js
