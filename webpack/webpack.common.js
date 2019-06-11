@@ -108,7 +108,8 @@ module.exports = (env) => {
             new CleanWebpackPlugin(),
             new webpack.IgnorePlugin(/^\.\/locale$/, /moment$/),
             new HtmlWebpackPlugin({
-                template: path.resolve(__dirname, "../src/index.html")
+                template: path.resolve(__dirname, "../src/index.html"),
+                favicon: '../graphics/favicon.ico'
             }),
             new MiniCssExtractPlugin({
                 filename: "[name].[contenthash].css"
