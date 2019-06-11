@@ -3,6 +3,11 @@ import Markdown from 'markdown';
 import ent from 'ent';
 import Request from './sessionSuperagent';
 
+require('../../help/changelog.md');
+require('../../help/history.md');
+require('../../help/technical.md');
+require('../../help/technicalHistory.md');
+
 const unescapeInlineHtml = (html) => {
     let tmpHtml = html;
     // find any inline HTML (as denoted by ```!inline-html [CODE] !inline-html```)
@@ -109,21 +114,23 @@ const loadTechnicalHistory = () => {
 };
 
 const loadChangelog = () => {
-    const deferred = Q.defer();
+    // const deferred = Q.defer();
 
-    Request.get('/help/changelog.md')
-        .send()
-        .end((err, res) => {
-            if (err) {
-                deferred.reject(err);
-            }
-            else {
-                const output = parseMarkdown(res.text);
-                deferred.resolve(output);
-            }
-        });
+    return Promise.resolve(() => changeLog);
 
-    return deferred.promise;
+    // Request.get('/help/changelog.md')
+    //     .send()
+    //     .end((err, res) => {
+    //         if (err) {
+    //             deferred.reject(err);
+    //         }
+    //         else {
+    //             const output = parseMarkdown(res.text);
+    //             deferred.resolve(output);
+    //         }
+    //     });
+
+    // return deferred.promise;
 };
 
 const loadTechnicalNotes = () => {
