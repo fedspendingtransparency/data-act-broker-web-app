@@ -15,7 +15,7 @@ console.log("Branch for this build: ", gitRevisionPlugin.branch());
 
 const getGlobalConstantsFile = (env) => {
     const envSpecificPath = path.resolve(__dirname, `../GlobalConstants_${env.globalConstantFile}.js`);
-    if (fs.existsSync(path)) {
+    if (fs.existsSync(envSpecificPath)) {
         return envSpecificPath;
     }
     return path.resolve(__dirname, '../sampleGlobalConstants_local.js');
