@@ -4,6 +4,7 @@ const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
 const CleanWebpackPlugin = require("clean-webpack-plugin");
 const GitRevisionPlugin = require("git-revision-webpack-plugin");
+const fs = require('fs');
 
 const isProduction = process.env.NODE_ENV === "production";
 
@@ -12,8 +13,16 @@ const gitRevisionPlugin = new GitRevisionPlugin({ branch: true }); // 'rev-parse
 console.log("Commit Hash for this build: ", gitRevisionPlugin.commithash());
 console.log("Branch for this build: ", gitRevisionPlugin.branch());
 
+const getGlobalConstantsFile = (env) => {
+    const envSpecificPath = path.resolve(__dirname, `../GlobalConstants_${env.globalConstantFile}.js`);
+    if (fs.existsSync(path)) {
+        return envSpecificPath;
+    }
+    return path.resolve(__dirname, '../sampleGlobalConstants_local.js');
+};
+
 module.exports = (env) => {
-    const globalConstantsFile = path.resolve(__dirname, `../GlobalConstants_${env.globalConstantFile}.js`);
+    const globalConstantsFile = getGlobalConstantsFile(env);
     return {
         entry: path.resolve(__dirname, "../src/js/app"),
         context: path.resolve(__dirname, "../src"),
