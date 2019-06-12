@@ -114,23 +114,21 @@ const loadTechnicalHistory = () => {
 };
 
 const loadChangelog = () => {
-    // const deferred = Q.defer();
+    const deferred = Q.defer();
 
-    return Promise.resolve(() => changeLog);
+    Request.get('/help/changelog.md')
+        .send()
+        .end((err, res) => {
+            if (err) {
+                deferred.reject(err);
+            }
+            else {
+                const output = parseMarkdown(res.text);
+                deferred.resolve(output);
+            }
+        });
 
-    // Request.get('/help/changelog.md')
-    //     .send()
-    //     .end((err, res) => {
-    //         if (err) {
-    //             deferred.reject(err);
-    //         }
-    //         else {
-    //             const output = parseMarkdown(res.text);
-    //             deferred.resolve(output);
-    //         }
-    //     });
-
-    // return deferred.promise;
+    return deferred.promise;
 };
 
 const loadTechnicalNotes = () => {
