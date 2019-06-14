@@ -5,6 +5,7 @@
 
 import React, { PropTypes } from 'react';
 import * as Icons from '../../SharedComponents/icons/Icons';
+import { createOnKeyDownHandler } from '../../../helpers/util';
 
 const propTypes = {
     onClick: PropTypes.func,
@@ -24,6 +25,7 @@ const defaultProps = {
 
 export default class ValidateValuesFileDetailBox extends React.Component {
     render() {
+        const onKeyDownHandler = createOnKeyDownHandler(this.props.onClick);
         // handle CSS class for determining if the error/warning count should be color text or black
         let labelClass = 'usa-da-validate-item-message-count';
         if (this.props.count === 0) {
@@ -61,7 +63,7 @@ export default class ValidateValuesFileDetailBox extends React.Component {
                         role="button"
                         tabIndex={0}
                         className={`usa-da-validate-item-footer usa-da-header-error${showButton}${footerStatus}`}
-                        onKeyDown={this.props.onClick}
+                        onKeyDown={onKeyDownHandler}
                         onClick={this.props.onClick}>
                         <div>View &amp; Download {this.props.label} Report
                             <span className="usa-da-icon">{buttonIcon}</span>
