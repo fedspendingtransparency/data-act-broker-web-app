@@ -9,7 +9,6 @@
     "start": "webpack-dev-server --env.globalConstantFile=dev --progress --open --config ./webpack/webpack.dev.config.js",
     "start:local": "webpack-dev-server --env.globalConstantFile=local --progress --open --config ./webpack/webpack.dev.config.js",
     "dev": "webpack --env.globalConstantFile=dev --progress --config ./webpack/webpack.dev.config.js",
-    "sandbox": "webpack --env.globalConstantFile=dev --progress --config ./webpack/webpack.prod.config.js",
     "prod": "webpack --env.globalConstantFile=prod --progress --config ./webpack/webpack.prod.config.js",
     "sass": "webpack --progress --config ./webpack/webpack.sass.config.js",
     "travis": "./node_modules/.bin/eslint --config .eslintrc --ext .jsx,.js \"src/js/**\" && ./node_modules/.bin/jest --runInBand;"
