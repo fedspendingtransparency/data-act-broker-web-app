@@ -72,4 +72,46 @@ describe("reviewHelper", () => {
             expect(warnings["appropriations-program_activity"]).toEqual([data.warning_data[0]]);
         });
     });
+
+    describe('determineExpectedPairs', () => {
+        it('builds an array of objects with possible target/source file combinations', () => {
+            const results = reviewHelper.determineExpectedPairs();
+            expect(results.some((result) => (
+                result.key === 'appropriations-program_activity' &&
+                result.firstType === 'A' &&
+                result.firstName === 'Appropriations Account' &&
+                result.firstKey === 'appropriations' &&
+                result.secondType === 'B' &&
+                result.secondName === 'Program Activity and Object Class Data' &&
+                result.secondKey === 'program_activity'
+            ))).toEqual(true);
+            expect(results.some((result) => (
+                result.key === 'program_activity-award_financial' &&
+                result.firstType === 'B' &&
+                result.firstName === 'Program Activity and Object Class Data' &&
+                result.firstKey === 'program_activity' &&
+                result.secondType === 'C' &&
+                result.secondName === 'Award Financial' &&
+                result.secondKey === 'award_financial'
+            ))).toEqual(true);
+            expect(results.some((result) => (
+                result.key === 'award_financial-award_procurement' &&
+                result.firstType === 'C' &&
+                result.firstName === 'Award Financial' &&
+                result.firstKey === 'award_financial' &&
+                result.secondType === 'D1' &&
+                result.secondName === 'Award Procurement' &&
+                result.secondKey === 'award_procurement'
+            ))).toEqual(true);
+            expect(results.some((result) => (
+                result.key === 'award_financial-award' &&
+                result.firstType === 'C' &&
+                result.firstName === 'Award Financial' &&
+                result.firstKey === 'award_financial' &&
+                result.secondType === 'D2' &&
+                result.secondName === 'Financial Assistance Award' &&
+                result.secondKey === 'award'
+            ))).toEqual(true);
+        });
+    });
 });
