@@ -1,6 +1,6 @@
 module.exports = {
     rootDir: ".",
-    testRegex: "tests/.*-(test)\\.jsx?$",
+    testRegex: "tests/.*-(test)\\.(jsx||js)?$",
     verbose: true,
     bail: false,
     collectCoverage: true,
