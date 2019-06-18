@@ -7,6 +7,8 @@ import Request from 'superagent';
 import xmldoc from 'xmldoc';
 import uuid from 'node-uuid';
 
+require('../../../../graphics/icons.svg');
+
 class IconSingleton {
     constructor() {
         this.subscribers = {};

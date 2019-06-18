@@ -12,7 +12,7 @@ import * as PermissionsHelper from '../../helpers/permissionsHelper';
 import * as GenerateFilesHelper from '../../helpers/generateFilesHelper';
 
 import UploadFabsFileError from '../uploadFabsFile/UploadFabsFileError';
-import { validUploadFileChecker } from '../../helpers/util';
+import { validUploadFileChecker, createOnKeyDownHandler } from '../../helpers/util';
 
 const propTypes = {
     onFileChange: PropTypes.func,
@@ -51,6 +51,8 @@ export default class ValidateDataFileComponent extends React.Component {
             error: null,
             canDownload: false
         };
+        this.toggleErrorReport = this.toggleErrorReport.bind(this);
+        this.clickedReport = this.clickedReport.bind(this);
     }
 
     componentDidMount() {
@@ -310,6 +312,8 @@ export default class ValidateDataFileComponent extends React.Component {
     }
 
     render() {
+        const onKeyDownHandler = createOnKeyDownHandler(this.toggleErrorReport);
+
         let disabledCorrect = '';
         let isFileValid = 'unset';
         let messageClass = ' usa-da-validate-item-message';
@@ -342,6 +346,7 @@ export default class ValidateDataFileComponent extends React.Component {
         let fileName = this.props.item.filename;
 
         let clickDownload = null;
+        let clickDownloadOnKeyDownHandler = null;
         let clickDownloadClass = '';
 
 
@@ -359,6 +364,7 @@ export default class ValidateDataFileComponent extends React.Component {
         else if (this.state.canDownload) {
             // no parsing errors and not a new file
             clickDownload = this.clickedReport.bind(this, this.props.item);
+            clickDownloadOnKeyDownHandler = createOnKeyDownHandler(this.clickedReport, [this.props.item]);
             clickDownloadClass = 'file-download';
         }
 
@@ -408,8 +414,8 @@ export default class ValidateDataFileComponent extends React.Component {
                                     tabIndex={0}
                                     className={`usa-da-validate-item-footer usa-da-header-error${showFooter} ${
                                         footerStatus}`}
-                                    onKeyDown={this.toggleErrorReport.bind(this)}
-                                    onClick={this.toggleErrorReport.bind(this)}>
+                                    onKeyDown={onKeyDownHandler}
+                                    onClick={this.toggleErrorReport}>
                                     <div>View &amp; Download Header Error Report
                                         <span className="usa-da-icon">{chevronDirection}</span>
                                     </div>
@@ -432,7 +438,7 @@ export default class ValidateDataFileComponent extends React.Component {
                                         role="button"
                                         tabIndex={0}
                                         className={clickDownloadClass}
-                                        onKeyDown={clickDownload}
+                                        onKeyDown={clickDownloadOnKeyDownHandler}
                                         onClick={clickDownload}
                                         download={fileName}
                                         rel="noopener noreferrer">

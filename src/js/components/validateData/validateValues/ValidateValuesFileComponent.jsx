@@ -14,6 +14,7 @@ import * as GenerateFilesHelper from '../../../helpers/generateFilesHelper';
 import * as PermissionsHelper from '../../../helpers/permissionsHelper';
 
 import UploadFabsFileError from '../../uploadFabsFile/UploadFabsFileError';
+import { createOnKeyDownHandler } from '../../../helpers/util';
 
 const propTypes = {
     onFileChange: PropTypes.func,
@@ -207,6 +208,8 @@ export default class ValidateValuesFileComponent extends React.Component {
     }
 
     render() {
+        // TODO Reduce # of lines inside render before the return, almost 100 lines!
+        const onKeyDownHandler = createOnKeyDownHandler(this.clickedReport.bind(this), [this.props.item]);
         // override data if a new file is dropped in
         let uploadProgress = '';
         let fileName = this.props.item.filename;
@@ -350,7 +353,7 @@ export default class ValidateValuesFileComponent extends React.Component {
                                     role="button"
                                     tabIndex={0}
                                     className="file-download"
-                                    onKeyDown={this.clickedReport.bind(this, this.props.item)}
+                                    onKeyDown={onKeyDownHandler}
                                     onClick={this.clickedReport.bind(this, this.props.item)}
                                     download={fileName}
                                     rel="noopener noreferrer">

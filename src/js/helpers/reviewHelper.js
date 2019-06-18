@@ -35,7 +35,7 @@ export const globalFileData = {
     }
 };
 
-const determineExpectedPairs = () => {
+export const determineExpectedPairs = () => {
     const output = [];
 
     availablePairs.forEach((keyName) => {
