@@ -8,6 +8,7 @@ import _ from 'lodash';
 import ScrollableTable from '../SharedComponents/table/ScrollableTable';
 import * as Icons from '../SharedComponents/icons/Icons';
 import * as ReviewHelper from '../../helpers/reviewHelper';
+import { createOnKeyDownHandler } from '../../helpers/util';
 
 const propTypes = {
     data: PropTypes.object,
@@ -30,6 +31,7 @@ export default class ValidateDataErrorReport extends React.Component {
             signedUrl: '',
             signInProgress: false
         };
+        this.clickedReport = this.clickedReport.bind(this);
     }
 
     sortTable(direction) {
@@ -83,6 +85,7 @@ export default class ValidateDataErrorReport extends React.Component {
     }
 
     render() {
+        const onKeyDownHandler = createOnKeyDownHandler(this.clickedReport);
         let tables = '';
 
         if (this.props.data.length > 0) {
@@ -122,8 +125,8 @@ export default class ValidateDataErrorReport extends React.Component {
                                 role="button"
                                 tabIndex={0}
                                 className="usa-da-download pull-right"
-                                onKeyDown={this.clickedReport.bind(this)}
-                                onClick={this.clickedReport.bind(this)}>
+                                onKeyDown={onKeyDownHandler}
+                                onClick={this.clickedReport}>
                                 <span className="usa-da-icon usa-da-download-report">
                                     <Icons.CloudDownload />
                                 </span>{reportLinkText}
