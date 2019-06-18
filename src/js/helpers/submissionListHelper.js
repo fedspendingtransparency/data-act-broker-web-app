@@ -5,7 +5,7 @@ import { kGlobalConstants } from '../GlobalConstants';
 
 import * as Status from '../components/landing/recentActivity/SubmissionStatus';
 
-const parseRecentActivity = (submissions) => {
+export const parseRecentActivity = (submissions) => {
     const parsedSubmissions = [];
 
     const statusMap = {

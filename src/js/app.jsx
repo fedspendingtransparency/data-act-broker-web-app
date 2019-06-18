@@ -1,8 +1,10 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import axe from 'react-axe';
-import 'babel-polyfill';
 import AppContainer from './containers/AppContainer';
+
+require("core-js");
+require('../css/main.scss');
 
 const documentLocation = document.getElementById('app');
 
@@ -12,7 +14,7 @@ if (process.env.NODE_ENV !== 'production') {
 }
 
 ReactDOM.render(
-    (
-        <AppContainer />
-    ), documentLocation,
+    <AppContainer />,
+    documentLocation
 );
+

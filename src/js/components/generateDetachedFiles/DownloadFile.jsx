@@ -5,6 +5,7 @@
 
 import React, { PropTypes } from 'react';
 import * as Icons from '../SharedComponents/icons/Icons';
+import { createOnKeyDownHandler } from '../../helpers/util';
 
 const propTypes = {
     clickedDownload: PropTypes.func,
@@ -26,6 +27,8 @@ const defaultProps = {
 
 export default class DownloadFile extends React.Component {
     render() {
+        const onKeyDownHandler = createOnKeyDownHandler(this.props.clickedDownload);
+
         let errorClass = ' hide';
         if (this.props.errorType) {
             errorClass = '';
@@ -52,7 +55,7 @@ export default class DownloadFile extends React.Component {
                                     role="button"
                                     tabIndex={0}
                                     onClick={this.props.clickedDownload}
-                                    onKeyDown={this.props.clickedDownload}
+                                    onKeyDown={onKeyDownHandler}
                                     className="usa-da-download file-download-btn">
                                     <span className="usa-da-icon usa-da-download-report">
                                         <Icons.CloudDownload />

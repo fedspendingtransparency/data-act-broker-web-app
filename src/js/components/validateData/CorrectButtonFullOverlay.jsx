@@ -8,6 +8,7 @@ import React, { PropTypes } from 'react';
 import ValidateDataUploadButton from './ValidateDataUploadButton';
 
 import * as Icons from '../SharedComponents/icons/Icons';
+import { createOnKeyDownHandler } from '../../helpers/util';
 
 const propTypes = {
     buttonClicked: PropTypes.func,
@@ -25,6 +26,7 @@ const defaultProps = {
 
 export default class CorrectButtonFullOverlay extends React.Component {
     render() {
+        const onKeyDownHandler = createOnKeyDownHandler(this.props.buttonClicked);
         return (
             <div className="usa-da-validate-corrected-file-holder full-width">
                 <div className="full-overlay">
@@ -32,8 +34,8 @@ export default class CorrectButtonFullOverlay extends React.Component {
                         role="button"
                         tabIndex={0}
                         className="usa-da-icon"
-                        onKeyDown={this.props.buttonClicked.bind(this)}
-                        onClick={this.props.buttonClicked.bind(this)}>
+                        onKeyDown={onKeyDownHandler}
+                        onClick={this.props.buttonClicked}>
                         <Icons.Times />
                     </div>
                     <div className="buttonHolder">
@@ -41,7 +43,7 @@ export default class CorrectButtonFullOverlay extends React.Component {
                             <ValidateDataUploadButton
                                 text={this.props.text}
                                 optional={this.props.optional}
-                                onDrop={this.props.onDrop.bind(this)} />
+                                onDrop={this.props.onDrop} />
                         </div>
                     </div>
                 </div>

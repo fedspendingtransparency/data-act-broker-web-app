@@ -7,6 +7,7 @@ import React, { PropTypes } from 'react';
 import * as Icons from '../../SharedComponents/icons/Icons';
 
 import DeleteModal from './DeleteModal';
+import { createOnKeyDownHandler } from '../../../helpers/util';
 
 const propTypes = {
     reload: PropTypes.func,
@@ -35,6 +36,9 @@ export default class DeleteLink extends React.Component {
             active: false,
             delete: false
         };
+        this.confirm = this.confirm.bind(this);
+        this.reset = this.reset.bind(this);
+        this.delete = this.delete.bind(this);
     }
 
     componentDidMount() {
@@ -95,20 +99,22 @@ export default class DeleteLink extends React.Component {
     render() {
         let button = 'N/A';
         let modal = null;
+        const onKeyDownHandler = createOnKeyDownHandler(this.confirm);
+
         if (this.state.delete) {
             button = (
                 <div
                     role="button"
                     tabIndex={0}
-                    onKeyDown={this.confirm.bind(this)}
-                    onClick={this.confirm.bind(this)}
+                    onKeyDown={onKeyDownHandler}
+                    onClick={this.confirm}
                     className="trash-icon">
                     <Icons.Trash alt="Delete" />
                 </div>);
             modal = (<DeleteModal
                 isOpen={this.state.active}
-                closeModal={this.reset.bind(this)}
-                delete={this.delete.bind(this)}
+                closeModal={this.reset}
+                delete={this.delete}
                 id={this.props.submissionId} />);
         }
 
