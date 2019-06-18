@@ -1,7 +1,7 @@
-#### June 3, 2019{section=technical}
+#### June 14, 2019{section=technical}
 
 In this release, here is a list of technical changes that may require infrastructure or database updates, or represents additional functionality.
 
-* Included quarterly revalidation threshold loader to further automate setup.
-* Updated underlying broker packages (SQLAlchemy).
-* Reincorporated Executive Compensation loader to the nightly cadence and stopped loading external data upon File E generation.
+* Updated FSRS loader to populate Subaward data including derivations for File F and other FSRS data points.
+* Updated FABS derivations and FPDS loader to include Executive Compensation data in transaction data.
+* Updated underlying broker packages (Paramiko).
