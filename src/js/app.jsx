@@ -9,8 +9,8 @@ require('../css/main.scss');
 const documentLocation = document.getElementById('app');
 
 if (process.env.NODE_ENV !== 'production') {
-    // logs accessbility issues to the dev console
-    axe(React, ReactDOM, 1000);
+    // logs accessibility issues to the dev console
+    axe(React, ReactDOM, 10000);
 }
 
 ReactDOM.render(
