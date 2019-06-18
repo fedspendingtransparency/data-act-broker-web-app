@@ -1,6 +1,5 @@
-#### June 3, 2019{section=changelog}
+#### June 14, 2019{section=changelog}
 In this release of the Broker, we:
 
-* Made the Reporting Period column of Certified Submissions on the DABS Submission Dashboard sortable to allow viewing certified submissions chronologically.
-* Updated how the DABS backend handles DUNS file loads and File E generation for improved efficiency.
-* Added General Ledger Post Date to the Award Financial File C in DABS as indicated in DAIMS 1.3.1 for FY2019 Quarter 3. This is an optional field, but, consistent with longstanding DAIMS requirements, agencies must include it as a header in File C from this point forward.
+* Backend updates to implement DAIMS 1.3.1 changes related to File F, and pave the way for unified, Broker-based approach to subaward data in USAspending
+* Improved how the Broker uses and stores Executive Compensation data so that File E can be generated from an internal table (updated daily) rather than an ad-hoc SAM WSDL query. Executive Compensation data is now stored transactionally with contracts and assistance data for easier and more accurate surfacing on USAspending. Backfilled this executive compensation data at the transactional level (at the time of award) where historical EC data was available in SAM SFTP service. 
