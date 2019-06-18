@@ -61,7 +61,7 @@ const prepareFilesExistingSub = (fileDict) => {
     return deferred.promise;
 };
 
-const prepareMetadata = (metadata, request) => {
+export const prepareMetadata = (metadata, request) => {
     const tmpRequest = Object.assign({}, request);
     // add the metadata to the request
     tmpRequest.cgac_code = metadata.codeType === 'cgac_code' ? metadata.agency : null;
