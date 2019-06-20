@@ -14,27 +14,21 @@ Assumptions:
 
 ### Install Prerequisites and Code
 
-1. If you're not already running Node.js, download and run the installer for your operating system. We recommend v4.x: [https://nodejs.org/en/](https://nodejs.org/en/ "Node.js installer").
+1. If you're not already running Node.js, download and run the installer for your operating system. We recommend v10.x: [https://nodejs.org/en/](https://nodejs.org/en/ "Node.js installer").
 
-2. Use *npm* (Node's package manager, which is part of the Node.js install) to install the latest version of gulp. This is necessary for runing the babel version of the `gulpfile`):
-
-    ```bash
-        $ npm install gulp && npm install gulp -g
-    ```
-
-3. From the command line, clone the DATA Act web app repository from GitHub to your local machine:
+2. From the command line, clone the DATA Act web app repository from GitHub to your local machine:
 
         $ git clone https://github.com/fedspendingtransparency/data-act-broker-web-app.git
 
-4. Switch to the alpha release version of the code. This is the latest stable release.
+3. Switch to the alpha release version of the code. This is the latest stable release.
 
         $ git checkout v0.1.0-alpha
 
     **Note:** If you'd rather use the latest, work-in-progress features of the DATA Act broker, replace the above command with `git checkout staging`.
 
-5. Change to the `data-act-broker-web-app` directory that was created when you cloned the DATA Act web repository.
+4. Change to the `data-act-broker-web-app` directory that was created when you cloned the DATA Act web repository.
 
-6. Install the web application's package dependencies:
+5. Install the web application's package dependencies:
 
         $ npm install
 
@@ -62,16 +56,16 @@ The sample files require you to provide values for:
 
 Other fields, such as `LOCAL` and `DEV` should be left based on their sample values.
 
-### Run gulp tasks:
+### Run npm scripts:
 
-Several Gulp tasks are available to build the frontend web site for various use cases.
+Several npm scripts are available to build the frontend web site for various use cases.
 
 #### Hosted Production
 
 If you are building the web site for a hosted production environment, run:
 
 ```bash
-	$ gulp production
+	$ npm run prod
 ```
 This will build the frontend files to the `/public` directory, which you can then deploy on your host. In this mode, JavaScript files are minified, debugging tools are disabled, and the `GlobalConstants_prod.js` file is used as the GlobalConstants file.
 
@@ -80,7 +74,7 @@ This will build the frontend files to the `/public` directory, which you can the
 If you are using the DATA Act Broker in a fully local environment and you are not a developer, run:
 
 ```bash
-	$ gulp
+	$ npm run start:local
 ```
 This will build the frontend files to the `/public` directory and start a web server on port 3000. In this mode, JavaScript files are minified, debugging tools are disabled, and the `GlobalConstants_local.js` file is used as the GlobalConstants file.
 
@@ -93,7 +87,7 @@ To use the frontend, go to [http://localhost:3000](http://localhost:3000) in a s
 If you are deploying the frontend to a hosted environment for development/testing purposes, use:
 
 ```bash
-	$ gulp buildDev
+	$ npm run dev
 ```
 This will build the frontend files to the `/public` directory, which you can then deploy on your host. In this mode, JavaScript files are uncompressed and sourcemapped, debugging tools are enabled, and the `GlobalConstants_dev.js` file is used as the GlobalConstants file.
 
@@ -102,7 +96,7 @@ This will build the frontend files to the `/public` directory, which you can the
 Finally, if you are a frontend developer, use:
 
 ```bash
-	$ gulp dev
+	$ npm run start
 ```
 
 This will build the frontend files to the `/public` directory and also start a web server on port 3000. In this mode, JavaScript files are uncompressed and sourcemapped, debugging tools are enabled and the `GlobalConstants_dev.js` file is used as the GlobalConstants file. Additionally, SASS files in the `/src/_scss` and `/src/css` folders are watched, along with JS files in the `/src/js` folder, and these files are recompiled (and the browser automatically refreshed) whenever a change is detected.
