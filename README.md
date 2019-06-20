@@ -35,26 +35,16 @@ Assumptions:
 
 ### Create Configurations
 
-The `data-act-broker-web-app` folder provides three sample `GlobalConstants` files:
+The `data-act-broker-web-app` folder provides a configuration object in the `GlobalConstants.js` file. By default, it is configured to point at `http://localhost:9999/v1/`. To modify your configuration, you may overwrite this file directly or use an environment specific file with the following naming convention instead: `GlobalConstants_<local/dev/prod>.js`.
 
- * `sampleGlobalConstants_dev.js`
- * `sampleGlobalConstants_local.js`
- * `sampleGlobalConstants_prod.js`.
-
-Use these sample files to create files named `GlobalConstants_dev.js`, `GlobalConstants_local.js`, and `GlobalConstants_prod.js` respectively.
-
-The sample files require you to provide values for:
+This configuration object contains the following properties:
 
 * `API` is the base API URL for the server that is hosting the API. It should start with an `https://` or `http://` protocol and end with `/v1/`, including the trailing slash
-
-	* Note: the `sampleGlobalConstants_local.js` already has this field configured for you.
-
 * `LOCAL_ROOT` is the URL from which you are serving the frontend (this can be left as an empty string for non-local usage).
 * `CAS_ROOT` is the root endpoint for the [CAS server](https://apereo.github.io/cas/4.2.x/protocol/CAS-Protocol-Specification.html#cas-uris) when a CAS single sign-on service is used.
 * `AUTH_CALLBACK` is the [callback URL](https://apereo.github.io/cas/4.2.x/protocol/CAS-Protocol-Specification.html#response) that the CAS server redirects to upon successful login.
 * `GA_TRACKING_ID` is the tracking ID for Google Analytics.
-
-Other fields, such as `LOCAL` and `DEV` should be left based on their sample values.
+* `LOCAL/DEV/PROD/STAGING` is the boolean value for which environment the `API` is targeting.
 
 ### Run npm scripts:
 
@@ -65,49 +55,45 @@ Several npm scripts are available to build the frontend web site for various use
 If you are building the web site for a hosted production environment, run:
 
 ```bash
-	$ npm run prod
+	$ npm prod
 ```
-This will build the frontend files to the `/public` directory, which you can then deploy on your host. In this mode, JavaScript files are minified, debugging tools are disabled, and the `GlobalConstants_prod.js` file is used as the GlobalConstants file.
+This will build the frontend files to the `/public` directory, which you can then deploy on your host. In this mode, JavaScript files are minified, debugging tools are disabled, and `GlobalConstants_prod.js` file is used as the GlobalConstants file, if it exists, otherwise `GlobalConstants.js` will be used.
 
 #### Local Production
 
 If you are using the DATA Act Broker in a fully local environment and you are not a developer, run:
 
 ```bash
-	$ npm run start:local
+	$ npm start:local
 ```
-This will build the frontend files to the `/public` directory and start a web server on port 3000. In this mode, JavaScript files are minified, debugging tools are disabled, and the `GlobalConstants_local.js` file is used as the GlobalConstants file.
+This will start a web server on port 3000. In this mode, JavaScript files are source-mapped, debugging tools are available, and the `GlobalConstants_local.js` file is used as the GlobalConstants file, if it exists, otherwise `GlobalConstants.js` will be used.
 
 To use the frontend, go to [http://localhost:3000](http://localhost:3000) in a supported web browser.
 
-*Note:* Before running the gulp task, ensure that no other applications or services are using port 3000 on your computer.
+*Note:* Before running the npm script, ensure that no other applications or services are using port 3000 on your computer.
 
 #### Hosted Development (Build-only)
 
 If you are deploying the frontend to a hosted environment for development/testing purposes, use:
 
 ```bash
-	$ npm run dev
+	$ npm dev
 ```
-This will build the frontend files to the `/public` directory, which you can then deploy on your host. In this mode, JavaScript files are uncompressed and sourcemapped, debugging tools are enabled, and the `GlobalConstants_dev.js` file is used as the GlobalConstants file.
+This will build the frontend files to the `/public` directory, which you can then deploy on your host. In this mode, JavaScript files are uncompressed and source-mapped, debugging tools are enabled, and the `GlobalConstants_dev.js` file is used as the GlobalConstants file, if it exists, otherwise `GlobalConstants.js` will be used..
 
 #### Local Development
 
 Finally, if you are a frontend developer, use:
 
 ```bash
-	$ npm run start
+	$ npm start
 ```
 
-This will build the frontend files to the `/public` directory and also start a web server on port 3000. In this mode, JavaScript files are uncompressed and sourcemapped, debugging tools are enabled and the `GlobalConstants_dev.js` file is used as the GlobalConstants file. Additionally, SASS files in the `/src/_scss` and `/src/css` folders are watched, along with JS files in the `/src/js` folder, and these files are recompiled (and the browser automatically refreshed) whenever a change is detected.
+This will start a web server on port 3000. In this mode, JavaScript files are uncompressed and source-mapped, debugging tools are enabled and the `GlobalConstants_dev.js` file is used as the GlobalConstants file. Additionally, SASS files in the `/src/_scss` and `/src/css` folders are watched, along with JS files in the `/src/js` folder, and these files are recompiled (and the browser automatically refreshed) whenever a change is detected.
 
 ### Running Tests
 
 To run the unit test suite, run `npm test`.
-
-### Modifying global constants:
-
-In the top level directory, you will find `GlobalConstants_prod.js`, `GlobalConstants_local.js`, and `GlobalConstant_dev.js` that you may use for any conditional, global constants, such as the API endpoint you'd like to point to in either given scenario.
 
 ## Full DATA Act Broker Setup
 
