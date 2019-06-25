@@ -12,7 +12,7 @@ addons:
 env:
   - CXX=g++-4.8
 before_script:
-  - cp sampleGlobalConstants_local.js src/js/GlobalConstants.js
+  - cp GlobalConstants.js src/js/GlobalConstants.js
 script:
   - npm run dev
   - npm run travis
