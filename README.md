@@ -20,9 +20,9 @@ Assumptions:
 
         $ git clone https://github.com/fedspendingtransparency/data-act-broker-web-app.git
 
-3. Switch to the alpha release version of the code. This is the latest stable release.
+3. Switch to the production version of the code. This is the latest stable release.
 
-        $ git checkout v0.1.0-alpha
+        $ git checkout master
 
     **Note:** If you'd rather use the latest, work-in-progress features of the DATA Act broker, replace the above command with `git checkout staging`.
 
@@ -35,7 +35,7 @@ Assumptions:
 
 ### Create Configurations
 
-The `data-act-broker-web-app` folder provides a configuration object in the `GlobalConstants.js` file. By default, it is configured to point at `http://localhost:9999/v1/`. To modify your configuration, you may overwrite this file directly or use an environment specific file with the following naming convention instead: `GlobalConstants_<local/dev/prod>.js`.
+The `data-act-broker-web-app` folder provides a configuration object in the `GlobalConstants.js` file. By default, it is configured to use the local API endpoint - `http://localhost:9999/v1/`. To modify your configuration, you may overwrite this file directly or use an environment specific file with the following naming convention instead: `GlobalConstants_<local/dev/prod>.js`.
 
 This configuration object contains the following properties:
 
@@ -55,7 +55,7 @@ Several npm scripts are available to build the frontend web site for various use
 If you are building the web site for a hosted production environment, run:
 
 ```bash
-	$ npm prod
+	$ npm run prod
 ```
 This will build the frontend files to the `/public` directory, which you can then deploy on your host. In this mode, JavaScript files are minified, debugging tools are disabled, and `GlobalConstants_prod.js` file is used as the GlobalConstants file, if it exists, otherwise `GlobalConstants.js` will be used.
 
@@ -64,7 +64,7 @@ This will build the frontend files to the `/public` directory, which you can the
 If you are using the DATA Act Broker in a fully local environment and you are not a developer, run:
 
 ```bash
-	$ npm start:local
+	$ npm run start:local
 ```
 This will start a web server on port 3000. In this mode, JavaScript files are source-mapped, debugging tools are available, and the `GlobalConstants_local.js` file is used as the GlobalConstants file, if it exists, otherwise `GlobalConstants.js` will be used.
 
@@ -77,7 +77,7 @@ To use the frontend, go to [http://localhost:3000](http://localhost:3000) in a s
 If you are deploying the frontend to a hosted environment for development/testing purposes, use:
 
 ```bash
-	$ npm dev
+	$ npm run dev
 ```
 This will build the frontend files to the `/public` directory, which you can then deploy on your host. In this mode, JavaScript files are uncompressed and source-mapped, debugging tools are enabled, and the `GlobalConstants_dev.js` file is used as the GlobalConstants file, if it exists, otherwise `GlobalConstants.js` will be used..
 
@@ -86,14 +86,14 @@ This will build the frontend files to the `/public` directory, which you can the
 Finally, if you are a frontend developer, use:
 
 ```bash
-	$ npm start
+	$ npm run start
 ```
 
 This will start a web server on port 3000. In this mode, JavaScript files are uncompressed and source-mapped, debugging tools are enabled and the `GlobalConstants_dev.js` file is used as the GlobalConstants file. Additionally, SASS files in the `/src/_scss` and `/src/css` folders are watched, along with JS files in the `/src/js` folder, and these files are recompiled (and the browser automatically refreshed) whenever a change is detected.
 
 ### Running Tests
 
-To run the unit test suite, run `npm test`.
+To run the unit test suite, run `npm run test`.
 
 ## Full DATA Act Broker Setup
 
