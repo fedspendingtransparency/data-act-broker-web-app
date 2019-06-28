@@ -3,6 +3,11 @@ import Markdown from 'markdown';
 import ent from 'ent';
 import Request from './sessionSuperagent';
 
+require('../../help/changelog.md');
+require('../../help/history.md');
+require('../../help/technical.md');
+require('../../help/technicalHistory.md');
+
 const unescapeInlineHtml = (html) => {
     let tmpHtml = html;
     // find any inline HTML (as denoted by ```!inline-html [CODE] !inline-html```)

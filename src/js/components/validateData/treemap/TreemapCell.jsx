@@ -5,6 +5,7 @@
 
 import React, { PropTypes } from 'react';
 import tinycolor from 'tinycolor2';
+import { createOnKeyDownHandler } from '../../../helpers/util';
 
 const propTypes = {
     clickedItem: PropTypes.func,
@@ -37,6 +38,9 @@ export default class TreemapCell extends React.Component {
         this.state = {
             hover: false
         };
+        this.clickEvent = this.clickEvent.bind(this);
+        this.mouseOut = this.mouseOut.bind(this);
+        this.mouseOver = this.mouseOver.bind(this);
     }
 
     mouseOver() {
@@ -56,6 +60,7 @@ export default class TreemapCell extends React.Component {
     }
 
     render() {
+        const onKeyDownHandler = createOnKeyDownHandler(this.clickEvent);
         const style = {
             top: this.props.y,
             left: this.props.x,
@@ -81,14 +86,14 @@ export default class TreemapCell extends React.Component {
                 tabIndex={0}
                 className="usa-da-treemap-cell"
                 style={style}
-                onKeyUp={this.mouseOut.bind(this)}
-                onKeyDown={this.clickEvent.bind(this)}
-                onKeyPress={this.mouseOver.bind(this)}
-                onMouseOver={this.mouseOver.bind(this)}
-                onFocus={this.mouseOver.bind(this)}
-                onMouseOut={this.mouseOut.bind(this)}
-                onBlur={this.mouseOut.bind(this)}
-                onClick={this.clickEvent.bind(this)}>
+                onKeyUp={this.mouseOut}
+                onKeyDown={onKeyDownHandler}
+                onKeyPress={this.mouseOver}
+                onMouseOver={this.mouseOver}
+                onFocus={this.mouseOver}
+                onMouseOut={this.mouseOut}
+                onBlur={this.mouseOut}
+                onClick={this.clickEvent}>
                 <div className="treemap-rule">{this.props.title}</div>
             </div>
         );
