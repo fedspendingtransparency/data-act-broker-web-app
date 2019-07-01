@@ -18,7 +18,7 @@ const getGlobalConstantsFile = (env) => {
     if (fs.existsSync(envSpecificPath)) {
         return envSpecificPath;
     }
-    return path.resolve(__dirname, '../sampleGlobalConstants_local.js');
+    return path.resolve(__dirname, '../GlobalConstants.js');
 };
 
 module.exports = (env) => {
