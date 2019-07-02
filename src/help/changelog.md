@@ -1,5 +1,9 @@
-#### June 14, 2019{section=changelog}
+#### June 28, 2019{section=changelog}
 In this release of the Broker, we:
 
-* Backend updates to implement DAIMS 1.3.1 changes related to File F, and pave the way for unified, Broker-based approach to subaward data in USAspending
-* Improved how the Broker uses and stores Executive Compensation data so that File E can be generated from an internal table (updated daily) rather than an ad-hoc SAM WSDL query. Executive Compensation data is now stored transactionally with contracts and assistance data for easier and more accurate surfacing on USAspending. Backfilled this executive compensation data at the transactional level (at the time of award) where historical EC data was available in SAM SFTP service. 
+* Updated File F generation process to make use of Broker backend updates implemented in the prior release.  This allows for Broker based generation of File F without need for external query each time.
+* Updated FABS check for duplicate transactions to no longer be case sensitive.  Also, ensured Office Codes and Primary Place of Performance Code are not case sensitive.
+* Updated unique transaction key to allow reporting of multiple CFDA Programs in FABS.  Updated related FABS2 rules text to include CFDA Program.
+* Updated country code list used by Broker to GENC 3.0 update 10.
+* Fixed a frontend bug where any key press would trigger certain buttons on the Broker when they had tab focus.
+* Updated the Broker to respond to the IAE Federal Hierarchy splitting the funding office flag into assistance funding and contract funding flags.
