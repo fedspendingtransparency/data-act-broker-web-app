@@ -1,3 +1,52 @@
+#### June 14, 2019
+In this release of the Broker, we:
+
+* Backend updates to implement DAIMS 1.3.1 changes related to File F, and pave the way for unified, Broker-based approach to subaward data in USAspending
+* Improved how the Broker uses and stores Executive Compensation data so that File E can be generated from an internal table (updated daily) rather than an ad-hoc SAM WSDL query. Executive Compensation data is now stored transactionally with contracts and assistance data for easier and more accurate surfacing on USAspending. Backfilled this executive compensation data at the transactional level (at the time of award) where historical EC data was available in SAM SFTP service. 
+
+#### June 3, 2019
+In this release of the Broker, we:
+
+* Made the Reporting Period column of Certified Submissions on the DABS Submission Dashboard sortable to allow viewing certified submissions chronologically.
+* Updated how the DABS backend handles DUNS file loads and File E generation for improved efficiency.
+* Added General Ledger Post Date to the Award Financial File C in DABS as indicated in DAIMS 1.3.1 for FY2019 Quarter 3. This is an optional field, but, consistent with longstanding DAIMS requirements, agencies must include it as a header in File C from this point forward.
+
+#### May 20, 2019
+In this release of the Broker, we:
+
+* Updated domestic city and county codes and USPS ZIP Code data (including all derivations from ZIP such as congressional district mappings).  
+* Updated FABS City Code table and automated update process.  
+* Updated validation rules A7, A9, A10, and A11 to ensure proper handling of null values.
+* Various backend process improvements with validator timeout/termination handling, and memory management.
+
+#### May 6, 2019
+In this release of the Broker, we:
+
+* Updated FABS to accommodate an office type name change in Federal Hierarchy API.
+* Modified the error file text output by the Broker for FABS19 and FABS24.2 to clarify why they trigger in certain edge cases. No code logic for these rules changed, only error text. 
+* Updated DABS validation rule C11 to significantly improve processing time for large submission file sets.
+* Backfilled FY19Q1 derived data elements in agency FABS submissions that relied on the Federal Hierarchy (office names, funding subtier code/name when not submitted and derivable, funding toptier code/name). No agency submitted data was altered, only derived elements that were previously blank (due to being received in FABS before agency data was completely loaded into the Federal Hierarchy).
+* Added SubTier 4340 (new NEH SubTier) and 9505 (new STB SubTier) to Broker.
+
+#### April 19, 2019
+In this release of the Broker, we:
+
+* In DABS, after clicking "Certify" and confirming, the “Certify” button is disabled and the text updated to indicate that certification is in progress.  This is to prevent users from accidentally clicking and certifying multiple times.
+* Minor fix to the dropdown text on the File A Generation page, where the quarter indicators were previously misaligned in some cases; quarters now align to the appropriate period. 
+* Updated the D1/D2 funding toggle within DABS to allow for separate toggle selections for D1/D2. This will provide agencies with the ability to choose 'funding' for one D file and 'awarding' for the other within DABS.
+
+#### April 5, 2019
+In this release of the Broker, we:
+
+* Updated Broker Resource page to reference DAIMS v1.3.1 documents.
+* Implemented DAIMS v1.3.1 changes to elements in File D1 and D2. Users who have scripts based on D1/D2 files should update them to match the D1/D2 elements and names in DAIMS v1.3.1.
+* Updated Submission Dashboard to notify user if there are no submissions to display.
+* Fixed edge-case issue with email sent after the creation of the DABS submission. These errors only occurred for agencies associated with a FREC. 
+* Fixed small issue with line count inaccuracies in File A that occurred when extra carriage returns were present in the submission file.
+* Fixed validation rule A34 to correctly generate a critical error when the BudgetAuthorityUnobligatedBalanceBroughtForward value is empty.
+* Fixed download URL expiration issue for File A/D1/D2. Links are now generated upon click.
+* Various backend changes and improvements surrounding job handling and memory management.
+
 #### March 25, 2019
 In this release of the Broker, we:
 

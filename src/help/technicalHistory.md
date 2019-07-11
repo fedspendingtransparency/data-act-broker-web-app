@@ -1,3 +1,50 @@
+#### June 14, 2019{section=technical}
+
+In this release, here is a list of technical changes that may require infrastructure or database updates, or represents additional functionality.
+
+* Updated FSRS loader to populate Subaward data including derivations for File F and other FSRS data points.
+* Updated FABS derivations and FPDS loader to include Executive Compensation data in transaction data.
+* Updated underlying broker packages (Paramiko).
+
+#### June 3, 2019{section=technical}
+
+In this release, here is a list of technical changes that may require infrastructure or database updates, or represents additional functionality.
+
+* Included quarterly revalidation threshold loader to further automate setup.
+* Updated underlying broker packages (SQLAlchemy).
+* Reincorporated Executive Compensation loader to the nightly cadence and stopped loading external data upon File E generation.
+
+#### May 20, 2019{section=technical}
+
+In this release, here is a list of technical changes that may require infrastructure or database updates, or represents additional functionality.
+
+* Updated several underlying python packages (Jinja2, webargs, psutil, supervisord).
+* Removed extraneous characters from CFDA reference data and updated CFDA loader to properly decode values.
+
+#### May 6, 2019{section=technical}
+
+In this release, here is a list of technical changes that may require infrastructure or database updates, or represents additional functionality.
+
+* Added metrics reports to multiple data loaders for analysis.
+* Updated database and code to reflect changes in the Federal Hierarchy API (specifically the financial assistance office type).
+* Updated country code loader to label U.S. Territories or Freely Associated States.
+
+#### April 19, 2019{section=technical}
+
+In this release, here is a list of technical changes that may require infrastructure or database updates, or represents additional functionality.
+
+* Updated FPDS loader to generate an artifact detailing the metrics of the run for analysis.
+* Updated CFDA loader to properly encode the source csv and provide cleaner data.
+
+#### April 5, 2019{section=technical}
+
+In this release, here is a list of technical changes that may require infrastructure or database updates, or represents additional functionality.
+
+* Updated unique award keys in transaction data to be consistent with USAspending.gov.
+* Updated the CFDA loader to pull from a common source shared with USAspending.gov.
+* Removed deprecated `submit_detached_file` endpoint from the API. This should not affect Broker Inbound API users given that they do not use this endpoint.
+* Fixed the logic of providing current fiscal quarter on the frontend.
+
 #### March 25, 2019{section=technical}
 
 In this release, here is a list of technical changes that may require infrastructure or database updates, or represents additional functionality.
