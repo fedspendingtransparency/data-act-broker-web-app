@@ -7,14 +7,15 @@ import React, { PropTypes } from 'react';
 import { Router, hashHistory } from 'react-router';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
+import ReactGA from 'react-ga';
+
 import { kGlobalConstants } from '../../GlobalConstants';
 import * as sessionActions from '../../redux/actions/sessionActions';
 import * as LoginHelper from '../../helpers/loginHelper';
 import RouterRoutes from './RouterRoutes';
 
-const ga = require('react-ga');
-
 const GA_OPTIONS = { debug: false };
+const isProd = process.env.NODE_ENV === 'production';
 
 const propTypes = {
     session: PropTypes.object
@@ -30,7 +31,9 @@ let sessionChecker;
 
 class RouterContainer extends React.Component {
     componentDidMount() {
-        ga.initialize(kGlobalConstants.GA_TRACKING_ID, GA_OPTIONS);
+        if (isProd && kGlobalConstants.GA_TRACKING_ID !== '') {
+            ReactGA.initialize(kGlobalConstants.GA_TRACKING_ID, GA_OPTIONS);
+        }
     }
 
     componentDidUpdate(prevProps) {
@@ -60,7 +63,9 @@ class RouterContainer extends React.Component {
     }
 
     logPageView(path) {
-        ga.pageview(path);
+        if (isProd && kGlobalConstants.GA_TRACKING_ID !== '') {
+            ReactGA.pageview(path);
+        }
     }
 
     monitorSession() {
