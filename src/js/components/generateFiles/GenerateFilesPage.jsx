@@ -9,7 +9,7 @@ import AddDataHeader from './../addData/AddDataHeader';
 import Progress from '../SharedComponents/ProgressComponent';
 
 import GenerateFilesContainer from '../../containers/generateFiles/GenerateFilesContainer';
-import GenerateFilesError from './GenerateFilesError';
+import GenerateFilesError from '../SharedComponents/GenerateFilesError';
 
 const propTypes = {
     params: PropTypes.object,

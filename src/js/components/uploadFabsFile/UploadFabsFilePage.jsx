@@ -52,7 +52,10 @@ export default class UploadFabsFilePage extends React.Component {
 
     componentWillReceiveProps(nextProps) {
         let showMeta = false;
-        if (nextProps.params.submissionID && this.state.showMeta) {
+        if (nextProps.params.submissionID !== this.props.params.submissionID) {
+            this.props.setSubmissionId(nextProps.params.submissionID);
+        }
+        else if (nextProps.params.submissionID && this.state.showMeta) {
             this.props.setSubmissionId(this.props.params.submissionID);
         }
         else if (!nextProps.params.submissionID) {

@@ -77,7 +77,7 @@ export default class DateSelect extends React.Component {
                     fileType="d1" />
                 <GenerateFileBox
                     label="File D1: Procurement Awards (FPDS data)"
-                    datePlaceholder="Sign"
+                    datePlaceholder="Action"
                     startingTab={1}
                     value={d1}
                     error={d1.error}

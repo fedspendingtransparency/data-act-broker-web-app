@@ -14,6 +14,7 @@ import PublishModal from "./PublishModal";
 import Banner from "../SharedComponents/Banner";
 import UploadFabsFileError from "./UploadFabsFileError";
 import UploadFabsFileHeader from "./UploadFabsFileHeader";
+import GenerateFilesError from '../SharedComponents/GenerateFilesError';
 
 import * as UploadHelper from "../../helpers/uploadHelper";
 import * as GenerateFilesHelper from "../../helpers/generateFilesHelper";
@@ -67,7 +68,9 @@ class UploadFabsFileValidation extends React.Component {
             fabs_meta: { valid_rows: 0, total_rows: 0, publish_date: null },
             metadata: {},
             signedUrl: "",
-            signInProgress: false
+            signInProgress: false,
+            showError: false,
+            errorMessage: null
         };
     }
 
@@ -101,10 +104,16 @@ class UploadFabsFileValidation extends React.Component {
                     agency: response.agency_name,
                     cgac_code: response.cgac_code,
                     published: response.publish_status,
-                    fabs_meta: response.fabs_meta
+                    fabs_meta: response.fabs_meta,
+                    showError: false,
+                    errorMessage: null
                 });
             })
             .catch((err) => {
+                this.setState({
+                    showError: true,
+                    errorMessage: err.body.message
+                });
                 console.error(err);
             });
     }
@@ -316,6 +325,7 @@ class UploadFabsFileValidation extends React.Component {
     }
 
     render() {
+        if (this.state.showError) return (<GenerateFilesError message={this.state.errorMessage} />);
         let validationButton = null;
         let revalidateButton = null;
         let downloadButton = null;
