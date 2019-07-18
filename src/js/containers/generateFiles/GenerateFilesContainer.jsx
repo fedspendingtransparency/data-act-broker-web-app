@@ -104,6 +104,7 @@ class GenerateFilesContainer extends React.Component {
                     }
                 })
                 .catch((error) => {
+                    this.props.showError(error.body.message);
                     console.error(error);
                 });
         }
