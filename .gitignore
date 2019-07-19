@@ -33,7 +33,7 @@ public
 .tern-port
 
 # Ignore generated constants file
-GlobalConstants.js
+./GlobalConstants.js
 
 # Ignore Jest Test Results
 __tests__/test-results
