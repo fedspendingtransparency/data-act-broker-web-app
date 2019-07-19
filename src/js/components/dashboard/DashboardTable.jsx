@@ -54,7 +54,7 @@ export default class DashboardTable extends React.Component {
             totalPages: 1,
             account: null,
             deleteIndex: -1,
-            sortColumn: 0,
+            sortColumn: null,
             sortDirection: 'desc',
             user: true,
             type: this.props.type
