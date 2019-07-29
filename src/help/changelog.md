@@ -1,7 +1,7 @@
-#### July 15, 2019{section=changelog}
+#### July 29, 2019{section=changelog}
 In this release of the Broker, we:
 
-* Updated cross file validation between FAIN/URI/PIID/Parent PIID between C and D1/D2 to ensure it is not case-sensitive.
-* Updated checks in FABS for BusinessTypes, Country Codes, duplicate Awards, and SubTier Codes to ensure they are not case-sensitive.
-* Updated Subaward/Prime Award matching to ensure matching is not case-sensitive.
-* Consolidated multiple back-end agency lists into a single unified agency list and updated all back-end references and code to use this new consolidated list.
+* Updated FABS to allow deletion of previously published records with only the unique combination of FAIN, AwardModificationAmendmentNumber, URI, CFDA_Number, and AwardingSubTierAgencyCode elements needing to be provided on the submission file (along with a CorrectionDeleteIndicator of ‘D’).
+* Updated file header validation to only process the DAIMS Data Element Label name or the Terse 30 Label as valid header name. All other header names will be ignored and not processed as data.
+* Updated the on screen Header Error report and downloadable Header Error report to return the DAIMS Data Element Label that is missing and not the terse name for clarity.
+* Updated checks in FABS for ActionType to ensure it is not case-sensitive.
