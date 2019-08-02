@@ -97,7 +97,7 @@ export default class CalendarRangeDatePicker extends React.Component {
                 fixedWeeks
                 fromMonth={minDate}
                 toMonth={maxDate}
-                disabledDays={disabledDays}
+                disabledDays={[disabledDays]}
                 navbarElement={<Navbar />}
                 className="innerCalendarDatePicker"
                 numberOfMonths={this.props.numberOfMonths}

@@ -6,11 +6,9 @@
 import React, { PropTypes } from 'react';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
-
-import _ from 'lodash';
+import moment from 'moment';
 
 import * as lastDateModifiedActions from '../../redux/actions/lastDateModifiedActions';
-import * as lastDateModifiedHelper from '../../helpers/lastDateModifiedHelper';
 
 import CalendarRangeDatePicker from '../../components/SharedComponents/CalendarRangeDatePicker';
 
@@ -40,7 +38,8 @@ const defaultProps = {
 
 class LastDateModifiedContainer extends React.Component {
     render() {
-        const minDate = new Date(this.props.minDateLastModified);
+        // Safari Does not accept our date returned
+        const minDate = moment(this.props.minDateLastModified, 'YYYY-MM-DDTHH:mm:ss.SSSSSS').toDate();
         const finalPayload = {
             minDate,
             maxDate: new Date()
