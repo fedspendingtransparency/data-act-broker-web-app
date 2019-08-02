@@ -10,13 +10,15 @@ import LastDateModifiedContainer from '../../../containers/dashboard/LastDateMod
 const propTypes = {
     updateFilterList: PropTypes.func,
     type: PropTypes.string,
-    table: PropTypes.string
+    table: PropTypes.string,
+    minDateLastModified: PropTypes.string,
 };
 
 const defaultProps = {
     updateFilterList: null,
     type: '',
-    table: ''
+    table: '',
+    minDateLastModified: ''
 };
 
 export default class LastDateModifiedFilter extends React.Component {
@@ -48,7 +50,8 @@ export default class LastDateModifiedFilter extends React.Component {
                         type={this.props.type}
                         table={this.props.table}
                         placeholder="Last Date Modified"
-                        onSelect={this.lastDateModifiedSelect} />
+                        onSelect={this.lastDateModifiedSelect}
+                        minDateLastModified={this.props.minDateLastModified} />
                 </div>
             </div>
         );

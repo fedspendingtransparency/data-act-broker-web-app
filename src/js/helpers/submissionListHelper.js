@@ -75,9 +75,12 @@ export const loadSubmissionList = (
                 deferred.reject(err);
             }
             else {
+                console.log(' List Submissions Endpoint Response : ', res);
+                const { submissions, total } = res.body;
                 const output = {
-                    submissions: parseRecentActivity(res.body.submissions),
-                    total: res.body.total
+                    submissions: parseRecentActivity(submissions),
+                    total,
+                    min_last_modified: res.body.min_last_modified
                 };
                 deferred.resolve(output);
             }

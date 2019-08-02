@@ -22,7 +22,8 @@ const propTypes = {
     type: PropTypes.string,
     table: PropTypes.string,
     placeholder: PropTypes.string,
-    onSelect: PropTypes.func
+    onSelect: PropTypes.func,
+    minDateLastModified: PropTypes.string
 };
 
 const defaultProps = {
@@ -33,31 +34,15 @@ const defaultProps = {
     table: '',
     type: '',
     placeholder: '',
-    onSelect: () => {}
+    onSelect: () => {},
+    minDateLastModified: ''
 };
 
 class LastDateModifiedContainer extends React.Component {
-    loadData() {
-        if (_.isEmpty(this.props.lastDateModifiedList.lastDateModified)) {
-            // we need to populate the list and load on mounting the component
-            lastDateModifiedHelper.fetchLastDateModified()
-                .then((data) => {
-                    const payload = [];
-                    data.forEach((value) => {
-                        payload.push(new Date(value.last_modified));
-                    });
-                    this.props.setLastDateModifiedList(payload);
-                })
-                .catch((err) => {
-                    console.error(err);
-                });
-        }
-    }
-
     render() {
-        // Temporary min/max dates workaround until backend is ready
+        const minDate = new Date(this.props.minDateLastModified);
         const finalPayload = {
-            minDate: new Date('01/01/2016'),
+            minDate,
             maxDate: new Date()
         };
 
