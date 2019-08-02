@@ -75,7 +75,6 @@ export const loadSubmissionList = (
                 deferred.reject(err);
             }
             else {
-                console.log(' List Submissions Endpoint Response : ', res);
                 const { submissions, total } = res.body;
                 const output = {
                     submissions: parseRecentActivity(submissions),
