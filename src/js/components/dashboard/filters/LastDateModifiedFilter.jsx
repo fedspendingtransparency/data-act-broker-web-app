@@ -11,7 +11,7 @@ const propTypes = {
     updateFilterList: PropTypes.func,
     type: PropTypes.string,
     table: PropTypes.string,
-    minDateLastModified: PropTypes.string,
+    minDateLastModified: PropTypes.string
 };
 
 const defaultProps = {
