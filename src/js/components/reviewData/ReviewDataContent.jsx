@@ -214,7 +214,9 @@ export default class ReviewDataContent extends React.Component {
                                         <li>Total File Size:
                                             <strong> {this.formatSize(this.props.data.total_size)}</strong>
                                         </li>
-                                        <li>Total Rows: <strong>{this.props.data.number_of_rows}</strong></li>
+                                        <li>Total Data Rows (excludes headers):
+                                            <strong> {this.props.data.number_of_rows}</strong>
+                                        </li>
                                         <li>Created on: <strong>{this.props.data.created_on}</strong></li>
                                         <li>Total Warnings: <strong>{this.props.data.number_of_warnings}</strong></li>
                                     </ul>
