@@ -12,7 +12,6 @@ const gitRevisionPlugin = new GitRevisionPlugin({ branch: true }); // 'rev-parse
 
 console.log("Commit Hash for this build: ", gitRevisionPlugin.commithash());
 console.log("Branch for this build: ", gitRevisionPlugin.branch());
-console.log("Global Constants ENV: ", process.env.GLOBAL_CONSTANTS_ENV);
 
 const getGlobalConstantsFile = () => {
     const secretConstants = path.resolve(__dirname, `../GlobalConstants.js`);
@@ -119,9 +118,6 @@ module.exports = () => ({
             /.*GlobalConstants/,
             globalConstantsFile
         ),
-        new webpack.DefinePlugin({
-            'process.env.GLOBAL_CONSTANTS_ENV': JSON.stringify(process.env.GLOBAL_CONSTANTS_ENV)
-        }),
         new webpack.HashedModuleIdsPlugin() // so that file hashes don't change unexpectedly
     ]
 });
