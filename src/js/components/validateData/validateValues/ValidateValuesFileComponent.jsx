@@ -178,7 +178,7 @@ export default class ValidateValuesFileComponent extends React.Component {
 
     displayFileMeta() {
         let size = '--';
-        const rows = this.props.item.number_of_rows ? this.props.item.number_of_rows : '--';
+        const rows = this.props.item.number_of_rows ? this.props.item.number_of_rows : 0;
 
         if (this.props.item.file_size) {
             size = `${(this.props.item.file_size / 1000000).toFixed(2)} MB`;
@@ -313,14 +313,14 @@ export default class ValidateValuesFileComponent extends React.Component {
                     <div className="row usa-da-validate-item-top-section">
                         <div className="col-md-9 usa-da-validate-item-status-section">
                             <div className="row usa-da-validate-item-header">
-                                <div className="col-md-8">
+                                <div className="col-md-6">
                                     <h4>{this.props.type.fileTitle}</h4>
                                 </div>
                                 <div className="col-md-2 text-right">
                                     <p>File Size: {this.displayFileMeta().size}</p>
                                 </div>
-                                <div className="col-md-2 text-right">
-                                    <p>Lines in File: {this.displayFileMeta().rows}</p>
+                                <div className="col-md-4 text-right">
+                                    <p>Data Rows in File (excludes header): {this.displayFileMeta().rows}</p>
                                 </div>
                             </div>
                             <div className="row">

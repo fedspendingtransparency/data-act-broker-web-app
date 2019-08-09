@@ -24,4 +24,10 @@
             margin-bottom: 10px;
         }
     }
+    .col-md-6 {
+        @media screen and (min-width: $medium-screen) {
+            padding-left: 10px;
+            padding-right: 0;
+        }
+    }
 }
