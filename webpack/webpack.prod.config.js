@@ -44,6 +44,21 @@ module.exports = (env) => merge(getCommonConfig(env), {
         }),
         new webpack.optimize.MinChunkSizePlugin({
             minChunkSize: 300000
+        }),
+        new webpack.DefinePlugin({
+            'process.env': {
+                API: process.env.API
+                    ? JSON.stringify(process.env.API)
+                    : JSON.stringify("https://broker-api.usaspending.gov/v1/"),
+                API_CALLBACK: process.env.API_CALLBACK
+                    ? JSON.stringify(process.env.API_CALLBACK)
+                    : JSON.stringify("https://broker.usaspending.gov/#/auth"),
+                GA_TRACKING_ID: process.env.GA_TRACKING_ID
+                    ? JSON.stringify(process.env.GA_TRACKING_ID)
+                    : JSON.stringify(""),
+                CAS_ROOT: JSON.stringify("https://login.max.gov"),
+                IS_DEV: JSON.stringify('false')
+            }
         })
     ]
 });
