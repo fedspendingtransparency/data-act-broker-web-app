@@ -4,9 +4,9 @@ const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const UglifyJsPlugin = require("uglifyjs-webpack-plugin");
 const merge = require('webpack-merge');
 
-const getCommonConfig = require('./webpack.common');
+const common = require('./webpack.common');
 
-module.exports = (env) => merge(getCommonConfig(env), {
+module.exports = merge(common, {
     mode: "production",
     stats: {
         assets: true,
