@@ -38,6 +38,25 @@ module.exports = (env) => merge(getCommonConfig(env), {
             }
         }
     },
+    module: {
+        rules: [
+            {
+                test: /\.scss$/,
+                use: [
+                    { loader: MiniCssExtractPlugin.loader },
+                    { loader: "css-loader", options: { url: true, sourceMap: false } },
+                    {
+                        loader: "sass-loader",
+                        options: {
+                            url: false,
+                            sourceMap: false,
+                            includePaths: ["./src/_scss", "./node_modules"]
+                        }
+                    }
+                ]
+            }
+        ]
+    },
     plugins: [
         new MiniCssExtractPlugin({
             filename: "[name].[contenthash].css"
