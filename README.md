@@ -35,7 +35,7 @@ Assumptions:
 
 ### Application Configuration
 
-The `data-act-broker-web-app` folder provides a configuration object in the `GlobalConstants.js` file. By default, it is configured to use the local API endpoint - `http://localhost:9999/v1/`. To use the Production endpoint, either overwrite the API property in `GlobalConstants.js`, or you can change the `start` script in the `package.json` file to point at the `webpack.prod.config.js` file:
+The `data-act-broker-web-app` folder provides a configuration object in the `GlobalConstants.js` file. By default, it is configured to use the local API endpoint - `http://localhost:9999/v1/`. To use the Production endpoint (`https://broker-api.usaspending.gov/v1/`), either overwrite the API property in `GlobalConstants.js`, or you can change the `start` script in the `package.json` file to point at the `webpack.prod.config.js` file:
 
 ```json
     "start": "webpack-dev-server --progress --open --config ./webpack/webpack.prod.config.js",
@@ -62,7 +62,7 @@ If you are building the web site for a hosted production environment, run:
 ```bash
 	$ npm run prod
 ```
-This will build the frontend files to the `/public` directory, which you can then deploy on your host. In this mode, JavaScript files are minified, debugging tools are disabled, and by default the API calls will be made to the Production API.
+This will build the frontend files to the `/public` directory, which you can then deploy on your host. In this mode, JavaScript files are minified, debugging tools are disabled, and by default the API calls will be made to the Production endpoint (`https://broker-api.usaspending.gov/v1/`).
 
 #### Hosted Development (Build-only)
 
