@@ -50,3 +50,6 @@ test/bin
 
 # Ignore Babel build cache
 cache/
+
+# bash script
+broker.sh
