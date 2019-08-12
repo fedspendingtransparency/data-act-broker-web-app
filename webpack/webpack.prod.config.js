@@ -66,11 +66,11 @@ module.exports = merge(common, {
         }),
         new webpack.DefinePlugin({
             'process.env': {
-                API: process.env.API
-                    ? JSON.stringify(process.env.API)
+                BROKER_API: process.env.BROKER_API
+                    ? JSON.stringify(process.env.BROKER_API)
                     : JSON.stringify("https://broker-api.usaspending.gov/v1/"),
-                API_CALLBACK: process.env.API_CALLBACK
-                    ? JSON.stringify(process.env.API_CALLBACK)
+                BROKER_CALLBACK: process.env.BROKER_CALLBACK
+                    ? JSON.stringify(process.env.BROKER_CALLBACK)
                     : JSON.stringify("https://broker.usaspending.gov/#/auth"),
                 GA_TRACKING_ID: process.env.GA_TRACKING_ID
                     ? JSON.stringify(process.env.GA_TRACKING_ID)

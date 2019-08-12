@@ -41,11 +41,11 @@ module.exports = merge(common, {
     plugins: [
         new webpack.DefinePlugin({
             'process.env': {
-                API: process.env.API
-                    ? JSON.stringify(process.env.API)
+                BROKER_API: process.env.BROKER_API
+                    ? JSON.stringify(process.env.BROKER_API)
                     : JSON.stringify("http://localhost:9999/v1/current_user/"),
-                API_CALLBACK: process.env.API_CALLBACK
-                    ? JSON.stringify(process.env.API_CALLBACK)
+                BROKER_CALLBACK: process.env.BROKER_CALLBACK
+                    ? JSON.stringify(process.env.BROKER_CALLBACK)
                     : JSON.stringify("http://localhost:3000/#/auth"),
                 GA_TRACKING_ID: process.env.GA_TRACKING_ID
                     ? JSON.stringify(process.env.GA_TRACKING_ID)
