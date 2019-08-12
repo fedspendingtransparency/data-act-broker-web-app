@@ -33,11 +33,15 @@ Assumptions:
         $ npm install
 
 
-### Create Configurations
+### Application Configuration
 
-The `data-act-broker-web-app` folder provides a configuration object in the `GlobalConstants.js` file. By default, it is configured to use the local API endpoint - `http://localhost:9999/v1/`. To modify your configuration, you may overwrite this file directly or use an environment specific file with the following naming convention instead: `GlobalConstants_<local/dev/prod>.js`.
+The `data-act-broker-web-app` folder provides a configuration object in the `GlobalConstants.js` file. By default, it is configured to use the local API endpoint - `http://localhost:9999/v1/`. To use the Production endpoint, either overwrite the API property in `GlobalConstants.js`, or you can change the `start` script in the `package.json` file to point at the `webpack.prod.config.js` file:
 
-This configuration object contains the following properties:
+```json
+    "start": "webpack-dev-server --progress --open --config ./webpack/webpack.prod.config.js",
+```
+
+The configuration object contains the following properties which may be adjusted as necessary:
 
 * `API` is the base API URL for the server that is hosting the API. It should start with an `https://` or `http://` protocol and end with `/v1/`, including the trailing slash
 * `LOCAL_ROOT` is the URL from which you are serving the frontend (this can be left as an empty string for non-local usage).
@@ -45,6 +49,7 @@ This configuration object contains the following properties:
 * `AUTH_CALLBACK` is the [callback URL](https://apereo.github.io/cas/4.2.x/protocol/CAS-Protocol-Specification.html#response) that the CAS server redirects to upon successful login.
 * `GA_TRACKING_ID` is the tracking ID for Google Analytics.
 * `LOCAL/DEV/PROD/STAGING` is the boolean value for which environment the `API` is targeting.
+* `DEV/PROD` are boolean values used to include or exclude certain features
 
 ### Run npm scripts:
 
@@ -57,20 +62,7 @@ If you are building the web site for a hosted production environment, run:
 ```bash
 	$ npm run prod
 ```
-This will build the frontend files to the `/public` directory, which you can then deploy on your host. In this mode, JavaScript files are minified, debugging tools are disabled, and `GlobalConstants_prod.js` file is used as the GlobalConstants file, if it exists, otherwise `GlobalConstants.js` will be used.
-
-#### Local Production
-
-If you are using the DATA Act Broker in a fully local environment and you are not a developer, run:
-
-```bash
-	$ npm run start:local
-```
-This will start a web server on port 3000. In this mode, JavaScript files are source-mapped, debugging tools are available, and the `GlobalConstants_local.js` file is used as the GlobalConstants file, if it exists, otherwise `GlobalConstants.js` will be used.
-
-To use the frontend, go to [http://localhost:3000](http://localhost:3000) in a supported web browser.
-
-*Note:* Before running the npm script, ensure that no other applications or services are using port 3000 on your computer.
+This will build the frontend files to the `/public` directory, which you can then deploy on your host. In this mode, JavaScript files are minified, debugging tools are disabled, and by default the API calls will be made to the Production API.
 
 #### Hosted Development (Build-only)
 
@@ -79,17 +71,21 @@ If you are deploying the frontend to a hosted environment for development/testin
 ```bash
 	$ npm run dev
 ```
-This will build the frontend files to the `/public` directory, which you can then deploy on your host. In this mode, JavaScript files are uncompressed and source-mapped, debugging tools are enabled, and the `GlobalConstants_dev.js` file is used as the GlobalConstants file, if it exists, otherwise `GlobalConstants.js` will be used..
+This will build the frontend files to the `/public` directory, which you can then deploy on your host. In this mode, JavaScript files are uncompressed and source-mapped, debugging tools are enabled, and API calls will be made to the endpoint specified in the API property of the GlobalConstants configuration object (by default, `http://localhost:9999/v1/`).
 
 #### Local Development
 
-Finally, if you are a frontend developer, use:
+Finally, if you are a frontend developer or intending to use a fully local environment, use:
 
 ```bash
 	$ npm run start
 ```
 
-This will start a web server on port 3000. In this mode, JavaScript files are uncompressed and source-mapped, debugging tools are enabled and the `GlobalConstants_dev.js` file is used as the GlobalConstants file. Additionally, SASS files in the `/src/_scss` and `/src/css` folders are watched, along with JS files in the `/src/js` folder, and these files are recompiled (and the browser automatically refreshed) whenever a change is detected.
+This will start a web server on port 3000. In this mode, JavaScript files are uncompressed and source-mapped, debugging tools are enabled, and API calls will be made to the endpoint specified in the API property of the GlobalConstants configuration object (by default, `http://localhost:9999/v1/`). Additionally, SASS files in the `/src/_scss` and `/src/css` folders are watched, along with JS files in the `/src/js` folder, and these files are recompiled (and the browser automatically refreshed) whenever a change is detected.
+
+To use the frontend, go to [http://localhost:3000](http://localhost:3000) in a supported web browser.
+
+*Note:* Before running the npm script, ensure that no other applications or services are using port 3000 on your computer.
 
 ### Running Tests
 
@@ -97,4 +93,4 @@ To run the unit test suite, run `npm run test`.
 
 ## Full DATA Act Broker Setup
 
-For instructions on contributing to this project or installing the DATA Act broker backend, please refer to the [documentation in the DATA Act core responsitory](https://github.com/fedspendingtransparency/data-act-core/blob/master/doc/INSTALL.md "DATA Act broker installation guide").
+For instructions on contributing to this project or installing the DATA Act broker backend, please refer to the [documentation in the DATA Act core repository](https://github.com/fedspendingtransparency/data-act-core/blob/master/doc/INSTALL.md "DATA Act broker installation guide").
