@@ -68,10 +68,10 @@ module.exports = merge(common, {
             'process.env': {
                 BROKER_API: process.env.BROKER_API
                     ? JSON.stringify(process.env.BROKER_API)
-                    : JSON.stringify("https://broker-api.usaspending.gov/v1/"),
+                    : JSON.stringify("http://localhost:9999/v1/current_user/"),
                 BROKER_CALLBACK: process.env.BROKER_CALLBACK
                     ? JSON.stringify(process.env.BROKER_CALLBACK)
-                    : JSON.stringify("https://broker.usaspending.gov/#/auth"),
+                    : JSON.stringify("http://localhost:3000/#/auth"),
                 GA_TRACKING_ID: process.env.GA_TRACKING_ID
                     ? JSON.stringify(process.env.GA_TRACKING_ID)
                     : JSON.stringify(""),
