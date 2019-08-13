@@ -6,10 +6,9 @@
   "scripts": {
     "test": "./node_modules/.bin/jest; exit 0;",
     "lint": "./node_modules/.bin/eslint --config .eslintrc --ext .jsx,.js \"src/js/**\"; exit 0;",
-    "start": "webpack-dev-server --env.globalConstantFile=dev --progress --open --config ./webpack/webpack.dev.config.js",
-    "start:local": "webpack-dev-server --env.globalConstantFile=local --progress --open --config ./webpack/webpack.dev.config.js",
-    "dev": "webpack --env.globalConstantFile=dev --progress --config ./webpack/webpack.dev.config.js",
-    "prod": "webpack --env.globalConstantFile=prod --progress --config ./webpack/webpack.prod.config.js",
+    "start": "webpack-dev-server --progress --open --config ./webpack/webpack.dev.config.js",
+    "dev": "webpack --progress --config ./webpack/webpack.dev.config.js",
+    "prod": "webpack --progress --config ./webpack/webpack.prod.config.js",
     "sass": "webpack --progress --config ./webpack/webpack.sass.config.js",
     "travis": "./node_modules/.bin/eslint --config .eslintrc --ext .jsx,.js \"src/js/**\" && ./node_modules/.bin/jest --runInBand;"
   },
