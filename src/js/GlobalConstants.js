@@ -1,10 +1,7 @@
 export const kGlobalConstants = {
     API: process.env.BROKER_API,
-    LOCAL_ROOT: "",
     CAS_ROOT: process.env.CAS_ROOT,
     AUTH_CALLBACK: process.env.BROKER_CALLBACK,
-    GITHUB:
-      "https://github.com/fedspendingtransparency/data-act-validator/tree/development",
     PUBLIC_FILES: "",
     GA_TRACKING_ID: process.env.GA_TRACKING_ID,
     LOCAL: false,
