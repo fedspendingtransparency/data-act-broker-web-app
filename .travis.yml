@@ -11,8 +11,6 @@ addons:
       - g++-4.8
 env:
   - CXX=g++-4.8
-before_script:
-  - cp GlobalConstants.js src/js/GlobalConstants.js
 script:
   - npm run dev
   - npm run travis
