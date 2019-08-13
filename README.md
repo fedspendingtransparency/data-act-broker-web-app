@@ -40,7 +40,6 @@ The `data-act-broker-web-app` folder provides a configuration object in the `Glo
 The configuration object contains the following properties which may be adjusted as necessary:
 
 * `API` is the base API URL for the server that is hosting the API. It should start with an `https://` or `http://` protocol and end with `/v1/`, including the trailing slash
-* `LOCAL_ROOT` is the URL from which you are serving the frontend (this can be left as an empty string for non-local usage).
 * `CAS_ROOT` is the root endpoint for the [CAS server](https://apereo.github.io/cas/4.2.x/protocol/CAS-Protocol-Specification.html#cas-uris) when a CAS single sign-on service is used.
 * `AUTH_CALLBACK` is the [callback URL](https://apereo.github.io/cas/4.2.x/protocol/CAS-Protocol-Specification.html#response) that the CAS server redirects to upon successful login.
 * `GA_TRACKING_ID` is the tracking ID for Google Analytics.
