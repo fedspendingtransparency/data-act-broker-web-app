@@ -51,7 +51,10 @@ module.exports = merge(common, {
                     ? JSON.stringify(process.env.GA_TRACKING_ID)
                     : JSON.stringify(""),
                 CAS_ROOT: JSON.stringify("https://login.test.max.gov"),
-                IS_DEV: JSON.stringify('true')
+                IS_DEV: JSON.stringify('true'),
+                IS_LOCAL: process.env.IS_LOCAL && process.env.IS_LOCAL === 'true'
+                    ? JSON.stringify('true')
+                    : JSON.stringify('false')
             }
         })
     ]
