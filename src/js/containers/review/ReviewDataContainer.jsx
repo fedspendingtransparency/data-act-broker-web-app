@@ -11,7 +11,8 @@ import * as ReviewHelper from '../../helpers/reviewHelper';
 import ReviewDataPage from '../../components/reviewData/ReviewDataPage';
 
 const propTypes = {
-    params: PropTypes.object
+    params: PropTypes.object,
+    errorFromStep: PropTypes.func
 };
 
 const defaultProps = {
@@ -90,6 +91,7 @@ class ReviewDataContainer extends React.Component {
             })
             .catch((error) => {
                 console.error(error);
+                this.props.errorFromStep(error.body.message);
             });
     }
 

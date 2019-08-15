@@ -55,7 +55,7 @@ export default class AddDataContent extends React.Component {
         let subLink = null;
         if (this.state.submissionID !== 0) {
             subID = `Review Submission: ${this.state.submissionID}`;
-            subLink = `#/validateData/${this.state.submissionID}`;
+            subLink = `#/submission/${this.state.submissionID}/validateData`;
         }
 
         let actionArea = '';

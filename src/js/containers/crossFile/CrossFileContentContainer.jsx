@@ -21,7 +21,7 @@ const propTypes = {
     resetSubmission: PropTypes.func,
     setCrossFile: PropTypes.func,
     setSubmissionState: PropTypes.func,
-    showError: PropTypes.func,
+    errorFromStep: PropTypes.func,
     submission: PropTypes.object,
     submissionID: PropTypes.string
 };
@@ -30,7 +30,6 @@ const defaultProps = {
     resetSubmission: () => {},
     setCrossFile: () => {},
     setSubmissionState: () => {},
-    showError: () => {},
     submission: {},
     submissionID: ""
 };
@@ -81,6 +80,7 @@ class CrossFileContentContainer extends React.Component {
                 })
                 .catch((error) => {
                     console.error(error);
+                    this.props.errorFromStep(error.body.message);
                 });
         }
     }
@@ -131,10 +131,10 @@ class CrossFileContentContainer extends React.Component {
                         }
 
                         if (earlierErrors === 'validation') {
-                            hashHistory.push(`/validateData/${this.props.submissionID}`);
+                            hashHistory.push(`/submission/${this.props.submissionID}/validateData/`);
                         }
                         else {
-                            hashHistory.push(`/generateFiles/${this.props.submissionID}`);
+                            hashHistory.push(`/submission/${this.props.submissionID}/generateFiles/`);
                         }
                     }
                 }
@@ -162,11 +162,12 @@ class CrossFileContentContainer extends React.Component {
                 // check if the error has an associated user-displayable message
                 if (Object.prototype.hasOwnProperty.call(err, 'detail') && err.detail !== '') {
                     if (!this.isUnmounted) {
-                        this.props.showError(err.detail);
+                        this.props.errorFromStep(err.detail);
                     }
                 }
                 else {
                     console.error(err);
+                    this.props.errorFromStep(err.message);
                 }
 
                 // stop the timer

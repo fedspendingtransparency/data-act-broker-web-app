@@ -25,15 +25,15 @@ import * as UtilHelper from '../../helpers/util';
 const propTypes = {
     setSubmissionId: PropTypes.func,
     setSubmissionPublishStatus: PropTypes.func,
-    showError: PropTypes.func,
     submission: PropTypes.object,
-    submissionID: PropTypes.string
+    submissionID: PropTypes.string,
+    errorFromStep: PropTypes.func,
+    nextStep: PropTypes.func
 };
 
 const defaultProps = {
     setSubmissionId: uploadActions.setSubmissionId(),
     setSubmissionPublishStatus: uploadActions.setSubmissionPublishStatus(),
-    showError: () => {},
     submission: {},
     submissionID: ""
 };
@@ -105,6 +105,7 @@ class GenerateFilesContainer extends React.Component {
                 })
                 .catch((error) => {
                     console.error(error);
+                    this.props.errorFromStep(error.body.message);
                 });
         }
     }
@@ -116,6 +117,7 @@ class GenerateFilesContainer extends React.Component {
             })
             .catch((error) => {
                 console.error(error);
+                this.props.errorFromStep(error.message);
             });
     }
 
@@ -242,13 +244,8 @@ class GenerateFilesContainer extends React.Component {
                 });
             })
             .catch((err) => {
-                if (Object.prototype.hasOwnProperty.call(err, 'text')) {
-                    // handle non-existant submission IDs
-                    this.props.showError(JSON.parse(err.text).message);
-                }
-                else {
-                    console.error(err);
-                }
+                console.error(' Error : ', err);
+                this.props.errorFromStep(err.message);
             });
     }
 
@@ -516,7 +513,7 @@ class GenerateFilesContainer extends React.Component {
     }
 
     nextPage() {
-        hashHistory.push(`validateCrossFile/${this.props.submissionID}`);
+        this.props.nextStep();
     }
 
     render() {

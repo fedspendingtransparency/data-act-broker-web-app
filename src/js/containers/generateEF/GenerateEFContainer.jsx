@@ -21,7 +21,9 @@ import Banner from '../../components/SharedComponents/Banner';
 
 const propTypes = {
     submission: PropTypes.object,
-    submissionID: PropTypes.string
+    submissionID: PropTypes.string,
+    errorFromStep: PropTypes.func,
+    nextStep: PropTypes.func
 };
 
 const defaultProps = {
@@ -75,6 +77,7 @@ class GenerateEFContainer extends React.Component {
                 })
                 .catch((error) => {
                     console.error(error);
+                    this.props.errorFromStep(error.body.message);
                 });
         }
     }
@@ -174,7 +177,7 @@ class GenerateEFContainer extends React.Component {
     }
 
     nextPage() {
-        hashHistory.push(`/reviewData/${this.props.submissionID}`);
+        this.props.nextStep();
     }
 
     render() {

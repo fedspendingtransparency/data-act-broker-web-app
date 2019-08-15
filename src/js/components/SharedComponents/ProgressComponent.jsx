@@ -3,73 +3,99 @@
  * Created by Mike Bray 12/31/15
  */
 
-import { hashHistory } from 'react-router';
 import React, { PropTypes } from 'react';
-import * as SubmissionHelper from '../../helpers/submissionGuideHelper';
 
 const propTypes = {
-    stepLink: PropTypes.array,
     stepNames: PropTypes.array,
-    id: PropTypes.string.isRequired,
     currentStep: PropTypes.number,
-    totalSteps: PropTypes.number
+    totalSteps: PropTypes.number,
+    setStep: PropTypes.func,
+    barClasses: PropTypes.object
 };
 
 const defaultProps = {
     currentStep: 1,
     totalSteps: 5,
     stepNames: ['Validate Data', 'Generate D', 'Cross File', 'Generate EF', 'Review & Publish'],
-    stepLink: ['#/validateData', '#/generateFiles', '#/validateCrossFile', '#/generateEF', '#/reviewData']
+    setStep: () => {},
+    barClasses: {
+        step: 'usa-da-progress-bar-step-step',
+        current: 'usa-da-progress-bar-step-current',
+        done: 'usa-da-progress-bar-step-done'
+    }
 };
 
 export default class Progress extends React.Component {
-    componentDidMount() {
-        SubmissionHelper.getSubmissionPage(this.props.id)
-            .then((res) => {
-                if (this.props.currentStep > res.page) {
-                    hashHistory.push(res.url);
-                }
-            }).catch(() => {
-                hashHistory.push('/404');
-            });
+    // update outer container
+    // on bar or label click
+    handleClick(step) {
+        this.props.setStep(step);
+    }
+
+    // get appropriate class name for step
+    // same for bar and labels
+    className(index) {
+        const { barClasses, currentStep } = this.props;
+        let className = barClasses.step;
+        if (index < currentStep) className = barClasses.done;
+        if (index === currentStep) className = barClasses.current;
+        return className;
+    }
+    // should a button be disabled
+    // users can click on steps that have been completed
+    isDisabled(index) {
+        const { currentStep } = this.props;
+        if (index < currentStep) return false;
+        return true;
+    }
+    // bar button
+    bar(index) {
+        const isDisabled = this.isDisabled(index + 1);
+        return (
+            <button
+                disabled={isDisabled}
+                onClick={this.handleClick.bind(this, index)}
+                className="stepLink">
+                {index + 1}
+            </button>
+        );
+    }
+    // label button
+    label(index) {
+        const isDisabled = this.isDisabled(index + 1);
+        return (
+            <button
+                disabled={isDisabled}
+                onClick={this.handleClick.bind(this, index)}>
+                {this.props.stepNames[index]}
+            </button>
+        );
+    }
+    // list that creates the horizontal progress bar
+    // or list that creates the horizontal progress label
+    progress(type) {
+        const spanClass = (type === 'bar') ? 'step' : 'name';
+        return this.props.stepNames.map((step, index) => {
+            const className = this.className(index + 1);
+            return (
+                <li key={`${index + 1}-${spanClass}`} className={className}>
+                    <span className={spanClass}>
+                        {this[type](index)}
+                    </span>
+                </li>
+            );
+        });
     }
 
     render() {
-        const progressBar = [];
-        const progressLabels = [];
-        const stepNames = this.props.stepNames;
-        const stepLink = this.props.stepLink;
-
-        for (let i = 1; i <= this.props.totalSteps; i++) {
-            let bar = i;
-            let barClass = 'usa-da-progress-bar-step-step';
-            let label = stepNames[i - 1];
-            if (i < this.props.currentStep) {
-                bar = <a href={`${stepLink[i - 1]}/${this.props.id}`} className="stepLink">{bar}</a>;
-                label = <a href={`${stepLink[i - 1]}/${this.props.id}`} >{label}</a>;
-                barClass = 'usa-da-progress-bar-step-done';
-            }
-            else if (i === this.props.currentStep) {
-                barClass = 'usa-da-progress-bar-step-current';
-            }
-            progressBar.push(
-                <li key={i} className={barClass}>
-                    <span className="step">{bar}</span>
-                </li>);
-            progressLabels.push(
-                <li key={i} className={barClass}>
-                    <span className="name">{label}</span>
-                </li>);
-        }
-
         return (
             <div className="row">
                 <div className="col-md-12 usa-da-progress-bar">
                     <ul className="usa-da-progress-bar-holder" data-steps={this.props.totalSteps}>
-                        {progressBar}
+                        {this.progress('bar')}
                     </ul>
                     <ul className="usa-da-progress-bar-holder" data-steps={this.props.totalSteps}>
-                        {progressLabels}
+                        {this.progress('label')}
                     </ul>
                 </div>
             </div>

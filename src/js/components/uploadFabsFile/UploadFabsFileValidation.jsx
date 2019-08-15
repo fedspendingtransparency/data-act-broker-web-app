@@ -29,7 +29,8 @@ const propTypes = {
     params: PropTypes.object,
     route: PropTypes.object,
     session: PropTypes.object,
-    submission: PropTypes.object
+    submission: PropTypes.object,
+    errorMessage: PropTypes.func
 };
 
 const defaultProps = {
@@ -106,6 +107,7 @@ class UploadFabsFileValidation extends React.Component {
             })
             .catch((err) => {
                 console.error(err);
+                this.props.errorMessage(err);
             });
     }
 

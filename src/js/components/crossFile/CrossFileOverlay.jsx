@@ -4,7 +4,6 @@
   */
 import React, { PropTypes } from 'react';
 import _ from 'lodash';
-import { hashHistory } from 'react-router';
 import * as Icons from '../SharedComponents/icons/Icons';
 import CommonOverlay from '../SharedComponents/overlays/CommonOverlay';
 import LoadingBauble from '../SharedComponents/overlays/LoadingBauble';
@@ -17,7 +16,8 @@ const propTypes = {
     submission: PropTypes.object,
     agencyName: PropTypes.string,
     mode: PropTypes.string,
-    loading: PropTypes.bool
+    loading: PropTypes.bool,
+    nextStep: PropTypes.func
 };
 
 const defaultProps = {
@@ -83,7 +83,7 @@ export default class CrossFileOverlay extends React.Component {
 
     pressedNext(e) {
         e.preventDefault();
-        hashHistory.push(`/generateEF/${this.props.submission.id}`);
+        this.props.nextStep();
     }
 
     isUploadingFiles() {

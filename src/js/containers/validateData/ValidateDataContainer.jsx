@@ -22,7 +22,8 @@ const propTypes = {
     setSubmissionState: PropTypes.func,
     setValidation: PropTypes.func,
     submission: PropTypes.object,
-    submissionID: PropTypes.string
+    submissionID: PropTypes.string,
+    errorFromStep: PropTypes.func
 };
 
 const defaultProps = {
@@ -102,6 +103,7 @@ class ValidateDataContainer extends React.Component {
                 })
                 .catch((error) => {
                     console.error(error);
+                    this.props.errorFromStep(error.body.message);
                 });
         }
     }
