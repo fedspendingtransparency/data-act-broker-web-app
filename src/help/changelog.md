@@ -1,7 +1,7 @@
-#### July 29, 2019{section=changelog}
+#### August 9, 2019{section=changelog}
 In this release of the Broker, we:
 
-* Updated FABS to allow deletion of previously published records with only the unique combination of FAIN, AwardModificationAmendmentNumber, URI, CFDA_Number, and AwardingSubTierAgencyCode elements needing to be provided on the submission file (along with a CorrectionDeleteIndicator of ‘D’).
-* Updated file header validation to only process the DAIMS Data Element Label name or the Terse 30 Label as valid header name. All other header names will be ignored and not processed as data.
-* Updated the on screen Header Error report and downloadable Header Error report to return the DAIMS Data Element Label that is missing and not the terse name for clarity.
-* Updated checks in FABS for ActionType to ensure it is not case-sensitive.
+* Updated DABS and FABS row count on uploaded/generated files to only display the number of rows of data and clarified the text to make this clear.
+* Updated functionality for ‘Last Modified’ filter on the DABS and FABS Submission Dashboards to limit selectable date ranges to periods where data exists.
+* Added new SubTier 97CY to unified agency list.
+* Default sorting of certified submissions on DABS Submission Dashboard updated to ‘Last Modified’ column so the most recent certified submission shows at top of list regardless of the period being certified.
