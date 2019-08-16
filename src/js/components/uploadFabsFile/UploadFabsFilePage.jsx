@@ -113,7 +113,7 @@ export default class UploadFabsFilePage extends React.Component {
                 submission={this.props.submission}
                 validate={this.validate.bind(this)} />);
         }
-        if (isError) content = <DABSFABSErrorMessage message={errorMessage} />
+        if (isError) content = <DABSFABSErrorMessage message={errorMessage} />;
 
         return (
             <div className="usa-da-upload-fabs-file-page">

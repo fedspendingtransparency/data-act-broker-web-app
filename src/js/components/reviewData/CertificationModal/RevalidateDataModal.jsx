@@ -5,7 +5,6 @@
 
 import React, { PropTypes } from 'react';
 import Modal from 'react-aria-modal';
-import { hashHistory } from 'react-router';
 import * as Icons from '../../SharedComponents/icons/Icons';
 
 import RevalidateButtons from './RevalidateButtons';

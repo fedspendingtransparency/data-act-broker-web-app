@@ -4,7 +4,6 @@
  */
 
 import React, { PropTypes } from 'react';
-import { hashHistory } from 'react-router';
 import * as Icons from '../SharedComponents/icons/Icons';
 import CommonOverlay from '../SharedComponents/overlays/CommonOverlay';
 

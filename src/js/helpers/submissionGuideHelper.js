@@ -37,17 +37,17 @@ export const getSubmissionPage = (submissionId) => {
     Request.get(`${kGlobalConstants.API}check_current_page/?submission_id=${submissionId}`)
         .end((err, res) => {
             if (err) {
-                deferred.reject(res);
+                return deferred.reject(res);
             }
-            else {
-                const stepNumber = parseInt(res.body.step, 10);
-                if (stepNumber === 6) return deferred.reject({
+            const stepNumber = parseInt(res.body.step, 10);
+            if (stepNumber === 6) {
+                return deferred.reject({
                     body: {
                         message: 'This is a FAB\'s ID. Please navigate to FABS.'
                     }
                 });
-                return deferred.resolve(res.body);
             }
+            return deferred.resolve(res.body);
         });
 
     return deferred.promise;
