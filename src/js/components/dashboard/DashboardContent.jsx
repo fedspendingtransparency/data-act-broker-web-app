@@ -21,6 +21,8 @@ const propTypes = {
     certifiedLoading: PropTypes.bool,
     toggleDashboardFilter: PropTypes.func,
     updateDashboardFilter: PropTypes.func,
+    activeMinDateLastModified: PropTypes.string,
+    certifiedMinDateLastModified: PropTypes.string,
     stagedFilters: PropTypes.object,
     appliedFilters: PropTypes.object
 };
@@ -37,6 +39,8 @@ const defaultProps = {
     certifiedLoading: false,
     toggleDashboardFilter: null,
     updateDashboardFilter: null,
+    activeMinDateLastModified: '',
+    certifiedMinDateLastModified: '',
     stagedFilters: {},
     appliedFilters: {}
 };
@@ -142,6 +146,7 @@ export default class DashboardContent extends React.Component {
                             toggleFilter={this.toggleFilter}
                             stagedFilters={stagedFilters.active}
                             appliedFilters={appliedFilters.active}
+                            minDateLastModified={this.props.activeMinDateLastModified}
                             type={this.props.type}
                             table="active" />
                         <FilterBarContainer
@@ -172,6 +177,7 @@ export default class DashboardContent extends React.Component {
                             toggleFilter={this.toggleFilter}
                             stagedFilters={stagedFilters[secondTable]}
                             appliedFilters={appliedFilters[secondTable]}
+                            minDateLastModified={this.props.certifiedMinDateLastModified}
                             table={secondTable}
                             type={this.props.type} />
                         <FilterBarContainer
