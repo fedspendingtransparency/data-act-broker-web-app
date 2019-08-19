@@ -1,52 +1,119 @@
 import React, { PropTypes } from 'react';
 import Navbar from '../SharedComponents/navigation/NavigationComponent';
-import ReviewDataContent from '../reviewData/ReviewLoading';
-import Footer from '../SharedComponents/FooterComponent';
 import AddDataHeader from './../addData/AddDataHeader';
+import Progress from '../../components/SharedComponents/ProgressComponent';
+import DABSFABSErrorMessage from '../../components/SharedComponents/DABSFABSErrorMessage';
+import ReviewLoading from '../../components/reviewData/ReviewLoading';
+// DABs components
+import ValidateDataContainer from '../../containers/validateData/ValidateDataContainer';
+import GenerateFilesContainer from '../../containers/generateFiles/GenerateFilesContainer';
+import CrossFileContentContainer from '../../containers/crossFile/CrossFileContentContainer';
+import GenerateEFContainer from '../../containers/generateEF/GenerateEFContainer';
+import ReviewDataContainer from '../../containers/review/ReviewDataContainer';
 
 const propTypes = {
-    route: PropTypes.object,
-    submissionID: PropTypes.string
+    submissionID: PropTypes.string,
+    nextStep: PropTypes.func,
+    setStep: PropTypes.func,
+    setStepAndRoute: PropTypes.func,
+    errorFromStep: PropTypes.func,
+    step: PropTypes.number,
+    isError: PropTypes.bool,
+    errorMessage: PropTypes.string,
+    isLoading: PropTypes.bool
 };
 
-const defaultProps = {
-    route: {},
-    submissionID: ''
-};
+export default class SubmissionPage extends React.Component {
+    // all possible components DABS and FABS
+    components() {
+        const submissionID = this.props.submissionID;
+        const { nextStep, setStep, errorFromStep } = this.props;
+        return [
+            (<ValidateDataContainer
+                submissionID={submissionID}
+                nextStep={nextStep}
+                errorFromStep={errorFromStep} />),
+            (<GenerateFilesContainer
+                submissionID={submissionID}
+                nextStep={nextStep}
+                errorFromStep={errorFromStep} />),
+            (<CrossFileContentContainer
+                submissionID={submissionID}
+                nextStep={nextStep}
+                errorFromStep={errorFromStep} />),
+            (<GenerateEFContainer
+                submissionID={submissionID}
+                nextStep={nextStep}
+                errorFromStep={errorFromStep} />),
+            (<ReviewDataContainer
+                {...this.props}
+                params={{ submissionID }}
+                setStep={setStep}
+                errorFromStep={errorFromStep} />)
+        ];
+    }
+    // component's classNames
+    classNames() {
+        return [
+            "usa-da-validate-data-page",
+            "usa-da-generate-files-page",
+            "usa-da-cross-file-page",
+            "usa-da-generate-ef-page",
+            "usa-da-review-data-page"
+        ];
+    }
+    // get current component className
+    whichClassName() {
+        return this.classNames()[this.props.step];
+    }
+    // current step component
+    whichComponent() {
+        return this.components()[this.props.step];
+    }
 
-export default class LoadingPage extends React.Component {
-    render() {
-        const dummy = {
-            jobs: [],
-            cgac_code: '',
-            frec_code: '',
-            agency_name: '--',
-            reporting_period_start_date: null,
-            reporting_period_end_date: null,
-            number_of_rows: null,
-            number_of_warnings: null,
-            created_on: null,
-            ready: false,
-            total_obligations: 0,
-            total_assistance_obligations: 0,
-            total_procurement_obligations: 0,
-            file_narrative: {}
-        };
-
+    loadingMessage() {
+        if (!this.props.isLoading) return null;
         return (
-            <div className="usa-da-review-data-page">
-                <div className="usa-da-site_wrap">
-                    <div className="usa-da-page-content">
-                        <Navbar activeTab="submissionGuide" type={this.props.route.type} />
-                        <AddDataHeader submissionID={this.props.submissionID} />
-                        <ReviewDataContent {...this.props} data={dummy} submissionID={this.props.submissionID} />
+            <ReviewLoading />
+        );
+    }
+
+    errorMessage() {
+        const { errorMessage, isError } = this.props;
+        if (!isError) return null;
+        return (<DABSFABSErrorMessage message={errorMessage} />);
+    }
+
+    render() {
+        const {
+            isLoading,
+            isError,
+            setStepAndRoute,
+            submissionID
+        } = this.props;
+        let content = this.whichComponent();
+        if (isLoading) content = this.loadingMessage();
+        if (isError) content = this.errorMessage();
+        const step = this.props.step + 1;
+        const className = this.whichClassName();
+        return (
+            <div className={className}>
+                <Navbar activeTab="submissionGuide" type="dabs" />
+                <AddDataHeader submissionID={submissionID} />
+                <div className="usa-da-content-step-block" name="content-top">
+                    <div className="container center-block">
+                        <div className="row">
+                            <Progress
+                                currentStep={step}
+                                id={submissionID}
+                                setStep={setStepAndRoute} />
+                        </div>
                     </div>
                 </div>
-                <Footer />
+                {content}
             </div>
         );
     }
 }
 
-LoadingPage.propTypes = propTypes;
-LoadingPage.defaultProps = defaultProps;
+SubmissionPage.propTypes = propTypes;
