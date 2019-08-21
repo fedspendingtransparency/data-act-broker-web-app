@@ -4,6 +4,7 @@
  */
 
 import React, { PropTypes } from 'react';
+import { stepNames, classes } from 'dataMapping/dabs/progress';
 
 const propTypes = {
     stepNames: PropTypes.array,
@@ -16,13 +17,9 @@ const propTypes = {
 const defaultProps = {
     currentStep: 1,
     totalSteps: 5,
-    stepNames: ['Validate Data', 'Generate D', 'Cross File', 'Generate EF', 'Review & Publish'],
+    stepNames,
     setStep: () => {},
-    barClasses: {
-        step: 'usa-da-progress-bar-step-step',
-        current: 'usa-da-progress-bar-step-current',
-        done: 'usa-da-progress-bar-step-done'
-    }
+    barClasses: classes
 };
 
 export default class Progress extends React.Component {

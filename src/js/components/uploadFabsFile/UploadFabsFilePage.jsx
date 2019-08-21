@@ -114,7 +114,6 @@ export default class UploadFabsFilePage extends React.Component {
                 validate={this.validate.bind(this)} />);
         }
         if (isError) content = <DABSFABSErrorMessage message={errorMessage} />;
-
         return (
             <div className="usa-da-upload-fabs-file-page">
                 <div className="usa-da-site_wrap">

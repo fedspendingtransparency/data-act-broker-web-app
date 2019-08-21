@@ -117,13 +117,15 @@ export const fetchSubmissionMetadata = (submissionId) => {
     Request.get(`${kGlobalConstants.API}submission_metadata/?submission_id=${submissionId}`)
         .end((errFile, res) => {
             if (errFile) {
-                deferred.reject(res);
+                return deferred.reject(res);
             }
-            else {
-                const response = Object.assign({}, res.body);
-                store.dispatch(uploadActions.setSubmissionPublishStatus(response.publish_status));
-                deferred.resolve(res.body);
+            if (!res.body.fabs_meta) {
+                const message = 'This is a DAB\'s ID. Please navigate to DABS.';
+                return deferred.reject({ body: { message } });
             }
+            const response = Object.assign({}, res.body);
+            store.dispatch(uploadActions.setSubmissionPublishStatus(response.publish_status));
+            return deferred.resolve(res.body);
         });
 
     return deferred.promise;

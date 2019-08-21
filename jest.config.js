@@ -6,6 +6,7 @@ module.exports = {
     collectCoverage: true,
     collectCoverageFrom: [
         "src/js/containers/**/*.{js,jsx}",
+        "src/js/components/**/*.{js,jsx}",
         "src/js/redux/reducers/**/*.{js,jsx}",
         "!node_modules/**",
         "!public/**"

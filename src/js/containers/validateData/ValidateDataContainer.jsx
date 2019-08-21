@@ -39,7 +39,7 @@ const timerDuration = 10;
 
 const singleFileValidations = ['appropriations', 'program_activity', 'award_financial'];
 
-class ValidateDataContainer extends React.Component {
+export class ValidateDataContainer extends React.Component {
     constructor(props) {
         super(props);
 

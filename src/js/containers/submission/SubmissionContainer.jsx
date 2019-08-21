@@ -10,6 +10,7 @@ import { reduce } from 'lodash';
 
 import * as SubmissionGuideHelper from '../../helpers/submissionGuideHelper';
 import SubmissionPage from '../../components/submission/SubmissionPage';
+import { routes } from '../../dataMapping/dabs/submission';
 
 const propTypes = {
     params: PropTypes.object,
@@ -32,7 +33,6 @@ export class SubmissionContainer extends React.Component {
             isLoading: true,
             isError: false,
             errorMessage: '',
-            nextStep: false,
             step: 0,
             originalStep: 0,
             completedSteps: {
@@ -45,7 +45,6 @@ export class SubmissionContainer extends React.Component {
 
         this.setStepAndRoute = this.setStepAndRoute.bind(this);
         this.setStep = this.setStep.bind(this);
-        // this.errorMessage = this.errorMessage.bind(this);
         this.errorFromStep = this.errorFromStep.bind(this);
         this.nextStep = this.nextStep.bind(this);
     }
@@ -55,7 +54,6 @@ export class SubmissionContainer extends React.Component {
     }
 
     componentDidUpdate(prevProps) {
-        if (this.state.nextStep) return;
         // check for ID change
         if (prevProps.params.submissionID !== this.props.params.submissionID) {
             this.getSubmission();
@@ -94,8 +92,7 @@ export class SubmissionContainer extends React.Component {
                     isLoading: false,
                     isError: false,
                     step: stepNumber,
-                    originalStep: stepNumber,
-                    nextStep: false
+                    originalStep: stepNumber
                 }, () => this.updateRoute());
             })
             .catch((err) => {
@@ -112,13 +109,15 @@ export class SubmissionContainer extends React.Component {
         // get submission step from url
         const routeTypeParam = this.props.routeParams.type;
         // current route step name
-        const currentStepRouteType = this.routes()[currentStepNumber];
+        const currentStepRouteType = this.currentRoute();
         // route param type
         if (routeTypeParam !== currentStepRouteType) {
             // get route type step number
-            const newRouteIndex = this.routes().indexOf(routeTypeParam);
+            const newRouteIndex = routes.indexOf(routeTypeParam);
             // verify user is not navigating too far
             if (newRouteIndex > this.state.originalStep) {
+                // verify this step has been completed
+                // which we will then allow the user to navigate to that step
                 if (this.state.completedSteps[newRouteIndex.toString()]) return newRouteIndex;
                 return this.state.originalStep;
             }
@@ -133,24 +132,14 @@ export class SubmissionContainer extends React.Component {
         this.setState({ isError: true, errorMessage: message });
     }
 
-    // all possible routes DABS and FABS
-    routes() {
-        return [
-            'validateData',
-            'generateFiles',
-            'validateCrossFile',
-            'generateEF',
-            'reviewData'
-        ];
-    }
     // current route name
-    whichRoute() {
-        return this.routes()[this.state.step];
+    currentRoute() {
+        return routes[this.state.step];
     }
     // update route
     updateRoute() {
         const { submissionID } = this.props.params;
-        return hashHistory.replace(`/submission/${submissionID}/${this.whichRoute()}`);
+        return hashHistory.replace(`/submission/${submissionID}/${this.currentRoute()}`);
     }
     // clicked next button in child Overlay components
     // add 1 to step

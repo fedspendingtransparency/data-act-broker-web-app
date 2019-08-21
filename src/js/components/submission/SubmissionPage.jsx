@@ -1,9 +1,10 @@
 import React, { PropTypes } from 'react';
 import Navbar from '../SharedComponents/navigation/NavigationComponent';
 import AddDataHeader from './../addData/AddDataHeader';
-import Progress from '../../components/SharedComponents/ProgressComponent';
+import Progress from '../SharedComponents/Progress';
 import DABSFABSErrorMessage from '../../components/SharedComponents/DABSFABSErrorMessage';
 import ReviewLoading from '../../components/reviewData/ReviewLoading';
+import { classNames } from '../../dataMapping/dabs/submission';
 // DABs components
 import ValidateDataContainer from '../../containers/validateData/ValidateDataContainer';
 import GenerateFilesContainer from '../../containers/generateFiles/GenerateFilesContainer';
@@ -52,19 +53,9 @@ export default class SubmissionPage extends React.Component {
                 errorFromStep={errorFromStep} />)
         ];
     }
-    // component's classNames
-    classNames() {
-        return [
-            "usa-da-validate-data-page",
-            "usa-da-generate-files-page",
-            "usa-da-cross-file-page",
-            "usa-da-generate-ef-page",
-            "usa-da-review-data-page"
-        ];
-    }
     // get current component className
     whichClassName() {
-        return this.classNames()[this.props.step];
+        return classNames[this.props.step];
     }
     // current step component
     whichComponent() {
