@@ -12,8 +12,11 @@ import { mockProps, originalState } from './mockData';
 jest.mock('helpers/submissionGuideHelper', () => require('./mockSubmissionGuideHelper'));
 
 describe('SubmissionContainer', () => {
+    let container;
+    beforeEach(() => {
+        container = shallow(<SubmissionContainer {...mockProps} />);
+    });
     it('componenentDidMount, should call getSubmission on mount', async () => {
-        const container = shallow(<SubmissionContainer {...mockProps} />);
         const getSubmission = jest.fn();
         container.instance().getSubmission = getSubmission;
         await container.instance().componentDidMount();
@@ -23,7 +26,6 @@ describe('SubmissionContainer', () => {
 
     describe('ComponentDidUpdate', () => {
         it('should call getSubmission if ID is updated', () => {
-            const container = shallow(<SubmissionContainer {...mockProps} />);
             const getSubmission = jest.fn();
             container.instance().getSubmission = getSubmission;
             const newProps = {
@@ -39,7 +41,6 @@ describe('SubmissionContainer', () => {
         });
 
         it('should call setStepAndRoute if route type is updated', () => {
-            const container = shallow(<SubmissionContainer {...mockProps} />);
             const validateCurrentStepAndRouteType = jest.fn();
             const setStepAndRoute = jest.fn();
             container.instance().validateCurrentStepAndRouteType = validateCurrentStepAndRouteType;
@@ -60,7 +61,6 @@ describe('SubmissionContainer', () => {
     });
 
     it('getSubmission, should update state', async () => {
-        const container = shallow(<SubmissionContainer {...mockProps} />);
         await container.instance().getSubmission();
         const {
             isLoading,
@@ -76,12 +76,10 @@ describe('SubmissionContainer', () => {
 
     describe('ValidateCurrentStepAndRouteType', () => {
         it('should return 5, the fabs step', () => {
-            const container = shallow(<SubmissionContainer {...mockProps} />);
             const fabs = container.instance().validateCurrentStepAndRouteType(5);
             expect(fabs).toEqual(5);
         });
         it('should allow a user to navigate to a step greater than its current step', () => {
-            const container = shallow(<SubmissionContainer {...mockProps} />);
             const newState = originalState;
             newState.completedSteps[0] = true;
             container.instance().setState(newState);
@@ -89,7 +87,6 @@ describe('SubmissionContainer', () => {
             expect(allow).toEqual(1);
         });
         it('should not allow a user to navigate to a greater step', async () => {
-            const container = shallow(<SubmissionContainer {...mockProps} />);
             const newState = originalState;
             newState.completedSteps[0] = true;
             const newProps = container.instance().props;
@@ -100,7 +97,6 @@ describe('SubmissionContainer', () => {
             expect(doNotAllow).toEqual(0);
         });
         it('should allow a user to navigate to a previous step', async () => {
-            const container = shallow(<SubmissionContainer {...mockProps} />);
             const newProps = container.instance().props;
             const newState = container.instance().state;
             newState.step = 4;
@@ -112,7 +108,6 @@ describe('SubmissionContainer', () => {
             expect(newIndex).toEqual(3);
         });
         it('should just return the current step number if routes are the same', async () => {
-            const container = shallow(<SubmissionContainer {...mockProps} />);
             const newProps = container.instance().props;
             const newState = container.instance().state;
             newProps.routeParams.type = 'generateEF';
@@ -126,7 +121,6 @@ describe('SubmissionContainer', () => {
     });
 
     it('errorFromStep, should update state with message', () => {
-        const container = shallow(<SubmissionContainer {...mockProps} />);
         const falseStatement = 'Dallas Cowboys are a great team';
         container.instance().errorFromStep(falseStatement);
         const { isError, errorMessage } = container.instance().state;
@@ -135,7 +129,6 @@ describe('SubmissionContainer', () => {
     });
     
     it('currentRoute, should return the current states step route', () => {
-        const container = shallow(<SubmissionContainer {...mockProps} />);
         const currentRoute = container.instance().currentRoute();
         expect(currentRoute).toEqual('validateData');
     });
@@ -156,7 +149,6 @@ describe('SubmissionContainer', () => {
 
     it('nextStep, should update state and call update route', () => {
         const updateRoute = jest.fn();
-        const container = shallow(<SubmissionContainer {...mockProps} />);
         container.instance().updateRoute = updateRoute;
         container.instance().nextStep();
         const { step, completedSteps } = container.instance().state;
