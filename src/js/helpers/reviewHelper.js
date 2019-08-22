@@ -107,7 +107,7 @@ export const getCrossFileData = (data, type) => {
     return output;
 };
 
-export const fetchSubmissionMetadata = (submissionId) => {
+export const fetchSubmissionMetadata = (submissionId, type) => {
     const deferred = Q.defer();
 
     // set the submission ID
@@ -119,7 +119,7 @@ export const fetchSubmissionMetadata = (submissionId) => {
             if (errFile) {
                 return deferred.reject(res);
             }
-            if (!res.body.fabs_meta) {
+            if (!res.body.fabs_meta && type === 'fabs') {
                 const message = 'This is a DAB\'s ID. Please navigate to DABS.';
                 return deferred.reject({ body: { message } });
             }

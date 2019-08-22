@@ -68,7 +68,7 @@ class GenerateEFContainer extends React.Component {
 
     setAgencyName(givenProps) {
         if (givenProps.submissionID !== null) {
-            ReviewHelper.fetchSubmissionMetadata(givenProps.submissionID)
+            ReviewHelper.fetchSubmissionMetadata(givenProps.submissionID, 'dabs')
                 .then((data) => {
                     if (!this.isUnmounted) {
                         this.setState({ agency_name: data.agency_name });

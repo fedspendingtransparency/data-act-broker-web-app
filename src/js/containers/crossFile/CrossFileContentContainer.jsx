@@ -72,7 +72,7 @@ class CrossFileContentContainer extends React.Component {
 
     setAgencyName(givenProps) {
         if (givenProps.submissionID !== null) {
-            ReviewHelper.fetchSubmissionMetadata(givenProps.submissionID)
+            ReviewHelper.fetchSubmissionMetadata(givenProps.submissionID, 'dabs')
                 .then((data) => {
                     if (!this.isUnmounted) {
                         this.setState({ agencyName: data.agency_name });

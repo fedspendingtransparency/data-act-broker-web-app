@@ -96,7 +96,7 @@ class GenerateFilesContainer extends React.Component {
 
     setAgencyName(givenProps) {
         if (givenProps.submissionID !== null) {
-            ReviewHelper.fetchSubmissionMetadata(givenProps.submissionID)
+            ReviewHelper.fetchSubmissionMetadata(givenProps.submissionID, 'dabs')
                 .then((data) => {
                     if (!this.isUnmounted) {
                         this.setState({ agency_name: data.agency_name });
@@ -210,7 +210,7 @@ class GenerateFilesContainer extends React.Component {
 
     loadSubmissionData() {
         // prepopulate the fields with the submission metadata dates
-        ReviewHelper.fetchSubmissionMetadata(this.props.submissionID)
+        ReviewHelper.fetchSubmissionMetadata(this.props.submissionID, 'dabs')
             .then((data) => {
                 this.props.setSubmissionId(this.props.submissionID);
                 this.props.setSubmissionPublishStatus(data.publish_status);

@@ -95,7 +95,7 @@ class UploadFabsFileValidation extends React.Component {
     }
 
     setSubmissionMetadata(submissionID) {
-        ReviewHelper.fetchSubmissionMetadata(submissionID)
+        ReviewHelper.fetchSubmissionMetadata(submissionID, 'fabs')
             .then((response) => {
                 this.setState({
                     metadata: response,
@@ -163,7 +163,7 @@ class UploadFabsFileValidation extends React.Component {
                         success = true;
                     }
 
-                    ReviewHelper.fetchSubmissionMetadata(submissionID)
+                    ReviewHelper.fetchSubmissionMetadata(submissionID, 'fabs')
                         .then((metadataResponse) => {
                             ReviewHelper.fetchSubmissionData(submissionID)
                                 .then((dataResponse) => {

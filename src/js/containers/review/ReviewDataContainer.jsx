@@ -55,7 +55,7 @@ class ReviewDataContainer extends React.Component {
     loadData() {
         let submissionData = {};
 
-        ReviewHelper.fetchSubmissionMetadata(this.props.params.submissionID)
+        ReviewHelper.fetchSubmissionMetadata(this.props.params.submissionID, 'dabs')
             .then((data) => {
                 submissionData = data;
                 submissionData.ready = true;

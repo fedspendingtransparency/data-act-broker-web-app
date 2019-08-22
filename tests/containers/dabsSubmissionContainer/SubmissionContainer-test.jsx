@@ -5,6 +5,7 @@
 
 import React from 'react';
 import { shallow } from 'enzyme';
+import { hashHistory } from 'react-router';
 
 import { SubmissionContainer } from 'containers/submission/SubmissionContainer';
 import { mockProps, originalState } from './mockData';
@@ -134,18 +135,21 @@ describe('SubmissionContainer', () => {
     });
 
     // TODO - get this working
-    // it('updateRoute, should update the route based on the current step', async () => {
-    //     const container = shallow(<SubmissionContainer {...mockProps} />);
-    //     // const newState = container.instance().state;
-    //     // newState.step = 1;
-    //     // await container.instance().setState(newState);
-    //     console.log(' Initial State : ', container.instance().state);
-    //     console.log(' Initial Props : ', container.instance().props);
-    //     await container.instance().updateRoute();
-    //     const newProps = container.instance().props;
-    //     console.log(' New Props : ', container.instance().props);
-    //     expect(newProps.routeParams.type).toEqual('validateData');
-    // });
+    it('updateRoute, should update the route based on the current step', async () => {
+        const props = {
+            params: {
+                submissionID: "2054"
+            },
+            routeParams: {
+                submissionID: "2054"
+            }
+        };
+        container = shallow(<SubmissionContainer {...props} />);
+        const replace = jest.fn();
+        hashHistory.replace = replace;
+        container.instance().updateRoute();
+        expect(hashHistory.replace).toHaveBeenCalled();
+    });
 
     it('nextStep, should update state and call update route', () => {
         const updateRoute = jest.fn();
