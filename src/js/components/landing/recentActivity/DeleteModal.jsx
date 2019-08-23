@@ -95,8 +95,8 @@ export default class DeleteModal extends React.Component {
                         </div>
 
                         <div className="usa-da-certify-modal-content delete-modal-content">
-                            Warning: This will delete the submission for the <strong>entire agency.</strong>
-                                Are you sure?
+                            Warning: This will delete the submission from the system for your entire agency.
+                            It will not be recoverable once deleted. Are you sure you want to proceed?
                         </div>
                         {error}
                         <div className="pull-right">

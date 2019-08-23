@@ -50,6 +50,8 @@ export class DashboardContainer extends React.Component {
             certifiedTotal: 0,
             activeSubmissions: [],
             certifiedSubmissions: [],
+            activeMinDateLastModified: '',
+            certifiedMinDateLastModified: '',
             type: this.props.type
         };
     }
@@ -115,7 +117,8 @@ export class DashboardContainer extends React.Component {
                 this.setState({
                     [`${tableName}Total`]: data.total,
                     [`${tableName}Submissions`]: data.submissions,
-                    [`${tableName}Loading`]: false
+                    [`${tableName}Loading`]: false,
+                    [`${tableName}MinDateLastModified`]: data.min_last_modified
                 });
             });
     }

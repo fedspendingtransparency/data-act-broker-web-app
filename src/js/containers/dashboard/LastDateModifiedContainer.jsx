@@ -6,11 +6,9 @@
 import React, { PropTypes } from 'react';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
-
-import _ from 'lodash';
+import moment from 'moment';
 
 import * as lastDateModifiedActions from '../../redux/actions/lastDateModifiedActions';
-import * as lastDateModifiedHelper from '../../helpers/lastDateModifiedHelper';
 
 import CalendarRangeDatePicker from '../../components/SharedComponents/CalendarRangeDatePicker';
 
@@ -22,7 +20,8 @@ const propTypes = {
     type: PropTypes.string,
     table: PropTypes.string,
     placeholder: PropTypes.string,
-    onSelect: PropTypes.func
+    onSelect: PropTypes.func,
+    minDateLastModified: PropTypes.string
 };
 
 const defaultProps = {
@@ -33,31 +32,16 @@ const defaultProps = {
     table: '',
     type: '',
     placeholder: '',
-    onSelect: () => {}
+    onSelect: () => {},
+    minDateLastModified: ''
 };
 
 class LastDateModifiedContainer extends React.Component {
-    loadData() {
-        if (_.isEmpty(this.props.lastDateModifiedList.lastDateModified)) {
-            // we need to populate the list and load on mounting the component
-            lastDateModifiedHelper.fetchLastDateModified()
-                .then((data) => {
-                    const payload = [];
-                    data.forEach((value) => {
-                        payload.push(new Date(value.last_modified));
-                    });
-                    this.props.setLastDateModifiedList(payload);
-                })
-                .catch((err) => {
-                    console.error(err);
-                });
-        }
-    }
-
     render() {
-        // Temporary min/max dates workaround until backend is ready
+        // Safari Does not accept our date returned
+        const minDate = moment(this.props.minDateLastModified, 'YYYY-MM-DDTHH:mm:ss.SSSSSS').toDate();
         const finalPayload = {
-            minDate: new Date('01/01/2016'),
+            minDate,
             maxDate: new Date()
         };
 
