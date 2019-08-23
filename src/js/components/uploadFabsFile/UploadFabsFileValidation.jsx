@@ -25,6 +25,7 @@ import * as Icons from '../SharedComponents/icons/Icons';
 
 const propTypes = {
     setSubmissionState: PropTypes.func,
+    resetSubmission: PropTypes.func,
     item: PropTypes.object,
     params: PropTypes.object,
     route: PropTypes.object,
@@ -90,6 +91,7 @@ class UploadFabsFileValidation extends React.Component {
     }
 
     componentWillUnmount() {
+        this.props.resetSubmission();
         this.isUnmounted = true;
     }
 
