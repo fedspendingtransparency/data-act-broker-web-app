@@ -44,7 +44,7 @@ const defaultProps = {
 
 const timerDuration = 5;
 
-class UploadFabsFileValidation extends React.Component {
+export class UploadFabsFileValidation extends React.Component {
     constructor(props) {
         super(props);
 
