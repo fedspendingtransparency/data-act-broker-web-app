@@ -43,7 +43,7 @@ export const getSubmissionPage = (submissionId) => {
             if (stepNumber === 6) {
                 return deferred.reject({
                     body: {
-                        message: 'This is a FAB\'s ID. Please navigate to FABS.'
+                        message: 'This is a FABS ID. Please navigate to FABS.'
                     }
                 });
             }

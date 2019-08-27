@@ -120,7 +120,7 @@ export const fetchSubmissionMetadata = (submissionId, type) => {
                 return deferred.reject(res);
             }
             if (!res.body.fabs_meta && type === 'fabs') {
-                const message = 'This is a DAB\'s ID. Please navigate to DABS.';
+                const message = 'This is a DABS ID. Please navigate to DABS.';
                 return deferred.reject({ body: { message } });
             }
             const response = Object.assign({}, res.body);
