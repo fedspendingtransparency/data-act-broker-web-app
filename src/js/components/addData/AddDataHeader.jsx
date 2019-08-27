@@ -51,7 +51,7 @@ export default class AddDataHeader extends React.Component {
         if (submissionID === null || submissionID === '') {
             return;
         }
-        ReviewHelper.fetchSubmissionMetadata(submissionID)
+        ReviewHelper.fetchSubmissionMetadata(submissionID, 'dabs')
             .then((data) => {
                 const tmpData = data;
                 tmpData.ready = true;

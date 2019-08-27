@@ -25,11 +25,13 @@ import * as Icons from '../SharedComponents/icons/Icons';
 
 const propTypes = {
     setSubmissionState: PropTypes.func,
+    resetSubmission: PropTypes.func,
     item: PropTypes.object,
     params: PropTypes.object,
     route: PropTypes.object,
     session: PropTypes.object,
-    submission: PropTypes.object
+    submission: PropTypes.object,
+    errorMessage: PropTypes.func
 };
 
 const defaultProps = {
@@ -43,7 +45,7 @@ const defaultProps = {
 
 const timerDuration = 5;
 
-class UploadFabsFileValidation extends React.Component {
+export class UploadFabsFileValidation extends React.Component {
     constructor(props) {
         super(props);
 
@@ -90,11 +92,12 @@ class UploadFabsFileValidation extends React.Component {
     }
 
     componentWillUnmount() {
+        this.props.resetSubmission();
         this.isUnmounted = true;
     }
 
     setSubmissionMetadata(submissionID) {
-        ReviewHelper.fetchSubmissionMetadata(submissionID)
+        ReviewHelper.fetchSubmissionMetadata(submissionID, 'fabs')
             .then((response) => {
                 this.setState({
                     metadata: response,
@@ -106,6 +109,7 @@ class UploadFabsFileValidation extends React.Component {
             })
             .catch((err) => {
                 console.error(err);
+                this.props.errorMessage(err);
             });
     }
 
@@ -161,7 +165,7 @@ class UploadFabsFileValidation extends React.Component {
                         success = true;
                     }
 
-                    ReviewHelper.fetchSubmissionMetadata(submissionID)
+                    ReviewHelper.fetchSubmissionMetadata(submissionID, 'fabs')
                         .then((metadataResponse) => {
                             ReviewHelper.fetchSubmissionData(submissionID)
                                 .then((dataResponse) => {
