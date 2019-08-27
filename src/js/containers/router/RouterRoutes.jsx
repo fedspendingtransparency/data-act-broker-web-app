@@ -149,16 +149,6 @@ const getRoutes = () => {
             type: 'fabs'
         },
         {
-            path: 'validateData/:submissionID',
-            onEnter: checkUserPermissions,
-            getComponent(nextState, cb) {
-                require.ensure([], (require) => {
-                    cb(null, require('../../components/validateData/ValidateDataPage').default);
-                });
-            },
-            type: 'dabs'
-        },
-        {
             path: 'submission/:submissionID',
             onEnter: checkUserPermissions,
             getComponent(nextState, cb) {
@@ -169,41 +159,11 @@ const getRoutes = () => {
             type: 'dabs'
         },
         {
-            path: 'generateFiles/:submissionID',
+            path: 'submission/:submissionID/:type',
             onEnter: checkUserPermissions,
             getComponent(nextState, cb) {
                 require.ensure([], (require) => {
-                    cb(null, require('../../components/generateFiles/GenerateFilesPage').default);
-                });
-            },
-            type: 'dabs'
-        },
-        {
-            path: 'generateEF/:submissionID',
-            onEnter: checkUserPermissions,
-            getComponent(nextState, cb) {
-                require.ensure([], (require) => {
-                    cb(null, require('../../components/generateEF/GenerateEFPage').default);
-                });
-            },
-            type: 'dabs'
-        },
-        {
-            path: 'validateCrossFile/:submissionID',
-            onEnter: checkUserPermissions,
-            getComponent(nextState, cb) {
-                require.ensure([], (require) => {
-                    cb(null, require('../../components/crossFile/CrossFilePage').default);
-                });
-            },
-            type: 'dabs'
-        },
-        {
-            path: 'reviewData/:submissionID',
-            onEnter: checkUserPermissions,
-            getComponent(nextState, cb) {
-                require.ensure([], (require) => {
-                    cb(null, require('../../containers/review/ReviewDataContainer').default);
+                    cb(null, require('../../containers/submission/SubmissionContainer').default);
                 });
             },
             type: 'dabs'

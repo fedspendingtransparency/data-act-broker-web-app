@@ -30,7 +30,8 @@ const propTypes = {
     params: PropTypes.object,
     route: PropTypes.object,
     session: PropTypes.object,
-    submission: PropTypes.object
+    submission: PropTypes.object,
+    errorMessage: PropTypes.func
 };
 
 const defaultProps = {
@@ -96,7 +97,7 @@ export class UploadFabsFileValidation extends React.Component {
     }
 
     setSubmissionMetadata(submissionID) {
-        ReviewHelper.fetchSubmissionMetadata(submissionID)
+        ReviewHelper.fetchSubmissionMetadata(submissionID, 'fabs')
             .then((response) => {
                 this.setState({
                     metadata: response,
@@ -108,6 +109,7 @@ export class UploadFabsFileValidation extends React.Component {
             })
             .catch((err) => {
                 console.error(err);
+                this.props.errorMessage(err);
             });
     }
 
@@ -163,7 +165,7 @@ export class UploadFabsFileValidation extends React.Component {
                         success = true;
                     }
 
-                    ReviewHelper.fetchSubmissionMetadata(submissionID)
+                    ReviewHelper.fetchSubmissionMetadata(submissionID, 'fabs')
                         .then((metadataResponse) => {
                             ReviewHelper.fetchSubmissionData(submissionID)
                                 .then((dataResponse) => {

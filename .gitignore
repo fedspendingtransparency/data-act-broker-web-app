@@ -32,10 +32,6 @@ build
 public
 .tern-port
 
-# Ignore Jest Test Results
-__tests__/test-results
-
-
 # Ignore Nightwatch globals and results
 test/globals.js
 test/reports

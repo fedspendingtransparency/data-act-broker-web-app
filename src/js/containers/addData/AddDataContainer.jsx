@@ -52,7 +52,7 @@ class AddDataContainer extends React.Component {
         const count = 9;
         GuideHelper.getSubmissionPage(submissionID)
             .then(() => {
-                hashHistory.push(`/validateData/${submissionID}`);
+                hashHistory.push(`submission/${submissionID}/validateData`);
             })
             .catch(() => {
                 if (index === count) {

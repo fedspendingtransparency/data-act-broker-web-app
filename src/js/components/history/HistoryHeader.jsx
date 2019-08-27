@@ -8,14 +8,15 @@ import React, { PropTypes } from 'react';
 import * as ReviewHelper from '../../helpers/reviewHelper';
 
 const propTypes = {
-    submissionID: PropTypes.string
+    submissionID: PropTypes.string,
+    type: PropTypes.string
 };
 
 const defaultProps = {
     submissionID: ''
 };
 
-export default class HistoryTable extends React.Component {
+export default class HistoryHeader extends React.Component {
     constructor(props) {
         super(props);
 
@@ -27,7 +28,7 @@ export default class HistoryTable extends React.Component {
     }
 
     componentDidMount() {
-        ReviewHelper.fetchSubmissionMetadata(this.props.submissionID)
+        ReviewHelper.fetchSubmissionMetadata(this.props.submissionID, this.props.type)
             .then((response) => {
                 this.setState({ metadata: response });
             })
@@ -70,5 +71,5 @@ export default class HistoryTable extends React.Component {
     }
 }
 
-HistoryTable.propTypes = propTypes;
-HistoryTable.defaultProps = defaultProps;
+HistoryHeader.propTypes = propTypes;
+HistoryHeader.defaultProps = defaultProps;

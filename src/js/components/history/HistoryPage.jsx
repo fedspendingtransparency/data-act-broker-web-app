@@ -36,7 +36,7 @@ export default class HistoryPage extends React.Component {
                             </div>
                         </div>
                     </div>
-                    <HistoryHeader submissionID={this.props.submissionID} />
+                    <HistoryHeader submissionID={this.props.submissionID} type={this.props.type} />
                     <HistoryTable submissionID={this.props.submissionID} />
                 </div>
                 <Footer />

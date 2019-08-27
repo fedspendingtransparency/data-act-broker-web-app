@@ -7,7 +7,6 @@ import React, { PropTypes } from 'react';
 import SubmissionComponent from './SubmissionComponent';
 import SubmitButton from '../SharedComponents/SubmitButton';
 import * as Icons from '../../components/SharedComponents/icons/Icons';
-import * as ReviewHelper from '../../helpers/reviewHelper';
 
 const propTypes = {
     performUpload: PropTypes.func,
@@ -37,13 +36,6 @@ export default class AddDataContent extends React.Component {
         };
     }
 
-    componentWillUnmount() {
-        if ((this.props.submission.state === 'uploading' || this.props.submission.state === 'failed')
-        && this.props.submission.id !== null) {
-            ReviewHelper.failUpload(this.props.submission.id);
-        }
-    }
-
     startUpload() {
         this.setState({ upload: true });
         this.props.performUpload();
@@ -55,7 +47,7 @@ export default class AddDataContent extends React.Component {
         let subLink = null;
         if (this.state.submissionID !== 0) {
             subID = `Review Submission: ${this.state.submissionID}`;
-            subLink = `#/validateData/${this.state.submissionID}`;
+            subLink = `#/submission/${this.state.submissionID}/validateData`;
         }
 
         let actionArea = '';

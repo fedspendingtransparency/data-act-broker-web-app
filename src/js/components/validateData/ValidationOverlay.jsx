@@ -4,7 +4,6 @@
  */
 
 import React, { PropTypes } from 'react';
-import { hashHistory } from 'react-router';
 import * as Icons from '../SharedComponents/icons/Icons';
 import CommonOverlay from '../SharedComponents/overlays/CommonOverlay';
 
@@ -15,7 +14,8 @@ const propTypes = {
     errors: PropTypes.array,
     warnings: PropTypes.array,
     allowUpload: PropTypes.bool,
-    notAllowed: PropTypes.bool
+    notAllowed: PropTypes.bool,
+    nextStep: PropTypes.func
 };
 
 const defaultProps = {
@@ -30,7 +30,7 @@ const defaultProps = {
 
 export default class ValidationOverlay extends React.Component {
     pressedNext() {
-        hashHistory.push(`/generateFiles/${this.props.submission.id}`);
+        this.props.nextStep();
     }
 
     isUploadingFiles() {

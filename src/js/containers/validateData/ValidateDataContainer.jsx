@@ -22,7 +22,8 @@ const propTypes = {
     setSubmissionState: PropTypes.func,
     setValidation: PropTypes.func,
     submission: PropTypes.object,
-    submissionID: PropTypes.string
+    submissionID: PropTypes.string,
+    errorFromStep: PropTypes.func
 };
 
 const defaultProps = {
@@ -38,7 +39,7 @@ const timerDuration = 10;
 
 const singleFileValidations = ['appropriations', 'program_activity', 'award_financial'];
 
-class ValidateDataContainer extends React.Component {
+export class ValidateDataContainer extends React.Component {
     constructor(props) {
         super(props);
 
@@ -94,7 +95,7 @@ class ValidateDataContainer extends React.Component {
 
     setAgencyName(givenProps) {
         if (givenProps.submissionID !== null) {
-            ReviewHelper.fetchSubmissionMetadata(givenProps.submissionID)
+            ReviewHelper.fetchSubmissionMetadata(givenProps.submissionID, 'dabs')
                 .then((data) => {
                     if (!this.isUnmounted) {
                         this.setState({ agencyName: data.agency_name });
@@ -102,6 +103,7 @@ class ValidateDataContainer extends React.Component {
                 })
                 .catch((error) => {
                     console.error(error);
+                    this.props.errorFromStep(error.body.message);
                 });
         }
     }

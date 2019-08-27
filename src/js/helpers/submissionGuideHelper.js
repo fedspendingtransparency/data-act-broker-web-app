@@ -37,27 +37,17 @@ export const getSubmissionPage = (submissionId) => {
     Request.get(`${kGlobalConstants.API}check_current_page/?submission_id=${submissionId}`)
         .end((err, res) => {
             if (err) {
-                deferred.reject(err);
+                return deferred.reject(res);
             }
-            else {
-                // Only skip the guide if the user wants to skip the guide
-                const pages = [
-                    '/404',
-                    `/validateData/${submissionId}`,
-                    `/generateFiles/${submissionId}`,
-                    `/validateCrossFile/${submissionId}`,
-                    `/generateEF/${submissionId}`,
-                    `/reviewData/${submissionId}`,
-                    `/FABSaddData/${submissionId}`
-                ];
-                const index = parseInt(res.body.step, 10);
-                const response = {
-                    url: pages[index],
-                    page: index
-                };
-
-                deferred.resolve(response);
+            const stepNumber = parseInt(res.body.step, 10);
+            if (stepNumber === 6) {
+                return deferred.reject({
+                    body: {
+                        message: 'This is a FABS ID. Please navigate to FABS.'
+                    }
+                });
             }
+            return deferred.resolve(res.body);
         });
 
     return deferred.promise;

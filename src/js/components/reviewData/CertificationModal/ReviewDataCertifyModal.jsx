@@ -71,7 +71,7 @@ export default class ReviewDataCertifyModal extends React.Component {
                         errorMessage = (
                             <div>
                                 {error.message} You can update the certified submission
-                                <Link to={`/validateData/${error.submissionId}`}>here</Link>.
+                                <Link to={`/submission/${error.submissionId}/validateData`}>here</Link>.
                             </div>);
                     }
                 }

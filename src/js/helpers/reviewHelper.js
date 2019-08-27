@@ -107,7 +107,7 @@ export const getCrossFileData = (data, type) => {
     return output;
 };
 
-export const fetchSubmissionMetadata = (submissionId) => {
+export const fetchSubmissionMetadata = (submissionId, type) => {
     const deferred = Q.defer();
 
     // set the submission ID
@@ -117,13 +117,15 @@ export const fetchSubmissionMetadata = (submissionId) => {
     Request.get(`${kGlobalConstants.API}submission_metadata/?submission_id=${submissionId}`)
         .end((errFile, res) => {
             if (errFile) {
-                deferred.reject(res);
+                return deferred.reject(res);
             }
-            else {
-                const response = Object.assign({}, res.body);
-                store.dispatch(uploadActions.setSubmissionPublishStatus(response.publish_status));
-                deferred.resolve(res.body);
+            if (!res.body.fabs_meta && type === 'fabs') {
+                const message = 'This is a DABS ID. Please navigate to DABS.';
+                return deferred.reject({ body: { message } });
             }
+            const response = Object.assign({}, res.body);
+            store.dispatch(uploadActions.setSubmissionPublishStatus(response.publish_status));
+            return deferred.resolve(res.body);
         });
 
     return deferred.promise;
