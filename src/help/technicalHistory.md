@@ -1,3 +1,27 @@
+#### July 29, 2019{section=technical}
+
+In this release, here is a list of technical changes that may require infrastructure or database updates, or represents additional functionality.
+
+* Added additional metadata with uploads for easier tracking.
+* Dropped the deprecated ExecutiveCompensation table (the DUNS table now includes this data).
+* Removed dependency on the unified agency list's "FPDS Department ID" column.
+
+#### July 15, 2019{section=technical}
+
+In this release, here is a list of technical changes that may require infrastructure or database updates, or represents additional functionality.
+
+* Reloaded agencies using the unified agency list to be shared between broker and USAspending API.
+* Verified and updated the following SQL validation rules for FABS to be case-insensitive: 13, 14, 15, 16, 17, 18, 21, 23, 31.
+* Verified and updated the logic of FABS derivations to be based on case-insensitive values.
+
+#### June 28, 2019{section=technical}
+
+In this release, here is a list of technical changes that may require infrastructure or database updates, or represents additional functionality.
+
+* Optimized FSRS loader scripts for both daily FSRS updates, resolving unlinked subawards, and entirely rederiving Subaward data.
+* Reordered elements in the unique FABS transaction key and included CFDA Number to the uniqueness.
+* Added an upper index on afa_generated_unique for performance.
+
 #### June 14, 2019{section=technical}
 
 In this release, here is a list of technical changes that may require infrastructure or database updates, or represents additional functionality.
