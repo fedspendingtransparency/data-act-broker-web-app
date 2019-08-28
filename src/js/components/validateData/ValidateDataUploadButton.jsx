@@ -3,7 +3,8 @@
   * Created by Kevin Li 4/1/2016
   */
 
-import React, { PropTypes } from 'react';
+import React from 'react'; 
+import PropTypes from 'prop-types';
 import Dropzone from 'react-dropzone';
 
 const propTypes = {

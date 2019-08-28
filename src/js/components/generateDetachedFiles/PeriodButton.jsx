@@ -3,7 +3,8 @@
  * Created by Lizzie Salita 3/4/19
  */
 
-import React, { PropTypes } from 'react';
+import React from 'react'; 
+import PropTypes from 'prop-types';
 import * as utils from '../../helpers/util';
 import PeriodButtonWithTooltip from './PeriodButtonWithTooltip';
 

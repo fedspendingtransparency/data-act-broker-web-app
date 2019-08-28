@@ -3,7 +3,8 @@
   * Created by Kevin Li 5/20/16
   */
 
-import React, { PropTypes } from 'react';
+import React from 'react'; 
+import PropTypes from 'prop-types';
 import SubmitButton from '../../SharedComponents/SubmitButton';
 
 const propTypes = {

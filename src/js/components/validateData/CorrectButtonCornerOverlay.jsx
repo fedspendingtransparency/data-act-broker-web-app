@@ -3,7 +3,8 @@
  * Created by Mike Bray 6/21/16
  */
 
-import React, { PropTypes } from 'react';
+import React from 'react'; 
+import PropTypes from 'prop-types';
 
 import * as Icons from '../SharedComponents/icons/Icons';
 import { createOnKeyDownHandler } from '../../helpers/util';

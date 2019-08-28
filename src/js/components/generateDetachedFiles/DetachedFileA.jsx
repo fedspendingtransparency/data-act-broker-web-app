@@ -3,7 +3,8 @@
  * Created by Lizzie Salita 11/5/18
  */
 
-import React, { PropTypes } from 'react';
+import React from 'react'; 
+import PropTypes from 'prop-types';
 import Navbar from '../SharedComponents/navigation/NavigationComponent';
 import Footer from '../SharedComponents/FooterComponent';
 import AgencyListContainer from '../../containers/SharedContainers/AgencyListContainer';

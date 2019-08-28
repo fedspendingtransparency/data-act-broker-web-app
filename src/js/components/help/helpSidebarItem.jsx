@@ -3,7 +3,8 @@
   * Created by Kevin li 5/26/16
   */
 
-import React, { PropTypes } from 'react';
+import React from 'react'; 
+import PropTypes from 'prop-types';
 
 const propTypes = {
     sectionId: PropTypes.string,

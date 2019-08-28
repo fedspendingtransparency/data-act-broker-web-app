@@ -3,7 +3,8 @@
  * Created by Mike Bray 4/1/16
  */
 
-import React, { PropTypes } from 'react';
+import React from 'react'; 
+import PropTypes from 'prop-types';
 import $ from 'jquery';
 
 const propTypes = {

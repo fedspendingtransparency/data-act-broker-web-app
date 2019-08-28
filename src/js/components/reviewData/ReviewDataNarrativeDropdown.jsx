@@ -3,7 +3,8 @@
  * Created by Alisa Burdeyny 11/21/16
  */
 
-import React, { PropTypes } from 'react';
+import React from 'react'; 
+import PropTypes from 'prop-types';
 
 const propTypes = {
     changeFile: PropTypes.func

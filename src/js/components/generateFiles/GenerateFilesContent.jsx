@@ -3,7 +3,8 @@
   * Created by Kevin Li 7/22/16
   */
 
-import React, { PropTypes } from 'react';
+import React from 'react'; 
+import PropTypes from 'prop-types';
 
 import GenerateFileBox from './components/GenerateFileBox';
 import GenerateFilesOverlay from './GenerateFilesOverlay';

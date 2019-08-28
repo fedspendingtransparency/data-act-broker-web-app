@@ -3,7 +3,8 @@
  * Created by michaelbray on 12/22/15.
  */
 
-import React, { PropTypes } from 'react';
+import React from 'react'; 
+import PropTypes from 'prop-types';
 import TableRow from './TableRow';
 import TableHeaders from './TableHeaders';
 

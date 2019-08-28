@@ -3,7 +3,8 @@
   * Createdd by Kevin Li 10/13/16
   */
 
-import React, { PropTypes } from 'react';
+import React from 'react'; 
+import PropTypes from 'prop-types';
 import _ from 'lodash';
 import Cookies from 'js-cookie';
 import { kGlobalConstants } from '../../GlobalConstants';

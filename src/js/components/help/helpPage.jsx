@@ -3,7 +3,8 @@
  * Created by Mike Bray 4/1/16
  */
 
-import React, { PropTypes } from 'react';
+import React from 'react'; 
+import PropTypes from 'prop-types';
 import Navbar from '../SharedComponents/navigation/NavigationComponent';
 import HelpSidebar from './helpSidebar';
 import HelpContent from './helpContent';

@@ -5,7 +5,8 @@
 
 import ReactCSSTransitionGroup from 'react-addons-css-transition-group';
 
-import React, { PropTypes } from 'react';
+import React from 'react'; 
+import PropTypes from 'prop-types';
 
 import SubTierAgencyListContainer from '../../containers/SharedContainers/SubTierAgencyListContainer';
 import UploadFabsFileBox from './UploadFabsFileBox';

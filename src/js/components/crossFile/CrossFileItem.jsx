@@ -3,7 +3,8 @@
   * Created by Kevin Li 6/14/16
   */
 
-import React, { PropTypes } from 'react';
+import React from 'react'; 
+import PropTypes from 'prop-types';
 import FileComponent from './components/FileComponent';
 import ComparisonComponent from './components/ComparisonComponent';
 import LoadingComponent from './components/LoadingComponent';

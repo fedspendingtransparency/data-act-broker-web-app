@@ -3,7 +3,8 @@
   * Created by Nipun Monga 02/27/17
   */
 
-import React, { PropTypes } from 'react';
+import React from 'react'; 
+import PropTypes from 'prop-types';
 
 const propTypes = {
     closeModal: PropTypes.func,

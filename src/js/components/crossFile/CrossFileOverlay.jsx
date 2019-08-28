@@ -2,7 +2,8 @@
   * CrossFileOverlay.jsx
   * Created by Kevin Li 6/16/16
   */
-import React, { PropTypes } from 'react';
+import React from 'react'; 
+import PropTypes from 'prop-types';
 import _ from 'lodash';
 import * as Icons from '../SharedComponents/icons/Icons';
 import CommonOverlay from '../SharedComponents/overlays/CommonOverlay';

@@ -3,7 +3,8 @@
  * Created by Lizzie Salita 8/13/18
  */
 
-import React, { PropTypes } from 'react';
+import React from 'react'; 
+import PropTypes from 'prop-types';
 import { ExclamationCircle } from '../../SharedComponents/icons/Icons';
 
 const propTypes = {

@@ -3,7 +3,8 @@
   * Created by Kevin Li 7/26/16
   */
 
-import React, { PropTypes } from 'react';
+import React from 'react'; 
+import PropTypes from 'prop-types';
 import CommonOverlay from '../SharedComponents/overlays/CommonOverlay';
 import * as Icons from '../SharedComponents/icons/Icons';
 import LoadingBauble from '../SharedComponents/overlays/LoadingBauble';

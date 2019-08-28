@@ -6,7 +6,8 @@
 * Pass this function through props, calling it onClick
 */
 
-import React, { PropTypes } from 'react';
+import React from 'react'; 
+import PropTypes from 'prop-types';
 
 const propTypes = {
     onClick: PropTypes.func.isRequired,

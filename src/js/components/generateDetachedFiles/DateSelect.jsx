@@ -3,7 +3,8 @@
 * Created by Alisa Burdeyny
 */
 
-import React, { PropTypes } from 'react';
+import React from 'react'; 
+import PropTypes from 'prop-types';
 
 import GenerateFileBox from '../generateFiles/components/GenerateFileBox';
 import LoadingBauble from '../SharedComponents/overlays/LoadingBauble';

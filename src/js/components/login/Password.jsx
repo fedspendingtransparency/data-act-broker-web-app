@@ -3,7 +3,8 @@
 * Created by Kyle Fox 12/4/15
 */
 
-import React, { PropTypes } from 'react';
+import React from 'react'; 
+import PropTypes from 'prop-types';
 import * as Icons from '../SharedComponents/icons/Icons';
 
 const propTypes = {

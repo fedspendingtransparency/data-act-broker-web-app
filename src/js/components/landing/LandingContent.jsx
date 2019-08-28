@@ -3,7 +3,8 @@
 * Created by Kyle Fox 2/19/16
 */
 
-import React, { PropTypes } from 'react';
+import React from 'react'; 
+import PropTypes from 'prop-types';
 import RecentActivityTable from './recentActivity/RecentActivityTable';
 import LandingRequirementsModal from './blocks/LandingRequirementsModal';
 import BlockContent from './BlockContent';

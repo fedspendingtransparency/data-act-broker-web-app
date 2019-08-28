@@ -3,7 +3,8 @@
   * Created by Minahm Kim 02/09/17
   */
 
-import React, { PropTypes } from 'react';
+import React from 'react'; 
+import PropTypes from 'prop-types';
 import * as Icons from '../../SharedComponents/icons/Icons';
 
 import DeleteModal from './DeleteModal';

@@ -3,7 +3,8 @@
  * Created by Mike Hess 8/15/17
  */
 
-import React, { PropTypes } from 'react';
+import React from 'react'; 
+import PropTypes from 'prop-types';
 
 import ValidationOverlayContainer from '../../containers/validateData/ValidationOverlayContainer';
 import ValidateDataFileContainer from '../../containers/validateData/ValidateDataFileContainer';

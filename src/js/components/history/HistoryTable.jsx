@@ -3,7 +3,8 @@
   * Created by Minahm Kim 06/05/17
   */
 
-import React, { PropTypes } from 'react';
+import React from 'react'; 
+import PropTypes from 'prop-types';
 
 import * as SubmissionListHelper from '../../helpers/submissionListHelper';
 import * as UtilHelper from '../../helpers/util';
