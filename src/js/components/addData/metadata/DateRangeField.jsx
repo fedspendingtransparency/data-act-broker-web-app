@@ -3,7 +3,7 @@
   * Created by Kevin Li 5/19/16
   */
 
-import React from 'react'; 
+import React from 'react';
 import PropTypes from 'prop-types';
 import moment from 'moment';
 import * as Icons from '../../SharedComponents/icons/Icons';

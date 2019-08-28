@@ -2,7 +2,7 @@
   * FileWarning.jsx
   * Created by Kevin Li 6/28/16
   */
-import React from 'react'; 
+import React from 'react';
 import PropTypes from 'prop-types';
 import _ from 'lodash';
 import * as ReviewHelper from '../../../helpers/reviewHelper';

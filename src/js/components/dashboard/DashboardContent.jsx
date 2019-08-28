@@ -3,7 +3,7 @@
   * Created by Kevin Li 10/27/16
   */
 
-import React from 'react'; 
+import React from 'react';
 import PropTypes from 'prop-types';
 import FilterBarContainer from '../../containers/dashboard/FilterBarContainer';
 import DashboardTable from './DashboardTable';

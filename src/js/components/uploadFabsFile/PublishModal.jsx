@@ -3,7 +3,7 @@
   * Created by Minahm Kim 8/3/17
   */
 
-import React from 'react'; 
+import React from 'react';
 import PropTypes from 'prop-types';
 import Modal from 'react-aria-modal';
 import * as Icons from '../SharedComponents/icons/Icons';

@@ -3,7 +3,7 @@
 * Created by Katie Rose 12/7/15
 */
 
-import React from 'react'; 
+import React from 'react';
 import PropTypes from 'prop-types';
 import Navbar from '../SharedComponents/navigation/NavigationComponent';
 import AddDataHeader from './AddDataHeader';

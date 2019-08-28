@@ -3,7 +3,7 @@
   * Created by Kevin Li 4/25/2016
   */
 
-import React from 'react'; 
+import React from 'react';
 import PropTypes from 'prop-types';
 import svg4everybody from 'svg4everybody';
 import IconSingleton from './iconSingleton';

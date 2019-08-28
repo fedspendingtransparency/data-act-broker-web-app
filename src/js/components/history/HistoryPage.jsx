@@ -3,7 +3,7 @@
   * Created by Minahm Kim 06/08/17
   */
 
-import React from 'react'; 
+import React from 'react';
 import PropTypes from 'prop-types';
 import Navbar from '../SharedComponents/navigation/NavigationComponent';
 import Footer from '../SharedComponents/FooterComponent';

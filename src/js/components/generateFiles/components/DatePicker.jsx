@@ -3,7 +3,7 @@
   * Created by Kevin Li 7/25/16
   */
 
-import React from 'react'; 
+import React from 'react';
 import PropTypes from 'prop-types';
 import DayPicker, { DateUtils } from 'react-day-picker';
 import moment from 'moment';

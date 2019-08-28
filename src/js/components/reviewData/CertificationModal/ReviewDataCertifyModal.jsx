@@ -3,7 +3,7 @@
   * Created by Kevin Li 9/6/16
   */
 
-import React from 'react'; 
+import React from 'react';
 import PropTypes from 'prop-types';
 import Modal from 'react-aria-modal';
 import { hashHistory, Link } from 'react-router';

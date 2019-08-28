@@ -3,7 +3,7 @@
   * Created by Kevin Li 4/11/2016
   */
 
-import React from 'react'; 
+import React from 'react';
 import PropTypes from 'prop-types';
 import Dimensions from 'react-dimensions';
 import _ from 'lodash';

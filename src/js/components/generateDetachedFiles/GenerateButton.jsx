@@ -3,7 +3,7 @@
  * Created by Lizzie Salita 11/7/18
  */
 
-import React from 'react'; 
+import React from 'react';
 import PropTypes from 'prop-types';
 import LoadingBauble from '../SharedComponents/overlays/LoadingBauble';
 

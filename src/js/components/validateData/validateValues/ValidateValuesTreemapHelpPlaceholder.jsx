@@ -3,7 +3,7 @@
   * Created by Kevin Li 6/20/16
   */
 
-import React from 'react'; 
+import React from 'react';
 import PropTypes from 'prop-types';
 
 const propTypes = {

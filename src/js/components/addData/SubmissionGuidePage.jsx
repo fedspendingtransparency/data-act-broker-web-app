@@ -3,7 +3,7 @@
  * Created by Mike Bray 5/19/16
  */
 
-import React from 'react'; 
+import React from 'react';
 import PropTypes from 'prop-types';
 import Navbar from '../SharedComponents/navigation/NavigationComponent';
 import SubmissionGuideContent from './SubmissionGuideContent';

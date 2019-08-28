@@ -3,7 +3,7 @@
 * Created by Nipun Monga 11/18/16
 */
 
-import React from 'react'; 
+import React from 'react';
 import PropTypes from 'prop-types';
 import * as Icons from '../../SharedComponents/icons/Icons';
 

@@ -3,7 +3,7 @@
   * Created by Kevin Li 7/28/16
   */
 
-import React from 'react'; 
+import React from 'react';
 import PropTypes from 'prop-types';
 import Modal from 'react-aria-modal';
 import CrossFileGenerateModalContainer from '../../../containers/crossFile/CrossFileGenerateModalContainer';

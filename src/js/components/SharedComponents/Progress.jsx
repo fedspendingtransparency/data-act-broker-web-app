@@ -3,7 +3,7 @@
  * Created by Mike Bray 12/31/15
  */
 
-import React from 'react'; 
+import React from 'react';
 import PropTypes from 'prop-types';
 import { stepNames, classes } from 'dataMapping/dabs/progress';
 

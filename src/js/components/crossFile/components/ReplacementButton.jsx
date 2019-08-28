@@ -2,7 +2,7 @@
   * ReplacementButton.jsx
   * Created by Kevin Li 6/30/16
   */
-import React from 'react'; 
+import React from 'react';
 import PropTypes from 'prop-types';
 import * as Icons from '../../SharedComponents/icons/Icons';
 

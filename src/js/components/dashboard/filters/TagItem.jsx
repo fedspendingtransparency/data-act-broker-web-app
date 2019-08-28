@@ -3,7 +3,7 @@
  * Created by Lizzie Salita 8/14/18
  */
 
-import React from 'react'; 
+import React from 'react';
 import PropTypes from 'prop-types';
 import { Times } from '../../SharedComponents/icons/Icons';
 

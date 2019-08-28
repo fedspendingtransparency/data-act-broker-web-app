@@ -3,7 +3,7 @@
   * Created by Kevin Li 8/29/16
   */
 
-import React from 'react'; 
+import React from 'react';
 import PropTypes from 'prop-types';
 import TabItem from './TabItem';
 

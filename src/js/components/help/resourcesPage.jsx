@@ -3,7 +3,7 @@
  * Created by Emily Gullo 9/27/16
  */
 
-import React from 'react'; 
+import React from 'react';
 import PropTypes from 'prop-types';
 import Navbar from '../SharedComponents/navigation/NavigationComponent';
 import HelpNav from './helpNav';

@@ -3,7 +3,7 @@
 * Created by Kevin Li 6/14/16
 */
 
-import React from 'react'; 
+import React from 'react';
 import PropTypes from 'prop-types';
 import { hashHistory } from 'react-router';
 import { bindActionCreators } from 'redux';

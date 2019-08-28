@@ -3,7 +3,7 @@
  * Created by Mike Bray 6/8/16
  */
 
-import React from 'react'; 
+import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 

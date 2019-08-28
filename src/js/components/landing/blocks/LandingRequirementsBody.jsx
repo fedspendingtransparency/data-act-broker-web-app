@@ -3,7 +3,7 @@
  * Created by Minahm Kim 7/17/17
  */
 
-import React from 'react'; 
+import React from 'react';
 import PropTypes from 'prop-types';
 import Moment from 'moment';
 

@@ -5,7 +5,7 @@
 * A success alert using 18F's design standards
 */
 
-import React from 'react'; 
+import React from 'react';
 import PropTypes from 'prop-types';
 import * as Icons from './icons/Icons';
 

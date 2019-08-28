@@ -3,7 +3,7 @@
  * Created by Kwadwo Opoku-Debrah 8/25/18
  */
 
-import React from 'react'; 
+import React from 'react';
 import PropTypes from 'prop-types';
 
 import LastDateModifiedContainer from '../../../containers/dashboard/LastDateModifiedContainer';

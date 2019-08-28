@@ -3,7 +3,7 @@
   * Created by Minahm Kim 6/12/17
   */
 
-import React from 'react'; 
+import React from 'react';
 import PropTypes from 'prop-types';
 
 import * as ReviewHelper from '../../helpers/reviewHelper';

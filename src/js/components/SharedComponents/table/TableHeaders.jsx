@@ -3,7 +3,7 @@
  * Created by Kyle Fox 2/19/16
  */
 
-import React from 'react'; 
+import React from 'react';
 import PropTypes from 'prop-types';
 import _ from 'lodash';
 import TableSorter from './TableSorter';

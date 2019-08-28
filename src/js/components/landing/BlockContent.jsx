@@ -3,7 +3,7 @@
 * Creted By Minahm Kim 7/20/2017
 */
 
-import React from 'react'; 
+import React from 'react';
 import PropTypes from 'prop-types';
 import LandingBlock from './blocks/LandingBlock';
 import LandingBlockBottomLink from './blocks/LandingBlockBottomLink';

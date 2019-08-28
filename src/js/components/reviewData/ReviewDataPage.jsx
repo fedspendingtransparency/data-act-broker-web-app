@@ -3,7 +3,7 @@
  * Created by Mike Bray 3/31/16
  */
 
-import React from 'react'; 
+import React from 'react';
 import PropTypes from 'prop-types';
 import Footer from '../SharedComponents/FooterComponent';
 

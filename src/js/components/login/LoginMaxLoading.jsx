@@ -3,7 +3,7 @@
   * Createdd by Kevin Li 10/14/16
   */
 
-import React from 'react'; 
+import React from 'react';
 import PropTypes from 'prop-types';
 import LoginMaxErrorMessage from './components/LoginMaxErrorMessage';
 import LoadingBauble from '../SharedComponents/overlays/LoadingBauble';

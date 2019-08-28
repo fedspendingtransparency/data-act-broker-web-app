@@ -3,7 +3,7 @@
  * Created by Kevin Li 4/4/2016
  */
 
-import React from 'react'; 
+import React from 'react';
 import PropTypes from 'prop-types';
 import FileProgress from '../../SharedComponents/FileProgress';
 import ValidateDataUploadButton from './../ValidateDataUploadButton';

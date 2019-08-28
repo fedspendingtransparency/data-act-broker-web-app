@@ -3,7 +3,7 @@
   * Created by Kevin Li 6/14/16
   */
 
-import React from 'react'; 
+import React from 'react';
 import PropTypes from 'prop-types';
 import FileComponent from './components/FileComponent';
 import ComparisonComponent from './components/ComparisonComponent';

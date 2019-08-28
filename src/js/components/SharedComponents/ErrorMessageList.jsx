@@ -3,7 +3,7 @@
 * Created by Martin Press 3/4/16
 */
 
-import React from 'react'; 
+import React from 'react';
 import PropTypes from 'prop-types';
 import ErrorMessageListItem from './ErrorMessageListItem';
 

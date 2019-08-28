@@ -3,7 +3,7 @@
  * Created by Lizzie Salita 8/10/18
  */
 
-import React from 'react'; 
+import React from 'react';
 import PropTypes from 'prop-types';
 
 import { Filter } from '../../components/SharedComponents/icons/Icons';

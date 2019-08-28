@@ -3,7 +3,7 @@
 * Created by MichaelHess
 */
 
-import React from 'react'; 
+import React from 'react';
 import PropTypes from 'prop-types';
 import { hashHistory } from 'react-router';
 

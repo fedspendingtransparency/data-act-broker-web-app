@@ -3,7 +3,7 @@
 * Created by Kyle Fox 2/19/16
 */
 
-import React from 'react'; 
+import React from 'react';
 import PropTypes from 'prop-types';
 import DropZoneContainer from '../../containers/addData/DropZoneContainer';
 
