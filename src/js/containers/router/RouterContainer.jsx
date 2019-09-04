@@ -5,7 +5,9 @@
 
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Router, hashHistory } from 'react-router';
+import { Router } from 'react-router-dom';
+import { createBrowserHistory } from "history";
+
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import ReactGA from 'react-ga';
@@ -27,6 +29,7 @@ const defaultProps = {
 };
 
 const Routes = new RouterRoutes();
+const history = createBrowserHistory();
 
 let sessionChecker;
 
@@ -55,7 +58,7 @@ class RouterContainer extends React.Component {
     logout() {
         LoginHelper.performLogout()
             .then(() => {
-                hashHistory.push('/login');
+                history.push('/login');
             });
     }
 
@@ -84,7 +87,7 @@ class RouterContainer extends React.Component {
         return (
             <Router
                 routes={Routes.routes()}
-                history={hashHistory}
+                history={history}
                 onUpdate={this.handleRouteChange.bind(this)}
                 ref={(c) => {
                     this.router = c;
