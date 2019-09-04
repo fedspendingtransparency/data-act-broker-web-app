@@ -84,10 +84,6 @@ export class SubmissionContainer extends React.Component {
             .then((res) => {
                 let stepNumber = parseInt(res.step, 10);
                 stepNumber -= 1;
-                // check for route :type param
-                // since users can use a different type
-                // than the submissions current step
-                stepNumber = this.validateCurrentStepAndRouteType(stepNumber);
                 return this.setState({
                     isLoading: false,
                     isError: false,
@@ -100,8 +96,8 @@ export class SubmissionContainer extends React.Component {
                 this.setState({ isError: true, errorMessage: message });
             });
     }
-    // validate a user did not send a different step
-    // than the submission's current step
+    // since users can navigate via the url eg. /validateCrossFile
+    // we need to verify a user's submission has completed a step
     validateCurrentStepAndRouteType(currentStepNumber) {
         // let theStep = currentStepNumber;
         // FABs dont check anything
