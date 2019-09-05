@@ -1,3 +1,5 @@
+import React from 'react';
+import Route from 'react-router-dom';
 import { createBrowserHistory } from 'history';
 
 import LandingPage from '../../components/landing/LandingPage';
@@ -119,6 +121,10 @@ const checkHelpUserPermissions = (nextState, replace) => {
 
 const getRoutes = () => {
     const returnRoutes = [
+        {
+            path: '/',
+            component: LandingPage
+        },
         {
             path: 'login',
             component: LoginPage
@@ -303,23 +309,23 @@ const getRoutes = () => {
 };
 
 // defining the routes outside of the component because React Router cannot handle state/prop changes that Redux causes
-const routeDefinitions = {
-    path: '/',
-    indexRoute: {
-        onEnter: checkUserPermissions,
-        component: LandingPage,
-        type: 'home'
-    },
-    childRoutes: getRoutes()
-};
+// const routeDefinitions = {
+//     path: '/',
+//     indexRoute: {
+//         onEnter: checkUserPermissions,
+//         component: LandingPage,
+//         type: 'home'
+//     },
+//     childRoutes: getRoutes()
+// };
 
 export default class RouterRoutes {
     constructor() {
         if (!instance) {
             instance = this;
         }
-
-        instance.routes = () => routeDefinitions;
+        // TODO: Fix getRoutes to return params consistent w/ RR5
+        instance.routes = () => getRoutes().map((route) => <Route {...route} />);
         instance.autoLogin = (location) => performAutoLogin(location);
 
         return instance;
