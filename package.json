@@ -99,6 +99,7 @@
     "path-to-regexp": "^1.7.0",
     "prop-types": "^15.5.7",
     "q": "^1.4.1",
+    "query-string": "^5.1.1",
     "react": "^15.6.2",
     "react-aria-modal": "^2.3.1",
     "react-day-picker": "^7.2.4",

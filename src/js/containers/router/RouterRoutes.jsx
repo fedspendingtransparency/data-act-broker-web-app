@@ -1,4 +1,5 @@
-import { hashHistory } from 'react-router';
+import { createBrowserHistory } from 'history';
+
 import LandingPage from '../../components/landing/LandingPage';
 import LoginPage from '../../components/login/LoginPage';
 import AuthPage from '../../components/login/AuthPage';
@@ -14,6 +15,8 @@ import StoreSingleton from '../../redux/storeSingleton';
 
 let instance = null;
 let store = new StoreSingleton().store;
+
+const history = createBrowserHistory();
 
 const getStore = () => {
     if (!store) {
@@ -31,7 +34,7 @@ const performAutoLogin = (location, replace) => {
     const search = location.search;
     const query = location.query;
 
-    let pushMethod = hashHistory.push;
+    let pushMethod = history.push;
     if (replace) {
         pushMethod = replace;
     }
@@ -58,7 +61,7 @@ const performAutoLogin = (location, replace) => {
     }
 };
 
-const checkUserPermissions = (nextState, replace) => {
+export const checkUserPermissions = (nextState, replace) => {
     getStore();
     const session = store.getState().session;
     if (session.login !== "loggedIn") {
