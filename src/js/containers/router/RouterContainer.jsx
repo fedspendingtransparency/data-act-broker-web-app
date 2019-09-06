@@ -80,12 +80,7 @@ class RouterContainer extends React.Component {
     render() {
         const routes = RouterRoutes.routes();
         return (
-            <Router
-                history={history}
-                onUpdate={this.handleRouteChange.bind(this)}
-                ref={(c) => {
-                    this.router = c;
-                }}>
+            <Router history={history}>
                 <Switch>
                     {[...routes]}
                 </Switch>
