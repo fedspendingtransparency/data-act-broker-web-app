@@ -5,9 +5,8 @@
 
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Router } from 'react-router-dom';
+import { Router, Switch } from 'react-router-dom';
 import { createBrowserHistory } from "history";
-
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import ReactGA from 'react-ga';
@@ -33,10 +32,15 @@ const history = createBrowserHistory();
 
 let sessionChecker;
 
+// eslint-disable-next-line react/no-multi-comp
 class RouterContainer extends React.Component {
     componentDidMount() {
         if (isProd && kGlobalConstants.GA_TRACKING_ID !== '') {
             ReactGA.initialize(kGlobalConstants.GA_TRACKING_ID, GA_OPTIONS);
+            history.listen((location) => {
+                ReactGA.set({ page: location.pathname });
+                ReactGA.pageview(location.pathname); // previously window.location.hash
+            });
         }
     }
 
@@ -62,16 +66,6 @@ class RouterContainer extends React.Component {
             });
     }
 
-    handleRouteChange() {
-        this.logPageView(window.location.hash);
-    }
-
-    logPageView(path) {
-        if (isProd && kGlobalConstants.GA_TRACKING_ID !== '') {
-            ReactGA.pageview(path);
-        }
-    }
-
     monitorSession() {
         // start a timer to periodically check the user's session state every 15 minutes
         sessionChecker = setInterval(() => {
@@ -84,14 +78,18 @@ class RouterContainer extends React.Component {
     }
 
     render() {
+        const routes = RouterRoutes.routes();
         return (
             <Router
-                routes={Routes.routes()}
                 history={history}
                 onUpdate={this.handleRouteChange.bind(this)}
                 ref={(c) => {
                     this.router = c;
-                }} />
+                }}>
+                <Switch>
+                    {[...routes]}
+                </Switch>
+            </Router>
         );
     }
 }
