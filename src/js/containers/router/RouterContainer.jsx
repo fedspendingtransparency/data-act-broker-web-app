@@ -13,7 +13,6 @@ import ReactGA from 'react-ga';
 
 import { kGlobalConstants } from '../../GlobalConstants';
 import * as sessionActions from '../../redux/actions/sessionActions';
-import * as LoginHelper from '../../helpers/loginHelper';
 import RouterRoutes from './RouterRoutes';
 
 const GA_OPTIONS = { debug: false };
@@ -30,8 +29,6 @@ const defaultProps = {
 const Routes = new RouterRoutes();
 const history = createBrowserHistory();
 
-let sessionChecker;
-
 // eslint-disable-next-line react/no-multi-comp
 class RouterContainer extends React.Component {
     componentDidMount() {
@@ -44,41 +41,8 @@ class RouterContainer extends React.Component {
         }
     }
 
-    componentDidUpdate(prevProps) {
-        if (this.props.session.login !== prevProps.session.login) {
-            if (this.props.session.login === "loggedIn") {
-                // we've switched from either a logged out state to logged in or
-                // we've received session data back from the backend
-                // so we should auto-relogin
-                Routes.autoLogin(this.router.state.location);
-                this.monitorSession();
-            }
-            else if (this.props.session.login === "loggedOut" && prevProps.session.login === "loggedIn") {
-                this.logout();
-            }
-        }
-    }
-
-    logout() {
-        LoginHelper.performLogout()
-            .then(() => {
-                history.push('/login');
-            });
-    }
-
-    monitorSession() {
-        // start a timer to periodically check the user's session state every 15 minutes
-        sessionChecker = setInterval(() => {
-            LoginHelper.checkSession()
-                .catch(() => {
-                    // session expired, stop checking if it's active any more
-                    clearInterval(sessionChecker);
-                });
-        }, 15 * 60 * 1000);
-    }
-
     render() {
-        const routes = RouterRoutes.routes();
+        const routes = Routes.routes();
         return (
             <Router history={history}>
                 <Switch>

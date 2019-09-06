@@ -1,6 +1,5 @@
 import React from 'react';
 import Route from 'react-router-dom';
-import { createBrowserHistory } from 'history';
 
 import LandingPage from '../../components/landing/LandingPage';
 import LoginPage from '../../components/login/LoginPage';
@@ -18,8 +17,6 @@ import StoreSingleton from '../../redux/storeSingleton';
 let instance = null;
 let store = new StoreSingleton().store;
 
-const history = createBrowserHistory();
-
 const getStore = () => {
     if (!store) {
         store = new StoreSingleton().store;
@@ -27,95 +24,43 @@ const getStore = () => {
     return store;
 };
 
-const performAutoLogin = (location, replace) => {
-    getStore();
-
-    const session = store.getState().session;
-
-    const path = location.pathname;
-    const search = location.search;
-    const query = location.query;
-
-    let pushMethod = history.push;
-    if (replace) {
-        pushMethod = replace;
+const checkHelpUserPermissions = (session) => {
+    if (session.login !== "loggedIn") {
+        return 'login';
     }
-
-    if (path === "/login") {
-        if (session.login === "loggedIn") {
-            // user is logged in, go to landing page
-            if (search !== "" && Object.prototype.hasOwnProperty.call(query, 'redirect')) {
-                // a redirect option was provided
-                pushMethod(query.redirect);
-            }
-            else {
-                pushMethod('/');
-            }
-        }
-    }
-    else if (session.login !== "loggedIn") {
-        if (path === "/login") {
-            pushMethod('/login');
-        }
-        else {
-            pushMethod(`/login?redirect=${path}`);
-        }
-    }
+    return 'authorized';
 };
 
-export const checkUserPermissions = (nextState, replace) => {
-    getStore();
-    const session = store.getState().session;
-    if (session.login !== "loggedIn") {
-        performAutoLogin(nextState.location, replace);
-    }
-    else if (session.user.helpOnly) {
+export const checkUserPermissions = (session) => {
+    if (session.user.helpOnly) {
         // if no permissions or attempting to reach DABS with improper permissions, bounce to help
-        replace('/help');
+        return '/help';
     }
+    return 'authorized';
 };
 
-const checkDabsUploadPermissions = (nextState, replace) => {
-    getStore();
-    const session = store.getState().session;
-    if (session.login !== "loggedIn") {
-        performAutoLogin(nextState.location, replace);
-    }
-    else if (!session.admin) {
+const checkDabsUploadPermissions = (session) => {
+    if (!session.admin) {
         for (let i = 0; i < session.user.affiliations.length; i++) {
             if (session.user.affiliations[i].permission === 'writer' ||
                 session.user.affiliations[i].permission === 'submitter') {
-                return;
+                return 'authorized';
             }
         }
         // if no permissions, bounce to landing
-        replace('/landing');
+        return '/landing';
     }
 };
 
-const checkFabsUploadPermissions = (nextState, replace) => {
-    getStore();
-    const session = store.getState().session;
-    if (session.login !== "loggedIn") {
-        performAutoLogin(nextState.location, replace);
-    }
-    else if (!session.admin) {
+const checkFabsUploadPermissions = (session) => {
+    if (!session.admin) {
         for (let i = 0; i < session.user.affiliations.length; i++) {
             if (session.user.affiliations[i].permission === 'fabs') {
-                return;
+                return 'authorized';
             }
         }
         // if no permissions, bounce to landing
-        replace('/FABSLanding');
-    }
-};
-
-const checkHelpUserPermissions = (nextState, replace) => {
-    getStore();
-    const session = store.getState().session;
-
-    if (session.login !== "loggedIn") {
-        performAutoLogin(nextState.location, replace);
+        return '/FABSLanding';
     }
 };
 
@@ -325,8 +270,13 @@ export default class RouterRoutes {
             instance = this;
         }
         // TODO: Fix getRoutes to return params consistent w/ RR5
-        instance.routes = () => getRoutes().map((route) => <Route {...route} />);
-        instance.autoLogin = (location) => performAutoLogin(location);
+        instance.getRoutes = () => getRoutes().map((route) => <Route {...route} />);
+        instance.getPermissionsTests = () => ({
+            checkHelpUserPermissions,
+            checkUserPermissions,
+            checkDabsUploadPermissions,
+            checkFabsUploadPermissions
+        });
 
         return instance;
     }
