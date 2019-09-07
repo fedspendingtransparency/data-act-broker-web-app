@@ -123,7 +123,6 @@ export const performMaxLogin = (ticket) => {
 
     // wipe out old session cookies to prevent session weirdness
     Cookies.remove('session');
-
     // determine the service
     const service = encodeURIComponent(kGlobalConstants.AUTH_CALLBACK);
 

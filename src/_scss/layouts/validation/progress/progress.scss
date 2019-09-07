@@ -22,17 +22,22 @@
 		}
 
 		@include validationProgressStep;
-		@include validationProgressStepWidths;
+    @include validationProgressStepWidths;
+    button { 
+      background-color: transparent;
+      border: none;
+    }
+    button:focus {
+      outline: none;
+    }
+
 
 		.usa-da-progress-bar-step-current {
-			@include validationProgressCurrentStep;
+      @include validationProgressCurrentStep;
 		}
 
 		.usa-da-progress-bar-step-done {
 			@include validationProgressDoneStep;
-			a {
-				color: #323a45;
-			}
 		}
 	}
 }

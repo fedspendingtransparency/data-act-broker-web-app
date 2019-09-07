@@ -38,7 +38,9 @@
 		z-index: 0;
 
 		.stepLink {
-			color: $color-gray-cool-light;
+      color: $color-gray-cool-light;
+      background-color: transparent;
+      border: none;
 		}
 
 		span {

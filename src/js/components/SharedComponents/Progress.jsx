@@ -1,0 +1,104 @@
+/**
+ * ProgressComponent.jsx
+ * Created by Mike Bray 12/31/15
+ */
+
+import React, { PropTypes } from 'react';
+import { stepNames, classes } from 'dataMapping/dabs/progress';
+
+const propTypes = {
+    stepNames: PropTypes.array,
+    currentStep: PropTypes.number,
+    totalSteps: PropTypes.number,
+    setStep: PropTypes.func,
+    barClasses: PropTypes.object
+};
+
+const defaultProps = {
+    currentStep: 1,
+    totalSteps: 5,
+    stepNames,
+    setStep: () => {},
+    barClasses: classes
+};
+
+export default class Progress extends React.Component {
+    // update outer container
+    // on bar or label click
+    handleClick(step) {
+        this.props.setStep(step);
+    }
+
+    // get appropriate class name for step
+    // same for bar and labels
+    className(index) {
+        const { barClasses, currentStep } = this.props;
+        let className = barClasses.step;
+        if (index < currentStep) className = barClasses.done;
+        if (index === currentStep) className = barClasses.current;
+        return className;
+    }
+    // should a button be disabled
+    // users can click on steps that have been completed
+    isDisabled(index) {
+        const { currentStep } = this.props;
+        if (index < currentStep) return false;
+        return true;
+    }
+    // bar button
+    bar(index) {
+        const isDisabled = this.isDisabled(index + 1);
+        return (
+            <button
+                disabled={isDisabled}
+                onClick={this.handleClick.bind(this, index)}
+                className="stepLink">
+                {index + 1}
+            </button>
+        );
+    }
+    // label button
+    label(index) {
+        const isDisabled = this.isDisabled(index + 1);
+        return (
+            <button
+                disabled={isDisabled}
+                onClick={this.handleClick.bind(this, index)}>
+                {this.props.stepNames[index]}
+            </button>
+        );
+    }
+    // list that creates the horizontal progress bar
+    // or list that creates the horizontal progress label
+    progress(type) {
+        const spanClass = (type === 'bar') ? 'step' : 'name';
+        return this.props.stepNames.map((step, index) => {
+            const className = this.className(index + 1);
+            return (
+                <li key={`${index + 1}-${spanClass}`} className={className}>
+                    <span className={spanClass}>
+                        {this[type](index)}
+                    </span>
+                </li>
+            );
+        });
+    }
+
+    render() {
+        return (
+            <div className="row">
+                <div className="col-md-12 usa-da-progress-bar">
+                    <ul className="usa-da-progress-bar-holder" data-steps={this.props.totalSteps}>
+                        {this.progress('bar')}
+                    </ul>
+                    <ul className="usa-da-progress-bar-holder" data-steps={this.props.totalSteps}>
+                        {this.progress('label')}
+                    </ul>
+                </div>
+            </div>
+        );
+    }
+}
+
+Progress.propTypes = propTypes;
+Progress.defaultProps = defaultProps;
