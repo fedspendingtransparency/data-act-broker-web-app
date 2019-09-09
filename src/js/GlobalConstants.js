@@ -4,7 +4,7 @@ export const kGlobalConstants = {
     AUTH_CALLBACK: process.env.BROKER_CALLBACK,
     PUBLIC_FILES: "",
     GA_TRACKING_ID: process.env.GA_TRACKING_ID,
-    LOCAL: false,
+    LOCAL: (process.env.IS_LOCAL === 'true'),
     DEV: (process.env.IS_DEV === 'true'),
     PROD: (process.env.IS_DEV === 'false')
 };
