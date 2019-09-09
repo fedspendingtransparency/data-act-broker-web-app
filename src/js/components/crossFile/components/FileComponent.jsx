@@ -3,7 +3,8 @@
   * Created by Kevin Li 6/14/16
   */
 
-import React, { PropTypes } from 'react';
+import React from 'react';
+import PropTypes from 'prop-types';
 import ReplacementButton from './ReplacementButton';
 import * as PermissionsHelper from '../../../helpers/permissionsHelper';
 

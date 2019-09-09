@@ -3,7 +3,8 @@
   * Created by Kevin Li 4/20/2016
   */
 
-import React, { PropTypes } from 'react';
+import React from 'react';
+import PropTypes from 'prop-types';
 import _ from 'lodash';
 import Awesomplete from 'awesomplete';
 

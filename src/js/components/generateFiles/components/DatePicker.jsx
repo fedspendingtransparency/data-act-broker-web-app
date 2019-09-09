@@ -3,7 +3,8 @@
   * Created by Kevin Li 7/25/16
   */
 
-import React, { PropTypes } from 'react';
+import React from 'react';
+import PropTypes from 'prop-types';
 import DayPicker, { DateUtils } from 'react-day-picker';
 import moment from 'moment';
 import * as Icons from '../../SharedComponents/icons/Icons';
