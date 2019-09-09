@@ -3,7 +3,8 @@
 * Created by Minahm Kim 6/7/17
 */
 
-import React, { PropTypes } from 'react';
+import React from 'react';
+import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
 import HistoryPage from '../../components/history/HistoryPage';

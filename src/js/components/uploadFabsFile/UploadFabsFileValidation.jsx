@@ -3,7 +3,7 @@
 * Created by Minahm Kim
 */
 
-import ReactCSSTransitionGroup from "react-addons-css-transition-group";
+import CSSTransitionGroup from "react-transition-group/CSSTransitionGroup";
 
 import React, { PropTypes } from "react";
 import { connect } from "react-redux";
@@ -496,23 +496,23 @@ export class UploadFabsFileValidation extends React.Component {
                     <div className="col-xs-12 mt-60 mb-60">
                         <div className="validation-holder">
 
-                            <ReactCSSTransitionGroup
+                            <CSSTransitionGroup
                                 transitionName="usa-da-meta-fade"
                                 transitionEnterTimeout={600}
                                 transitionLeaveTimeout={200}>
                                 {validationBox}
-                            </ReactCSSTransitionGroup>
+                            </CSSTransitionGroup>
 
                             {errorMessage}
 
-                            <ReactCSSTransitionGroup
+                            <CSSTransitionGroup
                                 transitionName="usa-da-meta-fade"
                                 transitionEnterTimeout={600}
                                 transitionLeaveTimeout={200}>
                                 {validationButton}
                                 {revalidateButton}
                                 {downloadButton}
-                            </ReactCSSTransitionGroup>
+                            </CSSTransitionGroup>
                         </div>
                     </div>
                 </div>

@@ -3,7 +3,8 @@
   * Created by Kevin Li 7/28/16
   */
 
-import React, { PropTypes } from 'react';
+import React from 'react';
+import PropTypes from 'prop-types';
 import Modal from 'react-aria-modal';
 import CrossFileGenerateModalContainer from '../../../containers/crossFile/CrossFileGenerateModalContainer';
 import * as Icons from '../../SharedComponents/icons/Icons';

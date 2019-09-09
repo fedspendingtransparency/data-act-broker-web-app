@@ -3,7 +3,8 @@
  * Created by Lizzie Salita 11/5/18
  */
 
-import React, { PropTypes } from 'react';
+import React from 'react';
+import PropTypes from 'prop-types';
 import * as utils from '../../helpers/util';
 import * as periodPickerHelper from '../../helpers/periodPickerHelper';
 import { AngleDown } from '../SharedComponents/icons/Icons';

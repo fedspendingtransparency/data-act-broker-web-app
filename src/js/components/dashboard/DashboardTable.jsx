@@ -3,7 +3,8 @@
 //   * Created by Kevin Li 10/28/16
 //   */
 
-import React, { PropTypes } from 'react';
+import React from 'react';
+import PropTypes from 'prop-types';
 import cx from 'classnames';
 import _ from 'lodash';
 
