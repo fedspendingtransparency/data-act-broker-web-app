@@ -1,6 +1,8 @@
 import Q from 'q';
 import Cookies from 'js-cookie';
 import _ from 'lodash';
+import queryString from 'query-string';
+
 import Request from './sessionSuperagent';
 
 import StoreSingleton from '../redux/storeSingleton';
@@ -217,4 +219,20 @@ export const checkSession = () => {
         });
 
     return deferred.promise;
+};
+
+export const getRedirectPath = (location, isAuthorized) => {
+    const { search, pathname } = location;
+    const queryStrings = queryString.parse(search); // '?foo=bar' --> { foo: 'bar' }
+    const hasRedirectQueryString = Object.keys(queryStrings).includes('redirect');
+    if (isAuthorized && hasRedirectQueryString) {
+        return queryStrings.redirect;
+    }
+    else if (isAuthorized && !hasRedirectQueryString) {
+        return '/';
+    }
+    else if (!isAuthorized && pathname !== '/login') {
+        return `/login?redirect=${pathname}`;
+    }
+    return '/login';
 };
