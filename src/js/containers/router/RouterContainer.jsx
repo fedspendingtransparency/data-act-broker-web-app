@@ -5,7 +5,7 @@
 
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Router, Switch } from 'react-router-dom';
+import { Router, Switch, Route } from 'react-router-dom';
 import { createBrowserHistory } from "history";
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
@@ -14,12 +14,20 @@ import ReactGA from 'react-ga';
 import { kGlobalConstants } from '../../GlobalConstants';
 import * as sessionActions from '../../redux/actions/sessionActions';
 import RouterRoutes from './RouterRoutes';
+import ProtectedRoute from './ProtectedRoute';
 
 const GA_OPTIONS = { debug: false };
 const isProd = process.env.NODE_ENV === 'production';
 
 const propTypes = {
-    session: PropTypes.object
+    session: PropTypes.shape({
+        login: PropTypes.string,
+        user: PropTypes.shape({
+            affiliations: PropTypes.arrayOf(PropTypes.shape({
+                permission: PropTypes.string
+            }))
+        })
+    })
 };
 
 const defaultProps = {
@@ -29,7 +37,6 @@ const defaultProps = {
 const Routes = new RouterRoutes();
 const history = createBrowserHistory();
 
-// eslint-disable-next-line react/no-multi-comp
 class RouterContainer extends React.Component {
     componentDidMount() {
         if (isProd && kGlobalConstants.GA_TRACKING_ID !== '') {
@@ -42,11 +49,18 @@ class RouterContainer extends React.Component {
     }
 
     render() {
-        const routes = Routes.routes();
         return (
             <Router history={history}>
                 <Switch>
-                    {[...routes]}
+                    {[...Routes.getRoutes().map((route) => (
+                        <Route render={({ location }) => (
+                            <ProtectedRoute
+                                location={location}
+                                path={route.path}
+                                component={route.component}
+                                authFn={route.authFn} />
+                        )} />
+                    ))]}
                 </Switch>
             </Router>
         );
