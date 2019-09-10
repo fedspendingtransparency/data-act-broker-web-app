@@ -1,7 +1,5 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import Redirect from 'react-router-dom';
-import queryString from 'query-string';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 
@@ -9,7 +7,6 @@ import * as LoginHelper from '../../helpers/loginHelper';
 import * as sessionActions from '../../redux/actions/sessionActions';
 
 const propTypes = {
-    permissionsTest: PropTypes.func,
     redirectPath: PropTypes.string,
     children: PropTypes.node,
     session: PropTypes.shape({
@@ -27,12 +24,6 @@ const propTypes = {
         hash: PropTypes.string, // '#howdy',
         state: PropTypes.shape({}) // user defined based on calls to history.push()
     }),
-    // match: PropTypes.shape({
-    //     params: PropTypes.shape({}), // Key/value pairs parsed from the URL corresponding to the dynamic segments of the path
-    //     isExact: PropTypes.bool, // true if the entire URL was matched (no trailing characters)
-    //     path: PropTypes.string, // The path pattern used to match. Useful for building nested <Route>s
-    //     url: PropTypes.string // The matched portion of the URL. Useful for building nested <Link>s
-    // }),
     history: PropTypes.shape({
         length: PropTypes.number, // The number of entries in the history stack
         action: PropTypes.string, // The current action (PUSH, REPLACE, or POP)
@@ -71,25 +62,13 @@ class ProtectedComponent extends React.Component {
         }
     }
 
+    componentWillUnmount() {
+        clearImmediate(this.sessionChecker);
+    }
+
     performAutoLogin() {
-        const { pathname, search } = this.props.location;
         const isAuthorized = (this.props.session.login === 'loggedIn');
-        const shouldPerformAutoLogin = (pathname === '/login' && isAuthorized);
-        if (!isAuthorized) {
-            if (pathname !== '/login') {
-                // We should refactor this in the future to use Redirect
-                this.props.history.push(`/login?redirect=${pathname}`);
-            }
-            this.props.history.push('/login');
-        }
-        else if (shouldPerformAutoLogin) {
-            const queryStrings = queryString.parse(search); // '?foo=bar' --> { foo: 'bar' }
-            const hasRedirectQueryString = Object.keys(queryStrings).includes('redirect');
-            if (hasRedirectQueryString) {
-                this.props.history(queryStrings.redirect);
-            }
-            this.props.history.push('/');
-        }
+        this.props.history.push(LoginHelper.getRedirectPath(this.props.location, isAuthorized));
     }
 
     logout() {
@@ -111,11 +90,6 @@ class ProtectedComponent extends React.Component {
     }
 
     render() {
-        // permissionTest should be one of RouterRoutes.getRoutes()
-        const isAuthorized = this.props.permissionTest(this.props.session);
-        if (isAuthorized !== 'authorized') {
-            return <Redirect to={isAuthorized} />;
-        }
         return this.props.children;
     }
 }
@@ -130,10 +104,8 @@ export default connect(
 )(ProtectedComponent);
 
 
-export const AuthHOC = (permissionsProps, component) => {
-    return (
-        <ProtectedComponent {...permissionsProps}>
-            {component}
-        </ProtectedComponent>
-    );
-};
+export const withAuth = (component) => (
+    <ProtectedComponent>
+        {component}
+    </ProtectedComponent>
+);
