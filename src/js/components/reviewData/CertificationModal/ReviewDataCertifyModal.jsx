@@ -6,7 +6,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import Modal from 'react-aria-modal';
-import { hashHistory, Link } from 'react-router';
+import { hashHistory, Link } from 'react-router-dom';
 import * as Icons from '../../SharedComponents/icons/Icons';
 import CertifyDisclaimer from './CertifyDisclaimer';
 import CertifyButtons from './CertifyButtons';

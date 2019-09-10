@@ -4,7 +4,7 @@
   */
 
 import React from 'react';
-import { hashHistory } from 'react-router';
+import { hashHistory } from 'react-router-dom';
 import _ from 'lodash';
 import Cookies from 'js-cookie';
 

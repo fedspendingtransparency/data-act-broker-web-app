@@ -5,7 +5,7 @@
 
 import React from 'react';
 import { shallow } from 'enzyme';
-import { hashHistory } from 'react-router';
+import { hashHistory } from 'react-router-dom';
 
 import { SubmissionContainer } from 'containers/submission/SubmissionContainer';
 import { mockProps, originalState } from './mockData';

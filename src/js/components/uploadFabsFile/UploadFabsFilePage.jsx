@@ -5,7 +5,7 @@
 
 import React from 'react';
 import PropTypes from 'prop-types';
-import { hashHistory } from 'react-router';
+import { hashHistory } from 'react-router-dom';
 
 import Footer from '../SharedComponents/FooterComponent';
 import Navbar from '../SharedComponents/navigation/NavigationComponent';

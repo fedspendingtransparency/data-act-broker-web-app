@@ -7,7 +7,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
-import { hashHistory } from 'react-router';
+import { hashHistory } from 'react-router-dom';
 
 import * as uploadActions from '../../redux/actions/uploadActions';
 
