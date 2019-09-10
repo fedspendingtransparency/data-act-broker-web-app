@@ -55,6 +55,7 @@ class RouterContainer extends React.Component {
                     {[...Routes.getRoutes().map((route) => (
                         <Route render={({ location }) => (
                             <ProtectedRoute
+                                session={this.props.session}
                                 location={location}
                                 path={route.path}
                                 component={route.component}

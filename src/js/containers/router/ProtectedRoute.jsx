@@ -33,16 +33,19 @@ const defaultProps = {
 
 const ProtectedRoute = ({
     location,
-    path,
     component,
     authFn,
     session
 }) => {
+    console.log("protectedRoute");
     const isAuthorized = authFn(session);
 
     if (isAuthorized) {
+        console.log("props", isAuthorized, session, location, component);
         // withAuth to monitor the session etc...
-        return (<Route path={path} component={withAuth(component)} />);
+        // return (<Route path={path} component={withAuth(component)} />);
+        const Test = withAuth(component);
+        return <Test location={location} />;
     }
 
     const redirectUrl = getRedirectPath(location, isAuthorized);

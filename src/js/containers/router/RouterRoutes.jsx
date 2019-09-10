@@ -18,6 +18,7 @@ import ErrorPage from '../../components/error/ErrorPage';
 let instance = null;
 
 const checkHelpUserPermissions = (session) => {
+    console.log("Hello?");
     if (session.login !== "loggedIn") {
         return false;
     }
@@ -37,37 +38,29 @@ const checkDabsUploadPermissions = (session) => {
         return true;
     }
 
-    let isAuthorized = false;
-
-    session.user.affiliations.forEach(() => {
-        if (session.user.affiliations[i].permission === 'writer' ||
-        session.user.affiliations[i].permission === 'submitter') {
-            isAuthorized = true;
+    return session.user.affiliations.reduce((acc, affiliation) => {
+        if (affiliation.permission === 'writer' || affiliation.permission === 'submitter') {
+            return true;
         }
-    });
-
-    return isAuthorized;
+        return acc;
+    }, false);
 };
 
 const checkFabsUploadPermissions = (session) => {
-    if (!session.admin) {
-        for (let i = 0; i < session.user.affiliations.length; i++) {
-            if (session.user.affiliations[i].permission === 'fabs') {
-                return true;
-            }
-        }
-        // if no permissions, bounce to landing
-        return false;
+    if (session.admin) {
+        return true;
     }
-    return true;
+
+    return session.user.affiliations.reduce((acc, affiliation) => {
+        if (affiliation.permission === 'fabs') {
+            return true;
+        }
+        return acc;
+    }, false);
 };
 
 const getRoutes = () => {
     const returnRoutes = [
-        {
-            path: '/',
-            component: LandingPage
-        },
         {
             path: 'login',
             component: LoginPage
@@ -75,6 +68,11 @@ const getRoutes = () => {
         {
             path: 'auth',
             component: AuthPage
+        },
+        {
+            path: '/',
+            component: LandingPage,
+            authFn: checkHelpUserPermissions
         },
         {
             path: 'submissionGuide',
@@ -141,7 +139,7 @@ const getRoutes = () => {
         if (routeInfo.component === 'landing') {
             return {
                 path: prefix + routeInfo.path,
-                authFn: routeInfo.onEnter[onEnterIndex],
+                authFn: routeInfo.authFn[onEnterIndex],
                 component: LandingPage,
                 type
             };
@@ -149,7 +147,7 @@ const getRoutes = () => {
         else if (routeInfo.component === 'dashboard') {
             return {
                 path: prefix + routeInfo.path,
-                authFn: routeInfo.onEnter[onEnterIndex],
+                authFn: routeInfo.authFn[onEnterIndex],
                 component: DashboardPage,
                 type
             };
@@ -157,7 +155,7 @@ const getRoutes = () => {
         else if (routeInfo.component === 'help') {
             return {
                 path: prefix + routeInfo.path,
-                authFn: routeInfo.onEnter[onEnterIndex],
+                authFn: routeInfo.authFn[onEnterIndex],
                 component: HelpContainer,
                 type
             };
@@ -204,16 +202,17 @@ const getRoutes = () => {
             component: 'help'
         }
     ];
-    for (let i = 0; i < sharedRoutes.length; i++) {
-        if (sharedRoutes[i].onEnter.length === 1) {
-            returnRoutes.push(routeConstructor(sharedRoutes[i], 0, 'dabs'));
-            returnRoutes.push(routeConstructor(sharedRoutes[i], 0, 'fabs'));
+    sharedRoutes.forEach((sharedRoute) => {
+        if (sharedRoute.authFn.length === 1) {
+            returnRoutes.push(routeConstructor(sharedRoute, 0, 'dabs'));
+            returnRoutes.push(routeConstructor(sharedRoute, 0, 'fabs'));
         }
         else {
-            returnRoutes.push(routeConstructor(sharedRoutes[i], 0, 'dabs'));
-            returnRoutes.push(routeConstructor(sharedRoutes[i], 1, 'fabs'));
+            returnRoutes.push(routeConstructor(sharedRoute, 0, 'dabs'));
+            returnRoutes.push(routeConstructor(sharedRoute, 1, 'fabs'));
         }
-    }
+    });
+
     returnRoutes.push(
         {
             path: '*',
