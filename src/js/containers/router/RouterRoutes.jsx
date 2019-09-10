@@ -1,6 +1,3 @@
-import React from 'react';
-import Route from 'react-router-dom';
-
 import LandingPage from '../../components/landing/LandingPage';
 import LoginPage from '../../components/login/LoginPage';
 import AuthPage from '../../components/login/AuthPage';
@@ -12,56 +9,57 @@ import GenerateDetachedFilesPageContainer
     from '../../containers/generateDetachedFiles/GenerateDetachedFilesPageContainer';
 import DetachedFileAContainer
     from '../../containers/generateDetachedFiles/DetachedFileAContainer';
-import StoreSingleton from '../../redux/storeSingleton';
+import { SubmissionContainer } from '../submission/SubmissionContainer';
+import HistoryContainer from '../../containers/history/HistoryContainer';
+import DashboardPage from '../../components/dashboard/DashboardPage';
+import HelpContainer from '../help/HelpContainer';
+import ErrorPage from '../../components/error/ErrorPage';
 
 let instance = null;
-let store = new StoreSingleton().store;
-
-const getStore = () => {
-    if (!store) {
-        store = new StoreSingleton().store;
-    }
-    return store;
-};
 
 const checkHelpUserPermissions = (session) => {
     if (session.login !== "loggedIn") {
-        return 'login';
+        return false;
     }
-    return 'authorized';
+    return true;
 };
 
 export const checkUserPermissions = (session) => {
     if (session.user.helpOnly) {
         // if no permissions or attempting to reach DABS with improper permissions, bounce to help
-        return '/help';
+        return false;
     }
-    return 'authorized';
+    return true;
 };
 
 const checkDabsUploadPermissions = (session) => {
-    if (!session.admin) {
-        for (let i = 0; i < session.user.affiliations.length; i++) {
-            if (session.user.affiliations[i].permission === 'writer' ||
-                session.user.affiliations[i].permission === 'submitter') {
-                return 'authorized';
-            }
-        }
-        // if no permissions, bounce to landing
-        return '/landing';
+    if (session.admin) {
+        return true;
     }
+
+    let isAuthorized = false;
+
+    session.user.affiliations.forEach(() => {
+        if (session.user.affiliations[i].permission === 'writer' ||
+        session.user.affiliations[i].permission === 'submitter') {
+            isAuthorized = true;
+        }
+    });
+
+    return isAuthorized;
 };
 
 const checkFabsUploadPermissions = (session) => {
     if (!session.admin) {
         for (let i = 0; i < session.user.affiliations.length; i++) {
             if (session.user.affiliations[i].permission === 'fabs') {
-                return 'authorized';
+                return true;
             }
         }
         // if no permissions, bounce to landing
-        return '/FABSLanding';
+        return false;
     }
+    return true;
 };
 
 const getRoutes = () => {
@@ -80,67 +78,55 @@ const getRoutes = () => {
         },
         {
             path: 'submissionGuide',
-            onEnter: checkUserPermissions,
+            authFn: checkUserPermissions,
             component: SubmissionGuideContainer,
             type: 'dabs'
         },
         {
             path: 'addData',
-            onEnter: checkDabsUploadPermissions,
+            authFn: checkDabsUploadPermissions,
             component: AddDataPageContainer,
             type: 'dabs'
         },
         {
             path: 'FABSaddData/:submissionID',
-            onEnter: checkUserPermissions,
+            authFn: checkUserPermissions,
             component: UploadFabsFilePageContainer,
             type: 'fabs'
         },
         {
             path: 'FABSaddData',
-            onEnter: checkFabsUploadPermissions,
+            authFn: checkFabsUploadPermissions,
             component: UploadFabsFilePageContainer,
             type: 'fabs'
         },
         {
             path: 'submission/:submissionID',
-            onEnter: checkUserPermissions,
-            getComponent(nextState, cb) {
-                require.ensure([], (require) => {
-                    cb(null, require('../../containers/submission/SubmissionContainer').default);
-                });
-            },
+            authFn: checkUserPermissions,
+            component: SubmissionContainer,
             type: 'dabs'
         },
         {
             path: 'submission/:submissionID/:type',
-            onEnter: checkUserPermissions,
-            getComponent(nextState, cb) {
-                require.ensure([], (require) => {
-                    cb(null, require('../../containers/submission/SubmissionContainer').default);
-                });
-            },
+            authFn: checkUserPermissions,
+            component: SubmissionContainer,
             type: 'dabs'
         },
         {
             path: 'submissionHistory/:submissionID',
-            onEnter: checkUserPermissions,
-            getComponent(nextState, cb) {
-                require.ensure([], (require) => {
-                    cb(null, require('../../containers/history/HistoryContainer').default);
-                });
-            },
+            authFn: checkUserPermissions,
+            component: HistoryContainer,
             type: 'dabs'
         },
         {
             path: 'generateDetachedFiles',
-            onEnter: checkUserPermissions,
+            authFn: checkUserPermissions,
             component: GenerateDetachedFilesPageContainer,
             type: 'dabs'
         },
         {
             path: 'generateDetachedFileA',
-            onEnter: checkUserPermissions,
+            authFn: checkUserPermissions,
             component: DetachedFileAContainer,
             type: 'dabs'
         }
@@ -155,36 +141,24 @@ const getRoutes = () => {
         if (routeInfo.component === 'landing') {
             return {
                 path: prefix + routeInfo.path,
-                onEnter: routeInfo.onEnter[onEnterIndex],
-                getComponent(nextState, cb) {
-                    require.ensure([], (require) => {
-                        cb(null, require('../../components/landing/LandingPage').default);
-                    });
-                },
+                authFn: routeInfo.onEnter[onEnterIndex],
+                component: LandingPage,
                 type
             };
         }
         else if (routeInfo.component === 'dashboard') {
             return {
                 path: prefix + routeInfo.path,
-                onEnter: routeInfo.onEnter[onEnterIndex],
-                getComponent(nextState, cb) {
-                    require.ensure([], (require) => {
-                        cb(null, require('../../components/dashboard/DashboardPage').default);
-                    });
-                },
+                authFn: routeInfo.onEnter[onEnterIndex],
+                component: DashboardPage,
                 type
             };
         }
         else if (routeInfo.component === 'help') {
             return {
                 path: prefix + routeInfo.path,
-                onEnter: routeInfo.onEnter[onEnterIndex],
-                getComponent(nextState, cb) {
-                    require.ensure([], (require) => {
-                        cb(null, require('../help/HelpContainer').default);
-                    });
-                },
+                authFn: routeInfo.onEnter[onEnterIndex],
+                component: HelpContainer,
                 type
             };
         }
@@ -193,39 +167,40 @@ const getRoutes = () => {
 
     // Duplicated routes for FABS/DABS
     const sharedRoutes = [
+        // first authFn is for Dabs if they are different
         {
             path: 'landing',
-            onEnter: [checkUserPermissions],
+            authFn: [checkUserPermissions],
             component: 'landing'
         },
         {
             path: 'dashboard',
-            onEnter: [checkUserPermissions],
+            authFn: [checkUserPermissions],
             component: 'dashboard'
         },
         {
             path: 'help',
-            onEnter: [checkHelpUserPermissions, checkUserPermissions],
+            authFn: [checkHelpUserPermissions, checkUserPermissions],
             component: 'help'
         },
         {
             path: 'validations',
-            onEnter: [checkHelpUserPermissions, checkUserPermissions],
+            authFn: [checkHelpUserPermissions, checkUserPermissions],
             component: 'help'
         },
         {
             path: 'resources',
-            onEnter: [checkHelpUserPermissions, checkUserPermissions],
+            authFn: [checkHelpUserPermissions, checkUserPermissions],
             component: 'help'
         },
         {
             path: 'history',
-            onEnter: [checkHelpUserPermissions, checkUserPermissions],
+            authFn: [checkHelpUserPermissions, checkUserPermissions],
             component: 'help'
         },
         {
             path: 'technicalHistory',
-            onEnter: [checkHelpUserPermissions, checkUserPermissions],
+            authFn: [checkHelpUserPermissions, checkUserPermissions],
             component: 'help'
         }
     ];
@@ -242,41 +217,20 @@ const getRoutes = () => {
     returnRoutes.push(
         {
             path: '*',
-            onEnter: checkUserPermissions,
-            getComponent(nextState, cb) {
-                require.ensure([], (require) => {
-                    cb(null, require('../../components/error/ErrorPage').default);
-                });
-            },
+            authFn: checkUserPermissions,
+            component: ErrorPage,
             type: 'home'
         });
     return returnRoutes;
 };
-
-// defining the routes outside of the component because React Router cannot handle state/prop changes that Redux causes
-// const routeDefinitions = {
-//     path: '/',
-//     indexRoute: {
-//         onEnter: checkUserPermissions,
-//         component: LandingPage,
-//         type: 'home'
-//     },
-//     childRoutes: getRoutes()
-// };
 
 export default class RouterRoutes {
     constructor() {
         if (!instance) {
             instance = this;
         }
-        // TODO: Fix getRoutes to return params consistent w/ RR5
-        instance.getRoutes = () => getRoutes().map((route) => <Route {...route} />);
-        instance.getPermissionsTests = () => ({
-            checkHelpUserPermissions,
-            checkUserPermissions,
-            checkDabsUploadPermissions,
-            checkFabsUploadPermissions
-        });
+
+        instance.getRoutes = () => getRoutes();
 
         return instance;
     }
