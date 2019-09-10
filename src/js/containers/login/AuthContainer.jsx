@@ -4,7 +4,6 @@
   */
 
 import React from 'react';
-import { hashHistory } from 'react-router-dom';
 import _ from 'lodash';
 import Cookies from 'js-cookie';
 
@@ -65,7 +64,7 @@ export default class AuthContainer extends React.Component {
                         if (data.helpOnly) {
                             destination = '/help';
                         }
-                        hashHistory.push(destination);
+                        this.props.history.push(destination);
                     })
                     .catch((err) => {
                         // something went wrong (or API passed back an error status and message)
@@ -92,7 +91,7 @@ export default class AuthContainer extends React.Component {
         }
         else {
             // no ticket found, toss back to login page
-            hashHistory.push('/login');
+            this.props.history.push('/login');
 
             // remove any redirection cookies
             Cookies.remove('brokerRedirect');

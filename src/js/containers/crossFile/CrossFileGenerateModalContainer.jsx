@@ -5,7 +5,6 @@
 
 import React from 'react';
 import PropTypes from 'prop-types';
-import { hashHistory } from 'react-router-dom';
 
 import moment from 'moment';
 
@@ -81,7 +80,7 @@ export default class CrossFileGenerateModalContainer extends React.Component {
                 if (!requested) {
                     // file has not been requested before
                     // toss back to the generate screen
-                    hashHistory.push(`generateFiles/${this.props.submissionID}`);
+                    this.props.history.push(`generateFiles/${this.props.submissionID}`);
                 }
                 else {
                     // files have been requested before, load the dates
@@ -307,7 +306,7 @@ export default class CrossFileGenerateModalContainer extends React.Component {
     }
 
     nextPage() {
-        hashHistory.push(`validateCrossFile/${this.props.submissionID}`);
+        this.props.history.push(`validateCrossFile/${this.props.submissionID}`);
     }
 
     render() {

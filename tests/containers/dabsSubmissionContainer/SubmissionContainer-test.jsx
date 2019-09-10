@@ -5,7 +5,6 @@
 
 import React from 'react';
 import { shallow } from 'enzyme';
-import { hashHistory } from 'react-router-dom';
 
 import { SubmissionContainer } from 'containers/submission/SubmissionContainer';
 import { mockProps, originalState } from './mockData';
@@ -142,13 +141,14 @@ describe('SubmissionContainer', () => {
             },
             routeParams: {
                 submissionID: "2054"
+            },
+            history: {
+                replace: jest.fn()
             }
         };
         container = shallow(<SubmissionContainer {...props} />);
-        const replace = jest.fn();
-        hashHistory.replace = replace;
         container.instance().updateRoute();
-        expect(hashHistory.replace).toHaveBeenCalled();
+        expect(props.history.replace).toHaveBeenCalled();
     });
 
     it('nextStep, should update state and call update route', () => {

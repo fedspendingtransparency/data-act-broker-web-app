@@ -6,7 +6,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import Modal from 'react-aria-modal';
-import { hashHistory, Link } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import * as Icons from '../../SharedComponents/icons/Icons';
 import CertifyDisclaimer from './CertifyDisclaimer';
 import CertifyButtons from './CertifyButtons';
@@ -61,7 +61,7 @@ export default class ReviewDataCertifyModal extends React.Component {
                 this.setState({ loading: false });
                 this.closeModal();
                 // Redirect to submission dashboard after successful certification
-                hashHistory.push("/dashboard");
+                this.props.history.push("/dashboard");
             })
             .catch((error) => {
                 let errorMessage = "An error occurred while attempting to certify the submission. " +

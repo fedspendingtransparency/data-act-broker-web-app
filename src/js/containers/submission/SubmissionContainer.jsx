@@ -5,7 +5,6 @@
 
 import React from 'react';
 import PropTypes from 'prop-types';
-import { hashHistory } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { reduce } from 'lodash';
 
@@ -140,7 +139,7 @@ export class SubmissionContainer extends React.Component {
     // update route
     updateRoute() {
         const { submissionID } = this.props.params;
-        return hashHistory.replace(`/submission/${submissionID}/${this.currentRoute()}`);
+        return this.props.history.replace(`/submission/${submissionID}/${this.currentRoute()}`);
     }
     // clicked next button in child Overlay components
     // add 1 to step

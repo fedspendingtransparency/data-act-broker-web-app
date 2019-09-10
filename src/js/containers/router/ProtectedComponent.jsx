@@ -104,8 +104,8 @@ export default connect(
 )(ProtectedComponent);
 
 
-export const withAuth = (component) => (
+export const withAuth = (Component) => () => (
     <ProtectedComponent>
-        {component}
+        <Component />
     </ProtectedComponent>
 );

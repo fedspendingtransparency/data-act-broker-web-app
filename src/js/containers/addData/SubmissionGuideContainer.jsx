@@ -7,7 +7,6 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
-import { hashHistory } from 'react-router-dom';
 
 import SubmissionGuidePage from '../../components/addData/SubmissionGuidePage';
 import * as sessionActions from '../../redux/actions/sessionActions';
@@ -53,7 +52,7 @@ class SubmissionGuideContainer extends React.Component {
     }
 
     sendToAddData() {
-        hashHistory.push('/addData/');
+        this.props.history.push('/addData/');
     }
 
     render() {

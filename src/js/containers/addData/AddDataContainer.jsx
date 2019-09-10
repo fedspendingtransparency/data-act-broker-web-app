@@ -7,7 +7,6 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
-import { hashHistory } from 'react-router-dom';
 
 import * as uploadActions from '../../redux/actions/uploadActions';
 
@@ -53,11 +52,11 @@ class AddDataContainer extends React.Component {
         const count = 9;
         GuideHelper.getSubmissionPage(submissionID)
             .then(() => {
-                hashHistory.push(`submission/${submissionID}/validateData`);
+                this.props.history.push(`submission/${submissionID}/validateData`);
             })
             .catch(() => {
                 if (index === count) {
-                    hashHistory.push('/404/');
+                    this.props.history.push('/404/');
                 }
                 else {
                     setTimeout(() => {

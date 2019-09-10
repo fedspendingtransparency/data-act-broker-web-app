@@ -5,7 +5,6 @@
 
 import React from 'react';
 import PropTypes from 'prop-types';
-import { hashHistory } from 'react-router-dom';
 
 import Footer from '../SharedComponents/FooterComponent';
 import Navbar from '../SharedComponents/navigation/NavigationComponent';
@@ -86,7 +85,7 @@ export default class UploadFabsFilePage extends React.Component {
 
     validate(submissionID) {
         this.props.setSubmissionId(submissionID);
-        hashHistory.push(`/FABSaddData/${submissionID}`);
+        this.props.history.push(`/FABSaddData/${submissionID}`);
         this.setState({
             showMeta: false
         });
