@@ -1,8 +1,10 @@
-#### August 23, 2019{section=technical}
+#### September 6, 2019{section=technical}
 
 In this release, here is a list of technical changes that may require infrastructure or database updates, or represents additional functionality.
 
-* Added `place_of_perform_street` and `sub_place_of_perform_street` columns to the Subaward table.
-* Created `certified_error_metadata` table to keep track of errors and warnings of certified submissions.
-* Ensured that the `list_submissions` endpoint is accurate matching its `min_last_modified` with the submission's `last_modified` value.
-* Added logs to incoming API requests to help track down specific errors.
+* Reworked DUNS loader to improve performance of reloading the entire dataset in a quick timeframe.
+* Added historic_duns table for ease of reloading DUNS dataset.
+* Added script to reload certified errors/warnings from older submissions.
+* Added script to reload specific awards/transactions from FPDS.
+* Updated script which corrected agency codes and names in transactions to support multiple subtier agency codes.
+
