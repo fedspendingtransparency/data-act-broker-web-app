@@ -18,7 +18,6 @@ import ErrorPage from '../../components/error/ErrorPage';
 let instance = null;
 
 const checkHelpUserPermissions = (session) => {
-    console.log("Hello?");
     if (session.login !== "loggedIn") {
         return false;
     }
@@ -62,11 +61,11 @@ const checkFabsUploadPermissions = (session) => {
 const getRoutes = () => {
     const returnRoutes = [
         {
-            path: 'login',
+            path: '/login',
             component: LoginPage
         },
         {
-            path: 'auth',
+            path: '/auth',
             component: AuthPage
         },
         {
@@ -75,55 +74,55 @@ const getRoutes = () => {
             authFn: checkHelpUserPermissions
         },
         {
-            path: 'submissionGuide',
+            path: '/submissionGuide',
             authFn: checkUserPermissions,
             component: SubmissionGuideContainer,
             type: 'dabs'
         },
         {
-            path: 'addData',
+            path: '/addData',
             authFn: checkDabsUploadPermissions,
             component: AddDataPageContainer,
             type: 'dabs'
         },
         {
-            path: 'FABSaddData/:submissionID',
+            path: '/FABSaddData/:submissionID',
             authFn: checkUserPermissions,
             component: UploadFabsFilePageContainer,
             type: 'fabs'
         },
         {
-            path: 'FABSaddData',
+            path: '/FABSaddData',
             authFn: checkFabsUploadPermissions,
             component: UploadFabsFilePageContainer,
             type: 'fabs'
         },
         {
-            path: 'submission/:submissionID',
+            path: '/submission/:submissionID',
             authFn: checkUserPermissions,
             component: SubmissionContainer,
             type: 'dabs'
         },
         {
-            path: 'submission/:submissionID/:type',
+            path: '/submission/:submissionID/:type',
             authFn: checkUserPermissions,
             component: SubmissionContainer,
             type: 'dabs'
         },
         {
-            path: 'submissionHistory/:submissionID',
+            path: '/submissionHistory/:submissionID',
             authFn: checkUserPermissions,
             component: HistoryContainer,
             type: 'dabs'
         },
         {
-            path: 'generateDetachedFiles',
+            path: '/generateDetachedFiles',
             authFn: checkUserPermissions,
             component: GenerateDetachedFilesPageContainer,
             type: 'dabs'
         },
         {
-            path: 'generateDetachedFileA',
+            path: '/generateDetachedFileA',
             authFn: checkUserPermissions,
             component: DetachedFileAContainer,
             type: 'dabs'
@@ -131,9 +130,9 @@ const getRoutes = () => {
     ];
 
     function routeConstructor(routeInfo, onEnterIndex, type) {
-        let prefix = '';
+        let prefix = '/';
         if (type === 'fabs') {
-            prefix = 'FABS';
+            prefix = '/FABS';
         }
 
         if (routeInfo.component === 'landing') {
@@ -167,37 +166,37 @@ const getRoutes = () => {
     const sharedRoutes = [
         // first authFn is for Dabs if they are different
         {
-            path: 'landing',
+            path: '/landing',
             authFn: [checkUserPermissions],
             component: 'landing'
         },
         {
-            path: 'dashboard',
+            path: '/dashboard',
             authFn: [checkUserPermissions],
             component: 'dashboard'
         },
         {
-            path: 'help',
+            path: '/help',
             authFn: [checkHelpUserPermissions, checkUserPermissions],
             component: 'help'
         },
         {
-            path: 'validations',
+            path: '/validations',
             authFn: [checkHelpUserPermissions, checkUserPermissions],
             component: 'help'
         },
         {
-            path: 'resources',
+            path: '/resources',
             authFn: [checkHelpUserPermissions, checkUserPermissions],
             component: 'help'
         },
         {
-            path: 'history',
+            path: '/history',
             authFn: [checkHelpUserPermissions, checkUserPermissions],
             component: 'help'
         },
         {
-            path: 'technicalHistory',
+            path: '/technicalHistory',
             authFn: [checkHelpUserPermissions, checkUserPermissions],
             component: 'help'
         }
@@ -217,8 +216,7 @@ const getRoutes = () => {
         {
             path: '*',
             authFn: checkUserPermissions,
-            component: ErrorPage,
-            type: 'home'
+            component: ErrorPage
         });
     return returnRoutes;
 };
