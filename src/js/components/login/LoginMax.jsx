@@ -24,6 +24,7 @@ export default class LoginMax extends React.Component {
         this.state = {
             redirect: ''
         };
+        this.handleClick = this.handleClick.bind(this);
     }
 
     componentDidMount() {
@@ -58,17 +59,28 @@ export default class LoginMax extends React.Component {
         }
     }
 
+    handleClick(e) {
+        if (e.keyCode === '13' || !e.keyCode) {
+            const url = `${kGlobalConstants.CAS_ROOT}/cas/login?service=${encodeURIComponent(kGlobalConstants.AUTH_CALLBACK)}`;
+            window.alert(url);
+            window.location.assign(url);
+            // this.props.history.push(url);
+        }
+    }
+
     render() {
         return (
             <div className="row">
                 <div className="col-xs-12">
                     <p className="instructions">Sign in or register for the DATA Act Broker using your MAX ID.</p>
-                    <a
-                        href={`${kGlobalConstants.CAS_ROOT}/cas/login?service=${
-                            encodeURIComponent(kGlobalConstants.AUTH_CALLBACK)}`}
-                        className="usa-da-button btn-primary btn-lg btn-full">
+                    <button
+                        className="usa-da-button btn-primary btn-lg btn-full"
+                        tabIndex="0"
+                        role="link"
+                        onKeyDown={this.handleClick}
+                        onClick={this.handleClick}>
                         Sign In Using MAX
-                    </a>
+                    </button>
                 </div>
             </div>
         );

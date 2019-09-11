@@ -58,7 +58,7 @@ class LoginContainer extends React.Component {
     }
 
     render() {
-        let login = <LoginMax location={this.props.location} />;
+        let login = <LoginMax {...this.props} />;
 
         if (kGlobalConstants.LOCAL) {
             login = (<LoginPanel
