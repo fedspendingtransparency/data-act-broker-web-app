@@ -221,14 +221,22 @@ export const checkSession = () => {
     return deferred.promise;
 };
 
-export const getRedirectPath = (location, isAuthorized) => {
-    const { search, pathname } = location;
+export const getRedirectPath = (location) => {
+    const { search } = location;
+
     const queryStrings = queryString.parse(search); // '?foo=bar' --> { foo: 'bar' }
     const hasRedirectQueryString = Object.keys(queryStrings).includes('redirect');
-    if (isAuthorized && hasRedirectQueryString) {
-        return queryStrings.redirect;
+    if (hasRedirectQueryString) return queryStrings.redirect;
+    return null;
+};
+
+export const getPath = (location, isAuthorized) => {
+    const { pathname } = location;
+    const redirectPath = getRedirectPath(location);
+    if (isAuthorized && redirectPath) {
+        return redirectPath;
     }
-    else if (isAuthorized && !hasRedirectQueryString) {
+    else if (isAuthorized && !redirectPath) {
         return '/';
     }
     else if (!isAuthorized && pathname !== '/login') {
