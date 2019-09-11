@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { Route, Redirect } from 'react-router-dom';
 
 import { withAuth } from "./ProtectedComponent";
-import { getRedirectPath } from "../../helpers/loginHelper";
+import { getPath } from "../../helpers/loginHelper";
 
 const propTypes = {
     path: PropTypes.string,
@@ -31,24 +31,17 @@ const defaultProps = {
     authFn: () => true
 };
 
-const ProtectedRoute = ({
-    location,
-    component,
-    authFn,
-    session
-}) => {
-    console.log("protectedRoute");
+const ProtectedRoute = (props) => {
+    const {
+        location, authFn, component, path, session
+    } = props;
     const isAuthorized = authFn(session);
-
     if (isAuthorized) {
-        console.log("props", isAuthorized, session, location, component);
         // withAuth to monitor the session etc...
-        // return (<Route path={path} component={withAuth(component)} />);
-        const Test = withAuth(component);
-        return <Test location={location} />;
+        return (<Route path={path} component={withAuth(component, props)} />);
     }
 
-    const redirectUrl = getRedirectPath(location, isAuthorized);
+    const redirectUrl = getPath(location, isAuthorized);
 
     return (
         <Redirect to={redirectUrl} />

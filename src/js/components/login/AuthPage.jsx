@@ -26,7 +26,7 @@ export default class AuthPage extends React.Component {
                         <div className="login-banner-wrap">
                             <div className="usa-da-login-wrap">
                                 <LoginIntro />
-                                <AuthContainer />
+                                <AuthContainer {...this.props} />
                             </div>
                         </div>
                         <LoginWarningTxt />

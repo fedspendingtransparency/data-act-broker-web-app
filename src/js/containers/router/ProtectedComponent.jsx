@@ -68,7 +68,7 @@ class ProtectedComponent extends React.Component {
 
     performAutoLogin() {
         const isAuthorized = (this.props.session.login === 'loggedIn');
-        this.props.history.push(LoginHelper.getRedirectPath(this.props.location, isAuthorized));
+        this.props.history.push(LoginHelper.getPath(this.props.location, isAuthorized));
     }
 
     logout() {
@@ -90,22 +90,25 @@ class ProtectedComponent extends React.Component {
     }
 
     render() {
-        return this.props.children;
+        const children = React.cloneElement(this.props.children, { ...this.props });
+        if (children) return (children);
+        return null;
     }
 }
 
 ProtectedComponent.propTypes = propTypes;
 
-export default connect(
+const Container = connect(
     (state) => ({
         session: state.session
     }),
     (dispatch) => bindActionCreators(sessionActions, dispatch)
 )(ProtectedComponent);
 
-
-export const withAuth = (Component) => () => (
-    <ProtectedComponent>
+export const withAuth = (Component, props) => () => (
+    <Container {...props}>
         <Component />
-    </ProtectedComponent>
+    </Container>
 );
+
+export default Container;

@@ -27,7 +27,7 @@ export default class AuthContainer extends React.Component {
 
     processTicket() {
         // extract the ticket string from the URL
-        const url = window.location.href;
+        const url = this.props.location.href;
         // MAX may insert the ticket in the middle of the URL instead of at the end because MAX's
         // URL parser does not fully understand hashed URLs
         const regex = /ticket=([A-Za-z0-9]|\.|-)+/g;
@@ -44,7 +44,7 @@ export default class AuthContainer extends React.Component {
             }, () => {
                 // remove the ticket from the URL
                 const updatedUrl = url.replace(`?ticket=${this.state.ticket}`, '');
-                window.history.replaceState({}, null, updatedUrl);
+                this.props.history.replace(updatedUrl);
 
                 let destination = '/landing';
 

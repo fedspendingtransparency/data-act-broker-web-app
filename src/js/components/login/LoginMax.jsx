@@ -8,6 +8,7 @@ import PropTypes from 'prop-types';
 import _ from 'lodash';
 import Cookies from 'js-cookie';
 import { kGlobalConstants } from '../../GlobalConstants';
+import { getRedirectPath } from '../../helpers/loginHelper';
 
 const propTypes = {
     location: PropTypes.object
@@ -37,10 +38,10 @@ export default class LoginMax extends React.Component {
 
     detectRedirection() {
         // check if the URL has a redirect param, save it in the state
-
-        if (Object.prototype.hasOwnProperty.call(this.props.location.query, 'redirect')) {
+        const redirectPath = getRedirectPath(this.props.location);
+        if (redirectPath) {
             this.setState({
-                redirect: this.props.location.query.redirect
+                redirect: redirectPath
             }, () => {
                 // save the redirect destination as a cookie, expire after 5 min (expressed in units of
                 // days per library documentation)
