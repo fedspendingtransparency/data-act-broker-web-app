@@ -5,7 +5,7 @@
 
 import React from 'react';
 import PropTypes from 'prop-types';
-import { BrowserRouter as Router, Switch } from 'react-router-dom';
+import { HashRouter as Router, Switch } from 'react-router-dom';
 import { createBrowserHistory } from "history";
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
@@ -50,8 +50,9 @@ class RouterContainer extends React.Component {
 
     render() {
         return (
-            // <Router history={history}>
-            <Router basename="/#">
+            // <Router history={history}> // Router
+            // <Router basename="/#"> // BrowserRouter
+            <Router>
                 <Switch>
                     {[...Routes.getRoutes().map((route) => (
                         <ProtectedRoute

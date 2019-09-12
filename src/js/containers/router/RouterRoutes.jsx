@@ -66,9 +66,10 @@ const getRoutes = () => {
             authFn: () => true
         },
         {
+            // http://localhost:3000/?ticket=ST-736-7KNEnATPOP5BLskXdztFIGA7rMglogin.test.max.gov#/auth
             path: '/auth',
             component: AuthPage,
-
+            authFn: () => true
         },
         {
             path: '/',
