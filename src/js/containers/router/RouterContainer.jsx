@@ -5,7 +5,7 @@
 
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Router, Switch } from 'react-router-dom';
+import { BrowserRouter as Router, Switch } from 'react-router-dom';
 import { createBrowserHistory } from "history";
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
@@ -50,7 +50,8 @@ class RouterContainer extends React.Component {
 
     render() {
         return (
-            <Router history={history}>
+            // <Router history={history}>
+            <Router basename="/#">
                 <Switch>
                     {[...Routes.getRoutes().map((route) => (
                         <ProtectedRoute
@@ -59,8 +60,7 @@ class RouterContainer extends React.Component {
                             component={route.component}
                             session={this.props.session}
                             authFn={route.authFn} />
-                    )
-                    )]}
+                    ))]}
                 </Switch>
             </Router>
         );
