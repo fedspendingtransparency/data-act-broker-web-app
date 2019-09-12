@@ -62,11 +62,13 @@ const getRoutes = () => {
     const returnRoutes = [
         {
             path: '/login',
-            component: LoginPage
+            component: LoginPage,
+            authFn: () => true
         },
         {
             path: '/auth',
-            component: AuthPage
+            component: AuthPage,
+
         },
         {
             path: '/',
