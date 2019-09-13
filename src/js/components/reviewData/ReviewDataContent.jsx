@@ -14,7 +14,7 @@ import RevalidateDataModal from './CertificationModal/RevalidateDataModal';
 import ReviewDataNarrative from './ReviewDataNarrative';
 import * as Icons from '../SharedComponents/icons/Icons';
 
-import * as UtilHelper from '../../helpers/util';
+import { formatSize } from '../../helpers/util';
 
 const propTypes = {
     data: PropTypes.object,
@@ -204,7 +204,7 @@ export default class ReviewDataContent extends React.Component {
                                 <div className="usa-da-submission-info">
                                     <ul className="no-bullet">
                                         <li>Total File Size:
-                                            <strong> {UtilHelper.formatSize(this.props.data.total_size)}</strong>
+                                            <strong> {formatSize(this.props.data.total_size)}</strong>
                                         </li>
                                         <li>Total Data Rows (excludes headers):
                                             <strong> {this.props.data.number_of_rows}</strong>
