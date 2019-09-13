@@ -117,11 +117,14 @@ export default class ReviewDataContent extends React.Component {
 
     formatSize(totalSize) {
         let displaySize = `${totalSize} bytes`;
-        if (totalSize >= 750000) {
-            displaySize = `${Math.round((totalSize / 100000000) * 100) / 100} MB`;
+        if (totalSize >= 1000000000) {
+            displaySize = `${(totalSize / 1000000000).toFixed(2)} GB`;
         }
-        else if (totalSize >= 750) {
-            displaySize = `${Math.round((totalSize / 1000) * 100) / 100} KB`;
+        else if (totalSize >= 1000000) {
+            displaySize = `${(totalSize / 1000000).toFixed(2)} MB`;
+        }
+        else if (totalSize >= 1000) {
+            displaySize = `${(totalSize / 1000).toFixed(2)} KB`;
         }
         return displaySize;
     }
