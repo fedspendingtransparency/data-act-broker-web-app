@@ -55,8 +55,9 @@ export default class ReviewDataNarrative extends React.Component {
     saveNarrative() {
         this.setState({ saveState: "Saving" });
         const tempNarrative = this.getNewNarrative();
+        tempNarrative.submission_id = this.props.submissionID;
 
-        ReviewHelper.saveNarrative(this.props.submissionID, tempNarrative)
+        ReviewHelper.saveNarrative(tempNarrative)
             .then(() => {
                 this.setState({
                     saveState: "Saved",
