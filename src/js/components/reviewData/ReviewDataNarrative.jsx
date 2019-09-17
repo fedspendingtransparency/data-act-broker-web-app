@@ -33,6 +33,9 @@ export default class ReviewDataNarrative extends React.Component {
         };
 
         this.downloadCommentsFile = this.downloadCommentsFile.bind(this);
+        this.changeFile = this.changeFile.bind(this);
+        this.textChanged = this.textChanged.bind(this);
+        this.saveNarrative = this.saveNarrative.bind(this);
     }
 
     componentDidMount() {
@@ -113,7 +116,7 @@ export default class ReviewDataNarrative extends React.Component {
                     <h4>Add comments to files</h4>
                     <div className="row">
                         <div className="col-md-7">
-                            <ReviewDataNarrativeDropdown changeFile={this.changeFile.bind(this)} />
+                            <ReviewDataNarrativeDropdown changeFile={this.changeFile} />
                         </div>
                         <div className="col-md-5 pull-right">
                             <div
@@ -130,10 +133,10 @@ export default class ReviewDataNarrative extends React.Component {
                     </div>
                     <ReviewDataNarrativeTextfield
                         currentContent={this.state.currentNarrative}
-                        textChanged={this.textChanged.bind(this)} />
+                        textChanged={this.textChanged} />
                     <div className="row">
                         <div className="col-md-12">
-                            <button onClick={this.saveNarrative.bind(this)} className="usa-da-button btn-default">
+                            <button onClick={this.saveNarrative} className="usa-da-button btn-default">
                                 Save Changes
                             </button>
                             <p className={`save-state ${this.state.saveState}`}>
