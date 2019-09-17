@@ -7,6 +7,8 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import ReviewDataNarrativeDropdown from './ReviewDataNarrativeDropdown';
 import ReviewDataNarrativeTextfield from './ReviewDataNarrativeTextfield';
+import { createOnKeyDownHandler } from '../../helpers/util';
+import { CloudDownload } from '../SharedComponents/icons/Icons';
 
 import * as ReviewHelper from '../../helpers/reviewHelper';
 
@@ -26,8 +28,14 @@ export default class ReviewDataNarrative extends React.Component {
             currentFile: "A",
             fileNarrative: {},
             currentNarrative: "",
-            saveState: ""
+            saveState: "",
+            errorMessage: ""
         };
+
+        this.downloadCommentsFile = this.downloadCommentsFile.bind(this);
+        this.changeFile = this.changeFile.bind(this);
+        this.textChanged = this.textChanged.bind(this);
+        this.saveNarrative = this.saveNarrative.bind(this);
     }
 
     componentDidMount() {
@@ -50,10 +58,30 @@ export default class ReviewDataNarrative extends React.Component {
 
         ReviewHelper.saveNarrative(this.props.submissionID, tempNarrative)
             .then(() => {
-                this.setState({ saveState: "Saved" });
+                this.setState({
+                    saveState: "Saved",
+                    errorMessage: ""
+                });
             })
             .catch(() => {
-                this.setState({ saveState: "Error" });
+                this.setState({
+                    saveState: "Error",
+                    errorMessage: ""
+                });
+            });
+    }
+
+    downloadCommentsFile() {
+        ReviewHelper.fetchCommentsFile(this.props.submissionID)
+            .then((result) => {
+                window.open(result.url);
+            })
+            .catch((error) => {
+                console.error(error);
+                this.setState({
+                    saveState: "Error",
+                    errorMessage: `: ${error.message}`
+                });
             });
     }
 
@@ -81,20 +109,39 @@ export default class ReviewDataNarrative extends React.Component {
     }
 
     render() {
+        const onKeyDownHandler = createOnKeyDownHandler(this.downloadCommentsFile);
         return (
             <div className="narrative-wrapper col-md-8">
                 <div className="gray-bg">
                     <h4>Add comments to files</h4>
-                    <ReviewDataNarrativeDropdown changeFile={this.changeFile.bind(this)} />
+                    <div className="row">
+                        <div className="col-md-7">
+                            <ReviewDataNarrativeDropdown changeFile={this.changeFile} />
+                        </div>
+                        <div className="col-md-5 pull-right">
+                            <div
+                                role="button"
+                                tabIndex={0}
+                                className="usa-da-download pull-right"
+                                onKeyDown={onKeyDownHandler}
+                                onClick={this.downloadCommentsFile}>
+                                <span className="usa-da-icon usa-da-download-report">
+                                    <CloudDownload />
+                                </span>Download Comments for All Files (.csv)
+                            </div>
+                        </div>
+                    </div>
                     <ReviewDataNarrativeTextfield
                         currentContent={this.state.currentNarrative}
-                        textChanged={this.textChanged.bind(this)} />
+                        textChanged={this.textChanged} />
                     <div className="row">
                         <div className="col-md-12">
-                            <button onClick={this.saveNarrative.bind(this)} className="usa-da-button btn-default">
+                            <button onClick={this.saveNarrative} className="usa-da-button btn-default">
                                 Save Changes
                             </button>
-                            <p className={`save-state ${this.state.saveState}`}>{this.state.saveState}</p>
+                            <p className={`save-state ${this.state.saveState}`}>
+                                {this.state.saveState}{this.state.errorMessage}
+                            </p>
                         </div>
                     </div>
                 </div>

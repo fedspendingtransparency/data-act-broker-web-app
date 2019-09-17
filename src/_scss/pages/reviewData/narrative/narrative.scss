@@ -65,4 +65,10 @@
     .narrative-box {
         padding-bottom: 10px;
     }
+
+    .usa-da-download {
+        // implement the download button
+        @import "../../../components/buttons/_download";
+        @include downloadButton;
+    }
 }

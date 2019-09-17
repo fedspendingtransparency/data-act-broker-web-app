@@ -372,6 +372,25 @@ export const submissionReport = (submissionId, warning, fileType, crossType) => 
     return deferred.promise;
 };
 
+export const fetchCommentsFile = (submissionId) => {
+    const deferred = Q.defer();
+
+    Request.get(`${kGlobalConstants.API}get_comments_file?submission_id=${submissionId}`)
+        .send()
+        .end((commFile, res) => {
+            if (commFile) {
+                const response = Object.assign({}, res.body);
+                response.httpStatus = res.status;
+                deferred.reject(response);
+            }
+            else {
+                deferred.resolve(res.body);
+            }
+        });
+
+    return deferred.promise;
+};
+
 export const fetchSubmissionNarrative = (submissionId) => {
     const deferred = Q.defer();
 
