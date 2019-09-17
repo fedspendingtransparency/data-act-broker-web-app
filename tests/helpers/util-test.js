@@ -184,4 +184,17 @@ describe("util helper functions", () => {
             expect(cb).toHaveBeenCalledWith("test1", "test2", "test3");
         });
     });
+
+    describe("formatSize", () => {
+        it("returns the correct size formatted to bytes/KB/MB/GB for the given size", () => {
+            expect(utilHelper.formatSize(4)).toEqual("4 bytes");
+            expect(utilHelper.formatSize(850)).toEqual("850 bytes");
+            expect(utilHelper.formatSize(1000)).toEqual("1.00 KB");
+            expect(utilHelper.formatSize(8345)).toEqual("8.35 KB");
+            expect(utilHelper.formatSize(265972)).toEqual("265.97 KB");
+            expect(utilHelper.formatSize(1234567)).toEqual("1.23 MB");
+            expect(utilHelper.formatSize(153498726)).toEqual("153.50 MB");
+            expect(utilHelper.formatSize(9876543210)).toEqual("9.88 GB");
+        });
+    });
 });

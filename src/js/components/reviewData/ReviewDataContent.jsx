@@ -14,6 +14,8 @@ import RevalidateDataModal from './CertificationModal/RevalidateDataModal';
 import ReviewDataNarrative from './ReviewDataNarrative';
 import * as Icons from '../SharedComponents/icons/Icons';
 
+import { formatSize } from '../../helpers/util';
+
 const propTypes = {
     data: PropTypes.object,
     params: PropTypes.object,
@@ -115,17 +117,6 @@ export default class ReviewDataContent extends React.Component {
         return false;
     }
 
-    formatSize(totalSize) {
-        let displaySize = `${totalSize} bytes`;
-        if (totalSize >= 750000) {
-            displaySize = `${Math.round((totalSize / 100000000) * 100) / 100} MB`;
-        }
-        else if (totalSize >= 750) {
-            displaySize = `${Math.round((totalSize / 1000) * 100) / 100} KB`;
-        }
-        return displaySize;
-    }
-
     render() {
         // The first parameter in each of these arrays is the corresponding class for the SVG icon
         const buttonContent = [[<Icons.CheckCircle />, 'Publish this data to USAspending.gov'],
@@ -213,7 +204,7 @@ export default class ReviewDataContent extends React.Component {
                                 <div className="usa-da-submission-info">
                                     <ul className="no-bullet">
                                         <li>Total File Size:
-                                            <strong> {this.formatSize(this.props.data.total_size)}</strong>
+                                            <strong> {formatSize(this.props.data.total_size)}</strong>
                                         </li>
                                         <li>Total Data Rows (excludes headers):
                                             <strong> {this.props.data.number_of_rows}</strong>
