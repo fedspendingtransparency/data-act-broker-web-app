@@ -8,7 +8,7 @@ import PropTypes from 'prop-types';
 import ReviewDataNarrativeDropdown from './ReviewDataNarrativeDropdown';
 import ReviewDataNarrativeTextfield from './ReviewDataNarrativeTextfield';
 import { createOnKeyDownHandler } from '../../helpers/util';
-import * as Icons from '../SharedComponents/icons/Icons';
+import { CloudDownload } from '../SharedComponents/icons/Icons';
 
 import * as ReviewHelper from '../../helpers/reviewHelper';
 
@@ -29,8 +29,10 @@ export default class ReviewDataNarrative extends React.Component {
             fileNarrative: {},
             currentNarrative: "",
             saveState: "",
-            errorMessage: false
+            errorMessage: ""
         };
+
+        this.downloadCommentsFile = this.downloadCommentsFile.bind(this);
     }
 
     componentDidMount() {
@@ -104,7 +106,7 @@ export default class ReviewDataNarrative extends React.Component {
     }
 
     render() {
-        const onKeyDownHandler = createOnKeyDownHandler(this.downloadCommentsFile.bind(this));
+        const onKeyDownHandler = createOnKeyDownHandler(this.downloadCommentsFile);
         return (
             <div className="narrative-wrapper col-md-8">
                 <div className="gray-bg">
@@ -119,9 +121,9 @@ export default class ReviewDataNarrative extends React.Component {
                                 tabIndex={0}
                                 className="usa-da-download pull-right"
                                 onKeyDown={onKeyDownHandler}
-                                onClick={this.downloadCommentsFile.bind(this)}>
+                                onClick={this.downloadCommentsFile}>
                                 <span className="usa-da-icon usa-da-download-report">
-                                    <Icons.CloudDownload />
+                                    <CloudDownload />
                                 </span>Download Comments for All Files (.csv)
                             </div>
                         </div>
