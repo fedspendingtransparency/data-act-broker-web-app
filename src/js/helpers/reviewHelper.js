@@ -394,7 +394,7 @@ export const fetchCommentsFile = (submissionId) => {
 export const fetchSubmissionNarrative = (submissionId) => {
     const deferred = Q.defer();
 
-    Request.get(`${kGlobalConstants.API}submission/${submissionId}/narrative`)
+    Request.get(`${kGlobalConstants.API}get_submission_comments?submission_id=${submissionId}`)
         .end((errFile, res) => {
             if (errFile) {
                 deferred.reject(errFile);
@@ -407,10 +407,10 @@ export const fetchSubmissionNarrative = (submissionId) => {
     return deferred.promise;
 };
 
-export const saveNarrative = (submissionId, narrative) => {
+export const saveNarrative = (narrative) => {
     const deferred = Q.defer();
 
-    Request.post(`${kGlobalConstants.API}submission/${submissionId}/narrative`)
+    Request.post(`${kGlobalConstants.API}update_submission_comments`)
         .send(narrative)
         .end((errFile, res) => {
             if (errFile) {
