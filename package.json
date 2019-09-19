@@ -47,7 +47,6 @@
     "eventemitter2": "^1.0.3",
     "harmonize": "^1.4.4",
     "identity-obj-proxy": "^3.0.0",
-    "jasmine-reporters": "^1.0.0",
     "jest": "^24.8.0",
     "jest-cli": "^24.8.0",
     "jsdom": "^8.1.0",
