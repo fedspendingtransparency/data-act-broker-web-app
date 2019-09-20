@@ -18,5 +18,4 @@ The following are ALL required for the PR to be merged:
 - [ ] Design review (if applicable)
 - [ ] Merged concurrently with [Backend#1234](https://github.com/fedspendingtransparency/data-act-broker-backend/pull/1234)
 - [ ] Unit tests added (if applicable)
-- [ ] Passes linter
 - [ ] Verified cross-browser compatibility
