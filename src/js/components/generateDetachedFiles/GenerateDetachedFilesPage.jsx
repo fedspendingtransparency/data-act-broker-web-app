@@ -3,9 +3,10 @@
 * Created by Alisa Burdeyny
 */
 
-import ReactCSSTransitionGroup from 'react-addons-css-transition-group';
+import CSSTransitionGroup from 'react-transition-group/CSSTransitionGroup';
 
-import React, { PropTypes } from 'react';
+import React from 'react';
+import PropTypes from 'prop-types';
 import moment from 'moment';
 import { assign } from 'lodash';
 import Navbar from '../SharedComponents/navigation/NavigationComponent';
@@ -359,12 +360,12 @@ export default class GenerateDetachedFilesPage extends React.Component {
                                             </div>
                                         </div>
 
-                                        <ReactCSSTransitionGroup
+                                        <CSSTransitionGroup
                                             transitionName="usa-da-meta-fade"
                                             transitionEnterTimeout={500}
                                             transitionLeaveTimeout={300}>
                                             {dateSelect}
-                                        </ReactCSSTransitionGroup>
+                                        </CSSTransitionGroup>
                                     </div>
                                 </div>
                             </div>

@@ -3,7 +3,8 @@
   * Created by Kevin Li 4/11/2016
   */
 
-import React, { PropTypes } from 'react';
+import React from 'react';
+import PropTypes from 'prop-types';
 import tinycolor from 'tinycolor2';
 import { createOnKeyDownHandler } from '../../../helpers/util';
 

@@ -3,7 +3,8 @@
 * Created by MichaelHess
 */
 
-import React, { PropTypes } from 'react';
+import React from 'react';
+import PropTypes from 'prop-types';
 import { hashHistory } from 'react-router';
 
 import Footer from '../SharedComponents/FooterComponent';

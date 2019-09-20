@@ -3,7 +3,8 @@
  * Created by Kwadwo Opoku-Debrah 8/25/18
  */
 
-import React, { PropTypes } from 'react';
+import React from 'react';
+import PropTypes from 'prop-types';
 
 import CreatedByContainer from '../../../containers/dashboard/CreatedByContainer';
 

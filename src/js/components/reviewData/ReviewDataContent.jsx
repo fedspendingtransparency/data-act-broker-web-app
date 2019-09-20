@@ -3,7 +3,8 @@
  * Created by Mike Bray 3/28/16
  */
 
-import React, { PropTypes } from 'react';
+import React from 'react';
+import PropTypes from 'prop-types';
 import moment from 'moment';
 import ReviewDataContentRow from './ReviewDataContentRow';
 import ReviewDataButton from './ReviewDataButton';

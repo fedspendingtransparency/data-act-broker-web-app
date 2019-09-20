@@ -3,7 +3,8 @@
  * Created by Minahm Kim 6/29/17
  */
 
-import React, { PropTypes } from 'react';
+import React from 'react';
+import PropTypes from 'prop-types';
 import { hashHistory } from 'react-router';
 import { connect } from 'react-redux';
 import { reduce } from 'lodash';

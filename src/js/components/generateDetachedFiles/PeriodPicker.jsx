@@ -3,7 +3,8 @@
  * Created by Kwadwo Opoku-Debrah 12/06/18
  */
 
-import React, { PropTypes } from 'react';
+import React from 'react';
+import PropTypes from 'prop-types';
 import * as utils from '../../helpers/util';
 import { AngleDown } from '../SharedComponents/icons/Icons';
 import PeriodButton from './PeriodButton';

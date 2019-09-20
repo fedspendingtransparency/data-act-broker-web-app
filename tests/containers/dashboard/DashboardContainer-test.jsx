@@ -3,7 +3,8 @@
  * Created by Lizzie Salita 10/29/18
  */
 
-import React, { PropTypes } from 'react';
+import React from 'react';
+import PropTypes from 'prop-types';
 import { shallow, mount } from 'enzyme';
 
 // mock the submission list helper
