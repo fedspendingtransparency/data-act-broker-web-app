@@ -32,16 +32,6 @@ build
 public
 .tern-port
 
-# Ignore Nightwatch globals and results
-test/globals.js
-test/reports
-
-# Ignore test files
-test/uploads
-
-# Ignore test bin
-test/bin
-
 *.DS_Store
 
 # Ignore Babel build cache
@@ -49,3 +39,5 @@ cache/
 
 # bash script
 broker.sh
+
+.idea/

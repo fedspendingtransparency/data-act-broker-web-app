@@ -39,8 +39,7 @@
         "react/jsx-indent-props": [2, 4],
         // closing brackets should be aligned with the final prop (props.. />)
         "react/jsx-closing-bracket-location": [2, "after-props"],
-        // downgrading to warning when using props purely within componentWillReceiveProps
-        "react/no-unused-prop-types": [1],
+        "react/no-unused-prop-types": [2],
         // also set the tab width for the max line width with a max length of 120
         "max-len": [1, 120, {"tabWidth": 4}],
         // do not allow dangling commas at the end of arrays, objects, etc.
@@ -88,7 +87,7 @@
         "no-restricted-globals": [0],
         // default prop types not required
         "react/require-default-props": [0],
-        "react/default-props-match-prop-types": [0],
+        "react/default-props-match-prop-types": [1],
         // allow object prop-type
         "react/forbid-prop-types": [1, {
             "forbid": ["any"]
