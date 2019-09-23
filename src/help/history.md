@@ -1,3 +1,11 @@
+#### September 6, 2019
+In this release of the Broker, we:
+
+* Fixed a bug in FABS where after publishing a file and then navigating to upload a new file the upload file box wasn’t resetting and displayed the last published file name.
+* Corrected an issue where the Broker was not always redirecting when users entered a new Submission ID in the URL. Users can now enter valid FABS or DABS Submission ID’s in the URL while viewing another Submission and be taken to the requested submission. Users will be notified to navigate to FABS first when they are currently viewing a DABS Submission and enter a FABS Submission ID, and vice versa. User will also be shown an error message if attempting to navigate to a deleted or nonexistent Submission ID.  
+
+NOTE: This change updates the DABS URL structure and any saved shortcuts to historical Submissions will no longer work with the old URL structure.  Users can filter by Submission ID in the Broker or navigate to the historical Submission ID by entering it in the current URL line if they want to view previous Submissions.  Or simply append ‘/submission/1234’ (where 1234 is the Submission ID) to the Broker URL to navigate to the desired Submission.  
+
 #### August 23, 2019
 In this release of the Broker, we:
 
