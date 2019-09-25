@@ -15,8 +15,8 @@ https://invis.io/RYA3XN5WP#/273832670_Homepage_2-2_E
 
 The following are ALL required for the PR to be merged:
 - [ ] Frontend review completed
-- [ ] Design review (if applicable)
+- [ ] Scheduled Demo including Design/Testing/Front-end OR Provided Instructions for Local Testing above and in JIRA (if applicable)
+- [ ] Tagged Designer in `#br-frontend` Slack Channel in the thread under the Post from Github for their SA
 - [ ] Merged concurrently with [Backend#1234](https://github.com/fedspendingtransparency/data-act-broker-backend/pull/1234)
-- [ ] Unit tests added (if applicable)
-- [ ] Passes linter
 - [ ] Verified cross-browser compatibility
+- [ ] All componentWillReceiveProps, componentWillMount, and componentWillUpdate in relevant child/parent components/containers replaced with [future compatible life-cycle methods](https://reactjs.org/blog/2018/03/27/update-on-async-rendering.html) per [JIRA item 3339](https://federal-spending-transparency.atlassian.net/browse/DEV-3339)
