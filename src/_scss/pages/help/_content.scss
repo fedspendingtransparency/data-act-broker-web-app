@@ -7,18 +7,6 @@
 		margin-bottom: 1rem;
 	}
 
-	.usa-da-help-content__date {
-		font-size: 2rem;
-	}
-
-	.usa-da-help-content__content {
-		margin-top: 1rem;
-	}
-
-	.usa-da-help-content__list {
-		margin-bottom: 0.5rem;
-	}
-
 	.resources-page-content {
 		max-width: 100%;
 	}
@@ -28,13 +16,16 @@
     	max-width: 100%;
     }
 
-	// margin updates for changelog
-	h4 {
-		margin-bottom: 1.6rem;
+	h4 { // Dates
+		margin-bottom: 1.2rem;
+		font-size: 2.0rem;
+		font-weight: bold;
 	}
 
 	h5 {
 		margin-bottom: 1rem;
+		font-size: 1.8rem;
+		font-weight: normal;
 	}
 
 	h6 {
@@ -48,7 +39,7 @@
 
 	ul {
         margin-top: 1.5rem;
-        margin-bottom: 3.5rem;
+        margin-bottom: 2.2rem;
         margin-left: 0px;
         ul {
             padding-left: 20px;

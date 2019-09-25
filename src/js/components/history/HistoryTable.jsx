@@ -3,7 +3,8 @@
   * Created by Minahm Kim 06/05/17
   */
 
-import React, { PropTypes } from 'react';
+import React from 'react';
+import PropTypes from 'prop-types';
 
 import * as SubmissionListHelper from '../../helpers/submissionListHelper';
 import * as UtilHelper from '../../helpers/util';
@@ -34,6 +35,7 @@ export default class HistoryTable extends React.Component {
                 body: ''
             }
         };
+        this.getSignedUrl = this.getSignedUrl.bind(this);
     }
 
     componentDidMount() {
@@ -99,12 +101,13 @@ export default class HistoryTable extends React.Component {
         const activeSubmissionsFiles = this.state.certifications[this.state.active].certified_files;
         const list = [];
         for (let i = 0; i < activeSubmissionsFiles.length; i++) {
+            const onKeyDownHandler = UtilHelper.createOnKeyDownHandler(this.getSignedUrl, [i]);
             list.push(
                 <div
                     role="button"
                     tabIndex={0}
                     className="file-link"
-                    onKeyDown={this.getSignedUrl.bind(this, i)}
+                    onKeyDown={onKeyDownHandler}
                     onClick={this.getSignedUrl.bind(this, i)}
                     key={i}>
                     {activeSubmissionsFiles[i].filename}

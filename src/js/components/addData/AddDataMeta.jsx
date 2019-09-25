@@ -3,8 +3,9 @@
 * Created by Mike Bray 3/21/16
 */
 
-import React, { PropTypes } from 'react';
-import ReactCSSTransitionGroup from 'react-addons-css-transition-group';
+import React from 'react';
+import PropTypes from 'prop-types';
+import CSSTransitionGroup from 'react-transition-group/CSSTransitionGroup';
 import { Link } from 'react-router';
 import AgencyListContainer from '../../containers/SharedContainers/AgencyListContainer';
 import * as Icons from '../SharedComponents/icons/Icons';
@@ -150,7 +151,7 @@ export default class AddDataMeta extends React.Component {
                     modalMessage: (
                         <div>
                             {err.message} You can update the certified submission
-                            <Link to={`/validateData/${err.submissionId}`}> here</Link>
+                            <Link to={`/submission/${err.submissionId}/validateData`}> here</Link>
                             .
                         </div>
                     )
@@ -245,26 +246,26 @@ export default class AddDataMeta extends React.Component {
                                     </div>
                                 </div>
 
-                                <ReactCSSTransitionGroup
+                                <CSSTransitionGroup
                                     transitionName="usa-da-meta-fade"
                                     transitionEnterTimeout={500}
                                     transitionLeaveTimeout={300}>
                                     {dateTypeField}
-                                </ReactCSSTransitionGroup>
+                                </CSSTransitionGroup>
 
-                                <ReactCSSTransitionGroup
+                                <CSSTransitionGroup
                                     transitionName="usa-da-meta-fade"
                                     transitionEnterTimeout={500}
                                     transitionLeaveTimeout={300}>
                                     {dateRangeField}
-                                </ReactCSSTransitionGroup>
+                                </CSSTransitionGroup>
 
-                                <ReactCSSTransitionGroup
+                                <CSSTransitionGroup
                                     transitionName="usa-da-meta-fade"
                                     transitionEnterTimeout={500}
                                     transitionLeaveTimeout={300}>
                                     {submissionComponent}
-                                </ReactCSSTransitionGroup>
+                                </CSSTransitionGroup>
                             </div>
                             <div className="usa-da-guide-link">
                                 <a href="#/submissionGuide?force=true">View Submission Guide</a>

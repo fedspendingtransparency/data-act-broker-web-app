@@ -3,7 +3,8 @@
  * Created by Mike Bray 6/8/16
  */
 
-import React, { PropTypes } from 'react';
+import React from 'react';
+import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
 import * as ReviewHelper from '../../helpers/reviewHelper';
@@ -11,7 +12,8 @@ import * as ReviewHelper from '../../helpers/reviewHelper';
 import ReviewDataPage from '../../components/reviewData/ReviewDataPage';
 
 const propTypes = {
-    params: PropTypes.object
+    params: PropTypes.object,
+    errorFromStep: PropTypes.func
 };
 
 const defaultProps = {
@@ -54,7 +56,7 @@ class ReviewDataContainer extends React.Component {
     loadData() {
         let submissionData = {};
 
-        ReviewHelper.fetchSubmissionMetadata(this.props.params.submissionID)
+        ReviewHelper.fetchSubmissionMetadata(this.props.params.submissionID, 'dabs')
             .then((data) => {
                 submissionData = data;
                 submissionData.ready = true;
@@ -90,6 +92,7 @@ class ReviewDataContainer extends React.Component {
             })
             .catch((error) => {
                 console.error(error);
+                this.props.errorFromStep(error.body.message);
             });
     }
 

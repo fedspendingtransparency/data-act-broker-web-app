@@ -3,9 +3,9 @@
   * Created by Nipun Monga 02/27/17
   */
 
-import React, { PropTypes } from 'react';
+import React from 'react';
+import PropTypes from 'prop-types';
 import Modal from 'react-aria-modal';
-import { hashHistory } from 'react-router';
 import * as Icons from '../../SharedComponents/icons/Icons';
 
 import RevalidateButtons from './RevalidateButtons';
@@ -15,7 +15,8 @@ const propTypes = {
     closeModal: PropTypes.func,
     data: PropTypes.object,
     submissionID: PropTypes.string,
-    isOpen: PropTypes.bool
+    isOpen: PropTypes.bool,
+    setStep: PropTypes.func
 };
 
 const defaultProps = {
@@ -42,7 +43,7 @@ export default class RevalidateDataModal extends React.Component {
             .then(() => {
                 this.closeModal();
                 // Redirect to validateData page
-                hashHistory.push(`/validateData/${this.props.submissionID}`);
+                this.props.setStep(0);
             })
             .catch((error) => {
                 let errMsg = "An error occurred while attempting to certify the submission. " +

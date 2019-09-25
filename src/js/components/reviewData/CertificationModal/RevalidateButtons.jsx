@@ -3,7 +3,8 @@
   * Created by Nipun Monga 02/27/17
   */
 
-import React, { PropTypes } from 'react';
+import React from 'react';
+import PropTypes from 'prop-types';
 
 const propTypes = {
     closeModal: PropTypes.func,
@@ -23,12 +24,14 @@ export default class RevalidateButtons extends React.Component {
                 <p>Revalidation cannot be undone and will trigger the following:</p>
                 <ul>
                     <li>You will be redirected to the initial submission phase, where Files A, B, and C will
-                        automatically be revalidated.</li>
+                        automatically be revalidated.
+                    </li>
                     <li>Files D1, D2, E and F must be regenerated.</li>
                     <li>Cross-file validations must be run again.</li>
                 </ul>
                 <p>Revalidation will not alter a previously-certified submission, until and if you certify the
-                    revalidated submission.</p>
+                    revalidated submission.
+                </p>
                 <div className="row">
                     <div className="col-md-6 mb-10">
                         <button

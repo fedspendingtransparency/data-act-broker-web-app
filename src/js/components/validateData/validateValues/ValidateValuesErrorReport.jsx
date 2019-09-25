@@ -3,7 +3,8 @@
  * Created by Kevin Li 4/4/2016
  */
 
-import React, { PropTypes } from 'react';
+import React from 'react';
+import PropTypes from 'prop-types';
 import _ from 'lodash';
 import ScrollableTable from '../../SharedComponents/table/ScrollableTable';
 
@@ -11,6 +12,7 @@ import ValidateValuesTreemap from './ValidateValuesTreemap';
 import * as Icons from '../../SharedComponents/icons/Icons';
 
 import * as ReviewHelper from '../../../helpers/reviewHelper';
+import { createOnKeyDownHandler } from '../../../helpers/util';
 
 const propTypes = {
     colors: PropTypes.object,
@@ -45,6 +47,7 @@ export default class ValidateValuesErrorReport extends React.Component {
             signedUrl: '',
             signInProgress: false
         };
+        this.clickedReport = this.clickedReport.bind(this);
     }
 
 
@@ -159,6 +162,7 @@ export default class ValidateValuesErrorReport extends React.Component {
     }
 
     render() {
+        const onKeyDownHandler = createOnKeyDownHandler(this.clickedReport);
         let reportLinkText = `Download ${this.props.name}s Report`;
         if (this.state.signInProgress) {
             reportLinkText = `Preparing ${this.props.name}s Report...`;
@@ -176,8 +180,8 @@ export default class ValidateValuesErrorReport extends React.Component {
                                 role="button"
                                 tabIndex={0}
                                 className="usa-da-download pull-right"
-                                onKeyDown={this.clickedReport.bind(this)}
-                                onClick={this.clickedReport.bind(this)}>
+                                onKeyDown={onKeyDownHandler}
+                                onClick={this.clickedReport}>
                                 <span className="usa-da-icon usa-da-download-report"><Icons.CloudDownload /></span>
                                 {reportLinkText}
                             </div>

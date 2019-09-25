@@ -3,7 +3,8 @@
 * Created by Kyle Fox 2/19/16
 */
 
-import React, { PropTypes } from 'react';
+import React from 'react';
+import PropTypes from 'prop-types';
 import moment from 'moment';
 
 import * as ReviewHelper from '../../helpers/reviewHelper';
@@ -51,7 +52,7 @@ export default class AddDataHeader extends React.Component {
         if (submissionID === null || submissionID === '') {
             return;
         }
-        ReviewHelper.fetchSubmissionMetadata(submissionID)
+        ReviewHelper.fetchSubmissionMetadata(submissionID, 'dabs')
             .then((data) => {
                 const tmpData = data;
                 tmpData.ready = true;

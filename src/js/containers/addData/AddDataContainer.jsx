@@ -3,7 +3,8 @@
 * Created by Kevin Li 3/24/16
 */
 
-import React, { PropTypes } from 'react';
+import React from 'react';
+import PropTypes from 'prop-types';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { hashHistory } from 'react-router';
@@ -52,7 +53,7 @@ class AddDataContainer extends React.Component {
         const count = 9;
         GuideHelper.getSubmissionPage(submissionID)
             .then(() => {
-                hashHistory.push(`/validateData/${submissionID}`);
+                hashHistory.push(`submission/${submissionID}/validateData`);
             })
             .catch(() => {
                 if (index === count) {

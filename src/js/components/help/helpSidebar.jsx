@@ -3,8 +3,8 @@
  * Created by Mike Bray 4/1/16
  */
 
-import React, { PropTypes } from 'react';
-import { kGlobalConstants } from '../../GlobalConstants';
+import React from 'react';
+import PropTypes from 'prop-types';
 import HelpSidebarItem from './helpSidebarItem';
 
 const propTypes = {
@@ -72,14 +72,14 @@ export default class HelpSidebar extends React.Component {
         return (
             <div className="usa-da-help-sidebar">
                 {schedule}
-                <h6>What’s New in This Release</h6>
+                <h6>What&rsquo;s New in This Release</h6>
                 <ul>
                     {clSectionList}
                     <li>
                         <a href={history}>Release Notes Archive</a>
                     </li>
                 </ul>
-                <h6>This Releases Technical Notes</h6>
+                <h6>This Release&rsquo;s Technical Notes</h6>
                 <ul>
                     {tSectionList}
                     <li>

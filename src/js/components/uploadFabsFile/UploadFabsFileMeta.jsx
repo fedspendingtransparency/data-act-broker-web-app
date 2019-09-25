@@ -3,9 +3,10 @@
 * Created by Minahm Kim
 */
 
-import ReactCSSTransitionGroup from 'react-addons-css-transition-group';
+import CSSTransitionGroup from 'react-transition-group/CSSTransitionGroup';
 
-import React, { PropTypes } from 'react';
+import React from 'react';
+import PropTypes from 'prop-types';
 
 import SubTierAgencyListContainer from '../../containers/SharedContainers/SubTierAgencyListContainer';
 import UploadFabsFileBox from './UploadFabsFileBox';
@@ -263,12 +264,12 @@ export default class UploadFabsFileMeta extends React.Component {
                                         </div>
                                     </div>
                                 </div>
-                                <ReactCSSTransitionGroup
+                                <CSSTransitionGroup
                                     transitionName="usa-da-meta-fade"
                                     transitionEnterTimeout={600}
                                     transitionLeaveTimeout={200}>
                                     {uploadFilesBox}
-                                </ReactCSSTransitionGroup>
+                                </CSSTransitionGroup>
                                 {errorMessage}
                             </div>
                         </div>

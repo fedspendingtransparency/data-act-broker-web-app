@@ -24,14 +24,16 @@ export const quarterToMonth = (quarter, quarterYear, type) => {
     const startMonth = ["10", "01", "04", "07"];
     const endMonth = ["12", "03", "06", "09"];
 
-    let month = startMonth[quarter - 1];
+    const normalQuarter = parseInt(quarter, 10);
+
+    let month = startMonth[normalQuarter - 1];
 
     if (type === "end") {
-        month = endMonth[quarter - 1];
+        month = endMonth[normalQuarter - 1];
     }
 
     let year = parseInt(quarterYear, 10);
-    if (quarter === 1) {
+    if (normalQuarter === 1) {
         // decrement the year by one for the first quarter of the fiscal year
         year -= 1;
     }
@@ -150,4 +152,24 @@ export const getPeriodTextFromValue = (value) => {
         3: "03 - December"
     };
     return periodDictionary[value];
+};
+
+export const createOnKeyDownHandler = (cb, args = [], keyCodes = [13, 32]) => (e) => { // 13 enter; 32 space
+    if (keyCodes.includes(e.keyCode)) {
+        cb(...args);
+    }
+};
+
+export const formatSize = (totalSize) => {
+    let displaySize = `${totalSize} bytes`;
+    if (totalSize >= 1000000000) {
+        displaySize = `${(totalSize / 1000000000).toFixed(2)} GB`;
+    }
+    else if (totalSize >= 1000000) {
+        displaySize = `${(totalSize / 1000000).toFixed(2)} MB`;
+    }
+    else if (totalSize >= 1000) {
+        displaySize = `${(totalSize / 1000).toFixed(2)} KB`;
+    }
+    return displaySize;
 };

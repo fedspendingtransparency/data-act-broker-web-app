@@ -35,7 +35,7 @@ export const globalFileData = {
     }
 };
 
-const determineExpectedPairs = () => {
+export const determineExpectedPairs = () => {
     const output = [];
 
     availablePairs.forEach((keyName) => {
@@ -107,7 +107,7 @@ export const getCrossFileData = (data, type) => {
     return output;
 };
 
-export const fetchSubmissionMetadata = (submissionId) => {
+export const fetchSubmissionMetadata = (submissionId, type) => {
     const deferred = Q.defer();
 
     // set the submission ID
@@ -117,13 +117,15 @@ export const fetchSubmissionMetadata = (submissionId) => {
     Request.get(`${kGlobalConstants.API}submission_metadata/?submission_id=${submissionId}`)
         .end((errFile, res) => {
             if (errFile) {
-                deferred.reject(res);
+                return deferred.reject(res);
             }
-            else {
-                const response = Object.assign({}, res.body);
-                store.dispatch(uploadActions.setSubmissionPublishStatus(response.publish_status));
-                deferred.resolve(res.body);
+            if (!res.body.fabs_meta && type === 'fabs') {
+                const message = 'This is a DABS ID. Please navigate to DABS.';
+                return deferred.reject({ body: { message } });
             }
+            const response = Object.assign({}, res.body);
+            store.dispatch(uploadActions.setSubmissionPublishStatus(response.publish_status));
+            return deferred.resolve(res.body);
         });
 
     return deferred.promise;
@@ -370,10 +372,29 @@ export const submissionReport = (submissionId, warning, fileType, crossType) => 
     return deferred.promise;
 };
 
+export const fetchCommentsFile = (submissionId) => {
+    const deferred = Q.defer();
+
+    Request.get(`${kGlobalConstants.API}get_comments_file?submission_id=${submissionId}`)
+        .send()
+        .end((commFile, res) => {
+            if (commFile) {
+                const response = Object.assign({}, res.body);
+                response.httpStatus = res.status;
+                deferred.reject(response);
+            }
+            else {
+                deferred.resolve(res.body);
+            }
+        });
+
+    return deferred.promise;
+};
+
 export const fetchSubmissionNarrative = (submissionId) => {
     const deferred = Q.defer();
 
-    Request.get(`${kGlobalConstants.API}submission/${submissionId}/narrative`)
+    Request.get(`${kGlobalConstants.API}get_submission_comments?submission_id=${submissionId}`)
         .end((errFile, res) => {
             if (errFile) {
                 deferred.reject(errFile);
@@ -386,10 +407,10 @@ export const fetchSubmissionNarrative = (submissionId) => {
     return deferred.promise;
 };
 
-export const saveNarrative = (submissionId, narrative) => {
+export const saveNarrative = (narrative) => {
     const deferred = Q.defer();
 
-    Request.post(`${kGlobalConstants.API}submission/${submissionId}/narrative`)
+    Request.post(`${kGlobalConstants.API}update_submission_comments`)
         .send(narrative)
         .end((errFile, res) => {
             if (errFile) {

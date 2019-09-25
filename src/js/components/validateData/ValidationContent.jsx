@@ -3,7 +3,8 @@
  * Created by Mike Hess 8/15/17
  */
 
-import React, { PropTypes } from 'react';
+import React from 'react';
+import PropTypes from 'prop-types';
 
 import ValidationOverlayContainer from '../../containers/validateData/ValidationOverlayContainer';
 import ValidateDataFileContainer from '../../containers/validateData/ValidateDataFileContainer';
@@ -17,7 +18,8 @@ const propTypes = {
     submission: PropTypes.object,
     agencyName: PropTypes.string,
     hasFailed: PropTypes.bool,
-    hasFinished: PropTypes.bool
+    hasFinished: PropTypes.bool,
+    nextStep: PropTypes.func
 };
 
 const defaultProps = {
@@ -68,6 +70,7 @@ export default class ValidationContent extends React.Component {
         }
         else {
             overlay = (<ValidationOverlayContainer
+                nextStep={this.props.nextStep}
                 warnings={warnings}
                 errors={errors} />);
         }

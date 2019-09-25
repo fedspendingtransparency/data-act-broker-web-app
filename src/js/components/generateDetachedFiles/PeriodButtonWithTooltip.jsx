@@ -3,17 +3,11 @@
 * Created by Lizzie Salita 3/4/19
 */
 
-import React, { PropTypes } from 'react';
+import React from 'react';
 import * as utils from '../../helpers/util';
 
-const propTypes = {
-    active: PropTypes.bool
-};
-
-const defaultProps = {
-    active: false
-};
-
+// TODO - Lizzie: after upgrading to React 16, change this to a functional component
+// with useState
 export default class PeriodButtonWithTooltip extends React.Component {
     constructor(props) {
         super(props);
@@ -71,9 +65,5 @@ export default class PeriodButtonWithTooltip extends React.Component {
                 {tooltip}
             </li>
         );
-    };
+    }
 }
-
-
-PeriodButtonWithTooltip.propTypes = propTypes;
-PeriodButtonWithTooltip.defaultProps = defaultProps;

@@ -3,7 +3,8 @@
   * Created by Kevin Li 10/31/16
   */
 
-import React, { PropTypes } from 'react';
+import React from 'react';
+import PropTypes from 'prop-types';
 
 const propTypes = {
     changePage: PropTypes.func,

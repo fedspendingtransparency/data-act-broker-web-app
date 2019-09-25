@@ -1,3 +1,105 @@
+#### August 23, 2019
+In this release of the Broker, we:
+
+* Updated DABS to store errors and warnings associated with certified submissions to allow for easier queries and to better position the data for future use.
+* Added samples to the API documentation for readability and clarity.
+* Added additional columns to the Federal Hierarchy export for a fuller representation of the data.
+* Updated the warning text shown to users when deleting a submission.
+
+#### August 9, 2019
+In this release of the Broker, we:
+
+* Updated DABS and FABS row count on uploaded/generated files to only display the number of rows of data and clarified the text to make this clear.
+* Updated functionality for ‘Last Modified’ filter on the DABS and FABS Submission Dashboards to limit selectable date ranges to periods where data exists.
+* Added new SubTier 97CY to unified agency list.
+* Default sorting of certified submissions on DABS Submission Dashboard updated to ‘Last Modified’ column so the most recent certified submission shows at top of list regardless of the period being certified.
+
+#### July 29, 2019
+In this release of the Broker, we:
+
+* Updated FABS to allow deletion of previously published records with only the unique combination of FAIN, AwardModificationAmendmentNumber, URI, CFDA_Number, and AwardingSubTierAgencyCode elements needing to be provided on the submission file (along with a CorrectionDeleteIndicator of ‘D’).
+* Updated file header validation to only process the DAIMS Data Element Label name or the Terse 30 Label as valid header name. All other header names will be ignored and not processed as data.
+* Updated the on screen Header Error report and downloadable Header Error report to return the DAIMS Data Element Label that is missing and not the terse name for clarity.
+* Updated checks in FABS for ActionType to ensure it is not case-sensitive.
+
+#### July 15, 2019
+In this release of the Broker, we:
+
+* Updated cross file validation between FAIN/URI/PIID/Parent PIID between C and D1/D2 to ensure it is not case-sensitive.
+* Updated checks in FABS for BusinessTypes, Country Codes, duplicate Awards, and SubTier Codes to ensure they are not case-sensitive.
+* Updated Subaward/Prime Award matching to ensure matching is not case-sensitive.
+* Consolidated multiple back-end agency lists into a single unified agency list and updated all back-end references and code to use this new consolidated list.
+
+#### June 28, 2019
+In this release of the Broker, we:
+
+* Updated File F generation process to make use of Broker backend updates implemented in the prior release.  This allows for Broker based generation of File F without need for external query each time.
+* Updated FABS check for duplicate transactions to no longer be case sensitive.  Also, ensured Office Codes and Primary Place of Performance Code are not case sensitive.
+* Updated unique transaction key to allow reporting of multiple CFDA Programs in FABS.  Updated related FABS2 rules text to include CFDA Program.
+* Updated country code list used by Broker to GENC 3.0 update 10.
+* Fixed a frontend bug where any key press would trigger certain buttons on the Broker when they had tab focus.
+* Updated the Broker to respond to the IAE Federal Hierarchy splitting the funding office flag into assistance funding and contract funding flags.
+
+#### June 14, 2019
+In this release of the Broker, we:
+
+* Backend updates to implement DAIMS 1.3.1 changes related to File F, and pave the way for unified, Broker-based approach to subaward data in USAspending
+* Improved how the Broker uses and stores Executive Compensation data so that File E can be generated from an internal table (updated daily) rather than an ad-hoc SAM WSDL query. Executive Compensation data is now stored transactionally with contracts and assistance data for easier and more accurate surfacing on USAspending. Backfilled this executive compensation data at the transactional level (at the time of award) where historical EC data was available in SAM SFTP service. 
+
+#### June 3, 2019
+In this release of the Broker, we:
+
+* Made the Reporting Period column of Certified Submissions on the DABS Submission Dashboard sortable to allow viewing certified submissions chronologically.
+* Updated how the DABS backend handles DUNS file loads and File E generation for improved efficiency.
+* Added General Ledger Post Date to the Award Financial File C in DABS as indicated in DAIMS 1.3.1 for FY2019 Quarter 3. This is an optional field, but, consistent with longstanding DAIMS requirements, agencies must include it as a header in File C from this point forward.
+
+#### May 20, 2019
+In this release of the Broker, we:
+
+* Updated domestic city and county codes and USPS ZIP Code data (including all derivations from ZIP such as congressional district mappings).  
+* Updated FABS City Code table and automated update process.  
+* Updated validation rules A7, A9, A10, and A11 to ensure proper handling of null values.
+* Various backend process improvements with validator timeout/termination handling, and memory management.
+
+#### May 6, 2019
+In this release of the Broker, we:
+
+* Updated FABS to accommodate an office type name change in Federal Hierarchy API.
+* Modified the error file text output by the Broker for FABS19 and FABS24.2 to clarify why they trigger in certain edge cases. No code logic for these rules changed, only error text. 
+* Updated DABS validation rule C11 to significantly improve processing time for large submission file sets.
+* Backfilled FY19Q1 derived data elements in agency FABS submissions that relied on the Federal Hierarchy (office names, funding subtier code/name when not submitted and derivable, funding toptier code/name). No agency submitted data was altered, only derived elements that were previously blank (due to being received in FABS before agency data was completely loaded into the Federal Hierarchy).
+* Added SubTier 4340 (new NEH SubTier) and 9505 (new STB SubTier) to Broker.
+
+#### April 19, 2019
+In this release of the Broker, we:
+
+* In DABS, after clicking "Certify" and confirming, the “Certify” button is disabled and the text updated to indicate that certification is in progress.  This is to prevent users from accidentally clicking and certifying multiple times.
+* Minor fix to the dropdown text on the File A Generation page, where the quarter indicators were previously misaligned in some cases; quarters now align to the appropriate period. 
+* Updated the D1/D2 funding toggle within DABS to allow for separate toggle selections for D1/D2. This will provide agencies with the ability to choose 'funding' for one D file and 'awarding' for the other within DABS.
+
+#### April 5, 2019
+In this release of the Broker, we:
+
+* Updated Broker Resource page to reference DAIMS v1.3.1 documents.
+* Implemented DAIMS v1.3.1 changes to elements in File D1 and D2. Users who have scripts based on D1/D2 files should update them to match the D1/D2 elements and names in DAIMS v1.3.1.
+* Updated Submission Dashboard to notify user if there are no submissions to display.
+* Fixed edge-case issue with email sent after the creation of the DABS submission. These errors only occurred for agencies associated with a FREC. 
+* Fixed small issue with line count inaccuracies in File A that occurred when extra carriage returns were present in the submission file.
+* Fixed validation rule A34 to correctly generate a critical error when the BudgetAuthorityUnobligatedBalanceBroughtForward value is empty.
+* Fixed download URL expiration issue for File A/D1/D2. Links are now generated upon click.
+* Various backend changes and improvements surrounding job handling and memory management.
+
+#### March 25, 2019
+In this release of the Broker, we:
+
+* Made edits to File F generation to align with changes in DAIMS v1.3.1
+* Implemented the FABS38.2.2 validation rule from DAIMS v1.3.1.
+* Renamed FABS38.2 to FABS38.2.1 to accommodate the new FABS38.2.2 validation rule.
+* Implemented the FABS38.4.1 validation rule from DAIMS v1.3.1
+* Renamed FABS38.4 to FABS38.4.1 to accommodate the new FABS38.4.2 validation rule. 
+* Updated B9 Validation Rule to be case-insensitive when checking the program activity name/program activity code combination for the corresponding funding TAS/TAF.
+* Fixed aberrant display box behavior that occasionally occurred when viewing with the visual summary information on errors or warnings for a submission.
+
 #### March 11, 2019
 In this release of the Broker, we:
 

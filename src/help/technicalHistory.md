@@ -1,3 +1,102 @@
+#### August 23, 2019{section=technical}
+
+In this release, here is a list of technical changes that may require infrastructure or database updates, or represents additional functionality.
+
+* Added `place_of_perform_street` and `sub_place_of_perform_street` columns to the Subaward table.
+* Created `certified_error_metadata` table to keep track of errors and warnings of certified submissions.
+* Ensured that the `list_submissions` endpoint is accurate matching its `min_last_modified` with the submission's `last_modified` value.
+* Added logs to incoming API requests to help track down specific errors.
+
+#### August 9, 2019{section=technical}
+
+In this release, here is a list of technical changes that may require infrastructure or database updates, or represents additional functionality.
+
+* Updated FPDS loader to store "Additional Reporting" records in preparation for future DAIMS work.
+* Updated the accuracy of file upload row counts, excluding the header and extra carriage returns.
+* Improved the performance of cross-file rules A18 and A19.
+* Updated Federal Hierarchy loader to include metrics on new CGAC’s, subtiers to be imported in order to update the unified agency list shared with USAspending.gov.
+* Added functionality to generate pipe-delimited text files for D1 and D2.
+
+#### July 29, 2019{section=technical}
+
+In this release, here is a list of technical changes that may require infrastructure or database updates, or represents additional functionality.
+
+* Added additional metadata with uploads for easier tracking.
+* Dropped the deprecated ExecutiveCompensation table (the DUNS table now includes this data).
+* Removed dependency on the unified agency list's "FPDS Department ID" column.
+
+#### July 15, 2019{section=technical}
+
+In this release, here is a list of technical changes that may require infrastructure or database updates, or represents additional functionality.
+
+* Reloaded agencies using the unified agency list to be shared between broker and USAspending API.
+* Verified and updated the following SQL validation rules for FABS to be case-insensitive: 13, 14, 15, 16, 17, 18, 21, 23, 31.
+* Verified and updated the logic of FABS derivations to be based on case-insensitive values.
+
+#### June 28, 2019{section=technical}
+
+In this release, here is a list of technical changes that may require infrastructure or database updates, or represents additional functionality.
+
+* Optimized FSRS loader scripts for both daily FSRS updates, resolving unlinked subawards, and entirely rederiving Subaward data.
+* Reordered elements in the unique FABS transaction key and included CFDA Number to the uniqueness.
+* Added an upper index on afa_generated_unique for performance.
+
+#### June 14, 2019{section=technical}
+
+In this release, here is a list of technical changes that may require infrastructure or database updates, or represents additional functionality.
+
+* Updated FSRS loader to populate Subaward data including derivations for File F and other FSRS data points.
+* Updated FABS derivations and FPDS loader to include Executive Compensation data in transaction data.
+* Updated underlying broker packages (Paramiko).
+
+#### June 3, 2019{section=technical}
+
+In this release, here is a list of technical changes that may require infrastructure or database updates, or represents additional functionality.
+
+* Included quarterly revalidation threshold loader to further automate setup.
+* Updated underlying broker packages (SQLAlchemy).
+* Reincorporated Executive Compensation loader to the nightly cadence and stopped loading external data upon File E generation.
+
+#### May 20, 2019{section=technical}
+
+In this release, here is a list of technical changes that may require infrastructure or database updates, or represents additional functionality.
+
+* Updated several underlying python packages (Jinja2, webargs, psutil, supervisord).
+* Removed extraneous characters from CFDA reference data and updated CFDA loader to properly decode values.
+
+#### May 6, 2019{section=technical}
+
+In this release, here is a list of technical changes that may require infrastructure or database updates, or represents additional functionality.
+
+* Added metrics reports to multiple data loaders for analysis.
+* Updated database and code to reflect changes in the Federal Hierarchy API (specifically the financial assistance office type).
+* Updated country code loader to label U.S. Territories or Freely Associated States.
+
+#### April 19, 2019{section=technical}
+
+In this release, here is a list of technical changes that may require infrastructure or database updates, or represents additional functionality.
+
+* Updated FPDS loader to generate an artifact detailing the metrics of the run for analysis.
+* Updated CFDA loader to properly encode the source csv and provide cleaner data.
+
+#### April 5, 2019{section=technical}
+
+In this release, here is a list of technical changes that may require infrastructure or database updates, or represents additional functionality.
+
+* Updated unique award keys in transaction data to be consistent with USAspending.gov.
+* Updated the CFDA loader to pull from a common source shared with USAspending.gov.
+* Removed deprecated `submit_detached_file` endpoint from the API. This should not affect Broker Inbound API users given that they do not use this endpoint.
+* Fixed the logic of providing current fiscal quarter on the frontend.
+
+#### March 25, 2019{section=technical}
+
+In this release, here is a list of technical changes that may require infrastructure or database updates, or represents additional functionality.
+
+* Updated `certify_submission` API endpoint documents to include new errors for standard quarterly revalidation thresholds and special revalidation thresholds. This rule checks the validation date and confirms the submission is certifiable.
+* Modified the TAS loader to prevent loading any possible duplicates.
+* Standardized unique award keys between Broker and USASpending.gov.
+* Optimized File F generation for performance in memory and speed.
+
 #### March 11, 2019{section=technical}
 
 In this release, here is a list of technical changes that may require infrastructure or database updates, or represents additional functionality.
@@ -35,7 +134,7 @@ In this release, here is a list of technical changes that may require infrastruc
 
 In this release, here is a list of technical changes that may require infrastructure or database updates, or represents additional functionality.
 
-* Database migration to include unique_award_key in the FPDS and FABS staging tables.
+* Database migration to include `unique_award_key` in the FPDS and FABS staging tables.
 * Upgrade boto to boto3 and remove boto from the requirements.
 * Move file type validation to before file upload.
 * Enforce 30-minute session timeout.

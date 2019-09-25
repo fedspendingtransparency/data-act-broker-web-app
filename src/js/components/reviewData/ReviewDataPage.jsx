@@ -3,16 +3,13 @@
  * Created by Mike Bray 3/31/16
  */
 
-import React, { PropTypes } from 'react';
-import Navbar from '../SharedComponents/navigation/NavigationComponent';
-import AddDataHeader from './../addData/AddDataHeader';
-import Progress from '../SharedComponents/ProgressComponent';
+import React from 'react';
+import PropTypes from 'prop-types';
 import Footer from '../SharedComponents/FooterComponent';
 
 import ReviewDataContent from './ReviewDataContent';
 import ReviewLoading from './ReviewLoading';
 import PublishedSubmissionWarningBanner from '../../components/SharedComponents/PublishedSubmissionWarningBanner';
-import Banner from '../../components/SharedComponents/Banner';
 
 const propTypes = {
     data: PropTypes.object,
@@ -47,22 +44,8 @@ export default class ReviewDataPage extends React.Component {
 
         return (
             <div className="usa-da-review-data-page">
-                <div className="usa-da-site_wrap">
-                    <div className="usa-da-page-content">
-                        <Navbar activeTab="submissionGuide" type={this.props.route.type} />
-                        <AddDataHeader submissionID={submissionID} />
-                        <div className="usa-da-content-step-block" name="content-top">
-                            <div className="container center-block">
-                                <div className="row">
-                                    <Progress currentStep={5} id={this.props.params.submissionID} />
-                                </div>
-                            </div>
-                        </div>
-                        {warningMessage}
-                        <Banner type="dabs" />
-                        {currentComponent}
-                    </div>
-                </div>
+                {warningMessage}
+                {currentComponent}
                 <Footer />
             </div>
         );

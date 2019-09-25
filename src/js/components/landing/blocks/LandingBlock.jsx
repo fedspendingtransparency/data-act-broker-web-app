@@ -3,7 +3,8 @@
   * Created by Kevin Li 5/17/16
   */
 
-import React, { PropTypes } from 'react';
+import React from 'react';
+import PropTypes from 'prop-types';
 
 const propTypes = {
     children: PropTypes.object,

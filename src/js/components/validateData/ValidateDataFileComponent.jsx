@@ -3,7 +3,8 @@
  * Created by Mike Bray 3/28/16
  */
 
-import React, { PropTypes } from 'react';
+import React from 'react';
+import PropTypes from 'prop-types';
 import FileProgress from '../SharedComponents/FileProgress';
 import ValidateDataErrorReport from './ValidateDataErrorReport';
 import ValidateDataUploadButton from './ValidateDataUploadButton';
@@ -12,7 +13,7 @@ import * as PermissionsHelper from '../../helpers/permissionsHelper';
 import * as GenerateFilesHelper from '../../helpers/generateFilesHelper';
 
 import UploadFabsFileError from '../uploadFabsFile/UploadFabsFileError';
-import { validUploadFileChecker } from '../../helpers/util';
+import { validUploadFileChecker, createOnKeyDownHandler } from '../../helpers/util';
 
 const propTypes = {
     onFileChange: PropTypes.func,
@@ -51,6 +52,8 @@ export default class ValidateDataFileComponent extends React.Component {
             error: null,
             canDownload: false
         };
+        this.toggleErrorReport = this.toggleErrorReport.bind(this);
+        this.clickedReport = this.clickedReport.bind(this);
     }
 
     componentDidMount() {
@@ -199,7 +202,7 @@ export default class ValidateDataFileComponent extends React.Component {
 
     displayFileMeta() {
         let size = '--';
-        let rows = '--';
+        let rows = 0;
 
         if (this.isFileReady()) {
             if (this.props.item.number_of_rows) {
@@ -310,6 +313,8 @@ export default class ValidateDataFileComponent extends React.Component {
     }
 
     render() {
+        const onKeyDownHandler = createOnKeyDownHandler(this.toggleErrorReport);
+
         let disabledCorrect = '';
         let isFileValid = 'unset';
         let messageClass = ' usa-da-validate-item-message';
@@ -342,6 +347,7 @@ export default class ValidateDataFileComponent extends React.Component {
         let fileName = this.props.item.filename;
 
         let clickDownload = null;
+        let clickDownloadOnKeyDownHandler = null;
         let clickDownloadClass = '';
 
 
@@ -359,6 +365,7 @@ export default class ValidateDataFileComponent extends React.Component {
         else if (this.state.canDownload) {
             // no parsing errors and not a new file
             clickDownload = this.clickedReport.bind(this, this.props.item);
+            clickDownloadOnKeyDownHandler = createOnKeyDownHandler(this.clickedReport, [this.props.item]);
             clickDownloadClass = 'file-download';
         }
 
@@ -385,14 +392,16 @@ export default class ValidateDataFileComponent extends React.Component {
                     <div className="row usa-da-validate-item-top-section">
                         <div className="col-md-9 usa-da-validate-item-status-section">
                             <div className="row usa-da-validate-item-header">
-                                <div className="col-md-8">
+                                <div className="col-md-6">
                                     <h4>{this.props.type.fileTitle}</h4>
                                 </div>
                                 <div className="col-md-2">
                                     <p>File Size: {this.displayFileMeta().size}</p>
                                 </div>
-                                <div className="col-md-2">
-                                    <p className="pr-20">Lines in File: {this.displayFileMeta().rows}</p>
+                                <div className="col-md-4">
+                                    <p className="pr-20">Data Rows in File (excludes header): {
+                                        this.displayFileMeta().rows}
+                                    </p>
                                 </div>
                             </div>
                             <div className="row usa-da-validate-item-body">
@@ -408,8 +417,8 @@ export default class ValidateDataFileComponent extends React.Component {
                                     tabIndex={0}
                                     className={`usa-da-validate-item-footer usa-da-header-error${showFooter} ${
                                         footerStatus}`}
-                                    onKeyDown={this.toggleErrorReport.bind(this)}
-                                    onClick={this.toggleErrorReport.bind(this)}>
+                                    onKeyDown={onKeyDownHandler}
+                                    onClick={this.toggleErrorReport}>
                                     <div>View &amp; Download Header Error Report
                                         <span className="usa-da-icon">{chevronDirection}</span>
                                     </div>
@@ -432,7 +441,7 @@ export default class ValidateDataFileComponent extends React.Component {
                                         role="button"
                                         tabIndex={0}
                                         className={clickDownloadClass}
-                                        onKeyDown={clickDownload}
+                                        onKeyDown={clickDownloadOnKeyDownHandler}
                                         onClick={clickDownload}
                                         download={fileName}
                                         rel="noopener noreferrer">

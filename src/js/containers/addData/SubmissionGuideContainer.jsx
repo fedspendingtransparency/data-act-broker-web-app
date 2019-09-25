@@ -3,15 +3,15 @@
  * Created by Mike Bray 5/23/16
  */
 
-import React, { PropTypes } from 'react';
+import React from 'react';
+import PropTypes from 'prop-types';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { hashHistory } from 'react-router';
 
-import SubmissionGuidePage from '../../components/addData/SubmissionGuidePage';
-import * as sessionActions from '../../redux/actions/sessionActions';
-
-import * as SubmissionGuideHelper from '../../helpers/submissionGuideHelper';
+import SubmissionGuidePage from 'components/addData/SubmissionGuidePage';
+import * as sessionActions from 'redux/actions/sessionActions';
+import { setSkipGuide } from 'helpers/submissionGuideHelper';
 
 const propTypes = {
     setSkipGuide: PropTypes.func,
@@ -26,20 +26,17 @@ const defaultProps = {
 };
 
 class SubmissionGuideContainer extends React.Component {
-    componentWillMount() {
-        let forceDisplay = false;
-        if (Object.prototype.hasOwnProperty.call(this.props.location.query, 'force') &&
-            this.props.location.query.force === 'true') {
-            forceDisplay = true;
-        }
+    componentDidMount() {
+        const forceDisplay = (Object.prototype.hasOwnProperty.call(this.props.location.query, 'force') &&
+            this.props.location.query.force === 'true');
 
-        if (this.props.session.skipGuide === true && forceDisplay !== true) {
+        if (this.props.session.skipGuide && !forceDisplay) {
             this.sendToAddData();
         }
     }
 
     saveSkipGuide(skipGuide) {
-        SubmissionGuideHelper.setSkipGuide(skipGuide)
+        setSkipGuide(skipGuide)
             .then(() => {
                 // update the Redux state
                 this.props.setSkipGuide(skipGuide);

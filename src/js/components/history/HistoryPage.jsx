@@ -3,7 +3,8 @@
   * Created by Minahm Kim 06/08/17
   */
 
-import React, { PropTypes } from 'react';
+import React from 'react';
+import PropTypes from 'prop-types';
 import Navbar from '../SharedComponents/navigation/NavigationComponent';
 import Footer from '../SharedComponents/FooterComponent';
 import HistoryTable from './HistoryTable';
@@ -36,7 +37,7 @@ export default class HistoryPage extends React.Component {
                             </div>
                         </div>
                     </div>
-                    <HistoryHeader submissionID={this.props.submissionID} />
+                    <HistoryHeader submissionID={this.props.submissionID} type={this.props.type} />
                     <HistoryTable submissionID={this.props.submissionID} />
                 </div>
                 <Footer />

@@ -3,7 +3,8 @@
  * Created by Mike Bray 3/28/16
  */
 
-import React, { PropTypes } from 'react';
+import React from 'react';
+import PropTypes from 'prop-types';
 import moment from 'moment';
 import ReviewDataContentRow from './ReviewDataContentRow';
 import ReviewDataButton from './ReviewDataButton';
@@ -12,6 +13,8 @@ import ReviewDataCertifyModal from './CertificationModal/ReviewDataCertifyModal'
 import RevalidateDataModal from './CertificationModal/RevalidateDataModal';
 import ReviewDataNarrative from './ReviewDataNarrative';
 import * as Icons from '../SharedComponents/icons/Icons';
+
+import { formatSize } from '../../helpers/util';
 
 const propTypes = {
     data: PropTypes.object,
@@ -114,17 +117,6 @@ export default class ReviewDataContent extends React.Component {
         return false;
     }
 
-    formatSize(totalSize) {
-        let displaySize = `${totalSize} bytes`;
-        if (totalSize >= 750000) {
-            displaySize = `${Math.round((totalSize / 100000000) * 100) / 100} MB`;
-        }
-        else if (totalSize >= 750) {
-            displaySize = `${Math.round((totalSize / 1000) * 100) / 100} KB`;
-        }
-        return displaySize;
-    }
-
     render() {
         // The first parameter in each of these arrays is the corresponding class for the SVG icon
         const buttonContent = [[<Icons.CheckCircle />, 'Publish this data to USAspending.gov'],
@@ -212,9 +204,11 @@ export default class ReviewDataContent extends React.Component {
                                 <div className="usa-da-submission-info">
                                     <ul className="no-bullet">
                                         <li>Total File Size:
-                                            <strong> {this.formatSize(this.props.data.total_size)}</strong>
+                                            <strong> {formatSize(this.props.data.total_size)}</strong>
                                         </li>
-                                        <li>Total Rows: <strong>{this.props.data.number_of_rows}</strong></li>
+                                        <li>Total Data Rows (excludes headers):
+                                            <strong> {this.props.data.number_of_rows}</strong>
+                                        </li>
                                         <li>Created on: <strong>{this.props.data.created_on}</strong></li>
                                         <li>Total Warnings: <strong>{this.props.data.number_of_warnings}</strong></li>
                                     </ul>

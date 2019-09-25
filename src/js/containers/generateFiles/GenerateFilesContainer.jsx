@@ -3,10 +3,10 @@
   * Created by Kevin Li 7/22/16
   */
 
-import React, { PropTypes } from 'react';
+import React from 'react';
+import PropTypes from 'prop-types';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
-import { hashHistory } from 'react-router';
 
 import moment from 'moment';
 import _ from 'lodash';
@@ -25,15 +25,15 @@ import * as UtilHelper from '../../helpers/util';
 const propTypes = {
     setSubmissionId: PropTypes.func,
     setSubmissionPublishStatus: PropTypes.func,
-    showError: PropTypes.func,
     submission: PropTypes.object,
-    submissionID: PropTypes.string
+    submissionID: PropTypes.string,
+    errorFromStep: PropTypes.func,
+    nextStep: PropTypes.func
 };
 
 const defaultProps = {
     setSubmissionId: uploadActions.setSubmissionId(),
     setSubmissionPublishStatus: uploadActions.setSubmissionPublishStatus(),
-    showError: () => {},
     submission: {},
     submissionID: ""
 };
@@ -97,7 +97,7 @@ class GenerateFilesContainer extends React.Component {
 
     setAgencyName(givenProps) {
         if (givenProps.submissionID !== null) {
-            ReviewHelper.fetchSubmissionMetadata(givenProps.submissionID)
+            ReviewHelper.fetchSubmissionMetadata(givenProps.submissionID, 'dabs')
                 .then((data) => {
                     if (!this.isUnmounted) {
                         this.setState({ agency_name: data.agency_name });
@@ -105,6 +105,7 @@ class GenerateFilesContainer extends React.Component {
                 })
                 .catch((error) => {
                     console.error(error);
+                    this.props.errorFromStep(error.body.message);
                 });
         }
     }
@@ -116,6 +117,7 @@ class GenerateFilesContainer extends React.Component {
             })
             .catch((error) => {
                 console.error(error);
+                this.props.errorFromStep(error.message);
             });
     }
 
@@ -209,7 +211,7 @@ class GenerateFilesContainer extends React.Component {
 
     loadSubmissionData() {
         // prepopulate the fields with the submission metadata dates
-        ReviewHelper.fetchSubmissionMetadata(this.props.submissionID)
+        ReviewHelper.fetchSubmissionMetadata(this.props.submissionID, 'dabs')
             .then((data) => {
                 this.props.setSubmissionId(this.props.submissionID);
                 this.props.setSubmissionPublishStatus(data.publish_status);
@@ -242,13 +244,8 @@ class GenerateFilesContainer extends React.Component {
                 });
             })
             .catch((err) => {
-                if (Object.prototype.hasOwnProperty.call(err, 'text')) {
-                    // handle non-existant submission IDs
-                    this.props.showError(JSON.parse(err.text).message);
-                }
-                else {
-                    console.error(err);
-                }
+                console.error(' Error : ', err);
+                this.props.errorFromStep(err.message);
             });
     }
 
@@ -516,7 +513,7 @@ class GenerateFilesContainer extends React.Component {
     }
 
     nextPage() {
-        hashHistory.push(`validateCrossFile/${this.props.submissionID}`);
+        this.props.nextStep();
     }
 
     render() {

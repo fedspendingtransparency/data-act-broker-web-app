@@ -3,7 +3,8 @@
 * Created by Alisa Burdeyny
 */
 
-import React, { PropTypes } from 'react';
+import React from 'react';
+import PropTypes from 'prop-types';
 
 import GenerateFileBox from '../generateFiles/components/GenerateFileBox';
 import LoadingBauble from '../SharedComponents/overlays/LoadingBauble';
@@ -30,7 +31,6 @@ const defaultProps = {
 };
 
 export default class DateSelect extends React.Component {
-
     toggleAgencyType(type) {
         this.props.toggleAgencyType(type);
     }
@@ -78,7 +78,7 @@ export default class DateSelect extends React.Component {
                     fileType="d1" />
                 <GenerateFileBox
                     label="File D1: Procurement Awards (FPDS data)"
-                    datePlaceholder="Sign"
+                    datePlaceholder="Action"
                     startingTab={1}
                     value={d1}
                     error={d1.error}

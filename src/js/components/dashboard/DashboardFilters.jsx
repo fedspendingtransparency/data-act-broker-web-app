@@ -3,7 +3,8 @@
  * Created by Lizzie Salita 8/10/18
  */
 
-import React, { PropTypes } from 'react';
+import React from 'react';
+import PropTypes from 'prop-types';
 
 import { Filter } from '../../components/SharedComponents/icons/Icons';
 import FilterSubmitContainer from '../../containers/dashboard/FilterSubmitContainer';
@@ -18,7 +19,8 @@ const propTypes = {
     stagedFilters: PropTypes.object,
     appliedFilters: PropTypes.object,
     table: PropTypes.string,
-    type: PropTypes.string
+    type: PropTypes.string,
+    minDateLastModified: PropTypes.string
 };
 
 const defaultProps = {
@@ -26,7 +28,8 @@ const defaultProps = {
     stagedFilters: {},
     appliedFilters: {},
     table: '',
-    type: ''
+    type: '',
+    minDateLastModified: ''
 };
 
 export default class DashboardFilters extends React.Component {
@@ -64,7 +67,8 @@ export default class DashboardFilters extends React.Component {
                 <LastDateModifiedFilter
                     type={this.props.type}
                     table={this.props.table}
-                    updateFilterList={this.updateFilterList} />
+                    updateFilterList={this.updateFilterList}
+                    minDateLastModified={this.props.minDateLastModified} />
                 <FilterSubmitContainer
                     stagedFilters={this.props.stagedFilters}
                     appliedFilters={this.props.appliedFilters}

@@ -3,7 +3,7 @@
 * Created by Minahm Kim
 */
 
-import ReactCSSTransitionGroup from "react-addons-css-transition-group";
+import CSSTransitionGroup from "react-transition-group/CSSTransitionGroup";
 
 import React, { PropTypes } from "react";
 import { connect } from "react-redux";
@@ -25,11 +25,13 @@ import * as Icons from '../SharedComponents/icons/Icons';
 
 const propTypes = {
     setSubmissionState: PropTypes.func,
+    resetSubmission: PropTypes.func,
     item: PropTypes.object,
     params: PropTypes.object,
     route: PropTypes.object,
     session: PropTypes.object,
-    submission: PropTypes.object
+    submission: PropTypes.object,
+    errorMessage: PropTypes.func
 };
 
 const defaultProps = {
@@ -43,7 +45,7 @@ const defaultProps = {
 
 const timerDuration = 5;
 
-class UploadFabsFileValidation extends React.Component {
+export class UploadFabsFileValidation extends React.Component {
     constructor(props) {
         super(props);
 
@@ -51,7 +53,6 @@ class UploadFabsFileValidation extends React.Component {
 
         this.state = {
             agency: "",
-            submissionID: this.props.params.submissionID ? this.props.params.submissionID : 0,
             fabsFile: {},
             cgac_code: "",
             jobResults: { fabs: {} },
@@ -73,28 +74,26 @@ class UploadFabsFileValidation extends React.Component {
 
     componentDidMount() {
         this.isUnmounted = false;
-        if (this.state.submissionID) {
-            this.setSubmissionMetadata(this.state.submissionID);
-            this.checkFileStatus(this.state.submissionID);
+        if (this.props.params.submissionID) {
+            this.setSubmissionMetadata(this.props.params.submissionID);
+            this.checkFileStatus(this.props.params.submissionID);
         }
     }
 
-    componentWillReceiveProps(nextProps) {
-        if (nextProps.params.submissionID !== this.state.submissionID) {
-            this.setState({
-                submissionID: nextProps.params.submissionID
-            });
-            this.setSubmissionMetadata(nextProps.params.submissionID);
-            this.checkFileStatus(nextProps.params.submissionID);
+    componentDidUpdate(prevProps) {
+        if (prevProps.params.submissionID !== this.props.params.submissionID && this.props.params.submissionID) {
+            this.setSubmissionMetadata(this.props.params.submissionID);
+            this.checkFileStatus(this.props.params.submissionID);
         }
     }
 
     componentWillUnmount() {
+        this.props.resetSubmission();
         this.isUnmounted = true;
     }
 
     setSubmissionMetadata(submissionID) {
-        ReviewHelper.fetchSubmissionMetadata(submissionID)
+        ReviewHelper.fetchSubmissionMetadata(submissionID, 'fabs')
             .then((response) => {
                 this.setState({
                     metadata: response,
@@ -106,6 +105,7 @@ class UploadFabsFileValidation extends React.Component {
             })
             .catch((err) => {
                 console.error(err);
+                this.props.errorMessage(err);
             });
     }
 
@@ -129,9 +129,9 @@ class UploadFabsFileValidation extends React.Component {
     }
 
     revalidate() {
-        ReviewHelper.revalidateSubmission(this.state.submissionID, true)
+        ReviewHelper.revalidateSubmission(this.props.params.submissionID, true)
             .then(() => {
-                this.checkFileStatus(this.state.submissionID);
+                this.checkFileStatus(this.props.params.submissionID);
             })
             .catch((error) => {
                 const errMsg = error.message || "An error occurred while attempting to revalidate the submission. " +
@@ -161,7 +161,7 @@ class UploadFabsFileValidation extends React.Component {
                         success = true;
                     }
 
-                    ReviewHelper.fetchSubmissionMetadata(submissionID)
+                    ReviewHelper.fetchSubmissionMetadata(submissionID, 'fabs')
                         .then((metadataResponse) => {
                             ReviewHelper.fetchSubmissionData(submissionID)
                                 .then((dataResponse) => {
@@ -496,30 +496,30 @@ class UploadFabsFileValidation extends React.Component {
                     <div className="col-xs-12 mt-60 mb-60">
                         <div className="validation-holder">
 
-                            <ReactCSSTransitionGroup
+                            <CSSTransitionGroup
                                 transitionName="usa-da-meta-fade"
                                 transitionEnterTimeout={600}
                                 transitionLeaveTimeout={200}>
                                 {validationBox}
-                            </ReactCSSTransitionGroup>
+                            </CSSTransitionGroup>
 
                             {errorMessage}
 
-                            <ReactCSSTransitionGroup
+                            <CSSTransitionGroup
                                 transitionName="usa-da-meta-fade"
                                 transitionEnterTimeout={600}
                                 transitionLeaveTimeout={200}>
                                 {validationButton}
                                 {revalidateButton}
                                 {downloadButton}
-                            </ReactCSSTransitionGroup>
+                            </CSSTransitionGroup>
                         </div>
                     </div>
                 </div>
                 <PublishModal
                     rows={this.state.fabs_meta}
                     submit={this.submitFabs.bind(this)}
-                    submissionID={this.state.submissionID}
+                    submissionID={this.props.params.submissionID}
                     closeModal={this.closeModal.bind(this)}
                     isOpen={this.state.showPublish}
                     published={this.state.published} />

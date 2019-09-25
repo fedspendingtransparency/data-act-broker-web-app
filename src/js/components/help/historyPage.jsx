@@ -3,7 +3,8 @@
  * Created by Emily Gullo 9/27/16
  */
 
-import React, { PropTypes } from 'react';
+import React from 'react';
+import PropTypes from 'prop-types';
 import Navbar from '../SharedComponents/navigation/NavigationComponent';
 import HelpSidebar from './helpSidebar';
 import HistoryContent from './historyContent';
@@ -94,8 +95,14 @@ export default class HelpPage extends React.Component {
             });
     }
 
+    scrollToTop() {
+        window.scrollTo({
+            top: 0,
+            behavior: "smooth"
+        });
+    }
+
     render() {
-        const history = this.props.type === 'fabs' ? '#/FABSHistory' : '#/history';
         const activeTab = this.props.type === 'fabs' ? 'FABSHelp' : 'help';
         const color = this.props.type === 'fabs' ? 'teal' : 'dark';
         return (
@@ -131,12 +138,14 @@ export default class HelpPage extends React.Component {
                 </div>
                 <Footer />
                 <div className="usa-da-help-top-button">
-                    <a href={`${history}?section=top`} aria-label="Back to top">
+                    <button
+                        onClick={this.scrollToTop}
+                        aria-label="Back to top">
                         <div className="usa-da-icon">
                             <Icons.AngleUp alt="Arrow pointing up" />
                         </div>
                         <span className="hidden-label">Back to top</span>
-                    </a>
+                    </button>
                 </div>
             </div>
         );

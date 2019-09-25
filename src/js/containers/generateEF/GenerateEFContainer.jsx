@@ -3,10 +3,10 @@
 * Created by Kevin Li 8/23/16
 */
 
-import React, { PropTypes } from 'react';
+import React from 'react';
+import PropTypes from 'prop-types';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
-import { hashHistory } from 'react-router';
 
 import Q from 'q';
 
@@ -21,7 +21,9 @@ import Banner from '../../components/SharedComponents/Banner';
 
 const propTypes = {
     submission: PropTypes.object,
-    submissionID: PropTypes.string
+    submissionID: PropTypes.string,
+    errorFromStep: PropTypes.func,
+    nextStep: PropTypes.func
 };
 
 const defaultProps = {
@@ -67,7 +69,7 @@ class GenerateEFContainer extends React.Component {
 
     setAgencyName(givenProps) {
         if (givenProps.submissionID !== null) {
-            ReviewHelper.fetchSubmissionMetadata(givenProps.submissionID)
+            ReviewHelper.fetchSubmissionMetadata(givenProps.submissionID, 'dabs')
                 .then((data) => {
                     if (!this.isUnmounted) {
                         this.setState({ agency_name: data.agency_name });
@@ -75,6 +77,7 @@ class GenerateEFContainer extends React.Component {
                 })
                 .catch((error) => {
                     console.error(error);
+                    this.props.errorFromStep(error.body.message);
                 });
         }
     }
@@ -174,7 +177,7 @@ class GenerateEFContainer extends React.Component {
     }
 
     nextPage() {
-        hashHistory.push(`/reviewData/${this.props.submissionID}`);
+        this.props.nextStep();
     }
 
     render() {
