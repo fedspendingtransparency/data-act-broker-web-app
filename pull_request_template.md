@@ -20,3 +20,4 @@ The following are ALL required for the PR to be merged:
 - [ ] Merged concurrently with [Backend#1234](https://github.com/fedspendingtransparency/data-act-broker-backend/pull/1234)
 - [ ] Verified cross-browser compatibility
 - [ ] All componentWillReceiveProps, componentWillMount, and componentWillUpdate in relevant child/parent components/containers replaced with [future compatible life-cycle methods](https://reactjs.org/blog/2018/03/27/update-on-async-rendering.html) per [JIRA item 3339](https://federal-spending-transparency.atlassian.net/browse/DEV-3339)
+- [ ] Link to this PR in JIRA ticket
