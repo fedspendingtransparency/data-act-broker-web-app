@@ -1,13 +1,13 @@
 /**
-  * DashboardContent.jsx
+  * SubmissionsTableContent.jsx
   * Created by Kevin Li 10/27/16
   */
 
 import React from 'react';
 import PropTypes from 'prop-types';
 import FilterBarContainer from 'containers/submissionsTable/FilterBarContainer';
-import DashboardTable from './SubmissionsTable';
-import DashboardFilters from './SubmissionsTableFilters';
+import SubmissionsTable from './SubmissionsTable';
+import SubmissionsTableFilters from './SubmissionsTableFilters';
 import FiltersMessage from './filters/FiltersMessage';
 
 const propTypes = {
@@ -46,7 +46,7 @@ const defaultProps = {
     appliedFilters: {}
 };
 
-export default class DashboardContent extends React.Component {
+export default class SubmissionsTableContent extends React.Component {
     constructor(props) {
         super(props);
 
@@ -143,7 +143,7 @@ export default class DashboardContent extends React.Component {
                             <h2 className="table-heading__title">Active Submissions</h2>
                             {activeMessage}
                         </div>
-                        <DashboardFilters
+                        <SubmissionsTableFilters
                             toggleFilter={this.toggleFilter}
                             stagedFilters={stagedFilters.active}
                             appliedFilters={appliedFilters.active}
@@ -156,7 +156,7 @@ export default class DashboardContent extends React.Component {
                             stagedFilters={stagedFilters.active}
                             appliedFilters={appliedFilters.active}
                             updateFilterCount={this.updateFilterCount} />
-                        <DashboardTable
+                        <SubmissionsTable
                             isLoading={this.props.activeLoading}
                             isCertified={false}
                             loadTableData={this.props.loadTableData}
@@ -174,7 +174,7 @@ export default class DashboardContent extends React.Component {
                             <h2 className="table-heading__title">{this.state.title}</h2>
                             {secondMessage}
                         </div>
-                        <DashboardFilters
+                        <SubmissionsTableFilters
                             toggleFilter={this.toggleFilter}
                             stagedFilters={stagedFilters[secondTable]}
                             appliedFilters={appliedFilters[secondTable]}
@@ -187,7 +187,7 @@ export default class DashboardContent extends React.Component {
                             stagedFilters={stagedFilters[secondTable]}
                             appliedFilters={appliedFilters[secondTable]}
                             updateFilterCount={this.updateFilterCount} />
-                        <DashboardTable
+                        <SubmissionsTable
                             isLoading={this.props.certifiedLoading}
                             loadTableData={this.props.loadTableData}
                             appliedFilters={appliedFilters[secondTable]}
@@ -203,5 +203,5 @@ export default class DashboardContent extends React.Component {
     }
 }
 
-DashboardContent.propTypes = propTypes;
-DashboardContent.defaultProps = defaultProps;
+SubmissionsTableContent.propTypes = propTypes;
+SubmissionsTableContent.defaultProps = defaultProps;

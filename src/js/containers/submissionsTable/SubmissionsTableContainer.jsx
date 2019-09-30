@@ -1,5 +1,5 @@
 /**
-  * DashboardContainer.jsx
+  * SubmissionsTableContainer.jsx
   * Created by Kevin Li 10/21/16
   */
 
@@ -39,7 +39,7 @@ const defaultProps = {
     resetAppliedFilters: null
 };
 
-export class DashboardContainer extends React.Component {
+export class SubmissionsTableContainer extends React.Component {
     constructor(props) {
         super(props);
 
@@ -134,8 +134,8 @@ export class DashboardContainer extends React.Component {
     }
 }
 
-DashboardContainer.propTypes = propTypes;
-DashboardContainer.defaultProps = defaultProps;
+SubmissionsTableContainer.propTypes = propTypes;
+SubmissionsTableContainer.defaultProps = defaultProps;
 
 export default connect(
     (state) => ({
@@ -144,4 +144,4 @@ export default connect(
         appliedFilters: state.appliedDashboardFilters
     }),
     (dispatch) => bindActionCreators(combinedActions, dispatch),
-)(DashboardContainer);
+)(SubmissionsTableContainer);

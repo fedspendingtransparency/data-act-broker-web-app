@@ -6,7 +6,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import AgencyFilterContainer from '../../../containers/dashboard/AgencyFilterContainer';
+import AgencyFilterContainer from 'containers/submissionsTable/AgencyFilterContainer';
 
 const propTypes = {
     updateFilterList: PropTypes.func,

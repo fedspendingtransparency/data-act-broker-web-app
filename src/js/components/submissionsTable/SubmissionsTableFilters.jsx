@@ -1,5 +1,5 @@
 /**
- * DashboardFilters.jsx
+ * SubmissionsTableFilters.jsx
  * Created by Lizzie Salita 8/10/18
  */
 
@@ -32,7 +32,7 @@ const defaultProps = {
     minDateLastModified: ''
 };
 
-export default class DashboardFilters extends React.Component {
+export default class SubmissionsTableFilters extends React.Component {
     constructor(props) {
         super(props);
 
@@ -79,5 +79,5 @@ export default class DashboardFilters extends React.Component {
     }
 }
 
-DashboardFilters.propTypes = propTypes;
-DashboardFilters.defaultProps = defaultProps;
+SubmissionsTableFilters.propTypes = propTypes;
+SubmissionsTableFilters.defaultProps = defaultProps;

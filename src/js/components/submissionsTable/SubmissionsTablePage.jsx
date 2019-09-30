@@ -1,11 +1,11 @@
 /**
-  * DashboardPage.jsx
+  * SubmissionsTablePage.jsx
   * Created by Kevin Li 10/21/16
   */
 
 import React from 'react';
 import PropTypes from 'prop-types';
-import DashboardContainer from 'containers/submissionsTable/DashboardContainer';
+import SubmissionsTableContainer from 'containers/submissionsTable/SubmissionsTableContainer';
 import Navbar from '../SharedComponents/navigation/NavigationComponent';
 import Footer from '../SharedComponents/FooterComponent';
 import Banner from '../SharedComponents/Banner';
@@ -18,7 +18,7 @@ const defaultProps = {
     route: null
 };
 
-export default class DashboardPage extends React.Component {
+export default class SubmissionsTablePage extends React.Component {
     constructor(props) {
         super(props);
 
@@ -36,7 +36,7 @@ export default class DashboardPage extends React.Component {
     render() {
         const isFabs = this.state.type === 'fabs';
         const color = isFabs ? 'teal' : 'dark';
-        const header = isFabs ? 'FABS Submission Dashboard' : 'DABS Submission Dashboard';
+        const header = isFabs ? 'FABS Submissions Table' : 'DABS Submissions Table';
         const activeTab = isFabs ? 'FABSdashboard' : 'dashboard';
         return (
             <div>
@@ -54,7 +54,7 @@ export default class DashboardPage extends React.Component {
                         </div>
                     </div>
                     <Banner type={this.state.type} />
-                    <DashboardContainer type={this.state.type} />
+                    <SubmissionsTableContainer type={this.state.type} />
                 </div>
                 <Footer />
             </div>
@@ -62,5 +62,5 @@ export default class DashboardPage extends React.Component {
     }
 }
 
-DashboardPage.propTypes = propTypes;
-DashboardPage.defaultProps = defaultProps;
+SubmissionsTablePage.propTypes = propTypes;
+SubmissionsTablePage.defaultProps = defaultProps;

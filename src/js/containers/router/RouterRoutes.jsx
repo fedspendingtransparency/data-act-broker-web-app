@@ -216,7 +216,7 @@ const getRoutes = () => {
                 onEnter: routeInfo.onEnter[onEnterIndex],
                 getComponent(nextState, cb) {
                     require.ensure([], (require) => {
-                        cb(null, require('../../components/dashboard/DashboardPage').default);
+                        cb(null, require('../../components/submissionsTable/SubmissionsTablePage').default);
                     });
                 },
                 type

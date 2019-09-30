@@ -1,7 +1,7 @@
-// /**
-//   * DashboardTable.jsx
-//   * Created by Kevin Li 10/28/16
-//   */
+/**
+* SubmissionsTable.jsx
+* Created by Kevin Li 10/28/16
+*/
 
 import React from 'react';
 import PropTypes from 'prop-types';
@@ -43,7 +43,7 @@ const defaultProps = {
     total: 0
 };
 
-export default class DashboardTable extends React.Component {
+export default class SubmissionsTable extends React.Component {
     constructor(props) {
         super(props);
 
@@ -416,5 +416,5 @@ export default class DashboardTable extends React.Component {
     }
 }
 
-DashboardTable.propTypes = propTypes;
-DashboardTable.defaultProps = defaultProps;
+SubmissionsTable.propTypes = propTypes;
+SubmissionsTable.defaultProps = defaultProps;
