@@ -8,7 +8,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 
-import * as dashboardFilterActions from 'redux/actions/submissionsTable/dashboardFilterActions';
+import * as dashboardFilterActions from 'redux/actions/submissionsTable/stagedFiltersActions';
 import { resetAppliedFilters } from 'redux/actions/submissionsTable/appliedFilterActions';
 
 import * as SubmissionListHelper from 'helpers/submissionListHelper';

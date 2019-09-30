@@ -10,7 +10,7 @@ import { connect } from 'react-redux';
 import { isEqual } from 'lodash';
 
 import * as appliedFilterActions from 'redux/actions/submissionsTable/appliedFilterActions';
-import { resetDashboardFilters as clearStagedFilters } from 'redux/actions/submissionsTable/dashboardFilterActions';
+import { resetDashboardFilters as clearStagedFilters } from 'redux/actions/submissionsTable/stagedFiltersActions';
 
 import FilterSubmit from 'components/submissionsTable/filters/FilterSubmit';
 

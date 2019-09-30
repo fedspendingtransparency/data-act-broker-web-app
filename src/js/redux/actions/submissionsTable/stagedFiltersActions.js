@@ -1,5 +1,5 @@
 /**
- * dashboardFilterActions.js
+ * stagedFiltersActions.js
  * Created by Lizzie Salita 8/10/18
  */
 
