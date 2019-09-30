@@ -6,8 +6,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import { Filter } from '../../components/SharedComponents/icons/Icons';
-import FilterSubmitContainer from '../../containers/dashboard/FilterSubmitContainer';
+import FilterSubmitContainer from 'containers/submissionsTable/FilterSubmitContainer';
+import { Filter } from '../SharedComponents/icons/Icons';
 import SubmissionIdFilter from './filters/SubmissionIdFilter';
 import FileNameFilter from './filters/FileNameFilter';
 import AgencyFilter from './filters/AgencyFilter';

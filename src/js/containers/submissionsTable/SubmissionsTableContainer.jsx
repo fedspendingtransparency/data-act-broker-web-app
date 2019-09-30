@@ -8,12 +8,12 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 
-import * as dashboardFilterActions from '../../redux/actions/dashboard/dashboardFilterActions';
-import { resetAppliedFilters } from '../../redux/actions/dashboard/appliedFilterActions';
+import * as dashboardFilterActions from 'redux/actions/submissionsTable/dashboardFilterActions';
+import { resetAppliedFilters } from 'redux/actions/submissionsTable/appliedFilterActions';
 
-import * as SubmissionListHelper from '../../helpers/submissionListHelper';
+import * as SubmissionListHelper from 'helpers/submissionListHelper';
 
-import DashboardContent from '../../components/dashboard/DashboardContent';
+import DashboardContent from 'components/submissionsTable/SubmissionsTableContent';
 
 const combinedActions = Object.assign({}, dashboardFilterActions, {
     resetAppliedFilters

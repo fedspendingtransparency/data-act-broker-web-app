@@ -5,9 +5,9 @@
 
 import React from 'react';
 import PropTypes from 'prop-types';
-import FilterBarContainer from '../../containers/dashboard/FilterBarContainer';
-import DashboardTable from './DashboardTable';
-import DashboardFilters from './DashboardFilters';
+import FilterBarContainer from 'containers/submissionsTable/FilterBarContainer';
+import DashboardTable from './SubmissionsTable';
+import DashboardFilters from './SubmissionsTableFilters';
 import FiltersMessage from './filters/FiltersMessage';
 
 const propTypes = {

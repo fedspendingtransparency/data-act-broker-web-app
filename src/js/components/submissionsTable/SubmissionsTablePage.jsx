@@ -5,9 +5,9 @@
 
 import React from 'react';
 import PropTypes from 'prop-types';
+import DashboardContainer from 'containers/submissionsTable/DashboardContainer';
 import Navbar from '../SharedComponents/navigation/NavigationComponent';
 import Footer from '../SharedComponents/FooterComponent';
-import DashboardContainer from '../../containers/dashboard/DashboardContainer';
 import Banner from '../SharedComponents/Banner';
 
 const propTypes = {

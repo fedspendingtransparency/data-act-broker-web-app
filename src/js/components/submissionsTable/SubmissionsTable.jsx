@@ -19,7 +19,7 @@ import DeleteLink from '../landing/recentActivity/DeleteLink';
 import NoResultsMessage from '../SharedComponents/NoResultsMessage';
 import LoadingMessage from '../SharedComponents/LoadingMessage';
 
-import DashboardPaginator from './DashboardPaginator';
+import DashboardPaginator from './SubmissionsTablePaginator';
 
 const propTypes = {
     loadTableData: PropTypes.func,
