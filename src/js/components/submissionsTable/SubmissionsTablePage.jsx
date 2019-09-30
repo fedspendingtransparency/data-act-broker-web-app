@@ -37,7 +37,7 @@ export default class SubmissionsTablePage extends React.Component {
         const isFabs = this.state.type === 'fabs';
         const color = isFabs ? 'teal' : 'dark';
         const header = isFabs ? 'FABS Submissions Table' : 'DABS Submissions Table';
-        const activeTab = isFabs ? 'FABSdashboard' : 'dashboard';
+        const activeTab = isFabs ? 'FABSsubmissionsTable' : 'submissionsTable';
         return (
             <div>
                 <div className="usa-da-site_wrap usa-da-dashboard-page">
