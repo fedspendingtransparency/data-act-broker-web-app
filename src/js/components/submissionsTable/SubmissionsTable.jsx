@@ -57,9 +57,10 @@ export default class SubmissionsTable extends React.Component {
             deleteIndex: -1,
             sortColumn: null,
             sortDirection: 'desc',
-            user: true,
-            type: this.props.type
+            user: true
         };
+
+        this.reload = this.reload.bind(this);
     }
 
     componentDidMount() {
@@ -70,14 +71,11 @@ export default class SubmissionsTable extends React.Component {
         this.loadUser();
     }
 
-    componentWillReceiveProps(nextProps) {
-        if (nextProps.type !== this.state.type) {
-            this.reload();
-            this.setState({ type: nextProps.type });
-        }
-    }
-
     componentDidUpdate(prevProps) {
+        if (this.props.type !== prevProps.type) {
+            this.reload();
+        }
+
         if (!_.isEqual(prevProps.appliedFilters, this.props.appliedFilters)) {
             // reset to page 1
             this.changePage(1);
@@ -91,7 +89,7 @@ export default class SubmissionsTable extends React.Component {
     getHeaders() {
         let headers = [];
         if (this.props.isCertified) {
-            if (this.state.type === 'fabs') {
+            if (this.props.type === 'fabs') {
                 headers = [
                     'Submission ID',
                     'Agency: Filename',
@@ -117,7 +115,7 @@ export default class SubmissionsTable extends React.Component {
             let canDelete = false;
             let agency = '';
             let view = 'View';
-            if (this.state.type === 'fabs') {
+            if (this.props.type === 'fabs') {
                 dateName = 'Action Date Range';
                 canDelete = PermissionsHelper.checkFabsPermissions(this.props.session);
                 agency = 'Agency:Filename';
@@ -192,7 +190,7 @@ export default class SubmissionsTable extends React.Component {
         if (this.props.isCertified) {
             classes = [`row-${viewSize} text-center`, 'row-20', 'row-12_5', 'row-10', 'row-20 progress-cell',
                 'row-15 text-center'];
-            if (this.state.type === 'fabs') {
+            if (this.props.type === 'fabs') {
                 classes = ['row-10 text-center', 'row-25', 'row-10', 'row-15 white-space', 'row-10',
                     'row-10 text-center'];
             }
@@ -227,7 +225,7 @@ export default class SubmissionsTable extends React.Component {
     formatRow(item, index) {
         let start = 'Start: ';
         let end = '\nEnd: ';
-        if (this.state.type === 'fabs') {
+        if (this.props.type === 'fabs') {
             start = 'Earliest: ';
             end = '\nLatest: ';
         }
@@ -240,13 +238,13 @@ export default class SubmissionsTable extends React.Component {
 
         const deleteConfirm = this.state.deleteIndex !== -1 && index === this.state.deleteIndex;
 
-        let link = <SubmissionLink submissionId={item.submission_id} type={this.state.type} />;
+        let link = <SubmissionLink submissionId={item.submission_id} type={this.props.type} />;
 
         if (this.props.isCertified) {
             link = (<SubmissionLink
                 submissionId={item.submission_id}
                 value={reportingDateString}
-                type={this.state.type} />);
+                type={this.props.type} />);
         }
 
         let row = [];
@@ -308,7 +306,7 @@ export default class SubmissionsTable extends React.Component {
                         index={index}
                         warning={this.deleteWarning.bind(this)}
                         confirm={deleteConfirm}
-                        reload={this.reload.bind(this)}
+                        reload={this.reload}
                         item={item}
                         account={this.state.account} />);
                 }
@@ -386,7 +384,7 @@ export default class SubmissionsTable extends React.Component {
         const headers = this.getHeaders();
         // cannot be added to the const because if a user is read only then delete will not be created
         let unsortable = [0, 2, 5, 6];
-        if (this.props.isCertified && this.state.type === 'fabs') {
+        if (this.props.isCertified && this.props.type === 'fabs') {
             unsortable = [0, 3, 4];
         }
         else if (this.props.isCertified) {

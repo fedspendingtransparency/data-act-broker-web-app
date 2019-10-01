@@ -53,7 +53,6 @@ export default class SubmissionsTableContent extends React.Component {
         this.state = {
             activePage: 1,
             certifiedPage: 1,
-            title: this.props.type === 'fabs' ? 'Published Submissions' : 'Certified Submissions',
             filterCounts: {
                 dabs: {
                     active: 0,
@@ -69,14 +68,6 @@ export default class SubmissionsTableContent extends React.Component {
         this.toggleFilter = this.toggleFilter.bind(this);
         this.updateFilterCount = this.updateFilterCount.bind(this);
         this.generateMessage = this.generateMessage.bind(this);
-    }
-
-    componentWillReceiveProps(nextProps) {
-        if (nextProps.type !== this.props.type) {
-            this.setState({
-                title: nextProps.type === 'fabs' ? 'Published Submissions' : 'Certified Submissions'
-            });
-        }
     }
 
     toggleFilter(table, filter, value) {
@@ -171,7 +162,9 @@ export default class SubmissionsTableContent extends React.Component {
                 <div className="row">
                     <div className="col-md-12">
                         <div className="table-heading">
-                            <h2 className="table-heading__title">{this.state.title}</h2>
+                            <h2 className="table-heading__title">
+                                {this.props.type === 'fabs' ? 'Published Submissions' : 'Certified Submissions'}
+                            </h2>
                             {secondMessage}
                         </div>
                         <SubmissionsTableFilters
