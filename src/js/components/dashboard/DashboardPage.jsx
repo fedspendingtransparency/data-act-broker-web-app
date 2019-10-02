@@ -8,6 +8,34 @@ import Navbar from 'components/SharedComponents/navigation/NavigationComponent';
 import Footer from 'components/SharedComponents/FooterComponent';
 import Banner from 'components/SharedComponents/Banner';
 import DashboardTab from './DashboardTab';
+import FilterSidebar from './FilterSidebar';
+
+const filters = [
+    {
+        name: 'Quarter',
+        required: true,
+        component: null,
+        description: 'Select the applicable quarter(s).'
+    },
+    {
+        name: 'Fiscal Year',
+        required: true,
+        component: null,
+        description: 'Select the applicable fiscal year(s).'
+    },
+    {
+        name: 'Files',
+        required: true,
+        component: null,
+        description: 'Select one file or cross-file.'
+    },
+    {
+        name: 'Rule',
+        required: false,
+        component: null,
+        description: 'Enter specific rules to narrow the data.'
+    }
+];
 
 export default class DashboardPage extends React.Component {
     constructor(props) {
@@ -53,6 +81,14 @@ export default class DashboardPage extends React.Component {
                                     active={this.state.activeTab === 'historical'}
                                     setActiveTab={this.setActiveTab} />
                             </div>
+                        </div>
+                    </div>
+                    <div className="dashboard-page">
+                        <div className="dashboard-page__filters">
+                            <FilterSidebar filters={filters} />
+                        </div>
+                        <div className="dashboard-page__content">
+                            Content here
                         </div>
                     </div>
                     <Banner type="dabs" />
