@@ -61,9 +61,7 @@ export default class DashboardPage extends React.Component {
                         <div className="container">
                             <div className="row">
                                 <div className="col-md-12">
-                                    <div className="display-2">
-                                        DABS Dashboard
-                                    </div>
+                                    <h1 className="display-2">DABS Dashboard</h1>
                                 </div>
                             </div>
                         </div>
@@ -88,7 +86,8 @@ export default class DashboardPage extends React.Component {
                             <FilterSidebar filters={filters} />
                         </div>
                         <div className="dashboard-page__content">
-                            Content here
+                            <h2>Historical Data Summary</h2>
+                            <hr />
                         </div>
                     </div>
                     <Banner type="dabs" />

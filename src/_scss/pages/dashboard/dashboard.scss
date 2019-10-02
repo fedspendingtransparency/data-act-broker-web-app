@@ -20,7 +20,10 @@
             background-color: $color-white;
             @include flex(1 1 auto);
             margin-left: rem(15);
-            padding: rem(15);
+            h2 {
+                padding: 0 rem(20);
+                font-size: $h2-font-size;
+            }
         }
     }
 }
