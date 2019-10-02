@@ -19,7 +19,7 @@ export default class DashboardPage extends React.Component {
     render() {
         return (
             <div>
-                <div className="usa-da-site_wrap usa-da-agency-data-dashboard-page">
+                <div className="usa-da-site_wrap usa-da-dashboard-page">
                     <Navbar type="dabs" />
                     <div className="usa-da-content-dark">
                         <div className="container">
