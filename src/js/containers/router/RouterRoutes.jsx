@@ -1,16 +1,17 @@
 import { hashHistory } from 'react-router';
-import LandingPage from '../../components/landing/LandingPage';
-import LoginPage from '../../components/login/LoginPage';
-import AuthPage from '../../components/login/AuthPage';
-import SubmissionGuideContainer from '../../containers/addData/SubmissionGuideContainer';
-import AddDataPageContainer from '../../containers/addData/AddDataPageContainer';
+import LandingPage from 'components/landing/LandingPage';
+import LoginPage from 'components/login/LoginPage';
+import AuthPage from 'components/login/AuthPage';
+import SubmissionGuideContainer from 'containers/addData/SubmissionGuideContainer';
+import AddDataPageContainer from 'containers/addData/AddDataPageContainer';
 import UploadFabsFilePageContainer from
-    '../../containers/uploadFabsFile/UploadFabsFilePageContainer';
+    'containers/uploadFabsFile/UploadFabsFilePageContainer';
 import GenerateDetachedFilesPageContainer
-    from '../../containers/generateDetachedFiles/GenerateDetachedFilesPageContainer';
+    from 'containers/generateDetachedFiles/GenerateDetachedFilesPageContainer';
 import DetachedFileAContainer
-    from '../../containers/generateDetachedFiles/DetachedFileAContainer';
-import StoreSingleton from '../../redux/storeSingleton';
+    from 'containers/generateDetachedFiles/DetachedFileAContainer';
+import StoreSingleton from 'redux/storeSingleton';
+import Dashboard from 'components/dashboard/DashboardPage';
 
 let instance = null;
 let store = new StoreSingleton().store;
@@ -188,6 +189,12 @@ const getRoutes = () => {
             path: 'generateDetachedFileA',
             onEnter: checkUserPermissions,
             component: DetachedFileAContainer,
+            type: 'dabs'
+        },
+        {
+            path: 'dashboard',
+            onEnter: checkUserPermissions,
+            component: Dashboard,
             type: 'dabs'
         }
     ];
