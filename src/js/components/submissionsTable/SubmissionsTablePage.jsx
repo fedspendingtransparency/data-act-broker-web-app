@@ -22,7 +22,7 @@ export default class SubmissionsTablePage extends React.Component {
         const activeTab = isFabs ? 'FABSsubmissionsTable' : 'submissionsTable';
         return (
             <div>
-                <div className="usa-da-site_wrap usa-da-dashboard-page">
+                <div className="usa-da-site_wrap usa-da-submissions-table-page">
                     <Navbar activeTab={activeTab} type={this.props.route.type} />
                     <div className={`usa-da-content-${color}`}>
                         <div className="container">

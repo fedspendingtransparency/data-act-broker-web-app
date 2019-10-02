@@ -1,4 +1,4 @@
-.usa-da-dashboard-page {
+.usa-da-submissions-table-page {
 	@import "../../layouts/content/content";
 	@include contentLayout;
 
@@ -58,5 +58,5 @@
     @import "./_filters";
     @import "./_filterBar";
     @import "./_table";
-		@import "../../components/datepicker/_calendar-range-datepicker";
+	@import "../../components/datepicker/_calendar-range-datepicker";
 }
