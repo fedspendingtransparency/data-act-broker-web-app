@@ -3,7 +3,7 @@
  * Created by Lizzie Salita 8/14/18
  */
 
-import { initialState as defaultFilters } from './dashboardFilterReducer';
+import { initialState as defaultFilters } from './stagedFiltersReducer';
 
 export const initialState = {
     dabs: {

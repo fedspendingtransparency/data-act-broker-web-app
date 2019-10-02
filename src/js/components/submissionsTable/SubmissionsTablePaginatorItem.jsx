@@ -1,5 +1,5 @@
 /**
-  * DashboardPaginatorItem.jsx
+  * SubmissionsTablePaginatorItem.jsx
   * Created by Kevin Li 10/31/16
   */
 
@@ -22,7 +22,7 @@ const defaultProps = {
     showTail: false
 };
 
-export default class DashboardPaginatorItem extends React.Component {
+export default class SubmissionsTablePaginatorItem extends React.Component {
     clickedPage(e) {
         e.preventDefault();
         this.props.changePage(this.props.value);
@@ -57,5 +57,5 @@ export default class DashboardPaginatorItem extends React.Component {
     }
 }
 
-DashboardPaginatorItem.propTypes = propTypes;
-DashboardPaginatorItem.defaultProps = defaultProps;
+SubmissionsTablePaginatorItem.propTypes = propTypes;
+SubmissionsTablePaginatorItem.defaultProps = defaultProps;

@@ -3,7 +3,7 @@
  * Created by Lizzie Salita 10/29/18
  */
 
-import { dashboardFilterReducer, initialState } from 'redux/reducers/dashboard/dashboardFilterReducer';
+import { dashboardFilterReducer, initialState } from 'redux/reducers/submissionsTable/stagedFiltersReducer';
 
 describe('dashboardFilterReducer', () => {
     describe('UPDATE_DASHBOARD_FILTER', () => {

@@ -6,8 +6,8 @@ import { agencyReducer } from './agencyReducer';
 import { createdByReducer } from './createdByReducer';
 import { lastDateModifiedReducer } from './lastDateModifiedReducer';
 import { subTierAgencyReducer } from './subTierAgencyReducer';
-import { dashboardFilterReducer } from './dashboard/dashboardFilterReducer';
-import { appliedFiltersReducer } from './dashboard/appliedFiltersReducer';
+import { dashboardFilterReducer } from './submissionsTable/stagedFiltersReducer';
+import { appliedFiltersReducer } from './submissionsTable/appliedFiltersReducer';
 
 const appReducer = combineReducers({
     session: sessionReducer,

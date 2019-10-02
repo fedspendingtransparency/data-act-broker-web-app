@@ -210,13 +210,13 @@ const getRoutes = () => {
                 type
             };
         }
-        else if (routeInfo.component === 'dashboard') {
+        else if (routeInfo.component === 'submissionsTable') {
             return {
                 path: prefix + routeInfo.path,
                 onEnter: routeInfo.onEnter[onEnterIndex],
                 getComponent(nextState, cb) {
                     require.ensure([], (require) => {
-                        cb(null, require('../../components/dashboard/DashboardPage').default);
+                        cb(null, require('../../components/submissionsTable/SubmissionsTablePage').default);
                     });
                 },
                 type
@@ -245,9 +245,9 @@ const getRoutes = () => {
             component: 'landing'
         },
         {
-            path: 'dashboard',
+            path: 'submissionsTable',
             onEnter: [checkUserPermissions],
-            component: 'dashboard'
+            component: 'submissionsTable'
         },
         {
             path: 'help',
