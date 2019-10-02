@@ -1,4 +1,8 @@
 .usa-da-dashboard-page {
 	@import "../../layouts/content/content";
-	@include contentLayout;
+    @include contentLayout;
+    .display-2 {
+        padding-top: rem(24);
+    }
+    @import './dashboardTabs';
 }

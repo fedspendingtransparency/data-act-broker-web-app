@@ -4,9 +4,10 @@
   */
 
 import React from 'react';
-import Navbar from 'components/SharedComponents/navigation/NavigationComponent'; 
+import Navbar from 'components/SharedComponents/navigation/NavigationComponent';
 import Footer from 'components/SharedComponents/FooterComponent';
 import Banner from 'components/SharedComponents/Banner';
+import DashboardTab from './DashboardTab';
 
 export default class DashboardPage extends React.Component {
     constructor(props) {
@@ -15,6 +16,13 @@ export default class DashboardPage extends React.Component {
         this.state = {
             activeTab: 'historical'
         };
+
+        this.setActiveTab = this.setActiveTab.bind(this);
+    }
+    setActiveTab(type) {
+        this.setState({
+            activeTab: type
+        });
     }
     render() {
         return (
@@ -29,6 +37,21 @@ export default class DashboardPage extends React.Component {
                                         DABS Dashboard
                                     </div>
                                 </div>
+                            </div>
+                        </div>
+                        <div className="dashboard-tabs">
+                            <div className="dashboard-tabs__content">
+                                <DashboardTab
+                                    label="Active"
+                                    type="active"
+                                    disabled
+                                    active={this.state.activeTab === 'active'}
+                                    setActiveTab={this.setActiveTab} />
+                                <DashboardTab
+                                    label="Historical"
+                                    type="historical"
+                                    active={this.state.activeTab === 'historical'}
+                                    setActiveTab={this.setActiveTab} />
                             </div>
                         </div>
                     </div>
