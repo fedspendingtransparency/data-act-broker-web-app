@@ -140,8 +140,8 @@ SubmissionsTableContainer.defaultProps = defaultProps;
 export default connect(
     (state) => ({
         session: state.session,
-        stagedFilters: state.dashboardFilters,
-        appliedFilters: state.appliedDashboardFilters
+        stagedFilters: state.submissionsTableFilters,
+        appliedFilters: state.appliedSubmissionsTableFilters
     }),
     (dispatch) => bindActionCreators(combinedActions, dispatch),
 )(SubmissionsTableContainer);
