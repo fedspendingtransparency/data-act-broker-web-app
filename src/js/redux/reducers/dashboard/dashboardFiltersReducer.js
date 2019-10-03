@@ -6,10 +6,10 @@
 import { Set } from 'immutable';
 
 export const initialState = {
-    quarters: Set,
-    fy: Set,
+    quarters: new Set(),
+    fy: new Set(),
     file: 'A',
-    rules: Set
+    rules: new Set()
 };
 
 export const dashboardFiltersReducer = (state = initialState, action) => {
@@ -37,7 +37,7 @@ export const dashboardFiltersReducer = (state = initialState, action) => {
             });
         }
 
-        case 'CLEAR_SEARCH_FILTER_ALL': {
+        case 'CLEAR_DASHBOARD_FILTERS': {
             return Object.assign({}, initialState);
         }
 

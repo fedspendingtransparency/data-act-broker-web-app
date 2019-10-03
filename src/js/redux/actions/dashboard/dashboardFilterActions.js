@@ -15,5 +15,5 @@ export const updateFileFilter = (file) => ({
 });
 
 export const clearAllFilters = () => ({
-    type: 'CLEAR_FILTER_ALL'
+    type: 'CLEAR_DASHBOARD_FILTERS'
 });
