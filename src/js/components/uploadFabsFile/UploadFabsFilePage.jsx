@@ -35,20 +35,14 @@ export default class UploadFabsFilePage extends React.Component {
     constructor(props) {
         super(props);
 
-        this.setErrorMessage = this.setErrorMessage.bind(this);
         this.validate = this.validate.bind(this);
     }
 
     componentDidUpdate(prevProps) {
         const { params } = this.props;
         if (params.submissionID !== prevProps.params.submissionID) {
-            this.removeError();
             this.props.setSubmissionId(params.submissionID);
         }
-    }
-
-    setErrorMessage(err) {
-        this.setState({ isError: true, errorMessage: err.body.message });
     }
 
     validate(submissionID) {
