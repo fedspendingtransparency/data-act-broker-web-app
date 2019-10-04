@@ -12,7 +12,6 @@ import Navbar from '../SharedComponents/navigation/NavigationComponent';
 
 import UploadFabsFileMeta from './UploadFabsFileMeta';
 import UploadFabsFileValidation from './UploadFabsFileValidation';
-import DABSFABSErrorMessage from '../SharedComponents/DABSFABSErrorMessage';
 
 const propTypes = {
     setSubmissionId: PropTypes.func,
@@ -36,11 +35,6 @@ export default class UploadFabsFilePage extends React.Component {
     constructor(props) {
         super(props);
 
-        this.state = {
-            isError: false,
-            errorMessage: ''
-        };
-
         this.setErrorMessage = this.setErrorMessage.bind(this);
         this.validate = this.validate.bind(this);
     }
@@ -57,10 +51,6 @@ export default class UploadFabsFilePage extends React.Component {
         this.setState({ isError: true, errorMessage: err.body.message });
     }
 
-    removeError() {
-        this.setState({ isError: false, errorMessage: '' });
-    }
-
     validate(submissionID) {
         this.props.setSubmissionId(submissionID);
         hashHistory.push(`/FABSaddData/${submissionID}`);
@@ -68,14 +58,12 @@ export default class UploadFabsFilePage extends React.Component {
 
     render() {
         let content = null;
-        const { isError, errorMessage } = this.state;
         if (this.props.params.submissionID) {
             content = (<UploadFabsFileValidation
                 {...this.props}
                 submission={this.props.submission}
                 setSubmissionId={this.props.setSubmissionId}
                 errorMessage={this.setErrorMessage} />);
-            if (isError) content = <DABSFABSErrorMessage message={errorMessage} />;
         }
         else {
             content = (<UploadFabsFileMeta
