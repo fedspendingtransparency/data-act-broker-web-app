@@ -33,7 +33,7 @@ const filters = [
         name: 'Rule',
         required: false,
         component: null,
-        description: 'Enter specific rules to narrow the data.'
+        description: 'Enter specific codes to filter your search.'
     }
 ];
 
