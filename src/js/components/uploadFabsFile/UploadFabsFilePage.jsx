@@ -56,8 +56,7 @@ export default class UploadFabsFilePage extends React.Component {
             content = (<UploadFabsFileValidation
                 {...this.props}
                 submission={this.props.submission}
-                setSubmissionId={this.props.setSubmissionId}
-                errorMessage={this.setErrorMessage} />);
+                setSubmissionId={this.props.setSubmissionId} />);
         }
         else {
             content = (<UploadFabsFileMeta
