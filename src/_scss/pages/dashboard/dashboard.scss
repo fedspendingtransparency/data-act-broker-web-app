@@ -24,6 +24,9 @@
                 padding: 0 rem(20);
                 font-size: $h2-font-size;
             }
+            hr {
+                border-top: solid rem(2) $color-gray-light;
+            }
         }
     }
 }
