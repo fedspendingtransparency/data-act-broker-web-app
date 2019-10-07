@@ -276,10 +276,7 @@ export class UploadFabsFileValidation extends React.Component {
                     this.checkFile(this.props.submission.id);
                 })
                 .catch((error) => {
-                    if (error.httpStatus === 400) {
-                        this.setState({ error: 1, error_message: error.message, published: 'unpublished' });
-                    }
-                    else if (error.httpStatus === 500) {
+                    if (error.httpStatus === 500) {
                         this.setState({ error: 4, error_message: error.message, published: 'unpublished' });
                     }
                     else {
@@ -406,9 +403,8 @@ export class UploadFabsFileValidation extends React.Component {
                             <div className="row">
                                 <div className="col-xs-8 button-text-container text-right">
                                     <Icons.CheckCircle />
-                                        File Published: {this.state.fabs_meta.valid_rows}&nbsp; row(s) of data
-                                        (excluding header) published at &nbsp;
-                                    {parsedDate[0]} on {parsedDate[1]}
+                                        File Published: {this.state.fabs_meta.valid_rows} row(s) of data&nbsp;
+                                        (excluding header) published at {parsedDate[0]} on {parsedDate[1]}
                                     <span className="tooltip-popover-container">
                                         <Icons.InfoCircle />
                                         <span className="tooltip-popover above">
@@ -438,7 +434,6 @@ export class UploadFabsFileValidation extends React.Component {
                                     </span>
                                 </div>
                                 <button className="pull-right col-xs-3 us-da-disabled-button" disabled>
-                                    {' '}
                                         Download Published File
                                 </button>
                             </div>
@@ -451,14 +446,13 @@ export class UploadFabsFileValidation extends React.Component {
                             <div className="row">
                                 <div className="col-xs-8 button-text-container text-right">
                                     <Icons.CheckCircle />
-                                        File Published: {this.state.fabs_meta.valid_rows}&nbsp; row(s) of data
-                                        (excluding header) published at &nbsp;
-                                    {parsedDate[0]} on {parsedDate[1]}
+                                        File Published: {this.state.fabs_meta.valid_rows} row(s) of data&nbsp;
+                                        (excluding header) published at {parsedDate[0]} on {parsedDate[1]}
                                     <span className="tooltip-popover-container">
                                         <Icons.InfoCircle />
                                         <span className="tooltip-popover above">
                                             <span>
-                                                    The published file differs from the submitted file in four ways:{' '}
+                                                    The published file differs from the submitted file in four ways:
                                             </span>
                                             <span>
                                                     1) It contains derivations based on agency data, as described in the
@@ -487,7 +481,6 @@ export class UploadFabsFileValidation extends React.Component {
                                     onClick={this.clickedReport.bind(this, this.props.item)}
                                     download={this.state.fabs_meta.published_file}
                                     rel="noopener noreferrer">
-                                    {' '}
                                         Download Published File
                                 </button>
                             </div>
