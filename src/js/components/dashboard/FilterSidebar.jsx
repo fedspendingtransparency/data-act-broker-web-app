@@ -27,7 +27,7 @@ export default class FilterSidebar extends React.Component {
         return (
             <div className="filter-sidebar">
                 <div className="filter-sidebar__option">
-                    <span className="filter-sidebar__option-name">Filter</span>
+                    <span className="filter-sidebar__option-heading">FILTER</span>
                 </div>
                 {optionsList}
             </div>
