@@ -6,7 +6,6 @@
 import React from 'react';
 import Navbar from 'components/SharedComponents/navigation/NavigationComponent';
 import Footer from 'components/SharedComponents/FooterComponent';
-import Banner from 'components/SharedComponents/Banner';
 import DashboardTab from './DashboardTab';
 import FilterSidebar from './FilterSidebar';
 
@@ -90,7 +89,6 @@ export default class DashboardPage extends React.Component {
                             <hr />
                         </div>
                     </div>
-                    <Banner type="dabs" />
                 </div>
                 <Footer />
             </div>
