@@ -1,0 +1,25 @@
+.filter-sidebar {
+    .filter-sidebar__option {
+        color: $color-gray;
+        padding: rem(20);
+        border-bottom: solid rem(2) $color-gray-lighter;
+        .filter-sidebar__option-heading {
+            font-weight: $font-bold;
+            font-size: $h3-font-size;
+        }
+        .filter-sidebar__option-name {
+            font-size: rem(18);
+            font-weight: $font-semibold;
+            @include display(flex);
+            @include justify-content(space-between);
+            @include align-items(flex-end);
+            padding-bottom: rem(10);
+            .filter-sidebar__option-required {
+                color: $color-secondary-dark;
+                font-size: $base-font-size;
+                @include display(flex);
+                @include flex(0 0 auto);
+            }
+        }
+    }
+}
