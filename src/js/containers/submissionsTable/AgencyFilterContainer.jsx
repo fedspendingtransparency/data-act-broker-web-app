@@ -101,7 +101,7 @@ AgencyFilterContainer.defaultProps = defaultProps;
 export default connect(
     (state) => ({
         agencyList: state.agencyList,
-        selectedFilters: state.dashboardFilters
+        selectedFilters: state.submissionsTableFilters
     }),
     (dispatch) => bindActionCreators(agencyActions, dispatch),
 )(AgencyFilterContainer);

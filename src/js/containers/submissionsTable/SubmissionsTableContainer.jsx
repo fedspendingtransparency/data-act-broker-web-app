@@ -1,5 +1,5 @@
 /**
-  * DashboardContainer.jsx
+  * SubmissionsTableContainer.jsx
   * Created by Kevin Li 10/21/16
   */
 
@@ -8,12 +8,12 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 
-import * as dashboardFilterActions from '../../redux/actions/dashboard/dashboardFilterActions';
-import { resetAppliedFilters } from '../../redux/actions/dashboard/appliedFilterActions';
+import * as dashboardFilterActions from 'redux/actions/submissionsTable/stagedFiltersActions';
+import { resetAppliedFilters } from 'redux/actions/submissionsTable/appliedFilterActions';
 
-import * as SubmissionListHelper from '../../helpers/submissionListHelper';
+import * as SubmissionListHelper from 'helpers/submissionListHelper';
 
-import DashboardContent from '../../components/dashboard/DashboardContent';
+import DashboardContent from 'components/submissionsTable/SubmissionsTableContent';
 
 const combinedActions = Object.assign({}, dashboardFilterActions, {
     resetAppliedFilters
@@ -39,7 +39,7 @@ const defaultProps = {
     resetAppliedFilters: null
 };
 
-export class DashboardContainer extends React.Component {
+export class SubmissionsTableContainer extends React.Component {
     constructor(props) {
         super(props);
 
@@ -134,14 +134,14 @@ export class DashboardContainer extends React.Component {
     }
 }
 
-DashboardContainer.propTypes = propTypes;
-DashboardContainer.defaultProps = defaultProps;
+SubmissionsTableContainer.propTypes = propTypes;
+SubmissionsTableContainer.defaultProps = defaultProps;
 
 export default connect(
     (state) => ({
         session: state.session,
-        stagedFilters: state.dashboardFilters,
-        appliedFilters: state.appliedDashboardFilters
+        stagedFilters: state.submissionsTableFilters,
+        appliedFilters: state.appliedSubmissionsTableFilters
     }),
     (dispatch) => bindActionCreators(combinedActions, dispatch),
-)(DashboardContainer);
+)(SubmissionsTableContainer);

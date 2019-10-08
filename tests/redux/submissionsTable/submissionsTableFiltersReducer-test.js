@@ -1,14 +1,14 @@
 /**
- * dashboardFilterReducer-test.js
+ * submissionsTableFiltersReducer-test.js
  * Created by Lizzie Salita 10/29/18
  */
 
-import { dashboardFilterReducer, initialState } from 'redux/reducers/dashboard/dashboardFilterReducer';
+import { submissionsTableFiltersReducer, initialState } from 'redux/reducers/submissionsTable/submissionsTableFiltersReducer';
 
-describe('dashboardFilterReducer', () => {
+describe('submissionsTableFiltersReducer', () => {
     describe('UPDATE_DASHBOARD_FILTER', () => {
         it('should update the filter for the given type and table to the provided value', () => {
-            let state = dashboardFilterReducer(undefined, {});
+            let state = submissionsTableFiltersReducer(undefined, {});
 
             const action = {
                 type: 'UPDATE_DASHBOARD_FILTER',
@@ -21,7 +21,7 @@ describe('dashboardFilterReducer', () => {
                 }
             };
 
-            state = dashboardFilterReducer(state, action);
+            state = submissionsTableFiltersReducer(state, action);
 
             expect(state.dabs.active.lastDateModified.startDate).toEqual("1999-01-02");
             expect(state.dabs.active.lastDateModified.endDate).toEqual("1999-03-04");
@@ -29,7 +29,7 @@ describe('dashboardFilterReducer', () => {
     });
     describe('TOGGLE_DASHBOARD_FILTER', () => {
         it('should add a value to the specified list of filters if it was not already included', () => {
-            let state = dashboardFilterReducer(undefined, {});
+            let state = submissionsTableFiltersReducer(undefined, {});
 
             const action = {
                 type: 'TOGGLE_DASHBOARD_FILTER',
@@ -42,7 +42,7 @@ describe('dashboardFilterReducer', () => {
                 }
             };
 
-            state = dashboardFilterReducer(state, action);
+            state = submissionsTableFiltersReducer(state, action);
 
             expect(state.dabs.active.createdBy).toEqual([{
                 name: 'User',
@@ -50,7 +50,7 @@ describe('dashboardFilterReducer', () => {
             }]);
         });
         it('should remove a value from the specified list of filters if it was already included', () => {
-            let state = dashboardFilterReducer(undefined, {});
+            let state = submissionsTableFiltersReducer(undefined, {});
 
             // Add the value '1'
             const action1 = {
@@ -61,7 +61,7 @@ describe('dashboardFilterReducer', () => {
                 value: '1'
             };
 
-            state = dashboardFilterReducer(state, action1);
+            state = submissionsTableFiltersReducer(state, action1);
 
             expect(state.dabs.active.submissionIds).toEqual(['1']);
 
@@ -74,7 +74,7 @@ describe('dashboardFilterReducer', () => {
                 value: '2'
             };
 
-            state = dashboardFilterReducer(state, action2);
+            state = submissionsTableFiltersReducer(state, action2);
 
             expect(state.dabs.active.submissionIds).toEqual(['1', '2']);
 
@@ -87,14 +87,14 @@ describe('dashboardFilterReducer', () => {
                 value: '1'
             };
 
-            state = dashboardFilterReducer(state, action3);
+            state = submissionsTableFiltersReducer(state, action3);
 
             expect(state.dabs.active.submissionIds).toEqual(['2']);
         });
     });
     describe('RESET_DASHBOARD_FILTERS', () => {
         it('should reset the dashboard filters to their initial state', () => {
-            let state = dashboardFilterReducer(undefined, {
+            let state = submissionsTableFiltersReducer(undefined, {
                 dabs: {
                     active: {
                         agencies: [],
@@ -116,7 +116,7 @@ describe('dashboardFilterReducer', () => {
                 type: 'RESET_DASHBOARD_FILTERS'
             };
 
-            state = dashboardFilterReducer(state, resetAction);
+            state = submissionsTableFiltersReducer(state, resetAction);
 
             expect(state).toEqual(initialState);
         });

@@ -122,7 +122,7 @@ export default class PublishModal extends React.Component {
                         <div className="usa-da-certify-modal-content">
                             <div className="row">
                                 <div className="col-md-12 title-field">
-                                    <h6>Are you sure you want to publish your data to
+                                    <h6>Are you sure you want to publish your data to&nbsp;
                                         <a
                                             href="http://www.usaspending.gov"
                                             rel="noopener noreferrer"

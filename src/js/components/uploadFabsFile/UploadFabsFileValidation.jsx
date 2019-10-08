@@ -1,27 +1,28 @@
 /**
-* UploadFabsFileValidation.jsx
-* Created by Minahm Kim
-*/
+ * UploadFabsFileValidation.jsx
+ * Created by Minahm Kim
+ */
 
-import CSSTransitionGroup from "react-transition-group/CSSTransitionGroup";
+import CSSTransitionGroup from 'react-transition-group/CSSTransitionGroup';
 
-import React, { PropTypes } from "react";
-import { connect } from "react-redux";
+import React, { PropTypes } from 'react';
+import { connect } from 'react-redux';
 
-import ValidateValuesFileContainer from "../../containers/validateData/ValidateValuesFileContainer";
-import ValidateDataFileContainer from "../../containers/validateData/ValidateDataFileContainer";
-import PublishModal from "./PublishModal";
-import Banner from "../SharedComponents/Banner";
-import UploadFabsFileError from "./UploadFabsFileError";
-import UploadFabsFileHeader from "./UploadFabsFileHeader";
+import ValidateValuesFileContainer from '../../containers/validateData/ValidateValuesFileContainer';
+import ValidateDataFileContainer from '../../containers/validateData/ValidateDataFileContainer';
+import PublishModal from './PublishModal';
+import Banner from '../SharedComponents/Banner';
+import UploadFabsFileError from './UploadFabsFileError';
+import UploadFabsFileHeader from './UploadFabsFileHeader';
 
-import * as UploadHelper from "../../helpers/uploadHelper";
-import * as GenerateFilesHelper from "../../helpers/generateFilesHelper";
-import * as PermissionsHelper from "../../helpers/permissionsHelper";
-import * as ReviewHelper from "../../helpers/reviewHelper";
-import { kGlobalConstants } from "../../GlobalConstants";
+import * as UploadHelper from '../../helpers/uploadHelper';
+import * as GenerateFilesHelper from '../../helpers/generateFilesHelper';
+import * as PermissionsHelper from '../../helpers/permissionsHelper';
+import * as ReviewHelper from '../../helpers/reviewHelper';
+import { kGlobalConstants } from '../../GlobalConstants';
 
 import * as Icons from '../SharedComponents/icons/Icons';
+import DABSFABSErrorMessage from '../SharedComponents/DABSFABSErrorMessage';
 
 const propTypes = {
     setSubmissionState: PropTypes.func,
@@ -30,8 +31,7 @@ const propTypes = {
     params: PropTypes.object,
     route: PropTypes.object,
     session: PropTypes.object,
-    submission: PropTypes.object,
-    errorMessage: PropTypes.func
+    submission: PropTypes.object
 };
 
 const defaultProps = {
@@ -52,23 +52,25 @@ export class UploadFabsFileValidation extends React.Component {
         this.isUnmounted = false;
 
         this.state = {
-            agency: "",
+            agency: '',
             fabsFile: {},
-            cgac_code: "",
+            cgac_code: '',
             jobResults: { fabs: {} },
             headerErrors: false,
             validationFinished: false,
             error: 0,
-            published: "unpublished",
+            published: 'unpublished',
             submit: true,
             showPublish: false,
             type: this.props.route.type,
             showSuccess: false,
-            error_message: "",
+            error_message: '',
             fabs_meta: { valid_rows: 0, total_rows: 0, publish_date: null },
             metadata: {},
-            signedUrl: "",
-            signInProgress: false
+            signedUrl: '',
+            signInProgress: false,
+            inFlight: true,
+            submissionErrorMessage: ''
         };
     }
 
@@ -84,6 +86,7 @@ export class UploadFabsFileValidation extends React.Component {
         if (prevProps.params.submissionID !== this.props.params.submissionID && this.props.params.submissionID) {
             this.setSubmissionMetadata(this.props.params.submissionID);
             this.checkFileStatus(this.props.params.submissionID);
+            this.setSubmissionError();
         }
     }
 
@@ -93,6 +96,9 @@ export class UploadFabsFileValidation extends React.Component {
     }
 
     setSubmissionMetadata(submissionID) {
+        this.setState({
+            inFlight: true
+        });
         ReviewHelper.fetchSubmissionMetadata(submissionID, 'fabs')
             .then((response) => {
                 this.setState({
@@ -100,13 +106,24 @@ export class UploadFabsFileValidation extends React.Component {
                     agency: response.agency_name,
                     cgac_code: response.cgac_code,
                     published: response.publish_status,
-                    fabs_meta: response.fabs_meta
+                    fabs_meta: response.fabs_meta,
+                    inFlight: false
                 });
             })
             .catch((err) => {
                 console.error(err);
-                this.props.errorMessage(err);
+                this.setState({
+                    inFlight: false
+                }, () => {
+                    this.setSubmissionError(err.body.message);
+                });
             });
+    }
+
+    setSubmissionError(submissionErrorMessage = '') {
+        this.setState({
+            submissionErrorMessage
+        });
     }
 
     openModal() {
@@ -122,10 +139,13 @@ export class UploadFabsFileValidation extends React.Component {
     }
 
     startRevalidation() {
-        this.setState({
-            validationFinished: false,
-            published: 'unpublished'
-        }, this.revalidate());
+        this.setState(
+            {
+                validationFinished: false,
+                published: 'unpublished'
+            },
+            this.revalidate()
+        );
     }
 
     revalidate() {
@@ -134,8 +154,10 @@ export class UploadFabsFileValidation extends React.Component {
                 this.checkFileStatus(this.props.params.submissionID);
             })
             .catch((error) => {
-                const errMsg = error.message || "An error occurred while attempting to revalidate the submission. " +
-                    "Please contact the Service Desk.";
+                const errMsg =
+                    error.message ||
+                    'An error occurred while attempting to revalidate the submission. ' +
+                        'Please contact the Service Desk.';
 
                 this.setState({
                     error: 4,
@@ -161,22 +183,20 @@ export class UploadFabsFileValidation extends React.Component {
                         success = true;
                     }
 
-                    ReviewHelper.fetchSubmissionMetadata(submissionID, 'fabs')
-                        .then((metadataResponse) => {
-                            ReviewHelper.fetchSubmissionData(submissionID)
-                                .then((dataResponse) => {
-                                    const fabsJob = ReviewHelper.getFileStates(dataResponse).fabs;
-                                    this.setState({
-                                        jobResults: { fabs: fabsJob },
-                                        error: 0,
-                                        showSuccess: success,
-                                        published: metadataResponse.publish_status,
-                                        fabs_meta: metadataResponse.fabs_meta,
-                                        validationFinished: true,
-                                        headerErrors: fabsJob.error_type === 'header_errors'
-                                    });
-                                });
+                    ReviewHelper.fetchSubmissionMetadata(submissionID, 'fabs').then((metadataResponse) => {
+                        ReviewHelper.fetchSubmissionData(submissionID).then((dataResponse) => {
+                            const fabsJob = ReviewHelper.getFileStates(dataResponse).fabs;
+                            this.setState({
+                                jobResults: { fabs: fabsJob },
+                                error: 0,
+                                showSuccess: success,
+                                published: metadataResponse.publish_status,
+                                fabs_meta: metadataResponse.fabs_meta,
+                                validationFinished: true,
+                                headerErrors: fabsJob.error_type === 'header_errors'
+                            });
                         });
+                    });
                 }
                 else if (!this.dataTimer) {
                     window.setTimeout(() => {
@@ -195,7 +215,7 @@ export class UploadFabsFileValidation extends React.Component {
 
     checkFile(submissionID) {
         this.dataTimer = window.setInterval(() => {
-            if (this.state.published !== "published") {
+            if (this.state.published !== 'published') {
                 this.checkFileStatus(submissionID);
             }
         }, timerDuration * 1000);
@@ -204,12 +224,15 @@ export class UploadFabsFileValidation extends React.Component {
     signReport(item) {
         GenerateFilesHelper.getFabsMeta(this.props.submission.id)
             .then((result) => {
-                this.setState({
-                    signedUrl: result.published_file,
-                    signInProgress: false
-                }, () => {
-                    this.openReport();
-                });
+                this.setState(
+                    {
+                        signedUrl: result.published_file,
+                        signInProgress: false
+                    },
+                    () => {
+                        this.openReport();
+                    }
+                );
             })
             .catch(() => {
                 this.setState({
@@ -228,42 +251,39 @@ export class UploadFabsFileValidation extends React.Component {
         // check if the link is already signed
         if (this.state.signInProgress) {
             // sign is in progress, do nothing
-
         }
-        else if (this.state.signedUrl !== "") {
+        else if (this.state.signedUrl !== '') {
             // it is signed, open immediately
             this.openReport();
         }
         else {
             // not signed yet, sign
-            this.setState({
-                signInProgress: true
-            }, () => {
-                this.signReport(item);
-            });
+            this.setState(
+                {
+                    signInProgress: true
+                },
+                () => {
+                    this.signReport(item);
+                }
+            );
         }
     }
 
     submitFabs() {
-        this.setState({ submit: false, published: 'publishing', showPublish: false },
-            () => {
-                UploadHelper.submitFabs({ submission_id: this.props.submission.id })
-                    .then(() => {
-                        this.checkFile(this.props.submission.id);
-                    })
-                    .catch((error) => {
-                        if (error.httpStatus === 400) {
-                            this.setState({ error: 1, error_message: error.message, published: 'unpublished' });
-                        }
-                        else if (error.httpStatus === 500) {
-                            this.setState({ error: 4, error_message: error.message, published: 'unpublished' });
-                        }
-                        else {
-                            this.setState({ error: 1, error_message: error.message, published: 'unpublished' });
-                        }
-                    });
-            }
-        );
+        this.setState({ submit: false, published: 'publishing', showPublish: false }, () => {
+            UploadHelper.submitFabs({ submission_id: this.props.submission.id })
+                .then(() => {
+                    this.checkFile(this.props.submission.id);
+                })
+                .catch((error) => {
+                    if (error.httpStatus === 500) {
+                        this.setState({ error: 4, error_message: error.message, published: 'unpublished' });
+                    }
+                    else {
+                        this.setState({ error: 1, error_message: error.message, published: 'unpublished' });
+                    }
+                });
+        });
     }
 
     // ERRORS
@@ -284,15 +304,15 @@ export class UploadFabsFileValidation extends React.Component {
         }
 
         // upload specified file
-        this.props.setSubmissionState("uploading");
+        this.props.setSubmissionState('uploading');
         const submission = this.props.submission;
         submission.files.fabs = {};
         submission.files.fabs.file = item;
 
         // reset file and job status
         const currentResults = this.state.jobResults;
-        currentResults.fabs.file_status = "";
-        currentResults.fabs.job_status = "";
+        currentResults.fabs.file_status = '';
+        currentResults.fabs.job_status = '';
         this.setState({
             jobResults: currentResults
         });
@@ -316,46 +336,65 @@ export class UploadFabsFileValidation extends React.Component {
     }
 
     render() {
+        if (this.state.inFlight) {
+            return (
+                <div className="alert alert-info text-center" role="alert">
+                    <p>Loading...</p>
+                </div>
+            );
+        }
+        else if (this.state.submissionErrorMessage) {
+            return <DABSFABSErrorMessage message={this.state.submissionErrorMessage} />;
+        }
         let validationButton = null;
         let revalidateButton = null;
         let downloadButton = null;
         let validationBox = null;
 
         const type = {
-            fileTitle: "Upload",
-            requestName: "fabs",
-            progress: "0"
+            fileTitle: 'Upload',
+            requestName: 'fabs',
+            progress: '0'
         };
 
         const fileData = this.state.jobResults[type.requestName];
         const status = fileData.job_status;
         let errorMessage = null;
-        validationBox = (<ValidateDataFileContainer
-            type={type}
-            data={this.state.jobResults}
-            setUploadItem={this.uploadFile.bind(this)}
-            updateItem={this.uploadFile.bind(this)}
-            publishing={this.state.published === "publishing"}
-            agencyName={this.state.agency} />);
-        if (fileData.file_status === "complete" && this.state.validationFinished &&
-            this.state.published !== "publishing") {
-            if (status !== "invalid" || fileData.file_status === "complete") {
-                validationBox = (<ValidateValuesFileContainer
-                    type={type}
-                    data={this.state.jobResults}
-                    setUploadItem={this.uploadFile.bind(this)}
-                    updateItem={this.uploadFile.bind(this)}
-                    published={this.state.published}
-                    agencyName={this.state.agency} />);
+        validationBox = (
+            <ValidateDataFileContainer
+                type={type}
+                data={this.state.jobResults}
+                setUploadItem={this.uploadFile.bind(this)}
+                updateItem={this.uploadFile.bind(this)}
+                publishing={this.state.published === 'publishing'}
+                agencyName={this.state.agency} />
+        );
+        if (
+            fileData.file_status === 'complete' &&
+                this.state.validationFinished &&
+                this.state.published !== 'publishing'
+        ) {
+            if (status !== 'invalid' || fileData.file_status === 'complete') {
+                validationBox = (
+                    <ValidateValuesFileContainer
+                        type={type}
+                        data={this.state.jobResults}
+                        setUploadItem={this.uploadFile.bind(this)}
+                        updateItem={this.uploadFile.bind(this)}
+                        published={this.state.published}
+                        agencyName={this.state.agency} />
+                );
             }
 
             if (this.state.showSuccess) {
-                errorMessage = (<UploadFabsFileError
-                    errorCode={this.state.error}
-                    type="success"
-                    message={this.state.error_message} />);
+                errorMessage = (
+                    <UploadFabsFileError
+                        errorCode={this.state.error}
+                        type="success"
+                        message={this.state.error_message} />
+                );
             }
-            if (this.state.published === "published") {
+            if (this.state.published === 'published') {
                 // This submission is already published and cannot be republished
                 const parsedDate = this.state.fabs_meta.publish_date.split(' ');
                 if (this.state.fabs_meta.published_file === null) {
@@ -364,36 +403,38 @@ export class UploadFabsFileValidation extends React.Component {
                             <div className="row">
                                 <div className="col-xs-8 button-text-container text-right">
                                     <Icons.CheckCircle />
-                                    File Published: {this.state.fabs_meta.valid_rows}&nbsp;
-                                    row(s) of data (excluding header) published at &nbsp;
-                                    {parsedDate[0]} on {parsedDate[1]}
+                                        File Published: {this.state.fabs_meta.valid_rows} row(s) of data&nbsp;
+                                        (excluding header) published at {parsedDate[0]} on {parsedDate[1]}
                                     <span className="tooltip-popover-container">
                                         <Icons.InfoCircle />
                                         <span className="tooltip-popover above">
                                             <span>
-                                                The published file differs from the submitted file in four ways:
+                                                    The published file differs from the submitted file in four ways:
                                             </span>
-                                            <span>1) It contains derivations based on agency data, as described
-                                        in the DAIMS Practices and Procedures document;
-                                            </span>
-
-                                            <span>2) Any rows in the submitted file with unresolved critical
-                                        errors will not be published.
+                                            <span>
+                                                    1) It contains derivations based on agency data, as described in the
+                                                    DAIMS Practices and Procedures document;
                                             </span>
 
-                                            <span>3) Its order matches the header order in DAIMS-IDD-D2,
-                                        rather than that in the submitted file.
+                                            <span>
+                                                    2) Any rows in the submitted file with unresolved critical errors
+                                                    will not be published.
                                             </span>
 
-                                            <span>4) Any extraneous headers, Flex or otherwise, are not carried
-                                         over to the published file.
+                                            <span>
+                                                    3) Its order matches the header order in DAIMS-IDD-D2, rather than
+                                                    that in the submitted file.
+                                            </span>
+
+                                            <span>
+                                                    4) Any extraneous headers, Flex or otherwise, are not carried over
+                                                    to the published file.
                                             </span>
                                         </span>
                                     </span>
                                 </div>
-                                <button
-                                    className="pull-right col-xs-3 us-da-disabled-button"
-                                    disabled> Download Published File
+                                <button className="pull-right col-xs-3 us-da-disabled-button" disabled>
+                                        Download Published File
                                 </button>
                             </div>
                         </div>
@@ -405,27 +446,32 @@ export class UploadFabsFileValidation extends React.Component {
                             <div className="row">
                                 <div className="col-xs-8 button-text-container text-right">
                                     <Icons.CheckCircle />
-                                    File Published: {this.state.fabs_meta.valid_rows}&nbsp;
-                                    row(s) of data (excluding header) published at &nbsp;
-                                    {parsedDate[0]} on {parsedDate[1]}
+                                        File Published: {this.state.fabs_meta.valid_rows} row(s) of data&nbsp;
+                                        (excluding header) published at {parsedDate[0]} on {parsedDate[1]}
                                     <span className="tooltip-popover-container">
                                         <Icons.InfoCircle />
                                         <span className="tooltip-popover above">
-                                            <span>The published file differs from the submitted file in four ways: </span>
-                                            <span>1) It contains derivations based on agency data, as described
-                                        in the DAIMS Practices and Procedures document;
+                                            <span>
+                                                    The published file differs from the submitted file in four ways:
+                                            </span>
+                                            <span>
+                                                    1) It contains derivations based on agency data, as described in the
+                                                    DAIMS Practices and Procedures document;
                                             </span>
 
-                                            <span>2) Any rows in the submitted file with unresolved critical
-                                        errors will not be published.
+                                            <span>
+                                                    2) Any rows in the submitted file with unresolved critical errors
+                                                    will not be published.
                                             </span>
 
-                                            <span>3) Its order matches the header order in DAIMS-IDD-D2,
-                                        rather than that in the submitted file.
+                                            <span>
+                                                    3) Its order matches the header order in DAIMS-IDD-D2, rather than
+                                                    that in the submitted file.
                                             </span>
 
-                                            <span>4) Any extraneous headers, Flex or otherwise, are not carried
-                                         over to the published file.
+                                            <span>
+                                                    4) Any extraneous headers, Flex or otherwise, are not carried over
+                                                    to the published file.
                                             </span>
                                         </span>
                                     </span>
@@ -434,56 +480,54 @@ export class UploadFabsFileValidation extends React.Component {
                                     className="pull-right col-xs-3 us-da-button"
                                     onClick={this.clickedReport.bind(this, this.props.item)}
                                     download={this.state.fabs_meta.published_file}
-                                    rel="noopener noreferrer"> Download Published File
+                                    rel="noopener noreferrer">
+                                        Download Published File
                                 </button>
                             </div>
-                        </div>);
+                        </div>
+                    );
                 }
             }
             else if (PermissionsHelper.checkFabsPermissions(this.props.session)) {
                 // User has permissions to publish this unpublished submission
                 validationButton = (
-                    <button
-                        className="pull-right col-xs-3 us-da-button"
-                        onClick={this.openModal.bind(this)}>
-                        Publish
-                    </button>);
+                    <button className="pull-right col-xs-3 us-da-button" onClick={this.openModal.bind(this)}>
+                            Publish
+                    </button>
+                );
                 revalidateButton = (
                     <button
                         className="pull-right col-xs-3 us-da-button revalidate-button"
                         onClick={this.startRevalidation.bind(this)}>
-                        Revalidate
-                    </button>);
+                            Revalidate
+                    </button>
+                );
             }
             else {
                 // User does not have permissions to publish
                 validationButton = (
-                    <button
-                        className="pull-right col-xs-3 us-da-disabled-button"
-                        disabled>
-                        You do not have permissions to publish
-                    </button>);
+                    <button className="pull-right col-xs-3 us-da-disabled-button" disabled>
+                            You do not have permissions to publish
+                    </button>
+                );
             }
         }
 
-        if (this.state.published === "publishing" && this.state.error !== 0) {
-            errorMessage = (<UploadFabsFileError
-                errorCode={this.state.error}
-                type="error"
-                message={this.state.error_message} />);
+        if (this.state.published === 'publishing' && this.state.error !== 0) {
+            errorMessage = (
+                <UploadFabsFileError errorCode={this.state.error} type="error" message={this.state.error_message} />
+            );
             validationButton = null;
             revalidateButton = (
-                <button
-                    className="pull-right col-xs-3 us-da-button"
-                    onClick={this.startRevalidation.bind(this)}>
-                    Revalidate
-                </button>);
+                <button className="pull-right col-xs-3 us-da-button" onClick={this.startRevalidation.bind(this)}>
+                        Revalidate
+                </button>
+            );
         }
-        else if (this.state.published === "unpublished" && this.state.error !== 0) {
-            errorMessage = (<UploadFabsFileError
-                errorCode={this.state.error}
-                type="error"
-                message={this.state.error_message} />);
+        else if (this.state.published === 'unpublished' && this.state.error !== 0) {
+            errorMessage = (
+                <UploadFabsFileError errorCode={this.state.error} type="error" message={this.state.error_message} />
+            );
             validationButton = null;
             revalidateButton = null;
         }
@@ -495,7 +539,6 @@ export class UploadFabsFileValidation extends React.Component {
                 <div className="container">
                     <div className="col-xs-12 mt-60 mb-60">
                         <div className="validation-holder">
-
                             <CSSTransitionGroup
                                 transitionName="usa-da-meta-fade"
                                 transitionEnterTimeout={600}
@@ -531,6 +574,4 @@ export class UploadFabsFileValidation extends React.Component {
 UploadFabsFileValidation.propTypes = propTypes;
 UploadFabsFileValidation.defaultProps = defaultProps;
 
-export default connect(
-    (state) => ({ session: state.session })
-)(UploadFabsFileValidation);
+export default connect((state) => ({ session: state.session }))(UploadFabsFileValidation);

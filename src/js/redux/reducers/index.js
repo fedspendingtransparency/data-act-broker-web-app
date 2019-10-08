@@ -6,8 +6,10 @@ import { agencyReducer } from './agencyReducer';
 import { createdByReducer } from './createdByReducer';
 import { lastDateModifiedReducer } from './lastDateModifiedReducer';
 import { subTierAgencyReducer } from './subTierAgencyReducer';
-import { dashboardFilterReducer } from './dashboard/dashboardFilterReducer';
-import { appliedFiltersReducer } from './dashboard/appliedFiltersReducer';
+import { submissionsTableFiltersReducer } from './submissionsTable/submissionsTableFiltersReducer';
+import { appliedSubmissionsTableFiltersReducer } from './submissionsTable/appliedFiltersReducer';
+import { dashboardFiltersReducer } from './dashboard/dashboardFiltersReducer';
+import { appliedDashboardFiltersReducer } from './dashboard/appliedFiltersReducer';
 
 const appReducer = combineReducers({
     session: sessionReducer,
@@ -16,8 +18,10 @@ const appReducer = combineReducers({
     createdByList: createdByReducer,
     lastDateModifiedList: lastDateModifiedReducer,
     subTierAgencyList: subTierAgencyReducer,
-    dashboardFilters: dashboardFilterReducer,
-    appliedDashboardFilters: appliedFiltersReducer
+    submissionsTableFilters: submissionsTableFiltersReducer,
+    appliedSubmissionsTableFilters: appliedSubmissionsTableFiltersReducer,
+    dashboardFilters: dashboardFiltersReducer,
+    appliedDashboardFilters: appliedDashboardFiltersReducer
 });
 
 export default appReducer;

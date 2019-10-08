@@ -1,17 +1,23 @@
 /**
  * appliedFilterActions.js
- * Created by Lizzie Salita 8/14/18
+ * Created by Lizzie Salita 10/02/19
  */
 
-export const applyStagedFilters = (state) => ({
-    type: 'APPLY_STAGED_FILTERS',
-    filters: state.filters,
-    dashboard: state.dashboard,
-    table: state.table
+export const setAppliedFilterCompletion = (complete) => ({
+    complete,
+    type: 'SET_APPLIED_FILTER_COMPLETION'
 });
 
-export const resetAppliedFilters = (state) => ({
-    type: 'CLEAR_APPLIED_FILTERS',
-    dashboard: state.dashboard,
-    table: state.table
+export const setAppliedFilterEmptiness = (empty) => ({
+    empty,
+    type: 'SET_APPLIED_FILTER_EMPTINESS'
+});
+
+export const applyStagedFilters = (filters) => ({
+    filters,
+    type: 'APPLY_STAGED_FILTERS'
+});
+
+export const resetAppliedFilters = () => ({
+    type: 'CLEAR_APPLIED_FILTERS'
 });

@@ -1,16 +1,17 @@
 import { hashHistory } from 'react-router';
-import LandingPage from '../../components/landing/LandingPage';
-import LoginPage from '../../components/login/LoginPage';
-import AuthPage from '../../components/login/AuthPage';
-import SubmissionGuideContainer from '../../containers/addData/SubmissionGuideContainer';
-import AddDataPageContainer from '../../containers/addData/AddDataPageContainer';
+import LandingPage from 'components/landing/LandingPage';
+import LoginPage from 'components/login/LoginPage';
+import AuthPage from 'components/login/AuthPage';
+import SubmissionGuideContainer from 'containers/addData/SubmissionGuideContainer';
+import AddDataPageContainer from 'containers/addData/AddDataPageContainer';
 import UploadFabsFilePageContainer from
-    '../../containers/uploadFabsFile/UploadFabsFilePageContainer';
+    'containers/uploadFabsFile/UploadFabsFilePageContainer';
 import GenerateDetachedFilesPageContainer
-    from '../../containers/generateDetachedFiles/GenerateDetachedFilesPageContainer';
+    from 'containers/generateDetachedFiles/GenerateDetachedFilesPageContainer';
 import DetachedFileAContainer
-    from '../../containers/generateDetachedFiles/DetachedFileAContainer';
-import StoreSingleton from '../../redux/storeSingleton';
+    from 'containers/generateDetachedFiles/DetachedFileAContainer';
+import StoreSingleton from 'redux/storeSingleton';
+import Dashboard from 'components/dashboard/DashboardPage';
 
 let instance = null;
 let store = new StoreSingleton().store;
@@ -189,6 +190,12 @@ const getRoutes = () => {
             onEnter: checkUserPermissions,
             component: DetachedFileAContainer,
             type: 'dabs'
+        },
+        {
+            path: 'dashboard',
+            onEnter: checkUserPermissions,
+            component: Dashboard,
+            type: 'dabs'
         }
     ];
 
@@ -210,13 +217,13 @@ const getRoutes = () => {
                 type
             };
         }
-        else if (routeInfo.component === 'dashboard') {
+        else if (routeInfo.component === 'submissionsTable') {
             return {
                 path: prefix + routeInfo.path,
                 onEnter: routeInfo.onEnter[onEnterIndex],
                 getComponent(nextState, cb) {
                     require.ensure([], (require) => {
-                        cb(null, require('../../components/dashboard/DashboardPage').default);
+                        cb(null, require('../../components/submissionsTable/SubmissionsTablePage').default);
                     });
                 },
                 type
@@ -245,9 +252,9 @@ const getRoutes = () => {
             component: 'landing'
         },
         {
-            path: 'dashboard',
+            path: 'submissionsTable',
             onEnter: [checkUserPermissions],
-            component: 'dashboard'
+            component: 'submissionsTable'
         },
         {
             path: 'help',

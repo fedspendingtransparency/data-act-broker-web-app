@@ -9,9 +9,9 @@ import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { isEqual } from 'lodash';
 
-import * as dashboardFilterActions from '../../redux/actions/dashboard/dashboardFilterActions';
+import * as dashboardFilterActions from 'redux/actions/submissionsTable/stagedFiltersActions';
 
-import FilterBar from '../../components/dashboard/filters/FilterBar';
+import FilterBar from 'components/submissionsTable/filters/FilterBar';
 
 const propTypes = {
     stagedFilters: PropTypes.object,

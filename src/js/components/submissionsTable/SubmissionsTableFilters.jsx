@@ -1,13 +1,13 @@
 /**
- * DashboardFilters.jsx
+ * SubmissionsTableFilters.jsx
  * Created by Lizzie Salita 8/10/18
  */
 
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import { Filter } from '../../components/SharedComponents/icons/Icons';
-import FilterSubmitContainer from '../../containers/dashboard/FilterSubmitContainer';
+import FilterSubmitContainer from 'containers/submissionsTable/FilterSubmitContainer';
+import { Filter } from '../SharedComponents/icons/Icons';
 import SubmissionIdFilter from './filters/SubmissionIdFilter';
 import FileNameFilter from './filters/FileNameFilter';
 import AgencyFilter from './filters/AgencyFilter';
@@ -32,7 +32,7 @@ const defaultProps = {
     minDateLastModified: ''
 };
 
-export default class DashboardFilters extends React.Component {
+export default class SubmissionsTableFilters extends React.Component {
     constructor(props) {
         super(props);
 
@@ -79,5 +79,5 @@ export default class DashboardFilters extends React.Component {
     }
 }
 
-DashboardFilters.propTypes = propTypes;
-DashboardFilters.defaultProps = defaultProps;
+SubmissionsTableFilters.propTypes = propTypes;
+SubmissionsTableFilters.defaultProps = defaultProps;

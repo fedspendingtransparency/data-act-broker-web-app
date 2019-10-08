@@ -1,0 +1,19 @@
+.dashboard-tabs {
+    background-color: black;
+    .dashboard-tabs__content {
+        @include display(flex);
+        @include justify-content(center);
+        .dashboard-tabs__button {
+            @include button-unstyled;
+            padding: rem(6) 0;
+            margin: rem(4) rem(25);
+            font-size: rem(20);
+            &.dashboard-tabs__button_active {
+                border-bottom: solid rem(2) $color-gold;
+            }
+            &:disabled {
+                color: $color-gray;
+            }
+        }
+    }
+}

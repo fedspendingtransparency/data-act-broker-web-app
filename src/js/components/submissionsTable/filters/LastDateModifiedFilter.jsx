@@ -6,7 +6,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import LastDateModifiedContainer from '../../../containers/dashboard/LastDateModifiedContainer';
+import LastDateModifiedContainer from 'containers/submissionsTable/LastDateModifiedContainer';
 
 const propTypes = {
     updateFilterList: PropTypes.func,
