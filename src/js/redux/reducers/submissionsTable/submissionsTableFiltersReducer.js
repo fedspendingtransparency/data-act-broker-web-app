@@ -1,5 +1,5 @@
 /**
- * dashboardFilterReducer.js
+ * submissionsTableReducer.js
  * Created by Lizzie Salita 8/10/18
  */
 
@@ -83,7 +83,7 @@ const defaultObjectValues = {
     }
 };
 
-export const dashboardFilterReducer = (state = initialState, action) => {
+export const submissionsTableFiltersReducer = (state = initialState, action) => {
     switch (action.type) {
         case 'UPDATE_DASHBOARD_FILTER': {
             let filterObject;

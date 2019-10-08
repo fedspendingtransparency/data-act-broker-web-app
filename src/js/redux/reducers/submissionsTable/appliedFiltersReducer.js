@@ -3,7 +3,7 @@
  * Created by Lizzie Salita 8/14/18
  */
 
-import { initialState as defaultFilters } from './stagedFiltersReducer';
+import { initialState as defaultFilters } from './submissionsTableFiltersReducer';
 
 export const initialState = {
     dabs: {
@@ -16,7 +16,7 @@ export const initialState = {
     }
 };
 
-export const appliedFiltersReducer = (state = initialState, action) => {
+export const appliedSubmissionsTableFiltersReducer = (state = initialState, action) => {
     switch (action.type) {
         case 'APPLY_STAGED_FILTERS': {
             const dashboard = Object.assign({}, state[action.dashboard], {
