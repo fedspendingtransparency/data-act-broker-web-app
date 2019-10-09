@@ -159,3 +159,17 @@ export const createOnKeyDownHandler = (cb, args = [], keyCodes = [13, 32]) => (e
         cb(...args);
     }
 };
+
+export const formatSize = (totalSize) => {
+    let displaySize = `${totalSize} bytes`;
+    if (totalSize >= 1000000000) {
+        displaySize = `${(totalSize / 1000000000).toFixed(2)} GB`;
+    }
+    else if (totalSize >= 1000000) {
+        displaySize = `${(totalSize / 1000000).toFixed(2)} MB`;
+    }
+    else if (totalSize >= 1000) {
+        displaySize = `${(totalSize / 1000).toFixed(2)} KB`;
+    }
+    return displaySize;
+};

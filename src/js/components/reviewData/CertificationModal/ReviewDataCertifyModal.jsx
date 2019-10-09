@@ -18,7 +18,8 @@ const propTypes = {
     session: PropTypes.object,
     submissionID: PropTypes.string,
     warnings: PropTypes.number,
-    isOpen: PropTypes.bool
+    isOpen: PropTypes.bool,
+    history: PropTypes.object
 };
 
 const defaultProps = {
@@ -61,7 +62,7 @@ export default class ReviewDataCertifyModal extends React.Component {
                 this.setState({ loading: false });
                 this.closeModal();
                 // Redirect to submission dashboard after successful certification
-                this.props.history.push("/dashboard");
+                this.props.history.push("/submissionsTable");
             })
             .catch((error) => {
                 let errorMessage = "An error occurred while attempting to certify the submission. " +

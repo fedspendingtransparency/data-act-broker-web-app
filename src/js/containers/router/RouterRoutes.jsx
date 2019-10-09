@@ -1,17 +1,15 @@
+import UploadFabsFilePageContainer from '../../containers/uploadFabsFile/UploadFabsFilePageContainer';
+import GenerateDetachedFilesPageContainer from '../../containers/generateDetachedFiles/GenerateDetachedFilesPageContainer';
 import LandingPage from '../../components/landing/LandingPage';
 import LoginPage from '../../components/login/LoginPage';
 import AuthPage from '../../components/login/AuthPage';
 import SubmissionGuideContainer from '../../containers/addData/SubmissionGuideContainer';
 import AddDataPageContainer from '../../containers/addData/AddDataPageContainer';
-import UploadFabsFilePageContainer from
-    '../../containers/uploadFabsFile/UploadFabsFilePageContainer';
-import GenerateDetachedFilesPageContainer
-    from '../../containers/generateDetachedFiles/GenerateDetachedFilesPageContainer';
-import DetachedFileAContainer
-    from '../../containers/generateDetachedFiles/DetachedFileAContainer';
+import SubmissionsTablePage from '../../containers/submissionsTable/SubmissionsTableContainer';
+import DetachedFileAContainer from '../../containers/generateDetachedFiles/DetachedFileAContainer';
 import { SubmissionContainer } from '../submission/SubmissionContainer';
 import HistoryContainer from '../../containers/history/HistoryContainer';
-import DashboardPage from '../../components/dashboard/DashboardPage';
+import Dashboard from '../../components/dashboard/DashboardPage';
 import HelpContainer from '../help/HelpContainer';
 import ErrorPage from '../../components/error/ErrorPage';
 
@@ -129,6 +127,12 @@ const getRoutes = () => {
             authFn: checkUserPermissions,
             component: DetachedFileAContainer,
             type: 'dabs'
+        },
+        {
+            path: 'dashboard',
+            onEnter: checkUserPermissions,
+            component: Dashboard,
+            type: 'dabs'
         }
     ];
 
@@ -146,11 +150,11 @@ const getRoutes = () => {
                 type
             };
         }
-        else if (routeInfo.component === 'dashboard') {
+        else if (routeInfo.component === 'submissionsTable') {
             return {
                 path: prefix + routeInfo.path,
                 authFn: routeInfo.authFn[onEnterIndex],
-                component: DashboardPage,
+                component: SubmissionsTablePage,
                 type
             };
         }
@@ -174,9 +178,9 @@ const getRoutes = () => {
             component: 'landing'
         },
         {
-            path: '/dashboard',
+            path: '/submissionsTable',
             authFn: [checkUserPermissions],
-            component: 'dashboard'
+            component: 'submissionsTable'
         },
         {
             path: '/help',

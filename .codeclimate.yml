@@ -1,7 +1,6 @@
 exclude_paths:
 - node_modules/
 - tests/
-- test/
 - public/
 - coverage/
 - cache/

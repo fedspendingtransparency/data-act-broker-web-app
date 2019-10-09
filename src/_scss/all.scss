@@ -14,7 +14,7 @@
 @import "pages/login/pendingPage";
 @import "pages/landing/landing";
 @import "pages/submissionGuide/submissionGuide";
-@import "pages/dashboard/dashboard";
+@import "pages/submissionsTable/submissionsTable";
 @import "pages/addData/addData";
 @import "pages/validateData/validateData";
 @import "pages/generateFiles/generateFiles";
@@ -27,5 +27,6 @@
 @import "pages/generateDetachedFiles/detachedFileA";
 @import "pages/uploadFabsFile/uploadFabsFile";
 @import "pages/history/history";
+@import "pages/dashboard/dashboard.scss";
 
 @import "sharedComponents/sharedComponents";

@@ -1,5 +1,5 @@
 /**
-  * DashboardPaginatorArrowv.jsx
+  * SubmissionsTablePaginatorArrow.jsx
   * Created by Kevin Li 10/31/16
   */
 
@@ -18,7 +18,7 @@ const defaultProps = {
     moveDirection: null
 };
 
-export default class DashboardPaginatorArrow extends React.Component {
+export default class SubmissionsTablePaginatorArrow extends React.Component {
     clickedArrow(e) {
         e.preventDefault();
         this.props.moveDirection(this.props.direction);
@@ -42,5 +42,5 @@ export default class DashboardPaginatorArrow extends React.Component {
     }
 }
 
-DashboardPaginatorArrow.propTypes = propTypes;
-DashboardPaginatorArrow.defaultProps = defaultProps;
+SubmissionsTablePaginatorArrow.propTypes = propTypes;
+SubmissionsTablePaginatorArrow.defaultProps = defaultProps;

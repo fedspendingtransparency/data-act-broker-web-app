@@ -1,48 +1,32 @@
 /**
  * appliedFiltersReducer.js
- * Created by Lizzie Salita 8/14/18
+ * Created by Lizzie Salita 10/02/19
  */
 
-import { initialState as defaultFilters } from './dashboardFilterReducer';
+import { initialState as defaultFilters } from './dashboardFiltersReducer';
 
 export const initialState = {
-    dabs: {
-        active: defaultFilters.dabs.active,
-        certified: defaultFilters.dabs.certified
-    },
-    fabs: {
-        active: defaultFilters.fabs.active,
-        published: defaultFilters.fabs.published
-    }
+    filters: defaultFilters,
+    _empty: true,
+    _complete: true
 };
 
-export const appliedFiltersReducer = (state = initialState, action) => {
+export const appliedDashboardFiltersReducer = (state = initialState, action) => {
     switch (action.type) {
-        case 'APPLY_STAGED_FILTERS': {
-            const dashboard = Object.assign({}, state[action.dashboard], {
-                [action.table]: action.filters
-            });
-
+        case 'APPLY_STAGED_FILTERS':
             return Object.assign({}, state, {
-                [action.dashboard]: dashboard
+                filters: action.filters
             });
-        }
-        case 'CLEAR_APPLIED_FILTERS': {
-            if (action.table) {
-                // Just reset one table
-                const dashboard = Object.assign({}, state[action.dashboard], {
-                    [action.table]: initialState[action.dashboard][action.table]
-                });
-
-                return Object.assign({}, state, {
-                    [action.dashboard]: dashboard
-                });
-            }
-            // Reset the either all dabs or all fabs filters
+        case 'CLEAR_APPLIED_FILTERS':
+            return Object.assign({}, initialState);
+        case 'SET_APPLIED_FILTER_EMPTINESS':
             return Object.assign({}, state, {
-                [action.dashboard]: initialState[action.dashboard]
+                _empty: action.empty
             });
-        }
+        case 'SET_APPLIED_FILTER_COMPLETION':
+            return Object.assign({}, state, {
+                _complete: action.complete
+            });
         default:
             return state;
     }

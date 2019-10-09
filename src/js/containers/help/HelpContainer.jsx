@@ -8,9 +8,9 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import _ from 'lodash';
 
-import HelpPage from '../../components/help/helpPage';
-import ResourcesPage from '../../components/help/resourcesPage';
-import HistoryPage from '../../components/help/historyPage';
+import HelpPage from 'components/help/helpPage';
+import ResourcesPage from 'components/help/resourcesPage';
+import HistoryPage from 'components/help/historyPage';
 
 const propTypes = {
     route: PropTypes.object,
@@ -33,37 +33,24 @@ class HelpPageContainer extends React.Component {
         };
     }
 
-    componentWillMount() {
-        this.setHelpRoute(this.props);
-    }
-
     componentDidMount() {
-        this.checkHelpOnly();
-    }
-
-    componentWillReceiveProps(nextProps) {
-        this.setHelpRoute(nextProps);
+        this.setHelpRoute();
     }
 
     componentDidUpdate(prevProps) {
         if (!_.isEqual(prevProps, this.props)) {
-            this.checkHelpOnly();
+            this.setHelpRoute();
         }
     }
 
-    setHelpRoute(incomingProps) {
-        if (incomingProps.route.type !== this.state.type || incomingProps.route.path !== this.state.path) {
+    setHelpRoute() {
+        if (this.props.route.type !== this.state.type || this.props.route.path !== this.state.path) {
             this.setState({
-                type: incomingProps.route.type,
-                path: incomingProps.route.path.toLowerCase()
+                type: this.props.route.type,
+                path: this.props.route.path.toLowerCase(),
+                helpOnly: this.props.session.user.helpOnly
             });
         }
-    }
-
-    checkHelpOnly() {
-        this.setState({
-            helpOnly: this.props.session.user.helpOnly
-        });
     }
 
     render() {

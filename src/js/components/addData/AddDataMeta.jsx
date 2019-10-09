@@ -151,7 +151,7 @@ export default class AddDataMeta extends React.Component {
                     modalMessage: (
                         <div>
                             {err.message} You can update the certified submission
-                            <Link to={`/validateData/${err.submissionId}`}> here</Link>
+                            <Link to={`/submission/${err.submissionId}/validateData`}> here</Link>
                             .
                         </div>
                     )
