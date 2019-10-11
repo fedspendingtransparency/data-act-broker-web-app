@@ -7,7 +7,6 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { hashHistory } from 'react-router';
 import { connect } from 'react-redux';
-import { reduce } from 'lodash';
 
 import * as SubmissionGuideHelper from 'helpers/submissionGuideHelper';
 import SubmissionPage from 'components/submission/SubmissionPage';
@@ -31,12 +30,12 @@ export class SubmissionContainer extends React.Component {
             errorMessage: '',
             step: 0,
             originalStep: 0,
-            completedSteps: {
-                0: false,
-                1: false,
-                2: false,
-                3: false
-            }
+            completedSteps: [
+                false,
+                false,
+                false,
+                false
+            ]
         };
 
         this.setStepAndRoute = this.setStepAndRoute.bind(this);
@@ -84,17 +83,19 @@ export class SubmissionContainer extends React.Component {
         this.setState({ isLoading: true, isError: false, errorMessage: '' });
         SubmissionGuideHelper.getSubmissionPage(this.props.params.submissionID)
             .then((res) => {
+                let stepNumber = parseInt(res.step, 10);
+                // Convert to zero-indexed step
+                stepNumber -= 1;
                 if (useCurrentStep) {
                     const step = routes.indexOf(this.props.params.type);
                     return this.setState({
                         isLoading: false,
                         isError: false,
-                        step
+                        step,
+                        originalStep: stepNumber
                     });
                 }
                 // Initial load of this submission, update the route to match the last completed step
-                let stepNumber = parseInt(res.step, 10);
-                stepNumber -= 1;
                 return this.setState({
                     isLoading: false,
                     isError: false,
@@ -111,10 +112,9 @@ export class SubmissionContainer extends React.Component {
     // since users can navigate via the url eg. /validateCrossFile
     // we need to verify a user's submission has completed a step
     validateCurrentStepAndRouteType(currentStepNumber) {
-        // let theStep = currentStepNumber;
         // FABs dont check anything
         if (currentStepNumber === 5) return currentStepNumber;
-        // get submission step from url
+        // get submission step we're tyring to access via url change
         const routeTypeParam = this.props.params.type;
         // current route step name
         const currentStepRouteType = this.currentRoute();
@@ -126,7 +126,7 @@ export class SubmissionContainer extends React.Component {
             if (newRouteIndex > this.state.originalStep) {
                 // verify this step has been completed
                 // which we will then allow the user to navigate to that step
-                if (this.state.completedSteps[newRouteIndex.toString()]) return newRouteIndex;
+                if (this.state.completedSteps[newRouteIndex]) return newRouteIndex;
                 return this.state.originalStep;
             }
             if (newRouteIndex !== -1) return newRouteIndex;
@@ -154,10 +154,10 @@ export class SubmissionContainer extends React.Component {
     nextStep() {
         let step = this.state.step;
         step += 1;
-        const completedSteps = reduce(this.state.completedSteps, (acc, value, key) => {
-            if (step.toString() === key) acc[key] = true;
-            return acc;
-        }, this.state.completedSteps);
+        const completedSteps = [];
+        for (let i = 0; i < 4; i++) {
+            completedSteps[i] = step >= i;
+        }
         this.setState({ step, completedSteps }, this.updateRoute);
     }
 

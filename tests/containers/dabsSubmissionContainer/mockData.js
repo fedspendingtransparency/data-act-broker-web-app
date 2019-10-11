@@ -1,9 +1,6 @@
 export const mockProps = {
     params: {
         submissionID: "2054"
-    },
-    routeParams: {
-        submissionID: "2054"
     }
 };
 
