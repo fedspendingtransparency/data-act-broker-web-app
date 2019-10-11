@@ -9,19 +9,14 @@ import { hashHistory } from 'react-router';
 import { connect } from 'react-redux';
 import { reduce } from 'lodash';
 
-import * as SubmissionGuideHelper from '../../helpers/submissionGuideHelper';
-import SubmissionPage from '../../components/submission/SubmissionPage';
-import { routes } from '../../dataMapping/dabs/submission';
+import * as SubmissionGuideHelper from 'helpers/submissionGuideHelper';
+import SubmissionPage from 'components/submission/SubmissionPage';
+import { routes } from 'dataMapping/dabs/submission';
 
 const propTypes = {
-    params: PropTypes.object,
-    routeParams: PropTypes.object
+    params: PropTypes.object
 };
 
-const defaultProps = {
-    params: {},
-    routeParams: {}
-};
 // by using completedSteps we allow users to
 // transition from one step to another while in
 // this container without have to make a call
@@ -51,7 +46,13 @@ export class SubmissionContainer extends React.Component {
     }
 
     componentDidMount() {
-        this.getSubmission();
+        if (this.props.params.type) {
+            // Refreshed the page, stay on the step indicated by the url
+            this.getSubmission(true);
+        }
+        else {
+            this.getSubmission();
+        }
     }
 
     componentDidUpdate(prevProps) {
@@ -60,8 +61,8 @@ export class SubmissionContainer extends React.Component {
             this.getSubmission();
         }
         // check for route change
-        const { type } = this.props.routeParams;
-        if (type !== prevProps.routeParams.type) {
+        const { type } = this.props.params;
+        if (type !== prevProps.params.type) {
             const stepNumber = this.validateCurrentStepAndRouteType(this.state.step);
             this.setStepAndRoute(stepNumber);
         }
@@ -79,10 +80,19 @@ export class SubmissionContainer extends React.Component {
         }, () => this.updateRoute());
     }
 
-    getSubmission() {
+    getSubmission(useCurrentStep = false) {
         this.setState({ isLoading: true, isError: false, errorMessage: '' });
         SubmissionGuideHelper.getSubmissionPage(this.props.params.submissionID)
             .then((res) => {
+                if (useCurrentStep) {
+                    const step = routes.indexOf(this.props.params.type);
+                    return this.setState({
+                        isLoading: false,
+                        isError: false,
+                        step
+                    });
+                }
+                // Initial load of this submission, update the route to match the last completed step
                 let stepNumber = parseInt(res.step, 10);
                 stepNumber -= 1;
                 return this.setState({
@@ -97,6 +107,7 @@ export class SubmissionContainer extends React.Component {
                 this.setState({ isError: true, errorMessage: message });
             });
     }
+
     // since users can navigate via the url eg. /validateCrossFile
     // we need to verify a user's submission has completed a step
     validateCurrentStepAndRouteType(currentStepNumber) {
@@ -104,7 +115,7 @@ export class SubmissionContainer extends React.Component {
         // FABs dont check anything
         if (currentStepNumber === 5) return currentStepNumber;
         // get submission step from url
-        const routeTypeParam = this.props.routeParams.type;
+        const routeTypeParam = this.props.params.type;
         // current route step name
         const currentStepRouteType = this.currentRoute();
         // route param type
@@ -172,7 +183,6 @@ export class SubmissionContainer extends React.Component {
 }
 
 SubmissionContainer.propTypes = propTypes;
-SubmissionContainer.defaultProps = defaultProps;
 
 export default connect(
     (state) => ({ session: state.session })
