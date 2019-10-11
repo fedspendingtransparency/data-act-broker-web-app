@@ -24,15 +24,16 @@ describe('SubmissionContainer', () => {
             container.instance().getSubmission = getSubmission;
             await container.instance().componentDidMount();
             expect(getSubmission).toHaveBeenCalled();
+            expect(getSubmission).toHaveBeenCalledWith(undefined);
         });
-        it('should pass true to getSubmission when a step is specified in the url', () => {
+        it('should pass a truthy value to getSubmission when a step is specified in the url', () => {
             const getSubmission = jest.fn();
             container.instance().getSubmission = getSubmission;
             const newProps = { ...container.instance().props };
             newProps.params.type = 'generateEF';
             container.setProps({ ...newProps });
             container.instance().componentDidMount();
-            expect(getSubmission).toHaveBeenCalledWith(true);
+            expect(getSubmission).toHaveBeenCalledWith('generateEF');
         });
     });
     describe('componentDidUpdate', () => {
