@@ -45,13 +45,7 @@ export class SubmissionContainer extends React.Component {
     }
 
     componentDidMount() {
-        if (this.props.params.type) {
-            // Refreshed the page, stay on the step indicated by the url
-            this.getSubmission(true);
-        }
-        else {
-            this.getSubmission();
-        }
+        this.getSubmission(this.props.params.type);
     }
 
     componentDidUpdate(prevProps) {
@@ -155,7 +149,7 @@ export class SubmissionContainer extends React.Component {
         let step = this.state.step;
         step += 1;
         const completedSteps = [];
-        for (let i = 0; i < 4; i++) {
+        for (let i = 0; i < this.state.completedSteps.length; i++) {
             completedSteps[i] = step >= i;
         }
         this.setState({ step, completedSteps }, this.updateRoute);
