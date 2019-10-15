@@ -124,5 +124,18 @@ describe('permissionsHelper', () => {
             expect(validRoleInvalidAgency).toEqual(false);
             expect(validAgencyInvalidRole).toEqual(false);
         });
+        it('should return true when session.admin is falsy and role is editfabs', () => {
+            const fabsRole = getSession(false, [getRole('test', 'editfabs')]);
+            const unauthorizedSession = getSession(false, [getRole('test', 'test')]);
+
+            const fabsSession = permissionsHelper.checkFabsAgencyPermissions(fabsRole, 'test');
+
+            const validRoleInvalidAgency = permissionsHelper.checkFabsAgencyPermissions(fabsRole, 'invalidAgencyName'); // valid role, invalid agency name
+            const validAgencyInvalidRole = permissionsHelper.checkFabsAgencyPermissions(unauthorizedSession, 'test'); // valid agency name, invalid role
+            
+            expect(fabsSession).toEqual(true);
+            expect(validRoleInvalidAgency).toEqual(false);
+            expect(validAgencyInvalidRole).toEqual(false);
+        });
     });
 });
