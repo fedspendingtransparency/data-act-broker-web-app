@@ -47,6 +47,42 @@ describe('permissionsHelper', () => {
             expect(fabsSession).toEqual(true);
             expect(invalidSession).toEqual(false);
         });
+        it('returns true when session.admin is falsy but role is editfabs', () => {
+            const authorizedRole = getSession(false, [getRole('test', 'editfabs')]);
+            const unauthorizedRole = getSession(false, [getRole('test', 'test')]);
+
+            const fabsSession = permissionsHelper.checkFabsPermissions(authorizedRole);
+            const invalidSession = permissionsHelper.checkFabsPermissions(unauthorizedRole);
+
+            expect(fabsSession).toEqual(true);
+            expect(invalidSession).toEqual(false);
+        });
+    });
+    describe('checkFabsPublishPermissions', () => {
+        it('should return true when admin is truthy', () => {
+            const admin = permissionsHelper.checkFabsPublishPermissions(getSession(true, []));
+            expect(admin).toEqual(true);
+        });
+        it('should return true when session.admin is falsy but role is fabs', () => {
+            const authorizedRole = getSession(false, [getRole('test', 'fabs')]);
+            const unauthorizedRole = getSession(false, [getRole('test', 'test')]);
+
+            const fabsSession = permissionsHelper.checkFabsPublishPermissions(authorizedRole);
+            const invalidSession = permissionsHelper.checkFabsPublishPermissions(unauthorizedRole);
+
+            expect(fabsSession).toEqual(true);
+            expect(invalidSession).toEqual(false);
+        });
+        it('should return false when session.admin is falsy and role is editfabs', () => {
+            const authorizedRole = getSession(false, [getRole('test', 'editfabs')]);
+            const unauthorizedRole = getSession(false, [getRole('test', 'test')]);
+
+            const fabsSession = permissionsHelper.checkFabsPublishPermissions(authorizedRole);
+            const invalidSession = permissionsHelper.checkFabsPublishPermissions(unauthorizedRole);
+
+            expect(fabsSession).toEqual(false);
+            expect(invalidSession).toEqual(false);
+        });
     });
     describe('checkAgencyPermissions', () => {
         it('returns true when admin is truthy', () => {
