@@ -18,7 +18,9 @@ export default class QuarterPicker extends React.Component {
         const quarters = [];
         for (let i = 1; i <= 4; i++) {
             quarters.push(
-                <li key={i}>
+                <li
+                    className="quarter-picker__list-item"
+                    key={i}>
                     <QuarterButton
                         quarter={i}
                         active={this.props.selectedQuarters.includes(i)}

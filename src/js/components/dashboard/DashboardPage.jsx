@@ -12,16 +12,16 @@ import FilterSidebar from './FilterSidebar';
 
 const filters = [
     {
-        name: 'Quarter',
-        required: true,
-        component: QuarterFilterContainer,
-        description: 'Select the applicable quarter(s).'
-    },
-    {
         name: 'Fiscal Year',
         required: true,
         component: null,
         description: 'Select the applicable fiscal year(s).'
+    },
+    {
+        name: 'Quarter',
+        required: true,
+        component: QuarterFilterContainer,
+        description: 'Select the applicable quarter(s).'
     },
     {
         name: 'Files',
