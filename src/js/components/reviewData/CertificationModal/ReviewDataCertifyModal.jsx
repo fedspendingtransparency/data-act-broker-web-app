@@ -60,8 +60,8 @@ export default class ReviewDataCertifyModal extends React.Component {
             .then(() => {
                 this.setState({ loading: false });
                 this.closeModal();
-                // Redirect to submissions table after successful certification
-                hashHistory.push("/submissionsTable");
+                // Redirect to submission table after successful certification
+                hashHistory.push("/submissionTable");
             })
             .catch((error) => {
                 let errorMessage = "An error occurred while attempting to certify the submission. " +
