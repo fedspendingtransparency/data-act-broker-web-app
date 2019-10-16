@@ -13,6 +13,8 @@ import DetachedFileAContainer
 import StoreSingleton from 'redux/storeSingleton';
 import Dashboard from 'components/dashboard/DashboardPage';
 
+import { checkFabsPermissions } from 'helpers/permissionsHelper';
+
 let instance = null;
 let store = new StoreSingleton().store;
 
@@ -95,12 +97,8 @@ const checkFabsUploadPermissions = (nextState, replace) => {
     if (session.login !== "loggedIn") {
         performAutoLogin(nextState.location, replace);
     }
-    else if (!session.admin) {
-        for (let i = 0; i < session.user.affiliations.length; i++) {
-            if (session.user.affiliations[i].permission === 'fabs') {
-                return;
-            }
-        }
+    const fabsPermissions = checkFabsPermissions(session);
+    if (!fabsPermissions) {
         // if no permissions, bounce to landing
         replace('/FABSLanding');
     }
