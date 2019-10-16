@@ -215,7 +215,7 @@ const getRoutes = () => {
                 type
             };
         }
-        else if (routeInfo.component === 'submissionsTable') {
+        else if (routeInfo.component === 'submissionTable') {
             return {
                 path: prefix + routeInfo.path,
                 onEnter: routeInfo.onEnter[onEnterIndex],
@@ -250,9 +250,9 @@ const getRoutes = () => {
             component: 'landing'
         },
         {
-            path: 'submissionsTable',
+            path: 'submissionTable',
             onEnter: [checkUserPermissions],
-            component: 'submissionsTable'
+            component: 'submissionTable'
         },
         {
             path: 'help',
