@@ -7,6 +7,7 @@ import React from 'react';
 import Navbar from 'components/SharedComponents/navigation/NavigationComponent';
 import Footer from 'components/SharedComponents/FooterComponent';
 import QuarterFilterContainer from 'containers/dashboard/filters/QuarterFilterContainer';
+import FyFilterContainer from 'containers/dashboard/filters/FyFilterContainer';
 import DashboardTab from './DashboardTab';
 import FilterSidebar from './FilterSidebar';
 
@@ -14,7 +15,7 @@ const filters = [
     {
         name: 'Fiscal Year',
         required: true,
-        component: null,
+        component: FyFilterContainer,
         description: 'Select the applicable fiscal year(s).'
     },
     {
