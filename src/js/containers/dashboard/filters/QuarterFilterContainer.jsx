@@ -17,11 +17,7 @@ const propTypes = {
     selectedQuarters: PropTypes.object
 };
 
-const defaultProps = {
-    selectedQuarters: []
-};
-
-class QuarterFilterContainer extends React.Component {
+export class QuarterFilterContainer extends React.Component {
     constructor(props) {
         super(props);
 
@@ -42,7 +38,6 @@ class QuarterFilterContainer extends React.Component {
 }
 
 QuarterFilterContainer.propTypes = propTypes;
-QuarterFilterContainer.defaultProps = defaultProps;
 
 export default connect(
     (state) => ({
