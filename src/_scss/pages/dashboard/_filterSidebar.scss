@@ -4,6 +4,7 @@
         padding: rem(20);
         border-bottom: solid rem(2) $color-gray-lighter;
         @import './filters/quarterPicker';
+        @import './filters/fiscalYears';
         .filter-sidebar__option-heading {
             font-weight: $font-bold;
             font-size: $h3-font-size;
