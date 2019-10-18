@@ -24,17 +24,17 @@ export default class FiscalYearFilter extends React.Component {
     saveAllYears() {
         if (this.props.selectedFY.length !== this.props.allFy.length) {
             // Add years that are not yet selected
-            this.props.allFy.forEach((year) => {
-                if (!this.props.selectedFY.includes(year)) {
-                    this.props.pickedFy(year);
+            this.props.allFy.forEach((fy) => {
+                if (!this.props.selectedFY.includes(fy.year)) {
+                    this.props.pickedFy(fy.year);
                 }
             });
         }
         else {
             // Remove years that are still selected
-            this.props.allFy.forEach((year) => {
-                if (this.props.selectedFY.includes(year)) {
-                    this.props.pickedFy(year);
+            this.props.allFy.forEach((fy) => {
+                if (this.props.selectedFY.includes(fy.year)) {
+                    this.props.pickedFy(fy.year);
                 }
             });
         }
@@ -47,26 +47,27 @@ export default class FiscalYearFilter extends React.Component {
         const leftFY = [];
         const rightFY = [];
 
-        this.props.allFy.forEach((year, i) => {
+        this.props.allFy.forEach((fy, i) => {
             // determine if the checkbox should be selected based on whether the filter is already
             // staged
-            const checked = this.props.selectedFY.includes(year);
+            const checked = this.props.selectedFY.includes(fy.year);
 
             if (!checked) {
                 allFY = false;
             }
 
-            const fy = (<FiscalYear
+            const checkbox = (<FiscalYear
                 checked={checked}
-                year={`${year}`}
-                key={`filter-fy-${year}`}
+                year={`${fy.year}`}
+                key={`filter-fy-${fy.year}`}
+                disabled={fy.disabled}
                 saveSelectedYear={this.props.pickedFy} />);
 
             if (i + 1 <= leftCount) {
-                leftFY.push(fy);
+                leftFY.push(checkbox);
             }
             else {
-                rightFY.push(fy);
+                rightFY.push(checkbox);
             }
         });
 

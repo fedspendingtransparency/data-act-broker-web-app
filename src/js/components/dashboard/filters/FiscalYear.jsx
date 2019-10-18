@@ -10,7 +10,8 @@ const propTypes = {
     year: PropTypes.string,
     saveSelectedYear: PropTypes.func,
     checked: PropTypes.bool,
-    saveAllYears: PropTypes.func
+    saveAllYears: PropTypes.func,
+    disabled: PropTypes.bool
 };
 
 const defaultProps = {
@@ -68,7 +69,8 @@ export default class FiscalYear extends React.Component {
                             id={`fy${this.props.year}`}
                             value={`FY ${this.props.year}`}
                             checked={this.props.checked}
-                            onChange={this.saveYear} />
+                            onChange={this.saveYear}
+                            disabled={this.props.disabled} />
                         <span className="fy-option__label">
                             {`FY ${this.props.year - 2000}`}
                         </span>

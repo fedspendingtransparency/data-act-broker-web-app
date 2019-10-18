@@ -14,7 +14,7 @@ import FiscalYearFilter from 'components/dashboard/filters/FiscalYearFilter';
 
 const propTypes = {
     updateGenericFilter: PropTypes.func,
-    selectedFiscalYears: PropTypes.object
+    selectedFilters: PropTypes.object
 };
 
 export class FyFilterContainer extends React.Component {
@@ -22,8 +22,8 @@ export class FyFilterContainer extends React.Component {
         super(props);
 
         this.state = {
-            quarter: 0,
-            year: 0,
+            latestQuarter: 0,
+            latestYear: 0,
             allFy: []
         };
 
@@ -34,18 +34,19 @@ export class FyFilterContainer extends React.Component {
         this.getLatestQuarter();
     }
 
+    componentDidUpdate(prevProps) {
+        if (this.props.selectedFilters.quarters !== prevProps.selectedFilters.quarters) {
+            this.generateAllFy();
+        }
+    }
+
     getLatestQuarter() {
         DashboardHelper.fetchQuarterlyRevalidationThreshold()
             .then((data) => {
-                const allFy = [];
-                for (let i = data.year; i >= 2017; i--) {
-                    allFy.push(i);
-                }
                 this.setState({
-                    quarter: data.quarter,
-                    year: data.year,
-                    allFy
-                });
+                    latestQuarter: data.quarter,
+                    latestYear: data.year
+                }, () => this.generateAllFy());
             })
             .catch((err) => {
                 console.error(err);
@@ -56,11 +57,36 @@ export class FyFilterContainer extends React.Component {
         this.props.updateGenericFilter('fy', year);
     }
 
+    generateAllFy() {
+        const allFy = [];
+        const selectedQuarters = this.props.selectedFilters.quarters.toArray();
+        for (let i = this.state.latestYear; i >= 2017; i--) {
+            let disabled = false;
+            // Reporting began Q2 2017, so disable FY 17 if only Q1 is selected
+            if (selectedQuarters.length === 1 && selectedQuarters[0] === 1) {
+                disabled = (i === 2017);
+            }
+            // Disable the current year if the only quarters selected are greater
+            // than the latest possible quarter that could have been certified in
+            // the current year
+            else if (i === this.state.latestYear && selectedQuarters.length > 0) {
+                disabled = selectedQuarters.every((quarter) => quarter > this.state.latestQuarter);
+            }
+            allFy.push({
+                year: i,
+                disabled
+            });
+        }
+        this.setState({
+            allFy
+        });
+    }
+
     render() {
         return (
             <FiscalYearFilter
                 pickedFy={this.pickedFy}
-                selectedFY={this.props.selectedFiscalYears.toArray()}
+                selectedFY={this.props.selectedFilters.fy.toArray()}
                 allFy={this.state.allFy} />
         );
     }
@@ -70,7 +96,7 @@ FyFilterContainer.propTypes = propTypes;
 
 export default connect(
     (state) => ({
-        selectedFiscalYears: state.dashboardFilters.fy
+        selectedFilters: state.dashboardFilters
     }),
     (dispatch) => bindActionCreators(filterActions, dispatch),
 )(FyFilterContainer);
