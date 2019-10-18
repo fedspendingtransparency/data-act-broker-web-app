@@ -28,7 +28,7 @@ export default class FilterOption extends React.Component {
                 <span className="filter-sidebar__option-name">
                     {this.props.name}{required}
                 </span>
-                <div>
+                <div className="filter-sidebar__option-description">
                     {this.props.description}
                 </div>
                 {component}

@@ -9,6 +9,9 @@
             font-weight: $font-bold;
             font-size: $h3-font-size;
         }
+        .filter-sidebar__option-description {
+            font-size: rem(12);
+        }
         .filter-sidebar__option-name {
             font-size: rem(18);
             font-weight: $font-semibold;

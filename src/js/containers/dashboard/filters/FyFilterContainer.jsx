@@ -38,7 +38,7 @@ export class FyFilterContainer extends React.Component {
         DashboardHelper.fetchQuarterlyRevalidationThreshold()
             .then((data) => {
                 const allFy = [];
-                for (let i = 2017; i <= data.year; i++) {
+                for (let i = data.year; i >= 2017; i--) {
                     allFy.push(i);
                 }
                 this.setState({
