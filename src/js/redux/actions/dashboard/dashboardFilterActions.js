@@ -3,10 +3,10 @@
   * Created by Lizzie Salita 10/02/19
   **/
 
-export const updateGenericFilter = (state) => ({
+export const updateGenericFilter = (filterType, filterValue) => ({
     type: 'UPDATE_FILTER_SET',
-    filterType: state.type,
-    filterValue: state.value
+    filterType,
+    filterValue
 });
 
 export const updateFileFilter = (file) => ({
