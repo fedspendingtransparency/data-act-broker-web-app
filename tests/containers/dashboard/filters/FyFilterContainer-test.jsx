@@ -16,6 +16,16 @@ describe('FyFilterContainer', () => {
     beforeEach(() => {
         jest.clearAllMocks();
     });
+    it('should make an API call for the latest quarter on mount', async () => {
+        const container = shallow(<FyFilterContainer
+            {...mockActions}
+            {...mockRedux} />
+        );
+        const getLatestQuarter = jest.fn();
+        container.instance().getLatestQuarter = getLatestQuarter;
+        container.instance().componentDidMount();
+        expect(getLatestQuarter).toHaveBeenCalled();
+    });
     it('should call generateAllFy when the selected quarters change', () => {
         const container = shallow(<FyFilterContainer
             {...mockActions}
