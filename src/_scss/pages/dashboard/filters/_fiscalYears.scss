@@ -1,8 +1,10 @@
 ul.fiscal-years {
     @include unstyled-list;
-    @include display(flex);
     font-weight: $font-normal;
     padding-top: rem(15);
+    .fiscal-years__wrapper {
+        @include display(flex);
+    }
     .fiscal-years__left {
         padding-right: rem(4);
     }

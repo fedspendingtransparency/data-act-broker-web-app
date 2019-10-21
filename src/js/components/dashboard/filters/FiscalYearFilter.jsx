@@ -42,7 +42,7 @@ export default class FiscalYearFilter extends React.Component {
 
     render() {
         let allFY = true;
-        const leftCount = Math.floor(this.props.allFy.length / 2);
+        const leftCount = Math.ceil(this.props.allFy.length / 2);
 
         const leftFY = [];
         const rightFY = [];
@@ -72,19 +72,23 @@ export default class FiscalYearFilter extends React.Component {
         });
 
         return (
-            <ul className="fiscal-years">
-                <div className="fiscal-years__left">
+            <div>
+                <ul className="fiscal-years">
                     <FiscalYear
                         checked={allFY}
                         year="all"
                         key="filter-fy-all"
                         saveAllYears={this.saveAllYears} />
-                    {leftFY}
-                </div>
-                <div className="fiscal-years__right">
-                    {rightFY}
-                </div>
-            </ul>
+                    <span className="fiscal-years__wrapper">
+                        <div className="fiscal-years__left">
+                            {leftFY}
+                        </div>
+                        <div className="fiscal-years__right">
+                            {rightFY}
+                        </div>
+                    </span>
+                </ul>
+            </div>
         );
     }
 }
