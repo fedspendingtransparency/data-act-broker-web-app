@@ -88,7 +88,7 @@ CreatedByContainer.defaultProps = defaultProps;
 export default connect(
     (state) => ({
         createdByList: state.createdByList,
-        selectedFilters: state.dashboardFilters
+        selectedFilters: state.submissionsTableFilters
     }),
     (dispatch) => bindActionCreators(createdByActions, dispatch),
 )(CreatedByContainer);

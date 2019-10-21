@@ -12,7 +12,6 @@ import Navbar from '../SharedComponents/navigation/NavigationComponent';
 
 import UploadFabsFileMeta from './UploadFabsFileMeta';
 import UploadFabsFileValidation from './UploadFabsFileValidation';
-import DABSFABSErrorMessage from '../SharedComponents/DABSFABSErrorMessage';
 
 const propTypes = {
     setSubmissionId: PropTypes.func,
@@ -36,85 +35,37 @@ export default class UploadFabsFilePage extends React.Component {
     constructor(props) {
         super(props);
 
-        this.state = {
-            showMeta: true,
-            isError: false,
-            errorMessage: ''
-        };
-
-        this.errorMessage = this.errorMessage.bind(this);
-    }
-
-    componentDidMount() {
-        let showMeta = true;
-        if (this.props.params.submissionID) {
-            this.props.setSubmissionId(this.props.params.submissionID);
-            showMeta = false;
-        }
-        if (this.state.showMeta !== showMeta) {
-            this.updateMeta(showMeta);
-        }
+        this.validate = this.validate.bind(this);
     }
 
     componentDidUpdate(prevProps) {
-        let showMeta = false;
         const { params } = this.props;
         if (params.submissionID !== prevProps.params.submissionID) {
-            this.removeError();
             this.props.setSubmissionId(params.submissionID);
         }
-        if (params.submissionID && this.state.showMeta) {
-            this.props.setSubmissionId(params.submissionID);
-        }
-        else if (!params.submissionID) {
-            showMeta = true;
-        }
-        if (this.state.showMeta !== showMeta) {
-            this.updateMeta(showMeta);
-        }
-    }
-
-    removeError() {
-        this.setState({ isError: false, errorMessage: '' });
-    }
-
-    updateMeta(meta) {
-        this.setState({
-            showMeta: meta
-        });
     }
 
     validate(submissionID) {
         this.props.setSubmissionId(submissionID);
         hashHistory.push(`/FABSaddData/${submissionID}`);
-        this.setState({
-            showMeta: false
-        });
-    }
-
-    errorMessage(err) {
-        this.setState({ isError: true, errorMessage: err.body.message });
     }
 
     render() {
         let content = null;
-        const { showMeta, isError, errorMessage } = this.state;
-        if (!showMeta) {
+        if (this.props.params.submissionID) {
             content = (<UploadFabsFileValidation
                 {...this.props}
                 submission={this.props.submission}
-                setSubmissionId={this.props.setSubmissionId.bind(this)}
-                errorMessage={this.errorMessage} />);
+                setSubmissionId={this.props.setSubmissionId} />);
         }
         else {
             content = (<UploadFabsFileMeta
                 setSubmissionState={this.props.setSubmissionState}
-                setSubmissionId={this.props.setSubmissionId.bind(this)}
+                setSubmissionId={this.props.setSubmissionId}
                 history={this.props.history}
                 submission={this.props.submission}
-                validate={this.validate.bind(this)} />);
+                validate={this.validate} />);
         }
-        if (isError) content = <DABSFABSErrorMessage message={errorMessage} />;
         return (
             <div className="usa-da-upload-fabs-file-page">
                 <div className="usa-da-site_wrap">

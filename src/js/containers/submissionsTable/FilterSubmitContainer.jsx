@@ -9,10 +9,10 @@ import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { isEqual } from 'lodash';
 
-import * as appliedFilterActions from '../../redux/actions/dashboard/appliedFilterActions';
-import { resetDashboardFilters as clearStagedFilters } from '../../redux/actions/dashboard/dashboardFilterActions';
+import * as appliedFilterActions from 'redux/actions/submissionsTable/appliedFilterActions';
+import { resetDashboardFilters as clearStagedFilters } from 'redux/actions/submissionsTable/stagedFiltersActions';
 
-import FilterSubmit from '../../components/dashboard/filters/FilterSubmit';
+import FilterSubmit from 'components/submissionsTable/filters/FilterSubmit';
 
 const combinedActions = Object.assign({}, appliedFilterActions, {
     clearStagedFilters

@@ -45,7 +45,7 @@ export class Navbar extends React.Component {
             tabNames = {
                 Home: 'FABSlanding',
                 'Upload & Validate New Submission': fabsWrite ? 'FABSaddData' : 'disabled',
-                'Submission Dashboard': 'FABSdashboard',
+                'Submission Table': 'FABSsubmissionTable',
                 Help: 'FABShelp'
             };
         }
@@ -55,7 +55,7 @@ export class Navbar extends React.Component {
             tabNames = {
                 Home: 'landing',
                 'Upload & Validate New Submission': dabsWrite ? 'submissionGuide' : 'disabled',
-                'Submission Dashboard': 'dashboard',
+                'Submission Table': 'submissionTable',
                 Help: 'help'
             };
         }

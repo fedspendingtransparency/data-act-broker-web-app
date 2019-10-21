@@ -58,7 +58,7 @@ LastDateModifiedContainer.defaultProps = defaultProps;
 export default connect(
     (state) => ({
         lastDateModifiedList: state.lastDateModifiedList,
-        selectedFilters: state.dashboardFilters
+        selectedFilters: state.submissionsTableFilters
     }),
     (dispatch) => bindActionCreators(lastDateModifiedActions, dispatch),
 )(LastDateModifiedContainer);
