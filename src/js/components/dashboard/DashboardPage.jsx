@@ -31,7 +31,7 @@ const filters = [
         description: 'Select one file or cross-file.'
     },
     {
-        name: 'Rule',
+        name: 'Rules',
         required: false,
         component: null,
         description: 'Enter specific codes to filter your search.'
