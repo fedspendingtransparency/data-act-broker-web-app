@@ -10,7 +10,8 @@ import QuarterButton from './QuarterButton';
 
 const propTypes = {
     selectedQuarters: PropTypes.array,
-    pickedQuarter: PropTypes.func
+    pickedQuarter: PropTypes.func,
+    disabledQuarters: PropTypes.array
 };
 
 export default class QuarterPicker extends React.Component {
@@ -23,6 +24,7 @@ export default class QuarterPicker extends React.Component {
                     key={i}>
                     <QuarterButton
                         quarter={i}
+                        disabled={this.props.disabledQuarters[i - 1]}
                         active={this.props.selectedQuarters.includes(i)}
                         pickedQuarter={this.props.pickedQuarter} />
                 </li>

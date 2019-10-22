@@ -23,11 +23,14 @@
             margin-left: rem(15);
             border-radius: rem(5);
             h2 {
-                padding: 0 rem(20);
+                padding: rem(10) rem(16) rem(3);
                 font-size: $h2-font-size;
+                margin: 0;
+                line-height: rem(38);      
             }
             hr {
-                border-top: solid rem(2) $color-gray-light;
+                border-top: solid rem(2) $color-gray-lighter;
+                margin: 0;
             }
         }
     }

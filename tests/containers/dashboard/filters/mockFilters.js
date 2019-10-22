@@ -5,5 +5,5 @@ export const mockActions = {
 };
 
 export const mockRedux = {
-    selectedQuarters: initialState.quarters
+    selectedFilters: initialState
 };
