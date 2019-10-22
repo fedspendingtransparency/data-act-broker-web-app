@@ -21,13 +21,19 @@ export const checkFabsPermissions = (session) => {
     if (!session.user.affiliations || session.user.affiliations.length === 0) {
         return false;
     }
-    const aff = session.user.affiliations;
-    for (let i = 0; i < aff.length; i++) {
-        if (aff[i].permission === 'fabs') {
-            return true;
-        }
+    const { affiliations } = session.user;
+    return !!(affiliations.find((affiliation) => affiliation.permission === 'fabs' || affiliation.permission === 'editfabs'));
+};
+
+export const checkFabsPublishPermissions = (session) => {
+    if (session.admin) {
+        return true;
     }
-    return false;
+    if (!session.user.affiliations || session.user.affiliations.length === 0) {
+        return false;
+    }
+    const { affiliations } = session.user;
+    return !!(affiliations.find((affiliation) => affiliation.permission === 'fabs'));
 };
 
 export const checkAgencyPermissions = (session, agencyName) => {
@@ -54,11 +60,8 @@ export const checkFabsAgencyPermissions = (session, agencyName) => {
     if (!session.user.affiliations || session.user.affiliations.length === 0) {
         return false;
     }
-    const aff = session.user.affiliations;
-    for (let i = 0; i < aff.length; i++) {
-        if (aff[i].agency_name === agencyName && aff[i].permission === 'fabs') {
-            return true;
-        }
-    }
-    return false;
+    const { affiliations } = session.user;
+    return !!(affiliations.find((affiliation) =>
+        affiliation.agency_name === agencyName && (affiliation.permission === 'fabs' || affiliation.permission === 'editfabs')
+    ));
 };
