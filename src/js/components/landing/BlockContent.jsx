@@ -35,9 +35,9 @@ export default class BlockContent extends React.Component {
             type={this.props.type}
             icon={<Icons.Floppy />}
             text={"Did you start a submission but were unable to complete it? Want to see your certified " +
-            "submissions? Continue here to the submissions table."}
-            buttonText="View Submissions Table"
-            url="#/submissionsTable" />);
+            "submissions? Continue here to the submission table."}
+            buttonText="View Submission Table"
+            url="#/submissionTable" />);
         let thirdBlock = null;
         let fourthBlock = null;
 
@@ -107,9 +107,9 @@ export default class BlockContent extends React.Component {
                 type={this.props.type}
                 icon={<Icons.Floppy />}
                 text={"Did you start a submission but were unable to complete it? Want to see your previous " +
-                    "submissions? Continue here to the submissions table."}
-                buttonText="View Submissions Table"
-                url="#/FABSsubmissionsTable" />);
+                    "submissions? Continue here to the submission table."}
+                buttonText="View Submission Table"
+                url="#/FABSsubmissionTable" />);
         }
 
         return (

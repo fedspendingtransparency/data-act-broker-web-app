@@ -14,25 +14,33 @@ jest.mock('helpers/submissionGuideHelper', () => require('./mockSubmissionGuideH
 describe('SubmissionContainer', () => {
     let container;
     beforeEach(() => {
+        jest.clearAllMocks();
         container = shallow(<SubmissionContainer {...mockProps} />);
     });
-    it('componenentDidMount, should call getSubmission on mount', async () => {
-        const getSubmission = jest.fn();
-        container.instance().getSubmission = getSubmission;
-        await container.instance().componentDidMount();
-
-        expect(getSubmission).toHaveBeenCalled();
+    describe('componentDidMount', () => {
+        it('should call getSubmission on mount', async () => {
+            const getSubmission = jest.fn();
+            container.instance().getSubmission = getSubmission;
+            await container.instance().componentDidMount();
+            expect(getSubmission).toHaveBeenCalled();
+            expect(getSubmission).toHaveBeenCalledWith(undefined);
+        });
+        it('should pass a truthy value to getSubmission when a step is specified in the url', () => {
+            const getSubmission = jest.fn();
+            container.instance().getSubmission = getSubmission;
+            const newProps = { ...container.instance().props };
+            newProps.params.type = 'generateEF';
+            container.setProps({ ...newProps });
+            container.instance().componentDidMount();
+            expect(getSubmission).toHaveBeenCalledWith('generateEF');
+        });
     });
-
-    describe('ComponentDidUpdate', () => {
+    describe('componentDidUpdate', () => {
         it('should call getSubmission if ID is updated', () => {
             const getSubmission = jest.fn();
             container.instance().getSubmission = getSubmission;
             const newProps = {
                 params: {
-                    submissionID: "20"
-                },
-                routeParams: {
                     submissionID: "20"
                 }
             };
@@ -47,9 +55,6 @@ describe('SubmissionContainer', () => {
             container.instance().setStepAndRoute = setStepAndRoute;
             const newProps = {
                 params: {
-                    submissionID: "2054"
-                },
-                routeParams: {
                     submissionID: "2054",
                     type: 'generateFiles'
                 }
@@ -80,57 +85,62 @@ describe('SubmissionContainer', () => {
             expect(fabs).toEqual(5);
         });
         it('should allow a user to navigate to a step greater than its current step', () => {
-            const newState = originalState;
+            const newState = { ...originalState }; // make a copy of the original state
             newState.completedSteps[0] = true;
             container.instance().setState(newState);
+            const newProps = { ...container.instance().props };
+            newProps.params.type = 'validateData';
+            container.setProps({ ...newProps });
             const allow = container.instance().validateCurrentStepAndRouteType(1);
             expect(allow).toEqual(1);
         });
-        it('should not allow a user to navigate to a greater step', async () => {
-            const newState = originalState;
+        it('should not allow a user to navigate to a greater step', () => {
+            const newState = { ...originalState }; // make a copy of the original state
             newState.completedSteps[0] = true;
-            const newProps = container.instance().props;
-            newProps.routeParams.type = 'generateEF';
-            await container.instance().setState(newState);
-            await container.setProps({ ...newProps });
+            const newProps = { ...container.instance().props };
+            newProps.params.type = 'generateEF';
+            container.instance().setState(newState);
+            container.setProps({ ...newProps });
             const doNotAllow = container.instance().validateCurrentStepAndRouteType(0);
             expect(doNotAllow).toEqual(0);
         });
-        it('should allow a user to navigate to a previous step', async () => {
-            const newProps = container.instance().props;
-            const newState = container.instance().state;
+        it('should allow a user to navigate to a previous step', () => {
+            const newState = { ...originalState }; // make a copy of the original state
             newState.step = 4;
             newState.originalStep = 4;
-            newProps.routeParams.type = 'generateEF';
-            await container.instance().setState({ newState });
-            container.setProps(newProps);
+            container.instance().setState({ ...newState });
+            const newProps = { ...container.instance().props };
+            newProps.params.type = 'generateEF';
+            container.setProps({ ...newProps });
             const newIndex = container.instance().validateCurrentStepAndRouteType(4);
             expect(newIndex).toEqual(3);
         });
-        it('should just return the current step number if routes are the same', async () => {
-            const newProps = container.instance().props;
-            const newState = container.instance().state;
-            newProps.routeParams.type = 'generateEF';
+        it('should just return the current step number if routes are the same', () => {
+            const newProps = { ...container.instance().props };
+            const newState = { ...container.instance().state };
+            newProps.params.type = 'generateEF';
             newState.step = 3;
             newState.originalStep = 3;
-            await container.instance().setState({ newState });
-            await container.setProps(newProps);
+            container.instance().setState({ ...newState });
+            container.setProps({ ...newProps });
             const sameRoute = container.instance().validateCurrentStepAndRouteType(3);
             expect(sameRoute).toEqual(3);
         });
     });
-
-    it('errorFromStep, should update state with message', () => {
-        const falseStatement = 'Dallas Cowboys are a great team';
-        container.instance().errorFromStep(falseStatement);
-        const { isError, errorMessage } = container.instance().state;
-        expect(isError).toEqual(true);
-        expect(errorMessage).toEqual(falseStatement);
+    describe('errorFromStep', () => {
+        it('should update state with message', () => {
+            const falseStatement = 'Dallas Cowboys are a great team';
+            container.instance().errorFromStep(falseStatement);
+            const { isError, errorMessage } = container.instance().state;
+            expect(isError).toEqual(true);
+            expect(errorMessage).toEqual(falseStatement);
+        });
     });
-    
-    it('currentRoute, should return the current states step route', () => {
-        const currentRoute = container.instance().currentRoute();
-        expect(currentRoute).toEqual('validateData');
+    describe('currentRoute', () => {
+        it('should return the current states step route', () => {
+            const currentRoute = container.instance().currentRoute();
+            expect(currentRoute).toEqual('validateData');
+        });
     });
 
     // TODO - get this working
@@ -150,14 +160,15 @@ describe('SubmissionContainer', () => {
         container.instance().updateRoute();
         expect(props.history.replace).toHaveBeenCalled();
     });
-
-    it('nextStep, should update state and call update route', () => {
-        const updateRoute = jest.fn();
-        container.instance().updateRoute = updateRoute;
-        container.instance().nextStep();
-        const { step, completedSteps } = container.instance().state;
-        expect(step).toEqual(1);
-        expect(completedSteps['1']).toEqual(true);
-        expect(updateRoute).toHaveBeenCalled();
+    describe('nextStep', () => {
+        it('should update state and call update route', () => {
+            const updateRoute = jest.fn();
+            container.instance().updateRoute = updateRoute;
+            container.instance().nextStep();
+            const { step, completedSteps } = container.instance().state;
+            expect(step).toEqual(1);
+            expect(completedSteps[1]).toEqual(true);
+            expect(updateRoute).toHaveBeenCalled();
+        });
     });
 });

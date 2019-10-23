@@ -9,8 +9,8 @@ import PropTypes from 'prop-types';
 const propTypes = {
     name: PropTypes.string,
     description: PropTypes.string,
-    required: PropTypes.bool
-    // TODO- Lizzie: add the component prop
+    required: PropTypes.bool,
+    component: PropTypes.func
 };
 
 export default class FilterOption extends React.Component {
@@ -18,6 +18,11 @@ export default class FilterOption extends React.Component {
         const required = this.props.required ? (
             <span className="filter-sidebar__option-required">Required</span>
         ) : null;
+        let component = null;
+        if (this.props.component) {
+            const Component = this.props.component;
+            component = <Component />;
+        }
         return (
             <div className="filter-sidebar__option">
                 <span className="filter-sidebar__option-name">
@@ -26,6 +31,7 @@ export default class FilterOption extends React.Component {
                 <div>
                     {this.props.description}
                 </div>
+                {component}
             </div>
         );
     }

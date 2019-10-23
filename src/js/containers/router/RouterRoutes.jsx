@@ -1,3 +1,5 @@
+// import { checkFabsPermissions } from 'helpers/permissionsHelper';
+
 import UploadFabsFilePageContainer from '../../containers/uploadFabsFile/UploadFabsFilePageContainer';
 import GenerateDetachedFilesPageContainer from '../../containers/generateDetachedFiles/GenerateDetachedFilesPageContainer';
 import LandingPage from '../../components/landing/LandingPage';
@@ -42,6 +44,20 @@ const checkDabsUploadPermissions = (session) => {
         return acc;
     }, false);
 };
+
+// TODO: Perhaps use this guy instead?
+// const checkFabsUploadPermissions = (nextState, replace) => {
+//     getStore();
+//     const session = store.getState().session;
+//     if (session.login !== "loggedIn") {
+//         performAutoLogin(nextState.location, replace);
+//     }
+//     const fabsPermissions = checkFabsPermissions(session);
+//     if (!fabsPermissions) {
+//         // if no permissions, bounce to landing
+//         replace('/FABSLanding');
+//     }
+// };
 
 const checkFabsUploadPermissions = (session) => {
     if (session.admin) {
@@ -150,7 +166,7 @@ const getRoutes = () => {
                 type
             };
         }
-        else if (routeInfo.component === 'submissionsTable') {
+        else if (routeInfo.component === 'submissionTable') {
             return {
                 path: prefix + routeInfo.path,
                 authFn: routeInfo.authFn[onEnterIndex],
@@ -178,9 +194,9 @@ const getRoutes = () => {
             component: 'landing'
         },
         {
-            path: '/submissionsTable',
+            path: '/submissionTable',
             authFn: [checkUserPermissions],
-            component: 'submissionsTable'
+            component: 'submissionTable'
         },
         {
             path: '/help',
