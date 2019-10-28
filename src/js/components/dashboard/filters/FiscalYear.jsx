@@ -11,7 +11,8 @@ const propTypes = {
     saveSelectedYear: PropTypes.func,
     checked: PropTypes.bool,
     saveAllYears: PropTypes.func,
-    disabled: PropTypes.bool
+    disabled: PropTypes.bool,
+    toggleTooltip: PropTypes.func
 };
 
 const defaultProps = {
@@ -24,6 +25,18 @@ export default class FiscalYear extends React.Component {
 
         this.allYears = this.allYears.bind(this);
         this.saveYear = this.saveYear.bind(this);
+        this.onMouseLeave = this.onMouseLeave.bind(this);
+        this.onMouseEnter = this.onMouseEnter.bind(this);
+    }
+
+    onMouseEnter() {
+        if (this.props.disabled) {
+            this.props.toggleTooltip(this.props.year);
+        }
+    }
+
+    onMouseLeave() {
+        this.props.toggleTooltip('');
     }
 
     saveYear() {
@@ -70,7 +83,11 @@ export default class FiscalYear extends React.Component {
                             value={`FY ${this.props.year}`}
                             checked={this.props.checked}
                             onChange={this.saveYear}
-                            disabled={this.props.disabled} />
+                            disabled={this.props.disabled}
+                            onMouseEnter={this.onMouseEnter}
+                            onFocus={this.onMouseEnter}
+                            onMouseLeave={this.onMouseLeave}
+                            onBlur={this.onMouseLeave} />
                         <span className="fy-option__label">
                             {`FY ${this.props.year - 2000}`}
                         </span>
