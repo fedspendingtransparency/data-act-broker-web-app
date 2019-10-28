@@ -1,5 +1,6 @@
 .usa-da-dashboard-page {
-    @import "../../layouts/content/content";
+    @import '../../layouts/content/content';
+    @import '../../components/tooltip/warningTooltip';
     @include contentLayout;
     .display-2 {
         padding-top: rem(24);
