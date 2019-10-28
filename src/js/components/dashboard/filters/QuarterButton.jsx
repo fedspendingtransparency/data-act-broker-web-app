@@ -5,54 +5,45 @@
 
 import React from 'react';
 import PropTypes from 'prop-types';
-import Tooltip from 'components/SharedComponents/WarningTooltip';
 
 const propTypes = {
     disabled: PropTypes.bool,
     active: PropTypes.bool,
     quarter: PropTypes.number,
-    pickedQuarter: PropTypes.func
+    pickedQuarter: PropTypes.func,
+    toggleTooltip: PropTypes.func
 };
 
 export default class QuarterButton extends React.Component {
     constructor(props) {
         super(props);
 
-        this.state = {
-            showTooltip: false
-        };
-
         this.onMouseLeave = this.onMouseLeave.bind(this);
         this.onMouseEnter = this.onMouseEnter.bind(this);
+        this.clickedQuarter = this.clickedQuarter.bind(this);
     }
 
     onMouseEnter() {
         if (this.props.disabled) {
-            this.setState({
-                showTooltip: true
-            });
+            this.props.toggleTooltip(this.props.quarter);
         }
     }
 
     onMouseLeave() {
-        if (this.state.showTooltip) {
-            this.setState({
-                showTooltip: false
-            });
-        }
+        this.props.toggleTooltip(0);
     }
 
     clickedQuarter(e) {
         e.preventDefault();
-        this.props.pickedQuarter(this.props.quarter);
+        if (!this.props.disabled) {
+            this.props.pickedQuarter(this.props.quarter);
+        }
     }
 
     render() {
-        let additionalClasses = '';
-        let tooltipMessage = 'The submission period has yet to open. Please search for a submission period that has closed.';
+        let additionalClasses = this.props.disabled ? 'quarter-picker__quarter_disabled ' : '';
         if (this.props.quarter === 1) {
             additionalClasses += 'quarter-picker__quarter_first';
-            tooltipMessage = 'There is no data available for this quarter. We began recording data in Q2 of FY 17.';
         }
         else if (this.props.quarter === 4) {
             additionalClasses += 'quarter-picker__quarter_last';
@@ -63,16 +54,18 @@ export default class QuarterButton extends React.Component {
         }
 
         return (
+            // Use CSS class and aria-disabled rather than disabled html property
+            // so that the disabled buttons are still focusable to display
+            // the warning tooltip
             <button
                 className={`quarter-picker__quarter ${additionalClasses}`}
-                disabled={this.props.disabled}
                 onClick={this.clickedQuarter}
                 onMouseEnter={this.onMouseEnter}
                 onFocus={this.onMouseEnter}
                 onMouseLeave={this.onMouseLeave}
-                onBlur={this.onMouseLeave}>
+                onBlur={this.onMouseLeave}
+                aria-disabled={this.props.disabled}>
                 Q{this.props.quarter}
-                {this.state.showTooltip && <Tooltip message={tooltipMessage} />}
             </button>
         );
     }
