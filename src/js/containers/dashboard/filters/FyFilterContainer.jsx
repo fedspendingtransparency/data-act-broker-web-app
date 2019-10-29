@@ -5,6 +5,7 @@
 
 import React from 'react';
 import PropTypes from 'prop-types';
+import _ from 'lodash';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 
@@ -37,6 +38,7 @@ export class FyFilterContainer extends React.Component {
     componentDidUpdate(prevProps) {
         if (this.props.selectedFilters.quarters !== prevProps.selectedFilters.quarters) {
             this.generateAllFy();
+            this.removeDisabledSelections();
         }
     }
 
@@ -80,6 +82,24 @@ export class FyFilterContainer extends React.Component {
         this.setState({
             allFy
         });
+    }
+
+    removeDisabledSelections() {
+        // remove FY 2017 if Q1 is the only quarter selected
+        const selectedQuarters = this.props.selectedFilters.quarters.toArray();
+        const justQ1 = (selectedQuarters.length === 1 && selectedQuarters[0] === 1);
+        const fy17Selected = this.props.selectedFilters.fy.includes(2017);
+        if (justQ1 && fy17Selected) {
+            this.pickedFy(2017);
+        }
+
+        // remove the current FY if only future quarters are selected
+        const selectedFutureQuarters = selectedQuarters.filter((quarter) => quarter > this.state.latestQuarter);
+        const justFutureQuarters = _.isEqual(selectedQuarters, selectedFutureQuarters);
+        const currentFySelected = this.props.selectedFilters.fy.includes(this.state.latestYear);
+        if (justFutureQuarters && currentFySelected) {
+            this.pickedFy(this.state.latestYear);
+        }
     }
 
     render() {
