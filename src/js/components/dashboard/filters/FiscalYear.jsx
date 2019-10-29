@@ -49,7 +49,8 @@ export default class FiscalYear extends React.Component {
                             id={`fy${this.props.year}`}
                             value="All Fiscal Years"
                             checked={this.props.checked}
-                            onChange={this.allYears} />
+                            onChange={this.allYears}
+                            disabled={this.props.disabled} />
                         <span className="fy-option__label">
                             All Fiscal Years
                         </span>
