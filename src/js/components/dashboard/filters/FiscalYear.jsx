@@ -68,7 +68,7 @@ export default class FiscalYear extends React.Component {
                             className="fy-option__checkbox"
                             id={`fy${this.props.year}`}
                             value={`FY ${this.props.year}`}
-                            checked={this.props.checked}
+                            checked={!this.props.disabled && this.props.checked}
                             onChange={this.saveYear}
                             disabled={this.props.disabled} />
                         <span className="fy-option__label">
