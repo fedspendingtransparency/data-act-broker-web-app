@@ -95,7 +95,7 @@ export class FyFilterContainer extends React.Component {
 
         // remove the current FY if only future quarters are selected
         const selectedFutureQuarters = selectedQuarters.filter((quarter) => quarter > this.state.latestQuarter);
-        const justFutureQuarters = _.isEqual(selectedQuarters, selectedFutureQuarters);
+        const justFutureQuarters = _.isEqual(selectedQuarters, selectedFutureQuarters) && selectedQuarters.length > 0;
         const currentFySelected = this.props.selectedFilters.fy.includes(this.state.latestYear);
         if (justFutureQuarters && currentFySelected) {
             this.pickedFy(this.state.latestYear);

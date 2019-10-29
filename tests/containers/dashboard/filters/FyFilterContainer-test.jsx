@@ -115,6 +115,8 @@ describe('FyFilterContainer', () => {
             newProps.selectedFilters.fy = newProps.selectedFilters.fy.add(2017);
             container.setProps({ ...newProps });
 
+            expect(container.instance().props.selectedFilters.fy.toArray()).toEqual([2017]);
+            expect(container.instance().props.selectedFilters.quarters.toArray()).toEqual([1]);
             container.instance().removeDisabledSelections();
             expect(pickedFy).toHaveBeenCalledWith(2017);
         });
@@ -139,6 +141,8 @@ describe('FyFilterContainer', () => {
             newProps.selectedFilters.fy = fy.add(2020);
             container.setProps({ ...newProps });
 
+            expect(container.instance().props.selectedFilters.fy.toArray()).toEqual([2020]);
+            expect(container.instance().props.selectedFilters.quarters.toArray()).toEqual([4]);
             container.instance().removeDisabledSelections();
             expect(pickedFy).toHaveBeenCalledWith(2020);
         });
