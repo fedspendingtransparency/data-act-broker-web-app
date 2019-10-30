@@ -41,26 +41,24 @@ class AgencyFilterContainer extends React.Component {
     }
 
     loadData() {
-        if (this.props.agencyList.agencies.length === 0) {
-            // we need to populate the list
-            if (this.props.detached) {
-                AgencyHelper.fetchAllAgencies()
-                    .then((agencies) => {
-                        this.props.setAgencyList(agencies);
-                    })
-                    .catch((err) => {
-                        console.error(err);
-                    });
-            }
-            else {
-                AgencyHelper.fetchAgencies()
-                    .then((agencies) => {
-                        this.props.setAgencyList(agencies);
-                    })
-                    .catch((err) => {
-                        console.error(err);
-                    });
-            }
+        // we need to populate the list
+        if (this.props.detached) {
+            AgencyHelper.fetchAllAgencies()
+                .then((agencies) => {
+                    this.props.setAgencyList(agencies);
+                })
+                .catch((err) => {
+                    console.error(err);
+                });
+        }
+        else {
+            AgencyHelper.fetchAgencies()
+                .then((agencies) => {
+                    this.props.setAgencyList(agencies);
+                })
+                .catch((err) => {
+                    console.error(err);
+                });
         }
     }
 
