@@ -31,7 +31,7 @@ export default class ValidateDataInProgressOverlay extends React.Component {
             icon = <Icons.ExclamationCircle />;
             iconClass = 'usa-da-errorRed';
         }
-        
+
         const detail = <div>{description}</div>;
 
         return (
