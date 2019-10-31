@@ -87,7 +87,7 @@ export default class HelpPage extends React.Component {
                     <Navbar activeTab={help} type={this.props.type} logoOnly={this.props.helpOnly} />
                     <div className={`usa-da-content-${color} mb-60`}>
                         <div className="container">
-                            <div className="row">
+                            <div className="row usa-da-page-title">
                                 <div className="col-md-12 mt-40 mb-20">
                                     <div className="display-2" data-contentstart="start" tabIndex={-1}>
                                         {this.props.type.toUpperCase()} | Help
