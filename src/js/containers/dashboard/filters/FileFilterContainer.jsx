@@ -16,35 +16,39 @@ const propTypes = {
     selectedFilters: PropTypes.object
 };
 
-const options = [
-    {
-        value: 'A',
-        label: 'File A'
-    },
-    {
-        value: 'B',
-        label: 'File B'
-    },
-    {
-        value: 'C',
-        label: 'File C'
-    },
-    {
-        value: 'cross-AB',
-        label: 'Cross A/B'
-    },
-    {
-        value: 'cross-BC',
-        label: 'Cross B/C'
-    },
-    {
-        value: 'cross-CD1',
-        label: 'Cross C/D1'
-    },
-    {
-        value: 'cross-CD2',
-        label: 'Cross C/D2'
-    }
+const columns = [
+    [
+        {
+            value: 'A',
+            label: 'File A'
+        },
+        {
+            value: 'B',
+            label: 'File B'
+        },
+        {
+            value: 'C',
+            label: 'File C'
+        }
+    ],
+    [
+        {
+            value: 'cross-AB',
+            label: 'Cross A/B'
+        },
+        {
+            value: 'cross-BC',
+            label: 'Cross B/C'
+        },
+        {
+            value: 'cross-CD1',
+            label: 'Cross C/D1'
+        },
+        {
+            value: 'cross-CD2',
+            label: 'Cross C/D2'
+        }
+    ]
 ];
 
 const FileFilterContainer = (props) => (
@@ -52,7 +56,7 @@ const FileFilterContainer = (props) => (
         <RadioGroup
             onChange={props.updateFileFilter}
             currentValue={props.selectedFilters.file}
-            options={options} />
+            columns={columns} />
     </div>
 );
 

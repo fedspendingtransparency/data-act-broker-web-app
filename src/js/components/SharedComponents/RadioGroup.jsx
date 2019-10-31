@@ -7,7 +7,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 const propTypes = {
-    options: PropTypes.array,
+    columns: PropTypes.array,
     onChange: PropTypes.func,
     currentValue: PropTypes.string
 };
@@ -23,8 +23,18 @@ export default class RadioGroup extends React.Component {
         this.props.onChange(e.target.value);
     }
 
-    generateOptions() {
-        return this.props.options.map((option) => (
+    generateColumns() {
+        return this.props.columns.map((column, i) => (
+            <div
+                className="radio-group__column"
+                key={`radio-group-col-${i}`}>
+                {this.generateOptions(column)}
+            </div>
+        ));
+    }
+
+    generateOptions(options) {
+        return options.map((option) => (
             <div className="radio-option" key={option.value}>
                 <input
                     id={option.value}
@@ -43,7 +53,7 @@ export default class RadioGroup extends React.Component {
     render() {
         return (
             <div className="radio-group">
-                {this.generateOptions()}
+                {this.generateColumns()}
             </div>
         );
     }

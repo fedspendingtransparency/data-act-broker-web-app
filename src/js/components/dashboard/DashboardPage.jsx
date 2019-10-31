@@ -14,13 +14,13 @@ import FilterSidebar from './FilterSidebar';
 
 const filters = [
     {
-        name: 'Fiscal Year',
+        name: 'Fiscal Years',
         required: true,
         component: FyFilterContainer,
         description: 'Select the applicable fiscal year(s).'
     },
     {
-        name: 'Quarter',
+        name: 'Quarters',
         required: true,
         component: QuarterFilterContainer,
         description: 'Select the applicable quarter(s).'
