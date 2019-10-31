@@ -60,7 +60,7 @@ export default class DashboardPage extends React.Component {
                     <Navbar type="dabs" activeTab="dashboard" />
                     <div className="usa-da-content-dark">
                         <div className="container">
-                            <div className="row">
+                            <div className="row usa-da-page-title">
                                 <div className="col-md-12">
                                     <h1 className="display-2">DABS Dashboard</h1>
                                 </div>
