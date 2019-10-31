@@ -30,7 +30,29 @@ const performAutoLogin = (location, replace) => {
 
     const session = store.getState().session;
 
-    const path = location.pathname;
+    let path = location.pathname;
+
+    // Check path against list of whitelisted paths
+    // TODO: use matchPath in later react versions, it can simply use whiteListPaths we're already building
+    const whiteListRoutes = getRoutes();
+    const whiteListPaths = [];
+    for (let i=0; i<whiteListRoutes.length; i++){
+        if (whiteListRoutes[i]['path'] !== '*')
+            whiteListPaths[i] = whiteListRoutes[i]['path'].replace(':submissionID', '/d+').replace(':type', '[a-zA-Z]+');
+    }
+    let validPath = false;
+    for (let i=0; i<whiteListPaths.length; i++){
+        const regexPath = new RegExp(whiteListPaths[i]);
+        validPath = regexPath.test(path.substring(1));
+        if (validPath){
+            break;
+        }
+    }
+    if (!validPath){
+        console.log('Path invalid (' + path + '). Resetting.');
+        path = ""
+    }
+
     const search = location.search;
     const query = location.query;
 
