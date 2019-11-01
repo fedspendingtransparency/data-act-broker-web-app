@@ -12,6 +12,7 @@ import { debounce } from 'lodash';
 import * as DashboardHelper from 'helpers/dashboardHelper';
 import * as filterActions from 'redux/actions/dashboard/dashboardFilterActions';
 import Autocomplete from 'components/SharedComponents/autocomplete/Autocomplete';
+import SelectedRules from 'components/dashboard/filters/SelectedRules';
 
 const propTypes = {
     updateGenericFilter: PropTypes.func,
@@ -98,22 +99,30 @@ export class RulesFilterContainer extends React.Component {
     }
 
     render() {
+        let selectedRules = null;
+        if (this.props.selectedFilters.rules.size > 0) {
+            selectedRules = (<SelectedRules
+                selectedRules={this.props.selectedFilters.rules}
+                removeRule={this.onSelect} />);
+        }
         return (
-            <Autocomplete
-                values={this.state.autocompleteResults}
-                handleTextInput={this.handleTextInput}
-                onSelect={this.onSelect}
-                placeholder="Enter Code (e.g. C23)"
-                errorHeader="Unknown Rule"
-                errorMessage="We were unable to find that Rule based on the current filters."
-                ref={(input) => {
-                    this.rulesList = input;
-                }}
-                clearAutocompleteSuggestions={this.clearAutocompleteSuggestions}
-                noResults={this.state.noResults}
-                minCharsToSearch={0}
-                disabled={!this.props.selectedFilters.file} />
-
+            <div className="rules-filter">
+                <Autocomplete
+                    values={this.state.autocompleteResults}
+                    handleTextInput={this.handleTextInput}
+                    onSelect={this.onSelect}
+                    placeholder="Enter Code (e.g. C23)"
+                    errorHeader="Unknown Rule"
+                    errorMessage="We were unable to find that Rule based on the current filters."
+                    ref={(input) => {
+                        this.rulesList = input;
+                    }}
+                    clearAutocompleteSuggestions={this.clearAutocompleteSuggestions}
+                    noResults={this.state.noResults}
+                    minCharsToSearch={0}
+                    disabled={!this.props.selectedFilters.file} />
+                {selectedRules}
+            </div>
         );
     }
 }
