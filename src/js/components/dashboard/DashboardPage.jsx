@@ -9,6 +9,7 @@ import Footer from 'components/SharedComponents/FooterComponent';
 import QuarterFilterContainer from 'containers/dashboard/filters/QuarterFilterContainer';
 import FyFilterContainer from 'containers/dashboard/filters/FyFilterContainer';
 import FileFilterContainer from 'containers/dashboard/filters/FileFilterContainer';
+import RulesFilterContainer from 'containers/dashboard/filters/RulesFilterContainer';
 import DashboardTab from './DashboardTab';
 import FilterSidebar from './FilterSidebar';
 
@@ -34,7 +35,7 @@ const filters = [
     {
         name: 'Rules',
         required: false,
-        component: null,
+        component: RulesFilterContainer,
         description: 'Enter specific codes to filter your search.'
     }
 ];

@@ -19,3 +19,20 @@ export const fetchQuarterlyRevalidationThreshold = () => {
 
     return deferred.promise;
 };
+
+export const fetchRules = (callBody) => {
+    const deferred = Q.defer();
+
+    Request.post(`${kGlobalConstants.API}get_rule_labels/`)
+        .send(callBody)
+        .end((err, res) => {
+            if (err) {
+                deferred.reject(err);
+            }
+            else {
+                deferred.resolve(res.body);
+            }
+        });
+
+    return deferred.promise;
+};
