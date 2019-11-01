@@ -275,7 +275,7 @@ export default class Autocomplete extends React.Component {
                 aria-expanded={this.state.shown}
                 aria-haspopup="true">
                 <div className="usa-da-typeahead">
-                    <p>{this.props.label}</p>
+                    <p className="usa-da-typeahead__label">{this.props.label}</p>
                     <div className="usa-da-typeahead__input">
                         <input
                             className="autocomplete"
