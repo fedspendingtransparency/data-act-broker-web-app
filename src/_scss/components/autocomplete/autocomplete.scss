@@ -1,12 +1,12 @@
-.usa-da-typeahead {
+.usa-da-autocomplete {
     
-    .usa-da-typeahead__label {
+    p.usa-da-autocomplete__label {
         color: $color-gray;
         font-size: $small-font-size;
         margin-top: 0;
         margin-bottom: .5rem;
     }
-    .usa-da-typeahead__input {
+    .usa-da-autocomplete__input {
         font-size: $small-font-size;
         height: rem(40);
         margin: 0 auto;
@@ -15,6 +15,9 @@
 
         @include placeholder {
             color: $color-gray;
+        }
+        &:disabled {
+            cursor: not-allowed;
         }
     }
 
@@ -27,13 +30,12 @@
         overflow:hidden;
     }
 
-    ul.autocomplete {
+    ul.usa-da-autocomplete__list {
         background-color: $color-white;
         border: 1px solid $color-gray-lighter;
+        @include unstyled-list;
         cursor: default;
-        list-style-type: none;
-        margin: 0;
-        padding: 0;
+        width: 100%;
         li {
             line-height: rem(20);
             font-size: $small-font-size;
@@ -41,10 +43,10 @@
             padding: rem(10) rem(20);
             color: $color-base;
             border-bottom: 1px solid $color-gray-lighter;
-            margin-bottom: 0;
+            margin: 0;
             width: 100%;
-            vertical-align: middle;
             word-wrap: break-word;
+            display: block;
             &:hover,
             &.hover,
             &[aria-selected="true"] {

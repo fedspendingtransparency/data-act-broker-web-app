@@ -48,7 +48,7 @@ export default class SuggestionHolder extends React.Component {
         return (
             <ul
                 id={this.props.autocompleteId}
-                className={`autocomplete ${hiddenClass}`}
+                className={`usa-da-autocomplete__list ${hiddenClass}`}
                 role="listbox">
                 {suggestions}
             </ul>

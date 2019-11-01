@@ -218,7 +218,7 @@ export default class Autocomplete extends React.Component {
         }
 
         else {
-            // Clear internal typeahead state value
+            // Clear internal autocomplete state value
             this.setState({
                 value: ''
             });
@@ -269,29 +269,27 @@ export default class Autocomplete extends React.Component {
 
         return (
             <div
-                className="usa-da-typeahead-wrapper"
+                className="usa-da-autocomplete-wrapper"
                 role="combobox"
                 aria-controls={this.state.autocompleteId}
                 aria-expanded={this.state.shown}
                 aria-haspopup="true">
-                <div className="usa-da-typeahead">
-                    <p className="usa-da-typeahead__label">{this.props.label}</p>
-                    <div className="usa-da-typeahead__input">
-                        <input
-                            className="autocomplete"
-                            ref={(t) => {
-                                this.autocompleteInput = t;
-                            }}
-                            type="text"
-                            placeholder={this.props.placeholder}
-                            onChange={this.onChange.bind(this)}
-                            tabIndex={0}
-                            aria-controls={this.state.autocompleteId}
-                            aria-activedescendant={activeDescendant}
-                            aria-autocomplete="list"
-                            maxLength={this.props.characterLimit}
-                            disabled={this.props.disabled} />
-                    </div>
+                <div className="usa-da-autocomplete">
+                    <p className="usa-da-autocomplete__label">{this.props.label}</p>
+                    <input
+                        className="usa-da-autocomplete__input"
+                        ref={(t) => {
+                            this.autocompleteInput = t;
+                        }}
+                        type="text"
+                        placeholder={this.props.placeholder}
+                        onChange={this.onChange.bind(this)}
+                        tabIndex={0}
+                        aria-controls={this.state.autocompleteId}
+                        aria-activedescendant={activeDescendant}
+                        aria-autocomplete="list"
+                        maxLength={this.props.characterLimit}
+                        disabled={this.props.disabled} />
                     <div
                         className="screen-reader-description"
                         role="alert">

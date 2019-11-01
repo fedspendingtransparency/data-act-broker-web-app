@@ -38,7 +38,7 @@ export class RulesFilterContainer extends React.Component {
     }
 
     onSelect(rule) {
-        this.props.updateGenericFilter('rules', rule);
+        this.props.updateGenericFilter('rules', rule.code);
     }
 
     parseAutocomplete(results) {
