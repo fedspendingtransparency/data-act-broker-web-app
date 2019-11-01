@@ -5,8 +5,7 @@
         border-bottom: solid rem(2) $color-gray-lighter;
         @import './filters/quarterPicker';
         @import './filters/fiscalYears';
-        @import '../../components/autocomplete/autocomplete';
-        @import '../../components/autocomplete/errorMessage';
+        @import './filters/rulesFilter';
         .filter-sidebar__option-heading {
             font-weight: $font-bold;
             font-size: $h3-font-size;
