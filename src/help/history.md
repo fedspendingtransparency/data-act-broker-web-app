@@ -1,4 +1,9 @@
-#### October 7, 2019{section=changelog}
+#### October 21, 2019{section=changelog}
+In this release of the Broker, we:
+
+* Updated FABS to properly show error message if attempting to navigate to an invalid submission ID.
+
+#### October 7, 2019
 In this release of the Broker, we:
 
 * Added a Download Comments link on the Review & Publish page in DABS where all entered comments on submission files can be downloaded on a single file.
