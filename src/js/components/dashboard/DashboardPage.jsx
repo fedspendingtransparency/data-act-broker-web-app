@@ -8,18 +8,19 @@ import Navbar from 'components/SharedComponents/navigation/NavigationComponent';
 import Footer from 'components/SharedComponents/FooterComponent';
 import QuarterFilterContainer from 'containers/dashboard/filters/QuarterFilterContainer';
 import FyFilterContainer from 'containers/dashboard/filters/FyFilterContainer';
+import FileFilterContainer from 'containers/dashboard/filters/FileFilterContainer';
 import DashboardTab from './DashboardTab';
 import FilterSidebar from './FilterSidebar';
 
 const filters = [
     {
-        name: 'Fiscal Year',
+        name: 'Fiscal Years',
         required: true,
         component: FyFilterContainer,
         description: 'Select the applicable fiscal year(s).'
     },
     {
-        name: 'Quarter',
+        name: 'Quarters',
         required: true,
         component: QuarterFilterContainer,
         description: 'Select the applicable quarter(s).'
@@ -27,7 +28,7 @@ const filters = [
     {
         name: 'Files',
         required: true,
-        component: null,
+        component: FileFilterContainer,
         description: 'Select one file or cross-file.'
     },
     {
