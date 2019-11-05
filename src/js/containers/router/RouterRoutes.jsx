@@ -38,13 +38,13 @@ const performAutoLogin = (location, replace) => {
     const whiteListPaths = [];
     listRoutes.forEach((route) => {
         if (route !== '*') {
-            whiteListPaths.push(route.replace(':submissionID', '\\d+').replace(':type', '[a-zA-Z]+'));
+            whiteListPaths.push(route.toLowerCase().replace(':submissionid', '\\d+').replace(':type', '[a-z]+'));
         }
     });
     let validPath = false;
     for (let i = 0; i < whiteListPaths.length; i++) {
         const regexPath = new RegExp(whiteListPaths[i]);
-        validPath = regexPath.test(path.substring(1));
+        validPath = regexPath.test(path.substring(1).toLowerCase());
         if (validPath) {
             break;
         }
