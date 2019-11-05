@@ -1,0 +1,18 @@
+.radio-group {
+    @include display(flex);
+    .radio-group__column {
+        padding-right: rem(20);
+        padding-top: rem(10);
+        &:last-child {
+            padding-right: 0;
+        }
+        .radio-option {
+            .radio-option__input {
+                margin-right: rem(5);
+            }
+            .radio-option__label {
+                font-weight: $font-normal;
+            }
+        }
+    }
+}
