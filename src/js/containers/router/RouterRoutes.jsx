@@ -17,6 +17,7 @@ import { checkFabsPermissions } from 'helpers/permissionsHelper';
 
 let instance = null;
 let store = new StoreSingleton().store;
+let listRoutes = [];
 
 const getStore = () => {
     if (!store) {
@@ -30,7 +31,29 @@ const performAutoLogin = (location, replace) => {
 
     const session = store.getState().session;
 
-    const path = location.pathname;
+    let path = location.pathname;
+
+    // Check path against list of whitelisted paths
+    // TODO: use matchPath in later react versions, it can simply use whiteListPaths we're already building
+    const whiteListPaths = [];
+    listRoutes.forEach((route) => {
+        if (route !== '*') {
+            whiteListPaths.push(route.toLowerCase().replace(':submissionid', '\\d+').replace(':type', '[a-z]+'));
+        }
+    });
+    let validPath = false;
+    for (let i = 0; i < whiteListPaths.length; i++) {
+        const regexPath = new RegExp(whiteListPaths[i]);
+        validPath = regexPath.test(path.substring(1).toLowerCase());
+        if (validPath) {
+            break;
+        }
+    }
+    // Setting path to blank if it doesn't match up with the valid paths
+    if (!validPath) {
+        path = "";
+    }
+
     const search = location.search;
     const query = location.query;
 
@@ -301,6 +324,7 @@ const getRoutes = () => {
             },
             type: 'home'
         });
+    listRoutes = returnRoutes.map((route) => route.path);
     return returnRoutes;
 };
 
