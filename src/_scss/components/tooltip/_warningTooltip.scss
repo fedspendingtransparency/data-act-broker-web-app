@@ -1,0 +1,54 @@
+.warning-tooltip {
+    position: absolute;
+    width: rem(400);
+    margin-left: rem(35);
+    margin-top: rem(-40);
+
+    .warning-content {
+        @include display(flex);
+        @include justify-content(center);
+        @include align-items(center);
+        position: relative;
+
+        background-color: $color-secondary-lightest;
+        border: 1px solid $color-secondary-light;
+        box-shadow: $box-shadow;
+
+        padding: rem(10);
+
+        .icon {
+            @include flex(0 0 auto);
+            width: rem(30);
+            height: rem(30);
+            margin-right: rem(10);
+
+            svg {
+                fill: $color-secondary;
+                width: rem(30);
+                height: rem(30);                
+            }
+        }
+
+        .message {
+            @include flex(1 1 auto);
+            text-align: left;
+            color: $color-base;
+            font-size: $small-font-size;
+            font-weight: normal;
+        }
+
+        // inherit from the standard tooltip arrow style
+        $color-tooltip-border: $color-secondary-light;
+        @import "components/tooltip/_arrow";
+        .tooltip-pointer {
+            // override the coloring
+            &:after {
+                background: $color-secondary-lightest;
+            }
+
+            &.left {
+                top: rem(20);
+            }
+        }
+    }
+}
