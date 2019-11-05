@@ -5,7 +5,7 @@
 
 import React from 'react';
 import PropTypes from 'prop-types';
-
+import WarningTooltip from 'components/SharedComponents/WarningTooltip';
 import FiscalYear from './FiscalYear';
 
 const propTypes = {
@@ -18,7 +18,18 @@ export default class FiscalYearFilter extends React.Component {
     constructor(props) {
         super(props);
 
+        this.state = {
+            showTooltip: ''
+        };
+
         this.saveAllYears = this.saveAllYears.bind(this);
+        this.toggleTooltip = this.toggleTooltip.bind(this);
+    }
+
+    componentDidUpdate(prevProps) {
+        if (this.props.selectedFY !== prevProps.selectedFY) {
+            this.toggleTooltip('');
+        }
     }
 
     saveAllYears() {
@@ -36,6 +47,14 @@ export default class FiscalYearFilter extends React.Component {
                 if (this.props.selectedFY.includes(fy.year)) {
                     this.props.pickedFy(fy.year);
                 }
+            });
+        }
+    }
+
+    toggleTooltip(showTooltip) {
+        if (showTooltip !== this.state.showTooltip) {
+            this.setState({
+                showTooltip
             });
         }
     }
@@ -66,7 +85,8 @@ export default class FiscalYearFilter extends React.Component {
                 year={`${fy.year}`}
                 key={`filter-fy-${fy.year}`}
                 disabled={fy.disabled}
-                saveSelectedYear={this.props.pickedFy} />);
+                saveSelectedYear={this.props.pickedFy}
+                toggleTooltip={this.toggleTooltip} />);
 
             if (i + 1 <= leftCount) {
                 leftFY.push(checkbox);
@@ -76,15 +96,20 @@ export default class FiscalYearFilter extends React.Component {
             }
         });
 
+        let message = 'The submission period has yet to open. Please search for a submission period that has closed.';
+        if (this.state.showTooltip === '2017') {
+            message = 'There is no data available for this year. We began recording data in Q2 of FY 17.';
+        }
         return (
-            <div>
-                <ul className="fiscal-years">
+            <div className="fiscal-years">
+                <ul className="fiscal-years-list">
                     <FiscalYear
                         checked={allFY}
                         year="all"
                         key="filter-fy-all"
-                        disabled={disableAllFy}
-                        saveAllYears={this.saveAllYears} />
+                        saveAllYears={this.saveAllYears}
+                        toggleTooltip={this.toggleTooltip}
+                        disabled={disableAllFy} />
                     <span className="fiscal-years__wrapper">
                         <div className="fiscal-years__left">
                             {leftFY}
@@ -94,6 +119,7 @@ export default class FiscalYearFilter extends React.Component {
                         </div>
                     </span>
                 </ul>
+                {this.state.showTooltip && <WarningTooltip message={message} />}
             </div>
         );
     }

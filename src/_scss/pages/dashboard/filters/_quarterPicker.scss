@@ -1,4 +1,9 @@
 .quarter-picker {
+    .warning-tooltip {
+        // space the tooltip to the right of the quarter buttons
+        margin-left: rem(230);
+        margin-top: rem(-50);
+    }
     ul.quarter-picker__list {
         @include unstyled-list;
         @include display(flex);
@@ -47,7 +52,7 @@
                     color: $color-white;
                 }
 
-                &[disabled] {
+                &.quarter-picker__quarter_disabled {
                     background-color: $color-gray-lightest;
                     cursor: not-allowed;
                     color: $color-gray-light;
