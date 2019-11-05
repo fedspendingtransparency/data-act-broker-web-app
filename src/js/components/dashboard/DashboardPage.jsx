@@ -6,21 +6,23 @@
 import React from 'react';
 import Navbar from 'components/SharedComponents/navigation/NavigationComponent';
 import Footer from 'components/SharedComponents/FooterComponent';
+import QuarterFilterContainer from 'containers/dashboard/filters/QuarterFilterContainer';
+import FyFilterContainer from 'containers/dashboard/filters/FyFilterContainer';
 import DashboardTab from './DashboardTab';
 import FilterSidebar from './FilterSidebar';
 
 const filters = [
     {
-        name: 'Quarter',
-        required: true,
-        component: null,
-        description: 'Select the applicable quarter(s).'
-    },
-    {
         name: 'Fiscal Year',
         required: true,
-        component: null,
+        component: FyFilterContainer,
         description: 'Select the applicable fiscal year(s).'
+    },
+    {
+        name: 'Quarter',
+        required: true,
+        component: QuarterFilterContainer,
+        description: 'Select the applicable quarter(s).'
     },
     {
         name: 'Files',
@@ -29,7 +31,7 @@ const filters = [
         description: 'Select one file or cross-file.'
     },
     {
-        name: 'Rule',
+        name: 'Rules',
         required: false,
         component: null,
         description: 'Enter specific codes to filter your search.'
