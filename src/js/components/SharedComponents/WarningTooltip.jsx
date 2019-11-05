@@ -7,7 +7,6 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { ExclamationTriangle } from 'components/SharedComponents/icons/Icons';
 
-
 const propTypes = {
     message: PropTypes.string
 };

@@ -25,11 +25,13 @@ export default class FiscalYearFilter extends React.Component {
         this.saveAllYears = this.saveAllYears.bind(this);
         this.toggleTooltip = this.toggleTooltip.bind(this);
     }
+
     componentDidUpdate(prevProps) {
         if (this.props.selectedFY !== prevProps.selectedFY) {
             this.toggleTooltip('');
         }
     }
+
     saveAllYears() {
         if (this.props.selectedFY.length !== this.props.allFy.length) {
             // Add years that are not yet selected
@@ -48,6 +50,7 @@ export default class FiscalYearFilter extends React.Component {
             });
         }
     }
+
     toggleTooltip(showTooltip) {
         if (showTooltip !== this.state.showTooltip) {
             this.setState({

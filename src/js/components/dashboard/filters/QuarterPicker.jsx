@@ -24,11 +24,13 @@ export default class QuarterPicker extends React.Component {
 
         this.toggleTooltip = this.toggleTooltip.bind(this);
     }
+
     componentDidUpdate(prevProps) {
         if (this.props.selectedQuarters !== prevProps.selectedQuarters) {
             this.toggleTooltip(0);
         }
     }
+
     toggleTooltip(showTooltip) {
         if (showTooltip !== this.state.showTooltip) {
             this.setState({
@@ -36,6 +38,7 @@ export default class QuarterPicker extends React.Component {
             });
         }
     }
+
     generateQuarters() {
         const quarters = [];
         for (let i = 1; i <= 4; i++) {
