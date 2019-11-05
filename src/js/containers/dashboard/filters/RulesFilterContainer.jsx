@@ -11,8 +11,7 @@ import { debounce } from 'lodash';
 
 import * as DashboardHelper from 'helpers/dashboardHelper';
 import * as filterActions from 'redux/actions/dashboard/dashboardFilterActions';
-import Autocomplete from 'components/SharedComponents/autocomplete/Autocomplete';
-import SelectedRules from 'components/dashboard/filters/SelectedRules';
+import RulesFilter from 'components/dashboard/filters/RulesFilter';
 
 const propTypes = {
     updateGenericFilter: PropTypes.func,
@@ -85,8 +84,7 @@ export class RulesFilterContainer extends React.Component {
                 this.setState({
                     results: res.labels,
                     inFlight: false
-                });
-                this.parseAutocomplete(res.labels);
+                }, () => this.parseAutocomplete());
             })
             .catch((err) => {
                 console.error(err);
@@ -115,31 +113,15 @@ export class RulesFilterContainer extends React.Component {
     }
 
     render() {
-        let selectedRules = null;
-        if (this.props.selectedFilters.rules.size > 0) {
-            selectedRules = (<SelectedRules
-                selectedRules={this.props.selectedFilters.rules}
-                removeRule={this.onSelect} />);
-        }
         return (
-            <div className="rules-filter">
-                <Autocomplete
-                    values={this.state.filteredResults}
-                    handleTextInput={this.handleTextInput}
-                    onSelect={this.onSelect}
-                    placeholder="Enter Code (e.g. C23)"
-                    errorHeader="Unknown Rule"
-                    errorMessage="We were unable to find that Rule based on the current filters."
-                    ref={(input) => {
-                        this.rulesList = input;
-                    }}
-                    clearAutocompleteSuggestions={this.clearAutocompleteSuggestions}
-                    noResults={this.state.noResults}
-                    inFlight={this.state.inFlight}
-                    minCharsToSearch={0}
-                    disabled={!this.props.selectedFilters.file} />
-                {selectedRules}
-            </div>
+            <RulesFilter
+                selectedFilters={this.props.selectedFilters}
+                noResults={this.state.noResults}
+                inFlight={this.state.inFlight}
+                filteredResults={this.state.filteredResults}
+                handleTextInput={this.handleTextInput}
+                clearAutocompleteSuggestions={this.clearAutocompleteSuggestions}
+                onSelect={this.onSelect} />
         );
     }
 }

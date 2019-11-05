@@ -27,7 +27,8 @@ const propTypes = {
     dirtyFilters: PropTypes.symbol,
     minCharsToSearch: PropTypes.number,
     inFlight: PropTypes.bool,
-    disabled: PropTypes.bool
+    disabled: PropTypes.bool,
+    toggleTooltip: PropTypes.func
 };
 
 const defaultProps = {
@@ -64,6 +65,8 @@ export default class Autocomplete extends React.Component {
 
         this.onChange = this.onChange.bind(this);
         this.select = this.select.bind(this);
+        this.onMouseEnter = this.onMouseEnter.bind(this);
+        this.onMouseLeave = this.onMouseLeave.bind(this);
     }
 
     componentDidMount() {
@@ -95,6 +98,16 @@ export default class Autocomplete extends React.Component {
             selectedIndex: 0,
             staged: false
         });
+    }
+
+    onMouseEnter() {
+        if (this.props.disabled) {
+            this.props.toggleTooltip(true);
+        }
+    }
+
+    onMouseLeave() {
+        this.props.toggleTooltip(false);
     }
 
     setupAutocomplete() {
@@ -281,8 +294,11 @@ export default class Autocomplete extends React.Component {
                 role="combobox"
                 aria-controls={this.state.autocompleteId}
                 aria-expanded={this.state.shown}
-                aria-haspopup="true">
-                <div className="usa-da-autocomplete">
+                aria-haspopup="true" >
+                <div
+                    className="usa-da-autocomplete"
+                    onMouseEnter={this.onMouseEnter}
+                    onMouseLeave={this.onMouseLeave} >
                     <p className="usa-da-autocomplete__label">{this.props.label}</p>
                     <div className="usa-da-autocomplete__input">
                         <input
