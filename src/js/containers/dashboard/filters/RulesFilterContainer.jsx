@@ -26,7 +26,8 @@ export class RulesFilterContainer extends React.Component {
         this.state = {
             searchString: '',
             autocompleteResults: [],
-            noResults: false
+            noResults: false,
+            inFlight: false
         };
 
         this.rulesRequest = null;
@@ -56,14 +57,16 @@ export class RulesFilterContainer extends React.Component {
 
         this.setState({
             autocompleteResults: parsedResults,
-            noResults: parsedResults.length === 0
+            noResults: parsedResults.length === 0,
+            inFlight: false
         });
     }
 
     fetchAutocompleteResults(input) {
         this.setState({
             noResults: false,
-            searchString: input
+            searchString: input,
+            inFlight: true
         });
 
         const searchParams = {
@@ -119,6 +122,7 @@ export class RulesFilterContainer extends React.Component {
                     }}
                     clearAutocompleteSuggestions={this.clearAutocompleteSuggestions}
                     noResults={this.state.noResults}
+                    inFlight={this.state.inFlight}
                     minCharsToSearch={0}
                     disabled={!this.props.selectedFilters.file} />
                 {selectedRules}
