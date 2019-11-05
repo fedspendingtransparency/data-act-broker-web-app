@@ -7,7 +7,6 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
-import { debounce } from 'lodash';
 
 import * as DashboardHelper from 'helpers/dashboardHelper';
 import * as filterActions from 'redux/actions/dashboard/dashboardFilterActions';
@@ -35,25 +34,28 @@ export class RulesFilterContainer extends React.Component {
         this.clearAutocompleteSuggestions = this.clearAutocompleteSuggestions.bind(this);
         this.onSelect = this.onSelect.bind(this);
         this.fetchAutocompleteResults = this.fetchAutocompleteResults.bind(this);
-        this.queryAutocompleteDebounced = debounce(this.fetchAutocompleteResults, 300);
     }
 
     componentDidUpdate(prevProps) {
+        // Make an API call for the corresponding rule labels when the selected file changes
         if (prevProps.selectedFilters.file !== this.props.selectedFilters.file) {
-            this.queryAutocompleteDebounced();
+            this.fetchAutocompleteResults();
         }
     }
 
     onSelect(rule) {
+        // Add or remove the rule from Redux state
         this.props.updateGenericFilter('rules', rule.code);
     }
 
     parseAutocomplete(input) {
         let results = this.state.results;
         if (input) {
+            // If the user has entered a search string, only show matching results
             results = this.state.results.filter((code) => code.includes(input.toUpperCase()));
         }
 
+        // Format the results for display in the dropdown
         const filteredResults = results.map((code) => ({
             title: code,
             subtitle: '',
@@ -104,7 +106,7 @@ export class RulesFilterContainer extends React.Component {
         event.persist();
 
         this.setState({
-            filteredResults: [],
+            filteredResults: [], // Clear any existing results
             inFlight: true
         });
 
