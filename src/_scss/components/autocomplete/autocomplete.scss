@@ -7,17 +7,30 @@
         margin-bottom: .5rem;
     }
     .usa-da-autocomplete__input {
-        font-size: $small-font-size;
-        height: rem(40);
-        margin: 0 auto;
-        padding: 11px 8px 11px 8px;
-        width: 100%;
-
-        @include placeholder {
-            color: $color-gray;
+        @include display(flex);
+        position: relative;
+        background-color: $color-white;
+        border: 1px solid $color-gray-lighter;
+        input {
+            border: 0;
+            font-size: $small-font-size;
+            height: rem(40);
+            margin: 0 auto;
+            padding: 11px 8px 11px 8px;
+            width: 100%;
+            @include placeholder {
+                color: $color-gray-lighter;
+            }
+            &:disabled {
+                cursor: not-allowed;
+            }
         }
-        &:disabled {
-            cursor: not-allowed;
+
+        .usa-da-autocomplete__input-icon {
+            @include flex(0 0 auto);
+            @include align-self(center);
+            position: absolute;
+            right: rem(15);
         }
     }
 

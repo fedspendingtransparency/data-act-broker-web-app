@@ -5,6 +5,7 @@
 
 import React from 'react';
 import PropTypes from 'prop-types';
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 const propTypes = {
     removeValue: PropTypes.func,
@@ -22,7 +23,7 @@ export default class ShownValue extends React.Component {
                 aria-label={`Applied filter: ${this.props.label}`}>
                 {this.props.label}
                 <span className="close">
-                    X
+                    <FontAwesomeIcon icon="times" />
                 </span>
             </button>
         );

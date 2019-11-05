@@ -6,6 +6,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { isEqual, find, uniqueId } from 'lodash';
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 import Warning from './Warning';
 import SuggestionHolder from './SuggestionHolder';
@@ -41,6 +42,7 @@ const defaultProps = {
     retainValue: false,
     dirtyFilters: Symbol(''),
     minCharsToSearch: 2,
+    inFlight: false,
     disabled: false
 };
 
@@ -262,6 +264,16 @@ export default class Autocomplete extends React.Component {
                 status = `${selectedString} (${this.state.selectedIndex + 1} of ${valueCount})`;
             }
         }
+        const inputIcon = this.props.inFlight ?
+            (
+                <div className="usa-da-autocomplete__input-icon">
+                    <FontAwesomeIcon icon="spinner" spin />
+                </div>
+            ) : (
+                <div className="usa-da-autocomplete__input-icon">
+                    <FontAwesomeIcon icon="angle-down" />
+                </div>
+            );
 
         return (
             <div
@@ -272,21 +284,23 @@ export default class Autocomplete extends React.Component {
                 aria-haspopup="true">
                 <div className="usa-da-autocomplete">
                     <p className="usa-da-autocomplete__label">{this.props.label}</p>
-                    <input
-                        className="usa-da-autocomplete__input"
-                        ref={(t) => {
-                            this.autocompleteInput = t;
-                        }}
-                        type="text"
-                        placeholder={this.props.placeholder}
-                        onChange={this.onChange}
-                        onFocus={this.onChange}
-                        tabIndex={0}
-                        aria-controls={this.state.autocompleteId}
-                        aria-activedescendant={activeDescendant}
-                        aria-autocomplete="list"
-                        maxLength={this.props.characterLimit}
-                        disabled={this.props.disabled} />
+                    <div className="usa-da-autocomplete__input">
+                        <input
+                            ref={(t) => {
+                                this.autocompleteInput = t;
+                            }}
+                            type="text"
+                            placeholder={this.props.placeholder}
+                            onChange={this.onChange}
+                            onFocus={this.onChange}
+                            tabIndex={0}
+                            aria-controls={this.state.autocompleteId}
+                            aria-activedescendant={activeDescendant}
+                            aria-autocomplete="list"
+                            maxLength={this.props.characterLimit}
+                            disabled={this.props.disabled} />
+                        {inputIcon}
+                    </div>
                     <div
                         className="screen-reader-description"
                         role="alert">
