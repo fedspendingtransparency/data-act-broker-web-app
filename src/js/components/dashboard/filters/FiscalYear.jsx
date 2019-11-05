@@ -72,7 +72,10 @@ export default class FiscalYear extends React.Component {
         }
         else {
             yearOption = (
-                <li className="fy-option">
+                <li
+                    className="fy-option"
+                    onMouseEnter={this.onMouseEnter}
+                    onMouseLeave={this.onMouseLeave}>
                     <label
                         className="fy-option__wrapper"
                         htmlFor={`fy${this.props.year}`}>
@@ -83,11 +86,7 @@ export default class FiscalYear extends React.Component {
                             value={`FY ${this.props.year}`}
                             checked={this.props.checked}
                             onChange={this.saveYear}
-                            disabled={this.props.disabled}
-                            onMouseEnter={this.onMouseEnter}
-                            onFocus={this.onMouseEnter}
-                            onMouseLeave={this.onMouseLeave}
-                            onBlur={this.onMouseLeave} />
+                            disabled={this.props.disabled} />
                         <span className="fy-option__label">
                             {`FY ${this.props.year - 2000}`}
                         </span>
