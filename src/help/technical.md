@@ -1,9 +1,7 @@
-#### October 7, 2019{section=technical}
+#### October 21, 2019{section=technical}
 
 In this release, here is a list of technical changes that may require infrastructure or database updates, or represents additional functionality.
 
-* Added documentation explaining permissions in the Broker and how they are set.
-* Added incremental progress logs when publishing FABS files for clarity.
-* Renamed submission narrative table and endpoints to comments. Note: the submission narrative endpoints are now deprecated and will be removed in a future release. Please use the following endpoints instead: 
-    * /v1/get\_submission\_comments
-    * /v1/update\_submission\_comments
+* Added "/v1/historic\_dabs\_summary" endpoint which surfaces submission data filtered by agencies and the fiscal periods. This will be used by the Agency Data dashboard soon to come.
+* Updated permissions documentation with details on each role's available functionality.
+* Updated frontend DAIMS link to the latest DAIMS 1.3.1 for accuracy.

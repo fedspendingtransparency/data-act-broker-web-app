@@ -37,6 +37,7 @@ export class QuarterFilterContainer extends React.Component {
     componentDidUpdate(prevProps) {
         if (this.props.selectedFilters.fy !== prevProps.selectedFilters.fy) {
             this.getDisabledStatus();
+            this.removeDisabledSelections();
         }
     }
 
@@ -79,6 +80,26 @@ export class QuarterFilterContainer extends React.Component {
         else {
             this.setState({
                 disabledQuarters: [false, false, false, false]
+            });
+        }
+    }
+
+    removeDisabledSelections() {
+        // Remove Q1 if FY 2017 is the only FY selected
+        const selectedFy = this.props.selectedFilters.fy.toArray();
+        const justFy17 = selectedFy.length === 1 && selectedFy[0] === 2017;
+        const q1Selected = this.props.selectedFilters.quarters.includes(1);
+        if (justFy17 && q1Selected) {
+            this.pickedQuarter(1);
+        }
+
+        // Remove future quarters if only the current FY is selected
+        const justCurrentFy = selectedFy.length === 1 && selectedFy[0] === this.state.latestYear;
+        if (justCurrentFy) {
+            this.props.selectedFilters.quarters.forEach((quarter) => {
+                if (quarter > this.state.latestQuarter) {
+                    this.pickedQuarter(quarter);
+                }
             });
         }
     }
