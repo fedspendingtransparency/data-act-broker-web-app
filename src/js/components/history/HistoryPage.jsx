@@ -28,7 +28,7 @@ export default class HistoryPage extends React.Component {
                     <Navbar activeTab="dashboard" type={this.props.type} />
                     <div className="usa-da-content-dark">
                         <div className="container">
-                            <div className="row">
+                            <div className="row usa-da-page-title">
                                 <div className="col-md-12 mt-40 mb-20">
                                     <div className="display-2" data-contentstart="start">
                                         Submission History

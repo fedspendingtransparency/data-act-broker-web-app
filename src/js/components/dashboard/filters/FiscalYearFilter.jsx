@@ -62,6 +62,7 @@ export default class FiscalYearFilter extends React.Component {
     render() {
         let allFY = true;
         const leftCount = Math.ceil(this.props.allFy.length / 2);
+        let disableAllFy = false;
 
         const leftFY = [];
         const rightFY = [];
@@ -73,6 +74,10 @@ export default class FiscalYearFilter extends React.Component {
 
             if (!checked) {
                 allFY = false;
+            }
+
+            if (fy.disabled) {
+                disableAllFy = true;
             }
 
             const checkbox = (<FiscalYear
@@ -103,7 +108,8 @@ export default class FiscalYearFilter extends React.Component {
                         year="all"
                         key="filter-fy-all"
                         saveAllYears={this.saveAllYears}
-                        toggleTooltip={this.toggleTooltip} />
+                        toggleTooltip={this.toggleTooltip}
+                        disabled={disableAllFy} />
                     <span className="fiscal-years__wrapper">
                         <div className="fiscal-years__left">
                             {leftFY}

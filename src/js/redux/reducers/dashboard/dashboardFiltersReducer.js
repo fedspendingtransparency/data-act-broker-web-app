@@ -8,7 +8,7 @@ import { Set } from 'immutable';
 export const initialState = {
     quarters: new Set(),
     fy: new Set(),
-    file: 'A',
+    file: '',
     rules: new Set()
 };
 

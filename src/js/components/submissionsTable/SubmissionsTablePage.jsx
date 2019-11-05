@@ -26,7 +26,7 @@ export default class SubmissionsTablePage extends React.Component {
                     <Navbar activeTab={activeTab} type={this.props.route.type} />
                     <div className={`usa-da-content-${color}`}>
                         <div className="container">
-                            <div className="row">
+                            <div className="row usa-da-page-title">
                                 <div className="col-md-12 mt-40 mb-20">
                                     <div className="display-2" data-contentstart="start" tabIndex={-1}>
                                         {header}
