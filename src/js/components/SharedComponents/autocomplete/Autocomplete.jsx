@@ -61,6 +61,7 @@ export default class Autocomplete extends React.Component {
         };
 
         this.onChange = this.onChange.bind(this);
+        this.select = this.select.bind(this);
     }
 
     componentDidMount() {
@@ -86,15 +87,10 @@ export default class Autocomplete extends React.Component {
     onChange(e) {
         e.persist();
         this.checkValidity(e.target.value);
-        let selectedIndex = 0;
         this.props.handleTextInput(e);
-        if (!e.target.value) {
-            selectedIndex = -1;
-            this.close();
-        }
         this.setState({
             value: e.target.value,
-            selectedIndex,
+            selectedIndex: 0,
             staged: false
         });
     }
@@ -283,7 +279,8 @@ export default class Autocomplete extends React.Component {
                         }}
                         type="text"
                         placeholder={this.props.placeholder}
-                        onChange={this.onChange.bind(this)}
+                        onChange={this.onChange}
+                        onFocus={this.onChange}
                         tabIndex={0}
                         aria-controls={this.state.autocompleteId}
                         aria-activedescendant={activeDescendant}
@@ -299,7 +296,7 @@ export default class Autocomplete extends React.Component {
                         suggestions={this.props.values}
                         shown={this.state.shown}
                         selectedIndex={this.state.selectedIndex}
-                        select={this.select.bind(this)}
+                        select={this.select}
                         maxSuggestions={this.props.maxSuggestions}
                         autocompleteId={this.state.autocompleteId} />
                 </div>
