@@ -24,8 +24,8 @@ export class RulesFilterContainer extends React.Component {
         super(props);
 
         this.state = {
-            searchString: '',
-            autocompleteResults: [],
+            results: [],
+            filteredResults: [],
             noResults: false,
             inFlight: false
         };
@@ -39,33 +39,38 @@ export class RulesFilterContainer extends React.Component {
         this.queryAutocompleteDebounced = debounce(this.fetchAutocompleteResults, 300);
     }
 
+    componentDidUpdate(prevProps) {
+        if (prevProps.selectedFilters.file !== this.props.selectedFilters.file) {
+            this.queryAutocompleteDebounced();
+        }
+    }
+
     onSelect(rule) {
         this.props.updateGenericFilter('rules', rule.code);
     }
 
-    parseAutocomplete(results) {
-        let filteredResults = results;
-        if (this.state.searchString) {
-            filteredResults = results.filter((code) => code.includes(this.state.searchString.toUpperCase()));
+    parseAutocomplete(input) {
+        let results = this.state.results;
+        if (input) {
+            results = this.state.results.filter((code) => code.includes(input.toUpperCase()));
         }
 
-        const parsedResults = filteredResults.map((code) => ({
+        const filteredResults = results.map((code) => ({
             title: code,
             subtitle: '',
             data: { code }
         }));
 
         this.setState({
-            autocompleteResults: parsedResults,
-            noResults: parsedResults.length === 0,
+            filteredResults,
+            noResults: filteredResults.length === 0,
             inFlight: false
         });
     }
 
-    fetchAutocompleteResults(input) {
+    fetchAutocompleteResults() {
         this.setState({
             noResults: false,
-            searchString: input,
             inFlight: true
         });
 
@@ -77,16 +82,23 @@ export class RulesFilterContainer extends React.Component {
 
         DashboardHelper.fetchRules(searchParams)
             .then((res) => {
+                this.setState({
+                    results: res.labels,
+                    inFlight: false
+                });
                 this.parseAutocomplete(res.labels);
             })
             .catch((err) => {
                 console.error(err);
+                this.setState({
+                    inFlight: false
+                });
             });
     }
 
     clearAutocompleteSuggestions() {
         this.setState({
-            autocompleteResults: []
+            filteredResults: []
         });
     }
 
@@ -94,11 +106,12 @@ export class RulesFilterContainer extends React.Component {
         event.persist();
 
         this.setState({
-            autocompleteResults: []
+            filteredResults: [],
+            inFlight: true
         });
 
         const input = event.target.value;
-        this.queryAutocompleteDebounced(input);
+        this.parseAutocomplete(input);
     }
 
     render() {
@@ -111,7 +124,7 @@ export class RulesFilterContainer extends React.Component {
         return (
             <div className="rules-filter">
                 <Autocomplete
-                    values={this.state.autocompleteResults}
+                    values={this.state.filteredResults}
                     handleTextInput={this.handleTextInput}
                     onSelect={this.onSelect}
                     placeholder="Enter Code (e.g. C23)"
