@@ -52,9 +52,9 @@
         li {
             line-height: rem(20);
             font-size: $small-font-size;
-            font-weight: normal;
+            font-weight: $font-normal;
             padding: rem(10) rem(20);
-            color: $color-base;
+            color: $color-gray;
             border-bottom: 1px solid $color-gray-lighter;
             margin: 0;
             width: 100%;

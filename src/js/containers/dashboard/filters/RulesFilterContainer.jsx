@@ -84,7 +84,7 @@ export class RulesFilterContainer extends React.Component {
                 this.setState({
                     results: res.labels,
                     inFlight: false
-                }, () => this.parseAutocomplete());
+                });
             })
             .catch((err) => {
                 console.error(err);
@@ -116,9 +116,7 @@ export class RulesFilterContainer extends React.Component {
         return (
             <RulesFilter
                 selectedFilters={this.props.selectedFilters}
-                noResults={this.state.noResults}
-                inFlight={this.state.inFlight}
-                filteredResults={this.state.filteredResults}
+                {...this.state}
                 handleTextInput={this.handleTextInput}
                 clearAutocompleteSuggestions={this.clearAutocompleteSuggestions}
                 onSelect={this.onSelect} />
