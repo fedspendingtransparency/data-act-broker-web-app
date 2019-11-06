@@ -283,11 +283,7 @@ export default class Autocomplete extends React.Component {
                 <div className="usa-da-autocomplete__input-icon">
                     <FontAwesomeIcon icon="spinner" spin />
                 </div>
-            ) : (
-                <div className="usa-da-autocomplete__input-icon">
-                    <FontAwesomeIcon icon="angle-down" />
-                </div>
-            );
+            ) : null;
 
         return (
             <div
