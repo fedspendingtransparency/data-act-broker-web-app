@@ -1,6 +1,14 @@
-.dashboard-choose-filters {
-    background-color: $color-gray-lighter;
-    margin: 4.4rem 6rem;
-    border: 2px solid $color-gray-light;
-    border-radius: rem(5);
+.dashboard-choose-filters-flex {
+    height: 100%;
+    display: flex;
+    //display: -ms-flex;
+    //display: -webkit-flex;
+
+    .dashboard-choose-filters {
+        background-color: $color-gray-lighter;
+        margin: rem(50) rem(100);
+        border: 2px solid $color-gray-light;
+        border-radius: rem(5);
+        width: 100%;
+    }
 }

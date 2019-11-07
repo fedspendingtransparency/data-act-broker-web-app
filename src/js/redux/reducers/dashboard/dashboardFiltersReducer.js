@@ -37,6 +37,12 @@ export const dashboardFiltersReducer = (state = initialState, action) => {
             });
         }
 
+        case 'CLEAR_FILTER_SET': {
+            return Object.assign({}, state, {
+                [action.filterType]: initialState[action.filterType]
+            });
+        }
+
         case 'CLEAR_DASHBOARD_FILTERS': {
             return Object.assign({}, initialState);
         }
