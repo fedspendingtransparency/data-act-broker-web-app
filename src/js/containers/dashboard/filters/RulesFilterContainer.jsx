@@ -14,6 +14,7 @@ import RulesFilter from 'components/dashboard/filters/RulesFilter';
 
 const propTypes = {
     updateGenericFilter: PropTypes.func,
+    clearGenericFilter: PropTypes.func,
     selectedFilters: PropTypes.object
 };
 
@@ -40,6 +41,7 @@ export class RulesFilterContainer extends React.Component {
         // Make an API call for the corresponding rule labels when the selected file changes
         if (prevProps.selectedFilters.file !== this.props.selectedFilters.file) {
             this.fetchAutocompleteResults();
+            this.props.clearGenericFilter('rules');
         }
     }
 
