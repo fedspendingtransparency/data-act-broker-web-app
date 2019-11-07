@@ -33,6 +33,7 @@
                 border-top: solid rem(2) $color-gray-lighter;
                 margin: 0;
             }
+            @import "./chooseFilters";
         }
     }
 }

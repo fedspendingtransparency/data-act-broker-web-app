@@ -9,6 +9,7 @@ import Footer from 'components/SharedComponents/FooterComponent';
 import QuarterFilterContainer from 'containers/dashboard/filters/QuarterFilterContainer';
 import FyFilterContainer from 'containers/dashboard/filters/FyFilterContainer';
 import FileFilterContainer from 'containers/dashboard/filters/FileFilterContainer';
+import DashboardContentContainer from 'containers/dashboard/DashboardContentContainer'
 import DashboardTab from './DashboardTab';
 import FilterSidebar from './FilterSidebar';
 
@@ -88,8 +89,7 @@ export default class DashboardPage extends React.Component {
                             <FilterSidebar filters={filters} />
                         </div>
                         <div className="dashboard-page__content">
-                            <h2>Historical Data Summary</h2>
-                            <hr />
+                            <DashboardContentContainer />
                         </div>
                     </div>
                 </div>
