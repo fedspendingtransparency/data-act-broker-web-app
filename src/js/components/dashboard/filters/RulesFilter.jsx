@@ -11,14 +11,20 @@ import SelectedRules from 'components/dashboard/filters/SelectedRules';
 import WarningTooltip from 'components/SharedComponents/WarningTooltip';
 
 const propTypes = {
-    selectedFilters: PropTypes.object,
+    selectedFilters: PropTypes.object.isRequired,
     noResults: PropTypes.bool,
     inFlight: PropTypes.bool,
-    onSelect: PropTypes.func,
-    filteredResults: PropTypes.array,
-    handleTextInput: PropTypes.func,
-    clearAutocompleteSuggestions: PropTypes.func,
+    onSelect: PropTypes.func.isRequired,
+    filteredResults: PropTypes.array.isRequired,
+    handleTextInput: PropTypes.func.isRequired,
+    clearAutocompleteSuggestions: PropTypes.func.isRequired,
     minCharsToSearch: PropTypes.number
+};
+
+const defaultProps = {
+    noResults: false,
+    inFlight: false,
+    minCharsToSearch: 0
 };
 
 export default class RulesFilter extends React.Component {
@@ -73,3 +79,4 @@ export default class RulesFilter extends React.Component {
 }
 
 RulesFilter.propTypes = propTypes;
+RulesFilter.defaultProps = defaultProps;

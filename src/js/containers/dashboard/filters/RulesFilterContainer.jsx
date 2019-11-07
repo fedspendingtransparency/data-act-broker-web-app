@@ -13,12 +13,12 @@ import * as filterActions from 'redux/actions/dashboard/dashboardFilterActions';
 import RulesFilter from 'components/dashboard/filters/RulesFilter';
 
 const propTypes = {
-    updateGenericFilter: PropTypes.func,
-    clearGenericFilter: PropTypes.func,
-    selectedFilters: PropTypes.object
+    updateGenericFilter: PropTypes.func.isRequired,
+    clearGenericFilter: PropTypes.func.isRequired,
+    selectedFilters: PropTypes.object.isRequired
 };
 
-const minCharsToSearch = 2;
+const minCharsToSearch = 0;
 
 export class RulesFilterContainer extends React.Component {
     constructor(props) {
