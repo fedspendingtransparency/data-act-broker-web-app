@@ -52,10 +52,17 @@ export class RulesFilterContainer extends React.Component {
 
     parseAutocomplete(input) {
         let results = this.state.results;
+
         if (input) {
             // If the user has entered a search string, only show matching results
-            results = this.state.results.filter((code) => code.includes(input.toUpperCase()));
+            results = results.filter((code) => code.includes(input.toUpperCase()));
         }
+
+        // Exclude rules that have already been selected
+        results = results.filter((rule) => {
+            const selectedRules = this.props.selectedFilters.rules;
+            return !selectedRules.has(rule);
+        });
 
         // Format the results for display in the dropdown
         const filteredResults = results.map((code) => ({
