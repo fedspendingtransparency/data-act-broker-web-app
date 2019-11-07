@@ -34,19 +34,19 @@ const columns = [
     [
         {
             value: 'cross-AB',
-            label: 'Cross A/B'
+            label: 'Cross: A/B'
         },
         {
             value: 'cross-BC',
-            label: 'Cross B/C'
+            label: 'Cross: B/C'
         },
         {
             value: 'cross-CD1',
-            label: 'Cross C/D1'
+            label: 'Cross: C/D1'
         },
         {
             value: 'cross-CD2',
-            label: 'Cross C/D2'
+            label: 'Cross: C/D2'
         }
     ]
 ];
