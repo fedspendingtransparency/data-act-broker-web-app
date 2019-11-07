@@ -18,6 +18,8 @@ const propTypes = {
     selectedFilters: PropTypes.object
 };
 
+const minCharsToSearch = 2;
+
 export class RulesFilterContainer extends React.Component {
     constructor(props) {
         super(props);
@@ -113,14 +115,16 @@ export class RulesFilterContainer extends React.Component {
 
     handleTextInput(event) {
         event.persist();
+        const value = event.target.value;
 
-        this.setState({
-            filteredResults: [], // Clear any existing results
-            inFlight: true
-        });
-
-        const input = event.target.value;
-        this.parseAutocomplete(input);
+        if (value.length >= minCharsToSearch) {
+            this.setState({
+                filteredResults: [], // Clear any existing results
+                inFlight: true
+            });
+            const input = value;
+            this.parseAutocomplete(input);
+        }
     }
 
     render() {
@@ -130,7 +134,8 @@ export class RulesFilterContainer extends React.Component {
                 {...this.state}
                 handleTextInput={this.handleTextInput}
                 clearAutocompleteSuggestions={this.clearAutocompleteSuggestions}
-                onSelect={this.onSelect} />
+                onSelect={this.onSelect}
+                minCharsToSearch={minCharsToSearch} />
         );
     }
 }

@@ -26,9 +26,6 @@
         margin-top: rem(2);
         @include display(flex);
         @include align-items(center);
-
-        // The .1 rem is to force a second line of text in the label to wrap to a third line
-        // without coming too close to the X
         &:empty {
             display: none;
         }

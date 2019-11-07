@@ -90,10 +90,13 @@ export default class Autocomplete extends React.Component {
     }
 
     onChange(e) {
-        this.open();
         e.persist();
         if (this.props.minCharsToSearch > 0) {
             this.checkValidity(e.target.value);
+        }
+        else {
+            // show all available options on focus when minCharsToSearch is 0
+            this.open();
         }
         this.props.handleTextInput(e);
         this.setState({
@@ -199,7 +202,7 @@ export default class Autocomplete extends React.Component {
             showWarning: false
         });
 
-        if (input.length < this.props.minCharsToSearch) {
+        if (input && input.length < this.props.minCharsToSearch) {
             // Ensure user has typed the minimum number of characters before searching
             this.setState({
                 value: input,
@@ -250,7 +253,7 @@ export default class Autocomplete extends React.Component {
         if (this.state.showWarning) {
             let errorProps = {};
 
-            if (this.state.value && this.state.value.length < this.props.minCharsToSearch) {
+            if (this.state.value.length < this.props.minCharsToSearch) {
                 errorProps = {
                     header: 'Error',
                     description: `Please enter more than ${this.props.minCharsToSearch - 1} character${this.props.minCharsToSearch > 2 ? 's' : ''}.`
