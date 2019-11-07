@@ -28,6 +28,18 @@ describe('RulesFilterContainer', () => {
 
         expect(fetchAutocompleteResults).toHaveBeenCalled();
     });
+    it('should clear the selected rules when the file changes', () => {
+        const container = shallow(<RulesFilterContainer
+            {...mockActions}
+            {...mockRedux} />
+        );
+        const fetchAutocompleteResults = jest.fn();
+        container.instance().fetchAutocompleteResults = fetchAutocompleteResults;
+
+        container.instance().componentDidUpdate({ selectedFilters: { file: 'C' } });
+
+        expect(mockActions.clearGenericFilter).toHaveBeenCalled();
+    });
     it('should correctly set the noResults state', () => {
         const container = shallow(<RulesFilterContainer
             {...mockActions}
