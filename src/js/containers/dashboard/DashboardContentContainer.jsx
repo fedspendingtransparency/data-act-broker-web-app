@@ -8,18 +8,19 @@ import { connect } from 'react-redux';
 import ChooseFiltersMessage from 'components/dashboard/ChooseFiltersMessage';
 
 const DashboardContentContainer = (props) => {
-    const dashboardContent = props.appliedFilters._empty ? (
-        <ChooseFiltersMessage />
-    ) :
-    (
-        <div>
-            <h2>Historical Data Summary</h2>
-            <hr />
-        </div>
-    );
-    
+    const dashboardContent = props.appliedFilters._empty ?
+        (
+            <ChooseFiltersMessage />
+        ) :
+        (
+            <div>
+                <h2>Historical Data Summary</h2>
+                <hr />
+            </div>
+        );
+
     return dashboardContent;
-}
+};
 
 export default connect(
     (state) => ({
