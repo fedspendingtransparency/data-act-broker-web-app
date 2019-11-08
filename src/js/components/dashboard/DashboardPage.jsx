@@ -7,6 +7,7 @@ import React from 'react';
 import Navbar from 'components/SharedComponents/navigation/NavigationComponent';
 import Footer from 'components/SharedComponents/FooterComponent';
 import QuarterFilterContainer from 'containers/dashboard/filters/QuarterFilterContainer';
+import DashboardAgencyFilterContainer from 'containers/dashboard/filters/DashboardAgencyFilterContainer';
 import FyFilterContainer from 'containers/dashboard/filters/FyFilterContainer';
 import FileFilterContainer from 'containers/dashboard/filters/FileFilterContainer';
 import RulesFilterContainer from 'containers/dashboard/filters/RulesFilterContainer';
@@ -14,6 +15,12 @@ import DashboardTab from './DashboardTab';
 import FilterSidebar from './FilterSidebar';
 
 const filters = [
+    {
+        name: 'Agency',
+        required: true,
+        component: DashboardAgencyFilterContainer,
+        description: 'Select a specific agency to filter your search.'
+    },
     {
         name: 'Fiscal Years',
         required: true,
