@@ -10,9 +10,12 @@ const ChooseFiltersMessage = () => (
     <div className="dashboard-choose-filters-flex">
         <div className="dashboard-choose-filters">
             <div className="dashboard-choose-filters__arrow">
-                <FontAwesomeIcon icon="times" />
+                <FontAwesomeIcon icon="arrow-circle-left" />
             </div>
-            Choose your filters and submit your search to begin
+            <span className="dashboard-choose-filters__message">
+                Choose your filters and submit <br />
+                your search to begin
+            </span>
         </div>
     </div>
 );
