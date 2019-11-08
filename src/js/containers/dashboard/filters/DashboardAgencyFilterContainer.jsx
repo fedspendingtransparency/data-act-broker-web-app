@@ -7,8 +7,8 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
+import _ from 'lodash';
 
-import * as DashboardHelper from 'helpers/dashboardHelper';
 import * as AgencyHelper from 'helpers/agencyHelper';
 import * as filterActions from 'redux/actions/dashboard/dashboardFilterActions';
 import DashboardAgencyFilter from 'components/dashboard/filters/DashboardAgencyFilter';
@@ -45,6 +45,11 @@ export class DashboardAgencyFilterContainer extends React.Component {
         this.loadData();
     }
 
+    onSelect(selection) {
+        // Add or remove the rule from Redux state
+        this.props.updateAgencyFilter(selection.agency);
+    }
+
     loadData() {
         // we need to populate the list
         AgencyHelper.fetchAgencies()
@@ -68,11 +73,6 @@ export class DashboardAgencyFilterContainer extends React.Component {
             });
     }
 
-    onSelect(selection) {
-        // Add or remove the rule from Redux state
-        this.props.updateAgencyFilter(selection.agency);
-    }
-
     parseAutocomplete(input) {
         let results = this.state.results;
 
@@ -82,11 +82,7 @@ export class DashboardAgencyFilterContainer extends React.Component {
         }
 
         // Exclude agency that has already been selected
-        if (this.props.selectedFilters.agency) {
-            results = results.filter((agency) => {
-                return this.props.selectedFilters.agency.agency_name !== agency.agency_name;
-            });
-        }
+        results = results.filter((agency) => !_.isEqual(this.props.selectedFilters.agency, agency));
 
         // Format the results for display in the dropdown
         const filteredResults = results.map((agency) => ({
