@@ -32,14 +32,14 @@ const SubmitButton = (props) => {
                 aria-label={title}
                 disabled={disabled}
                 onClick={props.applyStagedFilters}>
-                Submit Search
+                Apply Filters
             </button>
             <button
                 className="reset-button"
                 aria-label="Reset search"
                 disabled={!props.requestsComplete}
                 onClick={props.resetFilters}>
-                Reset search
+                Reset Filters
             </button>
         </div>
     );
