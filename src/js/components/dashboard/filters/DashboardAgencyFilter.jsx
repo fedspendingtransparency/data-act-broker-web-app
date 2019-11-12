@@ -6,56 +6,43 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import Autocomplete from 'components/SharedComponents/autocomplete/Autocomplete';
+import Typeahead from 'components/SharedComponents/Typeahead';
 import ShownValue from './ShownValue';
 
 const propTypes = {
     selectedFilters: PropTypes.object.isRequired,
-    noResults: PropTypes.bool,
-    inFlight: PropTypes.bool,
     onSelect: PropTypes.func.isRequired,
-    filteredResults: PropTypes.array.isRequired,
-    handleTextInput: PropTypes.func.isRequired,
-    clearAutocompleteSuggestions: PropTypes.func.isRequired,
-    minCharsToSearch: PropTypes.number,
+    results: PropTypes.array.isRequired,
     singleAgency: PropTypes.bool
 };
 
 const defaultProps = {
-    noResults: false,
-    inFlight: false,
-    minCharsToSearch: 0,
     singleAgency: true
 };
 
 export default class DashboardAgencyFilter extends React.Component {
-    constructor(props) {
-        super(props);
-
-        this.state = {
-            showTooltip: false
+    dataFormatter(item) {
+        return {
+            label: item.agency_name,
+            value: item.cgac_code ? item.cgac_code : item.frec_code
         };
-
-        this.toggleTooltip = this.toggleTooltip.bind(this);
-    }
-
-    toggleTooltip(showTooltip) {
-        if (showTooltip !== this.state.showTooltip) {
-            this.setState({
-                showTooltip
-            });
-        }
     }
 
     render() {
         let selectedAgency = null;
         if (Object.keys(this.props.selectedFilters.agency).length > 0) {
-            const agency = this.props.selectedFilters.agency;
-            const removeVal = this.props.singleAgency ? null : this.props.onSelect.bind(null, { agency })
+            const agencyCode = this.props.selectedFilters.agency;
+            // select only the agency we've selected
+            const agency = this.props.results.filter((result) => {
+                const code = result.cgac_code || result.frec_code;
+                return code === agencyCode;
+            });
+            // if it's a single agency user, we don't want to remove the value
+            const removeVal = this.props.singleAgency ? null : this.props.onSelect.bind(null, agencyCode);
             selectedAgency = (
                 <div className="selected-filters">
                     <ShownValue
-                        label={agency.agency_name}
+                        label={agency[0].agency_name}
                         removeValue={removeVal} />
                 </div>
             );
@@ -67,22 +54,15 @@ export default class DashboardAgencyFilter extends React.Component {
             </div>
         ) : (
             <div className="dashboard-agency-filter">
-                <Autocomplete
-                    values={this.props.filteredResults}
-                    handleTextInput={this.props.handleTextInput}
-                    onSelect={this.props.onSelect}
-                    placeholder="Enter Agency Name"
-                    errorHeader="Unknown Agency"
-                    errorMessage="We were unable to find that Agency based on the current filters."
-                    ref={(input) => {
-                        this.agencyList = input;
-                    }}
-                    clearAutocompleteSuggestions={this.props.clearAutocompleteSuggestions}
-                    noResults={this.props.noResults}
-                    inFlight={this.props.inFlight}
-                    minCharsToSearch={this.props.minCharsToSearch}
-                    disabled={this.props.singleAgency}
-                    toggleTooltip={this.toggleTooltip} />
+                <div className="typeahead-holder">
+                    <Typeahead
+                        formatter={this.dataFormatter}
+                        onSelect={this.props.onSelect}
+                        prioritySort={false}
+                        values={this.props.results}
+                        clearAfterSelect
+                        placeholder="Enter Agency Name" />
+                </div>
                 {selectedAgency}
             </div>
         );

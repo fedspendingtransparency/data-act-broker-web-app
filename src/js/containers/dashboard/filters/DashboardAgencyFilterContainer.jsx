@@ -7,7 +7,6 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
-import _ from 'lodash';
 
 import * as AgencyHelper from 'helpers/agencyHelper';
 import * as filterActions from 'redux/actions/dashboard/dashboardFilterActions';
@@ -28,16 +27,9 @@ export class DashboardAgencyFilterContainer extends React.Component {
         this.state = {
             results: [],
             filteredResults: [],
-            noResults: false,
-            inFlight: true,
-            singleAgency: true,
-            showTooltip: false
+            singleAgency: false
         };
 
-        this.rulesRequest = null;
-
-        this.handleTextInput = this.handleTextInput.bind(this);
-        this.clearAutocompleteSuggestions = this.clearAutocompleteSuggestions.bind(this);
         this.onSelect = this.onSelect.bind(this);
     }
 
@@ -45,77 +37,27 @@ export class DashboardAgencyFilterContainer extends React.Component {
         this.loadData();
     }
 
-    onSelect(selection) {
+    onSelect(agency) {
         // Add or remove the rule from Redux state
-        this.props.updateAgencyFilter(selection.agency);
+        this.props.updateAgencyFilter(agency);
     }
 
     loadData() {
         // we need to populate the list
         AgencyHelper.fetchAgencies()
             .then((agencies) => {
+                this.setState({
+                    results: agencies,
+                    singleAgency: agencies.length === 1
+                });
                 if (agencies.length === 1) {
-                    this.props.updateAgencyFilter(agencies[0]);
-                }
-                else {
-                    this.setState({
-                        results: agencies,
-                        singleAgency: false,
-                        inFlight: false
-                    });
+                    const code = agencies[0].cgac_code ? agencies[0].cgac_code : agencies[0].frec_code;
+                    this.props.updateAgencyFilter(code);
                 }
             })
             .catch((err) => {
                 console.error(err);
-                this.setState({
-                    inFlight: false
-                });
             });
-    }
-
-    parseAutocomplete(input) {
-        let results = this.state.results;
-
-        if (input) {
-            // If the user has entered a search string, only show matching results
-            results = results.filter((agency) => agency.agency_name.toUpperCase().includes(input.toUpperCase()));
-        }
-
-        // Exclude agency that has already been selected
-        results = results.filter((agency) => !_.isEqual(this.props.selectedFilters.agency, agency));
-
-        // Format the results for display in the dropdown
-        const filteredResults = results.map((agency) => ({
-            title: agency.agency_name,
-            subtitle: '',
-            data: { agency }
-        }));
-
-        this.setState({
-            filteredResults,
-            noResults: filteredResults.length === 0,
-            inFlight: false
-        });
-    }
-
-    clearAutocompleteSuggestions() {
-        this.setState({
-            filteredResults: []
-        });
-    }
-
-    handleTextInput(event) {
-        event.persist();
-        const value = event.target.value;
-
-        if (value.length >= minCharsToSearch) {
-            this.setState({
-                filteredResults: [], // Clear any existing results
-                inFlight: true
-            });
-            const input = value;
-            this.parseAutocomplete(input);
-        }
     }
 
     render() {
@@ -123,8 +65,6 @@ export class DashboardAgencyFilterContainer extends React.Component {
             <DashboardAgencyFilter
                 selectedFilters={this.props.selectedFilters}
                 {...this.state}
-                handleTextInput={this.handleTextInput}
-                clearAutocompleteSuggestions={this.clearAutocompleteSuggestions}
                 onSelect={this.onSelect}
                 minCharsToSearch={minCharsToSearch} />
         );

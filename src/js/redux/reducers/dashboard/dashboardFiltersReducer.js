@@ -4,10 +4,9 @@
  **/
 
 import { Set } from 'immutable';
-import _ from 'lodash';
 
 export const initialState = {
-    agency: {},
+    agency: '',
     quarters: new Set(),
     fy: new Set(),
     file: '',
@@ -40,9 +39,9 @@ export const dashboardFiltersReducer = (state = initialState, action) => {
         }
 
         case 'UPDATE_AGENCY_FILTER': {
-            if (_.isEqual(state.agency, action.agency)) {
+            if (state.agency === action.agency) {
                 return Object.assign({}, state, {
-                    agency: {}
+                    agency: ''
                 });
             }
             return Object.assign({}, state, {

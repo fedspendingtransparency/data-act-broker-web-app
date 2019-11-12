@@ -1,7 +1,42 @@
 .dashboard-agency-filter {
-    @import '../../../components/autocomplete/autocomplete';
-    @import '../../../components/autocomplete/errorMessage';
     @import './selectedFilters';
+    @import '../../../components/typeahead/typeahead';
+
+    .typeahead-holder {
+        position: relative;
+
+        input {
+            color: #adadad;
+        }
+
+        .awesomplete ul {
+            width: 100%;
+        }
+
+        .typeahead-warning {
+            @include usa-input-error-message;
+            border: 1px solid $color-secondary-dark;
+            padding: rem(15);
+
+            .error-icon svg {
+                width: rem(20);
+                height: rem(20);
+                fill: $color-secondary-dark !important;
+            }
+            .alert-header-text {
+                font-weight: $font-bold;
+                font-size: rem(18);
+                margin: 0;
+                margin-left: rem(28);
+                color: #a94442;
+            }
+            p {
+                font-size: $small-font-size;
+                margin: 0;
+                color: $color-secondary-darkest;
+            }
+        }
+    }
 
     .selected-filters {
         background-color: $color-gray-lightest;
