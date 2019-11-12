@@ -6,6 +6,7 @@
         @import './filters/quarterPicker';
         @import './filters/fiscalYears';
         @import './filters/rulesFilter';
+        @import './filters/dashboardAgencyFilter';
         .filter-sidebar__option-heading {
             font-weight: $font-bold;
             font-size: $h3-font-size;

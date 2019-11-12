@@ -51,16 +51,22 @@ export default class DashboardAgencyFilter extends React.Component {
         let selectedAgency = null;
         if (Object.keys(this.props.selectedFilters.agency).length > 0) {
             const agency = this.props.selectedFilters.agency;
+            const removeVal = this.props.singleAgency ? null : this.props.onSelect.bind(null, { agency })
             selectedAgency = (
                 <div className="selected-filters">
                     <ShownValue
                         label={agency.agency_name}
-                        removeValue={this.props.onSelect.bind(null, { agency })} />
+                        removeValue={removeVal} />
                 </div>
             );
         }
-        return (
-            <div className="rules-filter">
+
+        const fliterContents = this.props.singleAgency ? (
+            <div className="dashboard-agency-filter">
+                {selectedAgency}
+            </div>
+        ) : (
+            <div className="dashboard-agency-filter">
                 <Autocomplete
                     values={this.props.filteredResults}
                     handleTextInput={this.props.handleTextInput}
@@ -79,6 +85,9 @@ export default class DashboardAgencyFilter extends React.Component {
                     toggleTooltip={this.toggleTooltip} />
                 {selectedAgency}
             </div>
+        );
+        return (
+            fliterContents
         );
     }
 }
