@@ -47,6 +47,10 @@ export class SubmitButtonContainer extends React.Component {
         }
     }
 
+    componentWillUnmount() {
+        this.resetFilters();
+    }
+
     compareStores() {
         // we need to do a deep equality check by comparing every store key
         const storeKeys = Object.keys(this.props.stagedFilters);
