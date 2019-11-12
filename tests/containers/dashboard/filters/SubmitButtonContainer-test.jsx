@@ -165,4 +165,17 @@ describe('SubmitButtonContainer', () => {
             expect(actions.resetAppliedFilters).toHaveBeenCalledTimes(1);
         });
     });
+    describe('componentWillUnmount', () => {
+        it('should reset staged and applied filters', () => {
+            const container = shallow(
+                <SubmitButtonContainer
+                    {...mockSubmitRedux}
+                    {...mockActions} />
+            );
+            const resetFilters = jest.fn();
+            container.instance().resetFilters = resetFilters;
+            container.instance().componentWillUnmount();
+            expect(resetFilters).toHaveBeenCalled();
+        });
+    });
 });
