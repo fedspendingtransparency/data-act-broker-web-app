@@ -7,19 +7,15 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 const propTypes = {
-    requestsComplete: PropTypes.bool,
     filtersChanged: PropTypes.bool,
     applyStagedFilters: PropTypes.func,
     resetFilters: PropTypes.func
 };
 
 const SubmitButton = (props) => {
-    let disabled = false;
-    let title = 'Click to submit your search.';
-    if (!props.requestsComplete || !props.filtersChanged) {
-        title = 'Add or update a filter to submit.';
-        disabled = true;
-    }
+    const disabled = !props.filtersChanged;
+    const title = props.filtersChanged ? 'Click to submit your search.' : 'Add or update a filter to submit.';
+
 
     return (
         <div
@@ -37,7 +33,6 @@ const SubmitButton = (props) => {
             <button
                 className="reset-button"
                 aria-label="Reset search"
-                disabled={!props.requestsComplete}
                 onClick={props.resetFilters}>
                 Reset Filters
             </button>

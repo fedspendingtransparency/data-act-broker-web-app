@@ -21,10 +21,8 @@ const combinedActions = Object.assign({}, appliedFilterActions, {
 const propTypes = {
     stagedFilters: PropTypes.object,
     appliedFilters: PropTypes.object,
-    requestsComplete: PropTypes.bool,
     applyStagedFilters: PropTypes.func,
     clearStagedFilters: PropTypes.func,
-    setAppliedFilterCompletion: PropTypes.func,
     resetAppliedFilters: PropTypes.func
 };
 
@@ -80,7 +78,6 @@ export class SubmitButtonContainer extends React.Component {
     }
 
     applyStagedFilters() {
-        this.props.setAppliedFilterCompletion(false);
         this.props.applyStagedFilters(this.props.stagedFilters);
         this.setState({
             filtersChanged: false
@@ -96,7 +93,6 @@ export class SubmitButtonContainer extends React.Component {
         return (
             <SubmitButton
                 filtersChanged={this.state.filtersChanged}
-                requestsComplete={this.props.requestsComplete}
                 applyStagedFilters={this.applyStagedFilters}
                 resetFilters={this.resetFilters} />
         );
@@ -105,7 +101,6 @@ export class SubmitButtonContainer extends React.Component {
 
 export default connect(
     (state) => ({
-        requestsComplete: state.appliedDashboardFilters._complete,
         isEmpty: state.appliedDashboardFilters._empty,
         stagedFilters: state.dashboardFilters,
         appliedFilters: state.appliedDashboardFilters.filters
