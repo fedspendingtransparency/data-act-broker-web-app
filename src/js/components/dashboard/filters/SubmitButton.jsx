@@ -9,13 +9,13 @@ import PropTypes from 'prop-types';
 const propTypes = {
     filtersChanged: PropTypes.bool,
     applyStagedFilters: PropTypes.func,
-    resetFilters: PropTypes.func
+    resetFilters: PropTypes.func,
+    validFilters: PropTypes.bool
 };
 
 const SubmitButton = (props) => {
     const disabled = !props.filtersChanged;
     const title = props.filtersChanged ? 'Click to submit your search.' : 'Add or update a filter to submit.';
-
 
     return (
         <div
@@ -26,7 +26,7 @@ const SubmitButton = (props) => {
                 className="submit-button"
                 title={title}
                 aria-label={title}
-                disabled={disabled}
+                disabled={disabled || !props.validFilters}
                 onClick={props.applyStagedFilters}>
                 Apply Filters
             </button>

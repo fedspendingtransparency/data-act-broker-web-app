@@ -90,10 +90,15 @@ export class SubmitButtonContainer extends React.Component {
     }
 
     render() {
+        // Make sure all the required filters have been staged
+        const stagedFilters = this.props.stagedFilters;
+        const requiredFields = stagedFilters.file
+            && stagedFilters.quarters.size > 0 && stagedFilters.fy.size > 0;
         return (
             <SubmitButton
                 filtersChanged={this.state.filtersChanged}
                 applyStagedFilters={this.applyStagedFilters}
+                validFilters={requiredFields}
                 resetFilters={this.resetFilters} />
         );
     }
