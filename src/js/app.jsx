@@ -3,6 +3,7 @@ import ReactDOM from 'react-dom';
 import { library } from "@fortawesome/fontawesome-svg-core";
 import {
     faAngleDown,
+    faArrowCircleLeft,
     faSpinner,
     faTimes,
     faLandmark,
@@ -15,6 +16,7 @@ import AppContainer from './containers/AppContainer';
 
 library.add(
     faAngleDown,
+    faArrowCircleLeft,
     faSpinner,
     faTimes,
     faLandmark,

@@ -6,13 +6,13 @@
 import React from 'react';
 import Navbar from 'components/SharedComponents/navigation/NavigationComponent';
 import Footer from 'components/SharedComponents/FooterComponent';
+import DashboardContentContainer from 'containers/dashboard/DashboardContentContainer';
 import QuarterFilterContainer from 'containers/dashboard/filters/QuarterFilterContainer';
 import FyFilterContainer from 'containers/dashboard/filters/FyFilterContainer';
 import FileFilterContainer from 'containers/dashboard/filters/FileFilterContainer';
 import RulesFilterContainer from 'containers/dashboard/filters/RulesFilterContainer';
 import DashboardTab from './DashboardTab';
 import FilterSidebar from './FilterSidebar';
-import DashboardSummary from './DashboardSummary';
 
 const filters = [
     {
@@ -90,9 +90,7 @@ export default class DashboardPage extends React.Component {
                             <FilterSidebar filters={filters} />
                         </div>
                         <div className="dashboard-page__content">
-                            <h2>Historical Data Summary</h2>
-                            <hr />
-                            <DashboardSummary filters={filters} />
+                            <DashboardContentContainer />
                         </div>
                     </div>
                 </div>
