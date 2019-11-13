@@ -25,15 +25,17 @@
 
         const summaryRows = [];
         const { results } = this.props;
+        let key = 0;
         results.forEach((result) => {
             const period = "FY" + ('' + result.fy).substring(2) + ", Q" + result.quarter;
-            
-            summaryRows.push(<DashboardSummaryRow 
+            summaryRows.push(<DashboardSummaryRow
+                key={key} 
                 file={file}
                 period={period}
                 subID={result.submission_id}
                 submitter={result.certifier}
             />);
+            key += 1;
         });
          return (
             <div>
