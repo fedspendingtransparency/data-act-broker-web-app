@@ -6,7 +6,8 @@ export const mockActions = {
     clearGenericFilter: jest.fn(),
     applyStagedFilters: jest.fn(),
     clearStagedFilters: jest.fn(),
-    resetAppliedFilters: jest.fn()
+    resetAppliedFilters: jest.fn(),
+    setAppliedFilterEmptiness: jest.fn()
 };
 
 export const mockRedux = {

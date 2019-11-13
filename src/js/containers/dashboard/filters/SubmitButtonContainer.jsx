@@ -23,7 +23,8 @@ const propTypes = {
     appliedFilters: PropTypes.object,
     applyStagedFilters: PropTypes.func,
     clearStagedFilters: PropTypes.func,
-    resetAppliedFilters: PropTypes.func
+    resetAppliedFilters: PropTypes.func,
+    setAppliedFilterEmptiness: PropTypes.func
 };
 
 export class SubmitButtonContainer extends React.Component {
@@ -86,11 +87,13 @@ export class SubmitButtonContainer extends React.Component {
         this.setState({
             filtersChanged: false
         });
+        this.props.setAppliedFilterEmptiness(false);
     }
 
     resetFilters() {
         this.props.clearStagedFilters();
         this.props.resetAppliedFilters();
+        this.props.setAppliedFilterEmptiness(true);
     }
 
     render() {
@@ -102,7 +105,7 @@ export class SubmitButtonContainer extends React.Component {
             <SubmitButton
                 filtersChanged={this.state.filtersChanged}
                 applyStagedFilters={this.applyStagedFilters}
-                validFilters={requiredFields}
+                validFilters={!!requiredFields}
                 resetFilters={this.resetFilters} />
         );
     }
