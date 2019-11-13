@@ -11,7 +11,7 @@ import DashboardSummary from 'components/dashboard/DashboardSummary';
 
 const propTypes = {
     appliedFilters: PropTypes.object.isRequired
-}
+};
 
 export default class DashboardSummaryContainer extends React.Component {
     constructor(props) {
@@ -37,12 +37,12 @@ export default class DashboardSummaryContainer extends React.Component {
 
     getSummary() {
         const filters = {
-            "filters": {
-                "quarters": [],
-                "fys": [2019],
-                "agencies": []
+            filters: {
+                quarters: [],
+                fys: [2019],
+                agencies: []
             }
-        }
+        };
         DashboardHelper.fetchSummary(filters)
             .then((data) => {
                 this.setState({
@@ -54,8 +54,8 @@ export default class DashboardSummaryContainer extends React.Component {
             });
     }
 
-    render () {
-        return <DashboardSummary appliedFilters={this.props.appliedFilters} results={this.state.results}/>;
+    render() {
+        return <DashboardSummary appliedFilters={this.props.appliedFilters} results={this.state.results} />;
     }
 }
 
