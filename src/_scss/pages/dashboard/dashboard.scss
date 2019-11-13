@@ -35,7 +35,7 @@
                 margin: rem(10) rem(16) rem(3);
                 font-size: rem(24);
                 line-height: rem(31);
-                font-weight: bold;
+                font-weight: $font-semibold;
                 border-bottom: solid rem(1) #979797;
                 width: rem(379);
             }
@@ -46,59 +46,8 @@
                 margin-right: 0;
                 margin-bottom: rem(46);
             }
-            .dashboard-page__agency {
-                padding: rem(10) rem(16) rem(3);
-                font-size: rem(24); 
-                line-height: rem(26);
-
-                .dashboard-page__agency-icon {
-                    margin-right: rem(12);
-                }
-            }
-            .dashboard-page__agency {
-                padding: rem(10) rem(16) rem(3);
-                font-size: $h4-font-size; 
-
-                .dashboard-page__agency-icon {
-                    margin-right: rem(15);
-                }
-            }
-            .dashboard-page__summary-table {
-                font-size: rem(14);
-                width: rem(638);
-                margin: rem(16);
-                
-                .dashboard-page__summary-table-row {
-                    margin: 0 rem(16) 0;
-                    padding: rem(10) rem(30) rem(10);
-                    line-height: rem(32);
-                    border: solid rem(1) $color-gray-lightest   ;
-                }
-                svg {
-                    @include display(flex);
-                    @include justify-content(flex-end);
-                    @include align-items(right);
-                    margin-left: rem(20);
-                    margin-right: rem(-5);
-                    font-size: rem(18);
-                }
-                .row-8 {
-                    width: 8%;
-                }
-                .row-12 {
-                    width: 12%;
-                }
-                .row-16 {
-                    width: 16%;
-                }
-                .row-17 {
-                    width: 17%;
-                }
-                .row-22 {
-                    width: 22%;
-                }
-            }
             @import "./chooseFilters";
+            @import "./visualizations/summary.scss";
         }
     }
 }
