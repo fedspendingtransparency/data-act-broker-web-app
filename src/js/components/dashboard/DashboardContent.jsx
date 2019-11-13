@@ -15,7 +15,7 @@ const DashboardContent = (props) => (
     <div>
         <h2>Historical Data Summary</h2>
         <hr />
-        <DashboardSummaryContainer filters={props.appliedFilters}/>
+        <DashboardSummaryContainer appliedFilters={props.appliedFilters}/>
     </div>
 );
 

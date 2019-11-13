@@ -9,7 +9,8 @@
  import DashboardSummaryRow from './DashboardSummaryRow';
  
  const propTypes = {
-     appliedFilters: PropTypes.object.isRequired
+     appliedFilters: PropTypes.object.isRequired,
+     results: PropTypes.array
  };
  
  export default class DashboardSummary extends React.Component {
@@ -18,33 +19,20 @@
      }
 
      render() {
-        // TODO: Fetch data from Container 
-        const records = [
-            {
-                "file": "B",
-                "fy": 2019,
-                "quarter": 3,
-                "submission_id": 3232,
-                "certifier": "John Doe"
-            },
-            {
-                "file": "B",
-                "fy": 2013,
-                "quarter": 4,
-                "submission_id": 1232,
-                "certifier": "Jane Doe"
-            }
-        ];
+        // TODO: Pull from filter
         const agency = 'Department of Justice';
+        const file = "File " + 'B';
+
         const summaryRows = [];
-        records.forEach((record) => {
-            const period = "FY" + ('' + record.fy).substring(2) + ", Q" + record.quarter;
-            const file = "File " + record.file;
+        const { results } = this.props;
+        results.forEach((result) => {
+            const period = "FY" + ('' + result.fy).substring(2) + ", Q" + result.quarter;
+            
             summaryRows.push(<DashboardSummaryRow 
                 file={file}
                 period={period}
-                subID={record.submission_id}
-                submitter={record.certifier}
+                subID={result.submission_id}
+                submitter={result.certifier}
             />);
         });
          return (
