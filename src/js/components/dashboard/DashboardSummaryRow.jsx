@@ -28,14 +28,14 @@ export default class DashboardSummaryRow extends React.Component {
         const rowClassName = "dashboard-page__summary-table-row " + headerClass; 
         return (
             <tr className={rowClassName}>
-                <td className='row-4'></td>
-                <td className='row-21'>{this.props.file}</td>
-                <td className='row-4'></td>
-                <td className='row-21'>{this.props.period}</td>
-                <td className='row-4'></td>
-                <td className='row-21'>{this.props.subID}</td>
-                <td className='row-4'></td>
-                <td className='row-21'>{this.props.submitter}</td>
+                <td className='row-8'></td>
+                <td className='row-12'>{this.props.file}</td>
+                <td className='row-8'></td>
+                <td className='row-16'>{this.props.period}</td>
+                <td className='row-8'></td>
+                <td className='row-17'>{this.props.subID}</td>
+                <td className='row-8'></td>
+                <td className='row-23'>{this.props.submitter}</td>
             </tr>
         );
     }

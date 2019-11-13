@@ -16,7 +16,7 @@
      constructor(props) {
          super(props);
      }
-     
+
      render() {
         // TODO: Fetch data from Container 
         const records = [
@@ -59,14 +59,14 @@
                 <table className="dashboard-page__summary-table">
                     <thead>
                         <tr className='dashboard-page__summary-table-row'>
-                            <th className='row-4' scope='col'><FontAwesomeIcon icon='file-alt'/></th>
-                            <th className='row-21' scope='col'>FILE(S)</th>
-                            <th className='row-4'  scope='col'><FontAwesomeIcon icon='calendar-alt'/></th>
-                            <th className='row-21' scope='col'>TIME PERIOD</th>
-                            <th className='row-4'  scope='col'><FontAwesomeIcon icon='file-upload'/></th>
-                            <th className='row-21' scope='col'>SUBMISSION ID</th>
-                            <th className='row-4'  scope='col'><FontAwesomeIcon icon='user'/></th>
-                            <th className='row-21' scope='col'>SUBMITTED BY</th>
+                            <th className='row-8' scope='col'><FontAwesomeIcon icon='file-alt'/></th>
+                            <th className='row-12' scope='col'>FILE(S)</th>
+                            <th className='row-8'  scope='col'><FontAwesomeIcon icon='calendar-alt'/></th>
+                            <th className='row-16' scope='col'>TIME PERIOD</th>
+                            <th className='row-8'  scope='col'><FontAwesomeIcon icon='file-upload'/></th>
+                            <th className='row-17' scope='col'>SUBMISSION ID</th>
+                            <th className='row-8'  scope='col'><FontAwesomeIcon icon='user'/></th>
+                            <th className='row-23' scope='col'>SUBMITTED BY</th>
                         </tr>
                     </thead>
                     <tbody>
