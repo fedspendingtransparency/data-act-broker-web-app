@@ -4,14 +4,24 @@ import { library } from "@fortawesome/fontawesome-svg-core";
 import {
     faAngleDown,
     faSpinner,
-    faTimes
+    faTimes,
+    faLandmark,
+    faFileAlt,
+    faCalendarAlt,
+    faFileUpload,
+    faUser
 } from "@fortawesome/free-solid-svg-icons";
 import AppContainer from './containers/AppContainer';
 
 library.add(
     faAngleDown,
     faSpinner,
-    faTimes
+    faTimes,
+    faLandmark,
+    faFileAlt,
+    faCalendarAlt,
+    faFileUpload,
+    faUser
 );
 
 require("core-js");

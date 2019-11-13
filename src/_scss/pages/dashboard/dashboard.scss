@@ -27,11 +27,77 @@
                 padding: rem(10) rem(16) rem(3);
                 font-size: $h2-font-size;
                 margin: 0;
-                line-height: rem(38);      
+                line-height: rem(38);
+            }
+            h3 {
+                margin: rem(10) rem(16) rem(3);
+                font-size: rem(24);
+                line-height: rem(31);
+                font-weight: bold;
+                border-bottom: solid rem(1) #979797;
+                width: rem(379);
             }
             hr {
-                border-top: solid rem(2) $color-gray-lighter;
-                margin: 0;
+                border-top: solid rem(1) $color-gray-lighter;
+                margin-top: 0;
+                margin-left: 0;
+                margin-right: 0;
+                margin-bottom: rem(46);
+            }
+            .dashboard-page__agency {
+                padding: rem(10) rem(16) rem(3);
+                font-size: rem(24); 
+                line-height: rem(26);
+
+                .dashboard-page__agency-icon {
+                    margin-right: rem(12);
+                }
+            }
+            .dashboard-page__agency {
+                padding: rem(10) rem(16) rem(3);
+                font-size: $h4-font-size; 
+
+                .dashboard-page__agency-icon {
+                    margin-right: rem(15);
+                }
+            }
+            .dashboard-page__summary-table {
+                font-size: rem(14);
+                width: rem(638);
+                margin: rem(16);
+
+                .header {
+                    font-weight: bold;
+                }
+                .dashboard-page__summary-table-row {
+                    margin: 0 rem(16) 0;
+                    padding: rem(10) rem(30) rem(10);
+                    line-height: rem(32);
+                    border: solid rem(1) $color-gray-lightest   ;
+                }
+                svg {
+                    @include display(flex);
+                    @include justify-content(flex-end);
+                    @include align-items(right);
+                    margin-left: rem(20);
+                    margin-right: rem(-5);
+                    font-size: rem(20);
+                }
+                .row-4 {
+                    width: 4%;
+                }
+                .row-21 {
+                    width: 21%;
+                }
+                
+                // th {
+                //     width: rem(20);
+                //     max-width: rem(100);
+                // }
+                // td {
+                //     width: rem(30);
+                //     max-width: rem(60);
+                // }
             }
         }
     }
