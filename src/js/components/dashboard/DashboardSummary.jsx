@@ -9,13 +9,14 @@
  import DashboardSummaryRow from './DashboardSummaryRow';
  
  const propTypes = {
-     filters: PropTypes.array
+     appliedFilters: PropTypes.object.isRequired
  };
  
  export default class DashboardSummary extends React.Component {
      constructor(props) {
          super(props);
      }
+     
      render() {
         // TODO: Fetch data from Container 
         const records = [

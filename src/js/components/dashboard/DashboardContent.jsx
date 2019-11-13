@@ -5,7 +5,7 @@
 
 import React from 'react';
 import PropTypes from 'prop-types';
-import DashboardSummary from 'components/dashboard/DashboardSummary';
+import DashboardSummaryContainer from 'containers/dashboard/DashboardSummaryContainer';
 
 const propTypes = {
     appliedFilters: PropTypes.object.isRequired
@@ -15,7 +15,7 @@ const DashboardContent = (props) => (
     <div>
         <h2>Historical Data Summary</h2>
         <hr />
-        <DashboardSummary filters={props.appliedFilters}/>
+        <DashboardSummaryContainer filters={props.appliedFilters}/>
     </div>
 );
 

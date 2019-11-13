@@ -9,7 +9,7 @@ import PropTypes from 'prop-types';
 const propTypes = {
     file: PropTypes.string,
     period: PropTypes.string,
-    subID: PropTypes.string,
+    subID: PropTypes.number,
     submitter: PropTypes.string,
     header: PropTypes.bool
 };
@@ -17,7 +17,7 @@ const propTypes = {
 const defaultProps = {
     file: '',
     period: '',
-    subID: '',
+    subID: null,
     submitter: '',
     header: false
 };
