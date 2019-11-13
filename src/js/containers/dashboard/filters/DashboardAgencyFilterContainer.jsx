@@ -15,7 +15,8 @@ import DashboardAgencyFilter from 'components/dashboard/filters/DashboardAgencyF
 const propTypes = {
     updateAgencyFilter: PropTypes.func.isRequired,
     clearGenericFilter: PropTypes.func.isRequired,
-    selectedFilters: PropTypes.object.isRequired
+    selectedFilters: PropTypes.object.isRequired,
+    setDescription: PropTypes.func.isRequired
 };
 
 const minCharsToSearch = 2;
@@ -53,6 +54,7 @@ export class DashboardAgencyFilterContainer extends React.Component {
                 if (agencies.length === 1) {
                     const code = agencies[0].cgac_code ? agencies[0].cgac_code : agencies[0].frec_code;
                     this.props.updateAgencyFilter(code);
+                    this.props.setDescription(true);
                 }
             })
             .catch((err) => {

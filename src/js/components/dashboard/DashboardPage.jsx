@@ -19,31 +19,36 @@ const filters = [
         name: 'Agency',
         required: true,
         component: DashboardAgencyFilterContainer,
-        description: 'Select a specific agency to filter your search.'
+        description: 'Select a specific agency to filter your search.',
+        altDescription: 'The agency to which you are assigned.'
     },
     {
         name: 'Fiscal Years',
         required: true,
         component: FyFilterContainer,
-        description: 'Select the applicable fiscal year(s).'
+        description: 'Select the applicable fiscal year(s).',
+        altDescription: null
     },
     {
         name: 'Quarters',
         required: true,
         component: QuarterFilterContainer,
-        description: 'Select the applicable quarter(s).'
+        description: 'Select the applicable quarter(s).',
+        altDescription: null
     },
     {
         name: 'Files',
         required: true,
         component: FileFilterContainer,
-        description: 'Select one file or cross-file.'
+        description: 'Select one file or cross-file.',
+        altDescription: null
     },
     {
         name: 'Rules',
         required: false,
         component: RulesFilterContainer,
-        description: 'Enter specific codes to filter your search.'
+        description: 'Enter specific codes to filter your search.',
+        altDescription: null
     }
 ];
 
