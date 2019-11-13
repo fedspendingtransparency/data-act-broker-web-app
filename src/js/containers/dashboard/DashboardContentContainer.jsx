@@ -6,6 +6,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import ChooseFiltersMessage from 'components/dashboard/ChooseFiltersMessage';
+import DashboardContent from 'components/dashboard/DashboardContent';
 
 const DashboardContentContainer = (props) => {
     const dashboardContent = props.appliedFilters._empty ?
@@ -13,10 +14,7 @@ const DashboardContentContainer = (props) => {
             <ChooseFiltersMessage />
         ) :
         (
-            <div>
-                <h2>Historical Data Summary</h2>
-                <hr />
-            </div>
+            <DashboardContent />
         );
 
     return dashboardContent;
