@@ -16,6 +16,7 @@
             background-color: $color-white;
             margin-right: rem(15);
             border-radius: rem(5);
+            border: solid rem(1) $color-gray-lighter;
             @import "./filterSidebar";
         }
         .dashboard-page__content {
@@ -23,6 +24,7 @@
             @include flex(1 1 auto);
             margin-left: rem(15);
             border-radius: rem(5);
+            border: solid rem(1) $color-gray-lighter;
             h2 {
                 padding: rem(10) rem(16) rem(3);
                 font-size: $h2-font-size;
@@ -33,6 +35,7 @@
                 border-top: solid rem(2) $color-gray-lighter;
                 margin: 0;
             }
+            @import "./chooseFilters";
         }
     }
 }
