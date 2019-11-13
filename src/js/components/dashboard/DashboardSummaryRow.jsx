@@ -10,24 +10,20 @@ const propTypes = {
     file: PropTypes.string,
     period: PropTypes.string,
     subID: PropTypes.number,
-    submitter: PropTypes.string,
-    header: PropTypes.bool
+    submitter: PropTypes.string
 };
 
 const defaultProps = {
     file: '',
     period: '',
     subID: null,
-    submitter: '',
-    header: false
+    submitter: ''
 };
 
 export default class DashboardSummaryRow extends React.Component {
     render() {
-        const headerClass = this.props.header ? 'header' : '';
-        const rowClassName = "dashboard-page__summary-table-row " + headerClass; 
         return (
-            <tr className={rowClassName}>
+            <tr className='dashboard-page__summary-table-row'>
                 <td className='row-8'></td>
                 <td className='row-12'>{this.props.file}</td>
                 <td className='row-8'></td>
