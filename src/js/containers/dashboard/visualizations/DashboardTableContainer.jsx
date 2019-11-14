@@ -41,8 +41,8 @@ export default class DashboardTableContainer extends React.Component {
             },
             page: 1,
             limit: 10,
-            sort: "period",
-            order: "desc"
+            sort: 'period',
+            order: 'desc'
         };
 
         DashboardHelper.fetchDashboardTableContents(searchParams)

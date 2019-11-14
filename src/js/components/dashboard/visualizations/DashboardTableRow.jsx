@@ -16,18 +16,18 @@ const defaultProps = {
 
 export default class DashboardTableRow extends React.Component {
     render() {
-        const tableCells = this.props.cells.map((cell, index) => 
-            (<td key={'dashboard-table-cell-' + index} className={'tmp'}>
-                {cell}
+        const tableCells = this.props.cells.map((cell, index) => (
+            <td key={'dashboard-table-cell-' + index}>
+                <div className={cell.class}>
+                    {cell.data}
+                </div>
             </td>)
         );
 
         return (
-            <tbody>
-                <tr>
-                    {tableCells}
-                </tr>
-            </tbody>
+            <tr>
+                {tableCells}
+            </tr>
         );
     }
 }

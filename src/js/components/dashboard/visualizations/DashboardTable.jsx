@@ -5,6 +5,7 @@
 
 import React from 'react';
 import PropTypes from 'prop-types';
+import _ from 'lodash';
 
 import DashboardTableHeader from 'components/dashboard/visualizations/DashboardTableHeader';
 import DashboardTableRow from 'components/dashboard/visualizations/DashboardTableRow';
@@ -22,25 +23,25 @@ const defaultProps = {
 const tableHeaders = [
     {
         text: 'File',
-        class: null
+        class: 'dashboard-table__file-column'
     },
     {
-        text: 'Fiscal Year/Quarter',
-        class: null
+        text: 'Fiscal Year/ Quarter',
+        class: 'dashboard-table__fyq-column'
     },
     {
         text: 'Warning Rule',
-        class: null
+        class: 'dashboard-table__label-column'
     },
     {
         text: 'Number of Instances',
-        class: null
+        class: 'dashboard-table__instances-column'
     },
     {
         text: 'Rule Description',
         class: null
     }
-]
+];
 
 export default class DashboardTable extends React.Component {
     constructor(props) {
@@ -50,10 +51,20 @@ export default class DashboardTable extends React.Component {
             parsedData: []
         };
 
-        this.formatRow = this.formatRow.bind(this);
+        this.buildRows = this.buildRows.bind(this);
     }
 
     componentDidMount() {
+        this.buildRows();
+    }
+
+    componentDidUpdate(prevProps) {
+        if (!_.isEqual(prevProps.results, this.props.results)) {
+            this.buildRows();
+        }
+    }
+
+    buildRows() {
         const rows = [];
         this.props.results.forEach((item) => {
             rows.push(this.formatRow(item));
@@ -64,33 +75,37 @@ export default class DashboardTable extends React.Component {
         });
     }
 
-    componentDidUpdate(prevProps) {
-        if (!_.isEqual(prevProps.results, this.props.results)) {
-            const rows = [];
-            this.props.results.forEach((item) => {
-                rows.push(this.formatRow(item));
-            });
-
-            this.setState({
-                parsedData: rows
-            });
-        }
-    }
-
     formatRow(item) {
         const row = [];
         let file = '';
         if (item.files.length > 1) {
-            file = 'Cross File';
+            const fileLabels = item.files.map((itemFile) => itemFile.type);
+            fileLabels.sort();
+            file = 'CROSS FILE: ' + fileLabels.join('/');
         }
         else {
-            file = 'File ' + item.files[0].type;
+            file = 'FILE ' + item.files[0].type;
         }
-        row.push(file);
-        row.push(`FY ${item.fy - 2000} / Q${item.quarter}`);
-        row.push(item.rule_label);
-        row.push(item.instance_count);
-        row.push(item.rule_description);
+        row.push({
+            data: file,
+            class: null
+        });
+        row.push({
+            data: `FY ${item.fy - 2000} / Q${item.quarter}`,
+            class: null
+        });
+        row.push({
+            data: item.rule_label,
+            class: null
+        });
+        row.push({
+            data: item.instance_count,
+            class: null
+        });
+        row.push({
+            data: item.rule_description,
+            class: 'ellipse-box'
+        });
         return row;
     }
 
@@ -103,7 +118,9 @@ export default class DashboardTable extends React.Component {
                 <h3>Table</h3>
                 <table>
                     <DashboardTableHeader headers={tableHeaders} />
-                    {tableRows}
+                    <tbody>
+                        {tableRows}
+                    </tbody>
                 </table>
             </div>
         );

@@ -16,8 +16,8 @@ const defaultProps = {
 
 export default class DashboardTableHeader extends React.Component {
     render() {
-        const tableHeaders = this.props.headers.map((header, index) => 
-            (<th key={'dashboard-table-header-' + index} className={header.class}>
+        const tableHeaders = this.props.headers.map((header, index) => (
+            <th key={'dashboard-table-header-' + index} className={header.class}>
                 {header.text}
             </th>)
         );
