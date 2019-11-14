@@ -21,6 +21,20 @@ const defaultProps = {
 };
 
 export default class DashboardAgencyFilter extends React.Component {
+    constructor(props) {
+        super(props);
+
+        this.state = {
+            useAltText: false
+        };
+
+        this.onSelect = this.onSelect.bind(this);
+    }
+
+    onSelect() {
+        this.props.onSelect(this.props.selectedFilters.agency);
+    }
+
     dataFormatter(item) {
         return {
             label: item.agency_name,
@@ -45,7 +59,7 @@ export default class DashboardAgencyFilter extends React.Component {
                 return code !== agencyCode;
             });
             // if it's a single agency user, we don't want to remove the value
-            const removeVal = this.props.singleAgency ? null : this.props.onSelect.bind(null, agencyCode);
+            const removeVal = this.props.singleAgency ? null : this.onSelect;
             selectedAgency = (
                 <div className="selected-filters">
                     <ShownValue
@@ -55,26 +69,22 @@ export default class DashboardAgencyFilter extends React.Component {
             );
         }
 
-        const fliterContents = this.props.singleAgency ? (
-            <div className="dashboard-agency-filter">
-                {selectedAgency}
-            </div>
-        ) : (
-            <div className="dashboard-agency-filter">
-                <div className="typeahead-holder">
-                    <Typeahead
-                        formatter={this.dataFormatter}
-                        onSelect={this.props.onSelect}
-                        prioritySort={false}
-                        values={filteredList}
-                        clearAfterSelect
-                        placeholder="Enter Agency Name" />
-                </div>
-                {selectedAgency}
+        const typeahead = this.props.singleAgency ? null : (
+            <div className="typeahead-holder">
+                <Typeahead
+                    formatter={this.dataFormatter}
+                    onSelect={this.props.onSelect}
+                    prioritySort={false}
+                    values={filteredList}
+                    clearAfterSelect
+                    placeholder="Enter Agency Name" />
             </div>
         );
         return (
-            fliterContents
+            <div className="dashboard-agency-filter">
+                {typeahead}
+                {selectedAgency}
+            </div>
         );
     }
 }
