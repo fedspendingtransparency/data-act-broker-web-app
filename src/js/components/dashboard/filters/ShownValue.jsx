@@ -14,7 +14,7 @@ const propTypes = {
 
 export default class ShownValue extends React.Component {
     render() {
-        return (
+        const shownVal = (this.props.removeValue !== null) ? (
             <button
                 className="shown-filter-button"
                 value={this.props.label}
@@ -26,6 +26,13 @@ export default class ShownValue extends React.Component {
                     <FontAwesomeIcon icon="times" />
                 </span>
             </button>
+        ) : (
+            <div className="shown-filter-button no-click">
+                <span>{this.props.label}</span>
+            </div>
+        );
+        return (
+            shownVal
         );
     }
 }

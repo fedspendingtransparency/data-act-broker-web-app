@@ -19,6 +19,11 @@ export const updateFileFilter = (file) => ({
     file
 });
 
+export const updateAgencyFilter = (agency) => ({
+    type: 'UPDATE_AGENCY_FILTER',
+    agency
+});
+
 export const clearAllFilters = () => ({
     type: 'CLEAR_DASHBOARD_FILTERS'
 });

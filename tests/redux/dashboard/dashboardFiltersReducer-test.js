@@ -43,6 +43,29 @@ describe('dashboardFiltersReducer', () => {
             expect(state.file).toEqual('B');
         });
     });
+    describe('UPDATE_AGENCY_FILTER', () => {
+        const action = {
+            type: 'UPDATE_AGENCY_FILTER',
+            agency: '123'
+        };
+
+        it('should change the agency to the one provided', () => {
+            let state = dashboardFiltersReducer(undefined, {});
+
+            state = dashboardFiltersReducer(state, action);
+
+            expect(state.agency).toEqual('123');
+        });
+
+        it('should remove the value if it is the agency already selected', () => {
+            const startingState = Object.assign({}, initialState, {
+                agency: '123'
+            });
+
+            const updatedState = dashboardFiltersReducer(startingState, action);
+            expect(updatedState.agency).toEqual('');
+        });
+    });
     describe('CLEAR_FILTER_SET', () => {
         it('should reset the specified filter to its initial state', () => {
             let state = {
