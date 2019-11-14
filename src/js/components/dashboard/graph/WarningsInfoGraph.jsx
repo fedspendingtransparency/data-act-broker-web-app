@@ -6,9 +6,9 @@
 import React from 'react';
 
 const WarningsInfoGraph = () => (
-    <div className="warnings-info">
-        <h3 className="warnings-info__heading">Warnings Information</h3>
-        <p className="warnings-info__description">Hover over the color to see details for each quarterly warning.</p>
+    <div className="dashboard-viz warnings-info">
+        <h3 className="dashboard-viz__heading">Warnings Information</h3>
+        <p>Hover over the color to see details for each quarterly warning.</p>
         <div>Graph here</div>
     </div>
 );
