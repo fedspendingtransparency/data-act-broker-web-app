@@ -5,7 +5,9 @@ import {
     faAngleDown,
     faArrowCircleLeft,
     faSpinner,
-    faTimes
+    faTimes,
+    faCaretUp,
+    faCaretDown
 } from "@fortawesome/free-solid-svg-icons";
 import AppContainer from './containers/AppContainer';
 
@@ -13,7 +15,9 @@ library.add(
     faAngleDown,
     faArrowCircleLeft,
     faSpinner,
-    faTimes
+    faTimes,
+    faCaretUp,
+    faCaretDown
 );
 
 require("core-js");

@@ -9,7 +9,7 @@ import ChooseFiltersMessage from 'components/dashboard/ChooseFiltersMessage';
 import DashboardContent from 'components/dashboard/DashboardContent';
 
 const DashboardContentContainer = (props) => {
-    const dashboardContent = props.appliedFilters._empty ?
+    const dashboardContent = !props.appliedFilters._empty ?
         (
             <ChooseFiltersMessage />
         ) :
