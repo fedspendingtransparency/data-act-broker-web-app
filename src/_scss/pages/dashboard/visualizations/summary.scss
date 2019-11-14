@@ -1,5 +1,5 @@
 .dashboard-page__agency {
-    padding: rem(10) rem(16) rem(3);
+    padding: rem(10) 0 rem(15);
     font-size: $h4-font-size; 
 
     .dashboard-page__agency-icon {
@@ -9,7 +9,6 @@
 .dashboard-page__summary-table {
     font-size: rem(14);
     width: rem(638);
-    margin: rem(16);
     
     .dashboard-page__summary-table-row {
         margin: 0 rem(16) 0;
@@ -19,9 +18,9 @@
     }
     svg {
         @include display(flex);
-        @include align-items(right);
-        margin-left: rem(20);
-        margin-right: rem(-5);
+        @include justify-content(flex-end);
+        margin-left:auto;
+        margin-right:rem(12);
         font-size: rem(18);
     }
     .row-8 {
