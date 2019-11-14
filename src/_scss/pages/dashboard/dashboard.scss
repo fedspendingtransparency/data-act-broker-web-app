@@ -31,11 +31,20 @@
                 margin: 0;
                 line-height: rem(38);      
             }
+            h3 {
+                margin: rem(10) rem(16) rem(3);
+                font-size: rem(24);
+                line-height: rem(31);
+                font-weight: bold;
+                border-bottom: solid rem(1) #979797;
+                width: rem(379);
+            }
             hr {
                 border-top: solid rem(2) $color-gray-lighter;
                 margin: 0;
             }
             @import "./chooseFilters";
+            @import "./visualizations/dashboardTable"
         }
     }
 }
