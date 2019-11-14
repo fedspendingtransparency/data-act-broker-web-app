@@ -7,15 +7,8 @@
 	font-size: $base-font-size;
 	margin: .2em 0;
 	width: 100%;
-	outline: none;
 	padding: 1rem .7em;
-	appearance: none;
 	max-width: none;
-
-	&:focus, 
-	&.usa-da-input-focus {
-	box-shadow: $focus-shadow;
-	}
 
 	&.usa-da-input-success {
 	border: 3px solid $color-green-light;
