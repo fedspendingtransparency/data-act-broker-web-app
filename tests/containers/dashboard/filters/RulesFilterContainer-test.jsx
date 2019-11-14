@@ -17,10 +17,14 @@ describe('RulesFilterContainer', () => {
         jest.restoreAllMocks();
     });
     it('should make an API call when the selected file changes', () => {
+        const newRedux = { ...mockRedux };
+        newRedux.selectedFilters.file = 'B';
+
         const container = shallow(<RulesFilterContainer
             {...mockActions}
-            {...mockRedux} />
+            {...newRedux} />
         );
+
         const fetchAutocompleteResults = jest.fn();
         container.instance().fetchAutocompleteResults = fetchAutocompleteResults;
 
@@ -29,9 +33,12 @@ describe('RulesFilterContainer', () => {
         expect(fetchAutocompleteResults).toHaveBeenCalled();
     });
     it('should clear the selected rules when the file changes', () => {
+        const newRedux = { ...mockRedux };
+        newRedux.selectedFilters.file = 'B';
+
         const container = shallow(<RulesFilterContainer
             {...mockActions}
-            {...mockRedux} />
+            {...newRedux} />
         );
         const fetchAutocompleteResults = jest.fn();
         container.instance().fetchAutocompleteResults = fetchAutocompleteResults;

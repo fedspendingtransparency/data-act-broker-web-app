@@ -7,8 +7,7 @@ import { initialState as defaultFilters } from './dashboardFiltersReducer';
 
 export const initialState = {
     filters: defaultFilters,
-    _empty: true,
-    _complete: true
+    _empty: true
 };
 
 export const appliedDashboardFiltersReducer = (state = initialState, action) => {
@@ -22,10 +21,6 @@ export const appliedDashboardFiltersReducer = (state = initialState, action) => 
         case 'SET_APPLIED_FILTER_EMPTINESS':
             return Object.assign({}, state, {
                 _empty: action.empty
-            });
-        case 'SET_APPLIED_FILTER_COMPLETION':
-            return Object.assign({}, state, {
-                _complete: action.complete
             });
         default:
             return state;
