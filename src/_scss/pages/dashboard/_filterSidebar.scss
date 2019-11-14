@@ -1,4 +1,6 @@
 .filter-sidebar {
+    @import './filters/submitButton';
+    width: 100%;
     .filter-sidebar__option {
         color: $color-gray;
         padding: rem(12) rem(20);

@@ -67,18 +67,4 @@ describe('appliedDashboardFiltersReducer', () => {
             expect(state._empty).toBeFalsy();
         });
     });
-
-    describe('SET_APPLIED_FILTER_COMPLETION', () => {
-        it('should set the _complete value', () => {
-            let state = appliedDashboardFiltersReducer(undefined, {});
-            expect(state._complete).toBeTruthy();
-
-            const action = {
-                type: 'SET_APPLIED_FILTER_COMPLETION',
-                complete: false
-            };
-            state = appliedDashboardFiltersReducer(state, action);
-            expect(state._complete).toBeFalsy();
-        });
-    });
 });
