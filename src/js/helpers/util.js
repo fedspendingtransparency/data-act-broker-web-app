@@ -113,6 +113,30 @@ export const convertDateToQuarter = (date) => {
     return quarter;
 };
 
+export const convertQuarterToDate = (qtr, year) => {
+    // returns the last date of the fiscal quarter
+    let date = '';
+    let outputYear = parseInt(year, 10);
+    switch (qtr) {
+        case 1:
+            outputYear = year - 1;
+            date = `${outputYear}-12-31`;
+            break;
+        case 2:
+            date = `${outputYear}-03-31`;
+            break;
+        case 3:
+            date = `${outputYear}-06-30`;
+            break;
+        case 4:
+            date = `${outputYear}-09-30`;
+            break;
+        default:
+            date = '';
+    }
+    return date;
+};
+
 export const currentFiscalYear = () => {
     // determine the current fiscal year
     const currentMonth = moment().month();

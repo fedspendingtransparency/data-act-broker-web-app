@@ -7,8 +7,10 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { isEqual } from 'lodash';
+import moment from 'moment';
 
 import * as DashboardHelper from 'helpers/dashboardHelper';
+import { convertQuarterToDate } from 'helpers/util';
 import WarningsInfoGraph from 'components/dashboard/graph/WarningsInfoGraph';
 
 const propTypes = {
@@ -68,19 +70,29 @@ export class WarningsInfoGraphContainer extends React.Component {
             });
     }
 
-    generateTimeLabels() {
-
-    }
-
     parseData(data) {
-        // const groups = [];
-        // const xSeries = [];
-        // const ySeries = [];
-        // const rawLabels = [];
+        const groups = []; // Fiscal Quarter labels
+        const xSeries = []; // Fiscal Quarter values
+        const ySeries = []; // Total Warnings values
+        const yData = []; // Warnings by Rule
 
-        console.log(data);
+        // For now, only one file at a time
+        const file = data[this.props.appliedFilters.file];
+
+        file.forEach((submission) => {
+            const timePeriodLabel = `FY ${submission.fy - 2000} / Q${submission.quarter}`;
+            const endDate = moment(convertQuarterToDate(submission.quarter, submission.fy), 'YYYY-MM-DD');
+            groups.push(timePeriodLabel);
+            xSeries.push([endDate.valueOf() / 1000]); // Unix timestamp (seconds)
+            ySeries.push([submission.total_warnings]);
+            yData.push(submission.warnings);
+        });
 
         this.setState({
+            groups,
+            xSeries,
+            ySeries,
+            yData,
             loading: false,
             error: false
         });
