@@ -36,3 +36,20 @@ export const fetchRules = (callBody) => {
 
     return deferred.promise;
 };
+
+export const fetchWarnings = (callBody) => {
+    const deferred = Q.defer();
+
+    Request.post(`${kGlobalConstants.API}historic_dabs_warning_graphs/`)
+        .send(callBody)
+        .end((err, res) => {
+            if (err) {
+                deferred.reject(err);
+            }
+            else {
+                deferred.resolve(res.body);
+            }
+        });
+
+    return deferred.promise;
+};
