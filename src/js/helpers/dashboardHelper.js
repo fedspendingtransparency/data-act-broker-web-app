@@ -40,7 +40,7 @@ export const fetchRules = (callBody) => {
 export const fetchWarnings = (callBody) => {
     const deferred = Q.defer();
 
-    Request.post(`${kGlobalConstants.API}historic_dabs_warning_graphs/`)
+    Request.post(`${kGlobalConstants.API}historic_dabs_graphs/`)
         .send(callBody)
         .end((err, res) => {
             if (err) {

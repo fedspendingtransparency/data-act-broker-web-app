@@ -4,7 +4,7 @@
  */
 
 import React from 'react';
-import { WarningsInfoGraphContainer } from 'containers/dashboard/graph/WarningsInfoGraphContainer';
+import WarningsInfoGraphContainer from 'containers/dashboard/graph/WarningsInfoGraphContainer';
 
 const DashboardContent = () => (
     <div>

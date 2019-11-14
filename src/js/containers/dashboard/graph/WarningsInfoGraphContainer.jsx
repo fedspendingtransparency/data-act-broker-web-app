@@ -44,11 +44,20 @@ export class WarningsInfoGraphContainer extends React.Component {
             error: false
         });
 
-        const apiParams = { filters: { ...this.props.appliedFilters } };
+        // Format the API params
+        const apiParams = {
+            filters: {
+                fys: this.props.appliedFilters.fy.toArray(),
+                quarters: this.props.appliedFilters.quarters.toArray(),
+                agencies: [this.props.appliedFilters.agency],
+                files: [this.props.appliedFilters.file],
+                rules: this.props.appliedFilters.rules.toArray()
+            }
+        };
 
         DashboardHelper.fetchWarnings(apiParams)
             .then((res) => {
-                this.parseData(res.data);
+                this.parseData(res);
             })
             .catch((err) => {
                 console.log(err);
@@ -88,6 +97,6 @@ WarningsInfoGraphContainer.propTypes = propTypes;
 
 export default connect(
     (state) => ({
-        appliedFilters: state.dashboardAppliedFilters.filters
+        appliedFilters: state.appliedDashboardFilters.filters
     })
 )(WarningsInfoGraphContainer);
