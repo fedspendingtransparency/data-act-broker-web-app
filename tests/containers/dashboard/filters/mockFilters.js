@@ -7,7 +7,7 @@ export const mockActions = {
     applyStagedFilters: jest.fn(),
     clearStagedFilters: jest.fn(),
     resetAppliedFilters: jest.fn(),
-    setAppliedFilterEmptiness: jest.fn()
+    setAppliedFilterEmptiness: jest.fn(),
     updateAgencyFilter: jest.fn()
 };
 
