@@ -25,7 +25,7 @@ export default class DashboardSummary extends React.Component {
         let key = 0;
         results.forEach((result) => {
             const fy = `${result.fy}`.substring(2);
-            const period = `FY${fy}, Q${result.quarter}`;
+            const period = `FY ${fy}, Q${result.quarter}`;
             summaryRows.push(<DashboardSummaryRow
                 key={key}
                 file={file}
