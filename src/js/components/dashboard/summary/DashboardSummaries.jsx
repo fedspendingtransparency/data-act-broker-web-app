@@ -29,23 +29,9 @@ export default class DashboardSummaries extends React.Component {
         const summaries = [];
         const { results } = this.props;
         let key = 0;
-        const submissions = [
-            {
-                "submission_id": 104,
-                "quarter": 4,
-                "certifier": "Administrator",
-                "fy": 2019
-            },
-            {
-                "submission_id": 105,
-                "quarter": 2,
-                "certifier": "Administrator 2",
-                "fy": 2014
-            }
-        ]
         results.forEach((result) => {
             summaries.push(
-                <DashboardSummary key={key} file={file} agency={result.agency_name} submissions={submissions} />
+                <DashboardSummary key={key} file={file} agency={result.agency_name} submissions={result.submissions} />
             );
             key += 1;
         });
