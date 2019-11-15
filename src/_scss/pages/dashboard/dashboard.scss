@@ -36,7 +36,10 @@
                 margin: 0;
             }
             @import "./chooseFilters";
-            @import "./visualizations/dashboardTable"
+            .dashboard-table-container{
+                @import "./visualizations/dashboardTable";
+                @import "./visualizations/dashboardPagination";
+            }
         }
     }
 }

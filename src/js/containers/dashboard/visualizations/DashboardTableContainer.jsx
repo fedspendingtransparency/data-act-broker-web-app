@@ -8,6 +8,7 @@ import PropTypes from 'prop-types';
 
 import * as DashboardHelper from 'helpers/dashboardHelper';
 import DashboardTable from 'components/dashboard/visualizations/DashboardTable';
+import DashboardTablePagination from 'components/dashboard/visualizations/DashboardTablePagination';
 
 const propTypes = {
     appliedFilters: PropTypes.object.isRequired
@@ -19,7 +20,9 @@ export default class DashboardTableContainer extends React.Component {
 
         this.state = {
             results: [],
-            total: 0,
+            totalPages: 1,
+            page: 1,
+            limit: 10,
             inFlight: true
         };
 
@@ -39,8 +42,8 @@ export default class DashboardTableContainer extends React.Component {
                 files: [],
                 rules: []
             },
-            page: 1,
-            limit: 10,
+            page: this.state.page,
+            limit: this.state.limit,
             sort: 'period',
             order: 'desc'
         };
@@ -49,7 +52,7 @@ export default class DashboardTableContainer extends React.Component {
             .then((res) => {
                 this.setState({
                     results: res.results,
-                    total: res.page_metadata.total,
+                    totalPages: Math.ceil(res.page_metadata.total / this.state.limit),
                     inFlight: false
                 });
             })
@@ -63,7 +66,13 @@ export default class DashboardTableContainer extends React.Component {
 
     render() {
         return (
-            <DashboardTable {...this.state} />
+            <div className="dashboard-table-container">
+                <DashboardTable results={this.state.results} />
+                <DashboardTablePagination
+                    totalPages={this.state.totalPages}
+                    currentPage={this.state.page}
+                    pageLimit={this.state.limit} />
+            </div>
         );
     }
 }

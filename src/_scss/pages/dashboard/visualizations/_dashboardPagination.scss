@@ -1,0 +1,42 @@
+.dashboard-table-pagination {
+    @import "../../../components/tables/_submissionPaginator";
+
+    .table-paginator {
+        li {
+            line-height: 1em;
+            font-size: rem(12);
+
+            button {
+                border-color: #d6d7d9;
+                color: #0074be;
+                height: rem(26);
+                width: rem(26);
+                padding: rem(2);
+            }
+    
+            &.active {
+                button {
+                    background-color: #00a6d2;
+                    border-color: #00a6d2;
+                    color: $color-white;
+                    font-weight: initial;
+                }
+            }
+
+            &.page-arrow {
+                button {
+                    padding: rem(2);
+
+                    .usa-da-icon {
+                        height: rem(20);
+                        width: rem(20);
+
+                        svg{
+                            fill: #0074be;
+                        }
+                    }
+                }
+            }
+        }
+    }
+}

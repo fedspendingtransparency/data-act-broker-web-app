@@ -11,13 +11,11 @@ import DashboardTableHeader from 'components/dashboard/visualizations/DashboardT
 import DashboardTableRow from 'components/dashboard/visualizations/DashboardTableRow';
 
 const propTypes = {
-    results: PropTypes.array,
-    total: PropTypes.number
+    results: PropTypes.array
 };
 
 const defaultProps = {
-    results: [],
-    total: 0
+    results: []
 };
 
 const tableHeaders = [
