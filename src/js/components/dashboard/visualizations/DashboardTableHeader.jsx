@@ -32,16 +32,16 @@ export default class DashboardTableHeader extends React.Component {
         const tableHeaders = this.props.headers.map((header, index) => (
             <th key={'dashboard-table-header-' + index} className={header.class}>
                 <div className="dashboard-table__header-wrapper">
-                    <div>
+                    <div className="dashboard-table__header-text">
                         {header.text}
                     </div>
                     <div className="dashboard-table__sort-icons">
-                        <div onClick={this.test}>
+                        <button onClick={this.test}>
                             <FontAwesomeIcon size="2x" icon="caret-up" />
-                        </div>
-                        <div onClick={this.test2}>
+                        </button>
+                        <button onClick={this.test2}>
                             <FontAwesomeIcon size="2x" icon="caret-down" />
-                        </div>
+                        </button>
                     </div>
                 </div>
             </th>)

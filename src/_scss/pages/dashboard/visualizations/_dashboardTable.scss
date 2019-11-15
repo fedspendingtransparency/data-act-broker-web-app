@@ -8,6 +8,10 @@
 
         .dashboard-table__fyq-column {
             width: rem(114);
+
+            .dashboard-table__header-text {
+                width: rem(70);
+            }
         }
 
         .dashboard-table__label-column {
@@ -16,6 +20,10 @@
 
         .dashboard-table__instances-column {
             width: rem(117);
+
+            .dashboard-table__header-text {
+                width: rem(66);
+            }
         }
 
         .dashboard-table__rule-column {
@@ -26,26 +34,35 @@
             color: $color-white;
             background: $color-gray;
 
-            tr {
+            th {
                 height: rem(53);
+                padding-left: rem(6);
 
-                th {
-                    padding-left: rem(6);
+                .dashboard-table__header-wrapper {
+                    display: flex;
+                    height: rem(36);
 
-                    .dashboard-table__header-wrapper {
-                        display: flex;
-                        .dashboard-table__sort-icons {
-                            margin-left: rem(10);
+                    .dashboard-table__header-text{
+                        margin: auto 0;
+                    }
 
-                            button {
-                                display: block;
-                                background: none;
-                                padding: 0;
-                            }
+                    .dashboard-table__sort-icons {
+                        margin: auto 0;
+                        margin-left: rem(10);
 
-                            svg {
-                                vertical-align: 0;
-                            }
+                        button {
+                            display: block;
+                            background: none;
+                            border: none;
+                            padding: 0;
+                            overflow: hidden;
+                            height: rem(13);
+                            margin: rem(4) 0;
+                        }
+
+                        svg {
+                            vertical-align: 0;
+                            margin-top: -9px;
                         }
                     }
                 }
