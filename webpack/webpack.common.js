@@ -30,7 +30,7 @@ module.exports = {
                 vendors: false,
                 // all imported code from node_modules is a single file
                 vendor: {
-                    exclude: /node_modules\/(?!(data-transparency-ui)\/).*/,
+                    test: /[\\/]node_modules[\\/]/,
                     name: "vendors",
                     chunks: "all",
                     priority: 20
@@ -51,7 +51,7 @@ module.exports = {
         rules: [
             {
                 test: /\.js$|jsx$/,
-                exclude: /node_modules/,
+                exclude: /node_modules\/(?!(data-transparency-ui)\/).*/,
                 loader: "babel-loader" // the babel loader tells webpack to compile JS/JSX files using Babel
             },
             {
