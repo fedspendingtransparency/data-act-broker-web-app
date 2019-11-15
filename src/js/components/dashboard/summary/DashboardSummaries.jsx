@@ -12,24 +12,26 @@ const propTypes = {
     results: PropTypes.array
 };
 
+function getFileLabel(selectedFile) {
+    let file = '';
+    if (selectedFile.substring(0, 5) === 'cross') {
+        const sourceFile = selectedFile.charAt(6);
+        const targetFile = selectedFile.substring(7);
+        file = `Cross: ${sourceFile}/${targetFile}`;
+    }
+    else {
+        file = `File ${selectedFile}`;
+    }
+    return file;
+}
+
 export default class DashboardSummaries extends React.Component {
     render() {
         // TODO: May need to update this when there are multiple agencies
-        let file = '';
-        const selectedFile = this.props.appliedFilters.filters.file;
-        if (selectedFile.substring(0, 5) === 'cross') {
-            const sourceFile = selectedFile.charAt(6);
-            const targetFile = selectedFile.substring(7);
-            file = `Cross: ${sourceFile}/${targetFile}`;
-        }
-        else {
-            file = `File ${selectedFile}`;
-        }
-
+        const file = getFileLabel(this.props.appliedFilters.filters.file);
         const summaries = [];
-        const { results } = this.props;
         let key = 0;
-        results.forEach((result) => {
+        this.props.results.forEach((result) => {
             summaries.push(
                 <DashboardSummary key={key} file={file} agency={result.agency_name} submissions={result.submissions} />
             );

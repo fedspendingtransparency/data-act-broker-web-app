@@ -14,29 +14,34 @@ const propTypes = {
     submissions: PropTypes.array
 };
 
+function getSummaryRows(submissions, file) {
+    const summaryRows = [];
+    let key = 0;
+    if (submissions.length === 0) {
+        summaryRows.push(<DashboardSummaryRow key={key} />);
+    }
+    else {
+        submissions.forEach((submission) => {
+            let period = '';
+            const fy = `${submission.fy}`.substring(2);
+            period = `FY ${fy}, Q${submission.quarter}`;
+            const subid = `${submission.submission_id}`;
+            summaryRows.push(<DashboardSummaryRow
+                key={key}
+                file={file}
+                period={period}
+                subID={subid}
+                submitter={submission.certifier} />
+            );
+            key += 1;
+        });
+    }
+    return summaryRows;
+}
+
 export default class DashboardSummary extends React.Component {
     render() {
-        const summaryRows = [];
-        let key = 0;
-        if (this.props.submissions.length === 0) {
-            summaryRows.push(<DashboardSummaryRow key={key} />);
-        }
-        else {
-            this.props.submissions.forEach((submission) => {
-                let period = '';
-                const fy = `${submission.fy}`.substring(2);
-                period = `FY ${fy}, Q${submission.quarter}`;
-                const subid = `${submission.submission_id}`;
-                summaryRows.push(<DashboardSummaryRow
-                    key={key}
-                    file={this.props.file}
-                    period={period}
-                    subID={subid}
-                    submitter={submission.certifier} />
-                );
-                key += 1;
-            });
-        }
+        const summaryRows = getSummaryRows(this.props.submissions, this.props.file);
 
         return (
             <div>
