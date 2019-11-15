@@ -30,7 +30,7 @@ module.exports = {
                 vendors: false,
                 // all imported code from node_modules is a single file
                 vendor: {
-                    test: /[\\/]node_modules[\\/]/,
+                    exclude: /node_modules\/(?!(data-transparency-ui)\/).*/,
                     name: "vendors",
                     chunks: "all",
                     priority: 20
