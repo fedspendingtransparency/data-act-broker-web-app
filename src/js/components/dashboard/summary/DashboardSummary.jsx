@@ -9,40 +9,42 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import DashboardSummaryRow from './DashboardSummaryRow';
 
 const propTypes = {
-    results: PropTypes.array,
-    appliedFilters: PropTypes.object.isRequired
+    file: PropTypes.string,
+    agency: PropTypes.string,
+    submissions: PropTypes.array,
 };
 
 export default class DashboardSummary extends React.Component {
     render() {
-        // TODO: Pull from filter
-        console.log(this.props.appliedFilters);
-        const agency = 'Department of Justice';
-        const file = 'File B'; // `File ${this.props.appliedFilters.file}`;
-
         const summaryRows = [];
-        const { results } = this.props;
         let key = 0;
-        results.forEach((result) => {
-            const fy = `${result.fy}`.substring(2);
-            const period = `FY ${fy}, Q${result.quarter}`;
-            summaryRows.push(<DashboardSummaryRow
-                key={key}
-                file={file}
-                period={period}
-                subID={result.submission_id}
-                submitter={result.certifier} />
-            );
-            key += 1;
-        });
+        if (this.props.submissions.length == 0) {
+            summaryRows.push(<DashboardSummaryRow key={key} />);
+        }
+        else {
+            this.props.submissions.forEach((submission) => {
+                let period = '';
+                    const fy = `${submission.fy}`.substring(2);
+                    period = `FY ${fy}, Q${submission.quarter}`;
+                const subid = `${submission.submission_id}`;
+                summaryRows.push(<DashboardSummaryRow
+                    key={key}
+                    file={this.props.file}
+                    period={period}
+                    subID={subid}
+                    submitter={submission.certifier} />
+                );
+                key += 1;
+            });
+        }
+        
         return (
             <div>
-                <h3>Submission Information</h3>
                 <div className="dashboard-page__agency">
                     <span className="dashboard-page__agency-icon">
                         <FontAwesomeIcon icon="landmark" />
                     </span>
-                    {agency}
+                    {this.props.agency}
                 </div>
                 <table className="dashboard-page__summary-table">
                     <thead>

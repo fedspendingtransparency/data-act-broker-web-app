@@ -9,15 +9,15 @@ import PropTypes from 'prop-types';
 const propTypes = {
     file: PropTypes.string,
     period: PropTypes.string,
-    subID: PropTypes.number,
+    subID: PropTypes.string,
     submitter: PropTypes.string
 };
 
 const defaultProps = {
-    file: '',
-    period: '',
-    subID: null,
-    submitter: ''
+    file: 'N/A',
+    period: 'N/A',
+    subID: 'N/A',
+    submitter: 'N/A'
 };
 
 export default class DashboardSummaryRow extends React.Component {
