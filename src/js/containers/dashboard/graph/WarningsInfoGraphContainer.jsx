@@ -7,10 +7,8 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { isEqual } from 'lodash';
-import moment from 'moment';
 
 import * as DashboardHelper from 'helpers/dashboardHelper';
-import { convertQuarterToDate } from 'helpers/util';
 import WarningsInfoGraph from 'components/dashboard/graph/WarningsInfoGraph';
 
 const propTypes = {
@@ -81,9 +79,8 @@ export class WarningsInfoGraphContainer extends React.Component {
 
         file.forEach((submission) => {
             const timePeriodLabel = `FY ${submission.fy - 2000} / Q${submission.quarter}`;
-            const endDate = moment(convertQuarterToDate(submission.quarter, submission.fy), 'YYYY-MM-DD');
             groups.push(timePeriodLabel);
-            xSeries.push([endDate.valueOf() / 1000]); // Unix timestamp (seconds)
+            xSeries.push([timePeriodLabel]);
             ySeries.push([submission.total_warnings]);
             yData.push(submission.warnings);
         });
@@ -100,7 +97,9 @@ export class WarningsInfoGraphContainer extends React.Component {
 
     render() {
         return (
-            <WarningsInfoGraph />
+            <WarningsInfoGraph
+                loading={this.state.loading}
+                data={this.state} />
         );
     }
 }
