@@ -1,5 +1,6 @@
 .dashboard-table-pagination {
-    @import "../../../components/tables/_submissionPaginator";
+    @import "../../../sharedComponents/_paginator";
+    @include display(flex);
 
     .table-paginator {
         li {
