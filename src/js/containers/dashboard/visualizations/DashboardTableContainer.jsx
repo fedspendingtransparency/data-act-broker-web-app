@@ -27,10 +27,19 @@ export default class DashboardTableContainer extends React.Component {
         };
 
         this.updateTable = this.updateTable.bind(this);
+        this.changePage = this.changePage.bind(this);
     }
 
     componentDidMount() {
         this.updateTable();
+    }
+
+    changePage(newPage) {
+        this.setState({
+            page: newPage
+        }, () => {
+            this.updateTable();
+        });
     }
 
     updateTable() {
@@ -71,7 +80,8 @@ export default class DashboardTableContainer extends React.Component {
                 <DashboardTablePagination
                     totalPages={this.state.totalPages}
                     currentPage={this.state.page}
-                    pageLimit={this.state.limit} />
+                    pageLimit={this.state.limit}
+                    changePage={this.changePage} />
             </div>
         );
     }

@@ -11,7 +11,8 @@ import TablePaginator from 'components/SharedComponents/table/TablePaginator';
 const propTypes = {
     totalPages: PropTypes.number,
     currentPage: PropTypes.number,
-    pageLimit: PropTypes.number
+    pageLimit: PropTypes.number,
+    changePage: PropTypes.func.isRequired
 };
 
 const defaultProps = {
@@ -21,15 +22,6 @@ const defaultProps = {
 };
 
 export default class DashboardTablePagination extends React.Component {
-    constructor(props) {
-        super(props);
-
-        this.changePage = this.changePage.bind(this);
-    }
-
-    changePage(newPage) {
-        console.log(newPage);
-    }
     render() {
         let paginator;
 
@@ -37,7 +29,7 @@ export default class DashboardTablePagination extends React.Component {
             paginator = (<TablePaginator
                 current={this.props.currentPage}
                 total={this.props.totalPages}
-                changePage={this.changePage} />);
+                changePage={this.props.changePage} />);
         }
         return (
             <div className="dashboard-table-pagination">
