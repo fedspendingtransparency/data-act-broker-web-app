@@ -6,7 +6,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { throttle } from 'lodash';
-// import BarChartStacked from './BarChartStacked';
+import BarChartStacked from './BarChartStacked';
 
 const propTypes = {
     data: PropTypes.object,
@@ -48,10 +48,10 @@ export default class WarningsInfoGraph extends React.Component {
 
     render() {
         const chart = this.props.loading ? (<p>Loading...</p>) : (
-            <div>
-                {JSON.stringify(this.props.data)}
-                {`Width: ${this.state.visualizationWidth}`}
-            </div>
+            <BarChartStacked
+                width={this.state.visualizationWidth}
+                height={540}
+                data={this.props.data} />
         );
         return (
             <div className="dashboard-viz warnings-info">

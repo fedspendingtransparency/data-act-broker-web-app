@@ -37,6 +37,7 @@
             }
             @import "./chooseFilters";
             @import './dashboardViz';
+            @import './graph/warningsInfoGraph';
         }
         @media(max-width: $small-screen) {
             display: block;

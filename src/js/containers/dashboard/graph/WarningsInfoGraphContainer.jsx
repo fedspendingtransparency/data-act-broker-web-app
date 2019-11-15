@@ -24,7 +24,8 @@ export class WarningsInfoGraphContainer extends React.Component {
             error: false,
             groups: [],
             xSeries: [],
-            ySeries: []
+            ySeries: [],
+            allY: []
         };
     }
 
@@ -60,7 +61,7 @@ export class WarningsInfoGraphContainer extends React.Component {
                 this.parseData(res);
             })
             .catch((err) => {
-                console.log(err);
+                console.error(err);
                 this.setState({
                     loading: false,
                     error: true
@@ -73,6 +74,7 @@ export class WarningsInfoGraphContainer extends React.Component {
         const xSeries = []; // Fiscal Quarter values
         const ySeries = []; // Total Warnings values
         const yData = []; // Warnings by Rule
+        const allY = [];
 
         // For now, only one file at a time
         const file = data[this.props.appliedFilters.file];
@@ -80,9 +82,10 @@ export class WarningsInfoGraphContainer extends React.Component {
         file.forEach((submission) => {
             const timePeriodLabel = `FY ${submission.fy - 2000} / Q${submission.quarter}`;
             groups.push(timePeriodLabel);
-            xSeries.push([timePeriodLabel]);
+            xSeries.push(timePeriodLabel);
             ySeries.push([submission.total_warnings]);
             yData.push(submission.warnings);
+            allY.push(submission.total_warnings);
         });
 
         this.setState({
@@ -90,6 +93,7 @@ export class WarningsInfoGraphContainer extends React.Component {
             xSeries,
             ySeries,
             yData,
+            allY,
             loading: false,
             error: false
         });
