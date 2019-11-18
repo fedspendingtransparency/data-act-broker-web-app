@@ -9,6 +9,7 @@ import { scaleLinear, scaleBand } from 'd3-scale';
 import { min, max } from 'lodash';
 
 import BarChartXAxis from './BarChartXAxis';
+import BarChartYAxis from './BarChartYAxis';
 
 /* eslint-disable react/no-unused-prop-types */
 // allow unused prop types. they are indirectly accessed as nextProps
@@ -26,7 +27,7 @@ const propTypes = {
 
 const defaultProps = {
     padding: {
-        left: 50,
+        left: 70,
         bottom: 50
     }
 };
@@ -95,14 +96,14 @@ export default class BarChartStacked extends React.Component {
             .clamp(true);
 
         // now we need to build the X and Y axes
-        // const yAxis = this.buildVirtualYAxis(values);
+        const yAxis = this.buildVirtualYAxis(values);
         const xAxis = this.buildVirtualXAxis(values);
 
         // now build the chart body
         // const body = this.buildVirtualBody(values);
 
         const chart = {
-            // yAxis,
+            yAxis,
             xAxis
             // body
         };
@@ -340,6 +341,10 @@ ${xAxis.items[0].label} to ${xAxis.items[xAxis.items.length - 1].label}.`;
                     className="bar-graph"
                     width={this.props.width}
                     height={this.props.height + 20}>
+                    <BarChartYAxis
+                        {...this.state.virtualChart.yAxis}
+                        x={this.state.virtualChart.yAxis.group.x}
+                        y={this.state.virtualChart.yAxis.group.y} />
                     <BarChartXAxis
                         {...this.state.virtualChart.xAxis} />
                 </svg>
