@@ -133,8 +133,16 @@ export default class BarChartStacked extends React.Component {
         // generate the tick marks
         const tickPoints = values.yScale.ticks(10);
 
+        // Find the distance (in px) between tick marks
+        let height = 540;
+        if (tickPoints.length > 1) {
+            const y1 = values.yScale(tickPoints[0]);
+            const y2 = values.yScale(tickPoints[1]);
+            height = Math.abs(y2 - y1);
+        }
+
         // create ticks and grid lines at each point
-        tickPoints.forEach((y) => {
+        tickPoints.forEach((y, index) => {
             // create the label
             const labelText = y;
 
@@ -153,7 +161,10 @@ export default class BarChartStacked extends React.Component {
                 x2: values.graphWidth,
                 y1: 0,
                 y2: 0,
-                value: y
+                height,
+                width: values.graphWidth,
+                value: y,
+                even: !!(index % 2 === 0)
             };
 
             const item = {

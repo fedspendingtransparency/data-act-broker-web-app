@@ -22,12 +22,19 @@ const BarChartYAxisItem = (props) => (
             textAnchor="end">
             {props.label.text}
         </text>
-        <line
-            className="grid-line"
-            x1={props.gridLine.x1}
-            x2={props.gridLine.x2}
-            y1={props.gridLine.y1}
-            y2={props.gridLine.y2} />
+        <g className="grid-line">
+            <line
+                className="grid-line__line"
+                x1={props.gridLine.x1 + 1}
+                x2={props.gridLine.x2}
+                y1={props.gridLine.y1}
+                y2={props.gridLine.y2} />
+            <rect
+                className={`grid-line__row${props.gridLine.even ? ' grid-line__row_even' : ''}`}
+                transform={`translate(1, -${props.gridLine.height})`}
+                width={props.gridLine.width - 1}
+                height={props.gridLine.height - 1} />
+        </g>
     </g>
 );
 
