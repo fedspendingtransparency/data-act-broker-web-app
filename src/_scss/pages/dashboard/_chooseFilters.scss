@@ -12,6 +12,15 @@
         text-align: center;
         color: $color-gray;
 
+        @media(max-width:$medium-screen) {
+            margin: rem(30);
+        }
+
+        @media(max-width:$small-screen) {
+            margin: 0;
+            padding: rem(225) rem(5);
+        }
+
         .dashboard-choose-filters__arrow {
             font-size: rem(46);
         }

@@ -41,5 +41,16 @@
                 @import "./visualizations/dashboardPagination";
             }
         }
+        @media(max-width: $small-screen) {
+            display: block;
+            .dashboard-page__filters {
+                width: 100%;
+                margin-right: 0;
+            }
+            .dashboard-page__content {
+                margin-left: 0;
+                margin-top: rem(15);
+            }
+        }
     }
 }

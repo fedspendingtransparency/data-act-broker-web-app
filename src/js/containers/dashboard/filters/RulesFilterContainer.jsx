@@ -41,7 +41,7 @@ export class RulesFilterContainer extends React.Component {
 
     componentDidUpdate(prevProps) {
         // Make an API call for the corresponding rule labels when the selected file changes
-        if (prevProps.selectedFilters.file !== this.props.selectedFilters.file) {
+        if (prevProps.selectedFilters.file !== this.props.selectedFilters.file && this.props.selectedFilters.file) {
             this.fetchAutocompleteResults();
             this.props.clearGenericFilter('rules');
         }
