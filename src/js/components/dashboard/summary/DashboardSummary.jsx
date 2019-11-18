@@ -17,11 +17,11 @@ const propTypes = {
 function getSummaryRows(submissions, file) {
     let summaryRows = [];
     if (submissions.length === 0) {
-        summaryRows.push(<DashboardSummaryRow key={`dashboard-summary-row-na}`} />);
+        summaryRows.push(<DashboardSummaryRow key="not-applicable-summary" />);
     }
     else {
         summaryRows = submissions.map(submission => <DashboardSummaryRow
-            key={`dashboard-summary-row-${submission.submission_id.toString(10)}`}
+            key={submission.submission_id}
             file={file}
             period={`FY ${submission.fy.toString(10).substring(2)}, Q${submission.quarter}`}
             subID={submission.submission_id.toString(10)}

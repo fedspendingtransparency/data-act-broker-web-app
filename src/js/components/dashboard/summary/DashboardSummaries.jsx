@@ -30,12 +30,10 @@ export default class DashboardSummaries extends React.Component {
         // TODO: May need to update this when there are multiple agencies
         const file = getFileLabel(this.props.appliedFilters.filters.file);
         const summaries = [];
-        let key = 0;
         this.props.results.forEach((result) => {
             summaries.push(
-                <DashboardSummary key={key} file={file} agency={result.agency_name} submissions={result.submissions} />
+                <DashboardSummary key={result.agency_name} file={file} agency={result.agency_name} submissions={result.submissions} />
             );
-            key += 1;
         });
 
         return (
