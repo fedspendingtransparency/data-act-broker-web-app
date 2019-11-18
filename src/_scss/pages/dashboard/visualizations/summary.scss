@@ -8,13 +8,14 @@
 }
 .dashboard-page__summary-table {
     font-size: rem(14);
-    width: rem(638);
+    width: rem(648);
     
     .dashboard-page__summary-table-row {
         margin: 0 rem(16) 0;
         padding: rem(10) rem(30) rem(10);
         line-height: rem(32);
         border: solid rem(1) $color-gray-lightest;
+        width:100%;
     }
     svg {
         @include display(flex);
