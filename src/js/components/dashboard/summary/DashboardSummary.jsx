@@ -15,26 +15,18 @@ const propTypes = {
 };
 
 function getSummaryRows(submissions, file) {
-    const summaryRows = [];
-    let key = 0;
+    let summaryRows = [];
     if (submissions.length === 0) {
         summaryRows.push(<DashboardSummaryRow key={key} />);
     }
     else {
-        submissions.forEach((submission) => {
-            let period = '';
-            const fy = `${submission.fy}`.substring(2);
-            period = `FY ${fy}, Q${submission.quarter}`;
-            const subid = `${submission.submission_id}`;
-            summaryRows.push(<DashboardSummaryRow
-                key={key}
-                file={file}
-                period={period}
-                subID={subid}
-                submitter={submission.certifier} />
-            );
-            key += 1;
-        });
+        summaryRows = submissions.map(submission => <DashboardSummaryRow
+            key={`dashboard-summary-row-${submission.submission_id.toString(10)}`}
+            file={file}
+            period={`FY ${submission.fy.toString(10).substring(2)}, Q${submission.quarter}`}
+            subID={submission.submission_id.toString(10)}
+            submitter={submission.certifier} />
+        );
     }
     return summaryRows;
 }
