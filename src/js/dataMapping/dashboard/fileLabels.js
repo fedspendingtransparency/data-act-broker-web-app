@@ -9,3 +9,4 @@ export const fileLabels = {
     'cross-CD1': 'Cross: C/D1',
     'cross-CD2': 'Cross: C/D2'
 };
+/* eslint-enable import/prefer-default-export */
