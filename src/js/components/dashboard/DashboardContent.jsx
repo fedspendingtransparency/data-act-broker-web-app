@@ -4,22 +4,16 @@
  */
 
 import React from 'react';
-import PropTypes from 'prop-types';
 import DashboardSummaryContainer from 'containers/dashboard/DashboardSummaryContainer';
 
-const propTypes = {
-    appliedFilters: PropTypes.object.isRequired
-};
-
-const DashboardContent = (props) => (
+const DashboardContent = () => (
     <div>
         <h2>Historical Data Summary</h2>
         <hr />
         <div className="dashboard-page__visualizations">
-            <DashboardSummaryContainer appliedFilters={props.appliedFilters} />
+            <DashboardSummaryContainer />
         </div>
     </div>
 );
 
-DashboardContent.propTypes = propTypes;
 export default DashboardContent;
