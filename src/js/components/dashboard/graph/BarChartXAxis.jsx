@@ -26,12 +26,10 @@ export default class BarChartXAxis extends React.Component {
         ));
 
         return (
-            <g
-                className="bar-axis">
+            <g className="bar-axis">
                 <title>{this.props.title}</title>
                 <desc>{this.props.description}</desc>
-                <g
-                    transform={`translate(${this.props.lineGroup.x}, ${this.props.lineGroup.y})`}>
+                <g transform={`translate(${this.props.lineGroup.x}, ${this.props.lineGroup.y})`}>
                     <line
                         className="x-axis"
                         x1={this.props.line.x1}

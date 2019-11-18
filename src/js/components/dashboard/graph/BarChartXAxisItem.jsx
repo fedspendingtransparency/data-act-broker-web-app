@@ -16,8 +16,7 @@ const BarChartXAxisItem = (props) => (
     <g
         className="axis-item x-axis"
         transform={`translate(${props.x},${props.y})`}>
-        <text
-            textAnchor="middle">
+        <text textAnchor="middle">
             {props.label}
         </text>
     </g>
