@@ -185,7 +185,7 @@ ${yAxis.items[0].label.text} to ${yAxis.items[yAxis.items.length - 1].label.text
             },
             labelGroup: {
                 x: values.padding.left,
-                y: values.graphHeight + 15
+                y: values.graphHeight + 27
             },
             title: 'X-Axis'
         };
