@@ -137,9 +137,7 @@ export default class CrossFileOverlay extends React.Component {
             overlay.hideButtons = true;
             overlay.detail = (
                 <div>
-                    You can return to this page at any time to check the validation status by using this link:
-                    <br />
-                    <a href={window.location.href}>{window.location.href}</a>
+                    You can return to this URL at any time to check the validation status.
                 </div>
             );
         }

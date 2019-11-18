@@ -38,6 +38,18 @@ describe('FyFilterContainer', () => {
 
         expect(generateAllFy).toHaveBeenCalled();
     });
+    it('should call removeDisabledSelections when the selected quarters change', () => {
+        const container = shallow(<FyFilterContainer
+            {...mockActions}
+            {...mockRedux} />
+        );
+        const removeDisabledSelections = jest.fn();
+        container.instance().removeDisabledSelections = removeDisabledSelections;
+
+        container.instance().componentDidUpdate({ selectedFilters: { quarters: [3, 4] } });
+
+        expect(removeDisabledSelections).toHaveBeenCalled();
+    });
     describe('pickedFy', () => {
         it('should call the updateGenericFilter action', () => {
             const container = shallow(<FyFilterContainer
@@ -85,6 +97,54 @@ describe('FyFilterContainer', () => {
             container.instance().generateAllFy();
             // Check element at index 0 for 2020
             expect(container.instance().state.allFy[0].disabled).toBeTruthy();
+        });
+    });
+    describe('removeDisabledSelections', () => {
+        it('should remove FY 2017 if Q1 is the only quarter selected', () => {
+            const container = shallow(<FyFilterContainer
+                {...mockActions}
+                {...mockRedux} />
+            );
+            const pickedFy = jest.fn();
+            container.instance().pickedFy = pickedFy;
+            
+            // Set the props to FY 2017 and Q1
+            const newProps = { ...container.instance().props };
+            const quarters = newProps.selectedFilters.quarters.delete(4);
+            newProps.selectedFilters.quarters = quarters.add(1);
+            newProps.selectedFilters.fy = newProps.selectedFilters.fy.add(2017);
+            container.setProps({ ...newProps });
+
+            expect(container.instance().props.selectedFilters.fy.toArray()).toEqual([2017]);
+            expect(container.instance().props.selectedFilters.quarters.toArray()).toEqual([1]);
+            container.instance().removeDisabledSelections();
+            expect(pickedFy).toHaveBeenCalledWith(2017);
+        });
+        it('should remove the current FY if only future quarters are selected', () => {
+            const container = shallow(<FyFilterContainer
+                {...mockActions}
+                {...mockRedux} />
+            );
+            const pickedFy = jest.fn();
+            container.instance().pickedFy = pickedFy;
+            // Mock the latest FY and quarter
+            container.instance().setState({
+                latestYear: 2020,
+                latestQuarter: 1
+            });
+
+            // Set the props to FY 2020 and Q4
+            const newProps = { ...container.instance().props };
+            const quarters = newProps.selectedFilters.quarters.delete(1);
+            newProps.selectedFilters.quarters = quarters.add(4);
+            const fy = newProps.selectedFilters.fy.delete(2017);
+            newProps.selectedFilters.fy = fy.add(2020);
+            container.setProps({ ...newProps });
+
+            expect(container.instance().props.selectedFilters.fy.toArray()).toEqual([2020]);
+            expect(container.instance().props.selectedFilters.quarters.toArray()).toEqual([4]);
+            container.instance().removeDisabledSelections();
+            expect(pickedFy).toHaveBeenCalledWith(2020);
         });
     });
 });

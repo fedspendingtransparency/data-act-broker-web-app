@@ -16,7 +16,6 @@ import Typeahead from '../../components/SharedComponents/Typeahead';
 const propTypes = {
     setAgencyList: PropTypes.func,
     agencyList: PropTypes.object,
-    detached: PropTypes.bool,
     selectedFilters: PropTypes.object,
     type: PropTypes.string,
     table: PropTypes.string,
@@ -27,7 +26,6 @@ const propTypes = {
 const defaultProps = {
     setAgencyList: () => {},
     agencyList: {},
-    detached: true,
     selectedFilters: [],
     table: '',
     type: '',
@@ -41,27 +39,14 @@ class AgencyFilterContainer extends React.Component {
     }
 
     loadData() {
-        if (this.props.agencyList.agencies.length === 0) {
-            // we need to populate the list
-            if (this.props.detached) {
-                AgencyHelper.fetchAllAgencies()
-                    .then((agencies) => {
-                        this.props.setAgencyList(agencies);
-                    })
-                    .catch((err) => {
-                        console.error(err);
-                    });
-            }
-            else {
-                AgencyHelper.fetchAgencies()
-                    .then((agencies) => {
-                        this.props.setAgencyList(agencies);
-                    })
-                    .catch((err) => {
-                        console.error(err);
-                    });
-            }
-        }
+        // we need to populate the list
+        AgencyHelper.fetchAgencies()
+            .then((agencies) => {
+                this.props.setAgencyList(agencies);
+            })
+            .catch((err) => {
+                console.error(err);
+            });
     }
 
     dataFormatter(item) {

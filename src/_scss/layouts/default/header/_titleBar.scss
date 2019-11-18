@@ -10,4 +10,10 @@
 	& .display-1, .display-2, h1, h2, h3, h4, h5, h6, ul{
 		color: $color-white;
 	}
+
+	.usa-da-page-title {
+		* {
+			padding-left: 0;
+		}
+	}
 }

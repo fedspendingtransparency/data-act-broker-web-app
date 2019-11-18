@@ -11,7 +11,8 @@ const propTypes = {
     saveSelectedYear: PropTypes.func,
     checked: PropTypes.bool,
     saveAllYears: PropTypes.func,
-    disabled: PropTypes.bool
+    disabled: PropTypes.bool,
+    toggleTooltip: PropTypes.func
 };
 
 const defaultProps = {
@@ -24,6 +25,18 @@ export default class FiscalYear extends React.Component {
 
         this.allYears = this.allYears.bind(this);
         this.saveYear = this.saveYear.bind(this);
+        this.onMouseLeave = this.onMouseLeave.bind(this);
+        this.onMouseEnter = this.onMouseEnter.bind(this);
+    }
+
+    onMouseEnter() {
+        if (this.props.disabled) {
+            this.props.toggleTooltip(this.props.year);
+        }
+    }
+
+    onMouseLeave() {
+        this.props.toggleTooltip('');
     }
 
     saveYear() {
@@ -49,7 +62,8 @@ export default class FiscalYear extends React.Component {
                             id={`fy${this.props.year}`}
                             value="All Fiscal Years"
                             checked={this.props.checked}
-                            onChange={this.allYears} />
+                            onChange={this.allYears}
+                            disabled={this.props.disabled} />
                         <span className="fy-option__label">
                             All Fiscal Years
                         </span>
@@ -59,7 +73,10 @@ export default class FiscalYear extends React.Component {
         }
         else {
             yearOption = (
-                <li className="fy-option">
+                <li
+                    className="fy-option"
+                    onMouseEnter={this.onMouseEnter}
+                    onMouseLeave={this.onMouseLeave}>
                     <label
                         className="fy-option__wrapper"
                         htmlFor={`fy${this.props.year}`}>
@@ -68,7 +85,7 @@ export default class FiscalYear extends React.Component {
                             className="fy-option__checkbox"
                             id={`fy${this.props.year}`}
                             value={`FY ${this.props.year}`}
-                            checked={this.props.checked}
+                            checked={!this.props.disabled && this.props.checked}
                             onChange={this.saveYear}
                             disabled={this.props.disabled} />
                         <span className="fy-option__label">
