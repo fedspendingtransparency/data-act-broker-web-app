@@ -12,19 +12,19 @@ const propTypes = {
     pageLimit: PropTypes.number,
     limitList: PropTypes.array
 };
- 
+
 const defaultProps = {
     pageLimit: 10,
     limitList: [10, 25, 50, 100]
 };
- 
+
 export default class TableLimit extends React.Component {
     constructor(props) {
         super(props);
 
         this.state = {
             displayDropdown: false
-        }
+        };
 
         this.setVisibility = this.setVisibility.bind(this);
         this.hideDropdown = this.hideDropdown.bind(this);
@@ -58,7 +58,12 @@ export default class TableLimit extends React.Component {
     }
 
     changeLimit(e) {
-        this.props.changeLimit(parseInt(e.target.dataset.id, 10));
+        const targetId = parseInt(e.target.dataset.id, 10);
+        this.setState({
+            displayDropdown: false
+        }, () => {
+            this.props.changeLimit(targetId);
+        });
     }
 
     render() {
@@ -67,28 +72,30 @@ export default class TableLimit extends React.Component {
             dropdownClass += ' hidden';
         }
 
-        const limitList = this.props.limitList.map((limit, index) =>
-            {
-                if (this.props.pageLimit !== limit) {
-                    return (<li
-                                key={index}
-                                className="list-item">
-                                <button
-                                    data-id={limit}
-                                    onClick={this.changeLimit}>
-                                    {limit}
-                                </button>
-                            </li>);
-                }
-            });
+        const limitList = this.props.limitList.map((limit) => {
+            if (this.props.pageLimit !== limit) {
+                return (
+                    <li
+                        key={`limit-${limit}`}
+                        className="list-item">
+                        <button
+                            data-id={limit}
+                            onClick={this.changeLimit}>
+                            {limit}
+                        </button>
+                    </li>);
+            }
+            return null;
+        });
         return (
             <div
                 ref={(s) => {
                     this.selector = s;
                 }}
-                className="table-limit-selector"
-                onClick={this.setVisibility}>
-                <button className="table-limit-selector__main">
+                className="table-limit-selector">
+                <button
+                    className="table-limit-selector__main"
+                    onClick={this.setVisibility}>
                     {this.props.pageLimit}
                     <FontAwesomeIcon icon="chevron-down" />
                 </button>
@@ -99,7 +106,6 @@ export default class TableLimit extends React.Component {
         );
     }
 }
- 
+
 TableLimit.propTypes = propTypes;
 TableLimit.defaultProps = defaultProps;
- 

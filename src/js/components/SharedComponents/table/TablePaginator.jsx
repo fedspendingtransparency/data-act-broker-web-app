@@ -5,10 +5,10 @@
 
 import React from 'react';
 import PropTypes from 'prop-types';
-import _ from 'lodash';
+import { isEqual } from 'lodash';
 
-import TablePaginatorItem from './TablePaginatorItem';
 import TablePaginatorArrow from 'components/SharedComponents/table/TablePaginatorArrow';
+import TablePaginatorItem from './TablePaginatorItem';
 
 const propTypes = {
     changePage: PropTypes.func,
@@ -36,7 +36,7 @@ export default class TablePaginator extends React.Component {
     }
 
     componentDidUpdate(prevProps) {
-        if (!_.isEqual(prevProps, this.props)) {
+        if (!isEqual(prevProps, this.props)) {
             this.generatePages();
         }
     }

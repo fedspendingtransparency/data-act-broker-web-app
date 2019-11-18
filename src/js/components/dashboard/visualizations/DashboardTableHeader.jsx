@@ -6,6 +6,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { uniqueId } from 'lodash';
 
 const propTypes = {
     headers: PropTypes.array
@@ -19,27 +20,27 @@ export default class DashboardTableHeader extends React.Component {
     constructor(props) {
         super(props);
 
-        this.test = this.test.bind(this);
-        this.test2 = this.test2.bind(this);
+        this.sortAsc = this.sortAsc.bind(this);
+        this.sortDesc = this.sortDesc.bind(this);
     }
-    test() {
-        console.log('this');
+    sortAsc() {
+        // TODO: return an ascending sort
     }
-    test2(){
-        console.log('that');
+    sortDesc() {
+        // TODO: return a descending sort
     }
     render() {
-        const tableHeaders = this.props.headers.map((header, index) => (
-            <th key={'dashboard-table-header-' + index} className={header.class}>
+        const tableHeaders = this.props.headers.map((header) => (
+            <th key={`dashboard-table-header-${uniqueId()}`} className={header.class}>
                 <div className="dashboard-table__header-wrapper">
                     <div className="dashboard-table__header-text">
                         {header.text}
                     </div>
                     <div className="dashboard-table__sort-icons">
-                        <button onClick={this.test}>
+                        <button onClick={this.sortAsc}>
                             <FontAwesomeIcon size="2x" icon="caret-up" />
                         </button>
-                        <button onClick={this.test2}>
+                        <button onClick={this.sortDesc}>
                             <FontAwesomeIcon size="2x" icon="caret-down" />
                         </button>
                     </div>

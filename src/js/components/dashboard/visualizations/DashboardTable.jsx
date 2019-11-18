@@ -5,7 +5,7 @@
 
 import React from 'react';
 import PropTypes from 'prop-types';
-import _ from 'lodash';
+import { isEqual, uniqueId } from 'lodash';
 
 import DashboardTableHeader from 'components/dashboard/visualizations/DashboardTableHeader';
 import DashboardTableRow from 'components/dashboard/visualizations/DashboardTableRow';
@@ -57,7 +57,7 @@ export default class DashboardTable extends React.Component {
     }
 
     componentDidUpdate(prevProps) {
-        if (!_.isEqual(prevProps.results, this.props.results)) {
+        if (!isEqual(prevProps.results, this.props.results)) {
             this.buildRows();
         }
     }
@@ -79,10 +79,10 @@ export default class DashboardTable extends React.Component {
         if (item.files.length > 1) {
             const fileLabels = item.files.map((itemFile) => itemFile.type);
             fileLabels.sort();
-            file = 'CROSS FILE: ' + fileLabels.join('/');
+            file = `CROSS FILE: ${fileLabels.join('/')}`;
         }
         else {
-            file = 'FILE ' + item.files[0].type;
+            file = `FILE ${item.files[0].type}`;
         }
         row.push({
             data: file,
@@ -109,7 +109,7 @@ export default class DashboardTable extends React.Component {
 
     render() {
         const tableRows = this.state.parsedData.map((row, index) => (
-            <DashboardTableRow key={'dashboard-table-row-' + index} cells={row} />
+            <DashboardTableRow key={`dashboard-table-row-${uniqueId()}`} cells={row} rowNum={index} />
         ));
         return (
             <div className="dashboard-table">

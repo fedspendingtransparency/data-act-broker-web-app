@@ -6,18 +6,22 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
+import { uniqueId } from 'lodash';
+
 const propTypes = {
-    cells: PropTypes.array
+    cells: PropTypes.array,
+    rowNum: PropTypes.number
 };
 
 const defaultProps = {
-    cells: []
+    cells: [],
+    rowNum: 0
 };
 
 export default class DashboardTableRow extends React.Component {
     render() {
-        const tableCells = this.props.cells.map((cell, index) => (
-            <td key={'dashboard-table-cell-' + index}>
+        const tableCells = this.props.cells.map((cell) => (
+            <td key={`dashboard-table-row-${this.props.rowNum}-cell-${uniqueId()}`}>
                 <div className={cell.class}>
                     {cell.data}
                 </div>

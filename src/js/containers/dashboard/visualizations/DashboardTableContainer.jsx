@@ -5,7 +5,7 @@
 
 import React from 'react';
 import PropTypes from 'prop-types';
-import _ from 'lodash';
+import { isEqual } from 'lodash';
 
 import * as DashboardHelper from 'helpers/dashboardHelper';
 import DashboardTable from 'components/dashboard/visualizations/DashboardTable';
@@ -37,7 +37,7 @@ export default class DashboardTableContainer extends React.Component {
     }
 
     componentDidUpdate(prevProps) {
-        if (!_.isEqual(this.props.appliedFilters.filters, prevProps.appliedFilters.filters)) {
+        if (!isEqual(this.props.appliedFilters, prevProps.appliedFilters)) {
             this.changePage(1);
         }
     }
