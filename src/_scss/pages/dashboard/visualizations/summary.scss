@@ -16,27 +16,32 @@
         line-height: rem(32);
         border: solid rem(1) $color-gray-lightest;
         width:100%;
+
+        .dashboard-page__summary-table-row-header {
+            @include display(flex);
+            padding-left: rem(17);
+            
+            svg {
+                margin: auto rem(10);
+                font-size: rem(18);
+            }
+        }
+
+        td {
+            padding-left: rem(52);
+        }
+        
     }
-    svg {
-        @include display(flex);
-        @include justify-content(flex-end);
-        margin-left:auto;
-        margin-right:rem(12);
-        font-size: rem(18);
+    .row-20 {
+        width: 20%;
     }
-    .row-8 {
-        width: 8%;
+    .row-24 {
+        width: 24%;
     }
-    .row-12 {
-        width: 12%;
+    .row-25 {
+        width: 25%;
     }
-    .row-16 {
-        width: 16%;
-    }
-    .row-17 {
-        width: 17%;
-    }
-    .row-23 {
-        width: 23%;
+    .row-31 {
+        width: 31%;
     }
 }

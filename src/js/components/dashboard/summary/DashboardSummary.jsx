@@ -47,14 +47,10 @@ export default class DashboardSummary extends React.Component {
                     <table className="dashboard-page__summary-table">
                         <thead>
                             <tr className="dashboard-page__summary-table-row">
-                                <th className="row-8" scope="col"><FontAwesomeIcon icon="file-alt" /></th>
-                                <th className="row-12" scope="col">FILE(S)</th>
-                                <th className="row-8" scope="col"><FontAwesomeIcon icon="calendar-alt" /></th>
-                                <th className="row-16" scope="col">TIME PERIOD</th>
-                                <th className="row-8" scope="col"><FontAwesomeIcon icon="file-upload" /></th>
-                                <th className="row-17" scope="col">SUBMISSION ID</th>
-                                <th className="row-8" scope="col"><FontAwesomeIcon icon="user" /></th>
-                                <th className="row-23" scope="col">SUBMITTED BY</th>
+                                <th className="row-20" scope="col"><div className="dashboard-page__summary-table-row-header"><FontAwesomeIcon icon="file-alt" />FILE(S)</div></th>
+                                <th className="row-24" scope="col"><div className="dashboard-page__summary-table-row-header"><FontAwesomeIcon icon="calendar-alt" />TIME PERIOD</div></th>
+                                <th className="row-25" scope="col"><div className="dashboard-page__summary-table-row-header"><FontAwesomeIcon icon="file-upload" />SUBMISSION ID</div></th>
+                                <th className="row-31" scope="col"><div className="dashboard-page__summary-table-row-header"><FontAwesomeIcon icon="user" />SUBMITTED BY</div></th>
                             </tr>
                         </thead>
                         <tbody>
