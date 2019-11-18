@@ -6,29 +6,17 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import DashboardSummary from './DashboardSummary';
+import { fileLabels } from 'dataMapping/dashboard/fileLabels';
 
 const propTypes = {
     appliedFilters: PropTypes.object.isRequired,
     results: PropTypes.array
 };
 
-function getFileLabel(selectedFile) {
-    let file = '';
-    if (selectedFile.substring(0, 5) === 'cross') {
-        const sourceFile = selectedFile.charAt(6);
-        const targetFile = selectedFile.substring(7);
-        file = `Cross: ${sourceFile}/${targetFile}`;
-    }
-    else {
-        file = `File ${selectedFile}`;
-    }
-    return file;
-}
-
 export default class DashboardSummaries extends React.Component {
     render() {
         // TODO: May need to update this when there are multiple agencies
-        const file = getFileLabel(this.props.appliedFilters.filters.file);
+        const file = fileLabels[this.props.appliedFilters.filters.file];
         const summaries = [];
         this.props.results.forEach((result) => {
             summaries.push(
