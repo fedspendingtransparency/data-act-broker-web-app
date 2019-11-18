@@ -20,13 +20,13 @@ function getSummaryRows(submissions, file) {
         summaryRows.push(<DashboardSummaryRow key="not-applicable-summary" />);
     }
     else {
-        summaryRows = submissions.map(submission => <DashboardSummaryRow
+        summaryRows = submissions.map((submission) => (<DashboardSummaryRow
             key={submission.submission_id}
             file={file}
             period={`FY ${submission.fy.toString(10).substring(2)}, Q${submission.quarter}`}
             subID={submission.submission_id.toString(10)}
             submitter={submission.certifier} />
-        );
+        ));
     }
     return summaryRows;
 }
@@ -47,10 +47,30 @@ export default class DashboardSummary extends React.Component {
                     <table className="dashboard-page__summary-table">
                         <thead>
                             <tr className="dashboard-page__summary-table-row">
-                                <th className="row-20" scope="col"><div className="dashboard-page__summary-table-row-header"><FontAwesomeIcon icon="file-alt" />FILE(S)</div></th>
-                                <th className="row-24" scope="col"><div className="dashboard-page__summary-table-row-header"><FontAwesomeIcon icon="calendar-alt" />TIME PERIOD</div></th>
-                                <th className="row-25" scope="col"><div className="dashboard-page__summary-table-row-header"><FontAwesomeIcon icon="file-upload" />SUBMISSION ID</div></th>
-                                <th className="row-31" scope="col"><div className="dashboard-page__summary-table-row-header"><FontAwesomeIcon icon="user" />SUBMITTED BY</div></th>
+                                <th className="row-20" scope="col">
+                                    <div className="dashboard-page__summary-table-row-header">
+                                        <FontAwesomeIcon icon="file-alt" />
+                                        FILE(S)
+                                    </div>
+                                </th>
+                                <th className="row-24" scope="col">
+                                    <div className="dashboard-page__summary-table-row-header">
+                                        <FontAwesomeIcon icon="calendar-alt" />
+                                        TIME PERIOD
+                                    </div>
+                                </th>
+                                <th className="row-25" scope="col">
+                                    <div className="dashboard-page__summary-table-row-header">
+                                        <FontAwesomeIcon icon="file-upload" />
+                                        SUBMISSION ID
+                                    </div>
+                                </th>
+                                <th className="row-31" scope="col">
+                                    <div className="dashboard-page__summary-table-row-header">
+                                        <FontAwesomeIcon icon="user" />
+                                        SUBMITTED BY
+                                    </div>
+                                </th>
                             </tr>
                         </thead>
                         <tbody>

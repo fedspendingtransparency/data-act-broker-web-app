@@ -5,8 +5,8 @@
 
 import React from 'react';
 import PropTypes from 'prop-types';
-import DashboardSummary from './DashboardSummary';
 import { fileLabels } from 'dataMapping/dashboard/fileLabels';
+import DashboardSummary from './DashboardSummary';
 
 const propTypes = {
     appliedFilters: PropTypes.object.isRequired,
@@ -20,7 +20,11 @@ export default class DashboardSummaries extends React.Component {
         const summaries = [];
         this.props.results.forEach((result) => {
             summaries.push(
-                <DashboardSummary key={result.agency_name} file={file} agency={result.agency_name} submissions={result.submissions} />
+                <DashboardSummary
+                    key={result.agency_name}
+                    file={file}
+                    agency={result.agency_name}
+                    submissions={result.submissions} />
             );
         });
 

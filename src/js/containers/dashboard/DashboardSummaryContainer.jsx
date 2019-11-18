@@ -4,9 +4,14 @@
  */
 
 import React from 'react';
+import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import * as DashboardHelper from 'helpers/dashboardHelper';
 import DashboardSummaries from 'components/dashboard/summary/DashboardSummaries';
+
+const propTypes = {
+    appliedFilters: PropTypes.object.isRequired
+};
 
 class DashboardSummaryContainer extends React.Component {
     constructor(props) {
@@ -53,6 +58,8 @@ class DashboardSummaryContainer extends React.Component {
         return <DashboardSummaries appliedFilters={this.props.appliedFilters} results={this.state.results} />;
     }
 }
+
+DashboardSummaryContainer.propTypes = propTypes;
 
 export default connect(
     (state) => ({
