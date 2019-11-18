@@ -8,7 +8,8 @@ import {
     faTimes,
     faCaretUp,
     faCaretDown,
-    faEllipsisH
+    faEllipsisH,
+    faChevronDown
 } from "@fortawesome/free-solid-svg-icons";
 import AppContainer from './containers/AppContainer';
 
@@ -19,7 +20,8 @@ library.add(
     faTimes,
     faCaretUp,
     faCaretDown,
-    faEllipsisH
+    faEllipsisH,
+    faChevronDown
 );
 
 require("core-js");

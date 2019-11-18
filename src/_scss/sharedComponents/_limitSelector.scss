@@ -1,0 +1,47 @@
+.table-limit-selector {
+    margin-left: rem(30);
+    cursor: pointer;
+
+    .table-limit-selector__main {
+        height: rem(26);
+        width: rem(60);
+        border: 1px solid $color-gray-lighter;
+        padding: rem(5);
+        line-height: 1em;
+        text-align: left;
+
+        svg {
+            float: right;
+            margin-right: rem(5);
+        }
+    }
+
+    ul.table-limit-selector__dropdown {
+        @include unstyled-list;
+        width: rem(60);
+        border: 1px solid $color-gray-lighter;
+        margin-top: rem(-1);
+        margin-bottom: rem(30);
+
+        &.hidden {
+            display: none;
+        }
+
+        .list-item {
+            &:hover {
+                background-color: $color-gray-lightest;
+            }
+
+            button {
+                @include button-unstyled;
+
+                width: 100%;
+                padding: rem(2) rem(5);
+
+                &:hover {
+                    background-color: $color-gray-lightest;
+                }
+            }
+        }
+    }
+}

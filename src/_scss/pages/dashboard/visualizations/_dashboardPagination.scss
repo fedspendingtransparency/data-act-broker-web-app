@@ -1,5 +1,6 @@
 .dashboard-table-pagination {
-    @import "../../../sharedComponents/_paginator";
+    @import "../../../sharedComponents/paginator";
+    @import "../../../sharedComponents/limitSelector";
     @include display(flex);
 
     .table-paginator {
@@ -8,7 +9,7 @@
             font-size: rem(12);
 
             button {
-                border-color: #d6d7d9;
+                border-color: $color-gray-lighter;
                 color: #0074be;
                 height: rem(26);
                 width: rem(26);

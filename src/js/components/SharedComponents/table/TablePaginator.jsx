@@ -105,7 +105,6 @@ export default class TablePaginator extends React.Component {
         });
     }
 
-
     render() {
         let prevButton = <TablePaginatorArrow direction="left" moveDirection={this.moveDirection.bind(this)} />;
         let nextButton = <TablePaginatorArrow direction="right" moveDirection={this.moveDirection.bind(this)} />;
