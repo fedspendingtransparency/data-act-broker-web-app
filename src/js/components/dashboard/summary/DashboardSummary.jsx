@@ -17,7 +17,7 @@ const propTypes = {
 function getSummaryRows(submissions, file) {
     let summaryRows = [];
     if (submissions.length === 0) {
-        summaryRows.push(<DashboardSummaryRow key={key} />);
+        summaryRows.push(<DashboardSummaryRow key={`dashboard-summary-row-na}`} />);
     }
     else {
         summaryRows = submissions.map(submission => <DashboardSummaryRow
