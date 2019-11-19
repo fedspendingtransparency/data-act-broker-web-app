@@ -4,13 +4,17 @@
  */
 
 import React from 'react';
+import DashboardSummaryContainer from 'containers/dashboard/DashboardSummaryContainer';
 import DashboardTableContainer from 'containers/dashboard/visualizations/DashboardTableContainer';
 
 const DashboardContent = () => (
     <div>
         <h2>Historical Data Summary</h2>
         <hr />
-        <DashboardTableContainer />
+        <div className="dashboard-page__visualizations">
+            <DashboardSummaryContainer />
+            <DashboardTableContainer />
+        </div>
     </div>
 );
 
