@@ -31,7 +31,7 @@ export class DashboardSummaryContainer extends React.Component {
     }
 
     componentDidUpdate(prevProps) {
-        if (_.isEqual(prevProps, this.props)) {
+        if (!_.isEqual(prevProps, this.props)) {
             this.getSummary();
         }
     }
