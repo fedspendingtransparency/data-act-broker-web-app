@@ -9,9 +9,19 @@ export const updateGenericFilter = (filterType, filterValue) => ({
     filterValue
 });
 
+export const clearGenericFilter = (filterType) => ({
+    type: 'CLEAR_FILTER_SET',
+    filterType
+});
+
 export const updateFileFilter = (file) => ({
     type: 'UPDATE_FILE_FILTER',
     file
+});
+
+export const updateAgencyFilter = (agency) => ({
+    type: 'UPDATE_AGENCY_FILTER',
+    agency
 });
 
 export const clearAllFilters = () => ({

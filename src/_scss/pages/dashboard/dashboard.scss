@@ -16,6 +16,7 @@
             background-color: $color-white;
             margin-right: rem(15);
             border-radius: rem(5);
+            border: solid rem(1) $color-gray-lighter;
             @import "./filterSidebar";
         }
         .dashboard-page__content {
@@ -23,15 +24,34 @@
             @include flex(1 1 auto);
             margin-left: rem(15);
             border-radius: rem(5);
+            border: solid rem(1) $color-gray-lighter;
             h2 {
-                padding: rem(10) rem(16) rem(3);
+                padding: rem(10) rem(20) rem(3);
                 font-size: $h2-font-size;
                 margin: 0;
-                line-height: rem(38);      
+                line-height: rem(38);
             }
             hr {
-                border-top: solid rem(2) $color-gray-lighter;
-                margin: 0;
+                border-top: solid rem(1) $color-gray-lighter;
+                margin-top: 0;
+                margin-left: 0;
+                margin-right: 0;
+                margin-bottom: rem(26);
+            }
+            @import "./chooseFilters";
+            @import './dashboardViz';
+            @import './graph/warningsInfoGraph';
+            @import "./visualizations/summary.scss";
+        }
+        @media(max-width: $small-screen) {
+            display: block;
+            .dashboard-page__filters {
+                width: 100%;
+                margin-right: 0;
+            }
+            .dashboard-page__content {
+                margin-left: 0;
+                margin-top: rem(15);
             }
         }
     }
