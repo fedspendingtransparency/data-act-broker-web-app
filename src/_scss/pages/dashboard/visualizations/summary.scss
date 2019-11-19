@@ -1,47 +1,50 @@
-.dashboard-page__agency {
-    padding: rem(10) 0 rem(15);
-    font-size: $h4-font-size; 
-
-    .dashboard-page__agency-icon {
-        margin-right: rem(15);
-    }
-}
-.dashboard-page__summary-table {
-    font-size: rem(14);
-    width: rem(648);
+.submission-info {
+    color: $color-gray;
+    .dashboard-page__agency {
+        padding: rem(10) 0 rem(15);
+        font-size: $h4-font-size;
     
-    .dashboard-page__summary-table-row {
-        margin: 0 rem(16) 0;
-        padding: rem(10) rem(30) rem(10);
-        line-height: rem(32);
-        border: solid rem(1) $color-gray-lightest;
-        width:100%;
-
-        .dashboard-page__summary-table-row-header {
-            @include display(flex);
-            padding-left: rem(17);
-            
-            svg {
-                margin: auto rem(10);
-                font-size: rem(18);
-            }
+        .dashboard-page__agency-icon {
+            margin-right: rem(15);
         }
-
-        td {
-            padding-left: rem(52);
-        }
+    }
+    .dashboard-page__summary-table {
+        font-size: rem(14);
+        width: rem(648);
         
-    }
-    .row-20 {
-        width: 20%;
-    }
-    .row-24 {
-        width: 24%;
-    }
-    .row-25 {
-        width: 25%;
-    }
-    .row-31 {
-        width: 31%;
+        .dashboard-page__summary-table-row {
+            margin: 0 rem(16) 0;
+            padding: rem(10) rem(30) rem(10);
+            line-height: rem(32);
+            border: solid rem(1) $color-gray-lightest;
+            width:100%;
+    
+            .dashboard-page__summary-table-row-header {
+                @include display(flex);
+                padding-left: rem(17);
+                
+                svg {
+                    margin: auto rem(10);
+                    font-size: rem(18);
+                }
+            }
+    
+            td {
+                padding-left: rem(52);
+            }
+            
+        }
+        .row-20 {
+            width: 20%;
+        }
+        .row-24 {
+            width: 24%;
+        }
+        .row-25 {
+            width: 25%;
+        }
+        .row-31 {
+            width: 31%;
+        }
     }
 }

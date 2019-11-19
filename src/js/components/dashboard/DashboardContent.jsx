@@ -11,10 +11,8 @@ const DashboardContent = () => (
     <div>
         <h2>Historical Data Summary</h2>
         <hr />
-        <div className="dashboard-page__visualizations">
-            <DashboardSummaryContainer />
-            <WarningsInfoGraphContainer />
-        </div>
+        <DashboardSummaryContainer />
+        <WarningsInfoGraphContainer />
     </div>
 );
 
