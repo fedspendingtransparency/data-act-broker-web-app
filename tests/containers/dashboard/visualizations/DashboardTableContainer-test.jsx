@@ -1,5 +1,5 @@
 /**
- * DashboardAgencyFilterContainer-test.jsx
+ * DashboardTableContainer-test.jsx
  * Created by Alisa Burdeyny 11/18/19
  */
 
