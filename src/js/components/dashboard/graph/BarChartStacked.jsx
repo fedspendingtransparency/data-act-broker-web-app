@@ -47,10 +47,9 @@ export default class BarChartStacked extends React.Component {
     }
 
     componentDidUpdate(prevProps) {
-        if (prevProps.data !== this.props.data) {
-            this.buildVirtualChart(this.props);
-        }
-        else if (prevProps.width !== this.props.width || prevProps.height !== this.props.height) {
+        if (prevProps.data !== this.props.data ||
+            prevProps.width !== this.props.width ||
+            prevProps.height !== this.props.height) {
             this.buildVirtualChart(this.props);
         }
     }

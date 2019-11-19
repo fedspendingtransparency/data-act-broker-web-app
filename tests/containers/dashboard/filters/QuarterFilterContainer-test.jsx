@@ -5,6 +5,7 @@
 
 import React from 'react';
 import { shallow } from 'enzyme';
+import { cloneDeep } from 'lodash';
 
 import { QuarterFilterContainer } from 'containers/dashboard/filters/QuarterFilterContainer';
 import { mockActions, mockRedux } from './mockFilters';
@@ -72,7 +73,7 @@ describe('QuarterFilterContainer', () => {
                 latestYear: 2019,
                 latestQuarter: 4
             });
-            const newProps = { ...container.instance().props };
+            const newProps = cloneDeep(container.instance().props);
             newProps.selectedFilters.fy = newProps.selectedFilters.fy.add(2017);
             container.setProps({ ...newProps });
             container.instance().getDisabledStatus();
@@ -88,9 +89,8 @@ describe('QuarterFilterContainer', () => {
                 latestYear: 2020,
                 latestQuarter: 1
             });
-            const newProps = { ...container.instance().props };
-            const fy = newProps.selectedFilters.fy.delete(2017);
-            newProps.selectedFilters.fy = fy.add(2020);
+            const newProps = cloneDeep(container.instance().props);
+            newProps.selectedFilters.fy = newProps.selectedFilters.fy.add(2020);
             container.setProps({ ...newProps });
             container.instance().getDisabledStatus();
 
@@ -109,7 +109,8 @@ describe('QuarterFilterContainer', () => {
                 latestYear: 2020,
                 latestQuarter: 1
             });
-            const newProps = { ...container.instance().props };
+            const newProps = cloneDeep(container.instance().props);
+            newProps.selectedFilters.fy = newProps.selectedFilters.fy.add(2020);
             newProps.selectedFilters.fy = newProps.selectedFilters.fy.add(2018);
             container.setProps({ ...newProps });
             container.instance().getDisabledStatus();
@@ -131,11 +132,8 @@ describe('QuarterFilterContainer', () => {
             container.instance().pickedQuarter = pickedQuarter;
             
             // Set the props to FY 2017 and Q1
-            const newProps = { ...container.instance().props };
-            let fy = newProps.selectedFilters.fy.delete(2018);
-            fy = fy.delete(2020);
-            fy = fy.delete(2018);
-            newProps.selectedFilters.fy = fy.add(2017);
+            const newProps = cloneDeep(container.instance().props);
+            newProps.selectedFilters.fy = newProps.selectedFilters.fy.add(2017);
             newProps.selectedFilters.quarters = newProps.selectedFilters.quarters.add(1);
             container.setProps({ ...newProps });
 
@@ -158,11 +156,9 @@ describe('QuarterFilterContainer', () => {
             });
 
             // Set the props to FY 2020 and Q4
-            const newProps = { ...container.instance().props };
-            const quarters = newProps.selectedFilters.quarters.delete(1);
-            newProps.selectedFilters.quarters = quarters.add(4);
-            const fy = newProps.selectedFilters.fy.delete(2017);
-            newProps.selectedFilters.fy = fy.add(2020);
+            const newProps = cloneDeep(container.instance().props);
+            newProps.selectedFilters.quarters = newProps.selectedFilters.quarters.add(4);
+            newProps.selectedFilters.fy = newProps.selectedFilters.fy.add(2020);
             container.setProps({ ...newProps });
 
             expect(container.instance().props.selectedFilters.fy.toArray()).toEqual([2020]);

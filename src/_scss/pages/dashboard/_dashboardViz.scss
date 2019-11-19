@@ -1,13 +1,12 @@
 .dashboard-viz {
-    padding: rem(16);
+    padding: rem(20);
     h3.dashboard-viz__heading {
         font-size: rem(24);
         font-weight: $font-semibold;
         line-height: rem(31);
         border-bottom: solid 1px $color-gray-light;
-        width: rem(360);
+        width: rem(379);
         padding-bottom: rem(5);
-        margin-bottom: rem(5);
-        margin-top: 0;
+        margin: rem(10) 0 rem(3);
     }
 }
