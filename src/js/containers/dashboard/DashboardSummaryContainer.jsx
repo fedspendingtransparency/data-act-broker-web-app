@@ -13,7 +13,7 @@ const propTypes = {
     appliedFilters: PropTypes.object.isRequired
 };
 
-class DashboardSummaryContainer extends React.Component {
+export class DashboardSummaryContainer extends React.Component {
     constructor(props) {
         super(props);
 
