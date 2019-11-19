@@ -5,7 +5,12 @@ import {
     faAngleDown,
     faArrowCircleLeft,
     faSpinner,
-    faTimes
+    faTimes,
+    faLandmark,
+    faFileAlt,
+    faCalendarAlt,
+    faFileUpload,
+    faUser
 } from "@fortawesome/free-solid-svg-icons";
 import AppContainer from './containers/AppContainer';
 
@@ -13,7 +18,12 @@ library.add(
     faAngleDown,
     faArrowCircleLeft,
     faSpinner,
-    faTimes
+    faTimes,
+    faLandmark,
+    faFileAlt,
+    faCalendarAlt,
+    faFileUpload,
+    faUser
 );
 
 require("core-js");
