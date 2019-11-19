@@ -138,7 +138,7 @@ export default class BarChartStacked extends React.Component {
         if (tickPoints.length > 1) {
             const y1 = values.yScale(tickPoints[0]);
             const y2 = values.yScale(tickPoints[1]);
-            height = Math.abs(y2 - y1);
+            height = Math.abs(y2 - y1) || 1;
         }
 
         // create ticks and grid lines at each point

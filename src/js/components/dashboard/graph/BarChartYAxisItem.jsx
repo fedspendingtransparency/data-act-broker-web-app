@@ -25,7 +25,7 @@ const BarChartYAxisItem = (props) => (
         <g className="grid-line">
             <line
                 className="grid-line__line"
-                x1={props.gridLine.x1 + 1}
+                x1={props.gridLine.x1 + 1} // 1px to prevent gridlines from overlapping with the y-axis itself
                 x2={props.gridLine.x2}
                 y1={props.gridLine.y1}
                 y2={props.gridLine.y2} />
