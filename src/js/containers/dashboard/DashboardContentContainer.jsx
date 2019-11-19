@@ -14,7 +14,7 @@ const DashboardContentContainer = (props) => {
             <ChooseFiltersMessage />
         ) :
         (
-            <DashboardContent appliedFilters={props.appliedFilters} />
+            <DashboardContent />
         );
 
     return dashboardContent;

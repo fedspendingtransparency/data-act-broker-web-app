@@ -5,6 +5,7 @@
 
 import React from 'react';
 import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
 import { isEqual } from 'lodash';
 
 import * as DashboardHelper from 'helpers/dashboardHelper';
@@ -12,10 +13,10 @@ import DashboardTable from 'components/dashboard/visualizations/DashboardTable';
 import DashboardTablePagination from 'components/dashboard/visualizations/DashboardTablePagination';
 
 const propTypes = {
-    appliedFilters: PropTypes.object.isRequired
+    appliedFilters: PropTypes.object
 };
 
-export default class DashboardTableContainer extends React.Component {
+export class DashboardTableContainer extends React.Component {
     constructor(props) {
         super(props);
 
@@ -107,3 +108,9 @@ export default class DashboardTableContainer extends React.Component {
 }
 
 DashboardTableContainer.propTypes = propTypes;
+
+export default connect(
+    (state) => ({
+        appliedFilters: state.appliedDashboardFilters
+    }),
+)(DashboardTableContainer);
