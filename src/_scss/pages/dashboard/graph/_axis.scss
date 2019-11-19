@@ -6,7 +6,32 @@
     line.x-axis {
         stroke: $color-gray-light;
     }
-    .grid-line {
-        stroke: $color-gray-lightest;
+    .axis-labels {
+        .axis-item {
+            &.y-axis {
+                .grid-line {
+                    .grid-line__line {
+                        stroke: $color-gray-lighter;
+                    }
+                    .grid-line__row {
+                        fill: transparent;
+                        stroke: none;
+                    }
+                }
+                &:nth-child(even) {
+                    .grid-line__row {
+                        fill: $color-gray-lightest;
+                        fill-opacity: 0.5;
+                    }
+                }
+                &:last-of-type {
+                    .grid-line__row {
+                        // we need one fewer rows than the number of ticks,
+                        // so hide the topmost row
+                        display: none;
+                    }
+                }
+            }
+        }
     }
 }

@@ -13,6 +13,8 @@ const propTypes = {
     loading: PropTypes.bool
 };
 
+const graphHeight = 540;
+
 export default class WarningsInfoGraph extends React.Component {
     constructor(props) {
         super(props);
@@ -50,7 +52,7 @@ export default class WarningsInfoGraph extends React.Component {
         const chart = this.props.loading ? (<p>Loading...</p>) : (
             <BarChartStacked
                 width={this.state.visualizationWidth}
-                height={540}
+                height={graphHeight}
                 data={this.props.data} />
         );
         return (

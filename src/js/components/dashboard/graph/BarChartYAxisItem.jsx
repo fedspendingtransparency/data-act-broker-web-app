@@ -30,7 +30,7 @@ const BarChartYAxisItem = (props) => (
                 y1={props.gridLine.y1}
                 y2={props.gridLine.y2} />
             <rect
-                className={`grid-line__row${props.gridLine.even ? ' grid-line__row_even' : ''}`}
+                className="grid-line__row"
                 transform={`translate(1, -${props.gridLine.height})`}
                 width={props.gridLine.width - 1}
                 height={props.gridLine.height - 1} />

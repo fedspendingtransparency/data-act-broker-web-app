@@ -1,19 +1,7 @@
 .warnings-info {
     @import './axis';
     .bar-graph {
+        // prevent cutting off the topmost y-axis label
         overflow: visible;
-        .grid-line {
-            .grid-line__line {
-                stroke: $color-gray-lighter;
-            }
-            .grid-line__row {
-                fill: transparent;
-                stroke: none;
-                &.grid-line__row_even {
-                    fill: $color-gray-lightest;
-                    fill-opacity: 0.5;
-                }
-            }
-        }
     }
 }
