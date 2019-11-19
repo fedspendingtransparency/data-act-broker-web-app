@@ -18,21 +18,20 @@ describe('DashboardTableContainer', () => {
         jest.restoreAllMocks();
     });
     it('should update the component on mount', () => {
-        const updateTable = jest.fn();
         const container = shallow(<DashboardTableContainer 
             { ...mockRedux } />);
 
+        const updateTable = jest.fn();
         container.instance().updateTable = updateTable;
         container.instance().componentDidMount();
 
         expect(updateTable).toHaveBeenCalled();
     });
     it('should update the component when the props change', () => {
-        const updateTable = jest.fn();
-
         const container = shallow(<DashboardTableContainer 
             { ...mockRedux } />);
 
+        const updateTable = jest.fn();
         container.instance().updateTable = updateTable;
         const newRedux = cloneDeep(mockRedux);
         newRedux.appliedFilters.filters.file = "C";
@@ -42,11 +41,10 @@ describe('DashboardTableContainer', () => {
         expect(updateTable).toHaveBeenCalled();
     });
     it('should update the component when the page changes', () => {
-        const updateTable = jest.fn();
-
         const container = shallow(<DashboardTableContainer 
             { ...mockRedux } />);
 
+        const updateTable = jest.fn();
         container.instance().updateTable = updateTable;
 
         container.instance().changePage(2);
@@ -54,12 +52,11 @@ describe('DashboardTableContainer', () => {
         expect(updateTable).toHaveBeenCalled();
     });
     it('should update the component and set the page to 1 when the limit changes', () => {
-        const updateTable = jest.fn();
-
         const container = shallow(<DashboardTableContainer 
             { ...mockRedux } />);
         container.state().page = 2;
 
+        const updateTable = jest.fn();
         container.instance().updateTable = updateTable;
 
         container.instance().changeLimit(2);
