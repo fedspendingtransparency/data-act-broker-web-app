@@ -5,12 +5,16 @@
 
 import React from 'react';
 import WarningsInfoGraphContainer from 'containers/dashboard/graph/WarningsInfoGraphContainer';
+import DashboardSummaryContainer from 'containers/dashboard/DashboardSummaryContainer';
 
 const DashboardContent = () => (
     <div>
         <h2>Historical Data Summary</h2>
         <hr />
-        <WarningsInfoGraphContainer />
+        <div className="dashboard-page__visualizations">
+            <DashboardSummaryContainer />
+            <WarningsInfoGraphContainer />
+        </div>
     </div>
 );
 
