@@ -7,6 +7,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { scaleLinear, scaleBand } from 'd3-scale';
 import { min, max } from 'lodash';
+import { formatNumberWithPrecision } from 'helpers/moneyFormatter';
 
 import BarChartXAxis from './BarChartXAxis';
 import BarChartYAxis from './BarChartYAxis';
@@ -133,7 +134,7 @@ export default class BarChartStacked extends React.Component {
         const tickPoints = values.yScale.ticks(10);
 
         // Find the distance (in px) between tick marks
-        let height = 0;
+        let height = 1;
         if (tickPoints.length > 1) {
             const y1 = values.yScale(tickPoints[0]);
             const y2 = values.yScale(tickPoints[1]);
@@ -143,7 +144,7 @@ export default class BarChartStacked extends React.Component {
         // create ticks and grid lines at each point
         tickPoints.forEach((y) => {
             // create the label
-            const labelText = y;
+            const labelText = formatNumberWithPrecision(y, 0);
 
             // set all the labels 10px left of the edge of Y axis
             // all labels should be 6px below the grid line
