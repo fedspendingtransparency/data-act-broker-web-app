@@ -4,34 +4,34 @@ import { library } from "@fortawesome/fontawesome-svg-core";
 import {
     faAngleDown,
     faArrowCircleLeft,
+    faCalendarAlt,
+    faCaretDown,
+    faCaretUp,
+    faChevronDown,
+    faEllipsisH,
+    faFileAlt,
+    faFileUpload,
+    faLandmark,
     faSpinner,
     faTimes,
-    faLandmark,
-    faFileAlt,
-    faCalendarAlt,
-    faFileUpload,
-    faUser,
-    faCaretUp,
-    faCaretDown,
-    faEllipsisH,
-    faChevronDown
+    faUser
 } from "@fortawesome/free-solid-svg-icons";
 import AppContainer from './containers/AppContainer';
 
 library.add(
     faAngleDown,
     faArrowCircleLeft,
+    faCalendarAlt,
+    faCaretDown,
+    faCaretUp,
+    faChevronDown,
+    faEllipsisH,
+    faFileAlt,
+    faFileUpload,
+    faLandmark,
     faSpinner,
     faTimes,
-    faLandmark,
-    faFileAlt,
-    faCalendarAlt,
-    faFileUpload,
-    faUser,
-    faCaretUp,
-    faCaretDown,
-    faEllipsisH,
-    faChevronDown
+    faUser
 );
 
 require("core-js");

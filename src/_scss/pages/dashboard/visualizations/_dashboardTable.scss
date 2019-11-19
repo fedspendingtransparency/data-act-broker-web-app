@@ -72,13 +72,13 @@
         }
 
         tbody {
-            color: #555;
+            color: $color-gray;
 
             tr {
                 height: rem(41);
 
                 &:nth-child(odd) {
-                    background-color: #f7f7f7;
+                    background-color: $color-gray-lightest;
                 }
 
                 &:nth-child(even) {

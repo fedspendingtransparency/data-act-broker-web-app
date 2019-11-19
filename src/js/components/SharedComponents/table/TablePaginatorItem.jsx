@@ -40,11 +40,11 @@ export default class TablePaginatorItem extends React.Component {
         let end = null;
 
         if (this.props.showLead) {
-            start = <FontAwesomeIcon icon="ellipsis-h" className="pre" />;
+            start = <FontAwesomeIcon icon="ellipsis-h" className="ellipsis-pre" />;
         }
 
         if (this.props.showTail) {
-            end = <FontAwesomeIcon icon="ellipsis-h" className="post" />;
+            end = <FontAwesomeIcon icon="ellipsis-h" className="ellipsis-post" />;
         }
 
         return (
