@@ -5,6 +5,7 @@
 
 import React from 'react';
 import { shallow } from 'enzyme';
+import { cloneDeep } from 'lodash';
 
 import { DashboardTableContainer } from 'containers/dashboard/visualizations/DashboardTableContainer';
 import { mockRedux } from './mockData';
@@ -33,12 +34,7 @@ describe('DashboardTableContainer', () => {
             { ...mockRedux } />);
 
         container.instance().updateTable = updateTable;
-        const newRedux = {
-            appliedFilters: {
-                filters: {...mockRedux.appliedFilters.filters },
-                empty_: true 
-            }
-        };
+        const newRedux = cloneDeep(mockRedux);
         newRedux.appliedFilters.filters.file = "C";
 
         container.instance().componentDidUpdate(newRedux);
