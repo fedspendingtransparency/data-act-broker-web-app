@@ -129,7 +129,7 @@ export default class DashboardTable extends React.Component {
         }
         return (
             <div className="dashboard-table">
-                <h3>Table</h3>
+                <h3 className="dashboard-viz__heading">Table</h3>
                 <table>
                     <DashboardTableHeader headers={tableHeaders} />
                     {tableContents}

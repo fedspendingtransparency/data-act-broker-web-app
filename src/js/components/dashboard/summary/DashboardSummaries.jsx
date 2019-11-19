@@ -29,8 +29,8 @@ export default class DashboardSummaries extends React.Component {
         });
 
         return (
-            <div>
-                <h3>Submission Information</h3>
+            <div className="dashboard-viz submission-info">
+                <h3 className="dashboard-viz__heading">Submission Information</h3>
                 <div>
                     {summaries}
                 </div>
