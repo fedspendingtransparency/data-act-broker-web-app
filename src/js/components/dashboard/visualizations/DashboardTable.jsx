@@ -11,11 +11,13 @@ import DashboardTableHeader from 'components/dashboard/visualizations/DashboardT
 import DashboardTableRow from 'components/dashboard/visualizations/DashboardTableRow';
 
 const propTypes = {
-    results: PropTypes.array
+    results: PropTypes.array,
+    inFlight: PropTypes.bool
 };
 
 const defaultProps = {
-    results: []
+    results: [],
+    inFlight: false
 };
 
 const tableHeaders = [
@@ -111,15 +113,28 @@ export default class DashboardTable extends React.Component {
         const tableRows = this.state.parsedData.map((row, index) => (
             <DashboardTableRow key={`dashboard-table-row-${uniqueId()}`} cells={row} rowNum={index} />
         ));
+        let tableContents = (
+            <tbody>
+                {tableRows}
+            </tbody>
+        );
+        let contentMessage = null;
+        if (this.props.inFlight) {
+            tableContents = null;
+            contentMessage = 'Gathering data';
+        }
+        else if (this.props.results.length === 0) {
+            tableContents = null;
+            contentMessage = 'No data';
+        }
         return (
             <div className="dashboard-table">
                 <h3>Table</h3>
                 <table>
                     <DashboardTableHeader headers={tableHeaders} />
-                    <tbody>
-                        {tableRows}
-                    </tbody>
+                    {tableContents}
                 </table>
+                {contentMessage}
             </div>
         );
     }

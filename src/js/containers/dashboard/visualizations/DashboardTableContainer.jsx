@@ -61,6 +61,9 @@ export class DashboardTableContainer extends React.Component {
     }
 
     updateTable() {
+        this.setState({
+            inFlight: true
+        });
         const filters = this.props.appliedFilters.filters;
         const searchParams = {
             filters: {
@@ -93,15 +96,22 @@ export class DashboardTableContainer extends React.Component {
     }
 
     render() {
-        return (
-            <div className="dashboard-table-container">
-                <DashboardTable results={this.state.results} />
+        let pagination = null;
+        if (!this.state.inFlight && this.state.results.length !== 0) {
+            pagination = (
                 <DashboardTablePagination
                     totalPages={this.state.totalPages}
                     currentPage={this.state.page}
                     pageLimit={this.state.limit}
                     changePage={this.changePage}
-                    changeLimit={this.changeLimit} />
+                    changeLimit={this.changeLimit} />);
+        }
+        return (
+            <div className="dashboard-table-container">
+                <DashboardTable
+                    results={this.state.results}
+                    inFlight={this.state.inFlight} />
+                {pagination}
             </div>
         );
     }

@@ -36,7 +36,7 @@ export default class TableLimit extends React.Component {
     }
 
     componentWillUnmount() {
-        document.addEventListener('mousedown', this.hideDropdown, false);
+        document.removeEventListener('mousedown', this.hideDropdown, false);
     }
 
     setVisibility() {
