@@ -5,6 +5,7 @@
 
 import React from 'react';
 import PropTypes from 'prop-types';
+import _ from 'lodash';
 import { connect } from 'react-redux';
 import * as DashboardHelper from 'helpers/dashboardHelper';
 import DashboardSummaries from 'components/dashboard/summary/DashboardSummaries';
