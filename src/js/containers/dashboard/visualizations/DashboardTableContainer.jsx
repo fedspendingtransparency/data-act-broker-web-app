@@ -11,6 +11,7 @@ import { isEqual } from 'lodash';
 import * as DashboardHelper from 'helpers/dashboardHelper';
 import DashboardTable from 'components/dashboard/visualizations/DashboardTable';
 import DashboardTablePagination from 'components/dashboard/visualizations/DashboardTablePagination';
+import BaseDashboardTableRow from 'models/dashboard/BaseDashboardTableRow';
 
 const propTypes = {
     appliedFilters: PropTypes.object
@@ -31,6 +32,7 @@ export class DashboardTableContainer extends React.Component {
         this.updateTable = this.updateTable.bind(this);
         this.changePage = this.changePage.bind(this);
         this.changeLimit = this.changeLimit.bind(this);
+        this.parseRows = this.parseRows.bind(this);
     }
 
     componentDidMount() {
@@ -81,11 +83,7 @@ export class DashboardTableContainer extends React.Component {
 
         DashboardHelper.fetchDashboardTableContents(searchParams)
             .then((res) => {
-                this.setState({
-                    results: res.results,
-                    totalPages: Math.ceil(res.page_metadata.total / this.state.limit),
-                    inFlight: false
-                });
+                this.parseRows(res);
             })
             .catch((err) => {
                 console.error(err);
@@ -93,6 +91,21 @@ export class DashboardTableContainer extends React.Component {
                     inFlight: false
                 });
             });
+    }
+
+    parseRows(data) {
+        const results = [];
+        data.results.forEach((item) => {
+            const tableRow = Object.create(BaseDashboardTableRow);
+            tableRow.populate(item);
+            results.push(tableRow);
+        });
+
+        this.setState({
+            results,
+            totalPages: Math.ceil(data.page_metadata.total / this.state.limit),
+            inFlight: false
+        });
     }
 
     render() {

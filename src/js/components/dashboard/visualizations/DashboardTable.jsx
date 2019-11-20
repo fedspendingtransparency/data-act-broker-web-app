@@ -5,10 +5,9 @@
 
 import React from 'react';
 import PropTypes from 'prop-types';
-import { isEqual, uniqueId } from 'lodash';
+import { uniqueId } from 'lodash';
 
 import DashboardTableHeader from 'components/dashboard/visualizations/DashboardTableHeader';
-import DashboardTableRow from 'components/dashboard/visualizations/DashboardTableRow';
 
 const propTypes = {
     results: PropTypes.array,
@@ -44,87 +43,34 @@ const tableHeaders = [
 ];
 
 export default class DashboardTable extends React.Component {
-    constructor(props) {
-        super(props);
-
-        this.state = {
-            parsedData: []
-        };
-
-        this.buildRows = this.buildRows.bind(this);
-    }
-
-    componentDidMount() {
-        this.buildRows();
-    }
-
-    componentDidUpdate(prevProps) {
-        if (!isEqual(prevProps.results, this.props.results)) {
-            this.buildRows();
-        }
-    }
-
-    buildRows() {
-        const rows = [];
-        this.props.results.forEach((item) => {
-            rows.push(this.formatRow(item));
-        });
-
-        this.setState({
-            parsedData: rows
-        });
-    }
-
-    formatRow(item) {
-        const row = [];
-        let file = '';
-        if (item.files.length > 1) {
-            const fileLabels = item.files.map((itemFile) => itemFile.type);
-            fileLabels.sort();
-            file = `CROSS FILE: ${fileLabels.join('/')}`;
-        }
-        else {
-            file = `FILE ${item.files[0].type}`;
-        }
-        row.push({
-            data: file,
-            class: null
-        });
-        row.push({
-            data: `FY ${item.fy - 2000} / Q${item.quarter}`,
-            class: null
-        });
-        row.push({
-            data: item.rule_label,
-            class: null
-        });
-        row.push({
-            data: item.instance_count,
-            class: null
-        });
-        row.push({
-            data: item.rule_description,
-            class: 'ellipse-box'
-        });
-        return row;
-    }
-
     render() {
-        const tableRows = this.state.parsedData.map((row, index) => (
-            <DashboardTableRow key={`dashboard-table-row-${uniqueId()}`} cells={row} rowNum={index} />
+        const tableRows = this.props.results.map((row) => (
+            <tr key={`dashboard-table-row-cell-${uniqueId()}`}>
+                <td>
+                    {row.fileLabel}
+                </td>
+                <td>
+                    {row.period}
+                </td>
+                <td>
+                    {row.rule_label}
+                </td>
+                <td>
+                    {row.instance_count}
+                </td>
+                <td>
+                    <div className="ellipse-box">
+                        {row.rule_description}
+                    </div>
+                </td>
+            </tr>
         ));
-        let tableContents = (
-            <tbody>
-                {tableRows}
-            </tbody>
-        );
+
         let contentMessage = null;
         if (this.props.inFlight) {
-            tableContents = null;
             contentMessage = 'Gathering data';
         }
         else if (this.props.results.length === 0) {
-            tableContents = null;
             contentMessage = 'No data';
         }
         return (
@@ -132,7 +78,9 @@ export default class DashboardTable extends React.Component {
                 <h3 className="dashboard-viz__heading">Table</h3>
                 <table>
                     <DashboardTableHeader headers={tableHeaders} />
-                    {tableContents}
+                    <tbody>
+                        {tableRows}
+                    </tbody>
                 </table>
                 {contentMessage}
             </div>
