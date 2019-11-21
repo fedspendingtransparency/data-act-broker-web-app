@@ -5,7 +5,8 @@ export const buildLegend = (rules = []) =>
     (rules.map((label, index) => (
         {
             color: chartColors[index],
-            label
+            label,
+            offset: index * 30
         }
     )));
 
