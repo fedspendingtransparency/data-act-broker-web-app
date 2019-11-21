@@ -11,7 +11,7 @@ const BaseDashboardTableRow = {
         const fileTypes = data.files.map((dataFile) => dataFile.type);
         fileTypes.sort();
         this.fileTypes = fileTypes;
-        this.fileLabel = fileLabels[fileTypes.join('/')].toUpperCase();
+        this.fileLabel = fileLabels[fileTypes.join('/')];
         this.period = `FY ${data.fy - 2000} / Q${data.quarter}`;
         this.rule_label = data.rule_label;
         this.instance_count = data.instance_count;
