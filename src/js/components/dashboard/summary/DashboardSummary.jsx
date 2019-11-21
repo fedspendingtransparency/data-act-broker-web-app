@@ -53,19 +53,19 @@ export default class DashboardSummary extends React.Component {
                                         FILE(S)
                                     </div>
                                 </th>
-                                <th className="row-24" scope="col">
+                                <th className="row-25" scope="col">
                                     <div className="dashboard-page__summary-table-row-header">
                                         <FontAwesomeIcon icon="calendar-alt" />
-                                        TIME PERIOD
+                                        REPORTING PERIOD
                                     </div>
                                 </th>
-                                <th className="row-25" scope="col">
+                                <th className="row-20" scope="col">
                                     <div className="dashboard-page__summary-table-row-header">
                                         <FontAwesomeIcon icon="file-upload" />
                                         SUBMISSION ID
                                     </div>
                                 </th>
-                                <th className="row-31" scope="col">
+                                <th className="row-35" scope="col">
                                     <div className="dashboard-page__summary-table-row-header">
                                         <FontAwesomeIcon icon="user" />
                                         SUBMITTED BY
