@@ -1,6 +1,6 @@
 import { chartColors } from 'dataMapping/dashboard/fileLabels';
 
-export const buildLegend = (rules = [], spacing = 30) =>
+export const buildLegend = (rules = [], spacing = 25) =>
     (rules.map((label, index) => (
         {
             color: chartColors[index],

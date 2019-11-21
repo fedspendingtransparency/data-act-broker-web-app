@@ -14,8 +14,9 @@ const propTypes = {
     loading: PropTypes.bool
 };
 
-const graphHeight = 540;
-const legendSpacing = 30;
+// export these values for use in our tests
+export const graphHeight = 540;
+export const legendSpacing = 25;
 
 export default class WarningsInfoGraph extends React.Component {
     constructor(props) {

@@ -1,4 +1,5 @@
 import * as stackedBarHelper from 'helpers/stackedBarChartHelper';
+import { legendSpacing, graphHeight } from 'components/dashboard/graph/WarningsInfoGraph';
 
 describe('stacked bar chart helper functions', () => {
     describe('buildLegend', () => {
@@ -26,8 +27,8 @@ describe('stacked bar chart helper functions', () => {
         it('should return the offset that will center the legend along the y-axis', () => {
             const spacing = 20;
             const legendCount = 4;
-            const graphHeight = 100;
-            const mockOffset = stackedBarHelper.calculateLegendOffset(spacing, legendCount, graphHeight);
+            const height = 100;
+            const mockOffset = stackedBarHelper.calculateLegendOffset(spacing, legendCount, height);
             // |    10px |
             // | -- 20px |
             // |         |
@@ -43,9 +44,16 @@ describe('stacked bar chart helper functions', () => {
         it('should return 0 if the graph height is less than the legend height', () => {
             const spacing = 20;
             const legendCount = 4;
-            const graphHeight = 60;
-            const mockOffset = stackedBarHelper.calculateLegendOffset(spacing, legendCount, graphHeight);
+            const height = 60;
+            const mockOffset = stackedBarHelper.calculateLegendOffset(spacing, legendCount, height);
             expect(mockOffset).toEqual(0);
+        });
+        it('should handle the max rules (19)', () => {
+            const legendCount = 19;
+            const height = graphHeight - 50;
+            const mockOffset = stackedBarHelper.calculateLegendOffset(legendSpacing, legendCount, height);
+            expect(height).toEqual(490); // graph height 540 - 50px bottom padding
+            expect(mockOffset).toBeGreaterThan(0);
         });
     });
 });
