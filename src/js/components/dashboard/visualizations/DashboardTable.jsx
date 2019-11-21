@@ -5,7 +5,6 @@
 
 import React from 'react';
 import PropTypes from 'prop-types';
-import { uniqueId } from 'lodash';
 
 import DashboardTableHeader from 'components/dashboard/visualizations/DashboardTableHeader';
 
@@ -45,7 +44,7 @@ const tableHeaders = [
 export default class DashboardTable extends React.Component {
     render() {
         const tableRows = this.props.results.map((row) => (
-            <tr key={`dashboard-table-row-cell-${uniqueId()}`}>
+            <tr key={`dashboard-table-row-${row.submission_id}-${row.rule_label}`}>
                 <td>
                     {row.fileLabel}
                 </td>
