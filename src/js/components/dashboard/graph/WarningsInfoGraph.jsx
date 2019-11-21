@@ -5,7 +5,8 @@
 
 import React from 'react';
 import PropTypes from 'prop-types';
-import { throttle } from 'lodash';
+import { throttle, uniq } from 'lodash';
+import { buildLegend } from 'helpers/stackedBarChartHelper';
 import BarChartStacked from './BarChartStacked';
 
 const propTypes = {
@@ -48,12 +49,25 @@ export default class WarningsInfoGraph extends React.Component {
         }
     }
 
+    generateLegend() {
+        const yData = this.props.data.yData && this.props.data.yData[0];
+        let rules = [];
+        if (yData) {
+            rules = yData.map((rule) => Object.values(rule)[0]);
+        }
+        // Remove any duplicate rules
+        rules = uniq(rules);
+        return buildLegend(rules);
+    }
+
     render() {
+        const legend = this.generateLegend();
         const chart = this.props.loading ? (<p>Loading...</p>) : (
             <BarChartStacked
                 width={this.state.visualizationWidth}
                 height={graphHeight}
-                data={this.props.data} />
+                data={this.props.data}
+                legend={legend} />
         );
         return (
             <div className="dashboard-viz warnings-info">
