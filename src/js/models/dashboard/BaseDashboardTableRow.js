@@ -13,10 +13,10 @@ const BaseDashboardTableRow = {
         this.fileTypes = fileTypes;
         this.fileLabel = fileLabels[fileTypes.join('/')];
         this.period = `FY ${data.fy - 2000} / Q${data.quarter}`;
-        this.rule_label = data.rule_label;
-        this.instance_count = data.instance_count;
-        this.rule_description = data.rule_description;
-        this.submission_id = data.submission_id;
+        this.ruleLabel = data.rule_label;
+        this.instanceCount = data.instance_count;
+        this.ruleDescription = data.rule_description;
+        this.submissionId = data.submission_id;
     }
 };
 /* eslint-enable object-shorthand */

@@ -7,11 +7,11 @@ import React from 'react';
 import { shallow } from 'enzyme';
 import { cloneDeep } from 'lodash';
 
-import { DashboardTableContainer } from 'containers/dashboard/visualizations/DashboardTableContainer';
+import { DashboardTableContainer } from 'containers/dashboard/table/DashboardTableContainer';
 import { mockRedux } from './mockData';
 
 // mock the child component by replacing it with a function that returns a null element
-jest.mock('components/dashboard/visualizations/DashboardTable', () => jest.fn(() => null));
+jest.mock('components/dashboard/table/DashboardTable', () => jest.fn(() => null));
 
 describe('DashboardTableContainer', () => {
     beforeEach(() => {

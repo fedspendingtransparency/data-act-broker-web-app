@@ -41,10 +41,10 @@
             @import "./chooseFilters";
             @import './dashboardViz';
             @import './graph/warningsInfoGraph';
-            @import "./visualizations/summary.scss";
+            @import "./table/summary.scss";
             .dashboard-table-container{
-                @import "./visualizations/dashboardTable";
-                @import "./visualizations/dashboardPagination";
+                @import "./table/dashboardTable";
+                @import "./table/dashboardPagination";
             }
         }
         @media(max-width: $small-screen) {
