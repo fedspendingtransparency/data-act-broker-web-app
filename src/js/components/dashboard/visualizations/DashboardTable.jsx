@@ -7,15 +7,17 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 import DashboardTableHeader from 'components/dashboard/visualizations/DashboardTableHeader';
+import DashboardTableLabelButton from 'components/dashboard/visualizations/DashboardTableLabelButton';
 
 const propTypes = {
     results: PropTypes.array,
-    inFlight: PropTypes.bool
+    inFlight: PropTypes.bool,
+    togglePopup: PropTypes.func.isRequired
 };
 
 const defaultProps = {
     results: [],
-    inFlight: false
+    inFlight: false,
 };
 
 const tableHeaders = [
@@ -46,7 +48,9 @@ export default class DashboardTable extends React.Component {
         const tableRows = this.props.results.map((row) => (
             <tr key={`dashboard-table-row-${row.submission_id}-${row.rule_label}`}>
                 <td>
-                    {row.fileLabel}
+                    <DashboardTableLabelButton
+                        row={row}
+                        togglePopup={this.props.togglePopup} />
                 </td>
                 <td>
                     {row.period}

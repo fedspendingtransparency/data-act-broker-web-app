@@ -33,6 +33,7 @@ export class DashboardTableContainer extends React.Component {
         this.changePage = this.changePage.bind(this);
         this.changeLimit = this.changeLimit.bind(this);
         this.parseRows = this.parseRows.bind(this);
+        this.togglePopup = this.togglePopup.bind(this);
     }
 
     componentDidMount() {
@@ -60,6 +61,10 @@ export class DashboardTableContainer extends React.Component {
         }, () => {
             this.updateTable();
         });
+    }
+
+    togglePopup(row) {
+        console.log(row);
     }
 
     updateTable() {
@@ -123,7 +128,8 @@ export class DashboardTableContainer extends React.Component {
             <div className="dashboard-viz dashboard-table-container">
                 <DashboardTable
                     results={this.state.results}
-                    inFlight={this.state.inFlight} />
+                    inFlight={this.state.inFlight}
+                    togglePopup={this.togglePopup} />
                 {pagination}
             </div>
         );
