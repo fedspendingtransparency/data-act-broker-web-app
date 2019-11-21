@@ -8,7 +8,11 @@
     @import "./dashboardTabs";
     .dashboard-page {
         padding: rem(30);
-        @include display(flex);
+        .dashboard-page__wrapper {
+            @include flex-direction(row);
+            @include display(flex);
+            width: 100%;
+        }
         .dashboard-page__filters {
             @include display(flex);
             @include flex(0 0 auto);
