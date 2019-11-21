@@ -23,7 +23,7 @@ function getSummaryRows(submissions, file) {
         summaryRows = submissions.map((submission) => (<DashboardSummaryRow
             key={submission.submission_id}
             file={file}
-            period={`FY ${submission.fy.toString(10).substring(2)}, Q${submission.quarter}`}
+            period={`FY ${submission.fy.toString(10).substring(2)} / Q${submission.quarter}`}
             subID={submission.submission_id.toString(10)}
             submitter={submission.certifier} />
         ));
