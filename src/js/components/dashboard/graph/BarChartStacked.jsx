@@ -348,7 +348,6 @@ ${xAxis.items[0].label} to ${xAxis.items[xAxis.items.length - 1].label}.`;
             return null;
         }
         const legendOffset = calculateLegendOffset(
-            this.props.legendSpacing, // offset between legend items
             this.props.legend.length, // number of items in the legend
             this.props.height - this.props.padding.bottom // height of the graph
         );
