@@ -98,11 +98,13 @@ export default class DashboardPage extends React.Component {
                         </div>
                     </div>
                     <div className="dashboard-page">
-                        <div className="dashboard-page__filters">
-                            <FilterSidebar filters={filters} />
-                        </div>
-                        <div className="dashboard-page__content">
-                            <DashboardContentContainer />
+                        <div className="dashboard-page__wrapper">
+                            <div className="dashboard-page__filters">
+                                <FilterSidebar filters={filters} />
+                            </div>
+                            <div className="dashboard-page__content">
+                                <DashboardContentContainer />
+                            </div>
                         </div>
                     </div>
                 </div>
