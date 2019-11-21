@@ -16,9 +16,10 @@ https://invis.io/RYA3XN5WP#/273832670_Homepage_2-2_E
 The following are ALL required for the PR to be merged:
 
 Author: 
-- [ ] Link to this PR in JIRA ticket
+- [ ] Linked to this PR in JIRA ticket
 - [ ] Scheduled Demo including Design/Testing/Front-end OR Provided Instructions for Local Testing above and in JIRA
 - [ ] Verified cross-browser compatibility
+- [ ] Verified mobile/tablet/desktop/monitor responsiveness
 - [ ] Verified that this PR does not create any *new* accessibility issues (via Axe Chrome extension)
 - [ ] All componentWillReceiveProps, componentWillMount, and componentWillUpdate in relevant child/parent components/containers replaced with [future compatible life-cycle methods](https://reactjs.org/blog/2018/03/27/update-on-async-rendering.html) per [JIRA item 3339](https://federal-spending-transparency.atlassian.net/browse/DEV-3339)
 
