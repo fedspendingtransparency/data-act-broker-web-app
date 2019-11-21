@@ -8,6 +8,7 @@ import PropTypes from 'prop-types';
 import { scaleLinear, scaleBand } from 'd3-scale';
 import { min, max } from 'lodash';
 import { formatNumberWithPrecision } from 'helpers/moneyFormatter';
+import { calculateLegendOffset } from 'helpers/stackedBarChartHelper';
 
 import BarChartXAxis from './BarChartXAxis';
 import BarChartYAxis from './BarChartYAxis';
@@ -21,6 +22,7 @@ const propTypes = {
     data: PropTypes.object,
     padding: PropTypes.object,
     legend: PropTypes.array,
+    legendSpacing: PropTypes.number,
     showTooltip: PropTypes.func,
     hideTooltip: PropTypes.func,
     toggleTooltip: PropTypes.func
@@ -346,6 +348,11 @@ ${xAxis.items[0].label} to ${xAxis.items[xAxis.items.length - 1].label}.`;
         if (!this.state.chartReady) {
             return null;
         }
+        const legendOffset = calculateLegendOffset(
+            this.props.legendSpacing, // offset between legend items
+            this.props.legend.length, // number of items in the legend
+            this.props.height - this.props.padding.bottom // height of the graph
+        );
 
         return (
             <div>
@@ -361,7 +368,7 @@ ${xAxis.items[0].label} to ${xAxis.items[xAxis.items.length - 1].label}.`;
                         {...this.state.virtualChart.xAxis} />
                     <g
                         className="legend-container"
-                        transform={`translate(${this.props.width - 68}, 110)`}>
+                        transform={`translate(${this.props.width - 68}, ${legendOffset})`}>
                         <BarChartLegend legend={this.props.legend} />
                     </g>
                 </svg>

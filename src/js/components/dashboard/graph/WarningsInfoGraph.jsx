@@ -15,6 +15,7 @@ const propTypes = {
 };
 
 const graphHeight = 540;
+const legendSpacing = 30;
 
 export default class WarningsInfoGraph extends React.Component {
     constructor(props) {
@@ -57,7 +58,7 @@ export default class WarningsInfoGraph extends React.Component {
         }
         // Remove any duplicate rules
         rules = uniq(rules);
-        return buildLegend(rules);
+        return buildLegend(rules, legendSpacing);
     }
 
     render() {
@@ -67,7 +68,8 @@ export default class WarningsInfoGraph extends React.Component {
                 width={this.state.visualizationWidth}
                 height={graphHeight}
                 data={this.props.data}
-                legend={legend} />
+                legend={legend}
+                legendSpacing={legendSpacing} />
         );
         return (
             <div className="dashboard-viz warnings-info">

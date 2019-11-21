@@ -1,13 +1,19 @@
-/* eslint-disable import/prefer-default-export */
 import { chartColors } from 'dataMapping/dashboard/fileLabels';
 
-export const buildLegend = (rules = []) =>
+export const buildLegend = (rules = [], spacing = 30) =>
     (rules.map((label, index) => (
         {
             color: chartColors[index],
             label,
-            offset: index * 30
+            offset: index * spacing
         }
     )));
 
-/* eslint-enable import/prefer-default-export */
+export const calculateLegendOffset = (spacing, length, graphHeight) => {
+    const legendHeight = spacing * length;
+    const offset = (graphHeight - legendHeight) / 2;
+    if (offset < 0) {
+        return 0;
+    }
+    return offset;
+};
