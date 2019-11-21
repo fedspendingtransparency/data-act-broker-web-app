@@ -1,15 +1,21 @@
 import { chartColors } from 'dataMapping/dashboard/fileLabels';
 
-export const buildLegend = (rules = [], spacing = 25) =>
-    (rules.map((label, index) => (
+// When there are more than 11 legend items, space them closer together
+const getSpacing = (length) => (length > 11 ? 25 : 30);
+
+export const buildLegend = (rules = []) => {
+    const spacing = getSpacing(rules.length);
+    return (rules.map((label, index) => (
         {
             color: chartColors[index],
             label,
             offset: index * spacing
         }
     )));
+};
 
-export const calculateLegendOffset = (spacing, length, graphHeight) => {
+export const calculateLegendOffset = (length, graphHeight) => {
+    const spacing = getSpacing(length);
     const legendHeight = spacing * length;
     const offset = (graphHeight - legendHeight) / 2;
     if (offset < 0) {

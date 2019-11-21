@@ -14,9 +14,10 @@ const propTypes = {
 
 export default class BarChartLegend extends React.Component {
     render() {
-        const items = this.props.legend.map((item) => (<BarChartLegendItem
-            {...item}
-            key={item.label} />));
+        const items = this.props.legend.map((item) => (
+            <BarChartLegendItem
+                {...item}
+                key={item.label} />));
 
         return (
             <g className="chart-legend">

@@ -1,5 +1,4 @@
 import * as stackedBarHelper from 'helpers/stackedBarChartHelper';
-import { legendSpacing, graphHeight } from 'components/dashboard/graph/WarningsInfoGraph';
 
 describe('stacked bar chart helper functions', () => {
     describe('buildLegend', () => {
@@ -19,24 +18,23 @@ describe('stacked bar chart helper functions', () => {
         });
         it('should calculate the y-offset based on the index', () => {
             const mockRules = ['C12', 'C11', 'C23.2'];
-            const legend = stackedBarHelper.buildLegend(mockRules, 20);
-            expect(legend[2].offset).toEqual(40);
+            const legend = stackedBarHelper.buildLegend(mockRules);
+            expect(legend[2].offset).toEqual(60);
         });
     });
     describe('calculateLegendOffset', () => {
         it('should return the offset that will center the legend along the y-axis', () => {
-            const spacing = 20;
             const legendCount = 4;
-            const height = 100;
-            const mockOffset = stackedBarHelper.calculateLegendOffset(spacing, legendCount, height);
+            const height = 140;
+            const mockOffset = stackedBarHelper.calculateLegendOffset(legendCount, height);
             // |    10px |
-            // | -- 20px |
+            // | -- 30px |
             // |         |
-            // | -- 20px |
-            // |         | 100px
-            // | -- 20px |
+            // | -- 30px |
+            // |         | 140px
+            // | -- 30px |
             // |         |
-            // | -- 20px |
+            // | -- 30px |
             // |         |
             // |    10px |
             expect(mockOffset).toEqual(10);
@@ -50,9 +48,8 @@ describe('stacked bar chart helper functions', () => {
         });
         it('should handle the max rules (19)', () => {
             const legendCount = 19;
-            const height = graphHeight - 50;
-            const mockOffset = stackedBarHelper.calculateLegendOffset(legendSpacing, legendCount, height);
-            expect(height).toEqual(490); // graph height 540 - 50px bottom padding
+            const height = 490; // graph height 540 - 50px bottom padding
+            const mockOffset = stackedBarHelper.calculateLegendOffset(legendCount, height);
             expect(mockOffset).toBeGreaterThan(0);
         });
     });

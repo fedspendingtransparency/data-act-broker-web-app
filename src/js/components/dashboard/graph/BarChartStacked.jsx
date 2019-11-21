@@ -22,7 +22,6 @@ const propTypes = {
     data: PropTypes.object,
     padding: PropTypes.object,
     legend: PropTypes.array,
-    legendSpacing: PropTypes.number,
     showTooltip: PropTypes.func,
     hideTooltip: PropTypes.func,
     toggleTooltip: PropTypes.func

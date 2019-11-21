@@ -14,9 +14,7 @@ const propTypes = {
     loading: PropTypes.bool
 };
 
-// export these values for use in our tests
-export const graphHeight = 540;
-export const legendSpacing = 25;
+const graphHeight = 540;
 
 export default class WarningsInfoGraph extends React.Component {
     constructor(props) {
@@ -59,7 +57,7 @@ export default class WarningsInfoGraph extends React.Component {
         }
         // Remove any duplicate rules
         rules = uniq(rules);
-        return buildLegend(rules, legendSpacing);
+        return buildLegend(rules);
     }
 
     render() {
@@ -69,8 +67,7 @@ export default class WarningsInfoGraph extends React.Component {
                 width={this.state.visualizationWidth}
                 height={graphHeight}
                 data={this.props.data}
-                legend={legend}
-                legendSpacing={legendSpacing} />
+                legend={legend} />
         );
         return (
             <div className="dashboard-viz warnings-info">
