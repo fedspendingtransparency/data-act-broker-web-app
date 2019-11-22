@@ -3,6 +3,11 @@
     max-width: rem(688);
     display: block;
 
+    .alert-error {
+        @import "../../../components/alerts/_alerts";
+        @include dangerAlert;
+    }
+
     .results-table-content{
         .results-table-loading{
             margin-top: rem(5);

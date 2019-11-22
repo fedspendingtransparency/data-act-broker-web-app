@@ -6,13 +6,16 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { fileLabels } from 'dataMapping/dashboard/fileLabels';
+import * as Icons from 'components/SharedComponents/icons/Icons';
+import ErrorMessage from 'components/SharedComponents/ErrorMessage';
 import LoadingMessage from 'components/SharedComponents/LoadingMessage';
 import DashboardSummary from './DashboardSummary';
 
 const propTypes = {
     appliedFilters: PropTypes.object.isRequired,
     results: PropTypes.array,
-    inFlight: PropTypes.bool
+    inFlight: PropTypes.bool,
+    hasFailed: PropTypes.bool
 };
 
 export default class DashboardSummaries extends React.Component {
@@ -31,6 +34,10 @@ export default class DashboardSummaries extends React.Component {
             );
         });
 
+        const errorBox = (
+            <ErrorMessage message="An unknown error occurred. If the problem persists, contact the service desk." />
+        );
+
         return (
             <div className="dashboard-viz submission-info">
                 <h3 className="dashboard-viz__heading">Submission Information</h3>
@@ -38,6 +45,7 @@ export default class DashboardSummaries extends React.Component {
                     <div className="text-center">
                         {this.props.inFlight && <LoadingMessage />}
                     </div>
+                    {!this.props.inFlight && this.props.hasFailed && errorBox}
                     {!this.props.inFlight && summaries}
                 </div>
             </div>
