@@ -10,7 +10,10 @@ import { buildLegend } from 'helpers/stackedBarChartHelper';
 import BarChartStacked from './BarChartStacked';
 
 const propTypes = {
-    data: PropTypes.object,
+    xSeries: PropTypes.arrayOf(PropTypes.string),
+    ySeries: PropTypes.arrayOf(PropTypes.array),
+    yData: PropTypes.arrayOf(PropTypes.array),
+    allY: PropTypes.arrayOf(PropTypes.number),
     loading: PropTypes.bool
 };
 
@@ -50,7 +53,7 @@ export default class WarningsInfoGraph extends React.Component {
     }
 
     generateLegend() {
-        const yData = this.props.data.yData && this.props.data.yData[0];
+        const yData = this.props.yData && this.props.yData[0];
         let rules = [];
         if (yData) {
             rules = yData.map((rule) => Object.values(rule)[0]);
@@ -64,9 +67,9 @@ export default class WarningsInfoGraph extends React.Component {
         const legend = this.generateLegend();
         const chart = this.props.loading ? (<p>Loading...</p>) : (
             <BarChartStacked
+                {...this.props}
                 width={this.state.visualizationWidth}
                 height={graphHeight}
-                data={this.props.data}
                 legend={legend} />
         );
         return (

@@ -70,18 +70,16 @@ export class WarningsInfoGraphContainer extends React.Component {
     }
 
     parseData(data) {
-        const groups = []; // Fiscal Quarter labels
-        const xSeries = []; // Fiscal Quarter values
+        const xSeries = []; // Fiscal Quarter labels
         const ySeries = []; // Total Warnings values
         const yData = []; // Warnings by Rule
-        const allY = [];
+        const allY = []; // Total warnings
 
         // For now, only one file at a time
         const file = data[this.props.appliedFilters.file];
 
         file.forEach((submission) => {
             const timePeriodLabel = `FY ${submission.fy - 2000} / Q${submission.quarter}`;
-            groups.push(timePeriodLabel);
             xSeries.push(timePeriodLabel);
             ySeries.push([submission.total_warnings]);
             yData.push(submission.warnings);
@@ -89,7 +87,6 @@ export class WarningsInfoGraphContainer extends React.Component {
         });
 
         this.setState({
-            groups,
             xSeries,
             ySeries,
             yData,
@@ -102,8 +99,7 @@ export class WarningsInfoGraphContainer extends React.Component {
     render() {
         return (
             <WarningsInfoGraph
-                loading={this.state.loading}
-                data={this.state} />
+                {...this.state} />
         );
     }
 }

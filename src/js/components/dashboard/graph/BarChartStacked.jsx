@@ -13,10 +13,15 @@ import { calculateLegendOffset } from 'helpers/stackedBarChartHelper';
 import BarChartXAxis from './BarChartXAxis';
 import BarChartYAxis from './BarChartYAxis';
 import BarChartLegend from './BarChartLegend';
+import StackedBarGroup from './StackedBarGroup';
 
 /* eslint-disable react/no-unused-prop-types */
 // allow unused prop types. they are indirectly accessed as nextProps
 const propTypes = {
+    xSeries: PropTypes.arrayOf(PropTypes.string),
+    ySeries: PropTypes.arrayOf(PropTypes.array),
+    yData: PropTypes.arrayOf(PropTypes.array),
+    allY: PropTypes.arrayOf(PropTypes.number),
     height: PropTypes.number,
     width: PropTypes.number,
     data: PropTypes.object,
@@ -62,10 +67,11 @@ export default class BarChartStacked extends React.Component {
         const values = {
             width: props.width,
             height: props.height,
-            allY: props.data.allY,
-            xSeries: props.data.xSeries,
-            ySeries: props.data.ySeries,
-            stacks: props.data.stacks
+            allY: props.allY,
+            yData: props.yData,
+            xSeries: props.xSeries,
+            ySeries: props.ySeries,
+            stacks: props.legend
         };
 
         // calculate what the visible area of the chart itself will be (excluding the axes and their
@@ -103,12 +109,12 @@ export default class BarChartStacked extends React.Component {
         const xAxis = this.buildVirtualXAxis(values);
 
         // now build the chart body
-        // const body = this.buildVirtualBody(values);
+        const body = this.buildVirtualBody(values);
 
         const chart = {
             yAxis,
-            xAxis
-            // body
+            xAxis,
+            body
         };
 
         this.setState({
@@ -234,22 +240,22 @@ ${xAxis.items[0].label} to ${xAxis.items[xAxis.items.length - 1].label}.`;
             }
         };
 
-        // put 20px padding on each side of the group with a minimum width of 120px
-        const barWidth = Math.min(values.xScale.bandwidth() - 40, 120);
+        // put 20px padding on each side of the group with a minimum width of 66px
+        const barWidth = Math.min(values.xScale.bandwidth() - 40, 66);
         const zeroY = values.yScale(0);
 
         values.xSeries.forEach((x, index) => {
-            const y = values.ySeries[index];
+            const y = values.yData[index];
 
             let xPos = values.xScale(x) + 20;
-            if (barWidth === 120) {
+            if (barWidth === 66) {
                 // the total width of the group is no longer guaranteed to equal the bandwidth
-                // since each bar now maxes out at 120px
+                // since each bar now maxes out at 66px
 
                 // the starting point should be the center of the X label
                 // (the group start X pos + half the band width), then adjusted left for the
                 // total group width (subtract by half the real width)
-                xPos = (values.xScale(x) + (values.xScale.bandwidth() / 2)) - (120 / 2);
+                xPos = (values.xScale(x) + (values.xScale.bandwidth() / 2)) - (66 / 2);
             }
 
             const item = {
@@ -277,30 +283,28 @@ ${xAxis.items[0].label} to ${xAxis.items[xAxis.items.length - 1].label}.`;
             // iterate through each stacked item
             values.stacks.forEach((stack) => {
                 // get the data for the stacked item
-                const data = y[stack.name];
+                const data = y.filter((yItem) => yItem.label === stack.label);
 
                 // determine the Y position of the top of the bar
                 let yPos = values.yScale(data.top);
                 let height = 0;
-                if (stack.type === 'bar') {
-                    // bars have height, so calculate it by getting the Y position of the bottom of
-                    // the bar and taking the difference
-                    height = values.yScale(data.bottom) - yPos;
-                    // however, if the bar shows a negative value but extends to a 0 or positive
-                    // value, the "top" of the bar is actually visually the bottom - and the
-                    // "bottom" bar (the visual top) is the X axis
-                    if (data.top < 0 && data.bottom >= 0) {
-                        yPos = zeroY;
-                        height = values.yScale(data.top) - zeroY;
-                    }
-                    else if (data.top < 0) {
-                        // if the bar shows a negative value and it is entirely negative (the
-                        // two endpoints of the bar are both in the negative region), use the
-                        // least negative value as the top point of the bar and the most negative
-                        // value as the bottom (and height is again the difference between the two)
-                        yPos = values.yScale(Math.max(data.bottom, data.top));
-                        height = values.yScale(Math.min(data.bottom, data.top)) - yPos;
-                    }
+                // calculate height by getting the Y position of the bottom of
+                // the bar and taking the difference
+                height = values.yScale(data.bottom) - yPos;
+                // however, if the bar shows a negative value but extends to a 0 or positive
+                // value, the "top" of the bar is actually visually the bottom - and the
+                // "bottom" bar (the visual top) is the X axis
+                if (data.top < 0 && data.bottom >= 0) {
+                    yPos = zeroY;
+                    height = values.yScale(data.top) - zeroY;
+                }
+                else if (data.top < 0) {
+                    // if the bar shows a negative value and it is entirely negative (the
+                    // two endpoints of the bar are both in the negative region), use the
+                    // least negative value as the top point of the bar and the most negative
+                    // value as the bottom (and height is again the difference between the two)
+                    yPos = values.yScale(Math.max(data.bottom, data.top));
+                    height = values.yScale(Math.min(data.bottom, data.top)) - yPos;
                 }
 
                 // merge the positioning of the stacked item with its metadata
@@ -352,6 +356,12 @@ ${xAxis.items[0].label} to ${xAxis.items[xAxis.items.length - 1].label}.`;
             this.props.height - this.props.padding.bottom // height of the graph
         );
 
+        const body = this.state.virtualChart.body.items.map((item) => (
+            <StackedBarGroup
+                {...item}
+                key={item.xValue} />
+        ));
+
         return (
             <div>
                 <svg
@@ -368,6 +378,12 @@ ${xAxis.items[0].label} to ${xAxis.items[xAxis.items.length - 1].label}.`;
                         className="legend-container"
                         transform={`translate(${this.props.width - 68}, ${legendOffset})`}>
                         <BarChartLegend legend={this.props.legend} />
+                    </g>
+                    <g
+                        className="bar-data"
+                        transform={`translate(${this.state.virtualChart.body.group.x},\
+                            ${this.state.virtualChart.body.group.y})`}>
+                        {body}
                     </g>
                 </svg>
             </div>
