@@ -12,7 +12,7 @@ import DashboardTableLabelButton from 'components/dashboard/visualizations/Dashb
 const propTypes = {
     results: PropTypes.array,
     inFlight: PropTypes.bool,
-    togglePopup: PropTypes.func.isRequired
+    toggleModal: PropTypes.func.isRequired
 };
 
 const defaultProps = {
@@ -50,7 +50,7 @@ export default class DashboardTable extends React.Component {
                 <td>
                     <DashboardTableLabelButton
                         row={row}
-                        togglePopup={this.props.togglePopup} />
+                        toggleModal={this.props.toggleModal} />
                 </td>
                 <td>
                     {row.period}

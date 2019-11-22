@@ -11,6 +11,7 @@ import { isEqual } from 'lodash';
 import * as DashboardHelper from 'helpers/dashboardHelper';
 import DashboardTable from 'components/dashboard/visualizations/DashboardTable';
 import DashboardTablePagination from 'components/dashboard/visualizations/DashboardTablePagination';
+import DashboardTableModal from 'components/dashboard/visualizations/DashboardTableModal';
 import BaseDashboardTableRow from 'models/dashboard/BaseDashboardTableRow';
 
 const propTypes = {
@@ -26,14 +27,17 @@ export class DashboardTableContainer extends React.Component {
             totalPages: 1,
             page: 1,
             limit: 10,
-            inFlight: true
+            inFlight: true,
+            showModal: false,
+            modalData: {}
         };
 
         this.updateTable = this.updateTable.bind(this);
         this.changePage = this.changePage.bind(this);
         this.changeLimit = this.changeLimit.bind(this);
         this.parseRows = this.parseRows.bind(this);
-        this.togglePopup = this.togglePopup.bind(this);
+        this.toggleModal = this.toggleModal.bind(this);
+        this.downloadFile = this.downloadFile.bind(this);
     }
 
     componentDidMount() {
@@ -63,13 +67,23 @@ export class DashboardTableContainer extends React.Component {
         });
     }
 
-    togglePopup(row) {
-        console.log(row);
+    toggleModal(data) {
+        this.setState({
+            showModal: true,
+            modalData: data
+        });
+    }
+
+    downloadFile(fileType, submissionId) {
+        console.log(fileType);
+        console.log(submissionId);
     }
 
     updateTable() {
         this.setState({
-            inFlight: true
+            inFlight: true,
+            showModal: false,
+            modalData: {}
         });
         const filters = this.props.appliedFilters.filters;
         const searchParams = {
@@ -124,13 +138,21 @@ export class DashboardTableContainer extends React.Component {
                     changePage={this.changePage}
                     changeLimit={this.changeLimit} />);
         }
+        let modal = null;
+        if (this.state.showModal) {
+            modal = (
+                <DashboardTableModal
+                    downloadFile={this.downloadFile}
+                    data={this.state.modalData} />);
+        }
         return (
             <div className="dashboard-viz dashboard-table-container">
                 <DashboardTable
                     results={this.state.results}
                     inFlight={this.state.inFlight}
-                    togglePopup={this.togglePopup} />
+                    toggleModal={this.toggleModal} />
                 {pagination}
+                {modal}
             </div>
         );
     }
