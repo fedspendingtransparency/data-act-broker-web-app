@@ -5,11 +5,12 @@ const getSpacing = (length) => (length > 11 ? 25 : 30);
 
 export const buildLegend = (rules = []) => {
     const spacing = getSpacing(rules.length);
+    const legendHeight = spacing * rules.length;
     return (rules.map((label, index) => (
         {
             color: chartColors[index],
             label,
-            offset: index * spacing
+            offset: legendHeight - (index * spacing)
         }
     )));
 };
