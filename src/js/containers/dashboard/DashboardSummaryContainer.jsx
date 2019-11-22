@@ -60,8 +60,8 @@ export class DashboardSummaryContainer extends React.Component {
                 console.error(err);
                 this.setState({
                     hasFailed: true,
-                    inFlight:false
-                })
+                    inFlight: false
+                });
             });
     }
 

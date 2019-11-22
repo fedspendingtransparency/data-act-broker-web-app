@@ -6,7 +6,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { fileLabels } from 'dataMapping/dashboard/fileLabels';
-import * as Icons from 'components/SharedComponents/icons/Icons';
 import ErrorMessage from 'components/SharedComponents/ErrorMessage';
 import LoadingMessage from 'components/SharedComponents/LoadingMessage';
 import DashboardSummary from './DashboardSummary';
