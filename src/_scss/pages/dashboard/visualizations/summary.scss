@@ -1,5 +1,16 @@
 .submission-info {
     color: $color-gray;
+    max-width: rem(688);
+    display: block;
+
+    .results-table-content{
+        .results-table-loading{
+            margin-top: rem(5);
+            margin-bottom: rem(5);
+        }
+        min-height: rem(80);
+    }
+
     .dashboard-page__agency {
         padding: rem(10) 0 rem(15);
         font-size: $h4-font-size;

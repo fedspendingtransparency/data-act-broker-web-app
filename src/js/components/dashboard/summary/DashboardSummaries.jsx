@@ -6,11 +6,13 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { fileLabels } from 'dataMapping/dashboard/fileLabels';
+import LoadingMessage from 'components/SharedComponents/LoadingMessage';
 import DashboardSummary from './DashboardSummary';
 
 const propTypes = {
     appliedFilters: PropTypes.object.isRequired,
-    results: PropTypes.array
+    results: PropTypes.array,
+    inFlight: PropTypes.bool
 };
 
 export default class DashboardSummaries extends React.Component {
@@ -24,7 +26,8 @@ export default class DashboardSummaries extends React.Component {
                     key={result.agency_name}
                     file={file}
                     agency={result.agency_name}
-                    submissions={result.submissions} />
+                    submissions={result.submissions}
+                    inFlight={this.props.inFlight} />
             );
         });
 
@@ -32,7 +35,10 @@ export default class DashboardSummaries extends React.Component {
             <div className="dashboard-viz submission-info">
                 <h3 className="dashboard-viz__heading">Submission Information</h3>
                 <div>
-                    {summaries}
+                    <div className="text-center">
+                        {this.props.inFlight && <LoadingMessage />}
+                    </div>
+                    {!this.props.inFlight && summaries}
                 </div>
             </div>
         );
