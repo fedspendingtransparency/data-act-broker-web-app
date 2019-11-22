@@ -56,7 +56,11 @@
             @import "./chooseFilters";
             @import './dashboardViz';
             @import './graph/warningsInfoGraph';
-            @import "./visualizations/summary.scss";
+            @import "./table/summary.scss";
+            .dashboard-table-container{
+                @import "./table/dashboardTable";
+                @import "./table/dashboardPagination";
+            }
         }
     }
 }

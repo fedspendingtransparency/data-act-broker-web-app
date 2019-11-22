@@ -1,10 +1,12 @@
 /**
-  * SubmissionsTablePaginatorItem.jsx
+  * TablePaginatorItem.jsx
   * Created by Kevin Li 10/31/16
   */
 
 import React from 'react';
 import PropTypes from 'prop-types';
+
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 const propTypes = {
     changePage: PropTypes.func,
@@ -22,7 +24,7 @@ const defaultProps = {
     showTail: false
 };
 
-export default class SubmissionsTablePaginatorItem extends React.Component {
+export default class TablePaginatorItem extends React.Component {
     clickedPage(e) {
         e.preventDefault();
         this.props.changePage(this.props.value);
@@ -38,11 +40,11 @@ export default class SubmissionsTablePaginatorItem extends React.Component {
         let end = null;
 
         if (this.props.showLead) {
-            start = ' ... ';
+            start = <FontAwesomeIcon icon="ellipsis-h" className="ellipsis-pre" />;
         }
 
         if (this.props.showTail) {
-            end = ' ... ';
+            end = <FontAwesomeIcon icon="ellipsis-h" className="ellipsis-post" />;
         }
 
         return (
@@ -57,5 +59,5 @@ export default class SubmissionsTablePaginatorItem extends React.Component {
     }
 }
 
-SubmissionsTablePaginatorItem.propTypes = propTypes;
-SubmissionsTablePaginatorItem.defaultProps = defaultProps;
+TablePaginatorItem.propTypes = propTypes;
+TablePaginatorItem.defaultProps = defaultProps;
