@@ -1,3 +1,13 @@
 .warnings-info {
     @import './axis';
+
+    .results-table-no-results{
+        margin-top: rem(175);
+        margin-bottom: rem(175);
+    }
+
+    .results-table-loading{
+        margin-top: rem(231);
+        margin-bottom: rem(231);
+    }
 }
