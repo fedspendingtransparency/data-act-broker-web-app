@@ -10,7 +10,7 @@
 
             button {
                 border-color: $color-gray-lighter;
-                color: #0074be;
+                color: $color-primary;
                 height: rem(26);
                 width: rem(26);
                 padding: rem(2);
@@ -24,8 +24,8 @@
     
             &.active {
                 button {
-                    background-color: #00a6d2;
-                    border-color: #00a6d2;
+                    background-color: $color-primary-alt-dark;
+                    border-color: $color-primary-alt-dark;
                     color: $color-white;
                     font-weight: initial;
                 }
@@ -40,7 +40,7 @@
                         width: rem(20);
 
                         svg{
-                            fill: #0074be;
+                            fill: $color-primary;
                         }
                     }
                 }

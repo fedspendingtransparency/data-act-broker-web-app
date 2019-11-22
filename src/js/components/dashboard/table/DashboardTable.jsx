@@ -6,8 +6,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import DashboardTableHeader from 'components/dashboard/visualizations/DashboardTableHeader';
-import DashboardTableLabelButton from 'components/dashboard/visualizations/DashboardTableLabelButton';
+import DashboardTableHeader from 'components/dashboard/table/DashboardTableHeader';
+import DashboardTableLabelButton from 'components/dashboard/table/DashboardTableLabelButton';
 
 const propTypes = {
     results: PropTypes.array,
@@ -46,7 +46,7 @@ const tableHeaders = [
 export default class DashboardTable extends React.Component {
     render() {
         const tableRows = this.props.results.map((row) => (
-            <tr key={`dashboard-table-row-${row.submission_id}-${row.rule_label}`}>
+            <tr key={`dashboard-table-row-${row.submissionId}-${row.ruleLabel}`}>
                 <td>
                     <DashboardTableLabelButton
                         row={row}
@@ -56,14 +56,14 @@ export default class DashboardTable extends React.Component {
                     {row.period}
                 </td>
                 <td>
-                    {row.rule_label}
+                    {row.ruleLabel}
                 </td>
                 <td>
-                    {row.instance_count}
+                    {row.instanceCount}
                 </td>
                 <td>
                     <div className="ellipse-box">
-                        {row.rule_description}
+                        {row.ruleDescription}
                     </div>
                 </td>
             </tr>

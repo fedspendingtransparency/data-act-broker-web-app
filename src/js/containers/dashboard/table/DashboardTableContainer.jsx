@@ -9,9 +9,9 @@ import { connect } from 'react-redux';
 import { isEqual } from 'lodash';
 
 import * as DashboardHelper from 'helpers/dashboardHelper';
-import DashboardTable from 'components/dashboard/visualizations/DashboardTable';
-import DashboardTablePagination from 'components/dashboard/visualizations/DashboardTablePagination';
-import DashboardTableModal from 'components/dashboard/visualizations/DashboardTableModal';
+import DashboardTable from 'components/dashboard/table/DashboardTable';
+import DashboardTablePagination from 'components/dashboard/table/DashboardTablePagination';
+import DashboardTableModal from 'components/dashboard/table/DashboardTableModal';
 import BaseDashboardTableRow from 'models/dashboard/BaseDashboardTableRow';
 
 const propTypes = {

@@ -8,7 +8,22 @@
     @import "./dashboardTabs";
     .dashboard-page {
         padding: rem(30);
-        @include display(flex);
+        .dashboard-page__wrapper {
+            @include flex-direction(row);
+            @include display(flex);
+            width: 100%;
+            @media(max-width: $small-screen) {
+                display: block;
+                .dashboard-page__filters {
+                    width: 100%;
+                    margin-right: 0;
+                }
+                .dashboard-page__content {
+                    margin-left: 0;
+                    margin-top: rem(15);
+                }
+            }
+        }
         .dashboard-page__filters {
             @include display(flex);
             @include flex(0 0 auto);
@@ -41,21 +56,10 @@
             @import "./chooseFilters";
             @import './dashboardViz';
             @import './graph/warningsInfoGraph';
-            @import "./visualizations/summary.scss";
+            @import "./table/summary.scss";
             .dashboard-table-container{
-                @import "./visualizations/dashboardTable";
-                @import "./visualizations/dashboardPagination";
-            }
-        }
-        @media(max-width: $small-screen) {
-            display: block;
-            .dashboard-page__filters {
-                width: 100%;
-                margin-right: 0;
-            }
-            .dashboard-page__content {
-                margin-left: 0;
-                margin-top: rem(15);
+                @import "./table/dashboardTable";
+                @import "./table/dashboardPagination";
             }
         }
     }

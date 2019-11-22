@@ -7,11 +7,12 @@ import React from 'react';
 import { shallow } from 'enzyme';
 import { cloneDeep } from 'lodash';
 
-import { DashboardTableContainer } from 'containers/dashboard/visualizations/DashboardTableContainer';
-import { mockRedux } from './mockData';
+import { DashboardTableContainer } from 'containers/dashboard/table/DashboardTableContainer';
+import BaseDashboardTableRow from 'models/dashboard/BaseDashboardTableRow';
+import { mockRedux, mockData } from './mockData';
 
 // mock the child component by replacing it with a function that returns a null element
-jest.mock('components/dashboard/visualizations/DashboardTable', () => jest.fn(() => null));
+jest.mock('components/dashboard/table/DashboardTable', () => jest.fn(() => null));
 
 describe('DashboardTableContainer', () => {
     beforeEach(() => {
@@ -63,5 +64,17 @@ describe('DashboardTableContainer', () => {
 
         expect(container.state().page).toEqual(1);
         expect(updateTable).toHaveBeenCalled();
+    });
+    it('should create objects and store them in the state when parseRows is called', () => {
+        const container = shallow(<DashboardTableContainer 
+            { ...mockRedux } />);
+        
+        container.state().inFlight = true;
+        container.instance().parseRows(mockData);
+
+        expect(container.state().totalPages).toEqual(2);
+        expect(container.state().inFlight).toEqual(false);
+        expect(container.state().results.length).toEqual(2);
+        expect(Object.getPrototypeOf(container.state().results[0])).toEqual(BaseDashboardTableRow);
     });
 });
