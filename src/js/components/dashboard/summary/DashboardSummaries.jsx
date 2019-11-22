@@ -41,7 +41,7 @@ export default class DashboardSummaries extends React.Component {
             <div className="dashboard-viz submission-info">
                 <h3 className="dashboard-viz__heading">Submission Information</h3>
                 <div>
-                    <div className="text-center">
+                    <div className="loading-box">
                         {this.props.inFlight && <LoadingMessage />}
                     </div>
                     {!this.props.inFlight && this.props.hasFailed && errorBox}
