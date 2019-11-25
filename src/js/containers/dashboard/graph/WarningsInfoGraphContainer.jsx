@@ -103,7 +103,8 @@ export class WarningsInfoGraphContainer extends React.Component {
         return (
             <WarningsInfoGraph
                 loading={this.state.loading}
-                data={this.state} />
+                data={this.state} 
+                error={this.state.error} />
         );
     }
 }

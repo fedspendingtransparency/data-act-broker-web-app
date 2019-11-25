@@ -8,6 +8,7 @@ import PropTypes from 'prop-types';
 import { throttle } from 'lodash';
 import NoResultsMessage from 'components/SharedComponents/NoResultsMessage';
 import LoadingMessage from 'components/SharedComponents/LoadingMessage';
+import ErrorMessageOverlay from 'components/SharedComponents/ErrorMessageOverlay';
 import BarChartStacked from './BarChartStacked';
 
 const propTypes = {
@@ -66,7 +67,8 @@ export default class WarningsInfoGraph extends React.Component {
                         this.graphDiv = div;
                     }}>
                     {this.props.loading && <LoadingMessage />}
-                    {!this.props.loading && empty && <NoResultsMessage />}
+                    {!this.props.loading && this.props.error && <ErrorMessageOverlay />}
+                    {!this.props.loading && !this.props.error && empty && <NoResultsMessage />}
                     {!this.props.loading && this.props.data && chart}
                 </div>
             </div>
