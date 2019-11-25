@@ -19,12 +19,10 @@ import StackedBarGroup from './StackedBarGroup';
 // allow unused prop types. they are indirectly accessed as nextProps
 const propTypes = {
     xSeries: PropTypes.arrayOf(PropTypes.string),
-    ySeries: PropTypes.arrayOf(PropTypes.array),
-    yData: PropTypes.arrayOf(PropTypes.array),
+    ySeries: PropTypes.arrayOf(PropTypes.object),
     allY: PropTypes.arrayOf(PropTypes.number),
     height: PropTypes.number,
     width: PropTypes.number,
-    data: PropTypes.object,
     padding: PropTypes.object,
     legend: PropTypes.array,
     showTooltip: PropTypes.func,
@@ -56,7 +54,8 @@ export default class BarChartStacked extends React.Component {
     }
 
     componentDidUpdate(prevProps) {
-        if (prevProps.data !== this.props.data ||
+        if (prevProps.xSeries !== this.props.xSeries ||
+            prevProps.ySeries !== this.props.ySeries ||
             prevProps.width !== this.props.width ||
             prevProps.height !== this.props.height) {
             this.buildVirtualChart(this.props);
@@ -68,7 +67,6 @@ export default class BarChartStacked extends React.Component {
             width: props.width,
             height: props.height,
             allY: props.allY,
-            yData: props.yData,
             xSeries: props.xSeries,
             ySeries: props.ySeries,
             stacks: props.legend
@@ -245,7 +243,7 @@ ${xAxis.items[0].label} to ${xAxis.items[xAxis.items.length - 1].label}.`;
         const zeroY = values.yScale(0);
 
         values.xSeries.forEach((x, index) => {
-            const y = values.yData[index];
+            const y = values.ySeries[index];
 
             let xPos = values.xScale(x) + 20;
             if (barWidth === 66) {
@@ -283,7 +281,7 @@ ${xAxis.items[0].label} to ${xAxis.items[xAxis.items.length - 1].label}.`;
             // iterate through each stacked item
             values.stacks.forEach((stack) => {
                 // get the data for the stacked item
-                const data = y.filter((yItem) => yItem.label === stack.label);
+                const data = y[stack.label];
 
                 // determine the Y position of the top of the bar
                 let yPos = values.yScale(data.top);
@@ -323,7 +321,8 @@ ${xAxis.items[0].label} to ${xAxis.items[xAxis.items.length - 1].label}.`;
                 tooltip.push({
                     label: data.description,
                     value: data.value,
-                    type: stack.name
+                    percent: data.percent,
+                    type: stack.label
                 });
 
                 // get the highest Y position for the tooltip

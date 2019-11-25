@@ -23,7 +23,6 @@ export class WarningsInfoGraphContainer extends React.Component {
         this.state = {
             loading: true,
             error: false,
-            groups: [],
             xSeries: [],
             ySeries: [],
             allY: [],
@@ -79,10 +78,28 @@ export class WarningsInfoGraphContainer extends React.Component {
         return buildLegend(rules);
     }
 
+    generateySeries(yData) {
+        return yData.map((submission) => {
+            let bottom = 0;
+            const barObject = {};
+            submission.forEach((rule) => {
+                barObject[rule.label] = {
+                    value: rule.instances,
+                    bottom,
+                    top: bottom + rule.instances,
+                    description: `Rule ${rule.label}`,
+                    percent: rule.percent_total
+                };
+                bottom += rule.instances;
+            });
+            return barObject;
+        });
+    }
+
     parseData(data) {
         const xSeries = []; // Fiscal Quarter labels
-        const ySeries = []; // Warnings by Rule
-        const allY = []; // Total Warnings values
+        const yData = []; // Warnings by rule for each submission
+        const allY = []; // Total warnings values
 
         // For now, only one file at a time
         const file = data[this.props.appliedFilters.file];
@@ -90,11 +107,12 @@ export class WarningsInfoGraphContainer extends React.Component {
         file.forEach((submission) => {
             const timePeriodLabel = `FY ${submission.fy - 2000} / Q${submission.quarter}`;
             xSeries.push(timePeriodLabel);
-            ySeries.push(submission.warnings);
+            yData.push(submission.warnings);
             allY.push(submission.total_warnings);
         });
 
-        const legend = this.generateLegend(ySeries);
+        const legend = this.generateLegend(yData);
+        const ySeries = this.generateySeries(yData);
 
         this.setState({
             xSeries,

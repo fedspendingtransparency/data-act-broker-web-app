@@ -10,8 +10,7 @@ import BarChartStacked from './BarChartStacked';
 
 const propTypes = {
     xSeries: PropTypes.arrayOf(PropTypes.string),
-    ySeries: PropTypes.arrayOf(PropTypes.array),
-    yData: PropTypes.arrayOf(PropTypes.array),
+    ySeries: PropTypes.arrayOf(PropTypes.object),
     allY: PropTypes.arrayOf(PropTypes.number),
     loading: PropTypes.bool
 };
