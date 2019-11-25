@@ -2,16 +2,22 @@
     @import './axis';
 
     .results-table-error {
-        * {
-            color: $color-gray !important;
+        .icon {
+            color: #d9534f !important;
+        }
+        .title, .description {
+            font-size: rem(30) !important;
         }
         margin-top: rem(179);
         margin-bottom: rem(179);
     }
 
     .results-table-no-results{
-        margin-top: rem(179);
-        margin-bottom: rem(179);
+        .title, .description {
+            font-size: rem(30) !important;
+        }
+        margin-top: rem(202);
+        margin-bottom: rem(201);
     }
 
     .results-table-loading{
