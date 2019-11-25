@@ -6,7 +6,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { isEqual, uniq } from 'lodash';
+import { isEqual, union } from 'lodash';
 
 import * as DashboardHelper from 'helpers/dashboardHelper';
 import { buildLegend } from 'helpers/stackedBarChartHelper';
@@ -71,14 +71,11 @@ export class WarningsInfoGraphContainer extends React.Component {
             });
     }
 
-    generateLegend(ySeries) {
-        const yData = ySeries && ySeries[0];
+    generateLegend(yData) {
         let rules = [];
-        if (yData) {
-            rules = yData.map((rule) => Object.values(rule)[0]);
-        }
-        // Remove any duplicate rules
-        rules = uniq(rules);
+        yData.forEach((submission) => {
+            rules = union(rules, submission.map((rule) => Object.values(rule)[0]));
+        });
         return buildLegend(rules);
     }
 
