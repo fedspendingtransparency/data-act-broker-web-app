@@ -9,9 +9,11 @@ import {
     faCaretUp,
     faChevronDown,
     faEllipsisH,
+    faExclamationCircle,
     faFileAlt,
     faFileUpload,
     faLandmark,
+    faSearch,
     faSpinner,
     faTimes,
     faUser
@@ -26,9 +28,11 @@ library.add(
     faCaretUp,
     faChevronDown,
     faEllipsisH,
+    faExclamationCircle,
     faFileAlt,
     faFileUpload,
     faLandmark,
+    faSearch,
     faSpinner,
     faTimes,
     faUser
