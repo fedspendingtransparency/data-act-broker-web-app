@@ -43,7 +43,7 @@ describe('WarningsInfoGraphContainer', () => {
         expect(fetchData).toHaveBeenCalled();
     });
     describe('generateLegend', () => {
-        it('should return an array representing the legend, without duplicate rules', () => {
+        it('should return an array representing the legend', () => {
             const container = shallow(<WarningsInfoGraphContainer
                 {...mockRedux} />
             );
@@ -53,11 +53,32 @@ describe('WarningsInfoGraphContainer', () => {
                 }, {
                     label: "C12"
                 }, {
-                    label: "C12"
+                    label: "C11"
                 }]
             ];
             const mockLegend = container.instance().generateLegend(ySeries);
-            expect(mockLegend.length).toEqual(2);
+            expect(Object.keys(mockLegend[0])).toEqual(['color', 'label', 'offset']);
+        });
+        it('should handle multiple submissions and remove duplicate rules', () => {
+            const container = shallow(<WarningsInfoGraphContainer
+                {...mockRedux} />
+            );
+            const ySeries = [
+                [{
+                    label: "C23"
+                }, {
+                    label: "C12"
+                }],
+                [{
+                    label: "C23"
+                }, {
+                    label: "C12"
+                }, {
+                    label: "C11"
+                }]
+            ];
+            const mockLegend = container.instance().generateLegend(ySeries);
+            expect(mockLegend.length).toEqual(3);
         });
     });
     describe('parseData', () => {
