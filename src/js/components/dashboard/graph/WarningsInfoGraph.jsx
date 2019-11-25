@@ -13,7 +13,8 @@ import BarChartStacked from './BarChartStacked';
 
 const propTypes = {
     data: PropTypes.object,
-    loading: PropTypes.bool
+    loading: PropTypes.bool,
+    error: PropTypes.bool
 };
 
 export default class WarningsInfoGraph extends React.Component {
