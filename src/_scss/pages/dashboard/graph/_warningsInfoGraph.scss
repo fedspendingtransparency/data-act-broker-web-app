@@ -1,13 +1,21 @@
 .warnings-info {
     @import './axis';
 
+    .results-table-error {
+        * {
+            color: $color-gray !important;
+        }
+        margin-top: rem(179);
+        margin-bottom: rem(179);
+    }
+
     .results-table-no-results{
         margin-top: rem(175);
         margin-bottom: rem(175);
     }
 
     .results-table-loading{
-        margin-top: rem(231);
-        margin-bottom: rem(231);
+        margin-top: rem(235);
+        margin-bottom: rem(235);
     }
 }
