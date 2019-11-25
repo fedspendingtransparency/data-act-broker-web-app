@@ -13,6 +13,7 @@ import {
     faFileAlt,
     faFileUpload,
     faLandmark,
+    faSearch,
     faSpinner,
     faTimes,
     faUser
@@ -31,6 +32,7 @@ library.add(
     faFileAlt,
     faFileUpload,
     faLandmark,
+    faSearch,
     faSpinner,
     faTimes,
     faUser
