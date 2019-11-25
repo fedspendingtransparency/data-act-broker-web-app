@@ -44,7 +44,7 @@ export default class RadioGroup extends React.Component {
                     value={option.value}
                     checked={option.value === this.props.currentValue}
                     onChange={this.pickedOption} />
-                <label className="radio-option__label" htmlFor={option.value}>
+                <label className="radio-option__label" htmlFor={`${option.value}-${this.props.pageSection}`}>
                     {option.label}
                 </label>
             </div>

@@ -9,6 +9,7 @@ import { connect } from 'react-redux';
 import { isEqual } from 'lodash';
 
 import * as DashboardHelper from 'helpers/dashboardHelper';
+import * as GenerateFilesHelper from 'helpers/generateFilesHelper';
 import DashboardTable from 'components/dashboard/table/DashboardTable';
 import DashboardTablePagination from 'components/dashboard/table/DashboardTablePagination';
 import DashboardTableModal from 'components/dashboard/table/DashboardTableModal';
@@ -83,8 +84,13 @@ export class DashboardTableContainer extends React.Component {
     }
 
     downloadFile(fileType, submissionId) {
-        console.log(fileType);
-        console.log(submissionId);
+        GenerateFilesHelper.fetchFile(fileType, submissionId)
+            .then((result) => {
+                window.open(result.url);
+            })
+            .catch((error) => {
+                console.error(error);
+            });
     }
 
     updateTable() {
