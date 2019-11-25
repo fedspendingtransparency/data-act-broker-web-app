@@ -6,9 +6,10 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { isEqual } from 'lodash';
+import { isEqual, uniq } from 'lodash';
 
 import * as DashboardHelper from 'helpers/dashboardHelper';
+import { buildLegend } from 'helpers/stackedBarChartHelper';
 import WarningsInfoGraph from 'components/dashboard/graph/WarningsInfoGraph';
 
 const propTypes = {
@@ -25,7 +26,8 @@ export class WarningsInfoGraphContainer extends React.Component {
             groups: [],
             xSeries: [],
             ySeries: [],
-            allY: []
+            allY: [],
+            legend: []
         };
     }
 
@@ -69,11 +71,24 @@ export class WarningsInfoGraphContainer extends React.Component {
             });
     }
 
+    generateLegend() {
+        const yData = this.state.ySeries && this.state.ySeries[0];
+        let rules = [];
+        if (yData) {
+            rules = yData.map((rule) => Object.values(rule)[0]);
+        }
+        // Remove any duplicate rules
+        rules = uniq(rules);
+        const legend = buildLegend(rules);
+        this.setState({
+            legend
+        });
+    }
+
     parseData(data) {
         const xSeries = []; // Fiscal Quarter labels
-        const ySeries = []; // Total Warnings values
-        const yData = []; // Warnings by Rule
-        const allY = []; // Total warnings
+        const ySeries = []; // Warnings by Rule
+        const allY = []; // Total Warnings values
 
         // For now, only one file at a time
         const file = data[this.props.appliedFilters.file];
@@ -81,19 +96,17 @@ export class WarningsInfoGraphContainer extends React.Component {
         file.forEach((submission) => {
             const timePeriodLabel = `FY ${submission.fy - 2000} / Q${submission.quarter}`;
             xSeries.push(timePeriodLabel);
-            ySeries.push([submission.total_warnings]);
-            yData.push(submission.warnings);
+            ySeries.push(submission.warnings);
             allY.push(submission.total_warnings);
         });
 
         this.setState({
             xSeries,
             ySeries,
-            yData,
             allY,
             loading: false,
             error: false
-        });
+        }, () => this.generateLegend());
     }
 
     render() {
