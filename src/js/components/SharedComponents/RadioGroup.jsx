@@ -9,7 +9,8 @@ import PropTypes from 'prop-types';
 const propTypes = {
     columns: PropTypes.array,
     onChange: PropTypes.func,
-    currentValue: PropTypes.string
+    currentValue: PropTypes.string,
+    pageSection: PropTypes.string
 };
 
 export default class RadioGroup extends React.Component {
@@ -37,7 +38,7 @@ export default class RadioGroup extends React.Component {
         return options.map((option) => (
             <div className="radio-option" key={option.value}>
                 <input
-                    id={option.value}
+                    id={`${option.value}-${this.props.pageSection}`}
                     className="radio-option__input"
                     type="radio"
                     value={option.value}

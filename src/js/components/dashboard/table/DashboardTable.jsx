@@ -12,12 +12,12 @@ import DashboardTableLabelButton from 'components/dashboard/table/DashboardTable
 const propTypes = {
     results: PropTypes.array,
     inFlight: PropTypes.bool,
-    toggleModal: PropTypes.func.isRequired
+    openModal: PropTypes.func.isRequired
 };
 
 const defaultProps = {
     results: [],
-    inFlight: false,
+    inFlight: false
 };
 
 const tableHeaders = [
@@ -50,7 +50,7 @@ export default class DashboardTable extends React.Component {
                 <td>
                     <DashboardTableLabelButton
                         row={row}
-                        toggleModal={this.props.toggleModal} />
+                        openModal={this.props.openModal} />
                 </td>
                 <td>
                     {row.period}

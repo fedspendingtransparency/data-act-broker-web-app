@@ -8,7 +8,7 @@ import PropTypes from 'prop-types';
 
 const propTypes = {
     row: PropTypes.object,
-    toggleModal: PropTypes.func.isRequired
+    openModal: PropTypes.func.isRequired
 };
 
 const defaultProps = {
@@ -19,16 +19,16 @@ export default class DashboardTableLabelButton extends React.Component {
     constructor(props) {
         super(props);
 
-        this.toggleModal = this.toggleModal.bind(this);
+        this.openModal = this.openModal.bind(this);
     }
 
-    toggleModal() {
-        this.props.toggleModal(this.props.row);
+    openModal() {
+        this.props.openModal(this.props.row);
     }
 
     render() {
         return (
-            <button onClick={this.toggleModal} className="file-label-button">
+            <button onClick={this.openModal} className="file-label-button">
                 {this.props.row.fileLabel}
             </button>
         );

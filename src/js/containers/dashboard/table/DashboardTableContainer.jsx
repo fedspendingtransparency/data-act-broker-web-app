@@ -36,7 +36,8 @@ export class DashboardTableContainer extends React.Component {
         this.changePage = this.changePage.bind(this);
         this.changeLimit = this.changeLimit.bind(this);
         this.parseRows = this.parseRows.bind(this);
-        this.toggleModal = this.toggleModal.bind(this);
+        this.openModal = this.openModal.bind(this);
+        this.closeModal = this.closeModal.bind(this);
         this.downloadFile = this.downloadFile.bind(this);
     }
 
@@ -67,10 +68,17 @@ export class DashboardTableContainer extends React.Component {
         });
     }
 
-    toggleModal(data) {
+    openModal(data) {
         this.setState({
             showModal: true,
             modalData: data
+        });
+    }
+
+    closeModal() {
+        this.setState({
+            showModal: false,
+            modalData: {}
         });
     }
 
@@ -143,14 +151,16 @@ export class DashboardTableContainer extends React.Component {
             modal = (
                 <DashboardTableModal
                     downloadFile={this.downloadFile}
-                    data={this.state.modalData} />);
+                    data={this.state.modalData}
+                    closeModal={this.closeModal}
+                    isOpen={this.state.showModal} />);
         }
         return (
             <div className="dashboard-viz dashboard-table-container">
                 <DashboardTable
                     results={this.state.results}
                     inFlight={this.state.inFlight}
-                    toggleModal={this.toggleModal} />
+                    openModal={this.openModal} />
                 {pagination}
                 {modal}
             </div>
