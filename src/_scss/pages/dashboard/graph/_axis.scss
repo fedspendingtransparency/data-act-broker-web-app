@@ -24,13 +24,6 @@
                         fill-opacity: 0.5;
                     }
                 }
-                &:last-of-type {
-                    .grid-line__row {
-                        // we need one fewer rows than the number of ticks,
-                        // so hide the topmost row
-                        display: none;
-                    }
-                }
             }
         }
     }

@@ -31,7 +31,7 @@ const BarChartYAxisItem = (props) => (
                 y2={props.gridLine.y2} />
             <rect
                 className="grid-line__row"
-                transform={`translate(1, -${props.gridLine.height})`}
+                transform="translate(1, 0)"
                 width={props.gridLine.width - 1}
                 height={props.gridLine.height - 1} />
         </g>
