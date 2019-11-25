@@ -53,7 +53,8 @@ export default class WarningsInfoGraph extends React.Component {
             <BarChartStacked
                 width={this.state.visualizationWidth}
                 height={graphHeight}
-                data={this.props.data} />
+                data={this.props.data}
+                legend={this.props.data.legend} />
         );
         return (
             <div className="dashboard-viz warnings-info">

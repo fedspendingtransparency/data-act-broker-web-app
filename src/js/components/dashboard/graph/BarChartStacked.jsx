@@ -8,9 +8,11 @@ import PropTypes from 'prop-types';
 import { scaleLinear, scaleBand } from 'd3-scale';
 import { min, max } from 'lodash';
 import { formatNumberWithPrecision } from 'helpers/moneyFormatter';
+import { calculateLegendOffset } from 'helpers/stackedBarChartHelper';
 
 import BarChartXAxis from './BarChartXAxis';
 import BarChartYAxis from './BarChartYAxis';
+import BarChartLegend from './BarChartLegend';
 
 /* eslint-disable react/no-unused-prop-types */
 // allow unused prop types. they are indirectly accessed as nextProps
@@ -29,7 +31,8 @@ const propTypes = {
 const defaultProps = {
     padding: {
         left: 70,
-        bottom: 50
+        bottom: 50,
+        right: 80
     }
 };
 
@@ -68,7 +71,7 @@ export default class BarChartStacked extends React.Component {
         // calculate what the visible area of the chart itself will be (excluding the axes and their
         // labels)
         values.graphHeight = values.height - props.padding.bottom;
-        values.graphWidth = values.width - props.padding.left;
+        values.graphWidth = values.width - props.padding.left - props.padding.right;
         values.padding = props.padding;
 
         // build a virtual representation of the chart first
@@ -344,6 +347,10 @@ ${xAxis.items[0].label} to ${xAxis.items[xAxis.items.length - 1].label}.`;
         if (!this.state.chartReady) {
             return null;
         }
+        const legendOffset = calculateLegendOffset(
+            this.props.legend.length, // number of items in the legend
+            this.props.height - this.props.padding.bottom // height of the graph
+        );
 
         return (
             <div>
@@ -357,6 +364,11 @@ ${xAxis.items[0].label} to ${xAxis.items[xAxis.items.length - 1].label}.`;
                         y={this.state.virtualChart.yAxis.group.y} />
                     <BarChartXAxis
                         {...this.state.virtualChart.xAxis} />
+                    <g
+                        className="legend-container"
+                        transform={`translate(${this.props.width - 68}, ${legendOffset})`}>
+                        <BarChartLegend legend={this.props.legend} />
+                    </g>
                 </svg>
             </div>
         );
