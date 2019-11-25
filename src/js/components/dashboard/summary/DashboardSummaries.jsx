@@ -6,7 +6,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { fileLabels } from 'dataMapping/dashboard/fileLabels';
-import ErrorMessage from 'components/SharedComponents/ErrorMessage';
+import ErrorMessageOverlay from 'components/SharedComponents/ErrorMessageOverlay';
 import LoadingMessage from 'components/SharedComponents/LoadingMessage';
 import DashboardSummary from './DashboardSummary';
 
@@ -33,18 +33,12 @@ export default class DashboardSummaries extends React.Component {
             );
         });
 
-        const errorBox = (
-            <ErrorMessage message="An unknown error occurred. If the problem persists, contact the service desk." />
-        );
-
         return (
             <div className="dashboard-viz submission-info">
                 <h3 className="dashboard-viz__heading">Submission Information</h3>
                 <div>
-                    <div className="loading-box">
-                        {this.props.inFlight && <LoadingMessage />}
-                    </div>
-                    {!this.props.inFlight && this.props.hasFailed && errorBox}
+                    {this.props.inFlight && <LoadingMessage />}
+                    {!this.props.inFlight && this.props.hasFailed && <ErrorMessageOverlay />}
                     {!this.props.inFlight && summaries}
                 </div>
             </div>
