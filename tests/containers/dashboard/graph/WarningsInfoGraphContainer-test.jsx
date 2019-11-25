@@ -43,12 +43,11 @@ describe('WarningsInfoGraphContainer', () => {
         expect(fetchData).toHaveBeenCalled();
     });
     describe('generateLegend', () => {
-        it('should update the state with an array representing the legend, without duplicate rules', () => {
+        it('should return an array representing the legend, without duplicate rules', () => {
             const container = shallow(<WarningsInfoGraphContainer
                 {...mockRedux} />
             );
-            const newState = cloneDeep(container.instance().state);
-            newState.ySeries = [
+            const ySeries = [
                 [{
                     label: "C23"
                 }, {
@@ -57,9 +56,8 @@ describe('WarningsInfoGraphContainer', () => {
                     label: "C12"
                 }]
             ];
-            container.instance().setState(newState);
-            container.instance().generateLegend();
-            expect(container.instance().state.legend.length).toEqual(2);
+            const mockLegend = container.instance().generateLegend(ySeries);
+            expect(mockLegend.length).toEqual(2);
         });
     });
     describe('parseData', () => {

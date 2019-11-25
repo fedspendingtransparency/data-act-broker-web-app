@@ -71,18 +71,15 @@ export class WarningsInfoGraphContainer extends React.Component {
             });
     }
 
-    generateLegend() {
-        const yData = this.state.ySeries && this.state.ySeries[0];
+    generateLegend(ySeries) {
+        const yData = ySeries && ySeries[0];
         let rules = [];
         if (yData) {
             rules = yData.map((rule) => Object.values(rule)[0]);
         }
         // Remove any duplicate rules
         rules = uniq(rules);
-        const legend = buildLegend(rules);
-        this.setState({
-            legend
-        });
+        return buildLegend(rules);
     }
 
     parseData(data) {
@@ -100,13 +97,16 @@ export class WarningsInfoGraphContainer extends React.Component {
             allY.push(submission.total_warnings);
         });
 
+        const legend = this.generateLegend(ySeries);
+
         this.setState({
             xSeries,
             ySeries,
             allY,
+            legend,
             loading: false,
             error: false
-        }, () => this.generateLegend());
+        });
     }
 
     render() {
