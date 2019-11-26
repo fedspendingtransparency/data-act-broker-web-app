@@ -240,7 +240,6 @@ ${xAxis.items[0].label} to ${xAxis.items[xAxis.items.length - 1].label}.`;
 
         // put 20px padding on each side of the group with a minimum width of 66px
         const barWidth = Math.min(values.xScale.bandwidth() - 40, 66);
-        const zeroY = values.yScale(0);
 
         values.xSeries.forEach((x, index) => {
             const y = values.ySeries[index];

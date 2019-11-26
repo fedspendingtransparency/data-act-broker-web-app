@@ -105,7 +105,7 @@ export class WarningsInfoGraphContainer extends React.Component {
         const file = data[this.props.appliedFilters.file];
 
         file.forEach((submission) => {
-            const timePeriodLabel = `FY ${submission.fy - 2000} / Q${submission.quarter}`;
+            const timePeriodLabel = `FY ${submission.fy.toString(10).substring(2)} / Q${submission.quarter}`;
             xSeries.push(timePeriodLabel);
             yData.push(submission.warnings);
             allY.push(submission.total_warnings);
