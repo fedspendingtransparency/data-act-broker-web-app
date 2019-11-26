@@ -168,7 +168,7 @@ export class DashboardTableContainer extends React.Component {
             <div className="dashboard-viz dashboard-table-container">
                 <DashboardTable
                     results={this.state.results}
-                    inFlight={this.state.inFlight} 
+                    inFlight={this.state.inFlight}
                     hasError={this.state.hasError}
                     openModal={this.openModal} />
                 {pagination}
