@@ -13,12 +13,24 @@
             margin-bottom: rem(201);
             max-width: none;
         }
-        .results-table-no-results{
+        .results-table-no-results {
+            .no-results-icon {
+                svg {
+                    color: $color-primary;
+                }
+            }
             margin-top: rem(202);
             margin-bottom: rem(201);
             max-width: none;
         }
-        .results-table-loading{
+        .results-table-loading {
+            .loading-animation {
+                svg.loading-bars {
+                    rect {
+                        fill: $color-primary;
+                    }
+                }
+            }
             margin-top: rem(235);
             margin-bottom: rem(235);
             max-width: none;
