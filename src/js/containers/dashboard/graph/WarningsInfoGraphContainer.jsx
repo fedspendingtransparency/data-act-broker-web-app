@@ -6,9 +6,10 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { isEqual } from 'lodash';
+import { isEqual, union } from 'lodash';
 
 import * as DashboardHelper from 'helpers/dashboardHelper';
+import { buildLegend } from 'helpers/stackedBarChartHelper';
 import WarningsInfoGraph from 'components/dashboard/graph/WarningsInfoGraph';
 
 const propTypes = {
@@ -25,7 +26,8 @@ export class WarningsInfoGraphContainer extends React.Component {
             groups: [],
             xSeries: [],
             ySeries: [],
-            allY: []
+            allY: [],
+            legend: []
         };
     }
 
@@ -69,12 +71,19 @@ export class WarningsInfoGraphContainer extends React.Component {
             });
     }
 
+    generateLegend(yData) {
+        let rules = [];
+        yData.forEach((submission) => {
+            rules = union(rules, submission.map((rule) => Object.values(rule)[0]));
+        });
+        return buildLegend(rules);
+    }
+
     parseData(data) {
         const groups = []; // Fiscal Quarter labels
         const xSeries = []; // Fiscal Quarter values
-        const ySeries = []; // Total Warnings values
-        const yData = []; // Warnings by Rule
-        const allY = [];
+        const ySeries = []; // Warnings by Rule
+        const allY = []; // Total Warnings values
 
         // For now, only one file at a time
         const file = data[this.props.appliedFilters.file];
@@ -83,17 +92,18 @@ export class WarningsInfoGraphContainer extends React.Component {
             const timePeriodLabel = `FY ${submission.fy - 2000} / Q${submission.quarter}`;
             groups.push(timePeriodLabel);
             xSeries.push(timePeriodLabel);
-            ySeries.push([submission.total_warnings]);
-            yData.push(submission.warnings);
+            ySeries.push(submission.warnings);
             allY.push(submission.total_warnings);
         });
+
+        const legend = this.generateLegend(ySeries);
 
         this.setState({
             groups,
             xSeries,
             ySeries,
-            yData,
             allY,
+            legend,
             loading: false,
             error: false
         });
