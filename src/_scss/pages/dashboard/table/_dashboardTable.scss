@@ -1,34 +1,43 @@
 .dashboard-table {
-    
-    .results-table-error {
-        .icon {
-            color: #d9534f !important;
-        }
-        .title, .description {
-            font-size: rem(25) !important;
-            line-height: rem(24) !important;
-        }
-        margin-top: rem(20);
-        margin-bottom: rem(20);
-        max-width: none;
-    }
 
-    .results-table-no-results{
-        .title, .description {
-            font-size: rem(25) !important;
-            line-height: rem(24) !important;
+    .results-table-content {
+        .title, .description, .loading-message {
+            font-size: rem(25);
+            line-height: rem(24);
         }
-        margin-top: rem(20);
-        margin-bottom: rem(20);
-    }
+        .results-table-error {
+            .icon {
+                color: #d9534f;
+                width: rem(53);
+                height: rem(50);
 
-    .results-table-loading{
-        margin-top: rem(20);
-        margin-bottom: rem(20);
-        
-        .loading-message {
-            font-size: rem(25) !important;
-            line-height: rem(24) !important;
+                svg {
+                    width: rem(50);
+                    height: rem(53);
+                }
+            }
+            margin-top: rem(20);
+            margin-bottom: rem(20);
+            max-width: none;
+        }
+        .results-table-no-results{
+            .no-results-icon {
+                width: rem(50);
+                height: rem(53);
+
+                svg {
+                    width: rem(50);
+                    height: rem(53);
+                }
+            }
+            margin-top: rem(20);
+            margin-bottom: rem(20);
+            max-width: none;
+        }
+        .results-table-loading{
+            margin-top: rem(20);
+            margin-bottom: rem(20);
+            max-width: none;
         }
     }
 
