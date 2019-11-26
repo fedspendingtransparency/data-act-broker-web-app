@@ -1,4 +1,37 @@
 .dashboard-table {
+    
+    .results-table-error {
+        .icon {
+            color: #d9534f !important;
+        }
+        .title, .description {
+            font-size: rem(25) !important;
+            line-height: rem(24) !important;
+        }
+        margin-top: rem(20);
+        margin-bottom: rem(20);
+        max-width: none;
+    }
+
+    .results-table-no-results{
+        .title, .description {
+            font-size: rem(25) !important;
+            line-height: rem(24) !important;
+        }
+        margin-top: rem(20);
+        margin-bottom: rem(20);
+    }
+
+    .results-table-loading{
+        margin-top: rem(20);
+        margin-bottom: rem(20);
+        
+        .loading-message {
+            font-size: rem(25) !important;
+            line-height: rem(24) !important;
+        }
+    }
+
     table {
         width: 100%;
         margin-bottom: rem(21);
