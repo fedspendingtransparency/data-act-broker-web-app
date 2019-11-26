@@ -82,15 +82,12 @@ export default class DashboardTableModal extends React.Component {
                 </div>);
         }
 
-        // adding this because the linter doesn't like when we just pass true
-        const trueProps = true;
-
         return (
             <Modal
                 mounted={this.props.isOpen}
                 onExit={this.props.closeModal}
-                verticallyCenter={trueProps}
-                underlayClickExits={trueProps}
+                verticallyCenter
+                underlayClickExits
                 initialFocus="#close-button"
                 titleId="dashboard-page-rule-modal">
                 <div className="usa-da-modal-page">

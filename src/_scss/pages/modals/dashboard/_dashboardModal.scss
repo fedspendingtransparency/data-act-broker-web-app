@@ -75,12 +75,14 @@
 
     p {
         margin: 0;
+        color: $font-color;
     }
 
     h4 {
         margin: rem(4) 0;
         font-weight: $font-semibold;
         font-size: $h5-font-size;
+        color: $font-color;
     }
 
     h5 {
@@ -90,5 +92,6 @@
         padding-left: rem(12);
         font-size: $base-font-size;
         font-weight: $font-semibold;
+        color: $font-color;
     }
 }
