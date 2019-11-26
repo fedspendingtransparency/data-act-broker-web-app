@@ -9,8 +9,10 @@ import { connect } from 'react-redux';
 import { isEqual } from 'lodash';
 
 import * as DashboardHelper from 'helpers/dashboardHelper';
+import * as GenerateFilesHelper from 'helpers/generateFilesHelper';
 import DashboardTable from 'components/dashboard/table/DashboardTable';
 import DashboardTablePagination from 'components/dashboard/table/DashboardTablePagination';
+import DashboardTableModal from 'components/dashboard/table/DashboardTableModal';
 import BaseDashboardTableRow from 'models/dashboard/BaseDashboardTableRow';
 
 const propTypes = {
@@ -28,7 +30,9 @@ export class DashboardTableContainer extends React.Component {
             limit: 10,
             inFlight: true,
             sort: 'period',
-            order: 'desc'
+            order: 'desc',
+            showModal: false,
+            modalData: {}
         };
 
         this.updateTable = this.updateTable.bind(this);
@@ -36,6 +40,9 @@ export class DashboardTableContainer extends React.Component {
         this.changeLimit = this.changeLimit.bind(this);
         this.parseRows = this.parseRows.bind(this);
         this.changeSort = this.changeSort.bind(this);
+        this.openModal = this.openModal.bind(this);
+        this.closeModal = this.closeModal.bind(this);
+        this.downloadFile = this.downloadFile.bind(this);
     }
 
     componentDidMount() {
@@ -74,9 +81,35 @@ export class DashboardTableContainer extends React.Component {
         });
     }
 
+    openModal(data) {
+        this.setState({
+            showModal: true,
+            modalData: data
+        });
+    }
+
+    closeModal() {
+        this.setState({
+            showModal: false,
+            modalData: {}
+        });
+    }
+
+    downloadFile(fileType, submissionId) {
+        GenerateFilesHelper.fetchFile(fileType, submissionId)
+            .then((result) => {
+                window.open(result.url);
+            })
+            .catch((error) => {
+                console.error(error);
+            });
+    }
+
     updateTable() {
         this.setState({
-            inFlight: true
+            inFlight: true,
+            showModal: false,
+            modalData: {}
         });
         const filters = this.props.appliedFilters.filters;
         const searchParams = {
@@ -131,6 +164,15 @@ export class DashboardTableContainer extends React.Component {
                     changePage={this.changePage}
                     changeLimit={this.changeLimit} />);
         }
+        let modal = null;
+        if (this.state.showModal) {
+            modal = (
+                <DashboardTableModal
+                    downloadFile={this.downloadFile}
+                    data={this.state.modalData}
+                    closeModal={this.closeModal}
+                    isOpen={this.state.showModal} />);
+        }
         return (
             <div className="dashboard-viz dashboard-table-container">
                 <DashboardTable
@@ -138,8 +180,10 @@ export class DashboardTableContainer extends React.Component {
                     inFlight={this.state.inFlight}
                     changeSort={this.changeSort}
                     currSort={this.state.sort}
-                    currOrder={this.state.order} />
+                    currOrder={this.state.order}
+                    openModal={this.openModal} />
                 {pagination}
+                {modal}
             </div>
         );
     }

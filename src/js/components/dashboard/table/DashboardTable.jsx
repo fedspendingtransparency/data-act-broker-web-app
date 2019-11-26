@@ -7,13 +7,15 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 import DashboardTableHeader from 'components/dashboard/table/DashboardTableHeader';
+import DashboardTableLabelButton from 'components/dashboard/table/DashboardTableLabelButton';
 
 const propTypes = {
     results: PropTypes.array,
     inFlight: PropTypes.bool,
     changeSort: PropTypes.func.isRequired,
     currSort: PropTypes.string,
-    currOrder: PropTypes.string
+    currOrder: PropTypes.string,
+    openModal: PropTypes.func.isRequired
 };
 
 const defaultProps = {
@@ -56,7 +58,9 @@ export default class DashboardTable extends React.Component {
         const tableRows = this.props.results.map((row) => (
             <tr key={`dashboard-table-row-${row.submissionId}-${row.ruleLabel}`}>
                 <td>
-                    {row.fileLabel}
+                    <DashboardTableLabelButton
+                        row={row}
+                        openModal={this.props.openModal} />
                 </td>
                 <td>
                     {row.period}
