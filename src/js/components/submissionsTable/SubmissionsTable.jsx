@@ -19,7 +19,7 @@ import DeleteLink from '../landing/recentActivity/DeleteLink';
 import NoResultsMessage from '../SharedComponents/NoResultsMessage';
 import LoadingMessage from '../SharedComponents/LoadingMessage';
 
-import DashboardPaginator from './SubmissionsTablePaginator';
+import TablePaginator from '../SharedComponents/table/TablePaginator';
 
 const propTypes = {
     loadTableData: PropTypes.func,
@@ -370,7 +370,7 @@ export default class SubmissionsTable extends React.Component {
         let paginator;
 
         if (this.state.totalPages > 1) {
-            paginator = (<DashboardPaginator
+            paginator = (<TablePaginator
                 current={this.state.currentPage}
                 total={this.state.totalPages}
                 changePage={this.changePage.bind(this)} />);

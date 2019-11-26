@@ -1,0 +1,110 @@
+.dashboard-table {
+    table {
+        width: 100%;
+        margin-bottom: rem(21);
+        margin-top: rem(16);
+
+        .dashboard-table__file-column {
+            width: rem(105);
+        }
+
+        .dashboard-table__fyq-column {
+            width: rem(114);
+
+            .dashboard-table__header-text {
+                width: rem(70);
+            }
+        }
+
+        .dashboard-table__label-column {
+            width: rem(129);
+        }
+
+        .dashboard-table__instances-column {
+            width: rem(117);
+
+            .dashboard-table__header-text {
+                width: rem(66);
+            }
+        }
+
+        .dashboard-table__rule-column {
+            padding-right: 2em;
+        }
+
+        thead {
+            color: $color-white;
+            background: $color-gray;
+
+            th {
+                height: rem(53);
+                padding-left: rem(6);
+
+                .dashboard-table__header-wrapper {
+                    display: flex;
+                    height: rem(36);
+
+                    .dashboard-table__header-text{
+                        margin: auto 0;
+                    }
+
+                    .dashboard-table__sort-icons {
+                        margin: auto 0;
+                        margin-left: rem(10);
+
+                        button {
+                            display: block;
+                            background: none;
+                            border: none;
+                            padding: 0;
+                            overflow: hidden;
+                            height: rem(13);
+                            margin: rem(4) 0;
+                        }
+
+                        svg {
+                            vertical-align: 0;
+                            margin-top: -9px;
+                        }
+                    }
+                }
+            }
+        }
+
+        tbody {
+            color: $color-gray;
+
+            tr {
+                height: rem(41);
+
+                &:nth-child(odd) {
+                    background-color: $color-gray-lightest;
+                }
+
+                &:nth-child(even) {
+                    background-color: $color-white;
+                }
+            }
+
+            td {
+                padding-left: rem(6);
+
+                .ellipse-box {
+                    display: block;
+                    display: -webkit-box;
+                    max-width: 100%;
+                    margin: auto;
+                    -webkit-line-clamp: 2;
+                    -webkit-box-orient: vertical;
+                    overflow: hidden;
+                    text-overflow: ellipsis;
+                }
+
+                .file-label-button {
+                    @include button-unstyled;
+                    color: $color-primary;
+                }
+            }
+        }
+    }
+}

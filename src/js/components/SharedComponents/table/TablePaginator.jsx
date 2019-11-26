@@ -1,14 +1,14 @@
 /**
-  * SubmissionsTablePaginator.jsx
+  * TablePaginator.jsx
   * Created by Kevin Li 10/31/16
   */
 
 import React from 'react';
 import PropTypes from 'prop-types';
-import _ from 'lodash';
+import { isEqual } from 'lodash';
 
-import SubmissionsTablePaginatorItem from './SubmissionsTablePaginatorItem';
-import SubmissionsTablePaginatorArrow from './SubmissionsTablePaginatorArrow';
+import TablePaginatorArrow from 'components/SharedComponents/table/TablePaginatorArrow';
+import TablePaginatorItem from './TablePaginatorItem';
 
 const propTypes = {
     changePage: PropTypes.func,
@@ -22,7 +22,7 @@ const defaultProps = {
     changePage: null
 };
 
-export default class SubmissionsTablePaginator extends React.Component {
+export default class TablePaginator extends React.Component {
     constructor(props) {
         super(props);
 
@@ -36,7 +36,7 @@ export default class SubmissionsTablePaginator extends React.Component {
     }
 
     componentDidUpdate(prevProps) {
-        if (!_.isEqual(prevProps, this.props)) {
+        if (!isEqual(prevProps, this.props)) {
             this.generatePages();
         }
     }
@@ -72,7 +72,7 @@ export default class SubmissionsTablePaginator extends React.Component {
         }
 
         if (start !== 1) {
-            const firstItem = (<SubmissionsTablePaginatorItem
+            const firstItem = (<TablePaginatorItem
                 key={1}
                 value={1}
                 current={this.props.current === 1}
@@ -82,7 +82,7 @@ export default class SubmissionsTablePaginator extends React.Component {
         }
 
         for (let i = start; i <= end; i++) {
-            const item = (<SubmissionsTablePaginatorItem
+            const item = (<TablePaginatorItem
                 key={i}
                 value={i}
                 current={i === this.props.current}
@@ -91,7 +91,7 @@ export default class SubmissionsTablePaginator extends React.Component {
         }
 
         if (end !== this.props.total) {
-            const lastItem = (<SubmissionsTablePaginatorItem
+            const lastItem = (<TablePaginatorItem
                 key={this.props.total}
                 value={this.props.total}
                 current={this.props.current === this.props.total}
@@ -105,10 +105,9 @@ export default class SubmissionsTablePaginator extends React.Component {
         });
     }
 
-
     render() {
-        let prevButton = <SubmissionsTablePaginatorArrow direction="left" moveDirection={this.moveDirection.bind(this)} />;
-        let nextButton = <SubmissionsTablePaginatorArrow direction="right" moveDirection={this.moveDirection.bind(this)} />;
+        let prevButton = <TablePaginatorArrow direction="left" moveDirection={this.moveDirection.bind(this)} />;
+        let nextButton = <TablePaginatorArrow direction="right" moveDirection={this.moveDirection.bind(this)} />;
 
         if (this.props.current === 1) {
             prevButton = null;
@@ -130,5 +129,5 @@ export default class SubmissionsTablePaginator extends React.Component {
     }
 }
 
-SubmissionsTablePaginator.propTypes = propTypes;
-SubmissionsTablePaginator.defaultProps = defaultProps;
+TablePaginator.propTypes = propTypes;
+TablePaginator.defaultProps = defaultProps;

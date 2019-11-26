@@ -1,0 +1,97 @@
+.dashboard-page__modal {
+    background-color: $color-white;
+    border: solid rem(1) $color-gray-lighter;
+    border-radius: rem(5);
+    padding: rem(12);
+    width: rem(552);
+    overflow-wrap: break-word;
+
+    .detail-row {
+        margin-bottom: rem(18);
+
+        .detail-name {
+            float: left;
+        }
+        
+        .detail-content {
+            text-align: right;
+            font-weight: $font-semibold;
+        }
+    }
+
+    .download-button {
+        display: block;
+        width: rem(128);
+        height: rem(39);
+        color: $color-white;
+        font-weight: $font-bold;
+        border: 0;
+
+        background-color: $color-primary;
+
+        &:hover {
+            background-color: $color-primary-darker;            
+        }
+
+        &[disabled] {
+            opacity: 0.5;
+            cursor: not-allowed;
+            &:hover {
+                background-color: $color-primary;
+            }
+        }
+    }
+
+    .close-button {
+        float: right;
+        font-size: rem(20);
+        height: rem(20);
+        padding: 0;
+        border: none;
+        background-color: $color-white;
+        overflow: hidden;
+
+        svg {
+            margin-bottom: rem(5);
+        }
+    }
+
+    .radio-group__column {
+        padding: 0;
+
+        .radio-option {
+            padding-bottom: rem(12);
+
+            label {
+                margin: 0;
+            }
+        }
+    }
+
+    hr {
+        margin-top: rem(6);
+        margin-bottom: rem(18);
+    }
+
+    p {
+        margin: 0;
+        color: $font-color;
+    }
+
+    h4 {
+        margin: rem(4) 0;
+        font-weight: $font-semibold;
+        font-size: $h5-font-size;
+        color: $font-color;
+    }
+
+    h5 {
+        background-color: $color-gray-cool-light;
+        margin-top: 0;
+        margin-bottom: rem(12);
+        padding-left: rem(12);
+        font-size: $base-font-size;
+        font-weight: $font-semibold;
+        color: $font-color;
+    }
+}
