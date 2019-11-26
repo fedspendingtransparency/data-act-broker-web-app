@@ -7,15 +7,20 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 import DashboardTableHeader from 'components/dashboard/table/DashboardTableHeader';
+import NoResultsMessage from 'components/SharedComponents/NoResultsMessage';
+import LoadingMessage from 'components/SharedComponents/LoadingMessage';
+import ErrorMessageOverlay from 'components/SharedComponents/ErrorMessageOverlay';
 
 const propTypes = {
     results: PropTypes.array,
-    inFlight: PropTypes.bool
+    inFlight: PropTypes.bool,
+    hasError: PropTypes.bool
 };
 
 const defaultProps = {
     results: [],
-    inFlight: false
+    inFlight: false,
+    hasError: false
 };
 
 const tableHeaders = [
@@ -67,10 +72,13 @@ export default class DashboardTable extends React.Component {
 
         let contentMessage = null;
         if (this.props.inFlight) {
-            contentMessage = 'Gathering data';
+            contentMessage = <LoadingMessage />;
+        }
+        else if (this.props.hasError) {
+            contentMessage = <ErrorMessageOverlay />;
         }
         else if (this.props.results.length === 0) {
-            contentMessage = 'No data';
+            contentMessage = <NoResultsMessage />;
         }
         return (
             <div className="dashboard-table">

@@ -26,7 +26,8 @@ export class DashboardTableContainer extends React.Component {
             totalPages: 1,
             page: 1,
             limit: 10,
-            inFlight: true
+            inFlight: true,
+            hasError: false
         };
 
         this.updateTable = this.updateTable.bind(this);
@@ -88,7 +89,8 @@ export class DashboardTableContainer extends React.Component {
             .catch((err) => {
                 console.error(err);
                 this.setState({
-                    inFlight: false
+                    inFlight: false,
+                    hasError: true
                 });
             });
     }
@@ -104,13 +106,14 @@ export class DashboardTableContainer extends React.Component {
         this.setState({
             results,
             totalPages: Math.ceil(data.page_metadata.total / this.state.limit),
-            inFlight: false
+            inFlight: false,
+            hasError: false
         });
     }
 
     render() {
         let pagination = null;
-        if (!this.state.inFlight && this.state.results.length !== 0) {
+        if (!this.state.inFlight && !this.state.hasError && this.state.results.length !== 0) {
             pagination = (
                 <DashboardTablePagination
                     totalPages={this.state.totalPages}
@@ -123,7 +126,8 @@ export class DashboardTableContainer extends React.Component {
             <div className="dashboard-viz dashboard-table-container">
                 <DashboardTable
                     results={this.state.results}
-                    inFlight={this.state.inFlight} />
+                    inFlight={this.state.inFlight} 
+                    hasError={this.state.hasError} />
                 {pagination}
             </div>
         );
