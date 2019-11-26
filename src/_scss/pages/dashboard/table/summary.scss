@@ -22,6 +22,13 @@
             margin-bottom: rem(5);
         }
         .results-table-loading {
+            .loading-animation {
+                svg.loading-bars {
+                    rect {
+                        fill: $color-primary;
+                    }
+                }
+            }
             margin-top: rem(12);
             margin-bottom: rem(12);
         }
