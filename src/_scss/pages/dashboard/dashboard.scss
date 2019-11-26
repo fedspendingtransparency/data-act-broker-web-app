@@ -37,6 +37,7 @@
         .dashboard-page__content {
             background-color: $color-white;
             @include flex(1 1 auto);
+            min-width: 0;
             margin-left: rem(15);
             border-radius: rem(5);
             border: solid rem(1) $color-gray-lighter;
