@@ -6,7 +6,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { scaleLinear, scaleBand } from 'd3-scale';
-import { min, max } from 'lodash';
+import { max } from 'lodash';
 import { formatNumberWithPrecision } from 'helpers/moneyFormatter';
 import { calculateLegendOffset } from 'helpers/stackedBarChartHelper';
 
@@ -82,7 +82,7 @@ export default class BarChartStacked extends React.Component {
         // when we actually draw the chart, we won't need to do any more calculations
 
         // calculate the Y axis range
-        const yRange = [min(values.allY), max(values.allY)];
+        const yRange = [0, max(values.allY)];
         if (values.allY.length === 1) {
             yRange[0] = 0;
         }
@@ -286,32 +286,32 @@ ${xAxis.items[0].label} to ${xAxis.items[xAxis.items.length - 1].label}.`;
                 if (data) {
                     // if this stack type is present in the current bar
                     // determine the Y position of the top of the bar
-                    yPos = values.yScale(data.top) - 1;
+                    yPos = values.yScale(data.top);
 
                     // calculate height by getting the Y position of the bottom of
                     // the bar and taking the difference
-                    height = values.yScale(data.bottom) - yPos;
+                    height = (values.yScale(data.bottom) - 2) - yPos;
+
+                    // merge the positioning of the stacked item with its metadata
+                    const element = Object.assign({}, stack, {
+                        height,
+                        width: barWidth,
+                        x: 0,
+                        y: yPos,
+                        xValue: x,
+                        value: data.value,
+                        description: data.description
+                    });
+                    item.stack.push(element);
+
+                    // add the value to the tooltip
+                    tooltip.push({
+                        label: data.description,
+                        value: data.value,
+                        percent: data.percent,
+                        type: stack.label
+                    });
                 }
-
-                // merge the positioning of the stacked item with its metadata
-                const element = Object.assign({}, stack, {
-                    height,
-                    width: barWidth,
-                    x: 0,
-                    y: yPos,
-                    xValue: x,
-                    value: data.value,
-                    description: data.description
-                });
-                item.stack.push(element);
-
-                // add the value to the tooltip
-                tooltip.push({
-                    label: data.description,
-                    value: data.value,
-                    percent: data.percent,
-                    type: stack.label
-                });
 
                 // get the highest Y position for the tooltip
                 if (yPos > maxY) {
