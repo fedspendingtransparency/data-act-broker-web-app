@@ -48,7 +48,7 @@ const tableHeaders = [
 
 export default class DashboardTable extends React.Component {
     render() {
-        const tableRows = this.props.results.map((row) => (
+        let tableRows = this.props.results.map((row) => (
             <tr key={`dashboard-table-row-${row.submissionId}-${row.ruleLabel}`}>
                 <td>
                     {row.fileLabel}
@@ -73,6 +73,7 @@ export default class DashboardTable extends React.Component {
         let contentMessage = null;
         if (this.props.inFlight) {
             contentMessage = <LoadingMessage />;
+            tableRows = [];
         }
         else if (this.props.hasError) {
             contentMessage = <ErrorMessageOverlay />;
