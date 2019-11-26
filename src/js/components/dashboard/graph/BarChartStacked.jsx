@@ -282,27 +282,16 @@ ${xAxis.items[0].label} to ${xAxis.items[xAxis.items.length - 1].label}.`;
             values.stacks.forEach((stack) => {
                 // get the data for the stacked item
                 const data = y[stack.label];
-
-                // determine the Y position of the top of the bar
-                let yPos = values.yScale(data.top);
                 let height = 0;
-                // calculate height by getting the Y position of the bottom of
-                // the bar and taking the difference
-                height = values.yScale(data.bottom) - yPos;
-                // however, if the bar shows a negative value but extends to a 0 or positive
-                // value, the "top" of the bar is actually visually the bottom - and the
-                // "bottom" bar (the visual top) is the X axis
-                if (data.top < 0 && data.bottom >= 0) {
-                    yPos = zeroY;
-                    height = values.yScale(data.top) - zeroY;
-                }
-                else if (data.top < 0) {
-                    // if the bar shows a negative value and it is entirely negative (the
-                    // two endpoints of the bar are both in the negative region), use the
-                    // least negative value as the top point of the bar and the most negative
-                    // value as the bottom (and height is again the difference between the two)
-                    yPos = values.yScale(Math.max(data.bottom, data.top));
-                    height = values.yScale(Math.min(data.bottom, data.top)) - yPos;
+                let yPos = 0;
+                if (data) {
+                    // if this stack type is present in the current bar
+                    // determine the Y position of the top of the bar
+                    yPos = values.yScale(data.top) - 1;
+
+                    // calculate height by getting the Y position of the bottom of
+                    // the bar and taking the difference
+                    height = values.yScale(data.bottom) - yPos;
                 }
 
                 // merge the positioning of the stacked item with its metadata
