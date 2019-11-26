@@ -132,6 +132,11 @@
                     overflow: hidden;
                     text-overflow: ellipsis;
                 }
+
+                .file-label-button {
+                    @include button-unstyled;
+                    color: $color-primary;
+                }
             }
         }
     }

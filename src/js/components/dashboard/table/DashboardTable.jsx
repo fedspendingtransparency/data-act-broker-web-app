@@ -10,11 +10,13 @@ import DashboardTableHeader from 'components/dashboard/table/DashboardTableHeade
 import NoResultsMessage from 'components/SharedComponents/NoResultsMessage';
 import LoadingMessage from 'components/SharedComponents/LoadingMessage';
 import ErrorMessageOverlay from 'components/SharedComponents/ErrorMessageOverlay';
+import DashboardTableLabelButton from 'components/dashboard/table/DashboardTableLabelButton';
 
 const propTypes = {
     results: PropTypes.array,
     inFlight: PropTypes.bool,
-    hasError: PropTypes.bool
+    hasError: PropTypes.bool,
+    openModal: PropTypes.func.isRequired
 };
 
 const defaultProps = {
@@ -51,7 +53,9 @@ export default class DashboardTable extends React.Component {
         let tableRows = this.props.results.map((row) => (
             <tr key={`dashboard-table-row-${row.submissionId}-${row.ruleLabel}`}>
                 <td>
-                    {row.fileLabel}
+                    <DashboardTableLabelButton
+                        row={row}
+                        openModal={this.props.openModal} />
                 </td>
                 <td>
                     {row.period}

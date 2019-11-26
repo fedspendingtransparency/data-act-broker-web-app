@@ -1,28 +1,27 @@
 .warnings-info {
     @import './axis';
 
-    .results-table-error {
-        .icon {
-            color: #d9534f !important;
+    .results-table-content {
+        .title, .description, .loading-message {
+            font-size: rem(30);
         }
-        .title, .description {
-            font-size: rem(30) !important;
+        .results-table-error {
+            .icon {
+                color: #d9534f;
+            }
+            margin-top: rem(202);
+            margin-bottom: rem(201);
+            max-width: none;
         }
-        margin-top: rem(179);
-        margin-bottom: rem(179);
-        max-width: none;
-    }
-
-    .results-table-no-results{
-        .title, .description {
-            font-size: rem(30) !important;
+        .results-table-no-results{
+            margin-top: rem(202);
+            margin-bottom: rem(201);
+            max-width: none;
         }
-        margin-top: rem(202);
-        margin-bottom: rem(201);
-    }
-
-    .results-table-loading{
-        margin-top: rem(235);
-        margin-bottom: rem(235);
+        .results-table-loading{
+            margin-top: rem(235);
+            margin-bottom: rem(235);
+            max-width: none;
+        }
     }
 }
