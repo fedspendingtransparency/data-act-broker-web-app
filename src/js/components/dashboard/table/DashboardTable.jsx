@@ -10,34 +10,44 @@ import DashboardTableHeader from 'components/dashboard/table/DashboardTableHeade
 
 const propTypes = {
     results: PropTypes.array,
-    inFlight: PropTypes.bool
+    inFlight: PropTypes.bool,
+    changeSort: PropTypes.func.isRequired,
+    currSort: PropTypes.string,
+    currOrder: PropTypes.string
 };
 
 const defaultProps = {
     results: [],
-    inFlight: false
+    inFlight: false,
+    currSort: 'period',
+    currOrder: 'desc'
 };
 
 const tableHeaders = [
     {
         text: 'File',
-        class: 'dashboard-table__file-column'
+        class: 'dashboard-table__file-column',
+        sortType: 'file'
     },
     {
         text: 'Fiscal Year/ Quarter',
-        class: 'dashboard-table__fyq-column'
+        class: 'dashboard-table__fyq-column',
+        sortType: 'period'
     },
     {
         text: 'Warning Rule',
-        class: 'dashboard-table__label-column'
+        class: 'dashboard-table__label-column',
+        sortType: 'rule_label'
     },
     {
         text: 'Number of Instances',
-        class: 'dashboard-table__instances-column'
+        class: 'dashboard-table__instances-column',
+        sortType: 'instances'
     },
     {
         text: 'Rule Description',
-        class: null
+        class: null,
+        sortType: 'description'
     }
 ];
 
@@ -76,7 +86,11 @@ export default class DashboardTable extends React.Component {
             <div className="dashboard-table">
                 <h3 className="dashboard-viz__heading">Table</h3>
                 <table>
-                    <DashboardTableHeader headers={tableHeaders} />
+                    <DashboardTableHeader
+                        headers={tableHeaders}
+                        changeSort={this.props.changeSort}
+                        currSort={this.props.currSort}
+                        currOrder={this.props.currOrder} />
                     <tbody>
                         {tableRows}
                     </tbody>

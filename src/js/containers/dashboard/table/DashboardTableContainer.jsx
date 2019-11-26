@@ -26,13 +26,16 @@ export class DashboardTableContainer extends React.Component {
             totalPages: 1,
             page: 1,
             limit: 10,
-            inFlight: true
+            inFlight: true,
+            sort: 'period',
+            order: 'desc'
         };
 
         this.updateTable = this.updateTable.bind(this);
         this.changePage = this.changePage.bind(this);
         this.changeLimit = this.changeLimit.bind(this);
         this.parseRows = this.parseRows.bind(this);
+        this.changeSort = this.changeSort.bind(this);
     }
 
     componentDidMount() {
@@ -62,6 +65,15 @@ export class DashboardTableContainer extends React.Component {
         });
     }
 
+    changeSort(sort, order) {
+        this.setState({
+            sort,
+            order
+        }, () => {
+            this.updateTable();
+        });
+    }
+
     updateTable() {
         this.setState({
             inFlight: true
@@ -77,8 +89,8 @@ export class DashboardTableContainer extends React.Component {
             },
             page: this.state.page,
             limit: this.state.limit,
-            sort: 'period',
-            order: 'desc'
+            sort: this.state.sort,
+            order: this.state.order
         };
 
         DashboardHelper.fetchDashboardTableContents(searchParams)
@@ -123,7 +135,10 @@ export class DashboardTableContainer extends React.Component {
             <div className="dashboard-viz dashboard-table-container">
                 <DashboardTable
                     results={this.state.results}
-                    inFlight={this.state.inFlight} />
+                    inFlight={this.state.inFlight}
+                    changeSort={this.changeSort}
+                    currSort={this.state.sort}
+                    currOrder={this.state.order} />
                 {pagination}
             </div>
         );
