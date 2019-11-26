@@ -25,9 +25,9 @@ export default class DashboardSummaryRow extends React.Component {
         return (
             <tr className="dashboard-page__summary-table-row">
                 <td className="row-20">{this.props.file}</td>
-                <td className="row-24">{this.props.period}</td>
-                <td className="row-25">{this.props.subID}</td>
-                <td className="row-31">{this.props.submitter}</td>
+                <td className="row-25">{this.props.period}</td>
+                <td className="row-20">{this.props.subID}</td>
+                <td className="row-35">{this.props.submitter}</td>
             </tr>
         );
     }
