@@ -1,12 +1,12 @@
 /**
-  * SubmissionsTablePaginatorArrow.jsx
+  * TablePaginatorArrow.jsx
   * Created by Kevin Li 10/31/16
   */
 
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import * as Icons from '../SharedComponents/icons/Icons';
+import * as Icons from '../icons/Icons';
 
 const propTypes = {
     moveDirection: PropTypes.func,
@@ -18,7 +18,7 @@ const defaultProps = {
     moveDirection: null
 };
 
-export default class SubmissionsTablePaginatorArrow extends React.Component {
+export default class TablePaginatorArrow extends React.Component {
     clickedArrow(e) {
         e.preventDefault();
         this.props.moveDirection(this.props.direction);
@@ -42,5 +42,5 @@ export default class SubmissionsTablePaginatorArrow extends React.Component {
     }
 }
 
-SubmissionsTablePaginatorArrow.propTypes = propTypes;
-SubmissionsTablePaginatorArrow.defaultProps = defaultProps;
+TablePaginatorArrow.propTypes = propTypes;
+TablePaginatorArrow.defaultProps = defaultProps;
