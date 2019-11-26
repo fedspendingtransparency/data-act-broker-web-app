@@ -7,8 +7,12 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { scaleLinear, scaleBand } from 'd3-scale';
 import { min, max } from 'lodash';
+import { formatNumberWithPrecision } from 'helpers/moneyFormatter';
+import { calculateLegendOffset } from 'helpers/stackedBarChartHelper';
 
 import BarChartXAxis from './BarChartXAxis';
+import BarChartYAxis from './BarChartYAxis';
+import BarChartLegend from './BarChartLegend';
 
 /* eslint-disable react/no-unused-prop-types */
 // allow unused prop types. they are indirectly accessed as nextProps
@@ -26,8 +30,9 @@ const propTypes = {
 
 const defaultProps = {
     padding: {
-        left: 50,
-        bottom: 50
+        left: 70,
+        bottom: 50,
+        right: 80
     }
 };
 
@@ -66,7 +71,7 @@ export default class BarChartStacked extends React.Component {
         // calculate what the visible area of the chart itself will be (excluding the axes and their
         // labels)
         values.graphHeight = values.height - props.padding.bottom;
-        values.graphWidth = values.width - props.padding.left;
+        values.graphWidth = values.width - props.padding.left - props.padding.right;
         values.padding = props.padding;
 
         // build a virtual representation of the chart first
@@ -94,14 +99,14 @@ export default class BarChartStacked extends React.Component {
             .clamp(true);
 
         // now we need to build the X and Y axes
-        // const yAxis = this.buildVirtualYAxis(values);
+        const yAxis = this.buildVirtualYAxis(values);
         const xAxis = this.buildVirtualXAxis(values);
 
         // now build the chart body
         // const body = this.buildVirtualBody(values);
 
         const chart = {
-            // yAxis,
+            yAxis,
             xAxis
             // body
         };
@@ -131,10 +136,18 @@ export default class BarChartStacked extends React.Component {
         // generate the tick marks
         const tickPoints = values.yScale.ticks(10);
 
+        // Find the distance (in px) between tick marks
+        let height = 1;
+        if (tickPoints.length > 1) {
+            const y1 = values.yScale(tickPoints[0]);
+            const y2 = values.yScale(tickPoints[1]);
+            height = Math.abs(y2 - y1) || 1;
+        }
+
         // create ticks and grid lines at each point
         tickPoints.forEach((y) => {
             // create the label
-            const labelText = y;
+            const labelText = formatNumberWithPrecision(y, 0);
 
             // set all the labels 10px left of the edge of Y axis
             // all labels should be 6px below the grid line
@@ -151,6 +164,8 @@ export default class BarChartStacked extends React.Component {
                 x2: values.graphWidth,
                 y1: 0,
                 y2: 0,
+                height,
+                width: values.graphWidth,
                 value: y
             };
 
@@ -332,6 +347,10 @@ ${xAxis.items[0].label} to ${xAxis.items[xAxis.items.length - 1].label}.`;
         if (!this.state.chartReady) {
             return null;
         }
+        const legendOffset = calculateLegendOffset(
+            this.props.legend.length, // number of items in the legend
+            this.props.height - this.props.padding.bottom // height of the graph
+        );
 
         return (
             <div>
@@ -339,8 +358,17 @@ ${xAxis.items[0].label} to ${xAxis.items[xAxis.items.length - 1].label}.`;
                     className="bar-graph"
                     width={this.props.width}
                     height={this.props.height + 20}>
+                    <BarChartYAxis
+                        {...this.state.virtualChart.yAxis}
+                        x={this.state.virtualChart.yAxis.group.x}
+                        y={this.state.virtualChart.yAxis.group.y} />
                     <BarChartXAxis
                         {...this.state.virtualChart.xAxis} />
+                    <g
+                        className="legend-container"
+                        transform={`translate(${this.props.width - 68}, ${legendOffset})`}>
+                        <BarChartLegend legend={this.props.legend} />
+                    </g>
                 </svg>
             </div>
         );

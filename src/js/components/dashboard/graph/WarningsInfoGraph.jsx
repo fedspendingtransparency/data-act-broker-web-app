@@ -17,6 +17,8 @@ const propTypes = {
     error: PropTypes.bool
 };
 
+const graphHeight = 540;
+
 export default class WarningsInfoGraph extends React.Component {
     constructor(props) {
         super(props);
@@ -54,8 +56,9 @@ export default class WarningsInfoGraph extends React.Component {
         const chart = (
             <BarChartStacked
                 width={this.state.visualizationWidth}
-                height={540}
-                data={this.props.data} />
+                height={graphHeight}
+                data={this.props.data}
+                legend={this.props.data.legend} />
         );
         const empty = (this.props.data.groups.length === 0);
         return (
