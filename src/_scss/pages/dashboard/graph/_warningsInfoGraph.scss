@@ -3,25 +3,28 @@
 
     .results-table-error {
         .icon {
-            color: #d9534f !important;
+            color: #d9534f;
         }
         .title, .description {
-            font-size: rem(30) !important;
+            font-size: rem(30);
         }
-        margin-top: rem(179);
-        margin-bottom: rem(179);
+        margin-top: rem(202);
+        margin-bottom: rem(201);
         max-width: none;
     }
 
     .results-table-no-results{
         .title, .description {
-            font-size: rem(30) !important;
+            font-size: rem(30);
         }
         margin-top: rem(202);
         margin-bottom: rem(201);
     }
 
     .results-table-loading{
+        .loading-message {
+            font-size: rem(30);
+        }
         margin-top: rem(235);
         margin-bottom: rem(235);
     }
