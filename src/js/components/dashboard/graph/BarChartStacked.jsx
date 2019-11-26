@@ -6,7 +6,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { scaleLinear, scaleBand } from 'd3-scale';
-import { max } from 'lodash';
+import { max, isEqual } from 'lodash';
 import { formatNumberWithPrecision } from 'helpers/moneyFormatter';
 import { calculateLegendOffset } from 'helpers/stackedBarChartHelper';
 
@@ -27,7 +27,8 @@ const propTypes = {
     legend: PropTypes.array,
     showTooltip: PropTypes.func,
     hideTooltip: PropTypes.func,
-    toggleTooltip: PropTypes.func
+    toggleTooltip: PropTypes.func,
+    spaceBetweenStacks: PropTypes.number
 };
 /* eslint-enable react/no-unused-prop-types */
 
@@ -36,7 +37,8 @@ const defaultProps = {
         left: 70,
         bottom: 50,
         right: 80
-    }
+    },
+    spaceBetweenStacks: 0
 };
 
 export default class BarChartStacked extends React.Component {
@@ -54,8 +56,8 @@ export default class BarChartStacked extends React.Component {
     }
 
     componentDidUpdate(prevProps) {
-        if (prevProps.xSeries !== this.props.xSeries ||
-            prevProps.ySeries !== this.props.ySeries ||
+        if (!isEqual(prevProps.xSeries, this.props.xSeries) ||
+            !isEqual(prevProps.ySeries, this.props.ySeries) ||
             prevProps.width !== this.props.width ||
             prevProps.height !== this.props.height) {
             this.buildVirtualChart(this.props);
@@ -288,9 +290,11 @@ ${xAxis.items[0].label} to ${xAxis.items[xAxis.items.length - 1].label}.`;
                     // determine the Y position of the top of the bar
                     yPos = values.yScale(data.top);
 
+                    // Don't leave padding below the first bar
+                    const space = data.bottom === 0 ? 0 : this.props.spaceBetweenStacks;
                     // calculate height by getting the Y position of the bottom of
                     // the bar and taking the difference
-                    height = (values.yScale(data.bottom) - 2) - yPos;
+                    height = (values.yScale(data.bottom) - space) - yPos;
 
                     // merge the positioning of the stacked item with its metadata
                     const element = Object.assign({}, stack, {

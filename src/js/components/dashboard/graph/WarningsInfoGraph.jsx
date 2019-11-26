@@ -16,6 +16,7 @@ const propTypes = {
 };
 
 const graphHeight = 540;
+const spaceBetweenStacks = 2;
 
 export default class WarningsInfoGraph extends React.Component {
     constructor(props) {
@@ -55,7 +56,8 @@ export default class WarningsInfoGraph extends React.Component {
             <BarChartStacked
                 {...this.props}
                 width={this.state.visualizationWidth}
-                height={graphHeight} />
+                height={graphHeight}
+                spaceBetweenStacks={spaceBetweenStacks} />
         );
         return (
             <div className="dashboard-viz warnings-info">
