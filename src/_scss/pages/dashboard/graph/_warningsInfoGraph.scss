@@ -1,3 +1,7 @@
 .warnings-info {
     @import './axis';
+    .bar-graph {
+        // prevent cutting off the topmost y-axis label
+        overflow: visible;
+    }
 }
