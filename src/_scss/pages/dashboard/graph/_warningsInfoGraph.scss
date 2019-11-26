@@ -24,4 +24,9 @@
             max-width: none;
         }
     }
+
+    .bar-graph {
+        // prevent cutting off the topmost y-axis label
+        overflow: visible;
+    }
 }
