@@ -260,19 +260,7 @@ ${xAxis.items[0].label} to ${xAxis.items[xAxis.items.length - 1].label}.`;
             const item = {
                 xPos,
                 xValue: x,
-                stack: [],
-                hitzone: {
-                    width: barWidth,
-                    height: values.graphHeight
-                },
-                tooltip: {
-                    values: [],
-                    xValue: x,
-                    position: {
-                        x: xPos + (barWidth / 2) + values.padding.left,
-                        y: 0
-                    }
-                }
+                stack: []
             };
 
             // iterate through each stacked item
@@ -301,7 +289,13 @@ ${xAxis.items[0].label} to ${xAxis.items[xAxis.items.length - 1].label}.`;
                         xValue: x,
                         value: data.value,
                         description: data.description,
-                        tooltipData: { ...data }
+                        tooltipData: {
+                            ...data,
+                            position: {
+                                x: xPos + (barWidth / 2) + values.padding.left,
+                                y: yPos
+                            }
+                        }
                     });
                     item.stack.push(element);
                 }

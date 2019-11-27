@@ -3,11 +3,11 @@
     .warnings-info-graph__tooltip {
         $color-tooltip-border: $color-gray-lighter;
         opacity: 100;
-        width: rem(300);
         background-color: $color-white;
         border: solid rem(1) $color-tooltip-border;
         padding: rem(15);
-        color: $text-color;
+        color: $color-gray;
+        box-shadow: $box-shadow;
         .tooltip__title {
             font-size: rem(16);
             font-weight: $font-semibold;
@@ -20,10 +20,12 @@
                     height: rem(22);
                     th {
                         font-weight: $font-normal;
+                        padding-right: rem(15);
                     }
                     td {
                         color: $color-primary;
                         font-weight: $font-semibold;
+                        text-align: right;
                     }
                 }
             }
