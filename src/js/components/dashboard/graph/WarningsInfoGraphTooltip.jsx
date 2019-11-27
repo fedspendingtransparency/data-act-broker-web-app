@@ -6,6 +6,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { throttle } from 'lodash';
+import { formatNumberWithPrecision } from 'helpers/moneyFormatter';
 
 const propTypes = {
     data: PropTypes.object
@@ -102,11 +103,11 @@ export default class WarningsInfoGraphTooltip extends React.Component {
                             </tr>
                             <tr>
                                 <th># of Rule Instances</th>
-                                <td>{data.value}</td>
+                                <td>{formatNumberWithPrecision(data.value, 0)}</td>
                             </tr>
                             <tr>
                                 <th>Total # of Warnings</th>
-                                <td>{data.totalWarnings}</td>
+                                <td>{formatNumberWithPrecision(data.totalWarnings, 0)}</td>
                             </tr>
                             <tr>
                                 <th>% of all Warnings</th>
