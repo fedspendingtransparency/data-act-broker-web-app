@@ -7,6 +7,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { throttle } from 'lodash';
 import BarChartStacked from './BarChartStacked';
+import WarningsInfoGraphTooltip from './WarningsInfoGraphTooltip';
 
 const propTypes = {
     xSeries: PropTypes.arrayOf(PropTypes.string),
@@ -91,8 +92,8 @@ export default class WarningsInfoGraph extends React.Component {
                 hideTooltip={this.hideTooltip}
                 toggleTooltip={this.toggleTooltip} />
         );
-        // TODO - create the tooltip component
-        const tooltip = this.state.showTooltip ? 'tooltip' : null;
+        const tooltip = this.state.showTooltip ? (
+            <WarningsInfoGraphTooltip data={this.state.tooltipData} />) : null;
         return (
             <div className="dashboard-viz warnings-info">
                 <h3 className="dashboard-viz__heading">Warnings Information</h3>

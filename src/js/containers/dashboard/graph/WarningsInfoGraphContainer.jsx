@@ -87,7 +87,7 @@ export class WarningsInfoGraphContainer extends React.Component {
                     value: rule.instances,
                     bottom,
                     top: bottom + rule.instances,
-                    description: `Rule ${rule.label}`,
+                    description: rule.label,
                     percent: rule.percent_total
                 };
                 bottom += rule.instances;

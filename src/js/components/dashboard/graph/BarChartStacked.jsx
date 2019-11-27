@@ -275,10 +275,6 @@ ${xAxis.items[0].label} to ${xAxis.items[xAxis.items.length - 1].label}.`;
                 }
             };
 
-            // build the tooltip data
-            const tooltip = [];
-            let maxY = 0;
-
             // iterate through each stacked item
             values.stacks.forEach((stack) => {
                 // get the data for the stacked item
@@ -304,31 +300,15 @@ ${xAxis.items[0].label} to ${xAxis.items[xAxis.items.length - 1].label}.`;
                         y: yPos,
                         xValue: x,
                         value: data.value,
-                        description: data.description
+                        description: data.description,
+                        tooltipData: { ...data }
                     });
                     item.stack.push(element);
-
-                    // add the value to the tooltip
-                    tooltip.push({
-                        label: data.description,
-                        value: data.value,
-                        percent: data.percent,
-                        type: stack.label
-                    });
-                }
-
-                // get the highest Y position for the tooltip
-                if (yPos > maxY) {
-                    maxY = yPos;
                 }
             });
 
             // reverse the array so that the first elements are rendered last (in front)
             item.stack.reverse();
-
-            // update the tooltip values (this won't be reversed)
-            item.tooltip.values = tooltip;
-            item.tooltip.position.y = (maxY / 2);
 
             // draw a bar for each item
             body.items.push(item);

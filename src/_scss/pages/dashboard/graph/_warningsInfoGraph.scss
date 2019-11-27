@@ -1,5 +1,42 @@
 .warnings-info {
     @import './axis';
+    .warnings-info-graph__tooltip {
+        $color-tooltip-border: $color-gray-lighter;
+        opacity: 100;
+        width: rem(300);
+        background-color: $color-white;
+        border: solid rem(1) $color-tooltip-border;
+        padding: rem(15);
+        color: $text-color;
+        .tooltip__title {
+            font-size: rem(16);
+            font-weight: $font-semibold;
+        }
+        .tooltip__body {
+            font-size: rem(14);
+            table {
+                width: 100%;
+                tr {
+                    height: rem(22);
+                    th {
+                        font-weight: $font-normal;
+                    }
+                    td {
+                        color: $color-primary;
+                        font-weight: $font-semibold;
+                    }
+                }
+            }
+        }
+        // inherit from the standard tooltip arrow style
+        @import "components/tooltip/_arrow";
+        .tooltip-pointer {
+            // override the coloring
+            &:after {
+                background: $color-white;
+            }
+        }
+    }
     .bar-graph {
         // prevent cutting off the topmost y-axis label
         overflow: visible;
