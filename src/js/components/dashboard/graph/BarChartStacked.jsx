@@ -350,7 +350,10 @@ ${xAxis.items[0].label} to ${xAxis.items[xAxis.items.length - 1].label}.`;
         const body = this.state.virtualChart.body.items.map((item) => (
             <StackedBarGroup
                 {...item}
-                key={item.xValue} />
+                key={item.xValue}
+                showTooltip={this.props.showTooltip}
+                hideTooltip={this.props.hideTooltip}
+                toggleTooltip={this.props.toggleTooltip} />
         ));
 
         return (

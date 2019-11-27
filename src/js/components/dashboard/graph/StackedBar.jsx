@@ -16,24 +16,53 @@ const propTypes = {
     y: PropTypes.number,
     width: PropTypes.number,
     height: PropTypes.number,
-    color: PropTypes.string
+    color: PropTypes.string,
+    showTooltip: PropTypes.func,
+    hideTooltip: PropTypes.func,
+    toggleTooltip: PropTypes.func
 };
 
-const StackedBar = (props) => (
-    <g>
-        <desc>
-            {`${props.description} in ${props.xValue}: ${formatNumberWithPrecision(props.value, 0)}`}
-        </desc>
-        <rect
-            className="stacked-bar-item"
-            x={props.x}
-            y={props.y}
-            width={props.width}
-            height={props.height}
-            fill={props.color} />
-    </g>
-);
+export default class StackedBar extends React.Component {
+    constructor(props) {
+        super(props);
+
+        this.mouseEntered = this.mouseEntered.bind(this);
+        this.mouseExited = this.mouseExited.bind(this);
+        this.barTouched = this.barTouched.bind(this);
+    }
+
+    mouseEntered() {
+        // TODO - create the tooltip object
+        this.props.showTooltip({});
+    }
+
+    mouseExited() {
+        this.props.hideTooltip();
+    }
+
+    barTouched() {
+        this.props.toggleTooltip({});
+    }
+
+    render() {
+        return (
+            <g>
+                <desc>
+                    {`${this.props.description} in ${this.props.xValue}: ${formatNumberWithPrecision(this.props.value, 0)}`}
+                </desc>
+                <rect
+                    className="stacked-bar-item"
+                    x={this.props.x}
+                    y={this.props.y}
+                    width={this.props.width}
+                    height={this.props.height}
+                    fill={this.props.color}
+                    onMouseEnter={this.mouseEntered}
+                    onMouseLeave={this.mouseExited}
+                    onTouchStart={this.barTouched} />
+            </g>
+        );
+    }
+}
 
 StackedBar.propTypes = propTypes;
-
-export default StackedBar;
