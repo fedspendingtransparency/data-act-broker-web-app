@@ -65,6 +65,21 @@ describe('DashboardTableContainer', () => {
         expect(container.state().page).toEqual(1);
         expect(updateTable).toHaveBeenCalled();
     });
+    it('should update the component and set the new sort order when the sort changes', () => {
+        const container = shallow(<DashboardTableContainer 
+            { ...mockRedux } />);
+        container.state().page = 2;
+
+        const updateTable = jest.fn();
+        container.instance().updateTable = updateTable;
+
+        container.instance().changeSort('instances', 'asc');
+
+        expect(container.state().page).toEqual(2);
+        expect(container.state().sort).toEqual('instances');
+        expect(container.state().order).toEqual('asc');
+        expect(updateTable).toHaveBeenCalled();
+    });
     it('should create objects and store them in the state when parseRows is called', () => {
         const container = shallow(<DashboardTableContainer 
             { ...mockRedux } />);
