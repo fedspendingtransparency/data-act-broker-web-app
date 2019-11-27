@@ -107,7 +107,7 @@ export default class WarningsInfoGraphTooltip extends React.Component {
                             </tr>
                             <tr>
                                 <th>Total # of Warnings</th>
-                                <td>TODO</td>
+                                <td>{data.totalWarnings}</td>
                             </tr>
                             <tr>
                                 <th>% of all Warnings</th>

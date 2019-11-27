@@ -78,8 +78,8 @@ export class WarningsInfoGraphContainer extends React.Component {
         return buildLegend(rules);
     }
 
-    generateySeries(yData) {
-        return yData.map((submission) => {
+    generateySeries(yData, allY) {
+        return yData.map((submission, index) => {
             let bottom = 0;
             const barObject = {};
             submission.forEach((rule) => {
@@ -88,7 +88,8 @@ export class WarningsInfoGraphContainer extends React.Component {
                     bottom,
                     top: bottom + rule.instances,
                     description: rule.label,
-                    percent: rule.percent_total
+                    percent: rule.percent_total,
+                    totalWarnings: allY[index]
                 };
                 bottom += rule.instances;
             });
@@ -112,7 +113,7 @@ export class WarningsInfoGraphContainer extends React.Component {
         });
 
         const legend = this.generateLegend(yData);
-        const ySeries = this.generateySeries(yData);
+        const ySeries = this.generateySeries(yData, allY);
 
         this.setState({
             xSeries,
