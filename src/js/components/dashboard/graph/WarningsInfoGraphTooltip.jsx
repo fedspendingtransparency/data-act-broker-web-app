@@ -49,7 +49,6 @@ export default class WarningsInfoGraphTooltip extends React.Component {
 
     positionTooltip() {
         const position = this.props.data.position;
-        console.log('position', position);
         // we need to wait for the tooltip to render before we can full position it due to its
         // dynamic width
         const tooltipWidth = this.state.tooltipWidth;
