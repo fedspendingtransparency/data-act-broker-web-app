@@ -1,0 +1,82 @@
+.usa-da-autocomplete {
+    
+    p.usa-da-autocomplete__label {
+        color: $color-gray;
+        font-size: $small-font-size;
+        margin-top: 0;
+        margin-bottom: .5rem;
+    }
+    .usa-da-autocomplete__input {
+        @include display(flex);
+        position: relative;
+        background-color: $color-white;
+        border: 1px solid $color-gray-lighter;
+        input {
+            border: 0;
+            font-size: $small-font-size;
+            height: rem(40);
+            margin: 0 auto;
+            padding: 11px 8px 11px 8px;
+            width: 100%;
+            @include placeholder {
+                color: $color-gray-lighter;
+            }
+            &:disabled {
+                cursor: not-allowed;
+            }
+        }
+
+        .usa-da-autocomplete__input-icon {
+            @include flex(0 0 auto);
+            @include align-self(center);
+            position: absolute;
+            right: rem(15);
+        }
+    }
+
+    .screen-reader-description {
+        position:absolute;
+        left:-10000px;
+        top:auto;
+        width:1px;
+        height:1px;
+        overflow:hidden;
+    }
+
+    ul.usa-da-autocomplete__list {
+        background-color: $color-white;
+        border: 1px solid $color-gray-lighter;
+        @include unstyled-list;
+        cursor: default;
+        width: 100%;
+        li {
+            line-height: rem(20);
+            font-size: $small-font-size;
+            font-weight: $font-normal;
+            padding: rem(10) rem(20);
+            color: $color-gray;
+            border-bottom: 1px solid $color-gray-lighter;
+            margin: 0;
+            width: 100%;
+            word-wrap: break-word;
+            display: block;
+            &:hover,
+            &.hover,
+            &[aria-selected="true"] {
+                background-color: $color-primary-alt-lightest;
+                cursor: pointer;
+                color: #333;
+                * {
+                    color: $color-gray;
+                }
+                mark {
+                    background-color: $color-gray-lighter;
+                    color: $color-gray;
+                }
+            }
+        }
+    }
+    .hide {
+        display: none;
+    }
+}

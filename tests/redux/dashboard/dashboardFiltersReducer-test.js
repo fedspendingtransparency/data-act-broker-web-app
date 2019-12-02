@@ -43,18 +43,63 @@ describe('dashboardFiltersReducer', () => {
             expect(state.file).toEqual('B');
         });
     });
+    describe('UPDATE_AGENCY_FILTER', () => {
+        const action = {
+            type: 'UPDATE_AGENCY_FILTER',
+            agency: '123'
+        };
+
+        it('should change the agency to the one provided', () => {
+            let state = dashboardFiltersReducer(undefined, {});
+
+            state = dashboardFiltersReducer(state, action);
+
+            expect(state.agency).toEqual('123');
+        });
+
+        it('should remove the value if it is the agency already selected', () => {
+            const startingState = Object.assign({}, initialState, {
+                agency: '123'
+            });
+
+            const updatedState = dashboardFiltersReducer(startingState, action);
+            expect(updatedState.agency).toEqual('');
+        });
+    });
+    describe('CLEAR_FILTER_SET', () => {
+        it('should reset the specified filter to its initial state', () => {
+            let state = {
+                quarters: new Set([1, 3]),
+                fy: new Set([2018, 2019]),
+                file: 'A',
+                rules: new Set(['X12', 'X34'])
+            };
+
+            // Reset the filter
+            const resetAction = {
+                type: 'CLEAR_FILTER_SET',
+                filterType: 'rules'
+            };
+
+            state = dashboardFiltersReducer(state, resetAction);
+
+            expect(state.rules).toEqual(initialState.rules);
+            expect(state.file).toEqual('A');
+            expect(state.quarters).toEqual(new Set([1, 3]));
+        });
+    });
     describe('CLEAR_DASHBOARD_FILTERS', () => {
         it('should reset the dashboard filters to their initial state', () => {
-            let state = dashboardFiltersReducer(undefined, {
-                quarters: [1, 3],
-                fy: [2018, 2019],
+            let state = {
+                quarters: new Set([1, 3]),
+                fy: new Set([2018, 2019]),
                 file: 'A',
-                rules: ['X12', 'X34']
-            });
+                rules: new Set(['X12', 'X34'])
+            };
 
             // Reset the filters
             const resetAction = {
-                type: 'RESET_DASHBOARD_FILTERS'
+                type: 'CLEAR_DASHBOARD_FILTERS'
             };
 
             state = dashboardFiltersReducer(state, resetAction);

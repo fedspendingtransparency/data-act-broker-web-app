@@ -1,0 +1,24 @@
+.autocomplete-error {
+    @include usa-input-error-message;
+    border: 1px solid $color-secondary-dark;
+    padding: rem(15);
+    .autocomplete-error__title {
+        @include display(flex);
+        @include justify-content(flex-start);
+        @include align-items(center);
+        .autocomplete-error__heading {
+            font-weight: $font-bold;
+            font-size: rem(18);
+            margin-left: rem(8);
+        }
+        svg {
+            width: rem(20);
+            fill: $color-secondary-dark;
+        }
+    }
+    .autocomplete-error__message {
+        font-size: $small-font-size;
+        margin: 0;
+        color: $color-secondary-darkest;
+    }
+}

@@ -6,6 +6,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
+import SubmitButtonContainer from 'containers/dashboard/filters/SubmitButtonContainer';
 import FilterOption from './FilterOption';
 
 const defaultProps = {
@@ -30,6 +31,7 @@ export default class FilterSidebar extends React.Component {
                     <span className="filter-sidebar__option-heading">FILTER</span>
                 </div>
                 {optionsList}
+                <SubmitButtonContainer />
             </div>
         );
     }
