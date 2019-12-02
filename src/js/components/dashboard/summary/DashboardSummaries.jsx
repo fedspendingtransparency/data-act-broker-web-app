@@ -32,14 +32,19 @@ export default class DashboardSummaries extends React.Component {
                     inFlight={this.props.inFlight} />
             );
         });
+        let summaryContent = summaries;
+        if (this.props.inFlight){
+            summaryContent = <LoadingMessage />;
+        }
+        else if (this.props.hasFailed){
+            summaryContent = <ErrorMessageOverlay />;
+        }
 
         return (
             <div className="dashboard-viz submission-info">
                 <h3 className="dashboard-viz__heading">Submission Information</h3>
                 <div>
-                    {this.props.inFlight && <LoadingMessage />}
-                    {!this.props.inFlight && this.props.hasFailed && <ErrorMessageOverlay />}
-                    {!this.props.inFlight && summaries}
+                    {summaryContent}
                 </div>
             </div>
         );
