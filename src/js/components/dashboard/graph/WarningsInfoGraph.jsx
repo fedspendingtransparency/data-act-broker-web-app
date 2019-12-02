@@ -10,6 +10,7 @@ import NoResultsMessage from 'components/SharedComponents/NoResultsMessage';
 import LoadingMessage from 'components/SharedComponents/LoadingMessage';
 import ErrorMessageOverlay from 'components/SharedComponents/ErrorMessageOverlay';
 import BarChartStacked from './BarChartStacked';
+import WarningsInfoGraphTooltip from './WarningsInfoGraphTooltip';
 
 const propTypes = {
     xSeries: PropTypes.arrayOf(PropTypes.string),
@@ -28,10 +29,17 @@ export default class WarningsInfoGraph extends React.Component {
 
         this.state = {
             windowWidth: 0,
-            visualizationWidth: 0
+            visualizationWidth: 0,
+            showTooltip: false,
+            tooltipData: null,
+            tooltipX: 0,
+            tooltipY: 0
         };
 
         this.handleWindowResize = throttle(this.handleWindowResize.bind(this), 50);
+        this.showTooltip = this.showTooltip.bind(this);
+        this.hideTooltip = this.hideTooltip.bind(this);
+        this.toggleTooltip = this.toggleTooltip.bind(this);
     }
 
     componentDidMount() {
@@ -55,14 +63,41 @@ export default class WarningsInfoGraph extends React.Component {
         }
     }
 
+    showTooltip(data) {
+        this.setState({
+            showTooltip: true,
+            tooltipData: data
+        });
+    }
+
+    hideTooltip() {
+        this.setState({
+            showTooltip: false
+        });
+    }
+
+    toggleTooltip(data) {
+        if (this.state.showTooltip) {
+            this.hideTooltip();
+        }
+        else {
+            this.showTooltip(data);
+        }
+    }
+
     render() {
         const chart = (
             <BarChartStacked
                 {...this.props}
                 width={this.state.visualizationWidth}
                 height={graphHeight}
-                spaceBetweenStacks={spaceBetweenStacks} />
+                spaceBetweenStacks={spaceBetweenStacks}
+                showTooltip={this.showTooltip}
+                hideTooltip={this.hideTooltip}
+                toggleTooltip={this.toggleTooltip} />
         );
+        const tooltip = this.state.showTooltip ? (
+            <WarningsInfoGraphTooltip data={this.state.tooltipData} />) : null;
         const empty = (this.props.xSeries.length === 0);
         return (
             <div className="dashboard-viz warnings-info">
@@ -73,6 +108,7 @@ export default class WarningsInfoGraph extends React.Component {
                     ref={(div) => {
                         this.graphDiv = div;
                     }}>
+                    {tooltip}
                     {this.props.loading && <LoadingMessage />}
                     {!this.props.loading && this.props.error && <ErrorMessageOverlay />}
                     {!this.props.loading && !this.props.error && empty && <NoResultsMessage />}

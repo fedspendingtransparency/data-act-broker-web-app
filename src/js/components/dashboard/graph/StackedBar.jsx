@@ -16,24 +16,62 @@ const propTypes = {
     y: PropTypes.number,
     width: PropTypes.number,
     height: PropTypes.number,
-    color: PropTypes.string
+    color: PropTypes.string,
+    tooltipData: PropTypes.object,
+    showTooltip: PropTypes.func,
+    hideTooltip: PropTypes.func,
+    toggleTooltip: PropTypes.func
 };
 
-const StackedBar = (props) => (
-    <g>
-        <desc>
-            {`${props.description} in ${props.xValue}: ${formatNumberWithPrecision(props.value, 0)}`}
-        </desc>
-        <rect
-            className="stacked-bar-item"
-            x={props.x}
-            y={props.y}
-            width={props.width}
-            height={props.height}
-            fill={props.color} />
-    </g>
-);
+export default class StackedBar extends React.Component {
+    constructor(props) {
+        super(props);
+
+        this.mouseEntered = this.mouseEntered.bind(this);
+        this.mouseExited = this.mouseExited.bind(this);
+        this.barTouched = this.barTouched.bind(this);
+    }
+
+    mouseEntered() {
+        this.props.showTooltip({
+            ...this.props.tooltipData,
+            xValue: this.props.xValue
+        });
+    }
+
+    mouseExited() {
+        this.props.hideTooltip();
+    }
+
+    barTouched() {
+        this.props.toggleTooltip({
+            ...this.props.tooltipData,
+            xValue: this.props.xValue
+        });
+    }
+
+    render() {
+        return (
+            <g>
+                <desc>
+                    {`${this.props.description} in ${this.props.xValue}: ${formatNumberWithPrecision(this.props.value, 0)}`}
+                </desc>
+                <rect
+                    className="stacked-bar-item"
+                    x={this.props.x}
+                    y={this.props.y}
+                    width={this.props.width}
+                    height={this.props.height}
+                    fill={this.props.color}
+                    tabIndex="0"
+                    onMouseOver={this.mouseEntered}
+                    onFocus={this.mouseEntered}
+                    onMouseOut={this.mouseExited}
+                    onBlur={this.mouseExited}
+                    onTouchStart={this.barTouched} />
+            </g>
+        );
+    }
+}
 
 StackedBar.propTypes = propTypes;
-
-export default StackedBar;

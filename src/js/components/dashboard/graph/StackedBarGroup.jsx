@@ -10,7 +10,10 @@ import StackedBar from './StackedBar';
 
 const propTypes = {
     xPos: PropTypes.number,
-    stack: PropTypes.array
+    stack: PropTypes.array,
+    showTooltip: PropTypes.func,
+    hideTooltip: PropTypes.func,
+    toggleTooltip: PropTypes.func
 };
 
 export default class StackedBarGroup extends React.Component {
@@ -18,7 +21,10 @@ export default class StackedBarGroup extends React.Component {
         const items = this.props.stack.map((item) => (
             <StackedBar
                 {...item}
-                key={`${item.label}-${item.xValue}`} />
+                key={`${item.label}-${item.xValue}`}
+                showTooltip={this.props.showTooltip}
+                hideTooltip={this.props.hideTooltip}
+                toggleTooltip={this.props.toggleTooltip} />
         ));
 
         return (

@@ -132,21 +132,24 @@ describe('WarningsInfoGraphContainer', () => {
                         value: 400,
                         bottom: 0,
                         top: 400,
-                        description: 'Rule C23.2'
+                        description: 'C23.2',
+                        totalWarnings: 800
                     },
                     C12: {
                         percent: 25,
                         value: 200,
                         bottom: 400,
                         top: 600,
-                        description: 'Rule C12'
+                        description: 'C12',
+                        totalWarnings: 800
                     },
                     C11: {
                         percent: 25,
                         value: 200,
                         bottom: 600,
                         top: 800,
-                        description: 'Rule C11'
+                        description: 'C11',
+                        totalWarnings: 800
                     }
                 },
                 {
@@ -155,21 +158,24 @@ describe('WarningsInfoGraphContainer', () => {
                         value: 500,
                         bottom: 0,
                         top: 500,
-                        description: 'Rule C23.1'
+                        description: 'C23.1',
+                        totalWarnings: 1000
                     },
                     C12: {
                         percent: 10,
                         value: 100,
                         bottom: 500,
                         top: 600,
-                        description: 'Rule C12'
+                        description: 'C12',
+                        totalWarnings: 1000
                     },
                     C11: {
                         percent: 40,
                         value: 400,
                         bottom: 600,
                         top: 1000,
-                        description: 'Rule C11'
+                        description: 'C11',
+                        totalWarnings: 1000
                     }
                 }
             ];
