@@ -63,7 +63,7 @@ describe('WarningsInfoGraphContainer', () => {
             const container = shallow(<WarningsInfoGraphContainer
                 {...mockRedux} />
             );
-            const ySeries = [
+            const yData = [
                 [{
                     label: "C23"
                 }, {
@@ -77,7 +77,7 @@ describe('WarningsInfoGraphContainer', () => {
                     label: "C11"
                 }]
             ];
-            const mockLegend = container.instance().generateLegend(ySeries);
+            const mockLegend = container.instance().generateLegend(yData);
             expect(mockLegend.length).toEqual(3);
         });
     });
@@ -96,6 +96,99 @@ describe('WarningsInfoGraphContainer', () => {
 
             container.instance().parseData(mockData);
             expect(generateLegend).toHaveBeenCalled();
+        });
+        it('should parse the x-axis labels (in chronologic order)', () => {
+            const container = shallow(<WarningsInfoGraphContainer
+                {...mockRedux} />
+            );
+            const generateLegend = jest.fn();
+            container.instance().generateLegend = generateLegend;
+
+            // set the file to match the one in mock data
+            const newProps = cloneDeep(mockRedux);
+            newProps.appliedFilters.file = 'cross-CD1';
+            container.setProps({ ...newProps });
+
+            container.instance().parseData(mockData);
+            expect(container.instance().state.xSeries).toEqual(['FY 98 / Q3', 'FY 99 / Q2']);
+        });
+        it('should parse the warnings data (in chronologic order)', () => {
+            const container = shallow(<WarningsInfoGraphContainer
+                {...mockRedux} />
+            );
+            const generateLegend = jest.fn();
+            container.instance().generateLegend = generateLegend;
+
+            // set the file to match the one in mock data
+            const newProps = cloneDeep(mockRedux);
+            newProps.appliedFilters.file = 'cross-CD1';
+            container.setProps({ ...newProps });
+
+            container.instance().parseData(mockData);
+            const expected = [
+                {
+                    'C23.2': {
+                        percent: 50,
+                        value: 400,
+                        bottom: 0,
+                        top: 400,
+                        description: 'Rule C23.2'
+                    },
+                    C12: {
+                        percent: 25,
+                        value: 200,
+                        bottom: 400,
+                        top: 600,
+                        description: 'Rule C12'
+                    },
+                    C11: {
+                        percent: 25,
+                        value: 200,
+                        bottom: 600,
+                        top: 800,
+                        description: 'Rule C11'
+                    }
+                },
+                {
+                    'C23.1': {
+                        percent: 50,
+                        value: 500,
+                        bottom: 0,
+                        top: 500,
+                        description: 'Rule C23.1'
+                    },
+                    C12: {
+                        percent: 10,
+                        value: 100,
+                        bottom: 500,
+                        top: 600,
+                        description: 'Rule C12'
+                    },
+                    C11: {
+                        percent: 40,
+                        value: 400,
+                        bottom: 600,
+                        top: 1000,
+                        description: 'Rule C11'
+                    }
+                }
+            ];
+            expect(container.instance().state.ySeries).toEqual(expected);
+        });
+        it('should store the total warnings data (in chronologic order)', () => {
+            const container = shallow(<WarningsInfoGraphContainer
+                {...mockRedux} />
+            );
+            const generateLegend = jest.fn();
+            container.instance().generateLegend = generateLegend;
+
+            // set the file to match the one in mock data
+            const newProps = cloneDeep(mockRedux);
+            newProps.appliedFilters.file = 'cross-CD1';
+            container.setProps({ ...newProps });
+
+            container.instance().parseData(mockData);
+            expect(container.instance().state.allY).toEqual([800, 1000]);
         });
     });
 });
