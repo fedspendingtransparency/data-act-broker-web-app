@@ -125,57 +125,60 @@ describe('WarningsInfoGraphContainer', () => {
             container.setProps({ ...newProps });
 
             container.instance().parseData(mockData);
-            const expected = [{
-                'C23.1': {
-                    percent: 50,
-                    value: 500,
-                    bottom: 0,
-                    top: 500,
-                    description: 'C23.1',
-                    totalWarnings: 1000
+            const expected = [
+                {
+                    'C23.2': {
+                        percent: 50,
+                        value: 400,
+                        bottom: 0,
+                        top: 400,
+                        description: 'C23.2',
+                        totalWarnings: 800
+                    },
+                    C12: {
+                        percent: 25,
+                        value: 200,
+                        bottom: 400,
+                        top: 600,
+                        description: 'C12',
+                        totalWarnings: 800
+                    },
+                    C11: {
+                        percent: 25,
+                        value: 200,
+                        bottom: 600,
+                        top: 800,
+                        description: 'C11',
+                        totalWarnings: 800
+                    }
                 },
-                C12: {
-                    percent: 10,
-                    value: 100,
-                    bottom: 500,
-                    top: 600,
-                    description: 'C12',
-                    totalWarnings: 1000
-                },
-                C11: {
-                    percent: 40,
-                    value: 400,
-                    bottom: 600,
-                    top: 1000,
-                    description: 'C11',
-                    totalWarnings: 1000
+                {
+                    'C23.1': {
+                        percent: 50,
+                        value: 500,
+                        bottom: 0,
+                        top: 500,
+                        description: 'C23.1',
+                        totalWarnings: 1000
+                    },
+                    C12: {
+                        percent: 10,
+                        value: 100,
+                        bottom: 500,
+                        top: 600,
+                        description: 'C12',
+                        totalWarnings: 1000
+                    },
+                    C11: {
+                        percent: 40,
+                        value: 400,
+                        bottom: 600,
+                        top: 1000,
+                        description: 'C11',
+                        totalWarnings: 1000
+                    }
                 }
-            }, {
-                'C23.2': {
-                    percent: 50,
-                    value: 400,
-                    bottom: 0,
-                    top: 400,
-                    description: 'C23.2',
-                    totalWarnings: 800
-                },
-                C12: {
-                    percent: 25,
-                    value: 200,
-                    bottom: 400,
-                    top: 600,
-                    description: 'C12',
-                    totalWarnings: 800
-                },
-                C11: {
-                    percent: 25,
-                    value: 200,
-                    bottom: 600,
-                    top: 800,
-                    description: 'C11',
-                    totalWarnings: 800
-                }
-            }];
+            ];
             expect(container.instance().state.ySeries).toEqual(expected);
         });
         it('should store the total warnings data (in chronologic order)', () => {
