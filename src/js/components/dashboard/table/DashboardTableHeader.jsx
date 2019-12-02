@@ -5,48 +5,43 @@
 
 import React from 'react';
 import PropTypes from 'prop-types';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { uniqueId } from 'lodash';
 
+import DashboardTableSorter from 'components/dashboard/table/DashboardTableSorter';
+
 const propTypes = {
-    headers: PropTypes.array
+    headers: PropTypes.array,
+    changeSort: PropTypes.func.isRequired,
+    currSort: PropTypes.string,
+    currOrder: PropTypes.string
 };
 
 const defaultProps = {
-    headers: []
+    headers: [],
+    currSort: 'period',
+    currOrder: 'desc'
 };
 
 export default class DashboardTableHeader extends React.Component {
-    constructor(props) {
-        super(props);
-
-        this.sortAsc = this.sortAsc.bind(this);
-        this.sortDesc = this.sortDesc.bind(this);
-    }
-    sortAsc() {
-        // TODO: return an ascending sort
-    }
-    sortDesc() {
-        // TODO: return a descending sort
-    }
     render() {
-        const tableHeaders = this.props.headers.map((header) => (
-            <th key={`dashboard-table-header-${uniqueId()}`} className={header.class}>
-                <div className="dashboard-table__header-wrapper">
-                    <div className="dashboard-table__header-text">
-                        {header.text}
+        const tableHeaders = this.props.headers.map((header) => {
+            let activeSort = '';
+            if (header.sortType === this.props.currSort) {
+                activeSort = this.props.currOrder;
+            }
+            return (
+                <th key={`dashboard-table-header-${uniqueId()}`} className={header.class}>
+                    <div className="dashboard-table__header-wrapper">
+                        <div className="dashboard-table__header-text">
+                            {header.text}
+                        </div>
+                        <DashboardTableSorter
+                            sort={header.sortType}
+                            changeSort={this.props.changeSort}
+                            activeSort={activeSort} />
                     </div>
-                    <div className="dashboard-table__sort-icons">
-                        <button onClick={this.sortAsc}>
-                            <FontAwesomeIcon size="2x" icon="caret-up" />
-                        </button>
-                        <button onClick={this.sortDesc}>
-                            <FontAwesomeIcon size="2x" icon="caret-down" />
-                        </button>
-                    </div>
-                </div>
-            </th>)
-        );
+                </th>);
+        });
 
         return (
             <thead>

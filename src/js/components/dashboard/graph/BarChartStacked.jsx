@@ -279,6 +279,8 @@ ${xAxis.items[0].label} to ${xAxis.items[xAxis.items.length - 1].label}.`;
                     // calculate height by getting the Y position of the bottom of
                     // the bar and taking the difference
                     height = (values.yScale(data.bottom) - space) - yPos;
+                    // prevent a negative height
+                    height = height < 0 ? 0 : height;
 
                     // merge the positioning of the stacked item with its metadata
                     const element = Object.assign({}, stack, {

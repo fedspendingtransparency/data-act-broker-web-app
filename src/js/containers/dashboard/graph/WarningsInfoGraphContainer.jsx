@@ -105,6 +105,21 @@ export class WarningsInfoGraphContainer extends React.Component {
         // For now, only one file at a time
         const file = data[this.props.appliedFilters.file];
 
+        // Sort the results into chronologic order
+        const compare = (a, b) => {
+            const timePeriodA = `${a.fy} ${a.quarter}`;
+            const timePeriodB = `${b.fy} ${b.quarter}`;
+            let comparison = 0;
+            if (timePeriodA > timePeriodB) {
+                comparison = 1;
+            }
+            else if (timePeriodA < timePeriodB) {
+                comparison = -1;
+            }
+            return comparison;
+        };
+        file.sort(compare);
+
         file.forEach((submission) => {
             const timePeriodLabel = `FY ${submission.fy.toString(10).substring(2)} / Q${submission.quarter}`;
             xSeries.push(timePeriodLabel);
