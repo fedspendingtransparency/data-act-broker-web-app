@@ -20,7 +20,8 @@ export class DashboardSummaryContainer extends React.Component {
 
         this.state = {
             results: [],
-            inFlight: false
+            inFlight: false,
+            hasFailed: false
         };
 
         this.getSummary = this.getSummary.bind(this);
@@ -37,6 +38,9 @@ export class DashboardSummaryContainer extends React.Component {
     }
 
     getSummary() {
+        this.setState({
+            inFlight: true
+        });
         const filters = {
             filters: {
                 quarters: this.props.appliedFilters.filters.quarters,
@@ -47,16 +51,28 @@ export class DashboardSummaryContainer extends React.Component {
         DashboardHelper.fetchSummary(filters)
             .then((data) => {
                 this.setState({
-                    results: data
+                    hasFailed: false,
+                    results: data,
+                    inFlight: false
                 });
             })
             .catch((err) => {
                 console.error(err);
+                this.setState({
+                    hasFailed: true,
+                    inFlight: false
+                });
             });
     }
 
     render() {
-        return <DashboardSummaries appliedFilters={this.props.appliedFilters} results={this.state.results} />;
+        return (
+            <DashboardSummaries
+                appliedFilters={this.props.appliedFilters}
+                results={this.state.results}
+                inFlight={this.state.inFlight}
+                hasFailed={this.state.hasFailed} />
+        );
     }
 }
 
