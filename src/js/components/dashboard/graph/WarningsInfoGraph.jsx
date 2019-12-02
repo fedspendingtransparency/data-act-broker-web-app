@@ -6,11 +6,15 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { throttle } from 'lodash';
+import NoResultsMessage from 'components/SharedComponents/NoResultsMessage';
+import LoadingMessage from 'components/SharedComponents/LoadingMessage';
+import ErrorMessageOverlay from 'components/SharedComponents/ErrorMessageOverlay';
 import BarChartStacked from './BarChartStacked';
 
 const propTypes = {
     data: PropTypes.object,
-    loading: PropTypes.bool
+    loading: PropTypes.bool,
+    error: PropTypes.bool
 };
 
 const graphHeight = 540;
@@ -49,13 +53,14 @@ export default class WarningsInfoGraph extends React.Component {
     }
 
     render() {
-        const chart = this.props.loading ? (<p>Loading...</p>) : (
+        const chart = (
             <BarChartStacked
                 width={this.state.visualizationWidth}
                 height={graphHeight}
                 data={this.props.data}
                 legend={this.props.data.legend} />
         );
+        const empty = (this.props.data.groups.length === 0);
         return (
             <div className="dashboard-viz warnings-info">
                 <h3 className="dashboard-viz__heading">Warnings Information</h3>
@@ -65,7 +70,10 @@ export default class WarningsInfoGraph extends React.Component {
                     ref={(div) => {
                         this.graphDiv = div;
                     }}>
-                    {chart}
+                    {this.props.loading && <LoadingMessage />}
+                    {!this.props.loading && this.props.error && <ErrorMessageOverlay />}
+                    {!this.props.loading && !this.props.error && empty && <NoResultsMessage />}
+                    {!this.props.loading && this.props.data && chart}
                 </div>
             </div>
         );
