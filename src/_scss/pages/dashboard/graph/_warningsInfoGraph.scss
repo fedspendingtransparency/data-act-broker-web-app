@@ -1,23 +1,29 @@
 .warnings-info {
     @import './axis';
     .warnings-info-graph__tooltip {
+        font-family: $font-sans;
         $color-tooltip-border: $color-gray-lighter;
         opacity: 100;
         background-color: $color-white;
         border: solid rem(1) $color-tooltip-border;
         padding: rem(15);
         color: $color-gray;
-        box-shadow: $box-shadow;
+        box-shadow: 0 2px 30px 0 rgba(0,0,0,0.19);
         .tooltip__title {
-            font-size: rem(16);
+            font-size: rem(18);
             font-weight: $font-semibold;
         }
+        hr {
+            margin-bottom: rem(10);
+            margin-top: rem(4);
+        }
         .tooltip__body {
-            font-size: rem(14);
+            font-size: rem(16);
+            line-height: rem(20);
             table {
                 width: 100%;
                 tr {
-                    height: rem(22);
+                    height: rem(26);
                     th {
                         font-weight: $font-normal;
                         padding-right: rem(15);
