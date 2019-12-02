@@ -97,7 +97,7 @@ describe('WarningsInfoGraphContainer', () => {
             container.instance().parseData(mockData);
             expect(generateLegend).toHaveBeenCalled();
         });
-        it('should parse the x-axis labels', () => {
+        it('should parse the x-axis labels (in chronologic order)', () => {
             const container = shallow(<WarningsInfoGraphContainer
                 {...mockRedux} />
             );
@@ -110,9 +110,9 @@ describe('WarningsInfoGraphContainer', () => {
             container.setProps({ ...newProps });
 
             container.instance().parseData(mockData);
-            expect(container.instance().state.xSeries).toEqual(['FY 99 / Q2', 'FY 99 / Q3']);
+            expect(container.instance().state.xSeries).toEqual(['FY 98 / Q3', 'FY 99 / Q2']);
         });
-        it('should parse the warnings data', () => {
+        it('should parse the warnings data (in chronologic order)', () => {
             const container = shallow(<WarningsInfoGraphContainer
                 {...mockRedux} />
             );
@@ -125,54 +125,57 @@ describe('WarningsInfoGraphContainer', () => {
             container.setProps({ ...newProps });
 
             container.instance().parseData(mockData);
-            const expected = [{
-                'C23.1': {
-                    percent: 50,
-                    value: 500,
-                    bottom: 0,
-                    top: 500,
-                    description: 'Rule C23.1'
+            const expected = [
+                {
+                    'C23.2': {
+                        percent: 50,
+                        value: 400,
+                        bottom: 0,
+                        top: 400,
+                        description: 'Rule C23.2'
+                    },
+                    C12: {
+                        percent: 25,
+                        value: 200,
+                        bottom: 400,
+                        top: 600,
+                        description: 'Rule C12'
+                    },
+                    C11: {
+                        percent: 25,
+                        value: 200,
+                        bottom: 600,
+                        top: 800,
+                        description: 'Rule C11'
+                    }
                 },
-                C12: {
-                    percent: 10,
-                    value: 100,
-                    bottom: 500,
-                    top: 600,
-                    description: 'Rule C12'
-                },
-                C11: {
-                    percent: 40,
-                    value: 400,
-                    bottom: 600,
-                    top: 1000,
-                    description: 'Rule C11'
+                {
+                    'C23.1': {
+                        percent: 50,
+                        value: 500,
+                        bottom: 0,
+                        top: 500,
+                        description: 'Rule C23.1'
+                    },
+                    C12: {
+                        percent: 10,
+                        value: 100,
+                        bottom: 500,
+                        top: 600,
+                        description: 'Rule C12'
+                    },
+                    C11: {
+                        percent: 40,
+                        value: 400,
+                        bottom: 600,
+                        top: 1000,
+                        description: 'Rule C11'
+                    }
                 }
-            }, {
-                'C23.2': {
-                    percent: 50,
-                    value: 400,
-                    bottom: 0,
-                    top: 400,
-                    description: 'Rule C23.2'
-                },
-                C12: {
-                    percent: 25,
-                    value: 200,
-                    bottom: 400,
-                    top: 600,
-                    description: 'Rule C12'
-                },
-                C11: {
-                    percent: 25,
-                    value: 200,
-                    bottom: 600,
-                    top: 800,
-                    description: 'Rule C11'
-                }
-            }];
+            ];
             expect(container.instance().state.ySeries).toEqual(expected);
         });
-        it('should store the total warnings data', () => {
+        it('should store the total warnings data (in chronologic order)', () => {
             const container = shallow(<WarningsInfoGraphContainer
                 {...mockRedux} />
             );
@@ -185,7 +188,7 @@ describe('WarningsInfoGraphContainer', () => {
             container.setProps({ ...newProps });
 
             container.instance().parseData(mockData);
-            expect(container.instance().state.allY).toEqual([1000, 800]);
+            expect(container.instance().state.allY).toEqual([800, 1000]);
         });
     });
 });
