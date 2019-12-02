@@ -23,7 +23,6 @@ export class WarningsInfoGraphContainer extends React.Component {
         this.state = {
             loading: true,
             error: false,
-            groups: [],
             xSeries: [],
             ySeries: [],
             allY: [],
@@ -79,27 +78,59 @@ export class WarningsInfoGraphContainer extends React.Component {
         return buildLegend(rules);
     }
 
+    generateySeries(yData, allY) {
+        return yData.map((submission, index) => {
+            let bottom = 0;
+            const barObject = {};
+            submission.forEach((rule) => {
+                barObject[rule.label] = {
+                    value: rule.instances,
+                    bottom,
+                    top: bottom + rule.instances,
+                    description: rule.label,
+                    percent: rule.percent_total,
+                    totalWarnings: allY[index]
+                };
+                bottom += rule.instances;
+            });
+            return barObject;
+        });
+    }
+
     parseData(data) {
-        const groups = []; // Fiscal Quarter labels
-        const xSeries = []; // Fiscal Quarter values
-        const ySeries = []; // Warnings by Rule
-        const allY = []; // Total Warnings values
+        const xSeries = []; // Fiscal Quarter labels
+        const yData = []; // Warnings by rule for each submission
+        const allY = []; // Total warnings values
 
         // For now, only one file at a time
         const file = data[this.props.appliedFilters.file];
 
+        // Sort the results into chronologic order
+        const compare = (a, b) => {
+            const timePeriodA = `${a.fy} ${a.quarter}`;
+            const timePeriodB = `${b.fy} ${b.quarter}`;
+            let comparison = 0;
+            if (timePeriodA > timePeriodB) {
+                comparison = 1;
+            }
+            else if (timePeriodA < timePeriodB) {
+                comparison = -1;
+            }
+            return comparison;
+        };
+        file.sort(compare);
+
         file.forEach((submission) => {
-            const timePeriodLabel = `FY ${submission.fy - 2000} / Q${submission.quarter}`;
-            groups.push(timePeriodLabel);
+            const timePeriodLabel = `FY ${submission.fy.toString(10).substring(2)} / Q${submission.quarter}`;
             xSeries.push(timePeriodLabel);
-            ySeries.push(submission.warnings);
+            yData.push(submission.warnings);
             allY.push(submission.total_warnings);
         });
 
-        const legend = this.generateLegend(ySeries);
+        const legend = this.generateLegend(yData);
+        const ySeries = this.generateySeries(yData, allY);
 
         this.setState({
-            groups,
             xSeries,
             ySeries,
             allY,
@@ -112,9 +143,7 @@ export class WarningsInfoGraphContainer extends React.Component {
     render() {
         return (
             <WarningsInfoGraph
-                loading={this.state.loading}
-                data={this.state}
-                error={this.state.error} />
+                {...this.state} />
         );
     }
 }
