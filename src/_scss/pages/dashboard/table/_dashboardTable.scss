@@ -110,6 +110,10 @@
                             overflow: hidden;
                             height: rem(13);
                             margin: rem(4) 0;
+
+                            &.active {
+                                color: $color-gold-light;
+                            }
                         }
 
                         svg {

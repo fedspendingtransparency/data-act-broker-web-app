@@ -33,10 +33,10 @@ export default class DashboardSummaries extends React.Component {
             );
         });
         let summaryContent = summaries;
-        if (this.props.inFlight){
+        if (this.props.inFlight) {
             summaryContent = <LoadingMessage />;
         }
-        else if (this.props.hasFailed){
+        else if (this.props.hasFailed) {
             summaryContent = <ErrorMessageOverlay />;
         }
 
