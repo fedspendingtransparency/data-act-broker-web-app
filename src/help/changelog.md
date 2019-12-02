@@ -1,5 +1,15 @@
-#### November 18, 2019{section=changelog}
-In this release of the Broker, we:
+#### December 2, 2019{section=changelog}
+In this release of the Broker, error/warning reports have been updated with the following to improve readability:
 
-* Fixed title header alignment on DATA Act Broker initial landing page
-* Fixed front end bug on DABS Upload & Validate page where if the user misspelled the name of the reporting agency while beginning a new submission, a page refresh would be required before being able to select a Monthly or Quarterly submission.
+* Flex fields have been extracted from the "Field Names" and "Values Provided" columns and put into its own column labeled "Flex Fields".
+* Added "Unique ID" column containing values unique to that rule to help identify specific rows.
+* Added "Expected Value" column detailing the value expected for that error or warning.
+* Added "Difference" column representing the difference(s) between the values provided and the values expected. Note: this will only be populated if both values are numerical.
+* For cross-file reports:
+  * Values are split between "Source Values" (provided) and "Target Values" (expected)
+  * "Difference" column will be the difference(s) between the source and target values.
+  * "Row Number" has been renamed to "Source Row Number".
+  * "Source Flex Field" has been added representing the source flex fields.
+  * Renamed columns to be singular and not plural for consistency.
+* Any values with the string "None" have been replaced with a blank space.
+* TAS values have been reformatted to match the format from USASpending.gov.
