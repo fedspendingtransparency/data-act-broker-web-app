@@ -1,4 +1,54 @@
 .dashboard-table {
+
+    .results-table-content {
+        .title, .description, .loading-message {
+            font-size: rem(25);
+            line-height: rem(24);
+        }
+        .results-table-error {
+            .icon {
+                color: #d9534f;
+                width: rem(53);
+                height: rem(50);
+
+                svg {
+                    width: rem(50);
+                    height: rem(53);
+                }
+            }
+            margin-top: rem(20);
+            margin-bottom: rem(20);
+            max-width: none;
+        }
+        .results-table-no-results {
+            .no-results-icon {
+                width: rem(50);
+                height: rem(53);
+
+                svg {
+                    color: $color-primary;
+                    width: rem(50);
+                    height: rem(53);
+                }
+            }
+            margin-top: rem(20);
+            margin-bottom: rem(20);
+            max-width: none;
+        }
+        .results-table-loading { 
+            .loading-animation {
+                svg.loading-bars {
+                    rect {
+                        fill: $color-primary;
+                    }
+                }
+            }
+            margin-top: rem(20);
+            margin-bottom: rem(20);
+            max-width: none;
+        }
+    }
+
     table {
         width: 100%;
         margin-bottom: rem(21);

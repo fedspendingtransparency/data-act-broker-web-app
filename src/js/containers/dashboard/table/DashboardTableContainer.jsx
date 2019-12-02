@@ -29,6 +29,7 @@ export class DashboardTableContainer extends React.Component {
             page: 1,
             limit: 10,
             inFlight: true,
+            hasError: false,
             sort: 'period',
             order: 'desc',
             showModal: false,
@@ -133,7 +134,8 @@ export class DashboardTableContainer extends React.Component {
             .catch((err) => {
                 console.error(err);
                 this.setState({
-                    inFlight: false
+                    inFlight: false,
+                    hasError: true
                 });
             });
     }
@@ -149,13 +151,14 @@ export class DashboardTableContainer extends React.Component {
         this.setState({
             results,
             totalPages: Math.ceil(data.page_metadata.total / this.state.limit),
-            inFlight: false
+            inFlight: false,
+            hasError: false
         });
     }
 
     render() {
         let pagination = null;
-        if (!this.state.inFlight && this.state.results.length !== 0) {
+        if (!this.state.inFlight && !this.state.hasError && this.state.results.length !== 0) {
             pagination = (
                 <DashboardTablePagination
                     totalPages={this.state.totalPages}
@@ -178,6 +181,7 @@ export class DashboardTableContainer extends React.Component {
                 <DashboardTable
                     results={this.state.results}
                     inFlight={this.state.inFlight}
+                    hasError={this.state.hasError}
                     changeSort={this.changeSort}
                     currSort={this.state.sort}
                     currOrder={this.state.order}

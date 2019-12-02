@@ -7,11 +7,15 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 import DashboardTableHeader from 'components/dashboard/table/DashboardTableHeader';
+import NoResultsMessage from 'components/SharedComponents/NoResultsMessage';
+import LoadingMessage from 'components/SharedComponents/LoadingMessage';
+import ErrorMessageOverlay from 'components/SharedComponents/ErrorMessageOverlay';
 import DashboardTableLabelButton from 'components/dashboard/table/DashboardTableLabelButton';
 
 const propTypes = {
     results: PropTypes.array,
     inFlight: PropTypes.bool,
+    hasError: PropTypes.bool,
     changeSort: PropTypes.func.isRequired,
     currSort: PropTypes.string,
     currOrder: PropTypes.string,
@@ -21,6 +25,7 @@ const propTypes = {
 const defaultProps = {
     results: [],
     inFlight: false,
+    hasError: false,
     currSort: 'period',
     currOrder: 'desc'
 };
@@ -55,36 +60,41 @@ const tableHeaders = [
 
 export default class DashboardTable extends React.Component {
     render() {
-        const tableRows = this.props.results.map((row) => (
-            <tr key={`dashboard-table-row-${row.submissionId}-${row.ruleLabel}`}>
-                <td>
-                    <DashboardTableLabelButton
-                        row={row}
-                        openModal={this.props.openModal} />
-                </td>
-                <td>
-                    {row.period}
-                </td>
-                <td>
-                    {row.ruleLabel}
-                </td>
-                <td>
-                    {row.instanceCount}
-                </td>
-                <td>
-                    <div className="ellipse-box">
-                        {row.ruleDescription}
-                    </div>
-                </td>
-            </tr>
-        ));
-
-        let contentMessage = null;
-        if (this.props.inFlight) {
-            contentMessage = 'Gathering data';
-        }
-        else if (this.props.results.length === 0) {
-            contentMessage = 'No data';
+        let contentMessage = <LoadingMessage />;
+        let tableRows = [];
+        if (!this.props.inFlight) {
+            if (this.props.hasError) {
+                contentMessage = <ErrorMessageOverlay />;
+            }
+            else if (this.props.results.length === 0) {
+                contentMessage = <NoResultsMessage />;
+            }
+            else {
+                contentMessage = null;
+                tableRows = this.props.results.map((row) => (
+                    <tr key={`dashboard-table-row-${row.submissionId}-${row.ruleLabel}`}>
+                        <td>
+                            <DashboardTableLabelButton
+                                row={row}
+                                openModal={this.props.openModal} />
+                        </td>
+                        <td>
+                            {row.period}
+                        </td>
+                        <td>
+                            {row.ruleLabel}
+                        </td>
+                        <td>
+                            {row.instanceCount}
+                        </td>
+                        <td>
+                            <div className="ellipse-box">
+                                {row.ruleDescription}
+                            </div>
+                        </td>
+                    </tr>
+                ));
+            }
         }
         return (
             <div className="dashboard-table">
