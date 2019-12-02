@@ -29,6 +29,8 @@ export class DashboardTableContainer extends React.Component {
             page: 1,
             limit: 10,
             inFlight: true,
+            sort: 'period',
+            order: 'desc',
             showModal: false,
             modalData: {}
         };
@@ -37,6 +39,7 @@ export class DashboardTableContainer extends React.Component {
         this.changePage = this.changePage.bind(this);
         this.changeLimit = this.changeLimit.bind(this);
         this.parseRows = this.parseRows.bind(this);
+        this.changeSort = this.changeSort.bind(this);
         this.openModal = this.openModal.bind(this);
         this.closeModal = this.closeModal.bind(this);
         this.downloadFile = this.downloadFile.bind(this);
@@ -64,6 +67,15 @@ export class DashboardTableContainer extends React.Component {
         this.setState({
             page: 1,
             limit: newLimit
+        }, () => {
+            this.updateTable();
+        });
+    }
+
+    changeSort(sort, order) {
+        this.setState({
+            sort,
+            order
         }, () => {
             this.updateTable();
         });
@@ -110,8 +122,8 @@ export class DashboardTableContainer extends React.Component {
             },
             page: this.state.page,
             limit: this.state.limit,
-            sort: 'period',
-            order: 'desc'
+            sort: this.state.sort,
+            order: this.state.order
         };
 
         DashboardHelper.fetchDashboardTableContents(searchParams)
@@ -166,6 +178,9 @@ export class DashboardTableContainer extends React.Component {
                 <DashboardTable
                     results={this.state.results}
                     inFlight={this.state.inFlight}
+                    changeSort={this.changeSort}
+                    currSort={this.state.sort}
+                    currOrder={this.state.order}
                     openModal={this.openModal} />
                 {pagination}
                 {modal}
