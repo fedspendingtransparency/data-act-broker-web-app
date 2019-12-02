@@ -60,40 +60,41 @@ const tableHeaders = [
 
 export default class DashboardTable extends React.Component {
     render() {
-        let tableRows = this.props.results.map((row) => (
-            <tr key={`dashboard-table-row-${row.submissionId}-${row.ruleLabel}`}>
-                <td>
-                    <DashboardTableLabelButton
-                        row={row}
-                        openModal={this.props.openModal} />
-                </td>
-                <td>
-                    {row.period}
-                </td>
-                <td>
-                    {row.ruleLabel}
-                </td>
-                <td>
-                    {row.instanceCount}
-                </td>
-                <td>
-                    <div className="ellipse-box">
-                        {row.ruleDescription}
-                    </div>
-                </td>
-            </tr>
-        ));
-
-        let contentMessage = null;
-        if (this.props.inFlight) {
-            contentMessage = <LoadingMessage />;
-            tableRows = [];
-        }
-        else if (this.props.hasError) {
-            contentMessage = <ErrorMessageOverlay />;
-        }
-        else if (this.props.results.length === 0) {
-            contentMessage = <NoResultsMessage />;
+        let contentMessage = <LoadingMessage />;
+        let tableRows = [];
+        if (!this.props.inFlight) {
+            if (this.props.hasError) {
+                contentMessage = <ErrorMessageOverlay />;
+            }
+            else if (this.props.results.length === 0) {
+                contentMessage = <NoResultsMessage />;
+            }
+            else {
+                contentMessage = null;
+                tableRows = this.props.results.map((row) => (
+                    <tr key={`dashboard-table-row-${row.submissionId}-${row.ruleLabel}`}>
+                        <td>
+                            <DashboardTableLabelButton
+                                row={row}
+                                openModal={this.props.openModal} />
+                        </td>
+                        <td>
+                            {row.period}
+                        </td>
+                        <td>
+                            {row.ruleLabel}
+                        </td>
+                        <td>
+                            {row.instanceCount}
+                        </td>
+                        <td>
+                            <div className="ellipse-box">
+                                {row.ruleDescription}
+                            </div>
+                        </td>
+                    </tr>
+                ));
+            }
         }
         return (
             <div className="dashboard-table">
