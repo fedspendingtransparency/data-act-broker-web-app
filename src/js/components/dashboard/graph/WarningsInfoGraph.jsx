@@ -99,6 +99,20 @@ export default class WarningsInfoGraph extends React.Component {
         const tooltip = this.state.showTooltip ? (
             <WarningsInfoGraphTooltip data={this.state.tooltipData} />) : null;
         const empty = (this.props.xSeries.length === 0);
+
+        let graphContent = <LoadingMessage />;
+        if (!this.props.loading) {
+            if (this.props.error) {
+                graphContent = <ErrorMessageOverlay />;
+            }
+            else if (empty) {
+                graphContent = <NoResultsMessage />;
+            }
+            else {
+                graphContent = chart;
+            }
+        }
+
         return (
             <div className="dashboard-viz warnings-info">
                 <h3 className="dashboard-viz__heading">Warnings Information</h3>
@@ -109,10 +123,7 @@ export default class WarningsInfoGraph extends React.Component {
                         this.graphDiv = div;
                     }}>
                     {tooltip}
-                    {this.props.loading && <LoadingMessage />}
-                    {!this.props.loading && this.props.error && <ErrorMessageOverlay />}
-                    {!this.props.loading && !this.props.error && empty && <NoResultsMessage />}
-                    {!this.props.loading && chart}
+                    {graphContent}
                 </div>
             </div>
         );
