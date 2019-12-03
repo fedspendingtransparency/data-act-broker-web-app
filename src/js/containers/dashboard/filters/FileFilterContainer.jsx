@@ -56,7 +56,8 @@ const FileFilterContainer = (props) => (
         <RadioGroup
             onChange={props.updateFileFilter}
             currentValue={props.selectedFilters.file}
-            columns={columns} />
+            columns={columns}
+            pageSection="file-filter" />
     </div>
 );
 

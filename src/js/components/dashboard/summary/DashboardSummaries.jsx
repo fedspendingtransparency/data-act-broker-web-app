@@ -6,11 +6,15 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { fileLabels } from 'dataMapping/dashboard/fileLabels';
+import ErrorMessageOverlay from 'components/SharedComponents/ErrorMessageOverlay';
+import LoadingMessage from 'components/SharedComponents/LoadingMessage';
 import DashboardSummary from './DashboardSummary';
 
 const propTypes = {
     appliedFilters: PropTypes.object.isRequired,
-    results: PropTypes.array
+    results: PropTypes.array,
+    inFlight: PropTypes.bool,
+    hasFailed: PropTypes.bool
 };
 
 export default class DashboardSummaries extends React.Component {
@@ -24,15 +28,23 @@ export default class DashboardSummaries extends React.Component {
                     key={result.agency_name}
                     file={file}
                     agency={result.agency_name}
-                    submissions={result.submissions} />
+                    submissions={result.submissions}
+                    inFlight={this.props.inFlight} />
             );
         });
+        let summaryContent = summaries;
+        if (this.props.inFlight) {
+            summaryContent = <LoadingMessage />;
+        }
+        else if (this.props.hasFailed) {
+            summaryContent = <ErrorMessageOverlay />;
+        }
 
         return (
             <div className="dashboard-viz submission-info">
                 <h3 className="dashboard-viz__heading">Submission Information</h3>
                 <div>
-                    {summaries}
+                    {summaryContent}
                 </div>
             </div>
         );
