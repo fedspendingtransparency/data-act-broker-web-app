@@ -99,7 +99,7 @@ export default class WarningsInfoGraph extends React.Component {
         const tooltip = this.state.showTooltip ? (
             <WarningsInfoGraphTooltip data={this.state.tooltipData} />) : null;
         const empty = (this.props.xSeries.length === 0);
-        
+
         let graphContent = <LoadingMessage />;
         if (!this.props.loading) {
             if (this.props.error) {
