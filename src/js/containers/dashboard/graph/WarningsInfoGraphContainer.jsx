@@ -73,7 +73,7 @@ export class WarningsInfoGraphContainer extends React.Component {
     generateLegend(yData) {
         let rules = [];
         yData.forEach((submission) => {
-            rules = union(rules, submission.map((rule) => Object.values(rule)[0]));
+            rules = union(rules, submission.map((rule) => rule.label));
         });
         return buildLegend(rules);
     }
