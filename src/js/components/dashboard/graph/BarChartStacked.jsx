@@ -278,9 +278,13 @@ ${xAxis.items[0].label} to ${xAxis.items[xAxis.items.length - 1].label}.`;
                     const space = data.bottom === 0 ? 0 : this.props.spaceBetweenStacks;
                     // calculate height by getting the Y position of the bottom of
                     // the bar and taking the difference
-                    height = (values.yScale(data.bottom) - space) - yPos;
+                    const yPosBottom = values.yScale(data.bottom);
+                    height = (yPosBottom - space) - yPos;
                     // prevent a negative height
                     height = height < 0 ? 0 : height;
+
+                    // Get the midpoint of the stack for the tooltip position
+                    const mid = yPos - ((yPos - yPosBottom) / 2);
 
                     // merge the positioning of the stacked item with its metadata
                     const element = Object.assign({}, stack, {
@@ -295,7 +299,7 @@ ${xAxis.items[0].label} to ${xAxis.items[xAxis.items.length - 1].label}.`;
                             ...data,
                             position: {
                                 x: xPos + (barWidth / 2) + values.padding.left,
-                                y: yPos
+                                y: mid - 22 // subtract 22px to line up the pointer instead of the top of the tooltip
                             }
                         }
                     });

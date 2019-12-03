@@ -25,5 +25,11 @@ export const chartColors = [
     '#923051', // cranberry
     '#00BFE7', // cerulean
     '#122E51', // navy
-    '#94BFA2' // sage green
+    '#94BFA2', // sage green
+    '#7E22CE', // purple
+    '#F1354C', // red
+    '#22CE7E', // bright green
+    '#90A4FF', // periwinkle
+    '#D4E525', // chartreuse
+    '#4C9EB2' // teal
 ];
