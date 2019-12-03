@@ -49,6 +49,8 @@ describe('WarningsInfoGraphContainer', () => {
             );
             const ySeries = [
                 [{
+                    instances: 1234,
+                    percent_total: 42,
                     label: "C23"
                 }, {
                     label: "C12"
