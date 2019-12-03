@@ -5,6 +5,7 @@
 
 import React from 'react';
 import { shallow } from 'enzyme';
+import { cloneDeep } from 'lodash';
 
 import { RulesFilterContainer } from 'containers/dashboard/filters/RulesFilterContainer';
 import { mockActions, mockRedux } from './mockFilters';
@@ -52,7 +53,7 @@ describe('RulesFilterContainer', () => {
             {...mockActions}
             {...mockRedux} />
         );
-        const newState = container.instance().state;
+        const newState = cloneDeep(container.instance().state);
         newState.results = ['X1', 'Y2', 'Z3'];
         container.instance().setState({ ...newState });
 
@@ -77,7 +78,7 @@ describe('RulesFilterContainer', () => {
                 {...mockActions}
                 {...mockRedux} />
             );
-            const newState = container.instance().state;
+            const newState = cloneDeep(container.instance().state);
             newState.results = ['X1', 'Y2', 'Z3'];
             container.instance().setState({ ...newState });
 
@@ -96,7 +97,7 @@ describe('RulesFilterContainer', () => {
                 {...mockActions}
                 {...updatedRedux} />
             );
-            const newState = container.instance().state;
+            const newState = cloneDeep(container.instance().state);
             newState.results = ['X1', 'Y2', 'Z3'];
             container.instance().setState({ ...newState });
 
@@ -116,7 +117,7 @@ describe('RulesFilterContainer', () => {
                 {...mockActions}
                 {...mockRedux} />
             );
-            const newState = container.instance().state;
+            const newState = cloneDeep(container.instance().state);
             newState.filteredResults = [{
                 title: 'Y2',
                 subtitle: '',
