@@ -2,6 +2,8 @@
 
 In this release, here is a list of technical changes that may require infrastructure or database updates, or represents additional functionality.
 
+Error/Warning Reports have been updated with the following to improve readability:
+
 * Flex fields have been extracted from the "Field Names" and "Values Provided" columns and put into its own column labeled "Flex Fields".
 * Added "Unique ID" column containing values unique to that rule to help identify specific rows.
 * Added "Expected Value" column detailing the value expected for that error or warning.
