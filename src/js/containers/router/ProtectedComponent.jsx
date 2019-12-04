@@ -7,7 +7,6 @@ import * as LoginHelper from '../../helpers/loginHelper';
 import * as sessionActions from '../../redux/actions/sessionActions';
 
 const propTypes = {
-    redirectPath: PropTypes.string,
     children: PropTypes.node,
     session: PropTypes.shape({
         login: PropTypes.string,
@@ -17,6 +16,7 @@ const propTypes = {
             }))
         })
     }),
+    authFn: PropTypes.func,
     location: PropTypes.shape({
         key: PropTypes.string, // 'ac3df4', ** not with HashHistory!
         pathname: PropTypes.string, // '/somewhere'
@@ -67,7 +67,7 @@ class ProtectedComponent extends React.Component {
     }
 
     performAutoLogin() {
-        const isAuthorized = (this.props.session.login === 'loggedIn');
+        const isAuthorized = this.props.authFn(this.props.session);
         this.props.history.push(LoginHelper.getPath(this.props.location, isAuthorized));
     }
 
