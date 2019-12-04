@@ -122,12 +122,13 @@ export const performLogin = (username, password) => {
 export const performMaxLogin = (ticket) => {
     const deferred = Q.defer();
     const store = new StoreSingleton().store;
-
+    
     // wipe out old session cookies to prevent session weirdness
     Cookies.remove('session');
     // determine the service
     const service = encodeURIComponent(kGlobalConstants.AUTH_CALLBACK);
-
+    
+    console.log("TICKET", ticket, "SERVICE", service);
     Request.post(`${kGlobalConstants.API}max_login/`)
         .send({ ticket, service })
         .end((err, res) => {

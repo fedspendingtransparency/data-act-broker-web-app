@@ -27,33 +27,35 @@ export default class AuthContainer extends React.Component {
 
     processTicket() {
         // extract the ticket string from the URL
-        const url = window.location.href;
+        const url = this.props.history.location.search;
         // MAX may insert the ticket in the middle of the URL instead of at the end because MAX's
         // URL parser does not fully understand hashed URLs
         const regex = /ticket=([A-Za-z0-9]|\.|-)+/g;
         const regexOutput = regex.exec(url);
-
+        
         // a ticket was found, process it
         if (regexOutput) {
             const ticket = regexOutput[0].substring('ticket='.length);
-
+            
             // save the ticket value in the component state
             this.setState({
                 ticket,
                 error: ''
             }, () => {
                 // remove the ticket from the URL
-                const updatedUrl = url.replace(`?ticket=${this.state.ticket}`, '');
-                url.replace(updatedUrl);
-
+                // const updatedUrl = url.replace(`?ticket=${this.state.ticket}`, '');
+                // url.replace(updatedUrl);
+                // this.props.location.assign('');
+                
                 let destination = '/landing';
-
+                
                 // check if a redirection cookie exists, if it exists, set that as the destination
                 const cookieRedirect = Cookies.get('brokerRedirect');
                 if (cookieRedirect) {
                     destination = cookieRedirect;
                 }
-
+                
+                debugger;
                 // perform the login
                 LoginHelper.performMaxLogin(this.state.ticket)
                     .then((data) => {
@@ -65,8 +67,10 @@ export default class AuthContainer extends React.Component {
                             destination = '/help';
                         }
                         this.props.history.push(destination);
+                        console.log('destination', destination);
                     })
                     .catch((err) => {
+                        console.log('err', err);
                         // something went wrong (or API passed back an error status and message)
                         let message = err;
                         if (message === 'cookie') {
