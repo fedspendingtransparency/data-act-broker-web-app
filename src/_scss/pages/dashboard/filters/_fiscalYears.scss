@@ -1,0 +1,36 @@
+.fiscal-years {
+    ul.fiscal-years-list {
+        @include unstyled-list;
+        font-weight: $font-normal;
+        padding-top: rem(15);
+        .fiscal-years__wrapper {
+            @include display(flex);
+        }
+        .fiscal-years__left {
+            padding-right: rem(4);
+        }
+        .fiscal-years__right {
+            padding-left: rem(4);
+        }
+        li.fy-option {
+            &:before {
+                display: none;
+            }
+            &:after {
+                display: none;
+            }
+            list-style-type: none;
+            .fy-option__label {
+                font-weight: $font-normal;
+                font-size: $small-font-size;
+                line-height: rem(26);
+                padding-left: rem(5);
+            }
+        }
+    }
+    .warning-tooltip {
+        // space the tooltip to the right of the FY checkboxes
+        margin-left: rem(125);
+        margin-top: rem(-60);
+    }
+}

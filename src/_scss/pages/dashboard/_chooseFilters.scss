@@ -1,0 +1,32 @@
+.dashboard-choose-filters-flex {
+    height: 100%;
+    display: flex;
+
+    .dashboard-choose-filters {
+        width: 100%;
+        margin: rem(50) rem(100);
+        padding-top: rem(225);
+        border: solid rem(2) $color-gray-light;
+        border-radius: rem(5);
+        background-color: $color-gray-lighter;
+        text-align: center;
+        color: $color-gray;
+
+        @media(max-width:$medium-screen) {
+            margin: rem(30);
+        }
+
+        @media(max-width:$small-screen) {
+            margin: 0;
+            padding: rem(225) rem(5);
+        }
+
+        .dashboard-choose-filters__arrow {
+            font-size: rem(46);
+        }
+
+        .dashboard-choose-filters__message {
+            font-size: rem(25);
+        }
+    }
+}

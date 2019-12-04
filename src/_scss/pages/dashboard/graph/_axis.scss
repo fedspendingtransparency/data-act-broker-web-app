@@ -1,0 +1,30 @@
+.bar-axis {
+    font-size: rem(16);
+    color: #666;
+    fill: #666;
+    line.y-axis,
+    line.x-axis {
+        stroke: $color-gray-light;
+    }
+    .axis-labels {
+        .axis-item {
+            &.y-axis {
+                .grid-line {
+                    .grid-line__line {
+                        stroke: $color-gray-lighter;
+                    }
+                    .grid-line__row {
+                        fill: transparent;
+                        stroke: none;
+                    }
+                }
+                &:nth-child(even) {
+                    .grid-line__row {
+                        fill: $color-gray-lightest;
+                        fill-opacity: 0.5;
+                    }
+                }
+            }
+        }
+    }
+}

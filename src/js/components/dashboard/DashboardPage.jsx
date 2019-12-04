@@ -6,34 +6,50 @@
 import React from 'react';
 import Navbar from 'components/SharedComponents/navigation/NavigationComponent';
 import Footer from 'components/SharedComponents/FooterComponent';
+import DashboardContentContainer from 'containers/dashboard/DashboardContentContainer';
 import QuarterFilterContainer from 'containers/dashboard/filters/QuarterFilterContainer';
+import DashboardAgencyFilterContainer from 'containers/dashboard/filters/DashboardAgencyFilterContainer';
+import FyFilterContainer from 'containers/dashboard/filters/FyFilterContainer';
+import FileFilterContainer from 'containers/dashboard/filters/FileFilterContainer';
+import RulesFilterContainer from 'containers/dashboard/filters/RulesFilterContainer';
 import DashboardTab from './DashboardTab';
 import FilterSidebar from './FilterSidebar';
 
 const filters = [
     {
-        name: 'Fiscal Year',
+        name: 'Agency',
         required: true,
-        component: null,
-        description: 'Select the applicable fiscal year(s).'
+        component: DashboardAgencyFilterContainer,
+        description: 'Select a specific agency to filter your search.',
+        altDescription: 'The agency to which you are assigned.'
     },
     {
-        name: 'Quarter',
+        name: 'Fiscal Years',
+        required: true,
+        component: FyFilterContainer,
+        description: 'Select the applicable fiscal year(s).',
+        altDescription: null
+    },
+    {
+        name: 'Quarters',
         required: true,
         component: QuarterFilterContainer,
-        description: 'Select the applicable quarter(s).'
+        description: 'Select the applicable quarter(s).',
+        altDescription: null
     },
     {
         name: 'Files',
         required: true,
-        component: null,
-        description: 'Select one file or cross-file.'
+        component: FileFilterContainer,
+        description: 'Select one file or cross-file.',
+        altDescription: null
     },
     {
-        name: 'Rule',
+        name: 'Rules',
         required: false,
-        component: null,
-        description: 'Enter specific codes to filter your search.'
+        component: RulesFilterContainer,
+        description: 'Enter specific codes to filter your search.',
+        altDescription: null
     }
 ];
 
@@ -59,7 +75,7 @@ export default class DashboardPage extends React.Component {
                     <Navbar type="dabs" activeTab="dashboard" />
                     <div className="usa-da-content-dark">
                         <div className="container">
-                            <div className="row">
+                            <div className="row usa-da-page-title">
                                 <div className="col-md-12">
                                     <h1 className="display-2">DABS Dashboard</h1>
                                 </div>
@@ -82,12 +98,13 @@ export default class DashboardPage extends React.Component {
                         </div>
                     </div>
                     <div className="dashboard-page">
-                        <div className="dashboard-page__filters">
-                            <FilterSidebar filters={filters} />
-                        </div>
-                        <div className="dashboard-page__content">
-                            <h2>Historical Data Summary</h2>
-                            <hr />
+                        <div className="dashboard-page__wrapper">
+                            <div className="dashboard-page__filters">
+                                <FilterSidebar filters={filters} />
+                            </div>
+                            <div className="dashboard-page__content">
+                                <DashboardContentContainer />
+                            </div>
                         </div>
                     </div>
                 </div>

@@ -45,20 +45,6 @@ const checkDabsUploadPermissions = (session) => {
     }, false);
 };
 
-// TODO: Perhaps use this guy instead?
-// const checkFabsUploadPermissions = (nextState, replace) => {
-//     getStore();
-//     const session = store.getState().session;
-//     if (session.login !== "loggedIn") {
-//         performAutoLogin(nextState.location, replace);
-//     }
-//     const fabsPermissions = checkFabsPermissions(session);
-//     if (!fabsPermissions) {
-//         // if no permissions, bounce to landing
-//         replace('/FABSLanding');
-//     }
-// };
-
 const checkFabsUploadPermissions = (session) => {
     if (session.admin) {
         return true;
@@ -241,6 +227,7 @@ const getRoutes = () => {
             authFn: checkUserPermissions,
             component: ErrorPage
         });
+    listRoutes = returnRoutes.map((route) => route.path);
     return returnRoutes;
 };
 

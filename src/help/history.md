@@ -1,3 +1,29 @@
+#### November 18, 2019{section=changelog}
+In this release of the Broker, we:
+
+* Fixed title header alignment on DATA Act Broker initial landing page
+* Fixed front end bug on DABS Upload & Validate page where if the user misspelled the name of the reporting agency while beginning a new submission, a page refresh would be required before being able to select a Monthly or Quarterly submission.
+
+#### November 4, 2019
+In this release of the Broker, we:
+
+* Fixed DABS front end bug where refreshing the page while in the submission workflow caused users to be taken to the furthest step the submission had reached rather than remaining on current page.
+* Completed front end work on FABS permissions to allow a non-publishing role.
+
+#### October 21, 2019
+In this release of the Broker, we:
+
+* Updated FABS to properly show error message if attempting to navigate to an invalid submission ID.
+
+#### October 7, 2019
+In this release of the Broker, we:
+
+* Added a Download Comments link on the Review & Publish page in DABS where all entered comments on submission files can be downloaded on a single file.
+* Fixed a bug on DABS where, in a few cases, the same Warning Code would be displayed on more than one line in the Warning Table and Tree Map.  While the total number of Warnings was correct, it now shows on one line for each Warning Code in all cases. In addition, historical submissions that had this issue also now display each Warning Code as one line. 
+* Fixed calculation on Review & Publish page to show correct Total File Size.
+* Updated API to return error message when attempting to upload a Monthly Submission and a range of months was set in the parameters.   
+* Updated name of Broker table submission\_narrative to file\_comment for internal consistency.  This resulted in new API endpoints. Previous endpoints were deprecated and scheduled for removal. API users should review API documentation.
+
 #### September 20, 2019
 In this release of the Broker, we:
 

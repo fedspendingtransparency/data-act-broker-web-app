@@ -6,9 +6,10 @@
 import { Set } from 'immutable';
 
 export const initialState = {
+    agency: '',
     quarters: new Set(),
     fy: new Set(),
-    file: 'A',
+    file: '',
     rules: new Set()
 };
 
@@ -34,6 +35,23 @@ export const dashboardFiltersReducer = (state = initialState, action) => {
         case 'UPDATE_FILE_FILTER': {
             return Object.assign({}, state, {
                 file: action.file
+            });
+        }
+
+        case 'UPDATE_AGENCY_FILTER': {
+            if (state.agency === action.agency) {
+                return Object.assign({}, state, {
+                    agency: ''
+                });
+            }
+            return Object.assign({}, state, {
+                agency: action.agency
+            });
+        }
+
+        case 'CLEAR_FILTER_SET': {
+            return Object.assign({}, state, {
+                [action.filterType]: initialState[action.filterType]
             });
         }
 

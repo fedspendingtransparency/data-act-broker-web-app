@@ -1,12 +1,20 @@
 .filter-sidebar {
+    @import './filters/submitButton';
+    width: 100%;
     .filter-sidebar__option {
         color: $color-gray;
-        padding: rem(20);
+        padding: rem(12) rem(20);
         border-bottom: solid rem(2) $color-gray-lighter;
         @import './filters/quarterPicker';
+        @import './filters/fiscalYears';
+        @import './filters/rulesFilter';
+        @import './filters/dashboardAgencyFilter';
         .filter-sidebar__option-heading {
             font-weight: $font-bold;
             font-size: $h3-font-size;
+        }
+        .filter-sidebar__option-description {
+            font-size: rem(12);
         }
         .filter-sidebar__option-name {
             font-size: rem(18);

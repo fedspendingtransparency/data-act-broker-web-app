@@ -1,0 +1,10 @@
+.rules-filter {
+    @import '../../../components/autocomplete/autocomplete';
+    @import '../../../components/autocomplete/errorMessage';
+    @import './selectedFilters';
+    .warning-tooltip {
+        // space the tooltip to the right of the input
+        margin-left: rem(232);
+        margin-top: rem(-50);
+    }
+}

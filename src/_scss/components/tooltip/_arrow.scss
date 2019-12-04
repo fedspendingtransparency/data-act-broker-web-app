@@ -23,4 +23,11 @@
             transform: rotate(315deg);
         }
     }
+    &.right {
+        left: auto;
+        right: rem(7);
+        &:after {
+            transform: rotate(225deg);
+        }
+    }
 }
