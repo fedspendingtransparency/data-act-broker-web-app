@@ -227,7 +227,6 @@ const getRoutes = () => {
             authFn: checkUserPermissions,
             component: ErrorPage
         });
-    listRoutes = returnRoutes.map((route) => route.path);
     return returnRoutes;
 };
 
