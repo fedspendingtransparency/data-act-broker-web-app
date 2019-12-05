@@ -1,0 +1,36 @@
+.table-go-to {
+    margin-left: rem(18);
+
+    input {
+        width: rem(48);
+        margin: 0 rem(6);
+    }
+
+    label {
+        font-size: rem(12);
+        font-weight: normal;
+    }
+
+    button {
+        color: $color-white;
+        font-size: rem(12);
+        font-weight: $font-bold;
+        transition: opacity 0.15s;
+        padding: rem(5) rem(15);
+        border: 0;
+
+        background-color: $color-primary;
+
+        &:hover {
+            background-color: $color-primary-darker;            
+        }
+
+        &[disabled] {
+            opacity: 0.5;
+            cursor: not-allowed;
+            &:hover {
+                background-color: $color-primary;
+            }
+        }
+    }
+}
