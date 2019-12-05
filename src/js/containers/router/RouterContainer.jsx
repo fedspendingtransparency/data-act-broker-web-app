@@ -6,7 +6,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { HashRouter as Router, Switch } from 'react-router-dom';
-import { createBrowserHistory } from "history";
+import { createHashHistory } from "history";
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import ReactGA from 'react-ga';
@@ -35,7 +35,7 @@ const defaultProps = {
 };
 
 const Routes = new RouterRoutes();
-const history = createBrowserHistory();
+const history = createHashHistory();
 
 class RouterContainer extends React.Component {
     componentDidMount() {
