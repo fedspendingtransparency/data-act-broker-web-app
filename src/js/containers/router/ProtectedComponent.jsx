@@ -97,17 +97,19 @@ class ProtectedComponent extends React.Component {
 
 ProtectedComponent.propTypes = propTypes;
 
-const Container = connect(
+const ProtectedComponentContainer = connect(
     (state) => ({
         session: state.session
     }),
     (dispatch) => bindActionCreators(sessionActions, dispatch)
 )(ProtectedComponent);
 
-export const withAuth = (Component, props) => () => (
-    <Container {...props}>
-        <Component {...props} />
-    </Container>
-);
+export const withAuth = (Component, props) => () => {
+    return (
+        <ProtectedComponentContainer {...props}>
+            <Component {...props} />
+        </ProtectedComponentContainer>
+    );
+};
 
-export default Container;
+export default ProtectedComponentContainer;

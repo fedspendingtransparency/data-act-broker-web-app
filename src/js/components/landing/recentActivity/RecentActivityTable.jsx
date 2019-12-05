@@ -46,14 +46,16 @@ export default class RecentActivityTable extends React.Component {
     }
 
     componentDidMount() {
+        console.log("componentDidMount");
         this.loadActivity();
         this.loadUser();
         this.didUnmount = false;
     }
 
-    componentWillReceiveProps(nextProps) {
-        if (this.props.type !== nextProps.type) {
-            this.loadActivity(nextProps.type);
+    componentDidUpdate(prevProps) {
+        if (prevProps.type !== this.props.type) {
+            console.log("componentDidUpdate");
+            this.loadActivity(this.props.type);
             this.loadUser();
         }
     }
@@ -101,6 +103,7 @@ export default class RecentActivityTable extends React.Component {
     }
 
     deleteWarning(index) {
+        console.log("deleteWarning")
         this.setState({
             deleteIndex: index
         }, () => {
@@ -114,12 +117,14 @@ export default class RecentActivityTable extends React.Component {
     }
 
     loadUser() {
+        console.log("loadUser")
         LoginHelper.fetchActiveUser().then((user) => {
             this.setState({ account: user });
         });
     }
 
     loadActivity(type = this.props.type) {
+        console.log("loadActivitry")
         SubmissionListHelper.loadRecentActivity(type)
             .then((data) => {
                 if (this.didUnmount) {
@@ -145,6 +150,7 @@ export default class RecentActivityTable extends React.Component {
     }
 
     buildRow() {
+        console.log("buildRow");
         // iterate through the recent activity
         const output = [];
         const rowClasses = [];
@@ -231,6 +237,7 @@ export default class RecentActivityTable extends React.Component {
     }
 
     sortTable(direction, column) {
+        console.log("sortTable");
         // the table sorting changed
         this.setState({
             sortDirection: direction,
