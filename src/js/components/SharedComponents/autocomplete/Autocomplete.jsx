@@ -138,7 +138,7 @@ export default class Autocomplete extends React.Component {
                 }
             }
             // Tab or Escape
-            else if (e.keyCode === keyCodes.tab || e.keyCode === keyCodes.escape) {
+            else if (e.keyCode === keyCodes.tab || e.keyCode === keyCodes.esc) {
                 target.value = '';
                 this.close();
             }

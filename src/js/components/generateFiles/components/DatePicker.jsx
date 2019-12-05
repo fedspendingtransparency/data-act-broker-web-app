@@ -99,7 +99,7 @@ export default class DatePicker extends React.Component {
     }
 
     escapeDatePicker(e) {
-        if (e.keyCode === keyCodes.escape) {
+        if (e.keyCode === keyCodes.esc) {
             this.toggleDatePicker(e);
         }
     }
