@@ -22,41 +22,38 @@ export default class AuthContainer extends React.Component {
     }
 
     componentDidMount() {
-        console.log("component did mount, auth container")
         this.processTicket();
     }
 
     processTicket() {
-        console.log("processTicket", this.props);
         // extract the ticket string from the URL
-        const url = this.props.history.location.search;
+        const url = window.location.href;
         // MAX may insert the ticket in the middle of the URL instead of at the end because MAX's
         // URL parser does not fully understand hashed URLs
         const regex = /ticket=([A-Za-z0-9]|\.|-)+/g;
         const regexOutput = regex.exec(url);
-        
+
         // a ticket was found, process it
         if (regexOutput) {
             const ticket = regexOutput[0].substring('ticket='.length);
-            
+
             // save the ticket value in the component state
             this.setState({
                 ticket,
                 error: ''
             }, () => {
                 // remove the ticket from the URL
-                // const updatedUrl = url.replace(`?ticket=${this.state.ticket}`, '');
-                // url.replace(updatedUrl);
-                // this.props.location.assign('');
-                
+                const updatedUrl = url.replace(`?ticket=${this.state.ticket}`, '');
+                window.history.replaceState({}, null, updatedUrl);
+
                 let destination = '/landing';
-                
+
                 // check if a redirection cookie exists, if it exists, set that as the destination
                 const cookieRedirect = Cookies.get('brokerRedirect');
                 if (cookieRedirect) {
                     destination = cookieRedirect;
                 }
-                
+
                 // perform the login
                 LoginHelper.performMaxLogin(this.state.ticket)
                     .then((data) => {
