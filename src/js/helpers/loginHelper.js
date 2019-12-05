@@ -127,8 +127,7 @@ export const performMaxLogin = (ticket) => {
     Cookies.remove('session');
     // determine the service
     const service = encodeURIComponent(kGlobalConstants.AUTH_CALLBACK);
-    
-    console.log("TICKET", ticket, "SERVICE", service);
+
     Request.post(`${kGlobalConstants.API}max_login/`)
         .send({ ticket, service })
         .end((err, res) => {

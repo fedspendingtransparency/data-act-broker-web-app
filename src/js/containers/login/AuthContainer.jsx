@@ -22,10 +22,12 @@ export default class AuthContainer extends React.Component {
     }
 
     componentDidMount() {
+        console.log("component did mount, auth container")
         this.processTicket();
     }
 
     processTicket() {
+        console.log("processTicket", this.props);
         // extract the ticket string from the URL
         const url = this.props.history.location.search;
         // MAX may insert the ticket in the middle of the URL instead of at the end because MAX's
@@ -55,7 +57,6 @@ export default class AuthContainer extends React.Component {
                     destination = cookieRedirect;
                 }
                 
-                debugger;
                 // perform the login
                 LoginHelper.performMaxLogin(this.state.ticket)
                     .then((data) => {
@@ -67,10 +68,8 @@ export default class AuthContainer extends React.Component {
                             destination = '/help';
                         }
                         this.props.history.push(destination);
-                        console.log('destination', destination);
                     })
                     .catch((err) => {
-                        console.log('err', err);
                         // something went wrong (or API passed back an error status and message)
                         let message = err;
                         if (message === 'cookie') {
@@ -103,6 +102,7 @@ export default class AuthContainer extends React.Component {
     }
 
     render() {
+        console.log("AUTH RENDER");
         return (
             <div className="login-right usa-da-login-container">
                 <LoginMaxLoading errorMessage={this.state.error} />

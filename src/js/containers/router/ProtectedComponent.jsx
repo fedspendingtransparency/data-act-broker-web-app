@@ -68,7 +68,9 @@ class ProtectedComponent extends React.Component {
 
     performAutoLogin() {
         const isAuthorized = this.props.authFn(this.props.session);
-        this.props.history.push(LoginHelper.getPath(this.props.location, isAuthorized));
+        const path = LoginHelper.getPath(this.props.location, isAuthorized);
+        console.log("path", path);
+        this.props.history.push(path);
     }
 
     logout() {
@@ -90,6 +92,7 @@ class ProtectedComponent extends React.Component {
     }
 
     render() {
+        console.log("Protected Component render");
         const children = React.cloneElement(this.props.children, { ...this.props });
         if (children) return (children);
         return null;
