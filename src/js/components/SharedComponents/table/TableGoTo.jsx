@@ -23,10 +23,17 @@ export default class TableLimit extends React.Component {
             goToPage: ''
         };
 
+        this.onKeyDownHandler = this.onKeyDownHandler.bind(this);
         this.changePage = this.changePage.bind(this);
         this.changedInput = this.changedInput.bind(this);
-        this.onKeyDownHandler = this.onKeyDownHandler.bind(this);
         this.validPage = this.validPage.bind(this);
+    }
+
+    onKeyDownHandler(e) {
+        if (e.keyCode === 13 && this.validPage()) {
+            e.preventDefault();
+            this.changePage();
+        }
     }
 
     changePage() {
@@ -37,13 +44,6 @@ export default class TableLimit extends React.Component {
         this.setState({
             goToPage: e.target.value
         });
-    }
-
-    onKeyDownHandler(e) {
-        if(e.keyCode == 13 && this.validPage()) {
-            e.preventDefault();
-            this.changePage();
-        }
     }
 
     validPage() {
@@ -64,10 +64,10 @@ export default class TableLimit extends React.Component {
                 <input
                     type="number"
                     id="table-go-to"
-                    title={"Enter a number between 1 and " + this.props.totalPages}
+                    title={`Enter a number between 1 and ${this.props.totalPages}`}
                     min="1"
                     max={this.props.totalPages}
-                    placeholder={"1-" + this.props.totalPages}
+                    placeholder={`1-${this.props.totalPages}`}
                     value={this.state.goToPage}
                     onChange={this.changedInput}
                     onKeyDown={this.onKeyDownHandler} />
@@ -83,4 +83,3 @@ export default class TableLimit extends React.Component {
 
 TableLimit.propTypes = propTypes;
 TableLimit.defaultProps = defaultProps;
- 
