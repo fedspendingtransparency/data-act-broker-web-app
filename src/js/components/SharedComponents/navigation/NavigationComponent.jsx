@@ -55,6 +55,7 @@ export class Navbar extends React.Component {
             tabNames = {
                 Home: 'landing',
                 'Upload & Validate New Submission': dabsWrite ? 'submissionGuide' : 'disabled',
+                'DABS Dashboard': 'dashboard',
                 'Submission Table': 'submissionTable',
                 Help: 'help'
             };
