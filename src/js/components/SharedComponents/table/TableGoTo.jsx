@@ -6,6 +6,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
+import { keyCodes } from 'dataMapping/keyMappings';
+
 const propTypes = {
     changePage: PropTypes.func.isRequired,
     totalPages: PropTypes.number
@@ -30,7 +32,7 @@ export default class TableLimit extends React.Component {
     }
 
     onKeyDownHandler(e) {
-        if (e.keyCode === 13 && this.validPage()) {
+        if (e.keyCode === keyCodes.enter && this.validPage()) {
             e.preventDefault();
             this.changePage();
         }
