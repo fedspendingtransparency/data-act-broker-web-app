@@ -7,6 +7,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { isEqual, find, uniqueId } from 'lodash';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { keyCodes } from 'dataMapping/keyMappings';
 
 import Warning from './Warning';
 import SuggestionHolder from './SuggestionHolder';
@@ -129,7 +130,7 @@ export default class Autocomplete extends React.Component {
         // enable tab keyboard shortcut for selection
         target.addEventListener('keydown', (e) => {
             // Enter
-            if (e.keyCode === 13) {
+            if (e.keyCode === keyCodes.enter) {
                 e.preventDefault();
                 this.select(this.props.values[this.state.selectedIndex]);
                 if (!this.props.retainValue) {
@@ -137,16 +138,16 @@ export default class Autocomplete extends React.Component {
                 }
             }
             // Tab or Escape
-            else if (e.keyCode === 9 || e.keyCode === 27) {
+            else if (e.keyCode === keyCodes.tab || e.keyCode === keyCodes.escape) {
                 target.value = '';
                 this.close();
             }
             // Previous
-            else if (e.keyCode === 38) {
+            else if (e.keyCode === keyCodes.up) {
                 this.previous();
             }
             // Next
-            else if (e.keyCode === 40) {
+            else if (e.keyCode === keyCodes.down) {
                 this.next();
             }
         });
