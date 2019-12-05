@@ -73,7 +73,9 @@ const getRoutes = () => {
         {
             path: '/',
             component: LandingPage,
-            authFn: checkHelpUserPermissions
+            authFn: checkHelpUserPermissions,
+            type: 'home',
+            exact: true
         },
         {
             path: '/submissionGuide',
@@ -174,37 +176,37 @@ const getRoutes = () => {
     const sharedRoutes = [
         // first authFn is for Dabs if they are different
         {
-            path: '/landing',
+            path: 'landing',
             authFn: [checkUserPermissions],
             component: 'landing'
         },
         {
-            path: '/submissionTable',
+            path: 'submissionTable',
             authFn: [checkUserPermissions],
             component: 'submissionTable'
         },
         {
-            path: '/help',
+            path: 'help',
             authFn: [checkHelpUserPermissions, checkUserPermissions],
             component: 'help'
         },
         {
-            path: '/validations',
+            path: 'validations',
             authFn: [checkHelpUserPermissions, checkUserPermissions],
             component: 'help'
         },
         {
-            path: '/resources',
+            path: 'resources',
             authFn: [checkHelpUserPermissions, checkUserPermissions],
             component: 'help'
         },
         {
-            path: '/history',
+            path: 'history',
             authFn: [checkHelpUserPermissions, checkUserPermissions],
             component: 'help'
         },
         {
-            path: '/technicalHistory',
+            path: 'technicalHistory',
             authFn: [checkHelpUserPermissions, checkUserPermissions],
             component: 'help'
         }

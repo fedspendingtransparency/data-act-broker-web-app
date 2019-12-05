@@ -56,11 +56,9 @@ class RouterContainer extends React.Component {
                 <Switch>
                     {[...Routes.getRoutes().map((route) => (
                         <ProtectedRoute
+                            {...route}
                             history={history}
-                            path={route.path}
-                            component={route.component}
-                            session={this.props.session}
-                            authFn={route.authFn} />
+                            session={this.props.session} />
                     ))]}
                 </Switch>
             </Router>
