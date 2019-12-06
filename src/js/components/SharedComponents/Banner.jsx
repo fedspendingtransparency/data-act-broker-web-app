@@ -75,7 +75,7 @@ export default class Banner extends React.Component {
                     header={window.header}
                     message={window.message} />));
         return (
-            <div>
+            <div role="banner">
                 {rows}
             </div>
         );
