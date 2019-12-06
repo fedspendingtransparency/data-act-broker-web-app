@@ -41,11 +41,12 @@
 
     .banner-icon {
         font-size: rem(25);
-        text-align: center;
-        width: rem(40);
+        text-align: right;
         margin-top: rem(-3);
-        margin-left: rem(55);
+        padding: 0;
+        
         svg {
+            right: 0;
             color: $gray-dark
         } 
     }
