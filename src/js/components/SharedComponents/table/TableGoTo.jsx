@@ -14,7 +14,7 @@ const propTypes = {
 };
 
 const defaultProps = {
-    totalPages: 10
+    totalPages: 1
 };
 
 export default class TableLimit extends React.Component {
@@ -58,8 +58,9 @@ export default class TableLimit extends React.Component {
     }
 
     render() {
+        const placeholder = this.props.totalPages > 1 ? `1-${this.props.totalPages}` : '1';
         return (
-            <div className="table-go-to">
+            <form className="table-go-to">
                 <label htmlFor="table-go-to">
                     Go to page
                 </label>
@@ -69,7 +70,7 @@ export default class TableLimit extends React.Component {
                     title={`Enter a number between 1 and ${this.props.totalPages}`}
                     min="1"
                     max={this.props.totalPages}
-                    placeholder={`1-${this.props.totalPages}`}
+                    placeholder={placeholder}
                     value={this.state.goToPage}
                     onChange={this.changedInput}
                     onKeyDown={this.onKeyDownHandler} />
@@ -78,7 +79,7 @@ export default class TableLimit extends React.Component {
                     disabled={!this.validPage()}>
                     Go
                 </button>
-            </div>
+            </form>
         );
     }
 }
