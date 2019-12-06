@@ -1,5 +1,16 @@
 .table-limit-selector {
-    margin-left: rem(30);
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
     background-color: $color-white;
+    background-image: url(../graphics/chevron-down-solid.svg), linear-gradient(transparent,transparent);
+    background-repeat: no-repeat;
+    background-position: right rem(7.5) center;
+    background-size: rem(10);
     height: rem(26);
+    width: rem(60);
+    border: solid rem(1) $color-gray-lighter;
+    border-radius: 0;
+    margin-left: rem(30);
+    padding: 0 rem(5);
 }
