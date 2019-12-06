@@ -33,8 +33,10 @@
         text-align: left;
     }
     
-    & h6 {
-        margin-top: 0;
+    & h2 {
+        margin: 0;
+        font-size: $h3-font-size;
+        font-weight: $font-bold;
     }
 
     .banner-icon {

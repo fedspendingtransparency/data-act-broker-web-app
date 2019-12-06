@@ -36,7 +36,7 @@ export default class BannerRow extends React.Component {
                             {messageIcon}
                         </div>
                         <div className="col-xs-11">
-                            {(this.props.header != null) && <h6>{this.props.header}</h6>}
+                            {(this.props.header != null) && <h2>{this.props.header}</h2>}
                             <p>{this.props.message}</p>
                         </div>
                     </div>
