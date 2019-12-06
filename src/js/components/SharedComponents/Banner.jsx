@@ -1,11 +1,12 @@
 /**
-* GTASWarningBanner.jsx
+* Banner.jsx
 * Created by Minahm Kim 07/07/17
 */
 
 import React from 'react';
 import PropTypes from 'prop-types';
-import * as Icons from '../SharedComponents/icons/Icons';
+import BannerRow from './BannerRow';
+
 import * as ReviewHelper from '../../helpers/reviewHelper';
 
 const propTypes = {
@@ -43,27 +44,6 @@ export default class Banner extends React.Component {
         }
     }
 
-    getRows() {
-        const msg = [];
-        for (let i = 0; i < this.state.appWindow.length; i++) {
-            msg.push(
-                <div key={`banner${i}`} className="published-submission-warning-banner">
-                    <div className="container">
-                        <div className="row">
-                            <div className="col-xs-1">
-                                <i className="usa-da-icon"><Icons.ExclamationTriangle /> </i>
-                            </div>
-                            <div className="col-xs-11">
-                                <p>{this.state.appWindow[i].message}</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            );
-        }
-        return msg;
-    }
-
     isWindow() {
         ReviewHelper.isWindow()
             .then((res) => {
@@ -87,10 +67,16 @@ export default class Banner extends React.Component {
     }
 
     render() {
-        const message = this.getRows();
+        const rows = this.state.appWindow.map((window) =>
+            (
+                <BannerRow
+                    key={window.message}
+                    type={window.banner_type}
+                    header={window.header}
+                    message={window.message} />));
         return (
             <div>
-                {message}
+                {rows}
             </div>
         );
     }
