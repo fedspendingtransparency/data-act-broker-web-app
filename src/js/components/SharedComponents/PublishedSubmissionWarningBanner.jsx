@@ -4,26 +4,13 @@
 */
 
 import React from 'react';
-import * as Icons from '../SharedComponents/icons/Icons';
+import BannerRow from './BannerRow';
 
-export default class PublishedSubmissionWarningBanner extends React.Component {
-    render() {
-        return (
-            <div className="published-submission-warning-banner">
-                <div className="container">
-                    <div className="row">
-                        <div className="col-xs-1">
-                            <i className="usa-da-icon"><Icons.ExclamationTriangle /> </i>
-                        </div>
-                        <div className="col-xs-11">
-                            <p>
-                                This submission has already been certified. Any changes made will not be reflected on
-                                usaspending until it is re-certified.
-                            </p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        );
-    }
-}
+const warningMessage = 'This submission has already been certified.' +
+                       'Any changes made will not be reflected on usaspending until it is re-certified.';
+
+const PublishedSubmissionWarningBanner = () => (
+    <BannerRow type="warning" message={warningMessage} />
+);
+
+export default PublishedSubmissionWarningBanner;
