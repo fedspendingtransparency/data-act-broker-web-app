@@ -78,7 +78,7 @@ export default class RadioSection extends React.Component {
         let tooltip = null;
         if (this.state.showInfoTooltip) {
             const style = {
-                top: this.ReferenceDiv.offsetTop - 180,
+                top: this.ReferenceDiv.offsetTop - 160,
                 right: -30
             };
             tooltip = (
@@ -111,17 +111,23 @@ export default class RadioSection extends React.Component {
             );
         }
         const options = this.props.sectionType === 'agencyType' ? agencyOptions : fileFormatOptions;
+        const pageSection = `${this.props.fileType}${this.props.sectionType}`;
         return (
-            <div className="detached-radio-section">
-                <label className="detached-radio-section__label">
-                    {this.props.label}
-                </label>
+            <div className="radio-section">
+                <div className="radio-section__description">
+                    <label
+                        htmlFor={pageSection}
+                        className="radio-section__label">
+                        {this.props.label}
+                    </label>
+                    {tooltipTrigger}
+                </div>
                 <RadioGroup
+                    id={pageSection}
                     columns={[options]}
                     onChange={this.onChange}
                     currentValue={this.props.active}
-                    pageSection={`${this.props.fileType}${this.props.sectionType}`} />
-                {tooltipTrigger}
+                    pageSection={pageSection} />
             </div>
         );
     }

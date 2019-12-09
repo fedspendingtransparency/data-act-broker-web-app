@@ -71,6 +71,7 @@
             text-align: left;
             padding: rem(15);
             p {
+                max-width: none;
                 margin-bottom: rem(15);
                 &:last-child {
                     margin-bottom: 0;
