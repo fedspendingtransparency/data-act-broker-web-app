@@ -9,18 +9,18 @@ import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 
 import moment from 'moment';
-import _ from 'lodash';
+import { assign, findIndex, merge } from 'lodash';
 import Q from 'q';
 
-import GenerateFilesContent from '../../components/generateFiles/GenerateFilesContent';
-import PublishedSubmissionWarningBanner from '../../components/SharedComponents/PublishedSubmissionWarningBanner';
-import Banner from '../../components/SharedComponents/Banner';
+import GenerateFilesContent from 'components/generateFiles/GenerateFilesContent';
+import PublishedSubmissionWarningBanner from 'components/SharedComponents/PublishedSubmissionWarningBanner';
+import Banner from 'components/SharedComponents/Banner';
 
-import * as uploadActions from '../../redux/actions/uploadActions';
+import * as uploadActions from 'redux/actions/uploadActions';
 
-import * as GenerateFilesHelper from '../../helpers/generateFilesHelper';
-import * as ReviewHelper from '../../helpers/reviewHelper';
-import * as UtilHelper from '../../helpers/util';
+import * as GenerateFilesHelper from 'helpers/generateFilesHelper';
+import * as ReviewHelper from 'helpers/reviewHelper';
+import * as UtilHelper from 'helpers/util';
 
 const propTypes = {
     setSubmissionId: PropTypes.func,
@@ -35,7 +35,7 @@ const defaultProps = {
     setSubmissionId: uploadActions.setSubmissionId(),
     setSubmissionPublishStatus: uploadActions.setSubmissionPublishStatus(),
     submission: {},
-    submissionID: ""
+    submissionID: ''
 };
 
 const timerDuration = 10;
@@ -57,7 +57,8 @@ class GenerateFilesContainer extends React.Component {
                     description: ''
                 },
                 showDownload: false,
-                isFundingAgency: false
+                agencyType: 'awarding',
+                fileFormat: 'csv'
             },
             d2: {
                 startDate: null,
@@ -68,15 +69,20 @@ class GenerateFilesContainer extends React.Component {
                     description: ''
                 },
                 showDownload: false,
-                isFundingAgency: false
+                agencyType: 'awarding',
+                fileFormat: 'csv'
             },
-            d1Status: "waiting",
-            d2Status: "waiting",
-            errorDetails: "",
-            agency_name: ""
+            d1Status: 'waiting',
+            d2Status: 'waiting',
+            errorDetails: '',
+            agency_name: ''
         };
 
-        this.toggleAgencyType = this.toggleAgencyType.bind(this);
+        this.updateFileProperty = this.updateFileProperty.bind(this);
+        this.clickedDownload = this.clickedDownload.bind(this);
+        this.updateError = this.updateError.bind(this);
+        this.handleDateChange = this.handleDateChange.bind(this);
+        this.generateFiles = this.generateFiles.bind(this);
     }
 
     componentDidMount() {
@@ -233,7 +239,7 @@ class GenerateFilesContainer extends React.Component {
                 };
 
                 // object.assign doesn't merge correctly, so using lodash to merge
-                const mergedState = _.merge({}, this.state, output);
+                const mergedState = merge({}, this.state, output);
 
                 if (this.isUnmounted) {
                     return;
@@ -336,11 +342,11 @@ class GenerateFilesContainer extends React.Component {
         });
     }
 
-    toggleAgencyType(type) {
-        const newType = _.assign({}, this.state[type]);
-        newType.isFundingAgency = !newType.isFundingAgency;
+    updateFileProperty(fileType, property, value) {
+        const newType = assign({}, this.state[fileType]);
+        newType[property] = value;
         this.setState({
-            [type]: newType
+            [fileType]: newType
         });
     }
 
@@ -349,19 +355,18 @@ class GenerateFilesContainer extends React.Component {
             state: 'generating'
         });
 
-        const d1AgencyType = this.state.d1.isFundingAgency ? 'funding' : 'awarding';
-        const d2AgencyType = this.state.d2.isFundingAgency ? 'funding' : 'awarding';
-
         // submit both D1 and D2 date ranges to the API
         Q.allSettled([
             GenerateFilesHelper.generateFile('D1', this.props.submissionID,
                 this.state.d1.startDate.format('MM/DD/YYYY'),
                 this.state.d1.endDate.format('MM/DD/YYYY'),
-                d1AgencyType),
+                this.state.d1.agencyType,
+                this.state.d2.fileFormat),
             GenerateFilesHelper.generateFile('D2', this.props.submissionID,
                 this.state.d2.startDate.format('MM/DD/YYYY'),
                 this.state.d2.endDate.format('MM/DD/YYYY'),
-                d2AgencyType)
+                this.state.d2.agencyType,
+                this.state.d2.fileFormat)
         ])
             .then((allResponses) => {
                 if (this.isUnmounted) {
@@ -466,7 +471,7 @@ class GenerateFilesContainer extends React.Component {
                 // update the download properties
                 item.showDownload = true;
                 const failCases = ['', '#', null];
-                if (_.findIndex(failCases, fileData.url) !== -1) {
+                if (findIndex(failCases, fileData.url) !== -1) {
                     const header = `${fileData.file_type.toUpperCase()} File Error`;
                     item.error = {
                         show: true,
@@ -512,10 +517,6 @@ class GenerateFilesContainer extends React.Component {
         }
     }
 
-    nextPage() {
-        this.props.nextStep();
-    }
-
     render() {
         let warningMessage = null;
         if (this.props.submission.publishStatus !== "unpublished") {
@@ -529,12 +530,12 @@ class GenerateFilesContainer extends React.Component {
                 <GenerateFilesContent
                     {...this.props}
                     {...this.state}
-                    handleDateChange={this.handleDateChange.bind(this)}
-                    updateError={this.updateError.bind(this)}
-                    generateFiles={this.generateFiles.bind(this)}
-                    nextPage={this.nextPage.bind(this)}
-                    toggleAgencyType={this.toggleAgencyType}
-                    clickedDownload={this.clickedDownload.bind(this)} />
+                    handleDateChange={this.handleDateChange}
+                    updateError={this.updateError}
+                    generateFiles={this.generateFiles}
+                    nextPage={this.props.nextStep}
+                    updateFileProperty={this.updateFileProperty}
+                    clickedDownload={this.clickedDownload} />
             </div>
         );
     }
