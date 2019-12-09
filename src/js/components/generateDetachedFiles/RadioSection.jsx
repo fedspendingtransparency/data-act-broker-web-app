@@ -59,7 +59,7 @@ export default class RadioSection extends React.Component {
     }
 
     onChange(value) {
-        this.props.onChange(this.props.fileType, value);
+        this.props.onChange(this.props.fileType, this.props.sectionType, value);
     }
 
     showTooltip() {
@@ -90,7 +90,7 @@ export default class RadioSection extends React.Component {
             );
         }
         let tooltipTrigger = null;
-        if (this.props.sectionType === 'Agency') {
+        if (this.props.sectionType === 'agencyType') {
             tooltipTrigger = (
                 <span className="agency-toggle__info-icon-holder">
                     <div ref={(div) => {
@@ -110,7 +110,7 @@ export default class RadioSection extends React.Component {
                 </span>
             );
         }
-        const options = this.props.sectionType === 'Agency' ? agencyOptions : fileFormatOptions;
+        const options = this.props.sectionType === 'agencyType' ? agencyOptions : fileFormatOptions;
         return (
             <div className="detached-radio-section">
                 <label className="detached-radio-section__label">

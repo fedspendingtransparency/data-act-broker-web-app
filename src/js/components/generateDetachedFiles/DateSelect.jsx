@@ -17,7 +17,7 @@ const propTypes = {
     updateError: PropTypes.func,
     d1: PropTypes.object,
     d2: PropTypes.object,
-    toggleAgencyType: PropTypes.func
+    updateFileProperty: PropTypes.func
 };
 
 const defaultProps = {
@@ -27,7 +27,7 @@ const defaultProps = {
     updateError: null,
     d1: null,
     d2: null,
-    toggleAgencyType: null
+    updateFileProperty: null
 };
 
 export default class DateSelect extends React.Component {
@@ -68,11 +68,17 @@ export default class DateSelect extends React.Component {
         return (
             <div className="usa-da-date-select dashed-border-top">
                 <RadioSection
-                    onChange={this.props.toggleAgencyType}
+                    onChange={this.props.updateFileProperty}
                     active={this.props.d1.agencyType}
                     label="Generate File D1 from records where my agency is the:"
                     fileType="d1"
-                    sectionType="Agency" />
+                    sectionType="agencyType" />
+                <RadioSection
+                    onChange={this.props.updateFileProperty}
+                    active={this.props.d1.fileFormat}
+                    label="Determine the file format for your File D1 generation:"
+                    fileType="d1"
+                    sectionType="fileFormat" />
                 <GenerateFileBox
                     label="File D1: Procurement Awards (FPDS data)"
                     datePlaceholder="Action"
@@ -93,11 +99,17 @@ export default class DateSelect extends React.Component {
                     </button>
                 </div>
                 <RadioSection
-                    onChange={this.props.toggleAgencyType}
+                    onChange={this.props.updateFileProperty}
                     active={this.props.d2.agencyType}
                     label="Generate File D2 from records where my agency is the:"
                     fileType="d2"
-                    sectionType="Agency" />
+                    sectionType="agencyType" />
+                <RadioSection
+                    onChange={this.props.updateFileProperty}
+                    active={this.props.d2.fileFormat}
+                    label="Determine the file format for your File D2 generation:"
+                    fileType="d2"
+                    sectionType="fileFormat" />
                 <GenerateFileBox
                     label="File D2: Financial Assistance"
                     datePlaceholder="Action"

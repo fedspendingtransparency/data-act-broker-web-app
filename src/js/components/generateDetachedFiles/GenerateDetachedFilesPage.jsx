@@ -73,7 +73,7 @@ export default class GenerateDetachedFilesPage extends React.Component {
             }
         };
 
-        this.toggleAgencyType = this.toggleAgencyType.bind(this);
+        this.updateFileProperty = this.updateFileProperty.bind(this);
     }
 
     componentDidMount() {
@@ -197,9 +197,9 @@ export default class GenerateDetachedFilesPage extends React.Component {
         });
     }
 
-    toggleAgencyType(fileType, agencyType) {
+    updateFileProperty(fileType, property, value) {
         const newType = assign({}, this.state[fileType]);
-        newType.agencyType = agencyType;
+        newType[property] = value;
         this.setState({
             [fileType]: newType
         });
@@ -320,7 +320,7 @@ export default class GenerateDetachedFilesPage extends React.Component {
                 handleDateChange={this.handleDateChange.bind(this)}
                 updateError={this.updateError.bind(this)}
                 generateFile={this.generateFile.bind(this)}
-                toggleAgencyType={this.toggleAgencyType}
+                updateFileProperty={this.updateFileProperty}
                 clickedDownload={this.clickedDownload.bind(this)} />);
         }
 
