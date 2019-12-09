@@ -8,7 +8,7 @@ import PropTypes from 'prop-types';
 
 import GenerateFileBox from '../generateFiles/components/GenerateFileBox';
 import LoadingBauble from '../SharedComponents/overlays/LoadingBauble';
-import AgencyToggle from './AgencyToggle';
+import RadioSection from './RadioSection';
 
 const propTypes = {
     clickedDownload: PropTypes.func,
@@ -31,8 +31,24 @@ const defaultProps = {
 };
 
 export default class DateSelect extends React.Component {
-    toggleAgencyType(type) {
-        this.props.toggleAgencyType(type);
+    constructor(props) {
+        super(props);
+
+        this.state = {
+            d1Agency: 'awarding',
+            d1FileFormat: 'csv',
+            d2Agency: 'awarding',
+            d2FileFormat: 'csv'
+        };
+
+        this.toggleAgencyType = this.toggleAgencyType.bind(this);
+    }
+
+    toggleAgencyType(agencyType, fileType) {
+        this.setState({
+            [`${fileType}Agency`]: agencyType
+        });
+        this.props.toggleAgencyType(agencyType);
     }
 
     clickedDownload(fileType) {
@@ -71,11 +87,12 @@ export default class DateSelect extends React.Component {
 
         return (
             <div className="usa-da-date-select dashed-border-top">
-                <AgencyToggle
-                    funding={d1.isFundingAgency}
-                    toggleAgencyType={this.toggleAgencyType.bind(this, "d1")}
-                    fileName="D1"
-                    fileType="d1" />
+                <RadioSection
+                    onChange={this.toggleAgencyType}
+                    active={this.state.d1Agency}
+                    label="Generate File D1 from records where my agency is the:"
+                    fileType="d1"
+                    sectionType="Agency" />
                 <GenerateFileBox
                     label="File D1: Procurement Awards (FPDS data)"
                     datePlaceholder="Action"
@@ -95,11 +112,12 @@ export default class DateSelect extends React.Component {
                         {loadingD1}{d1Text}
                     </button>
                 </div>
-                <AgencyToggle
-                    funding={d2.isFundingAgency}
-                    toggleAgencyType={this.toggleAgencyType.bind(this, "d2")}
-                    fileName="D2"
-                    fileType="d2" />
+                <RadioSection
+                    onChange={this.toggleAgencyType}
+                    active={this.state.d2Agency}
+                    label="Generate File D2 from records where my agency is the:"
+                    fileType="d2"
+                    sectionType="Agency" />
                 <GenerateFileBox
                     label="File D2: Financial Assistance"
                     datePlaceholder="Action"
