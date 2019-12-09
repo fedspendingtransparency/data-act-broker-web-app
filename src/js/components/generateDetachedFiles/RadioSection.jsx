@@ -59,7 +59,7 @@ export default class RadioSection extends React.Component {
     }
 
     onChange(value) {
-        this.props.onChange(value, this.props.fileType);
+        this.props.onChange(this.props.fileType, value);
     }
 
     showTooltip() {

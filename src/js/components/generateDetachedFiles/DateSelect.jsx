@@ -31,26 +31,6 @@ const defaultProps = {
 };
 
 export default class DateSelect extends React.Component {
-    constructor(props) {
-        super(props);
-
-        this.state = {
-            d1Agency: 'awarding',
-            d1FileFormat: 'csv',
-            d2Agency: 'awarding',
-            d2FileFormat: 'csv'
-        };
-
-        this.toggleAgencyType = this.toggleAgencyType.bind(this);
-    }
-
-    toggleAgencyType(agencyType, fileType) {
-        this.setState({
-            [`${fileType}Agency`]: agencyType
-        });
-        this.props.toggleAgencyType(agencyType);
-    }
-
     clickedDownload(fileType) {
         this.props.clickedDownload(fileType);
     }
@@ -88,8 +68,8 @@ export default class DateSelect extends React.Component {
         return (
             <div className="usa-da-date-select dashed-border-top">
                 <RadioSection
-                    onChange={this.toggleAgencyType}
-                    active={this.state.d1Agency}
+                    onChange={this.props.toggleAgencyType}
+                    active={this.props.d1.agencyType}
                     label="Generate File D1 from records where my agency is the:"
                     fileType="d1"
                     sectionType="Agency" />
@@ -113,8 +93,8 @@ export default class DateSelect extends React.Component {
                     </button>
                 </div>
                 <RadioSection
-                    onChange={this.toggleAgencyType}
-                    active={this.state.d2Agency}
+                    onChange={this.props.toggleAgencyType}
+                    active={this.props.d2.agencyType}
                     label="Generate File D2 from records where my agency is the:"
                     fileType="d2"
                     sectionType="Agency" />
