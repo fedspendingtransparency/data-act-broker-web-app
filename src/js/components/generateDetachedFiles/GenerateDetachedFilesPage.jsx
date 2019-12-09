@@ -74,6 +74,10 @@ export default class GenerateDetachedFilesPage extends React.Component {
         };
 
         this.updateFileProperty = this.updateFileProperty.bind(this);
+        this.clickedDownload = this.clickedDownload.bind(this);
+        this.updateError = this.updateError.bind(this);
+        this.handleDateChange = this.handleDateChange.bind(this);
+        this.generateFile = this.generateFile.bind(this);
     }
 
     componentDidMount() {
@@ -209,7 +213,6 @@ export default class GenerateDetachedFilesPage extends React.Component {
         // generate specified file
         const cgacCode = this.state.codeType !== 'frec_code' ? this.state.agency : '';
         const frecCode = this.state.codeType === 'frec_code' ? this.state.agency : '';
-        const agencyType = this.state[file].agencyType;
 
         const tmpFile = Object.assign({}, this.state[file]);
         tmpFile.status = "generating";
@@ -221,7 +224,8 @@ export default class GenerateDetachedFilesPage extends React.Component {
             frec_code: frecCode,
             start: tmpFile.startDate.format('MM/DD/YYYY'),
             end: tmpFile.endDate.format('MM/DD/YYYY'),
-            agency_type: agencyType
+            agency_type: this.state[file].agencyType,
+            file_format: this.state[file].fileFormat
         };
 
         GenerateFilesHelper.generateDetachedFile(params)
@@ -317,11 +321,11 @@ export default class GenerateDetachedFilesPage extends React.Component {
         if (this.state.showDateSelect) {
             dateSelect = (<DateSelect
                 {...this.state}
-                handleDateChange={this.handleDateChange.bind(this)}
-                updateError={this.updateError.bind(this)}
-                generateFile={this.generateFile.bind(this)}
+                handleDateChange={this.handleDateChange}
+                updateError={this.updateError}
+                generateFile={this.generateFile}
                 updateFileProperty={this.updateFileProperty}
-                clickedDownload={this.clickedDownload.bind(this)} />);
+                clickedDownload={this.clickedDownload} />);
         }
 
         return (
