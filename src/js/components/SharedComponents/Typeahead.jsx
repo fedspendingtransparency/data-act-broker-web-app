@@ -7,6 +7,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import _ from 'lodash';
 import Awesomplete from 'awesomplete';
+import { keyCodes } from 'dataMapping/keyMappings';
 
 import TypeaheadWarning from './TypeaheadWarning';
 
@@ -122,7 +123,7 @@ export default class Typeahead extends React.Component {
 
         // enable tab keyboard shortcut for selection
         this.awesomplete.addEventListener('keydown', (e) => {
-            if (e.keyCode === 9) {
+            if (e.keyCode === keyCodes.tab) {
                 this.typeahead.select();
             }
         });

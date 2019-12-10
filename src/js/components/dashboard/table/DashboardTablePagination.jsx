@@ -8,6 +8,7 @@ import PropTypes from 'prop-types';
 
 import TablePaginator from 'components/SharedComponents/table/TablePaginator';
 import TableLimit from 'components/SharedComponents/table/TableLimit';
+import TableGoTo from 'components/SharedComponents/table/TableGoTo';
 
 const propTypes = {
     totalPages: PropTypes.number,
@@ -34,6 +35,9 @@ export default class DashboardTablePagination extends React.Component {
                 <TableLimit
                     changeLimit={this.props.changeLimit}
                     pageLimit={this.props.pageLimit} />
+                <TableGoTo
+                    changePage={this.props.changePage}
+                    totalPages={this.props.totalPages} />
             </div>
         );
     }
