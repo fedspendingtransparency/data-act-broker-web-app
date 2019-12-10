@@ -1,5 +1,5 @@
 .dashboard-table {
-
+    overflow: scroll;
     .results-table-content {
         .title, .description, .loading-message {
             font-size: rem(25);
@@ -53,6 +53,10 @@
         width: 100%;
         margin-bottom: rem(21);
         margin-top: rem(16);
+
+        .dashboard-table__rule-column {
+            padding-right: 2em;
+        }
 
         thead {
             color: $color-white;
