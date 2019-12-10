@@ -26,19 +26,6 @@
         }
     }
 
-    & p {
-        max-width: 100%;
-        margin-bottom: 0;
-        font-size: 1.4rem;
-        text-align: left;
-    }
-    
-    & h2 {
-        margin: 0;
-        font-size: $h3-font-size;
-        font-weight: $font-bold;
-    }
-
     .banner-icon {
         font-size: rem(25);
         text-align: right;
@@ -48,5 +35,18 @@
         svg {
             color: $gray-dark
         } 
+    }
+
+    .banner-header p {
+        font-size: $h3-font-size;
+        font-weight: $font-bold;
+        margin-bottom: 0;
+    }
+
+    .banner-content p {
+        max-width: 100%;
+        margin-bottom: 0;
+        font-size: 1.4rem;
+        text-align: left;
     }
 }

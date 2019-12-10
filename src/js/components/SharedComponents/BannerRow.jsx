@@ -5,6 +5,7 @@
 
 import React from 'react';
 import PropTypes from 'prop-types';
+import { parseMarkdown } from 'helpers/helpHelper';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 const propTypes = {
@@ -27,7 +28,8 @@ const iconMapping = {
 export default class BannerRow extends React.Component {
     render() {
         const messageIcon = <FontAwesomeIcon icon={iconMapping[this.props.type]} />;
-
+        const parsedHeader = this.props.header ? parseMarkdown(this.props.header) : '';
+        const parsedMessage = this.props.message ? parseMarkdown(this.props.message) : '';
         return (
             <div className={`internal-banner ${this.props.type}-banner`}>
                 <div className="container">
@@ -36,8 +38,8 @@ export default class BannerRow extends React.Component {
                             {messageIcon}
                         </div>
                         <div className="col-xs-11">
-                            {(this.props.header != null) && <h2>{this.props.header}</h2>}
-                            <p>{this.props.message}</p>
+                            <div className="banner-header" dangerouslySetInnerHTML={{ __html: parsedHeader.html }} />
+                            <div className="banner-content" dangerouslySetInnerHTML={{ __html: parsedMessage.html }} />
                         </div>
                     </div>
                 </div>
