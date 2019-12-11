@@ -20,3 +20,15 @@ export const generateDetachedFile = jest.fn(() => (
         then: jest.fn()
     }
 ));
+
+export const checkGenerationStatus = jest.fn(() => (
+    {
+        promise: new Promise((resolve) => {
+            process.nextTick(() => {
+                resolve(mockFileState);
+            });
+        }),
+        cancel: jest.fn(),
+        then: jest.fn()
+    }
+));

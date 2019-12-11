@@ -40,7 +40,7 @@ const defaultProps = {
 
 const timerDuration = 10;
 
-class GenerateFilesContainer extends React.Component {
+export class GenerateFilesContainer extends React.Component {
     constructor(props) {
         super(props);
 
