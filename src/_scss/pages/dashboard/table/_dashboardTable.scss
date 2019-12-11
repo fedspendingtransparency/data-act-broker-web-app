@@ -64,7 +64,8 @@
 
             th {
                 height: rem(53);
-                padding-left: rem(6);
+                padding-left: rem(8);
+                padding-right: rem(8);
 
                 .dashboard-table__header-wrapper {
                     display: flex;
@@ -118,7 +119,8 @@
             }
 
             td {
-                padding-left: rem(6);
+                padding-left: rem(8);
+                padding-right: rem(8);
 
                 .ellipse-box {
                     display: block;
