@@ -1,5 +1,5 @@
 .dashboard-table {
-    overflow: scroll;
+    overflow-x: scroll;
     .results-table-content {
         .title, .description, .loading-message {
             font-size: rem(25);
