@@ -271,8 +271,8 @@ export default class ReviewDataContent extends React.Component {
                                 </button>
                             </div>
                         </div>
-                        {monthlySubmissionError}
                     </div>
+                    {monthlySubmissionError}
 
                     <div id="reviewDataNotifyModalHolder">
                         <ReviewDataNotifyModal
