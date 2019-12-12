@@ -1,4 +1,4 @@
-const mockFileState = {
+export const mockFileState = {
     job_id: 1234,
     status: 'finished',
     file_type: 'D1',

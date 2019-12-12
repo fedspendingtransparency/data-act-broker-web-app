@@ -9,6 +9,7 @@ import moment from 'moment';
 import { cloneDeep } from 'lodash';
 import { GenerateFilesContainer } from 'containers/generateFiles/GenerateFilesContainer';
 import { mockProps, mockActions } from './mockProps';
+import { mockFileState } from '../generateDetachedFiles/mockGenerateFilesHelper';
 
 // mock the submission list helper
 jest.mock('helpers/generateFilesHelper', () => require('../generateDetachedFiles/mockGenerateFilesHelper'));
@@ -89,10 +90,66 @@ describe('GenerateFilesContainer', () => {
             newState.d2.startDate = moment('03/04/1995');
             newState.d2.endDate = moment('03/31/1995');
             container.setState({ ...newState });
-            
+
             container.instance().validateDates();
-            
             expect(container.state().state).toEqual('ready');
+        });
+        it('should show an error when an end date comes before a start date', () => {
+            const container = shallow(<GenerateFilesContainer {...mockProps} {...mockActions} />);
+            // Set the state to invalid dates
+            const newState = cloneDeep(container.state());
+            newState.d1.startDate = moment('01/31/1993');
+            newState.d1.endDate = moment('01/02/1993');
+            container.setState({ ...newState });
+
+            container.instance().validateDates();
+            expect(container.state().d1.error.show).toBeTruthy();
+            expect(container.state().d1.error.header).toEqual('Invalid Dates');
+        });
+        it('should reset the error state when not all dates are provided', () => {
+            const container = shallow(<GenerateFilesContainer {...mockProps} {...mockActions} />);
+            container.instance().validateDates();
+            expect(container.state().d1.error.show).toBeFalsy();
+            expect(container.state().d1.error.header).toEqual('');
+        });
+    });
+    describe('updateError', () => {
+        it('should set the error state for the provided file', () => {
+            const container = shallow(<GenerateFilesContainer {...mockProps} {...mockActions} />);
+            container.instance().updateError('d1', 'Mock Error', 'some description');
+            expect(container.state().d1.error.show).toBeTruthy();
+            expect(container.state().d1.error.header).toEqual('Mock Error');
+            expect(container.state().d1.error.description).toEqual('some description');
+        });
+        it('should not display an error if falsy values are provided', () => {
+            const container = shallow(<GenerateFilesContainer {...mockProps} {...mockActions} />);
+            container.instance().updateError('d1', '', '');
+            expect(container.state().d1.error.show).toBeFalsy();
+        });
+    });
+    describe('updateFileProperty', () => {
+        it('should set state for the given property', () => {
+            const container = shallow(<GenerateFilesContainer {...mockProps} {...mockActions} />);
+            container.instance().updateFileProperty('d2', 'fileFormat', 'txt');
+            expect(container.state().d2.fileFormat).toEqual('txt');
+        });
+    });
+    describe('parseFileStates', () => {
+        it('should show the download buttons when file generation is complete', () => {
+            const container = shallow(<GenerateFilesContainer {...mockProps} {...mockActions} />);
+            const mockData = [mockFileState, mockFileState];
+            container.instance().parseFileStates(mockData);
+            expect(container.state().d1.showDownload).toBeTruthy();
+            expect(container.state().d2.showDownload).toBeTruthy();
+        });
+        it('should show a permissions error for 401s', () => {
+            const container = shallow(<GenerateFilesContainer {...mockProps} {...mockActions} />);
+            const newFileState = cloneDeep(mockFileState);
+            newFileState.httpStatus = 401;
+            const mockData = [newFileState, newFileState];
+            container.instance().parseFileStates(mockData);
+            expect(container.state().d1.error.header).toEqual('Permission Error');
+            expect(container.state().d2.error.header).toEqual('Permission Error');
         });
     });
 });
