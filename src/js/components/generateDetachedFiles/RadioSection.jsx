@@ -75,6 +75,7 @@ export default class RadioSection extends React.Component {
     }
 
     render() {
+        const pageSection = `${this.props.fileType}${this.props.sectionType}`;
         let tooltip = null;
         if (this.state.showInfoTooltip) {
             const style = {
@@ -98,8 +99,9 @@ export default class RadioSection extends React.Component {
                     }}>
                         {tooltip}
                         <button
-                            id="agency-toggle__info-icon"
+                            id={`${pageSection}-info-icon`}
                             className="agency-toggle__info-icon"
+                            title="More Information"
                             onFocus={this.showTooltip}
                             onBlur={this.closeTooltip}
                             onMouseLeave={this.closeTooltip}
@@ -111,7 +113,6 @@ export default class RadioSection extends React.Component {
             );
         }
         const options = this.props.sectionType === 'agencyType' ? agencyOptions : fileFormatOptions;
-        const pageSection = `${this.props.fileType}${this.props.sectionType}`;
         return (
             <div className="radio-section">
                 <div className="radio-section__description">
