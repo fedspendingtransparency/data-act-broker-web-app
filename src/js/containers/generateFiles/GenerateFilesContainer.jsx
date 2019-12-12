@@ -361,7 +361,7 @@ export class GenerateFilesContainer extends React.Component {
                 this.state.d1.startDate.format('MM/DD/YYYY'),
                 this.state.d1.endDate.format('MM/DD/YYYY'),
                 this.state.d1.agencyType,
-                this.state.d2.fileFormat),
+                this.state.d1.fileFormat),
             GenerateFilesHelper.generateFile('D2', this.props.submissionID,
                 this.state.d2.startDate.format('MM/DD/YYYY'),
                 this.state.d2.endDate.format('MM/DD/YYYY'),

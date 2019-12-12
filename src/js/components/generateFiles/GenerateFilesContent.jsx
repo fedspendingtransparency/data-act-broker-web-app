@@ -37,8 +37,12 @@ export default class GenerateFilesContent extends React.Component {
         this.props.handleDateChange(file, date, dateType);
     }
 
-    updateError(file, header = '', description = '') {
-        this.props.updateError(file, header, description);
+    updateD1Error(header = '', description = '') {
+        this.props.updateError('d1', header, description);
+    }
+
+    updateD2Error(header = '', description = '') {
+        this.props.updateError('d2', header, description);
     }
 
     render() {
@@ -79,7 +83,7 @@ export default class GenerateFilesContent extends React.Component {
                             error={d1.error}
                             showDownload={d1.showDownload}
                             onDateChange={this.handleDateChange.bind(this, "d1")}
-                            updateError={this.updateError.bind(this, "d1")}
+                            updateError={this.updateD1Error}
                             clickedDownload={this.clickedDownload.bind(this, "D1")} />
                         <div className="radio-sections-wrapper">
                             <RadioSection
@@ -103,7 +107,7 @@ export default class GenerateFilesContent extends React.Component {
                             error={d2.error}
                             showDownload={d2.showDownload}
                             onDateChange={this.handleDateChange.bind(this, "d2")}
-                            updateError={this.updateError.bind(this, "d2")}
+                            updateError={this.updateD2Error}
                             clickedDownload={this.clickedDownload.bind(this, "D2")} />
                     </div>
                 </div>
