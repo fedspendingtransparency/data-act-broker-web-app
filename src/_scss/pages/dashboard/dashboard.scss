@@ -5,6 +5,12 @@
     .display-2 {
         padding-top: rem(24);
     }
+
+    // styling any site banners
+    .published-submission-warning-banner {
+        @import "../../layouts/login/_topBanner";
+        @include loginTopBanner;
+    }
     @import "./dashboardTabs";
     .dashboard-page {
         padding: rem(30);
