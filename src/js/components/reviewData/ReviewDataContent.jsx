@@ -225,7 +225,7 @@ export default class ReviewDataContent extends React.Component {
                             narrative={this.props.data.file_narrative}
                             submissionID={this.props.params.submissionID} />
                     </div>
-                    <div className="mt-20 row">
+                    <div className="mt-20 row submission-button-holder">
                         <div className="col-md-4" />
                         <div className="submission-wrapper col-md-8">
                             <div className="left-link">
@@ -246,7 +246,7 @@ export default class ReviewDataContent extends React.Component {
                                 <button
                                     onClick={certifyButtonAction}
                                     className={`usa-da-button btn-primary btn-lg btn-full ${buttonClass}`}>
-                                    <div className="button-wrapper">
+                                    <div className="button-wrapper row">
                                         <div className="button-icon">
                                             <Icons.Globe />
                                         </div>
