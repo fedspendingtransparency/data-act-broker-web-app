@@ -12,7 +12,7 @@
 	@import "./recentActivity/recentActivity";
 
 	// style the warning for published submissions
-	.published-submission-warning-banner {
+	.internal-banner {
 		@import "../../layouts/login/_topBanner";
 		@include loginTopBanner;
 	}
