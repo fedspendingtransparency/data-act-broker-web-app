@@ -25,7 +25,7 @@ const unescapeInlineHtml = (html) => {
 };
 
 
-const parseMarkdown = (rawText) => {
+export const parseMarkdown = (rawText) => {
     const md = Markdown.markdown;
 
     // generate a tree of the incoming markdown

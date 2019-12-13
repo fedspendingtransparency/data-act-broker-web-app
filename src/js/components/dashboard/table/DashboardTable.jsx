@@ -37,7 +37,7 @@ const tableHeaders = [
         sortType: 'file'
     },
     {
-        text: 'Fiscal Year/ Quarter',
+        text: (<span>Fiscal Year/<br />Quarter</span>),
         class: 'dashboard-table__fyq-column',
         sortType: 'period'
     },
@@ -47,7 +47,7 @@ const tableHeaders = [
         sortType: 'rule_label'
     },
     {
-        text: 'Number of Instances',
+        text: (<span>Number of<br />Instances</span>),
         class: 'dashboard-table__instances-column',
         sortType: 'instances'
     },

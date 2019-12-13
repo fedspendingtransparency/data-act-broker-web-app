@@ -13,6 +13,7 @@
         padding: rem(5) 0;
 
         li.quarter-picker__list-item {
+            @include display(flex);
             margin-right: rem(2);
             margin-left: rem(1);
 
