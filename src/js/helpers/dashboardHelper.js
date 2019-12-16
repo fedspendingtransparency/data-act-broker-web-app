@@ -70,3 +70,20 @@ export const fetchSummary = (callBody) => {
 
     return deferred.promise;
 };
+
+export const fetchDashboardTableContents = (callBody) => {
+    const deferred = Q.defer();
+
+    Request.post(`${kGlobalConstants.API}historic_dabs_table/`)
+        .send(callBody)
+        .end((err, res) => {
+            if (err) {
+                deferred.reject(err);
+            }
+            else {
+                deferred.resolve(res.body);
+            }
+        });
+
+    return deferred.promise;
+};
