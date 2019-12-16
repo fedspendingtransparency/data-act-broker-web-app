@@ -1,25 +1,52 @@
 // the warning banner that appears on the top of all login screens
 @mixin loginTopBanner {
 	@include align-self(stretch);
-    background: as-alpha($color-gold-lightest, 0.95);
     padding: 15px 0;
     width: 100%;
-    border-bottom: 1px solid $color-gold-lighter;
 
-    & p {
+    &.warning-banner {
+        background: as-alpha($color-gold-lightest, 0.95);
+        border-bottom: 1px solid $color-gold-lighter;
+
+        .banner-icon {
+            svg {
+                color: $color-gold-lighter
+            } 
+        }
+    }
+
+    &.info-banner {
+        background: as-alpha($color-primary-alt-lightest, 0.95);
+        border-bottom: 1px solid $color-primary-alt-light;
+
+        .banner-icon {
+            svg {
+                color: $color-primary-alt-light
+            } 
+        }
+    }
+
+    .banner-icon {
+        font-size: rem(25);
+        text-align: right;
+        margin-top: rem(-3);
+        padding: 0;
+        
+        svg {
+            color: $gray-dark
+        } 
+    }
+
+    .banner-header p {
+        font-size: $h3-font-size;
+        font-weight: $font-bold;
+        margin-bottom: 0;
+    }
+
+    .banner-content p {
         max-width: 100%;
         margin-bottom: 0;
         font-size: 1.4rem;
         text-align: left;
-    }
-
-     & .usa-da-icon{
-        height: 30px;
-        width: 30px;
-        position: absolute;
-        right: 0;
-        & svg {
-            fill: $gray-dark
-        } 
     }
 }

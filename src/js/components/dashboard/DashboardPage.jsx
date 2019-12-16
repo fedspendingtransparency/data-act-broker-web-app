@@ -6,6 +6,7 @@
 import React from 'react';
 import Navbar from 'components/SharedComponents/navigation/NavigationComponent';
 import Footer from 'components/SharedComponents/FooterComponent';
+import Banner from 'components/SharedComponents/Banner';
 import DashboardContentContainer from 'containers/dashboard/DashboardContentContainer';
 import QuarterFilterContainer from 'containers/dashboard/filters/QuarterFilterContainer';
 import DashboardAgencyFilterContainer from 'containers/dashboard/filters/DashboardAgencyFilterContainer';
@@ -97,6 +98,7 @@ export default class DashboardPage extends React.Component {
                             </div>
                         </div>
                     </div>
+                    <Banner />
                     <div className="dashboard-page">
                         <div className="dashboard-page__wrapper">
                             <div className="dashboard-page__filters">
