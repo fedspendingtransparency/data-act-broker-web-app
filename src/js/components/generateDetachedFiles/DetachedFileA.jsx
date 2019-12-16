@@ -143,7 +143,7 @@ export default class DetachedFileA extends React.Component {
 
                         <div className="container center-block">
                             <div className="row text-center usa-da-select-agency">
-                                <div className="mt-60 mb-60">
+                                <div className="col-lg-offset-2 col-lg-8 mt-60 mb-60">
                                     <div className="detached-heading">
                                         Please begin by telling us about the file you would like to generate.
                                     </div>

@@ -345,7 +345,7 @@ export default class GenerateDetachedFilesPage extends React.Component {
 
                         <div className="container center-block">
                             <div className="row text-center usa-da-select-agency">
-                                <div className="mt-60 mb-60">
+                                <div className="col-lg-offset-2 col-lg-8 mt-60 mb-60">
                                     <h5>Please begin by telling us about files you would like to generate</h5>
                                     <div className="select-agency-holder">
                                         <div className="row usa-da-select-agency-label">
