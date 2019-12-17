@@ -1,11 +1,11 @@
 .usa-da-generate-detached-files-page {
-    @import "../../layouts/content/content";
+    @import '../../layouts/content/content';
     @include contentLayout;
 
     // import typeahead styles
-    @import "../../components/typeahead/_typeahead";
+    @import '../../components/typeahead/_typeahead';
 
-    @import "./_agencyToggle";
+    @import './radioSections';
 
     .select-agency-holder {
         padding: 15px 30px 30px 30px;
@@ -24,7 +24,7 @@
 
         .usa-da-date-select {
             padding-top: 30px;
-            @import "../generateFiles/generateItem/generateItem";
+            @import '../generateFiles/generateItem/generateItem';
 
             .usa-da-generate-item-wrap {
                 margin-bottom: 10px;
@@ -33,23 +33,23 @@
 
         // import the alerts
         .alert-error {
-            @import "../../components/alerts/_alerts";
+            @import '../../components/alerts/_alerts';
             @include dangerAlert;
         }
 
         // style the icons
         .usa-da-form-icon {
-            @import "../../components/inputs/_fieldIcon";
+            @import '../../components/inputs/_fieldIcon';
             @include fieldIcon;
         }
 
         .usa-da-button {
-            @import "../../components/buttons/_optional";
+            @import '../../components/buttons/_optional';
             @include optionalButton;
 
             margin-bottom: 10px;
 
-            @import "../../lib/spinkit/spinners/2-double-bounce";
+            @import '../../lib/spinkit/spinners/2-double-bounce';
 
             .sk-double-bounce {
                 margin: 0;

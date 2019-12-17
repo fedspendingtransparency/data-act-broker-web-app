@@ -41,8 +41,8 @@ export default class ValidateValuesErrorReport extends React.Component {
         this.state = {
             sortDirection: 'asc',
             sortField: 0,
-            headerClasses: ['headerColA', 'headerColB', 'headerColC'],
-            cellClasses: ['cellColA', 'cellColB', 'cellColC'],
+            headerClasses: ['colA', 'colB', 'colC'],
+            cellClasses: ['colA', 'colB', 'colC'],
             table: null,
             signedUrl: '',
             signInProgress: false
