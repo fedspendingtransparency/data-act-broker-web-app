@@ -51,7 +51,7 @@ export const mostRecentPeriod = () => {
         period = 11;
     }
 
-    if (today.isBetween(moment(`12/18/${year}`, 'MM-DD-YYYY'), moment(`12/31/${year}`, 'MM-DD-YYYY'), null, '[]')) {
+    if (today.isBetween(moment(`12/19/${year}`, 'MM-DD-YYYY'), moment(`12/31/${year}`, 'MM-DD-YYYY'), null, '[]')) {
         year += 1;
     }
 
