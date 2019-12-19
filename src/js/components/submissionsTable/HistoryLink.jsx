@@ -4,12 +4,13 @@
   */
 
 import React from 'react';
+import PropTypes from 'prop-types';
 import * as Icons from '../SharedComponents/icons/Icons';
 
 const propTypes = {
-    submissionId: React.PropTypes.oneOfType([
-        React.PropTypes.string,
-        React.PropTypes.number
+    submissionId: PropTypes.oneOfType([
+        PropTypes.string,
+        PropTypes.number
     ]).isRequired
 };
 
