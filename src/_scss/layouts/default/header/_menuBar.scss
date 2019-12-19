@@ -36,7 +36,8 @@
             }
         }
     }
-    #usa-da-header-link-holder > li > a {
+    #usa-da-header-link-holder > li > a, #usa-da-header-link-holder > li > button {
+        border: none;
         background-color: $color-gray-dark;
         color: $color-white;
         height: ($header-height - $top-header-height);

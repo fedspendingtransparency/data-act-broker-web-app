@@ -53,7 +53,8 @@ export default class GenerateDetachedFilesPage extends React.Component {
                 valid: false,
                 status: "",
                 jobID: null,
-                isFundingAgency: false
+                agencyType: 'awarding',
+                fileFormat: 'csv'
             },
             d2: {
                 startDate: null,
@@ -67,11 +68,16 @@ export default class GenerateDetachedFilesPage extends React.Component {
                 valid: false,
                 status: "",
                 jobID: null,
-                isFundingAgency: false
+                agencyType: 'awarding',
+                fileFormat: 'csv'
             }
         };
 
-        this.toggleAgencyType = this.toggleAgencyType.bind(this);
+        this.updateFileProperty = this.updateFileProperty.bind(this);
+        this.clickedDownload = this.clickedDownload.bind(this);
+        this.updateError = this.updateError.bind(this);
+        this.handleDateChange = this.handleDateChange.bind(this);
+        this.generateFile = this.generateFile.bind(this);
     }
 
     componentDidMount() {
@@ -195,11 +201,11 @@ export default class GenerateDetachedFilesPage extends React.Component {
         });
     }
 
-    toggleAgencyType(type) {
-        const newType = assign({}, this.state[type]);
-        newType.isFundingAgency = !newType.isFundingAgency;
+    updateFileProperty(fileType, property, value) {
+        const newType = assign({}, this.state[fileType]);
+        newType[property] = value;
         this.setState({
-            [type]: newType
+            [fileType]: newType
         });
     }
 
@@ -207,7 +213,6 @@ export default class GenerateDetachedFilesPage extends React.Component {
         // generate specified file
         const cgacCode = this.state.codeType !== 'frec_code' ? this.state.agency : '';
         const frecCode = this.state.codeType === 'frec_code' ? this.state.agency : '';
-        const agencyType = this.state[file].isFundingAgency ? 'funding' : 'awarding';
 
         const tmpFile = Object.assign({}, this.state[file]);
         tmpFile.status = "generating";
@@ -219,7 +224,8 @@ export default class GenerateDetachedFilesPage extends React.Component {
             frec_code: frecCode,
             start: tmpFile.startDate.format('MM/DD/YYYY'),
             end: tmpFile.endDate.format('MM/DD/YYYY'),
-            agency_type: agencyType
+            agency_type: this.state[file].agencyType,
+            file_format: this.state[file].fileFormat
         };
 
         GenerateFilesHelper.generateDetachedFile(params)
@@ -315,11 +321,11 @@ export default class GenerateDetachedFilesPage extends React.Component {
         if (this.state.showDateSelect) {
             dateSelect = (<DateSelect
                 {...this.state}
-                handleDateChange={this.handleDateChange.bind(this)}
-                updateError={this.updateError.bind(this)}
-                generateFile={this.generateFile.bind(this)}
-                toggleAgencyType={this.toggleAgencyType}
-                clickedDownload={this.clickedDownload.bind(this)} />);
+                handleDateChange={this.handleDateChange}
+                updateError={this.updateError}
+                generateFile={this.generateFile}
+                updateFileProperty={this.updateFileProperty}
+                clickedDownload={this.clickedDownload} />);
         }
 
         return (

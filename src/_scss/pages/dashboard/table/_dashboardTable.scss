@@ -1,5 +1,5 @@
 .dashboard-table {
-
+    overflow-x: scroll;
     .results-table-content {
         .title, .description, .loading-message {
             font-size: rem(25);
@@ -54,30 +54,6 @@
         margin-bottom: rem(21);
         margin-top: rem(16);
 
-        .dashboard-table__file-column {
-            width: rem(105);
-        }
-
-        .dashboard-table__fyq-column {
-            width: rem(114);
-
-            .dashboard-table__header-text {
-                width: rem(70);
-            }
-        }
-
-        .dashboard-table__label-column {
-            width: rem(129);
-        }
-
-        .dashboard-table__instances-column {
-            width: rem(117);
-
-            .dashboard-table__header-text {
-                width: rem(66);
-            }
-        }
-
         .dashboard-table__rule-column {
             padding-right: 2em;
         }
@@ -88,7 +64,8 @@
 
             th {
                 height: rem(53);
-                padding-left: rem(6);
+                padding-left: rem(8);
+                padding-right: rem(8);
 
                 .dashboard-table__header-wrapper {
                     display: flex;
@@ -96,6 +73,7 @@
 
                     .dashboard-table__header-text{
                         margin: auto 0;
+                        white-space: nowrap;
                     }
 
                     .dashboard-table__sort-icons {
@@ -141,7 +119,8 @@
             }
 
             td {
-                padding-left: rem(6);
+                padding-left: rem(8);
+                padding-right: rem(8);
 
                 .ellipse-box {
                     display: block;
@@ -157,6 +136,7 @@
                 .file-label-button {
                     @include button-unstyled;
                     color: $color-primary;
+                    white-space: nowrap;
                 }
             }
         }

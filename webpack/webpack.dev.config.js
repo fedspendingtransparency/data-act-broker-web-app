@@ -46,7 +46,7 @@ module.exports = merge(common, {
                     : JSON.stringify("http://localhost:9999/v1/current_user/"),
                 BROKER_CALLBACK: process.env.BROKER_CALLBACK
                     ? JSON.stringify(process.env.BROKER_CALLBACK)
-                    : JSON.stringify("http://localhost:3000/#/auth"),
+                    : JSON.stringify("http://localhost:3002/#/auth"),
                 GA_TRACKING_ID: process.env.GA_TRACKING_ID
                     ? JSON.stringify(process.env.GA_TRACKING_ID)
                     : JSON.stringify(""),

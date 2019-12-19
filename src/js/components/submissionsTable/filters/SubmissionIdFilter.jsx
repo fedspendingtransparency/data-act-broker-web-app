@@ -52,7 +52,8 @@ export default class SubmissionIdFilter extends React.Component {
                     onSubmit={this.handleSubmit}>
                     <input
                         id="submission-id"
-                        type="text"
+                        aria-label="submission-id-filter"
+                        type="number"
                         className="text-filter__input"
                         placeholder="Submission ID"
                         value={this.state.value}

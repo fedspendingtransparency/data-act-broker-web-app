@@ -1,0 +1,28 @@
+.radio-sections-wrapper {
+    @include display(flex);
+    @include justify-content(flex-end);
+    .radio-section {
+        @include flex(0 0 33.3%);
+        text-align: left;
+        padding: rem(10) 0;
+        &:first-of-type {
+            padding-right: rem(5);
+        }
+        &:last-of-type {
+            padding-left: rem(5);
+        }
+        .radio-section__description {
+            @include display(flex);
+            @include justify-content(flex-start);
+            .radio-section__label {
+                @include flex(0 0 67%);
+            }
+            .agency-toggle__info-icon-holder {
+                @include flex(0 0 auto);
+                margin-left: rem(5);
+                color: $color-gray;
+            }
+            @import './agencyToggleTooltip';
+        }
+    }
+}

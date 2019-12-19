@@ -7,6 +7,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import DayPicker, { DateUtils } from 'react-day-picker';
 import moment from 'moment';
+import { keyCodes } from 'dataMapping/keyMappings';
 import * as Icons from '../../SharedComponents/icons/Icons';
 
 const propTypes = {
@@ -98,7 +99,7 @@ export default class DatePicker extends React.Component {
     }
 
     escapeDatePicker(e) {
-        if (e.keyCode === 27) {
+        if (e.keyCode === keyCodes.esc) {
             this.toggleDatePicker(e);
         }
     }

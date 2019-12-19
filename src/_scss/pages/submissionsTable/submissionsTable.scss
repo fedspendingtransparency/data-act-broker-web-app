@@ -50,7 +50,7 @@
         cursor: pointer;
     }
 
-    .published-submission-warning-banner {
+    .internal-banner {
         @import "../../layouts/login/_topBanner";
         @include loginTopBanner;
     }

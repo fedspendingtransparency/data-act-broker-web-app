@@ -1,5 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+import "babel-polyfill";
 import { library } from "@fortawesome/fontawesome-svg-core";
 import {
     faAngleDown,
@@ -10,8 +11,10 @@ import {
     faChevronDown,
     faEllipsisH,
     faExclamationCircle,
+    faExclamationTriangle,
     faFileAlt,
     faFileUpload,
+    faInfoCircle,
     faLandmark,
     faSearch,
     faSpinner,
@@ -29,8 +32,10 @@ library.add(
     faChevronDown,
     faEllipsisH,
     faExclamationCircle,
+    faExclamationTriangle,
     faFileAlt,
     faFileUpload,
+    faInfoCircle,
     faLandmark,
     faSearch,
     faSpinner,
