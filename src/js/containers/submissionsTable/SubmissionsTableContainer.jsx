@@ -30,7 +30,7 @@ const propTypes = {
 };
 
 const defaultProps = {
-    type: '',
+    type: 'dabs',
     toggleDashboardFilter: null,
     updateDashboardFilter: null,
     stagedFilters: {},
@@ -54,14 +54,15 @@ export class SubmissionsTableContainer extends React.Component {
             activeSubmissions: [],
             certifiedSubmissions: [],
             activeMinDateLastModified: '',
-            certifiedMinDateLastModified: '',
-            type: this.props.type
+            certifiedMinDateLastModified: ''
         };
+
+        this.loadTableData = this.loadTableData.bind(this);
     }
 
-    componentWillReceiveProps(nextProps) {
-        if (nextProps.type !== this.state.type) {
-            this.setState({ type: nextProps.type });
+    componentDidUpdate(prevProps) {
+        if (prevProps.type !== this.props.type) {
+            this.loadTableData();
         }
     }
 
@@ -116,7 +117,7 @@ export class SubmissionsTableContainer extends React.Component {
         });
 
         SubmissionListHelper.loadSubmissionList(page, 10, certified, category, order,
-            this.state.type === 'fabs', filters)
+            this.props.type === 'fabs', filters)
             .then((data) => {
                 this.setState({
                     [`${tableName}Total`]: data.total,
@@ -141,7 +142,7 @@ export class SubmissionsTableContainer extends React.Component {
             <DashboardContent
                 {...this.state}
                 {...this.props}
-                loadTableData={this.loadTableData.bind(this)} />
+                loadTableData={this.loadTableData} />
         );
     }
 }

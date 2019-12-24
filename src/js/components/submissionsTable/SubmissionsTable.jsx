@@ -8,6 +8,8 @@ import PropTypes from 'prop-types';
 import cx from 'classnames';
 import _ from 'lodash';
 
+import ErrorMessageOverlay from 'components/SharedComponents/ErrorMessageOverlay';
+
 import FormattedTable from '../SharedComponents/table/FormattedTable';
 import SubmissionLink from '../landing/recentActivity/SubmissionLink';
 import HistoryLink from './HistoryLink';
@@ -20,7 +22,6 @@ import NoResultsMessage from '../SharedComponents/NoResultsMessage';
 import LoadingMessage from '../SharedComponents/LoadingMessage';
 
 import TablePaginator from '../SharedComponents/table/TablePaginator';
-import ErrorMessageOverlay from 'components/SharedComponents/ErrorMessageOverlay';
 
 const propTypes = {
     loadTableData: PropTypes.func,
@@ -64,6 +65,9 @@ export default class SubmissionsTable extends React.Component {
         };
 
         this.reload = this.reload.bind(this);
+        this.sortTable = this.sortTable.bind(this);
+        this.deleteWarning = this.deleteWarning.bind(this);
+        this.changePage = this.changePage.bind(this);
     }
 
     componentDidMount() {
@@ -307,7 +311,7 @@ export default class SubmissionsTable extends React.Component {
                     row.push(<DeleteLink
                         submissionId={item.submission_id}
                         index={index}
-                        warning={this.deleteWarning.bind(this)}
+                        warning={this.deleteWarning}
                         confirm={deleteConfirm}
                         reload={this.reload}
                         item={item}
@@ -376,12 +380,12 @@ export default class SubmissionsTable extends React.Component {
             paginator = (<TablePaginator
                 current={this.state.currentPage}
                 total={this.state.totalPages}
-                changePage={this.changePage.bind(this)} />);
+                changePage={this.changePage} />);
         }
 
         const tableHeaderClasses = cx({
             'submission-table-content': true,
-            loading: this.props.isLoading || this.state.noResults || this.props.hasError
+            loading: this.props.isLoading || this.state.noResults || this.props.errorMessage
         });
 
         const headers = this.getHeaders();
@@ -414,7 +418,7 @@ export default class SubmissionsTable extends React.Component {
                         cellClasses={this.state.cellClasses}
                         unsortable={unsortable}
                         headerClasses={this.state.headerClasses}
-                        onSort={this.sortTable.bind(this)} />
+                        onSort={this.sortTable} />
                 </div>
                 <div className="text-center">
                     {tableMessage}
