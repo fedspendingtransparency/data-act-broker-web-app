@@ -20,6 +20,7 @@ import NoResultsMessage from '../SharedComponents/NoResultsMessage';
 import LoadingMessage from '../SharedComponents/LoadingMessage';
 
 import TablePaginator from '../SharedComponents/table/TablePaginator';
+import ErrorMessageOverlay from 'components/SharedComponents/ErrorMessageOverlay';
 
 const propTypes = {
     loadTableData: PropTypes.func,
@@ -29,7 +30,8 @@ const propTypes = {
     type: PropTypes.string,
     total: PropTypes.number,
     isCertified: PropTypes.bool,
-    isLoading: PropTypes.bool
+    isLoading: PropTypes.bool,
+    errorMessage: PropTypes.string
 };
 
 const defaultProps = {
@@ -40,7 +42,8 @@ const defaultProps = {
     appliedFilters: {},
     session: null,
     type: '',
-    total: 0
+    total: 0,
+    errorMessage: ''
 };
 
 export default class SubmissionsTable extends React.Component {
@@ -378,7 +381,7 @@ export default class SubmissionsTable extends React.Component {
 
         const tableHeaderClasses = cx({
             'submission-table-content': true,
-            loading: this.props.isLoading || this.state.noResults
+            loading: this.props.isLoading || this.state.noResults || this.props.hasError
         });
 
         const headers = this.getHeaders();
@@ -389,6 +392,17 @@ export default class SubmissionsTable extends React.Component {
         }
         else if (this.props.isCertified) {
             unsortable = [4];
+        }
+
+        let tableMessage = null;
+        if (this.props.isLoading) {
+            tableMessage = <LoadingMessage />;
+        }
+        else if (this.props.errorMessage) {
+            tableMessage = <ErrorMessageOverlay errorMessage={this.props.errorMessage} />;
+        }
+        else if (this.state.noResults) {
+            tableMessage = <NoResultsMessage />;
         }
 
         return (
@@ -403,8 +417,7 @@ export default class SubmissionsTable extends React.Component {
                         onSort={this.sortTable.bind(this)} />
                 </div>
                 <div className="text-center">
-                    {this.state.noResults && <NoResultsMessage />}
-                    {this.props.isLoading && <LoadingMessage />}
+                    {tableMessage}
                 </div>
                 <div className="paginator-wrap">
                     {paginator}

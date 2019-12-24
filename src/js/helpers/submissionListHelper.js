@@ -72,7 +72,7 @@ export const loadSubmissionList = (
         })
         .end((err, res) => {
             if (err) {
-                deferred.reject(err);
+                deferred.reject(res.body);
             }
             else {
                 const { submissions, total } = res.body;

@@ -47,6 +47,8 @@ export class SubmissionsTableContainer extends React.Component {
         this.state = {
             activeLoading: true,
             certifiedLoading: true,
+            activeError: '',
+            certifiedError: '',
             activeTotal: 0,
             certifiedTotal: 0,
             activeSubmissions: [],
@@ -109,7 +111,8 @@ export class SubmissionsTableContainer extends React.Component {
         }
 
         this.setState({
-            [`${tableName}Loading`]: true
+            [`${tableName}Loading`]: true,
+            [`${tableName}Error`]: ''
         });
 
         SubmissionListHelper.loadSubmissionList(page, 10, certified, category, order,
@@ -120,6 +123,15 @@ export class SubmissionsTableContainer extends React.Component {
                     [`${tableName}Submissions`]: data.submissions,
                     [`${tableName}Loading`]: false,
                     [`${tableName}MinDateLastModified`]: data.min_last_modified
+                });
+            })
+            .catch((error) => {
+                this.setState({
+                    [`${tableName}Total`]: 0,
+                    [`${tableName}Submissions`]: [],
+                    [`${tableName}Loading`]: false,
+                    [`${tableName}Error`]: error.message,
+                    [`${tableName}MinDateLastModified`]: ''
                 });
             });
     }
