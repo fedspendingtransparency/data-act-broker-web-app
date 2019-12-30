@@ -7,6 +7,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import cx from 'classnames';
 import _ from 'lodash';
+import { Pagination } from 'data-transparency-ui';
 
 import FormattedTable from '../SharedComponents/table/FormattedTable';
 import SubmissionLink from '../landing/recentActivity/SubmissionLink';
@@ -18,8 +19,6 @@ import * as PermissionsHelper from '../../helpers/permissionsHelper';
 import DeleteLink from '../landing/recentActivity/DeleteLink';
 import NoResultsMessage from '../SharedComponents/NoResultsMessage';
 import LoadingMessage from '../SharedComponents/LoadingMessage';
-
-import TablePaginator from '../SharedComponents/table/TablePaginator';
 
 const propTypes = {
     loadTableData: PropTypes.func,
@@ -61,6 +60,7 @@ export default class SubmissionsTable extends React.Component {
         };
 
         this.reload = this.reload.bind(this);
+        this.changePage = this.changePage.bind(this);
     }
 
     componentDidMount() {
@@ -216,8 +216,7 @@ export default class SubmissionsTable extends React.Component {
             parsedData: output,
             cellClasses: rowClasses,
             headerClasses,
-            noResults,
-            totalPages: Math.ceil(this.props.total / 10)
+            noResults
         });
     }
 
@@ -367,14 +366,13 @@ export default class SubmissionsTable extends React.Component {
     }
 
     render() {
-        let paginator;
-
-        if (this.state.totalPages > 1) {
-            paginator = (<TablePaginator
-                current={this.state.currentPage}
-                total={this.state.totalPages}
-                changePage={this.changePage.bind(this)} />);
-        }
+        const paginator = (
+            <Pagination
+                currentPage={this.state.currentPage}
+                totalItems={this.props.total}
+                changePage={this.changePage}
+                pageSize={10}
+                goToPage />);
 
         const tableHeaderClasses = cx({
             'submission-table-content': true,
