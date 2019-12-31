@@ -83,7 +83,7 @@ describe('periodPickerHelper', () => {
                 year: 1913
             });
         });
-        it('should return the next year from when period 2 becomes available until Dec 31st', () => {
+        it('should return the next calendar year from when period 2 becomes available until Dec 31st', () => {
             mockDate('1912-12-31');
             const output = periodPickerHelper.mostRecentPeriod();
             expect(output).toEqual({
@@ -91,7 +91,7 @@ describe('periodPickerHelper', () => {
                 year: 1913
             });
         });
-        it('should use the current year starting on Jan 1st', () => {
+        it('should use the current calendar year starting on Jan 1st', () => {
             mockDate('1913-01-01');
             const output = periodPickerHelper.mostRecentPeriod();
             expect(output).toEqual({
