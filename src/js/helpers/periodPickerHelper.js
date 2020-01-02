@@ -20,7 +20,13 @@ export const mostRecentPeriod = () => {
 
     let period = 12;
 
-    if (today.isBetween(moment(`12/19/${year}`, 'MM-DD-YYYY'), moment(`01/16/${year + 1}`, 'MM-DD-YYYY'), null, '[]')) {
+    if (today.isBetween(moment(`12/19/${year}`, 'MM-DD-YYYY'), moment(`12/31/${year}`, 'MM-DD-YYYY'), null, '[]')) {
+        // Period 2 before Jan 1
+        period = 2;
+        year += 1;
+    }
+    else if (today.isBetween(moment(`01/01/${year}`, 'MM-DD-YYYY'), moment(`01/16/${year}`, 'MM-DD-YYYY'), null, '[]')) {
+        // Period 2 after Jan 1
         period = 2;
     }
     else if (today.isBetween(moment(`01/17/${year}`, 'MM-DD-YYYY'), moment(`02/18/${year}`, 'MM-DD-YYYY'), null, '[]')) {
@@ -49,10 +55,6 @@ export const mostRecentPeriod = () => {
     }
     else if (today.isBetween(moment(`09/18/${year}`, 'MM-DD-YYYY'), moment(`10/16/${year}`, 'MM-DD-YYYY'), null, '[]')) {
         period = 11;
-    }
-
-    if (today.isBetween(moment(`12/18/${year}`, 'MM-DD-YYYY'), moment(`12/31/${year}`, 'MM-DD-YYYY'), null, '[]')) {
-        year += 1;
     }
 
     return {
