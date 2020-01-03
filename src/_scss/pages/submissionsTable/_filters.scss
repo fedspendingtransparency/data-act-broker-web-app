@@ -6,6 +6,9 @@
     @include display(flex);
     @include align-items(center);
     @include justify-content(flex-start);
+    @media (max-width: $medium-screen) {
+        @include flex-wrap(wrap);
+    }
     .dashboard-filters__label {
         @include display(flex);
         @include flex(0 0 auto);
