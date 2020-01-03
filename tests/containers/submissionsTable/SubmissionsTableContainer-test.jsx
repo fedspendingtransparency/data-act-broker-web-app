@@ -16,17 +16,20 @@ jest.mock('helpers/submissionListHelper', () => require('./mockSubmissionListHel
 jest.mock('components/submissionsTable/SubmissionsTableContent', () => jest.fn(() => null));
 
 describe('SubmissionsTableContainer', () => {
-    it('should update the state when the type changes', () => {
+    it('should update the table when the type changes', () => {
         const container = shallow(<SubmissionsTableContainer
             {...mockRedux}
             {...mockActions} />);
-
-        // Change the type
-        container.setProps({
+        
+        const loadTableData = jest.fn();
+        container.instance().loadTableData = loadTableData;
+        const newProps = {
             type: 'fabs'
-        });
+        };
 
-        expect(container.state().type).toEqual('fabs');
+        container.instance().componentDidUpdate(newProps);
+
+        expect(loadTableData).toHaveBeenCalled();
     });
     it('should reset the applied filters for the current type on unmount', () => {
         const container = shallow(<SubmissionsTableContainer

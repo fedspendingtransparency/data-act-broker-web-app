@@ -75,8 +75,24 @@ describe('periodPickerHelper', () => {
                 year: 1912
             });
         });
-        it('if GTAS data is available for this year (2012), then it should return the next year (2013) for this specific window', () => {
+        it('if GTAS data is available for this year, then it should return the next year for this specific window', () => {
             mockDate('1912-12-19');
+            const output = periodPickerHelper.mostRecentPeriod();
+            expect(output).toEqual({
+                period: 2,
+                year: 1913
+            });
+        });
+        it('should return the next calendar year from when period 2 becomes available until Dec 31st', () => {
+            mockDate('1912-12-31');
+            const output = periodPickerHelper.mostRecentPeriod();
+            expect(output).toEqual({
+                period: 2,
+                year: 1913
+            });
+        });
+        it('should use the current calendar year starting on Jan 1st', () => {
+            mockDate('1913-01-01');
             const output = periodPickerHelper.mostRecentPeriod();
             expect(output).toEqual({
                 period: 2,

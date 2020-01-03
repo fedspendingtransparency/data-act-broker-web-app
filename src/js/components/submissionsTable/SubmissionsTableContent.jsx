@@ -20,6 +20,8 @@ const propTypes = {
     certifiedTotal: PropTypes.number,
     activeLoading: PropTypes.bool,
     certifiedLoading: PropTypes.bool,
+    activeError: PropTypes.string,
+    certifiedError: PropTypes.string,
     toggleDashboardFilter: PropTypes.func,
     updateDashboardFilter: PropTypes.func,
     activeMinDateLastModified: PropTypes.string,
@@ -38,6 +40,8 @@ const defaultProps = {
     certifiedTotal: 0,
     activeLoading: false,
     certifiedLoading: false,
+    activeError: '',
+    certifiedError: '',
     toggleDashboardFilter: null,
     updateDashboardFilter: null,
     activeMinDateLastModified: '',
@@ -149,6 +153,7 @@ export default class SubmissionsTableContent extends React.Component {
                             updateFilterCount={this.updateFilterCount} />
                         <SubmissionsTable
                             isLoading={this.props.activeLoading}
+                            errorMessage={this.props.activeError}
                             isCertified={false}
                             loadTableData={this.props.loadTableData}
                             appliedFilters={appliedFilters.active}
@@ -182,6 +187,7 @@ export default class SubmissionsTableContent extends React.Component {
                             updateFilterCount={this.updateFilterCount} />
                         <SubmissionsTable
                             isLoading={this.props.certifiedLoading}
+                            errorMessage={this.props.certifiedError}
                             loadTableData={this.props.loadTableData}
                             appliedFilters={appliedFilters[secondTable]}
                             total={this.props.certifiedTotal}
