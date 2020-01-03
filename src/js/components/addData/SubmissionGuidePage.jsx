@@ -10,11 +10,7 @@ import SubmissionGuideContent from './SubmissionGuideContent';
 import Footer from '../SharedComponents/FooterComponent';
 
 const propTypes = {
-    route: PropTypes.object
-};
-
-const defaultProps = {
-    route: null
+    type: PropTypes.oneOf(['dabs', 'fabs'])
 };
 
 export default class LandingPage extends React.Component {
@@ -23,7 +19,7 @@ export default class LandingPage extends React.Component {
             <div className="usa-da-submission-guide-page">
                 <div className="usa-da-site_wrap">
                     <div className="usa-da-page-content">
-                        <Navbar activeTab="submissionGuide" type={this.props.route.type} />
+                        <Navbar activeTab="submissionGuide" type={this.props.type} />
                         <SubmissionGuideContent {...this.props} />
                     </div>
                 </div>
@@ -34,4 +30,3 @@ export default class LandingPage extends React.Component {
 }
 
 LandingPage.propTypes = propTypes;
-LandingPage.defaultProps = defaultProps;

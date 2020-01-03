@@ -7,7 +7,7 @@ import { getPath } from "../../helpers/loginHelper";
 
 const propTypes = {
     path: PropTypes.string,
-    component: PropTypes.node,
+    component: PropTypes.func,
     authFn: PropTypes.func,
     session: PropTypes.shape({
         login: PropTypes.string,

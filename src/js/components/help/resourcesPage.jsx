@@ -14,34 +14,16 @@ import Footer from '../SharedComponents/FooterComponent';
 import * as Icons from '../SharedComponents/icons/Icons';
 
 const propTypes = {
-    route: PropTypes.object,
-    type: PropTypes.string,
+    type: PropTypes.oneOf(['dabs', 'fabs']),
     helpOnly: PropTypes.bool
 };
 
 const defaultProps = {
-    route: null,
     type: '',
     helpOnly: false
 };
 
 export default class ResourcesPage extends React.Component {
-    constructor(props) {
-        super(props);
-
-        this.state = {
-            type: props.route.type
-        };
-    }
-
-    componentWillReceiveProps(nextProps) {
-        if (nextProps.route.type !== this.state.type) {
-            this.setState({
-                type: nextProps.route.type
-            });
-        }
-    }
-
     scrollToTop() {
         window.scrollTo({
             top: 0,

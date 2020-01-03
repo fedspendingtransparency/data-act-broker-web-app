@@ -1,19 +1,17 @@
-// import { checkFabsPermissions } from 'helpers/permissionsHelper';
-
-import UploadFabsFilePageContainer from '../../containers/uploadFabsFile/UploadFabsFilePageContainer';
-import GenerateDetachedFilesPageContainer from '../../containers/generateDetachedFiles/GenerateDetachedFilesPageContainer';
-import LandingPage from '../../components/landing/LandingPage';
-import LoginPage from '../../components/login/LoginPage';
-import AuthPage from '../../components/login/AuthPage';
-import SubmissionGuideContainer from '../../containers/addData/SubmissionGuideContainer';
-import AddDataPageContainer from '../../containers/addData/AddDataPageContainer';
-import SubmissionsTablePage from '../../containers/submissionsTable/SubmissionsTableContainer';
-import DetachedFileAContainer from '../../containers/generateDetachedFiles/DetachedFileAContainer';
-import { SubmissionContainer } from '../submission/SubmissionContainer';
-import HistoryContainer from '../../containers/history/HistoryContainer';
-import Dashboard from '../../components/dashboard/DashboardPage';
-import HelpContainer from '../help/HelpContainer';
-import ErrorPage from '../../components/error/ErrorPage';
+import UploadFabsFilePageContainer from 'containers/uploadFabsFile/UploadFabsFilePageContainer';
+import GenerateDetachedFilesPageContainer from 'containers/generateDetachedFiles/GenerateDetachedFilesPageContainer';
+import LandingPage from 'components/landing/LandingPage';
+import LoginPage from 'components/login/LoginPage';
+import AuthPage from 'components/login/AuthPage';
+import SubmissionGuideContainer from 'containers/addData/SubmissionGuideContainer';
+import AddDataPageContainer from 'containers/addData/AddDataPageContainer';
+import SubmissionsTablePage from 'containers/submissionsTable/SubmissionsTableContainer';
+import DetachedFileAContainer from 'containers/generateDetachedFiles/DetachedFileAContainer';
+import { SubmissionContainer } from 'containers/submission/SubmissionContainer';
+import HistoryContainer from 'containers/history/HistoryContainer';
+import Dashboard from 'components/dashboard/DashboardPage';
+import HelpContainer from 'containers/help/HelpContainer';
+import ErrorPage from 'components/error/ErrorPage';
 
 let instance = null;
 
@@ -132,7 +130,7 @@ const getRoutes = () => {
             type: 'dabs'
         },
         {
-            path: 'dashboard',
+            path: '/dashboard',
             onEnter: checkUserPermissions,
             component: Dashboard,
             type: 'dabs'

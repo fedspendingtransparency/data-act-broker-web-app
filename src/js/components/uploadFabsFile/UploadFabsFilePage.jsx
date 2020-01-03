@@ -17,7 +17,7 @@ const propTypes = {
     setSubmissionState: PropTypes.func,
     history: PropTypes.object,
     params: PropTypes.object,
-    route: PropTypes.object,
+    type: PropTypes.oneOf(['dabs', 'fabs']),
     submission: PropTypes.object
 };
 
@@ -26,7 +26,6 @@ const defaultProps = {
     setSubmissionState: () => {},
     history: {},
     params: {},
-    route: {},
     submission: {}
 };
 
@@ -71,7 +70,7 @@ export default class UploadFabsFilePage extends React.Component {
                     <div className="usa-da-page-content">
                         <Navbar
                             activeTab="FABSAddData"
-                            type={this.props.route.type} />
+                            type={this.props.type} />
                         <div className="usa-da-upload-fabs-file-page">
                             <div className="usa-da-site_wrap">
                                 {content}

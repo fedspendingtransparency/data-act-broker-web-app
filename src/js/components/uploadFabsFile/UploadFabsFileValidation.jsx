@@ -29,7 +29,6 @@ const propTypes = {
     resetSubmission: PropTypes.func,
     item: PropTypes.object,
     params: PropTypes.object,
-    route: PropTypes.object,
     session: PropTypes.object,
     submission: PropTypes.object
 };
@@ -38,7 +37,6 @@ const defaultProps = {
     setSubmissionState: () => {},
     item: {},
     params: {},
-    route: {},
     session: {},
     submission: {}
 };
@@ -62,7 +60,6 @@ export class UploadFabsFileValidation extends React.Component {
             published: 'unpublished',
             submit: true,
             showPublish: false,
-            type: this.props.route.type,
             showSuccess: false,
             error_message: '',
             fabs_meta: { valid_rows: 0, total_rows: 0, publish_date: null },

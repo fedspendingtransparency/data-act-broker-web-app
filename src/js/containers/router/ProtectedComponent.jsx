@@ -104,12 +104,10 @@ const ProtectedComponentContainer = connect(
     (dispatch) => bindActionCreators(sessionActions, dispatch)
 )(ProtectedComponent);
 
-export const withAuth = (Component, props) => () => {
-    return (
-        <ProtectedComponentContainer {...props}>
-            <Component {...props} />
-        </ProtectedComponentContainer>
-    );
-};
+export const withAuth = (Component, props) => () => (
+    <ProtectedComponentContainer {...props}>
+        <Component {...props} />
+    </ProtectedComponentContainer>
+);
 
 export default ProtectedComponentContainer;

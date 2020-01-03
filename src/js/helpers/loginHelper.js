@@ -122,7 +122,7 @@ export const performLogin = (username, password) => {
 export const performMaxLogin = (ticket) => {
     const deferred = Q.defer();
     const store = new StoreSingleton().store;
-    
+
     // wipe out old session cookies to prevent session weirdness
     Cookies.remove('session');
     // determine the service

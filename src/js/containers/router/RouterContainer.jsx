@@ -1,12 +1,12 @@
 /**
-* RouterContainer.jsx
-* Created by Kevin Li 3/16/15
-*/
+ * RouterContainer.jsx
+ * Created by Kevin Li 3/16/15
+ */
 
 import React from 'react';
 import PropTypes from 'prop-types';
 import { HashRouter as Router, Switch } from 'react-router-dom';
-import { createHashHistory } from "history";
+import { createHashHistory } from 'history';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import ReactGA from 'react-ga';
@@ -23,9 +23,11 @@ const propTypes = {
     session: PropTypes.shape({
         login: PropTypes.string,
         user: PropTypes.shape({
-            affiliations: PropTypes.arrayOf(PropTypes.shape({
-                permission: PropTypes.string
-            }))
+            affiliations: PropTypes.arrayOf(
+                PropTypes.shape({
+                    permission: PropTypes.string
+                })
+            )
         })
     })
 };
@@ -43,23 +45,24 @@ class RouterContainer extends React.Component {
             ReactGA.initialize(kGlobalConstants.GA_TRACKING_ID, GA_OPTIONS);
             history.listen((location) => {
                 ReactGA.set({ page: location.pathname });
-                ReactGA.pageview(location.pathname); // previously window.location.hash
+                ReactGA.pageview(location.pathname);
             });
         }
     }
 
     render() {
         return (
-            // <Router history={history}> // Router
-            // <Router basename="/#"> // BrowserRouter
             <Router>
                 <Switch>
-                    {[...Routes.getRoutes().map((route) => (
-                        <ProtectedRoute
-                            {...route}
-                            history={history}
-                            session={this.props.session} />
-                    ))]}
+                    {[
+                        ...Routes.getRoutes().map((route) => (
+                            <ProtectedRoute
+                                key={route.path}
+                                {...route}
+                                history={history}
+                                session={this.props.session} />
+                        ))
+                    ]}
                 </Switch>
             </Router>
         );

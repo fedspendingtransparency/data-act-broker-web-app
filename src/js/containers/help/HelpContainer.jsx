@@ -13,12 +13,12 @@ import ResourcesPage from 'components/help/resourcesPage';
 import HistoryPage from 'components/help/historyPage';
 
 const propTypes = {
-    route: PropTypes.object,
+    type: PropTypes.oneOf(['dabs', 'fabs']),
+    path: PropTypes.string,
     session: PropTypes.object
 };
 
 const defaultProps = {
-    route: {},
     session: {}
 };
 
@@ -28,7 +28,7 @@ class HelpPageContainer extends React.Component {
 
         this.state = {
             helpOnly: false,
-            type: props.route.type,
+            type: props.type,
             path: 'help'
         };
     }
@@ -44,10 +44,10 @@ class HelpPageContainer extends React.Component {
     }
 
     setHelpRoute() {
-        if (this.props.route.type !== this.state.type || this.props.route.path !== this.state.path) {
+        if (this.props.type !== this.state.type || this.props.path !== this.state.path) {
             this.setState({
-                type: this.props.route.type,
-                path: this.props.route.path.toLowerCase(),
+                type: this.props.type,
+                path: this.props.path.toLowerCase(),
                 helpOnly: this.props.session.user.helpOnly
             });
         }

@@ -15,13 +15,12 @@ import Banner from '../SharedComponents/Banner';
 
 const propTypes = {
     updateMetaData: PropTypes.func,
-    route: PropTypes.object,
+    type: PropTypes.oneOf(['dabs', 'fabs']),
     submission: PropTypes.object
 };
 
 const defaultProps = {
     updateMetaData: null,
-    route: null,
     submission: null
 };
 
@@ -39,7 +38,7 @@ export default class AddDataPage extends React.Component {
         return (
             <div className="usa-da-add-data-page">
                 <div className="usa-da-site_wrap">
-                    <Navbar activeTab="submissionGuide" type={this.props.route.type} />
+                    <Navbar activeTab="submissionGuide" type={this.props.type} />
                     <AddDataHeader />
                     <Banner type="dabs" />
                     {bodyComponent}

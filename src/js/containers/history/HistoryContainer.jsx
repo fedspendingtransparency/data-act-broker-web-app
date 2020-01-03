@@ -11,18 +11,17 @@ import HistoryPage from '../../components/history/HistoryPage';
 
 const propTypes = {
     params: PropTypes.object,
-    route: PropTypes.object
+    type: PropTypes.oneOf(['dabs', 'fabs'])
 };
 
 const defaultProps = {
-    params: {},
-    route: {}
+    params: {}
 };
 
 class HistoryContainer extends React.Component {
     render() {
         return (
-            <HistoryPage submissionID={this.props.params.submissionID} type={this.props.route.type} />
+            <HistoryPage submissionID={this.props.params.submissionID} type={this.props.type} />
         );
     }
 }
