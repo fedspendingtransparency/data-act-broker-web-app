@@ -1,5 +1,7 @@
 .dashboard-table {
     overflow-x: scroll;
+    margin-bottom: rem(21);
+
     .results-table-content {
         .title, .description, .loading-message {
             font-size: rem(25);
@@ -51,7 +53,6 @@
 
     table {
         width: 100%;
-        margin-bottom: rem(21);
         margin-top: rem(16);
 
         .dashboard-table__rule-column {

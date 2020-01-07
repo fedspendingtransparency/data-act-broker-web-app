@@ -331,5 +331,5 @@ CrossFileGenerateModalContainer.propTypes = propTypes;
 CrossFileGenerateModalContainer.defaultProps = defaultProps;
 
 CrossFileGenerateModalContainer.contextTypes = {
-    store: React.PropTypes.object.isRequired
+    store: PropTypes.object.isRequired
 };
