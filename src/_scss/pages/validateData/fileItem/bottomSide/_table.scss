@@ -1,24 +1,21 @@
-@import "../../../../components/tables/_scrollableTable";
+@import 'components/tables/_scrollableTable';
 
 @mixin bottomSideTable {
 	@include scrollableTable;
 
-	td,
-    th {
+	th, td {
         text-align: left;
-    }
-    th.headerColA,
-    td.cellColA {
-        width: 24%;
-    }
-    th.headerColB,
-    td.cellColB {
-        width: 59.8%;
-    }
-    th.headerColC {
-        width: 15.9%;
-    }
-    td.cellColC {
-        width: 15.9%;
+
+        &.colA {
+            width: 24%;
+        }
+
+        &.colB {
+            width: 59.8%;
+        }
+
+        &.colC {
+            width: 15.9%;
+        }
     }
 }

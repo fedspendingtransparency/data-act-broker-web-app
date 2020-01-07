@@ -1,6 +1,7 @@
 .dashboard-table-pagination {
     @import "../../../sharedComponents/paginator";
     @import "../../../sharedComponents/limitSelector";
+    @import "../../../sharedComponents/goTo";
     @include display(flex);
 
     .table-paginator {
