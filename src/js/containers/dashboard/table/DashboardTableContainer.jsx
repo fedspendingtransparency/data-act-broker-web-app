@@ -7,11 +7,11 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { isEqual } from 'lodash';
+import { Pagination } from 'data-transparency-ui';
 
 import * as DashboardHelper from 'helpers/dashboardHelper';
 import * as GenerateFilesHelper from 'helpers/generateFilesHelper';
 import DashboardTable from 'components/dashboard/table/DashboardTable';
-import DashboardTablePagination from 'components/dashboard/table/DashboardTablePagination';
 import DashboardTableModal from 'components/dashboard/table/DashboardTableModal';
 import BaseDashboardTableRow from 'models/dashboard/BaseDashboardTableRow';
 
@@ -25,7 +25,7 @@ export class DashboardTableContainer extends React.Component {
 
         this.state = {
             results: [],
-            totalPages: 1,
+            totalItems: 0,
             page: 1,
             limit: 10,
             inFlight: true,
@@ -150,7 +150,7 @@ export class DashboardTableContainer extends React.Component {
 
         this.setState({
             results,
-            totalPages: Math.ceil(data.page_metadata.total / this.state.limit),
+            totalItems: data.page_metadata.total,
             inFlight: false,
             hasError: false
         });
@@ -158,14 +158,16 @@ export class DashboardTableContainer extends React.Component {
 
     render() {
         let pagination = null;
-        if (!this.state.inFlight && !this.state.hasError && this.state.results.length !== 0) {
+        if (!this.state.inFlight && !this.state.hasError) {
             pagination = (
-                <DashboardTablePagination
-                    totalPages={this.state.totalPages}
-                    currentPage={this.state.page}
-                    pageLimit={this.state.limit}
+                <Pagination
                     changePage={this.changePage}
-                    changeLimit={this.changeLimit} />);
+                    totalItems={this.state.totalItems}
+                    currentPage={this.state.page}
+                    pageSize={this.state.limit}
+                    limitSelector
+                    changeLimit={this.changeLimit}
+                    goToPage />);
         }
         let modal = null;
         if (this.state.showModal) {
