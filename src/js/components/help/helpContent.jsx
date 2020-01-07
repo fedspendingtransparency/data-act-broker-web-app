@@ -5,35 +5,20 @@
 
 import React from 'react';
 import PropTypes from 'prop-types';
-import $ from 'jquery';
 
 const propTypes = {
     changelog: PropTypes.string,
-    section: PropTypes.string,
     technical: PropTypes.string,
     helpOnly: PropTypes.bool
 };
 
 const defaultProps = {
     changelog: '',
-    section: '',
     technical: '',
     helpOnly: false
 };
 
 export default class HelpContent extends React.Component {
-    componentDidUpdate() {
-        this.scrollToSection();
-    }
-
-    scrollToSection() {
-        if (this.props.section && $(`[name=${this.props.section}]`).length > 0) {
-            $('html, body').animate({
-                scrollTop: $(`[name=${this.props.section}]`).offset().top
-            }, 500);
-        }
-    }
-
     render() {
         let membership = null;
         if (this.props.helpOnly) {

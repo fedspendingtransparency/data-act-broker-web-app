@@ -5,25 +5,22 @@
 
 import React from 'react';
 import PropTypes from 'prop-types';
-import Navbar from '../SharedComponents/navigation/NavigationComponent';
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+
+import * as HelpHelper from 'helpers/helpHelper';
+import Navbar from 'components/SharedComponents/navigation/NavigationComponent';
+import Footer from 'components/SharedComponents/FooterComponent';
+import Banner from 'components/SharedComponents/Banner';
 import HelpSidebar from './helpSidebar';
 import HelpContent from './helpContent';
 import HelpNav from './helpNav';
-import Footer from '../SharedComponents/FooterComponent';
-import Banner from '../SharedComponents/Banner';
-
-import * as Icons from '../SharedComponents/icons/Icons';
-
-import * as HelpHelper from '../../helpers/helpHelper';
 
 const propTypes = {
-    location: PropTypes.object,
     type: PropTypes.string,
     helpOnly: PropTypes.bool
 };
 
 const defaultProps = {
-    location: null,
     type: '',
     helpOnly: false
 };
@@ -109,7 +106,6 @@ export default class HelpPage extends React.Component {
                             </div>
                             <div className="col-md-8">
                                 <HelpContent
-                                    section={this.props.location.query.section}
                                     helpOnly={this.props.helpOnly}
                                     changelog={this.state.changelog}
                                     technical={this.state.technical} />
@@ -123,7 +119,7 @@ export default class HelpPage extends React.Component {
                         onClick={this.scrollToTop}
                         aria-label="Back to top">
                         <div className="usa-da-icon">
-                            <Icons.AngleUp alt="Arrow pointing up" />
+                            <FontAwesomeIcon icon="angle-up" size="lg" />
                         </div>
                         <span className="hidden-label">Back to top</span>
                     </button>

@@ -5,29 +5,28 @@
 
 import React from 'react';
 import PropTypes from 'prop-types';
-import Navbar from '../SharedComponents/navigation/NavigationComponent';
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+
+import * as HelpHelper from 'helpers/helpHelper';
+import Navbar from 'components/SharedComponents/navigation/NavigationComponent';
+import Footer from 'components/SharedComponents/FooterComponent';
 import HelpSidebar from './helpSidebar';
 import HistoryContent from './historyContent';
-import Footer from '../SharedComponents/FooterComponent';
 import HelpNav from './helpNav';
 
-import * as Icons from '../SharedComponents/icons/Icons';
-
-import * as HelpHelper from '../../helpers/helpHelper';
-
 const propTypes = {
-    history: PropTypes.object,
+    history: PropTypes.string,
     type: PropTypes.string,
     helpOnly: PropTypes.bool
 };
 
 const defaultProps = {
-    history: {},
+    history: '',
     type: '',
     helpOnly: false
 };
 
-export default class HelpPage extends React.Component {
+export default class HistoryPage extends React.Component {
     constructor(props) {
         super(props);
 
@@ -142,7 +141,7 @@ export default class HelpPage extends React.Component {
                         onClick={this.scrollToTop}
                         aria-label="Back to top">
                         <div className="usa-da-icon">
-                            <Icons.AngleUp alt="Arrow pointing up" />
+                            <FontAwesomeIcon icon="angle-up" size="lg" />
                         </div>
                         <span className="hidden-label">Back to top</span>
                     </button>
@@ -152,5 +151,5 @@ export default class HelpPage extends React.Component {
     }
 }
 
-HelpPage.propTypes = propTypes;
-HelpPage.defaultProps = defaultProps;
+HistoryPage.propTypes = propTypes;
+HistoryPage.defaultProps = defaultProps;
