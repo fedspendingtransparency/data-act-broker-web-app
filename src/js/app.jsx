@@ -5,6 +5,8 @@ import { library } from "@fortawesome/fontawesome-svg-core";
 import {
     faAngleDown,
     faAngleUp,
+    faAngleLeft,
+    faAngleRight,
     faArrowCircleLeft,
     faCalendarAlt,
     faCaretDown,
@@ -27,6 +29,8 @@ import AppContainer from './containers/AppContainer';
 library.add(
     faAngleDown,
     faAngleUp,
+    faAngleLeft,
+    faAngleRight,
     faArrowCircleLeft,
     faCalendarAlt,
     faCaretDown,
