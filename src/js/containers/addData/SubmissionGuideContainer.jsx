@@ -7,6 +7,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
+import queryString from 'query-string';
 
 import SubmissionGuidePage from 'components/addData/SubmissionGuidePage';
 import * as sessionActions from 'redux/actions/sessionActions';
@@ -30,14 +31,14 @@ class SubmissionGuideContainer extends React.Component {
         super(props);
 
         this.state = {
-            goToAddData: false
+            toAddData: false
         };
 
         this.saveSkipGuide = this.saveSkipGuide.bind(this);
     }
     componentDidMount() {
-        const forceDisplay = (Object.prototype.hasOwnProperty.call(this.props.location.query, 'force') &&
-            this.props.location.query.force === 'true');
+        const queryParams = queryString.parse(this.props.location.search);
+        const forceDisplay = queryParams.force;
 
         if (this.props.session.skipGuide && !forceDisplay) {
             this.sendToAddData();
@@ -59,12 +60,12 @@ class SubmissionGuideContainer extends React.Component {
 
     sendToAddData() {
         this.setState({
-            goToAddData: true
+            toAddData: true
         });
     }
 
     render() {
-        if (this.state.goToAddData) {
+        if (this.state.toAddData) {
             return <Redirect to="/addData/" />;
         }
         return (

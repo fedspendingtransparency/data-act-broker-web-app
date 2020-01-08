@@ -5,9 +5,9 @@
 
 import React from 'react';
 import PropTypes from 'prop-types';
-import Navbar from '../SharedComponents/navigation/NavigationComponent';
+import Navbar from 'components/SharedComponents/navigation/NavigationComponent';
+import Footer from 'components/SharedComponents/FooterComponent';
 import SubmissionGuideContent from './SubmissionGuideContent';
-import Footer from '../SharedComponents/FooterComponent';
 
 const propTypes = {
     type: PropTypes.oneOf(['dabs', 'fabs'])
