@@ -4,12 +4,16 @@
   */
 
 import React from 'react';
+import PropTypes from 'prop-types';
 import _ from 'lodash';
 import Cookies from 'js-cookie';
 
-import LoginMaxLoading from '../../components/login/LoginMaxLoading';
+import * as LoginHelper from 'helpers/loginHelper';
+import LoginMaxLoading from 'components/login/LoginMaxLoading';
 
-import * as LoginHelper from '../../helpers/loginHelper';
+const propTypes = {
+    history: PropTypes.object
+};
 
 export default class AuthContainer extends React.Component {
     constructor(props) {
@@ -99,7 +103,6 @@ export default class AuthContainer extends React.Component {
     }
 
     render() {
-        console.log("AUTH RENDER");
         return (
             <div className="login-right usa-da-login-container">
                 <LoginMaxLoading errorMessage={this.state.error} />
@@ -107,3 +110,5 @@ export default class AuthContainer extends React.Component {
         );
     }
 }
+
+AuthContainer.propTypes = propTypes;

@@ -12,7 +12,8 @@ import SubmissionPage from 'components/submission/SubmissionPage';
 import { routes } from 'dataMapping/dabs/submission';
 
 const propTypes = {
-    params: PropTypes.object
+    computedMatch: PropTypes.object,
+    history: PropTypes.object
 };
 
 // by using completedSteps we allow users to
@@ -44,17 +45,18 @@ export class SubmissionContainer extends React.Component {
     }
 
     componentDidMount() {
-        this.getSubmission(this.props.params.type);
+        const { type } = this.props.computedMatch.params;
+        this.getSubmission(type);
     }
 
     componentDidUpdate(prevProps) {
         // check for ID change
-        if (prevProps.params.submissionID !== this.props.params.submissionID) {
+        if (prevProps.computedMatch.params.submissionID !== this.props.computedMatch.params.submissionID) {
             this.getSubmission();
         }
         // check for route change
-        const { type } = this.props.params;
-        if (type !== prevProps.params.type) {
+        const { type } = this.props.computedMatch.params;
+        if (type !== prevProps.computedMatch.params.type) {
             const stepNumber = this.validateCurrentStepAndRouteType(this.state.step);
             this.setStepAndRoute(stepNumber);
         }
@@ -74,13 +76,14 @@ export class SubmissionContainer extends React.Component {
 
     getSubmission(useCurrentStep = false) {
         this.setState({ isLoading: true, isError: false, errorMessage: '' });
-        SubmissionGuideHelper.getSubmissionPage(this.props.params.submissionID)
+        const params = this.props.computedMatch.params;
+        SubmissionGuideHelper.getSubmissionPage(params.submissionID)
             .then((res) => {
                 let stepNumber = parseInt(res.step, 10);
                 // Convert to zero-indexed step
                 stepNumber -= 1;
                 if (useCurrentStep) {
-                    const step = routes.indexOf(this.props.params.type);
+                    const step = routes.indexOf(params.type);
                     return this.setState({
                         isLoading: false,
                         isError: false,
@@ -108,7 +111,7 @@ export class SubmissionContainer extends React.Component {
         // FABs dont check anything
         if (currentStepNumber === 5) return currentStepNumber;
         // get submission step we're tyring to access via url change
-        const routeTypeParam = this.props.params.type;
+        const routeTypeParam = this.props.computedMatch.params.type;
         // current route step name
         const currentStepRouteType = this.currentRoute();
         // route param type
@@ -139,8 +142,8 @@ export class SubmissionContainer extends React.Component {
     }
     // update route
     updateRoute() {
-        const { submissionID } = this.props.params;
-        return this.props.history.replace(`/submission/${submissionID}/${this.currentRoute()}`);
+        const { submissionID } = this.props.computedMatch.params;
+        return this.props.history.push(`/submission/${submissionID}/${this.currentRoute()}`);
     }
     // clicked next button in child Overlay components
     // add 1 to step
@@ -161,9 +164,10 @@ export class SubmissionContainer extends React.Component {
             errorMessage,
             step
         } = this.state;
+        const params = this.props.computedMatch.params;
         return (
             <SubmissionPage
-                submissionID={this.props.params.submissionID}
+                submissionID={params.submissionID}
                 step={step}
                 isLoading={isLoading}
                 isError={isError}

@@ -29,7 +29,7 @@ describe('SubmissionContainer', () => {
             const getSubmission = jest.fn();
             container.instance().getSubmission = getSubmission;
             const newProps = { ...container.instance().props };
-            newProps.params.type = 'generateEF';
+            newProps.computedMatch.params.type = 'generateEF';
             container.setProps({ ...newProps });
             container.instance().componentDidMount();
             expect(getSubmission).toHaveBeenCalledWith('generateEF');
@@ -40,8 +40,10 @@ describe('SubmissionContainer', () => {
             const getSubmission = jest.fn();
             container.instance().getSubmission = getSubmission;
             const newProps = {
-                params: {
-                    submissionID: "20"
+                computedMatch: {
+                    params: {
+                        submissionID: "20"
+                    }
                 }
             };
             container.instance().componentDidUpdate(newProps);
@@ -54,9 +56,11 @@ describe('SubmissionContainer', () => {
             container.instance().validateCurrentStepAndRouteType = validateCurrentStepAndRouteType;
             container.instance().setStepAndRoute = setStepAndRoute;
             const newProps = {
-                params: {
-                    submissionID: "2054",
-                    type: 'generateFiles'
+                computedMatch: {
+                    params: {
+                        submissionID: "2054",
+                        type: 'generateFiles'
+                    }
                 }
             };
             container.instance().componentDidUpdate(newProps);
@@ -89,7 +93,7 @@ describe('SubmissionContainer', () => {
             newState.completedSteps[0] = true;
             container.instance().setState(newState);
             const newProps = { ...container.instance().props };
-            newProps.params.type = 'validateData';
+            newProps.computedMatch.params.type = 'validateData';
             container.setProps({ ...newProps });
             const allow = container.instance().validateCurrentStepAndRouteType(1);
             expect(allow).toEqual(1);
@@ -98,7 +102,7 @@ describe('SubmissionContainer', () => {
             const newState = { ...originalState }; // make a copy of the original state
             newState.completedSteps[0] = true;
             const newProps = { ...container.instance().props };
-            newProps.params.type = 'generateEF';
+            newProps.computedMatch.params.type = 'generateEF';
             container.instance().setState(newState);
             container.setProps({ ...newProps });
             const doNotAllow = container.instance().validateCurrentStepAndRouteType(0);
@@ -110,7 +114,7 @@ describe('SubmissionContainer', () => {
             newState.originalStep = 4;
             container.instance().setState({ ...newState });
             const newProps = { ...container.instance().props };
-            newProps.params.type = 'generateEF';
+            newProps.computedMatch.params.type = 'generateEF';
             container.setProps({ ...newProps });
             const newIndex = container.instance().validateCurrentStepAndRouteType(4);
             expect(newIndex).toEqual(3);
@@ -118,7 +122,7 @@ describe('SubmissionContainer', () => {
         it('should just return the current step number if routes are the same', () => {
             const newProps = { ...container.instance().props };
             const newState = { ...container.instance().state };
-            newProps.params.type = 'generateEF';
+            newProps.computedMatch.params.type = 'generateEF';
             newState.step = 3;
             newState.originalStep = 3;
             container.instance().setState({ ...newState });
@@ -143,22 +147,9 @@ describe('SubmissionContainer', () => {
         });
     });
 
-    // TODO - get this working
-    it('updateRoute, should update the route based on the current step', async () => {
-        const props = {
-            params: {
-                submissionID: "2054"
-            },
-            routeParams: {
-                submissionID: "2054"
-            },
-            history: {
-                replace: jest.fn()
-            }
-        };
-        container = shallow(<SubmissionContainer {...props} />);
+    it('updateRoute, should update the state', async () => {
         container.instance().updateRoute();
-        expect(props.history.replace).toHaveBeenCalled();
+        expect(mockProps.history.push).toHaveBeenCalled();
     });
     describe('nextStep', () => {
         it('should update state and call update route', () => {
