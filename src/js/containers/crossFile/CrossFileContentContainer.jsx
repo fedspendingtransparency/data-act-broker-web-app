@@ -7,15 +7,15 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
+import { Redirect } from 'react-router-dom';
 
-import * as uploadActions from '../../redux/actions/uploadActions';
+import * as uploadActions from 'redux/actions/uploadActions';
+import * as UploadHelper from 'helpers/uploadHelper';
+import * as ReviewHelper from 'helpers/reviewHelper';
+import CrossFileContent from 'components/crossFile/CrossFileContent';
+import PublishedSubmissionWarningBanner from 'components/SharedComponents/PublishedSubmissionWarningBanner';
+import Banner from 'components/SharedComponents/Banner';
 import { kGlobalConstants } from '../../GlobalConstants';
-import * as UploadHelper from '../../helpers/uploadHelper';
-import * as ReviewHelper from '../../helpers/reviewHelper';
-
-import CrossFileContent from '../../components/crossFile/CrossFileContent';
-import PublishedSubmissionWarningBanner from '../../components/SharedComponents/PublishedSubmissionWarningBanner';
-import Banner from '../../components/SharedComponents/Banner';
 
 const propTypes = {
     resetSubmission: PropTypes.func,
@@ -31,7 +31,7 @@ const defaultProps = {
     setCrossFile: () => {},
     setSubmissionState: () => {},
     submission: {},
-    submissionID: ""
+    submissionID: ''
 };
 
 const timerDuration = 10;
@@ -44,8 +44,13 @@ class CrossFileContentContainer extends React.Component {
         this.isUnmounted = false;
 
         this.state = {
-            agencyName: ""
+            agencyName: '',
+            toValidateData: false,
+            toGenerateFiles: false
         };
+
+        this.uploadFiles = this.uploadFiles.bind(this);
+        this.reloadData = this.reloadData.bind(this);
     }
 
     componentDidMount() {
@@ -131,10 +136,14 @@ class CrossFileContentContainer extends React.Component {
                         }
 
                         if (earlierErrors === 'validation') {
-                            this.props.history.push(`/submission/${this.props.submissionID}/validateData/`);
+                            this.setState({
+                                toValidateData: true
+                            });
                         }
                         else {
-                            this.props.history.push(`/submission/${this.props.submissionID}/generateFiles/`);
+                            this.setState({
+                                toGenerateFiles: true
+                            });
                         }
                     }
                 }
@@ -192,6 +201,14 @@ class CrossFileContentContainer extends React.Component {
     }
 
     render() {
+        if (this.state.toValidateData) {
+            return <Redirect to={`/submission/${this.props.submissionID}/validateData/`} />;
+        }
+
+        else if (this.state.toGenerateFiles) {
+            return <Redirect to={`/submission/${this.props.submissionID}/generateFiles/`} />;
+        }
+
         let warningMessage = null;
         if (this.props.submission.publishStatus !== "unpublished") {
             warningMessage = <PublishedSubmissionWarningBanner />;
@@ -203,8 +220,8 @@ class CrossFileContentContainer extends React.Component {
                 <Banner type="dabs" />
                 <CrossFileContent
                     {...this.props}
-                    uploadFiles={this.uploadFiles.bind(this)}
-                    reloadData={this.reloadData.bind(this)}
+                    uploadFiles={this.uploadFiles}
+                    reloadData={this.reloadData}
                     agencyName={this.state.agencyName} />
             </div>
         );
