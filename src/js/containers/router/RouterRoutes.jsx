@@ -5,7 +5,7 @@ import LoginPage from 'components/login/LoginPage';
 import AuthPage from 'components/login/AuthPage';
 import SubmissionGuideContainer from 'containers/addData/SubmissionGuideContainer';
 import AddDataPageContainer from 'containers/addData/AddDataPageContainer';
-import SubmissionsTablePage from 'containers/submissionsTable/SubmissionsTableContainer';
+import SubmissionsTablePage from 'components/submissionsTable/SubmissionsTablePage';
 import DetachedFileAContainer from 'containers/generateDetachedFiles/DetachedFileAContainer';
 import { SubmissionContainer } from 'containers/submission/SubmissionContainer';
 import HistoryContainer from 'containers/history/HistoryContainer';

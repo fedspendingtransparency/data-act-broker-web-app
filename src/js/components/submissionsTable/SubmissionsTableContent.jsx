@@ -15,7 +15,7 @@ const propTypes = {
     session: PropTypes.object,
     activeSubmissions: PropTypes.array,
     certifiedSubmissions: PropTypes.array,
-    type: PropTypes.string,
+    type: PropTypes.oneOf(['dabs', 'fabs']),
     activeTotal: PropTypes.number,
     certifiedTotal: PropTypes.number,
     activeLoading: PropTypes.bool,
