@@ -1,10 +1,17 @@
-#### December 2, 2019{section=changelog}
+#### December 16, 2019{section=changelog}
+In this release of the Broker, we:
+
+* Fiscal Year 2020 DABS Reporting Schedule published on Help page.
+* Users with DABS Read Only permissions are now able to generate detached File A and detached Files D1 and D2 from the Broker landing page for all agencies.  Read Only user will still not be able to generate D files within an agency submission.
+* Released the Agency Data Dashboard on DABS.  This is a new page that will allow users to graphically see data about historical agency submissions and allow them to filter results to help identify warning trends for their agency. 
+
+#### December 2, 2019
 In this release of the Broker, we:
 
 * Deployed updates to Error and Warning reports. Users will need to start a new submission or regenerate reports for existing submissions to see the new format.  See Technical Notes for summary of changes.
 * Updated documentation for the USPS zips table and ensured auto updates will take place at least monthly.
 
-#### November 18, 2019{section=changelog}
+#### November 18, 2019
 In this release of the Broker, we:
 
 * Fixed title header alignment on DATA Act Broker initial landing page
