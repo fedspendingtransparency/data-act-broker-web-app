@@ -6,6 +6,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import queryString from 'query-string';
 
 import * as HelpHelper from 'helpers/helpHelper';
 import Navbar from 'components/SharedComponents/navigation/NavigationComponent';
@@ -16,11 +17,13 @@ import HelpContent from './helpContent';
 import HelpNav from './helpNav';
 
 const propTypes = {
+    location: PropTypes.object,
     type: PropTypes.string,
     helpOnly: PropTypes.bool
 };
 
 const defaultProps = {
+    location: null,
     type: '',
     helpOnly: false
 };
@@ -78,6 +81,8 @@ export default class HelpPage extends React.Component {
     render() {
         const help = this.props.type === 'fabs' ? 'FABShelp' : 'help';
         const color = this.props.type === 'fabs' ? 'teal' : 'dark';
+        const queryParams = queryString.parse(this.props.location.search);
+        const { section } = queryParams;
         return (
             <div className="usa-da-help-style-page" name="top">
                 <div className="usa-da-page-content">
@@ -106,6 +111,7 @@ export default class HelpPage extends React.Component {
                             </div>
                             <div className="col-md-8">
                                 <HelpContent
+                                    section={section}
                                     helpOnly={this.props.helpOnly}
                                     changelog={this.state.changelog}
                                     technical={this.state.technical} />
