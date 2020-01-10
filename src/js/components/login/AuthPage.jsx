@@ -4,8 +4,8 @@
 */
 
 import React from 'react';
+import AuthContainer from 'containers/login/AuthContainer';
 import { kGlobalConstants } from '../../GlobalConstants';
-import AuthContainer from '../../containers/login/AuthContainer';
 import LoginWarningTxt from './LoginWarningTxt';
 import LoginIntro from './LoginIntro';
 import TestEnvironmentBanner from '../SharedComponents/banners/TestEnvironmentBanner';

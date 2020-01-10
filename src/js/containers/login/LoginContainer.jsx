@@ -8,12 +8,11 @@ import PropTypes from 'prop-types';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 
+import * as LoginHelper from 'helpers/loginHelper';
+import LoginPanel from 'components/login/LoginPanel';
+import LoginMax from 'components/login/LoginMax';
+import * as sessionActions from 'redux/actions/sessionActions';
 import { kGlobalConstants } from '../../GlobalConstants';
-import LoginPanel from '../../components/login/LoginPanel';
-import LoginMax from '../../components/login/LoginMax';
-import * as sessionActions from '../../redux/actions/sessionActions';
-
-import * as LoginHelper from '../../helpers/loginHelper';
 
 const propTypes = {
     location: PropTypes.object
@@ -29,7 +28,7 @@ class LoginContainer extends React.Component {
 
         this.state = {
             loading: false,
-            errorMessage: ""
+            errorMessage: ''
         };
     }
 
