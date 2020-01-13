@@ -5,7 +5,6 @@
 
 import React from 'react';
 import PropTypes from 'prop-types';
-import { hashHistory } from 'react-router';
 
 import Footer from '../SharedComponents/FooterComponent';
 import Navbar from '../SharedComponents/navigation/NavigationComponent';
@@ -18,7 +17,7 @@ const propTypes = {
     setSubmissionState: PropTypes.func,
     history: PropTypes.object,
     params: PropTypes.object,
-    route: PropTypes.object,
+    type: PropTypes.oneOf(['dabs', 'fabs']),
     submission: PropTypes.object
 };
 
@@ -27,7 +26,6 @@ const defaultProps = {
     setSubmissionState: () => {},
     history: {},
     params: {},
-    route: {},
     submission: {}
 };
 
@@ -47,7 +45,7 @@ export default class UploadFabsFilePage extends React.Component {
 
     validate(submissionID) {
         this.props.setSubmissionId(submissionID);
-        hashHistory.push(`/FABSaddData/${submissionID}`);
+        this.props.history.push(`/FABSaddData/${submissionID}`);
     }
 
     render() {
@@ -72,7 +70,7 @@ export default class UploadFabsFilePage extends React.Component {
                     <div className="usa-da-page-content">
                         <Navbar
                             activeTab="FABSAddData"
-                            type={this.props.route.type} />
+                            type={this.props.type} />
                         <div className="usa-da-upload-fabs-file-page">
                             <div className="usa-da-site_wrap">
                                 {content}

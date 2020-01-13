@@ -10,43 +10,24 @@ import LandingContentContainer from '../../containers/landing/LandingContentCont
 import Footer from '../SharedComponents/FooterComponent';
 
 const propTypes = {
-    route: PropTypes.object
+    type: PropTypes.oneOf(['home', 'fabs', 'dabs'])
 };
 
 const defaultProps = {
-    route: {}
+    type: 'home'
 };
 
 export default class LandingPage extends React.Component {
-    constructor(props) {
-        super(props);
-        this.state = {
-            type: this.props.route ? this.props.route.type : 'home'
-        };
-    }
-
-    componentWillReceiveProps(nextProps) {
-        let type = null;
-        if (nextProps.route && this.state.type !== nextProps.route.type) {
-            type = nextProps.route.type;
-        }
-        if (type && type !== this.state.type) {
-            this.setState({
-                type
-            });
-        }
-    }
-
     render() {
-        const activeTab = this.state.type === 'fabs' ? 'FABSlanding' : 'landing';
+        const activeTab = this.props.type === 'fabs' ? 'FABSlanding' : 'landing';
 
         return (
             <div>
                 <div className="usa-da-site_wrap">
                     <div className="usa-da-landing-page">
                         <div className="usa-da-page-content">
-                            <Navbar activeTab={activeTab} type={this.state.type} />
-                            <LandingContentContainer type={this.state.type} />
+                            <Navbar activeTab={activeTab} type={this.props.type} />
+                            <LandingContentContainer type={this.props.type} />
                         </div>
                     </div>
                 </div>

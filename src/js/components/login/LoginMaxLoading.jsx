@@ -1,11 +1,11 @@
 /**
   * LoginMaxLoading.jsx
-  * Createdd by Kevin Li 10/14/16
+  * Created by Kevin Li 10/14/16
   */
 
 import React from 'react';
 import PropTypes from 'prop-types';
-import LoginMaxErrorMessage from './components/LoginMaxErrorMessage';
+import LoginMaxErrorMessage from './LoginMaxErrorMessage';
 import LoadingBauble from '../SharedComponents/overlays/LoadingBauble';
 
 const propTypes = {
@@ -25,7 +25,7 @@ export default class LoginMaxLoading extends React.Component {
         let hideLoading = '';
         let hideError = ' hide';
 
-        if (this.props.errorMessage && this.props.errorMessage !== "") {
+        if (this.props.errorMessage) {
             errorMessageComponent = <LoginMaxErrorMessage message={this.props.errorMessage} url={maxUrl} />;
             hideLoading = ' hide';
             hideError = '';

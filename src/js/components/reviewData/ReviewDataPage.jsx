@@ -15,14 +15,12 @@ import PublishedSubmissionWarningBanner from '../../components/SharedComponents/
 const propTypes = {
     data: PropTypes.object,
     params: PropTypes.object,
-    route: PropTypes.object,
     submission: PropTypes.object
 };
 
 const defaultProps = {
     data: null,
     params: null,
-    route: null,
     submission: null
 };
 

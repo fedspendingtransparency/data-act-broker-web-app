@@ -7,11 +7,12 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
-import { hashHistory } from 'react-router';
+import queryString from 'query-string';
 
 import SubmissionGuidePage from 'components/addData/SubmissionGuidePage';
 import * as sessionActions from 'redux/actions/sessionActions';
 import { setSkipGuide } from 'helpers/submissionGuideHelper';
+import { Redirect } from 'react-router-dom';
 
 const propTypes = {
     setSkipGuide: PropTypes.func,
@@ -26,9 +27,18 @@ const defaultProps = {
 };
 
 class SubmissionGuideContainer extends React.Component {
+    constructor(props) {
+        super(props);
+
+        this.state = {
+            toAddData: false
+        };
+
+        this.saveSkipGuide = this.saveSkipGuide.bind(this);
+    }
     componentDidMount() {
-        const forceDisplay = (Object.prototype.hasOwnProperty.call(this.props.location.query, 'force') &&
-            this.props.location.query.force === 'true');
+        const queryParams = queryString.parse(this.props.location.search);
+        const forceDisplay = queryParams.force;
 
         if (this.props.session.skipGuide && !forceDisplay) {
             this.sendToAddData();
@@ -49,12 +59,17 @@ class SubmissionGuideContainer extends React.Component {
     }
 
     sendToAddData() {
-        hashHistory.push('/addData/');
+        this.setState({
+            toAddData: true
+        });
     }
 
     render() {
+        if (this.state.toAddData) {
+            return <Redirect to="/addData/" />;
+        }
         return (
-            <SubmissionGuidePage {...this.props} saveSkipGuide={this.saveSkipGuide.bind(this)} />
+            <SubmissionGuidePage {...this.props} saveSkipGuide={this.saveSkipGuide} />
         );
     }
 }
