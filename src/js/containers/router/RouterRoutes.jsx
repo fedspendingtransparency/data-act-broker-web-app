@@ -23,11 +23,10 @@ const checkHelpUserPermissions = (session) => {
 };
 
 export const checkUserPermissions = (session) => {
-    if (session.user.helpOnly) {
-        // if no permissions or attempting to reach DABS with improper permissions, bounce to help
-        return false;
+    if (session.login === "loggedIn" && !session.user.helpOnly) {
+        return true;
     }
-    return true;
+    return false;
 };
 
 const checkDabsUploadPermissions = (session) => {
