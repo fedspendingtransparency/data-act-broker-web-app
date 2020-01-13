@@ -17,6 +17,7 @@ module.exports = {
         "^(data-transparency-ui)$": "<rootDir>/node_modules/data-transparency-ui",
         "\\.(css|less|scss)$": "identity-obj-proxy"
     },
+    setupFilesAfterEnv: ["<rootDir>/tests/setup.js"],
     transform: {
         "^.+\\.jsx$|js$": "babel-jest"
     },
