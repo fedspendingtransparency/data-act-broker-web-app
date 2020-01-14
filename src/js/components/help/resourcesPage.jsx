@@ -5,43 +5,25 @@
 
 import React from 'react';
 import PropTypes from 'prop-types';
-import Navbar from '../SharedComponents/navigation/NavigationComponent';
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+
+import Navbar from 'components/SharedComponents/navigation/NavigationComponent';
+import Banner from 'components/SharedComponents/Banner';
+import Footer from 'components/SharedComponents/FooterComponent';
 import HelpNav from './helpNav';
 import ResourcesContent from './resourcesContent';
-import Banner from '../SharedComponents/Banner';
-import Footer from '../SharedComponents/FooterComponent';
-
-import * as Icons from '../SharedComponents/icons/Icons';
 
 const propTypes = {
-    route: PropTypes.object,
-    type: PropTypes.string,
+    type: PropTypes.oneOf(['dabs', 'fabs']),
     helpOnly: PropTypes.bool
 };
 
 const defaultProps = {
-    route: null,
     type: '',
     helpOnly: false
 };
 
 export default class ResourcesPage extends React.Component {
-    constructor(props) {
-        super(props);
-
-        this.state = {
-            type: props.route.type
-        };
-    }
-
-    componentWillReceiveProps(nextProps) {
-        if (nextProps.route.type !== this.state.type) {
-            this.setState({
-                type: nextProps.route.type
-            });
-        }
-    }
-
     scrollToTop() {
         window.scrollTo({
             top: 0,
@@ -51,7 +33,7 @@ export default class ResourcesPage extends React.Component {
 
     render() {
         const activeTab = this.props.type === 'fabs' ? 'FABSHelp' : 'help';
-        const color = this.state.type === 'fabs' ? 'teal' : 'dark';
+        const color = this.props.type === 'fabs' ? 'teal' : 'dark';
         return (
             <div className="usa-da-help-style-page" name="top">
                 <div className="usa-da-page-content">
@@ -72,7 +54,7 @@ export default class ResourcesPage extends React.Component {
                     <div className="container">
                         <div className="row usa-da-help-page">
                             <div className="col-md-12">
-                                <ResourcesContent type={this.state.type} />
+                                <ResourcesContent type={this.props.type} />
                             </div>
                         </div>
                     </div>
@@ -83,7 +65,7 @@ export default class ResourcesPage extends React.Component {
                         onClick={this.scrollToTop}
                         aria-label="Back to top">
                         <div className="usa-da-icon">
-                            <Icons.AngleUp alt="Arrow pointing up" />
+                            <FontAwesomeIcon icon="angle-up" size="lg" />
                         </div>
                         <span className="hidden-label">Back to top</span>
                     </button>

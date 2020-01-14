@@ -4,6 +4,7 @@ import "babel-polyfill";
 import { library } from "@fortawesome/fontawesome-svg-core";
 import {
     faAngleDown,
+    faAngleUp,
     faAngleLeft,
     faAngleRight,
     faArrowCircleLeft,
@@ -27,6 +28,7 @@ import AppContainer from './containers/AppContainer';
 
 library.add(
     faAngleDown,
+    faAngleUp,
     faAngleLeft,
     faAngleRight,
     faArrowCircleLeft,

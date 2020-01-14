@@ -17,8 +17,10 @@ describe('UploadFabsFilePage', () => {
                 setSubmissionId: jest.fn(() => {}),
                 setSubmissionState: jest.fn(() => {}),
                 history: {},
-                params: {
-                    submissionID: '4321'
+                computedMatch: {
+                    params: {
+                        submissionID: '4321'
+                    }
                 },
                 route: {},
                 submission: {}

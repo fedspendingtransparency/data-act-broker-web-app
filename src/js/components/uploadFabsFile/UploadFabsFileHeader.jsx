@@ -3,8 +3,9 @@
 * Created by Alisa Burdeyny
 */
 
-import React, { PropTypes } from "react";
-import moment from "moment";
+import React from 'react';
+import PropTypes from 'prop-types';
+import moment from 'moment';
 
 const propTypes = {
     details: PropTypes.object

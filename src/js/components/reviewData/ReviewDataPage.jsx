@@ -6,30 +6,26 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import Banner from 'components/SharedComponents/Banner';
-import Footer from '../SharedComponents/FooterComponent';
-
+import Footer from 'components/SharedComponents/FooterComponent';
+import PublishedSubmissionWarningBanner from 'components/SharedComponents/PublishedSubmissionWarningBanner';
 import ReviewDataContent from './ReviewDataContent';
 import ReviewLoading from './ReviewLoading';
-import PublishedSubmissionWarningBanner from '../../components/SharedComponents/PublishedSubmissionWarningBanner';
 
 const propTypes = {
     data: PropTypes.object,
-    params: PropTypes.object,
-    route: PropTypes.object,
+    submissionID: PropTypes.string,
     submission: PropTypes.object
 };
 
 const defaultProps = {
     data: null,
-    params: null,
-    route: null,
     submission: null
 };
 
 export default class ReviewDataPage extends React.Component {
     render() {
         let currentComponent;
-        const submissionID = this.props.params.submissionID;
+        const { submissionID } = this.props;
 
         if (!this.props.data.ready) {
             currentComponent = <ReviewLoading />;

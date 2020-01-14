@@ -8,30 +8,16 @@ import PropTypes from 'prop-types';
 import $ from 'jquery';
 
 const propTypes = {
-    section: PropTypes.object,
     type: PropTypes.string
 };
 
 const defaultProps = {
-    section: null,
     type: ''
 };
 
 export default class ResourcesContent extends React.Component {
     componentDidMount() {
         this.scrollToTop();
-    }
-
-    componentDidUpdate() {
-        this.scrollToSection();
-    }
-
-    scrollToSection() {
-        if (this.props.section && $(`[name=${this.props.section}]`).length > 0) {
-            $('html, body').animate({
-                scrollTop: $(`[name=${this.props.section}]`).offset().top
-            }, 500);
-        }
     }
 
     scrollToTop() {

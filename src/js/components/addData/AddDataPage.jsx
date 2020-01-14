@@ -5,23 +5,21 @@
 
 import React from 'react';
 import PropTypes from 'prop-types';
-import Navbar from '../SharedComponents/navigation/NavigationComponent';
+import AddDataContainer from 'containers/addData/AddDataContainer';
+import Footer from 'components/SharedComponents/FooterComponent';
+import Navbar from 'components/SharedComponents/navigation/NavigationComponent';
+import Banner from 'components/SharedComponents/Banner';
 import AddDataHeader from './AddDataHeader';
 import AddDataMeta from './AddDataMeta';
-import AddDataContainer from '../../containers/addData/AddDataContainer';
-import Footer from '../SharedComponents/FooterComponent';
-
-import Banner from '../SharedComponents/Banner';
 
 const propTypes = {
     updateMetaData: PropTypes.func,
-    route: PropTypes.object,
+    type: PropTypes.oneOf(['dabs', 'fabs']),
     submission: PropTypes.object
 };
 
 const defaultProps = {
     updateMetaData: null,
-    route: null,
     submission: null
 };
 
@@ -29,7 +27,7 @@ export default class AddDataPage extends React.Component {
     render() {
         let bodyComponent = null;
 
-        if (this.props.submission.meta.agency === "") {
+        if (!this.props.submission.meta.agency) {
             bodyComponent = <AddDataMeta updateMetaData={this.props.updateMetaData} />;
         }
         else {
@@ -39,7 +37,7 @@ export default class AddDataPage extends React.Component {
         return (
             <div className="usa-da-add-data-page">
                 <div className="usa-da-site_wrap">
-                    <Navbar activeTab="submissionGuide" type={this.props.route.type} />
+                    <Navbar activeTab="submissionGuide" type={this.props.type} />
                     <AddDataHeader />
                     <Banner type="dabs" />
                     {bodyComponent}

@@ -4,13 +4,16 @@
   */
 
 import React from 'react';
-import { hashHistory } from 'react-router';
+import PropTypes from 'prop-types';
 import _ from 'lodash';
 import Cookies from 'js-cookie';
 
-import LoginMaxLoading from '../../components/login/LoginMaxLoading';
+import * as LoginHelper from 'helpers/loginHelper';
+import LoginMaxLoading from 'components/login/LoginMaxLoading';
 
-import * as LoginHelper from '../../helpers/loginHelper';
+const propTypes = {
+    history: PropTypes.object
+};
 
 export default class AuthContainer extends React.Component {
     constructor(props) {
@@ -65,7 +68,7 @@ export default class AuthContainer extends React.Component {
                         if (data.helpOnly) {
                             destination = '/help';
                         }
-                        hashHistory.push(destination);
+                        this.props.history.push(destination);
                     })
                     .catch((err) => {
                         // something went wrong (or API passed back an error status and message)
@@ -92,7 +95,7 @@ export default class AuthContainer extends React.Component {
         }
         else {
             // no ticket found, toss back to login page
-            hashHistory.push('/login');
+            this.props.history.push('/login');
 
             // remove any redirection cookies
             Cookies.remove('brokerRedirect');
@@ -107,3 +110,5 @@ export default class AuthContainer extends React.Component {
         );
     }
 }
+
+AuthContainer.propTypes = propTypes;
