@@ -5,15 +5,15 @@
 
 import React from 'react';
 import PropTypes from 'prop-types';
-import FileProgress from '../SharedComponents/FileProgress';
+import { validUploadFileChecker, createOnKeyDownHandler } from 'helpers/util';
+import * as GenerateFilesHelper from 'helpers/generateFilesHelper';
+import FileProgress from 'components/SharedComponents/FileProgress';
+import * as Icons from 'components/SharedComponents/icons/Icons';
+import * as PermissionsHelper from 'helpers/permissionsHelper';
 import ValidateDataErrorReport from './ValidateDataErrorReport';
 import ValidateDataUploadButton from './ValidateDataUploadButton';
-import * as Icons from '../SharedComponents/icons/Icons';
-import * as PermissionsHelper from '../../helpers/permissionsHelper';
-import * as GenerateFilesHelper from '../../helpers/generateFilesHelper';
-
 import UploadFabsFileError from '../uploadFabsFile/UploadFabsFileError';
-import { validUploadFileChecker, createOnKeyDownHandler } from '../../helpers/util';
+
 
 const propTypes = {
     onFileChange: PropTypes.func,
@@ -61,11 +61,11 @@ export default class ValidateDataFileComponent extends React.Component {
         this.determineErrors(this.props.item);
     }
 
-    componentWillReceiveProps(nextProps) {
-        this.determineErrors(nextProps.item);
+    componentDidUpdate(prevProps) {
+        this.determineErrors(this.props.item);
 
-        if ((this.props.submission.state === 'uploading' || this.props.submission.state === 'prepare') &&
-            nextProps.submission.state === 'review') {
+        if ((prevProps.submission.state === 'uploading' || prevProps.submission.state === 'prepare') &&
+            this.props.submission.state === 'review') {
             // we've finished uploading files, close any open error reports
             if (this.state.showError && !this.isUnmounted) {
                 this.setState({

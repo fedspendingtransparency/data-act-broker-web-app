@@ -46,7 +46,7 @@ export default class HistoryPage extends React.Component {
         this.loadTechnical();
     }
 
-    componentWillReceiveProps() {
+    componentDidUpdate() {
         if (!this.isUnmounted && this.props.history) {
             this.loadChangelog();
             this.loadTechnical();

@@ -62,8 +62,8 @@ export default class ValidateValuesFileComponent extends React.Component {
         this.determineErrors(this.props.item);
     }
 
-    componentWillReceiveProps(nextProps) {
-        this.determineErrors(nextProps.item);
+    componentDidUpdate() {
+        this.determineErrors(this.props.item);
     }
 
     componentWillUnmount() {
