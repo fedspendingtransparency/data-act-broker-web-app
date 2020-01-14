@@ -68,9 +68,7 @@ export default class ValidateDataFileComponent extends React.Component {
             this.props.submission.state === 'review') {
             // we've finished uploading files, close any open error reports
             if (this.state.showError && !this.isUnmounted) {
-                this.setState({
-                    showError: false
-                });
+                this.clearError();
             }
         }
     }
@@ -92,6 +90,12 @@ export default class ValidateDataFileComponent extends React.Component {
     isReplacingFile() {
         // check if the user is trying to replace a file
         return (Object.prototype.hasOwnProperty.call(this.props.submission.files, this.props.type.requestName));
+    }
+
+    clearError() {
+        this.setState({
+            showError: false
+        });
     }
 
     determineErrors(item) {
