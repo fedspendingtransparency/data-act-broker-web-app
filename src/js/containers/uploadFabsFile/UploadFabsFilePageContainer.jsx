@@ -4,11 +4,21 @@
 */
 
 import React from 'react';
+import PropTypes from 'prop-types';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 
-import * as uploadActions from '../../redux/actions/uploadActions';
-import UploadFabsFilePage from '../../components/uploadFabsFile/UploadFabsFilePage';
+import * as uploadActions from 'redux/actions/uploadActions';
+import UploadFabsFilePage from 'components/uploadFabsFile/UploadFabsFilePage';
+
+const propTypes = {
+    setSubmissionId: PropTypes.func,
+    setSubmissionState: PropTypes.func,
+    history: PropTypes.object,
+    computedMatch: PropTypes.object,
+    type: PropTypes.oneOf(['dabs', 'fabs']),
+    submission: PropTypes.object
+};
 
 class UploadFabsFilePageContainer extends React.Component {
     render() {
@@ -17,6 +27,8 @@ class UploadFabsFilePageContainer extends React.Component {
         );
     }
 }
+
+UploadFabsFilePageContainer.propTypes = propTypes;
 
 export default connect(
     (state) => ({ submission: state.submission }),
