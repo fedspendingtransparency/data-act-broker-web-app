@@ -5,6 +5,7 @@
 
 import React from 'react';
 import PropTypes from 'prop-types';
+import { isEqual } from 'lodash';
 import { validUploadFileChecker, createOnKeyDownHandler } from 'helpers/util';
 import * as GenerateFilesHelper from 'helpers/generateFilesHelper';
 import FileProgress from 'components/SharedComponents/FileProgress';
@@ -39,8 +40,6 @@ export default class ValidateDataFileComponent extends React.Component {
     constructor(props) {
         super(props);
 
-        this.isUnmounted = false;
-
         this.state = {
             showError: false,
             headerTitle: 'Validating...',
@@ -52,35 +51,31 @@ export default class ValidateDataFileComponent extends React.Component {
             error: null,
             canDownload: false
         };
+
         this.toggleErrorReport = this.toggleErrorReport.bind(this);
         this.clickedReport = this.clickedReport.bind(this);
     }
 
     componentDidMount() {
-        this.isUnmounted = false;
         this.determineErrors(this.props.item);
     }
 
     componentDidUpdate(prevProps) {
-        this.determineErrors(this.props.item);
+        if (!isEqual(this.props.item, prevProps.item)) {
+            this.determineErrors(this.props.item);
+        }
 
         if ((prevProps.submission.state === 'uploading' || prevProps.submission.state === 'prepare') &&
             this.props.submission.state === 'review') {
             // we've finished uploading files, close any open error reports
-            if (this.state.showError && !this.isUnmounted) {
+            if (this.state.showError) {
                 this.clearError();
             }
         }
     }
 
-    componentWillUnmount() {
-        this.isUnmounted = true;
-    }
-
     toggleErrorReport() {
-        if (!this.isUnmounted) {
-            this.setState({ showError: !this.state.showError });
-        }
+        this.setState({ showError: !this.state.showError });
     }
 
     isFileReady() {
@@ -182,7 +177,7 @@ export default class ValidateDataFileComponent extends React.Component {
         }
 
         // check if file is still validating
-        if (item.file_status === 'incomplete' || !this.isFileReady) {
+        if (item.file_status === 'incomplete' || !this.isFileReady()) {
             headerTitle = 'Validating...';
             hasErrorReport = false;
             isError = false;
@@ -193,15 +188,13 @@ export default class ValidateDataFileComponent extends React.Component {
             headerTitle = 'Publishing...';
         }
 
-        if (!this.isUnmounted) {
-            this.setState({
-                headerTitle,
-                errorReports: errorData,
-                hasErrorReport,
-                isError,
-                canDownload
-            });
-        }
+        this.setState({
+            headerTitle,
+            errorReports: errorData,
+            hasErrorReport,
+            isError,
+            canDownload
+        });
     }
 
     displayFileMeta() {
@@ -350,7 +343,6 @@ export default class ValidateDataFileComponent extends React.Component {
         let uploadProgress = '';
         let fileName = this.props.item.filename;
 
-        let clickDownload = null;
         let clickDownloadOnKeyDownHandler = null;
         let clickDownloadClass = '';
 
@@ -368,7 +360,6 @@ export default class ValidateDataFileComponent extends React.Component {
         }
         else if (this.state.canDownload) {
             // no parsing errors and not a new file
-            clickDownload = this.clickedReport.bind(this, this.props.item);
             clickDownloadOnKeyDownHandler = createOnKeyDownHandler(this.clickedReport, [this.props.item]);
             clickDownloadClass = 'file-download';
         }
@@ -382,10 +373,9 @@ export default class ValidateDataFileComponent extends React.Component {
             disabledCorrect = ' hide';
         }
 
-        let errorMessage = null;
-        if (this.state.error) {
-            errorMessage = <UploadFabsFileError error={this.state.error} />;
-        }
+        const errorMessage = this.state.error ? (<UploadFabsFileError error={this.state.error} />) : null;
+
+        const { size, rows } = this.displayFileMeta();
 
         return (
             <div
@@ -400,12 +390,10 @@ export default class ValidateDataFileComponent extends React.Component {
                                     <h4>{this.props.type.fileTitle}</h4>
                                 </div>
                                 <div className="col-md-2">
-                                    <p>File Size: {this.displayFileMeta().size}</p>
+                                    <p>File Size: {size}</p>
                                 </div>
                                 <div className="col-md-4">
-                                    <p className="pr-20">Data Rows in File (excludes header): {
-                                        this.displayFileMeta().rows}
-                                    </p>
+                                    <p className="pr-20">Data Rows in File (excludes header): {rows}</p>
                                 </div>
                             </div>
                             <div className="row usa-da-validate-item-body">
@@ -446,7 +434,7 @@ export default class ValidateDataFileComponent extends React.Component {
                                         tabIndex={0}
                                         className={clickDownloadClass}
                                         onKeyDown={clickDownloadOnKeyDownHandler}
-                                        onClick={clickDownload}
+                                        onClick={this.clickedReport}
                                         download={fileName}
                                         rel="noopener noreferrer">
                                         {fileName}

@@ -8,9 +8,8 @@ import PropTypes from 'prop-types';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 
-import * as uploadActions from '../../redux/actions/uploadActions';
-
-import ValidateDataFileComponent from '../../components/validateData/ValidateDataFileComponent';
+import * as uploadActions from 'redux/actions/uploadActions';
+import ValidateDataFileComponent from 'components/validateData/ValidateDataFileComponent';
 
 const propTypes = {
     updateItem: PropTypes.func,
@@ -29,6 +28,13 @@ const defaultProps = {
 };
 
 class ValidateDataFileContainer extends React.Component {
+    constructor(props) {
+        super(props);
+
+        this.selectedFile = this.selectedFile.bind(this);
+        this.removeFile = this.removeFile.bind(this);
+    }
+
     selectedFile(file) {
         this.props.setUploadItem({
             name: this.props.type.requestName,
@@ -49,8 +55,8 @@ class ValidateDataFileContainer extends React.Component {
             <ValidateDataFileComponent
                 {...this.props}
                 item={this.props.data[this.props.type.requestName]}
-                onFileChange={this.selectedFile.bind(this)}
-                removeFile={this.removeFile.bind(this)} />
+                onFileChange={this.selectedFile}
+                removeFile={this.removeFile} />
         );
     }
 }
