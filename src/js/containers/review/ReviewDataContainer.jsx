@@ -7,17 +7,12 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
-import * as ReviewHelper from '../../helpers/reviewHelper';
-
-import ReviewDataPage from '../../components/reviewData/ReviewDataPage';
+import * as ReviewHelper from 'helpers/reviewHelper';
+import ReviewDataPage from 'components/reviewData/ReviewDataPage';
 
 const propTypes = {
-    params: PropTypes.object,
+    submissionID: PropTypes.string,
     errorFromStep: PropTypes.func
-};
-
-const defaultProps = {
-    params: {}
 };
 
 class ReviewDataContainer extends React.Component {
@@ -47,7 +42,7 @@ class ReviewDataContainer extends React.Component {
     }
 
     componentDidUpdate(prevProps) {
-        if (this.props.params.submissionID !== prevProps.params.submissionID) {
+        if (this.props.submissionID !== prevProps.submissionID) {
             // URL submission ID changed, reload
             this.loadData();
         }
@@ -55,17 +50,17 @@ class ReviewDataContainer extends React.Component {
 
     loadData() {
         let submissionData = {};
-
-        ReviewHelper.fetchSubmissionMetadata(this.props.params.submissionID, 'dabs')
+        const { submissionID } = this.props;
+        ReviewHelper.fetchSubmissionMetadata(submissionID, 'dabs')
             .then((data) => {
                 submissionData = data;
                 submissionData.ready = true;
 
-                return ReviewHelper.fetchSubmissionNarrative(this.props.params.submissionID);
+                return ReviewHelper.fetchSubmissionNarrative(submissionID);
             })
             .then((narrative) => {
                 submissionData.file_narrative = narrative;
-                return ReviewHelper.fetchObligations(this.props.params.submissionID);
+                return ReviewHelper.fetchObligations(submissionID);
             })
             .then((data) => {
                 submissionData.total_obligations = data.total_obligations;
@@ -104,7 +99,6 @@ class ReviewDataContainer extends React.Component {
 }
 
 ReviewDataContainer.propTypes = propTypes;
-ReviewDataContainer.defaultProps = defaultProps;
 
 const mapStateToProps = (state) => ({
     submission: state.submission,

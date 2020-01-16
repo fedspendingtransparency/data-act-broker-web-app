@@ -6,8 +6,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import Footer from '../SharedComponents/FooterComponent';
-import Navbar from '../SharedComponents/navigation/NavigationComponent';
+import Footer from 'components/SharedComponents/FooterComponent';
+import Navbar from 'components/SharedComponents/navigation/NavigationComponent';
 
 import UploadFabsFileMeta from './UploadFabsFileMeta';
 import UploadFabsFileValidation from './UploadFabsFileValidation';
@@ -16,7 +16,7 @@ const propTypes = {
     setSubmissionId: PropTypes.func,
     setSubmissionState: PropTypes.func,
     history: PropTypes.object,
-    params: PropTypes.object,
+    computedMatch: PropTypes.object,
     type: PropTypes.oneOf(['dabs', 'fabs']),
     submission: PropTypes.object
 };
@@ -25,7 +25,6 @@ const defaultProps = {
     setSubmissionId: () => {},
     setSubmissionState: () => {},
     history: {},
-    params: {},
     submission: {}
 };
 
@@ -37,8 +36,8 @@ export default class UploadFabsFilePage extends React.Component {
     }
 
     componentDidUpdate(prevProps) {
-        const { params } = this.props;
-        if (params.submissionID !== prevProps.params.submissionID) {
+        const { params } = this.props.computedMatch;
+        if (params.submissionID !== prevProps.computedMatch.params.submissionID) {
             this.props.setSubmissionId(params.submissionID);
         }
     }
@@ -50,7 +49,7 @@ export default class UploadFabsFilePage extends React.Component {
 
     render() {
         let content = null;
-        if (this.props.params.submissionID) {
+        if (this.props.computedMatch.params.submissionID) {
             content = (<UploadFabsFileValidation
                 {...this.props}
                 submission={this.props.submission}

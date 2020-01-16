@@ -18,14 +18,12 @@ import { formatSize } from '../../helpers/util';
 
 const propTypes = {
     data: PropTypes.object,
-    params: PropTypes.object,
     session: PropTypes.object,
     submissionID: PropTypes.string
 };
 
 const defaultProps = {
     data: null,
-    params: null,
     session: null,
     submissionID: ''
 };
@@ -223,7 +221,7 @@ export default class ReviewDataContent extends React.Component {
                         <div className="col-md-4" />
                         <ReviewDataNarrative
                             narrative={this.props.data.file_narrative}
-                            submissionID={this.props.params.submissionID} />
+                            submissionID={this.props.submissionID} />
                     </div>
                     <div className="mt-20 row submission-button-holder">
                         <div className="col-md-4" />
