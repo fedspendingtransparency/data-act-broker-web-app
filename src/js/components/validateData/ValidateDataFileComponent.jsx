@@ -289,23 +289,21 @@ export default class ValidateDataFileComponent extends React.Component {
         window.open(this.state.signedUrl);
     }
 
-    clickedReport(item) {
-        // check if the link is already signed
-        if (this.state.signInProgress) {
-            // sign is in progress, do nothing
-
-        }
-        else if (this.state.signedUrl !== '') {
-            // it is signed, open immediately
-            this.openReport();
-        }
-        else {
-            // not signed yet, sign
-            this.setState({
-                signInProgress: true
-            }, () => {
-                this.signReport(item);
-            });
+    clickedReport() {
+        if (this.state.canDownload && !this.state.signInProgress) {
+            // check if the link is already signed
+            if (this.state.signedUrl !== '') {
+                // it is signed, open immediately
+                this.openReport();
+            }
+            else {
+                // not signed yet, sign
+                this.setState({
+                    signInProgress: true
+                }, () => {
+                    this.signReport(this.props.item);
+                });
+            }
         }
     }
 
@@ -343,8 +341,8 @@ export default class ValidateDataFileComponent extends React.Component {
         let uploadProgress = '';
         let fileName = this.props.item.filename;
 
-        let clickDownloadOnKeyDownHandler = null;
-        let clickDownloadClass = '';
+        const clickDownloadOnKeyDownHandler = createOnKeyDownHandler(this.clickedReport);
+        const clickDownloadClass = this.state.canDownload ? 'file-download' : '';
 
 
         if (this.isReplacingFile()) {
@@ -357,11 +355,6 @@ export default class ValidateDataFileComponent extends React.Component {
             if (newFile.state === 'uploading') {
                 uploadProgress = <FileProgress fileStatus={newFile.progress} />;
             }
-        }
-        else if (this.state.canDownload) {
-            // no parsing errors and not a new file
-            clickDownloadOnKeyDownHandler = createOnKeyDownHandler(this.clickedReport, [this.props.item]);
-            clickDownloadClass = 'file-download';
         }
 
         if (this.props.type.requestName === 'fabs') {
