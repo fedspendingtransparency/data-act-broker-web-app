@@ -12,6 +12,9 @@
 	}
 
 	.display-2 {
+		@media(max-width: $small-screen) {
+			display: block;
+		}
 		@include display(flex);
 		@include align-items(center);
 		@include justify-content(space-between);
