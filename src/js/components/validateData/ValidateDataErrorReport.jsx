@@ -12,13 +12,13 @@ import * as ReviewHelper from '../../helpers/reviewHelper';
 import { createOnKeyDownHandler } from '../../helpers/util';
 
 const propTypes = {
-    data: PropTypes.object,
+    data: PropTypes.array,
     submission: PropTypes.string,
     type: PropTypes.string
 };
 
 const defaultProps = {
-    data: {},
+    data: [],
     submission: '',
     type: ''
 };

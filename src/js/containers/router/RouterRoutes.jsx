@@ -99,13 +99,13 @@ const getRoutes = () => {
             type: 'fabs'
         },
         {
-            path: '/submission/:submissionID',
+            path: '/submission/:submissionID/:type',
             authFn: checkUserPermissions,
             component: SubmissionContainer,
             type: 'dabs'
         },
         {
-            path: '/submission/:submissionID/:type',
+            path: '/submission/:submissionID',
             authFn: checkUserPermissions,
             component: SubmissionContainer,
             type: 'dabs'
