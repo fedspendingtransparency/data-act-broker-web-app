@@ -11,6 +11,12 @@
 		color: $color-white;
 	}
 
+	.display-2 {
+		@include display(flex);
+		@include align-items(center);
+		@include justify-content(space-between);
+	}
+
 	.usa-da-page-title {
 		* {
 			padding-left: 0;
