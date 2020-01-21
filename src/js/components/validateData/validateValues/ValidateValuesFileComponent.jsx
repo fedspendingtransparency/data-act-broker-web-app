@@ -59,6 +59,7 @@ export default class ValidateValuesFileComponent extends React.Component {
 
         this.clickedReport = this.clickedReport.bind(this);
         this.toggleWarningReport = this.toggleWarningReport.bind(this);
+        this.toggleErrorReport = this.toggleErrorReport.bind(this);
     }
 
     componentDidMount() {
