@@ -27,8 +27,7 @@ export default class UploadFabsFileError extends React.Component {
 
         this.state = {
             header: '',
-            message: '',
-            type: this.props.type
+            message: ''
         };
     }
 
@@ -36,19 +35,11 @@ export default class UploadFabsFileError extends React.Component {
         this.loadContent();
     }
 
-    componentWillReceiveProps(nextProps) {
-        if (nextProps.type !== this.state.type) {
-            this.setState({
-                type: this.state.type
-            });
-        }
-    }
-
     loadContent() {
         let header = '';
         let message = '';
 
-        if (this.state.type === 'success') {
+        if (this.props.type === 'success') {
             header = 'Your submission has been successfully published';
         }
         else if (this.props.error.header || this.props.error.description) {
@@ -86,7 +77,7 @@ export default class UploadFabsFileError extends React.Component {
         let icon = <Icons.ExclamationCircle />;
         let className = 'error';
 
-        if (this.state.type === 'success') {
+        if (this.props.type === 'success') {
             icon = <Icons.CheckCircle />;
             className = 'success';
         }

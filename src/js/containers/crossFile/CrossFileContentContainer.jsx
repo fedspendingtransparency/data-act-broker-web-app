@@ -60,9 +60,9 @@ class CrossFileContentContainer extends React.Component {
         this.startTimer();
     }
 
-    componentWillReceiveProps(nextProps) {
-        if (this.props.submissionID !== nextProps.submissionID) {
-            this.setAgencyName(nextProps);
+    componentDidUpdate(prevProps) {
+        if (this.props.submissionID !== prevProps.submissionID) {
+            this.setAgencyName(this.props);
         }
     }
 

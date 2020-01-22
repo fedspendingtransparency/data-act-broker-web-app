@@ -5,17 +5,17 @@
 
 import React from 'react';
 import PropTypes from 'prop-types';
-import FileProgress from '../../SharedComponents/FileProgress';
+import { isEqual } from 'lodash';
+import * as GenerateFilesHelper from 'helpers/generateFilesHelper';
+import * as PermissionsHelper from 'helpers/permissionsHelper';
+import { createOnKeyDownHandler } from 'helpers/util';
+import FileProgress from 'components/SharedComponents/FileProgress';
+import * as Icons from 'components/SharedComponents/icons/Icons';
 import ValidateDataUploadButton from './../ValidateDataUploadButton';
 import ValidateValuesErrorReport from './ValidateValuesErrorReport';
 import FileDetailBox from './ValidateValuesFileDetailBox';
 import CorrectButtonOverlay from '../CorrectButtonOverlay';
-import * as Icons from '../../SharedComponents/icons/Icons';
-import * as GenerateFilesHelper from '../../../helpers/generateFilesHelper';
-import * as PermissionsHelper from '../../../helpers/permissionsHelper';
-
 import UploadFabsFileError from '../../uploadFabsFile/UploadFabsFileError';
-import { createOnKeyDownHandler } from '../../../helpers/util';
 
 const propTypes = {
     onFileChange: PropTypes.func,
@@ -39,11 +39,12 @@ const defaultProps = {
     published: ""
 };
 
+const warningBaseColors = { base: '#fdb81e', active: '#FF6F00', activeBorder: '#BF360C' };
+const errorBaseColors = { base: '#5d87bb', active: '#02bfe7', activeBorder: '#046b99' };
+
 export default class ValidateValuesFileComponent extends React.Component {
     constructor(props) {
         super(props);
-
-        this.isUnmounted = false;
 
         this.state = {
             showWarning: false,
@@ -52,22 +53,40 @@ export default class ValidateValuesFileComponent extends React.Component {
             hasWarnings: false,
             signedUrl: '',
             signInProgress: false,
-            error: null
+            error: null,
+            permission: false
         };
+
+        this.clickedReport = this.clickedReport.bind(this);
+        this.toggleWarningReport = this.toggleWarningReport.bind(this);
+        this.toggleErrorReport = this.toggleErrorReport.bind(this);
     }
 
     componentDidMount() {
-        this.isUnmounted = false;
-
         this.determineErrors(this.props.item);
+        this.setPermission();
     }
 
-    componentWillReceiveProps(nextProps) {
-        this.determineErrors(nextProps.item);
+    componentDidUpdate(prevProps) {
+        if (!isEqual(prevProps.item, this.props.item)) {
+            this.determineErrors(this.props.item);
+        }
+        if (!isEqual(prevProps.type.requestName, this.props.type.requestName)) {
+            this.setPermission();
+        }
     }
 
-    componentWillUnmount() {
-        this.isUnmounted = true;
+    setPermission() {
+        let permission;
+        if (this.props.type.requestName === 'fabs') {
+            permission = PermissionsHelper.checkFabsAgencyPermissions(this.props.session, this.props.agencyName);
+        }
+        else {
+            permission = PermissionsHelper.checkAgencyPermissions(this.props.session, this.props.agencyName);
+        }
+        this.setState({
+            permission
+        });
     }
 
     toggleWarningReport() {
@@ -147,7 +166,7 @@ export default class ValidateValuesFileComponent extends React.Component {
         window.open(this.state.signedUrl);
     }
 
-    clickedReport(item) {
+    clickedReport() {
         // check if the link is already signed
         if (this.state.signInProgress) {
             // sign is in progress, do nothing
@@ -162,7 +181,7 @@ export default class ValidateValuesFileComponent extends React.Component {
             this.setState({
                 signInProgress: true
             }, () => {
-                this.signReport(item);
+                this.signReport(this.props.item);
             });
         }
     }
@@ -210,7 +229,7 @@ export default class ValidateValuesFileComponent extends React.Component {
 
     render() {
         // TODO Reduce # of lines inside render before the return, almost 100 lines!
-        const onKeyDownHandler = createOnKeyDownHandler(this.clickedReport.bind(this), [this.props.item]);
+        const onKeyDownHandler = createOnKeyDownHandler(this.clickedReport);
         // override data if a new file is dropped in
         let uploadProgress = '';
         let fileName = this.props.item.filename;
@@ -223,19 +242,11 @@ export default class ValidateValuesFileComponent extends React.Component {
             }
         }
 
-        let permission = false;
-        if (this.props.type.requestName === 'fabs') {
-            permission = PermissionsHelper.checkFabsAgencyPermissions(this.props.session, this.props.agencyName);
-        }
-        else {
-            permission = PermissionsHelper.checkAgencyPermissions(this.props.session, this.props.agencyName);
-        }
-
         let buttonOverlay = '';
         let validationElement = '';
         let isOptional = false;
         let uploadText = 'Choose Corrected File';
-        if ((this.props.published === 'unpublished' || !this.props.published) && permission) {
+        if ((this.props.published === 'unpublished' || !this.props.published) && this.state.permission) {
             // user has permissions and submission is not published
             if (this.state.hasErrors) {
                 // has errors
@@ -278,9 +289,6 @@ export default class ValidateValuesFileComponent extends React.Component {
             }
         }
 
-        const warningBaseColors = { base: '#fdb81e', active: '#FF6F00', activeBorder: '#BF360C' };
-        const errorBaseColors = { base: '#5d87bb', active: '#02bfe7', activeBorder: '#046b99' };
-
         const errorMessage = this.state.error ? <UploadFabsFileError error={this.state.error} /> : null;
         let warningSection = null;
         let errorSection = null;
@@ -305,6 +313,8 @@ export default class ValidateValuesFileComponent extends React.Component {
                 colors={errorBaseColors} />);
         }
 
+        const { size, rows } = this.displayFileMeta();
+
         return (
             <div
                 className="row center-block usa-da-validate-item"
@@ -318,10 +328,10 @@ export default class ValidateValuesFileComponent extends React.Component {
                                     <h4>{this.props.type.fileTitle}</h4>
                                 </div>
                                 <div className="col-md-2 text-right">
-                                    <p>File Size: {this.displayFileMeta().size}</p>
+                                    <p>File Size: {size}</p>
                                 </div>
                                 <div className="col-md-4 text-right">
-                                    <p>Data Rows in File (excludes header): {this.displayFileMeta().rows}</p>
+                                    <p>Data Rows in File (excludes header): {rows}</p>
                                 </div>
                             </div>
                             <div className="row">
@@ -330,13 +340,13 @@ export default class ValidateValuesFileComponent extends React.Component {
                                     label="Warnings"
                                     count={this.props.item.warning_count}
                                     expandedReport={this.state.showWarning}
-                                    onClick={this.toggleWarningReport.bind(this)} />
+                                    onClick={this.toggleWarningReport} />
                                 <FileDetailBox
                                     styleClass="usa-da-validate-item-critical"
                                     label="Critical Errors"
                                     count={this.props.item.error_count}
                                     expandedReport={this.state.showError}
-                                    onClick={this.toggleErrorReport.bind(this)} />
+                                    onClick={this.toggleErrorReport} />
                             </div>
                         </div>
 
@@ -355,7 +365,7 @@ export default class ValidateValuesFileComponent extends React.Component {
                                     tabIndex={0}
                                     className="file-download"
                                     onKeyDown={onKeyDownHandler}
-                                    onClick={this.clickedReport.bind(this, this.props.item)}
+                                    onClick={this.clickedReport}
                                     download={fileName}
                                     rel="noopener noreferrer">
                                     <p className="file-text-header">Original Submitted File:</p>

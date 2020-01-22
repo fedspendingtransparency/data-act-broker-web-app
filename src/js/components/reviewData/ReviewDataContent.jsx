@@ -149,8 +149,8 @@ export default class ReviewDataContent extends React.Component {
         let certifyButtonText = "You do not have permissions to certify";
         let revalidateButtonText = "You do not have permission to revalidate";
         let buttonClass = " btn-disabled";
-        let certifyButtonAction = "";
-        let revalidateButtonAction = "";
+        let certifyButtonAction;
+        let revalidateButtonAction;
         let monthlySubmissionError = null;
         // TODO: I don't think we ever actually have window data to gather, we should look into this
         const blockedWindow = this.windowBlocked();

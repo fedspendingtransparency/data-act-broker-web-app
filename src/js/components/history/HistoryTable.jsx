@@ -6,27 +6,20 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import * as SubmissionListHelper from '../../helpers/submissionListHelper';
-import * as UtilHelper from '../../helpers/util';
-import * as Icons from '../SharedComponents/icons/Icons';
+import * as SubmissionListHelper from 'helpers/submissionListHelper';
+import * as UtilHelper from 'helpers/util';
+import * as Icons from 'components/SharedComponents/icons/Icons';
 
 const propTypes = {
-    submissionID: PropTypes.string
-};
-
-const defaultProps = {
-    submissionID: ''
+    submissionID: PropTypes.string.isRequired
 };
 
 export default class HistoryTable extends React.Component {
     constructor(props) {
         super(props);
 
-        this.isUnmounted = true;
-
         this.state = {
             active: -1,
-            submission_id: this.props.submissionID,
             certifications: null,
             warning: {
                 active: false,
@@ -39,7 +32,7 @@ export default class HistoryTable extends React.Component {
     }
 
     componentDidMount() {
-        SubmissionListHelper.loadSubmissionHistory(this.props.submissionID)
+        SubmissionListHelper.loadSubmissionHistory(parseInt(this.props.submissionID, 10))
             .then((response) => {
                 const tmpResponse = response;
                 tmpResponse.active = 0;
@@ -48,11 +41,6 @@ export default class HistoryTable extends React.Component {
             .catch((err) => {
                 console.error(err);
             });
-        this.isUnmounted = false;
-    }
-
-    componentWillUnmount() {
-        this.isUnmounted = false;
     }
 
     setActiveSubmission(index) {
@@ -95,7 +83,7 @@ export default class HistoryTable extends React.Component {
     }
 
     activeList() {
-        if (this.isUnmounted && this.state.certifications[this.state.active].certified_files) {
+        if (this.state.certifications[this.state.active].certified_files) {
             return null;
         }
         const activeSubmissionsFiles = this.state.certifications[this.state.active].certified_files;
@@ -117,9 +105,6 @@ export default class HistoryTable extends React.Component {
     }
 
     certificationList() {
-        if (this.isUnmounted) {
-            return null;
-        }
         const list = [];
         const certifications = this.state.certifications;
         for (let i = 0; i < certifications.length; i++) {
@@ -198,4 +183,3 @@ export default class HistoryTable extends React.Component {
 }
 
 HistoryTable.propTypes = propTypes;
-HistoryTable.defaultProps = defaultProps;
