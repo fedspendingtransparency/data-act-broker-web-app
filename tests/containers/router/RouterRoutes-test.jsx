@@ -47,6 +47,41 @@ describe('RouterRoutes', () => {
             ];
             expect(paths).toEqual(expectedPaths);
         });
+        it('should correctly assign types to each route', () => {
+            const routes = new RouterRoutes();
+            const paths = [...routes.getRoutes().map(({ path, type }) => ({ path, type }))];
+            const expectedPaths = [
+                { path: '/login', type: undefined },
+                { path: '/auth', type: undefined },
+                { path: '/', type: 'home' },
+                { path: '/submissionGuide', type: 'dabs' },
+                { path: '/addData', type: 'dabs' },
+                { path: '/FABSaddData/:submissionID', type: 'fabs' },
+                { path: '/FABSaddData', type: 'fabs' },
+                { path: '/submission/:submissionID/:type', type: 'dabs' },
+                { path: '/submission/:submissionID', type: 'dabs' },
+                { path: '/submissionHistory/:submissionID', type: 'dabs' },
+                { path: '/generateDetachedFiles', type: 'dabs' },
+                { path: '/generateDetachedFileA', type: 'dabs' },
+                { path: '/dashboard', type: 'dabs' },
+                { path: '/landing', type: 'dabs' },
+                { path: '/FABSlanding', type: 'fabs' },
+                { path: '/submissionTable', type: 'dabs' },
+                { path: '/FABSsubmissionTable', type: 'fabs' },
+                { path: '/help', type: 'dabs' },
+                { path: '/FABShelp', type: 'fabs' },
+                { path: '/validations', type: 'dabs' },
+                { path: '/FABSvalidations', type: 'fabs' },
+                { path: '/resources', type: 'dabs' },
+                { path: '/FABSresources', type: 'fabs' },
+                { path: '/history', type: 'dabs' },
+                { path: '/FABShistory', type: 'fabs' },
+                { path: '/technicalHistory', type: 'dabs' },
+                { path: '/FABStechnicalHistory', type: 'fabs' },
+                { path: '*', type: undefined }
+            ];
+            expect(paths).toEqual(expectedPaths);
+        });
     });
     describe('checkHelpUserPermissions', () => {
         it('should return true if the user is logged in', () => {
