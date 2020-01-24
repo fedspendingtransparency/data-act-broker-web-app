@@ -41,7 +41,7 @@ const propTypes = {
     })
 };
 
-class ProtectedComponent extends React.Component {
+export class ProtectedComponent extends React.Component {
     constructor(props) {
         super(props);
         this.sessionChecker = null;

@@ -3,8 +3,7 @@
  * Created by Lizzie Salita 1/22/20
  */
 
-import RouterRoutes from 'containers/router/RouterRoutes';
-import {
+import RouterRoutes, {
     checkHelpUserPermissions,
     checkUserPermissions,
     checkDabsUploadPermissions,
