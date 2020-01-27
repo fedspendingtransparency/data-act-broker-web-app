@@ -15,7 +15,7 @@ import ErrorPage from 'components/error/ErrorPage';
 
 let instance = null;
 
-const checkHelpUserPermissions = (session) => {
+export const checkHelpUserPermissions = (session) => {
     if (session.login !== "loggedIn") {
         return false;
     }
@@ -29,7 +29,7 @@ export const checkUserPermissions = (session) => {
     return false;
 };
 
-const checkDabsUploadPermissions = (session) => {
+export const checkDabsUploadPermissions = (session) => {
     if (session.admin) {
         return true;
     }
@@ -42,7 +42,7 @@ const checkDabsUploadPermissions = (session) => {
     }, false);
 };
 
-const checkFabsUploadPermissions = (session) => {
+export const checkFabsUploadPermissions = (session) => {
     if (session.admin) {
         return true;
     }
