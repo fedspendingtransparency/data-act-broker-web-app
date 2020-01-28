@@ -1,25 +1,35 @@
 /**
-* RouterContainer.jsx
-* Created by Kevin Li 3/16/15
-*/
+ * RouterContainer.jsx
+ * Created by Kevin Li 3/16/15
+ */
 
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Router, hashHistory } from 'react-router';
+import { HashRouter as Router, Switch } from 'react-router-dom';
+import { createHashHistory } from 'history';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import ReactGA from 'react-ga';
 
 import { kGlobalConstants } from '../../GlobalConstants';
 import * as sessionActions from '../../redux/actions/sessionActions';
-import * as LoginHelper from '../../helpers/loginHelper';
 import RouterRoutes from './RouterRoutes';
+import ProtectedRoute from './ProtectedRoute';
 
 const GA_OPTIONS = { debug: false };
 const isProd = process.env.NODE_ENV === 'production';
 
 const propTypes = {
-    session: PropTypes.object
+    session: PropTypes.shape({
+        login: PropTypes.string,
+        user: PropTypes.shape({
+            affiliations: PropTypes.arrayOf(
+                PropTypes.shape({
+                    permission: PropTypes.string
+                })
+            )
+        })
+    })
 };
 
 const defaultProps = {
@@ -27,68 +37,34 @@ const defaultProps = {
 };
 
 const Routes = new RouterRoutes();
-
-let sessionChecker;
+const history = createHashHistory();
 
 class RouterContainer extends React.Component {
     componentDidMount() {
         if (isProd && kGlobalConstants.GA_TRACKING_ID !== '') {
             ReactGA.initialize(kGlobalConstants.GA_TRACKING_ID, GA_OPTIONS);
-        }
-    }
-
-    componentDidUpdate(prevProps) {
-        if (this.props.session.login !== prevProps.session.login) {
-            if (this.props.session.login === "loggedIn") {
-                // we've switched from either a logged out state to logged in or
-                // we've received session data back from the backend
-                // so we should auto-relogin
-                Routes.autoLogin(this.router.state.location);
-                this.monitorSession();
-            }
-            else if (this.props.session.login === "loggedOut" && prevProps.session.login === "loggedIn") {
-                this.logout();
-            }
-        }
-    }
-
-    logout() {
-        LoginHelper.performLogout()
-            .then(() => {
-                hashHistory.push('/login');
+            history.listen((location) => {
+                ReactGA.set({ page: location.pathname });
+                ReactGA.pageview(location.pathname);
             });
-    }
-
-    handleRouteChange() {
-        this.logPageView(window.location.hash);
-    }
-
-    logPageView(path) {
-        if (isProd && kGlobalConstants.GA_TRACKING_ID !== '') {
-            ReactGA.pageview(path);
         }
-    }
-
-    monitorSession() {
-        // start a timer to periodically check the user's session state every 15 minutes
-        sessionChecker = setInterval(() => {
-            LoginHelper.checkSession()
-                .catch(() => {
-                    // session expired, stop checking if it's active any more
-                    clearInterval(sessionChecker);
-                });
-        }, 15 * 60 * 1000);
     }
 
     render() {
         return (
-            <Router
-                routes={Routes.routes()}
-                history={hashHistory}
-                onUpdate={this.handleRouteChange.bind(this)}
-                ref={(c) => {
-                    this.router = c;
-                }} />
+            <Router>
+                <Switch>
+                    {[
+                        ...Routes.getRoutes().map((route) => (
+                            <ProtectedRoute
+                                key={route.path}
+                                {...route}
+                                history={history}
+                                session={this.props.session} />
+                        ))
+                    ]}
+                </Switch>
+            </Router>
         );
     }
 }

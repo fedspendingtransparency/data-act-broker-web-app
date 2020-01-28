@@ -5,13 +5,11 @@
 
 import React from 'react';
 import PropTypes from 'prop-types';
-import { hashHistory } from 'react-router';
-
 import moment from 'moment';
 
-import GenerateFileBox from '../../components/generateFiles/components/GenerateFileBox';
-
-import * as GenerateFilesHelper from '../../helpers/generateFilesHelper';
+import * as GenerateFilesHelper from 'helpers/generateFilesHelper';
+import GenerateFileBox from 'components/generateFiles/components/GenerateFileBox';
+import { Redirect } from 'react-router-dom';
 
 const propTypes = {
     disableButton: PropTypes.func,
@@ -54,9 +52,16 @@ export default class CrossFileGenerateModalContainer extends React.Component {
                     url: ''
                 }
             },
-            status: "waiting",
-            errorDetails: ""
+            status: 'waiting',
+            errorDetails: '',
+            toGenerateFiles: false,
+            toValidateCrossFile: false
         };
+
+        this.handleDateChange = this.handleDateChange.bind(this);
+        this.showError = this.showError.bind(this);
+        this.hideError = this.hideError.bind(this);
+        this.validateDates = this.validateDates.bind(this);
     }
 
     componentDidMount() {
@@ -81,7 +86,9 @@ export default class CrossFileGenerateModalContainer extends React.Component {
                 if (!requested) {
                     // file has not been requested before
                     // toss back to the generate screen
-                    hashHistory.push(`generateFiles/${this.props.submissionID}`);
+                    this.setState({
+                        toGenerateFiles: true
+                    });
                 }
                 else {
                     // files have been requested before, load the dates
@@ -307,10 +314,18 @@ export default class CrossFileGenerateModalContainer extends React.Component {
     }
 
     nextPage() {
-        hashHistory.push(`validateCrossFile/${this.props.submissionID}`);
+        this.setState({
+            toValidateCrossFile: true
+        });
     }
 
     render() {
+        if (this.state.toGenerateFiles) {
+            return <Redirect to={`/submission/${this.props.submissionID}/generateFiles/`} />;
+        }
+        else if (this.state.toValidateCrossFile) {
+            return <Redirect to={`/submission/${this.props.submissionID}/validateCrossFile/`} />;
+        }
         return (
             <GenerateFileBox
                 label={this.props.label}
@@ -319,10 +334,10 @@ export default class CrossFileGenerateModalContainer extends React.Component {
                 value={this.state.file}
                 error={this.state.file.error}
                 download={this.state.file.download}
-                onDateChange={this.handleDateChange.bind(this)}
-                showError={this.showError.bind(this)}
-                hideError={this.hideError.bind(this)}
-                updateError={this.validateDates.bind(this)} />
+                onDateChange={this.handleDateChange}
+                showError={this.showError}
+                hideError={this.hideError}
+                updateError={this.validateDates} />
         );
     }
 }
@@ -331,5 +346,5 @@ CrossFileGenerateModalContainer.propTypes = propTypes;
 CrossFileGenerateModalContainer.defaultProps = defaultProps;
 
 CrossFileGenerateModalContainer.contextTypes = {
-    store: React.PropTypes.object.isRequired
+    store: PropTypes.object.isRequired
 };

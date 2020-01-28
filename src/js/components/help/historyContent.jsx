@@ -5,33 +5,18 @@
 
 import React from 'react';
 import PropTypes from 'prop-types';
-import $ from 'jquery';
 
 const propTypes = {
-    history: PropTypes.object,
-    section: PropTypes.string,
+    history: PropTypes.string,
     title: PropTypes.string
 };
 
 const defaultProps = {
-    history: null,
-    section: '',
+    history: '',
     title: ''
 };
 
 export default class HistoryContent extends React.Component {
-    componentDidUpdate() {
-        this.scrollToSection();
-    }
-
-    scrollToSection() {
-        if (this.props.section && $(`[name=${this.props.section}]`).length > 0) {
-            $('html, body').animate({
-                scrollTop: $(`[name=${this.props.section}]`).offset().top
-            }, 500);
-        }
-    }
-
     render() {
         return (
             <div className="usa-da-help-content">

@@ -1,6 +1,11 @@
 export const mockProps = {
-    params: {
-        submissionID: "2054"
+    computedMatch: {
+        params: {
+            submissionID: "2054"
+        }
+    },
+    history: {
+        push: jest.fn()
     }
 };
 

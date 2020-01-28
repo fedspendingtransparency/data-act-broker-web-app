@@ -19,11 +19,7 @@ import * as GenerateFilesHelper from '../../helpers/generateFilesHelper';
 import * as Icons from '../SharedComponents/icons/Icons';
 
 const propTypes = {
-    route: PropTypes.object
-};
-
-const defaultProps = {
-    route: null
+    type: PropTypes.oneOf(['dabs', 'fabs'])
 };
 
 const timerDuration = 10;
@@ -332,7 +328,7 @@ export default class GenerateDetachedFilesPage extends React.Component {
             <div className="usa-da-generate-detached-files-page">
                 <div className="usa-da-site_wrap">
                     <div className="usa-da-page-content">
-                        <Navbar activeTab="submissionGuide" type={this.props.route.type} />
+                        <Navbar activeTab="submissionGuide" type={this.props.type} />
                         <div className="usa-da-content-dark">
                             <div className="container">
                                 <div className="row usa-da-page-title">
@@ -385,4 +381,3 @@ export default class GenerateDetachedFilesPage extends React.Component {
 }
 
 GenerateDetachedFilesPage.propTypes = propTypes;
-GenerateDetachedFilesPage.defaultProps = defaultProps;

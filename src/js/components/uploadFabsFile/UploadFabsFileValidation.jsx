@@ -5,31 +5,30 @@
 
 import CSSTransitionGroup from 'react-transition-group/CSSTransitionGroup';
 
-import React, { PropTypes } from 'react';
+import React from 'react';
+import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
-import ValidateValuesFileContainer from '../../containers/validateData/ValidateValuesFileContainer';
-import ValidateDataFileContainer from '../../containers/validateData/ValidateDataFileContainer';
+import * as UploadHelper from 'helpers/uploadHelper';
+import * as GenerateFilesHelper from 'helpers/generateFilesHelper';
+import * as PermissionsHelper from 'helpers/permissionsHelper';
+import * as ReviewHelper from 'helpers/reviewHelper';
+import ValidateValuesFileContainer from 'containers/validateData/ValidateValuesFileContainer';
+import ValidateDataFileContainer from 'containers/validateData/ValidateDataFileContainer';
+import Banner from 'components/SharedComponents/Banner';
+import * as Icons from 'components/SharedComponents/icons/Icons';
+import DABSFABSErrorMessage from 'components/SharedComponents/DABSFABSErrorMessage';
 import PublishModal from './PublishModal';
-import Banner from '../SharedComponents/Banner';
 import UploadFabsFileError from './UploadFabsFileError';
 import UploadFabsFileHeader from './UploadFabsFileHeader';
-
-import * as UploadHelper from '../../helpers/uploadHelper';
-import * as GenerateFilesHelper from '../../helpers/generateFilesHelper';
-import * as PermissionsHelper from '../../helpers/permissionsHelper';
-import * as ReviewHelper from '../../helpers/reviewHelper';
 import { kGlobalConstants } from '../../GlobalConstants';
 
-import * as Icons from '../SharedComponents/icons/Icons';
-import DABSFABSErrorMessage from '../SharedComponents/DABSFABSErrorMessage';
 
 const propTypes = {
     setSubmissionState: PropTypes.func,
     resetSubmission: PropTypes.func,
     item: PropTypes.object,
-    params: PropTypes.object,
-    route: PropTypes.object,
+    computedMatch: PropTypes.object,
     session: PropTypes.object,
     submission: PropTypes.object
 };
@@ -37,8 +36,6 @@ const propTypes = {
 const defaultProps = {
     setSubmissionState: () => {},
     item: {},
-    params: {},
-    route: {},
     session: {},
     submission: {}
 };
@@ -62,7 +59,6 @@ export class UploadFabsFileValidation extends React.Component {
             published: 'unpublished',
             submit: true,
             showPublish: false,
-            type: this.props.route.type,
             showSuccess: false,
             error_message: '',
             fabs_meta: { valid_rows: 0, total_rows: 0, publish_date: null },
@@ -76,16 +72,18 @@ export class UploadFabsFileValidation extends React.Component {
 
     componentDidMount() {
         this.isUnmounted = false;
-        if (this.props.params.submissionID) {
-            this.setSubmissionMetadata(this.props.params.submissionID);
-            this.checkFileStatus(this.props.params.submissionID);
+        const { submissionID } = this.props.computedMatch.params;
+        if (submissionID) {
+            this.setSubmissionMetadata(submissionID);
+            this.checkFileStatus(submissionID);
         }
     }
 
     componentDidUpdate(prevProps) {
-        if (prevProps.params.submissionID !== this.props.params.submissionID && this.props.params.submissionID) {
-            this.setSubmissionMetadata(this.props.params.submissionID);
-            this.checkFileStatus(this.props.params.submissionID);
+        const { submissionID } = this.props.computedMatch.params;
+        if (prevProps.computedMatch.params.submissionID !== submissionID && submissionID) {
+            this.setSubmissionMetadata(submissionID);
+            this.checkFileStatus(submissionID);
             this.setSubmissionError();
         }
     }
@@ -149,9 +147,10 @@ export class UploadFabsFileValidation extends React.Component {
     }
 
     revalidate() {
-        ReviewHelper.revalidateSubmission(this.props.params.submissionID, true)
+        const { submissionID } = this.props.computedMatch.params;
+        ReviewHelper.revalidateSubmission(submissionID, true)
             .then(() => {
-                this.checkFileStatus(this.props.params.submissionID);
+                this.checkFileStatus(submissionID);
             })
             .catch((error) => {
                 const errMsg =
@@ -562,7 +561,7 @@ export class UploadFabsFileValidation extends React.Component {
                 <PublishModal
                     rows={this.state.fabs_meta}
                     submit={this.submitFabs.bind(this)}
-                    submissionID={this.props.params.submissionID}
+                    submissionID={this.props.computedMatch.params.submissionID}
                     closeModal={this.closeModal.bind(this)}
                     isOpen={this.state.showPublish}
                     published={this.state.published} />

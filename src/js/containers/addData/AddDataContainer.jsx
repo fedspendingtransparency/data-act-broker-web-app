@@ -7,17 +7,16 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
-import { hashHistory } from 'react-router';
+import { Redirect } from 'react-router-dom';
 
-import * as uploadActions from '../../redux/actions/uploadActions';
-
-import AddDataContent from '../../components/addData/AddDataContent';
-import ErrorMessage from '../../components/SharedComponents/ErrorMessage';
+import * as uploadActions from 'redux/actions/uploadActions';
+import * as UploadHelper from 'helpers/uploadHelper';
+import * as GuideHelper from 'helpers/submissionGuideHelper';
+import AddDataContent from 'components/addData/AddDataContent';
+import ErrorMessage from 'components/SharedComponents/ErrorMessage';
 import { fileTypes } from './fileTypes';
 import { kGlobalConstants } from '../../GlobalConstants';
 
-import * as UploadHelper from '../../helpers/uploadHelper';
-import * as GuideHelper from '../../helpers/submissionGuideHelper';
 
 const propTypes = {
     setSubmissionId: PropTypes.func,
@@ -37,7 +36,9 @@ class AddDataContainer extends React.Component {
 
         this.state = {
             notAllowed: false,
-            errorMessage: ''
+            errorMessage: '',
+            toValidateData: false,
+            to404: false
         };
     }
 
@@ -53,11 +54,15 @@ class AddDataContainer extends React.Component {
         const count = 9;
         GuideHelper.getSubmissionPage(submissionID)
             .then(() => {
-                hashHistory.push(`submission/${submissionID}/validateData`);
+                this.setState({
+                    toValidateData: true
+                });
             })
             .catch(() => {
                 if (index === count) {
-                    hashHistory.push('/404/');
+                    this.setState({
+                        to404: true
+                    });
                 }
                 else {
                     setTimeout(() => {
@@ -104,6 +109,13 @@ class AddDataContainer extends React.Component {
             return (
                 <ErrorMessage message={this.state.errorMessage} />
             );
+        }
+        else if (this.state.toValidateData) {
+            const submissionID = this.props.submission.id;
+            return <Redirect to={`/submission/${submissionID}/validateData/`} />;
+        }
+        else if (this.state.to404) {
+            return <Redirect to="/404/" />;
         }
 
         return (

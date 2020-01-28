@@ -87,7 +87,7 @@ describe('DashboardTableContainer', () => {
         container.state().inFlight = true;
         container.instance().parseRows(mockData);
 
-        expect(container.state().totalPages).toEqual(2);
+        expect(container.state().totalItems).toEqual(15);
         expect(container.state().inFlight).toEqual(false);
         expect(container.state().results.length).toEqual(2);
         expect(Object.getPrototypeOf(container.state().results[0])).toEqual(BaseDashboardTableRow);

@@ -45,3 +45,9 @@ ol {
 		}
 	}
 }
+
+.usa-dt-pagination {
+	.pager {
+		@include unstyled-list;
+	}
+}
