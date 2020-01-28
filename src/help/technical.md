@@ -1,9 +1,9 @@
-#### January 6, 2020{section=technical}
+#### January 27, 2020{section=technical}
 
 In this release, here is a list of technical changes that may require infrastructure or database updates, or represents additional functionality.
 
-* Added "PrimaryPlaceOfPerformanceScope" derivation for FABS records and script to backfill it. Note, this is not currently included in D2 files.
-* Updated subaward pipeline to exclude aggregate records when sending to FSRS.
-* Removed "submission\_narrative" endpoints. Please use "submission\_comment" endpoints instead displayed in the README.
-* Updated API to make the trailing slash for each endpoint to be optional.
-* Resolved various minor bugs.
+* Backfilled certified\_flex\_field table in preparation for future functionality.
+* Added additional logging for uploading files for debugging purposes.
+* Refactored the overall site's router to allow upgrading the React versions.
+* Removed unused node packages for a cleaner installation process.
+* Upgraded React version to be compatible with modern versions of React.
