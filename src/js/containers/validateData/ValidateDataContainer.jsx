@@ -64,13 +64,10 @@ export class ValidateDataContainer extends React.Component {
         this.validateSubmission();
     }
 
-    componentWillReceiveProps(nextProps) {
-        if (this.props.submissionID !== nextProps.submissionID) {
-            this.setAgencyName(nextProps);
-        }
-    }
-
     componentDidUpdate(prevProps) {
+        if (this.props.submissionID !== prevProps.submissionID) {
+            this.setAgencyName(this.props);
+        }
         // check if the submission state changed, indicating a re-upload
         if (prevProps.submission.state !== this.props.submission.state) {
             if (this.props.submission.state === "prepare") {

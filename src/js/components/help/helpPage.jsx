@@ -8,7 +8,6 @@ import PropTypes from 'prop-types';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import queryString from 'query-string';
 
-import * as HelpHelper from 'helpers/helpHelper';
 import Navbar from 'components/SharedComponents/navigation/NavigationComponent';
 import Footer from 'components/SharedComponents/FooterComponent';
 import Banner from 'components/SharedComponents/Banner';
@@ -18,59 +17,25 @@ import HelpNav from './helpNav';
 
 const propTypes = {
     location: PropTypes.object,
-    type: PropTypes.string,
-    helpOnly: PropTypes.bool
+    type: PropTypes.oneOf(['dabs', 'fabs']),
+    helpOnly: PropTypes.bool,
+    changelog: PropTypes.string,
+    technical: PropTypes.string,
+    clSections: PropTypes.array,
+    tSections: PropTypes.array
 };
 
 const defaultProps = {
     location: null,
     type: '',
-    helpOnly: false
+    helpOnly: false,
+    changelog: '',
+    technical: '',
+    clSections: [],
+    tSections: []
 };
 
 export default class HelpPage extends React.Component {
-    constructor(props) {
-        super(props);
-
-        this.state = {
-            changelog: '',
-            technical: '',
-            clSections: [],
-            tSections: []
-        };
-    }
-
-    componentDidMount() {
-        this.loadChangelog();
-        this.loadTechnical();
-    }
-
-    loadChangelog() {
-        HelpHelper.loadHelp()
-            .then((output) => {
-                this.setState({
-                    changelog: output.html,
-                    clSections: output.sections
-                });
-            })
-            .catch((err) => {
-                console.error(err);
-            });
-    }
-
-    loadTechnical() {
-        HelpHelper.loadTechnical()
-            .then((output) => {
-                this.setState({
-                    technical: output.html,
-                    tSections: output.sections
-                });
-            })
-            .catch((err) => {
-                console.error(err);
-            });
-    }
-
     scrollToTop() {
         window.scrollTo({
             top: 0,
@@ -104,8 +69,8 @@ export default class HelpPage extends React.Component {
                         <div className="row usa-da-help-page">
                             <div className="col-md-4">
                                 <HelpSidebar
-                                    changeSections={this.state.clSections}
-                                    technicalSections={this.state.tSections}
+                                    changeSections={this.props.clSections}
+                                    technicalSections={this.props.tSections}
                                     helpOnly={this.props.helpOnly}
                                     type={this.props.type} />
                             </div>
@@ -113,8 +78,8 @@ export default class HelpPage extends React.Component {
                                 <HelpContent
                                     section={section}
                                     helpOnly={this.props.helpOnly}
-                                    changelog={this.state.changelog}
-                                    technical={this.state.technical} />
+                                    changelog={this.props.changelog}
+                                    technical={this.props.technical} />
                             </div>
                         </div>
                     </div>
