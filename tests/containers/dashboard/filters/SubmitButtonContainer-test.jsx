@@ -6,6 +6,7 @@
 import React from 'react';
 import { shallow } from 'enzyme';
 import { Set } from 'immutable';
+import { cloneDeep } from 'lodash';
 
 import { initialState as initialApplied } from 'redux/reducers/dashboard/appliedFiltersReducer';
 import { initialState as initialStaged } from 'redux/reducers/dashboard/dashboardFiltersReducer';
@@ -20,34 +21,36 @@ jest.mock('components/dashboard/filters/SubmitButton', () =>
 describe('SubmitButtonContainer', () => {
     describe('compareStores', () => {
         it('should return false if the length of enumerable properties on the applied filter object is different from the length of enumerable properties on the staged filter object', () => {
-            const changedStage = Object.assign({}, initialStaged, {
-                bonusFilter: 'hello'
-            });
+            const stagedFilters = cloneDeep(mockSubmitRedux.stagedFilters);
+            stagedFilters.historical.bonusFilter = 'hello';
 
             const redux = Object.assign({}, mockSubmitRedux, {
-                stagedFilters: Object.assign({}, mockSubmitRedux.stagedFilters, changedStage)
+                stagedFilters
             });
 
             const container = shallow(
                 <SubmitButtonContainer
+                    type="historical"
                     {...redux}
                     {...mockActions} />
             );
             const compare = container.instance().compareStores();
+            expect(redux.stagedFilters.historical.bonusFilter).toEqual('hello');
+            expect(redux.appliedFilters.filters.historical.bonusFilter).toBeFalsy();
             expect(compare).toBeFalsy();
         });
 
         it('should return false if any item in the staged filter object does not equal the same key value in the applied filter object', () => {
-            const changedStage = Object.assign({}, initialStaged, {
-                fy: new Set(['1995'])
-            });
+            const stagedFilters = cloneDeep(mockSubmitRedux.stagedFilters);
+            stagedFilters.historical.fy = new Set(['1995']);
 
             const redux = Object.assign({}, mockSubmitRedux, {
-                stagedFilters: Object.assign({}, mockSubmitRedux.stagedFilters, changedStage)
+                stagedFilters
             });
 
             const container = shallow(
                 <SubmitButtonContainer
+                    type="historical"
                     {...redux}
                     {...mockActions} />
             );
@@ -56,20 +59,13 @@ describe('SubmitButtonContainer', () => {
         });
 
         it('should return true if all key values are equal in both the staged and applied filter objects', () => {
-            const changedStage = Object.assign({}, initialStaged, {
-                fy: new Set(['1995'])
-            });
-            const changedApplied = Object.assign({}, initialApplied.filters, {
-                fy: new Set(['1995'])
-            });
-
-            const redux = Object.assign({}, mockSubmitRedux, {
-                stagedFilters: Object.assign({}, mockSubmitRedux.stagedFilters, changedStage),
-                appliedFilters: Object.assign({}, mockSubmitRedux.appliedFilters.filters, changedApplied)
-            });
+            const redux = cloneDeep(mockSubmitRedux);
+            redux.appliedFilters.filters.historical.fy = new Set(['1995']);
+            redux.stagedFilters.historical.fy = new Set(['1995']);
 
             const container = shallow(
                 <SubmitButtonContainer
+                    type="historical"
                     {...redux}
                     {...mockActions} />
             );
@@ -81,6 +77,7 @@ describe('SubmitButtonContainer', () => {
         it('should set the filtersChanged state to true when the stores are not equal', () => {
             const container = shallow(
                 <SubmitButtonContainer
+                    type="historical"
                     {...mockSubmitRedux}
                     {...mockActions} />
             );
@@ -92,6 +89,7 @@ describe('SubmitButtonContainer', () => {
         it('should set the filtersChanged state to false when the stores are equal and the filtersChanged state was previously true', () => {
             const container = shallow(
                 <SubmitButtonContainer
+                    type="historical"
                     {...mockSubmitRedux}
                     {...mockActions} />
             );
@@ -112,6 +110,7 @@ describe('SubmitButtonContainer', () => {
 
             const container = shallow(
                 <SubmitButtonContainer
+                    type="historical"
                     {...mockSubmitRedux}
                     {...actions} />
             );
@@ -123,6 +122,7 @@ describe('SubmitButtonContainer', () => {
         it('should reset the filtersChanged state to false', () => {
             const container = shallow(
                 <SubmitButtonContainer
+                    type="historical"
                     {...mockSubmitRedux}
                     {...mockActions} />
             );
@@ -143,6 +143,7 @@ describe('SubmitButtonContainer', () => {
 
             const container = shallow(
                 <SubmitButtonContainer
+                    type="historical"
                     {...mockSubmitRedux}
                     {...actions} />
             );
@@ -157,6 +158,7 @@ describe('SubmitButtonContainer', () => {
 
             const container = shallow(
                 <SubmitButtonContainer
+                    type="historical"
                     {...mockSubmitRedux}
                     {...actions} />
             );
@@ -169,6 +171,7 @@ describe('SubmitButtonContainer', () => {
         it('should reset staged and applied filters', () => {
             const container = shallow(
                 <SubmitButtonContainer
+                    type="historical"
                     {...mockSubmitRedux}
                     {...mockActions} />
             );

@@ -8,7 +8,7 @@ import { shallow } from 'enzyme';
 import { cloneDeep } from 'lodash';
 
 import { RulesFilterContainer } from 'containers/dashboard/filters/RulesFilterContainer';
-import { mockActions, mockRedux } from './mockFilters';
+import { mockActions, mockReduxHistorical } from './mockFilters';
 
 // mock the child component by replacing it with a function that returns a null element
 jest.mock('components/dashboard/filters/RulesFilter', () => jest.fn(() => null));
@@ -18,7 +18,7 @@ describe('RulesFilterContainer', () => {
         jest.restoreAllMocks();
     });
     it('should make an API call when the selected file changes', () => {
-        const newRedux = { ...mockRedux };
+        const newRedux = { ...mockReduxHistorical };
         newRedux.selectedFilters.file = 'B';
 
         const container = shallow(<RulesFilterContainer
@@ -34,7 +34,7 @@ describe('RulesFilterContainer', () => {
         expect(fetchAutocompleteResults).toHaveBeenCalled();
     });
     it('should clear the selected rules when the file changes', () => {
-        const newRedux = { ...mockRedux };
+        const newRedux = { ...mockReduxHistorical };
         newRedux.selectedFilters.file = 'B';
 
         const container = shallow(<RulesFilterContainer
@@ -51,7 +51,7 @@ describe('RulesFilterContainer', () => {
     it('should correctly set the noResults state', () => {
         const container = shallow(<RulesFilterContainer
             {...mockActions}
-            {...mockRedux} />
+            {...mockReduxHistorical} />
         );
         const newState = cloneDeep(container.instance().state);
         newState.results = ['X1', 'Y2', 'Z3'];
@@ -61,22 +61,22 @@ describe('RulesFilterContainer', () => {
         expect(container.state().noResults).toEqual(true);
     });
     describe('onSelect', () => {
-        it('should call the updateGenericFilter action', () => {
+        it('should call the updateFilterSet action', () => {
             const container = shallow(<RulesFilterContainer
                 {...mockActions}
-                {...mockRedux} />
+                {...mockReduxHistorical} />
             );
 
             container.instance().onSelect({ code: 'X123' });
 
-            expect(mockActions.updateGenericFilter).toHaveBeenCalledWith('rules', 'X123');
+            expect(mockActions.updateFilterSet).toHaveBeenCalledWith('historical', 'rules', 'X123');
         });
     });
     describe('parseAutocomplete', () => {
         it('should narrow down the API results to codes matching the search string and format them for display', () => {
             const container = shallow(<RulesFilterContainer
                 {...mockActions}
-                {...mockRedux} />
+                {...mockReduxHistorical} />
             );
             const newState = cloneDeep(container.instance().state);
             newState.results = ['X1', 'Y2', 'Z3'];
@@ -91,7 +91,7 @@ describe('RulesFilterContainer', () => {
             });
         });
         it('should exclude rules that are already staged', () => {
-            const updatedRedux = { ...mockRedux }; // make a copy of the mock Redux state
+            const updatedRedux = { ...mockReduxHistorical }; // make a copy of the mock Redux state
             updatedRedux.selectedFilters.rules = new Set(['X1']); // Add a staged rule filter
             const container = shallow(<RulesFilterContainer
                 {...mockActions}
@@ -115,7 +115,7 @@ describe('RulesFilterContainer', () => {
         it('should reset the state', () => {
             const container = shallow(<RulesFilterContainer
                 {...mockActions}
-                {...mockRedux} />
+                {...mockReduxHistorical} />
             );
             const newState = cloneDeep(container.instance().state);
             newState.filteredResults = [{
