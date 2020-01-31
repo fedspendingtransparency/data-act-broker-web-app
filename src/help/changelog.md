@@ -1,6 +1,6 @@
-#### December 16, 2019{section=changelog}
+#### January 27, 2020{section=changelog}
 In this release of the Broker, we:
 
-* Fiscal Year 2020 DABS Reporting Schedule published on Help page.
-* Users with DABS Read Only permissions are now able to generate detached File A and detached Files D1 and D2 from the Broker landing page for all agencies.  Read Only user will still not be able to generate D files within an agency submission.
-* Released the Agency Data Dashboard on DABS.  This is a new page that will allow users to graphically see data about historical agency submissions and allow them to filter results to help identify warning trends for their agency. 
+* Fixed minor bug on date picker for detached File A generation to display the correct available periods for file generation.
+* Fixed bug on Error and Warning report where Difference column returned incorrect amount due to a wrong sign in a calculation.
+* Updated pagination component on DABS Dashboard and updated table spacing.
