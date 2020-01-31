@@ -1,5 +1,5 @@
 /**
-  * AgencyDataDashboardPage.jsx
+  * DashboardPage.jsx
   * Created by Lizzie Salita 9/24/19
   */
 
@@ -117,10 +117,10 @@ export default class DashboardPage extends React.Component {
                     <div className="dashboard-page">
                         <div className="dashboard-page__wrapper">
                             <div className="dashboard-page__filters">
-                                <FilterSidebar filters={filters[activeTab]} />
+                                <FilterSidebar type={activeTab} filters={filters[activeTab]} />
                             </div>
                             <div className="dashboard-page__content">
-                                <DashboardContentContainer />
+                                <DashboardContentContainer type={activeTab} />
                             </div>
                         </div>
                     </div>

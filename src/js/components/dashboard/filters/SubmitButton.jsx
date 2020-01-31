@@ -10,7 +10,8 @@ const propTypes = {
     filtersChanged: PropTypes.bool,
     applyStagedFilters: PropTypes.func,
     resetFilters: PropTypes.func,
-    validFilters: PropTypes.bool
+    validFilters: PropTypes.bool,
+    type: PropTypes.oneOf(['historical', 'active'])
 };
 
 const SubmitButton = (props) => {
@@ -27,13 +28,13 @@ const SubmitButton = (props) => {
                 title={title}
                 aria-label={title}
                 disabled={disabled || !props.validFilters}
-                onClick={props.applyStagedFilters}>
+                onClick={() => props.applyStagedFilters(props.type)}>
                 Apply Filters
             </button>
             <button
                 className="reset-button"
                 aria-label="Reset search"
-                onClick={props.resetFilters}>
+                onClick={() => props.resetFilters(props.type)}>
                 Reset Filters
             </button>
         </div>

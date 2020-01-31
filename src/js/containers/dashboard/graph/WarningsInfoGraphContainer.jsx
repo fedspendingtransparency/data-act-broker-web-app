@@ -152,6 +152,6 @@ WarningsInfoGraphContainer.propTypes = propTypes;
 
 export default connect(
     (state) => ({
-        appliedFilters: state.appliedDashboardFilters.filters
+        appliedFilters: state.appliedDashboardFilters.filters.historical
     })
 )(WarningsInfoGraphContainer);
