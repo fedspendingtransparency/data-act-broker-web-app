@@ -46,7 +46,7 @@ describe('RulesFilterContainer', () => {
 
         container.instance().componentDidUpdate({ selectedFilters: { file: 'C' } });
 
-        expect(mockActions.clearGenericFilter).toHaveBeenCalled();
+        expect(mockActions.clearFilter).toHaveBeenCalled();
     });
     it('should correctly set the noResults state', () => {
         const container = shallow(<RulesFilterContainer
