@@ -10,13 +10,15 @@ import { connect } from 'react-redux';
 import HistoryPage from 'components/history/HistoryPage';
 
 const propTypes = {
-    type: PropTypes.oneOf(['dabs', 'fabs'])
+    type: PropTypes.oneOf(['dabs', 'fabs']),
+    computedMatch: PropTypes.object
 };
 
 class HistoryContainer extends React.Component {
     render() {
+        const submissionID = this.props.computedMatch.params.submissionID;
         return (
-            <HistoryPage type={this.props.type} />
+            <HistoryPage type={this.props.type} submissionID={submissionID} />
         );
     }
 }
