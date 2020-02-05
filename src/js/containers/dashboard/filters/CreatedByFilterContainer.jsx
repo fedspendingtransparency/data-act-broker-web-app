@@ -53,14 +53,23 @@ export class CreatedByFilterContainer extends React.Component {
 
         if (input) {
             // If the user has entered a search string, only show matching results
-            results = results.filter((user) => user.name.includes(input));
+            results = results.filter((user) => {
+                const name = user.name.toLowerCase();
+                return name.includes(input.toLowerCase());
+            });
         }
 
-        // Exclude user that has already been selected
-        results = results.filter((user) => {
-            const selectedUser = this.props.selectedFilters.createdBy;
-            return !isEqual(user, selectedUser);
-        });
+        // Exclude the user that has already been selected
+        const selectedUser = this.props.selectedFilters.createdBy;
+        if (selectedUser.name && selectedUser.id) {
+            results = results.filter((user) => {
+                const formattedUser = {
+                    name: user.name,
+                    id: user.user_id
+                };
+                return !isEqual(formattedUser, selectedUser);
+            });
+        }
 
         // Format the results for display in the dropdown
         const filteredResults = results.map((user) => ({
@@ -84,7 +93,6 @@ export class CreatedByFilterContainer extends React.Component {
 
         createdByHelper.fetchCreatedBy('dabs')
             .then((res) => {
-                console.log('res', res);
                 this.setState({
                     results: res,
                     inFlight: false
