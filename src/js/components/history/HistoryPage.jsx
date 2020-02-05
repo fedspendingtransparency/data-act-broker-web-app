@@ -25,7 +25,7 @@ export default class HistoryPage extends React.Component {
         return (
             <div>
                 <div className="usa-da-site_wrap usa-da-history-page">
-                    <Navbar activeTab="dashboard" type={this.props.type} />
+                    <Navbar activeTab="submissionTable" type={this.props.type} />
                     <div className="usa-da-content-dark">
                         <div className="container">
                             <div className="row usa-da-page-title">
