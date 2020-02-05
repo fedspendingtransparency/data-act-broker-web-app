@@ -30,10 +30,9 @@ export default class CreatedByFilter extends React.Component {
     render() {
         let selectedUser = null;
         const createdBy = this.props.selectedFilters.createdBy;
-        if (this.props.selectedFilters.createdBy) {
+        if (createdBy.name && createdBy.id) {
             selectedUser = (<ShownValue
-                label={createdBy}
-                key={createdBy}
+                label={createdBy.name}
                 removeValue={this.props.onSelect.bind(null, createdBy)} />);
         }
         return (
@@ -50,8 +49,11 @@ export default class CreatedByFilter extends React.Component {
                     clearAutocompleteSuggestions={this.props.clearAutocompleteSuggestions}
                     noResults={this.props.noResults}
                     inFlight={this.props.inFlight}
-                    minCharsToSearch={this.props.minCharsToSearch} />
-                {selectedUser}
+                    minCharsToSearch={this.props.minCharsToSearch}
+                    toggleTooltip={() => null} />
+                <div className="selected-filters">
+                    {selectedUser}
+                </div>
             </div>
         );
     }
