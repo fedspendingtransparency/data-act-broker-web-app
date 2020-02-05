@@ -19,6 +19,10 @@ export const mockReduxHistorical = {
     selectedFilters: initialState.historical
 };
 
+export const mockReduxActive = {
+    selectedFilters: initialState.active
+};
+
 export const mockSubmitRedux = {
     stagedFilters: initialState,
     appliedFilters: appliedInitialState
