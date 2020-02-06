@@ -274,7 +274,7 @@ export default class Autocomplete extends React.Component {
     }
 
     render() {
-        let activeDescendant = false;
+        let activeDescendant;
         let status = '';
         if (this.state.shown && this.state.selectedIndex > -1) {
             activeDescendant = `${this.state.autocompleteId}__option-${this.state.selectedIndex}`;
