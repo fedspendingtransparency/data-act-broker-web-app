@@ -22,8 +22,7 @@ import Banner from '../../components/SharedComponents/Banner';
 const propTypes = {
     submission: PropTypes.object,
     submissionID: PropTypes.string,
-    errorFromStep: PropTypes.func,
-    nextStep: PropTypes.func
+    errorFromStep: PropTypes.func
 };
 
 const defaultProps = {
@@ -176,15 +175,10 @@ class GenerateEFContainer extends React.Component {
         }
     }
 
-    nextPage() {
-        this.props.nextStep();
-    }
-
     render() {
         let content = (<GenerateEFContent
             {...this.props}
             {...this.state}
-            nextPage={this.nextPage.bind(this)}
             generateFiles={this.generateFiles.bind(this)} />);
 
         if (this.state.fullPageError) {

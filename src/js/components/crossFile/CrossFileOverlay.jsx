@@ -4,6 +4,7 @@
   */
 import React from 'react';
 import PropTypes from 'prop-types';
+import { Link } from 'react-router-dom';
 import _ from 'lodash';
 import * as Icons from '../SharedComponents/icons/Icons';
 import CommonOverlay from '../SharedComponents/overlays/CommonOverlay';
@@ -18,7 +19,8 @@ const propTypes = {
     agencyName: PropTypes.string,
     mode: PropTypes.string,
     loading: PropTypes.bool,
-    nextStep: PropTypes.func
+    nextStep: PropTypes.func,
+    submissionID: PropTypes.string
 };
 
 const defaultProps = {
@@ -198,6 +200,23 @@ export default class CrossFileOverlay extends React.Component {
     }
 
     render() {
+        const nextButton = this.state.overlay.nextButtonDisabled ?
+            (
+                <button
+                    className={`usa-da-validation-overlay-review usa-da-button${
+                        this.state.overlay.nextButtonClass}`}
+                    disabled>
+                    Next
+                </button>
+            ) :
+            (
+                <Link
+                    className={`usa-da-validation-overlay-review usa-da-button${
+                        this.state.overlay.nextButtonClass}`}
+                    to={`/submission/${this.props.submissionID}/generateEF`}>
+                        Next
+                </Link>
+            );
         return (
             <CommonOverlay
                 header={this.state.overlay.message}
@@ -212,13 +231,7 @@ export default class CrossFileOverlay extends React.Component {
                         onClick={this.props.uploadFiles}>
                         {this.state.overlay.buttonText}
                     </button>
-                    <button
-                        className={`usa-da-validation-overlay-review usa-da-button${
-                            this.state.overlay.nextButtonClass}`}
-                        disabled={this.state.overlay.nextButtonDisabled}
-                        onClick={this.pressedNext.bind(this)}>
-                        Next
-                    </button>
+                    {nextButton}
                 </div>
             </CommonOverlay>
         );

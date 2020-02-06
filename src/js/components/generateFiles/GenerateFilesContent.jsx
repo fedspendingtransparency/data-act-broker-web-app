@@ -16,7 +16,8 @@ const propTypes = {
     updateError: PropTypes.func,
     d1: PropTypes.object,
     d2: PropTypes.object,
-    updateFileProperty: PropTypes.func
+    updateFileProperty: PropTypes.func,
+    submissionID: PropTypes.string
 };
 
 const defaultProps = {

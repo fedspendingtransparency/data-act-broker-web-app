@@ -41,7 +41,6 @@ export class SubmissionContainer extends React.Component {
 
         this.setStep = this.setStep.bind(this);
         this.errorFromStep = this.errorFromStep.bind(this);
-        this.nextStep = this.nextStep.bind(this);
     }
 
     componentDidMount() {
@@ -141,17 +140,6 @@ export class SubmissionContainer extends React.Component {
             goToRoute: true
         });
     }
-    // clicked next button in child Overlay components
-    // add 1 to step
-    nextStep() {
-        let step = this.state.step;
-        step += 1;
-        const completedSteps = [];
-        for (let i = 0; i < this.state.completedSteps.length; i++) {
-            completedSteps[i] = step >= i;
-        }
-        this.setState({ step, completedSteps }, this.updateRoute);
-    }
 
     render() {
         const params = this.props.computedMatch.params;
@@ -171,7 +159,6 @@ export class SubmissionContainer extends React.Component {
                 isLoading={isLoading}
                 isError={isError}
                 errorMessage={errorMessage}
-                nextStep={this.nextStep}
                 setStep={this.setStep} />
         );
     }

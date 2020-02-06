@@ -17,7 +17,8 @@ import { kGlobalConstants } from '../../GlobalConstants';
 import * as UploadHelper from '../../helpers/uploadHelper';
 
 const propTypes = {
-    submission: PropTypes.object
+    submission: PropTypes.object,
+    submissionID: PropTypes.string
 };
 
 const defaultProps = {

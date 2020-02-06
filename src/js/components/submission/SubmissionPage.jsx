@@ -15,9 +15,7 @@ import ReviewDataContainer from '../../containers/review/ReviewDataContainer';
 
 const propTypes = {
     submissionID: PropTypes.string,
-    nextStep: PropTypes.func,
     setStep: PropTypes.func,
-    setStepAndRoute: PropTypes.func,
     errorFromStep: PropTypes.func,
     step: PropTypes.number,
     isError: PropTypes.bool,
@@ -29,23 +27,19 @@ export default class SubmissionPage extends React.Component {
     // all possible components DABS and FABS
     components() {
         const submissionID = this.props.submissionID;
-        const { nextStep, setStep, errorFromStep } = this.props;
+        const { setStep, errorFromStep } = this.props;
         return [
             (<ValidateDataContainer
                 submissionID={submissionID}
-                nextStep={nextStep}
                 errorFromStep={errorFromStep} />),
             (<GenerateFilesContainer
                 submissionID={submissionID}
-                nextStep={nextStep}
                 errorFromStep={errorFromStep} />),
             (<CrossFileContentContainer
                 submissionID={submissionID}
-                nextStep={nextStep}
                 errorFromStep={errorFromStep} />),
             (<GenerateEFContainer
                 submissionID={submissionID}
-                nextStep={nextStep}
                 errorFromStep={errorFromStep} />),
             (<ReviewDataContainer
                 {...this.props}
@@ -80,7 +74,6 @@ export default class SubmissionPage extends React.Component {
         const {
             isLoading,
             isError,
-            setStepAndRoute,
             submissionID
         } = this.props;
         let content = this.whichComponent();
@@ -97,8 +90,7 @@ export default class SubmissionPage extends React.Component {
                         <div className="row">
                             <Progress
                                 currentStep={step}
-                                id={submissionID}
-                                setStep={setStepAndRoute} />
+                                id={submissionID} />
                         </div>
                     </div>
                 </div>

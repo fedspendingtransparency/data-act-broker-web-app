@@ -5,6 +5,7 @@
 
 import React from 'react';
 import PropTypes from 'prop-types';
+import { Link } from 'react-router-dom';
 import CommonOverlay from '../SharedComponents/overlays/CommonOverlay';
 import * as Icons from '../SharedComponents/icons/Icons';
 import LoadingBauble from '../SharedComponents/overlays/LoadingBauble';
@@ -12,17 +13,16 @@ import * as PermissionHelper from '../../helpers/permissionsHelper';
 
 const propTypes = {
     generateFiles: PropTypes.func,
-    nextPage: PropTypes.func,
     session: PropTypes.object,
     errorDetails: PropTypes.string,
     state: PropTypes.string,
-    agency_name: PropTypes.string
+    agency_name: PropTypes.string,
+    submissionID: PropTypes.string
 };
 
 const defaultProps = {
     state: 'incomplete',
     generateFiles: null,
-    nextPage: null,
     session: null,
     errorDetails: '',
     agency_name: ''
@@ -32,11 +32,6 @@ export default class GenerateFilesOverlay extends React.Component {
     clickedGenerate(e) {
         e.preventDefault();
         this.props.generateFiles();
-    }
-
-    clickedNext(e) {
-        e.preventDefault();
-        this.props.nextPage();
     }
 
     render() {
@@ -96,6 +91,22 @@ export default class GenerateFilesOverlay extends React.Component {
             buttonDisabled = true;
         }
 
+        const nextButton = nextDisabled ?
+            (
+                <button
+                    className={`usa-da-validation-overlay-review usa-da-button${nextClass}`}
+                    disabled>
+                    Next
+                </button>
+            ) :
+            (
+                <Link
+                    className={`usa-da-validation-overlay-review usa-da-button${nextClass}`}
+                    to={`/submission/${this.props.submissionID}/validateCrossFile`}>
+                        Next
+                </Link>
+            );
+
         return (
             <CommonOverlay
                 header={header}
@@ -110,12 +121,7 @@ export default class GenerateFilesOverlay extends React.Component {
                         onClick={this.clickedGenerate.bind(this)}>
                         Generate Files
                     </button>
-                    <button
-                        className={`usa-da-button usa-da-validation-overlay-review ${nextClass}`}
-                        disabled={nextDisabled}
-                        onClick={this.clickedNext.bind(this)}>
-                        Next
-                    </button>
+                    {nextButton}
                 </div>
             </CommonOverlay>
         );

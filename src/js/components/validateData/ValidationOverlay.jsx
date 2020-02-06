@@ -5,6 +5,7 @@
 
 import React from 'react';
 import PropTypes from 'prop-types';
+import { Link } from 'react-router-dom';
 import * as Icons from '../SharedComponents/icons/Icons';
 import CommonOverlay from '../SharedComponents/overlays/CommonOverlay';
 
@@ -16,7 +17,7 @@ const propTypes = {
     warnings: PropTypes.array,
     allowUpload: PropTypes.bool,
     notAllowed: PropTypes.bool,
-    nextStep: PropTypes.func
+    submissionID: PropTypes.string
 };
 
 const defaultProps = {
@@ -30,10 +31,6 @@ const defaultProps = {
 };
 
 export default class ValidationOverlay extends React.Component {
-    pressedNext() {
-        this.props.nextStep();
-    }
-
     isUploadingFiles() {
         return (Object.keys(this.props.submission.files).length > 0);
     }
@@ -112,6 +109,22 @@ export default class ValidationOverlay extends React.Component {
             header = this.props.uploadApiCallError;
         }
 
+        const nextButton = nextButtonDisabled ?
+            (
+                <button
+                    className={`usa-da-validation-overlay-review usa-da-button${nextButtonClass}`}
+                    disabled>
+                    Next
+                </button>
+            ) :
+            (
+                <Link
+                    className={`usa-da-validation-overlay-review usa-da-button${nextButtonClass}`}
+                    to={`/submission/${this.props.submissionID}/generateFiles`}>
+                        Next
+                </Link>
+            );
+
         return (
             <CommonOverlay
                 header={header}
@@ -127,13 +140,7 @@ export default class ValidationOverlay extends React.Component {
                         data-testid="validate-overlay-upload-button">
                         {buttonText}
                     </button>
-                    <button
-                        className={`usa-da-validation-overlay-review usa-da-button${nextButtonClass}`}
-                        disabled={nextButtonDisabled}
-                        onClick={this.pressedNext.bind(this)}
-                        data-testid="validate-overlay-review-button">
-                        Next
-                    </button>
+                    {nextButton}
                 </div>
 
             </CommonOverlay>

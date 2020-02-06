@@ -5,6 +5,7 @@
 
 import React from 'react';
 import PropTypes from 'prop-types';
+import { Link } from 'react-router-dom';
 import * as Icons from '../SharedComponents/icons/Icons';
 import CommonOverlay from '../SharedComponents/overlays/CommonOverlay';
 import LoadingBauble from '../SharedComponents/overlays/LoadingBauble';
@@ -13,16 +14,15 @@ import * as PermissionsHelper from '../../helpers/permissionsHelper';
 
 const propTypes = {
     generateFiles: PropTypes.func,
-    nextPage: PropTypes.func,
     session: PropTypes.object,
     hasErrors: PropTypes.bool,
     isReady: PropTypes.bool,
-    agency_name: PropTypes.string
+    agency_name: PropTypes.string,
+    submissionID: PropTypes.string
 };
 
 const defaultProps = {
     generateFiles: null,
-    nextPage: null,
     session: null,
     hasErrors: false,
     isReady: false,
@@ -30,11 +30,6 @@ const defaultProps = {
 };
 
 export default class GenerateEFOverlay extends React.Component {
-    clickedNext(e) {
-        e.preventDefault();
-        this.props.nextPage();
-    }
-
     clickedGenerate(e) {
         e.preventDefault();
         this.props.generateFiles();
@@ -82,6 +77,21 @@ export default class GenerateEFOverlay extends React.Component {
             buttonDisabled = true;
         }
 
+        const nextButton = nextDisabled ?
+            (
+                <button
+                    className={`usa-da-validation-overlay-review usa-da-button${nextClass}`}
+                    disabled>
+                    Next
+                </button>
+            ) :
+            (
+                <Link
+                    className={`usa-da-validation-overlay-review usa-da-button${nextClass}`}
+                    to={`/submission/${this.props.submissionID}/reviewData`}>
+                        Next
+                </Link>
+            );
 
         return (
             <CommonOverlay
@@ -96,12 +106,7 @@ export default class GenerateEFOverlay extends React.Component {
                         onClick={this.clickedGenerate.bind(this)}>
                         Regenerate Files
                     </button>
-                    <button
-                        className={`usa-da-button usa-da-validation-overlay-review ${nextClass}`}
-                        disabled={nextDisabled}
-                        onClick={this.clickedNext.bind(this)}>
-                        Next
-                    </button>
+                    {nextButton}
                 </div>
             </CommonOverlay>
         );
