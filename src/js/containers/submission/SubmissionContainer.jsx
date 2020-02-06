@@ -6,14 +6,14 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
+import { Redirect } from 'react-router-dom';
 
 import * as SubmissionGuideHelper from 'helpers/submissionGuideHelper';
 import SubmissionPage from 'components/submission/SubmissionPage';
 import { routes } from 'dataMapping/dabs/submission';
 
 const propTypes = {
-    computedMatch: PropTypes.object,
-    history: PropTypes.object
+    computedMatch: PropTypes.object
 };
 
 // by using completedSteps we allow users to
@@ -35,10 +35,10 @@ export class SubmissionContainer extends React.Component {
                 false,
                 false,
                 false
-            ]
+            ],
+            goToRoute: false
         };
 
-        this.setStepAndRoute = this.setStepAndRoute.bind(this);
         this.setStep = this.setStep.bind(this);
         this.errorFromStep = this.errorFromStep.bind(this);
         this.nextStep = this.nextStep.bind(this);
@@ -57,8 +57,8 @@ export class SubmissionContainer extends React.Component {
         // check for route change
         const { type } = this.props.computedMatch.params;
         if (type !== prevProps.computedMatch.params.type) {
-            const stepNumber = this.validateCurrentStepAndRouteType(this.state.step);
-            this.setStepAndRoute(stepNumber);
+            const stepNumber = this.validateCurrentStepAndRouteType();
+            this.setStep(stepNumber);
         }
     }
 
@@ -66,12 +66,6 @@ export class SubmissionContainer extends React.Component {
         this.setState({
             step
         });
-    }
-
-    setStepAndRoute(step) {
-        this.setState({
-            step
-        }, () => this.updateRoute());
     }
 
     getSubmission(useCurrentStep = false) {
@@ -107,7 +101,8 @@ export class SubmissionContainer extends React.Component {
 
     // since users can navigate via the url eg. /validateCrossFile
     // we need to verify a user's submission has completed a step
-    validateCurrentStepAndRouteType(currentStepNumber) {
+    validateCurrentStepAndRouteType() {
+        const currentStepNumber = this.state.step;
         // FABs dont check anything
         if (currentStepNumber === 5) return currentStepNumber;
         // get submission step we're tyring to access via url change
@@ -140,10 +135,11 @@ export class SubmissionContainer extends React.Component {
     currentRoute() {
         return routes[this.state.step];
     }
-    // update route
+
     updateRoute() {
-        const { submissionID } = this.props.computedMatch.params;
-        return this.props.history.push(`/submission/${submissionID}/${this.currentRoute()}`);
+        this.setState({
+            goToRoute: true
+        });
     }
     // clicked next button in child Overlay components
     // add 1 to step
@@ -158,13 +154,16 @@ export class SubmissionContainer extends React.Component {
     }
 
     render() {
+        const params = this.props.computedMatch.params;
+        if (this.state.goToRoute) {
+            return <Redirect to={`/submission/${params.submissionID}/${this.currentRoute()}`} />;
+        }
         const {
             isLoading,
             isError,
             errorMessage,
             step
         } = this.state;
-        const params = this.props.computedMatch.params;
         return (
             <SubmissionPage
                 submissionID={params.submissionID}
@@ -173,8 +172,7 @@ export class SubmissionContainer extends React.Component {
                 isError={isError}
                 errorMessage={errorMessage}
                 nextStep={this.nextStep}
-                setStep={this.setStep}
-                setStepAndRoute={this.setStepAndRoute} />
+                setStep={this.setStep} />
         );
     }
 }

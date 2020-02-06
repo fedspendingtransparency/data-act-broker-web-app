@@ -5,31 +5,26 @@
 
 import React from 'react';
 import PropTypes from 'prop-types';
+import { Link } from 'react-router-dom';
 import { stepNames, classes } from 'dataMapping/dabs/progress';
+import { routes } from 'dataMapping/dabs/submission';
 
 const propTypes = {
     stepNames: PropTypes.array,
     currentStep: PropTypes.number,
     totalSteps: PropTypes.number,
-    setStep: PropTypes.func,
-    barClasses: PropTypes.object
+    barClasses: PropTypes.object,
+    id: PropTypes.string.isRequired
 };
 
 const defaultProps = {
     currentStep: 1,
     totalSteps: 5,
     stepNames,
-    setStep: () => {},
     barClasses: classes
 };
 
 export default class Progress extends React.Component {
-    // update outer container
-    // on bar or label click
-    handleClick(step) {
-        this.props.setStep(step);
-    }
-
     // get appropriate class name for step
     // same for bar and labels
     className(index) {
@@ -49,25 +44,34 @@ export default class Progress extends React.Component {
     // bar button
     bar(index) {
         const isDisabled = this.isDisabled(index + 1);
-        return (
-            <button
-                disabled={isDisabled}
-                onClick={this.handleClick.bind(this, index)}
-                className="stepLink">
-                {index + 1}
-            </button>
-        );
+
+        const button = isDisabled ?
+            (
+                <button
+                    disabled
+                    className="stepLink">
+                    {index + 1}
+                </button>
+            ) :
+            (
+                <Link to={`/submission/${this.props.id}/${routes[index]}`}>{index + 1}</Link>
+            );
+        return button;
     }
     // label button
     label(index) {
         const isDisabled = this.isDisabled(index + 1);
-        return (
-            <button
-                disabled={isDisabled}
-                onClick={this.handleClick.bind(this, index)}>
-                {this.props.stepNames[index]}
-            </button>
-        );
+        const button = isDisabled ?
+            (
+                <button
+                    disabled={isDisabled}>
+                    {this.props.stepNames[index]}
+                </button>
+            ) :
+            (
+                <Link to={`/submission/${this.props.id}/${routes[index]}`}>{this.props.stepNames[index]}</Link>
+            );
+        return button;
     }
     // list that creates the horizontal progress bar
     // or list that creates the horizontal progress label
