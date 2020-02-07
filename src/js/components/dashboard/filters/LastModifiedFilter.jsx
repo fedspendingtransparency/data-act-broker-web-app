@@ -29,7 +29,8 @@ const LastModifiedFilter = (props) => {
             onDatesChange={props.pickedDates}
             focusedInput={focusedInput} // PropTypes.oneOf([START_DATE, END_DATE]) or null,
             onFocusChange={onFocusChange}
-            isOutsideRange={() => false} />
+            isOutsideRange={() => false}
+            small />
     );
 };
 

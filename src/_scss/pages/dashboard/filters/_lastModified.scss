@@ -1,0 +1,12 @@
+.DateRangePicker {
+    margin-top: rem(12);
+    .DayPicker_weekHeader_li {
+        // override global li styling
+        &:before {
+            content: '';
+            display: block;
+        }
+        margin-top: 0;
+        margin-bottom: 0;
+    }
+}
