@@ -20,13 +20,16 @@ export class LastModifiedFilterContainer extends React.Component {
     constructor(props) {
         super(props);
 
-        this.state = {};
-
         this.pickedDates = this.pickedDates.bind(this);
     }
 
     pickedDates(dates) {
-        this.props.updateGenericFilter('active', 'quarters', dates);
+        // convert moment objects to strings
+        const lastModified = {
+            startDate: dates.startDate ? dates.startDate.format('MM/DD/YYYY') : '',
+            endDate: dates.endDate ? dates.endDate.format('MM/DD/YYYY') : ''
+        };
+        this.props.updateGenericFilter('active', 'lastModified', lastModified);
     }
 
     render() {
