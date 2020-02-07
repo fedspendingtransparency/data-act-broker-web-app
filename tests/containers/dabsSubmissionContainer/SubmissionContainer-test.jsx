@@ -5,6 +5,7 @@
 
 import React from 'react';
 import { shallow } from 'enzyme';
+import { cloneDeep } from 'lodash';
 
 import { SubmissionContainer } from 'containers/submission/SubmissionContainer';
 import { mockProps, originalState } from './mockData';
@@ -50,11 +51,11 @@ describe('SubmissionContainer', () => {
             expect(getSubmission).toHaveBeenCalled();
         });
 
-        it('should call setStepAndRoute if route type is updated', () => {
+        it('should call setStep if route type is updated', () => {
             const validateCurrentStepAndRouteType = jest.fn();
-            const setStepAndRoute = jest.fn();
+            const setStep = jest.fn();
             container.instance().validateCurrentStepAndRouteType = validateCurrentStepAndRouteType;
-            container.instance().setStepAndRoute = setStepAndRoute;
+            container.instance().setStep = setStep;
             const newProps = {
                 computedMatch: {
                     params: {
@@ -65,7 +66,7 @@ describe('SubmissionContainer', () => {
             };
             container.instance().componentDidUpdate(newProps);
             expect(validateCurrentStepAndRouteType).toHaveBeenCalled();
-            expect(setStepAndRoute).toHaveBeenCalled();
+            expect(setStep).toHaveBeenCalled();
         });
     });
 
@@ -85,49 +86,54 @@ describe('SubmissionContainer', () => {
 
     describe('ValidateCurrentStepAndRouteType', () => {
         it('should return 5, the fabs step', () => {
-            const fabs = container.instance().validateCurrentStepAndRouteType(5);
+            const newState = cloneDeep(originalState);
+            newState.step = 5;
+            container.setState(newState);
+            const fabs = container.instance().validateCurrentStepAndRouteType();
             expect(fabs).toEqual(5);
         });
-        it('should allow a user to navigate to a step greater than its current step', () => {
-            const newState = { ...originalState }; // make a copy of the original state
-            newState.completedSteps[0] = true;
+        it('should allow a user to navigate to a completed step greater than its current step', () => {
+            const newState = cloneDeep(originalState); // make a copy of the original state
+            newState.completedSteps[0] = true; // set validateData as complete
+            newState.completedSteps[1] = true; // set generateFiles as complete
             container.instance().setState(newState);
-            const newProps = { ...container.instance().props };
-            newProps.computedMatch.params.type = 'validateData';
-            container.setProps({ ...newProps });
-            const allow = container.instance().validateCurrentStepAndRouteType(1);
+            const newProps = cloneDeep(container.instance().props);
+            newProps.computedMatch.params.type = 'generateFiles'; // try to go to generateFiles via url
+            container.setProps(newProps);
+            const allow = container.instance().validateCurrentStepAndRouteType();
             expect(allow).toEqual(1);
         });
-        it('should not allow a user to navigate to a greater step', () => {
-            const newState = { ...originalState }; // make a copy of the original state
+        it('should not allow a user to navigate to an incomplete greater step', () => {
+            const newState = cloneDeep(originalState); // make a copy of the original state
             newState.completedSteps[0] = true;
+            newState.step = 0;
             const newProps = { ...container.instance().props };
             newProps.computedMatch.params.type = 'generateEF';
             container.instance().setState(newState);
             container.setProps({ ...newProps });
-            const doNotAllow = container.instance().validateCurrentStepAndRouteType(0);
+            const doNotAllow = container.instance().validateCurrentStepAndRouteType();
             expect(doNotAllow).toEqual(0);
         });
         it('should allow a user to navigate to a previous step', () => {
-            const newState = { ...originalState }; // make a copy of the original state
+            const newState = cloneDeep(originalState); // make a copy of the original state
             newState.step = 4;
             newState.originalStep = 4;
-            container.instance().setState({ ...newState });
+            container.instance().setState(newState);
             const newProps = { ...container.instance().props };
             newProps.computedMatch.params.type = 'generateEF';
             container.setProps({ ...newProps });
-            const newIndex = container.instance().validateCurrentStepAndRouteType(4);
+            const newIndex = container.instance().validateCurrentStepAndRouteType();
             expect(newIndex).toEqual(3);
         });
         it('should just return the current step number if routes are the same', () => {
             const newProps = { ...container.instance().props };
-            const newState = { ...container.instance().state };
+            const newState = cloneDeep(originalState);
             newProps.computedMatch.params.type = 'generateEF';
             newState.step = 3;
             newState.originalStep = 3;
-            container.instance().setState({ ...newState });
+            container.instance().setState(newState);
             container.setProps({ ...newProps });
-            const sameRoute = container.instance().validateCurrentStepAndRouteType(3);
+            const sameRoute = container.instance().validateCurrentStepAndRouteType();
             expect(sameRoute).toEqual(3);
         });
     });
@@ -149,17 +155,6 @@ describe('SubmissionContainer', () => {
 
     it('updateRoute, should update the state', async () => {
         container.instance().updateRoute();
-        expect(mockProps.history.push).toHaveBeenCalled();
-    });
-    describe('nextStep', () => {
-        it('should update state and call update route', () => {
-            const updateRoute = jest.fn();
-            container.instance().updateRoute = updateRoute;
-            container.instance().nextStep();
-            const { step, completedSteps } = container.instance().state;
-            expect(step).toEqual(1);
-            expect(completedSteps[1]).toEqual(true);
-            expect(updateRoute).toHaveBeenCalled();
-        });
+        expect(container.instance().state.goToRoute).toBeTruthy();
     });
 });

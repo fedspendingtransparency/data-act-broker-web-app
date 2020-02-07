@@ -3,9 +3,6 @@ export const mockProps = {
         params: {
             submissionID: "2054"
         }
-    },
-    history: {
-        push: jest.fn()
     }
 };
 
@@ -15,12 +12,13 @@ export const originalState = {
     errorMessage: '',
     step: 0,
     originalStep: 0,
-    completedSteps: {
-        0: false,
-        1: false,
-        2: false,
-        3: false
-    }
+    completedSteps: [
+        false,
+        false,
+        false,
+        false
+    ],
+    goToRoute: false
 };
 
 export const routes = [
