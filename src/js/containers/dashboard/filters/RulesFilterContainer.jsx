@@ -13,8 +13,8 @@ import * as filterActions from 'redux/actions/dashboard/dashboardFilterActions';
 import RulesFilter from 'components/dashboard/filters/RulesFilter';
 
 const propTypes = {
-    updateGenericFilter: PropTypes.func.isRequired,
-    clearGenericFilter: PropTypes.func.isRequired,
+    updateFilterSet: PropTypes.func.isRequired,
+    clearFilter: PropTypes.func.isRequired,
     selectedFilters: PropTypes.object.isRequired
 };
 
@@ -43,13 +43,13 @@ export class RulesFilterContainer extends React.Component {
         // Make an API call for the corresponding rule labels when the selected file changes
         if (prevProps.selectedFilters.file !== this.props.selectedFilters.file && this.props.selectedFilters.file) {
             this.fetchAutocompleteResults();
-            this.props.clearGenericFilter('rules');
+            this.props.clearFilter('historical', 'rules');
         }
     }
 
     onSelect(rule) {
         // Add or remove the rule from Redux state
-        this.props.updateGenericFilter('rules', rule.code);
+        this.props.updateFilterSet('historical', 'rules', rule.code);
     }
 
     parseAutocomplete(input) {
@@ -144,7 +144,7 @@ RulesFilterContainer.propTypes = propTypes;
 
 export default connect(
     (state) => ({
-        selectedFilters: state.dashboardFilters
+        selectedFilters: state.dashboardFilters.historical
     }),
     (dispatch) => bindActionCreators(filterActions, dispatch),
 )(RulesFilterContainer);

@@ -12,8 +12,9 @@ import * as filterActions from 'redux/actions/dashboard/dashboardFilterActions';
 import RadioGroup from 'components/SharedComponents/RadioGroup';
 
 const propTypes = {
-    updateFileFilter: PropTypes.func,
-    selectedFilters: PropTypes.object
+    updateGenericFilter: PropTypes.func,
+    selectedFilters: PropTypes.object,
+    type: PropTypes.oneOf(['historical', 'active'])
 };
 
 const columns = [
@@ -51,15 +52,29 @@ const columns = [
     ]
 ];
 
-const FileFilterContainer = (props) => (
-    <div className="file-options">
-        <RadioGroup
-            onChange={props.updateFileFilter}
-            currentValue={props.selectedFilters.file}
-            columns={columns}
-            pageSection="file-filter" />
-    </div>
-);
+export class FileFilterContainer extends React.Component {
+    constructor(props) {
+        super(props);
+
+        this.updateFileFilter = this.updateFileFilter.bind(this);
+    }
+
+    updateFileFilter(value) {
+        this.props.updateGenericFilter(this.props.type, 'file', value);
+    }
+
+    render() {
+        return (
+            <div className="file-options">
+                <RadioGroup
+                    onChange={this.updateFileFilter}
+                    currentValue={this.props.selectedFilters[this.props.type].file}
+                    columns={columns}
+                    pageSection="file-filter" />
+            </div>
+        );
+    }
+}
 
 FileFilterContainer.propTypes = propTypes;
 

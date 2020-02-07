@@ -3,27 +3,27 @@
   * Created by Lizzie Salita 10/02/19
   **/
 
-export const updateGenericFilter = (filterType, filterValue) => ({
+export const updateFilterSet = (dashboardType, filterType, filterValue) => ({
     type: 'UPDATE_FILTER_SET',
     filterType,
-    filterValue
+    filterValue,
+    dashboardType
 });
 
-export const clearGenericFilter = (filterType) => ({
-    type: 'CLEAR_FILTER_SET',
-    filterType
+export const clearFilter = (dashboardType, filterType) => ({
+    type: 'CLEAR_FILTER',
+    filterType,
+    dashboardType
 });
 
-export const updateFileFilter = (file) => ({
-    type: 'UPDATE_FILE_FILTER',
-    file
+export const updateGenericFilter = (dashboardType, filterType, value) => ({
+    type: 'UPDATE_GENERIC_FILTER',
+    value,
+    filterType,
+    dashboardType
 });
 
-export const updateAgencyFilter = (agency) => ({
-    type: 'UPDATE_AGENCY_FILTER',
-    agency
-});
-
-export const clearAllFilters = () => ({
-    type: 'CLEAR_DASHBOARD_FILTERS'
+export const clearAllFilters = (dashboardType) => ({
+    type: 'CLEAR_DASHBOARD_FILTERS',
+    dashboardType
 });
