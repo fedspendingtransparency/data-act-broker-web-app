@@ -7,6 +7,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
+import moment from 'moment';
 
 import * as filterActions from 'redux/actions/dashboard/dashboardFilterActions';
 import LastModifiedFilter from 'components/dashboard/filters/LastModifiedFilter';
@@ -21,6 +22,7 @@ export class LastModifiedFilterContainer extends React.Component {
         super(props);
 
         this.pickedDates = this.pickedDates.bind(this);
+        this.isOutsideRange = this.isOutsideRange.bind(this);
     }
 
     pickedDates(dates) {
@@ -32,11 +34,29 @@ export class LastModifiedFilterContainer extends React.Component {
         this.props.updateGenericFilter('active', 'lastModified', lastModified);
     }
 
+    isOutsideRange(day) {
+        const today = moment();
+        const minDate = moment('01/01/2017', 'MM/DD/YYYY');
+
+        // disable future dates
+        if (day.isAfter(today)) {
+            return true;
+        }
+
+        // reporting began Q2 of FY 2017
+        if (day.isBefore(minDate)) {
+            return true;
+        }
+
+        return false;
+    }
+
     render() {
         return (
             <LastModifiedFilter
                 pickedDates={this.pickedDates}
-                selectedDates={this.props.selectedFilters.lastModified} />
+                selectedDates={this.props.selectedFilters.lastModified}
+                isOutsideRange={this.isOutsideRange} />
         );
     }
 }

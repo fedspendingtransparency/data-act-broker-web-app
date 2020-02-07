@@ -13,7 +13,8 @@ const propTypes = {
     selectedDates: PropTypes.shape({
         startDate: PropTypes.string,
         endDate: PropTypes.string
-    })
+    }),
+    isOutsideRange: PropTypes.func
 };
 
 const LastModifiedFilter = (props) => {
@@ -29,7 +30,7 @@ const LastModifiedFilter = (props) => {
             onDatesChange={props.pickedDates}
             focusedInput={focusedInput} // PropTypes.oneOf([START_DATE, END_DATE]) or null,
             onFocusChange={onFocusChange}
-            isOutsideRange={() => false}
+            isOutsideRange={props.isOutsideRange}
             small />
     );
 };
