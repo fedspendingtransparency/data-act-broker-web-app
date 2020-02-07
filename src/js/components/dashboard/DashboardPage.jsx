@@ -17,6 +17,7 @@ import FyFilterContainer from 'containers/dashboard/filters/FyFilterContainer';
 import FileFilterContainer from 'containers/dashboard/filters/FileFilterContainer';
 import RulesFilterContainer from 'containers/dashboard/filters/RulesFilterContainer';
 import CreatedByContainer from 'containers/dashboard/filters/CreatedByFilterContainer';
+import LastModifiedFilterContainer from 'containers/dashboard/filters/LastModifiedFilterContainer';
 import DashboardTab from './DashboardTab';
 import FilterSidebar from './FilterSidebar';
 
@@ -49,7 +50,6 @@ const filters = {
         },
         {
             name: 'Rules',
-            required: false,
             component: RulesFilterContainer,
             description: 'Enter specific codes to filter your search.'
         }
@@ -64,9 +64,13 @@ const filters = {
         },
         {
             name: 'Created By',
-            required: false,
             component: CreatedByContainer,
             description: 'Search by the name of the person who created the file.'
+        },
+        {
+            name: 'Last Modified',
+            component: LastModifiedFilterContainer,
+            description: 'Select the submission date range.'
         },
         {
             name: 'Validation Rules',

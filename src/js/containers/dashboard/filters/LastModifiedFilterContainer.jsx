@@ -1,0 +1,48 @@
+/**
+ * LastModifiedFilterContainer.jsx
+ * Created by Lizzie Salita 02/07/20
+ */
+
+import React from 'react';
+import PropTypes from 'prop-types';
+import { bindActionCreators } from 'redux';
+import { connect } from 'react-redux';
+
+import * as filterActions from 'redux/actions/dashboard/dashboardFilterActions';
+import LastModifiedFilter from 'components/dashboard/filters/LastModifiedFilter';
+
+const propTypes = {
+    updateGenericFilter: PropTypes.func,
+    selectedFilters: PropTypes.object
+};
+
+export class LastModifiedFilterContainer extends React.Component {
+    constructor(props) {
+        super(props);
+
+        this.state = {};
+
+        this.pickedDates = this.pickedDates.bind(this);
+    }
+
+    pickedDates(dates) {
+        this.props.updateGenericFilter('active', 'quarters', dates);
+    }
+
+    render() {
+        return (
+            <LastModifiedFilter
+                pickedDates={this.pickedDates}
+                selectedDates={this.props.selectedFilters.lastModified} />
+        );
+    }
+}
+
+LastModifiedFilterContainer.propTypes = propTypes;
+
+export default connect(
+    (state) => ({
+        selectedFilters: state.dashboardFilters.active
+    }),
+    (dispatch) => bindActionCreators(filterActions, dispatch),
+)(LastModifiedFilterContainer);
