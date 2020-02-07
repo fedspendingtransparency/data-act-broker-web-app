@@ -7,20 +7,21 @@ import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import moment from 'moment';
 import { DateRangePicker } from 'react-dates';
+import { isOutsideRange, initialVisibleMonth } from 'helpers/datePickerHelper';
 
 const propTypes = {
     pickedDates: PropTypes.func,
     selectedDates: PropTypes.shape({
         startDate: PropTypes.string,
         endDate: PropTypes.string
-    }),
-    isOutsideRange: PropTypes.func
+    })
 };
 
 const LastModifiedFilter = (props) => {
     const [focusedInput, onFocusChange] = useState(null);
     const startDate = props.selectedDates.startDate ? moment(props.selectedDates.startDate) : null;
     const endDate = props.selectedDates.endDate ? moment(props.selectedDates.endDate) : null;
+    const lastMonth = initialVisibleMonth;
     return (
         <DateRangePicker
             startDate={startDate} // momentPropTypes.momentObj or null,
@@ -30,7 +31,8 @@ const LastModifiedFilter = (props) => {
             onDatesChange={props.pickedDates}
             focusedInput={focusedInput} // PropTypes.oneOf([START_DATE, END_DATE]) or null,
             onFocusChange={onFocusChange}
-            isOutsideRange={props.isOutsideRange}
+            isOutsideRange={isOutsideRange}
+            initialVisibleMonth={lastMonth}
             small />
     );
 };
