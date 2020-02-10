@@ -16,9 +16,9 @@ const propTypes = {
 
 class HistoryContainer extends React.Component {
     render() {
-        const submissionID = this.props.computedMatch.params.submissionID;
+        const { submissionID } = this.props.computedMatch.params;
         return (
-            <HistoryPage type={this.props.type} submissionID={submissionID} />
+            <HistoryPage submissionID={submissionID} type={this.props.type} />
         );
     }
 }

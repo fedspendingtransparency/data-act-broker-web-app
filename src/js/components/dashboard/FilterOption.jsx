@@ -10,7 +10,7 @@ const propTypes = {
     name: PropTypes.string,
     description: PropTypes.string,
     required: PropTypes.bool,
-    component: PropTypes.func,
+    component: PropTypes.object,
     altDescription: PropTypes.string
 };
 

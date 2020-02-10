@@ -7,7 +7,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import moment from 'moment';
 
-import * as ReviewHelper from '../../helpers/reviewHelper';
+import * as ReviewHelper from 'helpers/reviewHelper';
 
 const propTypes = {
     submissionID: PropTypes.string
@@ -24,7 +24,6 @@ export default class AddDataHeader extends React.Component {
         this.isUnmounted = false;
 
         this.state = {
-            submissionID: this.props.submissionID ? this.props.submissionID : null,
             last_updated: null,
             ready: false
         };
@@ -37,10 +36,9 @@ export default class AddDataHeader extends React.Component {
         }
     }
 
-    componentWillReceiveProps(nextProps) {
-        if (this.state.submissionID !== nextProps.submissionID) {
-            this.setState({ submissionID: nextProps.submissionID });
-            this.loadData(nextProps.submissionID);
+    componentDidUpdate(prevProps) {
+        if (this.props.submissionID !== prevProps.submissionID) {
+            this.loadData();
         }
     }
 
@@ -48,8 +46,9 @@ export default class AddDataHeader extends React.Component {
         this.isUnmounted = true;
     }
 
-    loadData(submissionID) {
-        if (submissionID === null || submissionID === '') {
+    loadData() {
+        const { submissionID } = this.props;
+        if (!submissionID) {
             return;
         }
         ReviewHelper.fetchSubmissionMetadata(submissionID, 'dabs')
