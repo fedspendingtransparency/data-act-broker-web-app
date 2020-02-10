@@ -1,9 +1,7 @@
-#### January 27, 2020{section=technical}
+#### February 10, 2020{section=technical}
 
 In this release, here is a list of technical changes that may require infrastructure or database updates, or represents additional functionality.
 
-* Backfilled certified\_flex\_field table in preparation for future functionality.
-* Added additional logging for uploading files for debugging purposes.
-* Refactored the overall site's router to allow upgrading the React versions.
-* Removed unused node packages for a cleaner installation process.
-* Upgraded React version to be compatible with modern versions of React.
+* Prevented users from re-uploading a FABS file while publishing.
+* Updated DUNS, HistoricDUNS, and Subaward tables to properly store business types (and not their codes). This will update the File F "SubAwardeeBusinessTypes" column for grants.
+* Added script to backfill FSRS records for data quality.
