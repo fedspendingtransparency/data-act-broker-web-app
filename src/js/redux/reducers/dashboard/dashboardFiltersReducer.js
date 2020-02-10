@@ -4,6 +4,7 @@
  **/
 
 import { Set } from 'immutable';
+import { isEqual } from 'lodash';
 
 export const initialState = {
     historical: {
@@ -15,7 +16,10 @@ export const initialState = {
     },
     active: {
         agency: '',
-        createdBy: '',
+        createdBy: {
+            name: '',
+            id: null
+        },
         lastModified: {
             start: '',
             end: ''
@@ -49,7 +53,7 @@ export const dashboardFiltersReducer = (state = initialState, action) => {
         }
 
         case 'UPDATE_GENERIC_FILTER': {
-            if (state[action.dashboardType][action.filterType] === action.value) {
+            if (isEqual(state[action.dashboardType][action.filterType], action.value)) {
                 const dashboard = Object.assign({}, state[action.dashboardType], {
                     [action.filterType]: initialState[action.dashboardType][action.filterType]
                 });

@@ -16,6 +16,7 @@ import DashboardAgencyFilterContainer from 'containers/dashboard/filters/Dashboa
 import FyFilterContainer from 'containers/dashboard/filters/FyFilterContainer';
 import FileFilterContainer from 'containers/dashboard/filters/FileFilterContainer';
 import RulesFilterContainer from 'containers/dashboard/filters/RulesFilterContainer';
+import CreatedByContainer from 'containers/dashboard/filters/CreatedByFilterContainer';
 import DashboardTab from './DashboardTab';
 import FilterSidebar from './FilterSidebar';
 
@@ -32,29 +33,25 @@ const filters = {
             name: 'Fiscal Years',
             required: true,
             component: FyFilterContainer,
-            description: 'Select the applicable fiscal year(s).',
-            altDescription: null
+            description: 'Select the applicable fiscal year(s).'
         },
         {
             name: 'Quarters',
             required: true,
             component: QuarterFilterContainer,
-            description: 'Select the applicable quarter(s).',
-            altDescription: null
+            description: 'Select the applicable quarter(s).'
         },
         {
             name: 'Validation Rules',
             required: true,
             component: FileFilterContainer,
-            description: 'Select one file or cross-file.',
-            altDescription: null
+            description: 'Select one file or cross-file.'
         },
         {
             name: 'Rules',
             required: false,
             component: RulesFilterContainer,
-            description: 'Enter specific codes to filter your search.',
-            altDescription: null
+            description: 'Enter specific codes to filter your search.'
         }
     ],
     active: [
@@ -66,11 +63,16 @@ const filters = {
             altDescription: 'The agency to which you are assigned.'
         },
         {
+            name: 'Created By',
+            required: false,
+            component: CreatedByContainer,
+            description: 'Search by the name of the person who created the file.'
+        },
+        {
             name: 'Validation Rules',
             required: true,
             component: FileFilterContainer,
-            description: 'Select one file or cross-file.',
-            altDescription: null
+            description: 'Select one file or cross-file.'
         }
     ]
 };
