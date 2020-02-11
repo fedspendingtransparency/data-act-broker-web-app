@@ -31,16 +31,16 @@
         }
     
         &.CalendarDay__selected_span {
-            background-color: $color-primary-lighter;
+            background-color: $color-cool-blue-lighter;
             border-color: $color-gray-light;
             color: $color-white;
             &:hover {
-                background-color: $color-primary-light;
+                background-color: $color-cool-blue-light;
             }
         }
     
         &.CalendarDay__hovered_span {
-            background-color: $color-primary-alt-light;
+            background-color: $color-cool-blue-light;
             border-color: $color-gray-light;
             color: $color-primary;
             &:hover {
