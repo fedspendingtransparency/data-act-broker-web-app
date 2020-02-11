@@ -52,8 +52,11 @@ export default class Typeahead extends React.Component {
 
         this.state = {
             value: '',
-            showWarning: false
+            showWarning: false,
+            expanded: false
         };
+
+        this.changedText = this.changedText.bind(this);
     }
 
     componentDidMount() {
@@ -169,12 +172,18 @@ export default class Typeahead extends React.Component {
     expand() {
         if (this.typeahead) {
             this.typeahead.open();
+            this.setState({
+                expanded: true
+            });
         }
     }
 
     collapse() {
         if (this.typeahead) {
             this.typeahead.close();
+            this.setState({
+                expanded: false
+            });
         }
     }
 
@@ -239,10 +248,15 @@ export default class Typeahead extends React.Component {
                         type="text"
                         placeholder={placeholder}
                         value={this.state.value}
-                        onChange={this.changedText.bind(this)}
+                        onChange={this.changedText}
                         tabIndex={this.props.tabIndex}
                         disabled={disabled}
-                        aria-required={this.props.isRequired} />
+                        aria-required={this.props.isRequired}
+                        // Awesomeplete will add some of the required aria props
+                        // eslint-disable-next-line jsx-a11y/role-has-required-aria-props
+                        role="combobox"
+                        aria-expanded={this.state.expanded}
+                        aria-label={placeholder} />
                 </div>
                 {warning}
             </div>

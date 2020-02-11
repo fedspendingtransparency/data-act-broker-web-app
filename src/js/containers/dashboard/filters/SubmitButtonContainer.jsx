@@ -24,7 +24,8 @@ const propTypes = {
     applyStagedFilters: PropTypes.func,
     clearStagedFilters: PropTypes.func,
     resetAppliedFilters: PropTypes.func,
-    setAppliedFilterEmptiness: PropTypes.func
+    setAppliedFilterEmptiness: PropTypes.func,
+    type: PropTypes.oneOf(['active', 'historical'])
 };
 
 export class SubmitButtonContainer extends React.Component {
@@ -40,10 +41,10 @@ export class SubmitButtonContainer extends React.Component {
     }
 
     componentDidUpdate(prevProps) {
-        if (prevProps.stagedFilters !== this.props.stagedFilters) {
+        if (prevProps.stagedFilters[this.props.type] !== this.props.stagedFilters[this.props.type]) {
             this.stagingChanged();
         }
-        else if (prevProps.appliedFilters !== this.props.appliedFilters) {
+        else if (prevProps.appliedFilters.filters[this.props.type] !== this.props.appliedFilters.filters[this.props.type]) {
             this.stagingChanged();
         }
     }
@@ -54,8 +55,8 @@ export class SubmitButtonContainer extends React.Component {
 
     compareStores() {
         // we need to do a deep equality check by comparing every store key
-        const storeKeys = Object.keys(this.props.stagedFilters);
-        if (storeKeys.length !== Object.keys(this.props.appliedFilters).length) {
+        const storeKeys = Object.keys(this.props.stagedFilters[this.props.type]);
+        if (storeKeys.length !== Object.keys(this.props.appliedFilters.filters[this.props.type]).length) {
             // key lengths do not match, there's a difference so fail immediately
             return false;
         }
@@ -63,8 +64,8 @@ export class SubmitButtonContainer extends React.Component {
         // check that the key exists in the appliedFilters object and also that it
         // is equal (using Immutable's equality check utilty function) in both stores
         return storeKeys.every((key) => (
-            {}.hasOwnProperty.call(this.props.appliedFilters, key) &&
-                is(this.props.appliedFilters[key], this.props.stagedFilters[key])
+            {}.hasOwnProperty.call(this.props.appliedFilters.filters[this.props.type], key) &&
+                is(this.props.appliedFilters.filters[this.props.type][key], this.props.stagedFilters[this.props.type][key])
         ));
     }
 
@@ -83,24 +84,27 @@ export class SubmitButtonContainer extends React.Component {
     }
 
     applyStagedFilters() {
-        this.props.applyStagedFilters(this.props.stagedFilters);
+        this.props.applyStagedFilters(this.props.type, this.props.stagedFilters[this.props.type]);
         this.setState({
             filtersChanged: false
         });
-        this.props.setAppliedFilterEmptiness(false);
+        this.props.setAppliedFilterEmptiness(this.props.type, false);
     }
 
     resetFilters() {
-        this.props.clearStagedFilters();
-        this.props.resetAppliedFilters();
-        this.props.setAppliedFilterEmptiness(true);
+        this.props.setAppliedFilterEmptiness(this.props.type, true);
+        this.props.clearStagedFilters(this.props.type);
+        this.props.resetAppliedFilters(this.props.type);
     }
 
     render() {
         // Make sure all the required filters have been staged
         const stagedFilters = this.props.stagedFilters;
-        const requiredFields = stagedFilters.file && stagedFilters.agency
-            && stagedFilters.quarters.size > 0 && stagedFilters.fy.size > 0;
+        let requiredFields;
+        if (this.props.type === 'historical') {
+            requiredFields = stagedFilters.historical.file && stagedFilters.historical.agency
+            && stagedFilters.historical.quarters.size > 0 && stagedFilters.historical.fy.size > 0;
+        }
         return (
             <SubmitButton
                 filtersChanged={this.state.filtersChanged}
@@ -113,9 +117,10 @@ export class SubmitButtonContainer extends React.Component {
 
 export default connect(
     (state) => ({
-        isEmpty: state.appliedDashboardFilters._empty,
+        historicalIsEmpty: state.appliedDashboardFilters._historicalEmpty,
+        activeIsEmpty: state.appliedDashboardFilters._activeEmpty,
         stagedFilters: state.dashboardFilters,
-        appliedFilters: state.appliedDashboardFilters.filters
+        appliedFilters: state.appliedDashboardFilters
     }),
     (dispatch) => bindActionCreators(combinedActions, dispatch)
 )(SubmitButtonContainer);

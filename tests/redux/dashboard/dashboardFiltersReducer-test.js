@@ -5,11 +5,13 @@
 
 import { dashboardFiltersReducer, initialState } from 'redux/reducers/dashboard/dashboardFiltersReducer';
 import { Set } from 'immutable';
+import { cloneDeep } from 'lodash';
 
 describe('dashboardFiltersReducer', () => {
     describe('UPDATE_FILTER_SET', () => {
         const action = {
             type: 'UPDATE_FILTER_SET',
+            dashboardType: 'historical',
             filterType: 'quarters',
             filterValue: 2
         };
@@ -17,58 +19,45 @@ describe('dashboardFiltersReducer', () => {
         it('should add the value if it does not currently exist in the filter', () => {
             const updatedState = dashboardFiltersReducer(undefined, action);
 
-            expect(updatedState.quarters).toEqual(new Set([2]));
+            expect(updatedState.historical.quarters).toEqual(new Set([2]));
         });
 
         it('should remove the value if already exists in the filter', () => {
-            const startingState = Object.assign({}, initialState, {
-                quarters: new Set([2])
-            });
+            const startingState = cloneDeep(initialState);
+            startingState.historical.quarters = new Set([2]);
 
             const updatedState = dashboardFiltersReducer(startingState, action);
-            expect(updatedState.quarters).toEqual(new Set());
+            expect(updatedState.historical.quarters).toEqual(new Set());
         });
     });
-    describe('UPDATE_FILE_FILTER', () => {
-        it('should update file filter state to the provided value', () => {
-            let state = dashboardFiltersReducer(undefined, {});
-
-            const action = {
-                type: 'UPDATE_FILE_FILTER',
-                file: 'B'
-            };
-
-            state = dashboardFiltersReducer(state, action);
-
-            expect(state.file).toEqual('B');
-        });
-    });
-    describe('UPDATE_AGENCY_FILTER', () => {
+    describe('UPDATE_GENERIC_FILTER', () => {
         const action = {
-            type: 'UPDATE_AGENCY_FILTER',
-            agency: '123'
+            type: 'UPDATE_GENERIC_FILTER',
+            dashboardType: 'historical',
+            filterType: 'agency',
+            value: '123'
         };
 
-        it('should change the agency to the one provided', () => {
+        it('should change the given filter to the provided value', () => {
             let state = dashboardFiltersReducer(undefined, {});
 
             state = dashboardFiltersReducer(state, action);
 
-            expect(state.agency).toEqual('123');
+            expect(state.historical.agency).toEqual('123');
         });
 
-        it('should remove the value if it is the agency already selected', () => {
-            const startingState = Object.assign({}, initialState, {
-                agency: '123'
-            });
+        it('should remove the value if it is the value already selected', () => {
+            const startingState = cloneDeep(initialState);
+            startingState.historical.agency = '123';
 
             const updatedState = dashboardFiltersReducer(startingState, action);
-            expect(updatedState.agency).toEqual('');
+            expect(updatedState.historical.agency).toEqual('');
         });
     });
-    describe('CLEAR_FILTER_SET', () => {
+    describe('CLEAR_FILTER', () => {
         it('should reset the specified filter to its initial state', () => {
-            let state = {
+            const state = cloneDeep(initialState);
+            state.historical = {
                 quarters: new Set([1, 3]),
                 fy: new Set([2018, 2019]),
                 file: 'A',
@@ -77,20 +66,22 @@ describe('dashboardFiltersReducer', () => {
 
             // Reset the filter
             const resetAction = {
-                type: 'CLEAR_FILTER_SET',
+                type: 'CLEAR_FILTER',
+                dashboardType: 'historical',
                 filterType: 'rules'
             };
 
-            state = dashboardFiltersReducer(state, resetAction);
+            const restoredState = dashboardFiltersReducer(state, resetAction);
 
-            expect(state.rules).toEqual(initialState.rules);
-            expect(state.file).toEqual('A');
-            expect(state.quarters).toEqual(new Set([1, 3]));
+            expect(restoredState.historical.rules).toEqual(initialState.historical.rules);
+            expect(restoredState.historical.file).toEqual('A');
+            expect(restoredState.historical.quarters).toEqual(new Set([1, 3]));
         });
     });
     describe('CLEAR_DASHBOARD_FILTERS', () => {
         it('should reset the dashboard filters to their initial state', () => {
-            let state = {
+            const state = cloneDeep(initialState);
+            state.historical = {
                 quarters: new Set([1, 3]),
                 fy: new Set([2018, 2019]),
                 file: 'A',
@@ -99,12 +90,13 @@ describe('dashboardFiltersReducer', () => {
 
             // Reset the filters
             const resetAction = {
-                type: 'CLEAR_DASHBOARD_FILTERS'
+                type: 'CLEAR_DASHBOARD_FILTERS',
+                dashboardType: 'historical'
             };
 
-            state = dashboardFiltersReducer(state, resetAction);
+            const restoredState = dashboardFiltersReducer(state, resetAction);
 
-            expect(state).toEqual(initialState);
+            expect(restoredState.historical).toEqual(initialState.historical);
         });
     });
 });

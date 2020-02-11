@@ -8,7 +8,7 @@ import { shallow } from 'enzyme';
 import { cloneDeep } from 'lodash';
 
 import { FyFilterContainer } from 'containers/dashboard/filters/FyFilterContainer';
-import { mockActions, mockRedux } from './mockFilters';
+import { mockActions, mockReduxHistorical } from './mockFilters';
 
 // mock the child component by replacing it with a function that returns a null element
 jest.mock('components/dashboard/filters/FiscalYearFilter', () => jest.fn(() => null));
@@ -20,7 +20,7 @@ describe('FyFilterContainer', () => {
     it('should make an API call for the latest quarter on mount', async () => {
         const container = shallow(<FyFilterContainer
             {...mockActions}
-            {...mockRedux} />
+            {...mockReduxHistorical} />
         );
         const getLatestQuarter = jest.fn();
         container.instance().getLatestQuarter = getLatestQuarter;
@@ -30,7 +30,7 @@ describe('FyFilterContainer', () => {
     it('should call generateAllFy when the selected quarters change', () => {
         const container = shallow(<FyFilterContainer
             {...mockActions}
-            {...mockRedux} />
+            {...mockReduxHistorical} />
         );
         const generateAllFy = jest.fn();
         container.instance().generateAllFy = generateAllFy;
@@ -42,7 +42,7 @@ describe('FyFilterContainer', () => {
     it('should call removeDisabledSelections when the selected quarters change', () => {
         const container = shallow(<FyFilterContainer
             {...mockActions}
-            {...mockRedux} />
+            {...mockReduxHistorical} />
         );
         const removeDisabledSelections = jest.fn();
         container.instance().removeDisabledSelections = removeDisabledSelections;
@@ -52,22 +52,22 @@ describe('FyFilterContainer', () => {
         expect(removeDisabledSelections).toHaveBeenCalled();
     });
     describe('pickedFy', () => {
-        it('should call the updateGenericFilter action', () => {
+        it('should call the updateFilterSet action', () => {
             const container = shallow(<FyFilterContainer
                 {...mockActions}
-                {...mockRedux} />
+                {...mockReduxHistorical} />
             );
 
             container.instance().pickedFy(2018);
 
-            expect(mockActions.updateGenericFilter).toHaveBeenCalledWith('fy', 2018);
+            expect(mockActions.updateFilterSet).toHaveBeenCalledWith('historical', 'fy', 2018);
         });
     });
     describe('generateAllFy', () => {
         it('should disable 2017 when Q1 is the only quarter selected', () => {
             const container = shallow(<FyFilterContainer
                 {...mockActions}
-                {...mockRedux} />
+                {...mockReduxHistorical} />
             );
             container.instance().setState({
                 latestYear: 2019,
@@ -84,7 +84,7 @@ describe('FyFilterContainer', () => {
         it('should disable the current FY when every quarter selected is in the future', () => {
             const container = shallow(<FyFilterContainer
                 {...mockActions}
-                {...mockRedux} />
+                {...mockReduxHistorical} />
             );
             container.instance().setState({
                 latestYear: 2020,
@@ -103,7 +103,7 @@ describe('FyFilterContainer', () => {
         it('should remove FY 2017 if Q1 is the only quarter selected', () => {
             const container = shallow(<FyFilterContainer
                 {...mockActions}
-                {...mockRedux} />
+                {...mockReduxHistorical} />
             );
             const pickedFy = jest.fn();
             container.instance().pickedFy = pickedFy;
@@ -122,7 +122,7 @@ describe('FyFilterContainer', () => {
         it('should remove the current FY if only future quarters are selected', () => {
             const container = shallow(<FyFilterContainer
                 {...mockActions}
-                {...mockRedux} />
+                {...mockReduxHistorical} />
             );
             const pickedFy = jest.fn();
             container.instance().pickedFy = pickedFy;

@@ -164,7 +164,7 @@
     background-color: transparent;
     background-image: none;
     box-shadow: none;
-    color: $color-primary-light;
+    color: #3f6fb3;
     font-size: 0.875em;
     cursor: pointer;
   }
@@ -199,13 +199,13 @@
 
   .DayPicker-Day--selected:not(.DayPicker-Day--disabled):not(.DayPicker-Day--outside) {
     position: relative;
-    border: 1px solid $color-primary-light;
-    background-color: $color-primary-light;
+    border: 1px solid #3f6fb3;
+    background-color: #3f6fb3;
     color: $color-white;
   }
 
   .DayPicker-Day--selected:not(.DayPicker-Day--disabled):not(.DayPicker-Day--outside):hover {
-    background-color: $color-primary-lighter;
+    background-color: #0071bc;
   }
 
   .DayPicker:not(.DayPicker--interactionDisabled)
@@ -234,9 +234,9 @@
 
   .DayPicker-Day--selected:not(.DayPicker-Day--start):not(.DayPicker-Day--end):not(.DayPicker-Day--outside) {
     color: $color-gray-lightest;
-    background-color: $color-primary-lighter;
+    background-color: #0071bc;
     opacity: 0.5;
-    border: 1px solid $color-primary-dark;
+    border: 1px solid $color-primary-darker;
   }
 
   .innerCalendarDatePicker {
@@ -248,10 +248,10 @@
     text-align: center;
     button {
       background-color: transparent;
-      border: 1px solid $color-primary-dark;
-      color: $color-primary-dark;
+      border: 1px solid #78a0d6;
+      color: #78a0d6;
       &:hover {
-        background-color: $color-primary-light;
+        background-color: #3f6fb3;;
         color: $color-white;
       }
     }

@@ -129,6 +129,12 @@ const getRoutes = () => {
             type: 'dabs'
         },
         {
+            path: '/dashboard/:type',
+            onEnter: checkUserPermissions,
+            component: Dashboard,
+            type: 'dabs'
+        },
+        {
             path: '/dashboard',
             onEnter: checkUserPermissions,
             component: Dashboard,

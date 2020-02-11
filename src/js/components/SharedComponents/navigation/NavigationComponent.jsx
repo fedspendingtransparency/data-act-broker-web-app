@@ -7,13 +7,13 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
+import * as sessionActions from 'redux/actions/sessionActions';
+import * as PermissionHelper from 'helpers/permissionsHelper';
 import { kGlobalConstants } from '../../../GlobalConstants';
 import NavbarTab from './NavbarTab';
 import UserButton from './UserButton';
 import SkipNavigationLink from './SkipNavigationLink';
 import TestEnvironmentBanner from '../banners/TestEnvironmentBanner';
-import * as sessionActions from '../../../redux/actions/sessionActions';
-import * as PermissionHelper from '../../../helpers/permissionsHelper';
 
 const propTypes = {
     setSession: PropTypes.func,

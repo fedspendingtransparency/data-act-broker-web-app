@@ -19,13 +19,14 @@ describe('DashboardAgencyFilterContainer', () => {
     describe('onSelect', () => {
         it('should call the updateAgencyFilter action', () => {
             const container = shallow(<DashboardAgencyFilterContainer
+                type="active"
                 {...mockActions}
                 {...mockRedux} />
             );
 
             container.instance().onSelect('123');
 
-            expect(mockActions.updateAgencyFilter).toHaveBeenCalledWith('123');
+            expect(mockActions.updateGenericFilter).toHaveBeenCalledWith('active', 'agency', '123');
         });
     });
 });

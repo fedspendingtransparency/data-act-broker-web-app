@@ -13,7 +13,7 @@ import * as filterActions from 'redux/actions/dashboard/dashboardFilterActions';
 import QuarterPicker from 'components/dashboard/filters/QuarterPicker';
 
 const propTypes = {
-    updateGenericFilter: PropTypes.func,
+    updateFilterSet: PropTypes.func,
     selectedFilters: PropTypes.object
 };
 
@@ -105,7 +105,7 @@ export class QuarterFilterContainer extends React.Component {
     }
 
     pickedQuarter(quarter) {
-        this.props.updateGenericFilter('quarters', quarter);
+        this.props.updateFilterSet('historical', 'quarters', quarter);
     }
 
     render() {
@@ -122,7 +122,7 @@ QuarterFilterContainer.propTypes = propTypes;
 
 export default connect(
     (state) => ({
-        selectedFilters: state.dashboardFilters
+        selectedFilters: state.dashboardFilters.historical
     }),
     (dispatch) => bindActionCreators(filterActions, dispatch),
 )(QuarterFilterContainer);
