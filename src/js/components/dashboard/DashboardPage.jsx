@@ -18,6 +18,7 @@ import FileFilterContainer from 'containers/dashboard/filters/FileFilterContaine
 import RulesFilterContainer from 'containers/dashboard/filters/RulesFilterContainer';
 import CreatedByContainer from 'containers/dashboard/filters/CreatedByFilterContainer';
 import LastModifiedFilterContainer from 'containers/dashboard/filters/LastModifiedFilterContainer';
+import SubmissionIdFilterContainer from 'containers/dashboard/filters/SubmissionIdFilterContainer';
 import DashboardTab from './DashboardTab';
 import FilterSidebar from './FilterSidebar';
 
@@ -71,6 +72,11 @@ const filters = {
             name: 'Last Modified',
             component: LastModifiedFilterContainer,
             description: 'Select the submission date range.'
+        },
+        {
+            name: 'Submission ID',
+            component: SubmissionIdFilterContainer,
+            description: 'Enter the submission ID number.'
         },
         {
             name: 'Validation Rules',
