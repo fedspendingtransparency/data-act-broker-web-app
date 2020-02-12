@@ -6,9 +6,12 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
+import ShownValue from './ShownValue';
+
 const propTypes = {
-    updateGenericFilter: PropTypes.func,
-    selectedFilters: PropTypes.object
+    updateFilter: PropTypes.func,
+    selectedFilters: PropTypes.object,
+    clearFilter: PropTypes.func
 };
 
 export default class SubmissionIdFilter extends React.Component {
@@ -19,6 +22,7 @@ export default class SubmissionIdFilter extends React.Component {
         };
         this.changedInput = this.changedInput.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
+        this.removeValue = this.removeValue.bind(this);
     }
 
     changedInput(e) {
@@ -32,7 +36,7 @@ export default class SubmissionIdFilter extends React.Component {
 
         if (this.state.value) {
             // prevent submitting an empty string
-            this.props.updateGenericFilter('active', 'submissionId', this.state.value);
+            this.props.updateFilter(this.state.value);
         }
 
         // clear the value
@@ -41,7 +45,18 @@ export default class SubmissionIdFilter extends React.Component {
         });
     }
 
+    removeValue() {
+        this.props.clearFilter();
+    }
+
     render() {
+        let selectedId = null;
+        const { submissionId } = this.props.selectedFilters;
+        if (submissionId) {
+            selectedId = (<ShownValue
+                label={submissionId}
+                removeValue={this.removeValue} />);
+        }
         return (
             <div className="dashboard-filters__filter">
                 <form
@@ -64,6 +79,9 @@ export default class SubmissionIdFilter extends React.Component {
                         Add
                     </button>
                 </form>
+                <div className="selected-filters">
+                    {selectedId}
+                </div>
             </div>
         );
     }

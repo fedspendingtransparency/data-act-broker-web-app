@@ -17,11 +17,32 @@ const propTypes = {
     selectedFilters: PropTypes.object.isRequired
 };
 
-export const SubmissionIdFilterContainer = (props) => (
-    <SubmissionIdFilter
-        {...props} />
-);
 
+export class SubmissionIdFilterContainer extends React.Component {
+    constructor(props) {
+        super(props);
+
+        this.clearFilter = this.clearFilter.bind(this);
+        this.updateFilter = this.updateFilter.bind(this);
+    }
+
+    updateFilter(submissionId) {
+        this.props.updateGenericFilter('active', 'submissionId', submissionId);
+    }
+
+    clearFilter() {
+        this.props.clearFilter('active', 'submissionId');
+    }
+
+    render() {
+        return (
+            <SubmissionIdFilter
+                clearFilter={this.clearFilter}
+                updateFilter={this.updateFilter}
+                selectedFilters={this.props.selectedFilters} />
+        );
+    }
+}
 
 SubmissionIdFilterContainer.propTypes = propTypes;
 
