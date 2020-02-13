@@ -58,7 +58,7 @@ export default class SubmissionIdFilter extends React.Component {
                 removeValue={this.removeValue} />);
         }
         return (
-            <div className="dashboard-filters__filter">
+            <div className="dashboard-filters__filter submission-id-filter">
                 <form
                     className="text-filter"
                     onSubmit={this.handleSubmit}>
