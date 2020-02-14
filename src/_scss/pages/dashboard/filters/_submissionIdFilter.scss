@@ -6,5 +6,7 @@
         margin-top: 10px;
         height: 40px;
         font-size: rem(14);
+        @include align-items(center);
+        overflow: hidden;
     }
 }

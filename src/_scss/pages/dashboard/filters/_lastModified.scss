@@ -11,6 +11,11 @@
     }
     
     .DateRangePickerInput {
+        height: rem(40);
+        border: solid 1px $color-gray-lighter;
+        .DateInput__small {
+            padding: rem(3) 0;
+        }
         .DateInput_input__small {
             font-weight: normal;
             font-size: rem(14);
