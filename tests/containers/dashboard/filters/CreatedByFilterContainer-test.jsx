@@ -36,7 +36,7 @@ describe('CreatedByFilterContainer', () => {
             {...mockReduxActive} />
         );
         const newState = cloneDeep(container.instance().state);
-        newState.results = [{ name: 'ABC', user_id: 123 }, { name: 'XYZ', user_id: 456 }];
+        newState.results = [{ name: 'ABC', user_id: 123, email: 'abc@email.com' }, { name: 'XYZ', user_id: 456, email: 'xyz@email.com' }];
         container.instance().setState({ ...newState });
 
         container.instance().parseAutocomplete('test');
@@ -61,7 +61,7 @@ describe('CreatedByFilterContainer', () => {
                 {...mockReduxActive} />
             );
             const newState = cloneDeep(container.instance().state);
-            newState.results = [{ name: 'ABC', user_id: 123 }, { name: 'XYZ', user_id: 456 }];
+            newState.results = [{ name: 'ABC', user_id: 123, email: 'abc@email.com' }, { name: 'XYZ', user_id: 456, email: 'xyz@email.com' }];
             container.instance().setState({ ...newState });
 
             container.instance().parseAutocomplete('y');
@@ -80,7 +80,7 @@ describe('CreatedByFilterContainer', () => {
                 {...updatedRedux} />
             );
             const newState = cloneDeep(container.instance().state);
-            newState.results = [{ name: 'ABC', user_id: 123 }, { name: 'XYZ', user_id: 456 }];
+            newState.results = [{ name: 'ABC', user_id: 123, email: 'abc@email.com' }, { name: 'XYZ', user_id: 456, email: 'xyz@email.com' }];
             container.instance().setState({ ...newState });
 
             container.instance().parseAutocomplete();
@@ -90,6 +90,23 @@ describe('CreatedByFilterContainer', () => {
                 title: 'XYZ',
                 subtitle: '',
                 data: { name: 'XYZ', id: 456 }
+            });
+        });
+        it('should handle users with no name', () => {
+            const container = shallow(<CreatedByFilterContainer
+                {...mockActions}
+                {...mockReduxActive} />
+            );
+            const newState = cloneDeep(container.instance().state);
+            newState.results = [{ name: 'ABC', user_id: 123, email: 'abc@email.com' }, { name: '', user_id: 456, email: 'xyz@email.com' }];
+            container.instance().setState({ ...newState });
+
+            container.instance().parseAutocomplete('y');
+            expect(container.instance().state.filteredResults.length).toEqual(1);
+            expect(container.instance().state.filteredResults[0]).toEqual({
+                title: 'xyz@email.com',
+                subtitle: '',
+                data: { name: 'xyz@email.com', id: 456 }
             });
         });
     });
