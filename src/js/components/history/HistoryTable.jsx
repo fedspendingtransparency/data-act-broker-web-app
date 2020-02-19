@@ -83,9 +83,6 @@ export default class HistoryTable extends React.Component {
     }
 
     activeList() {
-        if (this.state.certifications[this.state.active].certified_files) {
-            return null;
-        }
         const activeSubmissionsFiles = this.state.certifications[this.state.active].certified_files;
         const list = [];
         for (let i = 0; i < activeSubmissionsFiles.length; i++) {
