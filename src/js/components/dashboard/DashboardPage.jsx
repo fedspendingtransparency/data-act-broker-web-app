@@ -87,12 +87,16 @@ const propTypes = {
 
 export default class DashboardPage extends React.Component {
     render() {
-        if (!this.props.computedMatch.params.type) {
+        const activeTab = this.props.computedMatch.params.type && this.props.computedMatch.params.type.toLowerCase();
+        if (!activeTab) {
             // Redirect /dashboard to Historical
             // TODO change to active
             return <Redirect to="/dashboard/historical" />;
         }
-        const activeTab = this.props.computedMatch.params.type;
+        else if (!(activeTab === 'historical' || activeTab === 'active')) {
+            // Redirect invalid params to 'Page Not Found'
+            return <Redirect to="/404" />;
+        }
         return (
             <div>
                 <div className="usa-da-site_wrap usa-da-dashboard-page">
