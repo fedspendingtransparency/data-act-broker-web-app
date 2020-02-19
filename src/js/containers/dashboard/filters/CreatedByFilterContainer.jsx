@@ -54,7 +54,7 @@ export class CreatedByFilterContainer extends React.Component {
         if (input) {
             // If the user has entered a search string, only show matching results
             results = results.filter((user) => {
-                const name = user.name.toLowerCase();
+                const name = (user.name && user.name.toLowerCase()) || user.email.toLowerCase();
                 return name.includes(input.toLowerCase());
             });
         }
@@ -64,7 +64,7 @@ export class CreatedByFilterContainer extends React.Component {
         if (selectedUser.name && selectedUser.id) {
             results = results.filter((user) => {
                 const formattedUser = {
-                    name: user.name,
+                    name: user.name || user.email, // because some older users have no name
                     id: user.user_id
                 };
                 return !isEqual(formattedUser, selectedUser);
@@ -73,9 +73,9 @@ export class CreatedByFilterContainer extends React.Component {
 
         // Format the results for display in the dropdown
         const filteredResults = results.map((user) => ({
-            title: user.name,
+            title: user.name || user.email,
             subtitle: '',
-            data: { name: user.name, id: user.user_id }
+            data: { name: user.name || user.email, id: user.user_id }
         }));
 
         this.setState({
