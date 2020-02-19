@@ -16,6 +16,34 @@ describe('DashboardAgencyFilterContainer', () => {
     beforeEach(() => {
         jest.restoreAllMocks();
     });
+    it('should call loadData on mount', () => {
+        const container = shallow(<DashboardAgencyFilterContainer
+            type="active"
+            {...mockActions}
+            {...mockRedux} />
+        );
+
+        const loadData = jest.fn();
+        container.instance().loadData = loadData;
+
+        container.instance().componentDidMount();
+
+        expect(loadData).toHaveBeenCalled();
+    });
+    it('should call loadData when the dashboard type changes', () => {
+        const container = shallow(<DashboardAgencyFilterContainer
+            type="active"
+            {...mockActions}
+            {...mockRedux} />
+        );
+
+        const loadData = jest.fn();
+        container.instance().loadData = loadData;
+
+        container.instance().componentDidUpdate({ type: 'historical' });
+
+        expect(loadData).toHaveBeenCalled();
+    });
     describe('onSelect', () => {
         it('should call the updateAgencyFilter action', () => {
             const container = shallow(<DashboardAgencyFilterContainer
