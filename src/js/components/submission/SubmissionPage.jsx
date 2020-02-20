@@ -1,7 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import Navbar from '../SharedComponents/navigation/NavigationComponent';
-import AddDataHeader from './../addData/AddDataHeader';
 import Progress from '../SharedComponents/Progress';
 import DABSFABSErrorMessage from '../../components/SharedComponents/DABSFABSErrorMessage';
 import ReviewLoading from '../../components/reviewData/ReviewLoading';
@@ -12,15 +11,17 @@ import GenerateFilesContainer from '../../containers/generateFiles/GenerateFiles
 import CrossFileContentContainer from '../../containers/crossFile/CrossFileContentContainer';
 import GenerateEFContainer from '../../containers/generateEF/GenerateEFContainer';
 import ReviewDataContainer from '../../containers/review/ReviewDataContainer';
+import SubmissionHeader from './SubmissionHeader';
 
 const propTypes = {
     submissionID: PropTypes.string,
     setStep: PropTypes.func,
     errorFromStep: PropTypes.func,
     step: PropTypes.number,
-    isError: PropTypes.bool,
+    error: PropTypes.bool,
     errorMessage: PropTypes.string,
-    isLoading: PropTypes.bool
+    loading: PropTypes.bool,
+    submissionInfo: PropTypes.object
 };
 
 export default class SubmissionPage extends React.Component {
@@ -50,7 +51,7 @@ export default class SubmissionPage extends React.Component {
     }
     // get current component className
     whichClassName() {
-        return classNames[this.props.step];
+        return classNames[this.props.step] || 'usa-da-validate-data-page';
     }
     // current step component
     whichComponent() {
@@ -58,33 +59,33 @@ export default class SubmissionPage extends React.Component {
     }
 
     loadingMessage() {
-        if (!this.props.isLoading) return null;
+        if (!this.props.loading) return null;
         return (
             <ReviewLoading />
         );
     }
 
     errorMessage() {
-        const { errorMessage, isError } = this.props;
-        if (!isError) return null;
+        const { errorMessage, error } = this.props;
+        if (!error) return null;
         return (<DABSFABSErrorMessage message={errorMessage} />);
     }
 
     render() {
         const {
-            isLoading,
-            isError,
+            loading,
+            error,
             submissionID
         } = this.props;
         let content = this.whichComponent();
-        if (isLoading) content = this.loadingMessage();
-        if (isError) content = this.errorMessage();
+        if (loading) content = this.loadingMessage();
+        if (error) content = this.errorMessage();
         const step = this.props.step + 1;
         const className = this.whichClassName();
         return (
             <div className={className}>
                 <Navbar activeTab="submissionGuide" type="dabs" />
-                <AddDataHeader submissionID={submissionID} />
+                <SubmissionHeader {...this.props.submissionInfo} />
                 <div className="usa-da-content-step-block" name="content-top">
                     <div className="container center-block">
                         <div className="row">
