@@ -10,6 +10,7 @@ import { submissionsTableFiltersReducer } from './submissionsTable/submissionsTa
 import { appliedSubmissionsTableFiltersReducer } from './submissionsTable/appliedFiltersReducer';
 import { dashboardFiltersReducer } from './dashboard/dashboardFiltersReducer';
 import { appliedDashboardFiltersReducer } from './dashboard/appliedFiltersReducer';
+import { submissionStepsReducer } from './submission/submissionStepsReducer';
 
 const appReducer = combineReducers({
     session: sessionReducer,
@@ -21,7 +22,8 @@ const appReducer = combineReducers({
     submissionsTableFilters: submissionsTableFiltersReducer,
     appliedSubmissionsTableFilters: appliedSubmissionsTableFiltersReducer,
     dashboardFilters: dashboardFiltersReducer,
-    appliedDashboardFilters: appliedDashboardFiltersReducer
+    appliedDashboardFilters: appliedDashboardFiltersReducer,
+    submissionSteps: submissionStepsReducer
 });
 
 export default appReducer;
