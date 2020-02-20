@@ -5,14 +5,22 @@
 
 import React from 'react';
 import PropTypes from 'prop-types';
+import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 
 import * as SubmissionGuideHelper from 'helpers/submissionGuideHelper';
 import * as ReviewHelper from 'helpers/reviewHelper';
+import * as submissionActions from 'redux/actions/submission/submissionActions';
 import SubmissionPage from 'components/submission/SubmissionPage';
 
 const propTypes = {
-    computedMatch: PropTypes.object
+    computedMatch: PropTypes.object,
+    updateStep: PropTypes.func,
+    updateOriginalStep: PropTypes.func,
+    updateLastCompletedStep: PropTypes.func,
+    updatedSubmissionID: PropTypes.func,
+    clearSubmission: PropTypes.func,
+    submissionSteps: PropTypes.object
 };
 
 export class SubmissionContainer extends React.Component {
@@ -28,13 +36,22 @@ export class SubmissionContainer extends React.Component {
     }
 
     componentDidMount() {
-        this.getSubmission();
-        this.getOriginalStep();
+        const { submissionID } = this.props.computedMatch.params;
+        if (submissionID !== this.props.submissionSteps.submissionID) {
+            // If the submission does not match what we already have in Redux
+            this.props.clearSubmission();
+            this.props.updatedSubmissionID(submissionID);
+            this.getSubmission();
+            this.getOriginalStep();
+        }
     }
 
     componentDidUpdate(prevProps) {
+        const { submissionID } = this.props.computedMatch.params;
         // check for ID change
-        if (prevProps.computedMatch.params.submissionID !== this.props.computedMatch.params.submissionID) {
+        if (prevProps.computedMatch.params.submissionID !== submissionID) {
+            this.props.clearSubmission();
+            this.props.updatedSubmissionID(submissionID);
             this.getSubmission();
             this.getOriginalStep();
         }
@@ -88,5 +105,9 @@ export class SubmissionContainer extends React.Component {
 SubmissionContainer.propTypes = propTypes;
 
 export default connect(
-    (state) => ({ session: state.session })
+    (state) => ({
+        session: state.session,
+        submissionSteps: state.submissionSteps
+    }),
+    (dispatch) => bindActionCreators(submissionActions, dispatch),
 )(SubmissionContainer);
