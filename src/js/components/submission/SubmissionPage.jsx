@@ -4,7 +4,6 @@ import Navbar from '../SharedComponents/navigation/NavigationComponent';
 import Progress from '../SharedComponents/Progress';
 import DABSFABSErrorMessage from '../../components/SharedComponents/DABSFABSErrorMessage';
 import ReviewLoading from '../../components/reviewData/ReviewLoading';
-import { classNames } from '../../dataMapping/dabs/submission';
 // DABs components
 import ValidateDataContainer from '../../containers/validateData/ValidateDataContainer';
 import GenerateFilesContainer from '../../containers/generateFiles/GenerateFilesContainer';
@@ -49,10 +48,6 @@ export default class SubmissionPage extends React.Component {
                 errorFromStep={errorFromStep} />)
         ];
     }
-    // get current component className
-    whichClassName() {
-        return classNames[this.props.step] || 'usa-da-validate-data-page';
-    }
     // current step component
     whichComponent() {
         return this.components()[this.props.step];
@@ -81,9 +76,8 @@ export default class SubmissionPage extends React.Component {
         if (loading) content = this.loadingMessage();
         if (error) content = this.errorMessage();
         const step = this.props.step + 1;
-        const className = this.whichClassName();
         return (
-            <div className={className}>
+            <div className="usa-da-submission-page">
                 <Navbar activeTab="submissionGuide" type="dabs" />
                 <SubmissionHeader {...this.props.submissionInfo} />
                 <div className="usa-da-content-step-block" name="content-top">

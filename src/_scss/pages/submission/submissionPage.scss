@@ -1,0 +1,30 @@
+.usa-da-submission-page {
+	@import "../../layouts/validation/validation";
+	@include validationLayout;
+
+	// style the warning for published submissions
+	.internal-banner {
+		@import "../../layouts/login/_topBanner";
+		@include loginTopBanner;
+	}
+
+	.alert-error {
+		@import "../../components/alerts/_alerts";
+		@include dangerAlert;
+	}
+	.alert-warning {
+		@import "../../components/alerts/_alerts";
+		@include warningAlert;
+		background-color: rgb(255,252,246);
+		border-color: rgb(243,199,77);
+		background: rgb(255,252,246);
+		.alert-header-text {
+		    margin: 0 0 5px 40px;
+		    font-weight: bold;
+		}
+		p {
+		    margin: 5px 0 5px 40px;
+		    font-size: 1.6rem;
+		}
+	}
+}
