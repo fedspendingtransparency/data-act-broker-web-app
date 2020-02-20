@@ -1,3 +1,4 @@
+/* eslint-disable import/prefer-default-export */
 export const routes = [
     'validateData',
     'generateFiles',
@@ -5,11 +6,4 @@ export const routes = [
     'generateEF',
     'reviewData'
 ];
-
-export const classNames = [
-    'usa-da-validate-data-page',
-    'usa-da-generate-files-page',
-    'usa-da-cross-file-page',
-    'usa-da-generate-ef-page',
-    'usa-da-review-data-page'
-];
+/* eslint-enable import/prefer-default-export */

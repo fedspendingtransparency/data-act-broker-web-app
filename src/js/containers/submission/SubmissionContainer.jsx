@@ -58,11 +58,20 @@ export class SubmissionContainer extends React.Component {
         const params = this.props.computedMatch.params;
         SubmissionGuideHelper.getSubmissionPage(params.submissionID)
             .then((res) => {
+                this.setState({
+                    loading: false,
+                    error: false,
+                    errorMessage: ''
+                });
                 console.log('original step', res.step);
             })
             .catch((err) => {
                 const { message } = err.body;
-                console.error(message);
+                this.setState({
+                    loading: false,
+                    error: true,
+                    errorMessage: message
+                });
             });
     }
 
