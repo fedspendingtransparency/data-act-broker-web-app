@@ -5,10 +5,10 @@
 
 import React from 'react';
 import { shallow } from 'enzyme';
+import moment from 'moment';
 
 import { LastModifiedFilterContainer } from 'containers/dashboard/filters/LastModifiedFilterContainer';
 import { mockActions, mockReduxActive } from './mockFilters';
-import moment from 'moment';
 
 // mock the child component by replacing it with a function that returns a null element
 jest.mock('components/dashboard/filters/LastModifiedFilter', () => jest.fn(() => null));
