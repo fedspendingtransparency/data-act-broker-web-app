@@ -4,19 +4,35 @@
  **/
 
 import { Set } from 'immutable';
+import { isEqual } from 'lodash';
 
 export const initialState = {
-    agency: '',
-    quarters: new Set(),
-    fy: new Set(),
-    file: '',
-    rules: new Set()
+    historical: {
+        agency: '',
+        quarters: new Set(),
+        fy: new Set(),
+        file: '',
+        rules: new Set()
+    },
+    active: {
+        agency: '',
+        createdBy: {
+            name: '',
+            id: null
+        },
+        lastModified: {
+            start: '',
+            end: ''
+        },
+        submissionId: '',
+        file: ''
+    }
 };
 
 export const dashboardFiltersReducer = (state = initialState, action) => {
     switch (action.type) {
         case 'UPDATE_FILTER_SET': {
-            let updatedSet = state[action.filterType];
+            let updatedSet = state[action.dashboardType][action.filterType];
 
             const value = action.filterValue;
 
@@ -27,36 +43,46 @@ export const dashboardFiltersReducer = (state = initialState, action) => {
                 // adds the value to the set if it does not already exist
                 updatedSet = updatedSet.add(value);
             }
-            return Object.assign({}, state, {
+            const dashboard = Object.assign({}, state[action.dashboardType], {
                 [action.filterType]: updatedSet
             });
-        }
 
-        case 'UPDATE_FILE_FILTER': {
             return Object.assign({}, state, {
-                file: action.file
+                [action.dashboardType]: dashboard
             });
         }
 
-        case 'UPDATE_AGENCY_FILTER': {
-            if (state.agency === action.agency) {
+        case 'UPDATE_GENERIC_FILTER': {
+            if (isEqual(state[action.dashboardType][action.filterType], action.value)) {
+                const dashboard = Object.assign({}, state[action.dashboardType], {
+                    [action.filterType]: initialState[action.dashboardType][action.filterType]
+                });
                 return Object.assign({}, state, {
-                    agency: ''
+                    [action.dashboardType]: dashboard
                 });
             }
+            const updatedDashboard = Object.assign({}, state[action.dashboardType], {
+                [action.filterType]: action.value
+            });
             return Object.assign({}, state, {
-                agency: action.agency
+                [action.dashboardType]: updatedDashboard
             });
         }
 
-        case 'CLEAR_FILTER_SET': {
+        case 'CLEAR_FILTER': {
+            const dashboard = Object.assign({}, state[action.dashboardType], {
+                [action.filterType]: initialState[action.dashboardType][action.filterType]
+            });
             return Object.assign({}, state, {
-                [action.filterType]: initialState[action.filterType]
+                [action.dashboardType]: dashboard
             });
         }
 
         case 'CLEAR_DASHBOARD_FILTERS': {
-            return Object.assign({}, initialState);
+            const dashboard = Object.assign({}, initialState[action.dashboardType]);
+            return Object.assign({}, state, {
+                [action.dashboardType]: dashboard
+            });
         }
 
         default:

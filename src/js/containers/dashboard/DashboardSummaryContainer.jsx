@@ -43,9 +43,9 @@ export class DashboardSummaryContainer extends React.Component {
         });
         const filters = {
             filters: {
-                quarters: this.props.appliedFilters.filters.quarters,
-                fys: this.props.appliedFilters.filters.fy,
-                agencies: [this.props.appliedFilters.filters.agency]
+                quarters: this.props.appliedFilters.quarters,
+                fys: this.props.appliedFilters.fy,
+                agencies: [this.props.appliedFilters.agency]
             }
         };
         DashboardHelper.fetchSummary(filters)
@@ -69,9 +69,7 @@ export class DashboardSummaryContainer extends React.Component {
         return (
             <DashboardSummaries
                 appliedFilters={this.props.appliedFilters}
-                results={this.state.results}
-                inFlight={this.state.inFlight}
-                hasFailed={this.state.hasFailed} />
+                {...this.state} />
         );
     }
 }
@@ -80,6 +78,6 @@ DashboardSummaryContainer.propTypes = propTypes;
 
 export default connect(
     (state) => ({
-        appliedFilters: state.appliedDashboardFilters
+        appliedFilters: state.appliedDashboardFilters.filters.historical
     }),
 )(DashboardSummaryContainer);

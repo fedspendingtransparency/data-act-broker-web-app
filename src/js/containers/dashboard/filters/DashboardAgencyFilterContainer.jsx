@@ -13,10 +13,10 @@ import * as filterActions from 'redux/actions/dashboard/dashboardFilterActions';
 import DashboardAgencyFilter from 'components/dashboard/filters/DashboardAgencyFilter';
 
 const propTypes = {
-    updateAgencyFilter: PropTypes.func.isRequired,
-    clearGenericFilter: PropTypes.func.isRequired,
+    updateGenericFilter: PropTypes.func.isRequired,
     selectedFilters: PropTypes.object.isRequired,
-    setDescription: PropTypes.func.isRequired
+    setDescription: PropTypes.func.isRequired,
+    type: PropTypes.oneOf(['historical', 'active'])
 };
 
 const minCharsToSearch = 2;
@@ -40,7 +40,7 @@ export class DashboardAgencyFilterContainer extends React.Component {
 
     onSelect(agency) {
         // Add or remove the rule from Redux state
-        this.props.updateAgencyFilter(agency);
+        this.props.updateGenericFilter(this.props.type, 'agency', agency);
     }
 
     loadData() {
@@ -53,7 +53,7 @@ export class DashboardAgencyFilterContainer extends React.Component {
                 });
                 if (agencies.length === 1) {
                     const code = agencies[0].cgac_code ? agencies[0].cgac_code : agencies[0].frec_code;
-                    this.props.updateAgencyFilter(code);
+                    this.props.updateGenericFilter(this.props.type, 'agency', code);
                     this.props.setDescription(true);
                 }
             })
@@ -65,7 +65,7 @@ export class DashboardAgencyFilterContainer extends React.Component {
     render() {
         return (
             <DashboardAgencyFilter
-                selectedFilters={this.props.selectedFilters}
+                selectedFilters={this.props.selectedFilters[this.props.type]}
                 {...this.state}
                 onSelect={this.onSelect}
                 minCharsToSearch={minCharsToSearch} />
