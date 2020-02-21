@@ -38,6 +38,12 @@ export class DashboardAgencyFilterContainer extends React.Component {
         this.loadData();
     }
 
+    componentDidUpdate(prevProps) {
+        if (this.props.type !== prevProps.type) {
+            this.loadData();
+        }
+    }
+
     onSelect(agency) {
         // Add or remove the rule from Redux state
         this.props.updateGenericFilter(this.props.type, 'agency', agency);
@@ -53,7 +59,10 @@ export class DashboardAgencyFilterContainer extends React.Component {
                 });
                 if (agencies.length === 1) {
                     const code = agencies[0].cgac_code ? agencies[0].cgac_code : agencies[0].frec_code;
-                    this.props.updateGenericFilter(this.props.type, 'agency', code);
+                    // Prevent removing the agency if it has already been set by the other dashboard type
+                    if (this.props.selectedFilters[this.props.type].agency !== code) {
+                        this.props.updateGenericFilter(this.props.type, 'agency', code);
+                    }
                     this.props.setDescription(true);
                 }
             })
