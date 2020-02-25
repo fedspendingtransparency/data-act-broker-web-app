@@ -6,7 +6,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import CSSTransitionGroup from 'react-transition-group/CSSTransitionGroup';
-import { Link } from 'react-router';
+import { Link } from 'react-router-dom';
 import AgencyListContainer from '../../containers/SharedContainers/AgencyListContainer';
 import * as Icons from '../SharedComponents/icons/Icons';
 import Modal from '../SharedComponents/Modal';

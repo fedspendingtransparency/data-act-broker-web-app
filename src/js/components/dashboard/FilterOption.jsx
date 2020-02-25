@@ -10,8 +10,9 @@ const propTypes = {
     name: PropTypes.string,
     description: PropTypes.string,
     required: PropTypes.bool,
-    component: PropTypes.func,
-    altDescription: PropTypes.string
+    component: PropTypes.object,
+    altDescription: PropTypes.string,
+    type: PropTypes.oneOf(['historical', 'active'])
 };
 
 export default class FilterOption extends React.Component {
@@ -38,7 +39,7 @@ export default class FilterOption extends React.Component {
         let component = null;
         if (this.props.component) {
             const Component = this.props.component;
-            component = <Component setDescription={this.setDescription} />;
+            component = <Component setDescription={this.setDescription} type={this.props.type} />;
         }
         const description = this.state.useAltText ? this.props.altDescription : this.props.description;
         return (

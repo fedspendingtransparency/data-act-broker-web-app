@@ -1,5 +1,7 @@
-#### December 16, 2019{section=technical}
+#### February 10, 2020{section=technical}
 
 In this release, here is a list of technical changes that may require infrastructure or database updates, or represents additional functionality.
 
-* Updated submission_window table and “/window” endpoint to support dynamic banners of different types (informational and warning) and headers
+* Prevented users from re-uploading a FABS file while publishing.
+* Updated DUNS, HistoricDUNS, and Subaward tables to properly store business types (and not their codes). This will update the File F "SubAwardeeBusinessTypes" column for grants.
+* Added script to backfill FSRS records for data quality.

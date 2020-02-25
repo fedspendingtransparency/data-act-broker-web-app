@@ -3,16 +3,24 @@ import { initialState as appliedInitialState } from 'redux/reducers/dashboard/ap
 
 export const mockActions = {
     updateGenericFilter: jest.fn(),
-    clearGenericFilter: jest.fn(),
+    updateFilterSet: jest.fn(),
+    clearFilter: jest.fn(),
     applyStagedFilters: jest.fn(),
     clearStagedFilters: jest.fn(),
     resetAppliedFilters: jest.fn(),
-    setAppliedFilterEmptiness: jest.fn(),
-    updateAgencyFilter: jest.fn()
+    setAppliedFilterEmptiness: jest.fn()
 };
 
 export const mockRedux = {
     selectedFilters: initialState
+};
+
+export const mockReduxHistorical = {
+    selectedFilters: initialState.historical
+};
+
+export const mockReduxActive = {
+    selectedFilters: initialState.active
 };
 
 export const mockSubmitRedux = {

@@ -21,7 +21,7 @@ import PeriodPicker from './PeriodPicker';
 const initialPeriod = defaultPeriods();
 
 const propTypes = {
-    route: PropTypes.object,
+    type: PropTypes.oneOf(['dabs', 'fabs']),
     clickedDownload: PropTypes.func,
     generateFileA: PropTypes.func,
     status: PropTypes.string,
@@ -31,7 +31,6 @@ const propTypes = {
 };
 
 const defaultProps = {
-    route: null,
     clickedDownload: null,
     generateFileA: () => { },
     status: '',
@@ -130,7 +129,7 @@ export default class DetachedFileA extends React.Component {
             <div className="usa-da-detached-file-a-page">
                 <div className="usa-da-site_wrap">
                     <div className="usa-da-page-content">
-                        <Navbar activeTab="submissionGuide" type={this.props.route.type} />
+                        <Navbar activeTab="submissionGuide" type={this.props.type} />
                         <div className="usa-da-content-dark">
                             <div className="container">
                                 <div className="row usa-da-page-title">

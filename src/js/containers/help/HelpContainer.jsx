@@ -6,19 +6,20 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import _ from 'lodash';
 
+import * as HelpHelper from 'helpers/helpHelper';
 import HelpPage from 'components/help/helpPage';
 import ResourcesPage from 'components/help/resourcesPage';
 import HistoryPage from 'components/help/historyPage';
 
 const propTypes = {
-    route: PropTypes.object,
+    type: PropTypes.oneOf(['dabs', 'fabs']),
+    path: PropTypes.string,
     session: PropTypes.object
 };
 
 const defaultProps = {
-    route: {},
+    path: '/help',
     session: {}
 };
 
@@ -27,58 +28,75 @@ class HelpPageContainer extends React.Component {
         super(props);
 
         this.state = {
-            helpOnly: false,
-            type: props.route.type,
-            path: 'help'
+            changelog: '',
+            technical: '',
+            clSections: [],
+            tSections: [],
+            technicalHistory: '',
+            releaseHistory: ''
         };
     }
 
     componentDidMount() {
-        this.setHelpRoute();
+        this.loadChangelog();
+        this.loadTechnical();
     }
 
-    componentDidUpdate(prevProps) {
-        if (!_.isEqual(prevProps, this.props)) {
-            this.setHelpRoute();
-        }
-    }
-
-    setHelpRoute() {
-        if (this.props.route.type !== this.state.type || this.props.route.path !== this.state.path) {
-            this.setState({
-                type: this.props.route.type,
-                path: this.props.route.path.toLowerCase(),
-                helpOnly: this.props.session.user.helpOnly
+    loadChangelog() {
+        HelpHelper.loadHelp()
+            .then((output) => {
+                this.setState({
+                    changelog: output.html,
+                    clSections: output.sections,
+                    releaseHistory: output.history
+                });
+            })
+            .catch((err) => {
+                console.error(err);
             });
-        }
+    }
+
+    loadTechnical() {
+        HelpHelper.loadTechnical()
+            .then((output) => {
+                this.setState({
+                    technical: output.html,
+                    tSections: output.sections,
+                    technicalHistory: output.history
+                });
+            })
+            .catch((err) => {
+                console.error(err);
+            });
     }
 
     render() {
-        const currentRoute = this.state.path;
-        if (currentRoute === 'resources' || currentRoute === 'fabsresources') {
+        const currentRoute = this.props.path.toLowerCase();
+        const helpOnly = this.props.session.user.helpOnly;
+        if (currentRoute === '/resources' || currentRoute === '/fabsresources') {
             return (<ResourcesPage
                 {...this.props}
-                helpOnly={this.state.helpOnly}
-                type={this.state.type} />);
+                {...this.state}
+                helpOnly={helpOnly} />);
         }
-        else if (currentRoute === 'history' || currentRoute === 'fabshistory') {
+        else if (currentRoute === '/history' || currentRoute === '/fabshistory') {
             return ((<HistoryPage
                 {...this.props}
+                {...this.state}
                 history="release"
-                helpOnly={this.state.helpOnly}
-                type={this.state.type} />));
+                helpOnly={helpOnly} />));
         }
-        else if (currentRoute === 'technicalhistory' || currentRoute === 'fabstechnicalhistory') {
+        else if (currentRoute === '/technicalhistory' || currentRoute === '/fabstechnicalhistory') {
             return (<HistoryPage
                 {...this.props}
+                {...this.state}
                 history="technical"
-                helpOnly={this.state.helpOnly}
-                type={this.state.type} />);
+                helpOnly={helpOnly} />);
         }
         return (<HelpPage
             {...this.props}
-            helpOnly={this.state.helpOnly}
-            type={this.state.type} />);
+            {...this.state}
+            helpOnly={helpOnly} />);
     }
 }
 

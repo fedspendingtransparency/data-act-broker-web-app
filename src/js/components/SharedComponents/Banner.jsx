@@ -22,7 +22,6 @@ export default class Banner extends React.Component {
         super(props);
 
         this.state = {
-            type: this.props.type,
             appWindow: []
         };
     }
@@ -31,15 +30,8 @@ export default class Banner extends React.Component {
         this.isWindow();
     }
 
-    componentWillReceiveProps(nextProps) {
-        let type = null;
-        if (this.state.type !== nextProps.type) {
-            type = nextProps.type;
-        }
-        if (type && type !== this.state.type) {
-            this.setState({
-                type
-            });
+    componentDidUpdate(prevProps) {
+        if (this.props.type !== prevProps.type) {
             this.isWindow();
         }
     }
@@ -52,7 +44,7 @@ export default class Banner extends React.Component {
                 }
                 const appWindow = [];
                 for (let i = 0; i < res.data.length; i++) {
-                    if (res.data[i].type.toLowerCase() === this.state.type.toLowerCase() ||
+                    if (res.data[i].type.toLowerCase() === this.props.type.toLowerCase() ||
                         res.data[i].type.toLowerCase() === 'all') {
                         appWindow.push(res.data[i]);
                     }

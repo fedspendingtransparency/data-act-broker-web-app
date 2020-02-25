@@ -13,14 +13,14 @@ import { resetAppliedFilters } from 'redux/actions/submissionsTable/appliedFilte
 
 import * as SubmissionListHelper from 'helpers/submissionListHelper';
 
-import DashboardContent from 'components/submissionsTable/SubmissionsTableContent';
+import SubmissionsTableContent from 'components/submissionsTable/SubmissionsTableContent';
 
 const combinedActions = Object.assign({}, dashboardFilterActions, {
     resetAppliedFilters
 });
 
 const propTypes = {
-    type: PropTypes.string,
+    type: PropTypes.oneOf(['dabs', 'fabs']),
     toggleDashboardFilter: PropTypes.func,
     updateDashboardFilter: PropTypes.func,
     stagedFilters: PropTypes.object,
@@ -139,7 +139,7 @@ export class SubmissionsTableContainer extends React.Component {
 
     render() {
         return (
-            <DashboardContent
+            <SubmissionsTableContent
                 {...this.state}
                 {...this.props}
                 loadTableData={this.loadTableData} />

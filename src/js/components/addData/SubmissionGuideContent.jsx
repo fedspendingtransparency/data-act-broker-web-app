@@ -26,6 +26,9 @@ export default class SubmissionGuideContent extends React.Component {
         this.state = {
             skipGuide: props.session.skipGuide
         };
+
+        this.toggleSkipGuide = this.toggleSkipGuide.bind(this);
+        this.nextClicked = this.nextClicked.bind(this);
     }
 
     toggleSkipGuide() {
@@ -206,7 +209,7 @@ export default class SubmissionGuideContent extends React.Component {
                                                 <input
                                                     type="checkbox"
                                                     value="skipGuide"
-                                                    onChange={this.toggleSkipGuide.bind(this)}
+                                                    onChange={this.toggleSkipGuide}
                                                     defaultChecked={this.props.session.skipGuide} />
                                                     Hide this page next time I submit files.
                                             </label>
@@ -215,7 +218,7 @@ export default class SubmissionGuideContent extends React.Component {
                                             <button
                                                 type="button"
                                                 className="usa-da-button btn-primary btn-lg pull-right"
-                                                onClick={this.nextClicked.bind(this)}>
+                                                onClick={this.nextClicked}>
                                                 Next
                                             </button>
                                         </div>

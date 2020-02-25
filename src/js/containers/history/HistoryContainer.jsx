@@ -7,28 +7,23 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
-import HistoryPage from '../../components/history/HistoryPage';
+import HistoryPage from 'components/history/HistoryPage';
 
 const propTypes = {
-    params: PropTypes.object,
-    route: PropTypes.object
-};
-
-const defaultProps = {
-    params: {},
-    route: {}
+    type: PropTypes.oneOf(['dabs', 'fabs']),
+    computedMatch: PropTypes.object
 };
 
 class HistoryContainer extends React.Component {
     render() {
+        const { submissionID } = this.props.computedMatch.params;
         return (
-            <HistoryPage submissionID={this.props.params.submissionID} type={this.props.route.type} />
+            <HistoryPage submissionID={submissionID} type={this.props.type} />
         );
     }
 }
 
 HistoryContainer.propTypes = propTypes;
-HistoryContainer.defaultProps = defaultProps;
 
 export default connect(
     (state) => ({ session: state.session })

@@ -18,14 +18,12 @@ import { formatSize } from '../../helpers/util';
 
 const propTypes = {
     data: PropTypes.object,
-    params: PropTypes.object,
     session: PropTypes.object,
     submissionID: PropTypes.string
 };
 
 const defaultProps = {
     data: null,
-    params: null,
     session: null,
     submissionID: ''
 };
@@ -151,8 +149,8 @@ export default class ReviewDataContent extends React.Component {
         let certifyButtonText = "You do not have permissions to certify";
         let revalidateButtonText = "You do not have permission to revalidate";
         let buttonClass = " btn-disabled";
-        let certifyButtonAction = "";
-        let revalidateButtonAction = "";
+        let certifyButtonAction;
+        let revalidateButtonAction;
         let monthlySubmissionError = null;
         // TODO: I don't think we ever actually have window data to gather, we should look into this
         const blockedWindow = this.windowBlocked();
@@ -223,7 +221,7 @@ export default class ReviewDataContent extends React.Component {
                         <div className="col-md-4" />
                         <ReviewDataNarrative
                             narrative={this.props.data.file_narrative}
-                            submissionID={this.props.params.submissionID} />
+                            submissionID={this.props.submissionID} />
                     </div>
                     <div className="mt-20 row submission-button-holder">
                         <div className="col-md-4" />

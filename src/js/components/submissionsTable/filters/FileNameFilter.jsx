@@ -7,7 +7,8 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 const propTypes = {
-    updateFilterList: PropTypes.func
+    updateFilterList: PropTypes.func,
+    table: PropTypes.oneOf(['certified', 'active', 'published'])
 };
 
 const defaultProps = {
@@ -51,7 +52,7 @@ export default class FileNameFilter extends React.Component {
                     className="text-filter"
                     onSubmit={this.handleSubmit}>
                     <input
-                        id="file-name"
+                        id={`${this.props.table}-file-name`}
                         type="text"
                         className="text-filter__input"
                         placeholder="File Name"

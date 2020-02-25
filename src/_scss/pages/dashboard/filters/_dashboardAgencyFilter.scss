@@ -39,22 +39,5 @@
         }
     }
 
-    .selected-filters {
-        background-color: $color-gray-lightest;
-        display: inline-block;
-        padding: rem(12);
-
-        .shown-filter-button {
-            font-size: rem(12);
-            max-width: 100%;
-
-            &.no-click {
-                &:hover {
-                    background: $color-white;
-                    border: 1px solid $color-gray-lighter;
-                    cursor: default;
-                }
-            }
-        }
-    }
+    @import './selectedFilters';
 }

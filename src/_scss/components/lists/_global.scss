@@ -1,53 +1,52 @@
 ul, ol {
-	list-style: none;
-	padding-left: 0;
-	display: table;
-	color: #525252;
+    list-style: none;
+    padding-left: 0;
+    display: table;
+    color: #525252;
+    margin: {
+        top: 2em;
+        bottom: $base-line-height;
+    };
 
-	margin: {
-		top: 2em;
-    	bottom: $base-line-height;
-	}
+    li {
+        display: table-row;
+        font-size: $base-font-size;
+        line-height: $base-line-height;
+        margin: {
+            top: .75em;
+            bottom: .75em;
+        };
 
-	li {
-		display: table-row;
-	    font-size: $base-font-size;
-		line-height: $base-line-height;
-	    margin: {
-			top: .75em;
-			bottom: .75em;
-	    }
+        &:before {
+            content: "•";
+            display: table-cell;
+            padding-right: 0.4em;
+        }
 
-	    &:before {
-		content: "•";
-		display: table-cell;
-		padding-right: 0.4em;
-	}
-
-	    &:after {
-			content: "";
-			display: block;
-			margin-bottom: 0.5em;
-		}
-	}
+        &:after {
+            content: "";
+            display: block;
+            margin-bottom: 0.5em;
+        }
+    }
 }
 
 ol {
-	li {
-	display: table-row;
-	counter-increment: table-ol;
+    li {
+        display: table-row;
+        counter-increment: table-ol;
 
-		&:before {
-			content: counter(table-ol) ".";
-			display: table-cell;
-			padding-right: 0.4em;
-			text-align: right;
-		}
-	}
+        &:before {
+            content: counter(table-ol) ".";
+            display: table-cell;
+            padding-right: 0.4em;
+            text-align: right;
+        }
+    }
 }
 
 .usa-dt-pagination {
-	.pager {
-		@include unstyled-list;
-	}
+    .pager {
+        @include unstyled-list;
+    }
 }

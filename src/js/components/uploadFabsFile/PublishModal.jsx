@@ -12,16 +12,14 @@ const propTypes = {
     closeModal: PropTypes.func,
     submit: PropTypes.func,
     rows: PropTypes.object,
-    isOpen: PropTypes.bool,
-    published: PropTypes.string
+    isOpen: PropTypes.bool
 };
 
 const defaultProps = {
     closeModal: () => {},
     submit: () => {},
     rows: {},
-    isOpen: false,
-    published: false
+    isOpen: false
 };
 
 export default class PublishModal extends React.Component {
@@ -29,21 +27,10 @@ export default class PublishModal extends React.Component {
         super(props);
 
         this.state = {
-            certified: false,
             showProgress: false,
             closeable: true,
-            errorMessage: "",
-            rows: this.props.rows
+            errorMessage: ''
         };
-    }
-
-    componentWillReceiveProps(nextProps) {
-        if (this.state.rows !== nextProps) {
-            this.setState({
-                rows: nextProps.rows,
-                certified: nextProps.published
-            });
-        }
     }
 
     closeModal(e) {
@@ -58,7 +45,6 @@ export default class PublishModal extends React.Component {
         // reset the modal if closed
         this.setState({
             showProgress: false,
-            certified: false,
             errorMessage: ''
         }, () => {
             this.props.closeModal();
@@ -66,12 +52,12 @@ export default class PublishModal extends React.Component {
     }
 
     render() {
-        const publishable = this.state.rows.valid_rows !== 0;
+        const publishable = this.props.rows.valid_rows !== 0;
 
         let message = (
             <p>
-                This will publish the {this.state.rows.valid_rows} data rows that have passed validation out
-                of a total of {this.state.rows.total_rows} data rows in your FABS file
+                This will publish the {this.props.rows.valid_rows} data rows that have passed validation out
+                of a total of {this.props.rows.total_rows} data rows in your FABS file
             </p>);
 
         let action = (
@@ -101,15 +87,12 @@ export default class PublishModal extends React.Component {
             error = <div className="alert alert-danger text-center" role="alert">{this.state.errorMessage}</div>;
         }
 
-        // adding this because the linter doesn't like when we just pass true
-        const trueProps = true;
-
         return (
             <Modal
                 mounted={this.props.isOpen}
                 onExit={this.closeModal.bind(this)}
                 underlayClickExits={this.state.closeable}
-                verticallyCenter={trueProps}
+                verticallyCenter
                 titleId="usa-da-certify-modal">
                 <div className="usa-da-modal-page">
                     <div

@@ -6,7 +6,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import Modal from 'react-aria-modal';
-import { hashHistory, Link } from 'react-router';
+import { Link, Redirect } from 'react-router-dom';
 import * as Icons from '../../SharedComponents/icons/Icons';
 import CertifyDisclaimer from './CertifyDisclaimer';
 import CertifyButtons from './CertifyButtons';
@@ -39,7 +39,8 @@ export default class ReviewDataCertifyModal extends React.Component {
             publishComplete: false,
             closeable: true,
             errorMessage: "",
-            loading: false
+            loading: false,
+            goToSubmissionTable: false
         };
         this.closeModal = this.closeModal.bind(this);
         this.clickedCertifyButton = this.clickedCertifyButton.bind(this);
@@ -60,8 +61,10 @@ export default class ReviewDataCertifyModal extends React.Component {
             .then(() => {
                 this.setState({ loading: false });
                 this.closeModal();
-                // Redirect to submission table after successful certification
-                hashHistory.push("/submissionTable");
+                // Redirect to submission dashboard after successful certification
+                this.setState({
+                    goToSubmissionTable: true
+                });
             })
             .catch((error) => {
                 let errorMessage = "An error occurred while attempting to certify the submission. " +
@@ -102,6 +105,9 @@ export default class ReviewDataCertifyModal extends React.Component {
     }
 
     render() {
+        if (this.state.goToSubmissionTable) {
+            return <Redirect to="/submissionTable" />;
+        }
         let message = null;
         if (this.props.warnings > 0) {
             let warning = " warning";

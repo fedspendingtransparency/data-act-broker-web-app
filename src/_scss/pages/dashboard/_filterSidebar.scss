@@ -9,6 +9,8 @@
         @import './filters/fiscalYears';
         @import './filters/rulesFilter';
         @import './filters/dashboardAgencyFilter';
+        @import './filters/lastModified';
+        @import './filters/submissionIdFilter';
         .filter-sidebar__option-heading {
             font-weight: $font-bold;
             font-size: $h3-font-size;

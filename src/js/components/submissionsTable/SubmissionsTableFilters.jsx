@@ -18,8 +18,8 @@ const propTypes = {
     toggleFilter: PropTypes.func,
     stagedFilters: PropTypes.object,
     appliedFilters: PropTypes.object,
-    table: PropTypes.string,
-    type: PropTypes.string,
+    table: PropTypes.oneOf(['certified', 'active', 'published']),
+    type: PropTypes.oneOf(['dabs', 'fabs']),
     minDateLastModified: PropTypes.string
 };
 
@@ -57,8 +57,10 @@ export default class SubmissionsTableFilters extends React.Component {
                     table={this.props.table}
                     updateFilterList={this.updateFilterList} />
                 <FileNameFilter
+                    table={this.props.table}
                     updateFilterList={this.updateFilterList} />
                 <SubmissionIdFilter
+                    table={this.props.table}
                     updateFilterList={this.updateFilterList} />
                 <CreatedByFilter
                     type={this.props.type}

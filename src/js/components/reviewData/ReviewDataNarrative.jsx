@@ -5,12 +5,12 @@
 
 import React from 'react';
 import PropTypes from 'prop-types';
+import { isEqual } from 'lodash';
+import { createOnKeyDownHandler } from 'helpers/util';
+import * as ReviewHelper from 'helpers/reviewHelper';
+import { CloudDownload } from 'components/SharedComponents/icons/Icons';
 import ReviewDataNarrativeDropdown from './ReviewDataNarrativeDropdown';
 import ReviewDataNarrativeTextfield from './ReviewDataNarrativeTextfield';
-import { createOnKeyDownHandler } from '../../helpers/util';
-import { CloudDownload } from '../SharedComponents/icons/Icons';
-
-import * as ReviewHelper from '../../helpers/reviewHelper';
 
 const propTypes = {
     submissionID: PropTypes.string
@@ -25,11 +25,11 @@ export default class ReviewDataNarrative extends React.Component {
         super(props);
 
         this.state = {
-            currentFile: "A",
+            currentFile: 'A',
             fileNarrative: {},
             currentNarrative: "",
-            saveState: "",
-            errorMessage: ""
+            saveState: '',
+            errorMessage: ''
         };
 
         this.downloadCommentsFile = this.downloadCommentsFile.bind(this);
@@ -42,8 +42,10 @@ export default class ReviewDataNarrative extends React.Component {
         this.updateState(this.props);
     }
 
-    componentWillReceiveProps(props) {
-        this.updateState(props);
+    componentDidUpdate(prevProps) {
+        if (!isEqual(prevProps, this.props)) {
+            this.updateState(this.props);
+        }
     }
 
     getNewNarrative() {

@@ -1,219 +1,141 @@
-import { hashHistory } from 'react-router';
+import UploadFabsFilePageContainer from 'containers/uploadFabsFile/UploadFabsFilePageContainer';
+import GenerateDetachedFilesPageContainer from 'containers/generateDetachedFiles/GenerateDetachedFilesPageContainer';
 import LandingPage from 'components/landing/LandingPage';
 import LoginPage from 'components/login/LoginPage';
 import AuthPage from 'components/login/AuthPage';
 import SubmissionGuideContainer from 'containers/addData/SubmissionGuideContainer';
 import AddDataPageContainer from 'containers/addData/AddDataPageContainer';
-import UploadFabsFilePageContainer from
-    'containers/uploadFabsFile/UploadFabsFilePageContainer';
-import GenerateDetachedFilesPageContainer
-    from 'containers/generateDetachedFiles/GenerateDetachedFilesPageContainer';
-import DetachedFileAContainer
-    from 'containers/generateDetachedFiles/DetachedFileAContainer';
-import StoreSingleton from 'redux/storeSingleton';
+import SubmissionsTablePage from 'components/submissionsTable/SubmissionsTablePage';
+import DetachedFileAContainer from 'containers/generateDetachedFiles/DetachedFileAContainer';
+import { SubmissionContainer } from 'containers/submission/SubmissionContainer';
+import HistoryContainer from 'containers/history/HistoryContainer';
 import Dashboard from 'components/dashboard/DashboardPage';
-
-import { checkFabsPermissions } from 'helpers/permissionsHelper';
+import HelpContainer from 'containers/help/HelpContainer';
+import ErrorPage from 'components/error/ErrorPage';
 
 let instance = null;
-let store = new StoreSingleton().store;
-let listRoutes = [];
 
-const getStore = () => {
-    if (!store) {
-        store = new StoreSingleton().store;
-    }
-    return store;
-};
-
-const performAutoLogin = (location, replace) => {
-    getStore();
-
-    const session = store.getState().session;
-
-    let path = location.pathname;
-
-    // Check path against list of whitelisted paths
-    // TODO: use matchPath in later react versions, it can simply use whiteListPaths we're already building
-    const whiteListPaths = [];
-    listRoutes.forEach((route) => {
-        if (route !== '*') {
-            whiteListPaths.push(route.toLowerCase().replace(':submissionid', '\\d+').replace(':type', '[a-z]+'));
-        }
-    });
-    let validPath = false;
-    for (let i = 0; i < whiteListPaths.length; i++) {
-        const regexPath = new RegExp(whiteListPaths[i]);
-        validPath = regexPath.test(path.substring(1).toLowerCase());
-        if (validPath) {
-            break;
-        }
-    }
-    // Setting path to blank if it doesn't match up with the valid paths
-    if (!validPath) {
-        path = "";
-    }
-
-    const search = location.search;
-    const query = location.query;
-
-    let pushMethod = hashHistory.push;
-    if (replace) {
-        pushMethod = replace;
-    }
-
-    if (path === "/login") {
-        if (session.login === "loggedIn") {
-            // user is logged in, go to landing page
-            if (search !== "" && Object.prototype.hasOwnProperty.call(query, 'redirect')) {
-                // a redirect option was provided
-                pushMethod(query.redirect);
-            }
-            else {
-                pushMethod('/');
-            }
-        }
-    }
-    else if (session.login !== "loggedIn") {
-        if (path === "/login") {
-            pushMethod('/login');
-        }
-        else {
-            pushMethod(`/login?redirect=${path}`);
-        }
-    }
-};
-
-const checkUserPermissions = (nextState, replace) => {
-    getStore();
-    const session = store.getState().session;
+export const checkHelpUserPermissions = (session) => {
     if (session.login !== "loggedIn") {
-        performAutoLogin(nextState.location, replace);
+        return false;
     }
-    else if (session.user.helpOnly) {
-        // if no permissions or attempting to reach DABS with improper permissions, bounce to help
-        replace('/help');
-    }
+    return true;
 };
 
-const checkDabsUploadPermissions = (nextState, replace) => {
-    getStore();
-    const session = store.getState().session;
-    if (session.login !== "loggedIn") {
-        performAutoLogin(nextState.location, replace);
+export const checkUserPermissions = (session) => {
+    if (session.login === "loggedIn" && !session.user.helpOnly) {
+        return true;
     }
-    else if (!session.admin) {
-        for (let i = 0; i < session.user.affiliations.length; i++) {
-            if (session.user.affiliations[i].permission === 'writer' ||
-                session.user.affiliations[i].permission === 'submitter') {
-                return;
-            }
+    return false;
+};
+
+export const checkDabsUploadPermissions = (session) => {
+    if (session.admin) {
+        return true;
+    }
+
+    return session.user.affiliations.reduce((acc, affiliation) => {
+        if (affiliation.permission === 'writer' || affiliation.permission === 'submitter') {
+            return true;
         }
-        // if no permissions, bounce to landing
-        replace('/landing');
-    }
+        return acc;
+    }, false);
 };
 
-const checkFabsUploadPermissions = (nextState, replace) => {
-    getStore();
-    const session = store.getState().session;
-    if (session.login !== "loggedIn") {
-        performAutoLogin(nextState.location, replace);
+export const checkFabsUploadPermissions = (session) => {
+    if (session.admin) {
+        return true;
     }
-    const fabsPermissions = checkFabsPermissions(session);
-    if (!fabsPermissions) {
-        // if no permissions, bounce to landing
-        replace('/FABSLanding');
-    }
-};
 
-const checkHelpUserPermissions = (nextState, replace) => {
-    getStore();
-    const session = store.getState().session;
-
-    if (session.login !== "loggedIn") {
-        performAutoLogin(nextState.location, replace);
-    }
+    return session.user.affiliations.reduce((acc, affiliation) => {
+        if (affiliation.permission === 'fabs') {
+            return true;
+        }
+        return acc;
+    }, false);
 };
 
 const getRoutes = () => {
     const returnRoutes = [
         {
-            path: 'login',
-            component: LoginPage
+            path: '/login',
+            component: LoginPage,
+            authFn: () => true
         },
         {
-            path: 'auth',
-            component: AuthPage
+            path: '/auth',
+            component: AuthPage,
+            authFn: () => true
         },
         {
-            path: 'submissionGuide',
-            onEnter: checkUserPermissions,
+            path: '/',
+            component: LandingPage,
+            authFn: checkHelpUserPermissions,
+            type: 'home',
+            exact: true
+        },
+        {
+            path: '/submissionGuide',
+            authFn: checkUserPermissions,
             component: SubmissionGuideContainer,
             type: 'dabs'
         },
         {
-            path: 'addData',
-            onEnter: checkDabsUploadPermissions,
+            path: '/addData',
+            authFn: checkDabsUploadPermissions,
             component: AddDataPageContainer,
             type: 'dabs'
         },
         {
-            path: 'FABSaddData/:submissionID',
-            onEnter: checkUserPermissions,
+            path: '/FABSaddData/:submissionID',
+            authFn: checkUserPermissions,
             component: UploadFabsFilePageContainer,
             type: 'fabs'
         },
         {
-            path: 'FABSaddData',
-            onEnter: checkFabsUploadPermissions,
+            path: '/FABSaddData',
+            authFn: checkFabsUploadPermissions,
             component: UploadFabsFilePageContainer,
             type: 'fabs'
         },
         {
-            path: 'submission/:submissionID',
-            onEnter: checkUserPermissions,
-            getComponent(nextState, cb) {
-                require.ensure([], (require) => {
-                    cb(null, require('../../containers/submission/SubmissionContainer').default);
-                });
-            },
+            path: '/submission/:submissionID/:type',
+            authFn: checkUserPermissions,
+            component: SubmissionContainer,
             type: 'dabs'
         },
         {
-            path: 'submission/:submissionID/:type',
-            onEnter: checkUserPermissions,
-            getComponent(nextState, cb) {
-                require.ensure([], (require) => {
-                    cb(null, require('../../containers/submission/SubmissionContainer').default);
-                });
-            },
+            path: '/submission/:submissionID',
+            authFn: checkUserPermissions,
+            component: SubmissionContainer,
             type: 'dabs'
         },
         {
-            path: 'submissionHistory/:submissionID',
-            onEnter: checkUserPermissions,
-            getComponent(nextState, cb) {
-                require.ensure([], (require) => {
-                    cb(null, require('../../containers/history/HistoryContainer').default);
-                });
-            },
+            path: '/submissionHistory/:submissionID',
+            authFn: checkUserPermissions,
+            component: HistoryContainer,
             type: 'dabs'
         },
         {
-            path: 'generateDetachedFiles',
-            onEnter: checkUserPermissions,
+            path: '/generateDetachedFiles',
+            authFn: checkUserPermissions,
             component: GenerateDetachedFilesPageContainer,
             type: 'dabs'
         },
         {
-            path: 'generateDetachedFileA',
-            onEnter: checkUserPermissions,
+            path: '/generateDetachedFileA',
+            authFn: checkUserPermissions,
             component: DetachedFileAContainer,
             type: 'dabs'
         },
         {
-            path: 'dashboard',
+            path: '/dashboard/:type',
+            onEnter: checkUserPermissions,
+            component: Dashboard,
+            type: 'dabs'
+        },
+        {
+            path: '/dashboard',
             onEnter: checkUserPermissions,
             component: Dashboard,
             type: 'dabs'
@@ -221,44 +143,32 @@ const getRoutes = () => {
     ];
 
     function routeConstructor(routeInfo, onEnterIndex, type) {
-        let prefix = '';
+        let prefix = '/';
         if (type === 'fabs') {
-            prefix = 'FABS';
+            prefix = '/FABS';
         }
 
         if (routeInfo.component === 'landing') {
             return {
                 path: prefix + routeInfo.path,
-                onEnter: routeInfo.onEnter[onEnterIndex],
-                getComponent(nextState, cb) {
-                    require.ensure([], (require) => {
-                        cb(null, require('../../components/landing/LandingPage').default);
-                    });
-                },
+                authFn: routeInfo.authFn[onEnterIndex],
+                component: LandingPage,
                 type
             };
         }
         else if (routeInfo.component === 'submissionTable') {
             return {
                 path: prefix + routeInfo.path,
-                onEnter: routeInfo.onEnter[onEnterIndex],
-                getComponent(nextState, cb) {
-                    require.ensure([], (require) => {
-                        cb(null, require('../../components/submissionsTable/SubmissionsTablePage').default);
-                    });
-                },
+                authFn: routeInfo.authFn[onEnterIndex],
+                component: SubmissionsTablePage,
                 type
             };
         }
         else if (routeInfo.component === 'help') {
             return {
                 path: prefix + routeInfo.path,
-                onEnter: routeInfo.onEnter[onEnterIndex],
-                getComponent(nextState, cb) {
-                    require.ensure([], (require) => {
-                        cb(null, require('../help/HelpContainer').default);
-                    });
-                },
+                authFn: routeInfo.authFn[onEnterIndex],
+                component: HelpContainer,
                 type
             };
         }
@@ -267,76 +177,61 @@ const getRoutes = () => {
 
     // Duplicated routes for FABS/DABS
     const sharedRoutes = [
+        // first authFn is for Dabs if they are different
         {
             path: 'landing',
-            onEnter: [checkUserPermissions],
+            authFn: [checkUserPermissions],
             component: 'landing'
         },
         {
             path: 'submissionTable',
-            onEnter: [checkUserPermissions],
+            authFn: [checkUserPermissions],
             component: 'submissionTable'
         },
         {
             path: 'help',
-            onEnter: [checkHelpUserPermissions, checkUserPermissions],
+            authFn: [checkHelpUserPermissions, checkUserPermissions],
             component: 'help'
         },
         {
             path: 'validations',
-            onEnter: [checkHelpUserPermissions, checkUserPermissions],
+            authFn: [checkHelpUserPermissions, checkUserPermissions],
             component: 'help'
         },
         {
             path: 'resources',
-            onEnter: [checkHelpUserPermissions, checkUserPermissions],
+            authFn: [checkHelpUserPermissions, checkUserPermissions],
             component: 'help'
         },
         {
             path: 'history',
-            onEnter: [checkHelpUserPermissions, checkUserPermissions],
+            authFn: [checkHelpUserPermissions, checkUserPermissions],
             component: 'help'
         },
         {
             path: 'technicalHistory',
-            onEnter: [checkHelpUserPermissions, checkUserPermissions],
+            authFn: [checkHelpUserPermissions, checkUserPermissions],
             component: 'help'
         }
     ];
-    for (let i = 0; i < sharedRoutes.length; i++) {
-        if (sharedRoutes[i].onEnter.length === 1) {
-            returnRoutes.push(routeConstructor(sharedRoutes[i], 0, 'dabs'));
-            returnRoutes.push(routeConstructor(sharedRoutes[i], 0, 'fabs'));
+    sharedRoutes.forEach((sharedRoute) => {
+        if (sharedRoute.authFn.length === 1) {
+            returnRoutes.push(routeConstructor(sharedRoute, 0, 'dabs'));
+            returnRoutes.push(routeConstructor(sharedRoute, 0, 'fabs'));
         }
         else {
-            returnRoutes.push(routeConstructor(sharedRoutes[i], 0, 'dabs'));
-            returnRoutes.push(routeConstructor(sharedRoutes[i], 1, 'fabs'));
+            returnRoutes.push(routeConstructor(sharedRoute, 0, 'dabs'));
+            returnRoutes.push(routeConstructor(sharedRoute, 1, 'fabs'));
         }
-    }
+    });
+
     returnRoutes.push(
         {
             path: '*',
-            onEnter: checkUserPermissions,
-            getComponent(nextState, cb) {
-                require.ensure([], (require) => {
-                    cb(null, require('../../components/error/ErrorPage').default);
-                });
-            },
-            type: 'home'
+            authFn: checkUserPermissions,
+            component: ErrorPage
         });
-    listRoutes = returnRoutes.map((route) => route.path);
     return returnRoutes;
-};
-
-// defining the routes outside of the component because React Router cannot handle state/prop changes that Redux causes
-const routeDefinitions = {
-    path: '/',
-    indexRoute: {
-        onEnter: checkUserPermissions,
-        component: LandingPage,
-        type: 'home'
-    },
-    childRoutes: getRoutes()
 };
 
 export default class RouterRoutes {
@@ -345,8 +240,7 @@ export default class RouterRoutes {
             instance = this;
         }
 
-        instance.routes = () => routeDefinitions;
-        instance.autoLogin = (location) => performAutoLogin(location);
+        instance.getRoutes = () => getRoutes();
 
         return instance;
     }

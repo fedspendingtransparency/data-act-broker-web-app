@@ -11,19 +11,19 @@ import Footer from 'components/SharedComponents/FooterComponent';
 import Banner from 'components/SharedComponents/Banner';
 
 const propTypes = {
-    route: PropTypes.object
+    type: PropTypes.oneOf(['dabs', 'fabs'])
 };
 
 export default class SubmissionsTablePage extends React.Component {
     render() {
-        const isFabs = this.props.route.type === 'fabs';
+        const isFabs = this.props.type === 'fabs';
         const color = isFabs ? 'teal' : 'dark';
         const header = isFabs ? 'FABS Submission Table' : 'DABS Submission Table';
         const activeTab = isFabs ? 'FABSsubmissionTable' : 'submissionTable';
         return (
             <div>
                 <div className="usa-da-site_wrap usa-da-submissions-table-page">
-                    <Navbar activeTab={activeTab} type={this.props.route.type} />
+                    <Navbar activeTab={activeTab} type={this.props.type} />
                     <div className={`usa-da-content-${color}`}>
                         <div className="container">
                             <div className="row usa-da-page-title">
@@ -35,8 +35,8 @@ export default class SubmissionsTablePage extends React.Component {
                             </div>
                         </div>
                     </div>
-                    <Banner type={this.props.route.type} />
-                    <SubmissionsTableContainer type={this.props.route.type} />
+                    <Banner type={this.props.type} />
+                    <SubmissionsTableContainer type={this.props.type} />
                 </div>
                 <Footer />
             </div>

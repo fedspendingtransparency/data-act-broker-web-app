@@ -14,7 +14,7 @@ import * as DashboardHelper from 'helpers/dashboardHelper';
 import FiscalYearFilter from 'components/dashboard/filters/FiscalYearFilter';
 
 const propTypes = {
-    updateGenericFilter: PropTypes.func,
+    updateFilterSet: PropTypes.func,
     selectedFilters: PropTypes.object
 };
 
@@ -56,7 +56,7 @@ export class FyFilterContainer extends React.Component {
     }
 
     pickedFy(year) {
-        this.props.updateGenericFilter('fy', year);
+        this.props.updateFilterSet('historical', 'fy', year);
     }
 
     generateAllFy() {
@@ -116,7 +116,7 @@ FyFilterContainer.propTypes = propTypes;
 
 export default connect(
     (state) => ({
-        selectedFilters: state.dashboardFilters
+        selectedFilters: state.dashboardFilters.historical
     }),
     (dispatch) => bindActionCreators(filterActions, dispatch),
 )(FyFilterContainer);

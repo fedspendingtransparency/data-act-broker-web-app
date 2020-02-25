@@ -8,7 +8,7 @@ import { shallow } from 'enzyme';
 import { cloneDeep } from 'lodash';
 
 import { QuarterFilterContainer } from 'containers/dashboard/filters/QuarterFilterContainer';
-import { mockActions, mockRedux } from './mockFilters';
+import { mockActions, mockReduxHistorical } from './mockFilters';
 
 // mock the child component by replacing it with a function that returns a null element
 jest.mock('components/dashboard/filters/QuarterPicker', () => jest.fn(() => null));
@@ -20,7 +20,7 @@ describe('QuarterFilterContainer', () => {
     it('should make an API call for the latest quarter on mount', async () => {
         const container = shallow(<QuarterFilterContainer
             {...mockActions}
-            {...mockRedux} />
+            {...mockReduxHistorical} />
         );
         const getLatestQuarter = jest.fn();
         container.instance().getLatestQuarter = getLatestQuarter;
@@ -30,7 +30,7 @@ describe('QuarterFilterContainer', () => {
     it('should call getDisabledStatus when the selected FYs change', () => {
         const container = shallow(<QuarterFilterContainer
             {...mockActions}
-            {...mockRedux} />
+            {...mockReduxHistorical} />
         );
         const getDisabledStatus = jest.fn();
         container.instance().getDisabledStatus = getDisabledStatus;
@@ -42,7 +42,7 @@ describe('QuarterFilterContainer', () => {
     it('should call removeDisabledSelections when the selected FYs change', () => {
         const container = shallow(<QuarterFilterContainer
             {...mockActions}
-            {...mockRedux} />
+            {...mockReduxHistorical} />
         );
         const removeDisabledSelections = jest.fn();
         container.instance().removeDisabledSelections = removeDisabledSelections;
@@ -52,22 +52,22 @@ describe('QuarterFilterContainer', () => {
         expect(removeDisabledSelections).toHaveBeenCalled();
     });
     describe('pickedQuarter', () => {
-        it('should call the updateGenericFilter action', () => {
+        it('should call the updateFilterSet action', () => {
             const container = shallow(<QuarterFilterContainer
                 {...mockActions}
-                {...mockRedux} />
+                {...mockReduxHistorical} />
             );
 
             container.instance().pickedQuarter(4);
 
-            expect(mockActions.updateGenericFilter).toHaveBeenCalledWith('quarters', 4);
+            expect(mockActions.updateFilterSet).toHaveBeenCalledWith('historical', 'quarters', 4);
         });
     });
     describe('getDisabledStatus', () => {
         it('should disable Q1 when 2017 is the only FY selected', () => {
             const container = shallow(<QuarterFilterContainer
                 {...mockActions}
-                {...mockRedux} />
+                {...mockReduxHistorical} />
             );
             container.instance().setState({
                 latestYear: 2019,
@@ -83,7 +83,7 @@ describe('QuarterFilterContainer', () => {
         it('should disabled future quarters when the current FY is the only FY selected', () => {
             const container = shallow(<QuarterFilterContainer
                 {...mockActions}
-                {...mockRedux} />
+                {...mockReduxHistorical} />
             );
             container.instance().setState({
                 latestYear: 2020,
@@ -103,7 +103,7 @@ describe('QuarterFilterContainer', () => {
         it('should enable all quarters when more than one FY is selected', () => {
             const container = shallow(<QuarterFilterContainer
                 {...mockActions}
-                {...mockRedux} />
+                {...mockReduxHistorical} />
             );
             container.instance().setState({
                 latestYear: 2020,
@@ -126,7 +126,7 @@ describe('QuarterFilterContainer', () => {
         it('should remove Q1 if FY 17 is the only year selected', () => {
             const container = shallow(<QuarterFilterContainer
                 {...mockActions}
-                {...mockRedux} />
+                {...mockReduxHistorical} />
             );
             const pickedQuarter = jest.fn();
             container.instance().pickedQuarter = pickedQuarter;
@@ -145,7 +145,7 @@ describe('QuarterFilterContainer', () => {
         it('should remove the current FY if only future quarters are selected', () => {
             const container = shallow(<QuarterFilterContainer
                 {...mockActions}
-                {...mockRedux} />
+                {...mockReduxHistorical} />
             );
             const pickedQuarter = jest.fn();
             container.instance().pickedQuarter = pickedQuarter;

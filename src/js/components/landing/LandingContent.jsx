@@ -13,11 +13,10 @@ import Banner from '../SharedComponents/Banner';
 
 const propTypes = {
     session: PropTypes.object,
-    type: PropTypes.string
+    type: PropTypes.oneOf(['home', 'dabs', 'fabs'])
 };
 
 const defaultProps = {
-    type: '',
     session: {
         user: {
             agency_name: "Your Agency"
@@ -31,22 +30,8 @@ export default class LandingContent extends React.Component {
 
         this.state = {
             expanded: false,
-            type: this.props.type,
             window: null
         };
-    }
-
-    componentWillReceiveProps(nextProps) {
-        let type = null;
-
-        if (this.state.type !== nextProps.type) {
-            type = nextProps.type;
-        }
-        if (type && type !== this.state.type) {
-            this.setState({
-                type
-            });
-        }
     }
 
     clickedUploadReqs(e) {
@@ -94,7 +79,7 @@ export default class LandingContent extends React.Component {
         let header = "Welcome to the DATA Act Broker";
         let headerBody = <div />;
         let headerClass = 'dark';
-        if (this.state.type === 'fabs') {
+        if (this.props.type === 'fabs') {
             header = "Financial Assistance Broker Submission (FABS)";
             headerClass = 'teal';
             headerBody = (
@@ -109,7 +94,7 @@ export default class LandingContent extends React.Component {
                     </p>
                 </div>);
         }
-        else if (this.state.type === 'dabs') {
+        else if (this.props.type === 'dabs') {
             header = "DATA Act Broker Submission (DABS)";
             headerBody = (
                 <div>
@@ -123,7 +108,7 @@ export default class LandingContent extends React.Component {
                     </p>
                 </div>);
         }
-        else if (this.state.type === 'home') {
+        else if (this.props.type === 'home') {
             headerBody = (
                 <div>
                     <p>Upload, validate, and publish your agency’s federal spending transparency data.</p>
@@ -136,7 +121,7 @@ export default class LandingContent extends React.Component {
         }
 
         let recentActivityTable = null;
-        if (this.state.type !== 'home') {
+        if (this.props.type !== 'home') {
             recentActivityTable = (
                 <div className="container">
                     <div className="row">
@@ -169,13 +154,13 @@ export default class LandingContent extends React.Component {
                         </div>
                     </div>
                 </div>
-                <Banner type={this.state.type} />
+                <Banner type={this.props.type} />
                 <div className="container mb-60">
                     <div className="row">
                         <div className="usa-da-landing col-md-12">
                             <div className="usa-da-landing-btns">
                                 <BlockContent
-                                    type={this.state.type}
+                                    type={this.props.type}
                                     clickedUploadReqs={this.clickedUploadReqs.bind(this)}
                                     session={this.props.session} />
                                 <div id="modalHolder">
