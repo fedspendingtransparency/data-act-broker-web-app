@@ -8,9 +8,6 @@ import { shallow } from 'enzyme';
 import { Set } from 'immutable';
 import { cloneDeep } from 'lodash';
 
-import { initialState as initialApplied } from 'redux/reducers/dashboard/appliedFiltersReducer';
-import { initialState as initialStaged } from 'redux/reducers/dashboard/dashboardFiltersReducer';
-
 import { SubmitButtonContainer } from 'containers/dashboard/filters/SubmitButtonContainer';
 
 import { mockActions, mockSubmitRedux } from './mockFilters';
@@ -119,6 +116,22 @@ describe('SubmitButtonContainer', () => {
             expect(actions.applyStagedFilters).toHaveBeenCalledTimes(1);
         });
 
+        it('should do the same for active filters', () => {
+            const actions = Object.assign({}, mockActions, {
+                applyStagedFilters: jest.fn()
+            });
+
+            const container = shallow(
+                <SubmitButtonContainer
+                    type="active"
+                    {...mockSubmitRedux}
+                    {...actions} />
+            );
+            container.instance().applyStagedFilters();
+
+            expect(actions.applyStagedFilters).toHaveBeenCalledWith('active', mockSubmitRedux.stagedFilters.active);
+        });
+
         it('should reset the filtersChanged state to false', () => {
             const container = shallow(
                 <SubmitButtonContainer
@@ -150,6 +163,21 @@ describe('SubmitButtonContainer', () => {
 
             container.instance().resetFilters();
             expect(actions.clearStagedFilters).toHaveBeenCalledTimes(1);
+        });
+        it('should do the same for active filters', () => {
+            const actions = Object.assign({}, mockActions, {
+                clearStagedFilters: jest.fn()
+            });
+
+            const container = shallow(
+                <SubmitButtonContainer
+                    type="active"
+                    {...mockSubmitRedux}
+                    {...actions} />
+            );
+
+            container.instance().resetFilters();
+            expect(actions.clearStagedFilters).toHaveBeenCalledWith('active');
         });
         it('should reset all the applied filters to their initial states', () => {
             const actions = Object.assign({}, mockActions, {
