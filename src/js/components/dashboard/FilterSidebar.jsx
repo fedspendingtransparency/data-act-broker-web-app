@@ -9,12 +9,13 @@ import PropTypes from 'prop-types';
 import SubmitButtonContainer from 'containers/dashboard/filters/SubmitButtonContainer';
 import FilterOption from './FilterOption';
 
-const defaultProps = {
-    filters: []
+const propTypes = {
+    filters: PropTypes.arrayOf(PropTypes.object),
+    type: PropTypes.oneOf(['active', 'historical'])
 };
 
-const propTypes = {
-    filters: PropTypes.arrayOf(PropTypes.object)
+const defaultProps = {
+    filters: []
 };
 
 export default class FilterSidebar extends React.Component {
@@ -22,6 +23,7 @@ export default class FilterSidebar extends React.Component {
         const optionsList = this.props.filters.map((filter) => (
             <FilterOption
                 key={filter.name}
+                type={this.props.type}
                 {...filter} />)
         );
 
@@ -31,7 +33,7 @@ export default class FilterSidebar extends React.Component {
                     <span className="filter-sidebar__option-heading">FILTER</span>
                 </div>
                 {optionsList}
-                <SubmitButtonContainer />
+                <SubmitButtonContainer type={this.props.type} />
             </div>
         );
     }

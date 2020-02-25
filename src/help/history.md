@@ -1,4 +1,10 @@
-#### January 27, 2020{section=changelog}
+#### February 10, 2020{section=changelog}
+In this release of the Broker, we:
+
+* Fixed minor page formatting issue on Help page.
+* Front end updates to improve performance and consistency and prepare for future upgrades.
+
+#### January 27, 2020
 In this release of the Broker, we:
 
 * Fixed minor bug on date picker for detached File A generation to display the correct available periods for file generation.

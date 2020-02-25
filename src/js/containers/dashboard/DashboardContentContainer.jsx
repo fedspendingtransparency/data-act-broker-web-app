@@ -4,24 +4,35 @@
  */
 
 import React from 'react';
+import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import ChooseFiltersMessage from 'components/dashboard/ChooseFiltersMessage';
 import DashboardContent from 'components/dashboard/DashboardContent';
 
+const propTypes = {
+    appliedFilters: PropTypes.object,
+    type: PropTypes.oneOf(['active', 'historical'])
+};
+
 const DashboardContentContainer = (props) => {
-    const dashboardContent = props.appliedFilters._empty ?
+    const empty = `_${props.type}Empty`;
+    const dashboardContent = props[empty] ?
         (
             <ChooseFiltersMessage />
         ) :
         (
-            <DashboardContent />
+            <DashboardContent {...props} />
         );
 
     return dashboardContent;
 };
 
+DashboardContentContainer.propTypes = propTypes;
+
 export default connect(
     (state) => ({
-        appliedFilters: state.appliedDashboardFilters
+        appliedFilters: state.appliedDashboardFilters,
+        _activeEmpty: state.appliedDashboardFilters._activeEmpty,
+        _historicalEmpty: state.appliedDashboardFilters._historicalEmpty
     }),
 )(DashboardContentContainer);

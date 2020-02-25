@@ -20,7 +20,7 @@ const propTypes = {
 export default class DashboardSummaries extends React.Component {
     render() {
         // TODO: May need to update this when there are multiple agencies
-        const file = fileLabels[this.props.appliedFilters.filters.file];
+        const file = fileLabels[this.props.appliedFilters.file];
         const summaries = [];
         this.props.results.forEach((result) => {
             summaries.push(

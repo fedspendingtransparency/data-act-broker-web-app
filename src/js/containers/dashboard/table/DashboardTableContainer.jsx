@@ -112,7 +112,7 @@ export class DashboardTableContainer extends React.Component {
             showModal: false,
             modalData: {}
         });
-        const filters = this.props.appliedFilters.filters;
+        const filters = this.props.appliedFilters;
         const searchParams = {
             filters: {
                 quarters: [...filters.quarters],
@@ -199,6 +199,6 @@ DashboardTableContainer.propTypes = propTypes;
 
 export default connect(
     (state) => ({
-        appliedFilters: state.appliedDashboardFilters
+        appliedFilters: state.appliedDashboardFilters.filters.historical
     }),
 )(DashboardTableContainer);

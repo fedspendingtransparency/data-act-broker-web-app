@@ -1,26 +1,27 @@
 /**
- * RulesFilterContainer.jsx
- * Created by Lizzie Salita 11/1/19
+ * CreatedByFilterContainer.jsx
+ * Created by Lizzie Salita 02/04/20
  */
 
 import React from 'react';
 import PropTypes from 'prop-types';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
+import { isEqual } from 'lodash';
 
-import * as DashboardHelper from 'helpers/dashboardHelper';
+import * as createdByHelper from 'helpers/createdByHelper';
 import * as filterActions from 'redux/actions/dashboard/dashboardFilterActions';
-import RulesFilter from 'components/dashboard/filters/RulesFilter';
+import CreatedByFilter from 'components/dashboard/filters/CreatedByFilter';
 
 const propTypes = {
-    updateFilterSet: PropTypes.func.isRequired,
+    updateGenericFilter: PropTypes.func.isRequired,
     clearFilter: PropTypes.func.isRequired,
     selectedFilters: PropTypes.object.isRequired
 };
 
 const minCharsToSearch = 0;
 
-export class RulesFilterContainer extends React.Component {
+export class CreatedByFilterContainer extends React.Component {
     constructor(props) {
         super(props);
 
@@ -31,25 +32,20 @@ export class RulesFilterContainer extends React.Component {
             inFlight: false
         };
 
-        this.rulesRequest = null;
-
         this.handleTextInput = this.handleTextInput.bind(this);
         this.clearAutocompleteSuggestions = this.clearAutocompleteSuggestions.bind(this);
         this.onSelect = this.onSelect.bind(this);
         this.fetchAutocompleteResults = this.fetchAutocompleteResults.bind(this);
     }
 
-    componentDidUpdate(prevProps) {
-        // Make an API call for the corresponding rule labels when the selected file changes
-        if (prevProps.selectedFilters.file !== this.props.selectedFilters.file && this.props.selectedFilters.file) {
-            this.fetchAutocompleteResults();
-            this.props.clearFilter('historical', 'rules');
-        }
+    componentDidMount() {
+        // Make an API call for the list of users
+        this.fetchAutocompleteResults();
     }
 
-    onSelect(rule) {
-        // Add or remove the rule from Redux state
-        this.props.updateFilterSet('historical', 'rules', rule.code);
+    onSelect(user) {
+        // Add or remove the user from Redux state
+        this.props.updateGenericFilter('active', 'createdBy', user);
     }
 
     parseAutocomplete(input) {
@@ -57,20 +53,29 @@ export class RulesFilterContainer extends React.Component {
 
         if (input) {
             // If the user has entered a search string, only show matching results
-            results = results.filter((code) => code.includes(input.toUpperCase()));
+            results = results.filter((user) => {
+                const name = (user.name && user.name.toLowerCase()) || user.email.toLowerCase();
+                return name.includes(input.toLowerCase());
+            });
         }
 
-        // Exclude rules that have already been selected
-        results = results.filter((rule) => {
-            const selectedRules = this.props.selectedFilters.rules;
-            return !selectedRules.has(rule);
-        });
+        // Exclude the user that has already been selected
+        const selectedUser = this.props.selectedFilters.createdBy;
+        if (selectedUser.name && selectedUser.id) {
+            results = results.filter((user) => {
+                const formattedUser = {
+                    name: user.name || user.email, // because some older users have no name
+                    id: user.user_id
+                };
+                return !isEqual(formattedUser, selectedUser);
+            });
+        }
 
         // Format the results for display in the dropdown
-        const filteredResults = results.map((code) => ({
-            title: code,
+        const filteredResults = results.map((user) => ({
+            title: user.name || user.email,
             subtitle: '',
-            data: { code }
+            data: { name: user.name || user.email, id: user.user_id }
         }));
 
         this.setState({
@@ -86,16 +91,10 @@ export class RulesFilterContainer extends React.Component {
             inFlight: true
         });
 
-        const searchParams = {
-            fabs: false,
-            files: [this.props.selectedFilters.file],
-            error_level: "warning"
-        };
-
-        DashboardHelper.fetchRules(searchParams)
+        createdByHelper.fetchCreatedBy('dabs')
             .then((res) => {
                 this.setState({
-                    results: res.labels,
+                    results: res,
                     inFlight: false
                 });
             })
@@ -129,7 +128,7 @@ export class RulesFilterContainer extends React.Component {
 
     render() {
         return (
-            <RulesFilter
+            <CreatedByFilter
                 selectedFilters={this.props.selectedFilters}
                 {...this.state}
                 handleTextInput={this.handleTextInput}
@@ -140,11 +139,11 @@ export class RulesFilterContainer extends React.Component {
     }
 }
 
-RulesFilterContainer.propTypes = propTypes;
+CreatedByFilterContainer.propTypes = propTypes;
 
 export default connect(
     (state) => ({
-        selectedFilters: state.dashboardFilters.historical
+        selectedFilters: state.dashboardFilters.active
     }),
     (dispatch) => bindActionCreators(filterActions, dispatch),
-)(RulesFilterContainer);
+)(CreatedByFilterContainer);
