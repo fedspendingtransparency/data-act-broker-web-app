@@ -1,7 +1,7 @@
 .selected-filters {
     @include display(flex);
     @include flex-flow(row wrap);
-    background-color: #E4E4E4;
+    background-color: $color-gray-lighter;
     padding: rem(5);
     margin-top: rem(15);
     margin-bottom: rem(10);
