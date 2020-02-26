@@ -7,7 +7,7 @@ import SubmissionGuideContainer from 'containers/addData/SubmissionGuideContaine
 import AddDataPageContainer from 'containers/addData/AddDataPageContainer';
 import SubmissionsTablePage from 'components/submissionsTable/SubmissionsTablePage';
 import DetachedFileAContainer from 'containers/generateDetachedFiles/DetachedFileAContainer';
-import { SubmissionContainer } from 'containers/submission/SubmissionContainer';
+import SubmissionContainer from 'containers/submission/SubmissionContainer';
 import HistoryContainer from 'containers/history/HistoryContainer';
 import Dashboard from 'components/dashboard/DashboardPage';
 import HelpContainer from 'containers/help/HelpContainer';
