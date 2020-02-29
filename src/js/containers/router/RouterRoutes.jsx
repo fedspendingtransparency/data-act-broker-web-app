@@ -8,6 +8,7 @@ import AddDataPageContainer from 'containers/addData/AddDataPageContainer';
 import SubmissionsTablePage from 'components/submissionsTable/SubmissionsTablePage';
 import DetachedFileAContainer from 'containers/generateDetachedFiles/DetachedFileAContainer';
 import SubmissionContainer from 'containers/submission/SubmissionContainer';
+import SubmissionStepsContainer from 'containers/submission/SubmissionStepsContainer';
 import HistoryContainer from 'containers/history/HistoryContainer';
 import Dashboard from 'components/dashboard/DashboardPage';
 import HelpContainer from 'containers/help/HelpContainer';
@@ -99,9 +100,9 @@ const getRoutes = () => {
             type: 'fabs'
         },
         {
-            path: '/submission/:submissionID/:type',
+            path: '/submission/:submissionID/:step',
             authFn: checkUserPermissions,
-            component: SubmissionContainer,
+            component: SubmissionStepsContainer,
             type: 'dabs'
         },
         {

@@ -11,11 +11,13 @@ const propTypes = {
     submissionID: PropTypes.string,
     setStep: PropTypes.func,
     errorFromStep: PropTypes.func,
-    step: PropTypes.number,
     error: PropTypes.bool,
     errorMessage: PropTypes.string,
     loading: PropTypes.bool,
-    submissionInfo: PropTypes.object
+    submissionInfo: PropTypes.object,
+    currentStep: PropTypes.number,
+    originalStep: PropTypes.number,
+    lastCompletedStep: PropTypes.number
 };
 
 export default class SubmissionPage extends React.Component {
@@ -34,12 +36,12 @@ export default class SubmissionPage extends React.Component {
         const {
             loading,
             error,
-            submissionID
+            submissionID,
+            currentStep
         } = this.props;
-        let content = "Content based on step";
+        let content = `Step ${currentStep}`;
         if (loading) content = this.loadingMessage();
         if (error) content = this.errorMessage();
-        const step = this.props.step + 1;
         return (
             <div className="usa-da-submission-page">
                 <Navbar activeTab="submissionGuide" type="dabs" />
@@ -48,7 +50,7 @@ export default class SubmissionPage extends React.Component {
                     <div className="container center-block">
                         <div className="row">
                             <Progress
-                                currentStep={step}
+                                currentStep={currentStep}
                                 id={submissionID} />
                         </div>
                     </div>

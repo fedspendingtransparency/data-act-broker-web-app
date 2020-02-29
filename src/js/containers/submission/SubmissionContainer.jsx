@@ -5,22 +5,14 @@
 
 import React from 'react';
 import PropTypes from 'prop-types';
-import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 
 import * as SubmissionGuideHelper from 'helpers/submissionGuideHelper';
-import * as ReviewHelper from 'helpers/reviewHelper';
-import * as submissionActions from 'redux/actions/submission/submissionActions';
-import SubmissionPage from 'components/submission/SubmissionPage';
+import { routes } from 'dataMapping/dabs/submission';
+import { Redirect } from 'react-router-dom';
 
 const propTypes = {
-    computedMatch: PropTypes.object,
-    updateStep: PropTypes.func,
-    updateOriginalStep: PropTypes.func,
-    updateLastCompletedStep: PropTypes.func,
-    updatedSubmissionID: PropTypes.func,
-    clearSubmission: PropTypes.func,
-    submissionSteps: PropTypes.object
+    computedMatch: PropTypes.object
 };
 
 export class SubmissionContainer extends React.Component {
@@ -31,56 +23,27 @@ export class SubmissionContainer extends React.Component {
             loading: true,
             error: false,
             errorMessage: '',
-            submissionInfo: {}
+            redirectPath: ''
         };
     }
 
     componentDidMount() {
-        const { submissionID } = this.props.computedMatch.params;
-        if (submissionID !== this.props.submissionSteps.submissionID) {
-            // If the submission does not match what we already have in Redux
-            this.props.clearSubmission();
-            this.props.updatedSubmissionID(submissionID);
-            this.getSubmission();
-            this.getOriginalStep();
-        }
-    }
-
-    componentDidUpdate(prevProps) {
-        const { submissionID } = this.props.computedMatch.params;
-        // check for ID change
-        if (prevProps.computedMatch.params.submissionID !== submissionID) {
-            this.props.clearSubmission();
-            this.props.updatedSubmissionID(submissionID);
-            this.getSubmission();
-            this.getOriginalStep();
-        }
-    }
-
-    getSubmission() {
-        this.setState({ isLoading: true, isError: false, errorMessage: '' });
-        const { submissionID } = this.props.computedMatch.params;
-        ReviewHelper.fetchSubmissionMetadata(submissionID, 'dabs')
-            .then((data) => {
-                this.setState({
-                    submissionInfo: data
-                });
-            })
-            .catch((error) => {
-                console.error(error);
-            });
+        this.getOriginalStep();
     }
 
     getOriginalStep() {
         const params = this.props.computedMatch.params;
         SubmissionGuideHelper.getSubmissionPage(params.submissionID)
             .then((res) => {
+                const originalStep = parseInt(res.step, 10);
+                const redirectPath = routes[originalStep - 1];
+
                 this.setState({
                     loading: false,
                     error: false,
-                    errorMessage: ''
+                    errorMessage: '',
+                    redirectPath
                 });
-                console.log('original step', res.step);
             })
             .catch((err) => {
                 const { message } = err.body;
@@ -94,10 +57,16 @@ export class SubmissionContainer extends React.Component {
 
     render() {
         const { submissionID } = this.props.computedMatch.params;
+        if (this.state.redirectPath) {
+            return <Redirect to={`/submission/${submissionID}/${this.state.redirectPath}`} />;
+        }
+        const loading = this.state.loading ? 'Loading...' : null;
+        const error = this.state.error ? this.state.errorMessage : null;
         return (
-            <SubmissionPage
-                submissionID={submissionID}
-                {...this.state} />
+            <React.Fragment>
+                {loading}
+                {error}
+            </React.Fragment>
         );
     }
 }
@@ -106,8 +75,6 @@ SubmissionContainer.propTypes = propTypes;
 
 export default connect(
     (state) => ({
-        session: state.session,
-        submissionSteps: state.submissionSteps
+        session: state.session
     }),
-    (dispatch) => bindActionCreators(submissionActions, dispatch),
 )(SubmissionContainer);
