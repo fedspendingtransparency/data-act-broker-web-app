@@ -2,6 +2,12 @@
 	@import "../../layouts/validation/validation";
 	@include validationLayout;
 
+	@import "../validateData/validateData.scss";
+	@import "../generateFiles/generateFiles.scss";
+	@import "../crossFile/crossFile.scss";
+	@import "../generateEF/generateEF.scss";
+	@import "../reviewData/reviewData.scss";
+
 	// style the warning for published submissions
 	.internal-banner {
 		@import "../../layouts/login/_topBanner";

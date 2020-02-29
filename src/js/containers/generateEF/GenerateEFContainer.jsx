@@ -191,7 +191,7 @@ class GenerateEFContainer extends React.Component {
         }
 
         return (
-            <div>
+            <div className="generate-ef-page">
                 {warningMessage}
                 <Banner type="dabs" />
                 {content}

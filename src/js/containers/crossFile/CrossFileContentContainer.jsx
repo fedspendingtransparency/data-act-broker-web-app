@@ -215,7 +215,7 @@ class CrossFileContentContainer extends React.Component {
         }
 
         return (
-            <div>
+            <div className="cross-file-page">
                 {warningMessage}
                 <Banner type="dabs" />
                 <CrossFileContent

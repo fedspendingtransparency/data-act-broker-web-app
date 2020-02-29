@@ -5,6 +5,13 @@ import Navbar from 'components/SharedComponents/navigation/NavigationComponent';
 import Progress from 'components/SharedComponents/Progress';
 import DABSFABSErrorMessage from 'components/SharedComponents/DABSFABSErrorMessage';
 import ReviewLoading from 'components/reviewData/ReviewLoading';
+// DABS components
+import ValidateDataContainer from 'containers/validateData/ValidateDataContainer';
+import GenerateFilesContainer from 'containers/generateFiles/GenerateFilesContainer';
+import CrossFileContentContainer from 'containers/crossFile/CrossFileContentContainer';
+import GenerateEFContainer from 'containers/generateEF/GenerateEFContainer';
+import ReviewDataContainer from 'containers/review/ReviewDataContainer';
+
 import SubmissionHeader from './SubmissionHeader';
 
 const propTypes = {
@@ -39,7 +46,27 @@ export default class SubmissionPage extends React.Component {
             submissionID,
             currentStep
         } = this.props;
-        let content = `Step ${currentStep}`;
+        let content;
+        switch (currentStep) {
+            case 1:
+                content = <ValidateDataContainer submissionID={submissionID} />;
+                break;
+            case 2:
+                content = <GenerateFilesContainer submissionID={submissionID} />;
+                break;
+            case 3:
+                content = <CrossFileContentContainer submissionID={submissionID} />;
+                break;
+            case 4:
+                content = <GenerateEFContainer submissionID={submissionID} />;
+                break;
+            case 5:
+                content = <ReviewDataContainer submissionID={submissionID} />;
+                break;
+            default:
+                content = null;
+        }
+
         if (loading) content = this.loadingMessage();
         if (error) content = this.errorMessage();
         return (

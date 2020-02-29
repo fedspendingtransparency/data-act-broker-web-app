@@ -1,7 +1,4 @@
-.usa-da-validate-data-page {
-	@import "../../layouts/validation/validation";
-	@include validationLayout;
-
+.validate-data-page {
 	// style the warning for published submissions
 	.internal-banner {
 		@import "../../layouts/login/_topBanner";
@@ -33,5 +30,4 @@
 		// validate header errors
 		@import "./headers/headers";
 	}
-
 }
