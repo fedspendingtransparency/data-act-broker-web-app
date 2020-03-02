@@ -18,7 +18,9 @@ import * as UploadHelper from '../../helpers/uploadHelper';
 
 const propTypes = {
     submission: PropTypes.object,
-    submissionID: PropTypes.string
+    submissionID: PropTypes.string,
+    completedStep: PropTypes.func,
+    errors: PropTypes.array
 };
 
 const defaultProps = {
@@ -32,6 +34,20 @@ class ValidationOverlayContainer extends React.Component {
             notAllowed: false,
             uploadApiCallError: ''
         };
+    }
+
+    componentDidMount() {
+        if (this.props.errors.length === 0) {
+            this.props.completedStep(1);
+        }
+    }
+
+    componentDidUpdate(prevProps) {
+        if (prevProps.errors.length !== this.props.errors.length) {
+            if (this.props.errors.length === 0) {
+                this.props.completedStep(1);
+            }
+        }
     }
 
     uploadFiles() {

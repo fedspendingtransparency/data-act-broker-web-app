@@ -27,7 +27,8 @@ const propTypes = {
     setSubmissionPublishStatus: PropTypes.func,
     submission: PropTypes.object,
     submissionID: PropTypes.string,
-    errorFromStep: PropTypes.func
+    errorFromStep: PropTypes.func,
+    completedStep: PropTypes.func
 };
 
 const defaultProps = {
@@ -496,6 +497,7 @@ export class GenerateFilesContainer extends React.Component {
         }
         else if (errors.length === 0 && allDone) {
             output.state = 'done';
+            this.props.completedStep(2);
         }
         else {
             output.state = 'generating';

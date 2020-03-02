@@ -4,7 +4,6 @@
  **/
 
 export const initialState = {
-    submissionID: '',
     currentStep: 0,
     originalStep: 0,
     lastCompletedStep: 0
@@ -27,12 +26,6 @@ export const submissionStepsReducer = (state = initialState, action) => {
         case 'UPDATE_LAST_COMPLETED_STEP': {
             return Object.assign({}, state, {
                 lastCompletedStep: action.step
-            });
-        }
-
-        case 'UPDATE_SUBMISSION_ID': {
-            return Object.assign({}, state, {
-                submissionID: action.submissionID
             });
         }
 

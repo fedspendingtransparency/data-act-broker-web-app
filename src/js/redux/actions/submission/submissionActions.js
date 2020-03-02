@@ -18,11 +18,6 @@ export const updateLastCompletedStep = (step) => ({
     step
 });
 
-export const updatedSubmissionID = (submissionID) => ({
-    type: 'UPDATE_SUBMISSION_ID',
-    submissionID
-});
-
 export const clearSubmission = () => ({
     type: 'CLEAR_SUBMISSION'
 });

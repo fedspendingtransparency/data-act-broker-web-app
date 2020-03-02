@@ -24,7 +24,8 @@ const propTypes = {
     setValidation: PropTypes.func,
     submission: PropTypes.object,
     submissionID: PropTypes.string,
-    errorFromStep: PropTypes.func
+    errorFromStep: PropTypes.func,
+    completedStep: PropTypes.func
 };
 
 const defaultProps = {

@@ -14,7 +14,8 @@ import { routes, steps } from 'dataMapping/dabs/submission';
 
 const propTypes = {
     computedMatch: PropTypes.object,
-    history: PropTypes.object
+    history: PropTypes.object,
+    submissionSteps: PropTypes.object
 };
 
 export class SubmissionStepsContainer extends React.Component {
@@ -32,6 +33,7 @@ export class SubmissionStepsContainer extends React.Component {
         };
 
         this.setStep = this.setStep.bind(this);
+        this.completedStep = this.completedStep.bind(this);
     }
 
     componentDidMount() {
@@ -44,14 +46,20 @@ export class SubmissionStepsContainer extends React.Component {
     componentDidUpdate(prevProps) {
         const { submissionID, step } = this.props.computedMatch.params;
         const stepNumber = steps[step];
-        // check for ID change
-        if (prevProps.computedMatch.params.submissionID !== submissionID) {
-            this.getSubmission();
-            this.getOriginalStep(stepNumber);
+        if (stepNumber) {
+            // check for ID change
+            if (prevProps.computedMatch.params.submissionID !== submissionID) {
+                this.getSubmission();
+                this.getOriginalStep(stepNumber);
+            }
+            else if (prevProps.computedMatch.params.step !== step) {
+                // A new step has been specified via URL
+                this.validateStep(stepNumber);
+            }
         }
-        else if (prevProps.computedMatch.params.step !== step) {
-            // A new step has been specified via URL
-            this.validateStep(stepNumber);
+        else {
+            // invalid url
+            this.props.history.push('/404');
         }
     }
 
@@ -82,19 +90,22 @@ export class SubmissionStepsContainer extends React.Component {
                 if (stepNumber && stepNumber <= originalStep) {
                     currentStep = stepNumber;
                 }
-                this.setState({
-                    loading: false,
-                    error: false,
-                    errorMessage: '',
-                    originalStep,
-                    lastCompletedStep: currentStep,
-                    currentStep
-                }, () => {
-                    if (!stepNumber || stepNumber > originalStep) {
-                        const route = routes[originalStep - 1];
-                        this.props.history.push(`/submission/${params.submissionID}/${route}`);
+                this.setState(
+                    {
+                        loading: false,
+                        error: false,
+                        errorMessage: '',
+                        originalStep,
+                        lastCompletedStep: currentStep - 1,
+                        currentStep
+                    },
+                    () => {
+                        if (!stepNumber || stepNumber > originalStep) {
+                            const route = routes[originalStep - 1];
+                            this.props.history.push(`/submission/${params.submissionID}/${route}`);
+                        }
                     }
-                });
+                );
             })
             .catch((err) => {
                 const { message } = err.body;
@@ -107,12 +118,19 @@ export class SubmissionStepsContainer extends React.Component {
     }
 
     setStep(step) {
-        if (step <= this.state.lastCompletedStep && step !== this.state.currentStep) {
+        if (step !== this.state.currentStep) {
+            const lastCompletedStep = this.state.lastCompletedStep === step ? step : step - 1;
             this.setState({
                 currentStep: step,
-                lastCompletedStep: step
+                lastCompletedStep
             });
         }
+    }
+
+    completedStep(step) {
+        this.setState({
+            lastCompletedStep: step
+        });
     }
 
     resetSteps() {
@@ -125,8 +143,8 @@ export class SubmissionStepsContainer extends React.Component {
 
     validateStep(step) {
         const { submissionID } = this.props.computedMatch.params;
-        if (step > this.state.lastCompletedStep) {
-            const route = routes[this.state.lastCompletedStep - 1];
+        if (step > this.state.lastCompletedStep + 1) {
+            const route = routes[this.state.lastCompletedStep];
             this.props.history.push(`/submission/${submissionID}/${route}`);
         }
         else {
@@ -139,15 +157,14 @@ export class SubmissionStepsContainer extends React.Component {
         return (
             <SubmissionPage
                 submissionID={submissionID}
-                {...this.state} />
+                {...this.state}
+                completedStep={this.completedStep} />
         );
     }
 }
 
 SubmissionStepsContainer.propTypes = propTypes;
 
-export default connect(
-    (state) => ({
-        session: state.session
-    }),
-)(SubmissionStepsContainer);
+export default connect((state) => ({
+    session: state.session
+}))(SubmissionStepsContainer);

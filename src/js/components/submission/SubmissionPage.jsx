@@ -24,7 +24,8 @@ const propTypes = {
     submissionInfo: PropTypes.object,
     currentStep: PropTypes.number,
     originalStep: PropTypes.number,
-    lastCompletedStep: PropTypes.number
+    lastCompletedStep: PropTypes.number,
+    completedStep: PropTypes.func
 };
 
 export default class SubmissionPage extends React.Component {
@@ -49,19 +50,19 @@ export default class SubmissionPage extends React.Component {
         let content;
         switch (currentStep) {
             case 1:
-                content = <ValidateDataContainer submissionID={submissionID} />;
+                content = <ValidateDataContainer submissionID={submissionID} completedStep={this.props.completedStep} />;
                 break;
             case 2:
-                content = <GenerateFilesContainer submissionID={submissionID} />;
+                content = <GenerateFilesContainer submissionID={submissionID} completedStep={this.props.completedStep} />;
                 break;
             case 3:
-                content = <CrossFileContentContainer submissionID={submissionID} />;
+                content = <CrossFileContentContainer submissionID={submissionID} completedStep={this.props.completedStep} />;
                 break;
             case 4:
-                content = <GenerateEFContainer submissionID={submissionID} />;
+                content = <GenerateEFContainer submissionID={submissionID} completedStep={this.props.completedStep} />;
                 break;
             case 5:
-                content = <ReviewDataContainer submissionID={submissionID} />;
+                content = <ReviewDataContainer submissionID={submissionID} completedStep={this.props.completedStep} />;
                 break;
             default:
                 content = null;
