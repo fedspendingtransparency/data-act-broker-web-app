@@ -23,7 +23,8 @@ const propTypes = {
     setSubmissionState: PropTypes.func,
     errorFromStep: PropTypes.func,
     submission: PropTypes.object,
-    submissionID: PropTypes.string
+    submissionID: PropTypes.string,
+    completedStep: PropTypes.func
 };
 
 const defaultProps = {

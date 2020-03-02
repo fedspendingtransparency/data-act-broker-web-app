@@ -20,7 +20,8 @@ const propTypes = {
     mode: PropTypes.string,
     loading: PropTypes.bool,
     nextStep: PropTypes.func,
-    submissionID: PropTypes.string
+    submissionID: PropTypes.string,
+    completedStep: PropTypes.func
 };
 
 const defaultProps = {
@@ -153,6 +154,7 @@ export default class CrossFileOverlay extends React.Component {
             overlay.uploadButtonClass = '-disabled';
             overlay.nextButtonClass = ' btn-primary';
             overlay.nextButtonDisabled = false;
+            this.props.completedStep(3);
         }
         else if (this.props.mode === 'warnings') {
             // loading finished, show warnings
@@ -164,6 +166,7 @@ export default class CrossFileOverlay extends React.Component {
             overlay.uploadButtonClass = '-disabled';
             overlay.nextButtonClass = ' btn-primary';
             overlay.nextButtonDisabled = false;
+            this.props.completedStep(3);
         }
 
         // handle uploading events

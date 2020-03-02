@@ -10,19 +10,20 @@ import { connect } from 'react-redux';
 
 import Q from 'q';
 
-import * as uploadActions from '../../redux/actions/uploadActions';
-import * as GenerateHelper from '../../helpers/generateFilesHelper';
-import * as ReviewHelper from '../../helpers/reviewHelper';
+import * as uploadActions from 'redux/actions/uploadActions';
+import * as GenerateHelper from 'helpers/generateFilesHelper';
+import * as ReviewHelper from 'helpers/reviewHelper';
 
-import GenerateEFContent from '../../components/generateEF/GenerateEFContent';
-import GenerateEFError from '../../components/generateEF/GenerateEFError';
-import PublishedSubmissionWarningBanner from '../../components/SharedComponents/PublishedSubmissionWarningBanner';
-import Banner from '../../components/SharedComponents/Banner';
+import GenerateEFContent from 'components/generateEF/GenerateEFContent';
+import GenerateEFError from 'components/generateEF/GenerateEFError';
+import PublishedSubmissionWarningBanner from 'components/SharedComponents/PublishedSubmissionWarningBanner';
+import Banner from 'components/SharedComponents/Banner';
 
 const propTypes = {
     submission: PropTypes.object,
     submissionID: PropTypes.string,
-    errorFromStep: PropTypes.func
+    errorFromStep: PropTypes.func,
+    completedStep: PropTypes.func
 };
 
 const defaultProps = {
@@ -157,6 +158,9 @@ class GenerateEFContainer extends React.Component {
             else if (file.status === 'invalid') {
                 isReady = true;
                 hasErrors = true;
+            }
+            else {
+                this.props.completedStep(4);
             }
         });
 
