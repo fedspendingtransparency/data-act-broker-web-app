@@ -5,9 +5,9 @@
 
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Link } from 'react-router-dom';
 import * as Icons from '../SharedComponents/icons/Icons';
 import CommonOverlay from '../SharedComponents/overlays/CommonOverlay';
+import NextButton from '../submission/NextButton';
 
 const propTypes = {
     uploadFiles: PropTypes.func,
@@ -109,29 +109,12 @@ export default class ValidationOverlay extends React.Component {
             header = this.props.uploadApiCallError;
         }
 
-        const nextButton = nextButtonDisabled ?
-            (
-                <button
-                    className={`usa-da-validation-overlay-review usa-da-button${nextButtonClass}`}
-                    disabled>
-                    Next
-                </button>
-            ) :
-            (
-                <Link
-                    className={`usa-da-validation-overlay-review usa-da-button${nextButtonClass}`}
-                    to={`/submission/${this.props.submissionID}/generateFiles`}>
-                        Next
-                </Link>
-            );
-
         return (
             <CommonOverlay
                 header={header}
                 detail={detail}
                 icon={icon}
                 iconClass={iconClass}>
-
                 <div className="usa-da-btn-bg">
                     <button
                         className={`usa-da-button${uploadButtonClass}`}
@@ -140,9 +123,12 @@ export default class ValidationOverlay extends React.Component {
                         data-testid="validate-overlay-upload-button">
                         {buttonText}
                     </button>
-                    {nextButton}
+                    <NextButton
+                        disabled={nextButtonDisabled}
+                        nextButtonClass={nextButtonClass}
+                        submissionID={this.props.submissionID}
+                        step="generateFiles" />
                 </div>
-
             </CommonOverlay>
         );
     }

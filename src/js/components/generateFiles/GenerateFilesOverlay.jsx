@@ -5,11 +5,11 @@
 
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Link } from 'react-router-dom';
 import CommonOverlay from '../SharedComponents/overlays/CommonOverlay';
 import * as Icons from '../SharedComponents/icons/Icons';
 import LoadingBauble from '../SharedComponents/overlays/LoadingBauble';
 import * as PermissionHelper from '../../helpers/permissionsHelper';
+import NextButton from '../submission/NextButton';
 
 const propTypes = {
     generateFiles: PropTypes.func,
@@ -91,22 +91,6 @@ export default class GenerateFilesOverlay extends React.Component {
             buttonDisabled = true;
         }
 
-        const nextButton = nextDisabled ?
-            (
-                <button
-                    className={`usa-da-validation-overlay-review usa-da-button${nextClass}`}
-                    disabled>
-                    Next
-                </button>
-            ) :
-            (
-                <Link
-                    className={`usa-da-validation-overlay-review usa-da-button${nextClass}`}
-                    to={`/submission/${this.props.submissionID}/validateCrossFile`}>
-                        Next
-                </Link>
-            );
-
         return (
             <CommonOverlay
                 header={header}
@@ -121,7 +105,11 @@ export default class GenerateFilesOverlay extends React.Component {
                         onClick={this.clickedGenerate.bind(this)}>
                         Generate Files
                     </button>
-                    {nextButton}
+                    <NextButton
+                        disabled={nextDisabled}
+                        nextButtonClass={nextClass}
+                        submissionID={this.props.submissionID}
+                        step="validateCrossFile" />
                 </div>
             </CommonOverlay>
         );

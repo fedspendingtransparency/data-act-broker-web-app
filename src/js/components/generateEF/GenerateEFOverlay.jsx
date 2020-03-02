@@ -5,12 +5,12 @@
 
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Link } from 'react-router-dom';
 import * as Icons from '../SharedComponents/icons/Icons';
 import CommonOverlay from '../SharedComponents/overlays/CommonOverlay';
 import LoadingBauble from '../SharedComponents/overlays/LoadingBauble';
 
 import * as PermissionsHelper from '../../helpers/permissionsHelper';
+import NextButton from '../submission/NextButton';
 
 const propTypes = {
     generateFiles: PropTypes.func,
@@ -77,22 +77,6 @@ export default class GenerateEFOverlay extends React.Component {
             buttonDisabled = true;
         }
 
-        const nextButton = nextDisabled ?
-            (
-                <button
-                    className={`usa-da-validation-overlay-review usa-da-button${nextClass}`}
-                    disabled>
-                    Next
-                </button>
-            ) :
-            (
-                <Link
-                    className={`usa-da-validation-overlay-review usa-da-button${nextClass}`}
-                    to={`/submission/${this.props.submissionID}/reviewData`}>
-                        Next
-                </Link>
-            );
-
         return (
             <CommonOverlay
                 header={header}
@@ -106,7 +90,11 @@ export default class GenerateEFOverlay extends React.Component {
                         onClick={this.clickedGenerate.bind(this)}>
                         Regenerate Files
                     </button>
-                    {nextButton}
+                    <NextButton
+                        disabled={nextDisabled}
+                        nextButtonClass={nextClass}
+                        submissionID={this.props.submissionID}
+                        step="reviewData" />
                 </div>
             </CommonOverlay>
         );
