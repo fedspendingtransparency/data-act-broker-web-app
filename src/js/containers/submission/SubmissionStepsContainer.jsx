@@ -14,8 +14,7 @@ import { routes, steps } from 'dataMapping/dabs/submission';
 
 const propTypes = {
     computedMatch: PropTypes.object,
-    history: PropTypes.object,
-    submissionSteps: PropTypes.object
+    history: PropTypes.object
 };
 
 export class SubmissionStepsContainer extends React.Component {
@@ -68,7 +67,6 @@ export class SubmissionStepsContainer extends React.Component {
     }
 
     getSubmission() {
-        this.setState({ isLoading: true, isError: false, errorMessage: '' });
         const { submissionID } = this.props.computedMatch.params;
         ReviewHelper.fetchSubmissionMetadata(submissionID, 'dabs')
             .then((data) => {

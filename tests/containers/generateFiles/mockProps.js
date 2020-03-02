@@ -3,7 +3,8 @@ export const mockProps = {
     session: {},
     submissionID: '1234',
     errorFromStep: jest.fn(),
-    nextStep: jest.fn()
+    nextStep: jest.fn(),
+    completedStep: jest.fn()
 };
 
 export const mockActions = {
