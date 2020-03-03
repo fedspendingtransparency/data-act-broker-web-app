@@ -13,11 +13,11 @@ import GenerateEFContainer from 'containers/generateEF/GenerateEFContainer';
 import ReviewDataContainer from 'containers/review/ReviewDataContainer';
 
 import SubmissionHeader from './SubmissionHeader';
+import BannerRow from '../SharedComponents/BannerRow';
 
 const propTypes = {
-    submissionID: PropTypes.string,
+    submissionID: PropTypes.string.isRequired,
     setStep: PropTypes.func,
-    errorFromStep: PropTypes.func,
     error: PropTypes.bool,
     errorMessage: PropTypes.string,
     loading: PropTypes.bool,
@@ -26,6 +26,18 @@ const propTypes = {
     originalStep: PropTypes.number,
     lastCompletedStep: PropTypes.number,
     completedStep: PropTypes.func
+};
+
+const defaultProps = {
+    setStep: () => {},
+    error: false,
+    errorMessage: '',
+    loading: true,
+    submissionInfo: {},
+    currentStep: 0,
+    originalStep: 0,
+    lastCompletedStep: 0,
+    completedStep: () => {}
 };
 
 export default class SubmissionPage extends React.Component {
@@ -70,10 +82,17 @@ export default class SubmissionPage extends React.Component {
 
         if (loading) content = this.loadingMessage();
         if (error) content = this.errorMessage();
+        const testBanner = this.props.submissionInfo.test_submission ? (
+            <BannerRow
+                type="warning"
+                header="This is a test submission since one has already been certified for this fiscal quarter."
+                message="You will not be able to certify this submission." />
+        ) : null;
         return (
             <div className="usa-da-submission-page">
                 <Navbar activeTab="submissionGuide" type="dabs" />
                 <SubmissionHeader {...this.props.submissionInfo} />
+                {testBanner}
                 <div className="usa-da-content-step-block" name="content-top">
                     <div className="container center-block">
                         <div className="row">
@@ -90,3 +109,4 @@ export default class SubmissionPage extends React.Component {
 }
 
 SubmissionPage.propTypes = propTypes;
+SubmissionPage.defaultProps = defaultProps;

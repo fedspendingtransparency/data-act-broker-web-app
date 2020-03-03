@@ -9,7 +9,7 @@ import { parseMarkdown } from 'helpers/helpHelper';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 const propTypes = {
-    type: PropTypes.string,
+    type: PropTypes.oneOf(['warning', 'info']),
     header: PropTypes.string,
     message: PropTypes.string
 };

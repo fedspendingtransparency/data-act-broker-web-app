@@ -6,7 +6,7 @@
 
     &.warning-banner {
         background: as-alpha($color-gold-lightest, 0.95);
-        border-bottom: 1px solid $color-gold-lighter;
+        border-bottom: 3px solid $color-gold-lighter;
 
         .banner-icon {
             svg {
@@ -17,7 +17,7 @@
 
     &.info-banner {
         background: as-alpha($color-primary-alt-lightest, 0.95);
-        border-bottom: 1px solid $color-primary-alt-light;
+        border-bottom: 3px solid $color-primary-alt-light;
 
         .banner-icon {
             svg {
@@ -41,6 +41,7 @@
         font-size: $h3-font-size;
         font-weight: $font-bold;
         margin-bottom: 0;
+        max-width: none;
     }
 
     .banner-content p {
