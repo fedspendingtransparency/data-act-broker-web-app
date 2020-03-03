@@ -82,11 +82,12 @@ export default class SubmissionPage extends React.Component {
 
         if (loading) content = this.loadingMessage();
         if (error) content = this.errorMessage();
+        // TODO - change the submission URL
         const testBanner = this.props.submissionInfo.test_submission ? (
             <BannerRow
                 type="warning"
                 header="This is a test submission since one has already been certified for this fiscal quarter."
-                message="You will not be able to certify this submission." />
+                message="You will not be able to certify this submission. To view the certified submission, [click here](/#/submission/1234)." />
         ) : null;
         return (
             <div className="usa-da-submission-page">
