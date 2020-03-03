@@ -5,10 +5,9 @@
 
 import React from 'react';
 import { shallow } from 'enzyme';
-import { cloneDeep } from 'lodash';
 
 import { SubmissionStepsContainer } from 'containers/submission/SubmissionStepsContainer';
-import { mockProps, originalState, submissionMetadata } from './mockData';
+import { mockProps, submissionMetadata } from './mockData';
 
 jest.mock('helpers/submissionGuideHelper', () => require('./mockSubmissionGuideHelper'));
 jest.mock('helpers/reviewHelper', () => require('./mockReviewHelper'));
@@ -57,6 +56,23 @@ describe('SubmissionStepsContainer', () => {
             };
             container.instance().componentDidUpdate(prevProps);
             expect(validateStep).toHaveBeenCalled();
+        });
+        it('should handle an invalide url', () => {
+            const newProps = {
+                computedMatch: {
+                    params: {
+                        submissionID: "2054",
+                        step: 'something'
+                    }
+                },
+                history: {
+                    push: jest.fn()
+                }
+            };
+            container.setProps(newProps);
+            container.instance().componentDidUpdate(mockProps);
+            expect(newProps.history.push).toHaveBeenCalled();
+            expect(newProps.history.push).toHaveBeenCalledWith('/404');
         });
     });
     describe('getOriginalStep', () => {

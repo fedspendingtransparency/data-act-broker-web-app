@@ -1,7 +1,4 @@
 .generate-files-page {
-	@import '../../layouts/validation/validation';
-	@include validationLayout;
-
 	// style the warning for published submissions
 	.published-submission-warning-banner {
 		@import '../../layouts/login/_topBanner';
