@@ -103,34 +103,6 @@ describe('SubmissionStepsContainer', () => {
         });
     });
 
-    describe('setStep', () => {
-        it('should leave lastCompletedStep as-is if it matches the step we are going to', () => {
-            container.instance().setState({
-                originalStep: 5,
-                currentStep: 3,
-                lastCompletedStep: 4
-            });
-            container.instance().setStep(4);
-            expect(container.instance().state.lastCompletedStep).toEqual(4);
-        });
-        it('should otherwise update lastCompletedStep to the previous step', () => {
-            container.instance().setState({
-                originalStep: 5,
-                currentStep: 3,
-                lastCompletedStep: 4
-            });
-            container.instance().setStep(2);
-            expect(container.instance().state.lastCompletedStep).toEqual(1);
-        });
-    });
-
-    describe('completedStep', () => {
-        it('should update the state', () => {
-            container.instance().completedStep(1);
-            expect(container.instance().state.lastCompletedStep).toEqual(1);
-        });
-    });
-
     describe('resetSteps', () => {
         it('should reset the state', () => {
             container.instance().setState({

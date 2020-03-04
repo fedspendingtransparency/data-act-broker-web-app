@@ -26,13 +26,8 @@ export class SubmissionStepsContainer extends React.Component {
             error: false,
             errorMessage: '',
             submissionInfo: {},
-            originalStep: 0,
-            currentStep: 0,
-            lastCompletedStep: 0
+            currentStep: 0
         };
-
-        this.setStep = this.setStep.bind(this);
-        this.completedStep = this.completedStep.bind(this);
     }
 
     componentDidMount() {
@@ -53,7 +48,7 @@ export class SubmissionStepsContainer extends React.Component {
             }
             else if (prevProps.computedMatch.params.step !== step) {
                 // A new step has been specified via URL
-                this.validateStep(stepNumber);
+                this.getOriginalStep(stepNumber);
             }
         }
         else {
@@ -93,8 +88,6 @@ export class SubmissionStepsContainer extends React.Component {
                         loading: false,
                         error: false,
                         errorMessage: '',
-                        originalStep,
-                        lastCompletedStep: currentStep - 1,
                         currentStep
                     },
                     () => {
@@ -115,22 +108,6 @@ export class SubmissionStepsContainer extends React.Component {
             });
     }
 
-    setStep(step) {
-        if (step !== this.state.currentStep) {
-            const lastCompletedStep = this.state.lastCompletedStep === step ? step : step - 1;
-            this.setState({
-                currentStep: step,
-                lastCompletedStep
-            });
-        }
-    }
-
-    completedStep(step) {
-        this.setState({
-            lastCompletedStep: step
-        });
-    }
-
     resetSteps() {
         this.setState({
             originalStep: 0,
@@ -139,24 +116,12 @@ export class SubmissionStepsContainer extends React.Component {
         });
     }
 
-    validateStep(step) {
-        const { submissionID } = this.props.computedMatch.params;
-        if (step > this.state.lastCompletedStep + 1) {
-            const route = routes[this.state.lastCompletedStep];
-            this.props.history.push(`/submission/${submissionID}/${route}`);
-        }
-        else {
-            this.setStep(step);
-        }
-    }
-
     render() {
         const { submissionID } = this.props.computedMatch.params;
         return (
             <SubmissionPage
                 submissionID={submissionID}
-                {...this.state}
-                completedStep={this.completedStep} />
+                {...this.state} />
         );
     }
 }

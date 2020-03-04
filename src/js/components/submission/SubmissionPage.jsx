@@ -16,16 +16,12 @@ import SubmissionHeader from './SubmissionHeader';
 
 const propTypes = {
     submissionID: PropTypes.string,
-    setStep: PropTypes.func,
     errorFromStep: PropTypes.func,
     error: PropTypes.bool,
     errorMessage: PropTypes.string,
     loading: PropTypes.bool,
     submissionInfo: PropTypes.object,
-    currentStep: PropTypes.number,
-    originalStep: PropTypes.number,
-    lastCompletedStep: PropTypes.number,
-    completedStep: PropTypes.func
+    currentStep: PropTypes.number
 };
 
 export default class SubmissionPage extends React.Component {
@@ -50,19 +46,19 @@ export default class SubmissionPage extends React.Component {
         let content;
         switch (currentStep) {
             case 1:
-                content = <ValidateDataContainer submissionID={submissionID} completedStep={this.props.completedStep} />;
+                content = <ValidateDataContainer submissionID={submissionID} />;
                 break;
             case 2:
-                content = <GenerateFilesContainer submissionID={submissionID} completedStep={this.props.completedStep} />;
+                content = <GenerateFilesContainer submissionID={submissionID} />;
                 break;
             case 3:
-                content = <CrossFileContentContainer submissionID={submissionID} completedStep={this.props.completedStep} />;
+                content = <CrossFileContentContainer submissionID={submissionID} />;
                 break;
             case 4:
-                content = <GenerateEFContainer submissionID={submissionID} completedStep={this.props.completedStep} />;
+                content = <GenerateEFContainer submissionID={submissionID} />;
                 break;
             case 5:
-                content = <ReviewDataContainer submissionID={submissionID} completedStep={this.props.completedStep} />;
+                content = <ReviewDataContainer submissionID={submissionID} />;
                 break;
             default:
                 content = null;
