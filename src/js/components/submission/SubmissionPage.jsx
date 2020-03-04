@@ -46,19 +46,19 @@ export default class SubmissionPage extends React.Component {
         let content;
         switch (currentStep) {
             case 1:
-                content = <ValidateDataContainer submissionID={submissionID} />;
+                content = <ValidateDataContainer submissionID={submissionID} errorFromStep={this.props.errorFromStep} />;
                 break;
             case 2:
-                content = <GenerateFilesContainer submissionID={submissionID} />;
+                content = <GenerateFilesContainer submissionID={submissionID} errorFromStep={this.props.errorFromStep} />;
                 break;
             case 3:
-                content = <CrossFileContentContainer submissionID={submissionID} />;
+                content = <CrossFileContentContainer submissionID={submissionID} errorFromStep={this.props.errorFromStep} />;
                 break;
             case 4:
-                content = <GenerateEFContainer submissionID={submissionID} />;
+                content = <GenerateEFContainer submissionID={submissionID} errorFromStep={this.props.errorFromStep} />;
                 break;
             case 5:
-                content = <ReviewDataContainer submissionID={submissionID} />;
+                content = <ReviewDataContainer submissionID={submissionID} errorFromStep={this.props.errorFromStep} />;
                 break;
             default:
                 content = null;

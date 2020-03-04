@@ -6,7 +6,8 @@ export const mockProps = {
         }
     },
     history: {
-        push: jest.fn()
+        push: jest.fn(),
+        replace: jest.fn()
     }
 };
 
@@ -29,8 +30,8 @@ export const routes = [
 ];
 
 export const response = {
-    message: 'The current progress of this submission ID is on /v1/reviewData/ page.',
-    step: '5'
+    message: 'The current progress of this submission ID is on /v1/generateEF/ page.',
+    step: '4'
 };
 
 export const submissionMetadata = {

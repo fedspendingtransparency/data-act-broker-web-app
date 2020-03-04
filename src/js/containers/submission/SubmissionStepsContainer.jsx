@@ -28,6 +28,8 @@ export class SubmissionStepsContainer extends React.Component {
             submissionInfo: {},
             currentStep: 0
         };
+
+        this.errorFromStep = this.errorFromStep.bind(this);
     }
 
     componentDidMount() {
@@ -58,7 +60,7 @@ export class SubmissionStepsContainer extends React.Component {
     }
 
     componentWillUnmount() {
-        this.resetSteps();
+        this.resetStep();
     }
 
     getSubmission() {
@@ -93,7 +95,7 @@ export class SubmissionStepsContainer extends React.Component {
                     () => {
                         if (!stepNumber || stepNumber > originalStep) {
                             const route = routes[originalStep - 1];
-                            this.props.history.push(`/submission/${params.submissionID}/${route}`);
+                            this.props.history.replace(`/submission/${params.submissionID}/${route}`);
                         }
                     }
                 );
@@ -108,11 +110,16 @@ export class SubmissionStepsContainer extends React.Component {
             });
     }
 
-    resetSteps() {
+    errorFromStep(errorMessage) {
         this.setState({
-            originalStep: 0,
-            currentStep: 0,
-            lastCompletedStep: 0
+            error: true,
+            errorMessage
+        });
+    }
+
+    resetStep() {
+        this.setState({
+            currentStep: 0
         });
     }
 
@@ -121,7 +128,8 @@ export class SubmissionStepsContainer extends React.Component {
         return (
             <SubmissionPage
                 submissionID={submissionID}
-                {...this.state} />
+                {...this.state}
+                errorFromStep={this.errorFromStep} />
         );
     }
 }
