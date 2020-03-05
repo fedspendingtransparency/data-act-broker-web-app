@@ -92,18 +92,20 @@ export default class SubmissionPage extends React.Component {
         return (
             <div className="usa-da-submission-page">
                 <Navbar activeTab="submissionGuide" type="dabs" />
-                <SubmissionHeader {...submissionInfo} />
-                {testBanner}
-                <div className="usa-da-content-step-block" name="content-top">
-                    <div className="container center-block">
-                        <div className="row">
-                            <Progress
-                                currentStep={currentStep}
-                                id={submissionID} />
+                <main>
+                    <SubmissionHeader {...submissionInfo} />
+                    {testBanner}
+                    <div className="usa-da-content-step-block" name="content-top">
+                        <div className="container center-block">
+                            <div className="row">
+                                <Progress
+                                    currentStep={currentStep}
+                                    id={submissionID} />
+                            </div>
                         </div>
                     </div>
-                </div>
-                {content}
+                    {content}
+                </main>
             </div>
         );
     }

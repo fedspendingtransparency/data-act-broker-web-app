@@ -36,9 +36,9 @@ const SubmissionHeader = (props) => {
             <div className="container">
                 <div className="row usa-da-content-add-data usa-da-page-title flex-center-content-only-height">
                     <div className="col-md-10 mt-40 mb-20">
-                        <div className="display-2" data-contentstart="start">
+                        <h1 className="display-2" data-contentstart="start">
                             Upload & Validate a New Submission
-                        </div>
+                        </h1>
                     </div>
                     <div className="col-md-2">
                         {submissionContext}
