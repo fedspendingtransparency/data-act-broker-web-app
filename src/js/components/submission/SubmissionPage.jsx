@@ -25,21 +25,11 @@ const propTypes = {
 };
 
 export default class SubmissionPage extends React.Component {
-    loadingMessage() {
-        return this.props.loading ? (
-            <ReviewLoading />
-        ) : null;
-    }
-
-    errorMessage() {
-        const { errorMessage, error } = this.props;
-        return error ? (<DABSFABSErrorMessage message={errorMessage} />) : null;
-    }
-
     render() {
         const {
             loading,
             error,
+            errorMessage,
             submissionID,
             currentStep
         } = this.props;
@@ -63,9 +53,6 @@ export default class SubmissionPage extends React.Component {
             default:
                 content = null;
         }
-
-        if (loading) content = this.loadingMessage();
-        if (error) content = this.errorMessage();
         return (
             <div className="usa-da-submission-page">
                 <Navbar activeTab="submissionGuide" type="dabs" />
@@ -79,6 +66,8 @@ export default class SubmissionPage extends React.Component {
                         </div>
                     </div>
                 </div>
+                {error ? (<DABSFABSErrorMessage message={errorMessage} />) : null}
+                {loading ? (<ReviewLoading />) : null}
                 {content}
             </div>
         );

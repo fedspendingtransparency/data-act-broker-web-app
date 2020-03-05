@@ -105,7 +105,8 @@ export class SubmissionStepsContainer extends React.Component {
                 this.setState({
                     loading: false,
                     error: true,
-                    errorMessage: message
+                    errorMessage: message,
+                    currentStep: 0
                 });
             });
     }
