@@ -16,13 +16,8 @@ import SubmissionHeader from './SubmissionHeader';
 import BannerRow from '../SharedComponents/BannerRow';
 
 const propTypes = {
-<<<<<<< HEAD
-    submissionID: PropTypes.string.isRequired,
-    setStep: PropTypes.func,
-=======
     submissionID: PropTypes.string,
     errorFromStep: PropTypes.func,
->>>>>>> fix/dev-4427-submission-back-button
     error: PropTypes.bool,
     errorMessage: PropTypes.string,
     loading: PropTypes.bool,
@@ -31,15 +26,11 @@ const propTypes = {
 };
 
 const defaultProps = {
-    setStep: () => {},
     error: false,
     errorMessage: '',
     loading: true,
     submissionInfo: {},
-    currentStep: 0,
-    originalStep: 0,
-    lastCompletedStep: 0,
-    completedStep: () => {}
+    currentStep: 0
 };
 
 export default class SubmissionPage extends React.Component {
