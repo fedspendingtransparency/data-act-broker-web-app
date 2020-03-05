@@ -57,7 +57,8 @@ export default class SubmissionPage extends React.Component {
             loading,
             error,
             submissionID,
-            currentStep
+            currentStep,
+            submissionInfo
         } = this.props;
         let content;
         switch (currentStep) {
@@ -82,17 +83,16 @@ export default class SubmissionPage extends React.Component {
 
         if (loading) content = this.loadingMessage();
         if (error) content = this.errorMessage();
-        // TODO - change the submission URL
-        const testBanner = this.props.submissionInfo.test_submission ? (
+        const testBanner = submissionInfo.certified_submission ? (
             <BannerRow
                 type="warning"
                 header="This is a test submission since one has already been certified for this fiscal quarter."
-                message="You will not be able to certify this submission. To view the certified submission, [click here](/#/submission/1234)." />
+                message={`You will not be able to certify this submission. To view the certified submission, [click here](/#/submission/${submissionInfo.certified_submission}).`} />
         ) : null;
         return (
             <div className="usa-da-submission-page">
                 <Navbar activeTab="submissionGuide" type="dabs" />
-                <SubmissionHeader {...this.props.submissionInfo} />
+                <SubmissionHeader {...submissionInfo} />
                 {testBanner}
                 <div className="usa-da-content-step-block" name="content-top">
                     <div className="container center-block">
