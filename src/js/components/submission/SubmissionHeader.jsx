@@ -1,6 +1,6 @@
 /**
 * SubmissionHeader.jsx
-* Created by Kyle Fox 2/19/16
+* Created by Lizzie Salita 2/20/20
 */
 
 import React from 'react';

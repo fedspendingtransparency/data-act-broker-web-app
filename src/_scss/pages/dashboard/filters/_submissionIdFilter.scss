@@ -1,12 +1,32 @@
 .submission-id-filter {
     @import './selectedFilters';
-    @import '../../submissionsTable/textFilter';
     form.text-filter {
-        border: solid 1px $color-gray-lighter;
         margin-top: 10px;
-        height: 40px;
         font-size: rem(14);
+        @include display(flex);
         @include align-items(center);
-        overflow: hidden;
+        .text-filter__input {
+            @include display(flex);
+            @include flex(1 1 auto);
+            border: solid 1px $color-gray-lighter;
+            border-right: 0;
+            padding: rem(5) rem(5) rem(5) rem(10);
+            color: $color-gray;
+            height: 40px;
+        }
+        .text-filter__button {
+            @include display(flex);
+            @include flex(0 0 auto);
+            padding: rem(9) rem(10) rem(9) rem(5);
+            border: solid 1px $color-gray-lighter;
+            border-left: 0;
+            color: $color-primary;
+            background-color: $color-white;
+            height: 40px;
+            &:disabled {
+                color: $color-gray-light;
+                cursor: not-allowed;
+            }
+        }
     }
 }

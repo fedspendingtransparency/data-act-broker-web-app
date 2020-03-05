@@ -13,8 +13,7 @@ const propTypes = {
     reloadData: PropTypes.func,
     uploadFiles: PropTypes.func,
     submission: PropTypes.object,
-    submissionID: PropTypes.string,
-    completedStep: PropTypes.func
+    submissionID: PropTypes.string
 };
 
 const defaultProps = {

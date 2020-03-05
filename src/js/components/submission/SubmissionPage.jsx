@@ -16,16 +16,18 @@ import SubmissionHeader from './SubmissionHeader';
 import BannerRow from '../SharedComponents/BannerRow';
 
 const propTypes = {
+<<<<<<< HEAD
     submissionID: PropTypes.string.isRequired,
     setStep: PropTypes.func,
+=======
+    submissionID: PropTypes.string,
+    errorFromStep: PropTypes.func,
+>>>>>>> fix/dev-4427-submission-back-button
     error: PropTypes.bool,
     errorMessage: PropTypes.string,
     loading: PropTypes.bool,
     submissionInfo: PropTypes.object,
-    currentStep: PropTypes.number,
-    originalStep: PropTypes.number,
-    lastCompletedStep: PropTypes.number,
-    completedStep: PropTypes.func
+    currentStep: PropTypes.number
 };
 
 const defaultProps = {
@@ -41,21 +43,11 @@ const defaultProps = {
 };
 
 export default class SubmissionPage extends React.Component {
-    loadingMessage() {
-        return this.props.loading ? (
-            <ReviewLoading />
-        ) : null;
-    }
-
-    errorMessage() {
-        const { errorMessage, error } = this.props;
-        return error ? (<DABSFABSErrorMessage message={errorMessage} />) : null;
-    }
-
     render() {
         const {
             loading,
             error,
+            errorMessage,
             submissionID,
             currentStep,
             submissionInfo
@@ -63,26 +55,23 @@ export default class SubmissionPage extends React.Component {
         let content;
         switch (currentStep) {
             case 1:
-                content = <ValidateDataContainer submissionID={submissionID} completedStep={this.props.completedStep} />;
+                content = <ValidateDataContainer submissionID={submissionID} errorFromStep={this.props.errorFromStep} />;
                 break;
             case 2:
-                content = <GenerateFilesContainer submissionID={submissionID} completedStep={this.props.completedStep} />;
+                content = <GenerateFilesContainer submissionID={submissionID} errorFromStep={this.props.errorFromStep} />;
                 break;
             case 3:
-                content = <CrossFileContentContainer submissionID={submissionID} completedStep={this.props.completedStep} />;
+                content = <CrossFileContentContainer submissionID={submissionID} errorFromStep={this.props.errorFromStep} />;
                 break;
             case 4:
-                content = <GenerateEFContainer submissionID={submissionID} completedStep={this.props.completedStep} />;
+                content = <GenerateEFContainer submissionID={submissionID} errorFromStep={this.props.errorFromStep} />;
                 break;
             case 5:
-                content = <ReviewDataContainer submissionID={submissionID} completedStep={this.props.completedStep} />;
+                content = <ReviewDataContainer submissionID={submissionID} errorFromStep={this.props.errorFromStep} />;
                 break;
             default:
                 content = null;
         }
-
-        if (loading) content = this.loadingMessage();
-        if (error) content = this.errorMessage();
         const testBanner = submissionInfo.certified_submission ? (
             <BannerRow
                 type="warning"
@@ -104,6 +93,8 @@ export default class SubmissionPage extends React.Component {
                             </div>
                         </div>
                     </div>
+                    {error ? (<DABSFABSErrorMessage message={errorMessage} />) : null}
+                    {loading ? (<ReviewLoading />) : null}
                     {content}
                 </main>
             </div>

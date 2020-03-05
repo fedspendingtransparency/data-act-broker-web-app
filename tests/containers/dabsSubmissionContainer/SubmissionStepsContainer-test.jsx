@@ -41,11 +41,9 @@ describe('SubmissionStepsContainer', () => {
             container.instance().componentDidUpdate(prevProps);
             expect(getSubmission).toHaveBeenCalled();
         });
-        it('should call validateStep if route type is updated', () => {
-            const validateCurrentStepAndRouteType = jest.fn();
-            const validateStep = jest.fn();
-            container.instance().validateCurrentStepAndRouteType = validateCurrentStepAndRouteType;
-            container.instance().validateStep = validateStep;
+        it('should call getOriginalStep if route type is updated', () => {
+            const getOriginalStep = jest.fn();
+            container.instance().getOriginalStep = getOriginalStep;
             const prevProps = {
                 computedMatch: {
                     params: {
@@ -55,7 +53,7 @@ describe('SubmissionStepsContainer', () => {
                 }
             };
             container.instance().componentDidUpdate(prevProps);
-            expect(validateStep).toHaveBeenCalled();
+            expect(getOriginalStep).toHaveBeenCalled();
         });
         it('should handle an invalide url', () => {
             const newProps = {
@@ -81,15 +79,29 @@ describe('SubmissionStepsContainer', () => {
             const {
                 loading,
                 error,
-                originalStep,
-                currentStep,
-                lastCompletedStep
+                currentStep
             } = container.instance().state;
             expect(loading).toEqual(false);
             expect(error).toEqual(false);
-            expect(currentStep).toEqual(5);
-            expect(originalStep).toEqual(5);
-            expect(lastCompletedStep).toEqual(4);
+            expect(currentStep).toEqual(4);
+        });
+        it('should go to the original step when trying to access an incomplete step', async () => {
+            const newProps = {
+                computedMatch: {
+                    params: {
+                        submissionID: "2054",
+                        step: 'reviewData'
+                    }
+                },
+                history: {
+                    replace: jest.fn()
+                }
+            };
+            container.setProps(newProps);
+            container.instance().componentDidUpdate(mockProps);
+            await container.instance().getOriginalStep();
+            expect(newProps.history.replace).toHaveBeenCalled();
+            expect(newProps.history.replace).toHaveBeenCalledWith('/submission/2054/generateEF');
         });
     });
 
@@ -103,70 +115,27 @@ describe('SubmissionStepsContainer', () => {
         });
     });
 
-    describe('setStep', () => {
-        it('should leave lastCompletedStep as-is if it matches the step we are going to', () => {
-            container.instance().setState({
-                originalStep: 5,
-                currentStep: 3,
-                lastCompletedStep: 4
-            });
-            container.instance().setStep(4);
-            expect(container.instance().state.lastCompletedStep).toEqual(4);
-        });
-        it('should otherwise update lastCompletedStep to the previous step', () => {
-            container.instance().setState({
-                originalStep: 5,
-                currentStep: 3,
-                lastCompletedStep: 4
-            });
-            container.instance().setStep(2);
-            expect(container.instance().state.lastCompletedStep).toEqual(1);
+    describe('errorFromStep', () => {
+        it('should update the state with the given error message', () => {
+            expect(error).toBeFalsy();
+            expect(errorMessage).toBeFalsy();
+            container.instance().errorFromStep('Mock error message');
+            const {
+                error,
+                errorMessage
+            } = container.instance().state;
+            expect(error).toBeTruthy();
+            expect(errorMessage).toEqual('Mock error message');
         });
     });
 
-    describe('completedStep', () => {
-        it('should update the state', () => {
-            container.instance().completedStep(1);
-            expect(container.instance().state.lastCompletedStep).toEqual(1);
-        });
-    });
-
-    describe('resetSteps', () => {
+    describe('resetStep', () => {
         it('should reset the state', () => {
             container.instance().setState({
-                originalStep: 5,
-                currentStep: 3,
-                lastCompletedStep: 4
+                currentStep: 3
             });
-            container.instance().resetSteps();
-            expect(container.instance().state.originalStep).toEqual(0);
+            container.instance().resetStep();
             expect(container.instance().state.currentStep).toEqual(0);
-            expect(container.instance().state.lastCompletedStep).toEqual(0);
-        });
-    });
-
-    describe('validateStep', () => {
-        it('not allow users to navigate past one step ahead of the last completed step', () => {
-            container.instance().setState({
-                originalStep: 5,
-                currentStep: 3,
-                lastCompletedStep: 2
-            });
-            container.instance().validateStep(4);
-            expect(mockProps.history.push).toHaveBeenCalled();
-            expect(mockProps.history.push).toHaveBeenCalledWith('/submission/2054/validateCrossFile');
-        });
-        it('should call setStep to allow a user to navigate to a previous step', () => {
-            const setStep = jest.fn();
-            container.instance().setStep = setStep;
-            container.instance().setState({
-                originalStep: 5,
-                currentStep: 3,
-                lastCompletedStep: 2
-            });
-            container.instance().validateStep(2);
-            expect(setStep).toHaveBeenCalled();
-            expect(setStep).toHaveBeenCalledWith(2);
         });
     });
 });

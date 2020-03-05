@@ -26,13 +26,10 @@ export class SubmissionStepsContainer extends React.Component {
             error: false,
             errorMessage: '',
             submissionInfo: {},
-            originalStep: 0,
-            currentStep: 0,
-            lastCompletedStep: 0
+            currentStep: 0
         };
 
-        this.setStep = this.setStep.bind(this);
-        this.completedStep = this.completedStep.bind(this);
+        this.errorFromStep = this.errorFromStep.bind(this);
     }
 
     componentDidMount() {
@@ -53,7 +50,7 @@ export class SubmissionStepsContainer extends React.Component {
             }
             else if (prevProps.computedMatch.params.step !== step) {
                 // A new step has been specified via URL
-                this.validateStep(stepNumber);
+                this.getOriginalStep(stepNumber);
             }
         }
         else {
@@ -63,7 +60,7 @@ export class SubmissionStepsContainer extends React.Component {
     }
 
     componentWillUnmount() {
-        this.resetSteps();
+        this.resetStep();
     }
 
     getSubmission() {
@@ -93,14 +90,12 @@ export class SubmissionStepsContainer extends React.Component {
                         loading: false,
                         error: false,
                         errorMessage: '',
-                        originalStep,
-                        lastCompletedStep: currentStep - 1,
                         currentStep
                     },
                     () => {
                         if (!stepNumber || stepNumber > originalStep) {
                             const route = routes[originalStep - 1];
-                            this.props.history.push(`/submission/${params.submissionID}/${route}`);
+                            this.props.history.replace(`/submission/${params.submissionID}/${route}`);
                         }
                     }
                 );
@@ -110,44 +105,23 @@ export class SubmissionStepsContainer extends React.Component {
                 this.setState({
                     loading: false,
                     error: true,
-                    errorMessage: message
+                    errorMessage: message,
+                    currentStep: 0
                 });
             });
     }
 
-    setStep(step) {
-        if (step !== this.state.currentStep) {
-            const lastCompletedStep = this.state.lastCompletedStep === step ? step : step - 1;
-            this.setState({
-                currentStep: step,
-                lastCompletedStep
-            });
-        }
-    }
-
-    completedStep(step) {
+    errorFromStep(errorMessage) {
         this.setState({
-            lastCompletedStep: step
+            error: true,
+            errorMessage
         });
     }
 
-    resetSteps() {
+    resetStep() {
         this.setState({
-            originalStep: 0,
-            currentStep: 0,
-            lastCompletedStep: 0
+            currentStep: 0
         });
-    }
-
-    validateStep(step) {
-        const { submissionID } = this.props.computedMatch.params;
-        if (step > this.state.lastCompletedStep + 1) {
-            const route = routes[this.state.lastCompletedStep];
-            this.props.history.push(`/submission/${submissionID}/${route}`);
-        }
-        else {
-            this.setStep(step);
-        }
     }
 
     render() {
@@ -156,7 +130,7 @@ export class SubmissionStepsContainer extends React.Component {
             <SubmissionPage
                 submissionID={submissionID}
                 {...this.state}
-                completedStep={this.completedStep} />
+                errorFromStep={this.errorFromStep} />
         );
     }
 }

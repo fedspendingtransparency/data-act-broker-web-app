@@ -5,10 +5,9 @@
 
 import React from 'react';
 import { shallow } from 'enzyme';
-import { cloneDeep } from 'lodash';
 
 import { SubmissionContainer } from 'containers/submission/SubmissionContainer';
-import { mockProps, originalState } from './mockData';
+import { mockProps } from './mockData';
 
 jest.mock('helpers/submissionGuideHelper', () => require('./mockSubmissionGuideHelper'));
 
@@ -36,7 +35,7 @@ describe('SubmissionContainer', () => {
             } = container.instance().state;
             expect(loading).toEqual(false);
             expect(error).toEqual(false);
-            expect(redirectPath).toEqual('reviewData');
+            expect(redirectPath).toEqual('generateEF');
         });
     });
 });

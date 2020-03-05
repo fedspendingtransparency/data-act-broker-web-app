@@ -22,8 +22,7 @@ import Banner from 'components/SharedComponents/Banner';
 const propTypes = {
     submission: PropTypes.object,
     submissionID: PropTypes.string,
-    errorFromStep: PropTypes.func,
-    completedStep: PropTypes.func
+    errorFromStep: PropTypes.func
 };
 
 const defaultProps = {
@@ -158,9 +157,6 @@ class GenerateEFContainer extends React.Component {
             else if (file.status === 'invalid') {
                 isReady = true;
                 hasErrors = true;
-            }
-            else {
-                this.props.completedStep(4);
             }
         });
 
