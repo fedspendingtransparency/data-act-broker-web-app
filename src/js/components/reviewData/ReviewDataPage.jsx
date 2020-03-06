@@ -14,12 +14,14 @@ import ReviewLoading from './ReviewLoading';
 const propTypes = {
     data: PropTypes.object,
     submissionID: PropTypes.string,
-    submission: PropTypes.object
+    submission: PropTypes.object,
+    testSubmission: PropTypes.bool
 };
 
 const defaultProps = {
     data: null,
-    submission: null
+    submission: null,
+    testSubmission: false
 };
 
 export default class ReviewDataPage extends React.Component {

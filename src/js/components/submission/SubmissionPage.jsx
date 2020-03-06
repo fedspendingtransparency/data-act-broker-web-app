@@ -13,6 +13,7 @@ import GenerateEFContainer from 'containers/generateEF/GenerateEFContainer';
 import ReviewDataContainer from 'containers/review/ReviewDataContainer';
 
 import SubmissionHeader from './SubmissionHeader';
+import BannerRow from '../SharedComponents/BannerRow';
 
 const propTypes = {
     submissionID: PropTypes.string,
@@ -24,6 +25,14 @@ const propTypes = {
     currentStep: PropTypes.number
 };
 
+const defaultProps = {
+    error: false,
+    errorMessage: '',
+    loading: true,
+    submissionInfo: {},
+    currentStep: 0
+};
+
 export default class SubmissionPage extends React.Component {
     render() {
         const {
@@ -31,7 +40,8 @@ export default class SubmissionPage extends React.Component {
             error,
             errorMessage,
             submissionID,
-            currentStep
+            currentStep,
+            submissionInfo
         } = this.props;
         let content;
         switch (currentStep) {
@@ -48,30 +58,43 @@ export default class SubmissionPage extends React.Component {
                 content = <GenerateEFContainer submissionID={submissionID} errorFromStep={this.props.errorFromStep} />;
                 break;
             case 5:
-                content = <ReviewDataContainer submissionID={submissionID} errorFromStep={this.props.errorFromStep} />;
+                content = (<ReviewDataContainer
+                    submissionID={submissionID}
+                    errorFromStep={this.props.errorFromStep}
+                    testSubmission={!!submissionInfo.certified_submission} />);
                 break;
             default:
                 content = null;
         }
+        const testBanner = submissionInfo.certified_submission ? (
+            <BannerRow
+                type="warning"
+                header="This is a test submission since one has already been certified for this fiscal quarter."
+                message={`You will not be able to certify this submission. To view the certified submission, [click here](/#/submission/${submissionInfo.certified_submission}).`} />
+        ) : null;
         return (
             <div className="usa-da-submission-page">
                 <Navbar activeTab="submissionGuide" type="dabs" />
-                <SubmissionHeader {...this.props.submissionInfo} />
-                <div className="usa-da-content-step-block" name="content-top">
-                    <div className="container center-block">
-                        <div className="row">
-                            <Progress
-                                currentStep={currentStep}
-                                id={submissionID} />
+                <main>
+                    <SubmissionHeader {...submissionInfo} />
+                    <div className="usa-da-content-step-block" name="content-top">
+                        <div className="container center-block">
+                            <div className="row">
+                                <Progress
+                                    currentStep={currentStep}
+                                    id={submissionID} />
+                            </div>
                         </div>
                     </div>
-                </div>
-                {error ? (<DABSFABSErrorMessage message={errorMessage} />) : null}
-                {loading ? (<ReviewLoading />) : null}
-                {content}
+                    {testBanner}
+                    {error ? (<DABSFABSErrorMessage message={errorMessage} />) : null}
+                    {loading ? (<ReviewLoading />) : null}
+                    {content}
+                </main>
             </div>
         );
     }
 }
 
 SubmissionPage.propTypes = propTypes;
+SubmissionPage.defaultProps = defaultProps;

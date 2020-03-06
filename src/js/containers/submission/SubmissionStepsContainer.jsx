@@ -22,7 +22,8 @@ export class SubmissionStepsContainer extends React.Component {
         super(props);
 
         this.state = {
-            loading: true,
+            stepLoading: true,
+            metadataLoading: true,
             error: false,
             errorMessage: '',
             submissionInfo: {},
@@ -64,11 +65,15 @@ export class SubmissionStepsContainer extends React.Component {
     }
 
     getSubmission() {
+        this.setState({
+            metadataLoading: true
+        });
         const { submissionID } = this.props.computedMatch.params;
         ReviewHelper.fetchSubmissionMetadata(submissionID, 'dabs')
             .then((data) => {
                 this.setState({
-                    submissionInfo: data
+                    submissionInfo: data,
+                    metadataLoading: false
                 });
             })
             .catch((error) => {
@@ -77,6 +82,9 @@ export class SubmissionStepsContainer extends React.Component {
     }
 
     getOriginalStep(stepNumber) {
+        this.setState({
+            stepLoading: true
+        });
         const params = this.props.computedMatch.params;
         SubmissionGuideHelper.getSubmissionPage(params.submissionID)
             .then((res) => {
@@ -87,7 +95,7 @@ export class SubmissionStepsContainer extends React.Component {
                 }
                 this.setState(
                     {
-                        loading: false,
+                        stepLoading: false,
                         error: false,
                         errorMessage: '',
                         currentStep
@@ -103,7 +111,7 @@ export class SubmissionStepsContainer extends React.Component {
             .catch((err) => {
                 const { message } = err.body;
                 this.setState({
-                    loading: false,
+                    stepLoading: false,
                     error: true,
                     errorMessage: message,
                     currentStep: 0
@@ -130,7 +138,8 @@ export class SubmissionStepsContainer extends React.Component {
             <SubmissionPage
                 submissionID={submissionID}
                 {...this.state}
-                errorFromStep={this.errorFromStep} />
+                errorFromStep={this.errorFromStep}
+                loading={this.state.metadataLoading || this.state.stepLoading} />
         );
     }
 }
