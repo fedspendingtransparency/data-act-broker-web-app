@@ -2,8 +2,7 @@ export const mockProps = {
     submission: {},
     session: {},
     submissionID: '1234',
-    errorFromStep: jest.fn(),
-    nextStep: jest.fn()
+    errorFromStep: jest.fn()
 };
 
 export const mockActions = {

@@ -40,7 +40,7 @@ export default class ReviewDataPage extends React.Component {
         }
 
         return (
-            <div className="usa-da-review-data-page">
+            <div className="review-data-page">
                 {warningMessage}
                 <Banner type="dabs" />
                 {currentComponent}

@@ -7,6 +7,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import * as Icons from '../SharedComponents/icons/Icons';
 import CommonOverlay from '../SharedComponents/overlays/CommonOverlay';
+import NextButton from '../submission/NextButton';
 
 const propTypes = {
     uploadFiles: PropTypes.func,
@@ -16,7 +17,7 @@ const propTypes = {
     warnings: PropTypes.array,
     allowUpload: PropTypes.bool,
     notAllowed: PropTypes.bool,
-    nextStep: PropTypes.func
+    submissionID: PropTypes.string
 };
 
 const defaultProps = {
@@ -30,10 +31,6 @@ const defaultProps = {
 };
 
 export default class ValidationOverlay extends React.Component {
-    pressedNext() {
-        this.props.nextStep();
-    }
-
     isUploadingFiles() {
         return (Object.keys(this.props.submission.files).length > 0);
     }
@@ -118,7 +115,6 @@ export default class ValidationOverlay extends React.Component {
                 detail={detail}
                 icon={icon}
                 iconClass={iconClass}>
-
                 <div className="usa-da-btn-bg">
                     <button
                         className={`usa-da-button${uploadButtonClass}`}
@@ -127,15 +123,12 @@ export default class ValidationOverlay extends React.Component {
                         data-testid="validate-overlay-upload-button">
                         {buttonText}
                     </button>
-                    <button
-                        className={`usa-da-validation-overlay-review usa-da-button${nextButtonClass}`}
+                    <NextButton
                         disabled={nextButtonDisabled}
-                        onClick={this.pressedNext.bind(this)}
-                        data-testid="validate-overlay-review-button">
-                        Next
-                    </button>
+                        nextButtonClass={nextButtonClass}
+                        submissionID={this.props.submissionID}
+                        step="generateFiles" />
                 </div>
-
             </CommonOverlay>
         );
     }
