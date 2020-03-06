@@ -20,12 +20,12 @@
         display: block;
         text-align: center;
         opacity: 0.3;
-		font-size: 1.2rem;
-		a {
-			color: $color-gray-dark;
-			&:hover {
-				text-decoration: none;
-			}
+        font-size: 1.2rem;
+        a {
+            color: $color-gray-dark;
+            &:hover {
+                text-decoration: none;
+            }
         };
     }
 
@@ -46,10 +46,10 @@
         }
 
         a {
-			color: $color-gray-cool-light;
-			&:hover {
-				text-decoration: none;
-			}
+            color: $color-gray-cool-light;
+            &:hover {
+                text-decoration: none;
+            }
         }
 
         span {
