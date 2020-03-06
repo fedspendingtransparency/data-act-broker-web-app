@@ -77,11 +77,11 @@ describe('SubmissionStepsContainer', () => {
         it('should update state', async () => {
             await container.instance().getOriginalStep();
             const {
-                loading,
+                stepLoading,
                 error,
                 currentStep
             } = container.instance().state;
-            expect(loading).toEqual(false);
+            expect(stepLoading).toEqual(false);
             expect(error).toEqual(false);
             expect(currentStep).toEqual(4);
         });
@@ -109,9 +109,11 @@ describe('SubmissionStepsContainer', () => {
         it('should update the state based on the result', async () => {
             await container.instance().getSubmission();
             const {
-                submissionInfo
+                submissionInfo,
+                metadataLoading
             } = container.instance().state;
             expect(submissionInfo).toEqual(submissionMetadata);
+            expect(metadataLoading).toBeFalsy();
         });
     });
 

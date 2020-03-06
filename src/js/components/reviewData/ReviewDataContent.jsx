@@ -19,7 +19,8 @@ import { formatSize } from '../../helpers/util';
 const propTypes = {
     data: PropTypes.object,
     session: PropTypes.object,
-    submissionID: PropTypes.string
+    submissionID: PropTypes.string,
+    testSubmission: PropTypes.bool
 };
 
 const defaultProps = {
@@ -170,6 +171,9 @@ export default class ReviewDataContent extends React.Component {
         else if (blockedWindow) {
             certifyButtonText = `You cannot certify until ${
                 moment(blockedWindow.end_date).format("dddd, MMMM D, YYYY")}`;
+        }
+        else if (this.props.testSubmission) {
+            certifyButtonText = 'Test submissions cannot be certified';
         }
         else if (this.checkAffiliations('submitter') || this.props.session.admin) {
             certifyButtonText = "Certify & Publish";

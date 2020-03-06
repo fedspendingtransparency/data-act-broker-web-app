@@ -58,7 +58,10 @@ export default class SubmissionPage extends React.Component {
                 content = <GenerateEFContainer submissionID={submissionID} errorFromStep={this.props.errorFromStep} />;
                 break;
             case 5:
-                content = <ReviewDataContainer submissionID={submissionID} errorFromStep={this.props.errorFromStep} />;
+                content = (<ReviewDataContainer
+                    submissionID={submissionID}
+                    errorFromStep={this.props.errorFromStep}
+                    testSubmission={!!submissionInfo.certified_submission} />);
                 break;
             default:
                 content = null;
