@@ -75,6 +75,9 @@ module.exports = merge(common, {
                 GA_TRACKING_ID: process.env.GA_TRACKING_ID
                     ? JSON.stringify(process.env.GA_TRACKING_ID)
                     : JSON.stringify(""),
+                PUBLIC_FILES: process.env.PUBLIC_FILES
+                    ? JSON.stringify(process.env.PUBLIC_FILES)
+                    : JSON.stringify(""),
                 CAS_ROOT: JSON.stringify("https://login.max.gov"),
                 IS_DEV: JSON.stringify('false'),
                 IS_LOCAL: process.env.IS_LOCAL && process.env.IS_LOCAL === 'true'
