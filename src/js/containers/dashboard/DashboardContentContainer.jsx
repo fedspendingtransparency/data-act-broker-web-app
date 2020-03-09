@@ -8,6 +8,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import ChooseFiltersMessage from 'components/dashboard/ChooseFiltersMessage';
 import DashboardContent from 'components/dashboard/DashboardContent';
+import ActiveDashboardContainer from './ActiveDashboardContainer';
 
 const propTypes = {
     appliedFilters: PropTypes.object,
@@ -16,15 +17,13 @@ const propTypes = {
 
 const DashboardContentContainer = (props) => {
     const empty = `_${props.type}Empty`;
-    const dashboardContent = props[empty] ?
-        (
-            <ChooseFiltersMessage />
-        ) :
-        (
-            <DashboardContent {...props} />
-        );
-
-    return dashboardContent;
+    if (props[empty]) {
+        return <ChooseFiltersMessage />;
+    }
+    else if (props.type === 'active') {
+        return <ActiveDashboardContainer />;
+    }
+    return <DashboardContent {...props} />;
 };
 
 DashboardContentContainer.propTypes = propTypes;

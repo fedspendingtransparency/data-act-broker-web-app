@@ -87,3 +87,18 @@ export const fetchDashboardTableContents = (callBody) => {
 
     return deferred.promise;
 };
+
+export const fetchSubmissions = (callBody) => {
+    const deferred = Q.defer();
+    Request.post(`${kGlobalConstants.API}list_submissions/`)
+        .send(callBody)
+        .end((err, res) => {
+            if (err) {
+                deferred.reject(err);
+            }
+            else {
+                deferred.resolve(res.body);
+            }
+        });
+    return deferred.promise;
+};
