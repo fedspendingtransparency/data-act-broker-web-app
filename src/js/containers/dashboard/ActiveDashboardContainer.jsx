@@ -7,7 +7,7 @@ import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { fetchSubmissions } from 'helpers/dashboardHelper';
-import DashboardContent from 'components/dashboard/DashboardContent';
+import ActiveDashboard from 'components/dashboard/ActiveDashboard';
 import NoResultsMessage from 'components/dashboard/NoResultsMessage';
 
 const propTypes = {
@@ -59,7 +59,7 @@ const ActiveDashboardContainer = (props) => {
         return (<NoResultsMessage />);
     }
     if (results.length === 1) {
-        return (<DashboardContent {...props} />);
+        return (<ActiveDashboard submissionID={results[0].submission_id} />);
     }
     return (<p>Table here</p>);
 };
