@@ -9,6 +9,7 @@ import { connect } from 'react-redux';
 import { fetchSubmissions } from 'helpers/dashboardHelper';
 import ActiveDashboard from 'components/dashboard/ActiveDashboard';
 import NoResultsMessage from 'components/dashboard/NoResultsMessage';
+import LoadingMessage from 'components/dashboard/LoadingMessage';
 
 const propTypes = {
     appliedFilters: PropTypes.object
@@ -53,7 +54,7 @@ const ActiveDashboardContainer = (props) => {
     }, [props.appliedFilters.filters.active]);
 
     if (loading) {
-        return (<p>Loading...</p>);
+        return (<LoadingMessage />);
     }
     if (results.length === 0 || error) {
         return (<NoResultsMessage />);
