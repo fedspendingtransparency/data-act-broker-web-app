@@ -1,8 +1,8 @@
-.dashboard-choose-filters-flex {
+.dashboard-message-flex {
     height: 100%;
     display: flex;
 
-    .dashboard-choose-filters {
+    .dashboard-message {
         width: 100%;
         margin: rem(50) rem(100);
         padding-top: rem(225);
@@ -21,11 +21,14 @@
             padding: rem(225) rem(5);
         }
 
-        .dashboard-choose-filters__arrow {
+        .dashboard-message__icon {
             font-size: rem(46);
+            &.dashboard-message__icon_alert {
+                color: $color-secondary;
+            }
         }
 
-        .dashboard-choose-filters__message {
+        .dashboard-message__message {
             font-size: rem(25);
         }
     }

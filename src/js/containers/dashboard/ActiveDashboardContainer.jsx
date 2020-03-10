@@ -8,6 +8,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { fetchSubmissions } from 'helpers/dashboardHelper';
 import DashboardContent from 'components/dashboard/DashboardContent';
+import NoResultsMessage from 'components/dashboard/NoResultsMessage';
 
 const propTypes = {
     appliedFilters: PropTypes.object
@@ -55,7 +56,7 @@ const ActiveDashboardContainer = (props) => {
         return (<p>Loading...</p>);
     }
     if (results.length === 0 || error) {
-        return (<p>No results.</p>);
+        return (<NoResultsMessage />);
     }
     if (results.length === 1) {
         return (<DashboardContent {...props} />);
