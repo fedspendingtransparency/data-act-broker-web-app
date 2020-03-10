@@ -10,19 +10,19 @@ import CommonOverlay from '../SharedComponents/overlays/CommonOverlay';
 import LoadingBauble from '../SharedComponents/overlays/LoadingBauble';
 
 import * as PermissionsHelper from '../../helpers/permissionsHelper';
+import NextButton from '../submission/NextButton';
 
 const propTypes = {
     generateFiles: PropTypes.func,
-    nextPage: PropTypes.func,
     session: PropTypes.object,
     hasErrors: PropTypes.bool,
     isReady: PropTypes.bool,
-    agency_name: PropTypes.string
+    agency_name: PropTypes.string,
+    submissionID: PropTypes.string
 };
 
 const defaultProps = {
     generateFiles: null,
-    nextPage: null,
     session: null,
     hasErrors: false,
     isReady: false,
@@ -30,11 +30,6 @@ const defaultProps = {
 };
 
 export default class GenerateEFOverlay extends React.Component {
-    clickedNext(e) {
-        e.preventDefault();
-        this.props.nextPage();
-    }
-
     clickedGenerate(e) {
         e.preventDefault();
         this.props.generateFiles();
@@ -82,7 +77,6 @@ export default class GenerateEFOverlay extends React.Component {
             buttonDisabled = true;
         }
 
-
         return (
             <CommonOverlay
                 header={header}
@@ -96,12 +90,11 @@ export default class GenerateEFOverlay extends React.Component {
                         onClick={this.clickedGenerate.bind(this)}>
                         Regenerate Files
                     </button>
-                    <button
-                        className={`usa-da-button usa-da-validation-overlay-review ${nextClass}`}
+                    <NextButton
                         disabled={nextDisabled}
-                        onClick={this.clickedNext.bind(this)}>
-                        Next
-                    </button>
+                        nextButtonClass={nextClass}
+                        submissionID={this.props.submissionID}
+                        step="reviewData" />
                 </div>
             </CommonOverlay>
         );

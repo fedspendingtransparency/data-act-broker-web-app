@@ -19,7 +19,7 @@ const propTypes = {
     agencyName: PropTypes.string,
     hasFailed: PropTypes.bool,
     hasFinished: PropTypes.bool,
-    nextStep: PropTypes.func
+    submissionID: PropTypes.string
 };
 
 const defaultProps = {
@@ -70,9 +70,9 @@ export default class ValidationContent extends React.Component {
         }
         else {
             overlay = (<ValidationOverlayContainer
-                nextStep={this.props.nextStep}
                 warnings={warnings}
-                errors={errors} />);
+                errors={errors}
+                submissionID={this.props.submissionID} />);
         }
 
         return (

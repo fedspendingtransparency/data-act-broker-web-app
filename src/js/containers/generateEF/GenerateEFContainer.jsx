@@ -10,20 +10,19 @@ import { connect } from 'react-redux';
 
 import Q from 'q';
 
-import * as uploadActions from '../../redux/actions/uploadActions';
-import * as GenerateHelper from '../../helpers/generateFilesHelper';
-import * as ReviewHelper from '../../helpers/reviewHelper';
+import * as uploadActions from 'redux/actions/uploadActions';
+import * as GenerateHelper from 'helpers/generateFilesHelper';
+import * as ReviewHelper from 'helpers/reviewHelper';
 
-import GenerateEFContent from '../../components/generateEF/GenerateEFContent';
-import GenerateEFError from '../../components/generateEF/GenerateEFError';
-import PublishedSubmissionWarningBanner from '../../components/SharedComponents/PublishedSubmissionWarningBanner';
-import Banner from '../../components/SharedComponents/Banner';
+import GenerateEFContent from 'components/generateEF/GenerateEFContent';
+import GenerateEFError from 'components/generateEF/GenerateEFError';
+import PublishedSubmissionWarningBanner from 'components/SharedComponents/PublishedSubmissionWarningBanner';
+import Banner from 'components/SharedComponents/Banner';
 
 const propTypes = {
     submission: PropTypes.object,
     submissionID: PropTypes.string,
-    errorFromStep: PropTypes.func,
-    nextStep: PropTypes.func
+    errorFromStep: PropTypes.func
 };
 
 const defaultProps = {
@@ -176,15 +175,10 @@ class GenerateEFContainer extends React.Component {
         }
     }
 
-    nextPage() {
-        this.props.nextStep();
-    }
-
     render() {
         let content = (<GenerateEFContent
             {...this.props}
             {...this.state}
-            nextPage={this.nextPage.bind(this)}
             generateFiles={this.generateFiles.bind(this)} />);
 
         if (this.state.fullPageError) {
@@ -197,7 +191,7 @@ class GenerateEFContainer extends React.Component {
         }
 
         return (
-            <div>
+            <div className="generate-ef-page">
                 {warningMessage}
                 <Banner type="dabs" />
                 {content}

@@ -12,7 +12,8 @@ import ReviewDataPage from 'components/reviewData/ReviewDataPage';
 
 const propTypes = {
     submissionID: PropTypes.string,
-    errorFromStep: PropTypes.func
+    errorFromStep: PropTypes.func,
+    testSubmission: PropTypes.bool
 };
 
 class ReviewDataContainer extends React.Component {

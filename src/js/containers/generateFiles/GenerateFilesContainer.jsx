@@ -27,8 +27,7 @@ const propTypes = {
     setSubmissionPublishStatus: PropTypes.func,
     submission: PropTypes.object,
     submissionID: PropTypes.string,
-    errorFromStep: PropTypes.func,
-    nextStep: PropTypes.func
+    errorFromStep: PropTypes.func
 };
 
 const defaultProps = {
@@ -533,7 +532,6 @@ export class GenerateFilesContainer extends React.Component {
                     handleDateChange={this.handleDateChange}
                     updateError={this.updateError}
                     generateFiles={this.generateFiles}
-                    nextPage={this.props.nextStep}
                     updateFileProperty={this.updateFileProperty}
                     clickedDownload={this.clickedDownload} />
             </div>
