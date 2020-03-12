@@ -11,10 +11,17 @@ const propTypes = {
 };
 
 const ActiveDashboard = (props) => (
-    <div>
-        <h2>Active Submission Summary</h2>
-        <hr />
-        {props.submissionID}
+    <div className="dashboard-page-active">
+        <div className="dashboard-page__content">
+            <h2>Agency Name</h2>
+            <hr />
+            Summary section
+        </div>
+        <div className="dashboard-page__content">
+            <h2>Active Submission Summary</h2>
+            <hr />
+            {props.submissionID}
+        </div>
     </div>
 );
 

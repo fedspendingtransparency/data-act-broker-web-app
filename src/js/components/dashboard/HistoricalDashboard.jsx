@@ -10,7 +10,7 @@ import DashboardTableContainer from 'containers/dashboard/table/DashboardTableCo
 
 
 const HistoricalDashboard = () => (
-    <div>
+    <div className="dashboard-page__content">
         <h2>Historical Data Summary</h2>
         <hr />
         <DashboardSummaryContainer />

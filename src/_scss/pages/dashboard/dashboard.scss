@@ -29,6 +29,9 @@
                     margin-top: rem(15);
                 }
             }
+            .dashboard-page-active {
+                width: 100%;
+            }
         }
         .dashboard-page__filters {
             @include display(flex);
@@ -47,6 +50,9 @@
             margin-left: rem(15);
             border-radius: rem(5);
             border: solid rem(1) $color-gray-lighter;
+            &:nth-of-type(2) {
+                margin-top: rem(40);
+            }
             h2 {
                 padding: rem(10) rem(20) rem(3);
                 font-size: $h2-font-size;
