@@ -50,7 +50,7 @@
             margin-left: rem(15);
             border-radius: rem(5);
             border: solid rem(1) $color-gray-lighter;
-            &:nth-of-type(2) {
+            &.dashboard-page__content_below {
                 margin-top: rem(40);
             }
             h2 {

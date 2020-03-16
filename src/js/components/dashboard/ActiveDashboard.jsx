@@ -17,7 +17,7 @@ const ActiveDashboard = (props) => (
             <hr />
             Summary section
         </div>
-        <div className="dashboard-page__content">
+        <div className="dashboard-page__content dashboard-page__content_below">
             <h2>Active Submission Summary</h2>
             <hr />
             {props.submissionID}
