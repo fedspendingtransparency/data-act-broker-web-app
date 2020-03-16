@@ -503,3 +503,22 @@ export const isWindow = () => {
 
     return deferred.promise;
 };
+
+export const revertToCertified = (submissionID) => {
+    const deferred = Q.defer();
+
+    Request.post(`${kGlobalConstants.API}revert_submission/`)
+        .send({
+            submission_id: parseInt(submissionID, 10)
+        })
+        .end((errFile, res) => {
+            if (errFile) {
+                deferred.reject(errFile);
+            }
+            else {
+                deferred.resolve(res.body);
+            }
+        });
+
+    return deferred.promise;
+};

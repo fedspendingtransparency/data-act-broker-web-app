@@ -1,4 +1,6 @@
 .usa-da-file-wrap {
+    @import "../../../components/buttons/_primary";
+
     position: relative;
     background: #fff url('/graphics/large_file_icon.png') no-repeat;
     height: 28.3rem;
@@ -31,7 +33,13 @@
         box-shadow: 5px 7px 7px rgba(0, 0, 0, 0.2);
         z-index: -1;
     }
-    
+    button {
+        @include primaryButton;
+        margin-top: rem(45);
+        font-size: rem(14);
+        padding: rem(16);
+    }
+
     @import "./_fileStats";
     @import "./_bottomLinks";
 }
