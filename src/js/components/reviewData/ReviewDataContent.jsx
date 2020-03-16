@@ -8,6 +8,7 @@ import PropTypes from 'prop-types';
 import moment from 'moment';
 
 import * as Icons from 'components/SharedComponents/icons/Icons';
+import RevertToCertifiedContainer from 'containers/review/RevertToCertifiedContainer';
 import ReviewDataContentRow from './ReviewDataContentRow';
 import ReviewDataButton from './ReviewDataButton';
 import ReviewDataNotifyModal from './ReviewDataNotifyModal';
@@ -16,7 +17,6 @@ import RevalidateDataModal from './CertificationModal/RevalidateDataModal';
 import ReviewDataNarrative from './ReviewDataNarrative';
 
 import { formatSize } from '../../helpers/util';
-import RevertToCertified from './RevertToCertified';
 
 const propTypes = {
     data: PropTypes.object,
@@ -217,9 +217,7 @@ export default class ReviewDataContent extends React.Component {
                                         <li>Total Warnings: <strong>{this.props.data.number_of_warnings}</strong></li>
                                     </ul>
                                 </div>
-                                <RevertToCertified
-                                    submissionID={this.props.submissionID}
-                                    disabled={this.props.data.publish_status !== 'updated'} />
+                                <RevertToCertifiedContainer />
                             </div>
                         </div>
                         <div className="col-md-8 usa-da-review-data-alternating-rows">

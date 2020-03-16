@@ -6,21 +6,41 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import { revertToCertified } from 'helpers/reviewHelper';
-
 const propTypes = {
-    submissionID: PropTypes.string,
-    disabled: PropTypes.bool
+    loading: PropTypes.bool,
+    error: PropTypes.string,
+    message: PropTypes.string,
+    disabled: PropTypes.bool,
+    revert: PropTypes.func
 };
 
-const RevertToCertified = ({ submissionID, disabled }) => (
-    <button
-        disabled={disabled}
-        onClick={() => revertToCertified(submissionID)}
-        className={`usa-da-button btn-primary btn-full${disabled ? ' btn-disabled' : ''}`}>
-        Revert Submission
-    </button>
-);
+const RevertToCertified = ({
+    disabled, loading, error, message, revert
+}) => {
+    let buttonText = 'Revert Submission';
+    if (loading) {
+        buttonText = 'Reverting';
+    }
+    let alert = null;
+    if (error) {
+        alert = (<div>Error: {error}</div>);
+    }
+    else if (message) {
+        alert = (<div>{message}</div>);
+    }
+    return (
+        <React.Fragment>
+            <button
+                disabled={disabled}
+                onClick={revert}
+                className={`usa-da-button btn-primary btn-full${disabled ? ' btn-disabled' : ''}`}>
+                {buttonText}
+            </button>
+            {alert}
+        </React.Fragment>
+    );
+};
+
 
 RevertToCertified.propTypes = propTypes;
 export default RevertToCertified;
