@@ -44,7 +44,7 @@ class RevertToCertifiedContainer extends React.Component {
                 console.error(error);
                 this.setState({
                     loading: false,
-                    error
+                    error: error.message
                 });
             });
     }

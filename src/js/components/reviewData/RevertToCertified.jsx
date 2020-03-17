@@ -5,6 +5,7 @@
 
 import React from 'react';
 import PropTypes from 'prop-types';
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 const propTypes = {
     loading: PropTypes.bool,
@@ -19,14 +20,22 @@ const RevertToCertified = ({
 }) => {
     let buttonText = 'Revert Submission';
     if (loading) {
-        buttonText = 'Reverting';
+        buttonText = (<span>Reverting <FontAwesomeIcon icon="spinner" spin /></span>);
     }
     let alert = null;
     if (error) {
-        alert = (<div>Error: {error}</div>);
+        alert = (
+            <div className="revert-submission-alert revert-submission-alert_error" role="alert">
+                <FontAwesomeIcon icon="exclamation-triangle" /> Error: {error}
+            </div>
+        );
     }
     else if (message) {
-        alert = (<div>{message}</div>);
+        alert = (
+            <div className="revert-submission-alert revert-submission-alert_success" role="alert">
+                {message}
+            </div>
+        );
     }
     return (
         <React.Fragment>
