@@ -15,7 +15,7 @@ const propTypes = {
     submission: PropTypes.object
 };
 
-class RevertToCertifiedContainer extends React.Component {
+export class RevertToCertifiedContainer extends React.Component {
     constructor(props) {
         super(props);
 
