@@ -33,7 +33,7 @@ const RevertToCertified = ({
     else if (message) {
         alert = (
             <div className="revert-submission-alert revert-submission-alert_success" role="alert">
-                {message}
+                <FontAwesomeIcon icon="check-circle" /> {message}
             </div>
         );
     }
