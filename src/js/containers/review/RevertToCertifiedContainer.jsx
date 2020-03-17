@@ -6,6 +6,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
+import { isEqual } from 'lodash';
 
 import { revertToCertified } from 'helpers/reviewHelper';
 import RevertToCertified from 'components/reviewData/RevertToCertified';
@@ -25,6 +26,20 @@ class RevertToCertifiedContainer extends React.Component {
         };
 
         this.revert = this.revert.bind(this);
+    }
+
+    componentDidUpdate(prevProps) {
+        if (!isEqual(prevProps.submission, this.props.submission)) {
+            this.reset();
+        }
+    }
+
+    reset() {
+        this.setState({
+            loading: false,
+            error: '',
+            message: ''
+        });
     }
 
     revert() {
