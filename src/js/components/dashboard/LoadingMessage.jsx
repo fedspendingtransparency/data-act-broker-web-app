@@ -1,25 +1,24 @@
 /**
- * ChooseFiltersMessage.jsx
- * Created by Alisa Burdeyny 11/7/19
+ * LoadingMessage.jsx
+ * Created by Lizzie Salita 3/10/20
  */
 
 import React from 'react';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
-const ChooseFiltersMessage = () => (
+const LoadingMessage = () => (
     <div className="dashboard-page__content">
         <div className="dashboard-message-flex">
             <div className="dashboard-message">
                 <div className="dashboard-message__icon">
-                    <FontAwesomeIcon icon="arrow-circle-left" />
+                    <FontAwesomeIcon icon="spinner" spin />
                 </div>
                 <span className="dashboard-message__message">
-                    Choose your filters and submit <br />
-                    your search to begin
+                    Loading submissions
                 </span>
             </div>
         </div>
     </div>
 );
 
-export default ChooseFiltersMessage;
+export default LoadingMessage;

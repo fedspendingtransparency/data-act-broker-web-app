@@ -135,9 +135,7 @@ export default class DashboardPage extends React.Component {
                             <div className="dashboard-page__filters">
                                 <FilterSidebar type={activeTab} filters={filters[activeTab]} />
                             </div>
-                            <div className="dashboard-page__content">
-                                <DashboardContentContainer type={activeTab} />
-                            </div>
+                            <DashboardContentContainer type={activeTab} />
                         </div>
                     </div>
                 </div>
