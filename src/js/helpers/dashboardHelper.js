@@ -102,3 +102,21 @@ export const fetchSubmissions = (callBody) => {
         });
     return deferred.promise;
 };
+
+export const fetchActiveOverview = (submissionId, fileType, errorLevel) => {
+    const deferred = Q.defer();
+
+    Request.get(`${kGlobalConstants.API}active_submission_overview/?submission_id=${submissionId}&file=${fileType}&error_level=${errorLevel}`)
+        .end((errFile, res) => {
+            if (errFile) {
+                const response = Object.assign({}, res.body);
+                response.httpStatus = res.status;
+                deferred.reject(response);
+            }
+            else {
+                deferred.resolve(res.body);
+            }
+        });
+
+    return deferred.promise;
+};

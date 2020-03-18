@@ -6,17 +6,15 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
+import ActiveDashboardOverviewContainer from 'containers/dashboard/ActiveDashboardOverviewContainer';
+
 const propTypes = {
-    submissionID: PropTypes.string
+    submissionID: PropTypes.number
 };
 
 const ActiveDashboard = (props) => (
     <div className="dashboard-page-active">
-        <div className="dashboard-page__content">
-            <h2>Agency Name</h2>
-            <hr />
-            Summary section
-        </div>
+        <ActiveDashboardOverviewContainer errorLevel={"warning"} />
         <div className="dashboard-page__content dashboard-page__content_below">
             <h2>Active Submission Summary</h2>
             <hr />
