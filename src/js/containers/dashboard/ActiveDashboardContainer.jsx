@@ -10,6 +10,7 @@ import { fetchSubmissions } from 'helpers/dashboardHelper';
 import ActiveDashboard from 'components/dashboard/ActiveDashboard';
 import NoResultsMessage from 'components/dashboard/NoResultsMessage';
 import LoadingMessage from 'components/dashboard/LoadingMessage';
+import SelectSubmissionTable from 'components/dashboard/SelectSubmissionTable';
 
 const propTypes = {
     appliedFilters: PropTypes.object
@@ -19,6 +20,9 @@ const ActiveDashboardContainer = (props) => {
     const [results, setResults] = useState([]);
     const [error, setError] = useState(false);
     const [loading, setLoading] = useState(true);
+    const [submission, setSubmission] = useState('');
+    const [sort, setSort] = useState('time_period');
+    const [order, setOrder] = useState('desc');
 
     useEffect(() => {
         setLoading(true);
@@ -41,7 +45,9 @@ const ActiveDashboardContainer = (props) => {
         }
         fetchSubmissions({
             filters: payload,
-            certified: 'false'
+            certified: 'false',
+            sort,
+            order
         })
             .then((data) => {
                 setResults(data.submissions);
@@ -51,7 +57,7 @@ const ActiveDashboardContainer = (props) => {
                 setError(true);
                 setLoading(false);
             });
-    }, [props.appliedFilters.filters.active]);
+    }, [props.appliedFilters.filters.active, sort, order]);
 
     if (loading) {
         return (<LoadingMessage />);
@@ -59,10 +65,19 @@ const ActiveDashboardContainer = (props) => {
     if (results.length === 0 || error) {
         return (<NoResultsMessage />);
     }
-    if (results.length === 1) {
-        return (<ActiveDashboard submissionID={results[0].submission_id} />);
+    if (!submission && results.length === 1) {
+        setSubmission(`${results[0].submission_id}`);
     }
-    return (<p>Table here</p>);
+    if (submission) {
+        return (<ActiveDashboard submissionID={submission} />);
+    }
+    return (
+        <SelectSubmissionTable
+            results={results}
+            clickedSubmission={setSubmission}
+            setOrder={setOrder}
+            setSort={setSort} />
+    );
 };
 
 ActiveDashboardContainer.propTypes = propTypes;
@@ -70,5 +85,5 @@ ActiveDashboardContainer.propTypes = propTypes;
 export default connect(
     (state) => ({
         appliedFilters: state.appliedDashboardFilters
-    }),
+    })
 )(ActiveDashboardContainer);
