@@ -1,8 +1,8 @@
 .select-submission-table {
-    h3.dashboard-viz__heading {
+    h2.dashboard-viz__heading {
         border-bottom: 0;
-        font-weight: $font-light;
         font-size: rem(25);
+        padding: 0;
     }
     .dashboard-table {
         .select-submission-table__button {

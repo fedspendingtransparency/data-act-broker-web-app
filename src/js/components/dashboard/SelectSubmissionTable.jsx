@@ -85,7 +85,7 @@ export default class SelectSubmissionTable extends React.Component {
             <div className="dashboard-page__content">
                 <div className="dashboard-viz select-submission-table">
                     <div className="dashboard-table">
-                        <h3 className="dashboard-viz__heading">Dashboard Submission Selection</h3>
+                        <h2 className="dashboard-viz__heading">Dashboard Submission Selection</h2>
                         <hr />
                         <table>
                             <DashboardTableHeader
