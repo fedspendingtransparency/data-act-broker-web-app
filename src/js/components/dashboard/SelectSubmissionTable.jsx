@@ -6,7 +6,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
+import { submissionPeriodString } from 'helpers/submissionPeriodHelper';
 import DashboardTableHeader from 'components/dashboard/table/DashboardTableHeader';
+import SelectSubmissionButton from './SelectSubmissionButton';
 
 const propTypes = {
     results: PropTypes.array,
@@ -60,8 +62,9 @@ export default class SelectSubmissionTable extends React.Component {
         const tableRows = this.props.results.map((submission) => (
             <tr key={`dashboard-table-row-${submission.submission_id}`}>
                 <td>
-                    {/* TODO - make this a button */}
-                    {submission.submission_id}
+                    <SelectSubmissionButton
+                        clickedSubmission={this.props.clickedSubmission}
+                        submissionID={`${submission.submission_id}`} />
                 </td>
                 <td>
                     {submission.time_period}
@@ -74,24 +77,26 @@ export default class SelectSubmissionTable extends React.Component {
                     {submission.quarterly_submission ? 'Quarterly' : 'Monthly'}
                 </td>
                 <td>
-                    {/* TODO - write helper function */}
-                    {submission.reporting_end_date}
+                    {submissionPeriodString(submission.reporting_end_date)}
                 </td>
             </tr>
         ));
         return (
-            <div className="dashboard-table">
-                <h3 className="dashboard-viz__heading">Dashboard Submission Selection</h3>
-                <table>
-                    <DashboardTableHeader
-                        headers={tableHeaders}
-                        changeSort={this.changeSort}
-                        currSort={this.props.sort}
-                        currOrder={this.props.order} />
-                    <tbody>
-                        {tableRows}
-                    </tbody>
-                </table>
+            <div className="dashboard-page__content">
+                <div className="dashboard-table">
+                    <h3 className="dashboard-viz__heading">Dashboard Submission Selection</h3>
+                    <hr />
+                    <table>
+                        <DashboardTableHeader
+                            headers={tableHeaders}
+                            changeSort={this.changeSort}
+                            currSort={this.props.sort}
+                            currOrder={this.props.order} />
+                        <tbody>
+                            {tableRows}
+                        </tbody>
+                    </table>
+                </div>
             </div>
         );
     }
