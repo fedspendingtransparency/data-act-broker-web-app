@@ -6,6 +6,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
+import { Pagination } from 'data-transparency-ui';
 import { submissionPeriodString } from 'helpers/submissionPeriodHelper';
 import DashboardTableHeader from 'components/dashboard/table/DashboardTableHeader';
 import SelectSubmissionButton from './SelectSubmissionButton';
@@ -16,7 +17,12 @@ const propTypes = {
     setOrder: PropTypes.func.isRequired,
     sort: PropTypes.string,
     order: PropTypes.string,
-    clickedSubmission: PropTypes.func.isRequired
+    clickedSubmission: PropTypes.func.isRequired,
+    limit: PropTypes.number,
+    page: PropTypes.number,
+    changeLimit: PropTypes.func,
+    changePage: PropTypes.func,
+    totalItems: PropTypes.number
 };
 
 const defaultProps = {
@@ -97,6 +103,13 @@ export default class SelectSubmissionTable extends React.Component {
                                 {tableRows}
                             </tbody>
                         </table>
+                        <Pagination
+                            changePage={this.props.changePage}
+                            totalItems={this.props.totalItems}
+                            currentPage={this.props.page}
+                            pageSize={this.props.limit}
+                            changeLimit={this.props.changeLimit}
+                            limitSelector />
                     </div>
                 </div>
             </div>

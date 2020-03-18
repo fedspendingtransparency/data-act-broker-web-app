@@ -23,6 +23,9 @@ const ActiveDashboardContainer = (props) => {
     const [submission, setSubmission] = useState('');
     const [sort, setSort] = useState('reporting_start');
     const [order, setOrder] = useState('desc');
+    const [limit, changeLimit] = useState(10);
+    const [page, changePage] = useState(1);
+    const [totalItems, setTotalItems] = useState(0);
 
     useEffect(() => {
         setLoading(true);
@@ -47,25 +50,27 @@ const ActiveDashboardContainer = (props) => {
             filters: payload,
             certified: 'false',
             sort,
-            order
+            order,
+            limit
         })
             .then((data) => {
                 setResults(data.submissions);
+                setTotalItems(data.total);
                 setLoading(false);
             })
             .catch(() => {
                 setError(true);
                 setLoading(false);
             });
-    }, [props.appliedFilters.filters.active, sort, order]);
+    }, [props.appliedFilters.filters.active, sort, order, limit, page]);
 
     if (loading) {
         return (<LoadingMessage />);
     }
-    if (results.length === 0 || error) {
+    if (totalItems === 0 || error) {
         return (<NoResultsMessage />);
     }
-    if (!submission && results.length === 1) {
+    if (!submission && totalItems === 1) {
         setSubmission(`${results[0].submission_id}`);
     }
     if (submission) {
@@ -78,7 +83,12 @@ const ActiveDashboardContainer = (props) => {
             setOrder={setOrder}
             setSort={setSort}
             sort={sort}
-            order={order} />
+            order={order}
+            limit={limit}
+            page={page}
+            changeLimit={changeLimit}
+            changePage={changePage}
+            totalItems={totalItems} />
     );
 };
 
