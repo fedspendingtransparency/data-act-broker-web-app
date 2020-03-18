@@ -90,5 +90,5 @@ export default connect(
         createdByList: state.createdByList,
         selectedFilters: state.submissionsTableFilters
     }),
-    (dispatch) => bindActionCreators(createdByActions, dispatch),
+    (dispatch) => bindActionCreators(createdByActions, dispatch)
 )(CreatedByContainer);

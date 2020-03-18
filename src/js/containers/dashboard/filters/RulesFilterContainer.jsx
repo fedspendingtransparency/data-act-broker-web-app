@@ -146,5 +146,5 @@ export default connect(
     (state) => ({
         selectedFilters: state.dashboardFilters.historical
     }),
-    (dispatch) => bindActionCreators(filterActions, dispatch),
+    (dispatch) => bindActionCreators(filterActions, dispatch)
 )(RulesFilterContainer);

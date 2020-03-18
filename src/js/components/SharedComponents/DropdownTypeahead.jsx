@@ -246,7 +246,7 @@ export default class DropdownTypeahead extends React.Component {
             this.dataDictionary[clickedCheckboxValue],
             this.internalValueDictionary[clickedCheckboxValue],
             validity,
-            clickedCheckboxValue,
+            clickedCheckboxValue
         );
     }
 
