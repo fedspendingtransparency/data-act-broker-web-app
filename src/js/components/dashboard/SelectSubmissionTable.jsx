@@ -28,23 +28,23 @@ const defaultProps = {
 const tableHeaders = [
     {
         text: 'Submission ID',
-        sortType: 'file'
+        sortType: 'submission_id'
     },
     {
         text: 'Time Period',
-        sortType: 'period'
+        sortType: 'reporting_start'
     },
     {
         text: 'Created By',
-        sortType: 'created_by'
+        sortType: 'submitted_by'
     },
     {
         text: 'Duration',
-        sortType: 'duration'
+        sortType: 'quarterly_submission'
     },
     {
         text: 'Submission Period',
-        sortType: 'submission_period'
+        sortType: 'reporting_end'
     }
 ];
 
@@ -83,19 +83,21 @@ export default class SelectSubmissionTable extends React.Component {
         ));
         return (
             <div className="dashboard-page__content">
-                <div className="dashboard-table">
-                    <h3 className="dashboard-viz__heading">Dashboard Submission Selection</h3>
-                    <hr />
-                    <table>
-                        <DashboardTableHeader
-                            headers={tableHeaders}
-                            changeSort={this.changeSort}
-                            currSort={this.props.sort}
-                            currOrder={this.props.order} />
-                        <tbody>
-                            {tableRows}
-                        </tbody>
-                    </table>
+                <div className="dashboard-viz select-submission-table">
+                    <div className="dashboard-table">
+                        <h3 className="dashboard-viz__heading">Dashboard Submission Selection</h3>
+                        <hr />
+                        <table>
+                            <DashboardTableHeader
+                                headers={tableHeaders}
+                                changeSort={this.changeSort}
+                                currSort={this.props.sort}
+                                currOrder={this.props.order} />
+                            <tbody>
+                                {tableRows}
+                            </tbody>
+                        </table>
+                    </div>
                 </div>
             </div>
         );

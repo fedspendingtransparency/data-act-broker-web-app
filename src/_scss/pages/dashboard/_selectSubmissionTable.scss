@@ -1,0 +1,18 @@
+.select-submission-table {
+    h3.dashboard-viz__heading {
+        border-bottom: 0;
+        font-weight: $font-light;
+        font-size: rem(25);
+    }
+    .dashboard-table {
+        .select-submission-table__button {
+            @include button-link;
+        }
+        th {
+            padding: rem(16) rem(10);
+        }
+        td {
+            padding: rem(20) rem(12);
+        }
+    }
+}

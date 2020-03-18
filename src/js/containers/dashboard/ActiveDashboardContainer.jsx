@@ -21,7 +21,7 @@ const ActiveDashboardContainer = (props) => {
     const [error, setError] = useState(false);
     const [loading, setLoading] = useState(true);
     const [submission, setSubmission] = useState('');
-    const [sort, setSort] = useState('time_period');
+    const [sort, setSort] = useState('reporting_start');
     const [order, setOrder] = useState('desc');
 
     useEffect(() => {
@@ -76,7 +76,9 @@ const ActiveDashboardContainer = (props) => {
             results={results}
             clickedSubmission={setSubmission}
             setOrder={setOrder}
-            setSort={setSort} />
+            setSort={setSort}
+            sort={sort}
+            order={order} />
     );
 };
 

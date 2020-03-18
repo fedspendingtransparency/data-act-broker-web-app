@@ -8,10 +8,10 @@
 
     // styling any site banners
     .internal-banner {
-        @import "../../layouts/login/_topBanner";
+        @import '../../layouts/login/_topBanner';
         @include loginTopBanner;
     }
-    @import "./dashboardTabs";
+    @import './dashboardTabs';
     .dashboard-page {
         padding: rem(30);
         .dashboard-page__wrapper {
@@ -41,7 +41,7 @@
             margin-right: rem(15);
             border-radius: rem(5);
             border: solid rem(1) $color-gray-lighter;
-            @import "./filterSidebar";
+            @import './filterSidebar';
         }
         .dashboard-page__content {
             background-color: $color-white;
@@ -66,13 +66,12 @@
                 margin-right: 0;
                 margin-bottom: rem(26);
             }
-            @import "./dashboardMessage";
+            @import './dashboardMessage';
             @import './dashboardViz';
             @import './graph/warningsInfoGraph';
-            @import "./table/summary.scss";
-            .dashboard-table-container{
-                @import "./table/dashboardTable";
-            }
+            @import './table/summary.scss';
+            @import './table/dashboardTable';
+            @import './selectSubmissionTable';
         }
     }
 }

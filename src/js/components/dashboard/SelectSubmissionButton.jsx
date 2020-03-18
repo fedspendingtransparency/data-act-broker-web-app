@@ -13,6 +13,7 @@ const propTypes = {
 
 const SelectSubmissionButton = ({ clickedSubmission, submissionID }) => (
     <button
+        className="select-submission-table__button"
         onClick={() => clickedSubmission(submissionID)}>
         {submissionID}
     </button>
