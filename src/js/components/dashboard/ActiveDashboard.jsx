@@ -14,7 +14,7 @@ const propTypes = {
 
 const ActiveDashboard = (props) => (
     <div className="dashboard-page-active">
-        <ActiveDashboardOverviewContainer errorLevel={"warning"} />
+        <ActiveDashboardOverviewContainer errorLevel="warning" />
         <div className="dashboard-page__content dashboard-page__content_below">
             <h2>Active Submission Summary</h2>
             <hr />

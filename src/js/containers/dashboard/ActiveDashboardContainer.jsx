@@ -24,8 +24,7 @@ const ActiveDashboardContainer = (props) => {
         setLoading(true);
         const filters = props.appliedFilters.filters.active;
         const payload = {
-            agency_codes: [filters.agency],
-            file_names: [filters.file]
+            agency_codes: [filters.agency]
         };
         if (filters.lastModified.start || filters.lastModified.end) {
             payload.last_modified_range = {

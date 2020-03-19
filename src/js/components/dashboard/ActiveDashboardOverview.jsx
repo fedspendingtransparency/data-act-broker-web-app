@@ -14,12 +14,15 @@ const propTypes = {
 const ActiveDashboardOverview = (props) => (
     <div className="dashboard-page__content">
         <div className="dashboard-page__submission-overview">
+            {/* eslint-disable import/no-dynamic-require, global-require */}
             <h2>
                 {props.submissionData.icon_name ?
-                    <img src={require("../../../graphics/agency/" + props.submissionData.icon_name)}
+                    <img
+                        src={require(`../../../graphics/agency/${props.submissionData.icon_name}`)}
                         alt={props.submissionData.agency_name} /> : ''}
                 {props.submissionData.agency_name}
             </h2>
+            {/* eslint-enable import/no-dynamic-require, global-require */}
             <hr />
             <div className="submission-overview-details">
                 <h3>Submission Period</h3>
