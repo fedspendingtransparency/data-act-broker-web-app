@@ -14,7 +14,12 @@ const propTypes = {
 const ActiveDashboardOverview = (props) => (
     <div className="dashboard-page__content">
         <div className="dashboard-page__submission-overview">
-            <h2>{props.submissionData.agency_name}</h2>
+            <h2>
+                {props.submissionData.icon_name ?
+                    <img src={require("../../../graphics/agency/" + props.submissionData.icon_name)}
+                        alt={props.submissionData.agency_name} /> : ''}
+                {props.submissionData.agency_name}
+            </h2>
             <hr />
             <div className="submission-overview-details">
                 <h3>Submission Period</h3>

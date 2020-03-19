@@ -76,6 +76,12 @@
         }
         .dashboard-page-active {
             .dashboard-page__content{
+                h2 {
+                    img {
+                        height: 5rem;
+                        margin-right: 1.5rem;
+                    }
+                }
                 hr {
                     margin-left: 2rem;
                     width: 90%;
