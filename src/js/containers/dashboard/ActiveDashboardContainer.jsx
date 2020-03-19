@@ -3,8 +3,9 @@
  * Created by Lizzie Salita 3/9/20
  */
 
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
+import { isEqual } from 'lodash';
 import { connect } from 'react-redux';
 import { fetchSubmissions } from 'helpers/dashboardHelper';
 import ActiveDashboard from 'components/dashboard/ActiveDashboard';
@@ -16,23 +17,74 @@ const propTypes = {
     appliedFilters: PropTypes.object
 };
 
-const ActiveDashboardContainer = (props) => {
-    const [results, setResults] = useState([]);
-    const [error, setError] = useState(false);
-    const [loading, setLoading] = useState(true);
-    const [submission, setSubmission] = useState('');
-    const [sort, setSort] = useState('reporting_start');
-    const [order, setOrder] = useState('desc');
-    const [limit, changeLimit] = useState(10);
-    const [page, changePage] = useState(1);
-    const [totalItems, setTotalItems] = useState(0);
+export class ActiveDashboardContainer extends React.Component {
+    constructor(props) {
+        super(props);
 
-    useEffect(() => {
-        setLoading(true);
-        const filters = props.appliedFilters.filters.active;
+        this.state = {
+            results: [],
+            error: false,
+            loading: false,
+            submission: '',
+            sort: 'reporting_start',
+            order: 'desc',
+            limit: 10,
+            page: 1,
+            totalItems: 0
+        };
+
+        this.changeLimit = this.changeLimit.bind(this);
+        this.changePage = this.changePage.bind(this);
+        this.changeSort = this.changeSort.bind(this);
+        this.setSubmission = this.setSubmission.bind(this);
+    }
+
+    componentDidMount() {
+        if (!this.props.appliedFilters._activeEmpty) {
+            this.loadSubmissions();
+        }
+    }
+
+    componentDidUpdate(prevProps) {
+        if (!isEqual(prevProps.appliedFilters.filters.active, this.props.appliedFilters.filters.active)) {
+            this.loadSubmissions();
+        }
+    }
+
+    setSubmission(submission) {
+        this.setState({
+            submission
+        });
+    }
+
+    changePage(page) {
+        this.setState({
+            page
+        }, () => this.loadSubmissions());
+    }
+
+    changeLimit(limit) {
+        this.setState({
+            limit,
+            page: 1
+        }, () => this.loadSubmissions());
+    }
+
+    changeSort(sort, order) {
+        this.setState({
+            sort,
+            order,
+            page: 1
+        }, () => this.loadSubmissions());
+    }
+
+    loadSubmissions() {
+        this.setState({
+            loading: true
+        });
+        const filters = this.props.appliedFilters.filters.active;
         const payload = {
-            agency_codes: [filters.agency],
-            file_names: [filters.file]
+            agency_codes: [filters.agency]
         };
         if (filters.lastModified.start || filters.lastModified.end) {
             payload.last_modified_range = {
@@ -49,48 +101,49 @@ const ActiveDashboardContainer = (props) => {
         fetchSubmissions({
             filters: payload,
             certified: 'false',
-            sort,
-            order,
-            limit
+            sort: this.state.sort,
+            order: this.state.order,
+            limit: this.state.limit,
+            page: this.state.page
         })
             .then((data) => {
-                setResults(data.submissions);
-                setTotalItems(data.total);
-                setLoading(false);
+                this.setState({
+                    loading: false,
+                    results: data.submissions,
+                    totalItems: data.total
+                });
             })
             .catch(() => {
-                setError(true);
-                setLoading(false);
+                this.setState({
+                    error: true,
+                    loading: false
+                });
             });
-    }, [props.appliedFilters.filters.active, sort, order, limit, page]);
+    }
 
-    if (loading) {
-        return (<LoadingMessage />);
+    render() {
+        if (this.state.loading) {
+            return (<LoadingMessage />);
+        }
+        if (this.state.totalItems === 0 || this.state.error) {
+            return (<NoResultsMessage />);
+        }
+        if (!this.state.submission && this.state.totalItems === 1) {
+            this.setSubmission(`${this.state.results[0].submission_id}`);
+        }
+        if (this.state.submission) {
+            return (<ActiveDashboard submissionID={this.state.submission} />);
+        }
+        return (
+            <SelectSubmissionTable
+                {...this.state}
+                clickedSubmission={this.setSubmission}
+                changeSort={this.changeSort}
+                changeLimit={this.changeLimit}
+                changePage={this.changePage} />
+        );
     }
-    if (totalItems === 0 || error) {
-        return (<NoResultsMessage />);
-    }
-    if (!submission && totalItems === 1) {
-        setSubmission(`${results[0].submission_id}`);
-    }
-    if (submission) {
-        return (<ActiveDashboard submissionID={submission} />);
-    }
-    return (
-        <SelectSubmissionTable
-            results={results}
-            clickedSubmission={setSubmission}
-            setOrder={setOrder}
-            setSort={setSort}
-            sort={sort}
-            order={order}
-            limit={limit}
-            page={page}
-            changeLimit={changeLimit}
-            changePage={changePage}
-            totalItems={totalItems} />
-    );
-};
+}
 
 ActiveDashboardContainer.propTypes = propTypes;
 

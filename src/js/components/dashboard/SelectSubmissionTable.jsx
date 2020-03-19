@@ -13,8 +13,7 @@ import SelectSubmissionButton from './SelectSubmissionButton';
 
 const propTypes = {
     results: PropTypes.array,
-    setSort: PropTypes.func.isRequired,
-    setOrder: PropTypes.func.isRequired,
+    changeSort: PropTypes.func,
     sort: PropTypes.string,
     order: PropTypes.string,
     clickedSubmission: PropTypes.func.isRequired,
@@ -27,7 +26,7 @@ const propTypes = {
 
 const defaultProps = {
     results: [],
-    sort: 'time_period',
+    sort: 'reporting_start',
     order: 'desc'
 };
 
@@ -54,68 +53,59 @@ const tableHeaders = [
     }
 ];
 
-export default class SelectSubmissionTable extends React.Component {
-    constructor(props) {
-        super(props);
-
-        this.changeSort = this.changeSort.bind(this);
-    }
-    changeSort(sort, order) {
-        this.props.setOrder(order);
-        this.props.setSort(sort);
-    }
-    render() {
-        const tableRows = this.props.results.map((submission) => (
-            <tr key={`dashboard-table-row-${submission.submission_id}`}>
-                <td>
-                    <SelectSubmissionButton
-                        clickedSubmission={this.props.clickedSubmission}
-                        submissionID={`${submission.submission_id}`} />
-                </td>
-                <td>
-                    {submission.time_period}
-                </td>
-                <td>
-                    {/* TODO - test with null name */}
-                    {submission.user.name}
-                </td>
-                <td>
-                    {submission.quarterly_submission ? 'Quarterly' : 'Monthly'}
-                </td>
-                <td>
-                    {submissionPeriodString(submission.reporting_end_date)}
-                </td>
-            </tr>
-        ));
-        return (
-            <div className="dashboard-page__content">
-                <div className="dashboard-viz select-submission-table">
-                    <div className="dashboard-table">
-                        <h2 className="dashboard-viz__heading">Dashboard Submission Selection</h2>
-                        <hr />
-                        <table>
-                            <DashboardTableHeader
-                                headers={tableHeaders}
-                                changeSort={this.changeSort}
-                                currSort={this.props.sort}
-                                currOrder={this.props.order} />
-                            <tbody>
-                                {tableRows}
-                            </tbody>
-                        </table>
-                        <Pagination
-                            changePage={this.props.changePage}
-                            totalItems={this.props.totalItems}
-                            currentPage={this.props.page}
-                            pageSize={this.props.limit}
-                            changeLimit={this.props.changeLimit}
-                            limitSelector />
-                    </div>
+const SelectSubmissionTable = (props) => {
+    const tableRows = props.results.map((submission) => (
+        <tr key={`dashboard-table-row-${submission.submission_id}`}>
+            <td>
+                <SelectSubmissionButton
+                    clickedSubmission={props.clickedSubmission}
+                    submissionID={`${submission.submission_id}`} />
+            </td>
+            <td>
+                {submission.time_period}
+            </td>
+            <td>
+                {/* TODO - test with null name */}
+                {submission.user.name}
+            </td>
+            <td>
+                {submission.quarterly_submission ? 'Quarterly' : 'Monthly'}
+            </td>
+            <td>
+                {submissionPeriodString(submission.reporting_end_date)}
+            </td>
+        </tr>
+    ));
+    return (
+        <div className="dashboard-page__content">
+            <div className="dashboard-viz select-submission-table">
+                <div className="dashboard-table">
+                    <h2 className="dashboard-viz__heading">Dashboard Submission Selection</h2>
+                    <hr />
+                    <table>
+                        <DashboardTableHeader
+                            headers={tableHeaders}
+                            changeSort={props.changeSort}
+                            currSort={props.sort}
+                            currOrder={props.order} />
+                        <tbody>
+                            {tableRows}
+                        </tbody>
+                    </table>
+                    <Pagination
+                        changePage={props.changePage}
+                        totalItems={props.totalItems}
+                        currentPage={props.page}
+                        pageSize={props.limit}
+                        changeLimit={props.changeLimit}
+                        limitSelector />
                 </div>
             </div>
-        );
-    }
-}
+        </div>
+    );
+};
 
 SelectSubmissionTable.defaultProps = defaultProps;
 SelectSubmissionTable.propTypes = propTypes;
+
+export default SelectSubmissionTable;
