@@ -103,4 +103,58 @@ describe('ActiveDashboardContainer', () => {
             expect(container.instance().state.page).toEqual(1);
         });
     });
+    describe('parseResults', () => {
+        it('should set the submission if there is only one result', () => {
+            const mockData = {
+                total: 1,
+                submissions: [
+                    {
+                        window_end: '2001-08-14',
+                        quarterly_submission: false,
+                        submission_id: 1234,
+                        time_period: '04 / 2001',
+                        user: {
+                            user_id: 1,
+                            name: 'Mock User'
+                        }
+                    }
+                ]
+            };
+            container.instance().parseResults(mockData);
+            expect(container.instance().state.submission).toEqual('1234');
+        });
+        it('update the state based on the data', () => {
+            const mockData = {
+                total: 2,
+                submissions: [
+                    {
+                        window_end: '2001-08-14',
+                        quarterly_submission: false,
+                        submission_id: 1234,
+                        time_period: '04 / 2001',
+                        user: {
+                            user_id: 1,
+                            name: 'Mock User'
+                        }
+                    },
+                    {
+                        window_end: '2001-08-14',
+                        quarterly_submission: false,
+                        submission_id: 5678,
+                        time_period: '04 / 2001',
+                        user: {
+                            user_id: 1,
+                            name: 'Mock User'
+                        }
+                    }
+                ]
+            };
+            container.instance().parseResults(mockData);
+
+            expect(container.instance().state.submission).toEqual('');
+            expect(container.instance().state.loading).toBeFalsy();
+            expect(container.instance().state.error).toBeFalsy();
+            expect(container.instance().state.results.length).toEqual(2);
+        });
+    });
 });

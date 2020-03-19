@@ -47,7 +47,8 @@ export class ActiveDashboardContainer extends React.Component {
 
     componentDidUpdate(prevProps) {
         if (!isEqual(prevProps.appliedFilters.filters.active, this.props.appliedFilters.filters.active)) {
-            this.loadSubmissions();
+            // Reset to page 1 when the filters change
+            this.changePage(1);
         }
     }
 
@@ -76,6 +77,19 @@ export class ActiveDashboardContainer extends React.Component {
             order,
             page: 1
         }, () => this.loadSubmissions());
+    }
+
+    parseResults(data) {
+        let submission = '';
+        if (data.total === 1) {
+            submission = `${data.submissions[0].submission_id}`;
+        }
+        this.setState({
+            loading: false,
+            results: data.submissions,
+            totalItems: data.total,
+            submission
+        });
     }
 
     loadSubmissions() {
@@ -107,11 +121,7 @@ export class ActiveDashboardContainer extends React.Component {
             page: this.state.page
         })
             .then((data) => {
-                this.setState({
-                    loading: false,
-                    results: data.submissions,
-                    totalItems: data.total
-                });
+                this.parseResults(data);
             })
             .catch(() => {
                 this.setState({
@@ -127,9 +137,6 @@ export class ActiveDashboardContainer extends React.Component {
         }
         if (this.state.totalItems === 0 || this.state.error) {
             return (<NoResultsMessage />);
-        }
-        if (!this.state.submission && this.state.totalItems === 1) {
-            this.setSubmission(`${this.state.results[0].submission_id}`);
         }
         if (this.state.submission) {
             return (<ActiveDashboard submissionID={this.state.submission} />);
