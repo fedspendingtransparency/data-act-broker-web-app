@@ -6,10 +6,10 @@ export const routes = [
     'reviewData'
 ];
 
-export const classNames = [
-    'usa-da-validate-data-page',
-    'usa-da-generate-files-page',
-    'usa-da-cross-file-page',
-    'usa-da-generate-ef-page',
-    'usa-da-review-data-page'
-];
+export const steps = {
+    validateData: 1,
+    generateFiles: 2,
+    validateCrossFile: 3,
+    generateEF: 4,
+    reviewData: 5
+};

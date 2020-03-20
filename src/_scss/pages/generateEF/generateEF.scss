@@ -1,7 +1,4 @@
-.usa-da-generate-ef-page {
-	@import "../../layouts/validation/validation";
-	@include validationLayout;
-
+.generate-ef-page {
 	@import "../../components/alerts/_alerts";
 	.alert-danger {
 		@include dangerAlert;

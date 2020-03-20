@@ -9,20 +9,20 @@ import CommonOverlay from '../SharedComponents/overlays/CommonOverlay';
 import * as Icons from '../SharedComponents/icons/Icons';
 import LoadingBauble from '../SharedComponents/overlays/LoadingBauble';
 import * as PermissionHelper from '../../helpers/permissionsHelper';
+import NextButton from '../submission/NextButton';
 
 const propTypes = {
     generateFiles: PropTypes.func,
-    nextPage: PropTypes.func,
     session: PropTypes.object,
     errorDetails: PropTypes.string,
     state: PropTypes.string,
-    agency_name: PropTypes.string
+    agency_name: PropTypes.string,
+    submissionID: PropTypes.string
 };
 
 const defaultProps = {
     state: 'incomplete',
     generateFiles: null,
-    nextPage: null,
     session: null,
     errorDetails: '',
     agency_name: ''
@@ -32,11 +32,6 @@ export default class GenerateFilesOverlay extends React.Component {
     clickedGenerate(e) {
         e.preventDefault();
         this.props.generateFiles();
-    }
-
-    clickedNext(e) {
-        e.preventDefault();
-        this.props.nextPage();
     }
 
     render() {
@@ -110,12 +105,11 @@ export default class GenerateFilesOverlay extends React.Component {
                         onClick={this.clickedGenerate.bind(this)}>
                         Generate Files
                     </button>
-                    <button
-                        className={`usa-da-button usa-da-validation-overlay-review ${nextClass}`}
+                    <NextButton
                         disabled={nextDisabled}
-                        onClick={this.clickedNext.bind(this)}>
-                        Next
-                    </button>
+                        nextButtonClass={nextClass}
+                        submissionID={this.props.submissionID}
+                        step="validateCrossFile" />
                 </div>
             </CommonOverlay>
         );
