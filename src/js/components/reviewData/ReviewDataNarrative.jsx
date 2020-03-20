@@ -114,7 +114,7 @@ export default class ReviewDataNarrative extends React.Component {
     render() {
         const onKeyDownHandler = createOnKeyDownHandler(this.downloadCommentsFile);
         return (
-            <div className="narrative-wrapper col-md-8">
+            <div className="narrative-wrapper">
                 <div className="gray-bg">
                     <h4>Add comments to files</h4>
                     <div className="row">

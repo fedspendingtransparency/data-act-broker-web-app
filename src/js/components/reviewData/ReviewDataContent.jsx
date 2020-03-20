@@ -220,65 +220,64 @@ export default class ReviewDataContent extends React.Component {
                                 <RevertToCertifiedContainer />
                             </div>
                         </div>
-                        <div className="col-md-8 usa-da-review-data-alternating-rows">
-                            {reportRows}
+                        <div className="right-side col-md-8">
+                            <div className="usa-da-review-data-alternating-rows">
+                                {reportRows}
+                            </div>
+                            <div className="row">
+                                <ReviewDataNarrative
+                                    narrative={this.props.data.file_narrative}
+                                    submissionID={this.props.submissionID} />
+                            </div>
+                            <div className="row submission-button-holder">
+                                <div className="submission-wrapper">
+                                    <div className="left-link">
+                                        <button
+                                            onClick={revalidateButtonAction}
+                                            className="usa-da-button btn-primary btn-lg btn-full">
+                                            <div className="button-wrapper">
+                                                <div className="button-icon">
+                                                    <Icons.Revalidate />
+                                                </div>
+                                                <div className="button-content">
+                                                    {revalidateButtonText}
+                                                </div>
+                                            </div>
+                                        </button>
+                                    </div>
+                                    <div className="left-link">
+                                        <button
+                                            onClick={certifyButtonAction}
+                                            className={`usa-da-button btn-primary btn-lg btn-full ${buttonClass}`}>
+                                            <div className="button-wrapper row">
+                                                <div className="button-icon">
+                                                    <Icons.Globe />
+                                                </div>
+                                                <div className="button-content">
+                                                    {certifyButtonText}
+                                                </div>
+                                            </div>
+                                        </button>
+                                    </div>
+                                    <div className="right-link">
+                                        <button
+                                            onClick={this.openModal.bind(this, 'Notify')}
+                                            className="usa-da-button btn-primary btn-lg btn-full last">
+                                            <div className="button-wrapper">
+                                                <div className="button-icon">
+                                                    <Icons.Bell />
+                                                </div>
+                                                <div className="button-content">
+                                                    Notify Another User
+                                                </div>
+                                            </div>
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                            {monthlySubmissionError}
                         </div>
                     </div>
-                    <div className="row">
-                        <div className="col-md-4" />
-                        <ReviewDataNarrative
-                            narrative={this.props.data.file_narrative}
-                            submissionID={this.props.submissionID} />
-                    </div>
-                    <div className="mt-20 row submission-button-holder">
-                        <div className="col-md-4" />
-                        <div className="submission-wrapper col-md-8">
-                            <div className="left-link">
-                                <button
-                                    onClick={revalidateButtonAction}
-                                    className="usa-da-button btn-primary btn-lg btn-full">
-                                    <div className="button-wrapper">
-                                        <div className="button-icon">
-                                            <Icons.Revalidate />
-                                        </div>
-                                        <div className="button-content">
-                                            {revalidateButtonText}
-                                        </div>
-                                    </div>
-                                </button>
-                            </div>
-                            <div className="left-link">
-                                <button
-                                    onClick={certifyButtonAction}
-                                    className={`usa-da-button btn-primary btn-lg btn-full ${buttonClass}`}>
-                                    <div className="button-wrapper row">
-                                        <div className="button-icon">
-                                            <Icons.Globe />
-                                        </div>
-                                        <div className="button-content">
-                                            {certifyButtonText}
-                                        </div>
-                                    </div>
-                                </button>
-                            </div>
-                            <div className="right-link">
-                                <button
-                                    onClick={this.openModal.bind(this, 'Notify')}
-                                    className="usa-da-button btn-primary btn-lg btn-full last">
-                                    <div className="button-wrapper">
-                                        <div className="button-icon">
-                                            <Icons.Bell />
-                                        </div>
-                                        <div className="button-content">
-                                            Notify Another User
-                                        </div>
-                                    </div>
-                                </button>
-                            </div>
-                        </div>
-                    </div>
-                    {monthlySubmissionError}
-
                     <div id="reviewDataNotifyModalHolder">
                         <ReviewDataNotifyModal
                             {...this.props}

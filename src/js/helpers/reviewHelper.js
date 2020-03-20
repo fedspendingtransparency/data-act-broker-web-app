@@ -511,9 +511,11 @@ export const revertToCertified = (submissionID) => {
         .send({
             submission_id: parseInt(submissionID, 10)
         })
-        .end((errFile, res) => {
-            if (errFile) {
-                deferred.reject(errFile);
+        .end((err, res) => {
+            if (err) {
+                const response = Object.assign({}, res.body);
+                response.httpStatus = res.status;
+                deferred.reject(response);
             }
             else {
                 deferred.resolve(res.body);

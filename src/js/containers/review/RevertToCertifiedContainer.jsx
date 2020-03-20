@@ -69,7 +69,7 @@ export class RevertToCertifiedContainer extends React.Component {
             <RevertToCertified
                 {...this.state}
                 revert={this.revert}
-                disabled={this.props.submission.publishStatus !== 'updated'} />
+                disabled={this.props.submission.publishStatus !== 'updated' || this.state.loading} />
         );
     }
 }
