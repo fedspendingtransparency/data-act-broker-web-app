@@ -20,3 +20,10 @@ export const formatNumberWithPrecision = (number, precision) => {
     });
     return Accounting.formatMoney(number, options);
 };
+
+export const formatMoneyWithPrecision = (value, precision) => {
+    const modifiedOptions = Object.assign({}, accountingOptions, {
+        precision
+    });
+    return Accounting.formatMoney(value, modifiedOptions);
+};

@@ -20,11 +20,13 @@ const mockSubmission = {
     publishStatus: 'updated'
 };
 
+const loadData = jest.fn();
+
 describe('RevertToCertifiedContainer', () => {
     let container;
     beforeEach(() => {
         jest.clearAllMocks();
-        container = shallow(<RevertToCertifiedContainer submission={mockSubmission} />);
+        container = shallow(<RevertToCertifiedContainer submission={mockSubmission} loadData={loadData} />);
     });
     describe('componentDidUpdate', () => {
         it('should call reset when the submission changes', () => {
@@ -44,6 +46,10 @@ describe('RevertToCertifiedContainer', () => {
             await container.instance().revert();
             expect(container.instance().state.message).toBeTruthy();
             expect(container.instance().state.message).toEqual(response.message);
+        });
+        it('should reload submission info after successfully reverting', async () => {
+            await container.instance().revert();
+            expect(loadData).toHaveBeenCalled();
         });
     });
 });
