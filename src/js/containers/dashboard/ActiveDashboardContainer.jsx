@@ -24,8 +24,7 @@ const ActiveDashboardContainer = (props) => {
         setLoading(true);
         const filters = props.appliedFilters.filters.active;
         const payload = {
-            agency_codes: [filters.agency],
-            file_names: [filters.file]
+            agency_codes: [filters.agency]
         };
         if (filters.lastModified.start || filters.lastModified.end) {
             payload.last_modified_range = {
@@ -60,7 +59,7 @@ const ActiveDashboardContainer = (props) => {
         return (<NoResultsMessage />);
     }
     if (results.length === 1) {
-        return (<ActiveDashboard submissionID={results[0].submission_id} />);
+        return (<ActiveDashboard submissionID={String(results[0].submission_id)} />);
     }
     return (<p>Table here</p>);
 };
