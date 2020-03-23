@@ -13,7 +13,8 @@ import ActiveDashboardOverview from 'components/dashboard/ActiveDashboardOvervie
 
 const propTypes = {
     appliedFilters: PropTypes.object.isRequired,
-    errorLevel: PropTypes.string
+    errorLevel: PropTypes.string,
+    submissionID: PropTypes.string
 };
 
 export class ActiveDashboardOverviewContainer extends React.Component {
@@ -43,7 +44,7 @@ export class ActiveDashboardOverviewContainer extends React.Component {
         this.setState({
             inFlight: true
         });
-        const submissionId = this.props.appliedFilters.submissionId;
+        const submissionId = parseInt(this.props.submissionID, 10);
         const fileType = this.props.appliedFilters.file;
         const errorLevel = this.props.errorLevel;
         DashboardHelper.fetchActiveOverview(submissionId, fileType, errorLevel)
