@@ -73,5 +73,49 @@
             @import './table/dashboardTable';
             @import './selectSubmissionTable';
         }
+        .dashboard-page-active {
+            .dashboard-page__content{
+                h2 {
+                    img {
+                        height: 5rem;
+                        margin-right: 1.5rem;
+                    }
+                }
+                hr {
+                    margin-left: 2rem;
+                    width: 90%;
+                    border-top: solid 0.2rem #9eb5cf;
+                }
+
+                .submission-overview-details {
+                    padding-left: 5.8rem;
+                    padding-bottom: 4.8rem;
+
+                    h3 {
+                        margin-bottom: 1rem;
+                        font-size: 2.7rem;
+                        font-weight: bold;
+                        color: $font-color;
+                        text-transform: capitalize;
+                    }
+                    .flex-wrapper {
+                        @include flex-direction(row);
+                        @include display(flex);
+
+                        .overview-section {
+                            flex: 1 1 25%;
+                            font-size: 1.6rem;
+
+                            h4 {
+                                margin-top: 0;
+                                margin-bottom: 1rem;
+                                font-size: 1.4rem;
+                                font-weight: normal;
+                            }
+                        }
+                    }
+                }
+            }
+        }
     }
 }
