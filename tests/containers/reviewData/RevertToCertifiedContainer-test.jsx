@@ -6,7 +6,7 @@
 import React from 'react';
 import { shallow } from 'enzyme';
 
-import { RevertToCertifiedContainer } from 'containers/review/RevertToCertifiedContainer';
+import { RevertToCertifiedContainer } from 'containers/reviewData/RevertToCertifiedContainer';
 import { response } from './mockReviewHelper';
 
 // mock the review helper

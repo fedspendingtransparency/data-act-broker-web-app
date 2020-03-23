@@ -10,7 +10,7 @@ import moment from 'moment';
 import { formatMoneyWithPrecision } from 'helpers/moneyFormatter';
 import { checkAffiliations } from 'helpers/permissionsHelper';
 import * as Icons from 'components/SharedComponents/icons/Icons';
-import RevertToCertifiedContainer from 'containers/review/RevertToCertifiedContainer';
+import RevertToCertifiedContainer from 'containers/reviewData/RevertToCertifiedContainer';
 import ReviewDataContentRow from './ReviewDataContentRow';
 import ReviewDataButton from './ReviewDataButton';
 import ReviewDataNotifyModal from './ReviewDataNotifyModal';

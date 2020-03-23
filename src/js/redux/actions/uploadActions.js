@@ -39,6 +39,11 @@ export const setMeta = (state) => ({
     }
 });
 
+export const setInfo = (state) => ({
+    type: 'SET_INFO',
+    state
+});
+
 export const setSubmissionId = (state) => ({
     type: 'SET_SUBMISSION_ID',
     state
