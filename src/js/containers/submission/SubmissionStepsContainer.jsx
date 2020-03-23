@@ -5,8 +5,10 @@
 
 import React from 'react';
 import PropTypes from 'prop-types';
+import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 
+import * as uploadActions from 'redux/actions/uploadActions';
 import * as SubmissionGuideHelper from 'helpers/submissionGuideHelper';
 import * as ReviewHelper from 'helpers/reviewHelper';
 import SubmissionPage from 'components/submission/SubmissionPage';
@@ -14,7 +16,9 @@ import { routes, steps } from 'dataMapping/dabs/submission';
 
 const propTypes = {
     computedMatch: PropTypes.object,
-    history: PropTypes.object
+    history: PropTypes.object,
+    submissionInfo: PropTypes.object,
+    setInfo: PropTypes.func
 };
 
 export class SubmissionStepsContainer extends React.Component {
@@ -26,7 +30,6 @@ export class SubmissionStepsContainer extends React.Component {
             metadataLoading: true,
             error: false,
             errorMessage: '',
-            submissionInfo: {},
             currentStep: 0
         };
 
@@ -35,7 +38,7 @@ export class SubmissionStepsContainer extends React.Component {
 
     componentDidMount() {
         const { step } = this.props.computedMatch.params;
-        this.getSubmission();
+        this.getSubmissionInfo();
         const stepNumber = steps[step];
         this.getOriginalStep(stepNumber);
     }
@@ -46,7 +49,7 @@ export class SubmissionStepsContainer extends React.Component {
         if (stepNumber) {
             // check for ID change
             if (prevProps.computedMatch.params.submissionID !== submissionID) {
-                this.getSubmission();
+                this.getSubmissionInfo();
                 this.getOriginalStep(stepNumber);
             }
             else if (prevProps.computedMatch.params.step !== step) {
@@ -64,15 +67,15 @@ export class SubmissionStepsContainer extends React.Component {
         this.resetStep();
     }
 
-    getSubmission() {
+    getSubmissionInfo() {
         this.setState({
             metadataLoading: true
         });
         const { submissionID } = this.props.computedMatch.params;
         ReviewHelper.fetchSubmissionMetadata(submissionID, 'dabs')
             .then((data) => {
+                this.props.setInfo(data);
                 this.setState({
-                    submissionInfo: data,
                     metadataLoading: false
                 });
             })
@@ -139,13 +142,18 @@ export class SubmissionStepsContainer extends React.Component {
                 submissionID={submissionID}
                 {...this.state}
                 errorFromStep={this.errorFromStep}
-                loading={this.state.metadataLoading || this.state.stepLoading} />
+                loading={this.state.metadataLoading || this.state.stepLoading}
+                submissionInfo={this.props.submissionInfo} />
         );
     }
 }
 
 SubmissionStepsContainer.propTypes = propTypes;
 
-export default connect((state) => ({
-    session: state.session
-}))(SubmissionStepsContainer);
+export default connect(
+    (state) => ({
+        session: state.session,
+        submissionInfo: state.submission.info
+    }),
+    (dispatch) => bindActionCreators(uploadActions, dispatch)
+)(SubmissionStepsContainer);

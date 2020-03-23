@@ -13,7 +13,8 @@ import ReviewDataNarrativeDropdown from './ReviewDataNarrativeDropdown';
 import ReviewDataNarrativeTextfield from './ReviewDataNarrativeTextfield';
 
 const propTypes = {
-    submissionID: PropTypes.string
+    submissionID: PropTypes.string,
+    loadData: PropTypes.func
 };
 
 const defaultProps = {
@@ -27,7 +28,7 @@ export default class ReviewDataNarrative extends React.Component {
         this.state = {
             currentFile: 'A',
             fileNarrative: {},
-            currentNarrative: "",
+            currentNarrative: '',
             saveState: '',
             errorMessage: ''
         };
@@ -55,21 +56,21 @@ export default class ReviewDataNarrative extends React.Component {
     }
 
     saveNarrative() {
-        this.setState({ saveState: "Saving" });
+        this.setState({ saveState: 'Saving' });
         const tempNarrative = this.getNewNarrative();
         tempNarrative.submission_id = this.props.submissionID;
 
         ReviewHelper.saveNarrative(tempNarrative)
             .then(() => {
                 this.setState({
-                    saveState: "Saved",
-                    errorMessage: ""
-                });
+                    saveState: 'Saved',
+                    errorMessage: ''
+                }, () => this.props.loadData());
             })
             .catch(() => {
                 this.setState({
-                    saveState: "Error",
-                    errorMessage: ""
+                    saveState: 'Error',
+                    errorMessage: ''
                 });
             });
     }
@@ -82,7 +83,7 @@ export default class ReviewDataNarrative extends React.Component {
             .catch((error) => {
                 console.error(error);
                 this.setState({
-                    saveState: "Error",
+                    saveState: 'Error',
                     errorMessage: `: ${error.message}`
                 });
             });
@@ -90,10 +91,10 @@ export default class ReviewDataNarrative extends React.Component {
 
     updateState(props) {
         this.setState({
-            currentFile: "A",
+            currentFile: 'A',
             fileNarrative: props.narrative,
             currentNarrative: props.narrative.A,
-            saveState: ""
+            saveState: ''
         });
     }
 
@@ -114,7 +115,7 @@ export default class ReviewDataNarrative extends React.Component {
     render() {
         const onKeyDownHandler = createOnKeyDownHandler(this.downloadCommentsFile);
         return (
-            <div className="narrative-wrapper col-md-8">
+            <div className="narrative-wrapper">
                 <div className="gray-bg">
                     <h4>Add comments to files</h4>
                     <div className="row">

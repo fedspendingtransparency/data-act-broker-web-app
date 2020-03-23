@@ -65,3 +65,15 @@ export const checkFabsAgencyPermissions = (session, agencyName) => {
         affiliation.agency_name === agencyName && (affiliation.permission === 'fabs' || affiliation.permission === 'editfabs')
     ));
 };
+
+export const checkAffiliations = (session, affil, agencyName) => {
+    const affiliations = session.user.affiliations;
+    for (let i = 0; i < affiliations.length; i++) {
+        if (affiliations[i].agency_name === agencyName) {
+            if (affiliations[i].permission === affil) {
+                return true;
+            }
+        }
+    }
+    return false;
+};

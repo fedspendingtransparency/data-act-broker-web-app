@@ -55,4 +55,26 @@ describe('Money Formatter helper functions', () => {
             expect(formatted).toEqual('-12,345,678');
         });
     });
+    describe('formatMoneyWithPrecision', () => {
+        it('should round values to the specified precision', () => {
+            const formattedDown = MoneyFormatter.formatMoneyWithPrecision(123.45, 2);
+            expect(formattedDown).toEqual('$123.45');
+
+            const formattedUp = MoneyFormatter.formatMoneyWithPrecision(123.75, 0);
+            expect(formattedUp).toEqual('$124');
+
+            const formattedHalf = MoneyFormatter.formatMoneyWithPrecision(123.50, 4);
+            expect(formattedHalf).toEqual('$123.5000');
+        });
+
+        it('should format positive values to $XXX,XXX format', () => {
+            const formatted = MoneyFormatter.formatMoneyWithPrecision(12345678.23, 0);
+            expect(formatted).toEqual('$12,345,678');
+        });
+
+        it('should format negative values to -$XXX,XXX format', () => {
+            const formatted = MoneyFormatter.formatMoneyWithPrecision(-12345678.23, 0);
+            expect(formatted).toEqual('-$12,345,678');
+        });
+    });
 });

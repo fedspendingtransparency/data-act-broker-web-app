@@ -6,6 +6,7 @@ const initialUploadState = {
         startDate: null,
         endDate: null
     },
+    info: {},
     files: {},
     validation: {},
     crossFile: {
@@ -96,6 +97,11 @@ export const uploadReducer = (state = initialUploadState, action) => {
         case 'SET_META':
             return Object.assign({}, state, {
                 meta: action.state
+            });
+
+        case 'SET_INFO':
+            return Object.assign({}, state, {
+                info: action.state
             });
 
         case 'SET_SUBMISSION_ID':
