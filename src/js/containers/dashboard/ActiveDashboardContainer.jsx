@@ -14,7 +14,26 @@ import LoadingMessage from 'components/dashboard/LoadingMessage';
 import SelectSubmissionTable from 'components/dashboard/SelectSubmissionTable';
 
 const propTypes = {
-    appliedFilters: PropTypes.object
+    appliedFilters: PropTypes.shape({
+        filters: PropTypes.shape({
+            active: PropTypes.shape({
+                agency: '',
+                createdBy: PropTypes.shape({
+                    name: PropTypes.string,
+                    id: PropTypes.number
+                }),
+                lastModified: PropTypes.shape({
+                    start: PropTypes.string,
+                    end: PropTypes.string
+                }),
+                submissionId: PropTypes.string,
+                file: PropTypes.string
+            }),
+            historical: PropTypes.object
+        }),
+        _activeEmpty: PropTypes.bool,
+        _historicalEmpty: PropTypes.bool
+    })
 };
 
 export class ActiveDashboardContainer extends React.Component {
