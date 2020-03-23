@@ -59,7 +59,7 @@ const ActiveDashboardContainer = (props) => {
         return (<NoResultsMessage />);
     }
     if (results.length === 1) {
-        return (<ActiveDashboard submissionID={results[0].submission_id} />);
+        return (<ActiveDashboard submissionID={String(results[0].submission_id)} />);
     }
     return (<p>Table here</p>);
 };
