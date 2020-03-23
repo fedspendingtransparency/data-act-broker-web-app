@@ -9,7 +9,7 @@ import PropTypes from 'prop-types';
 import ActiveDashboardOverviewContainer from 'containers/dashboard/ActiveDashboardOverviewContainer';
 
 const propTypes = {
-    submissionID: PropTypes.number
+    submissionID: PropTypes.string
 };
 
 const ActiveDashboard = (props) => (
