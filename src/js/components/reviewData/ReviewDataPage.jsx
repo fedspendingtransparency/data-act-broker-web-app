@@ -15,7 +15,8 @@ const propTypes = {
     data: PropTypes.object,
     submissionID: PropTypes.string,
     submission: PropTypes.object,
-    testSubmission: PropTypes.bool
+    testSubmission: PropTypes.bool,
+    loadData: PropTypes.func
 };
 
 const defaultProps = {

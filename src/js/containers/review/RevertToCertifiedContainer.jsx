@@ -12,7 +12,8 @@ import { revertToCertified } from 'helpers/reviewHelper';
 import RevertToCertified from 'components/reviewData/RevertToCertified';
 
 const propTypes = {
-    submission: PropTypes.object
+    submission: PropTypes.object,
+    loadData: PropTypes.func
 };
 
 export class RevertToCertifiedContainer extends React.Component {
@@ -53,7 +54,7 @@ export class RevertToCertifiedContainer extends React.Component {
                 this.setState({
                     loading: false,
                     message: data.message
-                });
+                }, () => this.props.loadData());
             })
             .catch((error) => {
                 console.error(error);

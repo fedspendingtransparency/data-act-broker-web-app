@@ -36,6 +36,8 @@ class ReviewDataContainer extends React.Component {
             total_procurement_obligations: null,
             file_narrative: {}
         };
+
+        this.loadData = this.loadData.bind(this);
     }
 
     componentDidMount() {
@@ -94,7 +96,7 @@ class ReviewDataContainer extends React.Component {
 
     render() {
         return (
-            <ReviewDataPage {...this.props} data={this.state} />
+            <ReviewDataPage {...this.props} data={this.state} loadData={this.loadData} />
         );
     }
 }

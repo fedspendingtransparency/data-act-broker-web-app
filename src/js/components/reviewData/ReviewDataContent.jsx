@@ -22,7 +22,8 @@ const propTypes = {
     data: PropTypes.object,
     session: PropTypes.object,
     submissionID: PropTypes.string,
-    testSubmission: PropTypes.bool
+    testSubmission: PropTypes.bool,
+    loadData: PropTypes.func
 };
 
 const defaultProps = {
@@ -217,7 +218,7 @@ export default class ReviewDataContent extends React.Component {
                                         <li>Total Warnings: <strong>{this.props.data.number_of_warnings}</strong></li>
                                     </ul>
                                 </div>
-                                <RevertToCertifiedContainer />
+                                <RevertToCertifiedContainer loadData={this.props.loadData} />
                             </div>
                         </div>
                         <div className="right-side col-md-8">
@@ -227,7 +228,8 @@ export default class ReviewDataContent extends React.Component {
                             <div className="row">
                                 <ReviewDataNarrative
                                     narrative={this.props.data.file_narrative}
-                                    submissionID={this.props.submissionID} />
+                                    submissionID={this.props.submissionID}
+                                    loadData={this.props.loadData} />
                             </div>
                             <div className="row submission-button-holder">
                                 <div className="submission-wrapper">
