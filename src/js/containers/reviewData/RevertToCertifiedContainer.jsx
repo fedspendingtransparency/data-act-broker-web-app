@@ -30,7 +30,7 @@ export class RevertToCertifiedContainer extends React.Component {
     }
 
     componentDidUpdate(prevProps) {
-        if (!isEqual(prevProps.submission, this.props.submission)) {
+        if (!isEqual(prevProps.submission.id, this.props.submission.id)) {
             this.reset();
         }
     }
