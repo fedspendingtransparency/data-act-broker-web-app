@@ -12,24 +12,27 @@ import { mockProps, submissionMetadata } from './mockData';
 jest.mock('helpers/submissionGuideHelper', () => require('./mockSubmissionGuideHelper'));
 jest.mock('helpers/reviewHelper', () => require('./mockReviewHelper'));
 
+// Mock the redux action
+const setInfo = jest.fn();
+
 describe('SubmissionStepsContainer', () => {
     let container;
     beforeEach(() => {
         jest.clearAllMocks();
-        container = shallow(<SubmissionStepsContainer {...mockProps} />);
+        container = shallow(<SubmissionStepsContainer {...mockProps} setInfo={setInfo} />);
     });
     describe('componentDidMount', () => {
-        it('should call getSubmission on mount', async () => {
-            const getSubmission = jest.fn();
-            container.instance().getSubmission = getSubmission;
+        it('should call getSubmissionInfo on mount', async () => {
+            const getSubmissionInfo = jest.fn();
+            container.instance().getSubmissionInfo = getSubmissionInfo;
             await container.instance().componentDidMount();
-            expect(getSubmission).toHaveBeenCalled();
+            expect(getSubmissionInfo).toHaveBeenCalled();
         });
     });
     describe('componentDidUpdate', () => {
-        it('should call getSubmission if ID is updated', () => {
-            const getSubmission = jest.fn();
-            container.instance().getSubmission = getSubmission;
+        it('should call getSubmissionInfo if ID is updated', () => {
+            const getSubmissionInfo = jest.fn();
+            container.instance().getSubmissionInfo = getSubmissionInfo;
             const prevProps = {
                 computedMatch: {
                     params: {
@@ -39,7 +42,7 @@ describe('SubmissionStepsContainer', () => {
                 }
             };
             container.instance().componentDidUpdate(prevProps);
-            expect(getSubmission).toHaveBeenCalled();
+            expect(getSubmissionInfo).toHaveBeenCalled();
         });
         it('should call getOriginalStep if route type is updated', () => {
             const getOriginalStep = jest.fn();
@@ -105,15 +108,13 @@ describe('SubmissionStepsContainer', () => {
         });
     });
 
-    describe('getSubmission', () => {
-        it('should update the state based on the result', async () => {
-            await container.instance().getSubmission();
-            const {
-                submissionInfo,
-                metadataLoading
-            } = container.instance().state;
-            expect(submissionInfo).toEqual(submissionMetadata);
+    describe('getSubmissionInfo', () => {
+        it('should call the redux action setInfo and update the loading state', async () => {
+            await container.instance().getSubmissionInfo();
+            const { metadataLoading } = container.instance().state;
             expect(metadataLoading).toBeFalsy();
+            expect(setInfo).toHaveBeenCalled();
+            expect(setInfo).toHaveBeenCalledWith(submissionMetadata);
         });
     });
 
