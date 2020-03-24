@@ -42,7 +42,7 @@ export class ActiveDashboardContainer extends React.Component {
 
         this.state = {
             results: [],
-            error: false,
+            errorMessage: '',
             loading: false,
             submission: '',
             sort: 'reporting_start',
@@ -105,6 +105,7 @@ export class ActiveDashboardContainer extends React.Component {
         }
         this.setState({
             loading: false,
+            errorMessage: '',
             results: data.submissions,
             totalItems: data.total,
             submission
@@ -142,10 +143,11 @@ export class ActiveDashboardContainer extends React.Component {
             .then((data) => {
                 this.parseResults(data);
             })
-            .catch(() => {
+            .catch((error) => {
+                console.error(error);
                 this.setState({
-                    error: true,
-                    loading: false
+                    loading: false,
+                    errorMessage: error.message
                 });
             });
     }
@@ -154,8 +156,20 @@ export class ActiveDashboardContainer extends React.Component {
         if (this.state.loading) {
             return (<LoadingMessage />);
         }
-        if (this.state.totalItems === 0 || this.state.error) {
-            return (<NoResultsMessage />);
+        if (this.state.errorMessage) {
+            return (
+                <NoResultsMessage>
+                    Error: {this.state.errorMessage}
+                </NoResultsMessage>
+            );
+        }
+        if (this.state.totalItems === 0) {
+            return (
+                <NoResultsMessage>
+                    No submissions were found matching these criteria.<br />
+                    Please try a different set of filters.
+                </NoResultsMessage>
+            );
         }
         if (this.state.submission) {
             return (<ActiveDashboard submissionID={this.state.submission} />);
