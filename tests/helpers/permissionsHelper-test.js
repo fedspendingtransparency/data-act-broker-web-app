@@ -119,7 +119,7 @@ describe('permissionsHelper', () => {
 
             const validRoleInvalidAgency = permissionsHelper.checkFabsAgencyPermissions(fabsRole, 'invalidAgencyName'); // valid role, invalid agency name
             const validAgencyInvalidRole = permissionsHelper.checkFabsAgencyPermissions(unauthorizedSession, 'test'); // valid agency name, invalid role
-            
+
             expect(fabsSession).toEqual(true);
             expect(validRoleInvalidAgency).toEqual(false);
             expect(validAgencyInvalidRole).toEqual(false);
@@ -132,10 +132,26 @@ describe('permissionsHelper', () => {
 
             const validRoleInvalidAgency = permissionsHelper.checkFabsAgencyPermissions(fabsRole, 'invalidAgencyName'); // valid role, invalid agency name
             const validAgencyInvalidRole = permissionsHelper.checkFabsAgencyPermissions(unauthorizedSession, 'test'); // valid agency name, invalid role
-            
+
             expect(fabsSession).toEqual(true);
             expect(validRoleInvalidAgency).toEqual(false);
             expect(validAgencyInvalidRole).toEqual(false);
+        });
+    });
+    describe('checkAffiliations', () => {
+        it('should return true when the current user has the specified permission for the given agency', () => {
+            const mockRoles = getRole('Mock Agency', 'a_role');
+            const session = getSession(false, [mockRoles]);
+            const role = permissionsHelper.checkAffiliations(session, 'a_role', 'Mock Agency');
+            expect(role).toBeTruthy();
+        });
+        it('should return false if the current user does not have the specified permission for the given agency', () => {
+            const mockRoles = getRole('Mock Agency', 'a_role');
+            const session = getSession(false, [mockRoles]);
+            const anotherRole = permissionsHelper.checkAffiliations(session, 'another_role', 'Mock Agency');
+            const anotherAgency = permissionsHelper.checkAffiliations(session, 'role', 'Another Agency');
+            expect(anotherRole).toBeFalsy();
+            expect(anotherAgency).toBeFalsy();
         });
     });
 });

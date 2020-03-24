@@ -16,7 +16,8 @@ const propTypes = {
     updateError: PropTypes.func,
     d1: PropTypes.object,
     d2: PropTypes.object,
-    updateFileProperty: PropTypes.func
+    updateFileProperty: PropTypes.func,
+    submissionID: PropTypes.string
 };
 
 const defaultProps = {
@@ -49,7 +50,7 @@ export default class GenerateFilesContent extends React.Component {
         const { d1, d2 } = this.props;
 
         return (
-            <div>
+            <div className="generate-files-page">
                 <div className="container center-block with-overlay">
                     <div className="row usa-da-submission-instructions">
                         <div className="col-md-12">

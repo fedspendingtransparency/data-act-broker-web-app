@@ -6,20 +6,26 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import moment from 'moment';
+
+import { formatMoneyWithPrecision } from 'helpers/moneyFormatter';
+import { checkAffiliations } from 'helpers/permissionsHelper';
+import * as Icons from 'components/SharedComponents/icons/Icons';
+import RevertToCertifiedContainer from 'containers/reviewData/RevertToCertifiedContainer';
 import ReviewDataContentRow from './ReviewDataContentRow';
 import ReviewDataButton from './ReviewDataButton';
 import ReviewDataNotifyModal from './ReviewDataNotifyModal';
 import ReviewDataCertifyModal from './CertificationModal/ReviewDataCertifyModal';
 import RevalidateDataModal from './CertificationModal/RevalidateDataModal';
 import ReviewDataNarrative from './ReviewDataNarrative';
-import * as Icons from '../SharedComponents/icons/Icons';
 
 import { formatSize } from '../../helpers/util';
 
 const propTypes = {
     data: PropTypes.object,
     session: PropTypes.object,
-    submissionID: PropTypes.string
+    submissionID: PropTypes.string,
+    testSubmission: PropTypes.bool,
+    loadData: PropTypes.func
 };
 
 const defaultProps = {
@@ -54,44 +60,6 @@ export default class ReviewDataContent extends React.Component {
         this.setState({
             [`open${type}`]: false
         });
-    }
-
-
-    disabledLink(e) {
-        e.preventDefault();
-    }
-
-    formatCurrency(currencyNumber) {
-        const negative = currencyNumber < 0;
-        let currencyString = currencyNumber.toFixed(2);
-        // remove negative sign for formatting
-        if (negative) {
-            currencyString = currencyString.substr(1);
-        }
-        const cents = currencyString.split(".")[1];
-        let dollars = currencyString.split(".")[0];
-        // start at the end and every 3 numbers add a comma to the string
-        for (let i = dollars.length - 3; i > 0; i -= 3) {
-            dollars = `${dollars.slice(0, i)},${dollars.slice(i)}`;
-        }
-        let formattedCurrencyString = `$${dollars}.${cents}`;
-        // add negative sign for formatting
-        if (negative) {
-            formattedCurrencyString = `-${formattedCurrencyString}`;
-        }
-        return formattedCurrencyString;
-    }
-
-    checkAffiliations(affil) {
-        const affiliations = this.props.session.user.affiliations;
-        for (let i = 0; i < affiliations.length; i++) {
-            if (affiliations[i].agency_name === this.props.data.agency_name) {
-                if (affiliations[i].permission === affil) {
-                    return true;
-                }
-            }
-        }
-        return false;
     }
 
     windowBlocked() {
@@ -135,9 +103,9 @@ export default class ReviewDataContent extends React.Component {
             this.props.data.agency_name,
             this.props.data.reporting_period,
             this.props.data.reporting_period,
-            this.formatCurrency(this.props.data.total_obligations),
-            this.formatCurrency(this.props.data.total_assistance_obligations),
-            this.formatCurrency(this.props.data.total_procurement_obligations)
+            formatMoneyWithPrecision(this.props.data.total_obligations, 2),
+            formatMoneyWithPrecision(this.props.data.total_assistance_obligations, 2),
+            formatMoneyWithPrecision(this.props.data.total_procurement_obligations, 2)
         ];
 
         const reportRows = [];
@@ -146,20 +114,20 @@ export default class ReviewDataContent extends React.Component {
             reportRows.push(<ReviewDataContentRow key={j} label={reportLabels[j]} data={reportData[j]} />);
         }
 
-        let certifyButtonText = "You do not have permissions to certify";
-        let revalidateButtonText = "You do not have permission to revalidate";
-        let buttonClass = " btn-disabled";
+        let certifyButtonText = 'You do not have permissions to certify';
+        let revalidateButtonText = 'You do not have permission to revalidate';
+        let buttonClass = ' btn-disabled';
         let certifyButtonAction;
         let revalidateButtonAction;
         let monthlySubmissionError = null;
         // TODO: I don't think we ever actually have window data to gather, we should look into this
         const blockedWindow = this.windowBlocked();
 
-        if (this.props.data.publish_status === "published") {
-            certifyButtonText = "Submission has already been certified";
+        if (this.props.data.publish_status === 'published') {
+            certifyButtonText = 'Submission has already been certified';
         }
         else if (!this.props.data.quarterly_submission) {
-            certifyButtonText = "Monthly submissions cannot be certified";
+            certifyButtonText = 'Monthly submissions cannot be certified';
             monthlySubmissionError = (
                 <div
                     className="alert alert-danger text-center monthly-submission-error"
@@ -169,16 +137,18 @@ export default class ReviewDataContent extends React.Component {
         }
         else if (blockedWindow) {
             certifyButtonText = `You cannot certify until ${
-                moment(blockedWindow.end_date).format("dddd, MMMM D, YYYY")}`;
+                moment(blockedWindow.end_date).format('dddd, MMMM D, YYYY')}`;
         }
-        else if (this.checkAffiliations('submitter') || this.props.session.admin) {
-            certifyButtonText = "Certify & Publish";
-            buttonClass = "";
+        else if (this.props.testSubmission) {
+            certifyButtonText = 'Test submissions cannot be certified';
+        }
+        else if (checkAffiliations(this.props.session, 'submitter', this.props.data.agency_name) || this.props.session.admin) {
+            certifyButtonText = 'Certify & Publish';
+            buttonClass = '';
             certifyButtonAction = this.openModal.bind(this, 'Certify');
         }
-
-        if (this.checkAffiliations('writer') || this.props.session.admin) {
-            revalidateButtonText = "Revalidate";
+        if (checkAffiliations(this.props.session, 'writer', this.props.data.agency_name) || this.props.session.admin) {
+            revalidateButtonText = 'Revalidate';
             revalidateButtonAction = this.openModal.bind(this, 'Revalidate');
         }
 
@@ -211,67 +181,70 @@ export default class ReviewDataContent extends React.Component {
                                         <li>Total Warnings: <strong>{this.props.data.number_of_warnings}</strong></li>
                                     </ul>
                                 </div>
+                                <RevertToCertifiedContainer loadData={this.props.loadData} />
                             </div>
                         </div>
-                        <div className="col-md-8 usa-da-review-data-alternating-rows">
-                            {reportRows}
+                        <div className="right-side col-md-8">
+                            <div className="usa-da-review-data-alternating-rows">
+                                {reportRows}
+                            </div>
+                            <div className="row">
+                                <ReviewDataNarrative
+                                    narrative={this.props.data.file_narrative}
+                                    submissionID={this.props.submissionID}
+                                    loadData={this.props.loadData} />
+                            </div>
+                            <div className="row submission-button-holder">
+                                <div className="submission-wrapper">
+                                    <div className="left-link">
+                                        <button
+                                            onClick={revalidateButtonAction}
+                                            disabled={!revalidateButtonAction}
+                                            className="usa-da-button btn-primary btn-lg btn-full">
+                                            <div className="button-wrapper">
+                                                <div className="button-icon">
+                                                    <Icons.Revalidate />
+                                                </div>
+                                                <div className="button-content">
+                                                    {revalidateButtonText}
+                                                </div>
+                                            </div>
+                                        </button>
+                                    </div>
+                                    <div className="left-link">
+                                        <button
+                                            onClick={certifyButtonAction}
+                                            disabled={!certifyButtonAction}
+                                            className={`usa-da-button btn-primary btn-lg btn-full ${buttonClass}`}>
+                                            <div className="button-wrapper row">
+                                                <div className="button-icon">
+                                                    <Icons.Globe />
+                                                </div>
+                                                <div className="button-content">
+                                                    {certifyButtonText}
+                                                </div>
+                                            </div>
+                                        </button>
+                                    </div>
+                                    <div className="right-link">
+                                        <button
+                                            onClick={this.openModal.bind(this, 'Notify')}
+                                            className="usa-da-button btn-primary btn-lg btn-full last">
+                                            <div className="button-wrapper">
+                                                <div className="button-icon">
+                                                    <Icons.Bell />
+                                                </div>
+                                                <div className="button-content">
+                                                    Notify Another User
+                                                </div>
+                                            </div>
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                            {monthlySubmissionError}
                         </div>
                     </div>
-                    <div className="row">
-                        <div className="col-md-4" />
-                        <ReviewDataNarrative
-                            narrative={this.props.data.file_narrative}
-                            submissionID={this.props.submissionID} />
-                    </div>
-                    <div className="mt-20 row submission-button-holder">
-                        <div className="col-md-4" />
-                        <div className="submission-wrapper col-md-8">
-                            <div className="left-link">
-                                <button
-                                    onClick={revalidateButtonAction}
-                                    className="usa-da-button btn-primary btn-lg btn-full">
-                                    <div className="button-wrapper">
-                                        <div className="button-icon">
-                                            <Icons.Revalidate />
-                                        </div>
-                                        <div className="button-content">
-                                            {revalidateButtonText}
-                                        </div>
-                                    </div>
-                                </button>
-                            </div>
-                            <div className="left-link">
-                                <button
-                                    onClick={certifyButtonAction}
-                                    className={`usa-da-button btn-primary btn-lg btn-full ${buttonClass}`}>
-                                    <div className="button-wrapper row">
-                                        <div className="button-icon">
-                                            <Icons.Globe />
-                                        </div>
-                                        <div className="button-content">
-                                            {certifyButtonText}
-                                        </div>
-                                    </div>
-                                </button>
-                            </div>
-                            <div className="right-link">
-                                <button
-                                    onClick={this.openModal.bind(this, 'Notify')}
-                                    className="usa-da-button btn-primary btn-lg btn-full last">
-                                    <div className="button-wrapper">
-                                        <div className="button-icon">
-                                            <Icons.Bell />
-                                        </div>
-                                        <div className="button-content">
-                                            Notify Another User
-                                        </div>
-                                    </div>
-                                </button>
-                            </div>
-                        </div>
-                    </div>
-                    {monthlySubmissionError}
-
                     <div id="reviewDataNotifyModalHolder">
                         <ReviewDataNotifyModal
                             {...this.props}

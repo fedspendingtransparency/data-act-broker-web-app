@@ -9,7 +9,7 @@ import AddDataContainer from 'containers/addData/AddDataContainer';
 import Footer from 'components/SharedComponents/FooterComponent';
 import Navbar from 'components/SharedComponents/navigation/NavigationComponent';
 import Banner from 'components/SharedComponents/Banner';
-import AddDataHeader from './AddDataHeader';
+import SubmissionHeader from 'components/submission/SubmissionHeader';
 import AddDataMeta from './AddDataMeta';
 
 const propTypes = {
@@ -38,7 +38,7 @@ export default class AddDataPage extends React.Component {
             <div className="usa-da-add-data-page">
                 <div className="usa-da-site_wrap">
                     <Navbar activeTab="submissionGuide" type={this.props.type} />
-                    <AddDataHeader />
+                    <SubmissionHeader />
                     <Banner type="dabs" />
                     {bodyComponent}
                 </div>

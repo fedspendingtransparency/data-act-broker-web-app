@@ -252,7 +252,7 @@ export class ValidateDataContainer extends React.Component {
         }
 
         return (
-            <div>
+            <div className="validate-data-page">
                 {warningMessage}
                 <Banner type="dabs" />
                 {validationContent}

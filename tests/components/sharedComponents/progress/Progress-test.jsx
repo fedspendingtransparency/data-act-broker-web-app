@@ -10,11 +10,6 @@ import Progress from 'components/SharedComponents/Progress';
 import { mockProps } from './mockData';
 
 describe('Progress Component', () => {
-    it('handleClick, should call setStep on click', () => {
-        const component = shallow(<Progress {...mockProps} />);
-        component.instance().handleClick();
-        expect(mockProps.setStep).toHaveBeenCalled();
-    });
     describe('className', () => {
         it('should set classname to the step classname', () => {
             const component = shallow(<Progress {...mockProps} />);

@@ -53,23 +53,3 @@ export const fetchSubTierAgencies = () => {
 
     return deferred.promise;
 };
-
-export function checkYearQuarter(cgac, frec, year, quarter) {
-    const deferred = Q.defer();
-    const validCgac = cgac || '';
-    const validFrec = frec || '';
-    Request.get(`${kGlobalConstants.API}check_year_quarter/?cgac_code=${validCgac}&frec_code=${validFrec}&` +
-                `reporting_fiscal_year=${year}&reporting_fiscal_period=${quarter}`)
-        .end((err, res) => {
-            if (err) {
-                const response = Object.assign({}, res.body);
-                response.httpStatus = res.status;
-                deferred.reject(response);
-            }
-            else {
-                deferred.resolve(res);
-            }
-        });
-
-    return deferred.promise;
-}

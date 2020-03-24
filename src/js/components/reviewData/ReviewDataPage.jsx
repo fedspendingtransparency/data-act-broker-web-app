@@ -14,12 +14,15 @@ import ReviewLoading from './ReviewLoading';
 const propTypes = {
     data: PropTypes.object,
     submissionID: PropTypes.string,
-    submission: PropTypes.object
+    submission: PropTypes.object,
+    testSubmission: PropTypes.bool,
+    loadData: PropTypes.func
 };
 
 const defaultProps = {
     data: null,
-    submission: null
+    submission: null,
+    testSubmission: false
 };
 
 export default class ReviewDataPage extends React.Component {
@@ -40,7 +43,7 @@ export default class ReviewDataPage extends React.Component {
         }
 
         return (
-            <div className="usa-da-review-data-page">
+            <div className="review-data-page">
                 {warningMessage}
                 <Banner type="dabs" />
                 {currentComponent}

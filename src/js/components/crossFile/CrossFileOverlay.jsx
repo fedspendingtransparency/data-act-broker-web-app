@@ -10,6 +10,7 @@ import CommonOverlay from '../SharedComponents/overlays/CommonOverlay';
 import LoadingBauble from '../SharedComponents/overlays/LoadingBauble';
 
 import * as PermissionsHelper from '../../helpers/permissionsHelper';
+import NextButton from '../submission/NextButton';
 
 const propTypes = {
     uploadFiles: PropTypes.func,
@@ -18,7 +19,8 @@ const propTypes = {
     agencyName: PropTypes.string,
     mode: PropTypes.string,
     loading: PropTypes.bool,
-    nextStep: PropTypes.func
+    nextStep: PropTypes.func,
+    submissionID: PropTypes.string
 };
 
 const defaultProps = {
@@ -212,13 +214,11 @@ export default class CrossFileOverlay extends React.Component {
                         onClick={this.props.uploadFiles}>
                         {this.state.overlay.buttonText}
                     </button>
-                    <button
-                        className={`usa-da-validation-overlay-review usa-da-button${
-                            this.state.overlay.nextButtonClass}`}
+                    <NextButton
                         disabled={this.state.overlay.nextButtonDisabled}
-                        onClick={this.pressedNext.bind(this)}>
-                        Next
-                    </button>
+                        nextButtonClass={this.state.overlay.nextButtonClass}
+                        submissionID={this.props.submissionID}
+                        step="generateEF" />
                 </div>
             </CommonOverlay>
         );

@@ -12,7 +12,8 @@ import CrossFileOverlay from './CrossFileOverlay';
 const propTypes = {
     reloadData: PropTypes.func,
     uploadFiles: PropTypes.func,
-    submission: PropTypes.object
+    submission: PropTypes.object,
+    submissionID: PropTypes.string
 };
 
 const defaultProps = {

@@ -6,14 +6,12 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import CSSTransitionGroup from 'react-transition-group/CSSTransitionGroup';
-import { Link } from 'react-router-dom';
 import AgencyListContainer from '../../containers/SharedContainers/AgencyListContainer';
 import * as Icons from '../SharedComponents/icons/Icons';
 import Modal from '../SharedComponents/Modal';
 import DateTypeField from './metadata/DateTypeField';
 import DateRangeField from './metadata/DateRangeField';
 import SubmitComponent from './metadata/SubmitComponent';
-import * as AgencyHelper from '../../helpers/agencyHelper';
 
 const propTypes = {
     updateMetaData: PropTypes.func
@@ -126,41 +124,7 @@ export default class AddDataMeta extends React.Component {
     }
 
     submitMetadata() {
-        const agency = this.state.agency;
-        const codeType = this.state.codeType;
-        const endDate = this.state.endDate;
-        const dateType = this.state.dateType;
-
-        // Only make a request to check certified submission for quarterly submission.
-        if (dateType === 'quarter') {
-            const month = endDate.substr(0, 2);
-            const quarter = (parseInt(month, 10) % 12) + 3;
-            let year = endDate.substr(3);
-
-            if (quarter === 3) {
-                year = parseInt(year, 10) + 1;
-            }
-
-            const cgacCode = codeType === 'cgac_code' ? agency : null;
-            const frecCode = codeType === 'frec_code' ? agency : null;
-            AgencyHelper.checkYearQuarter(cgacCode, frecCode, year, quarter).then(() => {
-                this.props.updateMetaData(this.state);
-            }).catch((err) => {
-                this.setState({
-                    showModal: true,
-                    modalMessage: (
-                        <div>
-                            {err.message} You can update the certified submission
-                            <Link to={`/submission/${err.submissionId}/validateData`}> here</Link>
-                            .
-                        </div>
-                    )
-                });
-            });
-        }
-        else {
-            this.props.updateMetaData(this.state);
-        }
+        this.props.updateMetaData(this.state);
     }
 
     validateAgency() {
