@@ -107,37 +107,39 @@ export default class DashboardPage extends React.Component {
             <div>
                 <div className="usa-da-site_wrap usa-da-dashboard-page">
                     <Navbar type="dabs" activeTab="dashboard" />
-                    <div className="usa-da-content-dark">
-                        <div className="container">
-                            <div className="row usa-da-page-title">
-                                <div className="col-md-12">
-                                    <h1 className="display-2">DABS Dashboard</h1>
+                    <main>
+                        <div className="usa-da-content-dark">
+                            <div className="container">
+                                <div className="row usa-da-page-title">
+                                    <div className="col-md-12">
+                                        <h1 className="display-2">DABS Dashboard</h1>
+                                    </div>
+                                </div>
+                            </div>
+                            <div className="dashboard-tabs">
+                                <div className="dashboard-tabs__content">
+                                    <DashboardTab
+                                        label="Active"
+                                        type="active"
+                                        disabled
+                                        active={activeTab === 'active'} />
+                                    <DashboardTab
+                                        label="Historical"
+                                        type="historical"
+                                        active={activeTab === 'historical'} />
                                 </div>
                             </div>
                         </div>
-                        <div className="dashboard-tabs">
-                            <div className="dashboard-tabs__content">
-                                <DashboardTab
-                                    label="Active"
-                                    type="active"
-                                    disabled
-                                    active={activeTab === 'active'} />
-                                <DashboardTab
-                                    label="Historical"
-                                    type="historical"
-                                    active={activeTab === 'historical'} />
+                        <Banner />
+                        <div className="dashboard-page">
+                            <div className="dashboard-page__wrapper">
+                                <div className="dashboard-page__filters">
+                                    <FilterSidebar type={activeTab} filters={filters[activeTab]} />
+                                </div>
+                                <DashboardContentContainer type={activeTab} />
                             </div>
                         </div>
-                    </div>
-                    <Banner />
-                    <div className="dashboard-page">
-                        <div className="dashboard-page__wrapper">
-                            <div className="dashboard-page__filters">
-                                <FilterSidebar type={activeTab} filters={filters[activeTab]} />
-                            </div>
-                            <DashboardContentContainer type={activeTab} />
-                        </div>
-                    </div>
+                    </main>
                 </div>
                 <Footer />
             </div>

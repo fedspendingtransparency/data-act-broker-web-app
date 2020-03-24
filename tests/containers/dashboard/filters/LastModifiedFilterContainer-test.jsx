@@ -30,8 +30,8 @@ describe('LastModifiedFilterContainer', () => {
             };
 
             const dates = {
-                startDate: '02/03/2017',
-                endDate: '03/03/2017'
+                start: '02/03/2017',
+                end: '03/03/2017'
             };
 
             container.instance().pickedDates(momentDates);

@@ -15,3 +15,13 @@
         background-color: transparent;
     }
 }
+
+@mixin button-link {
+    // makes a button look like a hyperlink
+    @include button-unstyled;
+    color: $color-primary;
+    &:hover {
+        color: $color-primary-darker;
+        text-decoration: underline;
+    }
+}

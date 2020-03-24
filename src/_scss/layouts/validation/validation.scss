@@ -17,12 +17,12 @@
 		color: $color-gray-light;
 		background-color: $color-gray-cool-light;
 		border-bottom: 1px solid $color-white;
-	
+
 		.usa-da-progress-bar {
 			@include validationProgress;
 		}
 	}
- 
+
 	// implement the overlay
 	.usa-da-validation-overlay {
 		@include validationOverlay;
@@ -36,11 +36,11 @@
 	//Styling the document download link
 	.file-download {
 		cursor: pointer;
-		color: #337ab7;
+		color: $color-primary;
 	}
 
 	.file-download:hover {
-		color: #205493;
+		color: $color-primary-darker;
 	}
 
 	.warning {
