@@ -87,3 +87,38 @@ export const fetchDashboardTableContents = (callBody) => {
 
     return deferred.promise;
 };
+
+export const fetchSubmissions = (callBody) => {
+    const deferred = Q.defer();
+    Request.post(`${kGlobalConstants.API}list_submissions/`)
+        .send(callBody)
+        .end((err, res) => {
+            if (err) {
+                const response = Object.assign({}, res.body);
+                response.httpStatus = res.status;
+                deferred.reject(response);
+            }
+            else {
+                deferred.resolve(res.body);
+            }
+        });
+    return deferred.promise;
+};
+
+export const fetchActiveOverview = (submissionId, fileType, errorLevel) => {
+    const deferred = Q.defer();
+
+    Request.get(`${kGlobalConstants.API}active_submission_overview/?submission_id=${submissionId}&file=${fileType}&error_level=${errorLevel}`)
+        .end((err, res) => {
+            if (err) {
+                const response = Object.assign({}, res.body);
+                response.httpStatus = res.status;
+                deferred.reject(response);
+            }
+            else {
+                deferred.resolve(res.body);
+            }
+        });
+
+    return deferred.promise;
+};

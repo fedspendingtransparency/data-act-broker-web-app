@@ -1,8 +1,5 @@
 .submission-button-holder {
-    @media(max-width: $medium-screen) {
-        margin-top: 0;
-    }
-
+    margin-top: rem(20);
     .submission-wrapper {
         // apply flexboxes to force all buttons to have the same height if the button contents need to line wrap
 

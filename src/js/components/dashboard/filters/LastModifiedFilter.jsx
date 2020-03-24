@@ -12,15 +12,15 @@ import { isOutsideRange, initialVisibleMonth } from 'helpers/datePickerHelper';
 const propTypes = {
     pickedDates: PropTypes.func,
     selectedDates: PropTypes.shape({
-        startDate: PropTypes.string,
-        endDate: PropTypes.string
+        start: PropTypes.string,
+        end: PropTypes.string
     })
 };
 
 const LastModifiedFilter = (props) => {
     const [focusedInput, onFocusChange] = useState(null);
-    const startDate = props.selectedDates.startDate ? moment(props.selectedDates.startDate) : null;
-    const endDate = props.selectedDates.endDate ? moment(props.selectedDates.endDate) : null;
+    const startDate = props.selectedDates.start ? moment(props.selectedDates.start) : null;
+    const endDate = props.selectedDates.end ? moment(props.selectedDates.end) : null;
     const lastMonth = initialVisibleMonth;
     return (
         <DateRangePicker

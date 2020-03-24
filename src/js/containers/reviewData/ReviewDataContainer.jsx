@@ -6,14 +6,17 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
 
+import * as uploadActions from 'redux/actions/uploadActions';
 import * as ReviewHelper from 'helpers/reviewHelper';
 import ReviewDataPage from 'components/reviewData/ReviewDataPage';
 
 const propTypes = {
     submissionID: PropTypes.string,
     errorFromStep: PropTypes.func,
-    testSubmission: PropTypes.bool
+    testSubmission: PropTypes.bool,
+    setInfo: PropTypes.func
 };
 
 class ReviewDataContainer extends React.Component {
@@ -36,6 +39,8 @@ class ReviewDataContainer extends React.Component {
             total_procurement_obligations: null,
             file_narrative: {}
         };
+
+        this.loadData = this.loadData.bind(this);
     }
 
     componentDidMount() {
@@ -54,6 +59,8 @@ class ReviewDataContainer extends React.Component {
         const { submissionID } = this.props;
         ReviewHelper.fetchSubmissionMetadata(submissionID, 'dabs')
             .then((data) => {
+                // Update meta data (submission.info) in redux
+                this.props.setInfo(data);
                 submissionData = data;
                 submissionData.ready = true;
 
@@ -94,7 +101,7 @@ class ReviewDataContainer extends React.Component {
 
     render() {
         return (
-            <ReviewDataPage {...this.props} data={this.state} />
+            <ReviewDataPage {...this.props} data={this.state} loadData={this.loadData} />
         );
     }
 }
@@ -107,5 +114,6 @@ const mapStateToProps = (state) => ({
 });
 
 export default connect(
-    mapStateToProps
+    mapStateToProps,
+    (dispatch) => bindActionCreators(uploadActions, dispatch)
 )(ReviewDataContainer);
