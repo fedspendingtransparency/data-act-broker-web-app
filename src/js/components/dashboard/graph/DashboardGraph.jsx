@@ -91,25 +91,9 @@ export default class DashboardGraph extends React.Component {
     }
 
     render() {
-        const chart = this.props.type === 'historical' ? (
-            <BarChartStacked
-                {...this.props}
-                width={this.state.visualizationWidth}
-                height={graphHeight}
-                spaceBetweenStacks={spaceBetweenStacks}
-                showTooltip={this.showTooltip}
-                hideTooltip={this.hideTooltip}
-                toggleTooltip={this.toggleTooltip} />
-        ) : (
-            <SignificanceGraph
-                {...this.props}
-                width={this.state.visualizationWidth}
-                height={graphHeight} />
-        );
-
         const tooltip = this.state.showTooltip ? (
             <WarningsInfoGraphTooltip data={this.state.tooltipData} />) : null;
-        const empty = (this.props.xSeries.length === 0);
+        const empty = (this.props.ySeries.length === 0);
 
         let graphContent = <LoadingMessage />;
         if (!this.props.loading) {
@@ -120,7 +104,21 @@ export default class DashboardGraph extends React.Component {
                 graphContent = <NoResultsMessage />;
             }
             else {
-                graphContent = chart;
+                graphContent = this.props.type === 'historical' ? (
+                    <BarChartStacked
+                        {...this.props}
+                        width={this.state.visualizationWidth}
+                        height={graphHeight}
+                        spaceBetweenStacks={spaceBetweenStacks}
+                        showTooltip={this.showTooltip}
+                        hideTooltip={this.hideTooltip}
+                        toggleTooltip={this.toggleTooltip} />
+                ) : (
+                    <SignificanceGraph
+                        {...this.props}
+                        width={this.state.visualizationWidth}
+                        height={graphHeight} />
+                );
             }
         }
 
