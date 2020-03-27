@@ -13,7 +13,7 @@ import BarChartStacked from './BarChartStacked';
 import WarningsInfoGraphTooltip from './WarningsInfoGraphTooltip';
 
 const propTypes = {
-    xSeries: PropTypes.arrayOf(PropTypes.string),
+    xSeries: PropTypes.arrayOf(PropTypes.oneOfType([PropTypes.string, PropTypes.number])),
     ySeries: PropTypes.arrayOf(PropTypes.object),
     allY: PropTypes.arrayOf(PropTypes.number),
     loading: PropTypes.bool,
@@ -98,7 +98,13 @@ export default class DashboardGraph extends React.Component {
                 showTooltip={this.showTooltip}
                 hideTooltip={this.hideTooltip}
                 toggleTooltip={this.toggleTooltip} />
-        ) : 'Significance Chart here.';
+        ) : (
+            <div>
+                allY: {JSON.stringify(this.props.allY)}
+                ySeries: {JSON.stringify(this.props.ySeries)}
+                xSeries: {JSON.stringify(this.props.xSeries)}
+            </div>
+        );
 
         const tooltip = this.state.showTooltip ? (
             <WarningsInfoGraphTooltip data={this.state.tooltipData} />) : null;

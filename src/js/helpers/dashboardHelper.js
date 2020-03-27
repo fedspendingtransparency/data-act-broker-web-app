@@ -122,3 +122,21 @@ export const fetchActiveOverview = (submissionId, fileType, errorLevel) => {
 
     return deferred.promise;
 };
+
+export const fetchSignificanceCounts = (submissionId, fileType, errorLevel) => {
+    const deferred = Q.defer();
+
+    Request.get(`${kGlobalConstants.API}get_significance_counts/?submission_id=${submissionId}&file=${fileType}&error_level=${errorLevel}`)
+        .end((err, res) => {
+            if (err) {
+                const response = Object.assign({}, res.body);
+                response.httpStatus = res.status;
+                deferred.reject(response);
+            }
+            else {
+                deferred.resolve(res.body);
+            }
+        });
+
+    return deferred.promise;
+};

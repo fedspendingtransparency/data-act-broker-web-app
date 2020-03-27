@@ -65,7 +65,6 @@ const SelectSubmissionTable = (props) => {
                 {submission.time_period}
             </td>
             <td>
-                {/* TODO - test with null name */}
                 {submission.user.name}
             </td>
             <td>
