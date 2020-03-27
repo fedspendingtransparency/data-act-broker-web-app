@@ -7,7 +7,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 import { Pagination } from 'data-transparency-ui';
-import { submissionPeriodString } from 'helpers/submissionPeriodHelper';
+import { submissionPeriodString, formatMonthlyTimePeriod } from 'helpers/submissionPeriodHelper';
 import DashboardTableHeader from 'components/dashboard/table/DashboardTableHeader';
 import SelectSubmissionButton from './SelectSubmissionButton';
 
@@ -62,10 +62,9 @@ const SelectSubmissionTable = (props) => {
                     submissionID={`${submission.submission_id}`} />
             </td>
             <td>
-                {submission.time_period}
+                {submission.quarterly_submission ? submission.time_period : formatMonthlyTimePeriod(submission.time_period)}
             </td>
             <td>
-                {/* TODO - test with null name */}
                 {submission.user.name}
             </td>
             <td>

@@ -3,7 +3,7 @@
  * Created by Lizzie Salita 3/18/20
  */
 
-import { submissionPeriodString } from 'helpers/submissionPeriodHelper';
+import { submissionPeriodString, formatMonthlyTimePeriod } from 'helpers/submissionPeriodHelper';
 
 const nativeDate = Date.now;
 
@@ -33,5 +33,14 @@ describe('submissionPeriodString', () => {
     it('should return Upcoming when the reporting end date is today', () => {
         const result = submissionPeriodString('2000-01-02');
         expect(result).toEqual('Upcoming');
+    });
+});
+
+describe('formatMonthlyTimePeriod', () => {
+    it('should convert a date from MM/YYYY to spell out the month', () => {
+        const sept = formatMonthlyTimePeriod('09/1999');
+        const jan = formatMonthlyTimePeriod('01/2000');
+        expect(sept).toEqual('September 1999');
+        expect(jan).toEqual('January 2000');
     });
 });
