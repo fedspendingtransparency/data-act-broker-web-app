@@ -11,6 +11,7 @@ import LoadingMessage from 'components/SharedComponents/LoadingMessage';
 import ErrorMessageOverlay from 'components/SharedComponents/ErrorMessageOverlay';
 import BarChartStacked from './BarChartStacked';
 import WarningsInfoGraphTooltip from './WarningsInfoGraphTooltip';
+import SignificanceGraph from './SignificanceGraph';
 
 const propTypes = {
     xSeries: PropTypes.arrayOf(PropTypes.oneOfType([PropTypes.string, PropTypes.number])),
@@ -99,11 +100,10 @@ export default class DashboardGraph extends React.Component {
                 hideTooltip={this.hideTooltip}
                 toggleTooltip={this.toggleTooltip} />
         ) : (
-            <div>
-                allY: {JSON.stringify(this.props.allY)}
-                ySeries: {JSON.stringify(this.props.ySeries)}
-                xSeries: {JSON.stringify(this.props.xSeries)}
-            </div>
+            <SignificanceGraph
+                {...this.props}
+                width={this.state.visualizationWidth}
+                height={graphHeight} />
         );
 
         const tooltip = this.state.showTooltip ? (

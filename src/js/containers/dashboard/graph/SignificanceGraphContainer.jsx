@@ -17,6 +17,9 @@ const propTypes = {
     errorLevel: PropTypes.oneOf(['error', 'warning']).isRequired
 };
 
+// Create an array of values 1 through 10
+const xSeries = [...Array(10).keys()].map((val) => val + 1);
+
 export class SignificanceGraphContainer extends React.Component {
     constructor(props) {
         super(props);
@@ -24,7 +27,7 @@ export class SignificanceGraphContainer extends React.Component {
         this.state = {
             loading: true,
             error: false,
-            xSeries: [...Array(10).keys()],
+            xSeries,
             ySeries: [],
             allY: []
         };
