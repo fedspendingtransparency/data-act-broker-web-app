@@ -21,7 +21,8 @@ const propTypes = {
     error: PropTypes.bool,
     type: PropTypes.oneOf(['historical', 'active']),
     title: PropTypes.string,
-    description: PropTypes.string
+    description: PropTypes.string,
+    errorLevel: PropTypes.oneOf(['error', 'warning']).isRequired
 };
 
 const graphHeight = 540;

@@ -95,6 +95,7 @@ export class SignificanceGraphContainer extends React.Component {
                 type="active"
                 title="Significance"
                 description="Identify the significance of a particular rule based upon your agency’s preset values and filter warnings by category."
+                errorLevel={this.props.errorLevel}
                 {...this.state} />
         );
     }

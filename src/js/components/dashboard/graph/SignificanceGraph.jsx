@@ -6,7 +6,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { scaleLinear, scaleBand } from 'd3-scale';
-import { max, isEqual } from 'lodash';
+import { max, isEqual, startCase } from 'lodash';
 import { formatNumberWithPrecision } from 'helpers/moneyFormatter';
 import BarChartXAxis from './BarChartXAxis';
 import BarChartYAxis from './BarChartYAxis';
@@ -19,15 +19,16 @@ const propTypes = {
     allY: PropTypes.arrayOf(PropTypes.number),
     height: PropTypes.number,
     width: PropTypes.number,
-    padding: PropTypes.object
+    padding: PropTypes.object,
+    errorLevel: PropTypes.oneOf(['error', 'warning']).isRequired
 };
 /* eslint-enable react/no-unused-prop-types */
 
 const defaultProps = {
     padding: {
-        left: 70,
-        bottom: 50,
-        right: 80
+        left: 90,
+        bottom: 70,
+        right: 0
     }
 };
 
@@ -92,7 +93,6 @@ export default class SignificanceGraph extends React.Component {
         // now we need to build the X and Y axes
         const yAxis = this.buildVirtualYAxis(values);
         const xAxis = this.buildVirtualXAxis(values);
-
 
         const chart = {
             yAxis,
@@ -229,8 +229,24 @@ ${xAxis.items[0].label} to ${xAxis.items[xAxis.items.length - 1].label}.`;
                         {...this.state.virtualChart.yAxis}
                         x={this.state.virtualChart.yAxis.group.x}
                         y={this.state.virtualChart.yAxis.group.y} />
+                    <text
+                        className="bar-graph__axis-label"
+                        y={this.props.height / 2}
+                        x="0"
+                        textAnchor="middle"
+                        dominantBaseline="central"
+                        transform={`rotate(-90, 0,${this.props.height / 2} )`}>
+                        Count of {startCase(this.props.errorLevel)} Instances
+                    </text>
                     <BarChartXAxis
                         {...this.state.virtualChart.xAxis} />
+                    <text
+                        className="bar-graph__axis-label"
+                        x={this.props.width / 2}
+                        y={this.props.height}
+                        textAnchor="middle">
+                        Rule Significance
+                    </text>
                 </svg>
             </div>
         );

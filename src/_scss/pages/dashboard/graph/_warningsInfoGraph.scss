@@ -82,5 +82,9 @@
     .bar-graph {
         // prevent cutting off the topmost y-axis label
         overflow: visible;
+        .bar-graph__axis-label {
+            font-size: rem(18);
+            color: $color-gray;
+        }
     }
 }
