@@ -1,5 +1,5 @@
 /**
- * WarningsInfoGraph.jsx
+ * DashboardGraph.jsx
  * Created by Lizzie Salita 11/14/19
  */
 
@@ -17,13 +17,16 @@ const propTypes = {
     ySeries: PropTypes.arrayOf(PropTypes.object),
     allY: PropTypes.arrayOf(PropTypes.number),
     loading: PropTypes.bool,
-    error: PropTypes.bool
+    error: PropTypes.bool,
+    type: PropTypes.oneOf(['historical', 'active']),
+    title: PropTypes.string,
+    description: PropTypes.string
 };
 
 const graphHeight = 540;
 const spaceBetweenStacks = 2;
 
-export default class WarningsInfoGraph extends React.Component {
+export default class DashboardGraph extends React.Component {
     constructor(props) {
         super(props);
 
@@ -86,7 +89,7 @@ export default class WarningsInfoGraph extends React.Component {
     }
 
     render() {
-        const chart = (
+        const chart = this.props.type === 'historical' ? (
             <BarChartStacked
                 {...this.props}
                 width={this.state.visualizationWidth}
@@ -95,7 +98,8 @@ export default class WarningsInfoGraph extends React.Component {
                 showTooltip={this.showTooltip}
                 hideTooltip={this.hideTooltip}
                 toggleTooltip={this.toggleTooltip} />
-        );
+        ) : 'Significance Chart here.';
+
         const tooltip = this.state.showTooltip ? (
             <WarningsInfoGraphTooltip data={this.state.tooltipData} />) : null;
         const empty = (this.props.xSeries.length === 0);
@@ -115,8 +119,8 @@ export default class WarningsInfoGraph extends React.Component {
 
         return (
             <div className="dashboard-viz warnings-info">
-                <h3 className="dashboard-viz__heading">Warnings Information</h3>
-                <p>Hover over the color to see details for each quarterly warning.</p>
+                <h3 className="dashboard-viz__heading">{this.props.title}</h3>
+                <p>{this.props.description}</p>
                 <div
                     className="warnings-info-graph"
                     ref={(div) => {
@@ -130,4 +134,4 @@ export default class WarningsInfoGraph extends React.Component {
     }
 }
 
-WarningsInfoGraph.propTypes = propTypes;
+DashboardGraph.propTypes = propTypes;

@@ -10,7 +10,7 @@ import { isEqual, union } from 'lodash';
 
 import * as DashboardHelper from 'helpers/dashboardHelper';
 import { buildLegend } from 'helpers/stackedBarChartHelper';
-import WarningsInfoGraph from 'components/dashboard/graph/WarningsInfoGraph';
+import DashboardGraph from 'components/dashboard/graph/DashboardGraph';
 
 const propTypes = {
     appliedFilters: PropTypes.object
@@ -142,7 +142,10 @@ export class WarningsInfoGraphContainer extends React.Component {
 
     render() {
         return (
-            <WarningsInfoGraph
+            <DashboardGraph
+                type="historical"
+                title="Warnings Information"
+                description="Hover over the color to see details for each quarterly warning."
                 {...this.state} />
         );
     }
