@@ -8,6 +8,7 @@ import PropTypes from 'prop-types';
 import { scaleLinear, scaleBand } from 'd3-scale';
 import { max, isEqual, startCase } from 'lodash';
 import { formatNumberWithPrecision } from 'helpers/moneyFormatter';
+import { significanceColors } from 'dataMapping/dashboard/fileLabels';
 import BarChartXAxis from './BarChartXAxis';
 import BarChartYAxis from './BarChartYAxis';
 
@@ -93,10 +94,12 @@ export default class SignificanceGraph extends React.Component {
         // now we need to build the X and Y axes
         const yAxis = this.buildVirtualYAxis(values);
         const xAxis = this.buildVirtualXAxis(values);
+        const body = this.buildVirtualBody(values);
 
         const chart = {
             yAxis,
-            xAxis
+            xAxis,
+            body
         };
 
         this.setState({
@@ -122,7 +125,7 @@ export default class SignificanceGraph extends React.Component {
         };
 
         // generate the tick marks
-        const tickPoints = values.yScale.ticks(10);
+        const tickPoints = values.yScale.ticks(6);
 
         // Find the distance (in px) between tick marks
         let height = 1;
@@ -213,11 +216,37 @@ ${xAxis.items[0].label} to ${xAxis.items[xAxis.items.length - 1].label}.`;
         return xAxis;
     }
 
+    buildVirtualBody(values) {
+        return values.ySeries.map((rule) => (
+            {
+                color: significanceColors[rule.category],
+                yPos: values.yScale(rule.instances),
+                xPos: values.xScale(rule.significance),
+                label: rule.label
+            }
+        ));
+    }
+
     render() {
         // the chart hasn't been created yet, so don't render anything
         if (!this.state.chartReady) {
             return null;
         }
+
+        const body = this.state.virtualChart.body.map((item) => (
+            <>
+                <circle key={item.label} cx={item.xPos} cy={item.yPos} r="23" fill={item.color} />
+                <text
+                    key={item.label}
+                    x={item.xPos}
+                    y={item.yPos}
+                    textAnchor="middle"
+                    dominantBaseline="central"
+                    fill="white">
+                    {item.label}
+                </text>
+            </>
+        ));
 
         return (
             <div>
@@ -247,6 +276,7 @@ ${xAxis.items[0].label} to ${xAxis.items[xAxis.items.length - 1].label}.`;
                         textAnchor="middle">
                         Rule Significance
                     </text>
+                    {body}
                 </svg>
             </div>
         );
