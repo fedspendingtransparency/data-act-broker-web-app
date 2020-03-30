@@ -5,7 +5,7 @@
 
 import React from 'react';
 import PropTypes from 'prop-types';
-import { scaleLinear, scaleBand } from 'd3-scale';
+import { scaleLinear } from 'd3-scale';
 import { max, isEqual, startCase } from 'lodash';
 import { formatNumberWithPrecision } from 'helpers/moneyFormatter';
 import { significanceColors } from 'dataMapping/dashboard/fileLabels';
@@ -29,7 +29,7 @@ const defaultProps = {
     padding: {
         left: 90,
         bottom: 70,
-        right: 0
+        right: 20
     }
 };
 
@@ -74,15 +74,17 @@ export default class SignificanceGraph extends React.Component {
         // build a virtual representation of the chart first
         // when we actually draw the chart, we won't need to do any more calculations
 
-        // calculate the Y axis range
+        // calculate the X and Y axis range
         const yRange = [0, max(values.allY)];
+        const xMax = max(values.xSeries);
 
         // build the D3 scale objects for each axis
         // remember, in D3 scales, domain is the data range (or data set for non-continuous data)
         // and range is the range of possible pixel positions along the axis
-        values.xScale = scaleBand()
-            .domain(values.xSeries)
-            .range([0, values.graphWidth]);
+        values.xScale = scaleLinear()
+            .domain([0, xMax])
+            .range([0, values.graphWidth])
+            .clamp(true);
 
         // have an inverted range so that the yScale output returns the correct Y position within
         // the SVG element (y = 0 is the top of the graph)
@@ -93,7 +95,7 @@ export default class SignificanceGraph extends React.Component {
 
         // now we need to build the X and Y axes
         const yAxis = this.buildVirtualYAxis(values);
-        const xAxis = this.buildVirtualXAxis(values);
+        const xAxis = this.buildVirtualXAxis(values, xMax);
         const body = this.buildVirtualBody(values);
 
         const chart = {
@@ -175,7 +177,7 @@ ${yAxis.items[0].label.text} to ${yAxis.items[yAxis.items.length - 1].label.text
         return yAxis;
     }
 
-    buildVirtualXAxis(values) {
+    buildVirtualXAxis(values, xMax) {
         const xAxis = {
             items: [],
             line: {
@@ -195,11 +197,11 @@ ${yAxis.items[0].label.text} to ${yAxis.items[yAxis.items.length - 1].label.text
             title: 'X-Axis'
         };
 
+        const tickPoints = values.xScale.ticks(xMax + 1);
+
         // go through each X axis item and add a label
-        const barWidth = values.xScale.bandwidth();
-        values.xSeries.forEach((x) => {
-            // we need to center the label within the bar width
-            const xPos = values.xScale(x) + (barWidth / 2);
+        tickPoints.forEach((x) => {
+            const xPos = values.xScale(x);
 
             const item = {
                 label: `${x}`,
@@ -217,14 +219,12 @@ ${xAxis.items[0].label} to ${xAxis.items[xAxis.items.length - 1].label}.`;
     }
 
     buildVirtualBody(values) {
-        return values.ySeries.map((rule) => (
-            {
-                color: significanceColors[rule.category],
-                yPos: values.yScale(rule.instances),
-                xPos: values.xScale(rule.significance),
-                label: rule.label
-            }
-        ));
+        return values.ySeries.map((rule) => ({
+            color: significanceColors[rule.category],
+            yPos: values.yScale(rule.instances),
+            xPos: values.xScale(rule.significance),
+            label: rule.label
+        }));
     }
 
     render() {
@@ -234,10 +234,9 @@ ${xAxis.items[0].label} to ${xAxis.items[xAxis.items.length - 1].label}.`;
         }
 
         const body = this.state.virtualChart.body.map((item) => (
-            <>
-                <circle key={item.label} cx={item.xPos} cy={item.yPos} r="23" fill={item.color} />
+            <g key={item.label}>
+                <circle cx={item.xPos} cy={item.yPos} r="23" fill={item.color} />
                 <text
-                    key={item.label}
                     x={item.xPos}
                     y={item.yPos}
                     textAnchor="middle"
@@ -245,7 +244,7 @@ ${xAxis.items[0].label} to ${xAxis.items[xAxis.items.length - 1].label}.`;
                     fill="white">
                     {item.label}
                 </text>
-            </>
+            </g>
         ));
 
         return (
@@ -276,7 +275,9 @@ ${xAxis.items[0].label} to ${xAxis.items[xAxis.items.length - 1].label}.`;
                         textAnchor="middle">
                         Rule Significance
                     </text>
-                    {body}
+                    <g className="significance-rules" transform={`translate(${this.props.padding.left}, 0)`}>
+                        {body}
+                    </g>
                 </svg>
             </div>
         );
