@@ -87,13 +87,13 @@ export default class ActiveDashboardTable extends React.Component {
                                 row={row}
                                 openModal={this.props.openModal} />
                         </td>
-                        <td className="capitalized">
+                        <td>
                             {row.instanceCount}
                         </td>
                         <td className="capitalized">
                             {row.category}
                         </td>
-                        <td>
+                        <td className="capitalized">
                             {row.impact}
                         </td>
                         <td>

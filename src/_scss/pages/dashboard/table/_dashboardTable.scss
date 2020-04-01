@@ -123,6 +123,10 @@
                 padding-left: rem(8);
                 padding-right: rem(8);
 
+                &.capitalized {
+                    text-transform: capitalize;
+                }
+
                 .ellipse-box {
                     display: block;
                     display: -webkit-box;
