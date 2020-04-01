@@ -76,7 +76,8 @@ export default class SignificanceGraph extends React.Component {
 
         // calculate the X and Y axis range
         const yRange = [0, max(values.allY)];
-        const xMax = max(values.xSeries);
+        // add one for padding, it will be hidden by CSS
+        const xMax = max(values.xSeries) + 1;
 
         // build the D3 scale objects for each axis
         // remember, in D3 scales, domain is the data range (or data set for non-continuous data)
