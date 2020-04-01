@@ -134,7 +134,7 @@
                     text-overflow: ellipsis;
                 }
 
-                .file-label-button {
+                .modal-button {
                     @include button-unstyled;
                     color: $color-primary;
                     white-space: nowrap;
