@@ -7,6 +7,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 import ActiveDashboardOverviewContainer from 'containers/dashboard/ActiveDashboardOverviewContainer';
+import ActiveDashboardTableContainer from 'containers/dashboard/table/ActiveDashboardTableContainer';
 
 const propTypes = {
     submissionID: PropTypes.string
@@ -19,6 +20,7 @@ const ActiveDashboard = (props) => (
             <h2>Active Submission Summary</h2>
             <hr />
             {props.submissionID}
+            <ActiveDashboardTableContainer submissionID={props.submissionID} />
         </div>
     </div>
 );
