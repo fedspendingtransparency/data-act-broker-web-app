@@ -6,12 +6,14 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { throttle } from 'lodash';
+import { significanceColors } from 'dataMapping/dashboard/fileLabels';
 import NoResultsMessage from 'components/SharedComponents/NoResultsMessage';
 import LoadingMessage from 'components/SharedComponents/LoadingMessage';
 import ErrorMessageOverlay from 'components/SharedComponents/ErrorMessageOverlay';
 import BarChartStacked from './BarChartStacked';
 import WarningsInfoGraphTooltip from './WarningsInfoGraphTooltip';
 import SignificanceGraph from './SignificanceGraph';
+import CategoryButton from './CategoryButton';
 
 const propTypes = {
     xSeries: PropTypes.arrayOf(PropTypes.oneOfType([PropTypes.string, PropTypes.number])),
@@ -90,6 +92,25 @@ export default class DashboardGraph extends React.Component {
         }
     }
 
+    generateCategoryButtons() {
+        if (this.props.type === 'historical') {
+            return null;
+        }
+        const categories = Object.keys(significanceColors);
+        const buttons = categories.map((category) => (
+            <CategoryButton
+                key={category}
+                disabled
+                label={category}
+                color={significanceColors[category]} />
+        ));
+        return (
+            <div className="category-buttons">
+                {buttons}
+            </div>
+        );
+    }
+
     render() {
         const tooltip = this.state.showTooltip ? (
             <WarningsInfoGraphTooltip data={this.state.tooltipData} />) : null;
@@ -123,11 +144,12 @@ export default class DashboardGraph extends React.Component {
         }
 
         return (
-            <div className="dashboard-viz warnings-info">
+            <div className={`dashboard-viz dashboard-graph-section dashboard-graph-section_${this.props.type}`}>
                 <h3 className="dashboard-viz__heading">{this.props.title}</h3>
                 <p>{this.props.description}</p>
+                {this.generateCategoryButtons()}
                 <div
-                    className="warnings-info-graph"
+                    className="dashboard-graph"
                     ref={(div) => {
                         this.graphDiv = div;
                     }}>

@@ -1,5 +1,11 @@
-.warnings-info {
+.dashboard-graph-section {
     @import './axis';
+    &.dashboard-graph-section_active {
+        @import './categoryButtons';
+        .dashboard-graph {
+            margin-top: rem(50);
+        }
+    }
     .warnings-info-graph__tooltip {
         font-family: $font-sans;
         $color-tooltip-border: $color-gray-lighter;
