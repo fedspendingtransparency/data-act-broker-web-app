@@ -16,7 +16,8 @@ import ActiveDashboardTable from 'components/dashboard/table/ActiveDashboardTabl
 import BaseActiveDashboardTableRow from 'models/dashboard/BaseActiveDashboardTableRow';
 
 const propTypes = {
-    appliedFilters: PropTypes.object
+    appliedFilters: PropTypes.object,
+    submissionID: PropTypes.string
 };
 
 export class ActiveDashboardTableContainer extends React.Component {
@@ -112,8 +113,9 @@ export class ActiveDashboardTableContainer extends React.Component {
             showModal: false,
             modalData: {}
         });
+        const submissionId = parseInt(this.props.submissionID, 10);
 
-        DashboardHelper.fetchActiveDashboardTableContents(this.props.submissionID, this.props.appliedFilters.file,
+        DashboardHelper.fetchActiveDashboardTableContents(submissionId, this.props.appliedFilters.file,
             'warning', this.state.page, this.state.limit, this.state.sort, this.state.order)
             .then((res) => {
                 this.parseRows(res);
