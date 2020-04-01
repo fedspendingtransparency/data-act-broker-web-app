@@ -5,7 +5,6 @@
 
 import moment from 'moment';
 
-/* eslint-disable import/prefer-default-export */
 export const submissionPeriodString = (reportingEndDate) => {
     // get the latest quarter for which GTAS data is available
     const today = moment();
@@ -15,4 +14,8 @@ export const submissionPeriodString = (reportingEndDate) => {
     }
     return 'Upcoming';
 };
-/* eslint-enable import/prefer-default-export */
+
+export const formatMonthlyTimePeriod = (month) => {
+    const monthMoment = moment(month, 'MM/YYYY');
+    return monthMoment.format('MMMM YYYY');
+};
