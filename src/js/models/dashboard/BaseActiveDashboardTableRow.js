@@ -8,7 +8,7 @@ import { fileLabels } from 'dataMapping/dashboard/fileLabels';
 /* eslint-disable object-shorthand */
 const BaseActiveDashboardTableRow = {
     populate: function (data, meta) {
-        const fileTypes = meta.files.map((metaFile) => metaFile.type);
+        const fileTypes = meta.files;
         fileTypes.sort();
         this.fileTypes = fileTypes;
         this.fileLabel = fileLabels[fileTypes.join('/')];
@@ -18,6 +18,7 @@ const BaseActiveDashboardTableRow = {
         this.submissionId = meta.submission_id;
         this.category = data.category;
         this.impact = data.impact;
+        this.significance = data.significance;
     }
 };
 /* eslint-enable object-shorthand */
