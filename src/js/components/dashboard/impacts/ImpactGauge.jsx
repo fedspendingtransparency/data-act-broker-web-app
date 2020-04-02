@@ -13,9 +13,11 @@ const propTypes = {
 
 const ImpactGauge = (props) => (
     <div className="impact-section">
+        {/* eslint-disable import/no-dynamic-require, global-require */}
         <img
             src={require(`../../../../graphics/gauges/chart-${props.level}.png`)}
             alt={props.level} />
+        {/* eslint-enable import/no-dynamic-require, global-require */}
         <div className="impact-stats">
             {props.submissionData ?
                 <p className="impact-count">{props.submissionData.total}</p> : ''

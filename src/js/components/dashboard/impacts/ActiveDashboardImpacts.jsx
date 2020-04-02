@@ -17,13 +17,16 @@ const ActiveDashboardImpacts = (props) => (
         <h3>Warning Status</h3>
         <hr />
         <h4>Impact Count</h4>
-        <p>Identify to what degree current warnings impact your submission. The values have been preset by your agency.</p>
+        <p>
+            Identify to what degree current warnings impact your submission.
+            The values have been preset by your agency.
+        </p>
         {props.submissionData ?
-        <div className="flex-wrapper">
-                <ImpactGauge level="low" submissionData={props.submissionData.low}/>
-                <ImpactGauge level="medium" submissionData={props.submissionData.medium}/>
-                <ImpactGauge level="high" submissionData={props.submissionData.high}/>
-        </div> : ''}
+            <div className="flex-wrapper">
+                <ImpactGauge level="low" submissionData={props.submissionData.low} />
+                <ImpactGauge level="medium" submissionData={props.submissionData.medium} />
+                <ImpactGauge level="high" submissionData={props.submissionData.high} />
+            </div> : ''}
     </div>
 );
 
