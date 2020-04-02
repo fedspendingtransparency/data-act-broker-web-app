@@ -12,7 +12,7 @@ import { Pagination } from 'data-transparency-ui';
 import * as DashboardHelper from 'helpers/dashboardHelper';
 import * as GenerateFilesHelper from 'helpers/generateFilesHelper';
 import ActiveDashboardTable from 'components/dashboard/table/ActiveDashboardTable';
-// import ActiveDashboardTableModal from 'components/dashboard/table/ActiveDashboardTableModal';
+import ActiveDashboardTableModal from 'components/dashboard/table/ActiveDashboardTableModal';
 import BaseActiveDashboardTableRow from 'models/dashboard/BaseActiveDashboardTableRow';
 
 const propTypes = {
@@ -159,15 +159,15 @@ export class ActiveDashboardTableContainer extends React.Component {
                     changeLimit={this.changeLimit}
                     goToPage />);
         }
-        // let modal = null;
-        // if (this.state.showModal) {
-        //     modal = (
-        //         <DashboardTableModal
-        //             downloadFile={this.downloadFile}
-        //             data={this.state.modalData}
-        //             closeModal={this.closeModal}
-        //             isOpen={this.state.showModal} />);
-        // }
+        let modal = null;
+        if (this.state.showModal) {
+            modal = (
+                <ActiveDashboardTableModal
+                    downloadFile={this.downloadFile}
+                    data={this.state.modalData}
+                    closeModal={this.closeModal}
+                    isOpen={this.state.showModal} />);
+        }
         return (
             <div className="dashboard-viz">
                 <ActiveDashboardTable
@@ -179,7 +179,7 @@ export class ActiveDashboardTableContainer extends React.Component {
                     currOrder={this.state.order}
                     openModal={this.openModal} />
                 {pagination}
-                {/* {modal} */}
+                {modal}
             </div>
         );
     }
