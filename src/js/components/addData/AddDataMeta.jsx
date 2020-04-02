@@ -45,7 +45,7 @@ export default class AddDataMeta extends React.Component {
             modalMessage: '',
             showModal: false,
             message: this.successMessage,
-            testSubmission: false
+            certifiedSubmission: null
         };
 
         this.closeModal = this.closeModal.bind(this);
@@ -56,7 +56,7 @@ export default class AddDataMeta extends React.Component {
             showModal: false,
             modalMessage: ''
         });
-        if (this.state.testSubmission) {
+        if (this.state.certifiedSubmission) {
             this.props.updateMetaData(this.state);
         }
     }
@@ -156,7 +156,7 @@ export default class AddDataMeta extends React.Component {
                 .catch((err) => {
                     this.setState({
                         showModal: true,
-                        testSubmission: true,
+                        certifiedSubmission: err.submissionId,
                         modalMessage: (
                             <div>
                                 {
