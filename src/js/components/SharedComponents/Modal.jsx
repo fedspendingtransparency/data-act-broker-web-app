@@ -37,7 +37,7 @@ export default class ErrorModal extends React.Component {
                         {this.props.content}
                         <div className="pull-right">
                             <br />
-                            <button className="btn btn-primary" onClick={this.closeModal.bind(this)}>Ok</button>
+                            <button className="btn btn-primary usa-da-button" onClick={this.closeModal.bind(this)}>Ok</button>
                         </div>
                     </div>
                 </div>
