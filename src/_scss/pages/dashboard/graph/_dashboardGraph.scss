@@ -100,5 +100,12 @@
             font-size: rem(18);
             color: $color-gray;
         }
+        .significance-rules {
+            .rule-circle {
+                .rule-circle__text {
+                    font-weight: $font-semibold;
+                }
+            }
+        }
     }
 }

@@ -9,4 +9,9 @@
         padding-bottom: rem(5);
         margin: rem(10) 0 rem(3);
     }
+    h4.dashboard-viz__heading {
+        font-size: $h3-font-size;
+        font-weight: $font-normal;
+        margin: 0 0 rem(3);
+    }
 }

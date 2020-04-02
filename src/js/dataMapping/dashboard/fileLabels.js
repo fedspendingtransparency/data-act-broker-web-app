@@ -37,6 +37,6 @@ export const chartColors = [
 // Significance Graph colors
 export const significanceColors = {
     accuracy: '#00599C',
-    completeness: '#4A90E2',
-    existence: '#222C3C'
+    completeness: '#AE397B',
+    existence: '#008566'
 };

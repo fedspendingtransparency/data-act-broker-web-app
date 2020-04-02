@@ -6,7 +6,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { scaleLinear } from 'd3-scale';
-import { max, isEqual, startCase } from 'lodash';
+import { max, min, isEqual, startCase } from 'lodash';
 import { formatNumberWithPrecision } from 'helpers/moneyFormatter';
 import { significanceColors } from 'dataMapping/dashboard/fileLabels';
 import BarChartXAxis from './BarChartXAxis';
@@ -74,8 +74,8 @@ export default class SignificanceGraph extends React.Component {
         // build a virtual representation of the chart first
         // when we actually draw the chart, we won't need to do any more calculations
 
-        // calculate the X and Y axis range
-        const yRange = [0, max(values.allY)];
+        // calculate the X and Y max value
+        const yMax = max(values.allY);
         // add one for padding, it will be hidden by CSS
         const xMax = max(values.xSeries) + 1;
 
@@ -90,12 +90,12 @@ export default class SignificanceGraph extends React.Component {
         // have an inverted range so that the yScale output returns the correct Y position within
         // the SVG element (y = 0 is the top of the graph)
         values.yScale = scaleLinear()
-            .domain(yRange)
+            .domain([0, yMax])
             .range([values.graphHeight, 0])
             .clamp(true);
 
         // now we need to build the X and Y axes
-        const yAxis = this.buildVirtualYAxis(values);
+        const yAxis = this.buildVirtualYAxis(values, yMax);
         const xAxis = this.buildVirtualXAxis(values, xMax);
         const body = this.buildVirtualBody(values);
 
@@ -111,7 +111,7 @@ export default class SignificanceGraph extends React.Component {
         });
     }
 
-    buildVirtualYAxis(values) {
+    buildVirtualYAxis(values, yMax) {
         const yAxis = {
             items: [],
             line: {
@@ -127,8 +127,9 @@ export default class SignificanceGraph extends React.Component {
             title: 'Y-Axis'
         };
 
+        const numberOfTicks = min([9, yMax]);
         // generate the tick marks
-        const tickPoints = values.yScale.ticks(6);
+        const tickPoints = values.yScale.ticks(numberOfTicks);
 
         // Find the distance (in px) between tick marks
         let height = 1;
@@ -235,9 +236,10 @@ ${xAxis.items[0].label} to ${xAxis.items[xAxis.items.length - 1].label}.`;
         }
 
         const body = this.state.virtualChart.body.map((item) => (
-            <g key={item.label}>
+            <g className="rule-circle" key={item.label}>
                 <circle cx={item.xPos} cy={item.yPos} r="23" fill={item.color} />
                 <text
+                    className="rule-circle__text"
                     x={item.xPos}
                     y={item.yPos}
                     textAnchor="middle"

@@ -22,7 +22,6 @@ const propTypes = {
     loading: PropTypes.bool,
     error: PropTypes.bool,
     type: PropTypes.oneOf(['historical', 'active']),
-    title: PropTypes.string,
     description: PropTypes.string,
     errorLevel: PropTypes.oneOf(['error', 'warning']).isRequired
 };
@@ -142,10 +141,15 @@ export default class DashboardGraph extends React.Component {
                 );
             }
         }
+        const graphTitle = this.props.type === 'historical' ? (
+            <h3 className="dashboard-viz__heading">Warnings Information</h3>
+        ) : (
+            <h4 className="dashboard-viz__heading">Significance</h4>
+        );
 
         return (
             <div className={`dashboard-viz dashboard-graph-section dashboard-graph-section_${this.props.type}`}>
-                <h3 className="dashboard-viz__heading">{this.props.title}</h3>
+                {graphTitle}
                 <p>{this.props.description}</p>
                 {this.generateCategoryButtons()}
                 <div
