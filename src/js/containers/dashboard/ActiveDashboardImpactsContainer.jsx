@@ -10,6 +10,7 @@ import { connect } from 'react-redux';
 
 import * as DashboardHelper from 'helpers/dashboardHelper';
 import ActiveDashboardImpacts from 'components/dashboard/impacts/ActiveDashboardImpacts';
+import DashboardImpactsModal from 'components/dashboard/impacts/DashboardImpactsModal';
 
 const propTypes = {
     appliedFilters: PropTypes.object.isRequired,
@@ -24,10 +25,15 @@ export class ActiveDashboardImpactsContainer extends React.Component {
         this.state = {
             submissionData: {},
             inFlight: false,
-            hasFailed: false
+            hasFailed: false,
+            showModel: false,
+            modelData: [],
+            modelLevel: ''
         };
 
         this.getImpacts = this.getImpacts.bind(this);
+        this.openModal = this.openModal.bind(this);
+        this.closeModal = this.closeModal.bind(this);
     }
 
     componentDidMount() {
@@ -64,9 +70,36 @@ export class ActiveDashboardImpactsContainer extends React.Component {
             });
     }
 
+    openModal(data, level) {
+        this.setState({
+            showModal: true,
+            modalData: data,
+            modalLevel: level
+        });
+    }
+
+    closeModal() {
+        this.setState({
+            showModal: false,
+            modalData: []
+        });
+    }
+
     render() {
+        let modal = null;
+        if (this.state.showModal) {
+            modal = (
+                <DashboardImpactsModal
+                    data={this.state.modalData}
+                    level={this.state.modalLevel}
+                    closeModal={this.closeModal}
+                    isOpen={this.state.showModal} />);
+        }
         return (
-            <ActiveDashboardImpacts submissionData={this.state.submissionData} />
+            <div>
+                <ActiveDashboardImpacts submissionData={this.state.submissionData} openModal={this.openModal} />
+                {modal}
+            </div>
         );
     }
 }
