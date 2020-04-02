@@ -249,38 +249,36 @@ ${xAxis.items[0].label} to ${xAxis.items[xAxis.items.length - 1].label}.`;
         ));
 
         return (
-            <div>
-                <svg
-                    className="bar-graph"
-                    width={this.props.width}
-                    height={this.props.height + 20}>
-                    <BarChartYAxis
-                        {...this.state.virtualChart.yAxis}
-                        x={this.state.virtualChart.yAxis.group.x}
-                        y={this.state.virtualChart.yAxis.group.y} />
-                    <text
-                        className="bar-graph__axis-label"
-                        y={this.props.height / 2}
-                        x="0"
-                        textAnchor="middle"
-                        dominantBaseline="central"
-                        transform={`rotate(-90, 0,${this.props.height / 2} )`}>
-                        Count of {startCase(this.props.errorLevel)} Instances
-                    </text>
-                    <BarChartXAxis
-                        {...this.state.virtualChart.xAxis} />
-                    <text
-                        className="bar-graph__axis-label"
-                        x={this.props.width / 2}
-                        y={this.props.height}
-                        textAnchor="middle">
-                        Rule Significance
-                    </text>
-                    <g className="significance-rules" transform={`translate(${this.props.padding.left}, 0)`}>
-                        {body}
-                    </g>
-                </svg>
-            </div>
+            <svg
+                className="bar-graph"
+                width={this.props.width}
+                height={this.props.height + 20}>
+                <BarChartYAxis
+                    {...this.state.virtualChart.yAxis}
+                    x={this.state.virtualChart.yAxis.group.x}
+                    y={this.state.virtualChart.yAxis.group.y} />
+                <text
+                    className="bar-graph__axis-label"
+                    y={this.props.height / 2}
+                    x="0"
+                    textAnchor="middle"
+                    dominantBaseline="central"
+                    transform={`rotate(-90, 0,${this.props.height / 2} )`}>
+                    Count of {startCase(this.props.errorLevel)} Instances
+                </text>
+                <BarChartXAxis
+                    {...this.state.virtualChart.xAxis} />
+                <text
+                    className="bar-graph__axis-label"
+                    x={this.props.width / 2}
+                    y={this.props.height}
+                    textAnchor="middle">
+                    Rule Significance
+                </text>
+                <g className="significance-rules" transform={`translate(${this.props.padding.left}, 0)`}>
+                    {body}
+                </g>
+            </svg>
         );
     }
 }
