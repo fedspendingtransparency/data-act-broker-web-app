@@ -23,7 +23,7 @@ const defaultProps = {
     isOpen: false
 };
 
-export default class DashboardTableModal extends React.Component {
+export default class ActiveDashboardTableModal extends React.Component {
     constructor(props) {
         super(props);
 
@@ -156,5 +156,5 @@ export default class DashboardTableModal extends React.Component {
     }
 }
 
-DashboardTableModal.defaultProps = defaultProps;
-DashboardTableModal.propTypes = propTypes;
+ActiveDashboardTableModal.defaultProps = defaultProps;
+ActiveDashboardTableModal.propTypes = propTypes;
