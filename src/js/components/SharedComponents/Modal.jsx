@@ -25,15 +25,12 @@ export default class ErrorModal extends React.Component {
     }
 
     render() {
-        // adding this because the linter doesn't like when we just pass true
-        const trueProps = true;
         return (
             <Modal
                 mounted={this.props.isOpen}
                 onExit={this.closeModal.bind(this)}
-                underlayClickExits={trueProps}
-                verticallyCenter={trueProps}
-                initialFocus="#modal-button"
+                underlayClickExits
+                verticallyCenter
                 titleId="usa-da-certify-modal">
                 <div className="usa-da-modal-page">
                     <div id="usa-da-certify-modal" className="usa-da-certify-modal">

@@ -6,9 +6,11 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import CSSTransitionGroup from 'react-transition-group/CSSTransitionGroup';
-import AgencyListContainer from '../../containers/SharedContainers/AgencyListContainer';
-import * as Icons from '../SharedComponents/icons/Icons';
-import Modal from '../SharedComponents/Modal';
+import { Link } from 'react-router-dom';
+import * as AgencyHelper from 'helpers/agencyHelper';
+import AgencyListContainer from 'containers/SharedContainers/AgencyListContainer';
+import * as Icons from 'components/SharedComponents/icons/Icons';
+import Modal from 'components/SharedComponents/Modal';
 import DateTypeField from './metadata/DateTypeField';
 import DateRangeField from './metadata/DateRangeField';
 import SubmitComponent from './metadata/SubmitComponent';
@@ -28,8 +30,8 @@ export default class AddDataMeta extends React.Component {
         this.successMessage = 'Everything looks good. Now let\'s work on uploading your files.';
 
         this.state = {
-            agency: "",
-            codeType: "",
+            agency: '',
+            codeType: '',
             startDate: null,
             endDate: null,
             dateType: null,
@@ -42,8 +44,11 @@ export default class AddDataMeta extends React.Component {
             buttonDisabled: true,
             modalMessage: '',
             showModal: false,
-            message: this.successMessage
+            message: this.successMessage,
+            testSubmission: false
         };
+
+        this.closeModal = this.closeModal.bind(this);
     }
 
     closeModal() {
@@ -51,6 +56,9 @@ export default class AddDataMeta extends React.Component {
             showModal: false,
             modalMessage: ''
         });
+        if (this.state.testSubmission) {
+            this.props.updateMetaData(this.state);
+        }
     }
 
     handleChange(agency, codeType, isValid) {
@@ -74,7 +82,7 @@ export default class AddDataMeta extends React.Component {
         let message = this.successMessage;
         let buttonDisabled = false;
         if (dateError === true) {
-            message = "You need to provide a valid date range in order to continue.";
+            message = 'You need to provide a valid date range in order to continue.';
             buttonDisabled = true;
         }
 
@@ -97,7 +105,7 @@ export default class AddDataMeta extends React.Component {
     }
 
     checkComplete() {
-        if (this.state.agency !== "") {
+        if (this.state.agency !== '') {
             this.setState({
                 showDateTypeField: true
             });
@@ -124,7 +132,47 @@ export default class AddDataMeta extends React.Component {
     }
 
     submitMetadata() {
-        this.props.updateMetaData(this.state);
+        const agency = this.state.agency;
+        const codeType = this.state.codeType;
+        const endDate = this.state.endDate;
+        const dateType = this.state.dateType;
+
+        // Only make a request to check certified submission for quarterly submission.
+        if (dateType === 'quarter') {
+            const month = endDate.substr(0, 2);
+            const quarter = (parseInt(month, 10) % 12) + 3;
+            let year = endDate.substr(3);
+
+            if (quarter === 3) {
+                year = parseInt(year, 10) + 1;
+            }
+
+            const cgacCode = codeType === 'cgac_code' ? agency : null;
+            const frecCode = codeType === 'frec_code' ? agency : null;
+            AgencyHelper.checkYearQuarter(cgacCode, frecCode, year, quarter)
+                .then(() => {
+                    this.props.updateMetaData(this.state);
+                })
+                .catch((err) => {
+                    this.setState({
+                        showModal: true,
+                        testSubmission: true,
+                        modalMessage: (
+                            <div>
+                                {
+                                    `This will be a test submission since one has already been certified for this fiscal quarter.
+                                    You will not be able to certify this submission.
+                                    To view the certified submission, `
+                                }
+                                <Link to={`/submission/${err.submissionId}/validateData`}>click here</Link>.
+                            </div>
+                        )
+                    });
+                });
+        }
+        else {
+            this.props.updateMetaData(this.state);
+        }
     }
 
     validateAgency() {
@@ -238,7 +286,7 @@ export default class AddDataMeta extends React.Component {
                     </div>
                 </div>
                 <Modal
-                    onClose={this.closeModal.bind(this)}
+                    onClose={this.closeModal}
                     isOpen={this.state.showModal}
                     content={this.state.modalMessage} />
             </div>
