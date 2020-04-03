@@ -68,7 +68,7 @@
             }
             @import './dashboardMessage';
             @import './dashboardViz';
-            @import './graph/warningsInfoGraph';
+            @import './graph/dashboardGraph';
             @import './table/summary.scss';
             @import './table/dashboardTable';
             @import './selectSubmissionTable';
@@ -85,6 +85,7 @@
                     margin-left: 2rem;
                     width: 90%;
                     border-top: solid 0.2rem #9eb5cf;
+                    float: left; // for IE
                 }
 
                 .submission-overview-details {
