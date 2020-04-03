@@ -7,6 +7,8 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import CSSTransitionGroup from 'react-transition-group/CSSTransitionGroup';
 import { Link } from 'react-router-dom';
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+
 import * as AgencyHelper from 'helpers/agencyHelper';
 import AgencyListContainer from 'containers/SharedContainers/AgencyListContainer';
 import * as Icons from 'components/SharedComponents/icons/Icons';
@@ -158,13 +160,18 @@ export default class AddDataMeta extends React.Component {
                         showModal: true,
                         certifiedSubmission: err.submissionId,
                         modalMessage: (
-                            <div>
-                                {
-                                    `This will be a test submission since one has already been certified for this fiscal quarter.
-                                    You will not be able to certify this submission.
-                                    To view the certified submission, `
-                                }
-                                <Link to={`/submission/${err.submissionId}/validateData`}>click here</Link>.
+                            <div className="alert-warning alert-warning_test-submission">
+                                <h3>
+                                    <FontAwesomeIcon icon="exclamation-triangle" />
+                                    This will be a test submission.
+                                </h3>
+                                <p>
+                                    {
+                                        `You will not be able to certify this submission since one has already been certified for this fiscal quarter.
+                                        To view the certified submission, `
+                                    }
+                                    <Link to={`/submission/${err.submissionId}/validateData`}>click here</Link>.
+                                </p>
                             </div>
                         )
                     });
