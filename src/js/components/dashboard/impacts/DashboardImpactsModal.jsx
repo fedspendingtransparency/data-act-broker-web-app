@@ -10,7 +10,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 const propTypes = {
     data: PropTypes.array,
-    level: '',
+    level: PropTypes.string,
     closeModal: PropTypes.func.isRequired,
     isOpen: PropTypes.bool
 };
@@ -36,7 +36,7 @@ const DashboardImpactsModal = (props) => (
                 <hr />
                 {
                     props.data.length > 0 ? props.data.map((rule, index) => (
-                        <div>
+                        <div key={rule.rule_label}>
                             <div className="row">
                                 <div className="left-modal-col col-md-6">
                                     {index > 0 ? '' : <h5>Rule Details</h5>}

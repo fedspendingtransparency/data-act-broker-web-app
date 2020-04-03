@@ -5,6 +5,7 @@
 
 import React from 'react';
 import PropTypes from 'prop-types';
+import { createOnKeyDownHandler } from '../../../helpers/util';
 
 const propTypes = {
     submissionData: PropTypes.shape({ rules: PropTypes.arrayOf(PropTypes.object), total: PropTypes.number }),
@@ -25,19 +26,21 @@ export default class ImpactGauge extends React.Component {
     }
 
     onClick() {
-        if (this.props.submissionData.rules) {
+        if (this.props.submissionData.total !== 0) {
             this.props.openModal(this.props.submissionData.rules, this.props.level);
         }
     }
 
     render() {
+        const onKeyDownHandler = createOnKeyDownHandler(this.onClick);
         return (
             <div
                 className="impact-section"
                 onClick={this.onClick}
-                onKeyDown={this.onClick}
+                onKeyDown={onKeyDownHandler}
                 role="button"
-                aria-hidden="true">
+                tabIndex={0}
+                disabled={this.props.submissionData.total === 0}>
                 {/* eslint-disable import/no-dynamic-require, global-require */}
                 <img
                     src={require(`../../../../graphics/gauges/chart-${this.props.level}.png`)}
