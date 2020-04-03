@@ -66,6 +66,39 @@
                 margin-right: 0;
                 margin-bottom: rem(26);
             }
+            button {
+                &.back-button {
+                    @include button-unstyled;
+                    margin: 1.5rem 1rem;
+                    padding-right: 0.5rem;
+
+                    .button-wrapper {
+                        @include display(flex);
+                        @include justify-content(space-between);
+                        @include align-items(center);
+
+                        .button-content {
+                            @include flex(1 1 auto);
+                            position: relative;
+                            font-size: $h4-font-size;
+                        }
+            
+                        .button-icon {
+                            @include flex(0 0 3.6rem);
+                            @include display(flex);
+                            @include align-items(center);
+                            color: $color-primary;
+                        }
+
+                        & svg {
+                            @include flex(1 1 auto);
+                            position: relative;
+                            height: 3.5rem;
+                            width: 3.6rem;
+                        }
+                    }
+                }
+            }
             @import './dashboardMessage';
             @import './dashboardViz';
             @import './graph/dashboardGraph';
