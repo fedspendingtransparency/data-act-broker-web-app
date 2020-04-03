@@ -76,5 +76,5 @@ ActiveDashboardImpactsContainer.propTypes = propTypes;
 export default connect(
     (state) => ({
         appliedFilters: state.appliedDashboardFilters.filters.active
-    }),
+    })
 )(ActiveDashboardImpactsContainer);
