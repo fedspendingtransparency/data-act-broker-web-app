@@ -16,7 +16,7 @@ const propTypes = {
     })
 };
 
-const ActiveDashboardImpacts = ({submissionData}) => (
+const ActiveDashboardImpacts = ({ submissionData }) => (
     <div className="dashboard-page__impacts">
         <h3>Warning Status</h3>
         <hr />
