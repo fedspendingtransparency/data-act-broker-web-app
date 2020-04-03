@@ -8,6 +8,7 @@ import PropTypes from 'prop-types';
 
 import ActiveDashboardOverviewContainer from 'containers/dashboard/ActiveDashboardOverviewContainer';
 import SignificanceGraphContainer from 'containers/dashboard/graph/SignificanceGraphContainer';
+import ActiveDashboardTableContainer from 'containers/dashboard/table/ActiveDashboardTableContainer';
 
 const propTypes = {
     submissionID: PropTypes.string
@@ -20,6 +21,7 @@ const ActiveDashboard = (props) => (
             <h2>Active Submission Summary</h2>
             <hr />
             <SignificanceGraphContainer errorLevel="warning" submissionID={props.submissionID} />
+            <ActiveDashboardTableContainer submissionID={props.submissionID} />
         </div>
     </div>
 );
