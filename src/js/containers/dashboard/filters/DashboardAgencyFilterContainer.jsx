@@ -88,5 +88,5 @@ export default connect(
     (state) => ({
         selectedFilters: state.dashboardFilters
     }),
-    (dispatch) => bindActionCreators(filterActions, dispatch),
+    (dispatch) => bindActionCreators(filterActions, dispatch)
 )(DashboardAgencyFilterContainer);

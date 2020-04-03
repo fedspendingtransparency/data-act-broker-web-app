@@ -139,5 +139,5 @@ DetachedFileAContainer.defaultProps = defaultProps;
 
 export default connect(
     (state) => ({ session: state.session }),
-    (dispatch) => bindActionCreators(uploadActions, dispatch),
+    (dispatch) => bindActionCreators(uploadActions, dispatch)
 )(DetachedFileAContainer);

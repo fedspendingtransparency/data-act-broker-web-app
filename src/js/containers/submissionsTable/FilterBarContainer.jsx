@@ -199,5 +199,5 @@ FilterBarContainer.defaultProps = defaultProps;
 
 export default connect(
     () => ({}),
-    (dispatch) => bindActionCreators(dashboardFilterActions, dispatch),
+    (dispatch) => bindActionCreators(dashboardFilterActions, dispatch)
 )(FilterBarContainer);

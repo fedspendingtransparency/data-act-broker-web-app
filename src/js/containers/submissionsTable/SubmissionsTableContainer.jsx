@@ -156,5 +156,5 @@ export default connect(
         stagedFilters: state.submissionsTableFilters,
         appliedFilters: state.appliedSubmissionsTableFilters
     }),
-    (dispatch) => bindActionCreators(combinedActions, dispatch),
+    (dispatch) => bindActionCreators(combinedActions, dispatch)
 )(SubmissionsTableContainer);

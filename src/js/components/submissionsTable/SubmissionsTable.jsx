@@ -72,7 +72,7 @@ export default class SubmissionsTable extends React.Component {
     componentDidMount() {
         this.props.loadTableData(
             this.state.currentPage, this.props.isCertified, this.getCategory(),
-            this.state.sortDirection, this.props.type === 'fabs', this.props.appliedFilters,
+            this.state.sortDirection, this.props.type === 'fabs', this.props.appliedFilters
         );
         this.loadUser();
     }
@@ -332,7 +332,7 @@ export default class SubmissionsTable extends React.Component {
             // re-display the data
             this.props.loadTableData(
                 this.state.currentPage, this.props.isCertified, this.getCategory(),
-                this.state.sortDirection, this.props.appliedFilters,
+                this.state.sortDirection, this.props.appliedFilters
             );
             this.buildRow();
         });
@@ -344,7 +344,7 @@ export default class SubmissionsTable extends React.Component {
         }, () => {
             this.props.loadTableData(
                 this.state.currentPage, this.props.isCertified, this.getCategory(),
-                this.state.sortDirection, this.props.appliedFilters,
+                this.state.sortDirection, this.props.appliedFilters
             );
         });
     }
@@ -352,7 +352,7 @@ export default class SubmissionsTable extends React.Component {
     reload() {
         this.props.loadTableData(
             this.state.currentPage, this.props.isCertified, this.getCategory(),
-            this.state.sortDirection, this.props.appliedFilters,
+            this.state.sortDirection, this.props.appliedFilters
         );
         this.buildRow();
     }

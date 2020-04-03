@@ -99,6 +99,8 @@
         "jsx-a11y/label-has-for": [0],
         // downgrade array index as React key to warning (though it should be higher, this would
         // be an expensive refactor)
-        "react/no-array-index-key": [1]
+        "react/no-array-index-key": [1],
+        // prevent no-unused-vars error on for loop variables
+        "no-unused-vars": [1]
     }
 }
