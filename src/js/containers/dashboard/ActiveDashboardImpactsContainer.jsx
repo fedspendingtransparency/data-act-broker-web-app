@@ -5,7 +5,7 @@
 
 import React from 'react';
 import PropTypes from 'prop-types';
-import _ from 'lodash';
+import { isEqual } from 'lodash';
 import { connect } from 'react-redux';
 
 import * as DashboardHelper from 'helpers/dashboardHelper';
@@ -41,7 +41,7 @@ export class ActiveDashboardImpactsContainer extends React.Component {
     }
 
     componentDidUpdate(prevProps) {
-        if (!_.isEqual(prevProps, this.props)) {
+        if (!isEqual(prevProps, this.props)) {
             this.getImpacts();
         }
     }

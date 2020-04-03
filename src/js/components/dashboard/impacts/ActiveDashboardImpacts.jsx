@@ -9,11 +9,15 @@ import PropTypes from 'prop-types';
 import ImpactGauge from 'components/dashboard/impacts/ImpactGauge';
 
 const propTypes = {
-    submissionData: PropTypes.object,
+    submissionData: PropTypes.shape({
+        low: PropTypes.object,
+        medium: PropTypes.object,
+        high: PropTypes.object
+    }),
     openModal: PropTypes.func.isRequired
 };
 
-const ActiveDashboardImpacts = (props) => (
+const ActiveDashboardImpacts = ({ submissionData, openModal }) => (
     <div className="dashboard-page__impacts">
         <h3>Warning Status</h3>
         <hr />
@@ -22,11 +26,11 @@ const ActiveDashboardImpacts = (props) => (
             Identify to what degree current warnings impact your submission.
             The values have been preset by your agency.
         </p>
-        {props.submissionData ?
+        {submissionData ?
             <div className="flex-wrapper">
-                <ImpactGauge level="low" submissionData={props.submissionData.low} openModal={props.openModal} />
-                <ImpactGauge level="medium" submissionData={props.submissionData.medium} openModal={props.openModal} />
-                <ImpactGauge level="high" submissionData={props.submissionData.high} openModal={props.openModal} />
+                <ImpactGauge level="low" submissionData={submissionData.low} openModal={openModal} />
+                <ImpactGauge level="medium" submissionData={submissionData.medium} openModal={openModal} />
+                <ImpactGauge level="high" submissionData={submissionData.high} openModal={openModal} />
             </div> : ''}
     </div>
 );

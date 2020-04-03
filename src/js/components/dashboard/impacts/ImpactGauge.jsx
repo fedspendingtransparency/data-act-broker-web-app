@@ -7,9 +7,9 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 const propTypes = {
-    submissionData: PropTypes.object,
-    openModal: PropTypes.func.isRequired,
-    level: PropTypes.string
+    submissionData: PropTypes.shape({ rules: PropTypes.arrayOf(PropTypes.object), total: PropTypes.number }),
+    level: PropTypes.string,
+    openModal: PropTypes.func.isRequired
 };
 
 const defaultProps = {
@@ -43,11 +43,11 @@ export default class ImpactGauge extends React.Component {
                     src={require(`../../../../graphics/gauges/chart-${this.props.level}.png`)}
                     alt={this.props.level} />
                 {/* eslint-enable import/no-dynamic-require, global-require */}
-                <div className="impact-stats">
+                <div className="impact-section__stats">
                     {this.props.submissionData ?
-                        <p className="impact-count">{this.props.submissionData.total}</p> : ''
+                        <p className="impact-section__count">{this.props.submissionData.total}</p> : ''
                     }
-                    <p className="impact-level">{this.props.level}</p>
+                    <p className="impact-section__level">{this.props.level}</p>
                 </div>
             </div>
         );
