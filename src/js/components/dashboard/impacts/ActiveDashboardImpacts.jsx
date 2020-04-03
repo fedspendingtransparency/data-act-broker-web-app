@@ -9,7 +9,11 @@ import PropTypes from 'prop-types';
 import ImpactGauge from 'components/dashboard/impacts/ImpactGauge';
 
 const propTypes = {
-    submissionData: PropTypes.object
+    submissionData: PropTypes.shape({
+        low: PropTypes.object,
+        medium: PropTypes.object,
+        high: PropTypes.object
+    })
 };
 
 const ActiveDashboardImpacts = ({submissionData}) => (
