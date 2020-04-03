@@ -12,7 +12,7 @@ const propTypes = {
     submissionData: PropTypes.object
 };
 
-const ActiveDashboardImpacts = (props) => (
+const ActiveDashboardImpacts = ({submissionData}) => (
     <div className="dashboard-page__impacts">
         <h3>Warning Status</h3>
         <hr />
@@ -21,11 +21,11 @@ const ActiveDashboardImpacts = (props) => (
             Identify to what degree current warnings impact your submission.
             The values have been preset by your agency.
         </p>
-        {props.submissionData ?
+        {submissionData ?
             <div className="flex-wrapper">
-                <ImpactGauge level="low" submissionData={props.submissionData.low} />
-                <ImpactGauge level="medium" submissionData={props.submissionData.medium} />
-                <ImpactGauge level="high" submissionData={props.submissionData.high} />
+                <ImpactGauge level="low" submissionData={submissionData.low} />
+                <ImpactGauge level="medium" submissionData={submissionData.medium} />
+                <ImpactGauge level="high" submissionData={submissionData.high} />
             </div> : ''}
     </div>
 );
