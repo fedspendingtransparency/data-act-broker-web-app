@@ -7,6 +7,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 const propTypes = {
+    label: PropTypes.string,
     row: PropTypes.object,
     openModal: PropTypes.func.isRequired
 };
@@ -28,8 +29,8 @@ export default class DashboardTableLabelButton extends React.Component {
 
     render() {
         return (
-            <button onClick={this.openModal} className="file-label-button">
-                {this.props.row.fileLabel}
+            <button onClick={this.openModal} className="modal-button">
+                {this.props.label}
             </button>
         );
     }

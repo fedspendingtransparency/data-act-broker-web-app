@@ -122,3 +122,19 @@ export const fetchActiveOverview = (submissionId, fileType, errorLevel) => {
 
     return deferred.promise;
 };
+
+export const fetchActiveDashboardTableContents = (submissionId, fileType, errorLevel, page, limit, sort, order) => {
+    const deferred = Q.defer();
+
+    Request.get(`${kGlobalConstants.API}active_submission_table/?submission_id=${submissionId}&file=${fileType}&error_level=${errorLevel}&page=${page}&limit=${limit}&sort=${sort}&order=${order}`)
+        .end((err, res) => {
+            if (err) {
+                deferred.reject(err);
+            }
+            else {
+                deferred.resolve(res.body);
+            }
+        });
+
+    return deferred.promise;
+};
