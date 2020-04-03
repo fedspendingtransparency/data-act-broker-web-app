@@ -1,6 +1,6 @@
 /**
- * DashboardTable.jsx
- * Created by Alisa Burdeyny 11/13/19
+ * ActiveDashboardTable.jsx
+ * Created by Alisa Burdeyny 04/01/20
  */
 
 import React from 'react';
@@ -32,14 +32,9 @@ const defaultProps = {
 
 const tableHeaders = [
     {
-        text: 'File',
-        class: 'dashboard-table__file-column',
-        sortType: 'file'
-    },
-    {
-        text: (<span>Fiscal Year/<br />Quarter</span>),
-        class: 'dashboard-table__fyq-column',
-        sortType: 'period'
+        text: 'Significance',
+        class: 'dashboard-table__significance-column',
+        sortType: 'significance'
     },
     {
         text: 'Warning Rule',
@@ -52,13 +47,23 @@ const tableHeaders = [
         sortType: 'instances'
     },
     {
+        text: 'Category',
+        class: 'dashboard-table__category-column',
+        sortType: 'category'
+    },
+    {
+        text: 'Impact',
+        class: 'dashboard-table__impact-column',
+        sortType: 'impact'
+    },
+    {
         text: 'Rule Description',
         class: null,
         sortType: 'description'
     }
 ];
 
-export default class DashboardTable extends React.Component {
+export default class ActiveDashboardTable extends React.Component {
     render() {
         let contentMessage = <LoadingMessage />;
         let tableRows = [];
@@ -74,19 +79,22 @@ export default class DashboardTable extends React.Component {
                 tableRows = this.props.results.map((row) => (
                     <tr key={`dashboard-table-row-${row.submissionId}-${row.ruleLabel}`}>
                         <td>
+                            {row.significance}.
+                        </td>
+                        <td>
                             <DashboardTableLabelButton
-                                label={row.fileLabel}
+                                label={row.ruleLabel}
                                 row={row}
                                 openModal={this.props.openModal} />
                         </td>
                         <td>
-                            {row.period}
-                        </td>
-                        <td>
-                            {row.ruleLabel}
-                        </td>
-                        <td>
                             {row.instanceCount}
+                        </td>
+                        <td className="capitalized">
+                            {row.category}
+                        </td>
+                        <td className="capitalized">
+                            {row.impact}
                         </td>
                         <td>
                             <div className="ellipse-box">
@@ -116,5 +124,5 @@ export default class DashboardTable extends React.Component {
     }
 }
 
-DashboardTable.defaultProps = defaultProps;
-DashboardTable.propTypes = propTypes;
+ActiveDashboardTable.defaultProps = defaultProps;
+ActiveDashboardTable.propTypes = propTypes;

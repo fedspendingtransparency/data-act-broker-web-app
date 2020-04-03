@@ -16,6 +16,10 @@
         .detail-content {
             text-align: right;
             font-weight: $font-semibold;
+
+            &.capitalized {
+                text-transform: capitalize;
+            }
         }
     }
 

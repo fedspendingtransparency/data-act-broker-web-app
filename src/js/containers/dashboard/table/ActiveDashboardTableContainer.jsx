@@ -1,6 +1,6 @@
 /**
- * DashboardTableContainer.jsx
- * Created by Alisa Burdeyny 11/13/19
+ * ActiveDashboardTableContainer.jsx
+ * Created by Alisa Burdeyny 04/01/20
  */
 
 import React from 'react';
@@ -11,15 +11,16 @@ import { Pagination } from 'data-transparency-ui';
 
 import * as DashboardHelper from 'helpers/dashboardHelper';
 import * as GenerateFilesHelper from 'helpers/generateFilesHelper';
-import DashboardTable from 'components/dashboard/table/DashboardTable';
-import DashboardTableModal from 'components/dashboard/table/DashboardTableModal';
-import BaseDashboardTableRow from 'models/dashboard/BaseDashboardTableRow';
+import ActiveDashboardTable from 'components/dashboard/table/ActiveDashboardTable';
+import ActiveDashboardTableModal from 'components/dashboard/table/ActiveDashboardTableModal';
+import BaseActiveDashboardTableRow from 'models/dashboard/BaseActiveDashboardTableRow';
 
 const propTypes = {
-    appliedFilters: PropTypes.object
+    appliedFilters: PropTypes.object,
+    submissionID: PropTypes.string
 };
 
-export class DashboardTableContainer extends React.Component {
+export class ActiveDashboardTableContainer extends React.Component {
     constructor(props) {
         super(props);
 
@@ -30,7 +31,7 @@ export class DashboardTableContainer extends React.Component {
             limit: 10,
             inFlight: true,
             hasError: false,
-            sort: 'period',
+            sort: 'significance',
             order: 'desc',
             showModal: false,
             modalData: {}
@@ -112,22 +113,10 @@ export class DashboardTableContainer extends React.Component {
             showModal: false,
             modalData: {}
         });
-        const filters = this.props.appliedFilters;
-        const searchParams = {
-            filters: {
-                quarters: [...filters.quarters],
-                fys: [...filters.fy],
-                agencies: [filters.agency],
-                files: [filters.file],
-                rules: [...filters.rules]
-            },
-            page: this.state.page,
-            limit: this.state.limit,
-            sort: this.state.sort,
-            order: this.state.order
-        };
+        const submissionId = parseInt(this.props.submissionID, 10);
 
-        DashboardHelper.fetchDashboardTableContents(searchParams)
+        DashboardHelper.fetchActiveDashboardTableContents(submissionId, this.props.appliedFilters.file,
+            'warning', this.state.page, this.state.limit, this.state.sort, this.state.order)
             .then((res) => {
                 this.parseRows(res);
             })
@@ -142,9 +131,10 @@ export class DashboardTableContainer extends React.Component {
 
     parseRows(data) {
         const results = [];
+        const meta = data.page_metadata;
         data.results.forEach((item) => {
-            const tableRow = Object.create(BaseDashboardTableRow);
-            tableRow.populate(item);
+            const tableRow = Object.create(BaseActiveDashboardTableRow);
+            tableRow.populate(item, meta);
             results.push(tableRow);
         });
 
@@ -172,7 +162,7 @@ export class DashboardTableContainer extends React.Component {
         let modal = null;
         if (this.state.showModal) {
             modal = (
-                <DashboardTableModal
+                <ActiveDashboardTableModal
                     downloadFile={this.downloadFile}
                     data={this.state.modalData}
                     closeModal={this.closeModal}
@@ -180,7 +170,7 @@ export class DashboardTableContainer extends React.Component {
         }
         return (
             <div className="dashboard-viz">
-                <DashboardTable
+                <ActiveDashboardTable
                     results={this.state.results}
                     inFlight={this.state.inFlight}
                     hasError={this.state.hasError}
@@ -195,10 +185,10 @@ export class DashboardTableContainer extends React.Component {
     }
 }
 
-DashboardTableContainer.propTypes = propTypes;
+ActiveDashboardTableContainer.propTypes = propTypes;
 
 export default connect(
     (state) => ({
-        appliedFilters: state.appliedDashboardFilters.filters.historical
+        appliedFilters: state.appliedDashboardFilters.filters.active
     })
-)(DashboardTableContainer);
+)(ActiveDashboardTableContainer);

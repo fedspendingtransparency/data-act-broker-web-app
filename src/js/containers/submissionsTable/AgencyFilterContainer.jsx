@@ -88,5 +88,5 @@ export default connect(
         agencyList: state.agencyList,
         selectedFilters: state.submissionsTableFilters
     }),
-    (dispatch) => bindActionCreators(agencyActions, dispatch),
+    (dispatch) => bindActionCreators(agencyActions, dispatch)
 )(AgencyFilterContainer);

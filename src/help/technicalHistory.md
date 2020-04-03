@@ -1,3 +1,26 @@
+#### March 9, 2020{section=technical}
+
+In this release, here is a list of technical changes that may require infrastructure or database updates, or represents additional functionality.
+
+* Updated FABS derivation for place\_of\_performance\_scope for accuracy.
+* Dropped the constraint on users creating submissions via API for a period that is already certified. Users will still be unable to certify for these duplicate submissions.
+
+#### February 24, 2020{section=technical}
+
+In this release, here is a list of technical changes that may require infrastructure or database updates, or represents additional functionality.
+
+* Refactored the data loading process used in multiple features, speeding up the performance two to three times in certain cases.
+* Fixed FABS 2.2.1 error text for accuracy.
+* Updated FABS derivations with record type “3” to account for “Place of Performance State Code”.
+
+#### February 10, 2020{section=technical}
+
+In this release, here is a list of technical changes that may require infrastructure or database updates, or represents additional functionality.
+
+* Prevented users from re-uploading a FABS file while publishing.
+* Updated DUNS, HistoricDUNS, and Subaward tables to properly store business types (and not their codes). This will update the File F "SubAwardeeBusinessTypes" column for grants.
+* Added script to backfill FSRS records for data quality.
+
 #### January 27, 2020{section=technical}
 
 In this release, here is a list of technical changes that may require infrastructure or database updates, or represents additional functionality.

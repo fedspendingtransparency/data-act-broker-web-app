@@ -60,5 +60,5 @@ export default connect(
         lastDateModifiedList: state.lastDateModifiedList,
         selectedFilters: state.submissionsTableFilters
     }),
-    (dispatch) => bindActionCreators(lastDateModifiedActions, dispatch),
+    (dispatch) => bindActionCreators(lastDateModifiedActions, dispatch)
 )(LastDateModifiedContainer);
