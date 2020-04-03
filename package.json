@@ -46,7 +46,7 @@
     "eslint-plugin-react": "7.5.1",
     "eslint-plugin-react-hooks": "^1.6.0",
     "identity-obj-proxy": "^3.0.0",
-    "jest": "^25.1.0",
+    "jest": "^24.8.0",
     "jest-cli": "^24.8.0",
     "optimize-css-assets-webpack-plugin": "^5.0.1",
     "react-test-renderer": "^16.8.6",
