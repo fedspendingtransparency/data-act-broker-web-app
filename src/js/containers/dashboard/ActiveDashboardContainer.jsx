@@ -56,6 +56,7 @@ export class ActiveDashboardContainer extends React.Component {
         this.changePage = this.changePage.bind(this);
         this.changeSort = this.changeSort.bind(this);
         this.setSubmission = this.setSubmission.bind(this);
+        this.clearSubmission = this.clearSubmission.bind(this);
     }
 
     componentDidMount() {
@@ -152,6 +153,12 @@ export class ActiveDashboardContainer extends React.Component {
             });
     }
 
+    clearSubmission() {
+        this.setState({
+            submission: ''
+        });
+    }
+
     render() {
         if (this.state.loading) {
             return (<LoadingMessage />);
@@ -172,7 +179,10 @@ export class ActiveDashboardContainer extends React.Component {
             );
         }
         if (this.state.submission) {
-            return (<ActiveDashboard submissionID={this.state.submission} />);
+            return (<ActiveDashboard
+                        submissionID={this.state.submission}
+                        numResults={this.state.results.length}
+                        backToList={this.clearSubmission} />);
         }
         return (
             <SelectSubmissionTable

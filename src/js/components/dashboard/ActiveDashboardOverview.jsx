@@ -12,7 +12,6 @@ const propTypes = {
 };
 
 const ActiveDashboardOverview = (props) => (
-    <div className="dashboard-page__content">
         <div className="dashboard-page__submission-overview">
             {/* eslint-disable import/no-dynamic-require, global-require */}
             <h2>
@@ -65,7 +64,6 @@ const ActiveDashboardOverview = (props) => (
                 </div>
             </div>
         </div>
-    </div>
 );
 
 ActiveDashboardOverview.propTypes = propTypes;
