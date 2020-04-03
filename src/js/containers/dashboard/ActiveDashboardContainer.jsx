@@ -180,9 +180,9 @@ export class ActiveDashboardContainer extends React.Component {
         }
         if (this.state.submission) {
             return (<ActiveDashboard
-                        submissionID={this.state.submission}
-                        numResults={this.state.results.length}
-                        backToList={this.clearSubmission} />);
+                submissionID={this.state.submission}
+                numResults={this.state.results.length}
+                backToList={this.clearSubmission} />);
         }
         return (
             <SelectSubmissionTable

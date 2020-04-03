@@ -18,7 +18,7 @@ const propTypes = {
 const ActiveDashboard = (props) => (
     <div className="dashboard-page-active">
         <div className="dashboard-page__content">
-            {props.numResults > 1 ? 
+            {props.numResults > 1 ?
                 <button
                     onClick={props.backToList}
                     className="back-button">
