@@ -71,6 +71,10 @@
     hr {
         margin-top: rem(6);
         margin-bottom: rem(18);
+
+        &.modal-row {
+            border-top: 1px solid $color-gray-light;
+        }
     }
 
     p {
@@ -81,8 +85,12 @@
     h4 {
         margin: rem(4) 0;
         font-weight: $font-semibold;
-        font-size: $h5-font-size;
+        font-size: $h3-font-size;
         color: $font-color;
+
+        .capitalize {
+            text-transform: capitalize;
+        }
     }
 
     h5 {

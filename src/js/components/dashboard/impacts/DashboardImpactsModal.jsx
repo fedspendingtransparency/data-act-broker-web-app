@@ -32,28 +32,20 @@ const DashboardImpactsModal = (props) => (
                     aria-label="close-modal-button">
                     <FontAwesomeIcon icon="times" />
                 </button>
-                <h4>Degree of Impact</h4>
+                <h4>Degree of Impact - <span className="capitalize">{props.level}</span></h4>
+                <hr />
                 {
                     props.data.length > 0 ? props.data.map((rule, index) => (
                         <div>
-                            <hr />
                             <div className="row">
                                 <div className="left-modal-col col-md-6">
-                                    {index > 0 ? '' : <h5>Degree of Impact</h5>}
+                                    {index > 0 ? '' : <h5>Rule Details</h5>}
                                     <div className="detail-row">
                                         <div className="detail-name">
                                             Rule
                                         </div>
                                         <div className="detail-content">
                                             {rule.rule_label}
-                                        </div>
-                                    </div>
-                                    <div className="detail-row">
-                                        <div className="detail-name">
-                                            Impact
-                                        </div>
-                                        <div className="detail-content capitalized">
-                                            {props.level}
                                         </div>
                                     </div>
                                     <div className="detail-row">
@@ -70,6 +62,7 @@ const DashboardImpactsModal = (props) => (
                                     <p>{rule.rule_description}</p>
                                 </div>
                             </div>
+                            {index === props.data.length - 1 ? '' : <hr className="modal-row" />}
                         </div>
                     )) : ''
                 }
