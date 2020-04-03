@@ -8,6 +8,7 @@ import PropTypes from 'prop-types';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 import ActiveDashboardOverviewContainer from 'containers/dashboard/ActiveDashboardOverviewContainer';
+import ActiveDashboardImpactsContainer from 'containers/dashboard/ActiveDashboardImpactsContainer';
 import SignificanceGraphContainer from 'containers/dashboard/graph/SignificanceGraphContainer';
 import ActiveDashboardTableContainer from 'containers/dashboard/table/ActiveDashboardTableContainer';
 
@@ -38,6 +39,7 @@ const ActiveDashboard = (props) => (
         <div className="dashboard-page__content dashboard-page__content_below">
             <h2>Active Submission Summary</h2>
             <hr />
+            <ActiveDashboardImpactsContainer errorLevel="warning" submissionID={props.submissionID} />
             <SignificanceGraphContainer errorLevel="warning" submissionID={props.submissionID} />
             <ActiveDashboardTableContainer submissionID={props.submissionID} />
         </div>
