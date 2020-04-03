@@ -1,4 +1,21 @@
-#### January 27, 2020{section=changelog}
+#### March 9, 2020{section=changelog}
+In this release of the Broker, we:
+
+* Minor updates to website UI components. 
+
+#### February 24, 2020
+In this release of the Broker, we:
+
+* Made code changes to the file loading and processing functions of the DATA Act Broker to increase efficiency when very large files are being uploaded. Agencies with large files should see meaningful performance improvements and processing time reduction when submitting files.
+* Various minor bug fixes.
+
+#### February 10, 2020
+In this release of the Broker, we:
+
+* Fixed minor page formatting issue on Help page.
+* Front end updates to improve performance and consistency and prepare for future upgrades.
+
+#### January 27, 2020
 In this release of the Broker, we:
 
 * Fixed minor bug on date picker for detached File A generation to display the correct available periods for file generation.
