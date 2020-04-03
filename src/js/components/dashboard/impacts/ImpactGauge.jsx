@@ -18,11 +18,11 @@ const ImpactGauge = (props) => (
             src={require(`../../../../graphics/gauges/chart-${props.level}.png`)}
             alt={props.level} />
         {/* eslint-enable import/no-dynamic-require, global-require */}
-        <div className="impact-stats">
+        <div className="impact-section__stats">
             {props.submissionData ?
-                <p className="impact-count">{props.submissionData.total}</p> : ''
+                <p className="impact-section__count">{props.submissionData.total}</p> : ''
             }
-            <p className="impact-level">{props.level}</p>
+            <p className="impact-section__level">{props.level}</p>
         </div>
     </div>
 );

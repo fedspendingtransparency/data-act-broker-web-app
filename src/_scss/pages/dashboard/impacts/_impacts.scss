@@ -36,17 +36,17 @@
                 float: left;
                 width: 30%;
             }
-            .impact-stats {
+            .impact-section__stats {
                 float: left;
                 text-align: center;
                 width: 70%;
             }
-            .impact-count {
+            .impact-section__count {
                 font-size: $h1-font-size;
                 font-weight: $font-light;
                 width: 100%
             }
-            .impact-level {
+            .impact-section__level {
                 font-size: $h3-font-size;
                 font-weight: $font-bold;
                 text-transform: uppercase;
