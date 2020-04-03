@@ -1,11 +1,10 @@
 .dashboard-page__impacts {
-    padding-left: 5.8rem;
-    padding-bottom: 4.8rem;
+    padding: rem(20);
 
     h3 {
         margin-top: 4rem;
-        margin-bottom: 1rem;
-        font-size: $h2-font-size;
+        margin-bottom: 0.5rem;
+        font-size: 2.5rem;
         font-weight: $font-bold;
         color: $font-color;
     }
@@ -14,11 +13,11 @@
         width: 50%;
     }
     h4 {
-        font-size: 2.5rem;
-        color: $font-color;
-        font-weight: $font-normal;
         margin-bottom: 0;
         margin-top: rem(40);
+        font-size: $h3-font-size;
+        font-weight: $font-normal;
+        clear: both; // for IE
     }
     p {
         margin-bottom: 0;
@@ -32,6 +31,7 @@
         .impact-section {
             flex: 1 1 25%;
             padding: 1rem;  
+            margin-top: 15px;
 
             img {
                 float: left;
