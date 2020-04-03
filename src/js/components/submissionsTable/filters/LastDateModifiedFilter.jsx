@@ -38,7 +38,7 @@ export default class LastDateModifiedFilter extends React.Component {
                 {
                     startDate,
                     endDate
-                },
+                }
             );
         }
     }

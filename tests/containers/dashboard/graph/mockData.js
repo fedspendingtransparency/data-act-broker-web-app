@@ -62,3 +62,22 @@ export const mockData = {
         }
     ]
 };
+
+export const mockSignificanceData = {
+    rules: [{
+        instances: 3,
+        impact: 'high',
+        significance: 2,
+        category: 'completeness',
+        rule_label: 'A33.1',
+        percentage: 75.0
+    }, {
+        instances: 1,
+        impact: 'high',
+        significance: 3,
+        category: 'completeness',
+        rule_label: 'A33.2',
+        percentage: 25.0
+    }],
+    total_instances: 4
+};

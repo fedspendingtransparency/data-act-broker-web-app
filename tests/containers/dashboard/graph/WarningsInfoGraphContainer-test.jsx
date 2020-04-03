@@ -11,7 +11,7 @@ import { WarningsInfoGraphContainer } from 'containers/dashboard/graph/WarningsI
 import { mockRedux, mockData } from './mockData';
 
 // mock the child component by replacing it with a function that returns a null element
-jest.mock('components/dashboard/graph/WarningsInfoGraph', () => jest.fn(() => null));
+jest.mock('components/dashboard/graph/DashboardGraph', () => jest.fn(() => null));
 
 describe('WarningsInfoGraphContainer', () => {
     beforeEach(() => {

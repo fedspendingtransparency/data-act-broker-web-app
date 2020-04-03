@@ -1,29 +1,35 @@
 /**
- * WarningsInfoGraph.jsx
+ * DashboardGraph.jsx
  * Created by Lizzie Salita 11/14/19
  */
 
 import React from 'react';
 import PropTypes from 'prop-types';
 import { throttle } from 'lodash';
+import { significanceColors } from 'dataMapping/dashboard/fileLabels';
 import NoResultsMessage from 'components/SharedComponents/NoResultsMessage';
 import LoadingMessage from 'components/SharedComponents/LoadingMessage';
 import ErrorMessageOverlay from 'components/SharedComponents/ErrorMessageOverlay';
 import BarChartStacked from './BarChartStacked';
 import WarningsInfoGraphTooltip from './WarningsInfoGraphTooltip';
+import SignificanceGraph from './SignificanceGraph';
+import CategoryButton from './CategoryButton';
 
 const propTypes = {
-    xSeries: PropTypes.arrayOf(PropTypes.string),
+    xSeries: PropTypes.arrayOf(PropTypes.oneOfType([PropTypes.string, PropTypes.number])),
     ySeries: PropTypes.arrayOf(PropTypes.object),
     allY: PropTypes.arrayOf(PropTypes.number),
     loading: PropTypes.bool,
-    error: PropTypes.bool
+    error: PropTypes.bool,
+    type: PropTypes.oneOf(['historical', 'active']),
+    description: PropTypes.string,
+    errorLevel: PropTypes.oneOf(['error', 'warning']).isRequired
 };
 
 const graphHeight = 540;
 const spaceBetweenStacks = 2;
 
-export default class WarningsInfoGraph extends React.Component {
+export default class DashboardGraph extends React.Component {
     constructor(props) {
         super(props);
 
@@ -85,20 +91,29 @@ export default class WarningsInfoGraph extends React.Component {
         }
     }
 
-    render() {
-        const chart = (
-            <BarChartStacked
-                {...this.props}
-                width={this.state.visualizationWidth}
-                height={graphHeight}
-                spaceBetweenStacks={spaceBetweenStacks}
-                showTooltip={this.showTooltip}
-                hideTooltip={this.hideTooltip}
-                toggleTooltip={this.toggleTooltip} />
+    generateCategoryButtons() {
+        if (this.props.type === 'historical') {
+            return null;
+        }
+        const categories = Object.keys(significanceColors);
+        const buttons = categories.map((category) => (
+            <CategoryButton
+                key={category}
+                disabled
+                label={category}
+                color={significanceColors[category]} />
+        ));
+        return (
+            <div className="category-buttons">
+                {buttons}
+            </div>
         );
+    }
+
+    render() {
         const tooltip = this.state.showTooltip ? (
             <WarningsInfoGraphTooltip data={this.state.tooltipData} />) : null;
-        const empty = (this.props.xSeries.length === 0);
+        const empty = (this.props.ySeries.length === 0);
 
         let graphContent = <LoadingMessage />;
         if (!this.props.loading) {
@@ -109,16 +124,36 @@ export default class WarningsInfoGraph extends React.Component {
                 graphContent = <NoResultsMessage />;
             }
             else {
-                graphContent = chart;
+                graphContent = this.props.type === 'historical' ? (
+                    <BarChartStacked
+                        {...this.props}
+                        width={this.state.visualizationWidth}
+                        height={graphHeight}
+                        spaceBetweenStacks={spaceBetweenStacks}
+                        showTooltip={this.showTooltip}
+                        hideTooltip={this.hideTooltip}
+                        toggleTooltip={this.toggleTooltip} />
+                ) : (
+                    <SignificanceGraph
+                        {...this.props}
+                        width={this.state.visualizationWidth}
+                        height={graphHeight} />
+                );
             }
         }
+        const graphTitle = this.props.type === 'historical' ? (
+            <h3 className="dashboard-viz__heading">Warnings Information</h3>
+        ) : (
+            <h4 className="dashboard-viz__heading">Significance</h4>
+        );
 
         return (
-            <div className="dashboard-viz warnings-info">
-                <h3 className="dashboard-viz__heading">Warnings Information</h3>
-                <p>Hover over the color to see details for each quarterly warning.</p>
+            <div className={`dashboard-viz dashboard-graph-section dashboard-graph-section_${this.props.type}`}>
+                {graphTitle}
+                <p>{this.props.description}</p>
+                {this.generateCategoryButtons()}
                 <div
-                    className="warnings-info-graph"
+                    className="dashboard-graph"
                     ref={(div) => {
                         this.graphDiv = div;
                     }}>
@@ -130,4 +165,4 @@ export default class WarningsInfoGraph extends React.Component {
     }
 }
 
-WarningsInfoGraph.propTypes = propTypes;
+DashboardGraph.propTypes = propTypes;

@@ -8,5 +8,17 @@
         width: rem(379);
         padding-bottom: rem(5);
         margin: rem(10) 0 rem(3);
+        clear: both; // for IE
+    }
+    h4.dashboard-viz__heading {
+        padding-left: 3.9rem;
+        font-size: 2.5rem;
+        font-weight: $font-normal;
+        margin: 0 0 rem(3);
+        clear: both; // for IE
+    }
+    p {
+        padding-left: 3.9rem;   
+        max-width: 100%;
     }
 }

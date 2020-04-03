@@ -34,7 +34,7 @@ export default class AgencyFilter extends React.Component {
                 {
                     code,
                     name
-                },
+                }
             );
         }
     }

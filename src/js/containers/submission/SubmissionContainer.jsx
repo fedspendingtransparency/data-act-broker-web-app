@@ -74,5 +74,5 @@ SubmissionContainer.propTypes = propTypes;
 export default connect(
     (state) => ({
         session: state.session
-    }),
+    })
 )(SubmissionContainer);

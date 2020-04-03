@@ -163,7 +163,7 @@ export default class Typeahead extends React.Component {
         const validity = Object.prototype.hasOwnProperty.call(this.dataDictionary, this.state.value);
         this.props.onSelect(
             this.dataDictionary[this.state.value],
-            this.internalValueDictionary[this.state.value], validity, this.state.value,
+            this.internalValueDictionary[this.state.value], validity, this.state.value
         );
     }
 
