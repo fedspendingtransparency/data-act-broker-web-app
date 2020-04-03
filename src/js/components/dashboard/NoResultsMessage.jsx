@@ -4,9 +4,14 @@
  */
 
 import React from 'react';
+import PropTypes from 'prop-types';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
-const NoResultsMessage = () => (
+const propTypes = {
+    children: PropTypes.node
+};
+
+const NoResultsMessage = (props) => (
     <div className="dashboard-page__content">
         <div className="dashboard-message-flex">
             <div className="dashboard-message">
@@ -14,12 +19,12 @@ const NoResultsMessage = () => (
                     <FontAwesomeIcon icon="exclamation-circle" />
                 </div>
                 <span className="dashboard-message__message">
-                    No submissions were found matching these criteria. <br />
-                    Please try a different set of filters.
+                    {props.children}
                 </span>
             </div>
         </div>
     </div>
 );
 
+NoResultsMessage.propTypes = propTypes;
 export default NoResultsMessage;

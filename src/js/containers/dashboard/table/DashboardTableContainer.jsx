@@ -179,7 +179,7 @@ export class DashboardTableContainer extends React.Component {
                     isOpen={this.state.showModal} />);
         }
         return (
-            <div className="dashboard-viz dashboard-table-container">
+            <div className="dashboard-viz">
                 <DashboardTable
                     results={this.state.results}
                     inFlight={this.state.inFlight}

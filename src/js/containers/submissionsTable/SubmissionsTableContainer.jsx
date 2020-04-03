@@ -78,7 +78,7 @@ export class SubmissionsTableContainer extends React.Component {
     loadTableData(page = 1, certified = false, category = 'modified', order = 'desc', appliedFilters) {
     /**
         Sortable fields: Valid values for category
-        'modified','reporting','status','agency','submitted_by'
+        'modified','reporting_start','status','agency','submitted_by'
         */
         let tableName = 'active';
         if (certified) {

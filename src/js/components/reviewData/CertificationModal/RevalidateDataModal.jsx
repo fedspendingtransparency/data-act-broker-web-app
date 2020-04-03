@@ -6,17 +6,17 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import Modal from 'react-aria-modal';
-import * as Icons from '../../SharedComponents/icons/Icons';
+import { Redirect } from 'react-router-dom';
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
+import * as ReviewHelper from 'helpers/reviewHelper';
 import RevalidateButtons from './RevalidateButtons';
-import * as ReviewHelper from '../../../helpers/reviewHelper';
 
 const propTypes = {
     closeModal: PropTypes.func,
     data: PropTypes.object,
     submissionID: PropTypes.string,
-    isOpen: PropTypes.bool,
-    setStep: PropTypes.func
+    isOpen: PropTypes.bool
 };
 
 const defaultProps = {
@@ -32,8 +32,11 @@ export default class RevalidateDataModal extends React.Component {
 
         this.state = {
             closeable: true,
-            errorMessage: ""
+            errorMessage: '',
+            redirect: false
         };
+
+        this.clickedRevalidateButton = this.clickedRevalidateButton.bind(this);
     }
 
     clickedRevalidateButton(e) {
@@ -43,11 +46,11 @@ export default class RevalidateDataModal extends React.Component {
             .then(() => {
                 this.closeModal();
                 // Redirect to validateData page
-                this.props.setStep(0);
+                this.setState({ redirect: true });
             })
             .catch((error) => {
-                let errMsg = "An error occurred while attempting to certify the submission. " +
-                    "Please contact your administrator for assistance.";
+                let errMsg = 'An error occurred while attempting to certify the submission. ' +
+                    'Please contact your administrator for assistance.';
                 if (error.httpStatus === 400 || error.httpStatus === 403) {
                     errMsg = error.message;
                 }
@@ -74,9 +77,12 @@ export default class RevalidateDataModal extends React.Component {
     }
 
     render() {
-        let hideClose = "";
+        if (this.state.redirect) {
+            return <Redirect to={`/submission/${this.props.submissionID}/validateData`} />;
+        }
+        let hideClose = '';
         if (!this.state.closeable) {
-            hideClose = " hide";
+            hideClose = ' hide';
         }
 
         let error = '';
@@ -99,17 +105,15 @@ export default class RevalidateDataModal extends React.Component {
                     <div id="usa-da-revalidate-modal" className="usa-da-certify-modal">
                         <div className={`usa-da-certify-modal-close usa-da-icon usa-da-icon-times${hideClose}`}>
                             <button onClick={this.closeModal.bind(this)}>
-                                <Icons.Times />
+                                <FontAwesomeIcon icon="times" />
                             </button>
                         </div>
 
                         <div className="usa-da-certify-modal-content">
                             <RevalidateButtons
                                 {...this.props}
-                                clickedRevalidateButton={this.clickedRevalidateButton.bind(this)} />
-
+                                clickedRevalidateButton={this.clickedRevalidateButton} />
                             {error}
-
                         </div>
                     </div>
                 </div>

@@ -151,7 +151,7 @@ export default class SubmissionsTable extends React.Component {
         if (this.props.isCertified) {
             switch (this.state.sortColumn) {
                 case 0:
-                    return 'reporting';
+                    return 'reporting_start';
                 case 1:
                     return 'agency';
                 case 2:
@@ -168,7 +168,7 @@ export default class SubmissionsTable extends React.Component {
             case 1:
                 return 'agency';
             case 2:
-                return 'reporting';
+                return 'reporting_start';
             case 3:
                 return 'submitted_by';
             default:
