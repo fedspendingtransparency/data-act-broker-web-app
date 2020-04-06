@@ -9,6 +9,7 @@ import AddDataContainer from 'containers/addData/AddDataContainer';
 import Footer from 'components/SharedComponents/FooterComponent';
 import Navbar from 'components/SharedComponents/navigation/NavigationComponent';
 import Banner from 'components/SharedComponents/Banner';
+import BannerRow from 'components/SharedComponents/BannerRow';
 import SubmissionHeader from 'components/submission/SubmissionHeader';
 import AddDataMeta from './AddDataMeta';
 
@@ -34,12 +35,21 @@ export default class AddDataPage extends React.Component {
             bodyComponent = <AddDataContainer metaData={this.props.submission.meta} />;
         }
 
+        const { certifiedSubmission } = this.props.submission.meta;
+        const testBanner = certifiedSubmission ? (
+            <BannerRow
+                type="warning"
+                header="This is a test submission since one has already been certified for this fiscal quarter."
+                message={`You will not be able to certify this submission. To view the certified submission, [click here](/#/submission/${certifiedSubmission}).`} />
+        ) : null;
+
         return (
             <div className="usa-da-add-data-page">
                 <div className="usa-da-site_wrap">
                     <Navbar activeTab="submissionGuide" type={this.props.type} />
                     <SubmissionHeader />
                     <Banner type="dabs" />
+                    {testBanner}
                     {bodyComponent}
                 </div>
                 <Footer />

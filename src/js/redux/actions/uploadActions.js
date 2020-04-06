@@ -35,7 +35,8 @@ export const setMeta = (state) => ({
         codeType: state.codeType,
         startDate: state.startDate,
         endDate: state.endDate,
-        dateType: state.dateType
+        dateType: state.dateType,
+        certifiedSubmission: state.certifiedSubmission
     }
 });
 
