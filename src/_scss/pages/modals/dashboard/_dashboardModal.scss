@@ -5,6 +5,9 @@
     padding: rem(12);
     width: rem(552);
     overflow-wrap: break-word;
+    overflow-x: hidden;
+    overflow-y: auto;
+    max-height: rem(530);
 
     .detail-row {
         margin-bottom: rem(18);
