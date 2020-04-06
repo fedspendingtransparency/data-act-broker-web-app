@@ -13,10 +13,11 @@ const propTypes = {
         low: PropTypes.object,
         medium: PropTypes.object,
         high: PropTypes.object
-    })
+    }),
+    openModal: PropTypes.func.isRequired
 };
 
-const ActiveDashboardImpacts = ({ submissionData }) => (
+const ActiveDashboardImpacts = ({ submissionData, openModal }) => (
     <div className="dashboard-page__impacts">
         <h3>Warning Status</h3>
         <hr />
@@ -27,9 +28,9 @@ const ActiveDashboardImpacts = ({ submissionData }) => (
         </p>
         {submissionData ?
             <div className="flex-wrapper">
-                <ImpactGauge level="low" submissionData={submissionData.low} />
-                <ImpactGauge level="medium" submissionData={submissionData.medium} />
-                <ImpactGauge level="high" submissionData={submissionData.high} />
+                <ImpactGauge level="low" submissionData={submissionData.low} openModal={openModal} />
+                <ImpactGauge level="medium" submissionData={submissionData.medium} openModal={openModal} />
+                <ImpactGauge level="high" submissionData={submissionData.high} openModal={openModal} />
             </div> : ''}
     </div>
 );
