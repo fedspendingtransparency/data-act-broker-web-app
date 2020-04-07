@@ -33,5 +33,5 @@ export default connect(
         appliedFilters: state.appliedDashboardFilters,
         _activeEmpty: state.appliedDashboardFilters._activeEmpty,
         _historicalEmpty: state.appliedDashboardFilters._historicalEmpty
-    }),
+    })
 )(DashboardContentContainer);

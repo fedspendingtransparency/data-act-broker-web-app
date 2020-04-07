@@ -1,5 +1,19 @@
-.warnings-info {
+.dashboard-graph-section {
     @import './axis';
+    &.dashboard-graph-section_active {
+        @import './categoryButtons';
+        .dashboard-graph {
+            margin-top: rem(50);
+        }
+        .axis-labels {
+            .x-axis:first-child {
+                display: none;
+            }
+            .x-axis:last-child {
+                display: none;
+            }
+        }
+    }
     .warnings-info-graph__tooltip {
         font-family: $font-sans;
         $color-tooltip-border: $color-gray-lighter;
@@ -82,5 +96,16 @@
     .bar-graph {
         // prevent cutting off the topmost y-axis label
         overflow: visible;
+        .bar-graph__axis-label {
+            font-size: rem(18);
+            color: $color-gray;
+        }
+        .significance-rules {
+            .rule-circle {
+                .rule-circle__text {
+                    font-weight: $font-semibold;
+                }
+            }
+        }
     }
 }

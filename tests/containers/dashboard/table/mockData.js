@@ -45,3 +45,31 @@ export const mockData = {
         }
     ]
 };
+
+export const activeMockData = {
+    'page_metadata': {
+        'total': 3,
+        'page': 1,
+        'limit': 2,
+        'submission_id': 1,
+        'files': ['C', 'D1']
+    },
+    "results": [
+        {
+            'significance': 2,
+            'rule_label': 'C12',
+            'instance_count': 1906,
+            'category': 'completeness',
+            'impact': 'high',
+            'rule_description': 'Description of the rule'
+        },
+        {
+            'significance': 4,
+            'rule_label': 'C10',
+            'instance_count': 53,
+            'category': 'accuracy',
+            'impact': 'low',
+            'rule_description': 'Description of the second rule'
+        }
+    ]
+};

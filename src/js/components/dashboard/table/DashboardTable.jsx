@@ -75,6 +75,7 @@ export default class DashboardTable extends React.Component {
                     <tr key={`dashboard-table-row-${row.submissionId}-${row.ruleLabel}`}>
                         <td>
                             <DashboardTableLabelButton
+                                label={row.fileLabel}
                                 row={row}
                                 openModal={this.props.openModal} />
                         </td>

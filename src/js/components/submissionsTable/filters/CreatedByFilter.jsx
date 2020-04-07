@@ -34,7 +34,7 @@ export default class CreatedByFilter extends React.Component {
                 {
                     userId,
                     name
-                },
+                }
             );
         }
     }
