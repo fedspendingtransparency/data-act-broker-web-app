@@ -10,7 +10,7 @@ import ValidateDataContainer from 'containers/validateData/ValidateDataContainer
 import GenerateFilesContainer from 'containers/generateFiles/GenerateFilesContainer';
 import CrossFileContentContainer from 'containers/crossFile/CrossFileContentContainer';
 import GenerateEFContainer from 'containers/generateEF/GenerateEFContainer';
-import ReviewDataContainer from 'containers/review/ReviewDataContainer';
+import ReviewDataContainer from 'containers/reviewData/ReviewDataContainer';
 
 import SubmissionHeader from './SubmissionHeader';
 import BannerRow from '../SharedComponents/BannerRow';

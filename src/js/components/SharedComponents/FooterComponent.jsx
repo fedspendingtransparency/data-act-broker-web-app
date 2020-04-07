@@ -9,7 +9,7 @@ export default class Footer extends React.Component {
     render() {
         const year = new Date().getFullYear();
         return (
-            <div className="usa-da-footer">
+            <div className="usa-da-footer" role="contentinfo">
                 {year} USAspending.gov
             </div>
         );

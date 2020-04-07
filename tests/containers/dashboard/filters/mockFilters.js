@@ -27,3 +27,15 @@ export const mockSubmitRedux = {
     stagedFilters: initialState,
     appliedFilters: appliedInitialState
 };
+
+export const mockActiveRedux = {
+    appliedFilters: {
+        filters: {
+            active: {
+                agency: '123',
+                file: 'A'
+            }
+        }
+    },
+    _activeEmpty: false
+};
