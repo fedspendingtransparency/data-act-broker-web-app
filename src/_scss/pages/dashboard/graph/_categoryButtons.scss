@@ -17,5 +17,8 @@
         .fa-circle {
             margin-right: rem(5);
         }
+        &.category-button_filtered {
+            opacity: 0.7;
+        }
     }
 }
