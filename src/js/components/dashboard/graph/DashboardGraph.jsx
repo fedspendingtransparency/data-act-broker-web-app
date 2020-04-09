@@ -114,14 +114,18 @@ export default class DashboardGraph extends React.Component {
             return null;
         }
         const categories = Object.keys(significanceColors);
-        const buttons = categories.map((category) => (
-            <CategoryButton
-                filterCategory={this.filterCategory}
-                key={category}
-                active={this.state.categories.includes(category)}
-                label={category}
-                color={significanceColors[category]} />
-        ));
+        const buttons = categories.map((category) => {
+            const rules = this.props.ySeries.filter((rule) => rule.category === category);
+            return (
+                <CategoryButton
+                    filterCategory={this.filterCategory}
+                    key={category}
+                    disabled={rules.length === 0}
+                    active={this.state.categories.includes(category)}
+                    label={category}
+                    color={significanceColors[category]} />
+            );
+        });
         return (
             <div className="category-buttons">
                 {buttons}
