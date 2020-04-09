@@ -9,9 +9,9 @@ import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import * as sessionActions from 'redux/actions/sessionActions';
 import * as PermissionHelper from 'helpers/permissionsHelper';
+import UserButton from 'components/SharedComponents/navigation/UserButton';
 import { kGlobalConstants } from '../../../GlobalConstants';
 import NavbarTab from './NavbarTab';
-import UserButton from './UserButton';
 import SkipNavigationLink from './SkipNavigationLink';
 import TestEnvironmentBanner from '../banners/TestEnvironmentBanner';
 
@@ -30,6 +30,12 @@ const defaultProps = {
 };
 
 export class Navbar extends React.Component {
+    constructor(props) {
+        super(props);
+
+        this.logout = this.logout.bind(this);
+    }
+
     getTabs() {
         // default access: only Help page
         let tabNames = {
@@ -63,14 +69,17 @@ export class Navbar extends React.Component {
         return tabNames;
     }
 
-    logout(e) {
-        e.preventDefault();
+    logout() {
         this.props.setSession({
             login: 'loggedOut',
             user: {},
             admin: false,
             skipGuide: false
         });
+    }
+
+    openSettings() {
+        return;
     }
 
     render() {
@@ -81,7 +90,11 @@ export class Navbar extends React.Component {
 
         let userButton = null;
         if (this.props.session.login === "loggedIn") {
-            userButton = <UserButton buttonText={userText} logout={this.logout.bind(this)} />;
+            userButton = <UserButton
+                buttonText={userText}
+                logout={this.logout}
+                openSettings={this.openSettings}
+                user={this.props.session.user} />;
         }
 
         const headerTabs = Object.keys(tabNames).map((key) => (

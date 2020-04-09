@@ -2,16 +2,19 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-
 import { kGlobalConstants } from 'GlobalConstants';
 
 const propTypes = {
     logout: PropTypes.func,
+    openSettings: PropTypes.func,
+    user: PropTypes.object,
     buttonText: PropTypes.string
 };
 
 const defaultProps = {
     logout: () => {},
+    openSettings: () => {},
+    user: {website_admin: false, affiliations: []},
     buttonText: ''
 };
 
@@ -22,11 +25,11 @@ export default class UserButton extends React.Component {
         this.state = {
             showDropdown: false
         };
+
+        this.toggleDropdown = this.toggleDropdown.bind(this);
     }
 
-    toggleDropdown(e) {
-        e.preventDefault();
-
+    toggleDropdown() {
         if (!this.state.showDropdown) {
             this.setState({
                 showDropdown: true
@@ -46,9 +49,21 @@ export default class UserButton extends React.Component {
         }
 
         let settingsButton = null;
-        if (!kGlobalConstants.PROD) {
+        let displaySettings = false;
+        if (this.props.user.website_admin) {
+            displaySettings = true;
+        }
+        else {
+            for (let i = 0; i < this.props.user.affiliations.length; i++) {
+                if (this.props.user.affiliations[i].permission === 'submitter') {
+                    displaySettings = true;
+                    break;
+                }
+            }
+        }
+        if (!kGlobalConstants.PROD && displaySettings) {
             settingsButton = <li>
-                    <button className="logout" href="#" onClick={this.props.logout}>
+                    <button onClick={this.props.openSettings}>
                         <FontAwesomeIcon icon="cog" />
                         Settings
                     </button>
@@ -58,15 +73,15 @@ export default class UserButton extends React.Component {
         return (
             <li className="usa-da-top-head-menu-item">
                 <button
-                    onClick={this.toggleDropdown.bind(this)}
-                    className="usa-da-header-link dropdown-toggle">
+                    onClick={this.toggleDropdown}
+                    className="usa-da-header-link">
                     <FontAwesomeIcon icon="user" />
                     {this.props.buttonText}
                 </button>
                 <ul className={`header-dropdown${hideDropdown}`}>
                     {settingsButton}
                     <li>
-                        <button className="logout" href="#" onClick={this.props.logout}>
+                        <button onClick={this.props.logout}>
                             <FontAwesomeIcon icon="sign-out-alt" />
                             Logout
                         </button>
