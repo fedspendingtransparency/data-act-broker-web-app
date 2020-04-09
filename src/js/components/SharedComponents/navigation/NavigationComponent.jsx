@@ -79,7 +79,7 @@ export class Navbar extends React.Component {
     }
 
     openSettings() {
-        return;
+
     }
 
     render() {
@@ -90,11 +90,11 @@ export class Navbar extends React.Component {
 
         let userButton = null;
         if (this.props.session.login === "loggedIn") {
-            userButton = <UserButton
+            userButton = (<UserButton
                 buttonText={userText}
                 logout={this.logout}
                 openSettings={this.openSettings}
-                user={this.props.session.user} />;
+                user={this.props.session.user} />);
         }
 
         const headerTabs = Object.keys(tabNames).map((key) => (

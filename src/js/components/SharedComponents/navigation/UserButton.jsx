@@ -14,7 +14,7 @@ const propTypes = {
 const defaultProps = {
     logout: () => {},
     openSettings: () => {},
-    user: {website_admin: false, affiliations: []},
+    user: { website_admin: false, affiliations: [] },
     buttonText: ''
 };
 
@@ -62,12 +62,14 @@ export default class UserButton extends React.Component {
             }
         }
         if (!kGlobalConstants.PROD && displaySettings) {
-            settingsButton = <li>
+            settingsButton = (
+                <li>
                     <button onClick={this.props.openSettings}>
                         <FontAwesomeIcon icon="cog" />
                         Settings
                     </button>
-                </li>;
+                </li>
+            );
         }
 
         return (
