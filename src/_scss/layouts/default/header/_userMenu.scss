@@ -11,9 +11,11 @@
         list-style: none;
         font-size: 1.2rem;
         display: inline-block;
-        padding-left: 25px;
+        padding-left: 2.5rem;
         margin-top: 0.4rem;
         margin-bottom: 0.4rem;
+        color: $color-cool-blue-lightest;
+
         button {
             background-color: transparent;
             border:none;
@@ -23,45 +25,28 @@
         & button:focus {
             color: $color-gray-light;
             text-decoration: none;
-            & .usa-da-icon-user,
-            & .usa-da-icon-cog {
-                fill: $color-gray-light;
-            }
         }
         &:before {
             content: '';
         }
-        & button {
-            color: $color-cool-blue-lightest;
-            & .usa-da-icon-user,
-            & .usa-da-icon-cog {
-                height: 14px;
-                width: 15px;
-                position: relative;
-                top: 3px;
-                left: -5px;
-                fill: $color-cool-blue-lightest;
-            }
-            & .usa-da-icon-cog {
-                height: 15px;
-                width: 15px;
-                left: -4px;
-            }
+        svg {
+            margin-right: 1rem;
+            height: 15px;
+            width: 15px;
         }
         & .header-dropdown {
             background: $color-base;
             position: absolute;
             z-index: 999999;
-            min-width: 100px;
-            max-width: 200px;
             margin-top: 0;
 
             & li {
-                float: left;
-                padding: 0 10px;
+                display: list-item;
+                margin: .5rem;
+
                 & button {
                     color: $color-white;
-                    font-size: 1.2rem;
+                    font-size: 1.4rem;
                 }
                 &::before {
                     display: none;

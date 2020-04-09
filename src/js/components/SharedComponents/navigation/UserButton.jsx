@@ -1,6 +1,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import * as Icons from '../icons/Icons';
+
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+
+import { kGlobalConstants } from 'GlobalConstants';
 
 const propTypes = {
     logout: PropTypes.func,
@@ -42,16 +45,31 @@ export default class UserButton extends React.Component {
             hideDropdown = "";
         }
 
+        let settingsButton = null;
+        if (!kGlobalConstants.PROD) {
+            settingsButton = <li>
+                    <button className="logout" href="#" onClick={this.props.logout}>
+                        <FontAwesomeIcon icon="cog" />
+                        Settings
+                    </button>
+                </li>;
+        }
+
         return (
             <li className="usa-da-top-head-menu-item">
                 <button
                     onClick={this.toggleDropdown.bind(this)}
-                    className="usa-da-header-link usa-da-user-info dropdown-toggle usa-da-icon"><Icons.User />
+                    className="usa-da-header-link dropdown-toggle">
+                    <FontAwesomeIcon icon="user" />
                     {this.props.buttonText}
                 </button>
                 <ul className={`header-dropdown${hideDropdown}`}>
+                    {settingsButton}
                     <li>
-                        <button className="logout" href="#" onClick={this.props.logout}>Log Out</button>
+                        <button className="logout" href="#" onClick={this.props.logout}>
+                            <FontAwesomeIcon icon="sign-out-alt" />
+                            Logout
+                        </button>
                     </li>
                 </ul>
             </li>
