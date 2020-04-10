@@ -5,13 +5,14 @@
 
 import React from 'react';
 import PropTypes from 'prop-types';
-import { throttle } from 'lodash';
+import { throttle, startCase } from 'lodash';
+import { formatNumberWithPrecision } from 'helpers/moneyFormatter';
 import { significanceColors } from 'dataMapping/dashboard/fileLabels';
 import NoResultsMessage from 'components/SharedComponents/NoResultsMessage';
 import LoadingMessage from 'components/SharedComponents/LoadingMessage';
 import ErrorMessageOverlay from 'components/SharedComponents/ErrorMessageOverlay';
 import BarChartStacked from './BarChartStacked';
-import WarningsInfoGraphTooltip from './WarningsInfoGraphTooltip';
+import DashboardGraphTooltip from './DashboardGraphTooltip';
 import SignificanceGraph from './SignificanceGraph';
 import CategoryButton from './CategoryButton';
 
@@ -111,8 +112,65 @@ export default class DashboardGraph extends React.Component {
     }
 
     render() {
-        const tooltip = this.state.showTooltip ? (
-            <WarningsInfoGraphTooltip data={this.state.tooltipData} />) : null;
+        let tooltip = null;
+        if (this.state.showTooltip) {
+            tooltip = this.props.type === 'historical' ? (
+                <DashboardGraphTooltip
+                    description={this.state.tooltipData.description}
+                    position={this.state.tooltipData.position}>
+                    <table>
+                        <tbody>
+                            <tr>
+                                <th>Time Period</th>
+                                <td>{this.state.tooltipData.xValue}</td>
+                            </tr>
+                            <tr>
+                                <th># of Rule Instances</th>
+                                <td>{formatNumberWithPrecision(this.state.tooltipData.value, 0)}</td>
+                            </tr>
+                            <tr>
+                                <th>Total # of Warnings</th>
+                                <td>{formatNumberWithPrecision(this.state.tooltipData.totalWarnings, 0)}</td>
+                            </tr>
+                            <tr>
+                                <th>% of all Warnings</th>
+                                <td>{this.state.tooltipData.percent}%</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </DashboardGraphTooltip>
+            ) :
+                (
+                    <DashboardGraphTooltip
+                        description={this.state.tooltipData.label}
+                        position={this.state.tooltipData.position}>
+                        <table>
+                            <tbody>
+                                <tr>
+                                    <th>Impact</th>
+                                    <td>{startCase(this.state.tooltipData.impact)}</td>
+                                </tr>
+                                <tr>
+                                    <th>Category</th>
+                                    <td>{startCase(this.state.tooltipData.category)}</td>
+                                </tr>
+                                <tr>
+                                    <th>{`Total # of ${startCase(this.props.errorLevel)}s`}</th>
+                                    <td>{formatNumberWithPrecision(this.state.tooltipData.totalInstances, 0)}</td>
+                                </tr>
+                                <tr>
+                                    <th># of Rule Instances</th>
+                                    <td>{formatNumberWithPrecision(this.state.tooltipData.yValue, 0)}</td>
+                                </tr>
+                                <tr>
+                                    <th>{`% of all ${startCase(this.props.errorLevel)}s`}</th>
+                                    <td>{this.state.tooltipData.percent}%</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </DashboardGraphTooltip>
+                );
+        }
         const empty = (this.props.ySeries.length === 0);
 
         let graphContent = <LoadingMessage />;
@@ -137,7 +195,10 @@ export default class DashboardGraph extends React.Component {
                     <SignificanceGraph
                         {...this.props}
                         width={this.state.visualizationWidth}
-                        height={graphHeight} />
+                        height={graphHeight}
+                        showTooltip={this.showTooltip}
+                        hideTooltip={this.hideTooltip}
+                        toggleTooltip={this.toggleTooltip} />
                 );
             }
         }

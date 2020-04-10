@@ -1,18 +1,22 @@
 /**
- * WarningsInfoGraphTooltip.jsx
+ * DashboardGraphTooltip.jsx
  * Created by Lizzie Salita 11/27/19
  */
 
 import React from 'react';
 import PropTypes from 'prop-types';
 import { throttle } from 'lodash';
-import { formatNumberWithPrecision } from 'helpers/moneyFormatter';
 
 const propTypes = {
-    data: PropTypes.object
+    description: PropTypes.string,
+    position: PropTypes.shape({
+        x: PropTypes.number,
+        y: PropTypes.number
+    }),
+    children: PropTypes.node
 };
 
-export default class WarningsInfoGraphTooltip extends React.Component {
+export default class DashboardGraphTooltip extends React.Component {
     constructor(props) {
         super(props);
 
@@ -49,7 +53,7 @@ export default class WarningsInfoGraphTooltip extends React.Component {
     }
 
     positionTooltip() {
-        const position = this.props.data.position;
+        const position = this.props.position;
         // we need to wait for the tooltip to render before we can full position it due to its
         // dynamic width
         const tooltipWidth = this.state.tooltipWidth;
@@ -78,7 +82,6 @@ export default class WarningsInfoGraphTooltip extends React.Component {
     }
 
     render() {
-        const data = this.props.data;
         return (
             <div
                 className="tooltip warnings-info-graph__tooltip"
@@ -91,34 +94,15 @@ export default class WarningsInfoGraphTooltip extends React.Component {
                         this.pointerDiv = div;
                     }} />
                 <div className="tooltip__title">
-                    {data.description}
+                    {this.props.description}
                 </div>
                 <hr />
                 <div className="tooltip__body">
-                    <table>
-                        <tbody>
-                            <tr>
-                                <th>Time Period</th>
-                                <td>{data.xValue}</td>
-                            </tr>
-                            <tr>
-                                <th># of Rule Instances</th>
-                                <td>{formatNumberWithPrecision(data.value, 0)}</td>
-                            </tr>
-                            <tr>
-                                <th>Total # of Warnings</th>
-                                <td>{formatNumberWithPrecision(data.totalWarnings, 0)}</td>
-                            </tr>
-                            <tr>
-                                <th>% of all Warnings</th>
-                                <td>{data.percent}%</td>
-                            </tr>
-                        </tbody>
-                    </table>
+                    {this.props.children}
                 </div>
             </div>
         );
     }
 }
 
-WarningsInfoGraphTooltip.propTypes = propTypes;
+DashboardGraphTooltip.propTypes = propTypes;

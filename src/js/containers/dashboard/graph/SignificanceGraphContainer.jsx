@@ -51,7 +51,7 @@ export class SignificanceGraphContainer extends React.Component {
 
         DashboardHelper.fetchSignificanceCounts(id, file, this.props.errorLevel)
             .then((res) => {
-                this.parseData(res.rules);
+                this.parseData(res.rules, res.total_instances);
             })
             .catch((err) => {
                 console.error(err);
@@ -62,7 +62,7 @@ export class SignificanceGraphContainer extends React.Component {
             });
     }
 
-    parseData(rules) {
+    parseData(rules, totalInstances) {
         const xSeries = [];
         const ySeries = [];
         const allY = []; // Number of instances for each rule
@@ -74,7 +74,8 @@ export class SignificanceGraphContainer extends React.Component {
                 significance: rule.significance,
                 impact: rule.impact,
                 instances: rule.instances,
-                percentage: rule.percentage
+                percentage: rule.percentage,
+                totalInstances
             });
             allY.push(rule.instances);
             xSeries.push(rule.significance);
