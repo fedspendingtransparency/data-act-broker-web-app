@@ -10,6 +10,7 @@ import { connect } from 'react-redux';
 import * as sessionActions from 'redux/actions/sessionActions';
 import * as PermissionHelper from 'helpers/permissionsHelper';
 import UserButton from 'components/SharedComponents/navigation/UserButton';
+import SettingsModal from 'components/settings/SettingsModal';
 import { kGlobalConstants } from '../../../GlobalConstants';
 import NavbarTab from './NavbarTab';
 import SkipNavigationLink from './SkipNavigationLink';
@@ -33,7 +34,13 @@ export class Navbar extends React.Component {
     constructor(props) {
         super(props);
 
+        this.state = {
+            showModal: false
+        };
+
         this.logout = this.logout.bind(this);
+        this.openSettingsModal = this.openSettingsModal.bind(this);
+        this.closeSettingsModal = this.closeSettingsModal.bind(this);
     }
 
     getTabs() {
@@ -78,8 +85,16 @@ export class Navbar extends React.Component {
         });
     }
 
-    openSettings() {
+    openSettingsModal() {
+        this.setState({
+            showModal: true
+        });
+    }
 
+    closeSettingsModal() {
+        this.setState({
+            showModal: false
+        });
     }
 
     render() {
@@ -93,8 +108,16 @@ export class Navbar extends React.Component {
             userButton = (<UserButton
                 buttonText={userText}
                 logout={this.logout}
-                openSettings={this.openSettings}
+                openSettings={this.openSettingsModal}
                 user={this.props.session.user} />);
+        }
+
+        let modal = null;
+        if (this.state.showModal) {
+            modal = (
+                <SettingsModal
+                    closeModal={this.closeSettingsModal}
+                    isOpen={this.state.showModal} />);
         }
 
         const headerTabs = Object.keys(tabNames).map((key) => (
@@ -152,6 +175,7 @@ export class Navbar extends React.Component {
                         </div>
                     </div>
                 </div>
+                {modal}
             </nav>
         );
     }
