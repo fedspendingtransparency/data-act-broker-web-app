@@ -10,8 +10,8 @@ import { max, isEqual } from 'lodash';
 import { formatNumberWithPrecision } from 'helpers/moneyFormatter';
 import { calculateLegendOffset } from 'helpers/stackedBarChartHelper';
 
-import BarChartXAxis from './BarChartXAxis';
-import BarChartYAxis from './BarChartYAxis';
+import BarChartXAxis from '../BarChartXAxis';
+import BarChartYAxis from '../BarChartYAxis';
 import BarChartLegend from './BarChartLegend';
 import StackedBarGroup from './StackedBarGroup';
 

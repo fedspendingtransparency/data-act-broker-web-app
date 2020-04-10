@@ -5,16 +5,17 @@
 
 import React from 'react';
 import PropTypes from 'prop-types';
-import { throttle, startCase } from 'lodash';
-import { formatNumberWithPrecision } from 'helpers/moneyFormatter';
+import { throttle } from 'lodash';
 import { significanceColors } from 'dataMapping/dashboard/fileLabels';
 import NoResultsMessage from 'components/SharedComponents/NoResultsMessage';
 import LoadingMessage from 'components/SharedComponents/LoadingMessage';
 import ErrorMessageOverlay from 'components/SharedComponents/ErrorMessageOverlay';
-import BarChartStacked from './BarChartStacked';
+import BarChartStacked from './historical/BarChartStacked';
 import DashboardGraphTooltip from './DashboardGraphTooltip';
-import SignificanceGraph from './SignificanceGraph';
-import CategoryButton from './CategoryButton';
+import SignificanceGraph from './active/SignificanceGraph';
+import CategoryButton from './active/CategoryButton';
+import HistoricalDashboardTooltip from './historical/HistoricalDashboardTooltip';
+import ActiveDashboardTooltip from './active/ActiveDashboardTooltip';
 
 const propTypes = {
     xSeries: PropTypes.arrayOf(PropTypes.oneOfType([PropTypes.string, PropTypes.number])),
@@ -118,56 +119,14 @@ export default class DashboardGraph extends React.Component {
                 <DashboardGraphTooltip
                     description={this.state.tooltipData.description}
                     position={this.state.tooltipData.position}>
-                    <table>
-                        <tbody>
-                            <tr>
-                                <th>Time Period</th>
-                                <td>{this.state.tooltipData.xValue}</td>
-                            </tr>
-                            <tr>
-                                <th># of Rule Instances</th>
-                                <td>{formatNumberWithPrecision(this.state.tooltipData.value, 0)}</td>
-                            </tr>
-                            <tr>
-                                <th>Total # of Warnings</th>
-                                <td>{formatNumberWithPrecision(this.state.tooltipData.totalWarnings, 0)}</td>
-                            </tr>
-                            <tr>
-                                <th>% of all Warnings</th>
-                                <td>{this.state.tooltipData.percent}%</td>
-                            </tr>
-                        </tbody>
-                    </table>
+                    <HistoricalDashboardTooltip {...this.state.tooltipData} />
                 </DashboardGraphTooltip>
             ) :
                 (
                     <DashboardGraphTooltip
                         description={this.state.tooltipData.label}
                         position={this.state.tooltipData.position}>
-                        <table>
-                            <tbody>
-                                <tr>
-                                    <th>Impact</th>
-                                    <td>{startCase(this.state.tooltipData.impact)}</td>
-                                </tr>
-                                <tr>
-                                    <th>Category</th>
-                                    <td>{startCase(this.state.tooltipData.category)}</td>
-                                </tr>
-                                <tr>
-                                    <th>{`Total # of ${startCase(this.props.errorLevel)}s`}</th>
-                                    <td>{formatNumberWithPrecision(this.state.tooltipData.totalInstances, 0)}</td>
-                                </tr>
-                                <tr>
-                                    <th># of Rule Instances</th>
-                                    <td>{formatNumberWithPrecision(this.state.tooltipData.yValue, 0)}</td>
-                                </tr>
-                                <tr>
-                                    <th>{`% of all ${startCase(this.props.errorLevel)}s`}</th>
-                                    <td>{this.state.tooltipData.percent}%</td>
-                                </tr>
-                            </tbody>
-                        </table>
+                        <ActiveDashboardTooltip {...this.state.tooltipData} errorLevel={this.props.errorLevel} />
                     </DashboardGraphTooltip>
                 );
         }
