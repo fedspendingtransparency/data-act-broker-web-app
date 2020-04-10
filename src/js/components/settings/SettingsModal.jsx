@@ -58,6 +58,10 @@ export default class SettingsModal extends React.Component {
                             </div>
                             <div className="settings-modal__main">
                                 <h2>Rule Settings</h2>
+                                <div className="description">
+                                    Change the Significance and Impact settings to alter the weight of your agency's
+                                    respective rules in the Active Dashboard chart.
+                                </div>
                             </div>
                         </div>
                     </div>

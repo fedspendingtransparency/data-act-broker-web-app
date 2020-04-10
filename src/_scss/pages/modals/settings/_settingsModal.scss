@@ -32,15 +32,15 @@
 
     .settings-modal__sidebar {
         @include flex(0 0 auto);
-        @include align-self(center);
+        @include align-self(stretch);
         background-color: #f1f1f1;
         padding: rem(12);
         padding-top: rem(32);
         width: rem(240);
-        height: 100%;
 
         h1 {
             margin: 0;
+            margin-bottom: rem(25);
             font-size: rem(25);
             font-weight: bold;
         }
@@ -48,18 +48,22 @@
 
     .settings-modal__main {
         @include flex(0 0 auto);
-        @include align-self(center);
+        @include align-self(stretch);
         padding-top: rem(32);
         padding-bottom: rem(25);
         padding-right: rem(40);
         padding-left: rem(25);
         width: rem(735);
-        height: 100%;
 
         h2 {
             margin: 0;
+            margin-bottom: rem(25);
             font-size: rem(25);
             font-weight: light;
+        }
+
+        .description {
+            width: rem(370);
         }
     }
 }
