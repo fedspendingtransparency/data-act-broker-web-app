@@ -32,7 +32,7 @@ export class ActiveDashboardTableContainer extends React.Component {
             inFlight: true,
             hasError: false,
             sort: 'significance',
-            order: 'desc',
+            order: 'asc',
             showModal: false,
             modalData: {}
         };
