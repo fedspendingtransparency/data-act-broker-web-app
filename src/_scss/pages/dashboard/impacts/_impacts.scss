@@ -1,20 +1,9 @@
 .dashboard-page__impacts {
     padding: rem(20);
 
-    h3 {
-        margin-top: 4rem;
-        margin-bottom: 0.5rem;
-        font-size: 2.5rem;
-        font-weight: $font-bold;
-        color: $font-color;
-    }
-    hr {
-        margin-left: 0;
-        width: 50%;
-    }
     h4 {
         margin-bottom: 0;
-        margin-top: rem(40);
+        margin-top: rem(20);
         font-size: $h3-font-size;
         font-weight: $font-normal;
         clear: both; // for IE

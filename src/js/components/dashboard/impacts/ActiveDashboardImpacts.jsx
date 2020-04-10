@@ -18,9 +18,8 @@ const propTypes = {
 };
 
 const ActiveDashboardImpacts = ({ submissionData, openModal }) => (
-    <div className="dashboard-page__impacts">
-        <h3>Warning Status</h3>
-        <hr />
+    <div className="dashboard-viz dashboard-page__impacts">
+        <h3 className='dashboard-viz__heading'>Warning Status</h3>
         <h4>Impact Count</h4>
         <p>
             Identify to what degree current warnings impact your submission.
