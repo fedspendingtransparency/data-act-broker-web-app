@@ -27,7 +27,9 @@
 
     .settings-modal__content {
         @include display(flex);
+        width: rem(935);
         height: 100%;
+        margin: 0;
     }
 
     .settings-modal__sidebar {
@@ -51,9 +53,9 @@
         @include align-self(stretch);
         padding-top: rem(32);
         padding-bottom: rem(25);
-        padding-right: rem(40);
+        padding-right: 0;
         padding-left: rem(25);
-        width: rem(735);
+        width: rem(695);
 
         h2 {
             margin: 0;
