@@ -13,11 +13,13 @@ const propTypes = {
     selectedAgency: PropTypes.string.isRequired,
     onSelect: PropTypes.func.isRequired,
     results: PropTypes.array.isRequired,
-    singleAgency: PropTypes.bool
+    singleAgency: PropTypes.bool,
+    filterLocation: PropTypes.string
 };
 
 const defaultProps = {
-    singleAgency: true
+    singleAgency: true,
+    filterLocation: 'dashboard'
 };
 
 export default class DashboardAgencyFilter extends React.Component {
@@ -81,7 +83,7 @@ export default class DashboardAgencyFilter extends React.Component {
             </div>
         );
         return (
-            <div className="dashboard-agency-filter">
+            <div className={`${this.props.filterLocation}-agency-filter`}>
                 {typeahead}
                 {selectedAgency}
             </div>

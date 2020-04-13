@@ -35,7 +35,12 @@ export default class SettingsAgencySelectContainer extends React.Component {
 
     onSelect(agency) {
         // Add or remove the rule from Redux state
-        this.props.updateAgency(agency);
+        if (agency !== this.props.selectedAgency) {
+            this.props.updateAgency(agency);
+        }
+        else {
+            this.props.updateAgency('');
+        }
     }
 
     loadData() {
@@ -62,7 +67,8 @@ export default class SettingsAgencySelectContainer extends React.Component {
                 selectedAgency={this.props.selectedAgency}
                 {...this.state}
                 onSelect={this.onSelect}
-                minCharsToSearch={minCharsToSearch} />
+                minCharsToSearch={minCharsToSearch}
+                filterLocation="settings" />
         );
     }
 }
