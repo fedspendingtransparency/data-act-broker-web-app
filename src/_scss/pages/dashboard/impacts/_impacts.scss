@@ -32,18 +32,39 @@
                 width: 70%;
             }
             .impact-section__count {
-                font-size: $h1-font-size;
-                font-weight: $font-light;
-                width: 100%
+                width: 100%;
+                height: rem(40);
+                p {
+                    font-size: $h1-font-size;
+                    font-weight: $font-light;
+                }
+                .results-table-content {
+                    margin: 0;
+                    min-height: 0
+                }
+                .results-table-error, .results-table-loading {
+                    margin: 0
+                }
+                .icon, .loading-animation {
+                    width: 2.5rem;
+                    height: 2.5rem;
+    
+                    svg {
+                        width: 2.5rem;
+                        height: 2.5rem;
+                    }
+                }
+                .description, .loading-message {
+                    font-size: 1.6rem;
+                    line-height: 1
+                }
             }
             .impact-section__level {
                 font-size: $h3-font-size;
                 font-weight: $font-bold;
                 text-transform: uppercase;
-                margin-top: rem(12);
                 width: 100%
             }
-
         }
     }
 }
