@@ -97,7 +97,11 @@ export class ActiveDashboardImpactsContainer extends React.Component {
         }
         return (
             <div>
-                <ActiveDashboardImpacts submissionData={this.state.submissionData} openModal={this.openModal} />
+                <ActiveDashboardImpacts
+                    submissionData={this.state.submissionData}
+                    openModal={this.openModal}
+                    inFlight={this.state.inFlight}
+                    hasFailed={this.state.hasFailed} />
                 {modal}
             </div>
         );

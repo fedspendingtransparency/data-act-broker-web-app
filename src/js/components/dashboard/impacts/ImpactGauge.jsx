@@ -5,12 +5,16 @@
 
 import React from 'react';
 import PropTypes from 'prop-types';
+import ErrorMessageOverlay from 'components/SharedComponents/ErrorMessageOverlay';
+import LoadingMessage from 'components/SharedComponents/LoadingMessage';
 import { createOnKeyDownHandler } from '../../../helpers/util';
 
 const propTypes = {
     submissionData: PropTypes.shape({ rules: PropTypes.arrayOf(PropTypes.object), total: PropTypes.number }),
     level: PropTypes.string,
-    openModal: PropTypes.func.isRequired
+    openModal: PropTypes.func.isRequired,
+    inFlight: PropTypes.bool,
+    hasFailed: PropTypes.bool
 };
 
 const defaultProps = {
@@ -33,6 +37,17 @@ export default class ImpactGauge extends React.Component {
 
     render() {
         const onKeyDownHandler = createOnKeyDownHandler(this.onClick);
+        let impactCountContent = null;
+        if (this.props.submissionData) {
+            const impactCount = this.props.submissionData.total || '0';
+            impactCountContent = <p>{impactCount}</p>;
+        }
+        if (this.props.inFlight) {
+            impactCountContent = <LoadingMessage loadingMessage="Loading..." barWidth={5} barPad={2} />;
+        }
+        else if (this.props.hasFailed) {
+            impactCountContent = <ErrorMessageOverlay errorTitle="" errorMessage="Error!" />;
+        }
         return (
             <div
                 className="impact-section"
@@ -47,9 +62,9 @@ export default class ImpactGauge extends React.Component {
                     alt={this.props.level} />
                 {/* eslint-enable import/no-dynamic-require, global-require */}
                 <div className="impact-section__stats">
-                    {this.props.submissionData ?
-                        <p className="impact-section__count">{this.props.submissionData.total}</p> : ''
-                    }
+                    <div className="impact-section__count">
+                        {impactCountContent}
+                    </div>
                     <p className="impact-section__level">{this.props.level}</p>
                 </div>
             </div>

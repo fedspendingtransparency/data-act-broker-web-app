@@ -14,22 +14,39 @@ const propTypes = {
         medium: PropTypes.object,
         high: PropTypes.object
     }),
+    inFlight: PropTypes.bool,
+    hasFailed: PropTypes.bool,
     openModal: PropTypes.func.isRequired
 };
 
-const ActiveDashboardImpacts = ({ submissionData, openModal }) => (
+const ActiveDashboardImpacts = (props) => (
     <div className="dashboard-viz dashboard-page__impacts">
-        <h3 className='dashboard-viz__heading'>Warning Status</h3>
+        <h3 className="dashboard-viz__heading">Warning Status</h3>
         <h4>Impact Count</h4>
         <p>
             Identify to what degree current warnings impact your submission.
             The values have been preset by your agency.
         </p>
-        {submissionData ?
+        {props.submissionData ?
             <div className="flex-wrapper">
-                <ImpactGauge level="low" submissionData={submissionData.low} openModal={openModal} />
-                <ImpactGauge level="medium" submissionData={submissionData.medium} openModal={openModal} />
-                <ImpactGauge level="high" submissionData={submissionData.high} openModal={openModal} />
+                <ImpactGauge
+                    level="low"
+                    submissionData={props.submissionData.low}
+                    openModal={props.openModal}
+                    inFlight={props.inFlight}
+                    hasFailed={props.hasFailed} />
+                <ImpactGauge
+                    level="medium"
+                    submissionData={props.submissionData.low}
+                    openModal={props.openModal}
+                    inFlight={props.inFlight}
+                    hasFailed={props.hasFailed} />
+                <ImpactGauge
+                    level="high"
+                    submissionData={props.submissionData.low}
+                    openModal={props.openModal}
+                    inFlight={props.inFlight}
+                    hasFailed={props.hasFailed} />
             </div> : ''}
     </div>
 );
