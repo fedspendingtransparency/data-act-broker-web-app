@@ -13,7 +13,8 @@ const propTypes = {
         x: PropTypes.number,
         y: PropTypes.number
     }),
-    children: PropTypes.node
+    children: PropTypes.node,
+    shape: PropTypes.oneOf(['bar', 'circle'])
 };
 
 export default class DashboardGraphTooltip extends React.Component {
@@ -70,13 +71,17 @@ export default class DashboardGraphTooltip extends React.Component {
         }
 
         // offset the tooltip position to account for its arrow/pointer
-        let offset = 9 + 33;
+        const offsetAdjust = this.props.shape === 'bar' ? 33 : 120;
+        const rightOffsetAdjust = this.props.shape === 'bar' ? 33 : -62;
+        let offset = 9 + offsetAdjust;
         if (direction === 'right') {
-            offset = -9 - tooltipWidth - 33;
+            offset = -9 - tooltipWidth - rightOffsetAdjust;
         }
 
+        const offsetY = this.props.shape === 'bar' ? 0 : -23;
+
         this.div.style.transform =
-            `translate(${position.x + offset}px,${position.y}px)`;
+            `translate(${position.x + offset}px,${position.y + offsetY}px)`;
         this.div.className = `tooltip ${direction} warnings-info-graph__tooltip`;
         this.pointerDiv.className = `tooltip-pointer ${direction}`;
     }

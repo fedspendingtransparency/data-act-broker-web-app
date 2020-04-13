@@ -117,15 +117,16 @@ export default class DashboardGraph extends React.Component {
         if (this.state.showTooltip) {
             tooltip = this.props.type === 'historical' ? (
                 <DashboardGraphTooltip
-                    description={this.state.tooltipData.description}
-                    position={this.state.tooltipData.position}>
+                    shape="bar"
+                    {...this.state.tooltipData}>
                     <HistoricalDashboardTooltip {...this.state.tooltipData} />
                 </DashboardGraphTooltip>
             ) :
                 (
                     <DashboardGraphTooltip
+                        shape="circle"
                         description={this.state.tooltipData.label}
-                        position={this.state.tooltipData.position}>
+                        {...this.state.tooltipData}>
                         <ActiveDashboardTooltip {...this.state.tooltipData} errorLevel={this.props.errorLevel} />
                     </DashboardGraphTooltip>
                 );

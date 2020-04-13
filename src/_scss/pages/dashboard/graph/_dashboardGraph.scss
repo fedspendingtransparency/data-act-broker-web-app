@@ -30,6 +30,9 @@
         hr {
             margin-bottom: rem(10);
             margin-top: rem(4);
+            margin-left: 0;
+            width: 100%;
+            border-top: solid rem(1) $color-gray-lighter;
         }
         .tooltip__body {
             font-size: rem(16);
