@@ -10,7 +10,7 @@ import Typeahead from 'components/SharedComponents/Typeahead';
 import ShownValue from './ShownValue';
 
 const propTypes = {
-    selectedFilters: PropTypes.object.isRequired,
+    selectedAgency: PropTypes.string.isRequired,
     onSelect: PropTypes.func.isRequired,
     results: PropTypes.array.isRequired,
     singleAgency: PropTypes.bool
@@ -32,7 +32,7 @@ export default class DashboardAgencyFilter extends React.Component {
     }
 
     onSelect() {
-        this.props.onSelect(this.props.selectedFilters.agency);
+        this.props.onSelect(this.props.selectedAgency);
     }
 
     dataFormatter(item) {
@@ -45,8 +45,8 @@ export default class DashboardAgencyFilter extends React.Component {
     render() {
         let selectedAgency = null;
         let filteredList = this.props.results;
-        if (this.props.selectedFilters.agency !== '') {
-            const agencyCode = this.props.selectedFilters.agency;
+        if (this.props.selectedAgency !== '') {
+            const agencyCode = this.props.selectedAgency;
             // select only the agency we've selected for clearing and displaying
             const agency = this.props.results.filter((result) => {
                 const code = result.cgac_code || result.frec_code;

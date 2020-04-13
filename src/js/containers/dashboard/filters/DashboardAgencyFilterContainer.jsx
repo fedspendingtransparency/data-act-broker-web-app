@@ -74,7 +74,7 @@ export class DashboardAgencyFilterContainer extends React.Component {
     render() {
         return (
             <DashboardAgencyFilter
-                selectedFilters={this.props.selectedFilters[this.props.type]}
+                selectedAgency={this.props.selectedFilters[this.props.type].agency}
                 {...this.state}
                 onSelect={this.onSelect}
                 minCharsToSearch={minCharsToSearch} />

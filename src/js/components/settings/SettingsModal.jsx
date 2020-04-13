@@ -8,6 +8,8 @@ import PropTypes from 'prop-types';
 import Modal from 'react-aria-modal';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
+import SettingsAgencySelectContainer from 'containers/settings/SettingsAgencySelectContainer';
+
 const propTypes = {
     closeModal: PropTypes.func.isRequired,
     isOpen: PropTypes.bool
@@ -55,6 +57,9 @@ export default class SettingsModal extends React.Component {
                         <div className="settings-modal__content">
                             <div className="settings-modal__sidebar">
                                 <h1>Settings</h1>
+                                <SettingsAgencySelectContainer
+                                    updateAgency={this.updateAgency}
+                                    selectedAgency={this.state.agencyCode} />
                             </div>
                             <div className="settings-modal__main">
                                 <h2>Rule Settings</h2>
