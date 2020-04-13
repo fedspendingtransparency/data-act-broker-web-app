@@ -57,6 +57,7 @@ export default class SettingsModal extends React.Component {
                         <div className="settings-modal__content">
                             <div className="settings-modal__sidebar">
                                 <h1>Settings</h1>
+                                <h2><FontAwesomeIcon icon="filter" /> Agency</h2>
                                 <SettingsAgencySelectContainer
                                     updateAgency={this.updateAgency}
                                     selectedAgency={this.state.agencyCode} />

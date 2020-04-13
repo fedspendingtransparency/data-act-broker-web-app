@@ -48,6 +48,19 @@
             font-weight: bold;
         }
 
+        h2 {
+            margin-bottom: 0;
+            margin-top: rem(45);
+            font-size: rem(16);
+            font-weight: bold;
+
+            svg {
+                height: rem(16);
+                width: rem(16);
+                margin-right: rem(5);
+            }
+        }
+
         .settings-agency-filter {
             @import '../../dashboard/filters/selectedFilters';
             @import '../../../components/typeahead/typeahead';
