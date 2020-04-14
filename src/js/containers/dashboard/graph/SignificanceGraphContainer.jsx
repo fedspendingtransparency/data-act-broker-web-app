@@ -35,7 +35,7 @@ export class SignificanceGraphContainer extends React.Component {
     }
 
     componentDidUpdate(prevProps) {
-        if (!isEqual(prevProps.appliedFilters, this.props.appliedFilters)) {
+        if (!isEqual(prevProps, this.props)) {
             this.fetchData();
         }
     }

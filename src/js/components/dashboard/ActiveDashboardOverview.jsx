@@ -5,6 +5,7 @@
 
 import React from 'react';
 import PropTypes from 'prop-types';
+import { startCase } from 'lodash';
 
 const propTypes = {
     submissionData: PropTypes.object,
@@ -58,7 +59,7 @@ const ActiveDashboardOverview = (props) => (
                     {props.submissionData.number_of_rules}
                 </div>
                 <div className="overview-section">
-                    <h4>Total # of Warings</h4>
+                    <h4>{`Total # of ${startCase(props.errorLevel)}s`}</h4>
                     {props.submissionData.total_instances}
                 </div>
             </div>

@@ -53,7 +53,7 @@ const ActiveDashboard = (props) => {
                 <hr />
                 <ActiveDashboardImpactsContainer errorLevel={errorLevel} submissionID={props.submissionID} />
                 <SignificanceGraphContainer errorLevel={errorLevel} submissionID={props.submissionID} />
-                <ActiveDashboardTableContainer submissionID={props.submissionID} />
+                <ActiveDashboardTableContainer errorLevel={errorLevel} submissionID={props.submissionID} />
             </div>
         </div>
     );
