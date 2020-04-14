@@ -77,3 +77,16 @@ export const checkAffiliations = (session, affil, agencyName) => {
     }
     return false;
 };
+
+export const checkSubmitterAffiliations = (session) => {
+    if (session.user.website_admin) {
+        return true;
+    }
+    const affiliations = session.user.affiliations;
+    for (let i = 0; i < affiliations.length; i++) {
+        if (affiliations[i].permission === 'submitter') {
+            return true;
+        }
+    }
+    return false;
+}

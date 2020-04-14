@@ -90,11 +90,12 @@ export class Navbar extends React.Component {
 
         let userButton = null;
         if (this.props.session.login === "loggedIn") {
+            const isSubmitter = PermissionHelper.checkSubmitterAffiliations(this.props.session)
             userButton = (<UserButton
                 buttonText={userText}
                 logout={this.logout}
                 openSettings={this.openSettings}
-                user={this.props.session.user} />);
+                isSubmitter={isSubmitter} />);
         }
 
         const headerTabs = Object.keys(tabNames).map((key) => (
