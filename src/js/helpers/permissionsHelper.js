@@ -79,7 +79,7 @@ export const checkAffiliations = (session, affil, agencyName) => {
 };
 
 export const checkSubmitterAffiliations = (session) => {
-    if (session.user.website_admin) {
+    if (session.admin) {
         return true;
     }
     const affiliations = session.user.affiliations;
@@ -89,4 +89,4 @@ export const checkSubmitterAffiliations = (session) => {
         }
     }
     return false;
-}
+};
