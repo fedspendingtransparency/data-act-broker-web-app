@@ -96,10 +96,13 @@ export class ActiveDashboardImpactsContainer extends React.Component {
                     isOpen={this.state.showModal} />);
         }
         return (
-            <div>
-                <ActiveDashboardImpacts submissionData={this.state.submissionData} openModal={this.openModal} />
+            <>
+                <ActiveDashboardImpacts
+                    submissionData={this.state.submissionData}
+                    openModal={this.openModal}
+                    errorLevel={this.props.errorLevel} />
                 {modal}
-            </div>
+            </>
         );
     }
 }
