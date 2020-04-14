@@ -26,13 +26,33 @@ export default class ImpactGauge extends React.Component {
     constructor(props) {
         super(props);
 
+        this.state = {
+            displayModal: false
+        };
+
         this.onClick = this.onClick.bind(this);
     }
 
+    componentDidMount() {
+        this.setModal();
+    }
+
+    componentDidUpdate(prevProps) {
+        if (this.props.submissionData !== prevProps.submissionData) {
+            this.setModal();
+        }
+    }
+
     onClick() {
-        if (this.props.submissionData.total !== 0) {
+        if (this.state.displayModal) {
             this.props.openModal(this.props.submissionData.rules, this.props.level);
         }
+    }
+
+    setModal() {
+        this.setState({
+            displayModal: (this.props.submissionData.rules && this.props.submissionData.rules.length > 0)
+        });
     }
 
     render() {
@@ -43,10 +63,10 @@ export default class ImpactGauge extends React.Component {
             impactCountContent = <p>{impactCount}</p>;
         }
         if (this.props.inFlight) {
-            impactCountContent = <LoadingMessage loadingMessage="Loading..." barWidth={5} barPad={2} />;
+            impactCountContent = <LoadingMessage loadingMessage="" barWidth={5} barPad={2} />;
         }
         else if (this.props.hasFailed) {
-            impactCountContent = <ErrorMessageOverlay errorTitle="" errorMessage="Error!" />;
+            impactCountContent = <ErrorMessageOverlay errorTitle="" errorMessage="" />;
         }
         return (
             <div
@@ -55,7 +75,7 @@ export default class ImpactGauge extends React.Component {
                 onKeyDown={onKeyDownHandler}
                 role="button"
                 tabIndex={0}
-                disabled={this.props.submissionData.total === 0}>
+                disabled={!this.state.displayModal}>
                 {/* eslint-disable import/no-dynamic-require, global-require */}
                 <img
                     src={require(`../../../../graphics/gauges/chart-${this.props.level}.png`)}
