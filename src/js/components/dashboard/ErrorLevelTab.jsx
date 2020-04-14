@@ -14,10 +14,10 @@ const propTypes = {
 };
 
 const ErrorLevelTab = ({ errorLevel, setErrorLevel, active }) => {
-    const activeClass = active ? 'dashboard-tabs__button_active' : '';
+    const activeClass = active ? ' dashboard-tabs__button_active' : '';
     return (
         <button
-            className={`dashboard-tabs__button ${activeClass}`}
+            className={`dashboard-tabs__button${activeClass}`}
             onClick={() => setErrorLevel(errorLevel)}>
             {startCase(errorLevel)}s
         </button>

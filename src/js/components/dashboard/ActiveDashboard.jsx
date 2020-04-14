@@ -24,13 +24,15 @@ const ActiveDashboard = (props) => {
     const [errorLevel, setErrorLevel] = useState('warning');
     return (
         <div className="dashboard-page-active">
-            <div className="dashboard-page-active__error-levels">
-                {errorLevels.map((level) => (
-                    <ErrorLevelTab
-                        errorLevel={level}
-                        setErrorLevel={setErrorLevel}
-                        active={errorLevel === level} />
-                ))}
+            <div className="dashboard-tabs dashboard-tabs_active">
+                <div className="dashboard-tabs__content">
+                    {errorLevels.map((level) => (
+                        <ErrorLevelTab
+                            errorLevel={level}
+                            setErrorLevel={setErrorLevel}
+                            active={errorLevel === level} />
+                    ))}
+                </div>
             </div>
             <div className="dashboard-page__content">
                 {props.numResults > 1 ?
