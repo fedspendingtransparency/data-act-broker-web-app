@@ -45,7 +45,7 @@ export default class SettingsAgencySelectContainer extends React.Component {
 
     loadData() {
         // we need to populate the list
-        AgencyHelper.fetchAgencies()
+        AgencyHelper.fetchAgencies('submitter', 'dabs')
             .then((agencies) => {
                 this.setState({
                     results: agencies,
