@@ -7,14 +7,14 @@ import { kGlobalConstants } from 'GlobalConstants';
 const propTypes = {
     logout: PropTypes.func,
     openSettings: PropTypes.func,
-    user: PropTypes.object,
+    isSubmitter: PropTypes.bool,
     buttonText: PropTypes.string
 };
 
 const defaultProps = {
     logout: () => {},
     openSettings: () => {},
-    user: { website_admin: false, affiliations: [] },
+    isSubmitter: false,
     buttonText: ''
 };
 
@@ -55,19 +55,7 @@ export default class UserButton extends React.Component {
         }
 
         let settingsButton = null;
-        let displaySettings = false;
-        if (this.props.user.website_admin) {
-            displaySettings = true;
-        }
-        else {
-            for (let i = 0; i < this.props.user.affiliations.length; i++) {
-                if (this.props.user.affiliations[i].permission === 'submitter') {
-                    displaySettings = true;
-                    break;
-                }
-            }
-        }
-        if (!kGlobalConstants.PROD && displaySettings) {
+        if (!kGlobalConstants.PROD && this.props.isSubmitter) {
             settingsButton = (
                 <li>
                     <button onClick={this.openSettings}>

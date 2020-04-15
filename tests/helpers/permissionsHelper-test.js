@@ -154,4 +154,20 @@ describe('permissionsHelper', () => {
             expect(anotherAgency).toBeFalsy();
         });
     });
+    describe('checkSubmitterAffiliations', () => {
+        it('should return true when the current user is an admin', () => {
+            const seesSettings = permissionsHelper.checkSubmitterAffiliations(getSession(true, []));
+            expect(seesSettings).toEqual(true);
+        });
+        it('should return true when the current user has a submitter role', () => {
+            const submitterRole = getSession(false, [getRole('test', 'submitter')]);
+            const seesSettings = permissionsHelper.checkSubmitterAffiliations(submitterRole);
+            expect(seesSettings).toEqual(true);
+        });
+        it('should return false when the current user does not have a submitter role', () => {
+            const nonSubmitterRole = getSession(false, [getRole('test', 'fabs'), getRole('test', 'writer')]);
+            const seesSettings = permissionsHelper.checkSubmitterAffiliations(nonSubmitterRole);
+            expect(seesSettings).toEqual(false);
+        });
+    });
 });

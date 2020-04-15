@@ -105,11 +105,12 @@ export class Navbar extends React.Component {
 
         let userButton = null;
         if (this.props.session.login === "loggedIn") {
+            const isSubmitter = PermissionHelper.checkSubmitterAffiliations(this.props.session);
             userButton = (<UserButton
                 buttonText={userText}
                 logout={this.logout}
-                openSettings={this.openSettingsModal}
-                user={this.props.session.user} />);
+                openSettings={this.openSettings}
+                isSubmitter={isSubmitter} />);
         }
 
         let modal = null;
