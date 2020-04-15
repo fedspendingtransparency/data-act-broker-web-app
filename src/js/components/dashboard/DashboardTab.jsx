@@ -18,18 +18,19 @@ export default class DashboardTab extends React.Component {
     render() {
         const activeClass = this.props.active ? 'dashboard-tabs__button_active' : '';
         const link = this.props.disabled ? (
-            this.props.label
-        ) : (
-            <Link to={`/dashboard/${this.props.type}`}>{this.props.label}</Link>
-        );
-        return (
             <button
                 className={`dashboard-tabs__button ${activeClass}`}
-                onClick={this.setActiveTab}
                 disabled={this.props.disabled}>
-                {link}
+                {this.props.label}
             </button>
+        ) : (
+            <Link
+                className={`dashboard-tabs__button ${activeClass}`}
+                to={`/dashboard/${this.props.type}`}>
+                {this.props.label}
+            </Link>
         );
+        return link;
     }
 }
 
