@@ -26,7 +26,10 @@ export default class SettingsModal extends React.Component {
 
         this.state = {
             agencyCode: '',
-            selectedRule: 'A'
+            selectedRule: {
+                value: 'A',
+                label: 'File A'
+            }
         };
 
         this.updateAgency = this.updateAgency.bind(this);
@@ -56,8 +59,9 @@ export default class SettingsModal extends React.Component {
             { value: 'cross-CD2', label: 'Cross: C/D2' }];
         const ruleList = validationRules.map((rule) =>
             ({
+                value: rule.value,
                 name: rule.label,
-                onClick: () => this.updateRule(rule.value)
+                onClick: () => this.updateRule(rule)
             }));
         return (
             <Modal
@@ -95,7 +99,7 @@ export default class SettingsModal extends React.Component {
                                         <h2><FontAwesomeIcon icon="filter" /> Validation Rules</h2>
                                         <Picker
                                             options={ruleList}
-                                            selectedOption={this.state.selectedRule}
+                                            selectedOption={this.state.selectedRule.label}
                                             sortFn={() => 0}
                                             isFixedWidth />
                                     </div>
