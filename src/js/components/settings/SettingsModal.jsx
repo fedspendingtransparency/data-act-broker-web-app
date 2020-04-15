@@ -26,7 +26,7 @@ export default class SettingsModal extends React.Component {
 
         this.state = {
             agencyCode: '',
-            selectedRule: 'A',
+            selectedRule: 'A'
         };
 
         this.updateAgency = this.updateAgency.bind(this);
@@ -47,19 +47,18 @@ export default class SettingsModal extends React.Component {
 
     render() {
         const validationRules = [
-            {'value': 'A', 'label': 'File A'},
-            {'value': 'B', 'label': 'File B'},
-            {'value': 'C', 'label': 'File C'},
-            {'value': 'cross-AB', 'label': 'Cross: A/B'},
-            {'value': 'cross-BC', 'label': 'Cross: B/C'},
-            {'value': 'cross-CD1', 'label': 'Cross: C/D1'},
-            {'value': 'cross-CD2', 'label': 'Cross: C/D2'}]
-        const ruleList = validationRules.map((rule) => (
-                {
-                    name: rule.label,
-                    onClick: () => this.updateRule(rule.value)
-                }
-            ));
+            { value: 'A', label: 'File A' },
+            { value: 'B', label: 'File B' },
+            { value: 'C', label: 'File C' },
+            { value: 'cross-AB', label: 'Cross: A/B' },
+            { value: 'cross-BC', label: 'Cross: B/C' },
+            { value: 'cross-CD1', label: 'Cross: C/D1' },
+            { value: 'cross-CD2', label: 'Cross: C/D2' }];
+        const ruleList = validationRules.map((rule) =>
+            ({
+                name: rule.label,
+                onClick: () => this.updateRule(rule.value)
+            }));
         return (
             <Modal
                 mounted={this.props.isOpen}
@@ -97,7 +96,7 @@ export default class SettingsModal extends React.Component {
                                         <Picker
                                             options={ruleList}
                                             selectedOption={this.state.selectedRule}
-                                            sortFn={() => {return 0;}}
+                                            sortFn={() => 0}
                                             isFixedWidth />
                                     </div>
                                 </div>
