@@ -17,13 +17,17 @@ import * as Icons from '../SharedComponents/icons/Icons';
 const propTypes = {
     closeModal: PropTypes.func,
     submissionID: PropTypes.string,
-    isOpen: PropTypes.bool
+    isOpen: PropTypes.bool,
+    fromUser: PropTypes.string,
+    submittingAgency: PropTypes.string
 };
 
 const defaultProps = {
     isOpen: false,
     closeModal: () => {},
-    submissionID: ''
+    submissionID: '',
+    fromUser: '',
+    submittingAgency: ''
 };
 
 export default class ReviewDataNotifyModal extends React.Component {
@@ -107,6 +111,23 @@ export default class ReviewDataNotifyModal extends React.Component {
             });
     }
 
+    openClientEmail(e) {
+        e.preventDefault();
+        const toEmails = (this.state.selectedUsers.map((user) => user.email)).join(', ');
+        const subject = 'DATA Act Broker - Submission Ready for Review';
+        const revUser = this.props.fromUser.toUpperCase();
+        const revAgecny = this.props.submittingAgency.toUpperCase();
+        const revLink = window.location.href;
+        console.log(revLink);
+        const body = [
+            `${revUser} has shared a DATA Act broker submission with you from ${revAgecny}. `,
+            `Follow this link (${revLink}) to review their submission. `,
+            `For questions or comments, please visit the Service Desk at https://servicedesk.usaspending.gov/ `,
+            `or e-mail DATAPMO@fiscal.treasury.gov.`
+        ].join('');
+        window.location.href = `mailto:${toEmails}?subject=${subject}&body=${body}`;
+    }
+
     render() {
         const selectedUsers = [];
         if (this.state.selectedUsers && this.state.selectedUsers.length > 0) {
@@ -167,7 +188,7 @@ export default class ReviewDataNotifyModal extends React.Component {
                             <div className="row">
                                 <div className="col-md-12 mb-10">
                                     <button
-                                        onClick={this.sendNotification.bind(this)}
+                                        onClick={this.openClientEmail.bind(this)}
                                         className="usa-da-button btn-primary pull-right">Send Notification
                                     </button>
                                 </div>
