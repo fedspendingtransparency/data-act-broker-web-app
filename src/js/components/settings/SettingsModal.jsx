@@ -7,6 +7,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import Modal from 'react-aria-modal';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { Picker } from 'data-transparency-ui';
 
 import SettingsAgencySelectContainer from 'containers/settings/SettingsAgencySelectContainer';
 
@@ -38,10 +39,9 @@ export default class SettingsModal extends React.Component {
         });
     }
 
-    updateRule(e) {
-        e.preventDefault();
+    updateRule(rule) {
         this.setState({
-            selectedRule: e.target.value
+            selectedRule: rule
         });
     }
 
@@ -54,12 +54,12 @@ export default class SettingsModal extends React.Component {
             {'value': 'cross-BC', 'label': 'Cross: B/C'},
             {'value': 'cross-CD1', 'label': 'Cross: C/D1'},
             {'value': 'cross-CD2', 'label': 'Cross: C/D2'}]
-        const ruleList = validationRules.map((rule) =>
-            (
-                <option
-                    key={rule.value}
-                    value={rule.value}>{rule.label}
-                </option>));
+        const ruleList = validationRules.map((rule) => (
+                {
+                    name: rule.label,
+                    onClick: () => this.updateRule(rule.value)
+                }
+            ));
         return (
             <Modal
                 mounted={this.props.isOpen}
@@ -94,12 +94,11 @@ export default class SettingsModal extends React.Component {
                                     </div>
                                     <div className="validation-rule-select">
                                         <h2><FontAwesomeIcon icon="filter" /> Validation Rules</h2>
-                                        <select
-                                            className="validation-rule-select-dropdown"
-                                            onChange={this.updateRule.bind(this)}
-                                            value={this.state.selectedRule}>
-                                            {ruleList}
-                                        </select>
+                                        <Picker
+                                            options={ruleList}
+                                            selectedOption={this.state.selectedRule}
+                                            sortFn={() => {return 0;}}
+                                            isFixedWidth />
                                     </div>
                                 </div>
                             </div>
