@@ -39,13 +39,15 @@ export default class DashboardGraph extends React.Component {
             showTooltip: false,
             tooltipData: null,
             tooltipX: 0,
-            tooltipY: 0
+            tooltipY: 0,
+            categories: ['accuracy', 'completeness', 'existence']
         };
 
         this.handleWindowResize = throttle(this.handleWindowResize.bind(this), 50);
         this.showTooltip = this.showTooltip.bind(this);
         this.hideTooltip = this.hideTooltip.bind(this);
         this.toggleTooltip = this.toggleTooltip.bind(this);
+        this.filterCategory = this.filterCategory.bind(this);
     }
 
     componentDidMount() {
@@ -91,18 +93,39 @@ export default class DashboardGraph extends React.Component {
         }
     }
 
+    filterCategory(category) {
+        let categories = [...this.state.categories];
+        if (categories.includes(category)) {
+            // remove this category from the graph
+            categories = categories.filter((cat) => cat !== category);
+        }
+        else {
+            // add this category to the graph
+            categories.push(category);
+        }
+
+        this.setState({
+            categories
+        });
+    }
+
     generateCategoryButtons() {
         if (this.props.type === 'historical') {
             return null;
         }
         const categories = Object.keys(significanceColors);
-        const buttons = categories.map((category) => (
-            <CategoryButton
-                key={category}
-                disabled
-                label={category}
-                color={significanceColors[category]} />
-        ));
+        const buttons = categories.map((category) => {
+            const rules = this.props.ySeries.filter((rule) => rule.category === category);
+            return (
+                <CategoryButton
+                    filterCategory={this.filterCategory}
+                    key={category}
+                    disabled={rules.length === 0}
+                    active={this.state.categories.includes(category)}
+                    label={category}
+                    color={significanceColors[category]} />
+            );
+        });
         return (
             <div className="category-buttons">
                 {buttons}
@@ -136,6 +159,7 @@ export default class DashboardGraph extends React.Component {
                 ) : (
                     <SignificanceGraph
                         {...this.props}
+                        categories={this.state.categories}
                         width={this.state.visualizationWidth}
                         height={graphHeight} />
                 );
