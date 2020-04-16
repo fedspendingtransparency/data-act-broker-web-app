@@ -13,7 +13,7 @@ import * as uploadActions from 'redux/actions/uploadActions';
 import * as UploadHelper from 'helpers/uploadHelper';
 import * as ReviewHelper from 'helpers/reviewHelper';
 import CrossFileContent from 'components/crossFile/CrossFileContent';
-import PublishedSubmissionWarningBanner from 'components/SharedComponents/PublishedSubmissionWarningBanner';
+import SubmissionWarningBanner from 'components/SharedComponents/SubmissionWarningBanner';
 import Banner from 'components/SharedComponents/Banner';
 import { kGlobalConstants } from '../../GlobalConstants';
 
@@ -209,10 +209,7 @@ class CrossFileContentContainer extends React.Component {
             return <Redirect to={`/submission/${this.props.submissionID}/generateFiles/`} />;
         }
 
-        let warningMessage = null;
-        if (this.props.submission.publishStatus !== "unpublished") {
-            warningMessage = <PublishedSubmissionWarningBanner />;
-        }
+        const warningMessage = <SubmissionWarningBanner submission={this.props.submission} />;
 
         return (
             <div className="cross-file-page">

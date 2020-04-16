@@ -13,7 +13,7 @@ import { assign, findIndex, merge } from 'lodash';
 import Q from 'q';
 
 import GenerateFilesContent from 'components/generateFiles/GenerateFilesContent';
-import PublishedSubmissionWarningBanner from 'components/SharedComponents/PublishedSubmissionWarningBanner';
+import SubmissionWarningBanner from 'components/SharedComponents/SubmissionWarningBanner';
 import Banner from 'components/SharedComponents/Banner';
 
 import * as uploadActions from 'redux/actions/uploadActions';
@@ -517,10 +517,7 @@ export class GenerateFilesContainer extends React.Component {
     }
 
     render() {
-        let warningMessage = null;
-        if (this.props.submission.publishStatus !== "unpublished") {
-            warningMessage = <PublishedSubmissionWarningBanner />;
-        }
+        const warningMessage = <SubmissionWarningBanner submission={this.props.submission} />;
 
         return (
             <div>

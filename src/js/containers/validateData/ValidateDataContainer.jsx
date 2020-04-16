@@ -13,7 +13,7 @@ import * as uploadActions from '../../redux/actions/uploadActions';
 import ValidationContent from '../../components/validateData/ValidationContent';
 import ValidateNotYours from '../../components/validateData/ValidateNotYours';
 import ValidateLoadingScreen from '../../components/validateData/ValidateLoadingScreen';
-import PublishedSubmissionWarningBanner from '../../components/SharedComponents/PublishedSubmissionWarningBanner';
+import SubmissionWarningBanner from '../../components/SharedComponents/SubmissionWarningBanner';
 import Banner from '../../components/SharedComponents/Banner';
 
 import * as ReviewHelper from '../../helpers/reviewHelper';
@@ -247,8 +247,8 @@ export class ValidateDataContainer extends React.Component {
         }
 
         let warningMessage = null;
-        if (!this.state.notYours && !this.state.serverError && this.props.submission.publishStatus !== "unpublished") {
-            warningMessage = <PublishedSubmissionWarningBanner />;
+        if (!this.state.notYours && !this.state.serverError) {
+            warningMessage = <SubmissionWarningBanner submission={this.props.submission} />;
         }
 
         return (
