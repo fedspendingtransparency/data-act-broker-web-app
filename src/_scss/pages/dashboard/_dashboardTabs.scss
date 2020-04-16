@@ -8,15 +8,26 @@
             padding: rem(6) 0;
             margin: rem(4) rem(25);
             font-size: rem(20);
-            a {
-                color: $color-white;
-                text-decoration: none;
-            }
             &.dashboard-tabs__button_active {
                 border-bottom: solid rem(2) $color-gold;
             }
             &:disabled {
                 color: $color-gray;
+            }
+        }
+        a.dashboard-tabs__button {
+            color: $color-white;
+            text-decoration: none;
+        }
+    }
+    &.dashboard-tabs_active {
+        background-color: transparent;
+        .dashboard-tabs__content {
+            @include justify-content(flex-start);
+        }
+        .dashboard-tabs__button {
+            &.dashboard-tabs__button_active {
+                border-bottom-color: $color-primary;
             }
         }
     }

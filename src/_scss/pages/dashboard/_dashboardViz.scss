@@ -5,7 +5,7 @@
         font-weight: $font-semibold;
         line-height: rem(31);
         border-bottom: solid 1px $color-gray-light;
-        width: rem(379);
+        max-width: rem(379);
         padding-bottom: rem(5);
         margin: rem(10) 0 rem(3);
         clear: both; // for IE

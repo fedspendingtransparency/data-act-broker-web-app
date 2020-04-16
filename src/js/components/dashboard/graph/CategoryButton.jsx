@@ -11,12 +11,17 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 const propTypes = {
     label: PropTypes.string,
     color: PropTypes.string,
-    disabled: PropTypes.bool
+    disabled: PropTypes.bool,
+    filterCategory: PropTypes.func,
+    active: PropTypes.bool
 };
 
-const CategoryButton = ({ label, color, disabled }) => (
+const CategoryButton = ({
+    label, color, disabled, filterCategory, active
+}) => (
     <button
-        className="category-button"
+        className={`category-button${active ? '' : ' category-button_filtered'}`}
+        onClick={() => filterCategory(label)}
         disabled={disabled}>
         <FontAwesomeIcon icon="circle" style={{ color }} />
         {` ${startCase(label)}`}
