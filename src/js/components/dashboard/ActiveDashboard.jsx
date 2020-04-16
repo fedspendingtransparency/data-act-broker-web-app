@@ -28,6 +28,7 @@ const ActiveDashboard = (props) => {
                 <div className="dashboard-tabs__content">
                     {errorLevels.map((level) => (
                         <ErrorLevelTab
+                            key={level}
                             errorLevel={level}
                             setErrorLevel={setErrorLevel}
                             active={errorLevel === level} />
