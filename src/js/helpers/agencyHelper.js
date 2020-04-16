@@ -3,10 +3,10 @@ import Request from './sessionSuperagent';
 
 import { kGlobalConstants } from '../GlobalConstants';
 
-export const fetchAgencies = () => {
+export const fetchAgencies = (permissionLevel = 'reader', permissionType = 'mixed') => {
     const deferred = Q.defer();
 
-    Request.get(`${kGlobalConstants.API}list_agencies/`)
+    Request.get(`${kGlobalConstants.API}list_agencies/?perm_level=${permissionLevel}&perm_type=${permissionType}`)
         .send()
         .end((err, res) => {
             if (err) {

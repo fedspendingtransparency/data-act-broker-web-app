@@ -8,6 +8,8 @@ import PropTypes from 'prop-types';
 import Modal from 'react-aria-modal';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
+import SettingsAgencySelectContainer from 'containers/settings/SettingsAgencySelectContainer';
+
 const propTypes = {
     closeModal: PropTypes.func.isRequired,
     isOpen: PropTypes.bool
@@ -55,12 +57,16 @@ export default class SettingsModal extends React.Component {
                         <div className="settings-modal__content">
                             <div className="settings-modal__sidebar">
                                 <h1>Settings</h1>
+                                <h2><FontAwesomeIcon icon="filter" /> Agency</h2>
+                                <SettingsAgencySelectContainer
+                                    updateAgency={this.updateAgency}
+                                    selectedAgency={this.state.agencyCode} />
                             </div>
                             <div className="settings-modal__main">
                                 <h2>Rule Settings</h2>
                                 <div className="description">
-                                    Change the Significance and Impact settings to alter the weight of your agency&apos;s
-                                    respective rules in the Active Dashboard chart.
+                                    Change the Significance and Impact settings to alter the weight of your
+                                    agency&apos;s respective rules in the Active Dashboard chart.
                                 </div>
                             </div>
                         </div>
