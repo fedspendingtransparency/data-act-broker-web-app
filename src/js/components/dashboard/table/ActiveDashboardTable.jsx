@@ -5,6 +5,7 @@
 
 import React from 'react';
 import PropTypes from 'prop-types';
+import { startCase } from 'lodash';
 
 import DashboardTableHeader from 'components/dashboard/table/DashboardTableHeader';
 import NoResultsMessage from 'components/SharedComponents/NoResultsMessage';
@@ -19,7 +20,8 @@ const propTypes = {
     changeSort: PropTypes.func.isRequired,
     currSort: PropTypes.string,
     currOrder: PropTypes.string,
-    openModal: PropTypes.func.isRequired
+    openModal: PropTypes.func.isRequired,
+    errorLevel: PropTypes.oneOf(['error', 'warning'])
 };
 
 const defaultProps = {
@@ -30,40 +32,39 @@ const defaultProps = {
     currOrder: 'desc'
 };
 
-const tableHeaders = [
-    {
-        text: 'Significance',
-        class: 'dashboard-table__significance-column',
-        sortType: 'significance'
-    },
-    {
-        text: 'Warning Rule',
-        class: 'dashboard-table__label-column',
-        sortType: 'rule_label'
-    },
-    {
-        text: (<span>Number of<br />Instances</span>),
-        class: 'dashboard-table__instances-column',
-        sortType: 'instances'
-    },
-    {
-        text: 'Category',
-        class: 'dashboard-table__category-column',
-        sortType: 'category'
-    },
-    {
-        text: 'Impact',
-        class: 'dashboard-table__impact-column',
-        sortType: 'impact'
-    },
-    {
-        text: 'Rule Description',
-        class: null,
-        sortType: 'description'
-    }
-];
-
 export default class ActiveDashboardTable extends React.Component {
+    tableHeaders = () => [
+        {
+            text: 'Significance',
+            class: 'dashboard-table__significance-column',
+            sortType: 'significance'
+        },
+        {
+            text: `${startCase(this.props.errorLevel)} Rule`,
+            class: 'dashboard-table__label-column',
+            sortType: 'rule_label'
+        },
+        {
+            text: (<span>Number of<br />Instances</span>),
+            class: 'dashboard-table__instances-column',
+            sortType: 'instances'
+        },
+        {
+            text: 'Category',
+            class: 'dashboard-table__category-column',
+            sortType: 'category'
+        },
+        {
+            text: 'Impact',
+            class: 'dashboard-table__impact-column',
+            sortType: 'impact'
+        },
+        {
+            text: 'Rule Description',
+            class: null,
+            sortType: 'description'
+        }
+    ];
     render() {
         let contentMessage = <LoadingMessage />;
         let tableRows = [];
@@ -110,7 +111,7 @@ export default class ActiveDashboardTable extends React.Component {
                 <h3 className="dashboard-viz__heading">Table</h3>
                 <table>
                     <DashboardTableHeader
-                        headers={tableHeaders}
+                        headers={this.tableHeaders()}
                         changeSort={this.props.changeSort}
                         currSort={this.props.currSort}
                         currOrder={this.props.currOrder} />

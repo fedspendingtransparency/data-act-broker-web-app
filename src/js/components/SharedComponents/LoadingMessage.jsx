@@ -9,11 +9,17 @@ import { CSSTransitionGroup } from 'react-transition-group';
 import LoadingBars from './LoadingBars';
 
 const propTypes = {
-    loadingMessage: PropTypes.string
+    loadingMessage: PropTypes.string,
+    barWidth: PropTypes.number,
+    barHeight: PropTypes.number,
+    barPad: PropTypes.number
 };
 
 const defaultProps = {
-    loadingMessage: 'Gathering your data...'
+    loadingMessage: 'Gathering your data...',
+    barWidth: 10,
+    barHeight: 50,
+    barPad: 2
 };
 
 const LoadingMessage = (props) => (
@@ -25,7 +31,7 @@ const LoadingMessage = (props) => (
             transitionLeave>
             <div className="results-table-message-container">
                 <div className="results-table-loading">
-                    <LoadingBars />
+                    <LoadingBars barWidth={props.barWidth} barHeight={props.barHeight} barPad={props.barPad} />
                     <div className="loading-message">
                         {props.loadingMessage}
                     </div>

@@ -35,7 +35,7 @@ export class SignificanceGraphContainer extends React.Component {
     }
 
     componentDidUpdate(prevProps) {
-        if (!isEqual(prevProps.appliedFilters, this.props.appliedFilters)) {
+        if (!isEqual(prevProps, this.props)) {
             this.fetchData();
         }
     }
@@ -94,7 +94,7 @@ export class SignificanceGraphContainer extends React.Component {
         return (
             <DashboardGraph
                 type="active"
-                description="Identify the significance of a particular rule based upon your agency’s preset values and filter warnings by category."
+                description={`Identify the significance of a particular rule based upon your agency’s preset values and filter ${this.props.errorLevel}s by category.`}
                 errorLevel={this.props.errorLevel}
                 {...this.state} />
         );
