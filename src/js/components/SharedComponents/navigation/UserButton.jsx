@@ -27,6 +27,7 @@ export default class UserButton extends React.Component {
         };
 
         this.toggleDropdown = this.toggleDropdown.bind(this);
+        this.openSettings = this.openSettings.bind(this);
     }
 
     toggleDropdown() {
@@ -42,6 +43,11 @@ export default class UserButton extends React.Component {
         }
     }
 
+    openSettings() {
+        this.toggleDropdown();
+        this.props.openSettings();
+    }
+
     render() {
         let hideDropdown = " hide";
         if (this.state.showDropdown) {
@@ -52,7 +58,7 @@ export default class UserButton extends React.Component {
         if (!kGlobalConstants.PROD && this.props.isSubmitter) {
             settingsButton = (
                 <li>
-                    <button onClick={this.props.openSettings}>
+                    <button onClick={this.openSettings}>
                         <FontAwesomeIcon icon="cog" />
                         Settings
                     </button>

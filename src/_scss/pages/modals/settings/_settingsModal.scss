@@ -1,0 +1,71 @@
+.settings-modal {
+    background-color: $color-white;
+    border: solid rem(1) $color-gray-lighter;
+    border-radius: rem(3);
+    width: rem(975);
+    height: rem(650);
+    max-height: rem(650);
+    overflow-wrap: break-word;
+    overflow-x: hidden;
+    overflow-y: auto;
+
+    .close-button {
+        float: right;
+        font-size: rem(30);
+        height: rem(30);
+        padding: 0;
+        margin-right: rem(12);
+        margin-top: rem(12);
+        border: none;
+        background-color: $color-white;
+        overflow: hidden;
+
+        svg {
+            margin-bottom: rem(5);
+        }
+    }
+
+    .settings-modal__content {
+        @include display(flex);
+        width: rem(935);
+        height: 100%;
+        margin: 0;
+    }
+
+    .settings-modal__sidebar {
+        @include flex(0 0 auto);
+        @include align-self(stretch);
+        background-color: #f1f1f1;
+        padding: rem(12);
+        padding-top: rem(32);
+        width: rem(240);
+
+        h1 {
+            margin: 0;
+            margin-bottom: rem(25);
+            font-size: rem(25);
+            font-weight: bold;
+        }
+    }
+
+    .settings-modal__main {
+        @include flex(0 0 auto);
+        @include align-self(stretch);
+        padding-top: rem(32);
+        padding-bottom: rem(25);
+        padding-right: 0;
+        padding-left: rem(25);
+        width: rem(695);
+
+        h2 {
+            margin: 0;
+            margin-bottom: rem(25);
+            font-size: rem(25);
+            font-weight: light;
+        }
+
+        .description {
+            width: rem(370);
+        }
+    }
+}
