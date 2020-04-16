@@ -121,6 +121,30 @@
                     float: left; // for IE
                 }
 
+
+                .results-table-loading {
+                    .loading-animation {
+                        svg.loading-bars {
+                            rect {
+                                fill: $color-primary;
+                            }
+                        }
+                    }
+                }
+
+                .dashboard-page__submission-overview {
+                    .results-table-loading {
+                        padding-top: 6rem;
+                        padding-bottom: 6rem;
+                    }
+                    .results-table-error {
+                        padding-top: 5.4rem;
+                        padding-bottom: 5.4rem;
+                        margin-top: 0;
+                        margin-bottom: 0;
+                    }
+                }
+
                 .submission-overview-details {
                     padding-left: 5.8rem;
                     padding-bottom: 4.8rem;

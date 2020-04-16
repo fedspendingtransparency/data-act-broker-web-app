@@ -8,10 +8,12 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import PropTypes from 'prop-types';
 
 const propTypes = {
+    errorTitle: PropTypes.string,
     errorMessage: PropTypes.string
 };
 
 const defaultProps = {
+    errorTitle: 'An error occurred.',
     errorMessage: 'Something went wrong while gathering your data.'
 };
 
@@ -23,7 +25,7 @@ const ErrorMessageOverlay = (props) => (
                     <FontAwesomeIcon icon="exclamation-circle" />
                 </div>
                 <div className="title">
-                    An error occurred.
+                    {props.errorTitle}
                 </div>
                 <div className="description">
                     {props.errorMessage}
