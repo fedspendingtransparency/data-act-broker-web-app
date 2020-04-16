@@ -38,6 +38,9 @@ export default class ReviewDataNotifyModal extends React.Component {
             users: null,
             selectedUsers: []
         };
+
+        this.generateMailToLink = this.generateMailToLink.bind(this);
+        this.selectUser = this.selectUser.bind(this);
     }
 
     componentDidMount() {
@@ -111,21 +114,19 @@ export default class ReviewDataNotifyModal extends React.Component {
             });
     }
 
-    openClientEmail(e) {
-        e.preventDefault();
+    generateMailToLink() {
         const toEmails = (this.state.selectedUsers.map((user) => user.email)).join(', ');
         const subject = 'DATA Act Broker - Submission Ready for Review';
         const revUser = this.props.fromUser.toUpperCase();
         const revAgecny = this.props.submittingAgency.toUpperCase();
         const revLink = window.location.href;
-        console.log(revLink);
         const body = [
             `${revUser} has shared a DATA Act broker submission with you from ${revAgecny}. `,
             `Follow this link (${revLink}) to review their submission. `,
             `For questions or comments, please visit the Service Desk at https://servicedesk.usaspending.gov/ `,
             `or e-mail DATAPMO@fiscal.treasury.gov.`
         ].join('');
-        window.location.href = `mailto:${toEmails}?subject=${subject}&body=${body}`;
+        return `mailto:${toEmails}?subject=${subject}&body=${body}`;
     }
 
     render() {
@@ -150,7 +151,7 @@ export default class ReviewDataNotifyModal extends React.Component {
                 internalValue={["id"]}
                 values={this.state.users}
                 formatter={this.userFormatter}
-                onSelect={this.selectUser.bind(this)}
+                onSelect={this.selectUser}
                 errorHeader="Unknown User"
                 errorDescription="You must select a user from the list that is provided as you type." />);
         }
@@ -187,10 +188,10 @@ export default class ReviewDataNotifyModal extends React.Component {
                             </div>
                             <div className="row">
                                 <div className="col-md-12 mb-10">
-                                    <button
-                                        onClick={this.openClientEmail.bind(this)}
+                                    <a
+                                        href={this.generateMailToLink()}
                                         className="usa-da-button btn-primary pull-right">Send Notification
-                                    </button>
+                                    </a>
                                 </div>
                             </div>
                         </div>
