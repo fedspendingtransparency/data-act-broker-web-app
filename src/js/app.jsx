@@ -16,6 +16,7 @@ import {
     faCheckCircle,
     faChevronDown,
     faCircle,
+    faCog,
     faEllipsisH,
     faExclamationCircle,
     faExclamationTriangle,
@@ -24,6 +25,7 @@ import {
     faInfoCircle,
     faLandmark,
     faSearch,
+    faSignOutAlt,
     faSpinner,
     faTimes,
     faUser
@@ -42,6 +44,7 @@ library.add(
     faCheckCircle,
     faChevronDown,
     faCircle,
+    faCog,
     faEllipsisH,
     faExclamationCircle,
     faExclamationTriangle,
@@ -50,6 +53,7 @@ library.add(
     faInfoCircle,
     faLandmark,
     faSearch,
+    faSignOutAlt,
     faSpinner,
     faTimes,
     faUser

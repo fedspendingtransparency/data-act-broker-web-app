@@ -66,7 +66,11 @@ export class ActiveDashboardOverviewContainer extends React.Component {
 
     render() {
         return (
-            <ActiveDashboardOverview submissionData={this.state.submissionData} errorLevel={this.props.errorLevel} />
+            <ActiveDashboardOverview
+                submissionData={this.state.submissionData}
+                errorLevel={this.props.errorLevel}
+                inFlight={this.state.inFlight}
+                hasFailed={this.state.hasFailed} />
         );
     }
 }
