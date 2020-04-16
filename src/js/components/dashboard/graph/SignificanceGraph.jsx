@@ -6,7 +6,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { scaleLinear } from 'd3-scale';
-import { max, min, isEqual, startCase } from 'lodash';
+import { max, min, isEqual, startCase, cloneDeep } from 'lodash';
 import { formatNumberWithPrecision } from 'helpers/moneyFormatter';
 import { significanceColors } from 'dataMapping/dashboard/fileLabels';
 import BarChartXAxis from './BarChartXAxis';
@@ -21,7 +21,8 @@ const propTypes = {
     height: PropTypes.number,
     width: PropTypes.number,
     padding: PropTypes.object,
-    errorLevel: PropTypes.oneOf(['error', 'warning']).isRequired
+    errorLevel: PropTypes.oneOf(['error', 'warning']).isRequired,
+    categories: PropTypes.arrayOf(PropTypes.oneOf(['accuracy', 'completeness', 'existence']))
 };
 /* eslint-enable react/no-unused-prop-types */
 
@@ -51,7 +52,8 @@ export default class SignificanceGraph extends React.Component {
         if (!isEqual(prevProps.xSeries, this.props.xSeries) ||
             !isEqual(prevProps.ySeries, this.props.ySeries) ||
             prevProps.width !== this.props.width ||
-            prevProps.height !== this.props.height) {
+            prevProps.height !== this.props.height ||
+            prevProps.categories !== this.props.categories) {
             this.buildVirtualChart(this.props);
         }
     }
@@ -221,7 +223,11 @@ ${xAxis.items[0].label} to ${xAxis.items[xAxis.items.length - 1].label}.`;
     }
 
     buildVirtualBody(values) {
-        return values.ySeries.map((rule) => ({
+        let filteredData = cloneDeep(values.ySeries);
+        if (this.props.categories.length < 3) {
+            filteredData = filteredData.filter((rule) => this.props.categories.includes(rule.category));
+        }
+        return filteredData.map((rule) => ({
             color: significanceColors[rule.category],
             yPos: values.yScale(rule.instances),
             xPos: values.xScale(rule.significance),
