@@ -18,7 +18,7 @@ import BaseActiveDashboardTableRow from 'models/dashboard/BaseActiveDashboardTab
 const propTypes = {
     appliedFilters: PropTypes.object,
     submissionID: PropTypes.string,
-    errorLevel: PropTypes.string
+    errorLevel: PropTypes.oneOf(['error', 'warning'])
 };
 
 export class ActiveDashboardTableContainer extends React.Component {
@@ -178,7 +178,8 @@ export class ActiveDashboardTableContainer extends React.Component {
                     changeSort={this.changeSort}
                     currSort={this.state.sort}
                     currOrder={this.state.order}
-                    openModal={this.openModal} />
+                    openModal={this.openModal}
+                    errorLevel={this.props.errorLevel} />
                 {pagination}
                 {modal}
             </div>
