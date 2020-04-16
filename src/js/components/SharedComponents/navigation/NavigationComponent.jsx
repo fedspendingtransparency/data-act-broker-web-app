@@ -109,7 +109,7 @@ export class Navbar extends React.Component {
             userButton = (<UserButton
                 buttonText={userText}
                 logout={this.logout}
-                openSettings={this.openSettings}
+                openSettings={this.openSettingsModal}
                 isSubmitter={isSubmitter} />);
         }
 
