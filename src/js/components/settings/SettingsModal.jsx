@@ -7,6 +7,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import Modal from 'react-aria-modal';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { Picker } from 'data-transparency-ui';
 
 import SettingsAgencySelectContainer from 'containers/settings/SettingsAgencySelectContainer';
 
@@ -24,10 +25,15 @@ export default class SettingsModal extends React.Component {
         super(props);
 
         this.state = {
-            agencyCode: ''
+            agencyCode: '',
+            selectedRule: {
+                value: 'A',
+                label: 'File A'
+            }
         };
 
         this.updateAgency = this.updateAgency.bind(this);
+        this.updateRule = this.updateRule.bind(this);
     }
 
     updateAgency(agencyCode) {
@@ -36,7 +42,27 @@ export default class SettingsModal extends React.Component {
         });
     }
 
+    updateRule(rule) {
+        this.setState({
+            selectedRule: rule
+        });
+    }
+
     render() {
+        const validationRules = [
+            { value: 'A', label: 'File A' },
+            { value: 'B', label: 'File B' },
+            { value: 'C', label: 'File C' },
+            { value: 'cross-AB', label: 'Cross: A/B' },
+            { value: 'cross-BC', label: 'Cross: B/C' },
+            { value: 'cross-CD1', label: 'Cross: C/D1' },
+            { value: 'cross-CD2', label: 'Cross: C/D2' }];
+        const ruleList = validationRules.map((rule) =>
+            ({
+                value: rule.value,
+                name: rule.label,
+                onClick: () => this.updateRule(rule)
+            }));
         return (
             <Modal
                 mounted={this.props.isOpen}
@@ -64,9 +90,19 @@ export default class SettingsModal extends React.Component {
                             </div>
                             <div className="settings-modal__main">
                                 <h2>Rule Settings</h2>
-                                <div className="description">
-                                    Change the Significance and Impact settings to alter the weight of your
-                                    agency&apos;s respective rules in the Active Dashboard chart.
+                                <div className="rule-settings-top">
+                                    <div className="description">
+                                        Change the Significance and Impact settings to alter the weight of your
+                                        agency&apos;s respective rules in the Active Dashboard chart.
+                                    </div>
+                                    <div className="validation-rule-select">
+                                        <h2><FontAwesomeIcon icon="filter" /> Validation Rules</h2>
+                                        <Picker
+                                            options={ruleList}
+                                            selectedOption={this.state.selectedRule.label}
+                                            sortFn={() => 0}
+                                            isFixedWidth />
+                                    </div>
                                 </div>
                             </div>
                         </div>
