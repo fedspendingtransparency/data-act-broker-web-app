@@ -5,6 +5,7 @@
 
 import React from 'react';
 import PropTypes from 'prop-types';
+import { startCase } from 'lodash';
 import ErrorMessageOverlay from 'components/SharedComponents/ErrorMessageOverlay';
 import LoadingMessage from 'components/SharedComponents/LoadingMessage';
 
@@ -64,7 +65,7 @@ export default class ActiveDashboardOverview extends React.Component {
                             {this.props.submissionData.number_of_rules || 'N/A' }
                         </div>
                         <div className="overview-section">
-                            <h4>Total # of Warings</h4>
+                            <h4>Total # of {startCase(this.props.errorLevel)}s</h4>
                             {this.props.submissionData.total_instances || 'N/A' }
                         </div>
                     </div>

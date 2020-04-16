@@ -20,4 +20,15 @@
             text-decoration: none;
         }
     }
+    &.dashboard-tabs_active {
+        background-color: transparent;
+        .dashboard-tabs__content {
+            @include justify-content(flex-start);
+        }
+        .dashboard-tabs__button {
+            &.dashboard-tabs__button_active {
+                border-bottom-color: $color-primary;
+            }
+        }
+    }
 }

@@ -17,7 +17,8 @@ import BaseActiveDashboardTableRow from 'models/dashboard/BaseActiveDashboardTab
 
 const propTypes = {
     appliedFilters: PropTypes.object,
-    submissionID: PropTypes.string
+    submissionID: PropTypes.string,
+    errorLevel: PropTypes.oneOf(['error', 'warning'])
 };
 
 export class ActiveDashboardTableContainer extends React.Component {
@@ -52,7 +53,7 @@ export class ActiveDashboardTableContainer extends React.Component {
     }
 
     componentDidUpdate(prevProps) {
-        if (!isEqual(this.props.appliedFilters, prevProps.appliedFilters)) {
+        if (!isEqual(this.props, prevProps)) {
             this.changePage(1);
         }
     }
@@ -116,7 +117,7 @@ export class ActiveDashboardTableContainer extends React.Component {
         const submissionId = parseInt(this.props.submissionID, 10);
 
         DashboardHelper.fetchActiveDashboardTableContents(submissionId, this.props.appliedFilters.file,
-            'warning', this.state.page, this.state.limit, this.state.sort, this.state.order)
+            this.props.errorLevel, this.state.page, this.state.limit, this.state.sort, this.state.order)
             .then((res) => {
                 this.parseRows(res);
             })
@@ -177,7 +178,8 @@ export class ActiveDashboardTableContainer extends React.Component {
                     changeSort={this.changeSort}
                     currSort={this.state.sort}
                     currOrder={this.state.order}
-                    openModal={this.openModal} />
+                    openModal={this.openModal}
+                    errorLevel={this.props.errorLevel} />
                 {pagination}
                 {modal}
             </div>

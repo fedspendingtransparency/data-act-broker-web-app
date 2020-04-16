@@ -14,7 +14,7 @@ import DashboardImpactsModal from 'components/dashboard/impacts/DashboardImpacts
 
 const propTypes = {
     appliedFilters: PropTypes.object.isRequired,
-    errorLevel: PropTypes.string,
+    errorLevel: PropTypes.oneOf(['error', 'warning']),
     submissionID: PropTypes.string
 };
 
@@ -96,14 +96,15 @@ export class ActiveDashboardImpactsContainer extends React.Component {
                     isOpen={this.state.showModal} />);
         }
         return (
-            <div>
+            <>
                 <ActiveDashboardImpacts
                     submissionData={this.state.submissionData}
                     openModal={this.openModal}
                     inFlight={this.state.inFlight}
-                    hasFailed={this.state.hasFailed} />
+                    hasFailed={this.state.hasFailed}
+                    errorLevel={this.props.errorLevel} />
                 {modal}
-            </div>
+            </>
         );
     }
 }

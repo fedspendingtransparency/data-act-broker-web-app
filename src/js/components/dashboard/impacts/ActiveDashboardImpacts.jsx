@@ -5,6 +5,7 @@
 
 import React from 'react';
 import PropTypes from 'prop-types';
+import { startCase } from 'lodash';
 
 import ImpactGauge from 'components/dashboard/impacts/ImpactGauge';
 
@@ -16,15 +17,16 @@ const propTypes = {
     }),
     inFlight: PropTypes.bool,
     hasFailed: PropTypes.bool,
-    openModal: PropTypes.func.isRequired
+    openModal: PropTypes.func.isRequired,
+    errorLevel: PropTypes.oneOf(['error', 'warning'])
 };
 
 const ActiveDashboardImpacts = (props) => (
     <div className="dashboard-viz dashboard-page__impacts">
-        <h3 className="dashboard-viz__heading">Warning Status</h3>
+        <h3 className="dashboard-viz__heading">{startCase(props.errorLevel)} Status</h3>
         <h4>Impact Count</h4>
         <p>
-            Identify to what degree current warnings impact your submission.
+            Identify to what degree current {props.errorLevel}s impact your submission.
             The values have been preset by your agency.
         </p>
         {props.submissionData ?
