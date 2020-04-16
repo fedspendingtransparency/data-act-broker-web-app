@@ -14,7 +14,7 @@ const propTypes = {
     category: PropTypes.string,
     impact: PropTypes.string,
     percent: PropTypes.number,
-    errorLevel: PropTypes.string
+    errorLevel: PropTypes.oneOf(['error', 'warning'])
 };
 
 const ActiveDashboardTooltip = (props) => (
