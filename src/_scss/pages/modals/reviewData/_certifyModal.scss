@@ -61,6 +61,16 @@
 	@import "../../../components/alerts/_alerts";
 	@include warningAlert;
 	margin-top: 0px !important;
+	&.alert-warning_test-submission {
+		padding: rem(15) rem(15) rem(15) 0;
+		h3 {
+			font-size: rem(18);
+		}
+		.fa-exclamation-triangle {
+			color: #f0ad4e;
+			margin-right: rem(5);
+		}
+	}
 }
 
 .revalidate-content {

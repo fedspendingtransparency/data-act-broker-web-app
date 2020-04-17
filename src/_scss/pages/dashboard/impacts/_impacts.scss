@@ -1,0 +1,60 @@
+.dashboard-page__impacts {
+    padding: rem(20);
+
+    h3 {
+        margin-top: 4rem;
+        margin-bottom: 0.5rem;
+        font-size: 2.5rem;
+        font-weight: $font-bold;
+        color: $font-color;
+    }
+    hr {
+        margin-left: 0;
+        width: 50%;
+    }
+    h4 {
+        margin-bottom: 0;
+        margin-top: rem(40);
+        font-size: $h3-font-size;
+        font-weight: $font-normal;
+        clear: both; // for IE
+    }
+    p {
+        margin-bottom: 0;
+    }
+
+    .flex-wrapper {
+        @include flex-direction(row);
+        @include display(flex);
+        max-width: rem(700);
+
+        .impact-section {
+            flex: 1 1 25%;
+            padding: 1rem;  
+            margin-top: 15px;
+
+            img {
+                float: left;
+                width: 30%;
+            }
+            .impact-section__stats {
+                float: left;
+                text-align: center;
+                width: 70%;
+            }
+            .impact-section__count {
+                font-size: $h1-font-size;
+                font-weight: $font-light;
+                width: 100%
+            }
+            .impact-section__level {
+                font-size: $h3-font-size;
+                font-weight: $font-bold;
+                text-transform: uppercase;
+                margin-top: rem(12);
+                width: 100%
+            }
+
+        }
+    }
+}

@@ -133,5 +133,5 @@ AddDataContainer.defaultProps = defaultProps;
 
 export default connect(
     (state) => ({ submission: state.submission }),
-    (dispatch) => bindActionCreators(uploadActions, dispatch),
+    (dispatch) => bindActionCreators(uploadActions, dispatch)
 )(AddDataContainer);

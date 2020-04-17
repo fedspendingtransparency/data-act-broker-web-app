@@ -123,6 +123,10 @@
                 padding-left: rem(8);
                 padding-right: rem(8);
 
+                &.capitalized {
+                    text-transform: capitalize;
+                }
+
                 .ellipse-box {
                     display: block;
                     display: -webkit-box;
@@ -134,7 +138,7 @@
                     text-overflow: ellipsis;
                 }
 
-                .file-label-button {
+                .modal-button {
                     @include button-unstyled;
                     color: $color-primary;
                     white-space: nowrap;

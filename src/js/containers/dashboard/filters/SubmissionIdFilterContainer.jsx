@@ -50,5 +50,5 @@ export default connect(
     (state) => ({
         selectedFilters: state.dashboardFilters.active
     }),
-    (dispatch) => bindActionCreators(filterActions, dispatch),
+    (dispatch) => bindActionCreators(filterActions, dispatch)
 )(SubmissionIdFilterContainer);

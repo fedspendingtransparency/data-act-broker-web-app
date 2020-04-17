@@ -33,3 +33,10 @@ export const chartColors = [
     '#D4E525', // chartreuse
     '#4C9EB2' // teal
 ];
+
+// Significance Graph colors
+export const significanceColors = {
+    accuracy: '#00599C',
+    completeness: '#AE397B',
+    existence: '#008566'
+};
