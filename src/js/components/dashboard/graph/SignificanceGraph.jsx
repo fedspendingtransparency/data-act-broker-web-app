@@ -222,7 +222,7 @@ ${yAxis.items[0].label.text} to ${yAxis.items[yAxis.items.length - 1].label.text
             const item = {
                 label: `${x}`,
                 value: x,
-                y: 0,
+                y: 13, // prevent overlap with circles near the bottom of the graph
                 x: xPos
             };
             xAxis.items.push(item);
@@ -291,7 +291,7 @@ ${xAxis.items[0].label} to ${xAxis.items[xAxis.items.length - 1].label}.`;
                 <text
                     className="bar-graph__axis-label"
                     x={this.props.width / 2}
-                    y={this.props.height}
+                    y={this.props.height + 10}
                     textAnchor="middle">
                     Rule Significance
                 </text>
