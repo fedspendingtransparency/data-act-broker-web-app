@@ -71,7 +71,7 @@
     "core-js": "^3.0.1",
     "css-loader": "^2.1.1",
     "d3": "^3.5.16",
-    "d3-scale": "^1.0.4",
+    "d3-scale": "^3.2.1",
     "data-transparency-ui": "github:fedspendingtransparency/data-transparency-ui#v1.0.1",
     "dompurify": "^2.0.8",
     "ent": "^2.2.0",
