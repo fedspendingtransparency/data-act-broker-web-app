@@ -9,8 +9,8 @@ import { scaleLinear } from 'd3-scale';
 import { max, min, isEqual, startCase, cloneDeep } from 'lodash';
 import { formatNumberWithPrecision } from 'helpers/moneyFormatter';
 import { significanceColors } from 'dataMapping/dashboard/fileLabels';
-import BarChartXAxis from '../BarChartXAxis';
-import BarChartYAxis from '../BarChartYAxis';
+import BarChartXAxis from 'components/dashboard/graph/BarChartXAxis';
+import BarChartYAxis from 'components/dashboard/graph/BarChartYAxis';
 import SignificanceCircle from './SignificanceCircle';
 
 /* eslint-disable react/no-unused-prop-types */

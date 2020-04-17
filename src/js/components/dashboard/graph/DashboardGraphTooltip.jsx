@@ -70,7 +70,7 @@ export default class DashboardGraphTooltip extends React.Component {
         if (shape === 'bar' && distanceFromRight <= 20) {
             direction = 'right';
         }
-        else if (shape === 'circle' && distanceFromRight <= 50) {
+        else if (shape === 'circle' && distanceFromRight <= 120) {
             direction = 'right';
         }
 
