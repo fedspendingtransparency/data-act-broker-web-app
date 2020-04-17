@@ -9,8 +9,9 @@ import { scaleLinear } from 'd3-scale';
 import { max, min, isEqual, startCase, cloneDeep } from 'lodash';
 import { formatNumberWithPrecision } from 'helpers/moneyFormatter';
 import { significanceColors } from 'dataMapping/dashboard/fileLabels';
-import BarChartXAxis from './BarChartXAxis';
-import BarChartYAxis from './BarChartYAxis';
+import BarChartXAxis from 'components/dashboard/graph/BarChartXAxis';
+import BarChartYAxis from 'components/dashboard/graph/BarChartYAxis';
+import SignificanceCircle from './SignificanceCircle';
 
 /* eslint-disable react/no-unused-prop-types */
 // allow unused prop types. they are indirectly accessed as nextProps
@@ -22,6 +23,9 @@ const propTypes = {
     width: PropTypes.number,
     padding: PropTypes.object,
     errorLevel: PropTypes.oneOf(['error', 'warning']).isRequired,
+    showTooltip: PropTypes.func,
+    hideTooltip: PropTypes.func,
+    toggleTooltip: PropTypes.func,
     categories: PropTypes.arrayOf(PropTypes.oneOf(['accuracy', 'completeness', 'existence']))
 };
 /* eslint-enable react/no-unused-prop-types */
@@ -231,7 +235,13 @@ ${xAxis.items[0].label} to ${xAxis.items[xAxis.items.length - 1].label}.`;
             color: significanceColors[rule.category],
             yPos: values.yScale(rule.instances),
             xPos: values.xScale(rule.significance),
-            label: rule.label
+            label: rule.label,
+            xValue: rule.significance,
+            yValue: rule.instances,
+            category: rule.category,
+            impact: rule.impact,
+            percent: rule.percentage,
+            totalInstances: rule.totalInstances
         }));
     }
 
@@ -242,18 +252,12 @@ ${xAxis.items[0].label} to ${xAxis.items[xAxis.items.length - 1].label}.`;
         }
 
         const body = this.state.virtualChart.body.map((item) => (
-            <g className="rule-circle" key={item.label}>
-                <circle cx={item.xPos} cy={item.yPos} r="23" fill={item.color} />
-                <text
-                    className="rule-circle__text"
-                    x={item.xPos}
-                    y={item.yPos}
-                    textAnchor="middle"
-                    dominantBaseline="central"
-                    fill="white">
-                    {item.label}
-                </text>
-            </g>
+            <SignificanceCircle
+                {...item}
+                key={item.label}
+                showTooltip={this.props.showTooltip}
+                hideTooltip={this.props.hideTooltip}
+                toggleTooltip={this.props.toggleTooltip} />
         ));
 
         return (

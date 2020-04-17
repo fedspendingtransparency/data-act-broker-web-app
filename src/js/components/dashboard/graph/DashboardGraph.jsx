@@ -10,10 +10,12 @@ import { significanceColors } from 'dataMapping/dashboard/fileLabels';
 import NoResultsMessage from 'components/SharedComponents/NoResultsMessage';
 import LoadingMessage from 'components/SharedComponents/LoadingMessage';
 import ErrorMessageOverlay from 'components/SharedComponents/ErrorMessageOverlay';
-import BarChartStacked from './BarChartStacked';
-import WarningsInfoGraphTooltip from './WarningsInfoGraphTooltip';
-import SignificanceGraph from './SignificanceGraph';
-import CategoryButton from './CategoryButton';
+import BarChartStacked from './historical/BarChartStacked';
+import DashboardGraphTooltip from './DashboardGraphTooltip';
+import SignificanceGraph from './active/SignificanceGraph';
+import CategoryButton from './active/CategoryButton';
+import HistoricalDashboardTooltip from './historical/HistoricalDashboardTooltip';
+import ActiveDashboardTooltip from './active/ActiveDashboardTooltip';
 
 const propTypes = {
     xSeries: PropTypes.arrayOf(PropTypes.oneOfType([PropTypes.string, PropTypes.number])),
@@ -134,8 +136,24 @@ export default class DashboardGraph extends React.Component {
     }
 
     render() {
-        const tooltip = this.state.showTooltip ? (
-            <WarningsInfoGraphTooltip data={this.state.tooltipData} />) : null;
+        let tooltip = null;
+        if (this.state.showTooltip) {
+            tooltip = this.props.type === 'historical' ? (
+                <DashboardGraphTooltip
+                    shape="bar"
+                    {...this.state.tooltipData}>
+                    <HistoricalDashboardTooltip {...this.state.tooltipData} />
+                </DashboardGraphTooltip>
+            ) :
+                (
+                    <DashboardGraphTooltip
+                        shape="circle"
+                        description={this.state.tooltipData.label}
+                        {...this.state.tooltipData}>
+                        <ActiveDashboardTooltip {...this.state.tooltipData} errorLevel={this.props.errorLevel} />
+                    </DashboardGraphTooltip>
+                );
+        }
         const empty = (this.props.ySeries.length === 0);
 
         let graphContent = <LoadingMessage />;
@@ -161,7 +179,10 @@ export default class DashboardGraph extends React.Component {
                         {...this.props}
                         categories={this.state.categories}
                         width={this.state.visualizationWidth}
-                        height={graphHeight} />
+                        height={graphHeight}
+                        showTooltip={this.showTooltip}
+                        hideTooltip={this.hideTooltip}
+                        toggleTooltip={this.toggleTooltip} />
                 );
             }
         }
