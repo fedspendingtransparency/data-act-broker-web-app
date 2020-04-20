@@ -39,7 +39,6 @@ export default class ReviewDataNotifyModal extends React.Component {
             selectedUsers: []
         };
 
-        this.generateMailToLink = this.generateMailToLink.bind(this);
         this.selectUser = this.selectUser.bind(this);
     }
 
