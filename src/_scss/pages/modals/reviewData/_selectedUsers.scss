@@ -7,11 +7,13 @@
     .usa-da-icon {
         height: 20px;
         cursor: pointer;
-        margin: 0.25rem 0.65rem;
+        margin: 0 0.65rem;
         color: #696969;
+        border: none;
+        padding: 0;
     }
     .usa-da-icon * {
-        height: 14px;
+        height: 20px;
         cursor: pointer;
         margin: 0.25rem;
         color: #696969;
