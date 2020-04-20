@@ -16,7 +16,6 @@ import * as ReviewHelper from 'helpers/reviewHelper';
 
 import GenerateEFContent from 'components/generateEF/GenerateEFContent';
 import GenerateEFError from 'components/generateEF/GenerateEFError';
-import SubmissionWarningBanner from 'components/SharedComponents/SubmissionWarningBanner';
 import Banner from 'components/SharedComponents/Banner';
 
 const propTypes = {
@@ -185,11 +184,8 @@ class GenerateEFContainer extends React.Component {
             content = <GenerateEFError message={this.state.fullPageMessage} />;
         }
 
-        const warningMessage = <SubmissionWarningBanner submission={this.props.submission} />;
-
         return (
             <div className="generate-ef-page">
-                {warningMessage}
                 <Banner type="dabs" />
                 {content}
             </div>

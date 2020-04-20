@@ -12,8 +12,8 @@ import CrossFileContentContainer from 'containers/crossFile/CrossFileContentCont
 import GenerateEFContainer from 'containers/generateEF/GenerateEFContainer';
 import ReviewDataContainer from 'containers/reviewData/ReviewDataContainer';
 
+import SubmissionWarningBanner from 'components/SharedComponents/SubmissionWarningBanner';
 import SubmissionHeader from './SubmissionHeader';
-import BannerRow from '../SharedComponents/BannerRow';
 
 const propTypes = {
     submissionID: PropTypes.string,
@@ -22,7 +22,8 @@ const propTypes = {
     errorMessage: PropTypes.string,
     loading: PropTypes.bool,
     submissionInfo: PropTypes.object,
-    currentStep: PropTypes.number
+    currentStep: PropTypes.number,
+    revertSubmission: PropTypes.func
 };
 
 const defaultProps = {
@@ -66,12 +67,7 @@ export default class SubmissionPage extends React.Component {
             default:
                 content = null;
         }
-        const testBanner = submissionInfo.certified_submission ? (
-            <BannerRow
-                type="warning"
-                header="This is a test submission since one has already been certified for this fiscal quarter."
-                message={`You will not be able to certify this submission. To view the certified submission, [click here](/#/submission/${submissionInfo.certified_submission}).`} />
-        ) : null;
+        const subStatusBanner = <SubmissionWarningBanner submissionInfo={this.props.submissionInfo} revertSubmission={this.props.revertSubmission} />;
         return (
             <div className="usa-da-submission-page">
                 <Navbar activeTab="submissionGuide" type="dabs" />
@@ -86,7 +82,7 @@ export default class SubmissionPage extends React.Component {
                             </div>
                         </div>
                     </div>
-                    {testBanner}
+                    {subStatusBanner}
                     {error ? (<DABSFABSErrorMessage message={errorMessage} />) : null}
                     {loading ? (<ReviewLoading />) : null}
                     {content}

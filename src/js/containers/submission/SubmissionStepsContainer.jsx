@@ -30,10 +30,12 @@ export class SubmissionStepsContainer extends React.Component {
             metadataLoading: true,
             error: false,
             errorMessage: '',
-            currentStep: 0
+            currentStep: 0,
+            reverting: false
         };
 
         this.errorFromStep = this.errorFromStep.bind(this);
+        this.revertSubmission = this.revertSubmission.bind(this);
     }
 
     componentDidMount() {
@@ -135,6 +137,30 @@ export class SubmissionStepsContainer extends React.Component {
         });
     }
 
+    revertSubmission(e) {
+        e.preventDefault();
+
+        this.setState({
+            reverting: true
+        });
+        ReviewHelper.revertToCertified(this.props.computedMatch.params.submissionID)
+            .then(() => {
+                this.getSubmissionInfo();
+                this.setState({
+                    reverting: false
+                });
+            })
+            .catch((err) => {
+                const { message } = err.body;
+                this.setState({
+                    error: true,
+                    errorMessage: message,
+                    currentStep: 0,
+                    reverting: false
+                });
+            });
+    }
+
     render() {
         const { submissionID } = this.props.computedMatch.params;
         return (
@@ -143,7 +169,8 @@ export class SubmissionStepsContainer extends React.Component {
                 {...this.state}
                 errorFromStep={this.errorFromStep}
                 loading={this.state.metadataLoading || this.state.stepLoading}
-                submissionInfo={this.props.submissionInfo} />
+                submissionInfo={this.props.submissionInfo}
+                revertSubmission={this.revertSubmission} />
         );
     }
 }
