@@ -249,7 +249,9 @@ export default class ReviewDataContent extends React.Component {
                         <ReviewDataNotifyModal
                             {...this.props}
                             closeModal={this.closeModal.bind(this, 'Notify')}
-                            isOpen={this.state.openNotify} />
+                            isOpen={this.state.openNotify}
+                            fromUser={this.props.session.user.name}
+                            submittingAgency={this.props.data.agency_name} />
                     </div>
                     <div id="reviewDataCertifyModalHolder">
                         <ReviewDataCertifyModal
