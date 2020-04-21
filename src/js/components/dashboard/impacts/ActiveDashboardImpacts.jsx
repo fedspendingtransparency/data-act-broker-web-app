@@ -39,13 +39,13 @@ const ActiveDashboardImpacts = (props) => (
                     hasFailed={props.hasFailed} />
                 <ImpactGauge
                     level="medium"
-                    submissionData={props.submissionData.low}
+                    submissionData={props.submissionData.medium}
                     openModal={props.openModal}
                     inFlight={props.inFlight}
                     hasFailed={props.hasFailed} />
                 <ImpactGauge
                     level="high"
-                    submissionData={props.submissionData.low}
+                    submissionData={props.submissionData.high}
                     openModal={props.openModal}
                     inFlight={props.inFlight}
                     hasFailed={props.hasFailed} />
