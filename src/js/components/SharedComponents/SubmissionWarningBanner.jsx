@@ -77,7 +77,7 @@ export default class SubmissionWarningBanner extends React.Component {
                     message: (
                         <p>
                             This submission has been updated.
-                            If you would like changes to be reflected on USASpending, please certify. <br/>
+                            If you would like changes to be reflected on USASpending, please certify. <br />
                             <button
                                 disabled={disabled}
                                 className={`usa-da-button btn-primary btn-full${disabled ? ' btn-disabled' : ''}`}
