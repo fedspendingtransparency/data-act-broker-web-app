@@ -137,9 +137,7 @@ export class SubmissionStepsContainer extends React.Component {
         });
     }
 
-    revertSubmission(e) {
-        e.preventDefault();
-
+    revertSubmission() {
         const savedStep = this.state.currentStep;
         this.resetStep();
         ReviewHelper.revertToCertified(this.props.computedMatch.params.submissionID)

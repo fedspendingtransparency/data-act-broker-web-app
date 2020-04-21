@@ -20,8 +20,29 @@ const defaultProps = {
 };
 
 export default class SubmissionWarningBanner extends React.Component {
+    constructor(props) {
+        super(props);
+
+        this.state = {
+            reverting: false
+        };
+
+        this.revert = this.revert.bind(this);
+    }
+
+    revert(e) {
+        e.preventDefault();
+
+        this.setState({
+            reverting: true
+        });
+
+        this.props.revertSubmission();
+    }
+
     render() {
         let content = '';
+        const disabled = this.state.reverting;
         if (this.props.submissionInfo != null) {
             let warningBannerType = this.props.submissionInfo.publish_status;
             if (this.props.submissionInfo.certified_submission) {
@@ -56,8 +77,13 @@ export default class SubmissionWarningBanner extends React.Component {
                     message: (
                         <p>
                             This submission has been updated.
-                            If you would like changes to be reflected on USASpending, please certify.
-                            If you would to undo these changes, click <button className="link-button" onClick={this.props.revertSubmission}>here</button>.
+                            If you would like changes to be reflected on USASpending, please certify. <br/>
+                            <button
+                                disabled={disabled}
+                                className={`usa-da-button btn-primary btn-full${disabled ? ' btn-disabled' : ''}`}
+                                onClick={this.revert}>
+                                    Revert Submission
+                            </button>
                         </p>),
                     useMarkdown: false
                 },
