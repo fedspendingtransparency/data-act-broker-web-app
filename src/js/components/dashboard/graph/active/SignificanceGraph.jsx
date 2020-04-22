@@ -5,12 +5,13 @@
 
 import React from 'react';
 import PropTypes from 'prop-types';
-import { scaleLinear } from 'd3-scale';
-import { max, min, isEqual, startCase } from 'lodash';
+import { scaleLinear, scaleLog } from 'd3-scale';
+import { max, min, isEqual, startCase, cloneDeep } from 'lodash';
 import { formatNumberWithPrecision } from 'helpers/moneyFormatter';
 import { significanceColors } from 'dataMapping/dashboard/fileLabels';
-import BarChartXAxis from './BarChartXAxis';
-import BarChartYAxis from './BarChartYAxis';
+import BarChartXAxis from 'components/dashboard/graph/BarChartXAxis';
+import BarChartYAxis from 'components/dashboard/graph/BarChartYAxis';
+import SignificanceCircle from './SignificanceCircle';
 
 /* eslint-disable react/no-unused-prop-types */
 // allow unused prop types. they are indirectly accessed as nextProps
@@ -21,7 +22,11 @@ const propTypes = {
     height: PropTypes.number,
     width: PropTypes.number,
     padding: PropTypes.object,
-    errorLevel: PropTypes.oneOf(['error', 'warning']).isRequired
+    errorLevel: PropTypes.oneOf(['error', 'warning']).isRequired,
+    showTooltip: PropTypes.func,
+    hideTooltip: PropTypes.func,
+    toggleTooltip: PropTypes.func,
+    categories: PropTypes.arrayOf(PropTypes.oneOf(['accuracy', 'completeness', 'existence']))
 };
 /* eslint-enable react/no-unused-prop-types */
 
@@ -39,7 +44,8 @@ export default class SignificanceGraph extends React.Component {
 
         this.state = {
             chartReady: false,
-            virtualChart: {}
+            virtualChart: {},
+            logScale: false
         };
     }
 
@@ -51,7 +57,8 @@ export default class SignificanceGraph extends React.Component {
         if (!isEqual(prevProps.xSeries, this.props.xSeries) ||
             !isEqual(prevProps.ySeries, this.props.ySeries) ||
             prevProps.width !== this.props.width ||
-            prevProps.height !== this.props.height) {
+            prevProps.height !== this.props.height ||
+            prevProps.categories !== this.props.categories) {
             this.buildVirtualChart(this.props);
         }
     }
@@ -89,10 +96,21 @@ export default class SignificanceGraph extends React.Component {
 
         // have an inverted range so that the yScale output returns the correct Y position within
         // the SVG element (y = 0 is the top of the graph)
-        values.yScale = scaleLinear()
-            .domain([0, yMax])
-            .range([values.graphHeight, 0])
-            .clamp(true);
+        if (yMax < 1000) {
+            values.yScale = scaleLinear()
+                .domain([0, yMax])
+                .range([values.graphHeight, 0])
+                .clamp(true);
+        }
+        else {
+            this.setState({ logScale: true });
+            values.yScale = scaleLog()
+                .domain([1, yMax])
+                .range([values.graphHeight, 0])
+                .base(2)
+                .clamp(true);
+        }
+
 
         // now we need to build the X and Y axes
         const yAxis = this.buildVirtualYAxis(values, yMax);
@@ -208,7 +226,7 @@ ${yAxis.items[0].label.text} to ${yAxis.items[yAxis.items.length - 1].label.text
             const item = {
                 label: `${x}`,
                 value: x,
-                y: 0,
+                y: 13, // prevent overlap with circles near the bottom of the graph
                 x: xPos
             };
             xAxis.items.push(item);
@@ -221,11 +239,21 @@ ${xAxis.items[0].label} to ${xAxis.items[xAxis.items.length - 1].label}.`;
     }
 
     buildVirtualBody(values) {
-        return values.ySeries.map((rule) => ({
+        let filteredData = cloneDeep(values.ySeries);
+        if (this.props.categories.length < 3) {
+            filteredData = filteredData.filter((rule) => this.props.categories.includes(rule.category));
+        }
+        return filteredData.map((rule) => ({
             color: significanceColors[rule.category],
             yPos: values.yScale(rule.instances),
             xPos: values.xScale(rule.significance),
-            label: rule.label
+            label: rule.label,
+            xValue: rule.significance,
+            yValue: rule.instances,
+            category: rule.category,
+            impact: rule.impact,
+            percent: rule.percentage,
+            totalInstances: rule.totalInstances
         }));
     }
 
@@ -236,18 +264,12 @@ ${xAxis.items[0].label} to ${xAxis.items[xAxis.items.length - 1].label}.`;
         }
 
         const body = this.state.virtualChart.body.map((item) => (
-            <g className="rule-circle" key={item.label}>
-                <circle cx={item.xPos} cy={item.yPos} r="23" fill={item.color} />
-                <text
-                    className="rule-circle__text"
-                    x={item.xPos}
-                    y={item.yPos}
-                    textAnchor="middle"
-                    dominantBaseline="central"
-                    fill="white">
-                    {item.label}
-                </text>
-            </g>
+            <SignificanceCircle
+                {...item}
+                key={item.label}
+                showTooltip={this.props.showTooltip}
+                hideTooltip={this.props.hideTooltip}
+                toggleTooltip={this.props.toggleTooltip} />
         ));
 
         return (
@@ -266,14 +288,14 @@ ${xAxis.items[0].label} to ${xAxis.items[xAxis.items.length - 1].label}.`;
                     textAnchor="middle"
                     dominantBaseline="central"
                     transform={`rotate(-90, 0,${this.props.height / 2} )`}>
-                    Count of {startCase(this.props.errorLevel)} Instances
+                    Count of {startCase(this.props.errorLevel)} Instances{this.state.logScale ? ' (Logarithmic)' : ''}
                 </text>
                 <BarChartXAxis
                     {...this.state.virtualChart.xAxis} />
                 <text
                     className="bar-graph__axis-label"
                     x={this.props.width / 2}
-                    y={this.props.height}
+                    y={this.props.height + 10}
                     textAnchor="middle">
                     Rule Significance
                 </text>

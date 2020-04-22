@@ -5,6 +5,7 @@
 
 import React from 'react';
 import PropTypes from 'prop-types';
+import { startCase } from 'lodash';
 
 import ImpactGauge from 'components/dashboard/impacts/ImpactGauge';
 
@@ -14,23 +15,40 @@ const propTypes = {
         medium: PropTypes.object,
         high: PropTypes.object
     }),
-    openModal: PropTypes.func.isRequired
+    inFlight: PropTypes.bool,
+    hasFailed: PropTypes.bool,
+    openModal: PropTypes.func.isRequired,
+    errorLevel: PropTypes.oneOf(['error', 'warning'])
 };
 
-const ActiveDashboardImpacts = ({ submissionData, openModal }) => (
-    <div className="dashboard-page__impacts">
-        <h3>Warning Status</h3>
-        <hr />
+const ActiveDashboardImpacts = (props) => (
+    <div className="dashboard-viz dashboard-page__impacts">
+        <h3 className="dashboard-viz__heading">{startCase(props.errorLevel)} Status</h3>
         <h4>Impact Count</h4>
         <p>
-            Identify to what degree current warnings impact your submission.
+            Identify to what degree current {props.errorLevel}s impact your submission.
             The values have been preset by your agency.
         </p>
-        {submissionData ?
+        {props.submissionData ?
             <div className="flex-wrapper">
-                <ImpactGauge level="low" submissionData={submissionData.low} openModal={openModal} />
-                <ImpactGauge level="medium" submissionData={submissionData.medium} openModal={openModal} />
-                <ImpactGauge level="high" submissionData={submissionData.high} openModal={openModal} />
+                <ImpactGauge
+                    level="low"
+                    submissionData={props.submissionData.low}
+                    openModal={props.openModal}
+                    inFlight={props.inFlight}
+                    hasFailed={props.hasFailed} />
+                <ImpactGauge
+                    level="medium"
+                    submissionData={props.submissionData.medium}
+                    openModal={props.openModal}
+                    inFlight={props.inFlight}
+                    hasFailed={props.hasFailed} />
+                <ImpactGauge
+                    level="high"
+                    submissionData={props.submissionData.high}
+                    openModal={props.openModal}
+                    inFlight={props.inFlight}
+                    hasFailed={props.hasFailed} />
             </div> : ''}
     </div>
 );

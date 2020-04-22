@@ -35,7 +35,7 @@ export class SignificanceGraphContainer extends React.Component {
     }
 
     componentDidUpdate(prevProps) {
-        if (!isEqual(prevProps.appliedFilters, this.props.appliedFilters)) {
+        if (!isEqual(prevProps, this.props)) {
             this.fetchData();
         }
     }
@@ -51,7 +51,7 @@ export class SignificanceGraphContainer extends React.Component {
 
         DashboardHelper.fetchSignificanceCounts(id, file, this.props.errorLevel)
             .then((res) => {
-                this.parseData(res.rules);
+                this.parseData(res.rules, res.total_instances);
             })
             .catch((err) => {
                 console.error(err);
@@ -62,7 +62,7 @@ export class SignificanceGraphContainer extends React.Component {
             });
     }
 
-    parseData(rules) {
+    parseData(rules, totalInstances) {
         const xSeries = [];
         const ySeries = [];
         const allY = []; // Number of instances for each rule
@@ -74,7 +74,8 @@ export class SignificanceGraphContainer extends React.Component {
                 significance: rule.significance,
                 impact: rule.impact,
                 instances: rule.instances,
-                percentage: rule.percentage
+                percentage: rule.percentage,
+                totalInstances
             });
             allY.push(rule.instances);
             xSeries.push(rule.significance);
@@ -93,7 +94,7 @@ export class SignificanceGraphContainer extends React.Component {
         return (
             <DashboardGraph
                 type="active"
-                description="Identify the significance of a particular rule based upon your agency’s preset values and filter warnings by category."
+                description={`Identify the significance of a particular rule based upon your agency’s preset values and filter ${this.props.errorLevel}s by category.`}
                 errorLevel={this.props.errorLevel}
                 {...this.state} />
         );
