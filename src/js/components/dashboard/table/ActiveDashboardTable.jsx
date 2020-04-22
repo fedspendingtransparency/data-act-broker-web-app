@@ -7,6 +7,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { startCase } from 'lodash';
 
+import { formatNumberWithPrecision } from 'helpers/moneyFormatter';
 import DashboardTableHeader from 'components/dashboard/table/DashboardTableHeader';
 import NoResultsMessage from 'components/SharedComponents/NoResultsMessage';
 import LoadingMessage from 'components/SharedComponents/LoadingMessage';
@@ -89,7 +90,7 @@ export default class ActiveDashboardTable extends React.Component {
                                 openModal={this.props.openModal} />
                         </td>
                         <td>
-                            {row.instanceCount}
+                            {formatNumberWithPrecision(row.instanceCount, 0)}
                         </td>
                         <td className="capitalized">
                             {row.category}
