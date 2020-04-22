@@ -7,7 +7,6 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import Banner from 'components/SharedComponents/Banner';
 import Footer from 'components/SharedComponents/FooterComponent';
-import PublishedSubmissionWarningBanner from 'components/SharedComponents/PublishedSubmissionWarningBanner';
 import ReviewDataContent from './ReviewDataContent';
 import ReviewLoading from './ReviewLoading';
 
@@ -37,14 +36,8 @@ export default class ReviewDataPage extends React.Component {
             currentComponent = <ReviewDataContent {...this.props} submissionID={submissionID} />;
         }
 
-        let warningMessage = null;
-        if (this.props.submission.publishStatus !== "unpublished") {
-            warningMessage = <PublishedSubmissionWarningBanner />;
-        }
-
         return (
             <div className="review-data-page">
-                {warningMessage}
                 <Banner type="dabs" />
                 {currentComponent}
                 <Footer />
