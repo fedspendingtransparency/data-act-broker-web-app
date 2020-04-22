@@ -11,38 +11,20 @@ import BannerRow from './BannerRow';
 
 const propTypes = {
     submissionInfo: PropTypes.object,
-    revertSubmission: PropTypes.func
+    revertSubmission: PropTypes.func,
+    reverting: PropTypes.bool
 };
 
 const defaultProps = {
     submissionInfo: null,
-    revertSubmission: null
+    revertSubmission: null,
+    reverting: false
 };
 
 export default class SubmissionWarningBanner extends React.Component {
-    constructor(props) {
-        super(props);
-
-        this.state = {
-            reverting: false
-        };
-
-        this.revert = this.revert.bind(this);
-    }
-
-    revert(e) {
-        e.preventDefault();
-
-        this.setState({
-            reverting: true
-        });
-
-        this.props.revertSubmission();
-    }
-
     render() {
         let content = '';
-        const disabled = this.state.reverting;
+        const disabled = this.props.reverting;
         if (this.props.submissionInfo != null) {
             let warningBannerType = this.props.submissionInfo.publish_status;
             if (this.props.submissionInfo.certified_submission) {
@@ -81,7 +63,7 @@ export default class SubmissionWarningBanner extends React.Component {
                             <button
                                 disabled={disabled}
                                 className={`usa-da-button btn-primary btn-full${disabled ? ' btn-disabled' : ''}`}
-                                onClick={this.revert}>
+                                onClick={this.props.revertSubmission}>
                                     Revert Submission
                             </button>
                         </p>),

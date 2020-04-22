@@ -137,14 +137,19 @@ export class SubmissionStepsContainer extends React.Component {
         });
     }
 
-    revertSubmission() {
+    revertSubmission(e) {
+        e.preventDefault();
         const savedStep = this.state.currentStep;
-        this.resetStep();
+        this.setState({
+            currentStep: 0,
+            reverting: true
+        });
         ReviewHelper.revertToCertified(this.props.computedMatch.params.submissionID)
             .then(() => {
                 this.getSubmissionInfo();
                 this.setState({
-                    currentStep: savedStep
+                    currentStep: savedStep,
+                    reverting: false
                 });
             })
             .catch((err) => {
@@ -152,7 +157,8 @@ export class SubmissionStepsContainer extends React.Component {
                 this.setState({
                     error: true,
                     errorMessage: message,
-                    currentStep: savedStep
+                    currentStep: savedStep,
+                    reverting: false
                 });
             });
     }

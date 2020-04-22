@@ -23,7 +23,8 @@ const propTypes = {
     loading: PropTypes.bool,
     submissionInfo: PropTypes.object,
     currentStep: PropTypes.number,
-    revertSubmission: PropTypes.func
+    revertSubmission: PropTypes.func,
+    reverting: PropTypes.bool
 };
 
 const defaultProps = {
@@ -31,7 +32,8 @@ const defaultProps = {
     errorMessage: '',
     loading: true,
     submissionInfo: {},
-    currentStep: 0
+    currentStep: 0,
+    reverting: false
 };
 
 export default class SubmissionPage extends React.Component {
@@ -67,7 +69,10 @@ export default class SubmissionPage extends React.Component {
             default:
                 content = null;
         }
-        const subStatusBanner = <SubmissionWarningBanner submissionInfo={this.props.submissionInfo} revertSubmission={this.props.revertSubmission} />;
+        const subStatusBanner = (<SubmissionWarningBanner
+            submissionInfo={this.props.submissionInfo}
+            revertSubmission={this.props.revertSubmission}
+            reverting={this.props.reverting} />);
         return (
             <div className="usa-da-submission-page">
                 <Navbar activeTab="submissionGuide" type="dabs" />
