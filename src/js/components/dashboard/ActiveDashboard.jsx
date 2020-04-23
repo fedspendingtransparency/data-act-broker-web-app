@@ -5,7 +5,7 @@
 
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 import ActiveDashboardOverviewContainer from 'containers/dashboard/ActiveDashboardOverviewContainer';
 import ActiveDashboardImpactsContainer from 'containers/dashboard/ActiveDashboardImpactsContainer';
@@ -21,7 +21,7 @@ const propTypes = {
 
 const errorLevels = ['error', 'warning'];
 const ActiveDashboard = (props) => {
-    const [errorLevel, setErrorLevel] = useState('warning');
+    const [errorLevel, setErrorLevel] = useState('error');
     return (
         <div className="dashboard-page-active">
             <div className="dashboard-tabs dashboard-tabs_active">
