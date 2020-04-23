@@ -1,0 +1,75 @@
+.settings-modal__sidebar {
+    @include flex(0 0 auto);
+    @include align-self(stretch);
+    background-color: #f1f1f1;
+    padding: rem(12);
+    padding-top: rem(32);
+    width: rem(240);
+    overflow: hidden;
+
+    h1 {
+        margin: 0;
+        margin-bottom: rem(25);
+        font-size: rem(25);
+        font-weight: bold;
+    }
+
+    h2 {
+        margin-bottom: 0;
+        margin-top: rem(45);
+        font-size: rem(16);
+        font-weight: bold;
+
+        svg {
+            height: rem(16);
+            width: rem(16);
+            margin-right: rem(5);
+        }
+    }
+
+    .settings-agency-filter {
+        @import '../../dashboard/filters/selectedFilters';
+        @import '../../../components/typeahead/typeahead';
+
+        .typeahead-holder {
+            position: relative;
+
+            input {
+                color: #adadad;
+            }
+
+            .awesomplete ul {
+                width: 100%;
+                position: static;
+
+                max-height: rem(350);
+                overflow-y: auto;
+                display: block;
+            }
+
+            .typeahead-warning {
+                @include usa-input-error-message;
+                border: 1px solid $color-secondary-dark;
+                padding: rem(15);
+
+                .error-icon svg {
+                    width: rem(20);
+                    height: rem(20);
+                    fill: $color-secondary-dark !important;
+                }
+                .alert-header-text {
+                    font-weight: $font-bold;
+                    font-size: rem(18);
+                    margin: 0;
+                    margin-left: rem(28);
+                    color: #a94442;
+                }
+                p {
+                    font-size: $small-font-size;
+                    margin: 0;
+                    color: $color-secondary-darkest;
+                }
+            }
+        }
+    }
+}

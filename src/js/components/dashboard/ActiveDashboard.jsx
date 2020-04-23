@@ -8,6 +8,7 @@ import PropTypes from 'prop-types';
 import { startCase } from 'lodash';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
+import { errorLevels } from 'dataMapping/dashboard/fileLabels';
 import ActiveDashboardOverviewContainer from 'containers/dashboard/ActiveDashboardOverviewContainer';
 import ActiveDashboardImpactsContainer from 'containers/dashboard/ActiveDashboardImpactsContainer';
 import SignificanceGraphContainer from 'containers/dashboard/graph/SignificanceGraphContainer';
@@ -20,7 +21,6 @@ const propTypes = {
     backToList: PropTypes.func
 };
 
-const errorLevels = ['error', 'warning'];
 const ActiveDashboard = (props) => {
     const [errorLevel, setErrorLevel] = useState('error');
     return (
