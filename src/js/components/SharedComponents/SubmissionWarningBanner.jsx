@@ -58,8 +58,9 @@ export default class SubmissionWarningBanner extends React.Component {
                     header: (<p>Submission Updated</p>),
                     message: (
                         <p>
-                            This submission has been updated.
-                            If you would like changes to be reflected on USASpending, please certify. <br />
+                            To <b>re-certify</b> with these changes, complete the submission process and certify. <br />
+                            To <b>undo</b> these changes, click "Revert Submission" here or on the review page.
+                            This will immediately undo your changes and return the submission to its previously certified state. <br />
                             <button
                                 disabled={disabled}
                                 className={`usa-da-button btn-primary btn-full${disabled ? ' btn-disabled' : ''}`}
