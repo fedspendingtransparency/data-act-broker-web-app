@@ -5,13 +5,14 @@
 
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
+import { startCase } from 'lodash';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 import ActiveDashboardOverviewContainer from 'containers/dashboard/ActiveDashboardOverviewContainer';
 import ActiveDashboardImpactsContainer from 'containers/dashboard/ActiveDashboardImpactsContainer';
 import SignificanceGraphContainer from 'containers/dashboard/graph/SignificanceGraphContainer';
 import ActiveDashboardTableContainer from 'containers/dashboard/table/ActiveDashboardTableContainer';
-import ErrorLevelTab from './ErrorLevelTab';
+import TabItem from 'components/SharedComponents/TabItem';
 
 const propTypes = {
     submissionID: PropTypes.string,
@@ -24,13 +25,14 @@ const ActiveDashboard = (props) => {
     const [errorLevel, setErrorLevel] = useState('error');
     return (
         <div className="dashboard-page-active">
-            <div className="dashboard-tabs dashboard-tabs_active">
-                <div className="dashboard-tabs__content">
+            <div className="tabs">
+                <div className="tabs__content">
                     {errorLevels.map((level) => (
-                        <ErrorLevelTab
+                        <TabItem
                             key={level}
-                            errorLevel={level}
-                            setErrorLevel={setErrorLevel}
+                            id={level}
+                            label={`${startCase(level)}s`}
+                            onClick={setErrorLevel}
                             active={errorLevel === level} />
                     ))}
                 </div>

@@ -11,7 +11,12 @@
         @import '../../layouts/login/_topBanner';
         @include loginTopBanner;
     }
-    @import './dashboardTabs';
+    @import '../../components/tabs/tabs';
+    .tabs {
+        .tabs__content {
+            @include justify-content(center);
+        }
+    }
     .dashboard-page {
         padding: rem(30);
         .dashboard-page__wrapper {
@@ -107,6 +112,11 @@
             @import './selectSubmissionTable';
         }
         .dashboard-page-active {
+            .tabs {
+                .tabs__content {
+                    @include justify-content(flex-start);
+                }
+            }
             .dashboard-page__content{
                 margin-top: 0;
                 &.dashboard-page__content_below {

@@ -1,0 +1,31 @@
+.tabs {
+    .tabs__content {
+        @include display(flex);
+        .tabs__item {
+            @include button-unstyled;
+            padding: rem(6) 0;
+            margin: rem(4) rem(25);
+            font-size: rem(20);
+            &.tabs__item_active {
+                border-bottom: solid rem(2) $color-primary;
+            }
+            &:disabled {
+                color: $color-gray;
+            }
+        }
+        a.tabs__item {
+            text-decoration: none;
+        }
+    }
+    &.tabs_dark {
+        background-color: black;
+        .tabs__content {
+            .tabs__item_active {
+                border-bottom-color: $color-gold;
+            }
+        }
+        a.tabs__item {
+            color: $color-white;
+        }
+    }
+}

@@ -10,6 +10,7 @@ import { Redirect } from 'react-router-dom';
 import Navbar from 'components/SharedComponents/navigation/NavigationComponent';
 import Footer from 'components/SharedComponents/FooterComponent';
 import Banner from 'components/SharedComponents/Banner';
+import TabItem from 'components/SharedComponents/TabItem';
 import DashboardContentContainer from 'containers/dashboard/DashboardContentContainer';
 import QuarterFilterContainer from 'containers/dashboard/filters/QuarterFilterContainer';
 import DashboardAgencyFilterContainer from 'containers/dashboard/filters/DashboardAgencyFilterContainer';
@@ -19,7 +20,6 @@ import RulesFilterContainer from 'containers/dashboard/filters/RulesFilterContai
 import CreatedByContainer from 'containers/dashboard/filters/CreatedByFilterContainer';
 import LastModifiedFilterContainer from 'containers/dashboard/filters/LastModifiedFilterContainer';
 import SubmissionIdFilterContainer from 'containers/dashboard/filters/SubmissionIdFilterContainer';
-import DashboardTab from './DashboardTab';
 import FilterSidebar from './FilterSidebar';
 
 const filters = {
@@ -95,9 +95,8 @@ export default class DashboardPage extends React.Component {
     render() {
         const activeTab = this.props.computedMatch.params.type && this.props.computedMatch.params.type.toLowerCase();
         if (!activeTab) {
-            // Redirect /dashboard to Historical
-            // TODO change to active
-            return <Redirect to="/dashboard/historical" />;
+            // Redirect /dashboard to Active
+            return <Redirect to="/dashboard/active" />;
         }
         else if (!(activeTab === 'historical' || activeTab === 'active')) {
             // Redirect invalid params to 'Page Not Found'
@@ -116,16 +115,17 @@ export default class DashboardPage extends React.Component {
                                     </div>
                                 </div>
                             </div>
-                            <div className="dashboard-tabs">
-                                <div className="dashboard-tabs__content">
-                                    <DashboardTab
+                            <div className="tabs tabs_dark">
+                                <div className="tabs__content">
+                                    <TabItem
                                         label="Active"
-                                        type="active"
-                                        disabled
+                                        id="active"
+                                        link="/dashboard/active"
                                         active={activeTab === 'active'} />
-                                    <DashboardTab
+                                    <TabItem
                                         label="Historical"
-                                        type="historical"
+                                        id="historical"
+                                        link="/dashboard/historical"
                                         active={activeTab === 'historical'} />
                                 </div>
                             </div>
