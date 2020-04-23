@@ -26,6 +26,8 @@ export default class LandingRequirementsModal extends React.Component {
             isOpen: false,
             type: this.props.type
         };
+
+        this.closeModal = this.closeModal.bind(this);
     }
 
     openModal() {
@@ -34,30 +36,23 @@ export default class LandingRequirementsModal extends React.Component {
         });
     }
 
-    closeModal(e) {
-        if (e) {
-            e.preventDefault();
-        }
-
+    closeModal() {
         this.setState({
             isOpen: false
         });
     }
 
     render() {
-        // adding this because the linter doesn't like when we just pass true
-        const trueProps = true;
         return (
             <Modal
                 mounted={this.state.isOpen}
-                onExit={this.closeModal.bind(this)}
-                underlayClickExists={false}
-                verticallyCenter={trueProps}
+                onExit={this.closeModal}
+                verticallyCenter
                 titleId="usa-da-landing-modal">
                 <div className="usa-da-modal-page">
                     <div id="usa-da-landing-modal" className="usa-da-landing-modal">
                         <div className="usa-da-landing-modal-close usa-da-icon usa-da-icon-times">
-                            <button onClick={this.closeModal.bind(this)}>
+                            <button onClick={this.closeModal}>
                                 <Icons.Times />
                             </button>
                         </div>

@@ -1,15 +1,21 @@
 .rule-settings-top {
     @include display(flex);
-    @include flex-direction(horizontal);
     justify-content: space-between;
+    flex-wrap: wrap;
 
     .description {
-        @include flex(0 0 auto);
-        width: rem(370);
+        @media (min-width: 975px) {
+            @include flex(0 0 370px);
+        }
     }
 
     .validation-rule-select {
+        padding-top: rem(10);
         @include flex(0 0 auto);
+        @media (min-width: 975px) {
+            padding-left: rem(10);
+            padding-top: 0;
+        }
 
         h2 {
             margin: 0;
