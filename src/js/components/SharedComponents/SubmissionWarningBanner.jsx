@@ -59,7 +59,7 @@ export default class SubmissionWarningBanner extends React.Component {
                     message: (
                         <p>
                             To <b>re-certify</b> with these changes, complete the submission process and certify. <br />
-                            To <b>undo</b> these changes, click "Revert Submission" here or on the review page.
+                            To <b>undo</b> these changes, click &quot;Revert Submission&quot; here or on the review page.
                             This will immediately undo your changes and return the submission to its previously certified state. <br />
                             <button
                                 disabled={disabled}
