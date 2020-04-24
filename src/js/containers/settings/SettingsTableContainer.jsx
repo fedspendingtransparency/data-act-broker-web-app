@@ -7,6 +7,7 @@ import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 
 import { fetchSettings } from 'helpers/settingsHelper';
+import SettingsTable from '../../components/settings/table/SettingsTable';
 
 const propTypes = {
     agencyCode: PropTypes.string,
@@ -32,7 +33,7 @@ const SettingsTableContainer = ({ agencyCode, file, errorLevel }) => {
         return (<p>Loading...</p>);
     }
     else if (results.length !== 0) {
-        return (<p>{JSON.stringify(results[`${errorLevel}s`])}</p>);
+        return (<SettingsTable results={results[`${errorLevel}s`]} />);
     }
     return (
         <p>Please select an agency.</p>
