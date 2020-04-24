@@ -12,6 +12,7 @@ import { Picker } from 'data-transparency-ui';
 
 import { errorLevels } from 'dataMapping/dashboard/fileLabels';
 import SettingsAgencySelectContainer from 'containers/settings/SettingsAgencySelectContainer';
+import SettingsTableContainer from 'containers/settings/SettingsTableContainer';
 import TabItem from 'components/SharedComponents/TabItem';
 
 const propTypes = {
@@ -127,6 +128,10 @@ export default class SettingsModal extends React.Component {
                                         ))}
                                     </div>
                                 </div>
+                                <SettingsTableContainer
+                                    agencyCode={this.state.agencyCode}
+                                    file={this.state.selectedRule.value}
+                                    errorLevel={this.state.errorLevel} />
                             </div>
                         </div>
                     </div>
