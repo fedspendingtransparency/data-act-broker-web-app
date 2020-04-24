@@ -59,8 +59,14 @@
         }
         @import '../../../components/tables/brokerTable';
         @include brokerTable;
-        .broker-table {
+        .settings-table {
             margin-top: rem(25);
+            .settings-table__rule {
+                padding-left: rem(10);
+            }
+            .fa-bars {
+                margin-right: rem(10);
+            }
         }
     }
 }

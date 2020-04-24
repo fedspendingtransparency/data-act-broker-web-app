@@ -6,6 +6,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { startCase } from 'lodash';
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 const propTypes = {
     results: PropTypes.array
@@ -28,7 +29,8 @@ const SettingsTable = ({ results }) => {
     const tableRows = results.map((row) => (
         <tr key={`settings-table-row-${row.label}`}>
             <td>
-                {row.significance}. {row.label}
+                <FontAwesomeIcon icon="bars" />
+                {row.significance}.<span className="settings-table__rule">{row.label}</span>
             </td>
             <td>
                 {startCase(row.impact)}
@@ -41,7 +43,7 @@ const SettingsTable = ({ results }) => {
         </tr>
     ));
     return (
-        <table className="broker-table">
+        <table className="broker-table settings-table">
             <thead className="broker-table__header">
                 <tr>
                     {tableHeaders}
