@@ -26,12 +26,12 @@ const SettingsTable = ({ results }) => {
         <th>{startCase(col)}</th>
     ));
     const tableRows = results.map((row) => (
-        <tr key={`dashboard-table-row-${row.label}`}>
+        <tr key={`settings-table-row-${row.label}`}>
             <td>
-                {row.significance} {row.label}
+                {row.significance}. {row.label}
             </td>
             <td>
-                {row.impact}
+                {startCase(row.impact)}
             </td>
             <td>
                 <div title={row.description} className="ellipse-box">
@@ -41,18 +41,16 @@ const SettingsTable = ({ results }) => {
         </tr>
     ));
     return (
-        <div className="settings-table">
-            <table>
-                <thead>
-                    <tr>
-                        {tableHeaders}
-                    </tr>
-                </thead>
-                <tbody>
-                    {tableRows}
-                </tbody>
-            </table>
-        </div>
+        <table className="broker-table">
+            <thead className="broker-table__header">
+                <tr>
+                    {tableHeaders}
+                </tr>
+            </thead>
+            <tbody className="broker-table__body">
+                {tableRows}
+            </tbody>
+        </table>
     );
 };
 

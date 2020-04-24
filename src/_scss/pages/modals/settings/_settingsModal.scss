@@ -57,5 +57,10 @@
                 }
             }
         }
+        @import '../../../components/tables/brokerTable';
+        @include brokerTable;
+        .broker-table {
+            margin-top: rem(25);
+        }
     }
 }

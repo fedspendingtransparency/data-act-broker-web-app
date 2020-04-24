@@ -110,13 +110,13 @@ export default class ActiveDashboardTable extends React.Component {
         return (
             <div className="dashboard-table">
                 <h3 className="dashboard-viz__heading">Table</h3>
-                <table>
+                <table className="broker-table">
                     <DashboardTableHeader
                         headers={this.tableHeaders()}
                         changeSort={this.props.changeSort}
                         currSort={this.props.currSort}
                         currOrder={this.props.currOrder} />
-                    <tbody>
+                    <tbody className="broker-table__body">
                         {tableRows}
                     </tbody>
                 </table>
