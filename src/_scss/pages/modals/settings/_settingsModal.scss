@@ -67,6 +67,11 @@
             .fa-bars {
                 margin-right: rem(10);
             }
+            .settings-table__row {
+                &.settings-table__row_significance {
+                    white-space: nowrap;
+                }
+            }
         }
     }
 }

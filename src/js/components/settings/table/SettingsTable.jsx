@@ -28,14 +28,14 @@ const SettingsTable = ({ results }) => {
     ));
     const tableRows = results.map((row) => (
         <tr key={`settings-table-row-${row.label}`}>
-            <td>
+            <td className="settings-table__row settings-table__row_significance">
                 <FontAwesomeIcon icon="bars" />
                 {row.significance}.<span className="settings-table__rule">{row.label}</span>
             </td>
-            <td>
+            <td className="settings-table__row">
                 {startCase(row.impact)}
             </td>
-            <td>
+            <td className="settings-table__row">
                 <div title={row.description} className="ellipse-box">
                     {row.description}
                 </div>
