@@ -10,7 +10,7 @@ import { Picker } from 'data-transparency-ui';
 
 const propTypes = {
     rule: PropTypes.string.isRequired,
-    selectedOption: PropTypes.oneOf(['low', 'medium', 'high']),
+    selectedOption: PropTypes.oneOf(['Low', 'Medium', 'High']),
     updateImpact: PropTypes.func.isRequired
 };
 
@@ -25,7 +25,7 @@ const ImpactDropdown = ({ rule, selectedOption, updateImpact }) => {
         {
             value: impact,
             name: startCase(impact),
-            onClick: () => updateImpact(rule, impact)
+            onClick: () => updateImpact(impact, rule)
         }
     ));
     return (

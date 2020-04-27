@@ -10,7 +10,8 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import ImpactDropdown from './ImpactDropdown';
 
 const propTypes = {
-    results: PropTypes.array
+    results: PropTypes.array,
+    updateImpact: PropTypes.func
 };
 
 const defaultProps = {
@@ -23,7 +24,7 @@ const columns = [
     'description'
 ];
 
-const SettingsTable = ({ results }) => {
+const SettingsTable = ({ results, updateImpact }) => {
     const tableHeaders = columns.map((col) => (
         <th key={col}>{startCase(col)}</th>
     ));
@@ -37,7 +38,7 @@ const SettingsTable = ({ results }) => {
                 <ImpactDropdown
                     rule={row.label}
                     selectedOption={startCase(row.impact)}
-                    updateImpact={(rule, impact) => console.log(rule, impact)} />
+                    updateImpact={updateImpact} />
             </td>
             <td className="settings-table__row">
                 <div title={row.description} className="ellipse-box">
