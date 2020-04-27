@@ -1,0 +1,47 @@
+.rule-settings-top {
+    @include display(flex);
+    justify-content: space-between;
+    flex-wrap: wrap;
+
+    .description {
+        @media (min-width: 975px) {
+            @include flex(0 0 370px);
+        }
+    }
+
+    .validation-rule-select {
+        padding-top: rem(10);
+        @include flex(0 0 auto);
+        @media (min-width: 975px) {
+            padding-left: rem(10);
+            padding-top: 0;
+        }
+
+        h2 {
+            margin: 0;
+            margin-bottom: rem(5);
+            font-size: rem(16);
+            font-weight: bold;
+        }
+
+        .usa-dt-picker__dropdown-container {
+            width: rem(220);
+            border: 1px solid $color-gray-lighter;
+
+            .usa-dt-picker__list {
+                border: 1px solid $color-gray-lighter;
+                width: rem(220) !important;
+                left: 0 !important;
+
+                .usa-dt-picker__item {
+                    width: rem(200);
+                }
+            }
+
+            .usa-dt-picker__button {
+                margin: 0 1rem;
+                padding: .5rem 0;
+            }
+        }
+    }
+}

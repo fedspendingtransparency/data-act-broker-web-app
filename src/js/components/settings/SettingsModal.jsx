@@ -6,10 +6,13 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import Modal from 'react-aria-modal';
+import { startCase } from 'lodash';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Picker } from 'data-transparency-ui';
 
+import { errorLevels } from 'dataMapping/dashboard/fileLabels';
 import SettingsAgencySelectContainer from 'containers/settings/SettingsAgencySelectContainer';
+import TabItem from 'components/SharedComponents/TabItem';
 
 const propTypes = {
     closeModal: PropTypes.func.isRequired,
@@ -29,11 +32,19 @@ export default class SettingsModal extends React.Component {
             selectedRule: {
                 value: 'A',
                 label: 'File A'
-            }
+            },
+            errorLevel: 'error'
         };
 
         this.updateAgency = this.updateAgency.bind(this);
         this.updateRule = this.updateRule.bind(this);
+        this.setErrorLevel = this.setErrorLevel.bind(this);
+    }
+
+    setErrorLevel(errorLevel) {
+        this.setState({
+            errorLevel
+        });
     }
 
     updateAgency(agencyCode) {
@@ -102,6 +113,18 @@ export default class SettingsModal extends React.Component {
                                             selectedOption={this.state.selectedRule.label}
                                             sortFn={() => 0}
                                             isFixedWidth />
+                                    </div>
+                                </div>
+                                <div className="tabs">
+                                    <div className="tabs__content">
+                                        {errorLevels.map((level) => (
+                                            <TabItem
+                                                key={level}
+                                                id={level}
+                                                label={`${startCase(level)}s`}
+                                                onClick={this.setErrorLevel}
+                                                active={this.state.errorLevel === level} />
+                                        ))}
                                     </div>
                                 </div>
                             </div>

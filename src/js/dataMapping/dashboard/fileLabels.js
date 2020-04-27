@@ -40,3 +40,5 @@ export const significanceColors = {
     completeness: '#AE397B',
     existence: '#008566'
 };
+
+export const errorLevels = ['error', 'warning'];
