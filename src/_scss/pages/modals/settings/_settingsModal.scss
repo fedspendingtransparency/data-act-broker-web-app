@@ -67,8 +67,9 @@
             .fa-bars {
                 margin-right: rem(10);
             }
-            .settings-table__row {
-                &.settings-table__row_significance {
+            @import './impactDropdown';
+            .settings-table__data {
+                &.settings-table__data_significance {
                     white-space: nowrap;
                 }
             }

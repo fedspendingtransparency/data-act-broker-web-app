@@ -29,18 +29,18 @@ const SettingsTable = ({ results, updateImpact }) => {
         <th key={col}>{startCase(col)}</th>
     ));
     const tableRows = results.map((row) => (
-        <tr key={`settings-table-row-${row.label}`}>
-            <td className="settings-table__row settings-table__row_significance">
+        <tr className="settings-table__row" key={`settings-table-row-${row.label}`}>
+            <td className="settings-table__data settings-table__data_significance">
                 <FontAwesomeIcon icon="bars" />
                 {row.significance}.<span className="settings-table__rule">{row.label}</span>
             </td>
-            <td className="settings-table__row">
+            <td className="settings-table__data">
                 <ImpactDropdown
                     rule={row.label}
                     selectedOption={startCase(row.impact)}
                     updateImpact={updateImpact} />
             </td>
-            <td className="settings-table__row">
+            <td className="settings-table__data">
                 <div title={row.description} className="ellipse-box">
                     {row.description}
                 </div>

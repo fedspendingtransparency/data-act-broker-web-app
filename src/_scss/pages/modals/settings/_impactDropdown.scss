@@ -1,0 +1,47 @@
+// Override component library default styles
+.settings-table__row {
+    .settings-table__data {
+        .usa-dt-picker {
+            .usa-dt-picker__dropdown-container {
+                @include flex(1 1 auto);
+                .usa-dt-picker__button {
+                    margin: 0;
+                    padding: 0;
+                    .usa-dt-picker__button-text {
+                        font-size: $small-font-size;
+                        font-weight: $font-normal;
+                    }
+                    .usa-dt-picker__button-icon {
+                        svg {
+                            width: rem(16);
+                            height: rem(16);
+                        }
+                    }
+                }
+                .usa-dt-picker__list {
+                    z-index: 4;
+                    width: rem(78);
+                    .usa-dt-picker__list-item {
+                        .usa-dt-picker__item {
+                            font-size: $small-font-size;
+                            font-weight: $font-normal;
+                        }
+                    }
+                }
+            }
+        }
+    }
+    &:nth-child(odd) {
+        .settings-table__data{
+            .usa-dt-picker {
+                .usa-dt-picker__dropdown-container {
+                    .usa-dt-picker__button {
+                        background-color: $color-gray-lightest;
+                    }
+                }
+            }
+        }
+    }
+}
+
+
