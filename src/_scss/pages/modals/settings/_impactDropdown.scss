@@ -6,7 +6,7 @@
                 @include flex(1 1 auto);
                 .usa-dt-picker__button {
                     margin: 0;
-                    padding: 0;
+                    padding: rem(3);
                     .usa-dt-picker__button-text {
                         font-size: $small-font-size;
                         font-weight: $font-normal;
@@ -20,7 +20,8 @@
                 }
                 .usa-dt-picker__list {
                     z-index: 4;
-                    width: rem(78);
+                    width: rem(84);
+                    overflow: hidden; // prevent scrollbars in this list
                     .usa-dt-picker__list-item {
                         .usa-dt-picker__item {
                             font-size: $small-font-size;
