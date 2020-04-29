@@ -8,9 +8,10 @@ export const updateSavedSettings = (settings) => ({
     settings
 });
 
-export const updatedStagedSettings = (settings) => ({
+export const updateStagedSettings = (settings, errorLevel) => ({
     type: 'UPDATE_STAGED_SETTINGS',
-    settings
+    settings,
+    errorLevel
 });
 
 export const updateImpact = (impact, rule, errorLevel) => ({
