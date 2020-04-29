@@ -10,6 +10,7 @@
                     .usa-dt-picker__button-text {
                         font-size: $small-font-size;
                         font-weight: $font-normal;
+                        color: $font-color;
                     }
                     .usa-dt-picker__button-icon {
                         svg {
@@ -26,6 +27,7 @@
                         .usa-dt-picker__item {
                             font-size: $small-font-size;
                             font-weight: $font-normal;
+                            color: $font-color;
                         }
                     }
                 }
