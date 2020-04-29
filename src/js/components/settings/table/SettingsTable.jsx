@@ -27,9 +27,17 @@ export const reorder = (list, startIndex, endIndex) => {
     const result = Array.from(list);
     const [removed] = result.splice(startIndex, 1);
     result.splice(endIndex, 0, removed);
-
     return result;
 };
+
+const getItemStyle = (isDragging, draggableStyle) => ({
+    userSelect: "none",
+    // change background color if dragging
+    background: isDragging ? "#9bdaf1" : "",
+    boxShadow: isDragging ? "0 2px 5px rgba(0, 0, 0, 0.15)" : "0 0",
+    // styles we need to apply on draggables
+    ...draggableStyle
+});
 
 export default class SettingsTable extends React.Component {
     constructor(props) {
@@ -67,12 +75,16 @@ export default class SettingsTable extends React.Component {
                             <tbody className="broker-table__body">
                                 {this.props.results.map((row, index) => (
                                     <Draggable key={row.label} draggableId={row.label} index={index}>
-                                        {(provided) => (
+                                        {(provided, snapshot) => (
                                             <tr
                                                 className="settings-table__row"
                                                 ref={provided.innerRef}
                                                 {...provided.draggableProps}
-                                                {...provided.dragHandleProps}>
+                                                {...provided.dragHandleProps}
+                                                style={getItemStyle(
+                                                    snapshot.isDragging,
+                                                    provided.draggableProps.style
+                                                )}>
                                                 <td style={{ width: "20%" }} className="settings-table__data settings-table__data_significance">
                                                     <FontAwesomeIcon icon="bars" />
                                                     {index + 1}.<span className="settings-table__rule">{row.label}</span>
