@@ -64,6 +64,7 @@ export default class StackedBar extends React.Component {
                     height={this.props.height}
                     fill={this.props.color}
                     tabIndex="0"
+                    focusable
                     onMouseOver={this.mouseEntered}
                     onFocus={this.mouseEntered}
                     onMouseOut={this.mouseExited}
