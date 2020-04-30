@@ -30,6 +30,7 @@ const ImpactDropdown = ({ rule, selectedOption, updateImpact }) => {
     ));
     return (
         <Picker
+            id={`impact-${rule}-picker`}
             options={impactOptions}
             selectedOption={selectedOption}
             sortFn={() => 0} />
