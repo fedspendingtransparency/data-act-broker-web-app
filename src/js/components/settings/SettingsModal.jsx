@@ -110,6 +110,7 @@ export default class SettingsModal extends React.Component {
                                     <div className="validation-rule-select">
                                         <h2><FontAwesomeIcon icon="filter" /> Validation Rules</h2>
                                         <Picker
+                                            id="validation-rules-picker"
                                             options={ruleList}
                                             selectedOption={this.state.selectedRule.label}
                                             sortFn={() => 0}
