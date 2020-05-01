@@ -1,0 +1,30 @@
+.save-status {
+    @include display(flex);
+    @include justify-content(space-between);
+    @import "../../../components/buttons/_primary";
+    @import "../../../components/alerts/_alerts";
+    margin-top: rem(25);
+    .save-status__message {
+        @include display(flex);
+        svg {
+            margin-right: rem(5);
+        }
+        .save-status__error {
+            @include dangerAlert;
+            border: solid 2px $alert-danger-border;
+            padding: rem(10);
+            margin: 0;
+        }
+        .save-status__success {
+            @include successAlert;
+            border: solid 2px $alert-success-border;
+            padding: rem(10);
+            margin: 0;
+        }
+    }
+    .save-status__button {
+        @include primaryButton;
+        width: rem(128);
+        height: rem(40);
+    }
+}

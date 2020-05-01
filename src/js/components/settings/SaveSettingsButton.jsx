@@ -7,6 +7,7 @@ import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import { useSelector, useDispatch } from 'react-redux';
 import { isEqual } from 'lodash';
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { fileLabels } from 'dataMapping/dashboard/fileLabels';
 import { saveSettings } from 'helpers/settingsHelper';
 import { prepareSettings } from 'helpers/settingsTableHelper';
@@ -32,8 +33,8 @@ const SaveSettingsButton = ({ agencyCode, file }) => {
             file,
             agency_code: agencyCode
         })
-            .then((data) => {
-                setSuccessMessage(data.message);
+            .then(() => {
+                setSuccessMessage('Settings Saved');
                 setLoading(false);
                 dispatch(updateSavedSettings(stagedSettings));
             })
@@ -43,10 +44,21 @@ const SaveSettingsButton = ({ agencyCode, file }) => {
             });
     };
     return (
-        <div>
-            {errorMessage ? (<div>{errorMessage}</div>) : null}
-            {successMessage ? (<div>{successMessage}</div>) : null}
+        <div className="save-status">
+            <div className="save-status__message">
+                {errorMessage ? (
+                    <div className=" save-status__error">
+                        <FontAwesomeIcon icon="exclamation-triangle" />{errorMessage}
+                    </div>
+                ) : null}
+                {successMessage ? (
+                    <div className="save-status__success">
+                        <FontAwesomeIcon icon="check-circle" />{successMessage}
+                    </div>
+                ) : null}
+            </div>
             <button
+                className="btn-primary save-status__button"
                 disabled={isEqual(stagedSettings, savedSettings)}
                 onClick={save}>
                 {loading ? 'Saving...' : 'Save'}

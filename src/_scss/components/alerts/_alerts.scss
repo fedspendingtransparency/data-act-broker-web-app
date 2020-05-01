@@ -4,7 +4,7 @@
     font-size: 1.4rem;
     border-radius: 0;
     position: relative;
-    margin: 20px 0 !important;
+    margin: 20px 0;
 
 	h3 {
         font-size: 2.4rem;
@@ -43,7 +43,7 @@
 }
 
 @mixin successAlert {
-    @include baseAlert;	
+    @include baseAlert;
     @include alert-variant($alert-success-bg, $alert-success-border, $alert-success-text);
 
 	background: #e7f4e4;
