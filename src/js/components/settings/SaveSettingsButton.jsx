@@ -9,6 +9,7 @@ import { useSelector } from 'react-redux';
 import { isEqual } from 'lodash';
 import { fileLabels } from 'dataMapping/dashboard/fileLabels';
 import { saveSettings } from 'helpers/settingsHelper';
+import { prepareSettings } from 'helpers/settingsTableHelper';
 
 const propTypes = {
     agencyCode: PropTypes.string,
@@ -20,10 +21,12 @@ const SaveSettingsButton = ({ agencyCode, file }) => {
     const [successMessage, setSuccessMessage] = useState('');
     const [errorMessage, setErrorMessage] = useState('');
     const [loading, setLoading] = useState(false);
+    const { errors, warnings } = prepareSettings(stagedSettings);
     const save = () => {
         setLoading(true);
         saveSettings({
-            settings: stagedSettings, // TODO - clean up settings objects
+            errors,
+            warnings,
             file,
             agency_code: agencyCode
         })
