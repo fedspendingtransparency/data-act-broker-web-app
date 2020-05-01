@@ -37,7 +37,7 @@
             margin-bottom: rem(20);
             max-width: none;
         }
-        .results-table-loading { 
+        .results-table-loading {
             .loading-animation {
                 svg.loading-bars {
                     rect {
@@ -51,7 +51,9 @@
         }
     }
 
-    table {
+    @import '../../../components/tables/brokerTable';
+    @include brokerTable;
+    .broker-table {
         width: 100%;
         margin-top: rem(16);
 
@@ -59,15 +61,8 @@
             padding-right: 2em;
         }
 
-        thead {
-            color: $color-white;
-            background: $color-gray;
-
+        thead.broker-table__header {
             th {
-                height: rem(53);
-                padding-left: rem(8);
-                padding-right: rem(8);
-
                 .dashboard-table__header-wrapper {
                     display: flex;
                     height: rem(36);
@@ -104,44 +99,18 @@
             }
         }
 
-        tbody {
-            color: $color-gray;
-
+        tbody.broker-table__body {
             tr {
-                height: rem(41);
+                td {
+                    &.capitalized {
+                        text-transform: capitalize;
+                    }
 
-                &:nth-child(odd) {
-                    background-color: $color-gray-lightest;
-                }
-
-                &:nth-child(even) {
-                    background-color: $color-white;
-                }
-            }
-
-            td {
-                padding-left: rem(8);
-                padding-right: rem(8);
-
-                &.capitalized {
-                    text-transform: capitalize;
-                }
-
-                .ellipse-box {
-                    display: block;
-                    display: -webkit-box;
-                    max-width: 100%;
-                    margin: auto;
-                    -webkit-line-clamp: 2;
-                    -webkit-box-orient: vertical;
-                    overflow: hidden;
-                    text-overflow: ellipsis;
-                }
-
-                .modal-button {
-                    @include button-unstyled;
-                    color: $color-primary;
-                    white-space: nowrap;
+                    .modal-button {
+                        @include button-unstyled;
+                        color: $color-primary;
+                        white-space: nowrap;
+                    }
                 }
             }
         }

@@ -57,5 +57,21 @@
                 }
             }
         }
+        @import '../../../components/tables/brokerTable';
+        @include brokerTable;
+        .settings-table {
+            margin-top: rem(25);
+            .settings-table__rule {
+                padding-left: rem(10);
+            }
+            .fa-bars {
+                margin-right: rem(10);
+            }
+            .settings-table__row {
+                &.settings-table__row_significance {
+                    white-space: nowrap;
+                }
+            }
+        }
     }
 }
