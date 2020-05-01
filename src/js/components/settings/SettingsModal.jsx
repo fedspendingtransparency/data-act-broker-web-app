@@ -10,10 +10,11 @@ import { startCase } from 'lodash';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Picker } from 'data-transparency-ui';
 
-import { errorLevels } from 'dataMapping/dashboard/fileLabels';
+import { errorLevels, validationRules } from 'dataMapping/dashboard/fileLabels';
 import SettingsAgencySelectContainer from 'containers/settings/SettingsAgencySelectContainer';
 import SettingsTableContainer from 'containers/settings/SettingsTableContainer';
 import TabItem from 'components/SharedComponents/TabItem';
+import SaveSettingsButton from './SaveSettingsButton';
 
 const propTypes = {
     closeModal: PropTypes.func.isRequired,
@@ -61,14 +62,6 @@ export default class SettingsModal extends React.Component {
     }
 
     render() {
-        const validationRules = [
-            { value: 'A', label: 'File A' },
-            { value: 'B', label: 'File B' },
-            { value: 'C', label: 'File C' },
-            { value: 'cross-AB', label: 'Cross: A/B' },
-            { value: 'cross-BC', label: 'Cross: B/C' },
-            { value: 'cross-CD1', label: 'Cross: C/D1' },
-            { value: 'cross-CD2', label: 'Cross: C/D2' }];
         const ruleList = validationRules.map((rule) =>
             ({
                 value: rule.value,
@@ -133,6 +126,9 @@ export default class SettingsModal extends React.Component {
                                     agencyCode={this.state.agencyCode}
                                     file={this.state.selectedRule.value}
                                     errorLevel={this.state.errorLevel} />
+                                <SaveSettingsButton
+                                    agencyCode={this.state.agencyCode}
+                                    file={this.state.selectedRule.value} />
                             </div>
                         </div>
                     </div>

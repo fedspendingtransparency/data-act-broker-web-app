@@ -3,7 +3,6 @@ import Request from './sessionSuperagent';
 
 import { kGlobalConstants } from '../GlobalConstants';
 
-/* eslint-disable import/prefer-default-export */
 export const fetchSettings = (agencyCode, file) => {
     const deferred = Q.defer();
 
@@ -20,4 +19,21 @@ export const fetchSettings = (agencyCode, file) => {
     return deferred.promise;
 };
 
-/* eslint-enable import/prefer-default-export */
+export const saveSettings = (callBody) => {
+    const deferred = Q.defer();
+
+    Request.post(`${kGlobalConstants.API}save_rule_settings/`)
+        .send(callBody)
+        .end((err, res) => {
+            if (err) {
+                const response = Object.assign({}, res.body);
+                response.httpStatus = res.status;
+                deferred.reject(response);
+            }
+            else {
+                deferred.resolve(res.body);
+            }
+        });
+
+    return deferred.promise;
+};

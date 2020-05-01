@@ -9,11 +9,12 @@ import { useDispatch, useSelector } from 'react-redux';
 
 import { updateSavedSettings, updateImpact, updateStagedSettings } from 'redux/actions/settingsActions';
 import { fetchSettings } from 'helpers/settingsHelper';
+import { fileLabels } from 'dataMapping/dashboard/fileLabels';
 import SettingsTable from 'components/settings/table/SettingsTable';
 
 const propTypes = {
     agencyCode: PropTypes.string,
-    file: PropTypes.string, // TODO: import list of valid file values
+    file: PropTypes.oneOf(Object.keys(fileLabels)),
     errorLevel: PropTypes.oneOf(['error', 'warning'])
 };
 
