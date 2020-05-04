@@ -11,6 +11,8 @@ import { updateSavedSettings, updateImpact, updateStagedSettings } from 'redux/a
 import { fetchSettings } from 'helpers/settingsHelper';
 import { fileLabels } from 'dataMapping/dashboard/fileLabels';
 import SettingsTable from 'components/settings/table/SettingsTable';
+import LoadingMessage from 'components/SharedComponents/LoadingMessage';
+import ChooseFiltersMessage from 'components/dashboard/ChooseFiltersMessage';
 
 const propTypes = {
     agencyCode: PropTypes.string,
@@ -36,7 +38,7 @@ const SettingsTableContainer = ({ agencyCode, file, errorLevel }) => {
     }, [agencyCode, file]);
 
     if (loading) {
-        return (<p>Loading...</p>);
+        return <LoadingMessage />;
     }
     else if (stagedSettings[`${errorLevel}s`].length !== 0) {
         return (
@@ -47,7 +49,9 @@ const SettingsTableContainer = ({ agencyCode, file, errorLevel }) => {
         );
     }
     return (
-        <p>Please select an agency.</p>
+        <ChooseFiltersMessage>
+            Please select an agency.
+        </ChooseFiltersMessage>
     );
 };
 

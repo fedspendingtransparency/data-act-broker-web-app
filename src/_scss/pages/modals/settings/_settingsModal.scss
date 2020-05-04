@@ -47,6 +47,16 @@
                     }
                 }
             }
+            @import '../../dashboard/dashboardMessage';
+            .dashboard-message-flex {
+                height: rem(410);
+                margin-top: rem(25);
+                .dashboard-message {
+                    margin: 0;
+                    padding-top: 25%;
+                }
+            }
+            @import '../../../components/messages/messages';
             @import '../../../components/tables/brokerTable';
             @include brokerTable;
             .settings-table {
