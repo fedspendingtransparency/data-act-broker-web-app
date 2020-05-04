@@ -21,9 +21,10 @@
         }
         .usa-dt-picker__list {
             z-index: 4;
-            width: rem(84);
+            width: auto;
             overflow: hidden; // prevent scrollbars in this list
             .usa-dt-picker__list-item {
+                border-top: 0;
                 .usa-dt-picker__item {
                     font-size: $small-font-size;
                     font-weight: $font-normal;
