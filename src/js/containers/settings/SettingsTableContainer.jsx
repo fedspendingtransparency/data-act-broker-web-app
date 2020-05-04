@@ -12,6 +12,8 @@ import { fetchSettings } from 'helpers/settingsHelper';
 import { fileLabels } from 'dataMapping/dashboard/fileLabels';
 import SettingsTable from 'components/settings/table/SettingsTable';
 import LoadingMessage from 'components/SharedComponents/LoadingMessage';
+import NoResultsMessage from 'components/SharedComponents/NoResultsMessage';
+import ErrorMessageOverlay from 'components/SharedComponents/ErrorMessageOverlay';
 import ChooseFiltersMessage from 'components/dashboard/ChooseFiltersMessage';
 
 const propTypes = {
@@ -22,6 +24,7 @@ const propTypes = {
 
 const SettingsTableContainer = ({ agencyCode, file, errorLevel }) => {
     const [loading, setLoading] = useState(false);
+    const [error, setError] = useState(false);
     const dispatch = useDispatch();
     const { stagedSettings } = useSelector((state) => state.settings);
     const updateImpactSetting = (impact, rule) => dispatch(updateImpact(impact, rule, errorLevel));
@@ -30,15 +33,22 @@ const SettingsTableContainer = ({ agencyCode, file, errorLevel }) => {
     useEffect(() => {
         if (agencyCode && file) {
             setLoading(true);
-            fetchSettings(agencyCode, file).then((data) => {
-                dispatch(updateSavedSettings(data));
-                setLoading(false);
-            });
+            fetchSettings(agencyCode, file)
+                .then((data) => {
+                    dispatch(updateSavedSettings(data));
+                    setLoading(false);
+                })
+                .catch(() => {
+                    setError(true);
+                });
         }
     }, [agencyCode, file]);
 
     if (loading) {
         return <LoadingMessage />;
+    }
+    else if (error) {
+        return <ErrorMessageOverlay />;
     }
     else if (stagedSettings[`${errorLevel}s`].length !== 0) {
         return (
@@ -48,11 +58,14 @@ const SettingsTableContainer = ({ agencyCode, file, errorLevel }) => {
                 updateOrder={updateOrder} />
         );
     }
-    return (
-        <ChooseFiltersMessage>
-            Please select an agency.
-        </ChooseFiltersMessage>
-    );
+    else if (!agencyCode) {
+        return (
+            <ChooseFiltersMessage>
+                Please select an agency.
+            </ChooseFiltersMessage>
+        );
+    }
+    return <NoResultsMessage />;
 };
 
 SettingsTableContainer.propTypes = propTypes;
