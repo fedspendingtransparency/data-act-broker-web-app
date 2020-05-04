@@ -7,7 +7,7 @@ import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import { useDispatch, useSelector } from 'react-redux';
 
-import { updateSavedSettings, updateImpact } from 'redux/actions/settingsActions';
+import { updateSavedSettings, updateImpact, updateStagedSettings } from 'redux/actions/settingsActions';
 import { fetchSettings } from 'helpers/settingsHelper';
 import SettingsTable from 'components/settings/table/SettingsTable';
 
@@ -22,6 +22,7 @@ const SettingsTableContainer = ({ agencyCode, file, errorLevel }) => {
     const dispatch = useDispatch();
     const { stagedSettings } = useSelector((state) => state.settings);
     const updateImpactSetting = (impact, rule) => dispatch(updateImpact(impact, rule, errorLevel));
+    const updateOrder = (settings) => dispatch(updateStagedSettings(settings, errorLevel));
 
     useEffect(() => {
         if (agencyCode && file) {
@@ -41,7 +42,7 @@ const SettingsTableContainer = ({ agencyCode, file, errorLevel }) => {
             <SettingsTable
                 results={stagedSettings[`${errorLevel}s`]}
                 updateImpact={updateImpactSetting}
-                errorLevel={errorLevel} />
+                updateOrder={updateOrder} />
         );
     }
     return (

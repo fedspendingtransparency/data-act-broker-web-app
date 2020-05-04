@@ -3,9 +3,8 @@
     border: solid rem(1) $color-gray-lighter;
     border-radius: rem(3);
     max-width: rem(975);
-    max-height: rem(650);
+    height: rem(725);
     overflow-wrap: break-word;
-    overflow-y: auto;
 
     .close-button {
         float: right;
@@ -15,9 +14,8 @@
         margin-right: rem(12);
         margin-top: rem(12);
         border: none;
-        background-color: $color-white;
         overflow: hidden;
-
+        background-color: $color-white;
         svg {
             margin-bottom: rem(5);
         }
@@ -25,58 +23,54 @@
 
     .settings-modal__content {
         @include display(flex);
-        height: 100%;
-        margin: 0;
-    }
+        @import './sidebar';
+        .settings-modal__main {
+            @include flex(1 1 auto);
+            @include align-self(stretch);
+            padding: rem(32) 0 rem(25) rem(25);
+            @media(min-width: 975px) {
+                @include flex(0 0 695px);
+            }
 
-    @import './sidebar';
-
-    .settings-modal__main {
-        @include flex(1 1 auto);
-        @include align-self(stretch);
-        padding-top: rem(32);
-        padding-bottom: rem(25);
-        padding-right: 0;
-        padding-left: rem(25);
-        @media(min-width: 975px) {
-            @include flex(0 0 695px);
-        }
-
-        h2 {
-            margin: 0;
-            margin-bottom: rem(25);
-            font-size: rem(25);
-            font-weight: light;
-        }
-        @import './ruleSettings';
-        @import '../../../components/tabs/tabs';
-        .tabs {
-            .tabs__content {
-                .tabs__item {
-                    margin-left: 0;
+            h2 {
+                margin: 0;
+                margin-bottom: rem(25);
+                font-size: rem(25);
+                font-weight: light;
+            }
+            @import './ruleSettings';
+            @import '../../../components/tabs/tabs';
+            .tabs {
+                .tabs__content {
+                    .tabs__item {
+                        margin-left: 0;
+                    }
                 }
             }
-        }
-        @import '../../../components/tables/brokerTable';
-        @include brokerTable;
-        .settings-table {
-            margin-top: rem(25);
-            tr.settings-table__row {
-                td.settings-table__data {
-                    padding-top: rem(12);
-                    padding-bottom: rem(12);
+            @import '../../../components/tables/brokerTable';
+            @include brokerTable;
+            .settings-table {
+                display: block;
+                height: rem(410);
+                overflow-y: auto;
+                margin-top: rem(25);
+                tr.settings-table__row {
+                    td.settings-table__data {
+                        padding-top: rem(12);
+                        padding-bottom: rem(12);
+                    }
                 }
-            }
-            .settings-table__rule {
-                padding-left: rem(10);
-            }
-            .fa-bars {
-                margin-right: rem(10);
-            }
-            @import './impactDropdown';
-            .settings-table__data {
-                &.settings-table__data_significance {
-                    white-space: nowrap;
+                .settings-table__rule {
+                    padding-left: rem(10);
+                }
+                .fa-bars {
+                    margin-right: rem(10);
+                }
+                @import './impactDropdown';
+                .settings-table__data {
+                    &.settings-table__data_significance {
+                        white-space: nowrap;
+                    }
                 }
             }
         }
