@@ -61,6 +61,12 @@
         @include brokerTable;
         .settings-table {
             margin-top: rem(25);
+            tr.settings-table__row {
+                td.settings-table__data {
+                    padding-top: rem(12);
+                    padding-bottom: rem(12);
+                }
+            }
             .settings-table__rule {
                 padding-left: rem(10);
             }
