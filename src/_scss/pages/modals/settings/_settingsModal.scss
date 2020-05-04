@@ -47,23 +47,17 @@
                     }
                 }
             }
-            @import '../../dashboard/dashboardMessage';
-            .dashboard-message-flex {
-                height: rem(410);
-                margin-top: rem(25);
-                .dashboard-message {
-                    margin: 0;
-                    padding-top: 25%;
-                }
-            }
-            @import '../../../components/messages/messages';
+            @import './messages';
             @import '../../../components/tables/brokerTable';
             @include brokerTable;
             .settings-table {
                 display: block;
-                height: rem(410);
+                height: rem(350);
                 overflow-y: auto;
                 margin-top: rem(25);
+                @media(min-width: 975px) {
+                    height: rem(410);
+                }
                 tr.settings-table__row {
                     td.settings-table__data {
                         padding-top: rem(12);
