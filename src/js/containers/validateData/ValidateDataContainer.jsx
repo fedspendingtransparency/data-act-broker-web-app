@@ -13,7 +13,6 @@ import * as uploadActions from '../../redux/actions/uploadActions';
 import ValidationContent from '../../components/validateData/ValidationContent';
 import ValidateNotYours from '../../components/validateData/ValidateNotYours';
 import ValidateLoadingScreen from '../../components/validateData/ValidateLoadingScreen';
-import PublishedSubmissionWarningBanner from '../../components/SharedComponents/PublishedSubmissionWarningBanner';
 import Banner from '../../components/SharedComponents/Banner';
 
 import * as ReviewHelper from '../../helpers/reviewHelper';
@@ -246,14 +245,8 @@ export class ValidateDataContainer extends React.Component {
                                                             "URL and try again."} />);
         }
 
-        let warningMessage = null;
-        if (!this.state.notYours && !this.state.serverError && this.props.submission.publishStatus !== "unpublished") {
-            warningMessage = <PublishedSubmissionWarningBanner />;
-        }
-
         return (
             <div className="validate-data-page">
-                {warningMessage}
                 <Banner type="dabs" />
                 {validationContent}
             </div>

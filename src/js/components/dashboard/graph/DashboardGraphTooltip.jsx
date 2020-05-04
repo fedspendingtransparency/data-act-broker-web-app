@@ -1,18 +1,23 @@
 /**
- * WarningsInfoGraphTooltip.jsx
+ * DashboardGraphTooltip.jsx
  * Created by Lizzie Salita 11/27/19
  */
 
 import React from 'react';
 import PropTypes from 'prop-types';
 import { throttle } from 'lodash';
-import { formatNumberWithPrecision } from 'helpers/moneyFormatter';
 
 const propTypes = {
-    data: PropTypes.object
+    description: PropTypes.string,
+    position: PropTypes.shape({
+        x: PropTypes.number,
+        y: PropTypes.number
+    }),
+    children: PropTypes.node,
+    shape: PropTypes.oneOf(['bar', 'circle'])
 };
 
-export default class WarningsInfoGraphTooltip extends React.Component {
+export default class DashboardGraphTooltip extends React.Component {
     constructor(props) {
         super(props);
 
@@ -49,7 +54,8 @@ export default class WarningsInfoGraphTooltip extends React.Component {
     }
 
     positionTooltip() {
-        const position = this.props.data.position;
+        const { shape } = this.props;
+        const position = this.props.position;
         // we need to wait for the tooltip to render before we can full position it due to its
         // dynamic width
         const tooltipWidth = this.state.tooltipWidth;
@@ -59,26 +65,32 @@ export default class WarningsInfoGraphTooltip extends React.Component {
 
         // determine the tooltip direction
         let direction = 'left';
-        // if we are less than 20px from the right edge, the arrow should point right (bc the
+        // if we are too close to the right edge, the arrow should point right (bc the
         // tooltip will be on the left of the bar)
-        if (distanceFromRight <= 20) {
+        if (shape === 'bar' && distanceFromRight <= 20) {
+            direction = 'right';
+        }
+        else if (shape === 'circle' && distanceFromRight <= 120) {
             direction = 'right';
         }
 
         // offset the tooltip position to account for its arrow/pointer
-        let offset = 9 + 33;
+        const offsetAdjust = shape === 'bar' ? 33 : 120;
+        const rightOffsetAdjust = shape === 'bar' ? 33 : -62;
+        let offset = 9 + offsetAdjust;
         if (direction === 'right') {
-            offset = -9 - tooltipWidth - 33;
+            offset = -9 - tooltipWidth - rightOffsetAdjust;
         }
 
+        const offsetY = shape === 'bar' ? 0 : -23;
+
         this.div.style.transform =
-            `translate(${position.x + offset}px,${position.y}px)`;
+            `translate(${position.x + offset}px,${position.y + offsetY}px)`;
         this.div.className = `tooltip ${direction} warnings-info-graph__tooltip`;
         this.pointerDiv.className = `tooltip-pointer ${direction}`;
     }
 
     render() {
-        const data = this.props.data;
         return (
             <div
                 className="tooltip warnings-info-graph__tooltip"
@@ -91,34 +103,15 @@ export default class WarningsInfoGraphTooltip extends React.Component {
                         this.pointerDiv = div;
                     }} />
                 <div className="tooltip__title">
-                    {data.description}
+                    {this.props.description}
                 </div>
                 <hr />
                 <div className="tooltip__body">
-                    <table>
-                        <tbody>
-                            <tr>
-                                <th>Time Period</th>
-                                <td>{data.xValue}</td>
-                            </tr>
-                            <tr>
-                                <th># of Rule Instances</th>
-                                <td>{formatNumberWithPrecision(data.value, 0)}</td>
-                            </tr>
-                            <tr>
-                                <th>Total # of Warnings</th>
-                                <td>{formatNumberWithPrecision(data.totalWarnings, 0)}</td>
-                            </tr>
-                            <tr>
-                                <th>% of all Warnings</th>
-                                <td>{data.percent}%</td>
-                            </tr>
-                        </tbody>
-                    </table>
+                    {this.props.children}
                 </div>
             </div>
         );
     }
 }
 
-WarningsInfoGraphTooltip.propTypes = propTypes;
+DashboardGraphTooltip.propTypes = propTypes;

@@ -10,10 +10,12 @@ import { significanceColors } from 'dataMapping/dashboard/fileLabels';
 import NoResultsMessage from 'components/SharedComponents/NoResultsMessage';
 import LoadingMessage from 'components/SharedComponents/LoadingMessage';
 import ErrorMessageOverlay from 'components/SharedComponents/ErrorMessageOverlay';
-import BarChartStacked from './BarChartStacked';
-import WarningsInfoGraphTooltip from './WarningsInfoGraphTooltip';
-import SignificanceGraph from './SignificanceGraph';
-import CategoryButton from './CategoryButton';
+import BarChartStacked from './historical/BarChartStacked';
+import DashboardGraphTooltip from './DashboardGraphTooltip';
+import SignificanceGraph from './active/SignificanceGraph';
+import CategoryButton from './active/CategoryButton';
+import HistoricalDashboardTooltip from './historical/HistoricalDashboardTooltip';
+import ActiveDashboardTooltip from './active/ActiveDashboardTooltip';
 
 const propTypes = {
     xSeries: PropTypes.arrayOf(PropTypes.oneOfType([PropTypes.string, PropTypes.number])),
@@ -39,13 +41,15 @@ export default class DashboardGraph extends React.Component {
             showTooltip: false,
             tooltipData: null,
             tooltipX: 0,
-            tooltipY: 0
+            tooltipY: 0,
+            categories: ['accuracy', 'completeness', 'existence']
         };
 
         this.handleWindowResize = throttle(this.handleWindowResize.bind(this), 50);
         this.showTooltip = this.showTooltip.bind(this);
         this.hideTooltip = this.hideTooltip.bind(this);
         this.toggleTooltip = this.toggleTooltip.bind(this);
+        this.filterCategory = this.filterCategory.bind(this);
     }
 
     componentDidMount() {
@@ -91,18 +95,39 @@ export default class DashboardGraph extends React.Component {
         }
     }
 
+    filterCategory(category) {
+        let categories = [...this.state.categories];
+        if (categories.includes(category)) {
+            // remove this category from the graph
+            categories = categories.filter((cat) => cat !== category);
+        }
+        else {
+            // add this category to the graph
+            categories.push(category);
+        }
+
+        this.setState({
+            categories
+        });
+    }
+
     generateCategoryButtons() {
         if (this.props.type === 'historical') {
             return null;
         }
         const categories = Object.keys(significanceColors);
-        const buttons = categories.map((category) => (
-            <CategoryButton
-                key={category}
-                disabled
-                label={category}
-                color={significanceColors[category]} />
-        ));
+        const buttons = categories.map((category) => {
+            const rules = this.props.ySeries.filter((rule) => rule.category === category);
+            return (
+                <CategoryButton
+                    filterCategory={this.filterCategory}
+                    key={category}
+                    disabled={rules.length === 0}
+                    active={this.state.categories.includes(category)}
+                    label={category}
+                    color={significanceColors[category]} />
+            );
+        });
         return (
             <div className="category-buttons">
                 {buttons}
@@ -111,8 +136,24 @@ export default class DashboardGraph extends React.Component {
     }
 
     render() {
-        const tooltip = this.state.showTooltip ? (
-            <WarningsInfoGraphTooltip data={this.state.tooltipData} />) : null;
+        let tooltip = null;
+        if (this.state.showTooltip) {
+            tooltip = this.props.type === 'historical' ? (
+                <DashboardGraphTooltip
+                    shape="bar"
+                    {...this.state.tooltipData}>
+                    <HistoricalDashboardTooltip {...this.state.tooltipData} />
+                </DashboardGraphTooltip>
+            ) :
+                (
+                    <DashboardGraphTooltip
+                        shape="circle"
+                        description={this.state.tooltipData.label}
+                        {...this.state.tooltipData}>
+                        <ActiveDashboardTooltip {...this.state.tooltipData} errorLevel={this.props.errorLevel} />
+                    </DashboardGraphTooltip>
+                );
+        }
         const empty = (this.props.ySeries.length === 0);
 
         let graphContent = <LoadingMessage />;
@@ -136,8 +177,12 @@ export default class DashboardGraph extends React.Component {
                 ) : (
                     <SignificanceGraph
                         {...this.props}
+                        categories={this.state.categories}
                         width={this.state.visualizationWidth}
-                        height={graphHeight} />
+                        height={graphHeight}
+                        showTooltip={this.showTooltip}
+                        hideTooltip={this.hideTooltip}
+                        toggleTooltip={this.toggleTooltip} />
                 );
             }
         }

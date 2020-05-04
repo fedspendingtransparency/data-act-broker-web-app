@@ -10,14 +10,16 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 const propTypes = {
     type: PropTypes.oneOf(['warning', 'info']),
-    header: PropTypes.string,
-    message: PropTypes.string
+    header: PropTypes.oneOfType([PropTypes.string, PropTypes.object]),
+    message: PropTypes.oneOfType([PropTypes.string, PropTypes.object]),
+    useMarkdown: PropTypes.bool
 };
 
 const defaultProps = {
     type: 'info',
     header: null,
-    message: null
+    message: null,
+    useMarkdown: true
 };
 
 const iconMapping = {
@@ -28,8 +30,15 @@ const iconMapping = {
 export default class BannerRow extends React.Component {
     render() {
         const messageIcon = <FontAwesomeIcon icon={iconMapping[this.props.type]} />;
-        const parsedHeader = this.props.header ? parseMarkdown(this.props.header) : '';
-        const parsedMessage = this.props.message ? parseMarkdown(this.props.message) : '';
+        let bannerHeader = '';
+        let bannerMessage = '';
+        if (this.props.header) {
+            bannerHeader = this.props.useMarkdown ? parseMarkdown(this.props.header).html : this.props.header;
+        }
+        if (this.props.message) {
+            bannerMessage = this.props.useMarkdown ? parseMarkdown(this.props.message).html : this.props.message;
+        }
+
         return (
             <div className={`internal-banner ${this.props.type}-banner`}>
                 <div className="container">
@@ -38,8 +47,19 @@ export default class BannerRow extends React.Component {
                             {messageIcon}
                         </div>
                         <div className="col-xs-11">
-                            <div className="banner-header" dangerouslySetInnerHTML={{ __html: parsedHeader.html }} />
-                            <div className="banner-content" dangerouslySetInnerHTML={{ __html: parsedMessage.html }} />
+                            {this.props.useMarkdown ?
+                                <div>
+                                    <div className="banner-header" dangerouslySetInnerHTML={{ __html: bannerHeader }} />
+                                    <div className="banner-content" dangerouslySetInnerHTML={{ __html: bannerMessage }} />
+                                </div> :
+                                <div>
+                                    <div className="banner-header">
+                                        {bannerHeader}
+                                    </div>
+                                    <div className="banner-content">
+                                        {bannerMessage}
+                                    </div>
+                                </div>}
                         </div>
                     </div>
                 </div>

@@ -35,7 +35,7 @@ const DashboardImpactsModal = (props) => (
                 <h4>Degree of Impact - <span className="capitalize">{props.level}</span></h4>
                 <hr />
                 {
-                    props.data.length > 0 ? props.data.map((rule, index) => (
+                    (props.data.length && props.data.length > 0) ? props.data.map((rule, index) => (
                         <div key={rule.rule_label}>
                             <div className="row">
                                 <div className="left-modal-col col-md-6">
