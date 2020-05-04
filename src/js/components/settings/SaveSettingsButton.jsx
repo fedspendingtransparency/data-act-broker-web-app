@@ -3,7 +3,7 @@
  * Created by Lizzie Salita 5/1/20
  */
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { useSelector, useDispatch } from 'react-redux';
 import { isEqual } from 'lodash';
@@ -25,6 +25,12 @@ const SaveSettingsButton = ({ agencyCode, file }) => {
     const [errorMessage, setErrorMessage] = useState('');
     const [loading, setLoading] = useState(false);
     const { errors, warnings } = prepareSettings(stagedSettings);
+
+    useEffect(() => {
+        setSuccessMessage('');
+        setErrorMessage('');
+    }, [agencyCode, file, stagedSettings]);
+
     const save = () => {
         setLoading(true);
         saveSettings({
@@ -43,6 +49,7 @@ const SaveSettingsButton = ({ agencyCode, file }) => {
                 setLoading(false);
             });
     };
+
     return (
         <div className="save-status">
             <div className="save-status__message">

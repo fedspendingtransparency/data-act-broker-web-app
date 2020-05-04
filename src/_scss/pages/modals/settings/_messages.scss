@@ -16,7 +16,7 @@
     }
 }
 .results-table-content {
-    .results-table-no-results, .results-table-loading {
+    .results-table-no-results, .results-table-loading, .results-table-error {
         height: rem(350);
         margin: 0;
         @include display(flex);

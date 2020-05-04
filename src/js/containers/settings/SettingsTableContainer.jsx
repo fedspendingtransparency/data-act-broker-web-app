@@ -50,19 +50,19 @@ const SettingsTableContainer = ({ agencyCode, file, errorLevel }) => {
     else if (error) {
         return <ErrorMessageOverlay />;
     }
+    else if (!agencyCode) {
+        return (
+            <ChooseFiltersMessage>
+                Please select an agency.
+            </ChooseFiltersMessage>
+        );
+    }
     else if (stagedSettings[`${errorLevel}s`].length !== 0) {
         return (
             <SettingsTable
                 results={stagedSettings[`${errorLevel}s`]}
                 updateImpact={updateImpactSetting}
                 updateOrder={updateOrder} />
-        );
-    }
-    else if (!agencyCode) {
-        return (
-            <ChooseFiltersMessage>
-                Please select an agency.
-            </ChooseFiltersMessage>
         );
     }
     return <NoResultsMessage />;
