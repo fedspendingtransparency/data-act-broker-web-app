@@ -58,6 +58,7 @@ export default class SignificanceCircle extends React.Component {
         return (
             <g
                 tabIndex="0"
+                focusable
                 onMouseOver={this.mouseEntered}
                 onFocus={this.mouseEntered}
                 onMouseOut={this.mouseExited}
