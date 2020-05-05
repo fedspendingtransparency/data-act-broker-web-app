@@ -378,7 +378,8 @@ export default class SubmissionsTable extends React.Component {
                 totalItems={this.props.total}
                 changePage={this.changePage}
                 pageSize={10}
-                goToPage />);
+                goToPage
+                id={`pagination-${this.props.isCertified ? 'certified' : 'active'}`} />);
 
         const tableHeaderClasses = cx({
             'submission-table-content': true,
