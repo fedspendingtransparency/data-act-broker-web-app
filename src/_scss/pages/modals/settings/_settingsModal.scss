@@ -47,13 +47,17 @@
                     }
                 }
             }
+            @import './messages';
             @import '../../../components/tables/brokerTable';
             @include brokerTable;
             .settings-table {
                 display: block;
-                height: rem(410);
+                height: rem(350);
                 overflow-y: auto;
                 margin-top: rem(25);
+                @media(min-width: 975px) {
+                    height: rem(410);
+                }
                 tr.settings-table__row {
                     td.settings-table__data {
                         padding-top: rem(12);
@@ -73,6 +77,7 @@
                     }
                 }
             }
+            @import './saveStatus';
         }
     }
 }

@@ -42,3 +42,12 @@ export const significanceColors = {
 };
 
 export const errorLevels = ['error', 'warning'];
+
+export const validationRules = [
+    { value: 'A', label: 'File A' },
+    { value: 'B', label: 'File B' },
+    { value: 'C', label: 'File C' },
+    { value: 'cross-AB', label: 'Cross: A/B' },
+    { value: 'cross-BC', label: 'Cross: B/C' },
+    { value: 'cross-CD1', label: 'Cross: C/D1' },
+    { value: 'cross-CD2', label: 'Cross: C/D2' }];

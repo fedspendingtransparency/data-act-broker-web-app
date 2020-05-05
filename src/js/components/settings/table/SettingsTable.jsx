@@ -7,7 +7,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { startCase } from 'lodash';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { reorder } from 'helpers/dndHelper';
+import { reorder } from 'helpers/settingsTableHelper';
 import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd';
 import ImpactDropdown from './ImpactDropdown';
 

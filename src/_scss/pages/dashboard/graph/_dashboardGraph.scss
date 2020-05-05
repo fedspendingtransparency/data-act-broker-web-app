@@ -62,38 +62,7 @@
         }
     }
 
-    .results-table-content {
-        .title, .description, .loading-message {
-            font-size: rem(30);
-        }
-        .results-table-error {
-            margin-top: rem(202);
-            margin-bottom: rem(201);
-            max-width: none;
-        }
-        .results-table-no-results {
-            .no-results-icon {
-                svg {
-                    color: $color-primary;
-                }
-            }
-            margin-top: rem(202);
-            margin-bottom: rem(201);
-            max-width: none;
-        }
-        .results-table-loading {
-            .loading-animation {
-                svg.loading-bars {
-                    rect {
-                        fill: $color-primary;
-                    }
-                }
-            }
-            margin-top: rem(235);
-            margin-bottom: rem(235);
-            max-width: none;
-        }
-    }
+    @import '../../../components/messages/messages';
 
     .bar-graph {
         // prevent cutting off the topmost y-axis label

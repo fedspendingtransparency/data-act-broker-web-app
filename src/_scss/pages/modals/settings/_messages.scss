@@ -1,0 +1,30 @@
+@import '../../dashboard/dashboardMessage';
+@import '../../../components/messages/messages';
+.dashboard-message-flex {
+    margin-top: rem(25);
+    height: rem(350);
+    .dashboard-message {
+        margin: 0;
+        padding: 0;
+        @include display(flex);
+        @include flex-direction(column);
+        @include justify-content(center);
+        @include align-items(center);
+    }
+    @media(min-width: 975px) {
+        height: rem(410);
+    }
+}
+.results-table-content {
+    .results-table-no-results, .results-table-loading, .results-table-error {
+        height: rem(350);
+        margin: 0;
+        @include display(flex);
+        @include flex-direction(column);
+        @include justify-content(center);
+        @include align-items(center);
+        @media(min-width: 975px) {
+            height: rem(410);
+        }
+    }
+}

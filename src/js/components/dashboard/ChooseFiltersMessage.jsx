@@ -4,22 +4,25 @@
  */
 
 import React from 'react';
+import PropTypes from 'prop-types';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
-const ChooseFiltersMessage = () => (
-    <div className="dashboard-page__content">
-        <div className="dashboard-message-flex">
-            <div className="dashboard-message">
-                <div className="dashboard-message__icon">
-                    <FontAwesomeIcon icon="arrow-circle-left" />
-                </div>
-                <span className="dashboard-message__message">
-                    Choose your filters and submit <br />
-                    your search to begin
-                </span>
+const propTypes = {
+    children: PropTypes.node
+};
+
+const ChooseFiltersMessage = ({ children }) => (
+    <div className="dashboard-message-flex">
+        <div className="dashboard-message">
+            <div className="dashboard-message__icon">
+                <FontAwesomeIcon icon="arrow-circle-left" />
             </div>
+            <span className="dashboard-message__message">
+                {children}
+            </span>
         </div>
     </div>
 );
 
+ChooseFiltersMessage.propTypes = propTypes;
 export default ChooseFiltersMessage;
