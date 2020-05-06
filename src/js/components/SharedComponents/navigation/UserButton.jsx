@@ -55,7 +55,7 @@ export default class UserButton extends React.Component {
         }
 
         let settingsButton = null;
-        if (!kGlobalConstants.PROD && this.props.isSubmitter) {
+        if (this.props.isSubmitter) {
             settingsButton = (
                 <li>
                     <button onClick={this.openSettings}>

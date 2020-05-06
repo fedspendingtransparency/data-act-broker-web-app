@@ -8,6 +8,7 @@ import PropTypes from 'prop-types';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import * as sessionActions from 'redux/actions/sessionActions';
+import { clearSettings } from 'redux/actions/settingsActions';
 import * as PermissionHelper from 'helpers/permissionsHelper';
 import UserButton from 'components/SharedComponents/navigation/UserButton';
 import SettingsModal from 'components/settings/SettingsModal';
@@ -16,11 +17,17 @@ import NavbarTab from './NavbarTab';
 import SkipNavigationLink from './SkipNavigationLink';
 import TestEnvironmentBanner from '../banners/TestEnvironmentBanner';
 
+const combinedActions = {
+    ...sessionActions,
+    clearSettings
+};
+
 const propTypes = {
     setSession: PropTypes.func,
     session: PropTypes.object,
     type: PropTypes.string,
-    logoOnly: PropTypes.bool
+    logoOnly: PropTypes.bool,
+    clearSettings: PropTypes.func
 };
 
 const defaultProps = {
@@ -95,6 +102,7 @@ export class Navbar extends React.Component {
         this.setState({
             showModal: false
         });
+        this.props.clearSettings();
     }
 
     render() {
@@ -187,5 +195,5 @@ Navbar.defaultProps = defaultProps;
 
 export default connect(
     (state) => ({ session: state.session }),
-    (dispatch) => bindActionCreators(sessionActions, dispatch)
+    (dispatch) => bindActionCreators(combinedActions, dispatch)
 )(Navbar);

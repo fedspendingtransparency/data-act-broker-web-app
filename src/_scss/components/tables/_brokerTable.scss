@@ -1,0 +1,26 @@
+@mixin brokerTable {
+    table.broker-table {
+        thead.broker-table__header {
+            background-color: $color-gray;
+            color: $color-white;
+            font-weight: $font-bold;
+            th {
+                padding: rem(16) rem(15);
+            }
+        }
+        tbody.broker-table__body {
+            tr {
+                &:nth-child(odd) {
+                    background-color: $color-gray-lightest;
+                }
+                td {
+                    padding: rem(20) rem(15);
+                    .ellipse-box {
+                        @import '../../abstract/mixins/ellipseBox.scss';
+                        @include ellipseBox;
+                    }
+                }
+            }
+        }
+    }
+}

@@ -18,7 +18,14 @@ const propTypes = {
 const DashboardContentContainer = (props) => {
     const empty = `_${props.type}Empty`;
     if (props[empty]) {
-        return <ChooseFiltersMessage />;
+        return (
+            <div className="dashboard-page__content">
+                <ChooseFiltersMessage>
+                    Choose your filters and submit <br />
+                    your search to begin
+                </ChooseFiltersMessage>
+            </div>
+        );
     }
     else if (props.type === 'active') {
         return <ActiveDashboardContainer />;
