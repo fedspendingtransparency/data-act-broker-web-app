@@ -33,7 +33,7 @@ export default class ResourcesContent extends React.Component {
                 <ul>
                     <li>
                         <a
-                            href="https://fiscal.treasury.gov/files/data-transparency/DAIMS-Validation-Rules-v1.3.1.xlsx"
+                            href="https://fiscal.treasury.gov/files/data-transparency/DAIMS-Validation-Rules-v1.4.xlsx"
                             target="_blank"
                             rel="noopener noreferrer">
                   DAIMS Validation Rules
@@ -54,7 +54,7 @@ export default class ResourcesContent extends React.Component {
                     </li>
                     <li>
                         <a
-                            href="https://community.max.gov/download/attachments/754091528/Practices-and-Procedures-v1.3.1.pdf?api=v2-"
+                            href="https://community.max.gov/download/attachments/754091528/Practices-and-Procedures-v1.4.pdf?api=v2"
                             target="_blank"
                             rel="noopener noreferrer">
                   DAIMS Practices &#38; Procedures
