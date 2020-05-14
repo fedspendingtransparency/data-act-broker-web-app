@@ -397,7 +397,7 @@ export class UploadFabsFileValidation extends React.Component {
             if (this.state.published === 'published') {
                 // This submission is already published and cannot be republished
                 let parsedDate = this.state.fabs_meta.publish_date;
-                parsedDate = moment.utc(parsedDate).local().format("h:mmA [on] MM/DD/YYYY");
+                parsedDate = moment.utc(parsedDate).local().format('h:mmA [on] MM/DD/YYYY');
                 if (this.state.fabs_meta.published_file === null) {
                     validationButton = (
                         <div className="col-xs-12">

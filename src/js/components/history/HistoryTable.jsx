@@ -109,7 +109,7 @@ export default class HistoryTable extends React.Component {
                 list.push(
                     <li key={i}>
                         <span className="active-submission">
-                            Certified by {certifications[i].certifying_user.name} on
+                            Certified by {certifications[i].certifying_user.name} on&nbsp;
                             {UtilHelper.convertToLocalDate(certifications[i].certify_date)}
                         </span>
                     </li>);
@@ -123,7 +123,7 @@ export default class HistoryTable extends React.Component {
                         onClick={this.setActiveSubmission.bind(this, i)}
                         key={i}>
                         <span className="submission">
-                            Certified by {certifications[i].certifying_user.name} on
+                            Certified by {certifications[i].certifying_user.name} on&nbsp;
                             {UtilHelper.convertToLocalDate(certifications[i].certify_date)}
                         </span>
                     </div>);
