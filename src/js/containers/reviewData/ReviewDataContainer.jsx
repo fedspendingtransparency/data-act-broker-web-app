@@ -7,6 +7,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
+import moment from 'moment';
 
 import * as uploadActions from 'redux/actions/uploadActions';
 import * as ReviewHelper from 'helpers/reviewHelper';
@@ -74,6 +75,7 @@ class ReviewDataContainer extends React.Component {
                 submissionData.total_obligations = data.total_obligations;
                 submissionData.total_assistance_obligations = data.total_assistance_obligations;
                 submissionData.total_procurement_obligations = data.total_procurement_obligations;
+                const createdDate = moment.utc(submissionData.created_on).local().format('MM/DD/YYYY');
                 this.setState({
                     jobs: submissionData.jobs,
                     cgac_code: submissionData.cgac_code,
@@ -83,7 +85,7 @@ class ReviewDataContainer extends React.Component {
                     number_of_rows: submissionData.number_of_rows,
                     number_of_warnings: submissionData.number_of_warnings,
                     total_size: submissionData.total_size,
-                    created_on: submissionData.created_on,
+                    created_on: createdDate,
                     ready: submissionData.ready,
                     total_obligations: submissionData.total_obligations,
                     total_assistance_obligations: submissionData.total_assistance_obligations,
