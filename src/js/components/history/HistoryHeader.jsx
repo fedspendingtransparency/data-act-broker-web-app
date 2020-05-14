@@ -49,6 +49,7 @@ export default class HistoryHeader extends React.Component {
             return null;
         }
         const lastValidated = moment.utc(this.state.metadata.last_validated).local().format('MM/DD/YYYY h:mm a');
+        const createdOn = moment.utc(this.state.metadata.created_on).local().format('MM/DD/YYYY');
         return (
             <div className="container">
                 <div className="row header">
@@ -62,7 +63,7 @@ export default class HistoryHeader extends React.Component {
                         </p>
                     </div>
                     <div className="col-xs-6">
-                        <p className="metadata">Created: {this.state.metadata.created_on}</p>
+                        <p className="metadata">Created: {createdOn}</p>
                         <p className="metadata">Last Validated: {lastValidated}</p>
                     </div>
                     <div className="col-xs-12">
