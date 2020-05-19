@@ -81,13 +81,13 @@ const SelectSubmissionTable = (props) => {
                 <div className="dashboard-table">
                     <h2 className="dashboard-viz__heading">Dashboard Submission Selection</h2>
                     <hr />
-                    <table>
+                    <table className="broker-table">
                         <DashboardTableHeader
                             headers={tableHeaders}
                             changeSort={props.changeSort}
                             currSort={props.sort}
                             currOrder={props.order} />
-                        <tbody>
+                        <tbody className="broker-table__body">
                             {tableRows}
                         </tbody>
                     </table>

@@ -44,7 +44,7 @@ export default class DashboardTableHeader extends React.Component {
         });
 
         return (
-            <thead>
+            <thead className="broker-table__header">
                 <tr>
                     {tableHeaders}
                 </tr>

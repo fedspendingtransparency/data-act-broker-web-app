@@ -21,7 +21,7 @@ export default class UploadFabsFileHeader extends React.Component {
         let updated = null;
 
         if (this.props.details.last_updated) {
-            updated = moment.utc(this.props.details.last_updated).local().format("MM/DD/YYYY h:mm a");
+            updated = moment.utc(this.props.details.last_updated).local().format('MM/DD/YYYY h:mm a');
         }
 
         if (this.props.details.agency_name) {
