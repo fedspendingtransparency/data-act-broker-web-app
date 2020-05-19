@@ -8,6 +8,7 @@ import CSSTransitionGroup from 'react-transition-group/CSSTransitionGroup';
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
+import moment from 'moment';
 
 import * as UploadHelper from 'helpers/uploadHelper';
 import * as GenerateFilesHelper from 'helpers/generateFilesHelper';
@@ -395,7 +396,8 @@ export class UploadFabsFileValidation extends React.Component {
             }
             if (this.state.published === 'published') {
                 // This submission is already published and cannot be republished
-                const parsedDate = this.state.fabs_meta.publish_date.split(' ');
+                let parsedDate = this.state.fabs_meta.publish_date;
+                parsedDate = moment.utc(parsedDate).local().format('h:mmA [on] MM/DD/YYYY');
                 if (this.state.fabs_meta.published_file === null) {
                     validationButton = (
                         <div className="col-xs-12">
@@ -403,7 +405,7 @@ export class UploadFabsFileValidation extends React.Component {
                                 <div className="col-xs-8 button-text-container text-right">
                                     <Icons.CheckCircle />
                                         File Published: {this.state.fabs_meta.valid_rows} row(s) of data&nbsp;
-                                        (excluding header) published at {parsedDate[0]} on {parsedDate[1]}
+                                        (excluding header) published at {parsedDate}
                                     <span className="tooltip-popover-container">
                                         <Icons.InfoCircle />
                                         <span className="tooltip-popover above">
@@ -446,7 +448,7 @@ export class UploadFabsFileValidation extends React.Component {
                                 <div className="col-xs-8 button-text-container text-right">
                                     <Icons.CheckCircle />
                                         File Published: {this.state.fabs_meta.valid_rows} row(s) of data&nbsp;
-                                        (excluding header) published at {parsedDate[0]} on {parsedDate[1]}
+                                        (excluding header) published at {parsedDate}
                                     <span className="tooltip-popover-container">
                                         <Icons.InfoCircle />
                                         <span className="tooltip-popover above">

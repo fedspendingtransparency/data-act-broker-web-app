@@ -1,7 +1,7 @@
 export const mockSubmissionMetadata = {
     1234: {
         number_of_rows: 2000,
-        created_on: '07/18/1999',
+        created_on: '1999-07-18T12:25:33',
         fabs_meta: null,
         number_of_warnings: 1000,
         reporting_period: 'Q2/1999',
