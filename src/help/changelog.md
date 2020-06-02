@@ -1,8 +1,5 @@
-#### May 18, 2020{section=changelog}
+#### June 1, 2020{section=changelog}
 In this release of the Broker, we:
 
-* Implemented DAIMS 1.4 changes in the Broker. See [DAIMS-v1.4](https://www.fiscal.treasury.gov/data-transparency/DAIMS-v1.4.html) for details.
-* Launched the Active Data Act Broker Dashboard. Unlike the Historical dashboard that shows only Certified submissions, the Active Dashboard shows agencies data about any current submissions they have that are still in an uncertified state. 
-    * Navigate to the DABS Dashboard page and enter your filter criteria to see any submissions available to view. After selecting a submission, agencies can see any errors or warnings that submission has triggered by selecting the Error or Warning links above the submission information. 
-    * The Dashboard shows the counts of Low, Medium, and High Impact errors and warnings and a chart of their relative Significance to your agency. A table summary of all the errors and warnings is also shown below the chart. 
-    * Users with Certifier access to the Broker can customize the settings for Impact and Significance to change how these errors and warnings are displayed. This is done by clicking on the user’s name in the upper right then choosing Settings. A list of each rule for each file will be displayed and the user can choose the Impact of that rule for their agency from a drop down and the rules can also be sorted into any order with rules of higher significance being at the top. The Dashboard will use these custom settings when analyzing a submission and displaying the data in the chart area. This enables an agency to quickly see any validations it has deemed to be more important and know at a glance where to begin their analysis. Note: Agencies with more than one certifier should coordinate use of this function as any changes to the settings for an agency apply to all users who view the Dashboard.
+* Updated the display on FABS published submission page to show the published time for a submission consistently.
+* Updated the sort order of columns on D1/D2 to better match DAIMS 1.4 release and added Additional Reporting element to D1.
