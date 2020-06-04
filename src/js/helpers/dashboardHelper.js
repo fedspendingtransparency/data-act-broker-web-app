@@ -3,10 +3,10 @@ import Request from './sessionSuperagent';
 
 import { kGlobalConstants } from '../GlobalConstants';
 
-export const fetchQuarterlyRevalidationThreshold = () => {
+export const fetchLatestPublicationPeriod = () => {
     const deferred = Q.defer();
 
-    Request.get(`${kGlobalConstants.API}latest_certification_period/`)
+    Request.get(`${kGlobalConstants.API}latest_publication_period/`)
         .send()
         .end((err, res) => {
             if (err) {
