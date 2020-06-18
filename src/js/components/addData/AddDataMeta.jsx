@@ -151,14 +151,15 @@ export default class AddDataMeta extends React.Component {
 
             const cgacCode = codeType === 'cgac_code' ? agency : null;
             const frecCode = codeType === 'frec_code' ? agency : null;
-            AgencyHelper.checkYearQuarter(cgacCode, frecCode, year, quarter)
+            const isQuarter = (dateType === 'quarter');
+            AgencyHelper.checkYearQuarter(cgacCode, frecCode, year, quarter, isQuarter)
                 .then(() => {
                     this.props.updateMetaData(this.state);
                 })
                 .catch((err) => {
                     this.setState({
                         showModal: true,
-                        certifiedSubmission: err.submissionId,
+                        certifiedSubmission: err.submissionIds[0],
                         modalMessage: (
                             <div className="alert-warning alert-warning_test-submission">
                                 <h3>
@@ -170,7 +171,7 @@ export default class AddDataMeta extends React.Component {
                                         `You will not be able to certify this submission since one has already been certified for this fiscal quarter.
                                         To view the certified submission, `
                                     }
-                                    <Link to={`/submission/${err.submissionId}/validateData`}>click here</Link>.
+                                    <Link to={`/submission/${err.submissionIds[0]}/validateData`}>click here</Link>.
                                 </p>
                             </div>
                         )

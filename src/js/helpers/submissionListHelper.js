@@ -111,7 +111,7 @@ export const getSubmissionFile = (submissionID, certifiedFilesHistory, isWarning
     Request.post(`${kGlobalConstants.API}get_certified_file/`)
         .send({
             submission_id: submissionID,
-            certified_files_history_id: certifiedFilesHistory,
+            published_files_history_id: certifiedFilesHistory,
             is_warning: isWarning
         })
         .end((err, res) => {

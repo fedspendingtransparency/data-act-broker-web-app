@@ -59,7 +59,7 @@ export default class HistoryTable extends React.Component {
                 body: 'Retreiving file from server. Please wait.'
             }
         });
-        SubmissionListHelper.getSubmissionFile(this.props.submissionID, certFile.certified_files_history_id,
+        SubmissionListHelper.getSubmissionFile(this.props.submissionID, certFile.published_files_history_id,
             certFile.is_warning)
             .then((response) => {
                 window.open(response.url);
