@@ -35,12 +35,13 @@ export default class AddDataPage extends React.Component {
             bodyComponent = <AddDataContainer metaData={this.props.submission.meta} />;
         }
 
-        const { certifiedSubmission } = this.props.submission.meta;
-        const testBanner = certifiedSubmission ? (
+        // TODO: Update this along with the banners depending on how many published submissions there are
+        const { testSubmission, publishedSubmissions } = this.props.submission.meta;
+        const testBanner = testSubmission ? (
             <BannerRow
                 type="warning"
                 header="This is a test submission since one has already been certified for this fiscal quarter."
-                message={`You will not be able to certify this submission. To view the certified submission, [click here](/#/submission/${certifiedSubmission}).`} />
+                message={`You will not be able to certify this submission. To view the certified submission, [click here](/#/submission/${publishedSubmissions[0].submission_id}).`} />
         ) : null;
 
         return (
