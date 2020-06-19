@@ -19,6 +19,7 @@ const prepareFilesNewSub = (fileDict) => {
         .field('reporting_period_start_date', fileDict.reporting_period_start_date)
         .field('reporting_period_end_date', fileDict.reporting_period_end_date)
         .field('is_quarter', fileDict.is_quarter)
+        .field('test_submission', fileDict.test_submission)
         .end((err, res) => {
             if (err) {
                 const response = Object.assign({}, res.body);
@@ -72,6 +73,7 @@ export const prepareMetadata = (metadata, request) => {
     if (metadata.dateType === "quarter") {
         tmpRequest.is_quarter = true;
     }
+    tmpRequest.test_submission = metadata.testSubmission;
 
     return tmpRequest;
 };
