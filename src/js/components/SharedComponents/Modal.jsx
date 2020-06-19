@@ -43,13 +43,14 @@ export default class ErrorModal extends React.Component {
     }
 
     render() {
+        const initialFocus = this.cancel ? '#usa-da-shared-close-button' : 'usa-da-shared-confirm-button';
         return (
             <Modal
                 mounted={this.props.isOpen}
                 onExit={this.cancel}
                 underlayClickExits
                 verticallyCenter
-                initialFocus="#usa-da-shared-confirm-button"
+                initialFocus={initialFocus}
                 titleId="usa-da-modal">
                 <div className="usa-da-modal-page">
                     <div id="usa-da-modal" className="usa-da-shared-modal">
