@@ -47,7 +47,8 @@ export default class AddDataMeta extends React.Component {
             modalMessage: '',
             showModal: false,
             message: this.successMessage,
-            publishedSubmissions: []
+            publishedSubmissions: [],
+            testSubmission: false
         };
 
         this.onCancel = this.onCancel.bind(this);
@@ -57,7 +58,9 @@ export default class AddDataMeta extends React.Component {
     onCancel() {
         this.setState({
             showModal: false,
-            modalMessage: ''
+            modalMessage: '',
+            testSubmission: false,
+            publishedSubmissions: []
         });
     }
 
@@ -66,9 +69,7 @@ export default class AddDataMeta extends React.Component {
             showModal: false,
             modalMessage: ''
         });
-        if (this.state.publishedSubmissions) {
-            this.props.updateMetaData(this.state);
-        }
+        this.props.updateMetaData(this.state);
     }
 
     handleChange(agency, codeType, isValid) {
@@ -188,6 +189,7 @@ export default class AddDataMeta extends React.Component {
                     );
                     this.setState({
                         showModal: true,
+                        testSubmission: true,
                         publishedSubmissions,
                         modalMessage: (
                             <div className="alert-warning alert-warning_test-submission">
