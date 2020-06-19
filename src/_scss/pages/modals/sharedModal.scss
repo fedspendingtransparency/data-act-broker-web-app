@@ -30,8 +30,15 @@
         padding: rem(10) rem(40);
         font-size: rem(15);
 
+        &.btn-primary {
+            margin-top: -5px;
+            border: solid 1px #0071bc;
+        }
+
         &.btn-default {
             background: white;
+            box-shadow: none;
+            border: solid 1px #0071bc;
 
             &:active {
                 background: white;
