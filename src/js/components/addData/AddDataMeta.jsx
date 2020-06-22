@@ -47,20 +47,29 @@ export default class AddDataMeta extends React.Component {
             modalMessage: '',
             showModal: false,
             message: this.successMessage,
-            certifiedSubmission: null
+            publishedSubmissions: [],
+            testSubmission: false
         };
 
-        this.closeModal = this.closeModal.bind(this);
+        this.onCancel = this.onCancel.bind(this);
+        this.onConfirm = this.onConfirm.bind(this);
     }
 
-    closeModal() {
+    onCancel() {
+        this.setState({
+            showModal: false,
+            modalMessage: '',
+            testSubmission: false,
+            publishedSubmissions: []
+        });
+    }
+
+    onConfirm() {
         this.setState({
             showModal: false,
             modalMessage: ''
         });
-        if (this.state.certifiedSubmission) {
-            this.props.updateMetaData(this.state);
-        }
+        this.props.updateMetaData(this.state);
     }
 
     handleChange(agency, codeType, isValid) {
@@ -139,47 +148,66 @@ export default class AddDataMeta extends React.Component {
         const endDate = this.state.endDate;
         const dateType = this.state.dateType;
 
-        // Only make a request to check certified submission for quarterly submission.
-        if (dateType === 'quarter') {
-            const month = endDate.substr(0, 2);
-            const quarter = (parseInt(month, 10) % 12) + 3;
-            let year = endDate.substr(3);
+        // Check to see if there are already published submissions for this period
+        const month = endDate.substr(0, 2);
+        let period = parseInt(month, 10) + 3;
+        let year = parseInt(endDate.substr(3), 10);
+        if (period > 12) {
+            period %= 12;
+            year += 1;
+        }
 
-            if (quarter === 3) {
-                year = parseInt(year, 10) + 1;
-            }
+        const cgacCode = codeType === 'cgac_code' ? agency : null;
+        const frecCode = codeType === 'frec_code' ? agency : null;
+        const isQuarter = (dateType === 'quarter');
+        AgencyHelper.getPublishedSubmissions(cgacCode, frecCode, year, period, isQuarter)
+            .then((publishedSubmissions) => {
+                if (publishedSubmissions.length > 0) {
+                    const pubIsQuarter = publishedSubmissions[0].is_quarter;
+                    const singlePubSub = (publishedSubmissions.length === 1);
 
-            const cgacCode = codeType === 'cgac_code' ? agency : null;
-            const frecCode = codeType === 'frec_code' ? agency : null;
-            AgencyHelper.checkYearQuarter(cgacCode, frecCode, year, quarter)
-                .then(() => {
-                    this.props.updateMetaData(this.state);
-                })
-                .catch((err) => {
+                    const title = pubIsQuarter ? 'Quarterly submission already published' : 'Monthly submission already published';
+                    let reason = null;
+                    let viewSubMessage = null;
+                    if (singlePubSub && pubIsQuarter) {
+                        reason = 'a quarterly submission has already been published for this time period';
+                        viewSubMessage = 'published quarterly submission,';
+                    }
+                    else if (singlePubSub && !pubIsQuarter) {
+                        reason = 'a monthly submission has already been published for this time period';
+                        viewSubMessage = 'published monthly submission,';
+                    }
+                    else {
+                        reason = 'at least one monthly submission has already been published for this quarter';
+                        viewSubMessage = 'published monthly submissions(s), visit the';
+                    }
+                    const pubSublink = (
+                        singlePubSub ?
+                            <Link to={`/submission/${publishedSubmissions[0].submission_id}/validateData`}>click here</Link>
+                            :
+                            <Link to="/submissionTable/">Submission Table</Link>
+                    );
                     this.setState({
                         showModal: true,
-                        certifiedSubmission: err.submissionId,
+                        testSubmission: true,
+                        publishedSubmissions,
                         modalMessage: (
                             <div className="alert-warning alert-warning_test-submission">
+                                <FontAwesomeIcon icon="exclamation-triangle" />
                                 <h3>
-                                    <FontAwesomeIcon icon="exclamation-triangle" />
-                                    This will be a test submission.
+                                    {title}
                                 </h3>
-                                <p>
-                                    {
-                                        `You will not be able to certify this submission since one has already been certified for this fiscal quarter.
-                                        To view the certified submission, `
-                                    }
-                                    <Link to={`/submission/${err.submissionId}/validateData`}>click here</Link>.
-                                </p>
+                                <p>{`You can only create a test submission because ${reason}.`}</p>
+                                <p>Test submissions cannot be published or certified, but they can be used to validate your data.</p>
+                                <p>{`To view the ${viewSubMessage} `}{pubSublink}.</p>
                             </div>
                         )
                     });
-                });
-        }
-        else {
-            this.props.updateMetaData(this.state);
-        }
+                }
+                else {
+                    this.props.updateMetaData(this.state);
+                }
+            });
     }
 
     validateAgency() {
@@ -293,9 +321,12 @@ export default class AddDataMeta extends React.Component {
                     </div>
                 </div>
                 <Modal
-                    onClose={this.closeModal}
+                    onCancel={this.onCancel}
+                    onConfirm={this.onConfirm}
+                    confirmText="Create test submission"
                     isOpen={this.state.showModal}
-                    content={this.state.modalMessage} />
+                    content={this.state.modalMessage}
+                    cancel />
             </div>
         );
     }

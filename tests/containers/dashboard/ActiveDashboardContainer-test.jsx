@@ -109,7 +109,7 @@ describe('ActiveDashboardContainer', () => {
                 total: 1,
                 submissions: [
                     {
-                        window_end: '2001-08-14',
+                        certification_deadline: '2001-08-14',
                         quarterly_submission: false,
                         submission_id: 1234,
                         time_period: '04 / 2001',
@@ -128,7 +128,7 @@ describe('ActiveDashboardContainer', () => {
                 total: 2,
                 submissions: [
                     {
-                        window_end: '2001-08-14',
+                        certification_deadline: '2001-08-14',
                         quarterly_submission: false,
                         submission_id: 1234,
                         time_period: '04 / 2001',
@@ -138,7 +138,7 @@ describe('ActiveDashboardContainer', () => {
                         }
                     },
                     {
-                        window_end: '2001-08-14',
+                        certification_deadline: '2001-08-14',
                         quarterly_submission: false,
                         submission_id: 5678,
                         time_period: '04 / 2001',

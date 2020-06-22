@@ -43,10 +43,10 @@ export class FyFilterContainer extends React.Component {
     }
 
     getLatestQuarter() {
-        DashboardHelper.fetchQuarterlyRevalidationThreshold()
+        DashboardHelper.fetchLatestPublicationPeriod()
             .then((data) => {
                 this.setState({
-                    latestQuarter: data.quarter,
+                    latestQuarter: Math.floor(data.period / 3),
                     latestYear: data.year
                 }, () => this.generateAllFy());
             })
