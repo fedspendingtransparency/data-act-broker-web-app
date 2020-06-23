@@ -17,7 +17,7 @@ export const parseRecentActivity = (submissions) => {
         validation_errors: Status.StatusTypes.HASERRORS,
         file_errors: Status.StatusTypes.HASERRORS,
         failed: Status.StatusTypes.SERVERERROR,
-        certified: Status.StatusTypes.PUBLISHED
+        published: Status.StatusTypes.PUBLISHED
     };
 
     submissions.forEach((item) => {
