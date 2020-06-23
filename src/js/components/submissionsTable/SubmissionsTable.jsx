@@ -29,7 +29,7 @@ const propTypes = {
     data: PropTypes.array,
     type: PropTypes.string,
     total: PropTypes.number,
-    isCertified: PropTypes.bool,
+    isPublished: PropTypes.bool,
     isLoading: PropTypes.bool,
     errorMessage: PropTypes.string
 };
@@ -37,7 +37,7 @@ const propTypes = {
 const defaultProps = {
     data: [],
     isLoading: true,
-    isCertified: true,
+    isPublished: true,
     loadTableData: null,
     appliedFilters: {},
     session: null,
@@ -71,7 +71,7 @@ export default class SubmissionsTable extends React.Component {
 
     componentDidMount() {
         this.props.loadTableData(
-            this.state.currentPage, this.props.isCertified, this.getCategory(),
+            this.state.currentPage, this.props.isPublished, this.getCategory(),
             this.state.sortDirection, this.props.type === 'fabs', this.props.appliedFilters
         );
         this.loadUser();
@@ -94,7 +94,7 @@ export default class SubmissionsTable extends React.Component {
 
     getHeaders() {
         let headers = [];
-        if (this.props.isCertified) {
+        if (this.props.isPublished) {
             if (this.props.type === 'fabs') {
                 headers = [
                     'Submission ID',
@@ -148,7 +148,7 @@ export default class SubmissionsTable extends React.Component {
     }
 
     getCategory() {
-        if (this.props.isCertified) {
+        if (this.props.isPublished) {
             switch (this.state.sortColumn) {
                 case 0:
                     return 'reporting_start';
@@ -193,7 +193,7 @@ export default class SubmissionsTable extends React.Component {
         let classes = ['row-10 text-center', 'row-20 text-left', 'row-15 white-space', 'row-12_5', 'row-12_5',
             `row-${progressSize} progress-cell`, 'row-10 text-center'];
 
-        if (this.props.isCertified) {
+        if (this.props.isPublished) {
             classes = [`row-${viewSize} text-center`, 'row-20', 'row-12_5', 'row-10', 'row-20 progress-cell',
                 'row-15 text-center'];
             if (this.props.type === 'fabs') {
@@ -245,7 +245,7 @@ export default class SubmissionsTable extends React.Component {
 
         let link = <SubmissionLink submissionId={item.submission_id} type={this.props.type} />;
 
-        if (this.props.isCertified) {
+        if (this.props.isPublished) {
             link = (<SubmissionLink
                 submissionId={item.submission_id}
                 value={reportingDateString}
@@ -253,8 +253,8 @@ export default class SubmissionsTable extends React.Component {
         }
 
         let row = [];
-        if (this.props.isCertified) {
-            // Certified Submissions table
+        if (this.props.isPublished) {
+            // Published Submissions table
             row = [
                 link,
                 this.getAgency(item),
@@ -273,7 +273,7 @@ export default class SubmissionsTable extends React.Component {
             else {
                 row = row.concat([
                     UtilHelper.convertToLocalDate(item.last_modified),
-                    <Status.SubmissionStatus status={item.rowStatus} certified={this.props.isCertified} />,
+                    <Status.SubmissionStatus status={item.rowStatus} certified={this.props.isPublished} />,
                     <span>
                         {item.certifying_user}<br />
                         {certifiedOn}<br />
@@ -290,7 +290,7 @@ export default class SubmissionsTable extends React.Component {
                 reportingDateString,
                 userName,
                 UtilHelper.convertToLocalDate(item.last_modified),
-                <Status.SubmissionStatus status={item.rowStatus} certified={this.props.isCertified} />
+                <Status.SubmissionStatus status={item.rowStatus} certified={this.props.isPublished} />
             ];
 
             let deleteCol = false;
@@ -331,7 +331,7 @@ export default class SubmissionsTable extends React.Component {
         }, () => {
             // re-display the data
             this.props.loadTableData(
-                this.state.currentPage, this.props.isCertified, this.getCategory(),
+                this.state.currentPage, this.props.isPublished, this.getCategory(),
                 this.state.sortDirection, this.props.appliedFilters
             );
             this.buildRow();
@@ -343,7 +343,7 @@ export default class SubmissionsTable extends React.Component {
             currentPage: newPage
         }, () => {
             this.props.loadTableData(
-                this.state.currentPage, this.props.isCertified, this.getCategory(),
+                this.state.currentPage, this.props.isPublished, this.getCategory(),
                 this.state.sortDirection, this.props.appliedFilters
             );
         });
@@ -351,7 +351,7 @@ export default class SubmissionsTable extends React.Component {
 
     reload() {
         this.props.loadTableData(
-            this.state.currentPage, this.props.isCertified, this.getCategory(),
+            this.state.currentPage, this.props.isPublished, this.getCategory(),
             this.state.sortDirection, this.props.appliedFilters
         );
         this.buildRow();
@@ -388,10 +388,10 @@ export default class SubmissionsTable extends React.Component {
         const headers = this.getHeaders();
         // cannot be added to the const because if a user is read only then delete will not be created
         let unsortable = [0, 2, 5, 6];
-        if (this.props.isCertified && this.props.type === 'fabs') {
+        if (this.props.isPublished && this.props.type === 'fabs') {
             unsortable = [0, 3, 4];
         }
-        else if (this.props.isCertified) {
+        else if (this.props.isPublished) {
             unsortable = [4];
         }
 

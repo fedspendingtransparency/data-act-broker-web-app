@@ -8,7 +8,7 @@ import PropTypes from 'prop-types';
 
 const propTypes = {
     status: PropTypes.number,
-    certified: PropTypes.bool
+    published: PropTypes.bool
 };
 
 export const StatusTypes = {
@@ -17,14 +17,14 @@ export const StatusTypes = {
     INPROGRESS: 2,
     HASERRORS: 3,
     VALIDATED: 4,
-    CERTIFIED: 5,
+    PUBLISHED: 5,
     SERVERERROR: 6,
     VALIDATEDWARNINGS: 7
 };
 
 const defaultProps = {
     status: StatusTypes.UNKNOWN,
-    certified: false
+    published: false
 };
 
 export class SubmissionStatus extends React.Component {
@@ -55,7 +55,7 @@ export class SubmissionStatus extends React.Component {
                 colors[i] = 'error';
             }
         }
-        else if (value === StatusTypes.CERTIFIED) {
+        else if (value === StatusTypes.PUBLISHED) {
             for (let i = 0; i < colors.length; i++) {
                 colors[i] = 'filled';
             }
@@ -70,7 +70,7 @@ export class SubmissionStatus extends React.Component {
     render() {
         const colors = this.progressBar(this.props.status);
         let label = this.statusStrings[this.props.status];
-        if (this.props.status !== 5 && this.props.certified) {
+        if (this.props.status !== 5 && this.props.published) {
             label += '\n(Needs Recertification)';
         }
 

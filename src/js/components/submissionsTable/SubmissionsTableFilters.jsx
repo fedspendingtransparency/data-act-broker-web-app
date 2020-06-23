@@ -18,7 +18,7 @@ const propTypes = {
     toggleFilter: PropTypes.func,
     stagedFilters: PropTypes.object,
     appliedFilters: PropTypes.object,
-    table: PropTypes.oneOf(['certified', 'active', 'published']),
+    table: PropTypes.oneOf(['active', 'published']),
     type: PropTypes.oneOf(['dabs', 'fabs']),
     minDateLastModified: PropTypes.string
 };

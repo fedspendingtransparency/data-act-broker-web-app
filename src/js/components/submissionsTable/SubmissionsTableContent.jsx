@@ -14,18 +14,18 @@ const propTypes = {
     loadTableData: PropTypes.func,
     session: PropTypes.object,
     activeSubmissions: PropTypes.array,
-    certifiedSubmissions: PropTypes.array,
+    publishedSubmissions: PropTypes.array,
     type: PropTypes.oneOf(['dabs', 'fabs']),
     activeTotal: PropTypes.number,
-    certifiedTotal: PropTypes.number,
+    publishedTotal: PropTypes.number,
     activeLoading: PropTypes.bool,
-    certifiedLoading: PropTypes.bool,
+    publishedLoading: PropTypes.bool,
     activeError: PropTypes.string,
-    certifiedError: PropTypes.string,
+    publishedError: PropTypes.string,
     toggleDashboardFilter: PropTypes.func,
     updateDashboardFilter: PropTypes.func,
     activeMinDateLastModified: PropTypes.string,
-    certifiedMinDateLastModified: PropTypes.string,
+    publishedMinDateLastModified: PropTypes.string,
     stagedFilters: PropTypes.object,
     appliedFilters: PropTypes.object
 };
@@ -34,18 +34,18 @@ const defaultProps = {
     loadTableData: null,
     session: null,
     activeSubmissions: [],
-    certifiedSubmissions: [],
+    publishedSubmissions: [],
     type: '',
     activeTotal: 0,
-    certifiedTotal: 0,
+    publishedTotal: 0,
     activeLoading: false,
-    certifiedLoading: false,
+    publishedLoading: false,
     activeError: '',
-    certifiedError: '',
+    publishedError: '',
     toggleDashboardFilter: null,
     updateDashboardFilter: null,
     activeMinDateLastModified: '',
-    certifiedMinDateLastModified: '',
+    publishedMinDateLastModified: '',
     stagedFilters: {},
     appliedFilters: {}
 };
@@ -56,11 +56,11 @@ export default class SubmissionsTableContent extends React.Component {
 
         this.state = {
             activePage: 1,
-            certifiedPage: 1,
+            publishedPage: 1,
             filterCounts: {
                 dabs: {
                     active: 0,
-                    certified: 0
+                    published: 0
                 },
                 fabs: {
                     active: 0,
@@ -125,7 +125,7 @@ export default class SubmissionsTableContent extends React.Component {
     render() {
         const stagedFilters = this.props.stagedFilters[this.props.type];
         const appliedFilters = this.props.appliedFilters[this.props.type];
-        const secondTable = `${this.props.type === 'fabs' ? 'published' : 'certified'}`;
+        const secondTable = 'published';
 
         const activeMessage = this.generateMessage(this.state.filterCounts[this.props.type].active);
         const secondMessage = this.generateMessage(this.state.filterCounts[this.props.type][secondTable]);
@@ -154,7 +154,7 @@ export default class SubmissionsTableContent extends React.Component {
                         <SubmissionsTable
                             isLoading={this.props.activeLoading}
                             errorMessage={this.props.activeError}
-                            isCertified={false}
+                            isPublished={false}
                             loadTableData={this.props.loadTableData}
                             appliedFilters={appliedFilters.active}
                             total={this.props.activeTotal}
@@ -176,7 +176,7 @@ export default class SubmissionsTableContent extends React.Component {
                             toggleFilter={this.toggleFilter}
                             stagedFilters={stagedFilters[secondTable]}
                             appliedFilters={appliedFilters[secondTable]}
-                            minDateLastModified={this.props.certifiedMinDateLastModified}
+                            minDateLastModified={this.props.publishedMinDateLastModified}
                             table={secondTable}
                             type={this.props.type} />
                         <FilterBarContainer
@@ -186,13 +186,13 @@ export default class SubmissionsTableContent extends React.Component {
                             appliedFilters={appliedFilters[secondTable]}
                             updateFilterCount={this.updateFilterCount} />
                         <SubmissionsTable
-                            isLoading={this.props.certifiedLoading}
-                            errorMessage={this.props.certifiedError}
+                            isLoading={this.props.publishedLoading}
+                            errorMessage={this.props.publishedError}
                             loadTableData={this.props.loadTableData}
                             appliedFilters={appliedFilters[secondTable]}
-                            total={this.props.certifiedTotal}
-                            data={this.props.certifiedSubmissions}
-                            page={this.state.certifiedPage}
+                            total={this.props.publishedTotal}
+                            data={this.props.publishedSubmissions}
+                            page={this.state.publishedPage}
                             session={this.props.session}
                             type={this.props.type} />
                     </div>
