@@ -143,7 +143,7 @@ export default class ReviewDataContent extends React.Component {
             certifyButtonText = 'Test submissions cannot be certified';
         }
         else if (checkAffiliations(this.props.session, 'submitter', this.props.data.agency_name) || this.props.session.admin) {
-            certifyButtonText = 'Certify & Publish';
+            certifyButtonText = 'Publish & Certify';
             buttonClass = '';
             certifyButtonAction = this.openModal.bind(this, 'Certify');
         }
