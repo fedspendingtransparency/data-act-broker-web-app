@@ -57,7 +57,7 @@ export default class ReviewDataCertifyModal extends React.Component {
         e.preventDefault();
         this.setState({ loading: true });
 
-        ReviewHelper.certifySubmission(this.props.submissionID)
+        ReviewHelper.publishCertifyDABSSubmission(this.props.submissionID)
             .then(() => {
                 this.setState({ loading: false });
                 this.closeModal();

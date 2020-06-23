@@ -424,10 +424,10 @@ export const saveNarrative = (narrative) => {
     return deferred.promise;
 };
 
-export const certifySubmission = (submissionId) => {
+export const publishCertifyDABSSubmission = (submissionId) => {
     const deferred = Q.defer();
 
-    Request.post(`${kGlobalConstants.API}certify_submission/`)
+    Request.post(`${kGlobalConstants.API}publish_and_certify_dabs_submission/`)
         .send({ submission_id: submissionId })
         .end((err, res) => {
             if (err) {
