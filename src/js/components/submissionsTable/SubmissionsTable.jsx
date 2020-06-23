@@ -372,13 +372,15 @@ export default class SubmissionsTable extends React.Component {
     }
 
     render() {
+        const id = `pagination-${this.props.isCertified ? 'certified' : 'active'}`;
         const paginator = (
             <Pagination
                 currentPage={this.state.currentPage}
                 totalItems={this.props.total}
                 changePage={this.changePage}
                 pageSize={10}
-                goToPage />);
+                goToPage
+                id={id} />);
 
         const tableHeaderClasses = cx({
             'submission-table-content': true,
