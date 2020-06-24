@@ -190,16 +190,20 @@ export default class SubmissionsTable extends React.Component {
         const allRowClasses = [];
         const progressSize = this.props.type === 'fabs' ? 15 : 20;
         const viewSize = this.props.type === 'fabs' ? 15 : 10;
-        let baseRowClasses = ['row-12_5 text-left', 'row-20 text-left', 'row-15 white-space', 'row-12_5', 'row-12_5',
+        let baseRowClasses = ['row-12_5 text-center', 'row-20 text-left', 'row-15 white-space', 'row-12_5', 'row-12_5',
             `row-${progressSize} progress-cell`, 'row-10 text-center'];
 
         if (this.props.isPublished) {
-            baseRowClasses = [`row-${viewSize} text-left`, 'row-20', 'row-12_5', 'row-10', 'row-20 progress-cell',
+            baseRowClasses = [`row-${viewSize} text-center`, 'row-20', 'row-12_5', 'row-10', 'row-20 progress-cell',
                 'row-15 text-center'];
             if (this.props.type === 'fabs') {
                 baseRowClasses = ['row-10 text-center', 'row-25', 'row-10', 'row-15 white-space', 'row-10',
                     'row-10 text-center'];
             }
+        }
+        const headerClasses = [...baseRowClasses];
+        if (!this.props.isPublished && this.props.type !== 'fabs') {
+            baseRowClasses[0] = 'row-12_5 text-left';
         }
 
         // iterate through each item returned from the API
@@ -217,8 +221,6 @@ export default class SubmissionsTable extends React.Component {
             allRowClasses.push(rowClasses);
             output.push(row);
         });
-
-        const headerClasses = baseRowClasses;
 
         let noResults = false;
         if (this.props.data.length === 0) {
