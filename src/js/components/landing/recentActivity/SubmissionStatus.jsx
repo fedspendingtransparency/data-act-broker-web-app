@@ -35,7 +35,7 @@ export class SubmissionStatus extends React.Component {
         super(props);
 
         this.statusStrings = ['Unknown', 'Started', 'Validation In Progress', 'Has Errors',
-            'Validated (Without Errors)', 'Certified', 'Validation Server Error', 'Validated (With Warnings)',
+            'Validated (Without Errors)', 'Published', 'Validation Server Error', 'Validated (With Warnings)',
             'Updated (Needs Republishing)', 'Updated (Needs Recertification)', 'Certified'];
     }
 
