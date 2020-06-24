@@ -184,7 +184,7 @@ export default class ReviewDataContent extends React.Component {
             publishButtonText = 'Publish';
             certifyButtonText = 'Certify';
 
-            if (this.props.data.publish_status == 'published') {
+            if (this.props.data.publish_status === 'published') {
                 certifyButtonClass = '';
                 certifyButtonAction = this.openCertifyModal;
             }
@@ -194,7 +194,7 @@ export default class ReviewDataContent extends React.Component {
             }
         }
         else if (!twoButtons && hasPubPerms) {
-            if (this.props.data.publish_status == 'published') {
+            if (this.props.data.publish_status === 'published') {
                 certifyButtonText = 'This submission has already been certified';
             }
             else {
