@@ -13,14 +13,16 @@ const propTypes = {
     ]),
     disabled: PropTypes.bool,
     type: PropTypes.string,
-    value: PropTypes.string
+    value: PropTypes.string,
+    testSubmission: PropTypes.bool
 };
 
 const defaultProps = {
     disabled: false,
     type: 'dabs',
     value: '',
-    submissionId: ''
+    submissionId: '',
+    testSubmission: false
 };
 
 export default class SubmissionLink extends React.Component {
@@ -41,9 +43,12 @@ export default class SubmissionLink extends React.Component {
         if (this.props.disabled) {
             content = <div className="date-link">{link}</div>;
         }
+
+        const testSubmission = this.props.testSubmission ? <span className="test-submission-label">TEST</span> : '';
         return (
             <div className="usa-da-recent-activity-link">
                 {content}
+                {testSubmission}
             </div>
         );
     }

@@ -155,10 +155,10 @@ export default class RecentActivityTable extends React.Component {
     buildRow() {
         // iterate through the recent activity
         const output = [];
-        const rowClasses = [];
+        const allRowClasses = [];
 
-        let classes = [
-            'row-10 text-center',
+        let baseRowClasses = [
+            'row-12_5 text-left',
             'row-20 text-center',
             'row-15 text-right white-space',
             'row-15 text-right',
@@ -167,8 +167,8 @@ export default class RecentActivityTable extends React.Component {
             'row-10 text-center'
         ];
         if (this.props.type === 'fabs') {
-            classes = [
-                'row-10 text-center',
+            baseRowClasses = [
+                'row-10 text-left',
                 'row-40 text-center',
                 'row-15 text-right',
                 'row-15 text-right',
@@ -194,22 +194,32 @@ export default class RecentActivityTable extends React.Component {
             // break the object out into an array for the table component
             const row = this.formatRow(item, index);
 
-            rowClasses.push(classes);
+            const rowClasses = [...baseRowClasses];
+            if (item.test_submission) {
+                for (let i = 0; i < rowClasses.length; i++) {
+                    rowClasses[i] = `${rowClasses[i]} test-submission-row`;
+                }
+            }
+
+            allRowClasses.push(rowClasses);
             output.push(row);
         });
 
-        const headerClasses = classes;
+        const headerClasses = baseRowClasses;
 
         this.setState({
             data: output,
-            cellClasses: rowClasses,
+            cellClasses: allRowClasses,
             headerClasses,
             message: data.length === 0 ? 'No recent activity' : ''
         });
     }
 
     formatRow(rowData, index) {
-        const link = <SubmissionLink submissionId={rowData.submission_id} type={this.props.type} />;
+        const link = (<SubmissionLink
+            submissionId={rowData.submission_id}
+            type={this.props.type}
+            testSubmission={rowData.test_submission} />);
         let reportingDateString = `Start: ${rowData.reporting_start_date}\nEnd: ${rowData.reporting_end_date}`;
 
         if (!rowData.reporting_start_date || !rowData.reporting_end_date) {

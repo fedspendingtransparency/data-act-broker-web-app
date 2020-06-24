@@ -187,17 +187,17 @@ export default class SubmissionsTable extends React.Component {
     buildRow() {
     // iterate through the recent activity
         const output = [];
-        const rowClasses = [];
+        const allRowClasses = [];
         const progressSize = this.props.type === 'fabs' ? 15 : 20;
         const viewSize = this.props.type === 'fabs' ? 15 : 10;
-        let classes = ['row-10 text-center', 'row-20 text-left', 'row-15 white-space', 'row-12_5', 'row-12_5',
+        let baseRowClasses = ['row-12_5 text-left', 'row-20 text-left', 'row-15 white-space', 'row-12_5', 'row-12_5',
             `row-${progressSize} progress-cell`, 'row-10 text-center'];
 
         if (this.props.isPublished) {
-            classes = [`row-${viewSize} text-center`, 'row-20', 'row-12_5', 'row-10', 'row-20 progress-cell',
+            baseRowClasses = [`row-${viewSize} text-left`, 'row-20', 'row-12_5', 'row-10', 'row-20 progress-cell',
                 'row-15 text-center'];
             if (this.props.type === 'fabs') {
-                classes = ['row-10 text-center', 'row-25', 'row-10', 'row-15 white-space', 'row-10',
+                baseRowClasses = ['row-10 text-center', 'row-25', 'row-10', 'row-15 white-space', 'row-10',
                     'row-10 text-center'];
             }
         }
@@ -207,11 +207,18 @@ export default class SubmissionsTable extends React.Component {
             // break the object out into an array for the table component
             const row = this.formatRow(item, index);
 
-            rowClasses.push(classes);
+            const rowClasses = [...baseRowClasses];
+            if (item.test_submission) {
+                for (let i = 0; i < rowClasses.length; i++) {
+                    rowClasses[i] = `${rowClasses[i]} test-submission-row`;
+                }
+            }
+
+            allRowClasses.push(rowClasses);
             output.push(row);
         });
 
-        const headerClasses = classes;
+        const headerClasses = baseRowClasses;
 
         let noResults = false;
         if (this.props.data.length === 0) {
@@ -220,7 +227,7 @@ export default class SubmissionsTable extends React.Component {
 
         this.setState({
             parsedData: output,
-            cellClasses: rowClasses,
+            cellClasses: allRowClasses,
             headerClasses,
             noResults
         });
@@ -243,7 +250,10 @@ export default class SubmissionsTable extends React.Component {
 
         const deleteConfirm = this.state.deleteIndex !== -1 && index === this.state.deleteIndex;
 
-        let link = <SubmissionLink submissionId={item.submission_id} type={this.props.type} />;
+        let link = (<SubmissionLink
+            submissionId={item.submission_id}
+            type={this.props.type}
+            testSubmission={item.test_submission} />);
 
         if (this.props.isPublished) {
             link = (<SubmissionLink
