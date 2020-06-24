@@ -172,7 +172,7 @@ export default class ReviewDataContent extends React.Component {
                 <div
                     className="alert alert-danger text-center test-submission-error"
                     role="alert">
-                    Test submissions cannot be certified
+                    Test submissions cannot be published or certified
                 </div>);
         }
         else if (blockedWindow) {
