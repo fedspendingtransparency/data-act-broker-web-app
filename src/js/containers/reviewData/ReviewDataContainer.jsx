@@ -35,6 +35,9 @@ class ReviewDataContainer extends React.Component {
             total_size: null,
             created_on: null,
             ready: false,
+            publish_status: 'unpublished',
+            certified: false,
+            certification_deadline: '',
             total_obligations: null,
             total_assistance_obligations: null,
             total_procurement_obligations: null,
@@ -63,7 +66,6 @@ class ReviewDataContainer extends React.Component {
                 // Update meta data (submission.info) in redux
                 this.props.setInfo(data);
                 submissionData = data;
-                submissionData.ready = true;
 
                 return ReviewHelper.fetchSubmissionNarrative(submissionID);
             })
@@ -86,13 +88,16 @@ class ReviewDataContainer extends React.Component {
                     number_of_warnings: submissionData.number_of_warnings,
                     total_size: submissionData.total_size,
                     created_on: createdDate,
-                    ready: submissionData.ready,
+                    ready: true,
                     total_obligations: submissionData.total_obligations,
                     total_assistance_obligations: submissionData.total_assistance_obligations,
                     total_procurement_obligations: submissionData.total_procurement_obligations,
                     file_narrative: submissionData.file_narrative,
                     quarterly_submission: submissionData.quarterly_submission,
-                    last_validated: submissionData.last_validated
+                    last_validated: submissionData.last_validated,
+                    publish_status: submissionData.publish_status,
+                    certified: submissionData.certified,
+                    certification_deadline: submissionData.certification_deadline
                 });
             })
             .catch((error) => {
