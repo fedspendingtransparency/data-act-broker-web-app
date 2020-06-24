@@ -140,8 +140,8 @@ export default class ReviewDataContent extends React.Component {
             reportRows.push(<ReviewDataContentRow key={j} label={reportLabels[j]} data={reportData[j]} />);
         }
 
-        let publishButtonText = 'You do not have permissions to publish';
-        let certifyButtonText = 'You do not have permissions to certify';
+        let publishButtonText = 'You do not have permission to publish';
+        let certifyButtonText = 'You do not have permission to certify';
         let revalidateButtonText = 'You do not have permission to revalidate';
         let publishButtonClass = ' btn-disabled';
         let certifyButtonClass = ' btn-disabled';
