@@ -18,6 +18,14 @@
                 }
             }
         }
+        .usa-da-submissiontype {
+            .usa-da-submissiontype-group {
+                margin-top: rem(20);
+                .subtype-description {
+                    font-style: italic;
+                }
+            }
+        }
 
         // style the icons
         .usa-da-form-icon {
