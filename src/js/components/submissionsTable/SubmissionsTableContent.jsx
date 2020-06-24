@@ -168,7 +168,7 @@ export default class SubmissionsTableContent extends React.Component {
                     <div className="col-md-12">
                         <div className="table-heading">
                             <h2 className="table-heading__title">
-                                {this.props.type === 'fabs' ? 'Published Submissions' : 'Certified Submissions'}
+                                {this.props.type === 'fabs' ? 'Published Submissions' : 'Published and Certified Submissions'}
                             </h2>
                             {secondMessage}
                         </div>
