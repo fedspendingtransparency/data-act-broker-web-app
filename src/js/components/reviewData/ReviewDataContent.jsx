@@ -10,10 +10,8 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 import { formatMoneyWithPrecision } from 'helpers/moneyFormatter';
 import { checkAffiliations } from 'helpers/permissionsHelper';
-import * as Icons from 'components/SharedComponents/icons/Icons';
 import RevertToCertifiedContainer from 'containers/reviewData/RevertToCertifiedContainer';
 import ReviewDataContentRow from './ReviewDataContentRow';
-import ReviewDataButton from './ReviewDataButton';
 import ReviewDataNotifyModal from './ReviewDataNotifyModal';
 import ReviewDataCertifyModal from './CertificationModal/ReviewDataCertifyModal';
 import RevalidateDataModal from './CertificationModal/RevalidateDataModal';
@@ -123,18 +121,6 @@ export default class ReviewDataContent extends React.Component {
     }
 
     render() {
-        console.log(this.props.data);
-        // The first parameter in each of these arrays is the corresponding class for the SVG icon
-        const buttonContent = [[<Icons.CheckCircle />, 'Publish this data to USAspending.gov'],
-            [<Icons.ShareSquare />, 'Send this data to another Data Broker user'],
-            [<Icons.CloudDownload />, 'Download this data to your computer'],
-            [<Icons.Trash />, 'Delete this data from the Data Broker']];
-
-        const buttons = [];
-        for (let i = 0; i < buttonContent.length; i++) {
-            buttons.push(<ReviewDataButton key={i} icon={buttonContent[i][0]} label={buttonContent[i][1]} />);
-        }
-
         const reportLabels = ['Agency Name:', 'Report Start Date:', 'Report End Date:',
             'Award Obligations Incurred (file C):', 'Total Financial Assistance Obligations:',
             'Total Procurement Obligations:'];
@@ -274,8 +260,8 @@ export default class ReviewDataContent extends React.Component {
                     <div className="row">
                         <div className="col-md-4">
                             <div className="usa-da-file-wrap">
-                                <div className="usa-da-icon usa-da-icon-CheckCircle">
-                                    <Icons.CheckCircle />
+                                <div className="usa-da-icon usa-da-icon-check-circle">
+                                    <FontAwesomeIcon icon="check-circle" />
                                 </div>
                                 <div className="usa-da-submission-info">
                                     <ul className="no-bullet">
