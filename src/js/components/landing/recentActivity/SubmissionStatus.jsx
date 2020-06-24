@@ -19,7 +19,10 @@ export const StatusTypes = {
     VALIDATED: 4,
     PUBLISHED: 5,
     SERVERERROR: 6,
-    VALIDATEDWARNINGS: 7
+    VALIDATEDWARNINGS: 7,
+    UPDATEDREPUBLISH: 8,
+    UPDATEDRECERTIFY: 9,
+    CERTIFIED: 10
 };
 
 const defaultProps = {
@@ -32,11 +35,14 @@ export class SubmissionStatus extends React.Component {
         super(props);
 
         this.statusStrings = ['Unknown', 'Started', 'Validation In Progress', 'Has Errors',
-            'Validated (Without Errors)', 'Certified', 'Validation Server Error', 'Validated (With Warnings)'];
+            'Validated (Without Errors)', 'Certified', 'Validation Server Error', 'Validated (With Warnings)',
+            'Updated (Needs Republishing)', 'Updated (Needs Recertification)', 'Certified'];
     }
 
     progressBar(value) {
         const colors = ['pending', 'pending', 'pending', 'pending'];
+        const readyStatuses = [StatusTypes.VALIDATED, StatusTypes.VALIDATEDWARNINGS, StatusTypes.UPDATEDREPUBLISH,
+            StatusTypes.UPDATEDRECERTIFY];
 
         if (value === StatusTypes.STARTED) {
             colors[0] = 'filled';
@@ -45,7 +51,7 @@ export class SubmissionStatus extends React.Component {
             colors[0] = 'filled';
             colors[1] = 'filled';
         }
-        else if (value === StatusTypes.VALIDATED || value === StatusTypes.VALIDATEDWARNINGS) {
+        else if (readyStatuses.includes(value)) {
             for (let i = 0; i < 3; i++) {
                 colors[i] = 'filled';
             }
@@ -55,7 +61,7 @@ export class SubmissionStatus extends React.Component {
                 colors[i] = 'error';
             }
         }
-        else if (value === StatusTypes.PUBLISHED) {
+        else if (value === StatusTypes.PUBLISHED || value === StatusTypes.CERTIFIED) {
             for (let i = 0; i < colors.length; i++) {
                 colors[i] = 'filled';
             }
