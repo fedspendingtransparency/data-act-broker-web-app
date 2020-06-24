@@ -42,7 +42,7 @@ export class SubmissionStatus extends React.Component {
     progressBar(value) {
         const colors = ['pending', 'pending', 'pending', 'pending'];
         const readyStatuses = [StatusTypes.VALIDATED, StatusTypes.VALIDATEDWARNINGS, StatusTypes.UPDATEDREPUBLISH,
-            StatusTypes.UPDATEDRECERTIFY];
+            StatusTypes.UPDATEDRECERTIFY, StatusTypes.PUBLISHED];
 
         if (value === StatusTypes.STARTED) {
             colors[0] = 'filled';
@@ -61,7 +61,7 @@ export class SubmissionStatus extends React.Component {
                 colors[i] = 'error';
             }
         }
-        else if (value === StatusTypes.PUBLISHED || value === StatusTypes.CERTIFIED) {
+        else if (value === StatusTypes.CERTIFIED) {
             for (let i = 0; i < colors.length; i++) {
                 colors[i] = 'filled';
             }
