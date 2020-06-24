@@ -112,7 +112,7 @@ export default class SubmissionsTable extends React.Component {
                     'Created By',
                     'Last Modified',
                     'Status',
-                    'Certification'
+                    'Submission History'
                 ];
             }
         }
