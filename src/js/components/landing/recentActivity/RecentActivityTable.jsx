@@ -254,7 +254,7 @@ export default class RecentActivityTable extends React.Component {
         }
         else {
             row.push(
-                <Status.SubmissionStatus status={rowData.rowStatus} published={!unpublished} certified={certfied}/>
+                <Status.SubmissionStatus status={rowData.rowStatus} published={!unpublished} certified={certfied} />
             );
 
             deleteCol = PermissionsHelper.checkPermissions(this.props.session);

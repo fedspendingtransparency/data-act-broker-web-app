@@ -285,7 +285,7 @@ export default class SubmissionsTable extends React.Component {
             else {
                 row = row.concat([
                     UtilHelper.convertToLocalDate(item.last_modified),
-                    <Status.SubmissionStatus status={item.rowStatus} published={this.props.isPublished} certified={item.certified}/>,
+                    <Status.SubmissionStatus status={item.rowStatus} published={this.props.isPublished} certified={item.certified} />,
                     <span>
                         {item.publishing_user}<br />
                         {publishedOn}<br />
