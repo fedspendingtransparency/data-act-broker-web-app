@@ -36,6 +36,7 @@ export default class RecentActivityTable extends React.Component {
             data: [],
             cellClasses: [],
             headerClasses: [],
+            rowClasses: [],
             message: 'Loading recent activity...',
             sortDirection: 'desc',
             sortColumn: 4,
@@ -155,9 +156,10 @@ export default class RecentActivityTable extends React.Component {
     buildRow() {
         // iterate through the recent activity
         const output = [];
-        const allRowClasses = [];
+        const allCellClasses = [];
+        const rowClasses = [];
 
-        let baseRowClasses = [
+        let baseCellClasses = [
             'row-12_5 text-center',
             'row-20 text-center',
             'row-15 text-right white-space',
@@ -167,7 +169,7 @@ export default class RecentActivityTable extends React.Component {
             'row-10 text-center'
         ];
         if (this.props.type === 'fabs') {
-            baseRowClasses = [
+            baseCellClasses = [
                 'row-10 text-center',
                 'row-40 text-center',
                 'row-15 text-right',
@@ -176,9 +178,9 @@ export default class RecentActivityTable extends React.Component {
                 'row-10 text-center'
             ];
         }
-        const headerClasses = [...baseRowClasses];
+        const headerClasses = [...baseCellClasses];
         if (this.props.type !== 'fabs') {
-            baseRowClasses[0] = 'row-12_5 text-left';
+            baseCellClasses[0] = 'row-12_5 text-left';
         }
 
         // sort the array by object key
@@ -199,21 +201,18 @@ export default class RecentActivityTable extends React.Component {
             // break the object out into an array for the table component
             const row = this.formatRow(item, index);
 
-            const rowClasses = [...baseRowClasses];
-            if (item.test_submission) {
-                for (let i = 0; i < rowClasses.length; i++) {
-                    rowClasses[i] = `${rowClasses[i]} test-submission-row`;
-                }
-            }
+            const rowClass = item.test_submission ? 'test-submission-row' : '';
 
-            allRowClasses.push(rowClasses);
+            rowClasses.push(rowClass);
+            allCellClasses.push(baseCellClasses);
             output.push(row);
         });
 
         this.setState({
             data: output,
-            cellClasses: allRowClasses,
+            cellClasses: allCellClasses,
             headerClasses,
+            rowClasses,
             message: data.length === 0 ? 'No recent activity' : ''
         });
     }
@@ -308,6 +307,7 @@ export default class RecentActivityTable extends React.Component {
                     data={this.state.data}
                     cellClasses={this.state.cellClasses}
                     headerClasses={this.state.headerClasses}
+                    rowClasses={this.state.rowClasses}
                     unsortable={[0, 2, 5, 6]}
                     onSort={this.sortTable.bind(this)} />
                 <div className="text-center">{this.state.message}</div>

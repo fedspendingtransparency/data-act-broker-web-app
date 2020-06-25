@@ -54,6 +54,7 @@ export default class SubmissionsTable extends React.Component {
             parsedData: [],
             cellClasses: [],
             headerClasses: [],
+            rowClasses: [],
             currentPage: 1,
             totalPages: 1,
             account: null,
@@ -187,23 +188,24 @@ export default class SubmissionsTable extends React.Component {
     buildRow() {
     // iterate through the recent activity
         const output = [];
-        const allRowClasses = [];
+        const rowClasses = [];
+        const allCellClasses = [];
         const progressSize = this.props.type === 'fabs' ? 15 : 20;
         const viewSize = this.props.type === 'fabs' ? 15 : 10;
-        let baseRowClasses = ['row-12_5 text-center', 'row-20 text-left', 'row-15 white-space', 'row-12_5', 'row-12_5',
+        let baseCellClasses = ['row-12_5 text-center', 'row-20 text-left', 'row-15 white-space', 'row-12_5', 'row-12_5',
             `row-${progressSize} progress-cell`, 'row-10 text-center'];
 
         if (this.props.isPublished) {
-            baseRowClasses = [`row-${viewSize} text-center`, 'row-20', 'row-12_5', 'row-10', 'row-20 progress-cell',
+            baseCellClasses = [`row-${viewSize} text-center`, 'row-20', 'row-12_5', 'row-10', 'row-20 progress-cell',
                 'row-15 text-center'];
             if (this.props.type === 'fabs') {
-                baseRowClasses = ['row-10 text-center', 'row-25', 'row-10', 'row-15 white-space', 'row-10',
+                baseCellClasses = ['row-10 text-center', 'row-25', 'row-10', 'row-15 white-space', 'row-10',
                     'row-10 text-center'];
             }
         }
-        const headerClasses = [...baseRowClasses];
+        const headerClasses = [...baseCellClasses];
         if (!this.props.isPublished && this.props.type !== 'fabs') {
-            baseRowClasses[0] = 'row-12_5 text-left';
+            baseCellClasses[0] = 'row-12_5 text-left';
         }
 
         // iterate through each item returned from the API
@@ -211,14 +213,10 @@ export default class SubmissionsTable extends React.Component {
             // break the object out into an array for the table component
             const row = this.formatRow(item, index);
 
-            const rowClasses = [...baseRowClasses];
-            if (item.test_submission) {
-                for (let i = 0; i < rowClasses.length; i++) {
-                    rowClasses[i] = `${rowClasses[i]} test-submission-row`;
-                }
-            }
+            const rowClass = item.test_submission ? 'test-submission-row' : '';
 
-            allRowClasses.push(rowClasses);
+            rowClasses.push(rowClass);
+            allCellClasses.push(baseCellClasses);
             output.push(row);
         });
 
@@ -229,7 +227,8 @@ export default class SubmissionsTable extends React.Component {
 
         this.setState({
             parsedData: output,
-            cellClasses: allRowClasses,
+            cellClasses: allCellClasses,
+            rowClasses,
             headerClasses,
             noResults
         });
@@ -429,6 +428,7 @@ export default class SubmissionsTable extends React.Component {
                         cellClasses={this.state.cellClasses}
                         unsortable={unsortable}
                         headerClasses={this.state.headerClasses}
+                        rowClasses={this.state.rowClasses}
                         onSort={this.sortTable} />
                 </div>
                 <div className="text-center">
