@@ -125,10 +125,9 @@ export default class SubmissionsTableContent extends React.Component {
     render() {
         const stagedFilters = this.props.stagedFilters[this.props.type];
         const appliedFilters = this.props.appliedFilters[this.props.type];
-        const secondTable = 'published';
 
         const activeMessage = this.generateMessage(this.state.filterCounts[this.props.type].active);
-        const secondMessage = this.generateMessage(this.state.filterCounts[this.props.type][secondTable]);
+        const secondMessage = this.generateMessage(this.state.filterCounts[this.props.type].published);
 
         return (
             <div className="container">
@@ -174,22 +173,22 @@ export default class SubmissionsTableContent extends React.Component {
                         </div>
                         <SubmissionsTableFilters
                             toggleFilter={this.toggleFilter}
-                            stagedFilters={stagedFilters[secondTable]}
-                            appliedFilters={appliedFilters[secondTable]}
+                            stagedFilters={stagedFilters.published}
+                            appliedFilters={appliedFilters.published}
                             minDateLastModified={this.props.publishedMinDateLastModified}
-                            table={secondTable}
+                            table="published"
                             type={this.props.type} />
                         <FilterBarContainer
                             type={this.props.type}
-                            table={secondTable}
-                            stagedFilters={stagedFilters[secondTable]}
-                            appliedFilters={appliedFilters[secondTable]}
+                            table="published"
+                            stagedFilters={stagedFilters.published}
+                            appliedFilters={appliedFilters.published}
                             updateFilterCount={this.updateFilterCount} />
                         <SubmissionsTable
                             isLoading={this.props.publishedLoading}
                             errorMessage={this.props.publishedError}
                             loadTableData={this.props.loadTableData}
-                            appliedFilters={appliedFilters[secondTable]}
+                            appliedFilters={appliedFilters.published}
                             total={this.props.publishedTotal}
                             data={this.props.publishedSubmissions}
                             page={this.state.publishedPage}
