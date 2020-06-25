@@ -242,6 +242,7 @@ export default class RecentActivityTable extends React.Component {
         ];
 
         const unpublished = rowData.publish_status === 'unpublished';
+        const certfied = rowData.certified;
         let deleteCol = false;
         let canDelete = false;
         if (this.props.type === 'fabs') {
@@ -253,7 +254,7 @@ export default class RecentActivityTable extends React.Component {
         }
         else {
             row.push(
-                <Status.SubmissionStatus status={rowData.rowStatus} published={!unpublished} />
+                <Status.SubmissionStatus status={rowData.rowStatus} published={!unpublished} certified={certfied}/>
             );
 
             deleteCol = PermissionsHelper.checkPermissions(this.props.session);

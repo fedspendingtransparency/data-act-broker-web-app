@@ -8,7 +8,8 @@ import PropTypes from 'prop-types';
 
 const propTypes = {
     status: PropTypes.number,
-    published: PropTypes.bool
+    published: PropTypes.bool,
+    certified: PropTypes.bool
 };
 
 export const StatusTypes = {
@@ -20,14 +21,14 @@ export const StatusTypes = {
     PUBLISHED: 5,
     SERVERERROR: 6,
     VALIDATEDWARNINGS: 7,
-    UPDATEDREPUBLISH: 8,
-    UPDATEDRECERTIFY: 9,
-    CERTIFIED: 10
+    UPDATED: 8,
+    CERTIFIED: 9
 };
 
 const defaultProps = {
     status: StatusTypes.UNKNOWN,
-    published: false
+    published: false,
+    certified: false
 };
 
 export class SubmissionStatus extends React.Component {
@@ -36,13 +37,12 @@ export class SubmissionStatus extends React.Component {
 
         this.statusStrings = ['Unknown', 'Started', 'Validation In Progress', 'Has Errors',
             'Validated (Without Errors)', 'Published', 'Validation Server Error', 'Validated (With Warnings)',
-            'Updated (Needs Republishing)', 'Updated (Needs Recertification)', 'Certified'];
+            'Updated', 'Certified'];
     }
 
     progressBar(value) {
         const colors = ['pending', 'pending', 'pending', 'pending'];
-        const readyStatuses = [StatusTypes.VALIDATED, StatusTypes.VALIDATEDWARNINGS, StatusTypes.UPDATEDREPUBLISH,
-            StatusTypes.UPDATEDRECERTIFY, StatusTypes.PUBLISHED];
+        const readyStatuses = [StatusTypes.VALIDATED, StatusTypes.VALIDATEDWARNINGS, StatusTypes.UPDATED, StatusTypes.PUBLISHED];
 
         if (value === StatusTypes.STARTED) {
             colors[0] = 'filled';
@@ -76,7 +76,10 @@ export class SubmissionStatus extends React.Component {
     render() {
         const colors = this.progressBar(this.props.status);
         let label = this.statusStrings[this.props.status];
-        if (this.props.status !== 5 && this.props.published) {
+        if (this.props.status !== StatusTypes.PUBLISHED && this.props.published && !this.props.certified) {
+            label += '\n(Needs Republishing)';
+        }
+        else if (this.props.status !== StatusTypes.CERTIFIED && this.props.published && this.props.certified) {
             label += '\n(Needs Recertification)';
         }
 
