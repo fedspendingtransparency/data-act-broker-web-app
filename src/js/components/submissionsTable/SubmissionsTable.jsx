@@ -384,7 +384,7 @@ export default class SubmissionsTable extends React.Component {
     }
 
     render() {
-        const id = `pagination-${this.props.isCertified ? 'certified' : 'active'}`;
+        const id = `pagination-${this.props.isPublished ? 'published' : 'active'}`;
         const paginator = (
             <Pagination
                 currentPage={this.state.currentPage}
