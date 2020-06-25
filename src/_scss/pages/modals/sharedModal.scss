@@ -1,23 +1,15 @@
-@import "/../../layouts/modal/modal";
-@include modalLayout;
-
-.usa-da-shared-modal-close {
-	@include modalClose;
-}
-
 .usa-da-shared-modal {
-    .close-button {
-        float: right;
-        font-size: rem(28);
-        height: rem(30);
-        padding: 0;
-        border: none;
-        background-color: $color-white;
-        overflow: hidden;
-        margin-top: rem(-38);
-    
-        svg {
-            margin-bottom: rem(5);
+    @import "/../../layouts/modal/modal";
+    @include modalLayout;
+
+    .usa-da-shared-close {
+        @include modalClose;
+        & button {
+            font-size: rem(25);
+
+            svg {
+                margin-bottom: rem(5);
+            }
         }
     }
     

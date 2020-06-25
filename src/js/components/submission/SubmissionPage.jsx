@@ -64,7 +64,7 @@ export default class SubmissionPage extends React.Component {
                 content = (<ReviewDataContainer
                     submissionID={submissionID}
                     errorFromStep={this.props.errorFromStep}
-                    testSubmission={!!submissionInfo.certified_submission} />);
+                    testSubmission={submissionInfo.test_submission} />);
                 break;
             default:
                 content = null;
