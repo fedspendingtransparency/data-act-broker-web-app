@@ -273,13 +273,13 @@ export default class SubmissionsTable extends React.Component {
                 userName
             ];
 
-            const certifiedOn = item.certified_on !== '' ? UtilHelper.convertToLocalDate(item.certified_on) :
-                item.certified_on;
+            const publishedOn = item.published_on !== '' ? UtilHelper.convertToLocalDate(item.published_on) :
+                item.published_on;
             if (this.props.type === 'fabs') {
                 row = row.concat([
                     reportingDateString,
-                    item.certifying_user,
-                    certifiedOn
+                    item.publishing_user,
+                    publishedOn
                 ]);
             }
             else {
@@ -287,8 +287,8 @@ export default class SubmissionsTable extends React.Component {
                     UtilHelper.convertToLocalDate(item.last_modified),
                     <Status.SubmissionStatus status={item.rowStatus} published={this.props.isPublished} certified={item.certified}/>,
                     <span>
-                        {item.certifying_user}<br />
-                        {certifiedOn}<br />
+                        {item.publishing_user}<br />
+                        {publishedOn}<br />
                         <HistoryLink submissionId={item.submission_id} />
                     </span>
                 ]);
