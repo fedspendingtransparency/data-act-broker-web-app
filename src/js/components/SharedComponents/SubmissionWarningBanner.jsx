@@ -27,40 +27,72 @@ export default class SubmissionWarningBanner extends React.Component {
         const disabled = this.props.reverting;
         if (this.props.submissionInfo != null) {
             let warningBannerType = this.props.submissionInfo.publish_status;
-            if (this.props.submissionInfo.certified_submission) {
+            const testSubmission = this.props.submissionInfo.test_submission;
+            const pubSubIds = this.props.submissionInfo.published_submission_ids;
+            if (testSubmission && pubSubIds.length === 0) {
                 warningBannerType = 'test-submission';
             }
+            else if (testSubmission && pubSubIds.length === 1) {
+                warningBannerType = 'test-submission-one';
+            }
+            else if (testSubmission && pubSubIds.length > 1) {
+                warningBannerType = 'test-submission-multiple';
+            }
+            else if (warningBannerType === 'published' && this.props.submissionInfo.certified) {
+                warningBannerType = 'certified';
+            }
+            const updatedType = this.props.submissionInfo.certified ? 'certify' : 'publish';
+            const certifyButtonText = this.props.submissionInfo.certified ? 'Publish & Certify' : 'Publish';
+            const pastUpdatedType = this.props.submissionInfo.certified ? 'certified' : 'published';
 
             const warningBannerMap = {
                 unpublished: null,
                 'test-submission': {
-                    header: (<p>Submission Already Certified for This Fiscal Quarter</p>),
+                    header: 'This is a test submission',
+                    message: 'Test submissions cannot be published or certified, but they can be used to validate your data.',
+                    useMarkdown: true
+                },
+                'test-submission-one': {
+                    header: (<p>This is a test submission</p>),
                     message: (
                         <p>
-                            You cannot certify this submission since one has already been certified for this fiscal quarter.
-                            To view the certified submission, click <Link to={`/submission/${this.props.submissionInfo.certified_submission}/`}>here</Link>.
+                            A submission has already been published and/or certified for this time period.
+                            To view the published and/or certified submission, <Link to={`/submission/${pubSubIds[0]}/`}>click here</Link>.
+                        </p>),
+                    useMarkdown: false
+                },
+                'test-submission-multiple': {
+                    header: (<p>This is a test submission</p>),
+                    message: (
+                        <p>
+                            Multiple submissions have already been published and/or certified for this time period.
+                            To view the published and/or certified submissions, visit the <Link to="/submissionTable/">Submission Table</Link>.
                         </p>),
                     useMarkdown: false
                 },
                 published: {
-                    header: 'Submission Already Certified',
-                    message: 'This submission has already been certified.' +
-                            ' Any changes made will not be reflected on usaspending until it is re-certified.',
+                    header: 'Submission already published',
+                    message: 'Any changes to this submission will not be reflected on USAspending.gov until it is republished.',
                     useMarkdown: true
                 },
                 publishing: {
-                    header: 'Submission Currently Certifying',
+                    header: 'Submission currently publishing',
                     message: 'This submission is currently certifying.' +
                             ' No changes can be made until the certification is complete.',
                     useMarkdown: true
                 },
+                certified: {
+                    header: 'Submission already certified',
+                    message: 'Any changes to this submission will not be reflected on USAspending.gov until it is recertified.',
+                    useMarkdown: true
+                },
                 updated: {
-                    header: (<p>Submission Updated</p>),
+                    header: (<p>Submission updated</p>),
                     message: (
                         <p>
-                            To <b>re-certify</b> with these changes, complete the submission process and certify. <br />
-                            To <b>undo</b> these changes, click &quot;Revert Submission&quot; here or on the review page.
-                            This will immediately undo your changes and return the submission to its previously certified state. <br />
+                            <b>To re{updatedType}</b> with these changes, complete the submission process and select &quot;{certifyButtonText}&quot; on the Review and Publish page. <br />
+                            <b>To undo these changes</b> and revert back to this submission&rsquo;s previously&ndash;{pastUpdatedType} state, click the &quot;Revert Submission&quot; button.
+                            Note this button will immediately apply upon clicking. <br />
                             <button
                                 disabled={disabled}
                                 className={`usa-da-button btn-primary btn-full${disabled ? ' btn-disabled' : ''}`}
@@ -71,7 +103,7 @@ export default class SubmissionWarningBanner extends React.Component {
                     useMarkdown: false
                 },
                 reverting: {
-                    header: 'Submission Currently Reverting',
+                    header: 'Submission currently reverting',
                     message: 'This submission is currently reverting.' +
                             ' No changes can be made until reverting is complete.',
                     useMarkdown: true

@@ -9,8 +9,8 @@ import AddDataContainer from 'containers/addData/AddDataContainer';
 import Footer from 'components/SharedComponents/FooterComponent';
 import Navbar from 'components/SharedComponents/navigation/NavigationComponent';
 import Banner from 'components/SharedComponents/Banner';
-import BannerRow from 'components/SharedComponents/BannerRow';
 import SubmissionHeader from 'components/submission/SubmissionHeader';
+import SubmissionWarningBanner from 'components/SharedComponents/SubmissionWarningBanner';
 import AddDataMeta from './AddDataMeta';
 
 const propTypes = {
@@ -36,13 +36,12 @@ export default class AddDataPage extends React.Component {
         }
 
         // TODO: Update this along with the banners depending on how many published submissions there are
-        const { testSubmission, publishedSubmissions } = this.props.submission.meta;
-        const testBanner = testSubmission ? (
-            <BannerRow
-                type="warning"
-                header="This is a test submission since one has already been certified for this fiscal quarter."
-                message={`You will not be able to certify this submission. To view the certified submission, [click here](/#/submission/${publishedSubmissions[0].submission_id}).`} />
-        ) : null;
+        const pubSubs = this.props.submission.meta.publishedSubmissions ? this.props.submission.meta.publishedSubmissions.map((sub) => sub.submission_id) : [];
+        const subInfo = {
+            test_submission: this.props.submission.meta.testSubmission,
+            published_submission_ids: pubSubs
+        };
+        const testBanner = (<SubmissionWarningBanner submissionInfo={subInfo} />);
 
         return (
             <div className="usa-da-add-data-page">
