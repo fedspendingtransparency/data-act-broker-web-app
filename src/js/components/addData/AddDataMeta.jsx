@@ -56,6 +56,10 @@ export default class AddDataMeta extends React.Component {
 
         this.onCancel = this.onCancel.bind(this);
         this.onConfirm = this.onConfirm.bind(this);
+        this.handleDateTypeChange = this.handleDateTypeChange.bind(this);
+        this.handleDateChange = this.handleDateChange.bind(this);
+        this.handleSubmissionTypeChange = this.handleSubmissionTypeChange.bind(this);
+        this.submitMetadata = this.submitMetadata.bind(this);
     }
 
     onCancel() {
@@ -272,18 +276,18 @@ export default class AddDataMeta extends React.Component {
         if (this.state.showDateTypeField) {
             dateTypeField = (<DateTypeField
                 value={this.state.dateType}
-                onChange={this.handleDateTypeChange.bind(this)} />);
+                onChange={this.handleDateTypeChange} />);
         }
 
         let dateRangeField = null;
         if (this.state.showDateRangeField) {
-            dateRangeField = <DateRangeField onChange={this.handleDateChange.bind(this)} type={this.state.dateType} />;
+            dateRangeField = <DateRangeField onChange={this.handleDateChange} type={this.state.dateType} />;
         }
 
         let submissionTypeField = null;
         if (this.state.showSubmissionTypeField) {
             submissionTypeField = (<SubmissionTypeField
-                onChange={this.handleSubmissionTypeChange.bind(this)}
+                onChange={this.handleSubmissionTypeChange}
                 value={this.state.submissionType} />);
         }
 
@@ -291,7 +295,7 @@ export default class AddDataMeta extends React.Component {
         if (this.state.showSubmitButton) {
             submissionComponent = (<SubmitComponent
                 message={this.state.message}
-                onSubmit={this.submitMetadata.bind(this)}
+                onSubmit={this.submitMetadata}
                 disabled={this.state.buttonDisabled} />);
         }
 
