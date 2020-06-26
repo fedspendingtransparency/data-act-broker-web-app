@@ -10,34 +10,44 @@
         @include warningAlert;
     }
 
-    .trash-icon{
-        cursor: pointer;
+    h2 {
+        font-size: $h2-font-size;
     }
 
-    .trash-link:hover{
-        text-decoration: none;
-        cursor: pointer;
-    }
-
-    ul, submission_list {
+    ul {
         display: block;
         list-style: none;
         list-style-type: none;
+        margin-top: rem(15);
+
+        li {
+            &:before, &:after {
+                display: none;
+            }
+        }
     }
 
     .file-link {
         cursor: pointer;
-        font-size: 1.5rem;
-    }
-    .file-link:hover {
-        cursor: pointer;
-    }
-    .file-link:before {
-        content: '-';
+        font-size: $small-font-size;
+        margin-bottom: 10px;
+
+        &:hover {
+            cursor: pointer;
+        }
+
+        &:before {
+            content: '-';
+        }
+
+        &:after {
+            margin: none;
+        }
     }
 
-    .file-link:after{
-        margin: none;
+    .cert-desc {
+        font-size: rem(12);
+        margin-bottom: rem(15);
     }
 
     .active-submission {
@@ -45,20 +55,18 @@
         background-color: #323A45;
         color: white;
         border-radius: 5px;
-        font-size: 2rem;
+        font-size: rem(16);
         list-style-type: none;
         padding: 10px;
         list-style: none;
     }
 
-    li:before {
-        content: '';
-    }
-
     .submission {
-        font-size:2rem;
+        @include button-unstyled;
+        font-size: rem(16);
         padding: 10px;
-        cursor:pointer;
+        padding-left: 0;
+        cursor: pointer;
     }
 
     .submission-list {
@@ -72,27 +80,15 @@
     }
 
     .header {
-        padding-top:1.5rem;
+        padding-top: 1.5rem;
         font-size: 1.5rem;
+        font-weight: 200;
     }
 
     .download-box {
         border: solid 1px #323A45;
-        min-height:300px;
+        min-height: 300px;
         margin-top: 3rem;
         overflow: scroll;
     }
-
-    .header {
-        font-weight: 200;
-    }
-
-    .download-header {
-        font-size:4rem;
-    }
-
-    .cert-header {
-        font-size:6rem;
-    }
-
 }

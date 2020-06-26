@@ -31,7 +31,9 @@ export default class HistoryTable extends React.Component {
             }
         };
         this.getSignedUrl = this.getSignedUrl.bind(this);
-        this.setActivePublishedSubmission = this.setActivePublishedSubmission.bind(this);
+        this.handlePublishedSelect = this.handlePublishedSelect.bind(this);
+        this.handleCertifiedSelect = this.handleCertifiedSelect.bind(this);
+        this.setActiveSubmission = this.setActiveSubmission.bind(this);
     }
 
     componentDidMount() {
@@ -46,10 +48,22 @@ export default class HistoryTable extends React.Component {
             });
     }
 
-    setActivePublishedSubmission(index) {
+    handlePublishedSelect(e) {
+        e.preventDefault();
+        const activeIndex = parseInt(e.target.value, 10);
+        this.setActiveSubmission(activeIndex, 'publication');
+    }
+
+    handleCertifiedSelect(e) {
+        e.preventDefault();
+        const activeIndex = parseInt(e.target.value, 10);
+        this.setActiveSubmission(activeIndex, 'certification');
+    }
+
+    setActiveSubmission(index, type) {
         this.setState({
             active: index,
-            activeType: 'publication'
+            activeType: type
         });
     }
 
@@ -138,18 +152,19 @@ export default class HistoryTable extends React.Component {
                     </li>);
             }
             else {
+                const onKeyDownHandler = UtilHelper.createOnKeyDownHandler(this.setActiveSubmission,
+                    [i, 'publication']);
                 list.push(
-                    <div
-                        role="button"
+                    <button
+                        className="submission"
                         tabIndex={0}
-                        onKeyDown={this.setActivePublishedSubmission.bind(this, i)}
-                        onClick={this.setActivePublishedSubmission.bind(this, i)}
+                        onKeyDown={onKeyDownHandler}
+                        onClick={this.handlePublishedSelect}
+                        value={i}
                         key={i}>
-                        <span className="submission">
-                            Published by {publications[i].publishing_user.name} on&nbsp;
-                            {UtilHelper.convertToLocalDate(publications[i].publish_date)}
-                        </span>
-                    </div>);
+                        Published by {publications[i].publishing_user.name} on&nbsp;
+                        {UtilHelper.convertToLocalDate(publications[i].publish_date)}
+                    </button>);
             }
         }
         return list;
@@ -169,18 +184,19 @@ export default class HistoryTable extends React.Component {
                     </li>);
             }
             else {
+                const onKeyDownHandler = UtilHelper.createOnKeyDownHandler(this.setActiveSubmission,
+                    [i, 'certification']);
                 list.push(
-                    <div
-                        role="button"
+                    <button
+                        className="submission"
                         tabIndex={0}
-                        onKeyDown={this.setActiveCertifiedSubmission.bind(this, i)}
-                        onClick={this.setActiveCertifiedSubmission.bind(this, i)}
+                        onKeyDown={onKeyDownHandler}
+                        onClick={this.handleCertifiedSelect}
+                        value={i}
                         key={i}>
-                        <span className="submission">
-                            Certified by {certifications[i].certifying_user.name} on&nbsp;
-                            {UtilHelper.convertToLocalDate(certifications[i].certify_date)}
-                        </span>
-                    </div>);
+                        Certified by {certifications[i].certifying_user.name} on&nbsp;
+                        {UtilHelper.convertToLocalDate(certifications[i].certify_date)}
+                    </button>);
             }
         }
         return list;
@@ -217,14 +233,14 @@ export default class HistoryTable extends React.Component {
                 </div>
                 <div className="row">
                     <div className="col-md-6">
-                        <div className="header cert-header">Publish History</div>
+                        <h2>Publish History</h2>
                         <p className="cert-desc">
                             Select a publication date to download the submission and warning files.
                         </p>
                         <ul className="submission-list">
                             {publications}
                         </ul>
-                        <div className="header cert-header">Certify History</div>
+                        <h2>Certify History</h2>
                         <p className="cert-desc">
                             Select a certification date to download the submission and warning files.
                         </p>
@@ -233,7 +249,7 @@ export default class HistoryTable extends React.Component {
                         </ul>
                     </div>
                     <div className="col-md-6 download-box">
-                        <div className="header download-header">Download Files: {current}</div>
+                        <h2>Download Files: {current}</h2>
                         {fileList}
                     </div>
                 </div>
