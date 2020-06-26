@@ -1,5 +1,5 @@
 /**
-  * DateTypeField.jsx
+  * DateRangeField.jsx
   * Created by Kevin Li 5/19/16
   */
 
