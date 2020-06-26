@@ -14,7 +14,7 @@
         font-size: $h2-font-size;
     }
 
-    ul {
+    .submission-list {
         display: block;
         list-style: none;
         list-style-type: none;
@@ -67,12 +67,6 @@
         padding: rem(10);
         padding-left: 0;
         cursor: pointer;
-    }
-
-    .submission-list {
-        list-style: none;
-        list-style-type: none;
-        display: block;
     }
 
     .metadata {
