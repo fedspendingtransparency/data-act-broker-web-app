@@ -12,6 +12,7 @@
 
     h2 {
         font-size: $h2-font-size;
+        margin-bottom: rem(10);
     }
 
     .submission-list {
@@ -19,6 +20,10 @@
         list-style: none;
         list-style-type: none;
         margin-top: rem(15);
+
+        &.publications {
+            margin-bottom: rem(50);
+        }
 
         li {
             &:before, &:after {

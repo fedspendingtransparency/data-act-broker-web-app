@@ -230,7 +230,7 @@ export default class HistoryTable extends React.Component {
                         <p className="cert-desc">
                             Select a publication date to download the submission and warning files.
                         </p>
-                        <ul className="submission-list">
+                        <ul className="submission-list publications">
                             {publications}
                         </ul>
                         <h2>Certify History</h2>
