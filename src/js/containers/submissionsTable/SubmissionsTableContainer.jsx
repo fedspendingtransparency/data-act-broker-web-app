@@ -46,15 +46,15 @@ export class SubmissionsTableContainer extends React.Component {
 
         this.state = {
             activeLoading: true,
-            certifiedLoading: true,
+            publishedLoading: true,
             activeError: '',
-            certifiedError: '',
+            publishedError: '',
             activeTotal: 0,
-            certifiedTotal: 0,
+            publishedTotal: 0,
             activeSubmissions: [],
-            certifiedSubmissions: [],
+            publishedSubmissions: [],
             activeMinDateLastModified: '',
-            certifiedMinDateLastModified: ''
+            publishedMinDateLastModified: ''
         };
 
         this.loadTableData = this.loadTableData.bind(this);
@@ -75,14 +75,14 @@ export class SubmissionsTableContainer extends React.Component {
         });
     }
 
-    loadTableData(page = 1, certified = false, category = 'modified', order = 'desc', appliedFilters) {
+    loadTableData(page = 1, published = false, category = 'modified', order = 'desc', appliedFilters) {
     /**
         Sortable fields: Valid values for category
         'modified','reporting_start','status','agency','submitted_by'
         */
         let tableName = 'active';
-        if (certified) {
-            tableName = 'certified';
+        if (published) {
+            tableName = 'published';
         }
 
         // Generate the filter params
@@ -116,7 +116,7 @@ export class SubmissionsTableContainer extends React.Component {
             [`${tableName}Error`]: ''
         });
 
-        SubmissionListHelper.loadSubmissionList(page, 10, certified, category, order,
+        SubmissionListHelper.loadSubmissionList(page, 10, published, category, order,
             this.props.type === 'fabs', filters)
             .then((data) => {
                 this.setState({

@@ -39,5 +39,8 @@
         .warning {
             background-color: #f2dede;
         }
+        .test-submission-row {
+            background-color: as-alpha($color-gold-lightest, 0.50);
+        }
     }
 }
