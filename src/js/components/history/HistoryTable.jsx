@@ -48,32 +48,6 @@ export default class HistoryTable extends React.Component {
             });
     }
 
-    handlePublishedSelect(e) {
-        e.preventDefault();
-        const activeIndex = parseInt(e.target.value, 10);
-        this.setActiveSubmission(activeIndex, 'publication');
-    }
-
-    handleCertifiedSelect(e) {
-        e.preventDefault();
-        const activeIndex = parseInt(e.target.value, 10);
-        this.setActiveSubmission(activeIndex, 'certification');
-    }
-
-    setActiveSubmission(index, type) {
-        this.setState({
-            active: index,
-            activeType: type
-        });
-    }
-
-    setActiveCertifiedSubmission(index) {
-        this.setState({
-            active: index,
-            activeType: 'certification'
-        });
-    }
-
     getSignedUrl(index) {
         let urlFile = null;
         if (this.state.activeType === 'certification') {
@@ -111,6 +85,25 @@ export default class HistoryTable extends React.Component {
                     }
                 });
             });
+    }
+
+    setActiveSubmission(index, type) {
+        this.setState({
+            active: index,
+            activeType: type
+        });
+    }
+
+    handlePublishedSelect(e) {
+        e.preventDefault();
+        const activeIndex = parseInt(e.target.value, 10);
+        this.setActiveSubmission(activeIndex, 'publication');
+    }
+
+    handleCertifiedSelect(e) {
+        e.preventDefault();
+        const activeIndex = parseInt(e.target.value, 10);
+        this.setActiveSubmission(activeIndex, 'certification');
     }
 
     activeList() {
