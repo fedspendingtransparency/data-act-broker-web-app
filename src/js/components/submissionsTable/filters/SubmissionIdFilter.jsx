@@ -8,7 +8,7 @@ import PropTypes from 'prop-types';
 
 const propTypes = {
     updateFilterList: PropTypes.func,
-    table: PropTypes.oneOf(['certified', 'active', 'published'])
+    table: PropTypes.oneOf(['active', 'published'])
 };
 
 const defaultProps = {

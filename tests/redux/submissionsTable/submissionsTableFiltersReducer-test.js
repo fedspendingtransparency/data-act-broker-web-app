@@ -106,7 +106,7 @@ describe('submissionsTableFiltersReducer', () => {
                             endDate: ''
                         }
                     },
-                    certified: initialState.dabs.certified
+                    published: initialState.dabs.published
                 },
                 fabs: initialState.fabs
             });

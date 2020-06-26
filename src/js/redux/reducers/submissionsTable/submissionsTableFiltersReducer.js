@@ -17,7 +17,7 @@ export const initialState = {
                 endDate: ''
             }
         },
-        certified: {
+        published: {
             agencies: [],
             fileNames: [],
             submissionIds: [],
@@ -60,7 +60,7 @@ const defaultObjectValues = {
                 endDate: ''
             }
         },
-        certified: {
+        published: {
             lastDateModified: {
                 startDate: '',
                 endDate: ''

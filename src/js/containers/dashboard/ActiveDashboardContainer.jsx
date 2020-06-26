@@ -135,7 +135,7 @@ export class ActiveDashboardContainer extends React.Component {
         }
         fetchSubmissions({
             filters: payload,
-            certified: 'false',
+            published: 'false',
             sort: this.state.sort,
             order: this.state.order,
             limit: this.state.limit,

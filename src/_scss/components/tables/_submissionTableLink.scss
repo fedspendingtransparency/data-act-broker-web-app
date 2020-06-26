@@ -1,7 +1,7 @@
 @mixin submissionTableLink {
     a {
         display: inline-block;
-        padding: 5px 10px;
+        min-width: rem(61);
     }
     svg {
         width: 3.5rem;
@@ -11,5 +11,12 @@
         top: 5px;
         left: 2px;
         fill: $color-gray;
+    }
+    
+    .test-submission-label {
+        font-weight: $font-bold;
+        background-color: $color-gold-light;
+        padding: 0 rem(8);
+        border-radius: rem(2);
     }
 }

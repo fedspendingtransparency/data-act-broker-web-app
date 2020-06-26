@@ -13,6 +13,7 @@ const propTypes = {
     cellClasses: PropTypes.array,
     data: PropTypes.array,
     headerClasses: PropTypes.array,
+    rowClasses: PropTypes.array,
     headers: PropTypes.array,
     unsortable: PropTypes.array,
     sortable: PropTypes.bool
@@ -24,6 +25,7 @@ const defaultProps = {
     sortable: true,
     cellClasses: [],
     headerClasses: [],
+    rowClasses: [],
     unsortable: [],
     onSort: () => {}
 };
@@ -53,7 +55,7 @@ export default class FormattedTable extends React.Component {
     render() {
         const tableRows = [];
         for (let i = 0; i < this.props.data.length; i++) {
-            tableRows.push(<TableRow key={i} data={this.props.data[i]} cellClasses={this.props.cellClasses[i]} />);
+            tableRows.push(<TableRow key={i} data={this.props.data[i]} cellClasses={this.props.cellClasses[i]} rowClass={this.props.rowClasses[i]} />);
         }
         return (
             <div className="usa-da-formatted-table">
