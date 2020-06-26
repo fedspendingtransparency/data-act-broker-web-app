@@ -19,7 +19,7 @@ export const mockRedux = {
                     endDate: ''
                 }
             },
-            certified: {
+            published: {
                 agencies: [],
                 fileNames: [],
                 submissionIds: [],
@@ -65,7 +65,7 @@ export const mockRedux = {
                     endDate: ''
                 }
             },
-            certified: {
+            published: {
                 agencies: [],
                 fileNames: [],
                 submissionIds: [],

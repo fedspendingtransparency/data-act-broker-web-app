@@ -55,13 +55,15 @@ export default class ErrorModal extends React.Component {
                 <div className="usa-da-modal-page">
                     <div id="usa-da-modal" className="usa-da-shared-modal">
                         {this.props.cancel ?
-                            <button
-                                id="usa-da-shared-close-button"
-                                className="close-button"
-                                onClick={this.cancel}
-                                aria-label="close-modal-button">
-                                <FontAwesomeIcon icon="times" />
-                            </button> : ''}
+                            <div className="usa-da-shared-close">
+                                <button
+                                    id="usa-da-shared-close-button"
+                                    className="close-button"
+                                    onClick={this.cancel}
+                                    aria-label="close-modal-button">
+                                    <FontAwesomeIcon icon="times" />
+                                </button>
+                            </div> : ''}
                         {this.props.content}
                         <div className="pull-right">
                             <br />

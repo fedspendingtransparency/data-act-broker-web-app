@@ -2,6 +2,12 @@
 	@import "../../../components/buttons/_primary";
 	@include primaryButton;
 
+	&.certify-button {
+		svg {
+			margin-right: rem(10);
+		}
+	}
+
 	&.decline-button {
 		@include baseButton;
 		background:$color-gray-lighter;
