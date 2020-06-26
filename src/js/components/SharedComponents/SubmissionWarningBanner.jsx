@@ -29,11 +29,13 @@ export default class SubmissionWarningBanner extends React.Component {
             let warningBannerType = this.props.submissionInfo.publish_status;
             const testSubmission = this.props.submissionInfo.test_submission;
             const pubSubIds = this.props.submissionInfo.published_submission_ids;
+            let pubSub = null;
             if (testSubmission && pubSubIds.length === 0) {
                 warningBannerType = 'test-submission';
             }
             else if (testSubmission && pubSubIds.length === 1) {
                 warningBannerType = 'test-submission-one';
+                pubSub = pubSubIds[0];
             }
             else if (testSubmission && pubSubIds.length > 1) {
                 warningBannerType = 'test-submission-multiple';
@@ -57,7 +59,7 @@ export default class SubmissionWarningBanner extends React.Component {
                     message: (
                         <p>
                             A submission has already been published and/or certified for this time period.
-                            To view the published and/or certified submission, <Link to={`/submission/${pubSubIds[0]}/`}>click here</Link>.
+                            To view the published and/or certified submission, <Link to={`/submission/${pubSub}/`}>click here</Link>.
                         </p>),
                     useMarkdown: false
                 },
