@@ -35,7 +35,6 @@ export default class AddDataPage extends React.Component {
             bodyComponent = <AddDataContainer metaData={this.props.submission.meta} />;
         }
 
-        // TODO: Update this along with the banners depending on how many published submissions there are
         const pubSubs = this.props.submission.meta.publishedSubmissions ? this.props.submission.meta.publishedSubmissions.map((sub) => sub.submission_id) : [];
         const subInfo = {
             test_submission: this.props.submission.meta.testSubmission,
