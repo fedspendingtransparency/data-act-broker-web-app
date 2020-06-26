@@ -29,7 +29,7 @@ const propTypes = {
     data: PropTypes.array,
     type: PropTypes.string,
     total: PropTypes.number,
-    isCertified: PropTypes.bool,
+    isPublished: PropTypes.bool,
     isLoading: PropTypes.bool,
     errorMessage: PropTypes.string
 };
@@ -37,7 +37,7 @@ const propTypes = {
 const defaultProps = {
     data: [],
     isLoading: true,
-    isCertified: true,
+    isPublished: true,
     loadTableData: null,
     appliedFilters: {},
     session: null,
@@ -54,6 +54,7 @@ export default class SubmissionsTable extends React.Component {
             parsedData: [],
             cellClasses: [],
             headerClasses: [],
+            rowClasses: [],
             currentPage: 1,
             totalPages: 1,
             account: null,
@@ -71,7 +72,7 @@ export default class SubmissionsTable extends React.Component {
 
     componentDidMount() {
         this.props.loadTableData(
-            this.state.currentPage, this.props.isCertified, this.getCategory(),
+            this.state.currentPage, this.props.isPublished, this.getCategory(),
             this.state.sortDirection, this.props.type === 'fabs', this.props.appliedFilters
         );
         this.loadUser();
@@ -94,7 +95,7 @@ export default class SubmissionsTable extends React.Component {
 
     getHeaders() {
         let headers = [];
-        if (this.props.isCertified) {
+        if (this.props.isPublished) {
             if (this.props.type === 'fabs') {
                 headers = [
                     'Submission ID',
@@ -112,7 +113,7 @@ export default class SubmissionsTable extends React.Component {
                     'Created By',
                     'Last Modified',
                     'Status',
-                    'Certification'
+                    'Submission History'
                 ];
             }
         }
@@ -148,7 +149,7 @@ export default class SubmissionsTable extends React.Component {
     }
 
     getCategory() {
-        if (this.props.isCertified) {
+        if (this.props.isPublished) {
             switch (this.state.sortColumn) {
                 case 0:
                     return 'reporting_start';
@@ -188,18 +189,23 @@ export default class SubmissionsTable extends React.Component {
     // iterate through the recent activity
         const output = [];
         const rowClasses = [];
+        const allCellClasses = [];
         const progressSize = this.props.type === 'fabs' ? 15 : 20;
         const viewSize = this.props.type === 'fabs' ? 15 : 10;
-        let classes = ['row-10 text-center', 'row-20 text-left', 'row-15 white-space', 'row-12_5', 'row-12_5',
+        let baseCellClasses = ['row-12_5 text-center', 'row-20 text-left', 'row-15 white-space', 'row-12_5', 'row-12_5',
             `row-${progressSize} progress-cell`, 'row-10 text-center'];
 
-        if (this.props.isCertified) {
-            classes = [`row-${viewSize} text-center`, 'row-20', 'row-12_5', 'row-10', 'row-20 progress-cell',
+        if (this.props.isPublished) {
+            baseCellClasses = [`row-${viewSize} text-center`, 'row-20', 'row-12_5', 'row-10', 'row-20 progress-cell',
                 'row-15 text-center'];
             if (this.props.type === 'fabs') {
-                classes = ['row-10 text-center', 'row-25', 'row-10', 'row-15 white-space', 'row-10',
+                baseCellClasses = ['row-10 text-center', 'row-25', 'row-10', 'row-15 white-space', 'row-10',
                     'row-10 text-center'];
             }
+        }
+        const headerClasses = [...baseCellClasses];
+        if (!this.props.isPublished && this.props.type !== 'fabs') {
+            baseCellClasses[0] = 'row-12_5 text-left';
         }
 
         // iterate through each item returned from the API
@@ -207,11 +213,12 @@ export default class SubmissionsTable extends React.Component {
             // break the object out into an array for the table component
             const row = this.formatRow(item, index);
 
-            rowClasses.push(classes);
+            const rowClass = item.test_submission ? 'test-submission-row' : '';
+
+            rowClasses.push(rowClass);
+            allCellClasses.push(baseCellClasses);
             output.push(row);
         });
-
-        const headerClasses = classes;
 
         let noResults = false;
         if (this.props.data.length === 0) {
@@ -220,7 +227,8 @@ export default class SubmissionsTable extends React.Component {
 
         this.setState({
             parsedData: output,
-            cellClasses: rowClasses,
+            cellClasses: allCellClasses,
+            rowClasses,
             headerClasses,
             noResults
         });
@@ -243,9 +251,12 @@ export default class SubmissionsTable extends React.Component {
 
         const deleteConfirm = this.state.deleteIndex !== -1 && index === this.state.deleteIndex;
 
-        let link = <SubmissionLink submissionId={item.submission_id} type={this.props.type} />;
+        let link = (<SubmissionLink
+            submissionId={item.submission_id}
+            type={this.props.type}
+            testSubmission={item.test_submission} />);
 
-        if (this.props.isCertified) {
+        if (this.props.isPublished) {
             link = (<SubmissionLink
                 submissionId={item.submission_id}
                 value={reportingDateString}
@@ -253,30 +264,30 @@ export default class SubmissionsTable extends React.Component {
         }
 
         let row = [];
-        if (this.props.isCertified) {
-            // Certified Submissions table
+        if (this.props.isPublished) {
+            // Published Submissions table
             row = [
                 link,
                 this.getAgency(item),
                 userName
             ];
 
-            const certifiedOn = item.certified_on !== '' ? UtilHelper.convertToLocalDate(item.certified_on) :
-                item.certified_on;
+            const publishedOn = item.published_on !== '' ? UtilHelper.convertToLocalDate(item.published_on) :
+                item.published_on;
             if (this.props.type === 'fabs') {
                 row = row.concat([
                     reportingDateString,
-                    item.certifying_user,
-                    certifiedOn
+                    item.publishing_user,
+                    publishedOn
                 ]);
             }
             else {
                 row = row.concat([
                     UtilHelper.convertToLocalDate(item.last_modified),
-                    <Status.SubmissionStatus status={item.rowStatus} certified={this.props.isCertified} />,
+                    <Status.SubmissionStatus status={item.rowStatus} published={this.props.isPublished} certified={item.certified} />,
                     <span>
-                        {item.certifying_user}<br />
-                        {certifiedOn}<br />
+                        {item.publishing_user}<br />
+                        {publishedOn}<br />
                         <HistoryLink submissionId={item.submission_id} />
                     </span>
                 ]);
@@ -290,7 +301,7 @@ export default class SubmissionsTable extends React.Component {
                 reportingDateString,
                 userName,
                 UtilHelper.convertToLocalDate(item.last_modified),
-                <Status.SubmissionStatus status={item.rowStatus} certified={this.props.isCertified} />
+                <Status.SubmissionStatus status={item.rowStatus} />
             ];
 
             let deleteCol = false;
@@ -331,7 +342,7 @@ export default class SubmissionsTable extends React.Component {
         }, () => {
             // re-display the data
             this.props.loadTableData(
-                this.state.currentPage, this.props.isCertified, this.getCategory(),
+                this.state.currentPage, this.props.isPublished, this.getCategory(),
                 this.state.sortDirection, this.props.appliedFilters
             );
             this.buildRow();
@@ -343,7 +354,7 @@ export default class SubmissionsTable extends React.Component {
             currentPage: newPage
         }, () => {
             this.props.loadTableData(
-                this.state.currentPage, this.props.isCertified, this.getCategory(),
+                this.state.currentPage, this.props.isPublished, this.getCategory(),
                 this.state.sortDirection, this.props.appliedFilters
             );
         });
@@ -351,7 +362,7 @@ export default class SubmissionsTable extends React.Component {
 
     reload() {
         this.props.loadTableData(
-            this.state.currentPage, this.props.isCertified, this.getCategory(),
+            this.state.currentPage, this.props.isPublished, this.getCategory(),
             this.state.sortDirection, this.props.appliedFilters
         );
         this.buildRow();
@@ -372,7 +383,7 @@ export default class SubmissionsTable extends React.Component {
     }
 
     render() {
-        const id = `pagination-${this.props.isCertified ? 'certified' : 'active'}`;
+        const id = `pagination-${this.props.isPublished ? 'published' : 'active'}`;
         const paginator = (
             <Pagination
                 currentPage={this.state.currentPage}
@@ -390,10 +401,10 @@ export default class SubmissionsTable extends React.Component {
         const headers = this.getHeaders();
         // cannot be added to the const because if a user is read only then delete will not be created
         let unsortable = [0, 2, 5, 6];
-        if (this.props.isCertified && this.props.type === 'fabs') {
+        if (this.props.isPublished && this.props.type === 'fabs') {
             unsortable = [0, 3, 4];
         }
-        else if (this.props.isCertified) {
+        else if (this.props.isPublished) {
             unsortable = [4];
         }
 
@@ -417,6 +428,7 @@ export default class SubmissionsTable extends React.Component {
                         cellClasses={this.state.cellClasses}
                         unsortable={unsortable}
                         headerClasses={this.state.headerClasses}
+                        rowClasses={this.state.rowClasses}
                         onSort={this.sortTable} />
                 </div>
                 <div className="text-center">

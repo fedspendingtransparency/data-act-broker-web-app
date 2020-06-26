@@ -17,7 +17,9 @@ export const parseRecentActivity = (submissions) => {
         validation_errors: Status.StatusTypes.HASERRORS,
         file_errors: Status.StatusTypes.HASERRORS,
         failed: Status.StatusTypes.SERVERERROR,
-        certified: Status.StatusTypes.CERTIFIED
+        published: Status.StatusTypes.PUBLISHED,
+        certified: Status.StatusTypes.CERTIFIED,
+        updated: Status.StatusTypes.UPDATED
     };
 
     submissions.forEach((item) => {
@@ -57,14 +59,14 @@ export const parseRecentActivity = (submissions) => {
 };
 
 export const loadSubmissionList = (
-    page = 1, limit = 10, certified = false, sort = 'updated', order = 'desc', fabs = false, filters = {}) => {
+    page = 1, limit = 10, published = false, sort = 'updated', order = 'desc', fabs = false, filters = {}) => {
     const deferred = Q.defer();
 
     Request.post(`${kGlobalConstants.API}list_submissions/`)
         .send({
             page,
             limit,
-            certified: certified.toString(),
+            published: published.toString(),
             sort,
             order,
             fabs,

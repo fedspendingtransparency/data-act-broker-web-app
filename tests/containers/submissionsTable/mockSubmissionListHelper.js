@@ -2,7 +2,7 @@ const mockSubmissions= {
     total: 2,
     submissions: [
         {
-            certifying_user: "",
+            publishing_user: "",
             agency: "Department of State (DOS)",
             submission_id: 1,
             reporting_start_date: "1999-07-01",
@@ -10,7 +10,7 @@ const mockSubmissions= {
             status: "waiting",
             publish_status: "unpublished",
             last_modified: "1999-10-29 17:59:11.771504",
-            certified_on: "",
+            published_on: "",
             user: {
                 user_id: 1,
                 name: "George Washington"
@@ -27,7 +27,7 @@ const mockSubmissions= {
             ]
         },
         {
-            certifying_user: "",
+            publishing_user: "",
             agency: "Department of Commerce (DOC)",
             submission_id: 2,
             reporting_start_date: "1999-10-01",
@@ -35,7 +35,7 @@ const mockSubmissions= {
             status: "waiting",
             publish_status: "unpublished",
             last_modified: "2000-01-01 16:59:11.771504",
-            certified_on: "",
+            published_on: "",
             user: {
                 user_id: 2,
                 name: "John Adams"
