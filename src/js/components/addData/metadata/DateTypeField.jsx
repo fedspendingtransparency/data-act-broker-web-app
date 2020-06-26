@@ -17,6 +17,13 @@ const defaultProps = {
 };
 
 export default class DateTypeField extends React.Component {
+    constructor(props) {
+        super(props);
+
+        this.pickedTypeMonth = this.pickedType.bind(this, 'month');
+        this.pickedTypeQuarter = this.pickedType.bind(this, 'quarter');
+    }
+
     pickedType(type) {
         this.props.onChange(type);
     }
@@ -47,7 +54,7 @@ export default class DateTypeField extends React.Component {
                                 id="usa-da-date-type-month"
                                 name="date-type"
                                 value="monthly"
-                                onClick={this.pickedType.bind(this, 'month')}
+                                onClick={this.pickedTypeMonth}
                                 checked={isMonth} />
                             <label htmlFor="usa-da-date-type-month">
                                 Monthly
@@ -60,7 +67,7 @@ export default class DateTypeField extends React.Component {
                                 id="usa-da-date-type-quarterly"
                                 name="date-type"
                                 value="quarterly"
-                                onClick={this.pickedType.bind(this, 'quarter')}
+                                onClick={this.pickedTypeQuarter}
                                 checked={isQuarter} />
                             <label htmlFor="usa-da-date-type-quarterly">
                                 Quarterly

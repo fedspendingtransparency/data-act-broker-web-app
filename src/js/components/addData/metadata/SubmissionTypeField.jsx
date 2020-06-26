@@ -17,6 +17,13 @@ const defaultProps = {
 };
 
 export default class SubmissionTypeField extends React.Component {
+    constructor(props) {
+        super(props);
+
+        this.pickedTypeTest = this.pickedType.bind(this, 'test');
+        this.pickedTypeCertifiable = this.pickedType.bind(this, 'certifiable');
+    }
+
     pickedType(type) {
         this.props.onChange(type);
     }
@@ -46,8 +53,8 @@ export default class SubmissionTypeField extends React.Component {
                                 type="radio"
                                 id="usa-da-submisison-type-test"
                                 name="submisison-type"
-                                value="certifiable"
-                                onClick={this.pickedType.bind(this, 'test')}
+                                value="test"
+                                onClick={this.pickedTypeTest}
                                 checked={isTest} />
                             <label htmlFor="usa-da-submisison-type-test">
                                 Test Submission
@@ -62,8 +69,8 @@ export default class SubmissionTypeField extends React.Component {
                                 type="radio"
                                 id="usa-da-submisison-type-certifiable"
                                 name="submisison-type"
-                                value="test"
-                                onClick={this.pickedType.bind(this, 'certifiable')}
+                                value="certifiable"
+                                onClick={this.pickedTypeCertifiable}
                                 checked={isCertifiable} />
                             <label htmlFor="usa-da-submisison-type-certifiable">
                                 Certifiable Submission
