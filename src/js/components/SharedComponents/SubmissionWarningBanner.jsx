@@ -93,8 +93,8 @@ export default class SubmissionWarningBanner extends React.Component {
                     message: (
                         <p>
                             <b>To re{updatedType}</b> with these changes, complete the submission process and select &quot;{certifyButtonText}&quot; on the Review and Publish page. <br />
-                            <b>To undo these changes</b> and revert back to this submission&rsquo;s previously&ndash;{pastUpdatedType} state, click the &quot;Revert Submission&quot; button.
-                            Note this button will immediately apply upon clicking. <br />
+                            <b>To immediately undo these changes</b> and revert back to this submission&rsquo;s previously {pastUpdatedType} state, click the &quot;Revert Submission&quot; button.
+                            <br />
                             <button
                                 disabled={disabled}
                                 className={`usa-da-button btn-primary btn-full${disabled ? ' btn-disabled' : ''}`}
