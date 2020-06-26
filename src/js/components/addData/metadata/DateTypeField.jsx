@@ -40,29 +40,29 @@ export default class DateTypeField extends React.Component {
                     For what duration are you submitting or validating data?
                 </div>
                 <div className="row">
-                    <div className="col-sm-12 pos-rel text-left usa-da-datetype">
-                        <div className="usa-da-datetype-group">
+                    <div className="col-sm-12 pos-rel text-left usa-da-date-type">
+                        <div className="usa-da-date-type-group">
                             <input
                                 type="radio"
-                                id="usa-da-datetype-month"
-                                name="datetype"
+                                id="usa-da-date-type-month"
+                                name="date-type"
                                 value="monthly"
                                 onClick={this.pickedType.bind(this, 'month')}
                                 checked={isMonth} />
-                            <label htmlFor="usa-da-datetype-month">
+                            <label htmlFor="usa-da-date-type-month">
                                 Monthly
                             </label>
                         </div>
 
-                        <div className="usa-da-datetype-group">
+                        <div className="usa-da-date-type-group">
                             <input
                                 type="radio"
-                                id="usa-da-datetype-quarterly"
-                                name="datetype"
+                                id="usa-da-date-type-quarterly"
+                                name="date-type"
                                 value="quarterly"
                                 onClick={this.pickedType.bind(this, 'quarter')}
                                 checked={isQuarter} />
-                            <label htmlFor="usa-da-datetype-quarterly">
+                            <label htmlFor="usa-da-date-type-quarterly">
                                 Quarterly
                             </label>
                         </div>
