@@ -62,10 +62,17 @@ export default class DateDropdown extends React.Component {
         const years = [];
 
         for (let i = 0; i < 12; i++) {
-            months.push({
-                string: moment().month(i).format('MMMM'),
-                value: moment().month(i).format('MM')
-            });
+            // skipping period 2
+            if (i !== 10) {
+                months.push({
+                    string: moment().month(i).format('MMMM'),
+                    value: moment().month(i).format('MM'),
+                    period: moment().month(i + 3).format('MM'),
+                    nextMonString: moment().month(i + 1).format('MMMM'),
+                    nextMonValue: moment().month(i + 1).format('MM'),
+                    nextMonPeriod: moment().month(i + 4).format('MM')
+                });
+            }
         }
 
         for (let i = -2; i <= 1; i++) {
@@ -75,9 +82,16 @@ export default class DateDropdown extends React.Component {
         const dates = [];
         years.forEach((year) => {
             months.forEach((month) => {
+                let monthString = `P${month.period} - ${month.string} ${year}`;
+                let monthValue = `${month.value}/${year}-${month.value}/${year}`;
+                // converting period 1 to include 2
+                if (month.value === '10') {
+                    monthString = `P${month.period}/P${month.nextMonPeriod} - ${month.string}/${month.nextMonString} ${year}`;
+                    monthValue = `${month.value}/${year}-${month.nextMonValue}/${year}`;
+                }
                 dates.push({
-                    string: `${month.string} ${year}`,
-                    value: `${month.value}/${year}-${month.value}/${year}`
+                    string: monthString,
+                    value: monthValue
                 });
             });
         });

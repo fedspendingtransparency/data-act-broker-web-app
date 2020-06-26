@@ -8,13 +8,21 @@
                 border: 1px $color-secondary solid;
             }
         }
-        .usa-da-datetype {
+        .usa-da-date-type {
             margin-top: 0px;
-            .usa-da-datetype-group {
+            .usa-da-date-type-group {
                 float: left;
                 margin-left: 40px;
                 &:first-child {
                     margin-left: 0px;
+                }
+            }
+        }
+        .usa-da-submission-type {
+            .usa-da-submission-type-group {
+                margin-top: rem(20);
+                .subtype-description {
+                    font-style: italic;
                 }
             }
         }

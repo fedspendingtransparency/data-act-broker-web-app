@@ -15,6 +15,7 @@ import * as Icons from 'components/SharedComponents/icons/Icons';
 import Modal from 'components/SharedComponents/Modal';
 import DateTypeField from './metadata/DateTypeField';
 import DateRangeField from './metadata/DateRangeField';
+import SubmissionTypeField from './metadata/SubmissionTypeField';
 import SubmitComponent from './metadata/SubmitComponent';
 
 const propTypes = {
@@ -37,11 +38,13 @@ export default class AddDataMeta extends React.Component {
             startDate: null,
             endDate: null,
             dateType: null,
+            submissionType: null,
             startDateError: false,
             endDateError: false,
             agencyError: false,
             showDateTypeField: false,
             showDateRangeField: false,
+            showSubmissionTypeField: false,
             showSubmitButton: false,
             buttonDisabled: true,
             modalMessage: '',
@@ -53,6 +56,10 @@ export default class AddDataMeta extends React.Component {
 
         this.onCancel = this.onCancel.bind(this);
         this.onConfirm = this.onConfirm.bind(this);
+        this.handleDateTypeChange = this.handleDateTypeChange.bind(this);
+        this.handleDateChange = this.handleDateChange.bind(this);
+        this.handleSubmissionTypeChange = this.handleSubmissionTypeChange.bind(this);
+        this.submitMetadata = this.submitMetadata.bind(this);
     }
 
     onCancel() {
@@ -109,6 +116,13 @@ export default class AddDataMeta extends React.Component {
         });
     }
 
+    handleSubmissionTypeChange(submissionType) {
+        this.setState({
+            submissionType,
+            testSubmission: (submissionType === 'test')
+        }, this.checkComplete);
+    }
+
     handleDateTypeChange(dateType) {
         this.setState({
             dateType
@@ -124,20 +138,25 @@ export default class AddDataMeta extends React.Component {
 
         if (this.state.dateType !== null) {
             this.setState({
-                showDateRangeField: true,
-                showSubmitButton: true
+                showDateRangeField: true
             });
         }
 
         if (this.state.startDate !== null && this.state.endDate !== null && this.state.agency !== '') {
             this.setState({
-                buttonDisabled: false
+                showSubmissionTypeField: true
             });
         }
         else if (this.state.agency === '') {
             this.setState({
-                buttonDisabled: true,
+                showSubmissionTypeField: false,
                 message: 'You need to provide a valid agency in order to continue.'
+            });
+        }
+
+        if (this.state.submissionType !== null) {
+            this.setState({
+                showSubmitButton: true
             });
         }
     }
@@ -160,54 +179,60 @@ export default class AddDataMeta extends React.Component {
         const cgacCode = codeType === 'cgac_code' ? agency : null;
         const frecCode = codeType === 'frec_code' ? agency : null;
         const isQuarter = (dateType === 'quarter');
-        AgencyHelper.getPublishedSubmissions(cgacCode, frecCode, year, period, isQuarter)
-            .then((publishedSubmissions) => {
-                if (publishedSubmissions.length > 0) {
-                    const pubIsQuarter = publishedSubmissions[0].is_quarter;
-                    const singlePubSub = (publishedSubmissions.length === 1);
 
-                    const title = pubIsQuarter ? 'Quarterly submission already published' : 'Monthly submission already published';
-                    let reason = null;
-                    let viewSubMessage = null;
-                    if (singlePubSub && pubIsQuarter) {
-                        reason = 'a quarterly submission has already been published for this time period';
-                        viewSubMessage = 'published quarterly submission,';
-                    }
-                    else if (singlePubSub && !pubIsQuarter) {
-                        reason = 'a monthly submission has already been published for this time period';
-                        viewSubMessage = 'published monthly submission,';
+        if (!this.state.testSubmission) {
+            AgencyHelper.getPublishedSubmissions(cgacCode, frecCode, year, period, isQuarter)
+                .then((publishedSubmissions) => {
+                    if (publishedSubmissions.length > 0) {
+                        const pubIsQuarter = publishedSubmissions[0].is_quarter;
+                        const singlePubSub = (publishedSubmissions.length === 1);
+
+                        const title = pubIsQuarter ? 'Quarterly submission already published' : 'Monthly submission already published';
+                        let reason = null;
+                        let viewSubMessage = null;
+                        if (singlePubSub && pubIsQuarter) {
+                            reason = 'a quarterly submission has already been published for this time period';
+                            viewSubMessage = 'published quarterly submission,';
+                        }
+                        else if (singlePubSub && !pubIsQuarter) {
+                            reason = 'a monthly submission has already been published for this time period';
+                            viewSubMessage = 'published monthly submission,';
+                        }
+                        else {
+                            reason = 'at least one monthly submission has already been published for this quarter';
+                            viewSubMessage = 'published monthly submissions(s), visit the';
+                        }
+                        const pubSublink = (
+                            singlePubSub ?
+                                <Link to={`/submission/${publishedSubmissions[0].submission_id}/validateData`}>click here</Link>
+                                :
+                                <Link to="/submissionTable/">Submission Table</Link>
+                        );
+                        this.setState({
+                            showModal: true,
+                            testSubmission: true,
+                            publishedSubmissions,
+                            modalMessage: (
+                                <div className="alert-warning alert-warning_test-submission">
+                                    <FontAwesomeIcon icon="exclamation-triangle" />
+                                    <h3>
+                                        {title}
+                                    </h3>
+                                    <p>{`You can only create a test submission because ${reason}.`}</p>
+                                    <p>Test submissions cannot be published or certified, but they can be used to validate your data.</p>
+                                    <p>{`To view the ${viewSubMessage} `}{pubSublink}.</p>
+                                </div>
+                            )
+                        });
                     }
                     else {
-                        reason = 'at least one monthly submission has already been published for this quarter';
-                        viewSubMessage = 'published monthly submissions(s), visit the';
+                        this.props.updateMetaData(this.state);
                     }
-                    const pubSublink = (
-                        singlePubSub ?
-                            <Link to={`/submission/${publishedSubmissions[0].submission_id}/validateData`}>click here</Link>
-                            :
-                            <Link to="/submissionTable/">Submission Table</Link>
-                    );
-                    this.setState({
-                        showModal: true,
-                        testSubmission: true,
-                        publishedSubmissions,
-                        modalMessage: (
-                            <div className="alert-warning alert-warning_test-submission">
-                                <FontAwesomeIcon icon="exclamation-triangle" />
-                                <h3>
-                                    {title}
-                                </h3>
-                                <p>{`You can only create a test submission because ${reason}.`}</p>
-                                <p>Test submissions cannot be published or certified, but they can be used to validate your data.</p>
-                                <p>{`To view the ${viewSubMessage} `}{pubSublink}.</p>
-                            </div>
-                        )
-                    });
-                }
-                else {
-                    this.props.updateMetaData(this.state);
-                }
-            });
+                });
+        }
+        else {
+            this.props.updateMetaData(this.state);
+        }
     }
 
     validateAgency() {
@@ -251,19 +276,26 @@ export default class AddDataMeta extends React.Component {
         if (this.state.showDateTypeField) {
             dateTypeField = (<DateTypeField
                 value={this.state.dateType}
-                onChange={this.handleDateTypeChange.bind(this)} />);
+                onChange={this.handleDateTypeChange} />);
         }
 
         let dateRangeField = null;
         if (this.state.showDateRangeField) {
-            dateRangeField = <DateRangeField onChange={this.handleDateChange.bind(this)} type={this.state.dateType} />;
+            dateRangeField = <DateRangeField onChange={this.handleDateChange} type={this.state.dateType} />;
+        }
+
+        let submissionTypeField = null;
+        if (this.state.showSubmissionTypeField) {
+            submissionTypeField = (<SubmissionTypeField
+                onChange={this.handleSubmissionTypeChange}
+                value={this.state.submissionType} />);
         }
 
         let submissionComponent = null;
         if (this.state.showSubmitButton) {
             submissionComponent = (<SubmitComponent
                 message={this.state.message}
-                onSubmit={this.submitMetadata.bind(this)}
+                onSubmit={this.submitMetadata}
                 disabled={this.state.buttonDisabled} />);
         }
 
@@ -305,6 +337,13 @@ export default class AddDataMeta extends React.Component {
                                     transitionEnterTimeout={500}
                                     transitionLeaveTimeout={300}>
                                     {dateRangeField}
+                                </CSSTransitionGroup>
+
+                                <CSSTransitionGroup
+                                    transitionName="usa-da-meta-fade"
+                                    transitionEnterTimeout={500}
+                                    transitionLeaveTimeout={300}>
+                                    {submissionTypeField}
                                 </CSSTransitionGroup>
 
                                 <CSSTransitionGroup

@@ -37,7 +37,7 @@ export default class AddDataPage extends React.Component {
 
         // TODO: Update this along with the banners depending on how many published submissions there are
         const { testSubmission, publishedSubmissions } = this.props.submission.meta;
-        const testBanner = testSubmission ? (
+        const testBanner = (testSubmission && publishedSubmissions.length > 0) ? (
             <BannerRow
                 type="warning"
                 header="This is a test submission since one has already been certified for this fiscal quarter."
