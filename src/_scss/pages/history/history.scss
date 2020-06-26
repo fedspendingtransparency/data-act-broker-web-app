@@ -30,7 +30,7 @@
     .file-link {
         cursor: pointer;
         font-size: $small-font-size;
-        margin-bottom: 10px;
+        margin-bottom: rem(10);
 
         &:hover {
             cursor: pointer;
@@ -54,17 +54,17 @@
         display: block;
         background-color: #323A45;
         color: white;
-        border-radius: 5px;
+        border-radius: rem(5);
         font-size: rem(16);
         list-style-type: none;
-        padding: 10px;
+        padding: rem(10);
         list-style: none;
     }
 
     .submission {
         @include button-unstyled;
         font-size: rem(16);
-        padding: 10px;
+        padding: rem(10);
         padding-left: 0;
         cursor: pointer;
     }
@@ -76,19 +76,19 @@
     }
 
     .metadata {
-        margin-bottom: 5px;
+        margin-bottom: rem(5);
     }
 
     .header {
-        padding-top: 1.5rem;
-        font-size: 1.5rem;
+        padding-top: rem(15);
+        font-size: rem(15);
         font-weight: 200;
     }
 
     .download-box {
         border: solid 1px #323A45;
-        min-height: 300px;
-        margin-top: 3rem;
+        min-height: rem(300);
+        margin-top: rem(30);
         overflow: scroll;
     }
 }
