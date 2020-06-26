@@ -93,8 +93,8 @@ export const loadSubmissionList = (
 export const loadSubmissionHistory = (submissionID) => {
     const deferred = Q.defer();
 
-    Request.post(`${kGlobalConstants.API}list_certifications/`)
-        .send({ submission_id: submissionID })
+    Request.get(`${kGlobalConstants.API}list_history/?submission_id=${submissionID}`)
+        .send()
         .end((err, res) => {
             if (err) {
                 deferred.reject(err);

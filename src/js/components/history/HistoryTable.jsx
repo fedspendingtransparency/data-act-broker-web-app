@@ -20,6 +20,8 @@ export default class HistoryTable extends React.Component {
 
         this.state = {
             active: -1,
+            activeType: 'publication',
+            publications: null,
             certifications: null,
             warning: {
                 active: false,
@@ -29,6 +31,9 @@ export default class HistoryTable extends React.Component {
             }
         };
         this.getSignedUrl = this.getSignedUrl.bind(this);
+        this.handlePublishedSelect = this.handlePublishedSelect.bind(this);
+        this.handleCertifiedSelect = this.handleCertifiedSelect.bind(this);
+        this.setActiveSubmission = this.setActiveSubmission.bind(this);
     }
 
     componentDidMount() {
@@ -43,14 +48,14 @@ export default class HistoryTable extends React.Component {
             });
     }
 
-    setActiveSubmission(index) {
-        this.setState({
-            active: index
-        });
-    }
-
     getSignedUrl(index) {
-        const certFile = this.state.certifications[this.state.active].certified_files[index];
+        let urlFile = null;
+        if (this.state.activeType === 'certification') {
+            urlFile = this.state.certifications[this.state.active].certified_files[index];
+        }
+        else {
+            urlFile = this.state.publications[this.state.active].published_files[index];
+        }
         this.setState({
             warning: {
                 active: true,
@@ -59,8 +64,8 @@ export default class HistoryTable extends React.Component {
                 body: 'Retreiving file from server. Please wait.'
             }
         });
-        SubmissionListHelper.getSubmissionFile(this.props.submissionID, certFile.published_files_history_id,
-            certFile.is_warning)
+        SubmissionListHelper.getSubmissionFile(this.props.submissionID, urlFile.published_files_history_id,
+            urlFile.is_warning)
             .then((response) => {
                 window.open(response.url);
                 this.setState({
@@ -82,8 +87,33 @@ export default class HistoryTable extends React.Component {
             });
     }
 
+    setActiveSubmission(index, type) {
+        this.setState({
+            active: index,
+            activeType: type
+        });
+    }
+
+    handlePublishedSelect(e) {
+        e.preventDefault();
+        const activeIndex = parseInt(e.target.value, 10);
+        this.setActiveSubmission(activeIndex, 'publication');
+    }
+
+    handleCertifiedSelect(e) {
+        e.preventDefault();
+        const activeIndex = parseInt(e.target.value, 10);
+        this.setActiveSubmission(activeIndex, 'certification');
+    }
+
     activeList() {
-        const activeSubmissionsFiles = this.state.certifications[this.state.active].certified_files;
+        let activeSubmissionsFiles = null;
+        if (this.state.activeType === 'certification') {
+            activeSubmissionsFiles = this.state.certifications[this.state.active].certified_files;
+        }
+        else {
+            activeSubmissionsFiles = this.state.publications[this.state.active].published_files;
+        }
         const list = [];
         for (let i = 0; i < activeSubmissionsFiles.length; i++) {
             const onKeyDownHandler = UtilHelper.createOnKeyDownHandler(this.getSignedUrl, [i]);
@@ -101,11 +131,43 @@ export default class HistoryTable extends React.Component {
         return list;
     }
 
+    publicationList() {
+        const list = [];
+        const publications = this.state.publications;
+        for (let i = 0; i < publications.length; i++) {
+            if (this.state.active === i && this.state.activeType === 'publication') {
+                list.push(
+                    <li key={i}>
+                        <span className="active-submission">
+                            Published by {publications[i].publishing_user.name} on&nbsp;
+                            {UtilHelper.convertToLocalDate(publications[i].publish_date)}
+                        </span>
+                    </li>);
+            }
+            else {
+                const onKeyDownHandler = UtilHelper.createOnKeyDownHandler(this.setActiveSubmission,
+                    [i, 'publication']);
+                list.push(
+                    <button
+                        className="submission"
+                        tabIndex={0}
+                        onKeyDown={onKeyDownHandler}
+                        onClick={this.handlePublishedSelect}
+                        value={i}
+                        key={i}>
+                        Published by {publications[i].publishing_user.name} on&nbsp;
+                        {UtilHelper.convertToLocalDate(publications[i].publish_date)}
+                    </button>);
+            }
+        }
+        return list;
+    }
+
     certificationList() {
         const list = [];
         const certifications = this.state.certifications;
         for (let i = 0; i < certifications.length; i++) {
-            if (this.state.active === i) {
+            if (this.state.active === i && this.state.activeType === 'certification') {
                 list.push(
                     <li key={i}>
                         <span className="active-submission">
@@ -115,30 +177,33 @@ export default class HistoryTable extends React.Component {
                     </li>);
             }
             else {
+                const onKeyDownHandler = UtilHelper.createOnKeyDownHandler(this.setActiveSubmission,
+                    [i, 'certification']);
                 list.push(
-                    <div
-                        role="button"
+                    <button
+                        className="submission"
                         tabIndex={0}
-                        onKeyDown={this.setActiveSubmission.bind(this, i)}
-                        onClick={this.setActiveSubmission.bind(this, i)}
+                        onKeyDown={onKeyDownHandler}
+                        onClick={this.handleCertifiedSelect}
+                        value={i}
                         key={i}>
-                        <span className="submission">
-                            Certified by {certifications[i].certifying_user.name} on&nbsp;
-                            {UtilHelper.convertToLocalDate(certifications[i].certify_date)}
-                        </span>
-                    </div>);
+                        Certified by {certifications[i].certifying_user.name} on&nbsp;
+                        {UtilHelper.convertToLocalDate(certifications[i].certify_date)}
+                    </button>);
             }
         }
         return list;
     }
 
     render() {
+        let publications = null;
         let certifications = null;
         let fileList = null;
         let warning = null;
         let current = null;
         if (this.state.active !== -1) {
             current = UtilHelper.convertToLocalDate(this.state.certifications[this.state.active].certify_date);
+            publications = this.publicationList();
             certifications = this.certificationList();
             fileList = this.activeList();
         }
@@ -161,7 +226,14 @@ export default class HistoryTable extends React.Component {
                 </div>
                 <div className="row">
                     <div className="col-md-6">
-                        <div className="header cert-header">Certifications</div>
+                        <h2>Publish History</h2>
+                        <p className="cert-desc">
+                            Select a publication date to download the submission and warning files.
+                        </p>
+                        <ul className="submission-list publications">
+                            {publications}
+                        </ul>
+                        <h2>Certify History</h2>
                         <p className="cert-desc">
                             Select a certification date to download the submission and warning files.
                         </p>
@@ -170,7 +242,7 @@ export default class HistoryTable extends React.Component {
                         </ul>
                     </div>
                     <div className="col-md-6 download-box">
-                        <div className="header download-header">Download Files: {current}</div>
+                        <h2>Download Files: {current}</h2>
                         {fileList}
                     </div>
                 </div>

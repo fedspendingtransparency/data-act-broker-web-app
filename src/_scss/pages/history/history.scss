@@ -10,89 +10,84 @@
         @include warningAlert;
     }
 
-    .trash-icon{
-        cursor: pointer;
+    h2 {
+        font-size: $h2-font-size;
+        margin-bottom: rem(10);
     }
 
-    .trash-link:hover{
-        text-decoration: none;
-        cursor: pointer;
-    }
-
-    ul, submission_list {
+    .submission-list {
         display: block;
         list-style: none;
         list-style-type: none;
+        margin-top: rem(15);
+
+        &.publications {
+            margin-bottom: rem(50);
+        }
+
+        li {
+            &:before, &:after {
+                display: none;
+            }
+        }
     }
 
     .file-link {
         cursor: pointer;
-        font-size: 1.5rem;
-    }
-    .file-link:hover {
-        cursor: pointer;
-    }
-    .file-link:before {
-        content: '-';
+        font-size: $small-font-size;
+        margin-bottom: rem(10);
+
+        &:hover {
+            cursor: pointer;
+        }
+
+        &:before {
+            content: '-';
+        }
+
+        &:after {
+            margin: none;
+        }
     }
 
-    .file-link:after{
-        margin: none;
+    .cert-desc {
+        font-size: rem(12);
+        margin-bottom: rem(15);
     }
 
     .active-submission {
         display: block;
         background-color: #323A45;
         color: white;
-        border-radius: 5px;
-        font-size: 2rem;
+        border-radius: rem(5);
+        font-size: rem(16);
         list-style-type: none;
-        padding: 10px;
+        padding: rem(10);
         list-style: none;
-    }
-
-    li:before {
-        content: '';
     }
 
     .submission {
-        font-size:2rem;
-        padding: 10px;
-        cursor:pointer;
-    }
-
-    .submission-list {
-        list-style: none;
-        list-style-type: none;
-        display: block;
+        @include button-unstyled;
+        font-size: rem(16);
+        padding: rem(10);
+        padding-left: 0;
+        cursor: pointer;
     }
 
     .metadata {
-        margin-bottom: 5px;
+        margin-bottom: rem(5);
     }
 
     .header {
-        padding-top:1.5rem;
-        font-size: 1.5rem;
+        padding-top: rem(15);
+        font-size: rem(15);
+        font-weight: 200;
     }
 
     .download-box {
         border: solid 1px #323A45;
-        min-height:300px;
-        margin-top: 3rem;
+        min-height: rem(300);
+        margin-top: rem(30);
         overflow: scroll;
     }
-
-    .header {
-        font-weight: 200;
-    }
-
-    .download-header {
-        font-size:4rem;
-    }
-
-    .cert-header {
-        font-size:6rem;
-    }
-
 }
