@@ -51,7 +51,7 @@ module.exports = {
         rules: [
             {
                 test: /\.js$|jsx$/,
-                exclude: /node_modules\/(?!(data-transparency-ui)\/).*/,
+                exclude: /node_modules\.*/,
                 loader: "babel-loader" // the babel loader tells webpack to compile JS/JSX files using Babel
             },
             {

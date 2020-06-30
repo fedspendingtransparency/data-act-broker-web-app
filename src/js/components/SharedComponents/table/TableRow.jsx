@@ -9,11 +9,13 @@ import TableCell from './TableCell';
 
 const propTypes = {
     data: PropTypes.array.isRequired,
-    cellClasses: PropTypes.array
+    cellClasses: PropTypes.array,
+    rowClass: PropTypes.string
 };
 
 const defaultProps = {
-    cellClasses: []
+    cellClasses: [],
+    rowClass: ''
 };
 
 export default class TableRow extends React.Component {
@@ -24,7 +26,7 @@ export default class TableRow extends React.Component {
         }
 
         return (
-            <tr>{tableCells}</tr>
+            <tr className={this.props.rowClass}>{tableCells}</tr>
         );
     }
 }

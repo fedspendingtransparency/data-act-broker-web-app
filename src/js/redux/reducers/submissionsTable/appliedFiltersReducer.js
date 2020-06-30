@@ -8,7 +8,7 @@ import { initialState as defaultFilters } from './submissionsTableFiltersReducer
 export const initialState = {
     dabs: {
         active: defaultFilters.dabs.active,
-        certified: defaultFilters.dabs.certified
+        published: defaultFilters.dabs.published
     },
     fabs: {
         active: defaultFilters.fabs.active,

@@ -6,10 +6,11 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import Modal from 'react-aria-modal';
-import { Link, Redirect } from 'react-router-dom';
+import { Redirect } from 'react-router-dom';
+import CertifyDisclaimer from 'components/reviewData/CertificationModal/CertifyDisclaimer';
+import PublishDisclaimer from 'components/reviewData/CertificationModal/PublishDisclaimer';
+import CertifyButtons from 'components/reviewData/CertificationModal/CertifyButtons';
 import * as Icons from '../../SharedComponents/icons/Icons';
-import CertifyDisclaimer from './CertifyDisclaimer';
-import CertifyButtons from './CertifyButtons';
 import CertifyProgress from './CertifyProgress';
 import * as ReviewHelper from '../../../helpers/reviewHelper';
 
@@ -18,7 +19,8 @@ const propTypes = {
     session: PropTypes.object,
     submissionID: PropTypes.string,
     warnings: PropTypes.number,
-    isOpen: PropTypes.bool
+    isOpen: PropTypes.bool,
+    type: PropTypes.oneOf(['publish', 'certify', 'both'])
 };
 
 const defaultProps = {
@@ -26,7 +28,8 @@ const defaultProps = {
     session: null,
     submissionID: '',
     warnings: 0,
-    isOpen: false
+    isOpen: false,
+    type: 'both'
 };
 
 export default class ReviewDataCertifyModal extends React.Component {
@@ -57,7 +60,7 @@ export default class ReviewDataCertifyModal extends React.Component {
         e.preventDefault();
         this.setState({ loading: true });
 
-        ReviewHelper.certifySubmission(this.props.submissionID)
+        ReviewHelper.publishCertifyDABSSubmission(this.props.submissionID, this.props.type)
             .then(() => {
                 this.setState({ loading: false });
                 this.closeModal();
@@ -67,15 +70,18 @@ export default class ReviewDataCertifyModal extends React.Component {
                 });
             })
             .catch((error) => {
-                let errorMessage = "An error occurred while attempting to certify the submission. " +
-                    "Please contact your administrator for assistance.";
+                let processType = this.props.type;
+                if (this.props.type === 'both') {
+                    processType = 'certify';
+                }
+                let errorMessage = `An error occurred while attempting to ${processType} the submission. ` +
+                    `Please contact your administrator for assistance`;
                 if (error.httpStatus === 400 || error.httpStatus === 403) {
                     errorMessage = error.message;
                     if (error.submissionId) {
                         errorMessage = (
                             <div>
-                                {error.message} You can update the certified submission
-                                <Link to={`/submission/${error.submissionId}/validateData`}>here</Link>.
+                                {error.message}
                             </div>);
                     }
                 }
@@ -144,15 +150,17 @@ export default class ReviewDataCertifyModal extends React.Component {
             error = <div className="alert alert-danger text-center" role="alert">{this.state.errorMessage}</div>;
         }
 
-        // adding this because the linter doesn't like when we just pass true
-        const trueProps = true;
+        let disclaimer = <CertifyDisclaimer />;
+        if (this.props.type === 'publish') {
+            disclaimer = <PublishDisclaimer />;
+        }
 
         return (
             <Modal
                 mounted={this.props.isOpen}
                 onExit={this.closeModal}
                 underlayClickExits={this.state.closeable}
-                verticallyCenter={trueProps}
+                verticallyCenter
                 initialFocus="#certify-check"
                 titleId="usa-da-certify-modal">
                 <div className="usa-da-modal-page">
@@ -164,13 +172,16 @@ export default class ReviewDataCertifyModal extends React.Component {
                         <div className="usa-da-certify-modal-content">
                             <div className="row">
                                 <div className="col-md-12 title-field">
-                                    <h6>Are you sure you want to publish your data?</h6>
+                                    <h6>
+                                        Are you sure you want to&nbsp;
+                                        {this.props.type === 'both' ? 'certify' : this.props.type} your data?
+                                    </h6>
                                     {message}
                                 </div>
                             </div>
                             <div className="row">
                                 <div className="col-md-12">
-                                    <CertifyDisclaimer />
+                                    {disclaimer}
                                 </div>
                             </div>
                             {action}
