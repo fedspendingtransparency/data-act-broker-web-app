@@ -202,7 +202,12 @@ export default class HistoryTable extends React.Component {
         let warning = null;
         let current = null;
         if (this.state.active !== -1) {
-            current = UtilHelper.convertToLocalDate(this.state.certifications[this.state.active].certify_date);
+            if (this.state.activeType === 'certification') {
+                current = UtilHelper.convertToLocalDate(this.state.certifications[this.state.active].certify_date);
+            }
+            else {
+                current = UtilHelper.convertToLocalDate(this.state.publications[this.state.active].publish_date);
+            }
             publications = this.publicationList();
             certifications = this.certificationList();
             fileList = this.activeList();
