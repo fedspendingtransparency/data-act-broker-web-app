@@ -55,12 +55,7 @@ export default class HistoryHeader extends React.Component {
                 <div className="row header">
                     <div className="col-xs-6">
                         <p className="metadata">Agency: {this.state.metadata.agency_name}</p>
-                        <p className="metadata">
-                            Reporting Period Start: {this.state.metadata.reporting_period}
-                        </p>
-                        <p className="metadata">
-                            Reporting Period End: {this.state.metadata.reporting_period}
-                        </p>
+                        <p className="metadata">Reporting Period: {this.state.metadata.reporting_period}</p>
                     </div>
                     <div className="col-xs-6">
                         <p className="metadata">Created: {createdOn}</p>
