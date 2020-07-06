@@ -19,7 +19,6 @@ import * as uploadActions from 'redux/actions/uploadActions';
 
 import * as GenerateFilesHelper from 'helpers/generateFilesHelper';
 import * as ReviewHelper from 'helpers/reviewHelper';
-import * as UtilHelper from 'helpers/util';
 
 const propTypes = {
     setSubmissionId: PropTypes.func,
@@ -125,38 +124,6 @@ export class GenerateFilesContainer extends React.Component {
             });
     }
 
-    parseDate(raw, type) {
-        // convert the API dates back into date objects
-        let month;
-        let day;
-        let year;
-
-        if (raw.indexOf('Q') > -1) {
-            // it's quarters!
-            const quarter = raw.split('/')[0].substring(1);
-            const rawYear = raw.split('/')[1];
-            const monthDay = UtilHelper.quarterToMonth(quarter, rawYear, type);
-            month = monthDay.split('/')[0];
-            year = monthDay.split('/')[1];
-        }
-        else {
-            // it's months
-            month = raw.split('/')[0];
-            year = raw.split('/')[1];
-        }
-
-        // now we need to calculate the day of month
-        if (type === 'start') {
-            day = '01';
-        }
-        else if (type === 'end') {
-            const date = moment().month(parseInt(month, 10) - 1).year(year);
-            day = date.endOf('month').format('DD');
-        }
-
-        return `${month}/${day}/${year}`;
-    }
-
     checkForPreviousFiles() {
         // check if D1 and D2 files already exist for this submission
         Q.allSettled([
@@ -221,8 +188,8 @@ export class GenerateFilesContainer extends React.Component {
                 this.props.setSubmissionPublishStatus(data.publish_status);
 
                 // check if quarter or month
-                const defaultStart = moment(this.parseDate(data.reporting_period, 'start'), 'MM/DD/YYYY');
-                const defaultEnd = moment(this.parseDate(data.reporting_period, 'end'), 'MM/DD/YYYY');
+                const defaultStart = moment(data.reporting_start_date, 'MM/DD/YYYY');
+                const defaultEnd = moment(data.reporting_end_date, 'MM/DD/YYYY');
 
                 const output = {
                     state: 'ready',
