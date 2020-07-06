@@ -174,7 +174,7 @@ export default class ReviewDataNotifyModal extends React.Component {
                         <div className="usa-da-notify-modal-content">
                             <div className="row">
                                 <div className="col-md-12">
-                                    <h6>Notify Another User that the Submission is Ready for Certification</h6>
+                                    <h6>Notify another user that the submission is ready for review</h6>
 
                                     <div className="usa-da-selected-users-holder">
                                         {selectedUsers}

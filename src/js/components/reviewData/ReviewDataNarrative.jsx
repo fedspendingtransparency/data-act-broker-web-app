@@ -120,7 +120,9 @@ export default class ReviewDataNarrative extends React.Component {
                     <h4>Add comments to files</h4>
                     <div className="row">
                         <div className="col-md-7">
-                            <ReviewDataNarrativeDropdown changeFile={this.changeFile} />
+                            <ReviewDataNarrativeDropdown
+                                changeFile={this.changeFile}
+                                currentFile={this.state.currentFile} />
                         </div>
                         <div className="col-md-5 pull-right">
                             <div
