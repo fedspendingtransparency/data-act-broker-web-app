@@ -194,8 +194,13 @@ export default class ReviewDataContent extends React.Component {
             }
         }
         else if (!twoButtons && hasPubPerms) {
-            if (this.props.data.publish_status === 'published') {
+            if (this.props.data.publish_status === 'published' && this.props.data.certified) {
                 certifyButtonText = 'This submission has already been certified';
+            }
+            else if (this.props.data.publish_status === 'published') {
+                certifyButtonText = 'Publish & Certify';
+                certifyButtonClass = '';
+                certifyButtonAction = this.openCertifyModal;
             }
             else {
                 certifyButtonText = 'Publish & Certify';
