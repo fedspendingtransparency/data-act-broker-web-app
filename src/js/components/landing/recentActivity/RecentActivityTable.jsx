@@ -36,6 +36,7 @@ export default class RecentActivityTable extends React.Component {
             data: [],
             cellClasses: [],
             headerClasses: [],
+            rowClasses: [],
             message: 'Loading recent activity...',
             sortDirection: 'desc',
             sortColumn: 4,
@@ -155,10 +156,11 @@ export default class RecentActivityTable extends React.Component {
     buildRow() {
         // iterate through the recent activity
         const output = [];
+        const allCellClasses = [];
         const rowClasses = [];
 
-        let classes = [
-            'row-10 text-center',
+        let baseCellClasses = [
+            'row-12_5 text-center',
             'row-20 text-center',
             'row-15 text-right white-space',
             'row-15 text-right',
@@ -167,7 +169,7 @@ export default class RecentActivityTable extends React.Component {
             'row-10 text-center'
         ];
         if (this.props.type === 'fabs') {
-            classes = [
+            baseCellClasses = [
                 'row-10 text-center',
                 'row-40 text-center',
                 'row-15 text-right',
@@ -176,6 +178,11 @@ export default class RecentActivityTable extends React.Component {
                 'row-10 text-center'
             ];
         }
+        const headerClasses = [...baseCellClasses];
+        if (this.props.type !== 'fabs') {
+            baseCellClasses[0] = 'row-12_5 text-left';
+        }
+
         // sort the array by object key
         const orderKeys = [
             'sortableAgency',
@@ -194,22 +201,27 @@ export default class RecentActivityTable extends React.Component {
             // break the object out into an array for the table component
             const row = this.formatRow(item, index);
 
-            rowClasses.push(classes);
+            const rowClass = item.test_submission ? 'test-submission-row' : '';
+
+            rowClasses.push(rowClass);
+            allCellClasses.push(baseCellClasses);
             output.push(row);
         });
 
-        const headerClasses = classes;
-
         this.setState({
             data: output,
-            cellClasses: rowClasses,
+            cellClasses: allCellClasses,
             headerClasses,
+            rowClasses,
             message: data.length === 0 ? 'No recent activity' : ''
         });
     }
 
     formatRow(rowData, index) {
-        const link = <SubmissionLink submissionId={rowData.submission_id} type={this.props.type} />;
+        const link = (<SubmissionLink
+            submissionId={rowData.submission_id}
+            type={this.props.type}
+            testSubmission={rowData.test_submission} />);
         let reportingDateString = `Start: ${rowData.reporting_start_date}\nEnd: ${rowData.reporting_end_date}`;
 
         if (!rowData.reporting_start_date || !rowData.reporting_end_date) {
@@ -229,6 +241,7 @@ export default class RecentActivityTable extends React.Component {
         ];
 
         const unpublished = rowData.publish_status === 'unpublished';
+        const certfied = rowData.certified;
         let deleteCol = false;
         let canDelete = false;
         if (this.props.type === 'fabs') {
@@ -240,7 +253,7 @@ export default class RecentActivityTable extends React.Component {
         }
         else {
             row.push(
-                <Status.SubmissionStatus status={rowData.rowStatus} certified={!unpublished} />
+                <Status.SubmissionStatus status={rowData.rowStatus} published={!unpublished} certified={certfied} />
             );
 
             deleteCol = PermissionsHelper.checkPermissions(this.props.session);
@@ -294,6 +307,7 @@ export default class RecentActivityTable extends React.Component {
                     data={this.state.data}
                     cellClasses={this.state.cellClasses}
                     headerClasses={this.state.headerClasses}
+                    rowClasses={this.state.rowClasses}
                     unsortable={[0, 2, 5, 6]}
                     onSort={this.sortTable.bind(this)} />
                 <div className="text-center">{this.state.message}</div>

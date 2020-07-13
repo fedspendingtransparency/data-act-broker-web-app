@@ -17,7 +17,9 @@ export const parseRecentActivity = (submissions) => {
         validation_errors: Status.StatusTypes.HASERRORS,
         file_errors: Status.StatusTypes.HASERRORS,
         failed: Status.StatusTypes.SERVERERROR,
-        certified: Status.StatusTypes.CERTIFIED
+        published: Status.StatusTypes.PUBLISHED,
+        certified: Status.StatusTypes.CERTIFIED,
+        updated: Status.StatusTypes.UPDATED
     };
 
     submissions.forEach((item) => {
@@ -57,14 +59,14 @@ export const parseRecentActivity = (submissions) => {
 };
 
 export const loadSubmissionList = (
-    page = 1, limit = 10, certified = false, sort = 'updated', order = 'desc', fabs = false, filters = {}) => {
+    page = 1, limit = 10, published = false, sort = 'updated', order = 'desc', fabs = false, filters = {}) => {
     const deferred = Q.defer();
 
     Request.post(`${kGlobalConstants.API}list_submissions/`)
         .send({
             page,
             limit,
-            certified: certified.toString(),
+            published: published.toString(),
             sort,
             order,
             fabs,
@@ -91,8 +93,8 @@ export const loadSubmissionList = (
 export const loadSubmissionHistory = (submissionID) => {
     const deferred = Q.defer();
 
-    Request.post(`${kGlobalConstants.API}list_certifications/`)
-        .send({ submission_id: submissionID })
+    Request.get(`${kGlobalConstants.API}list_history/?submission_id=${submissionID}`)
+        .send()
         .end((err, res) => {
             if (err) {
                 deferred.reject(err);
@@ -111,7 +113,7 @@ export const getSubmissionFile = (submissionID, certifiedFilesHistory, isWarning
     Request.post(`${kGlobalConstants.API}get_certified_file/`)
         .send({
             submission_id: submissionID,
-            certified_files_history_id: certifiedFilesHistory,
+            published_files_history_id: certifiedFilesHistory,
             is_warning: isWarning
         })
         .end((err, res) => {

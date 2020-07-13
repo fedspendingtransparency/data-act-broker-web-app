@@ -42,14 +42,14 @@ export class QuarterFilterContainer extends React.Component {
     }
 
     getLatestQuarter() {
-        DashboardHelper.fetchQuarterlyRevalidationThreshold()
+        DashboardHelper.fetchLatestPublicationPeriod()
             .then((data) => {
                 const allFy = [];
                 for (let i = data.year; i >= 2017; i--) {
                     allFy.push(i);
                 }
                 this.setState({
-                    latestQuarter: data.quarter,
+                    latestQuarter: Math.floor(data.period / 3),
                     latestYear: data.year,
                     allFy
                 });

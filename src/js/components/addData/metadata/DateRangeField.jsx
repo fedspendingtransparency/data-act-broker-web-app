@@ -1,5 +1,5 @@
 /**
-  * DateTypeField.jsx
+  * DateRangeField.jsx
   * Created by Kevin Li 5/19/16
   */
 
@@ -80,11 +80,6 @@ export default class DateRangeField extends React.Component {
             dateIcon = <Icons.Calendar />;
         }
 
-        let hideWarning = ' hide';
-        if (this.props.type === 'month') {
-            hideWarning = '';
-        }
-
         return (
             <div>
                 <div className="row usa-da-add-data-meta-label usa-da-range">
@@ -103,16 +98,6 @@ export default class DateRangeField extends React.Component {
                             {dateIcon}
                         </div>
                     </div>
-                </div>
-
-                <div className={`alert alert-info mt60 mb-0${hideWarning}`}>
-                    <span className="usa-da-icon usa-da-alert_icon ">
-                        <Icons.InfoCircle />
-                    </span>
-                    <p>
-                        You will only be able to validate data for monthly periods. You will be able to submit data if
-                        you select a quarterly duration.
-                    </p>
                 </div>
             </div>
         );

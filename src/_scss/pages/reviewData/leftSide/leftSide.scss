@@ -7,17 +7,16 @@
     margin: 0 auto;
     position: relative;
     z-index: 999;
-    & .usa-da-icon-CheckCircle {
-        width: 10rem;
+    & .usa-da-icon-check-circle {
+        width: rem(90);
         margin: 0 auto;
-        & > svg {
+        & svg {
             margin: 20px 0 0;
-            height: 10rem;
-            width: 10rem;
+            height: rem(90);
+            width: rem(90);
             position: relative;
             top: 5px;
-            fill: $color-green-light;
-            animation: rotateCheck 6s infinite;
+            color: $color-green-light;
         }
     }
     &:after {
