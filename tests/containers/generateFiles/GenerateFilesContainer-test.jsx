@@ -44,28 +44,6 @@ describe('GenerateFilesContainer', () => {
             expect(setAgencyName).toHaveBeenCalled();
         });
     });
-    describe('parseDate', () => {
-        it('should convert quarters from the API into MM/DD/YYY', () => {
-            const container = shallow(<GenerateFilesContainer {...mockProps} {...mockActions} />);
-            const date = container.instance().parseDate('Q1/1999', 'start');
-            expect(date).toEqual('10/01/1998');
-        });
-        it('should convert months from the API into date objects', () => {
-            const container = shallow(<GenerateFilesContainer {...mockProps} {...mockActions} />);
-            const date = container.instance().parseDate('03/1999', 'start');
-            expect(date).toEqual('03/01/1999');
-        });
-        it('should handle end dates for quarters', () => {
-            const container = shallow(<GenerateFilesContainer {...mockProps} {...mockActions} />);
-            const date = container.instance().parseDate('Q2/1999', 'end');
-            expect(date).toEqual('03/31/1999');
-        });
-        it('should handle end dates for months', () => {
-            const container = shallow(<GenerateFilesContainer {...mockProps} {...mockActions} />);
-            const date = container.instance().parseDate('03/1999', 'end');
-            expect(date).toEqual('03/31/1999');
-        });
-    });
     describe('handleDateChange', () => {
         it('should update the state with the new date', () => {
             const container = shallow(<GenerateFilesContainer {...mockProps} {...mockActions} />);
