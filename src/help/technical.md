@@ -1,4 +1,4 @@
-#### June 1, 2020{section=technical}
+#### July 13, 2020{section=technical}
 
 In this release, here is a list of technical changes that may require infrastructure or database updates, or represents additional functionality.
 
