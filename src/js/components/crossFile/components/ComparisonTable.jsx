@@ -60,7 +60,7 @@ export default class ComparisonTable extends React.Component {
     }
 
     render() {
-        const headers = ['Source File', 'Error Message', 'Occurrences'];
+        const headers = ['Source File', 'Rule Message', 'Occurrences'];
 
         const data = this.buildRow();
 
