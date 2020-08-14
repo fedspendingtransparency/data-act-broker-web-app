@@ -95,6 +95,10 @@ export default class AddDataContent extends React.Component {
                         <p>
                     Please stay on this page until they&apos;re complete or
                     your submission may not be created properly.
+                            <br />
+                    Depending on your bandwidth, these make take longer than an hour to upload.
+                    If they have not uploaded in forty-five minutes, please open a new tab
+                    and navigate around the broker every hour afterward to prevent you from logging out.
                         </p>
                     </div>
                 </div>
