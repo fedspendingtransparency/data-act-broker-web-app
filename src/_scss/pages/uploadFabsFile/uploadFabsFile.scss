@@ -8,6 +8,11 @@
 	@import "../../layouts/validation/validation";
 	@include validationLayout;
 
+	.alert-warning {
+		@import "../../components/alerts/_alerts";
+		@include warningAlert;
+	}
+
 	.validation-holder {
 		.alert-error {
 			@import "../../components/alerts/_alerts";
@@ -41,7 +46,8 @@
 		}
 
 		& svg.usa-da-icon-check-circle,
-	    & svg.usa-da-icon-info-circle {
+		& svg.usa-da-icon-info-circle,
+		& svg.usa-da-icon-file-upload {
 			width: rem(15);
 		    height: rem(15);
 		    position: relative;
