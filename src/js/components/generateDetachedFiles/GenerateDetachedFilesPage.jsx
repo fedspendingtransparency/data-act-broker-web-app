@@ -50,7 +50,8 @@ export default class GenerateDetachedFilesPage extends React.Component {
                 status: "",
                 jobID: null,
                 agencyType: 'awarding',
-                fileFormat: 'csv'
+                fileFormat: 'csv',
+                elementNumbers: false
             },
             d2: {
                 startDate: null,
@@ -65,7 +66,8 @@ export default class GenerateDetachedFilesPage extends React.Component {
                 status: "",
                 jobID: null,
                 agencyType: 'awarding',
-                fileFormat: 'csv'
+                fileFormat: 'csv',
+                elementNumbers: false
             }
         };
 
@@ -74,6 +76,7 @@ export default class GenerateDetachedFilesPage extends React.Component {
         this.updateError = this.updateError.bind(this);
         this.handleDateChange = this.handleDateChange.bind(this);
         this.generateFile = this.generateFile.bind(this);
+        this.clickedElementNumbersCheckbox = this.clickedElementNumbersCheckbox.bind(this);
     }
 
     componentDidMount() {
@@ -137,6 +140,16 @@ export default class GenerateDetachedFilesPage extends React.Component {
             [file]: newState
         }, () => {
             this.validateDates(file);
+        });
+    }
+
+    clickedElementNumbersCheckbox() {
+        const newState = Object.assign(this.state.d1, {
+            elementNumbers: !this.state.d1.elementNumbers
+        });
+
+        this.setState({
+            d1: newState
         });
     }
 
@@ -221,7 +234,8 @@ export default class GenerateDetachedFilesPage extends React.Component {
             start: tmpFile.startDate.format('MM/DD/YYYY'),
             end: tmpFile.endDate.format('MM/DD/YYYY'),
             agency_type: this.state[file].agencyType,
-            file_format: this.state[file].fileFormat
+            file_format: this.state[file].fileFormat,
+            element_numbers: this.state[file].elementNumbers
         };
 
         GenerateFilesHelper.generateDetachedFile(params)
@@ -321,7 +335,8 @@ export default class GenerateDetachedFilesPage extends React.Component {
                 updateError={this.updateError}
                 generateFile={this.generateFile}
                 updateFileProperty={this.updateFileProperty}
-                clickedDownload={this.clickedDownload} />);
+                clickedDownload={this.clickedDownload}
+                clickedElementNumbersCheckbox={this.clickedElementNumbersCheckbox} />);
         }
 
         return (
