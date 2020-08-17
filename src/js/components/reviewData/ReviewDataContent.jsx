@@ -208,7 +208,7 @@ export default class ReviewDataContent extends React.Component {
                 certifyButtonAction = this.openPublishAndCertifyModal;
             }
         }
-        if (checkAffiliations(this.props.session, 'writer', this.props.data.agency_name) || this.props.session.admin) {
+        if (checkAffiliations(this.props.session, 'writer', this.props.data.agency_name) || hasPubPerms) {
             revalidateButtonText = 'Revalidate';
             revalidateButtonAction = this.openRevalidateModal;
         }
