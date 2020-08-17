@@ -160,7 +160,7 @@ export default class SubmissionsTable extends React.Component {
                 case 3:
                     return 'modified';
                 case 5:
-                    return 'certified_date';
+                    return 'last_pub_or_cert';
                 default:
                     return 'modified';
             }
@@ -272,22 +272,25 @@ export default class SubmissionsTable extends React.Component {
                 userName
             ];
 
-            const publishedOn = item.published_on !== '' ? UtilHelper.convertToLocalDate(item.published_on) :
-                item.published_on;
+            const lastPubOrCert = item.last_pub_or_cert !== '' ? UtilHelper.convertToLocalDate(item.last_pub_or_cert) :
+                item.last_pub_or_cert;
             if (this.props.type === 'fabs') {
                 row = row.concat([
                     reportingDateString,
                     item.publishing_user,
-                    publishedOn
+                    lastPubOrCert
                 ]);
             }
             else {
                 row = row.concat([
                     UtilHelper.convertToLocalDate(item.last_modified),
-                    <Status.SubmissionStatus status={item.rowStatus} published={this.props.isPublished} certified={item.certified} />,
+                    <Status.SubmissionStatus
+                        status={item.rowStatus}
+                        published={this.props.isPublished}
+                        certified={item.certified} />,
                     <span>
                         {item.publishing_user}<br />
-                        {publishedOn}<br />
+                        {lastPubOrCert}<br />
                         <HistoryLink submissionId={item.submission_id} />
                     </span>
                 ]);
