@@ -17,7 +17,8 @@ const propTypes = {
     updateError: PropTypes.func,
     d1: PropTypes.object,
     d2: PropTypes.object,
-    updateFileProperty: PropTypes.func
+    updateFileProperty: PropTypes.func,
+    clickedElementNumbersCheckbox: PropTypes.func
 };
 
 const defaultProps = {
@@ -27,7 +28,8 @@ const defaultProps = {
     updateError: null,
     d1: null,
     d2: null,
-    updateFileProperty: null
+    updateFileProperty: null,
+    clickedElementNumbersCheckbox: null
 };
 
 export default class DateSelect extends React.Component {
@@ -81,6 +83,16 @@ export default class DateSelect extends React.Component {
                         fileType="d1"
                         sectionType="fileFormat" />
                 </div>
+                <div className="checkbox-wrapper">
+                    <label htmlFor="fpds-element-check">
+                        Include FPDS Element Numbers
+                    </label>
+                    <input
+                        type="checkbox"
+                        id="fpds-element-check"
+                        checked={this.props.d1.elementNumbers}
+                        onChange={this.props.clickedElementNumbersCheckbox} />
+                </div>
                 <GenerateFileBox
                     label="File D1: Procurement Awards (FPDS data)"
                     datePlaceholder="Action"
@@ -91,7 +103,6 @@ export default class DateSelect extends React.Component {
                     onDateChange={this.handleDateChange.bind(this, "d1")}
                     updateError={this.updateError.bind(this, "d1")}
                     clickedDownload={this.clickedDownload.bind(this, "d1")} />
-
                 <div className="right-align-box">
                     <button
                         className="usa-da-button btn-default"
