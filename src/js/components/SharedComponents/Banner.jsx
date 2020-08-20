@@ -22,35 +22,35 @@ export default class Banner extends React.Component {
         super(props);
 
         this.state = {
-            appWindow: []
+            bannerList: []
         };
     }
 
     componentDidMount() {
-        this.isWindow();
+        this.getBanners();
     }
 
     componentDidUpdate(prevProps) {
         if (this.props.type !== prevProps.type) {
-            this.isWindow();
+            this.getBanners();
         }
     }
 
-    isWindow() {
-        ReviewHelper.isWindow()
+    getBanners() {
+        ReviewHelper.listBanners()
             .then((res) => {
                 if (!res.data) {
                     return;
                 }
-                const appWindow = [];
+                const bannerList = [];
                 for (let i = 0; i < res.data.length; i++) {
                     if (res.data[i].type.toLowerCase() === this.props.type.toLowerCase() ||
                         res.data[i].type.toLowerCase() === 'all') {
-                        appWindow.push(res.data[i]);
+                            bannerList.push(res.data[i]);
                     }
                 }
-                if (appWindow.length !== 0) {
-                    this.setState({ appWindow });
+                if (bannerList.length !== 0) {
+                    this.setState({ bannerList });
                 }
             })
             .catch((err) => {
@@ -59,13 +59,13 @@ export default class Banner extends React.Component {
     }
 
     render() {
-        const rows = this.state.appWindow.map((window) =>
+        const rows = this.state.bannerList.map((banner) =>
             (
                 <BannerRow
-                    key={window.message}
-                    type={window.banner_type}
-                    header={window.header}
-                    message={window.message} />));
+                    key={banner.message}
+                    type={banner.banner_type}
+                    header={banner.header}
+                    message={banner.message} />));
         return (
             <div role="banner">
                 {rows}
