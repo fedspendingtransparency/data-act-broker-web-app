@@ -494,10 +494,10 @@ export const revalidateSubmission = (submissionId, d2Submission = false) => {
     return deferred.promise;
 };
 
-export const isWindow = () => {
+export const listBanners = () => {
     const deferred = Q.defer();
 
-    Request.get(`${kGlobalConstants.API}window/`)
+    Request.get(`${kGlobalConstants.API}list_banners/`)
         .end((err, res) => {
             if (err) {
                 const response = Object.assign({}, res.body);
