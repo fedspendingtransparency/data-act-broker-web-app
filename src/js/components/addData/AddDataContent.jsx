@@ -91,14 +91,16 @@ export default class AddDataContent extends React.Component {
                 <div className="container short">
                     <div className="alert alert-warning text-left" role="alert">
                         <span className="usa-da-icon usa-da-icon-file-upload"><Icons.FileUpload /></span>
-                        <div className="alert-header-text">Your files are uploading</div>
+                        <div className="alert-header-text">Please stay on this page while files upload</div>
                         <p>
-                    Please stay on this page until they&apos;re complete or
-                    your submission may not be created properly.
-                            <br />
                     Depending on your bandwidth, these make take longer than an hour to upload.
-                    If they have not uploaded in forty-five minutes, please open a new tab
-                    and navigate around the broker every hour afterward to prevent you from logging out.
+                            <br />
+                    <b>If they have not uploaded in forty-five minutes</b>, please open a new tab
+                    and navigate around the Broker every forty-five minutes to prevent being logged out
+                    and needing to restart the upload process.
+                            <br />
+                    Please stay on this page until they are complete or your submission may not be created properly.
+                            <br />
                         </p>
                     </div>
                 </div>
