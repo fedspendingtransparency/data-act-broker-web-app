@@ -236,13 +236,36 @@ export default class UploadFabsFileMeta extends React.Component {
             errorMessage = <UploadFabsFileError error={this.state.fabs.error} />;
         }
 
+        let warning = null;
+
+        if (this.props.submission.state === 'uploading') {
+            warning = (
+                <div className="container short">
+                    <div className="alert alert-warning text-left" role="alert">
+                        <span className="usa-da-icon usa-da-icon-file-upload"><Icons.FileUpload /></span>
+                        <div className="alert-header-text">Please stay on this page while files upload</div>
+                        <p>
+                            Depending on your bandwidth, these make take longer than an hour to upload.
+                            <br />
+                            <b>If they have not uploaded in forty-five minutes</b>, please open a new tab
+                            and navigate around the Broker every forty-five minutes to prevent being logged out
+                            and needing to restart the upload process.
+                            <br />
+                            Please stay on this page until they are complete or your submission may not be created properly.
+                        </p>
+                    </div>
+                </div>
+            );
+        }
+
         return (
             <div>
                 <UploadFabsFileHeader />
                 <Banner type="fabs" />
-                <div className="container center-block">
+                <div className="container center-block mt-20">
+                    {warning}
                     <div className="row usa-da-select-agency">
-                        <div className="col-lg-offset-2 col-lg-8 mt-60 mb-60">
+                        <div className="col-lg-offset-2 col-lg-8 mb-60">
                             <h5>Please begin by telling us about files you would like to upload</h5>
                             <div className="select-agency-holder">
                                 <div>

@@ -70,5 +70,23 @@
         .right-align-box {
             text-align: right;
         }
+
+        .checkbox-wrapper {
+            text-align: left;
+            margin-left: 33%;
+            margin-bottom: rem(7);
+            padding-top: rem(10);
+            border-top: 1px $color-gray-warm-light dashed;
+
+            input[type="checkbox"] {
+                margin-left: rem(5);
+                vertical-align: middle;
+            }
+
+            label {
+                vertical-align: text-top;
+                line-height: rem(25);
+            }
+        }
     }
 }
