@@ -17,7 +17,8 @@ const propTypes = {
     stagedFilters: PropTypes.object,
     appliedFilters: PropTypes.object,
     toggleDashboardFilter: PropTypes.func,
-    updateDashboardFilter: PropTypes.func,
+    updateDashboardObjectFilter: PropTypes.func,
+    updateDashboardStringFilter: PropTypes.func,
     type: PropTypes.string,
     table: PropTypes.string,
     updateFilterCount: PropTypes.func
@@ -27,7 +28,8 @@ const defaultProps = {
     stagedFilters: {},
     appliedFilters: {},
     toggleDashboardFilter: null,
-    updateDashboardFilter: null,
+    updateDashboardObjectFilter: null,
+    updateDashboardStringFilter: null,
     type: '',
     table: '',
     updateFilterCount: null
@@ -85,6 +87,12 @@ export class FilterBarContainer extends React.Component {
             filters = filters.concat(agencyFilters);
         }
 
+        // prepare the submissionType filter
+        const submissionTypeFilters = this.prepareSubmissionType(props);
+        if (submissionTypeFilters) {
+            filters = filters.concat(submissionTypeFilters);
+        }
+
         // prepare the createdBy filters
         const createdByFilters = this.prepareCreatedBy(props);
         if (createdByFilters) {
@@ -135,6 +143,17 @@ export class FilterBarContainer extends React.Component {
                 value: agency,
                 group: 'agencies'
             }));
+        }
+        return null;
+    }
+
+    prepareSubmissionType(props) {
+        if (props.submissionType !== '') {
+            return {
+                name: `${props.submissionType} Submissions`,
+                value: props.submissionType,
+                group: 'submissionType'
+            };
         }
         return null;
     }

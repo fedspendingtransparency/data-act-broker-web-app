@@ -1,5 +1,6 @@
 export const mockActions = {
-    updateDashboardFilter: jest.fn(),
+    updateDashboardObjectFilter: jest.fn(),
+    updateDashboardStringFilter: jest.fn(),
     toggleDashboardFilter: jest.fn(),
     resetAppliedFilters: jest.fn(),
     resetDashboardFilters: jest.fn()
