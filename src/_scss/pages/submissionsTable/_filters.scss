@@ -13,7 +13,7 @@
         @include display(flex);
         @include flex(0 0 auto);
         @include align-items(center);
-        padding-right: rem(15);
+        padding-right: rem(10);
         color: $color-white;
         .filter-icon {
             height: rem(14);

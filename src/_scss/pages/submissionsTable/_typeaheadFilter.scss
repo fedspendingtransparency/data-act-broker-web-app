@@ -66,7 +66,8 @@
       color: $color-white;
       background-color: transparent;
       width: 120px;
-      height: 32px;
+      padding: rem(5);
+      font-size: rem(13);
     }
     .btn .caret {
       margin-left: 5px;
@@ -75,7 +76,7 @@
       background-color: $color-gray-dark;
       border: 0;
       border-radius: 0;
-      font-size: rem(14);
+      font-size: rem(13);
       font-weight: 600;
     }
     .dropdown-menu {
@@ -102,6 +103,23 @@
         border-radius: 0 !important;
         width: auto;
         margin-right: rem(10);
+      }
+      &.submission-type-dropdown {
+        padding: 0;
+        li {
+          margin: 0;
+          &:after {
+            margin: 0;
+          }
+        }
+        button {
+          @include button-unstyled;
+          padding: rem(7.5);
+          width: 100%;
+          &:hover {
+            background-color: $color-gray-warm-light;
+          }
+        }
       }
     }
     .typeahead-warning {

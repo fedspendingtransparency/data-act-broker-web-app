@@ -149,8 +149,9 @@ export class FilterBarContainer extends React.Component {
 
     prepareSubmissionType(props) {
         if (props.submissionType !== '') {
+            const subType = `${props.submissionType.charAt(0).toUpperCase()}${props.submissionType.slice(1)}`;
             return {
-                name: `${props.submissionType} Submissions`,
+                name: `${subType} Submissions`,
                 value: props.submissionType,
                 group: 'submissionType'
             };

@@ -85,7 +85,7 @@ export default class SubmissionTypeFilterDropdown extends React.Component {
                     <span className="caret" />
                 </button>
                 <ul
-                    className="dropdown-menu"
+                    className="dropdown-menu submission-type-dropdown"
                     style={this.state.dropdownopen ? { display: 'block' } : { display: 'none' }}
                     aria-labelledby="submissiontypedropdown">
                     <li>
