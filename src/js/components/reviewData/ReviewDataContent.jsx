@@ -24,13 +24,15 @@ const propTypes = {
     session: PropTypes.object,
     submissionID: PropTypes.string,
     testSubmission: PropTypes.bool,
-    loadData: PropTypes.func
+    loadData: PropTypes.func,
+    submission: PropTypes.object
 };
 
 const defaultProps = {
     data: null,
     session: null,
-    submissionID: ''
+    submissionID: '',
+    submission: null
 };
 
 export default class ReviewDataContent extends React.Component {
@@ -148,6 +150,7 @@ export default class ReviewDataContent extends React.Component {
         let publishButtonAction;
         let certifyButtonAction;
         let revalidateButtonAction;
+        let notifyButtonAction = this.openNotifyModal;
         let testSubmissionError = null;
         let twoButtons = false;
         let certifyIcon = <FontAwesomeIcon icon="globe-americas" />;
@@ -211,6 +214,18 @@ export default class ReviewDataContent extends React.Component {
         if (checkAffiliations(this.props.session, 'writer', this.props.data.agency_name) || this.props.session.admin) {
             revalidateButtonText = 'Revalidate';
             revalidateButtonAction = this.openRevalidateModal;
+        }
+
+        if (this.props.submission.publishStatus === 'reverting') {
+            revalidateButtonAction = null;
+            publishButtonAction = null;
+            certifyButtonAction = null;
+            notifyButtonAction = null;
+            revalidateButtonText = 'Cannot revalidate while reverting';
+            publishButtonText = 'Cannot publish while reverting';
+            certifyButtonText = 'Cannot certify while reverting';
+            publishButtonClass = ' btn-disabled';
+            certifyButtonClass = ' btn-disabled';
         }
 
         const middleButtons = [];
@@ -291,7 +306,8 @@ export default class ReviewDataContent extends React.Component {
                                 <ReviewDataNarrative
                                     narrative={this.props.data.file_narrative}
                                     submissionID={this.props.submissionID}
-                                    loadData={this.props.loadData} />
+                                    loadData={this.props.loadData}
+                                    publishStatus={this.props.submission.publishStatus} />
                             </div>
                             <div className="row submission-button-holder">
                                 <div className="submission-wrapper">
@@ -313,7 +329,8 @@ export default class ReviewDataContent extends React.Component {
                                     {middleButtons}
                                     <div className="right-link">
                                         <button
-                                            onClick={this.openNotifyModal}
+                                            onClick={notifyButtonAction}
+                                            disabled={!notifyButtonAction}
                                             className="usa-da-button btn-primary btn-lg btn-full last">
                                             <div className="button-wrapper">
                                                 <div className="button-icon">

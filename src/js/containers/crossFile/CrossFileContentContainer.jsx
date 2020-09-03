@@ -22,7 +22,8 @@ const propTypes = {
     setSubmissionState: PropTypes.func,
     errorFromStep: PropTypes.func,
     submission: PropTypes.object,
-    submissionID: PropTypes.string
+    submissionID: PropTypes.string,
+    publishStatus: PropTypes.string
 };
 
 const defaultProps = {
@@ -30,7 +31,8 @@ const defaultProps = {
     setCrossFile: () => {},
     setSubmissionState: () => {},
     submission: {},
-    submissionID: ''
+    submissionID: '',
+    publishStatus: ''
 };
 
 const timerDuration = 10;

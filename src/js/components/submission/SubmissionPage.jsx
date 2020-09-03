@@ -55,7 +55,12 @@ export default class SubmissionPage extends React.Component {
                 content = <GenerateFilesContainer submissionID={submissionID} errorFromStep={this.props.errorFromStep} />;
                 break;
             case 3:
-                content = <CrossFileContentContainer submissionID={submissionID} errorFromStep={this.props.errorFromStep} />;
+                content = (
+                    <CrossFileContentContainer
+                        submissionID={submissionID}
+                        errorFromStep={this.props.errorFromStep}
+                        publishStatus={submissionInfo.publish_status} />
+                );
                 break;
             case 4:
                 content = <GenerateEFContainer submissionID={submissionID} errorFromStep={this.props.errorFromStep} />;
