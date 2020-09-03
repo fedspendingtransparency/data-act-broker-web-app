@@ -61,58 +61,80 @@
         }
     }
 
-  .filterdropdown {
-    .btn-default {
-      color: $color-white;
-      background-color: transparent;
-      width: 120px;
-      height: 32px;
-    }
-    .btn .caret {
-      margin-left: 5px;
-    }
-    .active {
-      background-color: $color-gray-dark;
-      border: 0;
-      border-radius: 0;
-      font-size: rem(14);
-      font-weight: 600;
-    }
-    .dropdown-menu {
-      padding: rem(12.5) rem(10) rem(5) rem(10);
-      margin-top: rem(14);
-      border-radius: 0;
-      li {
-        display: block;
-      }
-      li:after {
-        margin-bottom: rem(10);
-      }
-      li::before {
-        display: none;
-      }
-      .divider {
-        width: 100%;
-        &:after {
-          margin-bottom: 0;
+    .filterdropdown {
+        .btn-default {
+            color: $color-white;
+            background-color: transparent;
+            width: 120px;
+            padding: rem(5);
+            font-size: rem(13);
         }
-      }
-      input {
-        display: inline;
-        border-radius: 0 !important;
-        width: auto;
-        margin-right: rem(10);
-      }
+        .btn .caret {
+            margin-left: 5px;
+        }
+        .active {
+            background-color: $color-gray-dark;
+            border: 0;
+            border-radius: 0;
+            font-size: rem(13);
+            font-weight: 600;
+        }
+        .dropdown-menu {
+            padding: rem(12.5) rem(10) rem(5) rem(10);
+            margin-top: rem(14);
+            border-radius: 0;
+            li {
+                display: block;
+            }
+            li:after {
+                margin-bottom: rem(10);
+            }
+            li::before {
+                display: none;
+            }
+            .divider {
+                width: 100%;
+                &:after {
+                    margin-bottom: 0;
+                }
+            }
+            input {
+                display: inline;
+                border-radius: 0 !important;
+                width: auto;
+                margin-right: rem(10);
+            }
+            &.submission-type-dropdown {
+                padding: 0;
+                li {
+                    margin: 0;
+                    &:after {
+                        margin: 0;
+                    }
+                }
+                button {
+                    @include button-unstyled;
+                    padding: rem(7.5);
+                    width: 100%;
+                    &:hover, &:focus {
+                        background-color: $color-gray-warm-light;
+                    }
+                }
+            }
+        }
+        .typeahead-warning {
+            position: relative;
+        }
+        .usa-da-typeahead .alert-error {
+            .alert-header-text {
+            color: $color-secondary;
+            position: relative;
+            bottom: rem(2);
+            }
+        }
     }
-    .typeahead-warning {
-      position: relative;
+
+    &.agency-name {
+        width: rem(150);
     }
-    .usa-da-typeahead .alert-error {
-      .alert-header-text {
-        color: $color-secondary;
-        position: relative;
-        bottom: rem(2);
-      }
-    }
-  }
 }

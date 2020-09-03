@@ -13,6 +13,7 @@ import FileNameFilter from './filters/FileNameFilter';
 import AgencyFilter from './filters/AgencyFilter';
 import CreatedByFilter from './filters/CreatedByFilter';
 import LastDateModifiedFilter from './filters/LastDateModifiedFilter';
+import SubmissionTypeFilter from './filters/SubmissionTypeFilter';
 
 const propTypes = {
     toggleFilter: PropTypes.func,
@@ -44,6 +45,11 @@ export default class SubmissionsTableFilters extends React.Component {
     }
 
     render() {
+        let submissionTypeFilter = null;
+        // test submissions only exist in the DABS active table so we only need that filter there
+        if (this.props.table === 'active' && this.props.type === 'dabs') {
+            submissionTypeFilter = <SubmissionTypeFilter updateFilterList={this.updateFilterList} />;
+        }
         return (
             <div className="dashboard-filters">
                 <div className="dashboard-filters__label">
@@ -62,6 +68,7 @@ export default class SubmissionsTableFilters extends React.Component {
                 <SubmissionIdFilter
                     table={this.props.table}
                     updateFilterList={this.updateFilterList} />
+                {submissionTypeFilter}
                 <CreatedByFilter
                     type={this.props.type}
                     table={this.props.table}
