@@ -44,7 +44,8 @@ export class SubmitButtonContainer extends React.Component {
         if (prevProps.stagedFilters[this.props.type] !== this.props.stagedFilters[this.props.type]) {
             this.stagingChanged();
         }
-        else if (prevProps.appliedFilters.filters[this.props.type] !== this.props.appliedFilters.filters[this.props.type]) {
+        else if (prevProps.appliedFilters.filters[this.props.type]
+            !== this.props.appliedFilters.filters[this.props.type]) {
             this.stagingChanged();
         }
     }
@@ -65,7 +66,8 @@ export class SubmitButtonContainer extends React.Component {
         // is equal (using Immutable's equality check utilty function) in both stores
         return storeKeys.every((key) => (
             {}.hasOwnProperty.call(this.props.appliedFilters.filters[this.props.type], key) &&
-                is(this.props.appliedFilters.filters[this.props.type][key], this.props.stagedFilters[this.props.type][key])
+                is(this.props.appliedFilters.filters[this.props.type][key],
+                    this.props.stagedFilters[this.props.type][key])
         ));
     }
 

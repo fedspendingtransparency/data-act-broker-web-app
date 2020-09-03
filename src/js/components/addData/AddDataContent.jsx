@@ -99,7 +99,8 @@ export default class AddDataContent extends React.Component {
                             and navigate around the Broker every forty-five minutes to prevent being logged out
                             and needing to restart the upload process.
                             <br />
-                            Please stay on this page until they are complete or your submission may not be created properly.
+                            Please stay on this page until they are complete or your submission may not be created
+                            properly.
                         </p>
                     </div>
                 </div>
