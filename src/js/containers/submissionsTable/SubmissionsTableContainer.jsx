@@ -22,7 +22,8 @@ const combinedActions = Object.assign({}, dashboardFilterActions, {
 const propTypes = {
     type: PropTypes.oneOf(['dabs', 'fabs']),
     toggleDashboardFilter: PropTypes.func,
-    updateDashboardFilter: PropTypes.func,
+    updateDashboardObjectFilter: PropTypes.func,
+    updateDashboardStringFilter: PropTypes.func,
     stagedFilters: PropTypes.object,
     appliedFilters: PropTypes.object,
     resetDashboardFilters: PropTypes.func,
@@ -32,7 +33,8 @@ const propTypes = {
 const defaultProps = {
     type: 'dabs',
     toggleDashboardFilter: null,
-    updateDashboardFilter: null,
+    updateDashboardObjectFilter: null,
+    updateDashboardStringFilter: null,
     stagedFilters: {},
     appliedFilters: {},
     resetDashboardFilters: null,
@@ -108,6 +110,10 @@ export class SubmissionsTableContainer extends React.Component {
                     start_date: appliedFilters.lastDateModified.startDate,
                     end_date: appliedFilters.lastDateModified.endDate
                 };
+            }
+
+            if (appliedFilters.submissionType && appliedFilters.submissionType !== '') {
+                filters.submission_type = appliedFilters.submissionType;
             }
         }
 
