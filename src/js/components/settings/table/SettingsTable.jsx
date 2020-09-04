@@ -79,9 +79,12 @@ export default class SettingsTable extends React.Component {
                                                     snapshot.isDragging,
                                                     provided.draggableProps.style
                                                 )}>
-                                                <td style={{ width: "20%" }} className="settings-table__data settings-table__data_significance">
+                                                <td
+                                                    style={{ width: "20%" }}
+                                                    className="settings-table__data settings-table__data_significance">
                                                     <FontAwesomeIcon icon="bars" />
-                                                    {index + 1}.<span className="settings-table__rule">{row.label}</span>
+                                                    {index + 1}.
+                                                    <span className="settings-table__rule">{row.label}</span>
                                                 </td>
                                                 <td style={{ width: "20%" }} className="settings-table__data">
                                                     <ImpactDropdown

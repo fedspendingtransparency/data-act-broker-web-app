@@ -23,7 +23,8 @@ const propTypes = {
     submission: PropTypes.object,
     agencyName: PropTypes.string,
     status: PropTypes.string,
-    submissionID: PropTypes.string
+    submissionID: PropTypes.string,
+    publishStatus: PropTypes.string
 };
 
 const defaultProps = {
@@ -33,7 +34,8 @@ const defaultProps = {
     submission: null,
     agencyName: '',
     status: '',
-    submissionID: ''
+    submissionID: '',
+    publishStatus: ''
 };
 
 const dFiles = ['d1', 'd2'];
@@ -243,7 +245,8 @@ export default class ErrorBox extends React.Component {
         }
         let uploadHeader = null;
         let upload = null;
-        if (PermissionsHelper.checkAgencyPermissions(this.props.session, this.props.agencyName)) {
+        if (PermissionsHelper.checkAgencyPermissions(this.props.session, this.props.agencyName)
+            && this.props.publishStatus !== 'reverting') {
             uploadHeader = 'Upload Corrected Files';
             upload = (
                 <div>
@@ -280,6 +283,7 @@ export default class ErrorBox extends React.Component {
                                             <button
                                                 href="#"
                                                 onClick={this.clickedReport.bind(this, reportWarning)}
+                                                disabled={this.props.publishStatus === 'reverting'}
                                                 className="usa-da-button btn-full btn-primary">
                                                 {downloadLabel}
                                             </button>

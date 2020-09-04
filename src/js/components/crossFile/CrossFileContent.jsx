@@ -13,13 +13,15 @@ const propTypes = {
     reloadData: PropTypes.func,
     uploadFiles: PropTypes.func,
     submission: PropTypes.object,
-    submissionID: PropTypes.string
+    submissionID: PropTypes.string,
+    publishStatus: PropTypes.string
 };
 
 const defaultProps = {
     reloadData: null,
     uploadFiles: null,
-    submission: null
+    submission: null,
+    publishStatus: ''
 };
 
 export default class CrossFileContent extends React.Component {

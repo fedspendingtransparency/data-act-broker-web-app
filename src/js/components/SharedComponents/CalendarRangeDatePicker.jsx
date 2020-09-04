@@ -112,17 +112,33 @@ export default class CalendarRangeDatePicker extends React.Component {
     render() {
         return (
             <div className="dropdown filterdropdown" ref={this.setDropdownNodeRef}>
-                <button onClick={this.onDropdownChange} className={this.state.dropdownopen ? 'btn btn-default dropdown-toggle active' : 'btn btn-default dropdown-toggle'} type="button" id="createdbydropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+                <button
+                    onClick={this.onDropdownChange}
+                    className={this.state.dropdownopen ?
+                        'btn btn-default dropdown-toggle active' : 'btn btn-default dropdown-toggle'}
+                    type="button"
+                    id="createdbydropdown"
+                    data-toggle="dropdown"
+                    aria-haspopup="true"
+                    aria-expanded="true">
                     Last Modified
                     <span className="caret" />
                 </button>
-                <ul className="dropdown-menu calendar-range-datepicker" style={this.state.dropdownopen ? { display: 'block' } : { display: 'none' }} aria-labelledby="createdbydropdown">
+                <ul
+                    className="dropdown-menu calendar-range-datepicker"
+                    style={this.state.dropdownopen ? { display: 'block' } : { display: 'none' }}
+                    aria-labelledby="createdbydropdown">
                     <li>
                         <div className="RangeCalendarRangeDatePicker">
                             {this.drawDatePicker()}
                         </div>
                         <div className="button-bar">
-                            <button className="btn btn-primary" disabled={!this.state.to} onClick={this.sendToFilters}> Add Filter</button>
+                            <button
+                                className="btn btn-primary"
+                                disabled={!this.state.to}
+                                onClick={this.sendToFilters}>
+                                Add Filter
+                            </button>
                         </div>
                     </li>
                 </ul>
