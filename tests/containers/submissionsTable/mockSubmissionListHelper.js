@@ -10,7 +10,7 @@ const mockSubmissions= {
             status: "waiting",
             publish_status: "unpublished",
             last_modified: "1999-10-29 17:59:11.771504",
-            published_on: "",
+            last_pub_or_cert: "",
             user: {
                 user_id: 1,
                 name: "George Washington"
@@ -35,7 +35,7 @@ const mockSubmissions= {
             status: "waiting",
             publish_status: "unpublished",
             last_modified: "2000-01-01 16:59:11.771504",
-            published_on: "",
+            last_pub_or_cert: "",
             user: {
                 user_id: 2,
                 name: "John Adams"
