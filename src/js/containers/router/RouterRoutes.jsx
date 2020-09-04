@@ -131,13 +131,13 @@ const getRoutes = () => {
         },
         {
             path: '/dashboard/:type',
-            onEnter: checkUserPermissions,
+            authFn: checkUserPermissions,
             component: Dashboard,
             type: 'dabs'
         },
         {
             path: '/dashboard',
-            onEnter: checkUserPermissions,
+            authFn: checkUserPermissions,
             component: Dashboard,
             type: 'dabs'
         }
