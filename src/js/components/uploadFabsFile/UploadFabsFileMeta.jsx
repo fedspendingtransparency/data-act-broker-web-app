@@ -245,7 +245,7 @@ export default class UploadFabsFileMeta extends React.Component {
                         <span className="usa-da-icon usa-da-icon-file-upload"><Icons.FileUpload /></span>
                         <div className="alert-header-text">Please stay on this page while files upload</div>
                         <p>
-                            Depending on your bandwidth, these make take longer than an hour to upload.
+                            Depending on your bandwidth, these may take longer than an hour to upload.
                             <br />
                             <b>If they have not uploaded in forty-five minutes</b>, please open a new tab
                             and navigate around the Broker every forty-five minutes to prevent being logged out
