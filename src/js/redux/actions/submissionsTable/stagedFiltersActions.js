@@ -3,8 +3,16 @@
  * Created by Lizzie Salita 8/10/18
  */
 
-export const updateDashboardFilter = (state) => ({
-    type: 'UPDATE_DASHBOARD_FILTER',
+export const updateDashboardObjectFilter = (state) => ({
+    type: 'UPDATE_DASHBOARD_OBJECT_FILTER',
+    dashboard: state.dashboard,
+    table: state.table,
+    filter: state.filter,
+    value: state.value
+});
+
+export const updateDashboardStringFilter = (state) => ({
+    type: 'UPDATE_DASHBOARD_STRING_FILTER',
     dashboard: state.dashboard,
     table: state.table,
     filter: state.filter,

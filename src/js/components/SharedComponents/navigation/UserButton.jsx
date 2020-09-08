@@ -2,7 +2,6 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { kGlobalConstants } from 'GlobalConstants';
 
 const propTypes = {
     logout: PropTypes.func,

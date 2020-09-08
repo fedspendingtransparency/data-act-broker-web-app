@@ -14,11 +14,13 @@ import ReviewDataNarrativeTextfield from './ReviewDataNarrativeTextfield';
 
 const propTypes = {
     submissionID: PropTypes.string,
-    loadData: PropTypes.func
+    loadData: PropTypes.func,
+    publishStatus: PropTypes.string
 };
 
 const defaultProps = {
-    submissionID: ''
+    submissionID: '',
+    publishStatus: ''
 };
 
 export default class ReviewDataNarrative extends React.Component {
@@ -114,6 +116,21 @@ export default class ReviewDataNarrative extends React.Component {
 
     render() {
         const onKeyDownHandler = createOnKeyDownHandler(this.downloadCommentsFile);
+        let downloadButton = (
+            <div
+                role="button"
+                tabIndex={0}
+                className="usa-da-download pull-right"
+                onKeyDown={onKeyDownHandler}
+                onClick={this.downloadCommentsFile}>
+                <span className="usa-da-icon usa-da-download-report">
+                    <CloudDownload />
+                </span>Download Comments for All Files (.csv)
+            </div>
+        );
+        if (this.props.publishStatus === 'reverting') {
+            downloadButton = null;
+        }
         return (
             <div className="narrative-wrapper">
                 <div className="gray-bg">
@@ -125,16 +142,7 @@ export default class ReviewDataNarrative extends React.Component {
                                 currentFile={this.state.currentFile} />
                         </div>
                         <div className="col-md-5 pull-right">
-                            <div
-                                role="button"
-                                tabIndex={0}
-                                className="usa-da-download pull-right"
-                                onKeyDown={onKeyDownHandler}
-                                onClick={this.downloadCommentsFile}>
-                                <span className="usa-da-icon usa-da-download-report">
-                                    <CloudDownload />
-                                </span>Download Comments for All Files (.csv)
-                            </div>
+                            {downloadButton}
                         </div>
                     </div>
                     <ReviewDataNarrativeTextfield
@@ -142,7 +150,10 @@ export default class ReviewDataNarrative extends React.Component {
                         textChanged={this.textChanged} />
                     <div className="row">
                         <div className="col-md-12">
-                            <button onClick={this.saveNarrative} className="usa-da-button btn-default">
+                            <button
+                                onClick={this.saveNarrative}
+                                className="usa-da-button btn-default"
+                                disabled={this.props.publishStatus === 'reverting'}>
                                 Save Changes
                             </button>
                             <p className={`save-state ${this.state.saveState}`}>

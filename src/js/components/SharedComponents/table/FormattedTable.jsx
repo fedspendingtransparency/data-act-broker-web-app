@@ -55,7 +55,13 @@ export default class FormattedTable extends React.Component {
     render() {
         const tableRows = [];
         for (let i = 0; i < this.props.data.length; i++) {
-            tableRows.push(<TableRow key={i} data={this.props.data[i]} cellClasses={this.props.cellClasses[i]} rowClass={this.props.rowClasses[i]} />);
+            tableRows.push(
+                <TableRow
+                    key={i}
+                    data={this.props.data[i]}
+                    cellClasses={this.props.cellClasses[i]}
+                    rowClass={this.props.rowClasses[i]} />
+            );
         }
         return (
             <div className="usa-da-formatted-table">

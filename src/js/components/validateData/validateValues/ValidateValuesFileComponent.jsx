@@ -246,8 +246,9 @@ export default class ValidateValuesFileComponent extends React.Component {
         let validationElement = '';
         let isOptional = false;
         let uploadText = 'Choose Corrected File';
-        if ((this.props.published === 'unpublished' || !this.props.published) && this.state.permission) {
-            // user has permissions and submission is not published
+        if ((this.props.published === 'unpublished' || !this.props.published) && this.state.permission
+            && this.props.submission.publishStatus !== 'reverting') {
+            // user has permissions and submission is not published (second part only relevant for FABS submissions)
             if (this.state.hasErrors) {
                 // has errors
                 validationElement = (
@@ -294,7 +295,8 @@ export default class ValidateValuesFileComponent extends React.Component {
         let errorSection = null;
         if (this.state.showWarning) {
             warningSection = (<ValidateValuesErrorReport
-                submission={this.props.submission.id}
+                submissionId={this.props.submission.id}
+                publishStatus={this.props.submission.publishStatus}
                 fileType={this.props.item.file_type}
                 reportType="warning"
                 data={this.props.item}
@@ -304,13 +306,31 @@ export default class ValidateValuesFileComponent extends React.Component {
         }
         if (this.state.showError) {
             errorSection = (<ValidateValuesErrorReport
-                submission={this.props.submission.id}
+                submissionId={this.props.submission.id}
+                publishStatus={this.props.submission.publishStatus}
                 fileType={this.props.item.file_type}
                 reportType="error"
                 data={this.props.item}
                 dataKey="error_data"
                 name="Critical Error"
                 colors={errorBaseColors} />);
+        }
+
+        let downloadClick = (
+            <div
+                role="button"
+                tabIndex={0}
+                className="file-download"
+                onKeyDown={onKeyDownHandler}
+                onClick={this.clickedReport}
+                download={fileName}
+                rel="noopener noreferrer">
+                <p className="file-text-header">Original Submitted File:</p>
+                {fileName}
+            </div>
+        );
+        if (this.props.submission.publishStatus === 'reverting') {
+            downloadClick = <div>{fileName}</div>;
         }
 
         const { size, rows } = this.displayFileMeta();
@@ -360,17 +380,7 @@ export default class ValidateValuesFileComponent extends React.Component {
                                 </div>
                             </div>
                             <div className="row usa-da-validate-item-file-name">
-                                <div
-                                    role="button"
-                                    tabIndex={0}
-                                    className="file-download"
-                                    onKeyDown={onKeyDownHandler}
-                                    onClick={this.clickedReport}
-                                    download={fileName}
-                                    rel="noopener noreferrer">
-                                    <p className="file-text-header">Original Submitted File:</p>
-                                    {fileName}
-                                </div>
+                                {downloadClick}
                             </div>
                             {uploadProgress}
                             {validationElement}

@@ -10,7 +10,8 @@ import TagItem from './TagItem';
 const propTypes = {
     filters: PropTypes.array,
     toggleDashboardFilter: PropTypes.func,
-    updateDashboardFilter: PropTypes.func,
+    updateDashboardObjectFilter: PropTypes.func,
+    updateDashboardStringFilter: PropTypes.func,
     type: PropTypes.string,
     table: PropTypes.string,
     applied: PropTypes.bool
@@ -19,7 +20,8 @@ const propTypes = {
 const defaultProps = {
     filters: [],
     toggleDashboardFilter: null,
-    updateDashboardFilter: null,
+    updateDashboardObjectFilter: null,
+    updateDashboardStringFilter: null,
     type: '',
     table: '',
     applied: false
@@ -34,7 +36,15 @@ export default class FilterBar extends React.Component {
 
     toggleFilter(filter, value) {
         if (filter === 'lastDateModified') {
-            this.props.updateDashboardFilter({
+            this.props.updateDashboardObjectFilter({
+                dashboard: this.props.type,
+                table: this.props.table,
+                filter,
+                value
+            });
+        }
+        else if (filter === 'submissionType') {
+            this.props.updateDashboardStringFilter({
                 dashboard: this.props.type,
                 table: this.props.table,
                 filter,

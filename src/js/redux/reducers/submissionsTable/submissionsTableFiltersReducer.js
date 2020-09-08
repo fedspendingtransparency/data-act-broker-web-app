@@ -15,7 +15,8 @@ export const initialState = {
             lastDateModified: {
                 startDate: '',
                 endDate: ''
-            }
+            },
+            submissionType: ''
         },
         published: {
             agencies: [],
@@ -85,7 +86,7 @@ const defaultObjectValues = {
 
 export const submissionsTableFiltersReducer = (state = initialState, action) => {
     switch (action.type) {
-        case 'UPDATE_DASHBOARD_FILTER': {
+        case 'UPDATE_DASHBOARD_OBJECT_FILTER': {
             let filterObject;
             const Objectlist = action.value;
             const prevFilter = state[action.dashboard][action.table][action.filter];
@@ -97,6 +98,26 @@ export const submissionsTableFiltersReducer = (state = initialState, action) => 
             }
             const table = Object.assign({}, state[action.dashboard][action.table], {
                 [action.filter]: filterObject
+            });
+
+            const dashboard = Object.assign({}, state[action.dashboard], {
+                [action.table]: table
+            });
+
+            return Object.assign({}, state, {
+                [action.dashboard]: dashboard
+            });
+        }
+        case 'UPDATE_DASHBOARD_STRING_FILTER': {
+            let newVal = action.value;
+            const prevVal = state[action.dashboard][action.table][action.filter];
+
+            if (newVal === prevVal) {
+                newVal = '';
+            }
+
+            const table = Object.assign({}, state[action.dashboard][action.table], {
+                [action.filter]: newVal
             });
 
             const dashboard = Object.assign({}, state[action.dashboard], {

@@ -21,7 +21,8 @@ const propTypes = {
     fileType: PropTypes.string,
     name: PropTypes.string,
     reportType: PropTypes.string,
-    submission: PropTypes.string
+    submissionId: PropTypes.string,
+    publishStatus: PropTypes.string
 };
 
 const defaultProps = {
@@ -31,7 +32,8 @@ const defaultProps = {
     fileType: '',
     name: '',
     reportType: '',
-    submission: ''
+    submissionId: '',
+    publishStatus: ''
 };
 
 export default class ValidateValuesErrorReport extends React.Component {
@@ -124,7 +126,7 @@ export default class ValidateValuesErrorReport extends React.Component {
     }
 
     signReport() {
-        ReviewHelper.submissionReport(this.props.submission, this.props.reportType === 'warning', this.props.fileType)
+        ReviewHelper.submissionReport(this.props.submissionId, this.props.reportType === 'warning', this.props.fileType)
             .then((data) => {
                 this.setState({
                     signInProgress: false,
@@ -168,6 +170,21 @@ export default class ValidateValuesErrorReport extends React.Component {
             reportLinkText = `Preparing ${this.props.name}s Report...`;
         }
 
+        let downloadLink = (
+            <div
+                role="button"
+                tabIndex={0}
+                className="usa-da-download pull-right"
+                onKeyDown={onKeyDownHandler}
+                onClick={this.clickedReport}>
+                <span className="usa-da-icon usa-da-download-report"><Icons.CloudDownload /></span>
+                {reportLinkText}
+            </div>
+        );
+        if (this.props.publishStatus === 'reverting') {
+            downloadLink = null;
+        }
+
         return (
             <div className="row usa-da-validate-item-bottom-section">
                 <div className="usa-da-validate-error-report">
@@ -176,15 +193,7 @@ export default class ValidateValuesErrorReport extends React.Component {
                             <h6>{this.props.name}s</h6>
                         </div>
                         <div className="col-md-3">
-                            <div
-                                role="button"
-                                tabIndex={0}
-                                className="usa-da-download pull-right"
-                                onKeyDown={onKeyDownHandler}
-                                onClick={this.clickedReport}>
-                                <span className="usa-da-icon usa-da-download-report"><Icons.CloudDownload /></span>
-                                {reportLinkText}
-                            </div>
+                            {downloadLink}
                         </div>
                         <div className="col-md-12">
                             {this.state.table}

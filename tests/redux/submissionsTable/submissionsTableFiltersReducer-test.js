@@ -6,12 +6,12 @@
 import { submissionsTableFiltersReducer, initialState } from 'redux/reducers/submissionsTable/submissionsTableFiltersReducer';
 
 describe('submissionsTableFiltersReducer', () => {
-    describe('UPDATE_DASHBOARD_FILTER', () => {
+    describe('UPDATE_DASHBOARD_OBJECT_FILTER', () => {
         it('should update the filter for the given type and table to the provided value', () => {
             let state = submissionsTableFiltersReducer(undefined, {});
 
             const action = {
-                type: 'UPDATE_DASHBOARD_FILTER',
+                type: 'UPDATE_DASHBOARD_OBJECT_FILTER',
                 dashboard: 'dabs',
                 table: 'active',
                 filter: 'lastDateModified',
@@ -25,6 +25,23 @@ describe('submissionsTableFiltersReducer', () => {
 
             expect(state.dabs.active.lastDateModified.startDate).toEqual("1999-01-02");
             expect(state.dabs.active.lastDateModified.endDate).toEqual("1999-03-04");
+        });
+    });
+    describe('UPDATE_DASHBOARD_STRING_FILTER', () => {
+        it('should update the filter for the given type and table to the provided value', () => {
+            let state = submissionsTableFiltersReducer(undefined, {});
+
+            const action = {
+                type: 'UPDATE_DASHBOARD_STRING_FILTER',
+                dashboard: 'dabs',
+                table: 'active',
+                filter: 'submissionType',
+                value: 'test'
+            };
+
+            state = submissionsTableFiltersReducer(state, action);
+
+            expect(state.dabs.active.submissionType).toEqual("test");
         });
     });
     describe('TOGGLE_DASHBOARD_FILTER', () => {

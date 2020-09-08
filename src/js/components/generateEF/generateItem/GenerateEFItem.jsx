@@ -11,14 +11,16 @@ const propTypes = {
     description: PropTypes.string,
     title: PropTypes.string,
     type: PropTypes.string,
-    comingSoon: PropTypes.bool
+    comingSoon: PropTypes.bool,
+    publishStatus: PropTypes.string
 };
 
 const defaultProps = {
     comingSoon: false,
     type: '',
     title: '',
-    description: ''
+    description: '',
+    publishStatus: ''
 };
 
 export default class GenerateEFItem extends React.Component {
@@ -88,7 +90,8 @@ export default class GenerateEFItem extends React.Component {
                             </div>
                             <button
                                 className={`usa-da-button btn-primary btn-full${hideDownload}`}
-                                onClick={this.clickedDownload.bind(this)}>
+                                onClick={this.clickedDownload.bind(this)}
+                                disabled={this.props.publishStatus === 'reverting'}>
                                 Download
                             </button>
                         </div>

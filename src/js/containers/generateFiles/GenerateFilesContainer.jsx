@@ -493,7 +493,8 @@ export class GenerateFilesContainer extends React.Component {
                     updateError={this.updateError}
                     generateFiles={this.generateFiles}
                     updateFileProperty={this.updateFileProperty}
-                    clickedDownload={this.clickedDownload} />
+                    clickedDownload={this.clickedDownload}
+                    publishStatus={this.props.submission.publishStatus} />
             </div>
         );
     }

@@ -22,7 +22,8 @@ export const checkFabsPermissions = (session) => {
         return false;
     }
     const { affiliations } = session.user;
-    return !!(affiliations.find((affiliation) => affiliation.permission === 'fabs' || affiliation.permission === 'editfabs'));
+    return !!(affiliations.find((affiliation) => affiliation.permission === 'fabs'
+        || affiliation.permission === 'editfabs'));
 };
 
 export const checkFabsPublishPermissions = (session) => {
@@ -62,7 +63,8 @@ export const checkFabsAgencyPermissions = (session, agencyName) => {
     }
     const { affiliations } = session.user;
     return !!(affiliations.find((affiliation) =>
-        affiliation.agency_name === agencyName && (affiliation.permission === 'fabs' || affiliation.permission === 'editfabs')
+        affiliation.agency_name === agencyName && (affiliation.permission === 'fabs'
+            || affiliation.permission === 'editfabs')
     ));
 };
 

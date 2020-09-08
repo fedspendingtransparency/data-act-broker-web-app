@@ -15,45 +15,45 @@ export const handlePotentialStrings = (input) => {
 
 export const mostRecentPeriod = () => {
     // get the latest period for which GTAS data is available
-    const today = moment();
-    let year = today.year();
+    const now = moment();
+    let year = now.year();
 
     let period = 12;
 
-    if (today.isBetween(moment(`12/19/${year}`, 'MM-DD-YYYY'), moment(`12/31/${year}`, 'MM-DD-YYYY'), null, '[]')) {
+    if (now.isBetween(moment(`12/19/${year}`, 'MM-DD-YYYY'), moment(`12/31/${year}`, 'MM-DD-YYYY'), null, '[]')) {
         // Period 2 before Jan 1
         period = 2;
         year += 1;
     }
-    else if (today.isBetween(moment(`01/01/${year}`, 'MM-DD-YYYY'), moment(`01/16/${year}`, 'MM-DD-YYYY'), null, '[]')) {
+    else if (now.isBetween(moment(`01/01/${year}`, 'MM-DD-YYYY'), moment(`01/16/${year}`, 'MM-DD-YYYY'), null, '[]')) {
         // Period 2 after Jan 1
         period = 2;
     }
-    else if (today.isBetween(moment(`01/17/${year}`, 'MM-DD-YYYY'), moment(`02/18/${year}`, 'MM-DD-YYYY'), null, '[]')) {
+    else if (now.isBetween(moment(`01/17/${year}`, 'MM-DD-YYYY'), moment(`02/18/${year}`, 'MM-DD-YYYY'), null, '[]')) {
         period = 3;
     }
-    else if (today.isBetween(moment(`02/19/${year}`, 'MM-DD-YYYY'), moment(`03/18/${year}`, 'MM-DD-YYYY'), null, '[]')) {
+    else if (now.isBetween(moment(`02/19/${year}`, 'MM-DD-YYYY'), moment(`03/18/${year}`, 'MM-DD-YYYY'), null, '[]')) {
         period = 4;
     }
-    else if (today.isBetween(moment(`03/19/${year}`, 'MM-DD-YYYY'), moment(`04/16/${year}`, 'MM-DD-YYYY'), null, '[]')) {
+    else if (now.isBetween(moment(`03/19/${year}`, 'MM-DD-YYYY'), moment(`04/16/${year}`, 'MM-DD-YYYY'), null, '[]')) {
         period = 5;
     }
-    else if (today.isBetween(moment(`04/17/${year}`, 'MM-DD-YYYY'), moment(`05/18/${year}`, 'MM-DD-YYYY'), null, '[]')) {
+    else if (now.isBetween(moment(`04/17/${year}`, 'MM-DD-YYYY'), moment(`05/18/${year}`, 'MM-DD-YYYY'), null, '[]')) {
         period = 6;
     }
-    else if (today.isBetween(moment(`05/19/${year}`, 'MM-DD-YYYY'), moment(`06/18/${year}`, 'MM-DD-YYYY'), null, '[]')) {
+    else if (now.isBetween(moment(`05/19/${year}`, 'MM-DD-YYYY'), moment(`06/18/${year}`, 'MM-DD-YYYY'), null, '[]')) {
         period = 7;
     }
-    else if (today.isBetween(moment(`06/19/${year}`, 'MM-DD-YYYY'), moment(`07/16/${year}`, 'MM-DD-YYYY'), null, '[]')) {
+    else if (now.isBetween(moment(`06/19/${year}`, 'MM-DD-YYYY'), moment(`07/16/${year}`, 'MM-DD-YYYY'), null, '[]')) {
         period = 8;
     }
-    else if (today.isBetween(moment(`07/17/${year}`, 'MM-DD-YYYY'), moment(`08/18/${year}`, 'MM-DD-YYYY'), null, '[]')) {
+    else if (now.isBetween(moment(`07/17/${year}`, 'MM-DD-YYYY'), moment(`08/18/${year}`, 'MM-DD-YYYY'), null, '[]')) {
         period = 9;
     }
-    else if (today.isBetween(moment(`08/19/${year}`, 'MM-DD-YYYY'), moment(`09/17/${year}`, 'MM-DD-YYYY'), null, '[]')) {
+    else if (now.isBetween(moment(`08/19/${year}`, 'MM-DD-YYYY'), moment(`09/17/${year}`, 'MM-DD-YYYY'), null, '[]')) {
         period = 10;
     }
-    else if (today.isBetween(moment(`09/18/${year}`, 'MM-DD-YYYY'), moment(`10/16/${year}`, 'MM-DD-YYYY'), null, '[]')) {
+    else if (now.isBetween(moment(`09/18/${year}`, 'MM-DD-YYYY'), moment(`10/16/${year}`, 'MM-DD-YYYY'), null, '[]')) {
         period = 11;
     }
 

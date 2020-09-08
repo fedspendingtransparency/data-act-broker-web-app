@@ -17,7 +17,8 @@ const propTypes = {
     d1: PropTypes.object,
     d2: PropTypes.object,
     updateFileProperty: PropTypes.func,
-    submissionID: PropTypes.string
+    submissionID: PropTypes.string,
+    publishStatus: PropTypes.string
 };
 
 const defaultProps = {
@@ -26,7 +27,8 @@ const defaultProps = {
     updateError: null,
     d1: null,
     d2: null,
-    updateFileProperty: null
+    updateFileProperty: null,
+    publishStatus: ''
 };
 
 export default class GenerateFilesContent extends React.Component {
@@ -82,7 +84,7 @@ export default class GenerateFilesContent extends React.Component {
                             startingTab={1}
                             value={d1}
                             error={d1.error}
-                            showDownload={d1.showDownload}
+                            showDownload={d1.showDownload && this.props.publishStatus !== 'reverting'}
                             onDateChange={this.handleDateChange.bind(this, "d1")}
                             updateError={this.updateD1Error}
                             clickedDownload={this.clickedDownload.bind(this, "D1")} />
@@ -106,7 +108,7 @@ export default class GenerateFilesContent extends React.Component {
                             startingTab={9}
                             value={d2}
                             error={d2.error}
-                            showDownload={d2.showDownload}
+                            showDownload={d2.showDownload && this.props.publishStatus !== 'reverting'}
                             onDateChange={this.handleDateChange.bind(this, "d2")}
                             updateError={this.updateD2Error}
                             clickedDownload={this.clickedDownload.bind(this, "D2")} />
