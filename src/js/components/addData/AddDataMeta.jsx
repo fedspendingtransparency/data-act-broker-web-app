@@ -35,9 +35,6 @@ export default class AddDataMeta extends React.Component {
             endDate: null,
             dateType: null,
             submissionType: null,
-            startDateError: false,
-            endDateError: false,
-            agencyError: false,
             showDateTypeField: false,
             showDateRangeField: false,
             showSubmissionTypeField: false,
@@ -47,6 +44,7 @@ export default class AddDataMeta extends React.Component {
             redirect: false
         };
 
+        this.handleChange = this.handleChange.bind(this);
         this.handleDateTypeChange = this.handleDateTypeChange.bind(this);
         this.handleDateChange = this.handleDateChange.bind(this);
         this.handleSubmissionTypeChange = this.handleSubmissionTypeChange.bind(this);
@@ -65,8 +63,7 @@ export default class AddDataMeta extends React.Component {
         if (agency !== '' && isValid) {
             this.setState({
                 agency,
-                codeType,
-                agencyError: false
+                codeType
             }, () => {
                 if (this.state.showSubmitButton) {
                     this.checkCertifiable();
@@ -79,8 +76,7 @@ export default class AddDataMeta extends React.Component {
         else {
             this.setState({
                 agency: '',
-                codeType: '',
-                agencyError: true
+                codeType: ''
             }, this.checkComplete);
         }
     }
@@ -177,19 +173,6 @@ export default class AddDataMeta extends React.Component {
             });
     }
 
-    validateAgency() {
-        if (this.state.agency === '') {
-            this.setState({
-                agencyError: true
-            });
-        }
-        else {
-            this.setState({
-                agencyError: false
-            });
-        }
-    }
-
     render() {
         if (this.state.redirect) {
             const singlePubSub = (this.state.publishedSubmissions.length === 1);
@@ -201,12 +184,6 @@ export default class AddDataMeta extends React.Component {
                     <Redirect to="/submissionTable/" />
             );
             return pubSublink;
-        }
-        let agencyIcon = <Icons.Building />;
-        let agencyClass = '';
-        if (this.state.agencyError) {
-            agencyIcon = <Icons.Building />;
-            agencyClass = ' error usa-da-form-icon';
         }
 
         let dateTypeField = null;
@@ -254,11 +231,10 @@ export default class AddDataMeta extends React.Component {
                                         data-testid="agencytypeahead">
                                         <AgencyListContainer
                                             placeholder="Enter the name of the reporting agency"
-                                            onSelect={this.handleChange.bind(this)}
-                                            customClass={agencyClass}
+                                            onSelect={this.handleChange}
                                             detached={false} />
-                                        <div className={`usa-da-icon usa-da-form-icon${agencyClass}`}>
-                                            {agencyIcon}
+                                        <div className="usa-da-icon usa-da-form-icon">
+                                            <Icons.Building />
                                         </div>
                                     </div>
                                 </div>
