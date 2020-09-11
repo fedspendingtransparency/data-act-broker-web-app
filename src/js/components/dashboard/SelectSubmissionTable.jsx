@@ -62,7 +62,8 @@ const SelectSubmissionTable = (props) => {
                     submissionID={`${submission.submission_id}`} />
             </td>
             <td>
-                {submission.quarterly_submission ? submission.time_period : formatMonthlyTimePeriod(submission.time_period)}
+                {submission.quarterly_submission ?
+                    submission.time_period : formatMonthlyTimePeriod(submission.time_period)}
             </td>
             <td>
                 {submission.user.name}

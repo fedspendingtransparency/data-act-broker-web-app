@@ -33,7 +33,8 @@ export default class ResourcesContent extends React.Component {
                 <ul>
                     <li>
                         <a
-                            href="https://www.fiscal.treasury.gov/files/data-transparency/daims-validation-rules-v2.0.xlsx"
+                            href={`https://www.fiscal.treasury.gov/files/data-transparency/` +
+                                `daims-validation-rules-v2.0.xlsx`}
                             target="_blank"
                             rel="noopener noreferrer">
                   DAIMS Validation Rules
@@ -43,7 +44,8 @@ export default class ResourcesContent extends React.Component {
                     </li>
                     <li>
                         <a
-                            href="https://github.com/fedspendingtransparency/data-act-broker-backend/tree/master/dataactvalidator/config/sqlrules"
+                            href={`https://github.com/fedspendingtransparency/data-act-broker-backend/tree/master/` +
+                                `dataactvalidator/config/sqlrules`}
                             target="_blank"
                             rel="noopener noreferrer">
                   Broker SQL Validation Rules
@@ -54,7 +56,8 @@ export default class ResourcesContent extends React.Component {
                     </li>
                     <li>
                         <a
-                            href="https://community.max.gov/download/attachments/754091528/Practices-and-Procedures-v2.0.pdf?api=v2"
+                            href={`https://community.max.gov/download/attachments/754091528/` +
+                                `Practices-and-Procedures-v2.0.pdf?api=v2`}
                             target="_blank"
                             rel="noopener noreferrer">
                   DAIMS Practices &#38; Procedures

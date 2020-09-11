@@ -54,7 +54,8 @@ export default class StackedBar extends React.Component {
         return (
             <g>
                 <desc>
-                    {`${this.props.description} in ${this.props.xValue}: ${formatNumberWithPrecision(this.props.value, 0)}`}
+                    {`${this.props.description} in ${this.props.xValue}: ` +
+                    `${formatNumberWithPrecision(this.props.value, 0)}`}
                 </desc>
                 <rect
                     className="stacked-bar-item"

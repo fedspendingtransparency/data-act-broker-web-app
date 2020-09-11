@@ -61,7 +61,8 @@ export default class LoginMax extends React.Component {
 
     handleClick(e) {
         if (e.keyCode === '13' || !e.keyCode) {
-            const url = `${kGlobalConstants.CAS_ROOT}/cas/login?service=${encodeURIComponent(kGlobalConstants.AUTH_CALLBACK)}`;
+            const url = `${kGlobalConstants.CAS_ROOT}/cas/login?` +
+                `service=${encodeURIComponent(kGlobalConstants.AUTH_CALLBACK)}`;
             window.location.assign(url);
         }
     }

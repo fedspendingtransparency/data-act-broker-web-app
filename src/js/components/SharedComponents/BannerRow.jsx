@@ -50,7 +50,9 @@ export default class BannerRow extends React.Component {
                             {this.props.useMarkdown ?
                                 <div>
                                     <div className="banner-header" dangerouslySetInnerHTML={{ __html: bannerHeader }} />
-                                    <div className="banner-content" dangerouslySetInnerHTML={{ __html: bannerMessage }} />
+                                    <div
+                                        className="banner-content"
+                                        dangerouslySetInnerHTML={{ __html: bannerMessage }} />
                                 </div> :
                                 <div>
                                     <div className="banner-header">
