@@ -13,12 +13,13 @@
         }
     }
     &.btn-primary-alt {
-        @include btnBase($color-base, $color-primary-alt);
+        @include btnBase($color-primary, $color-white);
+        border: 1px solid $color-primary;
         &:active {
-            @include btnBase($color-white, $color-primary-alt-darkest);
+            @include btnBase($color-primary, $color-gray-lighter);
         }
         &:hover {
-            @include btnBase($color-base, $color-primary-alt-dark);
+            @include btnBase($color-primary, $color-gray-lightest);
         }
     }
 }

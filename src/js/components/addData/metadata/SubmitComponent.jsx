@@ -9,32 +9,40 @@ import SubmitButton from '../../SharedComponents/SubmitButton';
 
 const propTypes = {
     onSubmit: PropTypes.func,
-    message: PropTypes.string,
-    disabled: PropTypes.bool
+    setRedirect: PropTypes.func,
+    disabled: PropTypes.bool,
+    publishedSubmissions: PropTypes.array
 };
 
 const defaultProps = {
     disabled: false,
     onSubmit: null,
-    message: ''
+    setRedirect: null,
+    publishedSubmissions: []
 };
 
 export default class SubmitComponent extends React.Component {
     render() {
+        let redirectButton = null;
+        if (this.props.publishedSubmissions.length > 0) {
+            const singlePubSub = (this.props.publishedSubmissions.length === 1);
+            const redirectText = singlePubSub ? 'View existing submission' : 'View Submission Table';
+            redirectButton = (
+                <SubmitButton
+                    onClick={this.props.setRedirect}
+                    className="usa-da-button btn-primary-alt pull-right"
+                    buttonText={redirectText}
+                    buttonDisabled={this.props.disabled} />
+            );
+        }
         return (
-            <div className="usa-da-meta-submit">
-                <div className="row">
-                    <div className="col-sm-8 text-left usa-da-meta-message">
-                        {this.props.message}
-                    </div>
-                    <div className="col-sm-4" data-testid="submitbutton">
-                        <SubmitButton
-                            onClick={this.props.onSubmit}
-                            className="usa-da-button btn-primary btn-lg pull-right"
-                            buttonText="Submit"
-                            buttonDisabled={this.props.disabled} />
-                    </div>
-                </div>
+            <div className="usa-da-meta-submit row" data-testid="submitbutton">
+                <SubmitButton
+                    onClick={this.props.onSubmit}
+                    className="usa-da-button btn-primary pull-right"
+                    buttonText="Create Submission"
+                    buttonDisabled={this.props.disabled} />
+                {redirectButton}
             </div>
         );
     }

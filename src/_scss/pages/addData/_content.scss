@@ -24,6 +24,41 @@
                 .subtype-description {
                     font-style: italic;
                 }
+                .disabled {
+                    color: $color-gray-light;
+                }
+
+                label {
+                    font-weight: bold;
+                    .subtype-description {
+                        font-weight: normal;
+                    }
+                }
+            }
+            .alert-warning {
+                @import "../../components/alerts/_alerts";
+                @include warningAlert;
+                border-color: rgb(243,199,77);
+                margin: 0;
+                padding: rem(7.5) 0;
+                h3 {
+                    margin: 0;
+                    font-weight: bold;
+                    font-size: rem(15);
+                }
+                p {
+                    margin: 0;
+                    font-size: rem(14);
+                }
+                .fa-exclamation-triangle {
+                    font-size: rem(18);
+                    color: #f0ad4e;
+                    float: right;
+                }
+
+                .col-xs-11 {
+                    padding-left: 0;
+                }
             }
         }
 
