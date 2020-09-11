@@ -30,19 +30,19 @@ export default class SubmitComponent extends React.Component {
             redirectButton = (
                 <SubmitButton
                     onClick={this.props.setRedirect}
-                    className="usa-da-button btn-primary-alt pull-right"
+                    className="usa-da-button btn-primary-alt"
                     buttonText={redirectText}
                     buttonDisabled={this.props.disabled} />
             );
         }
         return (
             <div className="usa-da-meta-submit row" data-testid="submitbutton">
+                {redirectButton}
                 <SubmitButton
                     onClick={this.props.onSubmit}
-                    className="usa-da-button btn-primary pull-right"
+                    className="usa-da-button btn-primary"
                     buttonText="Create Submission"
                     buttonDisabled={this.props.disabled} />
-                {redirectButton}
             </div>
         );
     }

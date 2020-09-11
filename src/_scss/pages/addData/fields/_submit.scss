@@ -2,6 +2,12 @@
     margin: 31px 0 10px;
     border-top: 1px dashed $color-gray-lighter;
     padding-top: 30px;
+    display: flex;
+    justify-content: flex-end;
+
+    @media(max-width: $small-screen) {
+        display: block;
+    }
     .usa-da-button {
     	@import "../../../components/buttons/_primary";
     	@include primaryButton;
@@ -13,6 +19,11 @@
         &.btn-primary-alt {
             margin-right: rem(25);
             padding: rem(9) rem(20);
+
+            @media(max-width: $small-screen) {
+                margin: 0;
+                margin-bottom: rem(15);
+            }
         }
     }
 }
