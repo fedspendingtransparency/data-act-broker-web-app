@@ -54,7 +54,7 @@ export default class DateTypeField extends React.Component {
                                 id="usa-da-date-type-month"
                                 name="date-type"
                                 value="monthly"
-                                onClick={this.pickedTypeMonth}
+                                onChange={this.pickedTypeMonth}
                                 checked={isMonth} />
                             <label htmlFor="usa-da-date-type-month">
                                 Monthly
@@ -67,7 +67,7 @@ export default class DateTypeField extends React.Component {
                                 id="usa-da-date-type-quarterly"
                                 name="date-type"
                                 value="quarterly"
-                                onClick={this.pickedTypeQuarter}
+                                onChange={this.pickedTypeQuarter}
                                 checked={isQuarter} />
                             <label htmlFor="usa-da-date-type-quarterly">
                                 Quarterly

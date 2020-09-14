@@ -5,15 +5,18 @@
 
 import React from 'react';
 import PropTypes from 'prop-types';
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 const propTypes = {
     onChange: PropTypes.func,
-    value: PropTypes.string
+    value: PropTypes.string,
+    publishedSubmissions: PropTypes.array
 };
 
 const defaultProps = {
     onChange: null,
-    value: ''
+    value: '',
+    publishedSubmissions: []
 };
 
 export default class SubmissionTypeField extends React.Component {
@@ -31,6 +34,9 @@ export default class SubmissionTypeField extends React.Component {
     render() {
         let isTest = false;
         let isCertifiable = false;
+        let certifiableCSS = '';
+        let warningBanner = null;
+        let disabled = false;
 
         if (this.props.value === "test") {
             isTest = true;
@@ -39,6 +45,30 @@ export default class SubmissionTypeField extends React.Component {
         else if (this.props.value === "certifiable") {
             isTest = false;
             isCertifiable = true;
+        }
+
+        if (this.props.publishedSubmissions.length > 0) {
+            const singlePubSub = (this.props.publishedSubmissions.length === 1);
+            const title = singlePubSub ?
+                'A submission has already been published or certified' :
+                'Monthly submissions have already been published or certified';
+            const reason = singlePubSub ?
+                'Only one submission can be published and certified for each time period.' :
+                `Monthly and quarterly submissions cannot be published and certified within the same quarter. The
+                monthly submissions that have been made within this quarter can be viewed in the Submission Table.`;
+            warningBanner = (
+                <div className="alert alert-warning text-left row" role="alert">
+                    <div className="col-xs-1">
+                        <FontAwesomeIcon icon="exclamation-triangle" />
+                    </div>
+                    <div className="col-xs-11">
+                        <h3>{title}</h3>
+                        <p>{reason}</p>
+                    </div>
+                </div>
+            );
+            certifiableCSS = 'disabled';
+            disabled = true;
         }
 
         return (
@@ -51,13 +81,13 @@ export default class SubmissionTypeField extends React.Component {
                         <div className="usa-da-submission-type-group">
                             <input
                                 type="radio"
-                                id="usa-da-submisison-type-test"
-                                name="submisison-type"
+                                id="usa-da-submission-type-test"
+                                name="submission-type"
                                 value="test"
-                                onClick={this.pickedTypeTest}
+                                onChange={this.pickedTypeTest}
                                 checked={isTest} />
-                            <label htmlFor="usa-da-submisison-type-test">
-                                Test Submission
+                            <label htmlFor="usa-da-submission-type-test">
+                                Test submission
                                 <div className="subtype-description">
                                     Test submissions cannot be published or certified, but they can be used to validate
                                     your data.
@@ -68,19 +98,21 @@ export default class SubmissionTypeField extends React.Component {
                         <div className="usa-da-submission-type-group">
                             <input
                                 type="radio"
-                                id="usa-da-submisison-type-certifiable"
-                                name="submisison-type"
+                                id="usa-da-submission-type-certifiable"
+                                name="submission-type"
                                 value="certifiable"
-                                onClick={this.pickedTypeCertifiable}
-                                checked={isCertifiable} />
-                            <label htmlFor="usa-da-submisison-type-certifiable">
-                                Certifiable Submission
+                                onChange={this.pickedTypeCertifiable}
+                                checked={isCertifiable}
+                                disabled={disabled} />
+                            <label htmlFor="usa-da-submission-type-certifiable" className={certifiableCSS}>
+                                Certifiable submission
                                 <div className="subtype-description">
                                     This will be the official publishable and certifiable submission for your agency
                                     for this selected time period.
                                 </div>
                             </label>
                         </div>
+                        {warningBanner}
                     </div>
                 </div>
             </div>

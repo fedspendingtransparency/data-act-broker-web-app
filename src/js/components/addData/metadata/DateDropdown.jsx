@@ -86,7 +86,8 @@ export default class DateDropdown extends React.Component {
                 let monthValue = `${month.value}/${year}-${month.value}/${year}`;
                 // converting period 1 to include 2
                 if (month.value === '10') {
-                    monthString = `P${month.period}/P${month.nextMonPeriod} - ${month.string}/${month.nextMonString} ${year}`;
+                    monthString = `P${month.period}/P${month.nextMonPeriod} - ` +
+                        `${month.string}/${month.nextMonString} ${year}`;
                     monthValue = `${month.value}/${year}-${month.nextMonValue}/${year}`;
                 }
                 dates.push({

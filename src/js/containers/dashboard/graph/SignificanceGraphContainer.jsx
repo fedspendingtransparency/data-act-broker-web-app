@@ -94,7 +94,8 @@ export class SignificanceGraphContainer extends React.Component {
         return (
             <DashboardGraph
                 type="active"
-                description={`Identify the significance of a particular rule based upon your agency’s preset values and filter ${this.props.errorLevel}s by category.`}
+                description={`Identify the significance of a particular rule based upon your agency’s preset values ` +
+                    `and filter ${this.props.errorLevel}s by category.`}
                 errorLevel={this.props.errorLevel}
                 {...this.state} />
         );

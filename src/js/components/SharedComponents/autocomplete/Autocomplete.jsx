@@ -257,7 +257,8 @@ export default class Autocomplete extends React.Component {
             if (this.state.value.length < this.props.minCharsToSearch) {
                 errorProps = {
                     header: 'Error',
-                    description: `Please enter more than ${this.props.minCharsToSearch - 1} character${this.props.minCharsToSearch > 2 ? 's' : ''}.`
+                    description: `Please enter more than ${this.props.minCharsToSearch - 1} ` +
+                        `character${this.props.minCharsToSearch > 2 ? 's' : ''}.`
                 };
             }
             else {

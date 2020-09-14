@@ -51,7 +51,8 @@ export default class SubmissionWarningBanner extends React.Component {
                 unpublished: null,
                 'test-submission': {
                     header: 'This is a test submission',
-                    message: 'Test submissions cannot be published or certified, but they can be used to validate your data.',
+                    message: `Test submissions cannot be published or certified, but they can be used to validate ` +
+                        `your data.`,
                     useMarkdown: true
                 },
                 'test-submission-one': {
@@ -59,7 +60,8 @@ export default class SubmissionWarningBanner extends React.Component {
                     message: (
                         <p>
                             A submission has already been published and/or certified for this time period.
-                            To view the published and/or certified submission, <Link to={`/submission/${pubSub}/`}>click here</Link>.
+                            To view the published and/or certified submission,&nbsp;
+                            <Link to={`/submission/${pubSub}/`}>click here</Link>.
                         </p>),
                     useMarkdown: false
                 },
@@ -68,13 +70,15 @@ export default class SubmissionWarningBanner extends React.Component {
                     message: (
                         <p>
                             Multiple submissions have already been published and/or certified for this time period.
-                            To view the published and/or certified submissions, visit the <Link to="/submissionTable/">Submission Table</Link>.
+                            To view the published and/or certified submissions, visit the&nbsp;
+                            <Link to="/submissionTable/">Submission Table</Link>.
                         </p>),
                     useMarkdown: false
                 },
                 published: {
                     header: 'Submission already published',
-                    message: 'Any changes to this submission will not be reflected on USAspending.gov until it is republished.',
+                    message: `Any changes to this submission will not be reflected on USAspending.gov until it is ` +
+                        `republished.`,
                     useMarkdown: true
                 },
                 publishing: {
@@ -85,7 +89,8 @@ export default class SubmissionWarningBanner extends React.Component {
                 },
                 certified: {
                     header: 'Submission already certified',
-                    message: 'Any changes to this submission will not be reflected on USAspending.gov until it is recertified.',
+                    message: `Any changes to this submission will not be reflected on USAspending.gov until it is ` +
+                        `recertified.`,
                     useMarkdown: true
                 },
                 updated: {
