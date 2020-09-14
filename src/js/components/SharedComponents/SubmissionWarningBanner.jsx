@@ -60,7 +60,7 @@ export default class SubmissionWarningBanner extends React.Component {
                     message: (
                         <p>
                             A submission has already been published and/or certified for this time period.
-                            To view the published and/or certified submission,
+                            To view the published and/or certified submission,&nbsp;
                             <Link to={`/submission/${pubSub}/`}>click here</Link>.
                         </p>),
                     useMarkdown: false
@@ -70,7 +70,7 @@ export default class SubmissionWarningBanner extends React.Component {
                     message: (
                         <p>
                             Multiple submissions have already been published and/or certified for this time period.
-                            To view the published and/or certified submissions, visit the
+                            To view the published and/or certified submissions, visit the&nbsp;
                             <Link to="/submissionTable/">Submission Table</Link>.
                         </p>),
                     useMarkdown: false
