@@ -53,9 +53,9 @@ export default class SubmissionTypeField extends React.Component {
                 'A submission has already been published or certified' :
                 'Monthly submissions have already been published or certified';
             const reason = singlePubSub ?
-                'Only one submission can be published and certified for each time period' :
+                'Only one submission can be published and certified for each time period.' :
                 `Monthly and quarterly submissions cannot be published and certified within the same quarter. The
-                monthly submissions that have been made within this quarter can be viewed in the Submission Table`;
+                monthly submissions that have been made within this quarter can be viewed in the Submission Table.`;
             warningBanner = (
                 <div className="alert alert-warning text-left row" role="alert">
                     <div className="col-xs-1">
@@ -87,7 +87,7 @@ export default class SubmissionTypeField extends React.Component {
                                 onChange={this.pickedTypeTest}
                                 checked={isTest} />
                             <label htmlFor="usa-da-submission-type-test">
-                                Test Submission
+                                Test submission
                                 <div className="subtype-description">
                                     Test submissions cannot be published or certified, but they can be used to validate
                                     your data.
@@ -105,7 +105,7 @@ export default class SubmissionTypeField extends React.Component {
                                 checked={isCertifiable}
                                 disabled={disabled} />
                             <label htmlFor="usa-da-submission-type-certifiable" className={certifiableCSS}>
-                                Certifiable Submission
+                                Certifiable submission
                                 <div className="subtype-description">
                                     This will be the official publishable and certifiable submission for your agency
                                     for this selected time period.

@@ -41,7 +41,7 @@ export default class SubmitComponent extends React.Component {
                 <SubmitButton
                     onClick={this.props.onSubmit}
                     className="usa-da-button btn-primary"
-                    buttonText="Create Submission"
+                    buttonText="Create submission"
                     buttonDisabled={this.props.disabled} />
             </div>
         );
