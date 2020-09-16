@@ -128,7 +128,8 @@ export default class ValidateDataErrorReport extends React.Component {
                 </span>{reportLinkText}
             </div>
         );
-        if (this.props.publishStatus === 'reverting') {
+        const blockedStatuses = ['reverting', 'publishing'];
+        if (blockedStatuses.indexOf(this.props.publishStatus) > -1) {
             downloadLink = null;
         }
 

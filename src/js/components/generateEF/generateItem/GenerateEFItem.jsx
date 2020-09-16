@@ -35,6 +35,7 @@ export default class GenerateEFItem extends React.Component {
         let hideDownload = ' hide';
         let hideSpinner = '';
         let icon = null;
+        const blockedStatuses = ['reverting', 'publishing'];
         const status = this.props[this.props.type.toLowerCase()].status;
         if (status === 'failed') {
             hideError = '';
@@ -91,7 +92,7 @@ export default class GenerateEFItem extends React.Component {
                             <button
                                 className={`usa-da-button btn-primary btn-full${hideDownload}`}
                                 onClick={this.clickedDownload.bind(this)}
-                                disabled={this.props.publishStatus === 'reverting'}>
+                                disabled={blockedStatuses.indexOf(this.props.publishStatus) > -1}>
                                 Download
                             </button>
                         </div>
