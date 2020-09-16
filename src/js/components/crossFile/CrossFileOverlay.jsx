@@ -11,6 +11,7 @@ import LoadingBauble from '../SharedComponents/overlays/LoadingBauble';
 
 import * as PermissionsHelper from '../../helpers/permissionsHelper';
 import NextButton from '../submission/NextButton';
+import { checkValidFileList } from '../../helpers/util';
 
 const propTypes = {
     uploadFiles: PropTypes.func,
@@ -89,7 +90,7 @@ export default class CrossFileOverlay extends React.Component {
         this.props.nextStep();
     }
 
-    isUploadingFiles() {
+    hasStagedFiles() {
         if (Object.keys(this.props.submission.files).length > 0) {
             return true;
         }
@@ -116,6 +117,10 @@ export default class CrossFileOverlay extends React.Component {
                 // neither file in the pair is staged for upload, submission isn't ready for re-upload
                 return false;
             }
+        }
+
+        if (!checkValidFileList(this.props.submission.files)) {
+            return false;
         }
 
         // if we hit this point, the files are ready
@@ -184,14 +189,14 @@ export default class CrossFileOverlay extends React.Component {
         }
 
         // enable the upload button if the correct files have been staged for upload
-        if ((this.state.allowUpload || this.isUploadingFiles()) && PermissionsHelper
+        if ((this.state.allowUpload && this.hasStagedFiles()) && PermissionsHelper
             .checkAgencyPermissions(this.props.session, this.props.agencyName)) {
             overlay.uploadButtonDisabled = false;
             overlay.uploadButtonClass = ' btn-primary';
         }
         else {
             overlay.uploadButtonDisabled = true;
-            overlay.uploadButtonDisabled = '-disabled';
+            overlay.uploadButtonClass = '-disabled';
         }
 
         this.setState({
