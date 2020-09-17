@@ -245,8 +245,9 @@ export default class ErrorBox extends React.Component {
         }
         let uploadHeader = null;
         let upload = null;
+        const blockedStatuses = ['reverting', 'publishing'];
         if (PermissionsHelper.checkAgencyPermissions(this.props.session, this.props.agencyName)
-            && this.props.publishStatus !== 'reverting') {
+            && blockedStatuses.indexOf(this.props.publishStatus) === -1) {
             uploadHeader = 'Upload Corrected Files';
             upload = (
                 <div>
@@ -283,7 +284,7 @@ export default class ErrorBox extends React.Component {
                                             <button
                                                 href="#"
                                                 onClick={this.clickedReport.bind(this, reportWarning)}
-                                                disabled={this.props.publishStatus === 'reverting'}
+                                                disabled={blockedStatuses.indexOf(this.props.publishStatus) > -1}
                                                 className="usa-da-button btn-full btn-primary">
                                                 {downloadLabel}
                                             </button>

@@ -246,8 +246,9 @@ export default class ValidateValuesFileComponent extends React.Component {
         let validationElement = '';
         let isOptional = false;
         let uploadText = 'Choose Corrected File';
+        const blockedStatuses = ['reverting', 'publishing'];
         if ((this.props.published === 'unpublished' || !this.props.published) && this.state.permission
-            && this.props.submission.publishStatus !== 'reverting') {
+            && blockedStatuses.indexOf(this.props.submission.publishStatus) === -1) {
             // user has permissions and submission is not published (second part only relevant for FABS submissions)
             if (this.state.hasErrors) {
                 // has errors
@@ -329,7 +330,7 @@ export default class ValidateValuesFileComponent extends React.Component {
                 {fileName}
             </div>
         );
-        if (this.props.submission.publishStatus === 'reverting') {
+        if (blockedStatuses.indexOf(this.props.submission.publishStatus) > -1) {
             downloadClick = <div>{fileName}</div>;
         }
 

@@ -216,14 +216,15 @@ export default class ReviewDataContent extends React.Component {
             revalidateButtonAction = this.openRevalidateModal;
         }
 
-        if (this.props.submission.publishStatus === 'reverting') {
+        const blockedStatuses = ['reverting', 'publishing'];
+        if (blockedStatuses.indexOf(this.props.submission.publishStatus) > -1) {
             revalidateButtonAction = null;
             publishButtonAction = null;
             certifyButtonAction = null;
             notifyButtonAction = null;
-            revalidateButtonText = 'Cannot revalidate while reverting';
-            publishButtonText = 'Cannot publish while reverting';
-            certifyButtonText = 'Cannot certify while reverting';
+            revalidateButtonText = `Cannot revalidate while ${this.props.submission.publishStatus}`;
+            publishButtonText = `Cannot publish while ${this.props.submission.publishStatus}`;
+            certifyButtonText = `Cannot certify while ${this.props.submission.publishStatus}`;
             publishButtonClass = ' btn-disabled';
             certifyButtonClass = ' btn-disabled';
         }

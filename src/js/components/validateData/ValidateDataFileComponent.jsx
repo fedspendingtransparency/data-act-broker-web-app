@@ -378,7 +378,8 @@ export default class ValidateDataFileComponent extends React.Component {
                 {fileName}
             </div>
         );
-        if (this.props.submission.publishStatus === 'reverting') {
+        const blockedStatuses = ['reverting', 'publishing'];
+        if (blockedStatuses.indexOf(this.props.submission.publishStatus) > -1) {
             disabledCorrect = ' hide';
             downloadClick = <div>{fileName}</div>;
         }
