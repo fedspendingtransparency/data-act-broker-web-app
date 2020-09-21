@@ -15,7 +15,8 @@ const propTypes = {
     fileType: PropTypes.string,
     name: PropTypes.string,
     status: PropTypes.string,
-    fileKey: PropTypes.string
+    fileKey: PropTypes.string,
+    publishStatus: PropTypes.string
 };
 
 const defaultProps = {
@@ -25,7 +26,8 @@ const defaultProps = {
     status: '',
     toggleUploadBox: null,
     session: null,
-    agencyName: ''
+    agencyName: '',
+    publishStatus: ''
 };
 
 export default class FileComponent extends React.Component {
@@ -42,7 +44,7 @@ export default class FileComponent extends React.Component {
     render() {
         let replaceButton = null;
         if (this.props.status === 'success' && PermissionsHelper.checkAgencyPermissions(this.props.session,
-            this.props.agencyName)) {
+            this.props.agencyName) && this.props.publishStatus !== 'reverting') {
             replaceButton = <ReplacementButton buttonClicked={this.props.toggleUploadBox} {...this.props} />;
         }
 

@@ -15,7 +15,6 @@ const propTypes = {
 };
 
 const defaultProps = {
-    showTabs: "both",
     counts: {
         errors: 0,
         warnings: 0

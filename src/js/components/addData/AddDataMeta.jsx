@@ -187,7 +187,8 @@ export default class AddDataMeta extends React.Component {
                         const pubIsQuarter = publishedSubmissions[0].is_quarter;
                         const singlePubSub = (publishedSubmissions.length === 1);
 
-                        const title = pubIsQuarter ? 'Quarterly submission already published' : 'Monthly submission already published';
+                        const title = pubIsQuarter ?
+                            'Quarterly submission already published' : 'Monthly submission already published';
                         let reason = null;
                         let viewSubMessage = null;
                         if (singlePubSub && pubIsQuarter) {
@@ -219,7 +220,10 @@ export default class AddDataMeta extends React.Component {
                                         {title}
                                     </h3>
                                     <p>{`You can only create a test submission because ${reason}.`}</p>
-                                    <p>Test submissions cannot be published or certified, but they can be used to validate your data.</p>
+                                    <p>
+                                        Test submissions cannot be published or certified, but they can be used to
+                                        validate your data.
+                                    </p>
                                     <p>{`To view the ${viewSubMessage} `}{pubSublink}.</p>
                                 </div>
                             )

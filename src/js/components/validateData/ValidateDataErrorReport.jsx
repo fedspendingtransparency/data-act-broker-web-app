@@ -13,13 +13,15 @@ import { createOnKeyDownHandler } from '../../helpers/util';
 
 const propTypes = {
     data: PropTypes.array,
-    submission: PropTypes.string,
+    submissionId: PropTypes.string,
+    publishStatus: PropTypes.string,
     type: PropTypes.string
 };
 
 const defaultProps = {
     data: [],
-    submission: '',
+    submissionId: '',
+    publishStatus: '',
     type: ''
 };
 
@@ -48,7 +50,7 @@ export default class ValidateDataErrorReport extends React.Component {
     }
 
     signReport() {
-        ReviewHelper.submissionReport(this.props.submission, false, this.props.type)
+        ReviewHelper.submissionReport(this.props.submissionId, false, this.props.type)
             .then((data) => {
                 this.setState({
                     signInProgress: false,
@@ -114,6 +116,22 @@ export default class ValidateDataErrorReport extends React.Component {
             reportLinkText = 'Preparing Error Report...';
         }
 
+        let downloadLink = (
+            <div
+                role="button"
+                tabIndex={0}
+                className="usa-da-download pull-right"
+                onKeyDown={onKeyDownHandler}
+                onClick={this.clickedReport}>
+                <span className="usa-da-icon usa-da-download-report">
+                    <Icons.CloudDownload />
+                </span>{reportLinkText}
+            </div>
+        );
+        if (this.props.publishStatus === 'reverting') {
+            downloadLink = null;
+        }
+
         return (
             <div className="row usa-da-validate-item-bottom-section">
                 <div className="usa-da-validate-error-report">
@@ -122,16 +140,7 @@ export default class ValidateDataErrorReport extends React.Component {
                             <h6>Header Error Report</h6>
                         </div>
                         <div className="col-md-3 mr-0">
-                            <div
-                                role="button"
-                                tabIndex={0}
-                                className="usa-da-download pull-right"
-                                onKeyDown={onKeyDownHandler}
-                                onClick={this.clickedReport}>
-                                <span className="usa-da-icon usa-da-download-report">
-                                    <Icons.CloudDownload />
-                                </span>{reportLinkText}
-                            </div>
+                            {downloadLink}
                         </div>
                         <div className="col-md-12">
                             {tables}

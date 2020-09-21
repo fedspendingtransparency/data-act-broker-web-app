@@ -41,7 +41,7 @@ export default class AgencyFilter extends React.Component {
 
     render() {
         return (
-            <div className="dashboard-filters__filter dashboard-filters__filter_typeahead">
+            <div className="dashboard-filters__filter dashboard-filters__filter_typeahead agency-name">
                 <div className="typeahead-holder">
                     <AgencyFilterContainer
                         type={this.props.type}

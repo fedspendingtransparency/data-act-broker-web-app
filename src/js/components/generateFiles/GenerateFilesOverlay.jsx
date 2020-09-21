@@ -17,7 +17,8 @@ const propTypes = {
     errorDetails: PropTypes.string,
     state: PropTypes.string,
     agency_name: PropTypes.string,
-    submissionID: PropTypes.string
+    submissionID: PropTypes.string,
+    publishStatus: PropTypes.string
 };
 
 const defaultProps = {
@@ -25,7 +26,8 @@ const defaultProps = {
     generateFiles: null,
     session: null,
     errorDetails: '',
-    agency_name: ''
+    agency_name: '',
+    publishStatus: ''
 };
 
 export default class GenerateFilesOverlay extends React.Component {
@@ -87,6 +89,11 @@ export default class GenerateFilesOverlay extends React.Component {
         }
 
         if (!PermissionHelper.checkAgencyPermissions(this.props.session, this.props.agency_name)) {
+            buttonClass = '-disabled';
+            buttonDisabled = true;
+        }
+
+        if (this.props.publishStatus === 'reverting') {
             buttonClass = '-disabled';
             buttonDisabled = true;
         }

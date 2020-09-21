@@ -18,7 +18,8 @@ const propTypes = {
     hasErrors: PropTypes.bool,
     isReady: PropTypes.bool,
     agency_name: PropTypes.string,
-    submissionID: PropTypes.string
+    submissionID: PropTypes.string,
+    publishStatus: PropTypes.string
 };
 
 const defaultProps = {
@@ -26,7 +27,8 @@ const defaultProps = {
     session: null,
     hasErrors: false,
     isReady: false,
-    agency_name: ''
+    agency_name: '',
+    publishStatus: ''
 };
 
 export default class GenerateEFOverlay extends React.Component {
@@ -72,7 +74,8 @@ export default class GenerateEFOverlay extends React.Component {
             nextDisabled = true;
         }
 
-        if (!PermissionsHelper.checkAgencyPermissions(this.props.session, this.props.agency_name)) {
+        if (!PermissionsHelper.checkAgencyPermissions(this.props.session, this.props.agency_name)
+            || this.props.publishStatus === 'reverting') {
             buttonClass = '-disabled';
             buttonDisabled = true;
         }

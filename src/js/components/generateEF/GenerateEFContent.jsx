@@ -8,7 +8,7 @@ import React from 'react';
 import GenerateEFOverlay from './GenerateEFOverlay';
 import GenerateEFItem from './generateItem/GenerateEFItem';
 
-export default class GenerateFilesContent extends React.Component {
+export default class GenerateEFContent extends React.Component {
     render() {
         return (
             <div>

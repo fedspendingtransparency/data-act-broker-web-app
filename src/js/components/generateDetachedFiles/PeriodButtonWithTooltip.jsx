@@ -52,7 +52,8 @@ export default class PeriodButtonWithTooltip extends React.Component {
                         October is not directly selectable since there is no <em>Period 1</em> reporting window in GTAS.
                     </p>
                     <p>
-                        Because File A Data is cumulative within the Fiscal year, <em>Period 1</em> data is automatically included with data from later periods.
+                        Because File A Data is cumulative within the Fiscal year, <em>Period 1</em> data is
+                        automatically included with data from later periods.
                     </p>
                 </div>
             );

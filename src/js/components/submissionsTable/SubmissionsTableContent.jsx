@@ -23,7 +23,8 @@ const propTypes = {
     activeError: PropTypes.string,
     publishedError: PropTypes.string,
     toggleDashboardFilter: PropTypes.func,
-    updateDashboardFilter: PropTypes.func,
+    updateDashboardObjectFilter: PropTypes.func,
+    updateDashboardStringFilter: PropTypes.func,
     activeMinDateLastModified: PropTypes.string,
     publishedMinDateLastModified: PropTypes.string,
     stagedFilters: PropTypes.object,
@@ -43,7 +44,8 @@ const defaultProps = {
     activeError: '',
     publishedError: '',
     toggleDashboardFilter: null,
-    updateDashboardFilter: null,
+    updateDashboardObjectFilter: null,
+    updateDashboardStringFilter: null,
     activeMinDateLastModified: '',
     publishedMinDateLastModified: '',
     stagedFilters: {},
@@ -76,7 +78,15 @@ export default class SubmissionsTableContent extends React.Component {
 
     toggleFilter(table, filter, value) {
         if (filter === 'lastDateModified') {
-            this.props.updateDashboardFilter({
+            this.props.updateDashboardObjectFilter({
+                dashboard: this.props.type,
+                table,
+                filter,
+                value
+            });
+        }
+        else if (filter === 'submissionType') {
+            this.props.updateDashboardStringFilter({
                 dashboard: this.props.type,
                 table,
                 filter,
@@ -167,7 +177,8 @@ export default class SubmissionsTableContent extends React.Component {
                     <div className="col-md-12">
                         <div className="table-heading">
                             <h2 className="table-heading__title">
-                                {this.props.type === 'fabs' ? 'Published Submissions' : 'Published and Certified Submissions'}
+                                {this.props.type === 'fabs' ?
+                                    'Published Submissions' : 'Published and Certified Submissions'}
                             </h2>
                             {secondMessage}
                         </div>

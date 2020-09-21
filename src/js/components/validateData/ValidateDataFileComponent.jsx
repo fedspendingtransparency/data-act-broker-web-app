@@ -366,6 +366,23 @@ export default class ValidateDataFileComponent extends React.Component {
             disabledCorrect = ' hide';
         }
 
+        let downloadClick = (
+            <div
+                role="button"
+                tabIndex={0}
+                className={clickDownloadClass}
+                onKeyDown={clickDownloadOnKeyDownHandler}
+                onClick={this.clickedReport}
+                download={fileName}
+                rel="noopener noreferrer">
+                {fileName}
+            </div>
+        );
+        if (this.props.submission.publishStatus === 'reverting') {
+            disabledCorrect = ' hide';
+            downloadClick = <div>{fileName}</div>;
+        }
+
         const errorMessage = this.state.error ? (<UploadFabsFileError error={this.state.error} />) : null;
 
         const { size, rows } = this.displayFileMeta();
@@ -422,16 +439,7 @@ export default class ValidateDataFileComponent extends React.Component {
                                 </div>
                                 {uploadProgress}
                                 <div className="row usa-da-validate-item-file-name">
-                                    <div
-                                        role="button"
-                                        tabIndex={0}
-                                        className={clickDownloadClass}
-                                        onKeyDown={clickDownloadOnKeyDownHandler}
-                                        onClick={this.clickedReport}
-                                        download={fileName}
-                                        rel="noopener noreferrer">
-                                        {fileName}
-                                    </div>
+                                    {downloadClick}
                                 </div>
                                 {isFileValid ? '' : `${fileName} must be CSV or TXT format`}
                                 <div
@@ -450,7 +458,8 @@ export default class ValidateDataFileComponent extends React.Component {
                         </div>
                     </div>
                     {this.state.showError ? <ValidateDataErrorReport
-                        submission={this.props.submission.id}
+                        submissionId={this.props.submission.id}
+                        publishStatus={this.props.submission.publishStatus}
                         type={this.props.item.file_type}
                         data={this.state.errorReports} /> : null}
                 </div>

@@ -59,7 +59,8 @@ export default class SubmissionTypeField extends React.Component {
                             <label htmlFor="usa-da-submisison-type-test">
                                 Test Submission
                                 <div className="subtype-description">
-                                    Test submissions cannot be published or certified, but they can be used to validate your data.
+                                    Test submissions cannot be published or certified, but they can be used to validate
+                                    your data.
                                 </div>
                             </label>
                         </div>
@@ -75,7 +76,8 @@ export default class SubmissionTypeField extends React.Component {
                             <label htmlFor="usa-da-submisison-type-certifiable">
                                 Certifiable Submission
                                 <div className="subtype-description">
-                                    This will be the official publishable and certifiable submission for your agency for this selected time period.
+                                    This will be the official publishable and certifiable submission for your agency
+                                    for this selected time period.
                                 </div>
                             </label>
                         </div>
