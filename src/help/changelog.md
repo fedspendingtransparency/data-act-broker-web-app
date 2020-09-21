@@ -1,7 +1,8 @@
-#### September 4, 2020{section=changelog}
+#### September 21, 2020{section=changelog}
 In this release of the Broker, we:
 
-* Updated Submission History column on Submission Table to show Certification date when a published submission is certified.
-* Added an option to include FPDS Element numbers in the header titles for file D1 when generating from the Home page (outside of the submission workflow).
-* Added user instructions on initial DABS and FABS file upload page about avoiding Broker login time outs during large file uploads.
+* Reloaded Broker City Code table and ensured validations account for a City Code spanning more than one state.
+* Updated logic for DABS Validation Rule C23 such that only File C lines with a value for TOA will be compared to D1/D2.
+* Modified the “Upload & Validate a New Submission” page of the DABS workflow to inform users upon selecting the period if an existing Published or Certified submission already exists for the reporting period they chose.
+* Added a filter for Test Submissions on the DABS Active Submission Table.
 * Minor bug fixes
