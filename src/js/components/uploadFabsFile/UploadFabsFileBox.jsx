@@ -7,6 +7,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import FileComponent from '../addData/FileComponent';
 import LoadingBauble from '../SharedComponents/overlays/LoadingBauble';
+import { validUploadFileChecker } from '../../helpers/util';
 
 const propTypes = {
     uploadFile: PropTypes.func,
@@ -34,7 +35,8 @@ export default class UploadFabsFileBox extends React.Component {
         }
 
         const fileStateReady = this.props.submission.files && this.props.submission.files.fabs &&
-            this.props.submission.files.fabs.state === 'ready';
+            this.props.submission.files.fabs.state === 'ready' &&
+            validUploadFileChecker(this.props.submission.files.fabs);
         const disabled = !fileStateReady || (this.props.fabs.status === "uploading");
         return (
             <div className="usa-da-upload-fabs-file-box dashed-border-top">

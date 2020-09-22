@@ -65,7 +65,8 @@ export default class SignificanceCircle extends React.Component {
                 onBlur={this.mouseExited}
                 onTouchStart={this.onTouch} >
                 <desc>
-                    {`Rule ${this.props.label} of significance ${this.props.xValue}: ${formatNumberWithPrecision(this.props.yValue, 0)} instances`}
+                    {`Rule ${this.props.label} of significance ${this.props.xValue}: ` +
+                    `${formatNumberWithPrecision(this.props.yValue, 0)} instances`}
                 </desc>
                 <g className="rule-circle">
                     <circle

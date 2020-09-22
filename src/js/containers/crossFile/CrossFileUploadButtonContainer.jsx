@@ -12,6 +12,8 @@ import * as uploadActions from '../../redux/actions/uploadActions';
 
 import UploadButton from '../../components/validateData/ValidateDataUploadButton';
 
+import { validUploadFileChecker } from '../../helpers/util';
+
 const propTypes = {
     setCrossFileStage: PropTypes.func,
     setUploadItem: PropTypes.func,
@@ -74,6 +76,11 @@ class CrossFileUploadButtonContainer extends React.Component {
             // technically this is an optional upload, but we are going to pass a different CSS class in instead
             isOptional = false;
             additionalClasses = ' btn-staged-upload';
+
+            // if the file isn't a valid type, set it to danger colors
+            if (!validUploadFileChecker(this.props.submission.files[this.props.fileKey])) {
+                additionalClasses = ' btn-danger-outline';
+            }
         }
 
         return (

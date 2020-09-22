@@ -71,7 +71,9 @@ export default class RulesFilter extends React.Component {
                     minCharsToSearch={this.props.minCharsToSearch}
                     disabled={!this.props.selectedFilters.file}
                     toggleTooltip={this.toggleTooltip} />
-                {this.state.showTooltip && <WarningTooltip message="You have not selected a file. Please select a file before identifying a DAIMS rule(s)." />}
+                {this.state.showTooltip &&
+                <WarningTooltip message={`You have not selected a file. Please select a file before identifying a ` +
+                    `DAIMS rule(s).`} />}
                 {selectedRules}
             </div>
         );

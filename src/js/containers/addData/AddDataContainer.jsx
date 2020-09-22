@@ -16,6 +16,7 @@ import AddDataContent from 'components/addData/AddDataContent';
 import ErrorMessage from 'components/SharedComponents/ErrorMessage';
 import { fileTypes } from './fileTypes';
 import { kGlobalConstants } from '../../GlobalConstants';
+import { checkValidFileList } from '../../helpers/util';
 
 
 const propTypes = {
@@ -43,9 +44,14 @@ class AddDataContainer extends React.Component {
     }
 
     componentDidUpdate(prevProps) {
-        if (prevProps.submission.state === 'empty') {
+        if (prevProps.submission.files !== this.props.submission.files) {
             if (Object.keys(this.props.submission.files).length === fileTypes.length) {
-                this.props.setSubmissionState('ready');
+                if (!checkValidFileList(this.props.submission.files)) {
+                    this.props.setSubmissionState('empty');
+                }
+                else {
+                    this.props.setSubmissionState('ready');
+                }
             }
         }
     }

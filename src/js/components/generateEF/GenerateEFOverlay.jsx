@@ -74,8 +74,9 @@ export default class GenerateEFOverlay extends React.Component {
             nextDisabled = true;
         }
 
+        const blockedStatuses = ['reverting', 'publishing'];
         if (!PermissionsHelper.checkAgencyPermissions(this.props.session, this.props.agency_name)
-            || this.props.publishStatus === 'reverting') {
+            || blockedStatuses.indexOf(this.props.publishStatus) > -1) {
             buttonClass = '-disabled';
             buttonDisabled = true;
         }
