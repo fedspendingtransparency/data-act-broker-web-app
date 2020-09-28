@@ -158,7 +158,7 @@ class CrossFileContentContainer extends React.Component {
                                 errors: ReviewHelper.getCrossFileData(response.jobs[0], 'errors'),
                                 warnings: ReviewHelper.getCrossFileData(response.jobs[0], 'warnings')
                             };
-                            this.props.setSubmissionState('crossFile');
+                            this.props.setSubmissionState(crossInfo.status);
                             this.props.setCrossFile(crossFile);
                         });
 
