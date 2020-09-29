@@ -89,6 +89,7 @@ export default class CrossFileContent extends React.Component {
             }
             if (this.props.submission.state === 'failed') {
                 overlayMode = 'failed';
+                status = 'failed';
             }
 
             // each pair should have easy top-level access to the pair's occurrence counts
