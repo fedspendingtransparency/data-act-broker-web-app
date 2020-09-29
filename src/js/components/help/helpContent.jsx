@@ -95,8 +95,7 @@ export default class HelpContent extends React.Component {
                 <h2 className="usa-da-help-content-subheading">Getting More Help</h2>
                 {membership}
                 <p>
-                    If you need assistance using the Broker or if you would like to schedule a hands-on sandbox session
-                    with Treasury staff, please email&nbsp;
+                    If you need assistance using the Broker, please email&nbsp;
                     <a href="mailto:DATAPMO@fiscal.treasury.gov">DATAPMO@fiscal.treasury.gov</a>.
                 </p>
             </div>
