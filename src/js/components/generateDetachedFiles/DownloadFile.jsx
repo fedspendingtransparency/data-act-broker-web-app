@@ -54,7 +54,7 @@ export default class DownloadFile extends React.Component {
                                 <button
                                     disabled={this.props.status === 'generating'}
                                     onClick={this.props.clickedDownload}
-                                    className={`usa-da-download file-download-btn`}>
+                                    className="usa-da-download file-download-btn">
                                     <span className="usa-da-icon usa-da-download-report">
                                         <Icons.CloudDownload />
                                     </span>
