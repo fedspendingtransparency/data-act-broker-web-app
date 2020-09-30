@@ -236,7 +236,8 @@ export default class DetachedFileA extends React.Component {
                                             errorType={this.props.errorType}
                                             errorMessage={this.props.errorMessage}
                                             clickedDownload={this.props.clickedDownload}
-                                            showDownload={this.props.showDownload} />
+                                            showDownload={this.props.showDownload}
+                                            status={this.props.status} />
                                         <GenerateButton
                                             agency={this.state.agency}
                                             generate={this.generate}

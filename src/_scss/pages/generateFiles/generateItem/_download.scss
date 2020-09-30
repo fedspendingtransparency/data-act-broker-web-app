@@ -35,5 +35,9 @@
 		&:hover .usa-da-icon.usa-da-download-report svg {
 			fill: $color-primary;
 		}
+		&:disabled {
+			cursor: not-allowed;
+			opacity: 0.7;
+		}
 	}
 }
