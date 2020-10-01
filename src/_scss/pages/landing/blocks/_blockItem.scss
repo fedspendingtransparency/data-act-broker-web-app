@@ -1,7 +1,7 @@
 .usa-da-landing-block {
     background-color: #e7e7e7;
     border: 1px solid #d9d9d9;
-    height: 275px;
+    height: auto;
     padding: 10px;
     position: relative;
     &.comingSoon {
@@ -11,18 +11,18 @@
             opacity: 0.4;
         }
     }
-    @media(max-width: $medium-screen) {
-        height: auto;
+    @media(min-width: $medium-screen) {
+        height: 275px;
     }
 
     .usa-da-landing-block-text {
         margin: 0 10px;
     }
     .usa-da-landing-block-icon {
-        padding-top: 10px;
+        padding-top: 0px;
         padding-bottom: 20px;
-        @media(max-width: $medium-screen) {
-            padding-top: 0px;
+        @media(min-width: $medium-screen) {
+            padding-top: 10px;
         }
         svg {
             margin: 0 10px 0 0;
@@ -36,15 +36,16 @@
         }
     }
     .usa-da-landing-block-bottom {
-        position: absolute;
-        top: 170px;
-        left: 20px;
-        right: 20px;
-        @media(max-width: $medium-screen) {
-            position: relative;
-            top: 0;
-            left: 0;
-            padding-top: 20px;
+        position: relative;
+        top: 0;
+        left: 0;
+        padding-top: 20px;
+        @media(min-width: $medium-screen) {
+            position: absolute;
+            top: 170px;
+            left: 20px;
+            right: 20px;
+            padding: 0px;
         }
         & a {
             font-size: 1.4rem;
@@ -58,7 +59,7 @@
             }
         }
         & .usa-da-landing-block-bottom-link {
-            padding: 15px 20px 20px;
+            padding: 15px 0px;
             & button {
                 font-size: 1.2rem;
                 font-weight: 700;
@@ -76,6 +77,4 @@
             font-size: 1.4rem;
         }
     }
-
-
 }
