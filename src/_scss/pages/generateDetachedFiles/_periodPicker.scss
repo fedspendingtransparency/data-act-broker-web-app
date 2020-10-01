@@ -93,10 +93,11 @@
                 text-align: left;
                 padding: rem(5);
                 background-color: $color-gray-lightest;
-                border: solid rem(1) $color-gray;
+                border: solid rem(1) $color-gray-light;
                 box-shadow: $box-shadow;
                 p {
                     font-size: rem(13);
+                    line-height: rem(18);
                     margin: 0;
                     &:first-child {
                         padding-bottom: rem(10);
