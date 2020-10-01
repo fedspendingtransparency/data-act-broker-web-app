@@ -5,18 +5,15 @@
     border: 1px solid #cacaca;
     color: #696969;
     .usa-da-icon {
-        height: 20px;
+        @include button-unstyled;
         cursor: pointer;
-        margin: 0 0.65rem;
-        color: #696969;
-        border: none;
-        padding: 0;
-    }
-    .usa-da-icon * {
-        height: 20px;
-        cursor: pointer;
-        margin: 0.25rem;
-        color: #696969;
+        
+        svg {
+            height: rem(20);
+            margin: rem(5);
+            margin-bottom: rem(2.5);
+            fill: $color-gray-dark;
+        }
     }
     span {
         vertical-align: super;
