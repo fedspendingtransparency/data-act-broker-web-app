@@ -2,16 +2,17 @@
 .usa-da-landing.col-md-12 {
     margin: 0;
     padding: 0;
-    padding-top: 20px;
-    &:first-child {
-        padding-top: 0px;
-    }
 
     .usa-da-landing-btns {
         margin: 60px auto;
     }
 
     .usa-da-landing-block-wrap {
+        padding-top: 20px;
+        &:first-child {
+            padding-top: 0px;
+        }
+
         @media(min-width: $medium-screen) {
             padding-top: 0px;
         }
