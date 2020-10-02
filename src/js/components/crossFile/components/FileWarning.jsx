@@ -40,7 +40,7 @@ export default class FileWarning extends React.Component {
             this.props.submission.crossFileStaging)) {
             this.prepareData();
         }
-        // Have to do this because the callback in prepareData isn't triggering with a new state for some reason
+        // Have to do this because the callback in prepareData isn't triggering with a new state
         if (!_.isEqual(prevState.causedBy, this.state.causedBy) || !_.isEqual(prevState.affectedPairs,
             this.state.affectedPairs)) {
             this.generateMessages();
