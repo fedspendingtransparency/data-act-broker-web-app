@@ -6,7 +6,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import * as Icons from '../SharedComponents/icons/Icons';
-import { createOnKeyDownHandler } from '../../helpers/util';
 
 const propTypes = {
     clickedDownload: PropTypes.func,
@@ -14,7 +13,8 @@ const propTypes = {
     errorType: PropTypes.string,
     errorMessage: PropTypes.string,
     label: PropTypes.string,
-    showDownload: PropTypes.bool
+    showDownload: PropTypes.bool,
+    status: PropTypes.string
 };
 
 const defaultProps = {
@@ -23,13 +23,12 @@ const defaultProps = {
     errorType: '',
     errorMessage: '',
     label: '',
-    showDownload: false
+    showDownload: false,
+    status: ''
 };
 
 export default class DownloadFile extends React.Component {
     render() {
-        const onKeyDownHandler = createOnKeyDownHandler(this.props.clickedDownload);
-
         let errorClass = ' hide';
         if (this.props.errorType) {
             errorClass = '';
@@ -52,17 +51,15 @@ export default class DownloadFile extends React.Component {
                                 <div className="col-sm-12">
                                     {this.props.fileInfo}
                                 </div>
-                                <div
-                                    role="button"
-                                    tabIndex={0}
+                                <button
+                                    disabled={this.props.status === 'generating'}
                                     onClick={this.props.clickedDownload}
-                                    onKeyDown={onKeyDownHandler}
                                     className="usa-da-download file-download-btn">
                                     <span className="usa-da-icon usa-da-download-report">
                                         <Icons.CloudDownload />
                                     </span>
                                     Download File
-                                </div>
+                                </button>
                             </div>
                         </div>
                     </div>
