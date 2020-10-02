@@ -345,7 +345,7 @@ export const fetchObligations = (submissionId) => {
 
 export const submissionReport = (submissionId, warning, fileType, crossType) => {
     const deferred = Q.defer();
-    const params = [];
+    const params = [`submission_id=${submissionId}`];
     if (warning) {
         params.push('warning=true');
     }
@@ -359,7 +359,7 @@ export const submissionReport = (submissionId, warning, fileType, crossType) => 
         params.push(`cross_type=${crossType}`);
     }
 
-    Request.get(`${kGlobalConstants.API}submission/${submissionId}/report_url?${params.join('&')}`)
+    Request.get(`${kGlobalConstants.API}report_url/?${params.join('&')}`)
         .end((errFile, res) => {
             if (errFile) {
                 deferred.reject(errFile, res);
