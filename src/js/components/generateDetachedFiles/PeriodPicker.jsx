@@ -22,7 +22,7 @@ export default class PeriodPicker extends React.Component {
 
         this.state = {
             expanded: false,
-            hoveredPeriod: 1
+            hoveredPeriod: this.props.period
         };
 
         this.toggleList = this.toggleList.bind(this);
@@ -30,6 +30,12 @@ export default class PeriodPicker extends React.Component {
         this.closeMenu = this.closeMenu.bind(this);
         this.hoveredPeriod = this.hoveredPeriod.bind(this);
         this.highlightCurrentSelection = this.highlightCurrentSelection.bind(this);
+    }
+
+    componentDidUpdate(prevProps) {
+        if (this.props.period !== prevProps.period) {
+            this.hoveredPeriod(this.props.period);
+        }
     }
 
     componentWillUnmount() {
