@@ -43,8 +43,9 @@ export default class FileComponent extends React.Component {
 
     render() {
         let replaceButton = null;
+        const blockedStatuses = ['reverting', 'publishing'];
         if (this.props.status === 'success' && PermissionsHelper.checkAgencyPermissions(this.props.session,
-            this.props.agencyName) && this.props.publishStatus !== 'reverting') {
+            this.props.agencyName) && blockedStatuses.indexOf(this.props.publishStatus) === -1) {
             replaceButton = <ReplacementButton buttonClicked={this.props.toggleUploadBox} {...this.props} />;
         }
 

@@ -6,13 +6,11 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import CSSTransitionGroup from 'react-transition-group/CSSTransitionGroup';
-import { Link } from 'react-router-dom';
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { Redirect } from 'react-router-dom';
 
 import * as AgencyHelper from 'helpers/agencyHelper';
 import AgencyListContainer from 'containers/SharedContainers/AgencyListContainer';
 import * as Icons from 'components/SharedComponents/icons/Icons';
-import Modal from 'components/SharedComponents/Modal';
 import DateTypeField from './metadata/DateTypeField';
 import DateRangeField from './metadata/DateRangeField';
 import SubmissionTypeField from './metadata/SubmissionTypeField';
@@ -30,8 +28,6 @@ export default class AddDataMeta extends React.Component {
     constructor(props) {
         super(props);
 
-        this.successMessage = 'Everything looks good. Now let\'s work on uploading your files.';
-
         this.state = {
             agency: '',
             codeType: '',
@@ -39,81 +35,57 @@ export default class AddDataMeta extends React.Component {
             endDate: null,
             dateType: null,
             submissionType: null,
-            startDateError: false,
-            endDateError: false,
-            agencyError: false,
             showDateTypeField: false,
             showDateRangeField: false,
             showSubmissionTypeField: false,
             showSubmitButton: false,
-            buttonDisabled: true,
-            modalMessage: '',
-            showModal: false,
-            message: this.successMessage,
             publishedSubmissions: [],
-            testSubmission: false
+            testSubmission: false,
+            redirect: false
         };
 
-        this.onCancel = this.onCancel.bind(this);
-        this.onConfirm = this.onConfirm.bind(this);
+        this.handleChange = this.handleChange.bind(this);
         this.handleDateTypeChange = this.handleDateTypeChange.bind(this);
         this.handleDateChange = this.handleDateChange.bind(this);
         this.handleSubmissionTypeChange = this.handleSubmissionTypeChange.bind(this);
         this.submitMetadata = this.submitMetadata.bind(this);
+        this.checkCertifiable = this.checkCertifiable.bind(this);
+        this.setRedirect = this.setRedirect.bind(this);
     }
 
-    onCancel() {
+    setRedirect() {
         this.setState({
-            showModal: false,
-            modalMessage: '',
-            testSubmission: false,
-            publishedSubmissions: []
+            redirect: true
         });
-    }
-
-    onConfirm() {
-        this.setState({
-            showModal: false,
-            modalMessage: ''
-        });
-        this.props.updateMetaData(this.state);
     }
 
     handleChange(agency, codeType, isValid) {
         if (agency !== '' && isValid) {
             this.setState({
                 agency,
-                codeType,
-                agencyError: false
-            }, this.checkComplete);
+                codeType
+            }, () => {
+                if (this.state.showSubmitButton) {
+                    this.checkCertifiable();
+                }
+                else {
+                    this.checkComplete();
+                }
+            });
         }
         else {
             this.setState({
                 agency: '',
-                codeType: '',
-                agencyError: true
+                codeType: ''
             }, this.checkComplete);
         }
     }
 
-    handleDateChange(startDate, endDate, dateError) {
-        let message = this.successMessage;
-        let buttonDisabled = false;
-        if (dateError === true) {
-            message = 'You need to provide a valid date range in order to continue.';
-            buttonDisabled = true;
-        }
-
+    handleDateChange(startDate, endDate) {
         this.setState({
             startDate,
-            endDate,
-            message,
-            buttonDisabled
-        }, () => {
-            if (dateError !== true) {
-                this.checkComplete();
-            }
-        });
+            endDate
+        }, this.checkCertifiable);
     }
 
     handleSubmissionTypeChange(submissionType) {
@@ -149,8 +121,7 @@ export default class AddDataMeta extends React.Component {
         }
         else if (this.state.agency === '') {
             this.setState({
-                showSubmissionTypeField: false,
-                message: 'You need to provide a valid agency in order to continue.'
+                showSubmissionTypeField: false
             });
         }
 
@@ -162,6 +133,10 @@ export default class AddDataMeta extends React.Component {
     }
 
     submitMetadata() {
+        this.props.updateMetaData(this.state);
+    }
+
+    checkCertifiable() {
         const agency = this.state.agency;
         const codeType = this.state.codeType;
         const endDate = this.state.endDate;
@@ -180,100 +155,35 @@ export default class AddDataMeta extends React.Component {
         const frecCode = codeType === 'frec_code' ? agency : null;
         const isQuarter = (dateType === 'quarter');
 
-        if (!this.state.testSubmission) {
-            AgencyHelper.getPublishedSubmissions(cgacCode, frecCode, year, period, isQuarter)
-                .then((publishedSubmissions) => {
-                    if (publishedSubmissions.length > 0) {
-                        const pubIsQuarter = publishedSubmissions[0].is_quarter;
-                        const singlePubSub = (publishedSubmissions.length === 1);
-
-                        const title = pubIsQuarter ?
-                            'Quarterly submission already published' : 'Monthly submission already published';
-                        let reason = null;
-                        let viewSubMessage = null;
-                        if (singlePubSub && pubIsQuarter) {
-                            reason = 'a quarterly submission has already been published for this time period';
-                            viewSubMessage = 'published quarterly submission,';
-                        }
-                        else if (singlePubSub && !pubIsQuarter) {
-                            reason = 'a monthly submission has already been published for this time period';
-                            viewSubMessage = 'published monthly submission,';
-                        }
-                        else {
-                            reason = 'at least one monthly submission has already been published for this quarter';
-                            viewSubMessage = 'published monthly submissions(s), visit the';
-                        }
-                        const pubSublink = (
-                            singlePubSub ?
-                                <Link to={`/submission/${publishedSubmissions[0].submission_id}/validateData`}>click here</Link>
-                                :
-                                <Link to="/submissionTable/">Submission Table</Link>
-                        );
-                        this.setState({
-                            showModal: true,
-                            testSubmission: true,
-                            publishedSubmissions,
-                            modalMessage: (
-                                <div className="alert-warning alert-warning_test-submission">
-                                    <FontAwesomeIcon icon="exclamation-triangle" />
-                                    <h3>
-                                        {title}
-                                    </h3>
-                                    <p>{`You can only create a test submission because ${reason}.`}</p>
-                                    <p>
-                                        Test submissions cannot be published or certified, but they can be used to
-                                        validate your data.
-                                    </p>
-                                    <p>{`To view the ${viewSubMessage} `}{pubSublink}.</p>
-                                </div>
-                            )
-                        });
-                    }
-                    else {
-                        this.props.updateMetaData(this.state);
-                    }
-                });
-        }
-        else {
-            this.props.updateMetaData(this.state);
-        }
-    }
-
-    validateAgency() {
-        if (this.state.agency === '') {
-            this.setState({
-                agencyError: true
+        AgencyHelper.getPublishedSubmissions(cgacCode, frecCode, year, period, isQuarter)
+            .then((publishedSubmissions) => {
+                if (publishedSubmissions.length > 0) {
+                    this.setState({
+                        testSubmission: true,
+                        submissionType: 'test',
+                        publishedSubmissions
+                    }, this.checkComplete);
+                }
+                else {
+                    this.setState({
+                        testSubmission: false,
+                        publishedSubmissions
+                    }, this.checkComplete);
+                }
             });
-        }
-        else {
-            this.setState({
-                agencyError: false
-            });
-        }
-    }
-
-    showWarnings() {
-        const warnings = [];
-        if (this.state.buttonDisabled && this.state.formModified) {
-            if (this.state.agency === '') {
-                warnings.push('A valid reporting agency is required.');
-            }
-            if (this.state.startDate === null) {
-                warnings.push('A valid start date is required.');
-            }
-            if (this.state.endDate === null) {
-                warnings.push('A valid end date is required.');
-            }
-        }
-        return warnings;
     }
 
     render() {
-        let agencyIcon = <Icons.Building />;
-        let agencyClass = '';
-        if (this.state.agencyError) {
-            agencyIcon = <Icons.Building />;
-            agencyClass = ' error usa-da-form-icon';
+        if (this.state.redirect) {
+            const singlePubSub = (this.state.publishedSubmissions.length === 1);
+
+            const pubSublink = (
+                singlePubSub ?
+                    <Redirect to={`/submission/${this.state.publishedSubmissions[0].submission_id}/validateData`} />
+                    :
+                    <Redirect to="/submissionTable/" />
+            );
+            return pubSublink;
         }
 
         let dateTypeField = null;
@@ -292,15 +202,16 @@ export default class AddDataMeta extends React.Component {
         if (this.state.showSubmissionTypeField) {
             submissionTypeField = (<SubmissionTypeField
                 onChange={this.handleSubmissionTypeChange}
-                value={this.state.submissionType} />);
+                value={this.state.submissionType}
+                publishedSubmissions={this.state.publishedSubmissions} />);
         }
 
         let submissionComponent = null;
         if (this.state.showSubmitButton) {
             submissionComponent = (<SubmitComponent
-                message={this.state.message}
                 onSubmit={this.submitMetadata}
-                disabled={this.state.buttonDisabled} />);
+                publishedSubmissions={this.state.publishedSubmissions}
+                setRedirect={this.setRedirect} />);
         }
 
         return (
@@ -320,11 +231,10 @@ export default class AddDataMeta extends React.Component {
                                         data-testid="agencytypeahead">
                                         <AgencyListContainer
                                             placeholder="Enter the name of the reporting agency"
-                                            onSelect={this.handleChange.bind(this)}
-                                            customClass={agencyClass}
+                                            onSelect={this.handleChange}
                                             detached={false} />
-                                        <div className={`usa-da-icon usa-da-form-icon${agencyClass}`}>
-                                            {agencyIcon}
+                                        <div className="usa-da-icon usa-da-form-icon">
+                                            <Icons.Building />
                                         </div>
                                     </div>
                                 </div>
@@ -363,13 +273,6 @@ export default class AddDataMeta extends React.Component {
                         </div>
                     </div>
                 </div>
-                <Modal
-                    onCancel={this.onCancel}
-                    onConfirm={this.onConfirm}
-                    confirmText="Create test submission"
-                    isOpen={this.state.showModal}
-                    content={this.state.modalMessage}
-                    cancel />
             </div>
         );
     }

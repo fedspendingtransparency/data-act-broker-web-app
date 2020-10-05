@@ -50,6 +50,7 @@ export default class GenerateFilesContent extends React.Component {
 
     render() {
         const { d1, d2 } = this.props;
+        const blockedStatuses = ['reverting', 'publishing'];
 
         return (
             <div className="generate-files-page">
@@ -84,7 +85,7 @@ export default class GenerateFilesContent extends React.Component {
                             startingTab={1}
                             value={d1}
                             error={d1.error}
-                            showDownload={d1.showDownload && this.props.publishStatus !== 'reverting'}
+                            showDownload={d1.showDownload && blockedStatuses.indexOf(this.props.publishStatus) === -1}
                             onDateChange={this.handleDateChange.bind(this, "d1")}
                             updateError={this.updateD1Error}
                             clickedDownload={this.clickedDownload.bind(this, "D1")} />
@@ -108,7 +109,7 @@ export default class GenerateFilesContent extends React.Component {
                             startingTab={9}
                             value={d2}
                             error={d2.error}
-                            showDownload={d2.showDownload && this.props.publishStatus !== 'reverting'}
+                            showDownload={d2.showDownload && blockedStatuses.indexOf(this.props.publishStatus) === -1}
                             onDateChange={this.handleDateChange.bind(this, "d2")}
                             updateError={this.updateD2Error}
                             clickedDownload={this.clickedDownload.bind(this, "D2")} />

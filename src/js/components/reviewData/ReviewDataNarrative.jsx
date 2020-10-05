@@ -116,6 +116,7 @@ export default class ReviewDataNarrative extends React.Component {
 
     render() {
         const onKeyDownHandler = createOnKeyDownHandler(this.downloadCommentsFile);
+        const blockedStatuses = ['reverting', 'publishing'];
         let downloadButton = (
             <div
                 role="button"
@@ -128,7 +129,7 @@ export default class ReviewDataNarrative extends React.Component {
                 </span>Download Comments for All Files (.csv)
             </div>
         );
-        if (this.props.publishStatus === 'reverting') {
+        if (blockedStatuses.indexOf(this.props.publishStatus) > -1) {
             downloadButton = null;
         }
         return (
@@ -153,7 +154,7 @@ export default class ReviewDataNarrative extends React.Component {
                             <button
                                 onClick={this.saveNarrative}
                                 className="usa-da-button btn-default"
-                                disabled={this.props.publishStatus === 'reverting'}>
+                                disabled={blockedStatuses.indexOf(this.props.publishStatus) > -1}>
                                 Save Changes
                             </button>
                             <p className={`save-state ${this.state.saveState}`}>

@@ -8,6 +8,7 @@ import PropTypes from 'prop-types';
 import * as Icons from '../SharedComponents/icons/Icons';
 import CommonOverlay from '../SharedComponents/overlays/CommonOverlay';
 import NextButton from '../submission/NextButton';
+import { checkValidFileList } from '../../helpers/util';
 
 const propTypes = {
     uploadFiles: PropTypes.func,
@@ -90,13 +91,21 @@ export default class ValidationOverlay extends React.Component {
         }
         else if (this.props.submission.state === 'prepare') {
             uploadButtonDisabled = true;
-            uploadButtonDisabled = '-disabled';
+            uploadButtonClass = '-disabled';
             buttonText = 'Gathering data...';
 
             if (this.props.errors.length === 0) {
                 nextButtonClass = '-disabled';
                 nextButtonDisabled = true;
             }
+        }
+        else if (!checkValidFileList(this.props.submission.files)) {
+            uploadButtonDisabled = true;
+            uploadButtonClass = '-disabled';
+            buttonText = 'Invalid File Types';
+
+            nextButtonClass = '-disabled';
+            nextButtonDisabled = true;
         }
 
         if (this.props.notAllowed) {

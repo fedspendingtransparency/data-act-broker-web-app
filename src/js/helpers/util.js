@@ -88,6 +88,17 @@ export const validUploadFileChecker = (rawFile) => {
     return 'unset';
 };
 
+
+export const checkValidFileList = (fileList) => {
+    for (const file of Object.keys(fileList)) {
+        const currFile = fileList[file];
+        if (!validUploadFileChecker(currFile)) {
+            return false;
+        }
+    }
+    return true;
+};
+
 export const earliestFileAYear = 2017;
 
 export const convertDateToQuarter = (date) => {

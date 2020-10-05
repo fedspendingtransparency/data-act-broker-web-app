@@ -93,7 +93,8 @@ export default class GenerateFilesOverlay extends React.Component {
             buttonDisabled = true;
         }
 
-        if (this.props.publishStatus === 'reverting') {
+        const blockedStatuses = ['reverting', 'publishing'];
+        if (blockedStatuses.indexOf(this.props.publishStatus) > -1) {
             buttonClass = '-disabled';
             buttonDisabled = true;
         }

@@ -68,7 +68,8 @@ export default class ActiveDashboardOverview extends React.Component {
                         </div>
                         <div className="overview-section">
                             <h4>Total # of {startCase(this.props.errorLevel)}s</h4>
-                            {(this.props.submissionData.total_instances && formatNumberWithPrecision(this.props.submissionData.total_instances, 0)) || 'N/A' }
+                            {(this.props.submissionData.total_instances &&
+                                formatNumberWithPrecision(this.props.submissionData.total_instances, 0)) || 'N/A' }
                         </div>
                     </div>
                 </div>
