@@ -68,7 +68,7 @@ const PeriodButton = (props) => {
 
     if (props.period === 1) {
         button = (
-            <PeriodButtonWithTooltip active={props.active} />
+            <PeriodButtonWithTooltip active={props.active} hoveredPeriod={props.hoveredPeriod} />
         );
     }
 

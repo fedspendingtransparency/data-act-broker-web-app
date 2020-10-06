@@ -4,7 +4,16 @@
 */
 
 import React from 'react';
+import PropTypes from 'prop-types';
 import * as utils from '../../helpers/util';
+
+const propTypes = {
+    hoveredPeriod: PropTypes.func
+};
+
+const defaultProps = {
+    hoveredPeriod: null
+};
 
 // TODO - Lizzie: after upgrading to React 16, change this to a functional component
 // with useState
@@ -24,6 +33,7 @@ export default class PeriodButtonWithTooltip extends React.Component {
         this.setState({
             showTooltip: true
         });
+        this.props.hoveredPeriod(0);
     }
 
     hideTooltip() {
@@ -68,3 +78,6 @@ export default class PeriodButtonWithTooltip extends React.Component {
         );
     }
 }
+
+PeriodButtonWithTooltip.propTypes = propTypes;
+PeriodButtonWithTooltip.defaultProps = defaultProps;

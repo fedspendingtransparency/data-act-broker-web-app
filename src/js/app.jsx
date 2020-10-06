@@ -38,6 +38,7 @@ import {
     faSignOutAlt,
     faSpinner,
     faTimes,
+    faTimesCircle,
     faUser
 } from "@fortawesome/free-solid-svg-icons";
 import AppContainer from './containers/AppContainer';
@@ -76,6 +77,7 @@ library.add(
     faSignOutAlt,
     faSpinner,
     faTimes,
+    faTimesCircle,
     faUser
 );
 

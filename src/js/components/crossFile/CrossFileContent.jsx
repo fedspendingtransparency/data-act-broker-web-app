@@ -28,7 +28,7 @@ export default class CrossFileContent extends React.Component {
     constructor(props) {
         super(props);
 
-        this.allowableStates = ['crossFile', 'uploading', 'prepare', 'failed'];
+        this.allowableStates = ['finished', 'uploading', 'prepare', 'failed'];
 
         this.state = {
             crossFileItems: [],
@@ -86,6 +86,10 @@ export default class CrossFileContent extends React.Component {
                 if (overlayMode === 'loading') {
                     overlayMode = 'success';
                 }
+            }
+            if (this.props.submission.state === 'failed') {
+                overlayMode = 'failed';
+                status = 'failed';
             }
 
             // each pair should have easy top-level access to the pair's occurrence counts

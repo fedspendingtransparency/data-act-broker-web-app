@@ -53,9 +53,13 @@ export default class DateRangeField extends React.Component {
             });
         }
         else {
+            const currDate = moment();
+            // months are 0-indexed in moment so we're checking against 9 for October and 10 for November
+            const startDate = currDate.month() === 10 ? `10/${currDate.format('YYYY')}` : currDate.format('MM/YYYY');
+            const endDate = currDate.month() === 9 ? `11/${currDate.format('YYYY')}` : currDate.format('MM/YYYY');
             this.setState({
-                startDate: moment().format('MM/YYYY'),
-                endDate: moment().format('MM/YYYY'),
+                startDate,
+                endDate,
                 dateError: false
             }, () => {
                 this.props.onChange(this.state.startDate, this.state.endDate);
