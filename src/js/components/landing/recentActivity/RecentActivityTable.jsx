@@ -161,12 +161,12 @@ export default class RecentActivityTable extends React.Component {
 
         let baseCellClasses = [
             'row-12_5',
-            'row-20',
+            'row-17_5',
             'row-15 white-space',
             'row-12_5',
-            'row-12_5',
+            'row-15',
             'row-20 progress-cell',
-            'row-10 text-center'
+            'row-7_5 text-center'
         ];
         if (this.props.type === 'fabs') {
             baseCellClasses = [
@@ -179,7 +179,7 @@ export default class RecentActivityTable extends React.Component {
             ];
         }
         const headerClasses = [...baseCellClasses];
-        headerClasses[headerClasses.length - 1] = 'row-10';
+        headerClasses[headerClasses.length - 1] = headerClasses[headerClasses.length - 1].split(' ')[0];
 
         // sort the array by object key
         const orderKeys = [

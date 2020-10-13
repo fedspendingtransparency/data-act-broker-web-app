@@ -19,6 +19,8 @@
         z-index: 11;
         top: calc(100% - 8px);
         left: calc(100% - 45px);
+        transform: rotate(0deg);
+        -webkit-transform: rotate(0deg);
         &:after {
             transform: rotate(315deg);
         }
