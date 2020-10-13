@@ -46,7 +46,6 @@ export default class LastModifiedCell extends React.Component {
     render() {
         let expirationText = '';
         const expiresIn = this.calculateExpiration();
-        console.log(expiresIn);
         if (expiresIn !== null) {
             expirationText = (
                 <div className="expiration-notice">
