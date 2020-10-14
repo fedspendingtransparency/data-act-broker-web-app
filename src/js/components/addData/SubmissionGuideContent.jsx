@@ -72,6 +72,12 @@ export default class SubmissionGuideContent extends React.Component {
                                             creating. This information includes the name of your agency and the
                                             reporting period.
                                         </p>
+                                        <p>
+                                            <b>
+                                                Test submissions are automatically deleted if they remain unedited for
+                                                a period of 6 months.
+                                            </b>
+                                        </p>
                                     </div>
                                 </div>
                             </div>
