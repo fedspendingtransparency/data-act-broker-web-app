@@ -28,7 +28,7 @@ export default class LastModifiedCell extends React.Component {
         if (this.props.expirationDate === null) {
             return null;
         }
-        const today = moment();
+        const today = moment().format('YYYY-MM-DD');
         const expiration = moment(this.props.expirationDate, 'YYYY-MM-DD');
         const daysLeft = Math.floor(moment.duration(expiration.diff(today)).asDays());
 
@@ -46,13 +46,14 @@ export default class LastModifiedCell extends React.Component {
     render() {
         let expirationText = '';
         const expiresIn = this.calculateExpiration();
+        const dayText = expiresIn === 1 ? ' day' : ' days';
         if (expiresIn !== null) {
             expirationText = (
                 <div className="expiration-notice">
                     <TooltipWrapper tooltipPosition="left" tooltipComponent={<ExpirationTooltip />} width={220}>
                         <FontAwesomeIcon icon={['far', 'clock']} />
                     </TooltipWrapper>
-                    Expires in {expiresIn} days
+                    Expires in {expiresIn} {dayText}
                 </div>);
         }
 
