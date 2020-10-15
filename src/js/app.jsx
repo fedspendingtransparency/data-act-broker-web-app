@@ -41,6 +41,9 @@ import {
     faTimesCircle,
     faUser
 } from "@fortawesome/free-solid-svg-icons";
+import {
+    faClock
+} from "@fortawesome/free-regular-svg-icons";
 import AppContainer from './containers/AppContainer';
 
 library.add(
@@ -62,6 +65,7 @@ library.add(
     faChevronUp,
     faCircle,
     faClipboardCheck,
+    faClock,
     faCog,
     faEllipsisH,
     faExclamationCircle,

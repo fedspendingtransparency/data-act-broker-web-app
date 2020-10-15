@@ -1,0 +1,18 @@
+.tooltip-content-wrapper {
+    padding: rem(15);
+    font-family: 'Source Sans Pro';
+
+    h2 {
+        margin: 0;
+        margin-bottom: rem(15);
+        border-bottom: 1px solid $color-gray-lighter;
+        font-size: rem(16);
+        font-weight: $font-semibold;
+        padding-bottom: rem(10);
+    }
+
+    p {
+        margin: 0;
+        line-height: rem(17.5);
+    }
+}

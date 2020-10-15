@@ -1,0 +1,39 @@
+@mixin submissionTableLastModified {
+    .usa-da-last-modified-cell {
+        position: relative;
+
+        .expiration-notice {
+            font-style: italic;
+            font-size: rem(13);
+
+            .tooltip-wrapper {
+                display: inline-block;
+                margin-right: rem(5);
+
+                .tooltip__hover-wrapper {
+                    margin-top: rem(5);
+                    svg {
+                        width: rem(12);
+                    }
+                }
+
+                .tooltip-spacer {
+                    left: rem(-231) !important;
+                    top: rem(12) !important;
+                    .tooltip {
+                        opacity: 100;
+            
+                        .tooltip-pointer {
+                            &.right {
+                                right: rem(-8);
+                                &::after {
+                                    background-color: white;
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+}

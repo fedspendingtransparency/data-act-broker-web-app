@@ -1,6 +1,9 @@
 .usa-da-formatted-table {
 	@import "../../../components/tables/_submissionTable";
-	@include submissionTable;
+    @include submissionTable;
+    
+    @import "../../../components/tables/_submissionTableLastModified";
+    @include submissionTableLastModified;
 
     .usa-da-recent-activity-link {
         @import "../../../components/tables/_submissionTableLink";
