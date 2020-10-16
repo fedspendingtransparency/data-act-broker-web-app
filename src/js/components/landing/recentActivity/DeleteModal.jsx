@@ -32,9 +32,12 @@ export default class DeleteModal extends React.Component {
             errorMessage: "",
             disable: false
         };
+
+        this.closeModal = this.closeModal.bind(this);
     }
 
     clickedDeleteButton() {
+        this.setState({ disable: true });
         ReviewHelper.deleteSubmission(this.props.id)
             .then((data) => {
                 if (data.message === 'Success') {
@@ -42,7 +45,8 @@ export default class DeleteModal extends React.Component {
 
                     // reset the modal if closed
                     this.setState({
-                        errorMessage: ''
+                        errorMessage: '',
+                        disable: false
                     }, () => {
                         this.props.closeModal();
                     });
@@ -55,7 +59,6 @@ export default class DeleteModal extends React.Component {
                     errorMessage = error.message;
                 }
                 this.setState({ errorMessage });
-                this.setState({ disable: true });
             });
     }
 
@@ -66,7 +69,8 @@ export default class DeleteModal extends React.Component {
 
         // reset the modal if closed
         this.setState({
-            errorMessage: ''
+            errorMessage: '',
+            disable: false
         }, () => {
             this.props.closeModal();
         });
@@ -84,7 +88,7 @@ export default class DeleteModal extends React.Component {
         return (
             <Modal
                 mounted={this.props.isOpen}
-                onExit={this.closeModal.bind(this)}
+                onExit={this.closeModal}
                 underlayClickExits={trueProps}
                 verticallyCenter={trueProps}
                 initialFocus="#delete-button"
@@ -92,7 +96,7 @@ export default class DeleteModal extends React.Component {
                 <div className="usa-da-modal-page">
                     <div id="usa-da-certify-modal" className="usa-da-certify-modal">
                         <div className="usa-da-certify-modal-close usa-da-icon usa-da-icon-times">
-                            <button onClick={this.closeModal.bind(this)}> <Icons.Times /> </button>
+                            <button onClick={this.closeModal}> <Icons.Times /> </button>
                         </div>
 
                         <div className="usa-da-certify-modal-content delete-modal-content">
@@ -108,7 +112,7 @@ export default class DeleteModal extends React.Component {
                                 onClick={this.clickedDeleteButton.bind(this)}
                                 disabled={this.state.disable}>Delete
                             </button>
-                            <button className="btn btn-default" onClick={this.closeModal.bind(this)}>Cancel</button>
+                            <button className="btn btn-default" onClick={this.closeModal}>Cancel</button>
                         </div>
                     </div>
                 </div>
