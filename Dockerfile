@@ -5,7 +5,7 @@ COPY package.json /node-workspace
 
 WORKDIR /node-workspace
 
-RUN npm install
+RUN npm install --verbose
 
 COPY . /node-workspace
 
