@@ -1,4 +1,13 @@
-#### September 21, 2020{section=technical}
+#### October 5, 2020{section=technical}
+
+In this release, here is a list of technical changes that may require infrastructure or database updates, or represents additional functionality.
+
+* Updated frontend behavior to prevent potential workflow bugs when publishing submissions.
+* Updated frontend behavior when making submissions to immediately notify users that a published submission already exists for that agency and period.
+* Updated frontend behavior to immediately detect and notify users when they are uploading an invalid file type (i.e. not csv or txt).
+* Updated delete submission functionality to include removing stored submission files.
+
+#### September 21, 2020
 
 In this release, here is a list of technical changes that may require infrastructure or database updates, or represents additional functionality.
 
@@ -16,7 +25,7 @@ In this release, here is a list of technical changes that may require infrastruc
 * Added submission type filter to the list submissions endpoint.
 * Added a day to the publish and certification deadlines as the deadline is the night of that date.
 
-#### August 10, 2020{section=technical}
+#### August 10, 2020
 
 In this release, here is a list of technical changes that may require infrastructure or database updates, or represents additional functionality.
 
@@ -24,7 +33,7 @@ In this release, here is a list of technical changes that may require infrastruc
 * Reworked the data ingesting process to be parallelized simultaneously to improve data validation performance.
 * Reworked the processing of SQL validations to be batched to save on large batches of memory and help performance.
 
-#### July 13, 2020{section=technical}
+#### July 13, 2020
 
 In this release, here is a list of technical changes that may require infrastructure or database updates, or represents additional functionality.
 
@@ -47,13 +56,13 @@ In this release, here is a list of technical changes that may require infrastruc
         * Renamed `list_certifications` to `list_history` to include published data
         * `get_certified_file` now accepts `published_files_history_id`
 
-#### June 1, 2020{section=technical}
+#### June 1, 2020
 
 In this release, here is a list of technical changes that may require infrastructure or database updates, or represents additional functionality.
 
 * Updated submission metadata endpoint to include consistent date formats.
 
-#### May 18, 2020{section=technical}
+#### May 18, 2020
 
 In this release, here is a list of technical changes that may require infrastructure or database updates, or represents additional functionality.
 
@@ -61,14 +70,14 @@ In this release, here is a list of technical changes that may require infrastruc
 * Released the Active DABS Dashboard page, allowing certifiers to notice similar errors/warnings with their active submissions.
 * Added Rule Settings modal, allowing certifiers to designate the significance and impact of each of the rules for their agency. These settings will be used for visualizations in the Active DABS Dashboard.
 
-#### May 4, 2020{section=technical}
+#### May 4, 2020
 
 In this release, here is a list of technical changes that may require infrastructure or database updates, or represents additional functionality.
 
 * Updated "list\_agencies" endpoint to filter out agencies based on the user's affiliations.
 * Updated settings endpoints only to be accessible by DABS submitters/certifiers.
 
-#### April 17, 2020{section=technical}
+#### April 17, 2020
 
 In this release, here is a list of technical changes that may require infrastructure or database updates, or represents additional functionality.
 
@@ -77,7 +86,7 @@ In this release, here is a list of technical changes that may require infrastruc
 * Updated older FABS records with outdated business types (‘00’, ‘01’, etc.).
 * Updated FABS rules and derivations for data quality (FABS38, “legal\_entity\_congressional” when record type is “1”).
 
-#### April 6, 2020{section=technical}
+#### April 6, 2020
 
 In this release, here is a list of technical changes that may require infrastructure or database updates, or represents additional functionality.
 
@@ -85,7 +94,7 @@ In this release, here is a list of technical changes that may require infrastruc
 * Reworked linking between FSRS grants and FABS records to improve data quality.
 * Added functionality to revert already certified and updated submissions back to when they were last certified, allowing users to further test submissions in a safe scenario.
 
-#### March 20, 2020{section=technical}
+#### March 20, 2020
 
 In this release, here is a list of technical changes that may require infrastructure or database updates, or represents additional functionality.
 
@@ -94,14 +103,14 @@ In this release, here is a list of technical changes that may require infrastruc
 * Updated README instructions for users installing the Broker.
 * Users can create test submissions for the same agency and the same quarter despite the certified submission already existing. Note one cannot certify these test submissions.
 
-#### March 9, 2020{section=technical}
+#### March 9, 2020
 
 In this release, here is a list of technical changes that may require infrastructure or database updates, or represents additional functionality.
 
 * Updated FABS derivation for place\_of\_performance\_scope for accuracy.
 * Dropped the constraint on users creating submissions via API for a period that is already certified. Users will still be unable to certify for these duplicate submissions.
 
-#### February 24, 2020{section=technical}
+#### February 24, 2020
 
 In this release, here is a list of technical changes that may require infrastructure or database updates, or represents additional functionality.
 
@@ -109,7 +118,7 @@ In this release, here is a list of technical changes that may require infrastruc
 * Fixed FABS 2.2.1 error text for accuracy.
 * Updated FABS derivations with record type “3” to account for “Place of Performance State Code”.
 
-#### February 10, 2020{section=technical}
+#### February 10, 2020
 
 In this release, here is a list of technical changes that may require infrastructure or database updates, or represents additional functionality.
 
@@ -117,7 +126,7 @@ In this release, here is a list of technical changes that may require infrastruc
 * Updated DUNS, HistoricDUNS, and Subaward tables to properly store business types (and not their codes). This will update the File F "SubAwardeeBusinessTypes" column for grants.
 * Added script to backfill FSRS records for data quality.
 
-#### January 27, 2020{section=technical}
+#### January 27, 2020
 
 In this release, here is a list of technical changes that may require infrastructure or database updates, or represents additional functionality.
 
@@ -127,7 +136,7 @@ In this release, here is a list of technical changes that may require infrastruc
 * Removed unused node packages for a cleaner installation process.
 * Upgraded React version to be compatible with modern versions of React.
 
-#### January 6, 2020{section=technical}
+#### January 6, 2020
 
 In this release, here is a list of technical changes that may require infrastructure or database updates, or represents additional functionality.
 
@@ -137,13 +146,13 @@ In this release, here is a list of technical changes that may require infrastruc
 * Updated API to make the trailing slash for each endpoint to be optional.
 * Resolved various minor bugs.
 
-#### December 16, 2019{section=technical}
+#### December 16, 2019
 
 In this release, here is a list of technical changes that may require infrastructure or database updates, or represents additional functionality.
 
 * Updated submission_window table and “/window” endpoint to support dynamic banners of different types (informational and warning) and headers
 
-#### December 2, 2019{section=technical}
+#### December 2, 2019
 
 In this release, here is a list of technical changes that may require infrastructure or database updates, or represents additional functionality.
 
@@ -162,13 +171,13 @@ Error/Warning Reports have been updated with the following to improve readabilit
 * Any values with the string "None" have been replaced with a blank space.
 * TAS values have been reformatted to match the format from USASpending.gov.
 
-#### November 18, 2019{section=technical}
+#### November 18, 2019
 
 In this release, here is a list of technical changes that may require infrastructure or database updates, or represents additional functionality.
 
 * Fixed minor front-end bug involving the drop-down agency lists displaying correctly and to address security reviews.
 
-#### November 4, 2019{section=technical}
+#### November 4, 2019
 
 In this release, here is a list of technical changes that may require infrastructure or database updates, or represents additional functionality.
 
@@ -177,7 +186,7 @@ In this release, here is a list of technical changes that may require infrastruc
 * Added endpoint "POST /v1/get\_rule\_labels/" which returns a list of filtered rule labels.
 * Added several endpoints to be used for the agency data dashboard (for trend analysis and listing error metadata).
 
-#### October 21, 2019{section=technical}
+#### October 21, 2019
 
 In this release, here is a list of technical changes that may require infrastructure or database updates, or represents additional functionality.
 
@@ -185,7 +194,7 @@ In this release, here is a list of technical changes that may require infrastruc
 * Updated permissions documentation with details on each role's available functionality.
 * Updated frontend DAIMS link to the latest DAIMS 1.3.1 for accuracy.
 
-#### October 7, 2019{section=technical}
+#### October 7, 2019
 
 In this release, here is a list of technical changes that may require infrastructure or database updates, or represents additional functionality.
 
@@ -195,14 +204,14 @@ In this release, here is a list of technical changes that may require infrastruc
     * /v1/get\_submission\_comments
     * /v1/update\_submission\_comments
 
-#### September 20, 2019{section=technical}
+#### September 20, 2019
 
 In this release, here is a list of technical changes that may require infrastructure or database updates, or represents additional functionality.
 
 * Added endpoint (get\_comments\_file) which generates a file containing all the comments related to a submission.
 * Updated the Subaward loader to link subawards to awards, specifically taking into account dashes in the award ids.
 
-#### September 6, 2019{section=technical}
+#### September 6, 2019
 
 In this release, here is a list of technical changes that may require infrastructure or database updates, or represents additional functionality.
 
@@ -212,7 +221,7 @@ In this release, here is a list of technical changes that may require infrastruc
 * Added script to reload specific awards/transactions from FPDS.
 * Updated script which corrected agency codes and names in transactions to support multiple subtier agency codes.
 
-#### August 23, 2019{section=technical}
+#### August 23, 2019
 
 In this release, here is a list of technical changes that may require infrastructure or database updates, or represents additional functionality.
 
@@ -221,7 +230,7 @@ In this release, here is a list of technical changes that may require infrastruc
 * Ensured that the `list_submissions` endpoint is accurate matching its `min_last_modified` with the submission's `last_modified` value.
 * Added logs to incoming API requests to help track down specific errors.
 
-#### August 9, 2019{section=technical}
+#### August 9, 2019
 
 In this release, here is a list of technical changes that may require infrastructure or database updates, or represents additional functionality.
 
@@ -231,7 +240,7 @@ In this release, here is a list of technical changes that may require infrastruc
 * Updated Federal Hierarchy loader to include metrics on new CGAC’s, subtiers to be imported in order to update the unified agency list shared with USAspending.gov.
 * Added functionality to generate pipe-delimited text files for D1 and D2.
 
-#### July 29, 2019{section=technical}
+#### July 29, 2019
 
 In this release, here is a list of technical changes that may require infrastructure or database updates, or represents additional functionality.
 
@@ -239,7 +248,7 @@ In this release, here is a list of technical changes that may require infrastruc
 * Dropped the deprecated ExecutiveCompensation table (the DUNS table now includes this data).
 * Removed dependency on the unified agency list's "FPDS Department ID" column.
 
-#### July 15, 2019{section=technical}
+#### July 15, 2019
 
 In this release, here is a list of technical changes that may require infrastructure or database updates, or represents additional functionality.
 
@@ -247,7 +256,7 @@ In this release, here is a list of technical changes that may require infrastruc
 * Verified and updated the following SQL validation rules for FABS to be case-insensitive: 13, 14, 15, 16, 17, 18, 21, 23, 31.
 * Verified and updated the logic of FABS derivations to be based on case-insensitive values.
 
-#### June 28, 2019{section=technical}
+#### June 28, 2019
 
 In this release, here is a list of technical changes that may require infrastructure or database updates, or represents additional functionality.
 
@@ -255,7 +264,7 @@ In this release, here is a list of technical changes that may require infrastruc
 * Reordered elements in the unique FABS transaction key and included CFDA Number to the uniqueness.
 * Added an upper index on afa_generated_unique for performance.
 
-#### June 14, 2019{section=technical}
+#### June 14, 2019
 
 In this release, here is a list of technical changes that may require infrastructure or database updates, or represents additional functionality.
 
@@ -263,7 +272,7 @@ In this release, here is a list of technical changes that may require infrastruc
 * Updated FABS derivations and FPDS loader to include Executive Compensation data in transaction data.
 * Updated underlying broker packages (Paramiko).
 
-#### June 3, 2019{section=technical}
+#### June 3, 2019
 
 In this release, here is a list of technical changes that may require infrastructure or database updates, or represents additional functionality.
 
@@ -271,14 +280,14 @@ In this release, here is a list of technical changes that may require infrastruc
 * Updated underlying broker packages (SQLAlchemy).
 * Reincorporated Executive Compensation loader to the nightly cadence and stopped loading external data upon File E generation.
 
-#### May 20, 2019{section=technical}
+#### May 20, 2019
 
 In this release, here is a list of technical changes that may require infrastructure or database updates, or represents additional functionality.
 
 * Updated several underlying python packages (Jinja2, webargs, psutil, supervisord).
 * Removed extraneous characters from CFDA reference data and updated CFDA loader to properly decode values.
 
-#### May 6, 2019{section=technical}
+#### May 6, 2019
 
 In this release, here is a list of technical changes that may require infrastructure or database updates, or represents additional functionality.
 
@@ -286,14 +295,14 @@ In this release, here is a list of technical changes that may require infrastruc
 * Updated database and code to reflect changes in the Federal Hierarchy API (specifically the financial assistance office type).
 * Updated country code loader to label U.S. Territories or Freely Associated States.
 
-#### April 19, 2019{section=technical}
+#### April 19, 2019
 
 In this release, here is a list of technical changes that may require infrastructure or database updates, or represents additional functionality.
 
 * Updated FPDS loader to generate an artifact detailing the metrics of the run for analysis.
 * Updated CFDA loader to properly encode the source csv and provide cleaner data.
 
-#### April 5, 2019{section=technical}
+#### April 5, 2019
 
 In this release, here is a list of technical changes that may require infrastructure or database updates, or represents additional functionality.
 
@@ -302,7 +311,7 @@ In this release, here is a list of technical changes that may require infrastruc
 * Removed deprecated `submit_detached_file` endpoint from the API. This should not affect Broker Inbound API users given that they do not use this endpoint.
 * Fixed the logic of providing current fiscal quarter on the frontend.
 
-#### March 25, 2019{section=technical}
+#### March 25, 2019
 
 In this release, here is a list of technical changes that may require infrastructure or database updates, or represents additional functionality.
 
@@ -311,14 +320,14 @@ In this release, here is a list of technical changes that may require infrastruc
 * Standardized unique award keys between Broker and USASpending.gov.
 * Optimized File F generation for performance in memory and speed.
 
-#### March 11, 2019{section=technical}
+#### March 11, 2019
 
 In this release, here is a list of technical changes that may require infrastructure or database updates, or represents additional functionality.
 
 * Established quarterly revalidation thresholds to re-enforce user submission windows
 * Generated unique award key values to help group award data and sync with USASpending.gov
 
-#### February 25, 2019{section=technical}
+#### February 25, 2019
 
 In this release, here is a list of technical changes that may require infrastructure or database updates, or represents additional functionality.
 
@@ -326,7 +335,7 @@ In this release, here is a list of technical changes that may require infrastruc
 * Optimized USPS loader script to use temporary tables to not halt other operations.
 * Improved performance of FABS 21 and FABS 23 validations.  
 
-#### February 7, 2019{section=technical}
+#### February 7, 2019
 
 In this release, here is a list of technical changes that may require infrastructure or database updates, or represents additional functionality.
 
@@ -336,7 +345,7 @@ In this release, here is a list of technical changes that may require infrastruc
 * Database migration updating job file size from Integer to Big Integer for larger files.
 * Enforce 1-minute timeout for generated downloads. 
 
-#### November 30, 2018{section=technical}
+#### November 30, 2018
 
 In this release, here is a list of technical changes that may require infrastructure or database updates, or represents additional functionality.
 
@@ -344,7 +353,7 @@ In this release, here is a list of technical changes that may require infrastruc
 * All scripts previously using camelCase format have been switched to under_score. 
 * Update permissions check to allow for users with no permissions to access the Help pages.
 
-#### November 1, 2018{section=technical}
+#### November 1, 2018
 
 In this release, here is a list of technical changes that may require infrastructure or database updates, or represents additional functionality.
 
@@ -354,7 +363,7 @@ In this release, here is a list of technical changes that may require infrastruc
 * Enforce 30-minute session timeout.
 * Update documentation and error handling.
 
-#### October 11, 2018{section=technical}
+#### October 11, 2018
 
 In this release, here is a list of technical changes that may require infrastructure or database updates, or represents additional functionality.
 
@@ -364,7 +373,7 @@ In this release, here is a list of technical changes that may require infrastruc
 * Begin migration from boto to boto3.
   * NOTE: boto and smart_open will no longer be used by the Broker after the next production deploy, all AWS interaction will be handled by boto3.
 
-#### September 25, 2018{section=technical}
+#### September 25, 2018
 
 In this release, here is a list of technical changes that may require infrastructure or database updates, or represents additional functionality.
 
@@ -373,7 +382,7 @@ In this release, here is a list of technical changes that may require infrastruc
   * D file generations now check the cache before sending a message to the SQS queue.
 * Update the fields required to make an IDV record unique. Script created to update the database contents to remove duplicated IDV records and those that should have been deleted historically.
 
-#### September 5, 2018{section=technical}
+#### September 5, 2018
 
 In this release, here is a list of technical changes that may require infrastructure or database updates, or represents additional functionality.
 
@@ -384,7 +393,7 @@ In this release, here is a list of technical changes that may require infrastruc
   * Add `agency_type` to the FileRequest and SQS table.
   * Add `dba_name` to the DUNS table.
 
-#### August 22, 2018{section=technical}
+#### August 22, 2018
 
 In this release, here is a list of technical changes that may require infrastructure or database updates, or represents additional functionality.
 
@@ -395,7 +404,7 @@ In this release, here is a list of technical changes that may require infrastruc
   * Last modified date range
 * Made an update to the DUNS loader to not replace data if the retrieved column is empty.
 
-#### August 2, 2018{section=technical}
+#### August 2, 2018
 
 In this release, here is a list of technical changes that may require infrastructure or database updates, or represents additional functionality.
 
@@ -405,7 +414,7 @@ In this release, here is a list of technical changes that may require infrastruc
   * Replaced upload_detached_file/ with upload_fabs_file/
 * File uploads are directed through the API instead of using temporary credentials on the front end.
 
-#### July 18, 2018{section=technical}
+#### July 18, 2018
 
 In this release, here is a list of technical changes that may require infrastructure or database updates, or represents additional functionality.
 
@@ -414,7 +423,7 @@ In this release, here is a list of technical changes that may require infrastruc
 * Made updates to the Program Activity loader to validate file contents.
 * Made updates to the FPDS nightly loader to check for changes to the data as the load occurs.
 
-#### July 5, 2018{section=technical}
+#### July 5, 2018
 
 In this release, here is a list of technical changes that may require infrastructure or database updates, or represents additional functionality.
 
@@ -422,7 +431,7 @@ In this release, here is a list of technical changes that may require infrastruc
   * A service account will be capped at Edit only permissions for DABS and FABS. Service accounts will not be able to certify DABS or publish FABS submissions.
 * Updated the check_status endpoint to limit functionality to only what is necessary to evaluate the status of the submission.
 
-#### June 19, 2018{section=technical}
+#### June 19, 2018
 
 In this release, here is a list of technical changes that may require infrastructure or database updates, or represents additional functionality.
 
@@ -434,7 +443,7 @@ In this release, here is a list of technical changes that may require infrastruc
 * Updated initialize.py to separate out the country codes from the “domain data” load.
 * Always update a user’s name on login.
 
-#### June 6, 2018{section=technical}
+#### June 6, 2018
 
 In this release, here is a list of technical changes that may require infrastructure or database updates, or represents additional functionality.
 
@@ -444,7 +453,7 @@ In this release, here is a list of technical changes that may require infrastruc
 * Updated Validator application to handle file generation
 * Updated `initialize.py`. Adding additional argument  to make a separate CFDA loading process for improve tracking data loads
 
-#### May 18, 2018{section=technical}
+#### May 18, 2018
 
 In this release, here is a list of technical changes that may require infrastructure or database updates, or represents additional functionality.
 
@@ -457,7 +466,7 @@ In this release, here is a list of technical changes that may require infrastruc
 * Adding additional parent DUNS loader to populate parent DUNS information to the DUNS table for and initial load and to the daily DUNS loader. Aids in adding parent DUNS information for FABS derivations per DAIMS v1.2.
 * Renaming FABS file types to be consistent. Updated, lookup contents loaded in `initialize.py`  under the `-db` flag.
 
-#### April 26, 2018{section=technical}
+#### April 26, 2018
 
 In this release, here is a list of technical changes that may require infrastructure or database updates, or represents additional functionality.
 
@@ -472,7 +481,7 @@ In this release, here is a list of technical changes that may require infrastruc
     * Removed unused pages from the frontend
 
 
-#### January 10, 2018{section=technical}
+#### January 10, 2018
 
 In this release, here is a list of technical changes that may require infrastructure or database updates, or represents additional functionality.
 
@@ -484,7 +493,7 @@ In this release, here is a list of technical changes that may require infrastruc
 * Front end linter added to confirm code quality
 * NPM update required to work with newer version of ES-lint. Newer ES-lint requires additional libraries which were added to the package.json. Jenkins params were updated (NPM 4 support removed) and added the command `npm update` to make sure the environment is as expected
 
-#### November 30, 2017{section=technical}
+#### November 30, 2017
 
 In this release, here is a list of technical changes that may require infrastructure or database updates, or represents additional functionality.
 
@@ -493,7 +502,7 @@ In this release, here is a list of technical changes that may require infrastruc
 * Modified D1 file caching to only clear after latest FPDS load
 Note: there were no database migrations
 
-#### September 28, 2017{section=technical}
+#### September 28, 2017
 
 In this release, here is a list of technical changes that may require infrastructure or database updates, or represents additional functionality.
 
@@ -501,7 +510,7 @@ In this release, here is a list of technical changes that may require infrastruc
 * Updated FABS validations to use DUNS original registration date
 * Updated FABS to include FREC permissions
 
-#### August 31, 2017{section=technical}
+#### August 31, 2017
 
 In this release, here is a list of technical changes that may require infrastructure or database updates, or represents additional functionality.
 
@@ -514,7 +523,7 @@ In this release, here is a list of technical changes that may require infrastruc
 * Updated FABS derivations and FPDS script to accommodate FREC agencies
 * Updated FPDS loader script to pull csv extracts
 
-#### August 17, 2017{section=technical}
+#### August 17, 2017
 
 In this release, here is a list of technical changes that may require infrastructure or database updates, or represents additional functionality.
 
@@ -528,7 +537,7 @@ In this release, here is a list of technical changes that may require infrastruc
 * Created new frontend routes (home, landing, and help) to accommodate FABS submissions.
 
 
-#### August 2, 2017{section=technical}
+#### August 2, 2017
 
 In this release, here is a list of technical changes that may require infrastructure or database updates, or represents additional functionality.
 
@@ -542,7 +551,7 @@ In this release, here is a list of technical changes that may require infrastruc
 * Created new frontend routes (home, landing, and help) to accommodate FABS submissions.
 
 
-#### July 19, 2017{section=technical}
+#### July 19, 2017
 
 In this release, here is a list of technical changes that may require infrastructure or database updates, or represents additional functionality.
 
@@ -560,7 +569,7 @@ In this release, here is a list of technical changes that may require infrastruc
 * Added executive_compensation data load script
 
 
-#### July 5, 2017{section=technical}
+#### July 5, 2017
 
 In this release, here is a list of technical changes that may require infrastructure or database updates, or represents additional functionality.
 
@@ -572,7 +581,7 @@ In this release, here is a list of technical changes that may require infrastruc
 * Modified csvReader to allow for newlines within fields
 
 
-#### June 21, 2017{section=technical}
+#### June 21, 2017
 
 In this release, here is a list of technical changes that may require infrastructure or database updates, or represents additional functionality.
 
@@ -586,7 +595,7 @@ In this release, here is a list of technical changes that may require infrastruc
 * Added script to load historical FABS data
 
 
-#### June 9, 2017{section=technical}
+#### June 9, 2017
 
 In this release, here is a list of technical changes that may require infrastructure or database updates, or represents additional functionality.
 
@@ -600,7 +609,7 @@ In this release, here is a list of technical changes that may require infrastruc
 * Added logging within validations
 
 
-#### May 24, 2017{section=technical}
+#### May 24, 2017
 
 In this release, here is a list of technical changes that may require infrastructure or database updates, or represents additional functionality.
 
@@ -611,7 +620,7 @@ In this release, here is a list of technical changes that may require infrastruc
 * New SQL rules added
 
 
-#### May 10, 2017{section=technical}
+#### May 10, 2017
 
 In this release, here is a list of technical changes that may require infrastructure or database updates, or represents additional functionality.
 
@@ -624,7 +633,7 @@ In this release, here is a list of technical changes that may require infrastruc
 * New SQL rules added
 * Removed dependency on Celery & RabbitMQ
 
-#### April 24, 2017{section=technical}
+#### April 24, 2017
 
 In this release, here is a list of technical changes that may require infrastructure or database updates, or represents additional functionality.
 
@@ -632,7 +641,7 @@ In this release, here is a list of technical changes that may require infrastruc
 * Updated config key from `awardee_attributes_file_name` to `executive_compensation_file_name`
 * Updated `requirements.txt` to upgrade SQLAlchemy version from 1.0.9 to 1.1.9
 
-#### April 12, 2017{section=technical}
+#### April 12, 2017
 
 In this release, here is a list of technical changes that may require infrastructure or database updates, or represents additional functionality.
 
@@ -641,7 +650,7 @@ In this release, here is a list of technical changes that may require infrastruc
 * Adding a column to sub-tier agency table -- will need to upgrade alembic head
 
 
-#### March 15, 2017{section=technical}
+#### March 15, 2017
 
 In this release, here is a list of technical changes that may require infrastructure or database updates, or represents additional functionality.
 
@@ -651,7 +660,7 @@ In this release, here is a list of technical changes that may require infrastruc
 * Updates to several sql rules
 
 
-#### March 1, 2017{section=technical}
+#### March 1, 2017
 
 In this release, here is a list of technical changes that may require infrastructure or database updates, or represents additional functionality.
 

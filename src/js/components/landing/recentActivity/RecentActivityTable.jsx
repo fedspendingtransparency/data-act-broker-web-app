@@ -89,7 +89,7 @@ export default class RecentActivityTable extends React.Component {
         }
         else {
             headers = [
-                'Submission ID',
+                'View',
                 'Agency',
                 'Reporting Period',
                 'Created By',
@@ -160,28 +160,26 @@ export default class RecentActivityTable extends React.Component {
         const rowClasses = [];
 
         let baseCellClasses = [
-            'row-12_5 text-center',
-            'row-20 text-center',
-            'row-15 text-right white-space',
-            'row-15 text-right',
-            'row-10 text-right',
-            'row-20 text-right progress-cell',
+            'row-12_5',
+            'row-20',
+            'row-15 white-space',
+            'row-12_5',
+            'row-12_5',
+            'row-20 progress-cell',
             'row-10 text-center'
         ];
         if (this.props.type === 'fabs') {
             baseCellClasses = [
                 'row-10 text-center',
-                'row-40 text-center',
-                'row-15 text-right',
-                'row-15 text-right',
-                'row-15 text-right',
+                'row-35',
+                'row-15',
+                'row-15',
+                'row-15',
                 'row-10 text-center'
             ];
         }
         const headerClasses = [...baseCellClasses];
-        if (this.props.type !== 'fabs') {
-            baseCellClasses[0] = 'row-12_5 text-left';
-        }
+        headerClasses[headerClasses.length - 1] = 'row-10';
 
         // sort the array by object key
         const orderKeys = [
@@ -223,6 +221,9 @@ export default class RecentActivityTable extends React.Component {
             type={this.props.type}
             testSubmission={rowData.test_submission} />);
         let reportingDateString = `Start: ${rowData.reporting_start_date}\nEnd: ${rowData.reporting_end_date}`;
+        if (this.props.type === 'fabs') {
+            reportingDateString = `Earliest: ${rowData.reporting_start_date}\nLatest: ${rowData.reporting_end_date}`;
+        }
 
         if (!rowData.reporting_start_date || !rowData.reporting_end_date) {
             reportingDateString = 'No reporting period specified';

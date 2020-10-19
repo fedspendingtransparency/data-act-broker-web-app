@@ -5,8 +5,7 @@
 
 import React from 'react';
 import PropTypes from 'prop-types';
-
-import * as Icons from '../SharedComponents/icons/Icons';
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 const propTypes = {
     deselectUser: PropTypes.func,
@@ -22,8 +21,8 @@ export default class ReviewDataSelectedUser extends React.Component {
     render() {
         return (
             <div className="usa-da-review-data-user-row">
-                <button className="usa-da-icon usa-da-icon-times-circle" onClick={this.props.deselectUser}>
-                    <Icons.TimesCircle />
+                <button className="usa-da-icon usa-da-icon-times-circle" onClick={this.props.deselectUser} alt="Remove">
+                    <FontAwesomeIcon icon="times-circle" />
                 </button>
                 <span>
                     {this.props.user.displayName}

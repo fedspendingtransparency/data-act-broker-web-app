@@ -35,10 +35,15 @@ export default class FileWarning extends React.Component {
         this.prepareData();
     }
 
-    componentDidUpdate(prevProps) {
+    componentDidUpdate(prevProps, prevState) {
         if (!_.isEqual(prevProps.files, this.props.files) || !_.isEqual(prevProps.submission.crossFileStaging,
             this.props.submission.crossFileStaging)) {
             this.prepareData();
+        }
+        // Have to do this because the callback in prepareData isn't triggering with a new state
+        if (!_.isEqual(prevState.causedBy, this.state.causedBy) || !_.isEqual(prevState.affectedPairs,
+            this.state.affectedPairs)) {
+            this.generateMessages();
         }
     }
 
@@ -56,8 +61,6 @@ export default class FileWarning extends React.Component {
         this.setState({
             affectedPairs,
             causedBy
-        }, () => {
-            this.generateMessages();
         });
     }
 

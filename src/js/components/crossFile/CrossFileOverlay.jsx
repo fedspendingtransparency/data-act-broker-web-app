@@ -170,6 +170,17 @@ export default class CrossFileOverlay extends React.Component {
             overlay.nextButtonClass = ' btn-primary';
             overlay.nextButtonDisabled = false;
         }
+        else if (this.props.mode === 'failed') {
+            // loading finished, show warnings
+            overlay.icon = <Icons.ExclamationCircle />;
+            overlay.iconClass = 'usa-da-errorRed';
+            overlay.message = 'An error has occurred while cross-validating your files.';
+            overlay.detail = 'Contact the Service Desk for assistance. Provide this URL when describing the issue.';
+            overlay.uploadButtonDisabled = true;
+            overlay.uploadButtonClass = '-disabled';
+            overlay.nextButtonClass = '-disabled';
+            overlay.nextButtonDisabled = true;
+        }
 
         // handle uploading events
         if (this.props.submission.state === 'uploading') {
