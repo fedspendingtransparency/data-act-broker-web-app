@@ -92,6 +92,10 @@ export default class SubmissionTypeField extends React.Component {
                                     Test submissions cannot be published or certified, but they can be used to validate
                                     your data.
                                 </div>
+                                <div className="subtype-description test-submission-note">
+                                    <b>Note:</b> Test submissions are automatically deleted if they remain unedited for
+                                    a period of 6 months.
+                                </div>
                             </label>
                         </div>
 
