@@ -71,4 +71,12 @@
         @import "../../../components/buttons/_download";
         @include downloadButton;
     }
+
+    h4 {
+        margin-bottom: rem(10);
+    }
+
+    p {
+        margin-bottom: rem(10);
+    }
 }
