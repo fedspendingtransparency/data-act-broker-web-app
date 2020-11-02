@@ -11,6 +11,7 @@ import * as LoginHelper from 'helpers/loginHelper';
 import * as UtilHelper from 'helpers/util';
 import * as PermissionsHelper from 'helpers/permissionsHelper';
 import FormattedTable from 'components/SharedComponents/table/FormattedTable';
+import LastModifiedCell from 'components/landing/recentActivity/LastModifiedCell';
 import SubmissionLink from './SubmissionLink';
 import DeleteLink from './DeleteLink';
 import * as Status from './SubmissionStatus';
@@ -161,12 +162,12 @@ export default class RecentActivityTable extends React.Component {
 
         let baseCellClasses = [
             'row-12_5',
-            'row-20',
+            'row-17_5',
             'row-15 white-space',
             'row-12_5',
-            'row-12_5',
+            'row-15',
             'row-20 progress-cell',
-            'row-10 text-center'
+            'row-7_5 text-center'
         ];
         if (this.props.type === 'fabs') {
             baseCellClasses = [
@@ -179,7 +180,7 @@ export default class RecentActivityTable extends React.Component {
             ];
         }
         const headerClasses = [...baseCellClasses];
-        headerClasses[headerClasses.length - 1] = 'row-10';
+        headerClasses[headerClasses.length - 1] = headerClasses[headerClasses.length - 1].split(' ')[0];
 
         // sort the array by object key
         const orderKeys = [
@@ -238,7 +239,7 @@ export default class RecentActivityTable extends React.Component {
             this.getAgency(rowData),
             reportingDateString,
             userName,
-            UtilHelper.convertToLocalDate(rowData.last_modified)
+            <LastModifiedCell expirationDate={rowData.expiration_date} lastModified={rowData.last_modified} />
         ];
 
         const unpublished = rowData.publish_status === 'unpublished';

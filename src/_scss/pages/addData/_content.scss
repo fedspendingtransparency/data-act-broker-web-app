@@ -30,8 +30,16 @@
 
                 label {
                     font-weight: bold;
+                    line-height: rem(18);
                     .subtype-description {
                         font-weight: normal;
+
+                        &.test-submission-note {
+                            margin-top: rem(7.5);
+                            b {
+                                color: $color-gray;
+                            }
+                        }
                     }
                 }
             }

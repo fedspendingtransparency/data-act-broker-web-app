@@ -2,16 +2,15 @@
     @import "../../components/tables/_submissionTable";
     @include submissionTable;
 
+    @import "../../components/tables/_submissionTableLastModified";
+    @include submissionTableLastModified;
+
     .usa-da-recent-activity-link {
         @import "../../components/tables/_submissionTableLink";
         @include submissionTableLink;
 
         .date-link {
             white-space: pre;
-        }
-
-        .usa-da-icon-eye {
-            margin-right: 0px;
         }
     }
 

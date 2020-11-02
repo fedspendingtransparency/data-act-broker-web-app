@@ -10,6 +10,7 @@ import _ from 'lodash';
 import { Pagination } from 'data-transparency-ui';
 
 import ErrorMessageOverlay from 'components/SharedComponents/ErrorMessageOverlay';
+import LastModifiedCell from 'components/landing/recentActivity/LastModifiedCell';
 
 import FormattedTable from '../SharedComponents/table/FormattedTable';
 import SubmissionLink from '../landing/recentActivity/SubmissionLink';
@@ -190,10 +191,12 @@ export default class SubmissionsTable extends React.Component {
         const output = [];
         const rowClasses = [];
         const allCellClasses = [];
-        const progressSize = this.props.type === 'fabs' ? 15 : 20;
-        const viewSize = this.props.type === 'fabs' ? 15 : 10;
-        let baseCellClasses = ['row-12_5 text-center', 'row-20 text-left', 'row-15 white-space', 'row-12_5', 'row-12_5',
-            `row-${progressSize} progress-cell`, 'row-10 text-center'];
+        const agencySize = this.props.type === 'fabs' ? '20' : '17_5';
+        const progressSize = this.props.type === 'fabs' ? '15' : '20';
+        const viewSize = this.props.type === 'fabs' ? '15' : '10';
+        const modifiedSize = this.props.type === 'fabs' ? '12_5' : '15';
+        let baseCellClasses = ['row-12_5 text-center', `row-${agencySize} text-left`, 'row-15 white-space', 'row-12_5',
+            `row-${modifiedSize}`, `row-${progressSize} progress-cell`, 'row-7_5 text-center'];
 
         if (this.props.isPublished) {
             baseCellClasses = [`row-${viewSize} text-center`, 'row-20', 'row-12_5', 'row-10', 'row-20 progress-cell',
@@ -303,7 +306,7 @@ export default class SubmissionsTable extends React.Component {
                 this.getAgency(item),
                 reportingDateString,
                 userName,
-                UtilHelper.convertToLocalDate(item.last_modified),
+                <LastModifiedCell expirationDate={item.expiration_date} lastModified={item.last_modified} />,
                 <Status.SubmissionStatus status={item.rowStatus} />
             ];
 
