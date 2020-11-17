@@ -1,3 +1,11 @@
+#### November 2, 2020{section=technical}
+
+In this release, here is a list of technical changes that may require infrastructure or database updates, or represents additional functionality.
+
+* Added FY21 Submission window schedule to the database.
+* Updated the design of the maintenance page when deploying the API.
+* Reloaded Agency table in the database.
+
 #### October 19, 2020
 
 In this release, here is a list of technical changes that may require infrastructure or database updates, or represents additional functionality.
@@ -11,7 +19,7 @@ In this release, here is a list of technical changes that may require infrastruc
    * POST /v1/get\_certified\_file/ -> GET /v1/get\_certified\_file/
 * Updated the messages of /v1/check\_current\_page/ for accuracy.
 
-#### October 5, 2020{section=technical}
+#### October 5, 2020
 
 In this release, here is a list of technical changes that may require infrastructure or database updates, or represents additional functionality.
 
