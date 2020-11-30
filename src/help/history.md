@@ -1,4 +1,9 @@
-#### November 2, 2020{section=changelog}
+#### November 17, 2020{section=changelog}
+In this release of the Broker, we:
+
+* Added note to Certify page in DABS to remind users comments are published on USAspending.gov.
+
+#### November 2, 2020
 In this release of the Broker, we:
 
 * FY21 reporting window schedule added to Help pages. 
