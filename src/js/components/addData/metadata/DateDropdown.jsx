@@ -82,11 +82,12 @@ export default class DateDropdown extends React.Component {
         const dates = [];
         years.forEach((year) => {
             months.forEach((month) => {
-                let monthString = `P${month.period} - ${month.string} ${year}`;
+                const fy = parseInt(month.value, 10) > 9 ? parseInt(year, 10) + 1 : year;
+                let monthString = `FY${fy} P${month.period} - ${month.string} ${year}`;
                 let monthValue = `${month.value}/${year}-${month.value}/${year}`;
                 // converting period 1 to include 2
                 if (month.value === '10') {
-                    monthString = `P${month.period}/P${month.nextMonPeriod} - ` +
+                    monthString = `FY${fy} P${month.period}/P${month.nextMonPeriod} - ` +
                         `${month.string}/${month.nextMonString} ${year}`;
                     monthValue = `${month.value}/${year}-${month.nextMonValue}/${year}`;
                 }

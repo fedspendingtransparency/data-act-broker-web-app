@@ -92,7 +92,7 @@ export default class RecentActivityTable extends React.Component {
             headers = [
                 'View',
                 'Agency',
-                'Reporting Period',
+                'Reporting Period (CY)',
                 'Created By',
                 'Last Modified',
                 'Status'
