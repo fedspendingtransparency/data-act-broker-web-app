@@ -27,7 +27,7 @@ const SubmissionHeader = (props) => {
             <br />
             {props.agency_name}
             <br />
-            Reporting Period: {props.reporting_period}
+            Reporting Period (FY): {props.reporting_period}
         </div>
     ) : null;
 
