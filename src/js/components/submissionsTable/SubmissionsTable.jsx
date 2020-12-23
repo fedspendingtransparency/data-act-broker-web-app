@@ -109,7 +109,7 @@ export default class SubmissionsTable extends React.Component {
             }
             else {
                 headers = [
-                    'Reporting Period\nSubmission ID',
+                    'Reporting Period (CY)\nSubmission ID',
                     'Agency',
                     'Created By',
                     'Last Modified',
@@ -130,7 +130,7 @@ export default class SubmissionsTable extends React.Component {
                 view = 'Submission ID';
             }
             else {
-                dateName = 'Reporting Period';
+                dateName = 'Reporting Period (CY)';
                 canDelete = PermissionsHelper.checkPermissions(this.props.session);
                 agency = 'Agency';
             }
