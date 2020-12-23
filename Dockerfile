@@ -1,11 +1,12 @@
-FROM node:10.15.3
+FROM node:10.16.0
 
 RUN mkdir /node-workspace
 COPY package.json /node-workspace 
+COPY package-lock.json /node-workspace
 
 WORKDIR /node-workspace
 
-RUN npm install --verbose
+RUN npm ci
 
 COPY . /node-workspace
 

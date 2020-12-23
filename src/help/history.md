@@ -1,4 +1,33 @@
-#### September 21, 2020{section=changelog}
+#### November 30, 2020{section=changelog}
+In this release of the Broker, we:
+
+* Updated File C to make Program Activity Code and Program Activity Name required fields to comply with OMB Memo M-20-21.
+* Updated logic in validations C20, C21, and C26 to now properly trigger these warnings and only return a difference on the warning report for those balances that fail the check.
+
+#### November 17, 2020
+In this release of the Broker, we:
+
+* Added note to Certify page in DABS to remind users comments are published on USAspending.gov.
+
+#### November 2, 2020
+In this release of the Broker, we:
+
+* FY21 reporting window schedule added to Help pages. 
+* Updated submission creation page and submission guide to add language for Test Submissions expiring. We also updated the Submission Table to show days remaining until expiration for submissions with less than 30 days remaining. 
+* Fixed several minor bugs.
+
+#### October 19, 2020
+In this release of the Broker, we:
+
+* Fixed various visual aspects and minor bugs of the frontend for improved user experience.
+
+#### October 5, 2020
+In this release of the Broker, we:
+
+* Updated DABS to identify and remove any Test submissions that have not been updated in over 6 months. After the initial removal, this process will run on a nightly basis. To prevent a submission from being removed, simply make an update to it (such as saving a comment) before the 6 months’ time has elapsed. In addition, all uncertified FY17Q1 or before submissions will be removed as reporting was not required for that reporting time frame.
+* Several bug fixes and performance enhancements. 
+
+#### September 21, 2020
 In this release of the Broker, we:
 
 * Reloaded Broker City Code table and ensured validations account for a City Code spanning more than one state.
