@@ -32,6 +32,12 @@ const defaultProps = {
 };
 
 export default class GenerateFilesContent extends React.Component {
+    constructor(props) {
+        super(props);
+
+        this.updateD1Error = this.updateD1Error.bind(this);
+        this.updateD2Error = this.updateD2Error.bind(this);
+    }
     clickedDownload(fileType) {
         this.props.clickedDownload(fileType);
     }
