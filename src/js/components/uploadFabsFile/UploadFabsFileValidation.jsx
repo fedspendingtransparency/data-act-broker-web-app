@@ -490,9 +490,14 @@ export class UploadFabsFileValidation extends React.Component {
                 }
             }
             else if (PermissionsHelper.checkFabsPublishPermissions(this.props.session)) {
+                const disabled = status !== "finished";
+                const disabledClass = disabled ? ' us-da-disabled-button' : '';
                 // User has permissions to publish this unpublished submission
                 validationButton = (
-                    <button className="pull-right col-xs-3 us-da-button" onClick={this.openModal.bind(this)}>
+                    <button
+                        className={`pull-right col-xs-3 us-da-button${disabledClass}`}
+                        onClick={this.openModal.bind(this)}
+                        disabled={disabled}>
                             Publish
                     </button>
                 );
