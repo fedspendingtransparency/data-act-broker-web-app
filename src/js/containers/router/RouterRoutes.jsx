@@ -49,7 +49,7 @@ export const checkFabsUploadPermissions = (session) => {
     }
 
     return session.user.affiliations.reduce((acc, affiliation) => {
-        if (affiliation.permission === 'fabs') {
+        if (affiliation.permission === 'fabs' || affiliation.permission === 'editfabs') {
             return true;
         }
         return acc;
