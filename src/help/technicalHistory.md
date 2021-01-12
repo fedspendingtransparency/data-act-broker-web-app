@@ -1,4 +1,8 @@
-#### November 30, 2020{section=technical}
+#### December 23, 2020{section=technical}
+
+In this release, no additional technical notes are provided.
+
+#### November 30, 2020
 
 In this release, here is a list of technical changes that may require infrastructure or database updates, or represents additional functionality.
 
