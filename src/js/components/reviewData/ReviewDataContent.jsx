@@ -278,8 +278,10 @@ export default class ReviewDataContent extends React.Component {
                     </div>
                 </div>
                 <div className="center-block usa-da-review-data-content-holder">
+                    <h4>Submission Summary</h4>
                     <div className="row">
                         <div className="col-md-4">
+                            <h5>File Details</h5>
                             <div className="usa-da-file-wrap">
                                 <div className="usa-da-icon usa-da-icon-check-circle">
                                     <FontAwesomeIcon icon="check-circle" />
@@ -296,58 +298,67 @@ export default class ReviewDataContent extends React.Component {
                                         <li>Total Warnings: <strong>{this.props.data.number_of_warnings}</strong></li>
                                     </ul>
                                 </div>
-                                <RevertToCertifiedContainer loadData={this.props.loadData} />
                             </div>
                         </div>
                         <div className="right-side col-md-8">
+                            <h5>Submission Details</h5>
                             <div className="usa-da-review-data-alternating-rows">
                                 {reportRows}
                             </div>
-                            <div className="row">
-                                <ReviewDataNarrative
-                                    narrative={this.props.data.file_narrative}
-                                    submissionID={this.props.submissionID}
-                                    loadData={this.props.loadData}
-                                    publishStatus={this.props.submission.publishStatus} />
-                            </div>
-                            <div className="row submission-button-holder">
-                                <div className="submission-wrapper">
-                                    <div className="left-link">
-                                        <button
-                                            onClick={revalidateButtonAction}
-                                            disabled={!revalidateButtonAction}
-                                            className="usa-da-button btn-primary btn-lg btn-full">
-                                            <div className="button-wrapper">
-                                                <div className="button-icon">
-                                                    <FontAwesomeIcon icon="redo" />
-                                                </div>
-                                                <div className="button-content">
-                                                    {revalidateButtonText}
-                                                </div>
-                                            </div>
-                                        </button>
-                                    </div>
-                                    {middleButtons}
-                                    <div className="right-link">
-                                        <button
-                                            onClick={notifyButtonAction}
-                                            disabled={!notifyButtonAction}
-                                            className="usa-da-button btn-primary btn-lg btn-full last">
-                                            <div className="button-wrapper">
-                                                <div className="button-icon">
-                                                    <FontAwesomeIcon icon="bell" />
-                                                </div>
-                                                <div className="button-content">
-                                                    Notify Another User
-                                                </div>
-                                            </div>
-                                        </button>
-                                    </div>
-                                </div>
-                            </div>
-                            {testSubmissionError}
                         </div>
                     </div>
+                    <div className="row">
+                        <h5>Agency Comments (optional)</h5>
+                        <ReviewDataNarrative
+                            narrative={this.props.data.file_narrative}
+                            submissionID={this.props.submissionID}
+                            loadData={this.props.loadData}
+                            publishStatus={this.props.submission.publishStatus} />
+                    </div>
+                    <div className="comment-note">
+                        <b>Note:</b> After a submission is published all of the associated comments will be made
+                        available on USAspending.gov in the <a href="">Agency Submission Statistics section</a> and the
+                        <a href="">Agency Submission Files section</a>.
+                    </div>
+                    <div className="row submission-button-holder">
+                        <div className="submission-wrapper">
+                            <div className="left-link">
+                                <RevertToCertifiedContainer loadData={this.props.loadData} />
+                            </div>
+                            <div className="left-link">
+                                <button
+                                    onClick={revalidateButtonAction}
+                                    disabled={!revalidateButtonAction}
+                                    className="usa-da-button btn-primary btn-lg btn-full">
+                                    <div className="button-wrapper">
+                                        <div className="button-icon">
+                                            <FontAwesomeIcon icon="redo" />
+                                        </div>
+                                        <div className="button-content">
+                                            {revalidateButtonText}
+                                        </div>
+                                    </div>
+                                </button>
+                            </div>
+                            {middleButtons}
+                            <div className="right-link">
+                                <button
+                                    onClick={notifyButtonAction}
+                                    disabled={!notifyButtonAction}
+                                    className="usa-da-button btn-primary btn-lg btn-full last">
+                                    <div className="button-wrapper">
+                                        <div className="button-icon">
+                                            <FontAwesomeIcon icon="bell" />
+                                        </div>
+                                        <div className="button-content">
+                                            Notify Another User
+                                        </div>
+                                    </div>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    {testSubmissionError}
                     <div id="reviewDataNotifyModalHolder">
                         <ReviewDataNotifyModal
                             {...this.props}

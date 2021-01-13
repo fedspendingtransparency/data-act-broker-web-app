@@ -39,7 +39,7 @@
 
 
         .usa-da-button {
-            @import "../../../components/buttons/_primary";
+            @import "../../components/buttons/_primary";
             @include primaryButton;
 
             height: 100%;
