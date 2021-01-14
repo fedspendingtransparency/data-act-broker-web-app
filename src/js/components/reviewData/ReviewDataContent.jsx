@@ -322,8 +322,13 @@ export default class ReviewDataContent extends React.Component {
                     <div className="row comment-note">
                         <div className="col-md-6">
                             <b>Note:</b> After a submission is published all of the associated comments will be made
-                            available on USAspending.gov in the <a href="">Agency Submission Statistics section</a> and
-                            the <a href="">Agency Submission Files section</a>.
+                            available on USAspending.gov in the&nbsp;
+                            <a href="https://www.usaspending.gov/submission-statistics/">
+                                Agency Submission Statistics section
+                            </a> and the&nbsp;
+                            <a href="https://files.usaspending.gov/agency_submissions/">
+                                Agency Submission Files section
+                            </a>.
                         </div>
                     </div>
                     <hr />
