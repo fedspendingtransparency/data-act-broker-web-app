@@ -136,10 +136,6 @@ export default class ReviewDataNarrative extends React.Component {
             <div className="narrative-wrapper">
                 <div className="gray-bg">
                     <h4>Add comments to files</h4>
-                    <p>
-                        <b>Note:</b> After you publish a submission, all of the associated comments and files will be
-                        made available on USAspending.gov.
-                    </p>
                     <div className="row">
                         <div className="col-md-7">
                             <ReviewDataNarrativeDropdown
