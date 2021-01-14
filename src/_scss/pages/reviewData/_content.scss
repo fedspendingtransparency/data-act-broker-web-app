@@ -1,5 +1,5 @@
 .usa-da-review-data-content-holder {
-    padding: 30px 20px;
+    padding: rem(40);
     margin-bottom: 100px;
     background-color: $color-white;
     @include contentBlockWrapper;
@@ -8,6 +8,35 @@
     @import "./rightSide";
     @import "./narrative/narrative";
     @import './submissionButtons';
+
+    h4 {
+        font-weight: $font-normal;
+        margin: 0;
+    }
+
+    h5 {
+        font-size: rem(20);
+        font-weight: $font-semibold;
+        margin-top: rem(30);
+        margin-bottom: rem(10);
+
+        .not-bold {
+            font-weight: $font-normal;
+        }
+    }
+
+    hr {
+        border-top: 1px dashed $color-gray-lighter;
+    }
+
+    .comment-note {
+        font-style: italic;
+        margin-top: rem(20);
+        
+        b {
+            font-weight: $font-semibold;
+        }
+    }
 
     .test-submission-error {
         margin-top: 10px;

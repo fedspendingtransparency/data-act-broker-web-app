@@ -3,11 +3,17 @@
         margin: auto 0;
     }
     .usa-da-review-data-alternating-rows {
-        margin-bottom: 23px;
         color: #555;
-        border: 1px solid black;
+        border: 1px solid $color-gray-light;
         > div {
             padding: 14px 0;
+        }
+        .row {
+            padding-left: rem(10);
+
+            .data {
+                font-weight: $font-semibold;
+            }
         }
         & div.row:nth-child(odd) {
             background-color: $color-gray-lightest;

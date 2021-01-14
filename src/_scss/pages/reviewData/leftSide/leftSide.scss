@@ -1,15 +1,19 @@
 .usa-da-file-wrap {
     position: relative;
-    width: 24.0rem;
-    position: relative;
-    border: 1px black solid;
-    & .usa-da-icon-check-circle {
-        width: rem(90);
+    width: 100%;
+    height: rem(282);
+    border: 1px solid $color-gray-light;
+    @include display(flex);
+    @include justify-content(center);
+    @include flex-direction(column);
+
+    .usa-da-icon-check-circle {
+        width: rem(88);
         margin: 0 auto;
         & svg {
-            margin: 20px 0 0;
-            height: rem(90);
-            width: rem(90);
+            margin: 0;
+            height: rem(88);
+            width: rem(88);
             position: relative;
             top: 5px;
             color: $color-green-light;
