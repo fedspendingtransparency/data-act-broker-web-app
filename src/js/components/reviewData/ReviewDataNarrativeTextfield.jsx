@@ -25,6 +25,7 @@ export default class ReviewDataNarrativeTextfield extends React.Component {
         return (
             <div className="narrative-box">
                 <textarea
+                    rows="1"
                     id="submission-review-narrative"
                     value={this.props.currentContent}
                     onChange={this.textChanged.bind(this)} />

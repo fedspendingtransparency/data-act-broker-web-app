@@ -121,7 +121,7 @@ export default class ReviewDataNarrative extends React.Component {
             <div
                 role="button"
                 tabIndex={0}
-                className="usa-da-download pull-right"
+                className="usa-da-download"
                 onKeyDown={onKeyDownHandler}
                 onClick={this.downloadCommentsFile}>
                 <span className="usa-da-icon usa-da-download-report">
@@ -134,33 +134,59 @@ export default class ReviewDataNarrative extends React.Component {
         }
         return (
             <div className="narrative-wrapper">
-                <div className="gray-bg">
-                    <h4>Add comments to files</h4>
-                    <div className="row">
-                        <div className="col-md-7">
-                            <ReviewDataNarrativeDropdown
-                                changeFile={this.changeFile}
-                                currentFile={this.state.currentFile} />
-                        </div>
-                        <div className="col-md-5 pull-right">
-                            {downloadButton}
-                        </div>
+                <h4>Submission Comment</h4>
+                <ReviewDataNarrativeTextfield
+                    currentContent={this.state.currentNarrative}
+                    textChanged={this.textChanged} />
+                <h4>File Comments</h4>
+                <h5>File A</h5>
+                <ReviewDataNarrativeTextfield
+                    currentContent={this.state.currentNarrative}
+                    textChanged={this.textChanged} />
+                <h5>File B</h5>
+                <ReviewDataNarrativeTextfield
+                    currentContent={this.state.currentNarrative}
+                    textChanged={this.textChanged} />
+                <h5>File C</h5>
+                <ReviewDataNarrativeTextfield
+                    currentContent={this.state.currentNarrative}
+                    textChanged={this.textChanged} />
+                <h5>File D1</h5>
+                <ReviewDataNarrativeTextfield
+                    currentContent={this.state.currentNarrative}
+                    textChanged={this.textChanged} />
+                <h5>File D2</h5>
+                <ReviewDataNarrativeTextfield
+                    currentContent={this.state.currentNarrative}
+                    textChanged={this.textChanged} />
+                <h5>File E</h5>
+                <ReviewDataNarrativeTextfield
+                    currentContent={this.state.currentNarrative}
+                    textChanged={this.textChanged} />
+                <h5>File F</h5>
+                <ReviewDataNarrativeTextfield
+                    currentContent={this.state.currentNarrative}
+                    textChanged={this.textChanged} />
+                <div className="row">
+                    <div className="col-md-4">
+                        {downloadButton}
                     </div>
-                    <ReviewDataNarrativeTextfield
-                        currentContent={this.state.currentNarrative}
-                        textChanged={this.textChanged} />
-                    <div className="row">
-                        <div className="col-md-12">
-                            <button
-                                onClick={this.saveNarrative}
-                                className="usa-da-button btn-default"
-                                disabled={blockedStatuses.indexOf(this.props.publishStatus) > -1}>
-                                Save Changes
-                            </button>
-                            <p className={`save-state ${this.state.saveState}`}>
-                                {this.state.saveState}{this.state.errorMessage}
-                            </p>
-                        </div>
+                    <div className="col-md-8 save-buttons">
+                        <p className={`save-state ${this.state.saveState}`}>
+                            {this.state.saveState}{this.state.errorMessage}
+                        </p>
+                        <button
+                            onClick={this.saveNarrative}
+                            className="usa-da-button btn-transparent"
+                            disabled={blockedStatuses.indexOf(this.props.publishStatus) > -1}>
+                            Cancel
+                        </button>
+                        <button
+                            onClick={this.saveNarrative}
+                            className="usa-da-button btn-primary"
+                            disabled={blockedStatuses.indexOf(this.props.publishStatus) > -1}>
+                            Save
+                        </button>
                     </div>
                 </div>
             </div>
