@@ -123,9 +123,9 @@ export default class ReviewDataContent extends React.Component {
     }
 
     render() {
-        const reportLabels = ['Agency Name:', 'Report Start Date:', 'Report End Date:',
-            'Award Obligations Incurred (file C):', 'Total Financial Assistance Obligations:',
-            'Total Procurement Obligations:'];
+        const reportLabels = ['Agency Name', 'Report Start Date', 'Report End Date',
+            'Award Obligations Incurred (file C)', 'Total Financial Assistance Obligations',
+            'Total Procurement Obligations'];
 
         const reportData = [
             this.props.data.agency_name,
@@ -288,19 +288,19 @@ export default class ReviewDataContent extends React.Component {
                                 </div>
                                 <div className="usa-da-submission-info">
                                     <div className="row">
-                                        <div className="col-xs-6 left-col">Total File Size:</div>
+                                        <div className="col-xs-6 left-col">Total File Size</div>
                                         <div className="col-xs-6 data">{formatSize(this.props.data.total_size)}</div>
                                     </div>
                                     <div className="row">
-                                        <div className="col-xs-6 left-col">Total Data Rows (excludes headers):</div>
+                                        <div className="col-xs-6 left-col">Total Data Rows (excludes headers)</div>
                                         <div className="col-xs-6 data">{this.props.data.number_of_rows}</div>
                                     </div>
                                     <div className="row">
-                                        <div className="col-xs-6 left-col">Created on:</div>
+                                        <div className="col-xs-6 left-col">Created on</div>
                                         <div className="col-xs-6 data">{this.props.data.created_on}</div>
                                     </div>
                                     <div className="row">
-                                        <div className="col-xs-6 left-col">Total Warnings:</div>
+                                        <div className="col-xs-6 left-col">Total Warnings</div>
                                         <div className="col-xs-6 data">{this.props.data.number_of_warnings}</div>
                                     </div>
                                 </div>
