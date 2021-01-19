@@ -29,7 +29,7 @@ export default class ReviewDataNarrativeTextfield extends React.Component {
             <div className="narrative-box">
                 <textarea
                     rows="1"
-                    id="submission-review-narrative"
+                    id={`submission-review-narrative-${this.props.fileType}`}
                     value={this.props.currentContent}
                     onChange={this.textChanged.bind(this)}
                     placeholder={`Enter a comment to describe this ${placeholderType}...`} />

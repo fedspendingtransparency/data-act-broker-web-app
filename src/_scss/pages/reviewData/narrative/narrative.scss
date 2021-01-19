@@ -16,8 +16,40 @@
         font-weight: 400;
     }
 
+    &.collapsed {
+        padding: rem(20) rem(30);
+    }
+
     .row {
         margin-bottom: 0;
+    }
+
+    .collapse-button {
+        @import "../../../components/buttons/_primary";
+        @include primaryButton;
+        float: right;
+        padding: 0;
+
+        background-color: transparent;
+        color: $color-primary;
+
+        &:hover {
+            background-color: transparent;
+            color: $color-primary-darker;
+        }
+
+        svg {
+            font-size: rem(18);
+            margin-bottom: rem(-2);
+
+            &.fa-chevron-down {
+                margin-left: rem(10);
+            }
+        }
+    }
+
+    .collapsed-text {
+        margin: 0;
     }
 
     .narrative-box {
@@ -47,6 +79,7 @@
                 &.btn-transparent {
                     background-color: transparent;
                     color: $color-primary;
+                    margin-right: rem(5);
         
                     &:hover {
                         background-color: transparent;
@@ -58,6 +91,7 @@
     
         .save-state {
             margin: 0;
+            font-weight: 600;
     
             svg {
                 width: rem(20);

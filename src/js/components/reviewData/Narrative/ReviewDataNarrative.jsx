@@ -6,11 +6,12 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { isEqual } from 'lodash';
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { createOnKeyDownHandler } from 'helpers/util';
 import * as ReviewHelper from 'helpers/reviewHelper';
 import { CloudDownload } from 'components/SharedComponents/icons/Icons';
 import ReviewDataNarrativeTextfield from './ReviewDataNarrativeTextfield';
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import ReviewDataNarrativeCollapsed from './ReviewDataNarrativeCollapsed';
 
 const propTypes = {
     submissionID: PropTypes.string,
@@ -49,13 +50,15 @@ export default class ReviewDataNarrative extends React.Component {
                 "F": ''
             },
             saveState: '',
-            errorMessage: ''
+            errorMessage: '',
+            commentsCollapsed: true
         };
 
         this.downloadCommentsFile = this.downloadCommentsFile.bind(this);
         this.textChanged = this.textChanged.bind(this);
         this.saveNarrative = this.saveNarrative.bind(this);
         this.undoChanges = this.undoChanges.bind(this);
+        this.toggleCommentBox = this.toggleCommentBox.bind(this);
     }
 
     componentDidMount() {
@@ -69,7 +72,7 @@ export default class ReviewDataNarrative extends React.Component {
     }
 
     saveNarrative() {
-        this.setState({ saveState: 'Saving...' });
+        this.setState({ saveState: 'Saving' });
         const tempNarrative = Object.assign({}, this.state.currentNarrative);
         tempNarrative.submission_id = this.props.submissionID;
 
@@ -122,12 +125,24 @@ export default class ReviewDataNarrative extends React.Component {
         this.setState({ currentNarrative: newNarrative });
     }
 
+    toggleCommentBox() {
+        this.setState({ commentsCollapsed: !this.state.commentsCollapsed });
+    }
+
     render() {
+        if (this.state.commentsCollapsed) {
+            return (
+                <ReviewDataNarrativeCollapsed
+                    toggleCommentBox={this.toggleCommentBox}
+                    initialNarrative={this.state.initialNarrative} />
+            );
+        }
         const onKeyDownHandler = createOnKeyDownHandler(this.downloadCommentsFile);
         const blockedStatuses = ['reverting', 'publishing'];
         const hasSavedComments = Object.values(this.state.initialNarrative).some(x => x !== '');
         const commentsChanged = !isEqual(this.state.initialNarrative, this.state.currentNarrative);
         let resultSymbol = null;
+        let resultText = null;
         let downloadButton = (
             <div
                 role="button"
@@ -146,12 +161,23 @@ export default class ReviewDataNarrative extends React.Component {
 
         if (this.state.saveState === 'Saved') {
             resultSymbol = <FontAwesomeIcon icon="check-circle" />;
+            resultText = 'Saved';
         }
         else if (this.state.saveState === 'Error') {
             resultSymbol = <FontAwesomeIcon icon="times-circle" />;
+            resultText = 'An error occurred and your comments were not saved';
+        }
+        else if (this.state.saveState === 'Saving') {
+            resultText = 'Saving...';
         }
         return (
             <div className="narrative-wrapper">
+                <button
+                    className="collapse-button"
+                    onClick={this.toggleCommentBox}
+                    aria-label="Toggle collapsed comment box state">
+                    <FontAwesomeIcon icon="chevron-up" />
+                </button>
                 <h4>Submission Comment</h4>
                 <ReviewDataNarrativeTextfield
                     currentContent={this.state.currentNarrative["submission_comment"]}
@@ -199,7 +225,7 @@ export default class ReviewDataNarrative extends React.Component {
                     </div>
                     <div className="col-md-8 save-buttons">
                         <p className="save-state">
-                            {resultSymbol}{this.state.saveState}{this.state.errorMessage}
+                            {resultSymbol}{resultText}{this.state.errorMessage}
                         </p>
                         <button
                             onClick={this.undoChanges}
