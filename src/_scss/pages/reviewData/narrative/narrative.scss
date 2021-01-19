@@ -20,51 +20,6 @@
         margin-bottom: 0;
     }
 
-    .save-buttons {
-        @include display(flex);
-        @include justify-content(flex-end);
-
-        .usa-da-button {
-            @import "../../../components/buttons/_optional";
-            @include optionalButton;
-            margin-top: rem(20);
-            padding: rem(5) rem(25);
-            font-weight: 600;
-    
-            &.btn-transparent {
-                background-color: transparent;
-                color: $color-primary;
-    
-                &:hover {
-                    background-color: transparent;
-                    color: $color-primary-darker;
-                }
-            }
-        }
-    }
-
-    .save-state {
-        margin-bottom: 0;
-        margin-top: 8px;
-        padding-right: 10px;
-        float: right;
-
-        font-size: 1.6rem;
-
-        &.Saved {
-            color: $color-green-light;
-        }
-
-        &.Error {
-            color: $color-secondary-dark;
-        }
-    }
-
-    .file-dropdown {
-        padding-top: 10px;
-        padding-bottom: 15px;
-    }
-
     .narrative-box {
         margin-left: rem(20);
         padding-bottom: 10px;
@@ -76,34 +31,76 @@
         }
     }
 
-    .usa-da-download {
-        // implement the download button
-        @import "../../../components/buttons/_download";
-        @include downloadButton;
-        margin-left: rem(20);
+    .comment-buttons {
         margin-top: rem(15);
 
-        color: $color-primary;
-        font-weight: 600;
-        font-size: rem(14);
-
-        & .usa-da-icon.usa-da-download-report {
-            & svg {
-                fill: $color-primary;
-            }
-        }
-
-        &:hover {
-            color: $color-primary-darker;
-            & .usa-da-icon.usa-da-download-report {
-                & svg {
-                    fill: $color-primary-darker;
+        .save-buttons {
+            @include display(flex);
+            @include justify-content(flex-end);
+    
+            .usa-da-button {
+                @import "../../../components/buttons/_optional";
+                @include optionalButton;
+                padding: rem(5) rem(25);
+                font-weight: 600;
+        
+                &.btn-transparent {
+                    background-color: transparent;
+                    color: $color-primary;
+        
+                    &:hover {
+                        background-color: transparent;
+                        color: $color-primary-darker;
+                    }
                 }
             }
         }
-    }
+    
+        .save-state {
+            margin: 0;
+    
+            svg {
+                width: rem(20);
+                height: rem(20);
+                position: relative;
+                left: rem(-5);
+                top: rem(4);
 
-    p {
-        margin-bottom: rem(10);
+                &.fa-check-circle {
+                    color: $color-green-light;
+                }
+
+                &.fa-times-circle {
+                    color: $color-secondary-dark;
+                }
+            }
+        }
+
+        .usa-da-download {
+            // implement the download button
+            @import "../../../components/buttons/_download";
+            @include downloadButton;
+            margin-left: rem(20);
+            margin-top: 0;
+    
+            color: $color-primary;
+            font-weight: 600;
+            font-size: rem(14);
+    
+            & .usa-da-icon.usa-da-download-report {
+                & svg {
+                    fill: $color-primary;
+                }
+            }
+    
+            &:hover {
+                color: $color-primary-darker;
+                & .usa-da-icon.usa-da-download-report {
+                    & svg {
+                        fill: $color-primary-darker;
+                    }
+                }
+            }
+        }
     }
 }

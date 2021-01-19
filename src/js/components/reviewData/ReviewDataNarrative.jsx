@@ -9,8 +9,8 @@ import { isEqual } from 'lodash';
 import { createOnKeyDownHandler } from 'helpers/util';
 import * as ReviewHelper from 'helpers/reviewHelper';
 import { CloudDownload } from 'components/SharedComponents/icons/Icons';
-import ReviewDataNarrativeDropdown from './ReviewDataNarrativeDropdown';
 import ReviewDataNarrativeTextfield from './ReviewDataNarrativeTextfield';
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 const propTypes = {
     submissionID: PropTypes.string,
@@ -28,17 +28,34 @@ export default class ReviewDataNarrative extends React.Component {
         super(props);
 
         this.state = {
-            currentFile: 'A',
-            fileNarrative: {},
-            currentNarrative: '',
+            initialNarrative: {
+                "submission_comment": '',
+                "A": '',
+                "B": '',
+                "C": '',
+                "D1": '',
+                "D2": '',
+                "E": '',
+                "F": ''
+            },
+            currentNarrative: {
+                "submission_comment": '',
+                "A": '',
+                "B": '',
+                "C": '',
+                "D1": '',
+                "D2": '',
+                "E": '',
+                "F": ''
+            },
             saveState: '',
             errorMessage: ''
         };
 
         this.downloadCommentsFile = this.downloadCommentsFile.bind(this);
-        this.changeFile = this.changeFile.bind(this);
         this.textChanged = this.textChanged.bind(this);
         this.saveNarrative = this.saveNarrative.bind(this);
+        this.undoChanges = this.undoChanges.bind(this);
     }
 
     componentDidMount() {
@@ -51,15 +68,9 @@ export default class ReviewDataNarrative extends React.Component {
         }
     }
 
-    getNewNarrative() {
-        const tempNarrative = this.state.fileNarrative;
-        tempNarrative[this.state.currentFile] = this.state.currentNarrative;
-        return tempNarrative;
-    }
-
     saveNarrative() {
-        this.setState({ saveState: 'Saving' });
-        const tempNarrative = this.getNewNarrative();
+        this.setState({ saveState: 'Saving...' });
+        const tempNarrative = Object.assign({}, this.state.currentNarrative);
         tempNarrative.submission_id = this.props.submissionID;
 
         ReviewHelper.saveNarrative(tempNarrative)
@@ -93,30 +104,30 @@ export default class ReviewDataNarrative extends React.Component {
 
     updateState(props) {
         this.setState({
-            currentFile: 'A',
-            fileNarrative: props.narrative,
-            currentNarrative: props.narrative.A,
+            initialNarrative: props.narrative,
+            currentNarrative: props.narrative,
             saveState: ''
         });
     }
 
-    changeFile(newFile) {
-        const tempNarrative = this.getNewNarrative();
-
-        this.setState({
-            fileNarrative: tempNarrative,
-            currentFile: newFile,
-            currentNarrative: tempNarrative[newFile]
-        });
+    undoChanges() {
+        const originalStatus = Object.assign({}, this.state.initialNarrative);
+        this.setState({ currentNarrative: originalStatus });
     }
 
-    textChanged(newNarrative) {
+    textChanged(newContent, fileType) {
+        // const newNarrative = this.state.currentNarrative
+        const newNarrative = Object.assign({}, this.state.currentNarrative);
+        newNarrative[fileType] = newContent;
         this.setState({ currentNarrative: newNarrative });
     }
 
     render() {
         const onKeyDownHandler = createOnKeyDownHandler(this.downloadCommentsFile);
         const blockedStatuses = ['reverting', 'publishing'];
+        const hasSavedComments = Object.values(this.state.initialNarrative).some(x => x !== '');
+        const commentsChanged = !isEqual(this.state.initialNarrative, this.state.currentNarrative);
+        let resultSymbol = null;
         let downloadButton = (
             <div
                 role="button"
@@ -129,62 +140,77 @@ export default class ReviewDataNarrative extends React.Component {
                 </span>Download Comments for All Files (.csv)
             </div>
         );
-        if (blockedStatuses.indexOf(this.props.publishStatus) > -1) {
+        if (blockedStatuses.indexOf(this.props.publishStatus) > -1 || !hasSavedComments) {
             downloadButton = null;
+        }
+
+        if (this.state.saveState === 'Saved') {
+            resultSymbol = <FontAwesomeIcon icon="check-circle" />;
+        }
+        else if (this.state.saveState === 'Error') {
+            resultSymbol = <FontAwesomeIcon icon="times-circle" />;
         }
         return (
             <div className="narrative-wrapper">
                 <h4>Submission Comment</h4>
                 <ReviewDataNarrativeTextfield
-                    currentContent={this.state.currentNarrative}
-                    textChanged={this.textChanged} />
+                    currentContent={this.state.currentNarrative["submission_comment"]}
+                    textChanged={this.textChanged}
+                    fileType="submission_comment" />
                 <h4>File Comments</h4>
                 <h5>File A</h5>
                 <ReviewDataNarrativeTextfield
-                    currentContent={this.state.currentNarrative}
-                    textChanged={this.textChanged} />
+                    currentContent={this.state.currentNarrative["A"]}
+                    textChanged={this.textChanged}
+                    fileType="A" />
                 <h5>File B</h5>
                 <ReviewDataNarrativeTextfield
-                    currentContent={this.state.currentNarrative}
-                    textChanged={this.textChanged} />
+                    currentContent={this.state.currentNarrative["B"]}
+                    textChanged={this.textChanged}
+                    fileType="B" />
                 <h5>File C</h5>
                 <ReviewDataNarrativeTextfield
-                    currentContent={this.state.currentNarrative}
-                    textChanged={this.textChanged} />
+                    currentContent={this.state.currentNarrative["C"]}
+                    textChanged={this.textChanged}
+                    fileType="C" />
                 <h5>File D1</h5>
                 <ReviewDataNarrativeTextfield
-                    currentContent={this.state.currentNarrative}
-                    textChanged={this.textChanged} />
+                    currentContent={this.state.currentNarrative["D1"]}
+                    textChanged={this.textChanged}
+                    fileType="D1" />
                 <h5>File D2</h5>
                 <ReviewDataNarrativeTextfield
-                    currentContent={this.state.currentNarrative}
-                    textChanged={this.textChanged} />
+                    currentContent={this.state.currentNarrative["D2"]}
+                    textChanged={this.textChanged}
+                    fileType="D2" />
                 <h5>File E</h5>
                 <ReviewDataNarrativeTextfield
-                    currentContent={this.state.currentNarrative}
-                    textChanged={this.textChanged} />
+                    currentContent={this.state.currentNarrative["E"]}
+                    textChanged={this.textChanged}
+                    fileType="E" />
                 <h5>File F</h5>
                 <ReviewDataNarrativeTextfield
-                    currentContent={this.state.currentNarrative}
-                    textChanged={this.textChanged} />
-                <div className="row">
+                    currentContent={this.state.currentNarrative["F"]}
+                    textChanged={this.textChanged}
+                    fileType="F" />
+                <div className="row comment-buttons">
                     <div className="col-md-4">
                         {downloadButton}
                     </div>
                     <div className="col-md-8 save-buttons">
-                        <p className={`save-state ${this.state.saveState}`}>
-                            {this.state.saveState}{this.state.errorMessage}
+                        <p className="save-state">
+                            {resultSymbol}{this.state.saveState}{this.state.errorMessage}
                         </p>
                         <button
-                            onClick={this.saveNarrative}
+                            onClick={this.undoChanges}
                             className="usa-da-button btn-transparent"
-                            disabled={blockedStatuses.indexOf(this.props.publishStatus) > -1}>
+                            disabled={blockedStatuses.indexOf(this.props.publishStatus) > -1 || !commentsChanged}>
                             Cancel
                         </button>
                         <button
                             onClick={this.saveNarrative}
                             className="usa-da-button btn-primary"
-                            disabled={blockedStatuses.indexOf(this.props.publishStatus) > -1}>
+                            disabled={blockedStatuses.indexOf(this.props.publishStatus) > -1 || !commentsChanged}>
                             Save
                         </button>
                     </div>

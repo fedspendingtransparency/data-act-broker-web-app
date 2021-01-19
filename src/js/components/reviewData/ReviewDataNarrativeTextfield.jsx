@@ -8,27 +8,31 @@ import PropTypes from 'prop-types';
 
 const propTypes = {
     textChanged: PropTypes.func,
-    currentContent: PropTypes.string
+    currentContent: PropTypes.string,
+    fileType: PropTypes.string
 };
 
 const defaultProps = {
     textChanged: null,
-    currentContent: ''
+    currentContent: '',
+    fileType: ''
 };
 
 export default class ReviewDataNarrativeTextfield extends React.Component {
     textChanged(e) {
-        this.props.textChanged(e.target.value);
+        this.props.textChanged(e.target.value, this.props.fileType);
     }
 
     render() {
+        const placeholderType = this.props.fileType === 'submission_comment' ? 'submission' : 'file';
         return (
             <div className="narrative-box">
                 <textarea
                     rows="1"
                     id="submission-review-narrative"
                     value={this.props.currentContent}
-                    onChange={this.textChanged.bind(this)} />
+                    onChange={this.textChanged.bind(this)}
+                    placeholder={`Enter a comment to describe this ${placeholderType}...`} />
             </div>
         );
     }
