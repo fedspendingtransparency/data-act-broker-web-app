@@ -8,6 +8,10 @@
         margin: 0;
         margin-bottom: rem(20);
         font-size: rem(18);
+
+        &.extra-padding {
+            margin-top: rem(20);
+        }
     }
 
     h5 {
