@@ -15,7 +15,7 @@ import ReviewDataContentRow from './ReviewDataContentRow';
 import ReviewDataNotifyModal from './ReviewDataNotifyModal';
 import ReviewDataCertifyModal from './CertificationModal/ReviewDataCertifyModal';
 import RevalidateDataModal from './CertificationModal/RevalidateDataModal';
-import ReviewDataNarrative from './ReviewDataNarrative';
+import ReviewDataNarrative from './Narrative/ReviewDataNarrative';
 
 import { formatSize } from '../../helpers/util';
 

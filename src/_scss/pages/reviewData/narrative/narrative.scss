@@ -1,82 +1,153 @@
 .narrative-wrapper {
 
-    &.col-md-8 {
-        padding-left: 0;
+    padding: rem(30);
+    padding-top: rem(20);
+    background-color: $color-gray-lightest;
+
+    h4 {
+        margin: 0;
+        margin-bottom: rem(20);
+        font-size: rem(18);
+
+        &.extra-padding {
+            margin-top: rem(20);
+        }
     }
 
-    .gray-bg {
-        padding: 15px;
-        padding-top: 5px;
-        background-color: $color-gray-lightest;
+    h5 {
+        margin: rem(5) 0 rem(5) rem(20);
+        font-size: $base-font-size;
+        font-weight: 400;
+    }
+
+    &.collapsed {
+        padding: rem(20) rem(30);
     }
 
     .row {
         margin-bottom: 0;
     }
 
-    @media(max-width: $medium-screen) {
-        select {
-            margin-bottom: 1rem;
-        }
-    }
-
-    textarea {
-        width: 100%;
-        height: 10rem;
-    }
-
-    .usa-da-button {
-        @import "../../../components/buttons/_optional";
-        @include optionalButton;
-
+    .collapse-button {
+        @import "../../../components/buttons/_primary";
+        @include primaryButton;
         float: right;
+        padding: 0;
 
-        &.btn-default {
-            background: white;
+        background-color: transparent;
+        color: $color-primary;
 
-            &:active {
-                background: white;
+        &:hover {
+            background-color: transparent;
+            color: $color-primary-darker;
+        }
+
+        svg {
+            font-size: rem(18);
+            margin-bottom: rem(-2);
+
+            &.fa-chevron-down {
+                margin-left: rem(10);
             }
         }
     }
 
-    .save-state {
-        margin-bottom: 0;
-        margin-top: 8px;
-        padding-right: 10px;
-        float: right;
-
-        font-size: 1.6rem;
-
-        &.Saved {
-            color: $color-green-light;
-        }
-
-        &.Error {
-            color: $color-secondary-dark;
-        }
-    }
-
-    .file-dropdown {
-        padding-top: 10px;
-        padding-bottom: 15px;
+    .collapsed-text {
+        margin: 0;
     }
 
     .narrative-box {
+        margin-left: rem(20);
         padding-bottom: 10px;
+
+        textarea {
+            width: 100%;
+            height: rem(41);
+            max-width: 100%;
+            padding: rem(10);
+        }
     }
 
-    .usa-da-download {
-        // implement the download button
-        @import "../../../components/buttons/_download";
-        @include downloadButton;
-    }
+    .comment-buttons {
+        margin-top: rem(15);
 
-    h4 {
-        margin-bottom: rem(10);
-    }
+        .save-buttons {
+            @include display(flex);
+            @include justify-content(flex-end);
+    
+            .usa-da-button {
+                @import "../../../components/buttons/_optional";
+                @include optionalButton;
+                padding: rem(5) rem(25);
+                font-weight: 600;
+        
+                &.btn-transparent {
+                    background-color: transparent;
+                    color: $color-primary;
+                    margin-right: rem(5);
+        
+                    &:hover {
+                        background-color: transparent;
+                        color: $color-primary-darker;
+                    }
+                }
+            }
+        }
+    
+        .save-state {
+            margin: 0;
+            font-weight: 600;
+    
+            svg {
+                width: rem(20);
+                height: rem(20);
+                position: relative;
+                left: rem(-5);
+                top: rem(4);
 
-    p {
-        margin-bottom: rem(10);
+                &.fa-check-circle {
+                    color: $color-green-light;
+                }
+
+                &.fa-times-circle {
+                    color: $color-secondary-dark;
+                }
+            }
+        }
+
+        .usa-da-download {
+            // implement the download button
+            @import "../../../components/buttons/_optional";
+            @include optionalButton;
+            margin-left: rem(20);
+            margin-top: 0;
+            padding: rem(0) 0;
+    
+            background-color: transparent;
+            color: $color-primary;
+            font-weight: 600;
+            font-size: rem(14);
+    
+            & .usa-da-icon.usa-da-download-report {
+                & svg {
+                    fill: $color-primary;
+                }
+            }
+    
+            &:hover {
+                color: $color-primary-darker;
+                & .usa-da-icon.usa-da-download-report {
+                    & svg {
+                        fill: $color-primary-darker;
+                    }
+                }
+            }
+
+            @media (max-width: $medium-screen - 1) {
+                display: block;
+                margin: auto;
+                margin-bottom: rem(20);
+            }
+        }
     }
 }
