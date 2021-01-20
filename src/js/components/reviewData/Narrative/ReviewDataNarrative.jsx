@@ -175,7 +175,7 @@ export default class ReviewDataNarrative extends React.Component {
                     currentContent={this.state.currentNarrative.submission_comment}
                     textChanged={this.textChanged}
                     fileType="submission_comment" />
-                <h4>File Comments</h4>
+                <h4 className="extra-padding">File Comments</h4>
                 <h5>File A</h5>
                 <ReviewDataNarrativeTextfield
                     currentContent={this.state.currentNarrative.A}
