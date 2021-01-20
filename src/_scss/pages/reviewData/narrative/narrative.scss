@@ -138,6 +138,12 @@
                     }
                 }
             }
+
+            @media (max-width: $medium-screen - 1) {
+                display: block;
+                margin: auto;
+                margin-bottom: rem(20);
+            }
         }
     }
 }
