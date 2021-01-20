@@ -1,116 +1,106 @@
 .submission-button-holder {
     margin-top: rem(20);
-    .submission-wrapper {
-        // apply flexboxes to force all buttons to have the same height if the button contents need to line wrap
 
+    .revert-revalidate-buttons {
         @include display(flex);
-        @include justify-content(space-between);
+
+        button {
+            width: rem(136);
+            margin-right: rem(10);
+
+            @media(max-width: $medium-screen) {
+                display: block;
+                margin: 0;
+                margin-top: rem(15);
+                width: 100%;
+            }
+        }
 
         @media(max-width: $medium-screen) {
-            display: block;
+            @include flex-direction(column);
         }
-
-        &.col-md-8 {
-            padding-left: 0;
-        }
-
-        .revert-revalidate-buttons {
-            .left-link{
-                position: relative;
-                width: rem(150);
-                float: left;
-                margin-right: rem(10);
+    }
     
-                @media(max-width: $medium-screen) {
-                    display: block;
-                    margin: 0;
-                    margin-top: rem(15);
-                }
-            }
-        }
-        
-        .publish-certify-buttons {
-            .right-link {
-                position: relative;
-                width: rem(300);
-                float: left;
-    
-                @media(max-width: $medium-screen) {
-                    display: block;
-                    margin-top: 1.5rem;
-                }
+    .publish-certify-buttons {
+        @include display(flex);
+        @include justify-content(flex-end);
+
+        button {
+            width: rem(200);
+            margin-left: rem(10);
+
+            @media(max-width: $medium-screen) {
+                display: block;
+                width: 100%;
+                margin: 0;
+                margin-top: rem(15);
             }
         }
 
-        .usa-da-button {
-            @import "../../components/buttons/_primary";
-            @include primaryButton;
+        @media(max-width: $medium-screen) {
+            @include flex-direction(column);
+        }
+    }
 
-            height: 100%;
+    .usa-da-button {
+        @import "../../components/buttons/_primary";
+        @include primaryButton;
 
-            // use a bunch of flexboxes to force the icon and button text to be vertically aligned within the button
-            .button-wrapper {
-                @include display(flex);
-                @include justify-content(space-between);
-                align-items: center;
+        @include display(flex);
+        @include justify-content(center);
+        @include align-items(center);
 
-                &.row {
-                    margin-left: 0;
+        height: rem(47);
+        font-weight: 600;
+        padding: 0 rem(20);
 
-                    @media(max-width:$large-screen) {
-                        margin-left: rem(-5);
-                    }
+        // use a bunch of flexboxes to force the icon and button text to be vertically aligned within the button
+        .button-wrapper {
+            @include display(flex);
+            @include justify-content(center);
+            @include align-items(center); 
+        }
 
-                    @media(max-width:$medium-screen) {
-                        margin-left: 0;
-                    }
-                } 
-            }
+        &.btn-primary-alt {
+            @include btnBase($color-primary, $color-gray-lightest);
+            border: none;
+        }
 
-            &.btn-primary-alt {
-                @include btnBase($color-primary, $color-gray-lightest);
-                border: none;
-            }
+        & svg {
+            font-size: rem(20);
+            margin-right: rem(10);
 
-            .button-content {
-                @include flex(1 1 auto);
-                position: relative;
-                font-size: $base-font-size;
-            }
-
-            .button-icon {
-                @include flex(0 0 3.6rem);
-                @include display(flex);
-                @include align-items(center);
-            }
-
-            & svg {
-                @include flex(1 1 auto);
-                position: relative;
-                fill: $color-white;
-                height: 2.4rem;
-                width: 2.6rem;
+            &.fa-spinner {
+                margin-right: 0;
+                margin-left: rem(10);
             }
         }
     }
 }
 
 .notify-button {
-    text-align: center;
-    float: right;
-    margin: rem(10);
-    margin-right: 0;
-    height: 2.4rem;
+    @include display(flex);
+    @include justify-content(center);
+    margin-top: rem(15);
 
-    a {
-        font-weight: $font-bold;
+    @media (min-width: $medium-screen) {
+        @include justify-content(flex-end);
+        margin-top: rem(30);
+    }
+    color: $color-primary;
+
+    button {
+        @import "../../components/buttons/_primary";
+        @include primaryButton;
+        background: transparent;
+        padding: rem(5) 0;
+        font-weight: 600;
     
         & svg {
             @include flex(1 1 auto);
             position: relative;
             margin-right: rem(5);
-            height: 2.4rem;
-            width: 2.6rem;
+            font-size: rem(16);
         }
     }
 }

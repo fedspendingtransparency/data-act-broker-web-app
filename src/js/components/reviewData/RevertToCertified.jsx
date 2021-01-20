@@ -18,9 +18,9 @@ const propTypes = {
 const RevertToCertified = ({
     disabled, loading, error, message, revert
 }) => {
-    let buttonText = 'Revert';
+    let buttonText = [<FontAwesomeIcon icon="redo" />, 'Revert'];
     if (loading) {
-        buttonText = (<span>Reverting <FontAwesomeIcon icon="spinner" spin /></span>);
+        buttonText = ['Reverting', <FontAwesomeIcon icon="spinner" spin />];
     }
     let alert = null;
     if (error) {
@@ -42,14 +42,9 @@ const RevertToCertified = ({
             <button
                 onClick={revert}
                 disabled={disabled}
-                className={`usa-da-button btn-primary-alt btn-lg btn-full${disabled ? ' btn-disabled' : ''}`}>
+                className={`usa-da-button btn-primary-alt${disabled ? ' btn-disabled' : ''}`}>
                 <div className="button-wrapper">
-                    <div className="button-icon">
-                        <FontAwesomeIcon icon="redo" />
-                    </div>
-                    <div className="button-content">
-                        {buttonText}
-                    </div>
+                    {buttonText}
                 </div>
             </button>
             {alert}

@@ -55,9 +55,7 @@ export default class ReviewDataContent extends React.Component {
         this.closeModal = this.closeModal.bind(this);
     }
 
-    openNotifyModal(e) {
-        e.preventDefault();
-
+    openNotifyModal() {
         this.openModal('Notify');
     }
 
@@ -151,7 +149,6 @@ export default class ReviewDataContent extends React.Component {
         let certifyButtonAction;
         let revalidateButtonAction;
         let notifyButtonAction = this.openNotifyModal;
-        let testSubmissionError = null;
         let twoButtons = false;
         let certifyIcon = <FontAwesomeIcon icon="globe-americas" />;
         // TODO: I don't think we ever actually have window data to gather, we should look into this
@@ -171,12 +168,6 @@ export default class ReviewDataContent extends React.Component {
         if (this.props.testSubmission) {
             publishButtonText = 'Test submissions cannot be published';
             certifyButtonText = 'Test submissions cannot be certified';
-            testSubmissionError = (
-                <div
-                    className="alert alert-danger text-center test-submission-error"
-                    role="alert">
-                    Test submissions cannot be published or certified
-                </div>);
         }
         else if (blockedWindow) {
             const windowDate = moment(blockedWindow.end_date).format('dddd, MMMM D, YYYY');
@@ -229,43 +220,31 @@ export default class ReviewDataContent extends React.Component {
             certifyButtonClass = ' btn-disabled';
         }
 
-        const middleButtons = [];
+        const publishCertifyButtons = [];
         if (twoButtons) {
-            middleButtons.push(
-                <div className="right-link" key="publish-button">
-                    <button
-                        onClick={publishButtonAction}
-                        disabled={!publishButtonAction}
-                        className={`usa-da-button btn-primary btn-lg btn-full ${publishButtonClass}`}>
-                        <div className="button-wrapper row">
-                            <div className="button-icon">
-                                <FontAwesomeIcon icon="file-upload" />
-                            </div>
-                            <div className="button-content">
-                                {publishButtonText}
-                            </div>
-                        </div>
-                    </button>
-                </div>);
+            publishCertifyButtons.push(
+                <button
+                    key="publish-button"
+                    onClick={publishButtonAction}
+                    disabled={!publishButtonAction}
+                    className={`usa-da-button btn-primary${publishButtonClass}`}>
+                    <div className="button-wrapper">
+                        <FontAwesomeIcon icon="file-upload" />{publishButtonText}
+                    </div>
+                </button>);
         }
 
         // both monthly and quarterly need the certify button
-        middleButtons.push(
-            <div className="right-link" key="certify-button">
-                <button
-                    onClick={certifyButtonAction}
-                    disabled={!certifyButtonAction}
-                    className={`usa-da-button btn-primary btn-lg btn-full ${certifyButtonClass}`}>
-                    <div className="button-wrapper row">
-                        <div className="button-icon">
-                            {certifyIcon}
-                        </div>
-                        <div className="button-content">
-                            {certifyButtonText}
-                        </div>
-                    </div>
-                </button>
-            </div>);
+        publishCertifyButtons.push(
+            <button
+                key="certify-button"
+                onClick={certifyButtonAction}
+                disabled={!certifyButtonAction}
+                className={`usa-da-button btn-primary${certifyButtonClass}`}>
+                <div className="button-wrapper">
+                    {certifyIcon}{certifyButtonText}
+                </div>
+            </button>);
 
         return (
             <div className="container">
@@ -333,41 +312,29 @@ export default class ReviewDataContent extends React.Component {
                     </div>
                     <hr />
                     <div className="row submission-button-holder">
-                        <div className="submission-wrapper">
-                            <div className="revert-revalidate-buttons">
-                                <div className="left-link">
-                                    <RevertToCertifiedContainer loadData={this.props.loadData} />
+                        <div className="col-md-6 revert-revalidate-buttons">
+                            <RevertToCertifiedContainer loadData={this.props.loadData} />
+                            <button
+                                onClick={revalidateButtonAction}
+                                disabled={!revalidateButtonAction}
+                                className="usa-da-button btn-primary-alt">
+                                <div className="button-wrapper">
+                                    <FontAwesomeIcon icon="check" />{revalidateButtonText}
                                 </div>
-                                <div className="left-link">
-                                    <button
-                                        onClick={revalidateButtonAction}
-                                        disabled={!revalidateButtonAction}
-                                        className="usa-da-button btn-primary-alt btn-lg btn-full">
-                                        <div className="button-wrapper">
-                                            <div className="button-icon">
-                                                <FontAwesomeIcon icon="check" />
-                                            </div>
-                                            <div className="button-content">
-                                                {revalidateButtonText}
-                                            </div>
-                                        </div>
-                                    </button>
-                                </div>
-                            </div>
-                            <div className="publish-certify-buttons">
-                                {middleButtons}
-                            </div>
+                            </button>
+                        </div>
+                        <div className="col-md-6 publish-certify-buttons">
+                            {publishCertifyButtons}
                         </div>
                     </div>
                     <div className="notify-button">
-                        <a
+                        <button
                             onClick={notifyButtonAction}
                             disabled={!notifyButtonAction}>
                             <FontAwesomeIcon icon="bell" />
                             Notify another user about this submission
-                        </a>
+                        </button>
                     </div>
-                    {testSubmissionError}
                     <div id="reviewDataNotifyModalHolder">
                         <ReviewDataNotifyModal
                             {...this.props}
