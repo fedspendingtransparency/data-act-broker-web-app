@@ -13,8 +13,9 @@ const propTypes = {
 };
 
 export default class ReviewDataNarrativeCollapsed extends React.Component {
-
     render() {
+        // here to calm the proptypes error, needs to be updated with proper logic
+        const displayText = this.props.initialComments !== null ? 'No comments have been added to this submission' : '';
         return (
             <div className="narrative-wrapper collapsed">
                 <button
@@ -23,11 +24,10 @@ export default class ReviewDataNarrativeCollapsed extends React.Component {
                     aria-label="Toggle collapsed comment box state">
                     Add comments <FontAwesomeIcon icon="chevron-down" />
                 </button>
-                <p className="collapsed-text">No comments have been added to this submission.</p>
+                <p className="collapsed-text">{displayText}</p>
             </div>
         );
     }
-
-};
+}
 
 ReviewDataNarrativeCollapsed.propTypes = propTypes;

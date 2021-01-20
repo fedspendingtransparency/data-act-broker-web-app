@@ -30,24 +30,24 @@ export default class ReviewDataNarrative extends React.Component {
 
         this.state = {
             initialNarrative: {
-                "submission_comment": '',
-                "A": '',
-                "B": '',
-                "C": '',
-                "D1": '',
-                "D2": '',
-                "E": '',
-                "F": ''
+                submission_comment: '',
+                A: '',
+                B: '',
+                C: '',
+                D1: '',
+                D2: '',
+                E: '',
+                F: ''
             },
             currentNarrative: {
-                "submission_comment": '',
-                "A": '',
-                "B": '',
-                "C": '',
-                "D1": '',
-                "D2": '',
-                "E": '',
-                "F": ''
+                submission_comment: '',
+                A: '',
+                B: '',
+                C: '',
+                D1: '',
+                D2: '',
+                E: '',
+                F: ''
             },
             saveState: '',
             errorMessage: '',
@@ -136,7 +136,7 @@ export default class ReviewDataNarrative extends React.Component {
                     initialNarrative={this.state.initialNarrative} />
             );
         }
-        const hasSavedComments = Object.values(this.state.initialNarrative).some(x => x !== '');
+        const hasSavedComments = Object.values(this.state.initialNarrative).some((x) => x !== '');
         const commentsChanged = !isEqual(this.state.initialNarrative, this.state.currentNarrative);
         let resultSymbol = null;
         let resultText = null;
@@ -144,7 +144,7 @@ export default class ReviewDataNarrative extends React.Component {
             <button
                 className="usa-da-download"
                 onClick={this.downloadCommentsFile}>
-                    <FontAwesomeIcon icon="cloud-download-alt" /> Download Comments for All Files (.csv)
+                <FontAwesomeIcon icon="cloud-download-alt" /> Download Comments for All Files (.csv)
             </button>
         );
         if (blockedStatuses.indexOf(this.props.publishStatus) > -1 || !hasSavedComments) {
@@ -172,43 +172,43 @@ export default class ReviewDataNarrative extends React.Component {
                 </button>
                 <h4>Submission Comment</h4>
                 <ReviewDataNarrativeTextfield
-                    currentContent={this.state.currentNarrative["submission_comment"]}
+                    currentContent={this.state.currentNarrative.submission_comment}
                     textChanged={this.textChanged}
                     fileType="submission_comment" />
                 <h4>File Comments</h4>
                 <h5>File A</h5>
                 <ReviewDataNarrativeTextfield
-                    currentContent={this.state.currentNarrative["A"]}
+                    currentContent={this.state.currentNarrative.A}
                     textChanged={this.textChanged}
                     fileType="A" />
                 <h5>File B</h5>
                 <ReviewDataNarrativeTextfield
-                    currentContent={this.state.currentNarrative["B"]}
+                    currentContent={this.state.currentNarrative.B}
                     textChanged={this.textChanged}
                     fileType="B" />
                 <h5>File C</h5>
                 <ReviewDataNarrativeTextfield
-                    currentContent={this.state.currentNarrative["C"]}
+                    currentContent={this.state.currentNarrative.C}
                     textChanged={this.textChanged}
                     fileType="C" />
                 <h5>File D1</h5>
                 <ReviewDataNarrativeTextfield
-                    currentContent={this.state.currentNarrative["D1"]}
+                    currentContent={this.state.currentNarrative.D1}
                     textChanged={this.textChanged}
                     fileType="D1" />
                 <h5>File D2</h5>
                 <ReviewDataNarrativeTextfield
-                    currentContent={this.state.currentNarrative["D2"]}
+                    currentContent={this.state.currentNarrative.D2}
                     textChanged={this.textChanged}
                     fileType="D2" />
                 <h5>File E</h5>
                 <ReviewDataNarrativeTextfield
-                    currentContent={this.state.currentNarrative["E"]}
+                    currentContent={this.state.currentNarrative.E}
                     textChanged={this.textChanged}
                     fileType="E" />
                 <h5>File F</h5>
                 <ReviewDataNarrativeTextfield
-                    currentContent={this.state.currentNarrative["F"]}
+                    currentContent={this.state.currentNarrative.F}
                     textChanged={this.textChanged}
                     fileType="F" />
                 <div className="row comment-buttons">
