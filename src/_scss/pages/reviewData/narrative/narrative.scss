@@ -112,11 +112,13 @@
 
         .usa-da-download {
             // implement the download button
-            @import "../../../components/buttons/_download";
-            @include downloadButton;
+            @import "../../../components/buttons/_optional";
+            @include optionalButton;
             margin-left: rem(20);
             margin-top: 0;
+            padding: rem(0) 0;
     
+            background-color: transparent;
             color: $color-primary;
             font-weight: 600;
             font-size: rem(14);

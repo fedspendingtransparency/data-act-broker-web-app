@@ -7,9 +7,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { isEqual } from 'lodash';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { createOnKeyDownHandler } from 'helpers/util';
 import * as ReviewHelper from 'helpers/reviewHelper';
-import { CloudDownload } from 'components/SharedComponents/icons/Icons';
 import ReviewDataNarrativeTextfield from './ReviewDataNarrativeTextfield';
 import ReviewDataNarrativeCollapsed from './ReviewDataNarrativeCollapsed';
 
@@ -23,6 +21,8 @@ const defaultProps = {
     submissionID: '',
     publishStatus: ''
 };
+
+const blockedStatuses = ['reverting', 'publishing'];
 
 export default class ReviewDataNarrative extends React.Component {
     constructor(props) {
@@ -119,7 +119,6 @@ export default class ReviewDataNarrative extends React.Component {
     }
 
     textChanged(newContent, fileType) {
-        // const newNarrative = this.state.currentNarrative
         const newNarrative = Object.assign({}, this.state.currentNarrative);
         newNarrative[fileType] = newContent;
         this.setState({ currentNarrative: newNarrative });
@@ -137,23 +136,16 @@ export default class ReviewDataNarrative extends React.Component {
                     initialNarrative={this.state.initialNarrative} />
             );
         }
-        const onKeyDownHandler = createOnKeyDownHandler(this.downloadCommentsFile);
-        const blockedStatuses = ['reverting', 'publishing'];
         const hasSavedComments = Object.values(this.state.initialNarrative).some(x => x !== '');
         const commentsChanged = !isEqual(this.state.initialNarrative, this.state.currentNarrative);
         let resultSymbol = null;
         let resultText = null;
         let downloadButton = (
-            <div
-                role="button"
-                tabIndex={0}
+            <button
                 className="usa-da-download"
-                onKeyDown={onKeyDownHandler}
                 onClick={this.downloadCommentsFile}>
-                <span className="usa-da-icon usa-da-download-report">
-                    <CloudDownload />
-                </span>Download Comments for All Files (.csv)
-            </div>
+                    <FontAwesomeIcon icon="cloud-download-alt" /> Download Comments for All Files (.csv)
+            </button>
         );
         if (blockedStatuses.indexOf(this.props.publishStatus) > -1 || !hasSavedComments) {
             downloadButton = null;
