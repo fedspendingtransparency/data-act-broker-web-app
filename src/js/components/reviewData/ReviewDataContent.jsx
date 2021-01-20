@@ -232,7 +232,7 @@ export default class ReviewDataContent extends React.Component {
         const middleButtons = [];
         if (twoButtons) {
             middleButtons.push(
-                <div className="left-link" key="publish-button">
+                <div className="right-link" key="publish-button">
                     <button
                         onClick={publishButtonAction}
                         disabled={!publishButtonAction}
@@ -251,7 +251,7 @@ export default class ReviewDataContent extends React.Component {
 
         // both monthly and quarterly need the certify button
         middleButtons.push(
-            <div className="left-link" key="certify-button">
+            <div className="right-link" key="certify-button">
                 <button
                     onClick={certifyButtonAction}
                     disabled={!certifyButtonAction}
@@ -334,41 +334,38 @@ export default class ReviewDataContent extends React.Component {
                     <hr />
                     <div className="row submission-button-holder">
                         <div className="submission-wrapper">
-                            <div className="left-link">
-                                <RevertToCertifiedContainer loadData={this.props.loadData} />
+                            <div className="revert-revalidate-buttons">
+                                <div className="left-link">
+                                    <RevertToCertifiedContainer loadData={this.props.loadData} />
+                                </div>
+                                <div className="left-link">
+                                    <button
+                                        onClick={revalidateButtonAction}
+                                        disabled={!revalidateButtonAction}
+                                        className="usa-da-button btn-primary-alt btn-lg btn-full">
+                                        <div className="button-wrapper">
+                                            <div className="button-icon">
+                                                <FontAwesomeIcon icon="check" />
+                                            </div>
+                                            <div className="button-content">
+                                                {revalidateButtonText}
+                                            </div>
+                                        </div>
+                                    </button>
+                                </div>
                             </div>
-                            <div className="left-link">
-                                <button
-                                    onClick={revalidateButtonAction}
-                                    disabled={!revalidateButtonAction}
-                                    className="usa-da-button btn-primary btn-lg btn-full">
-                                    <div className="button-wrapper">
-                                        <div className="button-icon">
-                                            <FontAwesomeIcon icon="redo" />
-                                        </div>
-                                        <div className="button-content">
-                                            {revalidateButtonText}
-                                        </div>
-                                    </div>
-                                </button>
-                            </div>
-                            {middleButtons}
-                            <div className="right-link">
-                                <button
-                                    onClick={notifyButtonAction}
-                                    disabled={!notifyButtonAction}
-                                    className="usa-da-button btn-primary btn-lg btn-full last">
-                                    <div className="button-wrapper">
-                                        <div className="button-icon">
-                                            <FontAwesomeIcon icon="bell" />
-                                        </div>
-                                        <div className="button-content">
-                                            Notify Another User
-                                        </div>
-                                    </div>
-                                </button>
+                            <div className="publish-certify-buttons">
+                                {middleButtons}
                             </div>
                         </div>
+                    </div>
+                    <div className="notify-button">
+                        <a
+                            onClick={notifyButtonAction}
+                            disabled={!notifyButtonAction}>
+                            <FontAwesomeIcon icon="bell" />
+                            Notify another user about this submission
+                        </a>
                     </div>
                     {testSubmissionError}
                     <div id="reviewDataNotifyModalHolder">
