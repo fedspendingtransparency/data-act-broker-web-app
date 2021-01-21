@@ -38,7 +38,7 @@ const RevertToCertified = ({
         );
     }
     return (
-        <React.Fragment>
+        <div className="revert-group">
             <button
                 onClick={revert}
                 disabled={disabled}
@@ -48,7 +48,7 @@ const RevertToCertified = ({
                 </div>
             </button>
             {alert}
-        </React.Fragment>
+        </div>
     );
 };
 
