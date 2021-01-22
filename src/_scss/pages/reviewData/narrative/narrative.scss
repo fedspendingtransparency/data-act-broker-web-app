@@ -22,6 +22,14 @@
 
     &.collapsed {
         padding: rem(20) rem(30);
+
+        .file-labels {
+            font-weight: 600;
+
+            .regular-weight {
+                font-weight: 400;
+            }
+        }
     }
 
     .row {
