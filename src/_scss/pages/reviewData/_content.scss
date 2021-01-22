@@ -37,20 +37,4 @@
             font-weight: $font-semibold;
         }
     }
-
-    .test-submission-error {
-        margin-top: 10px;
-    }
-
-    .revert-submission-alert {
-        padding: rem(15);
-        &.revert-submission-alert_error {
-            @include dangerAlert;
-            border: solid 2px $alert-danger-border;
-        }
-        &.revert-submission-alert_success {
-            @include successAlert;
-            border: solid 2px $alert-success-border;
-        }
-    }
 }
