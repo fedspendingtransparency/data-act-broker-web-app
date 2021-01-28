@@ -292,7 +292,6 @@ export default class ReviewDataContent extends React.Component {
                             </div>
                         </div>
                     </div>
-                    <h5>Agency Comments <span className="not-bold">(optional)</span></h5>
                     <ReviewDataNarrative
                         narrative={this.props.data.file_narrative}
                         submissionID={this.props.submissionID}
@@ -304,10 +303,10 @@ export default class ReviewDataContent extends React.Component {
                             available on USAspending.gov in the&nbsp;
                             <a href="https://www.usaspending.gov/submission-statistics/">
                                 Agency Submission Statistics section
-                            </a> and the&nbsp;
+                            </a>{/* and the&nbsp;
                             <a href="https://files.usaspending.gov/agency_submissions/">
                                 Agency Submission Files section
-                            </a>.
+                            </a>*/}.
                         </div>
                     </div>
                     <hr />
