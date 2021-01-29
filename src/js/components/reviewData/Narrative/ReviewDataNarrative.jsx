@@ -78,12 +78,16 @@ export default class ReviewDataNarrative extends React.Component {
         window.removeEventListener("beforeunload", this.preventExit);
     }
 
+    /* eslint-disable consistent-return */
     preventExit(e) {
+        // for this function we want to disable the consistent-return rule because we only want it to return
+        // when this condition is met. Otherwise it prevents the user from leaving the page at the wrong time
         if (!isEqual(this.state.initialNarrative, this.state.currentNarrative)) {
             e.returnValue = 'HI!';
             return 'HI!';
         }
     }
+    /* eslint-enable consistent-return */
 
     saveNarrative() {
         this.setState({ saveState: 'Saving' });
@@ -156,8 +160,7 @@ export default class ReviewDataNarrative extends React.Component {
                 <React.Fragment>
                     <Prompt
                         when={!isEqual(this.state.initialNarrative, this.state.currentNarrative)}
-                        message='You have unsaved comments, these comments will be deleted if you leave this page.'
-                        />
+                        message="You have unsaved comments, these comments will be deleted if you leave this page." />
                     <ReviewDataNarrativeCollapsed
                         toggleCommentBox={this.toggleCommentBox}
                         initialNarrative={this.state.initialNarrative}
@@ -194,8 +197,7 @@ export default class ReviewDataNarrative extends React.Component {
             <React.Fragment>
                 <Prompt
                     when={!isEqual(this.state.initialNarrative, this.state.currentNarrative)}
-                    message='You have unsaved comments, these comments will be deleted if you leave this page.'
-                    />
+                    message="You have unsaved comments, these comments will be deleted if you leave this page." />
                 <div className="row comments-header">
                     <div className="col-md-6">
                         <h5>Agency Comments <span className="not-bold">(optional)</span></h5>
