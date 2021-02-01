@@ -73,6 +73,18 @@
             height: rem(41);
             max-width: 100%;
             padding: rem(10);
+
+            &.invalid-ascii {
+                border: 2px solid $color-gold-light;
+                border-radius: rem(5px);
+            }
+        }
+
+        & svg {
+            color: $color-gold-light;
+            font-size: rem(12);
+            margin-bottom: rem(1);
+            margin-right: rem(5);
         }
     }
 
