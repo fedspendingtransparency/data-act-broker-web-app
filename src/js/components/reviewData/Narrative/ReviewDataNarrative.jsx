@@ -83,8 +83,8 @@ export default class ReviewDataNarrative extends React.Component {
         // for this function we want to disable the consistent-return rule because we only want it to return
         // when this condition is met. Otherwise it prevents the user from leaving the page at the wrong time
         if (!isEqual(this.state.initialNarrative, this.state.currentNarrative)) {
-            e.returnValue = 'HI!';
-            return 'HI!';
+            e.returnValue = 'You have unsaved comments.';
+            return 'You have unsaved comments.';
         }
     }
     /* eslint-enable consistent-return */
