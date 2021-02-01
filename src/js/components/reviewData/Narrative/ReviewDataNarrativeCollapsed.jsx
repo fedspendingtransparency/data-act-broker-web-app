@@ -9,7 +9,8 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 const propTypes = {
     toggleCommentBox: PropTypes.func,
-    initialNarrative: PropTypes.object
+    initialNarrative: PropTypes.object,
+    unsavedCommentsMessage: PropTypes.object
 };
 
 const defaultProps = {
@@ -51,15 +52,23 @@ export default class ReviewDataNarrativeCollapsed extends React.Component {
             fileList = <span className="file-labels">{fileNames}</span>;
         }
         return (
-            <div className="narrative-wrapper collapsed">
-                <button
-                    className="collapse-button"
-                    onClick={this.props.toggleCommentBox}
-                    aria-label="Toggle collapsed comment box state">
-                    Add comments <FontAwesomeIcon icon="chevron-down" />
-                </button>
-                <p className="collapsed-text">{displayText}{fileList}</p>
-            </div>
+            <React.Fragment>
+                <div className="row comments-header">
+                    <div className="col-md-6">
+                        <h5>Agency Comments <span className="not-bold">(optional)</span></h5>
+                    </div>
+                    {this.props.unsavedCommentsMessage}
+                </div>
+                <div className="narrative-wrapper collapsed">
+                    <button
+                        className="collapse-button"
+                        onClick={this.props.toggleCommentBox}
+                        aria-label="Toggle collapsed comment box state">
+                        Add comments <FontAwesomeIcon icon="chevron-down" />
+                    </button>
+                    <p className="collapsed-text">{displayText}{fileList}</p>
+                </div>
+            </React.Fragment>
         );
     }
 }

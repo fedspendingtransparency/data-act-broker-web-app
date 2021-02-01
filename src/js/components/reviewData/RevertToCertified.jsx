@@ -18,9 +18,9 @@ const propTypes = {
 const RevertToCertified = ({
     disabled, loading, error, message, revert
 }) => {
-    let buttonText = [<FontAwesomeIcon icon="redo" />, 'Revert'];
+    let buttonText = [<FontAwesomeIcon icon="redo" key="redo-icon" />, 'Revert'];
     if (loading) {
-        buttonText = ['Reverting', <FontAwesomeIcon icon="spinner" spin />];
+        buttonText = ['Reverting', <FontAwesomeIcon icon="spinner" spin key="reverting-icon" />];
     }
     let alert = null;
     if (error) {

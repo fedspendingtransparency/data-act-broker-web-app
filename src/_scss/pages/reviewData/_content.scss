@@ -37,4 +37,22 @@
             font-weight: $font-semibold;
         }
     }
+
+    .comments-header {
+        @include display(flex);
+        @include align-items(baseline);
+
+        font-weight: 600;
+
+        .unsaved-comments {
+            @include display(flex);
+            @include justify-content(flex-end);
+
+            & svg {
+                margin-right: rem(5);
+                margin-top: rem(2);
+                color: $color-gold-light;
+            }
+        }
+    }
 }
