@@ -156,7 +156,7 @@ export default class AddDataMeta extends React.Component {
                 testSubmission: true,
                 submissionType: 'test',
                 publishedSubmissions: []
-            });
+            }, this.checkComplete);
         }
         else {
             AgencyHelper.getPublishedSubmissions(cgacCode, frecCode, dates.year, dates.period, isQuarter)
