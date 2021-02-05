@@ -197,4 +197,17 @@ describe("util helper functions", () => {
             expect(utilHelper.formatSize(9876543210)).toEqual("9.88 GB");
         });
     });
+
+    describe("getYearAndPeriod", () => {
+        it("returns the correct period", () => {
+            expect(utilHelper.getYearAndPeriod('02/2020').period).toEqual(5);
+            expect(utilHelper.getYearAndPeriod('06/2020').period).toEqual(9);
+            expect(utilHelper.getYearAndPeriod('11/2020').period).toEqual(2);
+        });
+        it("returns the correct year", () => {
+            expect(utilHelper.getYearAndPeriod('02/2020').year).toEqual(2020);
+            expect(utilHelper.getYearAndPeriod('06/2020').year).toEqual(2020);
+            expect(utilHelper.getYearAndPeriod('11/2020').year).toEqual(2021);
+        });
+    });
 });
