@@ -1,4 +1,8 @@
-#### January 12, 2020{section=technical}
+#### January 26, 2021{section=technical}
+
+In this release, no additional technical notes are provided.
+
+#### January 12, 2021
 
 In this release, no additional technical notes are provided.
 
