@@ -1,4 +1,20 @@
-#### November 30, 2020{section=changelog}
+#### January 26, 2021{section=changelog}
+In this release of the Broker, we:
+
+* Made several minor front-end bug fixes.
+
+#### January 12, 2021{section=changelog}
+In this release of the Broker, we:
+
+* Updated displays for DABS reporting period selection and adding a couple of labels to other reporting periods on the site.
+* Updated dates for selecting periods in FY21 for file generations.
+
+#### December 23, 2020
+In this release of the Broker, we:
+
+* Updated logic for validation rule B20 to allow reporting periods prior to FY21 to be submitted, updated, and re-certified without requiring valid Program Activity Codes and Names in File C. Program Activity was optional in File C until the start of FY21 when it became a required field (per OMB Memo M-20-21).
+
+#### November 30, 2020
 In this release of the Broker, we:
 
 * Updated File C to make Program Activity Code and Program Activity Name required fields to comply with OMB Memo M-20-21.
