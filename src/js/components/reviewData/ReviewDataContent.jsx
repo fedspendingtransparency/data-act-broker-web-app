@@ -15,7 +15,7 @@ import ReviewDataContentRow from './ReviewDataContentRow';
 import ReviewDataNotifyModal from './ReviewDataNotifyModal';
 import ReviewDataCertifyModal from './CertificationModal/ReviewDataCertifyModal';
 import RevalidateDataModal from './CertificationModal/RevalidateDataModal';
-import ReviewDataNarrative from './ReviewDataNarrative';
+import ReviewDataNarrative from './Narrative/ReviewDataNarrative';
 
 import { formatSize } from '../../helpers/util';
 
@@ -55,9 +55,7 @@ export default class ReviewDataContent extends React.Component {
         this.closeModal = this.closeModal.bind(this);
     }
 
-    openNotifyModal(e) {
-        e.preventDefault();
-
+    openNotifyModal() {
         this.openModal('Notify');
     }
 
@@ -123,9 +121,9 @@ export default class ReviewDataContent extends React.Component {
     }
 
     render() {
-        const reportLabels = ['Agency Name:', 'Report Start Date:', 'Report End Date:',
-            'Award Obligations Incurred (file C):', 'Total Financial Assistance Obligations:',
-            'Total Procurement Obligations:'];
+        const reportLabels = ['Agency Name', 'Report Start Date', 'Report End Date',
+            'Award Obligations Incurred (file C)', 'Total Financial Assistance Obligations',
+            'Total Procurement Obligations'];
 
         const reportData = [
             this.props.data.agency_name,
@@ -151,7 +149,6 @@ export default class ReviewDataContent extends React.Component {
         let certifyButtonAction;
         let revalidateButtonAction;
         let notifyButtonAction = this.openNotifyModal;
-        let testSubmissionError = null;
         let twoButtons = false;
         let certifyIcon = <FontAwesomeIcon icon="globe-americas" />;
         // TODO: I don't think we ever actually have window data to gather, we should look into this
@@ -171,12 +168,6 @@ export default class ReviewDataContent extends React.Component {
         if (this.props.testSubmission) {
             publishButtonText = 'Test submissions cannot be published';
             certifyButtonText = 'Test submissions cannot be certified';
-            testSubmissionError = (
-                <div
-                    className="alert alert-danger text-center test-submission-error"
-                    role="alert">
-                    Test submissions cannot be published or certified
-                </div>);
         }
         else if (blockedWindow) {
             const windowDate = moment(blockedWindow.end_date).format('dddd, MMMM D, YYYY');
@@ -229,43 +220,31 @@ export default class ReviewDataContent extends React.Component {
             certifyButtonClass = ' btn-disabled';
         }
 
-        const middleButtons = [];
+        const publishCertifyButtons = [];
         if (twoButtons) {
-            middleButtons.push(
-                <div className="left-link" key="publish-button">
-                    <button
-                        onClick={publishButtonAction}
-                        disabled={!publishButtonAction}
-                        className={`usa-da-button btn-primary btn-lg btn-full ${publishButtonClass}`}>
-                        <div className="button-wrapper row">
-                            <div className="button-icon">
-                                <FontAwesomeIcon icon="file-upload" />
-                            </div>
-                            <div className="button-content">
-                                {publishButtonText}
-                            </div>
-                        </div>
-                    </button>
-                </div>);
+            publishCertifyButtons.push(
+                <button
+                    key="publish-button"
+                    onClick={publishButtonAction}
+                    disabled={!publishButtonAction}
+                    className={`usa-da-button btn-primary${publishButtonClass}`}>
+                    <div className="button-wrapper">
+                        <FontAwesomeIcon icon="file-upload" />{publishButtonText}
+                    </div>
+                </button>);
         }
 
         // both monthly and quarterly need the certify button
-        middleButtons.push(
-            <div className="left-link" key="certify-button">
-                <button
-                    onClick={certifyButtonAction}
-                    disabled={!certifyButtonAction}
-                    className={`usa-da-button btn-primary btn-lg btn-full ${certifyButtonClass}`}>
-                    <div className="button-wrapper row">
-                        <div className="button-icon">
-                            {certifyIcon}
-                        </div>
-                        <div className="button-content">
-                            {certifyButtonText}
-                        </div>
-                    </div>
-                </button>
-            </div>);
+        publishCertifyButtons.push(
+            <button
+                key="certify-button"
+                onClick={certifyButtonAction}
+                disabled={!certifyButtonAction}
+                className={`usa-da-button btn-primary${certifyButtonClass}`}>
+                <div className="button-wrapper">
+                    {certifyIcon}{certifyButtonText}
+                </div>
+            </button>);
 
         return (
             <div className="container">
@@ -278,75 +257,82 @@ export default class ReviewDataContent extends React.Component {
                     </div>
                 </div>
                 <div className="center-block usa-da-review-data-content-holder">
+                    <h4>Submission Summary</h4>
                     <div className="row">
-                        <div className="col-md-4">
+                        <div className="col-md-3">
+                            <h5>File Details</h5>
                             <div className="usa-da-file-wrap">
                                 <div className="usa-da-icon usa-da-icon-check-circle">
                                     <FontAwesomeIcon icon="check-circle" />
                                 </div>
                                 <div className="usa-da-submission-info">
-                                    <ul className="no-bullet">
-                                        <li>Total File Size:
-                                            <strong> {formatSize(this.props.data.total_size)}</strong>
-                                        </li>
-                                        <li>Total Data Rows (excludes headers):
-                                            <strong> {this.props.data.number_of_rows}</strong>
-                                        </li>
-                                        <li>Created on: <strong>{this.props.data.created_on}</strong></li>
-                                        <li>Total Warnings: <strong>{this.props.data.number_of_warnings}</strong></li>
-                                    </ul>
+                                    <div className="row">
+                                        <div className="col-xs-6 left-col">Total File Size</div>
+                                        <div className="col-xs-6 data">{formatSize(this.props.data.total_size)}</div>
+                                    </div>
+                                    <div className="row">
+                                        <div className="col-xs-6 left-col">Total Data Rows (excludes headers)</div>
+                                        <div className="col-xs-6 data">{this.props.data.number_of_rows}</div>
+                                    </div>
+                                    <div className="row">
+                                        <div className="col-xs-6 left-col">Created on</div>
+                                        <div className="col-xs-6 data">{this.props.data.created_on}</div>
+                                    </div>
+                                    <div className="row">
+                                        <div className="col-xs-6 left-col">Total Warnings</div>
+                                        <div className="col-xs-6 data">{this.props.data.number_of_warnings}</div>
+                                    </div>
                                 </div>
-                                <RevertToCertifiedContainer loadData={this.props.loadData} />
                             </div>
                         </div>
-                        <div className="right-side col-md-8">
+                        <div className="right-side col-md-9">
+                            <h5>Submission Details</h5>
                             <div className="usa-da-review-data-alternating-rows">
                                 {reportRows}
                             </div>
-                            <div className="row">
-                                <ReviewDataNarrative
-                                    narrative={this.props.data.file_narrative}
-                                    submissionID={this.props.submissionID}
-                                    loadData={this.props.loadData}
-                                    publishStatus={this.props.submission.publishStatus} />
-                            </div>
-                            <div className="row submission-button-holder">
-                                <div className="submission-wrapper">
-                                    <div className="left-link">
-                                        <button
-                                            onClick={revalidateButtonAction}
-                                            disabled={!revalidateButtonAction}
-                                            className="usa-da-button btn-primary btn-lg btn-full">
-                                            <div className="button-wrapper">
-                                                <div className="button-icon">
-                                                    <FontAwesomeIcon icon="redo" />
-                                                </div>
-                                                <div className="button-content">
-                                                    {revalidateButtonText}
-                                                </div>
-                                            </div>
-                                        </button>
-                                    </div>
-                                    {middleButtons}
-                                    <div className="right-link">
-                                        <button
-                                            onClick={notifyButtonAction}
-                                            disabled={!notifyButtonAction}
-                                            className="usa-da-button btn-primary btn-lg btn-full last">
-                                            <div className="button-wrapper">
-                                                <div className="button-icon">
-                                                    <FontAwesomeIcon icon="bell" />
-                                                </div>
-                                                <div className="button-content">
-                                                    Notify Another User
-                                                </div>
-                                            </div>
-                                        </button>
-                                    </div>
-                                </div>
-                            </div>
-                            {testSubmissionError}
                         </div>
+                    </div>
+                    <ReviewDataNarrative
+                        narrative={this.props.data.file_narrative}
+                        submissionID={this.props.submissionID}
+                        loadData={this.props.loadData}
+                        publishStatus={this.props.submission.publishStatus} />
+                    <div className="row comment-note">
+                        <div className="col-md-6">
+                            <b>Note:</b> After a submission is published all of the associated comments will be made
+                            available on USAspending.gov in the&nbsp;
+                            <a href="https://www.usaspending.gov/submission-statistics/">
+                                Agency Submission Statistics section
+                            </a>{/* and the&nbsp;
+                            <a href="https://files.usaspending.gov/agency_submissions/">
+                                Agency Submission Files section
+                            </a>*/}.
+                        </div>
+                    </div>
+                    <hr />
+                    <div className="row submission-button-holder">
+                        <div className="col-md-6 revert-revalidate-buttons">
+                            <RevertToCertifiedContainer loadData={this.props.loadData} />
+                            <button
+                                onClick={revalidateButtonAction}
+                                disabled={!revalidateButtonAction}
+                                className="usa-da-button btn-primary-alt">
+                                <div className="button-wrapper">
+                                    <FontAwesomeIcon icon="check" />{revalidateButtonText}
+                                </div>
+                            </button>
+                        </div>
+                        <div className="col-md-6 publish-certify-buttons">
+                            {publishCertifyButtons}
+                        </div>
+                    </div>
+                    <div className="notify-button">
+                        <button
+                            onClick={notifyButtonAction}
+                            disabled={!notifyButtonAction}>
+                            <FontAwesomeIcon icon="bell" />
+                            Notify another user about this submission
+                        </button>
                     </div>
                     <div id="reviewDataNotifyModalHolder">
                         <ReviewDataNotifyModal

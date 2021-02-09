@@ -7,16 +7,22 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
+import * as UtilHelper from 'helpers/util';
+
 const propTypes = {
     onChange: PropTypes.func,
     value: PropTypes.string,
-    publishedSubmissions: PropTypes.array
+    publishedSubmissions: PropTypes.array,
+    endDate: PropTypes.string,
+    dateType: PropTypes.string
 };
 
 const defaultProps = {
     onChange: null,
     value: '',
-    publishedSubmissions: []
+    publishedSubmissions: [],
+    endDate: '',
+    dateType: ''
 };
 
 export default class SubmissionTypeField extends React.Component {
@@ -64,6 +70,24 @@ export default class SubmissionTypeField extends React.Component {
                     <div className="col-xs-11">
                         <h3>{title}</h3>
                         <p>{reason}</p>
+                    </div>
+                </div>
+            );
+            certifiableCSS = 'disabled';
+            disabled = true;
+        }
+
+        const dates = UtilHelper.getYearAndPeriod(this.props.endDate);
+
+        if (dates.year >= 2022 && this.props.dateType === 'quarter') {
+            warningBanner = (
+                <div className="alert alert-warning text-left row" role="alert">
+                    <div className="col-xs-1">
+                        <FontAwesomeIcon icon="exclamation-triangle" />
+                    </div>
+                    <div className="col-xs-11">
+                        <h3>As of FY22, Quarterly submissions can no longer be published or certified</h3>
+                        <p>To create a certifiable submission you must choose the monthly submission type.</p>
                     </div>
                 </div>
             );
