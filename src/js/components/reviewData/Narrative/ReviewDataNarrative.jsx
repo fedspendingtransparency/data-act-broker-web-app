@@ -4,7 +4,6 @@
  */
 
 import React from 'react';
-import { Prompt } from 'react-router';
 import PropTypes from 'prop-types';
 import { isEqual } from 'lodash';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -157,15 +156,10 @@ export default class ReviewDataNarrative extends React.Component {
         }
         if (this.state.commentsCollapsed) {
             return (
-                <React.Fragment>
-                    <Prompt
-                        when={!isEqual(this.state.initialNarrative, this.state.currentNarrative)}
-                        message="You have unsaved comments, these comments will be deleted if you leave this page." />
-                    <ReviewDataNarrativeCollapsed
-                        toggleCommentBox={this.toggleCommentBox}
-                        initialNarrative={this.state.initialNarrative}
-                        unsavedCommentsMessage={unsavedCommentsMessage} />
-                </React.Fragment>
+                <ReviewDataNarrativeCollapsed
+                    toggleCommentBox={this.toggleCommentBox}
+                    initialNarrative={this.state.initialNarrative}
+                    unsavedCommentsMessage={unsavedCommentsMessage} />
             );
         }
         const hasSavedComments = Object.values(this.state.initialNarrative).some((x) => x !== '');
@@ -195,9 +189,6 @@ export default class ReviewDataNarrative extends React.Component {
         }
         return (
             <React.Fragment>
-                <Prompt
-                    when={!isEqual(this.state.initialNarrative, this.state.currentNarrative)}
-                    message="You have unsaved comments, these comments will be deleted if you leave this page." />
                 <div className="row comments-header">
                     <div className="col-md-6">
                         <h5>Agency Comments <span className="not-bold">(optional)</span></h5>
