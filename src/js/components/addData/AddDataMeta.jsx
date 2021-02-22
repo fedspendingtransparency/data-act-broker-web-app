@@ -9,6 +9,7 @@ import CSSTransitionGroup from 'react-transition-group/CSSTransitionGroup';
 import { Redirect } from 'react-router-dom';
 
 import * as AgencyHelper from 'helpers/agencyHelper';
+import * as UtilHelper from 'helpers/util';
 import AgencyListContainer from 'containers/SharedContainers/AgencyListContainer';
 import * as Icons from 'components/SharedComponents/icons/Icons';
 import DateTypeField from './metadata/DateTypeField';
@@ -143,34 +144,38 @@ export default class AddDataMeta extends React.Component {
         const dateType = this.state.dateType;
 
         // Check to see if there are already published submissions for this period
-        const month = endDate.substr(0, 2);
-        let period = parseInt(month, 10) + 3;
-        let year = parseInt(endDate.substr(3), 10);
-        if (period > 12) {
-            period %= 12;
-            year += 1;
-        }
+        const dates = UtilHelper.getYearAndPeriod(endDate);
 
         const cgacCode = codeType === 'cgac_code' ? agency : null;
         const frecCode = codeType === 'frec_code' ? agency : null;
         const isQuarter = (dateType === 'quarter');
 
-        AgencyHelper.getPublishedSubmissions(cgacCode, frecCode, year, period, isQuarter)
-            .then((publishedSubmissions) => {
-                if (publishedSubmissions.length > 0) {
-                    this.setState({
-                        testSubmission: true,
-                        submissionType: 'test',
-                        publishedSubmissions
-                    }, this.checkComplete);
-                }
-                else {
-                    this.setState({
-                        testSubmission: false,
-                        publishedSubmissions
-                    }, this.checkComplete);
-                }
-            });
+        // if year is 2022 or greater and it's a quarterly submission, default to test
+        if (dates.year >= 2022 && isQuarter) {
+            this.setState({
+                testSubmission: true,
+                submissionType: 'test',
+                publishedSubmissions: []
+            }, this.checkComplete);
+        }
+        else {
+            AgencyHelper.getPublishedSubmissions(cgacCode, frecCode, dates.year, dates.period, isQuarter)
+                .then((publishedSubmissions) => {
+                    if (publishedSubmissions.length > 0) {
+                        this.setState({
+                            testSubmission: true,
+                            submissionType: 'test',
+                            publishedSubmissions
+                        }, this.checkComplete);
+                    }
+                    else {
+                        this.setState({
+                            testSubmission: false,
+                            publishedSubmissions
+                        }, this.checkComplete);
+                    }
+                });
+        }
     }
 
     render() {
@@ -203,7 +208,9 @@ export default class AddDataMeta extends React.Component {
             submissionTypeField = (<SubmissionTypeField
                 onChange={this.handleSubmissionTypeChange}
                 value={this.state.submissionType}
-                publishedSubmissions={this.state.publishedSubmissions} />);
+                publishedSubmissions={this.state.publishedSubmissions}
+                endDate={this.state.endDate}
+                dateType={this.state.dateType} />);
         }
 
         let submissionComponent = null;

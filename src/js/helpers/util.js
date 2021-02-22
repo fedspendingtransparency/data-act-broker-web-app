@@ -184,3 +184,16 @@ export const formatSize = (totalSize) => {
     }
     return displaySize;
 };
+
+export const getYearAndPeriod = (endDate) => {
+    // get the year and period of the submission from the end date (formatted MM/YYYY)
+    const month = endDate.substr(0, 2);
+    let period = parseInt(month, 10) + 3;
+    let year = parseInt(endDate.substr(3), 10);
+    if (period > 12) {
+        period %= 12;
+        year += 1;
+    }
+
+    return { year, period };
+};

@@ -18,9 +18,9 @@ const propTypes = {
 const RevertToCertified = ({
     disabled, loading, error, message, revert
 }) => {
-    let buttonText = 'Revert Submission';
+    let buttonText = [<FontAwesomeIcon icon="redo" key="redo-icon" />, 'Revert'];
     if (loading) {
-        buttonText = (<span>Reverting <FontAwesomeIcon icon="spinner" spin /></span>);
+        buttonText = ['Reverting', <FontAwesomeIcon icon="spinner" spin key="reverting-icon" />];
     }
     let alert = null;
     if (error) {
@@ -38,15 +38,17 @@ const RevertToCertified = ({
         );
     }
     return (
-        <React.Fragment>
+        <div className="revert-group">
             <button
-                disabled={disabled}
                 onClick={revert}
-                className={`usa-da-button btn-primary btn-full${disabled ? ' btn-disabled' : ''}`}>
-                {buttonText}
+                disabled={disabled}
+                className={`usa-da-button btn-primary-alt${disabled ? ' btn-disabled' : ''}`}>
+                <div className="button-wrapper">
+                    {buttonText}
+                </div>
             </button>
             {alert}
-        </React.Fragment>
+        </div>
     );
 };
 
