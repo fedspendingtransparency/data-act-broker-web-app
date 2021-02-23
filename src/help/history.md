@@ -1,9 +1,15 @@
-#### January 26, 2021{section=changelog}
+#### February 8, 2021{section=changelog}
+In this release of the Broker, we:
+
+* Updated the API and database to handle submission comments which will be released in a future front-end update.
+* Updated the list of valid COVID-19 related Disaster Emergency Fund Codes (DEFC) to include the newly assigned “R” code when validations are running.
+
+#### January 26, 2021
 In this release of the Broker, we:
 
 * Made several minor front-end bug fixes.
 
-#### January 12, 2021{section=changelog}
+#### January 12, 2021
 In this release of the Broker, we:
 
 * Updated displays for DABS reporting period selection and adding a couple of labels to other reporting periods on the site.
