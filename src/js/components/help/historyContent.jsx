@@ -21,6 +21,7 @@ export default class HistoryContent extends React.Component {
         return (
             <div className="usa-da-help-content">
                 <h2>{this.props.title}</h2>
+                <p><b>Note</b>: Links in the archive are not kept up to date and may no longer work.</p>
                 <div dangerouslySetInnerHTML={{ __html: this.props.history }} />
             </div>
         );
