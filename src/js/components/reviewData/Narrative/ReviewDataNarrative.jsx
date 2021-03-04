@@ -148,11 +148,15 @@ export default class ReviewDataNarrative extends React.Component {
     render() {
         const commentsChanged = !isEqual(this.state.initialNarrative, this.state.currentNarrative);
         let unsavedCommentsMessage = null;
+        let resultSymbol = null;
+        let resultText = null;
         if (commentsChanged) {
             unsavedCommentsMessage = (
                 <div className="col-md-6 unsaved-comments">
                     <FontAwesomeIcon icon="exclamation-triangle" /> There are unsaved comments
                 </div>);
+            resultSymbol = <FontAwesomeIcon icon="exclamation-triangle" />;
+            resultText = 'There are unsaved comments';
         }
         if (this.state.commentsCollapsed) {
             return (
@@ -163,8 +167,6 @@ export default class ReviewDataNarrative extends React.Component {
             );
         }
         const hasSavedComments = Object.values(this.state.initialNarrative).some((x) => x !== '');
-        let resultSymbol = null;
-        let resultText = null;
         let downloadButton = (
             <button
                 className="usa-da-download"
