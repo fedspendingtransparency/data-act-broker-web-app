@@ -210,4 +210,11 @@ describe("util helper functions", () => {
             expect(utilHelper.getYearAndPeriod('11/2020').year).toEqual(2021);
         });
     });
+
+    describe("trimmedObjectEquality", () => {
+        it("trims the values in the objects", () => {
+            expect(utilHelper.trimmedObjectEquality({ A: 'test ' }, { A: '   test   '})).toEqual(true);
+            expect(utilHelper.trimmedObjectEquality({ A: 'test', B: 'test2'}, {A: 'test2   '})).toEqual(false);
+        });
+    });
 });
