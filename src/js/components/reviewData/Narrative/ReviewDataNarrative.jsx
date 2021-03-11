@@ -8,6 +8,7 @@ import PropTypes from 'prop-types';
 import { isEqual } from 'lodash';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import * as ReviewHelper from 'helpers/reviewHelper';
+import * as UtilHelper from 'helpers/util';
 import ReviewDataNarrativeTextfield from './ReviewDataNarrativeTextfield';
 import ReviewDataNarrativeCollapsed from './ReviewDataNarrativeCollapsed';
 
@@ -81,7 +82,7 @@ export default class ReviewDataNarrative extends React.Component {
     preventExit(e) {
         // for this function we want to disable the consistent-return rule because we only want it to return
         // when this condition is met. Otherwise it prevents the user from leaving the page at the wrong time
-        if (!isEqual(this.state.initialNarrative, this.state.currentNarrative)) {
+        if (!UtilHelper.trimmedObjectEquality(this.state.initialNarrative, this.state.currentNarrative)) {
             e.returnValue = 'You have unsaved comments.';
             return 'You have unsaved comments.';
         }
@@ -146,13 +147,17 @@ export default class ReviewDataNarrative extends React.Component {
     }
 
     render() {
-        const commentsChanged = !isEqual(this.state.initialNarrative, this.state.currentNarrative);
+        const commentsChanged = !UtilHelper.trimmedObjectEquality(this.state.initialNarrative, this.state.currentNarrative);
         let unsavedCommentsMessage = null;
+        let resultSymbol = null;
+        let resultText = null;
         if (commentsChanged) {
             unsavedCommentsMessage = (
                 <div className="col-md-6 unsaved-comments">
                     <FontAwesomeIcon icon="exclamation-triangle" /> There are unsaved comments
                 </div>);
+            resultSymbol = <FontAwesomeIcon icon="exclamation-triangle" />;
+            resultText = 'There are unsaved comments';
         }
         if (this.state.commentsCollapsed) {
             return (
@@ -163,8 +168,6 @@ export default class ReviewDataNarrative extends React.Component {
             );
         }
         const hasSavedComments = Object.values(this.state.initialNarrative).some((x) => x !== '');
-        let resultSymbol = null;
-        let resultText = null;
         let downloadButton = (
             <button
                 className="usa-da-download"
