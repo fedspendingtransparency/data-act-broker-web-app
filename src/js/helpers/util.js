@@ -1,4 +1,5 @@
 import moment from 'moment';
+import { isEqual } from 'lodash';
 
 export const convertToLocalDate = (dateToConvert) => {
     // convert date to local date, need to replace the space with a T for Date() formatting
@@ -196,4 +197,17 @@ export const getYearAndPeriod = (endDate) => {
     }
 
     return { year, period };
+};
+
+export const trimmedObjectEquality = (obj1, obj2) => {
+    // trimming the strings in both objects. This doesn't work if it's not strings
+    const obj1Trimmed = {};
+    const obj2Trimmed = {};
+    for (const key of Object.keys(obj1)) {
+        obj1Trimmed[key] = obj1[key].trim();
+    }
+    for (const key of Object.keys(obj2)) {
+        obj2Trimmed[key] = obj2[key].trim();
+    }
+    return isEqual(obj1Trimmed, obj2Trimmed);
 };
