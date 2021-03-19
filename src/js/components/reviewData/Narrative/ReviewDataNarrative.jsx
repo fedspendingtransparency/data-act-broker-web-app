@@ -159,6 +159,12 @@ export default class ReviewDataNarrative extends React.Component {
             resultSymbol = <FontAwesomeIcon icon="exclamation-triangle" />;
             resultText = 'There are unsaved comments';
         }
+        if (this.state.saveState === 'Error') {
+            unsavedCommentsMessage = (
+                <div className="col-md-6 unsaved-comments">
+                    <FontAwesomeIcon icon="exclamation-circle" /> An error occurred and your comments were not saved
+                </div>);
+        }
         if (this.state.commentsCollapsed) {
             return (
                 <ReviewDataNarrativeCollapsed
@@ -184,7 +190,7 @@ export default class ReviewDataNarrative extends React.Component {
             resultText = 'Saved';
         }
         else if (this.state.saveState === 'Error') {
-            resultSymbol = <FontAwesomeIcon icon="times-circle" />;
+            resultSymbol = <FontAwesomeIcon icon="exclamation-circle" />;
             resultText = 'An error occurred and your comments were not saved';
         }
         else if (this.state.saveState === 'Saving') {
