@@ -1,4 +1,9 @@
-#### February 22, 2021{section=changelog}
+#### March 8, 2021{section=changelog}
+In this release of the Broker, we:
+
+* Resolved a minor bug with the frontend on the DABS Review & Publish page.
+
+#### February 22, 2021
 In this release of the Broker, we:
 
 * Updated the Broker to comply with OMB Memo M-20-21 to require all agencies to submit monthly file sets beginning in FY22. For periods selected in FY22 and beyond, any new quarterly submission will only be able to be created as a Test submission.
