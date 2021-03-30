@@ -119,7 +119,8 @@ export class SubmissionsTableContainer extends React.Component {
 
         this.setState({
             [`${tableName}Loading`]: true,
-            [`${tableName}Error`]: ''
+            [`${tableName}Error`]: '',
+            [`${tableName}Submissions`]: []
         });
 
         SubmissionListHelper.loadSubmissionList(page, 10, published, category, order,
