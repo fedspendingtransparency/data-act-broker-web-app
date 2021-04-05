@@ -52,6 +52,11 @@
                 margin-right: rem(5);
                 margin-top: rem(2);
                 color: $color-gold-light;
+
+                &.fa-exclamation-circle {
+                    color: $color-secondary;
+                    font-size: rem(16);
+                }
             }
         }
     }
