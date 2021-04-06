@@ -344,7 +344,12 @@ export class UploadFabsFileValidation extends React.Component {
             );
         }
         else if (this.state.submissionErrorMessage) {
-            return <DABSFABSErrorMessage message={this.state.submissionErrorMessage} />;
+            return (
+                <React.Fragment>
+                    <UploadFabsFileHeader />
+                    <DABSFABSErrorMessage message={this.state.submissionErrorMessage} />
+                </React.Fragment>
+            );
         }
         let validationButton = null;
         let revalidateButton = null;
