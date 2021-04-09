@@ -14,7 +14,8 @@ const propTypes = {
     sortable: PropTypes.bool,
     onSort: PropTypes.func,
     cellClasses: PropTypes.array,
-    headerClasses: PropTypes.array
+    headerClasses: PropTypes.array,
+    unsortable: PropTypes.array
 };
 
 const defaultProps = {
@@ -23,6 +24,7 @@ const defaultProps = {
     sortable: true,
     cellClasses: [],
     headerClasses: [],
+    unsortable: [],
     onSort: () => {}
 };
 
@@ -36,6 +38,7 @@ export default class ScrollableTable extends React.Component {
                 col: -1
             }
         };
+        this.sortTable = this.sortTable.bind(this);
     }
 
     sortTable(direction, col) {
@@ -61,7 +64,8 @@ export default class ScrollableTable extends React.Component {
                             <TableHeaders
                                 data={this.props.headers}
                                 sortable={this.props.sortable}
-                                onSort={this.sortTable.bind(this)}
+                                unsortable={this.props.unsortable}
+                                onSort={this.sortTable}
                                 currentSort={this.state.sort}
                                 headerClasses={this.props.headerClasses} />
                         </thead>

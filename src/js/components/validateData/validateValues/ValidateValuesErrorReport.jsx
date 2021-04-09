@@ -50,6 +50,8 @@ export default class ValidateValuesErrorReport extends React.Component {
             signInProgress: false
         };
         this.clickedReport = this.clickedReport.bind(this);
+        this.sortTable = this.sortTable.bind(this);
+        this.createTable = this.createTable.bind(this);
     }
 
 
@@ -75,6 +77,7 @@ export default class ValidateValuesErrorReport extends React.Component {
         let table = '';
 
         const headers = ['Field Name', this.props.name, 'Occurrences'];
+        const unsortableHeaders = [0];
 
         const rows = [];
         data.forEach((item) => {
@@ -93,9 +96,10 @@ export default class ValidateValuesErrorReport extends React.Component {
         table = (<ScrollableTable
             headers={headers}
             data={sortedRows}
-            onSort={this.sortTable.bind(this)}
+            onSort={this.sortTable}
             cellClasses={this.state.cellClasses}
-            headerClasses={this.state.headerClasses} />);
+            headerClasses={this.state.headerClasses}
+            unsortable={unsortableHeaders} />);
         return table;
     }
 
@@ -117,7 +121,7 @@ export default class ValidateValuesErrorReport extends React.Component {
             this.setState({
                 sortDirection: direction,
                 sortField: column
-            });
+            }, this.createTable);
         }
     }
 
