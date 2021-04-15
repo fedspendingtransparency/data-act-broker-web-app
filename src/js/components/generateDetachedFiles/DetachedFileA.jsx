@@ -5,6 +5,7 @@
 
 import React from 'react';
 import PropTypes from 'prop-types';
+import Banner from 'components/SharedComponents/Banner';
 import Navbar from '../SharedComponents/navigation/NavigationComponent';
 import Footer from '../SharedComponents/FooterComponent';
 import AgencyListContainer from '../../containers/SharedContainers/AgencyListContainer';
@@ -139,6 +140,7 @@ export default class DetachedFileA extends React.Component {
                                 </div>
                             </div>
                         </div>
+                        <Banner type="all" />
 
                         <div className="container center-block">
                             <div className="row text-center usa-da-select-agency">
