@@ -16,7 +16,6 @@ import * as ReviewHelper from 'helpers/reviewHelper';
 
 import GenerateEFContent from 'components/generateEF/GenerateEFContent';
 import GenerateEFError from 'components/generateEF/GenerateEFError';
-import Banner from 'components/SharedComponents/Banner';
 
 const propTypes = {
     submission: PropTypes.object,
@@ -187,7 +186,6 @@ class GenerateEFContainer extends React.Component {
 
         return (
             <div className="generate-ef-page">
-                <Banner type="dabs" />
                 {content}
             </div>
         );

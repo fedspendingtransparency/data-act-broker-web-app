@@ -7,12 +7,6 @@
 		@include warningAlert;
 	}
 
-	// style the warning for published submissions
-	.internal-banner {
-		@import "../../layouts/login/_topBanner";
-		@include loginTopBanner;
-	}
-
 	// style the instructions
 	.usa-da-submission-instructions {
 		@import "../../components/typography/_instructions";
