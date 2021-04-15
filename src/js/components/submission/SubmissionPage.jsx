@@ -92,6 +92,7 @@ export default class SubmissionPage extends React.Component {
                 <Navbar activeTab="submissionGuide" type="dabs" />
                 <main>
                     <SubmissionHeader {...submissionInfo} />
+                    <Banner type="dabs" />
                     <div className="usa-da-content-step-block" name="content-top">
                         <div className="container center-block">
                             <div className="row">
@@ -102,7 +103,6 @@ export default class SubmissionPage extends React.Component {
                         </div>
                     </div>
                     {subStatusBanner}
-                    <Banner type="dabs" />
                     {error ? (<DABSFABSErrorMessage message={errorMessage} />) : null}
                     {loading ? (<ReviewLoading />) : null}
                     {content}
