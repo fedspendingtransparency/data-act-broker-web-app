@@ -7,6 +7,12 @@
 
     @import './radioSections';
 
+    // style site banners
+	.internal-banner {
+		@import "../../layouts/login/_topBanner";
+		@include loginTopBanner;
+	}
+
     .select-agency-holder {
         padding: 15px 30px 30px 30px;
         @include contentBlockWrapper;

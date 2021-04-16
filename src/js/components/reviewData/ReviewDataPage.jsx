@@ -5,7 +5,6 @@
 
 import React from 'react';
 import PropTypes from 'prop-types';
-import Banner from 'components/SharedComponents/Banner';
 import Footer from 'components/SharedComponents/FooterComponent';
 import ReviewDataContent from './ReviewDataContent';
 import ReviewLoading from './ReviewLoading';
@@ -38,7 +37,6 @@ export default class ReviewDataPage extends React.Component {
 
         return (
             <div className="review-data-page">
-                <Banner type="dabs" />
                 {currentComponent}
                 <Footer />
             </div>
