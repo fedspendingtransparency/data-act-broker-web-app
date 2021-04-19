@@ -27,7 +27,7 @@
             display: table;
             margin: 0;
             border-left: 1px solid #3b4452;
-            &:before {
+            &:before, &:after {
                 padding: 0;
                 display: none;
             }

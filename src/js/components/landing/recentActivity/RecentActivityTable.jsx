@@ -8,7 +8,6 @@ import PropTypes from 'prop-types';
 import _ from 'lodash';
 import * as SubmissionListHelper from 'helpers/submissionListHelper';
 import * as LoginHelper from 'helpers/loginHelper';
-import * as UtilHelper from 'helpers/util';
 import * as PermissionsHelper from 'helpers/permissionsHelper';
 import FormattedTable from 'components/SharedComponents/table/FormattedTable';
 import LastModifiedCell from 'components/landing/recentActivity/LastModifiedCell';
