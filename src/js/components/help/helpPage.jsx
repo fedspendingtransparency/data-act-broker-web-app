@@ -63,7 +63,7 @@ export default class HelpPage extends React.Component {
                                 </div>
                             </div>
                         </div>
-                        <Banner />
+                        <Banner type={this.props.type} />
                     </div>
                     <div className="container">
                         <div className="row usa-da-help-page">

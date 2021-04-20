@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
+import Banner from 'components/SharedComponents/Banner';
 import Navbar from 'components/SharedComponents/navigation/NavigationComponent';
 import Progress from 'components/SharedComponents/Progress';
 import DABSFABSErrorMessage from 'components/SharedComponents/DABSFABSErrorMessage';
@@ -91,6 +92,7 @@ export default class SubmissionPage extends React.Component {
                 <Navbar activeTab="submissionGuide" type="dabs" />
                 <main>
                     <SubmissionHeader {...submissionInfo} />
+                    <Banner type="dabs" />
                     <div className="usa-da-content-step-block" name="content-top">
                         <div className="container center-block">
                             <div className="row">

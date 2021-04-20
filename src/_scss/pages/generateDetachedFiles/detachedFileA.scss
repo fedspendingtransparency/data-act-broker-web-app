@@ -5,6 +5,12 @@
     // import typeahead styles
     @import "../../components/typeahead/_typeahead";
 
+    // style site banners
+	.internal-banner {
+		@import "../../layouts/login/_topBanner";
+		@include loginTopBanner;
+	}
+
     .detached-heading {
         font-size: rem(22);
         padding-bottom: rem(22);

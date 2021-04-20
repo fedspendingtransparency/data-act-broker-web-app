@@ -69,6 +69,13 @@ export class UploadFabsFileValidation extends React.Component {
             inFlight: true,
             submissionErrorMessage: ''
         };
+
+        this.uploadFile = this.uploadFile.bind(this);
+        this.openModal = this.openModal.bind(this);
+        this.closeModal = this.closeModal.bind(this);
+        this.submitFabs = this.submitFabs.bind(this);
+        this.startRevalidation = this.startRevalidation.bind(this);
+        this.clickedReport = this.clickedReport.bind(this);
     }
 
     componentDidMount() {
@@ -247,7 +254,7 @@ export class UploadFabsFileValidation extends React.Component {
         window.open(this.state.signedUrl);
     }
 
-    clickedReport(item) {
+    clickedReport() {
         // check if the link is already signed
         if (this.state.signInProgress) {
             // sign is in progress, do nothing
@@ -263,7 +270,7 @@ export class UploadFabsFileValidation extends React.Component {
                     signInProgress: true
                 },
                 () => {
-                    this.signReport(item);
+                    this.signReport(this.props.item);
                 }
             );
         }
@@ -329,8 +336,8 @@ export class UploadFabsFileValidation extends React.Component {
             .catch((err) => {
                 this.setState({
                     validationFinished: false,
-                    notAllowed: err.httpStatus === 403,
-                    errorMessage: err.httpStatus === 403 ? err.message : err.body.message
+                    error: 4,
+                    error_message: err.body === undefined ? err.message : err.body.message
                 });
             });
     }
@@ -369,8 +376,8 @@ export class UploadFabsFileValidation extends React.Component {
             <ValidateDataFileContainer
                 type={type}
                 data={this.state.jobResults}
-                setUploadItem={this.uploadFile.bind(this)}
-                updateItem={this.uploadFile.bind(this)}
+                setUploadItem={this.uploadFile}
+                updateItem={this.uploadFile}
                 publishing={this.state.published === 'publishing'}
                 agencyName={this.state.agency} />
         );
@@ -384,8 +391,8 @@ export class UploadFabsFileValidation extends React.Component {
                     <ValidateValuesFileContainer
                         type={type}
                         data={this.state.jobResults}
-                        setUploadItem={this.uploadFile.bind(this)}
-                        updateItem={this.uploadFile.bind(this)}
+                        setUploadItem={this.uploadFile}
+                        updateItem={this.uploadFile}
                         published={this.state.published}
                         agencyName={this.state.agency} />
                 );
@@ -484,7 +491,7 @@ export class UploadFabsFileValidation extends React.Component {
                                 </div>
                                 <button
                                     className="pull-right col-xs-3 us-da-button"
-                                    onClick={this.clickedReport.bind(this, this.props.item)}
+                                    onClick={this.clickedReport}
                                     download={this.state.fabs_meta.published_file}
                                     rel="noopener noreferrer">
                                         Download Published File
@@ -501,7 +508,7 @@ export class UploadFabsFileValidation extends React.Component {
                 validationButton = (
                     <button
                         className={`pull-right col-xs-3 us-da-button${disabledClass}`}
-                        onClick={this.openModal.bind(this)}
+                        onClick={this.openModal}
                         disabled={disabled}>
                             Publish
                     </button>
@@ -509,7 +516,7 @@ export class UploadFabsFileValidation extends React.Component {
                 revalidateButton = (
                     <button
                         className="pull-right col-xs-3 us-da-button revalidate-button"
-                        onClick={this.startRevalidation.bind(this)}>
+                        onClick={this.startRevalidation}>
                             Revalidate
                     </button>
                 );
@@ -530,7 +537,7 @@ export class UploadFabsFileValidation extends React.Component {
             );
             validationButton = null;
             revalidateButton = (
-                <button className="pull-right col-xs-3 us-da-button" onClick={this.startRevalidation.bind(this)}>
+                <button className="pull-right col-xs-3 us-da-button" onClick={this.startRevalidation}>
                         Revalidate
                 </button>
             );
@@ -572,9 +579,9 @@ export class UploadFabsFileValidation extends React.Component {
                 </div>
                 <PublishModal
                     rows={this.state.fabs_meta}
-                    submit={this.submitFabs.bind(this)}
+                    submit={this.submitFabs}
                     submissionID={this.props.computedMatch.params.submissionID}
-                    closeModal={this.closeModal.bind(this)}
+                    closeModal={this.closeModal}
                     isOpen={this.state.showPublish}
                     published={this.state.published} />
             </div>
