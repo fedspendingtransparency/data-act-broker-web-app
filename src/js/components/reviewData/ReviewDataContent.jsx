@@ -301,10 +301,16 @@ export default class ReviewDataContent extends React.Component {
                         <div className="col-md-6">
                             <b>Note:</b> After a submission is published all of the associated comments will be made
                             available on USAspending.gov in the&nbsp;
-                            {/* <a href="https://www.usaspending.gov/submission-statistics/" target="_blank" rel="noopener noreferrer">
+                            <a
+                                href="https://www.usaspending.gov/submission-statistics/"
+                                target="_blank"
+                                rel="noopener noreferrer">
                                 Agency Submission Statistics section
-                            </a> and the&nbsp;*/}
-                            <a href="https://files.usaspending.gov/agency_submissions/" target="_blank" rel="noopener noreferrer">
+                            </a> and the&nbsp;
+                            <a
+                                href="https://files.usaspending.gov/agency_submissions/"
+                                target="_blank"
+                                rel="noopener noreferrer">
                                 Agency Submission Files section
                             </a>.
                         </div>
