@@ -305,7 +305,7 @@ export default class ReviewDataContent extends React.Component {
                                 href="https://www.usaspending.gov/submission-statistics"
                                 target="_blank"
                                 rel="noopener noreferrer">
-                                Agency Submission Statistics section
+                                Agency Submission Statistics Page
                             </a> and the&nbsp;
                             <a
                                 href="https://files.usaspending.gov/agency_submissions"
