@@ -25,15 +25,14 @@ pre_commands = ["behave", "-f", "allure_behave.formatter:AllureFormatter", "-o",
 
 work_array = []
 
-if args.test_harness in ['broker', 'all']:
-    args.broker_url = "{}:{}@{}".format(os.environ.get("BASIC_AUTH_USERNAME"), os.environ.get("BASIC_AUTH_PASSWORD"), args.broker_url)
-    broker_post_commands = ["-D", "URL={}".format(args.broker_url)]
-    broker_work_array =[pre_commands + ["./broker_tests/features/broker_smoke_test.feature"] + broker_post_commands]
-    broker_work_array.append(pre_commands + ["./broker_tests/features/dabsDashboard.feature"] + broker_post_commands)
-    broker_work_array.append(pre_commands + ["./broker_tests/features/fabsDashboard.feature"] + broker_post_commands)
-    broker_work_array.append(pre_commands + ["./broker_tests/features/dabs_submissions.feature"] + broker_post_commands)
-    broker_work_array.append(pre_commands + ["./broker_tests/features/fabs_submissions.feature"] + broker_post_commands)
-    work_array += broker_work_array
+args.broker_url = "{}:{}@{}".format(os.environ.get("BASIC_AUTH_USERNAME"), os.environ.get("BASIC_AUTH_PASSWORD"), args.broker_url)
+broker_post_commands = ["-D", "URL={}".format(args.broker_url)]
+broker_work_array =[pre_commands + ["./broker_tests/features/broker_smoke_test.feature"] + broker_post_commands]
+broker_work_array.append(pre_commands + ["./broker_tests/features/dabsDashboard.feature"] + broker_post_commands)
+broker_work_array.append(pre_commands + ["./broker_tests/features/fabsDashboard.feature"] + broker_post_commands)
+broker_work_array.append(pre_commands + ["./broker_tests/features/dabs_submissions.feature"] + broker_post_commands)
+broker_work_array.append(pre_commands + ["./broker_tests/features/fabs_submissions.feature"] + broker_post_commands)
+work_array += broker_work_array
 
 def main():
     print("Starting automated test script")
