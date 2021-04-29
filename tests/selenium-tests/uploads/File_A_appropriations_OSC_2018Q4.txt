@@ -1,0 +1,13 @@
+AllocationTransferAgencyIdentifier|AgencyIdentifier|BeginningPeriodOfAvailability|EndingPeriodOfAvailability|AvailabilityTypeCode|MainAccountCode|SubAccountCode|BudgetAuthorityUnobligatedBalanceBroughtForward_FYB|AdjustmentsToUnobligatedBalanceBroughtForward_CPE|BudgetAuthorityAppropriatedAmount_CPE|BorrowingAuthorityAmountTotal_CPE|ContractAuthorityAmountTotal_CPE|SpendingAuthorityfromOffsettingCollectionsAmountTotal_CPE|OtherBudgetaryResourcesAmount_CPE|BudgetAuthorityAvailableAmountTotal_CPE|GrossOutlayAmountByTAS_CPE|ObligationsIncurredTotalByTAS_CPE|DeobligationsRecoveriesRefundsByTAS_CPE|UnobligatedBalance_CPE|StatusOfBudgetaryResourcesTotal_CPE
+|062|2012|2013||0100|000|0|0|0|0|0|0|0|0|0|0|0|0|0
+|062|2013|2013||0100|000|47794.49|-42589.74|0|0|0|0|0|5204.75|0|5204.75|45354.97|0|5204.75
+|062|2013|2014||0100|000|0|0|0|0|0|0|0|0|0|0|0|0|0
+|062|2014|2014||0100|000|402720.68|147734.56|0|0|0|0|0|550455.24|0|3798.42|147734.56|546656.82|550455.24
+|062|2014|2015||0100|000|0|0|0|0|0|0|0|0|0|0|0|0|0
+|062|2015|2015||0100|000|90109.04|50020.58|0|0|0|0|0|140129.62|-1515.4|0|50020.58|140129.62|140129.62
+|062|2015|2016||0100|000|0|0|0|0|0|0|0|0|0|0|0|0|0
+|062|2016|2016||0100|000|34593.78|71670.27|0|0|0|0|0|106264.05|-25744.62|19681.53|71670.27|86582.52|106264.05
+|062|2016|2017||0100|000|0|0|0|0|0|0|0|0|0|0|0|0|0
+|062|2017|2017||0100|000|194834.69|7890.28|0|0|0|0|0|202724.97|-1166658.24|58636.46|105307.28|144088.51|202724.97
+|062|2017|2018||0100|000|0|97417|0|0|0|0|0|97417|-97417|97417|0|0|97417
+|062|2018|2018||0100|000|0|0|26535000|0|0|0|0|26535000|-23350016.47|26256348.24|0|278651.76|26535000
