@@ -41,3 +41,6 @@ cache/
 broker.sh
 
 .idea/
+
+# selenium test artifacts
+tests/selinium-tests/reports/allure-results
