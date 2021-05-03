@@ -3,10 +3,6 @@
 	.published-submission-warning-banner {
 		@import '../../layouts/login/_topBanner';
 	}
-	.internal-banner {
-		@import "../../layouts/login/_topBanner";
-		@include loginTopBanner;
-	}
 
 	// style the instructions
 	.usa-da-submission-instructions {

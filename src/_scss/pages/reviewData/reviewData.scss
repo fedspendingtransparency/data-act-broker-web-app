@@ -1,9 +1,3 @@
 .review-data-page {
 	@import "./_content";
-
-	// style the warning for published submissions
-	.internal-banner {
-		@import "../../layouts/login/_topBanner";
-		@include loginTopBanner;
-	}
 }

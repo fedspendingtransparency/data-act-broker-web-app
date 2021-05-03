@@ -13,7 +13,6 @@ import { assign, findIndex, merge } from 'lodash';
 import Q from 'q';
 
 import GenerateFilesContent from 'components/generateFiles/GenerateFilesContent';
-import Banner from 'components/SharedComponents/Banner';
 
 import * as uploadActions from 'redux/actions/uploadActions';
 
@@ -484,18 +483,15 @@ export class GenerateFilesContainer extends React.Component {
 
     render() {
         return (
-            <div>
-                <Banner type="dabs" />
-                <GenerateFilesContent
-                    {...this.props}
-                    {...this.state}
-                    handleDateChange={this.handleDateChange}
-                    updateError={this.updateError}
-                    generateFiles={this.generateFiles}
-                    updateFileProperty={this.updateFileProperty}
-                    clickedDownload={this.clickedDownload}
-                    publishStatus={this.props.submission.publishStatus} />
-            </div>
+            <GenerateFilesContent
+                {...this.props}
+                {...this.state}
+                handleDateChange={this.handleDateChange}
+                updateError={this.updateError}
+                generateFiles={this.generateFiles}
+                updateFileProperty={this.updateFileProperty}
+                clickedDownload={this.clickedDownload}
+                publishStatus={this.props.submission.publishStatus} />
         );
     }
 }

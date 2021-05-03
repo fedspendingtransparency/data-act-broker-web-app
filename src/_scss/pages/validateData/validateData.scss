@@ -1,10 +1,4 @@
 .validate-data-page {
-	// style the warning for published submissions
-	.internal-banner {
-		@import "../../layouts/login/_topBanner";
-		@include loginTopBanner;
-	}
- 
 	.usa-da-submission-items {
 		margin-top: 60px;
 		padding-bottom: 30px;

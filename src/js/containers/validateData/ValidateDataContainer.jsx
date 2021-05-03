@@ -13,7 +13,6 @@ import * as uploadActions from '../../redux/actions/uploadActions';
 import ValidationContent from '../../components/validateData/ValidationContent';
 import ValidateNotYours from '../../components/validateData/ValidateNotYours';
 import ValidateLoadingScreen from '../../components/validateData/ValidateLoadingScreen';
-import Banner from '../../components/SharedComponents/Banner';
 
 import * as ReviewHelper from '../../helpers/reviewHelper';
 
@@ -247,7 +246,6 @@ export class ValidateDataContainer extends React.Component {
 
         return (
             <div className="validate-data-page">
-                <Banner type="dabs" />
                 {validationContent}
             </div>
         );

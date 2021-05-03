@@ -13,7 +13,6 @@ import * as uploadActions from 'redux/actions/uploadActions';
 import * as UploadHelper from 'helpers/uploadHelper';
 import * as ReviewHelper from 'helpers/reviewHelper';
 import CrossFileContent from 'components/crossFile/CrossFileContent';
-import Banner from 'components/SharedComponents/Banner';
 import { kGlobalConstants } from '../../GlobalConstants';
 
 const propTypes = {
@@ -212,7 +211,6 @@ class CrossFileContentContainer extends React.Component {
 
         return (
             <div className="cross-file-page">
-                <Banner type="dabs" />
                 <CrossFileContent
                     {...this.props}
                     uploadFiles={this.uploadFiles}
