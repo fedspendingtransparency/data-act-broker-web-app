@@ -54,23 +54,6 @@ export const fetchWarnings = (callBody) => {
     return deferred.promise;
 };
 
-export const fetchSummary = (callBody) => {
-    const deferred = Q.defer();
-
-    Request.post(`${kGlobalConstants.API}historic_dabs_summary/`)
-        .send(callBody)
-        .end((err, res) => {
-            if (err) {
-                deferred.reject(err);
-            }
-            else {
-                deferred.resolve(res.body);
-            }
-        });
-
-    return deferred.promise;
-};
-
 export const fetchDashboardTableContents = (callBody) => {
     const deferred = Q.defer();
 
