@@ -7,7 +7,7 @@ import React from 'react';
 import { shallow } from 'enzyme';
 import { cloneDeep } from 'lodash';
 
-import { WarningsInfoGraphContainer } from 'containers/dashboard/graph/WarningsInfoGraphContainer';
+import WarningsInfoGraphContainer from 'containers/dashboard/graph/WarningsInfoGraphContainer';
 import { mockRedux, mockData } from './mockData';
 
 // mock the child component by replacing it with a function that returns a null element

@@ -7,7 +7,7 @@ import React from 'react';
 import { shallow } from 'enzyme';
 import { cloneDeep } from 'lodash';
 
-import { DashboardTableContainer } from 'containers/dashboard/table/DashboardTableContainer';
+import DashboardTableContainer from 'containers/dashboard/table/DashboardTableContainer';
 import BaseDashboardTableRow from 'models/dashboard/BaseDashboardTableRow';
 import { mockRedux, mockData } from './mockData';
 

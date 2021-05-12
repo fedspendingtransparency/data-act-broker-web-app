@@ -5,6 +5,7 @@
 
 import React from 'react';
 import { shallow } from 'enzyme';
+import { cloneDeep } from 'lodash';
 
 import { DashboardAgencyFilterContainer } from 'containers/dashboard/filters/DashboardAgencyFilterContainer';
 import { mockActions, mockRedux } from './mockFilters';
@@ -52,9 +53,17 @@ describe('DashboardAgencyFilterContainer', () => {
                 {...mockRedux} />
             );
 
+            const newState = cloneDeep(container.instance().state);
+            newState.results = [
+                {agency_name: 'Test Agency', cgac_code: '123'},
+                {agency_name: 'Test Agency 2', frec_code: '4321'}
+            ]
+            container.instance().setState({ ...newState });
+
             container.instance().onSelect('123');
 
-            expect(mockActions.updateGenericFilter).toHaveBeenCalledWith('active', 'agency', '123');
+            expect(mockActions.updateGenericFilter).toHaveBeenCalledWith(
+                'active', 'agency', { code: '123', name: 'Test Agency' });
         });
     });
 });

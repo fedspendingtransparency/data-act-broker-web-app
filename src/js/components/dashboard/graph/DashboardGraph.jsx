@@ -28,6 +28,10 @@ const propTypes = {
     errorLevel: PropTypes.oneOf(['error', 'warning']).isRequired
 };
 
+const defaultProps = {
+    description: null
+};
+
 const graphHeight = 540;
 const spaceBetweenStacks = 2;
 
@@ -187,7 +191,7 @@ export default class DashboardGraph extends React.Component {
             }
         }
         const graphTitle = this.props.type === 'historical' ? (
-            <h3 className="dashboard-viz__heading">Warnings Information</h3>
+            null
         ) : (
             <h4 className="dashboard-viz__heading">Significance</h4>
         );
@@ -211,3 +215,4 @@ export default class DashboardGraph extends React.Component {
 }
 
 DashboardGraph.propTypes = propTypes;
+DashboardGraph.defaultProps = defaultProps;

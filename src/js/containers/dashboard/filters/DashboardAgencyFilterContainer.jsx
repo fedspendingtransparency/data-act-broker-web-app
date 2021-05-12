@@ -45,8 +45,16 @@ export class DashboardAgencyFilterContainer extends React.Component {
     }
 
     onSelect(agency) {
+        // select only the agency we've selected for clearing and displaying
+        const agencyObj = this.state.results.filter((result) => {
+            const code = result.cgac_code || result.frec_code;
+            return code === agency;
+        });
         // Add or remove the rule from Redux state
-        this.props.updateGenericFilter(this.props.type, 'agency', agency);
+        this.props.updateGenericFilter(
+            this.props.type,
+            'agency',
+            { code: agencyObj[0].cgac_code || agencyObj[0].frec_code, name: agencyObj[0].agency_name });
     }
 
     loadData() {
@@ -60,8 +68,9 @@ export class DashboardAgencyFilterContainer extends React.Component {
                 if (agencies.length === 1) {
                     const code = agencies[0].cgac_code ? agencies[0].cgac_code : agencies[0].frec_code;
                     // Prevent removing the agency if it has already been set by the other dashboard type
-                    if (this.props.selectedFilters[this.props.type].agency !== code) {
-                        this.props.updateGenericFilter(this.props.type, 'agency', code);
+                    if (this.props.selectedFilters[this.props.type].agency.code !== code) {
+                        this.props.updateGenericFilter(
+                            this.props.type, 'agency', { code, name: agencies[0].agency_name });
                     }
                     this.props.setDescription(true);
                 }

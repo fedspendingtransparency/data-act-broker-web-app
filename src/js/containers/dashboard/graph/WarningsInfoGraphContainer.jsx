@@ -5,7 +5,6 @@
 
 import React from 'react';
 import PropTypes from 'prop-types';
-import { connect } from 'react-redux';
 import { isEqual, union } from 'lodash';
 
 import * as DashboardHelper from 'helpers/dashboardHelper';
@@ -16,7 +15,7 @@ const propTypes = {
     appliedFilters: PropTypes.object
 };
 
-export class WarningsInfoGraphContainer extends React.Component {
+export default class WarningsInfoGraphContainer extends React.Component {
     constructor(props) {
         super(props);
 
@@ -51,7 +50,7 @@ export class WarningsInfoGraphContainer extends React.Component {
             filters: {
                 fys: this.props.appliedFilters.fy.toArray(),
                 quarters: this.props.appliedFilters.quarters.toArray(),
-                agencies: [this.props.appliedFilters.agency],
+                agencies: [this.props.appliedFilters.agency.code],
                 files: [this.props.appliedFilters.file],
                 rules: this.props.appliedFilters.rules.toArray()
             }
@@ -145,16 +144,9 @@ export class WarningsInfoGraphContainer extends React.Component {
             <DashboardGraph
                 type="historical"
                 errorLevel="warning"
-                description="Hover over the color to see details for each quarterly warning."
                 {...this.state} />
         );
     }
 }
 
 WarningsInfoGraphContainer.propTypes = propTypes;
-
-export default connect(
-    (state) => ({
-        appliedFilters: state.appliedDashboardFilters.filters.historical
-    })
-)(WarningsInfoGraphContainer);

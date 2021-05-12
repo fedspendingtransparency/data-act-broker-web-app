@@ -5,7 +5,6 @@
 
 import React from 'react';
 import PropTypes from 'prop-types';
-import { connect } from 'react-redux';
 import { isEqual } from 'lodash';
 import { Pagination } from 'data-transparency-ui';
 
@@ -19,7 +18,7 @@ const propTypes = {
     appliedFilters: PropTypes.object
 };
 
-export class DashboardTableContainer extends React.Component {
+export default class DashboardTableContainer extends React.Component {
     constructor(props) {
         super(props);
 
@@ -117,7 +116,7 @@ export class DashboardTableContainer extends React.Component {
             filters: {
                 quarters: [...filters.quarters],
                 fys: [...filters.fy],
-                agencies: [filters.agency],
+                agencies: [filters.agency.code],
                 files: [filters.file],
                 rules: [...filters.rules]
             },
@@ -179,7 +178,7 @@ export class DashboardTableContainer extends React.Component {
                     isOpen={this.state.showModal} />);
         }
         return (
-            <div className="dashboard-viz">
+            <div className="dashboard-viz no-top-pad">
                 <DashboardTable
                     results={this.state.results}
                     inFlight={this.state.inFlight}
@@ -196,9 +195,3 @@ export class DashboardTableContainer extends React.Component {
 }
 
 DashboardTableContainer.propTypes = propTypes;
-
-export default connect(
-    (state) => ({
-        appliedFilters: state.appliedDashboardFilters.filters.historical
-    })
-)(DashboardTableContainer);
