@@ -35,7 +35,10 @@ describe('dashboardFiltersReducer', () => {
             type: 'UPDATE_GENERIC_FILTER',
             dashboardType: 'historical',
             filterType: 'agency',
-            value: '123'
+            value: {
+                code: '123',
+                name: 'Test Agency'
+            }
         };
 
         it('should change the given filter to the provided value', () => {
@@ -43,15 +46,15 @@ describe('dashboardFiltersReducer', () => {
 
             state = dashboardFiltersReducer(state, action);
 
-            expect(state.historical.agency).toEqual('123');
+            expect(state.historical.agency).toEqual({ code: '123', name: 'Test Agency' });
         });
 
         it('should remove the value if it is the value already selected', () => {
             const startingState = cloneDeep(initialState);
-            startingState.historical.agency = '123';
+            startingState.historical.agency = { code: '123', name: 'Test Agency' };
 
             const updatedState = dashboardFiltersReducer(startingState, action);
-            expect(updatedState.historical.agency).toEqual('');
+            expect(updatedState.historical.agency).toEqual({ code: '', name: '' });
         });
     });
     describe('CLEAR_FILTER', () => {
