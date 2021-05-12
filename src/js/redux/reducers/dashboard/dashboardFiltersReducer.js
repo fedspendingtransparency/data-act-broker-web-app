@@ -8,14 +8,20 @@ import { isEqual } from 'lodash';
 
 export const initialState = {
     historical: {
-        agency: '',
+        agency: {
+            code: '',
+            name: ''
+        },
         quarters: new Set(),
         fy: new Set(),
         file: '',
         rules: new Set()
     },
     active: {
-        agency: '',
+        agency: {
+            code: '',
+            name: ''
+        },
         createdBy: {
             name: '',
             id: null

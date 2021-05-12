@@ -71,6 +71,18 @@
                 margin-right: 0;
                 margin-bottom: rem(26);
             }
+            &.historic {
+                h2 {
+                    padding-top: rem(20);
+                    font-weight: 500;
+                }
+                h3 {
+                    font-size: $h3-font-size;
+                    margin: 0;
+                    padding-left: rem(20);
+                    font-weight: 400;
+                }
+            }
             button {
                 &.back-button {
                     @include button-unstyled;
