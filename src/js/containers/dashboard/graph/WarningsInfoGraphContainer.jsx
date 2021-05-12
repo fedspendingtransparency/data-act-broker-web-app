@@ -145,7 +145,6 @@ export class WarningsInfoGraphContainer extends React.Component {
             <DashboardGraph
                 type="historical"
                 errorLevel="warning"
-                description="Hover over the color to see details for each quarterly warning."
                 {...this.state} />
         );
     }

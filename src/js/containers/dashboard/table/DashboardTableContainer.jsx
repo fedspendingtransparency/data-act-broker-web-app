@@ -179,7 +179,7 @@ export class DashboardTableContainer extends React.Component {
                     isOpen={this.state.showModal} />);
         }
         return (
-            <div className="dashboard-viz">
+            <div className="dashboard-viz no-top-pad">
                 <DashboardTable
                     results={this.state.results}
                     inFlight={this.state.inFlight}
