@@ -13,7 +13,7 @@ const propTypes = {
     appliedFilters: PropTypes.object
 };
 
-export class DashboardTable extends React.Component {
+export class HistoricalDashboard extends React.Component {
     render() {
         let fileType = `File ${this.props.appliedFilters.file}`;
         if (this.props.appliedFilters.file.startsWith('cross') === true) {
@@ -31,10 +31,10 @@ export class DashboardTable extends React.Component {
     }
 }
 
-DashboardTable.propTypes = propTypes;
+HistoricalDashboard.propTypes = propTypes;
 
 export default connect(
     (state) => ({
         appliedFilters: state.appliedDashboardFilters.filters.historical
     })
-)(DashboardTable);
+)(HistoricalDashboard);
