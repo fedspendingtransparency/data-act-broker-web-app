@@ -112,9 +112,10 @@ export default class DashboardTableContainer extends React.Component {
             modalData: {}
         });
         const filters = this.props.appliedFilters;
+        // TODO - replace the quarter mapping with actual selected periods when we update the filter
         const searchParams = {
             filters: {
-                quarters: [...filters.quarters],
+                periods: [...filters.quarters].map((quart) => (quart * 3)),
                 fys: [...filters.fy],
                 agencies: [filters.agency.code],
                 files: [filters.file],
