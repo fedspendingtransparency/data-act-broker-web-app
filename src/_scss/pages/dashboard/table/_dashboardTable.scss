@@ -112,6 +112,7 @@
                     .scroll-box {
                         max-height: rem(75);
                         overflow-y: auto;
+                        overflow-wrap: anywhere;
                     }
 
                     .label-button {
