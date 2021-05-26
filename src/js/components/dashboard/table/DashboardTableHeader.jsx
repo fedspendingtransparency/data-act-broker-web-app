@@ -30,11 +30,11 @@ export default class DashboardTableHeader extends React.Component {
                 activeSort = this.props.currOrder;
             }
             let tableSorter = null;
-            if(header.sortType) {
-                tableSorter = <DashboardTableSorter
+            if (header.sortType) {
+                tableSorter = (<DashboardTableSorter
                     sort={header.sortType}
                     changeSort={this.props.changeSort}
-                    activeSort={activeSort} />
+                    activeSort={activeSort} />);
             }
             return (
                 <th key={`dashboard-table-header-${uniqueId()}`} className={header.class}>

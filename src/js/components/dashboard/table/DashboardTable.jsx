@@ -18,7 +18,8 @@ const propTypes = {
     hasError: PropTypes.bool,
     changeSort: PropTypes.func.isRequired,
     currSort: PropTypes.string,
-    currOrder: PropTypes.string
+    currOrder: PropTypes.string,
+    downloadFile: PropTypes.func.isRequired
 };
 
 const defaultProps = {
@@ -110,35 +111,35 @@ export default class DashboardTable extends React.Component {
                                 downloadFile={this.downloadFile}
                                 row={row}
                                 label={fileType}
-                                key={`${fileType}-${row.submissionId}-${row.ruleLabel}`}
-                            />
+                                key={`${fileType}-${row.submissionId}-${row.ruleLabel}`} />
                         ));
 
-                    return <tr key={`dashboard-table-row-${row.submissionId}-${row.ruleLabel}`}>
-                        <td>
-                            <a href={`#/submission/${row.submissionId}`} className="date-link">{row.submissionId}</a>
-                        </td>
-                        <td>
-                            {row.period}
-                        </td>
-                        <td>
-                            {row.submittedBy}
-                        </td>
-                        <td>
-                            {row.ruleLabel}
-                        </td>
-                        <td className="right-align">
-                            {row.instanceCount}
-                        </td>
-                        <td>
-                            <div className="scroll-box">
-                                {row.ruleDescription}
-                            </div>
-                        </td>
-                        <td>
-                            {fileTypes}
-                        </td>
-                    </tr>
+                    return (
+                        <tr key={`dashboard-table-row-${row.submissionId}-${row.ruleLabel}`}>
+                            <td>
+                                <a href={`#/submission/${row.submissionId}`} className="date-link">{row.submissionId}</a>
+                            </td>
+                            <td>
+                                {row.period}
+                            </td>
+                            <td>
+                                {row.submittedBy}
+                            </td>
+                            <td>
+                                {row.ruleLabel}
+                            </td>
+                            <td className="right-align">
+                                {row.instanceCount}
+                            </td>
+                            <td>
+                                <div className="scroll-box">
+                                    {row.ruleDescription}
+                                </div>
+                            </td>
+                            <td>
+                                {fileTypes}
+                            </td>
+                        </tr>);
                 });
             }
         }
