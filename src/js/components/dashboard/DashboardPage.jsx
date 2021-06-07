@@ -32,16 +32,20 @@ const filters = {
             altDescription: 'The agency to which you are assigned.'
         },
         {
-            name: 'Fiscal Years',
-            required: true,
-            component: FyFilterContainer,
-            description: 'Select the applicable fiscal year(s).'
-        },
-        {
-            name: 'Quarters',
-            required: true,
-            component: QuarterFilterContainer,
-            description: 'Select the applicable quarter(s).'
+            name: 'Reporting Period',
+            subOptions: [
+                {
+                    name: 'Fiscal Years',
+                    required: true,
+                    component: FyFilterContainer,
+                    description: 'Select the applicable fiscal year(s).'
+                },
+                {
+                    name: 'Period Comparison',
+                    component: QuarterFilterContainer,
+                    description: 'Compare a single reporting period year-over-year.'
+                }
+            ]
         },
         {
             name: 'Validation Rules',

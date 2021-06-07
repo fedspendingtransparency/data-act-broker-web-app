@@ -44,6 +44,10 @@
             }
             .filter-sidebar__sub-option-name {
                 font-size: $h5-font-size;
+
+                .filter-sidebar__sub-option-required {
+                    font-size: rem(12);
+                }
             }
         }
     }
