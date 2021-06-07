@@ -3,14 +3,19 @@
         @include unstyled-list;
         font-weight: $font-normal;
         padding-top: rem(15);
+        width: 100%;
         .fiscal-years__wrapper {
             @include display(flex);
         }
         .fiscal-years__left {
-            padding-right: rem(4);
+            @include display(flex);
+            @include flex(1 1 auto);
+            @include flex-flow(column);
         }
         .fiscal-years__right {
-            padding-left: rem(4);
+            @include display(flex);
+            @include flex(1 1 auto);
+            @include flex-flow(column);
         }
         li.fy-option {
             &:before {

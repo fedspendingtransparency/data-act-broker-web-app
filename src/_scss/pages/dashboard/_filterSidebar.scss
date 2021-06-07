@@ -50,5 +50,18 @@
                 }
             }
         }
+
+        .file-options {
+            .radio-group {
+                width: 100%;
+                @include display(flex);
+
+                .radio-group__column {
+                    @include display(flex);
+                    @include flex(1 1 auto);
+                    @include flex-flow(column);
+                }
+            }
+        }
     }
 }
