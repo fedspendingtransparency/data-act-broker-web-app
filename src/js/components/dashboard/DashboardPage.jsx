@@ -45,14 +45,19 @@ const filters = {
         },
         {
             name: 'Validation Rules',
-            required: true,
-            component: FileFilterContainer,
-            description: 'Select one file or cross-file.'
-        },
-        {
-            name: 'Rules',
-            component: RulesFilterContainer,
-            description: 'Enter specific codes to filter your search.'
+            subOptions: [
+                {
+                    name: 'Files',
+                    required: true,
+                    component: FileFilterContainer,
+                    description: 'Select single file or cross-file.'
+                },
+                {
+                    name: 'Filter by Rules',
+                    component: RulesFilterContainer,
+                    description: 'Enter specific codes to filter your search.'
+                }
+            ]
         }
     ],
     active: [
