@@ -62,7 +62,7 @@ const PeriodButton = (props) => {
             buttonText = props.period;
         }
         else {
-            buttonText = props.period === 2 ? 'P01/P02' : `P${props.period.toString().padStart(2, '0')}`
+            buttonText = props.period === 2 ? 'P01/P02' : `P${props.period.toString().padStart(2, '0')}`;
         }
     }
 

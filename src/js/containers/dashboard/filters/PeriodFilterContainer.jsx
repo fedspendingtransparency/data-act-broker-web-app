@@ -11,6 +11,7 @@ import { connect } from 'react-redux';
 import * as DashboardHelper from 'helpers/dashboardHelper';
 import * as filterActions from 'redux/actions/dashboard/dashboardFilterActions';
 import PeriodPicker from 'components/generateDetachedFiles/PeriodPicker';
+import ShownValue from 'components/dashboard/filters/ShownValue';
 
 const propTypes = {
     updateFilterSet: PropTypes.func,
@@ -28,6 +29,7 @@ export class PeriodFilterContainer extends React.Component {
         };
 
         this.pickedQuarter = this.pickedQuarter.bind(this);
+        this.removePeriod = this.removePeriod.bind(this);
     }
 
     componentDidMount() {
@@ -108,13 +110,34 @@ export class PeriodFilterContainer extends React.Component {
         this.props.updateGenericFilter('historical', 'quarters', quarter);
     }
 
+    removePeriod() {
+        this.pickedQuarter(this.props.selectedFilters.quarters);
+    }
+
     render() {
+        let selectedPeriod = null;
+        if (this.props.selectedFilters.quarters !== null) {
+            let label = this.props.selectedFilters.quarters;
+            if (typeof label !== 'string') {
+                label = label === 2 ? 'P01/P02' : `P${label.toString().padStart(2, '0')}`;
+            }
+            selectedPeriod = (
+                <div className="selected-filters">
+                    <ShownValue
+                        label={label}
+                        removeValue={this.removePeriod} />
+                </div>
+            );
+        }
         return (
-            <PeriodPicker
-                period={null}
-                periodArray={['Q1', 2, 3, 'Q2', 4, 5, 6, 'Q3', 7, 8, 9, 'Q4', 10, 11, 12]}
-                pickedPeriod={this.pickedQuarter}
-                type="historicDashboard" />
+            <div className="historical-dashboard-period-picker">
+                <PeriodPicker
+                    period={null}
+                    periodArray={['Q1', 2, 3, 'Q2', 4, 5, 6, 'Q3', 7, 8, 9, 'Q4', 10, 11, 12]}
+                    pickedPeriod={this.pickedQuarter}
+                    type="historicDashboard" />
+                {selectedPeriod}
+            </div>
         )
     }
 }
