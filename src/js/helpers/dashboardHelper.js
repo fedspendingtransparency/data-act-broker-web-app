@@ -162,3 +162,23 @@ export const fetchActiveDashboardTableContents = (submissionId, fileType, errorL
 
     return deferred.promise;
 };
+
+export const getPeriodListFromFilter = (period) => {
+    let periodList = []
+
+    if (period !== null) {
+        // if it's a string, then they selected a quarter and we need to insert all 3 relevant periods
+        if (typeof period === 'string') {
+            const quarter = parseInt(period.substring(1), 10);
+            periodList = [quarter * 3, quarter * 3 - 1, quarter * 3 - 2];
+            // if period 1 is in the array, take it out because that's invalid
+            if (periodList.indexOf(1) > -1) {
+                periodList.splice(periodList.indexOf(1), 1);
+            }
+        }
+        else {
+            periodList = [period];
+        }
+    }
+    return periodList;
+};

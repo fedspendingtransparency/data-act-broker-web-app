@@ -12,6 +12,7 @@ import Footer from 'components/SharedComponents/FooterComponent';
 import Banner from 'components/SharedComponents/Banner';
 import TabItem from 'components/SharedComponents/TabItem';
 import DashboardContentContainer from 'containers/dashboard/DashboardContentContainer';
+import PeriodFilterContainer from 'containers/dashboard/filters/PeriodFilterContainer';
 import QuarterFilterContainer from 'containers/dashboard/filters/QuarterFilterContainer';
 import DashboardAgencyFilterContainer from 'containers/dashboard/filters/DashboardAgencyFilterContainer';
 import FyFilterContainer from 'containers/dashboard/filters/FyFilterContainer';
@@ -42,7 +43,7 @@ const filters = {
                 },
                 {
                     name: 'Period Comparison',
-                    component: QuarterFilterContainer,
+                    component: PeriodFilterContainer,
                     description: 'Compare a single reporting period year-over-year.'
                 }
             ]

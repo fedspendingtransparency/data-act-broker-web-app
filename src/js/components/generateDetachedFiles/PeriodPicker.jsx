@@ -13,7 +13,12 @@ import PeriodButton from './PeriodButton';
 const propTypes = {
     period: PropTypes.number,
     periodArray: PropTypes.array,
-    pickedPeriod: PropTypes.func.isRequired
+    pickedPeriod: PropTypes.func.isRequired,
+    type: PropTypes.oneOf(['fileA', 'historicDashboard'])
+};
+
+const defaultProps = {
+    type: 'fileA'
 };
 
 export default class PeriodPicker extends React.Component {
@@ -95,18 +100,37 @@ export default class PeriodPicker extends React.Component {
     }
 
     render() {
-        const minPeriod = utils.getPeriodTextFromValue(this.props.periodArray[0]);
-        const maxPeriod = utils.getPeriodTextFromValue(this.props.period);
-        const currentSelection = `${minPeriod} - ${maxPeriod}`;
-        const periods = this.props.periodArray.map((period, index) => (
-            <PeriodButton
-                key={period}
-                period={index + 1}
-                active={index + 1 <= this.state.hoveredPeriod}
-                hoveredPeriod={this.hoveredPeriod}
-                endHover={this.highlightCurrentSelection}
-                pickedPeriod={this.clickedPeriod} />
-        ));
+        let currentSelection = 'Select a reporting period';
+        if (this.props.type === 'fileA') {
+            const minPeriod = utils.getPeriodTextFromValue(this.props.periodArray[0]);
+            const maxPeriod = utils.getPeriodTextFromValue(this.props.period);
+            currentSelection = `${minPeriod} - ${maxPeriod}`;
+        }
+        const periods = this.props.periodArray.map((period, index) => {
+            // if it's the file A generation, highlight the hovered period and everything before it
+            let active = index + 1 <= this.state.hoveredPeriod;
+
+            // if it's the historic dashboard, highlight the hovered item or the periods that make up the quarter
+            if (this.props.type === 'historicDashboard') {
+                active = this.state.hoveredPeriod === period;
+
+                // if the hovered period is a quarter, also highlight all periods within it
+                if (typeof this.state.hoveredPeriod === 'string' && typeof period === 'number') {
+                    const quarter = parseInt(this.state.hoveredPeriod.substring(1), 10);
+                    active = period <= quarter * 3 && period > (quarter - 1) * 3;
+                }
+            }
+            return (
+                <PeriodButton
+                    key={period}
+                    period={period}
+                    active={active}
+                    hoveredPeriod={this.hoveredPeriod}
+                    endHover={this.highlightCurrentSelection}
+                    pickedPeriod={this.clickedPeriod}
+                    type={this.props.type} />
+            )
+        });
 
         let visibleClass = 'period-picker__list_hidden';
         if (this.state.expanded) {
@@ -142,3 +166,4 @@ export default class PeriodPicker extends React.Component {
 }
 
 PeriodPicker.propTypes = propTypes;
+PeriodPicker.defaultProps = defaultProps;

@@ -10,10 +10,11 @@ import PeriodButtonWithTooltip from './PeriodButtonWithTooltip';
 
 const propTypes = {
     active: PropTypes.bool,
-    period: PropTypes.number,
+    period: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
     hoveredPeriod: PropTypes.func,
     endHover: PropTypes.func,
-    pickedPeriod: PropTypes.func
+    pickedPeriod: PropTypes.func,
+    type: PropTypes.oneOf(['fileA', 'historicDashboard'])
 };
 
 const defaultProps = {
@@ -22,7 +23,8 @@ const defaultProps = {
     period: 1,
     hoveredPeriod: null,
     endHover: null,
-    pickedPeriod: null
+    pickedPeriod: null,
+    type: 'fileA'
 };
 
 const PeriodButton = (props) => {
@@ -37,19 +39,31 @@ const PeriodButton = (props) => {
 
     const activeClass = props.active ? 'period-picker__list-button_active' : '';
 
-    let quarterIndicator = null;
-    if ((props.period) % 3 === 0) {
-        // Every 3rd period corresponds to the end of a fiscal quarter
-        let quarterText = 'Quarter 1';
-        const quarter = props.period / 3;
-        if (quarter > 1) {
-            quarterText = `Quarters 1 - ${quarter}`;
+    let buttonText = null;
+    if (props.type === 'fileA') {
+        let quarterIndicator = null;
+        if ((props.period) % 3 === 0) {
+            // Every 3rd period corresponds to the end of a fiscal quarter
+            let quarterText = 'Quarter 1';
+            const quarter = props.period / 3;
+            if (quarter > 1) {
+                quarterText = `Quarters 1 - ${quarter}`;
+            }
+            quarterIndicator = (
+                <span className="period-picker__quarter">
+                    {quarterText}
+                </span>
+            );
         }
-        quarterIndicator = (
-            <span className="period-picker__quarter">
-                {quarterText}
-            </span>
-        );
+        buttonText = <React.Fragment>{utils.getPeriodTextFromValue(props.period)}{quarterIndicator}</React.Fragment>
+    }
+    else {
+        if (typeof props.period === 'string') {
+            buttonText = props.period;
+        }
+        else {
+            buttonText = props.period === 2 ? 'P01/P02' : `P${props.period.toString().padStart(2, '0')}`
+        }
     }
 
     let button = (
@@ -61,7 +75,7 @@ const PeriodButton = (props) => {
                 onMouseLeave={props.endHover}
                 onBlur={props.endHover}
                 onClick={clickedPeriod}>
-                {utils.getPeriodTextFromValue(props.period)}{quarterIndicator}
+                {buttonText}
             </button>
         </li>
     );

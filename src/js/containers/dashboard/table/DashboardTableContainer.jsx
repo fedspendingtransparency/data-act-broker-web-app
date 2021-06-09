@@ -91,10 +91,10 @@ export default class DashboardTableContainer extends React.Component {
             inFlight: true
         });
         const filters = this.props.appliedFilters;
-        // TODO - replace the quarter mapping with actual selected periods when we update the filter
+        const periods = DashboardHelper.getPeriodListFromFilter(this.props.appliedFilters.quarters);
         const searchParams = {
             filters: {
-                periods: [...filters.quarters].map((quart) => (quart * 3)),
+                periods,
                 fys: [...filters.fy],
                 agencies: [filters.agency.code],
                 files: [filters.file],

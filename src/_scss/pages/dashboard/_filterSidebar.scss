@@ -11,6 +11,7 @@
         @import './filters/dashboardAgencyFilter';
         @import './filters/lastModified';
         @import './filters/submissionIdFilter';
+        @import '../generateDetachedFiles/_periodPicker';
         .filter-sidebar__option-heading {
             font-weight: $font-bold;
             font-size: $h3-font-size;

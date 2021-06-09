@@ -12,7 +12,7 @@ export const initialState = {
             code: '',
             name: ''
         },
-        quarters: new Set(),
+        quarters: null,
         fy: new Set(),
         file: '',
         rules: new Set()
