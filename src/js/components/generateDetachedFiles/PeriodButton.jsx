@@ -40,6 +40,7 @@ const PeriodButton = (props) => {
     const activeClass = props.active ? 'period-picker__list-button_active' : '';
 
     let buttonText = null;
+    let paddingCSS = '';
     if (props.type === 'fileA') {
         let quarterIndicator = null;
         if ((props.period) % 3 === 0) {
@@ -63,13 +64,14 @@ const PeriodButton = (props) => {
         }
         else {
             buttonText = props.period === 2 ? 'P01/P02' : `P${props.period.toString().padStart(2, '0')}`;
+            paddingCSS = ' padded-item';
         }
     }
 
     let button = (
-        <li className="period-picker__list-item">
+        <li className={`period-picker__list-item`}>
             <button
-                className={`period-picker__list-button ${activeClass}`}
+                className={`period-picker__list-button ${activeClass}${paddingCSS}`}
                 onMouseOver={hoveredPeriod}
                 onFocus={hoveredPeriod}
                 onMouseLeave={props.endHover}

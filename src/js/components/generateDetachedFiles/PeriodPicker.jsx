@@ -5,8 +5,8 @@
 
 import React from 'react';
 import PropTypes from 'prop-types';
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import * as utils from '../../helpers/util';
-import { AngleDown } from '../SharedComponents/icons/Icons';
 import PeriodButton from './PeriodButton';
 
 
@@ -133,8 +133,10 @@ export default class PeriodPicker extends React.Component {
         });
 
         let visibleClass = 'period-picker__list_hidden';
+        let angleIcon = <FontAwesomeIcon icon="chevron-down" alt="Toggle menu" />;
         if (this.state.expanded) {
             visibleClass = '';
+            angleIcon = <FontAwesomeIcon icon="chevron-up" alt="Toggle menu" />;
         }
 
         return (
@@ -152,7 +154,7 @@ export default class PeriodPicker extends React.Component {
                                 {currentSelection}
                             </div>
                             <div className="period-picker__button-icon">
-                                <AngleDown alt="Toggle menu" />
+                                {angleIcon}
                             </div>
                         </button>
                         <ul className={`period-picker__list ${visibleClass}`}>

@@ -1,0 +1,38 @@
+.historical-dashboard-period-picker {
+    @import '../../generateDetachedFiles/_periodPicker';
+
+    .period-picker {
+        padding: 0;
+        display: block;
+
+        .period-picker__header {
+            display: block;
+
+            .period-picker__button {
+                background-color: $color-white;
+                padding: rem(6) rem(10);
+                border: rem(1) solid $color-gray-light;
+    
+                .period-picker__button-text {
+                    font-size: $base-font-size;
+                    color: $color-gray;
+                }
+            }
+        }
+
+        .period-picker__list {
+            border-top: none;
+
+            .period-picker__list-button {
+                padding: rem(6) rem(20);
+                &.period-picker__list-button_active {
+                    background-color: $color-primary-alt-lightest;
+                }
+
+                &.padded-item {
+                    padding-left: rem(35);
+                }
+            }
+        }
+    }
+}
