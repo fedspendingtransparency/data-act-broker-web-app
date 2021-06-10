@@ -9,6 +9,7 @@ import * as utils from '../../helpers/util';
 import PeriodButtonWithTooltip from './PeriodButtonWithTooltip';
 
 const propTypes = {
+    disabledReason: PropTypes.oneOf(['', 'firstYear', 'notOpen']),
     active: PropTypes.bool,
     period: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
     hoveredPeriod: PropTypes.func,
@@ -18,7 +19,7 @@ const propTypes = {
 };
 
 const defaultProps = {
-    disabled: true,
+    disabledReason: '',
     active: false,
     period: 1,
     hoveredPeriod: null,
@@ -82,9 +83,20 @@ const PeriodButton = (props) => {
         </li>
     );
 
-    if (props.period === 1) {
+    if (props.period === 1 && props.type === 'fileA') {
         button = (
             <PeriodButtonWithTooltip active={props.active} hoveredPeriod={props.hoveredPeriod} />
+        );
+    }
+    else if (props.type === 'historicDashboard' && props.disabledReason !== '') {
+        button = (
+            <PeriodButtonWithTooltip
+                active={props.active}
+                hoveredPeriod={props.hoveredPeriod}
+                buttonText={buttonText}
+                firstYear={props.disabledReason === 'firstYear'}
+                type="historicDashboard"
+                paddingCSS={paddingCSS} />
         );
     }
 

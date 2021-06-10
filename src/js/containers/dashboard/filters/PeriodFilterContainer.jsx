@@ -18,6 +18,8 @@ const propTypes = {
     selectedFilters: PropTypes.object
 };
 
+const periodList = ['Q1', 2, 3, 'Q2', 4, 5, 6, 'Q3', 7, 8, 9, 'Q4', 10, 11, 12];
+
 export class PeriodFilterContainer extends React.Component {
     constructor(props) {
         super(props);
@@ -25,15 +27,16 @@ export class PeriodFilterContainer extends React.Component {
         this.state = {
             latestPeriod: 0,
             latestYear: 0,
-            disabledQuarters: [false, false, false, false]
+            disabledPeriods: periodList.map(() => '')
         };
 
-        this.pickedQuarter = this.pickedQuarter.bind(this);
+        this.pickedPeriod = this.pickedPeriod.bind(this);
         this.removePeriod = this.removePeriod.bind(this);
+        this.getDisabledStatus = this.getDisabledStatus.bind(this);
     }
 
     componentDidMount() {
-        this.getLatestQuarter();
+        this.getLatestPeriod();
     }
 
     componentDidUpdate(prevProps) {
@@ -42,7 +45,7 @@ export class PeriodFilterContainer extends React.Component {
         }
     }
 
-    getLatestQuarter() {
+    getLatestPeriod() {
         DashboardHelper.fetchLatestPublicationPeriod()
             .then((data) => {
                 const allFy = [];
@@ -50,7 +53,7 @@ export class PeriodFilterContainer extends React.Component {
                     allFy.push(i);
                 }
                 this.setState({
-                    latestQuarter: Math.floor(data.period / 3),
+                    latestPeriod: data.period,
                     latestYear: data.year,
                     allFy
                 });
@@ -62,35 +65,20 @@ export class PeriodFilterContainer extends React.Component {
 
     getDisabledStatus() {
         const selectedFy = this.props.selectedFilters.fy.toArray();
-        if (selectedFy.length === 1) {
-            // If only the current FY is selected, disable any quarters after the latest
-            // possible quarter that could have been certified in the current year
-            if (selectedFy[0] === this.state.latestYear) {
-                const disabledQuarters = this.state.disabledQuarters.map((quarter, i) => i + 1 > this.state.latestQuarter);
-                this.setState({
-                    disabledQuarters
-                });
-            }
-            else {
-                // Reporting began Q2 2017, so disable Q1 if 2017 is the only FY selected
-                this.setState({
-                    disabledQuarters: [selectedFy[0] === 2017, false, false, false]
-                });
-            }
-        }
-        else {
-            this.setState({
-                disabledQuarters: [false, false, false, false]
-            });
-        }
+        const disabledPeriods = periodList.map((period) =>
+            DashboardHelper.isPeriodDisabled(period, selectedFy, this.state.latestPeriod, this.state.latestYear)
+        );
+        this.setState({
+            disabledPeriods
+        });
     }
 
-    pickedQuarter(quarter) {
-        this.props.updateGenericFilter('historical', 'quarters', quarter);
+    pickedPeriod(period) {
+        this.props.updateGenericFilter('historical', 'quarters', period);
     }
 
     removePeriod() {
-        this.pickedQuarter(this.props.selectedFilters.quarters);
+        this.pickedPeriod(this.props.selectedFilters.quarters);
     }
 
     render() {
@@ -112,9 +100,11 @@ export class PeriodFilterContainer extends React.Component {
             <div className="historical-dashboard-period-picker">
                 <PeriodPicker
                     period={null}
-                    periodArray={['Q1', 2, 3, 'Q2', 4, 5, 6, 'Q3', 7, 8, 9, 'Q4', 10, 11, 12]}
-                    pickedPeriod={this.pickedQuarter}
-                    type="historicDashboard" />
+                    periodArray={periodList}
+                    pickedPeriod={this.pickedPeriod}
+                    type="historicDashboard"
+                    latestYear={this.state.latestYear}
+                    disabledPeriods={this.state.disabledPeriods} />
                 {selectedPeriod}
             </div>
         )

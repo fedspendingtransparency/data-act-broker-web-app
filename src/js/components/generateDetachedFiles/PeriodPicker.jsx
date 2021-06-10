@@ -14,11 +14,13 @@ const propTypes = {
     period: PropTypes.number,
     periodArray: PropTypes.array,
     pickedPeriod: PropTypes.func.isRequired,
-    type: PropTypes.oneOf(['fileA', 'historicDashboard'])
+    type: PropTypes.oneOf(['fileA', 'historicDashboard']),
+    disabledPeriods: PropTypes.array
 };
 
 const defaultProps = {
-    type: 'fileA'
+    type: 'fileA',
+    disabledPeriods: []
 };
 
 export default class PeriodPicker extends React.Component {
@@ -109,6 +111,7 @@ export default class PeriodPicker extends React.Component {
         const periods = this.props.periodArray.map((period, index) => {
             // if it's the file A generation, highlight the hovered period and everything before it
             let active = index + 1 <= this.state.hoveredPeriod;
+            let disabledReason = '';
 
             // if it's the historic dashboard, highlight the hovered item or the periods that make up the quarter
             if (this.props.type === 'historicDashboard') {
@@ -119,6 +122,8 @@ export default class PeriodPicker extends React.Component {
                     const quarter = parseInt(this.state.hoveredPeriod.substring(1), 10);
                     active = period <= quarter * 3 && period > (quarter - 1) * 3;
                 }
+
+                disabledReason = this.props.disabledPeriods[index];
             }
             return (
                 <PeriodButton
@@ -128,7 +133,8 @@ export default class PeriodPicker extends React.Component {
                     hoveredPeriod={this.hoveredPeriod}
                     endHover={this.highlightCurrentSelection}
                     pickedPeriod={this.clickedPeriod}
-                    type={this.props.type} />
+                    type={this.props.type}
+                    disabledReason={disabledReason} />
             )
         });
 

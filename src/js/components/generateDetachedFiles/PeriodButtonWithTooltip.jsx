@@ -8,11 +8,19 @@ import PropTypes from 'prop-types';
 import * as utils from '../../helpers/util';
 
 const propTypes = {
-    hoveredPeriod: PropTypes.func
+    hoveredPeriod: PropTypes.func,
+    buttonText: PropTypes.string,
+    type: PropTypes.oneOf(['fileA', 'historicDashboard']),
+    firstYear: PropTypes.bool,
+    paddingCSS: PropTypes.string
 };
 
 const defaultProps = {
-    hoveredPeriod: null
+    hoveredPeriod: null,
+    buttonText: '',
+    type: 'fileA',
+    firstYear: false,
+    paddingCSS: ''
 };
 
 // TODO - Lizzie: after upgrading to React 16, change this to a functional component
@@ -43,35 +51,58 @@ export default class PeriodButtonWithTooltip extends React.Component {
     }
 
     render() {
+        const buttonText = this.props.type === 'fileA' ? utils.getPeriodTextFromValue(1) : this.props.buttonText;
         const button = (
             <button
                 onMouseEnter={this.showTooltip}
                 onFocus={this.showTooltip}
                 onMouseLeave={this.hideTooltip}
                 onBlur={this.hideTooltip}
-                className="period-picker__list-button period-picker__list-button_disabled">
-                {utils.getPeriodTextFromValue(1)}
+                aria-disabled
+                className={`period-picker__list-button period-picker__list-button_disabled${this.props.paddingCSS}`}>
+                {buttonText}
             </button >
         );
 
         let tooltip = null;
         if (this.state.showTooltip) {
-            tooltip = (
-                <div className="period-picker__tooltip">
-                    <p>
-                        October is not directly selectable since there is no <em>Period 1</em> reporting window in GTAS.
-                    </p>
-                    <p>
-                        Because File A Data is cumulative within the Fiscal year, <em>Period 1</em> data is
-                        automatically included with data from later periods.
-                    </p>
-                </div>
-            );
+            if (this.props.type === 'fileA') {
+                tooltip = (
+                    <div className="period-picker__tooltip">
+                        <p>
+                            October is not directly selectable since there is no <em>Period 1</em> reporting window in
+                            GTAS.
+                        </p>
+                        <p>
+                            Because File A Data is cumulative within the Fiscal year, <em>Period 1</em> data is
+                            automatically included with data from later periods.
+                        </p>
+                    </div>
+                );
+            }
+            else if (this.props.firstYear) {
+                tooltip = (
+                    <div className="period-picker__tooltip">
+                        <p>
+                            There is no data available for this quarter. We began recording data in Q2 as of FY 17.
+                        </p>
+                    </div>
+                );
+            }
+            else {
+                tooltip = (
+                    <div className="period-picker__tooltip">
+                        <p>
+                            The submission period has yet to open. Please search for a submission period that has
+                            opened.
+                        </p>
+                    </div>
+                );
+            }
         }
 
         return (
-            <li
-                className="period-picker__list-item">
+            <li className="period-picker__list-item">
                 {button}
                 {tooltip}
             </li>

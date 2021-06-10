@@ -182,3 +182,35 @@ export const getPeriodListFromFilter = (period) => {
     }
     return periodList;
 };
+
+export const isPeriodDisabled = (period, fys, latestPubPeriod, latestPubYear) => {
+    // if there's more than one fiscal year selected, every period will always be available (unless the period is 3,
+    // then there is a rare exception)
+    if (fys.length !== 1 && period !== 3) {
+        return '';
+    }
+    // if only the first and last years are selected and the latest publication period is 2 and given period is 3,
+    // it should be disabled.
+    const bookendYears = [2017, latestPubYear];
+    if (fys.length == 2 && latestPubPeriod === 2 && period === 3 &&
+        fys.every((year, index) => year === bookendYears[index])) {
+        return 'notOpen';
+    }
+    // if only one year is selected, do logic checks for latest/earliest fiscal years
+    if (fys.length === 1) {
+        // if FY17 was selected, disabled Q1 and periods under 4
+        const firstPeriods = [2, 3, 'Q1'];
+        if (fys[0] === 2017 && firstPeriods.includes(period)) {
+            return 'firstYear';
+        }
+        else if (fys[0] === latestPubYear) {
+            // get either the period provided or the lowest period in the quarter
+            const lowestProvidedPeriod = Math.min(...getPeriodListFromFilter(period));
+            if (lowestProvidedPeriod > latestPubPeriod) {
+                return 'notOpen';
+            }
+        }
+    }
+
+    return '';
+}
