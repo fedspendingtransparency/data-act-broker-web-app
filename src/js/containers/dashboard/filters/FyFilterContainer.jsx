@@ -61,9 +61,11 @@ export class FyFilterContainer extends React.Component {
 
     generateAllFy() {
         const allFy = [];
-        // get the max selected period. If a quarter is selected, the max period is the end of that quarter
-        const selectedPeriod = typeof this.props.selectedFilters.quarters === 'string' ?
-            parseInt(this.props.selectedFilters.quarters.substring(1), 10) * 3 : this.props.selectedFilters.quarters;
+        // get the max selected period. If a quarter is selected, the max period is the minimum of that quarter
+        let selectedPeriod = null;
+        if(this.props.selectedFilters.quarters !== null) {
+            selectedPeriod = Math.min(...DashboardHelper.getPeriodListFromFilter(this.props.selectedFilters.quarters));
+        }
 
         for (let i = this.state.latestYear; i >= 2017; i--) {
             let disabled = false;

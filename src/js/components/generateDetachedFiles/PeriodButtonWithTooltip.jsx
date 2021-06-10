@@ -6,6 +6,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import * as utils from '../../helpers/util';
+import WarningTooltip from 'components/SharedComponents/WarningTooltip';
 
 const propTypes = {
     hoveredPeriod: PropTypes.func,
@@ -82,21 +83,14 @@ export default class PeriodButtonWithTooltip extends React.Component {
             }
             else if (this.props.firstYear) {
                 tooltip = (
-                    <div className="period-picker__tooltip">
-                        <p>
-                            There is no data available for this quarter. We began recording data in Q2 as of FY 17.
-                        </p>
-                    </div>
+                    <WarningTooltip message={`There is no data available for this quarter. We began recording ` +
+                        `data in Q2 as of FY 17.`} />
                 );
             }
             else {
                 tooltip = (
-                    <div className="period-picker__tooltip">
-                        <p>
-                            The submission period has yet to open. Please search for a submission period that has
-                            opened.
-                        </p>
-                    </div>
+                    <WarningTooltip message={`The submission period has yet to open. Please seearch for a ` +
+                        `submission period that has opened.`} />
                 );
             }
         }
