@@ -46,7 +46,7 @@ export default class WarningsInfoGraphContainer extends React.Component {
         });
 
         // Format the API params
-        const periods = DashboardHelper.getPeriodListFromFilter(this.props.appliedFilters.quarters);
+        const periods = DashboardHelper.getPeriodListFromFilter(this.props.appliedFilters.period);
         const apiParams = {
             filters: {
                 fys: this.props.appliedFilters.fy.toArray(),

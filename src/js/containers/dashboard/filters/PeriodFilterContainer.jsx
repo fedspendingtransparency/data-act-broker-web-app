@@ -74,17 +74,17 @@ export class PeriodFilterContainer extends React.Component {
     }
 
     pickedPeriod(period) {
-        this.props.updateGenericFilter('historical', 'quarters', period);
+        this.props.updateGenericFilter('historical', 'period', period);
     }
 
     removePeriod() {
-        this.pickedPeriod(this.props.selectedFilters.quarters);
+        this.pickedPeriod(this.props.selectedFilters.period);
     }
 
     render() {
         let selectedPeriod = null;
-        if (this.props.selectedFilters.quarters !== null) {
-            let label = this.props.selectedFilters.quarters;
+        if (this.props.selectedFilters.period !== null) {
+            let label = this.props.selectedFilters.period;
             if (typeof label !== 'string') {
                 label = label === 2 ? 'P01/P02' : `P${label.toString().padStart(2, '0')}`;
             }

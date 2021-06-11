@@ -91,7 +91,7 @@ export default class DashboardTableContainer extends React.Component {
             inFlight: true
         });
         const filters = this.props.appliedFilters;
-        const periods = DashboardHelper.getPeriodListFromFilter(this.props.appliedFilters.quarters);
+        const periods = DashboardHelper.getPeriodListFromFilter(this.props.appliedFilters.period);
         const searchParams = {
             filters: {
                 periods,

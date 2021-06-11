@@ -36,7 +36,7 @@ export class FyFilterContainer extends React.Component {
     }
 
     componentDidUpdate(prevProps) {
-        if (this.props.selectedFilters.quarters !== prevProps.selectedFilters.quarters) {
+        if (this.props.selectedFilters.period !== prevProps.selectedFilters.period) {
             this.generateAllFy();
             this.removeDisabledSelections();
         }
@@ -61,19 +61,19 @@ export class FyFilterContainer extends React.Component {
 
     generateAllFy() {
         const allFy = [];
-        // get the max selected period. If a quarter is selected, the max period is the minimum of that quarter
+        // get the max selected period. If a quarter is selected, check the minimum period in that quarter
         let selectedPeriod = null;
-        if(this.props.selectedFilters.quarters !== null) {
-            selectedPeriod = Math.min(...DashboardHelper.getPeriodListFromFilter(this.props.selectedFilters.quarters));
+        if(this.props.selectedFilters.period !== null) {
+            selectedPeriod = Math.min(...DashboardHelper.getPeriodListFromFilter(this.props.selectedFilters.period));
         }
 
         for (let i = this.state.latestYear; i >= 2017; i--) {
             let disabled = false;
-            // Reporting began Q2 2017, so disable FY 17 if only Q1 is selected
+            // Reporting began Q2 2017, so disable FY 17 if P02, P03, or Q1 is selected
             if (selectedPeriod !== null && selectedPeriod <= 3) {
                 disabled = (i === 2017);
             }
-            // Disable the current year if the only quarters selected are greater than the latest possible quarter that
+            // Disable the current year if the only period selected is greater than the latest possible period that
             // could have been certified in the current year
             else if (i === this.state.latestYear && selectedPeriod !== null) {
                 disabled = selectedPeriod > this.state.latestPeriod;
@@ -89,19 +89,19 @@ export class FyFilterContainer extends React.Component {
     }
 
     removeDisabledSelections() {
-        // remove FY 2017 if Q1 is the only quarter selected
-        const selectedPeriod = typeof this.props.selectedFilters.quarters === 'string' ?
-            parseInt(this.props.selectedFilters.quarters.substring(1), 10) * 3 : this.props.selectedFilters.quarters;
+        // remove FY 2017 if P02, P03, or Q1 is selected
+        const selectedPeriod = typeof this.props.selectedFilters.period === 'string' ?
+            parseInt(this.props.selectedFilters.period.substring(1), 10) * 3 : this.props.selectedFilters.period;
         const justQ1 = (selectedPeriod !== null && selectedPeriod <= 3);
         const fy17Selected = this.props.selectedFilters.fy.includes(2017);
         if (justQ1 && fy17Selected) {
             this.pickedFy(2017);
         }
 
-        // remove the current FY if only future quarters are selected
-        const selectedFutureQuarters = selectedPeriod !== null && selectedPeriod > this.state.latestPeriod;
+        // remove the current FY if a future period is selected
+        const selectedFuturePeriod = selectedPeriod !== null && selectedPeriod > this.state.latestPeriod;
         const currentFySelected = this.props.selectedFilters.fy.includes(this.state.latestYear);
-        if (selectedFutureQuarters && currentFySelected) {
+        if (selectedFuturePeriod && currentFySelected) {
             this.pickedFy(this.state.latestYear);
         }
     }
