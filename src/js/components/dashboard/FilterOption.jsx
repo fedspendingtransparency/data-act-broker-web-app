@@ -49,7 +49,7 @@ export default class FilterOption extends React.Component {
             component = <Component setDescription={this.setDescription} type={this.props.type} />;
         }
         const description = this.state.useAltText ? this.props.altDescription : this.props.description;
-        
+
         const subOptionsList = this.props.subOptions.map((option, i) => (
             <FilterSubOption
                 key={option.name}

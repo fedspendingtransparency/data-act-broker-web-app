@@ -14,7 +14,7 @@ import PeriodPicker from 'components/generateDetachedFiles/PeriodPicker';
 import ShownValue from 'components/dashboard/filters/ShownValue';
 
 const propTypes = {
-    updateFilterSet: PropTypes.func,
+    updateGenericFilter: PropTypes.func,
     selectedFilters: PropTypes.object
 };
 
@@ -107,7 +107,7 @@ export class PeriodFilterContainer extends React.Component {
                     disabledPeriods={this.state.disabledPeriods} />
                 {selectedPeriod}
             </div>
-        )
+        );
     }
 }
 

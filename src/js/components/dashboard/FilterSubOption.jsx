@@ -13,7 +13,7 @@ const propTypes = {
     component: PropTypes.object,
     altDescription: PropTypes.string,
     type: PropTypes.oneOf(['historical', 'active']),
-    lastSubOption: PropTypes.bool,
+    lastSubOption: PropTypes.bool
 };
 
 export default class FilterSubOption extends React.Component {

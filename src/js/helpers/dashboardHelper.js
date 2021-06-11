@@ -164,13 +164,13 @@ export const fetchActiveDashboardTableContents = (submissionId, fileType, errorL
 };
 
 export const getPeriodListFromFilter = (period) => {
-    let periodList = []
+    let periodList = [];
 
     if (period !== null) {
         // if it's a string, then they selected a quarter and we need to insert all 3 relevant periods
         if (typeof period === 'string') {
             const quarter = parseInt(period.substring(1), 10);
-            periodList = [quarter * 3, quarter * 3 - 1, quarter * 3 - 2];
+            periodList = [quarter * 3, (quarter * 3) - 1, (quarter * 3) - 2];
             // if period 1 is in the array, take it out because that's invalid
             if (periodList.indexOf(1) > -1) {
                 periodList.splice(periodList.indexOf(1), 1);
@@ -192,7 +192,7 @@ export const isPeriodDisabled = (period, fys, latestPubPeriod, latestPubYear) =>
     // if only the first and last years are selected and the latest publication period is 2 and given period is 3,
     // it should be disabled.
     const bookendYears = [2017, latestPubYear];
-    if (fys.length == 2 && latestPubPeriod === 2 && period === 3 &&
+    if (fys.length === 2 && latestPubPeriod === 2 && period === 3 &&
         fys.every((year, index) => year === bookendYears[index])) {
         return 'notOpen';
     }
@@ -213,4 +213,4 @@ export const isPeriodDisabled = (period, fys, latestPubPeriod, latestPubYear) =>
     }
 
     return '';
-}
+};

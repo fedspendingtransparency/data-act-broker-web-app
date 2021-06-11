@@ -5,8 +5,8 @@
 
 import React from 'react';
 import PropTypes from 'prop-types';
-import * as utils from '../../helpers/util';
 import WarningTooltip from 'components/SharedComponents/WarningTooltip';
+import * as utils from '../../helpers/util';
 
 const propTypes = {
     hoveredPeriod: PropTypes.func,

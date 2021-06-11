@@ -135,7 +135,7 @@ export default class PeriodPicker extends React.Component {
                     pickedPeriod={this.clickedPeriod}
                     type={this.props.type}
                     disabledReason={disabledReason} />
-            )
+            );
         });
 
         let visibleClass = 'period-picker__list_hidden';

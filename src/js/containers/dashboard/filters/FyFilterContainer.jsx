@@ -5,7 +5,6 @@
 
 import React from 'react';
 import PropTypes from 'prop-types';
-import _ from 'lodash';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 
@@ -63,7 +62,7 @@ export class FyFilterContainer extends React.Component {
         const allFy = [];
         // get the max selected period. If a quarter is selected, check the minimum period in that quarter
         let selectedPeriod = null;
-        if(this.props.selectedFilters.period !== null) {
+        if (this.props.selectedFilters.period !== null) {
             selectedPeriod = Math.min(...DashboardHelper.getPeriodListFromFilter(this.props.selectedFilters.period));
         }
 

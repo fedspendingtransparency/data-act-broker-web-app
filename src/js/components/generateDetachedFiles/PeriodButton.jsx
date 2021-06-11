@@ -57,20 +57,18 @@ const PeriodButton = (props) => {
                 </span>
             );
         }
-        buttonText = <React.Fragment>{utils.getPeriodTextFromValue(props.period)}{quarterIndicator}</React.Fragment>
+        buttonText = <React.Fragment>{utils.getPeriodTextFromValue(props.period)}{quarterIndicator}</React.Fragment>;
+    }
+    else if (typeof props.period === 'string') {
+        buttonText = props.period;
     }
     else {
-        if (typeof props.period === 'string') {
-            buttonText = props.period;
-        }
-        else {
-            buttonText = props.period === 2 ? 'P01/P02' : `P${props.period.toString().padStart(2, '0')}`;
-            paddingCSS = ' padded-item';
-        }
+        buttonText = props.period === 2 ? 'P01/P02' : `P${props.period.toString().padStart(2, '0')}`;
+        paddingCSS = ' padded-item';
     }
 
     let button = (
-        <li className={`period-picker__list-item`}>
+        <li className="period-picker__list-item">
             <button
                 className={`period-picker__list-button ${activeClass}${paddingCSS}`}
                 onMouseOver={hoveredPeriod}
