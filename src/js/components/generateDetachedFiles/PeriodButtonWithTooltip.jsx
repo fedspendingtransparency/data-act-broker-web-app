@@ -83,7 +83,7 @@ export default class PeriodButtonWithTooltip extends React.Component {
             }
             else if (this.props.firstYear) {
                 tooltip = (
-                    <WarningTooltip message={`There is no data available for this quarter. We began recording ` +
+                    <WarningTooltip message={`There is no data available for this period. We began recording ` +
                         `data in Q2 as of FY 17.`} />
                 );
             }
