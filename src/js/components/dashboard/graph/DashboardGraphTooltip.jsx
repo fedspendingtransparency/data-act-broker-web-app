@@ -59,7 +59,7 @@ export default class DashboardGraphTooltip extends React.Component {
         const position = this.props.position;
         // we need to wait for the tooltip to render before we can full position it due to its
         // dynamic width
-        const tooltipWidth = this.state.tooltipWidth;
+        const tooltipWidth = shape === 'bar' ? 340 : this.state.tooltipWidth;
         // determine how far from the right edge of the window we are
         const distanceFromRight = this.state.windowWidth -
             (this.state.xOffset + position.x + tooltipWidth);
@@ -68,7 +68,7 @@ export default class DashboardGraphTooltip extends React.Component {
         let direction = 'left';
         // if we are too close to the right edge, the arrow should point right (bc the
         // tooltip will be on the left of the bar)
-        if (shape === 'bar' && distanceFromRight <= 20) {
+        if (shape === 'bar' && distanceFromRight <= 55) {
             direction = 'right';
         }
         else if (shape === 'circle' && distanceFromRight <= 120) {
@@ -76,8 +76,8 @@ export default class DashboardGraphTooltip extends React.Component {
         }
 
         // offset the tooltip position to account for its arrow/pointer
-        const offsetAdjust = shape === 'bar' ? 33 : 120;
-        const rightOffsetAdjust = shape === 'bar' ? 33 : -62;
+        const offsetAdjust = shape === 'bar' ? 38 : 120;
+        const rightOffsetAdjust = shape === 'bar' ? 38 : -62;
         let offset = 9 + offsetAdjust;
         if (direction === 'right') {
             offset = -9 - tooltipWidth - rightOffsetAdjust;
