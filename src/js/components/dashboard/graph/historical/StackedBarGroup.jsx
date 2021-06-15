@@ -13,7 +13,8 @@ const propTypes = {
     stack: PropTypes.array,
     showTooltip: PropTypes.func,
     hideTooltip: PropTypes.func,
-    toggleTooltip: PropTypes.func
+    toggleTooltip: PropTypes.func,
+    height: PropTypes.number
 };
 
 export default class StackedBarGroup extends React.Component {
@@ -30,12 +31,16 @@ export default class StackedBarGroup extends React.Component {
             percent: warning.tooltipData.percent,
             color: warning.color
         }));
+        const position = {
+            x: this.props.stack[0].tooltipData.position.x,
+            y: Math.floor(this.props.height / 5)
+        }
         if (toggle === false) {
             this.props.showTooltip({
                 label: label,
                 xValue: xValue,
                 warnings,
-                position: this.props.stack[0].tooltipData.position,
+                position: position,
                 totalWarnings: this.props.stack[0].tooltipData.totalWarnings
             });
         }
@@ -44,7 +49,7 @@ export default class StackedBarGroup extends React.Component {
                 label: label,
                 xValue: xValue,
                 warnings,
-                position: this.props.stack[0].tooltipData.position,
+                position: position,
                 totalWarnings: this.props.stack[0].tooltipData.totalWarnings
             });
         }

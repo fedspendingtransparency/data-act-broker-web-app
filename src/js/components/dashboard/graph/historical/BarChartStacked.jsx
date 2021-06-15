@@ -333,7 +333,8 @@ ${xAxis.items[0].label} to ${xAxis.items[xAxis.items.length - 1].label}.`;
                 key={item.xValue}
                 showTooltip={this.props.showTooltip}
                 hideTooltip={this.props.hideTooltip}
-                toggleTooltip={this.props.toggleTooltip} />
+                toggleTooltip={this.props.toggleTooltip}
+                height={this.props.height} />
         ));
 
         return (
