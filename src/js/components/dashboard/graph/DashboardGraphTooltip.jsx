@@ -9,6 +9,7 @@ import { throttle } from 'lodash';
 
 const propTypes = {
     description: PropTypes.string,
+    xValue: PropTypes.string,
     position: PropTypes.shape({
         x: PropTypes.number,
         y: PropTypes.number
@@ -58,7 +59,7 @@ export default class DashboardGraphTooltip extends React.Component {
         const position = this.props.position;
         // we need to wait for the tooltip to render before we can full position it due to its
         // dynamic width
-        const tooltipWidth = this.state.tooltipWidth;
+        const tooltipWidth = shape === 'bar' ? 340 : this.state.tooltipWidth;
         // determine how far from the right edge of the window we are
         const distanceFromRight = this.state.windowWidth -
             (this.state.xOffset + position.x + tooltipWidth);
@@ -67,7 +68,7 @@ export default class DashboardGraphTooltip extends React.Component {
         let direction = 'left';
         // if we are too close to the right edge, the arrow should point right (bc the
         // tooltip will be on the left of the bar)
-        if (shape === 'bar' && distanceFromRight <= 20) {
+        if (shape === 'bar' && distanceFromRight <= 55) {
             direction = 'right';
         }
         else if (shape === 'circle' && distanceFromRight <= 120) {
@@ -75,8 +76,8 @@ export default class DashboardGraphTooltip extends React.Component {
         }
 
         // offset the tooltip position to account for its arrow/pointer
-        const offsetAdjust = shape === 'bar' ? 33 : 120;
-        const rightOffsetAdjust = shape === 'bar' ? 33 : -62;
+        const offsetAdjust = shape === 'bar' ? 38 : 120;
+        const rightOffsetAdjust = shape === 'bar' ? 38 : -62;
         let offset = 9 + offsetAdjust;
         if (direction === 'right') {
             offset = -9 - tooltipWidth - rightOffsetAdjust;
@@ -84,13 +85,24 @@ export default class DashboardGraphTooltip extends React.Component {
 
         const offsetY = shape === 'bar' ? 0 : -23;
 
+        // determining which color to make the tooltip pointer
+        const tooltipType = this.props.shape === 'bar' ? ' historic' : '';
+
         this.div.style.transform =
             `translate(${position.x + offset}px,${position.y + offsetY}px)`;
-        this.div.className = `tooltip ${direction} warnings-info-graph__tooltip`;
-        this.pointerDiv.className = `tooltip-pointer ${direction}`;
+        this.div.className = `tooltip ${direction} warnings-info-graph__tooltip${tooltipType}`;
+        this.pointerDiv.className = `tooltip-pointer ${direction}${tooltipType}`;
     }
 
     render() {
+        let title = this.props.description;
+        let headerType = '';
+        let hr = <hr />;
+        if (this.props.shape === 'bar') {
+            headerType = ' historic';
+            title = this.props.xValue;
+            hr = null;
+        }
         return (
             <div
                 className="tooltip warnings-info-graph__tooltip"
@@ -102,11 +114,11 @@ export default class DashboardGraphTooltip extends React.Component {
                     ref={(div) => {
                         this.pointerDiv = div;
                     }} />
-                <div className="tooltip__title">
-                    {this.props.description}
+                <div className={`tooltip__title${headerType}`}>
+                    {title}
                 </div>
-                <hr />
-                <div className="tooltip__body">
+                {hr}
+                <div className={`tooltip__body${headerType}`}>
                     {this.props.children}
                 </div>
             </div>

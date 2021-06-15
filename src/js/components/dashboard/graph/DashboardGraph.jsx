@@ -43,7 +43,7 @@ export default class DashboardGraph extends React.Component {
             windowWidth: 0,
             visualizationWidth: 0,
             showTooltip: false,
-            tooltipData: null,
+            tooltipData: {},
             tooltipX: 0,
             tooltipY: 0,
             categories: ['accuracy', 'completeness', 'existence']
@@ -145,7 +145,8 @@ export default class DashboardGraph extends React.Component {
             tooltip = this.props.type === 'historical' ? (
                 <DashboardGraphTooltip
                     shape="bar"
-                    {...this.state.tooltipData}>
+                    position={this.state.tooltipData.position}
+                    xValue={this.state.tooltipData.xValue} >
                     <HistoricalDashboardTooltip {...this.state.tooltipData} />
                 </DashboardGraphTooltip>
             ) :

@@ -18,7 +18,6 @@ const propTypes = {
     height: PropTypes.number,
     color: PropTypes.string,
     tooltipData: PropTypes.object,
-    showTooltip: PropTypes.func,
     hideTooltip: PropTypes.func,
     toggleTooltip: PropTypes.func
 };
@@ -33,10 +32,7 @@ export default class StackedBar extends React.Component {
     }
 
     mouseEntered() {
-        this.props.showTooltip({
-            ...this.props.tooltipData,
-            xValue: this.props.xValue
-        });
+        this.props.toggleTooltip(this.props.tooltipData.description, this.props.xValue, false);
     }
 
     mouseExited() {
@@ -44,10 +40,7 @@ export default class StackedBar extends React.Component {
     }
 
     barTouched() {
-        this.props.toggleTooltip({
-            ...this.props.tooltipData,
-            xValue: this.props.xValue
-        });
+        this.props.toggleTooltip(this.props.tooltipData.description, this.props.xValue, true);
     }
 
     render() {
