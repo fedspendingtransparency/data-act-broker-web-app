@@ -22,6 +22,8 @@ export default class StackedBarGroup extends React.Component {
         super(props);
 
         this.toggleTooltip = this.toggleTooltip.bind(this);
+        this.hoveredAbove = this.hoveredAbove.bind(this);
+        this.barTouched = this.barTouched.bind(this);
     }
 
     toggleTooltip(label, xValue, toggle) {
@@ -55,6 +57,18 @@ export default class StackedBarGroup extends React.Component {
         }
     }
 
+    hoveredAbove() {
+        if (this.props.stack.length > 0) {
+            this.toggleTooltip('', this.props.stack[0].xValue, false);
+        }
+    }
+
+    barTouched() {
+        if (this.props.stack.length > 0) {
+            this.toggleTooltip('', this.props.stack[0].xValue, true);
+        }
+    }
+
     render() {
         const items = this.props.stack.map((item) => (
             <StackedBar
@@ -64,11 +78,25 @@ export default class StackedBarGroup extends React.Component {
                 hideTooltip={this.props.hideTooltip}
                 toggleTooltip={this.toggleTooltip} />
         ));
+        let hitZoneWidth = 0;
+        if (this.props.stack.length > 0) {
+            hitZoneWidth = this.props.stack[0].width;
+        }
 
         return (
             <g
                 className="bar-group"
                 transform={`translate(${this.props.xPos},0)`}>
+                <rect
+                    className="hit-zone"
+                    fill="rgba(0,0,0,0)"
+                    x={0}
+                    y={0}
+                    width={hitZoneWidth}
+                    height={this.props.height}
+                    onMouseEnter={this.hoveredAbove}
+                    onMouseLeave={this.props.hideTooltip}
+                    onTouchStart={this.barTouched} />
                 {items}
             </g>
         );
