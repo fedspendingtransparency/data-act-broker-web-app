@@ -9,7 +9,6 @@ import { formatNumberWithPrecision } from 'helpers/moneyFormatter';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 const propTypes = {
-    xValue: PropTypes.string,
     label: PropTypes.string,
     warnings: PropTypes.array,
     totalWarnings: PropTypes.number

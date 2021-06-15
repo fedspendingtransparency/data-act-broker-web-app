@@ -97,7 +97,7 @@ export default class DashboardGraphTooltip extends React.Component {
     render() {
         let title = this.props.description;
         let headerType = '';
-        let hr = <hr />
+        let hr = <hr />;
         if (this.props.shape === 'bar') {
             headerType = ' historic';
             title = this.props.xValue;
