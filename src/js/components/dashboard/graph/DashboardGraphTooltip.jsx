@@ -9,6 +9,7 @@ import { throttle } from 'lodash';
 
 const propTypes = {
     description: PropTypes.string,
+    xValue: PropTypes.string,
     position: PropTypes.shape({
         x: PropTypes.number,
         y: PropTypes.number
@@ -84,13 +85,24 @@ export default class DashboardGraphTooltip extends React.Component {
 
         const offsetY = shape === 'bar' ? 0 : -23;
 
+        // determining which color to make the tooltip pointer
+        const tooltipType = this.props.shape === 'bar' ? ' historic' : '';
+
         this.div.style.transform =
             `translate(${position.x + offset}px,${position.y + offsetY}px)`;
-        this.div.className = `tooltip ${direction} warnings-info-graph__tooltip`;
-        this.pointerDiv.className = `tooltip-pointer ${direction}`;
+        this.div.className = `tooltip ${direction} warnings-info-graph__tooltip${tooltipType}`;
+        this.pointerDiv.className = `tooltip-pointer ${direction}${tooltipType}`;
     }
 
     render() {
+        let title = this.props.description;
+        let headerType = '';
+        let hr = <hr />
+        if (this.props.shape === 'bar') {
+            headerType = ' historic';
+            title = this.props.xValue;
+            hr = null;
+        }
         return (
             <div
                 className="tooltip warnings-info-graph__tooltip"
@@ -102,11 +114,11 @@ export default class DashboardGraphTooltip extends React.Component {
                     ref={(div) => {
                         this.pointerDiv = div;
                     }} />
-                <div className="tooltip__title">
-                    {this.props.description}
+                <div className={`tooltip__title${headerType}`}>
+                    {title}
                 </div>
-                <hr />
-                <div className="tooltip__body">
+                {hr}
+                <div className={`tooltip__body${headerType}`}>
                     {this.props.children}
                 </div>
             </div>

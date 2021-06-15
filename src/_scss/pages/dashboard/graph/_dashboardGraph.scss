@@ -20,23 +20,36 @@
         opacity: 100;
         background-color: $color-white;
         border: solid rem(1) $color-tooltip-border;
-        padding: rem(15);
         color: $color-gray;
+        padding: 0;
         box-shadow: 0 2px 30px 0 rgba(0,0,0,0.19);
+        &.historic {
+            width: rem(340);
+        }
         .tooltip__title {
             font-size: rem(18);
             font-weight: $font-semibold;
+            padding: rem(15);
+            padding-bottom: rem(4);
+            &.historic {
+                background-color: $color-gray-lighter;
+                padding: rem(10) rem(20);
+                font-weight: $font-bold;
+            }
         }
         hr {
-            margin-bottom: rem(10);
-            margin-top: rem(4);
-            margin-left: 0;
-            width: 100%;
+            margin: 0 rem(12.5);
             border-top: solid rem(1) $color-gray-lighter;
         }
         .tooltip__body {
             font-size: rem(16);
             line-height: rem(20);
+            padding: rem(15);
+            padding-top: rem(10);
+            &.historic {
+                padding: rem(12) rem(20);
+                padding-top: rem(10);
+            }
             table {
                 width: 100%;
                 tr {
@@ -50,7 +63,50 @@
                         text-align: right;
                     }
                 }
+
+                &.tooltip__historic-dashboard-table {
+                    tr {
+                        font-size: rem(14);
+                        &:nth-child(even) {
+                            background-color: $color-gray-lightest;
+                        }
+                        &.last-row {
+                            border-top: solid 1px $color-gray-light;
+                            background-color: $color-white;
+                            td {
+                                padding-left: rem(15);
+                                padding-top: rem(5);
+                            }
+                        }
+                        &.highlighted {
+                            background-color: $color-gray-lighter;
+                        }
+                        th {
+                            text-align: right;
+                            font-weight: $font-semibold;
+                            padding: 0 rem(10);
+                        }
+                        td  {
+                            font-weight: $font-normal;
+                            padding: 0 rem(10);
+                            &.highlighted {
+                                font-weight: $font-semibold;
+                            }
+                            & svg {
+                                height: rem(12);
+                                width: rem(12);
+                                margin-right: rem(5);
+                                margin-bottom: rem(1);
+                            }
+                        }
+                        .text-left {
+                            text-align: left;
+                            width: 40%;
+                        }
+                    }
+                }
             }
+
         }
         // inherit from the standard tooltip arrow style
         @import "components/tooltip/_arrow";
@@ -58,6 +114,13 @@
             // override the coloring
             &:after {
                 background: $color-white;
+            }
+
+            &.historic {
+                // override the coloring
+                &:after {
+                    background: $color-gray-lighter;
+                }
             }
         }
     }

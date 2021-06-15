@@ -17,14 +17,47 @@ const propTypes = {
 };
 
 export default class StackedBarGroup extends React.Component {
+    constructor(props) {
+        super(props);
+
+        this.toggleTooltip = this.toggleTooltip.bind(this);
+    }
+
+    toggleTooltip(label, xValue, toggle) {
+        const warnings = this.props.stack.map((warning) => ({
+            value: warning.value,
+            description: warning.description,
+            percent: warning.tooltipData.percent,
+            color: warning.color
+        }));
+        if (toggle === false) {
+            this.props.showTooltip({
+                label: label,
+                xValue: xValue,
+                warnings,
+                position: this.props.stack[0].tooltipData.position,
+                totalWarnings: this.props.stack[0].tooltipData.totalWarnings
+            });
+        }
+        else {
+            this.props.toggle({
+                label: label,
+                xValue: xValue,
+                warnings,
+                position: this.props.stack[0].tooltipData.position,
+                totalWarnings: this.props.stack[0].tooltipData.totalWarnings
+            });
+        }
+    }
+
     render() {
         const items = this.props.stack.map((item) => (
             <StackedBar
                 {...item}
                 key={`${item.label}-${item.xValue}`}
-                showTooltip={this.props.showTooltip}
+                showTooltip={this.toggleTooltip}
                 hideTooltip={this.props.hideTooltip}
-                toggleTooltip={this.props.toggleTooltip} />
+                toggleTooltip={this.toggleTooltip} />
         ));
 
         return (
