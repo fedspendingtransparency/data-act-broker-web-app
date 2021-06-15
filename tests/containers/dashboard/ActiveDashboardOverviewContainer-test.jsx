@@ -33,7 +33,7 @@ describe('ActiveDashboardOverviewContainer', () => {
             const newProps = {
                 appliedFilters: {
                     filters: {
-                        quarters: [2],
+                        period: 6,
                         fy: 2017,
                         agency: "098"
                     }

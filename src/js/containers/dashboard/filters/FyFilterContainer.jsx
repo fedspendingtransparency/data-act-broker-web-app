@@ -5,7 +5,6 @@
 
 import React from 'react';
 import PropTypes from 'prop-types';
-import _ from 'lodash';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 
@@ -23,7 +22,7 @@ export class FyFilterContainer extends React.Component {
         super(props);
 
         this.state = {
-            latestQuarter: 0,
+            latestPeriod: 0,
             latestYear: 0,
             allFy: []
         };
@@ -32,21 +31,21 @@ export class FyFilterContainer extends React.Component {
     }
 
     componentDidMount() {
-        this.getLatestQuarter();
+        this.getLatestPeriod();
     }
 
     componentDidUpdate(prevProps) {
-        if (this.props.selectedFilters.quarters !== prevProps.selectedFilters.quarters) {
+        if (this.props.selectedFilters.period !== prevProps.selectedFilters.period) {
             this.generateAllFy();
             this.removeDisabledSelections();
         }
     }
 
-    getLatestQuarter() {
+    getLatestPeriod() {
         DashboardHelper.fetchLatestPublicationPeriod()
             .then((data) => {
                 this.setState({
-                    latestQuarter: Math.floor(data.period / 3),
+                    latestPeriod: data.period,
                     latestYear: data.year
                 }, () => this.generateAllFy());
             })
@@ -61,18 +60,22 @@ export class FyFilterContainer extends React.Component {
 
     generateAllFy() {
         const allFy = [];
-        const selectedQuarters = this.props.selectedFilters.quarters.toArray();
+        // get the max selected period. If a quarter is selected, check the minimum period in that quarter
+        let selectedPeriod = null;
+        if (this.props.selectedFilters.period !== null) {
+            selectedPeriod = Math.min(...DashboardHelper.getPeriodListFromFilter(this.props.selectedFilters.period));
+        }
+
         for (let i = this.state.latestYear; i >= 2017; i--) {
             let disabled = false;
-            // Reporting began Q2 2017, so disable FY 17 if only Q1 is selected
-            if (selectedQuarters.length === 1 && selectedQuarters[0] === 1) {
+            // Reporting began Q2 2017, so disable FY 17 if P02, P03, or Q1 is selected
+            if (selectedPeriod !== null && selectedPeriod <= 3) {
                 disabled = (i === 2017);
             }
-            // Disable the current year if the only quarters selected are greater
-            // than the latest possible quarter that could have been certified in
-            // the current year
-            else if (i === this.state.latestYear && selectedQuarters.length > 0) {
-                disabled = selectedQuarters.every((quarter) => quarter > this.state.latestQuarter);
+            // Disable the current year if the only period selected is greater than the latest possible period that
+            // could have been certified in the current year
+            else if (i === this.state.latestYear && selectedPeriod !== null) {
+                disabled = selectedPeriod > this.state.latestPeriod;
             }
             allFy.push({
                 year: i,
@@ -85,19 +88,19 @@ export class FyFilterContainer extends React.Component {
     }
 
     removeDisabledSelections() {
-        // remove FY 2017 if Q1 is the only quarter selected
-        const selectedQuarters = this.props.selectedFilters.quarters.toArray();
-        const justQ1 = (selectedQuarters.length === 1 && selectedQuarters[0] === 1);
+        // remove FY 2017 if P02, P03, or Q1 is selected
+        const selectedPeriod = typeof this.props.selectedFilters.period === 'string' ?
+            parseInt(this.props.selectedFilters.period.substring(1), 10) * 3 : this.props.selectedFilters.period;
+        const justQ1 = (selectedPeriod !== null && selectedPeriod <= 3);
         const fy17Selected = this.props.selectedFilters.fy.includes(2017);
         if (justQ1 && fy17Selected) {
             this.pickedFy(2017);
         }
 
-        // remove the current FY if only future quarters are selected
-        const selectedFutureQuarters = selectedQuarters.filter((quarter) => quarter > this.state.latestQuarter);
-        const justFutureQuarters = _.isEqual(selectedQuarters, selectedFutureQuarters) && selectedQuarters.length > 0;
+        // remove the current FY if a future period is selected
+        const selectedFuturePeriod = selectedPeriod !== null && selectedPeriod > this.state.latestPeriod;
         const currentFySelected = this.props.selectedFilters.fy.includes(this.state.latestYear);
-        if (justFutureQuarters && currentFySelected) {
+        if (selectedFuturePeriod && currentFySelected) {
             this.pickedFy(this.state.latestYear);
         }
     }

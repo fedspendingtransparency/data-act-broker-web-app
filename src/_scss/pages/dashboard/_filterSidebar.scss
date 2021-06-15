@@ -5,31 +5,62 @@
         color: $color-gray;
         padding: rem(12) rem(20);
         border-bottom: solid rem(2) $color-gray-lighter;
-        @import './filters/quarterPicker';
         @import './filters/fiscalYears';
         @import './filters/rulesFilter';
         @import './filters/dashboardAgencyFilter';
         @import './filters/lastModified';
         @import './filters/submissionIdFilter';
+        @import './filters/_periodPicker';
         .filter-sidebar__option-heading {
             font-weight: $font-bold;
             font-size: $h3-font-size;
         }
-        .filter-sidebar__option-description {
+        .filter-sidebar__option-description, .filter-sidebar__sub-option-description {
             font-size: rem(12);
         }
-        .filter-sidebar__option-name {
+        .filter-sidebar__option-name, .filter-sidebar__sub-option-name {
             font-size: rem(18);
-            font-weight: $font-semibold;
+            font-weight: $font-bold;
             @include display(flex);
             @include justify-content(space-between);
             @include align-items(flex-end);
-            padding-bottom: rem(10);
-            .filter-sidebar__option-required {
+            padding-bottom: rem(5);
+            .filter-sidebar__option-required, .filter-sidebar__sub-option-required {
                 color: $color-secondary-dark;
                 font-size: $base-font-size;
+                font-weight: $font-normal;
                 @include display(flex);
                 @include flex(0 0 auto);
+            }
+        }
+
+        .filter-sidebar__sub-option {
+            border-bottom: solid rem(2) $color-gray-lighter;
+            padding-bottom: rem(10);
+            padding-top: rem(10);
+            
+            &.last-sub-option {
+                border-bottom: none;
+            }
+            .filter-sidebar__sub-option-name {
+                font-size: $h5-font-size;
+
+                .filter-sidebar__sub-option-required {
+                    font-size: rem(12);
+                }
+            }
+        }
+
+        .file-options {
+            .radio-group {
+                width: 100%;
+                @include display(flex);
+
+                .radio-group__column {
+                    @include display(flex);
+                    @include flex(1 1 auto);
+                    @include flex-flow(column);
+                }
             }
         }
     }

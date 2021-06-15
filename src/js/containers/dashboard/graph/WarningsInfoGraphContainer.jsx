@@ -46,12 +46,11 @@ export default class WarningsInfoGraphContainer extends React.Component {
         });
 
         // Format the API params
-        // TODO - fix this to stop multiplying by 3 when we actually store periods instead of quarters and rename
-        // appropriately
+        const periods = DashboardHelper.getPeriodListFromFilter(this.props.appliedFilters.period);
         const apiParams = {
             filters: {
                 fys: this.props.appliedFilters.fy.toArray(),
-                periods: this.props.appliedFilters.quarters.toArray().map((quart) => (quart * 3)),
+                periods,
                 agencies: [this.props.appliedFilters.agency.code],
                 files: [this.props.appliedFilters.file],
                 rules: this.props.appliedFilters.rules.toArray()

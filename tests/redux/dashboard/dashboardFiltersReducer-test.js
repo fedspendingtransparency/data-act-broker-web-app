@@ -12,22 +12,22 @@ describe('dashboardFiltersReducer', () => {
         const action = {
             type: 'UPDATE_FILTER_SET',
             dashboardType: 'historical',
-            filterType: 'quarters',
-            filterValue: 2
+            filterType: 'fy',
+            filterValue: 2018
         };
 
         it('should add the value if it does not currently exist in the filter', () => {
             const updatedState = dashboardFiltersReducer(undefined, action);
 
-            expect(updatedState.historical.quarters).toEqual(new Set([2]));
+            expect(updatedState.historical.fy).toEqual(new Set([2018]));
         });
 
         it('should remove the value if already exists in the filter', () => {
             const startingState = cloneDeep(initialState);
-            startingState.historical.quarters = new Set([2]);
+            startingState.historical.fy = new Set([2018]);
 
             const updatedState = dashboardFiltersReducer(startingState, action);
-            expect(updatedState.historical.quarters).toEqual(new Set());
+            expect(updatedState.historical.fy).toEqual(new Set());
         });
     });
     describe('UPDATE_GENERIC_FILTER', () => {
@@ -61,7 +61,7 @@ describe('dashboardFiltersReducer', () => {
         it('should reset the specified filter to its initial state', () => {
             const state = cloneDeep(initialState);
             state.historical = {
-                quarters: new Set([1, 3]),
+                period: 'Q1',
                 fy: new Set([2018, 2019]),
                 file: 'A',
                 rules: new Set(['X12', 'X34'])
@@ -78,14 +78,14 @@ describe('dashboardFiltersReducer', () => {
 
             expect(restoredState.historical.rules).toEqual(initialState.historical.rules);
             expect(restoredState.historical.file).toEqual('A');
-            expect(restoredState.historical.quarters).toEqual(new Set([1, 3]));
+            expect(restoredState.historical.period).toEqual('Q1');
         });
     });
     describe('CLEAR_DASHBOARD_FILTERS', () => {
         it('should reset the dashboard filters to their initial state', () => {
             const state = cloneDeep(initialState);
             state.historical = {
-                quarters: new Set([1, 3]),
+                period: 'Q2',
                 fy: new Set([2018, 2019]),
                 file: 'A',
                 rules: new Set(['X12', 'X34'])

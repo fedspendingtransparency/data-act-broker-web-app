@@ -11,17 +11,6 @@
         @include justify-content(flex-start);
         @include align-items(center);
 
-        .period-picker__icon {
-            @include flex(0 0 rem(30));
-            margin-right: rem(25);
-
-            svg {
-                width: rem(30);
-                height: rem(30);
-                fill: $color-white;
-            }
-        }
-
         .period-picker__dropdown-container {
             @include flex(0 1 auto);
             @include align-self(stretch);
