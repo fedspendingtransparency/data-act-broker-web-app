@@ -1,4 +1,9 @@
-#### May 18, 2021{section=changelog}
+#### June 1, 2021{section=changelog}
+In this release of the Broker, we:
+
+* Added the obligation amount to the DABS Error and Warning reports for validation rules C8/C9 and C11/C12. The amount of the transaction is now included in the `Source Value Provided` column as well as in the `Difference` column. This should assist agencies with prioritization based on materiality.
+
+#### May 18, 2021
 In this release of the Broker, we:
 
 * Updated the Review & Publish page of the DABS workflow to alert users that their comments will be available on the Agency Submission Statistics page and added a link to that page.
