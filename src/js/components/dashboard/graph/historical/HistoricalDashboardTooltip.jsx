@@ -11,7 +11,8 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 const propTypes = {
     label: PropTypes.string,
     warnings: PropTypes.array,
-    totalWarnings: PropTypes.number
+    totalWarnings: PropTypes.number,
+    shownWarnings: PropTypes.number
 };
 
 export default class HistoricalDashboardTooltip extends React.Component {
@@ -28,6 +29,7 @@ export default class HistoricalDashboardTooltip extends React.Component {
                 </tr>
             );
         });
+        const shownPercent = this.props.shownWarnings / this.props.totalWarnings * 100;
         return (
             <React.Fragment>
                 <table className="tooltip__historic-dashboard-table">
@@ -41,6 +43,11 @@ export default class HistoricalDashboardTooltip extends React.Component {
                     <tbody>
                         {warnings}
                         <tr className="last-row">
+                            <td className="text-left">Displayed Total</td>
+                            <td>{formatNumberWithPrecision(this.props.shownWarnings, 0)}</td>
+                            <td>{formatNumberWithPrecision(shownPercent, 0)}%</td>
+                        </tr>
+                        <tr className="last-row no-border">
                             <td className="text-left">Total</td>
                             <td>{formatNumberWithPrecision(this.props.totalWarnings, 0)}</td>
                             <td>100%</td>

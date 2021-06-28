@@ -43,7 +43,8 @@ export default class StackedBarGroup extends React.Component {
                 xValue,
                 warnings,
                 position,
-                totalWarnings: this.props.stack[0].tooltipData.totalWarnings
+                totalWarnings: this.props.stack[0].tooltipData.totalWarnings,
+                shownWarnings: this.props.stack[0].tooltipData.shownWarnings
             });
         }
         else {
@@ -52,7 +53,8 @@ export default class StackedBarGroup extends React.Component {
                 xValue,
                 warnings,
                 position,
-                totalWarnings: this.props.stack[0].tooltipData.totalWarnings
+                totalWarnings: this.props.stack[0].tooltipData.totalWarnings,
+                shownWarnings: this.props.stack[0].tooltipData.shownWarnings
             });
         }
     }

@@ -24,7 +24,10 @@ export default class WarningsInfoGraphContainer extends React.Component {
             error: false,
             xSeries: [],
             ySeries: [],
-            allY: [],
+            allY: {
+                totalWarnings: [],
+                shownWarnings: []
+            },
             legend: []
         };
     }
@@ -89,7 +92,8 @@ export default class WarningsInfoGraphContainer extends React.Component {
                     top: bottom + rule.instances,
                     description: rule.label,
                     percent: rule.percent_total,
-                    totalWarnings: allY[index]
+                    totalWarnings: allY.totalWarnings[index],
+                    shownWarnings: allY.shownWarnings[index]
                 };
                 bottom += rule.instances;
             });
@@ -100,7 +104,10 @@ export default class WarningsInfoGraphContainer extends React.Component {
     parseData(data) {
         const xSeries = []; // Fiscal Quarter labels
         const yData = []; // Warnings by rule for each submission
-        const allY = []; // Total warnings values
+        const allY = {
+            totalWarnings: [],
+            shownWarnings: []
+        }; // Total warnings values
 
         // For now, only one file at a time
         const file = data[this.props.appliedFilters.file];
@@ -124,7 +131,8 @@ export default class WarningsInfoGraphContainer extends React.Component {
             const timePeriodLabel = `FY ${submission.fy.toString(10).substring(2)} / Q${submission.quarter}`;
             xSeries.push(timePeriodLabel);
             yData.push(submission.warnings);
-            allY.push(submission.total_warnings);
+            allY.totalWarnings.push(submission.total_warnings);
+            allY.shownWarnings.push(submission.filtered_warnings);
         });
 
         const legend = this.generateLegend(yData);
