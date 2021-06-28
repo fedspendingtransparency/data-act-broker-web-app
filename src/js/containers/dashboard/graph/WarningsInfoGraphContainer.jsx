@@ -114,13 +114,11 @@ export default class WarningsInfoGraphContainer extends React.Component {
 
         // Sort the results into chronologic order
         const compare = (a, b) => {
-            const timePeriodA = `${a.fy} ${a.quarter}`;
-            const timePeriodB = `${b.fy} ${b.quarter}`;
             let comparison = 0;
-            if (timePeriodA > timePeriodB) {
+            if (a.fy > b.fy || (a.fy === b.fy && a.period > b.period)) {
                 comparison = 1;
             }
-            else if (timePeriodA < timePeriodB) {
+            else if (a.fy < b.fy || (a.fy === b.fy && a.period < b.period)) {
                 comparison = -1;
             }
             return comparison;
@@ -128,7 +126,11 @@ export default class WarningsInfoGraphContainer extends React.Component {
         file.sort(compare);
 
         file.forEach((submission) => {
-            const timePeriodLabel = `FY ${submission.fy.toString(10).substring(2)} / Q${submission.quarter}`;
+            let period = `Q${submission.period / 3}`;
+            if (submission.is_quarter) {
+                period = submission.period === 2 ? 'P01/P02' : `P${submission.period.toString().padStart(2, '0')}`;
+            }
+            const timePeriodLabel = `FY ${submission.fy.toString(10).substring(2)} / ${period}`;
             xSeries.push(timePeriodLabel);
             yData.push(submission.warnings);
             allY.totalWarnings.push(submission.total_warnings);
