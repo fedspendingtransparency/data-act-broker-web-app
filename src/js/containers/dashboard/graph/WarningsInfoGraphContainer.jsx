@@ -127,7 +127,7 @@ export default class WarningsInfoGraphContainer extends React.Component {
 
         file.forEach((submission) => {
             let period = `Q${submission.period / 3}`;
-            if (submission.is_quarter) {
+            if (!submission.is_quarter) {
                 period = submission.period === 2 ? 'P01-P02' : `P${submission.period.toString().padStart(2, '0')}`;
             }
             const timePeriodLabel = `FY ${submission.fy.toString(10).substring(2)} / ${period}`;
