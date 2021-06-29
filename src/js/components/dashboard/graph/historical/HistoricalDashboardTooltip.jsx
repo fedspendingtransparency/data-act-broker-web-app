@@ -29,7 +29,7 @@ export default class HistoricalDashboardTooltip extends React.Component {
                 </tr>
             );
         });
-        const shownPercent = this.props.shownWarnings / this.props.totalWarnings * 100;
+        const shownPercent = (this.props.shownWarnings / this.props.totalWarnings) * 100;
         return (
             <React.Fragment>
                 <table className="tooltip__historic-dashboard-table">
