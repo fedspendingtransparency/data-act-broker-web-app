@@ -95,7 +95,7 @@ export default class StackedBarGroup extends React.Component {
                     x={0}
                     y={0}
                     width={hitZoneWidth}
-                    height={this.props.height}
+                    height={this.props.height - 50}
                     onMouseEnter={this.hoveredAbove}
                     onMouseLeave={this.props.hideTooltip}
                     onTouchStart={this.barTouched} />
