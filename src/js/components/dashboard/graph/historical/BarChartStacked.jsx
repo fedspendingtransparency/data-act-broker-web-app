@@ -240,21 +240,33 @@ ${xAxis.items[0].label} to ${xAxis.items[xAxis.items.length - 1].label}.`;
             }
         };
 
-        // put 20px padding on each side of the group with a minimum width of 66px
-        const barWidth = Math.min(values.xScale.bandwidth() - 40, 66);
-
         values.xSeries.forEach((x, index) => {
             const y = values.ySeries[index];
 
             let xPos = values.xScale(x) + 20;
-            if (barWidth === 66) {
+
+            let descaleFactor = 1;
+            if (x.includes('-')) {
+                // Periods 1 and 2 are merged to P01-P02
+                descaleFactor = (2/3);
+            }
+            else if (x.includes('P')) {
+                descaleFactor = (1/3);
+            }
+            
+            // put 20px padding on each side of the group with a minimum width of 66px
+            const minWidth = 66;
+            const padding = 20;
+            const bandWidth = values.xScale.bandwidth();
+            const barWidth = Math.min(bandWidth - (padding * 2), minWidth) * descaleFactor;
+            if (barWidth === (minWidth * descaleFactor)) {
                 // the total width of the group is no longer guaranteed to equal the bandwidth
                 // since each bar now maxes out at 66px
 
                 // the starting point should be the center of the X label
                 // (the group start X pos + half the band width), then adjusted left for the
                 // total group width (subtract by half the real width)
-                xPos = (values.xScale(x) + (values.xScale.bandwidth() / 2)) - (66 / 2);
+                xPos = (values.xScale(x) + (bandWidth / 2)) - (minWidth * descaleFactor / 2);
             }
 
             const item = {
