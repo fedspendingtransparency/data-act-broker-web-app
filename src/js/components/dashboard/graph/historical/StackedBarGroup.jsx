@@ -43,7 +43,8 @@ export default class StackedBarGroup extends React.Component {
                 xValue,
                 warnings,
                 position,
-                totalWarnings: this.props.stack[0].tooltipData.totalWarnings
+                totalWarnings: this.props.stack[0].tooltipData.totalWarnings,
+                shownWarnings: this.props.stack[0].tooltipData.shownWarnings
             });
         }
         else {
@@ -52,7 +53,8 @@ export default class StackedBarGroup extends React.Component {
                 xValue,
                 warnings,
                 position,
-                totalWarnings: this.props.stack[0].tooltipData.totalWarnings
+                totalWarnings: this.props.stack[0].tooltipData.totalWarnings,
+                shownWarnings: this.props.stack[0].tooltipData.shownWarnings
             });
         }
     }
@@ -93,7 +95,7 @@ export default class StackedBarGroup extends React.Component {
                     x={0}
                     y={0}
                     width={hitZoneWidth}
-                    height={this.props.height}
+                    height={this.props.height - 50}
                     onMouseEnter={this.hoveredAbove}
                     onMouseLeave={this.props.hideTooltip}
                     onTouchStart={this.barTouched} />

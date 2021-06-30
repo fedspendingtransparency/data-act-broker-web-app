@@ -9,6 +9,7 @@ export const mockData = {
         {
             submission_id: 123,
             total_warnings: 1000,
+            filtered_warnings: 1000,
             agency: {
                 code: '020',
                 name: 'Department of the Treasury (TREAS)'
@@ -31,11 +32,13 @@ export const mockData = {
                     percent_total: 40
                 }
             ],
-            quarter: 2
+            period: 6,
+            is_quarter: true
         },
         {
             submission_id: 124,
             total_warnings: 800,
+            filtered_warnings: 800,
             agency: {
                 code: '020',
                 name: 'Department of the Treasury (TREAS)'
@@ -58,7 +61,8 @@ export const mockData = {
                     percent_total: 25
                 }
             ],
-            quarter: 3
+            period: 9,
+            is_quarter: false
         }
     ]
 };

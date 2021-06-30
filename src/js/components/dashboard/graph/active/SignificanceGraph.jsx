@@ -18,7 +18,7 @@ import SignificanceCircle from './SignificanceCircle';
 const propTypes = {
     xSeries: PropTypes.arrayOf(PropTypes.number),
     ySeries: PropTypes.arrayOf(PropTypes.object),
-    allY: PropTypes.arrayOf(PropTypes.number),
+    allY: PropTypes.object,
     height: PropTypes.number,
     width: PropTypes.number,
     padding: PropTypes.object,

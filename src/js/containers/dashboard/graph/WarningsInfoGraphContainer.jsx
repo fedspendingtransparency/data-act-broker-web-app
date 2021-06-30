@@ -24,7 +24,10 @@ export default class WarningsInfoGraphContainer extends React.Component {
             error: false,
             xSeries: [],
             ySeries: [],
-            allY: [],
+            allY: {
+                totalWarnings: [],
+                shownWarnings: []
+            },
             legend: []
         };
     }
@@ -89,7 +92,8 @@ export default class WarningsInfoGraphContainer extends React.Component {
                     top: bottom + rule.instances,
                     description: rule.label,
                     percent: rule.percent_total,
-                    totalWarnings: allY[index]
+                    totalWarnings: allY.totalWarnings[index],
+                    shownWarnings: allY.shownWarnings[index]
                 };
                 bottom += rule.instances;
             });
@@ -100,20 +104,21 @@ export default class WarningsInfoGraphContainer extends React.Component {
     parseData(data) {
         const xSeries = []; // Fiscal Quarter labels
         const yData = []; // Warnings by rule for each submission
-        const allY = []; // Total warnings values
+        const allY = {
+            totalWarnings: [],
+            shownWarnings: []
+        }; // Total warnings values
 
         // For now, only one file at a time
         const file = data[this.props.appliedFilters.file];
 
         // Sort the results into chronologic order
         const compare = (a, b) => {
-            const timePeriodA = `${a.fy} ${a.quarter}`;
-            const timePeriodB = `${b.fy} ${b.quarter}`;
             let comparison = 0;
-            if (timePeriodA > timePeriodB) {
+            if (a.fy > b.fy || (a.fy === b.fy && a.period > b.period)) {
                 comparison = 1;
             }
-            else if (timePeriodA < timePeriodB) {
+            else if (a.fy < b.fy || (a.fy === b.fy && a.period < b.period)) {
                 comparison = -1;
             }
             return comparison;
@@ -121,10 +126,15 @@ export default class WarningsInfoGraphContainer extends React.Component {
         file.sort(compare);
 
         file.forEach((submission) => {
-            const timePeriodLabel = `FY ${submission.fy.toString(10).substring(2)} / Q${submission.quarter}`;
+            let period = `Q${submission.period / 3}`;
+            if (!submission.is_quarter) {
+                period = submission.period === 2 ? 'P01-P02' : `P${submission.period.toString().padStart(2, '0')}`;
+            }
+            const timePeriodLabel = `FY ${submission.fy.toString(10).substring(2)} / ${period}`;
             xSeries.push(timePeriodLabel);
             yData.push(submission.warnings);
-            allY.push(submission.total_warnings);
+            allY.totalWarnings.push(submission.total_warnings);
+            allY.shownWarnings.push(submission.filtered_warnings);
         });
 
         const legend = this.generateLegend(yData);

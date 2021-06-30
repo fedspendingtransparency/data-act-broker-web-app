@@ -20,7 +20,7 @@ import StackedBarGroup from './StackedBarGroup';
 const propTypes = {
     xSeries: PropTypes.arrayOf(PropTypes.string),
     ySeries: PropTypes.arrayOf(PropTypes.object),
-    allY: PropTypes.arrayOf(PropTypes.number),
+    allY: PropTypes.object,
     height: PropTypes.number,
     width: PropTypes.number,
     padding: PropTypes.object,
@@ -84,8 +84,8 @@ export default class BarChartStacked extends React.Component {
         // when we actually draw the chart, we won't need to do any more calculations
 
         // calculate the Y axis range
-        const yRange = [0, max(values.allY)];
-        if (values.allY.length === 1) {
+        const yRange = [0, max(values.allY.shownWarnings)];
+        if (values.allY.shownWarnings.length === 1) {
             yRange[0] = 0;
         }
 

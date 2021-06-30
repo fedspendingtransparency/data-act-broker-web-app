@@ -77,6 +77,9 @@
                                 padding-left: rem(15);
                                 padding-top: rem(5);
                             }
+                            &.no-border {
+                                border-top: none;
+                            }
                         }
                         &.highlighted {
                             background-color: $color-gray-lighter;
@@ -101,7 +104,7 @@
                         }
                         .text-left {
                             text-align: left;
-                            width: 40%;
+                            width: 45%;
                         }
                     }
                 }
