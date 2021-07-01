@@ -5,7 +5,7 @@
 
 import React from 'react';
 import PropTypes from 'prop-types';
-import { scaleLinear, scaleBand } from 'd3-scale';
+import { scaleLinear, scaleOrdinal } from 'd3-scale';
 import { max, isEqual } from 'lodash';
 import { formatNumberWithPrecision } from 'helpers/moneyFormatter';
 import { calculateLegendOffset } from 'helpers/stackedBarChartHelper';
@@ -14,6 +14,7 @@ import BarChartXAxis from 'components/dashboard/graph/BarChartXAxis';
 import BarChartYAxis from 'components/dashboard/graph/BarChartYAxis';
 import BarChartLegend from './BarChartLegend';
 import StackedBarGroup from './StackedBarGroup';
+import { min } from 'moment';
 
 /* eslint-disable react/no-unused-prop-types */
 // allow unused prop types. they are indirectly accessed as nextProps
@@ -92,10 +93,31 @@ export default class BarChartStacked extends React.Component {
         // build the D3 scale objects for each axis
         // remember, in D3 scales, domain is the data range (or data set for non-continuous data)
         // and range is the range of possible pixel positions along the axis
-        values.xScale = scaleBand()
+        // put 20px padding on each side of the group with a minimum width of 66px
+
+        // Calculating the X values given the weights of each bar (depending on period/quarter)
+        const xWeights = values.xSeries.map((period) => {
+            // Merged P01-P02 is scaled to two-thirds
+            if (period.includes('-')) {
+                return (2 / 3)
+            }
+            // Periods are scaled to a third
+            else if (period.includes('P')) {
+                return (1 / 3)
+            }
+            // Quarters are unchanged
+            return 1
+        });
+        const totalRange = xWeights.reduce((a, b) => a + b, 0);
+        let rangeMap = [];
+        let curX = 0;
+        for (let i = 0; i < xWeights.length; i++) {
+            rangeMap.push(curX);
+            curX += (xWeights[i] / totalRange) * values.graphWidth;
+        }
+        values.xScale = scaleOrdinal()
             .domain(values.xSeries)
-            .range([0, values.graphWidth])
-            .round(true);
+            .range(rangeMap);
 
         // have an inverted range so that the yScale output returns the correct Y position within
         // the SVG element (y = 0 is the top of the graph)
@@ -211,9 +233,10 @@ ${yAxis.items[0].label.text} to ${yAxis.items[yAxis.items.length - 1].label.text
         };
 
         // go through each X axis item and add a label
-        const barWidth = values.xScale.bandwidth();
-        values.xSeries.forEach((x) => {
+        values.xSeries.forEach((x, index) => {
             // we need to center the label within the bar width
+            const nextX = (index === values.xSeries.length - 1) ? values.graphWidth : values.xScale(values.xSeries[index+1]);
+            const barWidth = nextX - values.xScale(x);
             const xPos = values.xScale(x) + (barWidth / 2);
 
             const item = {
@@ -240,33 +263,29 @@ ${xAxis.items[0].label} to ${xAxis.items[xAxis.items.length - 1].label}.`;
             }
         };
 
+        const barPadding = 20;
+        const maxWidth = 66;
+        let xPos = 0;
+
         values.xSeries.forEach((x, index) => {
             const y = values.ySeries[index];
 
             let xPos = values.xScale(x) + 20;
 
-            let descaleFactor = 1;
-            if (x.includes('-')) {
-                // Periods 1 and 2 are merged to P01-P02
-                descaleFactor = (2/3);
-            }
-            else if (x.includes('P')) {
-                descaleFactor = (1/3);
-            }
-            
             // put 20px padding on each side of the group with a minimum width of 66px
             const minWidth = 66;
             const padding = 20;
-            const bandWidth = values.xScale.bandwidth();
-            const barWidth = Math.min(bandWidth - (padding * 2), minWidth) * descaleFactor;
-            if (barWidth === (minWidth * descaleFactor)) {
+            const nextX = (index === values.xSeries.length - 1) ? values.graphWidth : values.xScale(values.xSeries[index+1]);
+            const bandWidth = nextX - values.xScale(x);
+            const barWidth = Math.min(bandWidth - (padding * 2), minWidth);
+            if (barWidth === (minWidth)) {
                 // the total width of the group is no longer guaranteed to equal the bandwidth
                 // since each bar now maxes out at 66px
 
                 // the starting point should be the center of the X label
                 // (the group start X pos + half the band width), then adjusted left for the
                 // total group width (subtract by half the real width)
-                xPos = (values.xScale(x) + (bandWidth / 2)) - (minWidth * descaleFactor / 2);
+                xPos = (values.xScale(x) + (bandWidth / 2)) - (minWidth / 2);
             }
 
             const item = {
