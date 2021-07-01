@@ -334,15 +334,15 @@ ${xAxis.items[0].label} to ${xAxis.items[xAxis.items.length - 1].label}.`;
                 faded = true;
             }
             return (
-            <StackedBarGroup
-                {...item}
-                key={item.xValue}
-                showTooltip={this.props.showTooltip}
-                hideTooltip={this.props.hideTooltip}
-                toggleTooltip={this.props.toggleTooltip}
-                height={this.props.height}
-                faded={faded} />
-            )
+                <StackedBarGroup
+                    {...item}
+                    key={item.xValue}
+                    showTooltip={this.props.showTooltip}
+                    hideTooltip={this.props.hideTooltip}
+                    toggleTooltip={this.props.toggleTooltip}
+                    height={this.props.height}
+                    faded={faded} />
+            );
         });
 
         return (
