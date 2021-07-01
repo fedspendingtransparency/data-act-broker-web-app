@@ -28,7 +28,8 @@ const propTypes = {
     showTooltip: PropTypes.func,
     hideTooltip: PropTypes.func,
     toggleTooltip: PropTypes.func,
-    spaceBetweenStacks: PropTypes.number
+    spaceBetweenStacks: PropTypes.number,
+    hovered: PropTypes.string
 };
 /* eslint-enable react/no-unused-prop-types */
 
@@ -327,15 +328,22 @@ ${xAxis.items[0].label} to ${xAxis.items[xAxis.items.length - 1].label}.`;
             this.props.height - this.props.padding.bottom // height of the graph
         );
 
-        const body = this.state.virtualChart.body.items.map((item) => (
+        const body = this.state.virtualChart.body.items.map((item) => {
+            let faded = false;
+            if (this.props.hovered !== '' && this.props.hovered !== item.xValue) {
+                faded = true;
+            }
+            return (
             <StackedBarGroup
                 {...item}
                 key={item.xValue}
                 showTooltip={this.props.showTooltip}
                 hideTooltip={this.props.hideTooltip}
                 toggleTooltip={this.props.toggleTooltip}
-                height={this.props.height} />
-        ));
+                height={this.props.height}
+                faded={faded} />
+            )
+        });
 
         return (
             <div>

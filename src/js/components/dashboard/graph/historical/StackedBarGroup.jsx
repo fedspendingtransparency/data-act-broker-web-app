@@ -14,7 +14,8 @@ const propTypes = {
     showTooltip: PropTypes.func,
     hideTooltip: PropTypes.func,
     toggleTooltip: PropTypes.func,
-    height: PropTypes.number
+    height: PropTypes.number,
+    faded: PropTypes.bool
 };
 
 export default class StackedBarGroup extends React.Component {
@@ -84,10 +85,11 @@ export default class StackedBarGroup extends React.Component {
         if (this.props.stack.length > 0) {
             hitZoneWidth = this.props.stack[0].width;
         }
+        const fadedCSS = this.props.faded ? ' faded' : '';
 
         return (
             <g
-                className="bar-group"
+                className={`bar-group${fadedCSS}`}
                 transform={`translate(${this.props.xPos},0)`}>
                 <rect
                     className="hit-zone"
