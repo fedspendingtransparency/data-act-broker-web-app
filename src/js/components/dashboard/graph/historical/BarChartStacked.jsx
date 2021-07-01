@@ -95,7 +95,8 @@ export default class BarChartStacked extends React.Component {
         // and range is the range of possible pixel positions along the axis
         // put 20px padding on each side of the group with a minimum width of 66px
 
-        // Calculating the X values given the weights of each bar (depending on period/quarter)
+        // Calculating the column values given the weights of each bar (depending on period/quarter)
+        const maxWidth = 150;
         const xWeights = values.xSeries.map((period) => {
             // Merged P01-P02 is scaled to two-thirds
             if (period.includes('-')) {
@@ -108,13 +109,15 @@ export default class BarChartStacked extends React.Component {
             // Quarters are unchanged
             return 1
         });
-        const totalRange = xWeights.reduce((a, b) => a + b, 0);
-        let rangeMap = [];
-        let curX = 0;
-        for (let i = 0; i < xWeights.length; i++) {
-            rangeMap.push(curX);
-            curX += (xWeights[i] / totalRange) * values.graphWidth;
-        }
+        let rangeMap = xWeights.map((weight) => weight * (values.graphWidth / xWeights.length));
+        const maxCalculatedWidth = Math.max(...rangeMap);
+
+        // Use the normal calculation when the screen is small; otherwise, enforce the maxwidth
+        if (maxCalculatedWidth > maxWidth) {
+            const descaleFactor = ((maxCalculatedWidth - maxWidth) / maxCalculatedWidth);
+            rangeMap = rangeMap.map((barWidth) => barWidth - (barWidth * descaleFactor));
+        };
+                
         values.xScale = scaleOrdinal()
             .domain(values.xSeries)
             .range(rangeMap);
@@ -232,12 +235,16 @@ ${yAxis.items[0].label.text} to ${yAxis.items[yAxis.items.length - 1].label.text
             title: 'X-Axis'
         };
 
+        // Calculate the same distance between each bar 
+        const totalBarsWidth = values.xSeries.reduce((a, b) => a + values.xScale(b), 0);
+        const padding = (values.graphWidth - totalBarsWidth) / (values.xSeries.length + 1);
+
         // go through each X axis item and add a label
+        let xPos = 0;
         values.xSeries.forEach((x, index) => {
             // we need to center the label within the bar width
-            const nextX = (index === values.xSeries.length - 1) ? values.graphWidth : values.xScale(values.xSeries[index+1]);
-            const barWidth = nextX - values.xScale(x);
-            const xPos = values.xScale(x) + (barWidth / 2);
+            const barWidth = values.xScale(x);
+            xPos += (padding + (barWidth / 2));
 
             const item = {
                 label: x,
@@ -246,6 +253,7 @@ ${yAxis.items[0].label.text} to ${yAxis.items[yAxis.items.length - 1].label.text
                 x: xPos
             };
             xAxis.items.push(item);
+            xPos += (barWidth / 2);
         });
 
         xAxis.description = `The X-axis of the chart, showing a range of values from \
@@ -263,30 +271,18 @@ ${xAxis.items[0].label} to ${xAxis.items[xAxis.items.length - 1].label}.`;
             }
         };
 
-        const barPadding = 20;
-        const maxWidth = 66;
-        let xPos = 0;
+        // Calculate the same distance between each bar
+        const totalBarsWidth = values.xSeries.reduce((a, b) => a + values.xScale(b), 0);
+        const padding = (values.graphWidth - totalBarsWidth) / (values.xSeries.length + 1);
+        const minWidth = 10;
 
+        let xPos = 0;
         values.xSeries.forEach((x, index) => {
             const y = values.ySeries[index];
 
-            let xPos = values.xScale(x) + 20;
-
-            // put 20px padding on each side of the group with a minimum width of 66px
-            const minWidth = 66;
-            const padding = 20;
-            const nextX = (index === values.xSeries.length - 1) ? values.graphWidth : values.xScale(values.xSeries[index+1]);
-            const bandWidth = nextX - values.xScale(x);
-            const barWidth = Math.max(bandWidth - (padding * 2), minWidth);
-            if (barWidth === (minWidth)) {
-                // the total width of the group is no longer guaranteed to equal the bandwidth
-                // since each bar now maxes out at 66px
-
-                // the starting point should be the center of the X label
-                // (the group start X pos + half the band width), then adjusted left for the
-                // total group width (subtract by half the real width)
-                xPos = (values.xScale(x) + (bandWidth / 2)) - (minWidth / 2);
-            }
+            let barWidth = values.xScale(x);
+            xPos += padding;
+            barWidth = Math.max(barWidth, minWidth);
 
             const item = {
                 xPos,
@@ -337,6 +333,9 @@ ${xAxis.items[0].label} to ${xAxis.items[xAxis.items.length - 1].label}.`;
                     item.stack.push(element);
                 }
             });
+
+            // Moving the cursor passed the bar
+            xPos += barWidth;
 
             // reverse the array so that the first elements are rendered last (in front)
             item.stack.reverse();
