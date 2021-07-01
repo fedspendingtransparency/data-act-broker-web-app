@@ -277,7 +277,7 @@ ${xAxis.items[0].label} to ${xAxis.items[xAxis.items.length - 1].label}.`;
             const padding = 20;
             const nextX = (index === values.xSeries.length - 1) ? values.graphWidth : values.xScale(values.xSeries[index+1]);
             const bandWidth = nextX - values.xScale(x);
-            const barWidth = Math.min(bandWidth - (padding * 2), minWidth);
+            const barWidth = Math.max(bandWidth - (padding * 2), minWidth);
             if (barWidth === (minWidth)) {
                 // the total width of the group is no longer guaranteed to equal the bandwidth
                 // since each bar now maxes out at 66px
