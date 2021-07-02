@@ -14,7 +14,6 @@ import BarChartXAxis from 'components/dashboard/graph/BarChartXAxis';
 import BarChartYAxis from 'components/dashboard/graph/BarChartYAxis';
 import BarChartLegend from './BarChartLegend';
 import StackedBarGroup from './StackedBarGroup';
-import { min } from 'moment';
 
 /* eslint-disable react/no-unused-prop-types */
 // allow unused prop types. they are indirectly accessed as nextProps
@@ -100,14 +99,14 @@ export default class BarChartStacked extends React.Component {
         const xWeights = values.xSeries.map((period) => {
             // Merged P01-P02 is scaled to two-thirds
             if (period.includes('-')) {
-                return (2 / 3)
+                return (2 / 3);
             }
             // Periods are scaled to a third
             else if (period.includes('P')) {
-                return (1 / 3)
+                return (1 / 3);
             }
             // Quarters are unchanged
-            return 1
+            return 1;
         });
         let rangeMap = xWeights.map((weight) => weight * (values.graphWidth / xWeights.length));
         const maxCalculatedWidth = Math.max(...rangeMap);
@@ -116,8 +115,8 @@ export default class BarChartStacked extends React.Component {
         if (maxCalculatedWidth > maxWidth) {
             const descaleFactor = ((maxCalculatedWidth - maxWidth) / maxCalculatedWidth);
             rangeMap = rangeMap.map((barWidth) => barWidth - (barWidth * descaleFactor));
-        };
-                
+        }
+
         values.xScale = scaleOrdinal()
             .domain(values.xSeries)
             .range(rangeMap);
@@ -235,13 +234,13 @@ ${yAxis.items[0].label.text} to ${yAxis.items[yAxis.items.length - 1].label.text
             title: 'X-Axis'
         };
 
-        // Calculate the same distance between each bar 
+        // Calculate the same distance between each bar
         const totalBarsWidth = values.xSeries.reduce((a, b) => a + values.xScale(b), 0);
         const padding = (values.graphWidth - totalBarsWidth) / (values.xSeries.length + 1);
 
         // go through each X axis item and add a label
         let xPos = 0;
-        values.xSeries.forEach((x, index) => {
+        values.xSeries.forEach((x) => {
             // we need to center the label within the bar width
             const barWidth = values.xScale(x);
             xPos += (padding + (barWidth / 2));
