@@ -323,8 +323,9 @@ ${xAxis.items[0].label} to ${xAxis.items[xAxis.items.length - 1].label}.`;
                         description: data.description,
                         tooltipData: {
                             ...data,
+                            itemWidth: barWidth,
                             position: {
-                                x: xPos + (barWidth / 2) + values.padding.left,
+                                x: xPos + (barWidth / 2), // must be the middle of the bar
                                 y: mid - 22 // subtract 22px to line up the pointer instead of the top of the tooltip
                             }
                         }

@@ -146,6 +146,7 @@ export default class DashboardGraph extends React.Component {
                 <DashboardGraphTooltip
                     shape="bar"
                     position={this.state.tooltipData.position}
+                    itemWidth={this.state.tooltipData.itemWidth}
                     xValue={this.state.tooltipData.xValue} >
                     <HistoricalDashboardTooltip {...this.state.tooltipData} />
                 </DashboardGraphTooltip>
@@ -154,6 +155,7 @@ export default class DashboardGraph extends React.Component {
                     <DashboardGraphTooltip
                         shape="circle"
                         description={this.state.tooltipData.label}
+                        itemWidth={this.state.tooltipData.itemWidth}
                         {...this.state.tooltipData}>
                         <ActiveDashboardTooltip {...this.state.tooltipData} errorLevel={this.props.errorLevel} />
                     </DashboardGraphTooltip>
