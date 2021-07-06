@@ -47,7 +47,7 @@ export default class SignificanceCircle extends React.Component {
     mouseEntered() {
         this.props.showTooltip({
             ...this.props,
-            itemWidth: 23 * 2,
+            itemWidth: 46,
             position: {
                 x: this.props.xPos,
                 y: this.props.yPos
