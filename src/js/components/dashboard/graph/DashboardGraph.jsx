@@ -46,6 +46,7 @@ export default class DashboardGraph extends React.Component {
             tooltipData: {},
             tooltipX: 0,
             tooltipY: 0,
+            hovered: '',
             categories: ['accuracy', 'completeness', 'existence']
         };
 
@@ -80,13 +81,15 @@ export default class DashboardGraph extends React.Component {
     showTooltip(data) {
         this.setState({
             showTooltip: true,
-            tooltipData: data
+            tooltipData: data,
+            hovered: data.xValue
         });
     }
 
     hideTooltip() {
         this.setState({
-            showTooltip: false
+            showTooltip: false,
+            hovered: ''
         });
     }
 
@@ -180,7 +183,8 @@ export default class DashboardGraph extends React.Component {
                         spaceBetweenStacks={spaceBetweenStacks}
                         showTooltip={this.showTooltip}
                         hideTooltip={this.hideTooltip}
-                        toggleTooltip={this.toggleTooltip} />
+                        toggleTooltip={this.toggleTooltip}
+                        hovered={this.state.hovered} />
                 ) : (
                     <SignificanceGraph
                         {...this.props}

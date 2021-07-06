@@ -144,5 +144,11 @@
                 }
             }
         }
+
+        .bar-group {
+            &.faded {
+                opacity: .5;
+            }
+        }
     }
 }
