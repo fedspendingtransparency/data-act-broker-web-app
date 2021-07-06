@@ -20,6 +20,9 @@ const propTypes = {
     toggleTooltip: PropTypes.func
 };
 
+// consistant radius (pixels) of the significance circles
+const radius = 23;
+
 export default class SignificanceCircle extends React.Component {
     constructor(props) {
         super(props);
@@ -47,7 +50,7 @@ export default class SignificanceCircle extends React.Component {
     mouseEntered() {
         this.props.showTooltip({
             ...this.props,
-            itemWidth: 46,
+            itemWidth: radius * 2,
             position: {
                 x: this.props.xPos,
                 y: this.props.yPos
