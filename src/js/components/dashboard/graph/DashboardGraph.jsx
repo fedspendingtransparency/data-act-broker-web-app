@@ -20,7 +20,7 @@ import ActiveDashboardTooltip from './active/ActiveDashboardTooltip';
 const propTypes = {
     xSeries: PropTypes.arrayOf(PropTypes.oneOfType([PropTypes.string, PropTypes.number])),
     ySeries: PropTypes.arrayOf(PropTypes.object),
-    allY: PropTypes.object,
+    allY: PropTypes.oneOfType([PropTypes.object, PropTypes.arrayOf(PropTypes.number)]),
     loading: PropTypes.bool,
     error: PropTypes.bool,
     type: PropTypes.oneOf(['historical', 'active']),
@@ -149,6 +149,7 @@ export default class DashboardGraph extends React.Component {
                 <DashboardGraphTooltip
                     shape="bar"
                     position={this.state.tooltipData.position}
+                    itemWidth={this.state.tooltipData.itemWidth}
                     xValue={this.state.tooltipData.xValue} >
                     <HistoricalDashboardTooltip {...this.state.tooltipData} />
                 </DashboardGraphTooltip>
@@ -157,6 +158,7 @@ export default class DashboardGraph extends React.Component {
                     <DashboardGraphTooltip
                         shape="circle"
                         description={this.state.tooltipData.label}
+                        itemWidth={this.state.tooltipData.itemWidth}
                         {...this.state.tooltipData}>
                         <ActiveDashboardTooltip {...this.state.tooltipData} errorLevel={this.props.errorLevel} />
                     </DashboardGraphTooltip>

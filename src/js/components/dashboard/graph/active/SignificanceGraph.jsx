@@ -18,7 +18,7 @@ import SignificanceCircle from './SignificanceCircle';
 const propTypes = {
     xSeries: PropTypes.arrayOf(PropTypes.number),
     ySeries: PropTypes.arrayOf(PropTypes.object),
-    allY: PropTypes.object,
+    allY: PropTypes.arrayOf(PropTypes.number),
     height: PropTypes.number,
     width: PropTypes.number,
     padding: PropTypes.object,
@@ -227,7 +227,7 @@ ${yAxis.items[0].label.text} to ${yAxis.items[yAxis.items.length - 1].label.text
                 label: `${x}`,
                 value: x,
                 y: 13, // prevent overlap with circles near the bottom of the graph
-                x: xPos
+                x: xPos // must be the middle of the circle
             };
             xAxis.items.push(item);
         });

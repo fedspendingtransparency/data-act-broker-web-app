@@ -44,6 +44,7 @@ export default class StackedBarGroup extends React.Component {
                 xValue,
                 warnings,
                 position,
+                itemWidth: this.props.stack[0].tooltipData.itemWidth,
                 totalWarnings: this.props.stack[0].tooltipData.totalWarnings,
                 shownWarnings: this.props.stack[0].tooltipData.shownWarnings
             });

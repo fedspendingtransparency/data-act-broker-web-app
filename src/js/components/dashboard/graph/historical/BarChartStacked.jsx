@@ -5,7 +5,7 @@
 
 import React from 'react';
 import PropTypes from 'prop-types';
-import { scaleLinear, scaleBand } from 'd3-scale';
+import { scaleLinear, scaleOrdinal } from 'd3-scale';
 import { max, isEqual } from 'lodash';
 import { formatNumberWithPrecision } from 'helpers/moneyFormatter';
 import { calculateLegendOffset } from 'helpers/stackedBarChartHelper';
@@ -93,10 +93,34 @@ export default class BarChartStacked extends React.Component {
         // build the D3 scale objects for each axis
         // remember, in D3 scales, domain is the data range (or data set for non-continuous data)
         // and range is the range of possible pixel positions along the axis
-        values.xScale = scaleBand()
+        // put 20px padding on each side of the group with a minimum width of 66px
+
+        // Calculating the column values given the weights of each bar (depending on period/quarter)
+        const maxWidth = 150;
+        const xWeights = values.xSeries.map((period) => {
+            // Merged P01-P02 is scaled to two-thirds
+            if (period.includes('-')) {
+                return (2 / 3);
+            }
+            // Periods are scaled to a third
+            else if (period.includes('P')) {
+                return (1 / 3);
+            }
+            // Quarters are unchanged
+            return 1;
+        });
+        let rangeMap = xWeights.map((weight) => weight * (values.graphWidth / xWeights.length));
+        const maxCalculatedWidth = Math.max(...rangeMap);
+
+        // Use the normal calculation when the screen is small; otherwise, enforce the maxwidth
+        if (maxCalculatedWidth > maxWidth) {
+            const descaleFactor = ((maxCalculatedWidth - maxWidth) / maxCalculatedWidth);
+            rangeMap = rangeMap.map((barWidth) => barWidth - (barWidth * descaleFactor));
+        }
+
+        values.xScale = scaleOrdinal()
             .domain(values.xSeries)
-            .range([0, values.graphWidth])
-            .round(true);
+            .range(rangeMap);
 
         // have an inverted range so that the yScale output returns the correct Y position within
         // the SVG element (y = 0 is the top of the graph)
@@ -211,11 +235,16 @@ ${yAxis.items[0].label.text} to ${yAxis.items[yAxis.items.length - 1].label.text
             title: 'X-Axis'
         };
 
+        // Calculate the same distance between each bar
+        const totalBarsWidth = values.xSeries.reduce((a, b) => a + values.xScale(b), 0);
+        const padding = (values.graphWidth - totalBarsWidth) / (values.xSeries.length + 1);
+
         // go through each X axis item and add a label
-        const barWidth = values.xScale.bandwidth();
+        let xPos = 0;
         values.xSeries.forEach((x) => {
             // we need to center the label within the bar width
-            const xPos = values.xScale(x) + (barWidth / 2);
+            const barWidth = values.xScale(x);
+            xPos += (padding + (barWidth / 2));
 
             const item = {
                 label: x,
@@ -224,6 +253,7 @@ ${yAxis.items[0].label.text} to ${yAxis.items[yAxis.items.length - 1].label.text
                 x: xPos
             };
             xAxis.items.push(item);
+            xPos += (barWidth / 2);
         });
 
         xAxis.description = `The X-axis of the chart, showing a range of values from \
@@ -241,22 +271,18 @@ ${xAxis.items[0].label} to ${xAxis.items[xAxis.items.length - 1].label}.`;
             }
         };
 
-        // put 20px padding on each side of the group with a minimum width of 66px
-        const barWidth = Math.min(values.xScale.bandwidth() - 40, 66);
+        // Calculate the same distance between each bar
+        const totalBarsWidth = values.xSeries.reduce((a, b) => a + values.xScale(b), 0);
+        const padding = (values.graphWidth - totalBarsWidth) / (values.xSeries.length + 1);
+        const minWidth = 10;
 
+        let xPos = 0;
         values.xSeries.forEach((x, index) => {
             const y = values.ySeries[index];
 
-            let xPos = values.xScale(x) + 20;
-            if (barWidth === 66) {
-                // the total width of the group is no longer guaranteed to equal the bandwidth
-                // since each bar now maxes out at 66px
-
-                // the starting point should be the center of the X label
-                // (the group start X pos + half the band width), then adjusted left for the
-                // total group width (subtract by half the real width)
-                xPos = (values.xScale(x) + (values.xScale.bandwidth() / 2)) - (66 / 2);
-            }
+            let barWidth = values.xScale(x);
+            xPos += padding;
+            barWidth = Math.max(barWidth, minWidth);
 
             const item = {
                 xPos,
@@ -298,8 +324,9 @@ ${xAxis.items[0].label} to ${xAxis.items[xAxis.items.length - 1].label}.`;
                         description: data.description,
                         tooltipData: {
                             ...data,
+                            itemWidth: barWidth,
                             position: {
-                                x: xPos + (barWidth / 2) + values.padding.left,
+                                x: xPos + (barWidth / 2), // must be the middle of the bar
                                 y: mid - 22 // subtract 22px to line up the pointer instead of the top of the tooltip
                             }
                         }
@@ -307,6 +334,9 @@ ${xAxis.items[0].label} to ${xAxis.items[xAxis.items.length - 1].label}.`;
                     item.stack.push(element);
                 }
             });
+
+            // Moving the cursor passed the bar
+            xPos += barWidth;
 
             // reverse the array so that the first elements are rendered last (in front)
             item.stack.reverse();

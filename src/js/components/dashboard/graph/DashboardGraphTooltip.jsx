@@ -14,6 +14,7 @@ const propTypes = {
         x: PropTypes.number,
         y: PropTypes.number
     }),
+    itemWidth: PropTypes.number,
     children: PropTypes.node,
     shape: PropTypes.oneOf(['bar', 'circle'])
 };
@@ -57,6 +58,8 @@ export default class DashboardGraphTooltip extends React.Component {
     positionTooltip() {
         const { shape } = this.props;
         const position = this.props.position;
+        const itemWidth = this.props.itemWidth;
+
         // we need to wait for the tooltip to render before we can full position it due to its
         // dynamic width
         const tooltipWidth = shape === 'bar' ? 340 : this.state.tooltipWidth;
@@ -75,21 +78,23 @@ export default class DashboardGraphTooltip extends React.Component {
             direction = 'right';
         }
 
-        // offset the tooltip position to account for its arrow/pointer
-        const offsetAdjust = shape === 'bar' ? 38 : 120;
-        const rightOffsetAdjust = shape === 'bar' ? 38 : -62;
-        let offset = 9 + offsetAdjust;
+        // the distance between the div's X and the graph's X
+        const graphOffsetX = shape === 'bar' ? 71 : 90;
+        // position.x is the midpoint of the object
+        // account for the widths of the graphOffset, the pointer, the tooltip, and half the item
+        const pointerWidth = 11;
+        let offsetX = graphOffsetX + pointerWidth + (itemWidth / 2);
         if (direction === 'right') {
-            offset = -9 - tooltipWidth - rightOffsetAdjust;
+            offsetX = graphOffsetX - pointerWidth - (itemWidth / 2) - tooltipWidth;
         }
 
-        const offsetY = shape === 'bar' ? 0 : -23;
+        const offsetY = shape === 'bar' ? 0 : -1 * (itemWidth / 2);
 
         // determining which color to make the tooltip pointer
         const tooltipType = this.props.shape === 'bar' ? ' historic' : '';
 
         this.div.style.transform =
-            `translate(${position.x + offset}px,${position.y + offsetY}px)`;
+            `translate(${position.x + offsetX}px,${position.y + offsetY}px)`;
         this.div.className = `tooltip ${direction} warnings-info-graph__tooltip${tooltipType}`;
         this.pointerDiv.className = `tooltip-pointer ${direction}${tooltipType}`;
     }
