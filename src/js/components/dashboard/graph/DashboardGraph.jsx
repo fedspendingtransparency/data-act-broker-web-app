@@ -20,7 +20,7 @@ import ActiveDashboardTooltip from './active/ActiveDashboardTooltip';
 const propTypes = {
     xSeries: PropTypes.arrayOf(PropTypes.oneOfType([PropTypes.string, PropTypes.number])),
     ySeries: PropTypes.arrayOf(PropTypes.object),
-    allY: PropTypes.object,
+    allY: PropTypes.oneOfType([PropTypes.object, PropTypes.arrayOf(PropTypes.number)]),
     loading: PropTypes.bool,
     error: PropTypes.bool,
     type: PropTypes.oneOf(['historical', 'active']),
