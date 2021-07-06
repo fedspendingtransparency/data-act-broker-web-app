@@ -76,7 +76,7 @@ export default class SignificanceCircle extends React.Component {
                     <circle
                         cx={this.props.xPos}
                         cy={this.props.yPos}
-                        r="23"
+                        r={radius.toString()}
                         fill={this.props.color} />
                     <text
                         className="rule-circle__text"
