@@ -118,6 +118,17 @@ export default class BarChartStacked extends React.Component {
             rangeMap = rangeMap.map((barWidth) => barWidth - (barWidth * descaleFactor));
         }
 
+        // Calculate the same distance between each bar
+        const totalBarsWidth = rangeMap.reduce((a, b) => a + b, 0);
+        const barPadding = (values.graphWidth - totalBarsWidth) / (rangeMap.length + 1);
+        // If after all these calculations and the padding is less than minBarPadding, account for the minPadding
+        const minBarPadding = 10;
+        if (barPadding < minBarPadding) {
+            rangeMap = rangeMap.map((barWidth) => barWidth - (2 * minBarPadding));
+        }
+        values.totalBarsWidth = rangeMap.reduce((a, b) => a + b, 0);
+        values.barPadding = (values.graphWidth - values.totalBarsWidth) / (rangeMap.length + 1);
+
         values.xScale = scaleOrdinal()
             .domain(values.xSeries)
             .range(rangeMap);
@@ -235,16 +246,12 @@ ${yAxis.items[0].label.text} to ${yAxis.items[yAxis.items.length - 1].label.text
             title: 'X-Axis'
         };
 
-        // Calculate the same distance between each bar
-        const totalBarsWidth = values.xSeries.reduce((a, b) => a + values.xScale(b), 0);
-        const padding = (values.graphWidth - totalBarsWidth) / (values.xSeries.length + 1);
-
         // go through each X axis item and add a label
         let xPos = 0;
         values.xSeries.forEach((x) => {
             // we need to center the label within the bar width
             const barWidth = values.xScale(x);
-            xPos += (padding + (barWidth / 2));
+            xPos += (values.barPadding + (barWidth / 2));
 
             const item = {
                 label: x,
@@ -271,17 +278,13 @@ ${xAxis.items[0].label} to ${xAxis.items[xAxis.items.length - 1].label}.`;
             }
         };
 
-        // Calculate the same distance between each bar
-        const totalBarsWidth = values.xSeries.reduce((a, b) => a + values.xScale(b), 0);
-        const padding = (values.graphWidth - totalBarsWidth) / (values.xSeries.length + 1);
         const minWidth = 10;
-
         let xPos = 0;
         values.xSeries.forEach((x, index) => {
             const y = values.ySeries[index];
 
             let barWidth = values.xScale(x);
-            xPos += padding;
+            xPos += values.barPadding;
             barWidth = Math.max(barWidth, minWidth);
 
             const item = {
