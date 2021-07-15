@@ -9,27 +9,43 @@ import PropTypes from 'prop-types';
 const propTypes = {
     color: PropTypes.string,
     label: PropTypes.string,
-    offset: PropTypes.number
+    offset: PropTypes.number,
+    legendClicked: PropTypes.func
 };
 
-const BarChartLegendItem = (props) =>
-    (
-        <g
-            className="chart-legend-item"
-            transform={`translate(0, ${props.offset})`}>
-            <rect
-                className="key-color"
-                fill={props.color}
-                height="13"
-                width="15" />
-            <text
-                className="key-label"
-                x="20"
-                y="10">
-                {props.label}
-            </text>
-        </g>
-    );
+export default class BarChartLegendItem extends React.Component {
+    constructor(props) {
+        super(props);
+
+        this.legendClicked = this.legendClicked.bind(this);
+    }
+
+    legendClicked() {
+        this.props.legendClicked(this.props.label);
+    }
+
+    render() {
+        return (
+            <g
+                className="chart-legend-item"
+                transform={`translate(0, ${this.props.offset})`}
+                tabIndex="0"
+                focusable
+                onClick={this.legendClicked} >
+                <rect
+                    className="key-color"
+                    fill={this.props.color}
+                    height="13"
+                    width="15" />
+                <text
+                    className="key-label"
+                    x="20"
+                    y="10">
+                    {this.props.label}
+                </text>
+            </g>
+        );
+    }
+}
 
 BarChartLegendItem.propTypes = propTypes;
-export default BarChartLegendItem;

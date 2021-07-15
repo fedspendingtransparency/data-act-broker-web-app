@@ -5,6 +5,7 @@
 
 import React from 'react';
 import PropTypes from 'prop-types';
+import _ from 'lodash';
 import { scaleLinear, scaleOrdinal } from 'd3-scale';
 import { max, isEqual } from 'lodash';
 import { formatNumberWithPrecision } from 'helpers/moneyFormatter';
@@ -29,7 +30,9 @@ const propTypes = {
     hideTooltip: PropTypes.func,
     toggleTooltip: PropTypes.func,
     spaceBetweenStacks: PropTypes.number,
-    hovered: PropTypes.string
+    hovered: PropTypes.string,
+    legendClicked: PropTypes.func,
+    filteredRules: PropTypes.array
 };
 /* eslint-enable react/no-unused-prop-types */
 
@@ -60,7 +63,8 @@ export default class BarChartStacked extends React.Component {
         if (!isEqual(prevProps.xSeries, this.props.xSeries) ||
             !isEqual(prevProps.ySeries, this.props.ySeries) ||
             prevProps.width !== this.props.width ||
-            prevProps.height !== this.props.height) {
+            prevProps.height !== this.props.height ||
+            prevProps.filteredRules !== this.props.filteredRules) {
             this.buildVirtualChart(this.props);
         }
     }
@@ -69,11 +73,38 @@ export default class BarChartStacked extends React.Component {
         const values = {
             width: props.width,
             height: props.height,
-            allY: props.allY,
+            allY: _.cloneDeep(props.allY),
             xSeries: props.xSeries,
-            ySeries: props.ySeries,
+            ySeries: _.cloneDeep(props.ySeries),
             stacks: props.legend
         };
+
+        // loop through all the filtered rules
+        for (const filteredKey in this.props.filteredRules) {
+            const currRule = this.props.filteredRules[filteredKey];
+            // loop through each bar in the chart
+            for (const seriesKey in values.ySeries) {
+                const keys = Object.keys(values.ySeries[seriesKey]);
+                // if the bar includes the filtered rule, filter it out
+                if (keys.includes(currRule)) {
+                    const barVal = values.ySeries[seriesKey][currRule].value;
+                    const barTop = values.ySeries[seriesKey][currRule].top;
+
+                    values.allY.shownWarnings[seriesKey] -= barVal;
+                    delete values.ySeries[seriesKey][currRule];
+                    // clean up the top/bottom of the remaining bar sections
+                    for (const barKey in values.ySeries[seriesKey]) {
+                        // make sure the shown warnings are filtered down as well
+                        values.ySeries[seriesKey][barKey].shownWarnings -= barVal;
+                        // move the bar section if it was above the old one
+                        if (values.ySeries[seriesKey][barKey].bottom >= barTop) {
+                            values.ySeries[seriesKey][barKey].bottom -= barVal;
+                            values.ySeries[seriesKey][barKey].top -= barVal;
+                        }
+                    }
+                }
+            }
+        }
 
         // calculate what the visible area of the chart itself will be (excluding the axes and their
         // labels)
@@ -390,7 +421,7 @@ ${xAxis.items[0].label} to ${xAxis.items[xAxis.items.length - 1].label}.`;
                     <g
                         className="legend-container"
                         transform={`translate(${this.props.width - 68}, ${legendOffset})`}>
-                        <BarChartLegend legend={this.props.legend} />
+                        <BarChartLegend legend={this.props.legend} legendClicked={this.props.legendClicked} />
                     </g>
                     <g
                         className="bar-data"

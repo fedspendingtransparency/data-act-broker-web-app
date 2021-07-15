@@ -9,7 +9,8 @@ import PropTypes from 'prop-types';
 import BarChartLegendItem from './BarChartLegendItem';
 
 const propTypes = {
-    legend: PropTypes.arrayOf(PropTypes.object)
+    legend: PropTypes.arrayOf(PropTypes.object),
+    legendClicked: PropTypes.func
 };
 
 export default class BarChartLegend extends React.Component {
@@ -17,7 +18,8 @@ export default class BarChartLegend extends React.Component {
         const items = this.props.legend.map((item) => (
             <BarChartLegendItem
                 {...item}
-                key={item.label} />));
+                key={item.label}
+                legendClicked={this.props.legendClicked} />));
 
         return (
             <g className="chart-legend">

@@ -12,7 +12,8 @@ const propTypes = {
     label: PropTypes.string,
     warnings: PropTypes.array,
     totalWarnings: PropTypes.number,
-    shownWarnings: PropTypes.number
+    shownWarnings: PropTypes.number,
+    filteredRules: PropTypes.array
 };
 
 export default class HistoricalDashboardTooltip extends React.Component {
