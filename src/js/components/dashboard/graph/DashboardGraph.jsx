@@ -47,8 +47,7 @@ export default class DashboardGraph extends React.Component {
             tooltipX: 0,
             tooltipY: 0,
             hovered: '',
-            categories: ['accuracy', 'completeness', 'existence'],
-            filteredRules: []
+            categories: ['accuracy', 'completeness', 'existence']
         };
 
         this.handleWindowResize = throttle(this.handleWindowResize.bind(this), 50);
@@ -56,7 +55,6 @@ export default class DashboardGraph extends React.Component {
         this.hideTooltip = this.hideTooltip.bind(this);
         this.toggleTooltip = this.toggleTooltip.bind(this);
         this.filterCategory = this.filterCategory.bind(this);
-        this.legendClicked = this.legendClicked.bind(this);
     }
 
     componentDidMount() {
@@ -144,17 +142,6 @@ export default class DashboardGraph extends React.Component {
         );
     }
 
-    legendClicked(label) {
-        let currentFilters = [...this.state.filteredRules];
-        if (!this.state.filteredRules.includes(label)) {
-            currentFilters.push(label);
-        }
-        else {
-            currentFilters.splice(currentFilters.indexOf(label), 1);
-        }
-        this.setState({ filteredRules: currentFilters });
-    }
-
     render() {
         let tooltip = null;
         if (this.state.showTooltip) {
@@ -164,9 +151,7 @@ export default class DashboardGraph extends React.Component {
                     position={this.state.tooltipData.position}
                     itemWidth={this.state.tooltipData.itemWidth}
                     xValue={this.state.tooltipData.xValue} >
-                    <HistoricalDashboardTooltip
-                        {...this.state.tooltipData}
-                        filteredRules={this.state.filteredRules} />
+                    <HistoricalDashboardTooltip {...this.state.tooltipData} />
                 </DashboardGraphTooltip>
             ) :
                 (
@@ -199,9 +184,7 @@ export default class DashboardGraph extends React.Component {
                         showTooltip={this.showTooltip}
                         hideTooltip={this.hideTooltip}
                         toggleTooltip={this.toggleTooltip}
-                        hovered={this.state.hovered}
-                        legendClicked={this.legendClicked}
-                        filteredRules={this.state.filteredRules} />
+                        hovered={this.state.hovered} />
                 ) : (
                     <SignificanceGraph
                         {...this.props}

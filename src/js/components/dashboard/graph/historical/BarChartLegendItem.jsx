@@ -5,12 +5,14 @@
 
 import React from 'react';
 import PropTypes from 'prop-types';
+import { createOnKeyDownHandler } from 'helpers/util';
 
 const propTypes = {
     color: PropTypes.string,
     label: PropTypes.string,
     offset: PropTypes.number,
-    legendClicked: PropTypes.func
+    legendClicked: PropTypes.func,
+    faded: PropTypes.bool
 };
 
 export default class BarChartLegendItem extends React.Component {
@@ -25,13 +27,16 @@ export default class BarChartLegendItem extends React.Component {
     }
 
     render() {
+        const fadedCSS = this.props.faded ? ' faded' : '';
+        const onKeyDownHandler = createOnKeyDownHandler(this.legendClicked);
         return (
             <g
-                className="chart-legend-item"
+                className={`chart-legend-item${fadedCSS}`}
                 transform={`translate(0, ${this.props.offset})`}
                 tabIndex="0"
                 focusable
-                onClick={this.legendClicked} >
+                onClick={this.legendClicked}
+                onKeyDown={onKeyDownHandler} >
                 <rect
                     className="key-color"
                     fill={this.props.color}

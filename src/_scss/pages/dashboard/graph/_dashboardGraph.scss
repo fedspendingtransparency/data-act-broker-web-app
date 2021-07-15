@@ -152,6 +152,10 @@
         }
         .legend-container {
             cursor: pointer;
+
+            .faded {
+                opacity: .5;
+            }
         }
     }
 }
