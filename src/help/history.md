@@ -1,4 +1,10 @@
-#### June 1, 2021{section=changelog}
+#### June 22, 2021{section=changelog}
+In this release of the Broker, we:
+
+* Updated rule A33 to properly account for FREC agencies and to match the logic of File A generation in associating TAS with Agency.
+* Updated the maximum field length for `DisasterEmergencyFundCode` (DEFC) for File B and File C from 2 to 3 characters as specified in DAIMS 2.1.
+
+#### June 1, 2021
 In this release of the Broker, we:
 
 * Added the obligation amount to the DABS Error and Warning reports for validation rules C8/C9 and C11/C12. The amount of the transaction is now included in the `Source Value Provided` column as well as in the `Difference` column. This should assist agencies with prioritization based on materiality.
