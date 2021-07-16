@@ -71,7 +71,7 @@ export default class DashboardGraphTooltip extends React.Component {
         let direction = 'left';
         // if we are too close to the right edge, the arrow should point right (bc the
         // tooltip will be on the left of the bar)
-        if (shape === 'bar' && distanceFromRight <= 55) {
+        if (shape === 'bar' && distanceFromRight <= 120) {
             direction = 'right';
         }
         else if (shape === 'circle' && distanceFromRight <= 120) {
