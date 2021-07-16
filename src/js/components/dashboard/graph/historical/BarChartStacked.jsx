@@ -239,25 +239,82 @@ ${yAxis.items[0].label.text} to ${yAxis.items[yAxis.items.length - 1].label.text
         const totalBarsWidth = values.xSeries.reduce((a, b) => a + values.xScale(b), 0);
         const padding = (values.graphWidth - totalBarsWidth) / (values.xSeries.length + 1);
 
-        // go through each X axis item and add a label
+        // figure out the year groups and xpositions
         let xPos = 0;
+        const years = {};
         values.xSeries.forEach((x) => {
             // we need to center the label within the bar width
             const barWidth = values.xScale(x);
             xPos += (padding + (barWidth / 2));
 
+            const year = x.substring(3, 5);
+            const timePeriod = x.substring(8);
+            // grouping timePeriods into quarters, gotta first figure out how wide they get
+            let quarter = null;
+            if (!timePeriod.includes('Q')) {
+                quarter = parseInt(timePeriod.substring(1, 3), 10);
+                quarter = `Q${Math.ceil(quarter / 3)}`;
+            }
+            else {
+                quarter = timePeriod;
+            }
             const item = {
-                label: x,
-                value: x,
+                label: timePeriod,
+                value: timePeriod,
                 y: 0,
                 x: xPos
             };
-            xAxis.items.push(item);
+            // build the years object, years -> quarters -> timePeriodItems
+            if (year in years) {
+                if (quarter in years[year].quarters) {
+                    years[year].quarters[quarter].push(item);
+                }
+                else {
+                    years[year].quarters[quarter] = [item];
+                }
+                years[year].endX = xPos + (barWidth / 2);
+                years[year].x = years[year].startX + ((years[year].endX - years[year].startX) / 2);
+            }
+            else {
+                years[year] = {
+                    quarters: { [quarter]: [item] },
+                    startX: xPos - (barWidth / 2),
+                    endX: xPos + (barWidth / 2),
+                    x: xPos,
+                    y: 35,
+                    year,
+                    label: year,
+                    value: year
+                };
+            }
             xPos += (barWidth / 2);
         });
 
+        // grouping the timePeriods together by quarters
+        Object.keys(years).forEach((year) => {
+            const timePeriodItems = [];
+            Object.keys(years[year].quarters).forEach((quarter) => {
+                const firstX = years[year].quarters[quarter][0].x;
+                const lastX = years[year].quarters[quarter][years[year].quarters[quarter].length - 1].x;
+                const averageX = (firstX + lastX) / 2;
+                const quarterItem = {
+                    label: quarter,
+                    value: quarter,
+                    y: 0,
+                    x: averageX
+                };
+                timePeriodItems.push(quarterItem);
+            });
+            years[year].timePeriodItems = timePeriodItems;
+        });
+
+        // finally add to the xAxis
+        Object.keys(years).forEach((year) => {
+            xAxis.items.push(years[year]);
+        });
+
         xAxis.description = `The X-axis of the chart, showing a range of values from \
-${xAxis.items[0].label} to ${xAxis.items[xAxis.items.length - 1].label}.`;
+${values.xSeries[0]} to ${values.xSeries[values.xSeries.length - 1]}.`;
 
         return xAxis;
     }
