@@ -6,7 +6,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { scaleLinear, scaleOrdinal } from 'd3-scale';
-import { max, isEqual } from 'lodash';
+import { max, isEqual, cloneDeep } from 'lodash';
 import { formatNumberWithPrecision } from 'helpers/moneyFormatter';
 import { calculateLegendOffset } from 'helpers/stackedBarChartHelper';
 
@@ -48,8 +48,11 @@ export default class BarChartStacked extends React.Component {
 
         this.state = {
             chartReady: false,
-            virtualChart: {}
+            virtualChart: {},
+            filteredRules: []
         };
+
+        this.legendClicked = this.legendClicked.bind(this);
     }
 
     componentDidMount() {
@@ -69,11 +72,40 @@ export default class BarChartStacked extends React.Component {
         const values = {
             width: props.width,
             height: props.height,
-            allY: props.allY,
+            allY: cloneDeep(props.allY),
             xSeries: props.xSeries,
-            ySeries: props.ySeries,
+            ySeries: cloneDeep(props.ySeries),
             stacks: props.legend
         };
+
+        // loop through all the filtered rules
+        for (let filteredKey = 0; filteredKey < this.state.filteredRules.length; filteredKey++) {
+            const currRule = this.state.filteredRules[filteredKey];
+            // loop through each bar in the chart
+            for (let seriesKey = 0; seriesKey < values.ySeries.length; seriesKey++) {
+                const keys = Object.keys(values.ySeries[seriesKey]);
+                // if the bar includes the filtered rule, filter it out
+                if (keys.includes(currRule)) {
+                    const barVal = values.ySeries[seriesKey][currRule].value;
+                    const barTop = values.ySeries[seriesKey][currRule].top;
+
+                    values.allY.shownWarnings[seriesKey] -= barVal;
+                    delete values.ySeries[seriesKey][currRule];
+                    // clean up the top/bottom of the remaining bar sections
+                    for (const barKey in values.ySeries[seriesKey]) {
+                        if (Object.prototype.hasOwnProperty.call(values.ySeries[seriesKey], barKey)) {
+                            // make sure the shown warnings are filtered down as well
+                            values.ySeries[seriesKey][barKey].shownWarnings -= barVal;
+                            // move the bar section if it was above the old one
+                            if (values.ySeries[seriesKey][barKey].bottom >= barTop) {
+                                values.ySeries[seriesKey][barKey].bottom -= barVal;
+                                values.ySeries[seriesKey][barKey].top -= barVal;
+                            }
+                        }
+                    }
+                }
+            }
+        }
 
         // calculate what the visible area of the chart itself will be (excluding the axes and their
         // labels)
@@ -351,6 +383,21 @@ ${xAxis.items[0].label} to ${xAxis.items[xAxis.items.length - 1].label}.`;
         return body;
     }
 
+    legendClicked(label) {
+        const currentFilters = [...this.state.filteredRules];
+        if (!this.state.filteredRules.includes(label)) {
+            currentFilters.push(label);
+        }
+        else {
+            currentFilters.splice(currentFilters.indexOf(label), 1);
+        }
+        this.setState({
+            filteredRules: currentFilters
+        }, () => {
+            this.buildVirtualChart(this.props);
+        });
+    }
+
     render() {
         // the chart hasn't been created yet, so don't render anything
         if (!this.state.chartReady) {
@@ -391,15 +438,18 @@ ${xAxis.items[0].label} to ${xAxis.items[xAxis.items.length - 1].label}.`;
                     <BarChartXAxis
                         {...this.state.virtualChart.xAxis} />
                     <g
-                        className="legend-container"
-                        transform={`translate(${this.props.width - 68}, ${legendOffset})`}>
-                        <BarChartLegend legend={this.props.legend} />
-                    </g>
-                    <g
                         className="bar-data"
                         transform={`translate(${this.state.virtualChart.body.group.x},\
                             ${this.state.virtualChart.body.group.y})`}>
                         {body}
+                    </g>
+                    <g
+                        className="legend-container"
+                        transform={`translate(${this.props.width - 68}, ${legendOffset})`}>
+                        <BarChartLegend
+                            legend={this.props.legend}
+                            legendClicked={this.legendClicked}
+                            filteredRules={this.state.filteredRules} />
                     </g>
                 </svg>
             </div>
