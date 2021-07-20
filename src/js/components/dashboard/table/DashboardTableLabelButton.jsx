@@ -29,7 +29,7 @@ export default class DashboardTableLabelButton extends React.Component {
 
     render() {
         return (
-            <button onClick={this.openModal} className="modal-button">
+            <button onClick={this.openModal} className="label-button">
                 {this.props.label}
             </button>
         );

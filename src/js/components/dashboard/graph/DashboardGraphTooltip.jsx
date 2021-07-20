@@ -9,10 +9,12 @@ import { throttle } from 'lodash';
 
 const propTypes = {
     description: PropTypes.string,
+    xValue: PropTypes.string,
     position: PropTypes.shape({
         x: PropTypes.number,
         y: PropTypes.number
     }),
+    itemWidth: PropTypes.number,
     children: PropTypes.node,
     shape: PropTypes.oneOf(['bar', 'circle'])
 };
@@ -56,9 +58,11 @@ export default class DashboardGraphTooltip extends React.Component {
     positionTooltip() {
         const { shape } = this.props;
         const position = this.props.position;
+        const itemWidth = this.props.itemWidth;
+
         // we need to wait for the tooltip to render before we can full position it due to its
         // dynamic width
-        const tooltipWidth = this.state.tooltipWidth;
+        const tooltipWidth = shape === 'bar' ? 340 : this.state.tooltipWidth;
         // determine how far from the right edge of the window we are
         const distanceFromRight = this.state.windowWidth -
             (this.state.xOffset + position.x + tooltipWidth);
@@ -67,30 +71,43 @@ export default class DashboardGraphTooltip extends React.Component {
         let direction = 'left';
         // if we are too close to the right edge, the arrow should point right (bc the
         // tooltip will be on the left of the bar)
-        if (shape === 'bar' && distanceFromRight <= 20) {
+        if (shape === 'bar' && distanceFromRight <= 120) {
             direction = 'right';
         }
         else if (shape === 'circle' && distanceFromRight <= 120) {
             direction = 'right';
         }
 
-        // offset the tooltip position to account for its arrow/pointer
-        const offsetAdjust = shape === 'bar' ? 33 : 120;
-        const rightOffsetAdjust = shape === 'bar' ? 33 : -62;
-        let offset = 9 + offsetAdjust;
+        // the distance between the div's X and the graph's X
+        const graphOffsetX = shape === 'bar' ? 71 : 90;
+        // position.x is the midpoint of the object
+        // account for the widths of the graphOffset, the pointer, the tooltip, and half the item
+        const pointerWidth = 11;
+        let offsetX = graphOffsetX + pointerWidth + (itemWidth / 2);
         if (direction === 'right') {
-            offset = -9 - tooltipWidth - rightOffsetAdjust;
+            offsetX = graphOffsetX - pointerWidth - (itemWidth / 2) - tooltipWidth;
         }
 
-        const offsetY = shape === 'bar' ? 0 : -23;
+        const offsetY = shape === 'bar' ? 0 : -1 * (itemWidth / 2);
+
+        // determining which color to make the tooltip pointer
+        const tooltipType = this.props.shape === 'bar' ? ' historic' : '';
 
         this.div.style.transform =
-            `translate(${position.x + offset}px,${position.y + offsetY}px)`;
-        this.div.className = `tooltip ${direction} warnings-info-graph__tooltip`;
-        this.pointerDiv.className = `tooltip-pointer ${direction}`;
+            `translate(${position.x + offsetX}px,${position.y + offsetY}px)`;
+        this.div.className = `tooltip ${direction} warnings-info-graph__tooltip${tooltipType}`;
+        this.pointerDiv.className = `tooltip-pointer ${direction}${tooltipType}`;
     }
 
     render() {
+        let title = this.props.description;
+        let headerType = '';
+        let hr = <hr />;
+        if (this.props.shape === 'bar') {
+            headerType = ' historic';
+            title = `${this.props.xValue.slice(0, 3)} 20${this.props.xValue.slice(3)}`;
+            hr = null;
+        }
         return (
             <div
                 className="tooltip warnings-info-graph__tooltip"
@@ -102,11 +119,11 @@ export default class DashboardGraphTooltip extends React.Component {
                     ref={(div) => {
                         this.pointerDiv = div;
                     }} />
-                <div className="tooltip__title">
-                    {this.props.description}
+                <div className={`tooltip__title${headerType}`}>
+                    {title}
                 </div>
-                <hr />
-                <div className="tooltip__body">
+                {hr}
+                <div className={`tooltip__body${headerType}`}>
                     {this.props.children}
                 </div>
             </div>

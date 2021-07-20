@@ -20,12 +20,16 @@ import ActiveDashboardTooltip from './active/ActiveDashboardTooltip';
 const propTypes = {
     xSeries: PropTypes.arrayOf(PropTypes.oneOfType([PropTypes.string, PropTypes.number])),
     ySeries: PropTypes.arrayOf(PropTypes.object),
-    allY: PropTypes.arrayOf(PropTypes.number),
+    allY: PropTypes.oneOfType([PropTypes.object, PropTypes.arrayOf(PropTypes.number)]),
     loading: PropTypes.bool,
     error: PropTypes.bool,
     type: PropTypes.oneOf(['historical', 'active']),
     description: PropTypes.string,
     errorLevel: PropTypes.oneOf(['error', 'warning']).isRequired
+};
+
+const defaultProps = {
+    description: null
 };
 
 const graphHeight = 540;
@@ -39,9 +43,10 @@ export default class DashboardGraph extends React.Component {
             windowWidth: 0,
             visualizationWidth: 0,
             showTooltip: false,
-            tooltipData: null,
+            tooltipData: {},
             tooltipX: 0,
             tooltipY: 0,
+            hovered: '',
             categories: ['accuracy', 'completeness', 'existence']
         };
 
@@ -76,13 +81,15 @@ export default class DashboardGraph extends React.Component {
     showTooltip(data) {
         this.setState({
             showTooltip: true,
-            tooltipData: data
+            tooltipData: data,
+            hovered: data.xValue
         });
     }
 
     hideTooltip() {
         this.setState({
-            showTooltip: false
+            showTooltip: false,
+            hovered: ''
         });
     }
 
@@ -141,7 +148,9 @@ export default class DashboardGraph extends React.Component {
             tooltip = this.props.type === 'historical' ? (
                 <DashboardGraphTooltip
                     shape="bar"
-                    {...this.state.tooltipData}>
+                    position={this.state.tooltipData.position}
+                    itemWidth={this.state.tooltipData.itemWidth}
+                    xValue={this.state.tooltipData.xValue} >
                     <HistoricalDashboardTooltip {...this.state.tooltipData} />
                 </DashboardGraphTooltip>
             ) :
@@ -149,6 +158,7 @@ export default class DashboardGraph extends React.Component {
                     <DashboardGraphTooltip
                         shape="circle"
                         description={this.state.tooltipData.label}
+                        itemWidth={this.state.tooltipData.itemWidth}
                         {...this.state.tooltipData}>
                         <ActiveDashboardTooltip {...this.state.tooltipData} errorLevel={this.props.errorLevel} />
                     </DashboardGraphTooltip>
@@ -173,7 +183,8 @@ export default class DashboardGraph extends React.Component {
                         spaceBetweenStacks={spaceBetweenStacks}
                         showTooltip={this.showTooltip}
                         hideTooltip={this.hideTooltip}
-                        toggleTooltip={this.toggleTooltip} />
+                        toggleTooltip={this.toggleTooltip}
+                        hovered={this.state.hovered} />
                 ) : (
                     <SignificanceGraph
                         {...this.props}
@@ -187,7 +198,7 @@ export default class DashboardGraph extends React.Component {
             }
         }
         const graphTitle = this.props.type === 'historical' ? (
-            <h3 className="dashboard-viz__heading">Warnings Information</h3>
+            null
         ) : (
             <h4 className="dashboard-viz__heading">Significance</h4>
         );
@@ -211,3 +222,4 @@ export default class DashboardGraph extends React.Component {
 }
 
 DashboardGraph.propTypes = propTypes;
+DashboardGraph.defaultProps = defaultProps;

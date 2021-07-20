@@ -1,28 +1,22 @@
 /**
- * FilterOption.jsx
- * Created by Lizzie Salita 10/02/19
+ * FilterSubOption.jsx
+ * Created by Alisa Burdeyny 06/04/21
  */
 
 import React from 'react';
 import PropTypes from 'prop-types';
-
-import FilterSubOption from './FilterSubOption';
 
 const propTypes = {
     name: PropTypes.string,
     description: PropTypes.string,
     required: PropTypes.bool,
     component: PropTypes.object,
-    subOptions: PropTypes.array,
     altDescription: PropTypes.string,
-    type: PropTypes.oneOf(['historical', 'active'])
+    type: PropTypes.oneOf(['historical', 'active']),
+    lastSubOption: PropTypes.bool
 };
 
-const defaultProps = {
-    subOptions: []
-};
-
-export default class FilterOption extends React.Component {
+export default class FilterSubOption extends React.Component {
     constructor(props) {
         super(props);
 
@@ -41,36 +35,27 @@ export default class FilterOption extends React.Component {
 
     render() {
         const required = this.props.required ? (
-            <span className="filter-sidebar__option-required">Required</span>
+            <span className="filter-sidebar__sub-option-required">Required</span>
         ) : null;
+        const lastOption = this.props.lastSubOption ? ' last-sub-option' : '';
         let component = null;
         if (this.props.component) {
             const Component = this.props.component;
             component = <Component setDescription={this.setDescription} type={this.props.type} />;
         }
         const description = this.state.useAltText ? this.props.altDescription : this.props.description;
-
-        const subOptionsList = this.props.subOptions.map((option, i) => (
-            <FilterSubOption
-                key={option.name}
-                type={this.props.type}
-                lastSubOption={this.props.subOptions.length === i + 1}
-                {...option} />)
-        );
         return (
-            <div className="filter-sidebar__option">
-                <span className="filter-sidebar__option-name">
+            <div className={`filter-sidebar__sub-option${lastOption}`}>
+                <span className="filter-sidebar__sub-option-name">
                     {this.props.name}{required}
                 </span>
-                <div className="filter-sidebar__option-description">
+                <div className="filter-sidebar__sub-option-description">
                     {description}
                 </div>
                 {component}
-                {subOptionsList}
             </div>
         );
     }
 }
 
-FilterOption.defaultProps = defaultProps;
-FilterOption.propTypes = propTypes;
+FilterSubOption.propTypes = propTypes;

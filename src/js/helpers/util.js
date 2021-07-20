@@ -138,16 +138,6 @@ export const currentFiscalYear = () => {
     return currentFY;
 };
 
-export const convertQuarterToPeriod = (quarter) => {
-    const periodtoQuarters = {
-        1: 3, // Quarter 1
-        2: 6, // Quarter 2
-        3: 9, // Quarter 3
-        4: 12 // Quarter 4
-    };
-    return periodtoQuarters[quarter];
-};
-
 export const getPeriodTextFromValue = (value) => {
     const periodDictionary = {
         4: "04 - January",
@@ -168,6 +158,7 @@ export const getPeriodTextFromValue = (value) => {
 
 export const createOnKeyDownHandler = (cb, args = [], keyCodes = [13, 32]) => (e) => { // 13 enter; 32 space
     if (keyCodes.includes(e.keyCode)) {
+        e.preventDefault();
         cb(...args);
     }
 };

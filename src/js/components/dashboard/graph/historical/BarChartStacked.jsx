@@ -5,8 +5,8 @@
 
 import React from 'react';
 import PropTypes from 'prop-types';
-import { scaleLinear, scaleBand } from 'd3-scale';
-import { max, isEqual } from 'lodash';
+import { scaleLinear, scaleOrdinal } from 'd3-scale';
+import { max, isEqual, cloneDeep } from 'lodash';
 import { formatNumberWithPrecision } from 'helpers/moneyFormatter';
 import { calculateLegendOffset } from 'helpers/stackedBarChartHelper';
 
@@ -20,7 +20,7 @@ import StackedBarGroup from './StackedBarGroup';
 const propTypes = {
     xSeries: PropTypes.arrayOf(PropTypes.string),
     ySeries: PropTypes.arrayOf(PropTypes.object),
-    allY: PropTypes.arrayOf(PropTypes.number),
+    allY: PropTypes.object,
     height: PropTypes.number,
     width: PropTypes.number,
     padding: PropTypes.object,
@@ -28,7 +28,8 @@ const propTypes = {
     showTooltip: PropTypes.func,
     hideTooltip: PropTypes.func,
     toggleTooltip: PropTypes.func,
-    spaceBetweenStacks: PropTypes.number
+    spaceBetweenStacks: PropTypes.number,
+    hovered: PropTypes.string
 };
 /* eslint-enable react/no-unused-prop-types */
 
@@ -47,8 +48,11 @@ export default class BarChartStacked extends React.Component {
 
         this.state = {
             chartReady: false,
-            virtualChart: {}
+            virtualChart: {},
+            filteredRules: []
         };
+
+        this.legendClicked = this.legendClicked.bind(this);
     }
 
     componentDidMount() {
@@ -68,11 +72,40 @@ export default class BarChartStacked extends React.Component {
         const values = {
             width: props.width,
             height: props.height,
-            allY: props.allY,
+            allY: cloneDeep(props.allY),
             xSeries: props.xSeries,
-            ySeries: props.ySeries,
+            ySeries: cloneDeep(props.ySeries),
             stacks: props.legend
         };
+
+        // loop through all the filtered rules
+        for (let filteredKey = 0; filteredKey < this.state.filteredRules.length; filteredKey++) {
+            const currRule = this.state.filteredRules[filteredKey];
+            // loop through each bar in the chart
+            for (let seriesKey = 0; seriesKey < values.ySeries.length; seriesKey++) {
+                const keys = Object.keys(values.ySeries[seriesKey]);
+                // if the bar includes the filtered rule, filter it out
+                if (keys.includes(currRule)) {
+                    const barVal = values.ySeries[seriesKey][currRule].value;
+                    const barTop = values.ySeries[seriesKey][currRule].top;
+
+                    values.allY.shownWarnings[seriesKey] -= barVal;
+                    delete values.ySeries[seriesKey][currRule];
+                    // clean up the top/bottom of the remaining bar sections
+                    for (const barKey in values.ySeries[seriesKey]) {
+                        if (Object.prototype.hasOwnProperty.call(values.ySeries[seriesKey], barKey)) {
+                            // make sure the shown warnings are filtered down as well
+                            values.ySeries[seriesKey][barKey].shownWarnings -= barVal;
+                            // move the bar section if it was above the old one
+                            if (values.ySeries[seriesKey][barKey].bottom >= barTop) {
+                                values.ySeries[seriesKey][barKey].bottom -= barVal;
+                                values.ySeries[seriesKey][barKey].top -= barVal;
+                            }
+                        }
+                    }
+                }
+            }
+        }
 
         // calculate what the visible area of the chart itself will be (excluding the axes and their
         // labels)
@@ -84,18 +117,53 @@ export default class BarChartStacked extends React.Component {
         // when we actually draw the chart, we won't need to do any more calculations
 
         // calculate the Y axis range
-        const yRange = [0, max(values.allY)];
-        if (values.allY.length === 1) {
+        const yRange = [0, max(values.allY.shownWarnings)];
+        if (values.allY.shownWarnings.length === 1) {
             yRange[0] = 0;
         }
 
         // build the D3 scale objects for each axis
         // remember, in D3 scales, domain is the data range (or data set for non-continuous data)
         // and range is the range of possible pixel positions along the axis
-        values.xScale = scaleBand()
+        // put 20px padding on each side of the group with a minimum width of 66px
+
+        // Calculating the column values given the weights of each bar (depending on period/quarter)
+        const maxWidth = 150;
+        const xWeights = values.xSeries.map((period) => {
+            // Merged P01-P02 is scaled to two-thirds
+            if (period.includes('-')) {
+                return (2 / 3);
+            }
+            // Periods are scaled to a third
+            else if (period.includes('P')) {
+                return (1 / 3);
+            }
+            // Quarters are unchanged
+            return 1;
+        });
+        let rangeMap = xWeights.map((weight) => weight * (values.graphWidth / xWeights.length));
+        const maxCalculatedWidth = Math.max(...rangeMap);
+
+        // Use the normal calculation when the screen is small; otherwise, enforce the maxwidth
+        if (maxCalculatedWidth > maxWidth) {
+            const descaleFactor = ((maxCalculatedWidth - maxWidth) / maxCalculatedWidth);
+            rangeMap = rangeMap.map((barWidth) => barWidth - (barWidth * descaleFactor));
+        }
+
+        // Calculate the same distance between each bar
+        const totalBarsWidth = rangeMap.reduce((a, b) => a + b, 0);
+        const barPadding = (values.graphWidth - totalBarsWidth) / (rangeMap.length + 1);
+        // If after all these calculations and the padding is less than minBarPadding, account for the minPadding
+        const minBarPadding = 10;
+        if (barPadding < minBarPadding) {
+            rangeMap = rangeMap.map((barWidth) => barWidth - (2 * minBarPadding));
+        }
+        values.totalBarsWidth = rangeMap.reduce((a, b) => a + b, 0);
+        values.barPadding = (values.graphWidth - values.totalBarsWidth) / (rangeMap.length + 1);
+
+        values.xScale = scaleOrdinal()
             .domain(values.xSeries)
-            .range([0, values.graphWidth])
-            .round(true);
+            .range(rangeMap);
 
         // have an inverted range so that the yScale output returns the correct Y position within
         // the SVG element (y = 0 is the top of the graph)
@@ -210,23 +278,82 @@ ${yAxis.items[0].label.text} to ${yAxis.items[yAxis.items.length - 1].label.text
             title: 'X-Axis'
         };
 
-        // go through each X axis item and add a label
-        const barWidth = values.xScale.bandwidth();
+        // figure out the year groups and xpositions
+        let xPos = 0;
+        const years = {};
         values.xSeries.forEach((x) => {
             // we need to center the label within the bar width
-            const xPos = values.xScale(x) + (barWidth / 2);
+            const barWidth = values.xScale(x);
+            xPos += (values.barPadding + (barWidth / 2));
 
+            const year = x.substring(3, 5);
+            const timePeriod = x.substring(8);
+            // grouping timePeriods into quarters, gotta first figure out how wide they get
+            let quarter = null;
+            if (!timePeriod.includes('Q')) {
+                quarter = parseInt(timePeriod.substring(1, 3), 10);
+                quarter = `Q${Math.ceil(quarter / 3)}`;
+            }
+            else {
+                quarter = timePeriod;
+            }
             const item = {
-                label: x,
-                value: x,
+                label: timePeriod,
+                value: timePeriod,
                 y: 0,
                 x: xPos
             };
-            xAxis.items.push(item);
+            // build the years object, years -> quarters -> timePeriodItems
+            if (year in years) {
+                if (quarter in years[year].quarters) {
+                    years[year].quarters[quarter].push(item);
+                }
+                else {
+                    years[year].quarters[quarter] = [item];
+                }
+                years[year].endX = xPos + (barWidth / 2);
+                years[year].x = years[year].startX + ((years[year].endX - years[year].startX) / 2);
+            }
+            else {
+                years[year] = {
+                    quarters: { [quarter]: [item] },
+                    startX: xPos - (barWidth / 2),
+                    endX: xPos + (barWidth / 2),
+                    x: xPos,
+                    y: 35,
+                    year,
+                    label: year,
+                    value: year
+                };
+            }
+            xPos += (barWidth / 2);
+        });
+
+        // grouping the timePeriods together by quarters
+        Object.keys(years).forEach((year) => {
+            const timePeriodItems = [];
+            Object.keys(years[year].quarters).forEach((quarter) => {
+                const firstX = years[year].quarters[quarter][0].x;
+                const lastX = years[year].quarters[quarter][years[year].quarters[quarter].length - 1].x;
+                const averageX = (firstX + lastX) / 2;
+                const quarterItem = {
+                    label: quarter,
+                    value: quarter,
+                    y: 0,
+                    x: averageX
+                };
+                timePeriodItems.push(quarterItem);
+            });
+            years[year].timePeriodItems = timePeriodItems;
+        });
+
+        // finally add to the xAxis
+        Object.keys(years).forEach((year) => {
+            xAxis.items.push(years[year]);
         });
 
         xAxis.description = `The X-axis of the chart, showing a range of values from \
-${xAxis.items[0].label} to ${xAxis.items[xAxis.items.length - 1].label}.`;
+${values.xSeries[0]} to ${values.xSeries[values.xSeries.length - 1]}.`;
 
         return xAxis;
     }
@@ -240,22 +367,14 @@ ${xAxis.items[0].label} to ${xAxis.items[xAxis.items.length - 1].label}.`;
             }
         };
 
-        // put 20px padding on each side of the group with a minimum width of 66px
-        const barWidth = Math.min(values.xScale.bandwidth() - 40, 66);
-
+        const minWidth = 10;
+        let xPos = 0;
         values.xSeries.forEach((x, index) => {
             const y = values.ySeries[index];
 
-            let xPos = values.xScale(x) + 20;
-            if (barWidth === 66) {
-                // the total width of the group is no longer guaranteed to equal the bandwidth
-                // since each bar now maxes out at 66px
-
-                // the starting point should be the center of the X label
-                // (the group start X pos + half the band width), then adjusted left for the
-                // total group width (subtract by half the real width)
-                xPos = (values.xScale(x) + (values.xScale.bandwidth() / 2)) - (66 / 2);
-            }
+            let barWidth = values.xScale(x);
+            xPos += values.barPadding;
+            barWidth = Math.max(barWidth, minWidth);
 
             const item = {
                 xPos,
@@ -297,8 +416,9 @@ ${xAxis.items[0].label} to ${xAxis.items[xAxis.items.length - 1].label}.`;
                         description: data.description,
                         tooltipData: {
                             ...data,
+                            itemWidth: barWidth,
                             position: {
-                                x: xPos + (barWidth / 2) + values.padding.left,
+                                x: xPos + (barWidth / 2), // must be the middle of the bar
                                 y: mid - 22 // subtract 22px to line up the pointer instead of the top of the tooltip
                             }
                         }
@@ -306,6 +426,9 @@ ${xAxis.items[0].label} to ${xAxis.items[xAxis.items.length - 1].label}.`;
                     item.stack.push(element);
                 }
             });
+
+            // Moving the cursor passed the bar
+            xPos += barWidth;
 
             // reverse the array so that the first elements are rendered last (in front)
             item.stack.reverse();
@@ -315,6 +438,21 @@ ${xAxis.items[0].label} to ${xAxis.items[xAxis.items.length - 1].label}.`;
         });
 
         return body;
+    }
+
+    legendClicked(label) {
+        const currentFilters = [...this.state.filteredRules];
+        if (!this.state.filteredRules.includes(label)) {
+            currentFilters.push(label);
+        }
+        else {
+            currentFilters.splice(currentFilters.indexOf(label), 1);
+        }
+        this.setState({
+            filteredRules: currentFilters
+        }, () => {
+            this.buildVirtualChart(this.props);
+        });
     }
 
     render() {
@@ -327,14 +465,22 @@ ${xAxis.items[0].label} to ${xAxis.items[xAxis.items.length - 1].label}.`;
             this.props.height - this.props.padding.bottom // height of the graph
         );
 
-        const body = this.state.virtualChart.body.items.map((item) => (
-            <StackedBarGroup
-                {...item}
-                key={item.xValue}
-                showTooltip={this.props.showTooltip}
-                hideTooltip={this.props.hideTooltip}
-                toggleTooltip={this.props.toggleTooltip} />
-        ));
+        const body = this.state.virtualChart.body.items.map((item) => {
+            let faded = false;
+            if (this.props.hovered !== '' && this.props.hovered !== item.xValue) {
+                faded = true;
+            }
+            return (
+                <StackedBarGroup
+                    {...item}
+                    key={item.xValue}
+                    showTooltip={this.props.showTooltip}
+                    hideTooltip={this.props.hideTooltip}
+                    toggleTooltip={this.props.toggleTooltip}
+                    height={this.props.height}
+                    faded={faded} />
+            );
+        });
 
         return (
             <div>
@@ -349,15 +495,18 @@ ${xAxis.items[0].label} to ${xAxis.items[xAxis.items.length - 1].label}.`;
                     <BarChartXAxis
                         {...this.state.virtualChart.xAxis} />
                     <g
-                        className="legend-container"
-                        transform={`translate(${this.props.width - 68}, ${legendOffset})`}>
-                        <BarChartLegend legend={this.props.legend} />
-                    </g>
-                    <g
                         className="bar-data"
                         transform={`translate(${this.state.virtualChart.body.group.x},\
                             ${this.state.virtualChart.body.group.y})`}>
                         {body}
+                    </g>
+                    <g
+                        className="legend-container"
+                        transform={`translate(${this.props.width - 68}, ${legendOffset})`}>
+                        <BarChartLegend
+                            legend={this.props.legend}
+                            legendClicked={this.legendClicked}
+                            filteredRules={this.state.filteredRules} />
                     </g>
                 </svg>
             </div>

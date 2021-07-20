@@ -119,7 +119,7 @@ export class ActiveDashboardContainer extends React.Component {
         });
         const filters = this.props.appliedFilters.filters.active;
         const payload = {
-            agency_codes: [filters.agency]
+            agency_codes: [filters.agency.code]
         };
         if (filters.lastModified.start || filters.lastModified.end) {
             payload.last_modified_range = {

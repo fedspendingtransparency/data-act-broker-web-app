@@ -10,7 +10,7 @@ import DashboardTableHeader from 'components/dashboard/table/DashboardTableHeade
 import NoResultsMessage from 'components/SharedComponents/NoResultsMessage';
 import LoadingMessage from 'components/SharedComponents/LoadingMessage';
 import ErrorMessageOverlay from 'components/SharedComponents/ErrorMessageOverlay';
-import DashboardTableLabelButton from 'components/dashboard/table/DashboardTableLabelButton';
+import DashboardTableDownloadButton from 'components/dashboard/table/DashboardTableDownloadButton';
 
 const propTypes = {
     results: PropTypes.array,
@@ -19,7 +19,7 @@ const propTypes = {
     changeSort: PropTypes.func.isRequired,
     currSort: PropTypes.string,
     currOrder: PropTypes.string,
-    openModal: PropTypes.func.isRequired
+    downloadFile: PropTypes.func.isRequired
 };
 
 const defaultProps = {
@@ -32,14 +32,19 @@ const defaultProps = {
 
 const tableHeaders = [
     {
-        text: 'File',
-        class: 'dashboard-table__file-column',
-        sortType: 'file'
+        text: 'Submission ID',
+        class: 'dashboard-table__submission-column',
+        sortType: 'submission_id'
     },
     {
-        text: (<span>Fiscal Year/<br />Quarter</span>),
-        class: 'dashboard-table__fyq-column',
+        text: 'Reporting Period',
+        class: 'dashboard-table__period-column',
         sortType: 'period'
+    },
+    {
+        text: 'Submitted By',
+        class: 'dashboard-table__submitted-by-column',
+        sortType: 'submitted_by'
     },
     {
         text: 'Warning Rule',
@@ -47,7 +52,7 @@ const tableHeaders = [
         sortType: 'rule_label'
     },
     {
-        text: (<span>Number of<br />Instances</span>),
+        text: 'Rule Count',
         class: 'dashboard-table__instances-column',
         sortType: 'instances'
     },
@@ -55,10 +60,38 @@ const tableHeaders = [
         text: 'Rule Description',
         class: null,
         sortType: 'description'
+    },
+    {
+        text: 'Download',
+        class: 'dashboard-table__file-column',
+        sortType: null
     }
 ];
 
 export default class DashboardTable extends React.Component {
+    constructor(props) {
+        super(props);
+
+        this.state = {
+            results: [],
+            totalItems: 0,
+            page: 1,
+            limit: 10,
+            inFlight: true,
+            hasError: false,
+            sort: 'period',
+            order: 'desc',
+            showModal: false,
+            modalData: {}
+        };
+
+        this.downloadFile = this.downloadFile.bind(this);
+    }
+
+    downloadFile(fileLabel, submissionId) {
+        this.props.downloadFile(fileLabel, submissionId);
+    }
+
     render() {
         let contentMessage = <LoadingMessage />;
         let tableRows = [];
@@ -71,36 +104,48 @@ export default class DashboardTable extends React.Component {
             }
             else {
                 contentMessage = null;
-                tableRows = this.props.results.map((row) => (
-                    <tr key={`dashboard-table-row-${row.submissionId}-${row.ruleLabel}`}>
-                        <td>
-                            <DashboardTableLabelButton
-                                label={row.fileLabel}
+                tableRows = this.props.results.map((row) => {
+                    const fileTypes = row.fileTypes.map(
+                        (fileType) => (
+                            <DashboardTableDownloadButton
+                                downloadFile={this.downloadFile}
                                 row={row}
-                                openModal={this.props.openModal} />
-                        </td>
-                        <td>
-                            {row.period}
-                        </td>
-                        <td>
-                            {row.ruleLabel}
-                        </td>
-                        <td>
-                            {row.instanceCount}
-                        </td>
-                        <td>
-                            <div className="ellipse-box">
-                                {row.ruleDescription}
-                            </div>
-                        </td>
-                    </tr>
-                ));
+                                label={fileType}
+                                key={`${fileType}-${row.submissionId}-${row.ruleLabel}`} />
+                        ));
+
+                    return (
+                        <tr key={`dashboard-table-row-${row.submissionId}-${row.ruleLabel}`}>
+                            <td>
+                                <a href={`#/submission/${row.submissionId}`} className="date-link">{row.submissionId}</a>
+                            </td>
+                            <td>
+                                {row.period}
+                            </td>
+                            <td>
+                                {row.submittedBy}
+                            </td>
+                            <td>
+                                {row.ruleLabel}
+                            </td>
+                            <td className="right-align">
+                                {row.instanceCount}
+                            </td>
+                            <td>
+                                <div className="scroll-box">
+                                    {row.ruleDescription}
+                                </div>
+                            </td>
+                            <td>
+                                {fileTypes}
+                            </td>
+                        </tr>);
+                });
             }
         }
         return (
             <div className="dashboard-table">
-                <h3 className="dashboard-viz__heading">Table</h3>
-                <table className="broker-table">
+                <table className="broker-table historical">
                     <DashboardTableHeader
                         headers={tableHeaders}
                         changeSort={this.props.changeSort}
