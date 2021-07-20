@@ -6,7 +6,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { scaleLinear, scaleOrdinal } from 'd3-scale';
-import { max, isEqual } from 'lodash';
+import { max, isEqual, cloneDeep } from 'lodash';
 import { formatNumberWithPrecision } from 'helpers/moneyFormatter';
 import { calculateLegendOffset } from 'helpers/stackedBarChartHelper';
 
@@ -48,8 +48,11 @@ export default class BarChartStacked extends React.Component {
 
         this.state = {
             chartReady: false,
-            virtualChart: {}
+            virtualChart: {},
+            filteredRules: []
         };
+
+        this.legendClicked = this.legendClicked.bind(this);
     }
 
     componentDidMount() {
@@ -69,11 +72,40 @@ export default class BarChartStacked extends React.Component {
         const values = {
             width: props.width,
             height: props.height,
-            allY: props.allY,
+            allY: cloneDeep(props.allY),
             xSeries: props.xSeries,
-            ySeries: props.ySeries,
+            ySeries: cloneDeep(props.ySeries),
             stacks: props.legend
         };
+
+        // loop through all the filtered rules
+        for (let filteredKey = 0; filteredKey < this.state.filteredRules.length; filteredKey++) {
+            const currRule = this.state.filteredRules[filteredKey];
+            // loop through each bar in the chart
+            for (let seriesKey = 0; seriesKey < values.ySeries.length; seriesKey++) {
+                const keys = Object.keys(values.ySeries[seriesKey]);
+                // if the bar includes the filtered rule, filter it out
+                if (keys.includes(currRule)) {
+                    const barVal = values.ySeries[seriesKey][currRule].value;
+                    const barTop = values.ySeries[seriesKey][currRule].top;
+
+                    values.allY.shownWarnings[seriesKey] -= barVal;
+                    delete values.ySeries[seriesKey][currRule];
+                    // clean up the top/bottom of the remaining bar sections
+                    for (const barKey in values.ySeries[seriesKey]) {
+                        if (Object.prototype.hasOwnProperty.call(values.ySeries[seriesKey], barKey)) {
+                            // make sure the shown warnings are filtered down as well
+                            values.ySeries[seriesKey][barKey].shownWarnings -= barVal;
+                            // move the bar section if it was above the old one
+                            if (values.ySeries[seriesKey][barKey].bottom >= barTop) {
+                                values.ySeries[seriesKey][barKey].bottom -= barVal;
+                                values.ySeries[seriesKey][barKey].top -= barVal;
+                            }
+                        }
+                    }
+                }
+            }
+        }
 
         // calculate what the visible area of the chart itself will be (excluding the axes and their
         // labels)
@@ -117,6 +149,17 @@ export default class BarChartStacked extends React.Component {
             const descaleFactor = ((maxCalculatedWidth - maxWidth) / maxCalculatedWidth);
             rangeMap = rangeMap.map((barWidth) => barWidth - (barWidth * descaleFactor));
         }
+
+        // Calculate the same distance between each bar
+        const totalBarsWidth = rangeMap.reduce((a, b) => a + b, 0);
+        const barPadding = (values.graphWidth - totalBarsWidth) / (rangeMap.length + 1);
+        // If after all these calculations and the padding is less than minBarPadding, account for the minPadding
+        const minBarPadding = 10;
+        if (barPadding < minBarPadding) {
+            rangeMap = rangeMap.map((barWidth) => barWidth - (2 * minBarPadding));
+        }
+        values.totalBarsWidth = rangeMap.reduce((a, b) => a + b, 0);
+        values.barPadding = (values.graphWidth - values.totalBarsWidth) / (rangeMap.length + 1);
 
         values.xScale = scaleOrdinal()
             .domain(values.xSeries)
@@ -235,17 +278,13 @@ ${yAxis.items[0].label.text} to ${yAxis.items[yAxis.items.length - 1].label.text
             title: 'X-Axis'
         };
 
-        // Calculate the same distance between each bar
-        const totalBarsWidth = values.xSeries.reduce((a, b) => a + values.xScale(b), 0);
-        const padding = (values.graphWidth - totalBarsWidth) / (values.xSeries.length + 1);
-
         // figure out the year groups and xpositions
         let xPos = 0;
         const years = {};
         values.xSeries.forEach((x) => {
             // we need to center the label within the bar width
             const barWidth = values.xScale(x);
-            xPos += (padding + (barWidth / 2));
+            xPos += (values.barPadding + (barWidth / 2));
 
             const year = x.substring(3, 5);
             const timePeriod = x.substring(8);
@@ -328,17 +367,13 @@ ${values.xSeries[0]} to ${values.xSeries[values.xSeries.length - 1]}.`;
             }
         };
 
-        // Calculate the same distance between each bar
-        const totalBarsWidth = values.xSeries.reduce((a, b) => a + values.xScale(b), 0);
-        const padding = (values.graphWidth - totalBarsWidth) / (values.xSeries.length + 1);
         const minWidth = 10;
-
         let xPos = 0;
         values.xSeries.forEach((x, index) => {
             const y = values.ySeries[index];
 
             let barWidth = values.xScale(x);
-            xPos += padding;
+            xPos += values.barPadding;
             barWidth = Math.max(barWidth, minWidth);
 
             const item = {
@@ -405,6 +440,21 @@ ${values.xSeries[0]} to ${values.xSeries[values.xSeries.length - 1]}.`;
         return body;
     }
 
+    legendClicked(label) {
+        const currentFilters = [...this.state.filteredRules];
+        if (!this.state.filteredRules.includes(label)) {
+            currentFilters.push(label);
+        }
+        else {
+            currentFilters.splice(currentFilters.indexOf(label), 1);
+        }
+        this.setState({
+            filteredRules: currentFilters
+        }, () => {
+            this.buildVirtualChart(this.props);
+        });
+    }
+
     render() {
         // the chart hasn't been created yet, so don't render anything
         if (!this.state.chartReady) {
@@ -445,15 +495,18 @@ ${values.xSeries[0]} to ${values.xSeries[values.xSeries.length - 1]}.`;
                     <BarChartXAxis
                         {...this.state.virtualChart.xAxis} />
                     <g
-                        className="legend-container"
-                        transform={`translate(${this.props.width - 68}, ${legendOffset})`}>
-                        <BarChartLegend legend={this.props.legend} />
-                    </g>
-                    <g
                         className="bar-data"
                         transform={`translate(${this.state.virtualChart.body.group.x},\
                             ${this.state.virtualChart.body.group.y})`}>
                         {body}
+                    </g>
+                    <g
+                        className="legend-container"
+                        transform={`translate(${this.props.width - 68}, ${legendOffset})`}>
+                        <BarChartLegend
+                            legend={this.props.legend}
+                            legendClicked={this.legendClicked}
+                            filteredRules={this.state.filteredRules} />
                     </g>
                 </svg>
             </div>

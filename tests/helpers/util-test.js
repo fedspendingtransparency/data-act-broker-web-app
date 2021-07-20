@@ -163,8 +163,8 @@ describe("util helper functions", () => {
             onKeyDownHandler({ keyCode: 4 });
             onKeyDownHandler({ keyCode: 5 });
             onKeyDownHandler({ keyCode: 6 });
-            onKeyDownHandler({ keyCode: 13 }); // enter
-            onKeyDownHandler({ keyCode: 32 }); // space
+            onKeyDownHandler({ keyCode: 13, preventDefault: jest.fn() }); // enter
+            onKeyDownHandler({ keyCode: 32, preventDefault: jest.fn() }); // space
             expect(cb).toHaveBeenCalledTimes(2);
             expect(cb).toHaveBeenCalledWith("test1", "test2", "test3");
         });
