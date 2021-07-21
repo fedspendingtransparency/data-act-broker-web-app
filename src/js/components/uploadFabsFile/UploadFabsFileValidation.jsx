@@ -530,6 +530,14 @@ export class UploadFabsFileValidation extends React.Component {
                     </button>
                 );
             }
+            // Test submissions cannot be published, this overrides everything else
+            if (this.state.metadata.test_submission) {
+                validationButton = (
+                    <button className="pull-right col-xs-3 us-da-disabled-button" disabled>
+                            Test submissions cannot be published
+                    </button>
+                );
+            }
         }
 
         if (this.state.published === 'publishing' && this.state.error !== 0) {
