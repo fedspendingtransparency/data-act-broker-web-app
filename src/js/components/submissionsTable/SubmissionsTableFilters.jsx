@@ -46,8 +46,8 @@ export default class SubmissionsTableFilters extends React.Component {
 
     render() {
         let submissionTypeFilter = null;
-        // test submissions only exist in the DABS active table so we only need that filter there
-        if (this.props.table === 'active' && this.props.type === 'dabs') {
+        // test submissions only exist in the active tables so we only need that filter there
+        if (this.props.table === 'active') {
             submissionTypeFilter = <SubmissionTypeFilter updateFilterList={this.updateFilterList} />;
         }
         return (

@@ -313,6 +313,7 @@ export class UploadFabsFileValidation extends React.Component {
         // upload specified file
         this.props.setSubmissionState('uploading');
         const submission = this.props.submission;
+        submission.meta.testSubmission = '';
         submission.files.fabs = {};
         submission.files.fabs.file = item;
 
