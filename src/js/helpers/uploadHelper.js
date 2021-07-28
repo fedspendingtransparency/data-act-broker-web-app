@@ -112,6 +112,7 @@ const prepareFabsFile = (fileDict) => {
     Request.post(`${kGlobalConstants.API}upload_fabs_file/`)
         .attach('fabs', fileDict.fabs)
         .field(fieldType, fileDict[fieldType])
+        .field('test_submission', fileDict.test_submission)
         .end((err, res) => {
             if (err) {
                 const response = Object.assign({}, res.body);
@@ -248,7 +249,8 @@ export const performFabsFileUpload = (submission) => {
     store.dispatch(uploadActions.setSubmissionState('uploading'));
 
     const request = {
-        agency_code: submission.meta.subTierAgency
+        agency_code: submission.meta.subTierAgency,
+        test_submission: submission.meta.testSubmission
     };
 
     if (Object.prototype.hasOwnProperty.call(submission.files, 'fabs')) {
@@ -300,7 +302,8 @@ export const performFabsLocalUpload = (submission) => {
     const deferred = Q.defer();
 
     const request = {
-        agency_code: submission.meta.subTierAgency
+        agency_code: submission.meta.subTierAgency,
+        test_submission: submission.meta.testSubmission
     };
 
     const store = new StoreSingleton().store;

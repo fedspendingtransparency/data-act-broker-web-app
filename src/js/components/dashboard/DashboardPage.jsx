@@ -12,7 +12,7 @@ import Footer from 'components/SharedComponents/FooterComponent';
 import Banner from 'components/SharedComponents/Banner';
 import TabItem from 'components/SharedComponents/TabItem';
 import DashboardContentContainer from 'containers/dashboard/DashboardContentContainer';
-import QuarterFilterContainer from 'containers/dashboard/filters/QuarterFilterContainer';
+import PeriodFilterContainer from 'containers/dashboard/filters/PeriodFilterContainer';
 import DashboardAgencyFilterContainer from 'containers/dashboard/filters/DashboardAgencyFilterContainer';
 import FyFilterContainer from 'containers/dashboard/filters/FyFilterContainer';
 import FileFilterContainer from 'containers/dashboard/filters/FileFilterContainer';
@@ -32,27 +32,36 @@ const filters = {
             altDescription: 'The agency to which you are assigned.'
         },
         {
-            name: 'Fiscal Years',
-            required: true,
-            component: FyFilterContainer,
-            description: 'Select the applicable fiscal year(s).'
-        },
-        {
-            name: 'Quarters',
-            required: true,
-            component: QuarterFilterContainer,
-            description: 'Select the applicable quarter(s).'
+            name: 'Reporting Period',
+            subOptions: [
+                {
+                    name: 'Fiscal Years',
+                    required: true,
+                    component: FyFilterContainer,
+                    description: 'Select the applicable fiscal year(s).'
+                },
+                {
+                    name: 'Period Comparison',
+                    component: PeriodFilterContainer,
+                    description: 'Compare a single reporting period year-over-year.'
+                }
+            ]
         },
         {
             name: 'Validation Rules',
-            required: true,
-            component: FileFilterContainer,
-            description: 'Select one file or cross-file.'
-        },
-        {
-            name: 'Rules',
-            component: RulesFilterContainer,
-            description: 'Enter specific codes to filter your search.'
+            subOptions: [
+                {
+                    name: 'Files',
+                    required: true,
+                    component: FileFilterContainer,
+                    description: 'Select single file or cross-file.'
+                },
+                {
+                    name: 'Filter by Rules',
+                    component: RulesFilterContainer,
+                    description: 'Enter specific codes to filter your search.'
+                }
+            ]
         }
     ],
     active: [

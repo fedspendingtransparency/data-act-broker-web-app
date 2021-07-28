@@ -17,17 +17,17 @@ describe('FyFilterContainer', () => {
     beforeEach(() => {
         jest.clearAllMocks();
     });
-    it('should make an API call for the latest quarter on mount', async () => {
+    it('should make an API call for the latest period on mount', async () => {
         const container = shallow(<FyFilterContainer
             {...mockActions}
             {...mockReduxHistorical} />
         );
-        const getLatestQuarter = jest.fn();
-        container.instance().getLatestQuarter = getLatestQuarter;
+        const getLatestPeriod = jest.fn();
+        container.instance().getLatestPeriod = getLatestPeriod;
         container.instance().componentDidMount();
-        expect(getLatestQuarter).toHaveBeenCalled();
+        expect(getLatestPeriod).toHaveBeenCalled();
     });
-    it('should call generateAllFy when the selected quarters change', () => {
+    it('should call generateAllFy when the selected period changes', () => {
         const container = shallow(<FyFilterContainer
             {...mockActions}
             {...mockReduxHistorical} />
@@ -35,11 +35,11 @@ describe('FyFilterContainer', () => {
         const generateAllFy = jest.fn();
         container.instance().generateAllFy = generateAllFy;
 
-        container.instance().componentDidUpdate({ selectedFilters: { quarters: [2, 3] } });
+        container.instance().componentDidUpdate({ selectedFilters: { period: 'Q1' } });
 
         expect(generateAllFy).toHaveBeenCalled();
     });
-    it('should call removeDisabledSelections when the selected quarters change', () => {
+    it('should call removeDisabledSelections when the selected period changes', () => {
         const container = shallow(<FyFilterContainer
             {...mockActions}
             {...mockReduxHistorical} />
@@ -47,7 +47,7 @@ describe('FyFilterContainer', () => {
         const removeDisabledSelections = jest.fn();
         container.instance().removeDisabledSelections = removeDisabledSelections;
 
-        container.instance().componentDidUpdate({ selectedFilters: { quarters: [3, 4] } });
+        container.instance().componentDidUpdate({ selectedFilters: { period: 'Q4' } });
 
         expect(removeDisabledSelections).toHaveBeenCalled();
     });
@@ -64,35 +64,35 @@ describe('FyFilterContainer', () => {
         });
     });
     describe('generateAllFy', () => {
-        it('should disable 2017 when Q1 is the only quarter selected', () => {
+        it('should disable 2017 when P02, P03, or Q1 is the only period selected', () => {
             const container = shallow(<FyFilterContainer
                 {...mockActions}
                 {...mockReduxHistorical} />
             );
             container.instance().setState({
                 latestYear: 2019,
-                latestQuarter: 4,
+                latestPeriod: 12,
                 allFy: []
             });
             const newProps = cloneDeep(container.instance().props);
-            newProps.selectedFilters.quarters = newProps.selectedFilters.quarters.add(1);
+            newProps.selectedFilters.period = 3;
             container.setProps({ ...newProps });
             container.instance().generateAllFy();
             // Check element at index 2 for 2017
             expect(container.instance().state.allFy[2].disabled).toBeTruthy();
         });
-        it('should disable the current FY when every quarter selected is in the future', () => {
+        it('should disable the current FY when the selected period is in the future', () => {
             const container = shallow(<FyFilterContainer
                 {...mockActions}
                 {...mockReduxHistorical} />
             );
             container.instance().setState({
                 latestYear: 2020,
-                latestQuarter: 1,
+                latestPeriod: 3,
                 allFy: []
             });
             const newProps = cloneDeep(container.instance().props);
-            newProps.selectedFilters.quarters = newProps.selectedFilters.quarters.add(4);
+            newProps.selectedFilters.period = 4;
             container.setProps({ ...newProps });
             container.instance().generateAllFy();
             // Check element at index 0 for 2020
@@ -100,7 +100,7 @@ describe('FyFilterContainer', () => {
         });
     });
     describe('removeDisabledSelections', () => {
-        it('should remove FY 2017 if Q1 is the only quarter selected', () => {
+        it('should remove FY 2017 if P02, P03, or Q1 is the only period selected', () => {
             const container = shallow(<FyFilterContainer
                 {...mockActions}
                 {...mockReduxHistorical} />
@@ -110,16 +110,16 @@ describe('FyFilterContainer', () => {
             
             // Set the props to FY 2017 and Q1
             const newProps = cloneDeep(container.instance().props);
-            newProps.selectedFilters.quarters = newProps.selectedFilters.quarters.add(1);
+            newProps.selectedFilters.period = 'Q1';
             newProps.selectedFilters.fy = newProps.selectedFilters.fy.add(2017);
             container.setProps({ ...newProps });
 
             expect(container.instance().props.selectedFilters.fy.toArray()).toEqual([2017]);
-            expect(container.instance().props.selectedFilters.quarters.toArray()).toEqual([1]);
+            expect(container.instance().props.selectedFilters.period).toEqual('Q1');
             container.instance().removeDisabledSelections();
             expect(pickedFy).toHaveBeenCalledWith(2017);
         });
-        it('should remove the current FY if only future quarters are selected', () => {
+        it('should remove the current FY if only a future period is selected', () => {
             const container = shallow(<FyFilterContainer
                 {...mockActions}
                 {...mockReduxHistorical} />
@@ -129,17 +129,17 @@ describe('FyFilterContainer', () => {
             // Mock the latest FY and quarter
             container.instance().setState({
                 latestYear: 2020,
-                latestQuarter: 1
+                latestPeriod: 3
             });
 
             // Set the props to FY 2020 and Q4
             const newProps = cloneDeep(container.instance().props);
-            newProps.selectedFilters.quarters = newProps.selectedFilters.quarters.add(4);
+            newProps.selectedFilters.period = 4;
             newProps.selectedFilters.fy = newProps.selectedFilters.fy.add(2020);
             container.setProps({ ...newProps });
 
             expect(container.instance().props.selectedFilters.fy.toArray()).toEqual([2020]);
-            expect(container.instance().props.selectedFilters.quarters.toArray()).toEqual([4]);
+            expect(container.instance().props.selectedFilters.period).toEqual(4);
             container.instance().removeDisabledSelections();
             expect(pickedFy).toHaveBeenCalledWith(2020);
         });

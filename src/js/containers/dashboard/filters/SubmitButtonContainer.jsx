@@ -104,11 +104,11 @@ export class SubmitButtonContainer extends React.Component {
         const stagedFilters = this.props.stagedFilters;
         let requiredFields;
         if (this.props.type === 'historical') {
-            requiredFields = stagedFilters.historical.file && stagedFilters.historical.agency
-            && stagedFilters.historical.quarters.size > 0 && stagedFilters.historical.fy.size > 0;
+            requiredFields = stagedFilters.historical.file && stagedFilters.historical.agency.code
+            && stagedFilters.historical.fy.size > 0;
         }
         else {
-            requiredFields = stagedFilters.active.file && stagedFilters.active.agency;
+            requiredFields = stagedFilters.active.file && stagedFilters.active.agency.code;
         }
         return (
             <SubmitButton

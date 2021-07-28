@@ -10,7 +10,7 @@ import Typeahead from 'components/SharedComponents/Typeahead';
 import ShownValue from './ShownValue';
 
 const propTypes = {
-    selectedAgency: PropTypes.string.isRequired,
+    selectedAgency: PropTypes.object.isRequired,
     onSelect: PropTypes.func.isRequired,
     results: PropTypes.array.isRequired,
     singleAgency: PropTypes.bool,
@@ -34,7 +34,7 @@ export default class DashboardAgencyFilter extends React.Component {
     }
 
     onSelect() {
-        this.props.onSelect(this.props.selectedAgency);
+        this.props.onSelect(this.props.selectedAgency.code);
     }
 
     dataFormatter(item) {
@@ -47,13 +47,8 @@ export default class DashboardAgencyFilter extends React.Component {
     render() {
         let selectedAgency = null;
         let filteredList = this.props.results;
-        if (this.props.selectedAgency !== '') {
-            const agencyCode = this.props.selectedAgency;
-            // select only the agency we've selected for clearing and displaying
-            const agency = this.props.results.filter((result) => {
-                const code = result.cgac_code || result.frec_code;
-                return code === agencyCode;
-            });
+        if (this.props.selectedAgency.code !== '') {
+            const agencyCode = this.props.selectedAgency.code;
 
             // make the rest of the items so we don't have the chosen agency in the results list
             filteredList = filteredList.filter((result) => {
@@ -65,7 +60,7 @@ export default class DashboardAgencyFilter extends React.Component {
             selectedAgency = (
                 <div className="selected-filters">
                     <ShownValue
-                        label={agency[0].agency_name}
+                        label={this.props.selectedAgency.name}
                         removeValue={removeVal} />
                 </div>
             );

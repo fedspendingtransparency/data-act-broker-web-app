@@ -19,9 +19,9 @@ describe('stacked bar chart helper functions', () => {
         it('should calculate the y-offset based on the index', () => {
             const mockRules = ['C12', 'C11', 'C23.2'];
             const legend = stackedBarHelper.buildLegend(mockRules);
-            expect(legend[2].offset).toEqual(30);
+            expect(legend[2].offset).toEqual(90);
             expect(legend[1].offset).toEqual(60);
-            expect(legend[0].offset).toEqual(90);
+            expect(legend[0].offset).toEqual(30);
         });
     });
     describe('calculateLegendOffset', () => {

@@ -80,6 +80,7 @@
 	}
 
 	.select-agency-holder {
+		@import "../addData/fields/_label";
 		@include contentBlockWrapper;
 		padding: 15px 30px 30px 30px;
 
@@ -102,6 +103,34 @@
 			margin: 31px 0 10px;
 			border-top: 1px dashed $color-gray-lighter;
 		}
+
+		.usa-da-submission-type {
+            .usa-da-submission-type-group {
+				input {
+					float: left;
+					margin: rem(4) rem(8) 0 0;
+				}
+                margin-top: rem(20);
+                .subtype-description {
+                    font-style: italic;
+                }
+
+                label {
+                    font-weight: bold;
+                    line-height: rem(18);
+                    .subtype-description {
+                        font-weight: normal;
+
+                        &.test-submission-note {
+                            margin-top: rem(7.5);
+                            b {
+                                color: $color-gray;
+                            }
+                        }
+                    }
+                }
+            }
+        }
 
 		.usa-da-date-select {
 			padding-top: 30px;
