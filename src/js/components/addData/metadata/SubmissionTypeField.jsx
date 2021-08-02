@@ -104,6 +104,7 @@ export default class SubmissionTypeField extends React.Component {
             `This will be the official publishable or certifiable submission for your agency for this selected time
             period.` :
             'This will be an official publishable submission for your agency.';
+        const testSubHeader = this.props.isDabs ? 'Certifiable' : 'Publishable';
 
         return (
             <div>
@@ -143,7 +144,7 @@ export default class SubmissionTypeField extends React.Component {
                                 checked={isCertifiable}
                                 disabled={disabled} />
                             <label htmlFor="usa-da-submission-type-certifiable" className={certifiableCSS}>
-                                Certifiable submission
+                                {testSubHeader} submission
                                 <div className="subtype-description">
                                     {certSubText}
                                 </div>

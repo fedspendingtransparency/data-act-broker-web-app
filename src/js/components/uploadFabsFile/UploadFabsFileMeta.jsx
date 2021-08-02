@@ -243,7 +243,8 @@ export default class UploadFabsFileMeta extends React.Component {
         if (this.state.showSubmissionType) {
             submissionTypeField = (<SubmissionTypeField
                 onChange={this.handleSubmissionTypeChange}
-                value={this.state.submissionType} />);
+                value={this.state.submissionType}
+                isDabs={false} />);
         }
 
         if (this.state.showUploadFilesBox) {
