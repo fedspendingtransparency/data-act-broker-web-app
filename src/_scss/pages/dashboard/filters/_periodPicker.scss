@@ -1,0 +1,83 @@
+.historical-dashboard-period-picker {
+    @import './selectedFilters';
+    @import '../../generateDetachedFiles/_periodPicker';
+
+    .period-picker {
+        padding: 0;
+        display: block;
+
+        .period-picker__header {
+            display: block;
+
+            .period-picker__button {
+                background-color: $color-white;
+                padding: rem(6) rem(10);
+                border: rem(1) solid $color-gray-light;
+    
+                .period-picker__button-text {
+                    font-size: $base-font-size;
+                    color: $color-gray;
+                }
+            }
+        }
+
+        .period-picker__list {
+            border-top: none;
+
+            .period-picker__list-item {
+                .period-picker__list-button {
+                    padding: rem(6) rem(20);
+                    &.period-picker__list-button_active {
+                        background-color: $color-primary-alt-lightest;
+                    }
+    
+                    &.padded-item {
+                        padding-left: rem(35);
+                    }
+    
+                    &.period-picker__list-button_disabled  {
+                        background-color: $color-white;
+                        color:$color-gray-light;
+                    }
+                }
+    
+                .period-picker__tooltip {
+                    position: absolute;
+                    // top: rem(10);
+                    right: rem(-250);
+                    width: rem(300);
+                    text-align: left;
+                    padding: rem(5);
+                    background-color: $color-gray-lightest;
+                    border: solid rem(1) $color-gray-light;
+                    box-shadow: $box-shadow;
+                    p {
+                        font-size: rem(13);
+                        line-height: rem(18);
+                        margin: 0;
+                        &:first-child {
+                            padding-bottom: rem(10);
+                        }
+                    }
+                }
+            }
+
+            .warning-tooltip {
+                // space the tooltip to the right of the dropdown
+                margin-left: rem(225);
+                margin-top: rem(-50);
+            }
+        }
+    }
+
+    .selected-filters {
+        display: inline-block;
+        padding: rem(10);
+        padding-right: rem(5);
+        margin-bottom: 0;
+
+        .shown-filter-button {
+            margin: 0;
+        }
+    }
+}

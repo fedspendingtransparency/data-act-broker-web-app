@@ -7,7 +7,7 @@ import React from 'react';
 import { shallow } from 'enzyme';
 import { cloneDeep } from 'lodash';
 
-import { WarningsInfoGraphContainer } from 'containers/dashboard/graph/WarningsInfoGraphContainer';
+import WarningsInfoGraphContainer from 'containers/dashboard/graph/WarningsInfoGraphContainer';
 import { mockRedux, mockData } from './mockData';
 
 // mock the child component by replacing it with a function that returns a null element
@@ -112,7 +112,7 @@ describe('WarningsInfoGraphContainer', () => {
             container.setProps({ ...newProps });
 
             container.instance().parseData(mockData);
-            expect(container.instance().state.xSeries).toEqual(['FY 98 / Q3', 'FY 99 / Q2']);
+            expect(container.instance().state.xSeries).toEqual(['FY 98 / P09', 'FY 99 / Q2']);
         });
         it('should parse the warnings data (in chronologic order)', () => {
             const container = shallow(<WarningsInfoGraphContainer
@@ -135,7 +135,8 @@ describe('WarningsInfoGraphContainer', () => {
                         bottom: 0,
                         top: 400,
                         description: 'C23.2',
-                        totalWarnings: 800
+                        totalWarnings: 800,
+                        shownWarnings: 800
                     },
                     C12: {
                         percent: 25,
@@ -143,7 +144,8 @@ describe('WarningsInfoGraphContainer', () => {
                         bottom: 400,
                         top: 600,
                         description: 'C12',
-                        totalWarnings: 800
+                        totalWarnings: 800,
+                        shownWarnings: 800
                     },
                     C11: {
                         percent: 25,
@@ -151,7 +153,8 @@ describe('WarningsInfoGraphContainer', () => {
                         bottom: 600,
                         top: 800,
                         description: 'C11',
-                        totalWarnings: 800
+                        totalWarnings: 800,
+                        shownWarnings: 800
                     }
                 },
                 {
@@ -161,7 +164,8 @@ describe('WarningsInfoGraphContainer', () => {
                         bottom: 0,
                         top: 500,
                         description: 'C23.1',
-                        totalWarnings: 1000
+                        totalWarnings: 1000,
+                        shownWarnings: 1000
                     },
                     C12: {
                         percent: 10,
@@ -169,7 +173,8 @@ describe('WarningsInfoGraphContainer', () => {
                         bottom: 500,
                         top: 600,
                         description: 'C12',
-                        totalWarnings: 1000
+                        totalWarnings: 1000,
+                        shownWarnings: 1000
                     },
                     C11: {
                         percent: 40,
@@ -177,7 +182,8 @@ describe('WarningsInfoGraphContainer', () => {
                         bottom: 600,
                         top: 1000,
                         description: 'C11',
-                        totalWarnings: 1000
+                        totalWarnings: 1000,
+                        shownWarnings: 1000
                     }
                 }
             ];
@@ -196,7 +202,8 @@ describe('WarningsInfoGraphContainer', () => {
             container.setProps({ ...newProps });
 
             container.instance().parseData(mockData);
-            expect(container.instance().state.allY).toEqual([800, 1000]);
+            expect(container.instance().state.allY).toEqual(
+                {"shownWarnings": [800, 1000], "totalWarnings": [800, 1000]});
         });
     });
 });

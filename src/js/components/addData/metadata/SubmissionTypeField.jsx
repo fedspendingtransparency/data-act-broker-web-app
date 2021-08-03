@@ -14,7 +14,8 @@ const propTypes = {
     value: PropTypes.string,
     publishedSubmissions: PropTypes.array,
     endDate: PropTypes.string,
-    dateType: PropTypes.string
+    dateType: PropTypes.string,
+    isDabs: PropTypes.bool
 };
 
 const defaultProps = {
@@ -22,7 +23,8 @@ const defaultProps = {
     value: '',
     publishedSubmissions: [],
     endDate: '',
-    dateType: ''
+    dateType: '',
+    isDabs: true
 };
 
 export default class SubmissionTypeField extends React.Component {
@@ -77,23 +79,32 @@ export default class SubmissionTypeField extends React.Component {
             disabled = true;
         }
 
-        const dates = UtilHelper.getYearAndPeriod(this.props.endDate);
+        if (this.props.isDabs) {
+            const dates = UtilHelper.getYearAndPeriod(this.props.endDate);
 
-        if (dates.year >= 2022 && this.props.dateType === 'quarter') {
-            warningBanner = (
-                <div className="alert alert-warning text-left row" role="alert">
-                    <div className="col-xs-1">
-                        <FontAwesomeIcon icon="exclamation-triangle" />
+            if (dates.year >= 2022 && this.props.dateType === 'quarter') {
+                warningBanner = (
+                    <div className="alert alert-warning text-left row" role="alert">
+                        <div className="col-xs-1">
+                            <FontAwesomeIcon icon="exclamation-triangle" />
+                        </div>
+                        <div className="col-xs-11">
+                            <h3>As of FY22, Quarterly submissions can no longer be published or certified</h3>
+                            <p>To create a certifiable submission you must choose the monthly submission type.</p>
+                        </div>
                     </div>
-                    <div className="col-xs-11">
-                        <h3>As of FY22, Quarterly submissions can no longer be published or certified</h3>
-                        <p>To create a certifiable submission you must choose the monthly submission type.</p>
-                    </div>
-                </div>
-            );
-            certifiableCSS = 'disabled';
-            disabled = true;
+                );
+                certifiableCSS = 'disabled';
+                disabled = true;
+            }
         }
+
+        const testSubText = this.props.isDabs ? 'published or certified' : 'published';
+        const certSubText = this.props.isDabs ?
+            `This will be the official publishable or certifiable submission for your agency for this selected time
+            period.` :
+            'This will be an official publishable submission for your agency.';
+        const testSubHeader = this.props.isDabs ? 'Certifiable' : 'Publishable';
 
         return (
             <div>
@@ -113,7 +124,7 @@ export default class SubmissionTypeField extends React.Component {
                             <label htmlFor="usa-da-submission-type-test">
                                 Test submission
                                 <div className="subtype-description">
-                                    Test submissions cannot be published or certified, but they can be used to validate
+                                    Test submissions cannot be {testSubText}, but they can be used to validate
                                     your data.
                                 </div>
                                 <div className="subtype-description test-submission-note">
@@ -133,10 +144,9 @@ export default class SubmissionTypeField extends React.Component {
                                 checked={isCertifiable}
                                 disabled={disabled} />
                             <label htmlFor="usa-da-submission-type-certifiable" className={certifiableCSS}>
-                                Certifiable submission
+                                {testSubHeader} submission
                                 <div className="subtype-description">
-                                    This will be the official publishable and certifiable submission for your agency
-                                    for this selected time period.
+                                    {certSubText}
                                 </div>
                             </label>
                         </div>

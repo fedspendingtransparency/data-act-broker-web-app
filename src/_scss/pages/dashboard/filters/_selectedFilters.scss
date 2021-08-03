@@ -1,7 +1,7 @@
 .selected-filters {
     @include display(flex);
     @include flex-flow(row wrap);
-    background-color: $color-gray-lighter;
+    background-color: $color-gray-lightest;
     padding: rem(5);
     margin-top: rem(15);
     margin-bottom: rem(10);
@@ -32,7 +32,9 @@
         .close {
             @include display(flex);
             font-size: $small-font-size;
-            padding: 0 rem(5) rem(1) rem(15);
+            padding: 0 rem(5) rem(1) rem(10);
+            opacity: 1;
+            color: $color-gray;
         }
         &:hover {
             background: lighten($color-cool-blue-lightest, 10%);

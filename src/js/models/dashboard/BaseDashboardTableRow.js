@@ -3,20 +3,18 @@
  * Created by Alisa Burdeyny 11/20/19
  */
 
-import { fileLabels } from 'dataMapping/dashboard/fileLabels';
-
 /* eslint-disable object-shorthand */
 const BaseDashboardTableRow = {
     populate: function (data) {
-        const fileTypes = data.files.map((dataFile) => dataFile.type);
-        fileTypes.sort();
-        this.fileTypes = fileTypes;
-        this.fileLabel = fileLabels[fileTypes.join('/')];
-        this.period = `FY ${data.fy - 2000} / Q${data.quarter}`;
+        data.files.sort();
+        this.fileTypes = data.files;
+        this.period = data.is_quarter === true ?
+            `FY ${data.fy - 2000} / Q${data.period / 3}` : `FY ${data.fy - 2000} / P${data.period}`;
         this.ruleLabel = data.rule_label;
         this.instanceCount = data.instance_count;
         this.ruleDescription = data.rule_description;
         this.submissionId = data.submission_id;
+        this.submittedBy = data.submitted_by;
     }
 };
 /* eslint-enable object-shorthand */

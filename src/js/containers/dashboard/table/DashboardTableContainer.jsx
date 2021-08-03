@@ -5,21 +5,19 @@
 
 import React from 'react';
 import PropTypes from 'prop-types';
-import { connect } from 'react-redux';
 import { isEqual } from 'lodash';
 import { Pagination } from 'data-transparency-ui';
 
 import * as DashboardHelper from 'helpers/dashboardHelper';
 import * as GenerateFilesHelper from 'helpers/generateFilesHelper';
 import DashboardTable from 'components/dashboard/table/DashboardTable';
-import DashboardTableModal from 'components/dashboard/table/DashboardTableModal';
 import BaseDashboardTableRow from 'models/dashboard/BaseDashboardTableRow';
 
 const propTypes = {
     appliedFilters: PropTypes.object
 };
 
-export class DashboardTableContainer extends React.Component {
+export default class DashboardTableContainer extends React.Component {
     constructor(props) {
         super(props);
 
@@ -31,9 +29,7 @@ export class DashboardTableContainer extends React.Component {
             inFlight: true,
             hasError: false,
             sort: 'period',
-            order: 'desc',
-            showModal: false,
-            modalData: {}
+            order: 'desc'
         };
 
         this.updateTable = this.updateTable.bind(this);
@@ -41,8 +37,6 @@ export class DashboardTableContainer extends React.Component {
         this.changeLimit = this.changeLimit.bind(this);
         this.parseRows = this.parseRows.bind(this);
         this.changeSort = this.changeSort.bind(this);
-        this.openModal = this.openModal.bind(this);
-        this.closeModal = this.closeModal.bind(this);
         this.downloadFile = this.downloadFile.bind(this);
     }
 
@@ -82,20 +76,6 @@ export class DashboardTableContainer extends React.Component {
         });
     }
 
-    openModal(data) {
-        this.setState({
-            showModal: true,
-            modalData: data
-        });
-    }
-
-    closeModal() {
-        this.setState({
-            showModal: false,
-            modalData: {}
-        });
-    }
-
     downloadFile(fileType, submissionId) {
         GenerateFilesHelper.fetchFile(fileType, submissionId)
             .then((result) => {
@@ -108,16 +88,15 @@ export class DashboardTableContainer extends React.Component {
 
     updateTable() {
         this.setState({
-            inFlight: true,
-            showModal: false,
-            modalData: {}
+            inFlight: true
         });
         const filters = this.props.appliedFilters;
+        const periods = DashboardHelper.getPeriodListFromFilter(this.props.appliedFilters.period);
         const searchParams = {
             filters: {
-                quarters: [...filters.quarters],
+                periods,
                 fys: [...filters.fy],
-                agencies: [filters.agency],
+                agencies: [filters.agency.code],
                 files: [filters.file],
                 rules: [...filters.rules]
             },
@@ -169,17 +148,8 @@ export class DashboardTableContainer extends React.Component {
                     changeLimit={this.changeLimit}
                     goToPage />);
         }
-        let modal = null;
-        if (this.state.showModal) {
-            modal = (
-                <DashboardTableModal
-                    downloadFile={this.downloadFile}
-                    data={this.state.modalData}
-                    closeModal={this.closeModal}
-                    isOpen={this.state.showModal} />);
-        }
         return (
-            <div className="dashboard-viz">
+            <div className="dashboard-viz no-top-pad">
                 <DashboardTable
                     results={this.state.results}
                     inFlight={this.state.inFlight}
@@ -187,18 +157,11 @@ export class DashboardTableContainer extends React.Component {
                     changeSort={this.changeSort}
                     currSort={this.state.sort}
                     currOrder={this.state.order}
-                    openModal={this.openModal} />
+                    downloadFile={this.downloadFile} />
                 {pagination}
-                {modal}
             </div>
         );
     }
 }
 
 DashboardTableContainer.propTypes = propTypes;
-
-export default connect(
-    (state) => ({
-        appliedFilters: state.appliedDashboardFilters.filters.historical
-    })
-)(DashboardTableContainer);

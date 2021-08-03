@@ -55,7 +55,6 @@
     @include brokerTable;
     .broker-table {
         width: 100%;
-        margin-top: rem(16);
 
         .dashboard-table__rule-column {
             padding-right: 2em;
@@ -74,7 +73,7 @@
 
                     .dashboard-table__sort-icons {
                         margin: auto 0;
-                        margin-left: rem(10);
+                        margin-left: rem(5);
 
                         button {
                             display: block;
@@ -106,10 +105,35 @@
                         text-transform: capitalize;
                     }
 
-                    .modal-button {
+                    &.right-align {
+                        text-align: right;
+                    }
+
+                    .scroll-box {
+                        max-height: rem(75);
+                        overflow-y: auto;
+                        overflow-wrap: anywhere;
+                    }
+
+                    .label-button {
                         @include button-unstyled;
                         color: $color-primary;
                         white-space: nowrap;
+                    }
+                }
+            }
+        }
+
+        &.historical {
+            thead.broker-table__header {
+                th {
+                    padding: rem(10) rem(15);
+                }
+            }
+            tbody.broker-table__body {
+                tr {
+                    td {
+                        padding: rem(10) rem(15);
                     }
                 }
             }

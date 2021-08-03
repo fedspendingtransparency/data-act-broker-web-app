@@ -135,21 +135,6 @@ describe("util helper functions", () => {
         });
     });
 
-    describe("convertQuarterToPeriod", () => {
-        it("returns 3 for 1st quarter", () => {
-            expect(utilHelper.convertQuarterToPeriod(1)).toEqual(3);
-        });
-        it("returns 6 for 2nd quarter", () => {
-            expect(utilHelper.convertQuarterToPeriod(2)).toEqual(6);
-        });
-        it("returns 9 for 3rd quarter", () => {
-            expect(utilHelper.convertQuarterToPeriod(3)).toEqual(9);
-        });
-        it("returns 12 for 4th quarter", () => {
-            expect(utilHelper.convertQuarterToPeriod(4)).toEqual(12);
-        });
-    });
-
     describe("getPeriodTextFromValue", () => {
         it("returns the correct date string for the given period", () => {
             expect(utilHelper.getPeriodTextFromValue(4)).toEqual("04 - January");
@@ -178,8 +163,8 @@ describe("util helper functions", () => {
             onKeyDownHandler({ keyCode: 4 });
             onKeyDownHandler({ keyCode: 5 });
             onKeyDownHandler({ keyCode: 6 });
-            onKeyDownHandler({ keyCode: 13 }); // enter
-            onKeyDownHandler({ keyCode: 32 }); // space
+            onKeyDownHandler({ keyCode: 13, preventDefault: jest.fn() }); // enter
+            onKeyDownHandler({ keyCode: 32, preventDefault: jest.fn() }); // space
             expect(cb).toHaveBeenCalledTimes(2);
             expect(cb).toHaveBeenCalledWith("test1", "test2", "test3");
         });

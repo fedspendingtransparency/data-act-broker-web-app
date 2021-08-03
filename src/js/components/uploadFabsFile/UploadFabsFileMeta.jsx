@@ -8,6 +8,8 @@ import CSSTransitionGroup from 'react-transition-group/CSSTransitionGroup';
 import React from 'react';
 import PropTypes from 'prop-types';
 
+import SubmissionTypeField from 'components/addData/metadata/SubmissionTypeField';
+
 import SubTierAgencyListContainer from '../../containers/SharedContainers/SubTierAgencyListContainer';
 import UploadFabsFileBox from './UploadFabsFileBox';
 import UploadFabsFileError from './UploadFabsFileError';
@@ -46,6 +48,8 @@ export default class UploadFabsFileMeta extends React.Component {
             agency: "",
             agencyError: false,
             showUploadFilesBox: false,
+            showSubmissionType: false,
+            submissionType: '',
             fabs: {
                 error: {
                     show: false,
@@ -62,6 +66,9 @@ export default class UploadFabsFileMeta extends React.Component {
             validationFinished: false,
             published: false
         };
+
+        this.uploadFile = this.uploadFile.bind(this);
+        this.handleSubmissionTypeChange = this.handleSubmissionTypeChange.bind(this);
     }
 
     componentDidMount() {
@@ -77,7 +84,8 @@ export default class UploadFabsFileMeta extends React.Component {
         this.setState({
             agency,
             agencyError: !isValid,
-            showUploadFilesBox: isValid
+            showSubmissionType: isValid,
+            showUploadFilesBox: isValid && this.state.submissionType !== ''
         });
     }
 
@@ -108,6 +116,7 @@ export default class UploadFabsFileMeta extends React.Component {
         this.props.setSubmissionState('uploading');
         const submission = this.props.submission;
         submission.meta.subTierAgency = this.state.agency;
+        submission.meta.testSubmission = this.state.submissionType === 'test';
 
         this.uploadFileHelper(kGlobalConstants.LOCAL === true, submission)
             .then((submissionID) => {
@@ -210,6 +219,13 @@ export default class UploadFabsFileMeta extends React.Component {
         }
     }
 
+    handleSubmissionTypeChange(submissionType) {
+        this.setState({
+            submissionType,
+            showUploadFilesBox: true
+        }, this.checkComplete);
+    }
+
     // ERRORS
     // 1: Submission is already published
     // 2: Fetching file metadata failed
@@ -218,16 +234,24 @@ export default class UploadFabsFileMeta extends React.Component {
     render() {
         let subTierAgencyClass = '';
         let uploadFilesBox = null;
+        let submissionTypeField = null;
 
         if (this.state.agencyError) {
             subTierAgencyClass = ' error usa-da-form-icon';
+        }
+
+        if (this.state.showSubmissionType) {
+            submissionTypeField = (<SubmissionTypeField
+                onChange={this.handleSubmissionTypeChange}
+                value={this.state.submissionType}
+                isDabs={false} />);
         }
 
         if (this.state.showUploadFilesBox) {
             uploadFilesBox = (<UploadFabsFileBox
                 {...this.state}
                 submission={this.props.submission}
-                uploadFile={this.uploadFile.bind(this)} />);
+                uploadFile={this.uploadFile} />);
         }
 
         let errorMessage = null;
@@ -288,6 +312,13 @@ export default class UploadFabsFileMeta extends React.Component {
                                         </div>
                                     </div>
                                 </div>
+                                <CSSTransitionGroup
+                                    transitionName="usa-da-meta-fade"
+                                    transitionEnterTimeout={600}
+                                    transitionLeaveTimeout={200}>
+                                    {submissionTypeField}
+                                </CSSTransitionGroup>
+
                                 <CSSTransitionGroup
                                     transitionName="usa-da-meta-fade"
                                     transitionEnterTimeout={600}

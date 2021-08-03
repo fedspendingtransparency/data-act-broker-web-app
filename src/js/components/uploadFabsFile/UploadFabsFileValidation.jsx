@@ -313,6 +313,7 @@ export class UploadFabsFileValidation extends React.Component {
         // upload specified file
         this.props.setSubmissionState('uploading');
         const submission = this.props.submission;
+        submission.meta.testSubmission = '';
         submission.files.fabs = {};
         submission.files.fabs.file = item;
 
@@ -526,6 +527,14 @@ export class UploadFabsFileValidation extends React.Component {
                 validationButton = (
                     <button className="pull-right col-xs-3 us-da-disabled-button" disabled>
                             You do not have permissions to publish
+                    </button>
+                );
+            }
+            // Test submissions cannot be published, this overrides everything else
+            if (this.state.metadata.test_submission) {
+                validationButton = (
+                    <button className="pull-right col-xs-3 us-da-disabled-button" disabled>
+                            Test submissions cannot be published
                     </button>
                 );
             }

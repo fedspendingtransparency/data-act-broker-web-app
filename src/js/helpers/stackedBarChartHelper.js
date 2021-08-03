@@ -6,11 +6,13 @@ const getSpacing = (length) => (length > 11 ? 25 : 30);
 export const buildLegend = (rules = []) => {
     const spacing = getSpacing(rules.length);
     const legendHeight = spacing * rules.length;
+    // we want to make sure that they display in the order we have them, not opposite, for tabbing purposes
+    // Index is 0-indexed so we want to subtract an extra 1 from the length to match up right
     return (rules.map((label, index) => (
         {
             color: chartColors[index],
             label,
-            offset: legendHeight - (index * spacing)
+            offset: legendHeight - ((rules.length - index - 1) * spacing)
         }
     )));
 };
