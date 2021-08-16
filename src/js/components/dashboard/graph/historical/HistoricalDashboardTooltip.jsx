@@ -25,7 +25,9 @@ export default class HistoricalDashboardTooltip extends React.Component {
                         {warning.description}
                     </td>
                     <td className={highlightCSS}>{formatNumberWithPrecision(warning.value, 0)}</td>
-                    <td className={highlightCSS}>{formatNumberWithPrecision(warning.percent, 0)}%</td>
+                    <td className={highlightCSS}>
+                        {warning.percent < 1 ? '<1' : formatNumberWithPrecision(warning.percent, 0)}%
+                    </td>
                 </tr>
             );
         });
@@ -45,7 +47,7 @@ export default class HistoricalDashboardTooltip extends React.Component {
                         <tr className="last-row">
                             <td className="text-left">Warnings Shown</td>
                             <td>{formatNumberWithPrecision(this.props.shownWarnings, 0)}</td>
-                            <td>{formatNumberWithPrecision(shownPercent, 0)}%</td>
+                            <td>{shownPercent < 1 ? '<1' : formatNumberWithPrecision(shownPercent, 0)}%</td>
                         </tr>
                         <tr className="last-row no-border">
                             <td className="text-left">Submission Total</td>
