@@ -14,39 +14,74 @@ const propTypes = {
     items: PropTypes.array,
     line: PropTypes.object,
     lineGroup: PropTypes.object,
-    labelGroup: PropTypes.object
+    labelGroup: PropTypes.object,
+    type: PropTypes.string
 };
 
 export default class BarChartXAxis extends React.Component {
     render() {
-        const timePeriodLabels = [];
-        this.props.items.forEach((yearItem) => {
-            yearItem.timePeriodItems.forEach((periodItem) => (
-                timePeriodLabels.push(
-                    <BarChartXAxisItem
-                        key={`${yearItem.value} ${periodItem.value}`}
-                        label={periodItem.label}
-                        x={periodItem.x}
-                        y={periodItem.y} />
-                )
+        let xAxisLabels = null;
+        if (this.props.type === 'time') {
+            const timePeriodLabels = [];
+            this.props.items.forEach((yearItem) => {
+                yearItem.timePeriodItems.forEach((periodItem) => (
+                    timePeriodLabels.push(
+                        <BarChartXAxisItem
+                            key={`${yearItem.value} ${periodItem.value}`}
+                            label={periodItem.label}
+                            x={periodItem.x}
+                            y={periodItem.y} />
+                    )
+                ));
+            });
+            const yearLines = this.props.items.map((item) => (
+                <line
+                    key={item.value}
+                    className="x-axis"
+                    x1={item.startX}
+                    x2={item.endX}
+                    y1={40}
+                    y2={40} />
             ));
-        });
-        const yearLines = this.props.items.map((item) => (
-            <line
-                key={item.value}
-                className="x-axis"
-                x1={item.startX}
-                x2={item.endX}
-                y1={40}
-                y2={40} />
-        ));
-        const yearLabels = this.props.items.map((yearItem) => (
-            <BarChartXAxisItem
-                key={yearItem.value}
-                label={`FY ${yearItem.label}`}
-                x={yearItem.x}
-                y={yearItem.y} />
-        ));
+            const yearLabels = this.props.items.map((yearItem) => (
+                <BarChartXAxisItem
+                    key={yearItem.value}
+                    label={`FY ${yearItem.label}`}
+                    x={yearItem.x}
+                    y={yearItem.y} />
+            ));
+            xAxisLabels = (
+                <g>
+                    <g
+                        className="axis-labels"
+                        transform={`translate(${this.props.labelGroup.x},${this.props.labelGroup.y})`}>
+                        {timePeriodLabels}
+                    </g>
+                    <g transform={`translate(${this.props.lineGroup.x}, ${this.props.lineGroup.y})`}>
+                        {yearLines}
+                    </g>
+                    <g
+                        className="axis-labels"
+                        transform={`translate(${this.props.labelGroup.x},${this.props.labelGroup.y})`}>
+                        {yearLabels}
+                    </g>
+                </g>
+            );
+        }
+        else {
+            const labels = this.props.items.map((item) => (
+                <BarChartXAxisItem
+                    {...item}
+                    key={item.value} />
+            ));
+            xAxisLabels = (
+                <g
+                    className="axis-labels"
+                    transform={`translate(${this.props.labelGroup.x},${this.props.labelGroup.y})`}>
+                    {labels}
+                </g>
+            );
+        }
 
         return (
             <g className="bar-axis">
@@ -60,19 +95,7 @@ export default class BarChartXAxis extends React.Component {
                         y1={this.props.line.y1}
                         y2={this.props.line.y2} />
                 </g>
-                <g
-                    className="axis-labels"
-                    transform={`translate(${this.props.labelGroup.x},${this.props.labelGroup.y})`}>
-                    {timePeriodLabels}
-                </g>
-                <g transform={`translate(${this.props.lineGroup.x}, ${this.props.lineGroup.y})`}>
-                    {yearLines}
-                </g>
-                <g
-                    className="axis-labels"
-                    transform={`translate(${this.props.labelGroup.x},${this.props.labelGroup.y})`}>
-                    {yearLabels}
-                </g>
+                {xAxisLabels}
             </g>
         );
     }
