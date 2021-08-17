@@ -117,7 +117,7 @@ export default class BarChartStacked extends React.Component {
         // when we actually draw the chart, we won't need to do any more calculations
 
         // calculate the Y axis range
-        const yRange = [0, max(values.allY.shownWarnings)];
+        const yRange = [0, Math.max(max(values.allY.shownWarnings), 1)];
         if (values.allY.shownWarnings.length === 1) {
             yRange[0] = 0;
         }
