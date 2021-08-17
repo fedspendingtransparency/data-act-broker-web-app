@@ -355,6 +355,8 @@ ${yAxis.items[0].label.text} to ${yAxis.items[yAxis.items.length - 1].label.text
         xAxis.description = `The X-axis of the chart, showing a range of values from \
 ${values.xSeries[0]} to ${values.xSeries[values.xSeries.length - 1]}.`;
 
+        xAxis.type = 'time';
+
         return xAxis;
     }
 
