@@ -11,6 +11,7 @@ import * as HelpHelper from 'helpers/helpHelper';
 import HelpPage from 'components/help/helpPage';
 import ResourcesPage from 'components/help/resourcesPage';
 import HistoryPage from 'components/help/historyPage';
+import RawFilesPage from 'components/help/rawFilesPage';
 
 const propTypes = {
     type: PropTypes.oneOf(['dabs', 'fabs']),
@@ -78,6 +79,12 @@ class HelpPageContainer extends React.Component {
                 {...this.props}
                 {...this.state}
                 helpOnly={helpOnly} />);
+        }
+        else if (currentRoute === '/rawfiles' || currentRoute === '/fabsrawfiles') {
+            return ((<RawFilesPage
+                {...this.props}
+                {...this.state}
+                helpOnly={helpOnly} />));
         }
         else if (currentRoute === '/history' || currentRoute === '/fabshistory') {
             return ((<HistoryPage
