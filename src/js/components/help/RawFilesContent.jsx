@@ -8,23 +8,26 @@ import PropTypes from 'prop-types';
 import $ from 'jquery';
 
 import RawFilesBreadcrumb from 'components/help/RawFilesBreadcrumb';
+import RawFilesItem from 'components/help/RawFilesItem';
 
 const propTypes = {
-    fileType: PropTypes.string,
-    agency: PropTypes.string,
-    year: PropTypes.string,
-    month: PropTypes.string,
+    fileType: PropTypes.object,
+    agency: PropTypes.object,
+    year: PropTypes.object,
+    month: PropTypes.object,
     currentList: PropTypes.array,
-    stateReset: PropTypes.func
+    stateReset: PropTypes.func,
+    itemAction: PropTypes.func
 };
 
 const defaultProps = {
-    fileType: '',
-    agency: '',
-    year: '',
-    month: '',
+    fileType: {id: null, label: ''},
+    agency: {id: null, label: ''},
+    year: {id: null, label: ''},
+    month: {id: null, label: ''},
     currentList: [],
-    stateReset: null
+    stateReset: null,
+    itemAction: null
 };
 
 export default class RawFilesContent extends React.Component {
@@ -39,61 +42,79 @@ export default class RawFilesContent extends React.Component {
     }
 
     render() {
+        let currentLevel = 'fileType';
         const breadcrumbList = [
             <RawFilesBreadcrumb
                 key="home"
-                clickable={this.props.fileType !== ''}
+                clickable={this.props.fileType.id !== null}
                 stateReset={this.props.stateReset} />
         ];
         const resetState = {
-            type: '',
-            agency: '',
-            year: '',
-            month: ''
+            fileType: {id: null, label: ''},
+            agency: {id: null, label: ''},
+            year: {id: null, label: ''},
+            month: {id: null, label: ''}
         }
 
-        if (this.props.fileType !== '') {
+        if (this.props.fileType.id !== null) {
+            currentLevel = 'agency';
             resetState.fileType = this.props.fileType;
 
+            breadcrumbList.push('/');
             breadcrumbList.push(
                 <RawFilesBreadcrumb
                     key="file-type"
-                    clickable={this.props.agency !== ''}
+                    clickable={this.props.agency.id !== null}
                     resetState={Object.assign({}, resetState)}
-                    label={this.props.fileType}
+                    label={this.props.fileType.label}
                     stateReset={this.props.stateReset} />
             );
         }
 
-        if (this.props.agency !== '') {
+        if (this.props.agency.id !== null) {
+            currentLevel = 'year';
             resetState.agency = this.props.agency;
 
+            breadcrumbList.push('/');
             breadcrumbList.push(
                 <RawFilesBreadcrumb
                     key="agency"
-                    clickable={this.props.year !== ''}
+                    clickable={this.props.year.id !== null}
                     resetState={Object.assign({}, resetState)}
-                    label={this.props.agency}
+                    label={this.props.agency.label}
                     stateReset={this.props.stateReset} />
             );
         }
 
-        if (this.props.year !== '') {
+        if (this.props.year.id !== null) {
+            currentLevel = 'period';
             resetState.year = this.props.year;
 
+            breadcrumbList.push('/');
             breadcrumbList.push(
                 <RawFilesBreadcrumb
                     key="year"
-                    clickable={this.props.month !== ''}
+                    clickable={this.props.month.id !== null}
                     resetState={Object.assign({}, resetState)}
-                    label={this.props.year}
+                    label={this.props.year.label}
                     stateReset={this.props.stateReset} />
             );
         }
 
-        if (this.props.month !== '') {
-            breadcrumbList.push(<RawFilesBreadcrumb key="month" label={this.props.month} />);
+        if (this.props.month.id !== null) {
+            currentLevel = 'download';
+            breadcrumbList.push('/');
+            breadcrumbList.push(<RawFilesBreadcrumb key="month" label={this.props.month.label} />);
         }
+
+        const items = this.props.currentList.map((item) =>
+            (<RawFilesItem
+                key={item.id}
+                id={item.id}
+                label={item.label}
+                currentLevel={currentLevel}
+                itemAction={this.props.itemAction} />)
+        );
         
         return (
             <div className="usa-da-help-content">
@@ -102,6 +123,7 @@ export default class RawFilesContent extends React.Component {
                     <div className="raw-files-breadcrumbs">
                         {breadcrumbList}
                     </div>
+                    {items}
                 </div>
             </div>
         );

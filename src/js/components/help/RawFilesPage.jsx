@@ -28,14 +28,19 @@ export default class RawFilesPage extends React.Component {
         super(props);
 
         this.state = {
-            fileType: 'fabs',
-            agency: '012',
-            year: '2014',
-            month: '05',
-            currentList: []
+            fileType: {id: 'fabs', label: 'Raw Financial Assistance Files'},
+            agency: {id: '012', label: '012 - Department of Agriculture (USDA)'},
+            year: {id: 2014, label: '2014'},
+            month: {id: 5, label: 'P05'},
+            // agency: {id: null, label: ''},
+            // year: {id: null, label: ''},
+            // month: {id: null, label: ''},
+            currentList: [{id: 1, label: 'file1'}, {id: 2, label: 'file2'}, {id: 3, label: 'file3'}, {id: 4, label: 'file4'}]
+            // currentList: [{id: 1, label: 'agency1'}, {id: 2, label: 'agency2'}, {id: 3, label: 'agency3'}, {id: 4, label: 'agency4'}]
         };
 
         this.stateReset = this.stateReset.bind(this);
+        this.itemAction = this.itemAction.bind(this);
     }
 
     scrollToTop() {
@@ -47,6 +52,15 @@ export default class RawFilesPage extends React.Component {
 
     stateReset(newState) {
         this.setState({ ...newState });
+    }
+
+    itemAction(level, id) {
+        if (level === 'download') {
+            console.log(`downloading file with publish ID: ${id}`);
+        }
+        else {
+            console.log(`querying for the next level using ${level} with id ${id}`);
+        }
     }
 
     render() {
@@ -73,7 +87,10 @@ export default class RawFilesPage extends React.Component {
                     <div className="container">
                         <div className="row usa-da-help-page">
                             <div className="col-md-12">
-                                <RawFilesContent {...this.state} stateReset={this.stateReset} />
+                                <RawFilesContent
+                                    {...this.state}
+                                    stateReset={this.stateReset}
+                                    itemAction={this.itemAction} />
                             </div>
                         </div>
                     </div>
