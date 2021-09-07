@@ -28,7 +28,7 @@ export default class RawFilesItem extends React.Component {
     }
 
     itemAction() {
-        this.props.itemAction(this.props.currentLevel, this.props.id);
+        this.props.itemAction(this.props.currentLevel, this.props.id, this.props.label);
     }
 
     render() {

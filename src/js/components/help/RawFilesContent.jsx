@@ -14,7 +14,7 @@ const propTypes = {
     fileType: PropTypes.object,
     agency: PropTypes.object,
     year: PropTypes.object,
-    month: PropTypes.object,
+    period: PropTypes.object,
     currentList: PropTypes.array,
     stateReset: PropTypes.func,
     itemAction: PropTypes.func
@@ -24,7 +24,7 @@ const defaultProps = {
     fileType: {id: null, label: ''},
     agency: {id: null, label: ''},
     year: {id: null, label: ''},
-    month: {id: null, label: ''},
+    period: {id: null, label: ''},
     currentList: [],
     stateReset: null,
     itemAction: null
@@ -53,7 +53,7 @@ export default class RawFilesContent extends React.Component {
             fileType: {id: null, label: ''},
             agency: {id: null, label: ''},
             year: {id: null, label: ''},
-            month: {id: null, label: ''}
+            period: {id: null, label: ''}
         }
 
         if (this.props.fileType.id !== null) {
@@ -94,17 +94,17 @@ export default class RawFilesContent extends React.Component {
             breadcrumbList.push(
                 <RawFilesBreadcrumb
                     key="year"
-                    clickable={this.props.month.id !== null}
+                    clickable={this.props.period.id !== null}
                     resetState={Object.assign({}, resetState)}
                     label={this.props.year.label}
                     stateReset={this.props.stateReset} />
             );
         }
 
-        if (this.props.month.id !== null) {
+        if (this.props.period.id !== null) {
             currentLevel = 'download';
             breadcrumbList.push('/');
-            breadcrumbList.push(<RawFilesBreadcrumb key="month" label={this.props.month.label} />);
+            breadcrumbList.push(<RawFilesBreadcrumb key="period" label={this.props.period.label} />);
         }
 
         const items = this.props.currentList.map((item) =>

@@ -19,7 +19,7 @@ const defaultProps = {
         fileType: {id: null, label: ''},
         agency: {id: null, label: ''},
         year: {id: null, label: ''},
-        month: {id: null, label: ''}
+        period: {id: null, label: ''}
     },
     label: 'Home',
     stateReset: null

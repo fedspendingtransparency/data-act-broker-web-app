@@ -10,12 +10,15 @@
         }
     }
 
-    .raw-files-breadcrumb {
-        margin: 0 rem(5);
+    .raw-files-breadcrumbs {
         margin-bottom: rem(15);
 
-        &.first {
-            margin-left: 0;
+        .raw-files-breadcrumb {
+            margin: 0 rem(5);
+
+            &.first {
+                margin-left: 0;
+            }
         }
     }
 

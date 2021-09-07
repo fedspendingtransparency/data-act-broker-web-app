@@ -6,6 +6,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import * as HelpHelper from 'helpers/helpHelper';
 
 import Navbar from 'components/SharedComponents/navigation/NavigationComponent';
 import Banner from 'components/SharedComponents/Banner';
@@ -28,19 +29,19 @@ export default class RawFilesPage extends React.Component {
         super(props);
 
         this.state = {
-            fileType: {id: 'fabs', label: 'Raw Financial Assistance Files'},
-            agency: {id: '012', label: '012 - Department of Agriculture (USDA)'},
-            year: {id: 2014, label: '2014'},
-            month: {id: 5, label: 'P05'},
-            // agency: {id: null, label: ''},
-            // year: {id: null, label: ''},
-            // month: {id: null, label: ''},
-            currentList: [{id: 1, label: 'file1'}, {id: 2, label: 'file2'}, {id: 3, label: 'file3'}, {id: 4, label: 'file4'}]
-            // currentList: [{id: 1, label: 'agency1'}, {id: 2, label: 'agency2'}, {id: 3, label: 'agency3'}, {id: 4, label: 'agency4'}]
+            fileType: {id: null, label: ''},
+            agency: {id: null, label: ''},
+            year: {id: null, label: ''},
+            period: {id: null, label: ''},
+            currentList: [
+                {id: 'dabs', label: 'Raw DATA Act Files'},
+                {id: 'fabs', label: 'Raw Financial Assistance Files'}
+            ]
         };
 
         this.stateReset = this.stateReset.bind(this);
         this.itemAction = this.itemAction.bind(this);
+        this.getDrilldownLevel = this.getDrilldownLevel.bind(this);
     }
 
     scrollToTop() {
@@ -51,20 +52,57 @@ export default class RawFilesPage extends React.Component {
     }
 
     stateReset(newState) {
-        this.setState({ ...newState });
-    }
-
-    itemAction(level, id) {
-        if (level === 'download') {
-            console.log(`downloading file with publish ID: ${id}`);
+        if (newState.fileType.id === null) {
+            newState.currentList = [
+                {id: 'dabs', label: 'Raw DATA Act Files'},
+                {id: 'fabs', label: 'Raw Financial Assistance Files'}
+            ];
+            this.setState({ ...newState });
         }
         else {
-            console.log(`querying for the next level using ${level} with id ${id}`);
+            this.getDrilldownLevel(newState);
         }
+    }
+
+    itemAction(level, id, label) {
+        if (level === 'download') {
+            HelpHelper.downloadPublishedFile(id);
+                // .then((publishedSubmissions) => {
+                //     if (publishedSubmissions.length > 0) {
+                //         this.setState({
+                //             testSubmission: true,
+                //             submissionType: 'test',
+                //             publishedSubmissions
+                //         }, this.checkComplete);
+                //     }
+                //     else {
+                //         this.setState({
+                //             testSubmission: false,
+                //             publishedSubmissions
+                //         }, this.checkComplete);
+                //     }
+                // });
+        }
+        else {
+            const tmpState = Object.assign({}, this.state);
+            tmpState[level] = {id, label};
+            this.getDrilldownLevel(tmpState);
+        }
+    }
+
+    getDrilldownLevel(currState) {
+        console.log(currState);
+        HelpHelper.rawFilesDrilldown(currState.fileType.id, currState.agency.id, currState.year.id, currState.period.id)
+            .then((drilldownList) => {
+                currState.currentList = drilldownList;
+                this.setState({ ...currState });
+            })
+            .catch((error) => {
+                console.error(error);
+            });
     }
 
     render() {
-        console.log(this.state);
         const activeTab = this.props.type === 'fabs' ? 'FABSHelp' : 'help';
         const color = this.props.type === 'fabs' ? 'teal' : 'dark';
         return (

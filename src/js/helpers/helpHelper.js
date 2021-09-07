@@ -2,6 +2,7 @@ import Q from 'q';
 import Markdown from 'markdown';
 import ent from 'ent';
 import Request from './sessionSuperagent';
+import { kGlobalConstants } from '../GlobalConstants';
 
 require('../../help/changelog.md');
 require('../../help/history.md');
@@ -242,4 +243,35 @@ export const loadResources = () => {
         });
 
     return deferred.promise;
+};
+
+export const rawFilesDrilldown = (type = '', agency = null, year = null, period = null) => {
+    const deferred = Q.defer();
+    let params = `type=${type}`;
+    if (agency !== null) {
+        params += `&agency=${agency}`;
+    }
+    if (year !== null) {
+        params += `&year=${year}`;
+    }
+    if (period !== null) {
+        params += `&period=${period}`;
+    }
+
+    Request.get(`${kGlobalConstants.API}list_latest_published_files/?${params}`)
+        .send()
+        .end((err, res) => {
+            if (err) {
+                deferred.reject(err);
+            }
+            else {
+                deferred.resolve(res.body);
+            }
+        });
+
+    return deferred.promise;
+};
+
+export const downloadPublishedFile = (publishedFilesId = 0) => {
+    console.log(`Downloading file with ID ${publishedFilesId}`);
 };
