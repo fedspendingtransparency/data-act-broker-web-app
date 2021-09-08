@@ -66,22 +66,13 @@ export default class RawFilesPage extends React.Component {
 
     itemAction(level, id, label) {
         if (level === 'download') {
-            HelpHelper.downloadPublishedFile(id);
-                // .then((publishedSubmissions) => {
-                //     if (publishedSubmissions.length > 0) {
-                //         this.setState({
-                //             testSubmission: true,
-                //             submissionType: 'test',
-                //             publishedSubmissions
-                //         }, this.checkComplete);
-                //     }
-                //     else {
-                //         this.setState({
-                //             testSubmission: false,
-                //             publishedSubmissions
-                //         }, this.checkComplete);
-                //     }
-                // });
+            HelpHelper.downloadPublishedFile(id)
+                .then((result) => {
+                    window.open(result.url);
+                })
+                .catch((error) => {
+                    console.error(error);
+                });
         }
         else {
             const tmpState = Object.assign({}, this.state);

@@ -273,5 +273,18 @@ export const rawFilesDrilldown = (type = '', agency = null, year = null, period 
 };
 
 export const downloadPublishedFile = (publishedFilesId = 0) => {
-    console.log(`Downloading file with ID ${publishedFilesId}`);
+    const deferred = Q.defer();
+
+    Request.get(`${kGlobalConstants.API}get_submitted_published_file/?published_files_history_id=${publishedFilesId}`)
+        .send()
+        .end((err, res) => {
+            if (err) {
+                deferred.reject(err);
+            }
+            else {
+                deferred.resolve(res.body);
+            }
+        });
+
+    return deferred.promise;
 };
