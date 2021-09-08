@@ -7,15 +7,13 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 const propTypes = {
-    id: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
-    label: PropTypes.string,
+    item: PropTypes.object,
     currentLevel: PropTypes.string,
     itemAction: PropTypes.func
 };
 
 const defaultProps = {
-    id: null,
-    label: '',
+    item: {id: null, label: ''},
     currentLevel: '',
     itemAction: null
 };
@@ -28,14 +26,24 @@ export default class RawFilesItem extends React.Component {
     }
 
     itemAction() {
-        this.props.itemAction(this.props.currentLevel, this.props.id, this.props.label);
+        this.props.itemAction(this.props.currentLevel, this.props.item.id, this.props.item.label);
     }
 
     render() {
+        let filePrefix = '';
+        if (this.props.currentLevel === 'download') {
+            if (this.props.item.filetype === 'FABS') {
+                filePrefix = `Submission ${this.props.item.submission_id}: `;
+            }
+            else {
+                filePrefix = `File ${this.props.item.filetype}: `;
+            }
+        }
         return (
             <div className="raw-files-item">
+                {filePrefix}
                 <button onClick={this.itemAction} className="raw-files-button">
-                    {this.props.label}
+                    {this.props.item.label}
                 </button>
             </div>
         );

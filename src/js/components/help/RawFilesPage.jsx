@@ -91,7 +91,6 @@ export default class RawFilesPage extends React.Component {
     }
 
     getDrilldownLevel(currState) {
-        console.log(currState);
         HelpHelper.rawFilesDrilldown(currState.fileType.id, currState.agency.id, currState.year.id, currState.period.id)
             .then((drilldownList) => {
                 currState.currentList = drilldownList;

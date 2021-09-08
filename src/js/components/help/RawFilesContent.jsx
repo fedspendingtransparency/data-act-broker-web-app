@@ -110,8 +110,7 @@ export default class RawFilesContent extends React.Component {
         const items = this.props.currentList.map((item) =>
             (<RawFilesItem
                 key={item.id}
-                id={item.id}
-                label={item.label}
+                item={item}
                 currentLevel={currentLevel}
                 itemAction={this.props.itemAction} />)
         );
