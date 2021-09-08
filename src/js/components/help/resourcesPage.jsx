@@ -5,7 +5,6 @@
 
 import React from 'react';
 import PropTypes from 'prop-types';
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 import Navbar from 'components/SharedComponents/navigation/NavigationComponent';
 import Banner from 'components/SharedComponents/Banner';

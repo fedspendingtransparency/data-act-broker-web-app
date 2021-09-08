@@ -16,10 +16,10 @@ const propTypes = {
 const defaultProps = {
     clickable: false,
     resetState: {
-        fileType: {id: null, label: ''},
-        agency: {id: null, label: ''},
-        year: {id: null, label: ''},
-        period: {id: null, label: ''}
+        fileType: { id: null, label: '' },
+        agency: { id: null, label: '' },
+        year: { id: null, label: '' },
+        period: { id: null, label: '' }
     },
     label: 'Home',
     stateReset: null
@@ -43,9 +43,11 @@ export default class RawFilesBreadcrumb extends React.Component {
         }
         let breadcrumb = <span className={breadcrumbClass}>{this.props.label}</span>;
         if (this.props.clickable) {
-            breadcrumb = <button className={breadcrumbClass} onClick={this.stateReset}>
-                {this.props.label}
-            </button>
+            breadcrumb = (
+                <button className={breadcrumbClass} onClick={this.stateReset}>
+                    {this.props.label}
+                </button>
+            );
         }
         return (
             <React.Fragment>

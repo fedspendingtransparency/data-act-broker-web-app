@@ -11,7 +11,7 @@ import * as HelpHelper from 'helpers/helpHelper';
 import HelpPage from 'components/help/helpPage';
 import ResourcesPage from 'components/help/resourcesPage';
 import HistoryPage from 'components/help/historyPage';
-import RawFilesPage from 'components/help/rawFilesPage';
+import RawFilesPage from 'components/help/RawFilesPage';
 
 const propTypes = {
     type: PropTypes.oneOf(['dabs', 'fabs']),

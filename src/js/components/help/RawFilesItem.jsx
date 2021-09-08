@@ -13,7 +13,7 @@ const propTypes = {
 };
 
 const defaultProps = {
-    item: {id: null, label: ''},
+    item: { id: null, label: '' },
     currentLevel: '',
     itemAction: null
 };

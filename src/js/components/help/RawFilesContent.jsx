@@ -20,10 +20,10 @@ const propTypes = {
 };
 
 const defaultProps = {
-    fileType: {id: null, label: ''},
-    agency: {id: null, label: ''},
-    year: {id: null, label: ''},
-    period: {id: null, label: ''},
+    fileType: { id: null, label: '' },
+    agency: { id: null, label: '' },
+    year: { id: null, label: '' },
+    period: { id: null, label: '' },
     currentList: [],
     stateReset: null,
     itemAction: null
@@ -39,11 +39,11 @@ export default class RawFilesContent extends React.Component {
                 stateReset={this.props.stateReset} />
         ];
         const resetState = {
-            fileType: {id: null, label: ''},
-            agency: {id: null, label: ''},
-            year: {id: null, label: ''},
-            period: {id: null, label: ''}
-        }
+            fileType: { id: null, label: '' },
+            agency: { id: null, label: '' },
+            year: { id: null, label: '' },
+            period: { id: null, label: '' }
+        };
 
         if (this.props.fileType.id !== null) {
             currentLevel = 'agency';

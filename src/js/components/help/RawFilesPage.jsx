@@ -10,8 +10,8 @@ import * as HelpHelper from 'helpers/helpHelper';
 import Navbar from 'components/SharedComponents/navigation/NavigationComponent';
 import Banner from 'components/SharedComponents/Banner';
 import Footer from 'components/SharedComponents/FooterComponent';
-import HelpNav from './helpNav';
 import RawFilesContent from 'components/help/RawFilesContent';
+import HelpNav from './helpNav';
 
 const propTypes = {
     type: PropTypes.oneOf(['dabs', 'fabs']),
@@ -28,13 +28,13 @@ export default class RawFilesPage extends React.Component {
         super(props);
 
         this.state = {
-            fileType: {id: null, label: ''},
-            agency: {id: null, label: ''},
-            year: {id: null, label: ''},
-            period: {id: null, label: ''},
+            fileType: { id: null, label: '' },
+            agency: { id: null, label: '' },
+            year: { id: null, label: '' },
+            period: { id: null, label: '' },
             currentList: [
-                {id: 'dabs', label: 'Raw DATA Act Files'},
-                {id: 'fabs', label: 'Raw Financial Assistance Files'}
+                { id: 'dabs', label: 'Raw DATA Act Files' },
+                { id: 'fabs', label: 'Raw Financial Assistance Files' }
             ]
         };
 
@@ -43,17 +43,16 @@ export default class RawFilesPage extends React.Component {
         this.getDrilldownLevel = this.getDrilldownLevel.bind(this);
     }
 
-    stateReset(newState) {
-        if (newState.fileType.id === null) {
-            newState.currentList = [
-                {id: 'dabs', label: 'Raw DATA Act Files'},
-                {id: 'fabs', label: 'Raw Financial Assistance Files'}
-            ];
-            this.setState({ ...newState });
-        }
-        else {
-            this.getDrilldownLevel(newState);
-        }
+    getDrilldownLevel(currState) {
+        const tmpState = currState;
+        HelpHelper.rawFilesDrilldown(tmpState.fileType.id, tmpState.agency.id, tmpState.year.id, tmpState.period.id)
+            .then((drilldownList) => {
+                tmpState.currentList = drilldownList;
+                this.setState({ ...tmpState });
+            })
+            .catch((error) => {
+                console.error(error);
+            });
     }
 
     itemAction(level, id, label) {
@@ -68,20 +67,23 @@ export default class RawFilesPage extends React.Component {
         }
         else {
             const tmpState = Object.assign({}, this.state);
-            tmpState[level] = {id, label};
+            tmpState[level] = { id, label };
             this.getDrilldownLevel(tmpState);
         }
     }
 
-    getDrilldownLevel(currState) {
-        HelpHelper.rawFilesDrilldown(currState.fileType.id, currState.agency.id, currState.year.id, currState.period.id)
-            .then((drilldownList) => {
-                currState.currentList = drilldownList;
-                this.setState({ ...currState });
-            })
-            .catch((error) => {
-                console.error(error);
-            });
+    stateReset(newState) {
+        if (newState.fileType.id === null) {
+            const tmpState = newState;
+            tmpState.currentList = [
+                { id: 'dabs', label: 'Raw DATA Act Files' },
+                { id: 'fabs', label: 'Raw Financial Assistance Files' }
+            ];
+            this.setState({ ...tmpState });
+        }
+        else {
+            this.getDrilldownLevel(newState);
+        }
     }
 
     render() {
