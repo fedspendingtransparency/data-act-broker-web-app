@@ -5,7 +5,6 @@
 
 import React from 'react';
 import PropTypes from 'prop-types';
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import * as HelpHelper from 'helpers/helpHelper';
 
 import Navbar from 'components/SharedComponents/navigation/NavigationComponent';
@@ -42,13 +41,6 @@ export default class RawFilesPage extends React.Component {
         this.stateReset = this.stateReset.bind(this);
         this.itemAction = this.itemAction.bind(this);
         this.getDrilldownLevel = this.getDrilldownLevel.bind(this);
-    }
-
-    scrollToTop() {
-        window.scrollTo({
-            top: 0,
-            behavior: "smooth"
-        });
     }
 
     stateReset(newState) {
@@ -124,16 +116,6 @@ export default class RawFilesPage extends React.Component {
                     </div>
                 </div>
                 <Footer />
-                <div className="usa-da-help-top-button">
-                    <button
-                        onClick={this.scrollToTop}
-                        aria-label="Back to top">
-                        <div className="usa-da-icon">
-                            <FontAwesomeIcon icon="angle-up" size="lg" />
-                        </div>
-                        <span className="hidden-label">Back to top</span>
-                    </button>
-                </div>
             </div>
         );
     }

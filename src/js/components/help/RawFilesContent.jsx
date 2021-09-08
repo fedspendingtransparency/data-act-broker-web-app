@@ -5,7 +5,6 @@
 
 import React from 'react';
 import PropTypes from 'prop-types';
-import $ from 'jquery';
 
 import RawFilesBreadcrumb from 'components/help/RawFilesBreadcrumb';
 import RawFilesItem from 'components/help/RawFilesItem';
@@ -31,16 +30,6 @@ const defaultProps = {
 };
 
 export default class RawFilesContent extends React.Component {
-    componentDidMount() {
-        this.scrollToTop();
-    }
-
-    scrollToTop() {
-        $('html, body').animate({
-            scrollTop: 0
-        }, 500);
-    }
-
     render() {
         let currentLevel = 'fileType';
         const breadcrumbList = [
@@ -114,11 +103,11 @@ export default class RawFilesContent extends React.Component {
                 currentLevel={currentLevel}
                 itemAction={this.props.itemAction} />)
         );
-        
+
         return (
             <div className="usa-da-help-content">
                 <div className="raw-files-page">
-                    <h2>Raw Files</h2>
+                    <h2>Raw Agency Submission Files</h2>
                     <div className="raw-files-breadcrumbs">
                         {breadcrumbList}
                     </div>

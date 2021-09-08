@@ -24,13 +24,6 @@ const defaultProps = {
 };
 
 export default class ResourcesPage extends React.Component {
-    scrollToTop() {
-        window.scrollTo({
-            top: 0,
-            behavior: "smooth"
-        });
-    }
-
     render() {
         const activeTab = this.props.type === 'fabs' ? 'FABSHelp' : 'help';
         const color = this.props.type === 'fabs' ? 'teal' : 'dark';
@@ -60,16 +53,6 @@ export default class ResourcesPage extends React.Component {
                     </div>
                 </div>
                 <Footer />
-                <div className="usa-da-help-top-button">
-                    <button
-                        onClick={this.scrollToTop}
-                        aria-label="Back to top">
-                        <div className="usa-da-icon">
-                            <FontAwesomeIcon icon="angle-up" size="lg" />
-                        </div>
-                        <span className="hidden-label">Back to top</span>
-                    </button>
-                </div>
             </div>
         );
     }
