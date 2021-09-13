@@ -1,0 +1,28 @@
+.raw-files-page {
+    font-size: $h5-font-size;
+
+    button {
+        @include button-unstyled;
+        color: $color-primary-alt-dark;
+
+        &:hover {
+            text-decoration: underline;
+        }
+    }
+
+    .raw-files-breadcrumbs {
+        margin-bottom: rem(15);
+
+        .raw-files-breadcrumb {
+            margin: 0 rem(5);
+
+            &.first {
+                margin-left: 0;
+            }
+        }
+    }
+
+    .raw-files-item {
+        margin: rem(5) 0;
+    }
+}

@@ -5,7 +5,6 @@
 
 import React from 'react';
 import PropTypes from 'prop-types';
-import $ from 'jquery';
 
 const propTypes = {
     type: PropTypes.string
@@ -16,16 +15,6 @@ const defaultProps = {
 };
 
 export default class ResourcesContent extends React.Component {
-    componentDidMount() {
-        this.scrollToTop();
-    }
-
-    scrollToTop() {
-        $('html, body').animate({
-            scrollTop: 0
-        }, 500);
-    }
-
     render() {
         const content = (
             <div>

@@ -13,7 +13,7 @@ const propTypes = {
 };
 
 const defaultProps = {
-    pageArray: ['Help', 'Resources'],
+    pageArray: ['Help', 'Resources', 'Raw Files'],
     selected: '',
     type: ''
 };
@@ -21,8 +21,8 @@ const defaultProps = {
 export default class HelpNav extends React.Component {
     render() {
         const pageLinks = this.props.pageArray.map((page) => {
-            const dabsUrl = `/#/${page.toLowerCase()}`;
-            const fabsUrl = `/#/FABS${page.charAt(0).toUpperCase()}${page.slice(1)}`;
+            const dabsUrl = `/#/${page.toLowerCase().replace(' ', '')}`;
+            const fabsUrl = `/#/FABS${page.charAt(0).toUpperCase()}${page.slice(1).toLowerCase().replace(' ', '')}`;
             const url = this.props.type === 'fabs' ? fabsUrl : dabsUrl;
 
             if (this.props.selected === page) {
