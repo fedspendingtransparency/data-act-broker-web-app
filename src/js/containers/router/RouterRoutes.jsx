@@ -205,6 +205,11 @@ const getRoutes = () => {
             component: 'help'
         },
         {
+            path: 'rawfiles',
+            authFn: [checkHelpUserPermissions, checkUserPermissions],
+            component: 'help'
+        },
+        {
             path: 'history',
             authFn: [checkHelpUserPermissions, checkUserPermissions],
             component: 'help'
