@@ -1,4 +1,9 @@
-#### August 3, 2021{section=changelog}
+#### August 24, 2021{section=changelog}
+In this release of the Broker, we:
+
+* Fixed some minor frontend bugs with Historic and Active Dashboards displaying monthly and quarterly submissions.
+
+#### August 3, 2021
 In this release of the Broker, we:
 
 * Added a TEST submission type to FABS. Like DABS TEST submissions, this submission type allows a file to be uploaded and validations ran; however, it cannot be published. This will provide agencies with a way to test FABS data and FABS file formats with no possibility of a test file being published. When testing is complete the file can be deleted, or the Broker will auto-delete any TEST submission that hasn’t had activity in the last 6 months.
