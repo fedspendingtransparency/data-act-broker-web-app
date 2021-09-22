@@ -210,6 +210,11 @@ const getRoutes = () => {
             component: 'help'
         },
         {
+            path: 'datasources',
+            authFn: [checkHelpUserPermissions, checkUserPermissions],
+            component: 'help'
+        },
+        {
             path: 'history',
             authFn: [checkHelpUserPermissions, checkUserPermissions],
             component: 'help'
