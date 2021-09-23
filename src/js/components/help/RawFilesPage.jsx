@@ -68,8 +68,8 @@ export default class RawFilesPage extends React.Component {
                     });
             }
             else {
-                const urlType = kGlobalConstants.PROD ? '' : 'non';
-                window.open(`https://files-${urlType}prod.usaspending.gov/agency_submissions/${label}`);
+                const urlType = kGlobalConstants.PROD ? '' : '-nonprod';
+                window.open(`https://files${urlType}.usaspending.gov/agency_submissions/${label}`);
             }
         }
         else {
