@@ -55,10 +55,18 @@ export default class PublishModal extends React.Component {
         const publishable = this.props.rows.valid_rows !== 0;
 
         let message = (
-            <p>
-                This will publish the {this.props.rows.valid_rows} data rows that have passed validation out
-                of a total of {this.props.rows.total_rows} data rows in your FABS file
-            </p>);
+            <React.Fragment>
+                <p>
+                    This will publish the {this.props.rows.valid_rows} data rows that have passed validation out
+                    of a total of {this.props.rows.total_rows} data rows in your FABS file
+                </p>
+                <p>
+                    {this.props.rows.total_rows - this.props.rows.valid_rows} rows violated one or more fatal validation
+                    rules and will not be published. If these rows are not resubmitted and published in a separate FABS
+                    submission, then your agency&#8217;s financial assistance data on USAspending will be incomplete and
+                    you may receive linkage warnings any time these awards appear in your agency&#8217;s File C data.
+                </p>
+            </React.Fragment>);
 
         let action = (
             <button
