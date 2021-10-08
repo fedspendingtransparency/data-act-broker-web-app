@@ -23,7 +23,7 @@ const defaultProps = {
     helpOnly: false
 };
 
-export default class RawFilesPage extends React.Component {
+export default class DataSourcesPage extends React.Component {
     render() {
         const activeTab = this.props.type === 'fabs' ? 'FABSHelp' : 'help';
         const color = this.props.type === 'fabs' ? 'teal' : 'dark';
@@ -58,5 +58,5 @@ export default class RawFilesPage extends React.Component {
     }
 }
 
-RawFilesPage.propTypes = propTypes;
-RawFilesPage.defaultProps = defaultProps;
+DataSourcesPage.propTypes = propTypes;
+DataSourcesPage.defaultProps = defaultProps;
