@@ -34,13 +34,15 @@ export default class DataSourcesContent extends React.Component {
                                 weekly USAspending Assistance Listing file to SAM.gov AWS S3 bucket and we load each new
                                 file into the Broker when it becomes available. The file is complete and includes
                                 retired Assistance Listings (including deactivation date). The latest file loaded into
-                                the Broker can be downloaded at:&nbsp;
-                                <a
-                                    target="_blank"
-                                    rel="noopener noreferrer"
-                                    href="https://files.usaspending.gov/reference_data/cfda.csv">
-                                    https://files.usaspending.gov/reference_data/cfda.csv
-                                </a>.
+                                the Broker can be downloaded at:&nbsp;{
+                                (
+                                    <a
+                                        target="_blank"
+                                        rel="noopener noreferrer"
+                                        href="https://files.usaspending.gov/reference_data/cfda.csv">
+                                        https://files.usaspending.gov/reference_data/cfda.csv
+                                    </a>
+                                )}.
                             </p>}
                         updatedAt={this.props.updateDates.cfda} />
 
@@ -51,13 +53,15 @@ export default class DataSourcesContent extends React.Component {
                         description="A hierarchical list of toptier and subtier agencies and associated metadata."
                         source={
                             <p>Updated periodically (e.g., due to changes in the IAE Federal Hierarchy or the A-11
-                                Circular Appendix C). The latest file loaded into the Broker can be downloaded at&nbsp;
-                                <a
-                                    target="_blank"
-                                    rel="noopener noreferrer"
-                                    href="https://files.usaspending.gov/reference_data/agency_codes.csv">
-                                    https://files.usaspending.gov/reference_data/agency_codes.csv
-                                </a>.
+                                Circular Appendix C). The latest file loaded into the Broker can be downloaded at&nbsp;{
+                                (
+                                    <a
+                                        target="_blank"
+                                        rel="noopener noreferrer"
+                                        href="https://files.usaspending.gov/reference_data/agency_codes.csv">
+                                        https://files.usaspending.gov/reference_data/agency_codes.csv
+                                    </a>
+                                )}.
                             </p>}
                         updatedAt={this.props.updateDates.agency} />
 
@@ -83,13 +87,15 @@ export default class DataSourcesContent extends React.Component {
                             " including the 5 character identifying codes and the states and counties they are part" +
                             " of."}
                         source={
-                            <p>Zip obtained from&nbsp;
-                                <a
-                                    target="_blank"
-                                    rel="noopener noreferrer"
-                                    href={gnisURL}>
-                                    {gnisURL}
-                                </a> and updated monthly if new data is available. The latest file loaded into the
+                            <p>Zip obtained from&nbsp;{
+                                (
+                                    <a
+                                        target="_blank"
+                                        rel="noopener noreferrer"
+                                        href={gnisURL}>
+                                        {gnisURL}
+                                    </a>
+                                )} and updated monthly if new data is available. The latest file loaded into the
                                 Broker can be downloaded at [LINK].
                             </p>}
                         updatedAt={this.props.updateDates.city} />
@@ -115,13 +121,15 @@ export default class DataSourcesContent extends React.Component {
                         description={"All current countries as recognized under the GENC standard along with their" +
                             " two- and three-character abbreviations."}
                         source={
-                            <p>A manually compiled CSV sourced from this URL that is updated as needed:&nbsp;
-                                <a
-                                    target="_blank"
-                                    rel="noopener noreferrer"
-                                    href="https://nsgreg.nga.mil/genc/discovery">
-                                    https://nsgreg.nga.mil/genc/discovery
-                                </a> The latest Broker file can be downloaded at [LINK].
+                            <p>A manually compiled CSV sourced from this URL that is updated as needed:&nbsp;{
+                                (
+                                    <a
+                                        target="_blank"
+                                        rel="noopener noreferrer"
+                                        href="https://nsgreg.nga.mil/genc/discovery">
+                                        https://nsgreg.nga.mil/genc/discovery
+                                    </a>
+                                )} The latest Broker file can be downloaded at [LINK].
                             </p>}
                         updatedAt={this.props.updateDates.country_code} />
 
@@ -131,13 +139,15 @@ export default class DataSourcesContent extends React.Component {
                         description={"A list of all counties in the US and its territories, including their name," +
                             " code, and the state to which they belong."}
                         source={
-                            <p>Zip obtained from&nbsp;
-                                <a
-                                    target="_blank"
-                                    rel="noopener noreferrer"
-                                    href="https://geonames.usgs.gov/docs/stategaz/GOVT_UNITS.zip">
-                                    https://geonames.usgs.gov/docs/stategaz/GOVT_UNITS.zip
-                                </a> and loaded manually as needed. The latest file loaded into the Broker can be
+                            <p>Zip obtained from&nbsp;{
+                                (
+                                    <a
+                                        target="_blank"
+                                        rel="noopener noreferrer"
+                                        href="https://geonames.usgs.gov/docs/stategaz/GOVT_UNITS.zip">
+                                        https://geonames.usgs.gov/docs/stategaz/GOVT_UNITS.zip
+                                    </a>
+                                )} and loaded manually as needed. The latest file loaded into the Broker can be
                                 downloaded at [LINK].
                             </p>}
                         updatedAt={this.props.updateDates.county_code} />
@@ -173,11 +183,12 @@ export default class DataSourcesContent extends React.Component {
                         description="All transactions for IDV and Contract Awards."
                         source={
                             <p>The daily FPDS update/delete Atom feeds, which contain updates made during the
-                                previous day in FPDS. Specific entries can be searched for on their website at&nbsp;
-                                <a target="_blank" rel="noopener noreferrer" href="https://fpds.gov">
-                                    https://fpds.gov
-                                </a>.
-                                Data is not available for download on this page, but the data can be found on
+                                previous day in FPDS. Specific entries can be searched for on their website at&nbsp;{
+                                (
+                                    <a target="_blank" rel="noopener noreferrer" href="https://fpds.gov">
+                                        https://fpds.gov
+                                    </a>
+                                )}. Data is not available for download on this page, but the data can be found on
                                 USAspending or in D1 file generation elsewhere on the Broker.
                             </p>}
                         updatedAt={this.props.updateDates.fpds} />
@@ -223,18 +234,25 @@ export default class DataSourcesContent extends React.Component {
                             " of the annual budget of the United States Government."}
                         source={
                             <p>OMB conducts a monthly MAX Collect exercise to update this data, which is available
-                                here:&nbsp;
-                                <a target="_blank" rel="noopener noreferrer" href="https://community.max.gov/x/r4NkS">
-                                    https://community.max.gov/x/r4NkS
-                                </a>. When any updates are available, OMB MAX places that data into an S3 bucket for
+                                here:&nbsp;{
+                                (
+                                    <a
+                                        target="_blank"
+                                        rel="noopener noreferrer"
+                                        href="https://community.max.gov/x/r4NkS">
+                                        https://community.max.gov/x/r4NkS
+                                    </a>
+                                )}. When any updates are available, OMB MAX places that data into an S3 bucket for
                                 Broker to process on a daily basis (containing updates from the previous day). The
-                                latest file loaded by the Broker is available here:&nbsp;
-                                <a
-                                    target="_blank"
-                                    rel="noopener noreferrer"
-                                    href="https://files.usaspending.gov/reference_data/program_activity.csv">
-                                    https://files.usaspending.gov/reference_data/program_activity.csv
-                                </a>.
+                                latest file loaded by the Broker is available here:&nbsp;{
+                                (
+                                    <a
+                                        target="_blank"
+                                        rel="noopener noreferrer"
+                                        href="https://files.usaspending.gov/reference_data/program_activity.csv">
+                                        https://files.usaspending.gov/reference_data/program_activity.csv
+                                    </a>
+                                )}.
                             </p>}
                         updatedAt={this.props.updateDates.program_activity} />
 
