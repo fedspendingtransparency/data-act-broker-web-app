@@ -4,7 +4,16 @@
  */
 
 import React from 'react';
+import PropTypes from 'prop-types';
 import DataSourcesItem from 'components/help/DataSourcesItem';
+
+const propTypes = {
+    updateDates: PropTypes.object
+};
+
+const defaultProps = {
+    updateDates: {}
+};
 
 export default class DataSourcesContent extends React.Component {
     render() {
@@ -33,7 +42,7 @@ export default class DataSourcesContent extends React.Component {
                                     https://files.usaspending.gov/reference_data/cfda.csv
                                 </a>.
                             </p>}
-                        updatedAt={"10/01/2021 00:00:00"} />
+                        updatedAt={this.props.updateDates.cfda} />
 
                     <DataSourcesItem
                         title="Agency"
@@ -50,7 +59,7 @@ export default class DataSourcesContent extends React.Component {
                                     https://files.usaspending.gov/reference_data/agency_codes.csv
                                 </a>.
                             </p>}
-                        updatedAt={undefined} />
+                        updatedAt={this.props.updateDates.agency} />
 
                     <DataSourcesItem
                         title="Central Accounting Reporting System (CARS)/ Treasury Account Symbols (TAS)"
@@ -65,7 +74,7 @@ export default class DataSourcesContent extends React.Component {
                                 CSV by the Broker. New files are received up to daily during the GTAS window each
                                 period. The latest file loaded into the Broker can be downloaded at [LINK].
                             </p>}
-                        updatedAt={undefined} />
+                        updatedAt={this.props.updateDates.tas} />
 
                     <DataSourcesItem
                         title="City"
@@ -83,7 +92,7 @@ export default class DataSourcesContent extends React.Component {
                                 </a> and updated monthly if new data is available. The latest file loaded into the
                                 Broker can be downloaded at [LINK].
                             </p>}
-                        updatedAt={undefined} />
+                        updatedAt={this.props.updateDates.city} />
 
                     <DataSourcesItem
                         title="Congressional District"
@@ -98,7 +107,7 @@ export default class DataSourcesContent extends React.Component {
                                 districts from the 2000 census that no longer exist but that are still relevant to open
                                 awards. The latest Broker file can be downloaded at [LINK].
                             </p>}
-                        updatedAt={undefined} />
+                        updatedAt={this.props.updateDates.congressional_district} />
 
                     <DataSourcesItem
                         title="Country Code"
@@ -114,7 +123,7 @@ export default class DataSourcesContent extends React.Component {
                                     https://nsgreg.nga.mil/genc/discovery
                                 </a> The latest Broker file can be downloaded at [LINK].
                             </p>}
-                        updatedAt={undefined} />
+                        updatedAt={this.props.updateDates.country_code} />
 
                     <DataSourcesItem
                         title="County"
@@ -131,7 +140,7 @@ export default class DataSourcesContent extends React.Component {
                                 </a> and loaded manually as needed. The latest file loaded into the Broker can be
                                 downloaded at [LINK].
                             </p>}
-                        updatedAt={undefined} />
+                        updatedAt={this.props.updateDates.county_code} />
 
                     <DataSourcesItem
                         title="DUNS/UEI"
@@ -145,7 +154,7 @@ export default class DataSourcesContent extends React.Component {
                             <p>SAM.gov monthly and daily files from their site. Daily files contain actions from the
                                 previous day in SAM. File is FOUO so is not available for download.
                             </p>}
-                        updatedAt={undefined} />
+                        updatedAt={this.props.updateDates.recipient} />
 
                     <DataSourcesItem
                         title="Executive Compensation"
@@ -156,7 +165,7 @@ export default class DataSourcesContent extends React.Component {
                             <p>SAM.gov monthly and daily files from their site. File is FOUO so is not available
                                 for download.
                             </p>}
-                        updatedAt={undefined} />
+                        updatedAt={this.props.updateDates.executive_compensation} />
 
                     <DataSourcesItem
                         title="FPDS"
@@ -171,7 +180,7 @@ export default class DataSourcesContent extends React.Component {
                                 Data is not available for download on this page, but the data can be found on
                                 USAspending or in D1 file generation elsewhere on the Broker.
                             </p>}
-                        updatedAt={undefined} />
+                        updatedAt={this.props.updateDates.fpds} />
 
                     <DataSourcesItem
                         title="GTAS/SF-133"
@@ -182,7 +191,7 @@ export default class DataSourcesContent extends React.Component {
                             <p>This file is manually placed into a shared S3 bucket by FRB and translated into a CSV
                                 by the Broker on a daily basis during the GTAS window each period.
                             </p>}
-                        updatedAt={undefined} />
+                        updatedAt={this.props.updateDates.gtas} />
 
                     <DataSourcesItem
                         title="Object Class"
@@ -194,7 +203,7 @@ export default class DataSourcesContent extends React.Component {
                             <p>OMB Circular A-11 object classes manually encoded in CSV form and updated as needed.
                                 The latest Broker file can be downloaded at [LINK].
                             </p>}
-                        updatedAt={undefined} />
+                        updatedAt={this.props.updateDates.object_class} />
 
                     <DataSourcesItem
                         title="Office"
@@ -205,7 +214,7 @@ export default class DataSourcesContent extends React.Component {
                             <p>The Federal Hierarchy FOUO API maintained by GSA. Data is FOUO so is not available
                                 for download.
                             </p>}
-                        updatedAt={undefined} />
+                        updatedAt={this.props.updateDates.office} />
 
                     <DataSourcesItem
                         title="Program Activity"
@@ -227,7 +236,7 @@ export default class DataSourcesContent extends React.Component {
                                     https://files.usaspending.gov/reference_data/program_activity.csv
                                 </a>.
                             </p>}
-                        updatedAt={undefined} />
+                        updatedAt={this.props.updateDates.program_activity} />
 
                     <DataSourcesItem
                         title="State"
@@ -237,7 +246,7 @@ export default class DataSourcesContent extends React.Component {
                             <p>A manually compiled list of US states and territories. The latest file loaded by the
                                 Broker is available at [LINK].
                             </p>}
-                        updatedAt={undefined} />
+                        updatedAt={this.props.updateDates.state_code} />
 
                     <DataSourcesItem
                         title="Subaward"
@@ -249,7 +258,7 @@ export default class DataSourcesContent extends React.Component {
                                 day in FSRS. Data is not available for download on this page, but the data can be found
                                 on USAspending or in  File F generation elsewhere on the Broker.
                             </p>}
-                        updatedAt={undefined} />
+                        updatedAt={this.props.updateDates.subaward} />
 
                     <DataSourcesItem
                         title="Zip Code"
@@ -260,9 +269,12 @@ export default class DataSourcesContent extends React.Component {
                             <p>Set of zip code data files purchased from USPS via their Postal Pro Product. Data is
                                 proprietary so is not available for download on this page.
                             </p>}
-                        updatedAt={undefined} />
+                        updatedAt={this.props.updateDates.zip_code} />
                 </div>
             </div>
         );
     }
 }
+
+DataSourcesContent.propTypes = propTypes;
+DataSourcesContent.defaultProps = defaultProps;

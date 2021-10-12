@@ -24,6 +24,30 @@ const defaultProps = {
 };
 
 export default class DataSourcesPage extends React.Component {
+    constructor(props) {
+        super(props);
+
+        this.state = {
+            updateDates: {}
+        };
+
+        this.getUpdateDates = this.getUpdateDates.bind(this);
+    }
+
+    componentDidMount() {
+        this.getUpdateDates();
+    }
+
+    getUpdateDates() {
+        HelpHelper.getDataSources()
+            .then((dataSources) => {
+                this.setState({ updateDates: dataSources });
+            })
+            .catch((error) => {
+                console.error(error);
+            });
+    }
+
     render() {
         const activeTab = this.props.type === 'fabs' ? 'FABSHelp' : 'help';
         const color = this.props.type === 'fabs' ? 'teal' : 'dark';
@@ -47,7 +71,7 @@ export default class DataSourcesPage extends React.Component {
                     <div className="container">
                         <div className="row usa-da-help-page">
                             <div className="col-md-12">
-                                <DataSourcesContent />
+                                <DataSourcesContent updateDates={this.state.updateDates} />
                             </div>
                         </div>
                     </div>
