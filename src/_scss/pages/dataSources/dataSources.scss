@@ -21,5 +21,10 @@
                 margin-bottom: rem(5);
             }
         }
+
+        .updated-at {
+            font-style: italic;
+            color: $color-gray;
+        }
     }
 }

@@ -5,6 +5,7 @@
 
 import React from 'react';
 import PropTypes from 'prop-types';
+import moment from 'moment';
 
 const propTypes = {
     title: PropTypes.string,
@@ -24,6 +25,8 @@ const defaultProps = {
 
 export default class DataSourcesItem extends React.Component {
     render() {
+        const updatedString = this.props.updatedAt !== '' ?
+            `Updated ${moment(this.props.updatedAt, 'MM/DD/YYYY h:mm:ss').fromNow()} (${this.props.updatedAt})` : null;
         return (
             <div className="data-sources-item">
                 <h3>{this.props.title}</h3>
@@ -33,7 +36,7 @@ export default class DataSourcesItem extends React.Component {
                 <p>{this.props.description}</p>
                 <h4>Data Source</h4>
                 {this.props.source}
-                <p className="updated-at">{this.props.updatedAt}</p>
+                <p className="updated-at">{updatedString}</p>
             </div>
         );
     }
