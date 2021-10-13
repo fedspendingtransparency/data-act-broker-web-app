@@ -6,6 +6,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import DataSourcesItem from 'components/help/DataSourcesItem';
+import { kGlobalConstants } from '../../GlobalConstants';
 
 const propTypes = {
     updateDates: PropTypes.object
@@ -17,6 +18,7 @@ const defaultProps = {
 
 export default class DataSourcesContent extends React.Component {
     render() {
+        const fileLoc = kGlobalConstants.PROD ? 'files' : 'files-nonprod';
         // This doesn't fit on the line
         const gnisURL = 'https://www.usgs.gov/core-science-systems/ngp/board-on-geographic-names/download-gnis-data';
         return (
@@ -39,8 +41,8 @@ export default class DataSourcesContent extends React.Component {
                                     <a
                                         target="_blank"
                                         rel="noopener noreferrer"
-                                        href="https://files.usaspending.gov/reference_data/cfda.csv">
-                                        https://files.usaspending.gov/reference_data/cfda.csv
+                                        href={`https://${fileLoc}.usaspending.gov/reference_data/cfda.csv`}>
+                                        https://{fileLoc}.usaspending.gov/reference_data/cfda.csv
                                     </a>
                                 )}.
                             </p>}
@@ -58,8 +60,8 @@ export default class DataSourcesContent extends React.Component {
                                     <a
                                         target="_blank"
                                         rel="noopener noreferrer"
-                                        href="https://files.usaspending.gov/reference_data/agency_codes.csv">
-                                        https://files.usaspending.gov/reference_data/agency_codes.csv
+                                        href={`https://${fileLoc}.usaspending.gov/reference_data/agency_codes.csv`}>
+                                        https://{fileLoc}.usaspending.gov/reference_data/agency_codes.csv
                                     </a>
                                 )}.
                             </p>}
@@ -129,7 +131,15 @@ export default class DataSourcesContent extends React.Component {
                                         href="https://nsgreg.nga.mil/genc/discovery">
                                         https://nsgreg.nga.mil/genc/discovery
                                     </a>
-                                )} The latest Broker file can be downloaded at [LINK].
+                                )} The latest Broker file can be downloaded at&nbsp;{
+                                (
+                                    <a
+                                        target="_blank"
+                                        rel="noopener noreferrer"
+                                        href={`https://${fileLoc}.usaspending.gov/reference_data/country_codes.csv`}>
+                                        https://{fileLoc}.usaspending.gov/reference_data/country_codes.csv
+                                    </a>
+                                )}.
                             </p>}
                         updatedAt={this.props.updateDates.country_code} />
 
@@ -212,7 +222,15 @@ export default class DataSourcesContent extends React.Component {
                             " in OMB Circular A-11 § 83.6."}
                         source={
                             <p>OMB Circular A-11 object classes manually encoded in CSV form and updated as needed.
-                                The latest Broker file can be downloaded at [LINK].
+                                The latest Broker file can be downloaded at&nbsp;{
+                                (
+                                    <a
+                                        target="_blank"
+                                        rel="noopener noreferrer"
+                                        href={`https://${fileLoc}.usaspending.gov/reference_data/object_class.csv`}>
+                                        https://{fileLoc}.usaspending.gov/reference_data/object_class.csv
+                                    </a>
+                                )}.
                             </p>}
                         updatedAt={this.props.updateDates.object_class} />
 
@@ -249,8 +267,8 @@ export default class DataSourcesContent extends React.Component {
                                     <a
                                         target="_blank"
                                         rel="noopener noreferrer"
-                                        href="https://files.usaspending.gov/reference_data/program_activity.csv">
-                                        https://files.usaspending.gov/reference_data/program_activity.csv
+                                        href={`https://${fileLoc}.usaspending.gov/reference_data/program_activity.csv`}>
+                                        https://{fileLoc}.usaspending.gov/reference_data/program_activity.csv
                                     </a>
                                 )}.
                             </p>}
