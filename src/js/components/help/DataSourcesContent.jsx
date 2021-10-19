@@ -78,7 +78,15 @@ export default class DataSourcesContent extends React.Component {
                         source={
                             <p>This file is manually placed into a shared S3 bucket by FRB and translated into a
                                 CSV by the Broker. New files are received up to daily during the GTAS window each
-                                period. The latest file loaded into the Broker can be downloaded at [LINK].
+                                period. The latest file loaded into the Broker can be downloaded at&nbsp;{
+                                (
+                                    <a
+                                        target="_blank"
+                                        rel="noopener noreferrer"
+                                        href={`https://${fileLoc}.usaspending.gov/reference_data/cars_tas.csv`}>
+                                        https://{fileLoc}.usaspending.gov/reference_data/cars_tas.csv
+                                    </a>
+                                )}.
                             </p>}
                         updatedAt={this.props.updateDates.tas} />
 
@@ -98,7 +106,15 @@ export default class DataSourcesContent extends React.Component {
                                         {gnisURL}
                                     </a>
                                 )} and updated monthly if new data is available. The latest file loaded into the
-                                Broker can be downloaded at [LINK].
+                                Broker can be downloaded at&nbsp;{
+                                (
+                                    <a
+                                        target="_blank"
+                                        rel="noopener noreferrer"
+                                        href={`https://${fileLoc}.usaspending.gov/reference_data/NationalFedCodes.txt`}>
+                                        https://{fileLoc}.usaspending.gov/reference_data/NationalFedCodes.txt
+                                    </a>
+                                )}.
                             </p>}
                         updatedAt={this.props.updateDates.city} />
 
@@ -113,7 +129,16 @@ export default class DataSourcesContent extends React.Component {
                                 In practice, the list of congressional districts only change every ten years on the
                                 first election after a new census. Our table also includes historical congressional
                                 districts from the 2000 census that no longer exist but that are still relevant to open
-                                awards. The latest Broker file can be downloaded at [LINK].
+                                awards. The latest Broker file can be downloaded at&nbsp;{
+                                (
+                                    <a
+                                        target="_blank"
+                                        rel="noopener noreferrer"
+                                        href={`https://${fileLoc}.usaspending.gov/reference_data/` +
+                                            `state_congressional.csv`}>
+                                        https://{fileLoc}.usaspending.gov/reference_data/state_congressional.csv
+                                    </a>
+                                )}.
                             </p>}
                         updatedAt={this.props.updateDates.congressional_district} />
 
@@ -158,7 +183,15 @@ export default class DataSourcesContent extends React.Component {
                                         https://geonames.usgs.gov/docs/stategaz/GOVT_UNITS.zip
                                     </a>
                                 )} and loaded manually as needed. The latest file loaded into the Broker can be
-                                downloaded at [LINK].
+                                downloaded at&nbsp;{
+                                (
+                                    <a
+                                        target="_blank"
+                                        rel="noopener noreferrer"
+                                        href={`https://${fileLoc}.usaspending.gov/reference_data/GOV_UNITS.txt`}>
+                                        https://{fileLoc}.usaspending.gov/reference_data/GOV_UNITS.txt
+                                    </a>
+                                )}.
                             </p>}
                         updatedAt={this.props.updateDates.county_code} />
 
@@ -280,7 +313,15 @@ export default class DataSourcesContent extends React.Component {
                         description="The name, abbreviation, and FIPS code for all states in the US."
                         source={
                             <p>A manually compiled list of US states and territories. The latest file loaded by the
-                                Broker is available at [LINK].
+                                Broker is available at&nbsp;{
+                                (
+                                    <a
+                                        target="_blank"
+                                        rel="noopener noreferrer"
+                                        href={`https://${fileLoc}.usaspending.gov/reference_data/state_list.csv`}>
+                                        https://{fileLoc}.usaspending.gov/reference_data/state_list.csv
+                                    </a>
+                                )}.
                             </p>}
                         updatedAt={this.props.updateDates.state_code} />
 
