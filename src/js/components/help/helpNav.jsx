@@ -13,7 +13,7 @@ const propTypes = {
 };
 
 const defaultProps = {
-    pageArray: ['Help', 'Resources', 'Raw Files'],
+    pageArray: ['Help', 'Resources', 'Raw Files', 'Data Sources'],
     selected: '',
     type: ''
 };
