@@ -88,17 +88,17 @@ class HelpPageContainer extends React.Component {
                 helpOnly={helpOnly} />);
         }
         else if (currentRoute === '/datasources' || currentRoute === '/fabsdatasources') {
-            return ((<DataSourcesPage
+            return (<DataSourcesPage
                 {...this.props}
                 {...this.state}
-                helpOnly={helpOnly} />));
+                helpOnly={helpOnly} />);
         }
         else if (currentRoute === '/history' || currentRoute === '/fabshistory') {
-            return ((<HistoryPage
+            return (<HistoryPage
                 {...this.props}
                 {...this.state}
                 history="release"
-                helpOnly={helpOnly} />));
+                helpOnly={helpOnly} />);
         }
         else if (currentRoute === '/technicalhistory' || currentRoute === '/fabstechnicalhistory') {
             return (<HistoryPage
