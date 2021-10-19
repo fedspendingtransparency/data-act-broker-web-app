@@ -188,8 +188,8 @@ export default class DataSourcesContent extends React.Component {
                                     <a
                                         target="_blank"
                                         rel="noopener noreferrer"
-                                        href={`https://${fileLoc}.usaspending.gov/reference_data/GOV_UNITS.txt`}>
-                                        https://{fileLoc}.usaspending.gov/reference_data/GOV_UNITS.txt
+                                        href={`https://${fileLoc}.usaspending.gov/reference_data/GOVT_UNITS.txt`}>
+                                        https://{fileLoc}.usaspending.gov/reference_data/GOVT_UNITS.txt
                                     </a>
                                 )}.
                             </p>}
