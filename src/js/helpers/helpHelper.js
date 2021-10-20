@@ -288,3 +288,20 @@ export const downloadPublishedFile = (publishedFilesId = 0) => {
 
     return deferred.promise;
 };
+
+export const getDataSources = () => {
+    const deferred = Q.defer();
+
+    Request.get(`${kGlobalConstants.API}list_data_sources`)
+        .send()
+        .end((err, res) => {
+            if (err) {
+                deferred.reject(err);
+            }
+            else {
+                deferred.resolve(res.body);
+            }
+        });
+
+    return deferred.promise;
+};
