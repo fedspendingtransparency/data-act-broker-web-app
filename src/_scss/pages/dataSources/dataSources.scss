@@ -1,0 +1,30 @@
+.usa-da-help-content {
+    .data-sources-page {
+        h3 {
+            font-weight: $font-bold;
+            margin-top: rem(45);
+            margin-bottom: rem(15);
+            font-size: $h3-font-size;
+        }
+    
+        h4 {
+            margin-top: rem(10);
+            margin-bottom: rem(5);
+            font-size: rem(15);
+        }
+    
+        p {
+            max-width: 100%;
+            margin-bottom: rem(15);
+            &+ h4 {
+                margin-top: rem(5);
+                margin-bottom: rem(5);
+            }
+        }
+
+        .updated-at {
+            font-style: italic;
+            color: $color-gray;
+        }
+    }
+}
