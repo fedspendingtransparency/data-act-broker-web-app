@@ -1,4 +1,11 @@
-#### September 14, 2021{section=technical}
+#### September 30, 2021{section=technical}
+
+In this release, here is a list of technical changes that may require infrastructure or database updates, or represents additional functionality.
+
+* Added Assurance Statements (now known as Agency Comments files) to the Raw Files page on the Broker.
+* Updated subaward data to replace the two-character country codes with their three- character equivalents.
+
+#### September 14, 2021
 
 In this release, here is a list of technical changes that may require infrastructure or database updates, or represents additional functionality.
 
