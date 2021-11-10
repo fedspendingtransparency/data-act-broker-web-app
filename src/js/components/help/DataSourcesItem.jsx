@@ -25,8 +25,9 @@ const defaultProps = {
 
 export default class DataSourcesItem extends React.Component {
     render() {
-        const updatedString = this.props.updatedAt !== '' ?
-            `Updated about ${moment(this.props.updatedAt, 'MM/DD/YYYY h:mm:ss').fromNow()} (${this.props.updatedAt})` :
+        const updatedDate = this.props.updatedAt !== '' ? moment.utc(this.props.updatedAt, 'MM/DD/YYYY h:mm:ss') : '';
+        const updatedString = updatedDate !== '' ?
+            `Updated about ${updatedDate.fromNow()} (${updatedDate.local().format('MM/DD/YYYY h:mm:ss')})` :
             null;
         return (
             <div className="data-sources-item">
