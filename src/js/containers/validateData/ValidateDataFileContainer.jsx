@@ -16,7 +16,8 @@ const propTypes = {
     setUploadItem: PropTypes.func,
     removeUploadItem: PropTypes.func,
     data: PropTypes.object,
-    type: PropTypes.object
+    type: PropTypes.object,
+    progress: PropTypes.number
 };
 
 const defaultProps = {
@@ -24,7 +25,8 @@ const defaultProps = {
     setUploadItem: () => {},
     removeUploadItem: () => {},
     data: {},
-    type: {}
+    type: {},
+    progress: 0
 };
 
 class ValidateDataFileContainer extends React.Component {

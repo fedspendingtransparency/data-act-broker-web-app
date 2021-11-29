@@ -23,6 +23,7 @@ const defaultProps = {
 export default class ProgressBar extends React.Component {
     render() {
         let extraClasses = '';
+        const roundedProgress = this.props.progress.toFixed(2);
         if (this.props.animate) {
             extraClasses = ' animated striped';
         }
@@ -33,7 +34,7 @@ export default class ProgressBar extends React.Component {
         }
 
         const progressBarStyle = {
-            width: `${this.props.progress}%`
+            width: `${roundedProgress}%`
         };
         return (
             <div className="usa-da-progress-bar">
@@ -42,13 +43,13 @@ export default class ProgressBar extends React.Component {
                     <div
                         className={`progress-bar${extraClasses}`}
                         style={progressBarStyle}
-                        aria-valuenow={this.props.progress}
+                        aria-valuenow={roundedProgress}
                         aria-valuemin="0" 
                         aria-valuemax="100">
                     </div>
                 </div>
                 <div className="action-progress">
-                    {this.props.action}... {this.props.progress}
+                    {this.props.action}... {roundedProgress}
                 </div>
             </div>
         );

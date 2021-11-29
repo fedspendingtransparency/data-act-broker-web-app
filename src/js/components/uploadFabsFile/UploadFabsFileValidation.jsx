@@ -67,7 +67,8 @@ export class UploadFabsFileValidation extends React.Component {
             signedUrl: '',
             signInProgress: false,
             inFlight: true,
-            submissionErrorMessage: ''
+            submissionErrorMessage: '',
+            progress: 0
         };
 
         this.uploadFile = this.uploadFile.bind(this);
@@ -200,17 +201,24 @@ export class UploadFabsFileValidation extends React.Component {
                                 published: metadataResponse.publish_status,
                                 fabs_meta: metadataResponse.fabs_meta,
                                 validationFinished: true,
-                                headerErrors: fabsJob.error_type === 'header_errors'
+                                headerErrors: fabsJob.error_type === 'header_errors',
+                                progress: 100
                             });
                         });
                     });
                 }
-                else if (!this.dataTimer) {
+                else {
+                    this.setState({
+                        progress: response.fabs.validation_progress
+                    });
+
+                    if (!this.dataTimer) {
                     window.setTimeout(() => {
                         if (submissionID) {
                             this.checkFileStatus(submissionID);
                         }
                     }, timerDuration * 1000);
+                    }
                 }
             })
             .catch((err) => {
@@ -380,7 +388,8 @@ export class UploadFabsFileValidation extends React.Component {
                 setUploadItem={this.uploadFile}
                 updateItem={this.uploadFile}
                 publishing={this.state.published === 'publishing'}
-                agencyName={this.state.agency} />
+                agencyName={this.state.agency}
+                progress={this.state.progress} />
         );
         if (
             fileData.file_status === 'complete' &&
