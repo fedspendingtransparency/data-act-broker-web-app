@@ -331,7 +331,8 @@ export class UploadFabsFileValidation extends React.Component {
         currentResults.fabs.file_status = '';
         currentResults.fabs.job_status = '';
         this.setState({
-            jobResults: currentResults
+            jobResults: currentResults,
+            progressMeta: { progress: 0, name: '' }
         });
 
         this.uploadFileHelper(kGlobalConstants.LOCAL, submission)
