@@ -31,7 +31,7 @@ const defaultProps = {
     hasFailed: false,
     hasFinished: false,
     progressMeta: {},
-    resetProgress: () => {},
+    resetProgress: () => {}
 };
 
 export default class ValidationContent extends React.Component {

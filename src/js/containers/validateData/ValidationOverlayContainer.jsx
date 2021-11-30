@@ -25,7 +25,7 @@ const propTypes = {
 
 const defaultProps = {
     submission: {},
-    resetProgress: () => {},
+    resetProgress: () => {}
 };
 
 class ValidationOverlayContainer extends React.Component {

@@ -146,7 +146,9 @@ export class ValidateDataContainer extends React.Component {
     resetProgress() {
         const progressMeta = this.state.progressMeta;
         for (const fileType in this.props.submission.files) {
-            progressMeta[fileType] = { progress: 0, name: this.props.submission.files[fileType].file.name };
+            if (Object.prototype.hasOwnProperty.call(this.props.submission.files, fileType)) {
+                progressMeta[fileType] = { progress: 0, name: this.props.submission.files[fileType].file.name };
+            }
         }
         this.setState({ progressMeta });
     }
