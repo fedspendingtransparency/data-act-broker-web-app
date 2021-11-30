@@ -50,7 +50,11 @@ export class ValidateDataContainer extends React.Component {
             serverError: null,
             agencyName: null,
             fileValidationsDone: [false, false, false],
-            progress: {'appropriations': 0, 'program_activity': 0, 'award_financial': 0}
+            progressMeta: {
+                'appropriations': {'progress': 0, 'name': ''},
+                'program_activity': {'progress': 0, 'name': ''},
+                'award_financial': {'progress': 0, 'name': ''}
+            }
         };
 
         this.isUnmounted = false;
@@ -110,7 +114,11 @@ export class ValidateDataContainer extends React.Component {
             validationFinished: false,
             validationFailed: false,
             fileValidationsDone: [false, false, false],
-            progress: {'appropriations': 0, 'program_activity': 0, 'award_financial': 0}
+            progressMeta: {
+                'appropriations': {'progress': 0, 'name': ''},
+                'program_activity': {'progress': 0, 'name': ''},
+                'award_financial': {'progress': 0, 'name': ''}
+            }
         }, () => {
             this.validateSubmission();
         });
@@ -124,18 +132,22 @@ export class ValidateDataContainer extends React.Component {
             notYours: false,
             serverError: null,
             fileValidationsDone: [false, false, false],
-            progress: {'appropriations': 0, 'program_activity': 0, 'award_financial': 0}
+            progressMeta: {
+                'appropriations': {'progress': 0, 'name': ''},
+                'program_activity': {'progress': 0, 'name': ''},
+                'award_financial': {'progress': 0, 'name': ''}
+            }
         }, () => {
             this.validateSubmission();
         });
     }
 
-    checkFinished(fileStatuses, data, progress) {
+    checkFinished(fileStatuses, data, progressMeta) {
         let hasFailed = false;
         // if any file status is false, that means we need to check again because we aren't done
         if (fileStatuses.includes(false)) {
             this.setState({
-                progress
+                progressMeta
             })
             statusTimer = setTimeout(() => {
                 this.validateSubmission();
@@ -151,7 +163,7 @@ export class ValidateDataContainer extends React.Component {
             this.setState({
                 validationFinished: true,
                 validationFailed: hasFailed,
-                progress
+                progressMeta
             });
         }
     }
@@ -174,7 +186,7 @@ export class ValidateDataContainer extends React.Component {
                 // see if there are any validations still running.
                 let fileStatusChanged = false;
                 const fileStatuses = this.state.fileValidationsDone.slice();
-                const progress = this.state.progress;
+                const progress = this.state.progressMeta;
                 for (let i = 0; i < singleFileValidations.length; i++) {
                     const currFile = data[singleFileValidations[i]];
                     // if a file wasn't done last time this check ran but is this time, the status has "changed"
@@ -182,7 +194,8 @@ export class ValidateDataContainer extends React.Component {
                         fileStatusChanged = true;
                         fileStatuses[i] = true;
                     }
-                    progress[singleFileValidations[i]] = currFile.validation_progress;
+                    progress[singleFileValidations[i]].progress = currFile.validation_progress;
+                    progress[singleFileValidations[i]].name = currFile.file_name;
                 }
 
                 // if there were any changes, we want to get all the new job statuses
@@ -240,7 +253,7 @@ export class ValidateDataContainer extends React.Component {
             hasFailed={this.state.validationFailed}
             submissionID={this.props.submissionID}
             agencyName={this.state.agencyName}
-            progress={this.state.progress} />);
+            progressMeta={this.state.progressMeta} />);
 
         if (!this.state.finishedPageLoad) {
             validationContent = <ValidateLoadingScreen />;

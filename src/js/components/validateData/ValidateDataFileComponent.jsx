@@ -25,7 +25,8 @@ const propTypes = {
     type: PropTypes.object,
     agencyName: PropTypes.string,
     publishing: PropTypes.bool,
-    progress: PropTypes.number
+    progress: PropTypes.number,
+    fileName: PropTypes.string
 };
 
 const defaultProps = {
@@ -36,7 +37,8 @@ const defaultProps = {
     type: {},
     agencyName: '',
     publishing: false,
-    progress: 0
+    progress: 0,
+    fileName: ''
 };
 
 export default class ValidateDataFileComponent extends React.Component {
@@ -45,7 +47,7 @@ export default class ValidateDataFileComponent extends React.Component {
 
         this.state = {
             showError: false,
-            headerTitle: <ProgressBar progress={this.props.progress} />,
+            headerTitle: <ProgressBar progress={this.props.progress} fileName={this.props.fileName} />,
             errorReports: [],
             hasErrorReport: false,
             isError: false,
@@ -101,7 +103,7 @@ export default class ValidateDataFileComponent extends React.Component {
             return;
         }
 
-        let headerTitle = <ProgressBar progress={this.props.progress} />;
+        let headerTitle = <ProgressBar progress={this.props.progress} fileName={this.props.fileName} />;
         let isError = false;
         let hasErrorReport = false;
         let canDownload = false;
@@ -181,7 +183,7 @@ export default class ValidateDataFileComponent extends React.Component {
 
         // check if file is still validating
         if (item.file_status === 'incomplete' || !this.isFileReady()) {
-            headerTitle = <ProgressBar progress={this.props.progress} />;
+            headerTitle = <ProgressBar progress={this.props.progress} fileName={this.props.fileName} />;
             hasErrorReport = false;
             isError = false;
             canDownload = false;

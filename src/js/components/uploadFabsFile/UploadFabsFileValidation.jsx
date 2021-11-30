@@ -68,7 +68,7 @@ export class UploadFabsFileValidation extends React.Component {
             signInProgress: false,
             inFlight: true,
             submissionErrorMessage: '',
-            progress: 0
+            progressMeta: {'progress': 0, 'name': ''}
         };
 
         this.uploadFile = this.uploadFile.bind(this);
@@ -149,7 +149,8 @@ export class UploadFabsFileValidation extends React.Component {
         this.setState(
             {
                 validationFinished: false,
-                published: 'unpublished'
+                published: 'unpublished',
+                progressMeta: {'progress': 0, 'name': this.state.progressMeta.name}
             },
             this.revalidate()
         );
@@ -202,14 +203,14 @@ export class UploadFabsFileValidation extends React.Component {
                                 fabs_meta: metadataResponse.fabs_meta,
                                 validationFinished: true,
                                 headerErrors: fabsJob.error_type === 'header_errors',
-                                progress: 100
+                                progressMeta: {'progress': 100, 'name': fabsJob.filename}
                             });
                         });
                     });
                 }
                 else {
                     this.setState({
-                        progress: response.fabs.validation_progress
+                        progressMeta: {'progress': response.fabs.validation_progress, 'name': response.fabs.file_name}
                     });
 
                     if (!this.dataTimer) {
@@ -389,7 +390,8 @@ export class UploadFabsFileValidation extends React.Component {
                 updateItem={this.uploadFile}
                 publishing={this.state.published === 'publishing'}
                 agencyName={this.state.agency}
-                progress={this.state.progress} />
+                progress={this.state.progressMeta.progress}
+                fileName={this.state.progressMeta.name} />
         );
         if (
             fileData.file_status === 'complete' &&

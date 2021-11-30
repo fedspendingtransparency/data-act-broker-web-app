@@ -17,7 +17,7 @@ const defaultProps = {
     progress: 0,
     animate: true,
     action: 'Validating',
-    fileName: null
+    fileName: ''
 };
 
 export default class ProgressBar extends React.Component {

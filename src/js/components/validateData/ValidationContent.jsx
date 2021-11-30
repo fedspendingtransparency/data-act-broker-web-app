@@ -20,7 +20,7 @@ const propTypes = {
     hasFailed: PropTypes.bool,
     hasFinished: PropTypes.bool,
     submissionID: PropTypes.string,
-    progress: PropTypes.object
+    progressMeta: PropTypes.object
 };
 
 const defaultProps = {
@@ -29,7 +29,7 @@ const defaultProps = {
     agencyName: "",
     hasFailed: false,
     hasFinished: false,
-    progress: {}
+    progressMeta: {}
 };
 
 export default class ValidationContent extends React.Component {
@@ -61,7 +61,8 @@ export default class ValidationContent extends React.Component {
                     type={type}
                     data={data}
                     agencyName={this.props.agencyName}
-                    progress={this.props.progress[type.requestName]} />);
+                    progress={this.props.progressMeta[type.requestName]['progress']}
+                    fileName={this.props.progressMeta[type.requestName]['name']} />);
             }
             return null;
         });
