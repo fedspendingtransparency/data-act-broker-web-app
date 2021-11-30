@@ -19,11 +19,13 @@ import * as UploadHelper from '../../helpers/uploadHelper';
 const propTypes = {
     submission: PropTypes.object,
     submissionID: PropTypes.string,
-    errors: PropTypes.array
+    errors: PropTypes.array,
+    resetProgress: PropTypes.func
 };
 
 const defaultProps = {
-    submission: {}
+    submission: {},
+    resetProgress: () => {},
 };
 
 class ValidationOverlayContainer extends React.Component {
@@ -36,6 +38,7 @@ class ValidationOverlayContainer extends React.Component {
     }
 
     uploadFiles() {
+        this.props.resetProgress();
         if (kGlobalConstants.LOCAL === true) {
             UploadHelper.performLocalCorrectedUpload(this.props.submission)
                 .catch((err) => {

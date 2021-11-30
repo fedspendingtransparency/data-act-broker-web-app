@@ -58,6 +58,7 @@ export class ValidateDataContainer extends React.Component {
         };
 
         this.isUnmounted = false;
+        this.resetProgress = this.resetProgress.bind(this);
     }
 
 
@@ -140,6 +141,14 @@ export class ValidateDataContainer extends React.Component {
         }, () => {
             this.validateSubmission();
         });
+    }
+
+    resetProgress() {
+        const progressMeta = this.state.progressMeta;
+        for (const fileType in this.props.submission.files) {
+            progressMeta[fileType] = { progress: 0, name: this.props.submission.files[fileType].file.name };
+        }
+        this.setState({ progressMeta });
     }
 
     checkFinished(fileStatuses, data, progressMeta) {
@@ -253,7 +262,8 @@ export class ValidateDataContainer extends React.Component {
             hasFailed={this.state.validationFailed}
             submissionID={this.props.submissionID}
             agencyName={this.state.agencyName}
-            progressMeta={this.state.progressMeta} />);
+            progressMeta={this.state.progressMeta}
+            resetProgress={this.resetProgress} />);
 
         if (!this.state.finishedPageLoad) {
             validationContent = <ValidateLoadingScreen />;
