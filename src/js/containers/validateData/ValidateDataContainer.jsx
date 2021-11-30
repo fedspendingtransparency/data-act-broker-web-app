@@ -51,9 +51,9 @@ export class ValidateDataContainer extends React.Component {
             agencyName: null,
             fileValidationsDone: [false, false, false],
             progressMeta: {
-                'appropriations': {'progress': 0, 'name': ''},
-                'program_activity': {'progress': 0, 'name': ''},
-                'award_financial': {'progress': 0, 'name': ''}
+                appropriations: { progress: 0, name: '' },
+                program_activity: { progress: 0, name: '' },
+                award_financial: { progress: 0, name: '' }
             }
         };
 
@@ -115,9 +115,9 @@ export class ValidateDataContainer extends React.Component {
             validationFailed: false,
             fileValidationsDone: [false, false, false],
             progressMeta: {
-                'appropriations': {'progress': 0, 'name': ''},
-                'program_activity': {'progress': 0, 'name': ''},
-                'award_financial': {'progress': 0, 'name': ''}
+                appropriations: { progress: 0, name: '' },
+                program_activity: { progress: 0, name: '' },
+                award_financial: { progress: 0, name: '' }
             }
         }, () => {
             this.validateSubmission();
@@ -133,9 +133,9 @@ export class ValidateDataContainer extends React.Component {
             serverError: null,
             fileValidationsDone: [false, false, false],
             progressMeta: {
-                'appropriations': {'progress': 0, 'name': ''},
-                'program_activity': {'progress': 0, 'name': ''},
-                'award_financial': {'progress': 0, 'name': ''}
+                appropriations: { progress: 0, name: '' },
+                program_activity: { progress: 0, name: '' },
+                award_financial: { progress: 0, name: '' }
             }
         }, () => {
             this.validateSubmission();
@@ -148,7 +148,7 @@ export class ValidateDataContainer extends React.Component {
         if (fileStatuses.includes(false)) {
             this.setState({
                 progressMeta
-            })
+            });
             statusTimer = setTimeout(() => {
                 this.validateSubmission();
             }, timerDuration * 1000);

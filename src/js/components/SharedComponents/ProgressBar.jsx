@@ -44,9 +44,8 @@ export default class ProgressBar extends React.Component {
                         className={`progress-bar${extraClasses}`}
                         style={progressBarStyle}
                         aria-valuenow={roundedProgress}
-                        aria-valuemin="0" 
-                        aria-valuemax="100">
-                    </div>
+                        aria-valuemin="0"
+                        aria-valuemax="100" />
                 </div>
                 <div className="action-progress">
                     {this.props.action}... {roundedProgress}

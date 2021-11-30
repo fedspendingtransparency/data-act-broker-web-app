@@ -61,8 +61,8 @@ export default class ValidationContent extends React.Component {
                     type={type}
                     data={data}
                     agencyName={this.props.agencyName}
-                    progress={this.props.progressMeta[type.requestName]['progress']}
-                    fileName={this.props.progressMeta[type.requestName]['name']} />);
+                    progress={this.props.progressMeta[type.requestName].progress}
+                    fileName={this.props.progressMeta[type.requestName].name} />);
             }
             return null;
         });

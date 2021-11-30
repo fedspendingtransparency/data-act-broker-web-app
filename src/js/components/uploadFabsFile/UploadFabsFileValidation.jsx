@@ -68,7 +68,7 @@ export class UploadFabsFileValidation extends React.Component {
             signInProgress: false,
             inFlight: true,
             submissionErrorMessage: '',
-            progressMeta: {'progress': 0, 'name': ''}
+            progressMeta: { progress: 0, name: '' }
         };
 
         this.uploadFile = this.uploadFile.bind(this);
@@ -150,7 +150,7 @@ export class UploadFabsFileValidation extends React.Component {
             {
                 validationFinished: false,
                 published: 'unpublished',
-                progressMeta: {'progress': 0, 'name': this.state.progressMeta.name}
+                progressMeta: { progress: 0, name: this.state.progressMeta.name }
             },
             this.revalidate()
         );
@@ -203,22 +203,22 @@ export class UploadFabsFileValidation extends React.Component {
                                 fabs_meta: metadataResponse.fabs_meta,
                                 validationFinished: true,
                                 headerErrors: fabsJob.error_type === 'header_errors',
-                                progressMeta: {'progress': 100, 'name': fabsJob.filename}
+                                progressMeta: { progress: 100, name: fabsJob.filename }
                             });
                         });
                     });
                 }
                 else {
                     this.setState({
-                        progressMeta: {'progress': response.fabs.validation_progress, 'name': response.fabs.file_name}
+                        progressMeta: { progress: response.fabs.validation_progress, name: response.fabs.file_name }
                     });
 
                     if (!this.dataTimer) {
-                    window.setTimeout(() => {
-                        if (submissionID) {
-                            this.checkFileStatus(submissionID);
-                        }
-                    }, timerDuration * 1000);
+                        window.setTimeout(() => {
+                            if (submissionID) {
+                                this.checkFileStatus(submissionID);
+                            }
+                        }, timerDuration * 1000);
                     }
                 }
             })
