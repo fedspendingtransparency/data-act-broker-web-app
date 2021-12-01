@@ -19,7 +19,9 @@ const propTypes = {
     agencyName: PropTypes.string,
     hasFailed: PropTypes.bool,
     hasFinished: PropTypes.bool,
-    submissionID: PropTypes.string
+    submissionID: PropTypes.string,
+    progressMeta: PropTypes.object,
+    resetProgress: PropTypes.func
 };
 
 const defaultProps = {
@@ -27,7 +29,9 @@ const defaultProps = {
     submission: {},
     agencyName: "",
     hasFailed: false,
-    hasFinished: false
+    hasFinished: false,
+    progressMeta: {},
+    resetProgress: () => {}
 };
 
 export default class ValidationContent extends React.Component {
@@ -58,7 +62,9 @@ export default class ValidationContent extends React.Component {
                     key={type.fileTitle}
                     type={type}
                     data={data}
-                    agencyName={this.props.agencyName} />);
+                    agencyName={this.props.agencyName}
+                    progress={this.props.progressMeta[type.requestName].progress}
+                    fileName={this.props.progressMeta[type.requestName].name} />);
             }
             return null;
         });
@@ -72,7 +78,8 @@ export default class ValidationContent extends React.Component {
             overlay = (<ValidationOverlayContainer
                 warnings={warnings}
                 errors={errors}
-                submissionID={this.props.submissionID} />);
+                submissionID={this.props.submissionID}
+                resetProgress={this.props.resetProgress} />);
         }
 
         return (
