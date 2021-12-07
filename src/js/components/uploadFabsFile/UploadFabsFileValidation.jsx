@@ -67,7 +67,8 @@ export class UploadFabsFileValidation extends React.Component {
             signedUrl: '',
             signInProgress: false,
             inFlight: true,
-            submissionErrorMessage: ''
+            submissionErrorMessage: '',
+            progressMeta: { progress: 0, name: '' }
         };
 
         this.uploadFile = this.uploadFile.bind(this);
@@ -148,7 +149,8 @@ export class UploadFabsFileValidation extends React.Component {
         this.setState(
             {
                 validationFinished: false,
-                published: 'unpublished'
+                published: 'unpublished',
+                progressMeta: { progress: 0, name: this.state.progressMeta.name }
             },
             this.revalidate()
         );
@@ -200,17 +202,24 @@ export class UploadFabsFileValidation extends React.Component {
                                 published: metadataResponse.publish_status,
                                 fabs_meta: metadataResponse.fabs_meta,
                                 validationFinished: true,
-                                headerErrors: fabsJob.error_type === 'header_errors'
+                                headerErrors: fabsJob.error_type === 'header_errors',
+                                progressMeta: { progress: 100, name: fabsJob.filename }
                             });
                         });
                     });
                 }
-                else if (!this.dataTimer) {
-                    window.setTimeout(() => {
-                        if (submissionID) {
-                            this.checkFileStatus(submissionID);
-                        }
-                    }, timerDuration * 1000);
+                else {
+                    this.setState({
+                        progressMeta: { progress: response.fabs.validation_progress, name: response.fabs.file_name }
+                    });
+
+                    if (!this.dataTimer) {
+                        window.setTimeout(() => {
+                            if (submissionID) {
+                                this.checkFileStatus(submissionID);
+                            }
+                        }, timerDuration * 1000);
+                    }
                 }
             })
             .catch((err) => {
@@ -322,7 +331,8 @@ export class UploadFabsFileValidation extends React.Component {
         currentResults.fabs.file_status = '';
         currentResults.fabs.job_status = '';
         this.setState({
-            jobResults: currentResults
+            jobResults: currentResults,
+            progressMeta: { progress: 0, name: '' }
         });
 
         this.uploadFileHelper(kGlobalConstants.LOCAL, submission)
@@ -380,7 +390,9 @@ export class UploadFabsFileValidation extends React.Component {
                 setUploadItem={this.uploadFile}
                 updateItem={this.uploadFile}
                 publishing={this.state.published === 'publishing'}
-                agencyName={this.state.agency} />
+                agencyName={this.state.agency}
+                progress={this.state.progressMeta.progress}
+                fileName={this.state.progressMeta.name} />
         );
         if (
             fileData.file_status === 'complete' &&
