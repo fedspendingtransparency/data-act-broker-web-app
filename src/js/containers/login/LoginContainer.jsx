@@ -8,11 +8,13 @@ import PropTypes from 'prop-types';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 
-import * as LoginHelper from 'helpers/loginHelper';
 import LoginPanel from 'components/login/LoginPanel';
 import LoginMax from 'components/login/LoginMax';
+import LoginBannerMessage from 'components/login/LoginBannerMessage';
+import * as LoginHelper from 'helpers/loginHelper';
 import * as sessionActions from 'redux/actions/sessionActions';
 import { kGlobalConstants } from '../../GlobalConstants';
+import * as ReviewHelper from '../../helpers/reviewHelper';
 
 const propTypes = {
     location: PropTypes.object
@@ -28,8 +30,26 @@ class LoginContainer extends React.Component {
 
         this.state = {
             loading: false,
-            errorMessage: ''
+            errorMessage: '',
+            bannerMessage: null
         };
+    }
+
+    componentDidMount() {
+        this.getBanners();
+    }
+
+    getBanners() {
+        ReviewHelper.listBanners(true)
+            .then((res) => {
+                if (!res.data) {
+                    return;
+                }
+                this.setState({ bannerMessage: res.data[0] });
+            })
+            .catch((err) => {
+                console.error(err);
+            });
     }
 
     performLogin(username, password) {
@@ -67,8 +87,14 @@ class LoginContainer extends React.Component {
                 errorMessage={this.state.errorMessage} />);
         }
 
+        let loginBannerMessage = '';
+        if (this.state.bannerMessage) {
+            loginBannerMessage = <LoginBannerMessage {...this.state.bannerMessage} />;
+        }
+
         return (
             <div className="login-right usa-da-login-container">
+                {loginBannerMessage}
                 {login}
             </div>
         );
