@@ -8,4 +8,10 @@
 	.alert-success {
 		@include successAlert;
 	}
+	.alert-info {
+		@include infoAlert;
+	}
+	.alert-warning {
+		@include warningAlert;
+	}
 }
