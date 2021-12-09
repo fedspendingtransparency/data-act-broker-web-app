@@ -1,6 +1,4 @@
-#### November 16, 2021{section=changelog}
+#### December 7, 2021{section=changelog}
 In this release of the Broker, we:
 
-* Implemented the second phase of DAIMS 2.1 (primarily DABS changes). Please refer to the official DAIMS 2.1 release for details.
-* Updated validation rule FABS3.3 and FABS3.5 to not trigger when the record is a correction.
-* Fixed a minor bug with the time display on the Data Sources Help page.
+* Added progress bars to the first set of validations the user sees in DABS and FABS. This will display the estimated progress the Broker has made while running validations on the submitted files so the user can gauge how long until the validations are complete. Cross file validation progress bars are planned to be added in a future release.
