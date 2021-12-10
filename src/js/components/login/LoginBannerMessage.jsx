@@ -21,7 +21,9 @@ const defaultProps = {
 
 const iconMapping = {
     warning: 'exclamation-triangle',
-    info: 'info-circle'
+    info: 'info-circle',
+    error: 'exclamation-circle',
+    success: 'check-circle'
 };
 
 export default class LoginBannerMessage extends React.Component {
