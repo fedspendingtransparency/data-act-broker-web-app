@@ -2,8 +2,6 @@
 @import "./_inputField";
 // import the login button
 @import "./_loginButton";
-// import alert styles
-@import "./_loginAlerts";
 
 
 @mixin loginForm {
@@ -58,7 +56,18 @@
         @include loginFormButton;
     }
 
-    @include loginFormAlerts;
+    // style site banners
+	.internal-banner {
+		@import "../../../layouts/login/_topBanner";
+		@include loginTopBanner;
+
+        padding: rem(15);
+        margin-bottom: rem(20);
+
+        .container {
+            width: 100%;
+        }
+	}
 
 
 }
