@@ -9,7 +9,7 @@ import { parseMarkdown } from 'helpers/helpHelper';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 const propTypes = {
-    type: PropTypes.oneOf(['warning', 'info']),
+    type: PropTypes.oneOf(['warning', 'info', 'success', 'error']),
     header: PropTypes.oneOfType([PropTypes.string, PropTypes.object]),
     message: PropTypes.oneOfType([PropTypes.string, PropTypes.object]),
     useMarkdown: PropTypes.bool
@@ -24,7 +24,9 @@ const defaultProps = {
 
 const iconMapping = {
     warning: 'exclamation-triangle',
-    info: 'info-circle'
+    info: 'info-circle',
+    error: 'exclamation-circle',
+    success: 'check-circle'
 };
 
 export default class BannerRow extends React.Component {
