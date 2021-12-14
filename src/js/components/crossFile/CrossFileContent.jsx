@@ -6,6 +6,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import _ from 'lodash';
+import ProgressBar from 'components/SharedComponents/ProgressBar';
 import CrossFileItem from './CrossFileItem';
 import CrossFileOverlay from './CrossFileOverlay';
 
@@ -14,14 +15,16 @@ const propTypes = {
     uploadFiles: PropTypes.func,
     submission: PropTypes.object,
     submissionID: PropTypes.string,
-    publishStatus: PropTypes.string
+    publishStatus: PropTypes.string,
+    progress: PropTypes.number
 };
 
 const defaultProps = {
     reloadData: null,
     uploadFiles: null,
     submission: null,
-    publishStatus: ''
+    publishStatus: '',
+    progress: 0
 };
 
 export default class CrossFileContent extends React.Component {
@@ -118,8 +121,10 @@ export default class CrossFileContent extends React.Component {
         const isLoading = _.indexOf(this.allowableStates, this.props.submission.state) === -1;
 
         let loadingClass = '';
+        let progress = null;
         if (isLoading) {
             loadingClass = ' usa-da-gathering-data';
+            progress = <ProgressBar progress={this.props.progress} />;
         }
 
         return (
@@ -134,6 +139,8 @@ export default class CrossFileContent extends React.Component {
                                 </p>
                             </div>
                         </div>
+
+                        {progress}
 
                         {this.state.crossFileItems}
 
