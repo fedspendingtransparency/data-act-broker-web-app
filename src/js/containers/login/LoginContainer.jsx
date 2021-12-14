@@ -8,9 +8,10 @@ import PropTypes from 'prop-types';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 
-import * as LoginHelper from 'helpers/loginHelper';
 import LoginPanel from 'components/login/LoginPanel';
 import LoginMax from 'components/login/LoginMax';
+import Banner from 'components/SharedComponents/Banner';
+import * as LoginHelper from 'helpers/loginHelper';
 import * as sessionActions from 'redux/actions/sessionActions';
 import { kGlobalConstants } from '../../GlobalConstants';
 
@@ -69,6 +70,7 @@ class LoginContainer extends React.Component {
 
         return (
             <div className="login-right usa-da-login-container">
+                <Banner type="login" />
                 {login}
             </div>
         );

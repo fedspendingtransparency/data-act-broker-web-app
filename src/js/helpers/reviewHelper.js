@@ -494,10 +494,10 @@ export const revalidateSubmission = (submissionId, d2Submission = false) => {
     return deferred.promise;
 };
 
-export const listBanners = () => {
+export const listBanners = (login) => {
     const deferred = Q.defer();
 
-    Request.get(`${kGlobalConstants.API}list_banners/`)
+    Request.get(`${kGlobalConstants.API}list_banners/?login=${login}`)
         .end((err, res) => {
             if (err) {
                 const response = Object.assign({}, res.body);
