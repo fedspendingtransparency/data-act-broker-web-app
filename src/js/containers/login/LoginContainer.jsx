@@ -14,7 +14,6 @@ import Banner from 'components/SharedComponents/Banner';
 import * as LoginHelper from 'helpers/loginHelper';
 import * as sessionActions from 'redux/actions/sessionActions';
 import { kGlobalConstants } from '../../GlobalConstants';
-import * as ReviewHelper from '../../helpers/reviewHelper';
 
 const propTypes = {
     location: PropTypes.object
