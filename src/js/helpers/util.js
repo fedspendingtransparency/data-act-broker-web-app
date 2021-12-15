@@ -1,7 +1,7 @@
 import moment from 'moment';
 import { isEqual } from 'lodash';
 
-export const convertToLocalDate = (dateToConvert) => {
+export const convertToLocalDate = (dateToConvert, showTime = false) => {
     // convert date to local date, need to replace the space with a T for Date() formatting
     // Add a Z to the end to imply the date is in UTC
     const formattedDate = `${dateToConvert.replace(" ", "T")}Z`;
@@ -9,15 +9,18 @@ export const convertToLocalDate = (dateToConvert) => {
 
     // format date as YYYY-MM-DD
     const year = tmpDate.getFullYear();
-    let month = tmpDate.getMonth() + 1;
-    if (month < 10) {
-        month = `0${month}`;
+    const month = tmpDate.getMonth() + 1;
+    const day = tmpDate.getDate();
+
+    // if we also need a timestamp, include it
+    let timestamp = '';
+    if (showTime) {
+        const hours = tmpDate.getHours();
+        const mins = tmpDate.getMinutes();
+        const ampm = hours > 12 ? 'pm' : 'am';
+        timestamp = ` ${hours % 12}:${mins.toString().padStart(2, '0')} ${ampm}`;
     }
-    let day = tmpDate.getDate();
-    if (day < 10) {
-        day = `0${day}`;
-    }
-    return `${year}-${month}-${day}`;
+    return `${year}-${month.toString().padStart(2, '0')}-${day.toString().padStart(2, '0')}${timestamp}`;
 };
 
 export const quarterToMonth = (quarter, quarterYear, type) => {
