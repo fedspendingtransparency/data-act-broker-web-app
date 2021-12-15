@@ -34,7 +34,7 @@ export default class AddDataMeta extends React.Component {
             codeType: '',
             startDate: null,
             endDate: null,
-            dateType: null,
+            dateType: 'month',
             submissionType: null,
             showDateTypeField: false,
             showDateRangeField: false,
