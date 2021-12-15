@@ -9,18 +9,18 @@ export const convertToLocalDate = (dateToConvert, showTime = false) => {
 
     // format date as YYYY-MM-DD
     const year = tmpDate.getFullYear();
-    const month = tmpDate.getMonth() + 1;
-    const day = tmpDate.getDate();
+    const month = (tmpDate.getMonth() + 1).toString().padStart(2, '0');
+    const day = tmpDate.getDate().toString().padStart(2, '0');
 
     // if we also need a timestamp, include it
     let timestamp = '';
     if (showTime) {
         const hours = tmpDate.getHours();
-        const mins = tmpDate.getMinutes();
+        const mins = tmpDate.getMinutes().toString().padStart(2, '0');
         const ampm = hours > 12 ? 'pm' : 'am';
-        timestamp = ` ${hours % 12}:${mins.toString().padStart(2, '0')} ${ampm}`;
+        timestamp = ` ${hours % 12}:${mins} ${ampm}`;
     }
-    return `${year}-${month.toString().padStart(2, '0')}-${day.toString().padStart(2, '0')}${timestamp}`;
+    return `${year}-${month}-${day}${timestamp}`;
 };
 
 export const quarterToMonth = (quarter, quarterYear, type) => {
