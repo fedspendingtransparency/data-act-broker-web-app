@@ -10,20 +10,22 @@ const propTypes = {
     progress: PropTypes.number,
     animate: PropTypes.bool,
     action: PropTypes.string,
-    fileName: PropTypes.string
+    fileName: PropTypes.string,
+    decimalPlaces: PropTypes.number
 };
 
 const defaultProps = {
     progress: 0,
     animate: true,
     action: 'Validating',
-    fileName: ''
+    fileName: '',
+    decimalPlaces: 0
 };
 
 export default class ProgressBar extends React.Component {
     render() {
         let extraClasses = '';
-        const roundedProgress = this.props.progress.toFixed(2);
+        const roundedProgress = this.props.progress.toFixed(this.props.decimalPlaces);
         if (this.props.animate) {
             extraClasses = ' animated striped';
         }
@@ -48,7 +50,7 @@ export default class ProgressBar extends React.Component {
                         aria-valuemax="100" />
                 </div>
                 <div className="action-progress">
-                    {this.props.action}... {roundedProgress}
+                    {this.props.action}... {roundedProgress}%
                 </div>
             </div>
         );
