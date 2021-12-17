@@ -19,7 +19,7 @@ import DownloadFile from './DownloadFile';
 import FYPicker from './FYPicker';
 import PeriodPicker from './PeriodPicker';
 
-const initialPeriod = defaultPeriods();
+const initialPeriod = defaultPeriods(true);
 
 const propTypes = {
     type: PropTypes.oneOf(['dabs', 'fabs']),
@@ -82,7 +82,7 @@ export default class DetachedFileA extends React.Component {
     }
 
     pickedYear(fy) {
-        const fyAvailablePeriods = availablePeriodsInFY(fy);
+        const fyAvailablePeriods = availablePeriodsInFY(fy, true);
         this.setState({
             periodArray: fyAvailablePeriods.periodArray,
             period: fyAvailablePeriods.period,
@@ -97,7 +97,8 @@ export default class DetachedFileA extends React.Component {
     }
 
     generate() {
-        const minPeriod = utils.getPeriodTextFromValue(this.state.periodArray[0]);
+        // it's not possible to not start with October so we will always have the first period be 1
+        const minPeriod = utils.getPeriodTextFromValue(1);
         const maxPeriod = utils.getPeriodTextFromValue(this.state.period);
 
         this.setState({

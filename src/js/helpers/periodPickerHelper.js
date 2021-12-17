@@ -20,11 +20,11 @@ export const mostRecentPeriod = () => {
     // moment.month is 0-indexed
     let period = (now.month() + 3) % 12;
     // if we're in October/November, we only want to show the previous year's P12
-    if ( period === 0 || period === 1 ) {
+    if (period === 0 || period === 1) {
         period = 12;
     }
     // if we're in December we want to see FY22 P02 but the current year is still 2021 so we need to add 1
-    if ( period === 2 ) {
+    if (period === 2) {
         year += 1;
     }
 
@@ -52,22 +52,24 @@ export const lastCompletedPeriodInFY = (fy) => {
     return current;
 };
 
-export const availablePeriodsInFY = (fy) => {
+export const availablePeriodsInFY = (fy, ignoreOne = false) => {
+    // if we want to ignore one from the array (for certain picker purposes) ignoreOne should be true
     const sanitizedFY = handlePotentialStrings(fy);
     // get the most recent available period and year
     const lastPeriod = lastCompletedPeriodInFY(sanitizedFY);
 
     if (lastPeriod.year > sanitizedFY) {
+        const periodArray = ignoreOne ? [2] : [1, 2];
         // FY is in the future
         return {
-            periodArray: [1, 2],
+            periodArray,
             period: 2,
             year: sanitizedFY
         };
     }
 
     const available = [];
-    const firstPeriod = 1;
+    const firstPeriod = ignoreOne ? 2 : 1;
 
     for (let i = firstPeriod; i <= lastPeriod.period; i++) {
         if (sanitizedFY >= utils.earliestFileAYear) {
@@ -82,9 +84,9 @@ export const availablePeriodsInFY = (fy) => {
     };
 };
 
-export const defaultPeriods = () => {
+export const defaultPeriods = (ignoreOne = false) => {
     const current = mostRecentPeriod();
-    return availablePeriodsInFY(current.year);
+    return availablePeriodsInFY(current.year, ignoreOne);
 };
 
 export const defaultFiscalYear = () => {
