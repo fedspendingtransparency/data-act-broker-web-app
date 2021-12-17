@@ -207,15 +207,17 @@ export default class DetachedFileA extends React.Component {
                                                     Bureau of the Fiscal Service.
                                                 </p>
                                                 <p>
-                                                    Note: Periods are available to generate the day after they end.
-                                                    However, if the GTAS window for that period is not complete File A
-                                                    Data is subject to change and may need to be regenerated in order to
-                                                    reflect the final state of GTAS data once the window closes.
+                                                    Note: Periods are available to generate starting on the 1st of the
+                                                    following month (for example, P02 data will be available to generate
+                                                    starting Dec 1). However, until the GTAS window for a given period
+                                                    is complete, File A Data is subject to change and may need to be
+                                                    regenerated in order to reflect the final state of GTAS data after
+                                                    the window closes.
 
-                                                    While Period 01 data is automatically included with data from
-                                                    later periods (because File A Data is cumulative within the Fiscal
-                                                    year), it is not selectable on its own and therefore will not be
-                                                    visible until Dec 1 with Period 02.
+                                                    While Period 01 data is automatically included with data from later
+                                                    periods (because File A Data is cumulative within the Fiscal year),
+                                                    it is not selectable on its own and therefore will not be visible
+                                                    until Dec 1 with Period 02.
                                                 </p>
                                             </div>
                                         </div>
