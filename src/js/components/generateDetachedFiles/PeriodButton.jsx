@@ -57,7 +57,17 @@ const PeriodButton = (props) => {
                 </span>
             );
         }
-        buttonText = <React.Fragment>{utils.getPeriodTextFromValue(props.period)}{quarterIndicator}</React.Fragment>;
+        // if we're in period 2, we need to make a special piece of text for the dropdown
+        if (props.period === 2) {
+            buttonText = '01/02 - October/November';
+        }
+        else {
+            buttonText = (
+                <React.Fragment>
+                    {utils.getPeriodTextFromValue(props.period)}{quarterIndicator}
+                </React.Fragment>
+            );
+        }
     }
     else if (typeof props.period === 'string') {
         buttonText = props.period;
