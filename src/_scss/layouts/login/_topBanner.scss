@@ -5,23 +5,45 @@
     width: 100%;
 
     &.warning-banner {
-        background: as-alpha($color-gold-lightest, 0.95);
-        border-bottom: 3px solid $color-gold-lighter;
+        background: #fff1d2;
+        border-bottom: 3px solid #f5dfb0;
 
         .banner-icon {
             svg {
-                color: $color-gold-lighter
+                color: #f0ad4e;
             } 
         }
     }
 
     &.info-banner {
-        background: as-alpha($color-primary-alt-lightest, 0.95);
-        border-bottom: 3px solid $color-primary-alt-light;
+        background: #e1f3f8;
+        border-bottom: 3px solid #bae9f7;
 
         .banner-icon {
             svg {
-                color: $color-primary-alt-light
+                color: #5bc0de;
+            } 
+        }
+    }
+
+    &.success-banner {
+        background: #e7f4e4;
+        border-bottom: 3px solid #caf7c0;
+
+        .banner-icon {
+            svg {
+                color: #5cb85c;
+            } 
+        }
+    }
+
+    &.error-banner {
+        background: #f9dede;
+        border-bottom: 3px solid #facfcf;
+
+        .banner-icon {
+            svg {
+                color: #d9534f;
             } 
         }
     }
@@ -42,6 +64,7 @@
         font-weight: $font-bold;
         margin-bottom: 0;
         max-width: none;
+        padding: 0;
     }
 
     .banner-content p {

@@ -89,7 +89,7 @@ export default class PeriodButtonWithTooltip extends React.Component {
             }
             else {
                 tooltip = (
-                    <WarningTooltip message={`The submission period has yet to open. Please seearch for a ` +
+                    <WarningTooltip message={`The submission period has yet to open. Please search for a ` +
                         `submission period that has opened.`} />
                 );
             }
