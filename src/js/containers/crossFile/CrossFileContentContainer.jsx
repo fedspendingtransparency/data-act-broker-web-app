@@ -46,7 +46,8 @@ class CrossFileContentContainer extends React.Component {
         this.state = {
             agencyName: '',
             toValidateData: false,
-            toGenerateFiles: false
+            toGenerateFiles: false,
+            progress: 0
         };
 
         this.uploadFiles = this.uploadFiles.bind(this);
@@ -166,6 +167,10 @@ class CrossFileContentContainer extends React.Component {
                         this.dataTimer = null;
                     }
                 }
+                // cross-file still running
+                if (crossInfo.status === 'running') {
+                    this.setState({ progress: crossInfo.validation_progress });
+                }
             })
             .catch((err) => {
                 // check if the error has an associated user-displayable message
@@ -215,7 +220,8 @@ class CrossFileContentContainer extends React.Component {
                     {...this.props}
                     uploadFiles={this.uploadFiles}
                     reloadData={this.reloadData}
-                    agencyName={this.state.agencyName} />
+                    agencyName={this.state.agencyName}
+                    progress={this.state.progress} />
             </div>
         );
     }

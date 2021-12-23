@@ -140,7 +140,7 @@ export default class HistoryTable extends React.Component {
                     <li key={i}>
                         <span className="active-submission">
                             Published by {publications[i].publishing_user.name} on&nbsp;
-                            {UtilHelper.convertToLocalDate(publications[i].publish_date)}
+                            {UtilHelper.convertToLocalDate(publications[i].publish_date, true)}
                         </span>
                     </li>);
             }
@@ -156,7 +156,7 @@ export default class HistoryTable extends React.Component {
                         value={i}
                         key={i}>
                         Published by {publications[i].publishing_user.name} on&nbsp;
-                        {UtilHelper.convertToLocalDate(publications[i].publish_date)}
+                        {UtilHelper.convertToLocalDate(publications[i].publish_date, true)}
                     </button>);
             }
         }
@@ -172,7 +172,7 @@ export default class HistoryTable extends React.Component {
                     <li key={i}>
                         <span className="active-submission">
                             Certified by {certifications[i].certifying_user.name} on&nbsp;
-                            {UtilHelper.convertToLocalDate(certifications[i].certify_date)}
+                            {UtilHelper.convertToLocalDate(certifications[i].certify_date, true)}
                         </span>
                     </li>);
             }
@@ -188,7 +188,7 @@ export default class HistoryTable extends React.Component {
                         value={i}
                         key={i}>
                         Certified by {certifications[i].certifying_user.name} on&nbsp;
-                        {UtilHelper.convertToLocalDate(certifications[i].certify_date)}
+                        {UtilHelper.convertToLocalDate(certifications[i].certify_date, true)}
                     </button>);
             }
         }
