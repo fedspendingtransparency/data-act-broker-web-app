@@ -17,44 +17,15 @@ export const mostRecentPeriod = () => {
     // get the latest period for which GTAS data is available
     const now = moment();
     let year = now.year();
-
-    let period = 12;
-
-    if (now.isBetween(moment(`12/18/${year}`, 'MM-DD-YYYY'), moment(`12/31/${year}`, 'MM-DD-YYYY'), null, '[]')) {
-        // Period 2 before Jan 1
-        period = 2;
+    // moment.month is 0-indexed
+    let period = (now.month() + 3) % 12;
+    // if we're in October/November, we only want to show the previous year's P12
+    if ( period === 0 || period === 1 ) {
+        period = 12;
+    }
+    // if we're in December we want to see FY22 P02 but the current year is still 2021 so we need to add 1
+    if ( period === 2 ) {
         year += 1;
-    }
-    else if (now.isBetween(moment(`01/01/${year}`, 'MM-DD-YYYY'), moment(`01/17/${year}`, 'MM-DD-YYYY'), null, '[]')) {
-        // Period 2 after Jan 1
-        period = 2;
-    }
-    else if (now.isBetween(moment(`01/18/${year}`, 'MM-DD-YYYY'), moment(`02/18/${year}`, 'MM-DD-YYYY'), null, '[]')) {
-        period = 3;
-    }
-    else if (now.isBetween(moment(`02/19/${year}`, 'MM-DD-YYYY'), moment(`03/18/${year}`, 'MM-DD-YYYY'), null, '[]')) {
-        period = 4;
-    }
-    else if (now.isBetween(moment(`03/19/${year}`, 'MM-DD-YYYY'), moment(`04/18/${year}`, 'MM-DD-YYYY'), null, '[]')) {
-        period = 5;
-    }
-    else if (now.isBetween(moment(`04/19/${year}`, 'MM-DD-YYYY'), moment(`05/18/${year}`, 'MM-DD-YYYY'), null, '[]')) {
-        period = 6;
-    }
-    else if (now.isBetween(moment(`05/19/${year}`, 'MM-DD-YYYY'), moment(`06/17/${year}`, 'MM-DD-YYYY'), null, '[]')) {
-        period = 7;
-    }
-    else if (now.isBetween(moment(`06/18/${year}`, 'MM-DD-YYYY'), moment(`07/18/${year}`, 'MM-DD-YYYY'), null, '[]')) {
-        period = 8;
-    }
-    else if (now.isBetween(moment(`07/19/${year}`, 'MM-DD-YYYY'), moment(`08/18/${year}`, 'MM-DD-YYYY'), null, '[]')) {
-        period = 9;
-    }
-    else if (now.isBetween(moment(`08/19/${year}`, 'MM-DD-YYYY'), moment(`09/16/${year}`, 'MM-DD-YYYY'), null, '[]')) {
-        period = 10;
-    }
-    else if (now.isBetween(moment(`09/17/${year}`, 'MM-DD-YYYY'), moment(`10/18/${year}`, 'MM-DD-YYYY'), null, '[]')) {
-        period = 11;
     }
 
     return {
