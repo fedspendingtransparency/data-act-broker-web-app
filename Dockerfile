@@ -8,7 +8,7 @@ ENV NODE_VERSION=${node_version_arg}
 RUN yum install -y git make 
 RUN curl -k -L https://git.io/n-install --output n-install
 RUN chmod +x n-install
-RUN yes y | ./n-install
+RUN yes y | bash ./n-install
 RUN $HOME/n/bin/n $NODE_VERSION
 RUN yum clean all
 RUN echo "PATH=$PATH:$HOME/n/bin/n" >> /etc/environment
