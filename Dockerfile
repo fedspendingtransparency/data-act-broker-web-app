@@ -6,7 +6,7 @@ ENV NODE_VERSION=${node_version_arg}
 
 # install node version manager
 RUN yum install -y git make 
-RUN curl -L -k https://git.io/n-install --output n-install
+RUN curl -k -L https://git.io/n-install --output n-install
 RUN chmod +x n-install
 RUN yes y | ./n-install
 RUN $HOME/n/bin/n $NODE_VERSION
