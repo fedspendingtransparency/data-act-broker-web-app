@@ -10,6 +10,7 @@ RUN yum install -y wget git
 RUN wget https://nodejs.org/dist/v$NODE_VERSION/node-v$NODE_VERSION-linux-x64.tar.xz
 RUN mkdir -p /usr/local/lib/nodejs
 RUN tar -xJvf node-v$NODE_VERSION-linux-x64.tar.xz -C /usr/local/lib/nodejs
+RUN chown -R root /usr/local/lib/nodejs
 RUN ln -s /usr/local/lib/nodejs/node-v$NODE_VERSION-linux-x64/bin/node /bin/node
 RUN ln -s /usr/local/lib/nodejs/node-v$NODE_VERSION-linux-x64/bin/npm /bin/npm
 RUN ln -s /usr/local/lib/nodejs/node-v$NODE_VERSION-linux-x64/bin/npx /bin/npx
