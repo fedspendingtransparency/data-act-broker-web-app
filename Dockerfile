@@ -1,17 +1,18 @@
-FROM centos:7.9.2009
+FROM centos:centos7.9.2009
 
 ARG node_version_arg=10.16.0
 
 ENV NODE_VERSION=${node_version_arg}
 
 # install node version manager
-RUN yum install -y git make 
-RUN curl -k -L https://git.io/n-install --output n-install
-RUN chmod +x n-install
-RUN yes y | bash ./n-install
-RUN $HOME/n/bin/n $NODE_VERSION
-RUN yum clean all
-RUN echo "PATH=$PATH:$HOME/n/bin/n" >> /etc/environment
+RUN yum update -y
+RUN yum install -y wget
+RUN wget https://nodejs.org/dist/v$NODE_VERSION/node-v$NODE_VERSION-linux-x64.tar.xz
+RUN mkdir -p /usr/local/lib/nodejs
+RUN tar -xJvf node-v$NODE_VERSION-linux-x64.tar.xz -C /usr/local/lib/nodejs
+RUN ln -s /usr/local/lib/nodejs/node-v$NODE_VERSION-linux-x64/bin/node /bin/node
+RUN ln -s /usr/local/lib/nodejs/node-v$NODE_VERSION-linux-x64/bin/npm /bin/npm
+RUN ln -s /usr/local/lib/nodejs/node-v$NODE_VERSION-linux-x64/bin/npx /bin/npx
 
 RUN mkdir /node-workspace
 COPY package.json /node-workspace 
