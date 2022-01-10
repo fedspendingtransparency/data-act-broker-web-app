@@ -7,13 +7,19 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { checkAffiliations } from 'helpers/permissionsHelper';
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 import RevalidateDataModal from 'components/SharedComponents/revalidate/RevalidateDataModal';
 
 const propTypes = {
-    publishStatus: PropTypes.string
+    publishStatus: PropTypes.string,
+    disabled: PropTypes.bool,
+    refreshPage: PropTypes.bool
 };
+
+const defaultProps = {
+    disabled: false,
+    refreshPage: false
+}
 
 export class RevalidateContainer extends React.Component {
     constructor(props) {
@@ -54,8 +60,12 @@ export class RevalidateContainer extends React.Component {
 
         const blockedStatuses = ['reverting', 'publishing'];
         if (blockedStatuses.indexOf(this.props.publishStatus) > -1) {
-            buttonText = null;
-            buttonAction = `Cannot revalidate while ${this.props.publishStatus}`;
+            buttonText = `Cannot revalidate while ${this.props.publishStatus}`;
+            buttonAction = null;
+        }
+
+        if (this.props.disabled) {
+            buttonAction = null;
         }
 
         return (
@@ -71,7 +81,8 @@ export class RevalidateContainer extends React.Component {
                         {...this.props}
                         closeModal={this.closeModal}
                         isOpen={this.state.revalidateModalOpen}
-                        submissionID={this.props.submission.id} />
+                        submissionID={this.props.submission.id}
+                        refreshPage={this.props.refreshPage} />
                 </div>
             </React.Fragment>
         );
@@ -79,6 +90,7 @@ export class RevalidateContainer extends React.Component {
 }
 
 RevalidateContainer.propTypes = propTypes;
+RevalidateContainer.defaultProps = defaultProps;
 
 const mapStateToProps = (state) => ({
     submission: state.submission,
