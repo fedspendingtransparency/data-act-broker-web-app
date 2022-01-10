@@ -21,6 +21,6 @@ RUN npm ci
 RUN mkdir /test-results
 
 # Add frontend code to container
-FROM $BASE_CONTAINER
+FROM $BASE_CONTAINER as frontend_code
 WORKDIR /node-workspace
 COPY . /node-workspace
