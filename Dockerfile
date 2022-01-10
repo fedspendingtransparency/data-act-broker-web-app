@@ -1,6 +1,7 @@
-FROM centos:centos7.9.2009
-
 ARG node_version_arg=10.16.0
+ARG base_container=frontend_base
+
+FROM centos:centos7.9.2009 as frontend_base
 
 ENV NODE_VERSION=${node_version_arg}
 
@@ -14,17 +15,13 @@ RUN chown -R root /usr/local/lib/nodejs
 RUN ln -s /usr/local/lib/nodejs/node-v$NODE_VERSION-linux-x64/bin/node /bin/node
 RUN ln -s /usr/local/lib/nodejs/node-v$NODE_VERSION-linux-x64/bin/npm /bin/npm
 RUN ln -s /usr/local/lib/nodejs/node-v$NODE_VERSION-linux-x64/bin/npx /bin/npx
-
 RUN mkdir /node-workspace
 COPY package.json /node-workspace 
 COPY package-lock.json /node-workspace
-
 WORKDIR /node-workspace
-
 RUN npm ci
-
-COPY . /node-workspace
-
-VOLUME /node-workspace
-
 RUN mkdir /test-results
+
+FROM ${base_container}
+WORKDIR /node-workspace
+COPY . /node-workspace
