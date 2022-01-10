@@ -13,13 +13,15 @@ import RevalidateDataModal from 'components/SharedComponents/revalidate/Revalida
 const propTypes = {
     publishStatus: PropTypes.string,
     disabled: PropTypes.bool,
-    refreshPage: PropTypes.bool
+    refreshPage: PropTypes.bool,
+    session: PropTypes.object,
+    submission: PropTypes.object
 };
 
 const defaultProps = {
     disabled: false,
     refreshPage: false
-}
+};
 
 export class RevalidateContainer extends React.Component {
     constructor(props) {
