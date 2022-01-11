@@ -16,14 +16,16 @@ const propTypes = {
     closeModal: PropTypes.func,
     data: PropTypes.object,
     submissionID: PropTypes.string,
-    isOpen: PropTypes.bool
+    isOpen: PropTypes.bool,
+    refreshPage: PropTypes.bool
 };
 
 const defaultProps = {
     closeModal: null,
     data: null,
     submissionID: '',
-    isOpen: false
+    isOpen: false,
+    refreshPage: false
 };
 
 export default class RevalidateDataModal extends React.Component {
@@ -78,7 +80,12 @@ export default class RevalidateDataModal extends React.Component {
 
     render() {
         if (this.state.redirect) {
-            return <Redirect to={`/submission/${this.props.submissionID}/validateData`} />;
+            if (this.props.refreshPage) {
+                window.location.reload();
+            }
+            else {
+                return <Redirect to={`/submission/${this.props.submissionID}/validateData`} />;
+            }
         }
         let hideClose = '';
         if (!this.state.closeable) {

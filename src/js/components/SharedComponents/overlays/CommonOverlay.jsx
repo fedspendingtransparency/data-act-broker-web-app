@@ -47,15 +47,18 @@ export default class CommonOverlay extends React.Component {
         }
 
         let buttons = null;
+        let mainOverlayWidth = 'col-md-8';
         if (this.props.showButtons) {
-            buttons = <div className="col-xs-12 col-md-4">{this.props.children}</div>;
+            buttons = <div className="col-xs-12 col-md-5">{this.props.children}</div>;
+            mainOverlayWidth = 'col-md-7';
         }
 
         return (
             <div className="center-block usa-da-validation-overlay">
                 <div className="container">
                     <div className="row">
-                        <div className="col-xs-11 col-xs-offset-1 col-md-8 col-md-offset-0 usa-da-overlay-content-wrap">
+                        <div className={`col-xs-11 col-xs-offset-1 ${mainOverlayWidth} col-md-offset-0
+                            usa-da-overlay-content-wrap`}>
                             <div className="overlay-content">
                                 {icon}
                                 <div className="overlay-text">
