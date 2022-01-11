@@ -1,5 +1,3 @@
-ARG BASE_CONTAINER=frontend_base
-
 # Base Container
 FROM centos:centos7.9.2009 as frontend_base
 ARG NODE_VERSION_ARG=10.16.0
@@ -21,6 +19,6 @@ RUN npm ci
 RUN mkdir /test-results
 
 # Add frontend code to container
-FROM $BASE_CONTAINER as frontend_code
+FROM frontend_base
 WORKDIR /node-workspace
 COPY . /node-workspace
