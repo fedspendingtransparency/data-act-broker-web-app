@@ -88,7 +88,7 @@ export default class HistoryTable extends React.Component {
                 });
             });
     }
-    
+
     getSignedUrlZip() {
         let historyId = null;
         if (this.state.activeType === 'certification') {
