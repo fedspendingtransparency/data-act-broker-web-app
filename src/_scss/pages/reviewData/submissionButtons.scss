@@ -15,6 +15,10 @@
                 margin: 0;
                 margin-right: rem(10);
                 width: rem(136);
+
+                &.dabs-revalidate-button {
+                    width: rem(175);
+                }
             }
         }
 

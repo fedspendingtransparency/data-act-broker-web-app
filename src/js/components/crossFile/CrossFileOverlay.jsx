@@ -5,6 +5,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import _ from 'lodash';
+import RevalidateContainer from 'containers/SharedContainers/RevalidateContainer';
 import * as Icons from '../SharedComponents/icons/Icons';
 import CommonOverlay from '../SharedComponents/overlays/CommonOverlay';
 import LoadingBauble from '../SharedComponents/overlays/LoadingBauble';
@@ -46,6 +47,7 @@ export default class CrossFileOverlay extends React.Component {
             uploadButtonDisabled: true,
             nextButtonClass: ' hide',
             nextButtonDisabled: true,
+            revalidateButtonDisabled: false,
             hideButtons: false,
             message: 'You must correct the cross-file validation errors listed above.',
             detail: null,
@@ -189,6 +191,7 @@ export default class CrossFileOverlay extends React.Component {
             overlay.nextButtonDisabled = true;
             overlay.nextButtonClass = '-disabled';
             overlay.buttonText = 'Uploading files...';
+            overlay.revalidateButtonDisabled = true;
         }
         else if (this.props.submission.state === 'prepare') {
             // new files uploaded, page is now reloading
@@ -224,6 +227,7 @@ export default class CrossFileOverlay extends React.Component {
                 iconClass={this.state.overlay.iconClass}
                 showButtons={!this.state.overlay.hideButtons}>
                 <div className="usa-da-btn-bg">
+                    <RevalidateContainer />
                     <button
                         className={`usa-da-button${this.state.overlay.uploadButtonClass}`}
                         disabled={this.state.overlay.uploadButtonDisabled}
