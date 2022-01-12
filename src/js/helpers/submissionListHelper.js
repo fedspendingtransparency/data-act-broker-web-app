@@ -107,11 +107,30 @@ export const loadSubmissionHistory = (submissionID) => {
     return deferred.promise;
 };
 
-export const getSubmissionFile = (submissionID, certifiedFilesHistory, isWarning) => {
+export const getSubmissionFile = (submissionID, publishedFilesHistory, isWarning) => {
     const deferred = Q.defer();
 
     Request.get(`${kGlobalConstants.API}get_certified_file/?submission_id=${submissionID}&` +
-                `published_files_history_id=${certifiedFilesHistory}&is_warning=${isWarning}`)
+                `published_files_history_id=${publishedFilesHistory}&is_warning=${isWarning}`)
+        .send()
+        .end((err, res) => {
+            if (err) {
+                deferred.reject(err);
+            }
+            else {
+                deferred.resolve(res.body);
+            }
+        });
+
+    return deferred.promise;
+};
+
+export const getSubmissionZip = (submissionID, historyId, activeType) => {
+    const deferred = Q.defer();
+
+    const historyType = (activeType === 'publication') ? 'publish' : 'certify';
+    Request.get(`${kGlobalConstants.API}get_submission_zip/?submission_id=${submissionID}&` +
+                `${historyType}_history_id=${historyId}`)
         .send()
         .end((err, res) => {
             if (err) {
