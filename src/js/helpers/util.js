@@ -1,7 +1,7 @@
 import moment from 'moment';
 import { isEqual } from 'lodash';
 
-export const convertToLocalDate = (dateToConvert, showTime = false) => {
+export const convertToLocalDate = (dateToConvert, showTime = false, separator = '-') => {
     // convert date to local date, need to replace the space with a T for Date() formatting
     // Add a Z to the end to imply the date is in UTC
     const formattedDate = `${dateToConvert.replace(" ", "T")}Z`;
@@ -20,7 +20,10 @@ export const convertToLocalDate = (dateToConvert, showTime = false) => {
         const ampm = hours > 12 ? 'pm' : 'am';
         timestamp = ` ${hours % 12}:${mins} ${ampm}`;
     }
-    return `${year}-${month}-${day}${timestamp}`;
+    if (separator == '-') {
+        return `${year}-${month}-${day}${timestamp}`;
+    }
+    return `${month}/${day}/${year}${timestamp}`;
 };
 
 export const quarterToMonth = (quarter, quarterYear, type) => {
