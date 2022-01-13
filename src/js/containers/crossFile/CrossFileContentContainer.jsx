@@ -156,7 +156,8 @@ class CrossFileContentContainer extends React.Component {
                             // there is only ever one job returned when the type is specified, simply use that one
                             const crossFile = {
                                 errors: ReviewHelper.getCrossFileData(response.jobs[0], 'errors'),
-                                warnings: ReviewHelper.getCrossFileData(response.jobs[0], 'warnings')
+                                warnings: ReviewHelper.getCrossFileData(response.jobs[0], 'warnings'),
+                                lastValidated: crossInfo.validation_last_updated
                             };
                             this.props.setSubmissionState(crossInfo.status);
                             this.props.setCrossFile(crossFile);
