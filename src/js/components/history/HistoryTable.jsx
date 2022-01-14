@@ -5,6 +5,7 @@
 
 import React from 'react';
 import PropTypes from 'prop-types';
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 import * as SubmissionListHelper from 'helpers/submissionListHelper';
 import * as UtilHelper from 'helpers/util';
@@ -30,7 +31,8 @@ export default class HistoryTable extends React.Component {
                 body: ''
             }
         };
-        this.getSignedUrl = this.getSignedUrl.bind(this);
+        this.getSignedUrlFile = this.getSignedUrlFile.bind(this);
+        this.getSignedUrlZip = this.getSignedUrlZip.bind(this);
         this.handlePublishedSelect = this.handlePublishedSelect.bind(this);
         this.handleCertifiedSelect = this.handleCertifiedSelect.bind(this);
         this.setActiveSubmission = this.setActiveSubmission.bind(this);
@@ -48,7 +50,7 @@ export default class HistoryTable extends React.Component {
             });
     }
 
-    getSignedUrl(index) {
+    getSignedUrlFile(index) {
         let urlFile = null;
         if (this.state.activeType === 'certification') {
             urlFile = this.state.certifications[this.state.active].certified_files[index];
@@ -66,6 +68,44 @@ export default class HistoryTable extends React.Component {
         });
         SubmissionListHelper.getSubmissionFile(this.props.submissionID, urlFile.published_files_history_id,
             urlFile.is_warning)
+            .then((response) => {
+                window.open(response.url);
+                this.setState({
+                    warning: {
+                        active: false
+                    }
+                });
+            })
+            .catch((err) => {
+                console.error(err);
+                this.setState({
+                    warning: {
+                        active: true,
+                        type: 'danger',
+                        header: 'History Error',
+                        body: err.message
+                    }
+                });
+            });
+    }
+
+    getSignedUrlZip() {
+        let historyId = null;
+        if (this.state.activeType === 'certification') {
+            historyId = this.state.certifications[this.state.active].certify_history_id;
+        }
+        else {
+            historyId = this.state.publications[this.state.active].publish_history_id;
+        }
+        this.setState({
+            warning: {
+                active: true,
+                type: 'warning',
+                header: 'Zipping File. Please Wait',
+                body: 'Zipping files and retreiving zip from server. Please wait.'
+            }
+        });
+        SubmissionListHelper.getSubmissionZip(this.props.submissionID, historyId, this.state.activeType)
             .then((response) => {
                 window.open(response.url);
                 this.setState({
@@ -116,14 +156,14 @@ export default class HistoryTable extends React.Component {
         }
         const list = [];
         for (let i = 0; i < activeSubmissionsFiles.length; i++) {
-            const onKeyDownHandler = UtilHelper.createOnKeyDownHandler(this.getSignedUrl, [i]);
+            const onKeyDownHandler = UtilHelper.createOnKeyDownHandler(this.getSignedUrlFile, [i]);
             list.push(
                 <div
                     role="button"
                     tabIndex={0}
                     className="file-link"
                     onKeyDown={onKeyDownHandler}
-                    onClick={this.getSignedUrl.bind(this, i)}
+                    onClick={this.getSignedUrlFile.bind(this, i)}
                     key={i}>
                     {activeSubmissionsFiles[i].filename}
                 </div>);
@@ -222,6 +262,17 @@ export default class HistoryTable extends React.Component {
             );
         }
 
+        let downloadButton = null;
+        if (fileList != null && fileList.length > 0) {
+            downloadButton = (
+                <button
+                    className="usa-da-download"
+                    onClick={this.getSignedUrlZip.bind(this, this.state.active)}>
+                    <FontAwesomeIcon icon="cloud-download-alt" /> Download All Files (.zip)
+                </button>
+            );
+        }
+
         return (
             <div className="container">
                 <div className="row">
@@ -249,6 +300,7 @@ export default class HistoryTable extends React.Component {
                     <div className="col-md-6 download-box">
                         <h2>Download Files: {current}</h2>
                         {fileList}
+                        {downloadButton}
                     </div>
                 </div>
             </div>

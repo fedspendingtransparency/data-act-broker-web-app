@@ -11,10 +11,10 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { formatMoneyWithPrecision } from 'helpers/moneyFormatter';
 import { checkAffiliations } from 'helpers/permissionsHelper';
 import RevertToCertifiedContainer from 'containers/reviewData/RevertToCertifiedContainer';
+import RevalidateContainer from 'containers/SharedContainers/RevalidateContainer';
 import ReviewDataContentRow from './ReviewDataContentRow';
 import ReviewDataNotifyModal from './ReviewDataNotifyModal';
 import ReviewDataCertifyModal from './CertificationModal/ReviewDataCertifyModal';
-import RevalidateDataModal from './CertificationModal/RevalidateDataModal';
 import ReviewDataNarrative from './Narrative/ReviewDataNarrative';
 
 import { formatSize } from '../../helpers/util';
@@ -42,12 +42,10 @@ export default class ReviewDataContent extends React.Component {
         this.state = {
             openNotify: false,
             openCertify: false,
-            openRevalidate: false,
             type: 'both'
         };
 
         this.openNotifyModal = this.openNotifyModal.bind(this);
-        this.openRevalidateModal = this.openRevalidateModal.bind(this);
         this.openPublishModal = this.openPublishModal.bind(this);
         this.openCertifyModal = this.openCertifyModal.bind(this);
         this.openPublishAndCertifyModal = this.openPublishAndCertifyModal.bind(this);
@@ -57,12 +55,6 @@ export default class ReviewDataContent extends React.Component {
 
     openNotifyModal() {
         this.openModal('Notify');
-    }
-
-    openRevalidateModal(e) {
-        e.preventDefault();
-
-        this.openModal('Revalidate');
     }
 
     openPublishModal(e) {
@@ -94,7 +86,6 @@ export default class ReviewDataContent extends React.Component {
         this.setState({
             openNotify: false,
             openCertify: false,
-            openRevalidate: false,
             type: 'both'
         });
     }
@@ -142,12 +133,10 @@ export default class ReviewDataContent extends React.Component {
 
         let publishButtonText = 'You do not have permission to publish';
         let certifyButtonText = 'You do not have permission to certify';
-        let revalidateButtonText = 'You do not have permission to revalidate';
         let publishButtonClass = ' btn-disabled';
         let certifyButtonClass = ' btn-disabled';
         let publishButtonAction;
         let certifyButtonAction;
-        let revalidateButtonAction;
         let notifyButtonAction = this.openNotifyModal;
         let twoButtons = false;
         let certifyIcon = <FontAwesomeIcon icon="globe-americas" />;
@@ -202,18 +191,12 @@ export default class ReviewDataContent extends React.Component {
                 certifyButtonAction = this.openPublishAndCertifyModal;
             }
         }
-        if (checkAffiliations(this.props.session, 'writer', this.props.data.agency_name) || hasPubPerms) {
-            revalidateButtonText = 'Revalidate';
-            revalidateButtonAction = this.openRevalidateModal;
-        }
 
         const blockedStatuses = ['reverting', 'publishing'];
         if (blockedStatuses.indexOf(this.props.submission.publishStatus) > -1) {
-            revalidateButtonAction = null;
             publishButtonAction = null;
             certifyButtonAction = null;
             notifyButtonAction = null;
-            revalidateButtonText = `Cannot revalidate while ${this.props.submission.publishStatus}`;
             publishButtonText = `Cannot publish while ${this.props.submission.publishStatus}`;
             certifyButtonText = `Cannot certify while ${this.props.submission.publishStatus}`;
             publishButtonClass = ' btn-disabled';
@@ -319,14 +302,7 @@ export default class ReviewDataContent extends React.Component {
                     <div className="row submission-button-holder">
                         <div className="col-md-6 revert-revalidate-buttons">
                             <RevertToCertifiedContainer loadData={this.props.loadData} />
-                            <button
-                                onClick={revalidateButtonAction}
-                                disabled={!revalidateButtonAction}
-                                className="usa-da-button btn-primary-alt">
-                                <div className="button-wrapper">
-                                    <FontAwesomeIcon icon="check" />{revalidateButtonText}
-                                </div>
-                            </button>
+                            <RevalidateContainer publishStatus={this.props.submission.publishStatus} />
                         </div>
                         <div className="col-md-6 publish-certify-buttons">
                             {publishCertifyButtons}
@@ -355,12 +331,6 @@ export default class ReviewDataContent extends React.Component {
                             isOpen={this.state.openCertify}
                             warnings={this.props.data.number_of_warnings}
                             type={this.state.type} />
-                    </div>
-                    <div id="revalidateDataModalHolder">
-                        <RevalidateDataModal
-                            {...this.props}
-                            closeModal={this.closeModal}
-                            isOpen={this.state.openRevalidate} />
                     </div>
                 </div>
             </div>

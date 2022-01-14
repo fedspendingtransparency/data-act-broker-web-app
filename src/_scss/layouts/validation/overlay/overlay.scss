@@ -31,6 +31,11 @@
     	.usa-da-validation-overlay-review {
     		// when two buttons appear, add some spacing between them
 		    margin-left: 5px;
-    	}
+        }
+        
+        .btn-primary-alt.usa-da-button.dabs-revalidate-button {
+            border: none;
+            margin-right: rem(5);
+        }
     }
 }

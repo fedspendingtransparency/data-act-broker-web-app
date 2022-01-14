@@ -5,6 +5,7 @@
 
 import React from 'react';
 import PropTypes from 'prop-types';
+import RevalidateContainer from 'containers/SharedContainers/RevalidateContainer';
 import * as Icons from '../SharedComponents/icons/Icons';
 import CommonOverlay from '../SharedComponents/overlays/CommonOverlay';
 import NextButton from '../submission/NextButton';
@@ -43,6 +44,7 @@ export default class ValidationOverlay extends React.Component {
         let uploadButtonDisabled = true;
         let nextButtonClass = ' hide';
         let nextButtonDisabled = true;
+        let revalidateButtonDisabled = false;
         if (this.props.allowUpload) {
             uploadButtonDisabled = false;
             uploadButtonClass = ' btn-primary';
@@ -82,6 +84,7 @@ export default class ValidationOverlay extends React.Component {
         if (this.props.submission.state === 'uploading') {
             uploadButtonDisabled = true;
             uploadButtonClass = '-disabled';
+            revalidateButtonDisabled = true;
             buttonText = 'Uploading files...';
 
             if (this.props.errors.length === 0) {
@@ -125,6 +128,7 @@ export default class ValidationOverlay extends React.Component {
                 icon={icon}
                 iconClass={iconClass}>
                 <div className="usa-da-btn-bg">
+                    <RevalidateContainer disabled={revalidateButtonDisabled} refreshPage />
                     <button
                         className={`usa-da-button${uploadButtonClass}`}
                         disabled={uploadButtonDisabled}

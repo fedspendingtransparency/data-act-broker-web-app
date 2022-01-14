@@ -90,5 +90,25 @@
         min-height: rem(300);
         margin-top: rem(30);
         overflow: scroll;
+
+        .usa-da-download {
+            @import "/../../components/buttons/_optional";
+            @include optionalButton;
+            padding: rem(10) 0;
+    
+            background-color: transparent;
+            color: $color-primary;
+            font-weight: 600;
+            font-size: rem(14);
+    
+            &:hover {
+                color: $color-primary-darker;
+                & .usa-da-icon.usa-da-download-report {
+                    & svg {
+                        fill: $color-primary-darker;
+                    }
+                }
+            }
+        }
     }
 }
