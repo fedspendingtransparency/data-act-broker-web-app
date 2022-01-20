@@ -37,8 +37,47 @@
     }
 
     .usa-da-validate-item-header {
+        @include display(flex);
+        @include flex-direction(row);
+
         border-bottom: 1px solid #e4e2e0;
         min-height: 6.0rem;
+        padding: 0 rem(15);
+
+        @media screen and (max-width: $medium-screen) {
+            @include flex-direction(column);
+        }
+
+        .validate-item-header-half {
+            @include display(flex);
+            @include flex-direction(column);
+            @include flex-grow(1);
+
+            &.right {
+                text-align: right;
+
+                @media screen and (max-width: $medium-screen) {
+                    text-align: left;
+                }
+            }
+
+            div {
+                @include flex-grow(1);
+                padding-bottom: rem(5);
+
+                h4, p {
+                    margin: 0;
+                    line-height: rem(25);
+                    vertical-align: bottom;
+                    color: $color-gray;
+                }
+
+                h4 {
+                    font-weight: $font-light;
+                    font-size: rem(24);
+                }
+            }
+        }
     }
 
     .usa-da-validate-item-footer {

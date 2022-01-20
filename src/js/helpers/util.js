@@ -2,6 +2,9 @@ import moment from 'moment';
 import { isEqual } from 'lodash';
 
 export const convertToLocalDate = (dateToConvert, showTime = false, separator = '-') => {
+    if (dateToConvert === null || dateToConvert === undefined) {
+        return dateToConvert;
+    }
     // convert date to local date, need to replace the space with a T for Date() formatting
     // Add a Z to the end to imply the date is in UTC
     const formattedDate = `${dateToConvert.replace(" ", "T")}Z`;
@@ -17,8 +20,8 @@ export const convertToLocalDate = (dateToConvert, showTime = false, separator = 
     if (showTime) {
         const hours = tmpDate.getHours();
         const mins = tmpDate.getMinutes().toString().padStart(2, '0');
-        const ampm = hours > 12 ? 'pm' : 'am';
-        timestamp = ` ${hours % 12}:${mins} ${ampm}`;
+        const ampm = hours >= 12 ? 'pm' : 'am';
+        timestamp = ` ${(hours % 12) || 12}:${mins} ${ampm}`;
     }
     if (separator == '-') {
         return `${year}-${month}-${day}${timestamp}`;
