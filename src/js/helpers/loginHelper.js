@@ -15,7 +15,7 @@ export const fetchActiveUser = () => {
 
     const store = new StoreSingleton().store;
 
-    Request.get(`${kGlobalConstants.API}current_user/`)
+    Request.get(`${kGlobalConstants.API}active_user/`)
         .send()
         .end((err, res) => {
             if (err) {
