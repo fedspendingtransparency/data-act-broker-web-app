@@ -7,9 +7,9 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import _ from 'lodash';
 import ProgressBar from 'components/SharedComponents/ProgressBar';
+import { convertToLocalDate } from 'helpers/util';
 import CrossFileItem from './CrossFileItem';
 import CrossFileOverlay from './CrossFileOverlay';
-import { convertToLocalDate } from 'helpers/util';
 
 const propTypes = {
     reloadData: PropTypes.func,

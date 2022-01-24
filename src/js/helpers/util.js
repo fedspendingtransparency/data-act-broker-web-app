@@ -23,7 +23,7 @@ export const convertToLocalDate = (dateToConvert, showTime = false, separator = 
         const ampm = hours >= 12 ? 'pm' : 'am';
         timestamp = ` ${(hours % 12) || 12}:${mins} ${ampm}`;
     }
-    if (separator == '-') {
+    if (separator === '-') {
         return `${year}-${month}-${day}${timestamp}`;
     }
     return `${month}/${day}/${year}${timestamp}`;
