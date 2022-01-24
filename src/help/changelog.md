@@ -1,4 +1,5 @@
-#### December 7, 2021{section=changelog}
+#### January 14, 2022{section=changelog}
 In this release of the Broker, we:
 
-* Added progress bars to the first set of validations the user sees in DABS and FABS. This will display the estimated progress the Broker has made while running validations on the submitted files so the user can gauge how long until the validations are complete. Cross file validation progress bars are planned to be added in a future release.
+* Updated the Submission History page for Published/Certified submissions. In the Download Files section where users can click to download individual files that were included in each submission, we added a link to download all the files at the same time in a .zip file.
+* Added a "Revalidate Submission" button on Steps 1 and 3 of the DABS Submission Workflow to allow users to intentionally run the validations again from the current page. In the event a user had encountered a critical error and now believes the error has been cleared, they will have the ability to run the set of validations on that page again without the need to start a new submission or have to delete and re-upload an agency file.
