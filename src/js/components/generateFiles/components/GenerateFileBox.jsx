@@ -7,7 +7,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import * as Icons from '../../SharedComponents/icons/Icons';
 import DatePicker from './DatePicker';
-import { createOnKeyDownHandler } from '../../../helpers/util';
+import { createOnKeyDownHandler, convertToLocalDate } from '../../../helpers/util';
 
 const propTypes = {
     clickedDownload: PropTypes.func,
@@ -47,12 +47,24 @@ export default class GenerateFileBox extends React.Component {
             downloadClass = '';
         }
 
+        let lastGenerated = null;
+        if (this.props.value.lastGenerated !== undefined && this.props.value.lastGenerated !== null) {
+            lastGenerated = (
+                <div className="last-generated">
+                    Last Generated: {convertToLocalDate(this.props.value.lastGenerated, true, '/')}
+                </div>
+            );
+        }
+
         return (
             <div>
                 <div className="usa-da-generate-item-wrap">
                     <div className="usa-da-generate-item">
                         <div className="file-full-name">
-                            {this.props.label}
+                            <div className="file-name">
+                                {this.props.label}
+                            </div>
+                            {lastGenerated}
                         </div>
                         <div className="date-range-wrapper">
                             <DatePicker

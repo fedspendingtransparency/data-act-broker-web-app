@@ -7,6 +7,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import _ from 'lodash';
 import ProgressBar from 'components/SharedComponents/ProgressBar';
+import { convertToLocalDate } from 'helpers/util';
 import CrossFileItem from './CrossFileItem';
 import CrossFileOverlay from './CrossFileOverlay';
 
@@ -125,6 +126,14 @@ export default class CrossFileContent extends React.Component {
         if (isLoading) {
             loadingClass = ' usa-da-gathering-data';
             progress = <ProgressBar progress={this.props.progress} />;
+        }
+
+        if (this.props.submission.state === 'finished' && this.props.submission.crossFile.lastValidated !== undefined) {
+            progress = (
+                <div className="last-validated">
+                    Last Validated: {convertToLocalDate(this.props.submission.crossFile.lastValidated, true, '/')}
+                </div>
+            );
         }
 
         return (

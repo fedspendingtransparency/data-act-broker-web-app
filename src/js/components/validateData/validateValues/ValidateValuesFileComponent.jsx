@@ -8,7 +8,7 @@ import PropTypes from 'prop-types';
 import { isEqual } from 'lodash';
 import * as GenerateFilesHelper from 'helpers/generateFilesHelper';
 import * as PermissionsHelper from 'helpers/permissionsHelper';
-import { createOnKeyDownHandler } from 'helpers/util';
+import { createOnKeyDownHandler, convertToLocalDate } from 'helpers/util';
 import FileProgress from 'components/SharedComponents/FileProgress';
 import * as Icons from 'components/SharedComponents/icons/Icons';
 import ValidateDataUploadButton from './../ValidateDataUploadButton';
@@ -207,9 +207,12 @@ export default class ValidateValuesFileComponent extends React.Component {
             }
         }
 
+        const lastValidated = convertToLocalDate(this.props.item.last_validated, true, '/');
+
         return {
             size,
-            rows
+            rows,
+            lastValidated
         };
     }
 
@@ -334,7 +337,7 @@ export default class ValidateValuesFileComponent extends React.Component {
             downloadClick = <div>{fileName}</div>;
         }
 
-        const { size, rows } = this.displayFileMeta();
+        const { size, rows, lastValidated } = this.displayFileMeta();
 
         return (
             <div
@@ -345,14 +348,21 @@ export default class ValidateValuesFileComponent extends React.Component {
                     <div className="row usa-da-validate-item-top-section">
                         <div className="col-md-9 usa-da-validate-item-status-section">
                             <div className="row usa-da-validate-item-header">
-                                <div className="col-md-6">
-                                    <h4>{this.props.type.fileTitle}</h4>
+                                <div className="validate-item-header-half left">
+                                    <div className="file-title">
+                                        <h4>{this.props.type.fileTitle}</h4>
+                                    </div>
+                                    <div className="last-validated">
+                                        <p>Last Validated: {lastValidated}</p>
+                                    </div>
                                 </div>
-                                <div className="col-md-2 text-right">
-                                    <p>File Size: {size}</p>
-                                </div>
-                                <div className="col-md-4 text-right">
-                                    <p>Data Rows in File (excludes header): {rows}</p>
+                                <div className="validate-item-header-half right">
+                                    <div className="file-size">
+                                        <p>File Size: {size}</p>
+                                    </div>
+                                    <div className="data-rows">
+                                        <p>Data Rows in File (excludes header): {rows}</p>
+                                    </div>
                                 </div>
                             </div>
                             <div className="row">

@@ -54,7 +54,8 @@ export class GenerateFilesContainer extends React.Component {
                 },
                 showDownload: false,
                 agencyType: 'awarding',
-                fileFormat: 'csv'
+                fileFormat: 'csv',
+                lastGenerated: null
             },
             d2: {
                 startDate: null,
@@ -66,7 +67,8 @@ export class GenerateFilesContainer extends React.Component {
                 },
                 showDownload: false,
                 agencyType: 'awarding',
-                fileFormat: 'csv'
+                fileFormat: 'csv',
+                lastGenerated: null
             },
             d1Status: 'waiting',
             d2Status: 'waiting',
@@ -424,6 +426,7 @@ export class GenerateFilesContainer extends React.Component {
                         header,
                         description: message
                     };
+                    item.lastGenerated = fileData.generated_at;
                     output[file] = item;
                 }
             }
@@ -443,6 +446,7 @@ export class GenerateFilesContainer extends React.Component {
                         description: 'No data found for the specified period'
                     };
                 }
+                item.lastGenerated = fileData.generated_at;
                 // add this to the new state
                 output[file] = item;
             }
