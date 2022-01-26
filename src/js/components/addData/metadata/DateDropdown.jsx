@@ -30,7 +30,7 @@ export default class DateDropdown extends React.Component {
 
         this.state = {
             month: moment().format('MM/YYYY'),
-            quarter: UtilHelper.previousQuarterMonth(this.props.startEndType)
+            quarter: '07/2021-09/2021'
         };
     }
 
@@ -102,11 +102,8 @@ export default class DateDropdown extends React.Component {
     }
 
     generateQuarters() {
-        const years = [];
-        for (let i = -2; i <= 1; i++) {
-            years.push(moment().add(i, 'years').format('YYYY'));
-        }
-
+        // since we are past the start of FY22 from now on all quarters will be hardcoded
+        const years = ['2017', '2018', '2019', '2020', '2021']
         const quarters = [];
         years.forEach((year) => {
             for (let i = 1; i <= 4; i++) {
