@@ -68,7 +68,7 @@ module.exports = merge(common, {
             'process.env': {
                 BROKER_API: process.env.BROKER_API
                     ? JSON.stringify(process.env.BROKER_API)
-                    : JSON.stringify("http://localhost:9999/v1/current_user/"),
+                    : JSON.stringify("http://localhost:9999/v1/active_user/"),
                 BROKER_CALLBACK: process.env.BROKER_CALLBACK
                     ? JSON.stringify(process.env.BROKER_CALLBACK)
                     : JSON.stringify("http://localhost:3000/#/auth"),
