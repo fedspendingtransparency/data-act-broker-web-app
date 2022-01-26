@@ -5,6 +5,7 @@
 
 import React from 'react';
 import PropTypes from 'prop-types';
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 const propTypes = {
     onChange: PropTypes.func,
@@ -73,6 +74,9 @@ export default class DateTypeField extends React.Component {
                                 Quarterly
                             </label>
                         </div>
+                    </div>
+                    <div className="quarterly-submission-note">
+                        <b>Note:</b> Quarterly submissions are only available for FY21 and prior.
                     </div>
                 </div>
             </div>
