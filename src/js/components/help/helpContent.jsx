@@ -75,13 +75,12 @@ export default class HelpContent extends React.Component {
             membership = (
                 <p name="membership">
                     If you encounter a bug, have a question, or need help,
-                    please register for the&nbsp;
-                    <a href="https://servicedesk.usaspending.gov" rel="noopener noreferrer" target="_blank">
-                        USAspending Service Desk
-                    </a> and submit a ticket.
-                    We can better resolve your issue if you provide us as much information as possible,
-                    including the exact steps we should follow to replicate your issue and the page where you
-                    encountered it. The Service Desk will email you if more information or clarification is needed.
+                    please submit an email to the USAspending Service Desk (
+                    <a href="mailto:usaspending.help@fiscal.treasury.gov">usaspending.help@fiscal.treasury.gov</a>).
+                    We can better assist you if you provide us as much information as possible,
+                    including the submission ID, the exact steps we should follow to replicate your issue,
+                    and the page where you encountered it. The Service Desk Team will email you if more information
+                    or clarification is needed.
                 </p>
             );
         }
