@@ -18,6 +18,14 @@
                 }
             }
         }
+
+        .quarterly-submission-note {
+            text-align: left;
+            font-style: italic;
+            padding-left: rem(15);
+            color: $color-gray;
+        }
+
         .usa-da-submission-type {
             .usa-da-submission-type-group {
                 margin-top: rem(20);

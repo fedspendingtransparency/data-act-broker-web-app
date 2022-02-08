@@ -74,6 +74,9 @@ export default class DateTypeField extends React.Component {
                             </label>
                         </div>
                     </div>
+                    <div className="quarterly-submission-note">
+                        <b>Note:</b> Quarterly submissions are only available for FY21 and prior.
+                    </div>
                 </div>
             </div>
         );

@@ -20,8 +20,5 @@
 			@import "./fileItem/fileItem";
 			@include fileItem;
 		}
-
-		// validate header errors
-		@import "./headers/headers";
 	}
 }

@@ -8,7 +8,6 @@ import PropTypes from 'prop-types';
 import moment from 'moment';
 import * as Icons from '../../SharedComponents/icons/Icons';
 import DateDropdown from './DateDropdown';
-import * as UtilHelper from '../../../helpers/util';
 
 const propTypes = {
     onChange: PropTypes.func,
@@ -43,10 +42,11 @@ export default class DateRangeField extends React.Component {
     }
 
     defaultDates() {
+        // we hardcode the default dates for quarter because agencies can't create quarter submissions beyond FY21
         if (this.props.type === "quarter") {
             this.setState({
-                startDate: UtilHelper.previousQuarterMonth('start'),
-                endDate: UtilHelper.previousQuarterMonth('end'),
+                startDate: '07/2021',
+                endDate: '09/2021',
                 dateError: false
             }, () => {
                 this.props.onChange(this.state.startDate, this.state.endDate);

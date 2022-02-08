@@ -3,6 +3,7 @@
 	.usa-da-submission-instructions {
 		@import "../../components/typography/_instructions";
 		@include instructions;
+		margin-bottom: rem(25);
 	}
 
 	// import the loading animations and styles
@@ -22,6 +23,12 @@
 
 	.warning {
 		background-color: transparent;
+	}
+
+	.last-validated {
+		margin-bottom: rem(15);
+
+		color: $color-gray;
 	}
 
 }
