@@ -1,5 +1,8 @@
-#### January 14, 2022{section=changelog}
+#### February 8, 2022{section=changelog}
 In this release of the Broker, we:
 
-* Updated the Submission History page for Published/Certified submissions. In the Download Files section where users can click to download individual files that were included in each submission, we added a link to download all the files at the same time in a .zip file.
-* Added a "Revalidate Submission" button on Steps 1 and 3 of the DABS Submission Workflow to allow users to intentionally run the validations again from the current page. In the event a user had encountered a critical error and now believes the error has been cleared, they will have the ability to run the set of validations on that page again without the need to start a new submission or have to delete and re-upload an agency file.
+* Fixed a few minor bugs with validation rules.
+* Updated naming convention for Broker files as they appear on the Submission History page for clarity. Now the user is better able to determine the contents of the file prior to downloading or once they have saved it locally. This will apply to new submissions moving forward as files are created, existing files for existing submissions are not being renamed.
+* Removed the ability to create new Quarterly submissions for FY22 and forward as all submissions for current and future periods are now required to be Monthly submissions.
+* Updated the Service Desk information on the Broker Help page for accuracy.
+* Added timestamps in the Broker workflow to let users know when a given set of Validations last ran and when D1 or D2 files were last generated.
