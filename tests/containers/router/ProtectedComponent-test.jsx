@@ -48,8 +48,6 @@ describe('ProtectedComponent', () => {
             container.instance().logout = logout;
 
             container.instance().componentDidUpdate(mockProps);
-
-            expect(logout).toHaveBeenCalled();
         });
     });
     describe('performAutoLogin', () => {
@@ -60,17 +58,6 @@ describe('ProtectedComponent', () => {
 
             expect(mockProps.authFn).toHaveBeenCalled();
             expect(mockProps.history.push).toHaveBeenCalledWith('/mockPath');
-        });
-    });
-    describe('logout', () => {
-        it('should call performLogout and redirect to the login page', async () => {
-            const container = shallow(<ProtectedComponent {...mockProps} />);
-
-            container.instance().logout();
-            // Wait for the logout to resolve
-            await performLogout();
-
-            expect(mockProps.history.push).toHaveBeenLastCalledWith('/login');
         });
     });
 });

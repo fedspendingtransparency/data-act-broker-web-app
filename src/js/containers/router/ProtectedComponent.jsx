@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
+import { Redirect } from 'react-router-dom';
 import { bindActionCreators } from 'redux';
 
 import * as LoginHelper from '../../helpers/loginHelper';
@@ -56,9 +57,6 @@ export class ProtectedComponent extends React.Component {
                 this.performAutoLogin();
                 this.monitorSession();
             }
-            else if (this.props.session.login === "loggedOut" && prevProps.session.login === "loggedIn") {
-                this.logout();
-            }
         }
     }
 
@@ -70,13 +68,6 @@ export class ProtectedComponent extends React.Component {
         const isAuthorized = this.props.authFn(this.props.session);
         const path = LoginHelper.getPath(this.props.location, isAuthorized);
         this.props.history.push(path);
-    }
-
-    logout() {
-        LoginHelper.performLogout()
-            .then(() => {
-                this.props.history.push('/login');
-            });
     }
 
     monitorSession() {
@@ -91,6 +82,9 @@ export class ProtectedComponent extends React.Component {
     }
 
     render() {
+        if (!this.props.authFn(this.props.session)) {
+            return <Redirect to="/login/" />;
+        }
         return this.props.children;
     }
 }

@@ -14,6 +14,7 @@ import UserButton from 'components/SharedComponents/navigation/UserButton';
 import SettingsModal from 'components/settings/SettingsModal';
 import { kGlobalConstants } from '../../../GlobalConstants';
 import NavbarTab from './NavbarTab';
+import * as LoginHelper from '../../../helpers/loginHelper';
 import SkipNavigationLink from './SkipNavigationLink';
 import TestEnvironmentBanner from '../banners/TestEnvironmentBanner';
 
@@ -23,7 +24,6 @@ const combinedActions = {
 };
 
 const propTypes = {
-    setSession: PropTypes.func,
     session: PropTypes.object,
     type: PropTypes.string,
     logoOnly: PropTypes.bool,
@@ -31,7 +31,6 @@ const propTypes = {
 };
 
 const defaultProps = {
-    setSession: () => {},
     session: null,
     type: '',
     logoOnly: false
@@ -84,12 +83,7 @@ export class Navbar extends React.Component {
     }
 
     logout() {
-        this.props.setSession({
-            login: 'loggedOut',
-            user: {},
-            admin: false,
-            skipGuide: false
-        });
+        LoginHelper.performLogout();
     }
 
     openSettingsModal() {
