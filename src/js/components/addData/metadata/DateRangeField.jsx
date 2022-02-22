@@ -6,6 +6,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import moment from 'moment';
+import * as DashboardHelper from 'helpers/dashboardHelper';
+import * as utils from 'helpers/util';
 import * as Icons from '../../SharedComponents/icons/Icons';
 import DateDropdown from './DateDropdown';
 
@@ -53,17 +55,33 @@ export default class DateRangeField extends React.Component {
             });
         }
         else {
-            const currDate = moment();
-            // months are 0-indexed in moment so we're checking against 9 for October and 10 for November
-            const startDate = currDate.month() === 10 ? `10/${currDate.format('YYYY')}` : currDate.format('MM/YYYY');
-            const endDate = currDate.month() === 9 ? `11/${currDate.format('YYYY')}` : currDate.format('MM/YYYY');
-            this.setState({
-                startDate,
-                endDate,
-                dateError: false
-            }, () => {
-                this.props.onChange(this.state.startDate, this.state.endDate);
-            });
+            DashboardHelper.fetchLatestPublicationPeriod()
+                .then((data) => {
+                    const deadline = new Date(`${data.deadline.replace(" ", "T")}Z`);
+                    const currDate = moment();
+                    // add a year to the given year if it's after the publish deadline and it's the last period
+                    const year = currDate.isAfter(deadline) && data.period === 12 ? data.year + 1 : data.year;
+                    let period = currDate.isAfter(deadline) ? (data.period % 12) + 1 : data.period;
+                    // we have no period 1 so bump it to 2 if it got moved there by the previous line
+                    if (period === 1) {
+                        period = 2;
+                    }
+                    // if period is 2 (adjusted or starting out) we want to subtract 1 from it for the start date to
+                    // encompass both months
+                    const startDate =
+                        `${period === 2 ? utils.periodToMonth(period - 1) : utils.periodToMonth(period)}/${year}`;
+                    const endDate = `${utils.periodToMonth(period)}/${year}`;
+                    this.setState({
+                        startDate,
+                        endDate,
+                        dateError: false
+                    }, () => {
+                        this.props.onChange(this.state.startDate, this.state.endDate);
+                    });
+                })
+                .catch((err) => {
+                    console.error(err);
+                });
         }
     }
 
