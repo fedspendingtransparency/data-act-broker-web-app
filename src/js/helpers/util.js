@@ -87,6 +87,26 @@ export const fyStartDate = () => {
     return quarterToMonth(1, year, 'start');
 };
 
+export const periodToMonth = (period) => {
+    // Returns the month that the period corresponds to in MM format.
+    // Period 4 = January, month 01, etc.
+    const monthDictionary = {
+        4: "01",
+        5: "02",
+        6: "03",
+        7: "04",
+        8: "05",
+        9: "06",
+        10: "07",
+        11: "08",
+        12: "09",
+        1: "10",
+        2: "11",
+        3: "12"
+    };
+    return monthDictionary[period];
+};
+
 
 export const validUploadFileChecker = (rawFile) => {
     if (rawFile.file) {
