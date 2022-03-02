@@ -69,6 +69,12 @@ describe("util helper functions", () => {
             moment.now = () => new Date();
         });
     });
+    describe("periodToMonth", () => {
+        it("should return the correct month when provided with a period", () => {
+            const month = utilHelper.periodToMonth(4);
+            expect(month).toEqual("01");
+        });
+    });
     describe("fyStartDate", () => {
         it("should return the start date of the current fiscal year", () => {
             const mockedDate = moment("2015-04-01", "YYYY-MM-DD").toDate();
