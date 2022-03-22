@@ -5,7 +5,7 @@
 
 import React from 'react';
 import PropTypes from 'prop-types';
-import * as Icons from './icons/Icons';
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 const propTypes = {
     message: PropTypes.string.isRequired
@@ -15,7 +15,7 @@ export default class ErrorMessage extends React.Component {
     render() {
         return (
             <div className="alert alert-error mt-40 mb-0" role="alert">
-                <span className="usa-da-icon"><Icons.ExclamationCircle /></span>
+                <FontAwesomeIcon icon="exclamation-circle" />
                 <div className="alert-header-text">Error</div>
                 <p data-testid="errormessage">{this.props.message}</p>
             </div>

@@ -69,4 +69,25 @@
             width: 100%;
         }
     }
+
+    .alert {
+        @include dangerAlert;
+        & svg {
+            margin-bottom: rem(-2);
+            &.fa-exclamation-circle {
+                color: $color-secondary;
+                font-size: rem(25);
+            }
+        }
+
+        .alert-header-text {
+            display: inline-block;
+            margin-left: rem(5);
+        }
+
+        p {
+            margin-left: rem(30);
+            margin-top: 0;
+        }
+    }
 }
