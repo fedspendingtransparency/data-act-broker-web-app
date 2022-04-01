@@ -1,4 +1,22 @@
-#### January 14, 2022{section=changelog}
+#### March 1, 2022{section=changelog}
+In this release of the Broker, we:
+
+* Updated FABS45 validation rule text to clarify what the rule is checking. No change was made to how the rule functions.
+* Updated how Disaster Emergency Fund Code (DEFC) QQQ is handled. The Broker will process DEFC Q and DEFC QQQ as identical so no warnings should be triggered when 
+these two are compared or when the user converts from Q to QQQ.
+* Updated the default reporting period when creating DABS submissions to be the current period being reported on, or the next period to be reported if it is between reporting windows.
+* Fixed minor bugs.
+
+#### February 8, 2022
+In this release of the Broker, we:
+
+* Fixed a few minor bugs with validation rules.
+* Updated naming convention for Broker files as they appear on the Submission History page for clarity. Now the user is better able to determine the contents of the file prior to downloading or once they have saved it locally. This will apply to new submissions moving forward as files are created, existing files for existing submissions are not being renamed.
+* Removed the ability to create new Quarterly submissions for FY22 and forward as all submissions for current and future periods are now required to be Monthly submissions.
+* Updated the Service Desk information on the Broker Help page for accuracy.
+* Added timestamps in the Broker workflow to let users know when a given set of Validations last ran and when D1 or D2 files were last generated.
+
+#### January 14, 2022
 In this release of the Broker, we:
 
 * Updated the Submission History page for Published/Certified submissions. In the Download Files section where users can click to download individual files that were included in each submission, we added a link to download all the files at the same time in a .zip file.
