@@ -30,18 +30,39 @@ describe('SettingsAgencySelectContainer', () => {
         it('should call the updateAgency function with agency code if selected agency is different', () => {
             const container = shallow(<SettingsAgencySelectContainer {...mockProps} />);
 
-            container.instance().onSelect(`${mockProps.selectedAgency}56`);
+            container.instance().setState({ results: [
+                {
+                    cgac_code: `${mockProps.selectedAgency.code}`,
+                    agency_name: mockProps.selectedAgency.name
+                },
+                {
+                    cgac_code: `${mockProps.selectedAgency.code}56`,
+                    agency_name: mockProps.selectedAgency.name
+                }]
+            });
 
-            expect(mockProps.updateAgency).toHaveBeenCalledWith(`${mockProps.selectedAgency}56`);
+            container.instance().onSelect(`${mockProps.selectedAgency.code}56`);
+
+            expect(mockProps.updateAgency).toHaveBeenCalledWith({
+                code: `${mockProps.selectedAgency.code}56`,
+                name: mockProps.selectedAgency.name
+            });
         });
     });
     describe('onSelect', () => {
         it('should call the updateAgency function with empty string if selected agency is the same', () => {
             const container = shallow(<SettingsAgencySelectContainer {...mockProps} />);
 
-            container.instance().onSelect(mockProps.selectedAgency);
+            container.instance().setState({ results: [
+                {
+                    cgac_code: `${mockProps.selectedAgency.code}`,
+                    agency_name: mockProps.selectedAgency.name
+                }
+            ] });
 
-            expect(mockProps.updateAgency).toHaveBeenCalledWith('');
+            container.instance().onSelect(mockProps.selectedAgency.code);
+
+            expect(mockProps.updateAgency).toHaveBeenCalledWith({ code: '', name: '' });
         });
     });
 });
