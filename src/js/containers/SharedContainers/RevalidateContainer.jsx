@@ -48,7 +48,7 @@ export class RevalidateContainer extends React.Component {
     }
 
     render() {
-        let buttonText = 'You do not have permission to revalidate';
+        let buttonText = 'Revalidate Submission';
         let buttonAction;
 
         const hasPerms = (checkAffiliations(this.props.session, 'submitter', this.props.submission.info.agency_name) ||
@@ -56,7 +56,6 @@ export class RevalidateContainer extends React.Component {
             this.props.session.admin);
 
         if (hasPerms) {
-            buttonText = 'Revalidate Submission';
             buttonAction = this.openModal;
         }
 
