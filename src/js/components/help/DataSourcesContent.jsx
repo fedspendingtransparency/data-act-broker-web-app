@@ -114,7 +114,9 @@ export default class DataSourcesContent extends React.Component {
                                         href={`https://${fileLoc}.usaspending.gov/reference_data/NationalFedCodes.txt`}>
                                         https://{fileLoc}.usaspending.gov/reference_data/NationalFedCodes.txt
                                     </a>
-                                )}.
+                                )}. NOTE: The complete set of codes is present in this file, including FEATURE_CLASS
+                                values that are not used in the Broker. The Broker database only loads and accepts from
+                                users those codes with a FEATURE_CLASS of Civil, Census, Locale, and Populated Place.
                             </p>}
                         updatedAt={this.props.updateDates.city} />
 
@@ -196,18 +198,39 @@ export default class DataSourcesContent extends React.Component {
                         updatedAt={this.props.updateDates.county_code} />
 
                     <DataSourcesItem
-                        title="DUNS/UEI"
-                        uses="FABS validations and derivations"
-                        description={"The unique identification number for an awardee or recipient and associated" +
-                            " metadata, including any parent organization. Prior to April 4th, 2022, the identifier" +
-                            " is the 9-digit number assigned by Dun & Bradstreet referred to as the DUNS number." +
-                            " After April 4th, 2022, the identifier is the 12 character government-owned Unique" +
-                            " Entity Identifier (UEI)."}
+                        title="Disaster Emergency Fund Codes (DEFC)"
+                        uses="DABS validations and USAspending derivations"
+                        description={"A list of disaster emergency fund codes that have been created for budgetary" +
+                            " tracking pursuant to the Balanced Budget and Emergency Deficit Control Act of 1985" +
+                            " (BBEDCA), and additionally for certain non-BBEDCA tracking of prominent supplementary" +
+                            " spending bills such as the CARES Act or the Infrastructure Investment and Jobs Act." +
+                            " DEFC are used to track these supplemental appropriations from their initial" +
+                            " appropriation down to obligation and outlay (including at the award level) in both" +
+                            " GTAS and USAspending reporting."}
                         source={
-                            <p>SAM.gov monthly and daily files from their site. Daily files contain actions from the
-                                previous day in SAM. File is FOUO so is not available for download.
-                            </p>}
-                        updatedAt={this.props.updateDates.recipient} />
+                            <p>The DEFC table is manually maintained and updated any time OMB issues a new Disaster
+                            Emergency Fund Code. The authoritative list of OMB codes is&nbsp;{
+                            (
+                                <a
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                    href="https://community.max.gov/x/cYW9V">
+                                    here
+                                </a>
+                            )} here. There is sometimes a bit of lag between when the code is issued and its
+                            integration into the Broker, but the codes will always be added before the relevant
+                            DABS window when they can first be used. The complete table currently in use by the
+                            Broker can be downloaded here:&nbsp;{
+                            (
+                                <a
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                    href="https://files.usaspending.gov/reference_data/def_codes.csv">
+                                    https://files.usaspending.gov/reference_data/def_codes.csv
+                                </a>
+                            )}.
+                        </p>}
+                        updatedAt={this.props.updateDates.defc} />
 
                     <DataSourcesItem
                         title="Executive Compensation"
@@ -336,6 +359,18 @@ export default class DataSourcesContent extends React.Component {
                                 on USAspending or in  File F generation elsewhere on the Broker.
                             </p>}
                         updatedAt={this.props.updateDates.subaward} />
+
+                    <DataSourcesItem
+                        title="UEI"
+                        uses="FABS validations and derivations"
+                        description={"The unique identification number for an awardee or recipient and associated" +
+                            " metadata, including any parent organization. The identifier is the 12 character" +
+                            " government-owned Unique Entity Identifier (UEI)."}
+                        source={
+                            <p>SAM.gov monthly and daily files from their site. Daily files contain actions from the
+                                previous day in SAM. File is FOUO so is not available for download.
+                            </p>}
+                        updatedAt={this.props.updateDates.recipient} />
 
                     <DataSourcesItem
                         title="Zip Code"
