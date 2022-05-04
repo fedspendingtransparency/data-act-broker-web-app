@@ -1,4 +1,19 @@
-#### March 1, 2022{section=technical}
+#### April 12, 2022{section=technical}
+
+In this release, here is a list of technical changes that may require infrastructure or database updates, or represents additional functionality.
+
+* Fully transitioned the SAM loader, API interfaces, and SQL Rules to be based on the SAM UEI instead of the DUNS.
+* Updated FABS, D1, D2, E, and F files to only include the recipient UEI and not the DUNS.
+* Updated B12 to be a fatal error.
+
+#### March 22, 2022
+
+In this release, here is a list of technical changes that may require infrastructure or database updates, or represents additional functionality.
+
+* Added "Entity Data Source" to the FPDS loader and table to start accumulating data.
+* Updated reverting functionality to include reverting comments files in addition to all the other submission files and data.
+
+#### March 1, 2022
 
 In this release, here is a list of technical changes that may require infrastructure or database updates, or represents additional functionality.
 
