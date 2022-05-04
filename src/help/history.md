@@ -1,4 +1,17 @@
-#### March 1, 2022{section=changelog}
+#### April 12, 2022{section=changelog}
+In this release of the Broker, we:
+
+* Updated FABS45 validation rule to be a warning and not an error, and clarified the text of the rule to better describe its function.
+* Added new Disaster Emergency Fund Codes 3, 4, and 5 to the list of valid codes in the Broker.
+
+#### March 22, 2022
+In this release of the Broker, we:
+
+* Updated front-end functionality to prevent a user from adding and saving comments while a DABS submission is publishing or certifying.
+* Resolved a minor bug in the error display for the login screen.
+* Several back-end updates in preparation for UEI becoming the official award recipient identifier on 04/04/22.
+
+#### March 1, 2022
 In this release of the Broker, we:
 
 * Updated FABS45 validation rule text to clarify what the rule is checking. No change was made to how the rule functions.
