@@ -1,4 +1,4 @@
 export const mockProps = {
     updateAgency: jest.fn(),
-    selectedAgency: '123'
+    selectedAgency: { code: '123', name: 'test agency' }
 };

@@ -30,7 +30,10 @@ export default class SettingsModal extends React.Component {
         super(props);
 
         this.state = {
-            agencyCode: '',
+            agency: {
+                code: '',
+                name: ''
+            },
             selectedRule: {
                 value: 'A',
                 label: 'File A'
@@ -49,9 +52,9 @@ export default class SettingsModal extends React.Component {
         });
     }
 
-    updateAgency(agencyCode) {
+    updateAgency(agency) {
         this.setState({
-            agencyCode
+            agency
         });
     }
 
@@ -91,7 +94,7 @@ export default class SettingsModal extends React.Component {
                                 <h2><FontAwesomeIcon icon="filter" /> Agency</h2>
                                 <SettingsAgencySelectContainer
                                     updateAgency={this.updateAgency}
-                                    selectedAgency={this.state.agencyCode} />
+                                    selectedAgency={this.state.agency} />
                             </div>
                             <div className="settings-modal__main">
                                 <h2>Rule Settings</h2>
@@ -123,11 +126,11 @@ export default class SettingsModal extends React.Component {
                                     </div>
                                 </div>
                                 <SettingsTableContainer
-                                    agencyCode={this.state.agencyCode}
+                                    agencyCode={this.state.agency.code}
                                     file={this.state.selectedRule.value}
                                     errorLevel={this.state.errorLevel} />
                                 <SaveSettingsButton
-                                    agencyCode={this.state.agencyCode}
+                                    agencyCode={this.state.agency.code}
                                     file={this.state.selectedRule.value} />
                             </div>
                         </div>

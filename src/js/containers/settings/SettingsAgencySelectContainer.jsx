@@ -11,7 +11,7 @@ import DashboardAgencyFilter from 'components/dashboard/filters/DashboardAgencyF
 
 const propTypes = {
     updateAgency: PropTypes.func.isRequired,
-    selectedAgency: PropTypes.string.isRequired
+    selectedAgency: PropTypes.object.isRequired
 };
 
 const minCharsToSearch = 2;
@@ -34,12 +34,17 @@ export default class SettingsAgencySelectContainer extends React.Component {
     }
 
     onSelect(agency) {
+        const agencyObj = this.state.results.filter((result) => {
+            const code = result.cgac_code || result.frec_code;
+            return code === agency;
+        });
+        const code = agencyObj[0].cgac_code || agencyObj[0].frec_code;
         // Add or remove the rule from Redux state
-        if (agency !== this.props.selectedAgency) {
-            this.props.updateAgency(agency);
+        if (code !== this.props.selectedAgency.code) {
+            this.props.updateAgency({ code, name: agencyObj[0].agency_name });
         }
         else {
-            this.props.updateAgency('');
+            this.props.updateAgency({ code: '', name: '' });
         }
     }
 
@@ -53,7 +58,7 @@ export default class SettingsAgencySelectContainer extends React.Component {
                 });
                 if (agencies.length === 1) {
                     const code = agencies[0].cgac_code ? agencies[0].cgac_code : agencies[0].frec_code;
-                    this.props.updateAgency(code);
+                    this.props.updateAgency({ code, name: agencies[0].agency_name });
                 }
             })
             .catch((err) => {
