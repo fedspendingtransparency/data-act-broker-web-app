@@ -1,6 +1,6 @@
-#### March 22, 2022{section=changelog}
+#### May 3, 2022{section=changelog}
 In this release of the Broker, we:
 
-* Updated front-end functionality to prevent a user from adding and saving comments while a DABS submission is publishing or certifying.
-* Resolved a minor bug in the error display for the login screen.
-* Several back-end updates in preparation for UEI becoming the official award recipient identifier on 04/04/22.
+* Updated the links on the Broker Resources page to point to current DAIMS version 2.1.2 documents.
+* Fixed a minor bug with agency selection in the settings panel and a front-end formatting bug.
+* Changed severity of validation rule B12 to be an error starting FY22P07 as defined in DAIMS 2.1.
