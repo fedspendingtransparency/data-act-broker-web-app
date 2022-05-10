@@ -217,7 +217,7 @@ export default class DataSourcesContent extends React.Component {
                                         href="https://community.max.gov/x/cYW9V">
                                         here
                                     </a>
-                                )} There is sometimes a bit of lag between when the code is issued and its
+                                )}. There is sometimes a bit of lag between when the code is issued and its
                                 integration into the Broker, but the codes will always be added before the relevant
                                 DABS window when they can first be used. The complete table currently in use by the
                                 Broker can be downloaded here:&nbsp;{
