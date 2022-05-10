@@ -209,27 +209,27 @@ export default class DataSourcesContent extends React.Component {
                             " GTAS and USAspending reporting."}
                         source={
                             <p>The DEFC table is manually maintained and updated any time OMB issues a new Disaster
-                            Emergency Fund Code. The authoritative list of OMB codes is&nbsp;{
-                            (
-                                <a
-                                    target="_blank"
-                                    rel="noopener noreferrer"
-                                    href="https://community.max.gov/x/cYW9V">
-                                    here
-                                </a>
-                            )} here. There is sometimes a bit of lag between when the code is issued and its
-                            integration into the Broker, but the codes will always be added before the relevant
-                            DABS window when they can first be used. The complete table currently in use by the
-                            Broker can be downloaded here:&nbsp;{
-                            (
-                                <a
-                                    target="_blank"
-                                    rel="noopener noreferrer"
-                                    href="https://files.usaspending.gov/reference_data/def_codes.csv">
-                                    https://files.usaspending.gov/reference_data/def_codes.csv
-                                </a>
-                            )}.
-                        </p>}
+                                Emergency Fund Code. The authoritative list of OMB codes is&nbsp;{
+                                (
+                                    <a
+                                        target="_blank"
+                                        rel="noopener noreferrer"
+                                        href="https://community.max.gov/x/cYW9V">
+                                        here
+                                    </a>
+                                )} here. There is sometimes a bit of lag between when the code is issued and its
+                                integration into the Broker, but the codes will always be added before the relevant
+                                DABS window when they can first be used. The complete table currently in use by the
+                                Broker can be downloaded here:&nbsp;{
+                                (
+                                    <a
+                                        target="_blank"
+                                        rel="noopener noreferrer"
+                                        href="https://files.usaspending.gov/reference_data/def_codes.csv">
+                                        https://files.usaspending.gov/reference_data/def_codes.csv
+                                    </a>
+                                )}.
+                            </p>}
                         updatedAt={this.props.updateDates.defc} />
 
                     <DataSourcesItem
