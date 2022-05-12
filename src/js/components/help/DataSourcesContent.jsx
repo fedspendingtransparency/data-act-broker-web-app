@@ -225,8 +225,8 @@ export default class DataSourcesContent extends React.Component {
                                     <a
                                         target="_blank"
                                         rel="noopener noreferrer"
-                                        href="https://files.usaspending.gov/reference_data/def_codes.csv">
-                                        https://files.usaspending.gov/reference_data/def_codes.csv
+                                        href={`https://${fileLoc}.usaspending.gov/reference_data/def_codes.csv`}>
+                                        https://{fileLoc}.usaspending.gov/reference_data/def_codes.csv
                                     </a>
                                 )}.
                             </p>}
