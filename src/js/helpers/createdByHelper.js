@@ -7,7 +7,7 @@ export const fetchCreatedBy = (tablename) => {
     const deferred = Q.defer();
     const table = tablename.toLowerCase() === 'fabs' ? 'True' : 'False';
 
-    Request.get(`${kGlobalConstants.API}list_submission_users/?d2_submission=${table}`)
+    Request.get(`${kGlobalConstants.API}list_submission_users/?is_fabs=${table}`)
         .send()
         .end((err, res) => {
             if (err) {
