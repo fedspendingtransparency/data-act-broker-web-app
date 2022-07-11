@@ -1,5 +1,6 @@
-#### May 24, 2022{section=technical}
+#### July 5, 2022{section=technical}
 
 In this release, here is a list of technical changes that may require infrastructure or database updates, or represents additional functionality.
 
-* Renamed `DetachedAwardFinancialAssistance` and `PublishedAwardFinancialAssistance` models to `FABS` and `PublishedFabs` for clarity, both in the database and all its references throughout the code.
+* Updated FABS derivations to support the new PPoP formats (`XXTS###` and `XX####T`).
+* Added a new loader and table for storing certain TASs and their GTAS certification status for future use.
