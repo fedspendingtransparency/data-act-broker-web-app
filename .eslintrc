@@ -26,7 +26,8 @@
         "indent": [2, 4, {
             "SwitchCase": 1
         }],
-        // require 4 spaces in JSX as well
+        // This is in direct competition with the above indent rule for some reason even when given the same
+        // arguments, so it is turned off and the above adequately handles jsx files.
         "react/jsx-indent": [0],
         "react/jsx-indent-props": [0],
         // Allows React Router "Link" component to be a11y compliant
