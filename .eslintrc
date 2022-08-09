@@ -4,9 +4,10 @@
 // see: https://github.com/airbnb/javascript
 {
     "extends": "airbnb",
-    "parser": "babel-eslint",
+    "parser": "@babel/eslint-parser",
     "parserOptions": {
-        "ecmaVersion": 2018
+        "ecmaVersion": 2018,
+        "presets": ["@babel/preset-react"]
     },
     "globals": {
         "window": true,
@@ -25,6 +26,10 @@
         "indent": [2, 4, {
             "SwitchCase": 1
         }],
+        // This is in direct competition with the above indent rule for some reason even when given the same
+        // arguments, so it is turned off and the above adequately handles jsx files.
+        "react/jsx-indent": [0],
+        "react/jsx-indent-props": [0],
         // Allows React Router "Link" component to be a11y compliant
         "jsx-a11y/anchor-is-valid": [ "error", {
             "components": [ "Link" ],
@@ -32,11 +37,8 @@
             "aspects": [ "noHref", "invalidHref", "preferButton" ]
          }],
         // Restrict console use to only warnings and errors to aid in rapid debugging
-        "no-console": ["error", { allow: ["warn", "error"] }]
+        "no-console": ["error", { "allow": ["warn", "error"] }]
         ,
-        // require 4 spaces in JSX as well
-        "react/jsx-indent": [2, 4],
-        "react/jsx-indent-props": [2, 4],
         // closing brackets should be aligned with the final prop (props.. />)
         "react/jsx-closing-bracket-location": [2, "after-props"],
         "react/no-unused-prop-types": [2],
