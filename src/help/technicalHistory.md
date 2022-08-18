@@ -1,4 +1,19 @@
-#### June 14, 2022{section=technical}
+#### July 26, 2022{section=technical}
+
+In this release, here is a list of technical changes that may require infrastructure or database updates, or represents additional functionality.
+
+* Added tests for SF133 and failed TAS loaders for ensured accuracy.
+* Added DEFC 7 to the list of accepted DEFC’s.
+
+#### July 5, 2022
+
+In this release, here is a list of technical changes that may require infrastructure or database updates, or represents additional functionality.
+
+* Updated FABS derivations to support the new PPoP formats (`XXTS###` and `XX####T`).
+* Added a new loader and table for storing certain TASs and their GTAS certification status for future use.
+
+
+#### June 14, 2022
 
 In this release, here is a list of technical changes that may require infrastructure or database updates, or represents additional functionality.
 
