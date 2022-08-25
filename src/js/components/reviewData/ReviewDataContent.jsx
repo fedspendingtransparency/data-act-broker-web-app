@@ -7,6 +7,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import moment from 'moment';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { Link } from 'react-router-dom';
 
 import { formatMoneyWithPrecision } from 'helpers/moneyFormatter';
 import { checkAffiliations } from 'helpers/permissionsHelper';
@@ -290,12 +291,11 @@ export default class ReviewDataContent extends React.Component {
                                 rel="noopener noreferrer">
                                 Agency Submission Statistics Page
                             </a> and the&nbsp;
-                            <a
-                                href="https://files.usaspending.gov/agency_submissions"
-                                target="_blank"
-                                rel="noopener noreferrer">
+                            <Link
+                                to="/rawfiles"
+                                target="_blank">
                                 Agency Submission Files section
-                            </a>.
+                            </Link>.
                         </div>
                     </div>
                     <hr />
