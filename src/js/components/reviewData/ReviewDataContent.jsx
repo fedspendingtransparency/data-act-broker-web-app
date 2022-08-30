@@ -293,8 +293,9 @@ export default class ReviewDataContent extends React.Component {
                             </a> and the&nbsp;
                             <Link
                                 to="/rawfiles"
-                                target="_blank">
-                                Agency Submission Files section
+                                target="_blank"
+                                rel="noopen noreferrer">
+                                Raw Submission Files page
                             </Link>.
                         </div>
                     </div>
