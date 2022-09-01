@@ -4,6 +4,13 @@
 	.usa-da-header-navbar {
         display: table;
     }
+    .usa-da-header-links {
+        padding-right: 0;
+
+        @media(max-width: $medium-screen) {
+            padding: 0;
+        }
+    }
     .usa-da-header-brand,
     .usa-da-header-brand:hover,
     .usa-da-header-brand:visited {
@@ -15,9 +22,14 @@
         display: table-cell;
         vertical-align: middle;
         padding: 0;
+        margin: 0;
+
+        @media(max-width: $medium-screen) {
+            line-height: 6rem;
+            height: 6rem;
+        }
     }
     #usa-da-header-link-holder {
-        padding: 0 12px;
         height: 100%;
         line-height: ($header-height - $top-header-height);
         font-size: 15px;

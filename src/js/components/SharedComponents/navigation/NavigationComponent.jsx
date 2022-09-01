@@ -131,15 +131,13 @@ export class Navbar extends React.Component {
                 activeTabClassName={context.props.activeTab} />
         ));
 
-        let navClass = "";
         let testBanner = null;
         if (!kGlobalConstants.PROD) {
-            navClass = " tall";
             testBanner = <TestEnvironmentBanner />;
         }
 
         return (
-            <nav className={`navbar navbar-default usa-da-header${navClass}`}>
+            <nav className="navbar navbar-default usa-da-header">
                 <SkipNavigationLink />
                 <button className="hidden-screen-reader" href="#">Home</button>
                 {testBanner}
@@ -171,8 +169,8 @@ export class Navbar extends React.Component {
                             <a className="navbar-brand usa-da-header-brand" href="#/">DATA Act Broker</a>
                         </div>
 
-                        <div className="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-                            <ul id="usa-da-header-link-holder" className="nav navbar-nav navbar-right">
+                        <div className="collapse navbar-collapse usa-da-header-links" id="bs-example-navbar-collapse-1">
+                            <ul id="usa-da-header-link-holder" className="nav navbar-nav">
                                 {headerTabs}
                             </ul>
                         </div>
