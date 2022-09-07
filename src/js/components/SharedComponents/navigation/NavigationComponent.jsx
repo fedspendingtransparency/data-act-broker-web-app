@@ -131,6 +131,12 @@ export class Navbar extends React.Component {
                 activeTabClassName={context.props.activeTab} />
         ));
 
+        // if we have multiple header tabs, we want to stack them when the screen gets small
+        let stackedSmall = '';
+        if (headerTabs.length > 1) {
+            stackedSmall = ' stacked';
+        }
+
         let testBanner = null;
         if (!kGlobalConstants.PROD) {
             testBanner = <TestEnvironmentBanner />;
@@ -153,7 +159,7 @@ export class Navbar extends React.Component {
                     </div>
                 </div>
                 <div className="container-fluid">
-                    <div className="container usa-da-header-container">
+                    <div className={`container usa-da-header-container${stackedSmall}`}>
                         <div className="navbar-header usa-da-header-navbar">
                             <button
                                 type="button"

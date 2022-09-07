@@ -29,8 +29,10 @@
             content: none;
         }
 
-        @media(max-width: $medium-screen) {
-            @include flex-direction(column);
+        &.stacked {
+            @media(max-width: $medium-screen) {
+                @include flex-direction(column);
+            }
         }
     }
 
