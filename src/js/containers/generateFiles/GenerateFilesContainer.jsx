@@ -155,20 +155,28 @@ export class GenerateFilesContainer extends React.Component {
                     this.loadSubmissionData();
                 }
                 else {
-                    // files have been requested before, load the dates
+                    // files have been requested before, load the dates and types
                     const d1Start = moment(allResponses[0].value.start, 'MM/DD/YYYY');
                     const d1End = moment(allResponses[0].value.end, 'MM/DD/YYYY');
                     const d2Start = moment(allResponses[1].value.start, 'MM/DD/YYYY');
                     const d2End = moment(allResponses[1].value.end, 'MM/DD/YYYY');
+                    const d1FileType = allResponses[0].value.url.includes('.txt') ? 'txt' : 'csv';
+                    const d2FileType = allResponses[1].value.url.includes('.txt') ? 'txt' : 'csv';
+                    const d1AgencyType = allResponses[0].value.url.includes('funding') ? 'funding' : 'awarding';
+                    const d2AgencyType = allResponses[1].value.url.includes('funding') ? 'funding' : 'awarding';
 
                     // load them into React state
                     const d1 = Object.assign({}, this.state.d1);
                     d1.startDate = d1Start;
                     d1.endDate = d1End;
+                    d1.fileFormat = d1FileType;
+                    d1.agencyType = d1AgencyType;
 
                     const d2 = Object.assign({}, this.state.d2);
                     d2.startDate = d2Start;
                     d2.endDate = d2End;
+                    d2.fileFormat = d2FileType;
+                    d2.agencyType = d2AgencyType;
 
                     this.setState({
                         d1,
