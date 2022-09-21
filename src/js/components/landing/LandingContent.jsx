@@ -146,8 +146,8 @@ export default class LandingContent extends React.Component {
             <div className="site_content">
                 <div className={`usa-da-content-${headerClass}`}>
                     <div className="container">
-                        <div className="row usa-da-content-landing usa-da-page-title">
-                            <div className="col-md-8 mt-40 mb-50">
+                        <div className="usa-da-content-landing usa-da-page-title">
+                            <div className="col-md-9 mt-40 mb-50">
                                 <h1 className="display-2" data-contentstart="start" tabIndex={-1}>{header}</h1>
                                 {headerBody}
                             </div>

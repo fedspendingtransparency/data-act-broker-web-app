@@ -4,32 +4,44 @@
 @import "./_warningBanner";
 
 @mixin defaultHeader {
-	.usa-da-header {
-		background-color: $color-gray-dark;
-		border: none;
-		height: $header-height;
-		border-radius: 0;
-		margin-bottom: 0;
+    .usa-da-header {
+        background-color: $color-gray-dark;
+        border: none;
+        height: fit-content;
+        border-radius: 0;
+        margin-bottom: 0;
 
-		&.tall {
-			height: ($header-height + $warning-banner-height);
-		}
-	    
-		@include headerUserBar;
-		@include headerWarningBanner;
-	}
+        @include headerUserBar;
+        @include headerWarningBanner;
+    }
 
-	.usa-da-header-container {
-		height: 100%;
-		@include headerMenuBar;
-	}
+    .usa-da-header-container {
+        height: 100%;
+        @include display(flex);
+        @include justify-content(space-between);
+        @include headerMenuBar;
 
-	.usa-da-content-dark {
-		@include headerTitleBar;
-	}
+        &:before {
+            content: none;
+        }
 
-	.usa-da-content-teal {
-		@include headerTitleBar;
-		background-color: #13646C;
-	}
+        &:after {
+            content: none;
+        }
+
+        &.stacked {
+            @media(max-width: $medium-screen) {
+                @include flex-direction(column);
+            }
+        }
+    }
+
+    .usa-da-content-dark {
+        @include headerTitleBar;
+    }
+
+    .usa-da-content-teal {
+        @include headerTitleBar;
+        background-color: #13646C;
+    }
 }
