@@ -131,15 +131,19 @@ export class Navbar extends React.Component {
                 activeTabClassName={context.props.activeTab} />
         ));
 
-        let navClass = "";
+        // if we have multiple header tabs, we want to stack them when the screen gets small
+        let stackedSmall = '';
+        if (headerTabs.length > 1) {
+            stackedSmall = ' stacked';
+        }
+
         let testBanner = null;
         if (!kGlobalConstants.PROD) {
-            navClass = " tall";
             testBanner = <TestEnvironmentBanner />;
         }
 
         return (
-            <nav className={`navbar navbar-default usa-da-header${navClass}`}>
+            <nav className="navbar navbar-default usa-da-header">
                 <SkipNavigationLink />
                 <button className="hidden-screen-reader" href="#">Home</button>
                 {testBanner}
@@ -155,7 +159,7 @@ export class Navbar extends React.Component {
                     </div>
                 </div>
                 <div className="container-fluid">
-                    <div className="container usa-da-header-container">
+                    <div className={`container usa-da-header-container${stackedSmall}`}>
                         <div className="navbar-header usa-da-header-navbar">
                             <button
                                 type="button"
@@ -171,8 +175,8 @@ export class Navbar extends React.Component {
                             <a className="navbar-brand usa-da-header-brand" href="#/">DATA Act Broker</a>
                         </div>
 
-                        <div className="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-                            <ul id="usa-da-header-link-holder" className="nav navbar-nav navbar-right">
+                        <div className="collapse navbar-collapse usa-da-header-links" id="bs-example-navbar-collapse-1">
+                            <ul id="usa-da-header-link-holder" className="nav navbar-nav">
                                 {headerTabs}
                             </ul>
                         </div>
