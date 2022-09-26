@@ -43,21 +43,21 @@ const prepareFilesExistingSub = (fileDict) => {
     const req = Request.post(`${kGlobalConstants.API}upload_dabs_files/`);
     if (fileDict.appropriations) {
         req.attach('appropriations', fileDict.appropriations);
-        validationStates['appropriations'] = {
+        validationStates.appropriations = {
             job_status: "running",
             file_status: "incomplete"
         };
     }
     if (fileDict.program_activity) {
         req.attach('program_activity', fileDict.program_activity);
-        validationStates['program_activity'] = {
+        validationStates.program_activity = {
             job_status: "running",
             file_status: "incomplete"
         };
     }
     if (fileDict.award_financial) {
         req.attach('award_financial', fileDict.award_financial);
-        validationStates['award_financial'] = {
+        validationStates.award_financial = {
             job_status: "running",
             file_status: "incomplete"
         };
