@@ -1,4 +1,9 @@
-#### September 6, 2022{section=changelog}
+#### September 23, 2022{section=changelog}
+In this release of the Broker, we:
+
+* Resolved some minor frontend bugs for usability.
+
+#### September 6, 2022
 In this release of the Broker, we:
 
 * Fixed bug in validation rule B19 to support 4-digit object class codes. (See below for technical detail.)
