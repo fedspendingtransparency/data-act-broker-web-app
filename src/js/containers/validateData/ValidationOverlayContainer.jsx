@@ -76,7 +76,8 @@ class ValidationOverlayContainer extends React.Component {
         for (const key in this.props.submission.validation) {
             if (Object.prototype.hasOwnProperty.call(this.props.submission.validation, key)) {
                 const value = this.props.submission.validation[key];
-                if (value.error_data.length > 0) {
+                // checking if error_data even exists because of the file upload props reset
+                if (value.error_data && value.error_data.length > 0) {
                     requiredKeys.push(key);
                 }
             }

@@ -36,16 +36,31 @@ const prepareFilesNewSub = (fileDict) => {
 
 const prepareFilesExistingSub = (fileDict) => {
     const deferred = Q.defer();
+    const store = new StoreSingleton().store;
+    // need to update the validation states to make sure the validation boxes get updated
+    const validationStates = Object.assign({}, store.getState().submission.validation);
 
     const req = Request.post(`${kGlobalConstants.API}upload_dabs_files/`);
     if (fileDict.appropriations) {
         req.attach('appropriations', fileDict.appropriations);
+        validationStates.appropriations = {
+            job_status: "running",
+            file_status: "incomplete"
+        };
     }
     if (fileDict.program_activity) {
         req.attach('program_activity', fileDict.program_activity);
+        validationStates.program_activity = {
+            job_status: "running",
+            file_status: "incomplete"
+        };
     }
     if (fileDict.award_financial) {
         req.attach('award_financial', fileDict.award_financial);
+        validationStates.award_financial = {
+            job_status: "running",
+            file_status: "incomplete"
+        };
     }
     req.field('existing_submission_id', fileDict.existing_submission_id)
         .end((err, res) => {
@@ -55,6 +70,7 @@ const prepareFilesExistingSub = (fileDict) => {
                 deferred.reject(response);
             }
             else {
+                store.dispatch(uploadActions.setValidation(validationStates));
                 deferred.resolve(res);
             }
         });
