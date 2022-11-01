@@ -219,6 +219,12 @@ export default class DetachedFileA extends React.Component {
                                                     it is not selectable on its own and therefore will not be visible
                                                     until Dec 1 with Period 02.
                                                 </p>
+                                                <p>
+                                                    Note: The generated file A column GTASStatus contains the status of
+                                                    each TAS in the GTAS system. This data element is for information
+                                                    only. It is not a DAIMS data element, and is not required for any
+                                                    File A submissions.
+                                                </p>
                                             </div>
                                         </div>
                                         <div className="file-a-section">
