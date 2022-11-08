@@ -1,5 +1,14 @@
-#### October 18, 2022{section=technical}
+#### November 8, 2022{section=technical}
 
 In this release, here is a list of technical changes that may require infrastructure or database updates, or represents additional functionality.
 
-* Processed FY2023 DABS Reporting Schedule in the database.
+* On the day following the close of the GTAS reporting window for each period we receive a file (`gtas_status`) from GTAS with a list of failed edits in that system. This file includes details on the impacted TAS, the severity level of the edit (severity with domain values Fatal or Proposed), the status of the edit (`atb_submission_status` with domain values F = failed, C = certified, E = passed edits but not certified, P = pending certification), and whether that edit has an approved override (`approved_override_exists` with Boolean domain values). We use this file to populate the GTASStatus field now available on the generated File A. A single TAS may have many GTAS edits in a period and thus appear multiple times in `gtas_status`, but each TAS only appears once in a Broker generated File A for a period. We use the first applicable rule to roll up `gtas_status` to the TAS and period level: 
+    1.	If the selected FY and period have not started their submission window yet, then set GTASStatus to “GTAS window open”.
+    2.	If a FY, period, and TAS combo exists in `gtas_status` with severity = Fatal AND approved_override_exists = False then set GTASStatus for that FY, period, and TAS combo to “failed fatal edit - no override”.
+    3.	If a FY, period, and TAS combo exists in `gtas_status` with `atb_submission_status` = F AND severity = Fatal AND `approved_override_exists` = True then set GTASStatus for that FY, period, and TAS combo to “failed fatal edit – override”.
+    4.	If a FY, period, and TAS combo exists in `gtas_status` with `atb_submission_status` = E AND severity = Fatal AND `approved_override_exists` = True then set GTASStatus for that FY, period, and TAS combo to “passed required edits – override”.
+    5.	If a FY, period, and TAS combo exists in `gtas_status` with `atb_submission_status` = P AND severity = Fatal AND `approved_override_exists` = True then set GTASStatus for that FY, period, and TAS combo to “pending certification – override”.
+    6.	If a FY, period, and TAS combo exists in` gtas_status` with `atb_submission_status` = C AND severity = Fatal AND `approved_override_exists` = True then set GTASStatus for that FY, period, and TAS combo to “certified – override”.
+    7.	If a FY, period, and TAS combo exists in `gtas_status` set GTASStatus for that FY, period, and TAS combo to “passed required edits – override”.
+    8.	If a FY, period, and TAS combo does not exist in `tas_failed_edits` AND the FY and period exist in `tas_failed_edits` then set GTASStatus to “passed required edits”.
+    9.	If a FY and period don’t exist in `tas_failed_edits` then set GTASStatus to “”. This indicates that the TAS and period combo exist in the generated File A, but we do not have enough information to assign a value.
