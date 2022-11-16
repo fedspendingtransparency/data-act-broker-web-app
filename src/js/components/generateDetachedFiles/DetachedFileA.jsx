@@ -141,7 +141,7 @@ export default class DetachedFileA extends React.Component {
                                 </div>
                             </div>
                         </div>
-                        <Banner type="all" />
+                        <Banner type="dabs" />
 
                         <div className="container center-block">
                             <div className="row text-center usa-da-select-agency">
