@@ -1,5 +1,11 @@
-#### October 18, 2022{section=changelog}
+#### November 18, 2022{section=changelog}
 In this release of the Broker, we:
 
-* Resolved a minor visual issue when reloading DABS files.
-* Added FY2023 DABS Reporting Schedule to the Help page and processed by the database.
+* Implemented DAIMS 2.2 changes including:
+    * Updated validation rule text
+    * Removed validation rules (A16, A36)
+    * Made File A columns required
+    * Updated D1 column names
+    * Added new validation rules (B25, B26, C29, C30)
+
+Please refer to the official DAIMS 2.2 release for details.
