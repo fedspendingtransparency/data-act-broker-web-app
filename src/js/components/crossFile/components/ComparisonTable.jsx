@@ -30,7 +30,7 @@ export default class ComparisonTable extends React.Component {
     buildRow() {
         const data = [];
         this.props.data.forEach((item) => {
-            const description = `Rule ${item.original_label}: ${item.rule_failed}.`;
+            const description = `Rule ${item.original_label}: ${item.rule_failed}`;
             const row = {
                 source: ReviewHelper.globalFileData[item.source_file].name,
                 description,

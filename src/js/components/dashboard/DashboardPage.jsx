@@ -139,7 +139,7 @@ export default class DashboardPage extends React.Component {
                                 </div>
                             </div>
                         </div>
-                        <Banner />
+                        <Banner type="dabs" />
                         <div className="dashboard-page">
                             <div className="dashboard-page__wrapper">
                                 <div className="dashboard-page__filters">
