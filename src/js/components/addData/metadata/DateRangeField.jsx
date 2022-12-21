@@ -60,11 +60,15 @@ export default class DateRangeField extends React.Component {
                     const deadline = new Date(`${data.deadline.replace(" ", "T")}Z`);
                     const currDate = moment();
                     // add a year to the given year if it's after the publish deadline and it's the last period
-                    const year = currDate.isAfter(deadline) && data.period === 12 ? data.year + 1 : data.year;
+                    let year = currDate.isAfter(deadline) && data.period === 12 ? data.year + 1 : data.year;
                     let period = currDate.isAfter(deadline) ? (data.period % 12) + 1 : data.period;
                     // we have no period 1 so bump it to 2 if it got moved there by the previous line
                     if (period === 1) {
                         period = 2;
+                    }
+                    // If we're in period 3 or earlier, the fiscal year is going to be one higher than the actual year
+                    if (period <= 3) {
+                        year -= 1;
                     }
                     // if period is 2 (adjusted or starting out) we want to subtract 1 from it for the start date to
                     // encompass both months
