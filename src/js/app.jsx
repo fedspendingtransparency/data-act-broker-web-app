@@ -44,6 +44,9 @@ import {
     faUser
 } from "@fortawesome/free-solid-svg-icons";
 import {
+    faGithub
+} from "@fortawesome/free-brands-svg-icons";
+import {
     faClock
 } from "@fortawesome/free-regular-svg-icons";
 import AppContainer from './containers/AppContainer';
@@ -77,6 +80,7 @@ library.add(
     faFileAlt,
     faFileUpload,
     faFilter,
+    faGithub,
     faGlobeAmericas,
     faInfoCircle,
     faLandmark,
