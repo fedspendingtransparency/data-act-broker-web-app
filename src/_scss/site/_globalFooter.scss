@@ -6,6 +6,7 @@
 }
 
 .usa-da-footer {
+    text-align: center;
     font-family: $font-sans;
     font-size: rem(16);
     background-color: $color-darkest;
@@ -15,18 +16,45 @@
     height: 50px;
     margin-top: -50px;
     width: 100%;
-    padding: 0 rem(50);
 
     a {
         color: $color-white;
     }
 
-    @include display(flex);
-    position: relative;
-    .right {
+    .fa-github {
         @include flex(1 1 auto);
-        text-align: right;
         font-size: rem(30);
         margin-bottom: rem(-5);
+    }
+
+    button {
+        @include button-unstyled;
+        margin-left: rem(40);
+    }
+}
+
+#usa-da-leave-site-modal {
+    text-align: center;
+
+    h2 {
+        font-size: $h2-font-size;
+        font-weight: bold;
+
+        .fa-exclamation-triangle {
+            color: $color-gold-light;
+            margin-right: rem(10);
+        }
+    }
+
+    p {
+        max-width: none;
+    }
+
+    span {
+        font-weight: bold;
+    }
+
+    a {
+        display: block;
     }
 }

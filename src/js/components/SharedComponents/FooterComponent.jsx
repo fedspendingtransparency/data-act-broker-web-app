@@ -5,26 +5,52 @@
 
 import React from 'react';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import LeaveSiteModal from 'components/SharedComponents/LeaveSiteModal';
 
 export default class Footer extends React.Component {
+    constructor(props) {
+        super(props);
+
+        this.state = {
+            leaveSiteModalOpen: false
+        };
+
+        this.openModal = this.openModal.bind(this);
+        this.closeModal = this.closeModal.bind(this);
+    }
+
+    openModal() {
+        this.setState({
+            leaveSiteModalOpen: true
+        });
+    }
+
+    closeModal() {
+        this.setState({
+            leaveSiteModalOpen: false
+        });
+    }
+
     render() {
         const year = new Date().getFullYear();
         return (
             <div className="usa-da-footer" role="contentinfo">
-                <div>
-                    &copy; {year}&nbsp;
-                    <a href="https://www.usaspending.gov/" rel="noopener noreferrer" target="_blank">
-                        USAspending.gov
-                    </a>
-                </div>
-                <div className="right">
-                    <a
-                        href="https://github.com/fedspendingtransparency/data-act-broker-backend"
-                        rel="noopener noreferrer"
-                        target="_blank">
-                        <FontAwesomeIcon icon={['fab', 'github']} />
-                    </a>
-                    
+                &copy; {year}&nbsp;
+                <a href="https://www.usaspending.gov/" rel="noopener noreferrer" target="_blank">
+                    USAspending.gov
+                </a>
+                <button
+                    onClick={this.openModal}
+                    aria-label="Broker GitHub">
+                    <FontAwesomeIcon icon={['fab', 'github']} />
+                </button>
+                <div id="leaveSiteModalHolder">
+                    <LeaveSiteModal
+                        {...this.props}
+                        closeModal={this.closeModal}
+                        isOpen={this.state.leaveSiteModalOpen}
+                        redirectURL="https://github.com/fedspendingtransparency/data-act-broker-backend"
+                        focusButton="#github-button" />
                 </div>
             </div>
         );
