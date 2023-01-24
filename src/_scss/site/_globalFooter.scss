@@ -7,12 +7,26 @@
 
 .usa-da-footer {
     font-family: $font-sans;
-    text-align: center;
+    font-size: rem(16);
     background-color: $color-darkest;
-    line-height: 35px;
+    line-height: 50px;
     color: $color-white;
     position: relative;
-    height: 35px;
-    margin-top: -35px;
+    height: 50px;
+    margin-top: -50px;
     width: 100%;
+    padding: 0 rem(50);
+
+    a {
+        color: $color-white;
+    }
+
+    @include display(flex);
+    position: relative;
+    .right {
+        @include flex(1 1 auto);
+        text-align: right;
+        font-size: rem(30);
+        margin-bottom: rem(-5);
+    }
 }
