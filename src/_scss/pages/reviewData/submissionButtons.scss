@@ -132,5 +132,9 @@
             margin-right: rem(5);
             font-size: rem(16);
         }
+
+        &:disabled, &:disabled:hover {
+            background: none;
+        }
     }
 }
