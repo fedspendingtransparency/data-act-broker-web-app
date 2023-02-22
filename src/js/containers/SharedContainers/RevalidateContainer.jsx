@@ -48,7 +48,6 @@ export class RevalidateContainer extends React.Component {
     }
 
     render() {
-        let buttonText = 'Revalidate Submission';
         let buttonAction;
 
         const hasPerms = (checkAffiliations(this.props.session, 'submitter', this.props.submission.info.agency_name) ||
@@ -61,7 +60,6 @@ export class RevalidateContainer extends React.Component {
 
         const blockedStatuses = ['reverting', 'publishing'];
         if (blockedStatuses.indexOf(this.props.publishStatus) > -1) {
-            buttonText = `Cannot revalidate while ${this.props.publishStatus}`;
             buttonAction = null;
         }
 
@@ -75,7 +73,7 @@ export class RevalidateContainer extends React.Component {
                     onClick={buttonAction}
                     disabled={!buttonAction}
                     className="usa-da-button btn-primary-alt dabs-revalidate-button">
-                    {buttonText}
+                    Revalidate Submission
                 </button>
                 <div id="revalidateDataModalHolder">
                     <RevalidateDataModal
