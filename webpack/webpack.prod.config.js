@@ -77,7 +77,7 @@ module.exports = merge(common, {
                     : JSON.stringify(""),
                 CAS_ROOT: process.env.CAS_ROOT
                     ? JSON.stringify(process.env.CAS_ROOT)
-                    : JSON.stringify("https://login.max.gov"),
+                    : JSON.stringify("https://login.test.max.gov"),
                 IS_DEV: JSON.stringify('false'),
                 IS_LOCAL: process.env.IS_LOCAL && process.env.IS_LOCAL === 'true'
                     ? JSON.stringify('true')
