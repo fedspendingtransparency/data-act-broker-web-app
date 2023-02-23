@@ -1,4 +1,40 @@
-#### November 8, 2022{section=changelog}
+#### January 31, 2023{section=changelog}
+In this release of the Broker, we:
+
+* Added new Disaster Emergency Fund Codes (DEFC) AAB to the database for use in rule validations.
+* Updated column header name in D1 to align with DAIMS 2.2.
+* Added a GitHub icon to the footer on all Broker pages which links to the Broker’s GitHub repository.
+
+#### January 10, 2023
+In this release of the Broker, we:
+
+* Updated validation rule A12 to include new SF 133 Line 1067 for FY23.
+
+#### December 20, 2022
+In this release of the Broker, we:
+
+* Updated Validation Rule B25 description and logic to use the negative value of SF133 line 2190 to properly perform the validation check.
+* Removed link to Fiscal Year 2022 DABS Reporting Schedule.
+
+#### November 29, 2022
+In this release of the Broker, we:
+
+* Updated several Validation Rule messages for consistent punctuation.
+* Updated Front End to display Broker wide banner notifications on additional pages.
+
+#### November 18, 2022
+In this release of the Broker, we:
+
+* Implemented DAIMS 2.2 changes including:
+    * Updated validation rule text
+    * Removed validation rules (A16, A36)
+    * Made File A columns required
+    * Updated D1 column names
+    * Added new validation rules (B25, B26, C29, C30)
+
+Please refer to the official DAIMS 2.2 release for details.
+
+#### November 8, 2022
 In this release of the Broker, we:
 
 * Added a new column GTASStatus in Broker generated File A for agencies to be aware of their TAS status in GTAS. This is not a DAIMS element and just for informational purposes. See technical notes for more information.
