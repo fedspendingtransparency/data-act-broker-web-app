@@ -1,4 +1,33 @@
-#### November 8, 2022{section=technical}
+#### January 31, 2023{section=technical}
+In this release of the Broker, we:
+
+* No additional technical notes.
+
+#### January 10, 2023
+In this release of the Broker, we:
+
+* Documented the new `zips_historical` table to be used for accurately deriving congressional districts.
+* Resolved a minor bug with the date pickers regarding fiscal years.
+
+#### December 20, 2022
+In this release of the Broker, we:
+
+* Updated FABS derivations to properly populate congressional districts based on current or historical zips data.
+* Resolved potential issues and improved performance for the zip loader.
+* Fixed a minor issue with default submission dates for periods 1-3.
+
+#### November 29, 2022
+In this release of the Broker, we:
+
+* No additional technical notes.
+
+#### November 18, 2022
+
+In this release, here is a list of technical changes that may require infrastructure or database updates, or represents additional functionality.
+
+* Renamed several columns in the `AwardProcurement` and `PublishedAwardProcurement` models and tables per the D1 updates.
+
+#### November 8, 2022
 
 In this release, here is a list of technical changes that may require infrastructure or database updates, or represents additional functionality.
 
