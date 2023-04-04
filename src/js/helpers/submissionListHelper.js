@@ -110,7 +110,7 @@ export const loadSubmissionHistory = (submissionID) => {
 export const getSubmissionFile = (submissionID, publishedFilesHistory, isWarning) => {
     const deferred = Q.defer();
 
-    Request.get(`${kGlobalConstants.API}get_certified_file/?submission_id=${submissionID}&` +
+    Request.get(`${kGlobalConstants.API}get_published_file/?submission_id=${submissionID}&` +
                 `published_files_history_id=${publishedFilesHistory}&is_warning=${isWarning}`)
         .send()
         .end((err, res) => {
