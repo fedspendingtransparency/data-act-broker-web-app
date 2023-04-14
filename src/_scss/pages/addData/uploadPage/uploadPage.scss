@@ -22,7 +22,7 @@
 }
 .usa-button-disabled {
 	@extend %button;
-	@extend %button.btn-disabled;
+	@extend %button, .btn-disabled;
 }
 
 .usa-da-button-bigger {

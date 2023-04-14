@@ -1,5 +1,6 @@
 // style the center content area
 @import "../../components/typography/_pageTitles";
+@import "./_leftRightPositioning";
 
 @mixin loginCenterBanner {
 	// the content that goes in the middle of the page
@@ -10,8 +11,11 @@
     @include flex-direction(column);
 
     .usa-da-login-wrap {
-
-        @import "./_leftRightPositioning";
+        @media(min-width: $medium-screen) {
+            @include display(flex);
+            @include flex-direction(row);
+            position: relative;
+        }
 
         @include align-items(center);
         @include align-self(stretch);

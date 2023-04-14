@@ -9,7 +9,9 @@
 @mixin fileItem {
 	margin-bottom: 40px;
     position: relative;
-    @include contentBlockWrapper() &.successful {
+    @include contentBlockWrapper;
+    
+    &.successful {
         opacity: 0.3;
     }
 

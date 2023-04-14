@@ -1,5 +1,5 @@
 .usa-da-shared-modal {
-    @import "/../../layouts/modal/modal";
+    @import "../../layouts/modal/modal";
     @include modalLayout;
 
     .usa-da-shared-close {
@@ -14,9 +14,9 @@
     }
     
     .usa-da-button {
-        @import "/../../components/buttons/_primary";
+        @import "../../components/buttons/_primary";
         @include primaryButton;
-        @import "/../../components/buttons/_optional";
+        @import "../../components/buttons/_optional";
         @include optionalButton;
 
         padding: rem(10) rem(40);
@@ -43,7 +43,7 @@
     }
     
     .alert-warning {
-        @import "/../../components/alerts/_alerts";
+        @import "../../components/alerts/_alerts";
         @include warningAlert;
         margin-top: rem(20);
         &.alert-warning_test-submission {
