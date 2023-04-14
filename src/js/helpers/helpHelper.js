@@ -1,5 +1,4 @@
 import Q from 'q';
-import Markdown from 'markdown';
 import ent from 'ent';
 import Request from './sessionSuperagent';
 import { kGlobalConstants } from '../GlobalConstants';
@@ -9,73 +8,28 @@ require('../../help/history.md');
 require('../../help/technical.md');
 require('../../help/technicalHistory.md');
 
-const unescapeInlineHtml = (html) => {
-    let tmpHtml = html;
-    // find any inline HTML (as denoted by ```!inline-html [CODE] !inline-html```)
-    const regex = /<p><code>!inline-html\n[\s\S]*\n!inline-html<\/code><\/p>/;
-    const results = regex.exec(tmpHtml);
-
-    // we found inline HTML, unescape it and insert it into the parsed Markdown output
-    if (results && results.length > 0) {
-        const rawHtml = results[0].substring(21, results[0].length - 23);
-        const decodedHtml = ent.decode(rawHtml);
-        tmpHtml = tmpHtml.replace(regex, decodedHtml);
-    }
-
-    return tmpHtml;
-};
-
-
 export const parseMarkdown = (rawText) => {
-    const md = Markdown.markdown;
-
-    // generate a tree of the incoming markdown
-    const tree = md.parse(rawText);
-
+    const lineRegex = /^.*{section=[a-zA-Z0-9]+}.*$/gm;
+    const sectionRegex = /{section=[a-zA-Z0-9]+}/gm;
     const sectionList = [];
 
-    // look for section headers
-    tree.forEach((element) => {
-        if (Array.isArray(element)) {
-            const tmpElement = element;
-            const type = tmpElement[0];
-            const attributes = tmpElement[1];
-            const value = tmpElement[2];
-            if (type === "header") {
-                // found a header, look for the section markdown attribute
-                const regex = /{section=[a-zA-Z0-9]+}/;
-
-                const results = regex.exec(value);
-                if (results && results.length > 0) {
-                    // get the section URL name by substringing the section markdown
-                    const nameValue = results[0].substring(9, results[0].length - 1);
-
-                    // save it as an HTML attribute
-                    attributes.name = nameValue;
-                    tmpElement[1] = attributes;
-
-                    // replace the section link markdown with an empty string
-                    tmpElement[2] = value.replace(regex, '');
-
-                    // also add it as a sidebar item
-                    sectionList.push({
-                        link: nameValue,
-                        name: tmpElement[2]
-                    });
-                }
-            }
-        }
-    });
-
-    const html = md.renderJsonML(md.toHTMLTree(tree));
-
+    let results;
+    while ((results = lineRegex.exec(rawText)) !== null) {
+        const link = results[0].substring(results[0].indexOf('=') + 1, results[0].length-1);
+        const name = results[0].replace(sectionRegex, '').replace(/#/g, '').trim();
+        sectionList.push({
+            link,
+            name
+        });
+    }
+    rawText = rawText.replace(sectionRegex, '');
     const output = {
-        html: unescapeInlineHtml(html),
+        body: rawText,
         sections: sectionList
     };
 
     return output;
-};
+}
 
 const loadHistory = () => {
     const deferred = Q.defer();
@@ -88,7 +42,7 @@ const loadHistory = () => {
             }
             else {
                 const output = parseMarkdown(res.text);
-                deferred.resolve(output.html);
+                deferred.resolve(output);
             }
         });
 
@@ -107,7 +61,7 @@ const loadTechnicalHistory = () => {
             }
             else {
                 const output = parseMarkdown(res.text);
-                deferred.resolve(output.html);
+                deferred.resolve(output);
             }
         });
 
@@ -154,19 +108,21 @@ export const loadHelp = () => {
     const deferred = Q.defer();
 
     const output = {
-        html: '',
+        body: '',
         sections: [],
-        history: ''
+        history: '',
+        historySections: []
     };
 
     loadChangelog()
         .then((data) => {
-            output.html = data.html;
+            output.body = data.body;
             output.sections = data.sections;
             return loadHistory();
         })
         .then((data) => {
-            output.history = data;
+            output.history = data.body;
+            output.historySections = data.sections;
 
             deferred.resolve(output);
         })
@@ -181,19 +137,21 @@ export const loadTechnical = () => {
     const deferred = Q.defer();
 
     const output = {
-        html: '',
+        body: '',
         sections: [],
-        history: ''
+        history: '',
+        historySections: []
     };
 
     loadTechnicalNotes()
         .then((data) => {
-            output.html = data.html;
+            output.body = data.body;
             output.sections = data.sections;
             return loadTechnicalHistory();
         })
         .then((data) => {
-            output.history = data;
+            output.history = data.body;
+            output.historySections = data.sections;
 
             deferred.resolve(output);
         })
@@ -232,7 +190,7 @@ export const loadResources = () => {
 
     loadResourcesFile()
         .then((data) => {
-            output.html = data.html;
+            output.html = data.body;
             output.sections = data.sections;
         })
         .then(() => {

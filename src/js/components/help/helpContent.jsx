@@ -5,6 +5,7 @@
 
 import React from 'react';
 import PropTypes from 'prop-types';
+import ReactMarkdown from 'react-markdown';
 import $ from 'jquery';
 
 const propTypes = {
@@ -88,9 +89,9 @@ export default class HelpContent extends React.Component {
         return (
             <div className="usa-da-help-content">
                 <h2 className="usa-da-help-content__header">What&#8217;s New in This Release</h2>
-                <div dangerouslySetInnerHTML={{ __html: this.props.changelog }} />
+                <ReactMarkdown children={this.props.changelog} />
                 <h2 className="usa-da-help-content__header">Technical Notes for this Release</h2>
-                <div dangerouslySetInnerHTML={{ __html: this.props.technical }} />
+                <ReactMarkdown children={this.props.technical} />
                 <h2 className="usa-da-help-content-subheading">Getting More Help</h2>
                 {membership}
                 <p>
