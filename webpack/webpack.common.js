@@ -20,7 +20,7 @@ module.exports = {
         path: path.resolve(__dirname, "../public")
     },
     resolve: {
-        extensions: [".js", ".jsx"],
+        extensions: [".js", ".jsx", ".md", ".mdx"],
         modules: ["node_modules", path.resolve(__dirname, "src/_scss")]
     },
     optimization: {
@@ -45,7 +45,8 @@ module.exports = {
                     enforce: true
                 }
             }
-        }
+        },
+        moduleIds: 'deterministic' // so that file hashes don't change unexpectedly
     },
     module: {
         rules: [
@@ -78,7 +79,9 @@ module.exports = {
     },
     plugins: [
         new CleanWebpackPlugin(),
-        new webpack.IgnorePlugin(/^\.\/locale$/, /moment$/),
+        new webpack.IgnorePlugin({
+            resourceRegExp: /^\.\/locale$/,
+            contextRegExp: /moment$/}),
         new HtmlWebpackPlugin({
             template: path.resolve(__dirname, "../src/index.html"),
             favicon: path.resolve(__dirname, "../src/graphics/favicon.ico")
@@ -86,6 +89,6 @@ module.exports = {
         new MiniCssExtractPlugin({
             filename: "[name].[contenthash].css"
         }),
-        new webpack.HashedModuleIdsPlugin() // so that file hashes don't change unexpectedly
+        // new webpack.HashedModuleIdsPlugin() // so that file hashes don't change unexpectedly
     ]
 };
