@@ -248,7 +248,7 @@ ${xAxis.items[0].label} to ${xAxis.items[xAxis.items.length - 1].label}.`;
             yPos: values.yScale(rule.instances),
             xPos: values.xScale(rule.significance),
             label: rule.label,
-            xValue: rule.significance,
+            xValue: rule.significance.toString(),
             yValue: rule.instances,
             category: rule.category,
             impact: rule.impact,
