@@ -61,19 +61,18 @@ module.exports = {
                     {
                         loader: MiniCssExtractPlugin.loader
                     },
-                    "css-loader"
+                    {
+                        loader: "css-loader"
+                    }
                 ]
             },
             {
-                test: /\.(eot|ttf|woff|woff2|png|svg|ico|gif|jpg|md)$/,
-                use: [
-                    {
-                        loader: "file-loader",
-                        options: {
-                            name: "[path][name].[ext]"
-                        }
-                    }
-                ]
+                include: /\.(eot|ttf|woff|woff2|png|svg|ico|gif|jpg|md)$/,
+                loader: 'file-loader',
+                type: 'javascript/auto',
+                options: {
+                    name: '[path][name].[ext]'
+                }
             }
         ]
     },

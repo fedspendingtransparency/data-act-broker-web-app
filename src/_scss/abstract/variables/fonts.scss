@@ -1,49 +1,98 @@
-@font-face {
-    font-family: 'Source Sans Pro';
-    src: url('../fonts/sourcesanspro-light-webfont.eot') format('eot'),
-    url('../fonts/sourcesanspro-light-webfont.woff2') format('woff2'),
-    url('../fonts/sourcesanspro-light-webfont.woff') format('woff'),
-    url('../fonts/sourcesanspro-light-webfont.ttf') format('ttf');
-    font-weight: 300;
-    font-style: normal;
-}
+// @font-face {
+//     font-family: 'Source Sans Pro';
+//     src: url('../fonts/sourcesanspro-light-webfont.eot') format('eot'),
+//     url('../fonts/sourcesanspro-light-webfont.woff2') format('woff2'),
+//     url('../fonts/sourcesanspro-light-webfont.woff') format('woff'),
+//     url('../fonts/sourcesanspro-light-webfont.ttf') format('ttf');
+//     font-weight: 300;
+//     font-style: normal;
+// }
 
-@font-face{
-    font-family: 'Source Sans Pro';
-    src: url('../fonts/sourcesanspro-regular-webfont.eot') format('eot'),
-    url('../fonts/sourcesanspro-regular-webfont.woff2') format('woff2'),
-    url('../fonts/sourcesanspro-regular-webfont.woff') format('woff'),
-    url('../fonts/sourcesanspro-regular-webfont.ttf') format('ttf');
-    font-weight: 400;
-    font-style: normal;
-}
+// @font-face{
+//     font-family: 'Source Sans Pro';
+//     src: url('../fonts/sourcesanspro-regular-webfont.eot') format('eot'),
+//     url('../fonts/sourcesanspro-regular-webfont.woff2') format('woff2'),
+//     url('../fonts/sourcesanspro-regular-webfont.woff') format('woff'),
+//     url('../fonts/sourcesanspro-regular-webfont.ttf') format('ttf');
+//     font-weight: 400;
+//     font-style: normal;
+// }
 
-@font-face{
-    font-family: 'Source Sans Pro';
-    src: url('../fonts/sourcesanspro-italic-webfont.eot') format('eot'),
-    url('../fonts/sourcesanspro-italic-webfont.woff2') format('woff2'),
-    url('../fonts/sourcesanspro-italic-webfont.woff') format('woff'),
-    url('../fonts/sourcesanspro-italic-webfont.ttf') format('ttf');
-    font-weight: 400;
-    font-style: italic;
-}
+// @font-face{
+//     font-family: 'Source Sans Pro';
+//     src: url('../fonts/sourcesanspro-italic-webfont.eot') format('eot'),
+//     url('../fonts/sourcesanspro-italic-webfont.woff2') format('woff2'),
+//     url('../fonts/sourcesanspro-italic-webfont.woff') format('woff'),
+//     url('../fonts/sourcesanspro-italic-webfont.ttf') format('ttf');
+//     font-weight: 400;
+//     font-style: italic;
+// }
 
-@font-face {
-    font-family: 'Source Sans Pro';
-    src: url('../fonts/sourcesanspro-semibold-webfont.eot') format('eot'),
-    url('../fonts/sourcesanspro-semibold-webfont.woff2') format('woff2'),
-    url('../fonts/sourcesanspro-semibold-webfont.woff') format('woff'),
-    url('../fonts/sourcesanspro-semibold-webfont.ttf') format('ttf');
-    font-weight: 600;
-    font-style: normal;
-}
+// @font-face {
+//     font-family: 'Source Sans Pro';
+//     src: url('../fonts/sourcesanspro-semibold-webfont.eot') format('eot'),
+//     url('../fonts/sourcesanspro-semibold-webfont.woff2') format('woff2'),
+//     url('../fonts/sourcesanspro-semibold-webfont.woff') format('woff'),
+//     url('../fonts/sourcesanspro-semibold-webfont.ttf') format('ttf');
+//     font-weight: 600;
+//     font-style: normal;
+// }
 
-@font-face {
-    font-family: 'Source Sans Pro';
-    src: url('../fonts/sourcesanspro-bold-webfont.eot') format('eot'),
-    url('../fonts/sourcesanspro-bold-webfont.woff2') format('woff2'),
-    url('../fonts/sourcesanspro-bold-webfont.woff') format('woff'),
-    url('../fonts/sourcesanspro-bold-webfont.ttf') format('ttf');
-    font-weight: 700;
-    font-style: normal;
-}
+// @font-face {
+//     font-family: 'Source Sans Pro';
+//     src: url('../fonts/sourcesanspro-bold-webfont.eot') format('eot'),
+//     url('../fonts/sourcesanspro-bold-webfont.woff2') format('woff2'),
+//     url('../fonts/sourcesanspro-bold-webfont.woff') format('woff'),
+//     url('../fonts/sourcesanspro-bold-webfont.ttf') format('ttf');
+//     font-weight: 700;
+//     font-style: normal;
+// }
+
+
+ 
+
+@include font-face(
+    'Source Sans Pro',
+    '../fonts/sourcesanspro-light-webfont',
+    300,
+    normal,
+    $asset-pipeline: false,
+    $file-formats: eot woff2 woff ttf
+);
+
+@include font-face(
+    'Source Sans Pro',
+    '../fonts/sourcesanspro-regular-webfont',
+    400,
+    normal,
+    $asset-pipeline: false,
+    $file-formats: eot woff2 woff ttf
+);
+
+@include font-face(
+    'Source Sans Pro',
+    '../fonts/sourcesanspro-italic-webfont',
+    400,
+    italic,
+    $asset-pipeline: false,
+    $file-formats: eot woff2 woff ttf
+);
+
+@include font-face(
+    'Source Sans Pro',
+    '../fonts/sourcesanspro-semibold-webfont',
+    600,
+    normal,
+    $asset-pipeline: false,
+    $file-formats: eot woff2 woff ttf
+);
+
+@include font-face(
+    'Source Sans Pro',
+    '../fonts/sourcesanspro-bold-webfont',
+    700,
+    normal,
+    $asset-pipeline: false,
+    $file-formats: eot woff2 woff ttf
+);
+
