@@ -52,46 +52,33 @@ export default class SubmissionWarningBanner extends React.Component {
                 'test-submission': {
                     header: 'This is a test submission',
                     message: `Test submissions cannot be published or certified, but they can be used to validate ` +
-                        `your data.`,
-                    useMarkdown: true
+                        `your data.`
                 },
                 'test-submission-one': {
-                    header: (<p>This is a test submission</p>),
-                    message: (
-                        <p>
-                            A submission has already been published and/or certified for this time period.
-                            To view the published and/or certified submission,&nbsp;
-                            <Link to={`/submission/${pubSub}/`}>click here</Link>.
-                        </p>),
-                    useMarkdown: false
+                    header: 'This is a test submission',
+                    message: `A submission has already been published and/or certified for this time period. ` +
+                        `To view the published and/or certified submission, [click here](/#/submission/${pubSub}).`
                 },
                 'test-submission-multiple': {
-                    header: (<p>This is a test submission</p>),
-                    message: (
-                        <p>
-                            Multiple submissions have already been published and/or certified for this time period.
-                            To view the published and/or certified submissions, visit the&nbsp;
-                            <Link to="/submissionTable/">Submission Table</Link>.
-                        </p>),
-                    useMarkdown: false
+                    header: `This is a test submission`,
+                    message: `Multiple submissions have already been published and/or certified for this time period.` +
+                        `To view the published and/or certified submissions, visit the ` +
+                        `[Submission Table](/#/submissionTable).`
                 },
                 published: {
                     header: 'Submission already published',
                     message: `Any changes to this submission will not be reflected on USAspending.gov until it is ` +
-                        `republished.`,
-                    useMarkdown: true
+                        `republished.`
                 },
                 publishing: {
                     header: 'Submission currently publishing',
                     message: 'This submission is currently certifying.' +
-                            ' No changes can be made until the certification is complete.',
-                    useMarkdown: true
+                            ' No changes can be made until the certification is complete.'
                 },
                 certified: {
                     header: 'Submission already certified',
                     message: `Any changes to this submission will not be reflected on USAspending.gov until it is ` +
-                        `recertified.`,
-                    useMarkdown: true
+                        `recertified.`
                 },
                 updated: {
                     header: (<p>Submission updated</p>),
@@ -115,8 +102,7 @@ export default class SubmissionWarningBanner extends React.Component {
                 reverting: {
                     header: 'Submission currently reverting',
                     message: 'This submission is currently reverting.' +
-                            ' No changes can be made until reverting is complete.',
-                    useMarkdown: true
+                            ' No changes can be made until reverting is complete.'
                 }
             };
             const warningBanner = warningBannerMap[warningBannerType];
