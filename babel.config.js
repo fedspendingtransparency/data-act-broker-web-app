@@ -2,6 +2,11 @@ const presets = [
     [
         "@babel/preset-env",
         {
+            useBuiltIns: "entry",
+            corejs: {
+                version: 3,
+                proposals: true
+            },
             targets: {
                 ie: "10",
                 node: "10"
