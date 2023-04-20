@@ -9,9 +9,7 @@ const CopyWebpackPlugin = require('copy-webpack-plugin');
 const gitRevisionPlugin = new GitRevisionPlugin({ branch: true }); // 'rev-parse HEAD' is default command to find latest commit
 
 module.exports = {
-    entry: {
-        app: "../src/index.js"
-    },
+    entry: path.resolve(__dirname, "../src/js/app"),
     output: {
         // https://webpack.js.org/guides/caching/
         publicPath: "/",
