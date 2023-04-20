@@ -15,7 +15,7 @@
         }
 
         p {
-            padding: ($warning-banner-height / 5);
+            padding: calc(#{$warning-banner-height} / 5);
             margin: 0 0 0 48px;
             vertical-align: middle;
         }

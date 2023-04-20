@@ -61,7 +61,7 @@ export class ProtectedComponent extends React.Component {
     }
 
     componentWillUnmount() {
-        clearImmediate(this.sessionChecker);
+        window.clearImmediate(this.sessionChecker);
     }
 
     performAutoLogin() {
