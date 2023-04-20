@@ -1,14 +1,15 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import ReactMarkdown from 'react-markdown';
 import * as Icons from '../SharedComponents/icons/Icons';
 
 const propTypes = {
     displayMode: PropTypes.string,
-    string: PropTypes.string
+    displayString: PropTypes.string
 };
 
 const defaultProps = {
-    string: '',
+    displayString: '',
     displayMode: ''
 };
 
@@ -50,7 +51,13 @@ export default class DropZoneDisplay extends React.Component {
                         );
                     }
                 })()}
-                <div dangerouslySetInnerHTML={{ __html: this.props.string }} />
+                <div>
+                    <ReactMarkdown
+                        disallowedTypes={['paragraph']}
+                        unwrapDisallowed>
+                        {this.props.displayString}
+                    </ReactMarkdown>
+                </div>
             </div>
         );
     }

@@ -13,7 +13,7 @@
     &:hover {
         border-color: $color-primary-alt-dark;
     }
-    b {
+    b, strong {
         color: $color-gray;
     }
     & .usa-da-icon-cloud-upload, & .usa-da-icon-exclamation-circle {

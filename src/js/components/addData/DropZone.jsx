@@ -6,7 +6,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import Dropzone from 'react-dropzone';
-import DOMPurify from 'dompurify';
 
 import DropZoneDisplay from './DropZoneDisplay';
 
@@ -33,7 +32,7 @@ export default class DropZone extends React.Component {
     }
 
     render() {
-        let dropzoneString = `Drag and drop or click here to upload your <b>${this.props.fileTitle}</b>.`;
+        let dropzoneString = `Drag and drop or click here to upload your **${this.props.fileTitle}**.`;
         const progress = 0;
         let dropped = '';
         let isFileValid = 'unset';
@@ -46,31 +45,28 @@ export default class DropZone extends React.Component {
             isFileValid = validUploadFileChecker(submissionItem);
 
             if (submissionItem.state === 'ready' && isFileValid) {
-                dropzoneString = `<b>${submissionItem.file.name}</b> file selected`;
+                dropzoneString = `**${submissionItem.file.name}** file selected`;
             }
             else if (submissionItem.state === 'ready' && !isFileValid) {
-                dropzoneString = `<b>${submissionItem.file.name}</b> must be CSV or TXT format`;
+                dropzoneString = `**${submissionItem.file.name}** must be CSV or TXT format`;
             }
 
             if (submission.state === 'prepare') {
-                dropzoneString = `<b>${submissionItem.file.name}</b> was uploaded successfully`;
+                dropzoneString = `**${submissionItem.file.name}** was uploaded successfully`;
             }
 
             if (submission.state === 'failed' && isFileValid) {
-                dropzoneString = `<b>${submissionItem.file.name}</b> is the correct file type,
+                dropzoneString = `**${submissionItem.file.name}** is the correct file type,
                 but the submission upload has failed`;
             }
             else if (submissionItem.state === 'failed' && !isFileValid) {
-                dropzoneString = `<b>${submissionItem.file.name}</b> must be CSV or TXT format`;
+                dropzoneString = `**${submissionItem.file.name}** must be CSV or TXT format`;
             }
 
             if (submission.state === 'uploading') {
-                dropzoneString = `<b>${submissionItem.file.name}</b>`;
+                dropzoneString = `**${submissionItem.file.name}**`;
             }
         }
-
-        // sanitize the dropzone string to prevent XSS attacks
-        dropzoneString = DOMPurify.sanitize(dropzoneString, { ALLOWED_TAGS: ['b'] });
 
         return (
             <Dropzone
@@ -81,7 +77,7 @@ export default class DropZone extends React.Component {
                 data-testid={`upload-${this.props.requestName}`}>
                 <DropZoneDisplay
                     displayMode={isFileValid ? this.props.submission.state : 'invalid'}
-                    string={dropzoneString}
+                    displayString={dropzoneString}
                     progress={progress} />
             </Dropzone>
         );

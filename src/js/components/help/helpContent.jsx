@@ -89,9 +89,9 @@ export default class HelpContent extends React.Component {
         return (
             <div className="usa-da-help-content">
                 <h2 className="usa-da-help-content__header">What&#8217;s New in This Release</h2>
-                <ReactMarkdown children={this.props.changelog} />
+                <ReactMarkdown>{this.props.changelog}</ReactMarkdown>
                 <h2 className="usa-da-help-content__header">Technical Notes for this Release</h2>
-                <ReactMarkdown children={this.props.technical} />
+                <ReactMarkdown>{this.props.technical}</ReactMarkdown>
                 <h2 className="usa-da-help-content-subheading">Getting More Help</h2>
                 {membership}
                 <p>

@@ -44,10 +44,10 @@ export default class BannerRow extends React.Component {
                             {this.props.useMarkdown ?
                                 <div>
                                     <div className="banner-header">
-                                        <ReactMarkdown children={this.props.header} />
+                                        <ReactMarkdown>{this.props.header}</ReactMarkdown>
                                     </div>
                                     <div className="banner-content">
-                                        <ReactMarkdown children={this.props.message} />
+                                        <ReactMarkdown>{this.props.message}</ReactMarkdown>
                                     </div>
                                 </div> :
                                 <div>

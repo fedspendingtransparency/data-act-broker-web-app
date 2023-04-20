@@ -1,5 +1,4 @@
 import Q from 'q';
-import ent from 'ent';
 import Request from './sessionSuperagent';
 import { kGlobalConstants } from '../GlobalConstants';
 
@@ -13,23 +12,24 @@ export const parseMarkdown = (rawText) => {
     const sectionRegex = /{section=[a-zA-Z0-9]+}/gm;
     const sectionList = [];
 
-    let results;
-    while ((results = lineRegex.exec(rawText)) !== null) {
-        const link = results[0].substring(results[0].indexOf('=') + 1, results[0].length-1);
+    let results = lineRegex.exec(rawText);
+    while (results !== null) {
+        const link = results[0].substring(results[0].indexOf('=') + 1, results[0].length - 1);
         const name = results[0].replace(sectionRegex, '').replace(/#/g, '').trim();
         sectionList.push({
             link,
             name
         });
+        results = lineRegex.exec(rawText);
     }
-    rawText = rawText.replace(sectionRegex, '');
+    const textBody = rawText.replace(sectionRegex, '');
     const output = {
-        body: rawText,
+        body: textBody,
         sections: sectionList
     };
 
     return output;
-}
+};
 
 const loadHistory = () => {
     const deferred = Q.defer();
