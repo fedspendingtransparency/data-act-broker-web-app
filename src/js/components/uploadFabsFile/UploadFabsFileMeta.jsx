@@ -3,7 +3,7 @@
 * Created by Minahm Kim
 */
 
-import CSSTransitionGroup from 'react-transition-group/CSSTransitionGroup';
+import { CSSTransition, TransitionGroup } from 'react-transition-group';
 
 import React from 'react';
 import PropTypes from 'prop-types';
@@ -233,35 +233,16 @@ export default class UploadFabsFileMeta extends React.Component {
 
     render() {
         let subTierAgencyClass = '';
-        let uploadFilesBox = null;
-        let submissionTypeField = null;
-
         if (this.state.agencyError) {
             subTierAgencyClass = ' error usa-da-form-icon';
         }
 
-        if (this.state.showSubmissionType) {
-            submissionTypeField = (<SubmissionTypeField
-                onChange={this.handleSubmissionTypeChange}
-                value={this.state.submissionType}
-                isDabs={false} />);
-        }
-
-        if (this.state.showUploadFilesBox) {
-            uploadFilesBox = (<UploadFabsFileBox
-                {...this.state}
-                submission={this.props.submission}
-                uploadFile={this.uploadFile} />);
-        }
-
         let errorMessage = null;
-
         if (this.state.fabs.error.show) {
             errorMessage = <UploadFabsFileError error={this.state.fabs.error} />;
         }
 
         let warning = null;
-
         if (this.props.submission.state === 'uploading') {
             warning = (
                 <div className="container short">
@@ -312,19 +293,33 @@ export default class UploadFabsFileMeta extends React.Component {
                                         </div>
                                     </div>
                                 </div>
-                                <CSSTransitionGroup
-                                    transitionName="usa-da-meta-fade"
-                                    transitionEnterTimeout={600}
-                                    transitionLeaveTimeout={200}>
-                                    {submissionTypeField}
-                                </CSSTransitionGroup>
+                                <TransitionGroup>
+                                    {this.state.showSubmissionType && (
+                                        <CSSTransition
+                                            classNames="usa-da-meta-fade"
+                                            timeout={{ enter: 600, exit: 200 }}
+                                            exit>
+                                            <SubmissionTypeField
+                                                onChange={this.handleSubmissionTypeChange}
+                                                value={this.state.submissionType}
+                                                isDabs={false} />
+                                        </CSSTransition>
+                                    )}
+                                </TransitionGroup>
 
-                                <CSSTransitionGroup
-                                    transitionName="usa-da-meta-fade"
-                                    transitionEnterTimeout={600}
-                                    transitionLeaveTimeout={200}>
-                                    {uploadFilesBox}
-                                </CSSTransitionGroup>
+                                <TransitionGroup>
+                                    {this.state.showUploadFilesBox && (
+                                        <CSSTransition
+                                            classNames="usa-da-meta-fade"
+                                            timeout={{ enter: 600, exit: 200 }}
+                                            exit>
+                                            <UploadFabsFileBox
+                                                {...this.state}
+                                                submission={this.props.submission}
+                                                uploadFile={this.uploadFile} />
+                                        </CSSTransition>
+                                    )}
+                                </TransitionGroup>
                                 {errorMessage}
                             </div>
                         </div>

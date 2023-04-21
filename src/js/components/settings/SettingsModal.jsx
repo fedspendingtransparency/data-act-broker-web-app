@@ -110,7 +110,8 @@ export default class SettingsModal extends React.Component {
                                             options={ruleList}
                                             selectedOption={this.state.selectedRule.label}
                                             sortFn={() => 0}
-                                            isFixedWidth />
+                                            isFixedWidth
+                                            backgroundColor="#FFFFFF" />
                                     </div>
                                 </div>
                                 <div className="tabs">

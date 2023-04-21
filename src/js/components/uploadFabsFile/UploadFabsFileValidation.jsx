@@ -3,7 +3,7 @@
  * Created by Minahm Kim
  */
 
-import CSSTransitionGroup from 'react-transition-group/CSSTransitionGroup';
+import { CSSTransition, TransitionGroup } from 'react-transition-group';
 
 import React from 'react';
 import PropTypes from 'prop-types';
@@ -578,23 +578,29 @@ export class UploadFabsFileValidation extends React.Component {
                 <div className="container">
                     <div className="col-xs-12 mt-60 mb-60">
                         <div className="validation-holder">
-                            <CSSTransitionGroup
-                                transitionName="usa-da-meta-fade"
-                                transitionEnterTimeout={600}
-                                transitionLeaveTimeout={200}>
-                                {validationBox}
-                            </CSSTransitionGroup>
+                            <TransitionGroup>
+                                <CSSTransition
+                                    classNames="usa-da-meta-fade"
+                                    timeout={{ enter: 600, exit: 200 }}
+                                    exit>
+                                    {validationBox}
+                                </CSSTransition>
+                            </TransitionGroup>
 
                             {errorMessage}
 
-                            <CSSTransitionGroup
-                                transitionName="usa-da-meta-fade"
-                                transitionEnterTimeout={600}
-                                transitionLeaveTimeout={200}>
-                                {validationButton}
-                                {revalidateButton}
-                                {downloadButton}
-                            </CSSTransitionGroup>
+                            <TransitionGroup>
+                                <CSSTransition
+                                    classNames="usa-da-meta-fade"
+                                    timeout={{ enter: 600, exit: 200 }}
+                                    exit>
+                                    <>
+                                        {validationButton}
+                                        {revalidateButton}
+                                        {downloadButton}
+                                    </>
+                                </CSSTransition>
+                            </TransitionGroup>
                         </div>
                     </div>
                 </div>

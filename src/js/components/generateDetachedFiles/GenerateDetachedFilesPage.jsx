@@ -3,7 +3,7 @@
 * Created by Alisa Burdeyny
 */
 
-import CSSTransitionGroup from 'react-transition-group/CSSTransitionGroup';
+import { CSSTransition, TransitionGroup } from 'react-transition-group';
 
 import React from 'react';
 import PropTypes from 'prop-types';
@@ -77,7 +77,7 @@ export default class GenerateDetachedFilesPage extends React.Component {
         this.updateError = this.updateError.bind(this);
         this.handleDateChange = this.handleDateChange.bind(this);
         this.generateFile = this.generateFile.bind(this);
-        this.clickedElementNumbersCheckbox = this.clickedElementNumbersCheckbox.bind(this);
+        this.clickedElemNumsCheckbox = this.clickedElemNumsCheckbox.bind(this);
     }
 
     componentDidMount() {
@@ -144,7 +144,7 @@ export default class GenerateDetachedFilesPage extends React.Component {
         });
     }
 
-    clickedElementNumbersCheckbox() {
+    clickedElemNumsCheckbox() {
         const newState = Object.assign(this.state.d1, {
             elementNumbers: !this.state.d1.elementNumbers
         });
@@ -328,18 +328,6 @@ export default class GenerateDetachedFilesPage extends React.Component {
             agencyClass = ' error usa-da-form-icon';
         }
 
-        let dateSelect = null;
-        if (this.state.showDateSelect) {
-            dateSelect = (<DateSelect
-                {...this.state}
-                handleDateChange={this.handleDateChange}
-                updateError={this.updateError}
-                generateFile={this.generateFile}
-                updateFileProperty={this.updateFileProperty}
-                clickedDownload={this.clickedDownload}
-                clickedElementNumbersCheckbox={this.clickedElementNumbersCheckbox} />);
-        }
-
         return (
             <div className="usa-da-generate-detached-files-page">
                 <div className="usa-da-site_wrap">
@@ -379,12 +367,23 @@ export default class GenerateDetachedFilesPage extends React.Component {
                                             </div>
                                         </div>
 
-                                        <CSSTransitionGroup
-                                            transitionName="usa-da-meta-fade"
-                                            transitionEnterTimeout={500}
-                                            transitionLeaveTimeout={300}>
-                                            {dateSelect}
-                                        </CSSTransitionGroup>
+                                        <TransitionGroup>
+                                            {this.state.showDateSelect && (
+                                                <CSSTransition
+                                                    classNames="usa-da-meta-fade"
+                                                    timeout={{ enter: 500, exit: 300 }}
+                                                    exit>
+                                                    <DateSelect
+                                                        {...this.state}
+                                                        handleDateChange={this.handleDateChange}
+                                                        updateError={this.updateError}
+                                                        generateFile={this.generateFile}
+                                                        updateFileProperty={this.updateFileProperty}
+                                                        clickedDownload={this.clickedDownload}
+                                                        clickedElementNumbersCheckbox={this.clickedElemNumsCheckbox} />
+                                                </CSSTransition>
+                                            )}
+                                        </TransitionGroup>
                                     </div>
                                 </div>
                             </div>

@@ -38,6 +38,13 @@
                 font-size: rem(25);
                 font-weight: light;
             }
+
+            .usa-dt-picker {
+                .usa-dt-picker__button-text {
+                    color: $color-gray;
+                }
+            }
+
             @import './ruleSettings';
             @import '../../../components/tabs/tabs';
             .tabs {
