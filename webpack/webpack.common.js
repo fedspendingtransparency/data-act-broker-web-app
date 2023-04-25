@@ -50,7 +50,8 @@ module.exports = {
                 loader: 'file-loader',
                 type: 'javascript/auto',
                 options: {
-                    name: '[path][name].[ext]'
+                    name: '[path][name].[ext]',
+                    esModule: false
                 }
             }
         ]
