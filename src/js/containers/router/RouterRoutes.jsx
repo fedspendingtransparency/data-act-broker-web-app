@@ -31,6 +31,10 @@ export const checkUserPermissions = (session) => {
 };
 
 export const checkDabsUploadPermissions = (session) => {
+    if (session.login !== "loggedIn") {
+        return false;
+    }
+
     if (session.admin) {
         return true;
     }
@@ -44,6 +48,10 @@ export const checkDabsUploadPermissions = (session) => {
 };
 
 export const checkFabsUploadPermissions = (session) => {
+    if (session.login !== "loggedIn") {
+        return false;
+    }
+
     if (session.admin) {
         return true;
     }
