@@ -23,7 +23,7 @@ export default class HistoryContent extends React.Component {
             <div className="usa-da-help-content">
                 <h2>{this.props.title}</h2>
                 <p><b>Note</b>: Links in the archive are not kept up to date and may no longer work.</p>
-                <ReactMarkdown source={this.props.history} />
+                <ReactMarkdown>{this.props.history}</ReactMarkdown>
             </div>
         );
     }
