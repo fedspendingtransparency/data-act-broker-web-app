@@ -9,6 +9,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import moment from 'moment';
 import { assign } from 'lodash';
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Banner from 'components/SharedComponents/Banner';
 import Navbar from '../SharedComponents/navigation/NavigationComponent';
 import Footer from '../SharedComponents/FooterComponent';
@@ -16,8 +17,6 @@ import AgencyListContainer from '../../containers/SharedContainers/AgencyListCon
 import DateSelect from './DateSelect';
 
 import * as GenerateFilesHelper from '../../helpers/generateFilesHelper';
-
-import * as Icons from '../SharedComponents/icons/Icons';
 
 const propTypes = {
     type: PropTypes.oneOf(['dabs', 'fabs'])
@@ -321,11 +320,9 @@ export default class GenerateDetachedFilesPage extends React.Component {
     }
 
     render() {
-        let agencyIcon = <Icons.Building />;
         let agencyClass = '';
         if (this.state.agencyError) {
-            agencyIcon = <Icons.Building />;
-            agencyClass = ' error usa-da-form-icon';
+            agencyClass = ' error';
         }
 
         return (
@@ -362,7 +359,7 @@ export default class GenerateDetachedFilesPage extends React.Component {
                                                     onSelect={this.handleChange.bind(this)}
                                                     customClass={agencyClass} />
                                                 <div className={`usa-da-icon usa-da-form-icon${agencyClass}`}>
-                                                    {agencyIcon}
+                                                    <FontAwesomeIcon icon={['far', 'building']} />
                                                 </div>
                                             </div>
                                         </div>

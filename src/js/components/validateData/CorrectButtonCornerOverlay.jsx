@@ -5,8 +5,8 @@
 
 import React from 'react';
 import PropTypes from 'prop-types';
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
-import * as Icons from '../SharedComponents/icons/Icons';
 import { createOnKeyDownHandler } from '../../helpers/util';
 
 const propTypes = {
@@ -28,8 +28,9 @@ export default class CorrectButtonCornerOverlay extends React.Component {
                         tabIndex={0}
                         className="usa-da-icon"
                         onKeyDown={onKeyDownHandler}
-                        onClick={this.props.buttonClicked}>
-                        <Icons.Trash />
+                        onClick={this.props.buttonClicked}
+                        aria-label="Trash Can Icon">
+                        <FontAwesomeIcon icon={['far', 'trash-alt']} />
                     </div>
                 </div>
             </div>

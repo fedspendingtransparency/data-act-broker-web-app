@@ -7,6 +7,7 @@ import { CSSTransition, TransitionGroup } from 'react-transition-group';
 
 import React from 'react';
 import PropTypes from 'prop-types';
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 import SubmissionTypeField from 'components/addData/metadata/SubmissionTypeField';
 
@@ -15,8 +16,6 @@ import UploadFabsFileBox from './UploadFabsFileBox';
 import UploadFabsFileError from './UploadFabsFileError';
 import UploadFabsFileHeader from "./UploadFabsFileHeader";
 import Banner from '../SharedComponents/Banner';
-
-import * as Icons from '../SharedComponents/icons/Icons';
 
 import * as UploadHelper from '../../helpers/uploadHelper';
 import * as ReviewHelper from '../../helpers/reviewHelper';
@@ -247,18 +246,22 @@ export default class UploadFabsFileMeta extends React.Component {
             warning = (
                 <div className="container short">
                     <div className="alert alert-warning text-left" role="alert">
-                        <span className="usa-da-icon usa-da-icon-file-upload"><Icons.FileUpload /></span>
-                        <div className="alert-header-text">Please stay on this page while files upload</div>
-                        <p>
-                            Depending on your bandwidth, these may take longer than an hour to upload.
-                            <br />
-                            <b>If they have not uploaded in forty-five minutes</b>, please open a new tab
-                            and navigate around the Broker every forty-five minutes to prevent being logged out
-                            and needing to restart the upload process.
-                            <br />
-                            Please stay on this page until they are complete or your submission may not be created
-                            properly.
-                        </p>
+                        <div className="usa-da-icon usa-da-icon-file-upload">
+                            <FontAwesomeIcon icon="file-upload" />
+                        </div>
+                        <div className="alert-text">
+                            <div className="alert-header-text">Please stay on this page while files upload</div>
+                            <p>
+                                Depending on your bandwidth, these may take longer than an hour to upload.
+                                <br />
+                                <b>If they have not uploaded in forty-five minutes</b>, please open a new tab
+                                and navigate around the Broker every forty-five minutes to prevent being logged out
+                                and needing to restart the upload process.
+                                <br />
+                                Please stay on this page until they are complete or your submission may not be created
+                                properly.
+                            </p>
+                        </div>
                     </div>
                 </div>
             );
@@ -288,7 +291,7 @@ export default class UploadFabsFileMeta extends React.Component {
                                                 customClass={subTierAgencyClass}
                                                 internalValue={['agency_code']} />
                                             <div className={`usa-da-icon usa-da-form-icon${subTierAgencyClass}`}>
-                                                <Icons.Building />
+                                                <FontAwesomeIcon icon={['far', 'building']} />
                                             </div>
                                         </div>
                                     </div>

@@ -5,7 +5,7 @@
 
 import React from 'react';
 import PropTypes from 'prop-types';
-import * as Icons from '../SharedComponents/icons/Icons';
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 const propTypes = {
     handleChange: PropTypes.func.isRequired,
@@ -44,7 +44,7 @@ export default class Password extends React.Component {
                     tabIndex={this.props.tabIndex}
                     aria-required={this.props.isRequired} />
                 <span className="usa-da-icon">
-                    <Icons.Lock alt="Password" />
+                    <FontAwesomeIcon icon="lock" />
                 </span>
             </div>
         );

@@ -5,7 +5,7 @@
 
 import React from 'react';
 import PropTypes from 'prop-types';
-import * as Icons from '../../SharedComponents/icons/Icons';
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import DatePicker from './DatePicker';
 import { createOnKeyDownHandler, convertToLocalDate } from '../../../helpers/util';
 
@@ -100,7 +100,8 @@ export default class GenerateFileBox extends React.Component {
                                     onClick={this.props.clickedDownload}
                                     onKeyDown={onKeyDownHandler}
                                     className="usa-da-download pull-right">
-                                    <span className="usa-da-icon usa-da-download-report"><Icons.CloudDownload />
+                                    <span className="usa-da-icon usa-da-download-report">
+                                        <FontAwesomeIcon icon="cloud-download-alt" />
                                     </span>Download File
                                 </div>
                             </div>
@@ -109,9 +110,13 @@ export default class GenerateFileBox extends React.Component {
                 </div>
 
                 <div className={`alert alert-error text-left${errorClass}`} role="alert">
-                    <span className="usa-da-icon error-icon"><Icons.ExclamationCircle /></span>
-                    <div className="alert-header-text">{this.props.error.header}</div>
-                    <p>{this.props.error.description}</p>
+                    <div className="usa-da-icon error-icon">
+                        <FontAwesomeIcon icon="exclamation-circle" />
+                    </div>
+                    <div className="alert-text">
+                        <div className="alert-header-text">{this.props.error.header}</div>
+                        <p>{this.props.error.description}</p>
+                    </div>
                 </div>
             </div>
         );

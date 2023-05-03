@@ -7,11 +7,11 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { CSSTransition, TransitionGroup } from 'react-transition-group';
 import { Redirect } from 'react-router-dom';
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 import * as AgencyHelper from 'helpers/agencyHelper';
 import * as UtilHelper from 'helpers/util';
 import AgencyListContainer from 'containers/SharedContainers/AgencyListContainer';
-import * as Icons from 'components/SharedComponents/icons/Icons';
 import DateTypeField from './metadata/DateTypeField';
 import DateRangeField from './metadata/DateRangeField';
 import SubmissionTypeField from './metadata/SubmissionTypeField';
@@ -211,7 +211,7 @@ export default class AddDataMeta extends React.Component {
                                             onSelect={this.handleChange}
                                             detached={false} />
                                         <div className="usa-da-icon usa-da-form-icon">
-                                            <Icons.Building />
+                                            <FontAwesomeIcon icon={['far', 'building']} />
                                         </div>
                                     </div>
                                 </div>

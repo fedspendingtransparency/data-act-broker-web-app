@@ -1,25 +1,25 @@
 @mixin rightSideIcon {
     .usa-da-icon {
-        width: 2.4rem;
-        height: 2.4rem;
+        font-size: rem(21);
         position: absolute;
-        top: 13px;
-        left: 6px;
-        & .usa-da-icon-exclamation-circle {
-            fill: $color-secondary;
+        top: rem(10);
+        left: rem(7);
+        & .fa-exclamation-circle {
+            color: $color-secondary;
         }
-        & .usa-da-icon-check-circle {
-            fill: $color-green-light;
+        & .fa-check-circle {
+            color: $color-green-light;
         }
-        & .usa-da-icon-cloud-upload {
-            fill: $color-gray-dark;
-            left: 9px
+        & .fa-cloud-upload-alt {
+            color: $color-gray-dark;
+            position: relative;
+            left: rem(-2);
         }
     }
 
     .usa-da-warning-icon {
-        .usa-da-icon-exclamation-circle {
-            fill: $color-gold;
+        .fa-exclamation-circle {
+            color: $color-gold;
         }
     }
 }

@@ -4,8 +4,7 @@
 */
 import React from 'react';
 import PropTypes from 'prop-types';
-
-import * as Icons from '../SharedComponents/icons/Icons';
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 const propTypes = {
     error: PropTypes.object,
@@ -74,19 +73,23 @@ export default class UploadFabsFileError extends React.Component {
     }
 
     render() {
-        let icon = <Icons.ExclamationCircle />;
+        let icon = <FontAwesomeIcon icon="exclamation-circle" />;
         let className = 'error';
 
         if (this.props.type === 'success') {
-            icon = <Icons.CheckCircle />;
+            icon = <FontAwesomeIcon icon="check-circle" />;
             className = 'success';
         }
 
         return (
             <div className={`alert alert-${className} text-left`} role="alert">
-                <span className="usa-da-icon error-icon">{icon}</span>
-                <div className="alert-header-text">{this.state.header}</div>
-                <p>{this.state.message}</p>
+                <div className="usa-da-icon error-icon">
+                    {icon}
+                </div>
+                <div className="alert-text">
+                    <div className="alert-header-text">{this.state.header}</div>
+                    <p>{this.state.message}</p>
+                </div>
             </div>);
     }
 }

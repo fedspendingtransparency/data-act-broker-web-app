@@ -9,6 +9,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import moment from 'moment';
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 import * as UploadHelper from 'helpers/uploadHelper';
 import * as GenerateFilesHelper from 'helpers/generateFilesHelper';
@@ -17,7 +18,6 @@ import * as ReviewHelper from 'helpers/reviewHelper';
 import ValidateValuesFileContainer from 'containers/validateData/ValidateValuesFileContainer';
 import ValidateDataFileContainer from 'containers/validateData/ValidateDataFileContainer';
 import Banner from 'components/SharedComponents/Banner';
-import * as Icons from 'components/SharedComponents/icons/Icons';
 import DABSFABSErrorMessage from 'components/SharedComponents/DABSFABSErrorMessage';
 import PublishModal from './PublishModal';
 import UploadFabsFileError from './UploadFabsFileError';
@@ -428,11 +428,11 @@ export class UploadFabsFileValidation extends React.Component {
                         <div className="col-xs-12">
                             <div className="row">
                                 <div className="col-xs-8 button-text-container text-right">
-                                    <Icons.CheckCircle />
+                                    <FontAwesomeIcon icon="check-circle" />
                                         File Published: {this.state.fabs_meta.valid_rows} row(s) of data&nbsp;
                                         (excluding header) published at {parsedDate}
-                                    <span className="tooltip-popover-container">
-                                        <Icons.InfoCircle />
+                                    <span className="tooltip-popover-container" aria-label="information">
+                                        <FontAwesomeIcon icon="info-circle" />
                                         <span className="tooltip-popover above">
                                             <span>
                                                     The published file differs from the submitted file in four ways:
@@ -471,11 +471,11 @@ export class UploadFabsFileValidation extends React.Component {
                         <div className="col-xs-12">
                             <div className="row">
                                 <div className="col-xs-8 button-text-container text-right">
-                                    <Icons.CheckCircle />
+                                    <FontAwesomeIcon icon="check-circle" />
                                         File Published: {this.state.fabs_meta.valid_rows} row(s) of data&nbsp;
                                         (excluding header) published at {parsedDate}
-                                    <span className="tooltip-popover-container">
-                                        <Icons.InfoCircle />
+                                    <span className="tooltip-popover-container" aria-label="information">
+                                    <FontAwesomeIcon icon="info-circle" />
                                         <span className="tooltip-popover above">
                                             <span>
                                                     The published file differs from the submitted file in four ways:

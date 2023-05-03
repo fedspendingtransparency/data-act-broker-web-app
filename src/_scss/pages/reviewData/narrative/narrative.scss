@@ -134,7 +134,7 @@
                 }
 
                 &.fa-exclamation-triangle {
-                    color: #f0ad4e;
+                    color: $color-gold-dark;
                 }
             }
         }
@@ -167,7 +167,7 @@
                 }
             }
 
-            @media (max-width: $medium-screen - 1) {
+            @media (max-width: ($medium-screen - 1)) {
                 display: block;
                 margin: auto;
                 margin-bottom: rem(20);

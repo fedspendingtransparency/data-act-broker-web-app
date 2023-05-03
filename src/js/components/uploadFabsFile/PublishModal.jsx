@@ -6,7 +6,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import Modal from 'react-aria-modal';
-import * as Icons from '../SharedComponents/icons/Icons';
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 const propTypes = {
     closeModal: PropTypes.func,
@@ -114,7 +114,9 @@ export default class PublishModal extends React.Component {
                         id="usa-da-certify-modal"
                         className="usa-da-certify-modal">
                         <div className={`usa-da-certify-modal-close usa-da-icon usa-da-icon-times${hideClose}`}>
-                            <button onClick={this.closeModal.bind(this)}> <Icons.Times /> </button>
+                            <button onClick={this.closeModal.bind(this)} aria-label="close">
+                                <FontAwesomeIcon icon="times" />    
+                            </button>
                         </div>
 
                         <div className="usa-da-certify-modal-content">

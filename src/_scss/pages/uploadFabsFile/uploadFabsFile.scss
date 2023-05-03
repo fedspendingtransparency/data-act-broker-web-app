@@ -15,15 +15,16 @@
 		border-color: rgb(243,199,77);
 		background: rgb(255,252,246);
 		.alert-header-text {
-		    margin: 0 0 5px 40px;
 		    font-weight: bold;
 		}
+        div {
+            display: inline-block;
+        }
 		p {
-		    margin: 5px 0 5px 40px;
 		    font-size: 1.6rem;
 		}
 		.usa-da-icon-file-upload {
-			width: 2.0rem;
+			font-size: rem(26);
 		}
 	}
 
@@ -31,11 +32,19 @@
 		.alert-error {
 			@import "../../components/alerts/_alerts";
 			@include dangerAlert;
+
+            div {
+                display: inline-block;
+            }
 		}
 
 		.alert-success {
 			@import "../../components/alerts/_alerts";
 			@include successAlert;
+
+            div {
+                display: inline-block;
+            }
 		}
 
 		.button-text-container {
@@ -66,11 +75,11 @@
 		    height: rem(15);
 		    position: relative;
 	    }
-	    & svg.usa-da-icon-check-circle {
-	        fill: $color-green-light;
+	    .fa-check-circle {
+	        color: $color-green-light;
 	    }
-		& svg.usa-da-icon-info-circle {
-	        fill: $color-gray;
+		.fa-info-circle {
+	        color: $color-gray;
 	    }
 	}
 
@@ -165,6 +174,10 @@
 		.alert-error {
 			@import "../../components/alerts/_alerts";
 			@include dangerAlert;
+
+            div {
+                display: inline-block;
+            }
 		}
 
 		// style the icons

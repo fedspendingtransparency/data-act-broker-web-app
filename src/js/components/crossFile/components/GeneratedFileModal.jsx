@@ -7,7 +7,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import Modal from 'react-aria-modal';
 import CrossFileGenerateModalContainer from '../../../containers/crossFile/CrossFileGenerateModalContainer';
-import * as Icons from '../../SharedComponents/icons/Icons';
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 const propTypes = {
     closeModal: PropTypes.func,
@@ -85,8 +85,8 @@ export default class GeneratedFileModal extends React.Component {
                 <div className="usa-da-modal-page">
                     <div id="usa-da-generate-file-modal" className="usa-da-generate-file-modal">
                         <div className="usa-da-landing-modal-close usa-da-icon usa-da-icon-times">
-                            <button onClick={this.props.closeModal}>
-                                <Icons.Times />
+                            <button onClick={this.props.closeModal} aria-label="close">
+                                <FontAwesomeIcon icon="times" />
                             </button>
                         </div>
                         <CrossFileGenerateModalContainer

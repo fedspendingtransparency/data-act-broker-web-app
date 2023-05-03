@@ -1,19 +1,18 @@
 @mixin fieldIcon {
     svg {
         position: absolute;
-        top: 14px;
-        right: 25px;
+        top: rem(14);
+        right: rem(25);
         z-index: 9;
-        fill: #ccc;
-        height: 21px;
-        width: 21px;
+        color: #ccc;
+        font-size: rem(22);
     }
     &.error {
         & svg {
-            fill: $color-secondary;
+            color: $color-secondary;
         }
     }
     &.date svg {
-        top: 12px;
+        top: rem(12);
     }
 }

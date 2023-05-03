@@ -6,8 +6,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import Modal from 'react-aria-modal';
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
-import * as Icons from '../../SharedComponents/icons/Icons';
 import LandingBody from './LandingRequirementsBody';
 
 const propTypes = {
@@ -52,8 +52,8 @@ export default class LandingRequirementsModal extends React.Component {
                 <div className="usa-da-modal-page">
                     <div id="usa-da-landing-modal" className="usa-da-landing-modal">
                         <div className="usa-da-landing-modal-close usa-da-icon usa-da-icon-times">
-                            <button onClick={this.closeModal}>
-                                <Icons.Times />
+                            <button onClick={this.closeModal} aria-label="close">
+                                <FontAwesomeIcon icon="times" />
                             </button>
                         </div>
                         <LandingBody {...this.props} />

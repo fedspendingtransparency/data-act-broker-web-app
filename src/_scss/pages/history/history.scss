@@ -10,6 +10,12 @@
         @include warningAlert;
     }
 
+    .alert {
+        div {
+            display: inline-block;
+        }
+    }
+
     h2 {
         font-size: $h2-font-size;
         margin-bottom: rem(10);

@@ -4,7 +4,7 @@
   */
 import React from 'react';
 import PropTypes from 'prop-types';
-import * as Icons from '../../SharedComponents/icons/Icons';
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 const propTypes = {
     buttonClicked: PropTypes.func,
@@ -18,9 +18,9 @@ const defaultProps = {
 
 export default class ReplacementButton extends React.Component {
     render() {
-        let icon = <Icons.Trash />;
+        let icon = <FontAwesomeIcon icon={['far', 'trash-alt']} />;
         if (this.props.expanded) {
-            icon = <Icons.Times />;
+            icon = <FontAwesomeIcon icon="times" />;
         }
 
         return (

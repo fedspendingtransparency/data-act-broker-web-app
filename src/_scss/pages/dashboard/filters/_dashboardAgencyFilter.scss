@@ -23,13 +23,20 @@
                 width: rem(20);
                 height: rem(20);
                 fill: $color-secondary-dark !important;
+                position: relative;
+                top: rem(-20);
             }
-            .alert-header-text {
-                font-weight: $font-bold;
-                font-size: rem(18);
-                margin: 0;
-                margin-left: rem(28);
-                color: #a94442;
+            .alert-text {
+                width: 80%;
+                .alert-header-text {
+                    font-weight: $font-bold;
+                    font-size: rem(18);
+                    margin: 0;
+                    color: #a94442;
+                }
+            }
+            div {
+                display: inline-block;
             }
             p {
                 font-size: $small-font-size;

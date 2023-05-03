@@ -5,7 +5,7 @@
 
 import React from 'react';
 import PropTypes from 'prop-types';
-import * as Icons from './icons/Icons';
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 const propTypes = {
     description: PropTypes.string,
@@ -21,9 +21,13 @@ export default class TypeaheadWarning extends React.Component {
     render() {
         return (
             <div className="typeahead-warning alert alert-error text-left" role="alert">
-                <span className="usa-da-icon error-icon"><Icons.ExclamationCircle /></span>
-                <div className="alert-header-text">{this.props.header}</div>
-                <p>{this.props.description}</p>
+                <div className="usa-da-icon error-icon">
+                    <FontAwesomeIcon icon="exclamation-circle" />
+                </div>
+                <div className="alert-text">
+                    <div className="alert-header-text">{this.props.header}</div>
+                    <p>{this.props.description}</p>
+                </div>
             </div>
         );
     }

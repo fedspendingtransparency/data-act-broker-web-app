@@ -52,6 +52,10 @@
                 border: 1px solid $color-secondary-dark;
                 padding: rem(15);
 
+                div {
+                    display: inline-block;
+                }
+
                 .error-icon svg {
                     width: rem(20);
                     height: rem(20);

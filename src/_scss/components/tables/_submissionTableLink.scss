@@ -4,13 +4,14 @@
         min-width: rem(61);
     }
     svg {
-        width: 3.5rem;
-        height: 2.4rem;
+        font-size: rem(20);
         display: inline-block;
         position: relative;
-        top: 5px;
-        left: 2px;
-        fill: $color-gray;
+        color: $color-gray;
+
+        &.fa-calendar-alt {
+            font-size: rem(27);
+        }
     }
     
     .test-submission-label {

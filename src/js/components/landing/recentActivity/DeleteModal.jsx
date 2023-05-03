@@ -6,7 +6,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import Modal from 'react-aria-modal';
-import * as Icons from '../../SharedComponents/icons/Icons';
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 import * as ReviewHelper from '../../../helpers/reviewHelper';
 
@@ -96,7 +96,9 @@ export default class DeleteModal extends React.Component {
                 <div className="usa-da-modal-page">
                     <div id="usa-da-certify-modal" className="usa-da-certify-modal">
                         <div className="usa-da-certify-modal-close usa-da-icon usa-da-icon-times">
-                            <button onClick={this.closeModal}> <Icons.Times /> </button>
+                            <button onClick={this.closeModal} aria-label="close">
+                                <FontAwesomeIcon icon="times" />
+                            </button>
                         </div>
 
                         <div className="usa-da-certify-modal-content delete-modal-content">

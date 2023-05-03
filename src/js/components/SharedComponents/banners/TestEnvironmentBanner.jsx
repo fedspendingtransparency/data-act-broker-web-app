@@ -4,15 +4,19 @@
   */
 
 import React from 'react';
-import * as Icons from '../../SharedComponents/icons/Icons';
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 
 export default class TestEnvironmentBanner extends React.Component {
     render() {
         return (
             <div className="usa-da-header-warning-banner">
-                <span className="usa-da-icon error-icon"><Icons.ExclamationTriangle /></span>
-                <p>This is a test environment.</p>
+                <div className="usa-da-icon error-icon">
+                    <FontAwesomeIcon icon="exclamation-triangle" />
+                </div>
+                <div>
+                    <p>This is a test environment.</p>
+                </div>
             </div>
         );
     }

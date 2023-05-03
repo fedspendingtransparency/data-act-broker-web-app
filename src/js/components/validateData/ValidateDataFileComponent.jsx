@@ -6,11 +6,11 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { isEqual } from 'lodash';
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { validUploadFileChecker, createOnKeyDownHandler, convertToLocalDate } from 'helpers/util';
 import * as GenerateFilesHelper from 'helpers/generateFilesHelper';
 import FileProgress from 'components/SharedComponents/FileProgress';
 import ProgressBar from 'components/SharedComponents/ProgressBar';
-import * as Icons from 'components/SharedComponents/icons/Icons';
 import * as PermissionsHelper from 'helpers/permissionsHelper';
 import ValidateDataErrorReport from './ValidateDataErrorReport';
 import ValidateDataUploadButton from './ValidateDataUploadButton';
@@ -231,14 +231,14 @@ export default class ValidateDataFileComponent extends React.Component {
         let icon = '';
         if (this.isReplacingFile()) {
             // user is attempting to replace a file
-            icon = <Icons.CloudUpload />;
+            icon = <FontAwesomeIcon icon="cloud-upload-alt" />;
         }
         else if (this.isFileReady()) {
             if (this.props.item.file_status === 'complete') {
-                icon = <Icons.CheckCircle />;
+                icon = <FontAwesomeIcon icon="check-circle" />;
             }
             else {
-                icon = <Icons.ExclamationCircle />;
+                icon =<FontAwesomeIcon icon="exclamation-circle" />;
             }
         }
         return icon;
@@ -335,9 +335,9 @@ export default class ValidateDataFileComponent extends React.Component {
             showFooter = '';
         }
 
-        let chevronDirection = <Icons.AngleDown />;
+        let chevronDirection = <FontAwesomeIcon icon="angle-down" />;
         if (this.state.showError) {
-            chevronDirection = <Icons.AngleUp />;
+            chevronDirection = <FontAwesomeIcon icon="angle-up" />;
         }
 
         let footerStatus = '';
@@ -450,7 +450,8 @@ export default class ValidateDataFileComponent extends React.Component {
                                     <div
                                         className="usa-da-icon"
                                         data-testid="validate-icon">
-                                        {isFileValid ? this.displayIcon() : <Icons.ExclamationCircle />}
+                                        {isFileValid ?
+                                            this.displayIcon() : <FontAwesomeIcon icon="exclamation-circle" />}
                                     </div>
                                 </div>
                                 {uploadProgress}
