@@ -128,7 +128,7 @@ const prepareFabsFile = (fileDict) => {
     Request.post(`${kGlobalConstants.API}upload_fabs_file/`)
         .attach('fabs', fileDict.fabs)
         .field(fieldType, fileDict[fieldType])
-        .field('test_submission', fileDict.test_submission)
+        .field('test_submission', fileDict.test_submission || false)
         .end((err, res) => {
             if (err) {
                 const response = Object.assign({}, res.body);
