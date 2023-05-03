@@ -225,9 +225,11 @@ export default class ValidateValuesFileComponent extends React.Component {
             icon = <FontAwesomeIcon icon="exclamation-circle" />;
         }
         else if (this.state.hasWarnings) {
-            icon = <div className="usa-da-warning-icon">
-                <FontAwesomeIcon icon="exclamation-circle" />
-            </div>;
+            icon = (
+                <div className="usa-da-warning-icon">
+                    <FontAwesomeIcon icon="exclamation-circle" />
+                </div>
+            );
         }
         return icon;
     }

@@ -115,7 +115,7 @@ export default class PublishModal extends React.Component {
                         className="usa-da-certify-modal">
                         <div className={`usa-da-certify-modal-close usa-da-icon usa-da-icon-times${hideClose}`}>
                             <button onClick={this.closeModal.bind(this)} aria-label="close">
-                                <FontAwesomeIcon icon="times" />    
+                                <FontAwesomeIcon icon="times" />
                             </button>
                         </div>
 

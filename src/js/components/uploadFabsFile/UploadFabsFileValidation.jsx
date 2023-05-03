@@ -475,7 +475,7 @@ export class UploadFabsFileValidation extends React.Component {
                                         File Published: {this.state.fabs_meta.valid_rows} row(s) of data&nbsp;
                                         (excluding header) published at {parsedDate}
                                     <span className="tooltip-popover-container" aria-label="information">
-                                    <FontAwesomeIcon icon="info-circle" />
+                                        <FontAwesomeIcon icon="info-circle" />
                                         <span className="tooltip-popover above">
                                             <span>
                                                     The published file differs from the submitted file in four ways:

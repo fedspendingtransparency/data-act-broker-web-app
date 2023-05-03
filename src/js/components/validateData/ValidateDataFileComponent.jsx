@@ -238,7 +238,7 @@ export default class ValidateDataFileComponent extends React.Component {
                 icon = <FontAwesomeIcon icon="check-circle" />;
             }
             else {
-                icon =<FontAwesomeIcon icon="exclamation-circle" />;
+                icon = <FontAwesomeIcon icon="exclamation-circle" />;
             }
         }
         return icon;

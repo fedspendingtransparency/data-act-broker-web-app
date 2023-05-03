@@ -6,8 +6,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import Modal from 'react-aria-modal';
-import CrossFileGenerateModalContainer from '../../../containers/crossFile/CrossFileGenerateModalContainer';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import CrossFileGenerateModalContainer from '../../../containers/crossFile/CrossFileGenerateModalContainer';
 
 const propTypes = {
     closeModal: PropTypes.func,
