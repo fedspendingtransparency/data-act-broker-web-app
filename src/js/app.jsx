@@ -1,6 +1,5 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-// import "babel-polyfill";
 import 'react-dates/initialize';
 import 'react-dates/lib/css/_datepicker.css';
 import { library } from "@fortawesome/fontawesome-svg-core";
