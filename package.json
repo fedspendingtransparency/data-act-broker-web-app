@@ -11,7 +11,7 @@
     "dev": "webpack --progress --config ./webpack/webpack.dev.config.js",
     "prod": "webpack --progress --config ./webpack/webpack.prod.config.js",
     "sass": "webpack --progress --config ./webpack/webpack.sass.config.js",
-    "travis": "./node_modules/.bin/eslint --config .eslintrc --ext .jsx,.js \"src/js/**\" && ./node_modules/.bin/jest --runInBand;"
+    "travis": "ls -la ./node_modules/ && ./node_modules/.bin/eslint --config .eslintrc --ext .jsx,.js \"src/js/**\" && ./node_modules/.bin/jest --runInBand;"
   },
   "engines": {
     "node": ">=16.14.2",
