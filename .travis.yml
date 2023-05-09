@@ -11,6 +11,9 @@ addons:
       - g++-4.8
 env:
   - CXX=g++-4.8
+cache:
+  directories:
+    - node_modules
 script:
   - npm run dev
   - npm run travis
