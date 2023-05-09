@@ -5,7 +5,7 @@
 
 import React from 'react';
 import PropTypes from 'prop-types';
-import * as Icons from '../icons/Icons';
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 const defaultProps = {
     header: '',
@@ -22,7 +22,7 @@ export default class Warning extends React.Component {
         return (
             <div className="autocomplete-error" role="alert">
                 <div className="autocomplete-error__title">
-                    <Icons.ExclamationCircle alt="Warning icon" />
+                    <FontAwesomeIcon icon="exclamation-circle" />
                     <div className="autocomplete-error__heading">{this.props.header}</div>
                 </div>
                 <p className="autocomplete-error__message">{this.props.description}</p>

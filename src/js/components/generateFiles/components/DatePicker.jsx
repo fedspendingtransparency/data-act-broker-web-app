@@ -7,8 +7,8 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import DayPicker, { DateUtils } from 'react-day-picker';
 import moment from 'moment';
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { keyCodes } from 'dataMapping/keyMappings';
-import * as Icons from '../../SharedComponents/icons/Icons';
 
 const propTypes = {
     onDateChange: PropTypes.func,
@@ -232,8 +232,9 @@ export default class DatePicker extends React.Component {
                         onClick={this.toggleDatePicker.bind(this)}
                         tabIndex={this.props.tabIndex + 1}
                         className="usa-da-icon picker-icon date"
-                        aria-haspopup="true">
-                        <Icons.Calendar alt="Date picker" />
+                        aria-haspopup="true"
+                        aria-label="date picker">
+                        <FontAwesomeIcon icon={['far', 'calendar-alt']} />
                     </button>
                 </div>
                 <div className={`floating-datepicker${showDatePicker}`} role="dialog">

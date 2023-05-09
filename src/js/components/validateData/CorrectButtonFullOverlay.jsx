@@ -5,10 +5,10 @@
 
 import React from 'react';
 import PropTypes from 'prop-types';
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 import ValidateDataUploadButton from './ValidateDataUploadButton';
 
-import * as Icons from '../SharedComponents/icons/Icons';
 import { createOnKeyDownHandler } from '../../helpers/util';
 
 const propTypes = {
@@ -36,8 +36,9 @@ export default class CorrectButtonFullOverlay extends React.Component {
                         tabIndex={0}
                         className="usa-da-icon"
                         onKeyDown={onKeyDownHandler}
-                        onClick={this.props.buttonClicked}>
-                        <Icons.Times />
+                        onClick={this.props.buttonClicked}
+                        aria-label="close">
+                        <FontAwesomeIcon icon="times" />
                     </div>
                     <div className="buttonHolder">
                         <div className="col-md-12">

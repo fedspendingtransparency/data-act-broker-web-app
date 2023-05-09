@@ -17,7 +17,10 @@ const propTypes = {
     appliedFilters: PropTypes.shape({
         filters: PropTypes.shape({
             active: PropTypes.shape({
-                agency: '',
+                agency: PropTypes.shape({
+                    code: PropTypes.string,
+                    name: PropTypes.string
+                }),
                 createdBy: PropTypes.shape({
                     name: PropTypes.string,
                     id: PropTypes.number

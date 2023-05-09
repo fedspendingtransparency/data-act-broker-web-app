@@ -5,8 +5,8 @@
 
 import React from 'react';
 import PropTypes from 'prop-types';
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import FileProgress from '../../SharedComponents/FileProgress';
-import * as Icons from '../../SharedComponents/icons/Icons';
 
 const propTypes = {
     closeModal: PropTypes.func,
@@ -150,10 +150,14 @@ export default class CertifyProgress extends React.Component {
                 </div>
 
                 <div className={`alert alert-danger${hideError}`}>
-                    <span className="usa-da-icon"><Icons.ExclamationCircle /></span>
-                    <div className="alert-header-text">Publish Failed</div>
-                    <p>An error occurred while attempting to publish this submission.</p>
-                    <p>{this.state.errorMessage}</p>
+                    <div className="usa-da-icon">
+                        <FontAwesomeIcon icon="exclamation-circle" />
+                    </div>
+                    <div className="alert-text">
+                        <div className="alert-header-text">Publish Failed</div>
+                        <p>An error occurred while attempting to publish this submission.</p>
+                        <p>{this.state.errorMessage}</p>
+                    </div>
                 </div>
             </div>
         );

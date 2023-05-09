@@ -22,12 +22,11 @@
             .filters-message {
                 @include display(flex);
                 @include justify-content(flex-start);
-                .usa-da-icon-exclamation-circle {
-                    height: rem(20);
-                    width: rem(20);
+                svg {
+                    font-size: rem(18);
                     @include flex(0 0 auto);
-                    fill: $color-gray;
-                    margin-right: rem(4);
+                    color: $color-gray;
+                    margin-right: rem(5);
                 }
                 span.filters-message__count {
                     padding: 0 rem(6);

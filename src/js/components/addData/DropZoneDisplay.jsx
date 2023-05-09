@@ -1,14 +1,16 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import ReactMarkdown from 'react-markdown';
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import * as Icons from '../SharedComponents/icons/Icons';
 
 const propTypes = {
     displayMode: PropTypes.string,
-    string: PropTypes.string
+    displayString: PropTypes.string
 };
 
 const defaultProps = {
-    string: '',
+    displayString: '',
     displayMode: ''
 };
 
@@ -20,12 +22,12 @@ export default class DropZoneDisplay extends React.Component {
                     switch (this.props.displayMode) {
                         case 'invalid': return (
                             <div className="text-center usa-da-icon fail">
-                                <Icons.ExclamationCircle />
+                                <FontAwesomeIcon icon="exclamation-circle" />
                             </div>
                         );
                         case 'ready': return (
                             <div className="text-center usa-da-icon">
-                                <Icons.CloudUpload />
+                                <FontAwesomeIcon icon="cloud-upload-alt" />
                             </div>
                         );
                         case 'uploading': return (
@@ -35,22 +37,28 @@ export default class DropZoneDisplay extends React.Component {
                         );
                         case 'failed': return (
                             <div className="text-center usa-da-icon fail">
-                                <Icons.CloudUpload />
+                                <FontAwesomeIcon icon="cloud-upload-alt" />
                             </div>
                         );
                         case 'prepare': return (
                             <div className="text-center usa-da-icon success">
-                                <Icons.CloudUpload />
+                                <FontAwesomeIcon icon="cloud-upload-alt" />
                             </div>
                         );
                         default: return (
                             <div className="text-center usa-da-icon">
-                                <Icons.CloudUpload />
+                                <FontAwesomeIcon icon="cloud-upload-alt" />
                             </div>
                         );
                     }
                 })()}
-                <div dangerouslySetInnerHTML={{ __html: this.props.string }} />
+                <div>
+                    <ReactMarkdown
+                        disallowedTypes={['paragraph']}
+                        unwrapDisallowed>
+                        {this.props.displayString}
+                    </ReactMarkdown>
+                </div>
             </div>
         );
     }

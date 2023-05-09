@@ -3,12 +3,13 @@
 * Created by Alisa Burdeyny
 */
 
-import CSSTransitionGroup from 'react-transition-group/CSSTransitionGroup';
+import { CSSTransition, TransitionGroup } from 'react-transition-group';
 
 import React from 'react';
 import PropTypes from 'prop-types';
 import moment from 'moment';
 import { assign } from 'lodash';
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Banner from 'components/SharedComponents/Banner';
 import Navbar from '../SharedComponents/navigation/NavigationComponent';
 import Footer from '../SharedComponents/FooterComponent';
@@ -16,8 +17,6 @@ import AgencyListContainer from '../../containers/SharedContainers/AgencyListCon
 import DateSelect from './DateSelect';
 
 import * as GenerateFilesHelper from '../../helpers/generateFilesHelper';
-
-import * as Icons from '../SharedComponents/icons/Icons';
 
 const propTypes = {
     type: PropTypes.oneOf(['dabs', 'fabs'])
@@ -77,7 +76,7 @@ export default class GenerateDetachedFilesPage extends React.Component {
         this.updateError = this.updateError.bind(this);
         this.handleDateChange = this.handleDateChange.bind(this);
         this.generateFile = this.generateFile.bind(this);
-        this.clickedElementNumbersCheckbox = this.clickedElementNumbersCheckbox.bind(this);
+        this.clickedElemNumsCheckbox = this.clickedElemNumsCheckbox.bind(this);
     }
 
     componentDidMount() {
@@ -144,7 +143,7 @@ export default class GenerateDetachedFilesPage extends React.Component {
         });
     }
 
-    clickedElementNumbersCheckbox() {
+    clickedElemNumsCheckbox() {
         const newState = Object.assign(this.state.d1, {
             elementNumbers: !this.state.d1.elementNumbers
         });
@@ -321,23 +320,9 @@ export default class GenerateDetachedFilesPage extends React.Component {
     }
 
     render() {
-        let agencyIcon = <Icons.Building />;
         let agencyClass = '';
         if (this.state.agencyError) {
-            agencyIcon = <Icons.Building />;
-            agencyClass = ' error usa-da-form-icon';
-        }
-
-        let dateSelect = null;
-        if (this.state.showDateSelect) {
-            dateSelect = (<DateSelect
-                {...this.state}
-                handleDateChange={this.handleDateChange}
-                updateError={this.updateError}
-                generateFile={this.generateFile}
-                updateFileProperty={this.updateFileProperty}
-                clickedDownload={this.clickedDownload}
-                clickedElementNumbersCheckbox={this.clickedElementNumbersCheckbox} />);
+            agencyClass = ' error';
         }
 
         return (
@@ -374,17 +359,28 @@ export default class GenerateDetachedFilesPage extends React.Component {
                                                     onSelect={this.handleChange.bind(this)}
                                                     customClass={agencyClass} />
                                                 <div className={`usa-da-icon usa-da-form-icon${agencyClass}`}>
-                                                    {agencyIcon}
+                                                    <FontAwesomeIcon icon={['far', 'building']} />
                                                 </div>
                                             </div>
                                         </div>
 
-                                        <CSSTransitionGroup
-                                            transitionName="usa-da-meta-fade"
-                                            transitionEnterTimeout={500}
-                                            transitionLeaveTimeout={300}>
-                                            {dateSelect}
-                                        </CSSTransitionGroup>
+                                        <TransitionGroup>
+                                            {this.state.showDateSelect && (
+                                                <CSSTransition
+                                                    classNames="usa-da-meta-fade"
+                                                    timeout={{ enter: 500, exit: 300 }}
+                                                    exit>
+                                                    <DateSelect
+                                                        {...this.state}
+                                                        handleDateChange={this.handleDateChange}
+                                                        updateError={this.updateError}
+                                                        generateFile={this.generateFile}
+                                                        updateFileProperty={this.updateFileProperty}
+                                                        clickedDownload={this.clickedDownload}
+                                                        clickedElementNumbersCheckbox={this.clickedElemNumsCheckbox} />
+                                                </CSSTransition>
+                                            )}
+                                        </TransitionGroup>
                                     </div>
                                 </div>
                             </div>

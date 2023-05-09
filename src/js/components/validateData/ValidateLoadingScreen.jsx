@@ -4,7 +4,7 @@
   */
 
 import React from 'react';
-import CSSTransitionGroup from 'react-transition-group/CSSTransitionGroup';
+import { CSSTransition, TransitionGroup } from 'react-transition-group';
 import ValidateDataFilePlaceholder from './ValidateDataFilePlaceholder';
 
 import CommonOverlay from '../SharedComponents/overlays/CommonOverlay';
@@ -22,14 +22,16 @@ export default class ValidateLoadingScreen extends React.Component {
             <div className="container">
                 <div className="row center-block usa-da-submission-items with-overlay">
                     <div className="usa-da-validate-items">
-                        <CSSTransitionGroup
-                            transitionName="usa-da-validate-fade"
-                            transitionEnterTimeout={500}
-                            transitionLeaveTimeout={500}>
-                            <div>
-                                {placeholders}
-                            </div>
-                        </CSSTransitionGroup>
+                        <TransitionGroup>
+                            <CSSTransition
+                                classNames="usa-da-validate-fade"
+                                timeout={500}
+                                exit>
+                                <div>
+                                    {placeholders}
+                                </div>
+                            </CSSTransition>
+                        </TransitionGroup>
                     </div>
                 </div>
                 <CommonOverlay

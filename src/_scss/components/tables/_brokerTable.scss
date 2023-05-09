@@ -1,3 +1,5 @@
+@import '../../abstract/mixins/ellipseBox.scss';
+
 @mixin brokerTable {
     table.broker-table {
         thead.broker-table__header {
@@ -16,7 +18,6 @@
                 td {
                     padding: rem(20) rem(15);
                     .ellipse-box {
-                        @import '../../abstract/mixins/ellipseBox.scss';
                         @include ellipseBox;
                     }
                 }

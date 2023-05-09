@@ -5,7 +5,7 @@
 
 import React from 'react';
 import PropTypes from 'prop-types';
-import { ExclamationCircle } from '../../SharedComponents/icons/Icons';
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 const propTypes = {
     filterCount: PropTypes.number
@@ -18,7 +18,7 @@ const defaultProps = {
 const FiltersMessage = (props) => (
     <div className="table-heading__message">
         <div className="filters-message">
-            <ExclamationCircle />
+            <FontAwesomeIcon icon="exclamation-circle" />
                 You have <span className="filters-message__count">{props.filterCount}</span> filters selected.
                 Click the submit button below to apply.
         </div>

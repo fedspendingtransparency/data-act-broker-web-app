@@ -20,20 +20,22 @@
 	.file-download-btn {
 		background-color: $color-primary;
 		color: $color-white;
-		padding: 0px 16px 8px 16px;
+		padding: rem(3) rem(16) rem(8);
 		margin-top: 10px;
 		display: inline-block;
-		font-size: rem(14);
+		font-size: rem(15);
 		border: 1px solid $color-primary;
 		.usa-da-icon.usa-da-download-report svg {
-			fill: $color-white;
+			font-size: rem(20);
+			color: $color-white;
+			top: rem(2);
 		}
 		&:hover {
 			color: $color-primary;
 			background-color: $color-white;
 		}
 		&:hover .usa-da-icon.usa-da-download-report svg {
-			fill: $color-primary;
+			color: $color-primary;
 		}
 		&:disabled {
 			cursor: not-allowed;

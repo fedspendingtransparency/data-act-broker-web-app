@@ -5,7 +5,7 @@
 
 import React from 'react';
 import PropTypes from 'prop-types';
-import * as Icons from '../../SharedComponents/icons/Icons';
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 const propTypes = {
     description: PropTypes.string,
@@ -40,17 +40,17 @@ export default class GenerateEFItem extends React.Component {
         if (status === 'failed') {
             hideError = '';
             hideSpinner = ' hide';
-            icon = <Icons.ExclamationCircle />;
+            icon = <FontAwesomeIcon icon="exclamation-circle" />;
         }
         else if (status === 'invalid') {
             hideError = '';
             hideSpinner = ' hide';
-            icon = <Icons.ExclamationCircle />;
+            icon = <FontAwesomeIcon icon="exclamation-circle" />;
         }
         else if (status === 'finished') {
             hideDownload = '';
             hideSpinner = ' hide';
-            icon = <Icons.CheckCircle />;
+            icon = <FontAwesomeIcon icon="check-circle" />;
         }
 
         let comingSoon = '';
@@ -99,9 +99,13 @@ export default class GenerateEFItem extends React.Component {
                     </div>
                 </div>
                 <div className={`alert alert-danger${hideError}`}>
-                    <span className="usa-da-icon error-icon"><Icons.ExclamationCircle /></span>
-                    <div className="alert-header-text">File {this.props.type} Error</div>
-                    <p>{this.props[this.props.type.toLowerCase()].message}</p>
+                    <div className="usa-da-icon error-icon">
+                        <FontAwesomeIcon icon="exclamation-circle" />
+                    </div>
+                    <div className="alert-text">
+                        <div className="alert-header-text">File {this.props.type} Error</div>
+                        <p>{this.props[this.props.type.toLowerCase()].message}</p>
+                    </div>
                 </div>
             </div>
         );

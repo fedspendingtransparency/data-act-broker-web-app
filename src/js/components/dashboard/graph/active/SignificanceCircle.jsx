@@ -11,7 +11,7 @@ import { formatNumberWithPrecision } from 'helpers/moneyFormatter';
 const propTypes = {
     xPos: PropTypes.number,
     yPos: PropTypes.number,
-    xValue: PropTypes.number,
+    xValue: PropTypes.string,
     yValue: PropTypes.number,
     color: PropTypes.string,
     label: PropTypes.string,

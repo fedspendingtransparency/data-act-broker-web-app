@@ -5,7 +5,7 @@
 
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Times } from '../../SharedComponents/icons/Icons';
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 const propTypes = {
     name: PropTypes.string,
@@ -48,7 +48,7 @@ export default class FilterBar extends React.Component {
                     aria-label="Remove filter"
                     onClick={this.removeFilter}
                     className="filter-tag__close">
-                    <Times />
+                    <FontAwesomeIcon icon="times" />
                 </button>
             </div>
         );

@@ -48,7 +48,7 @@ class HelpPageContainer extends React.Component {
         HelpHelper.loadHelp()
             .then((output) => {
                 this.setState({
-                    changelog: output.html,
+                    changelog: output.body,
                     clSections: output.sections,
                     releaseHistory: output.history
                 });
@@ -62,7 +62,7 @@ class HelpPageContainer extends React.Component {
         HelpHelper.loadTechnical()
             .then((output) => {
                 this.setState({
-                    technical: output.html,
+                    technical: output.body,
                     tSections: output.sections,
                     technicalHistory: output.history
                 });

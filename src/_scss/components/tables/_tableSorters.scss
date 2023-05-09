@@ -12,11 +12,12 @@
     	height: 2.4rem;
     	width: 2.2rem;
     	& svg{
-    		fill: $color-white;
+    		color: $color-white;
+			font-size: rem(20);
     	}
     	&.active{
     		& svg{
-    			fill:$color-gold-lighter;
+    			color: $color-gold-lighter;
     		}
     	}
     	&.sort-icon {

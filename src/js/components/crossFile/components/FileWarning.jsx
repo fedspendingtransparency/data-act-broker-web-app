@@ -5,8 +5,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import _ from 'lodash';
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import * as ReviewHelper from '../../../helpers/reviewHelper';
-import * as Icons from '../../SharedComponents/icons/Icons';
 
 const propTypes = {
     meta: PropTypes.object,
@@ -151,7 +151,7 @@ export default class FileWarning extends React.Component {
             <div className={`file-warning${hide}`}>
                 <div className="icon-wrap">
                     <div className="usa-da-icon">
-                        <Icons.InfoCircle />
+                        <FontAwesomeIcon icon="info-circle" />
                     </div>
                 </div>
                 <div className="warning-description">

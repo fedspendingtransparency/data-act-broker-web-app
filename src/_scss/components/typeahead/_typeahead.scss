@@ -16,12 +16,19 @@
             clip: rect(0, 0, 0, 0);
         }
     }
-    .error-icon {
-        svg {
-            fill: $color-secondary !important;
-            height: 45px;
-            width: 45px;
-            right: 0px !important;
+    .alert {
+        div {
+            display: inline-block;
+            width: auto;
+        }
+
+        .error-icon {
+            svg {
+                color: $color-secondary !important;
+                height: 45px;
+                width: 45px;
+                right: 0px !important;
+            }
         }
     }
 

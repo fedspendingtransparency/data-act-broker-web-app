@@ -6,11 +6,11 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { isEqual } from 'lodash';
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import * as GenerateFilesHelper from 'helpers/generateFilesHelper';
 import * as PermissionsHelper from 'helpers/permissionsHelper';
 import { createOnKeyDownHandler, convertToLocalDate } from 'helpers/util';
 import FileProgress from 'components/SharedComponents/FileProgress';
-import * as Icons from 'components/SharedComponents/icons/Icons';
 import ValidateDataUploadButton from './../ValidateDataUploadButton';
 import ValidateValuesErrorReport from './ValidateValuesErrorReport';
 import FileDetailBox from './ValidateValuesFileDetailBox';
@@ -217,15 +217,19 @@ export default class ValidateValuesFileComponent extends React.Component {
     }
 
     displayIcon() {
-        let icon = <Icons.CheckCircle />;
+        let icon = <FontAwesomeIcon icon="check-circle" />;
         if (this.isReplacingFile()) {
-            icon = <Icons.CloudUpload />;
+            icon = <FontAwesomeIcon icon="cloud-upload-alt" />;
         }
         else if (this.state.hasErrors) {
-            icon = <Icons.ExclamationCircle />;
+            icon = <FontAwesomeIcon icon="exclamation-circle" />;
         }
         else if (this.state.hasWarnings) {
-            icon = <div className="usa-da-warning-icon"><Icons.ExclamationCircle /></div>;
+            icon = (
+                <div className="usa-da-warning-icon">
+                    <FontAwesomeIcon icon="exclamation-circle" />
+                </div>
+            );
         }
         return icon;
     }
