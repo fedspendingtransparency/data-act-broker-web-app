@@ -344,7 +344,3 @@ export default class CrossFileGenerateModalContainer extends React.Component {
 
 CrossFileGenerateModalContainer.propTypes = propTypes;
 CrossFileGenerateModalContainer.defaultProps = defaultProps;
-
-CrossFileGenerateModalContainer.contextTypes = {
-    store: PropTypes.object.isRequired
-};

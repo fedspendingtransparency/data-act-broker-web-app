@@ -2,6 +2,8 @@
 @import "./_inputField";
 // import the login button
 @import "./_loginButton";
+// import the top banner
+@import "../../../layouts/login/_topBanner";
 
 
 @mixin loginForm {
@@ -58,7 +60,6 @@
 
     // style site banners
 	.internal-banner {
-		@import "../../../layouts/login/_topBanner";
 		@include loginTopBanner;
 
         padding: rem(15);

@@ -23,4 +23,8 @@
 .alert-danger {
 	@import "../../../components/alerts/_alerts";
 	@include dangerAlert;
+
+	div {
+		display: inline-block;
+	}
 }

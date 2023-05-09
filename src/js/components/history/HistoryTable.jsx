@@ -9,7 +9,6 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 import * as SubmissionListHelper from 'helpers/submissionListHelper';
 import * as UtilHelper from 'helpers/util';
-import * as Icons from 'components/SharedComponents/icons/Icons';
 
 const propTypes = {
     submissionID: PropTypes.string.isRequired
@@ -255,9 +254,13 @@ export default class HistoryTable extends React.Component {
         if (this.state.warning.active) {
             warning = (
                 <div className={`alert alert-${this.state.warning.type}`}>
-                    <span className="usa-da-icon error-icon"><Icons.ExclamationCircle /></span>
-                    <h3>{this.state.warning.header}</h3>
-                    <div>{this.state.warning.body}</div>
+                    <div className="usa-da-icon error-icon">
+                        <FontAwesomeIcon icon="exclamation-circle" />
+                    </div>
+                    <div className="alert-text">
+                        <div className="alert-header-text">{this.state.warning.header}</div>
+                        <p>{this.state.warning.body}</p>
+                    </div>
                 </div>
             );
         }

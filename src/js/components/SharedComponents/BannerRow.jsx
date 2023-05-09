@@ -5,7 +5,7 @@
 
 import React from 'react';
 import PropTypes from 'prop-types';
-import { parseMarkdown } from 'helpers/helpHelper';
+import ReactMarkdown from 'react-markdown';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 const propTypes = {
@@ -32,14 +32,6 @@ const iconMapping = {
 export default class BannerRow extends React.Component {
     render() {
         const messageIcon = <FontAwesomeIcon icon={iconMapping[this.props.type]} />;
-        let bannerHeader = '';
-        let bannerMessage = '';
-        if (this.props.header) {
-            bannerHeader = this.props.useMarkdown ? parseMarkdown(this.props.header).html : this.props.header;
-        }
-        if (this.props.message) {
-            bannerMessage = this.props.useMarkdown ? parseMarkdown(this.props.message).html : this.props.message;
-        }
 
         return (
             <div className={`internal-banner ${this.props.type}-banner`}>
@@ -51,17 +43,19 @@ export default class BannerRow extends React.Component {
                         <div className="col-xs-11">
                             {this.props.useMarkdown ?
                                 <div>
-                                    <div className="banner-header" dangerouslySetInnerHTML={{ __html: bannerHeader }} />
-                                    <div
-                                        className="banner-content"
-                                        dangerouslySetInnerHTML={{ __html: bannerMessage }} />
+                                    <div className="banner-header">
+                                        <ReactMarkdown>{this.props.header}</ReactMarkdown>
+                                    </div>
+                                    <div className="banner-content">
+                                        <ReactMarkdown>{this.props.message}</ReactMarkdown>
+                                    </div>
                                 </div> :
                                 <div>
                                     <div className="banner-header">
-                                        {bannerHeader}
+                                        {this.props.header}
                                     </div>
                                     <div className="banner-content">
-                                        {bannerMessage}
+                                        {this.props.message}
                                     </div>
                                 </div>}
                         </div>

@@ -5,7 +5,7 @@
 
 import React from 'react';
 import PropTypes from 'prop-types';
-import * as Icons from '../SharedComponents/icons/Icons';
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 const propTypes = {
     handleChange: PropTypes.func.isRequired,
@@ -31,7 +31,7 @@ export default class Username extends React.Component {
                     onChange={this.props.handleChange}
                     tabIndex={this.props.tabIndex} />
                 <span className="usa-da-icon">
-                    <Icons.User alt="Email Address" />
+                    <FontAwesomeIcon icon="user" />
                 </span>
             </div>
         );

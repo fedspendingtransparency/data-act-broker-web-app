@@ -1,6 +1,8 @@
 .usa-da-generate-file-modal {
 	@import "../../../layouts/modal/modal";
     @include modalLayout;
+
+    padding-top: rem(40);
     
     .usa-da-landing-modal-close {
         @include modalClose;
@@ -26,6 +28,6 @@
     }
 
     .alert-error {
-        @include dangerAlert;   
+        @include dangerAlert;
     }
 }

@@ -5,6 +5,7 @@
 
 import React from 'react';
 import PropTypes from 'prop-types';
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Banner from 'components/SharedComponents/Banner';
 import Navbar from '../SharedComponents/navigation/NavigationComponent';
 import Footer from '../SharedComponents/FooterComponent';
@@ -12,7 +13,6 @@ import AgencyListContainer from '../../containers/SharedContainers/AgencyListCon
 
 import { defaultPeriods, availablePeriodsInFY } from '../../helpers/periodPickerHelper';
 
-import * as Icons from '../SharedComponents/icons/Icons';
 import * as utils from '../../helpers/util';
 import GenerateButton from './GenerateButton';
 import DownloadFile from './DownloadFile';
@@ -109,11 +109,9 @@ export default class DetachedFileA extends React.Component {
     }
 
     render() {
-        let agencyIcon = <Icons.Building />;
         let agencyClass = '';
         if (this.state.agencyError) {
-            agencyIcon = <Icons.Building />;
-            agencyClass = ' error usa-da-form-icon';
+            agencyClass = ' error';
         }
 
         let submissionLink = null;
@@ -162,7 +160,7 @@ export default class DetachedFileA extends React.Component {
                                                     onSelect={this.handleAgencyChange}
                                                     customClass={agencyClass} />
                                                 <div className={`usa-da-icon usa-da-form-icon${agencyClass}`}>
-                                                    {agencyIcon}
+                                                    <FontAwesomeIcon icon={['far', 'building']} />
                                                 </div>
                                             </div>
                                         </div>

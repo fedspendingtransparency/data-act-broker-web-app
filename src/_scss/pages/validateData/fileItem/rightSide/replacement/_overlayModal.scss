@@ -11,18 +11,15 @@
 
     .usa-da-icon {
         cursor: pointer;
-        * {
-            height: 18px;
+        font-size: rem(18);
+        svg {
             position: absolute;
-            right: 6px;
-            top: 10px;
-        }
-    }
-
-    .usa-da-icon-times {
-        fill: $color-gray;
-        &:hover {
-            fill: $color-gray-dark;
+            right: rem(10);
+            top: rem(10);
+            color: $color-gray;
+            &:hover {
+                color: $color-gray-dark;
+            }
         }
     }
 

@@ -5,7 +5,7 @@
 
 import React from 'react';
 import PropTypes from 'prop-types';
-import { CSSTransitionGroup } from 'react-transition-group';
+import { CSSTransition, TransitionGroup } from 'react-transition-group';
 import LoadingBars from './LoadingBars';
 
 const propTypes = {
@@ -24,20 +24,21 @@ const defaultProps = {
 
 const LoadingMessage = (props) => (
     <div className="results-table-content">
-        <CSSTransitionGroup
-            transitionName="table-message-fade"
-            transitionLeaveTimeout={225}
-            transitionEnterTimeout={195}
-            transitionLeave>
-            <div className="results-table-message-container">
-                <div className="results-table-loading">
-                    <LoadingBars barWidth={props.barWidth} barHeight={props.barHeight} barPad={props.barPad} />
-                    <div className="loading-message">
-                        {props.loadingMessage}
+        <TransitionGroup>
+            <CSSTransition
+                classNames="table-message-fade"
+                timeout={{ enter: 195, exit: 225 }}
+                exit>
+                <div className="results-table-message-container">
+                    <div className="results-table-loading">
+                        <LoadingBars barWidth={props.barWidth} barHeight={props.barHeight} barPad={props.barPad} />
+                        <div className="loading-message">
+                            {props.loadingMessage}
+                        </div>
                     </div>
                 </div>
-            </div>
-        </CSSTransitionGroup>
+            </CSSTransition>
+        </TransitionGroup>
     </div>
 );
 

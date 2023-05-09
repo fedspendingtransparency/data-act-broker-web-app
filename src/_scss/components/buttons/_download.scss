@@ -1,15 +1,15 @@
 @mixin downloadButton {
-	font-size: 1.2rem;
+	font-size: rem(13);
     margin-top: 0.7rem;
     color: $color-gray;
     & .usa-da-icon.usa-da-download-report {
         & svg {
-            fill: $color-gray-light;
-            height: 1.8rem;
+            font-size: rem(20);
+            color: $color-gray-light;
             margin: 3px 0 0 0;
             position: relative;
-            top: 0.5rem;
-            left: -0.2rem;
+            top: rem(3);
+            left: rem(-2);
             padding: 0 3px;
         }
     }
@@ -18,7 +18,7 @@
         color: $color-gray-dark;
         & .usa-da-icon.usa-da-download-report {
             & svg {
-            fill: $color-gray-dark;
+            color: $color-gray-dark;
         	}
     	}
     }

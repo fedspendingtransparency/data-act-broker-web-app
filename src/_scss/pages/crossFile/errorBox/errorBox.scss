@@ -50,11 +50,19 @@
             }
         }
 
-        .usa-da-icon {
-            .usa-da-icon-info-circle {
-                width: 5.5rem;
-                height: 5.5rem;
-                position: relative;
+        .file-warning {
+            background-color: $color-primary-alt-lightest;
+            border: 1px solid $color-primary-alt;
+            padding: rem(10);
+
+            svg {
+                font-size: rem(35);
+                color: $color-primary-alt;
+            }
+            .warning-description {
+                ul {
+                    margin: 0;
+                }
             }
         }
     }

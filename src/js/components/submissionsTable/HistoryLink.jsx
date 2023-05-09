@@ -5,7 +5,7 @@
 
 import React from 'react';
 import PropTypes from 'prop-types';
-import * as Icons from '../SharedComponents/icons/Icons';
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 const propTypes = {
     submissionId: PropTypes.oneOfType([
@@ -19,7 +19,7 @@ export default class HistoryLink extends React.Component {
         return (
             <div className="usa-da-recent-activity-link">
                 <a href={`#/submissionHistory/${this.props.submissionId}`}>
-                    <Icons.Calendar alt="View" />
+                    <FontAwesomeIcon icon={['far', 'calendar-alt']} title="View" />
                 </a>
             </div>
         );

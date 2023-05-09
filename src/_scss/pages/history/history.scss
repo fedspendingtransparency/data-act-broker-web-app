@@ -10,6 +10,12 @@
         @include warningAlert;
     }
 
+    .alert {
+        div {
+            display: inline-block;
+        }
+    }
+
     h2 {
         font-size: $h2-font-size;
         margin-bottom: rem(10);
@@ -92,7 +98,7 @@
         overflow: scroll;
 
         .usa-da-download {
-            @import "/../../components/buttons/_optional";
+            @import "../../components/buttons/_optional";
             @include optionalButton;
             padding: rem(10) 0;
     

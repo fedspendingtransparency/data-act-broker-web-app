@@ -1,11 +1,38 @@
 .usa-da-dropzone {
     border: 2px dashed #c8cfd7;
-    padding: 6rem 2rem 2rem;
+    padding: 1rem 2rem 2rem;
     cursor: pointer;
     background-color: #f5f5f5;
     color: #808080;
     font-size: 1.4rem;
     position: relative;
+
+    .usa-da-icon {
+        font-size: rem(36);
+
+        svg {
+            color: $color-gray-light;
+            margin-bottom: rem(-5);
+        }
+
+        &.success {
+            svg {
+                color: $color-green-light;
+            }
+        }
+
+        &.fail {
+            svg {
+                color: $color-secondary;
+            }
+        }
+    }
+
+    &.dropped {
+        svg {
+            color: $color-gray;
+        }
+    }
     svg.usa-da-icon-loading-spinner {
      	width: 35px;
       margin-bottom: 10px;
@@ -13,38 +40,13 @@
     &:hover {
         border-color: $color-primary-alt-dark;
     }
-    b {
+    b, strong {
         color: $color-gray;
-    }
-    & .usa-da-icon-cloud-upload, & .usa-da-icon-exclamation-circle {
-        position: absolute;
-        top: 2rem;
-        left: 49%;
-        font-size: 4rem;
-        height: 4.0rem;
-        width: 4.5rem;
-        padding-top: 0;
-        padding-left: 0;
-        fill: $color-gray-light;
     }
     &.active {
         border-color: $color-primary-alt-dark;
         & .usa-da-icon-cloud-upload {
             fill: $color-gray;
-        }
-    }
-    & .usa-da-icon-exclamation-circle {
-        fill: $color-secondary;
-    }
-    &.dropped {
-        & .usa-da-icon-cloud-upload {
-            fill: $color-gray;
-        }
-        & .success .usa-da-icon-cloud-upload {
-            fill: $color-green-light;
-        }
-        & .fail .usa-da-icon-cloud-upload {
-            fill: $color-secondary;
         }
     }
     .is-caption {

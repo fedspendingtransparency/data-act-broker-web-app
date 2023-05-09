@@ -8,7 +8,7 @@ import PropTypes from 'prop-types';
 import moment from 'moment';
 import * as DashboardHelper from 'helpers/dashboardHelper';
 import * as utils from 'helpers/util';
-import * as Icons from '../../SharedComponents/icons/Icons';
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import DateDropdown from './DateDropdown';
 
 const propTypes = {
@@ -100,10 +100,8 @@ export default class DateRangeField extends React.Component {
 
     render() {
         let dateClass = '';
-        let dateIcon = <Icons.Calendar />;
         if (this.state.dateError) {
             dateClass = 'error';
-            dateIcon = <Icons.Calendar />;
         }
 
         return (
@@ -121,7 +119,7 @@ export default class DateRangeField extends React.Component {
                             type={this.props.type}
                             startEndType="start" />
                         <div className={`usa-da-icon usa-da-form-icon date ${dateClass}`}>
-                            {dateIcon}
+                            <FontAwesomeIcon icon={['far', 'calendar-alt']} />
                         </div>
                     </div>
                 </div>

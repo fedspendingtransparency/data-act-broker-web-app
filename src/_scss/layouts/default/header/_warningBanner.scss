@@ -7,21 +7,25 @@
         @include alert-variant($alert-warning-bg, $alert-warning-border, black);
 
         margin: 0 !important;
+        padding-left: rem(15);
         height: $warning-banner-height;
         width: 100%;
 
+        div, p {
+            display: inline-block;
+        }
+
         .usa-da-icon {
-            top: 5px;
+            font-size: rem(30);
+            svg {
+                color: $color-gold-dark;
+            }
         }
 
         p {
-            padding: ($warning-banner-height / 5);
-            margin: 0 0 0 48px;
+            padding: calc(#{$warning-banner-height} / 5);
+            margin: 0;
             vertical-align: middle;
-        }
-
-        svg {
-            fill: #f0ad4e;
         }
     }
 }

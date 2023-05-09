@@ -11,14 +11,12 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 const propTypes = {
     closeModal: PropTypes.func,
     redirectURL: PropTypes.string,
-    focusButton: PropTypes.string,
     isOpen: PropTypes.bool
 };
 
 const defaultProps = {
     closeModal: null,
     redirectURL: '',
-    focusButton: '',
     isOpen: false
 };
 
@@ -32,12 +30,15 @@ export default class RevalidateDataModal extends React.Component {
                 mounted={this.props.isOpen}
                 onExit={this.props.closeModal}
                 verticallyCenter={trueProps}
-                initialFocus={this.props.focusButton}
+                initialFocus="#close-button"
                 titleId="usa-da-leave-site-modal">
                 <div className="usa-da-modal-page">
                     <div id="usa-da-leave-site-modal" className="usa-da-shared-modal">
                         <div className="usa-da-shared-close">
-                            <button onClick={this.props.closeModal} aria-label="close-modal">
+                            <button
+                                id="close-button"
+                                onClick={this.props.closeModal}
+                                aria-label="close-modal">
                                 <FontAwesomeIcon icon="times" />
                             </button>
                         </div>
@@ -45,12 +46,12 @@ export default class RevalidateDataModal extends React.Component {
                         <div className="usa-da-leave-site-modal-content">
                             <h2>
                                 <FontAwesomeIcon icon="exclamation-triangle" />
-                                You're leaving a Federal Government website.
+                                You&apos;re leaving a Federal Government website.
                             </h2>
 
                             <p>
-                                You're going to a website that is not managed or controlled by the Federal Government.
-                                Its privacy policies may differ from ours.
+                                You&apos;re going to a website that is not managed or controlled by the Federal
+                                Government. Its privacy policies may differ from ours.
                             </p>
 
                             <span>Click this link to go to the website you have selected</span>

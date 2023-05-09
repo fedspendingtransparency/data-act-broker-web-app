@@ -14,10 +14,12 @@ module.exports = merge(common, {
         }
     },
     devServer: {
-        contentBase: path.resolve(__dirname, "public"),
+        static: {
+            directory: path.resolve(__dirname, "public")
+        },
         host: "0.0.0.0", // this allows VMs to access the server
         port: 3000,
-        disableHostCheck: true
+        allowedHosts: "all"
     },
     module: {
         rules: [
@@ -29,9 +31,10 @@ module.exports = merge(common, {
                     {
                         loader: "sass-loader",
                         options: {
-                            url: false,
                             sourceMap: true,
-                            includePaths: ["./src/_scss", "./node_modules"]
+                            sassOptions: {
+                                includePaths: ["./src/_scss", "./node_modules"]
+                            }
                         }
                     }
                 ]

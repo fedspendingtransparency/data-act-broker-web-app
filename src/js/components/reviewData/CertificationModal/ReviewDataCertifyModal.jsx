@@ -7,10 +7,10 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import Modal from 'react-aria-modal';
 import { Redirect } from 'react-router-dom';
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import CertifyDisclaimer from 'components/reviewData/CertificationModal/CertifyDisclaimer';
 import PublishDisclaimer from 'components/reviewData/CertificationModal/PublishDisclaimer';
 import CertifyButtons from 'components/reviewData/CertificationModal/CertifyButtons';
-import * as Icons from '../../SharedComponents/icons/Icons';
 import CertifyProgress from './CertifyProgress';
 import * as ReviewHelper from '../../../helpers/reviewHelper';
 
@@ -166,7 +166,9 @@ export default class ReviewDataCertifyModal extends React.Component {
                 <div className="usa-da-modal-page">
                     <div id="usa-da-certify-modal" className="usa-da-certify-modal">
                         <div className={`usa-da-certify-modal-close usa-da-icon usa-da-icon-times${hideClose}`}>
-                            <button onClick={this.closeModal}> <Icons.Times /> </button>
+                            <button onClick={this.closeModal} aria-label="close">
+                                <FontAwesomeIcon icon="times" />
+                            </button>
                         </div>
 
                         <div className="usa-da-certify-modal-content">

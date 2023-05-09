@@ -4,7 +4,7 @@
   */
 
 import React from 'react';
-import * as Icons from '../../SharedComponents/icons/Icons';
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 export default class LoadingComponent extends React.Component {
     render() {
@@ -27,7 +27,7 @@ export default class LoadingComponent extends React.Component {
                 <div className="center-item">
                     <div className="circle">
                         <div className="usa-da-icon loading">
-                            <Icons.Search />
+                            <FontAwesomeIcon icon="search" />
                         </div>
                     </div>
                 </div>

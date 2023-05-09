@@ -21,16 +21,23 @@
     }
 
 	p, ul {
-        margin: 5px 0 5px 48px;
+        margin: rem(5) 0 rem(5) 0;
         text-align: left;
     }
 
 	.usa-da-icon {
-        width: 3.4rem;
-        height: 3.4rem;
-        position: absolute;
-        top: 15px;
-        left: 15px;
+        vertical-align: top;
+        font-size: rem(34);
+        padding: 0;
+    }
+
+    .alert-text {
+        padding-left: rem(15);
+        width: 92%;
+
+        @media(max-width:$small-screen) {
+            width: 90%;
+        }
     }
 
     .alert-header-text {
@@ -38,7 +45,7 @@
         color: #555;
         font-size: 2.4rem;
         font-weight: 700;
-        margin: 0 0 5px 48px;
+        margin: 0 0 rem(5) 0;
     }
 }
 
@@ -48,7 +55,7 @@
 
 	background: #e7f4e4;
     svg {
-        fill: #5cb85c;
+        color: #5cb85c;
     }
 }
 
@@ -58,7 +65,7 @@
 
     background: #e1f3f8;
     svg {
-        fill: #5bc0de;
+        color: #5bc0de;
     }
 }
 
@@ -68,7 +75,7 @@
 
     background: #fff1d2;
     svg {
-        fill: #f0ad4e;
+        color: $color-gold-dark;
     }
 }
 
@@ -77,9 +84,7 @@
     @include alert-variant($alert-danger-bg, $alert-danger-border, $alert-danger-text);
 
     background: #f9dede;
-    .usa-da-icon {
-	    svg{
-        	fill: #d9534f;
-    	}
+    svg{
+        color: #d9534f;
     }
 }

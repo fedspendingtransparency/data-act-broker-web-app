@@ -37,6 +37,9 @@
         .alert-error {
             @import "../../components/alerts/_alerts";
             @include dangerAlert;
+            div {
+                display: inline-block;
+            }
         }
 
         // style the icons

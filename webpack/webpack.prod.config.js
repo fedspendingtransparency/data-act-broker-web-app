@@ -1,6 +1,6 @@
 const webpack = require('webpack');
-const OptimizeCssAssetsPlugin = require("optimize-css-assets-webpack-plugin");
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
+const CssMinimizerPlugin = require("css-minimizer-webpack-plugin");
 const TerserPlugin = require('terser-webpack-plugin');
 const merge = require('webpack-merge');
 
@@ -19,7 +19,7 @@ module.exports = merge(common, {
     optimization: {
         minimizer: [
             new TerserPlugin(),
-            new OptimizeCssAssetsPlugin({})
+            new CssMinimizerPlugin()
         ],
         runtimeChunk: "single",
         splitChunks: {
@@ -45,9 +45,10 @@ module.exports = merge(common, {
                     {
                         loader: "sass-loader",
                         options: {
-                            url: false,
                             sourceMap: false,
-                            includePaths: ["./src/_scss", "./node_modules"]
+                            sassOptions: {
+                                includePaths: ["./src/_scss", "./node_modules"]
+                            }
                         }
                     }
                 ]

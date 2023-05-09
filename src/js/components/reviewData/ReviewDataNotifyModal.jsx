@@ -7,12 +7,12 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import Modal from 'react-aria-modal';
 import _ from 'lodash';
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 import ReviewDataSelectedUser from './ReviewDataSelectedUser';
 import Typeahead from '../SharedComponents/Typeahead';
 
 import * as ReviewHelper from '../../helpers/reviewHelper';
-import * as Icons from '../SharedComponents/icons/Icons';
 
 const propTypes = {
     closeModal: PropTypes.func,
@@ -168,7 +168,9 @@ export default class ReviewDataNotifyModal extends React.Component {
                 <div className="usa-da-modal-page">
                     <div id="usa-da-notify-modal" className="usa-da-notify-modal">
                         <div className="usa-da-notify-modal-close usa-da-icon usa-da-icon-times">
-                            <button onClick={this.props.closeModal}> <Icons.Times /> </button>
+                            <button onClick={this.props.closeModal} aria-label="close">
+                                <FontAwesomeIcon icon="times" />
+                            </button>
                         </div>
 
                         <div className="usa-da-notify-modal-content">

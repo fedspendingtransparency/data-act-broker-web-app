@@ -5,7 +5,7 @@
 
 import React from 'react';
 import PropTypes from 'prop-types';
-import * as Icons from '../../SharedComponents/icons/Icons';
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 const propTypes = {
     type: PropTypes.string
@@ -17,12 +17,9 @@ const defaultProps = {
 
 export default class ComparisonComponent extends React.Component {
     render() {
-        let icon = <Icons.ExclamationCircle />;
+        let icon = <FontAwesomeIcon icon="exclamation-circle" />;
         if (this.props.type === 'success') {
-            icon = <Icons.CheckCircle />;
-        }
-        else if (this.props.type === 'warning') {
-            icon = <Icons.ExclamationCircle />;
+            icon = <FontAwesomeIcon icon="check-circle" />;
         }
 
         return (
