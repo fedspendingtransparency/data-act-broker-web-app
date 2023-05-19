@@ -1,24 +1,15 @@
 # Base Container
-FROM centos:centos7.9.2009 as frontend_base
-ARG NODE_VERSION_ARG=10.16.0
-# install node version manager
-RUN yum update -y
-RUN yum install -y wget git
-RUN wget https://nodejs.org/dist/v$NODE_VERSION_ARG/node-v$NODE_VERSION_ARG-linux-x64.tar.xz
-RUN mkdir -p /usr/local/lib/nodejs
-RUN tar -xJvf node-v$NODE_VERSION_ARG-linux-x64.tar.xz -C /usr/local/lib/nodejs
-RUN chown -R root /usr/local/lib/nodejs
-RUN ln -s /usr/local/lib/nodejs/node-v$NODE_VERSION_ARG-linux-x64/bin/node /bin/node
-RUN ln -s /usr/local/lib/nodejs/node-v$NODE_VERSION_ARG-linux-x64/bin/npm /bin/npm
-RUN ln -s /usr/local/lib/nodejs/node-v$NODE_VERSION_ARG-linux-x64/bin/npx /bin/npx
+FROM node:16.14.2 as frontend_base
+
+
 RUN mkdir /node-workspace
 COPY package.json /node-workspace 
 COPY package-lock.json /node-workspace
 WORKDIR /node-workspace
+
+RUN npm install --verbose -g npm@8.5.1
 RUN npm ci
+
 RUN mkdir /test-results
 
-# Add frontend code to container
-FROM frontend_base
-WORKDIR /node-workspace
 COPY . /node-workspace

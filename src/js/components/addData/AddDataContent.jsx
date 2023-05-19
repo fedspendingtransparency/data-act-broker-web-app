@@ -5,9 +5,9 @@
 
 import React from 'react';
 import PropTypes from 'prop-types';
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import SubmissionComponent from './SubmissionComponent';
 import SubmitButton from '../SharedComponents/SubmitButton';
-import * as Icons from '../../components/SharedComponents/icons/Icons';
 
 const propTypes = {
     performUpload: PropTypes.func,
@@ -74,14 +74,18 @@ export default class AddDataContent extends React.Component {
             warning = (
                 <div className="container short">
                     <div className="alert alert-error text-left" role="alert">
-                        <span className="usa-da-icon error-icon"><Icons.ExclamationCircle /></span>
-                        <div className="alert-header-text">Your upload has failed</div>
-                        <p>
-                            {
-                                this.props.errorMessage ||
-                          'Please try again. If the problem persists, contact the service desk.'
-                            }
-                        </p>
+                        <div className="usa-da-icon error-icon">
+                            <FontAwesomeIcon icon="exclamation-circle" />
+                        </div>
+                        <div className="alert-text">
+                            <div className="alert-header-text">Your upload has failed</div>
+                            <p>
+                                {
+                                    this.props.errorMessage ||
+                                'Please try again. If the problem persists, contact the service desk.'
+                                }
+                            </p>
+                        </div>
                     </div>
                 </div>
             );
@@ -90,18 +94,22 @@ export default class AddDataContent extends React.Component {
             warning = (
                 <div className="container short">
                     <div className="alert alert-warning text-left" role="alert">
-                        <span className="usa-da-icon usa-da-icon-file-upload"><Icons.FileUpload /></span>
-                        <div className="alert-header-text">Please stay on this page while files upload</div>
-                        <p>
-                            Depending on your bandwidth, these may take longer than an hour to upload.
-                            <br />
-                            <b>If they have not uploaded in forty-five minutes</b>, please open a new tab
-                            and navigate around the Broker every forty-five minutes to prevent being logged out
-                            and needing to restart the upload process.
-                            <br />
-                            Please stay on this page until they are complete or your submission may not be created
-                            properly.
-                        </p>
+                        <div className="usa-da-icon usa-da-icon-file-upload">
+                            <FontAwesomeIcon icon="file-upload" />
+                        </div>
+                        <div className="alert-text">
+                            <div className="alert-header-text">Please stay on this page while files upload</div>
+                            <p>
+                                Depending on your bandwidth, these may take longer than an hour to upload.
+                                <br />
+                                <b>If they have not uploaded in forty-five minutes</b>, please open a new tab
+                                and navigate around the Broker every forty-five minutes to prevent being logged out
+                                and needing to restart the upload process.
+                                <br />
+                                Please stay on this page until they are complete or your submission may not be created
+                                properly.
+                            </p>
+                        </div>
                     </div>
                 </div>
             );

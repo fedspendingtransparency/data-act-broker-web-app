@@ -1,9 +1,3 @@
-@media(min-width: $medium-screen) {
-	@include display(flex);
-	@include flex-direction(row);
-	position: relative;
-}
-
 .login-left {
     display: block;
     width: 100%;

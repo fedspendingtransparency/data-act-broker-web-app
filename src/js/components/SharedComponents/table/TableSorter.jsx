@@ -5,7 +5,7 @@
 
 import React from 'react';
 import PropTypes from 'prop-types';
-import * as Icons from '../icons/Icons';
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { createOnKeyDownHandler } from '../../../helpers/util';
 
 const propTypes = {
@@ -53,16 +53,18 @@ export default class TableSorter extends React.Component {
                     tabIndex={0}
                     className={`usa-da-icon sort-icon usa-da-icon-angle-up${upClass}`}
                     onKeyDown={onKeyDownHandlerAsc}
-                    onClick={this.sortAsc}>
-                    <Icons.AngleUp />
+                    onClick={this.sortAsc}
+                    aria-label="Arrow Pointing Up">
+                    <FontAwesomeIcon icon="angle-up" />
                 </div>
                 <div
                     role="button"
                     tabIndex={0}
                     className={`usa-da-icon sort-icon usa-da-icon-angle-down${downClass}`}
                     onKeyDown={onKeyDownHandlerDesc}
-                    onClick={this.sortDesc}>
-                    <Icons.AngleDown />
+                    onClick={this.sortDesc}
+                    aria-label="Arrow Pointing Down">
+                    <FontAwesomeIcon icon="angle-down" />
                 </div>
             </div>
         );

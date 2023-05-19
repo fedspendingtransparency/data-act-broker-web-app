@@ -6,14 +6,13 @@
 		background-color: transparent;
 		border:none;
         display: block;
-        width: 35px;
-        height: 35px;
+        font-size: rem(23);
         & svg {
-            fill: $color-gray-light;
+            color: $color-gray-light;
         }
         &:hover {
             & svg {
-                fill: $gray-dark;
+                color: $gray-dark;
             }
         }
     }

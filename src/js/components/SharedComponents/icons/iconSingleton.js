@@ -5,9 +5,9 @@
 
 import Request from 'superagent';
 import xmldoc from 'xmldoc';
-import uuid from 'node-uuid';
 
 require('../../../../graphics/icons.svg');
+const { v4: uuidv4 } = require('uuid');
 
 class IconSingleton {
     constructor() {
@@ -66,7 +66,7 @@ class IconSingleton {
 
     subscribe(subscriber) {
         // add a subscriber and return a UUID as a subscription ID so they can later unsubscribe
-        const subscriptionId = uuid.v4();
+        const subscriptionId = uuidv4();
         this.subscribers[subscriptionId] = subscriber;
         return subscriptionId;
     }

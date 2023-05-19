@@ -16,13 +16,9 @@
         padding-right: rem(10);
         color: $color-white;
         .filter-icon {
-            height: rem(14);
-            width: rem(20);
             padding-right: rem(6);
-            .usa-da-icon-filter {
-                height: rem(14);
-                width: rem(14);
-                fill: $color-white;
+            & svg {
+                color: $color-white;
             }
         }
     }

@@ -5,13 +5,13 @@
 
 import React from 'react';
 import PropTypes from 'prop-types';
-import CSSTransitionGroup from 'react-transition-group/CSSTransitionGroup';
+import { CSSTransition, TransitionGroup } from 'react-transition-group';
 import { Redirect } from 'react-router-dom';
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 import * as AgencyHelper from 'helpers/agencyHelper';
 import * as UtilHelper from 'helpers/util';
 import AgencyListContainer from 'containers/SharedContainers/AgencyListContainer';
-import * as Icons from 'components/SharedComponents/icons/Icons';
 import DateTypeField from './metadata/DateTypeField';
 import DateRangeField from './metadata/DateRangeField';
 import SubmissionTypeField from './metadata/SubmissionTypeField';
@@ -191,36 +191,6 @@ export default class AddDataMeta extends React.Component {
             return pubSublink;
         }
 
-        let dateTypeField = null;
-        if (this.state.showDateTypeField) {
-            dateTypeField = (<DateTypeField
-                value={this.state.dateType}
-                onChange={this.handleDateTypeChange} />);
-        }
-
-        let dateRangeField = null;
-        if (this.state.showDateRangeField) {
-            dateRangeField = <DateRangeField onChange={this.handleDateChange} type={this.state.dateType} />;
-        }
-
-        let submissionTypeField = null;
-        if (this.state.showSubmissionTypeField) {
-            submissionTypeField = (<SubmissionTypeField
-                onChange={this.handleSubmissionTypeChange}
-                value={this.state.submissionType}
-                publishedSubmissions={this.state.publishedSubmissions}
-                endDate={this.state.endDate}
-                dateType={this.state.dateType} />);
-        }
-
-        let submissionComponent = null;
-        if (this.state.showSubmitButton) {
-            submissionComponent = (<SubmitComponent
-                onSubmit={this.submitMetadata}
-                publishedSubmissions={this.state.publishedSubmissions}
-                setRedirect={this.setRedirect} />);
-        }
-
         return (
             <div>
                 <div className="container center-block">
@@ -241,38 +211,66 @@ export default class AddDataMeta extends React.Component {
                                             onSelect={this.handleChange}
                                             detached={false} />
                                         <div className="usa-da-icon usa-da-form-icon">
-                                            <Icons.Building />
+                                            <FontAwesomeIcon icon={['far', 'building']} />
                                         </div>
                                     </div>
                                 </div>
 
-                                <CSSTransitionGroup
-                                    transitionName="usa-da-meta-fade"
-                                    transitionEnterTimeout={500}
-                                    transitionLeaveTimeout={300}>
-                                    {dateTypeField}
-                                </CSSTransitionGroup>
+                                <TransitionGroup>
+                                    {this.state.showDateTypeField && (
+                                        <CSSTransition
+                                            classNames="usa-da-meta-fade"
+                                            timeout={{ enter: 500, exit: 300 }}
+                                            exit>
+                                            <DateTypeField
+                                                value={this.state.dateType}
+                                                onChange={this.handleDateTypeChange} />
+                                        </CSSTransition>
+                                    )}
+                                </TransitionGroup>
 
-                                <CSSTransitionGroup
-                                    transitionName="usa-da-meta-fade"
-                                    transitionEnterTimeout={500}
-                                    transitionLeaveTimeout={300}>
-                                    {dateRangeField}
-                                </CSSTransitionGroup>
+                                <TransitionGroup>
+                                    {this.state.showDateRangeField && (
+                                        <CSSTransition
+                                            classNames="usa-da-meta-fade"
+                                            timeout={{ enter: 500, exit: 300 }}
+                                            exit>
+                                            <DateRangeField
+                                                onChange={this.handleDateChange}
+                                                type={this.state.dateType} />
+                                        </CSSTransition>
+                                    )}
+                                </TransitionGroup>
 
-                                <CSSTransitionGroup
-                                    transitionName="usa-da-meta-fade"
-                                    transitionEnterTimeout={500}
-                                    transitionLeaveTimeout={300}>
-                                    {submissionTypeField}
-                                </CSSTransitionGroup>
+                                <TransitionGroup>
+                                    {this.state.showSubmissionTypeField && (
+                                        <CSSTransition
+                                            classNames="usa-da-meta-fade"
+                                            timeout={{ enter: 500, exit: 300 }}
+                                            exit>
+                                            <SubmissionTypeField
+                                                onChange={this.handleSubmissionTypeChange}
+                                                value={this.state.submissionType}
+                                                publishedSubmissions={this.state.publishedSubmissions}
+                                                endDate={this.state.endDate}
+                                                dateType={this.state.dateType} />
+                                        </CSSTransition>
+                                    )}
+                                </TransitionGroup>
 
-                                <CSSTransitionGroup
-                                    transitionName="usa-da-meta-fade"
-                                    transitionEnterTimeout={500}
-                                    transitionLeaveTimeout={300}>
-                                    {submissionComponent}
-                                </CSSTransitionGroup>
+                                <TransitionGroup>
+                                    {this.state.showSubmitButton && (
+                                        <CSSTransition
+                                            classNames="usa-da-meta-fade"
+                                            timeout={{ enter: 500, exit: 300 }}
+                                            exit>
+                                            <SubmitComponent
+                                                onSubmit={this.submitMetadata}
+                                                publishedSubmissions={this.state.publishedSubmissions}
+                                                setRedirect={this.setRedirect} />
+                                        </CSSTransition>
+                                    )}
+                                </TransitionGroup>
                             </div>
                             <div className="usa-da-guide-link">
                                 <a href="#/submissionGuide?force=true">View Submission Guide</a>

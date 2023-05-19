@@ -24,12 +24,10 @@
     }
 
     .usa-da-icon {
+        font-size: rem(20);
         position: absolute;
-        left: 10px;
-        top: 12px;
-        width: 2.2rem;
-        height: 2.2rem;
-        overflow: hidden;
-        fill: $color-gray-dark;
+        left: rem(10);
+        top: rem(8);
+        color: $color-gray-dark;
     }
 }

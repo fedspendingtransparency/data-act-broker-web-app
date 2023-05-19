@@ -1,7 +1,7 @@
 language: node_js
 node_js:
   # latest in each series
-  - "10.15.3"
+  - "16.14.2"
 # Need a C++ compiler
 addons:
   apt:
@@ -11,6 +11,11 @@ addons:
       - g++-4.8
 env:
   - CXX=g++-4.8
+cache:
+  directories:
+    - node_modules
+before_install:
+  - npm install eslint@8.32.0
 script:
   - npm run dev
   - npm run travis

@@ -11,18 +11,20 @@
 
     .usa-da-icon {
         cursor: pointer;
-        * {
-            height: 18px;
-            position: absolute;
-            right: 6px;
-            top: 10px;
-        }
-    }
+        font-size: rem(20);
 
-    .usa-da-icon-trash-o {
-        fill: $color-gray;
-        &:hover {
-            fill: $color-gray-dark;
+        svg {
+            position: absolute;
+            right: rem(8);
+            top: rem(9);
+            color: $color-gray;
+            &:hover {
+                color: $gray-dark;
+            }
+        }
+
+        .fa-trash-alt {
+            font-size: rem(17);
         }
     }
 }

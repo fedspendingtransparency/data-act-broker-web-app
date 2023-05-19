@@ -5,10 +5,10 @@
 
 import React from 'react';
 import PropTypes from 'prop-types';
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import LandingBlock from './blocks/LandingBlock';
 import LandingBlockBottomLink from './blocks/LandingBlockBottomLink';
 
-import * as Icons from '../SharedComponents/icons/Icons';
 import * as permissionHelper from '../../helpers/permissionsHelper';
 
 const propTypes = {
@@ -27,13 +27,13 @@ export default class BlockContent extends React.Component {
     render() {
         let firstBlock = (<LandingBlock
             type={this.props.type}
-            icon={<Icons.CloudUpload />}
+            icon={<FontAwesomeIcon icon="cloud-upload-alt" />}
             text="In order to upload and validate your agency's files, please follow the link below to request access"
             buttonText="Request Access"
             url="https://community.max.gov/x/fJwuRQ" />);
         let secondBlock = (<LandingBlock
             type={this.props.type}
-            icon={<Icons.Floppy />}
+            icon={<FontAwesomeIcon icon={['far', 'save']} />}
             text={"Did you start a submission but were unable to complete it? Want to see your certified " +
             "submissions? Continue here to the submission table."}
             buttonText="View Submission Table"
@@ -64,7 +64,7 @@ export default class BlockContent extends React.Component {
                 firstBlock = (
                     <LandingBlock
                         type={this.props.type}
-                        icon={<Icons.CloudUpload />}
+                        icon={<FontAwesomeIcon icon="cloud-upload-alt" />}
                         text={"Ready to upload and validate your agency's files? Great, we'll be happy to walk you " +
                         "through the process."}
                         buttonText="Upload & Validate a New Submission"
@@ -75,14 +75,14 @@ export default class BlockContent extends React.Component {
             }
             thirdBlock = (<LandingBlock
                 type={this.props.type}
-                icon={<Icons.CloudDownload />}
+                icon={<FontAwesomeIcon icon="cloud-download-alt" />}
                 text="Generate your D1 and D2 award files without having to create a submission."
                 buttonText="Generate D Files"
                 url="#/generateDetachedFiles" />);
             fourthBlock = (
                 <LandingBlock
                     type={this.props.type}
-                    icon={<Icons.CloudDownload />}
+                    icon={<FontAwesomeIcon icon="cloud-download-alt" />}
                     text="Generate File A for reconciliation purposes or as a starting point for your submission."
                     buttonText="Generate File A"
                     url="#/generateDetachedFileA" />
@@ -94,7 +94,7 @@ export default class BlockContent extends React.Component {
                 firstBlock = (
                     <LandingBlock
                         type={this.props.type}
-                        icon={<Icons.CloudUpload />}
+                        icon={<FontAwesomeIcon icon="cloud-upload-alt" />}
                         text={"Ready to upload and validate your agency's files? Great, we'll be happy to walk you " +
                         "through the process."}
                         buttonText="Upload & Validate a New Submission"
@@ -105,7 +105,7 @@ export default class BlockContent extends React.Component {
             }
             secondBlock = (<LandingBlock
                 type={this.props.type}
-                icon={<Icons.Floppy />}
+                icon={<FontAwesomeIcon icon={['far', 'save']} />}
                 text={"Did you start a submission but were unable to complete it? Want to see your previous " +
                     "submissions? Continue here to the submission table."}
                 buttonText="View Submission Table"

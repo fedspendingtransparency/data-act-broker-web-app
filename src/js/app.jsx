@@ -1,6 +1,5 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import "babel-polyfill";
 import 'react-dates/initialize';
 import 'react-dates/lib/css/_datepicker.css';
 import { library } from "@fortawesome/fontawesome-svg-core";
@@ -12,7 +11,6 @@ import {
     faArrowCircleLeft,
     faBars,
     faBell,
-    faCalendarAlt,
     faCaretDown,
     faCaretLeft,
     faCaretRight,
@@ -25,6 +23,7 @@ import {
     faCircle,
     faClipboardCheck,
     faCloudDownloadAlt,
+    faCloudUploadAlt,
     faCog,
     faEllipsisH,
     faExclamationCircle,
@@ -35,6 +34,7 @@ import {
     faGlobeAmericas,
     faInfoCircle,
     faLandmark,
+    faLock,
     faRedo,
     faSearch,
     faSignOutAlt,
@@ -47,7 +47,11 @@ import {
     faGithub
 } from "@fortawesome/free-brands-svg-icons";
 import {
-    faClock
+    faBuilding,
+    faCalendarAlt,
+    faClock,
+    faSave,
+    faTrashAlt
 } from "@fortawesome/free-regular-svg-icons";
 import AppContainer from './containers/AppContainer';
 
@@ -59,6 +63,7 @@ library.add(
     faArrowCircleLeft,
     faBars,
     faBell,
+    faBuilding,
     faCalendarAlt,
     faCaretDown,
     faCaretLeft,
@@ -73,6 +78,7 @@ library.add(
     faClipboardCheck,
     faClock,
     faCloudDownloadAlt,
+    faCloudUploadAlt,
     faCog,
     faEllipsisH,
     faExclamationCircle,
@@ -84,12 +90,15 @@ library.add(
     faGlobeAmericas,
     faInfoCircle,
     faLandmark,
+    faLock,
     faRedo,
+    faSave,
     faSearch,
     faSignOutAlt,
     faSpinner,
     faTimes,
     faTimesCircle,
+    faTrashAlt,
     faUser
 );
 

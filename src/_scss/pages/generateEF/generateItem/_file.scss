@@ -22,16 +22,15 @@
 }
 
 .usa-da-icon {
-    width: 2.4rem;
-    height: 2.4rem;
+    font-size: rem(22);
     position: absolute;
-    top: 13px;
-    left: 6px;
-    & .usa-da-icon-exclamation-circle {
-        fill: $color-secondary;
+    top: rem(10);
+    left: rem(6.5);
+    & .fa-exclamation-circle {
+        color: $color-secondary;
     }
-    & .usa-da-icon-check-circle {
-        fill: $color-green-light;
+    & .fa-check-circle {
+        color: $color-green-light;
     }
 }
 

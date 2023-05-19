@@ -12,6 +12,11 @@
 		@import "../../layouts/login/_topBanner";
 		@include loginTopBanner;
 	}
+	.alert {
+		div {
+			display: inline-block;
+		}
+	}
 
 	.alert-error {
 		@import "../../components/alerts/_alerts";
@@ -20,17 +25,8 @@
 	.alert-warning {
 		@import "../../components/alerts/_alerts";
 		@include warningAlert;
-		background-color: rgb(255,252,246);
 		border-color: rgb(243,199,77);
 		background: rgb(255,252,246);
-		.alert-header-text {
-		    margin: 0 0 5px 40px;
-		    font-weight: bold;
-		}
-		p {
-		    margin: 5px 0 5px 40px;
-		    font-size: 1.6rem;
-		}
 	}
 
 	.usa-da-icon-file-upload {

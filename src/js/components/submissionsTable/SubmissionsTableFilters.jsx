@@ -5,9 +5,9 @@
 
 import React from 'react';
 import PropTypes from 'prop-types';
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 import FilterSubmitContainer from 'containers/submissionsTable/FilterSubmitContainer';
-import { Filter } from '../SharedComponents/icons/Icons';
 import SubmissionIdFilter from './filters/SubmissionIdFilter';
 import FileNameFilter from './filters/FileNameFilter';
 import AgencyFilter from './filters/AgencyFilter';
@@ -54,7 +54,7 @@ export default class SubmissionsTableFilters extends React.Component {
             <div className="dashboard-filters">
                 <div className="dashboard-filters__label">
                     <span className="usa-da-icon filter-icon">
-                        <Filter />
+                        <FontAwesomeIcon icon="filter" />
                     </span>
                     Filter by:
                 </div>

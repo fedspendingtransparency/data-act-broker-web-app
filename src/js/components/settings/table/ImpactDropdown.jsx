@@ -33,7 +33,8 @@ const ImpactDropdown = ({ rule, selectedOption, updateImpact }) => {
             id={`impact-${rule}-picker`}
             options={impactOptions}
             selectedOption={selectedOption}
-            sortFn={() => 0} />
+            sortFn={() => 0}
+            backgroundColor="transparent" />
     );
 };
 

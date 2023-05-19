@@ -24,7 +24,7 @@
     }
     .usa-da-button-disabled {
     	@extend %overlayButton;
-    	@extend %overlayButton.btn-disabled;
+    	@extend %overlayButton, .btn-disabled;
     }
 
 }

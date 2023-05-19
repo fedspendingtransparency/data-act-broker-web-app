@@ -5,7 +5,7 @@
 
 import React from 'react';
 import PropTypes from 'prop-types';
-import * as Icons from '../SharedComponents/icons/Icons';
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 const propTypes = {
     clickedDownload: PropTypes.func,
@@ -56,7 +56,7 @@ export default class DownloadFile extends React.Component {
                                     onClick={this.props.clickedDownload}
                                     className="usa-da-download file-download-btn">
                                     <span className="usa-da-icon usa-da-download-report">
-                                        <Icons.CloudDownload />
+                                        <FontAwesomeIcon icon="cloud-download-alt" />
                                     </span>
                                     Download File
                                 </button>
@@ -66,9 +66,13 @@ export default class DownloadFile extends React.Component {
                 </div>
 
                 <div className={`alert alert-error text-left${errorClass}`} role="alert">
-                    <span className="usa-da-icon error-icon"><Icons.ExclamationCircle /></span>
-                    <div className="alert-header-text">{this.props.errorType}</div>
-                    <p>{this.props.errorMessage}</p>
+                    <div className="usa-da-icon error-icon">
+                        <FontAwesomeIcon icon="exclamation-circle" />
+                    </div>
+                    <div className="alert-text">
+                        <div className="alert-header-text">{this.props.errorType}</div>
+                        <p>{this.props.errorMessage}</p>
+                    </div>
                 </div>
             </div>
         );

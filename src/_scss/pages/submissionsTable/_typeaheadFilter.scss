@@ -21,6 +21,9 @@
                 margin-bottom: 0;
                 border: 0;
                 padding: 0;
+                div {
+                    display: inline-block;
+                }
                 .error-icon {
                     padding-right: rem(5);
                     svg {
@@ -124,6 +127,9 @@
         }
         .typeahead-warning {
             position: relative;
+            div {
+                display: inline-block;
+            }
         }
         .usa-da-typeahead .alert-error {
             .alert-header-text {

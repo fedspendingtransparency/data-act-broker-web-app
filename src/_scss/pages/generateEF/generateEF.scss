@@ -2,6 +2,9 @@
 	@import "../../components/alerts/_alerts";
 	.alert-danger {
 		@include dangerAlert;
+		div {
+			display: inline-block;
+		}
 	}
 	.alert-warning {
 		@include warningAlert;

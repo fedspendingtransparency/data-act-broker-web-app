@@ -17,12 +17,8 @@
 
         .usa-da-icon {
             svg {
-                right: 3px;
-                top: 5px;
-                fill: $color-gray;
-                &:hover {
-                    fill: $gray-dark;
-                }
+                right: rem(5);
+                top: rem(5);
             }
         }
     }

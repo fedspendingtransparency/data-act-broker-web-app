@@ -12,11 +12,11 @@
     position: absolute;
     &.usa-da-header-error {
         & .usa-da-icon {
+            font-size: rem(19);
+            margin-left: rem(9);
             & svg {
-                height: 20px;
-                width: 20px;
                 position: relative;
-                top: 5px;
+                top: rem(4);
                 fill: $color-gray-dark;
             }
         }

@@ -5,9 +5,9 @@
 
 import React from 'react';
 import PropTypes from 'prop-types';
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import * as utils from '../../helpers/util';
 import * as periodPickerHelper from '../../helpers/periodPickerHelper';
-import { AngleDown } from '../SharedComponents/icons/Icons';
 
 const propTypes = {
     fy: PropTypes.string.isRequired,
@@ -109,7 +109,7 @@ export default class FYPicker extends React.Component {
                                 FY {this.props.fy}
                             </div>
                             <div className="fy-picker__button-icon">
-                                <AngleDown alt="Toggle menu" />
+                                <FontAwesomeIcon icon="angle-down" />
                             </div>
                         </button>
                         <ul className={`fy-picker__list ${visibleClass}`}>

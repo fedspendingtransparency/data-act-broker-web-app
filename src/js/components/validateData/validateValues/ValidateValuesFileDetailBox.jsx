@@ -5,7 +5,7 @@
 
 import React from 'react';
 import PropTypes from 'prop-types';
-import * as Icons from '../../SharedComponents/icons/Icons';
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { createOnKeyDownHandler } from '../../../helpers/util';
 
 const propTypes = {
@@ -46,9 +46,9 @@ export default class ValidateValuesFileDetailBox extends React.Component {
         }
 
         // toggle report button icon for open/close state
-        let buttonIcon = <Icons.AngleDown />;
+        let buttonIcon = <FontAwesomeIcon icon="angle-down" />;
         if (this.props.expandedReport) {
-            buttonIcon = <Icons.AngleUp />;
+            buttonIcon = <FontAwesomeIcon icon="angle-up" />;
         }
 
         return (

@@ -21,31 +21,31 @@
         @include justify-content(center);
         svg {
             @include flex(0 1 auto);
-            height: 28px;
-            width: 28px;
+            font-size: rem(24);
             position: relative;
             top: -1px;
             left: -1px;
         }
         &.success {
             svg {
-                fill: $color-green-light;
+                color: $color-green-light;
             }
         }
         &.error {
             svg {
-                fill: $color-secondary;
+                color: $color-secondary;
             }
         }
         &.loading {
             svg {
-                fill: $color-gray;
-                top: -3px;
+                color: $color-gray;
+                top: rem(-1);
+                font-size: rem(27);
             }
         }
         &.warning {
             svg {
-                fill: $color-gold;
+                color: $color-gold;
             }
         }
     }

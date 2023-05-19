@@ -6,10 +6,10 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import _ from 'lodash';
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import ScrollableTable from '../../SharedComponents/table/ScrollableTable';
 
 import ValidateValuesTreemap from './ValidateValuesTreemap';
-import * as Icons from '../../SharedComponents/icons/Icons';
 
 import * as ReviewHelper from '../../../helpers/reviewHelper';
 import { createOnKeyDownHandler } from '../../../helpers/util';
@@ -181,7 +181,9 @@ export default class ValidateValuesErrorReport extends React.Component {
                 className="usa-da-download pull-right"
                 onKeyDown={onKeyDownHandler}
                 onClick={this.clickedReport}>
-                <span className="usa-da-icon usa-da-download-report"><Icons.CloudDownload /></span>
+                <span className="usa-da-icon usa-da-download-report">
+                    <FontAwesomeIcon icon="cloud-download-alt" />
+                </span>
                 {reportLinkText}
             </div>
         );

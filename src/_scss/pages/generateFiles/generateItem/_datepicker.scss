@@ -23,13 +23,13 @@
 
 	    & svg {
 	        z-index: 9;
-	        fill: #ccc;
+	        color: #ccc;
 	        height: 21px;
 	        width: 21px;
 	    }
 	    &.error {
 	        & svg {
-	            fill: $color-secondary;
+	            color: $color-secondary;
 	        }
 	    }
 	    &.date svg {

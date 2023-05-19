@@ -26,7 +26,7 @@
     position: relative;
     & .submission-guide-step-number {
         position: absolute;
-        left: $whiteBorderMargin - $numberWidthHeight/2 + $whiteBorderWidth/2;
+        left: calc(#{$whiteBorderMargin} - #{$numberWidthHeight}/2 + #{$whiteBorderWidth}/2);
         top: 55px;
         border: 1px solid $color-primary-alt;
         background-color: $color-primary-alt;

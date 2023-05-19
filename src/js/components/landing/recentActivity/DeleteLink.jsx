@@ -5,7 +5,7 @@
 
 import React from 'react';
 import PropTypes from 'prop-types';
-import * as Icons from '../../SharedComponents/icons/Icons';
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 import DeleteModal from './DeleteModal';
 import { createOnKeyDownHandler } from '../../../helpers/util';
@@ -109,8 +109,9 @@ export default class DeleteLink extends React.Component {
                     tabIndex={0}
                     onKeyDown={onKeyDownHandler}
                     onClick={this.confirm}
-                    className="trash-icon">
-                    <Icons.Trash alt="Delete" />
+                    className="trash-icon"
+                    aria-label="Delete">
+                    <FontAwesomeIcon icon={['far', 'trash-alt']} />
                 </div>);
             modal = (<DeleteModal
                 isOpen={this.state.active}
