@@ -24,7 +24,8 @@ export default class LoginMax extends React.Component {
         this.state = {
             redirect: ''
         };
-        this.handleClick = this.handleClick.bind(this);
+        this.handleClick = this.handleMaxClick.bind(this);
+        this.handleClick = this.handleCaiaClick.bind(this);
     }
 
     componentDidMount() {
@@ -59,7 +60,7 @@ export default class LoginMax extends React.Component {
         }
     }
 
-    handleClick(e) {
+    handleMaxClick(e) {
         if (e.keyCode === '13' || !e.keyCode) {
             const url = `${kGlobalConstants.CAS_ROOT}/cas/login?` +
                 `service=${encodeURIComponent(kGlobalConstants.AUTH_CALLBACK)}`;
@@ -67,18 +68,37 @@ export default class LoginMax extends React.Component {
         }
     }
 
+    handleCaiaClick(e) {
+        console.log('Trying to log in to CAIA')
+        // if (e.keyCode === '13' || !e.keyCode) {
+        //     const url = `${kGlobalConstants.CAS_ROOT}/cas/login?` +
+        //         `service=${encodeURIComponent(kGlobalConstants.AUTH_CALLBACK)}`;
+        //     window.location.assign(url);
+        // }
+    }
+
     render() {
         return (
             <div className="row">
                 <div className="col-xs-12">
-                    <p className="instructions">Sign in or register for the DATA Act Broker using your MAX ID.</p>
+                    <p className="instructions">
+                        Sign in or register for the DATA Act Broker using your MAX ID or CAIA login.
+                    </p>
                     <button
                         className="usa-da-button btn-primary btn-lg btn-full"
                         tabIndex="0"
                         role="link"
-                        onKeyDown={this.handleClick}
-                        onClick={this.handleClick}>
+                        onKeyDown={this.handleMaxClick}
+                        onClick={this.handleMaxClick}>
                         Sign In Using MAX
+                    </button>
+                    <button
+                        className="usa-da-button btn-primary btn-lg btn-full bottom-login-button"
+                        tabIndex="0"
+                        role="link"
+                        onKeyDown={this.handleCaiaClick}
+                        onClick={this.handleCaiaClick}>
+                        Sign In Using CAIA
                     </button>
                 </div>
             </div>

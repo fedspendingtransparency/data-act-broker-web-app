@@ -32,4 +32,10 @@
 		// implement the login form styles
 		@include loginForm;
 	}
+
+	.usa-da-button {
+		&.bottom-login-button {
+			margin-top: rem(15);
+		}
+	}
 }
