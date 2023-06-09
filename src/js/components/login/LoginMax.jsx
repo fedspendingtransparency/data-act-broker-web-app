@@ -69,12 +69,16 @@ export default class LoginMax extends React.Component {
     }
 
     handleCaiaClick(e) {
-        console.log('Trying to log in to CAIA')
-        // if (e.keyCode === '13' || !e.keyCode) {
-        //     const url = `${kGlobalConstants.CAS_ROOT}/cas/login?` +
-        //         `service=${encodeURIComponent(kGlobalConstants.AUTH_CALLBACK)}`;
-        //     window.location.assign(url);
-        // }
+        if (e.keyCode === '13' || !e.keyCode) {
+            // TODO: update scope appropriately
+            const scope = "email";
+            const url = `${kGlobalConstants.CAIA_ROOT}/as/authorization.oauth2?`
+                + `response_type=code`
+                + `&scope=${scope}`
+                + `&client_id=${encodeURIComponent(kGlobalConstants.CAIA_CLIENT)}`;
+            console.log(url);
+            window.location.assign(url);
+        }
     }
 
     render() {
