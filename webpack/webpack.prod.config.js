@@ -79,6 +79,12 @@ module.exports = merge(common, {
                 CAS_ROOT: process.env.CAS_ROOT
                     ? JSON.stringify(process.env.CAS_ROOT)
                     : JSON.stringify("https://login.max.gov"),
+                CAIA_ROOT: process.env.CAIA_ROOT
+                    ? JSON.stringify(process.env.CAIA_ROOT)
+                    : JSON.stringify("https://caia.treasury.gov"),
+                CAIA_CLIENT: process.env.CAIA_CLIENT
+                    ? JSON.stringify(process.env.CAIA_CLIENT)
+                    : JSON.stringify(""),
                 IS_DEV: JSON.stringify('false'),
                 IS_LOCAL: process.env.IS_LOCAL && process.env.IS_LOCAL === 'true'
                     ? JSON.stringify('true')
