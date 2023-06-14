@@ -118,7 +118,7 @@ export default class DashboardTable extends React.Component {
                         <tr key={`dashboard-table-row-${row.submissionId}-${row.ruleLabel}`}>
                             <td>
                                 <a
-                                    href={`#/submission/${row.submissionId}`}
+                                    href={`submission/${row.submissionId}`}
                                     className="date-link">
                                     {row.submissionId}
                                 </a>

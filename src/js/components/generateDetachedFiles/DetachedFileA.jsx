@@ -118,7 +118,7 @@ export default class DetachedFileA extends React.Component {
         if (this.props.status === 'done') {
             submissionLink = (
                 <div className="submission-link">
-                    <a href="/#/submissionGuide">
+                    <a href="/submissionGuide">
                         Start a new submission
                     </a>
                 </div>

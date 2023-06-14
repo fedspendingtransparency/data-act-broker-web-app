@@ -19,7 +19,7 @@ class IconSingleton {
 
     downloadIcons() {
         this.svgRequested = true;
-        Request.get('graphics/icons.svg')
+        Request.get('/graphics/icons.svg')
             .send()
             .end((err, res) => {
                 if (!err) {

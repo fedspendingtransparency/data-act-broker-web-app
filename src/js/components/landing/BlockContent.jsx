@@ -37,7 +37,7 @@ export default class BlockContent extends React.Component {
             text={"Did you start a submission but were unable to complete it? Want to see your certified " +
             "submissions? Continue here to the submission table."}
             buttonText="View Submission Table"
-            url="#/submissionTable" />);
+            url="submissionTable" />);
         let thirdBlock = null;
         let fourthBlock = null;
 
@@ -68,7 +68,7 @@ export default class BlockContent extends React.Component {
                         text={"Ready to upload and validate your agency's files? Great, we'll be happy to walk you " +
                         "through the process."}
                         buttonText="Upload & Validate a New Submission"
-                        url="#/submissionGuide" >
+                        url="submissionGuide" >
                         <LandingBlockBottomLink onClick={this.props.clickedUploadReqs} />
                     </LandingBlock>
                 );
@@ -78,14 +78,14 @@ export default class BlockContent extends React.Component {
                 icon={<FontAwesomeIcon icon="cloud-download-alt" />}
                 text="Generate your D1 and D2 award files without having to create a submission."
                 buttonText="Generate D Files"
-                url="#/generateDetachedFiles" />);
+                url="generateDetachedFiles" />);
             fourthBlock = (
                 <LandingBlock
                     type={this.props.type}
                     icon={<FontAwesomeIcon icon="cloud-download-alt" />}
                     text="Generate File A for reconciliation purposes or as a starting point for your submission."
                     buttonText="Generate File A"
-                    url="#/generateDetachedFileA" />
+                    url="generateDetachedFileA" />
             );
         }
         else if (this.props.type === 'fabs') {
@@ -98,7 +98,7 @@ export default class BlockContent extends React.Component {
                         text={"Ready to upload and validate your agency's files? Great, we'll be happy to walk you " +
                         "through the process."}
                         buttonText="Upload & Validate a New Submission"
-                        url="#/FABSaddData" >
+                        url="FABSaddData" >
                         <LandingBlockBottomLink onClick={this.props.clickedUploadReqs} />
                     </LandingBlock>
                 );
@@ -109,7 +109,7 @@ export default class BlockContent extends React.Component {
                 text={"Did you start a submission but were unable to complete it? Want to see your previous " +
                     "submissions? Continue here to the submission table."}
                 buttonText="View Submission Table"
-                url="#/FABSsubmissionTable" />);
+                url="FABSsubmissionTable" />);
         }
 
         return (

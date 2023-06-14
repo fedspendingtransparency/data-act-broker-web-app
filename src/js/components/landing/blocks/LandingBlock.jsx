@@ -22,7 +22,7 @@ const defaultProps = {
     icon: null,
     text: '',
     buttonText: '',
-    url: '',
+    url: '/',
     disabled: false,
     comingSoon: '',
     type: 'dabs'

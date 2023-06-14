@@ -56,13 +56,13 @@ export default class SubmissionWarningBanner extends React.Component {
                 'test-submission-one': {
                     header: 'This is a test submission',
                     message: `A submission has already been published and/or certified for this time period. ` +
-                        `To view the published and/or certified submission, [click here](/#/submission/${pubSub}).`
+                        `To view the published and/or certified submission, [click here](/submission/${pubSub}).`
                 },
                 'test-submission-multiple': {
                     header: `This is a test submission`,
                     message: `Multiple submissions have already been published and/or certified for this time period.` +
                         `To view the published and/or certified submissions, visit the ` +
-                        `[Submission Table](/#/submissionTable).`
+                        `[Submission Table](/submissionTable).`
                 },
                 published: {
                     header: 'Submission already published',
