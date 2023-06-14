@@ -19,7 +19,8 @@ module.exports = merge(common, {
         },
         host: "0.0.0.0", // this allows VMs to access the server
         port: 3000,
-        allowedHosts: "all"
+        allowedHosts: "all",
+        historyApiFallback: true,
     },
     module: {
         rules: [

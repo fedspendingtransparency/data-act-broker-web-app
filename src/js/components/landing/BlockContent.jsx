@@ -49,14 +49,14 @@ export default class BlockContent extends React.Component {
                 "also test financial data, generate your award files, and view your DATA Act " +
                 "submissions."}
                 buttonText="Enter"
-                url="#/landing" />);
+                url="landing" />);
             secondBlock = (<LandingBlock
                 type={this.props.type}
                 icon={<h5>Financial Assistance Broker Submission</h5>}
                 text={"Enter here to upload, validate, and publish your agency's financial assistance data. You can " +
                 "also test your financial assistance data and view your submissions."}
                 buttonText="Enter"
-                url="#/FABSlanding" />);
+                url="FABSlanding" />);
         }
         else if (this.props.type === 'dabs') {
             if (permissionHelper.checkPermissions(this.props.session)) {
