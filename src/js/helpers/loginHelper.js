@@ -178,10 +178,10 @@ export const performCAIALogin = (code) => {
     // wipe out old session cookies to prevent session weirdness
     Cookies.remove('session');
     // determine the service
-    const service = encodeURIComponent(kGlobalConstants.AUTH_CALLBACK);
+    const redirectUri = encodeURIComponent(kGlobalConstants.AUTH_CALLBACK);
 
     Request.post(`${kGlobalConstants.API}caia_login/`)
-        .send({ code, service })
+        .send({ code, redirect_uri: redirectUri })
         .end((err, res) => {
             if (err) {
                 const action = sessionActions.setLoginState('failed');
