@@ -95,7 +95,7 @@ export default class AuthContainer extends React.Component {
             });
         }
 
-        const caiaRegex = /code=([A-Za-z0-9]|\.|-)+/g;
+        const caiaRegex = /code=([^&])+/g;
         const caiaRegexOutput = caiaRegex.exec(url);
         // a CAIA code was found, process it
         if (caiaRegexOutput) {
