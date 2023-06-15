@@ -144,28 +144,6 @@ export default class ErrorBox extends React.Component {
         });
     }
 
-    fileProgress() {
-        let leftFile = this.props.submission.files[this.props.meta.firstKey];
-        let rightFile = this.props.submission.files[this.props.meta.secondKey];
-
-        let fileCount = 2;
-
-        if (!leftFile) {
-            leftFile = {
-                progress: 0
-            };
-            fileCount = 1;
-        }
-        else if (!rightFile) {
-            rightFile = {
-                progress: 0
-            };
-            fileCount = 1;
-        }
-
-        return (leftFile.progress + rightFile.progress) / fileCount;
-    }
-
     changeTab(tab) {
         this.setState({
             activeTab: tab,
@@ -216,10 +194,6 @@ export default class ErrorBox extends React.Component {
 
     render() {
         let uploadProgress = null;
-        if (this.props.submission.state === 'uploading' && this.state.stagedFiles.length > 0) {
-            uploadProgress = <FileProgress fileStatus={this.fileProgress()} />;
-        }
-
         let warning = null;
         if (this.state.stagedFiles.length > 0) {
             warning = <FileWarning files={this.state.stagedFiles} {...this.props} />;
@@ -264,6 +238,13 @@ export default class ErrorBox extends React.Component {
                     </div>
                 </div>
             );
+        }
+
+        if (this.props.submission.state === 'uploading' && this.state.stagedFiles.length > 0) {
+            uploadProgress = <FileProgress fileStatus={100} />;
+            uploadHeader = 'Uploading';
+            upload = null;
+            warning = null;
         }
 
         return (
