@@ -83,7 +83,16 @@ export class ProtectedComponent extends React.Component {
 
     render() {
         if (!this.props.authFn(this.props.session)) {
-            return <Redirect to="/login/" />;
+            const search = this.props.location.search;
+            return <Redirect to={{
+                pathname: '/login/',
+                search
+            }} />;
+        }
+        const redirectPath = LoginHelper.getRedirectPath(this.props.location, true);
+        if (redirectPath !== null && this.props.location.pathname == '/login' &&
+            this.props.session.login == 'loggedIn') {
+            return <Redirect to={redirectPath} />;
         }
         return this.props.children;
     }

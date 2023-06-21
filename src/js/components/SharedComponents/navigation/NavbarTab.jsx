@@ -22,7 +22,7 @@ const defaultProps = {
 
 export default class NavbarTab extends React.Component {
     render() {
-        const link = `${this.props.tabClass}`;
+        const link = `/${this.props.tabClass}`;
         const isActiveClass = this.props.activeTabClassName.toLowerCase() === this.props.tabClass.toLowerCase();
 
         if (this.props.comingSoon) {
