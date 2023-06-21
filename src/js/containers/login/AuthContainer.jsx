@@ -51,7 +51,7 @@ export default class AuthContainer extends React.Component {
             }, () => {
                 // remove the ticket from the URL
                 const updatedUrl = url.replace(`?ticket=${this.state.ticket}`, '');
-                window.history.replaceState({}, null, updatedUrl);
+                // window.history.replaceState({}, null, updatedUrl);
 
                 let destination = '/landing';
 
