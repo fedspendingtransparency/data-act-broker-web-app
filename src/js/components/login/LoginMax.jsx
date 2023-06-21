@@ -77,7 +77,6 @@ export default class LoginMax extends React.Component {
                 + `&scope=${scope}`
                 + `&redirect_uri=${encodeURIComponent(kGlobalConstants.AUTH_CALLBACK)}`
                 + `&client_id=${encodeURIComponent(kGlobalConstants.CAIA_CLIENT)}`;
-            console.log(url);
             window.location.assign(url);
         }
     }
