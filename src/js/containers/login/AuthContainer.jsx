@@ -39,8 +39,10 @@ export default class AuthContainer extends React.Component {
         // URL parser does not fully understand hashed URLs
         const maxRegex = /ticket=([A-Za-z0-9]|\.|-)+/g;
         const maxRegexOutput = maxRegex.exec(url);
-        // a MAX ticket was found, process it
+        const caiaRegex = /code=([^&])+/g;
+        const caiaRegexOutput = caiaRegex.exec(url);
         if (maxRegexOutput) {
+            // a MAX ticket was found, process it
             console.log('max regex success');
             const ticket = maxRegexOutput[0].substring('ticket='.length);
 
@@ -51,7 +53,7 @@ export default class AuthContainer extends React.Component {
             }, () => {
                 // remove the ticket from the URL
                 const updatedUrl = url.replace(`?ticket=${this.state.ticket}`, '');
-                // window.history.replaceState({}, null, updatedUrl);
+                window.history.replaceState({}, null, updatedUrl);
 
                 let destination = '/landing';
 
@@ -98,11 +100,8 @@ export default class AuthContainer extends React.Component {
                     });
             });
         }
-
-        const caiaRegex = /code=([^&])+/g;
-        const caiaRegexOutput = caiaRegex.exec(url);
-        // a CAIA code was found, process it
-        if (caiaRegexOutput) {
+        else if (caiaRegexOutput) {
+            // a CAIA code was found, process it
             console.log('caia regex success');
             const code = caiaRegexOutput[0].substring('code='.length);
 
