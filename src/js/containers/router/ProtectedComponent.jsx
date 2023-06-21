@@ -90,7 +90,7 @@ export class ProtectedComponent extends React.Component {
             }} />;
         }
         const redirectPath = LoginHelper.getRedirectPath(this.props.location, true);
-        if (redirectPath !== null && this.props.location.pathname == '/login' &&
+        if (redirectPath !== null && (this.props.location.pathname == '/login' || this.props.location.pathname == '/auth') &&
             this.props.session.login == 'loggedIn') {
             return <Redirect to={redirectPath} />;
         }
