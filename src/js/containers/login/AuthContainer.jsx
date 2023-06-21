@@ -33,6 +33,7 @@ export default class AuthContainer extends React.Component {
     processTicket() {
         // extract the ticket string from the URL
         const url = window.location.href;
+        console.log(url);
 
         // MAX may insert the ticket in the middle of the URL instead of at the end because MAX's
         // URL parser does not fully understand hashed URLs
@@ -40,6 +41,7 @@ export default class AuthContainer extends React.Component {
         const maxRegexOutput = maxRegex.exec(url);
         // a MAX ticket was found, process it
         if (maxRegexOutput) {
+            console.log('max regex success');
             const ticket = maxRegexOutput[0].substring('ticket='.length);
 
             // save the ticket value in the component state
@@ -58,6 +60,7 @@ export default class AuthContainer extends React.Component {
                 if (cookieRedirect) {
                     destination = cookieRedirect;
                 }
+                console.log(destination);
 
                 // perform the login
                 LoginHelper.performMaxLogin(this.state.ticket)
@@ -69,6 +72,7 @@ export default class AuthContainer extends React.Component {
                         if (data.helpOnly) {
                             destination = '/help';
                         }
+                        console.log(data);
                         this.props.history.push(destination);
                     })
                     .catch((err) => {
@@ -99,6 +103,7 @@ export default class AuthContainer extends React.Component {
         const caiaRegexOutput = caiaRegex.exec(url);
         // a CAIA code was found, process it
         if (caiaRegexOutput) {
+            console.log('caia regex success');
             const code = caiaRegexOutput[0].substring('code='.length);
 
             // save the code value in the component state
@@ -154,6 +159,7 @@ export default class AuthContainer extends React.Component {
             });
         }
         else {
+            console.log('no ticket found');
             // no ticket or code found, toss back to login page
             this.props.history.push('/login');
 
