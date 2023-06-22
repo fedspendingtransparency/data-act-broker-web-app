@@ -20,12 +20,17 @@ export default class DataSourcesContent extends React.Component {
     render() {
         const fileLoc = kGlobalConstants.PROD ? 'files' : 'files-nonprod';
         // This doesn't fit on the line
-        const cityURL = 'https://prd-tnm.s3.amazonaws.com/StagedProducts/GeographicNames/FederalCodes/' +
-            'FedCodes_National_Text.zip';
-        const cityTxtURL = `https://${fileLoc}.usaspending.gov/reference_data/FederalCodes_National.txt`;
-        const countyURL = 'https://prd-tnm.s3.amazonaws.com/StagedProducts/GeographicNames/Topical/' +
-            'GovernmentUnits_National_Text.zip';
-        const countyTxtURL = `https://${fileLoc}.usaspending.gov/reference_data/GovernmentUnits_National.txt`;
+        // TODO: swap back to these versions of the consts once we start pulling the new data again
+        // const cityURL = 'https://prd-tnm.s3.amazonaws.com/StagedProducts/GeographicNames/FederalCodes/' +
+        //     'FedCodes_National_Text.zip';
+        // const cityTxtURL = `https://${fileLoc}.usaspending.gov/reference_data/FederalCodes_National.txt`;
+        // const countyURL = 'https://prd-tnm.s3.amazonaws.com/StagedProducts/GeographicNames/Topical/' +
+        //     'GovernmentUnits_National_Text.zip';
+        // const countyTxtURL = `https://${fileLoc}.usaspending.gov/reference_data/GovernmentUnits_National.txt`;
+        const cityURL = 'https://www.usgs.gov/core-science-systems/ngp/board-on-geographic-names/download-gnis-data';
+        const cityTxtURL = `https://${fileLoc}.usaspending.gov/reference_data/NationalFedCodes.txt`;
+        const countyURL = 'https://geonames.usgs.gov/docs/stategaz/GOVT_UNITS.zip';
+        const countyTxtURL = `https://${fileLoc}.usaspending.gov/reference_data/GOVT_UNITS.txt`;
         return (
             <div className="usa-da-help-content">
                 <div className="data-sources-page">
