@@ -46,33 +46,8 @@ export default class ReplacementBox extends React.Component {
         return stagedFiles;
     }
 
-    fileProgress() {
-        let leftFile = this.props.submission.files[this.props.meta.firstKey];
-        let rightFile = this.props.submission.files[this.props.meta.secondKey];
-
-        let fileCount = 2;
-
-        if (!leftFile) {
-            leftFile = {
-                progress: 0
-            };
-            fileCount = 1;
-        }
-        else if (!rightFile) {
-            rightFile = {
-                progress: 0
-            };
-            fileCount = 1;
-        }
-        return (leftFile.progress + rightFile.progress) / fileCount;
-    }
-
     render() {
         let uploadProgress = null;
-        if (this.props.submission.state === 'uploading') {
-            uploadProgress = <FileProgress fileStatus={this.fileProgress()} />;
-        }
-
         let warning = null;
         const stagedFiles = this.stagedFiles();
         if (stagedFiles.length > 0) {
@@ -116,29 +91,37 @@ export default class ReplacementBox extends React.Component {
                 forceUpdate={this.props.forceUpdate} />);
         }
 
+        if (this.props.submission.state === 'uploading') {
+            uploadProgress = <FileProgress fileStatus={100} />;
+            firstButton = null;
+            secondButton = null;
+        }
+
         return (
-            <div className="error-box">
-                <div className="vertical-line" />
-                <div className="row">
-                    <div className="col-md-6">
-                        <h6>Overwrite Files</h6>
+            <div className="col-md-12">
+                <div className="error-box">
+                    <div className="vertical-line" />
+                    <div className="row">
+                        <div className="col-md-6">
+                            <h6>Overwrite Files</h6>
+                        </div>
                     </div>
-                </div>
-                <div className="error-content">
-                    <div className="overwrite-wrapper">
-                        <div className="button-list">
-                            <div className="upload-warning">
-                                {warning}
-                            </div>
-                            <div className="upload-progress">
-                                {uploadProgress}
-                            </div>
-                            <div className="row">
-                                <div className="col-md-6 mb-10">
-                                    {firstButton}
+                    <div className="error-content">
+                        <div className="overwrite-wrapper">
+                            <div className="button-list">
+                                <div className="upload-warning">
+                                    {warning}
                                 </div>
-                                <div className="col-md-6">
-                                    {secondButton}
+                                <div className="upload-progress">
+                                    {uploadProgress}
+                                </div>
+                                <div className="row">
+                                    <div className="col-md-6 mb-10">
+                                        {firstButton}
+                                    </div>
+                                    <div className="col-md-6">
+                                        {secondButton}
+                                    </div>
                                 </div>
                             </div>
                         </div>
