@@ -22,14 +22,15 @@ export default class FileProgress extends React.Component {
 
         return (
             <div>
-                <div className="progress">
+                <div className="progress usa-da-progress-bar">
                     <div
-                        className="progress-bar"
+                        className="progress-bar striped animated"
                         role="progressbar"
                         aria-valuenow={this.props.fileStatus}
                         aria-valuemin="0"
                         aria-valuemax="100"
-                        style={style}>{Math.round(this.props.fileStatus)}%
+                        style={style}>
+                        Uploading
                     </div>
                 </div>
             </div>
