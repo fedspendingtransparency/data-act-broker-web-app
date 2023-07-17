@@ -20,7 +20,17 @@ export default class DataSourcesContent extends React.Component {
     render() {
         const fileLoc = kGlobalConstants.PROD ? 'files' : 'files-nonprod';
         // This doesn't fit on the line
-        const gnisURL = 'https://www.usgs.gov/core-science-systems/ngp/board-on-geographic-names/download-gnis-data';
+        // TODO: swap back to these versions of the consts once we start pulling the new data again
+        // const cityURL = 'https://prd-tnm.s3.amazonaws.com/StagedProducts/GeographicNames/FederalCodes/' +
+        //     'FedCodes_National_Text.zip';
+        // const cityTxtURL = `https://${fileLoc}.usaspending.gov/reference_data/FederalCodes_National.txt`;
+        // const countyURL = 'https://prd-tnm.s3.amazonaws.com/StagedProducts/GeographicNames/Topical/' +
+        //     'GovernmentUnits_National_Text.zip';
+        // const countyTxtURL = `https://${fileLoc}.usaspending.gov/reference_data/GovernmentUnits_National.txt`;
+        const cityURL = 'https://www.usgs.gov/core-science-systems/ngp/board-on-geographic-names/download-gnis-data';
+        const cityTxtURL = `https://${fileLoc}.usaspending.gov/reference_data/NationalFedCodes.txt`;
+        const countyURL = 'https://geonames.usgs.gov/docs/stategaz/GOVT_UNITS.zip';
+        const countyTxtURL = `https://${fileLoc}.usaspending.gov/reference_data/GOVT_UNITS.txt`;
         return (
             <div className="usa-da-help-content">
                 <div className="data-sources-page">
@@ -102,16 +112,16 @@ export default class DataSourcesContent extends React.Component {
                                 <a
                                     target="_blank"
                                     rel="noopener noreferrer"
-                                    href={gnisURL}>
-                                    {gnisURL}
+                                    href={cityURL}>
+                                    {cityURL}
                                 </a>
                                 &nbsp;and updated monthly if new data is available. The latest file loaded into the
                                 Broker can be downloaded at&nbsp;
                                 <a
                                     target="_blank"
                                     rel="noopener noreferrer"
-                                    href={`https://${fileLoc}.usaspending.gov/reference_data/NationalFedCodes.txt`}>
-                                    https://{fileLoc}.usaspending.gov/reference_data/NationalFedCodes.txt
+                                    href={cityTxtURL}>
+                                    {cityTxtURL}
                                 </a>
                                 . NOTE: The complete set of codes is present in this file, including FEATURE_CLASS
                                 values that are not used in the Broker. The Broker database only loads and accepts from
@@ -179,16 +189,16 @@ export default class DataSourcesContent extends React.Component {
                                 <a
                                     target="_blank"
                                     rel="noopener noreferrer"
-                                    href="https://geonames.usgs.gov/docs/stategaz/GOVT_UNITS.zip">
-                                    https://geonames.usgs.gov/docs/stategaz/GOVT_UNITS.zip
+                                    href={countyURL}>
+                                    {countyURL}
                                 </a>
-                                &nbsp;and loaded manually as needed. The latest file loaded into the Broker can be
-                                downloaded at&nbsp;
+                                &nbsp;and updated monthly if new data is available. The latest file loaded into the
+                                Broker can be downloaded at&nbsp;
                                 <a
                                     target="_blank"
                                     rel="noopener noreferrer"
-                                    href={`https://${fileLoc}.usaspending.gov/reference_data/GOVT_UNITS.txt`}>
-                                    https://{fileLoc}.usaspending.gov/reference_data/GOVT_UNITS.txt
+                                    href={countyTxtURL}>
+                                    {countyTxtURL}
                                 </a>
                                 .
                             </p>}
