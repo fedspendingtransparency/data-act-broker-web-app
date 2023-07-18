@@ -70,7 +70,6 @@ export default class LoginMax extends React.Component {
 
     handleCaiaClick(e) {
         if (e.keyCode === '13' || !e.keyCode) {
-            // TODO: update scope appropriately
             const scope = "openid email profile address phone";
             const url = `${kGlobalConstants.CAIA_ROOT}/as/authorization.oauth2?`
                 + `response_type=code`
