@@ -41,6 +41,8 @@ The configuration object contains the following properties which may be adjusted
 
 * `API` is the base API URL for the server that is hosting the API. It should start with an `https://` or `http://` protocol and end with `/v1/`, including the trailing slash
 * `CAS_ROOT` is the root endpoint for the [CAS server](https://apereo.github.io/cas/4.2.x/protocol/CAS-Protocol-Specification.html#cas-uris) when a CAS single sign-on service is used.
+* `CAIA_ROOT` is the root endpoint for the [CAIA server](https://caia.treasury.gov/developers/CAIAFederationService/) when a CAIA single sign-on service is used.
+* `CAIA_CLIENT` is the client ID registered with CAIA.
 * `AUTH_CALLBACK` is the [callback URL](https://apereo.github.io/cas/4.2.x/protocol/CAS-Protocol-Specification.html#response) that the CAS server redirects to upon successful login.
 * `GA_TRACKING_ID` is the tracking ID for Google Analytics.
 * `LOCAL/DEV/PROD/STAGING` is the boolean value for which environment the `API` is targeting.

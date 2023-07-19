@@ -1,14 +1,12 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Route, Redirect } from 'react-router-dom';
+import { Route } from 'react-router-dom';
 
 import { withAuth } from "./ProtectedComponent";
-import { getPath } from "../../helpers/loginHelper";
 
 const propTypes = {
     path: PropTypes.string,
     component: PropTypes.oneOfType([PropTypes.object, PropTypes.func]),
-    authFn: PropTypes.func,
     session: PropTypes.shape({
         login: PropTypes.string,
         user: PropTypes.shape({
@@ -26,29 +24,13 @@ const propTypes = {
     })
 };
 
-const defaultProps = {
-    authFn: () => true
-};
-
 const ProtectedRoute = (props) => {
-    const {
-        location, authFn, component, path, session
-    } = props;
+    const { component, path } = props;
     const componentWithAuth = withAuth(component, props);
-    const isAuthorized = authFn(session);
-    if (isAuthorized) {
-        // withAuth to monitor the session etc...
-        return (<Route path={path} render={componentWithAuth} />);
-    }
-
-    const redirectUrl = getPath(location, isAuthorized);
-
-    return (
-        <Redirect to={redirectUrl} />
-    );
+    // withAuth to monitor the session etc...
+    return (<Route path={path} render={componentWithAuth} />);
 };
 
 ProtectedRoute.propTypes = propTypes;
-ProtectedRoute.defaultProps = defaultProps;
 
 export default ProtectedRoute;

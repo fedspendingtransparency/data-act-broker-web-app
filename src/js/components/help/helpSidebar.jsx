@@ -41,15 +41,15 @@ export default class HelpSidebar extends React.Component {
         if (this.props.helpOnly) {
             membership = (
                 <li>
-                    <a href="/#/help?section=agencyAccess">Request Agency Access</a>
+                    <a href="/help?section=agencyAccess">Request Agency Access</a>
                 </li>
             );
         }
 
-        const help = this.props.type === 'fabs' ? "/#/FABSHelp" : '/#/help';
-        const history = this.props.type === 'fabs' ? "/#/FABSHistory" : '/#/history';
-        const technicalHistory = this.props.type === 'fabs' ? "/#/FABSTechnicalHistory" : '/#/technicalHistory';
-        const resources = this.props.type === 'fabs' ? "/#/FABSResources" : '/#/resources';
+        const help = this.props.type === 'fabs' ? "/FABSHelp" : '/help';
+        const history = this.props.type === 'fabs' ? "/#ABSHistory" : '/history';
+        const technicalHistory = this.props.type === 'fabs' ? "/FABSTechnicalHistory" : '/technicalHistory';
+        const resources = this.props.type === 'fabs' ? "/FABSResources" : '/resources';
         let schedule = null;
         if (this.props.type === 'dabs') {
             schedule = (

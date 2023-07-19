@@ -177,7 +177,7 @@ export default class SubmissionGuideContent extends React.Component {
                                             All files must be present to perform cross-file validations.
                                         </p>
                                         <p>
-                                            <a href="#/validations">
+                                            <a href="validations">
                                                 Find out what validations are currently implemented
                                             </a>
                                         </p>
