@@ -6,6 +6,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { Link } from 'react-router-dom';
 import Banner from 'components/SharedComponents/Banner';
 import Navbar from '../SharedComponents/navigation/NavigationComponent';
 import Footer from '../SharedComponents/FooterComponent';
@@ -118,9 +119,9 @@ export default class DetachedFileA extends React.Component {
         if (this.props.status === 'done') {
             submissionLink = (
                 <div className="submission-link">
-                    <a href="/submissionGuide">
+                    <Link to="/submissionGuide">
                         Start a new submission
-                    </a>
+                    </Link>
                 </div>
             );
         }

@@ -5,6 +5,7 @@
 
 import React from 'react';
 import PropTypes from 'prop-types';
+import { Link } from 'react-router-dom';
 
 const propTypes = {
     pageArray: PropTypes.array,
@@ -26,9 +27,9 @@ export default class HelpNav extends React.Component {
             const url = this.props.type === 'fabs' ? fabsUrl : dabsUrl;
 
             if (this.props.selected === page) {
-                return <a href={url} className="selected usa-da-button btn-lg" key={page}>{page}</a>;
+                return <Link to={url} className="selected usa-da-button btn-lg" key={page}>{page}</Link>;
             }
-            return <a href={url} className="usa-da-button btn-lg" key={page}>{page}</a>;
+            return <Link to={url} className="usa-da-button btn-lg" key={page}>{page}</Link>;
         });
 
         return (

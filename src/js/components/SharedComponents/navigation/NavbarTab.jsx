@@ -5,6 +5,7 @@
 
 import React from 'react';
 import PropTypes from 'prop-types';
+import { Link } from 'react-router-dom';
 
 const propTypes = {
     activeTabClassName: PropTypes.string,
@@ -49,9 +50,9 @@ export default class NavbarTab extends React.Component {
         }
         return (
             <li className={isActiveClass ? 'active' : ''}>
-                <a className="usa-da-header-link" href={link}>{this.props.name}
+                <Link className="usa-da-header-link" to={link}>{this.props.name}
                     <span className={isActiveClass ? 'sr-only' : ''}>{isActiveClass ? '(current)' : ''}</span>
-                </a>
+                </Link>
             </li>
         );
     }

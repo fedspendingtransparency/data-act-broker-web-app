@@ -5,6 +5,7 @@
 
 import React from 'react';
 import PropTypes from 'prop-types';
+import { Link } from 'react-router-dom';
 
 const propTypes = {
     children: PropTypes.object,
@@ -42,12 +43,21 @@ export default class LandingBlock extends React.Component {
                     </div>
                     <div className="usa-da-landing-block-bottom">
                         <div className="usa-da-landing-block-button">
-                            <a
-                                className="usa-da-button btn-primary btn-lg btn-full"
-                                href={this.props.url}
-                                disabled={this.props.disabled}>
-                                {this.props.buttonText}
-                            </a>
+                            {this.props.disabled ?
+                                <span
+                                    className="usa-da-button btn-primary btn-lg btn-full"
+                                    disabled>
+                                    {this.props.buttonText}
+                                </span>
+                                :
+                                <Link
+                                    className="usa-da-button btn-primary btn-lg btn-full"
+                                    to={this.props.url}
+                                    disabled={false}>
+                                    {this.props.buttonText}
+                                </Link>
+                            }
+
                         </div>
                         {this.props.children}
                     </div>
