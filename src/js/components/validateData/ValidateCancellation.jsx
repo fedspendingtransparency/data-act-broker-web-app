@@ -16,7 +16,7 @@ export default class ValidateCancellation extends React.Component {
                 Your submission has been stuck in validation for a while. Would you like to cancel and try again?
                 &nbsp;&nbsp;&nbsp;
                 <Link
-                    to="addData"
+                    to="/addData"
                     className="usa-da-button btn-danger">
                     Cancel Submission
                 </Link>
